@@ -41,8 +41,6 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
     OnCreate = function(self)
 	
         self.Army = GetArmy(self)
-        
-        self.BeamEffectsBag = {}
 
     end,
 
@@ -57,8 +55,13 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
     end,
 
     OnDisable = function(self)
-        self:DestroyBeamEffects()
+
+        if self.BeamEffectsBag then
+            self:DestroyBeamEffects()
+        end
+
         self:DestroyTerrainEffects()
+
         self.LastTerrainType = nil
     end,
 
@@ -110,7 +113,7 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
     end,
 
     CreateBeamEffects = function(self)
-	
+
         local army = self.Army
 		
 		local LOUDATTACHEMITTER = CreateAttachedEmitter
@@ -118,18 +121,17 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
 		local LOUDINSERT = LOUDINSERT
         
         local fx
-        
-        if not self.Trash then
-            self.Trash = TrashBag()
-        end
-		
+        local weapon = self.Weapon
+
+        self.BeamEffectsBag = {}		
+
         for k, y in self.FxBeamStartPoint do
         
             fx = LOUDATTACHEMITTER(self, 0, army, y ):ScaleEmitter(self.FxBeamStartPointScale)
             
             LOUDINSERT( self.BeamEffectsBag, fx)
             
-            TrashAdd( self.Trash, fx )
+            TrashAdd( weapon.Trash, fx )
         end
 		
         for k, y in self.FxBeamEndPoint do
@@ -138,7 +140,7 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
             
             LOUDINSERT( self.BeamEffectsBag, fx)
             
-            TrashAdd( self.Trash, fx )
+            TrashAdd( weapon.Trash, fx )
         end
 		
         if LOUDGETN(self.FxBeam) != 0 then
@@ -147,35 +149,43 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
             
             AttachBeamToEntity(fxBeam, self, 0, army)
 			
-            self:SetBeamFx(fxBeam, self.Weapon.bp.BeamLifetime <= 0 )
+            self:SetBeamFx(fxBeam, weapon.bp.BeamLifetime <= 0 )
             
             LOUDINSERT( self.BeamEffectsBag, fxBeam )
             
-            TrashAdd( self.Trash, fxBeam )
+            TrashAdd( weapon.Trash, fxBeam )
         end
+    
+        if ScenarioInfo.ProjectileDialog then
+            LOG("*AI DEBUG Created Beam Effects for Weapon "..repr(self.Weapon.bp.Label).." data "..repr(self.Weapon.damageTable) )
+            LOG("*AI DEBUG BeamEffectsBag is "..repr(self.BeamEffectsBag) )
+        end
+	
     end,
 
     DestroyBeamEffects = function(self)
+    
         for k, v in self.BeamEffectsBag do
             v:Destroy()
         end
-        self.BeamEffectsBag = {}
+
+        self.BeamEffectsBag = nil
     end,
 
     CreateImpactEffects = function( self, army, EffectTable, EffectScale )
     
-        if not EffectTable then return end
+        if EffectTable then
     
-        local emit
+            local emit
 
-        for k, v in EffectTable do
+            for k, v in EffectTable do
         
-            emit = LOUDEMITATBONE(self,1,army,v)
+                emit = LOUDEMITATBONE(self,1,army,v)
             
-            if emit and EffectScale and EffectScale != 1 then
-                emit:ScaleEmitter(EffectScale)
+                if emit and EffectScale and EffectScale != 1 then
+                    emit:ScaleEmitter(EffectScale)
+                end
             end
-            
         end
         
     end,

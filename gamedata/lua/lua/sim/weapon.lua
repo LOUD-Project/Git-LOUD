@@ -71,6 +71,11 @@ Weapon = Class(moho.weapon_methods) {
 		
         local bp = self.bp
 
+		if ScenarioInfo.WeaponDialog then
+			LOG("*AI DEBUG Weapon OnCreate for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..self.unit.EntityID.." -- "..repr(self.bp.Label) )
+            --LOG("*AI DEBUG Weapon OnCreate for "..repr(__blueprints[self.unit.BlueprintID].Description).." -- "..repr(self.bp) )
+		end
+
         -- brought this function local since it's the only place it gets called
         if bp.Turreted == true then
 		
@@ -236,11 +241,6 @@ Weapon = Class(moho.weapon_methods) {
 		
         self:SetWeaponPriorities(bp.TargetPriorities)
 		
-        --self.Disabledbf = {}
-        
-        --self.DamageMod = 0
-        --self.DamageRadiusMod = 0
-		
         local initStore = MISSILEOPTION or bp.InitialProjectileStorage or 0
 		
         if initStore > 0 then
@@ -274,10 +274,6 @@ Weapon = Class(moho.weapon_methods) {
         end
 		
 		self:SetDamageTable(bp)
-
-		if ScenarioInfo.WeaponDialog then
-			LOG("*AI DEBUG Weapon OnCreate for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..self.unit.EntityID.." -- "..repr(self.bp.Label) )
-		end
 
     end,
 
@@ -495,6 +491,11 @@ Weapon = Class(moho.weapon_methods) {
 
     ChangeDamage = function(self, new)
         self.damageTable.DamageAmount = new + (self.DamageMod or 0)
+	
+		if ScenarioInfo.WeaponDialog then
+			LOG("*AI DEBUG Weapon SetDamageTable after ChangeDamage for "..repr(self.bp.Label).." is "..repr(self.damageTable))
+		end
+
     end,
 
 	-- this event is triggered at the moment that a weapon fires a shell

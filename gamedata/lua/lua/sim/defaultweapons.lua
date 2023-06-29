@@ -1412,42 +1412,48 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
     BeamType = CollisionBeam,
 
     OnCreate = function(self)
-	
+		
+        DefaultProjectileWeapon.OnCreate(self)	
+
         self.Beams = {}
         
         local counter = 1
-        local unit = self.unit
-		
-        -- we use the standard GetBlueprint since this is performed BEFORE OnCreate - why ?
-        local bp = GetBlueprint(self)
+		local beam
+        local bp = self.bp
 
         for rk, rv in bp.RackBones do
 
             for mk, mv in rv.MuzzleBones do
-			
-                local beam
-				
-                beam = self.BeamType{
-                    Weapon = self,
-                    BeamBone = 0,
-                    OtherBone = mv,
-                    CollisionCheckInterval = bp.BeamCollisionDelay * 10,
-                }
-				
+
+                -- create the beam -- initially disabled
+                beam = self.BeamType{ BeamBone = 0, CollisionCheckInterval = bp.BeamCollisionDelay * 10, OtherBone = mv, Weapon = self }
+                -- store reference to the parent weapon
+                beam.Weapon = self
+
+                beam:Disable()
+
+                if ScenarioInfo.WeaponDialog then
+                    LOG("*AI DEBUG OnCreate Beam for weapon "..repr(beam.Weapon.bp.Label).." on muzzle "..repr(mv).." for unit "..repr(beam.Weapon.unit.BlueprintID))
+                end
+
+                -- add beam to the weapons trash table
+                TrashAdd( self.Trash, beam)
+
+                -- add a reference to the beam in the weapons Beams table
                 self.Beams[counter] = { Beam = beam, Muzzle = mv }
                 counter = counter + 1
-				
-                TrashAdd( unit.Trash, beam)
-                
-                beam:SetParentWeapon(self)
-                beam:Disable()
             end
+
         end
-		
-        DefaultProjectileWeapon.OnCreate(self)
+
     end,
 
     CreateProjectileAtMuzzle = function(self, muzzle)
+	
+		if ScenarioInfo.ProjectileDialog then
+			LOG("*AI DEBUG DefaultBeamWeapon CreateProjectileAtMuzzle For "..repr(self.bp.Label).." for "..repr(__blueprints[self.unit.BlueprintID].Description).." using muzzle "..repr(muzzle) )
+            --LOG("*AI DEBUG Beams are "..repr(self.Beams) )
+		end
 		
 		local PlaySound = moho.weapon_methods.PlaySound
 		
@@ -1475,25 +1481,25 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
     end,
 
     PlayFxBeamStart = function(self, muzzle)
-	
-        local bp = self.bp
-        local unit = self.unit
 
         local beam
-        local beamTable
+        --local beamTable
 		
         for _, v in self.Beams do
             if v.Muzzle == muzzle then
                 beam = v.Beam
-                beamTable = v
+                --beamTable = v
+                break
             end
         end
 		
         if beam:IsEnabled() then return end
-		
+	
+        local bp = self.bp
+
         beam:Enable()
 		
-        TrashAdd( unit.Trash, beam )
+        TrashAdd( self.Trash, beam )
 		
         if bp.BeamLifetime > 0 then
             self:ForkThread( self.BeamLifetimeThread, beam, bp.BeamLifetime or 1)
