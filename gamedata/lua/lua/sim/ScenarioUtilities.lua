@@ -310,7 +310,7 @@ function CreateResources()
     -- test if there are any AI in the game
     for _, brain in ArmyBrains do
     
-        if brain.BrainType == 'AI' then
+        if brain.BrainType == 'AI' and brain.Nickname != 'civilian' then
         
             AI = true
             LOG("*AI DEBUG AI on map - All AI and empty start locations will be resource relocated")
