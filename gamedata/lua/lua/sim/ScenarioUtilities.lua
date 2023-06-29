@@ -304,6 +304,19 @@ function CreateResources()
     local count = 0
     
     LOG("*AI DEBUG Starting to Create/Relocate Resources ")  --..repr(ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers) )
+    
+    local AI = false
+    
+    -- test if there are any AI in the game
+    for _, brain in ArmyBrains do
+    
+        if brain.BrainType == 'AI' then
+        
+            AI = true
+            LOG("*AI DEBUG AI on map - All AI and empty start locations will be resource relocated")
+            break
+        end
+    end
 
     for i, tblData in ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers do
 
@@ -320,8 +333,8 @@ function CreateResources()
 			for x = 1, table.getn(Starts) do
 			
 				local armyposition = MarkerToPosition(Starts[x])
-                
-                local AI = false
+
+                local AI_this_spot = false
                 
                 for _, brain in ArmyBrains do
                 
@@ -329,7 +342,7 @@ function CreateResources()
                     
                         if brain.BrainType == 'AI' then
                         
-                            AI = true
+                            AI_this_spot = true
 
                         end
                     end
@@ -360,7 +373,7 @@ function CreateResources()
                         
                             local origdistance = VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3])
                         
-                            if ScenarioInfo.Options.RelocateResources == 'on' or AI then
+                            if ScenarioInfo.Options.RelocateResources == 'on' or AI_this_spot then
 						
                                 if tblData.position[1] < armyposition[1] then
 							
@@ -394,7 +407,7 @@ function CreateResources()
                         
                             local origdistance = VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3])
                         
-                            if ScenarioInfo.Options.RelocateResources == 'on' or AI then
+                            if ScenarioInfo.Options.RelocateResources == 'on' or AI_this_spot then
 						
                                 -- fix the X co-ordinate 
                                 if tblData.position[1] < armyposition[1] then
