@@ -3713,7 +3713,7 @@ AirUnit = Class(MobileUnit) {
 
         local aiBrain = GetAIBrain(self)
 
-        if aiBrain.BrainType == 'AI' then
+        if aiBrain.BrainType == 'AI' and aiBrain.Nickname != 'civilian' then
             
             local LOUDENTITY = EntityCategoryContains
 
@@ -3822,7 +3822,7 @@ AirUnit = Class(MobileUnit) {
 				
 				-- sometimes AI units will 'wander' away and land beyond the control of a base
 				-- this will get them back to a base position
-				if brain.BrainType == 'AI' then
+				if brain.BrainType == 'AI' and brain.Nickname != 'civilian' then
 			
 					local beyondbase = true
 	
