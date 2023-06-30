@@ -4,30 +4,27 @@ local MissileFlare = import('/lua/defaultunits.lua').BaseDirectionalAntiMissileF
 
 local TIFCruiseMissileLauncher = import('/lua/terranweapons.lua').TIFCruiseMissileLauncher
 
-local SCCollisionBeam = import('/lua/defaultcollisionbeams.lua').SCCollisionBeam
 local GinsuCollisionBeam = import('/lua/defaultcollisionbeams.lua').ParticleCannonCollisionBeam
 local DefaultBeamWeapon = import('/lua/sim/DefaultWeapons.lua').DefaultBeamWeapon
-local ePath = string.gsub(__blueprints.sea0313.Source, 'units/sea0313/sea0313_unit.bp', 'effects/emitters/tomcat_particle_cannon_')
 
 SEA0313 = Class(TAirUnit, MissileFlare) {
-    Weapons = {
-        ParticleCannon = Class(DefaultBeamWeapon) {
-        
-            BeamType = Class(GinsuCollisionBeam) {},
 
-        },
-        
+    Weapons = {
+        ParticleCannon = Class(DefaultBeamWeapon) { BeamType = Class(GinsuCollisionBeam) {} },
         Missile = Class(TIFCruiseMissileLauncher) {},
     },
 
     FlareBones = {'Flare'},
 
     OnStopBeingBuilt = function(self,builder,layer)
+
         TAirUnit.OnStopBeingBuilt(self,builder,layer)
+
         self.WingRotors = {
             CreateRotator(self, 'Wing_001', 'z'),
             CreateRotator(self, 'Wing_002', 'z'),
         }
+
         self:RotateSet(self.WingRotors, -42.5)
         self:SetMaintenanceConsumptionInactive()
         self:SetScriptBit('RULEUTC_StealthToggle', true)
@@ -37,7 +34,9 @@ SEA0313 = Class(TAirUnit, MissileFlare) {
     end,
 
     RotateSet = function(self, rotors, angle)
+
         if not rotors then return false end
+
         for i, rotor in rotors do
             rotor:SetGoal(angle)
             rotor:SetSpeed(45)
@@ -45,16 +44,25 @@ SEA0313 = Class(TAirUnit, MissileFlare) {
     end,
 
     OnMotionHorzEventChange = function(self, new, old)
+
         TAirUnit.OnMotionHorzEventChange(self, new, old)
+        
+        local bp = __blueprints[self.BlueprintID]
+
         if new == 'TopSpeed' then
             self:RotateSet(self.WingRotors, 0)
+            self:SetCollisionShape('Sphere', bp.CollisionSphereOffsetX or 0, bp.CollisionSphereOffsetY or 0, bp.CollisionSphereOffsetZ or 0, bp.SizeSphere )
+
         else
             self:RotateSet(self.WingRotors, -42.5)
+            self:SetCollisionShape('Sphere', bp.CollisionSphereOffsetX or 0, bp.CollisionSphereOffsetY or 0, bp.CollisionSphereOffsetZ or 0, bp.SizeSphere * .6 )
         end
     end,
 
     OnLayerChange = function(self, new, old)
+
         TAirUnit.OnLayerChange(self, new, old)
+
         if new == 'Land' then
             self:EnableUnitIntel('Stealth')
         else

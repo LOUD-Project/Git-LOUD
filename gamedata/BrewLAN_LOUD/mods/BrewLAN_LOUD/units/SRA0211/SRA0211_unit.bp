@@ -2,9 +2,7 @@ UnitBlueprint {
     AI = {
         GuardReturnRadius = 125,
         GuardScanRadius = 100,
-		TargetBones = {
-            'Hat',
-		},
+		TargetBones = { 'Hat' },
     },
 	
     Air = {
@@ -159,7 +157,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.015,
     },
 	
@@ -300,28 +297,15 @@ UnitBlueprint {
 			
             MaxRadius = 55,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            MuzzleVelocity = 0,
-			
             NeedToComputeBombDrop = true,
             ProjectileId = '/projectiles/CIFProtonBomb01/CIFProtonBomb01_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        0,
-                    },
+                    MuzzleBones = { 0 },
                     RackBone = 0,
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RateOfFire = 0.2,   -- 160 DPS
 			

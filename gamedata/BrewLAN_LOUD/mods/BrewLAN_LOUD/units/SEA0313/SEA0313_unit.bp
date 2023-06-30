@@ -3,9 +3,7 @@ UnitBlueprint {
     AI = {
         GuardReturnRadius = 80,
         GuardScanRadius = 40,
-        TargetBones = {
-            'Body',
-        },
+        TargetBones = {'Body'},
     },
 	
     Air = {
@@ -13,15 +11,15 @@ UnitBlueprint {
         BankFactor = 5,
         BankForward = false,
         
-        BreakOffDistance = 20,
-        BreakOffTrigger = 25,
+        BreakOffDistance = 32,
+        BreakOffTrigger = 32,
         
         CanFly = true,
         
         CombatTurnMult = 1.8,
         CombatTurnSpeed = 2.9,
         
-        EngageDistance = 40,
+        EngageDistance = 42,
         
         KLift = 3.3,
         KLiftDamping = 3.5,
@@ -40,7 +38,7 @@ UnitBlueprint {
         MaxAirspeed = 28,
         MinAirspeed = 12,
         
-        StartTurnDistance = 5,
+        StartTurnDistance = 15,
         
         TightTurnMultiplier = 1.13,
         
@@ -64,11 +62,11 @@ UnitBlueprint {
     
     Buffs = {
         Regen = {
-            Level1 = 6,
-            Level2 = 12,
-            Level3 = 18,
-            Level4 = 24,
-            Level5 = 30,
+            Level1 = 8,
+            Level2 = 16,
+            Level3 = 24,
+            Level4 = 32,
+            Level5 = 40,
         },
     },
     
@@ -87,20 +85,18 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYANTIAIR',
+        'OVERLAYRADAR',
         'RESEARCHLOCKED',
     },
     
     Defense = {
-        MissileDetector = {
-            AttachBone = 'MissileDetector',
-        },
+        MissileDetector = {AttachBone = 'MissileDetector'},
         
         AirThreatLevel = 95,
         ArmorType = 'Light',
         Health = 4125,
         MaxHealth = 4125,
-        RegenRate = 6,
-
+        RegenRate = 10,
     },
     
     Description = '<LOC sea0313_desc>Penetration Fighter',
@@ -168,6 +164,7 @@ UnitBlueprint {
     },
     
     General = {
+        CapCost = 2,
         Category = 'Fighter',
         Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
@@ -200,7 +197,7 @@ UnitBlueprint {
         FreeIntel = true,
         RadarStealth = true,
         RadarRadius = 60,
-        VisionRadius = 38,
+        VisionRadius = 40,
     },
     
     Interface = {
@@ -222,6 +219,7 @@ UnitBlueprint {
         MaxSpeed = 0.5,
         MotionType = 'RULEUMT_Air',
     },
+
     SelectionSizeX = 0.8,
     SelectionSizeZ = 1.1,
     SelectionThickness = 0.39,
@@ -247,43 +245,42 @@ UnitBlueprint {
         Level4 = 48,
         Level5 = 60,
     },
+
     Weapon = {
         {
             Audio = {Fire = Sound {Bank = 'UELWeapon', Cue = 'UEL0101_MachineGun', LodCutoff = 'Weapon_LodCutoff'}},
-            AutoInitiateAttackCommand = false,
+
+            AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
             
-            BeamCollisionDelay = 0.1,
+            BeamCollisionDelay = 0,
             BeamLifetime = 0.4,
             
             CannotAttackGround = true,
             
             CollideFriendly = false,
             
-            Damage = 60,
+            Damage = 60,        -- 240 Damage
             DamageFriendly = false,
             DamageType = 'Normal',
             
             DisplayName = 'Burst Helical Railgun',
             
+            EnergyDrainPerSecond = 150,
+            EnergyRequired = 100,       -- every 2/3 second = 360 DPS
+
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land|water',
-                Land = 'Air|Land|water',
-                Water = 'Air|Land|water',
             },
             
-            FiringRandomness = 0,
-            FiringTolerance = 0,
+            FiringTolerance = 1,
             
             Label = 'ParticleCannon',
             
-            LeadTarget = false,
             NotExclusive = true,
             
-            MaxRadius = 40,
-            
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+            MaxRadius = 42,
             
             RackBones = {
                 {
@@ -291,14 +288,10 @@ UnitBlueprint {
                     RackBone = 'Gun_001',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             
             RangeCategory = 'UWRC_AntiAir',
             
-            RateOfFire = 1.5,   -- 360 DPS
+            RateOfFire = 2,   -- 360 DPS by charge
             
             ReTargetOnMiss = true,
             
@@ -319,12 +312,12 @@ UnitBlueprint {
             TurretDualManipulators = false,
             
             TurretPitch = 0,
-            TurretPitchRange = 40,
-            TurretPitchSpeed = 400,
+            TurretPitchRange = 35,
+            TurretPitchSpeed = 80,
             
             TurretYaw = 0,
-            TurretYawRange = 40,
-            TurretYawSpeed = 400,
+            TurretYawRange = 30,
+            TurretYawSpeed = 80,
             
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -333,7 +326,7 @@ UnitBlueprint {
             Audio = {Fire = Sound {Bank = 'UELWeapon', Cue = 'UEL0101_MachineGun', LodCutoff = 'Weapon_LodCutoff'}},
             BallisticArc = 'RULEUBA_None',
             
-            BeamCollisionDelay = 0.1,
+            BeamCollisionDelay = 0,
             BeamLifetime = 0.4,
             
             CannotAttackGround = false,
@@ -346,14 +339,16 @@ UnitBlueprint {
             
             DisplayName = 'Burst Helical Railgun',
             
+            EnergyDrainPerSecond = 150,
+            EnergyRequired = 100,
+            
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land|water',
                 Land = 'Air|Land|water',
                 Water = 'Air|Land|water',
             },
             
-            FiringRandomness = 0,
-            FiringTolerance = 0,
+            FiringTolerance = 1,
             
             Label = 'ParticleCannon',
             
@@ -361,27 +356,19 @@ UnitBlueprint {
             
             NotExclusive = true,
             
-            MaxRadius = 40,
-            
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+            MaxRadius = 42,
+
             RackBones = {
                 {
                     MuzzleBones = {'Gun_002'},
                     RackBone = 'Gun_002',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-
-            RangeCategory = 'UWRC_AntiAir',
             
-            RateOfFire = 1.5,   -- another 360
+            RateOfFire = 2,   -- another 360 by charge
             
             ReTargetOnMiss = true,
+
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -390,7 +377,6 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.15,
             
             TurretBoneMuzzle = 'Gun_002',
             TurretBonePitch = 'Gun_002',
@@ -398,18 +384,20 @@ UnitBlueprint {
             TurretDualManipulators = false,
             
             TurretPitch = 0,
-            TurretPitchRange = 40,
-            TurretPitchSpeed = 400,
+            TurretPitchRange = 35,
+            TurretPitchSpeed = 80,
             
             TurretYaw = 0,
-            TurretYawRange = 40,
-            TurretYawSpeed = 400,
+            TurretYawRange = 30,
+            TurretYawSpeed = 80,
             
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
         },
         
         {
+            advancedTracking = true,
+            
             AlwaysRecheckTarget = true,
             Audio = {Fire = Sound {Bank = 'UELWeapon', Cue = 'UEB2304_Missile_Flayer', LodCutoff = 'Weapon_LodCutoff'}},
             
@@ -429,7 +417,7 @@ UnitBlueprint {
                 Water = 'Air',
             },
             
-            FiringTolerance = 16,
+            FiringTolerance = 30,
             
             Label = 'Missile',
             
@@ -440,7 +428,7 @@ UnitBlueprint {
             MuzzleVelocity = 30,
             
             ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
-            ProjectileLifetime = 6,
+            ProjectileLifetime = 7,
             
             RackBones = {
                 {
@@ -448,11 +436,6 @@ UnitBlueprint {
                     RackBone = 'Gun_003',
                 },
             },
-
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
 
             RateOfFire = 0.5,   -- another 200 DPS
             
@@ -475,7 +458,7 @@ UnitBlueprint {
             TurretPitchSpeed = 180,
             
             TurretYaw = 0,
-            TurretYawRange = 40,
+            TurretYawRange = 30,
             TurretYawSpeed = 180,
             
             Turreted = true,
@@ -501,11 +484,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
+            Water = true,
         },
     },
 }

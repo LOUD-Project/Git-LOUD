@@ -2,9 +2,7 @@ UnitBlueprint {
     AI = {
         GuardReturnRadius = 80,
         GuardScanRadius = 40,
-		TargetBones = {
-            'Hat',
-		},
+		TargetBones = {'Hat'},
     },
 	
     Air = {
@@ -12,16 +10,16 @@ UnitBlueprint {
         BankFactor = 5.5,
         BankForward = false,
 		
-        BreakOffDistance = 20,
+        BreakOffDistance = 32,
 		
-        BreakOffTrigger = 25,
+        BreakOffTrigger = 32,
 		
         CanFly = true,
 		
 		CombatTurnMult = 2,
-        CombatTurnSpeed = 4,
+        CombatTurnSpeed = 6,
 		
-        EngageDistance = 36,
+        EngageDistance = 40,
 		
         KLift = 3.5,
         KLiftDamping = 3.5,
@@ -29,8 +27,8 @@ UnitBlueprint {
         KMove = 1.65,
         KMoveDamping = 1.3,
 		
-        KRoll = 1.5,
-        KRollDamping = 1,
+        KRoll = 2.5,
+        KRollDamping = 1.5,
 		
         KTurn = 3.9,
         KTurnDamping = 4.3,
@@ -40,9 +38,9 @@ UnitBlueprint {
         MaxAirspeed = 28,
         MinAirspeed = 12,
 		
-        StartTurnDistance = 5,
+        StartTurnDistance = 15,
 		
-        TightTurnMultiplier = 1.15,
+        TightTurnMultiplier = 1.35,
 		
         TurnSpeed = 1.6,
 		
@@ -64,11 +62,11 @@ UnitBlueprint {
 	
     Buffs = {
         Regen = {
-            Level1 = 10,
-            Level2 = 15,
-            Level3 = 20,
-            Level4 = 25,
-            Level5 = 30,
+            Level1 = 15,
+            Level2 = 20,
+            Level3 = 35,
+            Level4 = 45,
+            Level5 = 60,
         },
     },
 	
@@ -91,15 +89,13 @@ UnitBlueprint {
         'RESEARCHLOCKED',
     },
 	
-    CollisionOffsetZ = 0,
-	
     Defense = {
         AirThreatLevel = 96,
         ArmorType = 'Light',
 
         Health = 3750,
         MaxHealth = 3750,
-        RegenRate = 10,
+        RegenRate = 16,
     },
 	
     Description = '<LOC sa0313_desc>Penetration Fighter',
@@ -143,7 +139,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.036,
     },
 	
@@ -163,6 +158,7 @@ UnitBlueprint {
     },
 	
     General = {
+        CapCost = 2,
         Category = 'Fighter',
         Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
@@ -195,7 +191,7 @@ UnitBlueprint {
 		FreeIntel = true,
 		RadarRadius = 60,
         RadarStealth = true,
-        VisionRadius = 38,
+        VisionRadius = 40,
 		Cloak = true,
     },
 	
@@ -249,38 +245,37 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {Fire = Sound {Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff'}},
-            
+
+            AutoInitiateAttackCommand = true,            
+
             BallisticArc = 'RULEUBA_None',
 			
-            BeamCollisionDelay = 0,	-- so 2 hits per on fire
-            BeamLifetime = 0.3,
+            BeamCollisionDelay = 0,
+            BeamLifetime = 0.2,
 			
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 40,				-- 120 dmg per shot
+            Damage = 60,				-- 120 dmg per shot
             DamageFriendly = false,
             DamageType = 'Normal',
 			
             DisplayName = 'Particle Cannon',
+            
+            EnergyDrainPerSecond = 100,
+            EnergyRequired = 50,        -- every half second
 			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land|water',
-                Land = 'Air|Land|water',
-                Water = 'Air|Land|water',
             },
-            FiringRandomness = 0,
-            FiringTolerance = 0,
+
+            FiringTolerance = 2,
 			
             Label = 'Laser',
 			
-            LeadTarget = false,
             NotExclusive = true,
 			
-            MaxRadius = 42,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+            MaxRadius = 44,
 			
             RackBones = {
                 {
@@ -289,13 +284,9 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,		-- 2 x 120 = 240 dps
+            RateOfFire = 4,		-- 2 x 120 = 240 dps by charge
 			
             ReTargetOnMiss = true,
 
@@ -316,12 +307,12 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 40,
-            TurretPitchSpeed = 400,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 80,
 			
             TurretYaw = 0,
-            TurretYawRange = 40,
-            TurretYawSpeed = 400,
+            TurretYawRange = 38,
+            TurretYawSpeed = 80,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -342,24 +333,23 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Particle Cannon',
+            
+            EnergyDrainPerSecond = 100,
+            EnergyRequired = 50,
 			
             FireTargetLayerCapsTable = {
-                Air = 'Air',
+                Air = 'Air|Land|water',
                 Land = 'Air',
                 Water = 'Air',
             },
-            FiringRandomness = 0,
-            FiringTolerance = 0,
+
+            FiringTolerance = 2,
 			
             Label = 'Laser',
-            LeadTarget = false,
 			
             NotExclusive = true,
 			
-            MaxRadius = 42,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+            MaxRadius = 44,
             
             RackBones = {
                 {
@@ -368,15 +358,11 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
-            RateOfFire = 2,
+            RateOfFire = 4,
 			
             ReTargetOnMiss = true,
 
-            TargetCheckInterval = 0.3,
+            TargetCheckInterval = 0.2,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -385,7 +371,6 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.3,
 			
             TurretBoneMuzzle = 'Tip_003',
             TurretBonePitch = 'Tip_003',
@@ -393,12 +378,12 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 40,
-            TurretPitchSpeed = 400,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 80,
 			
             TurretYaw = 0,
-            TurretYawRange = 40,
-            TurretYawSpeed = 400,
+            TurretYawRange = 38,
+            TurretYawSpeed = 80,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -409,34 +394,32 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
-            BeamLifetime = 0.3,
+            BeamLifetime = 0.4,
 			
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 40,
+            Damage = 30,
             DamageFriendly = false,
             DamageType = 'Normal',
 			
             DisplayName = 'Particle Cannon',
+            
+            EnergyDrainPerSecond = 100,
+            EnergyRequired = 50,
 			
             FireTargetLayerCapsTable = {
-                Air = 'Air',
-                Land = 'Air',
-                Water = 'Air',
+                Air = 'Air|Land|water',
             },
-            FiringRandomness = 0,
-            FiringTolerance = 0,
+
+            FiringTolerance = 2,
 			
             Label = 'Laser',
-            LeadTarget = false,
             
 			NotExclusive = true,
 			
-            MaxRadius = 42,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+            MaxRadius = 44,
+
             RackBones = {
                 {
                     MuzzleBones = {'Tip_007'},
@@ -444,22 +427,18 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
-            RateOfFire = 2,
+            RateOfFire = 4,
 			
             ReTargetOnMiss = true,
 
-            TargetCheckInterval = 0.3,
+            TargetCheckInterval = 0.2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.3,
+			TargetRestrictOnlyAllow = 'AIR',
 			
             TurretBoneMuzzle = 'Tip_007',
             TurretBonePitch = 'Tip_007',
@@ -467,12 +446,12 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 40,
-            TurretPitchSpeed = 400,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 80,
 			
             TurretYaw = 0,
-            TurretYawRange = 40,
-            TurretYawSpeed = 400,
+            TurretYawRange = 38,
+            TurretYawSpeed = 80,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -483,35 +462,32 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
-            BeamLifetime = 0.3,
+            BeamLifetime = 0.1,
 			
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 40,
+            Damage = 120,
             DamageFriendly = false,
             DamageType = 'Normal',
 			
             DisplayName = 'Particle Cannon',
+            
+            EnergyDrainPerSecond = 100,
+            EnergyRequired = 100,
 			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land|water',
-                Land = 'Air|Land|water',
-                Water = 'Air|Land|water',
             },
-            FiringRandomness = 0,
-            FiringTolerance = 0,
+
+            FiringTolerance = 2,
 			
             Label = 'Laser',
 			
-            LeadTarget = false,
-			
             NotExclusive = true,
 			
-            MaxRadius = 42,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+            MaxRadius = 44,
+
             RackBones = {
                 {
                     MuzzleBones = {'Tip_008'},
@@ -519,15 +495,11 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
-            RateOfFire = 2,
+            RateOfFire = 4,
             
             ReTargetOnMiss = true,
 
-            TargetCheckInterval = 0.3,
+            TargetCheckInterval = 0.2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
@@ -535,7 +507,6 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.3,
 			
             TurretBoneMuzzle = 'Tip_008',
             TurretBonePitch = 'Tip_008',
@@ -543,12 +514,12 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 40,
-            TurretPitchSpeed = 400,
+            TurretPitchRange = 55,
+            TurretPitchSpeed = 80,
 			
             TurretYaw = 0,
-            TurretYawRange = 40,
-            TurretYawSpeed = 400,
+            TurretYawRange = 48,
+            TurretYawSpeed = 90,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -574,10 +545,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = true,
-            Sub = false,
             Water = true,
         },
     },

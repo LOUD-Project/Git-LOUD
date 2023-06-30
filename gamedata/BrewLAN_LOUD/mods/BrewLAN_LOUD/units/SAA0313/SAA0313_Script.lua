@@ -25,13 +25,29 @@ SAA0313 = Class(AAirUnit, MissileFlare) {
     end,
 
     OnLayerChange = function(self, new, old)
+
         AAirUnit.OnLayerChange(self, new, old)
+
         if new == 'Land' then
             self:EnableUnitIntel('Cloak')
         else
 		    self:DisableUnitIntel('Cloak')
         end
     end,
+
+    OnMotionHorzEventChange = function(self, new, old)
+
+        AAirUnit.OnMotionHorzEventChange(self, new, old)
+        
+        local bp = __blueprints[self.BlueprintID]
+
+        if new == 'TopSpeed' then
+            self:SetCollisionShape('Sphere', bp.CollisionSphereOffsetX or 0, bp.CollisionSphereOffsetY or 0, bp.CollisionSphereOffsetZ or 0, bp.SizeSphere )
+        else
+            self:SetCollisionShape('Sphere', bp.CollisionSphereOffsetX or 0, bp.CollisionSphereOffsetY or 0, bp.CollisionSphereOffsetZ or 0, bp.SizeSphere * .6 )
+        end
+    end,
+    
 }
 
 TypeClass = SAA0313

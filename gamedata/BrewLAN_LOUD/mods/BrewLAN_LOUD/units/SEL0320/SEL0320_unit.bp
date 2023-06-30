@@ -1,10 +1,9 @@
 UnitBlueprint {
     AI = {
         InitialAutoMode = true,
-		TargetBones = {
-            'B06_Stand',
-        },
+		TargetBones = {'B06_Stand'},
     },
+
     Audio = {
         AmbientMove = Sound {
             Bank = 'XEL',
@@ -42,6 +41,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -51,7 +51,9 @@ UnitBlueprint {
             Level5 = 15,
         },
     },
+
     BuildIconSortPriority = 30,
+
     Categories = {
         'SELECTABLE',
         --'BUILTBYTIER3FACTORY',
@@ -64,6 +66,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYDIRECTFIRE',
     },
+
     Defense = {
         AirThreatLevel = 0,
         ArmorType = 'Normal',
@@ -74,7 +77,9 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 10,
     },
+
     Description = '<LOC sel0320_desc>Mobile Satellite Uplink',
+
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -117,18 +122,17 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0010',
-        SpawnRandomRotation = false,
+
         UniformScale = 0.032,
     },
+
     Economy = {
         BuildCostEnergy = 8000,
         BuildCostMass = 800,
         BuildTime = 4800,
-        TeleportEnergyMod = 0.15,
-        TeleportMassMod = 1,
-        TeleportTimeMod = 0.01,
+
     },
+
     General = {
         Category = 'Indirect Fire',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -147,15 +151,19 @@ UnitBlueprint {
         UnitName = '<LOC sel0320_name>Archimedes',
         UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 26,
     },
+
     Interface = {
         HelpText = '<LOC sel0320_desc>Mobile Satellite Uplink',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1,
     LifeBarSize = 1.2,
+
     Physics = {
         BackUpDistance = 4,
         BankingSlope = 0,
@@ -176,20 +184,25 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 60,
     },
+
     SelectionCenterOffsetX = 0.01,
     SelectionCenterOffsetZ = 0.1,
     SelectionSizeX = 0.7,
     SelectionSizeZ = 1.2,
     SelectionThickness = 0.37,
+
     SizeX = 0.8,
     SizeY = 0.6,
     SizeZ = 1.8,
+
     StrategicIconName = 'icon_land3_sniper',
     StrategicIconSortPriority = 125,
+
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 3,
     },
+
     Veteran = {
         Level1 = 12,
         Level2 = 24,
@@ -197,6 +210,7 @@ UnitBlueprint {
         Level4 = 48,
         Level5 = 60,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -244,16 +258,10 @@ UnitBlueprint {
             
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'SPACE',
-                    },
+                    MuzzleBones = {'SPACE'},
                     RackBone = 'SPACE',
                 },
             },
-
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
             

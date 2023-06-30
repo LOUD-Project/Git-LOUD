@@ -9,12 +9,12 @@ UnitBlueprint {
         BankFactor = 5,
         BankForward = false,
         
-        BreakOffDistance = 15,
-        BreakOffTrigger = 20,
+        BreakOffDistance = 32,
+        BreakOffTrigger = 32,
         
         CanFly = true,
         
-        CombatTurnSpeed = 1.9,
+        CombatTurnSpeed = 3,
         
         EngageDistance = 45,
         
@@ -35,7 +35,7 @@ UnitBlueprint {
         MaxAirspeed = 28,
         MinAirspeed = 12,
         
-        StartTurnDistance = 5,
+        StartTurnDistance = 15,
         
         TightTurnMultiplier = 1.13,
         
@@ -85,15 +85,14 @@ UnitBlueprint {
     },
     
     Defense = {
-        MissileDetector = {
-            AttachBone = 'MissileDetector',
-        },
+        MissileDetector = { AttachBone = 'MissileDetector' },
         
         AirThreatLevel = 95,
         ArmorType = 'Light',
         Health = 3855,
         MaxHealth = 3855,
-        RegenRate = 7,
+
+        RegenRate = 10,
     },
     
     Description = '<LOC ssa0313_desc>Penetration Fighter',
@@ -152,6 +151,7 @@ UnitBlueprint {
     },
     
     General = {
+        CapCost = 2,
         Category = 'Fighter',
         Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
@@ -183,7 +183,7 @@ UnitBlueprint {
     Intel = {
         RadarStealth = true,
         Cloak = true,
-        VisionRadius = 32,
+        VisionRadius = 40,
     },
     
     LifeBarHeight = 0.075,
@@ -236,16 +236,16 @@ UnitBlueprint {
                 BeamStop = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Stop', LodCutoff = 'Weapon_LodCutoff' },
                   Unpack = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
-            AutoInitiateAttackCommand = false,
+
+            AutoInitiateAttackCommand = true,
             
             BallisticArc = 'RULEUBA_None',
             
-            BeamCollisionDelay = 0.1,
-            BeamLifetime = 1,
+            BeamCollisionDelay = 0,
+            BeamLifetime = 0.5,
             
             CannotAttackGround = true,
             CollideFriendly = false,
-            ContinuousBeam = true,
             
             Damage = 99,
             DamageType = 'Normal',
@@ -254,42 +254,31 @@ UnitBlueprint {
             
             DoNotCollideList = {'MISSILE'},
             
-            EnergyDrainPerSecond = 250,
-            EnergyRequired = 250,
+            EnergyDrainPerSecond = 100,
+            EnergyRequired = 100,
             
             FireTargetLayerCapsTable = {
-                Land = 'Air',
                 Air = 'Air',
             },
             
-            FiringTolerance = 10,
+            FiringTolerance = 1,
             
             Label = 'AAGun',
             
-            MaxRadius = 40,
-            
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            
-            NeedPrep = true,
+            MaxRadius = 44,
             
             RackBones = {
                 { MuzzleBones = {'Muzzle_L'}, RackBone = 'Barrel_L' },
             },
 
             RackRecoilDistance = 1,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             
             RangeCategory = 'UWRC_AntiAir',
             
-            RateOfFire = 0.5,       -- 495 DPS
-            
-            SlavedToBody = true,
-            SlavedToBodyArcRange = 10,
+            RateOfFire = 2,       -- 495 DPS based on charge
             
             TargetCheckInterval = 1.5,
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'HIGHPRIAIR',
@@ -309,12 +298,12 @@ UnitBlueprint {
             TurretDualManipulators = false,
             
             TurretPitch = 0,
-            TurretPitchRange = 30,
-            TurretPitchSpeed = 180,
+            TurretPitchRange = 35,
+            TurretPitchSpeed = 80,
             
             TurretYaw = 0,
-            TurretYawRange = 10,
-            TurretYawSpeed = 180,
+            TurretYawRange = 44,
+            TurretYawSpeed = 80,
             
             Turreted = true,
         },
@@ -329,12 +318,11 @@ UnitBlueprint {
             
             BallisticArc = 'RULEUBA_None',
             
-            BeamCollisionDelay = 0.1,
-            BeamLifetime = 1,
+            BeamCollisionDelay = 0,
+            BeamLifetime = 0.5,
             
             CannotAttackGround = true,
             CollideFriendly = false,
-            ContinuousBeam = true,
             
             Damage = 99,
             DamageType = 'Normal',
@@ -343,42 +331,27 @@ UnitBlueprint {
             
             DoNotCollideList = {'MISSILE'},
             
-            EnergyDrainPerSecond = 250,
-            EnergyRequired = 250,
+            EnergyDrainPerSecond = 100,
+            EnergyRequired = 100,
             
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Air = 'Air',
             },
             
-            FiringTolerance = 10,
+            FiringTolerance = 1,
             
             Label = 'AAGun',
             
-            MaxRadius = 40,
-            
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            
-            NeedPrep = true,
+            MaxRadius = 44,
             
             RackBones = {
                 { MuzzleBones = {'Muzzle_R'}, RackBone = 'Barrel_R' },
             },
-            
 
             RackRecoilDistance = 1,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-
-            RangeCategory = 'UWRC_AntiAir',
             
-            RateOfFire = 0.5,       -- another 495
-            
-            SlavedToBody = true,
-            SlavedToBodyArcRange = 10,
+            RateOfFire = 2,       -- another 495 - based on charge
             
             TargetCheckInterval = 1.5,
             TargetPriorities = {
@@ -399,12 +372,12 @@ UnitBlueprint {
             TurretDualManipulators = false,
             
             TurretPitch = 0,
-            TurretPitchRange = 30,
-            TurretPitchSpeed = 180,
+            TurretPitchRange = 35,
+            TurretPitchSpeed = 80,
             
             TurretYaw = 0,
-            TurretYawRange = 10,
-            TurretYawSpeed = 180,
+            TurretYawRange = 44,
+            TurretYawSpeed = 80,
             
             Turreted = true,
         },
@@ -429,6 +402,7 @@ UnitBlueprint {
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,
+            Water = true,
         },
     },
 }

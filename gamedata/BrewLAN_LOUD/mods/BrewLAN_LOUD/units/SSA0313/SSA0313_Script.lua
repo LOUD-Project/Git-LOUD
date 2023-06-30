@@ -4,7 +4,7 @@ local MissileFlare = import('/lua/defaultunits.lua').BaseDirectionalAntiMissileF
 
 local SeraphimWeapons = import('/lua/seraphimweapons.lua')
 local SAALosaareAutoCannonWeapon = SeraphimWeapons.SAALosaareAutoCannonWeaponAirUnit
-local SDFUnstablePhasonBeam = SeraphimWeapons.SDFUnstablePhasonBeam
+local SDFUnstablePhasonBeam = SeraphimWeapons.SDFUltraChromaticBeamGenerator02
 
 SSA0313 = Class(SAirUnit, MissileFlare) {
     Weapons = {
@@ -24,13 +24,29 @@ SSA0313 = Class(SAirUnit, MissileFlare) {
     end,
 
     OnLayerChange = function(self, new, old)
+
         SAirUnit.OnLayerChange(self, new, old)
+
         if new == 'Land' then
             self:EnableUnitIntel('Cloak')
         else
 		    self:DisableUnitIntel('Cloak')
         end
     end,
+
+    OnMotionHorzEventChange = function(self, new, old)
+
+        SAirUnit.OnMotionHorzEventChange(self, new, old)
+        
+        local bp = __blueprints[self.BlueprintID]
+
+        if new == 'TopSpeed' then
+            self:SetCollisionShape('Sphere', bp.CollisionSphereOffsetX or 0, bp.CollisionSphereOffsetY or 0, bp.CollisionSphereOffsetZ or 0, bp.SizeSphere )
+        else
+            self:SetCollisionShape('Sphere', bp.CollisionSphereOffsetX or 0, bp.CollisionSphereOffsetY or 0, bp.CollisionSphereOffsetZ or 0, bp.SizeSphere * .6 )
+        end
+    end,
+
 }
 
 TypeClass = SSA0313
