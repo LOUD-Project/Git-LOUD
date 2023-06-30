@@ -509,12 +509,12 @@ advGameOptions = {
         values = {
             {
                 text = 'On',
-                help = "Mass and hydrocarbon points at ALL starting postions are relocated.",
+                help = "Mass and hydrocarbon points at ALL starting positions are relocated.",
                 key = 'on',
             },
             {
                 text = 'Off',
-                help = "Mass and hydrocarbon points at HUMAN start positions are NOT relocated.",
+                help = "Mass and hydrocarbon points at HUMAN starting positions are NOT relocated.",
                 key = 'off',
             },
         }

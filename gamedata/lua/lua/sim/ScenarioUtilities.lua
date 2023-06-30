@@ -440,7 +440,7 @@ function CreateResources()
                             end
 						
                         -- if there are AI then ALWAYS relocate unused start positions  - just a little bit closer than standard
-						elseif AI and not doit then
+						elseif AI or ScenarioInfo.Options.RelocateResources == 'on' and not doit then
                         
                             local adjust = 23
                             
