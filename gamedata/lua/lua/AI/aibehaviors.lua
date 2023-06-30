@@ -2066,7 +2066,7 @@ function RetreatAI( self, aiBrain )
     
             if (OriginalStrength * .4) >= CalculatePlatoonThreat( self, 'Overall', UNITCHECK) or (OriginalSize * .4) >= CountPlatoonUnits() then
             
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." triggers RETREAT AI")
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." triggers RETREAT AI")
 
                 if PlatoonExists( aiBrain, self) then
                     

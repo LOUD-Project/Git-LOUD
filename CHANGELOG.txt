@@ -1,3 +1,18 @@
+LUA 6.3.11
+BrewLAN for LOUD 0.8.8.9.71
+
+- revised logging and sequencing of beam weapon creation, fix beam weapon buffs
+- optimized usage of damageTable for beam weapons for compatability
+- reviewed usage of BUFF on weapons, detailed notes in BUFF.LUA
+- fix to Minimap resource icons
+- AI Naval and Air Ratios were mis-triggering 'No Activity' values.
+- AI Torpedo bomber production corrected 
+- Increased Air ratio trigger point for defensive AA building
+- revised the resource location process, we know better describe the effect of the setting
+- revision of the BrewLAN Pen fighters to increase competitiveness with T3 ASF
+
+
+
 ### Release 24-06-2023
 
 LUA 6.3.10

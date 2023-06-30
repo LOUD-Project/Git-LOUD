@@ -4811,7 +4811,7 @@ function ParseIntelThread( aiBrain )
 
                         units = GetListOfUnits( brain, AIRUNITS, false, true)
 
-                        if table.getn(units) > 0 then
+                        if table.getn(units) > 0 and ReportRatios then
                             LOG("*AI DEBUG Enemy "..brain.Nickname.." has "..table.getn(units).." air units")
                         end
                         
@@ -4829,7 +4829,7 @@ function ParseIntelThread( aiBrain )
                     
                         units = GetListOfUnits( brain, AIRUNITS, false, true)
 
-                        if table.getn(units) > 0 then
+                        if table.getn(units) > 0 and ReportRatios then
                             LOG("*AI DEBUG Ally "..brain.Nickname.." has "..table.getn(units).." air units")
                         end
 
@@ -4847,7 +4847,9 @@ function ParseIntelThread( aiBrain )
 
                 if oldthreat > 0 then
 
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy Air Threat is "..oldthreat )                
+                    if ReportRatios then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy Air Threat is "..oldthreat )
+                    end
 
                     aiBrain.AirRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
                     
@@ -5035,7 +5037,7 @@ function ParseIntelThread( aiBrain )
 
                     end
 
-                    if airtot > 0 then
+                    if airtot > 0 and ReportRatios then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy "..brain.Nickname.." AIR  Fac Count "..aircount.."  IDLE "..airidle.." Value "..airtot)
                     end
 
@@ -5065,7 +5067,7 @@ function ParseIntelThread( aiBrain )
 
                     end
                     
-                    if landtot > 0 then
+                    if landtot > 0 and ReportRatios then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy "..brain.Nickname.." LAND Fac Count "..landcount.."  IDLE "..landidle.." Value "..landtot)
                     end
             
@@ -5095,7 +5097,7 @@ function ParseIntelThread( aiBrain )
 
                     end
                     
-                    if navaltot > 0 then
+                    if navaltot > 0 and ReportRatios then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy "..brain.Nickname.." NAVAL Fac Count "..navcount.."  IDLE "..navidle.." Value "..navaltot)
                     end
 
