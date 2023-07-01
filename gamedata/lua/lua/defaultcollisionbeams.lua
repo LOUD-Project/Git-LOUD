@@ -115,7 +115,7 @@ QuantumBeamGeneratorCollisionBeam = Class(SCCollisionBeam) {
 		
 		local Random = Random
 		
-        local size = 3.5 + (Random() * 3.5) 
+        local size = 2.5 + (Random() * 2.5) 
         local CurrentPosition = GetPosition(self,1)
         local LastPosition = Vector(0,0,0)
         local skipCount = 1
@@ -124,7 +124,7 @@ QuantumBeamGeneratorCollisionBeam = Class(SCCollisionBeam) {
         
             if VDist3( CurrentPosition, LastPosition ) > 0.5 or skipCount > 100 then
             
-                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,6.28), self.SplatTexture, size, size, 200, 180, army )
+                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,6.28), self.SplatTexture, size, size, 200, 90, army )
                 LastPosition = CurrentPosition
                 skipCount = 1
             else
@@ -133,7 +133,7 @@ QuantumBeamGeneratorCollisionBeam = Class(SCCollisionBeam) {
 
             WaitTicks( 6 )
             
-            size = 3.2 + (Random() * 3.5)
+            size = 2.2 + (Random() * 2.5)
             CurrentPosition = GetPosition(self,1)
         end
     end,    
@@ -191,7 +191,7 @@ MicrowaveLaserCollisionBeam01 = Class(SCCollisionBeam) {
     
         local army = self.Sync.army
         
-        local size = 1.5 + (Random() * 1.5) 
+        local size = 1.1 + (Random() * 1.1) 
         local CurrentPosition = GetPosition(self,1)
         local LastPosition = Vector(0,0,0)
         local skipCount = 1
@@ -200,16 +200,16 @@ MicrowaveLaserCollisionBeam01 = Class(SCCollisionBeam) {
         
             if VDist3( CurrentPosition, LastPosition ) > 0.5 or skipCount > 100 then
             
-                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,6.28), self.SplatTexture, size, size, 100, 90, army )
+                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,6.28), self.SplatTexture, size, size, 100, 70, army )
                 LastPosition = CurrentPosition
                 skipCount = 1
             else
                 skipCount = skipCount + self.ScorchSplatDropTime
             end
-                
+
             WaitTicks( 4 )
             
-            size = 1.2 + (Random() * 1.5)
+            size = 1.1 + (Random() * 1.1)
             CurrentPosition = GetPosition(self,1)
         end
     end,
@@ -259,7 +259,7 @@ PhasonLaserCollisionBeam = Class(SCCollisionBeam) {
     
         local army = self.Sync.army
         
-        local size = 1.5 + (Random() * 1.5) 
+        local size = 1.2 + (Random() * 1.2) 
         local CurrentPosition = GetPosition(self,1)
         local LastPosition = Vector(0,0,0)
         local skipCount = 1
@@ -268,7 +268,7 @@ PhasonLaserCollisionBeam = Class(SCCollisionBeam) {
         
             if VDist3( CurrentPosition, LastPosition ) > 0.5 or skipCount > 100 then
             
-                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,6.28), self.SplatTexture, size, size, 100, 90, army )
+                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,6.28), self.SplatTexture, size, size, 100, 70, army )
                 LastPosition = CurrentPosition
                 skipCount = 1
             else
@@ -277,7 +277,7 @@ PhasonLaserCollisionBeam = Class(SCCollisionBeam) {
 
             WaitTicks( 4 )
             
-            size = 1.2 + (Random() * 1.5)
+            size = 1.2 + (Random() * 1.2)
             CurrentPosition = GetPosition(self,1)
         end
     end,
@@ -321,25 +321,25 @@ ExperimentalPhasonLaserCollisionBeam = Class(SCCollisionBeam) {
     
         local army = self.Sync.army
         
-        local size = 4.0 + (Random() * 1.0) 
+        local size = 3.0 + (Random() * 1.0) 
         local CurrentPosition = GetPosition(self,1)
         local LastPosition = Vector(0,0,0)
         local skipCount = 1
         
         while true do
         
-            if VDist3( CurrentPosition, LastPosition ) > 0.5 or skipCount > 100 then
+            if VDist3( CurrentPosition, LastPosition ) > 1 or skipCount > 100 then
             
-                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,6.28), self.SplatTexture, size, size, 100, 90, army )
+                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,6.28), self.SplatTexture, size, size, 100, 70, army )
                 LastPosition = CurrentPosition
                 skipCount = 1
             else
                 skipCount = skipCount + self.ScorchSplatDropTime
             end
-                
+
             WaitTicks( 3 )
             
-            size = 4.0 + (Random() * 1.0)
+            size = 3.0 + (Random() * 1.0)
             CurrentPosition = GetPosition(self,1)
         end
     end,
@@ -401,7 +401,7 @@ UnstablePhasonLaserCollisionBeam = Class(SCCollisionBeam) {
     
         local army = self.Sync.army
         
-        local size = 1.5 + (Random() * 1.5) 
+        local size = 1.1 + (Random() * 1.1) 
         local CurrentPosition = GetPosition(self,1)
         local LastPosition = Vector(0,0,0)
         local skipCount = 1
@@ -409,7 +409,7 @@ UnstablePhasonLaserCollisionBeam = Class(SCCollisionBeam) {
         while true do
             if VDist3( CurrentPosition, LastPosition ) > 0.5 or skipCount > 100 then
             
-                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,6.28), self.SplatTexture, size, size, 100, 90, army )
+                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,6.28), self.SplatTexture, size, size, 100, 70, army )
                 LastPosition = CurrentPosition
                 skipCount = 1
             else
@@ -418,7 +418,7 @@ UnstablePhasonLaserCollisionBeam = Class(SCCollisionBeam) {
 
             WaitTicks( 4 )
             
-            size = 1.2 + (Random() * 1.5)
+            size = 1.1 + (Random() * 1.1)
             CurrentPosition = GetPosition(self,1)
         end
     end,
@@ -471,7 +471,7 @@ UltraChromaticBeamGeneratorCollisionBeam = Class(SCCollisionBeam) {
 		
             if VDist3( CurrentPosition, LastPosition ) > 0.5 or skipCount > 100 then
 
-                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,6.28), self.SplatTexture, size, size, 100, 90, army )
+                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,6.28), self.SplatTexture, size, size, 100, 70, army )
                 LastPosition = CurrentPosition
                 skipCount = 1
             else
@@ -480,7 +480,7 @@ UltraChromaticBeamGeneratorCollisionBeam = Class(SCCollisionBeam) {
 
             WaitTicks( 4 )
             
-            size = 1.2 + (Random() * 1.5)
+            size = 0.75 + (Random() * 0.75)
             CurrentPosition = GetPosition(self,1)
         end
     end,
@@ -546,7 +546,7 @@ TDFHiroCollisionBeam = Class(CollisionBeam) {
         
             if VDist3( CurrentPosition, LastPosition ) > 0.5 or skipCount > 100 then
 			
-                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,6.28), self.SplatTexture, size, size, 100, 90, army )
+                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,6.28), self.SplatTexture, size, size, 100, 70, army )
                 LastPosition = CurrentPosition
                 skipCount = 1
             else
@@ -555,7 +555,7 @@ TDFHiroCollisionBeam = Class(CollisionBeam) {
 
             WaitTicks( 4 )
             
-            size = 1.2 + (Random() * 1.5)
+            size = 0.75 + (Random() * 0.75)
             CurrentPosition = GetPosition(self,1)
         end
     end,
@@ -611,7 +611,7 @@ OrbitalDeathLaserCollisionBeam = Class(SCCollisionBeam) {
     
         local army = self.Sync.army
         
-        local size = 3.5 + (Random() * 3.5) 
+        local size = 2.5 + (Random() * 2.5) 
         local CurrentPosition = GetPosition(self,1)
         local LastPosition = Vector(0,0,0)
         local skipCount = 1
@@ -620,7 +620,7 @@ OrbitalDeathLaserCollisionBeam = Class(SCCollisionBeam) {
         
             if VDist3( CurrentPosition, LastPosition ) > 0.5 or skipCount > 100 then
 			
-                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,6.28), self.SplatTexture, size, size, 250, 15, army )
+                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,6.28), self.SplatTexture, size, size, 150, 18, army )
                 LastPosition = CurrentPosition
                 skipCount = 1
             else
@@ -629,7 +629,7 @@ OrbitalDeathLaserCollisionBeam = Class(SCCollisionBeam) {
 
             WaitTicks( 6 )
             
-            size = 3.2 + (Random() * 3.5)
+            size = 2.2 + (Random() * 2.5)
             CurrentPosition = GetPosition(self,1)
         end
     end,    

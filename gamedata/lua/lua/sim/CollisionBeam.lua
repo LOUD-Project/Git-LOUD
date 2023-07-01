@@ -388,7 +388,7 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
         for k, v in data.Buffs do
 
             if v.Add.OnImpact == true and not LOUDENTITY((LOUDPARSE(v.TargetDisallow) or ''), target) and LOUDENTITY((LOUDPARSE(v.TargetAllow) or categories.ALLUNITS), target) then
-                    
+
                 target:AddBuff(v)
             end
         end
@@ -398,9 +398,11 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
     
         if fn then
         
+            --LOG("*AI DEBUG Self is "..repr(self))
+        
             local thread = ForkThread(fn, self, unpack(arg))
             
-            TrashAdd( self.Trash, thread )
+            TrashAdd( self.Weapon.Trash, thread )
 
             return thread
         else
