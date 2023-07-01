@@ -154,18 +154,22 @@ AIBrain = Class(AIBrain) {
                         }
                         unit = self:CreateUnitNearSpot(u[1], self.PARAGONPOS[1] + (relativepos[count + 1][1] or 0), self.PARAGONPOS[3] + (relativepos[count + 1][2] or 0) )
                     end
+
                     if unit and j == 1 then
                         self.PARAGONPOS = unit:GetPosition()
                     end
+
                     count = count + 1
+
                     if unit then
                         unit:CreateTarmac(true,true,true,false,false)
                     else
+
                         local warning = {
                             string.gsub(self.Nickname,'%b()', '' ),
-                            string.gsub(__blueprints[string.lower(u[1])].General.UnitName, '%b<>', ''),
                             string.gsub(__blueprints[string.lower(u[1])].Description, '%b<>', ''),
                         }
+
                         local complaints = {
                             {
                                 "This map is too lumpy. I didn't get a ",
@@ -180,9 +184,11 @@ AIBrain = Class(AIBrain) {
                                 "Different map?",
                             },
                         }
+
                         local message = complaints[1][math.random(1, table.getn(complaints[1]))] .. warning[2] .. " (" .. warning[3] .. "). " .. complaints[2][math.random(1, table.getn(complaints[2]))]
 
                         WARN(warning[1] .. " didn't get a " .. warning[3])
+
                         self:ForkThread(
                             function()
                                 WaitTicks(20)
