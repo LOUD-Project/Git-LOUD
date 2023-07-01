@@ -1275,9 +1275,13 @@ function SetPrimaryLandAttackBase( aiBrain )
         local goal = aiBrain.AttackPlan.Goal
     
         if ScenarioInfo.AttackPlanDialog then
+        
             LOG("*AI DEBUG "..aiBrain.Nickname.." setting Primary Land Attack Base for goal at "..repr(goal))
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Current Primary Land Attack Base is "..repr(aiBrain.PrimaryLandAttackBase))
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Previous Primary Land Attack Base is "..repr(aiBrain.LastPrimaryLandAttackBase))
+            LOG("*AI DEBUG "..aiBrain.Nickname.." Current Primary Land Attack Base is "..repr(aiBrain.PrimaryLandAttackBase).." - LAND mode "..repr(aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode))
+
+            if aiBrain.LastPrimaryLandAttackBase then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Previous Primary Land Attack Base is "..repr(aiBrain.LastPrimaryLandAttackBase))
+            end
         end
         
         local Bases = {}
@@ -1287,7 +1291,6 @@ function SetPrimaryLandAttackBase( aiBrain )
         local Primary
         
         local currentgoaldistance = aiBrain.PrimaryLandAttackBaseDistance or 99999       -- default in case current primary doesn't exist --
-        
         
         local currentlandbasemode = false   -- assume all bases are in amphibious mode
         
@@ -1342,7 +1345,14 @@ function SetPrimaryLandAttackBase( aiBrain )
             -- make this base the Primary
             Primary = Bases[1].BaseName
             
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(Primary).." is now the Primary Land Attack Base - mode LAND is "..repr(currentlandbasemode))
+            if ScenarioInfo.AttackPlanDialog then
+            
+                if aiBrain.PrimaryLandAttackBase != Primary then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(Primary).." is now the Primary Land Attack Base - mode LAND is "..repr(currentlandbasemode))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." setting Previous Land Attack Base to "..repr(aiBrain.PrimaryLandAttackBase))
+                end
+                
+            end
             
             -- set the distance trigger
             currentgoaldistance = Bases[1].Distance
@@ -1455,8 +1465,13 @@ function SetPrimarySeaAttackBase( aiBrain )
     
         if ScenarioInfo.AttackPlanDialog then
             LOG("*AI DEBUG "..aiBrain.Nickname.." setting Primary Sea Attack Base for goal at "..repr(goal))
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Current Primary Sea Attack Base is "..repr(aiBrain.PrimarySeaAttackBase))
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Previous Primary Sea Attack Base is "..repr(aiBrain.LastPrimarySeaAttackBase))
+
+            if aiBrain.PrimarySeaAttackBase then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Current Primary Sea Attack Base is "..repr(aiBrain.PrimarySeaAttackBase))
+            end
+            if aiBrain.LastPrimarySeaAttackBase then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Previous Primary Sea Attack Base is "..repr(aiBrain.LastPrimarySeaAttackBase))
+            end
         end
         
         local Bases = {}
@@ -4281,6 +4296,9 @@ function ParseIntelThread( aiBrain )
     local airtot = 0
     local landtot = 0
     local navaltot = 0
+    local grandairtot = 0
+    local grandlandtot = 0
+    local grandnavaltot = 0
    
 	local ALLBPS = __blueprints
     local BRAINS = ArmyBrains
@@ -5036,6 +5054,8 @@ function ParseIntelThread( aiBrain )
                         end
 
                     end
+                    
+                    grandairtot = grandairtot + airtot
 
                     if airtot > 0 and ReportRatios then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy "..brain.Nickname.." AIR  Fac Count "..aircount.."  IDLE "..airidle.." Value "..airtot)
@@ -5067,6 +5087,8 @@ function ParseIntelThread( aiBrain )
 
                     end
                     
+                    grandlandtot = grandlandtot + landtot
+                    
                     if landtot > 0 and ReportRatios then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy "..brain.Nickname.." LAND Fac Count "..landcount.."  IDLE "..landidle.." Value "..landtot)
                     end
@@ -5097,6 +5119,8 @@ function ParseIntelThread( aiBrain )
 
                     end
                     
+                    grandnavaltot = grandnavaltot + navaltot
+                    
                     if navaltot > 0 and ReportRatios then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy "..brain.Nickname.." NAVAL Fac Count "..navcount.."  IDLE "..navidle.." Value "..navaltot)
                     end
@@ -5106,7 +5130,9 @@ function ParseIntelThread( aiBrain )
             end
 
             if ReportRatios then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Grand Factory Totals AIR "..grandairtot.." -- LAND "..grandlandtot.." -- NAVAL "..grandnavaltot)
                 LOG("*AI DEBUG "..aiBrain.Nickname.." Air Ratio is "..repr(aiBrain.AirRatio).." Land Ratio is "..repr(aiBrain.LandRatio).." Naval Ratio is "..repr(aiBrain.NavalRatio))
+                
             end
         
         end

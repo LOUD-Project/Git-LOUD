@@ -834,6 +834,10 @@ EngineerManager = Class(BuilderManager) {
 					AlertRadius = self.BaseMonitor.AlertRange + 25
 				end
 
+				if ScenarioInfo.DisplayBaseMonitors or aiBrain.DisplayBaseMonitors then
+					ForkThread( DrawBaseMonitorRadius, AlertRadius )
+				end
+
                 -- rather than taking a full copy of HiPri - we could iterate over HiPri and just take what we need 
                 -- with a smaller footprint since we don't care about things like lastscouted, lastupdate and Permanent
                 -- or threat types we don't process or those beyond AlertRadius
@@ -910,10 +914,6 @@ EngineerManager = Class(BuilderManager) {
                         
 						highThreatPos = false
 						highThreatType = false
-
-						if ScenarioInfo.DisplayBaseMonitors or aiBrain.DisplayBaseMonitors then
-							ForkThread( DrawBaseMonitorRadius, (AlertRadius + alertrangemod) )
-						end
 	
 						if not self.BaseMonitor.AlertsTable[LoopType] then		-- this means we always check experimentals but bypass any already active alert types
 					
