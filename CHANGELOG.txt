@@ -1,5 +1,8 @@
+### Release 01-07-2023
+
 LUA 6.3.11
 BrewLAN for LOUD 0.8.8.9.71
+LOUD_MISC 6.3.01
 
 - revised logging and sequencing of beam weapon creation, fix beam weapon buffs
 - optimized usage of damageTable for beam weapons for compatability
@@ -10,6 +13,8 @@ BrewLAN for LOUD 0.8.8.9.71
 - Increased Air ratio trigger point for defensive AA building
 - revised the resource location process, we know better describe the effect of the setting
 - revision of the BrewLAN Pen fighters to increase competitiveness with T3 ASF
+- subsequent hotfix for beam weapons with scorching decals
+- fix for BL Paragon Game on bad maps
 
 
 
