@@ -439,47 +439,77 @@ function CreateResources()
                                 
                             end
 						
-                        -- if there are AI then ALWAYS relocate unused start positions  - just a little bit closer than standard
-						elseif AI or ScenarioInfo.Options.RelocateResources == 'on' and not doit then
+                        -- if there are AI then ALWAYS relocate unused start positions
+                        --LOG("*AI DEBUG Army Position "..repr(armyposition).." is not being used - always relocate resources")
                         
-                            local adjust = 23
-                            
-                            if VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]) > 35 then
-                            
-                                adjust = 35
-                                
-                            end
+						elseif not doit and VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]) > 38.5 then
                         
-                            --LOG("*AI DEBUG Army Position "..repr(armyposition).." is not being used - always relocate resources")
-						
-                            -- fix the X co-ordinate 
-                            if tblData.position[1] < armyposition[1] then
+                            if ScenarioInfo.Options.RelocateResources == 'on' or AI then
+                            
+                                -- fix the X co-ordinate 
+                                if tblData.position[1] < armyposition[1] then
 
-                                tblData.position[1] = armyposition[1] - adjust
+                                    tblData.position[1] = armyposition[1] - 39
                                 
-                            elseif tblData.position[1] >= armyposition[1] then
+                                elseif tblData.position[1] >= armyposition[1] then
 
-                                tblData.position[1] = armyposition[1] + adjust
+                                    tblData.position[1] = armyposition[1] + 39
 
-                            end
+                                end
 
-                            -- fix the Y co-ordinate
-                            if tblData.position[3] < armyposition[3] then
+                                -- fix the Y co-ordinate
+                                if tblData.position[3] < armyposition[3] then
 
-                                tblData.position[3] = armyposition[3] - adjust
+                                    tblData.position[3] = armyposition[3] - 39
 
-                            elseif tblData.position[3] >= armyposition[3] then
+                                elseif tblData.position[3] >= armyposition[3] then
 
-                                tblData.position[3] = armyposition[3] + adjust
+                                    tblData.position[3] = armyposition[3] + 39
 
-                            end
+                                end
 						
-                            tblData.position[2] = GetTerrainHeight( tblData.position[1], tblData.position[3] )
+                                tblData.position[2] = GetTerrainHeight( tblData.position[1], tblData.position[3] )
 						
-                            LOG("*AI DEBUG Mass Point "..repr(i).." moved to "..repr(tblData.position).." -- at unused start")
+                                LOG("*AI DEBUG Mass Point "..repr(i).." moved to "..repr(tblData.position).." -- at unused start")
 
-                            tblData.hint = true
+                                tblData.hint = true
  
+                            end
+
+                        elseif not doit then
+                        
+                            if ScenarioInfo.Options.RelocateResources == 'on' or AI then
+                            
+                                -- fix the X co-ordinate 
+                                if tblData.position[1] < armyposition[1] then
+
+                                    tblData.position[1] = armyposition[1] - 25
+                                
+                                elseif tblData.position[1] >= armyposition[1] then
+
+                                    tblData.position[1] = armyposition[1] + 25
+
+                                end
+
+                                -- fix the Y co-ordinate
+                                if tblData.position[3] < armyposition[3] then
+
+                                    tblData.position[3] = armyposition[3] - 25
+
+                                elseif tblData.position[3] >= armyposition[3] then
+
+                                    tblData.position[3] = armyposition[3] + 25
+
+                                end
+						
+                                tblData.position[2] = GetTerrainHeight( tblData.position[1], tblData.position[3] )
+						
+                                LOG("*AI DEBUG Mass Point "..repr(i).." moved to "..repr(tblData.position).." -- at unused start")
+
+                                tblData.hint = true
+ 
+                            end
+                        
                         end
 						
 					else
