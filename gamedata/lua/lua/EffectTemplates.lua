@@ -942,7 +942,7 @@ CAntiNukeLaunch01 = {
 CAntiTorpedoHit01 = {
     '/effects/emitters/anti_torpedo_flare_hit_01_emit.bp',
 	'/effects/emitters/anti_torpedo_flare_hit_02_emit.bp',    
-	'/effects/emitters/anti_torpedo_flare_hit_03_emit.bp',	
+	--'/effects/emitters/anti_torpedo_flare_hit_03_emit.bp',	
 }
 
 CArtilleryFlash01 = {
@@ -2125,13 +2125,13 @@ SDFAjelluAntiTorpedoLaunch01 = {
 }
 SDFAjelluAntiTorpedoPolyTrail01 = {
 	'/effects/emitters/seraphim_ajellu_polytrail_01_emit.bp',
-	'/effects/emitters/seraphim_ajellu_polytrail_02_emit.bp',
+	--'/effects/emitters/seraphim_ajellu_polytrail_02_emit.bp',
 }
 SDFAjelluAntiTorpedoHit01 = {
     '/effects/emitters/seraphim_ajellu_hit_01_emit.bp',
-    '/effects/emitters/seraphim_ajellu_hit_02_emit.bp',
-    '/effects/emitters/seraphim_ajellu_hit_03_emit.bp',
-    '/effects/emitters/seraphim_ajellu_hit_04_emit.bp',
+    --'/effects/emitters/seraphim_ajellu_hit_02_emit.bp',
+    --'/effects/emitters/seraphim_ajellu_hit_03_emit.bp',
+    --'/effects/emitters/seraphim_ajellu_hit_04_emit.bp',
 }
 
 SIFHuHit01 = DefaultMissileHit01
@@ -3092,8 +3092,8 @@ SUallTorpedoMuzzleFlash= {
 }
 SUallTorpedoFxTrails = {
 	'/effects/emitters/seraphim_uall_torpedo_projectile_fxtrail_01_emit.bp',
-    '/effects/emitters/seraphim_uall_torpedo_projectile_fxtrail_02_emit.bp',
-    '/effects/emitters/seraphim_uall_torpedo_projectile_fxtrail_03_emit.bp',
+    --'/effects/emitters/seraphim_uall_torpedo_projectile_fxtrail_02_emit.bp',
+    --'/effects/emitters/seraphim_uall_torpedo_projectile_fxtrail_03_emit.bp',
 }
 SUallTorpedoPolyTrail = '/effects/emitters/seraphim_uall_torpedo_projectile_polytrail_01_emit.bp'
 
@@ -3101,14 +3101,14 @@ SUallTorpedoHit = {
     '/effects/emitters/seraphim_uall_torpedo_projectile_hit_01_emit.bp',
 	'/effects/emitters/seraphim_uall_torpedo_projectile_hit_02_emit.bp',
 	'/effects/emitters/seraphim_uall_torpedo_projectile_hit_03_emit.bp',
-	'/effects/emitters/seraphim_uall_torpedo_projectile_hit_04_emit.bp',
-	'/effects/emitters/seraphim_uall_torpedo_projectile_hit_05_emit.bp',
+	--'/effects/emitters/seraphim_uall_torpedo_projectile_hit_04_emit.bp',
+	--'/effects/emitters/seraphim_uall_torpedo_projectile_hit_05_emit.bp',
 }
 
 SAnaitTorpedoMuzzleFlash= {
 	'/effects/emitters/seraphim_ammit_torpedo_muzzle_flash_01_emit.bp',
-	'/effects/emitters/seraphim_ammit_torpedo_muzzle_flash_02_emit.bp',
-	'/effects/emitters/seraphim_ammit_torpedo_muzzle_flash_03_emit.bp',
+	--'/effects/emitters/seraphim_ammit_torpedo_muzzle_flash_02_emit.bp',
+	--'/effects/emitters/seraphim_ammit_torpedo_muzzle_flash_03_emit.bp',
 }
 SAnaitTorpedoFxTrails = {
 	'/effects/emitters/seraphim_ammit_torpedo_projectile_fxtrail_01_emit.bp',
@@ -3120,13 +3120,13 @@ SAnaitTorpedoPolyTrails = {
 SAnaitTorpedoHit = {
     '/effects/emitters/seraphim_ammit_torpedo_projectile_hit_01_emit.bp',
 	'/effects/emitters/seraphim_ammit_torpedo_projectile_hit_02_emit.bp',
-	'/effects/emitters/seraphim_ammit_torpedo_projectile_hit_03_emit.bp',
+	--'/effects/emitters/seraphim_ammit_torpedo_projectile_hit_03_emit.bp',
 }
 
 SHeavyCavitationTorpedoMuzzleFlash = {
 	'/effects/emitters/seraphim_heayvcavitation_torpedo_muzzle_flash_01_emit.bp',
 	'/effects/emitters/seraphim_heayvcavitation_torpedo_muzzle_flash_02_emit.bp',
-	'/effects/emitters/seraphim_heayvcavitation_torpedo_muzzle_flash_03_emit.bp',
+	--'/effects/emitters/seraphim_heayvcavitation_torpedo_muzzle_flash_03_emit.bp',
 }
 
 SHeavyCavitationTorpedoMuzzleFlash02 = {
@@ -3146,8 +3146,8 @@ SHeavyCavitationTorpedoHit = {
     '/effects/emitters/seraphim_heayvcavitation_torpedo_projectile_hit_01_emit.bp',
 	'/effects/emitters/seraphim_heayvcavitation_torpedo_projectile_hit_02_emit.bp',
 	'/effects/emitters/seraphim_heayvcavitation_torpedo_projectile_hit_03_emit.bp',
-	'/effects/emitters/seraphim_heayvcavitation_torpedo_projectile_hit_04_emit.bp',
-	'/effects/emitters/seraphim_heayvcavitation_torpedo_projectile_hit_05_emit.bp',
+	--'/effects/emitters/seraphim_heayvcavitation_torpedo_projectile_hit_04_emit.bp',
+	--'/effects/emitters/seraphim_heayvcavitation_torpedo_projectile_hit_05_emit.bp',
 }
 
 SHeavyCavitationTorpedoSplit = {

@@ -7,18 +7,15 @@ ProjectileBlueprint {
             Cue = 'Impact_Water_Splash_AEON',
             LodCutoff = 'Weapon_LodCutoff',
         },
-		
-        ImpactWater = Sound {
-            Bank = 'Impacts',
-            Cue = 'Impact_Water_Splash_AEON',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
+
     },
 	
     Categories = {
         'PROJECTILE',
         'ANTITORPEDO',
     },
+    
+    DesiredShooterCap = 1,
 	
     Display = {
         StrategicIconSize = 1,
@@ -30,19 +27,19 @@ ProjectileBlueprint {
 	
     Physics = {
 	
-		Acceleration = 7.5,
+		Acceleration = 3,
 		
         DestroyOnWater = false,
 
-        MaxSpeed = 25,
+        MaxSpeed = 12,
 		
-		OnLostTargetLifetime = 3,
+		OnLostTargetLifetime = 1,
 		
         StayUnderwater = true,
 		
         TrackTarget = true,
 		
-        TurnRate = 540,
+        TurnRate = 360,
 		
         UseGravity = true,
 		

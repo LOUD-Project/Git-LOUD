@@ -20,6 +20,10 @@ SANAnaitTorpedo = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = EffectTemplate.SAnaitTorpedoMuzzleFlash,
 }
 
+SDFAjelluAntiTorpedoDefense = Class(DefaultProjectileWeapon) {
+	FxMuzzleFlash = EffectTemplate.SDFAjelluAntiTorpedoLaunch01,
+}
+
 SDFExperimentalPhasonProj = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = EffectTemplate.SDFExperimentalPhasonProjMuzzleFlash,
     FxChargeMuzzleFlash = EffectTemplate.SDFExperimentalPhasonProjChargeMuzzleFlash,
@@ -124,10 +128,6 @@ SANUallCavitationTorpedo = Class(DefaultProjectileWeapon) {
 	FxMuzzleFlash = EffectTemplate.SUallTorpedoMuzzleFlash
 }
 
-SANAnaitTorpedo = Class(DefaultProjectileWeapon) {
-	FxMuzzleFlash = EffectTemplate.SAnaitTorpedoMuzzleFlash
-}
-
 SANHeavyCavitationTorpedo = Class(DefaultProjectileWeapon) {
 	FxMuzzleFlash = EffectTemplate.SHeavyCavitationTorpedoMuzzleFlash
 }
@@ -173,10 +173,6 @@ SAALosaareAutoCannonWeaponSeaUnit = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = EffectTemplate.SLosaareAutoCannonMuzzleFlashSeaUnit,
 }
 
-
-SDFAjelluAntiTorpedoDefense = Class(DefaultProjectileWeapon) {
-	FxMuzzleFlash = EffectTemplate.SDFAjelluAntiTorpedoLaunch01,
-}
 
 SIFThunthoCannonWeapon = Class(DefaultProjectileWeapon) {
 	FxMuzzleFlash = EffectTemplate.SThunderStormCannonMuzzleFlash,
