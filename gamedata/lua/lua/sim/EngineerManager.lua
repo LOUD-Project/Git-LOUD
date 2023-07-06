@@ -1196,7 +1196,7 @@ EngineerManager = Class(BuilderManager) {
 			if count > 0 and threat >= BaseMonitor.AlertLevel then
 
 				if BaseMonitorDialog then
-					LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITORALERT "..threattype.." - "..count.." units found with threat of "..threat.." - ALERT !")
+					LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR ALERT "..threattype.." - "..count.." units found with threat of "..threat.." - ALERT !")
 				end
 
 				-- do the average position calculation -- 
@@ -1221,7 +1221,7 @@ EngineerManager = Class(BuilderManager) {
 
 					if ScenarioInfo.DisplayPingAlerts or aiBrain.DeliverStatus then
 					
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITORALERT "..threattype.." ALERT ")
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR ALERT "..threattype.." ALERT ")
 					
 						-- send the visible ping to the interface --
 						import('/lua/ai/altaiutilities.lua').AISendPing(newpos, 'attack', aiBrain.ArmyIndex)
@@ -1229,14 +1229,14 @@ EngineerManager = Class(BuilderManager) {
 				end
 			
 				if BaseMonitorDialog then
-					LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITORALERT "..threattype.." threat is "..math.floor(threat).." distance is "..math.floor(VDist2(pos[1],pos[3], baseposition[1],baseposition[3])) )
+					LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR ALERT "..threattype.." threat is "..math.floor(threat).." distance is "..math.floor(VDist2(pos[1],pos[3], baseposition[1],baseposition[3])) )
 				end
 
 				WaitTicks( BaseMonitor.AlertTimeout * 10 ) -- before checking this threat again --
 			else
 			
 				if BaseMonitorDialog then
-					LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITORALERT "..threattype.." - "..count.." units found with threat of "..threat.." - NO ALERT raised")
+					LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR ALERT "..threattype.." - "..count.." units found with threat of "..threat.." - NO ALERT raised")
 				end
 			end
 
@@ -1246,7 +1246,7 @@ EngineerManager = Class(BuilderManager) {
 		BaseMonitor.ActiveAlerts = BaseMonitor.ActiveAlerts - 1
 		
 		if BaseMonitorDialog then
-			LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITORALERT deactivates "..threattype.." alert")
+			LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR ALERT deactivates "..threattype.." alert")
 		end
 
 		-- if no more alerts reset the alert table
@@ -1257,7 +1257,7 @@ EngineerManager = Class(BuilderManager) {
 			aiBrain.BaseAlertSounded = false
 			
 			if BaseMonitorDialog then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITORALERT has no active alerts")
+				LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR ALERT has no active alerts")
 			end
 		else
             aiBrain.BaseAlertSounded = true
@@ -1422,11 +1422,12 @@ EngineerManager = Class(BuilderManager) {
 		end
 		
 		if BaseMonitorDialog then
-			LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." DISTRESS RESPONSE underway for "..self.BaseMonitor.ActiveAlerts.." alerts")
+			LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR DISTRESS RESPONSE underway for "..self.BaseMonitor.ActiveAlerts.." alerts")
 		end
         
         local BaseMonitor = self.BaseMonitor
         local AlertResponseTime = BaseMonitor.AlertResponseTime
+        local AlertRings = math.floor( 120/ScenarioInfo.IMAPSize)
 
         local GetDistressDistance
         local counter, totalthreatsent, threatlimit
@@ -1449,9 +1450,11 @@ EngineerManager = Class(BuilderManager) {
 				distressLocation, distressType, threatamount = BaseMonitorGetDistressLocation( self, aiBrain, baseposition, GetDistressDistance, BaseMonitor.AlertLevel, distresskind )
 
 				if distressLocation then
+                
+                    lastdistressLocation = table.copy(distressLocation)
 				
 					if BaseDistressResponseDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE begins for "..repr(distressType).." at "..repr(distressLocation) )
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR DISTRESS RESPONSE begins for "..repr(distressType).." at "..repr(distressLocation) )
 					end
 		
 					distressunderway = true
@@ -1464,11 +1467,11 @@ EngineerManager = Class(BuilderManager) {
 						if grouplndcount > 4 then
 						
 							if BaseDistressResponseDialog then
-								LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE to "..distressType.." value "..GetThreatAtPosition( aiBrain, distressLocation, 0, true, 'AntiSurface' ).." my assets are "..GetThreatOfGroup(grouplnd,'Land'))
+								LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR DISTRESS RESPONSE to "..distressType.." value "..GetThreatAtPosition( aiBrain, distressLocation, AlertRings, true, 'AntiSurface' ).." my assets are "..GetThreatOfGroup(grouplnd,'Land'))
 							end
 							
 							-- only send response if we can muster 70% of enemy threat
-							if GetThreatOfGroup(grouplnd,'Land') >= ( GetThreatAtPosition( aiBrain, distressLocation, 0, true, 'AntiSurface' ) * .70) then
+							if GetThreatOfGroup(grouplnd,'Land') >= ( GetThreatAtPosition( aiBrain, distressLocation, AlertRings, true, 'AntiSurface' ) * .70) then
 							
 								-- must have a clear unobstructed path to location --
 								if not CheckBlockingTerrain( baseposition, distressLocation ) then
@@ -1486,7 +1489,7 @@ EngineerManager = Class(BuilderManager) {
                                     counter = 0
                                     totalthreatsent = 0
                                     
-                                    threatlimit = ( GetThreatAtPosition( aiBrain, distressLocation, 0, true, 'AntiSurface' ) * 2)
+                                    threatlimit = ( GetThreatAtPosition( aiBrain, distressLocation, AlertRings, true, 'AntiSurface' ) * 2)
                                     
                                     -- send 5 per second to the distressLocation --
                                     for _,u in grouplnd do
@@ -1518,7 +1521,7 @@ EngineerManager = Class(BuilderManager) {
 								end
 							else
 								if BaseDistressResponseDialog then
-									LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE unable to respond to "..distressType.." only have "..GetThreatOfGroup(grouplnd,'Land'))
+									LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR DISTRESS RESPONSE unable to respond to "..distressType.." only have "..GetThreatOfGroup(grouplnd,'Land'))
 								end	
 
                                 IssueClearCommands( grouplnd )
@@ -1538,10 +1541,10 @@ EngineerManager = Class(BuilderManager) {
 					
 						if groupseacount > 2 then
                         
-                            local enemynavalthreat = GetThreatAtPosition( aiBrain, distressLocation, 0, true, 'AntiSurface') + GetThreatAtPosition( aiBrain, distressLocation, 0, true, 'AntiSub')
+                            local enemynavalthreat = GetThreatAtPosition( aiBrain, distressLocation, AlertRings, true, 'AntiSurface') + GetThreatAtPosition( aiBrain, distressLocation, AlertRings, true, 'AntiSub')
 						
 							if BaseDistressResponseDialog then
-								LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE to "..enemynavalthreat.." at "..repr(distressLocation).." - my "..LOUDGETN(groupsea).." assets are valued at "..repr(GetThreatOfGroup(groupsea,'Naval') ).." threat" )
+								LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR DISTRESS RESPONSE to "..enemynavalthreat.." at "..repr(distressLocation).." - my "..LOUDGETN(groupsea).." assets are valued at "..repr(GetThreatOfGroup(groupsea,'Naval') ).." threat" )
 							end
 				
                             -- only send response if we can muster 70% of enemy threat
@@ -1556,7 +1559,7 @@ EngineerManager = Class(BuilderManager) {
                                 counter = 0
                                 totalthreatsent = 0
                                 
-                                threatlimit = ( GetThreatAtPosition( aiBrain, distressLocation, 0, true, 'AntiSurface' ) + GetThreatAtPosition( aiBrain, distressLocation, 0, true, 'AntiSub')) + 10
+                                threatlimit = ( GetThreatAtPosition( aiBrain, distressLocation, AlertRings, true, 'AntiSurface' ) + GetThreatAtPosition( aiBrain, distressLocation, AlertRings, true, 'AntiSub')) + 10
 
                                 -- send upto 5 units every 11 ticks, to the distressLocation --
                                 for _,u in groupsea do
@@ -1586,7 +1589,7 @@ EngineerManager = Class(BuilderManager) {
 								distress_naval = true
 							else
 								if BaseDistressResponseDialog then
-									LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE unable to respond to "..repr(distressType).." only have "..repr(GetThreatOfGroup( groupsea,'NavalAntiSurface') ) )
+									LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR DISTRESS RESPONSE unable to respond to "..repr(distressType).." only have "..repr(GetThreatOfGroup( groupsea,'NavalAntiSurface') ) )
 								end
 
                                 IssueClearCommands( groupsea )                                
@@ -1615,7 +1618,7 @@ EngineerManager = Class(BuilderManager) {
                                     if groupaircount > 1 then
 
                                         if BaseDistressResponseDialog then
-                                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE bomber/gunship to "..distressType.." value "..threatamount.." using Air assets of "..GetThreatOfGroup(groupair,'Land'))
+                                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR DISTRESS RESPONSE bomber/gunship to "..distressType.." value "..threatamount.." using Air assets of "..GetThreatOfGroup(groupair,'Land'))
                                         end
 						
                                         -- Move the gunship/bomber group to the distress location and issue guard there 
@@ -1629,7 +1632,7 @@ EngineerManager = Class(BuilderManager) {
                                     else
 						
                                         if BaseDistressResponseDialog then
-                                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE bomber/gunship unable to respond to "..distressType.." only have "..groupaircount)
+                                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR DISTRESS RESPONSE bomber/gunship unable to respond to "..distressType.." only have "..groupaircount)
                                         end
                                 
                                         -- move the units to the 3 rallypoints closest to the distressLocation
@@ -1644,7 +1647,7 @@ EngineerManager = Class(BuilderManager) {
                                     if groupaircount > 2 then
 
                                         if BaseDistressResponseDialog then
-                                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE torpedobomber/gunship to "..distressType.." value "..threatamount.." using Air assets of "..GetThreatOfGroup(groupair,'Land'))
+                                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR DISTRESS RESPONSE torpedobomber/gunship to "..distressType.." value "..threatamount.." using Air assets of "..GetThreatOfGroup(groupair,'Land'))
                                         end
 						
                                         -- Move the torpedo/gunship group to the distress location and issue guard there 
@@ -1658,7 +1661,7 @@ EngineerManager = Class(BuilderManager) {
                                     else
 						
                                         if BaseDistressResponseDialog then
-                                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE torpedo/gunship unable to respond to "..distressType.." only have "..groupaircount)
+                                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR DISTRESS RESPONSE torpedo/gunship unable to respond to "..distressType.." only have "..groupaircount)
                                         end
 
                                         IssueClearCommands( groupair )                                
@@ -1680,11 +1683,11 @@ EngineerManager = Class(BuilderManager) {
 							if groupftrcount > 4 then 
 						
 								if BaseDistressResponseDialog then
-									LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE fighters to "..distressType.." value "..threatamount)
+									LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR DISTRESS RESPONSE fighters to "..distressType.." value "..threatamount)
 								end
 						
 								-- and we can match at least 66% of the enemy threat
-								if GetThreatOfGroup(groupftr,'Air') >= ( GetThreatAtPosition( aiBrain, distressLocation, 0, true, 'AntiAir' )/1.5) then
+								if GetThreatOfGroup(groupftr,'Air') >= ( GetThreatAtPosition( aiBrain, distressLocation, AlertRings, true, 'AntiAir' )/1.5) then
 					
 									-- Move the fighter group to the distress location 
 									IssueClearCommands( groupftr )
@@ -1695,7 +1698,7 @@ EngineerManager = Class(BuilderManager) {
 								else
 							
 									if BaseDistressResponseDialog then
-										LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE fighters unable to respond to "..distressType.." my threat is only "..GetThreatOfGroup(groupftr,'Air'))
+										LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR DISTRESS RESPONSE fighters unable to respond to "..distressType.." my threat is only "..GetThreatOfGroup(groupftr,'Air'))
 									end
                                     
                                     -- move the units to the 5 rallypoints closest to the distressLocation
@@ -1705,7 +1708,7 @@ EngineerManager = Class(BuilderManager) {
 							else
 							
 								if BaseDistressResponseDialog then
-									LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE fighters unable to respond to "..distressType.." only have "..groupftrcount)
+									LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR DISTRESS RESPONSE fighters unable to respond to "..distressType.." only have "..groupftrcount)
 								end
                                 
                                 IssueClearCommands( groupftr )
@@ -1722,7 +1725,7 @@ EngineerManager = Class(BuilderManager) {
 			if not response then
 
 				if BaseDistressResponseDialog or BaseMonitorDialog then
-					LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE - no response to "..repr(distressType).." at "..repr(distressLocation))
+					LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR DISTRESS RESPONSE - no response to "..repr(distressType).." at "..repr(distressLocation))
 				end
 
 				-- as a base responds to a continued alert I want to gradually slow the response loop
@@ -1744,7 +1747,7 @@ EngineerManager = Class(BuilderManager) {
             if distressunderway then
             
                 if BaseDistressResponseDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE waiting "..(AlertResponseTime + (DistressRepeats*4)).." seconds until next response cycle")
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR DISTRESS RESPONSE waiting "..(AlertResponseTime + (DistressRepeats*4)).." seconds until next response cycle")
                 end
                 
                 -- each DistressRepeat adds 4 seconds to each response period --
