@@ -18,7 +18,6 @@ local OutNumbered_First15Minutes_Land = function( self,aiBrain )
 	return self.Priority, true
 end
 
-
 local OutNumbered_First15Minutes_Naval = function( self,aiBrain )
 	
 	if aiBrain.OutnumberedRatio <= 1 or aiBrain.CycleTime > 900 then
@@ -47,6 +46,26 @@ local OutNumbered_First15Minutes_Naval = function( self,aiBrain )
 	
 	return self.Priority, true
 end
+
+local First15Minutes_Naval = function( self,aiBrain )
+	
+	if aiBrain.CycleTime > 900 then
+    
+        -- permanent removal of builder    
+		return 0, false
+	end
+    
+    -- if no detected naval activity
+    if aiBrain.NavalRatio < .02 then
+        return 10, true
+    end
+	
+	return self.Priority, true
+end
+
+    
+
+
 
 local MapHasNavalAreas = function( self, aiBrain )
 
@@ -908,6 +927,54 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
             }
         }
     },        
+   
+    Builder {BuilderName = 'Naval Base Initial - Rush Detected',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 999,
+
+		PriorityFunction = First15Minutes_Naval,
+
+        BuilderConditions = {
+            
+			{ UCBC, 'IsBaseExpansionUnderway', {false} },
+            
+			{ UCBC, 'NavalBaseCount', { 1, '<' } },
+
+			-- find a safe, unused, naval marker within 8km of this base
+            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 400, -250, 50, 1, 'AntiSurface' } },
+        },
+		
+        BuilderType = { 'T1','T2' },
+		
+        BuilderData = {
+            Construction = {
+				CountedBase = true,
+                
+                ExpansionBase = true,
+                ExpansionRadius = 125,
+                
+				RallyPointRadius = 46,
+				
+                NearMarkerType = 'Naval Area',
+                LocationRadius = 400,
+				
+                ThreatMax = 50,
+                ThreatRings = 1,
+                ThreatType = 'AntiSurface',
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
+				BaseTemplate = 'NavalExpansionBase',
+
+                BuildStructures = {
+					'T1SeaFactory',
+                }
+            }
+        }
+    },      
 }
 
 BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction - Expansions',

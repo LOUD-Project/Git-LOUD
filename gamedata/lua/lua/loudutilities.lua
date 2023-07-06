@@ -4106,6 +4106,7 @@ function ParseIntelThread( aiBrain )
 	local GetPosition = moho.entity_methods.GetPosition
 	local GetUnitsAroundPoint = GetUnitsAroundPoint
 	local GetThreatsAroundPosition = GetThreatsAroundPosition
+    local IsIdleState = moho.unit_methods.IsIdleState
   
 	ScenarioInfo.MaxMapDimension = LOUDMAX(ScenarioInfo.size[1],ScenarioInfo.size[2])
     
@@ -4291,11 +4292,14 @@ function ParseIntelThread( aiBrain )
 	-- this moves all the local creation up front so NO locals need to be declared in the primary loop
 	local bp, counter, dupe, gametime, newthreat, newtime, oldthreat, threatamounttrigger, threatcategories, threatreport, threats, totalThreat
 	local DisplayIntelPoints, IntelDialog, LastUpdate, numchecks, Permanent, Position, rebuild, ReportRatios, Threat, Type, units, usedticks, x1,x2,x3
-    local aircount, airidle, landcount, landidle, navcount, navidle
+    local aircount, airidle, landcount, landidle, navcount, navidle, myaircount, myairidle, mylandcount, mylandidle, mynavalcount, mynavalidle
     
     local airtot = 0
     local landtot = 0
     local navaltot = 0
+    local myairtot = 0
+    local mylandtot = 0
+    local mynavaltot = 0
     local grandairtot = 0
     local grandlandtot = 0
     local grandnavaltot = 0
@@ -5022,7 +5026,20 @@ function ParseIntelThread( aiBrain )
                 end            
 
             end
+
+            if ReportRatios then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Air Ratio is "..repr(aiBrain.AirRatio).." Land Ratio is "..repr(aiBrain.LandRatio).." Naval Ratio is "..repr(aiBrain.NavalRatio))
+            end
             
+            grandairtot = 0
+            grandlandtot = 0
+            grandnavaltot = 0
+            
+            -- ENEMY PRODUCTION FOCUS --
+            -- accumulate the value of all enemy owned factories
+            -- divide by number of opponents
+            -- compare against my factory values to determine need for more factories
+            -- and of what type may be required
             for v, brain in BRAINS do
             
                 if IsEnemy( aiBrain.ArmyIndex, v ) and not ArmyIsCivilian( v ) then
@@ -5039,7 +5056,7 @@ function ParseIntelThread( aiBrain )
                     
                         if u:GetFractionComplete() == 1 then
 
-                            if not u:IsUnitState('Building') then 
+                            if IsIdleState(u) then 
                                 airidle = airidle + 1
                                 airtot = airtot + .3
                             else
@@ -5071,7 +5088,7 @@ function ParseIntelThread( aiBrain )
                         
                         if u:GetFractionComplete() == 1 then
 
-                            if not u:IsUnitState('Building') then 
+                            if IsIdleState(u) then 
                                 landidle = landidle + 1
                                 landtot = landtot + .3
                             else
@@ -5103,7 +5120,7 @@ function ParseIntelThread( aiBrain )
                         
                         if u:GetFractionComplete() == 1 then
 
-                            if not u:IsUnitState('Building') then 
+                            if IsIdleState(u) then 
                                 navidle = navidle + 1
                                 navaltot = navaltot + .3
                             else
@@ -5128,11 +5145,96 @@ function ParseIntelThread( aiBrain )
                 end
 
             end
+            
+            units = GetListOfUnits( aiBrain, categories.FACTORY, false, true )
+            
+            myaircount = 0
+            myairidle = 0
+            myairtot = 0
+
+            for _,u in EntityCategoryFilterDown( categories.AIR, units) do
+
+                myaircount = myaircount + 1
+
+                if u:GetFractionComplete() == 1 then
+
+                    if IsIdleState(u) then 
+                        myairidle = myairidle + 1
+                        myairtot = myairtot + .3
+                    else
+                        if EntityCategoryContains( categories.TECH1, u) then
+                            myairtot = myairtot + 1
+                        elseif EntityCategoryContains( categories.TECH2, u) then
+                            myairtot = myairtot + 4
+                        elseif EntityCategoryContains( categories.TECH3, u) then
+                            myairtot = myairtot + 10
+                        end
+                    end
+                end
+
+            end
+            
+            mylandcount = 0
+            mylandidle = 0
+            mylandtot = 0
+
+            for _,u in EntityCategoryFilterDown( categories.LAND, units) do
+
+                mylandcount = mylandcount + 1
+
+                if u:GetFractionComplete() == 1 then
+
+                    if IsIdleState(u) then 
+                        mylandidle = mylandidle + 1
+                        mylandtot = mylandtot + .3
+                    else
+                        if EntityCategoryContains( categories.TECH1, u) then
+                            mylandtot = mylandtot + 1
+                        elseif EntityCategoryContains( categories.TECH2, u) then
+                            mylandtot = mylandtot + 4
+                        elseif EntityCategoryContains( categories.TECH3, u) then
+                            mylandtot = mylandtot + 10
+                        end
+                    end
+                end
+            end
+            
+            mynavalcount = 0
+            mynavalidle = 0
+            mynavaltot = 0
+
+            for _,u in EntityCategoryFilterDown( categories.NAVAL, units) do
+
+                mynavalcount = mynavalcount + 1
+
+                if u:GetFractionComplete() == 1 then
+
+                    if IsIdleState(u) then 
+                        mynavalidle = mynavalidle + 1
+                        mynavaltot = mynavaltot + .3
+                    else
+                        if EntityCategoryContains( categories.TECH1, u) then
+                            mynavaltot = mynavaltot + 1
+                        elseif EntityCategoryContains( categories.TECH2, u) then
+                            mynavaltot = mynavaltot + 4
+                        elseif EntityCategoryContains( categories.TECH3, u) then
+                            mynavaltot = mynavaltot + 10
+                        end
+                    end
+                end
+            end
+            
+            if grandnavaltot > 0 and aiBrain.NavalRatio < 0.02 then
+            
+                LOG("*AI DEBUG "..aiBrain.Nickname.." detects naval activity")
+                aiBrain.NavalRatio = 0.2
+            end
+
 
             if ReportRatios then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Grand Factory Totals AIR "..grandairtot.." -- LAND "..grandlandtot.." -- NAVAL "..grandnavaltot)
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Air Ratio is "..repr(aiBrain.AirRatio).." Land Ratio is "..repr(aiBrain.LandRatio).." Naval Ratio is "..repr(aiBrain.NavalRatio))
-                
+                LOG("*AI DEBUG "..aiBrain.Nickname.." I have "..aiBrain.NumOpponents.." Opponents")
+                LOG("*AI DEBUG "..aiBrain.Nickname.." My factory TOTALS AIR "..myairtot.." -- LAND "..mylandtot.." -- NAVAL "..mynavaltot)
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Grand Factory Totals AIR "..grandairtot/aiBrain.NumOpponents.." -- LAND "..grandlandtot/aiBrain.NumOpponents.." -- NAVAL "..grandnavaltot/aiBrain.NumOpponents)
             end
         
         end
