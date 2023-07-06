@@ -777,18 +777,23 @@ EngineerManager = Class(BuilderManager) {
 
 			Position = aiBrain.BuilderManagers[self.LocationType].Position
 		
-			local color = 'ff0000'      -- red --
+			local color = 'cc0055'      -- red --
 		
-			if aiBrain.BuilderManagers[LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[LocationType].PrimarySeaAttackBase then
+			if aiBrain.BuilderManagers[LocationType].PrimaryLandAttackBase then
             
-				color = '00ff00'        -- green --
+				color = '00cc55'        -- green --
 			end
+            
+            if aiBrain.BuilderManagers[LocationType].PrimarySeaAttackBase then
+            
+                color = '0066cc'        -- bluish
+            end
 
 			if GetFocusArmy() == -1 or (ArmyIndex == GetFocusArmy()) or IsAlly(GetFocusArmy(), ArmyIndex) then
 
 				for j = 1, 3 do
 			
-					for i = 1,10 do
+					for i = 0,9 do
 				
 						DrawC( Position, range - i, color)
 						WaitTicks(1)
