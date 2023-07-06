@@ -1368,7 +1368,7 @@ EngineerManager = Class(BuilderManager) {
         local DistressRepeats = 0
 		local DistressTypes = { 'Air', 'Land', 'Naval' }
 		
-		local distressLocation, distressType, threatamount
+		local distressLocation, distressType, threatamount, lastdistressLocation
 	
 		local grouplnd, groupair, groupsea, groupftr
 		local grouplndcount, groupaircount, groupseacount, groupfrtcount, nextposheight
@@ -1754,12 +1754,16 @@ EngineerManager = Class(BuilderManager) {
 		end
 
         if BaseDistressResponseDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE completed")
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR DISTRESS RESPONSE completed" )
         end        
 	
 		-- If there was a response by any group try and send those groups back to rally points
 		-- note that recovery is done at the EM radius * 1.75 to pick up everyone
 		if response then
+
+            if BaseDistressResponseDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR DISTRESS RESPONSE - last distress position is "..repr(lastdistressLocation) )
+            end        
 
             -- reset the Distress Repeats --
 			DistressRepeats = 0
@@ -1778,7 +1782,7 @@ EngineerManager = Class(BuilderManager) {
 					-- use FindClosestBaseName( aiBrain, GetPlatoonPosition(), false, false ) for BaseName
 					-- use BaseName instead of LocationType below
 					-- OR JUST RTB the platoon
-					DisperseUnitsToRallyPoints( aiBrain, grouplnd, baseposition, RallyPoints )
+					DisperseUnitsToRallyPoints( aiBrain, grouplnd, baseposition, RallyPoints, lastdistressLocation, 3 )
 				
 					recovery = true
 				end
@@ -1794,7 +1798,7 @@ EngineerManager = Class(BuilderManager) {
 					IssueClearCommands( groupsea )
 				
 					-- we need to find the closest SEA manager at this point
-					DisperseUnitsToRallyPoints( aiBrain, groupsea, baseposition, RallyPoints )
+					DisperseUnitsToRallyPoints( aiBrain, groupsea, baseposition, RallyPoints, lastdistressLocation, 3 )
 				
 					recovery = true
 				end
@@ -1809,7 +1813,7 @@ EngineerManager = Class(BuilderManager) {
 					-- Move the gunship/bomber group back to base 
 					IssueClearCommands( groupair )
 				
-					DisperseUnitsToRallyPoints( aiBrain, groupair, baseposition, RallyPoints )
+					DisperseUnitsToRallyPoints( aiBrain, groupair, baseposition, RallyPoints, lastdistressLocation, 3 )
 				
 					recovery = true
 				end
@@ -1824,7 +1828,7 @@ EngineerManager = Class(BuilderManager) {
 					-- Move the fighter group back to base 
 					IssueClearCommands( groupftr )
 				
-					DisperseUnitsToRallyPoints( aiBrain, groupftr, baseposition, RallyPoints )
+					DisperseUnitsToRallyPoints( aiBrain, groupftr, baseposition, RallyPoints, lastdistressLocation, 3 )
 				
 					recovery = true
 				end

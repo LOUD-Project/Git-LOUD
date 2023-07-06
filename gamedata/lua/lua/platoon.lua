@@ -1900,7 +1900,7 @@ Platoon = Class(moho.platoon_methods) {
 			
 			-- all units are spread out to the rally points except engineers (we want them back to work ASAP)
 			if not engineer then
-				DisperseUnitsToRallyPoints( aiBrain, GetPlatoonUnits(self), RTBLocation, bestBase.RallyPoints or false )
+				DisperseUnitsToRallyPoints( aiBrain, GetPlatoonUnits(self), RTBLocation, bestBase.RallyPoints or false, GetPlatoonPosition(self), 4 )
 			else
 				-- without this, engineers will continue right to the heart of the base
 				self:Stop()
