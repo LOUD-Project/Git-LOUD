@@ -133,7 +133,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.35,
     },
 	
@@ -144,8 +143,7 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Gunship',
-        Classification = 'RULEUC_MilitaryAircraft',
+        CapCost = 1.5,
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -224,12 +222,9 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XAA_Weapon',
-                    Cue = 'XAA0305_Quad_Light_Laser',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XAA_Weapon', Cue = 'XAA0305_Quad_Light_Laser', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             AutoInitiateAttackCommand = true,
@@ -271,14 +266,7 @@ UnitBlueprint {
                     RackBone = 'C_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1,	-- 186 DPS Ground
@@ -310,14 +298,13 @@ UnitBlueprint {
 		
         {
             AlwaysRecheckTarget = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XAA_Weapon',
-                    Cue = 'XAA0305_Zealot_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XAA_Weapon', Cue = 'XAA0305_Zealot_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             AutoInitiateAttackCommand = false,
+
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -346,20 +333,11 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle01',
-                    },
+                    MuzzleBones = {'Turret_Muzzle01'},
                     RackBone = 'R_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 0.5,	-- 60 DPS Air
@@ -389,13 +367,11 @@ UnitBlueprint {
         },
         {
             AlwaysRecheckTarget = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XAA_Weapon',
-                    Cue = 'XAA0305_Zealot_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XAA_Weapon', Cue = 'XAA0305_Zealot_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -423,20 +399,10 @@ UnitBlueprint {
             ProjectileLifetime = 2,
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle02',
-                    },
+                    MuzzleBones = {'Turret_Muzzle02'},
                     RackBone = 'L_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 0.5,		-- another 60 DPS Air
 			

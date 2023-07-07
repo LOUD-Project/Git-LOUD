@@ -312,8 +312,8 @@ UnitBlueprint {
             },
 
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -391,8 +391,8 @@ UnitBlueprint {
             },
 
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RateOfFire = 0.8,		---- 24 DPS Ground
 			
@@ -471,9 +471,8 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -554,9 +553,8 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RateOfFire = 0.25,	-- 75 DPS
 			
@@ -636,9 +634,8 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RateOfFire = 0.25,		-- 75 DPS
 			
@@ -716,9 +713,8 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RateOfFire = 0.25,		---- 75 DPS Air
 			

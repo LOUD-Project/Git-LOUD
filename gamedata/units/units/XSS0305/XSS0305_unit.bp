@@ -29,7 +29,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 190,
+
     Categories = {
         'SELECTABLE',
 		'BUILTBYTIER3ENGINEER',
@@ -48,18 +50,19 @@ UnitBlueprint {
         'OVERLAYDEFENSE',
         'SORTINTEL',
     },
+
     CollisionOffsetY = -0.25,
+
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Normal',
         EconomyThreatLevel = 2,
         Health = 3500,
         MaxHealth = 3500,
         RegenRate = 0,
-        SubThreatLevel = 0,
-        SurfaceThreatLevel = 0,
     },
+
     Description = '<LOC uas0305_desc>Sonar Platform',
+
     Display = {
         Abilities = {
             '<LOC ability_sonar>Sonar',
@@ -113,7 +116,7 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
+
         UniformScale = 0.06,
     },
     
@@ -132,8 +135,6 @@ UnitBlueprint {
     },
     
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_Sensor',
         CommandCaps = {
             RULEUCC_Move = true,
             RULEUCC_Patrol = true,
@@ -147,12 +148,12 @@ UnitBlueprint {
                 helpText = 'toggle_sonar',
             },
         },
-        TechLevel = 'RULEUTL_Advanced',
+
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
         UnitName = '<LOC sss0305_name>Aezhou',
-        UnitWeight = 1,
+
         UpgradesFrom = 'xsb3202',
     },
     

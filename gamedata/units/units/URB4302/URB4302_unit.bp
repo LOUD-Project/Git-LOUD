@@ -189,13 +189,13 @@ UnitBlueprint {
                     RackBone = 'URB4302',
                 },
             },
-            RackFireTogether = false,
+             
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+            
+
             RangeCategory = 'UWRC_Countermeasure',
             RateOfFire = 0.6,
             TargetCheckInterval = 1,
@@ -238,6 +238,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 65,
 			NotExclusive = true,
+            
             ProjectileId = '/projectiles/CAADissidentAntiNuke02/CAADissidentAntiNuke02_proj.bp',
 
             RackBones = {
@@ -248,13 +249,9 @@ UnitBlueprint {
                     RackBone = 'URB4302',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+
             RangeCategory = 'UWRC_AntiAir',
             RateOfFire = 0.2,
             TargetCheckInterval = 3,

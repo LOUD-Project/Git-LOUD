@@ -120,8 +120,7 @@ UnitBlueprint {
                 },
             },
         },
-		
-        SpawnRandomRotation = false,
+
         UniformScale = 0.1,
     },
 	
@@ -132,8 +131,7 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Gunship',
-        Classification = 'RULEUC_MilitaryAircraft',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -146,9 +144,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC uea0305_name>Broadsword',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -215,12 +211,9 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UEAWeapon',
-                    Cue = 'UEA0305_Hvy_Plasma_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UEAWeapon', Cue = 'UEA0305_Hvy_Plasma_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             AutoInitiateAttackCommand = true,
@@ -254,26 +247,15 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Down_Muzzle_01',
-                    },
+                    MuzzleBones = {'Turret_Down_Muzzle_01'},
                     RackBone = 'Turret_Down_Barrel_01',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Down_Muzzle_02',
-                    },
+                    MuzzleBones = {'Turret_Down_Muzzle_02'},
                     RackBone = 'Turret_Down_Barrel_02',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 2,		---- about 260DPS
@@ -310,11 +292,7 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UEAWeapon',
-                    Cue = 'UEA0104_Railgun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UEAWeapon', Cue = 'UEA0104_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -349,18 +327,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Up_Muzzle_01',
-                    },
+                    MuzzleBones = {'Turret_Up_Muzzle_01'},
                     RackBone = 'Turret_Up_Barrel',
                 },
             },
-            RackFireTogether = true,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_AntiAir',

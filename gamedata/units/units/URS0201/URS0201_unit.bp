@@ -193,8 +193,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Ship',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -205,9 +203,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC urs0201_name>Salem Class',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -311,9 +307,7 @@ UnitBlueprint {
             Label = 'ParticleGun',
 			
             MaxRadius = 55,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
 			
             ProjectileId = '/projectiles/CDFProtonCannon01/CDFProtonCannon01_proj.bp',
@@ -328,14 +322,9 @@ UnitBlueprint {
                     RackBone = 'Barrel_Cannon',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1,		--- 220 DPS
@@ -363,7 +352,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 135,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 55,
 			
             Turreted = true,
         },
@@ -421,14 +410,7 @@ UnitBlueprint {
                     RackBone = 'Barrel_AA',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 1,		-- 72 DPS Air
@@ -495,21 +477,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Torpedo_L',
-                        'Torpedo_R',
-                    },
+                    MuzzleBones = {'Torpedo_L','Torpedo_R'},
                     RackBone = 'Torp_Launcher_L',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 0.5,		-- 2 torpedoes * .5 = 60 DPS Sub
@@ -552,9 +524,7 @@ UnitBlueprint {
 			
             MaxRadius = 25,
             MinRadius = 0,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/CIMAntiTorpedo01/CIMAntiTorpedo01_proj.bp',
@@ -568,14 +538,7 @@ UnitBlueprint {
                     RackBone = 'Muzzle_Front',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 0.4,
@@ -625,9 +588,7 @@ UnitBlueprint {
 			
             MaxRadius = 25,
             MinRadius = 0,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/CIMAntiTorpedo01/CIMAntiTorpedo01_proj.bp',
@@ -635,21 +596,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle_Back',
-                    },
+                    MuzzleBones = {'Muzzle_Back'},
                     RackBone = 'Muzzle_Back',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 0.6,
 			
@@ -684,10 +634,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
             Water = true,
         },
     },

@@ -827,14 +827,15 @@ UnitBlueprint {
                     RackBone = 'Right_Turret',
                 },
             },
-            RackFireTogether = false,
+             
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
+
+
             RackSalvoFiresAfterCharge = false,
-            RackSalvoReloadTime = 0,
+             
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+            
+
             RangeCategory = 'UWRC_DirectFire',
             RateOfFire = 1,
             TargetCheckInterval = 0.5,
@@ -842,8 +843,8 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                
-                'ALLUNITS',
+   
+   'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TurretBoneMuzzle = 'Turret_Muzzle_02',
@@ -905,14 +906,15 @@ UnitBlueprint {
                     RackBone = 'Right_Turret',
                 },
             },
-            RackFireTogether = false,
+             
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
+             
             RackSalvoFiresAfterCharge = false,
-            RackSalvoReloadTime = 0,
+             
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+            
+
             RangeCategory = 'UWRC_DirectFire',
             RateOfFire = 0.3,
             TargetCheckInterval = 1,
@@ -1025,13 +1027,14 @@ UnitBlueprint {
                     RackBone = 'Turret_Muzzle_03',
                 },
             },
-            RackFireTogether = false,
+             
             
             RackReloadTimeout = 1,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+            
+
             RangeCategory = 'UWRC_DirectFire',
             RateOfFire = 3,
             TargetCheckInterval = 0.5,
@@ -1039,8 +1042,8 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                
-                'ALLUNITS',
+   
+   'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
@@ -1088,13 +1091,14 @@ UnitBlueprint {
                     RackBone = 'Turret_Muzzle_03',
                 },
             },
-            RackFireTogether = false,
+             
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+            
+
             RangeCategory = 'UWRC_AntiNavy',
             RateOfFire = 0.25,
             TargetCheckInterval = 1,
@@ -1102,8 +1106,8 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                
-                'ALLUNITS',
+   
+   'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
             Turreted = false,

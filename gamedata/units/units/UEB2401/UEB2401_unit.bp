@@ -96,7 +96,7 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_01_albedo',
@@ -284,9 +284,8 @@ UnitBlueprint {
 
             RackRecoilDistance = -30,
 			
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RangeCategory = 'UWRC_IndirectFire',
 			

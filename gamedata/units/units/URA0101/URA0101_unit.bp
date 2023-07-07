@@ -94,7 +94,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.07,
     },
 	
@@ -112,8 +111,7 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 0.1,
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryAircraft',
+
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Dock = true,
@@ -124,9 +122,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC ura0101_name>Peeker',
-        UnitWeight = 1,
     },
 	
     Intel = {

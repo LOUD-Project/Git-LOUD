@@ -154,19 +154,16 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
 	
     Economy = {
-        BuildCostEnergy = 3960,
+        BuildCostEnergy = 4200,
         BuildCostMass = 360,
-        BuildTime = 1200,
+        BuildTime = 1800,
     },
 
     General = {
-        Category = 'Submarine',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Dive = true,
@@ -178,9 +175,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'sea',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC uas0203_name>Sylph',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -200,26 +195,26 @@ UnitBlueprint {
     LifeBarSize = 0.75,
 	
     Physics = {
-        BackUpDistance = 5,
+        BackUpDistance = 6,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Sub = true,
         },
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
-        Elevation = -2.5,
-        MaxAcceleration = 1.25,
+        Elevation = -2.8,
+        MaxAcceleration = 1,
         MaxBrake = 2,
         MaxSpeed = 4,
-        MaxSpeedReverse = 4,
+        MaxSpeedReverse = 2,
         MaxSteerForce = 5,
         MeshExtentsX = 0.6,
         MeshExtentsY = 0.65,
         MeshExtentsZ = 2,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_SurfacingSub',
-        TurnRadius = 5,
-        TurnRate = 60,
+        TurnRadius = 10,
+        TurnRate = 50,
     },
 	
     SelectionSizeX = 0.35,
@@ -244,12 +239,9 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UASWeapon',
-                    Cue = 'UAS0203_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound {Bank = 'UASWeapon',Cue = 'UAS0203_Torpedo',LodCutoff = 'Weapon_LodCutoff'},
             },
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -278,23 +270,11 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'muzzle_01',
-                        'Muzzle_02',
-                    },
+                    MuzzleBones = {'muzzle_01','Muzzle_02'},
                     RackBone = 'muzzle_01',
                 },
             },
-			
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 0.3,		-- 2 torps of 100 = 200 damage * .3 = 60 DPS Sub/Surface
@@ -306,7 +286,7 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'MOBILE SUBMARINE',
+                'SUBMARINE',
 				'MOBILE NAVAL',
 				'MOBILE',
                 'DEFENSE',

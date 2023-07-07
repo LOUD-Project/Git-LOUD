@@ -246,14 +246,13 @@ UnitBlueprint {
                     RackBone = 'B04',
                 },
             },
-            RackFireTogether = false,
+             
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 1.6,
@@ -311,14 +310,13 @@ UnitBlueprint {
                     RackBone = 'B06',
                 },
             },
-            RackFireTogether = false,
+             
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 1.2,

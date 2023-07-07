@@ -98,7 +98,7 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
+
         UniformScale = 0.15,
     },
 	
@@ -229,7 +229,7 @@ UnitBlueprint {
             },
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
+             
             RackSalvoReloadTime = 10,
 
             RateOfFire = 10,

@@ -121,9 +121,9 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.09,
     },
+
     Economy = {
         BuildCostEnergy = 6000,
         BuildCostMass = 240,
@@ -131,8 +131,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Bomber',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -145,9 +143,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC xsa0204_name>Uosioz',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -213,13 +209,11 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0204_Heavy_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0204_Heavy_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -255,20 +249,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Torpedo',
-                    },
+                    MuzzleBones = {'Torpedo'},
                     RackBone = 'Torpedo',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
 			RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 0.1,	-- 96 DPS

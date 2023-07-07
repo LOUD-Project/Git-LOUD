@@ -33,15 +33,15 @@ URL0107 = Class(CWalkingLandUnit) {
             for _, v in self.BuildProjectile do
             
                 TrashDestroy( v.BuildEffectsBag )
-                
-                ScaleEmitter( v.Emitter, .1)
+   
+   ScaleEmitter( v.Emitter, .1)
                 ScaleEmitter( v.Sparker, .1)
 
                 if v.Detached then
                     v:AttachTo( self, v.Name )
                 end
-                
-                v.Detached = false
+   
+   v.Detached = false
             end
         end
         

@@ -18,8 +18,8 @@ XSB1302 = Class(SMassCollectionUnit) {
         Main = function(self)
             WaitFor(self.ExtractionAnimManip)
             while not self:IsDead() do
-                
-                self.ExtractionAnimManip:PlayAnim(self:GetBlueprint().Display.AnimationActivate):SetRate(1)
+   
+   self.ExtractionAnimManip:PlayAnim(self:GetBlueprint().Display.AnimationActivate):SetRate(1)
                 WaitFor(self.ExtractionAnimManip)
             end
         end,

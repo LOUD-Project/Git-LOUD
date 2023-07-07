@@ -69,7 +69,7 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
+
 
         UniformScale = 0.17,
     },
@@ -187,14 +187,14 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
+             
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 0.25,	-- 240 DPS Sub

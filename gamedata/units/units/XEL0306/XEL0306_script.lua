@@ -21,9 +21,8 @@ XEL0306 = Class(TLandUnit) {
                 OnLostTarget = function(self)
                     self:ForkThread( self.LostTargetThread )
                 end,            
-            },            
-
-			-- changed so that it can pack the weapon
+            },
+-- changed so that it can pack the weapon
 			-- just after lost target - no need to be complicated
 			-- no reason it cant be moving & pack weapon at same time
             LostTargetThread = function(self)

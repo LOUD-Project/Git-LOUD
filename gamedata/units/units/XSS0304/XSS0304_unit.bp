@@ -181,7 +181,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.035,
     },
 	
@@ -193,8 +192,6 @@ UnitBlueprint {
 
     General = {
 		CapCost = 3,
-        Category = 'Submarine',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Dive = true,
@@ -206,9 +203,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'sea',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC xss0304_name>Yathsou',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -318,14 +313,7 @@ UnitBlueprint {
                     RackBone = 'Torpedo02',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 0.1,		-- 9 torps of 500 every 10 seconds = 450 DPS Sub
@@ -385,20 +373,11 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Left_Turret_Muzzle'},
                     RackBone = 'Left_Turret_Muzzle',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 0.5,
@@ -463,14 +442,13 @@ UnitBlueprint {
                     RackBone = 'Right_Turret_Muzzle',
                 },
             },
-            RackFireTogether = false,
+             
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 0.9,
@@ -545,14 +523,13 @@ UnitBlueprint {
                     RackBone = 'Front_Turret_Barrel01',
                 },
             },
-            RackFireTogether = false,
+             
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,		---- 440 DPS Air

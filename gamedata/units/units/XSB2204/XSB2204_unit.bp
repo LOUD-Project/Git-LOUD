@@ -86,7 +86,7 @@ UnitBlueprint {
         },
 
 
-        SpawnRandomRotation = true,
+
         UniformScale = 0.042,
     },
     
@@ -228,12 +228,12 @@ UnitBlueprint {
                     RackBone = 'Barrel_Right',
                 },
             },
-            RackFireTogether = false,
+             
 
-            RackReloadTimeout = 0,
+             
             RackSalvoChargeTime = 0.1,
             RackSalvoFiresAfterCharge = true,
-            RackSalvoReloadTime = 0,
+             
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 

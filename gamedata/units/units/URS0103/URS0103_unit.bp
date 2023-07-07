@@ -127,7 +127,6 @@ UnitBlueprint {
         },
 
         UniformScale = 0.055,
-		
     },
 	
     Economy = {
@@ -138,8 +137,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Ship',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -150,9 +147,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'sea',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC urs0103_name>Trident Class',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -248,9 +243,7 @@ UnitBlueprint {
             Label = 'ProtonCannon',
 			
             MaxRadius = 38,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
 			
             ProjectileId = '/projectiles/CDFProtonCannon04/CDFProtonCannon04_proj.bp',
@@ -258,21 +251,13 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Muzzle',
-                    },
+                    MuzzleBones = {'Front_Muzzle'},
                     RackBone = 'Front_Turret_Barrel',
                 },
             },
-			
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.5,		-- 60 DPS Surface
@@ -284,8 +269,8 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL MOBILE',
-                
-                'ALLUNITS',
+   
+   'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
@@ -336,7 +321,7 @@ UnitBlueprint {
             MaxRadius = 36,
 			
             MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 8,
+            MuzzleSalvoSize = 4,
             MuzzleVelocity = 60,
             
             ProjectileId = '/projectiles/CAAAutocannon01/CAAAutocannon01_proj.bp',
@@ -353,12 +338,7 @@ UnitBlueprint {
                     RackBone = 'Back_Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_AntiAir',
@@ -370,7 +350,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Back_Turret_Barrel',
             TurretBonePitch = 'Back_Turret_Barrel',
@@ -379,11 +359,11 @@ UnitBlueprint {
 			
             TurretPitch = 45,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 100,
+            TurretPitchSpeed = 80,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 100,
+            TurretYawSpeed = 80,
 			
             Turreted = true,
         },

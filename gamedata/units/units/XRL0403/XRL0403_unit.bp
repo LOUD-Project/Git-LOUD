@@ -366,8 +366,8 @@ UnitBlueprint {
 
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -461,8 +461,8 @@ UnitBlueprint {
 
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -560,9 +560,8 @@ UnitBlueprint {
             },
             RackFireTogether = true,
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -628,9 +627,8 @@ UnitBlueprint {
             },
             RackFireTogether = true,
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -697,9 +695,8 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RangeCategory = 'UWRC_AntiAir',
 			

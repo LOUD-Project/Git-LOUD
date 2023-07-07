@@ -4,6 +4,7 @@ UnitBlueprint {
         GuardReturnRadius = 200,
         GuardScanRadius = 150,
     },
+
     Air = {
         AutoLandTime = 1,
         BankFactor = 3,
@@ -109,7 +110,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.1,
     },
 	
@@ -126,8 +126,7 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Bomber',
-        Classification = 'RULEUC_MilitaryAircraft',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -140,9 +139,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC ura0103_name>Zeus',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -202,14 +199,13 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'URAWeapon',
-                    Cue = 'URA0103_Cluster_Bomb',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URAWeapon', Cue = 'URA0103_Cluster_Bomb', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
             BombDropThreshold = 3,
             CollideFriendly = false,
@@ -255,14 +251,7 @@ UnitBlueprint {
                     RackBone = 'Muzzle_L03',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 0.4,	-- 120 DPS
 			
             TargetCheckInterval = 1,

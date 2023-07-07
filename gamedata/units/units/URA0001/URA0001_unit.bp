@@ -59,9 +59,9 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.14,
     },
+
     Economy = {
         BuildCostEnergy = 0,
         BuildCostMass = 0,
@@ -74,15 +74,16 @@ UnitBlueprint {
         ConsumptionPerSecondMass = 0,
         MaxBuildDistance = 100,
     },
+
     Footprint = {
         MaxSlope = 0.25,
         SizeX = 1,
         SizeZ = 1,
     },
+
     General = {
         CapCost = 0,
-        Category = 'Construction',
-        Classification = 'RULEUC_Engineer',
+
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Guard = true,
@@ -95,19 +96,21 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'air',
         SelectionPriority = 3,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 0,
     },
+
     Interface = {
         HelpText = 'Build Bot',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.25,
     LifeBarRender = false,
     LifeBarSize = 0.01,
+
     Physics = {
         BankingSlope = 0.5,
         BuildOnLayerCaps = {
@@ -126,9 +129,12 @@ UnitBlueprint {
         TurnRadius = 360,
         TurnRate = 180,
     },
+
     SelectionThickness = 0.2,
+
     SizeX = 0.25,
     SizeY = 0.25,
     SizeZ = 0.25,
+
     StrategicIconSortPriority = 105,
 }

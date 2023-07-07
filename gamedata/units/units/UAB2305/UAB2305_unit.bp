@@ -108,7 +108,7 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_aeon_01_albedo',
@@ -281,14 +281,14 @@ UnitBlueprint {
                     RackBone = 'Turret_Muzzle01',
                 },
             },
-            RackFireTogether = false,
+             
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 1,

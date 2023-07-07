@@ -85,7 +85,7 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
+
 		
         Tarmacs = {
             {

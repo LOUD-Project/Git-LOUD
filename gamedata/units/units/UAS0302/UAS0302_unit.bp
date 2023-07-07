@@ -58,7 +58,6 @@ UnitBlueprint {
     },
 	
     CollisionOffsetY = -1,
-    CollisionOffsetZ = 0,
 	
     Defense = {
         ArmorType = 'Normal',
@@ -119,7 +118,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.07,
     },
 	
@@ -131,8 +129,6 @@ UnitBlueprint {
 
     General = {
 		CapCost = 3,
-        Category = 'Ship',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -143,9 +139,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'sea',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC uas0302_name>Omen Class',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -207,29 +201,16 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             AnimationOpen = '/units/uas0302/uas0302_awepF01.sca',
+
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Lrg_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Lrg_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UASWeapon',
-                    Cue = 'UAS0302_Cannon_Oblivion',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'UASWeapon',
-                    Cue = 'UAS0302_Cannon_Oblv_Charge',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire = Sound { Bank = 'UASWeapon', Cue = 'UAS0302_Cannon_Oblivion', LodCutoff = 'WeaponBig_LodCutoff' },
+                MuzzleChargeStart = Sound { Bank = 'UASWeapon', Cue = 'UAS0302_Cannon_Oblv_Charge', LodCutoff = 'WeaponBig_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
+
             CollideFriendly = false,
 			
             Damage = 1050,
@@ -257,8 +238,6 @@ UnitBlueprint {
             MinRadius = 10,
 			
             MuzzleChargeDelay = 1.2,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             
             MuzzleVelocity = 38,
             MuzzleVelocityRandom = 0.3,
@@ -270,20 +249,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Front_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Front_Muzzle'},
                     RackBone = 'Turret_Front_Barrel02',
                 },
             },
-            RackFireTogether = false,
-            
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
             
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -318,30 +287,18 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+
             AnimationOpen = '/units/uas0302/uas0302_awepM01.sca',
+
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Lrg_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Lrg_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UASWeapon',
-                    Cue = 'UAS0302_Cannon_Oblivion',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'UASWeapon',
-                    Cue = 'UAS0302_Cannon_Oblv_Charge',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire = Sound { Bank = 'UASWeapon', Cue = 'UAS0302_Cannon_Oblivion', LodCutoff = 'WeaponBig_LodCutoff' },
+                MuzzleChargeStart = Sound { Bank = 'UASWeapon', Cue = 'UAS0302_Cannon_Oblv_Charge', LodCutoff = 'WeaponBig_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
+
             CollideFriendly = false,
 			
             Damage = 1050,
@@ -369,9 +326,7 @@ UnitBlueprint {
             MinRadius = 10,
 			
             MuzzleChargeDelay = 1.2,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            
+
             MuzzleVelocity = 38,
             MuzzleVelocityRandom = 0.5,
             MuzzleVelocityReduceDistance = 90,
@@ -382,20 +337,11 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Middle_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Middle_Muzzle'},
                     RackBone = 'Turret_Middle_Barrel02',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 1,		-- another 210 DPS Surface - controlled by charge
 			
             SlavedToBody = true,
@@ -428,30 +374,18 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+
             AnimationOpen = '/units/uas0302/uas0302_awepB01.sca',
+
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Lrg_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Lrg_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UASWeapon',
-                    Cue = 'UAS0302_Cannon_Oblivion',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'UASWeapon',
-                    Cue = 'UAS0302_Cannon_Oblv_Charge',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire = Sound { Bank = 'UASWeapon', Cue = 'UAS0302_Cannon_Oblivion', LodCutoff = 'WeaponBig_LodCutoff' },
+                MuzzleChargeStart = Sound { Bank = 'UASWeapon', Cue = 'UAS0302_Cannon_Oblv_Charge', LodCutoff = 'WeaponBig_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
+
             CollideFriendly = false,
 			
             Damage = 1050,
@@ -479,8 +413,6 @@ UnitBlueprint {
             MinRadius = 10,            
 			
             MuzzleChargeDelay = 1.2,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             
             MuzzleVelocity = 36,
             MuzzleVelocityRandom = 0.5,
@@ -491,19 +423,11 @@ UnitBlueprint {
             ProjectileId = '/projectiles/ADFOblivionCannon02/ADFOblivionCannon02_proj.bp',
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Back_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Back_Muzzle'},
                     RackBone = 'Turret_Back_Barrel02',
                 },
             },
 
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
             RateOfFire = 1,		-- another 210 DPS Surface controlled by charge
 			
             SlavedToBody = true,
@@ -558,9 +482,7 @@ UnitBlueprint {
             Label = 'AntiMissile1',
 			
             MaxRadius = 22,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 25,
 			
             ProjectileId = '/projectiles/AIMAntiMissile01/AIMAntiMissile01_proj.bp',
@@ -568,18 +490,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile01',
-                    },
+                    MuzzleBones = {'Projectile01'},
                     RackBone = 'Projectile01',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -616,8 +530,7 @@ UnitBlueprint {
             Label = 'AntiMissile2',
 			
             MaxRadius = 22,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 25,
 			
             ProjectileId = '/projectiles/AIMAntiMissile01/AIMAntiMissile01_proj.bp',
@@ -625,17 +538,14 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile02',
-                    },
+                    MuzzleBones = {'Projectile02'},
                     RackBone = 'Projectile02',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
+
             RackSalvoChargeTime = 0.2,
             RackSalvoReloadTime = 0.2,
+
             RackSalvoSize = 1,
 
             RateOfFire = 0.9,

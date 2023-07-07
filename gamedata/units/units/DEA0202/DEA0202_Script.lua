@@ -15,8 +15,8 @@ DEA0202 = Class(TAirUnit) {
                 Main = function(self)
                     TIFCarpetBombWeapon.IdleState.Main(self)
                 end,
-                
-                OnGotTarget = function(self)
+   
+   OnGotTarget = function(self)
 				
                     self.unit:SetBreakOffTriggerMult(2.0)
                     self.unit:SetBreakOffDistanceMult(8.0)

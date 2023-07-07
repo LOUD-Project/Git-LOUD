@@ -229,14 +229,13 @@ UnitBlueprint {
                 },
             },
 			
-            RackFireTogether = false,
+             
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 0.3,		-- 4 torps * 110 = 440 dmg * .3 = 132 DPS Sub
@@ -301,14 +300,13 @@ UnitBlueprint {
                     RackBone = 'Anti_Torpedo_Left',
                 },				
             },
-            RackFireTogether = false,
+             
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 0.8,

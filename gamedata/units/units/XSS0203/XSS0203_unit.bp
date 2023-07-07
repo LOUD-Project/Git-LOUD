@@ -76,7 +76,9 @@ UnitBlueprint {
             'Torpedo Defense',
 			'Deck Gun',
         },
+
         CannonOpenAnimation = '/units/xss0203/xss0203_aopen.sca',
+
         IdleEffects = {
             Sub = {
                 Effects = {
@@ -102,6 +104,7 @@ UnitBlueprint {
                 },
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -172,19 +175,16 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
 	
     Economy = {
-        BuildCostEnergy = 4250,
+        BuildCostEnergy = 4675,
         BuildCostMass = 390,
-        BuildTime = 1950,
+        BuildTime = 2000,
     },
 
     General = {
-        Category = 'Submarine',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Dive = true,
@@ -196,9 +196,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'sea',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC xss0203_name>Sou-istle',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -218,26 +216,26 @@ UnitBlueprint {
     LifeBarSize = 0.6,
 	
     Physics = {
-        BackUpDistance = 5,
+        BackUpDistance = 6,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Sub = true,
         },
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
-        Elevation = -2.5,
-        MaxAcceleration = 1.5,
+        Elevation = -2.8,
+        MaxAcceleration = 1,
         MaxBrake = 2,
         MaxSpeed = 4,
-        MaxSpeedReverse = 4,
+        MaxSpeedReverse = 2,
         MaxSteerForce = 5,
         MeshExtentsX = 0.6,
         MeshExtentsY = 0.65,
         MeshExtentsZ = 2.5,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_SurfacingSub',
-        TurnRadius = 5,
-        TurnRate = 60,
+        TurnRadius = 8,
+        TurnRate = 50,
     },
 	
     SelectionSizeX = 0.36,
@@ -262,16 +260,13 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0203_Uall_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0203_Uall_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 120,
+            Damage = 125,
             DamageType = 'Normal',
 			
             DisplayName = 'Uall Cavitation Torpedo',
@@ -282,6 +277,7 @@ UnitBlueprint {
             },
 			
             FiringTolerance = 2,
+
             Label = 'Torpedo',
 			
             MaxRadius = 32,
@@ -295,24 +291,14 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile01',
-                        'Projectile02',
-                    },
+                    MuzzleBones = { 'Projectile01', 'Projectile02' },
                     RackBone = 'Projectile01',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.2,		-- 240 * .2 = 48 DPS Sub/Surface
+            RateOfFire = 0.2,		-- 250 * .2 = 50 DPS Sub/Surface
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 10,
@@ -320,7 +306,7 @@ UnitBlueprint {
             TargetCheckInterval = 1.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'MOBILE SUBMARINE',
+                'SUBMARINE',
 				'MOBILE NAVAL',
 				'MOBILE',
                 'DEFENSE',
@@ -334,7 +320,7 @@ UnitBlueprint {
 			
             Damage = 2,
 			DamageFriendly = false,
-			DamageRadius = 2,
+			DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Anti Torpedo',
@@ -349,35 +335,24 @@ UnitBlueprint {
             Label = 'AntiTorpedo',
 			
             MaxRadius = 25,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            MuzzleVelocity = 10,
+
+            MuzzleVelocity = 8,
 			
             ProjectileId = '/projectiles/SANAjelluAntiTorpedo01/SANAjelluAntiTorpedo01_proj.bp',
             ProjectileLifetime = 4,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'AntiTorpedo',
-                    },
+                    MuzzleBones = { 'AntiTorpedo' },
                     RackBone = 'AntiTorpedo',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 0.4,
 			
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1,
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
@@ -396,23 +371,20 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 40,
 			
             Turreted = true,
         },
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0203_Spectra_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0203_Spectra_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 10,
+            Damage = 15,
             DamageType = 'Normal',
 			
             DisplayName = 'Oh Spectra Cannon',
@@ -426,9 +398,7 @@ UnitBlueprint {
             Label = 'Cannon',
 			
             MaxRadius = 28,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/SDFOhCannon02/SDFOhCannon02_proj.bp',
@@ -436,21 +406,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = { 'Turret_Muzzle' },
                     RackBone = 'Turret_Barrel',
                 },
             },
-			
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 2,		-- 20 DPS Surface
@@ -460,7 +420,6 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL MOBILE',
-                
                 'ALLUNITS',
             },
 			

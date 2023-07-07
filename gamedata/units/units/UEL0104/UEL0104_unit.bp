@@ -69,7 +69,7 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
+
         UniformScale = 0.065,
     },
 	
@@ -203,8 +203,8 @@ UnitBlueprint {
             },
             RackRecoilDistance = -0.5,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 2,
             RackSlavedToTurret = true,
 			

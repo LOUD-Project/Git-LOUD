@@ -73,7 +73,7 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
+
         UniformScale = 0.055,
     },
     

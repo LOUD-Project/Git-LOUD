@@ -127,8 +127,7 @@ UnitBlueprint {
                 },
             },
         },
-		
-        SpawnRandomRotation = true,
+
         UniformScale = 0.08,
     },
 	
@@ -139,8 +138,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Bomber',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -153,9 +150,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC ura0204_name>Cormorant',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -221,11 +216,7 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'URAWeapon',
-                    Cue = 'URA0204_Torpedo_Nanite',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URAWeapon', Cue = 'URA0204_Torpedo_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             AutoInitiateAttackCommand = true,
@@ -277,15 +268,7 @@ UnitBlueprint {
                     RackBone = 'TorpedoL',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
-            RackSlavedToTurret = false,
-			
+
 			RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 0.1,		-- 100 DPS Sub

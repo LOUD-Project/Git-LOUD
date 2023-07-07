@@ -75,7 +75,7 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
+
         TransportAnimation = {
             {
                 Animation = '/units/XSL0202/XSL0202_afold.sca',
@@ -226,11 +226,11 @@ UnitBlueprint {
                 },
             },
 			
-            RackFireTogether = false,
+             
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			

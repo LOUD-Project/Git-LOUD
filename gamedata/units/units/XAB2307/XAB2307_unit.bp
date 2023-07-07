@@ -82,7 +82,7 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
+
 		
         Tarmacs = {
             {
@@ -256,10 +256,10 @@ UnitBlueprint {
 
             RackRecoilDistance = -1,
 			
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
+
+
             RackSalvoFiresAfterCharge = false,
-            RackSalvoReloadTime = 0,
+             
 
             RangeCategory = 'UWRC_IndirectFire',
 			

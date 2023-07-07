@@ -26,8 +26,8 @@ DEL0204 = Class(TWalkingLandUnit)
                     self.SpinManip = CreateRotator(self.unit, 'Left_Arm_Barrel', 'z', nil, 270, 180, 60)
                     self.unit.Trash:Add(self.SpinManip)
                 end
-                
-                if self.SpinManip then
+   
+   if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(500)
                 end
                 TDFPlasmaCannonWeapon.PlayFxRackSalvoChargeSequence(self)

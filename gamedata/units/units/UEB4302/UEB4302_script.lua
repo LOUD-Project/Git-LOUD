@@ -22,8 +22,8 @@ UEB4302 = Class(TStructureUnit) {
                         TAMInterceptorWeapon.IdleState.OnFire(self)
                     end
                     nukeFiredOnGotTarget = false
-                    
-                    self:ForkThread(function()
+       
+       self:ForkThread(function()
                         self.unit:SetBusy(true)
                         WaitSeconds(1/self.unit:GetBlueprint().Weapon[1].RateOfFire + .2)
                         self.unit:SetBusy(false)

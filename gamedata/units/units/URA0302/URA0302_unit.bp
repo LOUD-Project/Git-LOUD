@@ -99,7 +99,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.35,
     },
 	
@@ -110,8 +109,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Dock = true,
@@ -122,9 +119,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC ura0302_name>Spook',
-        UnitWeight = 1,
     },
 	
     Intel = {

@@ -110,7 +110,6 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = false,
         UniformScale = 0.125,
     },
 	
@@ -123,8 +122,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_Sensor',
         CommandCaps = {
             RULEUCC_Move = true,
             RULEUCC_Patrol = true,
@@ -138,13 +135,13 @@ UnitBlueprint {
                 helpText = 'toggle_sonar',
             },
         },
-        TechLevel = 'RULEUTL_Advanced',
+
         ToggleCaps = {
 			RULEUTC_CloakToggle = true,
             RULEUTC_IntelToggle = true,
         },
         UnitName = '<LOC urs0305_name>Flood XR',
-        UnitWeight = 1,
+
         UpgradesFrom = 'urb3202',
     },
 	

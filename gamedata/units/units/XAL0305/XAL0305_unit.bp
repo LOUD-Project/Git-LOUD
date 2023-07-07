@@ -96,7 +96,7 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
+
         TransportAnimation = {
             {
                 Animation = '/units/XAL0305/XAL0305_Afold01.sca',
@@ -246,8 +246,8 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.1,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 			
             RangeCategory = 'UWRC_DirectFire',
 			

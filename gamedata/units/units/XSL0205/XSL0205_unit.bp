@@ -74,7 +74,7 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
+
         UniformScale = 0.038,
     },
 	
@@ -222,12 +222,12 @@ UnitBlueprint {
                 },
             },
 			
-            RackFireTogether = false,
+             
             
-            RackReloadTimeout = 0,
+             
             RackSalvoChargeTime = 0.1,
             RackSalvoFiresAfterCharge = true,
-            RackSalvoReloadTime = 0,
+             
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
             RangeCategory = 'UWRC_AntiAir',

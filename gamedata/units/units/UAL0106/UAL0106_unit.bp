@@ -71,7 +71,7 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
+
         TransportAnimation = {
             {
                 Animation = '/units/UAL0106/UAL0106_Afold01.sca',
@@ -216,8 +216,8 @@ UnitBlueprint {
             RackFireTogether = true,
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_DirectFire',

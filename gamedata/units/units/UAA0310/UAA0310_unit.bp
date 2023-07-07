@@ -168,7 +168,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.0225,
     },
 	
@@ -196,8 +195,7 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 10,
-        Category = 'Experimental',
-        Classification = 'RULEUC_MilitaryAircraft',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -217,9 +215,7 @@ UnitBlueprint {
                 helpText = 'deploy',
             },
         },
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC uaa0310_name>CZAR',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -291,21 +287,9 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0310_Quantum_Beam_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0310_Quantum_Beam_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0310_Quantum_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop = Sound { Bank = 'UAAWeapon', Cue = 'UAA0310_Quantum_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart = Sound { Bank = 'UAAWeapon', Cue = 'UAA0310_Quantum_Beam_Fire', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop = Sound { Bank = 'UAAWeapon', Cue = 'UAA0310_Quantum_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             AutoInitiateAttackCommand = true,
@@ -346,16 +330,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Center_Muzzle',
-                    },
+                    MuzzleBones = {'Center_Muzzle'},
                     RackBone = 'Center_Muzzle',
                 },
             },
-
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 1,		-- 8K DPS Ground
 			
@@ -374,11 +352,7 @@ UnitBlueprint {
 		
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2304_SAM',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB2304_SAM', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -395,7 +369,7 @@ UnitBlueprint {
                 Air = 'Air|Land',
             },
 			
-            FiringTolerance = 10,
+            FiringTolerance = 45,
 			
             HeadingArcCenter = 230,
             HeadingArcRange = 120,
@@ -413,16 +387,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Turret01_Muzzle',
-                    },
+                    MuzzleBones = {'Left_Turret01_Muzzle'},
                     RackBone = 'Left_Turret01_Barrel',
                 },
             },
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -440,12 +408,9 @@ UnitBlueprint {
 		
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2304_SAM',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB2304_SAM', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -459,7 +424,7 @@ UnitBlueprint {
                 Air = 'Air|Land',
             },
 			
-            FiringTolerance = 10,
+            FiringTolerance = 45,
 			
             HeadingArcCenter = 310,
             HeadingArcRange = 120,
@@ -477,16 +442,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Turret03_Muzzle',
-                    },
+                    MuzzleBones = {'Left_Turret03_Muzzle'},
                     RackBone = 'Left_Turret03_Barrel',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 1,		-- 600 DPS Air
 			
@@ -502,12 +461,9 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2304_SAM',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB2304_SAM', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -521,7 +477,7 @@ UnitBlueprint {
                 Air = 'Air|Land',
             },
 			
-            FiringTolerance = 10,
+            FiringTolerance = 45,
 			
             HeadingArcCenter = 130,
             HeadingArcRange = 120,
@@ -539,16 +495,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Turret01_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Turret01_Muzzle'},
                     RackBone = 'Right_Turret01_Barrel',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 1,		-- 600 DPS Air
 			
@@ -563,12 +513,9 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2304_SAM',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB2304_SAM', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -582,7 +529,7 @@ UnitBlueprint {
                 Air = 'Air|Land',
             },
 			
-            FiringTolerance = 10,
+            FiringTolerance = 45,
 			
             HeadingArcCenter = 50,
             HeadingArcRange = 120,
@@ -600,16 +547,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Turret03_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Turret03_Muzzle'},
                     RackBone = 'Right_Turret01_Barrel03',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 1,		-- 600 DPS Air
 			
@@ -627,11 +568,7 @@ UnitBlueprint {
 		
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UASWeapon',
-                    Cue = 'UAS0201_Depth_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UASWeapon', Cue = 'UAS0201_Depth_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
@@ -652,9 +589,7 @@ UnitBlueprint {
             Label = 'DepthCharge',
 			
             MaxRadius = 50,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 0,
 			
             ProjectileId = '/projectiles/AANDepthCharge01/AANDepthCharge01_proj.bp',
@@ -662,23 +597,18 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Harmonic_Muzzle01',
-                    },
+                    MuzzleBones = {'Harmonic_Muzzle01'},
                     RackBone = 'Harmonic_Muzzle01',
                 },
                 {
-                    MuzzleBones = {
-                        'Harmonic_Muzzle02',
-                    },
+                    MuzzleBones = {'Harmonic_Muzzle02'},
                     RackBone = 'Harmonic_Muzzle02',
                 },
             },
+
             RackFireTogether = true,
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -697,11 +627,7 @@ UnitBlueprint {
 		
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0310_AA_Fizz',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0310_AA_Fizz', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -749,10 +675,7 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
             RackSalvoFiresAfterCharge = true,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -785,11 +708,7 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0310_AA_Fizz',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0310_AA_Fizz', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -838,9 +757,8 @@ UnitBlueprint {
             },
 
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
+
             RackSalvoFiresAfterCharge = true,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 2,		-- 300 DPS Air
 			
@@ -870,7 +788,7 @@ UnitBlueprint {
         {
             Damage = 6250,
             DamageFriendly = true,
-            DamageRadius = 12,
+            DamageRadius = 11,
             DamageType = 'Normal',
             DisplayName = 'Air Crash',
             DummyWeapon = true,

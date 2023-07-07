@@ -121,7 +121,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.06,
     },
 	
@@ -138,8 +137,7 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Transport',
-        Classification = 'RULEUC_MilitaryAircraft',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -154,9 +152,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'air',
         SelectionPriority = 2,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC ura0104_name>Dragon Fly',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -216,18 +212,14 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'URAWeapon',
-                    Cue = 'URA_Cannon_EMP',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URAWeapon', Cue = 'URA_Cannon_EMP', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
 			
             Buffs = {
-			
                 {
                     Add = { OnImpact = true },
                     AppliedToTarget = true,
@@ -267,18 +259,14 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Down_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Front_Down_Turret_Muzzle'},
                     RackBone = 'Front_Down_Turret',
                 },
             },
 
-            RackReloadTimeout = 10,
             RackSalvoChargeTime = 1,
             RackSalvoFiresAfterCharge = true,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -309,12 +297,9 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'URAWeapon',
-                    Cue = 'URA_Cannon_Electron',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URAWeapon', Cue = 'URA_Cannon_Electron', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -335,9 +320,7 @@ UnitBlueprint {
             LeadTarget = true,
 			
             MaxRadius = 30,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 68,
 			
             ProjectileId = '/projectiles/CAAAutocannon01/CAAAutocannon01_proj.bp',
@@ -345,16 +328,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Up_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Back_Up_Turret_Muzzle'},
                     RackBone = 'Back_Up_Turret',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -393,11 +370,7 @@ UnitBlueprint {
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

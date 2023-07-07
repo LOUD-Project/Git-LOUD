@@ -109,7 +109,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.045,
     },
 	
@@ -126,8 +125,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Transport',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Ferry = true,
@@ -140,9 +137,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'air',
         SelectionPriority = 2,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC ura0107_name>Skyhook',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -187,5 +182,5 @@ UnitBlueprint {
         Class3AttachSize = 2,
         TransportClass = 10,
     },
-    UseOOBTestZoom = 200,
+
 }

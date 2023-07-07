@@ -101,7 +101,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.125,
     },
 	
@@ -112,8 +111,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Dock = true,
@@ -124,9 +121,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC uaa0302_name>Seer',
-        UnitWeight = 1,
     },
 	
     Intel = {

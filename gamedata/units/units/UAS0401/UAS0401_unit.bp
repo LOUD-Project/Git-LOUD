@@ -243,7 +243,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.055,
     },
 	
@@ -301,8 +300,7 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 14,
-        Category = 'Experimental',
-        Classification = 'RULEUC_MilitarySub',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Dive = true,
@@ -316,9 +314,9 @@ UnitBlueprint {
         ConstructionBar = true,
         FactionName = 'Aeon',
         Icon = 'sea',
-        TechLevel = 'RULEUTL_Secret',
+
         UnitName = '<LOC uas0401_name>Tempest',
-        UnitWeight = 6,
+
         ToggleCaps = {
             RULEUTC_SpecialToggle = true,
             RULEUTC_WeaponToggle = true,
@@ -407,26 +405,10 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Lrg_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Lrg_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UASWeapon',
-                    Cue = 'UAS0401_Cannon_Oblivion',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'UASWeapon',
-                    Cue = 'UAS0401_Cannon_Oblv_Charge',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire = Sound { Bank = 'UASWeapon', Cue = 'UAS0401_Cannon_Oblivion', LodCutoff = 'WeaponBig_LodCutoff' },
+                MuzzleChargeStart = Sound { Bank = 'UASWeapon', Cue = 'UAS0401_Cannon_Oblv_Charge', LodCutoff = 'WeaponBig_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -456,8 +438,6 @@ UnitBlueprint {
             MaxRadius = 160,
 			
             MuzzleChargeDelay = 1,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
 			
             MuzzleVelocity = 42,
             MuzzleVelocityRandom = 2,
@@ -470,17 +450,12 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel02',
                 },
             },
 
             RackRecoilDistance = -3,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -519,13 +494,11 @@ UnitBlueprint {
 		
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2205_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB2205_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             CollideFriendly = false,
 			
             Damage = 200,
@@ -546,7 +519,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 6,
-            MuzzleVelocity = 3,
+            MuzzleVelocity = 3.5,
 			
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
             ProjectileLifetime = 10,
@@ -564,10 +537,6 @@ UnitBlueprint {
                     RackBone = 'Torpedo_Muzzle01',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -587,7 +556,10 @@ UnitBlueprint {
         },
 		
         {
+            advancedTracking = true,
+            
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -611,23 +583,17 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 9.5,
+            MuzzleVelocity = 7.5,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
             ProjectileLifetime = 4,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Anti_Torpedo_Muzzle01',
-                    },
+                    MuzzleBones = {'Anti_Torpedo_Muzzle01'},
                     RackBone = 'Anti_Torpedo_Muzzle01',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 			
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -642,7 +608,10 @@ UnitBlueprint {
         },
 		
         {
+            advancedTracking = true,
+            
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -666,25 +635,17 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 7,
+            MuzzleVelocity = 6,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
             ProjectileLifetime = 4,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Anti_Torpedo_Muzzle02',
-                    },
+                    MuzzleBones = {'Anti_Torpedo_Muzzle02'},
                     RackBone = 'Anti_Torpedo_Muzzle02',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
-            RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 1,
 			

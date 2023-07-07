@@ -106,8 +106,7 @@ UnitBlueprint {
                 },
             },
         },
-		
-        SpawnRandomRotation = true,
+
         UniformScale = 0.11,
     },
 	
@@ -120,8 +119,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Fighter',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -140,12 +137,11 @@ UnitBlueprint {
                 helpText = 'toggle_stealth_personal',
             },
         },
-        TechLevel = 'RULEUTL_Secret',
+
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
         UnitName = '<LOC ura0303_name>Gemini',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -205,12 +201,9 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'URAWeapon',
-                    Cue = 'URA0303_Missile_Nanite',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URAWeapon', Cue = 'URA0303_Missile_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
+
 			AlwaysRecheckTarget = true,
             AutoInitiateAttackCommand = false,
 			
@@ -246,28 +239,18 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Missile_L',
-                    },
+                    MuzzleBones = {'Missile_L'},
                     RackBone = 'Missile_L',
 					
 				},
                 {
-                    MuzzleBones = {
-                        'Missile_R',
-                    },
+                    MuzzleBones = {'Missile_R'},
                     RackBone = 'Missile_R',
                 },
             },
 			
             RackFireTogether = true,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 1,

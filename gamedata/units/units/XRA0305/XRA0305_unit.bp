@@ -272,14 +272,13 @@ UnitBlueprint {
                     RackBone = 'Turret_Down_Barrel_02',
                 },
             },
-            RackFireTogether = false,
+             
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 2,		-- 200 DPS Ground
@@ -361,12 +360,11 @@ UnitBlueprint {
             RackFireTogether = true,
 			
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 1,		-- 80 DPS Air

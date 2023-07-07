@@ -96,7 +96,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.1,
     },
 	
@@ -114,8 +113,7 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 0.1,
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryAircraft',
+
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Dock = true,
@@ -126,9 +124,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC uaa0101_name>Mirage',
-        UnitWeight = 1,
     },
 	
     Intel = {

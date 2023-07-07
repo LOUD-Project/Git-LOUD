@@ -18,8 +18,8 @@ UAB4201 = Class(AStructureUnit) {
                     end
                     self.unit.Trash:Add(self.RotatorManipulator)
                 end,
-                
-                PlayRackRecoilReturn = function(self, rackList)
+   
+   PlayRackRecoilReturn = function(self, rackList)
                     AAMWillOWisp.PlayRackRecoilReturn(self, rackList)
                     if self.RotatorManipulatorCounter == 8 then
                         self.RotatorManipulator:Destroy()

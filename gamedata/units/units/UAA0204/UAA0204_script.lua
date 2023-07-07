@@ -6,7 +6,7 @@ UAA0204 = Class(AAirUnit) {
 
     Weapons = {
 	
-        Bomb = Class(AANDepthChargeBombWeapon) {},
+        DepthCharge = Class(AANDepthChargeBombWeapon) {},
 		
     },
 }

@@ -23,13 +23,11 @@ UnitBlueprint {
         MinAirspeed = 3,
         StartTurnDistance = 5,
     },
+
     Audio = {
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Air', LodCutoff = 'UnitMove_LodCutoff' },
     },
+
     Categories = {
         'SELECTABLE',
         'UEF',
@@ -74,7 +72,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.1,
     },
 	
@@ -97,13 +94,11 @@ UnitBlueprint {
 	
     General = {
         BuildBones = {
-            BuildEffectBones = {
-                0,
-            },
+            BuildEffectBones = { 0 },
         },
+
         CapCost = 0,
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryAircraft',
+
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Capture = true,
@@ -123,9 +118,7 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 6,
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC uea0003_name>C-D2 "Rover"',
-        UnitWeight = 1,
     },
 	
     Intel = {

@@ -60,7 +60,7 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
+
         UniformScale = 0.04,
         olderMeshName = 'UXB0026',
     },
@@ -199,13 +199,14 @@ UnitBlueprint {
                     RackBone = 'Projectile04',
                 },
             },
-            RackFireTogether = false,
+             
             
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 1.5,
             RackSalvoReloadTime = 3.5,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+            
+
             RangeCategory = 'UWRC_IndirectFire',
             RateOfFire = .2,
             TargetCheckInterval = 2,

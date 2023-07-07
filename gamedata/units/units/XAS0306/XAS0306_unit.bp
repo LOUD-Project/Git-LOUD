@@ -132,8 +132,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 3,
-        Category = 'Ship',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -144,9 +142,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'sea',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC xas0306_name>Torrent Class',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -262,13 +258,7 @@ UnitBlueprint {
                     RackBone = 'Turret_Front',
                 },
             },
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.1,		-- 3000 damage every 10 seconds = 300 DPS
@@ -277,7 +267,6 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'DEFENSE',
-                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -355,14 +344,6 @@ UnitBlueprint {
                     RackBone = 'Turret_Back',
                 },
             },
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.1,		-- another 300 DPS Surface
 			
@@ -370,7 +351,6 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'DEFENSE',
-                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -395,7 +375,10 @@ UnitBlueprint {
         },
 		
         {
+            advancedTracking = true,
+            
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -414,32 +397,20 @@ UnitBlueprint {
             Label = 'AntiTorpedo',
 			
             MaxRadius = 32,
-			MinRadius = 20,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+			MinRadius = 16,
+
             MuzzleVelocity = 7,
 
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
-			ProjectileLifetime = 4,
+			ProjectileLifetime = 4.5,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile01',
-                    },
+                    MuzzleBones = {'Projectile01'},
                     RackBone = 'Projectile01',
                 },			
             },
-			
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 1,
@@ -451,10 +422,12 @@ UnitBlueprint {
             TrackingRadius = 1.2,
 
             Turreted = false,			
-
         },
         {
+            advancedTracking = true,
+
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -473,33 +446,19 @@ UnitBlueprint {
             Label = 'AntiTorpedo',
 			
             MaxRadius = 22,
-			MinRadius = 12,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            MuzzleVelocity = 9,
+			MinRadius = 10,
+
+            MuzzleVelocity = 5,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
-			ProjectileLifetime = 4,
+			ProjectileLifetime = 4.5,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile02',
-                    },
+                    MuzzleBones = {'Projectile02'},
                     RackBone = 'Projectile02',
                 },			
             },
-			
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 1,
 			
@@ -531,33 +490,19 @@ UnitBlueprint {
             Label = 'AntiTorpedo',
 			
             MaxRadius = 26,
-			MinRadius = 16,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+			MinRadius = 12,
+
             MuzzleVelocity = 7,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
-			ProjectileLifetime = 4,
+			ProjectileLifetime = 4.5,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile03',
-                    },
+                    MuzzleBones = {'Projectile03'},
                     RackBone = 'Projectile03',
                 },			
             },
-			
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 1,
 			
@@ -590,33 +535,19 @@ UnitBlueprint {
             Label = 'AntiTorpedo',
 			
             MaxRadius = 18,
-			MinRadius = 8,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            MuzzleVelocity = 10,
+			MinRadius = 6,
+
+            MuzzleVelocity = 8,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
-			ProjectileLifetime = 4,
+			ProjectileLifetime = 4.5,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile04',
-                    },
+                    MuzzleBones = {'Projectile04'},
                     RackBone = 'Projectile04',
                 },			
             },
-			
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 1,
 			

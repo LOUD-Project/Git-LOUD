@@ -18,15 +18,15 @@ UAB4302 = Class(AStructureUnit) {
                     end
                     AAMSaintWeapon.IdleState.OnGotTarget(self)
                 end,
-                
-                -- uses OnGotTarget, so we shouldn't do this.
+   
+   -- uses OnGotTarget, so we shouldn't do this.
                 OnFire = function(self)
                     if not nukeFiredOnGotTarget then
                         AAMSaintWeapon.IdleState.OnFire(self)
                     end
                     nukeFiredOnGotTarget = false
-                    
-                    self:ForkThread(function()
+       
+       self:ForkThread(function()
                         self.unit:SetBusy(true)
                         WaitSeconds(1/self.unit:GetBlueprint().Weapon[1].RateOfFire + .2)
                         self.unit:SetBusy(false)

@@ -83,7 +83,7 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
+
         UniformScale = 0.06,
     },
 	
@@ -94,8 +94,7 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -107,9 +106,8 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
+
         UnitName = '<LOC xsl0303_name>Othuum',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -178,11 +176,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0303_Bolter',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0303_Bolter', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
@@ -203,8 +197,6 @@ UnitBlueprint {
 			
             MaxRadius = 32,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 38,
 			
             ProjectileId = '/projectiles/SDFTauCannon01/SDFTauCannon01_proj.bp',
@@ -220,10 +212,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.5,	-- 100 DPS
@@ -251,7 +240,7 @@ UnitBlueprint {
             TurretPitchSpeed = 30,
 			
             TurretYaw = 0,
-            TurretYawRange = 180,
+            TurretYawRange = 130,
             TurretYawSpeed = 45,
 			
             Turreted = true,
@@ -259,11 +248,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0303_Cannon_Thau',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0303_Cannon_Thau', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -302,10 +287,6 @@ UnitBlueprint {
                     RackBone = 'Right_Turret_Barrel',
                 },
             },
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 			
             RateOfFire = 1,		---- 150 DPS
 			
@@ -329,7 +310,7 @@ UnitBlueprint {
             TurretPitchSpeed = 90,
 			
             TurretYaw = 0,
-            TurretYawRange = 180,
+            TurretYawRange = 150,
             TurretYawSpeed = 40,
 			
             Turreted = true,
@@ -381,8 +362,8 @@ UnitBlueprint {
             },
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RateOfFire = 1,		-- another 150 DPS
 			
@@ -453,9 +434,8 @@ UnitBlueprint {
                 },
             },
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 			
             RangeCategory = 'UWRC_AntiNavy',
 			

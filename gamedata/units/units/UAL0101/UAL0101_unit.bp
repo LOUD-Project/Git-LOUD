@@ -25,8 +25,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {},
+
     BuildIconSortPriority = 20,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1FACTORY',
@@ -43,8 +46,10 @@ UnitBlueprint {
 		'AMPHIBIOUS',
         'OVERLAYRADAR',
     },
+
     CollisionOffsetY = -0.1,
     CollisionOffsetZ = 0.05,
+
     Defense = {
         ArmorType = 'Normal',
         Health = 22,
@@ -159,6 +164,7 @@ UnitBlueprint {
     Transport = {
         TransportClass = 1,
     },	
+
     Veteran = {
         Level1 = 1,
         Level2 = 2,
@@ -166,15 +172,12 @@ UnitBlueprint {
         Level4 = 4,
         Level5 = 5,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0101_Laser_Lgt',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAL0101_Laser_Lgt', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -202,20 +205,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.5,

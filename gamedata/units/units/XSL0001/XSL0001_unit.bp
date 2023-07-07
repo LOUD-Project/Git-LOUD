@@ -959,13 +959,14 @@ UnitBlueprint {
                     RackBone = 'Right_Arm_B02',
                 },
             },
-            RackFireTogether = false,
+             
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+            
+
             RangeCategory = 'UWRC_DirectFire',
             RateOfFire = 1,
             TargetCheckInterval = 0.5,
@@ -973,8 +974,8 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                
-                'ALLUNITS',
+   
+   'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TurretBoneMuzzle = 'Right_Turret_Muzzle',
@@ -1034,13 +1035,14 @@ UnitBlueprint {
                     RackBone = 'Right_Arm_B02',
                 },
             },
-            RackFireTogether = false,
+             
             RackRecoilDistance = -0.5,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+            
+
             RangeCategory = 'UWRC_DirectFire',
             RateOfFire = 0.3,
             SlavedToBody = false,
@@ -1143,21 +1145,22 @@ UnitBlueprint {
                     RackBone = 'Back_Missle',
                 },
             },
-            RackFireTogether = false,
+             
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+            
+
             RangeCategory = 'UWRC_IndirectFire',
             RateOfFire = 1,
             TargetCheckInterval = 5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'DEFENSE',
-                
-                'ALLUNITS',
+   
+   'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             Turreted = false,

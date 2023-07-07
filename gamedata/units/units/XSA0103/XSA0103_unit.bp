@@ -113,7 +113,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.11,
     },
 	
@@ -130,8 +129,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Bomber',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -144,9 +141,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC xsa0103_name>Sinnve',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -197,6 +192,7 @@ UnitBlueprint {
         AirClass = true,
         TransportClass = 2,
     },
+
     Veteran = {
         Level1 = 2,
         Level2 = 4,
@@ -204,17 +200,17 @@ UnitBlueprint {
         Level4 = 9,
         Level5 = 12,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0103_Othe_Tactical_Bomb',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0103_Othe_Tactical_Bomb', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
             BombDropThreshold = 3,
             CollideFriendly = false,
@@ -250,20 +246,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Center_Projectile',
-                    },
+                    MuzzleBones = {'Center_Projectile'},
                     RackBone = 'Center_Projectile',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 0.5,	-- 110 DPS
 			
             TargetCheckInterval = 1,

@@ -19,12 +19,12 @@ XSL0111 = Class(SLandUnit) {
                 while not self.unit:IsDead() and self.unit:IsUnitState('Busy') do
                     WaitSeconds(2)
                 end
-                
-                if self.unit:IsDead() then
+   
+   if self.unit:IsDead() then
                     return
                 end
-                
-                local bp = self:GetBlueprint()
+   
+   local bp = self:GetBlueprint()
 
                 if bp.WeaponUnpacks then
                     ChangeState(self, self.WeaponPackingState)

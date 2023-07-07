@@ -3,6 +3,7 @@ UnitBlueprint {
 		GuardReturnRadius = 35,
         GuardScanRadius = 30,
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -20,6 +21,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -29,7 +31,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+
     BuildIconSortPriority = 20,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -42,6 +46,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+
     Defense = {
         ArmorType = 'Normal',
         Health = 1050,
@@ -65,7 +70,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.135,
     },
 	
@@ -99,12 +103,13 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Heavy Tank',
+        HelpText = 'Laser Tank',
     },
 	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.3,
     LifeBarSize = 1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -123,19 +128,24 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 60,
     },
+
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.075,
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.6,
     SelectionThickness = 0.7,
+
     SizeX = 0.8,
     SizeY = 0.5,
     SizeZ = 1.0,
+
     StrategicIconName = 'icon_land2_directfire',
     StrategicIconSortPriority = 125,
+
     Transport = {
         TransportClass = 2,
     },
+
     Veteran = {
         Level1 = 5,
         Level2 = 10,
@@ -143,16 +153,14 @@ UnitBlueprint {
         Level4 = 20,
         Level5 = 25,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0202_Cannon_Dbl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0202_Cannon_Dbl', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
@@ -173,8 +181,6 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-            LeadTarget = false,
-			
             MaxRadius = 27,
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
@@ -189,12 +195,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 2.0,	---- 2 muzzles causing 20 damage when fired and twice per second = 80 DPS
@@ -224,18 +224,16 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
+
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

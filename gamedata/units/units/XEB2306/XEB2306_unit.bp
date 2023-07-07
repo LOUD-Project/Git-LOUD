@@ -73,7 +73,7 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar6x_01_albedo',

@@ -108,7 +108,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.08,
     },
 	
@@ -121,8 +120,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Anti Air',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -137,12 +134,11 @@ UnitBlueprint {
                 helpText = 'toggle_stealth_field',
             },
         },
-        TechLevel = 'RULEUTL_Basic',
+
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
         UnitName = '<LOC xrs0205_name>Mermaid',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -225,26 +221,15 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Torpedo_01',
-                    },
+                    MuzzleBones = {'Torpedo_01'},
                     RackBone = 'Torpedo_01',
                 },
                 {
-                    MuzzleBones = {
-                        'Torpedo_02',
-                    },
+                    MuzzleBones = {'Torpedo_02'},
                     RackBone = 'Torpedo_02',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 0.8,

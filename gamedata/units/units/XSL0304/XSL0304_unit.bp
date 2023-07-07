@@ -111,7 +111,7 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
+
         TransportAnimation = {
             {
                 Animation = '/units/XSL0304/XSL0304_afold.sca',
@@ -269,9 +269,8 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -1,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 			
             RangeCategory = 'UWRC_IndirectFire',
 			

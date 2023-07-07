@@ -89,7 +89,7 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
+
 
         UniformScale = 0.03,
     },
@@ -245,15 +245,15 @@ UnitBlueprint {
                     RackBone = 'Turret_Recoil',
                 },
             },
-            RackFireTogether = false,
+             
             RackRecoilDistance = -2,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
+
+
             RackSalvoFiresAfterCharge = false,
-            RackSalvoReloadTime = 0,
+             
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 1,     -- rate controlled by charge

@@ -108,7 +108,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.1,
     },
 	
@@ -119,8 +118,7 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Fighter',
-        Classification = 'RULEUC_MilitaryAircraft',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -133,9 +131,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC uea0303_name>Wasp',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -198,14 +194,12 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UEAWeapon',
-                    Cue = 'UEA0303_Pulse_Beam',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UEAWeapon', Cue = 'UEA0303_Pulse_Beam', LodCutoff = 'Weapon_LodCutoff' },
             },
+
 			AlwaysRecheckTarget = true,
             AutoInitiateAttackCommand = false,
+
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -227,9 +221,7 @@ UnitBlueprint {
             Label = 'LeftBeam',
 			
             MaxRadius = 40,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 95,
 			
             ProjectileId = '/projectiles/TDFGinsu01/TDFGinsu01_proj.bp',
@@ -237,20 +229,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle02',
-                    },
+                    MuzzleBones = {'Muzzle02'},
                     RackBone = 'Muzzle02',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,

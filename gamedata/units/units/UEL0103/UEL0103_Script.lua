@@ -5,8 +5,8 @@ local TIFHighBallisticMortarWeapon = import('/lua/terranweapons.lua').TIFHighBal
 UEL0103 = Class(TLandUnit) {
     Weapons = {
         MainGun = Class(TIFHighBallisticMortarWeapon) {
-                
-                CreateProjectileAtMuzzle = function(self, muzzle)
+   
+   CreateProjectileAtMuzzle = function(self, muzzle)
                     local proj = TIFHighBallisticMortarWeapon.CreateProjectileAtMuzzle(self, muzzle)
                     local bp = self:GetBlueprint()
                     local data = {

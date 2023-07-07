@@ -72,7 +72,7 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
+
         UniformScale = 0.125,
     },
 	
@@ -222,15 +222,15 @@ UnitBlueprint {
                     RackBone = 'WepFocus',
                 },
             },
-            RackFireTogether = false,
+             
             
-            RackReloadTimeout = 0,
+             
             RackSalvoChargeTime = 0.1,
             RackSalvoFiresAfterCharge = true,
-            RackSalvoReloadTime = 0,
+             
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,

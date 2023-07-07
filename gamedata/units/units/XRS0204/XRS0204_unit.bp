@@ -190,7 +190,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.04,
     },
 	
@@ -203,8 +202,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Submarine',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Dive = true,
@@ -222,12 +219,11 @@ UnitBlueprint {
                 helpText = 'toggle_stealth_personal',
             },
         },
-        TechLevel = 'RULEUTL_Basic',
+
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
         UnitName = '<LOC xrs0204_name>Barracuda',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -262,8 +258,8 @@ UnitBlueprint {
         MaxSteerForce = 5,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_SurfacingSub',
-        TurnRadius = 5,
-        TurnRate = 80,
+        TurnRadius = 8,
+        TurnRate = 50,
     },
 	
     SelectionSizeX = 0.6,
@@ -330,15 +326,7 @@ UnitBlueprint {
                     RackBone = 'Torpedo_Muzzle01',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 0.4,		-- 3 torps * 120  = 360 * .4 = 144 Sub
@@ -382,9 +370,7 @@ UnitBlueprint {
             Label = 'AntiTorpedo',
 			
             MaxRadius = 25,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/CIMAntiTorpedo01/CIMAntiTorpedo01_proj.bp',
@@ -392,26 +378,15 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Flare_Muzzle01',
-                    },
+                    MuzzleBones = {'Flare_Muzzle01'},
                     RackBone = 'Flare_Muzzle01',
                 },
                 {
-                    MuzzleBones = {
-                        'Flare_Muzzle02',
-                    },
+                    MuzzleBones = {'Flare_Muzzle02'},
                     RackBone = 'Flare_Muzzle02',
                 },				
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 0.4,

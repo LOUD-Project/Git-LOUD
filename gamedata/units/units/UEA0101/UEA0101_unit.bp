@@ -83,14 +83,10 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 215,
-                    ShaderName = 'Unit',
-                },
+                { LODCutoff = 215, ShaderName = 'Unit' },
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.08,
     },
 	
@@ -108,8 +104,7 @@ UnitBlueprint {
 	
     General = {
 		Capcost = 0.1,
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryAircraft',
+
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Dock = true,
@@ -120,9 +115,8 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Basic',
+
         UnitName = '<LOC uea0101_name>Hummingbird',
-        UnitWeight = 1,
     },
 	
     Intel = {

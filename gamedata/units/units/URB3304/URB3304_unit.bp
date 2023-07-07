@@ -73,7 +73,7 @@ UnitBlueprint {
             },
         },
         PlaceholderMeshName = 'UXB0002',
-        SpawnRandomRotation = true,
+
 
         UniformScale = 0.021,
     },
@@ -205,14 +205,14 @@ UnitBlueprint {
                 },
             },
 			
-            RackFireTogether = false,
+             
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,

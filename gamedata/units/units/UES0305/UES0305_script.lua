@@ -45,8 +45,8 @@ UES0305 = Class(TSeaUnit) {
                 for kTypeGroup, vTypeGroup in self.TimedSonarTTIdleEffects do
 				
                     local effects = self.GetTerrainTypeEffects( 'FXIdle', layer, pos, vTypeGroup.Type, nil )
-                    
-                    for kb, vBone in vTypeGroup.Bones do
+       
+       for kb, vBone in vTypeGroup.Bones do
 					
                         for ke, vEffect in effects do
 						

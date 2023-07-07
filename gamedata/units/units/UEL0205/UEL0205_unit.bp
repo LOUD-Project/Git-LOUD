@@ -208,12 +208,11 @@ UnitBlueprint {
             },
             RackFireTogether = true,
             RackRecoilDistance = -0.25,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,		---- 144 DPS Air

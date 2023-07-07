@@ -115,7 +115,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.059,
     },
 	
@@ -132,9 +131,7 @@ UnitBlueprint {
     },
 	
     General = {
-	
-        Category = 'Transport',
-        Classification = 'RULEUC_MilitaryAircraft',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -149,9 +146,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'air',
         SelectionPriority = 2,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC uea0104_name>Star Lifter',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -215,13 +210,11 @@ UnitBlueprint {
 		-- 2 ground attack guns - one front one rear
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UEAWeapon',
-                    Cue = 'UEA0104_Riot_Gun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UEAWeapon', Cue = 'UEA0104_Riot_Gun', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             AutoInitiateAttackCommand = false,
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
@@ -252,16 +245,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Down_Muzzle',
-                    },
+                    MuzzleBones = {'Front_Down_Muzzle'},
                     RackBone = 'Front_Down_Barrel',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -294,12 +281,9 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UEAWeapon',
-                    Cue = 'UEA0104_Riot_Gun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UEAWeapon', Cue = 'UEA0104_Riot_Gun', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -332,17 +316,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Down_Muzzle',
-                    },
+                    MuzzleBones = {'Back_Down_Muzzle'},
                     RackBone = 'Back_Down_Barrel',
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
             RateOfFire = 1,		---- 15 DPS Ground
@@ -373,12 +351,9 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UEAWeapon',
-                    Cue = 'UEA0104_Railgun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UEAWeapon', Cue = 'UEA0104_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             AutoInitiateAttackCommand = false,
             BallisticArc = 'RULEUBA_None',
 			
@@ -401,9 +376,7 @@ UnitBlueprint {
 			LeadTarget = true,
 			
             MaxRadius = 30,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 65,
 			
             ProjectileId = '/projectiles/TAARailgun01/TAARailgun01_proj.bp',
@@ -411,23 +384,18 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Up_Muzzle01',
-                    },
+                    MuzzleBones = {'Front_Up_Muzzle01'},
                     RackBone = 'Front_Up_Turret_Barrel01',
                 },
                 {
-                    MuzzleBones = {
-                        'Front_Up_Muzzle02',
-                    },
+                    MuzzleBones = {'Front_Up_Muzzle02'},
                     RackBone = 'Front_Up_Turret_Barrel02',
                 },
             },
+
             RackFireTogether = true,
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -461,13 +429,11 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UEAWeapon',
-                    Cue = 'UEA0104_Railgun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UEAWeapon', Cue = 'UEA0104_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             AutoInitiateAttackCommand = false,
+
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -488,32 +454,25 @@ UnitBlueprint {
 			LeadTarget = true,
 			
             MaxRadius = 30,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 65,
 
             ProjectileId = '/projectiles/TAARailgun01/TAARailgun01_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Up_Muzzle01',
-                    },
+                    MuzzleBones = {'Back_Up_Muzzle01'},
                     RackBone = 'Back_Up_Turret_Barrel01',
                 },
                 {
-                    MuzzleBones = {
-                        'Back_Up_Muzzle02',
-                    },
+                    MuzzleBones = {'Back_Up_Muzzle02'},
                     RackBone = 'Back_Up_Turret_Barrel02',
                 },
             },
+
             RackFireTogether = true,
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 2,	---- 40 DPS Air
 			
@@ -550,11 +509,7 @@ UnitBlueprint {
         MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

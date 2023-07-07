@@ -71,7 +71,7 @@ UnitBlueprint {
             },
         },
         PlaceholderMeshName = 'UXB0002',
-        SpawnRandomRotation = true,
+
         UniformScale = 0.19,
     },
     Economy = {
@@ -205,10 +205,11 @@ UnitBlueprint {
             RackFireTogether = true,
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+            
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,		-- 288 DPS Air

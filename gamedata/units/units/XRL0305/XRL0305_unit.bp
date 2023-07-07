@@ -114,7 +114,7 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
+
         UniformScale = 0.055,
     },
 	
@@ -253,16 +253,16 @@ UnitBlueprint {
                     RackBone = 'Turret',
                 },
             },
-            RackFireTogether = false,
+             
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
+
+
             RackSalvoFiresAfterCharge = false,
-            RackSalvoReloadTime = 0,
+             
             RackSalvoSize = 1,
 			
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 2,	-- 450 DPS
@@ -329,14 +329,14 @@ UnitBlueprint {
                     RackBone = 'Turret',
                 },
             },
-            RackFireTogether = false,
+             
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 0.5,
@@ -370,7 +370,7 @@ UnitBlueprint {
 			
             DisplayName = 'Anti-Torpedo Flare',
 			
-            EffectiveRadius = 24,
+            EffectiveRadius = 12,
 			
             FireTargetLayerCapsTable = {
                 Seabed = 'Sub|Water|Seabed',
@@ -380,7 +380,7 @@ UnitBlueprint {
 			
             Label = 'AntiTorpedo',
 			
-            MaxRadius = 25,
+            MaxRadius = 12,
             MinRadius = 0,
 			
             MuzzleSalvoDelay = 0,
@@ -398,13 +398,6 @@ UnitBlueprint {
                     RackBone = 'Turret',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_Countermeasure',
 			

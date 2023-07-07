@@ -57,8 +57,6 @@ UnitBlueprint {
         },
     },
 	
-    AverageDensity = 1,
-	
     Buffs = {},
 	
     BuildIconSortPriority = 40,
@@ -119,7 +117,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.05,
     },
 	
@@ -136,8 +133,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Transport',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -152,9 +147,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'air',
         SelectionPriority = 2,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC xsa0104_name>Vishala',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -203,8 +196,6 @@ UnitBlueprint {
         TransportClass = 10,
     },
 	
-    UseOOBTestZoom = 200,
-	
     Veteran = {
         Level1 = 3,
         Level2 = 6,
@@ -217,13 +208,11 @@ UnitBlueprint {
 		-- 2x AA Guns
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0104_AA_Autocannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0104_AA_Autocannon', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             AutoInitiateAttackCommand = false,
+
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -263,10 +252,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 1,		-- 30 DPS Air
@@ -297,13 +282,11 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0104_AA_Autocannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0104_AA_Autocannon', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             AutoInitiateAttackCommand = false,
+
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -342,10 +325,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RateOfFire = 1,		-- 30 DPS Air
 			
             TargetCheckInterval = 0.5,
@@ -376,12 +355,9 @@ UnitBlueprint {
 		-- Ground Attack weapon -- 
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0203_Phasic_Autogun_Hvy',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0203_Phasic_Autogun_Hvy', LodCutoff = 'Weapon_LodCutoff' },
             },
             
             AutoInitiateAttackCommand = false,
@@ -412,16 +388,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Center_Turret_Barrel_Muzzle',
-                    },
+                    MuzzleBones = {'Center_Turret_Barrel_Muzzle'},
                     RackBone = 'Center_Turret_Barrel_Muzzle',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 			

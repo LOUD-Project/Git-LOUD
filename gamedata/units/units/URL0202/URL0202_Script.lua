@@ -4,9 +4,7 @@ local CDFParticleCannonWeapon = import('/lua/cybranweapons.lua').CDFParticleCann
 
 URL0202 = Class(CLandUnit) {
     Weapons = {
-        MainGun = Class(CDFParticleCannonWeapon) {
-            --FxMuzzleFlash = {'/effects/emitters/particle_cannon_muzzle_02_emit.bp'},
-        },
+        MainGun = Class(CDFParticleCannonWeapon) {},
     },
 }
 

@@ -172,6 +172,7 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
+
             CountedProjectile = true,
 			
             Damage = 30,
@@ -213,14 +214,9 @@ UnitBlueprint {
                     RackBone = 'Turret_Muzzle01',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 0.6,
@@ -284,22 +280,15 @@ UnitBlueprint {
                     RackBone = 'Turret_Muzzle01',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 0.12,
 			
-            TargetCheckInterval = 3,
-            TargetPriorities = {
-                'SATELLITE',
-            },
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {'SATELLITE'},
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'SATELLITE',
             TrackingRadius = 1,

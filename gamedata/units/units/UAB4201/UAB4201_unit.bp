@@ -69,7 +69,7 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
+
         UniformScale = 0.05,
     },
     Economy = {
@@ -189,11 +189,10 @@ UnitBlueprint {
                     RackBone = 'Dome',
                 },
             },
-            RackFireTogether = false,
+             
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_Countermeasure',

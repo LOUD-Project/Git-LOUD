@@ -120,7 +120,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.1,
     },
 	
@@ -131,8 +130,7 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Bomber',
-        Classification = 'RULEUC_MilitaryAircraft',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -145,9 +143,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC uaa0204_name>Skimmer',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -217,11 +213,7 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0204_Depth_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0204_Depth_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
             AutoInitiateAttackCommand = true,
             BallisticArc = 'RULEUBA_None',
@@ -246,7 +238,7 @@ UnitBlueprint {
             HeadingArcCenter = 0,
             HeadingArcRange = 40,
 			
-            Label = 'Bomb',
+            Label = 'DepthCharge',
 			
             MaxRadius = 24,
             MinRadius = 6,
@@ -260,20 +252,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Torpedo',
-                    },
+                    MuzzleBones = {'Torpedo'},
                     RackBone = 'Torpedo',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
 			RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 0.1,	-- 960 every 10 = 96 DPS

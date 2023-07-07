@@ -89,7 +89,7 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
+
         UniformScale = 0.06,
     },
 	
@@ -102,8 +102,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_Sensor',
         CommandCaps = {
             RULEUCC_Move = true,
             RULEUCC_Patrol = true,
@@ -118,11 +116,9 @@ UnitBlueprint {
                 helpText = 'toggle_sonar',
             },
         },
-        TechLevel = 'RULEUTL_Basic',
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
-        UnitWeight = 1,
         UpgradesFrom = 'uab3202',
     },
 	
@@ -192,7 +188,7 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Water = 'Water',
             },
-            FiringTolerance = 10,
+            FiringTolerance = 30,
 			
             Label = 'AntiTorpedo01',
 			
@@ -200,27 +196,18 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 4,
+            MuzzleVelocity = 5,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
             ProjectileLifetime = 4,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle_01',
-                    },
+                    MuzzleBones = {'Muzzle_01'},
                     RackBone = 'Muzzle_01',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 0.6,

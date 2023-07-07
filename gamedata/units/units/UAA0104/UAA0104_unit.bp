@@ -122,7 +122,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.05,
     },
 	
@@ -139,8 +138,7 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Transport',
-        Classification = 'RULEUC_MilitaryAircraft',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -155,9 +153,8 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'air',
         SelectionPriority = 2,
-        TechLevel = 'RULEUTL_Advanced',
+
         UnitName = '<LOC uaa0104_name>Aluminar',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -207,8 +204,6 @@ UnitBlueprint {
         TransportClass = 10,
     },
 	
-    UseOOBTestZoom = 200,
-	
     Veteran = {
         Level1 = 3,
         Level2 = 6,
@@ -221,11 +216,7 @@ UnitBlueprint {
 		-- two forward firing ground support light lasers
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0203_Laser_Lgt',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0203_Laser_Lgt', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             AutoInitiateAttackCommand = false,
@@ -237,7 +228,7 @@ UnitBlueprint {
             DisplayName = 'Light Laser',
 			
             FireTargetLayerCapsTable = {
-                Air = 'Air|Land|Water|Seabed',
+                Air = 'Air|Land|Water',
             },
 			
             FiringTolerance = 0.5,
@@ -254,17 +245,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle_R',
-                    },
+                    MuzzleBones = {'Muzzle_R'},
                     RackBone = 'Turret_Right',
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -299,11 +284,7 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0203_Laser_Lgt',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0203_Laser_Lgt', LodCutoff = 'Weapon_LodCutoff' },
             },
             AutoInitiateAttackCommand = false,
             BallisticArc = 'RULEUBA_None',
@@ -314,7 +295,7 @@ UnitBlueprint {
             DisplayName = 'Light Laser',
 			
             FireTargetLayerCapsTable = {
-                Air = 'Air|Land|Water|Seabed',
+                Air = 'Air|Land|Water',
             },
 			
             FiringTolerance = 0.5,
@@ -331,17 +312,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle_L',
-                    },
+                    MuzzleBones = {'Muzzle_L'},
                     RackBone = 'Turret_Left',
                 },				
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
             RateOfFire = 1,		-- 15 DPS
@@ -374,11 +349,7 @@ UnitBlueprint {
 		-- 2x AA only light lasers in top turrets
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0102_Pulse_Battery_01',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0102_Pulse_Battery_01', LodCutoff = 'Weapon_LodCutoff' },
             },
             AutoInitiateAttackCommand = false,
 			
@@ -411,16 +382,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle_F',
-                    },
+                    MuzzleBones = {'Muzzle_F'},
                     RackBone = 'Turret_Front',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -455,11 +420,7 @@ UnitBlueprint {
         },
 		{
             Audio = {
-                Fire = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0102_Pulse_Battery_01',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0102_Pulse_Battery_01', LodCutoff = 'Weapon_LodCutoff' },
             },
             AutoInitiateAttackCommand = false,
             BallisticArc = 'RULEUBA_None',
@@ -491,16 +452,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle_B',
-                    },
+                    MuzzleBones = {'Muzzle_B'},
                     RackBone = 'Turret_Back',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 2,		-- 36 DPS Air
 			
@@ -539,11 +494,7 @@ UnitBlueprint {
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

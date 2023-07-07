@@ -114,7 +114,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
 	
@@ -131,8 +130,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Fighter',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -146,9 +143,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'air',
         TarmacGlowDecal = 0.5,
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC xsa0202_name>Notha',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -207,14 +202,11 @@ UnitBlueprint {
         Level4 = 20,
         Level5 = 25,
     },
+
     Weapon = {
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0102_Shleo_AA_Autocannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0102_Shleo_AA_Autocannon', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -245,21 +237,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle_Left',
-                    },
-
+                    MuzzleBones = {'Turret_Muzzle_Left'},
                     RackBone = 'Turret_Muzzle_Left',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,		-- 72 DPS Air
@@ -293,11 +275,7 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0102_Shleo_AA_Autocannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0102_Shleo_AA_Autocannon', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -328,19 +306,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle_Right',
-                    },
+                    MuzzleBones = {'Turret_Muzzle_Right'},
                     RackBone = 'Turret_Muzzle_Right',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,		-- 72 DPS Air
@@ -372,12 +342,9 @@ UnitBlueprint {
 
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0103_Othe_Tactical_Bomb',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0103_Othe_Tactical_Bomb', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             AutoInitiateAttackCommand = true,
@@ -402,11 +369,11 @@ UnitBlueprint {
             FiringTolerance = 3,
 			
 			FixBombTrajectory = true,
+
             Label = 'Bomb',
+
             MaxRadius = 40,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 0,
 
             NeedToComputeBombDrop = true,
@@ -415,20 +382,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Bomb_Muzzle',
-                    },
+                    MuzzleBones = {'Bomb_Muzzle'},
                     RackBone = 'Bomb_Muzzle',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 0.5,		-- 120 DPS
 			
             SkipReadyState = true,

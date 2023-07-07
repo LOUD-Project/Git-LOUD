@@ -36,8 +36,8 @@ URL0401 = Class(CLandUnit) {
                             self.PitchRotators[k]:Destroy()
                             self.PitchRotators[k] = nil
                         end
-                    end                
-                end
+                    end   
+   end
                 self.losttarget = false      
                 self.initialaim = true
 				
@@ -66,8 +66,8 @@ URL0401 = Class(CLandUnit) {
                         self.unit.Trash:Add(self.PitchRotators[k])
                     end
                     self.Goal = 0
-                
-                    #Get the initial position after unpacking
+   
+       #Get the initial position after unpacking
                     local barrel = self.currentbarrel
                     self.restdirvector.x, self.restdirvector.y, self.restdirvector.z = self.unit:GetBoneDirection( barrelBones[barrel] )
                     local basedirvector = {}
@@ -96,16 +96,16 @@ URL0401 = Class(CLandUnit) {
                         self.initialaim = false
                     end 
                 end
-                
-                local muzzleIdx = 0
+   
+   local muzzleIdx = 0
                 for i=1, self.unit:GetBoneCount() do
                     if self.unit:GetBoneName(i) == 'Turret_Aim_Barrel_Muzzle' then
                         muzzleIdx = i
                         break
                     end
                 end
-                
-                CIFArtilleryWeapon.CreateProjectileAtMuzzle(self, muzzleIdx)
+   
+   CIFArtilleryWeapon.CreateProjectileAtMuzzle(self, muzzleIdx)
                 self:ForkThread(self.LaunchEffects)
             end,
             PlayRackRecoil = function(self, rackList)
@@ -113,8 +113,8 @@ URL0401 = Class(CLandUnit) {
                 local currentfakerack = {}
                 currentfakerack.RackBone = recoilBones[self.currentbarrel]
                 currentfakerack.MuzzleBones = muzzleBones[self.currentbarrel]
-                
-                table.insert( rackList, currentfakerack )
+   
+   table.insert( rackList, currentfakerack )
                 CIFArtilleryWeapon.PlayRackRecoil(self, rackList)
                 if not self.losttarget then
                     self.Rotator:SetSpeed(120)

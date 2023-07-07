@@ -110,8 +110,7 @@ UnitBlueprint {
                 },
             },
         },
-		
-        SpawnRandomRotation = false,
+
         UniformScale = 0.05,
     },
 	
@@ -121,12 +120,9 @@ UnitBlueprint {
         BuildTime = 2000,
 		
         MaintenanceConsumptionPerSecondEnergy = 5,
-		
     },
 	
     General = {
-        Category = 'Ship',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -137,12 +133,10 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'sea',
-        TechLevel = 'RULEUTL_Basic',
         ToggleCaps = {
             RULEUTC_JammingToggle = true,
         },
         UnitName = '<LOC ues0103_name>Thunderhead Class',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -212,24 +206,15 @@ UnitBlueprint {
 		-- Single Deck Gun --
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES_Turret_Sml_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES_Turret_Sml_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0103_Cannon_Sgl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop = Sound { Bank = 'UES', Cue = 'UES_Turret_Sml_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BarrelStart = Sound { Bank = 'UES', Cue = 'UES_Turret_Sml_Start', LodCutoff = 'Weapon_LodCutoff' },
+                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0103_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             CollideFriendly = false,
 			
             Damage = 130,
@@ -257,20 +242,13 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Front_Turret_Muzzle'},
                     RackBone = 'Front_Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.75,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.5,		-- 65 DPS Surface
@@ -284,7 +262,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -312,12 +289,9 @@ UnitBlueprint {
             AlwaysRecheckTarget = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2104_Railgun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2104_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
 			
             CannotAttackGround = true,
@@ -351,25 +325,19 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Turret_Muzzle01',
-                    },
+                    MuzzleBones = {'Back_Turret_Muzzle01'},
                     RackBone = 'Back_Turret_Barrel01',
                 },
                 {
-                    MuzzleBones = {
-                        'Back_Turret_Muzzle02',
-                    },
+                    MuzzleBones = {'Back_Turret_Muzzle02'},
                     RackBone = 'Back_Turret_Barrel02',
                 },
             },
+
             RackFireTogether = true,
 			
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_AntiAir',

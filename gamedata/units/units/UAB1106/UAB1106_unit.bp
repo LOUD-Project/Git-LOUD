@@ -64,7 +64,7 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
+
 
         UniformScale = 0.12,
     },

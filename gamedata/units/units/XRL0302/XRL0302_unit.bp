@@ -74,7 +74,7 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
+
         TransportAnimation = {
             {
                 Animation = '/units/XRL0302/XRL0302_Afold01.sca',

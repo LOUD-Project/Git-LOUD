@@ -91,7 +91,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_seraphim_01_albedo',
@@ -109,6 +108,7 @@ UnitBlueprint {
                 Width = 10.8,
             },
         },
+
         UniformScale = 0.058,
     },
 	
@@ -129,8 +129,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_CounterMeasure',
         FactionName = 'Seraphim',
         Icon = 'land',
         OrderOverrides = {
@@ -140,11 +138,11 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
+
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitWeight = 1,
+
         UpgradesFrom = 'xsb4202',
     },
 	
@@ -194,11 +192,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -1,4 +1,11 @@
 UnitBlueprint {
+
+    AI = {
+        AttackAngle = 20,   -- this will force unit to turn if turret can traverse
+        GuardScanRadius = 30,
+        TargetBones = { 'Turret' },
+    },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -47,37 +54,25 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 820,
-        MaxHealth = 820,
+        Health = 780,
+        MaxHealth = 780,
         RegenRate = 1,
-        SurfaceThreatLevel = 8.4,
+        SurfaceThreatLevel = 6,
     },
 	
     Description = '<LOC drl0204_desc>Rocket Bot',
 	
     Display = {
+
         AnimationDeath = {
-            {
-                Animation = '/units/drl0204/drl0204_adeath.sca',
-                AnimationRateMax = 1.25,
-                AnimationRateMin = 0.75,
-                Weight = 1,
-            },
-            {
-                Animation = '/units/drl0204/drl0204_adeath01.sca',
-                AnimationRateMax = 1.25,
-                AnimationRateMin = 0.75,
-                Weight = 1,
-            },
-            {
-                Animation = '/units/drl0204/drl0204_adeath02.sca',
-                AnimationRateMax = 1.25,
-                AnimationRateMin = 0.75,
-                Weight = 1,
-            },
+            { Animation = '/units/drl0204/drl0204_adeath.sca', AnimationRateMax = 1.25, AnimationRateMin = 0.75, Weight = 1 },
+            { Animation = '/units/drl0204/drl0204_adeath01.sca', AnimationRateMax = 1.25, AnimationRateMin = 0.75, Weight = 1 },
+            { Animation = '/units/drl0204/drl0204_adeath02.sca', AnimationRateMax = 1.25, AnimationRateMin = 0.75, Weight = 1 },
         },
+
         AnimationWalk = '/units/drl0204/drl0204_awalk.sca',
         AnimationWalkRate = 3.7,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -95,19 +90,9 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
-        TransportAnimation = {
-            {
-                Animation = '/units/DRL0204/DRL0204_afold.sca',
-                Weight = 100,
-            },
-        },
-        TransportDropAnimation = {
-            {
-                Animation = '/units/DRL0204/DRL0204_aunfold.sca',
-                Weight = 100,
-            },
-        },
+        TransportAnimation =        { { Animation = '/units/DRL0204/DRL0204_afold.sca', Weight = 100 } },
+        TransportDropAnimation =    { { Animation = '/units/DRL0204/DRL0204_aunfold.sca', Weight = 100 } },
+
         UniformScale = 0.07,
     },
 	
@@ -149,14 +134,15 @@ UnitBlueprint {
     LifeBarSize = 0.75,
 	
     Physics = {
+        BackUpDistance = 16,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 3.2,
-        MaxBrake = 3.2,
-        MaxSpeed = 3.2,
+        MaxAcceleration = 1.7,
+        MaxBrake = 3.3,
+        MaxSpeed = 3.3,
         MaxSpeedReverse = 3,
         MaxSteerForce = 10,
         MinSpeedPercent = 0,
@@ -192,18 +178,29 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Missile_Nanite',
-                    LodCutoff = 'Weapon_LodCutoff',
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Missile_Nanite', LodCutoff = 'Weapon_LodCutoff' },
+            },
+            
+            BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.5,
+                    Radius = 1,
+                    TargetAllow = 'LAND,NAVAL',
+                    TargetDisallow = 'EXPERIMENTAL,TECH3,COMMAND,STRUCTURE,SUBCOMMANDER,AIR',
                 },
             },
-            BallisticArc = 'RULEUBA_None',
+
             CollideFriendly = false,
 			
-            Damage = 60,
-            DamageRadius = 2,
+            Damage = 75,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Iridium Rocket Pack',
@@ -214,20 +211,24 @@ UnitBlueprint {
             },
 			
             FiringRandomness = 0.5,
+            FiringRandomnessWhileMoving = 0.7,
 			
-            FiringTolerance = 0.1,
+            FiringTolerance = 0.2,
 			
             Label = 'RocketBackpack',
+
             LeadTarget = true,
 			
             MaxRadius = 42,
 			
-            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 3,
+            
             MuzzleVelocity = 14,
+            MuzzleVelocityRandom = 0.5,
 			
             ProjectileId = '/projectiles/CDFRocketIridium02/CDFRocketIridium02_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 3,
+            ProjectileLifetime = 4,
 
             RackBones = {
                 {
@@ -240,15 +241,14 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+            RackSalvoReloadTime = 2.5,
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.3,
-			
-            TargetCheckInterval = 1.0,
+            RateOfFire = 0.5,     -- controlled by delays = 4 = 56 DPS
+
+            TargetCheckInterval = 2.0,
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
@@ -256,7 +256,7 @@ UnitBlueprint {
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle_01',
             TurretBonePitch = 'Turret_Barrel',
@@ -265,11 +265,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 45,
-            TurretPitchSpeed = 100,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 50,
+            TurretYawRange = 150,
+            TurretYawSpeed = 30,
 			
             Turreted = true,
         },
@@ -278,7 +278,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.7,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

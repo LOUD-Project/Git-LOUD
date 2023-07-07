@@ -97,7 +97,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.023,
     },
 	
@@ -115,8 +114,7 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 0.1,
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryAircraft',
+
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Dock = true,
@@ -127,9 +125,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC xsa0101_name>Sele-istle',
-        UnitWeight = 1,
     },
 	
     Intel = {

@@ -99,7 +99,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.08,
     },
 	
@@ -110,8 +109,7 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryAircraft',
+
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Dock = true,
@@ -122,9 +120,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC uea0302_name>Blackbird',
-        UnitWeight = 1,
     },
 	
     Intel = {

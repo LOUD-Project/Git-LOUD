@@ -101,7 +101,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.05,
     },
 	
@@ -112,8 +111,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Ship',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -124,9 +121,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'sea',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC uas0103_name>Beacon Class',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -192,24 +187,9 @@ UnitBlueprint {
 			
             Audio = {
 			
-                BarrelLoop = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Sml_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-				
-                BarrelStart = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Sml_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-				
-                Fire = Sound {
-                    Bank = 'UASWeapon',
-                    Cue = 'UAS0103_Cannon_Quantum',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-				
+                BarrelLoop = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Sml_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BarrelStart = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Sml_Start', LodCutoff = 'Weapon_LodCutoff' },
+                Fire = Sound { Bank = 'UASWeapon', Cue = 'UAS0103_Cannon_Quantum', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_LowArc',
@@ -226,7 +206,6 @@ UnitBlueprint {
             },
 			
             FiringRandomness = 0.1,
-            FiringTolerance = 0,
 			
             HeadingArcCenter = 0,
             HeadingArcRange = 150,
@@ -236,8 +215,6 @@ UnitBlueprint {
             MaxRadius = 38,
 			
             MuzzleChargeDelay = 0.5,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/ADFQuantumCannon01/ADFQuantumCannon01_proj.bp',
@@ -245,21 +222,13 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Front_Muzzle',
-                    },
+                    MuzzleBones = { 'Turret_Front_Muzzle' },
                     RackBone = 'Turret_Front_Barrel',
                 },
             },
 			
-            RackFireTogether = false,
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.5,	-- 75 damage every 2 seconds = 37.5 DPS Surface
@@ -295,12 +264,9 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UASWeapon',
-                    Cue = 'UAS0103_Cannon_Quantum',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UASWeapon', Cue = 'UAS0103_Cannon_Quantum', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -315,7 +281,6 @@ UnitBlueprint {
             },
 			
             FiringRandomness = 0.1,
-            FiringTolerance = 0,
 			
             HeadingArcCenter = 180,
             HeadingArcRange = 150,
@@ -325,32 +290,19 @@ UnitBlueprint {
             MaxRadius = 38,
 			
             MuzzleChargeDelay = 0.5,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 35,
-			
-            PrefersPrimaryWeaponTarget = true,
 			
             ProjectileId = '/projectiles/ADFQuantumCannon01/ADFQuantumCannon01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.5,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Back_Muzzle',
-                    },
+                    MuzzleBones = { 'Turret_Back_Muzzle' },
                     RackBone = 'Turret_Back',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.5,		-- another 37.5 DPS Surface
 			
@@ -403,35 +355,24 @@ UnitBlueprint {
             Label = 'AntiTorpedo01',
 			
             MaxRadius = 24,
-            MinRadius = 0,
 			
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 6,
+            MuzzleVelocity = 7,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
             ProjectileLifetime = 6,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile01',
-						'Projectile02',
-                    },
+                    MuzzleBones = { 'Projectile01', 'Projectile02' },
                     RackBone = 'Projectile01',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 0.6,
+            RateOfFire = 0.5,
 			
             TargetCheckInterval = 0.5,
 			

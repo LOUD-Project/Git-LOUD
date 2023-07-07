@@ -998,12 +998,11 @@ UnitBlueprint {
                 },
             },
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1,
@@ -1016,8 +1015,8 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
                 'STRUCTURE -WALL',
-                
-                'ALLUNITS',
+   
+   'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
@@ -1088,12 +1087,11 @@ UnitBlueprint {
                 },
             },
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.5,
@@ -1106,8 +1104,8 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
                 'STRUCTURE -WALL',
-                
-                'ALLUNITS',
+   
+   'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
@@ -1182,14 +1180,13 @@ UnitBlueprint {
                     RackBone = 'Right_Arm_Barrel',
                 },
             },
-            RackFireTogether = false,
+             
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.3,
@@ -1202,8 +1199,8 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                
-                'ALLUNITS',
+   
+   'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
@@ -1285,14 +1282,13 @@ UnitBlueprint {
                     RackBone = 'Back_Upgrade_Muzzle',
                 },
             },
-            RackFireTogether = false,
+             
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = .2,
@@ -1302,8 +1298,8 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                
-                'ALLUNITS',
+   
+   'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             Turreted = false,
@@ -1382,14 +1378,13 @@ UnitBlueprint {
                     RackBone = 'Back_Upgrade_Muzzle',
                 },
             },
-            RackFireTogether = false,
+             
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 1,

@@ -195,7 +195,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.055,
     },
 	
@@ -206,8 +205,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Submarine',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Dive = true,
@@ -219,9 +216,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'sea',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC xas0204_name>Vesper',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -259,8 +254,8 @@ UnitBlueprint {
         MeshExtentsZ = 2.5,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_SurfacingSub',
-        TurnRadius = 5,
-        TurnRate = 80,
+        TurnRadius = 8,
+        TurnRate = 50,
     },
 	
     SelectionSizeX = 0.6,
@@ -328,16 +323,7 @@ UnitBlueprint {
                     RackBone = 'Projectile_Front_Right',
                 },
             },
-			
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 0.3,	-- 2 torps * 200 = 400 dmg * .3 = 120 DPS Sub
@@ -359,7 +345,10 @@ UnitBlueprint {
         },
 		
         {
+            advancedTracking = true,
+            
             BallisticArc = 'RULEUBA_None',
+
 			CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -380,9 +369,7 @@ UnitBlueprint {
 
             MaxRadius = 30,
 			MinRadius = 16,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 8.5,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
@@ -390,20 +377,11 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile_Right_Center01',
-                    },
+                    MuzzleBones = {'Projectile_Right_Center01'},
                     RackBone = 'Projectile_Right_Center01',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 0.5,
@@ -417,7 +395,10 @@ UnitBlueprint {
         },
 		
         {
+            advancedTracking = true,
+            
             BallisticArc = 'RULEUBA_None',
+
 			CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -448,21 +429,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile_Left_Center01',
-                    },
+                    MuzzleBones = {'Projectile_Left_Center01'},
                     RackBone = 'Projectile_Left_Center01',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 0.5,
 			

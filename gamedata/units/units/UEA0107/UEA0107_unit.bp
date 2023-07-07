@@ -107,7 +107,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.059,
     },
 	
@@ -124,8 +123,7 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Transport',
-        Classification = 'RULEUC_MilitaryAircraft',
+
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Ferry = true,
@@ -138,9 +136,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'air',
         SelectionPriority = 2,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC uea0107_name>Courier',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -188,5 +184,4 @@ UnitBlueprint {
         Class3AttachSize = 2,
         TransportClass = 10,
     },
-    UseOOBTestZoom = 200,
 }

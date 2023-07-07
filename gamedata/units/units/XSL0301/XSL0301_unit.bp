@@ -453,10 +453,6 @@ UnitBlueprint {
         },
 		
 		CapCost = -3,
-		
-        Category = 'Command',
-
-        Classification = 'RULEUC_Commander',
 
         CommandCaps = {
             RULEUCC_Attack = true,
@@ -483,13 +479,10 @@ UnitBlueprint {
         },
 
         SelectionPriority = 3,
-        TechLevel = 'RULEUTL_Secret',
     },
 	
     Intel = {
-
         FreeIntel = true,
-
         OmniRadius = 18,
         VisionRadius = 33,
         WaterVisionRadius = 18,
@@ -529,9 +522,9 @@ UnitBlueprint {
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.7,
 	
-    SizeX = 0.85,
-    SizeY = 1.6,
-    SizeZ = 0.45,
+    SizeX = 0.88,
+    SizeY = 1.65,
+    SizeZ = 0.48,
 	
     StrategicIconName = 'icon_subcommander_generic',
     StrategicIconSortPriority = 1,
@@ -590,9 +583,6 @@ UnitBlueprint {
             RackBones = {
                 { MuzzleBones = {'Right_Arm_Muzzle'}, RackBone = 'Right_Arm' },
             },
-            
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
             
             RangeCategory = 'UWRC_DirectFire',
             
@@ -657,8 +647,7 @@ UnitBlueprint {
             ManualFire = true,
             
             MaxRadius = 30,
-            
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 24,
             
             OverChargeWeapon = true,
@@ -671,8 +660,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
             
             RangeCategory = 'UWRC_DirectFire',
             
@@ -733,8 +720,7 @@ UnitBlueprint {
             MinRadius = 15,
             
             MuzzleChargeDelay = 1.5,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 5,
             
             ProjectileId = '/projectiles/SIFLaanseTacticalMissileSCU/SIFLaanseTacticalMissileSCU_proj.bp',
@@ -743,9 +729,6 @@ UnitBlueprint {
             RackBones = {
                 { MuzzleBones = {'back_missile' }, RackBone = 'back_missile' }
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
             
             RangeCategory = 'UWRC_IndirectFire',
             

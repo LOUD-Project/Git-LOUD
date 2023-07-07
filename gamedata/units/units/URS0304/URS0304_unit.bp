@@ -190,7 +190,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.036,
     },
 	
@@ -203,8 +202,6 @@ UnitBlueprint {
 
     General = {
 		CapCost = 3,
-        Category = 'Submarine',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Dive = true,
@@ -218,9 +215,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'sea',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC urs0304_name>Plan B',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -329,32 +324,19 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile_Left',
-                    },
+                    MuzzleBones = {'Projectile_Left'},
                     RackBone = 'Projectile_Left',
                 },
                 {
-                    MuzzleBones = {
-                        'Projectile_Right',
-                    },
+                    MuzzleBones = {'Projectile_Right'},
                     RackBone = 'Projectile_Right',
                 },
                 {
-                    MuzzleBones = {
-                        'Projectile_Center',
-                    },
+                    MuzzleBones = {'Projectile_Center'},
                     RackBone = 'Projectile_Center',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.2,		-- 3 missiles * 500 = 1500 dmg / 5 = 300 DPS Surface
@@ -364,7 +346,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
 				'STRUCTURE ECONOMIC',
                 'DEFENSE',
-                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -406,14 +387,7 @@ UnitBlueprint {
                     RackBone = 'Projectile_Front_Left',
                 },
             },
-			
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+
             RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 1.0,		-- 4 *  30 = 120 DPS Sub
@@ -427,7 +401,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
@@ -448,9 +421,7 @@ UnitBlueprint {
 			
             Buffs = {
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 5,
@@ -485,9 +456,7 @@ UnitBlueprint {
 			
             MaxRadius = 1536,
             MinRadius = 128,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 0,
 			
             NukeInnerRingDamage = 60000,
@@ -506,21 +475,13 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile_Center',
-                    },
+                    MuzzleBones = {'Projectile_Center'},
                     RackBone = 'Projectile_Center',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 1,
+
             TargetCheckInterval = 0.5,
 			
             TargetRestrictDisallow = 'UNTARGETABLE',

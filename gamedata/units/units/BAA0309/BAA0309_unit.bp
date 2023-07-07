@@ -147,8 +147,7 @@ UnitBlueprint {
 
     General = {
         CapCost = 2,
-        Category = 'Transport',
-        Classification = 'RULEUC_MilitaryAircraft',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -164,12 +163,10 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'air',
         SelectionPriority = 2,
-        TechLevel = 'RULEUTL_Advanced',
 
         ToggleCaps = { RULEUTC_StealthToggle = true },
 
         UnitName = '<LOC baa0309_name>Illuminate',
-        UnitWeight = 1,
     },
 
     Intel = {
@@ -236,11 +233,7 @@ UnitBlueprint {
 		-- 2 x Ground Attack Weapons
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0102_Pulse_Battery_01',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0102_Pulse_Battery_01', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -276,10 +269,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RangeCategory = 'UWRC_DirectFire',
 
             RateOfFire = 1,		-- 45 DPS Ground
@@ -313,11 +302,7 @@ UnitBlueprint {
 
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0102_Pulse_Battery_01',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0102_Pulse_Battery_01', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -332,7 +317,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = { Air = 'Air|Land|Water' },
 
 			FiringRandomness = 0.35,
-            FiringTolerance = 0,
 
             Label = 'SonicPulseBattery',
 
@@ -352,10 +336,6 @@ UnitBlueprint {
                     RackBone = 'Turret_Left',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 1,		-- 45 DPS Ground
 
@@ -389,10 +369,7 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0102_Pulse_Battery_01',
-                    LodCutoff = 'Weapon_LodCutoff',
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0102_Pulse_Battery_01', LodCutoff = 'Weapon_LodCutoff',
                 },
             },
 
@@ -430,10 +407,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RangeCategory = 'UWRC_AntiAir',
 
             RateOfFire = 2,		-- 60 DPS Air
@@ -466,11 +439,7 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0102_Pulse_Battery_01',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0102_Pulse_Battery_01', LodCutoff = 'Weapon_LodCutoff' },
             },
             AutoInitiateAttackCommand = false,
 
@@ -508,10 +477,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RateOfFire = 2,		-- 60 DPS Air
 
             TargetCheckInterval = 0.5,
@@ -543,11 +508,7 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0102_Pulse_Battery_01',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0102_Pulse_Battery_01', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -584,10 +545,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RateOfFire = 2,		-- 60 DPS Air
 
             TargetCheckInterval = 0.5,
@@ -620,11 +577,7 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0102_Pulse_Battery_01',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0102_Pulse_Battery_01', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -660,10 +613,6 @@ UnitBlueprint {
                     RackBone = 'Turret_Back01',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 2,		-- 80 DPS Air
 
@@ -714,11 +663,7 @@ UnitBlueprint {
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

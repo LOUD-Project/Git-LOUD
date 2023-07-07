@@ -34,16 +34,16 @@ UAS0305 = Class(ASeaUnit) {
             while not self.Dead do
                 for kTypeGroup, vTypeGroup in self.TimedSonarTTIdleEffects do
                     local effects = self.GetTerrainTypeEffects( 'FXIdle', layer, pos, vTypeGroup.Type, nil )
-                    
-                    for kb, vBone in vTypeGroup.Bones do
+       
+       for kb, vBone in vTypeGroup.Bones do
                         for ke, vEffect in effects do
                             emit = CreateAttachedEmitter(self,vBone,army,vEffect):ScaleEmitter(vTypeGroup.Scale or 1)
                             if vTypeGroup.Offset then
                                 emit:OffsetEmitter(vTypeGroup.Offset[1] or 0, vTypeGroup.Offset[2] or 0,vTypeGroup.Offset[3] or 0)
                             end
                         end
-                    end                    
-                end
+                    end       
+   end
                 WaitSeconds( 6.0 )                
             end
         end

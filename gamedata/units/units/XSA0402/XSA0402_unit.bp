@@ -140,7 +140,6 @@ UnitBlueprint {
         RegenRate = 10,
 		
         SurfaceThreatLevel = 120,
-		
     },
 	
     Description = '<LOC xsa0402_desc>Experimental Heavy Bomber (Bomber)',
@@ -197,7 +196,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.030,
     },
 	
@@ -217,8 +215,7 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 8,
-        Category = 'Experimental',
-        Classification = 'RULEUC_MilitaryAircraft',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -229,9 +226,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC xsa0402_name>Ahwassa',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -291,11 +286,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0402_Strategic_Bomb',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0402_Strategic_Bomb', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             AutoInitiateAttackCommand = true,
@@ -325,17 +316,13 @@ UnitBlueprint {
             FiringRandomness = 3,
             FiringTolerance = 0.295,
 			
-			--FixBombTrajectory = true,
-			
 			HeadingArcCenter = 0,
 			HeadingArcRange = 32,
 			
             Label = 'Bomb',
 			
             MaxRadius = 90,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 0,
             
             NeedToComputeBombDrop = true,			
@@ -344,16 +331,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Center_Muzzle',
-                    },
+                    MuzzleBones = {'Center_Muzzle'},
                     RackBone = 'Center_Muzzle',
                 },
             },
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 1,         -- controlled entirely by charge cycle --
 			
@@ -374,13 +355,11 @@ UnitBlueprint {
 		-- Right Left AA
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0402_AA_Autocannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0402_AA_Autocannon', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -414,15 +393,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Front_Autocannon_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Front_Autocannon_Muzzle'},
                     RackBone = 'Right_Front_Autocannon_Muzzle',
                 },
             },
-
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -458,13 +432,11 @@ UnitBlueprint {
 		-- Left Right AA
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0402_AA_Autocannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0402_AA_Autocannon', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -498,15 +470,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Front_Autocannon_Muzzle',
-                    },
+                    MuzzleBones = {'Left_Front_Autocannon_Muzzle'},
                     RackBone = 'Left_Front_Autocannon_Muzzle',
                 },
             },
-
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 2,		---- 400 DPS Air
 			
@@ -536,13 +503,11 @@ UnitBlueprint {
 		-- Right Rear AA
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0402_AA_Autocannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0402_AA_Autocannon', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -576,23 +541,18 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Rear_Autocannon_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Rear_Autocannon_Muzzle'},
                     RackBone = 'Right_Rear_Autocannon_Muzzle',
                 },
             },
 
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RateOfFire = 2,	-- 400 DPS Air
+
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'AIR MOBILE',
-                
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
@@ -616,13 +576,11 @@ UnitBlueprint {
 		-- Left Rear AA
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0402_AA_Autocannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0402_AA_Autocannon', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -655,15 +613,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Rear_Autocannon_Muzzle',
-                    },
+                    MuzzleBones = {'Left_Rear_Autocannon_Muzzle'},
                     RackBone = 'Left_Rear_Autocannon_Muzzle',
                 },
             },
-            
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 2,		-- 400 DPS Air
 			
@@ -710,10 +663,8 @@ UnitBlueprint {
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
             Water = true,
         },
     },

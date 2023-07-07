@@ -13,8 +13,8 @@ UAB2204 = Class(AStructureUnit) {
 				local army = self.unit:GetArmy()
 				
                 AAATemporalFizzWeapon.PlayFxRackSalvoChargeSequence(self)
-                
-                CreateAttachedEmitter( self.unit, 'Turret_Right_Muzzle', army, '/effects/emitters/temporal_fizz_muzzle_charge_02_emit.bp')
+   
+   CreateAttachedEmitter( self.unit, 'Turret_Right_Muzzle', army, '/effects/emitters/temporal_fizz_muzzle_charge_02_emit.bp')
                 CreateAttachedEmitter( self.unit, 'Turret_Left_Muzzle', army, '/effects/emitters/temporal_fizz_muzzle_charge_03_emit.bp')
             end,
         },

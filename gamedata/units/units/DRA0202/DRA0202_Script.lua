@@ -13,8 +13,8 @@ DRA0202 = Class(CAirUnit) {
                 Main = function(self)
                     CIFMissileCorsairWeapon.IdleState.Main(self)
                 end,
-                
-                OnGotTarget = function(self)
+   
+   OnGotTarget = function(self)
                     self.unit:SetBreakOffTriggerMult(2.0)
                     self.unit:SetBreakOffDistanceMult(8.0)
                     self.unit:SetSpeedMult(0.7)
