@@ -253,12 +253,12 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
+
         UniformScale = 0.019,
     },
     
     Economy = {
-        BuildCostEnergy = 480000,
+        BuildCostEnergy = 515000,
         BuildCostMass = 23800,
         BuildTime = 6750,
         
@@ -267,8 +267,6 @@ UnitBlueprint {
     
     General = {
         CapCost = 8,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -280,9 +278,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
 
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC ssl0404_name>Sisha-Ah',
-        UnitWeight = 1,
     },
     
     Intel = {
@@ -295,7 +291,7 @@ UnitBlueprint {
     },
     
     Interface = {
-        HelpText = '<LOC ssl0404_desc>Light Sniper Bot',
+        HelpText = '<LOC ssl0404_desc>Experimental Sniper Bot',
     },
     
     LifeBarHeight = 0.075,
@@ -311,7 +307,7 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         MaxAcceleration = 0.6,
         MaxBrake = 0.9,
-        MaxSpeed = 2.7,
+        MaxSpeed = 3.0,
         MaxSpeedReverse = 0,
         MaxSteerForce = 10,
         MeshExtentsX = 4,
@@ -354,7 +350,7 @@ UnitBlueprint {
     },
     
     -- Both weapons now have energy consumption cycles
-    -- that conincide -- RoF entirely controlled by energy cycles
+    -- RoF entirely controlled by energy cycles (13 seconds)
     -- RoF set at 1 to allow almost immediate fire upon charge complete
     
     Weapon = {
@@ -364,18 +360,9 @@ UnitBlueprint {
             AimsStraightOnDisable = true,
             
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Exp_Phason_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Exp_Phason_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_Exp_Phason_Fire', LodCutoff = 'Weapon_LodCutoff' },
+                MuzzleChargeStart = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_Exp_Phason_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
-            AutoInitiateAttackCommand = false,
             
             BallisticArc = 'RULEUBA_None',
             
@@ -384,7 +371,7 @@ UnitBlueprint {
             
             CollideFriendly = false,
             
-            Damage = 2400,
+            Damage = 2340,
             DamageRadius = 0,
             DamageType = 'ShieldMult0.5',
             
@@ -392,7 +379,7 @@ UnitBlueprint {
             
             DoNotCollideList = { 'MISSILE' },
             
-            EnergyRequired = 24150,         -- a 10.5 second charge cycle before fire
+            EnergyRequired = 24150,         -- a 10.5 second charge cycle before muzzle charge can begin
             EnergyDrainPerSecond = 2300,
             
             FireTargetLayerCapsTable = {
@@ -408,8 +395,6 @@ UnitBlueprint {
             MinRadius = 30,
             
             MuzzleChargeDelay = 2.5,        -- 2.5 second charge time before discharge
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             
             NotExclusive = true,
             
@@ -419,39 +404,33 @@ UnitBlueprint {
                     RackBone = 'Barrel',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -5,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            
+
             RangeCategory = 'UWRC_DirectFire',
             
-            RateOfFire = 1,                 -- RoF controlled by charge
+            RateOfFire = 1,          -- RoF controlled by charge (23.4k dmg every 13 seconds = 1800 DPS)
             
             SlavedToBody = true,
             SlavedToBodyArcRange = 30,
             
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'EXPERIMENTAL MOBILE',
                 'TECH3 MOBILE',
                 'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             
             TurretBoneMuzzle = 'Muzzle',
-            TurretBonePitch = 'Turret_Pitch',
+            TurretBonePitch = 'Barrel',
             TurretBoneYaw = 'Barrel',
             TurretDualManipulators = false,
             
             TurretPitch = 15,
-            TurretPitchRange = 28,
+            TurretPitchRange = 35,
             TurretPitchSpeed = 28,
             
             TurretYaw = 0,
@@ -459,34 +438,21 @@ UnitBlueprint {
             TurretYawSpeed = 17,
             
             Turreted = true,
-            WeaponCategory = 'Direct Fire Experimental',
         },
         
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2301_Ultrachromatic_Beam',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2301_Ultrachromatic_Beam_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2301_Ultrachromatic_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2301_Ultrachromatic_Beam', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2301_Ultrachromatic_Beam_Start', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2301_Ultrachromatic_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
             
             BallisticArc = 'RULEUBA_None',
             
             BeamCollisionDelay = 0.5,
             
-            BeamLifetime = 2.5,
+            BeamLifetime = 2,
             
             CollideFriendly = false,
             ContinuousBeam = true,
@@ -515,10 +481,6 @@ UnitBlueprint {
             MaxRadius = 120,
             MinRadius = 30,
             
-            MuzzleChargeDelay = 1,          -- a 1 second delay before discharge
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            
             NotExclusive = true,
             
             PrefersPrimaryWeaponTarget = true,
@@ -529,15 +491,6 @@ UnitBlueprint {
                     RackBone = 'Barrel',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            
-            RangeCategory = 'UWRC_DirectFire',
             
             RateOfFire = 1,
             
@@ -546,21 +499,8 @@ UnitBlueprint {
             
             TargetCheckInterval = 999999999999,
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TurretBoneMuzzle = 'Muzzle',
-            TurretBonePitch = 'Turret_Pitch',
-            TurretBoneYaw = 'Barrel',
-            TurretDualManipulators = false,
             
-            TurretPitch = 0,
-            TurretPitchRange = 0,
-            TurretPitchSpeed = 0,
-            
-            TurretYaw = 0,
-            TurretYawRange = 0,
-            TurretYawSpeed = 0,
-            
-            Turreted = true,
-            WeaponCategory = 'Direct Fire Experimental',
+            Turreted = false,
         },
         
         {
