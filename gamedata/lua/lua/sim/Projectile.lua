@@ -153,12 +153,27 @@ Projectile = Class(moho.projectile_methods, Entity) {
             local SetNewTarget = SetNewTarget
 
             local position = GetPosition(self)
+            
+            local weapon = false
+            local targetlist
+            
+            if self.DamageData.TrackingWeapon then
+                weapon = self.DamageData.TrackingWeapon
+            end
         
             self.advancedTrackinglock = nil
 		
-            local targetlist = GetUnitsAroundPoint( aiBrain, categories.AIR - categories.SATELLITE, position, self.range ,'ENEMY') 
-		
+            if not weapon then
+                targetlist = GetUnitsAroundPoint( aiBrain, categories.AIR - categories.SATELLITE, position, self.range ,'ENEMY') 
+            else
+                targetlist = { weapon:GetCurrentTarget() or nil }
+            end
+            
             if targetlist[1] then
+
+                if ScenarioInfo.ProjectileDialog and weapon then
+                    LOG("*AI DEBUG Projectile activates retargeting "..repr(targetlist[1]) )
+                end
 
                 SetNewTarget( self, targetlist[1] )
 			
@@ -773,7 +788,11 @@ Projectile = Class(moho.projectile_methods, Entity) {
 
 		if damageData.advancedTracking then
 			self.DamageData.advancedTracking = damageData.advancedTracking
-		end
+        end
+
+        if damageData.TrackingWeapon then
+            self.DamageData.TrackingWeapon = damageData.TrackingWeapon
+        end            
 		
 		if damageData.Buffs then
 			self.DamageData.Buffs = damageData.Buffs

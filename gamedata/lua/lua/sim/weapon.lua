@@ -73,7 +73,6 @@ Weapon = Class(moho.weapon_methods) {
 
 		if ScenarioInfo.WeaponDialog then
 			LOG("*AI DEBUG Weapon OnCreate for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..self.unit.EntityID.." -- "..repr(self.bp.Label) )
-            --LOG("*AI DEBUG Weapon OnCreate for "..repr(__blueprints[self.unit.BlueprintID].Description).." -- "..repr(self.bp) )
 		end
 
         -- brought this function local since it's the only place it gets called
@@ -412,14 +411,17 @@ Weapon = Class(moho.weapon_methods) {
 	
 		-- at minimum the weapons damage table will have 
 			--	Damage Amount
-			--	Damage Type	(used for armor type calculations - usually 'Normal')
-			
-			--	Damage Radius (only for AOE weapons)
-			--	Collide & Damage Friendly (for those weapons which do that)
-			--	Damage Over Time & Pulses (for those weapons which do that)
-			--	Artillery Shield Blocks
-			--	advancedTracking	(used by SAM missiles)
+			--	Damage Type	                (used for armor type calculations - usually 'Normal')
+			--	Damage Radius               (only for AOE weapons)
+
+			--	Collide & Damage Friendly   (for those weapons which do that)
+			--	Damage Over Time & Pulses   (for those weapons which do that)
+
+			--	Artillery Shield Blocks     
+			--	advancedTracking	        (used by tracking projectiles)
 			--		also add ProjectileLifetime and TrackingRadius
+            --  TrackingWeapon              (used by weapons thattrack projectiles rather than units)
+
 			
         self.damageTable = {
 			DamageAmount = weaponBlueprint.Damage + (self.DamageMod or 0),
@@ -442,6 +444,10 @@ Weapon = Class(moho.weapon_methods) {
 			self.damageTable.advancedTracking = weaponBlueprint.advancedTracking
 			self.damageTable.ProjectileLifetime = self.ProjectileLifetime
 			self.damageTable.TrackingRadius = self.TrackingRadius
+            
+            if weaponBlueprint.TargetType == 'RULEWTT_Projectile' then
+                self.damageTable.TrackingWeapon = self
+            end
 		end
 		
 		if weaponBlueprint.ArtilleryShieldBlocks then
