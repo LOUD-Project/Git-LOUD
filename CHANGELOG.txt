@@ -1,3 +1,24 @@
+### Release
+
+LUA 6.3.12
+BrewLAN for LOUD 0.8.8.9.72
+PROJECTILES 6.3.02
+Civ_UNITS 6.3.01
+UNITS 6.3.10
+
+- reduced underwater torpedo/anti-torpedo effects in attempt to reduce particle count messages
+- revised SERA anti-torpedoes to align with performance of other torpedoes (acceleration, maxspeed, turnrate)
+- BASE DISTRESS response was not returning assets to rally points closest to last known threats
+- BASE MONITOR was not using the same range to adjudicate threat, as it was to detect it in the first place
+- revised logging to unify it's appearance, and to report the last distress position (used to return units to rally points)
+- implemented PRODUCTION FOCUS metrics to trigger an immediate response to naval rush by pushing the naval base builder 
+- completed data reduction on all Air and Naval units (added advancedTracking to many anti-torpedo torpedo systems)
+- moved remaining civilian units into Civ_UNITS 
+- created code to allow 'advancedTracking' for anti-projectile weapons (anti-torpedo torpedoes specificially)
+- fixed an issue with walls and veterancy totals
+- fixed a targeting bone issue in Sera T4 Sniper
+
+
 ### Release 01-07-2023
 
 LUA 6.3.11
