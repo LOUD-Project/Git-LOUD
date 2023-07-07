@@ -1050,7 +1050,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                 
                     self.FirstShot = false
                     
-                    self:StartEconomyDrain()
+                    self:StartEconomyDrain() -- the recharge begins as soon as the weapon starts firing
 					
 					-- create the projectile --
                     self:CreateProjectileAtMuzzle(muzzle)
@@ -1483,12 +1483,10 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
     PlayFxBeamStart = function(self, muzzle)
 
         local beam
-        --local beamTable
 		
         for _, v in self.Beams do
             if v.Muzzle == muzzle then
                 beam = v.Beam
-                --beamTable = v
                 break
             end
         end

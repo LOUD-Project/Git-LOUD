@@ -366,6 +366,10 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
 
 		if damageData.advancedTracking then
 			self.DamageData.advancedTracking = damageData.advancedTracking
+            
+            if damageData.TargetType == 'RULEWTT_Projectile' then
+                self.DamageData.TrackingWeapon = self
+            end
 		end
 		
 		if damageData.Buffs then

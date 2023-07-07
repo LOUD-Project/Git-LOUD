@@ -1083,7 +1083,9 @@ Platoon = Class(moho.platoon_methods) {
 
 		if not startNode and platoonLayer == 'Amphibious' then
 		
-			LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." no safe "..platoonLayer.." startnode using "..threatallowed.." threat within "..MaxMarkerDist.." of "..repr(start).." - trying Land")
+            if PathFindingDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." no safe "..platoonLayer.." startnode using "..threatallowed.." threat within "..MaxMarkerDist.." of "..repr(start).." - trying Land")
+            end
             
 			platoonLayer = 'Land'
 			startNode, startNodeName = GetClosestSafePathNodeInRadiusByLayerLOUD( start, false, destination, 2 )

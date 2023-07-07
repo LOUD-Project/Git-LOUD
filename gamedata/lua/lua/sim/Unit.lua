@@ -1736,12 +1736,12 @@ Unit = Class(moho.unit_methods) {
 		else
 		
 			-- remove the kill before the instigator has a chance to test veterancy
-			if instigator and IsUnit(instigator) then
+			--if instigator and IsUnit(instigator) then
 			
-				local kills = instigator:GetStat('KILLS', 0).Value
+				--local kills = instigator:GetStat('KILLS', 0).Value
 				
-				instigator:SetStat('KILLS', kills - 1)
-			end
+				--instigator:SetStat('KILLS', kills - 1)
+			--end
 		end
 		
         if self.DeathWeaponEnabled != false then
