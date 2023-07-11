@@ -321,7 +321,7 @@ UnitBlueprint {
                 },
             },
 
-            RangeCategory = 'UWRC_IndirectFire',
+            RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.1, 	---- 6 missiles = 3600 dmg every 10 seconds = 360 DPS
 			
@@ -371,7 +371,7 @@ UnitBlueprint {
 
             MaxProjectileStorage = 3,
 
-            MaxRadius = 1536,
+            MaxRadius = 1024,
             MinRadius = 128,
 
             MuzzleVelocity = 0,
@@ -398,6 +398,8 @@ UnitBlueprint {
                     RackBone = 'Center_Hatch02',
                 },
             },
+
+            RangeCategory = 'UWRC_IndirectFire',
 
             RateOfFire = 1,
             TargetCheckInterval = 0.5,
