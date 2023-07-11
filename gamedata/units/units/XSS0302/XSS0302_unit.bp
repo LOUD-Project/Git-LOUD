@@ -876,7 +876,6 @@ UnitBlueprint {
             NukeWeapon = true,
 			
             ProjectileId = '/projectiles/SIFInainoStrategicMissile02/SIFInainoStrategicMissile02_proj.bp',
-			ProjectileLifetime = 150,
 
             RackBones = {
                 {
