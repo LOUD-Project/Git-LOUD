@@ -2195,24 +2195,22 @@ Unit = Class(moho.unit_methods) {
         if missileType == 'nuke' then
 		
             self:OnSMLaunched()
-			
         else
 		
             self:OnTMLaunched()
-			
         end
 		
     end,
 
     OnTMLaunched = function(self)
-        --self:DoUnitCallbacks('OnTMLaunched')
+        self:DoUnitCallbacks('OnTMLaunched')
     end,
 
     OnSMLaunched = function(self)
-        --self:DoUnitCallbacks('OnSMLaunched')
+        self:DoUnitCallbacks('OnSMLaunched')
     end,
 
-    CheckCountedMissileAmmoIncrease = function(self)
+    CheckCountedMissileAmmo = function(self)
 	
         -- polls the ammo count every 6 secs 
         local nukeCount = self:GetNukeSiloAmmoCount() or 0
@@ -2229,35 +2227,48 @@ Unit = Class(moho.unit_methods) {
 			
                 self:OnSMLAmmoIncrease()
 				
+            elseif nukeCount < lastTimeNukeCount then
+            
+                self:OnSMLAmmoDecrease()
+                
             end
 			
             if tacticalCount > lastTimeTacticalCount then
 			
                 self:OnTMLAmmoIncrease()
 				
+            elseif tacticalCount < lastTimeTacticalCount then
+            
+                self:OnTMLAmmoDecrease()
+                
             end
 
             lastTimeNukeCount = nukeCount 
             lastTimeTacticalCount = tacticalCount
 			
-            WaitTicks(60)
-			
+            WaitTicks(61)
         end
 		
     end,
 
     OnTMLAmmoIncrease = function(self)
-        --self:DoUnitCallbacks('OnTMLAmmoIncrease')
+        self:DoUnitCallbacks('OnTMLAmmoIncrease')
+    end,
+    
+    OnTMLAmmoDecrease = function(self)
+        self:DoUnitCallbacks('OnTMLAmmoDecrease')
     end,
 
     OnSMLAmmoIncrease = function(self)
-        --self:DoUnitCallbacks('OnSMLAmmoIncrease')
+        self:DoUnitCallbacks('OnSMLAmmoIncrease')
+    end,
+    
+    OnSMLAmmoDecrease = function(self)
+        self:DoUnitCallbacks('OnSMLAmmoDecrease')
     end,
 
     CreateDestructionEffects = function( self, overKillRatio )
-	
         CreateScalableUnitExplosion( self, overKillRatio )
-		
     end,
 
     DoDestroyCallbacks = function(self)
@@ -2267,15 +2278,10 @@ Unit = Class(moho.unit_methods) {
             for k, cb in self.EventCallbacks.OnDestroyed do
 			
                 if cb then
-				
                     cb( GetAIBrain(self), self )
-					
                 end
-				
             end
-			
         end
-		
     end,
 
     OnDestroy = function(self)
@@ -2295,11 +2301,8 @@ Unit = Class(moho.unit_methods) {
 		if LOUDENTITY(FACTORY, self) then
 		
 			if self.UnitBeingBuilt and not self.UnitBeingBuilt.Dead and GetFractionComplete(self.UnitBeingBuilt) < 1 then
-			
 				self.UnitBeingBuilt:Destroy()
-				
 			end
-			
 		end
 
 		if self.IntelThread then
@@ -2307,27 +2310,22 @@ Unit = Class(moho.unit_methods) {
 			KillThread(self.IntelThread)
 			
 			self.IntelThread = nil
-			
 		end
 
 		if self.BuildArmManipulator then
-		
 			self.BuildArmManipulator = nil
-			
 		end
         
 		if self.BuildEffectsBag then
 		
 			TrashDestroy(self.BuildEffectsBag)
 			self.BuildEffectsBag = nil
-			
 		end
 		
 		if self.CaptureEffectsBag then
 		
 			TrashDestroy(self.CaptureEffectsBag)
 			self.CaptureEffectsBag = nil
-			
 		end
 		
 		if self.ReclaimEffectsBag then
@@ -4133,16 +4131,14 @@ Unit = Class(moho.unit_methods) {
     AddOnMLammoIncreaseCallback = function(self, fn) 	-- specialized cause this starts the ammo check thread
 	
         if not fn then
-		
             error('*ERROR: Tried to add a callback type - OnTMLAmmoIncrease with a nil function')
-            return
+        else
+            LOUDINSERT( self.EventCallbacks.OnTMLAmmoIncrease, fn )
+            LOUDINSERT( self.EventCallbacks.OnTMLAmmoDecrease, fn )
         end
 		
-        LOUDINSERT( self.EventCallbacks.OnTMLAmmoIncrease, fn )
-		
         if not self.MLAmmoCheckThread then
-		
-            self.MLAmmoCheckThread = self:ForkThread(self.CheckCountedMissileAmmoIncrease)
+            self.MLAmmoCheckThread = self:ForkThread(self.CheckCountedMissileAmmo)
         end
 		
     end,

@@ -347,6 +347,11 @@ Weapon = Class(moho.weapon_methods) {
     end,
 	
 	OnWeaponFired = function(self, target)
+	
+		if ScenarioInfo.WeaponDialog then
+			LOG("*AI DEBUG Weapon OnWeaponFired for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
+		end
+
 	end,
     
     OnDisableWeapon = function(self)
@@ -362,6 +367,10 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     OnGotTarget = function(self)
+	
+		if ScenarioInfo.WeaponDialog then
+			LOG("*AI DEBUG Weapon OnGotTarget for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
+		end
 
         if self.DisabledFiringBones and self.unit.Animator then
 		
@@ -373,6 +382,10 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     OnLostTarget = function(self)
+	
+		if ScenarioInfo.WeaponDialog then
+			LOG("*AI DEBUG Weapon OnLostTarget for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
+		end
 
         if self.DisabledFiringBones and self.unit.Animator then
 		
@@ -384,10 +397,20 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     OnStartTracking = function(self, label)
+	
+		if ScenarioInfo.WeaponDialog then
+			LOG("*AI DEBUG Weapon OnStartTracking for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
+		end
+
         self:PlayWeaponSound('BarrelStart')
     end,
 
     OnStopTracking = function(self, label)
+	
+		if ScenarioInfo.WeaponDialog then
+			LOG("*AI DEBUG Weapon OnStopTracking for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
+		end
+
         self:PlayWeaponSound('BarrelStop')
 		
         if LOUDENTITY(STRUCTURE, self.unit) then
