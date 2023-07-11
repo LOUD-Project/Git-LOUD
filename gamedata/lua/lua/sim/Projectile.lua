@@ -550,7 +550,15 @@ Projectile = Class(moho.projectile_methods, Entity) {
     
         if DD.DamageAmount then
 
+            if DD.Buffs then
+                self:DoUnitImpactBuffs( GetPosition(self), targetEntity )
+            end		
+
+            -- because shield effects directly change the damage table
+            -- we'll take a copy of and use that instead
             if targetType == 'Shield' then
+            
+                local DD = table.copy(self.DamageData)
 
                 -- LOUD 'marshmallow shield effect' all AOE to 0 on shields
                 if DD.DamageRadius > 0 then
@@ -576,10 +584,6 @@ Projectile = Class(moho.projectile_methods, Entity) {
                 end
             end
 
-            if DD.Buffs then
-                self:DoUnitImpactBuffs( GetPosition(self), targetEntity )
-            end		
-
 			self:DoDamage( GetLauncher(self) or self, DD, targetEntity)
 		end
 
@@ -598,10 +602,6 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			local ImpactEffectScale = 1     -- default scaling
 	
 			local army = self.Army
-
-            --if ScenarioInfo.ProjectileDialog then
-              --  LOG("*AI DEBUG Projectile OnImpact with "..repr(targetType))
-            --end
 	
 			--ImpactEffects
 			if targetType == 'Shield' then
@@ -692,6 +692,8 @@ Projectile = Class(moho.projectile_methods, Entity) {
 
         -- Railgun damage drops by 20% per target it collides with
 		if DD.DamageType == 'Railgun' then
+            
+            local DD = table.copy(self.DamageData)
 
 			DD.DamageAmount = DD.DamageAmount * 0.8
 			
@@ -806,10 +808,6 @@ Projectile = Class(moho.projectile_methods, Entity) {
 		if self.DamageData.advancedTracking then
 			ForkTo( self.Tracking, self )
 		end
-		
-		--if ScenarioInfo.ProjectileDialog then
-			--LOG("*AI DEBUG Projectile PassDamageData is "..repr(self))
-		--end
 		
     end,
     

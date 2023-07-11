@@ -254,7 +254,15 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
         
         if damageTable.DamageAmount then
 
+            if damageTable.Buffs then
+                self:DoUnitImpactBuffs( targetEntity, damageTable )
+            end		
+
             if impactType == 'Shield' then
+            
+                -- because we are going to change the damageTable we want a copy
+                -- and not the original table
+                local damageTable = table.copy(self.Weapon.damageTable)
 
                 -- LOUD 'marshmallow shield effect' all AOE to 0 on shields
                 if damageTable.DamageRadius > 0 then
@@ -279,10 +287,6 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
                     LOG("*AI DEBUG Beam Target entity is "..repr(targetEntity.BlueprintID))
                 end
             end
-
-            if damageTable.Buffs then
-                self:DoUnitImpactBuffs( targetEntity, damageTable )
-            end		
 
 			self:DoDamage( self:GetLauncher() or self, damageTable, targetEntity)
 		end
