@@ -1,4 +1,13 @@
-### Release
+### Release 11-07-2023
+
+LUA 6.3.13
+
+- hotfix for Beam/Shield interactions with ShieldMult weapons
+- mechanical work for anti-nuke 'shooter' issues
+- additional logging for weapon states
+
+
+### Release 06-07-2023
 
 LUA 6.3.12
 BrewLAN for LOUD 0.8.8.9.72
