@@ -10,13 +10,14 @@ UnitBlueprint {
         'BUILTBYCOMMANDER',
         'UEF',
         'STRUCTURE',
+        'DEFENSE',
         'TECH1',
         'WALL',
         'BENIGN',
         'DRAGBUILD',
         'VISIBLETORECON',
         'RECLAIMABLE',
-		'SORTSTRATEGIC',
+		'SORTDEFENSE',
     },
     
     Defense = {

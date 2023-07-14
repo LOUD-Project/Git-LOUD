@@ -18,13 +18,14 @@ UnitBlueprint {
         'BUILTBYTIER3COMMANDER',
         'CYBRAN',
         'STRUCTURE',
+        'DEFENSE',
         'WALL',
         'DRAGBUILD',
         'TECH2',
         'BENIGN',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'SORTSTRATEGIC',
+        'SORTDEFENSE',
     },
 	
     Defense = {

@@ -18,13 +18,14 @@ UnitBlueprint {
         'BUILTBYTIER3COMMANDER',
         'SERAPHIM',
         'STRUCTURE',
+        'DEFENSE',
         'DRAGBUILD',
         'TECH2',
         'WALL',
         'BENIGN',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'SORTSTRATEGIC',
+        'SORTDEFENSE',
     },
 	
     Defense = {
