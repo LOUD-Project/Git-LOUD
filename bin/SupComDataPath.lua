@@ -63,6 +63,7 @@ mount_dir(InitFileDir .. '\\..\\gamedata\\WyvernBattlePack\\lua', '/lua')
 --Non Game-data
 mount_contents(InitFileDir .. '\\..\\..\\LOUD\\maps', '/maps')
 mount_contents(InitFileDir .. '\\..\\..\\LOUD\\usermaps', '/maps')
+mount_dir(InitFileDir .. '\\..\\..\\LOUD\\usermods', '/mods')
 mount_dir(InitFileDir .. '\\..\\sounds', '/sounds')
 mount_dir(InitFileDir .. '\\..\\..\\movies', '/movies')
 mount_dir(InitFileDir .. '\\..\\..\\fonts', '/fonts')
