@@ -70,7 +70,8 @@ UnitBlueprint {
             },
         },
 
-
+
+
         UniformScale = 0.09,
     },
 
@@ -214,7 +215,7 @@ UnitBlueprint {
 
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.15,
 			
             TurretBoneDualMuzzle = 'Turret_Muzzle_Right02',
@@ -244,7 +245,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed|Air',
-                Water = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed|Air',
             },
             FiringTolerance = 1,
 			
@@ -288,7 +289,7 @@ UnitBlueprint {
 
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.05,
             TurretBoneDualMuzzle = 'Turret_Muzzle_Left02',
             TurretBoneDualPitch = 'minigun01',
