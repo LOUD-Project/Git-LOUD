@@ -207,6 +207,7 @@ UnitBlueprint {
         UnitName = '<LOC bsb1304_name>Uya-atoh',
         UnitWeight = 1,
         UpgradesFrom = 'bsb1302',
+		UpgradesFromBase = 'xsb1102',
     },
     Interface = {
         HelpText = 'Adv. Hydrocarbon Power Plant & Storage',

@@ -208,6 +208,7 @@ UnitBlueprint {
         UnitName = '<LOC beb1304_name>HCPP - X3000',
         UnitWeight = 1,
         UpgradesFrom = 'beb1302',
+		UpgradesFromBase = 'ueb1102',
     },
     Interface = {
         HelpText = 'Advanced Hydrocarbon Power Plant & Storage',

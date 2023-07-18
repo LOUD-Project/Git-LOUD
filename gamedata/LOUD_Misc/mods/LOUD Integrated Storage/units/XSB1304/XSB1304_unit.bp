@@ -165,6 +165,7 @@ UnitBlueprint {
         },
         UnitWeight = 1,
         UpgradesFrom = 'xsb1302',
+		UpgradesFromBase = 'xsb1103',
     },
     Interface = {
         HelpText = 'Advanced Mass Extractor & Storage',
