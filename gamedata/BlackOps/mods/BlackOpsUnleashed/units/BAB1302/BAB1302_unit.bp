@@ -96,7 +96,7 @@ UnitBlueprint {
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
         UnitWeight = 1,
-		UpgradesFrom = 'bab1302',
+		UpgradesFrom = 'bab1202',
 		UpgradesFromBase = 'uab1102',		
     },
 	
