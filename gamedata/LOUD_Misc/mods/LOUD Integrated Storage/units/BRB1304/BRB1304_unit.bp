@@ -205,6 +205,7 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Basic',
         UnitWeight = 1,
         UpgradesFrom = 'brb1302',
+		UpgradesFromBase = 'urb1102',
     },
     Interface = {
         HelpText = 'Advanced Hydrocarbon Power Plant & Storage',

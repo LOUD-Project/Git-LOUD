@@ -92,7 +92,7 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC bsb1302_name>Uya-atoh',
         UnitWeight = 1,
-		UpgradesFrom = 'bsb1302',
+		UpgradesFrom = 'bsb1202',
 		UpgradesFromBase = 'xsb1102',		
     },
 	

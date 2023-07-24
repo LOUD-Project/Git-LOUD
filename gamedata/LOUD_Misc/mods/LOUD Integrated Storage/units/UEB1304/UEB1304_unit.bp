@@ -147,6 +147,7 @@ UnitBlueprint {
         },
         UnitWeight = 1,
         UpgradesFrom = 'ueb1302',
+		UpgradesFromBase = 'ueb1103',
     },
     Interface = {
         HelpText = 'Advanced Mass Extractor & Storage',
