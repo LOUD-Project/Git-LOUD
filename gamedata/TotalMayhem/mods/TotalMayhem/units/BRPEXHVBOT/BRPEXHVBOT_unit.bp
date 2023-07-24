@@ -9,35 +9,6 @@ UnitBlueprint {
 			'Left_Leg_B09',
         },	
     },
-
-    Audio = {
-        FootFallGeneric = Sound {
-            Bank = 'TM_AEONWEAPONS',
-            Cue = 'AEONUZIELFOOTSTEPFX',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        FootFallGenericSeabed = Sound {
-            Bank = 'TM_AEONWEAPONS',
-            Cue = 'AEONUZIELFOOTSTEPFX',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0001_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0001_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Commander',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-    },
-	
     Buffs = {
         Regen = {
             Level1 = 10,
