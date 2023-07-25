@@ -1,9 +1,8 @@
 UnitBlueprint {
 
     AI = {  
-		TargetBones = {
-            'Turreta',
-        },		
+        GuardScanRadius = 22, 
+		TargetBones = {'Turreta'},		
     }, 
 	
     Audio = {
@@ -115,7 +114,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         TransportAnimation = {
             {
                 Animation = '/units/XSL0104/XSL0104_afold01.sca',
@@ -132,8 +130,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -145,9 +141,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC brpt1exm1_name>Othazyne',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -252,23 +246,17 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle01a',
-                    },
+                    MuzzleBones = {'Turret_Muzzle01a'},
                     RackBone = 'Turret_Barreld',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle02a',
-                    },
+                    MuzzleBones = {'Turret_Muzzle02a'},
                     RackBone = 'Turret_Barrel01',
                 },
             },
 
             RackRecoilDistance = 0.35,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -312,11 +300,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

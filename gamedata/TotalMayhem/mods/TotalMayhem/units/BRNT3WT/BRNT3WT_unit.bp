@@ -1,9 +1,7 @@
 UnitBlueprint {
     AI = { 
-        GuardScanRadius = 60, 
-		TargetBones = {
-            'Turret',
-        },
+        GuardScanRadius = 30, 
+		TargetBones = {'Turret'},
     },
 	
     Audio = {
@@ -89,8 +87,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -102,9 +98,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC brnt3wt_name>WarHammer',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -294,9 +288,7 @@ UnitBlueprint {
             Label = 'MainGun',
 			
             MaxRadius = 30,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 32,
 			MuzzleVelocityRandom = 2,
 			
@@ -316,9 +308,6 @@ UnitBlueprint {
             },
             
             RackRecoilDistance = -3,
-
-
-            RackSalvoSize = 1,
 			
             RackSlavedToTurret = true,
 			
@@ -333,7 +322,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
@@ -359,11 +348,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

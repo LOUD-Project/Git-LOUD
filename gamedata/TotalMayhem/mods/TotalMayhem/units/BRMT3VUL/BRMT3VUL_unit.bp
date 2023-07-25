@@ -1,13 +1,9 @@
 UnitBlueprint {
     AI = { 
-        GuardScanRadius = 45, 
-		TargetBones = {
-            'Turret',
-			'AttachPoint',
-			'legb2',
-			'toes04',
-        },
+        GuardScanRadius = 40, 
+		TargetBones = {'Turret','AttachPoint','legb2','toes04'},
     }, 
+
     Audio = {
         Killed = Sound {
             Bank = 'URLWeapon',
@@ -74,14 +70,17 @@ UnitBlueprint {
         Abilities = {
             'Amphibious',
         },
+
         AnimationDeath = {
             {
                 Animation = '/mods/TotalMayhem/units/BRMT3VUL/BRMT3VUL_Death.sca',
                 Weight = 100,
             },
         },
+
         AnimationWalk = '/mods/TotalMayhem/units/BRMT3VUL/BRMT3VUL_Walk.sca',
         AnimationWalkRate = 2.15,
+
         Mesh = {
             IconFadeInZoom = 230,
             LODs = {
@@ -160,9 +159,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 2,
-        Category = 'Experimental',
-        Classification = 'RULEUC_MilitaryVehicle',
+		CapCost = 2.5,
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -173,9 +170,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC brmt3vul_name>Vulture',
-        UnitWeight = 1,
     },
     
     Intel = {
@@ -309,7 +304,6 @@ UnitBlueprint {
                     RackBone = 'rocketlauncher01',
                 },
             },
-
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
@@ -393,11 +387,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -1.5,
-            RackReloadTimeout = 10,
 
-
-            RackSalvoSize = 1,
-			
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -462,9 +452,7 @@ UnitBlueprint {
             Label = 'lefthandweapon',
 			
             MaxRadius = 40,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 45,
             
             NotExclusive = true,
@@ -483,10 +471,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -1.5,
-            RackReloadTimeout = 10,
 
-
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
             RateOfFire = 0.80,	-- 240 dps
@@ -555,9 +540,7 @@ UnitBlueprint {
             Label = 'HeavyBolter',
 			
             MaxRadius = 36,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 45,
 
             ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
@@ -573,10 +556,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
             RateOfFire = 3,	-- 60 dps
@@ -614,6 +593,7 @@ UnitBlueprint {
             Turreted = true,
  	    },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
@@ -621,11 +601,8 @@ UnitBlueprint {
         MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

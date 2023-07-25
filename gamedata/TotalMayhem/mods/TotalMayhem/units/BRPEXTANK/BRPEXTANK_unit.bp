@@ -1,7 +1,7 @@
 UnitBlueprint {
 
     AI = { 
-        GuardScanRadius = 45, 
+        GuardScanRadius = 42, 
         TargetBones = {
             'Object05',
 			'Upgrade01_02',
@@ -126,8 +126,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 3,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -139,9 +137,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC brpextank_name>Yath-Us',
-        UnitWeight = 2,
     },
 	
     Intel = {
@@ -179,8 +175,6 @@ UnitBlueprint {
 		
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Amphibious',
-        RotateOnSpot = false,
-        RotateOnSpotThreshold = 0.1,
 		
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -0.5,
@@ -262,10 +256,7 @@ UnitBlueprint {
             Label = 'Turret',
 			
             MaxRadius = 42,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 42,
 			
             ProjectileId = '/projectiles/SDFHeavyQuarnonCannon01/SDFHeavyQuarnonCannon01_proj.bp',
@@ -299,7 +290,7 @@ UnitBlueprint {
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneDualMuzzle = 'Turret_Barrel_Muzzle',
             TurretBoneDualPitch = 'Turret_Barrel',
@@ -337,11 +328,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

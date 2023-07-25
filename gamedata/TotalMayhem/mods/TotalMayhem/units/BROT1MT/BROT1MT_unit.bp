@@ -1,6 +1,7 @@
 UnitBlueprint {  
   
 	AI = {  
+        GuardScanRadius = 20, 
 		TargetBones = {'Turret'},		
     }, 
 	
@@ -73,8 +74,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -86,9 +85,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC brot1mt_name>Bonfire',
-        UnitWeight = 1,
     },
 
     Intel = {
@@ -177,9 +174,7 @@ UnitBlueprint {
             Label = 'MainGun',
 			
             MaxRadius = 20,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 28,
 			
             ProjectileId = '/projectiles/AAASonicPulse02/AAASonicPulse02_proj.bp',
@@ -217,7 +212,8 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.05,
+
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
@@ -241,11 +237,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

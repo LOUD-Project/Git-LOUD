@@ -1,7 +1,7 @@
 UnitBlueprint {
 
     AI = { 
-        GuardScanRadius = 60, 
+        GuardScanRadius = 38, 
 		TargetBones = {'Turret'},		
     }, 
 	
@@ -125,8 +125,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -138,9 +136,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC brot3hm_name>Mogul',
-        UnitWeight = 2,
     },
 
     Intel = {
@@ -248,11 +244,9 @@ UnitBlueprint {
             FiringTolerance = 1,
 			
             Label = 'MainGun',
+
             MaxRadius = 38,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 45,
 
             ProjectileId = '/mods/TotalMayhem/projectiles/BROT1EXM1proj/BROT1EXM1proj_proj.bp',
@@ -287,8 +281,6 @@ UnitBlueprint {
             RackRecoilDistance = -2,
 
             RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
 
             RackSlavedToTurret = true,
 			
@@ -348,10 +340,7 @@ UnitBlueprint {
             Label = 'MainGun2',
 			
             MaxRadius = 38,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 60,
 
             ProjectileId = '/mods/TotalMayhem/projectiles/BROT3HTproj/BROT3HTproj_proj.bp',
@@ -370,8 +359,6 @@ UnitBlueprint {
             RackRecoilDistance = -2,
 
             RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
 
             RackSlavedToTurret = true,
 			
@@ -409,11 +396,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

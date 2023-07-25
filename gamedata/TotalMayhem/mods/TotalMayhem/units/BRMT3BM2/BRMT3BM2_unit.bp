@@ -1,6 +1,6 @@
 UnitBlueprint {
     AI = { 
-        GuardScanRadius = 60, 
+        GuardScanRadius = 38, 
         TargetBones = { 'Turret' },
     },
 	
@@ -111,8 +111,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -124,9 +122,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC brmt3bm2_name>Dervish',
-        UnitWeight = 2,
     },
 	
     Intel = {
@@ -207,9 +203,7 @@ UnitBlueprint {
 			
             Buffs = {
             	{
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 0.5,
@@ -297,9 +291,11 @@ UnitBlueprint {
             TurretPitch = 0,
             TurretPitchRange = 60,
             TurretPitchSpeed = 16,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 30,
+
             Turreted = true,
 		},
 		
@@ -330,9 +326,7 @@ UnitBlueprint {
             Label = 'maingun1',
 			
             MaxRadius = 38,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
             
             NotExclusive = true,
@@ -351,12 +345,9 @@ UnitBlueprint {
                     RackBone = 'armgun01',
                 },
             },
-			
             RackFireTogether = true,
 			
             RackRecoilDistance = -2,
-
-            RackSalvoSize = 1,
 
             RackSlavedToTurret = true,
 			
@@ -388,10 +379,11 @@ UnitBlueprint {
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 16,
+
             TurretYaw = 0,
-			
             TurretYawRange = 45,
             TurretYawSpeed = 30,
+
             Turreted = true,
         },
 
@@ -489,6 +481,7 @@ UnitBlueprint {
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 16,
+
             TurretYaw = 0,
             TurretYawRange = 45,
             TurretYawSpeed = 16,
@@ -557,23 +550,20 @@ UnitBlueprint {
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1,
 
             Turreted = false,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        HealthMult = 0.7,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

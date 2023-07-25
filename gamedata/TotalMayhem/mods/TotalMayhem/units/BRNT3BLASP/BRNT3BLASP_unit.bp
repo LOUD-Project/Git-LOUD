@@ -1,12 +1,7 @@
 UnitBlueprint {
     AI = { 
-        GuardScanRadius = 60, 
-		TargetBones = {
-            'Turret',
-			'AttachPoint',
-			'legb2',
-			'toe05',
-        },
+        GuardScanRadius = 35, 
+		TargetBones = {'Turret','AttachPoint','legb2','toe05'},
     },
 	
     Audio = {
@@ -158,8 +153,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 3,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -171,9 +164,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC brnt3blasp_name>Blood Asp',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -279,8 +270,7 @@ UnitBlueprint {
 			
             MaxRadius = 50,
 			MinRadius = 10,
-			
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 2,
 			
             MuzzleVelocity = 60,
@@ -312,7 +302,6 @@ UnitBlueprint {
                 'TECH2 MOBILE',
                 'TECH1 MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -488,9 +477,6 @@ UnitBlueprint {
                     RackBone = 'gun01',
                 },
             },
-			
-            RackSalvoSize = 1,
-			
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -507,7 +493,6 @@ UnitBlueprint {
                 'TECH2 MOBILE',
                 'TECH1 MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
 			
@@ -613,7 +598,6 @@ UnitBlueprint {
                 'TECH2 MOBILE',
                 'TECH1 MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
 			
@@ -700,7 +684,6 @@ UnitBlueprint {
                 'TECH2 MOBILE',
                 'TECH1 MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
 			
@@ -757,9 +740,7 @@ UnitBlueprint {
 			LeadTarget = true,
 			
             MaxRadius = 35,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
 
             ProjectileId = '/projectiles/TDFRiot02/TDFRiot02_proj.bp',
@@ -767,9 +748,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'muzzle12',
-                    },
+                    MuzzleBones = {'muzzle12'},
                     RackBone = 'minigun02',
                 },
             },
@@ -784,7 +763,6 @@ UnitBlueprint {
                 'TECH2 MOBILE',
                 'TECH1 MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
 			
@@ -877,7 +855,6 @@ UnitBlueprint {
                 'TECH2 MOBILE',
                 'TECH1 MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -919,11 +896,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

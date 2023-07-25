@@ -1,9 +1,7 @@
 UnitBlueprint {
     AI = { 
-        GuardScanRadius = 65, 
-		TargetBones = {
-			'Turret',
-        },
+        GuardScanRadius = 32, 
+		TargetBones = {'Turret'},
     }, 
 
     Audio = {
@@ -103,8 +101,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -117,9 +113,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC brnt2bm_name>Banshee',
-        UnitWeight = 1,
     },
 
     Intel = {
@@ -258,7 +252,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -313,8 +306,7 @@ UnitBlueprint {
             Label = 'gatling',
 			
             MaxRadius = 32,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 46,
 			
 			NoPause = true,
@@ -324,35 +316,24 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'minigunmuzzle',
-                    },
+                    MuzzleBones = {'minigunmuzzle'},
                     RackBone = 'minigun',
                 },
                 {
-                    MuzzleBones = {
-                        'minigunmuzzle01',
-                    },
+                    MuzzleBones = {'minigunmuzzle01'},
                     RackBone = 'minigun01',
                 },
                 {
-                    MuzzleBones = {
-                        'minigunmuzzle02',
-                    },
+                    MuzzleBones = {'minigunmuzzle02'},
                     RackBone = 'minigun02',
                 },
                 {
-                    MuzzleBones = {
-                        'minigunmuzzle03',
-                    },
+                    MuzzleBones = {'minigunmuzzle03'},
                     RackBone = 'minigun03',
                 },
             },
             RackFireTogether = true,
-            
 
-
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -363,11 +344,10 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,WALL',
-            TrackingRadius = 1.10,
+            TrackingRadius = 1.05,
 			
             TurretBoneDualMuzzle = 'minigunmuzzle',
             TurretBoneDualPitch = 'arm',
@@ -398,11 +378,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

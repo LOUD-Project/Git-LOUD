@@ -1,9 +1,8 @@
 UnitBlueprint {
 
     AI = { 
-		TargetBones = {
-            'Turret',
-        },
+        GuardScanRadius = 28, 
+		TargetBones = {'Turret'},
     }, 
 	
     Audio = {
@@ -101,8 +100,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -114,9 +111,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC brot1exm1_name>Bugbear',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -222,7 +217,6 @@ UnitBlueprint {
 			
             MaxRadius = 28,
 			
-            MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 36,
 			
@@ -322,8 +316,6 @@ UnitBlueprint {
             
             RackReloadTimeout = 10,
 
-            RackSalvoSize = 1,
-
             RackSlavedToTurret = true,
 
             RateOfFire = 2,	-- 20dps
@@ -335,7 +327,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 
             TurretBoneDualMuzzle = 'minigunmuzzle01',
             TurretBoneDualPitch = 'minigun',
@@ -352,6 +344,7 @@ UnitBlueprint {
             TurretYawRange = 45,
             TurretYawSpeed = 15,
             Turreted = true,
+
             UseFiringSolutionInsteadOfAimBone = true,
 		},
 		{
@@ -420,7 +413,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 			
             TurretBoneDualMuzzle = 'rl01',
             TurretBoneDualPitch = 'rl01',
@@ -441,6 +434,7 @@ UnitBlueprint {
             UseFiringSolutionInsteadOfAimBone = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.6,
@@ -448,11 +442,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

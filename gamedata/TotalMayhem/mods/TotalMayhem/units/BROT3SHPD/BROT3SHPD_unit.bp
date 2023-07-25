@@ -217,8 +217,6 @@ UnitBlueprint {
 
     General = {
 		CapCost = 4,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -227,9 +225,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC brot3shpd_name>Mothra',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -336,8 +332,7 @@ UnitBlueprint {
             MinRadius = 10,
 			
             MuzzleChargeDelay = 0.3,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
 
             ProjectileId = '/mods/TotalMayhem/projectiles/HvyClawproj/HvyClawproj_proj.bp',
@@ -357,10 +352,6 @@ UnitBlueprint {
             RackFireTogether = true,
 			
             RackRecoilDistance = -3,
-
-            RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
 			
             RackSlavedToTurret = true,
 			
@@ -375,12 +366,11 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'aim',
             TurretBonePitch = 'Turret_Barrel',
@@ -456,7 +446,6 @@ UnitBlueprint {
             TargetCheckInterval = 1.0,
             TargetPriorities = {
                 'EXPERIMENTAL',
-                'SPECIALHIGHPRI',
                 'HIGHPRIAIR',
                 'BOMBER',
                 'GROUNDATTACK',
@@ -466,7 +455,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			TargetRestrictOnlyAllow = 'AIR',
 			
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'aa00',
             TurretBonePitch = 'aa00',
@@ -500,11 +489,7 @@ UnitBlueprint {
         MassMult = 0.75,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

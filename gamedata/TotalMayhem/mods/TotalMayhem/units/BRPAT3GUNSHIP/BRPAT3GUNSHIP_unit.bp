@@ -1,8 +1,8 @@
 UnitBlueprint {
 
     AI = {
-        GuardReturnRadius = 75,
-        GuardScanRadius = 50,
+        GuardReturnRadius = 80,
+        GuardScanRadius = 60,
 		TargetBones = {'BRPAT1EXGUNSHIP'},		
     }, 
 
@@ -165,8 +165,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Gunship',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -179,12 +177,10 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
         UnitName = '<LOC brpat3gunship_name>Ia-Usla',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -372,10 +368,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-
-
-
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,		-- 72 DPS Air
@@ -387,7 +379,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Muzzle01',
             TurretBonePitch = 'Muzzle01',
@@ -454,10 +446,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-
-
-
             RateOfFire = 2,		-- 72 DPS Air
 
             TargetCheckInterval = 0.5,
@@ -467,7 +455,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Muzzle02',
             TurretBonePitch = 'Muzzle02',
@@ -506,7 +494,6 @@ UnitBlueprint {
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,
-            Water = false,
         },
     },
 }

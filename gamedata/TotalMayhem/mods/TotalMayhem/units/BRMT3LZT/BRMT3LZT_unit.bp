@@ -1,10 +1,8 @@
 UnitBlueprint {
 
     AI = { 
-        GuardScanRadius = 15, 
-       	TargetBones = {
-            'Turret',
-        },
+        GuardScanRadius = 40, 
+       	TargetBones = {'Turret'},
     }, 
 	
     Audio = {
@@ -93,8 +91,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 1.5,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -106,9 +102,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC brmt3lzt_name>Trilobyte',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -129,7 +123,7 @@ UnitBlueprint {
     LifeBarSize = 0.95,
 	
     Physics = {
-		BackUpDistance = 2.5,
+		BackUpDistance = 4.5,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
@@ -160,10 +154,6 @@ UnitBlueprint {
     SelectionSizeZ = 1.0,
 	
     SelectionThickness = 0.4,
-	
-	CollisionOffsetX = 0,
-	CollisionOffsetY = 0,
-	CollisionOffsetZ = 0,
 	
     SizeX = 1.0,
     SizeY = 0.4,
@@ -211,12 +201,10 @@ UnitBlueprint {
             FiringTolerance = 2,
 			
             Label = 'MainGun',
-						LeadTarget = true,
+			LeadTarget = true,
 			
             MaxRadius = 40,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 88,
             MuzzleVelocityRandomness = 5,
 			
@@ -259,7 +247,7 @@ UnitBlueprint {
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 2.5,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
@@ -286,11 +274,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

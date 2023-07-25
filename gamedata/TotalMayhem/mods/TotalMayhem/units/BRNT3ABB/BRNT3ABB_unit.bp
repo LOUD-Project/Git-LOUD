@@ -1,6 +1,6 @@
 UnitBlueprint {
     AI = { 
-        GuardScanRadius = 60,		
+        GuardScanRadius = 36,		
 		TargetBones = {'Turret'},
     },
 	
@@ -114,8 +114,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -128,9 +126,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC brnt3abb_name>IronFist',
-        UnitWeight = 2,
     },
 
     Intel = {
@@ -240,10 +236,8 @@ UnitBlueprint {
 			
             Label = 'topguns',
 			
-            MaxRadius = 38,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+            MaxRadius = 39,
+
             MuzzleVelocity = 40,
             
             NotExclusive = true,
@@ -260,10 +254,7 @@ UnitBlueprint {
                     RackBone = 'shouldergun02',
                 },
             },
-
             RackRecoilDistance = -2,
-
-            RackReloadTimeout = 10,
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -325,9 +316,7 @@ UnitBlueprint {
             Label = 'guns',
 			
             MaxRadius = 36,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 45,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRNT3ABBproj/BRNT3ABBproj_proj.bp',
@@ -342,10 +331,7 @@ UnitBlueprint {
                     RackBone = 'gunbarrel02',
                 },
             },
-            
             RackRecoilDistance = -3,
-
-            RackReloadTimeout = 10,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -380,6 +366,7 @@ UnitBlueprint {
             Turreted = true,
 		},
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
@@ -387,11 +374,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

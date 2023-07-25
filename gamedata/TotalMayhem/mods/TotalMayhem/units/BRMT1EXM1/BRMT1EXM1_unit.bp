@@ -1,9 +1,7 @@
 UnitBlueprint {
     AI = { 
-        GuardScanRadius = 35, 
-		TargetBones = {
-            'Turret',
-        },
+        GuardScanRadius = 26, 
+		TargetBones = {'Turret'},
     },
 	
     Audio = {
@@ -116,8 +114,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -129,9 +125,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC brmt1exm1_name>Proton',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -240,8 +234,6 @@ UnitBlueprint {
 
             RackReloadTimeout = 10,
 
-            RackSalvoSize = 1,
-
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -280,15 +272,11 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
-        HealthMult = 0.9,
+        HealthMult = 0.6,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

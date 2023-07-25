@@ -1,9 +1,7 @@
 UnitBlueprint {
    
    AI = { 
-       	TargetBones = {
-            'Turret',
-        },
+       	TargetBones = {'Turret'},
     },
 	
     Audio = {
@@ -90,12 +88,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 6.4,
                 Normal = 'Tarmacs/Tar6x_cybran_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 6.4,
             },
@@ -112,8 +105,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -122,9 +113,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC brmt2pd_name>SlingShot',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -163,6 +152,7 @@ UnitBlueprint {
         
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.7,
     SelectionSizeZ = 0.7,
     SelectionThickness = 0.55,
@@ -212,9 +202,7 @@ UnitBlueprint {
 			
             MaxRadius = 48,
             MinRadius = 3,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 44,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRMT2HVY2proj/BRMT2HVY2proj_proj.bp',
@@ -229,14 +217,9 @@ UnitBlueprint {
                     RackBone = 'Turret_Recoil01',
                 },
             },
-
             RackFireTogether = true,
 
             RackRecoilDistance = -3,
-
-            RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
 
             RackSlavedToTurret = true,
 			
@@ -250,11 +233,10 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'STRUCTURE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'aim',
             TurretBonePitch = 'Turret_Recoil',
@@ -280,11 +262,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

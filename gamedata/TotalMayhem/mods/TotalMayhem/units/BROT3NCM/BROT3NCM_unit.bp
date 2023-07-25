@@ -1,13 +1,8 @@
 UnitBlueprint {
 
     AI = { 
-        GuardScanRadius = 50,
-		TargetBones = {
-            'Turret',
-			'head',
-			'toes02',
-			'legb3',
-        },		
+        GuardScanRadius = 44,
+		TargetBones = {'Turret','head','toes02','legb3'},		
     }, 
 	
     Audio = {
@@ -148,8 +143,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 5,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -160,9 +153,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC brot3ncm_name>Eliash',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -282,9 +273,6 @@ UnitBlueprint {
 			
             MaxRadius = 44,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
             RackBones = {
                 {
                     MuzzleBones = {'rightarm_muzzle01'},
@@ -375,9 +363,6 @@ UnitBlueprint {
             
             MaxRadius = 44,
             
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            
 			PrefersPrimaryWeaponTarget = true,
             
             RackBones = {
@@ -399,7 +384,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -469,9 +453,6 @@ UnitBlueprint {
             
             MaxRadius = 44,
             
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            
 			PrefersPrimaryWeaponTarget = true,
             
             RackBones = {
@@ -500,6 +481,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.05,
+
             TurretBoneDualMuzzle = 'rightarm_muzzle01',
             TurretBoneDualPitch = 'gun01',
             TurretBoneMuzzle = 'rightarm_muzzle03',
@@ -561,9 +543,7 @@ UnitBlueprint {
             Label = 'lasergreen',
 			
             MaxRadius = 48,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleChargeDelay = 0.6,
 			
 			PrefersPrimaryWeaponTarget = true,
@@ -651,10 +631,9 @@ UnitBlueprint {
             Label = 'AntiAirMissiles',
 			
             MaxRadius = 42,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
+
             ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
             ProjectileLifetime = 5,
 			
@@ -691,7 +670,6 @@ UnitBlueprint {
                 'BOMBER',
                 'GROUNDATTACK',
                 'AIR MOBILE',
-
                 'ALLUNITS',
             },
 			
@@ -738,10 +716,8 @@ UnitBlueprint {
 
             Label = 'robottalk',
 			
-            MaxRadius = 65,
+            MaxRadius = 48,
 
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 40,
 			
 			PrefersPrimaryWeaponTarget = true,
@@ -807,11 +783,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -1,6 +1,6 @@
 UnitBlueprint {
     AI = { 
-        GuardScanRadius = 15, 
+        GuardScanRadius = 42, 
 		TargetBones = {'Turret'},		
     }, 
 
@@ -75,8 +75,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -88,9 +86,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC brot1ml_name>Wavecrest',
-        UnitWeight = 1,
     },
 
     Intel = {
@@ -125,8 +121,7 @@ UnitBlueprint {
 		
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
-        RotateOnSpot = false,
-        RotateOnSpotThreshold = 0.1,
+
         TurnRadius = 0,
         TurnRate = 64,
     },
@@ -280,11 +275,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

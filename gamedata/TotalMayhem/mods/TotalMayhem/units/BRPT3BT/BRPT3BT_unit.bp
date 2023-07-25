@@ -1,10 +1,8 @@
 UnitBlueprint {
 
     AI = { 
-        GuardScanRadius = 30, 
-		TargetBones = {
-            'Turret',
-        },
+        GuardScanRadius = 33, 
+		TargetBones = {'Turret'},
     }, 
 	
     Audio = {
@@ -99,7 +97,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.053,
     },
 	
@@ -111,8 +108,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -124,9 +119,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC brpt3bt_name>Hethaamah',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -227,30 +220,20 @@ UnitBlueprint {
             Label = 'Turret',
 			
             MaxRadius = 33,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 34,
 			
             ProjectileId = '/projectiles/SDFHeavyQuarnonCannon01/SDFHeavyQuarnonCannon01_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'muzzle',
-                    },
+                    MuzzleBones = {'muzzle'},
                     RackBone = 'Upgrade04_01',
                 },
             },
             
             RackRecoilDistance = -1.5,
             RackRecoilReturnSpeed = 3,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -270,7 +253,7 @@ UnitBlueprint {
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'muzzle',
             TurretBonePitch = 'Turret_Barrel01',
@@ -295,11 +278,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

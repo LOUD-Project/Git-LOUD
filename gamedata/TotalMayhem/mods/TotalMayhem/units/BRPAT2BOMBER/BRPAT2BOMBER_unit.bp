@@ -3,9 +3,7 @@ UnitBlueprint {
 		GuardRadius = 175,
         GuardReturnRadius = 125,
         GuardScanRadius = 120,
-		TargetBones = {
-            'BRPAT1ADVBOMB',
-        },		
+		TargetBones = {'BRPAT1ADVBOMB'},		
     },
 	
     Air = {
@@ -151,8 +149,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Bomber',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -165,9 +161,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC brpat2bomber_name>Vesinnee',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -234,9 +228,12 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
             BombDropThreshold = 3,
+
             CollideFriendly = false,
 			
             Damage = 240,
@@ -262,7 +259,6 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 0,
 			
             NeedToComputeBombDrop = true,
 			
@@ -291,7 +287,7 @@ UnitBlueprint {
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.05,
         },
         {
             Damage = 150,

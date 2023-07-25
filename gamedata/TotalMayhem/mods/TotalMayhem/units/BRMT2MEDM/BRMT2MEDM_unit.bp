@@ -1,9 +1,7 @@
 UnitBlueprint {
     AI = { 
-        GuardScanRadius = 50, 
-       	TargetBones = {
-            'Turret',
-        },
+        GuardScanRadius = 40, 
+       	TargetBones = {'Turret'},
     },
 	
     Audio = {
@@ -97,8 +95,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -110,9 +106,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC brmt2medm_name>Immortal',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -271,7 +265,7 @@ UnitBlueprint {
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneDualMuzzle = 'cannonmuz02',
             TurretBoneDualPitch = 'rocketlauncher01',
@@ -321,11 +315,6 @@ UnitBlueprint {
 			
             MaxRadius = 32,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
-            ProjectilesPerOnFire = 1,
-			
             RackBones = {
                 {
                     MuzzleBones = {'righthand_muzzle'},
@@ -340,10 +329,6 @@ UnitBlueprint {
             RackFireTogether = true,
 
             RackRecoilDistance = -0.1,
-			
-            RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -361,7 +346,6 @@ UnitBlueprint {
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.2,
 			
             TurretBoneDualMuzzle = 'righthand_muzzle',
             TurretBoneDualPitch = 'armGun02',
@@ -376,9 +360,11 @@ UnitBlueprint {
             TurretPitch = 0,
             TurretPitchRange = 55,
             TurretPitchSpeed = 30,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 30,
+
             Turreted = true,
         },
     },
@@ -390,11 +376,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -1,7 +1,7 @@
 UnitBlueprint {
 
     AI = {
-        GuardScanRadius = 45,		
+        GuardScanRadius = 40,		
 		TargetBones = {
             'Object109',
 			'Object02',
@@ -121,8 +121,6 @@ UnitBlueprint {
     
     General = {
 		CapCost = 3,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Move = true,
@@ -133,8 +131,6 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         UnitName = '<LOC brpexbtbot_name>Tha-Yath',
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -245,8 +241,7 @@ UnitBlueprint {
             MaxRadius = 40,
 			
             MuzzleChargeDelay = 0.1,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/SDFChronatronCannon01/SDFChronatronCannon01_proj.bp',
@@ -328,9 +323,7 @@ UnitBlueprint {
             Label = 'AAGun',
 			
             MaxRadius = 40,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 65,
 			
             ProjectileId = '/projectiles/SAAOlarisAAArtillery02/SAAOlarisAAArtillery02_proj.bp',
@@ -406,11 +399,7 @@ UnitBlueprint {
         MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

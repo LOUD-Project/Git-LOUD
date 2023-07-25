@@ -1,9 +1,9 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Object107',
-        },
+        GuardScanRadius = 32, 
+        TargetBones = {'Object107'},
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -61,23 +61,6 @@ UnitBlueprint {
 		
         Mesh = {
             IconFadeInZoom = 130,
---[[
-            LODs = {
-                {
-                    LODCutoff = 100,
-                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
-                    ShaderName = 'Seraphim',
-                },
-                {
-                    AlbedoName = 'brpt1pd_albedo.dds',
-                    LODCutoff = 215,
-                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
-                    ShaderName = 'Seraphim',
-                    SpecularName = 'brpt1pd_specteam.dds',
-                },
-            },
---]]
-
             LODs = {
                 {
                     AlbedoName = 'brpt1pd_Albedo.dds',
@@ -92,22 +75,18 @@ UnitBlueprint {
 
         },
 
-        SpawnRandomRotation = true,
-
         UniformScale = 0.01,
     },
+
     Economy = {
         BuildCostEnergy = 4500,
         BuildCostMass = 500,
         BuildTime = 500,
-        RebuildBonusIds = {
-            'BRPT1PD',
-        },
+
+        RebuildBonusIds = {'BRPT1PD'},
     },
 
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -116,9 +95,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC brpt1pd_name>Hethula-Uttaus',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -206,10 +183,7 @@ UnitBlueprint {
             Label = 'MainGun',
 			
             MaxRadius = 32,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/SDFHeavyQuarnonCannon01/SDFHeavyQuarnonCannon01_proj.bp',
@@ -217,9 +191,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'muzzle',
-                    },
+                    MuzzleBones = {'muzzle'},
                     RackBone = 'Object85',
                     TelescopeBone = 'Object84',
                     TelescopeRecoilDistance = -18.5,
@@ -227,11 +199,6 @@ UnitBlueprint {
             },
             
             RackRecoilDistance = -20,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -243,7 +210,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
                 'DEFENSE',
-
                 'ALLUNITS -AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -271,11 +237,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
 	        },
         },
 }

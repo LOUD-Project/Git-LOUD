@@ -1,10 +1,7 @@
 UnitBlueprint {
 
     AI = { 
-		TargetBones = {
-            'Turret_Barrel',
-			'Turret_Barrel01',
-        },		
+		TargetBones = {'Turret_Barrel','Turret_Barrel01'},		
     }, 
 	
     Audio = {
@@ -88,8 +85,6 @@ UnitBlueprint {
     
     General = {
         CapCost = 5,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -98,9 +93,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC brot3pdro_name>Zheela',
-        UnitWeight = 1,
     },
     
     Intel = {
@@ -207,9 +200,9 @@ UnitBlueprint {
             MaxRadius = 100,
             MinRadius = 24,
 			
-            MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 3,
+
             MuzzleVelocity = 23,
             MuzzleVelocityRandom = 2.2,
             MuzzleVelocityReduceDistance = 100,
@@ -241,8 +234,6 @@ UnitBlueprint {
 
             RackSalvoReloadTime = 1.5,
 
-            RackSalvoSize = 1,
-
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -262,6 +253,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.10,
+
             TurretBoneMuzzle = 'Turret_Muzzle01',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
@@ -285,11 +277,7 @@ UnitBlueprint {
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

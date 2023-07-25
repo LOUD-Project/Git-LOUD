@@ -1,9 +1,7 @@
 UnitBlueprint {
     AI = { 
-        GuardScanRadius = 60, 
-       	TargetBones = {
-            'Turret',
-        },
+        GuardScanRadius = 37, 
+       	TargetBones = {'Turret'},
     },
 	
     Audio = {
@@ -85,8 +83,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -98,9 +94,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC brmt3bt_name>Mastodon',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -259,11 +253,10 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'DEFENSE',
 				'MOBILE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1,
 			
             TurretBoneDualMuzzle = 'rl01',
             TurretBoneDualPitch = 'rocketlauncher',
@@ -285,11 +278,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound { 
-									Bank = 'TM_CYBRANWEAPONS', 
-									Cue = 'BRMHEAVYTANKFIRE1', 
-									LodCutoff = 'WeaponBig_LodCutoff' 
-								},
+                Fire = Sound { Bank = 'TM_CYBRANWEAPONS', Cue = 'BRMHEAVYTANKFIRE1', LodCutoff = 'WeaponBig_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -308,9 +297,7 @@ UnitBlueprint {
             Label = 'MainGun',
 			
             MaxRadius = 37,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 80,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3BTproj/BRMT3BTproj_proj.bp',
@@ -342,7 +329,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
-            TrackingRadius = 1.10,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
@@ -368,11 +355,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

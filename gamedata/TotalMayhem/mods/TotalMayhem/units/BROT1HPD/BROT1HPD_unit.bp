@@ -85,8 +85,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -95,9 +93,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC brot1hpd_name>Zpyker',
-        UnitWeight = 1,
     },
 
     Intel = {
@@ -197,8 +193,6 @@ UnitBlueprint {
 			
             MaxRadius = 32,
 
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 36,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BROT1EXM1proj/BROT1EXM1proj_proj.bp',
@@ -216,10 +210,6 @@ UnitBlueprint {
             
             RackRecoilDistance = -1,
 
-            RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
-
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -235,7 +225,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.05,
 			
             TurretBoneDualMuzzle = 'Turret_Muzzle01',
             TurretBoneDualPitch = 'Turret_Recoil',
@@ -262,11 +252,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

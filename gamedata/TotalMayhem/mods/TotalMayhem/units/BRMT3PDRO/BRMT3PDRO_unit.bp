@@ -3,7 +3,7 @@ UnitBlueprint {
     AI = { 
 		TargetBones = { 'Turret' },
 	},
-		
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -85,8 +85,6 @@ UnitBlueprint {
 	
     General = {
         CapCost = 5,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -95,9 +93,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC brmt3pdro_name>Agronar',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -132,6 +128,7 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 1.0,
     SelectionSizeZ = 1.0,
     SelectionThickness = 0.55,
@@ -262,10 +259,8 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-             
+ 
             RackSalvoReloadTime = 2,
-
-            RackSalvoSize = 1,
 
             RackSlavedToTurret = true,
 			
@@ -288,7 +283,7 @@ UnitBlueprint {
             },
             
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Turret_Muzzle2',
             TurretBonePitch = 'Turret_Barrel',
@@ -306,6 +301,7 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
@@ -313,11 +309,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = true,
         },
     },
 }

@@ -1,11 +1,10 @@
 UnitBlueprint {
 
     AI = { 
-        GuardScanRadius = 30, 
-		TargetBones = {
-            'Turret',
-        },
+        GuardScanRadius = 23, 
+		TargetBones = {'Turret'},
     }, 
+
     Audio = {
         Destroyed = Sound {
             Bank = 'TM_EXPLOSIONS',
@@ -23,6 +22,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {},
 	
     BuildIconSortPriority = 42,
@@ -79,8 +79,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -92,9 +90,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC brot1bt_name>Hervour',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -195,10 +191,7 @@ UnitBlueprint {
             Label = 'MainGun',
 			
             MaxRadius = 23,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BROT1BTproj/BROT1BTproj_proj.bp',
@@ -254,6 +247,7 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.35,
@@ -261,11 +255,7 @@ UnitBlueprint {
         MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -119,8 +119,6 @@ UnitBlueprint {
 
     General = {
 		CapCost = 4,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -129,9 +127,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC brpexpd_name>Heth-Athala',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -236,17 +232,12 @@ UnitBlueprint {
 			
             MaxRadius = 90,
 			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
             RackBones = {
                 {
                     MuzzleBones = {'Muzzle01'},
                     RackBone = 'Barrel_Right',
                 },
             },
-
             RackRecoilDistance = -2,
 
             RangeCategory = 'UWRC_DirectFire',
@@ -264,7 +255,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Muzzle01',
             TurretBonePitch = 'Object07',
@@ -297,11 +288,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
 	        },
         },
 }

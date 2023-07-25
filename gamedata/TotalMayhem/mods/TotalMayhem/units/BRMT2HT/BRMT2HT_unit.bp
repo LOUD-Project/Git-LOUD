@@ -1,9 +1,7 @@
 UnitBlueprint {
     AI = { 
-        GuardScanRadius = 30, 
-       	TargetBones = {
-            'Turret_Barrel',
-        },
+        GuardScanRadius = 32, 
+       	TargetBones = {'Turret_Barrel'},
     },
 	
     Audio = {
@@ -84,8 +82,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -97,9 +93,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC brmt2ht_name>Hippo',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -190,9 +184,7 @@ UnitBlueprint {
             Label = 'MainGun',
 			
             MaxRadius = 32,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 28,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRMT2HVY2proj/BRMT2HVY2proj_proj.bp',
@@ -221,7 +213,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
@@ -350,9 +342,11 @@ UnitBlueprint {
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 6,
+
             TurretYaw = 0,
             TurretYawRange = 30,
             TurretYawSpeed = 12,
+
             Turreted = true,
         },
     },
@@ -364,11 +358,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

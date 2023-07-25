@@ -1,9 +1,7 @@
 UnitBlueprint {
 
     AI = { 
-		TargetBones = {
-            'Turret',
-        },
+		TargetBones = { 'Turret' },
 	},
 	
     Audio = {
@@ -23,9 +21,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {},
 	
     BuildIconSortPriority = 121,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -44,7 +44,9 @@ UnitBlueprint {
 		'OVERLAYDIRECTFIRE',
         'SORTDEFENSE',
     },
+
     CollisionOffsetY = -0.25,
+
     Defense = {
         AirThreatLevel = 15,
         ArmorType = 'Structure',
@@ -53,6 +55,7 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 17.5,
     },
+
     Description = '<LOC brnt1expd_desc>Gatling Defense System',
 
     Display = {
@@ -70,8 +73,6 @@ UnitBlueprint {
             },
         },
 
-
-
         UniformScale = 0.09,
     },
 
@@ -79,6 +80,7 @@ UnitBlueprint {
         BuildCostEnergy = 6600,
         BuildCostMass = 600,
         BuildTime = 600,
+
         RebuildBonusIds = {'BRNT1EXPD'},
     },
 
@@ -87,8 +89,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -97,9 +97,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC brnt1expd_name>Mayor',
-        UnitWeight = 1,
     },
 
     Intel = {
@@ -145,6 +143,7 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_structure1_directfire',
     StrategicIconSortPriority = 195,
+
     Veteran = {
         Level1 = 6,
         Level2 = 12,
@@ -152,17 +151,16 @@ UnitBlueprint {
         Level4 = 24,
         Level5 = 30,
     },
+
     Weapon = {
 		{
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEL_Weapons',
-                    Cue = 'XEB2306_Gatling_Gun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEL_Weapons', Cue = 'XEB2306_Gatling_Gun', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             CollideFriendly = false,
 			
             Damage = 15,
@@ -212,11 +210,10 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
 			
             TurretBoneDualMuzzle = 'Turret_Muzzle_Right02',
             TurretBoneDualPitch = 'minigun02',
@@ -225,12 +222,15 @@ UnitBlueprint {
             TurretBonePitch = 'minigun02',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = true,
+
             TurretPitch = 0,
             TurretPitchRange = 75,
             TurretPitchSpeed = 45,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 45,
+
             Turreted = true,
         },
 		{
@@ -262,21 +262,16 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle_Left02',
-                    },
+                    MuzzleBones = {'Turret_Muzzle_Left02'},
                     RackBone = 'minigun01',
                 },
             },
-            
             
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 1,
             RackSalvoReloadTime = 2,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1,
 			
@@ -286,26 +281,30 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
             TrackingRadius = 1.05,
+
             TurretBoneDualMuzzle = 'Turret_Muzzle_Left02',
             TurretBoneDualPitch = 'minigun01',
             TurretBoneMuzzle = 'Turret_Muzzle_Left02',
             TurretBonePitch = 'minigun01',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = true,
+
             TurretPitch = 0,
             TurretPitchRange = 75,
             TurretPitchSpeed = 45,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 45,
+
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.65,
@@ -313,11 +312,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -1,13 +1,8 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = { 
-			'Turret',
-			'legb2',
-			'rocketlauncher01',
-			'shoulder', 
-			'Footfall_Right',
-		},
+        GuardScanRadius = 65, 
+        TargetBones = {'Turret','legb2','rocketlauncher01','shoulder','Footfall_Right'},
     },
 	
     Audio = {
@@ -160,7 +155,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 8,
-        Category = 'Experimental',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -171,9 +165,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC brnt3shbm_name>Mayhem',
-        UnitWeight = 4,
     },
 	
     Intel = {
@@ -480,9 +472,7 @@ UnitBlueprint {
 			
             MaxRadius = 65,
 			MinRadius = 10,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 54,
             MuzzleVelocityRandom = 1,
             
@@ -527,20 +517,15 @@ UnitBlueprint {
                     RackBone = 'gunbarrels01',
                 },				
             },
-
             RackFireTogether = true,
 
             RackRecoilDistance = -1,
 
             RackReloadTimeout = 10,
 
-            RackSalvoSize = 1,
-
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.50,	-- 1600 dps
-			
-            SlavedToBody = false,
 			
             TargetCheckInterval = 1,
 			
@@ -932,9 +917,7 @@ UnitBlueprint {
 			
             MaxRadius = 65,
             MinRadius = 0,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
 			
 			PrefersPrimaryWeaponTarget = true,
@@ -960,7 +943,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -1015,6 +997,7 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
@@ -1022,11 +1005,8 @@ UnitBlueprint {
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

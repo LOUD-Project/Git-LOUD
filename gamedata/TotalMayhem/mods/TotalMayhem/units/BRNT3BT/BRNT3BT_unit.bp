@@ -1,9 +1,7 @@
 UnitBlueprint {
     AI = { 
-        GuardScanRadius = 60, 
-		TargetBones = {
-			'Turret',
-        },
+        GuardScanRadius = 36, 
+		TargetBones = {'Turret'},
     },
 	
     Audio = {
@@ -88,8 +86,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -101,9 +97,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC brnt3bt_name>Bull',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -134,8 +128,7 @@ UnitBlueprint {
         MeshExtentsZ = 1.2,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
-        RotateOnSpot = false,
-        RotateOnSpotThreshold = 0.1,
+
         TurnRadius = 5,
         TurnRate = 30,
     },
@@ -263,11 +256,10 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 			
             TurretBoneDualMuzzle = 'rl01',
             TurretBoneDualPitch = 'rocketlaunch01',
@@ -318,9 +310,7 @@ UnitBlueprint {
             Label = 'MainGun',
 			
             MaxRadius = 36,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 42,
 			MuzzleVelocityRandom = 3,
 			
@@ -336,7 +326,6 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-
             RackRecoilDistance = -3,
 			
             RackSlavedToTurret = true,
@@ -353,7 +342,7 @@ UnitBlueprint {
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'stikkflamme',
             TurretBonePitch = 'Turret_Barrel',
@@ -380,11 +369,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -1,7 +1,8 @@
 UnitBlueprint {
     AI = {
         AttackAngle = 60,
-        GuardReturnRadius = 130,
+        GuardScanRadius = 105,
+        GuardReturnRadius = 145,
         TargetBones = {
             'Front_Turret01',
             'Back_Wake',
@@ -62,7 +63,8 @@ UnitBlueprint {
         'RECLAIMABLE',
         'BATTLESHIP',
         'BOMBARDMENT',
-        'OVERLAYRADAR','OVERLAYSONAR',
+        'OVERLAYRADAR',
+        'OVERLAYSONAR',
     },
 	
     CollisionOffsetY = -0.375,
@@ -99,9 +101,7 @@ UnitBlueprint {
             Water = {
                 Effects = {
                     {
-                        Bones = {
-                            'BRMST3BOM',
-                        },
+                        Bones = {'BRMST3BOM'},
                         Scale = 2.35,
                         Type = 'SeaIdle01',
                     },
@@ -111,33 +111,24 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 500,
-                    ShaderName = 'Insect',
-                },
+                { LODCutoff = 500, ShaderName = 'Insect' },
             },
         },
         MovementEffects = {
             Water = {
                 Effects = {
                     {
-                        Bones = {
-                            'Front_Left_Wake',
-                        },
+                        Bones = {'Front_Left_Wake'},
                         Scale = 1.5,
                         Type = 'LeftFrontWake',
                     },
                     {
-                        Bones = {
-                            'Front_Right_Wake',
-                        },
+                        Bones = {'Front_Right_Wake'},
                         Scale = 1.5,
                         Type = 'RightFrontWake',
                     },
                     {
-                        Bones = {
-                            'Back_Wake',
-                        },
+                        Bones = {'Back_Wake'},
                         Scale = 1.5,
                         Type = 'BackWake',
                     },
@@ -155,9 +146,7 @@ UnitBlueprint {
     },
 	
     General = {
-        CapCost = 3,
-        Category = 'Ship',
-        Classification = 'RULEUC_MilitaryShip',
+        CapCost = 4,
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -168,9 +157,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'sea',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC brmst3bom_name>Magna Class',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -267,36 +254,27 @@ UnitBlueprint {
             Label = 'Cannon',
 			
             MaxRadius = 110,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 38,
 			
             ProjectileId = '/projectiles/CDFProtonCannon03/CDFProtonCannon03_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Muzzle01',
-                    },
+                    MuzzleBones = {'Front_Muzzle01'},
                     RackBone = 'Front_Turret_Barrel01',
                 },
                 {
-                    MuzzleBones = {
-                        'Front_Muzzle02',
-                    },
+                    MuzzleBones = {'Front_Muzzle02'},
                     RackBone = 'Front_Turret_Barrel02',
                 },
                 {
-                    MuzzleBones = {
-                        'Front_Muzzle03',
-                    },
+                    MuzzleBones = {'Front_Muzzle03'},
                     RackBone = 'Front_Turret_Barrel03',
                 },
             },
             
             RackRecoilDistance = -2,
-
-            RackSalvoSize = 1,
 
             RackSlavedToTurret = true,
 			
@@ -310,11 +288,10 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL MOBILE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Front_Muzzle02',
             TurretBonePitch = 'Front_Turret_Barrel02',
@@ -328,7 +305,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 145,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 38,
 			
             Turreted = true,
         },
@@ -370,8 +347,7 @@ UnitBlueprint {
             Label = 'Cannon',
 			
             MaxRadius = 110,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 38,
 
             ProjectileId = '/projectiles/CDFProtonCannon03/CDFProtonCannon03_proj.bp',
@@ -393,8 +369,6 @@ UnitBlueprint {
             
             RackRecoilDistance = -2,
 
-            RackSalvoSize = 1,
-
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -408,11 +382,11 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL MOBILE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
+
             TurretBoneMuzzle = 'Back_Muzzle02',
             TurretBonePitch = 'Back_Turret_Barrel02',
             TurretBoneYaw = 'Back_Turret',
@@ -424,7 +398,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 145,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 38,
 			
             Turreted = true,
         },
@@ -458,6 +432,9 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Proton Cannon',
+            
+            EnergyRequired = 11800,
+            EnergyDrainPerSecond = 5900,
 			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -470,8 +447,8 @@ UnitBlueprint {
 			
             MaxRadius = 165,
 			
-            MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 30,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRMST3BOMproj/BRMST3BOMproj_proj.bp',
@@ -479,15 +456,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Muzzle06',
-                    },
+                    MuzzleBones = {'Front_Muzzle06'},
                     RackBone = 'Front_Turret_Barrel06',
                 },
                 {
-                    MuzzleBones = {
-                        'Front_Muzzle05',
-                    },
+                    MuzzleBones = {'Front_Muzzle05'},
                     RackBone = 'Front_Turret_Barrel05',
                 },
             },
@@ -497,8 +470,6 @@ UnitBlueprint {
 
             RackReloadTimeout = 10,
 
-            RackSalvoSize = 1,
-
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
@@ -506,13 +477,14 @@ UnitBlueprint {
             RateOfFire = 0.5,	-- 450 DPS
 			
             SlavedToBody = false,
+
             TargetCheckInterval = 2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Front_Muzzle06',
             TurretBonePitch = 'Front_Turret_Barrel06',
@@ -525,7 +497,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 35,
+            TurretYawSpeed = 32,
 			
             Turreted = true,
         },
@@ -561,6 +533,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
+
             MuzzleVelocity = 90,
 			
             ProjectileId = '/projectiles/CAAAutocannon01/CAAAutocannon01_proj.bp',
@@ -586,14 +559,14 @@ UnitBlueprint {
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
-                'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.4,
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TrackingRadius = 1.05,
+
             TurretBoneMuzzle = 'Front_Barrel_AA',
             TurretBonePitch = 'Front_Barrel_AA',
             TurretBoneYaw = 'Front_Turret_AA',
@@ -601,11 +574,11 @@ UnitBlueprint {
 			
             TurretPitch = 45,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 90,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 180,
+            TurretYawSpeed = 90,
 			
             Turreted = true,
         },
@@ -659,8 +632,6 @@ UnitBlueprint {
 
             RackSlavedToTurret = true,
 
-            RangeCategory = 'UWRC_AntiAir',
-			
             RateOfFire = 2,		-- 120 DPS Air
 
             TargetCheckInterval = 0.3,
@@ -670,10 +641,9 @@ UnitBlueprint {
                 'BOMBER',
                 'GROUNDATTACK',
                 'AIR',
-                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Back_Barrel_AA',
             TurretBonePitch = 'Back_Barrel_AA',
@@ -682,11 +652,11 @@ UnitBlueprint {
 			
             TurretPitch = 45,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 90,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 180,
+            TurretYawSpeed = 90,
 			
             Turreted = true,
         },
@@ -720,6 +690,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
@@ -751,14 +722,14 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'MOBILE SUBMARINE',
+                'SUBMARINE',
 				'MOBILE NAVAL',
 				'MOBILE',
                 'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
         },
 		-- TMD
         {
@@ -795,25 +766,14 @@ UnitBlueprint {
 			
             MaxRadius = 30,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
             NeedPrep = true,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Muzzle01',
-                    },
+                    MuzzleBones = {'Left_Muzzle01'},
                     RackBone = 'Left_Turret_Barrel02',
                 },
             },
-            
-            
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -824,7 +784,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,STRATEGIC',
             TargetRestrictOnlyAllow = 'TACTICAL,MISSILE',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Left_Muzzle02',
             TurretBonePitch = 'Left_Turret01',
@@ -833,11 +793,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 90,
 			
             TurretYaw = 0,
             TurretYawRange = 95,
-            TurretYawSpeed = 720,
+            TurretYawSpeed = 90,
 			
             Turreted = true,
         },
@@ -874,33 +834,24 @@ UnitBlueprint {
 			
             MaxRadius = 30,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
             NeedPrep = true,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Muzzle01',
-                    },
+                    MuzzleBones = {'Right_Muzzle01'},
                     RackBone = 'Right_Turret_Barrel02',
                 },
             },
-            
-            
 
-
-            RackSalvoSize = 1,
-            
-
-            RangeCategory = 'UWRC_Countermeasure',
             RateOfFire = 0.5,
+
             TargetCheckInterval = 0.5,
+
             TargetRestrictDisallow = 'UNTARGETABLE,STRATEGIC',
             TargetRestrictOnlyAllow = 'TACTICAL,MISSILE',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.5,
+
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Right_Muzzle02',
             TurretBonePitch = 'Right_Turret',
@@ -909,11 +860,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 90,
 			
             TurretYaw = 0,
             TurretYawRange = 95,
-            TurretYawSpeed = 720,
+            TurretYawSpeed = 90,
 			
             Turreted = true,
         },

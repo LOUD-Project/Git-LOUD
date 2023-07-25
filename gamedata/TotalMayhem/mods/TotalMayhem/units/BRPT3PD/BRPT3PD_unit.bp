@@ -1,9 +1,7 @@
 UnitBlueprint {
 
     AI = { 
-		TargetBones = {
-            'spinner',
-        },
+		TargetBones = {'spinner'},
     }, 
 	
     Audio = {
@@ -84,8 +82,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
-
         UniformScale = 0.07,
     },
 	
@@ -98,8 +94,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -108,9 +102,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC brpt3pd_name>Athaamla',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -201,10 +193,7 @@ UnitBlueprint {
 			
             MaxRadius = 67,
 			MinRadius = 6,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 45,
 			
             ProjectileId = '/projectiles/SDFHeavyQuarnonCannon01/SDFHeavyQuarnonCannon01_proj.bp',
@@ -212,17 +201,13 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'muzzle',
-                    },
+                    MuzzleBones = {'muzzle'},
                     RackBone = 'muzzle',
                 },
             },
 			
             RackRecoilDistance = -2,
-			
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
+
             RackSalvoReloadTime = 1,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -238,7 +223,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'muzzle',
             TurretBonePitch = 'Turret_Barrel',
@@ -271,11 +256,7 @@ UnitBlueprint {
         MassMult = 0.45,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
 	        },
         },
 }

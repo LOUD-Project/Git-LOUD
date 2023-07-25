@@ -116,12 +116,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 6.4,
                 Normal = 'Tarmacs/Tar8x_aeon_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 6.4,
             },
@@ -138,8 +133,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -148,9 +141,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC brot2epd_name>Daelek',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -185,6 +176,7 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 1,
     SelectionSizeZ = 1,
     SelectionThickness = 0.5,
@@ -195,6 +187,7 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_structure2_directfire',
     StrategicIconSortPriority = 200,
+
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -202,6 +195,7 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -253,9 +247,7 @@ UnitBlueprint {
 			
             MaxRadius = 52,
             MinRadius = 5,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 55,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BROT3SHPDproj/BROT3SHPDproj_proj.bp',
@@ -275,7 +267,6 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel3',
                 },
             },
-            
             RackRecoilDistance = -1,
 
             RackReloadTimeout = 10,
@@ -296,7 +287,8 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.05,
+
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
@@ -379,13 +371,11 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'EXPERIMENTAL',
-                'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
+                'HIGHPRIAIR',
                 'AIR MOBILE',
-                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'aa01',
             TurretBonePitch = 'aa01',
@@ -419,11 +409,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

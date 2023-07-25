@@ -111,12 +111,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 5.8,
                 Normal = 'Tarmacs/Tar8x_cybran_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 5.8,
             },
@@ -135,8 +130,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -145,12 +138,10 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 6,
-        TechLevel = 'RULEUTL_Advanced',
 		ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
         UnitName = '<LOC brmt2epd_name>Anode',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -220,9 +211,7 @@ UnitBlueprint {
 			
             Buffs = {
             	{
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 0.7,
@@ -251,13 +240,11 @@ UnitBlueprint {
 			LeadTarget = true,
             MaxRadius = 50,
             MinRadius = 3,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 80,
 			
             NoPause = true,
-						
+
             ProjectileId = '/projectiles/CDFLaserDisintegrator02/CDFLaserDisintegrator02_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.1,
 
@@ -273,8 +260,6 @@ UnitBlueprint {
             },
             
             RackRecoilDistance = -0.5,
-
-            RackSalvoSize = 1,
 
             RackSlavedToTurret = true,
 			
@@ -318,11 +303,7 @@ UnitBlueprint {
         MassMult = 1.0,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

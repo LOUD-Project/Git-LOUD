@@ -1,14 +1,27 @@
 UnitBlueprint {
     AI = {
-        GuardScanRadius = 60,
-		TargetBones = {
-            'ArmureUpgrade03_02',
-			'AvantGauche01',
-			'Torso01',
-			'Left_Leg_B07',
-			'Left_Leg_B09',
-        },	
+        GuardScanRadius = 40,
+		TargetBones = {'ArmureUpgrade03_02','AvantGauche01','Torso01','Left_Leg_B07','Left_Leg_B09'},	
     },
+ 
+    Audio = { 
+        StartMove = Sound { 
+            Bank = 'XSL', 
+            Cue = 'XSL0001_Move_Start', 
+            LodCutoff = 'UnitMove_LodCutoff', 
+        }, 
+        StopMove = Sound { 
+            Bank = 'XSL', 
+            Cue = 'XSL0001_Move_Stop', 
+            LodCutoff = 'UnitMove_LodCutoff', 
+        }, 
+        UISelection = Sound { 
+            Bank = 'SeraphimSelect', 
+            Cue = 'Seraphim_Select_Commander', 
+            LodCutoff = 'UnitMove_LodCutoff', 
+        }, 
+    }, 
+
     Buffs = {
         Regen = {
             Level1 = 10,
@@ -168,8 +181,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 6,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Move = true,
@@ -180,8 +191,6 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         UnitName = '<LOC brpexhvbot_name>Athusil',
-        TechLevel = 'RULEUTL_Secret',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -297,10 +306,6 @@ UnitBlueprint {
             Label = 'Beam',
 			
             MaxRadius = 40,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
 
             RackBones = {
                 {
@@ -320,12 +325,10 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE',
-			
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'muzzle',
             TurretBonePitch = 'Left_Arm03',
@@ -386,10 +389,6 @@ UnitBlueprint {
             Label = 'Beam',
 			
             MaxRadius = 40,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
 
             RackBones = {
                 {
@@ -410,8 +409,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE',
-			
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'muzzle01',
             TurretBonePitch = 'Right_Arm01',
@@ -464,11 +462,9 @@ UnitBlueprint {
             Label = 'ChronotronCannon',
 			
             MaxRadius = 48,
-            MinRadius = 0,
 			
             MuzzleChargeDelay = 0.4,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/SDFChronatronCannon01/SDFChronatronCannon01_proj.bp',
@@ -541,11 +537,9 @@ UnitBlueprint {
             Label = 'ChronotronCannon',
 			
             MaxRadius = 48,
-            MinRadius = 0,
 			
             MuzzleChargeDelay = 0.4,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/SDFChronatronCannon01/SDFChronatronCannon01_proj.bp',
@@ -622,7 +616,6 @@ UnitBlueprint {
 			
             MaxRadius = 42,
 
-            MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 50,
@@ -650,7 +643,7 @@ UnitBlueprint {
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'aa04',
             TurretBonePitch = 'AA_LeftBarrel01',
@@ -700,7 +693,6 @@ UnitBlueprint {
 			
             MaxRadius = 42,
 			
-            MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 50,
@@ -726,7 +718,7 @@ UnitBlueprint {
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'aa03',
             TurretBonePitch = 'AA_LeftBarrel02',
@@ -801,7 +793,7 @@ UnitBlueprint {
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'aa01',
             TurretBonePitch = 'AA_LeftBarrel03',
@@ -849,8 +841,7 @@ UnitBlueprint {
 			LeadTarget = true,
 			
             MaxRadius = 42,
-			
-            MuzzleChargeDelay = 0,
+
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 50,
@@ -875,7 +866,7 @@ UnitBlueprint {
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'aa02',
             TurretBonePitch = 'AA_LeftBarrel04',
@@ -908,11 +899,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

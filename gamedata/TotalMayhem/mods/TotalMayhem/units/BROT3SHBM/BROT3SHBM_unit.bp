@@ -1,7 +1,7 @@
 UnitBlueprint {
 
     AI = { 
-        GuardScanRadius = 60, 
+        GuardScanRadius = 15, 
 		TargetBones = {
             'toes01',
 			'legb2',
@@ -144,8 +144,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 4,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -156,9 +154,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC brot3shbm_name>Elias',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -254,7 +250,7 @@ UnitBlueprint {
 			
             FiringTolerance = 1,
 			FiringRandomness = 0.5,
-            FiringRandomnessWhileMoving = 2,
+            FiringRandomnessWhileMoving = 1.5,
 			
             Label = 'MainGun',
 			
@@ -290,8 +286,6 @@ UnitBlueprint {
             
             RackReloadTimeout = 10,
 
-            RackSalvoSize = 1,
-
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -303,7 +297,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -403,7 +396,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -467,12 +459,11 @@ UnitBlueprint {
 			
             Label = 'EMPgun',
 			
-            MaxRadius = 15,
+            MaxRadius = 16,
 			MinRadius = 0,
 			
             MuzzleChargeDelay = 1.2,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 25,
 			
 			PrefersPrimaryWeaponTarget = true,
@@ -487,8 +478,6 @@ UnitBlueprint {
                     RackBone = 'empmuzzle',
                 },
             },
-
-            RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.05,	-- 20dps
 			
@@ -542,7 +531,7 @@ UnitBlueprint {
 
             Label = 'robottalk',
 
-            MaxRadius = 65,
+            MaxRadius = 44,
             MinRadius = 0,
 
             MuzzleSalvoDelay = 0,
@@ -564,7 +553,7 @@ UnitBlueprint {
             RackRecoilDistance = -2,
 
             RackSlavedToTurret = true,
-            RangeCategory = 'UWRC_IndirectFire',
+
             RateOfFire = 0.05,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -574,7 +563,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.05,
+            TrackingRadius = 1,
 
             TurretBoneMuzzle = 'AttachPoint',
             TurretBonePitch = 'AttachPoint',
@@ -599,11 +588,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

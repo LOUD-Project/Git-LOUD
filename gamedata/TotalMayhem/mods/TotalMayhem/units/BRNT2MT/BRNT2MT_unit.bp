@@ -1,10 +1,8 @@
 UnitBlueprint {
 
     AI = { 
-        GuardScanRadius = 35, 
-		TargetBones = {
-			'Turret',
-        },
+        GuardScanRadius = 23, 
+		TargetBones = {'Turret'},
     }, 
 	
     Audio = {
@@ -216,12 +214,9 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel2',
                 },
             },
-            
             RackRecoilDistance = -3,
 
             RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
 
             RackSlavedToTurret = true,
 			
@@ -311,7 +306,7 @@ UnitBlueprint {
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'rl01',
             TurretBonePitch = 'rl01',
@@ -327,6 +322,7 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
@@ -334,11 +330,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

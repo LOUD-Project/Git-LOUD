@@ -1,12 +1,7 @@
 UnitBlueprint {
     AI = { 
-        GuardScanRadius = 65, 
-		TargetBones = {
-            'Turret',
-			'AttachPoint',
-			'Object04',
-			'Object13',
-        },
+        GuardScanRadius = 41, 
+		TargetBones = {'Turret','AttachPoint','Object04','Object13'},
     }, 
 
     Audio = {
@@ -160,8 +155,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 3,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -173,20 +166,22 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC brmt3mcm2_name>MadBolo',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 34,
 		WaterVisionRadius = 21,
     },
+
     Interface = {
         HelpText = 'Experimental Heavy Assault Mech',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.5,
     LifeBarSize = 3,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -208,6 +203,7 @@ UnitBlueprint {
         TurnRadius = 5,
         TurnRate = 29,
     },
+
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0,
     SelectionSizeX = 2.2,
@@ -286,7 +282,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 16,
             MuzzleVelocity = 16,
 			MuzzleVelocityRandomness = 5,
-						
+
 			NotExclusive = true,
 
             ProjectileId = '/mods/TotalMayhem/projectiles/cybranheavyrocketproj/cybranheavyrocket_proj.bp',
@@ -336,10 +332,7 @@ UnitBlueprint {
                     RackBone = 'Object08',
                 },
             },
-
             RackFireTogether = true,
-
-            RackSalvoSize = 1,
 
             RackSlavedToTurret = true,
 			
@@ -411,9 +404,7 @@ UnitBlueprint {
             Label = 'righthandweapon',
 			
             MaxRadius = 41,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 45,
             
             NotExclusive = true,
@@ -492,9 +483,7 @@ UnitBlueprint {
             Label = 'lefthandweapon',
 			
             MaxRadius = 41,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 45,
             
             NotExclusive = true,
@@ -570,9 +559,7 @@ UnitBlueprint {
             Label = 'mgweapon',
 			
             MaxRadius = 36,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 38,
 			
             ProjectileId = '/projectiles/TDFRiot02/TDFRiot02_proj.bp',
@@ -600,7 +587,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -677,10 +663,7 @@ UnitBlueprint {
             Label = 'laserfire',
 			
             MaxRadius = 36,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
+
             RackBones = {
                 {
                     MuzzleBones = { 'mgmuzzle03' },
@@ -704,7 +687,6 @@ UnitBlueprint {
                 'EXPERIMENTAL',
                 'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE',
@@ -745,11 +727,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

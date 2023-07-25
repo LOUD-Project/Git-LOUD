@@ -1,9 +1,8 @@
 UnitBlueprint {
 
     AI = { 
-		TargetBones = {
-            'BRPT3ML',
-        },
+        GuardScanRadius = 82, 
+		TargetBones = {'BRPT3ML'},
     }, 
 	
     Audio = {
@@ -122,7 +121,6 @@ UnitBlueprint {
             },
 		},
 
-        SpawnRandomRotation = true,
         UniformScale = 0.015,
     },
 	
@@ -134,8 +132,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -147,9 +143,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC brpt3ml_name>Heth-Zthuha',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -247,7 +241,7 @@ UnitBlueprint {
             
             EnergyRequired = 560,
             EnergyDrainPerSecond = 112,     -- 5 seconds to charge
-				
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
             },
@@ -261,9 +255,10 @@ UnitBlueprint {
             MaxRadius = 84,
             MinRadius = 25,
 			
-            MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0.8,         -- 3.2 seconds to discharge
+
             MuzzleSalvoSize = 4,
+
             MuzzleVelocity = 23,
 			MuzzleVelocityRandom = 1,
 			MuzzleVelocityReduceDistance = 80,
@@ -282,12 +277,6 @@ UnitBlueprint {
                     RackBone = 'Left_Arm_B01',
                 },
             },
-            
-
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -303,7 +292,7 @@ UnitBlueprint {
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'muzzle01',
             TurretBonePitch = 'Left_Arm_B01',
@@ -331,11 +320,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

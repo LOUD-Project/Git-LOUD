@@ -1,11 +1,9 @@
 UnitBlueprint {
     AI = {
-        GuardScanRadius = 45,
-        TargetBones = {
-            'Leg0401',
-			'Leg0301',
-        },		
+        GuardScanRadius = 36,
+        TargetBones = {'Leg0401','Leg0301'},		
     },
+
     Audio = {
         StartMove = Sound {
             Bank = 'XSL',
@@ -97,7 +95,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.04,
     },
 	
@@ -109,8 +106,6 @@ UnitBlueprint {
     
     General = {
 		CapCost = 2,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -122,8 +117,6 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         UnitName = '<LOC brpt3bot_name>Thaam-Thuum',
-        TechLevel = 'RULEUTL_Secret',
-        UnitWeight = 2,
     },
 	
     Intel = {
@@ -232,9 +225,7 @@ UnitBlueprint {
 			LeadTarget = true,
 			
             MaxRadius = 46,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 25,
 
             ProjectileId = '/projectiles/SDFHeavyQuarnonCannon01/SDFHeavyQuarnonCannon01_proj.bp',
@@ -242,18 +233,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle01',
-                    },
+                    MuzzleBones = {'Muzzle01'},
                     RackBone = 'Weapon02',
                 },
             },
-            
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
@@ -265,11 +249,10 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.1,
 			
 			TurretBoneDualMuzzle = 'Arm0104',
 			TurretBoneDualPitch = 'Arm0103',
@@ -321,9 +304,7 @@ UnitBlueprint {
             Label = 'RightGun',
 			
             MaxRadius = 36,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 44,
 
             ProjectileId = '/projectiles/SDFTauCannon01/SDFTauCannon01_proj.bp',
@@ -331,18 +312,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle',
-                    },
+                    MuzzleBones = {'Muzzle'},
                     RackBone = 'Weapon01',
                 },
             },
-            
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -386,11 +360,8 @@ UnitBlueprint {
         MassMult = 0.8,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

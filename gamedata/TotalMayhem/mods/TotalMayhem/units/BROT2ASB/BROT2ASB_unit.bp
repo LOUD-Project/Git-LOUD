@@ -1,6 +1,7 @@
 UnitBlueprint {
 
     AI = { 
+        GuardScanRadius = 32, 
 		TargetBones = {'Turret'},		
     }, 
 	
@@ -129,8 +130,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -142,9 +141,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC brot2asb_name>Amphorak',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -263,8 +260,6 @@ UnitBlueprint {
             Label = 'laser',
 			
             MaxRadius = 32,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
 
             RackBones = {
                 {
@@ -320,11 +315,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

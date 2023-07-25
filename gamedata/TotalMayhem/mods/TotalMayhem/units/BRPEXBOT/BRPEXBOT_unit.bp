@@ -1,7 +1,7 @@
 UnitBlueprint {
 
     AI = {
-        GuardScanRadius = 45,
+        GuardScanRadius = 39,
 		TargetBones = {
             'Object02',
 			'Left_Leg_B002',
@@ -179,8 +179,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 5,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Move = true,
@@ -191,8 +189,6 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         UnitName = '<LOC brpexbot_name>Yenah-lao',
-        TechLevel = 'RULEUTL_Advanced',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -303,8 +299,7 @@ UnitBlueprint {
             MinRadius = 6,
 			
             MuzzleChargeDelay = 0.3,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/SIFSuthanusArtilleryShell01/SIFSuthanusArtilleryShell01_proj.bp',
@@ -452,11 +447,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

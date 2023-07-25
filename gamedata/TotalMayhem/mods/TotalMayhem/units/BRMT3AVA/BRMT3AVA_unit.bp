@@ -304,8 +304,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 16,
-        Category = 'Experimental',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -317,9 +315,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC brmt3ava_name>Avalanche',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -439,10 +435,8 @@ UnitBlueprint {
 			
             MaxRadius = 95,
 			MinRadius = 14,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            MuzzleVelocity = 100,
+
+            MuzzleVelocity = 90,
             
             NotExclusive = true,
             
@@ -478,7 +472,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
             
             TurretBoneMuzzle = 'gunbarrel02',
             TurretBonePitch = 'Front_Turret_Barrel02',
@@ -491,7 +485,7 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 35,
+            TurretYawSpeed = 32,
             
             Turreted = true,
         },
@@ -534,16 +528,12 @@ UnitBlueprint {
 			
             MaxRadius = 95,
 			MinRadius = 10,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 100,
             
             NotExclusive = true,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3AVAproj/BRMT3AVAproj_proj.bp',
-			
-            ProjectilesPerOnFire = 3,
 			
             RackBones = {
                 {
@@ -557,8 +547,6 @@ UnitBlueprint {
             },
             
             RackRecoilDistance = -0.5,
-
-            RackSalvoSize = 3,
 
             RackSlavedToTurret = true,
 
@@ -574,7 +562,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
             
             TurretBoneMuzzle = 'gunbarrel05',
             TurretBonePitch = 'Front_Turret_Barrel04',
@@ -587,7 +575,7 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 150,
-            TurretYawSpeed = 35,
+            TurretYawSpeed = 32,
             
             Turreted = true,
         },
@@ -621,9 +609,6 @@ UnitBlueprint {
             Label = 'laser1w',
 			
             MaxRadius = 55,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             
             NotExclusive = true,
 			
@@ -647,7 +632,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'lasergunmuzzle01',
             TurretBonePitch = 'lasergun01',
@@ -693,9 +678,6 @@ UnitBlueprint {
             
             MaxRadius = 55,
             
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            
             NotExclusive = true,
 
             RackBones = {
@@ -717,7 +699,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
             
             TurretBoneMuzzle = 'lasergunmuzzle02',
             TurretBonePitch = 'lasergun02',
@@ -759,9 +741,7 @@ UnitBlueprint {
             Label = 'mgweapon',
 			
             MaxRadius = 45,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 38,
             
             NotExclusive = true,
@@ -1016,15 +996,12 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
-        HealthMult = 0.9,
-        MassMult = 0.7,
+        HealthMult = 0.6,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

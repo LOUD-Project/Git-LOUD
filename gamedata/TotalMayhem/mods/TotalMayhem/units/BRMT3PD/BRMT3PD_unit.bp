@@ -1,11 +1,7 @@
 UnitBlueprint {
 
     AI = { 
-		TargetBones = {
-            'Turret_barrel',
-			'OBJ02',
-			'cool01',
-        },
+		TargetBones = {'Turret_barrel','OBJ02','cool01'},
     },
 	
     Audio = {
@@ -97,8 +93,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -107,9 +101,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC brmt3pd_name>Tripple Threat',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -216,9 +208,7 @@ UnitBlueprint {
 			
             MaxRadius = 65,
             MinRadius = 8,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 33,
 
             ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
@@ -255,7 +245,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
             
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_barrel',
@@ -281,11 +271,7 @@ UnitBlueprint {
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -1,9 +1,7 @@
 UnitBlueprint {
    
    AI = { 
-       	TargetBones = {
-            'Turret01',
-        },
+       	TargetBones = {'Turret01'},
     },
 
     Audio = {
@@ -100,8 +98,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -110,9 +106,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC brmt1expdt2_name>Dual Pen',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -241,20 +235,23 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
+
             TurretBoneMuzzle = 'aim',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret01',
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 40,
             TurretPitchSpeed = 40,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 28,
+
             Turreted = true,
         },
     },
@@ -262,14 +259,10 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.75,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

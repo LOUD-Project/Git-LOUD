@@ -91,12 +91,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 10.4,
                 Normal = 'Tarmacs/Tar8x_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 10.4,
             },
@@ -219,8 +214,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 4,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -229,9 +222,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC brnt3shpd_name>Blockhouse',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -339,9 +330,7 @@ UnitBlueprint {
 			
             MaxRadius = 105,
             MinRadius = 15,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 36,
 			MuzzleVelocityRandom = 2,
 			
@@ -467,7 +456,7 @@ UnitBlueprint {
 			
             TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE',
 			
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'SmallTurretMuzzle01',
             TurretBonePitch = 'SmallTurret_Barrel01',
@@ -526,16 +515,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'SmallTurretMuzzle02',
-                    },
+                    MuzzleBones = {'SmallTurretMuzzle02'},
                     RackBone = 'SmallTurret_Barrel02',
                 },
             },
-
-            RackReloadTimeout = 10,
-
-
 
             RateOfFire = 1,		-- another 250 DPS
 			
@@ -548,7 +531,7 @@ UnitBlueprint {
 			
             TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE',			
 
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'SmallTurretMuzzle02',
             TurretBonePitch = 'SmallTurret_Barrel02',
@@ -606,16 +589,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'SmallTurretMuzzle03',
-                    },
+                    MuzzleBones = {'SmallTurretMuzzle03'},
                     RackBone = 'SmallTurret_Barrel03',
                 },
             },
-
-            RackReloadTimeout = 10,
-
-
 
             RateOfFire = 1,
 			
@@ -628,7 +605,7 @@ UnitBlueprint {
 			
             TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE',
 
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'SmallTurretMuzzle03',
             TurretBonePitch = 'SmallTurret_Barrel03',
@@ -685,16 +662,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'SmallTurretMuzzle04',
-                    },
+                    MuzzleBones = {'SmallTurretMuzzle04'},
                     RackBone = 'SmallTurret_Barrel04',
                 },
             },
-
-            RackReloadTimeout = 10,
-
-
 
             RateOfFire = 1,
             ReTargetOnMiss = true,
@@ -707,7 +678,7 @@ UnitBlueprint {
 			
             TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE',
 			
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'SmallTurretMuzzle04',
             TurretBonePitch = 'SmallTurret_Barrel04',
@@ -765,16 +736,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'SmallTurretMuzzle05',
-                    },
+                    MuzzleBones = {'SmallTurretMuzzle05'},
                     RackBone = 'SmallTurret_Barrel05',
                 },
             },
-
-            RackReloadTimeout = 10,
-
-
 
             RateOfFire = 1,
             ReTargetOnMiss = true,
@@ -786,7 +751,7 @@ UnitBlueprint {
 			
             TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE',
 			
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'SmallTurretMuzzle05',
             TurretBonePitch = 'SmallTurret_Barrel05',
@@ -844,16 +809,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'SmallTurretMuzzle06',
-                    },
+                    MuzzleBones = {'SmallTurretMuzzle06'},
                     RackBone = 'SmallTurret_Barrel06',
                 },
             },
-
-            RackReloadTimeout = 10,
-
-
 
             RateOfFire = 1,
             ReTargetOnMiss = true,
@@ -866,7 +825,7 @@ UnitBlueprint {
 			
             TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE',
 			
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'SmallTurretMuzzle06',
             TurretBonePitch = 'SmallTurret_Barrel06',
@@ -924,16 +883,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'SmallTurretMuzzle07',
-                    },
+                    MuzzleBones = {'SmallTurretMuzzle07'},
                     RackBone = 'SmallTurret_Barrel07',
                 },
             },
-
-            RackReloadTimeout = 10,
-
-
 
             RateOfFire = 1,
             ReTargetOnMiss = true,
@@ -945,7 +898,7 @@ UnitBlueprint {
 			
             TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE',
 			
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'SmallTurretMuzzle07',
             TurretBonePitch = 'SmallTurret_Barrel07',
@@ -1003,16 +956,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'SmallTurretMuzzle08',
-                    },
+                    MuzzleBones = {'SmallTurretMuzzle08'},
                     RackBone = 'SmallTurret_Barrel08',
                 },
             },
-
-            RackReloadTimeout = 10,
-
-
 
             RateOfFire = 1,
             ReTargetOnMiss = true,
@@ -1024,7 +971,7 @@ UnitBlueprint {
 			
             TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE',
 			
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'SmallTurretMuzzle08',
             TurretBonePitch = 'SmallTurret_Barrel08',
@@ -1086,9 +1033,6 @@ UnitBlueprint {
                 },
             },
 
-
-
-
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,		-- 4 Missiles per second = 880 DPS
@@ -1096,16 +1040,14 @@ UnitBlueprint {
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
-                'ALLUNITS',
             },
 			
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.5,
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'aa01',
             TurretBonePitch = 'aa01',
@@ -1124,16 +1066,12 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.1,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
         MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 
