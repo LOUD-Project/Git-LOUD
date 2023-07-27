@@ -1,8 +1,8 @@
 UnitBlueprint {    
 	
 	AI = {
-        GuardReturnRadius = 125,
-        GuardScanRadius = 100,
+        GuardReturnRadius = 75,
+        GuardScanRadius = 50,
         TargetBones = { 'XAA0305' },
     },
     
@@ -137,8 +137,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
         UniformScale = 0.39,
     },
 	
@@ -157,8 +155,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Dock = true,
@@ -179,9 +175,7 @@ UnitBlueprint {
                 helpText = 'aeonairdecoy',
             },
         },
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC saa0201_name>Beguiler',
-        UnitWeight = 1,
     },
 	
     Intel = {

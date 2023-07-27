@@ -1,9 +1,7 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'UAB2205',
-        },
+        TargetBones = {'UAB2205'},
     },
 	
     Audio = {
@@ -104,8 +102,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -114,9 +110,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'sea',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC sab2308_name>Flash Flood',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -229,14 +223,7 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
-			
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 0.25,		-- 8 torps * 250  = 4000 every 5 seconds = 360 DPS
@@ -249,7 +236,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle_01',
             TurretBonePitch = 'Turret_Barrel',
@@ -276,7 +263,6 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
             Sub = true,

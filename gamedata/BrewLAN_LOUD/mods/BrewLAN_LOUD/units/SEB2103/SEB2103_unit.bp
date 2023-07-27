@@ -1,9 +1,7 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Turret',
-        },
+        TargetBones = {'Turret'},
     },
 	
     Audio = {
@@ -72,7 +70,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.155,
     },
 	
@@ -91,8 +88,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Strategic',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -101,9 +96,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC seb2103_name>Poker',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -192,9 +185,7 @@ UnitBlueprint {
 			
             MaxRadius = 55,
             MinRadius = 5,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 18,
 			MuzzleVelocityReduceDistance = 50,
 			
@@ -211,10 +202,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -1.2,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -254,11 +241,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

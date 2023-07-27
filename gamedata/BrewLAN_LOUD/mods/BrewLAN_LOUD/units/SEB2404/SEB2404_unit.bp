@@ -124,8 +124,6 @@ UnitBlueprint {
             },
         },
 		
-        SpawnRandomRotation = true,
-		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_01_albedo',
@@ -133,12 +131,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar12x_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
@@ -151,9 +144,9 @@ UnitBlueprint {
         BuildCostEnergy = 900000*1.5,
         BuildCostMass = 90000*1.5,
         BuildTime = 30000*1.5,
-        RebuildBonusIds = {
-            'seb2404',
-        },
+
+        RebuildBonusIds = {'seb2404'},
+
         BuildRate = 180,
         BuilderDiscountMult = 0.6,
         BuildableCategory = {
@@ -171,43 +164,27 @@ UnitBlueprint {
     General = {
 
         BuildBones = {
-            BuildEffectBones = {
-                'BuildBone1',
-                'BuildBone2',
-                'BuildBone3',
-            },
+            BuildEffectBones = {'BuildBone1','BuildBone2','BuildBone3'},
         },
-
 		CapCost = 8,
-		
-        Category = 'Strategic',
-        Classification = 'RULEUC_Weapon',
-		
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-		
         FactionName = 'UEF',
-		
         Icon = 'land',
-		
         OrderOverrides = {
             RULEUTC_WeaponToggle = {
                 bitmapId = 'patrol', -- maybe use 'retaliate' after it actually fires on the target eventually make own icon with drop pod and rotating arrows
                 helpText = 'toggle_repeat_orders',
             },
         },
-		
         SelectionPriority = 5,
-		
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_WeaponToggle = true,
         },
         UnitName = '<LOC seb2404_name>Ivan',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -315,9 +292,7 @@ UnitBlueprint {
 			
             MaxRadius = 2000,
             MinRadius = 100,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 160,
             MuzzleVelocityReduceDistance = 2000,
 			
@@ -326,9 +301,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_muzzle',
-                    },
+                    MuzzleBones = {'Turret_muzzle'},
                     RackBone = 'Turret_recoil',
                     TelescopeBone = 'DropPod',
                     TelescopeRecoilDistance = 15,
@@ -336,9 +309,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -40,
-            RackReloadTimeout = 1,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -373,11 +343,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -163,9 +163,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,   
-		
         UniformScale = 0.05,
     },
 	
@@ -187,15 +184,9 @@ UnitBlueprint {
 	
     General = {     
         BuildBones = {
-            BuildEffectBones = {
-                0,
-            },
+            BuildEffectBones = {0},
         },          
-		
         CapCost = 1,
-		
-        Category = 'Defense',
-        Classification = 'RULEUC_Factory',
         CommandCaps = {
             RULEUCC_Pause = true,
             RULEUCC_Stop = true,
@@ -212,9 +203,7 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',    
         UnitName = '<LOC srb5310_name>Procyon Defiance',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -271,10 +260,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
             Water = true,
         },
     },

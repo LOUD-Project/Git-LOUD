@@ -1,8 +1,6 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Turret',
-        },
+        TargetBones = {'Turret'},
     },
 	
     Audio = {
@@ -109,18 +107,14 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 3,
-
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-
         FactionName = 'Aeon',
         Icon = 'amph',
-
         SelectionPriority = 5,
-
         UnitName = '<LOC sab2311_name>Nihiloid',
     },
 	
@@ -232,8 +226,7 @@ UnitBlueprint {
 			MinRadius = 14,
 			
             MuzzleChargeDelay = 1,      -- 1 second delay --
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 28,
 			MuzzleVelocityRandom = 1.5,
             MuzzleVelocityReduceDistance = 100,
@@ -251,8 +244,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -3,
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -292,11 +283,7 @@ UnitBlueprint {
         MassMult = 0.7,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },	
 }

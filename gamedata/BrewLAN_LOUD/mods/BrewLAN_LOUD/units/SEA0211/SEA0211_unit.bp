@@ -1,10 +1,8 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 125,
-        GuardScanRadius = 100,
-        TargetBones = {
-            'Bomber',
-		},
+        GuardReturnRadius = 110,
+        GuardScanRadius = 75,
+        TargetBones = {'Bomber'},
     },
 	
     Air = {
@@ -185,8 +183,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Bomber',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -199,9 +195,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC sea0211_name>Tornado',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -269,7 +263,9 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
 			
             BombDropThreshold = 3,
@@ -283,7 +279,7 @@ UnitBlueprint {
 			
             DisplayName = 'Tactical Bomb',
 			
-            EffectiveRadius = 25,
+            EffectiveRadius = 45,
 			
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
@@ -296,9 +292,7 @@ UnitBlueprint {
             Label = 'Bomb',
 			
             MaxRadius = 55,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 0,
 			
             NeedToComputeBombDrop = true,
@@ -306,16 +300,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Bomb',
-                    },
+                    MuzzleBones = {'Bomb'},
                     RackBone = 'Bomb',
                 },
             },
-			
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 0.2,	-- 160 DPS
 			
@@ -359,9 +347,7 @@ UnitBlueprint {
             Label = 'LinkedRailGun',
 			
             MaxRadius = 24,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 45,
 			
             ProjectileId = '/projectiles/TAARailgun01/TAARailgun01_proj.bp',
@@ -369,16 +355,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Tailgun',
-                    },
+                    MuzzleBones = {'Tailgun'},
                     RackBone = 'Tailgun',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 1.5,
 			
@@ -391,7 +371,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,SATELLITE,NAVAL',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
             
             TurretBoneMuzzle = 'Tailgun',
             TurretBonePitch = 'Tailgun',

@@ -1,9 +1,7 @@
 UnitBlueprint {
 
     AI = {
-		TargetBones = {
-            'Line005',
-		},
+		TargetBones = {'Line005'},
     },
 	
     Air = {
@@ -145,7 +143,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.023,
     },
 	
@@ -163,8 +160,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 0.2,
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Dock = true,
@@ -181,12 +176,10 @@ UnitBlueprint {
                 helpText = 'toggle_stealth_field',
             },
         },
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
         UnitName = '<LOC sra0201_name>Blade Raven',
-        UnitWeight = 1,
     },
 	
     Intel = {

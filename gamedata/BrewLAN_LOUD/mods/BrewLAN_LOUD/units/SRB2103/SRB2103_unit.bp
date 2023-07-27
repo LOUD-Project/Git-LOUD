@@ -1,8 +1,6 @@
 UnitBlueprint {
 	AI = {
-        TargetBones = {
-            'Turret',
-        },
+        TargetBones = {'Turret'},
     },
     
     Audio = {
@@ -40,8 +38,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTDEFENSE',
     },
-	
-    CollisionOffsetY = -0.0,
+
     CollisionOffsetZ = -0.1,
 	
     Defense = {
@@ -62,8 +59,6 @@ UnitBlueprint {
                 {LODCutoff = 215, ShaderName = 'Insect'},
             },
         },
-        PlaceholderMeshName = 'UXB0004',
-        SpawnRandomRotation = true,
         UniformScale = 0.2,
     },
     
@@ -76,8 +71,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Strategic',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -86,9 +79,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC srb2103_name>Little Bertha',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -154,9 +145,7 @@ UnitBlueprint {
 			-- factional bonus --
             Buffs = {
             	{
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 1,
@@ -190,9 +179,7 @@ UnitBlueprint {
 			
             MaxRadius = 55,
             MinRadius = 5,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 18,
 			MuzzleVelocityReduceDistance = 50,
 			
@@ -200,18 +187,12 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Recoil',
                 },
             },
 
             RackRecoilDistance = -1,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -251,11 +232,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

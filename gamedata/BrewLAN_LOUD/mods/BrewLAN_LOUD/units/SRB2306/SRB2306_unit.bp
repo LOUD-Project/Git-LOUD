@@ -1,9 +1,7 @@
 UnitBlueprint {
 
 	AI = {
-        TargetBones = {
-            'Turret_B01',
-        },
+        TargetBones = {'Turret_B01'},
     },
 	
     Audio = {
@@ -93,8 +91,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
-
         UniformScale = 0.08,
     },
 	
@@ -113,8 +109,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -123,9 +117,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC srb2306_name>Hades',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -133,7 +125,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = '<LOC xeb2306_help>Heavy Point Defense',
+        HelpText = '<LOC srb2306_help>Heavy Point Defense',
     },
 	
     LifeBarHeight = 0.075,
@@ -234,23 +226,13 @@ UnitBlueprint {
 			
             MaxRadius = 52,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle01',
-                    },
+                    MuzzleBones = {'Turret_Muzzle01'},
                     RackBone = 'Turret_B02',
                 },
             },
-            RackFireTogether = false,
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -291,11 +273,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -1,9 +1,6 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Turret',
-            'Barrel01',
-        },
+        TargetBones = {'Turret','Barrel01'},
     },
 	
     Audio = {
@@ -43,7 +40,6 @@ UnitBlueprint {
 	
     Categories = {
         'SELECTABLE',
-        --'BUILTBYTIER3FIELD',
         'SERAPHIM',
         'STRUCTURE',
         'DEFENSE',
@@ -55,9 +51,10 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYDIRECTFIRE',
         'SORTDEFENSE',
-        --'RESEARCHLOCKED',
     },
+
     CollisionOffsetY = 0,
+
     Defense = {
         AirThreatLevel = 0,
         ArmorType = 'Structure',
@@ -68,7 +65,9 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 6,
     },
+
     Description = '<LOC ssb2380_desc>Prototype Disarmer Point Defense',
+
     Display = {
         AnimationDeath = {
             {
@@ -109,7 +108,6 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
         UniformScale = 0.038,
     },
 	
@@ -122,8 +120,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -132,19 +128,21 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC ssb2380_name>Uttaus',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 24,
     },
+
     Interface = {
         HelpText = '<LOC ssb2380_desc>Prototype Disarmer Point Defense',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,
     LifeBarSize = 0.9,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -163,14 +161,18 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.35,
     SelectionSizeZ = 0.35,
     SelectionThickness = 1.1,
+
     SizeX = 0.5,
     SizeY = 0.9,
     SizeZ = 0.5,
+
     StrategicIconName = 'icon_structure3_directfire',
     StrategicIconSortPriority = 205,
+
     Veteran = {
         Level1 = 6,
         Level2 = 12,
@@ -178,6 +180,7 @@ UnitBlueprint {
         Level4 = 24,
         Level5 = 32,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -191,48 +194,43 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             BeamCollisionDelay = 0,
             BeamLifetime = 0.1,
+
             CannotAttackGround = true,
             CollideFriendly = true,
             ContinuousBeam = true,
+
             Damage = 1,
             DamageFriendly = true,
             DamageRadius = .5,
             DamageType = 'Normal',
+
             DisplayName = 'Weapon Remover Cannon',
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
+
             Label = 'MainGun',
+
             MaxRadius = 26,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle_01',
-                    },
+                    MuzzleBones = {'Turret_Muzzle_01'},
                     RackBone = 'Turret_Barrel',
-                },--[[
-                {
-                    MuzzleBones = {
-                        'Turret_Muzzle_02',
-                    },
-                    RackBone = 'Turret_Barrel',
-                },]]--
+                },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+
             RangeCategory = 'UWRC_DirectFire',
+
             RateOfFire = 0.2,
+
             ReTargetOnMiss = true,
+
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -243,18 +241,21 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
+
             TurretBoneMuzzle = 'Turret_Muzzle_01',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 60,
             TurretPitchSpeed = 90,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 90,
+
             Turreted = true,
-            WeaponCategory = 'Direct Fire',
         },
     },
     Wreckage = {
@@ -264,11 +265,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

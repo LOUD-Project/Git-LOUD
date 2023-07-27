@@ -1,9 +1,7 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Turret',
-        },
+        TargetBones = {'Turret'},
     },
 
     Audio = {
@@ -95,9 +93,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
-
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_01_albedo',
@@ -136,8 +131,6 @@ UnitBlueprint {
 
     General = {
 		CapCost = 6,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -146,9 +139,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC seb2401_name>Excalibur',
-        UnitWeight = 1,
     },
 
     Intel = {
@@ -212,11 +203,7 @@ UnitBlueprint {
         {
             AimsStraightOnDisable = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XES_Weapons',
-                    Cue = 'XES0307_Plasma_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XES_Weapons', Cue = 'XES0307_Plasma_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_LowArc',
@@ -252,9 +239,6 @@ UnitBlueprint {
             MaxRadius = 128,
             MinRadius = 12,
 
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 90,
 
             NeedPrep = true,
@@ -264,17 +248,12 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
 
             RackRecoilDistance = -10,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 
@@ -289,7 +268,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
 
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
@@ -305,7 +284,6 @@ UnitBlueprint {
             TurretYawSpeed = 8,
 
             Turreted = true,
-
         },
 
         {
@@ -327,11 +305,7 @@ UnitBlueprint {
         MassMult = 0.2,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

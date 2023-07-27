@@ -1,11 +1,10 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 125,
-        GuardScanRadius = 100,
-        TargetBones = {
-            'Body',
-        },
+        GuardReturnRadius = 120,
+        GuardScanRadius = 75,
+        TargetBones = {'Body'},
     },
+
     Air = {
         AutoLandTime = 1.6,
         BankFactor = 2.5,
@@ -228,8 +227,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
         UniformScale = 0.044,
     },
 	
@@ -249,8 +246,7 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Bomber',
-        Classification = 'RULEUC_MilitaryAircraft',
+        CapCost = 2,
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -269,12 +265,10 @@ UnitBlueprint {
                 helpText = 'toggle_stealth_personal',
             },
         },
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
         UnitName = '<LOC ssa0314_name>Sinnaino',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -345,6 +339,7 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             AutoInitiateAttackCommand = true,
             
             BallisticArc = 'RULEUBA_None',
@@ -353,9 +348,7 @@ UnitBlueprint {
 			
             Buffs = {
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 1,
@@ -401,16 +394,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Body',
-                    },
+                    MuzzleBones = {'Body'},
                     RackBone = 'Body',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 0.2,       -- 5750 * .2 = 1150 DPS
 			
@@ -460,7 +447,7 @@ UnitBlueprint {
             MinRadius = 50,
 			
             MuzzleChargeDelay = 0.3,
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 22,
 			
@@ -472,17 +459,12 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Body',
-                        'Body',
-                    },
+                    MuzzleBones = {'Body','Body'},
                     RackBone = 'Body',
                 },
             },
 
             RackReloadTimeout = 37.5,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 1/12.5,        -- 96 DPS
 			
@@ -522,7 +504,9 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -531,7 +515,7 @@ UnitBlueprint {
 			
             DisplayName = 'Heavy Cavitation Cluster Torpedo Launcher',
 			
-            EffectiveRadius = 19,
+            EffectiveRadius = 25,
 			
             FireTargetLayerCapsTable = {
                 Air = 'Seabed|Sub|Water',
@@ -560,16 +544,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Torpedo',
-                    },
+                    MuzzleBones = {'Torpedo'},
                     RackBone = 'Torpedo',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 0.1,
 			
@@ -603,10 +581,8 @@ UnitBlueprint {
         MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
             Water = true,
         },
     },

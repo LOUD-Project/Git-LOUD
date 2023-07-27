@@ -181,9 +181,7 @@ UnitBlueprint {
     Footprint = {SizeX = 15, SizeZ = 15},
     
     General = {
-    
         CapCost = 18,
-        
         BuildBones = {
             BuildEffectBones = {
                 'Muzzle001',
@@ -196,11 +194,6 @@ UnitBlueprint {
                 'Muzzle008',
             },
         },
-        
-        Category = 'Factory',
-        
-        Classification = 'RULEUC_Factory',
-        
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -209,26 +202,20 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-        
         ConstructionBar = true,
         FactionName = 'UEF',
         Icon = 'amph',
-        
         ToggleCaps = {
             RULEUTC_WeaponToggle = true,
         },
-        
         OrderOverrides = {
             RULEUTC_WeaponToggle = {
                 bitmapId = 'airsf',
                 helpText = 'buildair',
             },
         },
-        
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC seb0401_name>Gantry',
-        UnitWeight = 1,
     },
     
     Intel = {
@@ -287,10 +274,7 @@ UnitBlueprint {
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
             Water = true,
         },
     },

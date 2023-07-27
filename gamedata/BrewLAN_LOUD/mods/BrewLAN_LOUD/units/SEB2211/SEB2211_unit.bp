@@ -1,9 +1,7 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Front_Turret01',
-        },
+        TargetBones = {'Front_Turret01'},
     },
 
     Audio = {
@@ -78,7 +76,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar6x_01_albedo',
@@ -86,12 +83,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 6.4,
                 Normal = 'Tarmacs/Tar6x_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 6.4,
             },
@@ -113,8 +105,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -123,9 +113,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC seb2211_name>Stouty',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -222,9 +210,7 @@ UnitBlueprint {
             Label = 'Turret',
 			
             MaxRadius = 52,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 36,
             MuzzleVelocityRandom = 3,
 			
@@ -233,30 +219,24 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Turret01_Muzzle01',
-                    },
+                    MuzzleBones = {'Front_Turret01_Muzzle01'},
                     RackBone = 'Front_Turret01_Barrel01',
                 },
                 {
-                    MuzzleBones = {
-                        'Front_Turret01_Muzzle02',
-                    },
+                    MuzzleBones = {'Front_Turret01_Muzzle02'},
                     RackBone = 'Front_Turret01_Barrel02',
                 },
             },
             RackFireTogether = true,
 			
             RackRecoilDistance = -1.2,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.35,	-- 180 x 2 = 360 / 3 = 120 DPS
+
             TargetCheckInterval = 1,
 			
             TargetPriorities = {
@@ -265,7 +245,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Front_Turret01_Muzzle01',
             TurretBonePitch = 'Front_Turret01_Barrel01',
@@ -278,7 +258,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 37,
+            TurretYawSpeed = 36,
 			
             Turreted = true,
         },
@@ -291,11 +271,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -105,6 +105,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Categories = {
         'PRODUCTBREWLAN',
         'SELECTABLE',
@@ -122,7 +123,9 @@ UnitBlueprint {
         'SHOWQUEUE',
         'MOBILEBUILDERONLY'
     },
+
     CollisionOffsetZ = -0.07,
+
     Defense = {
         AirThreatLevel = 0,
         ArmorType = 'Light',
@@ -133,7 +136,9 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
+
     Description = '<LOC ssa00001_desc>Storage',
+
     Display = {
         Abilities = {
             '<LOC ability_engineeringsuite>Engineering Suite',
@@ -191,10 +196,9 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = false,
         UniformScale = 0.03,
     },
+
     Economy = {
         BuildCostEnergy = 2500,
         BuildCostMass = 250,
@@ -207,18 +211,15 @@ UnitBlueprint {
             'SELECTABLE EXPERIMENTAL',
         },
     },
+
     General = {
         BuildBones = {
             AimBone = 'BuildBone',
-            BuildEffectBones = {
-                'BuildBone',
-            },
+            BuildEffectBones = {'BuildBone'},
             PitchBone = 'BuildBone',
             YawBone = 'BuildBone',
         },
         CapCost = 0,
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Capture = true,
             RULEUCC_Guard = true,
@@ -231,25 +232,21 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'air',
-        --OrderOverrides = {
-        --    DroneL = {
-        --        bitmapId = 'drone',
-        --        helpText = 'drone_station',
-        --    },
-        --},
         SelectionPriority = 6,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 12,
     },
+
     Interface = {
         HelpText = '<LOC xea3204_help>Engineering Drone',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.25,
     LifeBarSize = 0.3,
+
     Physics = {
         BankingSlope = 0.5,
         BuildOnLayerCaps = {
@@ -265,20 +262,26 @@ UnitBlueprint {
         TurnRadius = 100,
         TurnRate = 100,
     },
+
     SelectionSizeX = 0.3,
     SelectionSizeZ = 0.3,
     SelectionThickness = 1.2,
+
     SizeSphere = 1,
+
     SizeX = 0.5,
     SizeY = 0.2,
     SizeZ = 0.5,
+
     StrategicIconName = 'icon_gunship_engineer',
     StrategicIconSize = 1,
     StrategicIconSortPriority = 105,
+
     Transport = {
         AirClass = true,
         TransportClass = 5,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -293,6 +296,7 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -300,11 +304,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

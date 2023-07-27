@@ -1,11 +1,8 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Pannel_001',
-			'Pannel_002',
-			'Pannel_003',
-        },
+        GuardScanRadius = 38,
+        TargetBones = {'Pannel_001','Pannel_002','Pannel_003'},
     },
 	
     Audio = {
@@ -137,7 +134,6 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
         UniformScale = 0.07,
     },
 	
@@ -149,8 +145,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Anti Air',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -162,9 +156,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC sal0320_name>Alchemist',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -295,26 +287,15 @@ UnitBlueprint {
 			
             MaxRadius = 38,
 			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
             NeedPrep = true,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle_001',
-                    },
+                    MuzzleBones = {'Muzzle_001'},
                     RackBone = 'Muzzle_001',
                 },
             },
 
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 3,     -- RoF determined by charge - 1 second
@@ -329,7 +310,7 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			
             TurretBoneMuzzle = 'Muzzle_001',
             TurretBonePitch = 'Lens_001',
@@ -360,6 +341,7 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.35,
@@ -367,11 +349,7 @@ UnitBlueprint {
         MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

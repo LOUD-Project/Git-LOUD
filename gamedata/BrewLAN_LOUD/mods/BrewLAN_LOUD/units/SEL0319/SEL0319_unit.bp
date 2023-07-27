@@ -1,10 +1,8 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Wheels_Right',
-			'Wheels_Left',
-        },
+        GuardScanRadius = 24,
+        TargetBones = {'Wheels_Right','Wheels_Left'},
     },
 
     Audio = {
@@ -50,7 +48,6 @@ UnitBlueprint {
         'OVERLAYMISC',
     },
 	
-    CollisionOffsetY = -0.0,
     CollisionOffsetZ = -0.05,
 	
     Defense = {
@@ -62,7 +59,7 @@ UnitBlueprint {
 		SurfaceThreatLevel = 6,
     },
 	
-    Description = '<LOC uel0209_desc>Field Engineer',
+    Description = '<LOC sel0319_desc>Field Engineer',
 	
     Display = {
         Abilities = {
@@ -71,15 +68,15 @@ UnitBlueprint {
             '<LOC ability_jamming>Jamming',
             '<LOC ability_radar>Radar',
         },
+
         AnimationBuildRate = 5,
         AnimationWater = '/units/XEL0209/xel0209_afold.sca',
+
         IdleEffects = {
             Water = {
                 Effects = {
                     {
-                        Bones = {
-                            'XEL0209',
-                        },
+                        Bones = {'XEL0209'},
                         Scale = 0.7,
                         Type = 'SeaIdle02',
                     },
@@ -111,10 +108,7 @@ UnitBlueprint {
             Land = {
                 Effects = {
                     {
-                        Bones = {
-                            'Dust01',
-                            'Dust02',
-                        },
+                        Bones = {'Dust01','Dust02'},
                         Type = 'GroundKickup01',
                     },
                 },
@@ -127,11 +121,7 @@ UnitBlueprint {
                             TreadMarksInterval = 0.3,
                             TreadMarksSizeX = 0.7,
                             TreadMarksSizeZ = 0.4,
-                            TreadOffset = {
-                                0,
-                                0,
-                                0,
-                            },
+                            TreadOffset = {0,0,0},
                         },
                     },
                 },
@@ -139,10 +129,7 @@ UnitBlueprint {
             Water = {
                 Effects = {
                     {
-                        Bones = {
-                            'Dust01',
-                            'Dust02',
-                        },
+                        Bones = {'Dust01','Dust02'},
                         Scale = 0.4,
                         Type = 'BackWake',
                     },
@@ -176,11 +163,7 @@ UnitBlueprint {
     General = {
         BuildBones = {
             AimBone = 0,
-            BuildEffectBones = {
-                'Arm_Muzzle',
-                'Arm_Muzzle001',
-                'Arm_Muzzle002',
-            },
+            BuildEffectBones = {'Arm_Muzzle','Arm_Muzzle001','Arm_Muzzle002'},
             PitchBone = 'Arm02',
             YawBone = 'XEL0209',
         },
@@ -214,7 +197,6 @@ UnitBlueprint {
         },
 
         UnitName = '<LOC sel0319_name>Custodian',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -313,9 +295,7 @@ UnitBlueprint {
             Label = 'Riotgun01',
 			
             MaxRadius = 24,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 28,
 			
             ProjectileId = '/projectiles/TDFRiot03/TDFRiot03_proj.bp',
@@ -323,16 +303,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Gun_Muzzle',
-                    },
+                    MuzzleBones = {'Gun_Muzzle'},
                     RackBone = 'Gun_Turret',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -374,11 +348,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

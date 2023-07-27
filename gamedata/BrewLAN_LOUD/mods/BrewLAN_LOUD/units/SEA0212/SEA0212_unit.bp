@@ -1,8 +1,9 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 100,
-        GuardScanRadius = 80,
+        GuardReturnRadius = 72,
+        GuardScanRadius = 48,
     },
+
     Air = {
         AutoLandTime = 1,
         BankFactor = 2,
@@ -28,6 +29,7 @@ UnitBlueprint {
         TurnSpeed = 1.5,
         Winged = true,
     },
+
     Audio = {
         AirUnitWaterImpact = Sound {
             Bank = 'Explosions',
@@ -80,6 +82,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -89,7 +92,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+
     BuildIconSortPriority = 17,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -101,16 +106,18 @@ UnitBlueprint {
         'TECH2',
         'ANTIAIR',
         'VISIBLETORECON',
-        'RECLAIMABLE',
-        'RESEARCHLOCKED',
+        'RECLAIMABLE',        'RESEARCHLOCKED',
     },
+
     Defense = {
         AirThreatLevel = 4,
         ArmorType = 'Light',
         Health = 800,
         MaxHealth = 800,
     },
+
     Description = '<LOC sea0212_desc>Combat Fighter',
+
     Display = {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
@@ -156,16 +163,19 @@ UnitBlueprint {
         },
         UniformScale = 0.0038,
     },
+
     Economy = {
         BuildCostEnergy = 12500,
         BuildCostMass = 210,
         BuildTime = 1600,
     },
+
     Footprint = {
         MaxSlope = 0.25,
         SizeX = 1,
         SizeZ = 1,
     },
+
     General = {
         CommandCaps = {
             RULEUCC_Attack = true,
@@ -181,12 +191,15 @@ UnitBlueprint {
         Icon = 'air',
         UnitName = '<LOC sea0212_name>Raptor',
     },
+
     Intel = {
         VisionRadius = 32,
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.55,
     LifeBarSize = 1.1,
+
     Physics = {
         Elevation = 20,
         FuelRechargeRate = 6,
@@ -198,19 +211,25 @@ UnitBlueprint {
         MeshExtentsZ = 2,
         MotionType = 'RULEUMT_Air',
     },
+
     SelectionSizeX = 0.75,
     SelectionSizeZ = 1,
     SelectionThickness = 0.37,
+
     SizeSphere = 1.6,
+
     SizeX = 1.2,
     SizeY = 0.3,
     SizeZ = 1.5,
+
     StrategicIconName = 'icon_fighter2_antiair',
     StrategicIconSortPriority = 65,
+
     Transport = {
         AirClass = true,
         TransportClass = 2,
     },
+
     Veteran = {
         Level1 = 6,
         Level2 = 12,
@@ -218,6 +237,7 @@ UnitBlueprint {
         Level4 = 24,
         Level5 = 30,
     },
+
     Weapon = {
         {
             Audio = {
@@ -227,8 +247,11 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            AutoInitiateAttackCommand = false,
+
+            AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
 
@@ -240,9 +263,9 @@ UnitBlueprint {
             DisplayName = 'Ginsu Pulse Beam',
 
             FireTargetLayerCapsTable = {
-                Air = 'Air|Land',
-                Land = 'Air|Land',
+                Air = 'Air',
             },
+
             FiringTolerance = 2,
 
             Label = 'AutoCannon',
@@ -250,7 +273,7 @@ UnitBlueprint {
             MaxRadius = 30,
 
             MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 120,
 
             ProjectileId = '/projectiles/TDFGinsu01/TDFGinsu01_proj.bp',
@@ -258,15 +281,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Weapon_Front',
-                    },
+                    MuzzleBones = {'Weapon_Front'},
                     RackBone = 'Weapon_Front',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_AntiAir',
 
@@ -277,17 +295,15 @@ UnitBlueprint {
 
             TargetCheckInterval = 1,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
                 'HIGHPRIAIR',
                 'BOMBER',
                 'GROUNDATTACK',
                 'TRANSPORTATION',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.25,
+            TrackingRadius = 1.2,
 
             TurretBoneMuzzle = 'Weapon_Front',
             TurretBonePitch = 'Weapon_Front',
@@ -307,42 +323,48 @@ UnitBlueprint {
         },
         {
             AlwaysRecheckTarget = true,
+
             Audio = {Fire = Sound {Bank = 'UELWeapon', Cue = 'UEB2304_Missile_Flayer', LodCutoff = 'Weapon_LodCutoff'}},
+
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
+
             Damage = 50,
             DamageRadius = 0,
             DamageType = 'Normal',
+
             DisplayName = 'Flayer AAM Launcher',
+
             FireTargetLayerCapsTable = {
                 Air = 'Air',
                 Land = 'Air',
-                Water = 'Air',
             },
+
             FiringTolerance = 10,
+
             Label = 'Missile',
+
             MaxRadius = 30,
+
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 30,
+
             ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
             ProjectileLifetime = 6,
+
             RackBones = {
                 {
                     MuzzleBones = {'Right_Missile'},
                     RackBone = 'Right_Missile',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+
             RangeCategory = 'UWRC_AntiAir',
+
             RateOfFire = 0.142,
+
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -350,61 +372,65 @@ UnitBlueprint {
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.4,
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TrackingRadius = 1.2,
+
             TurretBoneMuzzle = 'Right_Missile',
             TurretBonePitch = 'Right_Missile',
             TurretBoneYaw = 'Right_Missile',
             TurretDualManipulators = false,
+
             TurretPitch = 25,
             TurretPitchRange = 80,
             TurretPitchSpeed = 180,
+
             TurretYaw = 0,
             TurretYawRange = 40,
             TurretYawSpeed = 180,
+
             Turreted = true,
-            WeaponCategory = 'Anti Air',
-            WeaponRepackTimeout = 0,
-            WeaponUnpacks = false,
         },
         {
             AlwaysRecheckTarget = true,
             Audio = {Fire = Sound {Bank = 'UELWeapon', Cue = 'UEB2304_Missile_Flayer', LodCutoff = 'Weapon_LodCutoff'}},
+
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
+
             Damage = 50,
             DamageRadius = 0,
             DamageType = 'Normal',
+
             DisplayName = 'Flayer AAM Launcher',
+
             FireTargetLayerCapsTable = {
                 Air = 'Air',
                 Land = 'Air',
-                Water = 'Air',
             },
             FiringTolerance = 10,
+
             Label = 'Missile',
+
             MaxRadius = 30,
+
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 30,
+
             ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
             ProjectileLifetime = 6,
+
             RackBones = {
                 {
                     MuzzleBones = {'Left_Missile'},
                     RackBone = 'Left_Missile',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_AntiAir',
+
             RateOfFire = 0.142,
+
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -412,22 +438,23 @@ UnitBlueprint {
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.4,
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TrackingRadius = 1.2,
+
             TurretBoneMuzzle = 'Left_Missile',
             TurretBonePitch = 'Left_Missile',
             TurretBoneYaw = 'Left_Missile',
             TurretDualManipulators = false,
+
             TurretPitch = 25,
             TurretPitchRange = 80,
             TurretPitchSpeed = 180,
+
             TurretYaw = 0,
             TurretYawRange = 40,
             TurretYawSpeed = 180,
+
             Turreted = true,
-            WeaponCategory = 'Anti Air',
-            WeaponRepackTimeout = 0,
-            WeaponUnpacks = false,
         },
         {
             AboveWaterTargetsOnly = true,

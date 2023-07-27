@@ -116,7 +116,6 @@ UnitBlueprint {
         },
 
         UnitName = '<LOC ssb2221_name>Zhanasee',
-        UnitWeight = 1,
     },
 	
     Intel = {

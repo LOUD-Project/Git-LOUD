@@ -170,7 +170,6 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = false,
         UniformScale = 0.15,
     },
 
@@ -209,11 +208,7 @@ UnitBlueprint {
                 'Muzzle006',
             },
         },
-
 		CapCost = 15,
-
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -226,9 +221,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'sea',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC ssb0401_name>Souiya',
-        UnitWeight = 1,
     },
 
     Intel = {
@@ -298,10 +291,7 @@ UnitBlueprint {
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
-            Land = false,
             Seabed = true,
-            Sub = false,
             Water = true,
         },
     },

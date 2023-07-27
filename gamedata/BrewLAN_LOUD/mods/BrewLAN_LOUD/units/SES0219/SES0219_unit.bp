@@ -1,10 +1,7 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Turret',
-            'Back_Turret',
-			'UES0103',
-        },
+        GuardScanRadius = 44,
+        TargetBones = {'Turret','Back_Turret','UES0103'},
     },
 	
     Audio = {
@@ -75,7 +72,7 @@ UnitBlueprint {
         RegenRate = 4,
     },
 	
-    Description = '<LOC ss0319_desc>Field Engineering Ship',
+    Description = '<LOC ses0219_desc>Field Engineering Ship',
 	
     Display = {
 	
@@ -106,9 +103,7 @@ UnitBlueprint {
             Water = {
                 Effects = {
                     {
-                        Bones = {
-                            'UES0103',
-                        },
+                        Bones = {'UES0103'},
                         Type = 'SeaIdle01',
                     },
                 },
@@ -136,31 +131,23 @@ UnitBlueprint {
             Water = {
                 Effects = {
                     {
-                        Bones = {
-                            'Front_Left_Wake',
-                        },
+                        Bones = {'Front_Left_Wake'},
                         Scale = 1.25,
                         Type = 'LeftFrontWake',
                     },
                     {
-                        Bones = {
-                            'Front_Right_Wake',
-                        },
+                        Bones = {'Front_Right_Wake'},
                         Scale = 1.25,
                         Type = 'RightFrontWake',
                     },
                     {
-                        Bones = {
-                            'Back_Wake',
-                        },
+                        Bones = {'Back_Wake'},
                         Scale = 1.25,
                         Type = 'BackWake',
                     },
                 },
             },
         },
-
-        SpawnRandomRotation = false,
         UniformScale = 0.089,
     },
 	
@@ -199,15 +186,10 @@ UnitBlueprint {
     General = {
         BuildBones = {
             AimBone = 0,
-            BuildEffectBones = {
-                'Turret_Muzzle_01',
-                'Turret_Muzzle_02',
-            },
+            BuildEffectBones = {'Turret_Muzzle_01','Turret_Muzzle_02'},
             PitchBone = 'Turret_Barrel',
             YawBone = 'Turret',
         },
-        Category = 'Ship',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Capture = true,
@@ -222,12 +204,10 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'sea',
         SelectionPriority = 2,
-        TechLevel = 'RULEUTL_Basic',
         ToggleCaps = {
             RULEUTC_JammingToggle = true,
         },
         UnitName = '<LOC ses0219_name>Fixxie Class',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -325,8 +305,7 @@ UnitBlueprint {
             Label = 'AAGun',
 			
             MaxRadius = 44,
-			
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 66,
 			
@@ -335,25 +314,18 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Turret_Muzzle01',
-                    },
+                    MuzzleBones = {'Back_Turret_Muzzle01'},
                     RackBone = 'Back_Turret_Barrel01',
                 },
                 {
-                    MuzzleBones = {
-                        'Back_Turret_Muzzle02',
-                    },
+                    MuzzleBones = {'Back_Turret_Muzzle02'},
                     RackBone = 'Back_Turret_Barrel02',
                 },
             },
             RackFireTogether = true,
 			
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_AntiAir',
@@ -368,7 +340,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Back_Turret_Muzzle01',
             TurretBonePitch = 'Back_Turret_Barrel01',
@@ -377,11 +349,11 @@ UnitBlueprint {
 			
             TurretPitch = 45,
             TurretPitchRange = 40,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 90,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 180,
+            TurretYawSpeed = 90,
 			
             Turreted = true,
         },

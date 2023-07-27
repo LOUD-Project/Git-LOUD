@@ -108,8 +108,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
         
         TransportAnimation = {
             {
@@ -135,9 +133,8 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 3,
-        Category = 'Indirect Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
+		CapCost = 4,
+
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Guard = true,
@@ -149,9 +146,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC sal0321_name>Scarab',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -207,11 +202,7 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = false,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB4302_Anti_Missile_EMP',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URB4302_Anti_Missile_EMP', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
@@ -227,7 +218,7 @@ UnitBlueprint {
                 Land = 'Air',
                 Seabed = 'Air',
             },
-            FiringTolerance = 60,
+            FiringTolerance = 75,
 			
             ForceSingleFire = true,
 			
@@ -238,9 +229,7 @@ UnitBlueprint {
             MaxProjectileStorage = 2,
 			
             MaxRadius = 72,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 5,
 			
             ProjectileId = '/mods/BrewLAN_LOUD/projectiles/CAAMobileDissidentAntiNuke01/CAAMobileDissidentAntiNuke01_proj.bp',
@@ -249,20 +238,11 @@ UnitBlueprint {
             RackBones = {
                 {
                     HideMuzzle = true,
-                    MuzzleBones = {
-                        'Missile',
-                    },
+                    MuzzleBones = {'Missile'},
                     RackBone = 'Silo',
                 },
             },
-            RackFireTogether = false,
 
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 0.5,
@@ -289,11 +269,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

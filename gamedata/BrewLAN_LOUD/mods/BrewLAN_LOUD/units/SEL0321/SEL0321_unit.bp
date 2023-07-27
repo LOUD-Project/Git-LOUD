@@ -101,18 +101,13 @@ UnitBlueprint {
                             TreadMarksInterval = 0.4,
                             TreadMarksSizeX = 1.5,
                             TreadMarksSizeZ = 1,
-                            TreadOffset = {
-                                0.225,
-                                0,
-                                0,
-                            },
+                            TreadOffset = {0.225,0,0},
                         },
                     },
                 },
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.036,
     },
 	
@@ -125,8 +120,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 4,
-        Category = 'Indirect Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Guard = true,
@@ -138,9 +131,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC sel0321_name>Aster',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -204,11 +195,7 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = false,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB4302_Anti_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB4302_Anti_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
@@ -223,13 +210,13 @@ UnitBlueprint {
                 Land = 'Air',
                 Seabed = 'Air',
             },
-            FiringTolerance = 60,
+            FiringTolerance = 75,
 			
             ForceSingleFire = true,
 			
-            InitialProjectileStorage = 0,
+            InitialProjectileStorage = 2,
 			
-            Label = 'AntiNuke',
+            Label = 'AntiMissile',
 			
             MaxProjectileStorage = 4,
 			
@@ -237,6 +224,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 5,
 			
             ProjectileId = '/mods/BrewLAN_LOUD/projectiles/TIMMobileMissileIntercerptor01/TIMMobileMissileIntercerptor01_proj.bp',
@@ -261,18 +249,14 @@ UnitBlueprint {
                     RackBone = 'B05_Launcher',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
-            RackReloadTimeout = .3,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+
+            RackReloadTimeout = .5,
 			
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 1,
-            TargetCheckInterval = 0.2,
+            RateOfFire = 0.7,
+
+            TargetCheckInterval = 0.5,
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'STRATEGIC MISSILE',
             TargetType = 'RULEWTT_Projectile',
@@ -293,11 +277,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

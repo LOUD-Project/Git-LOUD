@@ -1,11 +1,8 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Sensor_A',
-            'SRB0324',
-            'Tower_001',
-        },
+        TargetBones = {'Sensor_A','SRB0324','Tower_001'},
     },
+
     Audio = {
         Activate = Sound {
             Bank = 'URL',
@@ -122,7 +119,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
 
@@ -135,8 +131,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_Sensor',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Guard = true,
@@ -158,10 +152,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
-
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC srl0324_name>Adramelech',
-        UnitWeight = 1,
     },
 
     Intel = {
@@ -198,8 +189,7 @@ UnitBlueprint {
         MaxSteerForce = 10,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
-        RotateOnSpot = false,
-        RotateOnSpotThreshold = 1,
+
         TurnRadius = 0,
         TurnRate = 60,
     },

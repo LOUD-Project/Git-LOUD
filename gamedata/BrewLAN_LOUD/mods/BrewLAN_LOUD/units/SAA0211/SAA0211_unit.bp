@@ -1,8 +1,8 @@
 UnitBlueprint {
 
     AI = {
-        GuardReturnRadius = 150,
-        GuardScanRadius = 125,
+        GuardReturnRadius = 105,
+        GuardScanRadius = 80,
         TargetBones = { 'BAA0211' },
     },
 	
@@ -165,8 +165,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Bomber',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -179,9 +177,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC saa0211_name>Impaler',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -278,7 +274,7 @@ UnitBlueprint {
             DamageRadius = 1.5,
             DamageType = 'Normal',
 
-            EffectiveRadius = 25,
+            EffectiveRadius = 45,
 		
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
@@ -292,9 +288,7 @@ UnitBlueprint {
             Label = 'Bomb',
 			
             MaxRadius = 55,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 0,
 			
             NeedToComputeBombDrop = true,
@@ -302,19 +296,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle',
-                    },
+                    MuzzleBones = {'Muzzle'},
                     RackBone = 'Muzzle',
                 },
             },
-            RackFireTogether = false,
-			
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RateOfFire = 0.2,		-- 150 DPS
 			

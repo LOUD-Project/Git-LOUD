@@ -1,9 +1,7 @@
 UnitBlueprint {
 
     AI = {
-		TargetBones = {
-            'Dish',
-        },
+		TargetBones = {'Dish'},
     },
 	
     Audio = {
@@ -84,9 +82,7 @@ UnitBlueprint {
             Land = {
                 Effects = {
                     {
-                        Bones = {
-                            'Dish',
-                        },
+                        Bones = {'Dish'},
                         Type = 'Radar01',
                     },
                 },
@@ -115,10 +111,7 @@ UnitBlueprint {
         MovementEffects = {
             Effects = {
                 {
-                    Bones = {
-                        'Ground_001',
-                        'Ground_002',
-                    },
+                    Bones = {'Ground_001','Ground_002'},
                     Type = 'GroundKickup03',
                 },
             },
@@ -132,18 +125,12 @@ UnitBlueprint {
                             TreadMarksInterval = 0.6,
                             TreadMarksSizeX = 1.25,
                             TreadMarksSizeZ = 1,
-                            TreadOffset = {
-                                0,
-                                0,
-                                0,
-                            },
+                            TreadOffset = {0,0,0},
                         },
                     },
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0010',
-        SpawnRandomRotation = false,
         UniformScale = 0.032*.7,
     },
 	
@@ -156,8 +143,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -175,12 +160,10 @@ UnitBlueprint {
                 helpText = 'toggle_omni',
             },
         },
-        TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
         UnitName = '<LOC sel0324_name>NG3 Longbow',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -294,13 +277,6 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
-
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -308,7 +284,6 @@ UnitBlueprint {
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
                 'HIGHPRIAIR',
                 'BOMBER',
                 'GROUNDATTACK',
@@ -316,7 +291,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Turret_Pitch',
             TurretBonePitch = 'Turret_Pitch',
@@ -342,11 +317,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

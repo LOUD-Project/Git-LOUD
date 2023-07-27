@@ -1,8 +1,8 @@
 UnitBlueprint {
 
     AI = {
-        GuardReturnRadius = 80,
-        GuardScanRadius = 40,
+        GuardReturnRadius = 100,
+        GuardScanRadius = 60,
         TargetBones = {'Body'},
     },
 	
@@ -165,8 +165,6 @@ UnitBlueprint {
     
     General = {
         CapCost = 2,
-        Category = 'Fighter',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -185,12 +183,10 @@ UnitBlueprint {
                 helpText = 'toggle_stealth_personal',
             },
         },
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
         UnitName = '<LOC sea0313_name>Tomcat',
-        UnitWeight = 1,
     },
     
     Intel = {
@@ -304,7 +300,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.25,
             
             TurretBoneMuzzle = 'Gun_001',
             TurretBonePitch = 'Gun_001',
@@ -446,7 +442,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
             
             TurretBoneMuzzle = 'Gun_003',
             TurretBonePitch = 'Gun_003',
@@ -477,6 +473,7 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

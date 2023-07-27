@@ -1,12 +1,7 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Front_Left_Wake',
-            'Front_Right_Wake',
-			'Back_Wake',
-			'Front_Radar',
-			'Back_Radar',
-        },
+        GuardScanRadius = 44,
+        TargetBones = {'Front_Left_Wake','Front_Right_Wake','Back_Wake','Front_Radar','Back_Radar'},
     },
 	
     Audio = {
@@ -153,7 +148,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.055,
     },
 	
@@ -188,16 +182,10 @@ UnitBlueprint {
 
     General = {
         BuildBones = {
-            --AimBone = 0,
-            BuildEffectBones = {
-                'Buildpoint_Left',
-                'Buildpoint_Right',
-            },
+            BuildEffectBones = {'Buildpoint_Left','Buildpoint_Right'},
             PitchBone = 'Buildpoint_Left',
             YawBone = 'Buildpoint_Right',
         },
-        Category = 'Ship',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Capture = true,
@@ -212,9 +200,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'sea',
         SelectionPriority = 2,
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC srs0219_name>Barwick Class',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -322,12 +308,7 @@ UnitBlueprint {
                     RackBone = 'Back_Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_AntiAir',
@@ -336,14 +317,13 @@ UnitBlueprint {
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Back_Turret_Barrel',
             TurretBonePitch = 'Back_Turret_Barrel',

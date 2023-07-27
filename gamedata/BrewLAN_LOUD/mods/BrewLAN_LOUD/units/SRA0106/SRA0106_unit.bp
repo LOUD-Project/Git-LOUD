@@ -1,10 +1,8 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 125,
-        GuardScanRadius = 100,
-		TargetBones = {
-            'Body',
-		},
+        GuardReturnRadius = 80,
+        GuardScanRadius = 60,
+		TargetBones = {'Body'},
     },
 	
     Air = {
@@ -87,9 +85,6 @@ UnitBlueprint {
         'OVERLAYSONAR',
     },
 	
-    CollisionOffsetY = 0,
-    CollisionOffsetZ = 0,
-	
     Defense = {
 
         ArmorType = 'Light',
@@ -165,8 +160,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Bomber',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -179,9 +172,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC sra0106_name>Gannet',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -289,15 +280,6 @@ UnitBlueprint {
                     RackBone = 'Bomb',
                 },
             },
-
-            RackFireTogether = false,
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
-            RackSlavedToTurret = false,
 			
             RateOfFire = 0.1,	-- 40x5 x 2 = 40 DPS
 			

@@ -1,8 +1,6 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Dummy001',
-        },
+        TargetBones = {'Dummy001'},
     },
 	
     Audio = {
@@ -245,7 +243,6 @@ UnitBlueprint {
     },
 	
     General = {
-
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Capture = true,
@@ -258,19 +255,14 @@ UnitBlueprint {
             RULEUCC_Sacrifice = true,
             RULEUCC_Stop = true,
         },
-
         ConstructionBar = true,
         FactionName = 'Aeon',
         Icon = 'amph',
-
         SelectionPriority = 3,
-
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-
         UnitName = '<LOC sal0209_name>Butler',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -343,11 +335,7 @@ UnitBlueprint {
         MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

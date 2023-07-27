@@ -1,9 +1,9 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Body',
-        },
+        GuardScanRadius = 25,
+        GuardReturnRadius = 40,
+        TargetBones = {'Body'},
     },
 	
     Audio = {
@@ -164,9 +164,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
-		
         TransportAnimation = {
             {
                 Animation = '/units/XSL0202/XSL0202_afold.sca',
@@ -192,8 +189,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -211,12 +206,10 @@ UnitBlueprint {
                 helpText = 'toggle_shield_personal',
             },
         },
-        TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
         UnitName = '<LOC ssl0311_name>Ilshatha',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -303,10 +296,7 @@ UnitBlueprint {
             Label = 'MainGun',
 			
             MaxRadius = 25,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/SDFAireauBolter01/SDFAireauBolter01_proj.bp',
@@ -314,23 +304,15 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Muzzle'},
                     RackBone = 'Right_Arm',
                 },
                 {
-                    MuzzleBones = {
-                        'Left_Muzzle',
-                    },
+                    MuzzleBones = {'Left_Muzzle'},
                     RackBone = 'Left_Arm',
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -373,11 +355,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -1,9 +1,7 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Turret',
-        },
+        TargetBones = {'Turret'},
     },
 
     Audio = {
@@ -81,8 +79,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
         UniformScale = 0.12,
     },
 	
@@ -95,8 +91,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Guard = true,
@@ -113,15 +107,10 @@ UnitBlueprint {
                 helpText = 'toggle_stealth_field',
             },
         },
-		
-        TechLevel = 'RULEUTL_Secret',
-		
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
-		
         UnitName = '<LOC srl0316_name>Operative',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -192,11 +181,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

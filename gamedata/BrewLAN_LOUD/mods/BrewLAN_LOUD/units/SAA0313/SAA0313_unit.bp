@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 80,
-        GuardScanRadius = 40,
+        GuardReturnRadius = 110,
+        GuardScanRadius = 66,
     },
     
     Air = {
@@ -152,8 +152,6 @@ UnitBlueprint {
     
     General = {
         CapCost = 2,
-        Category = 'Fighter',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -172,12 +170,10 @@ UnitBlueprint {
                 helpText = 'toggle_stealth_personal',
             },
         },
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
         UnitName = '<LOC saa0313_name>Helios',
-        UnitWeight = 1,
     },
     
     Intel = {

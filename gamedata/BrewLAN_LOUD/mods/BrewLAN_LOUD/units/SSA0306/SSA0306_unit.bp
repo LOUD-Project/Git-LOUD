@@ -2,6 +2,7 @@ UnitBlueprint {
 
     AI = {
         BeaconName = 'XSB5102',
+        GuardScanRadius = 34,
         TargetBones = {'BSA0306'},
     },
 	
@@ -112,7 +113,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 7,
     },
 	
-    Description = '<LOC xea0306_desc>Heavy Air Transport',
+    Description = '<LOC ssa0306_desc>Heavy Air Transport',
 	
     Display = {
 	
@@ -184,8 +185,7 @@ UnitBlueprint {
                 },
             },
         },
-		
-        SpawnRandomRotation = false,
+
         UniformScale = 0.0505,
     },
 	
@@ -195,7 +195,6 @@ UnitBlueprint {
         BuildTime = 750,
 		
         MaintenanceConsumptionPerSecondEnergy = 150,
-		
     },
 	
     Footprint = {
@@ -206,8 +205,6 @@ UnitBlueprint {
 	
     General = {
         CapCost = 2,
-        Category = 'Transport',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -230,15 +227,10 @@ UnitBlueprint {
         },
 		
         SelectionPriority = 2,
-		
-        TechLevel = 'RULEUTL_Advanced',
-		
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-		
         UnitName = '<LOC ssa0306_name>Vishuum',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -338,17 +330,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Center_Turret_Barrel_Muzzle',
-                    },
+                    MuzzleBones = {'Center_Turret_Barrel_Muzzle'},
                     RackBone = 'Center_Turret_Barrel_Muzzle',
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-			
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1,	-- 70 DPS Ground
@@ -422,10 +408,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 1.5,
@@ -482,8 +464,7 @@ UnitBlueprint {
             Label = 'AARight',
 			
             MaxRadius = 38,
-			
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 80,
 
@@ -499,12 +480,9 @@ UnitBlueprint {
                     RackBone = 'Right_Turret_Barrel',
                 },
             },
-			
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 1.5,
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -513,7 +491,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Right_Turret_Barrel_Muzzle01',
             TurretBonePitch = 'Right_Turret_Barrel',
@@ -551,11 +529,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

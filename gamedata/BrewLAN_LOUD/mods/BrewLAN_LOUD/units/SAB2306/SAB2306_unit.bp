@@ -131,8 +131,6 @@ UnitBlueprint {
 
     General = {
 		CapCost = 2,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -141,9 +139,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC sab2306_name>Orbos',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -253,26 +249,13 @@ UnitBlueprint {
             MaxRadius = 55,
             MinRadius = 1,
 			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
             NeedPrep = true,
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Head',
-                    },
+                    MuzzleBones = {'Head'},
                     RackBone = 'Head',
                 },
             },
-            RackFireTogether = false,
-			
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -312,11 +295,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

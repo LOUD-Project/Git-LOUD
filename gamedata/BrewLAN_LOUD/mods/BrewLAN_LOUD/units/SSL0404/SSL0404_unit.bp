@@ -1,28 +1,9 @@
 UnitBlueprint {
 
---[[
-    Abilities = {
-        TargetLocation = {
-            bitmapId = 'skry-target',
-            helpText = 'scry_spy_target',
-        },
-    },
-    SpecialAbilities = { --For FAF Nomads compatibility
-        TargetLocation = {
-            AreaOfEffect = 10,
-            MaxRadius = -1,
-        },
-    },
---]]
-    
     AI = {
-        TargetBones = { 
-			'Body',
-			'Turret_Body',
-			'Muzzle',
-			'B_002',
-			'B_005',
-		},
+        GuardScanRadius = 110,
+        GuardReturnRadius = 140,
+        TargetBones = { 'Body','Turret_Body','Muzzle','B_002','B_005'},
     },
     
     Audio = {
@@ -521,11 +502,8 @@ UnitBlueprint {
         MassMult = 0.7,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

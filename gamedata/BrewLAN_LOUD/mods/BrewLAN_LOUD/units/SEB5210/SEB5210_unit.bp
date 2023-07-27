@@ -9,24 +9,14 @@ UnitBlueprint {
     },
 	
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         Destroyed = Sound {
             Bank = 'URLDestroy',
             Cue = 'URB_Destroy_Huge',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
     },
 	
-    BuildIconSortPriority = 150,
+    BuildIconSortPriority = 261,
 	
     Categories = {
         'BUILTBYTIER2FIELD',
@@ -46,11 +36,12 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        Health = 9000,
-        MaxHealth = 9000,
+        Health = 9600,
+        MaxHealth = 9600,
+        RegenRate = 2,
     },
 	
-    Description = 'Medium Wall Segment',
+    Description = 'Quad Medium Wall Segment',
 	
     Display = {
         AdjacencyConnection = 'MEDIUMWALL',
@@ -107,14 +98,12 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
-
-        UniformScale = 0.05*.66666666666666666,
+        UniformScale = 0.05*.66,
     },
 	
     Economy = {
-        BuildCostEnergy = 800,
-        BuildCostMass = 240,
+        BuildCostEnergy = 660,
+        BuildCostMass = 165,
         BuildTime = 200,
 		
         RebuildBonusIds = { 'seb5210'},
@@ -126,14 +115,10 @@ UnitBlueprint {
     },
 	
     General = {
-        CapCost = 0.4,
-        Category = 'Defense',
-        Classification = 'RULEUC_MiscSupport',
+        CapCost = 0.75,
         FactionName = 'UEF',
+        Icon = 'land',        
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitName = '<LOC seb5210_name>GDI',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -141,12 +126,12 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = '<LOC sbui5210>Medium Wall Segment',
+        HelpText = '<LOC seb5210>Quad Medium Wall Segment',
     },
 	
     LifeBarHeight = 0.075,
-    LifeBarOffset = 0,
-    LifeBarSize = 0.075,
+    LifeBarOffset = 0.5,
+    LifeBarSize = 0.8,
 	
     Physics = {
         AltitudeToTerrain = {
@@ -180,7 +165,7 @@ UnitBlueprint {
     SelectionThickness = 0.3,
 	
     SizeX = 2,
-    SizeY = 1.0,
+    SizeY = 1.1,
     SizeZ = 2,
 	
     StrategicIconName = 'icon_structure_wall',
@@ -189,15 +174,11 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        HealthMult = 0.1,
+        MassMult = 0.1,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

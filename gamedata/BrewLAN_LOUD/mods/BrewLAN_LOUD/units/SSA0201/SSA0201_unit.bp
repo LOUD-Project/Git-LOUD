@@ -1,9 +1,7 @@
 UnitBlueprint {
     
 	AI = {
-        TargetBones = {
-            'XSA0302',
-        },
+        TargetBones = {'XSA0302'},
     },
 	
     Air = {
@@ -74,6 +72,7 @@ UnitBlueprint {
         'OVERLAYRADAR',
         'OVERLAYSONAR',
     },
+
     Defense = {
         AirThreatLevel = 1,
         ArmorType = 'Light',
@@ -139,8 +138,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
         UniformScale = 0.05*0.7,
     },
 	
@@ -158,8 +155,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 0.2,
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Dock = true,
@@ -170,9 +165,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC ssa0201_name>Selia',
-        UnitWeight = 1,
     },
 	
     Intel = {

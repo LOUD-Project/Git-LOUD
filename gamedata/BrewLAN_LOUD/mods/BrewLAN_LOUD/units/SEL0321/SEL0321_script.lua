@@ -3,30 +3,48 @@ local TLandUnit = import('/lua/defaultunits.lua').MobileUnit
 local TAMInterceptorWeapon = import('/lua/terranweapons.lua').TAMInterceptorWeapon
 
 SEL0321 = Class(TLandUnit) {
-    Weapons = {
-        AntiNuke = Class(TAMInterceptorWeapon) {
+
+    AmmoChange = function(self)
+
+        local wep = self:GetWeaponByLabel('AntiMissile')
+
+        if self:GetTacticalSiloAmmoCount() >= wep.bp.MuzzleSalvoSize then
+
+            -- reset range to normal
+            wep:ChangeMaxRadius(self:GetBlueprint().Weapon[1].MaxRadius )
+
+        else
+
+            wep:ChangeMaxRadius( 1 )
+        end
+    end,
+
+    OnCreated = function(self)
         
-            RackSalvoFireReadyState = State(TAMInterceptorWeapon.RackSalvoFireReadyState) {
-            
-                Main = function(self)
+        -- we create these here because they are not created by default
+        self.EventCallbacks.OnTMLAmmoIncrease = {}
+        self.EventCallbacks.OnTMLAmmoDecrease = {}
+
+        self:AddUnitCallback( self.AmmoChange, 'OnTMLAmmoIncrease' )
+        self:AddUnitCallback( self.AmmoChange, 'OnTMLAmmoDecrease' )
+
+        -- this thread will watch the ammo count every 6 seconds and issue an event on any change
+        -- this thread is what will trigger the TMLAmmo events
+        self.AmmoCheckThread = self:ForkThread(self.CheckCountedMissileAmmo)
+
+        TLandUnit.OnCreated(self)
+    end,
+
+    Weapons = {
+
+        AntiMissile = Class(TAMInterceptorWeapon) {
+        
+            OnCreate = function(self)
+
+                TAMInterceptorWeapon.OnCreate(self)
                 
-                    if self.unit:GetTacticalSiloAmmoCount() < 2 then
-                    
-                        self:ForkThread(
-                            function(self)
-                                WaitTicks(1)
-                                if self.unit:GetTacticalSiloAmmoCount() > 1 then
-                                    --Last minute panic check, not sure if it will actually work, very hard to test chance to test it
-                                    TAMInterceptorWeapon.RackSalvoFireReadyState.Main(self)
-                                end
-                            end
-                        ) 
-                        return
-                    else
-                        TAMInterceptorWeapon.RackSalvoFireReadyState.Main(self)
-                    end
-                end,    
-            },
+                self:ChangeMaxRadius( 1 )      -- set range to 1 by default
+            end
         },
     },
     

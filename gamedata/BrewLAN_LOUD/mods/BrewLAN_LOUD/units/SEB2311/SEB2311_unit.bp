@@ -1,10 +1,7 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'SEB2311',
-            'Front_Turret02',
-        },
+        TargetBones = {'SEB2311','Front_Turret02'},
     },
 
     Audio = {
@@ -126,7 +123,6 @@ UnitBlueprint {
 
     General = {
 		CapCost = 2,
-
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -135,7 +131,6 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC seb2311_name>Guardian',
     },
 
@@ -224,7 +219,6 @@ UnitBlueprint {
 
             MaxRadius = 79,
 
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 32,
 
             ProjectileId = '/projectiles/TDFGauss03/TDFGauss03_proj.bp',

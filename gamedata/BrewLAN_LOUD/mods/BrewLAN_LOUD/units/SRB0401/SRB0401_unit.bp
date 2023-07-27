@@ -147,8 +147,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
-
         Tarmacs = {
             {
                 Albedo = '/mods/BrewLAN_LOUD/env/common/decals/Tarmacs/Tar18x_cybran_01_albedo.dds',
@@ -156,12 +154,7 @@ UnitBlueprint {
                 FadeOut = 450,
                 Length = 24,
                 Normal = '/mods/BrewLAN_LOUD/env/common/decals/Tarmacs/Tar18x_cybran_01_normals.dds',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 24,
             },
@@ -170,7 +163,6 @@ UnitBlueprint {
     },
 
     Economy = {
-
         BuildCostEnergy = 384000,
         BuildCostMass = 31440,
         BuildRate = 210,
@@ -181,12 +173,10 @@ UnitBlueprint {
             'BUILTBYARTHROLAB'
         },
 
-        --RebuildBonusIds = {'srb0401'},
-
         StorageEnergy = 8000,
         StorageMass = 1000,
-        InitialRallyZ = 28,
 
+        InitialRallyZ = 28,
     },
 
     Footprint = {
@@ -214,11 +204,7 @@ UnitBlueprint {
                 'Muzzle025',
             },
         },
-
 		CapCost = 16,
-
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -231,9 +217,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC srb0401_name>Arthrolab',
-        UnitWeight = 1,
     },
 
     Intel = {
@@ -404,10 +388,7 @@ UnitBlueprint {
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
             Water = true,
         },
     },

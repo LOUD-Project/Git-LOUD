@@ -28,6 +28,7 @@ UnitBlueprint {
         TurnSpeed = 1.5,
         Winged = true,
     },
+
     Audio = {
         AirUnitWaterImpact = Sound {
             Bank = 'Explosions',
@@ -89,7 +90,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+
     BuildIconSortPriority = 14,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -104,13 +107,16 @@ UnitBlueprint {
         'RECLAIMABLE',
         'RESEARCHLOCKED',
     },
+
     Defense = {
         AirThreatLevel = 33,
         ArmorType = 'Light',
         Health = 750,
         MaxHealth = 750,
     },
+
     Description = '<LOC sra0212_desc>Combat Fighter',
+
     Display = {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
@@ -149,16 +155,19 @@ UnitBlueprint {
         },
         UniformScale = 0.035,
     },
+
     Economy = {
         BuildCostEnergy = 12500,
         BuildCostMass = 210,
         BuildTime = 1600,
     },
+
     Footprint = {
         MaxSlope = 0.25,
         SizeX = 1,
         SizeZ = 1,
     },
+
     General = {
         CommandCaps = {
             RULEUCC_Attack = true,
@@ -174,12 +183,15 @@ UnitBlueprint {
         Icon = 'air',
         UnitName = '<LOC sra0212_name>Dioscuri',
     },
+
     Intel = {
         VisionRadius = 28,
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1,
+
     Physics = {
         Elevation = 20,
         FuelRechargeRate = 10,
@@ -188,19 +200,25 @@ UnitBlueprint {
         MaxSpeed = 0.5,
         MotionType = 'RULEUMT_Air',
     },
+
     SelectionSizeX = 0.8,
     SelectionSizeZ = 0.75,
     SelectionThickness = 0.55,
+
     SizeSphere = 1.6,
+
     SizeX = 1,
     SizeY = 0.2,
     SizeZ = 1,
+
     StrategicIconName = 'icon_fighter2_antiair',
     StrategicIconSortPriority = 65,
+
     Transport = {
         AirClass = true,
         TransportClass = 2,
     },
+
     Veteran = {
         Level1 = 6,
         Level2 = 12,
@@ -208,6 +226,7 @@ UnitBlueprint {
         Level4 = 24,
         Level5 = 30,
     },
+
     Weapon = {
         {
             Audio = {
@@ -217,7 +236,8 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            AutoInitiateAttackCommand = false,
+
+            AutoInitiateAttackCommand = true,
 
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -270,9 +290,9 @@ UnitBlueprint {
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.25,
+            TrackingRadius = 1.2,
 
             TurretBoneMuzzle = 'Gap',
             TurretBonePitch = 'Gap',
@@ -289,7 +309,6 @@ UnitBlueprint {
             Turreted = true,
 
             UseFiringSolutionInsteadOfAimBone = true,
-            WeaponCategory = 'Anti Air',
         },
         {
             Damage = 25,

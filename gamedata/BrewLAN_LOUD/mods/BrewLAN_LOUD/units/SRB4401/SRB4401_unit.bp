@@ -100,9 +100,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
-		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_cybran_01_albedo',
@@ -110,12 +107,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 10.8,
                 Normal = 'Tarmacs/Tar8x_cybran_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 10.8,
             },
@@ -140,8 +132,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Defense',
-        Classification = 'RULEUC_CounterMeasure',
         CommandCaps = {
             RULEUCC_Pause = true,
         },
@@ -154,12 +144,10 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
         UnitName = '<LOC srb4401_name>Iron Curtain',
-        UnitWeight = 1,
     },
 
     Interface = {
@@ -210,11 +198,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

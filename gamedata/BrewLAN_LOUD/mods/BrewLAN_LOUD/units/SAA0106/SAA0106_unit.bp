@@ -1,9 +1,10 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 125,
-        GuardScanRadius = 100,
+        GuardReturnRadius = 72,
+        GuardScanRadius = 48,
         TargetBones = { 'Hat' },
     },
+
     Air = {
         AutoLandTime = 1,
 		
@@ -128,8 +129,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
         UniformScale = 0.04,
     },
 	
@@ -146,8 +145,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Bomber',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -160,9 +157,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC saa0106_name>Saksinokka',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -301,7 +296,7 @@ UnitBlueprint {
 			
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER, WALL',
 			
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
         },
 		
         {

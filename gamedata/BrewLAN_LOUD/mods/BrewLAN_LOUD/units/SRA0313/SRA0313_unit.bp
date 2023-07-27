@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 80,
-        GuardScanRadius = 40,
+        GuardReturnRadius = 100,
+        GuardScanRadius = 60,
 		TargetBones = {'Hat'},
     },
 	
@@ -159,8 +159,6 @@ UnitBlueprint {
 	
     General = {
         CapCost = 2,
-        Category = 'Fighter',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -179,12 +177,10 @@ UnitBlueprint {
                 helpText = 'toggle_stealth_personal',
             },
         },
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
         UnitName = '<LOC sra0313_name>Twilight Patron',
-        UnitWeight = 1,
     },
 	
     Intel = {

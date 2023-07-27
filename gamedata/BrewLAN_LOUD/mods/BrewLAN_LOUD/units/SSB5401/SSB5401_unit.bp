@@ -59,6 +59,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {
         Regen = {
             Level1 = 15,
@@ -68,7 +69,9 @@ UnitBlueprint {
             Level5 = 75,
         },
     },
+
     BuildIconSortPriority = 220,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER4ENGINEER',
@@ -76,17 +79,15 @@ UnitBlueprint {
         'SERAPHIM',
         'STRUCTURE',
         'EXPERIMENTAL',
-        --'RALLYPOINT',
         'DRAGBUILD',
         'SIZE24',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        --'SHOWQUEUE',
         'SORTSTRATEGIC',
         'STARGATE',
         'RESEARCHLOCKED',
     },
-    CollisionOffsetZ = 0,
+
     Defense = {
         AirThreatLevel = 0,
         ArmorType = 'Structure',
@@ -100,7 +101,6 @@ UnitBlueprint {
             ImpactEffects = 'SeraphimShieldHit01',
             Mesh = '/mods/BrewLAN_LOUD/units/SSB5401/SSB5401_PersonalShield_mesh',
             MeshZ = '/mods/BrewLAN_LOUD/units/SSB5401/SSB5401_PersonalShield_mesh',
-            --MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
             PassOverkillDamage = true,
             RegenAssistMult = 60,
             ShieldEnergyDrainRechargeTime = 5,
@@ -113,7 +113,9 @@ UnitBlueprint {
             PassOverkillDamage = false,
         },
     },
+
     Description = '<LOC ssb5401_desc>Experimental Quantum Gateway',
+
     Display = {
         BlinkingLights = {
             {
@@ -211,8 +213,6 @@ UnitBlueprint {
                 },]]--
             },
         },
-        PlaceholderMeshName = 'UAB0304',
-        SpawnRandomRotation = false,
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_seraphim_01_albedo',
@@ -220,18 +220,14 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar12x_seraphim_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
         },
         UniformScale = 0.12,
     },
+
     Economy = {
         DialingCostBase = 10000,
         BuildCostEnergy = 30000*5,
@@ -243,13 +239,13 @@ UnitBlueprint {
             'ssb5401',
         },
     },
+
     Footprint = {
         SizeX = 9,
         SizeZ = 9,
     },
+
     General = {
-        Category = 'Strategic',
-        Classification = 'RULEUC_Factory',
         ConstructionBar = true,
         FactionName = 'Seraphim',
         Icon = 'land',
@@ -263,23 +259,25 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
             RULEUTC_GenericToggle = true,
         },
         UnitName = "<LOC ssb5401_name>Chappa'ko",
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 20,
     },
+
     Interface = {
         HelpText = '<LOC ssb5401_desc>Experimental Quantum Gateway',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.65,
     LifeBarSize = 5.5,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -402,19 +400,24 @@ UnitBlueprint {
         SkirtSizeZ = 10,
         TurnRate = 0,
     },
+
     SelectionSizeX = 7+2,
     SelectionSizeZ = 1.5+2,
     SelectionThickness = 0.15,
+
     SizeX = 10,
     SizeY = 9.5,
     SizeZ = 2,
+
     StrategicIconName = 'icon_structure4_transport',
     StrategicIconSortPriority = 175,
+
     Transport = {
         Class2AttachSize = 1,
         Class3AttachSize = 1,
         ClassGenericUpTo = 3,
     },
+
     Veteran = {
         Level1 = 5,
         Level2 = 10,
@@ -422,6 +425,7 @@ UnitBlueprint {
         Level4 = 20,
         Level5 = 25,
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -429,11 +433,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

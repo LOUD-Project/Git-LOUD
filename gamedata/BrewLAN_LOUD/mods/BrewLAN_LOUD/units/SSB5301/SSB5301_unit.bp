@@ -1,8 +1,6 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Target',
-        },
+        TargetBones = {'Target'},
     },
 	
     Audio = {
@@ -122,8 +120,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
-
         UniformScale = 0.14*1.2,
     },
 	
@@ -144,8 +140,6 @@ UnitBlueprint {
 	
     General = {
         CapCost = 0.5,
-        Category = 'Defense',
-        Classification = 'RULEUC_MiscSupport',
         FactionName = 'Seraphim',
         Icon = 'land',
         OrderOverrides = {
@@ -155,12 +149,10 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
         UnitName = '<LOC ssb5301_name>Athahaas',
-        UnitWeight = 1,
     },
 
     Interface = {
@@ -210,11 +202,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

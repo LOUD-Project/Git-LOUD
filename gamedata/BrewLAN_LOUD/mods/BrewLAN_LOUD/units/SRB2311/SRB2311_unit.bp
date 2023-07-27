@@ -1,10 +1,7 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'URS0302',
-            'Front_Turret',
-        },
+        TargetBones = {'URS0302','Front_Turret'},
     },
 	
     Audio = {
@@ -60,8 +57,7 @@ UnitBlueprint {
         'OVERLAYINDIRECTFIRE',
         'SORTDEFENSE',
     },
-	
-    CollisionOffsetY = -0.0,
+
     CollisionOffsetZ = 0.2,
 	
     Defense = {
@@ -95,9 +91,7 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
-		
+	
         UniformScale = 0.085,
     },
 	
@@ -116,8 +110,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -126,9 +118,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC srb2311_name>Punisher',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -236,9 +226,7 @@ UnitBlueprint {
             Label = 'FrontCannon01',
 			
             MaxRadius = 110,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
             MuzzleVelocityRandom = 1.5,
 			MuzzleVelocityReduceDistance = 100,
@@ -248,31 +236,21 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Muzzle01',
-                    },
+                    MuzzleBones = {'Front_Muzzle01'},
                     RackBone = 'Front_Turret_Barrel01',
                 },
                 {
-                    MuzzleBones = {
-                        'Front_Muzzle02',
-                    },
+                    MuzzleBones = {'Front_Muzzle02'},
                     RackBone = 'Front_Turret_Barrel02',
                 },
                 {
-                    MuzzleBones = {
-                        'Front_Muzzle03',
-                    },
+                    MuzzleBones = {'Front_Muzzle03'},
                     RackBone = 'Front_Turret_Barrel03',
                 },
             },
             
             RackFireTogether = true,
-            RackRecoilDistance = 0,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
             
             RackSlavedToTurret = true,
@@ -315,11 +293,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

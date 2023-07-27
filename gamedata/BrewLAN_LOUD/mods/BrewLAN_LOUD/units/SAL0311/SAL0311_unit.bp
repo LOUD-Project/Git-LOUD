@@ -1,9 +1,8 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Emmitter01',
-        },
+        GuardScanRadius = 37,
+        TargetBones = {'Emmitter01'},
     },
 
     Audio = {
@@ -157,8 +156,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
-		
         TransportAnimation = {
             {
                 Animation = '/mods/BrewLAN_LOUD/units/SAL0311/SAL0311_Afold.sca',
@@ -177,8 +174,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -190,9 +185,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC sal0311_name>Moldavite',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -296,8 +289,7 @@ UnitBlueprint {
             MaxRadius = 37,
 			
             MuzzleChargeDelay = 0.4,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 43,
 			MuzzleVelocityRandom = 3,
 			
@@ -306,24 +298,17 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_muzzle_1',
-                    },
+                    MuzzleBones = {'Turret_muzzle_1'},
                     RackBone = 'Turret_recoil_1',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_muzzle_2',
-                    },
+                    MuzzleBones = {'Turret_muzzle_2'},
                     RackBone = 'Turret_recoil_2',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -2.5,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -338,7 +323,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneDualMuzzle = 'Turret_muzzle_2',
             TurretBoneDualPitch = 'Turret',
@@ -367,11 +352,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

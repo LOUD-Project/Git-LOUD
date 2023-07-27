@@ -1,10 +1,9 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Wheels_Right',
-			'Wheels_Left',
-        },
+        GaurdScanRadius = 16,
+        
+        TargetBones = {'Wheels_Right','Wheels_Left'},
     },
 
     Audio = {
@@ -69,6 +68,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {
         Regen = {
             Level1 = 2*.5,
@@ -78,13 +78,11 @@ UnitBlueprint {
             Level5 = 10*.5,
         },
     },
+
     BuildIconSortPriority = 11,
+
     Categories = {
-        'PRODUCTBREWLAN',
         'SELECTABLE',
-        --'BUILTBYLANDTIER1FACTORY',
-        --'BUILTBYLANDTIER2FACTORY',
-        --'BUILTBYLANDTIER3FACTORY',
         'UEF',
         'MOBILE',
         'LAND',
@@ -105,7 +103,6 @@ UnitBlueprint {
         'OVERLAYMISC',
     },
 
-    CollisionOffsetY = -0.0,
     CollisionOffsetZ = -0.05,
 
     Defense = {
@@ -118,7 +115,9 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 2,
     },
-    Description = '<LOC uel0209_desc>Field Engineer',
+
+    Description = '<LOC sel0119_desc>Field Engineer',
+
     Display = {
         Abilities = {
             '<LOC ability_amphibious>Amphibious',
@@ -126,15 +125,15 @@ UnitBlueprint {
             '<LOC ability_jamming>Jamming',
             '<LOC ability_radar>Radar',
         },
+
         AnimationBuildRate = 5,
         AnimationWater = '/units/XEL0209/xel0209_afold.sca',
+
         IdleEffects = {
             Water = {
                 Effects = {
                     {
-                        Bones = {
-                            'XEL0209',
-                        },
+                        Bones = {'XEL0209'},
                         Scale = 0.7,
                         Type = 'SeaIdle02',
                     },
@@ -150,7 +149,6 @@ UnitBlueprint {
                     ShaderName = 'Unit',
                     AlbedoName = '/units/xel0209/xel0209_albedo.dds',
                     SpecularName = '/units/xel0209/xel0209_specteam.dds',
-                    --NormalsName = '/units/xel0209/xel0209_normalsts.dds',
                 },
                 {
                     LODCutoff = 215,
@@ -166,10 +164,7 @@ UnitBlueprint {
             Land = {
                 Effects = {
                     {
-                        Bones = {
-                            'Dust01',
-                            'Dust02',
-                        },
+                        Bones = {'Dust01','Dust02'},
                         Type = 'GroundKickup01',
                     },
                 },
@@ -182,11 +177,7 @@ UnitBlueprint {
                             TreadMarksInterval = 0.3,
                             TreadMarksSizeX = 0.7,
                             TreadMarksSizeZ = 0.4,
-                            TreadOffset = {
-                                0,
-                                0,
-                                0,
-                            },
+                            TreadOffset = {0,0,0},
                         },
                     },
                 },
@@ -194,10 +185,7 @@ UnitBlueprint {
             Water = {
                 Effects = {
                     {
-                        Bones = {
-                            'Dust01',
-                            'Dust02',
-                        },
+                        Bones = {'Dust01','Dust02'},
                         Scale = 0.4,
                         Type = 'BackWake',
                     },
@@ -229,13 +217,10 @@ UnitBlueprint {
     General = {
         BuildBones = {
             AimBone = 0,
-            BuildEffectBones = {
-                'Arm_Muzzle',
-            },
+            BuildEffectBones = {'Arm_Muzzle'},
             PitchBone = 'Arm02',
             YawBone = 'XEL0209',
         },
-
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -259,13 +244,12 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 3,
-        TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
             RULEUTC_JammingToggle = true,
         },
         UnitName = '<LOC sel0119_name>Wally',
-        UnitWeight = 1,
     },
+
     Intel = {
         JamRadius = {
             Max = 12,
@@ -277,12 +261,15 @@ UnitBlueprint {
         VisionRadius = 22,
 		WaterVisionRadius = 22,
     },
+
     Interface = {
         HelpText = '<LOC uel0209_help>Field Engineer',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35*1.25,
     LifeBarSize = 0.6*1.25,
+
     Physics = {
         BackUpDistance = 4,
         BankingSlope = 0,
@@ -316,9 +303,11 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_surface1_engineer',
     StrategicIconSortPriority = 95,
+
     Transport = {
         TransportClass = 1,
     },
+
     Veteran = {
         Level1 = 6*.5,
         Level2 = 12*.5,
@@ -326,6 +315,7 @@ UnitBlueprint {
         Level4 = 24*.5,
         Level5 = 30*.5,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -354,27 +344,20 @@ UnitBlueprint {
             Label = 'Riotgun01',
             
             MaxRadius = 18-2,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 16,
             
             ProjectileId = '/projectiles/TDFRiot03/TDFRiot03_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.15,
-            ProjectilesPerOnFire = 1,
             
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Gun_Muzzle',
-                    },
+                    MuzzleBones = {'Gun_Muzzle'},
                     RackBone = 'Gun_Turret',
                 },
             },
 
             RackRecoilDistance = 0.1,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
             
@@ -408,6 +391,7 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -415,11 +399,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

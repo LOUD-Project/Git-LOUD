@@ -1,9 +1,8 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Turret',
-        },
+        GuardScanRadius = 50,
+        TargetBones = {'Turret'},
     },
 
 
@@ -113,10 +112,7 @@ UnitBlueprint {
             Land = {
                 Effects = {
                     {
-                        Bones = {
-                            'Back_Left_M',
-                            'Back_Right_M',
-                        },
+                        Bones = {'Back_Left_M','Back_Right_M'},
                         Type = 'GroundKickup01',
                     },
                 },
@@ -128,18 +124,12 @@ UnitBlueprint {
                             TreadMarksInterval = 0.2,
                             TreadMarksSizeX = 1.8,
                             TreadMarksSizeZ = 3,
-                            TreadOffset = {
-                                0,
-                                0,
-                                -1,
-                            },
+                            TreadOffset = {0,0,-1},
                         },
                     },
                 },
             },
         },
-
-        SpawnRandomRotation = true,
         UniformScale = 0.08,
     },
 	
@@ -153,8 +143,6 @@ UnitBlueprint {
 	
     General = {
         CapCost = 2,
-        Category = 'Anti Air',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -166,15 +154,10 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'amph',
-
-        TechLevel = 'RULEUTL_Secret',
-		
         ToggleCaps = {
             RULEUTC_CloakToggle = true,
         },
-
         UnitName = '<LOC srl0320_name>Slink',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -209,11 +192,8 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Amphibious',
 		
-        RotateOnSpot = false,
-        RotateOnSpotThreshold = 1,
-		
         TurnRadius = 0,
-        TurnRate = 75,
+        TurnRate = 60,
 		
 		WaterSpeedMultiplier = 1.2,
     },
@@ -292,10 +272,6 @@ UnitBlueprint {
                 },
             },
 			
-            RackReloadTimeout = 1,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-			
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 0.6,
@@ -308,7 +284,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',			
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Muzzle1',
             TurretBonePitch = 'Turret_body',

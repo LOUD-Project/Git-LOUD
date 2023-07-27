@@ -97,9 +97,6 @@ UnitBlueprint {
                 { LODCutoff = 520, ShaderName = 'Unit' },
             },
         },
-
-        SpawnRandomRotation = true,
-		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_01_albedo',
@@ -107,12 +104,7 @@ UnitBlueprint {
                 FadeOut = 300,
                 Length = 9,
                 Normal = 'Tarmacs/Tar8x_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 9,
             },
@@ -140,8 +132,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 1.5,
-        Category = 'Defense',
-        Classification = 'RULEUC_CounterMeasure',
         FactionName = 'UEF',
         Icon = 'land',
         OrderOverrides = {
@@ -151,13 +141,10 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
         UnitName = '<LOC seb4303_name>Recoil',
-        UnitWeight = 1,
-
     },
 
     Interface = {
@@ -208,11 +195,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

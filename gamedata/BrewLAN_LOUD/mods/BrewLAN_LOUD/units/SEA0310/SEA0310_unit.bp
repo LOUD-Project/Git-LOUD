@@ -1,9 +1,7 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'UEA0302',
-        },
+        TargetBones = {'UEA0302'},
     },
 
     Air = {
@@ -155,7 +153,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.08 * 0.8,
     },
 	
@@ -174,8 +171,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Dock = true,
@@ -189,9 +184,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_JammingToggle = true,
         },
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC sea0310_name>Wild Weasel',
-        UnitWeight = 1,
     },
 	
     Intel = {

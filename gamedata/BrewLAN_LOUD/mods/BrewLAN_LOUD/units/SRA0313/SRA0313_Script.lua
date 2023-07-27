@@ -38,10 +38,8 @@ SRA0313 = Class(CAirUnit) {
         local bp = __blueprints[self.BlueprintID]
 
         if new == 'TopSpeed' then
-            LOG("*AI DEBUG SRA0313 Full Sphere TopSpeed "..bp.SizeSphere)
             self:SetCollisionShape('Sphere', bp.CollisionSphereOffsetX or 0, bp.CollisionSphereOffsetY or 0, bp.CollisionSphereOffsetZ or 0, bp.SizeSphere )
         else
-            LOG("*AI DEBUG SRA0313 Reduced Sphere "..new.." "..bp.SizeSphere * .65)
             self:SetCollisionShape('Sphere', bp.CollisionSphereOffsetX or 0, bp.CollisionSphereOffsetY or 0, bp.CollisionSphereOffsetZ or 0, bp.SizeSphere * .6 )
         end
     end,

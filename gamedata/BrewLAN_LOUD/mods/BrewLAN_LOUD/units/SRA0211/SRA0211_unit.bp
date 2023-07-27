@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 125,
-        GuardScanRadius = 100,
+        GuardReturnRadius = 110,
+        GuardScanRadius = 75,
 		TargetBones = { 'Hat' },
     },
 	
@@ -176,8 +176,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Bomber',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -196,12 +194,10 @@ UnitBlueprint {
                 helpText = 'toggle_stealth_personal',
             },
         },
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
         UnitName = '<LOC sra0211_name>Reaper',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -283,7 +279,7 @@ UnitBlueprint {
 			
             DisplayName = 'Neutron Bomb',
 			
-            EffectiveRadius = 25,
+            EffectiveRadius = 45,
 			
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
@@ -316,7 +312,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
         },
         {
             AboveWaterTargetsOnly = true,

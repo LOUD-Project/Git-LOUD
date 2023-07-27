@@ -1,9 +1,8 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Turret01_Barrel',
-        },
+        GuardScanRadius = 22,
+        TargetBones = {'Turret01_Barrel'},
     },
 
     Audio = {
@@ -144,7 +143,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.1175*1.15,
     },
 	
@@ -208,7 +206,6 @@ UnitBlueprint {
         },
 
         UnitName = '<LOC srl0319_name>House',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -315,13 +312,6 @@ UnitBlueprint {
                     RackBone = 'Turret01_Barrel',
                 },
             },
-            RackFireTogether = false,
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -336,7 +326,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret01_Muzzle',
             TurretBonePitch = 'Turret01_Barrel',
@@ -362,11 +352,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

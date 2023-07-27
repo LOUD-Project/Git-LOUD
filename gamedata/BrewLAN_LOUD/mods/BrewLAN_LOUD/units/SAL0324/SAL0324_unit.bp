@@ -1,10 +1,7 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Hat',
-			'Dish',
-        },
+        TargetBones = {'Hat','Dish'},
     },
 
     Audio = {
@@ -159,8 +156,6 @@ UnitBlueprint {
     },
     
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_Sensor',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Guard = true,
@@ -179,9 +174,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC sal0324_name>Metatron',
-        UnitWeight = 1,
     },
     
     Intel = {

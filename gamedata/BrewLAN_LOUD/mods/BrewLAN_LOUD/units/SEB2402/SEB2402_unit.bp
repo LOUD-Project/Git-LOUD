@@ -1,14 +1,6 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            0,
-            'TurretA',
-            'TurretB',
-            'TurretC',
-            'TurretD',
-            'Crystal',
-            'Generator',
-        },
+        TargetBones = {0,'TurretA','TurretB','TurretC','TurretD','Crystal','Generator'},
     },
 	
     Audio = {
@@ -102,8 +94,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
 
         UniformScale = 0.0275*1,
     },
@@ -213,8 +203,6 @@ UnitBlueprint {
 
     General = {
 		CapCost = 5,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -223,9 +211,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC seb2402_name>Mummy',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -326,10 +312,6 @@ UnitBlueprint {
             MaxRadius = 52, --Can shoot at things with elevation of 30 at from 52 away.
             MinRadius = 0,
             
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            
             NeedPrep = false,
             
             RackBones = {
@@ -338,10 +320,6 @@ UnitBlueprint {
                     RackBone = 'TurretA',
                 },
             },
-
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_AntiAir',
             
@@ -411,10 +389,6 @@ UnitBlueprint {
             MaxRadius = 52, --Can shoot at things with evelation of 30 at from 52 away.
             MinRadius = 0,
             
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            
             NeedPrep = false,
             
             RackBones = {
@@ -423,10 +397,6 @@ UnitBlueprint {
                     RackBone = 'TurretB',
                 },
             },
-
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 0.375,
             
@@ -497,10 +467,6 @@ UnitBlueprint {
             MaxRadius = 52, --Can shoot at things with evelation of 30 at from 52 away.
             MinRadius = 0,
             
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            
             NeedPrep = false,
             
             RackBones = {
@@ -509,10 +475,6 @@ UnitBlueprint {
                     RackBone = 'TurretC',
                 },
             },
-
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 0.375,
             
@@ -582,10 +544,6 @@ UnitBlueprint {
             MaxRadius = 52, --Can shoot at things with evelation of 30 at from 52 away.
             MinRadius = 0,
             
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            
             NeedPrep = false,
             
             RackBones = {
@@ -594,10 +552,6 @@ UnitBlueprint {
                     RackBone = 'TurretD',
                 },
             },
-
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 0.375,
             
@@ -638,6 +592,7 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.0,
@@ -645,10 +600,7 @@ UnitBlueprint {
         MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
             Water = true,
         },
     },

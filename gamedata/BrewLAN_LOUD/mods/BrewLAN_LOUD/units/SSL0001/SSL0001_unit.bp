@@ -27,16 +27,16 @@ UnitBlueprint {
         'UNSELECTABLE',
         'UNTARGETABLE',
     },
-    CollisionOffsetX = 0,
-    CollisionOffsetY = 0,
-    CollisionOffsetZ = 0,
+
     Defense = {
         ArmorType = 'Normal',
         Health = 69,
         MaxHealth = 69,
         RegenRate = 0,
     },
+
     Description = '<LOC ssa00002_desc>Hologram',
+
     Display = {
         Mesh = {
             IconFadeInZoom = 99999999,
@@ -53,23 +53,22 @@ UnitBlueprint {
             },
         },
         HideLifebars = true,
-        PlaceholderMeshName = 'XSC9010',
-        SpawnRandomRotation = true,
         UniformScale = 0.063,
     },
+
     Economy = {
         BuildCostEnergy = 1337,
         BuildCostMass = 420,
         BuildTime = 696,
     },
+
     Footprint = {
         SizeX = 0,
         SizeZ = 0,
     },
+
     General = {
         CapCost = 0,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Move = true,
@@ -78,9 +77,8 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         SelectionPriority = 6,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
     },
+
     Intel = {
         JamRadius = {
             Max = 40,
@@ -89,12 +87,15 @@ UnitBlueprint {
         JammerBlips = 20,
         VisionRadius = 0,
     },
+
     Interface = {
         HelpText = '<LOC xsc9010_help>Jammer Crystal',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.6,
     LifeBarSize = 1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -114,12 +115,15 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 80,
     },
+
     SelectionSizeX = 0.3,
     SelectionSizeZ = 0.3,
     SelectionThickness = 1.2,
+
     SizeX = 0.01,
     SizeY = 0.01,
     SizeZ = 0.01,
+
     StrategicIconName = 'icon_land_generic',
     StrategicIconSortPriority = 207,
 }

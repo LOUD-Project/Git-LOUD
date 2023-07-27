@@ -1,8 +1,8 @@
 UnitBlueprint {
 
     AI = {
-        GuardReturnRadius = 125,
-        GuardScanRadius = 100,
+        GuardReturnRadius = 80,
+        GuardScanRadius = 58,
         TargetBones = {
             'GGun_Barrel001',
 			'Engine_Body004',
@@ -232,7 +232,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.057,
     },
 
@@ -250,8 +249,6 @@ UnitBlueprint {
 
     General = {
 		CapCost = 5,
-        Category = 'Gunship',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -262,9 +259,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC sea0401_name>Centurion',
-        UnitWeight = 1,
     },
 
     Intel = {
@@ -305,8 +300,6 @@ UnitBlueprint {
     SelectionSizeX = 3.6,
     SelectionSizeZ = 7.2,
     SelectionThickness = 0.2,
-
-    --SizeSphere = 6,
 
     SizeX = 4.8,
     SizeY = 2.0,
@@ -372,8 +365,6 @@ UnitBlueprint {
 
             MaxRadius = 58,
 
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 55,
 
 			NotExclusive = true,
@@ -383,47 +374,32 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Head_Turret_Muzzle001',
-                    },
+                    MuzzleBones = {'Head_Turret_Muzzle001'},
                     RackBone = 'Head_Turret_Barrel001',
                 },
                 {
-                    MuzzleBones = {
-                        'Head_Turret_Muzzle002',
-                    },
+                    MuzzleBones = {'Head_Turret_Muzzle002'},
                     RackBone = 'Head_Turret_Barrel002',
                 },
                 {
-                    MuzzleBones = {
-                        'Head_Turret_Muzzle003',
-                    },
+                    MuzzleBones = {'Head_Turret_Muzzle003'},
                     RackBone = 'Head_Turret_Barrel003',
                 },
                 {
-                    MuzzleBones = {
-                        'Head_Turret_Muzzle004',
-                    },
+                    MuzzleBones = {'Head_Turret_Muzzle004'},
                     RackBone = 'Head_Turret_Barrel004',
                 },
                 {
-                    MuzzleBones = {
-                        'Head_Turret_Muzzle005',
-                    },
+                    MuzzleBones = {'Head_Turret_Muzzle005'},
                     RackBone = 'Head_Turret_Barrel005',
                 },
                 {
-                    MuzzleBones = {
-                        'Head_Turret_Muzzle006',
-                    },
+                    MuzzleBones = {'Head_Turret_Muzzle006'},
                     RackBone = 'Head_Turret_Barrel006',
                 },
             },
 
             RackRecoilDistance = -7,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_AntiAir',
 
@@ -439,7 +415,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 
             TurretBoneMuzzle = 'Head_Turret_Pitch',
             TurretBonePitch = 'Head_Turret_Pitch',
@@ -493,8 +469,6 @@ UnitBlueprint {
 
             MaxRadius = 58,
 
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 55,
 
 			NotExclusive = true,
@@ -506,35 +480,24 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Rear_Turret_Muzzle001',
-                    },
+                    MuzzleBones = {'Rear_Turret_Muzzle001'},
                     RackBone = 'Rear_Turret_Barrel001',
                 },
                 {
-                    MuzzleBones = {
-                        'Rear_Turret_Muzzle002',
-                    },
+                    MuzzleBones = {'Rear_Turret_Muzzle002'},
                     RackBone = 'Rear_Turret_Barrel002',
                 },
                 {
-                    MuzzleBones = {
-                        'Rear_Turret_Muzzle003',
-                    },
+                    MuzzleBones = {'Rear_Turret_Muzzle003'},
                     RackBone = 'Rear_Turret_Barrel003',
                 },
                 {
-                    MuzzleBones = {
-                        'Rear_Turret_Muzzle004',
-                    },
+                    MuzzleBones = {'Rear_Turret_Muzzle004'},
                     RackBone = 'Rear_Turret_Barrel004',
                 },
             },
 
             RackRecoilDistance = -7,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
 			RateOfFire = 2,		-- 450 DPS
 
@@ -547,7 +510,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 
             TurretBoneMuzzle = 'Rear_Turret_Pitch',
             TurretBonePitch = 'Rear_Turret_Pitch',
@@ -620,10 +583,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RangeCategory = 'UWRC_AntiAir',
 
             RateOfFire = 0.5,
@@ -636,7 +595,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 
             TurretBoneMuzzle = 'SAM_Barrel',
             TurretBonePitch = 'SAM_Barrel',
@@ -707,10 +666,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RateOfFire = 0.5,	-- 440 DPS
 
             TargetCheckInterval = 2,
@@ -721,7 +676,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 
             TurretBoneMuzzle = 'SAM_Barrel001',
             TurretBonePitch = 'SAM_Barrel001',
@@ -772,16 +727,11 @@ UnitBlueprint {
                 Air = 'Air|Land',
             },
 
-            FiringRandomness = 0,
             FiringTolerance = 0.3,
 
             Label = 'RearASFBeam',
 
             MaxRadius = 40,
-
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
 
 			NotExclusive = true,
 
@@ -789,16 +739,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Rack_Gun_Muzzle01',
-                    },
+                    MuzzleBones = {'Rack_Gun_Muzzle01'},
                     RackBone = 'Rack_Gun_Barrel01',
                 },
             },
-
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 3,		-- 1200 DPS Air
 
@@ -810,7 +754,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 
             TurretBoneMuzzle = 'Rack_Gun_Muzzle01',
             TurretBonePitch = 'Rack_Gun_Pitch01',
@@ -875,14 +819,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'GGun_Barrel_Muzzle',
-                    },
+                    MuzzleBones = {'GGun_Barrel_Muzzle'},
                     RackBone = 'GGun_Barrel001',
                 },
             },
 
-            RackReloadTimeout = 10,
             RackSalvoChargeTime = 0.5,
             RackSalvoReloadTime = 3,
 
@@ -897,7 +838,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
 
-            TrackingRadius = 1.25,
+            TrackingRadius = 1.2,
 
             TurretBoneMuzzle = 'GGun_Barrel_Muzzle',
             TurretBonePitch = 'GGun_Pitch001',

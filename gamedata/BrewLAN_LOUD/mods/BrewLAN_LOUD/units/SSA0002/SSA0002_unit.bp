@@ -149,18 +149,17 @@ UnitBlueprint {
         },
         HideLifebars = true,
 
-        SpawnRandomRotation = false,
         UniformScale = 0.03,
     },
+
     Economy = {
         BuildCostEnergy = 1337,
         BuildCostMass = 420,
         BuildTime = 696,
     },
+
     General = {
         CapCost = 0,
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -172,16 +171,9 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'air',
-        --OrderOverrides = {
-        --    DroneL = {
-        --        bitmapId = 'drone',
-        --        helpText = 'drone_station',
-        --    },
-        --},
         SelectionPriority = 6,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
     },
+
     Intel = {
         JamRadius = {
             Max = 150,
@@ -190,12 +182,15 @@ UnitBlueprint {
         JammerBlips = 20,
         VisionRadius = 0,
     },
+
     Interface = {
         HelpText = '<LOC xsc9011_help>Jammer Crystal',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.25,
     LifeBarSize = 0.3,
+
     Physics = {
         BankingSlope = 0.5,
         BuildOnLayerCaps = {
@@ -211,13 +206,17 @@ UnitBlueprint {
         TurnRadius = 100,
         TurnRate = 100,
     },
+
     SelectionSizeX = 0.3,
     SelectionSizeZ = 0.3,
     SelectionThickness = 1.2,
+
     SizeSphere = 1,
+
     SizeX = 0.5,
     SizeY = 0.2,
     SizeZ = 0.5,
+
     StrategicIconName = 'icon_fighter_generic',
     StrategicIconSize = 1,
     StrategicIconSortPriority = 105,

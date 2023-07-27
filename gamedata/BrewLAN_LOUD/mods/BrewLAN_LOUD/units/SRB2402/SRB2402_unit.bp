@@ -1,9 +1,7 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-			'Left_Turret',
-        },
+        TargetBones = {'Left_Turret'},
     },
 
     Audio = {
@@ -80,9 +78,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
-		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_cybran_01_albedo',
@@ -90,12 +85,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 8,
                 Normal = 'Tarmacs/Tar8x_cybran_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 8,
             },
@@ -189,8 +179,6 @@ UnitBlueprint {
 
     General = {
 		CapCost = 5,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -199,9 +187,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC srb2402_name>Neolith',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -317,9 +303,7 @@ UnitBlueprint {
 			
             MaxRadius = 90,
             MinRadius = 7,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 70,
 			MuzzleVelocityRandom = 8,
 			
@@ -337,9 +321,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -2,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -353,7 +334,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Left_Turret_Muzzle01',
             TurretBonePitch = 'Left_Turret_Barrel',
@@ -379,11 +360,7 @@ UnitBlueprint {
         MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

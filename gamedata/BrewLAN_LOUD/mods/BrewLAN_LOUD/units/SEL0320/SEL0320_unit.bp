@@ -1,5 +1,6 @@
 UnitBlueprint {
     AI = {
+        GuardScanRadius = 80,
         InitialAutoMode = true,
 		TargetBones = {'B06_Stand'},
     },
@@ -56,7 +57,6 @@ UnitBlueprint {
 
     Categories = {
         'SELECTABLE',
-        --'BUILTBYTIER3FACTORY',
         'UEF',
         'MOBILE',
         'LAND',
@@ -112,11 +112,7 @@ UnitBlueprint {
                             TreadMarksInterval = 0.6,
                             TreadMarksSizeX = 1.0,
                             TreadMarksSizeZ = 1,
-                            TreadOffset = {
-                                0,
-                                0,
-                                0,
-                            },
+                            TreadOffset = {0,0,0},
                         },
                     },
                 },
@@ -130,12 +126,9 @@ UnitBlueprint {
         BuildCostEnergy = 8000,
         BuildCostMass = 800,
         BuildTime = 4800,
-
     },
 
     General = {
-        Category = 'Indirect Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -147,9 +140,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC sel0320_name>Archimedes',
-        UnitWeight = 1,
     },
 
     Intel = {
@@ -250,10 +241,6 @@ UnitBlueprint {
             
             MaximumBeamLength = 25000,
             
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            
             NeedPrep = true,
             
             RackBones = {
@@ -312,23 +299,15 @@ UnitBlueprint {
             FiringTolerance = 30,
             Label = 'TargetFinder',
             MaxRadius = 80,
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             PrefersPrimaryWeaponTarget = true,
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Target_Finder',
-                    },
+                    MuzzleBones = {'Target_Finder'},
                     RackBone = 'B07_Slider_02',
                 },
             },
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RangeCategory = 'UWRC_DirectFire',
             RateOfFire = 1,
             SlavedToBody = true,
@@ -367,23 +346,15 @@ UnitBlueprint {
             FiringTolerance = 1,
             Label = 'TargetFinder2',
             MaxRadius = 80,
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             PrefersPrimaryWeaponTarget = true,
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Target_Finder002',
-                    },
+                    MuzzleBones = {'Target_Finder002'},
                     RackBone = 'B07_Slider_02',
                 },
             },
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RangeCategory = 'UWRC_DirectFire',
             RateOfFire = 1,
             SlavedToBody = true,
@@ -413,11 +384,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

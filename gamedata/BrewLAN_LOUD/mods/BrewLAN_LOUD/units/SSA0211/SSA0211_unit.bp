@@ -1,10 +1,8 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 125,
-        GuardScanRadius = 100,
-        TargetBones = {
-            'SSA0211',
-        },
+        GuardReturnRadius = 110,
+        GuardScanRadius = 75,
+        TargetBones = {'SSA0211'},
     },
 	
     Air = {
@@ -178,8 +176,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
         UniformScale = 0.08*0.9,
     },
 	
@@ -197,8 +193,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Bomber',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -211,9 +205,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC ssa0211_name>Sinn',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -300,7 +292,7 @@ UnitBlueprint {
             Display = 'Zhanasee Strategic Bomb',
             DisplayName = 'Zhanasee Strategic Bomb',
 			
-            EffectiveRadius = 25,
+            EffectiveRadius = 45,
 			
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
@@ -329,14 +321,7 @@ UnitBlueprint {
                     RackBone = 'Left_Projectile',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 0.2,   -- 170 DPS
 			
             TargetCheckInterval = 2,

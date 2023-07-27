@@ -1,10 +1,8 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 125,
-        GuardScanRadius = 100,
-        TargetBones = {
-            'UEA0204',
-		},
+        GuardReturnRadius = 84,
+        GuardScanRadius = 63,
+        TargetBones = {'UEA0204'},
     },
 	
     Air = {
@@ -201,7 +199,6 @@ UnitBlueprint {
                 Idle = false,
             },
         },
-        SpawnRandomRotation = false,
         UniformScale = 0.04,
     },
 	
@@ -218,8 +215,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Bomber',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -232,9 +227,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC sea0106_name>Seagull',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -344,19 +337,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile',
-                    },
+                    MuzzleBones = {'Projectile'},
                     RackBone = 'Projectile',
                 },
             },
-            RackFireTogether = false,
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RateOfFire = 0.1,	-- 400 damage every 10 = 40 DPS
 			
@@ -367,7 +351,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER, WALL',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
         },
         {
             AboveWaterTargetsOnly = true,

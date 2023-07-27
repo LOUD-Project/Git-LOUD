@@ -10,24 +10,14 @@ UnitBlueprint {
     },
 	
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         Destroyed = Sound {
             Bank = 'URLDestroy',
             Cue = 'URB_Destroy_Huge',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
     },
 	
-    BuildIconSortPriority = 150,
+    BuildIconSortPriority = 261,
 	
     Categories = {
         'BUILTBYTIER2FIELD',
@@ -49,9 +39,10 @@ UnitBlueprint {
         ArmorType = 'Structure',
         Health = 9000,
         MaxHealth = 9000,
+        RegenRate = 2,
     },
 	
-    Description = 'Medium Wall Segment',
+    Description = 'Quad Medium Wall Segment',
 	
     Display = {
         AdjacencyConnection = 'MEDIUMWALL',
@@ -137,13 +128,12 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.0769230769230769230769230,
     },
 	
     Economy = {
-        BuildCostEnergy = 800,
-        BuildCostMass = 240,
+        BuildCostEnergy = 660,
+        BuildCostMass = 150,
         BuildTime = 200,
 		
         RebuildBonusIds = { 'sab5210'},
@@ -155,15 +145,10 @@ UnitBlueprint {
     },
 	
     General = {
-        CapCost = 0.4,
-        Category = 'Defense',
-        Classification = 'RULEUC_MiscSupport',
-        ConstructionBar = true,
+        CapCost = 0.75,
         FactionName = 'Aeon',
+        Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        --UnitName = '<LOC sab5210_name>Bulkhead',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -171,12 +156,12 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = '<LOC sbui5210>Medium Wall Segment',
+        HelpText = '<LOC sab5210>Quad Medium Wall Segment',
     },
 	
     LifeBarHeight = 0.075,
-    LifeBarOffset = 0,
-    LifeBarSize = 0.075,
+    LifeBarOffset = 0.5,
+    LifeBarSize = 0.8,
 	
     Physics = {
         BankingSlope = 0,
@@ -201,10 +186,10 @@ UnitBlueprint {
 	
     SelectionSizeX = .8,
     SelectionSizeZ = .8,
-    SelectionThickness = 0.3,
+    SelectionThickness = 0.66,
 	
     SizeX = 2,
-    SizeY = 1.6,
+    SizeY = 1.4,
     SizeZ = 2,
 	
     StrategicIconName = 'icon_structure_wall',
@@ -213,15 +198,11 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        HealthMult = 0.1,
+        MassMult = 0.1,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

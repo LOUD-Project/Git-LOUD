@@ -1,5 +1,7 @@
 UnitBlueprint {
     AI = {
+        GuardScanRadius = 80,
+        GuardReturnRadius = 100,
         InitialAutoMode = true,
     },
     
@@ -105,8 +107,6 @@ UnitBlueprint {
     
     General = {
         CapCost = 2,
-        Category = 'Indirect Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -118,9 +118,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC srl03ll_name>Triseptitron',
-        UnitWeight = 1,
     },
     
     Intel = {
@@ -144,10 +142,9 @@ UnitBlueprint {
         MotionType = 'RULEUMT_Land',
         RotateOnSpot = false,
         RotateOnSpotThreshold = 0.1,
-        TurnRate = 75,
+        TurnRate = 60,
     },
     
-    SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0.15,
     SelectionSizeX = 0.8,
     SelectionSizeZ = 0.8,
@@ -211,8 +208,7 @@ UnitBlueprint {
             MinRadius = 25,
             
             MuzzleChargeDelay = .5,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 20,
             MuzzleVelocityRandom = 0.5,
             MuzzleVelocityReduceDistance = 50,
@@ -249,8 +245,6 @@ UnitBlueprint {
                 },
             },
             RackRecoilDistance = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
             
             RangeCategory = 'UWRC_IndirectFire',
             

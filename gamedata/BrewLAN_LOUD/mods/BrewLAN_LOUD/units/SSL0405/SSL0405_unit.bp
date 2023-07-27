@@ -1,5 +1,7 @@
 UnitBlueprint {
     AI = {
+        GuardScanRadius = 10,
+        GuardReturnRadius = 70,
         TargetBones = {'Thorax', 'Cephalon', 'Carapace'},
         StagingPlatformScanRadius = 10, --Melee range
     },
@@ -324,8 +326,6 @@ UnitBlueprint {
     
     General = {
         CapCost = 8,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -345,9 +345,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC ssl0405_name>Suedath-Zmara',
-        UnitWeight = 1,
     },
     
     Intel = {
@@ -392,8 +390,6 @@ UnitBlueprint {
         SkirtOffsetZ = -1.5,
         SkirtSizeX = 9,
         SkirtSizeZ = 9,
-        
-        --StandUpright = true,
         
         TurnRadius = 3,
         TurnRate = 52,
@@ -462,16 +458,13 @@ UnitBlueprint {
             MaxRadius = 42,
             MinRadius = 5,
             MaxRadiusTall = 60,
-            
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
             
             NotExclusive = true,
             
             ProjectileId = '/projectiles/SDFTauCannon01/SDFTauCannon01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 2,
-            ProjectilesPerOnFire = 1,
             
             RackBones = {
                 {
@@ -489,9 +482,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -1,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
             
             RangeCategory = 'UWRC_DirectFire',
@@ -542,33 +533,42 @@ UnitBlueprint {
                 },
             },]]
             AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
+
             BeamCollisionDelay = 0.1,
             BeamLifetime = 0,
+
             Damage = 0.01, -- beam damage
+
             MandibleDamage = 700,   --Min damage per instance
             MandibleDamageInterval = 1,
             MandibleMaxHoldTimeTicks = 20, --Max number of ticks from picking up to letting go.
             -- Damage will be several ticks less, since it starts counting from pick up, and doesn't damage until the slider has finished
+
             DamageRadius = 0,
             DamageType = 'CrushingJaw',
+
             DisplayName = 'Gaping Maw',
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed|Sub',
                 Seabed = 'Land|Water|Seabed|Sub',
                 Water = 'Land|Water|Seabed|Sub',
             },
             FiringTolerance = 5,
+
             HeadingArcCenter = 0,
             HeadingArcRange = 30,
+
             Label = 'GapingMaw',
+
             MaxEdibleSize = {3, 5, 3}, --this sets destroyers and cruisers too big, but tech 1 things, the utility boats, and subs in range
+
             MaxRadius = 10,
             MinRadius = 4,
             MaxRadiusTall = 1,
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleSpecial = 'Mouth_002',
             RackBones = {
                 {
@@ -576,14 +576,9 @@ UnitBlueprint {
                     RackBone = 'Mouth_001',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+
             RateOfFire = 1,
+
             TargetCheckInterval = 2.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -595,20 +590,21 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE, STRUCTURE',
             TrackingRadius = 1,
+
             TurretBoneMuzzle = 'Mouth_Top',
             TurretBonePitch = 'Cephalon',
             TurretBoneYaw = 'Cephalon',
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 50,
             TurretPitchSpeed = 50,
+
             TurretYaw = 0,
             TurretYawRange = 25,
             TurretYawSpeed = 50,
+
             Turreted = true,
-            WeaponCategory = 'Experimental',
-            WeaponRepackTimeout = 0,
-            WeaponUnpacks = false,
         },
 
         ------------------------------------------------------------------------
@@ -763,8 +759,7 @@ UnitBlueprint {
             MinRadius = 9,
             
             MuzzleChargeDelay = 2.5,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
             
             NotExclusive = true,
@@ -774,9 +769,7 @@ UnitBlueprint {
             
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Big_Gun_L_Barrel',
-                    },
+                    MuzzleBones = {'Big_Gun_L_Barrel'},
                     RackBone = 'Big_Gun_L_Barrel',
                     TelescopeBone = 'Big_Gun_L_Float_004',
                     TelescopeRecoilDistance = -10,
@@ -784,12 +777,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -10,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            
+
             RangeCategory = 'UWRC_DirectFire',
             
             RateOfFire = 1,
@@ -873,8 +861,7 @@ UnitBlueprint {
             MinRadius = 9,
             
             MuzzleChargeDelay = 2.5,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
             
             NotExclusive = true,
@@ -894,11 +881,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -10,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
             
             RangeCategory = 'UWRC_DirectFire',
             
@@ -927,7 +909,6 @@ UnitBlueprint {
             TurretYawSpeed = 50,
             
             Turreted = true,
-            WeaponCategory = 'Direct Fire Experimental',
         },
 
         { --Tail Gun -- strictly AA --
@@ -974,8 +955,7 @@ UnitBlueprint {
             
             MaxRadius = 50,
             MaxRadiusTall = 50,
-            
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 95,
             
@@ -996,11 +976,8 @@ UnitBlueprint {
             },
             RackFireTogether = true,
             RackRecoilDistance = 3,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
             
             RangeCategory = 'UWRC_AntiAir',
             

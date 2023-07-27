@@ -1,6 +1,7 @@
 UnitBlueprint {
     AI = {
         BeaconName = 'URB5102',
+        GuardScanRadius = 35,
         TargetBones = {'Char01','Char02','Char03','Char04'},
     },
 	
@@ -184,7 +185,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.07,
     },
 	
@@ -204,8 +204,6 @@ UnitBlueprint {
 	
     General = {
         CapCost = 2,
-        Category = 'Transport',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -221,12 +219,10 @@ UnitBlueprint {
         Icon = 'air',
 
         SelectionPriority = 2,
-        TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
         UnitName = '<LOC sra0306_name>Night Skimmer',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -241,7 +237,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = '<LOC xea0306_help>Heavy Air Transport',
+        HelpText = '<LOC sra0306_help>Heavy Air Transport',
     },
 	
     LifeBarHeight = 0.075,
@@ -345,18 +341,14 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Down_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Front_Down_Turret_Muzzle'},
                     RackBone = 'Front_Down_Turret',
                 },
             },
 
-            RackReloadTimeout = 10,
             RackSalvoChargeTime = 1,
             RackSalvoFiresAfterCharge = true,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -371,7 +363,7 @@ UnitBlueprint {
             },
 			
             TargetRestrictDisallow = 'HIGHALTAIR, WALL, UNTARGETABLE',
-            TrackingRadius = 1.25,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Front_Down_Turret_Muzzle',
             TurretBonePitch = 'Front_Down_Turret',
@@ -418,9 +410,7 @@ UnitBlueprint {
             LeadTarget = true,
 			
             MaxRadius = 40,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 75,
 			
             ProjectileId = '/projectiles/CAAAutocannon01/CAAAutocannon01_proj.bp',
@@ -428,16 +418,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Up_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Back_Up_Turret_Muzzle'},
                     RackBone = 'Back_Up_Turret',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -451,7 +435,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Back_Up_Turret_Muzzle',
             TurretBonePitch = 'Back_Up_Turret',
@@ -498,9 +482,7 @@ UnitBlueprint {
             LeadTarget = true,
 			
             MaxRadius = 40,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 75,
 			
             ProjectileId = '/projectiles/CAAAutocannon01/CAAAutocannon01_proj.bp',
@@ -508,16 +490,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Up_Turret_Muzzle01',
-                    },
+                    MuzzleBones = {'Back_Up_Turret_Muzzle01'},
                     RackBone = 'Back_Up_Turret01',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 2,
             TargetCheckInterval = 0.5,
@@ -529,7 +505,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.2,
 
             TurretBoneMuzzle = 'Back_Up_Turret_Muzzle01',
             TurretBonePitch = 'Back_Up_Turret01',
@@ -562,16 +538,13 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
+            Water = true,
         },
     },
 }

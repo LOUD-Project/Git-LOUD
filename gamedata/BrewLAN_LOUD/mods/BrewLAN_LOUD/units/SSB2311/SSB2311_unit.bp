@@ -1,10 +1,6 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Arm_B02',
-            'Right_Arm_B03',
-            'Rotor2',
-        },
+        TargetBones = {'Arm_B02','Right_Arm_B03','Rotor2'},
     },
 	
     Audio = {
@@ -83,8 +79,6 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
-
         UniformScale = 0.032,
     },
 	
@@ -104,8 +98,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -114,9 +106,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC ssb2311_name>Sinn Unthe',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -218,8 +208,7 @@ UnitBlueprint {
             MinRadius = 6,
 			
             MuzzleChargeDelay = 1.0,        -- 1 second delay --
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 23,
 			
             ProjectileId = '/projectiles/SDFSinnuntheWeapon01/SDFSinnuntheWeapon01_proj.bp',
@@ -227,19 +216,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'RightHand_Muzzle',
-                    },
+                    MuzzleBones = {'RightHand_Muzzle'},
                     RackBone = 'RightHand_Muzzle',
                 },
             },
-            RackFireTogether = false,
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -267,7 +247,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 22,
+            TurretYawSpeed = 21,
 			
             Turreted = true,
 			
@@ -282,11 +262,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

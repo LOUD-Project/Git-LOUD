@@ -1,10 +1,10 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Turret01_Barrel',
-        },
+        GuardScanRadius = 22,
+        TargetBones = {'Turret01_Barrel'},
     },
+
     Audio = {
         AmbientMove = Sound {
             Bank = 'URL',
@@ -207,7 +207,6 @@ UnitBlueprint {
 		
         StorageEnergy = 150,
         StorageMass = 15,
-
     },
 	
     General = {
@@ -219,7 +218,6 @@ UnitBlueprint {
             PitchBone = 'Buildpoint_Left',
             YawBone = 'Buildpoint_Left',
         },
-
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -233,23 +231,17 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-
         ConstructionBar = true,
         FactionName = 'Cybran',
         Icon = 'amph',
-
         OrderOverrides = {
             RULEUTC_StealthToggle = { bitmapId = 'stealth-personal', helpText = 'toggle_stealth_personal' },
         },
-
         SelectionPriority = 3,
-
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
-
         UnitName = '<LOC srl0209_name>Wilson',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -364,13 +356,6 @@ UnitBlueprint {
                     RackBone = 'Turret01_Barrel',
                 },
             },
-            RackFireTogether = false,
-			
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -384,7 +369,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret01_Muzzle',
             TurretBonePitch = 'Turret01_Barrel',
@@ -410,11 +395,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

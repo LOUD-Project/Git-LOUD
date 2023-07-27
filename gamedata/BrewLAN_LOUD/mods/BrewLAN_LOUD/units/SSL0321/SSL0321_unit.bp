@@ -138,7 +138,6 @@ UnitBlueprint {
         },
         MissileBone = 'missile',
 
-        SpawnRandomRotation = true,
         UniformScale = 0.06,
     },
 	
@@ -150,9 +149,8 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 3,
-        Category = 'Indirect Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
+		CapCost = 4,
+
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Guard = true,
@@ -164,9 +162,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC ssl0321_name>Ythhu',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -236,11 +232,7 @@ UnitBlueprint {
             AnimationReload = '/units/xsl0111/xsl0111_areload.sca',
             AlwaysRecheckTarget = false,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB4302_Strat_Missile_Def',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSB_Weapon', Cue = 'XSB4302_Strat_Missile_Def', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
@@ -256,7 +248,7 @@ UnitBlueprint {
                 Land = 'Air',
                 Seabed = 'Air',
             },
-            FiringTolerance = 60,
+            FiringTolerance = 75,
 			
             ForceSingleFire = true,
 			
@@ -264,12 +256,10 @@ UnitBlueprint {
 			
             Label = 'MissileRack',
 			
-            MaxProjectileStorage = 1,
+            MaxProjectileStorage = 2,
 			
             MaxRadius = 72,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 10,
 			
             ProjectileId = '/mods/BrewLAN_LOUD/projectiles/SIFMobileHuAntiNuke01/SIFMobileHuAntiNuke01_proj.bp',
@@ -278,19 +268,10 @@ UnitBlueprint {
             RackBones = {
                 {
                     HideMuzzle = true,
-                    MuzzleBones = {
-                        'missile',
-                    },
+                    MuzzleBones = {'missile'},
                     RackBone = 'missile',
                 },
             },
-            RackFireTogether = false,
-
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -313,11 +294,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

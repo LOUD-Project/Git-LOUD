@@ -391,13 +391,10 @@ UnitBlueprint {
 	
     General = {
         CapCost = 25,
-        Category = 'Intelligence',
-        Classification = 'RULEUC_Sensor',
         FactionName = 'UEF',
         Icon = 'land',
         SatelliteCapacity = 9001,
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
             RULEUTC_WeaponToggle = false,
@@ -409,7 +406,6 @@ UnitBlueprint {
             },
         },
         UnitName = '<LOC seb3404_name>Panopticon',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -469,10 +465,7 @@ UnitBlueprint {
         MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
             Water = true,
         },
     },

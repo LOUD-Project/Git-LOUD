@@ -111,7 +111,6 @@ UnitBlueprint {
         },
 
         UnitName = '<LOC ssb2222_name>Inaino',
-        UnitWeight = 1,
     },
 
     Intel = {
@@ -213,9 +212,7 @@ UnitBlueprint {
             ProjectileId = '/mods/BrewLAN_LOUD/effects/entities/InainoWarheadEffectController/InainoWarheadEffectController_proj.bp',
             RackBones = {
                 {
-                    MuzzleBones = {
-                        0,
-                    },
+                    MuzzleBones = {0},
                     RackBone = 0,
                 },
             },

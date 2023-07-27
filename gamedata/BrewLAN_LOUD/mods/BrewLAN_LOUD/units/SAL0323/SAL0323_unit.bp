@@ -1,9 +1,7 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Dome',
-        },
+        TargetBones = {'Dome'},
     },
 	
     Audio = {
@@ -126,8 +124,6 @@ UnitBlueprint {
                 },
             },
         },
-		
-        SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
 	
@@ -143,8 +139,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_CounterMeasure',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Guard = true,
@@ -155,9 +149,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC sal0323_name>Rupture',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -248,9 +240,7 @@ UnitBlueprint {
             Label = 'AntiMissile',
 			
             MaxRadius = 22,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 25,
 			
             ProjectileId = '/projectiles/AIMAntiMissile01/AIMAntiMissile01_proj.bp',
@@ -258,18 +248,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Barrel',
-                    },
+                    MuzzleBones = {'Barrel'},
                     RackBone = 'Barrel',
                 },
             },
-            RackFireTogether = false,
-			
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -287,6 +269,7 @@ UnitBlueprint {
             WeaponUnpacks = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.35,
@@ -294,11 +277,7 @@ UnitBlueprint {
         MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -6,7 +6,9 @@ UnitBlueprint {	BlueprintId="srl0005",	General = {FactionName = 'Cybran',},  Eco
 UnitBlueprint {	BlueprintId="srl0006",	General = {FactionName = 'Cybran',},  Economy = {BuildUnit = 'srl0311',},	Categories = {'MEGALITHEGG',},	Description = '<LOC srl0006_desc>Crab Egg (MRL)',	}
 
 UnitBlueprint {
+
 	BlueprintId="srl0000",
+
     Audio = {
         Construct = Sound {
             Bank = 'URB',
@@ -49,7 +51,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 10,
+
     Categories = {
         '', --Empty key because it wont overwrite 'MEGALITHEGG'
         'SELECTABLE',
@@ -66,6 +70,7 @@ UnitBlueprint {
         'SHOWQUEUE',
 		'INSIGNIFICANTUNIT',
     },
+
     Defense = {
         AirThreatLevel = 0,
         ArmorType = 'Normal',
@@ -76,7 +81,9 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
+
     Description = '<LOC srl0000_desc>Crab Egg',
+
     Display = {
         AnimationOpen = '/units/xrl0005/xrl0005_aopen.sca',
         BuildAttachBone = 'AttachPoint',
@@ -101,39 +108,40 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0007',
-        SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
+
     Economy = {
         BuildCostEnergy = 10,
         BuildCostMass = 10,
         BuildTime = 10,
     },
+
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+
     General = {
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
         CommandCaps = {
             RULEUCC_Stop = true,
         },
         FactionName = 'Cybran',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 5,
     },
+
     Interface = {
         HelpText = '<LOC srl0001_desc>Crab Egg (Destroyer)',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -148,14 +156,18 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+
     SizeX = 1,
     SizeY = 1,
     SizeZ = 1,
+
     StrategicIconName = 'icon_structure_generic',
     StrategicIconSortPriority = 220,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -163,11 +175,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

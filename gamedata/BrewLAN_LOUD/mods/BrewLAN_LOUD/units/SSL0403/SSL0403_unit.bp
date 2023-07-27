@@ -1,12 +1,8 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Exhaust_Ring',
-            'Mandible_003',
-            'Mandible_004',
-			'SEL0403',
-        },
+        TargetBones = {'Exhaust_Ring','Mandible_003','Mandible_004','SEL0403'},
     },
+
     Audio = {
         AmbientMove = Sound {
             Bank = 'XSL',
@@ -393,8 +389,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
         UniformScale = 0.1,
     },
 	
@@ -404,7 +398,6 @@ UnitBlueprint {
         BuildRate = 50,
         BuildTime = 2400,
 		
-        --MaintenanceConsumptionPerSecondEnergy = 50,
         BuildableCategory = {
             'SELECTABLE TECH1',
             'SELECTABLE TECH2',
@@ -414,12 +407,11 @@ UnitBlueprint {
 		
         MaxBuildDistance = 20,
         NeedToFaceTargetToBuild = true,
+
         SacrificeEnergyMult = 0.95,
         SacrificeMassMult = 0.95,
+
         StorageMass = 1000,
-        TeleportEnergyMod = 0.15,
-        TeleportMassMod = 1,
-        TeleportTimeMod = 0.01,
     },
 	
     Footprint = {
@@ -438,12 +430,8 @@ UnitBlueprint {
                 'Mandible_005',
                 'Mandible_006',
             },
-            --PitchBone = 'Arm_Pitch',
-            --YawBone = 'Arm_Yaw',
         },
 		CapCost = 8,
-        Category = 'Experimental',
-        Classification = 'RULEUC_Engineer',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Capture = true,
@@ -466,9 +454,7 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 3,
-        TechLevel = 'RULEUTL_Experimental',
         UnitName = '<LOC ssl0403_name>Iyadesu',
-        UnitWeight = 4,
     },
 	
     Intel = {
@@ -507,9 +493,6 @@ UnitBlueprint {
         MeshExtentsZ = 2*2,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Amphibious',
-        RotateBodyWhileMoving = false,
-        RotateOnSpot = false,
-        RotateOnSpotThreshold = 0.5,
 		
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -0.5,
@@ -550,6 +533,7 @@ UnitBlueprint {
     Weapon = {
         {
             AutoInitiateAttackCommand = true,
+
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
@@ -581,6 +565,7 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Ultrachromatic Beam Generator',
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
@@ -593,29 +578,20 @@ UnitBlueprint {
             HeadingArcRange = 45,
 			
             Label = 'MainTurret',
+
             MaximumBeamLength = 40,
 			
             MinRadius = 8,
             MaxRadius = 40,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             ProjectileLifetimeUsesMultiplier = 1.15,
-            ProjectilesPerOnFire = 1,
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Weapon',
-                    },
+                    MuzzleBones = {'Weapon'},
                     RackBone = 'Weapon',
                 },
             },
-
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoFiresAfterCharge = false,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -757,11 +733,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

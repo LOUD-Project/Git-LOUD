@@ -3,8 +3,11 @@ local SLandUnit = import('/lua/defaultunits.lua').MobileUnit
 local SIFHuAntiNukeWeapon = import('/lua/seraphimweapons.lua').SIFHuAntiNukeWeapon
 
 SSL0321 = Class(SLandUnit) {
+
     Weapons = {
+
         MissileRack = Class(SIFHuAntiNukeWeapon) {
+
             OnWeaponFired = function(self)
                 self.unit:ForkThread(self.unit.HideMissile)   
             end,
@@ -12,9 +15,12 @@ SSL0321 = Class(SLandUnit) {
     },
 
     OnStopBeingBuilt = function(self,builder,layer)
+
         SLandUnit.OnStopBeingBuilt(self,builder,layer)
+
         local bp = self:GetBlueprint()
         local missileBone = bp.Display.MissileBone
+
         if missileBone then
             if not self.MissileSlider then
                 self.MissileSlider = CreateSlider(self, missileBone)
@@ -35,9 +41,13 @@ SSL0321 = Class(SLandUnit) {
     end,
     
     RaiseMissile = function(self)
+
         self.NotCancelled = true
+
         WaitSeconds(0.1)
+
         local missileBone = self:GetBlueprint().Display.MissileBone
+
         if missileBone and self.NotCancelled then
             self:ShowBone(missileBone, true)
             if self.MissileSlider then

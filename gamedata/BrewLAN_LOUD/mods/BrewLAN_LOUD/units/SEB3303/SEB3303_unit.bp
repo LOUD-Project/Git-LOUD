@@ -6,6 +6,7 @@ UnitBlueprint {
         MoveArms = Sound {Bank = 'XEB', Cue = 'XEB2402_Activate', LodCutoff = 'UnitMove_LodCutoff'},
         UISelection = Sound {Bank = 'Interface', Cue = 'UEF_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3COMMANDER',
@@ -102,8 +103,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_01_albedo',
@@ -138,13 +137,8 @@ UnitBlueprint {
 	
     General = {
         BuildBones = {
-            BuildEffectBones = {
-                'ConstuctBeam01',
-                'ConstuctBeam02',
-            },
+            BuildEffectBones = {'ConstuctBeam01','ConstuctBeam02'},
         },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
         CommandCaps = {
             RULEUCC_Move = true,
             RULEUCC_Stop = true,
@@ -152,13 +146,9 @@ UnitBlueprint {
         ConstructionBar = true,
         FactionName = 'UEF',
         Icon = 'land',
-		
         SatelliteCapacity = 2,
-		
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC xeb2402_name>Recon Sat Center',
-        UnitWeight = 1,
     },
 	
     Interface = {

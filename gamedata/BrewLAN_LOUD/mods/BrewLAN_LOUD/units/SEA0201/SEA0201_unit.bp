@@ -1,9 +1,7 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Body',
-        },
+        TargetBones = {'Body'},
     },
 
     Air = {
@@ -147,8 +145,7 @@ UnitBlueprint {
                 },
             },
         },
-		
-        SpawnRandomRotation = false,
+
         UniformScale = 0.04,
     },
 	
@@ -166,8 +163,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 0.2,
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Dock = true,
@@ -178,9 +173,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC sea0201_name>UX Dragonlady',
-        UnitWeight = 1,
     },
 	
     Intel = {

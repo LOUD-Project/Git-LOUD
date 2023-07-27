@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 125,
-        GuardScanRadius = 100,
+        GuardReturnRadius = 80,
+        GuardScanRadius = 60,
     },
     
     Air = {
@@ -169,8 +169,6 @@ UnitBlueprint {
     },
     
     General = {
-        Category = 'Gunship',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -189,12 +187,10 @@ UnitBlueprint {
                 helpText = 'toggle_stealth_personal',
             },
         },
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
         UnitName = '<LOC sra0315_name>Xiphos',
-        UnitWeight = 1,
     },
     
     Intel = {
@@ -289,7 +285,6 @@ UnitBlueprint {
             
             TargetPriorities = { 'SPECIALHIGHPRI','ANTIAIR','STRUCTURE DEFENSE','MOBILE','SPECIALLOWPRI','ALLUNITS -WALL'},            
             TargetRestrictDisallow = 'UNTARGETABLE, HIGHALTAIR, SATELLITE',            
-
 
             Audio = {
                  BeamLoop = Sound {Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop',   LodCutoff = 'Weapon_LodCutoff'},
@@ -568,11 +563,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

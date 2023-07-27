@@ -115,7 +115,6 @@ UnitBlueprint {
         },
 
         UnitName = '<LOC srb2222_name>Silencer',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -217,9 +216,7 @@ UnitBlueprint {
             ProjectileId = '/mods/BrewLAN_LOUD/effects/entities/EMPFluxWarheadEffectController/EMPFluxWarheadEffectController_proj.bp',
             RackBones = {
                 {
-                    MuzzleBones = {
-                        0,
-                    },
+                    MuzzleBones = {0},
                     RackBone = 0,
                 },
             },

@@ -1,13 +1,8 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Muzzle',
-			'Exhaust001',
-			'Exhaust002',
-			'Mesh001',
-			'Mesh004',
-        },
+        GuardScanRadius = 115,
+        TargetBones = {'Muzzle','Exhaust001','Exhaust002','Mesh001','Mesh004'},
     },
 
     Audio = {
@@ -206,7 +201,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.042,
     },
 	
@@ -223,8 +217,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 7,
-        Category = 'Experimental',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -235,11 +227,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
-		
-        TechLevel = 'RULEUTL_Secret',
-		
         UnitName = '<LOC sal0401_name>Absolution',
-        UnitWeight = 2,
     },
 	
     Intel = {
@@ -393,8 +381,7 @@ UnitBlueprint {
 			MinRadius = 18,
 			
             MuzzleChargeDelay = 0.5,        -- 0.5 seconds delay
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 28,
 			MuzzleVelocityRandom = 2,
             MuzzleVelocityReduceDistance = 100,
@@ -406,17 +393,12 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle',
-                    },
+                    MuzzleBones = {'Muzzle'},
                     RackBone = 'Barrel',
                 },
             },
 
             RackRecoilDistance = -3,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -432,7 +414,6 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Muzzle',
             TurretBonePitch = 'Barrel',
@@ -474,9 +455,7 @@ UnitBlueprint {
             Label = 'AntiMissile',
 			
             MaxRadius = 40,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/SIMAntiMissile01/SIMAntiMissile01_proj.bp',
@@ -485,23 +464,16 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Tracker01',
-                    },
+                    MuzzleBones = {'Tracker01'},
                     RackBone = 'Tracker01',
                 },
                 {
-                    MuzzleBones = {
-                        'Tracker02',
-                    },
+                    MuzzleBones = {'Tracker02'},
                     RackBone = 'Tracker02',
                 },
             },
 
             RackReloadTimeout = 0.5,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -512,7 +484,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TACTICAL MISSILE',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Tracker01',
             TurretBonePitch = 'Tracker01',
@@ -550,11 +522,7 @@ UnitBlueprint {
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

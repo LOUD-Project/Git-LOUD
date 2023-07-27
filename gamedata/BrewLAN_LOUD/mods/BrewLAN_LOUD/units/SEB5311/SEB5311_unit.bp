@@ -121,9 +121,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
-		
         Tarmacs = {
             {
                 Albedo = '/mods/BrewLAN_LOUD/env/Common/decals/Tarmacs/Tar7x_01_albedo.dds',
@@ -131,12 +128,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 6.4,
                 Normal = '/mods/BrewLAN_LOUD/env/Common/decals/Tarmacs/Tar7x_01_normals.dds',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 6.4,
             },
@@ -159,14 +151,11 @@ UnitBlueprint {
 	
     General = {
         CapCost = 1,
-        Category = 'Defense',
-        Classification = 'RULEUC_MiscSupport',
         CommandCaps = {
             --RULEUCC_Dive = true,
         },
         FactionName = 'UEF',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         OrderOverrides = {
             RULEUTC_WeaponToggle = {
                 bitmapId = 'dive',
@@ -183,7 +172,6 @@ UnitBlueprint {
             RULEUTC_WeaponToggle = true,
         },
         UnitName = '<LOC seb5311_name>Harrow',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -248,10 +236,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
             Water = true,
         },
     },

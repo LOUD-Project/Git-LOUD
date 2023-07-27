@@ -1,10 +1,8 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 125,
-        GuardScanRadius = 100,
-        TargetBones = {
-            'XSA0204',
-        },
+        GuardReturnRadius = 75,
+        GuardScanRadius = 50,
+        TargetBones = {'XSA0204'},
     },
 	
     Air = {
@@ -115,9 +113,7 @@ UnitBlueprint {
             AirLand = {
                 Effects = {
                     {
-                        Bones = {
-                            'XSA0204',
-                        },
+                        Bones = {'XSA0204'},
                         Type = 'Landing01',
                     },
                 },
@@ -125,9 +121,7 @@ UnitBlueprint {
             LandAir = {
                 Effects = {
                     {
-                        Bones = {
-                            'XSA0204',
-                        },
+                        Bones = {'XSA0204'},
                         Type = 'TakeOff01',
                     },
                 },
@@ -174,8 +168,6 @@ UnitBlueprint {
                 },
             },
         },
-		
-        SpawnRandomRotation = true,
         UniformScale = 0.09*1.25,
     },
 	
@@ -186,8 +178,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Bomber',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -200,9 +190,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC ssa0307_name>Souioz',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -309,19 +297,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Torpedo',
-                    },
+                    MuzzleBones = {'Torpedo'},
                     RackBone = 'Torpedo',
                 },
             },
-            RackFireTogether = false,
-			
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RateOfFire = 0.1,
 			
@@ -356,11 +335,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

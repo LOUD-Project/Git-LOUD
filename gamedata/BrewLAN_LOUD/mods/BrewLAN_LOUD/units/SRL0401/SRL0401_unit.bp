@@ -231,8 +231,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = false,
         UniformScale = 0.09,
     },
 	
@@ -253,8 +251,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 5,
-        Category = 'Transport',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -275,12 +271,10 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 2,
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
         UnitName = '<LOC srs0402_name>Abyss Crawler',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -322,10 +316,6 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Amphibious',
 		
-        RotateBodyWhileMoving = false,
-        RotateOnSpot = false,
-        RotateOnSpotThreshold = 0.5,
-		
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -2.5,
         SkirtSizeX = 9,
@@ -352,8 +342,6 @@ UnitBlueprint {
         Class3AttachSize = 4,
         TransportClass = 10,
     },
-	
-    UseOOBTestZoom = 200,
 	
     Veteran = {
         Level1 = 15,
@@ -386,9 +374,7 @@ UnitBlueprint {
             Label = 'Turret',
 			
             MaxRadius = 55,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
@@ -397,11 +383,6 @@ UnitBlueprint {
             RackBones = {
                 {MuzzleBones = {'Turret_Muzzle_001'}, RackBone = 'Turret_Barrel_001'},
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -411,7 +392,7 @@ UnitBlueprint {
 			
             TargetPriorities = {'SPECIALHIGHPRI','MOBILE','ALLUNITS'},
             TargetRestrictDisallow = 'UNTARGETABLE, HIGHALTAIR, SATELLITE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle_001',
             TurretBonePitch = 'Turret_Barrel_001',
@@ -450,9 +431,7 @@ UnitBlueprint {
             Label = 'Turret',
 			
             MaxRadius = 55,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
@@ -461,11 +440,6 @@ UnitBlueprint {
             RackBones = {
                 {MuzzleBones = {'Turret_Muzzle_002'}, RackBone = 'Turret_Barrel_002'},
             },
-			
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
 
             RateOfFire = 1.5,
 			
@@ -473,7 +447,7 @@ UnitBlueprint {
 			
             TargetPriorities = {'SPECIALHIGHPRI','MOBILE','ALLUNITS'},
             TargetRestrictDisallow = 'UNTARGETABLE, HIGHALTAIR, SATELLITE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle_002',
             TurretBonePitch = 'Turret_Barrel_002',
@@ -512,9 +486,7 @@ UnitBlueprint {
             Label = 'Turret',
 			
             MaxRadius = 55,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
@@ -523,11 +495,6 @@ UnitBlueprint {
             RackBones = {
                 {MuzzleBones = {'Turret_Muzzle_003'}, RackBone = 'Turret_Barrel_003'},
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -537,7 +504,7 @@ UnitBlueprint {
 			
             TargetPriorities = {'SPECIALHIGHPRI','MOBILE','ALLUNITS'},
             TargetRestrictDisallow = 'UNTARGETABLE, HIGHALTAIR, SATELLITE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle_003',
             TurretBonePitch = 'Turret_Barrel_003',
@@ -576,9 +543,7 @@ UnitBlueprint {
             Label = 'Turret',
 			
             MaxRadius = 55,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
@@ -588,18 +553,13 @@ UnitBlueprint {
                 {MuzzleBones = {'Turret_Muzzle_004'}, RackBone = 'Turret_Barrel_004'},
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-
             RateOfFire = 1.5,
 			
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {'SPECIALHIGHPRI','MOBILE','ALLUNITS'},
             TargetRestrictDisallow = 'UNTARGETABLE, HIGHALTAIR, SATELLITE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle_004',
             TurretBonePitch = 'Turret_Barrel_004',
@@ -635,9 +595,7 @@ UnitBlueprint {
             Label = 'Torpedo',
 			
             MaxRadius = 47,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 5,
 			
             ProjectileId = '/projectiles/CANTorpedoMeson02/CANTorpedoMeson02_proj.bp',
@@ -653,10 +611,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 0.25,
@@ -670,9 +624,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER, WALL',
-            TrackingRadius = 1.15,
-			
-            Turreted = false,
+            TrackingRadius = 1.1,
         },
 		
     },
@@ -684,11 +636,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -1,10 +1,8 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 125,
-        GuardScanRadius = 100,
-        TargetBones = {
-            'Body',
-        },
+        GuardReturnRadius = 120,
+        GuardScanRadius = 75,
+        TargetBones = {'Body'},
     },
 	
     Air = {
@@ -229,8 +227,7 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Bomber',
-        Classification = 'RULEUC_MilitaryAircraft',
+        CapCost = 2,
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -249,13 +246,12 @@ UnitBlueprint {
                 helpText = 'toggle_stealth_personal',
             },
         },
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
         UnitName = '<LOC sea0314_name>Lancer',
-        UnitWeight = 1,
     },
+
     Intel = {
         RadarRadius = 65,
         RadarStealth = true,
@@ -318,20 +314,16 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UEAWeapon',
-                    Cue = 'UEA0304_Nuke_Bomb',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UEAWeapon', Cue = 'UEA0304_Nuke_Bomb', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
 			
             Buffs = {
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 1.5,
@@ -352,7 +344,7 @@ UnitBlueprint {
 			
             DisplayName = 'Small Yield Nuclear Bomb',
 			
-            EffectiveRadius = 25,
+            EffectiveRadius = 45,
 			
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
@@ -389,10 +381,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RateOfFire = 0.2,       -- 5600 * .2 = 1200 DPS
 			
             TargetCheckInterval = 2.5,
@@ -405,7 +393,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 
             Turreted = false,
         },
@@ -413,12 +401,9 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2304_Missile_Flayer',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2304_Missile_Flayer', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -471,8 +456,6 @@ UnitBlueprint {
             },
 
             RackReloadTimeout = 37.5,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 1/12.5,        -- 96 DPS
 			
@@ -504,23 +487,22 @@ UnitBlueprint {
             TurretYawSpeed = 0,
 			
             Turreted = true,
-            WeaponCategory = 'Missile',
         },
 		
         {   --Torpedoes
             Audio = {
-                Fire = Sound {
-                    Bank = 'UEAWeapon',
-                    Cue = 'UEA0204_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UEAWeapon', Cue = 'UEA0204_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
+
             Damage = 750,
             DamageRadius = 0,
             DamageType = 'Normal',
+
             DisplayName = 'Angler Torpedo',
+
             FireTargetLayerCapsTable = {
                 Air = 'Seabed|Sub|Water',
                 Land = 'Seabed|Sub|Water',
@@ -559,10 +541,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RateOfFire = 0.08,
             
             TargetCheckInterval = 2.5,
@@ -597,10 +575,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
             Water = true,
         },
     },

@@ -1,8 +1,6 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Target',
-        },
+        TargetBones = {'Target'},
     },
 	
     Audio = {
@@ -128,8 +126,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
-
         UniformScale = 0.05,
     },
 	
@@ -150,8 +146,6 @@ UnitBlueprint {
 	
     General = {
         CapCost = .5,
-        Category = 'Defense',
-        Classification = 'RULEUC_MiscSupport',
         FactionName = 'Aeon',
         Icon = 'land',
         OrderOverrides = {
@@ -161,12 +155,10 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
         UnitName = '<LOC sab5301_name>Aegis',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -224,11 +216,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

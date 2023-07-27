@@ -26,10 +26,10 @@ Description['srb5104'] = "<LOC Unit_Description_BrewLAN_T1U001>Light air staging
 Description['ssb5104'] = "<LOC Unit_Description_BrewLAN_T1U001>Light air staging facility. Repairs and refuels individual aircrafts."
 
 --Tech 2 buildings
-Description['sab5210'] = "<LOC Unit_Description_BrewLAN_T2B001>Restricts movement of enemy units and can sustain many damage. Connects to other adjacent heavy wall sections."
-Description['srb5210'] = "<LOC Unit_Description_BrewLAN_T2B001>Restricts movement of enemy units and can sustain many damage. Connects to other adjacent heavy wall sections."
-Description['seb5210'] = "<LOC Unit_Description_BrewLAN_T2B001>Restricts movement of enemy units and can sustain many damage. Connects to other adjacent heavy wall sections."
-Description['ssb5210'] = "<LOC Unit_Description_BrewLAN_T2B001>Restricts movement of enemy units and can sustain many damage. Connects to other adjacent heavy wall sections."
+Description['sab5210'] = "<LOC Unit_Description_BrewLAN_T2B001>Quad Medium Wall Segment. Restricts movement of enemy units and can sustain many damage. Connects to other adjacent wall sections."
+Description['srb5210'] = "<LOC Unit_Description_BrewLAN_T2B001>Quad Medium Wall Segment. Restricts movement of enemy units and can sustain many damage. Connects to other adjacent wall sections."
+Description['seb5210'] = "<LOC Unit_Description_BrewLAN_T2B001>Quad Medium Wall Segment. Restricts movement of enemy units and can sustain many damage. Connects to other adjacent wall sections."
+Description['ssb5210'] = "<LOC Unit_Description_BrewLAN_T2B001>Quad Medium Wall Segment. Restricts movement of enemy units and can sustain many damage. Connects to other adjacent wall sections."
 
 --Tech 2 defense units
 Description['seb2220'] = "<LOC Unit_Description_BrewLAN_T2D005>An all-terrain pressure mine system. Visible only to Omni."

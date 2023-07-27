@@ -92,9 +92,6 @@ UnitBlueprint {
                 },
             },
         },
-		
-        SpawnRandomRotation = true,
-		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar6x_seraphim_01_albedo',
@@ -102,12 +99,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 6.4,
                 Normal = 'Tarmacs/Tar6x_seraphim_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 6.4,
             },
@@ -124,8 +116,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Strategic',
-        Classification = 'RULEUC_MiscSupport',
         CommandCaps = {
             RULEUCC_Transport = true,
         },
@@ -138,9 +128,7 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC ssb5104_name>Iathu-uhthe',
-        UnitWeight = 1,
     },
 	
     Interface = {
@@ -197,11 +185,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

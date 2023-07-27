@@ -1,8 +1,8 @@
 UnitBlueprint {
 
     AI = {
-        GuardReturnRadius = 125,
-        GuardScanRadius = 100,
+        GuardReturnRadius = 100,
+        GuardScanRadius = 60,
         TargetBones = {'Body'},
     },
 	
@@ -184,8 +184,6 @@ UnitBlueprint {
     
     General = {
         CapCost = 2,
-        Category = 'Fighter',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -204,12 +202,10 @@ UnitBlueprint {
                 helpText = 'toggle_stealth_personal',
             },
         },
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
         UnitName = '<LOC ssa0313_name>Ialosaare',
-        UnitWeight = 1,
     },
     
     Intel = {

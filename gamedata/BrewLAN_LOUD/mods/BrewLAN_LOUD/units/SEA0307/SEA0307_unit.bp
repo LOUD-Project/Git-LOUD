@@ -1,10 +1,8 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 125,
-        GuardScanRadius = 100,
-        TargetBones = {
-            'Body',
-		},
+        GuardReturnRadius = 75,
+        GuardScanRadius = 50,
+        TargetBones = {'Body'},
     },
 	
     Air = {
@@ -110,7 +108,6 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 4,
         ArmorType = 'Light',
-
         Health = 3300,
         MaxHealth = 3300,
         RegenRate = 6,
@@ -200,8 +197,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Bomber',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -214,9 +209,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC sea0307_name>Albatross',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -285,7 +278,9 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -326,10 +321,6 @@ UnitBlueprint {
                     RackBone = 'Bomb',
                 },
             },
-			
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
 			RangeCategory = 'UWRC_AntiNavy',
 			
@@ -372,9 +363,7 @@ UnitBlueprint {
 			LeadTarget = true,
 			
             MaxRadius = 38,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 65,
             
             notExclusive = true,
@@ -388,10 +377,6 @@ UnitBlueprint {
                     RackBone = 'Barrel_L',
                 },
             },
-			
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -403,9 +388,9 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Muzzle_L',
             TurretBonePitch = 'Barrel_L',
@@ -446,9 +431,7 @@ UnitBlueprint {
             Label = 'LinkedRailGun',
 			
             MaxRadius = 38,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 65,
             
             NotExclusive = true,
@@ -463,10 +446,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
             RateOfFire = 2,
@@ -477,9 +456,9 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Muzzle_R',
             TurretBonePitch = 'Barrel_R',
@@ -509,6 +488,7 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -516,11 +496,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -1,10 +1,8 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 125,
-        GuardScanRadius = 100,
-		TargetBones = {
-            'Hat',
-		},
+        GuardReturnRadius = 120,
+        GuardScanRadius = 75,
+		TargetBones = {'Hat'},
     },
     Air = {
         AutoLandTime = 1.6,
@@ -209,7 +207,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.055,
     },
 	
@@ -229,8 +226,7 @@ UnitBlueprint {
 	},
 	
     General = {
-        Category = 'Bomber',
-        Classification = 'RULEUC_MilitaryAircraft',
+        CapCost = 2,
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -249,12 +245,10 @@ UnitBlueprint {
                 helpText = 'toggle_stealth_personal',
             },
         },
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
         UnitName = '<LOC sra0314_name>Sanguine Tyrant',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -321,6 +315,7 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             AutoInitiateAttackCommand = true,
             
             BallisticArc = 'RULEUBA_None',
@@ -329,9 +324,7 @@ UnitBlueprint {
 			
             Buffs = {
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 1,
@@ -350,7 +343,7 @@ UnitBlueprint {
 			
             DisplayName = 'Neutron Bomb',
 			
-            EffectiveRadius = 25,
+            EffectiveRadius = 45,
 			
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
@@ -383,15 +376,9 @@ UnitBlueprint {
                     RackBone = 'Bomb_001',
                 },
             },
-            RackFireTogether = false,
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
             RateOfFire = 0.2,       -- 5300 * .2 = 1060 DPS
+
             TargetCheckInterval = 2.5,
 			
             TargetPriorities = {
@@ -463,8 +450,6 @@ UnitBlueprint {
             },
 
             RackReloadTimeout = 37.5,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 1/12.5,        -- 96 DPS
 			
@@ -549,10 +534,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RateOfFire = 0.08,
 			
             TargetCheckInterval = 2.5,
@@ -564,7 +545,6 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
             TrackingRadius = 1.15,
             Turreted = false,
-            WeaponCategory = 'Anti Navy',
         },
         {
             AboveWaterTargetsOnly = true,
@@ -586,11 +566,8 @@ UnitBlueprint {
         MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = true,
         },
     },
 }

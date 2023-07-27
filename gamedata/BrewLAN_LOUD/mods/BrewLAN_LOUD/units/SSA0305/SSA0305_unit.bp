@@ -1,9 +1,9 @@
 UnitBlueprint {
 
 	AI = {
-        TargetBones = {
-            'XSA0203',
-        },
+        GuardScanRadius = 45,
+        GuardReturnRadius = 75,
+        TargetBones = {'XSA0203'},
     },
 	
     Air = {
@@ -104,9 +104,7 @@ UnitBlueprint {
             AirLand = {
                 Effects = {
                     {
-                        Bones = {
-                            'XSA0203',
-                        },
+                        Bones = {'XSA0203'},
                         Type = 'Landing01',
                     },
                 },
@@ -114,9 +112,7 @@ UnitBlueprint {
             LandAir = {
                 Effects = {
                     {
-                        Bones = {
-                            'XSA0203',
-                        },
+                        Bones = {'XSA0203'},
                         Type = 'TakeOff01',
                     },
                 },
@@ -134,9 +130,7 @@ UnitBlueprint {
                 {
                     LODCutoff = 215,
                     ShaderName = 'Seraphim',
-                  --  MeshName = '/units/xsa0203/xsa0203_lod1.scm', --needs a custom Lod1 mesh
                     AlbedoName = '/units/xsa0203/xsa0203_lod1_albedo.dds',
-                  --  NormalsName = '/units/xsa0203/xsa0203_lod1_normalsTS.dds', --seemed fine without before
                     SpecularName = '/units/xsa0203/xsa0203_lod1_specteam.dds',
                 },
             },
@@ -146,17 +140,12 @@ UnitBlueprint {
             Air = {
                 Effects = {
                     {
-                        Bones = {
-                            'Left_Exhaust',
-                            'Exhaust_03',
-                        },
+                        Bones = {'Left_Exhaust','Exhaust_03'},
                         Type = 'AirMoveExhaust03',
                     },
                 },
             },
         },
-
-        SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
 	
@@ -173,8 +162,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Gunship',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -187,9 +174,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC ssa0305_name>Vulthuum',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -291,19 +276,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle_AA',
-                    },
+                    MuzzleBones = {'Turret_Muzzle_AA'},
                     RackBone = 'Turret_Muzzle_AA',
                 },
             },
-            RackFireTogether = false,
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -319,9 +295,9 @@ UnitBlueprint {
                 'AIR',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.20,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Turret_Muzzle_AA',
             TurretBonePitch = 'Turret_Muzzle_AA',
@@ -384,10 +360,6 @@ UnitBlueprint {
                     RackBone = 'Left_Turret_Barrel',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -460,10 +432,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RateOfFire = 1,		-- 140 DPS
 			
             TargetCheckInterval = 0.4,
@@ -508,11 +476,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

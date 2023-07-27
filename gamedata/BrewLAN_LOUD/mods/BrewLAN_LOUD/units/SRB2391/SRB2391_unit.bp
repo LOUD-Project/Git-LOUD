@@ -1,10 +1,7 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Effect_004',
-			'Turret',
-        },
+        TargetBones = {'Effect_004','Turret'},
     },
 	
     Audio = {
@@ -62,7 +59,6 @@ UnitBlueprint {
     CollisionOffsetY = -0.25,
 	
     Defense = {
-
         ArmorType = 'Structure',
         EconomyThreatLevel = 2,
         Health = 18910,
@@ -87,8 +83,6 @@ UnitBlueprint {
                 {LODCutoff = 260, ShaderName = 'Insect'},
             },
         },
-
-        SpawnRandomRotation = true,
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar6x_cybran_01_albedo',
@@ -120,8 +114,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -136,12 +128,10 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
         UnitName = '<LOC srb2391_name>Tesla Coil',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -211,9 +201,7 @@ UnitBlueprint {
 			
             Buffs = {
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 0.6,
@@ -249,29 +237,20 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0,
             FiringTolerance = 2,
 			
             Label = 'MainGun',
 			
             MaxRadius = 25,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             ProjectileLifetimeUsesMultiplier = 1.15,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle',
-                    },
+                    MuzzleBones = {'Muzzle'},
                     RackBone = 'Turret',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -339,6 +318,7 @@ UnitBlueprint {
             MaxRadius = 3,
 			
             MuzzleVelocity = 0,
+
             ProjectileId = '/projectiles/CIFEMP01/CIFEMP01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.15,
 			
@@ -350,6 +330,7 @@ UnitBlueprint {
 			
             SalvoSize = 1,
             SlavedToBody = true,
+
             TargetCheckInterval = 1,
             TargetRestrictDisallow = 'UNTARGETABLE',
             WeaponCategory = 'Direct Fire',
@@ -363,11 +344,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }
