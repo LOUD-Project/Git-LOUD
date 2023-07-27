@@ -16,7 +16,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 200,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -35,7 +37,9 @@ UnitBlueprint {
         'OVERLAYCOUNTERINTEL',
         'SORTINTEL',
     },
+
     CollisionOffsetY = -0.25,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 4,
@@ -43,7 +47,9 @@ UnitBlueprint {
         MaxHealth = 200,
         RegenRate = 0,
     },
+
     Description = '<LOC xsb4203_desc>Stealth Field Generator',
+
     Display = {
         Abilities = {
             '<LOC ability_stealthfield>Stealth Field',
@@ -56,7 +62,7 @@ UnitBlueprint {
                 Weight = 1,
             },
         },
---        AnimationPermOpen = '/units/xsb4203/xsb4203_AActivate.sca',
+
         DamageEffects = {
             {
                 Bone = 0,
@@ -93,8 +99,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_seraphim_01_albedo',
@@ -102,34 +106,30 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar8x_seraphim_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
         },
         UniformScale = 0.035,
     },
+
     Economy = {
         BuildCostEnergy = 5670,
         BuildCostMass = 378,
         BuildTime = 420,
+
         MaintenanceConsumptionPerSecondEnergy = 125,
-        RebuildBonusIds = {
-            'xsb4203',
-        },
+
+        RebuildBonusIds = {'xsb4203'},
     },
+
     Footprint = {
         SizeX = 3,
         SizeZ = 3,
     },
+
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_CounterMeasure',
         FactionName = 'Seraphim',
         Icon = 'land',
         OrderOverrides = {
@@ -139,25 +139,27 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
         UnitName = '<LOC xsb4203_name>Sele-ioz',
-        UnitWeight = 1,
     },
+
     Intel = {
         RadarStealthFieldRadius = 24,
         ReactivateTime = 5,
         SonarStealthFieldRadius = 24,
         VisionRadius = 0,
     },
+
     Interface = {
         HelpText = '<LOC xsb4203_help>Stealth Field Generator',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.75,
     LifeBarSize = 1.4,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -177,14 +179,18 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+
     SelectionSizeX = 1,
     SelectionSizeZ = 1,
     SelectionThickness = 0.4,
+
     SizeX = 1.5,
     SizeY = 5.2,
     SizeZ = 1.5,
+
     StrategicIconName = 'icon_structure2_counterintel',
     StrategicIconSortPriority = 230,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -192,11 +198,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

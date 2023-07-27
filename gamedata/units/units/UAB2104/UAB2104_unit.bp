@@ -58,6 +58,7 @@ UnitBlueprint {
         Abilities = {
             'Aquatic',
         },
+
         DamageEffects = {
             {
                 Bone = 0,
@@ -66,6 +67,7 @@ UnitBlueprint {
                 OffsetZ = 0,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -82,7 +84,6 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.06,
     },
 	
@@ -97,8 +98,6 @@ UnitBlueprint {
     Footprint = { MinWaterDepth = 1 },
 	
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -107,9 +106,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC uab2104_name>Seeker',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -167,13 +164,10 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2104_Pulse_Battery',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB2104_Pulse_Battery', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -190,12 +184,11 @@ UnitBlueprint {
             FiringTolerance = 0.1,
 			
             Label = 'AAGun',
+
 			LeadTarget = true,
 			
             MaxRadius = 44,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 60,
 			
             ProjectileId = '/projectiles/AAASonicPulse01/AAASonicPulse01_proj.bp',
@@ -203,19 +196,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-            
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -252,11 +236,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

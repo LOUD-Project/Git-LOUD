@@ -73,7 +73,6 @@ UnitBlueprint {
             },
         },
 
-
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar6x_01_albedo',
@@ -81,16 +80,12 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 6.4,
                 Normal = 'Tarmacs/Tar6x_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = { 0, 90, 180, 270 },
                 RemoveWhenDead = false,
                 Width = 6.4,
             },
         },
+
         UniformScale = 0.40,
     },
 	
@@ -109,8 +104,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -119,9 +112,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC xeb2306_name>Ravager',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -180,13 +171,9 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
 			AlwaysRecheckTarget = true,
-			AnimationReload = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEL_Weapons',
-                    Cue = 'XEB2306_Gatling_Gun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEL_Weapons', Cue = 'XEB2306_Gatling_Gun', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -203,9 +190,9 @@ UnitBlueprint {
             },
 			
             FiringRandomness = 0.2,
-            FiringTolerance = 0.5,
+            FiringTolerance = 2,
 			
-            Label = 'MainGun',
+            Label = 'Gatling',
 			
 			LeadTarget = true,
 			
@@ -220,20 +207,18 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Gun_Muzzle',
-                    },
+                    MuzzleBones = {'Gun_Muzzle'},
                     RackBone = 'Gun_Barrel',
                 },
             },
 
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0.5,
-            RackSalvoReloadTime = 3,
+            RackSalvoReloadTime = 2.7,
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,			---- 2400 Damage every 8 seconds (5 seconds of fire + 3 seconds reload) = 300 DPS
+            RateOfFire = 1,			---- 2400 Damage every 8 seconds (4.8 seconds of fire + 2.7 seconds reload + .5 second charge) = 300 DPS
 			
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -244,7 +229,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Muzzle',
             TurretBonePitch = 'Turret_Barrel',
@@ -257,7 +242,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 44,
+            TurretYawSpeed = 42,
 			
             Turreted = true,
 			
@@ -281,11 +266,7 @@ UnitBlueprint {
         MassMult = 1.0,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

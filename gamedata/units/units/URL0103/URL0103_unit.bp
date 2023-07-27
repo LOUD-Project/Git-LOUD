@@ -1,8 +1,9 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+		GuardReturnRadius = 45,
+        GuardScanRadius = 36,
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -20,6 +21,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {},
 	
     BuildIconSortPriority = 60,
@@ -72,8 +74,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.1,
     },
 	
@@ -84,8 +84,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Indirect Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -97,9 +95,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC url0103_name>Medusa',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -163,6 +159,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
+
             Audio = {
                 Fire = Sound {
                     Bank = 'URLWeapon',
@@ -170,12 +167,12 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             BallisticArc = 'RULEUBA_HighArc',
+
             Buffs = {
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = {OnImpact = true},
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 1,
@@ -204,9 +201,7 @@ UnitBlueprint {
 			
             MaxRadius = 36,
             MinRadius = 5,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 14,
             MuzzleVelocityReduceDistance = 28,
 			
@@ -215,19 +210,12 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
-             
+
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -242,7 +230,9 @@ UnitBlueprint {
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+
+            TrackingRadius = 1.1,
+
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',

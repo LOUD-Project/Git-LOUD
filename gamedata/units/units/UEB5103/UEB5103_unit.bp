@@ -10,7 +10,9 @@ UnitBlueprint {
         'RESEARCHCENTRE',
         'NONSUPREMACY',
     },
+
     CollisionOffsetY = -0.25,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 0.1,
@@ -18,7 +20,9 @@ UnitBlueprint {
         MaxHealth = 10,
         RegenRate = 0,
     },
+
     Description = '<LOC ueb5103_desc>UEF Quantum Gate Beacon',
+
     Display = {
         Mesh = {
             IconFadeInZoom = 0,
@@ -35,35 +39,35 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = false,
         UniformScale = 0.1,
     },
+
     Economy = {
         BuildCostEnergy = 50,
         BuildCostMass = 5,
         BuildTime = 50,
-        RebuildBonusIds = {
-            'ueb5103',
-        },
+
+        RebuildBonusIds = {'ueb5103'},
     },
+
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_MiscSupport',
         FactionName = 'UEF',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 0,
     },
+
     Interface = {
         HelpText = '<LOC ueb5103_help>UEF Quantum Gate Beacon',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1,
     LifeBarSize = 1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -79,11 +83,14 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.3,
     SelectionSizeZ = 0.3,
     SelectionThickness = 1.2,
+
     SizeX = 1,
     SizeY = 1,
     SizeZ = 1,
+
     StrategicIconSortPriority = 175,
 }

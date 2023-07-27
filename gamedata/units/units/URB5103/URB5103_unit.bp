@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Categories = {
         'CYBRAN',
         'STRUCTURE',
@@ -9,7 +10,9 @@ UnitBlueprint {
 		'INSIGNIFICANTUNIT',
         'MOBILEBUILDERONLY',
     },
+
     CollisionOffsetY = -0.25,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 0.1,
@@ -17,7 +20,9 @@ UnitBlueprint {
         MaxHealth = 10,
         RegenRate = 0,
     },
+
     Description = '<LOC urb5103_desc>Quantum Gate Beacon',
+
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -35,35 +40,35 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = false,
         UniformScale = 0.1,
     },
+
     Economy = {
         BuildCostEnergy = 50,
         BuildCostMass = 5,
         BuildTime = 50,
-        RebuildBonusIds = {
-            'urb5103',
-        },
+
+        RebuildBonusIds = {'urb5103'},
     },
+
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_MiscSupport',
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 0,
     },
+
     Interface = {
         HelpText = '<LOC urb5103_help>Quantum Gateway Node',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.05,
     LifeBarSize = 0.75,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -79,11 +84,14 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.3,
     SelectionSizeZ = 0.3,
     SelectionThickness = 1.2,
+
     SizeX = 1,
     SizeY = 1,
     SizeZ = 1,
+
     StrategicIconSortPriority = 175,
 }

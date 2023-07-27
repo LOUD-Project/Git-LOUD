@@ -25,16 +25,16 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
-    CollisionOffsetX = 0,
-    CollisionOffsetY = 0,
-    CollisionOffsetZ = 0,
+
     Defense = {
         ArmorType = 'Normal',
         Health = 1000,
         MaxHealth = 1000,
         RegenRate = 0,
     },
+
     Description = '<LOC uac1301_desc>Aeon Administrative Structure',
+
     Display = {
         DamageEffects = {
             {
@@ -90,8 +90,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UAC1301',
-        SpawnRandomRotation = true,
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_aeon_01_albedo',
@@ -110,29 +109,31 @@ UnitBlueprint {
         },
         UniformScale = 0.1,
     },
+
     Economy = {
         BuildCostEnergy = 0,
         BuildCostMass = 300,
         BuildTime = 50,
     },
+
     Footprint = {
         SizeX = 3,
         SizeZ = 3,
     },
+
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_MiscSupport',
         FactionName = 'Aeon',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
     },
+
     Interface = {
         HelpText = '<LOC uac1301_help>Aeon Civilian Structure',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.05,
     LifeBarSize = 3.25,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -152,25 +153,26 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+
     SelectionSizeX = 2.4,
     SelectionSizeZ = 1.65,
     SelectionThickness = 0.28,
+
     SizeX = 3,
     SizeY = 2,
     SizeZ = 1.75,
+
     StrategicIconName = 'icon_structure_generic',
     StrategicIconSortPriority = 207,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
             Water = true,
         },
     },

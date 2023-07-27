@@ -79,7 +79,7 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = false,
+
         UniformScale = 0.095,
     },
     
@@ -116,13 +116,8 @@ UnitBlueprint {
     
     General = {
         BuildBones = {
-            BuildEffectBones = {
-                'Right_Exhaust03',
-                'Right_Exhaust02',
-            },
+            BuildEffectBones = {'Right_Exhaust03','Right_Exhaust02'},
         },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -135,20 +130,23 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'sea',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-        UnitWeight = 1,
+
         UpgradesFrom = 'urb0103',
         UpgradesTo = 'urb0303',
     },
+
     Intel = {
         VisionRadius = 10,
     },
+
     Interface = {
         HelpText = 'Improved Naval Factory',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 6,
     LifeBarSize = 4.5,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -158,6 +156,7 @@ UnitBlueprint {
         MaxSteerForce = 0,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
+
         RollOffPoints = {
             {
                 UnitSpin = 180,
@@ -178,15 +177,19 @@ UnitBlueprint {
         SkirtSizeZ = 12,
         TurnRate = 0,
     },
+
     SelectionMeshUseTopAmount = 0.15,
     SelectionSizeX = 2.6,
     SelectionSizeZ = 8.1,
     SelectionThickness = 0.21,
+
     SizeX = 4,
     SizeY = 2,
     SizeZ = 10,
+
     StrategicIconName = 'icon_factory2_naval',
     StrategicIconSortPriority = 215,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

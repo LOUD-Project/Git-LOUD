@@ -45,8 +45,6 @@ UnitBlueprint {
         'SORTECONOMY',
     },
     
-    CollisionOffsetY = 0,
-    
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 79,		-- 10% Energy + 1% Health
@@ -136,7 +134,6 @@ UnitBlueprint {
                 },
             },
         },
-
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_seraphim_01_albedo',
@@ -176,13 +173,9 @@ UnitBlueprint {
     
     General = {
 		CapCost = 6,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-        UnitWeight = 1,
     },
     
     Interface = {

@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
 		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+        GuardScanRadius = 28,
     },
 	
     Audio = {
@@ -82,8 +82,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.06,
     },
 	
@@ -94,7 +92,6 @@ UnitBlueprint {
     },
 	
     General = {
-
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -106,7 +103,6 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'amph',
-
         UnitName = '<LOC xsl0303_name>Othuum',
     },
 	
@@ -204,9 +200,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Barrel_Recoil_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Barrel_Recoil_Muzzle'},
                     RackBone = 'Turret_Barrel_Recoil',
                 },
             },
@@ -281,9 +275,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Turret_Barrel_Muzzle01',
-                    },
+                    MuzzleBones = {'Right_Turret_Barrel_Muzzle01'},
                     RackBone = 'Right_Turret_Barrel',
                 },
             },
@@ -354,16 +346,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Turret_Barrel_Muzzle01',
-                    },
+                    MuzzleBones = {'Left_Turret_Barrel_Muzzle01'},
                     RackBone = 'Left_Turret_Barrel',
                 },
             },
-            
-            RackReloadTimeout = 10,
-
-
 
             RateOfFire = 1,		-- another 150 DPS
 			
@@ -427,15 +413,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Torpedo_Muzzle',
-                    },
+                    MuzzleBones = {'Torpedo_Muzzle'},
                     RackBone = 'Torpedo_Muzzle',
                 },
             },
-            
-
-
 			
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -465,11 +446,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

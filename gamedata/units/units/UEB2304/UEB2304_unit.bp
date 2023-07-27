@@ -71,8 +71,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.13,
     },
 	
@@ -89,8 +87,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -99,9 +95,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC ueb2304_name>Flayer',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -193,6 +187,7 @@ UnitBlueprint {
             
             ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
             ProjectileLifetime = 5,
+
             RackBones = {
                 {
                     MuzzleBones = {
@@ -206,9 +201,6 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-
-
-
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -233,6 +225,7 @@ UnitBlueprint {
             TurretPitch = 25,
             TurretPitchRange = 80,
             TurretPitchSpeed = 120,
+
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 90,
@@ -247,10 +240,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
             Water = true,
         },
     },

@@ -71,8 +71,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_cybran_01_albedo',
@@ -80,12 +78,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar12x_cybran_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
@@ -96,7 +89,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 660000,
         BuildCostMass = 34500,
-        BuildTime = 41000,	---- was 29000
+        BuildTime = 41000,
 		
         RebuildBonusIds = {'urb2302'},
     },
@@ -108,8 +101,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 4,
-        Category = 'Strategic',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -118,9 +109,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC urb2302_name>Disruptor',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -237,9 +226,7 @@ UnitBlueprint {
 			
             MaxRadius = 850,
             MinRadius = 100,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 68.5,
             MuzzleVelocityReduceDistance = 850,
 			
@@ -248,20 +235,12 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Barrel_B01',
                 },
             },
-             
+
             RackRecoilDistance = -7,
-
-
-            RackSalvoFiresAfterCharge = false,
-             
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -299,11 +278,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

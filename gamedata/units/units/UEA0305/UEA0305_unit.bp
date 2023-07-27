@@ -1,8 +1,8 @@
 UnitBlueprint {
     AI = {
-		GuardRadius = 100,
-        GuardReturnRadius = 125,
-        GuardScanRadius = 100,
+		GuardRadius = 68,
+        GuardReturnRadius = 100,
+        GuardScanRadius = 68,
     },
 	
     Air = {
@@ -57,8 +57,6 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-	
-    AverageDensity = 1,
 	
     Buffs = {
         Regen = {
@@ -131,7 +129,6 @@ UnitBlueprint {
     },
 
     General = {
-
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -160,7 +157,6 @@ UnitBlueprint {
     LifeBarSize = 1.5,
 	
     Physics = {
-	
         BankingSlope = 0.5,
 		
         BuildOnLayerCaps = { LAYER_Air = true },
@@ -179,7 +175,6 @@ UnitBlueprint {
         MeshExtentsZ = 1.75,
 		
         MotionType = 'RULEUMT_Air',
-		
     },
 	
     SelectionSizeX = 1.0,
@@ -342,9 +337,9 @@ UnitBlueprint {
             TargetPriorities = {
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Turret_Up_Barrel',
             TurretBonePitch = 'Turret_Up_Barrel',

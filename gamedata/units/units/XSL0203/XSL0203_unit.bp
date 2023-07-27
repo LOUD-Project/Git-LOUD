@@ -1,8 +1,9 @@
 UnitBlueprint {
     AI = {
 		GuardReturnRadius = 35,
-        GuardScanRadius = 35,
+        GuardScanRadius = 25,
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -81,8 +82,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = false,
         UniformScale = 0.05,
     },
 	
@@ -93,8 +92,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -106,19 +103,21 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC xsl0203_name>Yenzyne',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 24,
     },
+
     Interface = {
         HelpText = 'Hover Tank',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,
     LifeBarSize = 0.75,
+
     Physics = {
         BackUpDistance = 3,
         BankingSlope = 0,
@@ -203,9 +202,7 @@ UnitBlueprint {
             Label = 'TauCannon01',
 			
             MaxRadius = 25,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/SDFTauCannon01/SDFTauCannon01_proj.bp',
@@ -213,25 +210,17 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
-             
+
             RackRecoilDistance = -0.1,
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.5,		---- 75 DPS
 			
-            SlavedToBody = false,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -240,7 +229,7 @@ UnitBlueprint {
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
@@ -262,11 +251,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

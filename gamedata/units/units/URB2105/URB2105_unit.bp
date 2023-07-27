@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'T2EnergyStorageAdjacencyBuffs',
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -17,7 +19,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 90,
+
     Categories = {
         'SELECTABLE',
         'CYBRAN',
@@ -29,7 +33,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SHOWQUEUE',
     },
+
     CollisionOffsetZ = 0.1,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 63,
@@ -37,7 +43,9 @@ UnitBlueprint {
         MaxHealth = 1500,
         RegenRate = 2,
     },
+
     Description = '<LOC urb1105_desc>Improved Energy Storage',
+
     Display = {
         Abilities = {
 			'Adjacency bonuses to Energy Production & Shields',
@@ -64,46 +72,45 @@ UnitBlueprint {
                  },
              },
         },
-        PlaceholderMeshName = 'UXB0014',
-
         UniformScale = 0.35,
     },
+
     Economy = {
         AdjacentEnergyProductionMod = 2.5,
+
         BuildCostEnergy = 4800,
         BuildCostMass = 1000,
         BuildRate = 15,
         BuildTime = 1000,
-		BuildableCategory = {
-            'urb3105',
-        },
-        RebuildBonusIds = {
-            'urb1105',
-		},
+
+		BuildableCategory = {'urb3105'},
+        RebuildBonusIds = {'urb1105'},
+
         StorageEnergy = 5500,
     },
+
     General = {
 		CapCost = .25,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
 			RULEUCC_Pause = true,
         },
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
+
         UpgradesFrom = 'urb1105',
         UpgradesFromBase = 'urb1105',
         UpgradesTo = 'urb3105',
     },
+
     Interface = {
         HelpText = 'Improved Energy Storage',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.45,
     LifeBarSize = 1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -121,14 +128,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.75,
     SelectionSizeZ = 0.75,
     SelectionThickness = 0.6,
+
     SizeX = 0.85,
     SizeY = 1,
     SizeZ = 0.7,
+
     StrategicIconName = 'icon_node2_energy',
     StrategicIconSortPriority = 250,
+
     Weapon = {
         {
             Damage = 2500,
@@ -141,6 +152,7 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -148,11 +160,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -43,7 +43,9 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 0,
     },
+
     Description = '<LOC xrl0002_desc>Crab Egg (Engineer)',
+
     Display = {
         AnimationOpen = '/units/xrl0002/xrl0002_aopen.sca',
         BuildAttachBone = 'AttachPoint',
@@ -62,40 +64,41 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.05,
     },
+
     Economy = {
         BuildCostEnergy = 4400,
         BuildCostMass = 625,
         BuildTime = 3125,
         BuildUnit = 'url0309',
     },
+
     Footprint = {
         SizeX = 2,
         SizeZ = 2,
     },
+
     General = {
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
         CommandCaps = {
             RULEUCC_Stop = true,
         },
         FactionName = 'Cybran',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Secret',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 0,
     },
+
     Interface = {
         HelpText = 'Crab Egg (Engineer)',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -110,12 +113,15 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+
     SizeX = 1,
     SizeY = 1,
     SizeZ = 1,
+
     StrategicIconName = 'icon_structure_generic',
     StrategicIconSortPriority = 220,
 }

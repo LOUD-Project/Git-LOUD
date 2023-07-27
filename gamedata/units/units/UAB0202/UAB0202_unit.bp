@@ -74,7 +74,7 @@ UnitBlueprint {
                 },
             },
         },
-
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_aeon_01_albedo',
@@ -130,8 +130,7 @@ UnitBlueprint {
                 'Turret_Muzzle_02',
             },
         },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
+
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -144,20 +143,23 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'air',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-        UnitWeight = 1,
+
         UpgradesFrom = 'uab0102',
         UpgradesTo = 'uab0302',
     },
+
     Intel = {
         VisionRadius = 10,
     },
+
     Interface = {
         HelpText = 'Improved Air Factory',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 2,
     LifeBarSize = 4.5,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -295,6 +297,7 @@ UnitBlueprint {
             -- z
             0,
         },
+
         RollOffPoints = {
             {
                 UnitSpin = 90,
@@ -315,16 +318,20 @@ UnitBlueprint {
         SkirtSizeZ = 8,
         TurnRate = 0,
     },
+
     SelectionCenterOffsetX = 0.22,
     SelectionCenterOffsetZ = -0.25,    
     SelectionSizeX = 2.85,
     SelectionSizeZ = 2.75,
     SelectionThickness = 0.35,
+
     SizeX = 4,
     SizeY = 0.7,
     SizeZ = 4,
+
     StrategicIconName = 'icon_factory2_air',
     StrategicIconSortPriority = 215,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -332,11 +339,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

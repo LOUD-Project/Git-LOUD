@@ -76,8 +76,6 @@ UnitBlueprint {
             },
         },
 		
-
-		
         TransportAnimation = {
             {
                 Animation = '/units/XSL0104/XSL0104_afold01.sca',
@@ -94,8 +92,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Anti Air',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -107,9 +103,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC xsl0104_name>Ia-istle',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -219,12 +213,7 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
 
-
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_AntiAir',
@@ -267,11 +256,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

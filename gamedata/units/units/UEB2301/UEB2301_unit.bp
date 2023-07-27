@@ -15,6 +15,7 @@ UnitBlueprint {
     Buffs = {},
 	
     BuildIconSortPriority = 110,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -32,7 +33,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTDEFENSE',
     },
+
     CollisionOffsetY = -0.5,
+
     Defense = {
         ArmorType = 'Structure',
         Health = 2250,
@@ -40,7 +43,9 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 23.3,
     },
+
     Description = '<LOC ueb2301_desc>Improved Point Defense',
+
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -57,8 +62,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.2,
     },
 	
@@ -66,14 +69,11 @@ UnitBlueprint {
         BuildCostEnergy = 5000,
         BuildCostMass = 550,
         BuildTime = 550,
-        RebuildBonusIds = {
-            'ueb2301',
-        },
+
+        RebuildBonusIds = {'ueb2301'},
     },
 
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -82,9 +82,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC ueb2301_name>Triad',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -167,9 +165,7 @@ UnitBlueprint {
             LeadTarget = true,
 			
             MaxRadius = 44,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 36,
 			
             ProjectileId = '/projectiles/TDFGauss02/TDFGauss02_proj.bp',
@@ -185,13 +181,8 @@ UnitBlueprint {
                     RackBone = 'Turret_Recoil',
                 },
             },
-             
+
             RackRecoilDistance = -2,
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -222,6 +213,7 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
@@ -229,11 +221,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

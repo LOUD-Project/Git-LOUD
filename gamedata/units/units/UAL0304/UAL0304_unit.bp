@@ -1,8 +1,9 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+		GuardReturnRadius = 110,
+        GuardScanRadius = 92,
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -76,7 +77,6 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.035,
     },
 	
@@ -88,8 +88,6 @@ UnitBlueprint {
 	
     General = {
         CapCost = 2,
-        Category = 'Indirect Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -101,9 +99,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC ual0304_name>Serenity',
-        UnitWeight = 1,
     },
     
     Intel = {
@@ -207,33 +203,23 @@ UnitBlueprint {
             MaxRadius = 92,
             MinRadius = 8,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 25,
             MuzzleVelocityReduceDistance = 85,
 			
             ProjectileId = '/projectiles/AIFSonanceShell01/AIFSonanceShell01_proj.bp',
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
-             
+
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 1,         -- every 10 seconds by charge = 100 DPS
-
-			
+		
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -244,16 +230,20 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
+
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = false,
+
             TurretPitch = 30,
             TurretPitchRange = 60,
             TurretPitchSpeed = 20,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 30,
+
             Turreted = true,
         },
     },
@@ -265,11 +255,7 @@ UnitBlueprint {
         MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

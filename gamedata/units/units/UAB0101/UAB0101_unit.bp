@@ -128,7 +128,6 @@ UnitBlueprint {
             },
         },
 
-
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_aeon_01_albedo',
@@ -183,8 +182,7 @@ UnitBlueprint {
                 'Tier1_Arm_Refpoint',
             },
         },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
+
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -197,19 +195,21 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
         UpgradesTo = 'uab0201',
     },
+
     Intel = {
         VisionRadius = 10,
     },
+
     Interface = {
         HelpText = 'Basic Land Factory',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.9,
     LifeBarSize = 4.5,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -305,6 +305,7 @@ UnitBlueprint {
             -- z
             0.05,
         },
+
         RollOffPoints = {
             {
                 UnitSpin = 90,
@@ -319,20 +320,25 @@ UnitBlueprint {
                 Z = 0.35,
             },
         },
+
         SkirtOffsetX = -1.5,
         SkirtOffsetZ = -1.5,
         SkirtSizeX = 8,
         SkirtSizeZ = 8,
         TurnRate = 0,
     },
+
     SelectionSizeX = 2.75,
     SelectionSizeZ = 2.75,
     SelectionThickness = 0.36,
+
     SizeX = 3.6,
     SizeY = 1,
     SizeZ = 3.6,
+
     StrategicIconName = 'icon_factory1_land',
     StrategicIconSortPriority = 220,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -340,11 +346,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -1,10 +1,8 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 60,
-		TargetBones = {
-			'UAS0201',
-			'BackWake',
-		},
+        GuardReturnRadius = 66,
+        GuardScanRadius = 58,
+		TargetBones = {'UAS0201','BackWake'},
     },
 	
     Audio = {
@@ -258,7 +256,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Front_Muzzle',
             TurretBonePitch = 'Turret_Front_Barrel01',
@@ -333,7 +331,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-			TrackingRadius = 1.3,
+			TrackingRadius = 1.1,
         },
 		
         {

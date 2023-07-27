@@ -1,5 +1,6 @@
 UnitBlueprint {
     Adjacency = 'T2EnergyStorageAdjacencyBuffs',
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -17,7 +18,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 80,
+
     Categories = {
         'SELECTABLE',
         'AEON',
@@ -29,6 +32,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SHOWQUEUE',
     },
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 37,
@@ -36,7 +40,9 @@ UnitBlueprint {
         MaxHealth = 1500,
         RegenRate = 2,
     },
+
     Description = '<LOC uab1105_desc>Improved Energy Storage',
+
     Display = {
         Abilities = {
 			'Adjacency bonuses to Energy Production & Shields',
@@ -63,46 +69,45 @@ UnitBlueprint {
                  },
              },
         },
-        PlaceholderMeshName = 'UXB0014',
-
+
         UniformScale = 0.154,
     },
+
     Economy = {
         AdjacentEnergyProductionMod = 2.5,
+
         BuildCostEnergy = 4800,
         BuildCostMass = 750,
         BuildRate = 10,
         BuildTime = 750,
-		BuildableCategory = {
-            'uab3105',
-        },
-        RebuildBonusIds = {
-            'uab1105',
-		},
+
+		BuildableCategory = {'uab3105'},
+        RebuildBonusIds = {'uab1105'},
         StorageEnergy = 5500,
     },
+
     General = {
 		CapCost = .25,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
 			RULEUCC_Pause = true,
         },
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
+
         UpgradesFrom = 'uab1105',
         UpgradesFromBase = 'uab1105',
         UpgradesTo = 'uab3105',
     },
+
     Interface = {
         HelpText = 'Improved Energy Storage',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 0.9,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -123,14 +128,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.8,
     SelectionSizeZ = 0.8,
     SelectionThickness = 0.6,
+
     SizeX = 0.9,
     SizeY = 0.5,
     SizeZ = 0.9,
+
     StrategicIconName = 'icon_node2_energy',
     StrategicIconSortPriority = 250,
+
     Weapon = {
         {
             Damage = 2500,

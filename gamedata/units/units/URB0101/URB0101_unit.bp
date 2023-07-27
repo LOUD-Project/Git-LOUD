@@ -60,9 +60,12 @@ UnitBlueprint {
         Abilities = {
             'Upgradeable',
         },
+
         AnimationBuild = '/units/urb0101/urb0101_abuild.sca',
         AnimationUpgrade = '/units/urb0101/urb0101_aopen.sca',
+
         BuildAttachBone = 'Attachpoint',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -79,7 +82,6 @@ UnitBlueprint {
             },
         },
 
-
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_cybran_01_albedo',
@@ -130,13 +132,8 @@ UnitBlueprint {
     General = {
         BuildBones = {
             BuildAttachBone = 'Attachpoint',
-            BuildEffectBones = {
-                'Arm01_Muzzle',
-                'Arm02_Muzzle',
-            },
+            BuildEffectBones = {'Arm01_Muzzle','Arm02_Muzzle'},
         },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -149,19 +146,22 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
+
         UpgradesTo = 'urb0201',
     },
+
     Intel = {
         VisionRadius = 10,
     },
+
     Interface = {
         HelpText = 'Basic Land Factory',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.15,
     LifeBarSize = 4.5,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -294,6 +294,7 @@ UnitBlueprint {
             -- z
             0.35,
         },
+
         RollOffPoints = {
             {
                 UnitSpin = 90,
@@ -314,14 +315,18 @@ UnitBlueprint {
         SkirtSizeZ = 8,
         TurnRate = 0,
     },
+
     SelectionSizeX = 3.25,
     SelectionSizeZ = 3,
     SelectionThickness = 0.3,
+
     SizeX = 2.9,
     SizeY = 1,
     SizeZ = 4.2,
+
     StrategicIconName = 'icon_factory1_land',
     StrategicIconSortPriority = 220,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -329,11 +334,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

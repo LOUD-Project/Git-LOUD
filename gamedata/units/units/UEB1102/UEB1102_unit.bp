@@ -66,7 +66,6 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.5,
     },
     
@@ -82,11 +81,7 @@ UnitBlueprint {
         
 		BuildableCategory = { 'beb1202',},
         
-        RebuildBonusIds = {
-            'ueb1102',
-			'beb1202',
-			'beb1302',
-        },
+        RebuildBonusIds = {'ueb1102','beb1202','beb1302'},
      
 		StorageEnergy = 250,     
     },
@@ -98,16 +93,13 @@ UnitBlueprint {
     
     General = {
         CapCost = 3,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
 			RULEUCC_Pause = true,
         },
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
+
 		UpgradesTo = 'beb1202',
     },
     
@@ -159,11 +151,8 @@ UnitBlueprint {
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

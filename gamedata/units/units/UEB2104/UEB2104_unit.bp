@@ -78,7 +78,6 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.155,
     },
 	
@@ -93,8 +92,6 @@ UnitBlueprint {
     Footprint = { MinWaterDepth = 1 },
 	
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -103,9 +100,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC ueb2104_name>Railgun',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -190,9 +185,7 @@ UnitBlueprint {
 			LeadTarget = true,
 			
             MaxRadius = 44,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 60,
 			
             ProjectileId = '/projectiles/TAARailgun01/TAARailgun01_proj.bp',
@@ -209,11 +202,6 @@ UnitBlueprint {
             },
              
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -221,12 +209,10 @@ UnitBlueprint {
 			
             TargetCheckInterval = 0.3,
 			
-            TargetPriorities = {
-                'AIR MOBILE',
-            },
+            TargetPriorities = {'AIR MOBILE'},
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
             
             TurretBoneMuzzle = 'Turret_Muzzle_01',
             TurretBonePitch = 'Turret_Barrel',
@@ -235,11 +221,11 @@ UnitBlueprint {
 			
             TurretPitch = 45,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 90,
+            TurretPitchSpeed = 75,
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 100,
+            TurretYawSpeed = 85,
 			
             Turreted = true,
         },
@@ -252,11 +238,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

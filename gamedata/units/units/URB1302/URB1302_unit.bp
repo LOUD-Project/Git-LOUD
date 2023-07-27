@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'T3MassExtractorAdjacencyBuffs',
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -61,9 +63,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
-
         UniformScale = 0.1,
     },
 	
@@ -83,16 +82,13 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
-        UnitWeight = 1,
+
         UpgradesFrom = 'urb1202',
     },
     

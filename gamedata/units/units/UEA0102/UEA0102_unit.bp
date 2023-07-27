@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 175,
-        GuardScanRadius = 150,
+        GuardReturnRadius = 90,
+        GuardScanRadius = 60,
     },
 	
     Air = {
@@ -196,7 +196,9 @@ UnitBlueprint {
             Audio = {
                 Fire = Sound { Bank = 'UEAWeapon', Cue = 'UEA0102_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
-            AutoInitiateAttackCommand = false,
+
+            AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -208,7 +210,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land',
-                Land = 'Air|Land',
+                Land = 'Air',
             },
 			
             FiringTolerance = 0,
@@ -242,9 +244,9 @@ UnitBlueprint {
                 'MOBILE -INTELLIGENCE',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Muzzle',
             TurretBonePitch = 'Muzzle',

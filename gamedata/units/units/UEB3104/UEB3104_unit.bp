@@ -11,7 +11,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 200,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -28,7 +30,9 @@ UnitBlueprint {
         'OVERLAYOMNI',
         'SORTINTEL',
     },
+
     CollisionOffsetY = -0.25,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 35,
@@ -36,7 +40,9 @@ UnitBlueprint {
         MaxHealth = 70,
         RegenRate = 1,
     },
+
     Description = '<LOC ueb3104_desc>Omni Sensor Array',
+
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -53,8 +59,6 @@ UnitBlueprint {
                 },
             },
         },
-        
-
         UniformScale = 0.08,
     },
 	
@@ -72,9 +76,8 @@ UnitBlueprint {
         SizeX = 1,
         SizeZ = 1,
     },
+
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_Sensor',
         FactionName = 'UEF',
         Icon = 'land',
         OrderOverrides = {
@@ -84,13 +87,13 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
-        UnitWeight = 1,
+
         UpgradesFrom = 'ueb3201',
     },
+
     Intel = {
         OmniRadius = 140,
         RadarRadius = 325,
@@ -98,12 +101,15 @@ UnitBlueprint {
         ShowIntelOnSelect = true,
         VisionRadius = 46,
     },
+
     Interface = {
         HelpText = 'Omni Sensor Array',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1.25,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -123,14 +129,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.7,
     SelectionSizeZ = 0.7,
     SelectionThickness = 0.55,
+
     SizeX = 0.2,
     SizeY = 2.7,
     SizeZ = 0.2,
+
     StrategicIconName = 'icon_structure3_intel',
     StrategicIconSortPriority = 225,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -138,11 +148,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

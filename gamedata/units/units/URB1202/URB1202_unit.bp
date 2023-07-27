@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'T2MassExtractorAdjacencyBuffs',
+
     Audio = {
         UISelection = Sound {
             Bank = 'Interface',
@@ -7,7 +9,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 40,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -26,7 +30,9 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTECONOMY',
     },
+
     CollisionOffsetY = 0,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 120,		-- 1000% MassOutput + 2% Healt
@@ -34,13 +40,17 @@ UnitBlueprint {
         MaxHealth = 3000,
         RegenRate = 2,
     },
+
     Description = '<LOC urb1202_desc>Improved Mass Extractor',
+
     Display = {
         Abilities = {
             'Upgradeable',
         },
+
         AnimationOpen = '/units/urb1202/urb1202_Apump.sca',
         AnimationUpgrade = '/units/urb1202/urb1202_Aupgrade.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -56,11 +66,9 @@ UnitBlueprint {
                 },
             },
         },
-
-
-
         UniformScale = 0.1,
     },
+
     Economy = {
         BuildCostEnergy = 5400,
         BuildCostMass = 900,
@@ -77,32 +85,34 @@ UnitBlueprint {
             'urb1202',
             'urb1302',
         },
+
         StorageEnergy = 120,
         StorageMass = 12,        
     },
+
     General = {
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
             RULEUCC_Pause = true,
         },
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
-        UnitWeight = 1,
+
         UpgradesFrom = 'urb1103',
         UpgradesTo = 'urb1302',
     },
+
     Interface = {
         HelpText = 'Improved Mass Extractor',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.45,
     LifeBarSize = 1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -121,14 +131,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+
     SizeX = 0.75,
     SizeY = 1.8,
     SizeZ = 0.75,
+
     StrategicIconName = 'icon_structure2_mass',
     StrategicIconSortPriority = 245,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -136,11 +150,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

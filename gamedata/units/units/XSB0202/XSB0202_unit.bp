@@ -68,7 +68,9 @@ UnitBlueprint {
             },
         },
         AnimationUpgrade = '/units/XSB0202/XSB0202_Aupgrade.sca',
+
         BuildAttachBone = 'Attachpoint',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -86,7 +88,6 @@ UnitBlueprint {
                 },
             },
         },
-
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_seraphim_01_albedo',
@@ -142,8 +143,6 @@ UnitBlueprint {
                 'Muzzle02',
             },
         },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -156,20 +155,23 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'air',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-        UnitWeight = 1,
+
         UpgradesFrom = 'xsb0102',
         UpgradesTo = 'xsb0302',
     },
+
     Intel = {
         VisionRadius = 10,
     },
+
     Interface = {
         HelpText = 'Improved Air Factory',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 2,
     LifeBarSize = 4.5,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -203,16 +205,20 @@ UnitBlueprint {
         SkirtSizeZ = 8,
         TurnRate = 0,
     },
+
     SelectionCenterOffsetX = -0.128,
     SelectionCenterOffsetZ = 0.067,
     SelectionSizeX = 2.75,
     SelectionSizeZ = 2.75,
     SelectionThickness = 0.36,
+
     SizeX = 3.5,
     SizeY = 2.7,
     SizeZ = 3.5,
+
     StrategicIconName = 'icon_factory2_air',
     StrategicIconSortPriority = 215,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -220,11 +226,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

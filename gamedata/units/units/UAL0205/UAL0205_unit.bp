@@ -1,8 +1,9 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+		GuardReturnRadius = 50,
+        GuardScanRadius = 38,
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -25,6 +26,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {},
 	
     BuildIconSortPriority = 25,
@@ -72,7 +74,7 @@ UnitBlueprint {
                 },
             },
         },
-
+
         UniformScale = 0.125,
     },
 	
@@ -83,8 +85,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Anti Air',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -96,9 +96,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC ual0205_name>Ascendant',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -207,8 +205,6 @@ UnitBlueprint {
 			
             MaxRadius = 38,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 34,
 			
             ProjectileId = '/projectiles/AAAFizz01/AAAFizz01_proj.bp',
@@ -216,20 +212,13 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'WepFocus',
-                    },
+                    MuzzleBones = {'WepFocus'},
                     RackBone = 'WepFocus',
                 },
             },
-             
-            
-             
+
             RackSalvoChargeTime = 0.1,
             RackSalvoFiresAfterCharge = true,
-             
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -265,6 +254,7 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.35,
@@ -272,11 +262,7 @@ UnitBlueprint {
         MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

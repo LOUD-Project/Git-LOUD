@@ -87,8 +87,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = false,
         UniformScale = 0.05,
     },
     
@@ -122,13 +120,8 @@ UnitBlueprint {
     
     General = {
         BuildBones = {
-            BuildEffectBones = {
-                'Muzzle01',
-                'Muzzle02',
-            },
+            BuildEffectBones = {'Muzzle01','Muzzle02'},
         },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -141,21 +134,24 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'sea',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC xsb0203_name>Uosiya',
-        UnitWeight = 1,
+
         UpgradesFrom = 'xsb0103',
         UpgradesTo = 'xsb0303',
     },
+
     Intel = {
         VisionRadius = 10,
     },
+
     Interface = {
         HelpText = 'Improved Naval Factory',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 6.5,
     LifeBarSize = 4.5,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -168,6 +164,7 @@ UnitBlueprint {
         MeshExtentsZ = 10,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
+
         RollOffPoints = {
             {
                 UnitSpin = 180,
@@ -188,16 +185,20 @@ UnitBlueprint {
         SkirtSizeZ = 12,
         TurnRate = 0,
     },
+
     SelectionCenterOffsetX = -1.6,
     SelectionCenterOffsetZ = -0.14,
     SelectionSizeX = 3,
     SelectionSizeZ = 8,
     SelectionThickness = 0.21,
+
     SizeX = 4,
     SizeY = 2,
     SizeZ = 10,
+
     StrategicIconName = 'icon_factory2_naval',
     StrategicIconSortPriority = 215,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

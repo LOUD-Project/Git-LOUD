@@ -1,8 +1,9 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+		GuardReturnRadius = 48,
+        GuardScanRadius = 36,
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -67,8 +68,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.065,
     },
 	
@@ -79,8 +78,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Indirect Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -92,9 +89,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC uel0103_name>Lobo',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -192,9 +187,7 @@ UnitBlueprint {
 			
             MaxRadius = 36,
             MinRadius = 5,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 14,
             MuzzleVelocityReduceDistance = 28,
 			
@@ -205,18 +198,12 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
+
             RackRecoilDistance = -3,
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -231,7 +218,7 @@ UnitBlueprint {
 				'WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',

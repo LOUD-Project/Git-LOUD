@@ -1,8 +1,9 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+		GuardReturnRadius = 45,
+        GuardScanRadius = 37,
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -20,6 +21,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {},
 	
     BuildIconSortPriority = 60,
@@ -100,7 +102,6 @@ UnitBlueprint {
                 },
             },
         },
-
         UniformScale = 0.075,
     },
 	
@@ -111,8 +112,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Indirect Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -124,9 +123,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC xsl0103_name>Zthuee',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -229,9 +226,7 @@ UnitBlueprint {
 			
             MaxRadius = 37,
             MinRadius = 5,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 14,
             MuzzleVelocityReduceDistance = 28,
 			
@@ -241,19 +236,12 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
-             
+
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -270,7 +258,7 @@ UnitBlueprint {
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret',

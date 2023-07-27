@@ -88,9 +88,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
-
         UniformScale = 0.03,
     },
 	
@@ -98,12 +95,11 @@ UnitBlueprint {
         BuildCostEnergy = 17100,
         BuildCostMass = 2000,
         BuildTime = 2000,
+
         RebuildBonusIds = { 'xsb2303' },
     },
 	
     General = {
-        Category = 'Strategic',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -112,9 +108,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC xsb2303_name>Zthuthaam',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -228,9 +222,7 @@ UnitBlueprint {
             MinRadius = 5,
 			
             MuzzleChargeDelay = 1,		-- one second delay for muzzle charge --
-            MuzzleSalvoChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 26.13,
 			MuzzleVelocityReduceDistance = 100,
 			
@@ -239,20 +231,12 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Recoil',
                 },
             },
-             
+
             RackRecoilDistance = -2,
-
-
-            RackSalvoFiresAfterCharge = false,
-             
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -292,10 +276,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
             Water = true,
         },
     },

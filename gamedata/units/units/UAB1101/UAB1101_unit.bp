@@ -72,6 +72,7 @@ UnitBlueprint {
                 OffsetZ = -0.25,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -87,7 +88,7 @@ UnitBlueprint {
                 },
             },
         },
-
+
         UniformScale = 0.045,
     },
     
@@ -106,13 +107,9 @@ UnitBlueprint {
     },
     
     General = {
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
     },
     
     Interface = {
@@ -174,11 +171,8 @@ UnitBlueprint {
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

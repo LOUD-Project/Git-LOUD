@@ -2,7 +2,7 @@ UnitBlueprint {
 
     AI = {
 		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+        GuardScanRadius = 18,
     },
 	
     Audio = {
@@ -64,8 +64,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = false,
         TransportAnimation = {
             {
                 Animation = '/units/UEL0106/UEL0106_afold.sca',
@@ -82,8 +80,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -95,9 +91,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC uel0106_name>Mech Marine',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -187,33 +181,24 @@ UnitBlueprint {
             Label = 'ArmCannonTurret',
 			
             MaxRadius = 18,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 25,
 			
             ProjectileId = '/projectiles/TDFMachineGun01/TDFMachineGun01_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Arm_Right_Muzzle',
-                    },
+                    MuzzleBones = {'Arm_Right_Muzzle'},
                     RackBone = 'Arm_Right_B02',
                 },
                 {
-                    MuzzleBones = {
-                        'Arm_Left_Muzzle',
-                    },
+                    MuzzleBones = {'Arm_Left_Muzzle'},
                     RackBone = 'Arm_Left_B02',
                 },
             },
-             
-            
+
             RackReloadTimeout = 10,
 
-
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',

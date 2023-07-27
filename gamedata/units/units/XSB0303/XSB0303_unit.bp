@@ -82,7 +82,6 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = false,
         UniformScale = 0.05,
     },
 	
@@ -114,14 +113,8 @@ UnitBlueprint {
 	
     General = {
         BuildBones = {
-            BuildEffectBones = {
-                'Muzzle01',
-                'Muzzle02',
-                'Muzzle03',
-            },
+            BuildEffectBones = {'Muzzle01','Muzzle02','Muzzle03'},
         },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -134,9 +127,8 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'sea',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC xsb0303_name>Uosiya',
-        UnitWeight = 1,
+
         UpgradesFrom = 'xsb0203',
     },
 	
@@ -165,6 +157,7 @@ UnitBlueprint {
         MeshExtentsZ = 10,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
+
         RollOffPoints = {
             {
                 UnitSpin = 180,
@@ -230,9 +223,7 @@ UnitBlueprint {
             Label = 'AntiTorpedo',
 			
             MaxRadius = 25,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 8,
 			
             ProjectileId = '/projectiles/SANAjelluAntiTorpedo01/SANAjelluAntiTorpedo01_proj.bp',
@@ -240,18 +231,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'B04',
-                    },
+                    MuzzleBones = {'B04',},
                     RackBone = 'B04',
                 },
             },
-             
-            
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -294,9 +277,7 @@ UnitBlueprint {
             Label = 'AntiTorpedo',
 			
             MaxRadius = 25,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 8,
 			
             ProjectileId = '/projectiles/SANAjelluAntiTorpedo01/SANAjelluAntiTorpedo01_proj.bp',
@@ -304,20 +285,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'B06',
-                    },
+                    MuzzleBones = {'B06'},
                     RackBone = 'B06',
                 },
             },
-             
-            
-
-
-            RackSalvoSize = 1,
-
-
-            RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 1.2,
 			

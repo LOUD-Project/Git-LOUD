@@ -11,6 +11,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -20,7 +21,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+
     BuildIconSortPriority = 120,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -46,12 +49,16 @@ UnitBlueprint {
         MaxHealth = 4500,
         RegenRate = 2,
     },
+
     Description = '<LOC uab3304_desc>Heavy AA Flak Battery',
+
     Display = {
         Abilities = {
             'Aquatic',
         },
+
         AnimationPermOpen = '/units/UAB2204/UAB2204_Aactivate.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -67,24 +74,23 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0002',
-
+
         UniformScale = 0.2,
     },
+
     Economy = {
         BuildCostEnergy = 10600,
         BuildCostMass = 1000,
         BuildTime = 1100,
-        RebuildBonusIds = {
-            'uab3304',
-        },
+
+        RebuildBonusIds = {'uab3304'},
     },
+
     Footprint = {
         MinWaterDepth = 2,
     },
+
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -93,19 +99,21 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC uab3304_name>Marriss',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 36,
     },
+
     Interface = {
         HelpText = 'Hvy AA Flak Artillery',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,
     LifeBarSize = 1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -126,14 +134,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.7,
     SelectionThickness = 0.55,
+
     SizeX = 0.9,
     SizeY = 1.4,
     SizeZ = 0.9,
+
     StrategicIconName = 'icon_structure3_antiair',
     StrategicIconSortPriority = 200,
+
     Veteran = {
         Level1 = 16,
         Level2 = 32,
@@ -141,6 +153,7 @@ UnitBlueprint {
         Level4 = 64,
         Level5 = 80,
     },
+
     Weapon = {
         {
             AlwaysRecheckTarget = true,
@@ -186,9 +199,7 @@ UnitBlueprint {
 			LeadTarget = true,
 			
             MaxRadius = 50,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 75,
 			
             ProjectileId = '/projectiles/AAAFizz01/AAAFizz01_proj.bp',
@@ -196,22 +207,14 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'WepFocus',
-                    },
+                    MuzzleBones = {'WepFocus'},
                     RackBone = 'WepFocus',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
 			
             RackSalvoChargeTime = 0.1,
-            RackSalvoFiresAfterCharge = false,
+
             RackSalvoReloadTime = 0.4,
-            RackSalvoSize = 1,
-			
-            
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -220,11 +223,9 @@ UnitBlueprint {
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE TECH3 BOMBER',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
-                'AIR MOBILE TRANSPORTATION',
+                'BOMBER',
+                'GROUNDATTACK',
+                'TRANSPORTATION',
                 'AIR MOBILE',
             },
 			
@@ -239,26 +240,24 @@ UnitBlueprint {
 			
             TurretPitch = 35,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 75,
+            TurretPitchSpeed = 72,
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 75,
+            TurretYawSpeed = 72,
 			
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
             Water = true,
         },
     },

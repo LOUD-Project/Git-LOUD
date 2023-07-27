@@ -1,6 +1,7 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 60,
+        GuardReturnRadius = 80,
+        GuardScanRadius = 65,
     },
 	
     Audio = {
@@ -363,9 +364,7 @@ UnitBlueprint {
             Label = 'AntiTorpedo',
 			
             MaxRadius = 25,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 10,
 			
             ProjectileId = '/projectiles/SANAjelluAntiTorpedo01/SANAjelluAntiTorpedo01_proj.bp',
@@ -387,7 +386,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Left_Turret_Muzzle',
             TurretBonePitch = 'Left_Turret_Barrel',
@@ -426,9 +425,7 @@ UnitBlueprint {
             Label = 'AntiTorpedo',
 			
             MaxRadius = 28,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 8,
 			
             ProjectileId = '/projectiles/SANAjelluAntiTorpedo01/SANAjelluAntiTorpedo01_proj.bp',
@@ -442,12 +439,6 @@ UnitBlueprint {
                     RackBone = 'Right_Turret_Muzzle',
                 },
             },
-             
-            
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -458,7 +449,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Right_Turret_Muzzle',
             TurretBonePitch = 'Right_Turret_Barrel',
@@ -523,12 +514,6 @@ UnitBlueprint {
                     RackBone = 'Front_Turret_Barrel01',
                 },
             },
-             
-            
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -547,7 +532,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			TargetRestrictOnlyAllow = 'AIR',
 			
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Front_Turret_Muzzle01',
             TurretBonePitch = 'Front_Turret_Barrel01',

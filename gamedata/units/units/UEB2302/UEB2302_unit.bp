@@ -76,8 +76,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_01_albedo',
@@ -85,12 +83,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar12x_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
@@ -101,7 +94,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 660000,
         BuildCostMass = 34500,
-        BuildTime = 41000,	---- was 30K
+        BuildTime = 41000,
 		
         RebuildBonusIds = {'ueb2302'},
     },
@@ -113,8 +106,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 4,
-        Category = 'Strategic',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -123,9 +114,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC ueb2302_name>Duke',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -233,9 +222,6 @@ UnitBlueprint {
             MaxRadius = 850,
             MinRadius = 120,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
             MuzzleVelocity = 71,
             MuzzleVelocityReduceDistance = 825,
 			
@@ -244,22 +230,14 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel_B01',
                     TelescopeBone = 'Turret_Barrel_B02',
                     TelescopeRecoilDistance = -20,
                 },
             },
-             
-			
+
             RackRecoilDistance = -15,
-            RackReloadTimeout = 7,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -298,11 +276,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

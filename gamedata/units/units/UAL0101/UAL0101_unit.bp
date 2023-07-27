@@ -1,8 +1,9 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+		GuardReturnRadius = 36,
+        GuardScanRadius = 18,
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -91,8 +92,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 0.5,
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -104,9 +103,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC ual0101_name>Spirit',
-        UnitWeight = 1,
     },
     
     Intel = {
@@ -193,12 +190,11 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
+
             Label = 'LaserTurret',
 			
             MaxRadius = 18,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/ADFLaserLight02/ADFLaserLight02_proj.bp',
@@ -224,7 +220,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret',

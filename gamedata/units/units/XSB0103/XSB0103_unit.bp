@@ -62,6 +62,7 @@ UnitBlueprint {
         Abilities = {
             'Upgradeable',
         },
+
         AnimationDeath = {
             {
                 Animation = '/units/xsb0103/xsb0103_ADeath.sca',
@@ -71,6 +72,7 @@ UnitBlueprint {
             },
         },
         AnimationUpgrade = '/units/xsb0103/xsb0103_aupgrade.sca',
+
         BuildAttachBone = 'Attachpoint',
 
         Mesh = {
@@ -90,8 +92,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = false,
         UniformScale = 0.05,
     },
     
@@ -127,12 +127,8 @@ UnitBlueprint {
     
     General = {
         BuildBones = {
-            BuildEffectBones = {
-                'Muzzle01',
-            },
+            BuildEffectBones = {'Muzzle01'},
         },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -145,19 +141,22 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'sea',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
+
         UpgradesTo = 'xsb0203',
     },
+
     Intel = {
         VisionRadius = 10,
     },
+
     Interface = {
         HelpText = 'Basic Naval Factory',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 6.5,
     LifeBarSize = 4,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -170,6 +169,7 @@ UnitBlueprint {
         MeshExtentsZ = 10,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
+
         RollOffPoints = {
             {
                 UnitSpin = 180,
@@ -190,15 +190,19 @@ UnitBlueprint {
         SkirtSizeZ = 12,
         TurnRate = 0,
     },
+
     SelectionCenterOffsetX = -1.5,
     SelectionSizeX = 3,
     SelectionSizeZ = 8,
     SelectionThickness = 0.21,
+
     SizeX = 4,
     SizeY = 2,
     SizeZ = 10,
+
     StrategicIconName = 'icon_factory1_naval',
     StrategicIconSortPriority = 220,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

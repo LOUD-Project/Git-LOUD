@@ -11,7 +11,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 190,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -29,7 +31,9 @@ UnitBlueprint {
         'OVERLAYSONAR',
         'SORTINTEL',
     },
+
     CollisionOffsetY = -0.25,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 1,
@@ -37,13 +41,17 @@ UnitBlueprint {
         MaxHealth = 500,
         RegenRate = 0,
     },
+
     Description = '<LOC uab3102_desc>Sonar System',
+
     Display = {
         Abilities = {
             'Sonar',
             'Upgradeable',
         },
+
         AnimationUpgrade = '/units/uab3102/uab3102_aopen.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -61,30 +69,32 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.06,
     },
+
     Economy = {
         BuildCostEnergy = 544,
         BuildCostMass = 64,
         BuildRate = 10,
         BuildTime = 80,
-        BuildableCategory = {
-            'uab3202',
-        },
+
+        BuildableCategory = {'uab3202'},
+
         MaintenanceConsumptionPerSecondEnergy = 10,
+
         RebuildBonusIds = {
             'uab3102',
             'uab3202',
             'uas0305',
         },
     },
+
     Footprint = {
         MinWaterDepth = 1.5,
     },
+
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_Sensor',
+
         CommandCaps = {
             RULEUCC_Pause = true,
         },
@@ -97,25 +107,29 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
+
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
-        UnitWeight = 1,
+
         UpgradesTo = 'uab3202',
     },
+
     Intel = {
         ShowIntelOnSelect = true,
         SonarRadius = 115,
         VisionRadius = 28,
 		WaterVisionRadius = 15,
     },
+
     Interface = {
         HelpText = 'Basic Sonar System',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.3,
     LifeBarSize = 0.75,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -134,14 +148,18 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.4,
     SelectionSizeZ = 0.4,
     SelectionThickness = 1,
+
     SizeX = 0.6,
     SizeY = 0.5,
     SizeZ = 0.6,
+
     StrategicIconName = 'icon_structure1_intel',
     StrategicIconSortPriority = 235,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -149,11 +167,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

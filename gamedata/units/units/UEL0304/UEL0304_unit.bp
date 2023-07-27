@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+		GuardReturnRadius = 110,
+        GuardScanRadius = 92,
         NeedUnpack = true,
     },
     
@@ -81,7 +81,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.036,
     },
 	
@@ -93,8 +92,6 @@ UnitBlueprint {
 	
     General = {
         CapCost = 2,
-        Category = 'Indirect Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -106,9 +103,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC uel0304_name>Demolisher',
-        UnitWeight = 1,
     },
     
     Intel = {
@@ -200,7 +195,7 @@ UnitBlueprint {
             
             EnergyRequired = 3125,
             EnergyDrainPerSecond = 446,     -- 7 seconds to charge
-				
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
             },
@@ -213,9 +208,7 @@ UnitBlueprint {
 			
             MaxRadius = 92,
             MinRadius = 5,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 25,
             MuzzleVelocityReduceDistance = 85,
 
@@ -226,17 +219,13 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
 
             RackRecoilDistance = -10,
 
-
-			
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 1,     -- every 7 seconds - controlled by charge = 100 DPS
@@ -248,7 +237,6 @@ UnitBlueprint {
                 'DEFENSE',
 				'STRUCTURE,-WALL',
                 'MOBILE',
-
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -280,11 +268,7 @@ UnitBlueprint {
         MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

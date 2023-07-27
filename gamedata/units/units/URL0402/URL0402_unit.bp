@@ -1,18 +1,10 @@
 UnitBlueprint {
     AI = {
-		GuardScanRadius = 30,
-		GuardReturnRadius = 35,
+		GuardScanRadius = 37,
+		GuardReturnRadius = 55,
+
         TargetBones = {
-            'Left_Turret',
-            'Right_Turret',
-            'Center_Turret',
-            'Right_Projectile01',
-            'Left_Projectile01',
-            'Right_Projectile02',
-            'Left_Projectile02',
-            'URL0402',
-            'Center_Turret',            
-        },
+            'Left_Turret','Right_Turret','Right_Projectile01','Left_Projectile01','URL0402','Center_Turret'},
     },
 	
     Audio = {
@@ -66,6 +58,7 @@ UnitBlueprint {
     },
 	
     BuildIconSortPriority = 20,
+
     Categories = {
         'SELECTABLE',
 		'BUILTBYTIER4COMMANDER',
@@ -81,8 +74,6 @@ UnitBlueprint {
         'DRAGBUILD',
         'OVERLAYSONAR',
     },
-	
-    CollisionOffsetY = 0,
 	
     Defense = {
         AirThreatLevel = 20,
@@ -353,9 +344,7 @@ UnitBlueprint {
             Label = 'BolterTurret',
 			
             MaxRadius = 55,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
@@ -380,7 +369,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Right_Turret_Muzzle',
             TurretBonePitch = 'Right_Turret_Barrel',
@@ -422,9 +411,7 @@ UnitBlueprint {
             Label = 'BolterTurret',
 			
             MaxRadius = 55,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
@@ -449,7 +436,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Left_Turret_Muzzle',
             TurretBonePitch = 'Left_Turret_Barrel',
@@ -481,6 +468,7 @@ UnitBlueprint {
             },
 
             AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,

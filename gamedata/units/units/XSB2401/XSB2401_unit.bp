@@ -2,6 +2,7 @@ UnitBlueprint {
     AI = {
         InitialAutoMode = true,
     },
+
     Audio = {
         DeathExplosion = Sound {
             Bank = 'XSL_Destroy',
@@ -102,8 +103,11 @@ UnitBlueprint {
             },
         },
         AnimationOpen = '/units/uab2305/uab2305_aopen.sca',
+
         AttackReticleSize = 65,
+
         BuildAttachBone = 'Attachpoint',
+
         DamageEffects = {
             {
                 Bone = 0,
@@ -142,8 +146,6 @@ UnitBlueprint {
             },
         },
         MissileBone = 'Nuke',
-
-
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_seraphim_01_albedo',
@@ -151,12 +153,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar8x_seraphim_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
@@ -165,13 +162,12 @@ UnitBlueprint {
     },
     
     Economy = {
-        BuildCostEnergy = 5004000,	----10008000,
-        BuildCostMass = 250200,		----312750,
+        BuildCostEnergy = 5004000,
+        BuildCostMass = 250200,
         BuildRate = 2100,
-        BuildTime = 91832,			----160100,
-        RebuildBonusIds = {
-            'xsb2401',
-        },
+        BuildTime = 91832,
+
+        RebuildBonusIds = {'xsb2401'},
     },
     
     Footprint = {
@@ -181,17 +177,9 @@ UnitBlueprint {
     
     General = {
         BuildBones = {
-            BuildEffectBones = {
-                'N01',
-                'N02',
-                'N03',
-            },
+            BuildEffectBones = {'N01','N02','N03'},
         },
-        
 		CapCost = 10,
-        
-        Category = 'Strategic',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Nuke = true,
             RULEUCC_SiloBuildNuke = true,
@@ -200,9 +188,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC xsb2401_name>Yolona Oss',
-        UnitWeight = 1,
     },
     
     Intel = {
@@ -255,6 +241,7 @@ UnitBlueprint {
         Level4 = 4000,
         Level5 = 5000,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -302,8 +289,7 @@ UnitBlueprint {
             MinRadius = 70,
 			
             MuzzleChargeDelay = 5,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 0,
 			
             NukeInnerRingDamage = 250000,
@@ -322,16 +308,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Attachpoint',
-                    },
+                    MuzzleBones = {'Attachpoint'},
                     RackBone = 'Attachpoint',
                 },
             },
-
-            RackReloadTimeout = 10,
-
-
 
             RangeCategory = 'UWRC_IndirectFire',
             
@@ -346,6 +326,7 @@ UnitBlueprint {
             WeaponUnpacks = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
@@ -353,11 +334,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

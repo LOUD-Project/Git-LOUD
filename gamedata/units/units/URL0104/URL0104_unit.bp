@@ -1,8 +1,8 @@
 UnitBlueprint {
 
     AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+		GuardReturnRadius = 45,
+        GuardScanRadius = 35,
     },
 	
     Audio = {
@@ -67,8 +67,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.125,
     },
 	
@@ -79,8 +77,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Anti Air',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -97,12 +93,10 @@ UnitBlueprint {
                 bitmapId = 'toggle-weapon-air',
             },
         },
-        TechLevel = 'RULEUTL_Basic',
         ToggleCaps = {
             RULEUTC_WeaponToggle = true,
         },
         UnitName = '<LOC url0104_name>Sky Slammer',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -190,9 +184,7 @@ UnitBlueprint {
             Label = 'AAGun',
 			
             MaxRadius = 35,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 16,
 			
             ProjectileId = '/projectiles/CAANanoDart01/CAANanoDart01_proj.bp',
@@ -200,15 +192,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -270,24 +257,17 @@ UnitBlueprint {
             Label = 'GroundGun',
 			
             MaxRadius = 16,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 16,
 			
             ProjectileId = '/projectiles/CAANanoDart05/CAANanoDart05_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
-            
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_DirectFire',
 			

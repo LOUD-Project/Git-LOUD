@@ -72,8 +72,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.055,
     },
     
@@ -90,16 +88,12 @@ UnitBlueprint {
     },
     
     General = {
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         FactionName = 'Seraphim',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
-        UnitWeight = 1,
     },
     
     Interface = {

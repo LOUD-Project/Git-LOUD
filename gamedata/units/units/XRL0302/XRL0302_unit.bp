@@ -73,8 +73,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         TransportAnimation = {
             {
                 Animation = '/units/XRL0302/XRL0302_Afold01.sca',
@@ -95,8 +93,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -108,9 +104,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC xrl0302_name>Fire Beetle',
-        UnitWeight = 1,
     },
 	
     Intel = {

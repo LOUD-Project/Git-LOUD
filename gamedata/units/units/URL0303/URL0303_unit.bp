@@ -1,8 +1,9 @@
 UnitBlueprint {
     AI = {
 		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+        GuardScanRadius = 25,
     },
+
     Audio = {
         Killed = Sound {
             Bank = 'URLWeapon',
@@ -90,8 +91,10 @@ UnitBlueprint {
                 Weight = 1,
             },
         },
+
         AnimationWalk = '/units/url0303/url0303_awalk.sca',
         AnimationWalkRate = 4.5,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -107,8 +110,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         TransportAnimation = {
             {
                 Animation = '/units/URL0303/URL0303_Afold01.sca',
@@ -125,8 +126,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -138,19 +137,21 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC url0303_name>Loyalist',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 28,
     },
+
     Interface = {
         HelpText = 'Siege Assault Bot',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.55,
     LifeBarSize = 1,
+
     Physics = {
 		BackUpDistance = 4,
         BankingSlope = 0,
@@ -189,6 +190,7 @@ UnitBlueprint {
     Transport = {
         TransportClass = 3,
     },
+
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -196,6 +198,7 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -243,17 +246,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle_Left',
-                    },
+                    MuzzleBones = {'Muzzle_Left'},
                     RackBone = 'Barrel_L',
                 },
             },
-            
-
-
-            RackSalvoFiresAfterCharge = false,
-             
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -314,9 +310,7 @@ UnitBlueprint {
             LeadTarget = true,
 			
             MaxRadius = 25,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
 			
             NotExclusive = true,
@@ -325,15 +319,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle_Right',
-                    },
+                    MuzzleBones = {'Muzzle_Right'},
                     RackBone = 'Barrel_R',
                 },
             },
-            
-
-
 
             RateOfFire = 1.5,	---- 30 DPS
 			
@@ -345,7 +334,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
             
             TurretBoneMuzzle = 'Muzzle_Right',
             TurretBonePitch = 'Barrel_R',
@@ -389,14 +378,15 @@ UnitBlueprint {
             Label = 'EMP',
 			
             MaxRadius = 3,
+
             MuzzleVelocity = 0,
+
             ProjectileId = '/projectiles/CIFEMP01/CIFEMP01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.15,
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        0,
-                    },
+                    MuzzleBones = {0},
                     RackBone = 0,
                 },
             },
@@ -418,11 +408,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

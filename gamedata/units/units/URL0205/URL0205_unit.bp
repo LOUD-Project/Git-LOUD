@@ -1,8 +1,9 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+		GuardReturnRadius = 45,
+        GuardScanRadius = 38,
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -20,6 +21,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {},
 	
     BuildIconSortPriority = 30,
@@ -58,7 +60,7 @@ UnitBlueprint {
                 },
             },
         },
-
+
         UniformScale = 0.16,
     },
 	
@@ -69,8 +71,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Anti Air',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -82,9 +82,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC url0205_name>Banger',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -176,9 +174,7 @@ UnitBlueprint {
 			LeadTarget = true,
 			
             MaxRadius = 38,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 34,
 			
             ProjectileId = '/projectiles/CAABurstCloud01/CAABurstCloud01_proj.bp',
@@ -186,36 +182,24 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Muzzle01',
-                    },
+                    MuzzleBones = {'Right_Muzzle01'},
                     RackBone = 'Barrel',
                 },
                 {
-                    MuzzleBones = {
-                        'Left_Muzzle01',
-                    },
+                    MuzzleBones = {'Left_Muzzle01'},
                     RackBone = 'Barrel',
                 },
                 {
-                    MuzzleBones = {
-                        'Right_Muzzle02',
-                    },
+                    MuzzleBones = {'Right_Muzzle02'},
                     RackBone = 'Barrel',
                 },
                 {
-                    MuzzleBones = {
-                        'Left_Muzzle02',
-                    },
+                    MuzzleBones = {'Left_Muzzle02'},
                     RackBone = 'Barrel',
                 },
             },
-             
+
             RackRecoilDistance = -0.5,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -229,8 +213,8 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.2,
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Right_Muzzle01',
             TurretBonePitch = 'Barrel',
@@ -239,15 +223,16 @@ UnitBlueprint {
 			
             TurretPitch = 35,
             TurretPitchRange = 80,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 65,
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 120,
+            TurretYawSpeed = 85,
 			
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
@@ -255,11 +240,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

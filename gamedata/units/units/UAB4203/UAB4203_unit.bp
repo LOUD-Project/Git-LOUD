@@ -91,7 +91,6 @@ UnitBlueprint {
             },
         },
 
-
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_aeon_01_albedo',
@@ -99,12 +98,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar8x_aeon_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = { 0, 90, 180, 270 },
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
@@ -127,8 +121,6 @@ UnitBlueprint {
         SizeZ = 3,
     },
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_CounterMeasure',
         FactionName = 'Aeon',
         Icon = 'land',
         OrderOverrides = {
@@ -138,25 +130,28 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
+
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
         UnitName = '<LOC uab4203_name>Veil',
-        UnitWeight = 1,
     },
+
     Intel = {
         RadarStealthFieldRadius = 24,
         ReactivateTime = 5,
         SonarStealthFieldRadius = 24,
         VisionRadius = 10,
     },
+
     Interface = {
         HelpText = '<LOC uab4203_help>Stealth Field Generator',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.2,
     LifeBarSize = 2.5,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -176,14 +171,18 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+
     SelectionSizeX = 1.7,
     SelectionSizeZ = 1.7,
     SelectionThickness = 0.4,
+
     SizeX = 2,
     SizeY = 3,
     SizeZ = 2,
+
     StrategicIconName = 'icon_structure2_counterintel',
     StrategicIconSortPriority = 230,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -191,11 +190,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

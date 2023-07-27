@@ -11,7 +11,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 200,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -28,7 +30,9 @@ UnitBlueprint {
         'OVERLAYRADAR',
         'SORTINTEL',
     },
+
     CollisionOffsetY = -0.25,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 35,
@@ -36,7 +40,9 @@ UnitBlueprint {
         MaxHealth = 70,
         RegenRate = 1,
     },
+
     Description = '<LOC urb3104_desc>Omni Sensor Array',
+
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -53,26 +59,25 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.15,
     },
+
     Economy = {
         BuildCostEnergy = 30000,
         BuildCostMass = 2400,
         BuildTime = 1800,
+
         MaintenanceConsumptionPerSecondEnergy = 2000,
-        RebuildBonusIds = {
-            'urb3104',
-        },
+
+        RebuildBonusIds = {'urb3104'},
     },
+
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_Sensor',
         FactionName = 'Cybran',
         Icon = 'land',
         OrderOverrides = {
@@ -82,25 +87,28 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
-        UnitWeight = 1,
+
         UpgradesFrom = 'urb3201',
     },
+
     Intel = {
         OmniRadius = 140,
         RadarRadius = 325,
         ShowIntelOnSelect = true,
         VisionRadius = 46,
     },
+
     Interface = {
         HelpText = 'Omni Sensor Array',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.55,
     LifeBarSize = 1.5,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -117,14 +125,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 1,
     SelectionSizeZ = 1,
     SelectionThickness = 0.4,
+
     SizeX = 0.5,
     SizeY = 4,
     SizeZ = 0.5,
+
     StrategicIconName = 'icon_structure3_intel',
     StrategicIconSortPriority = 225,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -132,11 +144,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

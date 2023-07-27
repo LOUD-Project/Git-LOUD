@@ -1,9 +1,10 @@
 UnitBlueprint {
     AI = {
-		GuardRadius = 125,
-        GuardReturnRadius = 150,
-        GuardScanRadius = 125,
+		GuardRadius = 48,
+        GuardReturnRadius = 96,
+        GuardScanRadius = 48,
     },
+
     Air = {
         AutoLandTime = 1.6,
         BankFactor = 5,
@@ -137,7 +138,6 @@ UnitBlueprint {
                 helpText = 'toggle_stealth_personal',
             },
         },
-
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
@@ -205,7 +205,8 @@ UnitBlueprint {
             },
 
 			AlwaysRecheckTarget = true,
-            AutoInitiateAttackCommand = false,
+
+            AutoInitiateAttackCommand = true,
 			
             BallisticArc = 'RULEUBA_None',
 			
@@ -221,7 +222,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land',
-                Land = 'Air|Land',
+                Land = 'Air',
             },
 			
             FiringTolerance = 2,
@@ -267,7 +268,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.15,
 			
             TurretBoneMuzzle = 'Missile_L',
             TurretBonePitch = 'Missile_L',

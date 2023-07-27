@@ -61,7 +61,9 @@ UnitBlueprint {
             'Strategic Missile Defense',
 			'Anti Satellite',
         },
+
         AnimationPermOpen = '/units/uab4302/uab4302_Aopen.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -79,7 +81,6 @@ UnitBlueprint {
             },
         },
 
-
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_aeon_01_albedo',
@@ -87,16 +88,12 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 6.4,
                 Normal = 'Tarmacs/Tar8x_aeon_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = { 0, 90, 180, 270 },
                 RemoveWhenDead = false,
                 Width = 6.4,
             },
         },
+
         UniformScale = 0.1,
     },
 	
@@ -117,8 +114,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Defense',
-        Classification = 'RULEUC_CounterMeasure',
         CommandCaps = {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_SiloBuildTactical = true,
@@ -127,9 +122,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC uab4302_name>Patron',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -180,54 +173,55 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = false,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB4302_Anti_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB4302_Anti_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             CollideFriendly = false,
             CountedProjectile = true,
+
             Damage = 30,
             DamageType = 'Normal',
+
             DisplayName = 'Saint Anti Nuke',
+
             EffectiveRadius = 90,
+
             FireTargetLayerCapsTable = {
                 Land = 'Air',
 				Sub = 'Air',
 				Water = 'Air',
                 Seabed = 'Air',
             },
+
             FiringTolerance = 60,
+
             ForceSingleFire = true,
+
             InitialProjectileStorage = 0,
+
             Label = 'MissileRack',
+
             MaxProjectileStorage = 7,
+
             MaxRadius = 100,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 90,
+
             ProjectileId = '/projectiles/AIMSaintAntiNuke01/AIMSaintAntiNuke01_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret',
-                    },
+                    MuzzleBones = {'Turret'},
                     RackBone = 'Turret',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-            
 
             RangeCategory = 'UWRC_Countermeasure',
+
             RateOfFire = 0.6,
+
             TargetCheckInterval = 1,
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'STRATEGIC MISSILE',
@@ -246,51 +240,51 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
 			AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
+
             Damage = 500,
 			DamageRadius = 0,
             DamageType = 'Normal',
+
             DisplayName = 'Saint Anti Sat',
+
             EffectiveRadius = 75,
+
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Seabed = 'Air',
 				Sub = 'Air',
 				Water = 'Air',
             },
+
             FiringTolerance = 60,
+
             Label = 'MissileRack2',
+
             MaxRadius = 90,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 65,
+
 			NotExclusive = true,
+
             ProjectileId = '/projectiles/AIMSaintAntiNuke02/AIMSaintAntiNuke02_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret',
-                    },
+                    MuzzleBones = {'Turret'},
                     RackBone = 'Turret',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-            
 
             RangeCategory = 'UWRC_AntiAir',
             RateOfFire = 0.12,
+
             TargetCheckInterval = 3,
-            TargetPriorities = {
-                'SATELLITE',
-            },
+            TargetPriorities = { 'SATELLITE' },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'SATELLITE',
             TrackingRadius = 1,
@@ -306,11 +300,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

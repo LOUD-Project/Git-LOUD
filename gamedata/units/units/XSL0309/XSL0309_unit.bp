@@ -93,7 +93,6 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = false,
         UniformScale = 0.07,
     },
 	
@@ -127,8 +126,6 @@ UnitBlueprint {
             PitchBone = 'Arm_Pitch1',
             YawBone = 'Arm_Yaw1',
         },
-        Category = 'Construction',
-        Classification = 'RULEUC_Engineer',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Capture = true,
@@ -144,8 +141,6 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 3,
-        TechLevel = 'RULEUTL_Secret',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -216,11 +211,7 @@ UnitBlueprint {
         MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -39,14 +39,12 @@ UnitBlueprint {
         BuildCostEnergy = 50,
         BuildCostMass = 5,
         BuildTime = 50,
-        RebuildBonusIds = {
-            'uab5102',
-        },
+
+        RebuildBonusIds = {'uab5102'},
     },
 
     General = {
         CapCost = 0,
-
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
@@ -92,14 +90,10 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

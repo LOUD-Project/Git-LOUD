@@ -11,6 +11,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {},
 	
     BuildIconSortPriority = 120,
@@ -49,7 +50,9 @@ UnitBlueprint {
         Abilities = {
             'Aquatic',
         },
+
         AnimationPermOpen = '/units/UAB2204/UAB2204_Aactivate.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -66,7 +69,6 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.14,
     },
 	
@@ -83,8 +85,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -93,9 +93,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC uab2204_name>Marr',
-        UnitWeight = 1,
     },
     
     Intel = {
@@ -154,18 +152,11 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = true,
             Audio = {
-                ChargeStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2204_AA_Fizz',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Open = Sound {
-                    Bank = 'UAB',
-                    Cue = 'UAB2204_Activate',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                ChargeStart = Sound { Bank = 'UALWeapon', Cue = 'UAB2204_AA_Fizz', LodCutoff = 'Weapon_LodCutoff' },
+                Open = Sound { Bank = 'UAB', Cue = 'UAB2204_Activate', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -190,9 +181,7 @@ UnitBlueprint {
 			LeadTarget = true,
 			
             MaxRadius = 44,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 54,
 			
             ProjectileId = '/projectiles/AAAFizz01/AAAFizz01_proj.bp',
@@ -200,20 +189,14 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'WepFocus',
-                    },
+                    MuzzleBones = {'WepFocus'},
                     RackBone = 'WepFocus',
                 },
             },
-            RackFireTogether = true,
-            
-             
-            RackSalvoChargeTime = 0.1,  -- 1 tick before firing 
-            RackSalvoFiresAfterCharge = false,
-            RackSalvoReloadTime = 0.4,  -- 4 ticks after firing
-            RackSalvoSize = 1,
 
+            RackSalvoChargeTime = 0.1,  -- 1 tick before firing 
+
+            RackSalvoReloadTime = 0.4,  -- 4 ticks after firing
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -225,10 +208,9 @@ UnitBlueprint {
                 'BOMBER',
                 'GROUNDATTACK',
                 'AIR MOBILE',
-                
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
             
             TurretBoneMuzzle = 'WepFocus',
             TurretBonePitch = 'Barrel_Right',
@@ -241,23 +223,20 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 85,
+            TurretYawSpeed = 75,
 			
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.9,
+        EnergyMult = 0.6,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

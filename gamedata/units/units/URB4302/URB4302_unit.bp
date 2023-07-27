@@ -66,9 +66,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = false,
-
         UniformScale = 0.1,
     },
 	
@@ -77,9 +74,8 @@ UnitBlueprint {
         BuildCostMass = 7500,
         BuildRate = 1350,
         BuildTime = 7000,
-        RebuildBonusIds = {
-            'urb4302',
-        },
+
+        RebuildBonusIds = {'urb4302'},
     },
 	
     Footprint = {
@@ -90,8 +86,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Defense',
-        Classification = 'RULEUC_CounterMeasure',
         CommandCaps = {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_SiloBuildTactical = true,
@@ -100,9 +94,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC urb4302_name>Guardian',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -160,10 +152,14 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
             CountedProjectile = true,
+
             Damage = 30,
             DamageType = 'Normal',
+
             DisplayName = 'EMP Anti Nuke',
+
             EffectiveRadius = 90,
+
             FireTargetLayerCapsTable = {
                 Land = 'Air',
 				Sub = 'Air',
@@ -171,33 +167,32 @@ UnitBlueprint {
                 Seabed = 'Air',
             },
             FiringTolerance = 60,
+
             ForceSingleFire = true,
+
             InitialProjectileStorage = 0,
+
             Label = 'MissileRack',
+
             MaxProjectileStorage = 7,
+
             MaxRadius = 100,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 90,
+
             ProjectileId = '/projectiles/CAADissidentAntiNuke01/CAADissidentAntiNuke01_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Missile_Attachpoint',
-                    },
+                    MuzzleBones = {'Missile_Attachpoint'},
                     RackBone = 'URB4302',
                 },
             },
-             
-            
-
-
-            RackSalvoSize = 1,
-            
 
             RangeCategory = 'UWRC_Countermeasure',
+
             RateOfFire = 0.6,
+
             TargetCheckInterval = 1,
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'STRATEGIC MISSILE',
@@ -225,6 +220,7 @@ UnitBlueprint {
             DamageType = 'Normal',
             DisplayName = 'EMP Anti Sat',
             EffectiveRadius = 75,
+
             FireTargetLayerCapsTable = {
                 Land = 'Air',
 				Sub = 'Air',
@@ -232,28 +228,28 @@ UnitBlueprint {
                 Seabed = 'Air',
             },
             FiringTolerance = 60,
+
             Label = 'MissileRack2',
+
             MaxRadius = 90,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 65,
+
 			NotExclusive = true,
             
             ProjectileId = '/projectiles/CAADissidentAntiNuke02/CAADissidentAntiNuke02_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Missile_Attachpoint',
-                    },
+                    MuzzleBones = {'Missile_Attachpoint'},
                     RackBone = 'URB4302',
                 },
             },
 
-            RackSalvoSize = 1,
-
             RangeCategory = 'UWRC_AntiAir',
+
             RateOfFire = 0.2,
+
             TargetCheckInterval = 3,
             TargetPriorities = {
                 'SATELLITE',

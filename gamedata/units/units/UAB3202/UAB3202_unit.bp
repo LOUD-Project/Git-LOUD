@@ -11,7 +11,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 190,
+
     Categories = {
         'SELECTABLE',
         'AEON',
@@ -29,7 +31,9 @@ UnitBlueprint {
         'OVERLAYSONAR',
         'SORTINTEL',
     },
+
     CollisionOffsetY = -0.25,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 3,
@@ -37,11 +41,14 @@ UnitBlueprint {
         MaxHealth = 1000,
         RegenRate = 0,
     },
+
     Description = '<LOC uab3202_desc>Improved Sonar System',
+
     Display = {
         Abilities = {
             'Upgradeable to Mobile Sonar',
         },
+
         AnimationUpgrade = '/units/uab3202/uab3202_aopen.sca',
 
         Mesh = {
@@ -61,25 +68,25 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.06,
     },
+
     Economy = {
         BuildCostEnergy = 3600,
         BuildCostMass = 120,
         BuildRate = 15,
         BuildTime = 600,
-        BuildableCategory = {
-            'uas0305',
-        },
+
+        BuildableCategory = {'uas0305'},
+
         MaintenanceConsumptionPerSecondEnergy = 100,
     },
+
     Footprint = {
         MinWaterDepth = 1.5,
     },
+
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_Sensor',
         CommandCaps = {
             RULEUCC_Pause = true,
         },
@@ -92,26 +99,30 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
+
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
-        UnitWeight = 1,
+
         UpgradesFrom = 'uab3102',
         UpgradesTo = 'uas0305',
     },
+
     Intel = {
         ShowIntelOnSelect = true,
         SonarRadius = 180,
         VisionRadius = 30,
 		WaterVisionRadius = 15,
     },
+
     Interface = {
         HelpText = 'Improved Sonar System',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,
     LifeBarSize = 1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -130,12 +141,15 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.55,
     SelectionThickness = 0.7,
+
     SizeX = 0.5,
     SizeY = 0.5,
     SizeZ = 0.5,
+
     StrategicIconName = 'icon_structure2_intel',
     StrategicIconSortPriority = 230,
 }

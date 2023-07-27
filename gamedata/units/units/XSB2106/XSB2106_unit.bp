@@ -1,5 +1,6 @@
 UnitBlueprint {
     Adjacency = 'T2MassStorageAdjacencyBuffs',
+
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -17,7 +18,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 60,
+
     Categories = {
         'SELECTABLE',
         'SERAPHIM',
@@ -29,6 +32,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SHOWQUEUE',
     },
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 63,
@@ -36,7 +40,9 @@ UnitBlueprint {
         MaxHealth = 4800,
         RegenRate = 2,
     },
+
     Description = '<LOC xsb1106_desc>Improved Mass Storage',
+
     Display = {
         Abilities = {
 			'Adjacency bonuses to Mass Production',
@@ -64,50 +70,50 @@ UnitBlueprint {
                  },
              },
         },
-        PlaceholderMeshName = 'UXB0012',
-
         UniformScale = 0.07,
     },
+
     Economy = {
         AdjacentMassProductionMod = 0.50,
+
         BuildCostEnergy = 4500,
         BuildCostMass = 600,
         BuildRate = 10,
         BuildTime = 750,
-        BuildableCategory = {
-            'xsb3106',
-        },
-        RebuildBonusIds = {
-            'xsb1106',
-        },
+
+        BuildableCategory = {'xsb3106'},
+        RebuildBonusIds = {'xsb1106'},
+
         StorageMass = 600,
     },
+
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+
     General = {
 		CapCost = .25,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
 			RULEUCC_Pause = true,
         },
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
+
         UpgradesFrom = 'xsb1106',
         UpgradesFromBase = 'xsb1106',
         UpgradesTo = 'xsb3106',
     },
+
     Interface = {
         HelpText = 'Improved Mass Storage',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,
     LifeBarSize = 0.9,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -128,14 +134,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.75,
     SelectionSizeZ = 0.75,
     SelectionThickness = 0.6,
+
     SizeX = 0.7,
     SizeY = 0.7,
     SizeZ = 0.8,
+
     StrategicIconName = 'icon_node2_mass',
     StrategicIconSortPriority = 250,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -143,11 +153,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

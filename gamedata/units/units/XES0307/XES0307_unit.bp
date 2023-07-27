@@ -1,12 +1,9 @@
 UnitBlueprint {
     AI = {
         AttackAngle = 60,
-        GuardReturnRadius = 60,
-        TargetBones = {
-            'Front_Turret01',
-            'Front_Turret02',
-            'Back_Turret',
-        },
+        GuardReturnRadius = 100,
+        GuardScanRadius = 85,
+        TargetBones = {'Front_Turret01','Front_Turret02','Back_Turret'},
     },
 	
     Audio = {
@@ -286,7 +283,7 @@ UnitBlueprint {
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.125,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Front_Turret02_Muzzle01',
             TurretBonePitch = 'Front_Turret02_Barrel01',
@@ -369,7 +366,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.125,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Back_Turret_Muzzle01',
             TurretBonePitch = 'Back_Turret_Barrel',
@@ -499,7 +496,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,STRATEGIC',
             TargetRestrictOnlyAllow = 'TACTICAL,MISSILE',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Front_Turret01_Barrel01',
             TurretBonePitch = 'Front_Turret01_Barrel01',
@@ -562,7 +559,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.2,
         },
     },
 }

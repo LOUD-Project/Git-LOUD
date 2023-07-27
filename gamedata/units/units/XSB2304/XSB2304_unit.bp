@@ -85,9 +85,7 @@ UnitBlueprint {
                 },
             },
         },
-		
 
-
         UniformScale = 0.044,
     },
 	
@@ -95,9 +93,8 @@ UnitBlueprint {
         BuildCostEnergy = 10500,
         BuildCostMass = 950,
         BuildTime = 950,
-        RebuildBonusIds = {
-            'xsb2304',
-        },
+
+        RebuildBonusIds = {'xsb2304'},
     },
 	
     Footprint = {
@@ -105,8 +102,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -115,9 +110,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC xsb2304_name>Iathu-ioz',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -225,9 +218,6 @@ UnitBlueprint {
                 },
             },
 
-
-
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_AntiAir',
@@ -236,7 +226,6 @@ UnitBlueprint {
             TargetCheckInterval = 0.1,
 			
             TargetPriorities = {
-                'SPECIALHIGHPRI',
                 'HIGHPRIAIR',
                 'BOMBER',
                 'GROUNDATTACK',
@@ -271,10 +260,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
             Water = true,
         },
     },

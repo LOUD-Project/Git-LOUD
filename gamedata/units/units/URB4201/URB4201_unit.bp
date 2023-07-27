@@ -11,7 +11,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 155,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -29,7 +31,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTSTRATEGIC',
     },
+
     CollisionOffsetY = -0.25,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 4,
@@ -37,7 +41,9 @@ UnitBlueprint {
         MaxHealth = 950,
         RegenRate = 1,
     },
+
     Description = '<LOC urb4201_desc>Tactical Missile Defense',
+
     Display = {
         Abilities = {
             'Aquatic',
@@ -57,44 +63,43 @@ UnitBlueprint {
                 },
             },
         },
-
-
-
         UniformScale = 0.1,
     },
+
     Economy = {
         BuildCostEnergy = 3200,
         BuildCostMass = 280,
         BuildTime = 400,
-        RebuildBonusIds = {
-            'urb4201',
-        },
+
+        RebuildBonusIds = {'urb4201'},
     },
+
     Footprint = {
         MinWaterDepth = 1,
     },
+
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_CounterMeasure',
         CommandCaps = {
             RULEUCC_RetaliateToggle = true,
         },
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC urb4201_name>Zapper',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 28,
     },
+
     Interface = {
         HelpText = 'Tactical Missile Defense',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,
     LifeBarSize = 1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -112,14 +117,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.75,
     SelectionSizeZ = 0.75,
     SelectionThickness = 0.5,
+
     SizeX = 0.6,
     SizeY = 1.6,
     SizeZ = 0.6,
+
     StrategicIconName = 'icon_structure2_antimissile',
     StrategicIconSortPriority = 200,
+
     Weapon = {
         {
             Audio = {
@@ -153,25 +162,15 @@ UnitBlueprint {
             MaxRadius = 30,
 			
             MaximumBeamLength = 40,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             NeedPrep = true,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Muzzle',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -209,11 +208,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

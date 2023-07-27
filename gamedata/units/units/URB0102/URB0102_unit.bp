@@ -60,10 +60,13 @@ UnitBlueprint {
         Abilities = {
             'Upgradeable',
         },
+
         AnimationBuild = '/units/urb0102/urb0102_abuild.sca',
         AnimationFinishBuildLand = '/units/urb0102/urb0102_aplatform.sca',
         AnimationUpgrade = '/units/urb0102/urb0102_aupgrade.sca',
+
         BuildAttachBone = 'Build_Point',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -80,7 +83,6 @@ UnitBlueprint {
             },
         },
 
-
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_cybran_01_albedo',
@@ -131,13 +133,8 @@ UnitBlueprint {
     General = {
         BuildBones = {
             BuildAttachBone = 'Build_Point',
-            BuildEffectBones = {
-                'Arm02_Muzzle',
-                'Arm01_Muzzle',
-            },
+            BuildEffectBones = {'Arm02_Muzzle','Arm01_Muzzle'},
         },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -150,19 +147,22 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'air',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
+
         UpgradesTo = 'urb0202',
     },
+
     Intel = {
         VisionRadius = 10,
     },
+
     Interface = {
         HelpText = 'Basic Air Factory',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 2,
     LifeBarSize = 4.5,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -297,6 +297,7 @@ UnitBlueprint {
             -- z
             0,
         },
+
         RollOffPoints = {
             {
                 UnitSpin = 90,
@@ -317,16 +318,18 @@ UnitBlueprint {
         SkirtSizeZ = 8,
         TurnRate = 0,
     },
+
     SelectionSizeX = 3,
     SelectionSizeZ = 3,
     SelectionThickness = 0.33,
 
-    -- height
     SizeX = 3.5,
     SizeY = 0.75,
     SizeZ = 3.5,
+
     StrategicIconName = 'icon_factory1_air',
     StrategicIconSortPriority = 220,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -334,11 +337,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

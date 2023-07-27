@@ -115,7 +115,7 @@ UnitBlueprint {
                 },
             },
         },
-
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_aeon_01_albedo',
@@ -133,6 +133,7 @@ UnitBlueprint {
                 Width = 12.8,
             },
         },
+
         UniformScale = 0.03,
     },
 	
@@ -155,16 +156,10 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 5,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
-        ToggleCaps = {
-            RULEUTC_ProductionToggle = true,
-        },
-        UnitWeight = 1,
+        ToggleCaps = { RULEUTC_ProductionToggle = true },
     },
 	
     Interface = {

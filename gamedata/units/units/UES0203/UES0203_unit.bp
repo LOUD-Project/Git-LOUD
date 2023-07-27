@@ -1,8 +1,9 @@
 UnitBlueprint {
     AI = {
         GuardReturnRadius = 60,
-
+        GuardScanRadius = 32,
     },
+
     Audio = {
         Killed = Sound {
             Bank = 'UESDestroy',

@@ -67,7 +67,7 @@ UnitBlueprint {
             ShieldRechargeTime = 7,
             ShieldRegenRate = 42.5,
             ShieldRegenStartTime = 1,
-            ShieldSize = 8,
+            ShieldSize = 4.8,
             ShieldVerticalOffset = 0,
             StartsOff = false,
         },
@@ -121,7 +121,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.04,
     },
 
@@ -150,14 +149,12 @@ UnitBlueprint {
     },
 
     General = {
-
         BuildBones = {
             AimBone = 0,
             BuildEffectBones = {'Arm_Muzzle',},
             PitchBone = 'Arm02',
             YawBone = 'XEL0209',
         },
-
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Capture = true,
@@ -169,23 +166,18 @@ UnitBlueprint {
             RULEUCC_Repair = true,
             RULEUCC_Stop = true,
         },
-
         ConstructionBar = true,
         FactionName = 'UEF',
         Icon = 'amph',
-
 		OrderOverrides = {
             RULEUTC_ShieldToggle = {bitmapId = 'shield-dome',helpText = 'toggle_shield_dome'},
 		},
-
         SelectionPriority = 3,
-
 		ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
 
         UnitName = '<LOC xel0209_name>Sparky',
-        UnitWeight = 1,
     },
 
     Intel = {
@@ -248,11 +240,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

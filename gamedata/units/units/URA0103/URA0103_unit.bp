@@ -1,8 +1,8 @@
 UnitBlueprint {
     AI = {
-		GuardRadius = 150,
-        GuardReturnRadius = 200,
-        GuardScanRadius = 150,
+		GuardRadius = 80,
+        GuardReturnRadius = 120,
+        GuardScanRadius = 80,
     },
 
     Air = {
@@ -126,7 +126,6 @@ UnitBlueprint {
     },
 	
     General = {
-
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -262,7 +261,7 @@ UnitBlueprint {
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.25,
+            TrackingRadius = 1.2,
         },
     },
 }

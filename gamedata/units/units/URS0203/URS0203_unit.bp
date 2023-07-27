@@ -1,7 +1,9 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 60,
+        GuardReturnRadius = 50,
+        GuardScanRadius = 32,
     },
+
     Audio = {
         Killed = Sound {
             Bank = 'URSDestroy',
@@ -38,6 +40,7 @@ UnitBlueprint {
     Buffs = {},
 	
     BuildIconSortPriority = 30,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1FACTORY',

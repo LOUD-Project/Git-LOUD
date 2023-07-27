@@ -4,44 +4,60 @@ local TIFCruiseMissileUnpackingLauncher = import('/lua/terranweapons.lua').TIFCr
 
 local ForkThread = ForkThread
 local ChangeState = ChangeState
+
+local PlayAnim = moho.AnimationManipulator.PlayAnim
+
 local WaitTicks = coroutine.yield
 
 XEL0306 = Class(TLandUnit) {
     Weapons = {
-        MissileWeapon = Class(TIFCruiseMissileUnpackingLauncher) 
-        {
+        MissileWeapon = Class(TIFCruiseMissileUnpackingLauncher) {
+
             FxMuzzleFlash = {'/effects/emitters/terran_mobile_missile_launch_01_emit.bp'},
-            
+           
             
             OnLostTarget = function(self)
                 self:ForkThread( self.LostTargetThread )
             end,
             
+            PlayFxRackSalvoChargeSequence = function(self)
+
+                self:PlayFxWeaponUnpackSequence()            
+
+            end,
+
+            PlayFxRackReloadSequence = function(self)
+
+                self:PlayFxWeaponPackSequence()
+
+                self.Animator = CreateAnimator(self.unit)
+        
+                PlayAnim( self.Animator, self.bp.AnimationReload):SetRate( self.bp.AnimationReloadRate or 1)
+
+                WaitFor(self.Animator)
+
+            end,
+
             RackSalvoFiringState = State(TIFCruiseMissileUnpackingLauncher.RackSalvoFiringState) {
+
                 OnLostTarget = function(self)
                     self:ForkThread( self.LostTargetThread )
                 end,            
             },
--- changed so that it can pack the weapon
+
+            -- changed so that it can pack the weapon
 			-- just after lost target - no need to be complicated
 			-- no reason it cant be moving & pack weapon at same time
             LostTargetThread = function(self)
-			
---                local bp = self:GetBlueprint().Weapon[1]			
-				
---                while not self.unit.Dead and self.unit:IsUnitState('Busy') do
-                    WaitTicks(5)
---                end
+
+                WaitTicks(5)
 
                 if self.unit.Dead then
                     return
                 end
 
---                if bp.WeaponUnpacks then
-                    ChangeState(self, self.WeaponPackingState)
---               else
---                    ChangeState(self, self.IdleState)
---                end
+                ChangeState(self, self.WeaponPackingState)
+
             end,
         },
     },

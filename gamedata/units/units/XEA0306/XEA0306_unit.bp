@@ -1,6 +1,8 @@
 UnitBlueprint {
     AI = {
         BeaconName = 'UEB5102',
+        GuardReturnRadius = 96,
+        GuardScanRadius = 64,
         TargetBones = {'FrontRight_Engine','FrontLeft_Engine','BackRight_Engine','BackLeft_Engine','XEA0306'},
     },
 	
@@ -62,8 +64,6 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-	
-    AverageDensity = 1,
 	
     Buffs = {
         Regen = {
@@ -147,8 +147,7 @@ UnitBlueprint {
                 },
             },
         },
-		
-        SpawnRandomRotation = false,
+
         UniformScale = 0.05,
     },
 	
@@ -168,8 +167,6 @@ UnitBlueprint {
 	
     General = {
         CapCost = 2,
-        Category = 'Transport',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -183,24 +180,17 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'air',
-		
         OrderOverrides = {
             RULEUTC_ShieldToggle = {
                 bitmapId = 'shield-dome',
                 helpText = 'toggle_shield_dome',
             },
         },
-		
         SelectionPriority = 2,
-		
-        TechLevel = 'RULEUTL_Advanced',
-		
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-		
         UnitName = '<LOC xea0306_name>Continental',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -294,9 +284,7 @@ UnitBlueprint {
             Label = 'PlasmaGun',
 			
             MaxRadius = 32,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/TDFPlasmaHeavy02/TDFPlasmaHeavy02_proj.bp',
@@ -304,16 +292,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'PlasmaGun01_Muzzle',
-                    },
+                    MuzzleBones = {'PlasmaGun01_Muzzle'},
                     RackBone = 'PlasmaGun01',
                 },
             },
-
-            RackReloadTimeout = 10,
-
-
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -373,9 +355,7 @@ UnitBlueprint {
             Label = 'PlasmaGun',
 			
             MaxRadius = 32,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
 
             ProjectileId = '/projectiles/TDFPlasmaHeavy02/TDFPlasmaHeavy02_proj.bp',
@@ -383,16 +363,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'PlasmaGun02_Muzzle',
-                    },
+                    MuzzleBones = {'PlasmaGun02_Muzzle'},
                     RackBone = 'PlasmaGun02',
                 },
             },
-
-            RackReloadTimeout = 10,
-
-
 
             RateOfFire = 0.8,		---- 24 DPS Ground
 			
@@ -471,9 +445,6 @@ UnitBlueprint {
                 },
             },
 
-
-
-
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 0.25,		---- 300 Damage every 4 is 75 DPS Air
@@ -487,7 +458,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'AA_Turret01_Barrel01',
             TurretBonePitch = 'AA_Turret01',
@@ -553,9 +524,6 @@ UnitBlueprint {
                 },
             },
 
-
-
-
             RateOfFire = 0.25,	-- 75 DPS
 			
             TargetCheckInterval = 2.5,
@@ -567,7 +535,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'AA_Turret02_Barrel02',
             TurretBonePitch = 'AA_Turret02',
@@ -634,9 +602,6 @@ UnitBlueprint {
                 },
             },
 
-
-
-
             RateOfFire = 0.25,		-- 75 DPS
 			
             TargetCheckInterval = 2.5,
@@ -647,7 +612,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'AA_Turret03_Barrel03',
             TurretBonePitch = 'AA_Turret03',
@@ -713,9 +678,6 @@ UnitBlueprint {
                 },
             },
 
-
-
-
             RateOfFire = 0.25,		---- 75 DPS Air
 			
             TargetCheckInterval = 2.5,
@@ -726,7 +688,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'AA_Turret04_Barrel04',
             TurretBonePitch = 'AA_Turret04',
@@ -762,14 +724,10 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.8,
-        MassMult = 0.6,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

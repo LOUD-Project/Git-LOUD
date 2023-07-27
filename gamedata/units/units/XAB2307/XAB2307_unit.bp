@@ -81,8 +81,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
 		
         Tarmacs = {
             {
@@ -91,12 +89,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 10,
                 Normal = 'Tarmacs/Tar12x_aeon_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = true,
                 Width = 10,
             },
@@ -119,8 +112,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 7,
-        Category = 'Strategic',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -129,9 +120,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC xab2307_name>Salvation',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -237,8 +226,7 @@ UnitBlueprint {
             MinRadius = 150,
 			
             MuzzleChargeDelay = 0.5,    -- .5 second muzzle delay
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 115,
             MuzzleVelocityReduceDistance = 2000,
 			
@@ -247,19 +235,12 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
 
             RackRecoilDistance = -1,
-			
-
-
-            RackSalvoFiresAfterCharge = false,
-             
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -305,11 +286,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

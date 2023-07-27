@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
         GuardScanRadius = 40,
-		GuardReturnRadius = 45,
+		GuardReturnRadius = 50,
 		
         TargetBones = {
             'Head_Muzzle',
@@ -90,6 +90,7 @@ UnitBlueprint {
             'Amphibious',
             'Omni Sensor',
         },
+
         AnimationActivate = '/units/UAL0401/UAL0401_aactivate.sca',
         AnimationDeath = {
             {
@@ -101,6 +102,7 @@ UnitBlueprint {
         },
         AnimationWalk = '/units/ual0401/ual0401_awalk.sca',
         AnimationWalkRate = 2,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -111,6 +113,7 @@ UnitBlueprint {
                 },
             },
         },
+
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -186,8 +189,6 @@ UnitBlueprint {
     
     General = {
 		CapCost = 6,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -198,9 +199,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC ual0401_name>Galactic Colossus',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -313,9 +312,7 @@ UnitBlueprint {
 			
             DisplayName = 'Phason Laser',
 			
-            DoNotCollideList = {
-                'MISSILE',
-            },
+            DoNotCollideList = {'MISSILE'},
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -329,10 +326,6 @@ UnitBlueprint {
 			
             MaxRadius = 40,
             MinRadius = 2,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
 			
             RackBones = {
                 {
@@ -412,10 +405,6 @@ UnitBlueprint {
 			
             MaxRadius = 30,
             MinRadius = 2,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
 			
             MuzzleSpecial = 'Right_Arm_Muzzle02',
 			
@@ -501,10 +490,7 @@ UnitBlueprint {
             
             MaxRadius = 30,
             MinRadius = 2,
-            
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleSpecial = 'Left_Arm_Muzzle02',
             
             RackBones = {
@@ -558,14 +544,11 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

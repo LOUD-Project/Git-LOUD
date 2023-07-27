@@ -1,6 +1,7 @@
 UnitBlueprint {
     AI = {
         GuardReturnRadius = 60,
+        GuardScanRadius = 45,
     },
 	
     Audio = {
@@ -240,7 +241,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Front_Barrel',
             TurretBonePitch = 'Turret_Front_Barrel',
@@ -312,7 +313,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
             Turreted = false,
         },
         {
@@ -422,7 +423,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,STRATEGIC',
             TargetRestrictOnlyAllow = 'TACTICAL,MISSILE',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.2,
         },
     },
 }

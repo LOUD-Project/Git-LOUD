@@ -11,7 +11,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 190,
+
     Categories = {
         'SELECTABLE',
         'SERAPHIM',
@@ -29,7 +31,9 @@ UnitBlueprint {
         'OVERLAYSONAR',
         'SORTINTEL',
     },
+
     CollisionOffsetY = -0.25,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 3,
@@ -37,7 +41,9 @@ UnitBlueprint {
         MaxHealth = 800,
         RegenRate = 0,
     },
+
     Description = '<LOC xsb3202_desc>Improved Sonar System',
+
     Display = {
         Abilities = {
 			'Upgradeable',
@@ -62,8 +68,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.05,
     },
 	
@@ -79,8 +83,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_Sensor',
         CommandCaps = {
             RULEUCC_Pause = true,
         },
@@ -93,26 +95,29 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
-        UnitWeight = 1,
+
         UpgradesFrom = 'xsb3102',
 		UpgradesTo = 'xss0305',
     },
+
     Intel = {
         ShowIntelOnSelect = true,
         SonarRadius = 180,
         VisionRadius = 30,
 		WaterVisionRadius = 15,
     },
+
     Interface = {
         HelpText = 'Improved Sonar System',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.45,
     LifeBarSize = 1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -131,12 +136,15 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.6,
     SelectionSizeZ = 0.6,
     SelectionThickness = 0.66,
+
     SizeX = 0.9,
     SizeY = 1,
     SizeZ = 0.7,
+
     StrategicIconName = 'icon_structure2_intel',
     StrategicIconSortPriority = 230,
 }

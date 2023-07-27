@@ -87,9 +87,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
-
         UniformScale = 0.04,
     },
 	
@@ -107,8 +104,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 5,
-        Category = 'Strategic',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Nuke = true,
             RULEUCC_Pause = true,
@@ -118,9 +113,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC ueb2305_name>Stonager',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -218,9 +211,7 @@ UnitBlueprint {
 			
             MaxRadius = 20000,
             MinRadius = 0,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 0,
 			
             NukeInnerRingDamage = 70000,
@@ -240,18 +231,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle',
-                    },
+                    MuzzleBones = {'Muzzle'},
                     RackBone = 'Muzzle',
                 },
             },
-             
-            
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_IndirectFire',
 			

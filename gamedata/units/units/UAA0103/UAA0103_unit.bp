@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 150,
-        GuardScanRadius = 125,
+        GuardReturnRadius = 120,
+        GuardScanRadius = 80,
     },
 	
     Air = {
@@ -127,7 +127,6 @@ UnitBlueprint {
     },
 	
     General = {
-
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -140,7 +139,6 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'air',
-
         UnitName = '<LOC uaa0103_name>Shimmer',
     },
 	

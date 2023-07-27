@@ -78,9 +78,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
-
         UniformScale = 0.06,
     },
 	
@@ -93,8 +90,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -103,9 +98,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC urb2301_name>Cerberus',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -205,14 +198,6 @@ UnitBlueprint {
                     RackBone = 'Turret_B02',
                 },
             },
-			
-             
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -227,7 +212,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle01',
             TurretBonePitch = 'Turret_B02',
@@ -253,11 +238,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

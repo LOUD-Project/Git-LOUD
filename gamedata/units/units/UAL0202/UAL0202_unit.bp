@@ -1,8 +1,9 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+		GuardReturnRadius = 40,
+        GuardScanRadius = 25,
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -20,6 +21,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -29,7 +31,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+
     BuildIconSortPriority = 20,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -42,6 +46,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+
     CollisionOffsetZ = 0.1,
 	
     Defense = {
@@ -65,7 +70,9 @@ UnitBlueprint {
         },
         SurfaceThreatLevel = 12.2,
     },
+
     Description = '<LOC ual0202_desc>Heavy Tank',
+
     Display = {
         Abilities = {
             'Personal Shield',
@@ -87,7 +94,6 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.1,
     },
 	
@@ -100,8 +106,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -119,22 +123,25 @@ UnitBlueprint {
                 helpText = 'toggle_shield_personal',
             },
         },
-        TechLevel = 'RULEUTL_Advanced',
+
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
         UnitName = '<LOC ual0202_name>Obsidian',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 25,
     },
+
     Interface = {
         HelpText = 'Heavy Tank',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 0.95,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -156,17 +163,22 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 60,
     },
+
     SelectionSizeX = 0.6,
     SelectionSizeZ = 0.75,
     SelectionThickness = 0.53,
+
     SizeX = 0.8,
     SizeY = 0.6,
     SizeZ = 0.9,
+
     StrategicIconName = 'icon_land2_directfire',
     StrategicIconSortPriority = 125,
+
     Transport = {
         TransportClass = 2,
     },
+
     Veteran = {
         Level1 = 5,
         Level2 = 10,
@@ -174,6 +186,7 @@ UnitBlueprint {
         Level4 = 20,
         Level5 = 25,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -207,27 +220,19 @@ UnitBlueprint {
             MaxRadius = 25,
 			
             MuzzleChargeDelay = 0.3,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/ADFQuantumCannon02/ADFQuantumCannon02_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret',
                 },
             },
-             
+
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -243,7 +248,7 @@ UnitBlueprint {
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.2,
+
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret',
             TurretBoneYaw = 'Turret',
@@ -260,18 +265,15 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -70,7 +70,6 @@ UnitBlueprint {
                 },
             },
         },
-
         UniformScale = 0.1,
     },
 	
@@ -82,8 +81,6 @@ UnitBlueprint {
 	
     General = {
         CapCost = 0,
-        Category = 'Construction',
-        Classification = 'RULEUC_Engineer',
         CommandCaps = {
             RULEUCC_Move = true,
             RULEUCC_Patrol = true,
@@ -91,8 +88,6 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -185,21 +180,12 @@ UnitBlueprint {
             MaxRadius = 20,
             MinRadius = 5,
             
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle',
-                    },
+                    MuzzleBones = {'Muzzle'},
                     RackBone = 'Muzzle',
                 },
             },
-
-
-
 
             RangeCategory = 'UWRC_DirectFire',
             

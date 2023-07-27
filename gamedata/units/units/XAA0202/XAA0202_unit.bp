@@ -1,8 +1,8 @@
 UnitBlueprint {
     AI = {
-		GuardRadius = 125,
-        GuardReturnRadius = 150,
-        GuardScanRadius = 150,
+		GuardRadius = 70,
+        GuardReturnRadius = 105,
+        GuardScanRadius = 70,
     },
 	
     Air = {
@@ -215,6 +215,8 @@ UnitBlueprint {
             Audio = {
                 Fire = Sound { Bank = 'XAA_Weapon', Cue = 'XAA0202_Light_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
+
+            AutoInitiateAttackCommand = true,
 			
             BallisticArc = 'RULEUBA_None',
 			
@@ -230,7 +232,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land',
-                Land = 'Air|Land',
+                Land = 'Air',
             },
 			
             FiringTolerance = 2,
@@ -267,7 +269,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Muzzle',
             TurretBonePitch = 'Muzzle',

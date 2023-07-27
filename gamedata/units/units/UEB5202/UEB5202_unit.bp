@@ -70,7 +70,6 @@ UnitBlueprint {
             'Repairs Aircraft in Vicinity',
             'Refuels Aircraft in Vicinity',
         },
-		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -86,8 +85,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.1875,
     },
 	
@@ -100,8 +97,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Strategic',
-        Classification = 'RULEUC_MiscSupport',
         CommandCaps = {
             RULEUCC_Transport = true,
         },
@@ -114,9 +109,7 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC ueb5202_name>Refuel & Repair',
-        UnitWeight = 1,
     },
 	
     Interface = {

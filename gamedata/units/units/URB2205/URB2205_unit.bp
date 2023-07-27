@@ -4,6 +4,7 @@ UnitBlueprint {
             'URB2205',
         },
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -16,6 +17,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -25,7 +27,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+
     BuildIconSortPriority = 310,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -43,6 +47,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTDEFENSE',
     },
+
     CollisionOffsetY = -1,
 	
     Defense = {
@@ -52,13 +57,14 @@ UnitBlueprint {
         RegenRate = 8,
         SubThreatLevel = 24,
     },
+
     Description = '<LOC urb2205_desc>Improved Torpedo Launcher',
+
     Display = {
         Abilities = {
             'Sonar',
 			'Radar & Sonar Stealth',
         },
-
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -68,24 +74,22 @@ UnitBlueprint {
                 },
             },
         },
-
-
-
         UniformScale = 0.17,
     },
+
     Economy = {
         BuildCostEnergy = 9000,
         BuildCostMass = 1280,
         BuildTime = 1280,
     },
+
     Footprint = {
         MinWaterDepth = 2,
         SizeX = 2,
         SizeZ = 2,
     },
+
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -94,10 +98,9 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'sea',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC urb2205_name>Tentacle',
-        UnitWeight = 1,
     },
+
     Intel = {
 		FreeIntel = true,
         RadarStealth = true,
@@ -106,12 +109,15 @@ UnitBlueprint {
         VisionRadius = 30,
         WaterVisionRadius = 40,
     },
+
     Interface = {
         HelpText = 'Improved Torpedo Launcher',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.75,
     LifeBarSize = 1.5,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -128,14 +134,18 @@ UnitBlueprint {
         SkirtSizeZ = 3,
         TurnRate = 0,
     },
+
     SelectionSizeX = 1,
     SelectionSizeZ = 1,
     SelectionThickness = 0.4,
+
     SizeX = 1.5,
     SizeY = 2.0,
     SizeZ = 1.5,
+
     StrategicIconName = 'icon_structure2_antinavy',
     StrategicIconSortPriority = 200,
+
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -143,6 +153,7 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+
     Weapon = {
         {
             Audio = {
@@ -181,19 +192,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -208,7 +210,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',

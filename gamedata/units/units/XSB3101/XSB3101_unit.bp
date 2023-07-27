@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -16,7 +17,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 180,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -35,7 +38,9 @@ UnitBlueprint {
         'OVERLAYRADAR',
         'SORTINTEL',
     },
+
     CollisionOffsetY = -0.25,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 1,
@@ -43,11 +48,14 @@ UnitBlueprint {
         MaxHealth = 10,
         RegenRate = 0,
     },
+
     Description = '<LOC xsb3101_desc>Basic Radar System',
+
     Display = {
         Abilities = {
             'Upgradeable',
         },
+
         AnimationDeath = {
             {
                 Animation = '/units/xsb3101/xsb3101_ADeath.sca',
@@ -74,33 +82,32 @@ UnitBlueprint {
                 },
             },
         },
-
-
-
         UniformScale = 0.08,
     },
+
     Economy = {
         BuildCostEnergy = 720,
         BuildCostMass = 80,
         BuildRate = 10,
         BuildTime = 80,
-        BuildableCategory = {
-            'xsb3201',
-        },
+
+        BuildableCategory = {'xsb3201'},
+
         MaintenanceConsumptionPerSecondEnergy = 20,
+
         RebuildBonusIds = {
             'xsb3101',
             'xsb3201',
             'xsb3104',
         },
     },
+
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_Sensor',
         CommandCaps = {
             RULEUCC_Pause = true,
         },
@@ -113,26 +120,29 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
         UnitName = '<LOC xsb3101_name>Esel',
-        UnitWeight = 1,
+
         UpgradesTo = 'xsb3201',
     },
+
     Intel = {
         RadarRadius = 115,
         ReactivateTime = 5,
         ShowIntelOnSelect = true,
         VisionRadius = 26,
     },
+
     Interface = {
         HelpText = 'Basic Radar System',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,
     LifeBarSize = 1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -152,16 +162,20 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0.1,
     SelectionSizeX = 0.85,
     SelectionSizeZ = 0.9,
     SelectionThickness = 0.46,
+
     SizeX = 0.5,
     SizeY = 1,
     SizeZ = 0.5,
+
     StrategicIconName = 'icon_structure1_intel',
     StrategicIconSortPriority = 235,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -169,11 +183,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

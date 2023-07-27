@@ -1,15 +1,15 @@
 UnitBlueprint {
     AI = {
+        GuardScanRadius = 60,
+        GuardReturnRadius = 80,
+
         RefuelingMultiplier = 75,
         RefuelingRepairAmount = 500,
         RepairConsumeEnergy = 5,
         RepairConsumeMass = 0.5,
         StagingPlatformScanRadius = 400,
-        TargetBones = {
-            'UAS0303',
-            'Exhaust01',
-            'Exhaust02',
-        },
+
+        TargetBones = {'UAS0303','Exhaust01','Exhaust02'},
     },
 	
     Audio = {
@@ -277,16 +277,15 @@ UnitBlueprint {
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE ANTINAVY',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'ANTINAVY',
+                'GROUNDATTACK',
                 'AIR MOBILE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Muzzle_Right',
             TurretBonePitch = 'Turret_Right_Barrel',
@@ -356,15 +355,14 @@ UnitBlueprint {
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE ANTINAVY',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'ANTINAVY',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Muzzle_Left',
             TurretBonePitch = 'Turret_Left_Barrel',

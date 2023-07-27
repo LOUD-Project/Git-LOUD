@@ -1,16 +1,12 @@
 UnitBlueprint {
     AI = {
-        GuardRadius = 10,
-        TargetBones = {
-            'Head',
-            'Right_Arm_B01',
-            'Left_Arm_B01',
-            'Torso',
-            'Left_Leg_B01',
-            'Right_Leg_B01',
-        },
+        GuardRadius = 22,
+        GaurdScanRadius = 22,
+        
+        TargetBones = {'Head','Right_Arm_B01','Left_Arm_B01','Torso','Left_Leg_B01'},
 
     },
+
     Audio = {
         CommanderArrival = Sound {
             Bank = 'UAL',
@@ -53,6 +49,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {
         Regen = {
             Level1 = 10,
@@ -62,6 +59,7 @@ UnitBlueprint {
             Level5 = 50,
         },
     },
+
     Categories = {
         'SELECTABLE',
         'AEON',
@@ -107,8 +105,10 @@ UnitBlueprint {
             '<LOC ability_omni>Omni Sensor',
             '<LOC ability_deathaoe>Volatile',
         },
+
         AnimationWalk = '/units/ual0001/ual0001_awalk.sca',
         AnimationWalkRate = 2.5,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -119,6 +119,7 @@ UnitBlueprint {
                 },
             },
         },
+
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -700,17 +701,14 @@ UnitBlueprint {
             Slot = 'Back',
         },
     },
+
     General = {
         BuildBones = {
             AimBone = 'Left_Turret_Muzzle',
-            BuildEffectBones = {
-                'Left_Turret_Muzzle',
-            },
+            BuildEffectBones = {'Left_Turret_Muzzle'},
             PitchBone = 'Left_Turret',
             YawBone = 'Torso',
         },
-        Category = 'Command',
-        Classification = 'RULEUC_Commander',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -735,21 +733,23 @@ UnitBlueprint {
         },
         QuickSelectPriority = 1,
         SelectionPriority = 3,
-        TechLevel = 'RULEUTL_Experimental',
-        UnitWeight = 1,
     },
+
     Intel = {
         FreeIntel = true,
         OmniRadius = 26,
         VisionRadius = 26,
         WaterVisionRadius = 26,
     },
+
     Interface = {
         HelpText = 'Armored Command Unit',
     },
+
     LifeBarHeight = 0.15,
     LifeBarOffset = 0.5,
     LifeBarSize = 1.25,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -767,22 +767,27 @@ UnitBlueprint {
         TurnRadius = 10,
         TurnRate = 90,
     },
+
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.125,
     SelectionSizeX = 0.7,
     SelectionSizeZ = 0.6,
     SelectionThickness = 0.9,
     SelectionYOffset = 0,
+
     SizeX = 1,
     SizeY = 2,
     SizeZ = 0.7,
+
     StrategicIconName = 'icon_commander_generic',
     StrategicIconSortPriority = 0,
+
     Transport = {
         CanFireFromTransport = false,
         ClassSAttachSize = 0,
         TransportClass = 3,
     },
+
     Veteran = {
         Level1 = 20,
         Level2 = 40,
@@ -790,6 +795,7 @@ UnitBlueprint {
         Level4 = 80,
         Level5 = 100,
     },
+
     Weapon = {
         {
             AboveWaterFireOnly = true,
@@ -801,66 +807,66 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
+
             Damage = 100,
             DamageType = 'Normal',
+
             DisplayName = 'Quantum Disruptor',
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
+
             Label = 'RightDisruptor',
+
             MaxRadius = 22,
             MinRadius = 1,
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
+
             ProjectileId = '/projectiles/ADFQuantumDisruptor01/ADFQuantumDisruptor01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 2,
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Turret_Muzzle'},
                     RackBone = 'Right_Turret',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-            
 
             RangeCategory = 'UWRC_DirectFire',
             RateOfFire = 1,
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-   
-   'ALLUNITS',
+                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
+
             TurretBoneMuzzle = 'Right_Turret_Muzzle',
             TurretBonePitch = 'Right_Turret',
             TurretBoneYaw = 'Torso',
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 90,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 90,
-            Turreted = true,
-            UseFiringSolutionInsteadOfAimBone = true,
 
+            Turreted = true,
+
+            UseFiringSolutionInsteadOfAimBone = true,
         },
         {
             AboveWaterFireOnly = true,
@@ -874,65 +880,69 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
+
             Damage = 12000,
             DamageFriendly = false,
             DamageRadius = 2.5,
             DamageType = 'Overcharge',
+
             DisplayName = 'Overcharge Cannon',
+
             EnergyChargeForFirstShot = false,
             EnergyDrainPerSecond = 5000,
             EnergyRequired = 5000,
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
+
             Label = 'OverCharge',
+
             ManualFire = true,
+
             MaxRadius = 22,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 25,
+
             OverChargeWeapon = true,
+
             ProjectileId = '/projectiles/ADFOverCharge01/ADFOverCharge01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 2,
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Turret_Muzzle'},
                     RackBone = 'Right_Turret_Barrel',
                 },
             },
-             
+
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-            
 
             RangeCategory = 'UWRC_DirectFire',
+
             RateOfFire = 0.3,
-            SlavedToBody = false,
+
             TargetCheckInterval = 0.16,
             TargetRestrictDisallow = 'UNTARGETABLE',
             TurretBoneMuzzle = 'Right_Turret_Muzzle',
             TurretBonePitch = 'Right_Turret',
             TurretBoneYaw = 'Torso',
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 60,
             TurretPitchSpeed = 30,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 90,
-            Turreted = true,
-            UseFiringSolutionInsteadOfAimBone = true,
 
-            WeaponRepackTimeout = 0,
-            WeaponUnpacks = false,
+            Turreted = true,
+
+            UseFiringSolutionInsteadOfAimBone = true,
         },
         {
             AboveWaterFireOnly = true,
@@ -950,50 +960,49 @@ UnitBlueprint {
                     TargetDisallow = 'EXPERIMENTAL,AIR,COMMAND',
                 },
             },
+
             CanFireFromTransport = true,
+
             CollideFriendly = false,
+
             Damage = 1,
             DamageRadius = 0,
             DamageType = 'Normal',
+
             DisplayName = 'Chrono Dampener',
+
             EnabledByEnhancement = 'ChronoDampener',
+
             EnergyChargeForFirstShot = false,
             EnergyDrainPerSecond = 200,
             EnergyRequired = 200,
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 360,
+
             Label = 'ChronoDampener',
+
             MaxRadius = 22,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
             ProjectileLifetimeUsesMultiplier = 1.15,
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Head',
-                    },
+                    MuzzleBones = {'Head'},
                     RackBone = 'Head',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-            
 
             RangeCategory = 'UWRC_DirectFire',
             RateOfFire = 0.2,
+
             TargetCheckInterval = 5,
-            TargetPriorities = {
-                'ALLUNITS',
-            },
+            TargetPriorities = {'ALLUNITS'},
             TargetRestrictDisallow = 'UNTARGETABLE',
 
             Turreted = false,
@@ -1001,18 +1010,23 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             CollideFriendly = false,
+
             Damage = 0,
             DamageFriendly = true,
             DamageRadius = 0,
             DamageType = 'Deathnuke',
+
             DisplayName = 'Death Nuke',
+
             FireOnDeath = true,
             FiringTolerance = 2,
+
             Label = 'DeathWeapon',
+
             MaxRadius = 1,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 0,
+
             NukeInnerRingDamage = 45000,
             NukeInnerRingRadius = 30,
             NukeInnerRingTicks = 24,
@@ -1021,12 +1035,11 @@ UnitBlueprint {
             NukeOuterRingRadius = 40,
             NukeOuterRingTicks = 20,
             NukeOuterRingTotalTime = 0,
+
             ProjectileId = '/projectiles/AIFQuantumWarhead02/AIFQuantumWarhead02_proj.bp',
             RackBones = {
                 {
-                    MuzzleBones = {
-                        0,
-                    },
+                    MuzzleBones = { 0 },
                     RackBone = 0,
                 },
             },
@@ -1035,7 +1048,6 @@ UnitBlueprint {
             TargetCheckInterval = 9999999,
             TargetRestrictDisallow = 'UNTARGETABLE',
             Turreted = false,
-
         },
     },
 }

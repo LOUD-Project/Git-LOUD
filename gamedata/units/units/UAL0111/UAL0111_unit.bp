@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+		GuardReturnRadius = 100,
+        GuardScanRadius = 75,
     },
 	
     Audio = {
@@ -79,7 +79,6 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.075,
     },
 	
@@ -90,8 +89,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Indirect Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -103,9 +100,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC ual0111_name>Evensong',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -198,8 +193,7 @@ UnitBlueprint {
             MinRadius = 3,
 			
             MuzzleChargeDelay = 0.5,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/AIFMissileSerpentine01/AIFMissileSerpentine01_proj.bp',
@@ -208,18 +202,10 @@ UnitBlueprint {
             RackBones = {
                 {
                     HideMuzzle = true,
-                    MuzzleBones = {
-                        'Missile',
-                    },
+                    MuzzleBones = {'Missile'},
                     RackBone = 'Missile',
                 },
             },
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -227,6 +213,7 @@ UnitBlueprint {
             RenderFireClock = true,
 			
             SlavedToBody = true,
+
             TargetCheckInterval = 2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -235,22 +222,19 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+
             Turreted = false,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

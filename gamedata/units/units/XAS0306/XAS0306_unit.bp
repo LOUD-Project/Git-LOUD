@@ -2,12 +2,9 @@ UnitBlueprint {
     AI = {
 
         GuardReturnRadius = 100,
+        GuardScanRadius = 200,
 		
-        TargetBones = {
-            'Turret_Front',
-            'Turret_Back',
-            'XAS0306',
-        },
+        TargetBones = {'Turret_Front','Turret_Back','XAS0306'},
     },
 	
     Audio = {
@@ -162,7 +159,7 @@ UnitBlueprint {
     LifeBarSize = 3,
 	
     Physics = {
-        BackUpDistance = 6,
+        BackUpDistance = 9,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Water = true,

@@ -78,7 +78,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.09,
     },
     
@@ -115,8 +114,7 @@ UnitBlueprint {
                 'Turret_Muzzle_02',
             },
         },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
+
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -129,20 +127,23 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'sea',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-        UnitWeight = 1,
+
         UpgradesFrom = 'uab0103',
         UpgradesTo = 'uab0303',
     },
+
     Intel = {
         VisionRadius = 10,
     },
+
     Interface = {
         HelpText = 'Improved Naval Factory',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 6.5,
     LifeBarSize = 4,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -155,6 +156,7 @@ UnitBlueprint {
         MeshExtentsZ = 9.5,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
+
         RollOffPoints = {
             {
                 UnitSpin = 180,
@@ -175,14 +177,18 @@ UnitBlueprint {
         SkirtSizeZ = 12,
         TurnRate = 0,
     },
+
     SelectionSizeX = 2.5,
     SelectionSizeZ = 7.5,
     SelectionThickness = 0.23,
+
     SizeX = 4,
     SizeY = 2,
     SizeZ = 9.5,
+
     StrategicIconName = 'icon_factory2_naval',
     StrategicIconSortPriority = 215,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 120,
-        GuardScanRadius = 120,
+        GuardReturnRadius = 99,
+        GuardScanRadius = 66,
     },
     Air = {
         AutoLandTime = 1.6,
@@ -101,7 +101,6 @@ UnitBlueprint {
         Health = 1600,
         MaxHealth = 1600,
         RegenRate = 4,
-        --SurfaceThreatLevel = 4,
     },
 	
     Description = '<LOC dea0202_desc>Fighter',
@@ -154,7 +153,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.05,
     },
 	
@@ -171,8 +169,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Fighter',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -185,9 +181,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC dea0202_name>Janus',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -257,7 +251,7 @@ UnitBlueprint {
                 },
             },
 			
-            AutoInitiateAttackCommand = false,
+            AutoInitiateAttackCommand = true,
 			
             BallisticArc = 'RULEUBA_None',
 			
@@ -273,7 +267,6 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land',
-                Land = 'Air|Land',
             },
 			
             FiringTolerance = 0.1,
@@ -291,16 +284,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Muzzle',
-                    },
+                    MuzzleBones = {'Left_Muzzle'},
                     RackBone = 'Left_Muzzle',
                 },
             },
-
-            RackReloadTimeout = 10,
-
-
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -317,9 +304,9 @@ UnitBlueprint {
                 'MOBILE',
             },
 			
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.35,
+            TrackingRadius = 1.2,
             
             TurretBoneMuzzle = 'Left_Muzzle',
             TurretBonePitch = 'Left_Muzzle',
@@ -378,16 +365,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Muzzle'},
                     RackBone = 'Right_Muzzle',
                 },
             },
-
-            RackReloadTimeout = 10,
-
-
 
             RateOfFire = 2,
 			
@@ -403,9 +384,9 @@ UnitBlueprint {
                 'MOBILE',
             },
 			
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.35,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Right_Muzzle',
             TurretBonePitch = 'Right_Muzzle',
@@ -422,88 +403,7 @@ UnitBlueprint {
             
             Turreted = true,
         },
-        
---[[
-        {
-            AboveWaterTargetsOnly = true,
-            Audio = {
-                Fire = Sound {
-                    Bank = 'UEAWeapon',
-                    Cue = 'UEA0103_Carpet_Bomb',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-			
-            AutoInitiateAttackCommand = false,
-			
-            BallisticArc = 'RULEUBA_None',
-			
-            BombDropThreshold = 4,
-			
-            CollideFriendly = false,
-			
-            Damage = 30,
-            DoTPulses = 4,
-            DoTTime = 4,
-			
-            DamageFriendly = true,
-            DamageRadius = 2,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Napalm',
-		
-            FireTargetLayerCapsTable = {
-                Air = 'Land|Seabed|Water',
-                Land = 'Land|Seabed|Water',
-            },
-			
-            FiringRandomness = 2.5,
-            FiringTolerance = 6,
-			
-			FixBombTrajectory = true,	--CBFv4 added this
-			
-            Label = 'Bomb',
-			
-            MaxRadius = 40,
-			
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 2,
-			
-            MuzzleVelocity = 0,
-            NeedToComputeBombDrop = true,
-			
-            ProjectileId = '/projectiles/TIFNapalmCarpetBomb02/TIFNapalmCarpetBomb02_proj.bp',
-			ProjectileLifetime = 10,
 
-            RackBones = {
-                {
-                    MuzzleBones = {
-                        'Left_Wing_Bomb',
-                        'Right_Wing_Bomb',
-                    },
-                    RackBone = 'Left_Wing_Bomb',
-                },
-            },
-            
-            RackReloadTimeout = 10,
-
-
-
-			RateOfFire = 0.5,	-- 120 DPS Ground
-			
-            SkipReadyState = true,
-            StopOnPrimaryWeaponBusy = true,
-			
-            TargetCheckInterval = 1.5,
-            TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'STRUCTURE -WALL',
-				'ALLUNITS -WALL',
-            },
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.25,
-        },
---]]
         {
             AboveWaterTargetsOnly = true,
             Damage = 150,

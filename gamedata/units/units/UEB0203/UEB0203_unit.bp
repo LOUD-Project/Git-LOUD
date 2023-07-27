@@ -44,7 +44,6 @@ UnitBlueprint {
     },
 	
     CollisionOffsetY = -1,
-    CollisionOffsetZ = 0,
 	
     Defense = {
         ArmorType = 'Structure',
@@ -79,7 +78,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.083,
     },
     
@@ -103,6 +101,7 @@ UnitBlueprint {
             'ueb0203',
             'ueb0303',
         },
+
         StorageEnergy = 1200,
 		StorageMass = 120,
     },
@@ -113,13 +112,8 @@ UnitBlueprint {
     
     General = {
         BuildBones = {
-            BuildEffectBones = {
-                'Right_Exhaust',
-                'Center_Exhaust',
-            },
+            BuildEffectBones = {'Right_Exhaust','Center_Exhaust'},
         },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -132,20 +126,23 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'sea',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-        UnitWeight = 1,
+
         UpgradesFrom = 'ueb0103',
         UpgradesTo = 'ueb0303',
     },
+
     Intel = {
         VisionRadius = 10,
     },
+
     Interface = {
         HelpText = 'Improved Naval Factory',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 6.5,
     LifeBarSize = 4,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -175,6 +172,7 @@ UnitBlueprint {
         SkirtSizeZ = 12,
         TurnRate = 0,
     },
+
     SelectionCenterOffsetZ = -0.6,
     SelectionMeshScaleX = 0.4,
     SelectionMeshScaleZ = 0.6,
@@ -182,11 +180,14 @@ UnitBlueprint {
     SelectionSizeX = 2.2,
     SelectionSizeZ = 6.9,
     SelectionThickness = 0.26,
+
     SizeX = 4,
     SizeY = 2,
     SizeZ = 10,
+
     StrategicIconName = 'icon_factory2_naval',
     StrategicIconSortPriority = 214,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -194,10 +195,6 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
-            Land = false,
-            Seabed = false,
-            Sub = false,
             Water = true,
         },
     },

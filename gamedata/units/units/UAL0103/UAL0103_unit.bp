@@ -1,8 +1,9 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+		GuardReturnRadius = 50,
+        GuardScanRadius = 36,
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -20,9 +21,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {},
 	
     BuildIconSortPriority = 60,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1FACTORY',
@@ -65,8 +68,7 @@ UnitBlueprint {
                 },
             },
         },
-
-        UniformScale = 0.07,
+        UniformScale = 0.07,
     },
 	
     Economy = {
@@ -76,8 +78,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Indirect Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -89,9 +89,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC ual0103_name>Fervor',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -185,8 +183,6 @@ UnitBlueprint {
             MaxRadius = 36,
             MinRadius = 5,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 15,
             MuzzleVelocityReduceDistance = 28,
 			
@@ -195,19 +191,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -215,6 +202,7 @@ UnitBlueprint {
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 40,
+
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -223,7 +211,7 @@ UnitBlueprint {
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',

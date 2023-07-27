@@ -104,14 +104,8 @@ UnitBlueprint {
 	
     General = {
         BuildBones = {
-            BuildEffectBones = {
-                'Right_Exhaust01',
-                'Right_Exhaust02',
-                'Right_Exhaust03',
-            },
+            BuildEffectBones = {'Right_Exhaust01','Right_Exhaust02','Right_Exhaust03'},
         },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -124,8 +118,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'sea',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
-        UnitWeight = 1,
+
         UpgradesFrom = 'urb0203',
     },
 	
@@ -209,9 +202,7 @@ UnitBlueprint {
             Label = 'AntiTorpedo',
 			
             MaxRadius = 25,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 3.6,
 			
             ProjectileId = '/projectiles/CIMAntiTorpedo01/CIMAntiTorpedo01_proj.bp',
@@ -219,24 +210,14 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'B14',
-                    },
+                    MuzzleBones = {'B14'},
                     RackBone = 'B14',
                 },
                 {
-                    MuzzleBones = {
-                        'B28',
-                    },
+                    MuzzleBones = {'B28'},
                     RackBone = 'B28',
                 },				
             },
-             
-            
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -272,9 +253,7 @@ UnitBlueprint {
             Label = 'AntiTorpedo',
 			
             MaxRadius = 25,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 3.6,
 			
             ProjectileId = '/projectiles/CIMAntiTorpedo01/CIMAntiTorpedo01_proj.bp',
@@ -282,26 +261,14 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'B06',
-                    },
+                    MuzzleBones = {'B06'},
                     RackBone = 'B06',
                 },
                 {
-                    MuzzleBones = {
-                        'B08',
-                    },
+                    MuzzleBones = {'B08'},
                     RackBone = 'B08',
                 },				
             },
-             
-            
-
-
-            RackSalvoSize = 1,
-
-
-            RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 0.8,
 			

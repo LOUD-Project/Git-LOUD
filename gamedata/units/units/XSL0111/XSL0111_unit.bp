@@ -1,9 +1,10 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+		GuardReturnRadius = 100,
+        GuardScanRadius = 75,
         InitialAutoMode = true,
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -70,8 +71,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.057,
     },
 	
@@ -82,8 +81,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Indirect Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -95,9 +92,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC xsl0111_name>Ythisah',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -188,8 +183,7 @@ UnitBlueprint {
             MinRadius = 4,
 			
             MuzzleChargeDelay = 0.1,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 7,
 			
             ProjectileId = '/projectiles/SIFLaanseTacticalMissile01/SIFLaanseTacticalMissile01_proj.bp',
@@ -198,18 +192,14 @@ UnitBlueprint {
             RackBones = {
                 {
                     HideMuzzle = true,
-                    MuzzleBones = {
-                        'missile',
-                    },
+                    MuzzleBones = {'missile'},
                     RackBone = 'missile',
                 },
             },
-            RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-             
-            RackSalvoReloadTime = 6.6666,
-            RackSalvoSize = 1,
 
+            RackRecoilDistance = -1,
+
+            RackSalvoReloadTime = 6.6666,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -238,11 +228,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

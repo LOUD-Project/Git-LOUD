@@ -1,8 +1,8 @@
 UnitBlueprint {
     AI = {
-		GuardRadius = 150,
-        GuardReturnRadius = 200,
-        GuardScanRadius = 175,
+		GuardRadius = 100,
+        GuardReturnRadius = 150,
+        GuardScanRadius = 100,
 		
         TargetBones = {
             'Right_Rear_Autocannon_Muzzle',
@@ -49,9 +49,9 @@ UnitBlueprint {
         MaxAirspeed = 20,
         MinAirspeed = 18,
 		
-        PredictAheadForBombDrop = 2,
+        PredictAheadForBombDrop = 2.5,
 		
-        StartTurnDistance = 15,
+        StartTurnDistance = 17,
 		
         TightTurnMultiplier = 0,
 		
@@ -215,7 +215,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 8,
-
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -410,10 +409,10 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
 			
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Right_Front_Autocannon_Muzzle',
             TurretBonePitch = 'Right_Front_Autocannon_Muzzle',
@@ -482,10 +481,10 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Left_Front_Autocannon_Muzzle',
             TurretBonePitch = 'Left_Front_Autocannon_Muzzle',
@@ -555,10 +554,10 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
 			
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Right_Rear_Autocannon_Muzzle',
             TurretBonePitch = 'Right_Rear_Autocannon_Muzzle',
@@ -626,10 +625,10 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
 			
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Left_Rear_Autocannon_Muzzle',
             TurretBonePitch = 'Left_Rear_Autocannon_Muzzle',
@@ -659,7 +658,7 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.05,
-        HealthMult = 0.6,
+        HealthMult = 0.5,
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {

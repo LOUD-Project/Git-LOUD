@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 150,
-        GuardScanRadius = 125,
+        GuardReturnRadius = 135,
+        GuardScanRadius = 90,
     },
 	
     Air = {
@@ -127,7 +127,6 @@ UnitBlueprint {
     },
 	
     General = {
-
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -207,6 +206,7 @@ UnitBlueprint {
             },
 
             AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
 			
             Buffs = {
@@ -229,7 +229,8 @@ UnitBlueprint {
             DamageRadius = 3.5,
             DamageType = 'Normal',
 
-            EffectiveRadius = 25,
+            EffectiveRadius = 45,
+
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
                 Land = 'Land|Water|Seabed',
@@ -264,7 +265,7 @@ UnitBlueprint {
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1,
         },
         {
             AboveWaterTargetsOnly = true,
@@ -278,6 +279,7 @@ UnitBlueprint {
             Label = 'DeathImpact',
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,

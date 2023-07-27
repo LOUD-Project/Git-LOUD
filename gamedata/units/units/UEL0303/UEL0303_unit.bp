@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
 		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+        GuardScanRadius = 25,
     },
 	
     Audio = {
@@ -131,8 +131,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -150,12 +148,10 @@ UnitBlueprint {
                 helpText = 'toggle_shield_personal',
             },
         },
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
         UnitName = '<LOC uel0303_name>Titan',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -248,9 +244,7 @@ UnitBlueprint {
             LeadTarget = true,
 			
             MaxRadius = 25,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
 			
             NoPause = true,
@@ -260,24 +254,18 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle_R',
-                    },
+                    MuzzleBones = {'Muzzle_R'},
                     RackBone = 'Barrel_R',
                 },
                 {
-                    MuzzleBones = {
-                        'Muzzle_L',
-                    },
+                    MuzzleBones = {'Muzzle_L'},
                     RackBone = 'Barrel_L',
                 },
             },
-             
+
             RackRecoilDistance = -0.2,
 
-
             RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -320,11 +308,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

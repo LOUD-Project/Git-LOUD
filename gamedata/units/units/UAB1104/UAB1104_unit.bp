@@ -51,24 +51,17 @@ UnitBlueprint {
         Abilities = {
             'Volatile',
         },
+
         AnimationOpen = '/units/UAB1104/UAB1104_AOpen01.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 120,
-                    ShaderName = 'Aeon',
-                },
-                {
-                    AlbedoName = 'uab1104_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Aeon',
-                    SpecularName = 'uab1104_lod1_specteam.dds',
-                },
+                { LODCutoff = 120, ShaderName = 'Aeon' },
+                { AlbedoName = 'uab1104_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Aeon', SpecularName = 'uab1104_lod1_specteam.dds' },
             },
         },
 
-
         UniformScale = 0.085,
     },
     
@@ -76,23 +69,20 @@ UnitBlueprint {
         BuildCostEnergy = 4000,
         BuildCostMass = 100,
         BuildTime = 500,
+
         MaintenanceConsumptionPerSecondEnergy = 300,
+
         ProductionPerSecondMass = 1,
         
 		StorageEnergy = 300,        
     },
     
     General = {
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        ToggleCaps = {
-            RULEUTC_ProductionToggle = true,
-        },
-        UnitWeight = 1,
+
+        ToggleCaps = { RULEUTC_ProductionToggle = true },
     },
     
     Interface = {

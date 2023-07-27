@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
 		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+        GuardScanRadius = 27,
     },
 
     Audio = {
@@ -80,8 +80,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -93,9 +91,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC url0202_name>Rhino',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -182,6 +178,7 @@ UnitBlueprint {
             Label = 'MainGun',
 			
             MaxRadius = 27,
+
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
 

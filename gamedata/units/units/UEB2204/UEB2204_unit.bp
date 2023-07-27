@@ -80,7 +80,6 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.15,
     },
 	
@@ -97,8 +96,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -107,9 +104,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC ueb2204_name>Air Cleaner',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -199,9 +194,7 @@ UnitBlueprint {
 			LeadTarget = true,
 			
             MaxRadius = 44,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 55,
 			
             ProjectileId = '/projectiles/TAALightFragmentationShell01/TAALightFragmentationShell01_proj.bp',
@@ -209,26 +202,18 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle_Right',
-                    },
+                    MuzzleBones = {'Turret_Muzzle_Right'},
                     RackBone = 'Turret_Recoil_Right',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle_Left',
-                    },
+                    MuzzleBones = {'Turret_Muzzle_Left'},
                     RackBone = 'Turret_Recoil_Left',
                 },
             },
-             
-            
+
             RackRecoilDistance = -1,
+
             RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -237,13 +222,12 @@ UnitBlueprint {
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE TECH3 BOMBER',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Turret_Barrel',
             TurretBonePitch = 'Turret_Barrel',
@@ -268,11 +252,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

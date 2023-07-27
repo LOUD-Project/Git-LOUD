@@ -1,20 +1,14 @@
 UnitBlueprint {
     AI = {
+        GuardScanRadius = 65,
+        
         RefuelingMultiplier = 100,
         RefuelingRepairAmount = 500,
         RepairConsumeEnergy = 5,
         RepairConsumeMass = 0.5,
         StagingPlatformScanRadius = 300,
-        TargetBones = {
-            'Front_Left_Projectile02',
-            'Front_Right_Projectile02',
-            'Attachpoint01',
-            'Attachpoint03',
-            'Attachpoint06',
-            'Attachpoint09',
-            'Front_Right_Panel',
-            'Back_Left_Panel',
-        },
+
+        TargetBones = {'Front_Left_Projectile02','Attachpoint01','Attachpoint06','Attachpoint09','Front_Right_Panel','Back_Left_Panel'},
     },
 	
     Audio = {
@@ -432,7 +426,7 @@ UnitBlueprint {
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
             Turreted = false,
         },
 		
@@ -506,7 +500,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 			
             Turreted = false,
         },

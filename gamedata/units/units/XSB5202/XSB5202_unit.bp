@@ -99,8 +99,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.05,
     },
 	
@@ -113,8 +111,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Strategic',
-        Classification = 'RULEUC_MiscSupport',
         CommandCaps = {
             RULEUCC_Transport = true,
         },
@@ -127,9 +123,7 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC xsb5202_name>Iathu-uhthe',
-        UnitWeight = 1,
     },
 	
     Interface = {

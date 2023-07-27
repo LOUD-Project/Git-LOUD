@@ -1,8 +1,8 @@
 UnitBlueprint {
     AI = {
-		GuardRadius = 175,
-        GuardReturnRadius = 200,
-        GuardScanRadius = 175,
+		GuardRadius = 80,
+        GuardReturnRadius = 120,
+        GuardScanRadius = 80,
     },
     Air = {
         AutoLandTime = 1,
@@ -38,7 +38,6 @@ UnitBlueprint {
         TurnSpeed = 1.2,
 
 		Winged = true,
-		
     },
 	
     Audio = {

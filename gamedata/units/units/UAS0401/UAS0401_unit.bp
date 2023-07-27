@@ -1,5 +1,6 @@
 UnitBlueprint {
     AI = {
+        GuardScanRadius = 68,
         TargetBones = {
             'UAS0401',
             'Turret',
@@ -341,7 +342,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Heavy Battleship/Submarine',
+        HelpText = 'Experimental Submarine',
     },
 	
     LifeBarHeight = 0.075,
@@ -515,7 +516,7 @@ UnitBlueprint {
 			
             Label = 'Torpedo',
 			
-            MaxRadius = 65,
+            MaxRadius = 68,
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 6,
@@ -552,7 +553,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.1,
         },
 		
         {

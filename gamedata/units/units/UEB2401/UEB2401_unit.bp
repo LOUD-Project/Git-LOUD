@@ -95,8 +95,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_01_albedo',
@@ -104,12 +102,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar12x_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
@@ -122,15 +115,7 @@ UnitBlueprint {
         BuildCostMass = 299700,
         BuildTime = 99900,
 		
-		-- this is to replace the issues that Mavor was having with it's firing rate
-		-- the assumption being that once built you never turn it off
-		-- enabled by the script
-		--MaintenanceConsumptionPerSecondEnergy = 4000,
-		
-        RebuildBonusIds = {
-            'ueb2401',
-        },
-
+        RebuildBonusIds = {'ueb2401'},
     },
 	
     Footprint = {
@@ -140,8 +125,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 8,
-        Category = 'Strategic',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -150,9 +133,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC ueb2401_name>Mavor',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -261,9 +242,6 @@ UnitBlueprint {
             MaxRadius = 4000,
             MinRadius = 150,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
             MuzzleVelocity = 160,
             MuzzleVelocityRandom = 0.7,
             MuzzleVelocityReduceDistance = 4000,
@@ -273,9 +251,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel_B02',
                     TelescopeBone = 'Turret_Barrel_B03',
                     TelescopeRecoilDistance = -20,
@@ -283,15 +259,10 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -30,
-			
-
-
 
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 1,		-- controlled by charge - 7 seconds = 2000
-			
-            RenderFireClock = true,
 			
             TargetCheckInterval = 4,
 			
@@ -332,11 +303,7 @@ UnitBlueprint {
         MassMult = 0.7,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

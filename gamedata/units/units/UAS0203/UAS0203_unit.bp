@@ -1,6 +1,7 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 60,
+        GuardReturnRadius = 50,
+        GuardScanRadius = 32,
     },
 	
     Audio = {
@@ -294,7 +295,7 @@ UnitBlueprint {
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.15,
         },
     },
 }

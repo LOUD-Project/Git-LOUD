@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -11,7 +12,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 200,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -30,7 +33,9 @@ UnitBlueprint {
         'OVERLAYCOUNTERINTEL',
         'SORTINTEL',
     },
+
     CollisionOffsetY = -0.25,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 5,
@@ -38,7 +43,9 @@ UnitBlueprint {
         MaxHealth = 150,
         RegenRate = 1,
     },
+
     Description = '<LOC urb4203_desc>Stealth Field Generator',
+
     Display = {
         Abilities = {
             '<LOC ability_stealthfield>Stealth Field',
@@ -58,8 +65,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_cybran_01_albedo',
@@ -67,34 +72,30 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 8,
                 Normal = 'Tarmacs/Tar8x_cybran_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 8,
             },
         },
         UniformScale = 0.3,
     },
+
     Economy = {
         BuildCostEnergy = 4000,
         BuildCostMass = 320,
         BuildTime = 400,
+
         MaintenanceConsumptionPerSecondEnergy = 100,
-        RebuildBonusIds = {
-            'urb4203',
-        },
+
+        RebuildBonusIds = {'urb4203'},
     },
+
     Footprint = {
         SizeX = 3,
         SizeZ = 3,
     },
+
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_CounterMeasure',
         FactionName = 'Cybran',
         Icon = 'land',
         OrderOverrides = {
@@ -104,25 +105,27 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
         UnitName = '<LOC urb4203_name>Twilight',
-        UnitWeight = 1,
     },
+
     Intel = {
         RadarStealthFieldRadius = 30,
         ReactivateTime = 5,
         SonarStealthFieldRadius = 30,
         VisionRadius = 0,
     },
+
     Interface = {
         HelpText = '<LOC urb4203_help>Stealth Field Generator',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.15,
     LifeBarSize = 2.5,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -139,15 +142,19 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+
     SelectionCenterOffsetZ = 0.075,
     SelectionSizeX = 1.8,
     SelectionSizeZ = 1.8,
     SelectionThickness = 0.38,
+
     SizeX = 1,
     SizeY = 5.1,
     SizeZ = 1,
+
     StrategicIconName = 'icon_structure2_counterintel',
     StrategicIconSortPriority = 200,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -155,11 +162,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

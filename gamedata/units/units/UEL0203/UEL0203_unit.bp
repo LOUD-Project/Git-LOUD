@@ -1,8 +1,9 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+		GuardReturnRadius = 36,
+        GuardScanRadius = 21,
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -20,9 +21,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {},
-	
+
     BuildIconSortPriority = 25,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -64,8 +67,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = false,
         UniformScale = 0.09,
     },
 	
@@ -76,8 +77,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -89,9 +88,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC uel0203_name>Riptide',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -187,9 +184,7 @@ UnitBlueprint {
             Label = 'Riotgun01',
 			
             MaxRadius = 21,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 33,
 			
             ProjectileId = '/projectiles/TDFRiot02/TDFRiot02_proj.bp',
@@ -203,13 +198,9 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-			
-             
+
             RackRecoilDistance = -0.1,
-            RackReloadTimeout = 10,
 
-
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -253,11 +244,7 @@ UnitBlueprint {
         MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

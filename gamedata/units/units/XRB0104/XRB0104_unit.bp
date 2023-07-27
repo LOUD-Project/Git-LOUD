@@ -129,9 +129,7 @@ UnitBlueprint {
 
     General = {
         BuildBones = { AimBone = 0, BuildEffectBones = { 'Attachpoint01' } },
-
 		CapCost = 2,
-
         CommandCaps = {
             RULEUCC_Capture = true,
             RULEUCC_Guard = true,
@@ -140,17 +138,11 @@ UnitBlueprint {
             RULEUCC_Repair = true,
             RULEUCC_Stop = true,
         },
-
         FactionName = 'Cybran',
-
         Icon = 'land',
-
         OrderOverrides = { RULEUTC_ProductionToggle = { bitmapId = 'area-assist', helpText = 'toggle_area_assist' } },
-
         SelectionPriority = 5,
-
         ToggleCaps = { RULEUTC_ProductionToggle = true },
-
         UnitName = '<LOC xrb0104_name>The Hive',
 
         UpgradesTo = 'xrb0204',

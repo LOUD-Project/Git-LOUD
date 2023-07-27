@@ -6,9 +6,11 @@ local CreateBoneEffects = import('/lua/effectutilities.lua').CreateBoneEffects
 local WeaponSteam01 = import('/lua/effecttemplates.lua').WeaponSteam01
 
 XEB2306 = Class(TStructureUnit) {
+
     Weapons = {
-        MainGun = Class(TDFHeavyPlasmaCannonWeapon) 
-        {
+
+        Gatling = Class(TDFHeavyPlasmaCannonWeapon){
+
 			OnCreate = function(self)
 			
 				TDFHeavyPlasmaCannonWeapon.OnCreate(self)
@@ -19,6 +21,13 @@ XEB2306 = Class(TStructureUnit) {
                 end				
 			end,	
 
+            PlayFxWeaponUnpackSequence = function(self)
+			
+                self.SpinManip:SetTargetSpeed(300)
+
+                TDFHeavyPlasmaCannonWeapon.PlayFxWeaponUnpackSequence(self)            
+            end,
+            
             PlayFxWeaponPackSequence = function(self)
 			
                 self.SpinManip:SetTargetSpeed(0)
@@ -27,12 +36,11 @@ XEB2306 = Class(TStructureUnit) {
 				
                 TDFHeavyPlasmaCannonWeapon.PlayFxWeaponPackSequence(self)
             end,
-
         
             PlayFxRackSalvoChargeSequence = function(self)
 			
                 self.SpinManip:SetTargetSpeed(300)
-
+                
                 TDFHeavyPlasmaCannonWeapon.PlayFxRackSalvoChargeSequence(self)
             end,
             
@@ -49,4 +57,5 @@ XEB2306 = Class(TStructureUnit) {
         }
     },
 }
+
 TypeClass = XEB2306

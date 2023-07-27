@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+		GuardReturnRadius = 50,
+        GuardScanRadius = 36,
     },
     Audio = {
         Destroyed = Sound {
@@ -111,8 +111,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.068,
     },
 	
@@ -124,8 +122,6 @@ UnitBlueprint {
 	
     General = {
         CapCost = 3,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -143,12 +139,10 @@ UnitBlueprint {
                 helpText = 'toggle_sniper',
             },
         },
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_WeaponToggle = true,
         },
         UnitName = '<LOC xsl0305_name>Usha-Ah',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -242,10 +236,7 @@ UnitBlueprint {
             Label = 'MainGun',
 			
             MaxRadius = 36,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 100,
 			
             ProjectileId = '/projectiles/SDFSniperShot01/SDFSniperShot01_proj.bp',
@@ -253,18 +244,12 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle',
-                    },
+                    MuzzleBones = {'Muzzle'},
                     RackBone = 'Barrel',
                 },
             },
              
             RackRecoilDistance = -0.1,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -326,8 +311,7 @@ UnitBlueprint {
             MaxRadius = 75,
 			
             MuzzleChargeDelay = 1,      -- muzzle delay of 1 second
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 100,
 			
             ProjectileId = '/projectiles/SDFSniperShot02/SDFSniperShot02_proj.bp',
@@ -335,18 +319,12 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle',
-                    },
+                    MuzzleBones = {'Muzzle'},
                     RackBone = 'Barrel',
                 },
             },
-             
+
             RackRecoilDistance = -0.1,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -387,11 +365,7 @@ UnitBlueprint {
         MassMult = 0.1,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

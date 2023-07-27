@@ -68,8 +68,11 @@ UnitBlueprint {
         Abilities = {
             'Upgradeable',
         },
+
         AnimationUpgrade = '/units/ueb0101/ueb0101_aupgrade.sca',
+
         BuildAttachBone = 'Attachpoint',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -86,7 +89,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_01_albedo',
@@ -113,16 +115,19 @@ UnitBlueprint {
         
         BuildRate = 40,
         BuildTime = 300,
+
         BuildableCategory = {
             'BUILTBYTIER1FACTORY UEF MOBILE CONSTRUCTION',
             'BUILTBYTIER1FACTORY UEF STRUCTURE LAND',
             'BUILTBYTIER1FACTORY UEF MOBILE LAND',
         },
+
         RebuildBonusIds = {
             'ueb0101',
             'ueb0201',
             'ueb0301',
         },
+
         StorageEnergy = 600,
         StorageMass = 60,
     },
@@ -134,12 +139,9 @@ UnitBlueprint {
     
     General = {
         BuildBones = {
-            BuildEffectBones = {
-                'Muzzle01',
-            },
+            BuildEffectBones = {'Muzzle01'},
         },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
+
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -152,19 +154,21 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
         UpgradesTo = 'ueb0201',
     },
+
     Intel = {
         VisionRadius = 10,
     },
+
     Interface = {
         HelpText = 'Basic Land Factory',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.5,
     LifeBarSize = 4.5,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -302,6 +306,7 @@ UnitBlueprint {
             -- z
             0,
         },
+
         RollOffPoints = {
             {
                 UnitSpin = 90,
@@ -324,16 +329,18 @@ UnitBlueprint {
         SkirtSizeZ = 8,
         TurnRate = 0,
     },
+
     SelectionSizeX = 3.2,
     SelectionSizeZ = 3.3,
     SelectionThickness = 0.3,
 
-    -- height
     SizeX = 4.2,
     SizeY = 0.6,
     SizeZ = 4.4,
+
     StrategicIconName = 'icon_factory1_land',
     StrategicIconSortPriority = 220,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -341,11 +348,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

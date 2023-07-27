@@ -57,6 +57,7 @@ UnitBlueprint {
 	
     Display = {
         BuildAttachBone = 'Attachpoint01',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -73,7 +74,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.083,
     },
 	
@@ -105,14 +105,8 @@ UnitBlueprint {
 	
     General = {
         BuildBones = {
-            BuildEffectBones = {
-                'Right_Exhaust',
-                'Center_Exhaust',
-                'Left_Exhaust',
-            },
+            BuildEffectBones = {'Right_Exhaust','Center_Exhaust','Left_Exhaust'},
         },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -125,8 +119,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'sea',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
-        UnitWeight = 1,
+
         UpgradesFrom = 'ueb0203',
     },
 	
@@ -153,6 +146,7 @@ UnitBlueprint {
         MaxSteerForce = 0,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
+
         RollOffPoints = {
             {
                 UnitSpin = 180,
@@ -222,19 +216,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'B02',
-                        'B04',
-                    },
+                    MuzzleBones = {'B02','B04'},
                     RackBone = 'B02',
                 },
             },
-             
-            
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -278,21 +263,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'B03',
-                        'B07',
-                    },
+                    MuzzleBones = {'B03','B07'},
                     RackBone = 'B03',
                 },
             },
-             
-            
-
-
-            RackSalvoSize = 1,
-
-
-            RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 0.6,
 			
@@ -311,10 +285,6 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
-            Land = false,
-            Seabed = false,
-            Sub = false,
             Water = true,
         },
     },

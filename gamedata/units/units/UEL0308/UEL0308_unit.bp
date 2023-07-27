@@ -87,8 +87,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = false,
         UniformScale = 0.14,
     },
 
@@ -101,8 +99,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Guard = true,
@@ -118,12 +114,10 @@ UnitBlueprint {
                 helpText = 'toggle_shield_dome',
             },
         },
-        TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
         UnitName = '<LOC uel0308_name>Veloshield',
-        UnitWeight = 1,
     },
 
     Intel = {
@@ -192,9 +186,7 @@ UnitBlueprint {
             MaxRadius = 33,
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Attachpoint', -- when moving to new unit, update these to something that exists on the unit
-                    },
+                    MuzzleBones = {'Attachpoint'},
                     RackBone = 'Attachpoint',
                 },
             },
@@ -204,7 +196,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
             Turreted = false,
             SlavedToBody = false,
         },

@@ -1,5 +1,7 @@
 UnitBlueprint {
     AI = {
+        GuardScanRadius = 33,
+        
         TargetBones = {
             'Head',             -- intentionally missable
             'Left_Left_B02',
@@ -488,18 +490,13 @@ UnitBlueprint {
     },
 	
     General = {
-    
         BuildBones = {
             AimBone = 'Arm_Right_Build',
             BuildEffectBones = {'Arm_Right_Build'},
             PitchBone = 'Arm_Right_B03',
             YawBone = 'Torso',
         },
-		
 		CapCost = -3,
-		
-        Category = 'Command',
-        Classification = 'RULEUC_Commander',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -517,8 +514,6 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 3,
-        TechLevel = 'RULEUTL_Secret',
-        UnitWeight = 0,
     },
 	
     Intel = {
@@ -619,7 +614,6 @@ UnitBlueprint {
             MaxRadius = 33,
             MinRadius = 1,
 
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 28,
             
             ProjectileId = '/projectiles/TDFPlasmaHeavy03/TDFPlasmaHeavy03_proj.bp',
@@ -630,7 +624,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.7,
-            RackSalvoSize = 1,
             
             RangeCategory = 'UWRC_DirectFire',
             
@@ -676,7 +669,7 @@ UnitBlueprint {
         EnergyMult = 0.3,
         HealthMult = 0.3,
         MassMult = 0.3,
-        ReclaimTimeMultiplier = 0.4,
+        ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,
             Seabed = true,

@@ -114,7 +114,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 0.1,
-
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Dock = true,

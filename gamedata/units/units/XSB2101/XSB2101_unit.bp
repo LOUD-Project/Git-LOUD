@@ -5,6 +5,7 @@ UnitBlueprint {
             'Turret_Barrel',
         },
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -22,8 +23,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {},
+
     BuildIconSortPriority = 110,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -72,8 +76,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.038,
     },
 	
@@ -86,8 +88,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -96,9 +96,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC xsb2101_name>Uttaus',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -131,14 +129,18 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.35,
     SelectionSizeZ = 0.35,
     SelectionThickness = 1.1,
+
     SizeX = 0.5,
     SizeY = 0.9,
     SizeZ = 0.5,
+
     StrategicIconName = 'icon_structure1_directfire',
     StrategicIconSortPriority = 205,
+
     Veteran = {
         Level1 = 5,
         Level2 = 10,
@@ -146,6 +148,7 @@ UnitBlueprint {
         Level4 = 20,
         Level5 = 25,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -158,70 +161,71 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
+
             Damage = 100,
             DamageType = 'Normal',
+
             DisplayName = 'Twin Barreled Oh Spectra Cannon',
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
+
             Label = 'MainGun',
+
             MaxRadius = 26,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
+
             ProjectileId = '/projectiles/SDFOhCannon03/SDFOhCannon03_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.1,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle_01',
-                    },
+                    MuzzleBones = {'Turret_Muzzle_01'},
                     RackBone = 'Turret_Barrel',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle_02',
-                    },
+                    MuzzleBones = {'Turret_Muzzle_02'},
                     RackBone = 'Turret_Barrel',
                 },
             },
-             
-
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-            
 
             RangeCategory = 'UWRC_DirectFire',
+
             RateOfFire = 1.5,
+
             ReTargetOnMiss = true,
+
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
                 'DEFENSE',
-   
-   'ALLUNITS -AIR',
+                'ALLUNITS -AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.15,
+
+            TrackingRadius = 1.1,
+
             TurretBoneMuzzle = 'Turret_Muzzle_01',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 60,
             TurretPitchSpeed = 90,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 40,
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
@@ -229,11 +233,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

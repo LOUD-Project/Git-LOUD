@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'T1EnergyStorageAdjacencyBuffs',
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -12,7 +14,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 90,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -31,7 +35,9 @@ UnitBlueprint {
 		'SHOWQUEUE',
         'SORTECONOMY',
     },
+
     CollisionOffsetZ = 0.1,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 15,		-- .1% Storage + 2% Health
@@ -39,7 +45,9 @@ UnitBlueprint {
         MaxHealth = 500,
         RegenRate = 1,
     },
+
     Description = '<LOC urb1105_desc>Basic Energy Storage',
+
     Display = {
         Abilities = {
 			'Adjacency bonuses to Energy Production & Shields',
@@ -61,45 +69,44 @@ UnitBlueprint {
                 },
             },
         },
-
-
-
         UniformScale = 0.25,
     },
+
     Economy = {
         AdjacentEnergyProductionMod = 2,
+
         BuildCostEnergy = 1200,
         BuildCostMass = 250,
 		BuildRate = 10,
         BuildTime = 200,
-		BuildableCategory = {
-            'urb2105',
-        },
-        RebuildBonusIds = {
-            'urb1105',
-        },
+
+		BuildableCategory = {'urb2105'},
+
+        RebuildBonusIds = {'urb1105'},
+
         StorageEnergy = 3000,
     },
+
     General = {
 		CapCost = .25,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
 			RULEUCC_Pause = true,
         },
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
+
 		UpgradesTo = 'urb2105',
     },
+
     Interface = {
         HelpText = 'Basic Energy Storage',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.45,
     LifeBarSize = 1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -117,14 +124,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+
     SizeX = 0.85,
     SizeY = 1,
     SizeZ = 0.7,
+
     StrategicIconName = 'icon_node1_energy',
     StrategicIconSortPriority = 250,
+
     Weapon = {
         {
             Damage = 1500,

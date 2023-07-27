@@ -11,7 +11,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 180,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -30,7 +32,9 @@ UnitBlueprint {
         'OVERLAYRADAR',
         'SORTINTEL',
     },
+
     CollisionOffsetY = -0.25,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 1,
@@ -38,11 +42,14 @@ UnitBlueprint {
         MaxHealth = 10,
         RegenRate = 0,
     },
+
     Description = '<LOC urb3101_desc>Basic Radar System',
+
     Display = {
         Abilities = {
             'Upgradeable',
         },
+
         AnimationUpgrade = '/units/urb3101/urb3101_aupgrade.sca',
 
         Mesh = {
@@ -60,33 +67,28 @@ UnitBlueprint {
                 },
             },
         },
-
-
-
         UniformScale = 0.15,
     },
+
     Economy = {
         BuildCostEnergy = 720,
         BuildCostMass = 80,
         BuildRate = 10,
         BuildTime = 80,
-        BuildableCategory = {
-            'urb3201',
-        },
+
+        BuildableCategory = {'urb3201'},
+
         MaintenanceConsumptionPerSecondEnergy = 20,
-        RebuildBonusIds = {
-            'urb3101',
-            'urb3201',
-            'urb3104',
-        },
+
+        RebuildBonusIds = {'urb3101','urb3201','urb3104'},
     },
+
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_Sensor',
         CommandCaps = {
             RULEUCC_Pause = true,
         },
@@ -99,24 +101,27 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
-        UnitWeight = 1,
+
         UpgradesTo = 'urb3201',
     },
+
     Intel = {
         RadarRadius = 115,
         ShowIntelOnSelect = true,
         VisionRadius = 26,
     },
+
     Interface = {
         HelpText = 'Basic Radar System',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.55,
     LifeBarSize = 1.25,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -133,14 +138,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 1,
     SelectionSizeZ = 1,
     SelectionThickness = 0.4,
+
     SizeX = 0.6,
     SizeY = 1.8,
     SizeZ = 0.6,
+
     StrategicIconName = 'icon_structure1_intel',
     StrategicIconSortPriority = 235,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -148,11 +157,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

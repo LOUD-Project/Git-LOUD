@@ -1,12 +1,11 @@
 UnitBlueprint {
 
     AI = {
-        GuardReturnRadius = 175,
-        GuardScanRadius = 150,
+        GuardReturnRadius = 96,
+        GuardScanRadius = 72,
     },
 	
     Air = {
-	
         AutoLandTime = 1.5,
 		
         BankFactor = 4,
@@ -46,7 +45,6 @@ UnitBlueprint {
         TurnSpeed = 0.98,
 		
         Winged = true,
-		
     },
 	
     Audio = {
@@ -231,7 +229,7 @@ UnitBlueprint {
 			
             DisplayName = 'Nanite Torpedo',
 			
-			EffectiveRadius = 36,
+			EffectiveRadius = 45,
 			
             DoTPulses = 5,	--- so 50 x 5 = 250 damage
             DoTTime = 2,	--- over 2 seconds --

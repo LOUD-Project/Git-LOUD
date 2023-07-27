@@ -1,6 +1,7 @@
 UnitBlueprint {
     AI = {
-        GuardRadius = 10,
+        GuardScanRadius = 22,
+
         TargetBones = {
             'Head',
             'Torso',
@@ -55,6 +56,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {
         Regen = {
             Level1 = 16,
@@ -64,6 +66,7 @@ UnitBlueprint {
             Level5 = 27,
         },
     },
+
     Categories = {
         'SELECTABLE',
         'CYBRAN',
@@ -82,6 +85,7 @@ UnitBlueprint {
         'OVERLAYOMNI',
         'OVERLAYMISC',
     },
+
     Defense = {
         ArmorType = 'Commander',
 
@@ -698,6 +702,7 @@ UnitBlueprint {
             Slot = 'Back',
         },
     },
+
     General = {
         BuildBones = {
             AimBone = 0,
@@ -707,8 +712,6 @@ UnitBlueprint {
             PitchBone = 'Left_Turret',
             YawBone = 'Torso',
         },
-        Category = 'Command',
-        Classification = 'RULEUC_Commander',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -727,9 +730,8 @@ UnitBlueprint {
         Icon = 'amph',
         QuickSelectPriority = 1,
         SelectionPriority = 3,
-        TechLevel = 'RULEUTL_Experimental',
-        UnitWeight = 1,
     },
+
     Intel = {
         Cloak = true,
         FreeIntel = false,
@@ -741,12 +743,15 @@ UnitBlueprint {
         VisionRadius = 26,
         WaterVisionRadius = 26,
     },
+
     Interface = {
         HelpText = 'Armored Command Unit',
     },
+
     LifeBarHeight = 0.15,
     LifeBarOffset = 0.5,
     LifeBarSize = 1.25,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -764,22 +769,27 @@ UnitBlueprint {
         TurnRadius = 10,
         TurnRate = 90,
     },
+
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.1,
     SelectionSizeX = 0.7,
     SelectionSizeZ = 0.6,
     SelectionThickness = 0.9,
     SelectionYOffset = 0,
+
     SizeX = 1,
     SizeY = 2.2,
     SizeZ = 0.7,
+
     StrategicIconName = 'icon_commander_generic',
     StrategicIconSortPriority = 0,
+
     Transport = {
         CanFireFromTransport = false,
         ClassSAttachSize = 0,
         TransportClass = 3,
     },
+
     Veteran = {
         Level1 = 20,
         Level2 = 40,
@@ -787,6 +797,7 @@ UnitBlueprint {
         Level4 = 80,
         Level5 = 100,
     },
+
     Weapon = {
         {
             AboveWaterFireOnly = true,
@@ -809,42 +820,36 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
+
             Label = 'RightRipper',
+
             LeadTarget = true,
+
             MaxRadius = 22,
             MinRadius = 1,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
+
             ProjectileId = '/projectiles/CDFCannonMolecular01/CDFCannonMolecular01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 2,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle_02',
-                    },
+                    MuzzleBones = {'Turret_Muzzle_02'},
                     RackBone = 'Right_Turret',
                 },
             },
-             
-            
-
-
-            RackSalvoFiresAfterCharge = false,
-             
-            RackSalvoSize = 1,
-            
 
             RangeCategory = 'UWRC_DirectFire',
+
             RateOfFire = 1,
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-   
-   'ALLUNITS',
+                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TurretBoneMuzzle = 'Turret_Muzzle_02',
@@ -891,44 +896,41 @@ UnitBlueprint {
             Label = 'OverCharge',
             ManualFire = true,
             MaxRadius = 22,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 25,
+
             OverChargeWeapon = true,
+
             ProjectileId = '/projectiles/CDFCannonMolecularOvercharge01/CDFCannonMolecularOvercharge01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 2,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle_02',
-                    },
+                    MuzzleBones = {'Turret_Muzzle_02'},
                     RackBone = 'Right_Turret',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
-             
-            RackSalvoFiresAfterCharge = false,
-             
-            RackSalvoSize = 1,
-            
 
             RangeCategory = 'UWRC_DirectFire',
+
             RateOfFire = 0.3,
+
             TargetCheckInterval = 1,
             TargetRestrictDisallow = 'UNTARGETABLE',
+
             TurretBoneMuzzle = 'Turret_Muzzle_02',
             TurretBonePitch = 'Right_Turret',
             TurretBoneYaw = 'Torso',
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 80,
             TurretPitchSpeed = 90,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 90,
+
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
         },
@@ -944,8 +946,7 @@ UnitBlueprint {
             FiringTolerance = 2,
             Label = 'DeathWeapon',
             MaxRadius = 1,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 0,
             NukeInnerRingDamage = 45000,
             NukeInnerRingRadius = 30,
@@ -955,12 +956,12 @@ UnitBlueprint {
             NukeOuterRingRadius = 40,
             NukeOuterRingTicks = 20,
             NukeOuterRingTotalTime = 0,
+
             ProjectileId = '/projectiles/CIFEMPFluxWarhead02/CIFEMPFluxWarhead02_proj.bp',
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        0,
-                    },
+                    MuzzleBones = {0},
                     RackBone = 0,
                 },
             },
@@ -1015,48 +1016,41 @@ UnitBlueprint {
             HeadingArcRange = 180,
             Label = 'MLG',
             MaxRadius = 22,
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle_03',
-                    },
+                    MuzzleBones = {'Turret_Muzzle_03'},
                     RackBone = 'Turret_Muzzle_03',
                 },
             },
-             
-            
-            RackReloadTimeout = 1,
-
-
-            RackSalvoSize = 1,
-            
 
             RangeCategory = 'UWRC_DirectFire',
+
             RateOfFire = 3,
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-   
-   'ALLUNITS',
+                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
+
             TurretBoneMuzzle = 'Turret_Muzzle_03',
             TurretBonePitch = 'Turret_Muzzle_03',
             TurretBoneYaw = 'Turret_Muzzle_03',
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 80,
             TurretPitchSpeed = 20,
+
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 30,
+
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
 
@@ -1077,37 +1071,31 @@ UnitBlueprint {
             FiringTolerance = 2,
             Label = 'Torpedo',
             MaxRadius = 60,
+
             MuzzleSalvoDelay = 0.8,
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 5,
+
             ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
             ProjectileLifetime = 7,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle_03',
-                    },
+                    MuzzleBones = {'Turret_Muzzle_03'},
                     RackBone = 'Turret_Muzzle_03',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-            
 
             RangeCategory = 'UWRC_AntiNavy',
+
             RateOfFire = 0.25,
+
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-   
-   'ALLUNITS',
+                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
             Turreted = false,

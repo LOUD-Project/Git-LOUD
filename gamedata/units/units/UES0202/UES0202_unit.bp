@@ -1,13 +1,11 @@
 UnitBlueprint {
     AI = {
 		AttackAngle = 20,
-        GuardReturnRadius = 40,
-        TargetBones = {
-            'UES0202',
-            'Back_Wake',
-            'Front_Left_Wake',
-            'Front_Right_Wake',
-        },
+
+        GuardReturnRadius = 110,
+        GuardScanRadius = 95,
+
+        TargetBones = {'UES0202','Back_Wake','Front_Left_Wake','Front_Right_Wake'},
     },
 
     Audio = {
@@ -506,7 +504,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,STRATEGIC',
             TargetRestrictOnlyAllow = 'TACTICAL,MISSILE',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Center_Turret_Muzzle',
             TurretBonePitch = 'Center_Turret_Barrel',

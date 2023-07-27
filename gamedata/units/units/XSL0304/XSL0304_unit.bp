@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+		GuardReturnRadius = 115,
+        GuardScanRadius = 92,
         NeedUnpack = true,
     },
     
@@ -110,8 +110,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         TransportAnimation = {
             {
                 Animation = '/units/XSL0304/XSL0304_afold.sca',
@@ -135,8 +133,6 @@ UnitBlueprint {
 	
     General = {
         CapCost = 2,
-        Category = 'Indirect Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -148,9 +144,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC xsl0304_name>Suthanus',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -251,8 +245,7 @@ UnitBlueprint {
             MinRadius = 8,
 			
             MuzzleChargeDelay = 0.2,        -- .2 second delay
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 25,
             MuzzleVelocityReduceDistance = 85,
 			
@@ -261,17 +254,13 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Barrel_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Barrel_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
 
             RackRecoilDistance = -1,
 
-
-			
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 1,     -- every 5 seconds by charge = 96 Dps
@@ -317,11 +306,7 @@ UnitBlueprint {
         MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

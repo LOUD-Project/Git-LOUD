@@ -1,5 +1,10 @@
 UnitBlueprint {
 
+    AI = {
+		GuardReturnRadius = 100,
+        GuardScanRadius = 88,
+    },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -47,8 +52,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 1700,
-        MaxHealth = 1700,
+        Health = 1350,
+        MaxHealth = 1350,
         RegenRate = 1,
         SurfaceThreatLevel = 30.1,
     },
@@ -73,19 +78,16 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.03,
     },
 	
     Economy = {
         BuildCostEnergy = 8500,
         BuildCostMass = 700,
-        BuildTime = 3500,
+        BuildTime = 350,
     },
 	
     General = {
-        Category = 'Indirect Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -97,9 +99,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC xel0306_name>Spearhead',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -115,16 +115,16 @@ UnitBlueprint {
     LifeBarSize = 1.2,
 	
     Physics = {
-        BackUpDistance = 4,
+        BackUpDistance = 8,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 2.8,
-        MaxBrake = 2.8,
-        MaxSpeed = 2.8,
-        MaxSpeedReverse = 2.5,
+        MaxAcceleration = 1,
+        MaxBrake = 1.4,
+        MaxSpeed = 3.0,
+        MaxSpeedReverse = 3.0,
         MaxSteerForce = 5,
         MeshExtentsX = 0.75,
         MeshExtentsY = 0.6,
@@ -132,7 +132,7 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
         TurnRadius = 0,
-        TurnRate = 60,
+        TurnRate = 50,
     },
 	
     SelectionCenterOffsetX = 0.01,
@@ -168,14 +168,12 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 			
             AnimationReload = '/units/xel0306/xel0306_aload.sca',
+            AnimationReloadRate = 1,        -- animation takes 3.6 seconds
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEL_Weapons',
-                    Cue = 'XEL0306_Missile_Cruise',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEL_Weapons', Cue = 'XEL0306_Missile_Cruise', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 
@@ -185,6 +183,9 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Cruise Missile',
+            
+            EnergyRequired = 1950,
+            EnergyDrainPerSecond = 325,     -- 6 seconds to charge (occurs while firing/reloading)
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -194,13 +195,11 @@ UnitBlueprint {
 			
             Label = 'MissileWeapon',
 			
-            MaxRadius = 84,
-            MinRadius = 7,
+            MaxRadius = 88,
+            MinRadius = 15,
 			
-            MuzzleChargeDelay = 2,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+            MuzzleChargeDelay = 1.3,            -- the weapon fires all 3 muzzles = 3.9
+
             MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/TIFMissileCruise05/TIFMissileCruise05_proj.bp',
@@ -218,20 +217,13 @@ UnitBlueprint {
                 },
             },
 
-             
-            RackSalvoChargeTime = 1,
-            RackSalvoReloadTime = 8,
-			
-            RackSalvoSize = 0,
-
+            RackSalvoChargeTime = 0.5,            -- the weapon unpacks plus 0.5 seconds = 2
+            RackSalvoReloadTime = 0.5,            -- the weapon packs and reloads plus 0.5 seconds = 5.6
 
             RangeCategory = 'UWRC_IndirectFire',
-			
-			-- the true rate of fire is a combination of the rack salvo reload - 8 seconds
-			-- and the time it takes to fire the 3 muzzles ( muzzle charge delay -- which is 2 seconds each )
-			-- so true firing cycle is 15 seconds or 1800/15 for 120 Dps
-			
-            RateOfFire = 0.1,		---- ignore this as it seems to be overridden by the RackSalvoReloadTime
+
+			-- true firing cycle is 11.5 seconds -- 1800/11.5 for 156 Dps
+            RateOfFire = 1,                      -- charge, muzzle and reload delays handle all of it
 
             SlavedToBody = true,
 			
@@ -244,16 +236,18 @@ UnitBlueprint {
                 'MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
 			
             Turreted = false,
 
+            -- the pack/unpack animation requires 1.5 seconds
+            -- and is handled by the unit script
             WeaponRepackTimeout = 1,
             WeaponUnpackAnimation = '/units/xel0306/xel0306_aopen.sca',
             WeaponUnpackAnimationRate = 1,
-            WeaponUnpacks = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
@@ -261,11 +255,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

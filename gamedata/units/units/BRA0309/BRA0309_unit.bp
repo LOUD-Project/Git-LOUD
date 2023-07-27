@@ -1,6 +1,7 @@
 UnitBlueprint {
     AI = {
         BeaconName = 'URB5102',
+        GuardScanRadius = 33,
         TargetBones = {'Char01','Char02','Char03','Char04' },
     },
 
@@ -58,8 +59,6 @@ UnitBlueprint {
         },
     },
 
-    AverageDensity = 1,
-
     Buffs = {
         Regen = {
             Level1 = 15,
@@ -97,7 +96,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 6,
     },
 
-    Description = '<LOC xea0306_desc>Heavy Air Transport',
+    Description = '<LOC bra0309_desc>Heavy Air Transport',
 
     Display = {
         Abilities = {
@@ -300,7 +299,7 @@ UnitBlueprint {
 
             Label = 'EMPCannon',
 
-            MaxRadius = 35,
+            MaxRadius = 33,
 
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 3,
@@ -335,7 +334,7 @@ UnitBlueprint {
 
             TargetRestrictDisallow = 'HIGHALTAIR, WALL, UNTARGETABLE',
 
-            TrackingRadius = 1.25,
+            TrackingRadius = 1.1,
 
             TurretBoneMuzzle = 'Front_Down_Turret_Muzzle',
             TurretBonePitch = 'Front_Down_Turret',
@@ -405,7 +404,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.2,
 
             TurretBoneMuzzle = 'Back_Up_Turret_Muzzle',
             TurretBonePitch = 'Back_Up_Turret',
@@ -472,7 +471,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.2,
 
             TurretBoneMuzzle = 'Back_Turret01_Muzzle01',
             TurretBonePitch = 'Back_Turret01',

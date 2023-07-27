@@ -6,7 +6,9 @@ UnitBlueprint {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
         'BUILTBYTIER2ENGINEER',
+        'BUILTBYTIER2FIELD',
         'BUILTBYTIER3ENGINEER',
+        'BUILTBYTIER3FIELD',        
         'BUILTBYCOMMANDER',
         'UEF',
         'STRUCTURE',
@@ -16,7 +18,7 @@ UnitBlueprint {
         'DRAGBUILD',
         'VISIBLETORECON',
         'RECLAIMABLE',
-		'SORTSTRATEGIC',
+		'SORTDEFENSE',
     },
     
     Defense = {
@@ -75,7 +77,6 @@ UnitBlueprint {
 	
     General = {
         CapCost = 0.1,
-
         FactionName = 'UEF',
         Icon = 'land',
         SelectionPriority = 5,

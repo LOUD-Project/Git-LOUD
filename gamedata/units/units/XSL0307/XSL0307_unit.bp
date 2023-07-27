@@ -81,7 +81,6 @@ UnitBlueprint {
                 },
             },
         },
-
         UniformScale = 0.045,
     },
 	
@@ -94,8 +93,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Guard = true,
@@ -111,12 +108,10 @@ UnitBlueprint {
                 helpText = 'toggle_shield_dome',
             },
         },
-        TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
         UnitName = '<LOC xsl0307_name>Athanah',
-        UnitWeight = 1,
     },
     
     Intel = {

@@ -5,6 +5,7 @@ UnitBlueprint {
             'Turret_B01',
         },
     },
+
     Audio = {
         DeathExplosion = Sound {
             Bank = 'UALDestroy',
@@ -83,7 +84,6 @@ UnitBlueprint {
             },
         },
 
-
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_aeon_01_albedo',
@@ -91,16 +91,12 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar12x_aeon_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = { 0, 90, 180, 270 },
                 RemoveWhenDead = true,
                 Width = 12.8,
             },
         },
+
         UniformScale = 0.1125,
     },
 	
@@ -119,8 +115,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 4,
-        Category = 'Strategic',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -129,9 +123,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC uab2302_name>Emissary',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -249,8 +241,7 @@ UnitBlueprint {
             MinRadius = 120,
 			
             MuzzleChargeDelay = 0.5,        -- .5 second delay
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 72,
             MuzzleVelocityReduceDistance = 850,
 			
@@ -259,25 +250,12 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_B01',
                 },
             },
-             
-			
+
             RackRecoilDistance = -6,
-			
-
-
-			
-            RackSalvoFiresAfterCharge = false,
-			
-             
-			
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -315,11 +293,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

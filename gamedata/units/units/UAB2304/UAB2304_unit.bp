@@ -4,6 +4,7 @@ UnitBlueprint {
             'Turret_Barrel',
         },
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -16,6 +17,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -25,7 +27,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+
     BuildIconSortPriority = 120,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -58,7 +62,9 @@ UnitBlueprint {
         Abilities = {
             'Aquatic',
         },
+
         AnimationPermOpen = '/units/UAB2304/UAB2304_Aopen.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -76,7 +82,6 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.25,
     },
     
@@ -93,8 +98,6 @@ UnitBlueprint {
     },
     
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -103,9 +106,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC uab2304_name>Transcender',
-        UnitWeight = 1,
     },
     
     Intel = {
@@ -164,6 +165,7 @@ UnitBlueprint {
         {
 			advancedTracking = true,
             AlwaysRecheckTarget = true,
+
             Audio = {
                 Fire = Sound {
                     Bank = 'UALWeapon',
@@ -176,7 +178,9 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
             
@@ -212,7 +216,7 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
             
             RangeCategory = 'UWRC_AntiAir',
@@ -236,26 +240,23 @@ UnitBlueprint {
             
             TurretPitch = 25,
             TurretPitchRange = 80,
-            TurretPitchSpeed = 120,
+            TurretPitchSpeed = 80,
             
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 80,
             
             Turreted = true,
         },
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.9,
+        EnergyMult = 0.6,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
             Water = true,
         },
     },

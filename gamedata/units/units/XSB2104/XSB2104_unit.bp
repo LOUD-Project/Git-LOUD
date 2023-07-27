@@ -72,8 +72,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.037,
     },
 
@@ -88,8 +86,6 @@ UnitBlueprint {
     Footprint = { MinWaterDepth = 1 },
 
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -98,9 +94,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC xsb2104_name>Ialla',
-        UnitWeight = 1,
     },
 
     Intel = {
@@ -186,8 +180,8 @@ UnitBlueprint {
 
             MaxRadius = 44,
 
-            MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 60,
 
             ProjectileId = '/projectiles/SAAShleoAAGatlingGun02/SAAShleoAAGatlingGun02_proj.bp',
@@ -202,14 +196,6 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-             
-
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-            
-
 
             RangeCategory = 'UWRC_AntiAir',
 
@@ -221,7 +207,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.1,
 
             TurretBoneMuzzle = 'Turret_Aiming_Bone',
             TurretBonePitch = 'Turret_Barrel',
@@ -230,11 +216,11 @@ UnitBlueprint {
 
             TurretPitch = 45,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 100,
+            TurretPitchSpeed = 85,
 
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 100,
+            TurretYawSpeed = 85,
 
             Turreted = true,
         },
@@ -247,11 +233,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

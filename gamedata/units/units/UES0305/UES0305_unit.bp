@@ -1,4 +1,9 @@
 UnitBlueprint {
+
+    AI = {
+        GuardScanRadius = 48,
+    },
+    
     Audio = {
         DoneBeingBuilt = Sound {
             Bank = 'UES',
@@ -264,7 +269,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
         },
     },
 }

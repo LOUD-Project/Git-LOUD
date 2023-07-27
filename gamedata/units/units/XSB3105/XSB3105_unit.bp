@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'T3EnergyStorageAdjacencyBuffs',
+
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -17,7 +19,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 90,
+
     Categories = {
         'SELECTABLE',
         'SERAPHIM',
@@ -28,6 +32,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 108,
@@ -35,7 +40,9 @@ UnitBlueprint {
         MaxHealth = 3000,
         RegenRate = 3,
     },
+
     Description = '<LOC xsb1105_desc>Advanced Energy Storage',
+
     Display = {
         Abilities = {
 			'Adjacency bonuses to Energy Production & Shields',
@@ -65,41 +72,42 @@ UnitBlueprint {
                  },
               },
         },
-        PlaceholderMeshName = 'UXB0014',
-
         UniformScale = 0.117,
     },
+
     Economy = {
         AdjacentEnergyProductionMod = 3,
+
         BuildCostEnergy = 19200,
         BuildCostMass = 1500,
         BuildTime = 3000,
-        RebuildBonusIds = {
-            'xsb1105',
-        },
+
+        RebuildBonusIds = {'xsb1105'},
+
         StorageEnergy = 7500,
     },
+
     General = {
 		CapCost = .25,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
 			RULEUCC_Pause = true,
         },
         FactionName = 'Seraphim',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
+
         UpgradesFrom = 'xsb2105',
         UpgradesFromBase = 'xsb1105',
     },
+
     Interface = {
         HelpText = 'Advanced Energy Storage',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1.1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -119,14 +127,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.8,
     SelectionSizeZ = 0.8,
     SelectionThickness = 0.6,
+
     SizeX = 0.9,
     SizeY = 0.9,
     SizeZ = 0.9,
+
     StrategicIconName = 'icon_node3_energy',
     StrategicIconSortPriority = 250,
+
     Weapon = {
         {
             Damage = 3000,

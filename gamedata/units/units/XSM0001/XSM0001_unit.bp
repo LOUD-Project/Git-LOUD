@@ -13,7 +13,9 @@ UnitBlueprint {
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
+        'BUILTBYTIER2FIELD',
         'BUILTBYTIER3ENGINEER',
+        'BUILTBYTIER3FIELD',
         'BUILTBYTIER2COMMANDER',
         'BUILTBYTIER3COMMANDER',
         'SERAPHIM',
@@ -24,17 +26,17 @@ UnitBlueprint {
         'BENIGN',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'SORTSTRATEGIC',
+        'SORTDEFENSE',
     },
 	
     Defense = {
         ArmorType = 'Structure',
-        Health = 4500,
-        MaxHealth = 4500,
+        Health = 4250,
+        MaxHealth = 4250,
         RegenRate = 1,        
     },
 	
-    Description = '<LOC xsb5101_desc>T2 Wall Section',
+    Description = '<LOC xsb5101_desc>Medium Wall Section',
 	
     Display = {
 
@@ -93,7 +95,6 @@ UnitBlueprint {
 	
     General = {
         CapCost = 0.2,
-
         FactionName = 'Seraphim',
         Icon = 'land',
         SelectionPriority = 5,
@@ -105,7 +106,7 @@ UnitBlueprint {
 	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.55,
-    LifeBarSize = 0.4,
+    LifeBarSize = 0.45,
 	
     Physics = {
         BankingSlope = 0,
@@ -130,7 +131,7 @@ UnitBlueprint {
     SelectionThickness = 0.66,
 	
     SizeX = 1,
-    SizeY = 1.1,
+    SizeY = 0.95,
     SizeZ = 1,
 	
     StrategicIconName = 'icon_structure_wall',

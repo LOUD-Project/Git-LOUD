@@ -1,9 +1,10 @@
 UnitBlueprint {
     AI = {
-		GuardRadius = 150,
-        GuardReturnRadius = 175,
-        GuardScanRadius = 150,
+		GuardRadius = 60,
+        GuardReturnRadius = 100,
+        GuardScanRadius = 60,
     },
+
     Air = {
         AutoLandTime = 1,
         BankFactor = 2,
@@ -198,7 +199,7 @@ UnitBlueprint {
                 Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0102_Shleo_AA_Autogun', LodCutoff = 'Weapon_LodCutoff' },
             },
 
-            AutoInitiateAttackCommand = false,
+            AutoInitiateAttackCommand = true,
 
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -210,7 +211,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land',
-                Land = 'Air|Land',
+                Land = 'Air',
             },
 			
             FiringTolerance = 0,
@@ -243,9 +244,9 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.25,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Muzzle',
             TurretBonePitch = 'Muzzle',

@@ -4,6 +4,7 @@ UnitBlueprint {
             'UAB2205',
         },
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -52,12 +53,15 @@ UnitBlueprint {
     },
 	
     Description = '<LOC uab2205_desc>Improved Torpedo Launcher',
+
     Display = {
         Abilities = {
             'Sonar',
 			'Radar & Sonar Stealth',
         },
+
         AnimationOpen = '/units/UAB2205/UAB2205_Aopen.sca',
+
         DamageEffects = {
             {
                 Bone = 0,
@@ -115,8 +119,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -125,9 +127,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'sea',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC uab2205_name>Wave Break',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -235,14 +235,6 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
-             
-            RackSalvoFiresAfterCharge = false,
-             
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -253,8 +245,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-   
-   'ALLUNITS',
+                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
             TrackingRadius = 1.3,

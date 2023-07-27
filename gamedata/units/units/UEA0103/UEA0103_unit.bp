@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 125,
-        GuardScanRadius = 100,
+        GuardReturnRadius = 120,
+        GuardScanRadius = 80,
     },
 	
     Air = {
@@ -125,7 +125,6 @@ UnitBlueprint {
     },
 	
     General = {
-
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -138,7 +137,6 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'air',
-
         UnitName = '<LOC uea0103_name>Scorcher',
     },
 	
@@ -208,6 +206,7 @@ UnitBlueprint {
             },
 
             AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
 			
             BombDropThreshold = 3,
@@ -229,8 +228,8 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 2.5,
-            FiringTolerance = 6,
+            FiringRandomness = 2.1,
+            FiringTolerance = 5,
 			
             Label = 'Bomb',
 			
@@ -251,8 +250,6 @@ UnitBlueprint {
                     RackBone = 'Projectile',
                 },
             },
-            
-            RackReloadTimeout = 10,
 
             RateOfFire = 0.5,		-- 120 DPS Surface
 			
@@ -263,7 +260,7 @@ UnitBlueprint {
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.25,
+            TrackingRadius = 1.2,
         },
     },
 }

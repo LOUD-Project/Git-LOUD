@@ -76,8 +76,6 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UEC1101',
-        SpawnRandomRotation = true,
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_seraphim_01_albedo',
@@ -107,8 +105,6 @@ UnitBlueprint {
         SizeZ = 3,
     },
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_MiscSupport',
         FactionName = 'UEF',
         TechLevel = 'RULEUTL_Basic',
         UnitWeight = 1,
@@ -153,10 +149,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
             Water = true,
         },
     },

@@ -1,10 +1,9 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Front_Turret',
-            'Back_Turret',
-        },
+        GuardReturnRadius = 50,
+        GuardScanRadius = 38,
+        TargetBones = {'Front_Turret','Back_Turret'},
     },
 	
     Audio = {
@@ -50,7 +49,8 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'FRIGATE',
-        'OVERLAYRADAR','OVERLAYSONAR',
+        'OVERLAYRADAR',
+        'OVERLAYSONAR',
     },
 	
     CollisionOffsetY = -0.3,
@@ -130,7 +130,6 @@ UnitBlueprint {
     },
 	
     Economy = {
-	
         BuildCostEnergy = 3500,
         BuildCostMass = 400,
         BuildTime = 2000,
@@ -269,11 +268,10 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL MOBILE',
-   
-   'ALLUNITS',
+                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Front_Muzzle',
             TurretBonePitch = 'Front_Turret_Barrel',
@@ -346,11 +344,9 @@ UnitBlueprint {
             RateOfFire = 1,		-- 84 DPS Air
             TargetCheckInterval = 0.5,
 			
-            TargetPriorities = {
-                'AIR MOBILE',
-            },
+            TargetPriorities = {'AIR MOBILE'},
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Back_Turret_Barrel',
             TurretBonePitch = 'Back_Turret_Barrel',

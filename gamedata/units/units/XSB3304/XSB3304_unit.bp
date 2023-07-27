@@ -16,6 +16,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -25,7 +26,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+
     BuildIconSortPriority = 120,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -41,7 +44,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTDEFENSE',
     },
+
     CollisionOffsetY = -0.55,
+
     Defense = {
         AirThreatLevel = 28,
         ArmorType = 'Structure',
@@ -49,7 +54,9 @@ UnitBlueprint {
         MaxHealth = 4500,
         RegenRate = 2,
     },
+
     Description = '<LOC xsb3304_desc>Heavy AA Flak Artillery',
+
     Display = {
         Abilities = {
             'Aquatic',
@@ -79,24 +86,22 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0002',
-
         UniformScale = 0.055,
     },
+
     Economy = {
         BuildCostEnergy = 10600,
         BuildCostMass = 1100,
         BuildTime = 1100,
-        RebuildBonusIds = {
-            'xsb3304',
-        },
+
+        RebuildBonusIds = {'xsb3304'},
     },
+
     Footprint = {
         MinWaterDepth = 2,
     },
+
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -105,19 +110,21 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC xsb3304_name>Sinnatha Hu',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 36,
     },
+
     Interface = {
         HelpText = 'Hvy AA Flak Artillery',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.45,
     LifeBarSize = 0.8,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -138,14 +145,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.55,
     SelectionThickness = 0.71,
+
     SizeX = 0.9,
     SizeY = 1.6,
     SizeZ = 0.9,
+
     StrategicIconName = 'icon_structure3_antiair',
     StrategicIconSortPriority = 200,
+
     Veteran = {
         Level1 = 15,
         Level2 = 30,
@@ -207,14 +218,11 @@ UnitBlueprint {
                     RackBone = 'Barrel_Right',
                 },
             },
-			
-            RackFireTogether = true,
-            
-             
+
             RackSalvoChargeTime = 0.2,  -- 2 ticks prior to firing
-            RackSalvoFiresAfterCharge = false,
+
             RackSalvoReloadTime = 0.9,  -- 9 ticks after firing
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
             
             RangeCategory = 'UWRC_AntiAir',
@@ -224,16 +232,15 @@ UnitBlueprint {
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'WepFocus',
             TurretBonePitch = 'Barrel_Right',
@@ -249,6 +256,7 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
@@ -256,10 +264,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
             Water = true,
         },
     },

@@ -1,12 +1,9 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+		GuardReturnRadius = 100,
+        GuardScanRadius = 75,
         InitialAutoMode = true,
-        TargetBones = {
-            'URL0111',
-            'Launcher',
-        },
+        TargetBones = {'URL0111','Launcher'},
     },
 	
     Audio = {
@@ -29,11 +26,11 @@ UnitBlueprint {
 	
     Buffs = {
         Regen = {
-            Level1 = 2,
-            Level2 = 4,
-            Level3 = 6,
-            Level4 = 8,
-            Level5 = 10,
+            Level1 = 1,
+            Level2 = 2,
+            Level3 = 3,
+            Level4 = 4,
+            Level5 = 5,
         },
     },
 	
@@ -73,8 +70,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.15,
     },
 	
@@ -85,8 +80,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Indirect Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -98,9 +91,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC url0111_name>Viper',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -201,8 +192,7 @@ UnitBlueprint {
             MinRadius = 7,
 			
             MuzzleChargeDelay = 0.3,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 6,
 			
             ProjectileId = '/projectiles/CIFMissileTactical01/CIFMissileTactical01_proj.bp',
@@ -211,18 +201,10 @@ UnitBlueprint {
             RackBones = {
                 {
                     HideMuzzle = true,
-                    MuzzleBones = {
-                        'Missile',
-                    },
+                    MuzzleBones = {'Missile'},
                     RackBone = 'Launcher',
                 },
             },
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -231,7 +213,7 @@ UnitBlueprint {
 			
             SlavedToBody = true,
 			
-            TargetCheckInterval = 3,
+            TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'STRUCTURE DEFENSE',
@@ -239,7 +221,7 @@ UnitBlueprint {
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.0,
 
             Turreted = false,
         },
@@ -249,14 +231,10 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

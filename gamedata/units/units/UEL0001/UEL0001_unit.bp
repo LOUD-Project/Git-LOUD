@@ -70,6 +70,7 @@ UnitBlueprint {
             Level5 = 28,
         },
     },
+
     Categories = {
         'SELECTABLE',
         'UEF',
@@ -117,9 +118,12 @@ UnitBlueprint {
             'Omni Sensor',
             'Volatile',
         },
+
         AnimationWalk = '/units/uel0001/uel0001_a001.sca',
         AnimationWalkRate = 1.7,
+
         AttackReticleSize = 55,
+
         DamageEffects = {
             {
                 Bone = 0,
@@ -850,14 +854,10 @@ UnitBlueprint {
     General = {
         BuildBones = {
             AimBone = 'Left_Arm_Muzzle',
-            BuildEffectBones = {
-                'Left_Arm_Muzzle',
-            },
+            BuildEffectBones = {'Left_Arm_Muzzle'},
             PitchBone = 'Left_Arm_Barrel',
             YawBone = 'Torso',
         },
-        Category = 'Experimental',
-        Classification = 'RULEUC_Commander',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -884,8 +884,6 @@ UnitBlueprint {
         },
         QuickSelectPriority = 1,
         SelectionPriority = 3,
-        TechLevel = 'RULEUTL_Experimental',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -979,9 +977,7 @@ UnitBlueprint {
 			
             MaxRadius = 22,
             MinRadius = 1,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
             
             NotExclusive = false,
@@ -991,17 +987,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Arm_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Arm_Muzzle'},
                     RackBone = 'Right_Arm_Barrel',
                 },
             },
-            
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -1015,8 +1004,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
                 'STRUCTURE -WALL',
-   
-   'ALLUNITS',
+                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
@@ -1068,9 +1056,7 @@ UnitBlueprint {
 			
             MaxRadius = 22,
             MinRadius = 1,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 28,
             
             NotExclusive = false,
@@ -1080,17 +1066,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Upgrade_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Upgrade_Muzzle'},
                     RackBone = 'Right_Upgrade',
                 },
             },
-            
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -1104,8 +1083,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
                 'STRUCTURE -WALL',
-   
-   'ALLUNITS',
+                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
@@ -1162,9 +1140,7 @@ UnitBlueprint {
             ManualFire = true,
 			
             MaxRadius = 22,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 25,
 			
             OverChargeWeapon = true,
@@ -1174,18 +1150,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Arm_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Arm_Muzzle'},
                     RackBone = 'Right_Arm_Barrel',
                 },
             },
-             
-            
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -1199,8 +1167,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-   
-   'ALLUNITS',
+                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
@@ -1267,8 +1234,6 @@ UnitBlueprint {
             MinRadius = 15,
 			
             MuzzleChargeDelay = 1.5,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 10,
 			
             ProjectileId = '/projectiles/TIFMissileCruiseCDR/TIFMissileCruiseCDR_proj.bp',
@@ -1276,18 +1241,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Upgrade_Muzzle',
-                    },
+                    MuzzleBones = {'Back_Upgrade_Muzzle'},
                     RackBone = 'Back_Upgrade_Muzzle',
                 },
             },
-             
-            
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -1298,8 +1255,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-   
-   'ALLUNITS',
+                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             Turreted = false,
@@ -1350,10 +1306,7 @@ UnitBlueprint {
 			
             MaxRadius = 256,
             MinRadius = 5,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 10,
 			
             NukeInnerRingDamage = 12000,
@@ -1372,18 +1325,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Upgrade_Muzzle',
-                    },
+                    MuzzleBones = {'Back_Upgrade_Muzzle'},
                     RackBone = 'Back_Upgrade_Muzzle',
                 },
             },
-             
-            
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -1400,18 +1345,24 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             CollideFriendly = false,
+
             Damage = 0,
             DamageFriendly = true,
             DamageRadius = 0,
             DamageType = 'Deathnuke',
+
             DisplayName = 'Death Nuke',
+
             FireOnDeath = true,
+
             FiringTolerance = 2,
+
             Label = 'DeathWeapon',
+
             MaxRadius = 1,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 0,
+
             NukeInnerRingDamage = 45000,
             NukeInnerRingRadius = 30,
             NukeInnerRingTicks = 24,
@@ -1420,21 +1371,20 @@ UnitBlueprint {
             NukeOuterRingRadius = 40,
             NukeOuterRingTicks = 20,
             NukeOuterRingTotalTime = 0,
+
             ProjectileId = '/effects/Entities/UEFNukeEffectController01/UEFNukeEffectController01_proj.bp',
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        0,
-                    },
+                    MuzzleBones = {0},
                     RackBone = 0,
                 },
             },
             
             RateOfFire = 1,
+
             TargetCheckInterval = 9999999,
             TargetRestrictDisallow = 'UNTARGETABLE',
-            Turreted = false,
-
         },
     },
 }

@@ -1,8 +1,8 @@
 UnitBlueprint {
     AI = {
-		GuardRadius = 100,
-        GuardReturnRadius = 120,
-        GuardScanRadius = 100,
+		GuardRadius = 45,
+        GuardReturnRadius = 90,
+        GuardScanRadius = 45,
 		
         TargetBones = {
             'URA0401',
@@ -477,7 +477,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'AIR -INTELLIGENCE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.2,
 			
@@ -546,7 +546,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'AIR -INTELLIGENCE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.2,
 			
@@ -644,7 +644,7 @@ UnitBlueprint {
                 'STRUCTURE -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE,WALL',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Front_Turret_Muzzle01',
             TurretBonePitch = 'Front_Turret_Barrel',
@@ -734,7 +734,7 @@ UnitBlueprint {
                 'STRUCTURE -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE,WALL',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Back_Turret_Muzzle01',
             TurretBonePitch = 'Back_Turret_Barrel01',

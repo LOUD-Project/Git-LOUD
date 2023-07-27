@@ -1,7 +1,7 @@
 UnitBlueprint {
 
     AI = {
-		GuardReturnRadius = 35,
+		GuardReturnRadius = 40,
         GuardScanRadius = 30,
     },
 	
@@ -72,7 +72,6 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.08,
     },
 	
@@ -83,8 +82,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Anti Air',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -96,9 +93,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC ual0104_name>Thistle',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -189,8 +184,6 @@ UnitBlueprint {
 			
             MaxRadius = 30,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 66,
 			
             ProjectileId = '/projectiles/AAASonicPulse01/AAASonicPulse01_proj.bp',
@@ -198,18 +191,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
 
-
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_AntiAir',
@@ -223,7 +209,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
@@ -249,11 +235,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

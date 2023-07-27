@@ -1,8 +1,9 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+		GuardReturnRadius = 40,
+        GuardScanRadius = 28,
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -20,6 +21,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -29,7 +31,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+
     BuildIconSortPriority = 20,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -129,7 +133,6 @@ UnitBlueprint {
 	
     General = {
         BuildBones = { BuildEffectBones = {'Reclaim_Point'} },
-
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -142,7 +145,6 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'land',
-
         ToggleCaps = { RULEUTC_ShieldToggle = true },
         UnitName = '<LOC ual0303_name>Harbinger',
     },
@@ -277,7 +279,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

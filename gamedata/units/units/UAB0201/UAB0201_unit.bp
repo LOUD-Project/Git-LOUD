@@ -75,7 +75,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_aeon_01_albedo',
@@ -129,8 +128,7 @@ UnitBlueprint {
                 'Tier2_Arm_Refpoint',
             },
         },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
+
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -143,8 +141,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-        UnitWeight = 1,
+
         UpgradesFrom = 'uab0101',
         UpgradesTo = 'uab0301',
     },
@@ -256,6 +253,7 @@ UnitBlueprint {
             -- z
             0.05,
         },
+
         RollOffPoints = {
             {
                 UnitSpin = 90,
@@ -276,14 +274,18 @@ UnitBlueprint {
         SkirtSizeZ = 8,
         TurnRate = 0,
     },
+
     SelectionSizeX = 2.75,
     SelectionSizeZ = 2.75,
     SelectionThickness = 0.36,
+
     SizeX = 3.6,
     SizeY = 1,
     SizeZ = 3.6,
+
     StrategicIconName = 'icon_factory2_land',
     StrategicIconSortPriority = 215,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -291,11 +293,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

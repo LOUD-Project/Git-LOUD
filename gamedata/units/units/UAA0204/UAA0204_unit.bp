@@ -1,11 +1,10 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 125,
-        GuardScanRadius = 100,
+        GuardReturnRadius = 96,
+        GuardScanRadius = 72,
     },
 	
     Air = {
-	
         AutoLandTime = 1.5,
 		
         BankFactor = 4,
@@ -45,7 +44,6 @@ UnitBlueprint {
         TurnSpeed = 0.85,
 		
         Winged = true,
-		
     },
 	
     Audio = {
@@ -162,7 +160,6 @@ UnitBlueprint {
     LifeBarSize = 1,
 	
     Physics = {
-	
         AttackElevation = 1.75,
 		
         BuildOnLayerCaps = {
@@ -215,7 +212,9 @@ UnitBlueprint {
             Audio = {
                 Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0204_Depth_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -269,7 +268,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,HOVER,WALL',
 			
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.2,
         },
         {
             AboveWaterTargetsOnly = true,

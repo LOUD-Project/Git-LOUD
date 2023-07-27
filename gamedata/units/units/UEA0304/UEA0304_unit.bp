@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 150,
-        GuardScanRadius = 125,
+        GuardReturnRadius = 135,
+        GuardScanRadius = 90,
     },
     Air = {
         AutoLandTime = 1.6,
@@ -231,7 +231,7 @@ UnitBlueprint {
 			
             DisplayName = 'High Yield Bomb',
 			
-            EffectiveRadius = 25,
+            EffectiveRadius = 45,
 			
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
@@ -245,9 +245,7 @@ UnitBlueprint {
             Label = 'Bomb',
 			
             MaxRadius = 90,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 0,
 			
             NeedToComputeBombDrop = true,
@@ -327,7 +325,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.2,
 			

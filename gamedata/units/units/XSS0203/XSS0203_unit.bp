@@ -1,7 +1,9 @@
 UnitBlueprint {
     AI = {
         GuardReturnRadius = 60,
+        GuardScanRadius = 32,
     },
+
     Audio = {
         Killed = Sound {
             Bank = 'UASDestroy',
@@ -357,7 +359,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'AntiTorpedo',
             TurretBonePitch = 'AntiTorpedo',
@@ -425,6 +427,7 @@ UnitBlueprint {
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
+
             TurretBoneMuzzle = 'Turret_Aim_Bone',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',

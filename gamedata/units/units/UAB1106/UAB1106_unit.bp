@@ -48,6 +48,7 @@ UnitBlueprint {
         Abilities = {
 			'Adjacency bonuses to Mass Production',
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -64,23 +65,21 @@ UnitBlueprint {
             },
         },
 
-
-
         UniformScale = 0.12,
     },
     
     Economy = {
         AdjacentMassProductionMod = 0.25,
+
         BuildCostEnergy = 1500,
         BuildCostMass = 200,
 		BuildRate = 10,
         BuildTime = 250,
-		BuildableCategory = {
-            'uab2106',
-        },
-        RebuildBonusIds = {
-            'uab1106',
-        },
+
+		BuildableCategory = {'uab2106'},
+
+        RebuildBonusIds = {'uab1106'},
+
         StorageMass = 350,
     },
     
@@ -90,16 +89,13 @@ UnitBlueprint {
     },
     
     General = {
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
 			RULEUCC_Pause = true,
         },
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
+
 		UpgradesTo = 'uab2106',
     },
     
@@ -150,11 +146,8 @@ UnitBlueprint {
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

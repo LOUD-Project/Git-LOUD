@@ -67,9 +67,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
-
         UniformScale = 0.2,
     },
     
@@ -86,16 +83,12 @@ UnitBlueprint {
     },
     
     General = {
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
-        UnitWeight = 1,
     },
     
     Interface = {

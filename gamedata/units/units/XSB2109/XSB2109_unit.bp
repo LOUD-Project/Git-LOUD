@@ -4,6 +4,7 @@ UnitBlueprint {
             'XSB2109',
         },
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -21,8 +22,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {},
+
     BuildIconSortPriority = 130,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -86,21 +90,20 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.03,
     },
+
     Economy = {
         BuildCostEnergy = 3600,
         BuildCostMass = 450,
         BuildTime = 450,
     },
+
     Footprint = {
         MinWaterDepth = 2,
     },
+
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -109,22 +112,24 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'sea',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC xsb2109_name>Sou-atha',
-        UnitWeight = 1,
     },
+
     Intel = {
 		FreeIntel = true,
         SonarRadius = 50,
         VisionRadius = 24,
         WaterVisionRadius = 40,
     },
+
     Interface = {
         HelpText = 'Basic Torpedo Launcher',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,
     LifeBarSize = 0.9,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -143,14 +148,18 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.5,
     SelectionSizeZ = 0.8,
     SelectionThickness = 0.47,
+
     SizeX = 0.9,
     SizeY = 2,
     SizeZ = 0.9,
+
     StrategicIconName = 'icon_structure1_antinavy',
     StrategicIconSortPriority = 205,
+
     Veteran = {
         Level1 = 5,
         Level2 = 10,
@@ -193,25 +202,14 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle01',
-                    },
+                    MuzzleBones = {'Muzzle01'},
                     RackBone = 'Muzzle01',
                 },
                 {
-                    MuzzleBones = {
-                        'Muzzle02',
-                    },
+                    MuzzleBones = {'Muzzle02'},
                     RackBone = 'Muzzle02',
                 },
             },
-             
-
-
-
-            RackSalvoSize = 1,
-            
-
 
             RangeCategory = 'UWRC_AntiNavy',
 
@@ -222,11 +220,10 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
                 'DEFENSE',
-   
-   'ALLUNITS -AIR',
+                'ALLUNITS -AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.1,
 
             TurretBoneMuzzle = 'Muzzle01',
             TurretBonePitch = 'XSB2109',

@@ -1,12 +1,11 @@
 UnitBlueprint {
 
     AI = {
-        GuardReturnRadius = 115,
-        GuardScanRadius = 100,
+        GuardReturnRadius = 66,
+        GuardScanRadius = 44,
     },
 	
     Air = {
-	
         AutoLandTime = 1.6,
         BankFactor = 0.1,
         BankForward = false,
@@ -55,8 +54,6 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-	
-    AverageDensity = 1,
 	
     Buffs = {},
 	
@@ -136,7 +133,6 @@ UnitBlueprint {
     },
 	
     General = {
-
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -149,7 +145,6 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'air',
-
         UnitName = '<LOC uaa0203_name>Specter',
     },
 	
@@ -261,8 +256,6 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-            
-            RackReloadTimeout = 10,
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -278,8 +271,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle01',
             TurretBonePitch = 'C_Barrel',
             TurretBoneYaw = 'C_Turret',
-			
-            TurretDualManipulators = false,
 			
             TurretPitch = -20,
             TurretPitchRange = 60,

@@ -82,7 +82,6 @@ UnitBlueprint {
                 },
             },
         },
-
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_seraphim_01_albedo',
@@ -132,14 +131,8 @@ UnitBlueprint {
     
     General = {
         BuildBones = {
-            BuildEffectBones = {
-                'Muzzle01',
-                'Muzzle02',
-                'Muzzle03',
-            },
+            BuildEffectBones = {'Muzzle01','Muzzle02','Muzzle03'},
         },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -152,19 +145,22 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'air',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
-        UnitWeight = 1,
+
         UpgradesFrom = 'xsb0202',
     },
+
     Intel = {
         VisionRadius = 10,
     },
+
     Interface = {
         HelpText = 'Advanced Air Factory',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.1,
     LifeBarSize = 4.5,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -178,6 +174,7 @@ UnitBlueprint {
         MeshExtentsZ = 6,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
+
         RollOffPoints = {
             {
                 UnitSpin = 90,
@@ -198,16 +195,20 @@ UnitBlueprint {
         SkirtSizeZ = 8,
         TurnRate = 0,
     },
+
     SelectionCenterOffsetX = -0.14,
     SelectionCenterOffsetZ = -0.35,
     SelectionSizeX = 2.75,
     SelectionSizeZ = 2.75,
     SelectionThickness = 0.36,
+
     SizeX = 4,
     SizeY = 2.8,
     SizeZ = 4,
+
     StrategicIconName = 'icon_factory3_air',
     StrategicIconSortPriority = 210,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -215,11 +216,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

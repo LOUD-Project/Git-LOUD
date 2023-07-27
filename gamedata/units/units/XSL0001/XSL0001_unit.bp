@@ -1,6 +1,6 @@
 UnitBlueprint {
     AI = {
-        GuardRadius = 10,
+        GuardRadius = 22,
         TargetBones = {
             'Head',
             'Right_Arm_B01',
@@ -837,8 +837,6 @@ UnitBlueprint {
             PitchBone = 'Left_Arm_B02',
             YawBone = 'Torso',
         },
-        Category = 'Command',
-        Classification = 'RULEUC_Commander',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -857,8 +855,6 @@ UnitBlueprint {
         Icon = 'amph',
         QuickSelectPriority = 1,
         SelectionPriority = 3,
-        TechLevel = 'RULEUTL_Experimental',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -946,36 +942,28 @@ UnitBlueprint {
             MaxRadius = 22,
             MinRadius = 2,
             MuzzleChargeDelay = 0.4,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
             ProjectileId = '/projectiles/SDFChronatronCannon01/SDFChronatronCannon01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 2,
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Turret_Muzzle'},
                     RackBone = 'Right_Arm_B02',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-            
 
             RangeCategory = 'UWRC_DirectFire',
+
             RateOfFire = 1,
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-   
-   'ALLUNITS',
+                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TurretBoneMuzzle = 'Right_Turret_Muzzle',
@@ -1021,47 +1009,43 @@ UnitBlueprint {
             ManualFire = true,
             MaxRadius = 22,
             MinRadius = 2,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 25,
             OverChargeWeapon = true,
+
             ProjectileId = '/projectiles/SDFChronatronCannon02/SDFChronatronCannon02_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Turret_Muzzle'},
                     RackBone = 'Right_Arm_B02',
                 },
             },
-             
+
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-            
 
             RangeCategory = 'UWRC_DirectFire',
+
             RateOfFire = 0.3,
-            SlavedToBody = false,
+
             TargetCheckInterval = 0.16,
             TargetRestrictDisallow = 'UNTARGETABLE',
             TurretBoneMuzzle = 'Right_Turret_Muzzle',
             TurretBonePitch = 'Right_Arm_B02',
             TurretBoneYaw = 'Torso',
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 60,
             TurretPitchSpeed = 30,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 90,
+
             Turreted = true,
+
             UseFiringSolutionInsteadOfAimBone = true,
-            WeaponRepackTimeout = 0,
-            WeaponUnpacks = false,
         },
         {
             AboveWaterTargetsOnly = true,
@@ -1075,8 +1059,7 @@ UnitBlueprint {
             FiringTolerance = 2,
             Label = 'DeathWeapon',
             MaxRadius = 1,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 0,
             NukeInnerRingDamage = 45000,
             NukeInnerRingRadius = 30,
@@ -1086,12 +1069,11 @@ UnitBlueprint {
             NukeOuterRingRadius = 40,
             NukeOuterRingTicks = 20,
             NukeOuterRingTotalTime = 0,
+
             ProjectileId = '/effects/entities/InainoEffectController01/InainoEffectController01_proj.bp',
             RackBones = {
                 {
-                    MuzzleBones = {
-                        0,
-                    },
+                    MuzzleBones = {0},
                     RackBone = 0,
                 },
             },
@@ -1132,35 +1114,28 @@ UnitBlueprint {
             MaxRadius = 256,
             MinRadius = 5,
             MuzzleChargeDelay = 0.2,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 5,
+
             ProjectileId = '/projectiles/SIFLaanseTacticalMissileCDR/SIFLaanseTacticalMissileCDR_proj.bp',
             ProjectileLifetime = 80,
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Missle',
-                    },
+                    MuzzleBones = {'Back_Missle'},
                     RackBone = 'Back_Missle',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-            
 
             RangeCategory = 'UWRC_IndirectFire',
+
             RateOfFire = 1,
+
             TargetCheckInterval = 5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'DEFENSE',
-   
-   'ALLUNITS',
+                'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             Turreted = false,

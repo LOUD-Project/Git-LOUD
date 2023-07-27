@@ -3,10 +3,7 @@ UnitBlueprint {
         GuardScanRadius = 30,
 		GuardReturnRadius = 35,
 
-        TargetBones = {
-            'URL0401',
-            'Turret_Aim',
-        },
+        TargetBones = {'URL0401','Turret_Aim'},
     },
 	
     Audio = {
@@ -108,8 +105,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.1,
     },
 	
@@ -126,8 +121,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 8,
-        Category = 'Indirect Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -138,9 +131,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC url0401_name>Scathis',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -241,9 +232,7 @@ UnitBlueprint {
 			
             MaxRadius = 2600,
             MinRadius = 150,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 160,
             MuzzleVelocityReduceDistance = 3000,
 			
@@ -252,18 +241,12 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Aim_Barrel_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Aim_Barrel_Muzzle'},
                     RackBone = 'Turret_Aim_Barrel',
                 },
             },
 
             RackRecoilDistance = -20,
-
-
-            RackSalvoFiresAfterCharge = false,
-             
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -317,11 +300,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

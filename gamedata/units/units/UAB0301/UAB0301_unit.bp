@@ -74,7 +74,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_aeon_01_albedo',
@@ -105,9 +104,7 @@ UnitBlueprint {
             'BUILTBYTIER3FACTORY AEON MOBILE LAND',
         },
         
-        RebuildBonusIds = {
-            'uab0301',
-        },
+        RebuildBonusIds = {'uab0301'},
         
         StorageEnergy = 2400,
         StorageMass = 240,
@@ -126,8 +123,7 @@ UnitBlueprint {
                 'Tier3_Arm_Refpoint',
             },
         },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
+
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -140,8 +136,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
-        UnitWeight = 1,
+
         UpgradesFrom = 'uab0201',
     },
     
@@ -252,6 +247,7 @@ UnitBlueprint {
             -- z
             0.05,
         },
+
         RollOffPoints = {
             {
                 UnitSpin = 90,
@@ -272,14 +268,18 @@ UnitBlueprint {
         SkirtSizeZ = 8,
         TurnRate = 0,
     },
+
     SelectionSizeX = 2.75,
     SelectionSizeZ = 2.75,
     SelectionThickness = 0.36,
+
     SizeX = 3.6,
     SizeY = 1,
     SizeZ = 3.6,
+
     StrategicIconName = 'icon_factory3_land',
     StrategicIconSortPriority = 210,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -287,11 +287,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

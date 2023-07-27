@@ -2,7 +2,8 @@ UnitBlueprint {
 
     AI = {
         AttackAngle = 60,
-        GuardReturnRadius = 60,
+        GuardReturnRadius = 65,
+        GuardScanRadius = 55,
     },
 	
     Audio = {

@@ -7,6 +7,7 @@ UnitBlueprint {
         ShowAssistRangeOnSelect = true,
         StagingPlatformScanRadius = 650,
     },
+
     Audio = {
         DeathExplosion = Sound {
             Bank = 'UALDestroy',
@@ -30,6 +31,7 @@ UnitBlueprint {
 	},
 
     BuildIconSortPriority = 210,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -47,6 +49,7 @@ UnitBlueprint {
         'OVERLAYMISC',
         'SORTSTRATEGIC',
     },
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 4,
@@ -81,23 +84,23 @@ UnitBlueprint {
                 },
             },
         },
-
+
         UniformScale = 0.065,
     },
+
     Economy = {
         BuildCostEnergy = 2100,
         BuildCostMass = 175,
         BuildTime = 350,
-        RebuildBonusIds = {
-            'uab5202',
-        },
+
+        RebuildBonusIds = {'uab5202'},
     },
+
     Footprint = {
         MinWaterDepth = 1,
     },
+
     General = {
-        Category = 'Strategic',
-        Classification = 'RULEUC_MiscSupport',
         CommandCaps = {
             RULEUCC_Transport = true,
         },
@@ -110,16 +113,18 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
+
         UnitName = '<LOC uab5202_name>Cradle',
-        UnitWeight = 1,
     },
+
     Interface = {
         HelpText = 'Air Staging Facility',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.15,
     LifeBarSize = 2.5,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -140,14 +145,18 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+
     SelectionSizeX = 1.7,
     SelectionSizeZ = 1.7,
     SelectionThickness = 0.4,
+
     SizeX = 2.75,
     SizeY = 1,
     SizeZ = 2.75,
+
     StrategicIconName = 'icon_structure2_air',
     StrategicIconSortPriority = 175,
+
     Transport = {
 		AirClass = true,
 		ClassGenericUpTo = 3,
@@ -156,11 +165,12 @@ UnitBlueprint {
         DockingSlots = 5,
 		TransportClass = 10,
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

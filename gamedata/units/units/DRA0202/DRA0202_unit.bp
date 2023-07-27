@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
         GuardReturnRadius = 100,
-        GuardScanRadius = 100,
+        GuardScanRadius = 72,
     },
 	
     Air = {
@@ -120,7 +120,6 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.07,
     },
 	
@@ -131,8 +130,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Fighter',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -145,9 +142,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC dra0202_name>Talon',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -214,7 +209,7 @@ UnitBlueprint {
                 },
             },
 			
-            AutoInitiateAttackCommand = false,
+            AutoInitiateAttackCommand = true,
 			
             BallisticArc = 'RULEUBA_None',
 			
@@ -230,7 +225,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land',
-                Land = 'Air|Land',
+                Land = 'Air',
             },
 			
             FiringTolerance = 1,
@@ -254,10 +249,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-             
-            RackSalvoReloadTime = 1,
-			
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 1,		-- 110 DPS
@@ -270,10 +261,10 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Projectile_Aim',
             TurretBonePitch = 'Projectile_Aim',
@@ -315,17 +306,13 @@ UnitBlueprint {
                 Air = 'Land|Seabed|Water',
                 Land = 'Land|Seabed|Water',
             },
-			
-            FiringRandomness = 0,
+
             FiringTolerance = 1,
 			
             Label = 'GroundMissile',
 			
-            LeadTarget = false,
-			
             MaxRadius = 36,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
 			
             ProjectileId = '/projectiles/CIFCorsairMissile01/CIFCorsairMissile01_proj.bp',
@@ -333,29 +320,23 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile',
-                    },
+                    MuzzleBones = {'Projectile'},
                     RackBone = 'Projectile',
                 },
                 {
-                    MuzzleBones = {
-                        'Projectile01',
-                    },
+                    MuzzleBones = {'Projectile01'},
                     RackBone = 'Projectile01',
                 },
             },
             RackFireTogether = true,
-            
-            RackReloadTimeout = 10,
 
-
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.4,	-- 120 DPS Ground
+            
+            StopOnPrimaryWeaponBusy = true,
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -364,7 +345,7 @@ UnitBlueprint {
 				'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Projectile',
             TurretBonePitch = 'Projectile',

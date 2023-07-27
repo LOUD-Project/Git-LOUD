@@ -5,6 +5,7 @@ UnitBlueprint {
             'Barrel01',
         },
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -17,8 +18,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {},
+
     BuildIconSortPriority = 110,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -36,7 +40,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTDEFENSE',
     },
-    CollisionOffsetY = 0,
+
     Defense = {
         ArmorType = 'Structure',
         Health = 1300,
@@ -44,7 +48,9 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 13,
     },
+
     Description = '<LOC uab2101_desc>Point Defense',
+
     Display = {
         DamageEffects = {
             {
@@ -70,20 +76,19 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.06,
     },
+
     Economy = {
         BuildCostEnergy = 2000,
         BuildCostMass = 250,
         BuildTime = 250,
-        RebuildBonusIds = {
-            'uab2101',
-        },
+
+        RebuildBonusIds = {'uab2101'},
     },
+
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -92,19 +97,21 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC uab2101_name>Erupter',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 26,
     },
+
     Interface = {
         HelpText = 'Point Defense',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 0.9,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -123,14 +130,18 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.55,
     SelectionThickness = 0.71,
+
     SizeX = 0.5,
     SizeY = 0.75,
     SizeZ = 0.5,
+
     StrategicIconName = 'icon_structure1_directfire',
     StrategicIconSortPriority = 205,
+
     Veteran = {
         Level1 = 6,
         Level2 = 12,
@@ -138,74 +149,77 @@ UnitBlueprint {
         Level4 = 24,
         Level5 = 30,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2101_Graviton',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB2101_Graviton', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
+
             Damage = 50,
             DamageType = 'Normal',
+
             DisplayName = 'Graviton Projector',
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
+
             Label = 'MainGun',
+
             MaxRadius = 26,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
+
             ProjectileId = '/projectiles/ADFGraviton01/ADFGraviton01_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
-
-            RackReloadTimeout = 10,
-
-
 
             RangeCategory = 'UWRC_DirectFire',
             
             RateOfFire = 3,
             
             ReTargetOnMiss = true,
+
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
                 'DEFENSE',
-   
-   'ALLUNITS -AIR',
+                'ALLUNITS -AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+
             TrackingRadius = 1.15,
+
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 60,
             TurretPitchSpeed = 90,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 60,
+
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
@@ -213,11 +227,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

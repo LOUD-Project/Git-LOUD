@@ -1,5 +1,6 @@
 UnitBlueprint {
     Adjacency = 'T1MassExtractorAdjacencyBuffs',
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -12,7 +13,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 40,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -31,6 +34,7 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTECONOMY',
     },
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 32,		-- 1000% MassOutput + 2% Healt
@@ -38,13 +42,17 @@ UnitBlueprint {
         MaxHealth = 600,
         RegenRate = 1,
     },
+
     Description = '<LOC urb1103_desc>Basic Mass Extractor',
+
     Display = {
         Abilities = {
             'Upgradeable',
         },
+
         AnimationOpen = '/units/urb1103/urb1103_Apump.sca',
         AnimationUpgrade = '/units/urb1103/urb1103_Aupgrade.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -60,8 +68,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar6x_cybran_01_albedo',
@@ -69,18 +75,14 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 6.4,
                 Normal = 'Tarmacs/Tar6x_cybran_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 6.4,
             },
         },
         UniformScale = 0.1,
     },
+
     Economy = {
         BuildCostEnergy = 360,
         BuildCostMass = 36,
@@ -98,31 +100,33 @@ UnitBlueprint {
             'urb1202',
             'urb1302',
         },
+
         StorageEnergy = 60,
         StorageMass = 6,        
     },
+
     General = {
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
             RULEUCC_Pause = true,
         },
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
-        UnitWeight = 1,
+
         UpgradesTo = 'urb1202',
     },
+
     Interface = {
         HelpText = 'Basic Mass Extractor',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.45,
     LifeBarSize = 1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -144,14 +148,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+
     SizeX = 0.75,
     SizeY = 1.8,
     SizeZ = 0.75,
+
     StrategicIconName = 'icon_structure1_mass',
     StrategicIconSortPriority = 250,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -159,11 +167,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

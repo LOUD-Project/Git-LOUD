@@ -66,38 +66,38 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.11,
     },
     
     Economy = {
+
         AdjacentEnergyProductionMod = 2,
+
         BuildCostEnergy = 1200,
         BuildCostMass = 250,
 		BuildRate = 10,
         BuildTime = 250,
-		BuildableCategory = {
-            'uab2105',
-        },
+
+		BuildableCategory = {'uab2105' },
+
         RebuildBonusIds = {
             'uab1105',
 			'uab2105',
 			'uab3105',
         },
+
         StorageEnergy = 3000,
     },
     
     General = {
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
+
         CommandCaps = {
 			RULEUCC_Pause = true,
         },
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
+
 		UpgradesTo = 'uab2105',
     },
     

@@ -48,6 +48,7 @@ UnitBlueprint {
 	
     Display = {
         AnimationPermOpen = '/units/UAB2301/UAB2301_Aopen.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -64,7 +65,6 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.4,
     },
 	
@@ -72,14 +72,11 @@ UnitBlueprint {
         BuildCostEnergy = 5000,
         BuildCostMass = 500,
         BuildTime = 550,
-        RebuildBonusIds = {
-            'uab2301',
-        },
+
+        RebuildBonusIds = {'uab2301'},
     },
 
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -88,9 +85,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC uab2301_name>Oblivion',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -125,14 +120,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.9,
     SelectionSizeZ = 1.1,
     SelectionThickness = 0.37,
+
     SizeX = 0.85,
     SizeY = 1.5,
     SizeZ = 0.85,
+
     StrategicIconName = 'icon_structure2_directfire',
     StrategicIconSortPriority = 200,
+
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -140,6 +139,7 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -180,8 +180,7 @@ UnitBlueprint {
             MaxRadius = 44,
 			
             MuzzleChargeDelay = 1,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 38,
 			
             ProjectileId = '/projectiles/ADFOblivionCannon03/ADFOblivionCannon03_proj.bp',
@@ -189,20 +188,12 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel_Recoil',
                 },
             },
-             
-            RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
-             
-            RackSalvoFiresAfterCharge = false,
-             
-            RackSalvoSize = 1,
 
+            RackRecoilDistance = -0.5,
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -214,8 +205,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
                 'DEFENSE',
-   
-   'ALLUNITS -AIR',
+                'ALLUNITS -AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			
@@ -243,11 +233,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

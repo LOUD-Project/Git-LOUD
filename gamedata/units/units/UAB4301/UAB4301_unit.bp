@@ -88,8 +88,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
 		
         Tarmacs = {
             {
@@ -98,12 +96,7 @@ UnitBlueprint {
                 FadeOut = 300,
                 Length = 10,
                 Normal = 'Tarmacs/Tar8x_aeon_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = { 0, 90, 180, 270 },
                 RemoveWhenDead = false,
                 Width = 10,
             },
@@ -127,8 +120,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_CounterMeasure',
         FactionName = 'Aeon',
         Icon = 'land',
         OrderOverrides = {
@@ -138,12 +129,11 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
         UnitName = '<LOC uab4301_name>Radiance',
-        UnitWeight = 1,
+
         UpgradesFrom = 'uab4202',
     },
 	
@@ -193,11 +183,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

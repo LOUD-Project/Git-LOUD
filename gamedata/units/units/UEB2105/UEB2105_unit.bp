@@ -1,5 +1,6 @@
 UnitBlueprint {
     Adjacency = 'T2EnergyStorageAdjacencyBuffs',
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -17,7 +18,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 90,
+
     Categories = {
         'SELECTABLE',
         'UEF',
@@ -29,6 +32,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SHOWQUEUE',
     },
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 37,	-- .1% storage + 2% health
@@ -36,7 +40,9 @@ UnitBlueprint {
         MaxHealth = 1500,
         RegenRate = 2,
     },
+
     Description = '<LOC ueb1105_desc>Improved Energy Storage',
+
     Display = {
         Abilities = {
 			'Adjacency bonuses to Energy Production & Shields',
@@ -63,46 +69,45 @@ UnitBlueprint {
                  },
              },
         },
-        PlaceholderMeshName = 'UXB0014',
-        SpawnRandomRotation = false,
         UniformScale = 0.174,
     },
+
     Economy = {
         AdjacentEnergyProductionMod = 2.5,
+
         BuildCostEnergy = 4800,
         BuildCostMass = 1000,
         BuildRate = 10,
         BuildTime = 1000,
-		BuildableCategory = {
-            'ueb3105',
-        },
-        RebuildBonusIds = {
-            'ueb1105',
-		},
+
+		BuildableCategory = {'ueb3105'},
+        RebuildBonusIds = {'ueb1105'},
+
         StorageEnergy = 5500,
     },
+
     General = {
 		CapCost = .25,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
 			RULEUCC_Pause = true,
         },
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
+
         UpgradesFrom = 'ueb1105',
         UpgradesFromBase = 'ueb1105',
         UpgradesTo = 'ueb3105',
     },
+
     Interface = {
         HelpText = 'Improved Energy Storage',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.45,
     LifeBarSize = 1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -123,14 +128,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.75,
     SelectionSizeZ = 0.75,
     SelectionThickness = 0.5,
+
     SizeX = 1,
     SizeY = 1.25,
     SizeZ = 1,
+
     StrategicIconName = 'icon_node2_energy',
     StrategicIconSortPriority = 250,
+
     Weapon = {
         {
             Damage = 2500,

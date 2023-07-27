@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
 		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+        GuardScanRadius = 22,
     },
 	
     Audio = {
@@ -76,8 +76,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.125,
     },
 	
@@ -88,8 +86,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -101,9 +97,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC url0203_name>Wagner',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -197,6 +191,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 38,
 			
             ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
@@ -211,13 +206,6 @@ UnitBlueprint {
                     RackBone = 'Turret01_Barrel',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -231,7 +219,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret01_Muzzle',
             TurretBonePitch = 'Turret01_Barrel',
@@ -278,9 +266,7 @@ UnitBlueprint {
             LeadTarget = true,
 			
             MaxRadius = 32,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 16,
             MuzzleVelocityReduceDistance = 2,
 			
@@ -289,18 +275,13 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret03_Muzzle',
-                    },
+                    MuzzleBones = {'Turret03_Muzzle'},
                     RackBone = 'Turret02',
                 },
             },
-             
+
             RackRecoilDistance = -0.4,
-            RackReloadTimeout = 10,
 
-
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
@@ -356,7 +337,6 @@ UnitBlueprint {
 			
             MaxRadius = 38,
 			
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 5,
 			
             ProjectileId = '/projectiles/CANTorpedoMeson02/CANTorpedoMeson02_proj.bp',
@@ -364,19 +344,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret03_Muzzle',
-                    },
+                    MuzzleBones = {'Turret03_Muzzle'},
                     RackBone = 'Turret02',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -390,7 +361,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret02_Muzzle',
             TurretBonePitch = 'Turret02',
@@ -408,6 +379,7 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
@@ -415,11 +387,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

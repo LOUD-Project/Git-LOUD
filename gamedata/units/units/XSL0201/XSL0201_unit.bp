@@ -1,8 +1,9 @@
 UnitBlueprint {
     AI = {
 		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+        GuardScanRadius = 21,
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -20,6 +21,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {},
 	
     BuildIconSortPriority = 20,
@@ -69,8 +71,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.063,
     },
 	
@@ -81,8 +81,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -94,19 +92,21 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC xsl0201_name>Thaam',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 21,
     },
+
     Interface = {
         HelpText = 'Medium Tank',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.55,
     LifeBarSize = 0.75,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -128,17 +128,22 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 90,
     },
+
     SelectionSizeX = 0.5,
     SelectionSizeZ = 0.8,
     SelectionThickness = 0.5,
+
     SizeX = 0.7,
     SizeY = 0.5,
     SizeZ = 0.9,
+
     StrategicIconName = 'icon_land1_directfire',
     StrategicIconSortPriority = 125,
+
     Transport = {
         TransportClass = 1,
     },
+
     Veteran = {
         Level1 = 2,
         Level2 = 4,
@@ -146,6 +151,7 @@ UnitBlueprint {
         Level4 = 8,
         Level5 = 10,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -175,28 +181,18 @@ UnitBlueprint {
 			
             MaxRadius = 21,
 			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 28,
 			
             ProjectileId = '/projectiles/SDFOhCannon01/SDFOhCannon01_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Barrel_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Barrel_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
-             
+
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -235,11 +231,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

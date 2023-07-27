@@ -1,5 +1,10 @@
 UnitBlueprint {
 
+    AI = {
+		GuardReturnRadius = 35,
+        GuardScanRadius = 28,
+    },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -74,8 +79,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         TransportAnimation = {
             {
                 Animation = '/units/XSL0202/XSL0202_afold.sca',
@@ -98,8 +101,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -111,9 +112,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC xsl0202_name>Ilshavoh',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -213,25 +212,17 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Muzzle'},
                     RackBone = 'Right_Arm',
                 },
                 {
-                    MuzzleBones = {
-                        'Left_Muzzle',
-                    },
+                    MuzzleBones = {'Left_Muzzle'},
                     RackBone = 'Left_Arm',
                 },
             },
-			
-             
             
             RackReloadTimeout = 10,
 
-
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -276,11 +267,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

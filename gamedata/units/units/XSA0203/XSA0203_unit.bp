@@ -1,9 +1,9 @@
 UnitBlueprint {
 
     AI = {
-		GuardRadius = 100,
-        GuardReturnRadius = 115,
-        GuardScanRadius = 100,
+		GuardRadius = 48,
+        GuardReturnRadius = 72,
+        GuardScanRadius = 48,
     },
 	
     Air = {
@@ -57,8 +57,6 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-	
-    AverageDensity = 1,
 	
     Buffs = {},
 	
@@ -315,8 +313,6 @@ UnitBlueprint {
                     RackBone = 'Right_Turret_Barrel',
                 },
             },
-
-            RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1,		---- another 40 DPS
 			
@@ -326,6 +322,7 @@ UnitBlueprint {
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'HIGHALTAIR, UNTARGETABLE, SATELLITE',
+
             TurretBoneMuzzle = 'Right_Muzzle01',
             TurretBonePitch = 'Right_Turret_Barrel',
             TurretBoneYaw = 'Right_Turret',

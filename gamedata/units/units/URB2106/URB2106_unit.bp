@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'T2MassStorageAdjacencyBuffs',
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -17,7 +19,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 60,
+
     Categories = {
         'SELECTABLE',
         'CYBRAN',
@@ -29,6 +33,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SHOWQUEUE',
     },
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 63,
@@ -36,7 +41,9 @@ UnitBlueprint {
         MaxHealth = 4800,
         RegenRate = 2,
     },
+
     Description = '<LOC urb1106_desc>Improved Mass Storage',
+
     Display = {
         Abilities = {
 			'Adjacency bonuses to Mass Production',
@@ -62,46 +69,45 @@ UnitBlueprint {
                  },
              },
         },
-        PlaceholderMeshName = 'UXB0012',
-
         UniformScale = 0.525,
     },
+
     Economy = {
         AdjacentMassProductionMod = 0.50,
+
         BuildCostEnergy = 4500,
         BuildCostMass = 600,
         BuildRate = 10,
         BuildTime = 750,
-        BuildableCategory = {
-            'urb3106',
-        },
-        RebuildBonusIds = {
-            'urb1106',
-        },
+
+        BuildableCategory = {'urb3106'},
+        RebuildBonusIds = {'urb1106'},
+
         StorageMass = 600,
     },
+
     General = {
 		CapCost = .25,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
 			RULEUCC_Pause = true,
         },
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
+
         UpgradesFrom = 'urb1106',
         UpgradesFromBase = 'urb1106',
         UpgradesTo = 'urb3106',
     },
+
     Interface = {
         HelpText = 'Improved Mass Storage',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -119,14 +125,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+
     SizeX = 0.9,
     SizeY = 0.9,
     SizeZ = 0.7,
+
     StrategicIconName = 'icon_node2_mass',
     StrategicIconSortPriority = 250,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -134,11 +144,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

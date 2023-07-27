@@ -62,7 +62,6 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.05,
     },
     
@@ -79,15 +78,11 @@ UnitBlueprint {
     },
     
     General = {
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
         CommandCaps = {
             RULEUCC_Stop = true,
         },
         FactionName = 'Cybran',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Advanced',
-        UnitWeight = 1,
     },
     
     Intel = {

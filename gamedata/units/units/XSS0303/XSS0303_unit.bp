@@ -1,5 +1,7 @@
 UnitBlueprint {
     AI = {
+        GuardScanRadius = 175,
+        
         RefuelingMultiplier = 75,
         RefuelingRepairAmount = 500,
         RepairConsumeEnergy = 5,
@@ -52,7 +54,8 @@ UnitBlueprint {
         'NAVALCARRIER',
         'SHOWATTACKRETICLE',
         'SHOWQUEUE',
-        'OVERLAYRADAR','OVERLAYSONAR',
+        'OVERLAYRADAR',
+        'OVERLAYSONAR',
     },
 	
     CollisionOffsetY = -0.5,
@@ -365,7 +368,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Right_Turret_Muzzle01',
             TurretBonePitch = 'Right_Turret_Barrel',
@@ -441,7 +444,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Left_Turret_Muzzle01',
             TurretBonePitch = 'Left_Turret_Barrel',

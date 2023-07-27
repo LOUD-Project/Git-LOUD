@@ -96,8 +96,6 @@ UnitBlueprint {
             PitchBone = 'Arm_Pitch',
             YawBone = 'Arm_Yaw',
         },
-        Category = 'Construction',
-        Classification = 'RULEUC_Engineer',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Capture = true,
@@ -113,8 +111,6 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 3,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -187,11 +183,7 @@ UnitBlueprint {
         MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

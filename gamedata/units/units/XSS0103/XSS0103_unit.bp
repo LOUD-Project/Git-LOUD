@@ -1,5 +1,10 @@
 UnitBlueprint {
 
+    AI = {
+        GuardReturnRadius = 50,
+        GuardScanRadius = 36,
+    },
+    
     Audio = {
         Killed = Sound {
             Bank = 'XSS_Destroy',
@@ -280,7 +285,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Back_Turret_Muzzle03',
             TurretBonePitch = 'Back_Turret_Barrel',
@@ -332,7 +337,6 @@ UnitBlueprint {
 			
             MaxRadius = 36,
 			
-            MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 60,
 			
@@ -359,7 +363,7 @@ UnitBlueprint {
 				'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Front_Turret_Muzzle02',
             TurretBonePitch = 'Front_Turret_Barrel',

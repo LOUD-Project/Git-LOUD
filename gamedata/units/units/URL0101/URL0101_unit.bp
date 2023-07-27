@@ -85,8 +85,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 0.5,
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Guard = true,
@@ -96,12 +94,10 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Basic',
         ToggleCaps = {
             RULEUTC_CloakToggle = true,
         },
         UnitName = '<LOC url0101_name>Mole',
-        UnitWeight = 1,
     },
 	
     Intel = {

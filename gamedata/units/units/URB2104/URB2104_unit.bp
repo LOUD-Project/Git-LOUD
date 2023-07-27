@@ -83,9 +83,6 @@ UnitBlueprint {
                 },
             },
         },
-		
-
-
         UniformScale = 0.2,
     },
 	
@@ -100,8 +97,6 @@ UnitBlueprint {
     Footprint = { MinWaterDepth = 1 },
 	
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -110,9 +105,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC urb2104_name>Tracer',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -195,9 +188,6 @@ UnitBlueprint {
 			
             MaxRadius = 44,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
             MuzzleVelocity = 60,
 			
             ProjectileId = '/projectiles/CAAAutocannon01/CAAAutocannon01_proj.bp',
@@ -205,25 +195,17 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle_01',
-                    },
+                    MuzzleBones = {'Turret_Muzzle_01'},
                     RackBone = 'Turret_Barrel',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle_02',
-                    },
+                    MuzzleBones = {'Turret_Muzzle_02'},
                     RackBone = 'Turret_Barrel',
                 },
             },
             RackFireTogether = true,
             
             RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -260,11 +242,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

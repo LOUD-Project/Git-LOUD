@@ -1,7 +1,7 @@
 UnitBlueprint {
 
     AI = {
-		GuardReturnRadius = 35,
+		GuardReturnRadius = 45,
         GuardScanRadius = 30,
     },
 	
@@ -69,7 +69,6 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.065,
     },
 	
@@ -80,8 +79,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Anti Air',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -93,9 +90,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC uel0104_name>Archer',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -184,9 +179,7 @@ UnitBlueprint {
 			LeadTarget = true,
 			
             MaxRadius = 30,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 66,
 			
             ProjectileId = '/projectiles/TAARailgun01/TAARailgun01_proj.bp',
@@ -202,10 +195,7 @@ UnitBlueprint {
                 },
             },
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
 
-
-            RackSalvoSize = 2,
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_AntiAir',
@@ -217,7 +207,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Turret_Muzzle_01',
             TurretBonePitch = 'Turret_Barrel',
@@ -226,11 +216,11 @@ UnitBlueprint {
 			
             TurretPitch = 45,
             TurretPitchRange = 65,
-            TurretPitchSpeed = 90,
+            TurretPitchSpeed = 65,
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 100,
+            TurretYawSpeed = 75,
 			
             Turreted = true,
         },
@@ -243,11 +233,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

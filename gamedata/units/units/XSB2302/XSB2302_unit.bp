@@ -93,8 +93,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_seraphim_01_albedo',
@@ -118,7 +116,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 660000,
         BuildCostMass = 34500,
-        BuildTime = 41000,	---- was 29500
+        BuildTime = 41000,
 		
         RebuildBonusIds = {'xsb2302'},
     },
@@ -130,8 +128,6 @@ UnitBlueprint {
 
     General = {
 		CapCost = 4,
-        Category = 'Strategic',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -140,9 +136,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC xsb2302_name>Hovatham',
-        UnitWeight = 1,
     },
 
     Intel = {
@@ -258,8 +252,7 @@ UnitBlueprint {
             MinRadius = 125,
 
             MuzzleChargeDelay = 0.5,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 71,
             MuzzleVelocityReduceDistance = 825,
 
@@ -268,27 +261,18 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_B01',
                 },
             },
-             
+
             RackRecoilDistance = -6,
-
-
-            RackSalvoFiresAfterCharge = false,
-             
-            RackSalvoSize = 1,
-            
-
 
             RangeCategory = 'UWRC_IndirectFire',
 
             RateOfFire = 1,	---- 4250 damage every 10 seconds -- controlled by energy
 
-            ShieldDamage = 6000,
+            ShieldDamage = 6000,    -- this doesn't really do anything --
 
             TargetCheckInterval = 8,
             TargetPriorities = {
@@ -322,11 +306,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

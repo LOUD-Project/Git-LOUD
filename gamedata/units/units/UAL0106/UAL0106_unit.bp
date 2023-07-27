@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+		GuardReturnRadius = 36,
+        GuardScanRadius = 18,
     },
     Audio = {
         Destroyed = Sound {
@@ -71,7 +71,7 @@ UnitBlueprint {
                 },
             },
         },
-
+
         TransportAnimation = {
             {
                 Animation = '/units/UAL0106/UAL0106_Afold01.sca',
@@ -88,8 +88,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -101,9 +99,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC ual0106_name>Flare',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -148,9 +144,11 @@ UnitBlueprint {
     SelectionSizeX = 0.3,
     SelectionSizeZ = 0.3,
     SelectionThickness = 1.2,
+
     SizeX = 0.6,
     SizeY = 0.6,
     SizeZ = 0.6,
+
     StrategicIconName = 'icon_land1_directfire',
     StrategicIconSortPriority = 135,
 	
@@ -206,19 +204,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret',
-                    },
+                    MuzzleBones = {'Turret'},
                     RackBone = 'Turret',
                 },
             },
-			
-            RackFireTogether = true,
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -232,7 +221,6 @@ UnitBlueprint {
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
 			
             TurretBoneMuzzle = 'Turret',
             TurretBonePitch = 'Turret',

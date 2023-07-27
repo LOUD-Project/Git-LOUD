@@ -1,8 +1,6 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Turret',
-        },
+        TargetBones = {'Turret'},
     },
     
     Audio = {
@@ -81,9 +79,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
-
         UniformScale = 0.015,
     },
     
@@ -100,8 +95,6 @@ UnitBlueprint {
     },
     
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -110,9 +103,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC urb2204_name>Sky Web',
-        UnitWeight = 1,
     },
     
     Intel = {
@@ -223,13 +214,8 @@ UnitBlueprint {
                     RackBone = 'Turret_Recoil02',
                 },
             },
-             
-            
+
             RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -238,13 +224,12 @@ UnitBlueprint {
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
             
             TurretBoneMuzzle = 'Turret_Recoil01_Muzzle01',
             TurretBonePitch = 'Turret_Barrel',
@@ -253,15 +238,16 @@ UnitBlueprint {
             
             TurretPitch = 35,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 100,
+            TurretPitchSpeed = 65,
             
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 100,
+            TurretYawSpeed = 85,
             
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.9,
@@ -269,11 +255,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

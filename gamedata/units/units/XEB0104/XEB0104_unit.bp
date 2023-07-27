@@ -93,11 +93,8 @@ UnitBlueprint {
     },
 	
     General = {
-	
         BuildBones = { AimBone = 0, BuildEffectBones = { 'B04_Tower' } },
-		
 		CapCost = 2,
-		
         CommandCaps = {
             RULEUCC_Capture = true,
             RULEUCC_Guard = true,
@@ -106,20 +103,15 @@ UnitBlueprint {
             RULEUCC_Repair = true,
             RULEUCC_Stop = true,
         },
-		
         FactionName = 'UEF',
         Icon = 'amph',
-		
         OrderOverrides = {
             RULEUTC_ProductionToggle = { bitmapId = 'area-assist', helpText = 'toggle_area_assist' },
         },
-		
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
-		
         SelectionPriority = 5,
-
         UnitName = '<LOC xeb0104_name>Kennel',
 
         UpgradesTo = 'xeb0204',

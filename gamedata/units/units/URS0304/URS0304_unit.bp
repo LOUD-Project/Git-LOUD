@@ -1,6 +1,7 @@
 UnitBlueprint {
     AI = {
         InitialAutoMode = false,
+        GuardScanRadius = 200,
     },
 	
     Audio = {

@@ -16,8 +16,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {},
+
     BuildIconSortPriority = 110,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -35,7 +38,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTDEFENSE',
     },
+
     CollisionOffsetY = 0,
+
     Defense = {
         ArmorType = 'Structure',
         Health = 1300,
@@ -43,7 +48,9 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 13,
     },
+
     Description = '<LOC urb2101_desc>Basic Point Defense',
+
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -60,21 +67,18 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.2,
     },
+
     Economy = {
         BuildCostEnergy = 2000,
         BuildCostMass = 250,
         BuildTime = 250,
-        RebuildBonusIds = {
-            'urb2101',
-        },
+
+        RebuildBonusIds = {'urb2101'},
     },
+
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -83,19 +87,21 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC urb2101_name>Auto Gun',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 26,
     },
+
     Interface = {
         HelpText = 'Basic Point Defense',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.25,
     LifeBarSize = 0.75,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -111,14 +117,18 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.35,
     SelectionSizeZ = 0.35,
     SelectionThickness = 1.1,
+
     SizeX = 0.7,
     SizeY = 0.8,
     SizeZ = 0.7,
+
     StrategicIconName = 'icon_structure1_directfire',
     StrategicIconSortPriority = 205,
+
     Veteran = {
         Level1 = 6,
         Level2 = 12,
@@ -154,27 +164,16 @@ UnitBlueprint {
 			
             MaxRadius = 26,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/CDFLaserHeavy01/CDFLaserHeavy01_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -189,7 +188,7 @@ UnitBlueprint {
                 'ALLUNITS -AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
@@ -207,6 +206,7 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
@@ -214,11 +214,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

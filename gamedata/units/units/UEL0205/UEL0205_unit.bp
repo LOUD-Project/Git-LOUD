@@ -1,8 +1,9 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+		GuardReturnRadius = 45,
+        GuardScanRadius = 38,
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -20,6 +21,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {},
 	
     BuildIconSortPriority = 90,
@@ -64,8 +66,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = false,
         UniformScale = 0.2,
     },
 	
@@ -76,8 +76,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Anti Air',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -89,9 +87,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC uel0205_name>Sky Boxer',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -184,9 +180,7 @@ UnitBlueprint {
 			LeadTarget = true,
 			
             MaxRadius = 38,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 34,
 			
             ProjectileId = '/projectiles/TAALightFragmentationShell01/TAALightFragmentationShell01_proj.bp',
@@ -194,24 +188,20 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle_Left',
-                    },
+                    MuzzleBones = {'Turret_Muzzle_Left'},
                     RackBone = 'Turret_Recoil_Left',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle_Right',
-                    },
+                    MuzzleBones = {'Turret_Muzzle_Right'},
                     RackBone = 'Turret_Recoil_Right',
                 },
             },
+
             RackFireTogether = true,
+
             RackRecoilDistance = -0.25,
 
-
             RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -253,11 +243,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

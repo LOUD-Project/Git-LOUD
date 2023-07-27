@@ -2,6 +2,7 @@ UnitBlueprint {
     AI = {
         TargetBones = {'Spinner_01','Spinner_02'},
     },
+
     Audio = {
         StartMove = Sound {
             Bank = 'UAL',
@@ -14,7 +15,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 10,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -52,7 +55,9 @@ UnitBlueprint {
         Abilities = {
             'Sacrifice',
         },
+
         AnimationBuild = '/units/ual0208/ual0208_aopen.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -90,8 +95,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Construction',
-        Classification = 'RULEUC_Engineer',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Capture = true,
@@ -108,8 +111,6 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 3,
-        TechLevel = 'RULEUTL_Advanced',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -178,11 +179,7 @@ UnitBlueprint {
         MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

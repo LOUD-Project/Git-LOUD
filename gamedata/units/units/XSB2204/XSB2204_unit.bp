@@ -85,8 +85,6 @@ UnitBlueprint {
             },
         },
 
-
-
         UniformScale = 0.042,
     },
     
@@ -103,8 +101,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -113,9 +109,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC xsb2204_name>Sinnatha',
-        UnitWeight = 1,
     },
 
     Intel = {
@@ -207,8 +201,6 @@ UnitBlueprint {
 
             MaxRadius = 44,
 
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 55,
 
             ProjectileId = '/projectiles/SAAOlarisAAArtillery06/SAAOlarisAAArtillery06_proj.bp',
@@ -216,25 +208,18 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Left_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Left_Muzzle'},
                     RackBone = 'Barrel_Right',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Right_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Right_Muzzle'},
                     RackBone = 'Barrel_Right',
                 },
             },
-             
-
-             
             RackSalvoChargeTime = 0.1,
+
             RackSalvoFiresAfterCharge = true,
-             
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RangeCategory = 'UWRC_AntiAir',
@@ -243,14 +228,13 @@ UnitBlueprint {
 
             TargetCheckInterval = 0.3,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
             
             TurretBoneMuzzle = 'WepFocus',
             TurretBonePitch = 'Barrel_Right',
@@ -276,11 +260,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

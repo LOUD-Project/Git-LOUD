@@ -120,7 +120,7 @@ UnitBlueprint {
                 },
             },
         },
-
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_aeon_01_albedo',
@@ -128,12 +128,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar12x_aeon_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = true,
                 Width = 12.8,
             },
@@ -162,17 +157,13 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 55,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_ProductionToggle = false,
         },
         UnitName = '<LOC xab1401_name>Paragon',
-        UnitWeight = 1,
     },
 	
     Interface = {
@@ -295,9 +286,7 @@ UnitBlueprint {
             Label = 'DeathWeapon',
 			
             MaxRadius = 1,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 0,
 			
             NukeInnerRingDamage = 21000,

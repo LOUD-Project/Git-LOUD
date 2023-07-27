@@ -1,5 +1,6 @@
 UnitBlueprint {
     Adjacency = 'T2MassStorageAdjacencyBuffs',
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -17,7 +18,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 50,
+
     Categories = {
         'SELECTABLE',
         'AEON',
@@ -29,6 +32,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SHOWQUEUE',
     },
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 60,	---- 1% storage + 1% health
@@ -36,7 +40,9 @@ UnitBlueprint {
         MaxHealth = 4800,
         RegenRate = 2,
     },
+
     Description = '<LOC uab1106_desc>Improved Mass Storage',
+
     Display = {
         Abilities = {
 			'Adjacency bonuses to Mass Production',
@@ -62,51 +68,48 @@ UnitBlueprint {
                  },
              },
         },
-        PlaceholderMeshName = 'UXB0012',
-
+
         UniformScale = 0.168,
     },
+
     Economy = {
         AdjacentMassProductionMod = 0.50,
+
         BuildCostEnergy = 4500,
         BuildCostMass = 600,
         BuildRate = 10,
         BuildTime = 750,
-		BuildableCategory = {
-            'uab3106',
-        },
-        RebuildBonusIds = {
-            'uab2106',
-            'uab3106',
-        },
+
+		BuildableCategory = {'uab3106'},
+        RebuildBonusIds = {'uab2106','uab3106'},
         StorageMass = 600,
     },
+
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+
     General = {
 		CapCost = .25,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
-        CommandCaps = {
-			RULEUCC_Pause = true,
-        },
+        CommandCaps = {	RULEUCC_Pause = true },
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
+
         UpgradesFrom = 'uab1106',
         UpgradesFromBase = 'uab1106',
         UpgradesTo = 'uab3106',
     },
+
     Interface = {
         HelpText = 'Improved Mass Storage',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 0.9,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -126,14 +129,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.8,
     SelectionSizeZ = 0.8,
     SelectionThickness = 0.6,
+
     SizeX = 0.9,
     SizeY = 0.6,
     SizeZ = 0.9,
+
     StrategicIconName = 'icon_node2_mass',
     StrategicIconSortPriority = 250,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -141,11 +148,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

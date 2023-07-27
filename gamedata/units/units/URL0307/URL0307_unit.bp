@@ -69,8 +69,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.13,
     },
 
@@ -81,8 +79,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Guard = true,
@@ -90,27 +86,18 @@ UnitBlueprint {
             RULEUCC_Patrol = true,
             RULEUCC_Stop = true,
         },
-
         FactionName = 'Cybran',
-
         Icon = 'land',
-
         OrderOverrides = {
             RULEUTC_StealthToggle = {
                 bitmapId = 'stealth-field',
                 helpText = 'toggle_stealth_field',
             },
         },
-
-        TechLevel = 'RULEUTL_Advanced',
-
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
-
         UnitName = '<LOC url0307_name>Deviator',
-
-        UnitWeight = 1,
     },
 
     Intel = {
@@ -171,11 +158,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

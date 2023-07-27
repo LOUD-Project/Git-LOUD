@@ -1,5 +1,6 @@
 UnitBlueprint {
     Adjacency = 'T2EnergyStorageAdjacencyBuffs',
+
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -17,7 +18,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 90,
+
     Categories = {
         'SELECTABLE',
         'SERAPHIM',
@@ -29,6 +32,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SHOWQUEUE',
     },
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 63,
@@ -36,7 +40,9 @@ UnitBlueprint {
         MaxHealth = 1500,
         RegenRate = 2,
     },
+
     Description = '<LOC xsb1105_desc>Improved Energy Storage',
+
     Display = {
         Abilities = {
 			'Adjacency bonuses to Energy Production & Shields',
@@ -65,43 +71,41 @@ UnitBlueprint {
                  },
              },
         },
-        PlaceholderMeshName = 'UXB0014',
-
         UniformScale = 0.091,
     },
+
     Economy = {
         AdjacentEnergyProductionMod = 2.5,
+
         BuildCostEnergy = 4800,
         BuildCostMass = 1000,
         BuildRate = 10,
         BuildTime = 1000,
-		BuildableCategory = {
-            'xsb3105',
-        },
-        RebuildBonusIds = {
-            'xsb1105',
-		},
+
+		BuildableCategory = {'xsb3105'},
+        RebuildBonusIds = {'xsb1105'},
+
         StorageEnergy = 5500,
     },
+
     General = {
 		CapCost = .25,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
 			RULEUCC_Pause = true,
         },
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
+
         UpgradesFrom = 'xsb1105',
         UpgradesFromBase = 'xsb1105',
         UpgradesTo = 'xsb3105',
     },
+
     Interface = {
         HelpText = 'Improved Energy Storage',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1.1,

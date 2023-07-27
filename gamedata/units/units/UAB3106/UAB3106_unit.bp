@@ -67,19 +67,19 @@ UnitBlueprint {
                  },
              },
         },
-        PlaceholderMeshName = 'UXB0012',
-
+
         UniformScale = 0.216,
     },
     
     Economy = {
         AdjacentMassProductionMod = 0.75,
+
         BuildCostEnergy = 13500,
         BuildCostMass = 1800,
         BuildTime = 2250,
-        RebuildBonusIds = {
-            'uab1106',
-        },
+
+        RebuildBonusIds = {'uab1106'},
+
         StorageMass = 950,
     },
     
@@ -90,16 +90,13 @@ UnitBlueprint {
     
     General = {
 		CapCost = .5,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
 			RULEUCC_Pause = true,
         },
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
+
         UpgradesFrom = 'uab2106',
         UpgradesFromBase = 'uab1106',
     },
@@ -148,14 +145,11 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

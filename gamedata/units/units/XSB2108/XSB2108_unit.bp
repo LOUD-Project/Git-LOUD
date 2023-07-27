@@ -2,6 +2,7 @@ UnitBlueprint {
     AI = {
         InitialAutoMode = true,
     },
+
     Audio = {
         Close = Sound {
             Bank = 'XSB',
@@ -29,6 +30,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -38,7 +40,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+
     BuildIconSortPriority = 150,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -58,7 +62,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTSTRATEGIC',
     },
-    CollisionOffsetY = 0,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 9,
@@ -66,7 +70,9 @@ UnitBlueprint {
         MaxHealth = 1500,
         RegenRate = 0,
     },
+
     Description = '<LOC xsb2108_desc>Tactical Missile Launcher',
+
     Display = {
         Abilities = {
             'Manual Launch',
@@ -97,10 +103,9 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.05,
     },
+
     Economy = {
         BuildCostEnergy = 4500,
         BuildCostMass = 825,
@@ -109,13 +114,13 @@ UnitBlueprint {
 		
         RebuildBonusIds = {'xsb2108'},
     },
+
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+
     General = {
-        Category = 'Strategic',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Pause = true,
             RULEUCC_SiloBuildTactical = true,
@@ -125,19 +130,21 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC xsb2108_name>Ythis',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 15,
     },
+
     Interface = {
         HelpText = 'Tactical Missile Launcher',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -157,14 +164,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.45,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+
     SizeX = 0.65,
     SizeY = 0.8,
     SizeZ = 1,
+
     StrategicIconName = 'icon_structure2_missile',
     StrategicIconSortPriority = 180,
+
     Veteran = {
         Level1 = 9,
         Level2 = 18,
@@ -185,46 +196,50 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
             CountedProjectile = true,
+
             Damage = 6000,
             DamageRadius = 2,
             DamageType = 'Normal',
+
             DisplayName = 'Laanse Tactical Missile Launcher',
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 5,
+
             ForceSingleFire = true,
+
             InitialProjectileStorage = 0,
+
             Label = 'CruiseMissile',
+
             ManualFire = true,
+
             MaxProjectileStorage = 12,
+
             MaxRadius = 240,
             MinRadius = 15,
+
             MuzzleChargeDelay = 1.5,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 10,
+
             ProjectileId = '/projectiles/SIFLaanseTacticalMissile04/SIFLaanseTacticalMissile04_proj.bp',
             ProjectileLifetime = 30,
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile',
-                    },
+                    MuzzleBones = {'Projectile'},
                     RackBone = 'Projectile',
                 },
             },
-             
-
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-            
 
             RangeCategory = 'UWRC_IndirectFire',
+
             RateOfFire = .2,
+
             TargetCheckInterval = 2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -248,11 +263,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

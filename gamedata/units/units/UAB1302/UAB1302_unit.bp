@@ -1,5 +1,6 @@
 UnitBlueprint {
     Adjacency = 'T3MassExtractorAdjacencyBuffs',
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -12,7 +13,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 40,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -38,8 +41,10 @@ UnitBlueprint {
     },
 	
     Description = '<LOC uab1302_desc>Advanced Mass Extractor',
+
     Display = {
         AnimationActivate = '/units/UAB1302/UAB1302_Apump.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -57,7 +62,6 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.15,
     },
     
@@ -77,24 +81,23 @@ UnitBlueprint {
     },
     
     General = {
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-        ToggleCaps = {
-            RULEUTC_ProductionToggle = true,
-        },
-        UnitWeight = 1,
+
+        ToggleCaps = { RULEUTC_ProductionToggle = true },
+
         UpgradesFrom = 'uab1202',
     },
+
     Interface = {
         HelpText = 'Advanced Mass Extractor',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 1.1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -122,14 +125,18 @@ UnitBlueprint {
         },
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+
     SizeX = 0.75,
     SizeY = 1.4,
     SizeZ = 0.75,
+
     StrategicIconName = 'icon_structure3_mass',
     StrategicIconSortPriority = 245,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -137,11 +144,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

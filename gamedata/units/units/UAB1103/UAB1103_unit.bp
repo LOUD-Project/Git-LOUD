@@ -76,7 +76,6 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.15,
     },
     
@@ -97,24 +96,24 @@ UnitBlueprint {
             'uab1202',
             'uab1302',
         },
+
         StorageEnergy = 60,
         StorageMass = 6,        
     },
     
     General = {
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
+
         CommandCaps = {
             RULEUCC_Pause = true,
         },
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
+
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
-        UnitWeight = 1,
+
         UpgradesTo = 'uab1202',
     },
     
@@ -172,11 +171,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

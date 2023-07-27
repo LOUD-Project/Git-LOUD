@@ -79,7 +79,6 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.038,
     },
 	
@@ -90,8 +89,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -103,9 +100,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC xal0203_name>Blaze',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -206,7 +201,6 @@ UnitBlueprint {
 			
             MaxRadius = 24,
 			
-            MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 30,
@@ -215,24 +209,17 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Gun_Muzzle01',
-                    },
+                    MuzzleBones = {'Gun_Muzzle01'},
                     RackBone = 'Gun_Barrel',
                 },
                 {
-                    MuzzleBones = {
-                        'Gun_Muzzle02',
-                    },
+                    MuzzleBones = {'Gun_Muzzle02'},
                     RackBone = 'Gun_Barrel',
                 },
             },
-             
-            
+
             RackReloadTimeout = 10,
 
-
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -241,6 +228,7 @@ UnitBlueprint {
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 10,
+
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -249,7 +237,7 @@ UnitBlueprint {
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Gun_Muzzle01',
             TurretBonePitch = 'Gun_Barrel',
@@ -274,11 +262,7 @@ UnitBlueprint {
         MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

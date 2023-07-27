@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
-		GuardScanRadius = 30,
-		GuardReturnRadius = 35,
+		GuardScanRadius = 64,
+		GuardReturnRadius = 80,
         TargetBones = {
             'Left_Turret',
             'Right_Turret',
@@ -105,7 +105,9 @@ UnitBlueprint {
             'Torpedoes & Torpedo Defense',
             'Radar & Sonar',
         },
+
         AnimationActivate = '/units/xrl0403/xrl0403_awake.sca',
+
         AnimationDeath = {
             {
                 Animation = '/units/xrl0403/xrl0403_adeath.sca',
@@ -114,6 +116,7 @@ UnitBlueprint {
         },
         AnimationWalk = '/units/xrl0403/xrl0403_awalk01.sca',
         AnimationWalkRate = 3.6,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -222,8 +225,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 10,
-        Category = 'Experimental',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -234,9 +235,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC xrl0403_name>Megalith',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -347,9 +346,7 @@ UnitBlueprint {
 			
             MaxRadius = 64,
             MinRadius = 6,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 65,
 			
             ProjectileId = '/projectiles/CDFProtonCannon05/CDFProtonCannon05_proj.bp',
@@ -365,9 +362,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-
-
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -442,9 +436,7 @@ UnitBlueprint {
 			
             MaxRadius = 64,
             MinRadius = 6,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 65,
 
             ProjectileId = '/projectiles/CDFProtonCannon05/CDFProtonCannon05_proj.bp',
@@ -460,11 +452,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-
-
-
-            RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.8,	-- 1200dps
 			
@@ -607,11 +594,12 @@ UnitBlueprint {
 			
             MaxRadius = 25,
             MuzzleSalvoDelay = 0.5,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 5,
 			
             ProjectileId = '/projectiles/CIMAntiTorpedo02/CIMAntiTorpedo02_proj.bp',
             ProjectileLifetime = 3,
+
             RackBones = {
                 {
                     MuzzleBones = {
@@ -625,10 +613,6 @@ UnitBlueprint {
                     RackBone = 'Flare_Muzzle01',
                 },
             },
-            RackFireTogether = true,
-            
-
-
 
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -639,7 +623,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.1,
         },
 		
         {
@@ -679,8 +663,7 @@ UnitBlueprint {
 			LeadTarget = true,
 			
             MaxRadius = 48,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 75,
 			
             ProjectileId = '/projectiles/CAABurstCloud01/CAABurstCloud01_proj.bp',
@@ -688,15 +671,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'AA_Muzzle',
-                    },
+                    MuzzleBones = {'AA_Muzzle'},
                     RackBone = 'AA_Barrel',
                 },
             },
-
-
-
 
             RangeCategory = 'UWRC_AntiAir',
 			

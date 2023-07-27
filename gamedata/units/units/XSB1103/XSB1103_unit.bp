@@ -89,9 +89,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
-
         UniformScale = 0.05,
     },
 	
@@ -117,19 +114,16 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
             RULEUCC_Pause = true,
         },
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
-        UnitWeight = 1,
+
         UpgradesTo = 'xsb1202',
     },
 	
@@ -181,11 +175,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -1,5 +1,8 @@
 UnitBlueprint {
     AI = {
+    
+        GuardScanRadius = 33,
+        
         TargetBones = {
             'AttachPoint',      -- this point is intentionally missable
             'Left_Leg_B02',
@@ -451,9 +454,7 @@ UnitBlueprint {
             PitchBone = 'Left_Arm',
             YawBone = 'Torso',
         },
-		
 		CapCost = -3,
-
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -467,17 +468,12 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-
         ConstructionBar = true,
-
         FactionName = 'Seraphim',
-
         Icon = 'amph',
-
         OrderOverrides = {
             RULEUTC_ShieldToggle = { bitmapId = 'shield-personal', helpText = 'toggle_shield_personal' },
         },
-
         SelectionPriority = 3,
     },
 	

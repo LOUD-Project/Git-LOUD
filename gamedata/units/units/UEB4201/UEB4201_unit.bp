@@ -63,8 +63,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.15,
     },
 	
@@ -81,17 +79,13 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_CounterMeasure',
         CommandCaps = {
             RULEUCC_RetaliateToggle = true,
         },
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC ueb4201_name>Buzzkill',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -163,7 +157,7 @@ UnitBlueprint {
                 Water = 'Air',
             },
 			
-            FiringTolerance = 0,
+            FiringTolerance = 0.2,
 			
             Label = 'Turret01',
 			
@@ -178,17 +172,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
-             
-            
-
-
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -198,7 +185,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'TACTICAL MISSILE',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
@@ -207,15 +194,15 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 72,
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 120,
+            TurretYawSpeed = 72,
 			
             Turreted = true,
 			
-            WeaponRepackTimeout = 0.8,
+            WeaponRepackTimeout = 0.4,
             WeaponUnpacks = true,
         },
 		
@@ -228,11 +215,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

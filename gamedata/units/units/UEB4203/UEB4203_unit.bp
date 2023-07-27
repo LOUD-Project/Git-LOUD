@@ -11,7 +11,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 190,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -30,14 +32,18 @@ UnitBlueprint {
         'OVERLAYCOUNTERINTEL',
         'SORTINTEL',
     },
+
     CollisionOffsetY = -0.25,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 6,
         Health = 225,
         MaxHealth = 225,
     },
+
     Description = '<LOC ueb4203_desc>Stealth Field Generator',
+
     Display = {
         Abilities = {
             '<LOC ability_stealthfield>Stealth Field',
@@ -57,8 +63,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_01_albedo',
@@ -66,34 +70,30 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar8x_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
         },
         UniformScale = 0.3,
     },
+
     Economy = {
         BuildCostEnergy = 5400,
         BuildCostMass = 360,
         BuildTime = 450,
+
         MaintenanceConsumptionPerSecondEnergy = 125,
-        RebuildBonusIds = {
-            'ueb4203',
-        },
+
+        RebuildBonusIds = {'ueb4203'},
     },
+
     Footprint = {
         SizeX = 3,
         SizeZ = 3,
     },
+
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_CounterMeasure',
         FactionName = 'UEF',
         Icon = 'land',
         OrderOverrides = {
@@ -103,25 +103,27 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
         UnitName = '<LOC ueb4203_name>Scattershield',
-        UnitWeight = 1,
     },
+
     Intel = {
         RadarStealthFieldRadius = 24,
         ReactivateTime = 5,
         SonarStealthFieldRadius = 24,
         VisionRadius = 0,
     },
+
     Interface = {
         HelpText = '<LOC ueb4203_help>Stealth Field Generator',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.2,
     LifeBarSize = 2.5,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -141,14 +143,18 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+
     SelectionSizeX = 1.55,
     SelectionSizeZ = 1.55,
     SelectionThickness = 0.45,
+
     SizeX = 0.9,
     SizeY = 4,
     SizeZ = 0.9,
+
     StrategicIconName = 'icon_structure2_counterintel',
     StrategicIconSortPriority = 225,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -156,11 +162,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

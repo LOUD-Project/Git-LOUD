@@ -105,7 +105,7 @@ UnitBlueprint {
                 },
             },
         },
-
+
         UniformScale = 0.08,
     },
 	
@@ -129,8 +129,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Construction',
-        Classification = 'RULEUC_Engineer',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Capture = true,
@@ -147,8 +145,6 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 3,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -219,11 +215,7 @@ UnitBlueprint {
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

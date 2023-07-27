@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 150,
-        GuardScanRadius = 150,
+        GuardReturnRadius = 96,
+        GuardScanRadius = 64,
     },
 	
     Air = {
@@ -115,7 +115,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.05,
     },
 	
@@ -123,12 +122,11 @@ UnitBlueprint {
         BuildCostEnergy = 85000,
         BuildCostMass = 2500,
         BuildTime = 15000,
+
         MaintenanceConsumptionPerSecondEnergy = 25,
     },
 
     General = {
-        Category = 'Gunship',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -147,12 +145,10 @@ UnitBlueprint {
                 helpText = 'toggle_stealth_personal',
             },
         },		
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
         UnitName = '<LOC xra0305_name>Wailer',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -250,9 +246,7 @@ UnitBlueprint {
             Label = 'Disintegrator01',
 			
             MaxRadius = 32,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 60,
 			
             ProjectileId = '/projectiles/CDFLaserDisintegrator04/CDFLaserDisintegrator04_proj.bp',
@@ -260,24 +254,14 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Down_Muzzle_01',
-                    },
+                    MuzzleBones = {'Turret_Down_Muzzle_01'},
                     RackBone = 'Turret_Down_Barrel_01',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Down_Muzzle_02',
-                    },
+                    MuzzleBones = {'Turret_Down_Muzzle_02'},
                     RackBone = 'Turret_Down_Barrel_02',
                 },
             },
-             
-            
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -357,13 +341,6 @@ UnitBlueprint {
                     RackBone = 'Turret_Up_Barrel',
                 },
             },
-            RackFireTogether = true,
-			
-            
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_AntiAir',
 			

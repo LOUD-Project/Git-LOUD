@@ -1,5 +1,6 @@
 UnitBlueprint {
     Adjacency = 'T3MassExtractorAdjacencyBuffs',
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -12,7 +13,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 40,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -28,6 +31,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTECONOMY',
     },
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 540,		-- 1000% MassOutput + 2% Healt
@@ -35,7 +39,9 @@ UnitBlueprint {
         MaxHealth = 9000,
         RegenRate = 2,
     },
+
     Description = '<LOC ueb1302_desc>Advanced Mass Extractor',
+
     Display = {
         AnimationOpen = '/units/ueb1302/ueb1302_Apump.sca',
         AnimationUpgrade = '/units/ueb1302/ueb1302_Aupgrade.sca',
@@ -55,7 +61,6 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.06,
     },
     
@@ -75,24 +80,25 @@ UnitBlueprint {
     },
     
     General = {
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
+
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
-        UnitWeight = 1,
+
         UpgradesFrom = 'ueb1202',
     },
+
     Interface = {
         HelpText = 'Advanced Mass Extractor',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 1.1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -114,14 +120,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+
     SizeX = 0.75,
     SizeY = 1.4,
     SizeZ = 0.75,
+
     StrategicIconName = 'icon_structure3_mass',
     StrategicIconSortPriority = 245,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -129,11 +139,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -46,9 +46,7 @@ UnitBlueprint {
         'SORTCONSTRUCTION',
     },
 	
-    CollisionOffsetX = 0,
     CollisionOffsetY = -1,
-    CollisionOffsetZ = 0,
 	
     Defense = {
         ArmorType = 'Structure',
@@ -64,8 +62,11 @@ UnitBlueprint {
         Abilities = {
             'Upgradeable',
         },
+
         AnimationUpgrade = '/units/urb0103/urb0103_aupgrade.sca',
+
         BuildAttachBone = 'Attachpoint',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -81,7 +82,6 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = false,
         UniformScale = 0.095,
     },
     
@@ -99,6 +99,7 @@ UnitBlueprint {
         },
         InitialRallyX = 0,
         InitialRallyZ = 10,
+
         RebuildBonusIds = {
             'urb0103',
             'urb0203',
@@ -114,12 +115,8 @@ UnitBlueprint {
     
     General = {
         BuildBones = {
-            BuildEffectBones = {
-                'Right_Exhaust03',
-            },
+            BuildEffectBones = {'Right_Exhaust03'},
         },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -132,19 +129,22 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'sea',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
+
         UpgradesTo = 'urb0203',
     },
+
     Intel = {
         VisionRadius = 10,
     },
+
     Interface = {
         HelpText = 'Basic Naval Factory',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 6,
     LifeBarSize = 4,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -154,6 +154,7 @@ UnitBlueprint {
         MaxSteerForce = 0,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
+
         RollOffPoints = {
             {
                 UnitSpin = 180,
@@ -174,15 +175,19 @@ UnitBlueprint {
         SkirtSizeZ = 12,
         TurnRate = 0,
     },
+
     SelectionMeshUseTopAmount = 0.15,
     SelectionSizeX = 2.6,
     SelectionSizeZ = 8.1,
     SelectionThickness = 0.21,
+
     SizeX = 4,
     SizeY = 2,
     SizeZ = 10,
+
     StrategicIconName = 'icon_factory1_naval',
     StrategicIconSortPriority = 220,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

@@ -21,7 +21,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 30,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -78,7 +80,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.09,
     },
     
@@ -117,8 +118,7 @@ UnitBlueprint {
                 'Turret_Muzzle_01',
             },
         },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
+
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -131,19 +131,21 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'sea',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
         UpgradesTo = 'uab0203',
     },
+
     Intel = {
         VisionRadius = 10,
     },
+
     Interface = {
         HelpText = 'Basic Naval Factory',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 6.5,
     LifeBarSize = 4,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -176,14 +178,18 @@ UnitBlueprint {
         SkirtSizeZ = 12,
         TurnRate = 0,
     },
+
     SelectionSizeX = 2.5,
     SelectionSizeZ = 7.5,
     SelectionThickness = 0.23,
+
     SizeX = 4,
     SizeY = 2,
     SizeZ = 9.5,
+
     StrategicIconName = 'icon_factory1_naval',
     StrategicIconSortPriority = 220,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

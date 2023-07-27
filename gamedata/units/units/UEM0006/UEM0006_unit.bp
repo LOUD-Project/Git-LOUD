@@ -13,7 +13,9 @@ UnitBlueprint {
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
+        'BUILTBYTIER2FIELD',
         'BUILTBYTIER3ENGINEER',
+        'BUILTBYTIER3FIELD',
         'BUILTBYTIER2COMMANDER',
         'BUILTBYTIER3COMMANDER',
         'UEF',
@@ -24,17 +26,17 @@ UnitBlueprint {
         'BENIGN',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'SORTSTRATEGIC',
+        'SORTDEFENSE',
     },
 	
     Defense = {
         ArmorType = 'Structure',
-        Health = 4750,
-        MaxHealth = 4750,
+        Health = 4500,
+        MaxHealth = 4500,
         RegenRate = 1,        
     },
 	
-    Description = '<LOC ueb5101_desc>T2 Wall Section',
+    Description = '<LOC ueb5101_desc>Medium Wall Section',
 	
     Display = {
         BuildMeshBlueprint = '/props/UEB5101/UEB5101_prop.bp',
@@ -70,7 +72,7 @@ UnitBlueprint {
             },
         },
 
-        UniformScale = 0.15,
+        UniformScale = 0.135,
     },
 	
     Economy = {
@@ -84,7 +86,6 @@ UnitBlueprint {
 	
     General = {
         CapCost = 0.2,
-
         FactionName = 'UEF',
         Icon = 'land',
         SelectionPriority = 5,
@@ -96,7 +97,7 @@ UnitBlueprint {
 	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
-    LifeBarSize = 0.4,
+    LifeBarSize = 0.45,
 	
     Physics = {
         BankingSlope = 0,
@@ -121,7 +122,7 @@ UnitBlueprint {
     SelectionThickness = 0.66,
 	
     SizeX = 1,
-    SizeY = 1.1,
+    SizeY = 0.9,
     SizeZ = 1,
 	
     StrategicIconName = 'icon_structure_wall',

@@ -1,12 +1,10 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 60,
-        TargetBones = {
-            'URS0201',
-            'Muzzle_Back',
-            'Muzzle_Front',
-        },
+        GuardReturnRadius = 65,
+        GuardScanRadius = 55,
+        TargetBones = {'URS0201','Muzzle_Back','Muzzle_Front'},
     },
+
     Audio = {
         AmphibiousFloatingKilledOnLand = Sound {
             Bank = 'URLDestroy',
@@ -339,7 +337,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'CannonBarrel_R',
             TurretBonePitch = 'Barrel_Cannon',
@@ -424,7 +422,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'AA_Barrel_R01',
             TurretBonePitch = 'Barrel_AA',
@@ -499,7 +497,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
         },
 		
         {
@@ -532,9 +530,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle_Front',
-                    },
+                    MuzzleBones = {'Muzzle_Front'},
                     RackBone = 'Muzzle_Front',
                 },
             },
@@ -548,7 +544,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.2,
 
             TurretBoneMuzzle = 'Muzzle_Front',
             TurretBonePitch = 'Turret_Front',
@@ -608,7 +604,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.2,
 
             TurretBoneMuzzle = 'Muzzle_Back',
             TurretBonePitch = 'Turret_Back',

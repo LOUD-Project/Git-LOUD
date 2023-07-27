@@ -1,8 +1,9 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 180,
-        GuardScanRadius = 175,
+        GuardReturnRadius = 100,
+        GuardScanRadius = 60,
     },
+
     Air = {
         AutoLandTime = 1.6,
         BankFactor = 2,
@@ -120,7 +121,6 @@ UnitBlueprint {
     },
 	
     General = {
-
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -134,9 +134,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'air',
         TarmacGlowDecal = 0.5,
-
         UnitName = '<LOC uaa0102_name>Conservator',
-
     },
 	
     Intel = {
@@ -200,7 +198,9 @@ UnitBlueprint {
             Audio = {
                 Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0102_Pulse_Battery_01', LodCutoff = 'Weapon_LodCutoff' },
             },
-            AutoInitiateAttackCommand = false,
+
+            AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -211,7 +211,7 @@ UnitBlueprint {
             DisplayName = 'Sonic Pulse Battery',
 			
             FireTargetLayerCapsTable = {
-                Air = 'Air|Land',
+                Air = 'Air',
                 Land = 'Air|Land',
             },
 			
@@ -249,9 +249,9 @@ UnitBlueprint {
                 'AIR MOBILE -INTELLIGENCE',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Turret_Muzzle_Right',
             TurretBonePitch = 'Turret_Muzzle_Right',
@@ -273,7 +273,9 @@ UnitBlueprint {
             Audio = {
                 Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0102_Pulse_Battery_01', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             AutoInitiateAttackCommand = false,
+
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -319,9 +321,9 @@ UnitBlueprint {
                 'MOBILE',
                 'MOBILE -INTELLIGENCE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.25,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Turret_Muzzle_Left',
             TurretBonePitch = 'Turret_Muzzle_Left',

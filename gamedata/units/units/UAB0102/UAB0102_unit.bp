@@ -21,7 +21,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 20,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -57,8 +59,11 @@ UnitBlueprint {
         Abilities = {
             'Upgradeable',
         },
+
         AnimationUpgrade = '/units/uab0102/uab0102_aupgrade.sca',
+
         BuildAttachBone = 'Attachpoint',
+
         DamageEffects = {
             {
                 Bone = 0,
@@ -91,6 +96,7 @@ UnitBlueprint {
                 OffsetZ = -1,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -107,7 +113,7 @@ UnitBlueprint {
                 },
             },
         },
-
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_aeon_01_albedo',
@@ -127,6 +133,7 @@ UnitBlueprint {
         },
         UniformScale = 0.35,
     },
+
     Economy = {
         BuildCostEnergy = 3000,
         BuildCostMass = 210,
@@ -156,12 +163,9 @@ UnitBlueprint {
     
     General = {
         BuildBones = {
-            BuildEffectBones = {
-                'Turret_Muzzle_02',
-            },
+            BuildEffectBones = {'Turret_Muzzle_02'},
         },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
+
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -174,19 +178,22 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'air',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
+
         UpgradesTo = 'uab0202',
     },
+
     Intel = {
         VisionRadius = 10,
     },
+
     Interface = {
         HelpText = 'Basic Air Factory',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.55,
     LifeBarSize = 4.5,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -324,6 +331,7 @@ UnitBlueprint {
             -- z
             0,
         },
+
         RollOffPoints = {
             {
                 UnitSpin = 90,
@@ -344,14 +352,18 @@ UnitBlueprint {
         SkirtSizeZ = 8,
         TurnRate = 0,
     },
+
     SelectionSizeX = 2.85,
     SelectionSizeZ = 2.75,
     SelectionThickness = 0.35,
+
     SizeX = 3,
     SizeY = 0.7,
     SizeZ = 3,
+
     StrategicIconName = 'icon_factory1_air',
     StrategicIconSortPriority = 220,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -359,11 +371,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

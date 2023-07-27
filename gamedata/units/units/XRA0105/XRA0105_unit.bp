@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 200,
-		GuardScanRadius = 200,
+        GuardReturnRadius = 48,
+		GuardScanRadius = 32,
     },
 	
     Air = {
@@ -51,8 +51,6 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-	
-    AverageDensity = 1,
 	
     Buffs = {
         Regen = {
@@ -126,8 +124,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Gunship',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -140,9 +136,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC xra0105_name>Jester',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -206,7 +200,9 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -227,9 +223,7 @@ UnitBlueprint {
             Label = 'MainGun',
 			
             MaxRadius = 16,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 36,
 			
             ProjectileId = '/projectiles/CDFLaserHeavy01/CDFLaserHeavy01_proj.bp',
@@ -244,10 +238,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-
-
-
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 2,
@@ -259,7 +249,7 @@ UnitBlueprint {
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'HIGHALTAIR, UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Laser_Muzzle',
             TurretBonePitch = 'Laser_Muzzle',

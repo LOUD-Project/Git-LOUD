@@ -195,7 +195,6 @@ UnitBlueprint {
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,
-            Seabed = false,
         },
     },
 }

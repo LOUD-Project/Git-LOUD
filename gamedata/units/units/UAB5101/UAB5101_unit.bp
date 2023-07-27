@@ -10,7 +10,9 @@ UnitBlueprint {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
         'BUILTBYTIER2ENGINEER',
+        'BUILTBYTIER2FIELD',
         'BUILTBYTIER3ENGINEER',
+        'BUILTBYTIER3FIELD',
         'BUILTBYCOMMANDER',
         'AEON',
         'STRUCTURE',
@@ -20,7 +22,7 @@ UnitBlueprint {
         'BENIGN',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'SORTSTRATEGIC',
+        'SORTDEFENSE',
     },
 
     Defense = {
@@ -77,7 +79,6 @@ UnitBlueprint {
     
     General = {
         CapCost = 0.1,
-
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
@@ -89,7 +90,7 @@ UnitBlueprint {
     
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
-    LifeBarSize = 0.6,
+    LifeBarSize = 0.45,
     
     Physics = {
         BankingSlope = 0,

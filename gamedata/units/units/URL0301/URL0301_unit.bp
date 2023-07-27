@@ -1,5 +1,8 @@
 UnitBlueprint {
     AI = {
+    
+        GuardScanRadius = 33,
+        
         TargetBones = {
             'Head',         -- intentionally missable
             'Right_Arm01',
@@ -105,8 +108,10 @@ UnitBlueprint {
             'Customizable',
             'Omni Sensor',
         },
+
         AnimationWalk = '/units/url0301/url0301_awalk01.sca',
         AnimationWalkRate = 3.2,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -122,7 +127,6 @@ UnitBlueprint {
                 },
             },
         },
-
         TransportAnimation = {
             {
                 Animation = '/units/URL0301/URL0301_afold01.sca',
@@ -406,11 +410,7 @@ UnitBlueprint {
             PitchBone = 'Engineering_Arm',
             YawBone = 'Torso',
         },
-		
 		CapCost = -3,
-		
-        Category = 'Command',
-        Classification = 'RULEUC_Commander',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -428,8 +428,6 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 3,
-        TechLevel = 'RULEUTL_Secret',
-        UnitWeight = 1,
     },
     
     Intel = {
@@ -543,7 +541,6 @@ UnitBlueprint {
             MaxRadius = 33,
             MinRadius = 1,
             
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 28,
             
             ProjectileId = '/projectiles/CDFLaserDisintegrator03/CDFLaserDisintegrator03_proj.bp',
@@ -554,8 +551,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.1,
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
             
             RangeCategory = 'UWRC_DirectFire',
             
@@ -629,8 +624,6 @@ UnitBlueprint {
             RackBones = {
                 { MuzzleBones = {'Muzzle02'}, RackBone = 'Barrel01'},
             },
-
-            RackSalvoSize = 1,
             
             RangeCategory = 'UWRC_AntiAir',
             

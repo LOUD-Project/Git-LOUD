@@ -1,4 +1,8 @@
 UnitBlueprint {
+    AI = {
+        GuardScanRadius = 30,
+    },
+    
     Audio = {
         Killed = Sound {
             Bank = 'URLWeapon',
@@ -69,9 +73,12 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+
         AnimationWalk = '/units/del0204/del0204_awalk.sca',
         AnimationWalkRate = 4.5,
+
         AttackReticuleSize = 3,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -87,8 +94,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         TransportAnimation = {
             {
                 Animation = '/units/DEL0204/DEL0204_afold1.sca',
@@ -105,8 +110,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -118,19 +121,21 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC del0204_name>Mongoose',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 26,
     },
+
     Interface = {
         HelpText = 'Gatling Bot',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.55,
     LifeBarSize = 1,
+
     Physics = {
 		BackUpDistance = 4,
         BankingSlope = 0,
@@ -149,20 +154,25 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 150,
     },
+
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.15,
     SelectionSizeX = 0.6,
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.62,
+
     SizeX = 0.7,
     SizeY = 1,
     SizeZ = 0.4,
+
     StrategicIconName = 'icon_land2_directfire',
     StrategicIconSortPriority = 115,
+
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 2,
     },
+
     Veteran = {
         Level1 = 5,
         Level2 = 10,
@@ -170,6 +180,7 @@ UnitBlueprint {
         Level4 = 20,
         Level5 = 25,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -210,16 +221,13 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Arm_Barrel_Muzzle',
-                    },
+                    MuzzleBones = {'Left_Arm_Barrel_Muzzle'},
                     RackBone = 'Left_Arm_Barrel',
                 },
             },
 
-             
             RackSalvoChargeTime = 3,	---- 3 seconds to warm up
-            RackSalvoFiresAfterCharge = false,
+
             RackSalvoReloadTime = 1,	---- 1 seconds to reload
 
             RangeCategory = 'UWRC_DirectFire',
@@ -233,7 +241,7 @@ UnitBlueprint {
                 'STRUCTURE -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
             
             TurretBoneMuzzle = 'Left_Arm_Barrel_Muzzle',
             TurretBonePitch = 'Left_Arm_B01',
@@ -281,7 +289,7 @@ UnitBlueprint {
 			
             Label = 'Grenade',
 			
-            MaxRadius = 30,
+            MaxRadius = 32,
 			
             MuzzleSalvoDelay = 0.3,	---- every .3 seconds
             MuzzleSalvoSize = 4,	---- 4 grenades per salvo = 1.2 seconds
@@ -293,17 +301,12 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Arm_B02_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Arm_B02_Muzzle'},
                     RackBone = 'Right_Arm_B02',
                 },
             },
-            
-
 
             RackSalvoSize = 3,
-
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -317,7 +320,7 @@ UnitBlueprint {
 				'STRUCTURE -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Right_Arm_B02_Muzzle',
             TurretBonePitch = 'Right_Arm_B01',
@@ -343,11 +346,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

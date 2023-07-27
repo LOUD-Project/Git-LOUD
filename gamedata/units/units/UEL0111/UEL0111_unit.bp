@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+		GuardReturnRadius = 100,
+        GuardScanRadius = 75,
     },
 
     Audio = {
@@ -88,7 +88,6 @@ UnitBlueprint {
     },
 
     General = {
-
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -98,11 +97,8 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-
         FactionName = 'UEF',
-
         Icon = 'land',
-
         UnitName = '<LOC uel0111_name>Flapjack',
     },
 
@@ -186,8 +182,7 @@ UnitBlueprint {
             MinRadius = 5,
 			
             MuzzleChargeDelay = 0.5,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/TIFMissileCruise03/TIFMissileCruise03_proj.bp',
@@ -200,14 +195,12 @@ UnitBlueprint {
                     RackBone = 'Missile',
                 },
             },
-            
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.2,
             RenderFireClock = true,
+
             SlavedToBody = true,
 			
             TargetCheckInterval = 2,
@@ -217,7 +210,7 @@ UnitBlueprint {
                 'MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
 
             Turreted = false,
 
@@ -234,11 +227,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

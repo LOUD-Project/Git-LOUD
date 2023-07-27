@@ -1,10 +1,9 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Front_Turret',
-            'Back_Turret',
-        },
+        GuardReturnRadius = 50,
+        GuardScanRadius = 36,
+        TargetBones = {'Front_Turret','Back_Turret'},
     },
 	
     Audio = {
@@ -233,9 +232,7 @@ UnitBlueprint {
             Label = 'MainGun',
 			
             MaxRadius = 36,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 45,
 			
             ProjectileId = '/projectiles/TDFGauss01/TDFGauss01_proj.bp',
@@ -266,7 +263,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
-            TrackingRadius = 1.25,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Front_Turret_Muzzle',
             TurretBonePitch = 'Front_Turret_Barrel',
@@ -351,7 +348,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Back_Turret_Muzzle01',
             TurretBonePitch = 'Back_Turret_Barrel01',

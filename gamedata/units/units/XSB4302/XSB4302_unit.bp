@@ -2,6 +2,7 @@ UnitBlueprint {
     AI = {
         InitialAutoMode = true,
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -14,7 +15,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 155,
+
     Categories = {
         'SELECTABLE',
 --        'BUILTBYTIER3ENGINEER',
@@ -31,7 +34,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTSTRATEGIC',
     },
+
     CollisionOffsetY = -0.25,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 294,
@@ -39,7 +44,9 @@ UnitBlueprint {
         MaxHealth = 3800,
         RegenRate = 5,
     },
+
     Description = '<LOC xsb4302_desc>Strategic Missile Defense',
+
     Display = {
         Abilities = {
             'Strategic Missile Defense',
@@ -64,8 +71,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_seraphim_01_albedo',
@@ -73,18 +78,14 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 6.4,
                 Normal = 'Tarmacs/Tar8x_seraphim_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 6.4,
             },
         },
         UniformScale = 0.05,
     },
+
     Economy = {
         BuildCostEnergy = 105000,
         BuildCostMass = 7500,
@@ -94,10 +95,9 @@ UnitBlueprint {
             'xsb4302',
         },
     },
+
     General = {
 		CapCost = 2,
-        Category = 'Defense',
-        Classification = 'RULEUC_CounterMeasure',
         CommandCaps = {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_SiloBuildTactical = true,
@@ -106,19 +106,21 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC xsb4302_name>Ythisioz',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 10,
     },
+
     Interface = {
         HelpText = 'Strategic Missile Defense',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1,
     LifeBarSize = 1.5,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -139,14 +141,18 @@ UnitBlueprint {
         SkirtSizeZ = 3,
         TurnRate = 0,
     },
+
     SelectionSizeX = 1.25,
     SelectionSizeZ = 1.25,
     SelectionThickness = 0.55,
+
     SizeX = 1.5,
     SizeY = 1.5,
     SizeZ = 1.75,
+
     StrategicIconName = 'icon_structure3_antimissile',
     StrategicIconSortPriority = 195,
+
     Weapon = {
         {
             AlwaysRecheckTarget = false,
@@ -160,10 +166,14 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
             CountedProjectile = true,
+
             Damage = 30,
             DamageType = 'Normal',
+
             DisplayName = 'Hu Strategic Missile Defense',
+
             EffectiveRadius = 90,
+
             FireTargetLayerCapsTable = {
                 Land = 'Air',
 				Sub = 'Air',
@@ -171,34 +181,31 @@ UnitBlueprint {
                 Seabed = 'Air',
             },
             FiringTolerance = 60,
+
             ForceSingleFire = true,
+
             InitialProjectileStorage = 0,
+
             Label = 'MissileRack',
+
             MaxProjectileStorage = 7,
+
             MaxRadius = 100,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 90,
             ProjectileId = '/projectiles/SIFHuAntiNuke01/SIFHuAntiNuke01_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Missile_Attachpoint',
-                    },
+                    MuzzleBones = {'Missile_Attachpoint'},
                     RackBone = 'Missile_Attachpoint',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-            
 
             RangeCategory = 'UWRC_Countermeasure',
+
             RateOfFire = 0.6,
+
             TargetCheckInterval = 1,
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'STRATEGIC MISSILE',
@@ -223,8 +230,11 @@ UnitBlueprint {
             Damage = 500,
 			DamageRadius = 0,
             DamageType = 'Normal',
+
             DisplayName = 'Hu Anti Satellite',
+
             EffectiveRadius = 75,
+
             FireTargetLayerCapsTable = {
                 Land = 'Air',
 				Sub = 'Air',
@@ -232,32 +242,27 @@ UnitBlueprint {
                 Seabed = 'Air',
             },
             FiringTolerance = 60,
+
             Label = 'MissileRack2',
+
             MaxRadius = 90,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 65,
 			NotExclusive = true,
+
             ProjectileId = '/projectiles/SIFHuAntiNuke02/SIFHuAntiNuke02_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Missile_Attachpoint',
-                    },
+                    MuzzleBones = {'Missile_Attachpoint'},
                     RackBone = 'Missile_Attachpoint',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-            
 
             RangeCategory = 'UWRC_AntiAir',
+
             RateOfFire = 0.2,
+
             TargetCheckInterval = 3,
             TargetPriorities = {
                 'SATELLITE',
@@ -269,6 +274,7 @@ UnitBlueprint {
             Turreted = false,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
@@ -276,10 +282,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
             Water = true,
         },
     },

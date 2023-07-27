@@ -1,8 +1,8 @@
 UnitBlueprint {
     AI = {
-		GuardRadius = 125,
-        GuardReturnRadius = 150,
-        GuardScanRadius = 125,
+		GuardRadius = 64,
+        GuardReturnRadius = 96,
+        GuardScanRadius = 64,
     },
 	
 	-- this is a very heavy ponderous beast
@@ -71,8 +71,6 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-	
-    AverageDensity = 1,
 	
     Buffs = {
         Regen = {
@@ -347,7 +345,7 @@ UnitBlueprint {
                 'HIGHPRIAIR',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.2,
 			
@@ -411,10 +409,11 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
             TrackingRadius = 1.2,
+
             TurretBoneMuzzle = 'Turret_Muzzle02',
             TurretBonePitch = 'L_Barrel',
             TurretBoneYaw = 'L_Turret',

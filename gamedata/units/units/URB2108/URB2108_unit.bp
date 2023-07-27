@@ -2,6 +2,7 @@ UnitBlueprint {
     AI = {
         InitialAutoMode = true,
     },
+
     Audio = {
         UISelection = Sound {
             Bank = 'Interface',
@@ -13,6 +14,7 @@ UnitBlueprint {
     Buffs = {},
 	
     BuildIconSortPriority = 150,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -32,7 +34,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTSTRATEGIC',
     },
+
     CollisionOffsetY = -0.25,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 9,
@@ -40,7 +44,9 @@ UnitBlueprint {
         MaxHealth = 1500,
         RegenRate = 1,
     },
+
     Description = '<LOC urb2108_desc>Tactical Missile Launcher',
+
     Display = {
         Abilities = {
             'Manual Launch',
@@ -60,26 +66,24 @@ UnitBlueprint {
                 },
             },
         },
-
         UniformScale = 0.04,
-        olderMeshName = 'UXB0026',
     },
+
     Economy = {
         BuildCostEnergy = 5100,
         BuildCostMass = 850,
         BuildRate = 25,
         BuildTime = 850,
-        RebuildBonusIds = {
-            'urb2108',
-        },
+
+        RebuildBonusIds = {'urb2108'},
     },
+
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+
     General = {
-        Category = 'Strategic',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Pause = true,
             RULEUCC_SiloBuildTactical = true,
@@ -89,19 +93,21 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC urb2108_name>TML-4',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 15,
     },
+
     Interface = {
         HelpText = 'Tactical Missile Launcher',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1.1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -118,18 +124,23 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.75,
     SelectionSizeZ = 0.75,
     SelectionThickness = 0.5,
+
     SizeX = 1,
     SizeY = 0.75,
     SizeZ = 1,
+
     SplitDamage = {
         DamageAmount = 833,
         DamageRadius = 1.3,
     },
+
     StrategicIconName = 'icon_structure2_missile',
     StrategicIconSortPriority = 180,
+
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -137,6 +148,7 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -148,12 +160,16 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_None',
+
             CollideFriendly = false,
             CountedProjectile = true,
+
             Damage = 6000,
             DamageRadius = 2,
             DamageType = 'Normal',
+
             DisplayName = 'Loa Tactical Missile',
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
@@ -161,54 +177,53 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 5,
+
             ForceSingleFire = true,
+
             InitialProjectileStorage = 0,
+
             Label = 'CruiseMissile',
+
             ManualFire = true,
+
             MaxProjectileStorage = 12,
+
             MaxRadius = 240,
             MinRadius = 15,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 10,
+
             ProjectileId = '/projectiles/CIFMissileTactical03/CIFMissileTactical03_proj.bp',
             ProjectileLifetime = 30,
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile01',
-                    },
+                    MuzzleBones = {'Projectile01'},
                     RackBone = 'Projectile01',
                 },
                 {
-                    MuzzleBones = {
-                        'Projectile02',
-                    },
+                    MuzzleBones = {'Projectile02'},
                     RackBone = 'Projectile02',
                 },
                 {
-                    MuzzleBones = {
-                        'Projectile03',
-                    },
+                    MuzzleBones = {'Projectile03'},
                     RackBone = 'Projectile03',
                 },
                 {
-                    MuzzleBones = {
-                        'Projectile04',
-                    },
+                    MuzzleBones = {'Projectile04'},
                     RackBone = 'Projectile04',
                 },
             },
-             
-            
+
             RackReloadTimeout = 10,
+
             RackSalvoChargeTime = 1.5,
             RackSalvoReloadTime = 3.5,
-            RackSalvoSize = 1,
-            
 
             RangeCategory = 'UWRC_IndirectFire',
+
             RateOfFire = .2,
+
             TargetCheckInterval = 2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -223,6 +238,7 @@ UnitBlueprint {
             WeaponUnpacks = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.9,
@@ -230,11 +246,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -1,8 +1,8 @@
 UnitBlueprint {
     AI = {
-		GuardRadius = 150,
-        GuardReturnRadius = 175,
-        GuardScanRadius = 150,
+		GuardRadius = 72,
+        GuardReturnRadius = 96,
+        GuardScanRadius = 72,
     },
 	
     Air = {
@@ -222,7 +222,7 @@ UnitBlueprint {
 			
             DisplayName = 'Torpedo Launcher',
 			
-            EffectiveRadius = 24,
+            EffectiveRadius = 26,
 			
             FireTargetLayerCapsTable = {
                 Air = 'Seabed|Sub|Water',

@@ -112,8 +112,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_seraphim_01_albedo',
@@ -148,8 +146,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 5,
-        Category = 'Strategic',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Nuke = true,
             RULEUCC_Pause = true,
@@ -159,9 +155,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC xsb2305_name>Hastue',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -259,9 +253,7 @@ UnitBlueprint {
 			
             MaxRadius = 20000,
             MinRadius = 0,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 0,
 			
             NukeInnerRingDamage = 70000,
@@ -281,19 +273,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile01',
-                    },
+                    MuzzleBones = {'Projectile01'},
                     RackBone = 'Projectile01',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_IndirectFire',
 			

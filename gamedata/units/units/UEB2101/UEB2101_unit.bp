@@ -11,8 +11,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {},
+
     BuildIconSortPriority = 110,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -30,7 +33,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTDEFENSE',
     },
-    CollisionOffsetY = 0,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 3,
@@ -39,7 +42,9 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 13,
     },
+
     Description = '<LOC ueb2101_desc>Basic Point Defense',
+
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -57,20 +62,18 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.155,
     },
+
     Economy = {
         BuildCostEnergy = 2000,
         BuildCostMass = 250,
         BuildTime = 250,
-        RebuildBonusIds = {
-            'ueb2101',
-        },
+
+        RebuildBonusIds = {'ueb2101'},
     },
+
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -79,19 +82,21 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC ueb2101_name>Plasma Cannon',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 26,
     },
+
     Interface = {
         HelpText = 'Basic Point Defense',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 0.9,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -110,14 +115,18 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.55,
     SelectionThickness = 0.71,
+
     SizeX = 0.6,
     SizeY = 0.8,
     SizeZ = 0.6,
+
     StrategicIconName = 'icon_structure1_directfire',
     StrategicIconSortPriority = 205,
+
     Veteran = {
         Level1 = 6,
         Level2 = 12,
@@ -125,6 +134,7 @@ UnitBlueprint {
         Level4 = 24,
         Level5 = 30,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -153,9 +163,7 @@ UnitBlueprint {
             Label = 'MainGun',
 			
             MaxRadius = 26,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
 			
             ProjectileId = '/projectiles/TDFPlasma01/TDFPlasma01_proj.bp',
@@ -163,33 +171,25 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-            
 
             RangeCategory = 'UWRC_DirectFire',
+
             RateOfFire = 3,
             ReTargetOnMiss = true,
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
                 'DEFENSE',
-   
-   'ALLUNITS -AIR',
+                'ALLUNITS -AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
@@ -215,11 +215,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -4,6 +4,7 @@ UnitBlueprint {
             'Turret',
         },
     },
+
     Audio = {
         StartMove = Sound {
             Bank = 'UEL',
@@ -16,7 +17,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 10,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1FACTORY',
@@ -55,6 +58,7 @@ UnitBlueprint {
         AnimationBuild = '/units/UEL0105/uel0105_aopen.sca',
         AnimationBuildRate = 5,
         AnimationWater = '/units/UEL0105/uel0105_awheels.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -96,8 +100,6 @@ UnitBlueprint {
             PitchBone = 'Turret_Barrel',
             YawBone = 'Turret',
         },
-        Category = 'Construction',
-        Classification = 'RULEUC_Engineer',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Capture = true,
@@ -113,8 +115,6 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 3,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -177,11 +177,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

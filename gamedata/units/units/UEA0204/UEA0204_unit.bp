@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 125,
-        GuardScanRadius = 100,
+        GuardReturnRadius = 96,
+        GuardScanRadius = 72,
     },
 	
     Air = {
@@ -133,7 +133,6 @@ UnitBlueprint {
     },
 
     General = {
-
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -165,7 +164,6 @@ UnitBlueprint {
     LifeBarSize = 1.25,
 	
     Physics = {
-	
         AttackElevation = 2,
 		
         BuildOnLayerCaps = {

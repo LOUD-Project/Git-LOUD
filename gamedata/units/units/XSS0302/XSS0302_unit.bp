@@ -1,13 +1,13 @@
 UnitBlueprint {
     AI = {
         AttackAngle = 60,
-        GuardReturnRadius = 60,
+
+        GuardReturnRadius = 120,
+        GuardScanRadius = 100,
+
         InitialAutoMode = false,
-        TargetBones = {
-            'xss0302',
-            'Back_Turret01',
-            'Front_Turret01',
-        },
+
+        TargetBones = {'xss0302','Back_Turret01','Front_Turret01'},
     },
 	
     Audio = {
@@ -313,7 +313,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
-            TrackingRadius = 1.17,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Front_Turret_Muzzle01',
             TurretBonePitch = 'Front_Turret_Barrel01',
@@ -402,7 +402,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.171875,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Front_Turret_Muzzle02',
             TurretBonePitch = 'Front_Turret_Barrel02',
@@ -490,7 +490,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.171875,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Back_Turret_Muzzle01',
             TurretBonePitch = 'Back_Turret_Barrel01',
@@ -679,7 +679,6 @@ UnitBlueprint {
 			
             MaxRadius = 55,
 			
-            MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 60,
 			
@@ -767,7 +766,6 @@ UnitBlueprint {
 			
             MaxRadius = 55,
 			
-            MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 60,
 
@@ -794,15 +792,14 @@ UnitBlueprint {
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.125,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Right_Turret_Muzzle01',
             TurretBonePitch = 'Right_Turret_Barrel01',

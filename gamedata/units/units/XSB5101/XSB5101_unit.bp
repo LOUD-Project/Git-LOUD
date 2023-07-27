@@ -6,7 +6,9 @@ UnitBlueprint {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
         'BUILTBYTIER2ENGINEER',
+        'BUILTBYTIER2FIELD',        
         'BUILTBYTIER3ENGINEER',
+        'BUILTBYTIER3FIELD',        
         'BUILTBYCOMMANDER',
         'SERAPHIM',
         'STRUCTURE',
@@ -16,7 +18,7 @@ UnitBlueprint {
         'BENIGN',
         'VISIBLETORECON',
         'RECLAIMABLE',
-		'SORTSTRATEGIC',
+		'SORTDEFENSE',
     },
     
     Defense = {
@@ -75,7 +77,6 @@ UnitBlueprint {
     
     General = {
         CapCost = 0.1,
-
         FactionName = 'Seraphim',
         Icon = 'land',
         SelectionPriority = 5,
@@ -87,7 +88,7 @@ UnitBlueprint {
     
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.55,
-    LifeBarSize = 0.4,
+    LifeBarSize = 0.45,
     
     Physics = {
         BankingSlope = 0,

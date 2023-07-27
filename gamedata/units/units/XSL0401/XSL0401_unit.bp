@@ -1,13 +1,8 @@
 UnitBlueprint {
     AI = {
-		GuardScanRadius = 48,
+		GuardScanRadius = 45,
 		GuardReturnRadius = 55,
-        TargetBones = {
-            'Torso',
-            'Head',
-            'Left_Leg_B03',
-            'Right_Leg_B15',
-        },
+        TargetBones = {'Torso','Head','Left_Leg_B03','Right_Leg_B15'},
     },
 	
     Audio = {
@@ -179,7 +174,6 @@ UnitBlueprint {
                 },
             },
         },
-
         UniformScale = 0.05,
     },
 	
@@ -191,8 +185,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 5,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -203,9 +195,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC xsl0401_name>Ythotha',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -311,8 +301,7 @@ UnitBlueprint {
             MinRadius = 4,
 			
             MuzzleChargeDelay = 2.5,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 8,
 			
             NotExclusive = true,
@@ -322,16 +311,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Head',
-                    },
+                    MuzzleBones = {'Head'},
                     RackBone = 'Head',
                 },
             },
-
-            RackReloadTimeout = 10,
-
-
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -401,9 +384,7 @@ UnitBlueprint {
             Label = 'LeftArm',
 			
             MaxRadius = 45,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
 			
             NoPause = true,
@@ -414,17 +395,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'LeftHand_Muzzle',
-                    },
+                    MuzzleBones = {'LeftHand_Muzzle'},
                     RackBone = 'LeftHand_Muzzle',
                 },
             },
-            
-
-
-            RackSalvoFiresAfterCharge = false,
-             
 
             RateOfFire = 3,			---- 1650 DPS
 			
@@ -503,8 +477,7 @@ UnitBlueprint {
             MinRadius = 0,
 			
             MuzzleChargeDelay = 2.5,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
 			
             NotExclusive = true,
@@ -514,16 +487,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'RightHand_Muzzle',
-                    },
+                    MuzzleBones = {'RightHand_Muzzle'},
                     RackBone = 'RightHand_Muzzle',
                 },
             },
-
-            RackReloadTimeout = 10,
-
-
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -597,9 +564,7 @@ UnitBlueprint {
 			LeadTarget = true,
 			
             MaxRadius = 45,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 55,
 			
             ProjectileId = '/projectiles/SAAOlarisAAArtillery03/SAAOlarisAAArtillery03_proj.bp',
@@ -607,16 +572,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_AA_Muzzle',
-                    },
+                    MuzzleBones = {'Left_AA_Muzzle'},
                     RackBone = 'Left_AA_Barrel03',
                 },
             },
-
-            RackReloadTimeout = 10,
-
-
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -688,9 +647,7 @@ UnitBlueprint {
 			
 			LeadTarget = true,
             MaxRadius = 45,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 55,
 
             ProjectileId = '/projectiles/SAAOlarisAAArtillery03/SAAOlarisAAArtillery03_proj.bp',
@@ -698,23 +655,16 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_AA_Muzzle',
-                    },
+                    MuzzleBones = {'Right_AA_Muzzle'},
                     RackBone = 'Right_AA_Barrel02',
                 },
             },
-
-            RackReloadTimeout = 10,
-
-
 
             RateOfFire = 3,	-- 225 DPS Air
 			
             TargetCheckInterval = 0.2,
 			
             TargetPriorities = {
-                'SPECIALHIGHPRI',
                 'HIGHPRIAIR',
                 'BOMBER',
                 'GROUNDATTACK',

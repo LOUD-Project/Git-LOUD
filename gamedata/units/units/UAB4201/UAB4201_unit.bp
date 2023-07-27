@@ -21,7 +21,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 155,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -39,7 +41,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTSTRATEGIC',
     },
+
     CollisionOffsetY = -0.25,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 2,
@@ -47,11 +51,14 @@ UnitBlueprint {
         MaxHealth = 500,
         RegenRate = 0,
     },
+
     Description = '<LOC uab4201_desc>Tactical Missile Defense',
+
     Display = {
         Abilities = {
             'Aquatic',
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -69,44 +76,45 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.05,
     },
+
     Economy = {
         BuildCostEnergy = 3200,
         BuildCostMass = 280,
         BuildTime = 400,
-        RebuildBonusIds = {
-            'uab4201',
-        },
+
+        RebuildBonusIds = {'uab4201'},
     },
+
     Footprint = {
         MinWaterDepth = 2,
         SizeX = 1,
         SizeZ = 1,
     },
+
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_CounterMeasure',
         CommandCaps = {
             RULEUCC_RetaliateToggle = true,
         },
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC uab4201_name>Volcano',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 28,
     },
+
     Interface = {
         HelpText = 'Tactical Missile Defense',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.55,
     LifeBarSize = 0.9,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -127,14 +135,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.5,
     SelectionSizeZ = 0.95,
     SelectionThickness = 0.45,
+
     SizeX = 0.65,
     SizeY = 0.5,
     SizeZ = 1.25,
+
     StrategicIconName = 'icon_structure2_antimissile',
     StrategicIconSortPriority = 200,
+
     Weapon = {
 
         {
@@ -173,9 +185,7 @@ UnitBlueprint {
             Label = 'AntiMissile',            
 			
             MaxRadius = 22,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 25,
 			
             ProjectileId = '/projectiles/AIMAntiMissile01/AIMAntiMissile01_proj.bp',
@@ -183,17 +193,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Barrel',
-                    },
+                    MuzzleBones = {'Barrel'},
                     RackBone = 'Dome',
                 },
             },
-             
-            
-
-
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -203,6 +206,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'TACTICAL MISSILE',
             TargetType = 'RULEWTT_Projectile',
+
             TrackingRadius = 1.5,
 			
             WeaponRepackTimeout = 0.8,
@@ -217,14 +221,10 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

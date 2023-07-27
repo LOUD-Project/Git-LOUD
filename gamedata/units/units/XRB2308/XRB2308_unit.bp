@@ -1,8 +1,6 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Turret_Barrel',
-        },
+        TargetBones = {'Turret_Barrel'},
     },
 	
     Audio = {
@@ -85,8 +83,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.07,
     },
 	
@@ -104,8 +100,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -114,9 +108,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'sea',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC xrb2308_name>HARMS',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -226,12 +218,6 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-             
-            
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -273,11 +259,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
-            Land = false,
-            Seabed = false,
             Sub = true,
-            Water = false,
         },
     },
 }

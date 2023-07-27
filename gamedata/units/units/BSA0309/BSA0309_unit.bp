@@ -1,6 +1,7 @@
 UnitBlueprint {
     AI = {
         BeaconName = 'XSB5102',
+        GuardScanRadius = 33,
         TargetBones = {'BSA0309'},
     },
 
@@ -58,8 +59,6 @@ UnitBlueprint {
         },
     },
 
-    AverageDensity = 1,
-
     Buffs = {
         Regen = {
             Level1 = 15,
@@ -116,7 +115,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 7,
     },
 
-    Description = '<LOC xea0306_desc>Heavy Air Transport',
+    Description = '<LOC bsa0309_desc>Heavy Air Transport',
 
     Display = {
         Abilities = {
@@ -159,7 +158,6 @@ UnitBlueprint {
 
     General = {
 		CapCost = 2,
-
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -174,13 +172,10 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'air',
         SelectionPriority = 2,
-		
         ToggleCaps = { RULEUTC_SpecialToggle = true },
-		
         OrderOverrides = {
             RULEUTC_SpecialToggle = { bitmapId = 'shield-personal', helpText = 'Toggle Lambda Fields' },
         },
-
         UnitName = '<LOC bsa0309_name>Vishathal-Atah',
     },
 
@@ -367,7 +362,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.2,
 
             TurretBoneMuzzle = 'Left_Turret01_Barrel01_Muzzle01',
             TurretBonePitch = 'Left_Turret01_Barrel01',
@@ -436,7 +431,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.2,
 
             TurretBoneMuzzle = 'Right_Turret01_Barrel01_Muzzle01',
             TurretBonePitch = 'Right_Turret01_Barrel01',
@@ -504,7 +499,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.2,
 
             TurretBoneMuzzle = 'Left_Turret02_Barrel01_Muzzle01',
             TurretBonePitch = 'Left_Turret02_Barrel01',
@@ -572,7 +567,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.2,
 
             TurretBoneMuzzle = 'Right_Turret02_Barrel01_Muzzle01',
             TurretBonePitch = 'Right_Turret02_Barrel02',

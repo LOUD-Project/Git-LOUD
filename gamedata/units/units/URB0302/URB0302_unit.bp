@@ -54,9 +54,12 @@ UnitBlueprint {
     Description = '<LOC urb0302_desc>Advanced Air Factory',
     
     Display = {
+
         AnimationBuild = '/units/urb0302/urb0302_abuild.sca',
         AnimationFinishBuildLand = '/units/urb0302/urb0302_aplatform.sca',
+
         BuildAttachBone = 'Build_Point',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -72,8 +75,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_cybran_01_albedo',
@@ -81,12 +82,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar12x_cybran_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
@@ -107,9 +103,8 @@ UnitBlueprint {
             'BUILTBYTIER3FACTORY CYBRAN MOBILE AIR',
             'TRANSPORTBUILTBYTIER3FACTORY CYBRAN MOBILE AIR',
         },
-        RebuildBonusIds = {
-            'urb0302',
-        },
+        RebuildBonusIds = {'urb0302'},
+
         StorageEnergy = 2400,
         StorageMass = 240,
     },
@@ -131,8 +126,6 @@ UnitBlueprint {
                 'Arm06_Muzzle',
             },
         },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -145,19 +138,22 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'air',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
-        UnitWeight = 1,
+
         UpgradesFrom = 'urb0202',
     },
+
     Intel = {
         VisionRadius = 10,
     },
+
     Interface = {
         HelpText = 'Advanced Air Factory',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 2,
     LifeBarSize = 4.5,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -292,6 +288,7 @@ UnitBlueprint {
             -- z
             0,
         },
+
         RollOffPoints = {
             {
                 UnitSpin = 90,
@@ -312,16 +309,18 @@ UnitBlueprint {
         SkirtSizeZ = 8,
         TurnRate = 0,
     },
+
     SelectionSizeX = 3,
     SelectionSizeZ = 3,
     SelectionThickness = 0.33,
 
-    -- height
     SizeX = 3.5,
     SizeY = 0.75,
     SizeZ = 3.5,
+
     StrategicIconName = 'icon_factory3_air',
     StrategicIconSortPriority = 210,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -329,11 +328,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

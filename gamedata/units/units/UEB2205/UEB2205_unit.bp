@@ -73,8 +73,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.075,
     },
     
@@ -91,8 +89,6 @@ UnitBlueprint {
     },
     
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -101,9 +97,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'sea',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC ueb2205_name>Tsunami',
-        UnitWeight = 1,
     },
     
     Intel = {
@@ -212,9 +206,6 @@ UnitBlueprint {
                     RackBone = 'Turret_Muzzle01',
                 },
             },
-            
-
-
 			
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -227,7 +218,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle01',
             TurretBonePitch = 'Turret',

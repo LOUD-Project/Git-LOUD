@@ -2,7 +2,7 @@ UnitBlueprint {
 
     AI = {
         AttackAngle = 20,   -- this will force unit to turn if turret can traverse
-        GuardScanRadius = 30,
+        GuardScanRadius = 42,
         TargetBones = { 'Turret' },
     },
 
@@ -103,8 +103,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -116,9 +114,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC drl0204_name>Hoplite',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -274,6 +270,7 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
@@ -281,11 +278,7 @@ UnitBlueprint {
         MassMult = 0.7,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

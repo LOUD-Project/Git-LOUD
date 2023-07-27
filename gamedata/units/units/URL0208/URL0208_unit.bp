@@ -85,8 +85,6 @@ UnitBlueprint {
             PitchBone = 'Buildpoint_Left',
             YawBone = 'Buildpoint_Left',
         },
-        Category = 'Construction',
-        Classification = 'RULEUC_Engineer',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Capture = true,
@@ -102,8 +100,6 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 3,
-        TechLevel = 'RULEUTL_Advanced',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -163,11 +159,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

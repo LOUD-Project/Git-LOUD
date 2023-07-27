@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
 		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
+        GuardScanRadius = 18,
     },
     Audio = {
         Destroyed = Sound {
@@ -64,8 +64,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         TransportAnimation = {
             {
                 Animation = '/units/URL0106/URL0106_afold01.sca',
@@ -82,8 +80,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -95,19 +91,21 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC url0106_name>Hunter',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 18,
     },
+
     Interface = {
         HelpText = 'Light Assault Bot',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.1,
     LifeBarSize = 0.45,
+
     Physics = {
 		BackUpDistance = 2,
         BankingSlope = 0,
@@ -126,14 +124,17 @@ UnitBlueprint {
         TurnRadius = 1,
         TurnRate = 45,
     },
+
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.1,
     SelectionSizeX = 0.3,
     SelectionSizeZ = 0.3,
     SelectionThickness = 1.2,
+
     SizeX = 0.4,
     SizeY = 0.5,
     SizeZ = 0.4,
+
     StrategicIconName = 'icon_land1_directfire',
     StrategicIconSortPriority = 135,
 	
@@ -187,19 +188,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -214,7 +206,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',

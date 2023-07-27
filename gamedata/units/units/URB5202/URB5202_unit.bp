@@ -85,9 +85,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
-		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_cybran_01_albedo',
@@ -114,12 +111,9 @@ UnitBlueprint {
         BuildTime = 350,
 		
         RebuildBonusIds = {'urb5202'},
-		
     },
 	
     General = {
-        Category = 'Strategic',
-        Classification = 'RULEUC_MiscSupport',
         CommandCaps = {
             RULEUCC_Transport = true,
         },
@@ -132,8 +126,6 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-        UnitWeight = 1,
     },
 	
     Interface = {

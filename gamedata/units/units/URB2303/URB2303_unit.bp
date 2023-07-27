@@ -74,9 +74,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
-
         UniformScale = 0.5,
     },
 	
@@ -89,8 +86,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Strategic',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -99,9 +94,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC urb2303_name>Gunther',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -204,9 +197,7 @@ UnitBlueprint {
 			
             MaxRadius = 125,
             MinRadius = 5,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 26.13,
 			MuzzleVelocityReduceDistance = 100,
 			
@@ -214,18 +205,12 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Recoil',
                 },
             },
-             
+
             RackRecoilDistance = -1,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -268,11 +253,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

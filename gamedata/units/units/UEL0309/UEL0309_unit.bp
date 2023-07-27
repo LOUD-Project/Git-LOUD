@@ -98,7 +98,6 @@ UnitBlueprint {
                 },
             },
         },
-
         UniformScale = 0.1,
     },
 	
@@ -119,16 +118,10 @@ UnitBlueprint {
     General = {
         BuildBones = {
             AimBone = 0,
-            BuildEffectBones = {
-                'Turret_Muzzle01',
-                'Turret_Muzzle02',
-                'Turret_Muzzle03',
-            },
+            BuildEffectBones = {'Turret_Muzzle01','Turret_Muzzle02','Turret_Muzzle03'},
             PitchBone = 'Turret_Barrel',
             YawBone = 'Turret',
         },
-        Category = 'Construction',
-        Classification = 'RULEUC_Engineer',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Capture = true,
@@ -144,14 +137,12 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 3,
-        TechLevel = 'RULEUTL_Secret',
-        UnitWeight = 1,
     },
 	
     Intel = {
 		FreeIntel = true,
         VisionRadius = 28,
-		OmniRadius = 12,
+		OmniRadius = 10,
     },
 	
     Interface = {
@@ -208,11 +199,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

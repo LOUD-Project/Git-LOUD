@@ -68,8 +68,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.06,
     },
 
@@ -83,8 +81,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -93,9 +89,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC xsb2301_name>Uttaushala',
-        UnitWeight = 1,
     },
 
     Intel = {
@@ -109,6 +103,7 @@ UnitBlueprint {
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.75,
     LifeBarSize = 1.25,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -190,28 +185,14 @@ UnitBlueprint {
 
             MaxRadius = 44,
 
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
 
-             
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-             
-            RackSalvoFiresAfterCharge = false,
-             
-            RackSalvoSize = 1,
-            
-
 
             RangeCategory = 'UWRC_DirectFire',
 
@@ -249,11 +230,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

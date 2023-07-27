@@ -1,10 +1,8 @@
 UnitBlueprint {
     AI = {
 		GuardReturnRadius = 35,
-        GuardScanRadius = 30,
-        TargetBones = {
-            'Torso',
-        },
+        GuardScanRadius = 20,
+        TargetBones = {'Torso'},
     },
     
     Audio = {
@@ -86,9 +84,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
-        
         TransportAnimation = {
             {
                 Animation = '/units/URL0107/URL0107_Afold01.sca',
@@ -116,8 +111,6 @@ UnitBlueprint {
             PitchBone = 'Turret_Muzzle_01',
             YawBone = 'Torso',
         },
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -130,9 +123,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC url0107_name>Mantis',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -222,34 +213,23 @@ UnitBlueprint {
             Label = 'LaserArms',
 			
             MaxRadius = 20,
-            
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/CDFLaserHeavy01/CDFLaserHeavy01_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle_01',
-                    },
+                    MuzzleBones = {'Turret_Muzzle_01'},
                     RackBone = 'Turret_Barrel',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle_02',
-                    },
+                    MuzzleBones = {'Turret_Muzzle_02'},
                     RackBone = 'Turret_Barrel',
                 },
             },
-             
-            
+
             RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -263,8 +243,6 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            
-            TrackingRadius = 1.1,
             
             TurretBoneMuzzle = 'Turret_Muzzle_01',
             TurretBonePitch = 'Turret_Barrel',
@@ -290,11 +268,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

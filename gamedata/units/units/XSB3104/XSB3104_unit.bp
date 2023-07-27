@@ -66,26 +66,25 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.065,
     },
+
     Economy = {
         BuildCostEnergy = 30000,
         BuildCostMass = 2400,
         BuildTime = 1800,
+
         MaintenanceConsumptionPerSecondEnergy = 2000,
-        RebuildBonusIds = {
-            'xsb3104',
-        },
+
+        RebuildBonusIds = {'xsb3104'},
     },
+
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_Sensor',
         FactionName = 'Seraphim',
         Icon = 'land',
         OrderOverrides = {
@@ -95,26 +94,29 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
         UnitName = '<LOC xsb3104_name>Aezesel',
-        UnitWeight = 1,
+
         UpgradesFrom = 'xsb3201',
     },
+
     Intel = {
         OmniRadius = 140,
         RadarRadius = 325,
         ShowIntelOnSelect = true,
         VisionRadius = 46,
     },
+
     Interface = {
         HelpText = 'Omni Sensor Suite',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1.25,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -134,14 +136,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.85,
     SelectionSizeZ = 0.9,
     SelectionThickness = 0.46,
+
     SizeX = 0.7,
     SizeY = 1.3,
     SizeZ = 0.9,
+
     StrategicIconName = 'icon_structure3_intel',
     StrategicIconSortPriority = 225,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -149,11 +155,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

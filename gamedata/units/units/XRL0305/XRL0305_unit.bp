@@ -1,8 +1,9 @@
 UnitBlueprint {
 
     AI = {
-		GuardScanRadius = 30,
-		GuardReturnRadius = 35,
+		GuardScanRadius = 34,
+		GuardReturnRadius = 45,
+
         TargetBones = {          
             'Right_Leg01_B01',
             'Right_Leg02_B01',
@@ -113,8 +114,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
         UniformScale = 0.055,
     },
 	
@@ -125,8 +124,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUMT_Amphibious',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -138,9 +135,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC xrl0305_name>Brick',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -237,9 +232,7 @@ UnitBlueprint {
             LeadTarget = true,
 			
             MaxRadius = 34,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
 			
             ProjectileId = '/projectiles/CDFHeavyDisintegratorPulseLaser01/CDFHeavyDisintegratorPulseLaser01_proj.bp',
@@ -247,21 +240,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile03',
-                    },
+                    MuzzleBones = {'Projectile03'},
                     RackBone = 'Turret',
                 },
             },
-             
-            
-
-
-            RackSalvoFiresAfterCharge = false,
-             
-            RackSalvoSize = 1,
-			
-
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -323,19 +305,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile01',
-                    },
+                    MuzzleBones = {'Projectile01'},
                     RackBone = 'Turret',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -382,9 +355,7 @@ UnitBlueprint {
 			
             MaxRadius = 12,
             MinRadius = 0,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/CIMAntiTorpedo03/CIMAntiTorpedo03_proj.bp',
@@ -392,9 +363,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile01',
-                    },
+                    MuzzleBones = {'Projectile01'},
                     RackBone = 'Turret',
                 },
             },
@@ -420,11 +389,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

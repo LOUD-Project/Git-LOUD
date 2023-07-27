@@ -1,6 +1,7 @@
 UnitBlueprint {
     AI = {
         InitialAutoMode = false,
+        GuardScanRadius = 200,
     },
 	
     Audio = {
@@ -284,7 +285,7 @@ UnitBlueprint {
 			
             Label = 'CruiseMissiles',
 			
-            MaxRadius = 240,
+            MaxRadius = 200,
             MinRadius = 15,
 			
             MuzzleSalvoDelay = 1,

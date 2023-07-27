@@ -4,6 +4,7 @@ UnitBlueprint {
         GuardScanRadius = 30,
         NeedUnpack = true,
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -78,8 +79,10 @@ UnitBlueprint {
                 Weight = 1,
             },
         },
+
         AnimationWalk = '/units/xal0305/xal0305_awalk.sca',
         AnimationWalkRate = 6.4,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -96,7 +99,7 @@ UnitBlueprint {
                 },
             },
         },
-
+
         TransportAnimation = {
             {
                 Animation = '/units/XAL0305/XAL0305_Afold01.sca',
@@ -114,8 +117,6 @@ UnitBlueprint {
 	
     General = {
         CapCost = 3,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -127,9 +128,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC xal0305_name>Sprite Striker',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -228,8 +227,7 @@ UnitBlueprint {
             MaxRadius = 75,
 			
             MuzzleChargeDelay = 1,      -- 1 second delay
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 75,
 			
             ProjectileId = '/projectiles/ADFHeavyDisruptorCannon01/ADFHeavyDisruptorCannon01_proj.bp',
@@ -237,17 +235,12 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
 
             RackRecoilDistance = -0.1,
-            RackReloadTimeout = 10,
-
-
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -262,7 +255,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
             
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
@@ -275,17 +268,18 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 75,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
 
-            WeaponRepackTimeout = 0,
+            WeaponRepackTimeout = 0.5,
             WeaponUnpackAnimation = '/units/xal0305/xal0305_asetup.sca',
             WeaponUnpackAnimationRate = 1,
             WeaponUnpackLocksMotion = true,
             WeaponUnpacks = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
@@ -293,11 +287,7 @@ UnitBlueprint {
         MassMult = 0.1,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

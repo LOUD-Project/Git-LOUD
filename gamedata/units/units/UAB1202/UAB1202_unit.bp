@@ -51,8 +51,10 @@ UnitBlueprint {
         Abilities = {
             'Upgradeable',
         },
+
         AnimationActivate = '/units/UAB1202/UAB1202_apump.sca',
         AnimationUpgrade = '/units/UAB1202/UAB1202_aupgrade.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -69,8 +71,6 @@ UnitBlueprint {
                 },
             },
         },
-
-
 
         UniformScale = 0.15,
     },
@@ -91,21 +91,18 @@ UnitBlueprint {
             'uab1202',
             'uab1302',
         },
+
         StorageEnergy = 120,
         StorageMass = 12,        
     },
     
     General = {
 
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = { RULEUCC_Pause = true },
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = { RULEUTC_ProductionToggle = true },
-        UnitWeight = 1,
         
         UpgradesFrom = 'uab1103',
         UpgradesTo = 'uab1302',
@@ -165,11 +162,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

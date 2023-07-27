@@ -77,8 +77,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = false,
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_01_albedo',
@@ -98,19 +96,18 @@ UnitBlueprint {
         },
         UniformScale = 1.4,
     },
+
     Economy = {
         BuildCostEnergy = 105000,
         BuildCostMass = 7500,
         BuildRate = 1350,
         BuildTime = 7000,
-        RebuildBonusIds = {
-            'ueb4302',
-        },
+
+        RebuildBonusIds = {'ueb4302'},
     },
+
     General = {
 		CapCost = 2,
-        Category = 'Defense',
-        Classification = 'RULEUC_CounterMeasure',
         CommandCaps = {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_SiloBuildTactical = true,
@@ -119,19 +116,21 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC ueb4302_name>Nuke Eliminator',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 10,
     },
+
     Interface = {
         HelpText = 'Strategic Missile Defense',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.85,
     LifeBarSize = 2,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -152,23 +151,23 @@ UnitBlueprint {
         SkirtSizeZ = 3,
         TurnRate = 0,
     },
+
     SelectionSizeX = 1.25,
     SelectionSizeZ = 1.25,
     SelectionThickness = 0.55,
+
     SizeX = 1.75,
     SizeY = 0.8,
     SizeZ = 1.75,
+
     StrategicIconName = 'icon_structure3_antimissile',
     StrategicIconSortPriority = 195,
+
     Weapon = {
         {
             AlwaysRecheckTarget = false,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB4302_Anti_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB4302_Anti_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
@@ -198,9 +197,7 @@ UnitBlueprint {
             MaxProjectileStorage = 7,
 			
             MaxRadius = 100,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 90,
 			
             ProjectileId = '/projectiles/TIMMissileIntercerptor01/TIMMissileIntercerptor01_proj.bp',
@@ -208,14 +205,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle01',
-                    },
+                    MuzzleBones = {'Turret_Muzzle01'},
                     RackBone = 'Turret_Muzzle01',
                 },
             },
-
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -262,9 +255,7 @@ UnitBlueprint {
             Label = 'AntiNuke2',
 			
             MaxRadius = 90,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 65,
 			
 			NotExclusive = true,
@@ -274,14 +265,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle01',
-                    },
+                    MuzzleBones = {'Turret_Muzzle01'},
                     RackBone = 'Turret_Muzzle01',
                 },
             },
-
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -295,6 +282,7 @@ UnitBlueprint {
             Turreted = false,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
@@ -302,11 +290,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = true,
         },
     },
 }

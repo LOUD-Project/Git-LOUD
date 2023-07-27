@@ -1,8 +1,8 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 150,
-        GuardScanRadius = 125,
-		GuardRadius = 125,
+        GuardReturnRadius = 80,
+        GuardScanRadius = 40,
+		GuardRadius = 40,
     },
 	
     Air = {
@@ -199,7 +199,7 @@ UnitBlueprint {
 
 			AlwaysRecheckTarget = true,
 			
-            AutoInitiateAttackCommand = false,
+            AutoInitiateAttackCommand = true,
 			
             BallisticArc = 'RULEUBA_None',
 			
@@ -215,7 +215,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land',
-                Land = 'Air|Land',
+                Land = 'Air',
             },
             FiringTolerance = 0,
 			
@@ -249,9 +249,9 @@ UnitBlueprint {
 				'EXPERIMENTAL',
 				'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Muzzle',
             TurretBonePitch = 'Muzzle',

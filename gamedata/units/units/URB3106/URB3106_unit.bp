@@ -1,5 +1,6 @@
 UnitBlueprint {
     Adjacency = 'T3MassStorageAdjacencyBuffs',
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -17,7 +18,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 60,
+
     Categories = {
         'SELECTABLE',
         'CYBRAN',
@@ -28,6 +31,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 108,
@@ -63,34 +67,30 @@ UnitBlueprint {
                  },
              },
         },
-        PlaceholderMeshName = 'UXB0012',
-
         UniformScale = 0.675,
     },
     
     Economy = {
         AdjacentMassProductionMod = 0.75,
+
         BuildCostEnergy = 13500,
         BuildCostMass = 1800,
         BuildTime = 2250,
-        RebuildBonusIds = {
-            'urb1106',
-        },
+
+        RebuildBonusIds = {'urb1106'},
+
         StorageMass = 950,
     },
     
     General = {
 		CapCost = .5,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
 			RULEUCC_Pause = true,
         },
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
+
         UpgradesFrom = 'urb2106',
         UpgradesFromBase = 'urb1106',
     },
@@ -142,11 +142,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }
