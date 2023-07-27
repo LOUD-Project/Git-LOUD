@@ -3,6 +3,7 @@ UnitBlueprint{
     Description = "<LOC ual0204_desc>Sniper Bot",
 
     AI = {
+        GuardScanRadius = 42,
         TargetBones = { "body" },
     },
 

@@ -2,6 +2,7 @@ UnitBlueprint{
     Description = "<LOC xel0308_desc>Amphibious SAM Launcher",
 
     AI = {
+        GuardScanRadius = 55,
         TargetBones = { "Turret" },
     },
 
@@ -175,7 +176,6 @@ UnitBlueprint{
 
             MaxRadius = 55,
             
-            MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 40,

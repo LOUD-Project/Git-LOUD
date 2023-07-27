@@ -2,6 +2,7 @@ UnitBlueprint{
     Description = "<LOC uel0108_desc>Assault Tank",
 
     AI = {
+        GuardScanRadius = 23,
         TargetBones = { "Turret" },
     },
 

@@ -2,6 +2,7 @@ UnitBlueprint{
     Description = "<LOC ual0310_desc>Mobile Defense Unit",
 
     AI = {
+        GuardScanRadius = 55,
         TargetBones = { "Center_hatch_01" },
     },
 

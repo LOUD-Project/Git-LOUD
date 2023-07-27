@@ -3,8 +3,8 @@ UnitBlueprint{
     Description = "<LOC uaa0206_desc>Beam Gunship",
 
     AI = {
-        GuardReturnRadius = 75,
-        GuardScanRadius = 60,
+        GuardReturnRadius = 80,
+        GuardScanRadius = 56,
     },
 
     Air = {

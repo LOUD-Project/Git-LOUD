@@ -3,6 +3,7 @@ UnitBlueprint{
     Description = "<LOC ual0108_desc>Light Assault Walker",
 
     AI = {
+        GuardScanRadius = 18,
         TargetBones = { "bodyBase" },
     },
 
@@ -186,7 +187,6 @@ UnitBlueprint{
         TurnRate = 60,
     },
 
-    SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0.1,
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.55,

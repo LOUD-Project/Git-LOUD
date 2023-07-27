@@ -1,6 +1,10 @@
 UnitBlueprint{
     Description = "<LOC url0305_desc>Amphibious Attack Bot",
 
+    AI = {
+        GuardScanRadius = 28,
+    },
+    
     Audio = {
         Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land',   LodCutoff = 'UnitMove_LodCutoff' },
         StartMove   = Sound { Bank = 'URL',        Cue = 'URL0107_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },

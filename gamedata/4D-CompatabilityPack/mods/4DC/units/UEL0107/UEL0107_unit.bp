@@ -1,5 +1,9 @@
 UnitBlueprint{
     Description = "<LOC uel0107_desc>Mortar Hovercraft",
+    
+    AI = {
+        GuardScanRadius = 33,
+    },
 
     Audio = {
         Destroyed          = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },

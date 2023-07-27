@@ -2,6 +2,7 @@ UnitBlueprint{
     Description = "<LOC ual0402_desc>Experimental Medium Assault Bot (Assault)",
 
     AI = {
+        GuardScanRadius = 60,
         TargetBones = { "Right_Foot", "Left_Leg_B01", "UAL0402" },
     },
 
