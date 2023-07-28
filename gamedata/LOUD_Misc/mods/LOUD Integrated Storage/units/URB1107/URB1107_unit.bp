@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'T1MassFabricatorAdjacencyBuffs',
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -12,7 +14,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 50,
+
     Categories = {
         'SELECTABLE',
         'CYBRAN',
@@ -25,7 +29,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
-    CollisionOffsetY = 0,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 40,	-- 1000% MassOutput + 5% Health
@@ -33,7 +37,9 @@ UnitBlueprint {
         MaxHealth = 400,
         RegenRate = 4,
     },
+
     Description = '<LOC urb1107_desc>Mass Fabricator & Storage',
+
     Display = {
         Abilities = {
             'Volatile',
@@ -59,11 +65,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0013',
-        SpawnRandomRotation = true,
-
         UniformScale = 0.24,
     },
+
     Economy = {
         BuildCostEnergy = 5400,
         BuildCostMass = 720,
@@ -72,26 +76,27 @@ UnitBlueprint {
         ProductionPerSecondMass = 2,
         StorageMass = 1000,
     },
+
     General = {
-	CapCost = 0,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
+        CapCost = 0.8,
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
-        UnitWeight = 1,
+
         UpgradesFrom = 'urb1104',
     },
+
     Interface = {
         HelpText = 'Mass Fabricator & Storage',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -108,14 +113,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+
     SizeX = 0.84,
     SizeY = 0.66,
     SizeZ = 0.84,
+
     StrategicIconName = 'icon_structure2_mass',
     StrategicIconSortPriority = 250,
+
     Weapon = {
         {
             Damage = 370,

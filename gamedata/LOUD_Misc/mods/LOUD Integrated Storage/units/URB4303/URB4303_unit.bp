@@ -85,9 +85,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
-		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_cybran_01_albedo',
@@ -95,12 +92,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar8x_cybran_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
@@ -126,9 +118,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 0,
-        Category = 'Defense',
-        Classification = 'RULEUC_CounterMeasure',
+		CapCost = 0.5,
         CommandCaps = {
             RULEUCC_Pause = true,
         },
@@ -140,13 +130,11 @@ UnitBlueprint {
                 helpText = 'toggle_shield_dome',
             },
         },
-        SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
         UnitName = '<LOC urb4303_name>ED5',
-        UnitWeight = 1,
+
         UpgradesFrom = 'urb4207',
         UpgradesFromBase = 'urb4202',
     },
@@ -195,11 +183,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

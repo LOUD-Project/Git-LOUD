@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'T3MassExtractorAdjacencyBuffs',
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -12,6 +14,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Categories = {
         'SELECTABLE',
         'UEF',
@@ -24,6 +27,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 798,		-- 1000% MassOutput + 2% Health
@@ -58,8 +62,6 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0017',
-        SpawnRandomRotation = true,
         UniformScale = 0.075,
     },
 	
@@ -133,28 +135,27 @@ UnitBlueprint {
 		
     General = {
 		CapCost = 2,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
             RULEUCC_Stop = true,
         },
         FactionName = 'UEF',
-        Icon = 'land',
-        SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
+        Icon = 'amph',
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
-        UnitWeight = 1,
+
         UpgradesFrom = 'ueb1302',
 		UpgradesFromBase = 'ueb1103',
     },
+
     Interface = {
         HelpText = 'Advanced Mass Extractor & Storage',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 1.1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -176,14 +177,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+
     SizeX = 0.8,
     SizeY = 1.6,
     SizeZ = 0.8,
+
     StrategicIconName = 'icon_structure3_mass',
     StrategicIconSortPriority = 245,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -191,11 +196,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

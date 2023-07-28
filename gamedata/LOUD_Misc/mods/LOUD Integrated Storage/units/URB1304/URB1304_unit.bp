@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'T3MassExtractorAdjacencyBuffs',
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -12,6 +14,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Categories = {
         'SELECTABLE',
         'CYBRAN',
@@ -59,9 +62,6 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0017',
-        SpawnRandomRotation = true,
-
         UniformScale = 0.13,
     },
 	
@@ -139,28 +139,28 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
             RULEUCC_Stop = true,
         },
         FactionName = 'Cybran',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
-        UnitWeight = 1,
+
         UpgradesFrom = 'urb1302',
 		UpgradesFromBase = 'urb1103',
     },
+
     Interface = {
         HelpText = 'Advanced Mass Extractor & Storage',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.55,
     LifeBarSize = 1.25,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -179,14 +179,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+
     SizeX = 0.8,
     SizeY = 1.9,
     SizeZ = 0.8,
+
     StrategicIconName = 'icon_structure3_mass',
     StrategicIconSortPriority = 245,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -194,11 +198,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

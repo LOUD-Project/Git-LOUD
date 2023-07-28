@@ -1,5 +1,6 @@
 UnitBlueprint {
     Adjacency = 'HydrocarbonAdjacencyBuffs',
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -12,7 +13,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 80,
+
     Categories = {
         'SELECTABLE',
         'CYBRAN',
@@ -27,6 +30,7 @@ UnitBlueprint {
     },
 	
     CollisionOffsetY = -0.25,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 860,
@@ -56,10 +60,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0011',
-        SpawnRandomRotation = true,
         UniformScale = 0.54,
     },
+
     Economy = {
         AdjacentStructureEnergyMod = -5,
         BuildCostEnergy = 125000,
@@ -194,25 +197,25 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 5,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
             RULEUCC_Stop = true,
         },
         FactionName = 'Cybran',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
+
         UpgradesFrom = 'brb1302',
 		UpgradesFromBase = 'urb1102',
     },
+
     Interface = {
         HelpText = 'Advanced Hydrocarbon Power Plant & Storage',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.2,
     LifeBarSize = 2.5,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -231,14 +234,18 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+
     SelectionSizeX = 2.1,
     SelectionSizeZ = 1.9,
     SelectionThickness = 0.39,
+
     SizeX = 2.4,
     SizeY = 1.9,
     SizeZ = 2.4,
+
     StrategicIconName = 'icon_structure3_energy',
     StrategicIconSortPriority = 250,
+
 	Weapon = {
         {
             Damage = 10600,

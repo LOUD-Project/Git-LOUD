@@ -136,24 +136,6 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
-        Tarmacs = {
-            {
-                Albedo = 'Tarmacs/Tar8x_seraphim_01_albedo',
-                DeathLifetime = 200,
-                FadeOut = 150,
-                Length = 12.8,
-                Normal = 'Tarmacs/Tar8x_seraphim_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
-                RemoveWhenDead = false,
-                Width = 12.8,
-            },
-        },
         UniformScale = 0.06,
     },
     
@@ -175,14 +157,10 @@ UnitBlueprint {
     },
     
     General = {
-        CapCost = 3,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
+        CapCost = 3.5,
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-        UnitWeight = 1,
         
         UpgradesFrom = 'xsb1201',
     },

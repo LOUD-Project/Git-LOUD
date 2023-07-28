@@ -95,9 +95,7 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
-        
+       
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_01_albedo',
@@ -105,12 +103,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar8x_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
@@ -137,13 +130,9 @@ UnitBlueprint {
     
     General = {
         CapCost = 4,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-        UnitWeight = 1,
         
         UpgradesFrom = 'ueb1201',
     },

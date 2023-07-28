@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'T3MassExtractorAdjacencyBuffs',
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -12,6 +14,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Categories = {
         'SELECTABLE',
         'AEON',
@@ -61,8 +64,6 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0017',
-        SpawnRandomRotation = true,
         UniformScale = 0.21,
     },
 	
@@ -76,9 +77,7 @@ UnitBlueprint {
         
         ProductionPerSecondMass = 30,
 		
-        RebuildBonusIds = {
-            'uab1302',
-        },
+        RebuildBonusIds = {'uab1302'},
 		
         StorageMass = 2500,
     },
@@ -138,28 +137,27 @@ UnitBlueprint {
 
     General = {
 		CapCost = 2,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
             RULEUCC_Stop = true,
         },
         FactionName = 'Aeon',
-        Icon = 'land',
-        SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
+        Icon = 'amph',
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
-        UnitWeight = 1,
+
         UpgradesFrom = 'uab1302',
 		UpgradesFromBase = 'uab1103',
     },
+
     Interface = {
         HelpText = 'Advanced Mass Extractor & Storage',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 1.1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -204,11 +202,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

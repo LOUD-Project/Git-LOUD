@@ -29,8 +29,6 @@ UnitBlueprint {
         'RECLAIMABLE',
     },
     
-    CollisionOffsetY = 0,
-    
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 103,	-- 10% Energy + 1% Health
@@ -40,6 +38,7 @@ UnitBlueprint {
     },
     
     Description = '<LOC urb1203_desc>Improved Power Generator & Storage',
+
     Display = {
         Abilities = {
             'Volatile',
@@ -85,9 +84,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
-        
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_cybran_01_albedo',
@@ -95,12 +91,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar8x_cybran_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
@@ -126,14 +117,10 @@ UnitBlueprint {
     },
     
     General = {
-        CapCost = 3,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
+        CapCost = 4,
         FactionName = 'Cybran',
         Icon = 'amph',
-        SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitWeight = 1,
         
         UpgradesFrom = 'urb1201',
     },

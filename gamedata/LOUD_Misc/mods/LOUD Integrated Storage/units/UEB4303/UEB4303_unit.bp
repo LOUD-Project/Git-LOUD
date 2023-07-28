@@ -77,9 +77,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
-		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_01_albedo',
@@ -87,12 +84,7 @@ UnitBlueprint {
                 FadeOut = 300,
                 Length = 10,
                 Normal = 'Tarmacs/Tar8x_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 10,
             },
@@ -118,9 +110,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 0,
-        Category = 'Defense',
-        Classification = 'RULEUC_CounterMeasure',
+		CapCost = 0.5,
         FactionName = 'UEF',
         Icon = 'land',
         OrderOverrides = {
@@ -130,12 +120,11 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
         UnitName = '<LOC ueb4303_name>HSD Pulse',
-        UnitWeight = 1,
+
         UpgradesFrom = 'ueb4301',
     },
 	
@@ -185,11 +174,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

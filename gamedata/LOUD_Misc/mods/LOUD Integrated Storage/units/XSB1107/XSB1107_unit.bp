@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'T1MassFabricatorAdjacencyBuffs',
+
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -17,7 +19,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 50,
+
     Categories = {
         'SELECTABLE',
         'SERAPHIM',
@@ -30,7 +34,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
-    CollisionOffsetY = 0,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 40,	-- 1000% MassOutput + 5% Health
@@ -38,7 +42,9 @@ UnitBlueprint {
         MaxHealth = 400,
         RegenRate = 2,
     },
+
     Description = '<LOC xsb1107_desc>Mass Fabricator & Storage',
+
     Display = {
         Abilities = {
             'Volatile',
@@ -66,38 +72,41 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0013',
-        SpawnRandomRotation = true,
         UniformScale = 0.066,
     },
+
     Economy = {
         BuildCostEnergy = 5400,
         BuildCostMass = 720,
         BuildTime = 900,
+
         MaintenanceConsumptionPerSecondEnergy = 400,
+
         ProductionPerSecondMass = 2,
+
         StorageMass = 1000,
     },
+
     General = {
-	CapCost = 0,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
+        CapCost = 0.8,
         FactionName = 'Seraphim',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
-        UnitWeight = 1,
+
         UpgradesFrom = 'xsb1104',
     },
+
     Interface = {
         HelpText = 'Mass Fabricator & Storage',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1.1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -117,14 +126,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+
     SizeX = 0.9,
     SizeY = 0.42,
     SizeZ = 0.9,
+
     StrategicIconName = 'icon_structure2_mass',
     StrategicIconSortPriority = 250,
+
     Weapon = {
         {
             Damage = 370,

@@ -88,7 +88,6 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_cybran_01_albedo',
@@ -96,12 +95,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar8x_cybran_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
@@ -180,20 +174,17 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 0,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
+		CapCost = 2,
         CommandCaps = {
             RULEUCC_Stop = true,
         },
         FactionName = 'Cybran',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
-        UnitWeight = 1,
+
         UpgradesFrom = 'urb1303',
     },
 	

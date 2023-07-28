@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'HydrocarbonAdjacencyBuffs',
+
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -17,7 +19,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 80,
+
     Categories = {
         'SELECTABLE',
         'SERAPHIM',
@@ -30,6 +34,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 860,
@@ -37,7 +42,9 @@ UnitBlueprint {
         MaxHealth = 11660,
         RegenRate = 6,
     },
+
     Description = '<LOC bsb1304_desc>Advanced Hydrocarbon Power Plant & Storage',
+
     Display = {
 		Abilities = {
 			'Customizable',
@@ -59,10 +66,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0011',
-        SpawnRandomRotation = true,
         UniformScale = 0.07,
     },
+
     Economy = {
         AdjacentStructureEnergyMod = -5,
         BuildCostEnergy = 125000,
@@ -195,26 +201,26 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 5,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
             RULEUCC_Stop = true,
         },
         FactionName = 'Seraphim',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC bsb1304_name>Uya-atoh',
-        UnitWeight = 1,
+
         UpgradesFrom = 'bsb1302',
 		UpgradesFromBase = 'xsb1102',
     },
+
     Interface = {
         HelpText = 'Adv. Hydrocarbon Power Plant & Storage',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.2,
     LifeBarSize = 3,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -236,14 +242,18 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+
     SelectionSizeX = 1.75,
     SelectionSizeZ = 1.5,
     SelectionThickness = 0.3,
+
     SizeX = 3,
     SizeY = 1.5,
     SizeZ = 3,
+
     StrategicIconName = 'icon_structure3_energy',
     StrategicIconSortPriority = 250,
+
 	Weapon = {
         {
             Damage = 10600,

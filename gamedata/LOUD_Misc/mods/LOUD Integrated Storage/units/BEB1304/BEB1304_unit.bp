@@ -60,10 +60,9 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0011',
-        SpawnRandomRotation = true,
         UniformScale = 0.6,
     },
+
     Economy = {
         AdjacentStructureEnergyMod = -5,
         BuildCostEnergy = 125000,
@@ -196,26 +195,26 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 5,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
             RULEUCC_Stop = true,
         },
         FactionName = 'UEF',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC beb1304_name>HCPP - X3000',
-        UnitWeight = 1,
+
         UpgradesFrom = 'beb1302',
 		UpgradesFromBase = 'ueb1102',
     },
+
     Interface = {
         HelpText = 'Advanced Hydrocarbon Power Plant & Storage',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.2,
     LifeBarSize = 3,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -237,14 +236,18 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+
     SelectionSizeX = 2.2,
     SelectionSizeZ = 2.2,
     SelectionThickness = 0.36,
+
     SizeX = 3,
     SizeY = 2,
     SizeZ = 3,
+
     StrategicIconName = 'icon_structure3_energy',
     StrategicIconSortPriority = 250,
+
 	Weapon = {
         {
             Damage = 10600,
