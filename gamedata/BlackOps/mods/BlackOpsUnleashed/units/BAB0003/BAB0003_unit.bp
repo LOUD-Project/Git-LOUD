@@ -42,7 +42,6 @@ UnitBlueprint {
     	CapCost = 0,
         FactionName = 'Aeon',
         Icon = 'land',
-        UnitWeight = 1,
     },
 	
     Physics = {

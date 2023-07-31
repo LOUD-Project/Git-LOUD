@@ -1,6 +1,7 @@
 UnitBlueprint {
 
     AI = {
+        GuardScanRadius = 28,
 		TargetBones = {'Body'},
     },
 	
@@ -99,8 +100,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 0.5,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -112,10 +111,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Advanced',
-
         UnitName = '<LOC bsl0003_name>Hala Ilshavoh',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -205,7 +201,6 @@ UnitBlueprint {
 			
             MaxRadius = 28,
 			
-            MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 33,
@@ -242,7 +237,7 @@ UnitBlueprint {
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.15,
 			
             TurretBoneDualMuzzle = 'Left_Muzzle',
             TurretBoneDualPitch = 'Left_Arm',

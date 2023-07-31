@@ -1,12 +1,7 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Spinner_1',
-            'Leg_A_1',
-			'Leg_B_1',
-			'Leg_B_1',
-			'Leg_D_1',
-        },
+        GuardScanRadius = 130,
+        TargetBones = {'Spinner_1','Leg_A_1','Leg_B_1','Leg_B_1','Leg_D_1'},
         NeedUnpack = true,
     },
     
@@ -190,8 +185,6 @@ UnitBlueprint {
 
     General = {
 		CapCost = 9,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -202,9 +195,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC bal0401_name>Inquisitor',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -315,10 +306,7 @@ UnitBlueprint {
             LeadTarget = false,
 			
             MaxRadius = 130,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 6,
 			
             NotExclusive = true,
@@ -331,14 +319,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Bombard',
-                    },
+                    MuzzleBones = {'Bombard'},
                     RackBone = 'Bombard',
                 },
             },
-
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			

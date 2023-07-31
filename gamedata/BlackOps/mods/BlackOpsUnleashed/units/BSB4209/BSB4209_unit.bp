@@ -87,15 +87,11 @@ UnitBlueprint {
 
     General = {
 		CapCost = 1,
-        Category = 'Intelligence',
-        Classification = 'RULEUC_Sensor',
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-		
         ToggleCaps = { RULEUTC_ShieldToggle = true },
-		
         OrderOverrides = {
             RULEUTC_ShieldToggle = {
                 bitmapId = 'shield-dome',
@@ -103,7 +99,6 @@ UnitBlueprint {
             },
         },
         UnitName = '<LOC bsb4209_name>Haazthue-Uhthena',
-        UnitWeight = 1,
 		
         UpgradesTo = 'bsb4309',
     },

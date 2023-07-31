@@ -1,10 +1,9 @@
 UnitBlueprint {
 
 	AI = {
+        GuardScanRadius = 32,
         NeedUnpack = true,
-        TargetBones = {
-            'Barrel',
-        },
+        TargetBones = {'Barrel'},
     },
 	
     Audio = {
@@ -103,8 +102,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -116,9 +113,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC bal0110_name>Requiem',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -159,7 +154,6 @@ UnitBlueprint {
         TurnRate = 45,
     },
 	
-    SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0.025,
     
     SelectionSizeX = 0.3,
@@ -206,7 +200,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 2,
@@ -216,8 +209,7 @@ UnitBlueprint {
             MaxRadius = 32,
 			
             MuzzleChargeDelay = 0.3,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 45,
 			
             ProjectileId = '/projectiles/AAASonicPulse01/AAASonicPulse01_proj.bp',
@@ -225,18 +217,12 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle',
-                    },
+                    MuzzleBones = {'Muzzle'},
                     RackBone = 'Barrel',
                 },
             },
 
             RackRecoilDistance = -1,
-
-            RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_DirectFire',
 			

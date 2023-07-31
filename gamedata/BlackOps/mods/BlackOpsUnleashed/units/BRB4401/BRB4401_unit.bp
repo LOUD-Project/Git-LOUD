@@ -77,11 +77,8 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 10,
-        Category = 'Intelligence',
-        Classification = 'RULEUC_CounterMeasure',
         FactionName = 'Cybran',
         Icon = 'land',
-
         OrderOverrides = {
             RULEUTC_IntelToggle = {
                 bitmapId = 'stealth-personal',
@@ -89,12 +86,8 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-		
         ToggleCaps = { RULEUTC_IntelToggle = true },
-		
         UnitName = '<LOC brb4401_name>Shadow',
-        UnitWeight = 1,
     },
 	
     Intel = {

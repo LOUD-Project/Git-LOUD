@@ -102,8 +102,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         FactionName = 'Seraphim',
         Icon = 'land',
 		
@@ -113,16 +111,11 @@ UnitBlueprint {
                 helpText = 'Toggle Restoration Field',
             },
         },
-		
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-		
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-		
         UnitName = '<LOC bsb4205_name>Au-iya',
-        UnitWeight = 1,
     },
 	
     Intel = {

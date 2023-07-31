@@ -1,14 +1,14 @@
 UnitBlueprint {
 
     AI = {
-		GuardRadius = 100,
-        GuardReturnRadius = 125,
-        GuardScanRadius = 150,
+		GuardRadius = 42,
+        GuardReturnRadius = 65,
+        GuardScanRadius = 42,
+
 		TargetBones = {'XSA0203'},
     },
 
     Air = {
-	
         AutoLandTime = 1.6,
         BankFactor = 0.1,
         BankForward = false,
@@ -38,7 +38,6 @@ UnitBlueprint {
         StartTurnDistance = 5,
 		
         Winged = false,
-		
     },
 	
     Audio = {
@@ -127,8 +126,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 0.5,
-        Category = 'Gunship',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -141,9 +138,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC bsa0003_name>Hala Vulthoo',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -256,10 +251,6 @@ UnitBlueprint {
                     RackBone = 'Left_Turret_Barrel',
                 },
             },
-
-            RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_DirectFire',
 			

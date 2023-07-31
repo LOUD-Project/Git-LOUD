@@ -1,5 +1,6 @@
 UnitBlueprint {
 	AI = {
+        GuardScanRadius = 58,
         TargetBones = { 'Torso','Head','Left_Leg_B','Right_Toe' },
     },
 	
@@ -166,7 +167,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 7,
-        Category = 'Exerimental',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -178,9 +178,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
 		UnitName = '<LOC bel0402_name>Goliath',
-        UnitWeight = 4,
     },
 	
     Intel = {
@@ -431,8 +429,6 @@ UnitBlueprint {
 			MinRadius = 11,
 			
             MuzzleChargeDelay = 0.4,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
 			
             NeedPrep = true,
 			NotExclusive = true,

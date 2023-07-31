@@ -80,13 +80,10 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 12,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
+
 		UpgradesFrom = 'brb1202',
 		UpgradesFromBase = 'urb1102',		
     },

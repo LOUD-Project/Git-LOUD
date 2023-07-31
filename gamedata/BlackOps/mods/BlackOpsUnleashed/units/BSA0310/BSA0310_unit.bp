@@ -1,6 +1,9 @@
 UnitBlueprint {
 
     AI = {
+        GuardScanRadius = 44,
+        GuardReturnRadius = 65,
+
 		TargetBones = {'XSA0310'},
     },
 	
@@ -161,8 +164,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Gunship',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -175,9 +176,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC bsa0310_name>Vulthatha-Ioz',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -298,8 +297,6 @@ UnitBlueprint {
                     RackBone = 'Main_launcher',
                 },
             },
-            
-            RackReloadTimeout = 10,
 
             RackSalvoReloadTime = 2.5,	-- 2.5 seconds to reload rack salvo
 
@@ -497,7 +494,6 @@ UnitBlueprint {
 			
             MaxRadius = 33,
 			
-            MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 3,
             MuzzleVelocity = 65,
 			

@@ -1,6 +1,9 @@
 UnitBlueprint {
 
 	AI = {
+
+        GuardScanRadius = 22,
+        
 		TargetBones = { 
 			'Body',
 			'Leg_Upper_01',
@@ -128,8 +131,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 3,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -140,22 +141,16 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'amph',
-		
 		OrderOverrides = {
             RULEUTC_ShieldToggle = {
                 bitmapId = 'shield-dome',
                 helpText = 'Toggle Restoration Field',
             },
         },
-		
-        TechLevel = 'RULEUTL_Secret',
-		
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-		
         UnitName = '<LOC bsl0406_name>Seth Ilhaas',
-        UnitWeight = 4,
     },
 	
     Intel = {
@@ -291,7 +286,7 @@ UnitBlueprint {
 			
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
 			
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Muzzle',
@@ -329,11 +324,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

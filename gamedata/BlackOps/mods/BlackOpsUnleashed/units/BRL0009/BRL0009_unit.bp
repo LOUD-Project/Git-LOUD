@@ -1,11 +1,7 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+
         EggOpen = Sound {
             Bank = 'XRL_Stream',
             Cue = 'XRL_Crab_Egg_Open',
@@ -74,15 +70,11 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
         CommandCaps = {
             RULEUCC_Stop = true,
         },
         FactionName = 'Cybran',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Secret',
-        UnitWeight = 1,
     },
 	
     Intel = {

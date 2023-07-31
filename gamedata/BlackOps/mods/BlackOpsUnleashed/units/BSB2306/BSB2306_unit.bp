@@ -81,8 +81,6 @@ UnitBlueprint {
                 },
             },
         },
-		
-
         UniformScale = 0.055,
     },
 	
@@ -101,8 +99,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -111,9 +107,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC bsb2306_name>Uttauthuum',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -211,10 +205,7 @@ UnitBlueprint {
 			
             MaxRadius = 57,
 			MinRadius = 6,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 32,
 
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/SeraHeavyLightningCannon01/SeraHeavyLightningCannon01_proj.bp',
@@ -243,7 +234,7 @@ UnitBlueprint {
 				'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
@@ -276,10 +267,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
             Water = true,
         },
     },

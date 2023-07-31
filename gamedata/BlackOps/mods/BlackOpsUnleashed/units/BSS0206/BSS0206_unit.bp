@@ -1,12 +1,8 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 60,
-		TargetBones = { 
-			'XSS0206',
-			'Front_Turret01',
-			'Front_Turret02',
-			'Back_Turret01',
-		},
+        GuardReturnRadius = 125,
+        GuardScanRadius = 116,
+		TargetBones = { 'XSS0206','Front_Turret01','Front_Turret02','Back_Turret01'},
     },
 
     Audio = {
@@ -98,14 +94,8 @@ UnitBlueprint {
             Water = {
                 Effects = {
                     {
-                        Bones = {
-                            'XSS0206',
-                        },
-                        Offset = {
-                            0,
-                            0,
-                            -0.25,
-                        },
+                        Bones = {'XSS0206'},
+                        Offset = {0,0,-0.25},
                         Scale = 1.35,
                         Type = 'SeaIdle01',
                     },
@@ -133,8 +123,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Ship',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -145,9 +133,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'sea',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC bss0206_name>Zthuzene',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -245,8 +231,7 @@ UnitBlueprint {
             MinRadius = 30,
 			
             MuzzleChargeDelay = 0.25,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 25,
             MuzzleVelocityReduceDistance = 85,
 			
@@ -328,8 +313,7 @@ UnitBlueprint {
             MinRadius = 30,
 			
             MuzzleChargeDelay = 0.25,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 25,
             MuzzleVelocityReduceDistance = 85,
 			
@@ -338,18 +322,11 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Turret02_Muzzle',
-                    },
+                    MuzzleBones = {'Front_Turret02_Muzzle'},
                     RackBone = 'Front_Turret02_Barrel',
                 },
             },
-             
             RackRecoilDistance = -1,
-
-
-            RackSalvoSize = 1,
-
 
             RateOfFire = 0.4,		-- fires every 2.5 seconds by charge -- 196 DPS
 			
@@ -407,8 +384,7 @@ UnitBlueprint {
 			LeadTarget = true,
 			
             MaxRadius = 45,
-			
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
 			
@@ -425,10 +401,9 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = true,
+
             RackRecoilDistance = -0.5,
 
-
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_AntiAir',
@@ -444,7 +419,7 @@ UnitBlueprint {
                 'AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Back_Turret01_Muzzle01',
             TurretBonePitch = 'Back_Turret01_Barrel',

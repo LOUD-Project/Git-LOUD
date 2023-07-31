@@ -89,9 +89,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 4387500,	----5850000,
-        BuildCostMass = 224775,		----230000,
-        BuildTime = 111750,			----149000,
+        BuildCostEnergy = 4387500,
+        BuildCostMass = 224775,
+        BuildTime = 111750,
 		
         BuildRate = 80,
 		
@@ -128,8 +128,6 @@ UnitBlueprint {
                 'FX_14',
             },
         },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -141,9 +139,7 @@ UnitBlueprint {
         ConstructionBar = true,
         FactionName = 'Seraphim',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC bsb2402_name>Haasioz-Iya',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -211,10 +207,7 @@ UnitBlueprint {
         MassMult = 1.0,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
             Water = true,
         },
     },

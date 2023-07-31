@@ -71,15 +71,10 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Intelligence',
-        Classification = 'RULEUC_CounterMeasure',
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-		
         ToggleCaps = { RULEUTC_ShieldToggle = true },
-		
         OrderOverrides = {
             RULEUTC_ShieldToggle = {
                 bitmapId = 'shield-dome',
@@ -87,7 +82,6 @@ UnitBlueprint {
             },
         },
         UnitName = '<LOC beb4309_name>ATF-305 Preventer',
-        UnitWeight = 1,
 		
 		UpgradesFromBase = 'beb4209',		
 		UpgradesFrom = 'beb4209',

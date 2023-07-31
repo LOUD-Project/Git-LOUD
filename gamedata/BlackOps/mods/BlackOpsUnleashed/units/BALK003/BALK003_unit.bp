@@ -1,9 +1,9 @@
 UnitBlueprint {
 	AI = {
-        TargetBones = {
-            'Turret',
-        },
+        GuardScanRadius = 55,
+        TargetBones = {'Turret'},
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -114,7 +114,6 @@ UnitBlueprint {
     },
 	
     General = {
-
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -126,9 +125,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'land',
-
         UnitName = '<LOC balk003_name>Redeemer',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -232,10 +229,6 @@ UnitBlueprint {
                     RackBone = 'Missile',
                 },
             },
-            
-            RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -268,6 +261,7 @@ UnitBlueprint {
             WeaponUnpacks = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
@@ -275,11 +269,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

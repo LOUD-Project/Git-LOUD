@@ -1,21 +1,17 @@
 UnitBlueprint {
     AI = {
         AttackAngle = 33,
-        GuardReturnRadius = 60,
+
+        GuardReturnRadius = 175,
+        GuardScanRadius = 145,
+
         RefuelingMultiplier = 50,
         RefuelingRepairAmount = 500,
         RepairConsumeEnergy = 5,
         RepairConsumeMass = 0.5,
 		StagingPlatformScanRadius = 400,
-        TargetBones = {
-            'BRS0401',
-            'Sea_Idle_L',
-            'Sea_Idle_R',
-            'Front_Right_WakeR',
-            'Back_Left_Barrel',
-            'Right_Railgun_Turret',
-			'Zapper_Muzzle',
-        },
+
+        TargetBones = {'BRS0401','Sea_Idle_L','Front_Right_WakeR','Back_Left_Barrel','Right_Railgun_Turret','Zapper_Muzzle'},
     },
 	
     Audio = {
@@ -190,8 +186,6 @@ UnitBlueprint {
 
     General = {
 		CapCost = 15,
-        Category = 'Ship',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -209,9 +203,7 @@ UnitBlueprint {
                 helpText = 'deploy',
             },
         },
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC brs0402_name>SeaDragon MKII',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -477,8 +469,7 @@ UnitBlueprint {
             MaxRadius = 145,
 			
             MuzzleChargeDelay = 1.5,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
 			
             NotExclusive = true,
@@ -517,7 +508,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Left_Railgun_Muzzle',
             TurretBonePitch = 'Left_Railgun',
@@ -631,8 +622,7 @@ UnitBlueprint {
             MaxRadius = 145,
 			
             MuzzleChargeDelay = 1.5,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
 			
             NotExclusive = true,
@@ -670,7 +660,7 @@ UnitBlueprint {
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Right_Railgun_Muzzle',
             TurretBonePitch = 'Right_Railgun',
@@ -730,9 +720,7 @@ UnitBlueprint {
 			
             HeadingArcCenter = 0,
             HeadingArcRange = 145,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 50,
 
             ProjectileId = '/projectiles/CDFProtonCannon01/CDFProtonCannon01_proj.bp',
@@ -823,9 +811,7 @@ UnitBlueprint {
             Label = 'SecondaryCannon',			
 			
             MaxRadius = 85,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 50,
 
             ProjectileId = '/projectiles/CDFProtonCannon01/CDFProtonCannon01_proj.bp',
@@ -858,7 +844,6 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-			
             TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Front_Left_Muzzle01',
@@ -918,9 +903,7 @@ UnitBlueprint {
             HeadingArcRange = 140,
 			
             MaxRadius = 85,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 50,
 
             ProjectileId = '/projectiles/CDFProtonCannon01/CDFProtonCannon01_proj.bp',
@@ -1013,9 +996,7 @@ UnitBlueprint {
             HeadingArcRange = 140,
 			
             MaxRadius = 85,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 50,
 
             ProjectileId = '/projectiles/CDFProtonCannon01/CDFProtonCannon01_proj.bp',
@@ -1106,9 +1087,7 @@ UnitBlueprint {
             Label = 'SecondaryCannon',
 			
             MaxRadius = 85,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 50,
 
             ProjectileId = '/projectiles/CDFProtonCannon01/CDFProtonCannon01_proj.bp',
@@ -1198,9 +1177,7 @@ UnitBlueprint {
 			
             HeadingArcCenter = 180,
             HeadingArcRange = 160,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 50,
 
             ProjectileId = '/projectiles/CDFProtonCannon01/CDFProtonCannon01_proj.bp',
@@ -1359,9 +1336,6 @@ UnitBlueprint {
             Label = 'AntiMissile',
 			
             MaxRadius = 30,
-
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
 			
             NeedPrep = true,
 
@@ -1436,9 +1410,6 @@ UnitBlueprint {
 			LeadTarget = false,
 			
             MaxRadius = 50,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
 			
             NotExclusive = true,
 			
@@ -1520,9 +1491,6 @@ UnitBlueprint {
 			
             MaxRadius = 50,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
             NotExclusive = true,
 			
             RackBones = {
@@ -1600,9 +1568,6 @@ UnitBlueprint {
 			
             MaxRadius = 50,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
             NotExclusive = true,
 			
             RackBones = {
@@ -1677,9 +1642,6 @@ UnitBlueprint {
 			LeadTarget = false,
 			
             MaxRadius = 50,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
 			
             NotExclusive = true,
 			
@@ -1759,9 +1721,6 @@ UnitBlueprint {
 			
             MaxRadius = 50,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
             NotExclusive = true,
 			
             RackBones = {
@@ -1839,9 +1798,6 @@ UnitBlueprint {
 			LeadTarget = false,
 			
             MaxRadius = 5,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
 			
             NotExclusive = true,
 			

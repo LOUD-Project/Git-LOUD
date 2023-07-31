@@ -1,11 +1,7 @@
 UnitBlueprint {
 
     AI = {
-		TargetBones = {
-            'TargetBone01',
-			'TargetBone02',
-			'TargetBone03',
-		},
+		TargetBones = {'TargetBone01','TargetBone02','TargetBone03'},
     },
 	
     Audio = {
@@ -263,8 +259,6 @@ UnitBlueprint {
                     RackBone = 'Eye01',
                 },
             },
-
-            RackReloadTimeout = 5,
 
             RangeCategory = 'UWRC_DirectFire',
 			

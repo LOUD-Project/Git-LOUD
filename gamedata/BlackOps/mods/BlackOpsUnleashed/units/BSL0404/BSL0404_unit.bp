@@ -104,8 +104,6 @@ UnitBlueprint {
 	
     General = {
         CapCost = 0,
-        Category = 'Construction',
-        Classification = 'RULEUC_Engineer',
         CommandCaps = {
             RULEUCC_Move = true,
             RULEUCC_Patrol = true,
@@ -113,9 +111,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC bsl0404_name>Othuy',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -208,10 +204,6 @@ UnitBlueprint {
 			
             MaxRadius = 6,
 			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
             RackBones = {
                 {
                     MuzzleBones = {'Muzzle'},
@@ -229,7 +221,7 @@ UnitBlueprint {
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Muzzle',
             TurretBonePitch = 'Muzzle',

@@ -1,10 +1,9 @@
 UnitBlueprint {
     AI = {
         BeaconName = 'URB5102',
+        GuardScanRadius = 45,
         InitialAutoMode = false,
-        TargetBones = {
-            'XRA0409',
-        },
+        TargetBones = {'XRA0409'},
     },
 	
     Air = {
@@ -184,8 +183,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 4,
-        Category = 'Transport',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -201,10 +198,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'air',
         SelectionPriority = 2,
-        TechLevel = 'RULEUTL_Advanced',
-
         UnitName = '<LOC bra0409_name>Gargantuan',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -291,9 +285,7 @@ UnitBlueprint {
 			
             Buffs = {
             	{
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 1,
@@ -323,7 +315,6 @@ UnitBlueprint {
 			
             MaxRadius = 45,
 			
-            MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 4,
 			
@@ -359,7 +350,7 @@ UnitBlueprint {
 			
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
 			
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'R_Muzzle_01',
             TurretBonePitch = 'R_Barrel_01',
@@ -398,9 +389,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             Buffs = {
             	{
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 1,
@@ -459,7 +448,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'L_Muzzle_01',
             TurretBonePitch = 'L_Barrel_01',
@@ -498,9 +487,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             Buffs = {
             	{
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 1,
@@ -528,8 +515,7 @@ UnitBlueprint {
 			
             LeadTarget = false,
             MaxRadius = 45,
-			
-            MuzzleChargeDelay = 0,
+
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 4,
 			
@@ -560,7 +546,7 @@ UnitBlueprint {
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'R_Back_Muzzle_01',
             TurretBonePitch = 'R_Back_Barrel_01',
@@ -598,9 +584,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             Buffs = {
             	{
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 1,
@@ -659,7 +643,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'L_Back_Muzzle_01',
             TurretBonePitch = 'L_Back_Barrel_01',
@@ -721,16 +705,12 @@ UnitBlueprint {
 			LeadTarget = false,
 			
             MaxRadius = 52,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             NotExclusive = true,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'R_F_AA_Muzzle_01',
-                    },
+                    MuzzleBones = {'R_F_AA_Muzzle_01'},
                     RackBone = 'R_F_AA_Muzzle_01',
                 },
             },
@@ -744,14 +724,14 @@ UnitBlueprint {
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
-                'AIR MOBILE ANTIAIR',
+                'ANTIAIR',
                 'AIR MOBILE',
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
-            TrackingRadius = 1.25,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'R_F_AA_Muzzle_01',
             TurretBonePitch = 'R_F_AA_Muzzle_01',
@@ -812,16 +792,12 @@ UnitBlueprint {
 			LeadTarget = false,
 			
             MaxRadius = 52,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             NotExclusive = true,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'L_F_AA_Muzzle_01',
-                    },
+                    MuzzleBones = {'L_F_AA_Muzzle_01'},
                     RackBone = 'L_F_AA_Muzzle_01',
                 },
             },
@@ -834,13 +810,14 @@ UnitBlueprint {
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
-                'AIR MOBILE ANTIAIR',
+                'ANTIAIR',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
-            TrackingRadius = 1.25,
+            TrackingRadius = 1.2,
+
             TurretBoneMuzzle = 'L_F_AA_Muzzle_01',
             TurretBonePitch = 'L_F_AA_Muzzle_01',
             TurretBoneYaw = 'L_F_AA_Muzzle_01',
@@ -900,16 +877,12 @@ UnitBlueprint {
 			LeadTarget = false,
 			
             MaxRadius = 52,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             NotExclusive = true,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'R_U_Muzzle_01',
-                    },
+                    MuzzleBones = {'R_U_Muzzle_01'},
                     RackBone = 'R_U_Muzzle_01',
                 },
             },
@@ -921,13 +894,13 @@ UnitBlueprint {
 			SlavedToBody = false,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
-                'AIR MOBILE ANTIAIR',
+                'MOBILE ANTIAIR',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
-            TrackingRadius = 1.25,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'R_U_Muzzle_01',
             TurretBonePitch = 'R_U_Muzzle_01',
@@ -987,16 +960,12 @@ UnitBlueprint {
 			LeadTarget = false,
 			
             MaxRadius = 52,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             NotExclusive = true,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'L_U_AA_Muzzle01',
-                    },
+                    MuzzleBones = {'L_U_AA_Muzzle01'},
                     RackBone = 'L_U_AA_Muzzle01',
                 },
             },
@@ -1008,7 +977,7 @@ UnitBlueprint {
 			SlavedToBody = false,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
-                'AIR MOBILE ANTIAIR',
+                'MOBILE ANTIAIR',
                 'AIR MOBILE',
             },
 			
@@ -1073,16 +1042,12 @@ UnitBlueprint {
 			LeadTarget = false,
 			
             MaxRadius = 52,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             NotExclusive = true,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'L_B_AA_Muzzle_01',
-                    },
+                    MuzzleBones = {'L_B_AA_Muzzle_01'},
                     RackBone = 'L_B_AA_Muzzle_01',
                 },
             },
@@ -1094,13 +1059,14 @@ UnitBlueprint {
             
             TargetCheckInterval = 0.5,
             TargetPriorities = {
-                'AIR MOBILE ANTIAIR',
+                'MOBILE ANTIAIR',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
-            TrackingRadius = 1.25,
+            TrackingRadius = 1.2,
+
             TurretBoneMuzzle = 'L_B_AA_Muzzle_01',
             TurretBonePitch = 'L_B_AA_Muzzle_01',
             TurretBoneYaw = 'L_B_AA_Muzzle_01',
@@ -1158,16 +1124,12 @@ UnitBlueprint {
 			LeadTarget = false,
 			
             MaxRadius = 52,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             NotExclusive = true,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'R_B_AA_Muzzle_01',
-                    },
+                    MuzzleBones = {'R_B_AA_Muzzle_01'},
                     RackBone = 'R_B_AA_Muzzle_01',
                 },
             },
@@ -1235,9 +1197,7 @@ UnitBlueprint {
 			-- outer ring affects least number of units
             Buffs = {
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 4,
@@ -1247,9 +1207,7 @@ UnitBlueprint {
                 },
 			-- middle ring lasts longer and affects T3 and STRUCTURE
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 8,
@@ -1259,9 +1217,7 @@ UnitBlueprint {
                 },
 			-- inner ring affects EXPERIMENTALS too
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 12,
@@ -1284,9 +1240,6 @@ UnitBlueprint {
                 Air = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0,
-            FiringTolerance = 0,
-			
             Label = 'MainGun',
 
 			--ManualFire = 1,	-- while this weapon will autofire you can give specific target
@@ -1294,10 +1247,7 @@ UnitBlueprint {
             LeadTarget = false,
 			
             MaxRadius = 125,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 5,
 			
             NukeInnerRingDamage = 100,
@@ -1318,16 +1268,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Main_Gun_Muzzle',
-                    },
+                    MuzzleBones = {'Main_Gun_Muzzle'},
                     RackBone = 'Main_Gun_Barrel',
                 },
             },
-
-            RackSalvoReloadTime = 4,
-
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_InDirectFire',
 			
@@ -1380,10 +1324,8 @@ UnitBlueprint {
         MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
             Water = true,
         },
     },

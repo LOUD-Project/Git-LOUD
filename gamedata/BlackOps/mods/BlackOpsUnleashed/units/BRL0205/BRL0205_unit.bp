@@ -1,9 +1,7 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Tail2',
-            'Turret01',
-        },
+        GuardScanRadius = 27,
+        TargetBones = {'Tail2','Turret01'},
     },
 	
     Audio = {
@@ -122,15 +120,10 @@ UnitBlueprint {
 	
     General = {
         BuildBones = {
-            BuildEffectBones = {
-                'Turret01_Muzzle01',
-                'Turret01_Muzzle02',
-            },
+            BuildEffectBones = {'Turret01_Muzzle01','Turret01_Muzzle02'},
             PitchBone = 'Turret01',
             YawBone = 'Turret01',
         },
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -146,9 +139,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_CloakToggle = true,
         },
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC brl0205_name>Scorpion',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -239,31 +230,23 @@ UnitBlueprint {
             Label = 'LaserArms',
 			
             MaxRadius = 25,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/CDFLaserHeavy01/CDFLaserHeavy01_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret01_Muzzle01',
-                    },
+                    MuzzleBones = {'Turret01_Muzzle01'},
                     RackBone = 'Turret01',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret01_Muzzle02',
-                    },
+                    MuzzleBones = {'Turret01_Muzzle02'},
                     RackBone = 'Turret01',
                 },
             },
 
             RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
 
             SlavedToBody = true,
             SlavedToBodyArcRange = 50,
@@ -311,9 +294,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             Buffs = {
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 0.8,
@@ -338,9 +319,7 @@ UnitBlueprint {
             LeadTarget = true,
 
             MaxRadius = 27,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 36,
 			
             PrefersPrimaryWeaponTarget = true,
@@ -348,20 +327,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Tail_Muzzle01',
-                    },
+                    MuzzleBones = {'Tail_Muzzle01'},
                     RackBone = 'Tail_Muzzle01',
                 },
             },
-             
-            
-
-
-            RackSalvoFiresAfterCharge = false,
-             
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -402,11 +371,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

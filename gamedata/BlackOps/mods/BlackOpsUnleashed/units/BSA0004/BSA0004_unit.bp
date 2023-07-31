@@ -84,7 +84,7 @@ UnitBlueprint {
 		SurfaceThreatLevel = 5,
     },
 	
-    Description = '<LOC bsa0004_desc>Heavy Attack Drone',
+    Description = '<LOC bsa0004_desc>Attack Drone',
 	
     Display = {
         Mesh = {
@@ -108,8 +108,6 @@ UnitBlueprint {
 	
     General = {
         CapCost = 0,
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -120,8 +118,6 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'air',
         SelectionPriority = 6,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -201,6 +197,8 @@ UnitBlueprint {
 			
             DisplayName = 'Losaare AA Autocannon',
 			
+			DoNotCollideList = { 'TORPEDO', 'MISSILE' },
+			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land|Water',
                 Land = 'Air|Land|Water',
@@ -211,11 +209,6 @@ UnitBlueprint {
             Label = 'EyeWeapon01',
 			
             MaxRadius = 32,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
-			DoNotCollideList = { 'TORPEDO', 'MISSILE' },
 			
             RackBones = {
                 {

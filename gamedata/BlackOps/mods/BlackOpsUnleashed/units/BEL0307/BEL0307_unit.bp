@@ -1,9 +1,7 @@
 UnitBlueprint {
 	AI = {
-        TargetBones = {
-            'Railgun_Turret',
-			'Gat_Turret',
-        },
+        GuardScanRadius = 38,
+        TargetBones = {'Railgun_Turret','Gat_Turret'},
     },
 	
     Audio = {
@@ -92,8 +90,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -105,9 +101,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = 'Helltank',
-        UnitWeight = 4,
     },
 	
     Intel = {
@@ -143,8 +137,7 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Amphibious',
 		RotateBodyWhileMoving = true,
-        RotateOnSpot = false,
-        RotateOnSpotThreshold = 0.5,
+
         TurnRadius = 0,
         TurnRate = 48,
 		WaterSpeedMultiplier = 1.2,
@@ -223,8 +216,7 @@ UnitBlueprint {
             MaxRadius = 38,
 			
             MuzzleChargeDelay = 1,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 60,
 			
             NotExclusive = true,
@@ -235,9 +227,7 @@ UnitBlueprint {
             RackBones = {
                 {
                 	HideMuzzle = true,
-                    MuzzleBones = {
-                        'Railgun_Muzzle',
-                    },
+                    MuzzleBones = {'Railgun_Muzzle'},
                     RackBone = 'Railgun_Barrel',
                 },
             },
@@ -330,8 +320,6 @@ UnitBlueprint {
                     RackBone = 'Gat_Barrel',
                 },
             },
-            
-            RackReloadTimeout = 10,
 
             RackSalvoChargeTime = 1,	---- 1 second to charge
 
@@ -424,8 +412,7 @@ UnitBlueprint {
 			
 			HeadingArcCenter = 90,
 			HeadingArcRange = 100,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
 			
             NoPause = true,
@@ -433,9 +420,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Beam_Muzzle',
-                    },
+                    MuzzleBones = {'Left_Beam_Muzzle'},
                     RackBone = 'Left_Beam_Barrel',
                 },
             },
@@ -518,18 +503,14 @@ UnitBlueprint {
 			
 			HeadingArcCenter = 270,
 			HeadingArcRange = 100,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
 			
             NoPause = true,
             NotExclusive = true,
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Beam_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Beam_Muzzle'},
                     RackBone = 'Right_Beam_Barrel',
                 },
             },
@@ -657,11 +638,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

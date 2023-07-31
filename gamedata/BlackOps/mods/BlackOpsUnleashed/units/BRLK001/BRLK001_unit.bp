@@ -1,9 +1,8 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Turret01',
-        },
+        GuardScanRadius = 40,
+        TargetBones = {'Turret01'},
     },
 	
     Audio = {
@@ -112,8 +111,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 1,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -130,12 +127,8 @@ UnitBlueprint {
                 bitmapId = 'toggle-weapon-air',
             },
         },
-        TechLevel = 'RULEUTL_Secret',
-		
 		ToggleCaps = { RULEUTC_WeaponToggle = true },
-		
         UnitName = '<LOC brlk001_name>Bouncer',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -166,9 +159,7 @@ UnitBlueprint {
         TurnRadius = 2,
         TurnRate = 120,
     },
-	
-    SelectionCenterOffsetX = 0,
-    SelectionCenterOffsetZ = 0,
+
     SelectionSizeX = 0.79,
     SelectionSizeZ = 0.9,
     SelectionThickness = 0.62,
@@ -247,8 +238,6 @@ UnitBlueprint {
                 },
             },
 
-            RackSalvoSize = 1,
-
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 0.6,	-- 360 DPS Air
@@ -288,10 +277,12 @@ UnitBlueprint {
 
             BallisticArc = 'RULEUBA_None',
 
-			CannotAttackGround = true,
-			ContinuousBeam = true,
             BeamCollisionDelay = 0.2,
             BeamLifetime = 0,
+
+			CannotAttackGround = true,
+			ContinuousBeam = true,
+
             CollideFriendly = false,
 
             Damage = 0.1,
@@ -303,15 +294,12 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Air',
             },
-            FiringRandomness = 0,
+
             FiringTolerance = 2,
 
             Label = 'Lazor',
 
             MaxRadius = 50,
-
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
 
 			PreferPrimaryWeaponTarget = true,
             ProjectileLifetimeUsesMultiplier = 1.1,
@@ -337,16 +325,20 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.2,
+
             TurretBoneMuzzle = 'Lazor',
             TurretBonePitch = 'Lazor',
             TurretBoneYaw = 'Lazor',
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 180,
             TurretPitchSpeed = 180,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 180,
+
             Turreted = true,
 			UseFiringSolutionInsteadOfAimBone = true,
         },
@@ -440,11 +432,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

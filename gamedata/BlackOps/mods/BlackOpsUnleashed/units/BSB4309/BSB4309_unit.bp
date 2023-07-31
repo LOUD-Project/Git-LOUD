@@ -81,25 +81,18 @@ UnitBlueprint {
 
     General = {
 		CapCost = 2,
-        Category = 'Intelligence',
-        Classification = 'RULEUC_CounterMeasure',
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-		
         ToggleCaps = { RULEUTC_ShieldToggle = true },
-		
         OrderOverrides = {
             RULEUTC_ShieldToggle = {
                 bitmapId = 'shield-dome',
                 helpText = 'Toggle Anti-Teleport Field',
             },
         },
-		
         UnitName = '<LOC bsb4309_name>Haazthue-Uhthena',
-        UnitWeight = 1,
-		
+
 		UpgradesFrom = 'bsb4209',
 		UpgradesFromBase = 'bsb4209',		
     },

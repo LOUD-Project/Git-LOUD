@@ -1,12 +1,9 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Effect01',
-			'Effect02',
-			'Effect03',
-			'Effect04',
-        },
+        GuardScanRadius = 55,
+        GuardReturnRadius = 75,
+        TargetBones = {'Effect01','Effect02','Effect03','Effect04'},
     },
 	
     Audio = {
@@ -148,8 +145,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 7,
-        Category = 'Experimental',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -160,22 +155,16 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
-		
 		OrderOverrides = {
             RULEUTC_ShieldToggle = {
                 bitmapId = 'shield-dome',
                 helpText = 'Toggle Maelstrom Field',
             },
         },
-		
-        TechLevel = 'RULEUTL_Secret',
-		
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-		
         UnitName = '<LOC bal0402_name>Genesis',
-        UnitWeight = 2,
     },
     
     Intel = {
@@ -308,14 +297,10 @@ UnitBlueprint {
                     RackBone = 'Missile_Muzzle_1',
                 },
             },
-            
-            RackReloadTimeout = 10,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 1,	-- 900 dps - controlled by charge
-			
-            SlavedToBody = false,
 			
             TargetCheckInterval = 5.0,
 			
@@ -328,7 +313,6 @@ UnitBlueprint {
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
-            TrackingRadius = 1.1,
         },
 		{
             AboveWaterTargetsOnly = true,
@@ -368,8 +352,7 @@ UnitBlueprint {
             LeadTarget = true,
 			
             MuzzleChargeDelay = 0.2,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
 			
             NotExclusive = true,
@@ -378,24 +361,17 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Wraith_Muzzle01',
-                    },
+                    MuzzleBones = {'Wraith_Muzzle01'},
                     RackBone = 'Wraith_Right_Recoil_01',
                 },
 				{
-                    MuzzleBones = {
-                        'Wraith_Muzzle02',
-                    },
+                    MuzzleBones = {'Wraith_Muzzle02'},
                     RackBone = 'Wraith_Left_Recoil_01',
                 },
             },
-
             RackFireTogether = true,
 			
             RackRecoilDistance = -1.5,
-
-            RackReloadTimeout = 10,
 
             SlavedToBody = true,
             SlavedToBodyArcRange = 90,
@@ -467,8 +443,7 @@ UnitBlueprint {
             MaxRadius = 48,
 			
             MuzzleChargeDelay = 1,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 38,
 			
 			NotExclusive = true,
@@ -476,18 +451,12 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Left_Turret_Muzzle'},
                     RackBone = 'Left_Muzzle_Recoil',
                 },
             },
 
             RackRecoilDistance = -1,
-
-            RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
 
             RateOfFire = 0.5,	-- 300 dps
 			
@@ -500,7 +469,7 @@ UnitBlueprint {
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Left_Turret_Muzzle',
             TurretBonePitch = 'Left_Barrel',
@@ -553,8 +522,7 @@ UnitBlueprint {
             MaxRadius = 48,
 			
             MuzzleChargeDelay = 1,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 38,
 			
 			NotExclusive = true,
@@ -563,16 +531,12 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Turret_Muzzle'},
                     RackBone = 'Right_Recoil_Muzzle',
                 },
             },
 
             RackRecoilDistance = -1,
-
-            RackReloadTimeout = 10,
 
             RateOfFire = 0.5,	-- 300 dps
 			
@@ -586,7 +550,7 @@ UnitBlueprint {
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Right_Turret_Muzzle',
             TurretBonePitch = 'Right_Turret',
@@ -645,15 +609,11 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'TMD_Muzzle',
-                    },
+                    MuzzleBones = {'TMD_Muzzle'},
                     RackBone = 'TMD_Muzzle',
                 },
             },
 
-            RackSalvoSize = 1,
-			
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 0.9,
@@ -662,7 +622,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,STRATEGIC',
             TargetRestrictOnlyAllow = 'TACTICAL,MISSILE',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.2,
         },
 
 		{
@@ -685,10 +645,8 @@ UnitBlueprint {
         MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
             Water = true,
         },
     },

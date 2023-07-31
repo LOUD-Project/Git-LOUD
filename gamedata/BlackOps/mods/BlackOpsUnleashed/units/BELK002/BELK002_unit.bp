@@ -1,6 +1,7 @@
 UnitBlueprint {
 
     AI = {
+        GuardScanRadius = 44,
         TargetBones = { 'Turret' },
     },
 	
@@ -88,8 +89,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Anti Air',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -101,9 +100,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC belk002_name>Cougar',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -243,7 +240,7 @@ UnitBlueprint {
 			
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.2,
 			
             TurretBoneDualMuzzle = 'Right_Muzzle',
             TurretBoneDualPitch = 'Right_Gun',
@@ -278,11 +275,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

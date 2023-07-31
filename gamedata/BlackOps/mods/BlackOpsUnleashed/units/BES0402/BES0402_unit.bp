@@ -2,7 +2,8 @@ UnitBlueprint {
 
     AI = {
         AttackAngle = 48,
-        GuardReturnRadius = 75,
+        GuardReturnRadius = 160,
+        GuardScanRadius = 145,
 		
         TargetBones = {
             'BES0402',
@@ -170,8 +171,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 15,
-        Category = 'Ship',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -182,9 +181,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'sea',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC bes0402_name>Conquest Class',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -302,8 +299,7 @@ UnitBlueprint {
             MinRadius = 25,
 			
             MuzzleChargeDelay = 1.5,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 29,
 			MuzzleVelocityReduceDistance = 120,
 			
@@ -345,7 +341,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Front_AMC_Muzzle01',
             TurretBonePitch = 'Front_AMC_Barrel01',
@@ -416,8 +412,7 @@ UnitBlueprint {
             MinRadius = 25,
 			
             MuzzleChargeDelay = 1.5,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 29,
 			MuzzleVelocityReduceDistance = 120,
 			
@@ -459,7 +454,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Front_AMC_Muzzle02',
             TurretBonePitch = 'Front_AMC_Barrel02',
@@ -530,8 +525,7 @@ UnitBlueprint {
             MinRadius = 25,
 			
             MuzzleChargeDelay = 1.5,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 29,
 			MuzzleVelocityReduceDistance = 120,
 			
@@ -572,7 +566,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Back_AMC_Muzzle',
             TurretBonePitch = 'Back_AMC_Barrel',
@@ -636,9 +630,7 @@ UnitBlueprint {
 			
             HeadingArcCenter = 0,
             HeadingArcRange = 240,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 32,
 			
             PrefersPrimaryWeaponTarget = false,
@@ -664,7 +656,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.1,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,			
 
             RangeCategory = 'UWRC_DirectFire',
@@ -683,7 +675,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Front_Deckgun_Muzzle01',
             TurretBonePitch = 'Front_Deckgun_Barrel01',
@@ -745,9 +737,7 @@ UnitBlueprint {
 			
             HeadingArcCenter = 90,
             HeadingArcRange = 120,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 32,
 			
             PrefersPrimaryWeaponTarget = false,
@@ -773,7 +763,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.1,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RateOfFire = 0.5,		-- another 150 DPS
@@ -790,7 +780,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Left_Deckgun_Muzzle01',
             TurretBonePitch = 'Left_Deckgun_Barrel01',
@@ -853,9 +843,7 @@ UnitBlueprint {
 			
             HeadingArcCenter = 90,
             HeadingArcRange = 120,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 32,
 			
             PrefersPrimaryWeaponTarget = false,
@@ -881,7 +869,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.1,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RateOfFire = 0.5,		-- another 150 DPS
@@ -898,7 +886,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Left_Deckgun_Muzzle03',
             TurretBonePitch = 'Left_Deckgun_Barrel03',
@@ -961,9 +949,7 @@ UnitBlueprint {
 			
             HeadingArcCenter = 90,
             HeadingArcRange = 120,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 32,
 			
             PrefersPrimaryWeaponTarget = false,
@@ -989,7 +975,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.1,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RateOfFire = 0.5,	 -- another 150 DPS
@@ -1006,7 +992,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Left_Deckgun_Muzzle05',
             TurretBonePitch = 'Left_Deckgun_Barrel05',
@@ -1069,9 +1055,7 @@ UnitBlueprint {
 			
             HeadingArcCenter = 180,
             HeadingArcRange = 145,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 32,
 			
             PrefersPrimaryWeaponTarget = false,
@@ -1097,7 +1081,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.1,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RateOfFire = 0.5,	-- another 150 DPS
@@ -1114,7 +1098,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Back_Deckgun_Muzzle01',
             TurretBonePitch = 'Back_Deckgun_Barrel01',
@@ -1177,9 +1161,7 @@ UnitBlueprint {
 			
             HeadingArcCenter = -90,
             HeadingArcRange = 120,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 32,
 			
             PrefersPrimaryWeaponTarget = false,
@@ -1205,7 +1187,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.1,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RateOfFire = 0.5,		-- another 150 DPS
@@ -1222,7 +1204,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Right_Deckgun_Muzzle01',
             TurretBonePitch = 'Right_Deckgun_Barrel01',
@@ -1285,9 +1267,7 @@ UnitBlueprint {
 			
             HeadingArcCenter = -90,
             HeadingArcRange = 120,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 32,
 			
             PrefersPrimaryWeaponTarget = false,
@@ -1313,7 +1293,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.1,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RateOfFire = 0.5,		-- another 150 DPS
@@ -1330,7 +1310,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Right_Deckgun_Muzzle03',
             TurretBonePitch = 'Right_Deckgun_Barrel03',
@@ -1393,9 +1373,7 @@ UnitBlueprint {
 			
             HeadingArcCenter = -90,
             HeadingArcRange = 120,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 32,
 			
             PrefersPrimaryWeaponTarget = false,
@@ -1421,7 +1399,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.1,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RateOfFire = 0.5,		-- another 150 DPS
@@ -1438,7 +1416,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Right_Deckgun_Muzzle05',
             TurretBonePitch = 'Right_Deckgun_Barrel05',
@@ -1495,8 +1473,7 @@ UnitBlueprint {
             HeadingArcRange = 145,
 			
             MaxRadius = 44,
-			
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
 			
@@ -1514,7 +1491,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.25,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_AntiAir',
@@ -1530,7 +1507,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
             
             TurretBoneMuzzle = 'Left_AA_Muzzle01',
             TurretBonePitch = 'Left_AA_Barrel01',
@@ -1584,8 +1561,7 @@ UnitBlueprint {
             HeadingArcRange = 140,
 			
             MaxRadius = 44,
-			
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
 			
@@ -1603,7 +1579,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.25,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RateOfFire = 1.5,		-- 120 DPS Air
@@ -1617,7 +1593,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Left_AA_Muzzle03',
             TurretBonePitch = 'Left_AA_Barrel02',
@@ -1671,8 +1647,7 @@ UnitBlueprint {
             HeadingArcRange = 120,
 			
             MaxRadius = 44,
-			
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
 			
@@ -1690,7 +1665,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.25,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RateOfFire = 1.5,		-- 120 DPS Air
@@ -1704,7 +1679,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
             
             TurretBoneMuzzle = 'Left_AA_Muzzle05',
             TurretBonePitch = 'Left_AA_Barrel03',
@@ -1758,8 +1733,7 @@ UnitBlueprint {
             HeadingArcRange = 125,
 			
             MaxRadius = 44,
-			
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
 			
@@ -1777,7 +1751,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.25,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RateOfFire = 1.5,
@@ -1790,7 +1764,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Left_AA_Muzzle07',
             TurretBonePitch = 'Left_AA_Barrel04',
@@ -1827,7 +1801,7 @@ UnitBlueprint {
 			
 			DetonatesAtTargetHeight = true,
 			
-            DisplayName = 'Fragmentation Falk',
+            DisplayName = 'Fragmentation Flak',
 			
             FireTargetLayerCapsTable = {
                 Water = 'Air',
@@ -1842,8 +1816,7 @@ UnitBlueprint {
             HeadingArcRange = 145,
 			
             MaxRadius = 44,
-			
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
 			
@@ -1861,7 +1834,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.25,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RateOfFire = 1.5,
@@ -1875,7 +1848,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Right_AA_Muzzle01',
             TurretBonePitch = 'Right_AA_Barrel01',
@@ -1927,8 +1900,7 @@ UnitBlueprint {
             HeadingArcRange = 140,
 			
             MaxRadius = 44,
-			
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
 			
@@ -1946,7 +1918,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.25,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RateOfFire = 1.5,
@@ -1960,7 +1932,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Right_AA_Muzzle03',
             TurretBonePitch = 'Right_AA_Barrel02',
@@ -2013,7 +1985,6 @@ UnitBlueprint {
 			
             MaxRadius = 44,
 			
-            MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
 			
@@ -2030,7 +2001,7 @@ UnitBlueprint {
                 },
             },
             RackRecoilDistance = -0.25,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RateOfFire = 1.5,
@@ -2044,7 +2015,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Right_AA_Muzzle05',
             TurretBonePitch = 'Right_AA_Barrel03',
@@ -2094,8 +2065,7 @@ UnitBlueprint {
             HeadingArcRange = 125,
 			
             MaxRadius = 44,
-			
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
 			
@@ -2113,7 +2083,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.25,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RateOfFire = 1.5,
@@ -2127,7 +2097,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Right_AA_Muzzle07',
             TurretBonePitch = 'Right_AA_Barrel04',

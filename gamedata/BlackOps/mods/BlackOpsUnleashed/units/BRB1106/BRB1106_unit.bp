@@ -74,13 +74,9 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 0.5,	
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
     },
 	
     Interface = {
@@ -132,6 +128,7 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -139,11 +136,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -1,9 +1,8 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Turret',
-        },
+        GuardScanRadius = 24,
+        TargetBones = {'Turret'},
     },
 	
     Audio = {
@@ -72,8 +71,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -85,9 +82,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC bal0206_name>Zealot',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -120,8 +115,6 @@ UnitBlueprint {
 		
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
-		
-        RotateOnSpot = false,
 		
         TurnRadius = 1,
         TurnRate = 90,
@@ -191,19 +184,14 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'L_Muzzle',
-                    },
+                    MuzzleBones = {'L_Muzzle'},
                     RackBone = 'L_Turret',
                 },
                 {
-                    MuzzleBones = {
-                        'R_Muzzle',
-                    },
+                    MuzzleBones = {'R_Muzzle'},
                     RackBone = 'R_Turret',
                 },
             },
-
             RackFireTogether = true,
             
             RackReloadTimeout = 10,
@@ -224,7 +212,7 @@ UnitBlueprint {
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneDualMuzzle = 'L_Muzzle',
             TurretBoneDualPitch = 'L_Turret',
@@ -244,6 +232,7 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -251,11 +240,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

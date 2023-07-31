@@ -1,15 +1,8 @@
 UnitBlueprint {
 
     AI = {
-		TargetBones = { 
-			'XSS0306',
-			'Orb_Muzzle01',
-			'Lasor_Turret01',
-			'Lasor_Turret02',
-			'Turret03',
-			'Turret02',
-			'Exhaust01',
-		},
+        GuardScanRadius = 80,
+		TargetBones = { 'XSS0306','Orb_Muzzle01','Lasor_Turret01','Lasor_Turret02','Turret03','Exhaust01'},
     },
 	
     Audio = {
@@ -143,8 +136,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 3,
-        Category = 'Ship',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Dive = true,
@@ -156,9 +147,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'sea',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC bss0306_name>Ithaluthe-Esel',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -536,10 +525,6 @@ UnitBlueprint {
 			
             MaxRadius = 65,
 			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
             NeedPrep = true,
 			
             RackBones = {
@@ -548,8 +533,6 @@ UnitBlueprint {
                     RackBone = 'Lasor_Turret01_Barrel',
                 },
             },
-
-            RackSalvoSize = 1,
 
             RateOfFire = 0.25,	-- 500/4 = 125 DPS
 			
@@ -565,7 +548,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Lasor_Turret01_Muzzle',
             TurretBonePitch = 'Lasor_Turret01_Barrel',
@@ -615,9 +598,7 @@ UnitBlueprint {
 			
             DisplayName = 'Ultrachromatic Beam Generator',
 			
-            DoNotCollideList = {
-                'TORPEDO',
-            },
+            DoNotCollideList = {'TORPEDO'},
 			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -628,10 +609,6 @@ UnitBlueprint {
             Label = 'LazorTurret',
 			
             MaxRadius = 65,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
 			
             NeedPrep = true,
 			
@@ -655,7 +632,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.125,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Lasor_Turret02_Muzzle',
             TurretBonePitch = 'Lasor_Turret02_Barrel',
@@ -735,7 +712,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Front_AA_Turret_Muzzle01',
             TurretBonePitch = 'Front_AA_Turret_Barrel',
@@ -812,7 +789,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Back_AA_Turret_Muzzle01',
             TurretBonePitch = 'Back_AA_Turret_Barrel',
@@ -865,8 +842,7 @@ UnitBlueprint {
             MinRadius = 30,
 			
             MuzzleChargeDelay = 0.25,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 26,
 			
             MuzzleVelocityReduceDistance = 85,
@@ -921,7 +897,7 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            AutoInitiateAttackCommand = false,
+
             BallisticArc = 'RULEUBA_None',
             BeamCollisionDelay = 0,
             BeamLifetime = 0.3,
@@ -949,24 +925,12 @@ UnitBlueprint {
             MaxRadius = 65,
             MinRadius = 10,
 			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Orb_Muzzle01',
-                    },
+                    MuzzleBones = {'Orb_Muzzle01'},
                     RackBone = 'Orb_Muzzle01',
                 },
             },
-             
-            
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -975,15 +939,14 @@ UnitBlueprint {
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Orb_Muzzle01',
             TurretBonePitch = 'Orb_Muzzle01',
@@ -1037,25 +1000,12 @@ UnitBlueprint {
 			
             MaxRadius = 50,
 			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Orb_Muzzle02',
-                    },
+                    MuzzleBones = {'Orb_Muzzle02'},
                     RackBone = 'Orb_Muzzle02',
                 },
             },
-             
-            
-
-
-            RackSalvoSize = 1,
-            
-
 
             RateOfFire = 1,		-- 150 DPS Surface
 
@@ -1069,7 +1019,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Orb_Muzzle02',
             TurretBonePitch = 'Orb_Muzzle02',

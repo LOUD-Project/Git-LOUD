@@ -1,13 +1,8 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Target02',
-            'Target03',
-			'F_L_Leg_B01',
-			'F_R_Leg_B01',
-			'Barrel01',
-        },
+        GuardScanRadius = 110,
+        TargetBones = {'Target02','Target03','F_L_Leg_B01','F_R_Leg_B01','Barrel01'},
         NeedUnpack = false,
     },
 	
@@ -79,7 +74,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 417.6,
     },
 	
-    Description = '<LOC bal0403_desc>Experimental Medium Sniper Bot (Sniper)',
+    Description = '<LOC bal0403_desc>Experimental Sniper Bot (Sniper)',
 	
     Display = {
 	
@@ -184,8 +179,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 8,
-        Category = 'Strategic',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -197,9 +190,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC bal0403_name>Interrogater',
-        UnitWeight = 2,
     },
 	
     Intel = {
@@ -212,7 +203,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Medium Sniper Bot',
+        HelpText = 'Sniper Bot',
     },
 	
     LifeBarHeight = 0.075,
@@ -429,8 +420,7 @@ UnitBlueprint {
             MinRadius = 35,
 			
             MuzzleChargeDelay = 2.3,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 150,
 			
             NotExclusive = true,
@@ -440,16 +430,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle01',
-                    },
+                    MuzzleBones = {'Muzzle01'},
                     RackBone = 'Muzzle01',
                 },
             },
-
-            RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
 
 			RackSlavedToTurret = true,
 			
@@ -496,6 +480,7 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
@@ -503,11 +488,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

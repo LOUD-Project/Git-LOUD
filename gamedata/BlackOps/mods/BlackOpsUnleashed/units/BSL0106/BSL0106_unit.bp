@@ -1,6 +1,7 @@
 UnitBlueprint {
 
 	AI = {
+        GuardScanRadius = 19,
 		TargetBones = {'Body'},
 	},
 	
@@ -93,8 +94,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -106,9 +105,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC bsl0106_name>Ilhaas',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -198,9 +195,7 @@ UnitBlueprint {
             Label = 'LaserTurret',
 			
             MaxRadius = 19,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 25,
 			
             ProjectileId = '/projectiles/SDFPhasicAutogun01/SDFPhasicAutogun01_proj.bp',
@@ -225,7 +220,7 @@ UnitBlueprint {
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.25,
+            TrackingRadius = 1.15,
 			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Muzzle',
@@ -252,11 +247,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

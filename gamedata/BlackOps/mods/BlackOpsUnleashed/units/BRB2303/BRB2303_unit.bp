@@ -1,9 +1,7 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Turret',
-        },
+        TargetBones = {'Turret'},
     },
 	
     Audio = {
@@ -93,8 +91,6 @@ UnitBlueprint {
     },
 
     General = {
-        Category = 'Strategic',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -103,9 +99,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC brb2303_name>Squall',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -173,9 +167,7 @@ UnitBlueprint {
             -- factional bonus --
             Buffs = {
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 0.8,
@@ -212,9 +204,7 @@ UnitBlueprint {
 			
             MaxRadius = 70,
             MinRadius = 12,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 19,
             MuzzleVelocityRandom = 0.5,
             MuzzleVelocityReduceDistance = 20,
@@ -224,9 +214,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Fake_Muzzle',
-                    },
+                    MuzzleBones = {'Fake_Muzzle'},
                     RackBone = 'Fake_Muzzle',
                 },
             },
@@ -234,8 +222,6 @@ UnitBlueprint {
             RackRecoilDistance = -1.5,
 
             RackSalvoFiresAfterCharge = true,
-
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -268,6 +254,7 @@ UnitBlueprint {
             WeaponUnpacks = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
@@ -275,11 +262,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

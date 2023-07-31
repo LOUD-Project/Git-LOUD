@@ -1,5 +1,6 @@
 UnitBlueprint {
 	AI = {
+        GuardScanRadius = 33,
         TargetBones = { 'Pelvis' },
     },
 

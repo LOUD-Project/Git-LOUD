@@ -1,11 +1,11 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 30,	
+		GuardReturnRadius = 90,
+        GuardScanRadius = 75,	
+
         InitialAutoMode = true,
-		TargetBones = {
-            'Turret',
-		},
+
+		TargetBones = {'Turret'},
     },
 	
     Audio = {
@@ -91,8 +91,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 0.5,
-        Category = 'Indirect Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -104,9 +102,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC bsl0004_name>Hala Ythisah',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -197,8 +193,7 @@ UnitBlueprint {
             MinRadius = 4,
 			
             MuzzleChargeDelay = 0.1,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 7,
 			
             ProjectileId = '/projectiles/SIFLaanseTacticalMissile01/SIFLaanseTacticalMissile01_proj.bp',
@@ -214,11 +209,7 @@ UnitBlueprint {
 
             RackRecoilDistance = -1,
 
-            RackReloadTimeout = 10,
-
             RackSalvoReloadTime = 6.6666,
-
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_IndirectFire',
 			

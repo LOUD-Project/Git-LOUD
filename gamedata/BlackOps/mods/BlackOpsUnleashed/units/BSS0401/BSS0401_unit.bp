@@ -1,16 +1,10 @@
 UnitBlueprint {
     AI = {
         AttackAngle = 60,
-        GuardReturnRadius = 60,
+        GuardReturnRadius = 160,
+        GuardScanRadius = 145,
         InitialAutoMode = true,
-        TargetBones = {
-            'XSS0401',
-            'Left_AA_Turret01',
-            'Right_AA_Turret02',
-            'Front_Turret01',
-            'TMD_Turret',
-			'Exhaust02',
-        },
+        TargetBones = {'XSS0401','Left_AA_Turret01','Right_AA_Turret02','Front_Turret01','TMD_Turret','Exhaust02'},
     },
 	
     Audio = {
@@ -173,8 +167,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 12,
-        Category = 'Ship',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -186,9 +178,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'sea',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC bss0401_name>Hovatha-Hauthu',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -305,8 +295,7 @@ UnitBlueprint {
             MinRadius = 24,
 			
             MuzzleChargeDelay = 1,      -- 1 second delay
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
 			MuzzleVelocityReduceDistance = 100,
 			
@@ -343,7 +332,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Main_Front_Turret_Muzzle01',
             TurretBonePitch = 'Main_Front_Turret_Barrel',
@@ -412,8 +401,7 @@ UnitBlueprint {
             MinRadius = 24,
 			
             MuzzleChargeDelay = 1,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
 			MuzzleVelocityReduceDistance = 100,
 			
@@ -447,7 +435,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Main_Back_Turret_Muzzle01',
             TurretBonePitch = 'Main_Back_Turret_Barrel',
@@ -508,10 +496,7 @@ UnitBlueprint {
             Label = 'SecondaryTurret',
 			
             MaxRadius = 95,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
 			
 			NoPause = true,
@@ -603,10 +588,7 @@ UnitBlueprint {
             Label = 'SecondaryTurret',
 			
             MaxRadius = 95,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
 
 			NotExclusive = true,			
@@ -695,10 +677,7 @@ UnitBlueprint {
             Label = 'SecondaryTurret',
 
             MaxRadius = 95,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
 			
 			NotExclusive = true,			
@@ -797,10 +776,6 @@ UnitBlueprint {
             Label = 'DeckGun',
 			
             MaxRadius = 78,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
 
             NeedPrep = true,
 
@@ -824,6 +799,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.125,
+
             TurretBoneMuzzle = 'Left_Deck_Turret01_Muzzle',
             TurretBonePitch = 'Left_Deck_Turret01_Barrel',
             TurretBoneYaw = 'Left_Deck_Turret01',
@@ -886,10 +862,6 @@ UnitBlueprint {
             Label = 'DeckGun',
 			
             MaxRadius = 78,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
 			
             NeedPrep = true,
 			
@@ -972,10 +944,6 @@ UnitBlueprint {
             Label = 'DeckGun',
 			
             MaxRadius = 78,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
 			
             NeedPrep = true,
 			
@@ -1060,10 +1028,6 @@ UnitBlueprint {
 			
             MaxRadius = 78,
 			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
             NeedPrep = true,
 			
             RackBones = {
@@ -1086,6 +1050,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.125,
+
             TurretBoneMuzzle = 'Right_Deck_Turret02_Muzzle',
             TurretBonePitch = 'Right_Deck_Turret02_Barrel',
             TurretBoneYaw = 'Right_Deck_Turret02',
@@ -1133,9 +1098,7 @@ UnitBlueprint {
             Label = 'AntiMissileTactical',
 			
             MaxRadius = 30,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 45,
 			
 			NotExclusive = true,
@@ -1211,9 +1174,7 @@ UnitBlueprint {
 			LeadTarget = true,
 			
             MaxRadius = 43,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 58,
 			
             ProjectileId = '/projectiles/SAAOlarisAAArtillery05/SAAOlarisAAArtillery05_proj.bp',
@@ -1302,9 +1263,7 @@ UnitBlueprint {
 			LeadTarget = true,
 			
             MaxRadius = 43,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 58,
 			
             ProjectileId = '/projectiles/SAAOlarisAAArtillery05/SAAOlarisAAArtillery05_proj.bp',
@@ -1391,9 +1350,7 @@ UnitBlueprint {
 			LeadTarget = true,
 			
             MaxRadius = 43,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 58,
 
             ProjectileId = '/projectiles/SAAOlarisAAArtillery05/SAAOlarisAAArtillery05_proj.bp',
@@ -1480,9 +1437,7 @@ UnitBlueprint {
 			LeadTarget = true,
 			
             MaxRadius = 43,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 58,
 
             ProjectileId = '/projectiles/SAAOlarisAAArtillery05/SAAOlarisAAArtillery05_proj.bp',
@@ -1576,9 +1531,7 @@ UnitBlueprint {
             MaxProjectileStorage = 3,
 			
             MaxRadius = 90,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 90,
 			
 			NotExclusive = true,
@@ -1603,7 +1556,7 @@ UnitBlueprint {
             TargetRestrictOnlyAllow = 'STRATEGIC MISSILE',
             TargetType = 'RULEWTT_Projectile',
 			
-            TrackingRadius = 2,
+            TrackingRadius = 1.5,
         },
 		
         {

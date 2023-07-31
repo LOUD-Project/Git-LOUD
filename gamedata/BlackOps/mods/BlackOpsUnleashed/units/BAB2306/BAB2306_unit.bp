@@ -1,9 +1,7 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Turret_Yaw',
-        },
+        TargetBones = {'Turret_Yaw'},
     },
 	
     Audio = {
@@ -90,8 +88,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Strategic',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -100,9 +96,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC bab2306_name>Aria',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -211,19 +205,13 @@ UnitBlueprint {
             Label = 'MainGun',
 			
             MaxRadius = 57,
-			
-			LeadTarget = false,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
 			
             ProjectileLifetime = 2.5,
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle01',
-                    },
+                    MuzzleBones = {'Muzzle01'},
                     RackBone = 'Turret_Pitch',
                 },
             },
@@ -240,7 +228,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Muzzle01',
             TurretBonePitch = 'Turret_Pitch',
@@ -275,11 +263,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

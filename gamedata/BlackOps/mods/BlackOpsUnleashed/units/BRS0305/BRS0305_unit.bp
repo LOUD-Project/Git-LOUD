@@ -1,10 +1,11 @@
 UnitBlueprint {
     AI = {
 		AttackAngle = 42,
-        GuardReturnRadius = 60,
-		TargetBones = {
-            'XRS0305',
-		},
+
+        GuardReturnRadius = 75,
+        GuardScanRadius = 60,
+
+		TargetBones = {'XRS0305'},
     },
 	
     Audio = {
@@ -217,8 +218,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Submarine',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Dive = true,
@@ -230,9 +229,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'sea',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC brs0305_name>Leviathan',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -322,7 +319,7 @@ UnitBlueprint {
 			
             Label = 'Torpedo01',
 			
-            MaxRadius = 45,
+            MaxRadius = 48,
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,
@@ -437,7 +434,7 @@ UnitBlueprint {
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.2,
             Turreted = false,
         },
 		
@@ -471,13 +468,11 @@ UnitBlueprint {
             Label = 'DeckGun',
 			
             MaxRadius = 35,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
-            ProjectileLifetime = 1.1,
+            ProjectileLifetime = 1.2,
 
             RackBones = {
                 {
@@ -551,9 +546,7 @@ UnitBlueprint {
             Label = 'DeckGun',
 			
             MaxRadius = 35,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',

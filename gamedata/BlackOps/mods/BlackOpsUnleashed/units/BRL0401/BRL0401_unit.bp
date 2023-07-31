@@ -1,5 +1,6 @@
 UnitBlueprint {
 	AI = {
+        GuardScanRadius = 58,
         TargetBones = {
             'Head',
             'Torso',
@@ -81,7 +82,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 960,
     },
 	
-    Description = '<LOC brl0401_desc>Regenerative Ultra Heavy Siege Mech (Brawler/Siege)',
+    Description = '<LOC brl0401_desc>Regenerative Heavy Siege Mech (Brawler/Siege)',
 	
     Display = {
 		Abilities = {
@@ -178,8 +179,6 @@ UnitBlueprint {
 		
     General = {
 		CapCost = 7,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -190,7 +189,6 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_WeaponToggle = true,
         },
@@ -201,7 +199,6 @@ UnitBlueprint {
             },
         },
         UnitName = '<LOC brl0401_name>Basilisk',
-        UnitWeight = 3,
     },
 	
     Intel = {
@@ -210,7 +207,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Ultra Heavy Siege Mech',
+        HelpText = 'Heavy Siege Mech',
     },
 	
     LifeBarHeight = 0.08,
@@ -300,9 +297,7 @@ UnitBlueprint {
             Label = 'TorsoWeapon',
 			
             MaxRadius = 70,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 30,
 			
@@ -314,16 +309,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Torso',
-                    },
+                    MuzzleBones = {'Torso'},
                     RackBone = 'Torso',
                 },
             },
-
-            RackReloadTimeout = 10,
-
-            RackSalvoReloadTime = 1,
 
             RateOfFire = 0.065,
 			
@@ -385,10 +374,7 @@ UnitBlueprint {
             Label = 'HeadWeapon',
 			
             MaxRadius = 70,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
 			
             NoPause = true,
@@ -401,17 +387,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Jaw_Muzzle',
-                    },
+                    MuzzleBones = {'Jaw_Muzzle'},
                     RackBone = 'Head',
                 },
             },
-            
-            RackReloadTimeout = 10,
-             
-            RackSalvoFiresAfterCharge = false,
-            RackSalvoReloadTime = 1,
 
             RateOfFire = 0.05,
 			
@@ -455,16 +434,10 @@ UnitBlueprint {
             },
 
             BallisticArc = 'RULEUBA_None',
-            CollideFriendly = false,
-			
-            Damage = 600,
-			DamageRadius = 3,
-			
+
 			Buffs = {
             	{
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 3,
@@ -473,7 +446,12 @@ UnitBlueprint {
                     TargetDisallow = 'EXPERIMENTAL,COMMAND,WALL',
                 },
             },
-            DamageType = 'Normal',
+
+            CollideFriendly = false,
+			
+            Damage = 600,
+			DamageRadius = 3,
+            DamageType = 'Normal',			
 			
             DisplayName = 'Heavy Energy Cannon',
 			
@@ -490,8 +468,7 @@ UnitBlueprint {
             MaxRadius = 60,
 			
 			MuzzleChargeDelay = 0.3,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 60,
 			
 			NotExclusive = true,
@@ -501,37 +478,26 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Cannon_Muzzle_1',
-                    },
+                    MuzzleBones = {'Right_Cannon_Muzzle_1'},
                     RackBone = 'Right_Cannon_Recoil_1',
                 },
 				{
-                    MuzzleBones = {
-                        'Left_Cannon_Muzzle_1',
-                    },
+                    MuzzleBones = {'Left_Cannon_Muzzle_1'},
                     RackBone = 'Left_Cannon_Recoil_1',
                 },
 				{
-                    MuzzleBones = {
-                        'Right_Cannon_Muzzle_2',
-                    },
+                    MuzzleBones = {'Right_Cannon_Muzzle_2'},
                     RackBone = 'Right_Cannon_Recoil_2',
                 },
 				{
-                    MuzzleBones = {
-                        'Left_Cannon_Muzzle_2',
-                    },
+                    MuzzleBones = {'Left_Cannon_Muzzle_2'},
                     RackBone = 'Left_Cannon_Recoil_2',
                 },
             },
+
             RackFireTogether = true,
 			
             RackRecoilDistance = -2,
-
-
-            RackSalvoFiresAfterCharge = false,
-             
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -603,8 +569,7 @@ UnitBlueprint {
             MinRadius = 20,
 			
             MuzzleChargeDelay = 0.2,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 36,
 			
             NotExclusive = true,
@@ -614,23 +579,18 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'MainGun_Muzzle_Right',
-                    },
+                    MuzzleBones = {'MainGun_Muzzle_Right'},
                     RackBone = 'MainGun_Right_Pitch',
                 },
 				{
-                    MuzzleBones = {
-                        'MainGun_Muzzle_Left',
-                    },
+                    MuzzleBones = {'MainGun_Muzzle_Left'},
                     RackBone = 'MainGun_Left_Pitch',
                 },
             },
+
             RackFireTogether = true,
             
             RackReloadTimeout = 10,
-
-
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -683,6 +643,7 @@ UnitBlueprint {
                     LodCutoff = 'WeaponBig_LodCutoff',
                 },
             },
+
 			AutoInitiateAttackCommand = true,
 			
             BallisticArc = 'RULEUBA_LowArc',
@@ -717,8 +678,7 @@ UnitBlueprint {
             MinRadius = 20,
 			
             MuzzleChargeDelay = 0.9,        -- .9 second delay
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
 			
             NotExclusive = true,
@@ -727,23 +687,17 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'MainGun_Muzzle_Right',
-                    },
+                    MuzzleBones = {'MainGun_Muzzle_Right'},
                     RackBone = 'MainGun_Right_Pitch',
                 },
 				{
-                    MuzzleBones = {
-                        'MainGun_Muzzle_Left',
-                    },
+                    MuzzleBones = {'MainGun_Muzzle_Left'},
                     RackBone = 'MainGun_Left_Pitch',
                 },
             },
             
             RackReloadTimeout = 10,
 
-
-			
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 1,	    -- rate controlled by charge - every 2 seconds = 300dps
@@ -812,9 +766,7 @@ UnitBlueprint {
 			
             MaxRadius = 58,
 			MinRadius = 4,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
 			
             NotExclusive = true,
@@ -825,27 +777,18 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Bolter_Muzzle_2',
-                    },
+                    MuzzleBones = {'Right_Bolter_Muzzle_2'},
                     RackBone = 'Left_Bolter',
                 },
 				{
-                    MuzzleBones = {
-						'Right_Bolter_Muzzle_1',
-                    },
+                    MuzzleBones = {'Right_Bolter_Muzzle_1'},
                     RackBone = 'Left_Bolter',
                 },
 				{
-                    MuzzleBones = {
-						'Right_Bolter_Muzzle_3',
-                    },
+                    MuzzleBones = {'Right_Bolter_Muzzle_3'},
                     RackBone = 'Left_Bolter',
                 },
             },
-            
-
-
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -909,9 +852,7 @@ UnitBlueprint {
 			
             MaxRadius = 58,
 			MinRadius = 4,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
 			
             NotExclusive = true,
@@ -922,27 +863,18 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Bolter_Muzzle_2',
-                    },
+                    MuzzleBones = {'Left_Bolter_Muzzle_2'},
                     RackBone = 'Right_Bolter',
                 },
 				{
-                    MuzzleBones = {
-						'Left_Bolter_Muzzle_1',
-                    },
+                    MuzzleBones = {'Left_Bolter_Muzzle_1'},
                     RackBone = 'Right_Bolter',
                 },
 				{
-                    MuzzleBones = {
-						'Left_Bolter_Muzzle_3',
-                    },
+                    MuzzleBones = {'Left_Bolter_Muzzle_3'},
                     RackBone = 'Right_Bolter',
                 },
             },
-            
-
-
 
             RateOfFire = 2.5,	--	187.5dps
 			
@@ -1022,7 +954,6 @@ UnitBlueprint {
             MaxRadius = 90,
             MinRadius = 18,
 			
-            MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0.2,     -- 2 seconds to fire salvo
             MuzzleSalvoSize = 10,
             MuzzleVelocity = 15,
@@ -1050,10 +981,6 @@ UnitBlueprint {
                     RackBone = 'Missile_1',
                 },
             },
-            
-            RackReloadTimeout = 10,
-
-
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -1082,7 +1009,6 @@ UnitBlueprint {
                     LodCutoff = 'WeaponBig_LodCutoff',
                 },
             },
-            --AutoInitiateAttackCommand = true,
 			
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
@@ -1110,7 +1036,6 @@ UnitBlueprint {
             MaxRadius = 175,
             MinRadius = 20,
 			
-            MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0.3,     -- 3 seconds for salvo
             MuzzleSalvoSize = 20,
             MuzzleVelocity = 6,
@@ -1151,10 +1076,6 @@ UnitBlueprint {
                     RackBone = 'Missile_1',
                 },
             },
-            
-            RackReloadTimeout = 10,
-
-
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -1208,8 +1129,6 @@ UnitBlueprint {
 			
             Label = 'LasMissile',
 			
-            LeadTarget = false,
-			
             MaxRadius = 65,
 			
             MuzzleSalvoDelay = 0.2,
@@ -1233,13 +1152,6 @@ UnitBlueprint {
                     RackBone = 'AA_Missile_1',
                 },
             },
-             
-            
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -1269,10 +1181,11 @@ UnitBlueprint {
             FireOnDeath = false,
             FiringTolerance = 2,
             Label = 'BasiliskDeathNuck',
+
             MaxRadius = 1,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 0,
+
             NukeInnerRingDamage = 15000,
             NukeInnerRingRadius = 15,
             NukeInnerRingTicks = 24,
@@ -1281,23 +1194,24 @@ UnitBlueprint {
             NukeOuterRingRadius = 20,
             NukeOuterRingTicks = 20,
             NukeOuterRingTotalTime = 0,
+
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/BasiliskNuke01/BasiliskNuke01_proj.bp',
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        0,
-                    },
+                    MuzzleBones = {0},
                     RackBone = 0,
                 },
             },
             
             RateOfFire = 1,
+
             TargetCheckInterval = 9999999,
             TargetRestrictDisallow = 'UNTARGETABLE',
-            Turreted = false,
-            WeaponCategory = 'Death',
+
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -1305,11 +1219,8 @@ UnitBlueprint {
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

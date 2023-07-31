@@ -1,6 +1,7 @@
 UnitBlueprint {
 	
 	AI = {
+        GuardScanRadius = 19,
 		TargetBones = {'Body'},
 	},
 	
@@ -100,8 +101,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -113,9 +112,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC bsl0306_name>Uthla Ilhaas',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -260,11 +257,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

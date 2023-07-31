@@ -83,24 +83,18 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_CounterMeasure',
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-		
         ToggleCaps = { RULEUTC_ShieldToggle = true },
-		
         OrderOverrides = {
             RULEUTC_ShieldToggle = {
                 bitmapId = 'shield-dome',
                 helpText = 'Toggle Anti-Teleport Field',
             },
         },
-		
         UnitName = '<LOC beb4209_name>ATF-205 Preventer',
-        UnitWeight = 1,
+
 		UpgradesFromBase = 'beb4209',		
         UpgradesTo = 'beb4309',		
     },

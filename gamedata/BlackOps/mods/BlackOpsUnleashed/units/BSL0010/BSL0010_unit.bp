@@ -1,7 +1,9 @@
 UnitBlueprint {
 	AI = {
+        GuardScanRadius = 33,
         TargetBones = { 'Pelvis' },
     },
+
     Audio = {
         Destroyed = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Med', LodCutoff = 'UnitMove_LodCutoff' },
         Killed = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Med', LodCutoff = 'UnitMove_LodCutoff' },
@@ -103,7 +105,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 0.5,
-
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -229,8 +230,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -300,9 +299,6 @@ UnitBlueprint {
                     RackBone = 'L_Arm_Muzzle',
                 },
             },
-            
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_Countermeasure',
 			

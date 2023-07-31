@@ -2,10 +2,7 @@ UnitBlueprint {
 
     AI = {
         InitialAutoMode = true,
-        TargetBones = {
-            'Door_03',
-			'Door_04',
-        },
+        TargetBones = {'Door_03','Door_04'},
     },
 	
     Audio = {
@@ -106,8 +103,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 4,
-        Category = 'Strategic',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Pause = true,
             RULEUCC_SiloBuildTactical = true,
@@ -117,9 +112,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC bab2308_name>Purifier',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -220,9 +213,7 @@ UnitBlueprint {
 			
             MaxRadius = 256,
             MinRadius = 70,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 0,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/MirvSerpentine01/MirvSerpentine01_proj.bp',
@@ -230,27 +221,19 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Attachpoint01',
-                    },
+                    MuzzleBones = {'Attachpoint01'},
                     RackBone = 'Turret01',
                 },
                 {
-                    MuzzleBones = {
-                        'Attachpoint02',
-                    },
+                    MuzzleBones = {'Attachpoint02'},
                     RackBone = 'Turret02',
                 },
                 {
-                    MuzzleBones = {
-                        'Attachpoint03',
-                    },
+                    MuzzleBones = {'Attachpoint03'},
                     RackBone = 'Turret03',
                 },
                 {
-                    MuzzleBones = {
-                        'Attachpoint04',
-                    },
+                    MuzzleBones = {'Attachpoint04'},
                     RackBone = 'Turret04',
                 },
             },
@@ -282,6 +265,7 @@ UnitBlueprint {
             WeaponUnpacks = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
@@ -289,11 +273,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

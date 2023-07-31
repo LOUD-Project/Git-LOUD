@@ -72,7 +72,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 224,
     },
 	
-    Description = '<LOC xrs0402_desc>Experimental Heavy Bombardment Ship (Bombardment)',
+    Description = '<LOC xrs0402_desc>Experimental Bombardment Ship (Bombardment)',
 	
     Display = {
         Abilities = {
@@ -161,7 +161,6 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.09,
     },
 	
@@ -179,8 +178,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 12,
-        Category = 'Ship',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -191,9 +188,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'sea',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC xrs0402_name>SeaDragon Class',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -284,9 +279,7 @@ UnitBlueprint {
 			-- outer ring affects least number of units
             Buffs = {
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 0.8,
@@ -297,9 +290,7 @@ UnitBlueprint {
 				
 			-- middle ring lasts longer and affects T3
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 1,
@@ -309,9 +300,7 @@ UnitBlueprint {
                 },
 			-- inner ring affects EXPERIMENTALS too
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 1.3,
@@ -348,8 +337,7 @@ UnitBlueprint {
             MaxRadius = 140,
 			
             MuzzleChargeDelay = 1,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
 			
 			NotExclusive = true,
@@ -359,17 +347,14 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Main_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Front_Main_Turret_Muzzle'},
                     RackBone = 'Front_Main_Turret_Barrel',
                 },
             },
 
             RackRecoilDistance = -2,
             RackRecoilReturnSpeed = 1,
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -441,9 +426,7 @@ UnitBlueprint {
 			-- outer ring affects least number of units
             Buffs = {
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 0.8,
@@ -454,9 +437,7 @@ UnitBlueprint {
 				
 			-- middle ring lasts longer and affects T3
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 1,
@@ -466,9 +447,7 @@ UnitBlueprint {
                 },
 			-- inner ring affects EXPERIMENTALS too
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 1.3,
@@ -501,10 +480,9 @@ UnitBlueprint {
             LeadTarget = true,
 			
             MaxRadius = 140,
-			
-            MuzzleSalvoDelay = 0,
+
             MuzzleChargeDelay = 1,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
 			
 			NotExclusive = true,
@@ -516,9 +494,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Main_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Back_Main_Turret_Muzzle'},
                     RackBone = 'Back_Main_Turret_Barrel',
                 },
             },
@@ -615,8 +591,9 @@ UnitBlueprint {
 			
             MaxRadius = 160,
 			
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 3,
+
             MuzzleVelocity = 30,
 			MuzzleVelocityReduceDistance = 90,
 
@@ -625,28 +602,22 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Muzzle01',
-                    },
+                    MuzzleBones = {'Back_Muzzle01'},
                     RackBone = 'Back_Turret_Barrel01',
                 },
                 {
-                    MuzzleBones = {
-                        'Back_Muzzle02',
-                    },
+                    MuzzleBones = {'Back_Muzzle02'},
                     RackBone = 'Back_Turret_Barrel02',
                 },
                 {
-                    MuzzleBones = {
-                        'Back_Muzzle03',
-                    },
+                    MuzzleBones = {'Back_Muzzle03'},
                     RackBone = 'Back_Turret_Barrel03',
                 },
             },
             RackFireTogether = true,
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
@@ -730,9 +701,7 @@ UnitBlueprint {
             Label = 'SecondaryCannon',
 			
             MaxRadius = 90,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 28,
 			
             ProjectileId = '/projectiles/CDFProtonCannon01/CDFProtonCannon01_proj.bp',
@@ -740,15 +709,11 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'R_Turret01_Muzzle01',
-                    },
+                    MuzzleBones = {'R_Turret01_Muzzle01'},
                     RackBone = 'R_Turret01_Barrel01',
                 },
                 {
-                    MuzzleBones = {
-                        'R_Turret01_Muzzle02',
-                    },
+                    MuzzleBones = {'R_Turret01_Muzzle02'},
                     RackBone = 'R_Turret01_Barrel02',
                 },
             },
@@ -775,7 +740,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'R_Turret01_Muzzle01',
             TurretBonePitch = 'R_Turret01',
@@ -832,9 +797,7 @@ UnitBlueprint {
             Label = 'SecondaryCannon',
 			
             MaxRadius = 90,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 28,
 			
             ProjectileId = '/projectiles/CDFProtonCannon01/CDFProtonCannon01_proj.bp',
@@ -842,23 +805,16 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'R_Turret02_Muzzle01',
-                    },
+                    MuzzleBones = {'R_Turret02_Muzzle01'},
                     RackBone = 'R_Barrel01',
                 },
                 {
-                    MuzzleBones = {
-                        'R_Turret02_Muzzle02',
-                    },
+                    MuzzleBones = {'R_Turret02_Muzzle02'},
                     RackBone = 'R_Turret02_Barrel02',
                 },
             },
 
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
-
-
 
             RateOfFire = 1.4,
 			
@@ -935,9 +891,7 @@ UnitBlueprint {
             Label = 'SecondaryCannon',
 			
             MaxRadius = 90,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 28,
 			
             ProjectileId = '/projectiles/CDFProtonCannon01/CDFProtonCannon01_proj.bp',
@@ -945,23 +899,16 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'L_Turret01_Muzzle01',
-                    },
+                    MuzzleBones = {'L_Turret01_Muzzle01'},
                     RackBone = 'L_Turret01_Barrel01',
                 },
                 {
-                    MuzzleBones = {
-                        'L_Turret01_Muzzle02',
-                    },
+                    MuzzleBones = {'L_Turret01_Muzzle02'},
                     RackBone = 'L_Turret01_Barrel02',
                 },
             },
 
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
-
-
 
             RateOfFire = 1.4,
 			
@@ -1039,9 +986,7 @@ UnitBlueprint {
             Label = 'SecondaryCannon',
 			
             MaxRadius = 90,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 28,
 			
             ProjectileId = '/projectiles/CDFProtonCannon01/CDFProtonCannon01_proj.bp',
@@ -1049,23 +994,16 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'L_Turret02_Muzzle01',
-                    },
+                    MuzzleBones = {'L_Turret02_Muzzle01'},
                     RackBone = 'L_Turret02_Barrel01',
                 },
                 {
-                    MuzzleBones = {
-                        'L_Turret02_Muzzle02',
-                    },
+                    MuzzleBones = {'L_Turret02_Muzzle02'},
                     RackBone = 'L_Turret02_Barrel02',
                 },
             },
 
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
-
-
 
             RateOfFire = 1.4,
 			
@@ -1139,8 +1077,7 @@ UnitBlueprint {
             LeadTarget = true,
 			
             MaxRadius = 44,
-			
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 75,
 			
@@ -1159,10 +1096,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.3,
-            RackReloadTimeout = 10,
 
-
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_AntiAir',
@@ -1178,7 +1112,7 @@ UnitBlueprint {
                 'AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Front_Barrel_AA',
             TurretBonePitch = 'Front_Barrel_AA',
@@ -1228,8 +1162,7 @@ UnitBlueprint {
             LeadTarget = true,
 			
             MaxRadius = 44,
-			
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 75,
 
@@ -1248,10 +1181,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.3,
-            RackReloadTimeout = 10,
 
-
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
             RateOfFire = 1.5,			-- another 240 DPS Air
@@ -1265,7 +1195,7 @@ UnitBlueprint {
                 'AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Back_Barrel_AA',
             TurretBonePitch = 'Back_Barrel_AA',
@@ -1341,10 +1271,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-
-
-
             RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 0.1,		-- 240 DPS Sub
@@ -1395,22 +1321,14 @@ UnitBlueprint {
 			
             MaxRadius = 30,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
             NeedPrep = true,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Zapper_Muzzle01',
-                    },
+                    MuzzleBones = {'Left_Zapper_Muzzle01'},
                     RackBone = 'Left_Zapper_Barrel01',
                 },
             },
-
-
-
 
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -1470,22 +1388,14 @@ UnitBlueprint {
 			
             MaxRadius = 30,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
             NeedPrep = true,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Zapper_Muzzle01',
-                    },
+                    MuzzleBones = {'Right_Zapper_Muzzle01'},
                     RackBone = 'Right_Zapper_Barrel01',
                 },
             },
-
-
-
 
             RateOfFire = 0.6,
             

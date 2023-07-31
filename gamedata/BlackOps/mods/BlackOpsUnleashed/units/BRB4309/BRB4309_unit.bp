@@ -71,27 +71,20 @@ UnitBlueprint {
 
     General = {
 		CapCost = 2,
-        Category = 'Intelligence',
-        Classification = 'RULEUC_CounterMeasure',
         CommandCaps = {
             RULEUCC_Pause = true,
         },
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-		
         ToggleCaps = { RULEUTC_ShieldToggle = true },
-		
         OrderOverrides = {
             RULEUTC_ShieldToggle = {
                 bitmapId = 'shield-dome',
                 helpText = 'Toggle Anti-Teleport Field',
             },
         },
-		
         UnitName = '<LOC brb4309_name>Shroud',
-        UnitWeight = 1,
 		
 		UpgradesFrom = 'brb4209',
 		UpgradesFromBase = 'brb4209',		

@@ -1,6 +1,8 @@
 UnitBlueprint {
     AI = {
-        GuardScanRadius = 35,
+        GuardScanRadius = 92,
+        GuardReturnRadius = 105,
+
 		TargetBones = {'Torso'},
     },
 	
@@ -130,8 +132,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 1,
-        Category = 'Indirect Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -143,9 +143,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC bsl0007_name>Hala Suthanus',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -239,8 +237,7 @@ UnitBlueprint {
             MinRadius = 8,
 			
             MuzzleChargeDelay = 0.25,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 22,
 			
             MuzzleVelocityReduceDistance = 85,

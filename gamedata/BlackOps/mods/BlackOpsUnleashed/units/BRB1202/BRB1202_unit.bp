@@ -87,8 +87,6 @@ UnitBlueprint {
 	
     General = {
         CapCost = 6,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
 			RULEUCC_Pause = true,
             RULEUCC_Stop = true,
@@ -96,8 +94,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
+
 		UpgradesFrom = 'urb1102',
 		UpgradesFromBase = 'urb1102',		
         UpgradesTo = 'brb1302',

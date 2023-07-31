@@ -1,10 +1,6 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Blade03',
-            'Extension01',
-            'Extension04',
-        },
+        TargetBones = {'Blade03','Extension01','Extension04'},
     },
 	
     Adjacency = 'HydrocarbonAdjacencyBuffs',
@@ -89,13 +85,10 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 12,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
+
 		UpgradesFrom = 'bab1202',
 		UpgradesFromBase = 'uab1102',		
     },

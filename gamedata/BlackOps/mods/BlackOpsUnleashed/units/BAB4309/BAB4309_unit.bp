@@ -79,15 +79,10 @@ UnitBlueprint {
 
     General = {
 		CapCost = 2,
-        Category = 'Intelligence',
-        Classification = 'RULEUC_CounterMeasure',
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-        
         ToggleCaps = { RULEUTC_ShieldToggle = true },
-		
         OrderOverrides = {
             RULEUTC_ShieldToggle = {
                 bitmapId = 'shield-dome',
@@ -95,8 +90,7 @@ UnitBlueprint {
             },
         },
         UnitName = '<LOC bab4309_name>Quantum Wake Generator',
-        UnitWeight = 1,
-        
+
 		UpgradesFrom = 'bab4209',
 		UpgradesFromBase = 'bab4209',
     },
@@ -173,9 +167,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            WeaponCategory = 'Direct Fire',
 		},
-        
         {
             Damage = 1200,
             DamageFriendly = true,

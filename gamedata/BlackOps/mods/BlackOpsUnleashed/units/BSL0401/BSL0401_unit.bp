@@ -1,10 +1,8 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {	
-			'BSL0401',
-			'Focus_Beam03_Emitter01',
-			'Beam_Point_Focus02',
-		},
+        GuardScanRadius = 50,
+
+        TargetBones = {	'BSL0401','Focus_Beam03_Emitter01','Beam_Point_Focus02'},
 		
 		AssistHeartbeatInterval = 0.5, -- def. 1, time in seconds between drone and carrier management heartbeats
         DroneControlRange = 50, -- def. 70,  maximum distance the drone can stray from the carrier before being recalled (70 is the goliath's radar range)
@@ -116,7 +114,6 @@ UnitBlueprint {
                 },
             },
         },
-
         UniformScale = 0.5,
     },
 	
@@ -161,8 +158,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 5,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -173,9 +168,8 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC bsl0401_name>Yenzotha',
-        UnitWeight = 4,
+
 		ToggleCaps = {
             RULEUTC_SpecialToggle = true,
             RULEUTC_WeaponToggle = true,
@@ -294,11 +288,14 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
             BeamLifetime = 0,
+
             CollideFriendly = false,
             ContinuousBeam = true,
 			
@@ -309,11 +306,14 @@ UnitBlueprint {
 
             DisplayName = 'Experimental Phason Beam Generator',
 			
+			DoNotCollideList = {'MISSILE'},			
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
+
             Label = 'EyeWeapon01',
 			
 			LeadTarget = false,
@@ -322,10 +322,6 @@ UnitBlueprint {
             MinRadius = 3,
 			
 			MuzzleChargeDelay = 3.0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
-			DoNotCollideList = {'MISSILE'},
 			
             NotExclusive = true,
 			
@@ -351,7 +347,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-			TrackingRadius = 1.2,
+			TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Beam_Muzzle01',
             TurretBonePitch = 'Beam_Muzzle01',
@@ -368,7 +364,7 @@ UnitBlueprint {
 			
             Turreted = true,
 			
-			WeaponRepackTimeout = 0,
+			WeaponRepackTimeout = 0.3,
             WeaponUnpacks = true,
         },
 		{   
@@ -424,8 +420,6 @@ UnitBlueprint {
             MinRadius = 4,
 			
 			MuzzleChargeDelay = 6.0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
 			
 			PrefersPrimaryWeaponTarget = true,
 			
@@ -470,7 +464,7 @@ UnitBlueprint {
 			
             Turreted = true,
 			
-			WeaponRepackTimeout = 0,
+			WeaponRepackTimeout = 0.3,
             WeaponUnpacks = true,
         },
 		{   
@@ -528,8 +522,6 @@ UnitBlueprint {
             MinRadius = 4,
 			
 			MuzzleChargeDelay = 9.0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
 			
 			PrefersPrimaryWeaponTarget = true,
 			
@@ -574,7 +566,7 @@ UnitBlueprint {
 			
             Turreted = true,
 			
-			WeaponRepackTimeout = 0,
+			WeaponRepackTimeout = 0.3,
             WeaponUnpacks = true,
         },
         {
@@ -644,7 +636,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Left_AA_Muzzle',
             TurretBonePitch = 'Left_AA_Turret',
@@ -657,7 +649,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 90,
-            TurretYawSpeed = 65,
+            TurretYawSpeed = 55,
 			
             Turreted = true,
         },
@@ -727,7 +719,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Right_AA_Muzzle',
             TurretBonePitch = 'Right_AA_Turret',
@@ -740,7 +732,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 90,
-            TurretYawSpeed = 65,
+            TurretYawSpeed = 55,
 			
             Turreted = true,
         },
@@ -764,11 +756,8 @@ UnitBlueprint {
         MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

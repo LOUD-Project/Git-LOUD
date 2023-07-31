@@ -1,9 +1,8 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Cannon_Turret',
-        },
+        GuardScanRadius = 66,
+        TargetBones = {'Cannon_Turret'},
     },
 	
     Audio = {
@@ -28,6 +27,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {},
 	
     BuildIconSortPriority = 30,
@@ -104,8 +104,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -117,9 +115,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC bel0308_name>Bangerhead',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -217,8 +213,7 @@ UnitBlueprint {
             MinRadius = 10,
 			
 			MuzzleChargeDelay = 0.3,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 18,
 			MuzzleVelocityReduceRange = 65,
 			
@@ -227,15 +222,11 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Cannon_Left_Muzzle',
-                    },
+                    MuzzleBones = {'Cannon_Left_Muzzle'},
                     RackBone = 'Cannon_Left_Recoil',
                 },
                 {
-                    MuzzleBones = {
-                        'Cannon_Right_Muzzle',
-                    },
+                    MuzzleBones = {'Cannon_Right_Muzzle'},
                     RackBone = 'Cannon_Right_Recoil',
                 },
             },
@@ -303,9 +294,7 @@ UnitBlueprint {
             LeadTarget = true,
 			
             MaxRadius = 25,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
 			
 			NotExclusive = true,
@@ -315,15 +304,11 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Guns_Left_Recoil',
-                    },
+                    MuzzleBones = {'Guns_Left_Recoil'},
                     RackBone = 'Guns_Left_Recoil',
                 },
                 {
-                    MuzzleBones = {
-                        'Guns_Right_Recoil',
-                    },
+                    MuzzleBones = {'Guns_Right_Recoil'},
                     RackBone = 'Guns_Right_Recoil',
                 },
             },
@@ -363,6 +348,7 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
@@ -370,11 +356,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

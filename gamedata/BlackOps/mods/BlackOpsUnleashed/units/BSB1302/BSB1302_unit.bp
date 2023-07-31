@@ -84,14 +84,11 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 12,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         FactionName = 'Seraphim',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC bsb1302_name>Uya-atoh',
-        UnitWeight = 1,
+
 		UpgradesFrom = 'bsb1202',
 		UpgradesFromBase = 'xsb1102',		
     },

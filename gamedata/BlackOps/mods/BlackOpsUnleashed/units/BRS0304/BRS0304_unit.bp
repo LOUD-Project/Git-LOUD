@@ -1,19 +1,17 @@
 UnitBlueprint {
     AI = {
         AttackAngle = 5,
-        GuardReturnRadius = 60,
+
+        GuardReturnRadius = 100,
+        GuardScanRadius = 85,
+
         RefuelingMultiplier = 50,
         RefuelingRepairAmount = 500,
         RepairConsumeEnergy = 5,
         RepairConsumeMass = 0.5,
 		StagingPlatformScanRadius = 400,
-        TargetBones = {
-            'URS0202',
-            'Back_Wake',
-            'Front_Left_Wake',
-            'Front_Right_Wake',
-			'launcher_turret',
-        },
+
+        TargetBones = {'URS0202','Back_Wake','Front_Left_Wake','launcher_turret'},
     },
 	
     Audio = {
@@ -164,8 +162,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 3,
-        Category = 'Ship',
-        Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -186,12 +182,10 @@ UnitBlueprint {
                 bitmapId = 'toggle-weapon-air',
             },
         },
-        TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
             RULEUTC_WeaponToggle = true,
         },
         UnitName = '<LOC brs0304_name>Reaper Class',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -295,9 +289,7 @@ UnitBlueprint {
             Label = 'ParticleGun',
 			
             MaxRadius = 85,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 44,
 			
             ProjectileId = '/projectiles/CDFProtonCannon02/CDFProtonCannon02_proj.bp',
@@ -311,7 +303,7 @@ UnitBlueprint {
                     RackBone = 'front_middle_barrel01',
                 },
             },
-             
+
             RackRecoilDistance = -1.5,
 
             RangeCategory = 'UWRC_DirectFire',
@@ -339,7 +331,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Front_Right_Muzzle',
             TurretBonePitch = 'front_middle_barrel01',
@@ -352,7 +344,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 135,
-            TurretYawSpeed = 50,
+            TurretYawSpeed = 40,
 			
             Turreted = true,
         },
@@ -390,9 +382,7 @@ UnitBlueprint {
             Label = 'ParticleGun',
 			
             MaxRadius = 85,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 50,
 			
             ProjectileId = '/projectiles/CDFProtonCannon02/CDFProtonCannon02_proj.bp',
@@ -405,13 +395,8 @@ UnitBlueprint {
                     RackBone = 'front_barrel',
                 },
             },
-             
+
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-
-
-            RackSalvoSize = 1,
-            
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -438,6 +423,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.1,
+
             TurretBoneMuzzle = 'Front_Right_Muzzle01',
             TurretBonePitch = 'front_barrel',
             TurretBoneYaw = 'front_turret01',
@@ -449,7 +435,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 135,
-            TurretYawSpeed = 50,
+            TurretYawSpeed = 38,
 
             Turreted = true,
         },
@@ -498,14 +484,10 @@ UnitBlueprint {
             MaxRadius = 65,
 			
 			MuzzleChargeDelay = 0.2,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
 			NeedPrep = true,
 			
-            DoNotCollideList = {
-                'TORPEDO',
-                'MISSILE',
-            },
+            DoNotCollideList = {'TORPEDO','MISSILE'},
 			
             RackBones = {
                 {
@@ -542,7 +524,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'right_barrel',
             TurretBonePitch = 'right_barrel',
@@ -556,7 +538,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 120,
-            TurretYawSpeed = 75,
+            TurretYawSpeed = 50,
 			
             Turreted = true,
         },
@@ -604,14 +586,10 @@ UnitBlueprint {
             MaxRadius = 65,
 			
 			MuzzleChargeDelay = 0.2,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
 			NeedPrep = true,
 			
-			DoNotCollideList = {
-                'TORPEDO',
-                'MISSILE',
-            },
+			DoNotCollideList = {'TORPEDO','MISSILE'},
 			
             RackBones = {
                 {
@@ -648,7 +626,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 120,
-            TurretYawSpeed = 75,
+            TurretYawSpeed = 50,
 			
             Turreted = true,
         },
@@ -708,16 +686,15 @@ UnitBlueprint {
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE TECH3 BOMBER',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'TECH3 BOMBER',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             ToggleWeapon = 'GroundGun',
-            TrackingRadius = 1.25,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Right_Launcher_Muzzle01',
             TurretBonePitch = 'launcher_barrel',
@@ -726,7 +703,7 @@ UnitBlueprint {
 			
             TurretPitch = 35,
             TurretPitchRange = 80,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
             TurretYawRange = 180,
@@ -764,10 +741,6 @@ UnitBlueprint {
 			
             MaximumBeamLength = 40,
 			
-            MuzzleSalvoDelay = 0,
-			
-            MuzzleSalvoSize = 1,
-			
             NeedPrep = true,
 			
             RackBones = {
@@ -786,7 +759,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,STRATEGIC',
             TargetRestrictOnlyAllow = 'TACTICAL,MISSILE',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Zapper_Muzzle',
             TurretBonePitch = 'zapper',
@@ -795,11 +768,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 90,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 720,
+            TurretYawSpeed = 180,
 			
             Turreted = true,
         },
@@ -877,7 +850,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             ToggleWeapon = 'AAGun',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 
             TurretBoneMuzzle = 'Right_Launcher_Muzzle01',
             TurretBonePitch = 'launcher_barrel',
@@ -886,11 +859,11 @@ UnitBlueprint {
 
             TurretPitch = 35,
             TurretPitchRange = 40,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 180,
+            TurretYawSpeed = 60,
             Turreted = true,
         },
         {
@@ -961,6 +934,7 @@ UnitBlueprint {
         },
 		
         {
+            advancedTracking = true,
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -1010,7 +984,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.2,
         },
     },
 }

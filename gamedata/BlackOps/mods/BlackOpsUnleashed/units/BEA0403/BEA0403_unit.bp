@@ -1,16 +1,11 @@
 UnitBlueprint {
 
     AI = {
-		GuardRadius = 75,
-		GuardReturnRadius = 80,
+		GuardRadius = 72,
+        GuardScanRadius = 72,
+		GuardReturnRadius = 90,
 
-        TargetBones = {
-            'XEA0403',
-            'Target_01',
-            'Target_02',
-            'Target_03',
-            'Target_04',
-        },
+        TargetBones = {'XEA0403','Target_01','Target_02','Target_03','Target_04'},
     },
 	
     Air = {
@@ -149,8 +144,6 @@ UnitBlueprint {
 
     General = {
 		CapCost = 7,
-        Category = 'Experimental',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -161,9 +154,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Experimental',
-        UnitName = '<LOC bea0403_name>Citadel Mk.1',
-        UnitWeight = 1,
+        UnitName = '<LOC bea0403_name>Citadel I',
     },
 	
     Intel = {
@@ -264,9 +255,7 @@ UnitBlueprint {
             Label = 'Turret',
 			
             MaxRadius = 72,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 28,
             MuzzleVelocityRandom = 3,
 			
@@ -275,15 +264,11 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_SG_Muzzle01',
-                    },
+                    MuzzleBones = {'Right_SG_Muzzle01'},
                     RackBone = 'Right_SG_Barrel01',
                 },
                 {
-                    MuzzleBones = {
-                        'Right_SG_Muzzle02',
-                    },
+                    MuzzleBones = {'Right_SG_Muzzle02'},
                     RackBone = 'Right_SG_Barrel02',
                 },
             },
@@ -361,9 +346,7 @@ UnitBlueprint {
             Label = 'Turret',
 			
             MaxRadius = 72,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 28,
             MuzzleVelocityRandom = 3,
 			
@@ -372,15 +355,11 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Back_SG_Muzzle01',
-                    },
+                    MuzzleBones = {'Right_Back_SG_Muzzle01'},
                     RackBone = 'Right_Back_SG_Barrel01',
                 },
                 {
-                    MuzzleBones = {
-                        'Right_Back_SG_Muzzle02',
-                    },
+                    MuzzleBones = {'Right_Back_SG_Muzzle02'},
                     RackBone = 'Right_Back_SG_Barrel02',
                 },
             },
@@ -456,9 +435,7 @@ UnitBlueprint {
             Label = 'Turret',
 			
             MaxRadius = 72,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 28,
             MuzzleVelocityRandom = 3,
 			
@@ -467,15 +444,11 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_SG_Muzzle01',
-                    },
+                    MuzzleBones = {'Left_SG_Muzzle01'},
                     RackBone = 'Left_SG_Barrel01',
                 },
                 {
-                    MuzzleBones = {
-                        'Left_SG_Muzzle02',
-                    },
+                    MuzzleBones = {'Left_SG_Muzzle02'},
                     RackBone = 'Left_SG_Barrel02',
                 },
             },
@@ -552,9 +525,7 @@ UnitBlueprint {
             Label = 'Turret',
 			
             MaxRadius = 72,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 28,
             MuzzleVelocityRandom = 3,
 			
@@ -563,15 +534,11 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Back_SG_Muzzle01',
-                    },
+                    MuzzleBones = {'Left_Back_SG_Muzzle01'},
                     RackBone = 'Left_Back_SG_Barrel01',
                 },
                 {
-                    MuzzleBones = {
-                        'Left_Back_SG_Muzzle02',
-                    },
+                    MuzzleBones = {'Left_Back_SG_Muzzle02'},
                     RackBone = 'Left_Back_SG_Barrel02',
                 },
             },
@@ -660,9 +627,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Left_Flak_Muzzle',
-                    },
+                    MuzzleBones = {'Front_Left_Flak_Muzzle'},
                     RackBone = 'Front_Left_Flak_Recoil',
                 },
             },
@@ -681,7 +646,8 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
+
             TurretBoneMuzzle = 'Front_Left_Flak_Muzzle',
             TurretBonePitch = 'Front_Left_Flak_Barrel',
             TurretBoneYaw = 'Front_Left_Flak_Turret',
@@ -689,11 +655,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 120,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },
@@ -732,8 +698,6 @@ UnitBlueprint {
 
             MaxRadius = 50,
 
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 60,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/TAAHeavyFragmentationShell01/TAAHeavyFragmentationShell01_proj.bp',
@@ -741,9 +705,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Right_Flak_Muzzle',
-                    },
+                    MuzzleBones = {'Front_Right_Flak_Muzzle'},
                     RackBone = 'Front_Right_Flak_Recoil',
                 },
             },
@@ -759,7 +721,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Front_Right_Flak_Muzzle',
             TurretBonePitch = 'Front_Right_Flak_Barrel',
@@ -768,11 +730,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 120,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },
@@ -812,8 +774,6 @@ UnitBlueprint {
 
             MaxRadius = 50,
 
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 60,
 
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/TAAHeavyFragmentationShell01/TAAHeavyFragmentationShell01_proj.bp',
@@ -821,9 +781,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Left_Flak_Muzzle',
-                    },
+                    MuzzleBones = {'Back_Left_Flak_Muzzle'},
                     RackBone = 'Back_Left_Flak_Recoil',
                 },
             },
@@ -839,7 +797,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Back_Left_Flak_Muzzle',
             TurretBonePitch = 'Back_Left_Flak_Barrel',
@@ -848,11 +806,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 120,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },
@@ -890,9 +848,7 @@ UnitBlueprint {
             Label = 'AAAFlak',
 
             MaxRadius = 50,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 60,
 
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/TAAHeavyFragmentationShell01/TAAHeavyFragmentationShell01_proj.bp',
@@ -900,9 +856,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Right_Flak_Muzzle',
-                    },
+                    MuzzleBones = {'Back_Right_Flak_Muzzle'},
                     RackBone = 'Back_Right_Flak_Recoil',
                 },
             },
@@ -918,7 +872,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Back_Right_Flak_Muzzle',
             TurretBonePitch = 'Back_Right_Flak_Barrel',
@@ -927,11 +881,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 120,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },
@@ -977,9 +931,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Left_AAC_Muzzle',
-                    },
+                    MuzzleBones = {'Front_Left_AAC_Muzzle'},
                     RackBone = 'Front_Left_AAC_Rotator',
                 },
             },
@@ -993,7 +945,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
             
             TurretBoneMuzzle = 'Front_Left_AAC_Muzzle',
             TurretBonePitch = 'Front_Left_AAC_Barrel',
@@ -1006,7 +958,7 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 60,
             
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -1052,17 +1004,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Right_AAC_Muzzle',
-                    },
+                    MuzzleBones = {'Front_Right_AAC_Muzzle'},
                     RackBone = 'Front_Right_AAC_Rotator',
                 },
             },
-
-
-
-            RackSalvoFiresAfterCharge = false,
-             
 
             RateOfFire = 1,
 
@@ -1073,7 +1018,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
             
             TurretBoneMuzzle = 'Front_Right_AAC_Muzzle',
             TurretBonePitch = 'Front_Right_AAC_Barrel',
@@ -1086,7 +1031,7 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 60,
             
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -1131,17 +1076,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Left_AAC_Muzzle',
-                    },
+                    MuzzleBones = {'Back_Left_AAC_Muzzle'},
                     RackBone = 'Back_Left_AAC_Rotator',
                 },
             },
-            
-
-
-            RackSalvoFiresAfterCharge = false,
-             
 
             RateOfFire = 1,
             
@@ -1152,7 +1090,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
             
             TurretBoneMuzzle = 'Back_Left_AAC_Muzzle',
             TurretBonePitch = 'Back_Left_AAC_Barrel',
@@ -1165,7 +1103,7 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 60,
             
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -1211,17 +1149,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Right_AAC_Muzzle',
-                    },
+                    MuzzleBones = {'Back_Right_AAC_Muzzle'},
                     RackBone = 'Back_Right_AAC_Rotator',
                 },
             },
-
-
-
-            RackSalvoFiresAfterCharge = false,
-             
 
             RateOfFire = 1,
             
@@ -1233,7 +1164,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
             
             TurretBoneMuzzle = 'Back_Right_AAC_Muzzle',
             TurretBonePitch = 'Back_Right_AAC_Barrel',
@@ -1246,7 +1177,7 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 60,
             
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -1273,11 +1204,8 @@ UnitBlueprint {
         MassMult = 0.85,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

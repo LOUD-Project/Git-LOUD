@@ -82,14 +82,11 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 12,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         FactionName = 'UEF',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC beb1302_name>HCPP - X3000',
-        UnitWeight = 1,
+
 		UpgradesFrom = 'beb1202',
 		UpgradesFromBase = 'ueb1102',		
     },

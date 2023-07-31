@@ -1,5 +1,6 @@
 UnitBlueprint {
 	AI = {
+        GuardScanRadius = 44,
         TargetBones = {'Attachpoint'},
     },
 
@@ -94,8 +95,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Anti Air',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -107,9 +106,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC bslk004_name>Uyanah',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -214,10 +211,6 @@ UnitBlueprint {
 			LeadTarget = false,
 			
             MaxRadius = 44,
-
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
 			
             RackBones = {
                 {
@@ -304,10 +297,6 @@ UnitBlueprint {
             MaxRadius = 32,
             MinRadius = 0,
 			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
             RackBones = {
                 {
                     MuzzleBones = {'muzzle02'},
@@ -320,7 +309,7 @@ UnitBlueprint {
             RateOfFire = 0.5,	-- 200 DPS Surface
 			
             RequireTime = 0,
-            SlavedToBody = false,
+
             TargetCheckInterval = 1.0,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -404,6 +393,7 @@ UnitBlueprint {
             WeaponUnpacks = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -411,11 +401,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

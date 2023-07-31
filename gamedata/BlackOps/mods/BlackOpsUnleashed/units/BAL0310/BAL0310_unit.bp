@@ -1,9 +1,8 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'BAL0310',
-        },
+        GuardScanRadius = 49,
+        TargetBones = {'BAL0310'},
     },
 	
     Audio = {
@@ -94,8 +93,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -107,9 +104,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC bal0310_name>Wraith',
-        UnitWeight = 1,
     },
     
     Intel = {
@@ -214,8 +209,7 @@ UnitBlueprint {
             LeadTarget = true,
 			
             MuzzleChargeDelay = 0.2,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 24,
 			
             NotExclusive = true,
@@ -295,33 +289,27 @@ UnitBlueprint {
             MaxRadius = 37,
 			
             MuzzleChargeDelay = 0.4,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 45,
 
             ProjectileId = '/projectiles/ADFQuantumCannon02/ADFQuantumCannon02_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'L_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'L_Turret_Muzzle'},
                     RackBone = 'Left_Gun_Barrel',
                 },
                 {
-                    MuzzleBones = {
-                        'R_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'R_Turret_Muzzle'},
                     RackBone = 'Right_Gun_Barrel',
                 },
             },
-             
+
             RackRecoilDistance = -0.5,
+
             RackReloadTimeout = 10,
 
-
             RackSalvoSize = 1,
-
 
             SlavedToBody = true,
             SlavedToBodyArcRange = 10,
@@ -364,6 +352,7 @@ UnitBlueprint {
             WeaponUnpacks = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.35,
@@ -371,10 +360,7 @@ UnitBlueprint {
         MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
             Water = true,
         },
     },

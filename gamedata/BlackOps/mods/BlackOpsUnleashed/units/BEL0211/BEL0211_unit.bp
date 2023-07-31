@@ -1,10 +1,8 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Left_Turret',
-			'Right_Turret',
-        },
+        GuardScanRadius = 20,
+        TargetBones = {'Left_Turret','Right_Turret'},
     },
 	
     Audio = {
@@ -97,8 +95,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Experimental',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -110,9 +106,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC bel0211_name>Inferno',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -213,9 +207,7 @@ UnitBlueprint {
 
             MaxRadius = 20,
 			MinRadius = 3,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 15,
 
 			NotExclusive = true,
@@ -226,9 +218,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Turret_Muzzle'},
                     RackBone = 'Right_Turret_Muzzle',
                 },
             },
@@ -245,7 +235,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Right_Turret_Muzzle',
             TurretBonePitch = 'Right_Turret',
@@ -299,9 +289,7 @@ UnitBlueprint {
 
             MaxRadius = 20,
 			MinRadius = 3,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 15,
 
 			NotExclusive = true,
@@ -312,9 +300,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Left_Turret_Muzzle'},
                     RackBone = 'Left_Turret_Muzzle',
                 },
             },
@@ -330,7 +316,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Left_Turret_Muzzle',
             TurretBonePitch = 'Left_Turret',

@@ -4,6 +4,7 @@ UnitBlueprint {
         GuardScanRadius = 30,
 		TargetBones = {'Barrel'},
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -98,8 +99,6 @@ UnitBlueprint {
     },
     General = {
 		CapCost = 1,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -117,12 +116,10 @@ UnitBlueprint {
                 helpText = 'toggle_sniper',
             },
         },
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_WeaponToggle = true,
         },		
         UnitName = '<LOC bsl0008_name>Hala Usha-Ah',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -215,10 +212,7 @@ UnitBlueprint {
             Label = 'MainGun',
 			
             MaxRadius = 30,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 100,
 			
             ProjectileId = '/projectiles/SDFSniperShot01/SDFSniperShot01_proj.bp',
@@ -290,8 +284,7 @@ UnitBlueprint {
             MaxRadius = 70,
 			
             MuzzleChargeDelay = 0.5,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 100,
 			
             ProjectileId = '/projectiles/SDFSniperShot02/SDFSniperShot02_proj.bp',
