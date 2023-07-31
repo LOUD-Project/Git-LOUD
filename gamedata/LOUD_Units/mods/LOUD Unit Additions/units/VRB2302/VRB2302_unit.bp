@@ -1,10 +1,7 @@
 UnitBlueprint {
     
 	AI = {
-        TargetBones = {
-            'Turret',
-            'Barrel_B01',
-        },
+        TargetBones = {'Turret','Barrel_B01'},
     },
 	
     Audio = {
@@ -85,8 +82,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
-		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_cybran_01_albedo',
@@ -94,12 +89,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 5,
                 Normal = 'Tarmacs/Tar12x_cybran_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 5,
             },
@@ -112,15 +102,11 @@ UnitBlueprint {
         BuildCostMass = 13000,
         BuildTime = 13000,
         
-        RebuildBonusIds = {
-            'vrb2302',
-        },
+        RebuildBonusIds = {'vrb2302'},
     },
 	
     General = {
 		CapCost = 4,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -129,9 +115,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC vrb2302_name>Sky Bloom',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -217,9 +201,7 @@ UnitBlueprint {
             Label = 'Missile01',
 			
             MaxRadius = 89,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 60,
 			
             ProjectileId = '/projectiles/CAAMissileNanite02/CAAMissileNanite02_proj.bp',
@@ -227,19 +209,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Barrel_B01',
                 },
             },
-            RackFireTogether = false,
             RackRecoilDistance = -7,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -255,7 +229,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, TECH1, SATELLITE',
-            TrackingRadius = 1.25,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
@@ -268,7 +242,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 68,
+            TurretYawSpeed = 64,
 			
             Turreted = true,
         },
@@ -282,11 +256,7 @@ UnitBlueprint {
         MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

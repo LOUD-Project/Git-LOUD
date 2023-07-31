@@ -81,9 +81,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
-		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_seraphim_01_albedo',
@@ -91,12 +88,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12,
                 Normal = 'Tarmacs/Tar12x_seraphim_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = true,
                 Width = 12,
             },
@@ -120,14 +112,10 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 15,
-        Category = 'Experimental',
-        Classification = 'RULEUC_Resource',
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC xsb8765_name>Hala-Vishual',
-        UnitWeight = 1,
     },
 	
     Interface = {
@@ -180,30 +168,35 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             CollideFriendly = false,
+
             Damage = 0,
             DamageFriendly = true,
             DamageRadius = 0,
             DamageType = 'Normal',
+
             DisplayName = 'Death Weapon',
+
             FireOnDeath = true,
             FiringTolerance = 2,
+
             Label = 'DeathWeapon',
+
             MaxRadius = 1,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 0,
+
             NukeInnerRingDamage = 18000,
             NukeInnerRingRadius = 20,
             NukeInnerRingTotalTime = 3,
             NukeOuterRingDamage = 5000,
             NukeOuterRingRadius = 44,
             NukeOuterRingTotalTime = 5,
+
             ProjectileId = '/effects/entities/InainoEffectController01/InainoEffectController01_proj.bp',
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        0,
-                    },
+                    MuzzleBones = {0},
                     RackBone = 0,
                 },
             },

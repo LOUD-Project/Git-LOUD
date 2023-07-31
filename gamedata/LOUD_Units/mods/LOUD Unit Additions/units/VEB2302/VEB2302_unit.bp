@@ -1,10 +1,7 @@
 UnitBlueprint {
     
 	AI = {
-        TargetBones = {
-            'Turret',
-            'Barrel',
-        },
+        TargetBones = {'Turret','Barrel'},
     },
 
     Audio = {
@@ -93,8 +90,6 @@ UnitBlueprint {
             },
         },
 		
-        SpawnRandomRotation = true,
-		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_01_albedo',
@@ -102,12 +97,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 6,
                 Normal = 'Tarmacs/Tar12x_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 6,
             },
@@ -120,15 +110,11 @@ UnitBlueprint {
         BuildCostMass = 13000,
         BuildTime = 13000,
         
-        RebuildBonusIds = {
-            'veb2302',
-        },
+        RebuildBonusIds = {'veb2302'},
     },
 	
     General = {
 		CapCost = 4,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -137,9 +123,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC veb2302_name>Flayer II',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -231,9 +215,6 @@ UnitBlueprint {
 			
             MaxRadius = 89,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
             MuzzleVelocity = 60,
 			
             ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
@@ -241,9 +222,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel_B01',
                     TelescopeBone = 'Turret_Barrel_B02',
                     TelescopeRecoilDistance = -20,
@@ -252,8 +231,6 @@ UnitBlueprint {
 
             RackRecoilDistance = -12,
             RackReloadTimeout = 7,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -270,7 +247,7 @@ UnitBlueprint {
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE, TECH1, SATELLITE',
-            TrackingRadius = 1.25,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Barrel',
@@ -283,7 +260,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 68,
+            TurretYawSpeed = 64,
 			
             Turreted = true,
         },
@@ -297,11 +274,7 @@ UnitBlueprint {
         MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

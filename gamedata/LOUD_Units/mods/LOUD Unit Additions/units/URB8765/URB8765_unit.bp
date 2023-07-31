@@ -41,8 +41,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTECONOMY',
     },
-	
-    CollisionOffsetY = 0,
+
     CollisionOffsetZ = 0.1,
 	
     Defense = {
@@ -95,8 +94,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
 		
         Tarmacs = {
             {
@@ -105,12 +102,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12,
                 Normal = 'Tarmacs/Tar12x_cybran_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = true,
                 Width = 12,
             },
@@ -135,15 +127,11 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 15,
-        Category = 'Experimental',
-        Classification = 'RULEUC_Resource',
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 5,
         TarmacDecal = 'Tarmacs/tarmac_cybran_8x_albedo',
         TarmacGlowDecal = 'Tarmacs/tarmac_cybran_8x_glow',
-        TechLevel = 'RULEUTL_Secret',
-        UnitWeight = 1,
     },
 
     Interface = {
@@ -188,30 +176,35 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             CollideFriendly = false,
+
             Damage = 0,
             DamageFriendly = true,
             DamageRadius = 0,
             DamageType = 'Normal',
+
             DisplayName = 'Death Weapon',
+
             FireOnDeath = true,
             FiringTolerance = 2,
+
             Label = 'DeathWeapon',
+
             MaxRadius = 1,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 0,
+
             NukeInnerRingDamage = 18000,
             NukeInnerRingRadius = 20,
             NukeInnerRingTotalTime = 3,
             NukeOuterRingDamage = 5000,
             NukeOuterRingRadius = 44,
             NukeOuterRingTotalTime = 5,
+
             ProjectileId = '/projectiles/CIFEMPFluxWarhead02/CIFEMPFluxWarhead02_proj.bp',
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        0,
-                    },
+                    MuzzleBones = {0},
                     RackBone = 0,
                 },
             },

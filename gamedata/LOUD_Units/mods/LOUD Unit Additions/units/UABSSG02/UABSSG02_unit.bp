@@ -116,25 +116,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
-		
-        Tarmacs = {
-            {
-                Albedo = 'Tarmacs/Tar12x_aeon_01_albedo',
-                FadeOut = 300,
-                Length = 16.8,
-                Normal = 'Tarmacs/Tar12x_aeon_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
-                RemoveWhenDead = true,
-                Width = 16.8,
-            },
-        },
 		
         UniformScale = 0.168,
     },
@@ -156,8 +137,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 5,
-        Category = 'Defense',
-        Classification = 'RULEUC_CounterMeasure',
         FactionName = 'Aeon',
         Icon = 'land',
         OrderOverrides = {
@@ -167,12 +146,11 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
         UnitName = '<LOC uabssg02_name>Luminesc',
-        UnitWeight = 1,
+
         UpgradesFrom = 'uabssg01',
     },
 
@@ -222,11 +200,7 @@ UnitBlueprint {
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

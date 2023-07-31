@@ -76,12 +76,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 6,
                 Normal = 'Tarmacs/Tar6x_seraphim_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 6,
             },
@@ -121,23 +116,16 @@ UnitBlueprint {
             RULEUCC_Repair = true,
             RULEUCC_Stop = true,
         },
-
         FactionName = 'Seraphim',
         Icon = 'land',
-
         OrderOverrides = {
             RULEUTC_ProductionToggle = {bitmapId = 'area-assist',helpText = 'toggle_area_assist'},
         },
-
         SelectionPriority = 5,
-
         UnitName = '<LOC wsb0104_name>Dehgarwof',
-
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
-
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -189,11 +177,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

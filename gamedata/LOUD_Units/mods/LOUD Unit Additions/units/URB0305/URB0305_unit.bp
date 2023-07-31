@@ -88,8 +88,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
-		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_cybran_01_albedo',
@@ -97,12 +95,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar12x_cybran_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
@@ -127,8 +120,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 5,
-        Category = 'Strategic',
-        Classification = 'RULEUC_Factory',
         CommandCaps = {
             RULEUCC_Move = true,
             RULEUCC_Patrol = true,
@@ -146,11 +137,9 @@ UnitBlueprint {
 			},
 		},
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
 		ToggleCaps = {
 			RULEUTC_WeaponToggle = true,
 		},
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -356,11 +345,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

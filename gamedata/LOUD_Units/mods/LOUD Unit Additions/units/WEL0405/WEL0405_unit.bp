@@ -1,10 +1,7 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'UUX0111_RightToe',
-            'UUX0111_LeftHip',
-            'UUX0111_Head',
-        },
+        GuardScanRadius = 55,
+        TargetBones = {'UUX0111_RightToe','UUX0111_LeftHip','UUX0111_Head'},
     },
 	
     Audio = {
@@ -200,7 +197,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 7,
-
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -209,22 +205,15 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-
         FactionName = 'Aeon',
         Icon = 'amph',
-		
 		OrderOverrides = {
             RULEUTC_SpecialToggle = { helpText = 'Miasma Field' },        
         },
-		
-        TechLevel = 'RULEUTL_Secret',
-		
         ToggleCaps = {
             RULEUTC_SpecialToggle = true,
         },
-
         UnitName = '<LOC wel0405_name>King Kraptor',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -349,8 +338,7 @@ UnitBlueprint {
             MaxRadius = 72,
 			
             MuzzleChargeDelay = 2,          -- 2 second delay
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 24,
 			
 			NotExclusive = true,
@@ -360,19 +348,13 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'UUX0111_T01_B01_Muzzle01',
-                    },
+                    MuzzleBones = {'UUX0111_T01_B01_Muzzle01'},
                     RackBone = 'UUX0111_T01_Barrel01',
                     TelescopeBone = 'UUX0111_T01_B01_Recoil01',
                     TelescopeRecoilDistance = -7,
                 },
             },
 
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -385,7 +367,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'UUX0111_T01_Barrel01',
             TurretBonePitch = 'UUX0111_T01_Barrel01',
@@ -448,8 +430,7 @@ UnitBlueprint {
             MaxRadius = 72,
 			
             MuzzleChargeDelay = 2,          -- 2 second delay
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 24,
 			
 			NotExclusive = true,
@@ -459,19 +440,13 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'UUX0111_T01_B02_Muzzle01',
-                    },
+                    MuzzleBones = {'UUX0111_T01_B02_Muzzle01'},
                     RackBone = 'UUX0111_T01_Barrel02',
                     TelescopeBone = 'UUX0111_T01_B02_Recoil01',
                     TelescopeRecoilDistance = -7,
                 },
             },
 
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
             RateOfFire = 1,	-- rate controlled by charge and delay = 3.4 seconds = 588 DPS
@@ -482,7 +457,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'UUX0111_T01_Barrel02',
             TurretBonePitch = 'UUX0111_T01_Barrel02',
@@ -538,9 +513,7 @@ UnitBlueprint {
 			
             MaxRadius = 55,
 			MinRadius = 10,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
 			
 			NotExclusive = true,
@@ -560,10 +533,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.3,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RateOfFire = 1,		-- 840 DPS
@@ -574,7 +544,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'UUX0111_T02_B01_Muzzle01',
             TurretBonePitch = 'UUX0111_T02_Barrel01',
@@ -625,9 +595,7 @@ UnitBlueprint {
 			
             MaxRadius = 55,
 			MinRadius = 10,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/UHeavyGauss04/UHeavyGauss04_proj.bp',
@@ -645,10 +613,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.3,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RateOfFire = 1,		-- 840 DPS
@@ -659,12 +624,13 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'UUX0111_T03_B01_Muzzle01',
             TurretBonePitch = 'UUX0111_T03_Barrel01',
             TurretBoneYaw = 'UUX0111_Turret03',
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 40,
             TurretPitchSpeed = 20,
@@ -710,9 +676,7 @@ UnitBlueprint {
 			
             MaxRadius = 55,
 			MinRadius = 10,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/UHeavyGauss04/UHeavyGauss04_proj.bp',
@@ -730,10 +694,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.3,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RateOfFire = 1,		-- 840 DPS
@@ -744,7 +705,8 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
+
             TurretBoneMuzzle = 'UUX0111_T04_B01_Muzzle01',
             TurretBonePitch = 'UUX0111_T04_Barrel01',
             TurretBoneYaw = 'UUX0111_Turret04',
@@ -793,8 +755,7 @@ UnitBlueprint {
 			
             MaxRadius = 128,
             MinRadius = 18,
-			
-            MuzzleChargeDelay = 0,
+
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 16,
             MuzzleVelocity = 4,
@@ -831,8 +792,6 @@ UnitBlueprint {
             },
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -850,7 +809,7 @@ UnitBlueprint {
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 			
             Turreted = false,
         },
@@ -911,10 +870,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 0.5,		-- 800 DPS Air
@@ -928,7 +883,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
         },
 		
         {

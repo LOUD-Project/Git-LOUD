@@ -1,11 +1,8 @@
 UnitBlueprint {
 
 	AI = {
-        TargetBones = {
-            'UCX0101_Pelvis',
-            'UCX0101_T01_Barrel01',
-            'UUX0111_Tail',
-        },
+        GuardScanRadius = 45,
+        TargetBones = {'UCX0101_Pelvis','UCX0101_T01_Barrel01','UUX0111_Tail'},
     },
 	
     Audio = {
@@ -200,8 +197,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
         UniformScale = 0.0725,
     },
 	
@@ -213,8 +208,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 10,
-        Category = 'Experimental',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -225,9 +218,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret', 
         UnitName = '<LOC wrl0404_name>Megaroach',
-        UnitWeight = 4,
     },
 	
     Intel = {
@@ -349,9 +340,7 @@ UnitBlueprint {
 			
             MaxRadius = 72,
             MinRadius = 8,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 45,
 			
             ProjectileId = '/projectiles/CDFProtonCannon05/CDFProtonCannon05_proj.bp',
@@ -359,17 +348,11 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'UCX0101_T01_B01_Muzzle01',
-                    },
+                    MuzzleBones = {'UCX0101_T01_B01_Muzzle01'},
                     RackBone = 'UCX0101_T01_Barrel01',
                 },
             },
-
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -473,10 +456,6 @@ UnitBlueprint {
                     RackBone = 'UCX0101_Turret02',
                 },
             },
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -489,7 +468,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'UCX0101_Turret02',
             TurretBonePitch = 'UCX0101_Turret02',
@@ -574,10 +553,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RateOfFire = 2,
             
             TargetCheckInterval = 0.2,
@@ -586,7 +561,7 @@ UnitBlueprint {
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
             
             TurretBoneMuzzle = 'UCX0101_T03_Muzzle01',
             TurretBonePitch = 'UCX0101_Turret03',
@@ -647,18 +622,13 @@ UnitBlueprint {
             
             ProjectileId = '/projectiles/CAABurstCloud01/CAABurstCloud01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.0,
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'UCX0101_T04_Muzzle01',
-                    },
+                    MuzzleBones = {'UCX0101_T04_Muzzle01'},
                     RackBone = 'UCX0101_Turret04',
                 },
             },
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_AntiAir',
             
@@ -683,11 +653,11 @@ UnitBlueprint {
             
             TurretPitch = 35,
             TurretPitchRange = 55,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 80,
             
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 100,
+            TurretYawSpeed = 80,
             
             Turreted = true,
         },
@@ -738,16 +708,10 @@ UnitBlueprint {
             
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'UCX0101_T05_Muzzle01',
-                    },
+                    MuzzleBones = {'UCX0101_T05_Muzzle01'},
                     RackBone = 'UCX0101_Turret05',
                 },
             },
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 2,
             
@@ -760,7 +724,7 @@ UnitBlueprint {
                 'MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
             
             TurretBoneMuzzle = 'UCX0101_T05_Muzzle01',
             TurretBonePitch = 'UCX0101_Turret05',
@@ -769,11 +733,11 @@ UnitBlueprint {
             
             TurretPitch = 35,
             TurretPitchRange = 55,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 80,
             
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 100,
+            TurretYawSpeed = 80,
             
             Turreted = true,
         },
@@ -822,16 +786,10 @@ UnitBlueprint {
             ProjectileLifetimeUsesMultiplier = 1.0,
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'UCX0101_T06_Muzzle01',
-                    },
+                    MuzzleBones = {'UCX0101_T06_Muzzle01'},
                     RackBone = 'UCX0101_Turret06',
                 },
             },
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 2,
             
@@ -853,11 +811,11 @@ UnitBlueprint {
             
             TurretPitch = 35,
             TurretPitchRange = 55,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 80,
             
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 100,
+            TurretYawSpeed = 80,
             
             Turreted = true,
         },
@@ -907,16 +865,10 @@ UnitBlueprint {
             
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'UCX0101_T07_Muzzle01',
-                    },
+                    MuzzleBones = {'UCX0101_T07_Muzzle01'},
                     RackBone = 'UCX0101_Turret07',
                 },
             },
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 2,
             
@@ -929,7 +881,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
             
             TurretBoneMuzzle = 'UCX0101_T07_Muzzle01',
             TurretBonePitch = 'UCX0101_Turret07',
@@ -938,11 +890,11 @@ UnitBlueprint {
             
             TurretPitch = 35,
             TurretPitchRange = 55,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 80,
             
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 100,
+            TurretYawSpeed = 80,
             
             Turreted = true,
         },

@@ -73,7 +73,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar6x_aeon_01_albedo',
@@ -81,12 +80,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12,
                 Normal = 'Tarmacs/Tar6x_aeon_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 12,
             },
@@ -99,9 +93,7 @@ UnitBlueprint {
         BuildCostMass = 9500,
         BuildTime = 10500,
         
-        RebuildBonusIds = {
-            'lab2320',
-        },
+        RebuildBonusIds = {'lab2320'},
     },
 	
 	Footprint = {
@@ -111,8 +103,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 5,
-        Category = 'Strategic',
-        Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -121,9 +111,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
 		Icon = 'amph',
 		SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC lab2320_name>Zion',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -218,9 +206,7 @@ UnitBlueprint {
 			
             MaxRadius = 155,
             MinRadius = 25,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 33,
 			
             MuzzleVelocityReduceDistance = 175,
@@ -230,17 +216,12 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Recoil',
                 },
             },
 
             RackRecoilDistance = -30,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -311,9 +292,7 @@ UnitBlueprint {
 			
             MaxRadius = 155,
             MinRadius = 25,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 33,
 			
             MuzzleVelocityReduceDistance = 175,
@@ -323,17 +302,12 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle01',
-                    },
+                    MuzzleBones = {'Turret_Muzzle01'},
                     RackBone = 'Turret_Recoil01',
                 },
             },
 
             RackRecoilDistance = -30,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 1,
 			
@@ -402,9 +376,7 @@ UnitBlueprint {
 			
             MaxRadius = 155,
             MinRadius = 25,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 33,
 			
             MuzzleVelocityReduceDistance = 175,
@@ -414,17 +386,12 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle02',
-                    },
+                    MuzzleBones = {'Turret_Muzzle02'},
                     RackBone = 'Turret_Recoil02',
                 },
             },
 
             RackRecoilDistance = -30,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 1,
 			
@@ -464,11 +431,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -111,8 +111,7 @@ UnitBlueprint {
 			Land = { Effects = {} },
 			Water = { Effects = {} },
 		},
-		
-        SpawnRandomRotation = true,
+
         UniformScale = 0.54,
     },
 	
@@ -134,8 +133,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 10,
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -152,12 +149,10 @@ UnitBlueprint {
                 helpText = 'toggle_shield_dome',
             },
         },
-        TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
         UnitName = '<LOC ualx401_name>Angel',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -263,25 +258,17 @@ UnitBlueprint {
             MaxProjectileStorage = 6,
 			
             MaxRadius = 100,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 90,
 			
             ProjectileId = '/projectiles/AIMSaintAntiNuke01/AIMSaintAntiNuke01_proj.bp',
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'AntiNuke',
-                    },
+                    MuzzleBones = {'AntiNuke'},
                     RackBone = 'AntiNuke',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -306,10 +293,7 @@ UnitBlueprint {
         MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
             Water = true,
         },
     },
