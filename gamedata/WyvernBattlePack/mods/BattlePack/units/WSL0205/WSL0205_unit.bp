@@ -1,6 +1,7 @@
 UnitBlueprint{
     Description = "Shielded Protector Bot",
     AI = {
+        GuardScanRadius = 25,
         TargetBones = { "Body" },
     },
     Audio = {
@@ -202,8 +203,7 @@ UnitBlueprint{
                 },
             },
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_DirectFire",
             RateOfFire = 1.1,
             TargetCheckInterval = 0.5,

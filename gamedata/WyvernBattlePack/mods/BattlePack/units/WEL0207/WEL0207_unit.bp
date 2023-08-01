@@ -138,8 +138,7 @@ UnitBlueprint{
             Label = "TMD",
             MaxRadius = 28,
             MaximumBeamLength = 28,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             NeedPrep = false,
             RackBones = {
                 {
@@ -147,27 +146,31 @@ UnitBlueprint{
                     RackBone = "TMDOrb",
                 },
             },
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_Countermeasure",
+
             RateOfFire = 0.6,
+
             TargetCheckInterval = 0.2,
             TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
             TargetRestrictOnlyAllow = "TACTICAL MISSILE",
             TargetType = "RULEWTT_Projectile",
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.1,
+
             TurretBoneMuzzle = "TMDOrb",
             TurretBonePitch = "TMDOrb",
             TurretBoneYaw = "MainTurret",
             TurretDualManipulators = false,
+
             TurretPitch = 45,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 120,
+            TurretPitchSpeed = 80,
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 140,
+            TurretYawSpeed = 80,
+
             Turreted = true,
+
             UseFiringSolutionInsteadOfAimBone = true,
         },
     },

@@ -2,7 +2,8 @@ UnitBlueprint{
     Description = "Heavy Support Cruiser",
     AI = {
         AttackAngle = 60,
-        GuardReturnRadius = 60,
+        GuardReturnRadius = 80,
+        GuardScanRadius = 65,
     },
     Audio = {
         Killed      = Sound { Bank = 'UESDestroy', Cue = 'UES0302_Destroy',    LodCutoff = 'UnitMove_LodCutoff' },
@@ -208,11 +209,7 @@ UnitBlueprint{
                     RackBone = "PlasmaTurret_Recoil_BottomFront",
                 },
             },
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RangeCategory = "UWRC_DirectFire",
             RateOfFire = 0.25,
             SlavedToBody = true,
@@ -271,9 +268,7 @@ UnitBlueprint{
                     RackBone = "PlasmaTurret_Recoil_TopFront",
                 },
             },
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RateOfFire = 0.25,
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,
@@ -331,9 +326,7 @@ UnitBlueprint{
                     RackBone = "PlasmaTurret_Recoil_BottomRear",
                 },
             },
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RateOfFire = 0.25,
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,
@@ -383,16 +376,14 @@ UnitBlueprint{
                     RackBone = "TMD_Turret_Barrel",
                 },
             },
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_Countermeasure",
             RateOfFire = 1.1,
             TargetCheckInterval = 0.3,
             TargetRestrictDisallow = "UNTARGETABLE,STRATEGIC",
             TargetRestrictOnlyAllow = "TACTICAL,MISSILE",
             TargetType = "RULEWTT_Projectile",
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.2,
             TurretBoneMuzzle = "TMD_Turret_Muzzle",
             TurretBonePitch = "TMD_Turret_Barrel",
             TurretBoneYaw = "TMD_Turret",
@@ -440,9 +431,7 @@ UnitBlueprint{
                     RackBone = "RearRight_AARack",
                 },
             },
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_AntiAir",
             RateOfFire = 0.4,
             TargetCheckInterval = 1,
@@ -453,7 +442,7 @@ UnitBlueprint{
                 "ALLUNITS",
             },
             TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
             TurretBoneMuzzle = "RearRight_AARack",
             TurretBonePitch = "RearRight_AARack",
             TurretBoneYaw = "RearRight_AAYaw",
@@ -501,9 +490,7 @@ UnitBlueprint{
                     RackBone = "FrontRight_AARack",
                 },
             },
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RateOfFire = 0.4,
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -513,7 +500,8 @@ UnitBlueprint{
                 "AIR",
             },
             TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
+
             TurretBoneMuzzle = "FrontRight_AARack",
             TurretBonePitch = "FrontRight_AARack",
             TurretBoneYaw = "FrontRight_AAYaw",
@@ -561,9 +549,7 @@ UnitBlueprint{
                     RackBone = "FrontLeft_AARack",
                 },
             },
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RateOfFire = 0.4,
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -573,7 +559,7 @@ UnitBlueprint{
                 "AIR",
             },
             TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
             TurretBoneMuzzle = "FrontLeft_AARack",
             TurretBonePitch = "FrontLeft_AARack",
             TurretBoneYaw = "FrontLeft_AAYaw",
@@ -602,8 +588,7 @@ UnitBlueprint{
             FiringTolerance = 10,
             Label = "AA",
             MaxRadius = 55,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 32,
             NotExclusive = true,
             ProjectileId = "/mods/BattlePack/projectiles/UAntiAirMissile01/UAntiAirMissile01_proj.bp",
@@ -621,9 +606,7 @@ UnitBlueprint{
                     RackBone = "RearLeft_AARack",
                 },
             },
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RateOfFire = 0.4,
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -633,7 +616,7 @@ UnitBlueprint{
                 "AIR",
             },
             TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
             TurretBoneMuzzle = "RearLeft_AARack",
             TurretBonePitch = "RearLeft_AARack",
             TurretBoneYaw = "RearLeft_AAYaw",
@@ -662,7 +645,9 @@ UnitBlueprint{
             },
             FiringTolerance = 60,
             Label = "Torpedo",
+
             MaxRadius = 45,
+
             MuzzleSalvoDelay = 0.7,
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 3,
@@ -675,9 +660,7 @@ UnitBlueprint{
                     RackBone = "TorpMuzzle001",
                 },
             },
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_AntiNavy",
             RateOfFire = 0.3,
             TargetCheckInterval = 2,
@@ -718,9 +701,7 @@ UnitBlueprint{
                     RackBone = "TorpMuzzle002",
                 },
             },
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RateOfFire = 0.3,
             TargetCheckInterval = 2,
             TargetPriorities = {

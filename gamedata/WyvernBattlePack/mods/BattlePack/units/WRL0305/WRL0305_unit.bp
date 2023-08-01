@@ -1,6 +1,7 @@
 UnitBlueprint{
     Description = "Sniper Bot",
     AI = {
+        GuardScanRadius = 75,
         TargetBones = { "Torso" },
     },
     Audio = {
@@ -174,11 +175,15 @@ UnitBlueprint{
             },
             BallisticArc = "RULEUBA_none",
             CollideFriendly = false,
+
             Damage = 1800,
             DamageType = "ShieldMult0.5",
+
             DisplayName = "Disintegrator Pulse Laser",
+
             EnergyDrainPerSecond = 52,
             EnergyRequired = 465,
+
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Water = "Land|Water|Seabed",
@@ -186,11 +191,13 @@ UnitBlueprint{
             FiringRandomnessWhileMoving = 1.5,
             FiringTolerance = 1,
             Label = "MainGun",
+
             MaxRadius = 75,
+
             MuzzleChargeDelay = 1,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 60,
+
             NotExclusive = false,
             ProjectileId = "/projectiles/CDFLaserDisintegrator02/CDFLaserDisintegrator02_proj.bp",
             ProjectileLifetimeUsesMultiplier = 1.4,
@@ -201,12 +208,11 @@ UnitBlueprint{
                 },
             },
             RackRecoilDistance = -2,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoFiresAfterCharge = false,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_DirectFire",
+
             RateOfFire = 1,
+
             TargetCheckInterval = 4,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
@@ -219,6 +225,7 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.1,
+
             TurretBoneMuzzle = "Main_Muzzle",
             TurretBonePitch = "Sniper_Pitch",
             TurretBoneYaw = "Torso",

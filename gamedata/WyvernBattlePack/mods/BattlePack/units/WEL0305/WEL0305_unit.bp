@@ -1,6 +1,7 @@
 UnitBlueprint{
     Description = "Armored Siege Support Bot",
     AI = {
+        GuardScanRadius = 37,
         TargetBones = { "Turret" },
     },
     Audio = {
@@ -157,16 +158,19 @@ UnitBlueprint{
         MotionType = "RULEUMT_Amphibious",
         StandUpright = true,
         TurnRadius = 3,
-        TurnRate = 16,
+        TurnRate = 18,
     },
     SelectionSizeX = 0.6,
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.5,
+
     SizeX = 0.9,
     SizeY = 1.4,
     SizeZ = 0.9,
+
     StrategicIconName = "icon_seabed3_directfire",
     StrategicIconSortPriority = 115,
+
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 3,
@@ -187,10 +191,13 @@ UnitBlueprint{
             },
             BallisticArc = "RULEUBA_None",
             CollideFriendly = false,
+
             Damage = 900,
             DamageRadius = 0,
             DamageType = "Normal",
+
             DisplayName = "Plasma Cannon",
+
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
@@ -199,12 +206,14 @@ UnitBlueprint{
             FiringTolerance = 2,
             Label = "PlasmaCannon01",
             LeadTarget = true,
+
             MaxRadius = 37,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
+
             NoPause = true,
             NotExclusive = true,
+
             ProjectileId = "/projectiles/TDFIonizedPlasmaGatlingCannon01/TDFIonizedPlasmaGatlingCannon01_proj.bp",
             ProjectileLifetime = 1.1,
             RackBones = {
@@ -213,10 +222,9 @@ UnitBlueprint{
                     RackBone = "TurretRack",
                 },
             },
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_DirectFire",
+
             RateOfFire = 0.4,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -226,13 +234,16 @@ UnitBlueprint{
                 "ALLUNITS -WALL",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
+
             TurretBoneMuzzle = "TurretMuzzle",
             TurretBonePitch = "TurretRack",
             TurretBoneYaw = "Turret",
             TurretDualManipulators = false,
+
             TurretPitch = 10,
             TurretPitchRange = 90,
             TurretPitchSpeed = 30,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 36,
@@ -245,12 +256,14 @@ UnitBlueprint{
             Audio = {
                 Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0106_MachineGun', LodCutoff = 'Weapon_LodCutoff' },
             },
-            AutoInitiateAttackCommand = true,
+
             BallisticArc = "RULEUBA_None",
             CollideFriendly = false,
             Damage = 20,
             DamageType = "Normal",
+
             DisplayName = "Gatling Cannon",
+
             FireTargetLayerCapsTable = {
                 Land = "Air|Land|Water|Seabed",
                 Water = "Land|Water|Seabed",
@@ -258,14 +271,19 @@ UnitBlueprint{
             FiringRandomness = 0.5,
             FiringRandomnessWhileMoving = 0.9,
             FiringTolerance = 0.5,
+
             Label = "GatlingCannon",
             LeadTarget = true,
+
             MaxRadius = 32,
+
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 15,
             MuzzleVelocity = 45,
+
             NoPause = true,
             NotExclusive = true,
+
             ProjectileId = "/projectiles/TDFPlasma02/TDFPlasma02_proj.bp",
             ProjectileLifetime = 1,
             RackBones = {
@@ -274,10 +292,10 @@ UnitBlueprint{
                     RackBone = "Gatgun2",
                 },
             },
-            RackReloadTimeout = 0,
             RackSalvoChargeTime = 1.5,
             RackSalvoReloadTime = 1.5,
             RackSlavedToTurret = true,
+
             RateOfFire = 1,
             TargetCheckInterval = 0.25,
             TargetPriorities = {
@@ -310,12 +328,16 @@ UnitBlueprint{
             BallisticArc = "RULEUBA_None",
             CannotAttackGround = true,
             CollideFriendly = false,
+
             Damage = 72,
             DamageFriendly = false,
             DamageRadius = 2.5,
             DamageType = "Normal",
+
             DetonatesAtTargetHeight = true,
+
             DisplayName = "Fragmentation Flak",
+
             FireTargetLayerCapsTable = {
                 Air = "Air",
                 Land = "Air",
@@ -323,15 +345,22 @@ UnitBlueprint{
             FiringRandomness = 0.6,
             FiringRandomnessWhileMoving = 0.9,
             FiringTolerance = 2,
+
             Label = "AA",
+
             LeadTarget = true,
+
             MaxRadius = 40,
+
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 48,
+
             NotExclusive = true,
+
             ProjectileId = "/projectiles/TAALightFragmentationShell01/TAALightFragmentationShell01_proj.bp",
             ProjectileLifetimeUsesMultiplier = 1.4,
+
             RackBones = {
                 {
                     MuzzleBones = {
@@ -341,9 +370,7 @@ UnitBlueprint{
                     RackBone = "AATurret_Barrel",
                 },
             },
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_AntiAir",
             RateOfFire = 2,
             TargetCheckInterval = 0.5,
@@ -356,16 +383,20 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
             TrackingRadius = 1.2,
+
             TurretBoneMuzzle = "AATurret_Barrel",
             TurretBonePitch = "AATurret",
             TurretBoneYaw = "AATurret",
             TurretDualManipulators = false,
+
             TurretPitch = 35,
             TurretPitchRange = 80,
             TurretPitchSpeed = 65,
+
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 75,
+
             Turreted = true,
         },
         {

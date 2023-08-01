@@ -1,6 +1,9 @@
 UnitBlueprint{
     Description = "Mobile Shield Generator",
-    AI = { GuardRadius = 10 },
+    AI = {
+        GuardRadius = 10,
+        GuardScanRadius = 20,
+    },
     Audio = {
         Destroyed             = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land',        LodCutoff = 'UnitMove_LodCutoff' },
         FootFallGeneric       = Sound { Bank = 'URL',        Cue = 'URL0301_Move_Step',       LodCutoff = 'UnitMove_LodCutoff' },

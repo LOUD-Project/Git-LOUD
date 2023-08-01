@@ -1,6 +1,7 @@
 UnitBlueprint{
     Description = "Heavy Amphibious Stealth Tank",
     AI = {
+        GuardScanRadius = 35,
         TargetBones = { "Turret" },
     },
     Audio = {
@@ -169,8 +170,7 @@ UnitBlueprint{
             FiringTolerance = 0.6,
             Label = "MainGun",
             MaxRadius = 35,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
             MuzzleVelocityRandom = 3,
             NoPause = true,
@@ -183,9 +183,7 @@ UnitBlueprint{
                 },
             },
             RackRecoilDistance = -1.5,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_DirectFire",
             RateOfFire = 0.5,
             ReTargetOnMiss = true,

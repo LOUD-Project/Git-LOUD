@@ -1,6 +1,7 @@
 UnitBlueprint{
     Description = "Amphibious Assault Tank",
     AI = {
+        GuardScanRadius = 26,
         TargetBones = { "WEL0304" },
     },
     Audio = {
@@ -148,24 +149,32 @@ UnitBlueprint{
             },
             BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
+
             Damage = 550,
             DamageRadius = 1.5,
             DamageType = "Normal",
+
             DisplayName = "Heavy Gauss Cannon",
+
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
             },
+
             FiringRandomnessWhileMoving = 0.4,
             FiringTolerance = 0.5,
+
             Label = "AssaultCannon",
+
             MaxRadius = 32,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            MuzzleVelocity = 32,
+
+            MuzzleVelocity = 40,
+
             NotExclusive = true,
+
             ProjectileId = "/projectiles/TDFGauss04/TDFGauss04_proj.bp",
             ProjectileLifetime = 1,
+
             RackBones = {
                 {
                     MuzzleBones = { "Left_Barrel_Muzzle" },
@@ -177,11 +186,11 @@ UnitBlueprint{
                 },
             },
             RackRecoilDistance = -1.5,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_DirectFire",
+
             RateOfFire = 0.5,
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
@@ -190,19 +199,23 @@ UnitBlueprint{
                 "ALLUNITS -WALL",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
+
             TurretBoneDualMuzzle = "Left_Barrel_Muzzle",
             TurretBoneDualPitch = "Turret_Barrel02",
             TurretBoneMuzzle = "Right_Barrel_Muzzle",
             TurretBonePitch = "Turret_Barrel01",
             TurretBoneYaw = "Turret",
             TurretDualManipulators = true,
+
             TurretPitch = 0,
             TurretPitchRange = 45,
             TurretPitchSpeed = 45,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 40,
+
             Turreted = true,
         },
         {
@@ -226,23 +239,30 @@ UnitBlueprint{
             FiringRandomnessWhileMoving = 0.6,
             FiringTolerance = 2,
             Label = "MiniGun",
+
             MaxRadius = 26,
+
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 20,
             MuzzleVelocity = 32,
+
             NotExclusive = true,
+
             ProjectileId = "/projectiles/TDPhalanx01/TDPhalanx01_proj.bp",
             ProjectileLifetimeUsesMultiplier = 1,
+
             RackBones = {
                 {
                     MuzzleBones = { "Machine_Gun_Muzzle01" },
                     RackBone = "minigun",
                 },
             },
-            RackReloadTimeout = 0,
+
             RackSalvoChargeTime = 1.5,
             RackSalvoReloadTime = 2,
+
             RangeCategory = "UWRC_IndirectFire",
+
             RateOfFire = 1,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -251,7 +271,7 @@ UnitBlueprint{
                 "ALLUNITS -WALL",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
             TurretBoneMuzzle = "Machine_Gun_Muzzle01",
             TurretBonePitch = "minigun",
             TurretBoneYaw = "minigun",

@@ -1,6 +1,7 @@
 UnitBlueprint{
     Description = "Mobile Anti-Air Tank",
     AI = {
+        GuardScanRadius = 40,
         TargetBones = { "Turret_Yaw" },
     },
     Audio = {

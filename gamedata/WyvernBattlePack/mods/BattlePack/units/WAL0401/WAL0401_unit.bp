@@ -1,13 +1,10 @@
 UnitBlueprint{
     Description = "<LOC wal0401_desc>Experimental Heavy Assault Bot (Brawler)",
     AI = {
-        TargetBones = {
-            "NewHead",
-            "Torso",
-            "Left_Footfall",
-            "Right_Leg_B02",
-        },
+        GuardScanRadius = 40,
+        TargetBones = {"NewHead","Torso","Left_Footfall","Right_Leg_B02"},
     },
+
     Audio = {
         Destroyed             = Sound { Bank = 'UALDestroy', Cue = 'UAL0401_Destroy',      LodCutoff = 'UnitMove_LodCutoff' },
         FootFallGeneric       = Sound { Bank = 'UAL',        Cue = 'UAL0401_Move_Step',    LodCutoff = 'UnitMove_LodCutoff' },
@@ -16,6 +13,7 @@ UnitBlueprint{
         StopMove              = Sound { Bank = 'UAL',        Cue = 'UAL0401_Move_Stop',    LodCutoff = 'UnitMove_LodCutoff' },
         UISelection           = Sound { Bank = 'Interface',  Cue = 'Aeon_Select_Bot',      LodCutoff = 'UnitMove_LodCutoff' },
     },
+
     Buffs = {
         Regen = {
             Level1 = 15,
@@ -25,7 +23,9 @@ UnitBlueprint{
             Level5 = 75,
         },
     },
+
     BuildIconSortPriority = 101,
+
     Categories = {
         "AEON",
         "AMPHIBIOUS",
@@ -42,6 +42,7 @@ UnitBlueprint{
         "SELECTABLE",
         "VISIBLETORECON",
     },
+
     Defense = {
         ArmorType = "Experimental",
         Health = 115000,
@@ -49,11 +50,13 @@ UnitBlueprint{
         RegenRate = 30,
         SurfaceThreatLevel = 737.2,
     },
+
     Display = {
         Abilities = {
             "<LOC ability_amphibious>Amphibious",
             "<LOC ability_omni>Omni Sensor",
         },
+
         AnimationActivate = "/mods/BattlePack/units/WAL0401/WAL0401_aactivate.sca",
         AnimationDeath = {
             {
@@ -65,6 +68,7 @@ UnitBlueprint{
         },
         AnimationWalk = "/mods/BattlePack/units/WAL0401/WAL0401_Awalk.sca",
         AnimationWalkRate = 2,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -75,6 +79,7 @@ UnitBlueprint{
                 },
             },
         },
+
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -123,11 +128,13 @@ UnitBlueprint{
         },
         UniformScale = 0.095,
     },
+
     Economy = {
         BuildCostEnergy = 525000,
         BuildCostMass = 48000,
         BuildTime = 8400,
     },
+
     General = {
         CapCost = 6,
         CommandCaps = {
@@ -142,6 +149,7 @@ UnitBlueprint{
         Icon = "amph",
         UnitName = "<LOC wal0401_name>Universal Colossus",
     },
+
     Intel = {
         FreeIntel = true,
         OmniRadius = 60,
@@ -149,9 +157,11 @@ UnitBlueprint{
         VisionRadius = 42,
         WaterVisionRadius = 21,
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.55,
     LifeBarSize = 3.25,
+
     Physics = {
         BankingSlope = 0,
         DragCoefficient = 0.2,
@@ -174,18 +184,22 @@ UnitBlueprint{
         TurnRadius = 3,
         TurnRate = 36,
     },
+
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.25,
     SelectionSizeX = 2.2,
     SelectionSizeZ = 1.6,
     SelectionThickness = 0.32,
-    CollisionOffsetY = 0,
+
     SizeX = 2.5,
     SizeY = 6.8,
     SizeZ = 2.5,
+
     StrategicIconName = "icon_seabed4_directfire",
     StrategicIconSortPriority = 115,
+
     Transport = { TransportClass = 4 },
+
     Veteran = {
         Level1 = 40,
         Level2 = 80,
@@ -193,6 +207,7 @@ UnitBlueprint{
         Level4 = 160,
         Level5 = 200,
     },
+
     Weapon = {
         {
             AboveWaterFireOnly = true,
@@ -204,41 +219,49 @@ UnitBlueprint{
                 BeamStop  = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Stop',   LodCutoff = 'Weapon_LodCutoff' },
                 Unpack    = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             AutoInitiateAttackCommand = true,
+
             BallisticArc = "RULEUBA_None",
             BeamCollisionDelay = 0.1,
             BeamLifetime = 0,
+
             CollideFriendly = false,
+
             ContinuousBeam = true,
+
             Damage = 310,
             DamageRadius = 0,
             DamageType = "Normal",
+
             DisplayName = "Phason Laser",
+
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
                 Water = "Land|Water|Seabed",
             },
             FiringTolerance = 2,
+
             Label = "EyeWeapon",
+
             MaxRadius = 43,
             MinRadius = 2,
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             RackBones = {
                 {
                     MuzzleBones = { "PhasonMuzzle01" },
                     RackBone = "NewHead",
                 },
             },
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_DirectFire",
+
             RateOfFire = 3,
+
             SlavedToBody = true,
             SlavedToBodyArcRange = 65,
+
             TargetCheckInterval = 0.25,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
@@ -248,13 +271,16 @@ UnitBlueprint{
                 "ALLUNITS",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
+
             TurretBoneMuzzle = "PhasonMuzzle01",
             TurretBonePitch = "NewHead",
             TurretBoneYaw = "NewHead",
             TurretDualManipulators = false,
+
             TurretPitch = -20,
             TurretPitchRange = 70,
             TurretPitchSpeed = 60,
+
             TurretYaw = 0,
             TurretYawRange = 70,
             TurretYawSpeed = 70,
@@ -266,54 +292,61 @@ UnitBlueprint{
             Audio = {
                 Fire = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Tractor_Beam', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_None",
+
             BeamCollisionDelay = 0.1,
             BeamLifetime = 0,
+
             Damage = 0.01,
             DamageRadius = 0,
             DamageType = "Normal",
+
             DisplayName = "Right Tractor Claw",
+
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
                 Water = "Land|Water|Seabed",
             },
             FiringTolerance = 5,
+
             HeadingArcCenter = -35,
             HeadingArcRange = 35,
+
             Label = "RightArmTractor",
+
             MaxRadius = 40,
             MinRadius = 2,
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleSpecial = "Right_Arm_Muzzle02",
+
             RackBones = {
                 {
                     MuzzleBones = { "Right_Arm_Muzzle01" },
                     RackBone = "Right_Arm_B02",
                 },
             },
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RateOfFire = 1,
+
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
-                "TECH3 MOBILE",
-                "TECH2 MOBILE",
-                "TECH1 MOBILE",
+                "MOBILE",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
-            TrackingRadius = 1.15,
+
+            TrackingRadius = 1.05,
             TurretBoneMuzzle = "Right_Arm_Muzzle01",
             TurretBonePitch = "Right_Arm_B02",
             TurretBoneYaw = "Right_Arm_B01",
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 70,
             TurretPitchSpeed = 180,
+
             TurretYaw = -25,
             TurretYawRange = 65,
             TurretYawSpeed = 20,
@@ -329,56 +362,63 @@ UnitBlueprint{
                 Unpack    = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = "RULEUBA_None",
+
             BeamCollisionDelay = 0.1,
             BeamLifetime = 0,
+
             Damage = 0.01,
             DamageRadius = 0,
             DamageType = "Normal",
+
             DisplayName = "Tractor Claw",
+
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
                 Water = "Land|Water|Seabed",
             },
             FiringTolerance = 5,
+
             HeadingArcCenter = 35,
             HeadingArcRange = 35,
+
             Label = "LeftArmTractor",
+
             MaxRadius = 40,
             MinRadius = 2,
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleSpecial = "Left_Arm_Muzzle02",
+
             RackBones = {
                 {
                     MuzzleBones = { "Left_Arm_Muzzle01" },
                     RackBone = "Left_Arm_B02",
                 },
             },
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RateOfFire = 1,
+
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
-                "TECH3 MOBILE",
-                "TECH2 MOBILE",
-                "TECH1 MOBILE",
+                "MOBILE",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
+
             TurretBoneMuzzle = "Left_Arm_Muzzle01",
             TurretBonePitch = "Left_Arm_B02",
             TurretBoneYaw = "Left_Arm_B01",
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 70,
             TurretPitchSpeed = 180,
+
             TurretYaw = 25,
             TurretYawRange = 65,
             TurretYawSpeed = 20,
+
             Turreted = true,
         },
         {

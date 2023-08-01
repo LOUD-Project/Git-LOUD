@@ -1,6 +1,7 @@
 UnitBlueprint{
     Description = "Rapid Assault Tank",
     AI = {
+        GuardScanRadius = 25,
         TargetBones = { "Turret" },
     },
     Audio = {
@@ -198,17 +199,21 @@ UnitBlueprint{
             Damage = 200,
             DamageRadius = 1,
             DamageType = "Normal",
+
             DisplayName = "Thau Cannon",
+
             FireTargetLayerCapsTable = { Land = "Land|Water|Seabed" },
             FiringRandomness = 0.2,
             FiringRandomnessWhileMoving = 0.5,
             FiringTolerance = 1,
+
             Label = "MainTurret",
             LeadTarget = true,
+
             MaxRadius = 32,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
+
             ProjectileId = "/projectiles/SDFTauCannon01/SDFTauCannon01_proj.bp",
             ProjectileLifetimeUsesMultiplier = 1,
             RackBones = {
@@ -223,8 +228,7 @@ UnitBlueprint{
             },
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_DirectFire",
             RateOfFire = 1.5,
             TargetCheckInterval = 0.25,
@@ -235,7 +239,8 @@ UnitBlueprint{
                 "ALLUNITS -WALL",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
+
             TurretBoneDualMuzzle = "TahuMuzzle02",
             TurretBoneDualPitch = "TurretPitch2",
             TurretBoneMuzzle = "TahuMuzzle01",

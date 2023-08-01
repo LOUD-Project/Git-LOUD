@@ -1,6 +1,7 @@
 UnitBlueprint{
     Description = "Heavy AA Tank",
     AI = {
+        GuardScanRadius = 40,
         TargetBones = { "Turret_Yaw" },
     },
     Audio = {
@@ -156,11 +157,12 @@ UnitBlueprint{
             FiringTolerance = 2,
             Label = "AA",
             MaxRadius = 40,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 28,
+
             ProjectileId = "/mods/BattlePack/projectiles/WBPSmallAAMissile/WBPSmallAAMissile_proj.bp",
             ProjectileLifetime = 3,
+
             RackBones = {
                 {
                     HideMuzzle = true,
@@ -183,10 +185,11 @@ UnitBlueprint{
                     RackBone = "Turret_Yaw",
                 },
             },
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_AntiAir",
+
             RateOfFire = 2.5,
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -206,10 +209,10 @@ UnitBlueprint{
             TurretDualManipulators = true,
             TurretPitch = 45,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 120,
+            TurretPitchSpeed = 80,
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 100,
+            TurretYawSpeed = 70,
             Turreted = true,
         },
     },

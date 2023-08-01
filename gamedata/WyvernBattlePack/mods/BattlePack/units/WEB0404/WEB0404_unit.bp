@@ -20,7 +20,9 @@ UnitBlueprint{
             Level5 = 100,
         },
     },
+
     BuildIconSortPriority = 112,
+
     Categories = {
         "ANTINAVY",
         "BUILTBYTIER4COMMANDER",
@@ -37,6 +39,7 @@ UnitBlueprint{
         "UEF",
         "VISIBLETORECON",
     },
+
     Defense = {
         ArmorType = "Structure",
         Health = 39900,
@@ -45,6 +48,7 @@ UnitBlueprint{
         SubThreatLevel = 52,
         SurfaceThreatLevel = 272,
     },
+
     Display = {
         Abilities = {
             "<LOC ability_customizable>Customizable",
@@ -81,6 +85,7 @@ UnitBlueprint{
         },
         UniformScale = 0.15,
     },
+
     Economy = {
         BuildCostEnergy = 295000,
         BuildCostMass = 35000,
@@ -88,6 +93,7 @@ UnitBlueprint{
         BuildTime = 5900,
         RebuildBonusIds = { "WEB0404" },
     },
+
     Enhancements = {
         InstallFactoryShield = {
             BuildCostEnergy = 10500,
@@ -243,10 +249,10 @@ UnitBlueprint{
             LeadTarget = true,
             MaxRadius = 110,
             MinRadius = 4,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 36,
             MuzzleVelocityRandom = 2,
+
             NotExclusive = true,
             ProjectileId = "/projectiles/TDFGauss03/TDFGauss03_proj.bp",
             ProjectileLifetime = 4,
@@ -266,9 +272,7 @@ UnitBlueprint{
             },
             RackFireTogether = true,
             RackRecoilDistance = -2.5,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
             RangeCategory = "UWRC_IndirectFire",
@@ -313,12 +317,13 @@ UnitBlueprint{
             Label = "Turret",
             MaxRadius = 85,
             MinRadius = 4,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 28,
             MuzzleVelocityRandom = 2,
             MuzzleVelocityReduceDistance = 90,
+
             NotExclusive = true,
+
             ProjectileId = "/projectiles/TDFGauss04/TDFGauss04_proj.bp",
             RackBones = {
                 {
@@ -336,12 +341,11 @@ UnitBlueprint{
             },
             RackFireTogether = true,
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
+
             RangeCategory = "UWRC_DirectFire",
+
             RateOfFire = 0.5,
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -382,11 +386,11 @@ UnitBlueprint{
             Label = "Turret",
             MaxRadius = 85,
             MinRadius = 4,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 28,
             MuzzleVelocityRandom = 2,
             MuzzleVelocityReduceDistance = 60,
+
             NotExclusive = true,
             ProjectileId = "/projectiles/TDFGauss04/TDFGauss04_proj.bp",
             RackBones = {
@@ -405,11 +409,9 @@ UnitBlueprint{
             },
             RackFireTogether = true,
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
+
             RateOfFire = 0.5,
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -418,17 +420,21 @@ UnitBlueprint{
                 "ALLUNITS",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
+
             TurretBoneMuzzle = "Turret_Left02_Muzzle04",
             TurretBonePitch = "Turret_Left02_Barrel04",
             TurretBoneYaw = "Turret_Right02",
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 60,
             TurretPitchSpeed = 50,
+
             TurretYaw = 30,
             TurretYawRange = 120,
             TurretYawSpeed = 36,
+
             Turreted = true,
         },
         {
@@ -450,8 +456,7 @@ UnitBlueprint{
             Label = "Turret",
             MaxRadius = 85,
             MinRadius = 4,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 28,
             MuzzleVelocityRandom = 2,
             MuzzleVelocityReduceDistance = 60,
@@ -473,10 +478,7 @@ UnitBlueprint{
             },
             RackFireTogether = true,
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
             RateOfFire = 0.5,
             TargetCheckInterval = 1,
@@ -518,12 +520,13 @@ UnitBlueprint{
             Label = "Turret",
             MaxRadius = 85,
             MinRadius = 4,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 28,
             MuzzleVelocityRandom = 2,
             MuzzleVelocityReduceDistance = 60,
+
             NotExclusive = true,
+
             ProjectileId = "/projectiles/TDFGauss04/TDFGauss04_proj.bp",
             RackBones = {
                 {
@@ -541,10 +544,7 @@ UnitBlueprint{
             },
             RackFireTogether = true,
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
             RateOfFire = 0.5,
             TargetCheckInterval = 1,
@@ -600,10 +600,8 @@ UnitBlueprint{
                     RackBone = "Riot_Gun_Left_Barrel",
                 },
             },
-            RackFireTogether = false,
             RackReloadTimeout = 1,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_AntiNavy",
             RateOfFire = 0.3,
             TargetCheckInterval = 1,
@@ -644,11 +642,9 @@ UnitBlueprint{
                     RackBone = "Riot_Gun_Left_Barrel",
                 },
             },
-            RackFireTogether = false,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_Countermeasure",
+
             RateOfFire = 0.4,
             TargetCheckInterval = 0.5,
             TargetRestrictDisallow = "UNTARGETABLE",
