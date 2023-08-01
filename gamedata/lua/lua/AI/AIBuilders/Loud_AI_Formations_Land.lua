@@ -595,7 +595,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			StrRadius = 50,
 			StrTrigger = true,
 			StrMin = 0,
-			StrMax = 8,
+			StrMax = 10,
             
             ThreatMaxRatio = 1.5,
 			
@@ -603,7 +603,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			UntRadius = 60,
 			UntTrigger = true,
 			UntMin = 0,
-			UntMax = 20,
+			UntMax = 22,
 			
             PrioritizedCategories = { 'ECONOMIC','DIRECTFIRE','LAND MOBILE','ENGINEER'},
 			
@@ -670,7 +670,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			StrRadius = 38,
 			StrTrigger = true,
 			StrMin = 0,
-			StrMax = 2,
+			StrMax = 5,
             
             ThreatMaxRatio = 1.1,
 			
@@ -678,7 +678,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			UntRadius = 48,
 			UntTrigger = true,
 			UntMin = 0,
-			UntMax = 6,
+			UntMax = 12,
 			
             PrioritizedCategories = { 'MASSPRODUCTION','ECONOMIC','ENGINEER'},
 			
@@ -1636,8 +1636,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         PlatoonAIPlan = 'GuardPoint',
         
         Priority = 802,
-        
-        --PriorityFunction = MapSizeLessThan20k,
 		
 		RTBLocation = 'Any',
 		
@@ -1647,8 +1645,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-			--{ LUTL, 'NeedTeamMassPointShare', {}},
             
             { LUTL, 'UnitCapCheckLess', { .75 } },
             
@@ -1737,8 +1733,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-			--{ LUTL, 'NeedTeamMassPointShare', {}},
             
             { LUTL, 'UnitCapCheckLess', { .65 } },
 

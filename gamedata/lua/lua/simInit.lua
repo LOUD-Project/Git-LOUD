@@ -74,7 +74,10 @@ import('/lua/sim/adjacencybuffs.lua')
 InitialRegistration = false
     
 function WaitSeconds(n)
-    WaitTicks(math.max(1, n * 10))
+    if n < 1 then
+        n = n + .1
+    end
+    WaitTicks(math.max(1, n*10))
 end
 
 -- Set up the sync table and globals

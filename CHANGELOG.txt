@@ -1,3 +1,23 @@
+LUA 6.3.14
+4DC for LOUD 6.3.03
+Black Ops for LOUD 6.3.07
+BrewLAN for LOUD 0.8.8.9.73
+LOUD_MISC 6.3.02
+LOUD_UNITS 6.3.04
+TotalMayhem for LOUD 6.3.04
+UNITS 6.3.11
+Wyvern Battlepack for LOUD 6.3.01
+
+- completed data reduction on all base and land units, reset GuardScanRadius on all units
+- revised and corrected Ravager firing cycle
+- revised Spearhead firing cycle and animations, speed (2.8 > 3.0), accel (1.4 > 1.0), range (84 < 88)
+- now consumes energy to fire
+- cleaned up and retimed the UEF T2 TMD animations, repacking delay between OnFires (0.8 > 0.4)
+- All T1 and T2 wall (UNITS, BrewLAN) options are now balanced and aligned 
+- Field Engineers can now build standard T1 and T2 walls
+- removed the default settings for GuardScan and GuardReturn radius
+
+
 ### Release 11-07-2023
 
 LUA 6.3.13

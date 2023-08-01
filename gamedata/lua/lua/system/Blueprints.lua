@@ -647,41 +647,39 @@ function ModBlueprints(all_blueprints)
     
     LOG("*AI DEBUG "..units_threatchange.." units had threat revised")
 
-	local capreturnradius = 80
+	local capreturnradius = 65
 	
     local econScale = 0
 	local speedScale = 0
 	local viewScale = 0
 
     for id, bp in all_blueprints.Unit do
-
+--[[
 		if bp.AI.GuardReturnRadius then
 			
 			if bp.AI.GuardReturnRadius > capreturnradius then
 				bp.AI.GuardReturnRadius = capreturnradius
 			end
 
-			if bp.AI.GuardReturnRadius > 80 then
-				bp.AI.GuardReturnRadius = 80
-			end
 		else
+
 			if not bp.AI then
 				bp.AI = {}
 			end
-		
-			bp.AI.GuardReturnRadius = 30
+
+			bp.AI.GuardReturnRadius = capreturnradius
 		end
 		
 		if bp.AI.GuardScanRadius then
 		
-			if bp.AI.GuardScanRadius > 40 then
+			if bp.AI.GuardScanRadius < 95 then
 			
-				bp.AI.GuardScanRadius = 40
+				bp.AI.GuardScanRadius = 95
 			end
 		else
-			bp.AI.GuardScanRadius = 25
+			bp.AI.GuardScanRadius = 95
 		end
-		
+--]]        
 		if bp.Economy.MaxBuildDistance and bp.Economy.MaxBuildDistance < 3 then
 
 			bp.Economy.MaxBuildDistance = 3
@@ -691,10 +689,12 @@ function ModBlueprints(all_blueprints)
         -- anything that builds has it's StagingPlatformScanRadius set to it's build distance
         -- for use as the build range indication
         if bp.Economy.BuildRate >= 2 and bp.Economy.MaxBuildDistance then
+        
+            if not bp.AI then
+                bp.AI = {}
+            end
             
             if not bp.AI.StagingPlatformScanRadius then
-
-                --LOG("*AI DEBUG Setting ScanRadius on "..repr(bp.Description).." to "..bp.Economy.MaxBuildDistance )
 
                 bp.AI.StagingPlatformScanRadius = bp.Economy.MaxBuildDistance
 
@@ -715,7 +715,25 @@ function ModBlueprints(all_blueprints)
 					for j, catj in bp.Categories do
 				
 						if catj == 'MOBILE' then
-			
+                        
+                            if not bp.AI then
+
+                                --LOG("*AI DEBUG No AI section for "..repr(bp.Description) )
+
+                            else
+
+                                if bp.Weapon[1] and not bp.AI.GuardScanRadius then
+
+                                    LOG("*AI DEBUG No AI GuardScanRadius for "..repr(bp.Description).." weapon 1 has maxRadius of "..repr(bp.Weapon[1].MaxRadius) )
+
+                                elseif bp.Weapon[1] and bp.AI.GuardScanRadius < bp.Weapon[1].MaxRadius then
+
+                                    --LOG("*AI DEBUG GuardScanRadius for "..repr(bp.Description).." is "..bp.AI.GuardScanRadius.." less than weapon 1 "..repr(bp.Weapon[1].MaxRadius))
+
+                                end
+
+                            end
+		
 							if bp.Economy.BuildTime then
 							
 								bp.Economy.BuildTime = bp.Economy.BuildTime + (bp.Economy.BuildTime * econScale)
@@ -789,7 +807,25 @@ function ModBlueprints(all_blueprints)
 					for j, catj in bp.Categories do
 				
 						if catj == 'MOBILE' then
+                   
+                            if not bp.AI then
 
+                                --LOG("*AI DEBUG No AI section for "..repr(bp.Description) )
+
+                            else
+
+                                if bp.Weapon[1] and not bp.AI.GuardScanRadius then
+
+                                    LOG("*AI DEBUG No AI GuardScanRadius for "..repr(bp.Description).." weapon 1 has maxRadius of "..repr(bp.Weapon[1].MaxRadius) )
+
+                                elseif bp.Weapon[1] and bp.AI.GuardScanRadius < bp.Weapon[1].MaxRadius then
+
+                                  --  LOG("*AI DEBUG GuardScanRadius for "..repr(bp.Description).." is "..bp.AI.GuardScanRadius.." less than weapon 1 "..repr(bp.Weapon[1].MaxRadius))
+
+                                end
+
+                            end
+				
 							if bp.Economy.BuildTime then
 								bp.Economy.BuildTime = bp.Economy.BuildTime + (bp.Economy.BuildTime * econScale)
 								bp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy + (bp.Economy.BuildCostEnergy * econScale)
@@ -835,7 +871,7 @@ function ModBlueprints(all_blueprints)
                                 for w, weap in bp.Weapon do
                             
                                     if weap.AutoInitiateAttackCommand and weap.RangeCategory == 'UWRC_AntiAir'then
-                                        LOG("*AI DEBUG Air Unit "..id.." "..bp.Description.." Weapon "..w.." - AA weapon has AutoInitiateAttack ")
+                                        --LOG("*AI DEBUG Air Unit "..id.." "..bp.Description.." Weapon "..w.." - AA weapon has AutoInitiateAttack ")
                                         bp.Weapon[w].AutoInitiateAttackCommand = false
                                     end
                                 end
@@ -854,18 +890,31 @@ function ModBlueprints(all_blueprints)
 					for j, catj in bp.Categories do
 				
 						if catj == 'MOBILE' then
-					
+                   
+                            if not bp.AI then
+
+                                --LOG("*AI DEBUG No AI section for "..repr(bp.Description) )
+
+                            else
+
+                                if bp.Weapon[1] and not bp.AI.GuardScanRadius then
+
+                                    LOG("*AI DEBUG No AI GuardScanRadius for "..repr(bp.Description).." weapon 1 has maxRadius of "..repr(bp.Weapon[1].MaxRadius) )
+
+                                elseif bp.Weapon[1] and bp.AI.GuardScanRadius < bp.Weapon[1].MaxRadius then
+
+                                  --  LOG("*AI DEBUG GuardScanRadius for "..repr(bp.Description).." is "..bp.AI.GuardScanRadius.." less than weapon 1 "..repr(bp.Weapon[1].MaxRadius))
+
+                                end
+
+                            end
+						
 							if bp.Economy.BuildTime and econScale != 0 then
 								bp.Economy.BuildTime = bp.Economy.BuildTime + (bp.Economy.BuildTime * econScale)
 								bp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy + (bp.Economy.BuildCostEnergy * econScale)
 								bp.Economy.BuildCostMass = bp.Economy.BuildCostMass + (bp.Economy.BuildCostMass * econScale)
 							end
---[[
-                            if bp.Physics.MotionType == 'RULEUMT_Hover' then
-                                LOG("*AI DEBUG Hover unit adjustment in "..repr(bp.Description))
-                                bp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy * 1.1
-                            end
---]]							
+
 							if bp.SizeY and not bp.Physics.LayerChangeOffsetHeight then
 								bp.Physics.LayerChangeOffsetHeight = bp.SizeY/2 * -1
 							end

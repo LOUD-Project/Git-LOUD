@@ -835,7 +835,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
                             val = math.floor(val)
                         end
                     
-                        LOG("*AI DEBUG BUFF Weapon "..i.." "..wep.bp.Label.." Damage is "..repr(val))
+                        --LOG("*AI DEBUG BUFF Weapon "..i.." "..wep.bp.Label.." Damage is "..repr(val))
 
                         wep:ChangeDamage(val)
                     end

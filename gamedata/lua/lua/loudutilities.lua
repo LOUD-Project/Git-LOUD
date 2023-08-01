@@ -5226,7 +5226,7 @@ function ParseIntelThread( aiBrain )
             
             if grandnavaltot > 0 and aiBrain.NavalRatio < 0.02 then
             
-                LOG("*AI DEBUG "..aiBrain.Nickname.." detects naval activity")
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." detects naval activity")
                 aiBrain.NavalRatio = 0.2
             end
 

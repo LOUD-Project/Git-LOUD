@@ -255,11 +255,6 @@ DefaultProjectileWeapon = Class(Weapon) {
                 self.EconDrain = CreateEconomyEvent( self.unit, nrgReq, 0, time, ChargeProgress )
                 self.FirstShot = true
             end
-            
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG EconomyDrain started for "..repr(self.bp.Label) )
-            end
-
         end
     end,
 
@@ -383,16 +378,21 @@ DefaultProjectileWeapon = Class(Weapon) {
         end
     end,
 
-    -- Played when a weapon unpacks.  Here a wait is used because by definition a weapon can not fire while packed up.
+    -- Played when a weapon unpacks. 
     PlayFxWeaponUnpackSequence = function(self)
 	
         local bp = self.bp
         
         local unitBP = __blueprints[self.unit.BlueprintID].Audio
-		
+
+        if ScenarioInfo.WeaponStateDialog then
+            LOG("*AI DEBUG DefaultWeapon Unpack Sequence "..repr(self.bp.Label) )
+        end
+
         if unitBP.Activate then
             PlaySound( self, unitBP.Activate)
         end
+
         if unitBP.Open then
             PlaySound( self, unitBP.Open)
         end
@@ -427,6 +427,10 @@ DefaultProjectileWeapon = Class(Weapon) {
         local bp = self.bp
         
         local unitBP = __blueprints[self.unit.BlueprintID].Audio
+
+        if ScenarioInfo.WeaponStateDialog then
+            LOG("*AI DEBUG DefaultWeapon Play WeaponPack Sequence "..repr(self.bp.Label) )
+        end
 		
         if unitBP.Close then
             PlaySound( self, unitBP.Close)
@@ -441,12 +445,6 @@ DefaultProjectileWeapon = Class(Weapon) {
 
             WaitFor(self.UnpackAnimator)
 
-        else
-        
-            if bp.WeaponRepackTimeout then
-
-                WaitSeconds(bp.WeaponRepackTimeout)
-            end
         end
     end,
 
@@ -564,15 +562,19 @@ DefaultProjectileWeapon = Class(Weapon) {
     end,
 
     OnEnterState = function(self)
-	
+
+        if ScenarioInfo.WeaponStateDialog then
+            LOG("*AI DEBUG DefaultWeapon Entering new state "..repr(self.bp.Label))
+        end
+    
         if self.WeaponWantEnabled and not self.WeaponIsEnabled then
 		
             self.WeaponIsEnabled = true
             self:SetWeaponEnabled(true)
 
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon WeaponEnabled "..repr(self.bp.Label))
-            end
+            --if ScenarioInfo.WeaponStateDialog then
+              --  LOG("*AI DEBUG DefaultWeapon WeaponEnabled "..repr(self.bp.Label))
+            --end
 			
         elseif not self.WeaponWantEnabled and self.WeaponIsEnabled then
 			
@@ -580,9 +582,9 @@ DefaultProjectileWeapon = Class(Weapon) {
                 self.WeaponIsEnabled = false
                 self:SetWeaponEnabled(false)
 
-                if ScenarioInfo.WeaponStateDialog then
-                    LOG("*AI DEBUG DefaultWeapon WeaponDisabled "..repr(self.bp.Label))
-                end
+                --if ScenarioInfo.WeaponStateDialog then
+                  --  LOG("*AI DEBUG DefaultWeapon WeaponDisabled "..repr(self.bp.Label))
+                --end
 
             end
         end
@@ -592,18 +594,18 @@ DefaultProjectileWeapon = Class(Weapon) {
             self.WeaponAimIsEnabled = true
             self:AimManipulatorSetEnabled(true)
 
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon Aim Enabled "..repr(self.bp.Label))
-            end
+            --if ScenarioInfo.WeaponStateDialog then
+              --  LOG("*AI DEBUG DefaultWeapon Aim Enabled "..repr(self.bp.Label))
+            --end
 			
         elseif not self.WeaponAimWantEnabled and self.WeaponAimIsEnabled then
 		
             self.WeaponAimIsEnabled = false
             self:AimManipulatorSetEnabled(false)
 
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon Aim Disabled "..repr(self.bp.Label))
-            end
+            --if ScenarioInfo.WeaponStateDialog then
+              --  LOG("*AI DEBUG DefaultWeapon Aim Disabled "..repr(self.bp.Label))
+            --end
             
         end
     end,
@@ -629,7 +631,7 @@ DefaultProjectileWeapon = Class(Weapon) {
     OnWeaponFired = function(self)
      
         if ScenarioInfo.WeaponStateDialog then
-            LOG("*AI DEBUG DefaultWeapon OnWeaponFired "..repr(self.bp.Label) )
+            LOG("*AI DEBUG DefaultWeapon OnWeaponFired "..repr(self.bp.Label).." at "..repr(GetGameTimeSeconds()) )
         end
         
 		Weapon.OnWeaponFired(self)
@@ -703,12 +705,12 @@ DefaultProjectileWeapon = Class(Weapon) {
             
 			-- NOTE: This is setup so that it only works if there is more than 1 rack
             if LOUDGETN(bp.RackBones) > 1 and self.CurrentRackSalvoNumber > 1 then
-
-                WaitTicks( (bp.RackReloadTimeout or .1) * 10)
                 
                 if bp.AnimationReload and not self.Animator then
                     self:PlayFxRackSalvoReloadSequence(bp)
                 end
+
+                WaitTicks( (bp.RackReloadTimeout or .1) * 10)
                 
                 self.CurrentRackSalvoNumber = 1
             end
@@ -806,7 +808,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             if bp.WeaponUnpackLocksMotion then
             
                 if ScenarioInfo.WeaponStateDialog then
-                    LOG("*AI DEBUG DefaultWeapon Unpacking State "..repr(self.bp.Label).." - SetImmobile" )
+                    LOG("*AI DEBUG DefaultWeapon Unpacking State "..repr(self.bp.Label).." - Set Immobile" )
                 end
  			
                 unit:SetImmobile(true)
@@ -814,7 +816,18 @@ DefaultProjectileWeapon = Class(Weapon) {
             end
             
             self:PlayFxWeaponUnpackSequence(bp)
-			
+            
+			if self.bp.WeaponRepackTimeout then
+            
+                if ScenarioInfo.WeaponStateDialog then
+
+                    LOG("*AI DEBUG DefaultWeapon Unpacking State "..repr(self.bp.Label).." waiting "..repr(self.bp.WeaponRepackTimeout).." seconds" )
+
+                end
+
+				WaitSeconds( self.bp.WeaponRepackTimeout )
+			end
+
             local rackSalvoChargeTime = bp.RackSalvoChargeTime
             
             if rackSalvoChargeTime and rackSalvoChargeTime > 0 then
@@ -865,7 +878,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             end
             
             if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon RackSalvo Charge waiting "..repr(bp.RackSalvoChargeTime).." seconds" )
+                LOG("*AI DEBUG DefaultWeapon RackSalvo Charge for "..repr(self.bp.Label).." waiting "..repr(bp.RackSalvoChargeTime).." seconds" )
             end
             
             WaitSeconds(bp.RackSalvoChargeTime)
@@ -908,7 +921,7 @@ DefaultProjectileWeapon = Class(Weapon) {
         Main = function(self)
             
             if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon RackSalvo FireReady State "..repr(self.bp.Label) )
+                LOG("*AI DEBUG DefaultWeapon RackSalvo Fire Ready State "..repr(self.bp.Label) )
             end
             
             local unit = self.unit
@@ -948,7 +961,7 @@ DefaultProjectileWeapon = Class(Weapon) {
         OnFire = function(self)
             
             if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon RackSalvo FireReady OnFire "..repr(self.bp.Label) )
+                LOG("*AI DEBUG DefaultWeapon RackSalvo Fire Ready OnFire "..repr(self.bp.Label) )
 			end
             
             if self.WeaponCanFire then
@@ -966,7 +979,7 @@ DefaultProjectileWeapon = Class(Weapon) {
         Main = function(self)
             
             if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State for "..repr(self.bp.Label).." - rack - "..repr(self.CurrentRackSalvoNumber) )
+                LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State for "..repr(self.bp.Label).." - rack "..repr(self.CurrentRackSalvoNumber) )
 			end
             
             local bp = self.bp
@@ -979,7 +992,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             SetBusy( unit, (not NotExclusive or false) )
             
             if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon RackSalvo Firing for "..repr(self.bp.Label).." - SetBusy is "..repr(not NotExclusive or false) )
+                LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State for "..repr(self.bp.Label).." - SetBusy is "..repr(not NotExclusive or false) )
             end
 
             
@@ -1001,6 +1014,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 	            if not unit.Dead then
 				
                     local rof = 1 / bp.RateOfFire                
+
                     self:ForkThread(self.RenderClockThread, rof)                
                 end
             end
@@ -1209,6 +1223,11 @@ DefaultProjectileWeapon = Class(Weapon) {
         end,
 		
 		OnFire = function(self)
+
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State OnFire "..repr(self.bp.Label) )		
+            end
+
 		end,
 
         OnLostTarget = function(self)
@@ -1254,7 +1273,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 
     RackSalvoReloadState = State {
 
-        WeaponWantEnabled = true,
+        WeaponWantEnabled = false,
         WeaponAimWantEnabled = true,
 
         Main = function(self)
@@ -1270,32 +1289,40 @@ DefaultProjectileWeapon = Class(Weapon) {
             local unit = self.unit
             
             SetBusy( unit, true)
-            
-            if bp.AnimationReload and not self.Animator then
-                self:PlayFxRackSalvoReloadSequence(bp)
-            end
 			
             if NotExclusive then
 
                 if WeaponStateDialog then
-                    LOG("*AI DEBUG DefaultWeapon RackSalvo Reload "..repr(self.bp.Label).." - SetBusy to false" )
+                    LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State "..repr(self.bp.Label).." - SetBusy to false" )
                 end
 
                 SetBusy( unit, false )
             end
             
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon RackSalvo Reload waits for "..repr(bp.RackSalvoReloadTime).." seconds" )
-            end
+            if bp.AnimationReload and not self.Animator then
+
+                if WeaponStateDialog then
+                    LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State "..repr(self.bp.Label).." plays reload animation" )		
+                end
             
-            WaitSeconds( bp.RackSalvoReloadTime )
+                self:PlayFxRackSalvoReloadSequence(bp)
+                
+                WaitFor(self.Animator)
+            else
+            
+                if ScenarioInfo.WeaponStateDialog then
+                    LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State waits for "..repr(bp.RackSalvoReloadTime).." seconds" )
+                end
+            
+                WaitSeconds( bp.RackSalvoReloadTime )
+            end
 			
             self:WaitForAndDestroyManips()
             
             if NotExclusive then
             
                 if WeaponStateDialog then
-                    LOG("*AI DEBUG DefaultWeapon RackSalvo Reload for "..repr(self.bp.Label).." - SetBusy to true" )
+                    LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State for "..repr(self.bp.Label).." - SetBusy to true" )
                 end
 
                 SetBusy( unit, true )
@@ -1338,6 +1365,11 @@ DefaultProjectileWeapon = Class(Weapon) {
         end,
 
         OnFire = function(self)
+
+            if WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State OnFire "..repr(self.bp.Label) )
+            end
+
         end,
     },
 
@@ -1362,7 +1394,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             
                 if ScenarioInfo.WeaponStateDialog then
 
-                    LOG("*AI DEBUG DefaultWeapon WeaponPacking State RepackTimeout "..repr(self.bp.Label).." is "..repr(self.bp.WeaponRepackTimeout) )
+                    LOG("*AI DEBUG DefaultWeapon WeaponPacking State Timeout "..repr(self.bp.Label).." is "..repr(self.bp.WeaponRepackTimeout) )
 
                 end
 
@@ -1400,7 +1432,7 @@ DefaultProjectileWeapon = Class(Weapon) {
         OnFire = function(self)
             
             if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon WeaponPackingState OnFire")
+                LOG("*AI DEBUG DefaultWeapon WeaponPacking State OnFire")
             end
             
             if self.bp.CountedProjectile == true and not self.bp.ForceSingleFire then
@@ -1559,6 +1591,10 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
     end,
 
     PlayFxWeaponUnpackSequence = function(self)
+
+        if ScenarioInfo.WeaponStateDialog then
+            LOG("*AI DEBUG Default BEAM Weapon Unpack Sequence "..repr(self.bp.Label) )
+        end
 
         if ( self.bp.BeamLifetime > 0 ) or (( self.bp.BeamLifetime <= 0 ) and not self.ContBeamOn) then
         
