@@ -2,18 +2,18 @@ UnitBlueprint{
     Description = "AA Support Cruiser",
     AI = {
         AttackAngle = 60,
-        GuardReturnRadius = 130,
-        TargetBones = {
-            "UAS0202",
-            "Turret_Front",
-        },
+        GuardReturnRadius = 95,
+        GuardScanRadius = 70,
+        TargetBones = {"UAS0202","Turret_Front"},
     },
+
     Audio = {
         Killed      = Sound { Bank = 'UASDestroy', Cue = 'UAS0202_Destroy',    LodCutoff = 'UnitMove_LodCutoff' },
         StartMove   = Sound { Bank = 'UAS',        Cue = 'UAS0202_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
         StopMove    = Sound { Bank = 'UAS',        Cue = 'UAS0202_Move_Stop',  LodCutoff = 'UnitMove_LodCutoff' },
         UISelection = Sound { Bank = 'Interface',  Cue = 'Aeon_Select_Naval',  LodCutoff = 'UnitMove_LodCutoff' },
     },
+
     Buffs = {
         Regen = {
             Level1 = 4,
@@ -23,7 +23,9 @@ UnitBlueprint{
             Level5 = 20,
         },
     },
+
     BuildIconSortPriority = 17,
+
     Categories = {
         "AEON",
         "BUILTBYTIER3FACTORY",
@@ -37,6 +39,7 @@ UnitBlueprint{
         "TECH3",
         "VISIBLETORECON",
     },
+
     Defense = {
         AirThreatLevel = 88,
         ArmorType = "Normal",
@@ -59,6 +62,7 @@ UnitBlueprint{
         },
         SurfaceThreatLevel = 60,
     },
+
     Display = {
         Abilities = {
             "<LOC ability_aa>Anti-Air",
@@ -108,12 +112,14 @@ UnitBlueprint{
         },
         UniformScale = 0.055,
     },
+
     Economy = {
         BuildCostEnergy = 43750,
         BuildCostMass = 6562,
         BuildTime = 32250,
         MaintenanceConsumptionPerSecondEnergy = 250,
     },
+
     General = {
         CapCost = 3,
         CommandCaps = {
@@ -135,15 +141,18 @@ UnitBlueprint{
         ToggleCaps = { RULEUTC_ShieldToggle = true },
         UnitName = "Shadow of Intent",
     },
+
     Intel = {
         FreeIntel = true,
         RadarRadius = 90,
         VisionRadius = 36,
         WaterVisionRadius = 18,
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.6,
     LifeBarSize = 2.5,
+
     Physics = {
         BackUpDistance = 7,
         BankingSlope = 0,
@@ -162,15 +171,20 @@ UnitBlueprint{
         TurnRadius = 20,
         TurnRate = 40,
     },
+
     SelectionSizeX = 1.6,
     SelectionSizeZ = 4,
     SelectionThickness = 0.15,
+
     CollisionOffsetY = -0.4,
+
     SizeX = 2.2,
     SizeY = 1.5,
     SizeZ = 4.5,
+
     StrategicIconName = "icon_ship3_antiair",
     StrategicIconSortPriority = 155,
+
     Veteran = {
         Level1 = 16,
         Level2 = 32,
@@ -187,21 +201,29 @@ UnitBlueprint{
                 MuzzleChargeStart = Sound { Bank = 'UASWeapon', Cue = 'UAS0202_Cannon_Quantum', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = "RULEUBA_LowArc",
+
             CollideFriendly = false,
+
             Damage = 200,
             DamageRadius = 2,
             DamageType = "Normal",
+
             DisplayName = "Quantum Cannon",
+
             FireTargetLayerCapsTable = { Water = "Land|Water|Seabed" },
             FiringRandomness = 0.5,
             FiringTolerance = 2,
+
             Label = "MainGun",
+
             MaxRadius = 70,
+
             MuzzleChargeDelay = 0.4,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 36,
+
             ProjectileId = "/projectiles/ADFQuantumCannon01/ADFQuantumCannon01_proj.bp",
+
             RackBones = {
                 {
                     MuzzleBones = { "Muzzle_Front01" },
@@ -213,16 +235,18 @@ UnitBlueprint{
                 },
             },
             RackFireTogether = true,
+
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
+
             RangeCategory = "UWRC_DirectFire",
+
             RateOfFire = 0.5,
+
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,
+
             TargetCheckInterval = 1,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
@@ -230,17 +254,21 @@ UnitBlueprint{
                 "ALLUNITS -WALL",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
+
             TurretBoneMuzzle = "Turret_Front_Barrel",
             TurretBonePitch = "Turret_Front_Barrel",
             TurretBoneYaw = "Turret_Front",
             TurretDualManipulators = false,
+
             TurretPitch = 10,
             TurretPitchRange = 20,
             TurretPitchSpeed = 10,
+
             TurretYaw = 0,
             TurretYawRange = 140,
             TurretYawSpeed = 25,
+
             Turreted = true,
         },
         {
@@ -252,20 +280,27 @@ UnitBlueprint{
             },
             BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
+
             Damage = 200,
             DamageRadius = 2,
             DamageType = "Normal",
+
             DisplayName = "Quantum Cannon",
+
             FireTargetLayerCapsTable = { Water = "Land|Water|Seabed" },
             FiringRandomness = 0.5,
             FiringTolerance = 2,
+
             Label = "MainGun",
+
             MaxRadius = 70,
+
             MuzzleChargeDelay = 0.4,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 36,
+
             ProjectileId = "/projectiles/ADFQuantumCannon01/ADFQuantumCannon01_proj.bp",
+
             RackBones = {
                 {
                     MuzzleBones = { "Muzzle_Front03" },
@@ -278,14 +313,14 @@ UnitBlueprint{
             },
             RackFireTogether = true,
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
+
             RateOfFire = 0.5,
+
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,
+
             TargetCheckInterval = 2,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
@@ -293,17 +328,21 @@ UnitBlueprint{
                 "ALLUNITS -WALL",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
+
             TurretBoneMuzzle = "Turret_Front_Barrel01",
             TurretBonePitch = "Turret_Front_Barrel01",
             TurretBoneYaw = "Turret_Front01",
             TurretDualManipulators = false,
+
             TurretPitch = 10,
             TurretPitchRange = 20,
             TurretPitchSpeed = 10,
+
             TurretYaw = 0,
             TurretYawRange = 140,
             TurretYawSpeed = 25,
+
             Turreted = true,
         },
         {
@@ -315,19 +354,25 @@ UnitBlueprint{
             },
             BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
+
             Damage = 200,
             DamageRadius = 2,
             DamageType = "Normal",
+
             DisplayName = "Quantum Cannon",
+
             FireTargetLayerCapsTable = { Water = "Land|Water|Seabed" },
             FiringRandomness = 0.5,
             FiringTolerance = 2,
+
             Label = "MainGun",
+
             MaxRadius = 70,
+
             MuzzleChargeDelay = 0.4,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
+
             ProjectileId = "/projectiles/ADFQuantumCannon01/ADFQuantumCannon01_proj.bp",
             RackBones = {
                 {
@@ -341,14 +386,16 @@ UnitBlueprint{
             },
             RackFireTogether = true,
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
+
             RateOfFire = 0.5,
+
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,
+
             TargetCheckInterval = 2,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
@@ -356,17 +403,21 @@ UnitBlueprint{
                 "ALLUNITS -WALL",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.05,
+
             TurretBoneMuzzle = "Turret_Back_Barrel",
             TurretBonePitch = "Turret_Back_Barrel",
             TurretBoneYaw = "Turret_Back",
             TurretDualManipulators = false,
+
             TurretPitch = 10,
             TurretPitchRange = 20,
             TurretPitchSpeed = 10,
+
             TurretYaw = 0,
             TurretYawRange = 140,
             TurretYawSpeed = 25,
+
             Turreted = true,
         },
         {
@@ -377,16 +428,22 @@ UnitBlueprint{
             BallisticArc = "RULEUBA_None",
             CannotAttackGround = true,
             CollideFriendly = false,
+
             Damage = 220,
             DamageType = "Normal",
+
             DisplayName = "Zealot AA Missile",
+
             FireTargetLayerCapsTable = { Water = "Air" },
             FiringTolerance = 10,
+
             HeadingArcCenter = -90,
             HeadingArcRange = 100,
+
             Label = "AntiAirMissiles",
+
             MaxRadius = 55,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 33,
             ProjectileId = "/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp",
             ProjectileLifetime = 5,
@@ -397,10 +454,10 @@ UnitBlueprint{
                 },
             },
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_AntiAir",
             RateOfFire = 1,
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
@@ -409,7 +466,8 @@ UnitBlueprint{
                 "AIR",
             },
             TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
+
             TurretBoneMuzzle = "Muzzle_Right",
             TurretBonePitch = "Turret_Right_Barrel",
             TurretBoneYaw = "Turret_Right",
@@ -428,19 +486,28 @@ UnitBlueprint{
                 Fire = Sound { Bank = 'UASWeapon', Cue = 'UAS0202_SAM', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = "RULEUBA_None",
+
             CannotAttackGround = true,
+
             CollideFriendly = false,
+
             Damage = 220,
             DamageType = "Normal",
+
             DisplayName = "Zealot AA Missile",
+
             FireTargetLayerCapsTable = { Water = "Air" },
             FiringTolerance = 10,
+
             HeadingArcCenter = -90,
             HeadingArcRange = 100,
+
             Label = "AntiAirMissiles",
+
             MaxRadius = 55,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 33,
+
             ProjectileId = "/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp",
             ProjectileLifetime = 5,
             RackBones = {
@@ -449,11 +516,9 @@ UnitBlueprint{
                     RackBone = "Turret_Right_Barrel01",
                 },
             },
-            RackFireTogether = false,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RateOfFire = 1,
+
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
@@ -462,14 +527,17 @@ UnitBlueprint{
                 "AIR",
             },
             TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
+
             TurretBoneMuzzle = "Muzzle_Right01",
             TurretBonePitch = "Turret_Right_Barrel01",
             TurretBoneYaw = "Turret_Right01",
             TurretDualManipulators = false,
+
             TurretPitch = 25,
             TurretPitchRange = 80,
             TurretPitchSpeed = 120,
+
             TurretYaw = 0,
             TurretYawRange = 100,
             TurretYawSpeed = 90,
@@ -483,30 +551,36 @@ UnitBlueprint{
             BallisticArc = "RULEUBA_None",
             CannotAttackGround = true,
             CollideFriendly = false,
+
             Damage = 220,
             DamageType = "Normal",
+
             DisplayName = "Zealot AA Missile",
+
             FireTargetLayerCapsTable = { Water = "Air" },
             FiringTolerance = 10,
+
             HeadingArcCenter = 90,
             HeadingArcRange = 100,
+
             Label = "AntiAirMissiles",
+
             MaxRadius = 55,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 33,
+
             ProjectileId = "/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp",
             ProjectileLifetime = 5,
+
             RackBones = {
                 {
                     MuzzleBones = { "Muzzle_Left" },
                     RackBone = "Turret_Left_Barrel",
                 },
             },
-            RackFireTogether = false,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RateOfFire = 1,
+
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
@@ -515,17 +589,21 @@ UnitBlueprint{
                 "AIR",
             },
             TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
+
             TurretBoneMuzzle = "Muzzle_Left",
             TurretBonePitch = "Turret_Left_Barrel",
             TurretBoneYaw = "Turret_Left",
             TurretDualManipulators = false,
+
             TurretPitch = 25,
             TurretPitchRange = 80,
             TurretPitchSpeed = 120,
+
             TurretYaw = 0,
             TurretYawRange = 100,
             TurretYawSpeed = 90,
+
             Turreted = true,
         },
         {
@@ -536,29 +614,36 @@ UnitBlueprint{
             BallisticArc = "RULEUBA_None",
             CannotAttackGround = true,
             CollideFriendly = false,
+
             Damage = 220,
             DamageType = "Normal",
+
             DisplayName = "Zealot AA Missile",
+
             FireTargetLayerCapsTable = { Water = "Air" },
             FiringTolerance = 10,
+
             HeadingArcCenter = 90,
             HeadingArcRange = 100,
+
             Label = "AntiAirMissiles",
+
             MaxRadius = 55,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 33,
+
             ProjectileId = "/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp",
             ProjectileLifetime = 5,
+
             RackBones = {
                 {
                     MuzzleBones = { "Muzzle_Left01" },
                     RackBone = "Turret_Left_Barrel01",
                 },
             },
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RateOfFire = 1,
+
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
@@ -567,17 +652,21 @@ UnitBlueprint{
                 "AIR",
             },
             TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
+
             TurretBoneMuzzle = "Muzzle_Left01",
             TurretBonePitch = "Turret_Left_Barrel01",
             TurretBoneYaw = "Turret_Left01",
             TurretDualManipulators = false,
+
             TurretPitch = 25,
             TurretPitchRange = 80,
             TurretPitchSpeed = 120,
+
             TurretYaw = 0,
             TurretYawRange = 100,
             TurretYawSpeed = 90,
+
             Turreted = true,
         },
     },

@@ -212,11 +212,11 @@ UnitBlueprint{
                     RackBone = "RightArmBarrel",
                 },
             },
-            RackFireTogether = false,
-            RackReloadTimeout = 0,
+
             RackSalvoChargeTime = 1,
-            RackSalvoFiresAfterCharge = false,
+
             RackSalvoReloadTime = 1,
+
             RangeCategory = "UWRC_DirectFire",
             RateOfFire = 1,
             TargetCheckInterval = 0.1,

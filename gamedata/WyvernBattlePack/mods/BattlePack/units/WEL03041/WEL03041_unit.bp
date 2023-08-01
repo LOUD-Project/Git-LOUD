@@ -1,7 +1,7 @@
 UnitBlueprint{
     Description = "Amphibious Heavy Artillery",
     AI = {
-        GuardScanRadius = 30,
+        GuardScanRadius = 90,
         NeedUnpack = true,
         TargetBones = { "MainTurret_Yaw" },
     },
@@ -147,8 +147,7 @@ UnitBlueprint{
             LeadTarget = true,
             MaxRadius = 92,
             MinRadius = 5,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 25,
             MuzzleVelocityReduceDistance = 85,
             NotExclusive = true,
@@ -169,9 +168,7 @@ UnitBlueprint{
                 },
             },
             RackRecoilDistance = -4,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_IndirectFire",
             RateOfFire = 1,
             TargetCheckInterval = 1,
@@ -188,13 +185,17 @@ UnitBlueprint{
             TurretBonePitch = "Turret_Pitch",
             TurretBoneYaw = "MainTurret_Yaw",
             TurretDualManipulators = false,
+
             TurretPitch = 30,
             TurretPitchRange = 45,
             TurretPitchSpeed = 22,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 30,
+
             Turreted = true,
+
             WeaponUnpackAnimation = "/units/UEL0304/uel0304_aactivate.sca",
             WeaponUnpackAnimationRate = 2,
             WeaponUnpackLocksMotion = true,

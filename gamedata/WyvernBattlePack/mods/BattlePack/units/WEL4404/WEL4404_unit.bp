@@ -1,12 +1,8 @@
 UnitBlueprint{
     Description = "<LOC wel4404_desc>Experimental Medium Assault Mech (Raider)",
     AI = {
-        GuardScanRadius = 60,
-        TargetBones = {
-            "head",
-            "legb4",
-            "legb05",
-        },
+        GuardScanRadius = 48,
+        TargetBones = {"head","legb4","legb05"},
     },
     Audio = {
         AmbientMove           = Sound { Bank = 'URL',          Cue = 'URL0303_Move_Loop',         LodCutoff = 'UnitMove_LodCutoff' },
@@ -183,7 +179,7 @@ UnitBlueprint{
             MaxRadius = 65,
 
             MuzzleChargeDelay = 1.5,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
 
             NotExclusive = true,
@@ -202,7 +198,7 @@ UnitBlueprint{
                 },
             },
             RackRecoilDistance = -1,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RangeCategory = "UWRC_IndirectFire",
@@ -217,6 +213,7 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.1,
+
             TurretBoneDualMuzzle = "muzzle08",
             TurretBoneDualPitch = "topgun02",
             TurretBoneMuzzle = "muzzle05",
@@ -262,7 +259,6 @@ UnitBlueprint{
             MaxRadius = 48,
 
             MuzzleSalvoDelay = 0.3,
-            MuzzleSalvoSize = 1,
 
             NotExclusive = true,
 
@@ -289,7 +285,6 @@ UnitBlueprint{
             },
             RackFireTogether = true,
             RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RackSlavedToTurret = true,
 
@@ -348,8 +343,7 @@ UnitBlueprint{
             Label = "FlameThrower",
             MaxRadius = 26,
             MinRadius = 10,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 20,
             NotExclusive = true,
             ProjectileId = "/Mods/BattlePack/projectiles/NFlamerProjectile/NFlamerProjectile_proj.bp",
@@ -361,8 +355,7 @@ UnitBlueprint{
                 },
             },
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RateOfFire = 0.4,
             TargetCheckInterval = 0.625,
             TargetPriorities = {
@@ -371,7 +364,8 @@ UnitBlueprint{
                 "ALLUNITS -WALL",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
+
             TurretBoneMuzzle = "FlameMuzzle",
             TurretBonePitch = "FlameMuzzle",
             TurretBoneYaw = "Turret",

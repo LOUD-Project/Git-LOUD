@@ -1,5 +1,8 @@
 UnitBlueprint{
     Description = "Heavy Tank",
+    AI = {
+        GuardScanRadius = 25,
+    },
     Audio = {
         AmbientMove = Sound { Bank = 'XSL',            Cue = 'XSL0303_Move_Loop',    LodCutoff = 'UnitMove_LodCutoff' },
         Destroyed   = Sound { Bank = 'XSL_Destroy',    Cue = 'XSL_Destroy_Land_Lrg', LodCutoff = 'UnitMove_LodCutoff' },
@@ -147,8 +150,7 @@ UnitBlueprint{
             FiringTolerance = 0.3,
             Label = "MainTurret",
             MaxRadius = 25,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 33,
             ProjectileId = "/projectiles/SDFTauCannon01/SDFTauCannon01_proj.bp",
             RackBones = {
@@ -158,9 +160,7 @@ UnitBlueprint{
                 },
             },
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_DirectFire",
             RateOfFire = 2,
             TargetCheckInterval = 1,
@@ -171,7 +171,7 @@ UnitBlueprint{
                 "ALLUNITS",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
             TurretBoneMuzzle = "Turret_Barrel_Recoil_Muzzle",
             TurretBonePitch = "Turret_Barrel",
             TurretBoneYaw = "Turret",

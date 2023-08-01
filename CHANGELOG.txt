@@ -9,6 +9,7 @@ UNITS 6.3.11
 Wyvern Battlepack for LOUD 6.3.01
 
 - completed data reduction on all base and land units, reset GuardScanRadius on all units
+- some refined weapon debug information
 - revised and corrected Ravager firing cycle
 - revised Spearhead firing cycle and animations, speed (2.8 > 3.0), accel (1.4 > 1.0), range (84 < 88)
 - now consumes energy to fire

@@ -1,6 +1,7 @@
 UnitBlueprint{
     Description = "<LOC wra0401_desc>Experimental Siege-Assault Gunship (Gunship)",
     AI = {
+        GuardScanRadius = 45,
         TargetBones = {
             "WRA0401",
             "Exhaust01",

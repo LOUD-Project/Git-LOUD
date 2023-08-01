@@ -2,12 +2,8 @@ UnitBlueprint{
     Description = "<LOC wel0401_desc>Experimental Assault Artillery Platform (Artillery)",
     AI = {
         AttackAngle = 30,
-        GuardScanRadius = 50,
-        TargetBones = {
-            "WEL0401",
-            "Center_Turret",
-            "Napalm_Missile_Yaw",
-        },
+        GuardScanRadius = 88,
+        TargetBones = {"WEL0401","Center_Turret","Napalm_Missile_Yaw"},
     },
     Audio = {
         Destroyed               = Sound { Bank = 'UELDestroy', Cue = 'UEL0401_Destroy',    LodCutoff = 'UnitMove_LodCutoff' },
@@ -263,9 +259,9 @@ UnitBlueprint{
             Label = "MainGun",
             MaxRadius = 115,
             MinRadius = 18,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 22,
+
             NotExclusive = true,
             ProjectileId = "/projectiles/TIFArtillery01/TIFArtillery01_proj.bp",
             RackBones = {
@@ -287,8 +283,7 @@ UnitBlueprint{
             RackFireTogether = true,
             RackRecoilDistance = -2,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_IndirectFire",
             RateOfFire = 0.2,
             TargetCheckInterval = 0.5,
@@ -357,8 +352,7 @@ UnitBlueprint{
                 },
             },
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RateOfFire = 0.1,
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -403,11 +397,11 @@ UnitBlueprint{
             HeadingArcRange = 120,
             Label = "Turret",
             MaxRadius = 88,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 25,
             MuzzleVelocityRandom = 2,
             MuzzleVelocityReduceDistance = 90,
+
             NotExclusive = true,
             ProjectileId = "/projectiles/TDFGauss04/TDFGauss04_proj.bp",
             ProjectileLifetimeUsesMultiplier = 4.5,
@@ -428,8 +422,7 @@ UnitBlueprint{
             RackFireTogether = true,
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_DirectFire",
             RateOfFire = 0.7,
             TargetCheckInterval = 0.5,
@@ -475,8 +468,7 @@ UnitBlueprint{
             HeadingArcRange = 125,
             Label = "Turret",
             MaxRadius = 88,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 25,
             MuzzleVelocityRandom = 2,
             MuzzleVelocityReduceDistance = 90,
@@ -500,8 +492,7 @@ UnitBlueprint{
             RackFireTogether = true,
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RateOfFire = 0.7,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -544,8 +535,7 @@ UnitBlueprint{
             FiringTolerance = 2,
             Label = "Turret",
             MaxRadius = 88,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 25,
             MuzzleVelocityRandom = 2,
             MuzzleVelocityReduceDistance = 90,
@@ -569,8 +559,7 @@ UnitBlueprint{
             RackFireTogether = true,
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RateOfFire = 0.7,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -614,8 +603,7 @@ UnitBlueprint{
             Label = "TMD",
             MaxRadius = 30,
             MaximumBeamLength = 3,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             NeedPrep = true,
             NotExclusive = true,
             RackBones = {
@@ -624,11 +612,7 @@ UnitBlueprint{
                     RackBone = "TMD_Muzzle001",
                 },
             },
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RangeCategory = "UWRC_Countermeasure",
             RateOfFire = 0.5,
             TargetCheckInterval = 0.5,
@@ -670,8 +654,7 @@ UnitBlueprint{
             Label = "TMD",
             MaxRadius = 30,
             MaximumBeamLength = 30,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             NeedPrep = true,
             NotExclusive = true,
             RackBones = {
@@ -680,11 +663,7 @@ UnitBlueprint{
                     RackBone = "TMD_Muzzle002",
                 },
             },
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RateOfFire = 0.5,
             TargetCheckInterval = 0.5,
             TargetRestrictDisallow = "UNTARGETABLE",
@@ -728,8 +707,7 @@ UnitBlueprint{
             FiringTolerance = 0.5,
             Label = "AAGun",
             MaxRadius = 44,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 50,
             MuzzleVelocityRandom = 5,
             NotExclusive = true,
@@ -747,9 +725,7 @@ UnitBlueprint{
             },
             RackFireTogether = true,
             RackRecoilDistance = -0.7,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_AntiAir",
             RateOfFire = 2,
             TargetCheckInterval = 0.3,
@@ -797,8 +773,7 @@ UnitBlueprint{
             FiringTolerance = 0.5,
             Label = "AAGun",
             MaxRadius = 32,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 50,
             MuzzleVelocityRandom = 5,
             NotExclusive = true,
@@ -816,9 +791,7 @@ UnitBlueprint{
             },
             RackFireTogether = true,
             RackRecoilDistance = -0.7,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RateOfFire = 2,
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -861,8 +834,7 @@ UnitBlueprint{
             HeadingArcRange = 90,
             Label = "Riotgun",
             MaxRadius = 35,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 45,
             NotExclusive = true,
             ProjectileId = "/projectiles/TDFRiot02/TDFRiot02_proj.bp",
@@ -873,10 +845,7 @@ UnitBlueprint{
                     RackBone = "Riot_Gun_Right_Barrel",
                 },
             },
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RateOfFire = 3,
             TargetCheckInterval = 0.16,
             TargetPriorities = {
@@ -918,8 +887,7 @@ UnitBlueprint{
             HeadingArcRange = 90,
             Label = "Riotgun",
             MaxRadius = 32,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 45,
             NotExclusive = true,
             ProjectileId = "/projectiles/TDFRiot02/TDFRiot02_proj.bp",
@@ -930,11 +898,7 @@ UnitBlueprint{
                     RackBone = "Riot_Gun_Left_Barrel",
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RateOfFire = 3,
             TargetCheckInterval = 0.16,
             TargetPriorities = {
