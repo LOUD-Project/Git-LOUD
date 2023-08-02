@@ -1,6 +1,7 @@
 UnitBlueprint {
 	Merge = true,
 	BlueprintId = "urb1301", --Cybran T3 Energy
+
     Economy = {
         BuildRate = 25,
         BuildableCategory = {
@@ -20,6 +21,7 @@ UnitBlueprint {
             RULEUCC_Pause = true,
             RULEUCC_Stop = true,
         },
+        
         UpgradesTo = 'urb1306',
     },
 }

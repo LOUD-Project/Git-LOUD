@@ -1,3 +1,12 @@
+### Release 02-08-2023
+
+LOUD_MISC 6.3.03
+
+- hotfix for upgrade issues with T3.5 Mex and Hydrocarbon
+
+
+### Release 01-08-2023
+
 LUA 6.3.14
 4DC for LOUD 6.3.03
 Black Ops for LOUD 6.3.07

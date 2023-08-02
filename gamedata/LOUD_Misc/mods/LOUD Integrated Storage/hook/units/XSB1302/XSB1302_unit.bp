@@ -5,18 +5,11 @@ UnitBlueprint {
     Description = '<LOC xsb1302_desc>Advanced Mass Extractor',
 
     Economy = {
-        BuildCostEnergy = 31625,
-        BuildCostMass = 4600,
         BuildRate = 20,
-        BuildTime = 2875,
 		
         BuildableCategory = {
             'xsb1304',
         },
-		
-        MaintenanceConsumptionPerSecondEnergy = 192,
-        
-        ProductionPerSecondMass = 18,
 		
         RebuildBonusIds = {
             'xsb1302',
@@ -27,21 +20,24 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
             RULEUCC_Pause = true,
             RULEUCC_Stop = true,
         },
-        FactionName = 'Seraphim',
-        Icon = 'land',
-        SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
-        UnitWeight = 1,
         UpgradesFrom = 'xsb1202',
+        UpgradesFromBase = 'xsb1103',
         UpgradesTo = 'xsb1304',
+    },
+}
+
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "xsb1202",    -- T2 Mass Extractor
+
+    General = {
+		UpgradesFromBase = 'xsb1103',	
     },
 }

@@ -1,45 +1,38 @@
 UnitBlueprint {
 	Merge = true,
-	BlueprintId = "urb1302",
+	BlueprintId = "urb1302",    -- T3 Mass Extractor
 
     Economy = {
-        BuildCostEnergy = 31625,
-        BuildCostMass = 4600,
         BuildRate = 20,
-        BuildTime = 2875,
-		
         BuildableCategory = {
             'urb1304',
         },
-		
-        MaintenanceConsumptionPerSecondEnergy = 192,
-        
-        ProductionPerSecondMass = 18,
-		
         RebuildBonusIds = {
             'urb1302',
             'urb1304',
         },
-		
 		StorageMass = 360,
+
     },
 	
     General = {
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
-            RULEUCC_Pause = true,
             RULEUCC_Stop = true,
         },
-        FactionName = 'Cybran',
-        Icon = 'land',
-        SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
-        UnitWeight = 1,
         UpgradesFrom = 'urb1202',
+		UpgradesFromBase = 'urb1103',	
         UpgradesTo = 'urb1304',
+    },
+}
+
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "urb1202",    -- T2 Mass Extractor
+
+    General = {
+		UpgradesFromBase = 'urb1103',	
     },
 }

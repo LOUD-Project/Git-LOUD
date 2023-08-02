@@ -16,5 +16,15 @@ UnitBlueprint {
             RULEUCC_Stop = true,
         },
         UpgradesTo = 'bab1304',
+		UpgradesFromBase = 'uab1102',        
+    },
+}
+
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "bab1202",    -- T2 Hydrocarbon
+
+    General = {
+		UpgradesFromBase = 'uab1102',	
     },
 }

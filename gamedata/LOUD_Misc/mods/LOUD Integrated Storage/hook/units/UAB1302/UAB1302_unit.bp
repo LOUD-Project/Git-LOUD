@@ -5,18 +5,11 @@ UnitBlueprint {
     Description = '<LOC uab1302_desc>Advanced Mass Extractor',
 
     Economy = {
-        BuildCostEnergy = 31625,
-        BuildCostMass = 4600,
         BuildRate = 20,
-        BuildTime = 2875,
 		
         BuildableCategory = {
             'uab1304',
         },
-		
-        MaintenanceConsumptionPerSecondEnergy = 192,
-        
-        ProductionPerSecondMass = 18,
 		
         RebuildBonusIds = {
             'uab1302',
@@ -27,21 +20,24 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
         CommandCaps = {
             RULEUCC_Pause = true,
             RULEUCC_Stop = true,
         },
-        FactionName = 'Aeon',
-        Icon = 'land',
-        SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
-        UnitWeight = 1,
         UpgradesFrom = 'uab1202',
+        UpgradesFromBase = 'uab1103',
         UpgradesTo = 'uab1304',
+    },
+}
+
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "uab1202",    -- T2 Mass Extractor
+
+    General = {
+		UpgradesFromBase = 'uab1103',	
     },
 }
