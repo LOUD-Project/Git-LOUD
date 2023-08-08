@@ -1178,7 +1178,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 				
 
                 -- this takes precedence - delay for reloading the rack
-                if bp.RackSalvoReloadTime > 0 then
+                if bp.RackSalvoReloadTime > 0 or bp.AnimationReload then
 				
                     LOUDSTATE(self, self.RackSalvoReloadState)
                     
