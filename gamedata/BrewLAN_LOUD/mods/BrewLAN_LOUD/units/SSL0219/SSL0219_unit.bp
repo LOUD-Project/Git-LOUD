@@ -153,6 +153,7 @@ UnitBlueprint {
         BuildableCategory = {
             'BUILTBYTIER2ENGINEER DEFENSE SERAPHIM',
             'BUILTBYTIER2ENGINEER INDIRECTFIRE SERAPHIM',
+            'BUILTBYTIER2ENGINEER WALL SERAPHIM',
             'BUILTBYTIER2FIELD SERAPHIM',
         },
 

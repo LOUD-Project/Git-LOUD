@@ -72,7 +72,7 @@ UnitBlueprint {
 
     },
 	
-    Description = '<LOC sal0209_desc>Defence Engineer',
+    Description = '<LOC sal0319_desc>Defense Engineer',
 	
     Display = {
         Abilities = {
@@ -171,6 +171,7 @@ UnitBlueprint {
             'BUILTBYTIER3ENGINEER DEFENSE AEON',
             'BUILTBYTIER3ENGINEER INDIRECTFIRE AEON',
             'BUILTBYTIER3ENGINEER NUKE SILO AEON',
+            'BUILTBYTIER3ENGINEER WALL AEON',
             'BUILTBYTIER3FIELD AEON',
         },
 		

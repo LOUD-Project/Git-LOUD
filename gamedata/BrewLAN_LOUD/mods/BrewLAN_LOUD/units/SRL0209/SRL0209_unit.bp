@@ -198,6 +198,7 @@ UnitBlueprint {
         BuildableCategory = {
             'BUILTBYTIER2ENGINEER DEFENSE CYBRAN',
             'BUILTBYTIER2ENGINEER INDIRECTFIRE CYBRAN',
+            'BUILTBYTIER2ENGINEER WALL CYBRAN',
             'BUILTBYTIER2FIELD CYBRAN',
         },
 		

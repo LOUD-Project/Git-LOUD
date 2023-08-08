@@ -205,6 +205,7 @@ UnitBlueprint {
         BuildableCategory = {
             'BUILTBYTIER1ENGINEER DEFENSE UEF',
             'BUILTBYTIER1ENGINEER INDIRECTFIRE UEF',
+            'BUILTBYTIER1ENGINEER WALL UEF',
             'BUILTBYTIER1FIELD UEF',
         },
 

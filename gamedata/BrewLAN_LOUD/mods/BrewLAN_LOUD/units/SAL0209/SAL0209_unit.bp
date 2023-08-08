@@ -120,7 +120,7 @@ UnitBlueprint {
 
     },
 	
-    Description = '<LOC sal0209_desc>Defence Engineer',
+    Description = '<LOC sal0209_desc>Defense Engineer',
 	
     Display = {
 	
@@ -228,6 +228,7 @@ UnitBlueprint {
         BuildableCategory = {
             'BUILTBYTIER2ENGINEER DEFENSE AEON',
             'BUILTBYTIER2ENGINEER INDIRECTFIRE AEON',
+            'BUILTBYTIER2ENGINEER WALL AEON',
             'BUILTBYTIER2FIELD AEON',
         },
 		
