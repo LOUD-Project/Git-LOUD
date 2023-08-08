@@ -101,7 +101,7 @@ UnitBlueprint {
         BuildRate = 70,
         BuildTime = 5400,
         BuildableCategory = {
-            'BUILTBYTIER2FACTORY CYBRAN MOBILE CONSTRUCTION',
+            'BUILTBYTIER2FACTORY CYBRAN MOBILE CONSTRUCTION LAND',
             'BUILTBYTIER2FACTORY CYBRAN STRUCTURE LAND',
             'BUILTBYTIER2FACTORY CYBRAN MOBILE LAND',
         },

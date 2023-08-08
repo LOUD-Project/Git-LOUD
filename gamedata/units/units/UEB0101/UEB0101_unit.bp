@@ -117,7 +117,7 @@ UnitBlueprint {
         BuildTime = 300,
 
         BuildableCategory = {
-            'BUILTBYTIER1FACTORY UEF MOBILE CONSTRUCTION',
+            'BUILTBYTIER1FACTORY UEF MOBILE LAND CONSTRUCTION',
             'BUILTBYTIER1FACTORY UEF STRUCTURE LAND',
             'BUILTBYTIER1FACTORY UEF MOBILE LAND',
         },
