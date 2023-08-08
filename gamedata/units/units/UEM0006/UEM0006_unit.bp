@@ -13,9 +13,7 @@ UnitBlueprint {
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
-        'BUILTBYTIER2FIELD',
         'BUILTBYTIER3ENGINEER',
-        'BUILTBYTIER3FIELD',
         'BUILTBYTIER2COMMANDER',
         'BUILTBYTIER3COMMANDER',
         'UEF',
