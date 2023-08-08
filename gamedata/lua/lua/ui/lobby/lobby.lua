@@ -1413,6 +1413,7 @@ local function AssignAINames(gameInfo)
 end
 
 local function CalcTotalUnitCap()
+
     local ret = 0
     local unitCap = tonumber(gameInfo.GameOptions.UnitCap) or 750
     local biggestTeamSize = 0
@@ -1421,23 +1422,28 @@ local function CalcTotalUnitCap()
 
     -- First iterate over all players to get team sizes
     for slot, player in gameInfo.PlayerOptions do
+
         if not player then
             continue
         end
 
         teamSizes[slot] = 1
+
         -- Check all other players to see how big this player's team is
         for _, p in gameInfo.PlayerOptions do
             if p and p ~= player and p.Team == player.Team then
                 teamSizes[slot] = teamSizes[slot] + 1
             end
         end
+
         if teamSizes[slot] > biggestTeamSize then
             biggestTeamSize = teamSizes[slot]
         end
+        
     end
 
     for slot, player in gameInfo.PlayerOptions do
+
         if not player then
             continue
         end
@@ -1445,15 +1451,26 @@ local function CalcTotalUnitCap()
         if player.Human then
             ret = ret + unitCap
         else
+
             local playerDiff = (biggestTeamSize or 1) / teamSizes[slot]
+
             if gameInfo.GameOptions.CapCheat == 'unlimited' then
+
                 ret = ret + 99999
+
             elseif gameInfo.GameOptions.CapCheat == 'cheatlevel' then
+
                 local mult = tonumber(player.Mult)
                 local cheatCap = unitCap * mult * (math.max(playerDiff, 1))
+                
                 ret = ret + math.floor(cheatCap)
+
             else
-                ret = ret + unitCap
+                
+                -- team unit cap is ALWAYS equalized 
+                local cheatCap = unitCap * (math.max(playerDiff, 1))
+                
+                ret = ret + math.floor(cheatCap)    --unitCap
             end
         end
     end

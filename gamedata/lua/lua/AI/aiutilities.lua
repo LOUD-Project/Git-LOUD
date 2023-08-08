@@ -921,8 +921,23 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
         
         SetArmyUnitCap( aiBrain.ArmyIndex, math.floor(cheatCap) )
         
-        LOG("*AI DEBUG "..aiBrain.Nickname.." Unit cap set to "..cheatCap.." from base of "..initialCap)
+        LOG("*AI DEBUG "..aiBrain.Nickname.." Unit cap set to "..cheatCap.." from base of "..initialCap.." based on cheat and outnumbered ratio")
         
+    else
+
+        if aiBrain.OutnumberedRatio > 1 then
+
+            local initialCap = tonumber(ScenarioInfo.Options.UnitCap) or 750
+
+            -- unit cap is increased by the outnumbered ratio --
+            local cheatCap = initialCap * (math.max(aiBrain.OutnumberedRatio,1))
+        
+            SetArmyUnitCap( aiBrain.ArmyIndex, math.floor(cheatCap) )
+        
+            LOG("*AI DEBUG "..aiBrain.Nickname.." Unit cap set to "..cheatCap.." from base of "..initialCap.." based on outnumbered ratio only")
+            
+        end
+       
     end
 
 	-- record the starting unit cap
