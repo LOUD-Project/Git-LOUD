@@ -3,9 +3,15 @@ local SLandUnit = import('/lua/defaultunits.lua').MobileUnit
 local SLaanseMissileWeapon = import('/lua/seraphimweapons.lua').SLaanseMissileWeapon
 
 XSL0111 = Class(SLandUnit) {
+
     Weapons = {
+
         MissileRack = Class(SLaanseMissileWeapon) {
+--[[
             OnLostTarget = function(self)
+            
+                LOG("*AI DEBUG OnLostTarget")
+                
                 self:ForkThread( self.LostTargetThread )
             end,
             
@@ -16,15 +22,16 @@ XSL0111 = Class(SLandUnit) {
             },            
 
             LostTargetThread = function(self)
+
                 while not self.unit:IsDead() and self.unit:IsUnitState('Busy') do
                     WaitSeconds(2)
                 end
    
-   if self.unit:IsDead() then
+                if self.unit:IsDead() then
                     return
                 end
    
-   local bp = self:GetBlueprint()
+                local bp = self:GetBlueprint()
 
                 if bp.WeaponUnpacks then
                     ChangeState(self, self.WeaponPackingState)
@@ -32,6 +39,7 @@ XSL0111 = Class(SLandUnit) {
                     ChangeState(self, self.IdleState)
                 end
             end,
+--]]
         },
     },
 }

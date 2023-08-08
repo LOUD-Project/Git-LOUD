@@ -155,7 +155,12 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
+            AlwaysRecheckTarget = true,
+
             AnimationReload = '/units/xsl0111/xsl0111_areload.sca',
+            AnimationReloadRate = 0.4,  -- this takes about 5.9 seconds
+
             Audio = {
                 Fire = Sound {
                     Bank = 'XSL_Weapon',
@@ -175,19 +180,17 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
             },
-            FiringTolerance = 5,
+            FiringTolerance = 0.5,
 			
             Label = 'MissileRack',
-			
+ 			
             MaxRadius = 75,
             MinRadius = 4,
-			
-            MuzzleChargeDelay = 0.1,
 
             MuzzleVelocity = 7,
 			
             ProjectileId = '/projectiles/SIFLaanseTacticalMissile01/SIFLaanseTacticalMissile01_proj.bp',
-            ProjectileLifetime = 20,
+            ProjectileLifetime = 12,
 
             RackBones = {
                 {
@@ -198,13 +201,12 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -1,
-
-            RackSalvoReloadTime = 6.6666,
+            
+            RackSalvoChargeTime = .6,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.15,
-            RenderFireClock = true,
+            RateOfFire = 0.5,     -- controlled by animation and RackSalvoChargeTime -- 6.5 seconds
 			
             SlavedToBody = true,
 			
@@ -216,7 +218,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 
             Turreted = false,
         },
