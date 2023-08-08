@@ -139,6 +139,7 @@ UnitBlueprint {
         ConstructionBar = true,
         FactionName = 'Seraphim',
         Icon = 'land',
+        SelectionPriority = 5,        
         UnitName = '<LOC bsb2402_name>Haasioz-Iya',
     },
 	

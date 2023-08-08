@@ -142,6 +142,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
+        SelectionPriority = 5,
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
