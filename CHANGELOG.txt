@@ -1,3 +1,23 @@
+### Release 11-08-2023
+
+LUA 6.3.15
+Projectiles 6.3.02
+BrewLAN for LOUD 0.8.8.9.74
+CIV_UNITS 6.3.02
+UNITS 6.3.12
+
+- updated Sera Tac missile projectiles, brought Aeon antimissile in-house
+- updated some missing categories, removed BrewLAN field engineer ability from AI engineer (wall issue)
+- revised the Aeon T2 TMD system, with missing animation, unpack sequence, and FLARE capability
+- fixed firing bug with Sera T2 MML that would keep it firing at nothing once a target was lost
+- fixed issue with Naval Engineers being buildable in LAND/AIR factories
+- fixed some unit selection issues with mass extractors being selected at same priority as engineers
+- moved some further civilian units from UNITS into CIV_UNITS (courtesy of MostLostNoob)
+- Unit cap team balancing now takes place regardless of the Enhanced Unit Cap setting
+- the smallest team will always have a total unit cap equal to the largest team, before AI cheat effects
+- updated the Unit Spreadsheet
+
+
 ### Release 02-08-2023
 
 LOUD_MISC 6.3.03
