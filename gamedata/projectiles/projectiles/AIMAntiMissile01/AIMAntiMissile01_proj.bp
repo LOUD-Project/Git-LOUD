@@ -1,0 +1,38 @@
+ProjectileBlueprint {
+    Audio = {
+        Impact = Sound {
+            Bank = 'Impacts',
+            Cue = 'AEON_Expl_Med_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+    },
+
+    Categories = {
+        'AEON',
+        'PROJECTILE',
+        'ANTIMISSILE',
+    },
+
+    Defense = {
+        Health = 1,
+        MaxHealth = 1,
+    },
+
+    Display = {
+        StrategicIconSize = 1,
+    },
+
+    Physics = {
+        Acceleration = 2,
+        DestroyOnWater = true,
+        LifeTime = 4,
+        MaxSpeed = 10,
+        TrackTarget = false,
+        TurnRate = 0,
+        UseGravity = false,
+        VelocityAlign = true,
+    },
+    SizeX = 0.5,
+    SizeY = 0.5,
+    SizeZ = 0.5,
+}
