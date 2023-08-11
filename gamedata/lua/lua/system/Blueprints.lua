@@ -696,7 +696,7 @@ function ModBlueprints(all_blueprints)
             
             if not bp.AI.StagingPlatformScanRadius then
 
-                bp.AI.StagingPlatformScanRadius = bp.Economy.MaxBuildDistance
+                bp.AI.StagingPlatformScanRadius = bp.Economy.MaxBuildDistance + 1
 
             end
 
@@ -724,7 +724,7 @@ function ModBlueprints(all_blueprints)
 
                                 if bp.Weapon[1] and not bp.AI.GuardScanRadius then
 
-                                    LOG("*AI DEBUG No AI GuardScanRadius for "..repr(bp.Description).." weapon 1 has maxRadius of "..repr(bp.Weapon[1].MaxRadius) )
+                                    --LOG("*AI DEBUG No AI GuardScanRadius for "..repr(bp.Description).." weapon 1 has maxRadius of "..repr(bp.Weapon[1].MaxRadius) )
 
                                 elseif bp.Weapon[1] and bp.AI.GuardScanRadius < bp.Weapon[1].MaxRadius then
 
@@ -816,7 +816,7 @@ function ModBlueprints(all_blueprints)
 
                                 if bp.Weapon[1] and not bp.AI.GuardScanRadius then
 
-                                    LOG("*AI DEBUG No AI GuardScanRadius for "..repr(bp.Description).." weapon 1 has maxRadius of "..repr(bp.Weapon[1].MaxRadius) )
+                                    --LOG("*AI DEBUG No AI GuardScanRadius for "..repr(bp.Description).." weapon 1 has maxRadius of "..repr(bp.Weapon[1].MaxRadius) )
 
                                 elseif bp.Weapon[1] and bp.AI.GuardScanRadius < bp.Weapon[1].MaxRadius then
 
@@ -899,7 +899,7 @@ function ModBlueprints(all_blueprints)
 
                                 if bp.Weapon[1] and not bp.AI.GuardScanRadius then
 
-                                    LOG("*AI DEBUG No AI GuardScanRadius for "..repr(bp.Description).." weapon 1 has maxRadius of "..repr(bp.Weapon[1].MaxRadius) )
+                                    --LOG("*AI DEBUG No AI GuardScanRadius for "..repr(bp.Description).." weapon 1 has maxRadius of "..repr(bp.Weapon[1].MaxRadius) )
 
                                 elseif bp.Weapon[1] and bp.AI.GuardScanRadius < bp.Weapon[1].MaxRadius then
 
