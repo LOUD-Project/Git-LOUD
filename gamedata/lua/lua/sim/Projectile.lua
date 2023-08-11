@@ -836,7 +836,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
         if not tbl then return end
         if not tbl.Radius then return end
 		
-        self.MyFlare = Flare { Owner = self, Radius = tbl.Radius or 5 }
+        self.MyFlare = Flare { Owner = self, Radius = tbl.Radius or 5, Category = tbl.Category or false }
 		
 		if not self.Trash then
 		

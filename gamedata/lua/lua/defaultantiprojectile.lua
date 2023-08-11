@@ -24,24 +24,57 @@ local WaitTicks = coroutine.yield
 Flare = Class(Entity) {
 
     OnCreate = function(self, spec)
+    
+        local function GrowThread( Owner, self )
+
+            local value = spec.RadiusStart or 3
+        
+            while value < spec.Radius do
+
+                value = value + (spec.RadiusGrowth or .4)
+
+                SetCollisionShape( self, 'Sphere', 0, 0, 0, math.min( value, spec.Radius ) )
+
+                SetDrawScale( self, value )
+
+                WaitTicks(1)
+
+            end
+        
+        end
 
         self.Army = spec.Owner.Army
         self.Owner = spec.Owner
         self.Radius = spec.Radius or 5
+
+        self.RedirectCat = LOUDPARSE(spec.Category)
         
-        SetCollisionShape( self, 'Sphere', 0, 0, 0, self.Radius)
-        SetDrawScale( self, spec.Radius)
+        self.Owner:ForkThread( GrowThread, self )
         
         self:AttachTo(spec.Owner, -1)
-        self.RedirectCat = spec.Category or 'MISSILE'
+
     end,
 
-    -- We only divert projectiles. The flare-projectile itself will be responsible for
+    -- We only divert projectiles. The projectile that hosts the flare is responsible for
     -- accepting the collision and causing the hostile projectile to impact.
     OnCollisionCheck = function(self,other)
+
+		if ScenarioInfo.ProjectileDialog then    
+            LOG("*AI DEBUG Flare OnCollision")
+        end
 	
-        if LOUDENTITY(LOUDPARSE(self.RedirectCat), other) and ( self.Army != GetArmy(other)) then
+        if LOUDENTITY(self.RedirectCat, other) and self.Army ~= GetArmy(other) and not other.Deflected then
+        
+       		if ScenarioInfo.ProjectileDialog then
+                LOG("*AI DEBUG Flare Collision - New Target")
+            end
+            
             other:SetNewTarget(self.Owner)
+
+            other:TrackTarget(true)
+
+			other.Deflected = true
+
         end
 		
         return false
@@ -52,27 +85,35 @@ AAFlare = Class(Entity) {
 
 	OnCreate = function(self, spec)
 
+        self.Army = spec.Owner.Army		
         self.Owner = spec.Owner
         self.Radius = spec.Radius or 3
-        self.Army = spec.Owner.Army		
+		
+		self.RedirectCat = categories.MISSILE * categories.ANTIAIR
 
         SetCollisionShape( self, 'Sphere', 0, 0, 0, self.Radius)
         SetDrawScale( self, spec.Radius)
-		
-		self.RedirectCat = categories.MISSILE * categories.ANTIAIR
+
 	end,
 	
 	OnCollisionCheck = function(self,other)
+
+		if ScenarioInfo.ProjectileDialog then    
+            LOG("*AI DEBUG AAFlare OnCollision")
+        end
 		
         if LOUDENTITY(self.RedirectCat, other) and self.Army ~= GetArmy(other) and not other.Deflected then
 
-			LOG("*AI DEBUG AAFlare Collision - New target")
+            if ScenarioInfo.ProjectileDialog then
+                LOG("*AI DEBUG AAFlare Collision - New target")
+            end
 			other:SetNewTarget(self.Owner)
 
-			LOG("*AI DEBUG AAFlare Collision - New Turn")
+            if ScenarioInfo.ProjectileDialog then
+                LOG("*AI DEBUG AAFlare Collision - New Turn")
+            end
 			other:SetTurnRate(540)
 
-			LOG("*AI DEBUG AAFlare Collision - deflected")
 			other.Deflected = true
 
         end
@@ -95,7 +136,7 @@ DepthCharge = Class(Entity) {
         self:AttachTo(spec.Owner, -1)
     end,
 
-    -- We only divert projectiles. The Owner will be responsible for
+    -- We only divert the projectiles. The projectile itself is responsible for
     -- accepting the collision and causing the hostile projectile to impact.
     OnCollisionCheck = function(self,other)
 	
