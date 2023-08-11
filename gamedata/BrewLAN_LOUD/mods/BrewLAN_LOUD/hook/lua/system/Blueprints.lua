@@ -18,11 +18,13 @@ end
 function ModBlueprints(all_blueprints)
 
     OldModBlueprints(all_blueprints)
+
     BrewLANBuildCatChanges(all_blueprints.Unit)
 
     --BrewLANCategoryChanges(all_blueprints.Unit)
 
-    BrewLANGlobalCategoryAdditions(all_blueprints.Unit)
+    --BrewLANGlobalCategoryAdditions(all_blueprints.Unit)
+
     BrewLANGantryBuildList(all_blueprints.Unit)
     BrewLANGantryTechShareCheck(all_blueprints.Unit)
     BrewLANHeavyWallBuildList(all_blueprints.Unit)
@@ -33,7 +35,9 @@ function ModBlueprints(all_blueprints)
 
     --TorpedoBomberWaterLandCat(all_blueprints.Unit)
     --BrewLANBomberDamageType(all_blueprints.Unit)
-    BrewLANNavalEngineerCatFixes(all_blueprints.Unit)
+
+    --BrewLANNavalEngineerCatFixes(all_blueprints.Unit)
+
     BrewLANCheckRULEUCaseCorrectness(all_blueprints.Unit)
 
     --BrewLANRelativisticLinksUpdate(all_blueprints)
@@ -97,7 +101,11 @@ function BrewLANBuildCatChanges(all_bps)
         srl0319 = {'BUILTBYTIER3ENGINEER CYBRAN COUNTERINTELLIGENCE','BUILTBYTIER3ENGINEER CYBRAN AIRSTAGINGPLATFORM',},
         ssl0319 = {'BUILTBYTIER3ENGINEER SERAPHIM COUNTERINTELLIGENCE','BUILTBYTIER3ENGINEER SERAPHIM AIRSTAGINGPLATFORM',},
         sal0319 = {'BUILTBYTIER3ENGINEER AEON COUNTERINTELLIGENCE','BUILTBYTIER3ENGINEER AEON AIRSTAGINGPLATFORM',},
+
+--[[
         --These categories are restricted if controlled by a human in the hooked unit scripts
+        -- otherwise the intention is to let regular AI engineers have the field engineer techs
+        -- the associated scripts would then restrict that for human players
         ual0105 = {'BUILTBYTIER1FIELD AEON',},
         ual0208 = {'BUILTBYTIER2FIELD AEON',},
         ual0309 = {'BUILTBYTIER3FIELD AEON',},
@@ -115,12 +123,18 @@ function BrewLANBuildCatChanges(all_bps)
         uel0301 = {'BUILTBYTIER3FIELD UEF',},
         url0301 = {'BUILTBYTIER3FIELD CYBRAN',},
         xsl0301 = {'BUILTBYTIER3FIELD SERAPHIM',},
+--]]        
     }
     for unitid, buildcat in units_buildcats do
+    
         if all_bps[unitid] and all_bps[unitid].Economy.BuildableCategory then   --Xtreme Wars crash fix here. They removed the Fatboys ability to build.
+
             for i in buildcat do
-                --Check we can
+
                 if CheckBuildCatConsistsOfRealCats(real_categories, buildcat[i]) then
+                
+                    LOG("*AI DEBUG Inserting "..repr(buildcat[i]).." to unit "..unitid )
+                    
                     table.insert(all_bps[unitid].Economy.BuildableCategory, buildcat[i])
                 end
             end
@@ -129,16 +143,22 @@ function BrewLANBuildCatChanges(all_bps)
 end
 
 function CheckBuildCatConsistsOfRealCats(real_categories, buildcat)
+
     if type(real_categories) == 'table' and type(buildcat) == 'string' then
+
         local invalidcats = 0
+
         string.gsub(buildcat, "(%w+)",
+
             function(w)
                 if not real_categories[w] then
                     invalidcats = invalidcats + 1
                 end
             end
         )
+
         return invalidcats == 0
+
     else
         LOG("WARNING: Function 'CheckBuildCatConsistsOfRealCats' requires two args; an array of strings, and a string. Recieved " .. type(real_categories) .. " and " .. type(buildcat) .. ".")
         return false
@@ -150,6 +170,7 @@ end
 --------------------------------------------------------------------------------
 
 function BrewLANNavalEngineerCatFixes(all_bps)
+
     local cats_table = {
         {'BUILTBYTIER3FACTORY UEF MOBILE CONSTRUCTION',      'BUILTBYTIER3FACTORY UEF MOBILE LAND CONSTRUCTION'},
         {'BUILTBYTIER3FACTORY CYBRAN MOBILE CONSTRUCTION',   'BUILTBYTIER3FACTORY CYBRAN MOBILE LAND CONSTRUCTION'},
@@ -164,27 +185,31 @@ function BrewLANNavalEngineerCatFixes(all_bps)
         {'BUILTBYTIER1FACTORY AEON MOBILE CONSTRUCTION',     'BUILTBYTIER1FACTORY AEON MOBILE LAND CONSTRUCTION'},
         {'BUILTBYTIER1FACTORY SERAPHIM MOBILE CONSTRUCTION', 'BUILTBYTIER1FACTORY SERAPHIM MOBILE LAND CONSTRUCTION'},
     }
+
     for id, bp in all_bps do
+
         -- If table doesn't exist, it's 'Land'. If a key doesnt exist, but the table does, that key is false.
-        if bp.General.Classification == 'RULEUC_Factory' and (bp.Physics.BuildOnLayerCaps and not bp.Physics.BuildOnLayerCaps.LAYER_Water or not bp.Physics.BuildOnLayerCaps) then
-            if bp.Economy.BuildableCategory then
-                for i, cat in bp.Economy.BuildableCategory do
-                    for index, cattable in cats_table do
-                        if cat == cattable[1] then
-                            bp.Economy.BuildableCategory[i] = cattable[2]
-                        end
+        if bp.Physics and bp.Economy and (bp.Physics.BuildOnLayerCaps and not bp.Physics.BuildOnLayerCaps.LAYER_Water or not bp.Physics.BuildOnLayerCaps) and bp.Economy.BuildableCategory then
+
+            for i, cat in bp.Economy.BuildableCategory do
+
+                for index, cattable in cats_table do
+                    if cat == cattable[1] then
+                        bp.Economy.BuildableCategory[i] = cattable[2]
                     end
                 end
             end
+
         end
     end
 end
 
 --------------------------------------------------------------------------------
--- Unit category changes
+-- Unit category changes -- just general fixes (already done in LOUD)
 --------------------------------------------------------------------------------
 
 function BrewLANCategoryChanges(all_bps)
+
     local Units = {
         --Cybran Shields
         urb4202 = {'TECH1','BUILTBYTIER1ENGINEER','BUILTBYTIER2ENGINEER','BUILTBYTIER2COMMANDER','BUILTBYTIER3ENGINEER','BUILTBYTIER3COMMANDER', r = 'TECH2', },
@@ -210,6 +235,7 @@ function BrewLANCategoryChanges(all_bps)
         xeb2402 = {NoBuild = true, },--------------------------Noxav Defence Satelite Uplink
         ual0401 = {'DARKNESSIMMUNE'},--------------------------Colossus flag for preventing Darkness nerf.
     }
+
     local buildcats = {
         'BUILTBYTIER1ENGINEER',
         'BUILTBYTIER1COMMANDER',
@@ -223,6 +249,7 @@ function BrewLANCategoryChanges(all_bps)
         'BUILTBYGANTRY',
         'BUILTBYHEAVYWALL',
     }
+
     for k, v in Units do
         --Make sure the unit exists, and has its table
         if all_bps[k] and all_bps[k].Categories then
@@ -230,28 +257,47 @@ function BrewLANCategoryChanges(all_bps)
                 for i in v do
                     if i == 'r' then
                         if type(v.r) == 'string' then
+
+                            LOG("*AI DEBUG Removing "..repr(v.r).." from unit "..repr(k))
+
                             table.removeByValue(all_bps[k].Categories, v.r)
+
                         elseif type(v.r) == 'table' then
+
                             for i in v.r do
+                            
+                                LOG("*AI DEBUG Removing "..repr(v.r[i]).." from unit "..repr(k))
+
                                 table.removeByValue(all_bps[k].Categories, v.r[i])
                             end
                         end
                     end
+
                     if i ~= 'r' then
+                    
+                        LOG("*AI DEBUG Inserting "..repr(v[i]).." in unit "..repr(k))
+
                         table.insert(all_bps[k].Categories, v[i])
                     end
+                    
                 end
+            
             else
+
                 for i in buildcats do
+
+                    LOG("*AI DEBUG Removing "..repr(buildcats[i]).." from unit "..repr(k))                
+
                     table.removeByValue(all_bps[k].Categories, buildcats[i])
                 end
+
             end
         end
     end
 end
 
 --------------------------------------------------------------------------------
--- Global category additions
+-- Global category additions -- adds DRAGBUILD to everything
 --------------------------------------------------------------------------------
 
 function BrewLANGlobalCategoryAdditions(all_bps)
@@ -499,10 +545,13 @@ end
 --------------------------------------------------------------------------------
 
 function UpgradeableToBrewLAN(all_bps)
+
     local VanillasToUpgrade = {
         xsb3202 = 'sss0305',--From Seraphim T2 sonar
     }
+
     for unitid, upgradeid in VanillasToUpgrade do
+
         if all_bps[unitid] and all_bps[upgradeid] then
             table.insert(all_bps[unitid].Categories, 'SHOWQUEUE')
 
@@ -524,15 +573,23 @@ function UpgradeableToBrewLAN(all_bps)
             all_bps[unitid].General.CommandCaps.RULEUCC_Pause = true
         end
     end
+
     local UpgradesFromBase = {}
+
     --This could potentially loop forever if someone broke the upgrade chain elsewhere
     for unitid, upgradeid in UpgradesFromBase do
+
         if all_bps[upgradeid] then
+
             local nextID = upgradeid
+
             while true do
                 if nextID == unitid then break end
+
                 all_bps[nextID].General.UpgradesFromBase = unitid
+
                 --LOG(all_bps[nextID].Description, unitid )
+
                 if all_bps[nextID].General.UpgradesFrom then
                     nextID = all_bps[nextID].General.UpgradesFrom
                 else
@@ -545,6 +602,8 @@ end
 
 --------------------------------------------------------------------------------
 -- Torpedo bombers able to land on/in water
+-- disabled in LOUD - as TRANSPORTATION is used in some rare places to identify
+-- actual TRANSPORT units - should find those and remove them.
 --------------------------------------------------------------------------------
 
 function TorpedoBomberWaterLandCat(all_bps)
@@ -560,6 +619,7 @@ function TorpedoBomberWaterLandCat(all_bps)
         all_bps['xsa0204'], --T2 Seraphim
         all_bps['uaa0204'], --T2 Aeon
     }
+
     for arrayIndex, bp in TorpedoBombers do
         --Check they exist, and have all their things.
         if bp and bp.Categories and bp.Weapon then
