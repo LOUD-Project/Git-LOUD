@@ -141,10 +141,10 @@ DefaultProjectileWeapon = Class(Weapon) {
 	
     CheckBallisticAcceleration = function(self, proj)
 	
-        if self.CBFP_CalcBallAcc.Do then
-            local acc = CalculateBallisticAcceleration( self, proj, self.CBFP_CalcBallAcc.ProjectilesPerOnFire )
-            proj:SetBallisticAcceleration( -acc) #-- change projectile trajectory so it hits the target, cure for engine bug
-        end
+        local acc = CalculateBallisticAcceleration( self, proj, self.CBFP_CalcBallAcc.ProjectilesPerOnFire )
+
+        proj:SetBallisticAcceleration( -acc) #-- change projectile trajectory so it hits the target, cure for engine bug
+
     end,
 
 	-- modded this so only retrieve bp if old or new is 'stopped'
@@ -386,7 +386,7 @@ DefaultProjectileWeapon = Class(Weapon) {
         local unitBP = __blueprints[self.unit.BlueprintID].Audio
 
         if ScenarioInfo.WeaponStateDialog then
-            LOG("*AI DEBUG DefaultWeapon Unpack Sequence "..repr(self.bp.Label) )
+            LOG("*AI DEBUG DefaultWeapon Unpack Sequence "..repr(self.bp.Label).." at "..repr(GetGameTimeSeconds()) )
         end
 
         if unitBP.Activate then
@@ -417,6 +417,10 @@ DefaultProjectileWeapon = Class(Weapon) {
             self.UnpackAnimator:SetRate(bp.WeaponUnpackAnimationRate)
             
             WaitFor(self.UnpackAnimator)
+
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon Unpack Sequence ends "..repr(self.bp.Label).." at "..repr(GetGameTimeSeconds()) )
+            end
 
         end
     end,
@@ -994,7 +998,6 @@ DefaultProjectileWeapon = Class(Weapon) {
             if ScenarioInfo.WeaponStateDialog then
                 LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State for "..repr(self.bp.Label).." - SetBusy is "..repr(not NotExclusive or false) )
             end
-
             
 			if self.RecoilManipulators then
 				self:DestroyRecoilManips()
@@ -1175,7 +1178,6 @@ DefaultProjectileWeapon = Class(Weapon) {
 				-- reset the rack count - this is usually done
                 -- in the IdleState --
                 self.CurrentRackSalvoNumber = 1
-				
 
                 -- this takes precedence - delay for reloading the rack
                 if bp.RackSalvoReloadTime > 0 or bp.AnimationReload then
