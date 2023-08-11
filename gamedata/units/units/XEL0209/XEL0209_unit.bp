@@ -42,6 +42,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'PATROLHELPER',
         'SHOWQUEUE',
+        'OVERLAYOMNI',
         'OVERLAYRADAR',
         'OVERLAYSONAR',
         'OVERLAYMISC',

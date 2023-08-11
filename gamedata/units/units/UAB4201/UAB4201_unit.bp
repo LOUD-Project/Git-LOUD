@@ -150,43 +150,41 @@ UnitBlueprint {
     Weapon = {
 
         {
+            AlwaysRecheckTarget = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB4201_Anti_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB4201_Anti_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
 			
             CollideFriendly = false,
 			
-            Damage = 30,
+            Damage = 10,
             DamageType = 'Normal',
 			
             DisplayName = 'Will O Wisp Anti Missile',
 			
-            EffectiveRadius = 22,
+            EffectiveRadius = 26,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Water = 'Air',
             },
 			
-			FiringRandomness = 20,			
+			FiringRandomness = 16,			
             FiringTolerance = 360,
 			
             Flare = {
-                Category = 'MISSILE',
-                Radius = 22,
+                Category = 'TACTICAL MISSILE',
+                Radius = 20,
             },
 			
             Label = 'AntiMissile',            
 			
-            MaxRadius = 22,
+            MaxRadius = 26,
 
-            MuzzleVelocity = 25,
+            MuzzleVelocity = 5,
 			
             ProjectileId = '/projectiles/AIMAntiMissile01/AIMAntiMissile01_proj.bp',
             ProjectileLifetime = 4,
@@ -197,10 +195,14 @@ UnitBlueprint {
                     RackBone = 'Dome',
                 },
             },
+            
+            RackRecoilDistance = -1,
+            
+            RackSalvoReloadTime = 0.8,  -- between firing --
 			
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 0.9,
+            RateOfFire = 1,     -- it will fire every .8 seconds as long as it has a target
 			
             TargetCheckInterval = 0.5,
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -209,9 +211,9 @@ UnitBlueprint {
 
             TrackingRadius = 1.5,
 			
-            WeaponRepackTimeout = 0.8,
+            WeaponRepackTimeout = 0.2,          -- combined with animation total is .8 seconds          
             WeaponUnpackAnimation = '/units/uab4201/uab4201_Aopen.sca',
-            WeaponUnpackAnimationRate = 10,
+            WeaponUnpackAnimationRate = 5,      -- animation requires .6 seconds at this rate
             WeaponUnpacks = true,
         },
 		
