@@ -1,7 +1,7 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {'Turret_Yaw'},
+        TargetBones = {'Turret_Yaw','Turret_Pitch'},
     },
 	
     Audio = {
@@ -135,7 +135,7 @@ UnitBlueprint {
     SelectionThickness = 0.42,
 	
     SizeX = 1,
-    SizeY = 1.2,
+    SizeY = 1.1,
     SizeZ = 1,
 	
     StrategicIconName = 'icon_structure3_directfire',
@@ -200,15 +200,14 @@ UnitBlueprint {
             },
 			
             FiringRandomness = 0.1,
-            FiringTolerance = 1,
+            FiringTolerance = 0,
 			
             Label = 'MainGun',
+            
+            LeadTarget = false,
 			
             MaxRadius = 57,
 
-            MuzzleVelocity = 30,
-			
-            ProjectileLifetime = 2.5,
             RackBones = {
                 {
                     MuzzleBones = {'Muzzle01'},
