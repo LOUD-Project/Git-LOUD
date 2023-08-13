@@ -139,7 +139,7 @@ UnitBlueprint {
         BuildTime = 13500,
         
         BuildableCategory = {
-           	'BUILTBYTIER3FACTORY AEON MOBILE CONSTRUCTION',
+           	'BUILTBYTIER3FACTORY AEON MOBILE CONSTRUCTION LAND',
            	'BUILTBYTIER3FACTORY AEON MOBILE LAND',
             'BUILTBYQUANTUMGATE AEON',
         },
