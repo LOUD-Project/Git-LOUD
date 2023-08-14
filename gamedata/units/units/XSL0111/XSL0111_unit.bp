@@ -187,7 +187,7 @@ UnitBlueprint {
             MaxRadius = 75,
             MinRadius = 4,
 
-            MuzzleVelocity = 7,
+            MuzzleVelocity = 6.5,
 			
             ProjectileId = '/projectiles/SIFLaanseTacticalMissile01/SIFLaanseTacticalMissile01_proj.bp',
             ProjectileLifetime = 12,
@@ -199,8 +199,6 @@ UnitBlueprint {
                     RackBone = 'missile',
                 },
             },
-
-            RackRecoilDistance = -1,
             
             RackSalvoChargeTime = .6,
             RackSalvoReloadTime = 5.9,

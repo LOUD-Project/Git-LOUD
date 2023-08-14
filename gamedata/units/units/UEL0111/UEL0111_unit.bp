@@ -183,10 +183,10 @@ UnitBlueprint {
 			
             MuzzleChargeDelay = 0.5,
 
-            MuzzleVelocity = 3,
+            MuzzleVelocity = 5,
 			
             ProjectileId = '/projectiles/TIFMissileCruise03/TIFMissileCruise03_proj.bp',
-            ProjectileLifetime = 20,
+            ProjectileLifetime = 17,
 
             RackBones = {
                 {
