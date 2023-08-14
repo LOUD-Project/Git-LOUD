@@ -337,10 +337,16 @@ DefaultProjectileWeapon = Class(Weapon) {
         end
 		
         if bp.AnimationCharge and not self.Animator then
+        
+            self.rackchargetime = GetGameTimeSeconds()
 		
             self.Animator = CreateAnimator(unit)
             
             PlayAnim( self.Animator, bp.AnimationCharge ):SetRate( bp.AnimationChargeRate or 1 )
+            
+            WaitFor(self.Animator)
+            
+            self.rackchargetime = GetGameTimeSeconds() - self.rackchargetime
         end
         
     end,
@@ -348,10 +354,16 @@ DefaultProjectileWeapon = Class(Weapon) {
     -- Played when a rack salvo reloads.  Do not put a wait in here or you'll
     -- make the time value in the bp off.  Spawn another thread to do waits.
     PlayFxRackSalvoReloadSequence = function(self, blueprint)
+    
+        self.reloadtime = GetGameTimeSeconds()
 
         self.Animator = CreateAnimator(self.unit)
         
 		PlayAnim( self.Animator, self.bp.AnimationReload):SetRate( self.bp.AnimationReloadRate or 1)
+        
+        WaitFor(self.Animator)
+        
+        self.reloadtime = GetGameTimeSeconds() - self.reloadtime
 		
     end,
 
@@ -384,9 +396,11 @@ DefaultProjectileWeapon = Class(Weapon) {
         local bp = self.bp
         
         local unitBP = __blueprints[self.unit.BlueprintID].Audio
+        
+        self.repacktime = 0
 
         if ScenarioInfo.WeaponStateDialog then
-            LOG("*AI DEBUG DefaultWeapon Unpack Sequence "..repr(self.bp.Label).." at "..repr(GetGameTimeSeconds()) )
+            LOG("*AI DEBUG DefaultWeapon Unpack Sequence "..repr(self.bp.Label) )
         end
 
         if unitBP.Activate then
@@ -403,6 +417,8 @@ DefaultProjectileWeapon = Class(Weapon) {
         
         if bp.WeaponUnpackAnimation and not self.UnpackAnimator then
         
+            self.repacktime = GetGameTimeSeconds()
+        
             self.UnpackAnimator = CreateAnimator(self.unit)
             
             PlayAnim( self.UnpackAnimator, bp.WeaponUnpackAnimation ):SetRate(0)
@@ -417,12 +433,15 @@ DefaultProjectileWeapon = Class(Weapon) {
             self.UnpackAnimator:SetRate(bp.WeaponUnpackAnimationRate)
             
             WaitFor(self.UnpackAnimator)
+            
+            self.repacktime = GetGameTimeSeconds() - self.repacktime
 
             if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon Unpack Sequence ends "..repr(self.bp.Label).." at "..repr(GetGameTimeSeconds()) )
+                LOG("*AI DEBUG DefaultWeapon Unpack Sequence ends "..repr(self.bp.Label).." after "..repr(self.repacktime).." seconds" )
             end
 
         end
+
     end,
 
     -- Played when a weapon packs up.  It has no target and is done with all of its rack salvos
@@ -431,9 +450,11 @@ DefaultProjectileWeapon = Class(Weapon) {
         local bp = self.bp
         
         local unitBP = __blueprints[self.unit.BlueprintID].Audio
+        
+        self.repacktime = 0
 
         if ScenarioInfo.WeaponStateDialog then
-            LOG("*AI DEBUG DefaultWeapon Play WeaponPack Sequence "..repr(self.bp.Label) )
+            LOG("*AI DEBUG DefaultWeapon Pack Sequence "..repr(self.bp.Label) )
         end
 		
         if unitBP.Close then
@@ -446,10 +467,19 @@ DefaultProjectileWeapon = Class(Weapon) {
         end
         
         if self.UnpackAnimator then
+        
+            self.repacktime = GetGameTimeSeconds()
 
             WaitFor(self.UnpackAnimator)
+            
+            self.repacktime = GetGameTimeSeconds() - self.repacktime
+
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon Pack Sequence ends "..repr(self.bp.Label).." after "..repr(self.repacktime).." seconds" )
+            end
 
         end
+
     end,
 
     PlayRackRecoil = function(self, rackList, blueprint)
@@ -703,20 +733,23 @@ DefaultProjectileWeapon = Class(Weapon) {
                 self:ForkThread( self.StartEconomyDrain )
 			end
             
-			-- if the weapon has fired prior to coming back to Idle, execute the reload timeout
-			-- and reset the rack salvo number back to 1 -- except the WeaponFiringState will
-            -- always reset the rack salvo number back to 1 - from what I read - so this never happens
-            
 			-- NOTE: This is setup so that it only works if there is more than 1 rack
+            -- intended to force the reload rack process after a firing sequence
             if LOUDGETN(bp.RackBones) > 1 and self.CurrentRackSalvoNumber > 1 then
+ 
+                LOUDSTATE(self, self.RackSalvoReloadState)
+--[[ 
+                self.reloadtime = 0
                 
                 if bp.AnimationReload and not self.Animator then
+                
                     self:PlayFxRackSalvoReloadSequence(bp)
                 end
 
-                WaitTicks( (bp.RackReloadTimeout or .1) * 10)
+                WaitSeconds( bp.RackReloadTimeout - self.reloadtime )
                 
                 self.CurrentRackSalvoNumber = 1
+--]]
             end
 			
         end,
@@ -825,11 +858,11 @@ DefaultProjectileWeapon = Class(Weapon) {
             
                 if ScenarioInfo.WeaponStateDialog then
 
-                    LOG("*AI DEBUG DefaultWeapon Unpacking State "..repr(self.bp.Label).." waiting "..repr(self.bp.WeaponRepackTimeout).." seconds" )
+                    LOG("*AI DEBUG DefaultWeapon Unpacking State "..repr(self.bp.Label).." waiting "..repr(self.bp.WeaponRepackTimeout - self.repacktime).." seconds" )
 
                 end
 
-				WaitSeconds( self.bp.WeaponRepackTimeout )
+				WaitSeconds( self.bp.WeaponRepackTimeout - self.repacktime )
 			end
 
             local rackSalvoChargeTime = bp.RackSalvoChargeTime
@@ -869,6 +902,8 @@ DefaultProjectileWeapon = Class(Weapon) {
             SetBusy( unit, true )
 			
             local bp = self.bp
+            
+            self.rackchargetime = 0
 			
             self:PlayFxRackSalvoChargeSequence(bp)
 			
@@ -882,10 +917,10 @@ DefaultProjectileWeapon = Class(Weapon) {
             end
             
             if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon RackSalvo Charge for "..repr(self.bp.Label).." waiting "..repr(bp.RackSalvoChargeTime).." seconds" )
+                LOG("*AI DEBUG DefaultWeapon RackSalvo Charge for "..repr(self.bp.Label).." waiting "..repr(bp.RackSalvoChargeTime - self.rackchargetime).." seconds" )
             end
             
-            WaitSeconds(bp.RackSalvoChargeTime)
+            WaitSeconds( bp.RackSalvoChargeTime - self.rackchargetime)
             
             if bp.NotExclusive then
             
@@ -1301,6 +1336,8 @@ DefaultProjectileWeapon = Class(Weapon) {
                 SetBusy( unit, false )
             end
             
+            self.reloadtime = 0
+            
             if bp.AnimationReload and not self.Animator then
 
                 if WeaponStateDialog then
@@ -1308,15 +1345,20 @@ DefaultProjectileWeapon = Class(Weapon) {
                 end
             
                 self:PlayFxRackSalvoReloadSequence(bp)
+
+                if WeaponStateDialog then
+                    LOG("*AI DEBUG DefaultWeapon RackSalvo Reload animation "..repr(self.bp.Label).." takes "..repr(self.reloadtime).." seconds" )		
+                end
                 
-                WaitFor(self.Animator)
-            else
+            end
+            
+            if bp.RackSalvoReloadTime then
             
                 if ScenarioInfo.WeaponStateDialog then
-                    LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State waits for "..repr(bp.RackSalvoReloadTime).." seconds" )
+                    LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State waits for "..repr(bp.RackSalvoReloadTime - self.reloadtime).." seconds" )
                 end
             
-                WaitSeconds( bp.RackSalvoReloadTime )
+                WaitSeconds( bp.RackSalvoReloadTime - self.reloadtime )
             end
 			
             self:WaitForAndDestroyManips()
@@ -1391,22 +1433,23 @@ DefaultProjectileWeapon = Class(Weapon) {
 			-- reset the rack count - this is usually done
             -- in the IdleState --
             self.CurrentRackSalvoNumber = 1
-            
+
+            self:AimManipulatorSetEnabled(false)
+			
+            self:PlayFxWeaponPackSequence(self.bp)
+
 			if self.bp.WeaponRepackTimeout then
             
                 if ScenarioInfo.WeaponStateDialog then
 
-                    LOG("*AI DEBUG DefaultWeapon WeaponPacking State Timeout "..repr(self.bp.Label).." is "..repr(self.bp.WeaponRepackTimeout) )
+                    LOG("*AI DEBUG DefaultWeapon WeaponPacking State Timeout "..repr(self.bp.Label).." is "..repr(self.bp.WeaponRepackTimeout - self.repacktime) )
 
                 end
 
-				WaitSeconds( self.bp.WeaponRepackTimeout )
+				WaitSeconds( self.bp.WeaponRepackTimeout - self.repacktime )
 			end
 			
-            self:AimManipulatorSetEnabled(false)
-			
-            self:PlayFxWeaponPackSequence(self.bp)
-            
+         
             if self.bp.WeaponUnpackLocksMotion then
                 self.unit:SetImmobile(false)
             end
@@ -1526,7 +1569,6 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
 	
 		if ScenarioInfo.ProjectileDialog then
 			LOG("*AI DEBUG DefaultBeamWeapon CreateProjectileAtMuzzle For "..repr(self.bp.Label).." for "..repr(__blueprints[self.unit.BlueprintID].Description).." using muzzle "..repr(muzzle) )
-            --LOG("*AI DEBUG Beams are "..repr(self.Beams) )
 		end
 		
 		local PlaySound = moho.weapon_methods.PlaySound
