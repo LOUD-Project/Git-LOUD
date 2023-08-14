@@ -378,7 +378,7 @@ ExpansionLayout = {
 		},
 		{
 			{
-			'T2MissileDefense',
+			'T2MissileDefense','T3MissileDefense',
 			},
 			{-31, 21},
 			{ 31, 21},
@@ -774,7 +774,7 @@ ExpansionLayout = {
 		},
 		{
 			{
-			'T2MissileDefense',
+			'T2MissileDefense','T3MissileDefense',
 			},
 			{-31, 21},
 			{ 31, 21},
@@ -1170,7 +1170,7 @@ ExpansionLayout = {
 		},
 		{
 			{
-			'T2MissileDefense',
+			'T2MissileDefense','T3MissileDefense',
 			},
 			{-31, 21},
 			{ 31, 21},
@@ -1566,7 +1566,7 @@ ExpansionLayout = {
 		},
 		{
 			{
-			'T2MissileDefense',
+			'T2MissileDefense','T3MissileDefense',
 			},
 			{-31, 21},
 			{ 31, 21},
@@ -1761,7 +1761,7 @@ ExpansionLayout_II = {
             {-30, -2 },
             {-30,  2 },
         },
-		{{'T2MissileDefense'},
+		{{'T2MissileDefense','T3MissileDefense'},
 			{-34, 25 },
 			{ 34, 25 },
 			{ 34,-21 },
@@ -1963,7 +1963,7 @@ ExpansionLayout_II = {
             {-30, -2 },
             {-30,  2 },
         },        
-		{{'T2MissileDefense'},
+		{{'T2MissileDefense','T3MissileDefense'},
 			{-34, 25 },
 			{ 34, 25 },
 			{ 34,-21 },
@@ -2166,7 +2166,7 @@ ExpansionLayout_II = {
             {-30, -2 },
             {-30,  2 },
         },        
-		{{'T2MissileDefense'},
+		{{'T2MissileDefense','T3MissileDefense'},
 			{-34, 25 },
 			{ 34, 25 },
 			{ 34,-21 },
@@ -2369,7 +2369,7 @@ ExpansionLayout_II = {
             {-30, -2 },
             {-30,  2 },
         },        
-		{{'T2MissileDefense'},
+		{{'T2MissileDefense','T3MissileDefense'},
 			{-34, 25 },
 			{ 34, 25 },
 			{ 34,-21 },

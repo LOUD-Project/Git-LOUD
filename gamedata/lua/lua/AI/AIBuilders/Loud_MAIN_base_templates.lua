@@ -1771,7 +1771,7 @@ SupportLayout = {
 BaseDefenseLayout = {
 -- UEF Base Defense Layout
 	{
-		{{'T2GroundDefense','T2AADefense','T2MissileDefense'},
+		{{'T2GroundDefense','T2AADefense','T2MissileDefense','T3MissileDefense'},
 			{-31, 15 },     -- Left - Forward
 			{-15, 32 },     -- Front - Left
 			{ 15, 32 },     -- Front - Right
@@ -1907,7 +1907,7 @@ BaseDefenseLayout = {
 	},
 -- AEON Base Defense Layout
 	{
-		{{'T2GroundDefense','T2AADefense','T2MissileDefense'},
+		{{'T2GroundDefense','T2AADefense','T2MissileDefense','T3MissileDefense'},
 			{-31, 15 },     -- Left - Forward
 			{-15, 32 },     -- Forward - Left
 			{ 15, 32 },     -- Forward - Right
@@ -2043,7 +2043,7 @@ BaseDefenseLayout = {
 	},
 -- CYBRAN Base Defense Layout
 	{
-		{{'T2GroundDefense','T2AADefense','T2MissileDefense'},
+		{{'T2GroundDefense','T2AADefense','T2MissileDefense','T3MissileDefense'},
 			{-31, 15 },     -- Left - Forward
 			{-15, 32 },     -- Forward - Left
 			{ 15, 32 },     -- Forward - Right
@@ -2179,7 +2179,7 @@ BaseDefenseLayout = {
 	},
 -- SERA Base Defense Layout
 	{
-		{{'T2GroundDefense','T2AADefense','T2MissileDefense'},
+		{{'T2GroundDefense','T2AADefense','T2MissileDefense','T3MissileDefense'},
 			{-31, 15 },     -- Left - Forward
 			{-15, 32 },     -- Forward - Left
 			{ 15, 32 },     -- Forward - Right
@@ -2372,7 +2372,7 @@ ResourceFacility = {
 			{-10, 0 },
         },
         
-        {{'T4AADefense','T3AADefense','T2GroundDefense','T3GroundDefense','T2MissileDefense'},
+        {{'T4AADefense','T3AADefense','T2GroundDefense','T3GroundDefense','T2MissileDefense','T3MissileDefense'},
 			{-8,-8 },       # AA 4
 			{ 8, 8 },
 			{ 8,-8 },
@@ -2458,7 +2458,7 @@ ResourceFacility = {
             'T3AADefense', 
             'T2GroundDefense', 
 			'T3GroundDefense',
-			'T2MissileDefense',
+			'T2MissileDefense','T3MissileDefense',
             },
 			{ -8, -8 }, # AA 4
 			{ 8, 8 },
@@ -2554,7 +2554,7 @@ ResourceFacility = {
             'T3AADefense', 
             'T2GroundDefense', 
 			'T3GroundDefense',
-			'T2MissileDefense',
+			'T2MissileDefense','T3MissileDefense',
             },
 			{ -8, -8 }, # T3 AA 4
 			{ 8, 8 },
@@ -2650,7 +2650,7 @@ ResourceFacility = {
             'T3AADefense', 
             'T2GroundDefense', 
 			'T3GroundDefense',
-			'T2MissileDefense',
+			'T2MissileDefense','T3MissileDefense',
             },
 			{ -8, -8 }, # T3 AA 4
 			{ 8, 8 },
@@ -2911,7 +2911,7 @@ MassAdjacencyDefense = {
         {
             {
             'T3AADefense', 
-            'T2MissileDefense', 
+            'T2MissileDefense','T3MissileDefense', 
             },
 			{-4, 4 },
 			{ 4,-4 },
@@ -3007,7 +3007,7 @@ MassAdjacencyDefense = {
         {
             {
             'T3AADefense', 
-            'T2MissileDefense', 
+            'T2MissileDefense','T3MissileDefense', 
             },
 			{-4, 4 },
 			{ 4,-4 },
@@ -3103,7 +3103,7 @@ MassAdjacencyDefense = {
         {
             {
             'T3AADefense', 
-            'T2MissileDefense', 
+            'T2MissileDefense','T3MissileDefense', 
             },
 			{-4, 4 },
 			{ 4,-4 },
@@ -3199,7 +3199,7 @@ MassAdjacencyDefense = {
         {
             {
             'T3AADefense', 
-            'T2MissileDefense', 
+            'T2MissileDefense','T3MissileDefense', 
             },
 			{-4, 4 },
 			{ 4,-4 },
@@ -3245,7 +3245,7 @@ Adjacency2x2 = {
         'T2GroundDefense', 
         'T3GroundDefense', 
         'T3AADefense', 
-        'T2MissileDefense', 
+        'T2MissileDefense','T3MissileDefense', 
         'T2EnergyProduction', 
         'T1HydroCarbon', 
         'T2RadarJammer', 
@@ -3305,7 +3305,7 @@ Adjacency2x2 = {
         'T2GroundDefense', 
         'T3GroundDefense', 
         'T3AADefense', 
-        'T2MissileDefense', 
+        'T2MissileDefense','T3MissileDefense', 
         'T2EnergyProduction', 
         'T1HydroCarbon', 
         'T2RadarJammer', 
@@ -3365,7 +3365,7 @@ Adjacency2x2 = {
         'T2GroundDefense', 
         'T3GroundDefense', 
         'T3AADefense', 
-        'T2MissileDefense', 
+        'T2MissileDefense','T3MissileDefense', 
         'T2EnergyProduction', 
         'T1HydroCarbon', 
         'T2RadarJammer', 
@@ -3425,7 +3425,7 @@ Adjacency2x2 = {
         'T2GroundDefense', 
         'T3GroundDefense', 
         'T3AADefense', 
-        'T2MissileDefense', 
+        'T2MissileDefense','T3MissileDefense', 
         'T2EnergyProduction', 
         'T1HydroCarbon', 
         'T2RadarJammer', 
@@ -3506,7 +3506,7 @@ T3PowerFacility = {
             'T3AADefense', 
             'T2GroundDefense', 
 			'T3GroundDefense',
-			'T2MissileDefense',
+			'T2MissileDefense','T3MissileDefense',
 			'T2AADefense',
             },
 			{ -6, 0 }, # T3 AA 4
@@ -3581,7 +3581,7 @@ T3PowerFacility = {
             'T3AADefense', 
             'T2GroundDefense', 
 			'T3GroundDefense',
-			'T2MissileDefense',
+			'T2MissileDefense','T3MissileDefense',
 			'T2AADefense',
             },
 			{ -6, 0 }, # T3 AA 4
@@ -3655,7 +3655,7 @@ T3PowerFacility = {
             'T3AADefense', 
             'T2GroundDefense', 
 			'T3GroundDefense',
-			'T2MissileDefense',
+			'T2MissileDefense','T3MissileDefense',
 			'T2AADefense',
             },
 			{ -6, 0 }, # T3 AA 4
@@ -3729,7 +3729,7 @@ T3PowerFacility = {
             'T3AADefense', 
             'T2GroundDefense', 
 			'T3GroundDefense',
-			'T2MissileDefense',
+			'T2MissileDefense','T3MissileDefense',
 			'T2AADefense',
             },
 			{ -6, 0 }, # T3 AA 4

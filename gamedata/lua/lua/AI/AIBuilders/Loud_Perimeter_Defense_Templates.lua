@@ -54,7 +54,7 @@ PerimeterDefenseTemplates = {
             { 0, -5 },
         },
         {
-            {'T2MissileDefense'},
+            {'T2MissileDefense','T3MissileDefense'},
             {-11,-5 },
             { 11,-5 },
         },
@@ -227,7 +227,7 @@ PerimeterDefenseTemplates = {
             { 0, -5 },
         },
         {
-            {'T2MissileDefense'},
+            {'T2MissileDefense','T3MissileDefense'},
             {-11,-5 },
             { 11,-5 },
         },
@@ -400,7 +400,7 @@ PerimeterDefenseTemplates = {
             { 0, -5 },
         },
         {
-            {'T2MissileDefense'},
+            {'T2MissileDefense','T3MissileDefense'},
             {-11,-5 },
             { 11,-5 },
         },
@@ -577,7 +577,7 @@ PerimeterDefenseTemplates = {
             { 0, -5 },
         },
         {
-            {'T2MissileDefense'},
+            {'T2MissileDefense','T3MissileDefense'},
             {-11,-5 },
             { 11,-5 },
         },
@@ -717,7 +717,7 @@ NavalPerimeterDefenseTemplate = {
 			{ 4,-5 },
 			{ 4, 6 },
 		},
-		{{'T2GroundDefense','T2MissileDefense','T2GroundDefenseAmphibious'},
+		{{'T2GroundDefense','T2MissileDefense','T3MissileDefense','T2GroundDefenseAmphibious'},
 			{-3, 0 },
 			{ 4, 0 },
 		},
@@ -742,7 +742,7 @@ NavalPerimeterDefenseTemplate = {
 			{ 4,-5 },
 			{ 4, 6 },
 		},
-		{{'T2GroundDefense','T2MissileDefense','T2GroundDefenseAmphibious'},
+		{{'T2GroundDefense','T2MissileDefense','T3MissileDefense','T2GroundDefenseAmphibious'},
 			{-3, 0 },
 			{ 4, 0 },
 		},
@@ -767,7 +767,7 @@ NavalPerimeterDefenseTemplate = {
 			{ 4,-5 },
 			{ 4, 6 },
 		},
-		{{'T2GroundDefense','T2MissileDefense','T2GroundDefenseAmphibious'},
+		{{'T2GroundDefense','T2MissileDefense','T3MissileDefense','T2GroundDefenseAmphibious'},
 			{-3, 0 },
 			{ 4, 0 },
 		},
@@ -792,7 +792,7 @@ NavalPerimeterDefenseTemplate = {
 			{ 4,-5 },
 			{ 4, 6 },
 		},
-		{{'T2GroundDefense','T2MissileDefense','T2GroundDefenseAmphibious'},
+		{{'T2GroundDefense','T2MissileDefense','T3MissileDefense','T2GroundDefenseAmphibious'},
 			{-3, 0 },
 			{ 4, 0 },
 		},
@@ -855,7 +855,7 @@ PerimeterDefenseExpansionTemplates = {
         },
         {
             {
-            'T2MissileDefense', 
+            'T2MissileDefense','T3MissileDefense', 
             },
             { 0, 6, 0 },
         },
@@ -905,7 +905,7 @@ PerimeterDefenseExpansionTemplates = {
         },
         {
             {
-            'T2MissileDefense', 
+            'T2MissileDefense','T3MissileDefense', 
             },
             { 0, 6, 0 },
         },
@@ -955,7 +955,7 @@ PerimeterDefenseExpansionTemplates = {
         },
         {
             {
-            'T2MissileDefense', 
+            'T2MissileDefense','T3MissileDefense', 
             },
             { 0, 6, 0 },
         },
@@ -1005,7 +1005,7 @@ PerimeterDefenseExpansionTemplates = {
         },
         {
             {
-            'T2MissileDefense', 
+            'T2MissileDefense','T3MissileDefense', 
             },
             { 0, 6, 0 },
         },

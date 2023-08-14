@@ -349,10 +349,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.STRUCTURE * categories.ANTIMISSILE * categories.TECH2, 14, 42 }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 75, 'Land' }},
+
+			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.STRUCTURE * categories.ANTIMISSILE - categories.SILO, 14, 42 }},
         },
 		
-        BuilderType = {'T2','T3'},
+        BuilderType = {'T2'},
 		
         BuilderData = {
             Construction = {
@@ -452,6 +454,44 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 				BaseTemplate = 'BaseDefenseLayout',
 				
 				BuildStructures = {'T3AADefense' },
+            }
+        }
+    },
+
+    Builder {BuilderName = 'T3 Base TMD - Base Template',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 750,
+
+        PriorityFunction = IsEnemyCrushingLand,
+		
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .80 } },
+
+            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
+
+            { LUTL, 'LandStrengthRatioLessThan', { 3 } }, 
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+
+			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.STRUCTURE * categories.ANTIMISSILE - categories.SILO, 14, 42 }},
+        },
+		
+        BuilderType = {'T3','SubCommander'},
+		
+        BuilderData = {
+            Construction = {
+				NearBasePerimeterPoints = true,
+                
+				ThreatMax = 50,				
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'BaseDefenseLayout',
+				
+                BuildStructures = {'T3MissileDefense' },
             }
         }
     },
@@ -1690,10 +1730,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 75, 'Land' }},
 
 			-- check for less than 18 T2 TMD 
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.STRUCTURE * categories.ANTIMISSILE * categories.TECH2, 45, 85 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.STRUCTURE * categories.ANTIMISSILE - categories.SILO, 45, 85 }},
         },
 		
-		BuilderType = { 'T2','T3' },
+		BuilderType = { 'T2' },
 
         BuilderData = {
             Construction = {
@@ -1865,7 +1905,52 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
             }
         }
     },
+
+    Builder {BuilderName = 'T3 Perimeter TMD',
 	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		InstanceCount = 1,
+		
+        Priority = 740,
+
+        PriorityFunction = IsEnemyCrushingLand,
+		
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
+			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
+
+            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 500, 75, 'Land' }},
+
+			-- check for less than 18 T2 TMD 
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.STRUCTURE * categories.ANTIMISSILE - categories.SILO, 45, 85 }},
+        },
+		
+		BuilderType = { 'T3','SubCommander' },
+
+        BuilderData = {
+            Construction = {
+				Radius = 68,
+                NearBasePerimeterPoints = true,
+				
+				BasePerimeterOrientation = 'FRONT',
+				BasePerimeterSelection = true,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
+				BaseTemplate = 'PerimeterDefenseTemplates',
+				
+                BuildStructures = {'T3MissileDefense'},
+            }
+        }
+    },
+
     Builder {BuilderName = 'T3 Perimeter Shields',
 	
         PlatoonTemplate = 'EngineerBuilder',
@@ -2420,7 +2505,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction',
                     'T3AADefense',
 					'T3GroundDefense',
 					'T3AADefense',
-                    'T2MissileDefense',
+                    'T3MissileDefense',
 					'T1MassCreation',
 					'T3ShieldDefense',
                 }
@@ -2529,10 +2614,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }}, 
 
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.STRUCTURE * categories.ANTIMISSILE * categories.TECH2, 15, 48 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.STRUCTURE * categories.ANTIMISSILE - categories.SILO, 15, 48 }},
         },
 		
-        BuilderType = {'T2','T3'},
+        BuilderType = {'T2'},
 		
         BuilderData = {
             Construction = {
@@ -2672,7 +2757,43 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
             }
         }
     },
-    
+	
+    Builder {BuilderName = 'T3 Base TMD - Expansion',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 760,
+
+        PriorityFunction = IsEnemyCrushingLand,
+		
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }}, 
+
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.STRUCTURE * categories.ANTIMISSILE - categories.SILO, 15, 48 }},
+        },
+		
+        BuilderType = {'T3'},
+		
+        BuilderData = {
+            Construction = {
+				NearBasePerimeterPoints = true,
+				
+				ThreatMax = 75,				
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
+				BaseTemplate = 'ExpansionLayout_II',
+				
+                BuildStructures = {'T3MissileDefense'},
+            }
+        }
+    },
+	    
     Builder {BuilderName = 'T3 Tactical Artillery - Expansions',
 	
         PlatoonTemplate = 'EngineerBuilder',
@@ -3205,11 +3326,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.012, 1.025 }}, 
 
-			-- check perimeter for less than 9 T2 TMD
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.STRUCTURE * categories.ANTIMISSILE * categories.TECH2, 46, 75 }},
+			-- check perimeter for less than 9 TMD
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.STRUCTURE * categories.ANTIMISSILE - categories.SILO, 46, 75 }},
         },
 		
-		BuilderType = { 'T2','T3','SubCommander' },
+		BuilderType = { 'T2' },
 
         BuilderData = {
             Construction = {
@@ -3332,6 +3453,52 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 					'T3AADefense',
                     'T3AADefense',
                 },
+            }
+        }
+    },
+	
+    Builder {BuilderName = 'T3 Perimeter TMD - Expansion',
+    
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+		InstanceCount = 1,
+        
+        Priority = 710,
+
+        PriorityFunction = IsEnemyCrushingLand,
+        
+        BuilderConditions = {
+			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
+
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.012, 1.025 }}, 
+
+			-- check perimeter for less than 9 TMD
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.STRUCTURE * categories.ANTIMISSILE - categories.SILO, 46, 75 }},
+        },
+		
+		BuilderType = { 'T3','SubCommander' },
+
+        BuilderData = {
+            Construction = {
+			
+				AddRotations = 1,
+				Radius = 55,
+
+                NearBasePerimeterPoints = true,
+				BasePerimeterOrientation = 'FRONT',
+                
+				MaxThreat = 50,
+
+				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
+				BaseTemplate = 'PerimeterDefenseExpansionTemplates',
+				
+                BuildStructures = {'T3MissileDefense'},
             }
         }
     },
@@ -4263,7 +4430,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         }
     },	
 
-    Builder {BuilderName = 'DP STD TMD',
+    Builder {BuilderName = 'T2 DP STD TMD',
 	
         PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
@@ -4280,7 +4447,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             { LUTL, 'UnitsLessAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.ANTIMISSILE - categories.SILO }},
         },
 		
-		BuilderType = { 'T2','T3','SubCommander' },
+		BuilderType = { 'T2' },
 
         BuilderData = {
 			
@@ -4370,6 +4537,42 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 				BaseTemplate = 'DefensivePointSmall',
 				
                 BuildStructures = {'T2StrategicMissile'},
+            }
+        }
+    },
+
+    Builder {BuilderName = 'T3 DP STD TMD',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 750,
+
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+        
+            { LUTL, 'UnitsLessAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.ANTIMISSILE - categories.SILO }},
+        },
+		
+		BuilderType = { 'T3','SubCommander' },
+
+        BuilderData = {
+			
+            Construction = {
+				NearBasePerimeterPoints = true,
+                
+                ThreatMax = 75,
+                
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
+				BaseTemplate = 'DefensivePointSmall',
+                
+                BuildStructures = {
+                    'T3MissileDefense',
+                }
             }
         }
     },
