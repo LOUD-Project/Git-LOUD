@@ -172,7 +172,7 @@ UnitBlueprint {
             CollideFriendly = false,
 
             Damage = 200,
-            DamageRadius = 1.5,
+            DamageRadius = 1.2,
             DamageType = 'Normal',
 			
             DisplayName = 'Loa Tactical Missile',
