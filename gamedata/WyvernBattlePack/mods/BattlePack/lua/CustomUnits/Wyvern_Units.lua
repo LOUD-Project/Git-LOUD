@@ -1,12 +1,16 @@
 UnitList = {
 
+    T3MissileDefense = {
+        UEF = {'web4301', 100},     -- T3 Beam TMD
+    },
+    
     -- Land Units --
 	T2LandDFTank = {
 		Seraphim = {'wsl0205', 50}, --Beshlas
     },
     
     T2AttackTank = {
-        Seraphim = {'wsl0202', 60} -- Onyzum
+        Seraphim = {'wsl0202', 60}  -- Onyzum
     },
 
 	T3LandAA = {
@@ -15,12 +19,12 @@ UnitList = {
     },
     
     T3ArmoredAssault = {
-        UEF = {'wel0305', 15}, -- Pegasus
+        UEF = {'wel0305', 15},      -- Pegasus
     	Seraphim = {'wsl0308', 15}, -- Otheeka
     },
     
     T3LandBot = {
-        UEF = {'wel0302', 25}, -- Wrecker
+        UEF = {'wel0302', 25},      -- Wrecker
     },
 
     
@@ -30,8 +34,8 @@ UnitList = {
 
     -- Amphibious Units --
     T3Amphibious = {
-        UEF = {'wel0304', 40}, -- Rommel
-        Cybran = {'wrl0301', 50}, -- Sealion
+        UEF = {'wel0304', 40},      -- Rommel
+        Cybran = {'wrl0301', 50},   -- Sealion
     },
     
     T3AmphibiousArtillery = {
@@ -40,14 +44,15 @@ UnitList = {
 
     -- Naval Units --
 	T3Battlecruiser = {
-        Aeon = {'was0332', 50}, -- Shadow of Intent
-		UEF = {'wes0303', 40},  -- Poseidon
+        Aeon = {'was0332', 50},     -- Shadow of Intent
+		UEF = {'wes0303', 40},      -- Poseidon
 	},
+    
 
     
     -- Land Experimentals --
     T4LandExperimental1 = {
-		Aeon = {'wal4404', 100},     -- Maruda
+		Aeon = {'wal4404', 100},    -- Maruda
 		Seraphim = {'wsl0404', 75}, -- Yath-Yen        
     },
     

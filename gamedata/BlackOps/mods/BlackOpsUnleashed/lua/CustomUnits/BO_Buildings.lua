@@ -1,8 +1,8 @@
 UnitList = {
 
 	T2Artillery = {
-        UEF = {'beb2303', 50},  		# Rapid Fire Howitzer
-        Aeon = {'bab2303', 50},		    # Energy Mortar
+        UEF = {'beb2303', 50},  		-- Rapid Fire Howitzer
+        Aeon = {'bab2303', 50},		    -- Energy Mortar
     },
 
     T2TeleportJammer = {
@@ -18,10 +18,13 @@ UnitList = {
     	
 	
 	T3GroundDefense = {
-        Aeon = {'bab2306', 100},		# Aria PD
-        Cybran = {'brb2306', 100},		# Manticore
-		Seraphim = {'bsb2306', 100},		# Uttauthuum
+        Aeon = {'bab2306', 100},		-- Aria PD
+        Cybran = {'brb2306', 100},		-- Manticore
+		Seraphim = {'bsb2306', 100},	-- Uttauthuum
     },
+    
+    T3MissileDefense = {
+        Aeon = {'bab4307', 100}         -- T3 TMD
 
     T4EconExperimental = {
         Seraphim = {'bsb2402', 05},		-- Rift Gate
@@ -44,11 +47,6 @@ UnitList = {
 }
 
 --[[	
-	
-	T3MissileDefense = {
-		Aeon = {'bab4307', 100},		-- T3 TMD
-	},
-	
     T3Artillery = {
 		Aeon = {'bab2308', 25},			-- Purifier T3 TML
     }, 	
