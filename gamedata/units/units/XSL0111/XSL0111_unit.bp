@@ -159,7 +159,7 @@ UnitBlueprint {
             AlwaysRecheckTarget = true,
 
             AnimationReload = '/units/xsl0111/xsl0111_areload.sca',
-            AnimationReloadRate = 0.4,  -- this takes about 5.9 seconds
+            AnimationReloadRate = 0.42,
 
             Audio = {
                 Fire = Sound {
@@ -171,7 +171,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 
-            Damage = 405,
+            Damage = 390,
             DamageRadius = 1.5,
             DamageType = 'Normal',
 			
@@ -203,10 +203,11 @@ UnitBlueprint {
             RackRecoilDistance = -1,
             
             RackSalvoChargeTime = .6,
+            RackSalvoReloadTime = 5.9,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.5,     -- controlled by animation and RackSalvoChargeTime -- 6.5 seconds
+            RateOfFire = 0.5,     -- controlled by RackSalvo timings -- 6.5 seconds
 			
             SlavedToBody = true,
 			
