@@ -320,9 +320,7 @@ UnitBlueprint {
             TargetCheckInterval = 0.5,
             TargetRestrictDisallow = 'UNTARGETABLE',
 
-            WeaponRepackTimeout = 38.5,
-            WeaponUnpackAnimation = '/units/uab2305/uab2305_alaunchsequence.sca',
-            WeaponUnpackAnimationRate = 10,
+            WeaponRepackTimeout = 15,
             WeaponUnpacks = true,
         },
     },

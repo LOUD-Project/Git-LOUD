@@ -211,7 +211,7 @@ UnitBlueprint {
 
             TrackingRadius = 1.5,
 			
-            WeaponRepackTimeout = 0.2,          -- combined with animation total is .8 seconds          
+            WeaponRepackTimeout = 0.8,          -- combined with animation total delay will be .8 seconds          
             WeaponUnpackAnimation = '/units/uab4201/uab4201_Aopen.sca',
             WeaponUnpackAnimationRate = 5,      -- animation requires .6 seconds at this rate
             WeaponUnpacks = true,
