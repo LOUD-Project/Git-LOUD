@@ -49,6 +49,7 @@ BAB2306 = Class(AStructureUnit) {
         AStructureUnit.OnStopBeingBuilt(self,builder,layer)
         
         self.EmergeManip = CreateSlider( self, 'Turret_Yaw', 0, 0, 0, 0.1, true )
+        self.Trash:Add(self.EmergeManip)
         
         self.EmergeManip:SetGoal( 0, -0.22, 0)
 
