@@ -25,7 +25,8 @@ UnitList = {
     
     T3MissileDefense = {
         Aeon = {'bab4307', 100}         -- T3 TMD
-
+    },
+    
     T4EconExperimental = {
         Seraphim = {'bsb2402', 05},		-- Rift Gate
     },
