@@ -225,6 +225,10 @@ DefaultProjectileWeapon = Class(Weapon) {
     end,
 
 	-- passed in the bp data to save the call
+    -- note - this process adds 2 ticks to the actual time
+    -- I assume, due to the nature of the scheduling, one at the start of the event
+    -- and a 2nd at the end, since the amount seems consistent across a wide range of time values
+    -- to compensate, I'll remove 2 ticks from the calculated time
     StartEconomyDrain = function(self)
 
         if self.FirstShot then return end
@@ -240,20 +244,20 @@ DefaultProjectileWeapon = Class(Weapon) {
             local nrgReq = self:GetWeaponEnergyRequired(bp)
             local nrgDrain = self:GetWeaponEnergyDrain(bp)
             
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG StartEconomyDrain "..repr(self.bp.Label).." -- "..nrgReq)
-            end
-            
             if nrgReq > 0 and nrgDrain > 0 then
 			
-                local time = nrgReq / nrgDrain
+                local chargetime = (math.floor((nrgReq / nrgDrain) * 10) / 10)
 				
-                if time < 0.1 then
-                    time = 0.1
+                if chargetime < 0.3 then
+                    chargetime = 0.3
+                end
+            
+                if ScenarioInfo.WeaponStateDialog then
+                    LOG("*AI DEBUG DefaultWeapon Start Economy Drain for "..repr(self.bp.Label).." -- Required "..nrgReq.." -- Rate "..nrgDrain.." -- Time "..repr(chargetime) )
                 end
 
-                self.EconDrain = CreateEconomyEvent( self.unit, nrgReq, 0, time, ChargeProgress )
-                self.FirstShot = true
+                self.EconDrain = CreateEconomyEvent( self.unit, nrgReq, 0, chargetime - 0.2, ChargeProgress )
+                self.FirstShot = true   -- technically - this should be called WeaponCharged
             end
         end
     end,
@@ -397,7 +401,7 @@ DefaultProjectileWeapon = Class(Weapon) {
         
         local unitBP = __blueprints[self.unit.BlueprintID].Audio
         
-        self.repacktime = 0
+        self.repacktime = GetGameTimeSeconds()
 
         if ScenarioInfo.WeaponStateDialog then
             LOG("*AI DEBUG DefaultWeapon Unpack Sequence "..repr(self.bp.Label) )
@@ -678,7 +682,10 @@ DefaultProjectileWeapon = Class(Weapon) {
         end
         
         if self.EconDrain then 
+
             RemoveEconomyEvent( self, self.EconDrain)
+
+            self.EconDrain = nil
         end
 
         Weapon.OnDisableWeapon(self)
@@ -712,7 +719,16 @@ DefaultProjectileWeapon = Class(Weapon) {
             if ScenarioInfo.WeaponStateDialog then
                 LOG("*AI DEBUG DefaultWeapon IdleState "..repr(self.bp.Label).." - SetBusy to false" )
             end
-            
+	     
+            if self.EconDrain then
+
+                WaitFor(self.EconDrain)
+				
+                RemoveEconomyEvent( unit, self.EconDrain )
+				
+                self.EconDrain = nil                
+            end
+
             SetBusy( unit, false )
             
             self:WaitForAndDestroyManips()
@@ -736,20 +752,11 @@ DefaultProjectileWeapon = Class(Weapon) {
 			-- NOTE: This is setup so that it only works if there is more than 1 rack
             -- intended to force the reload rack process after a firing sequence
             if LOUDGETN(bp.RackBones) > 1 and self.CurrentRackSalvoNumber > 1 then
- 
-                LOUDSTATE(self, self.RackSalvoReloadState)
---[[ 
-                self.reloadtime = 0
-                
-                if bp.AnimationReload and not self.Animator then
-                
-                    self:PlayFxRackSalvoReloadSequence(bp)
-                end
 
-                WaitSeconds( bp.RackReloadTimeout - self.reloadtime )
-                
-                self.CurrentRackSalvoNumber = 1
---]]
+                self.CurrentRackSalvoNumber = 1 
+
+                LOUDSTATE(self, self.RackSalvoReloadState)
+
             end
 			
         end,
@@ -888,7 +895,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 	
     RackSalvoChargeState = State {
 
-        WeaponWantEnabled = true,
+        WeaponWantEnabled = false,
         WeaponAimWantEnabled = true,
 
         Main = function(self)
@@ -896,8 +903,21 @@ DefaultProjectileWeapon = Class(Weapon) {
             if ScenarioInfo.WeaponStateDialog then
                 LOG("*AI DEBUG DefaultWeapon RackSalvo Charge State "..repr(self.bp.Label).." - SetBusy to true" )
 			end
-            
+
             local unit = self.unit
+			
+            if self.EconDrain then
+
+                WaitFor(self.EconDrain)
+
+                if ScenarioInfo.WeaponStateDialog then
+                    LOG("*AI DEBUG DefaultWeapon RackSalvo Charge State "..repr(self.bp.Label).." Economy Event Ends" )
+                end
+				
+                RemoveEconomyEvent( unit, self.EconDrain )
+				
+                self.EconDrain = nil
+            end
             
             SetBusy( unit, true )
 			
@@ -906,29 +926,33 @@ DefaultProjectileWeapon = Class(Weapon) {
             self.rackchargetime = 0
 			
             self:PlayFxRackSalvoChargeSequence(bp)
-			
-            if bp.NotExclusive then
+
+            if bp.RackSalvoChargeTime then
+
+                if bp.NotExclusive then
+            
+                    if ScenarioInfo.WeaponStateDialog then
+                        LOG("*AI DEBUG DefaultWeapon RackSalvo Charge for "..repr(self.bp.Label).." - SetBusy to false" )
+                    end
+
+                    SetBusy( unit, false )
+                end
             
                 if ScenarioInfo.WeaponStateDialog then
-                    LOG("*AI DEBUG DefaultWeapon RackSalvo Charge for "..repr(self.bp.Label).." - SetBusy to false" )
+                    LOG("*AI DEBUG DefaultWeapon RackSalvo Charge for "..repr(self.bp.Label).." waiting "..repr(bp.RackSalvoChargeTime - self.rackchargetime).." seconds" )
+                end
+            
+                WaitSeconds( bp.RackSalvoChargeTime - self.rackchargetime )
+            
+                if bp.NotExclusive then
+            
+                    if ScenarioInfo.WeaponStateDialog then
+                        LOG("*AI DEBUG DefaultWeapon RackSalvo Charge for "..repr(self.bp.Label).." - SetBusy to true" )
+                    end
+                
+                    SetBusy( unit, true )
                 end
 
-                SetBusy( unit, false )
-            end
-            
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon RackSalvo Charge for "..repr(self.bp.Label).." waiting "..repr(bp.RackSalvoChargeTime - self.rackchargetime).." seconds" )
-            end
-            
-            WaitSeconds( bp.RackSalvoChargeTime - self.rackchargetime)
-            
-            if bp.NotExclusive then
-            
-                if ScenarioInfo.WeaponStateDialog then
-                    LOG("*AI DEBUG DefaultWeapon RackSalvo Charge for "..repr(self.bp.Label).." - SetBusy to true" )
-                end
-                
-                SetBusy( unit, true )
             end
             
             if bp.RackSalvoFiresAfterCharge == true then
@@ -978,6 +1002,10 @@ DefaultProjectileWeapon = Class(Weapon) {
             if self.EconDrain then
 
                 WaitFor(self.EconDrain)
+
+                if ScenarioInfo.WeaponStateDialog then
+                    LOG("*AI DEBUG DefaultWeapon RackSalvo Fire Ready State "..repr(self.bp.Label).." Economy Event Ends" )
+                end
 				
                 RemoveEconomyEvent( unit, self.EconDrain )
 				
@@ -999,11 +1027,12 @@ DefaultProjectileWeapon = Class(Weapon) {
 		-- then the weapon will Never do an OnFire() event unless the unit is set to IMMOBILE
         OnFire = function(self)
             
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon RackSalvo Fire Ready OnFire "..repr(self.bp.Label) )
-			end
-            
             if self.WeaponCanFire then
+
+                if ScenarioInfo.WeaponStateDialog then
+                    LOG("*AI DEBUG DefaultWeapon RackSalvo Fire Ready OnFire "..repr(self.bp.Label) )
+                end
+
                 LOUDSTATE(self, self.RackSalvoFiringState)
             end
 			
@@ -1090,6 +1119,10 @@ DefaultProjectileWeapon = Class(Weapon) {
                     if self.HaltFireOrdered then
                         continue
                     end
+                
+                    self.FirstShot = false
+                    
+                    self:StartEconomyDrain() -- the recharge begins as soon as the weapon starts firing
 					
                     muzzle = rackInfo.MuzzleBones[muzzleIndex]
 					
@@ -1128,14 +1161,6 @@ DefaultProjectileWeapon = Class(Weapon) {
                     if rackInfo.HideMuzzle == true then
                         HideBone( unit, muzzle, true)
                     end
-					
-                    if self.HaltFireOrdered then
-                        continue
-                    end
-                
-                    self.FirstShot = false
-                    
-                    self:StartEconomyDrain() -- the recharge begins as soon as the weapon starts firing
 					
 					-- create the projectile --
                     self:CreateProjectileAtMuzzle(muzzle)
@@ -1190,10 +1215,6 @@ DefaultProjectileWeapon = Class(Weapon) {
                 if bp.CameraShakeRadius or bp.ShipRock or bp.RackRecoilDistance != 0 then
                     self:PlayFxRackReloadSequence(bp)
                 end
-	     
-                if self.EconDrain then
-                    WaitFor(self.EconDrain)
-                end
 			
 				-- advance the rack number --
                 if self.CurrentRackSalvoNumber <= RacksToBeFired then
@@ -1240,7 +1261,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                 -- anything else is just ready to fire again --
                 else
 				
-                    LOUDSTATE(self, self.RackSalvoFireReadyState)
+                    LOUDSTATE(self, self.RackSalvoChargeState)
 					
                 end
 				
@@ -1254,7 +1275,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 				
             else
 			
-                LOUDSTATE(self, self.RackSalvoFireReadyState)
+                LOUDSTATE(self, self.RackSalvoChargeState)
 				
             end
         end,
@@ -1320,12 +1341,26 @@ DefaultProjectileWeapon = Class(Weapon) {
             if WeaponStateDialog then
                 LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State "..repr(self.bp.Label).." - SetBusy to true" )		
             end
-			
-            local bp = self.bp
-            local NotExclusive = bp.NotExclusive
-            local unit = self.unit
+
+            local unit = self.unit	     
             
             SetBusy( unit, true)
+
+            if self.EconDrain then
+
+                WaitFor(self.EconDrain)
+
+                if WeaponStateDialog then
+                    LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State "..repr(self.bp.Label).." Economy Event Ends" )
+                end
+				
+                RemoveEconomyEvent( unit, self.EconDrain )
+				
+                self.EconDrain = nil
+            end
+
+            local bp = self.bp
+            local NotExclusive = bp.NotExclusive
 			
             if NotExclusive then
 
@@ -1338,7 +1373,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             
             self.reloadtime = 0
             
-            if bp.AnimationReload and not self.Animator then
+            if bp.AnimationReload then
 
                 if WeaponStateDialog then
                     LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State "..repr(self.bp.Label).." plays reload animation" )		
@@ -1354,7 +1389,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             
             if bp.RackSalvoReloadTime then
             
-                if ScenarioInfo.WeaponStateDialog then
+                if WeaponStateDialog then
                     LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State waits for "..repr(bp.RackSalvoReloadTime - self.reloadtime).." seconds" )
                 end
             
@@ -1401,6 +1436,16 @@ DefaultProjectileWeapon = Class(Weapon) {
                 LOUDSTATE(self, self.WeaponPackingState)
 				
             else
+
+                if bp.RackReloadTimeout then
+
+                    if WeaponStateDialog then
+                        LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State "..repr(self.bp.Label).." - Rack Reload Timeout Waits "..bp.RackReloadTimeout.." ticks" )		
+                    end
+                    
+                    WaitTicks( bp.RackReloadTimeout )
+                    
+                end
 			
                 LOUDSTATE(self, self.IdleState)
 				
