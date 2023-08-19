@@ -1,0 +1,6 @@
+1) The following Video Options must be set as follows.  The SCFA_Updater.exe will automatically update your video settings to these values.  Using 'medium' as an option will crash the game, and setting 'Texture Detail' to high may cause the game to overun it's 2 GB memory limit (32-bit).
+	Fidelity - High
+	Shadow Fidelity - High
+	Texture Detail - Low
+	Level of Detail - High
+	Vertical Sync - On
