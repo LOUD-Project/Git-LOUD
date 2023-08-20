@@ -1,0 +1,36 @@
+After reading this help file, if you still have any questions or issues regarding the LOUD updater program, please join our Discord channel (link in the HELP section of the LOUD launcer).  We'll do our best to answer any questions, take suggestions, and fix any issues with the next version of the updater program.
+
+1) Check for Update(s) -- This menu item will check for any updates for the LOUD version of the game.  It will compare your installation via checksums of the files with the files on the FTP server, and then add or update any missing or old files.  It will also move any extra files it finds in the LOUD 'gamdata' or 'maps' folders into an '*.unsupported' directory, allowing you to save or move these files into the User Mods or User Maps folders (see #3 & #4 below).  All of these actions are logged and can be viewed in the 'SCFA_Updater.log' file (#11 below).
+
+2) Run Game -- This menu item launches the LOUD version of the game.  Note that other menu items, such as 'Check for Update(s)' will be disabled, as you are not able to do these functions while playing the game.
+
+3) Create Shortcuts -- This menu item creates desktop shortcuts to launch the updater program & the LOUD version of Forged Alliance.  Note that this option is greyed out if the required icon file has not yet been downloaded by doing the 'Check for Update(s)'
+
+5) Icons Mod Installer -- This menu item launches the Advanced Strategic Icons configuration program, which is a supported mod used by LOUD.  Instructions on using this mod are not included here, this menu item simply launches the program which is in the LOUD 'bin' directory.
+
+6) List Updates -- This menu item will check the LOUD installation for missing or out of date files, and then generate a text file 'UpdateList.txt' that contains the results.  The file is located in the root of the game directory.
+
+7) Open Maps Folder -- This menu item opens the User Maps folder, and creates the directory if it's not already there.
+
+8) Open Mods Folder -- This menu item opens the User Mods folder, and creates the directory if it's not already there.
+
+9) Open Replays Folder -- This menu item open the folder SupCom uses to store game replays.
+
+10) Toggle User Maps -- The updater will remove any non-Loud items from the LOUD 'maps' directories to 'maps.unsupported'.  The LOUD project performs best when used with maps that have been marked and tested to work with LOUD.  However, there may be times that you wish to use a map that's not part of the LOUD package.  If you 'Enable User Maps' you will be able to play maps not part of the LOUD package by putting them in the following directory:  <USERPROFILE>\Documents\My Games\Gas Powered Games\Supreme Commander Forged Alliance\maps.  These maps will ONLY be allowed for selection in the game when this option is enabled, and the AI may not perform optimally on these maps.  A menu item has been added to open the location of the User Maps folder, and create the directory if it's not already there (#7 below).  In addition, a 'usermaps' directory has been added to the LOUD directory structure.  You can also place maps in this directory which will be loaded as part of the LOUD game environment.
+
+11) Toggle User Mods -- The updater will move any non-Loud items from the LOUD 'mods' directories to 'mods.unsupported'.  The LOUD project performs best when used with mods that have been tested to work with LOUD.  However, there may be times that you wish to use a mod that's not part of the LOUD package.  If you 'Enable User Mods' you will be able to play with mods not part of the LOUD package by putting them in the following directory:  <USERPROFILE>\Documents\My Games\Gas Powered Games\Supreme Commander Forged Alliance\mods.  These mods will ONLY be allowed for selection in the game when this option is enabled, and the AI may not perform optimally with these mods, or they may even cause game issues and crashes.  A menu item has been added to open the location of the User Mods folder, and create the directory if it's not already there (#8 below).  In addition, a 'usermods' directory has been added to the LOUD directory structure.  You can also place mods in this directory which will be loaded as part of the LOUD game environment.
+
+12) Discord Invite -- This menu item will open a web page to invite you to our LOUD Discord server.  The LOUD Discord server is used for communication between LOUD Supreme Commander memebers.
+
+13) Game Info -- This menu item will open a text file containing information about the LOUD project.  The first section lists links for LOUD including ModDB, Discord, updater program download, and PayPal donation.
+
+14) LOUD Downloads -- This menu item opens a OneDrive website.  This site has LOUD related files to share with the public, using the Microsoft OneDrive network for downloading.  These files include the LOUD updater program, the LOUD mod initial installation instructions, a maps archive (not marked for optimum LOUD usage), various Supreme Commander utilities, and a zip file (updated monthly) containing the LOUD files for manual installations.
+
+15) Menu Help -- This menu item opens the Help file (file you are currently reading).  It currently lists the functionality of each menu item in the updater program, along with information about its usage.  This file will be updated as needed to include fixes or updates.
+
+16) PayPal Donation -- This menu item will take you to the 'Supreme Commander LOUD Project' PayPal donation page for this project.  Donations are always greatly appreciated and help defray the costs of our cloud FTP service.  Everyone is always welcome to use our updater for free which relies on the cloud FTP service to pull down new files.
+
+17) View Game Log -- This menu item will show the log for the last LOUD Supreme Commander Forged Alliance game played. This log is useful for troubleshooting errors that may have occurred during a game, and you may be asked in a Discord channel to supply it. 
+
+18) View Updater Log -- This menu item will show the log for the current session of the updater.  This log is useful for finding error messages and tracking the tasks performed by the updater during a session.  If you are having trouble with the updater, this log file will help greatly with troubleshooting the issue, and you may be asked in a Discord channel to supply it.
+
