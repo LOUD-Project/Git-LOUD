@@ -142,6 +142,7 @@ Weapon = Class(moho.weapon_methods) {
                     if bp.RackSlavedToTurret and bp.RackBones[1] then
                     
                         for k, v in bp.RackBones do
+
                             if v.RackBone != pitchBone then
                             
                                 local slaver = CreateSlaver(self.unit, v.RackBone, pitchBone)
