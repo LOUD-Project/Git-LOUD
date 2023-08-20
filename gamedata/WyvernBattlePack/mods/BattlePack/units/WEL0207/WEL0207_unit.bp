@@ -127,15 +127,23 @@ UnitBlueprint{
                 Fire = Sound { Bank = 'BattlePackSB', Cue = 'UEFRevampTank_AntiMissile_Fire', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = "RULEUBA_None",
+
             BeamCollisionDelay = 0.1,
             BeamLifetime = 0.1,
+
             CollideFriendly = false,
+
             Damage = 2,
             DamageType = "Normal",
+
             DisplayName = "Zapper Anti Missile",
+
             FireTargetLayerCapsTable = { Land = "Air" },
+
             FiringTolerance = 0.2,
+
             Label = "TMD",
+
             MaxRadius = 28,
             MaximumBeamLength = 28,
 

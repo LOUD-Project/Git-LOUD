@@ -183,8 +183,10 @@ UnitBlueprint {
 			
             DisplayName = 'Sonance Artillery',
 			
-            DoTPulses = 10,
+            DoTPulses = 10,     -- resulting in 1000 dmg 
             DoTTime = 5,
+            
+            EnergyChargeForFirstShot = false,
             
             EnergyRequired = 2500,
             EnergyDrainPerSecond = 250,     -- 10 seconds to charge
@@ -203,8 +205,8 @@ UnitBlueprint {
             MaxRadius = 92,
             MinRadius = 8,
 			
-            MuzzleVelocity = 25,
-            MuzzleVelocityReduceDistance = 85,
+            MuzzleVelocity = 22.5,
+            MuzzleVelocityReduceDistance = 95,
 			
             ProjectileId = '/projectiles/AIFSonanceShell01/AIFSonanceShell01_proj.bp',
             RackBones = {
@@ -214,7 +216,7 @@ UnitBlueprint {
                 },
             },
 
-            RackRecoilDistance = -1,
+            RackRecoilDistance = -0.3,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -238,11 +240,11 @@ UnitBlueprint {
 
             TurretPitch = 30,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 20,
+            TurretPitchSpeed = 24,
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 30,
+            TurretYawSpeed = 32,
 
             Turreted = true,
         },

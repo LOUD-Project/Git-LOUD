@@ -222,20 +222,22 @@ UnitBlueprint {
 			
             Damage = 480,
             DamageFriendly = true,
-            DamageRadius = 5,
+            DamageRadius = 4.2,
             
             DamageType = 'ShieldMult1.2',       -- class bonus --
 			
             DisplayName = 'Suthanus Artillery',
-            
-            EnergyRequired = 3350,
-            EnergyDrainPerSecond = 698,     -- 4.8 seconds to charge
+
+            EnergyChargeForFirstShot = false,
+           
+            EnergyRequired = 2400,
+            EnergyDrainPerSecond = 500,     -- 4.8 seconds to charge
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 1.2,
+            FiringRandomness = 1.35,
             FiringTolerance = 2,
 			
             Label = 'MainGun',
@@ -246,8 +248,8 @@ UnitBlueprint {
 			
             MuzzleChargeDelay = 0.2,        -- .2 second delay
 
-            MuzzleVelocity = 25,
-            MuzzleVelocityReduceDistance = 85,
+            MuzzleVelocity = 22.5,
+            MuzzleVelocityReduceDistance = 92,
 			
             ProjectileId = '/projectiles/SIFSuthanusArtilleryShell01/SIFSuthanusArtilleryShell01_proj.bp',
 			ProjectileLifetime = 20,
@@ -259,7 +261,7 @@ UnitBlueprint {
                 },
             },
 
-            RackRecoilDistance = -1,
+            RackRecoilDistance = -0.3,
 
             RangeCategory = 'UWRC_IndirectFire',
 			

@@ -15,26 +15,23 @@ XEL0306 = Class(TLandUnit) {
 
             FxMuzzleFlash = {'/effects/emitters/terran_mobile_missile_launch_01_emit.bp'},
            
-            
             OnLostTarget = function(self)
                 self:ForkThread( self.LostTargetThread )
             end,
             
             PlayFxRackSalvoChargeSequence = function(self)
 
-                self:PlayFxWeaponUnpackSequence()            
+                self:PlayFxWeaponUnpackSequence()
+                
+                TIFCruiseMissileUnpackingLauncher.PlayFxRackSalvoChargeSequence(self)
 
             end,
 
             PlayFxRackReloadSequence = function(self)
 
                 self:PlayFxWeaponPackSequence()
-
-                self.Animator = CreateAnimator(self.unit)
-        
-                PlayAnim( self.Animator, self.bp.AnimationReload):SetRate( self.bp.AnimationReloadRate or 1)
-
-                WaitFor(self.Animator)
+                
+                TIFCruiseMissileUnpackingLauncher.PlayFxRackReloadSequence(self)
 
             end,
 

@@ -168,7 +168,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 			
             AnimationReload = '/units/xel0306/xel0306_aload.sca',
-            AnimationReloadRate = 1,        -- animation takes 3.6 seconds
+            AnimationReloadRate = 1.2,
 			
             Audio = {
                 Fire = Sound { Bank = 'XEL_Weapons', Cue = 'XEL0306_Missile_Cruise', LodCutoff = 'Weapon_LodCutoff' },
@@ -200,7 +200,7 @@ UnitBlueprint {
 			
             MuzzleChargeDelay = 1.3,            -- the weapon fires all 3 muzzles = 3.9
 
-            MuzzleVelocity = 3,
+            MuzzleVelocity = 4.5,
 			
             ProjectileId = '/projectiles/TIFMissileCruise05/TIFMissileCruise05_proj.bp',
             ProjectileLifetime = 20,
@@ -218,12 +218,13 @@ UnitBlueprint {
             },
 
             RackSalvoChargeTime = 0.5,            -- the weapon unpacks plus 0.5 seconds = 2
-            RackSalvoReloadTime = 0.5,            -- the weapon packs and reloads plus 0.5 seconds = 5.6
+                                                  -- firing will take (3 x 1.3) = 3.9
+                                                  -- then it will repack and wait for the E charge = 2.1
+            RackSalvoReloadTime = 3.6,            -- then reload = 3.6 for the reload animations
 
             RangeCategory = 'UWRC_IndirectFire',
 
-			-- true firing cycle is 11.5 seconds -- 1800/11.5 for 156 Dps
-            RateOfFire = 1,                      -- charge, muzzle and reload delays handle all of it
+            RateOfFire = 0.5,                    -- charge, muzzle and reload delays handle all of it
 
             SlavedToBody = true,
 			
@@ -240,9 +241,7 @@ UnitBlueprint {
 			
             Turreted = false,
 
-            -- the pack/unpack animation requires 1.5 seconds
-            -- and is handled by the unit script
-            WeaponRepackTimeout = 1,
+            WeaponRepackTimeout = 1.5,
             WeaponUnpackAnimation = '/units/xel0306/xel0306_aopen.sca',
             WeaponUnpackAnimationRate = 1,
         },

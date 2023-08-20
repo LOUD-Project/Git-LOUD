@@ -1,7 +1,7 @@
 UnitBlueprint {
 
 	AI = { 
-		TargetBones = {'Turret'},
+		TargetBones = {'Turret','vent01'},
 	},
 	
     Audio = {
@@ -135,13 +135,13 @@ UnitBlueprint {
         TurnRate = 0,
     },
     
-    SelectionSizeX = 0.7,
-    SelectionSizeZ = 0.7,
+    SelectionSizeX = 0.85,
+    SelectionSizeZ = 0.85,
     SelectionThickness = 0.55,
 	
-    SizeX = 0.9,
+    SizeX = 0.95,
     SizeY = 0.65,
-    SizeZ = 0.9,
+    SizeZ = 0.95,
 	
     StrategicIconName = 'icon_structure3_directfire2',
     StrategicIconSortPriority = 200,
@@ -161,11 +161,6 @@ UnitBlueprint {
             ArtilleryShieldBlocks = true,
             
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
                 BarrelStart = Sound {
                     Bank = 'UES',
                     Cue = 'UES0302_Cannon_Start',
@@ -189,13 +184,15 @@ UnitBlueprint {
 			
             Damage = 1000,
             DamageFriendly = true,
-            DamageRadius = 3.5,
+            DamageRadius = 3.55,
             DamageType = 'Normal',
 			
             DisplayName = 'Heavy Rockets',
             
-            EnergyRequired = 14100,
-            EnergyDrainPerSecond = 1856,     -- 7.6 seconds to charge
+            EnergyChargeForFirstShot = false,
+            
+            EnergyRequired = 14440,
+            EnergyDrainPerSecond = 1900,     -- 7.6 seconds to charge
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -203,17 +200,17 @@ UnitBlueprint {
             },
 			
             FiringTolerance = 0.5,
-            FiringRandomness = 1,
+            FiringRandomness = 0.5,
 			
-            Label = 'MainGun',
+            Label = 'RocketPod',
 			
-            MaxRadius = 100,
+            MaxRadius = 107,
             MinRadius = 24,
 			
-            MuzzleSalvoDelay = 0.6,         -- 2.4 seconds firing cycle
-            MuzzleSalvoSize = 4,
-            MuzzleVelocity = 23,
-            MuzzleVelocityRandom = 2,
+            MuzzleChargeDelay = 0.6,         -- not counted against cycle
+
+            MuzzleVelocity = 23.5,
+            MuzzleVelocityRandom = 1.5,
 			MuzzleVelocityReduce = 40,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRNT3PDROproj/BRNT3PDROproj_proj.bp',
@@ -231,13 +228,13 @@ UnitBlueprint {
                 },
             },
 
-            RackSalvoReloadTime = 2,
+            RackSalvoChargeTime = 0.1,      -- does unpack seq -- 3.4
 
-            RackSlavedToTurret = true,
-			
+            RackSalvoReloadTime = 2.1,        -- reload after fire (charge ends here) -- .1
+
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,	-- 4000 Dmg every 10 = 400 DPS  -- controlled by charge --
+            RateOfFire = 1,	-- 4000 Dmg every 10.9 = 367 DPS  -- controlled by charge --
 			
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -257,7 +254,7 @@ UnitBlueprint {
 
             TurretPitch = 0,
             TurretPitchRange = 45,
-            TurretPitchSpeed = 15,
+            TurretPitchSpeed = 18,
 
             TurretYaw = 0,
             TurretYawRange = 180,
@@ -265,13 +262,13 @@ UnitBlueprint {
 
             Turreted = true,
 
-            WeaponRepackTimeout = 1,
+            WeaponRepackTimeout = 3.3,
             WeaponUnpackAnimation = '/mods/TotalMayhem/units/BRNT3PDRO/BRNT3PDRO_deploy.sca',
-            WeaponUnpackAnimationRate = 1,
-            WeaponUnpackLocksMotion = true,
+            WeaponUnpackAnimationRate = 1.1,
             WeaponUnpacks = true,
- 	   },
+        },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
@@ -279,11 +276,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -133,26 +133,39 @@ UnitBlueprint{
             },
             BallisticArc = "RULEUBA_HighArc",
             CollideFriendly = false,
+
             Damage = 700,
             DamageFriendly = true,
-            DamageRadius = 4.5,
-            DamageType = "Normal",
+            DamageRadius = 4,
+
+            DamageType = 'ShieldMult1.2',       -- class bonus --
+
             DisplayName = "Anti Matter Artillery",
-            EnergyDrainPerSecond = 572,
-            EnergyRequired = 4000,
+            
+            EnergyChargeForFirstShot = false,
+            
+            EnergyRequired = 3150,
+            EnergyDrainPerSecond = 450,     -- 7 seconds to charge
+
             FireTargetLayerCapsTable = { Land = "Land|Water|Seabed" },
-            FiringRandomness = 0.7,
+            FiringRandomness = 0.95,
             FiringTolerance = 2,
+
             Label = "MainGun",
+
             LeadTarget = true,
+
             MaxRadius = 92,
             MinRadius = 5,
 
-            MuzzleVelocity = 25,
-            MuzzleVelocityReduceDistance = 85,
+            MuzzleVelocity = 22.5,
+            MuzzleVelocityReduceDistance = 92,
+
             NotExclusive = true,
+
             ProjectileId = "/projectiles/TIFAntiMatterShells02/TIFAntiMatterShells02_proj.bp",
             ProjectileLifetime = 20,
+
             RackBones = {
                 {
                     MuzzleBones = { "ArtyMuzzle01" },
@@ -196,8 +209,9 @@ UnitBlueprint{
 
             Turreted = true,
 
-            WeaponUnpackAnimation = "/units/UEL0304/uel0304_aactivate.sca",
-            WeaponUnpackAnimationRate = 2,
+            WeaponRepackTimeout = 1,			
+            WeaponUnpackAnimation = '/units/UEL0304/uel0304_aactivate.sca',
+            WeaponUnpackAnimationRate = 3,
             WeaponUnpackLocksMotion = true,
             WeaponUnpacks = true,
         },

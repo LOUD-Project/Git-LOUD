@@ -193,14 +193,16 @@ UnitBlueprint {
 			
             DisplayName = 'Anti Matter Artillery',
             
-            EnergyRequired = 3125,
-            EnergyDrainPerSecond = 446,     -- 7 seconds to charge
+            EnergyChargeForFirstShot = false,
+            
+            EnergyRequired = 3150,
+            EnergyDrainPerSecond = 450,     -- 7 seconds to charge
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
             },
 			
-            FiringRandomness = 1.25,
+            FiringRandomness = 0.85,
             FiringTolerance = 2,
 			
             Label = 'MainGun',
@@ -209,8 +211,8 @@ UnitBlueprint {
             MaxRadius = 92,
             MinRadius = 5,
 
-            MuzzleVelocity = 25,
-            MuzzleVelocityReduceDistance = 85,
+            MuzzleVelocity = 22.5,
+            MuzzleVelocityReduceDistance = 92,
 
             NotExclusive = true,
 			
@@ -224,7 +226,7 @@ UnitBlueprint {
                 },
             },
 
-            RackRecoilDistance = -10,
+            RackRecoilDistance = -0.6,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -247,20 +249,22 @@ UnitBlueprint {
 			
             TurretPitch = 30,
             TurretPitchRange = 45,
-            TurretPitchSpeed = 20,
+            TurretPitchSpeed = 26,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 30,
+            TurretYawSpeed = 32,
 			
             Turreted = true,
-			
+
+            WeaponRepackTimeout = 1,			
             WeaponUnpackAnimation = '/units/UEL0304/uel0304_aactivate.sca',
-            WeaponUnpackAnimationRate = 2,
+            WeaponUnpackAnimationRate = 3,
             WeaponUnpackLocksMotion = true,
             WeaponUnpacks = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,

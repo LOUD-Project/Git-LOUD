@@ -186,20 +186,22 @@ UnitBlueprint {
 			
             Damage = 480,
             DamageFriendly = true,
-            DamageRadius = 5,
+            DamageRadius = 4.2,
             
             DamageType = 'ShieldMult1.2',       -- class bonus --
 			
             DisplayName = 'Proton Artillery',
             
-            EnergyRequired = 3350,
-            EnergyDrainPerSecond = 670,     -- 5 seconds to charge
+            EnergyChargeForFirstShot = false,
+            
+            EnergyRequired = 2400,
+            EnergyDrainPerSecond = 480,     -- 5 seconds to charge
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
             },
             
-            FiringRandomness = 1,
+            FiringRandomness = 1.2,
             FiringTolerance = 2,
 			
             Label = 'MainGun',
@@ -208,8 +210,8 @@ UnitBlueprint {
             MaxRadius = 92,
             MinRadius = 10,
 
-            MuzzleVelocity = 25,
-            MuzzleVelocityReduceDistance = 85,
+            MuzzleVelocity = 22.5,
+            MuzzleVelocityReduceDistance = 92,
 			
             ProjectileId = '/projectiles/CIFArtilleryProton01/CIFArtilleryProton01_proj.bp',
 			ProjectileLifetime = 20,
@@ -221,7 +223,7 @@ UnitBlueprint {
                 },
             },
 
-            RackRecoilDistance = -1,
+            RackRecoilDistance = -0.2,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -244,14 +246,15 @@ UnitBlueprint {
 			
             TurretPitch = 30,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 20,
+            TurretPitchSpeed = 24,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 30,
+            TurretYawSpeed = 32,
 			
             Turreted = true,
 
+            WeaponRepackTimeout = 2,
             WeaponUnpackAnimation = '/units/URL0304/URL0304_Aactivate.sca',
             WeaponUnpackAnimationRate = 1,
             WeaponUnpackLocksMotion = true,
