@@ -16,29 +16,33 @@ local function mount_contents(dir, mountpoint)
     end
 end
 
---Original game content
-mount_dir(InitFileDir .. '\\..\\..\\fonts', '/fonts')
-mount_dir(InitFileDir .. '\\..\\..\\sounds', '/sounds')
-mount_dir(InitFileDir .. '\\..\\..\\movies', '/movies')
+--LOUD Strat Icons - various sizes
+mount_dir(InitFileDir .. '\\..\\usermods\\BrewLAN-StrategicIcons*.scd', '/')
 
---Load LOUD content first, and then follow up with any missing vanilla content.
+--LOUD content
 mount_dir(InitFileDir .. '\\..\\gamedata\\*.scd', '/')
-mount_dir(InitFileDir .. '\\..\\..\\gamedata\\textures.scd', '/')
-mount_dir(InitFileDir .. '\\..\\..\\gamedata\\effects.scd', '/')
-mount_dir(InitFileDir .. '\\..\\..\\gamedata\\projectiles.scd', '/')
-mount_dir(InitFileDir .. '\\..\\..\\gamedata\\env.scd', '/')
-mount_dir(InitFileDir .. '\\..\\..\\gamedata\\props.scd', '/')
-mount_dir(InitFileDir .. '\\..\\..\\gamedata\\meshes.scd', '/')
-
-mount_dir(InitFileDir .. '\\..\\usermods\\*.scd', '/')
-mount_dir(InitFileDir .. '\\..\\usermods', '/mods')
-mount_contents(InitFileDir .. '\\..\\maps', '/maps')
-mount_contents(InitFileDir .. '\\..\\usermaps', '/maps')
+mount_dir(InitFileDir .. '\\..\\maps', '/maps')
 mount_dir(InitFileDir .. '\\..\\sounds', '/sounds')
 
---User mods & maps
+--Vanilla content
+mount_dir(InitFileDir .. '\\..\\..\\fonts', '/fonts')
+mount_dir(InitFileDir .. '\\..\\..\\gamedata\\textures.scd', '/')
+mount_dir(InitFileDir .. '\\..\\..\\gamedata\\effects.scd', '/')
+mount_dir(InitFileDir .. '\\..\\..\\gamedata\\env.scd', '/')
+mount_dir(InitFileDir .. '\\..\\..\\gamedata\\projectiles.scd', '/')
+mount_dir(InitFileDir .. '\\..\\..\\gamedata\\props.scd', '/')
+mount_dir(InitFileDir .. '\\..\\..\\gamedata\\meshes.scd', '/')
+mount_dir(InitFileDir .. '\\..\\..\\movies', '/movies')
+mount_dir(InitFileDir .. '\\..\\..\\sounds', '/sounds')
+
+--LOUD directory user maps & mods
+mount_dir(InitFileDir .. '\\..\\usermaps', '/maps')
+mount_dir(InitFileDir .. '\\..\\usermods', '/mods')
+
+--Documents directory user maps & mods (SCFA default)
+--mount_contents(SHGetFolderPath('PERSONAL') .. 'My Games\\Gas Powered Games\\Supreme Commander Forged Alliance\\maps', '/maps')
 --mount_contents(SHGetFolderPath('PERSONAL') .. 'My Games\\Gas Powered Games\\Supreme Commander Forged Alliance\\mods', '/mods')
-mount_contents(SHGetFolderPath('PERSONAL') .. 'My Games\\Gas Powered Games\\Supreme Commander Forged Alliance\\maps', '/maps')
+
 
 hook = {
     '/schook'
@@ -47,9 +51,4 @@ hook = {
 protocols = {
     'http',
     'https',
-    'mailto',
-    'ventrilo',
-    'teamspeak',
-    'daap',
-    'im',
 }
