@@ -35,13 +35,16 @@ BRMT3BM2 = Class(CWalkingLandUnit) {
     end,
 
     Weapons = {
-        Rockets = Class(TDFGaussCannonWeapon) {},
+        Rockets = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0.3},
 		
         robottalk = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0},
 		
         maingun1 = Class(TDFGaussCannonWeapon) {
+			
+	        FxMuzzleEffect = EffectTemplate.CElectronBolterMuzzleFlash01,
 		
             FxMuzzleFlashScale = 0.3,
+
             FxMuzzleFlash = { 
             	'/effects/emitters/proton_artillery_muzzle_01_emit.bp',
             	'/effects/emitters/proton_artillery_muzzle_03_emit.bp',
@@ -52,27 +55,29 @@ BRMT3BM2 = Class(CWalkingLandUnit) {
 	        FxVentEffect2 = EffectTemplate.WeaponSteam01,			
 	        FxVentEffect3 = EffectTemplate.CDisruptorGroundEffect,
 			
-	        FxMuzzleEffect = EffectTemplate.CElectronBolterMuzzleFlash01,
-			
 	        PlayFxMuzzleSequence = function(self, muzzle)
+
 		        local army = self.unit:GetArmy()
 
-	            for k, v in self.FxVentEffect3 do
-                    CreateAttachedEmitter(self.unit, 'BRMT3BM2', army, v):ScaleEmitter(0.4)
-                end
   	            for k, v in self.FxMuzzleEffect do
-                    CreateAttachedEmitter(self.unit, 'rightarm_muzzle', army, v):ScaleEmitter(1.5)
-                    CreateAttachedEmitter(self.unit, 'rightarm_muzzle01', army, v):ScaleEmitter(1.5)
+                    CreateAttachedEmitter(self.unit, 'rightarm_muzzle', army, v):ScaleEmitter(1.3)
+                    CreateAttachedEmitter(self.unit, 'rightarm_muzzle01', army, v):ScaleEmitter(1.3)
                 end
+
   	            for k, v in self.FxVentEffect do
                     CreateAttachedEmitter(self.unit, 'rightarm_vent01', army, v):ScaleEmitter(0.3)
                     CreateAttachedEmitter(self.unit, 'rightarm_vent02', army, v):ScaleEmitter(0.3)
                     CreateAttachedEmitter(self.unit, 'rightarm_vent04', army, v):ScaleEmitter(0.3)
                     CreateAttachedEmitter(self.unit, 'rightarm_vent05', army, v):ScaleEmitter(0.3)
                 end
+
   	            for k, v in self.FxVentEffect2 do
-                    CreateAttachedEmitter(self.unit, 'rightarm_muzzle', army, v):ScaleEmitter(0.8)
-                    CreateAttachedEmitter(self.unit, 'rightarm_muzzle01', army, v):ScaleEmitter(0.8)
+                    CreateAttachedEmitter(self.unit, 'rightarm_muzzle', army, v):ScaleEmitter(0.4)
+                    CreateAttachedEmitter(self.unit, 'rightarm_muzzle01', army, v):ScaleEmitter(0.4)
+                end
+
+	            for k, v in self.FxVentEffect3 do
+                    CreateAttachedEmitter(self.unit, 'BRMT3BM2', army, v):ScaleEmitter(0.4)
                 end
             end,                   
         },
@@ -125,6 +130,7 @@ BRMT3BM2 = Class(CWalkingLandUnit) {
 	end, 
 	
 	UnitLandAmbientEffectThread = function(self)
+
 		while not self:IsDead() do
 
             local army = self:GetArmy()			

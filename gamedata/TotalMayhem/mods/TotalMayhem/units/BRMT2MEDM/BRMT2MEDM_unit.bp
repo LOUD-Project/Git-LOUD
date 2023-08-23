@@ -245,8 +245,6 @@ UnitBlueprint {
 			
             RackReloadTimeout = 10,
 
-            RackSalvoSize = 1,
-
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.1,	-- 12 of 33dmg every 10 seconds = 40dps

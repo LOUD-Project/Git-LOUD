@@ -236,8 +236,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 0,
             TurretPitchRange = 45,
             TurretPitchSpeed = 60,
@@ -290,8 +289,6 @@ UnitBlueprint {
                     RackBone = 'rocketlauncher',
                 },
             },
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			

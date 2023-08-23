@@ -85,8 +85,10 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+
         AnimationWalk = '/units/XSL0104/XSL0104_awalk01.sca',
         AnimationWalkRate = 6.5,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -211,16 +213,13 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0103_Shleo_AA',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0103_Shleo_AA', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
+
             CollideFriendly = false,
 			
-            Damage = 24,
+            Damage = 25,
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -237,9 +236,7 @@ UnitBlueprint {
             Label = 'TauCannon01',
 			
             MaxRadius = 27,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 38,
 			
             ProjectileId = '/projectiles/SAAShleoAAGatlingGun05/SAAShleoAAGatlingGun05_proj.bp',
@@ -256,7 +253,8 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = 0.35,
-            RackReloadTimeout = 10,
+
+            RackReloadTimeout = 5,
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -268,12 +266,13 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
                 'DEFENSE',
+                'STRUCTURE -WALL',
                 'ALLUNITS',
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneDualMuzzle = 'Turret_Muzzle02a',
             TurretBoneDualPitch = 'Turret_Barrel01',

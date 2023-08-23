@@ -195,8 +195,8 @@ UnitBlueprint {
 			
             MaxRadius = 40,
 			
-            MuzzleSalvoDelay = 0.5,
-            MuzzleSalvoSize = 8,
+            MuzzleChargeDelay = 0.5,
+
             MuzzleVelocity = 18,
             MuzzleVelocityRandomness = 1,
 			MuzzleVelocityReduceDistance = 40,
@@ -221,8 +221,6 @@ UnitBlueprint {
                     RackBone = 'rocketlauncher',
                 },
             },
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -292,6 +290,8 @@ UnitBlueprint {
             MuzzleVelocity = 32,
 			MuzzleVelocityRandom = 2,
 			
+            NotExclusive = true,			
+			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRNT3BTproj/BRNT3BTproj_proj.bp',
 			ProjectileLifetime = 1,
 			
@@ -307,9 +307,7 @@ UnitBlueprint {
                 },
             },
             
-            RackRecoilDistance = -3,
-			
-            RackSlavedToTurret = true,
+            RackRecoilDistance = -2,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -327,7 +325,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 45,

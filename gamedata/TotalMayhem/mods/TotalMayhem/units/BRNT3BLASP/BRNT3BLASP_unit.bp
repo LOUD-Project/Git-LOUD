@@ -247,6 +247,28 @@ UnitBlueprint {
             AutoInitiateAttackCommand = true,
 			
             BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.4,
+                    Radius = 1.5,
+                    TargetAllow = 'LAND,NAVAL,TECH1',
+                    TargetDisallow = 'WALL',
+                },
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.2,
+                    Radius = 0.5,
+                    TargetAllow = 'LAND,NAVAL,TECH2',
+                    TargetDisallow = 'WALL',
+                },                
+            },			
+     
             CollideFriendly = false,
 			
             Damage = 500,		-- 2 shells per on fire = 1000 dmg
@@ -298,14 +320,12 @@ UnitBlueprint {
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
+                'MOBILE',
                 'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.10,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'topgun01',
             TurretBonePitch = 'topgun01',
@@ -336,6 +356,28 @@ UnitBlueprint {
             },
 
             BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.4,
+                    Radius = 1.5,
+                    TargetAllow = 'LAND,NAVAL,TECH1',
+                    TargetDisallow = 'WALL',
+                },
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.2,
+                    Radius = 0.5,
+                    TargetAllow = 'LAND,NAVAL,TECH2',
+                    TargetDisallow = 'WALL',
+                },                
+            },			
+     
             CollideFriendly = false,
 			
             Damage = 500,		-- 2 shells per on fire = 1000 dmg
@@ -391,7 +433,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.10,
+            TrackingRadius = 1.05,
 
             TurretBoneMuzzle = 'topgun02',
             TurretBonePitch = 'topgun02',
@@ -489,15 +531,13 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
+                'MOBILE',
                 'DEFENSE',
                 'ALLUNITS',
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 
             TurretBoneMuzzle = 'muzzle03',
             TurretBonePitch = 'gun01',
@@ -510,7 +550,7 @@ UnitBlueprint {
 			
             TurretYaw = -5,
             TurretYawRange = 55,
-            TurretYawSpeed = 38,
+            TurretYawSpeed = 32,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,			
@@ -583,8 +623,6 @@ UnitBlueprint {
                     RackBone = 'gun02',
                 },
             },
-			
-            RackSlavedToTurret = true,
 
             RateOfFire = 1,		-- 500dps	-- approx 6 seconds per fire
 			
@@ -594,15 +632,13 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
+                'MOBILE',
                 'DEFENSE',
                 'ALLUNITS',
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'muzzle01',
             TurretBonePitch = 'gun02',
@@ -615,7 +651,7 @@ UnitBlueprint {
 			
             TurretYaw = 5,
             TurretYawRange = 55,
-            TurretYawSpeed = 38,
+            TurretYawSpeed = 32,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,			
@@ -652,13 +688,15 @@ UnitBlueprint {
 			FiringRandomnessWhileMoving = 0.5,
 			
             Label = 'Riotgun',
+
 			LeadTarget = true,
 			
             MaxRadius = 35,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            MuzzleVelocity = 40,
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 8,
+
+            MuzzleVelocity = 42,
 
             ProjectileId = '/projectiles/TDFRiot02/TDFRiot02_proj.bp',
             ProjectileLifetime = 1,
@@ -674,15 +712,13 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 8,		-- 240dps
+            RateOfFire = 1,		-- 240dps
 	
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
+                'MOBILE',
                 'DEFENSE',
                 'ALLUNITS',
             },
@@ -740,8 +776,11 @@ UnitBlueprint {
 			LeadTarget = true,
 			
             MaxRadius = 35,
+			
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 8,
 
-            MuzzleVelocity = 40,
+            MuzzleVelocity = 42,
 
             ProjectileId = '/projectiles/TDFRiot02/TDFRiot02_proj.bp',
             ProjectileLifetime = 1,
@@ -753,15 +792,13 @@ UnitBlueprint {
                 },
             },
 
-            RateOfFire = 8,		-- 240dps
+            RateOfFire = 1,		-- 240dps
 	
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
+                'MOBILE',
                 'DEFENSE',
                 'ALLUNITS',
             },
@@ -801,7 +838,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 200,
-            DamageRadius = 3,
+            DamageRadius = 2.5,
             DamageType = 'Normal',
 			
             DoTPulses = 2,
@@ -825,8 +862,9 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 10,
+
             MuzzleVelocity = 18,
-			MuzzleVelocityRandom = 3,
+			MuzzleVelocityRandom = 0.6,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRNT3BTRLproj/BRNT3BTRLproj_proj.bp',
             ProjectileLifetime = 3,
@@ -840,8 +878,6 @@ UnitBlueprint {
                     RackBone = 'head',
                 },
             },
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -851,15 +887,13 @@ UnitBlueprint {
             TargetCheckInterval = 1.0,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
+                'MOBILE',
                 'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'muzzle10',
             TurretBonePitch = 'head',

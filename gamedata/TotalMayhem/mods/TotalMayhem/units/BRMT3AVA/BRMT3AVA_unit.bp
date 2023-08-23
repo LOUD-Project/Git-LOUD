@@ -454,8 +454,6 @@ UnitBlueprint {
             },
             
             RackRecoilDistance = -0.5,
-
-            RackSlavedToTurret = true,
             
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -465,9 +463,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'EXPERIMENTAL',
                 'SPECIALHIGHPRI',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
+                'MOBILE',
                 'DEFENSE',
                 'ALLUNITS',
             },
@@ -477,7 +473,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'gunbarrel02',
             TurretBonePitch = 'Front_Turret_Barrel02',
             TurretBoneYaw = 'Front_Turret',
-            TurretDualManipulators = false,
             
             TurretPitch = 20,
             TurretPitchRange = 50,
@@ -548,8 +543,6 @@ UnitBlueprint {
             
             RackRecoilDistance = -0.5,
 
-            RackSlavedToTurret = true,
-
             RateOfFire = 1,	    -- rate controlled by charge - 2 seconds = 2250dps
 			
             TargetCheckInterval = 2,
@@ -567,7 +560,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'gunbarrel05',
             TurretBonePitch = 'Front_Turret_Barrel04',
             TurretBoneYaw = 'Front_Turret01',
-            TurretDualManipulators = false,
             
             TurretPitch = 0,
             TurretPitchRange = 50,
@@ -638,11 +630,10 @@ UnitBlueprint {
             TurretBonePitch = 'lasergun01',
             TurretBoneYaw = 'lasergun01',
 			
-            TurretDualManipulators = false,
-			
             TurretPitch = 0,
             TurretPitchRange = 55,
             TurretPitchSpeed = 30,
+
             TurretYaw = 0,
             TurretYawRange = 120,
             TurretYawSpeed = 30,
@@ -704,7 +695,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'lasergunmuzzle02',
             TurretBonePitch = 'lasergun02',
             TurretBoneYaw = 'lasergun02',
-            TurretDualManipulators = false,
             
             TurretPitch = 0,
             TurretPitchRange = 55,
@@ -777,7 +767,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'frontaim',
             TurretBonePitch = 'head',
             TurretBoneYaw = 'head',
-            TurretDualManipulators = false,
             
             TurretPitch = 0,
             TurretPitchRange = 30,

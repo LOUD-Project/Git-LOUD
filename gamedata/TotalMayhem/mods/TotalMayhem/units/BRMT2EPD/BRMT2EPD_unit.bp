@@ -200,11 +200,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0303_Disintegrator',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0303_Disintegrator', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_LowArc',
@@ -214,7 +210,7 @@ UnitBlueprint {
                     Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 0.7,
+                    Duration = 0.6,
                     Radius = 0.5,
                     TargetAllow = 'LAND,NAVAL,TECH1,TECH2',
                     TargetDisallow = 'WALL,COMMAND,AIR,TECH3,EXPERIMENTAL',
@@ -238,6 +234,7 @@ UnitBlueprint {
             Label = 'MainGun',
 			
 			LeadTarget = true,
+
             MaxRadius = 50,
             MinRadius = 3,
 
@@ -260,8 +257,6 @@ UnitBlueprint {
             },
             
             RackRecoilDistance = -0.5,
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -279,9 +274,12 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'Turret_Muzzle01',
             TurretBoneDualPitch = 'Turret_Barrel01',
+
             TurretBoneMuzzle = 'Turret_Muzzle02',
             TurretBonePitch = 'Turret_Barrel02',
+
             TurretBoneYaw = 'Turret',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 0,

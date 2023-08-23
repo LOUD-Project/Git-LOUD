@@ -198,8 +198,6 @@ UnitBlueprint {
             },
             
             RackRecoilDistance = -2,
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -218,7 +216,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle',
             TurretBonePitch = 'Turret_Recoil',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 45,

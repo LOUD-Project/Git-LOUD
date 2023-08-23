@@ -222,8 +222,6 @@ UnitBlueprint {
                 },
             },
 
-            RackSlavedToTurret = true,
-
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1,	-- 200 DPS - once every 2 seconds controlled by charge
@@ -242,7 +240,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'aim',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret01',
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 40,

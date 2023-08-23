@@ -194,7 +194,6 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed|Air',
             },
 			
-            FiringRandomness = 0,
             FiringTolerance = 1,
 			
             Label = 'MainGun',
@@ -207,8 +206,6 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -229,7 +226,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle01',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 70,

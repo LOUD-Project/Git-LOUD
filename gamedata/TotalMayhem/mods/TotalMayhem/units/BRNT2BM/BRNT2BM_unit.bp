@@ -209,12 +209,14 @@ UnitBlueprint {
 			
             Label = 'rocket',
 			
-            MaxRadius = 36,
+            MaxRadius = 38,
 			MinRadius = 8,
 			
-            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 16,
+            MuzzleVelocity = 19,
+            
+            NotExclusive = true,
 
             ProjectileId = '/mods/TotalMayhem/projectiles/BRNT3BTRLproj/BRNT3BTRLproj_proj.bp',
             ProjectileLifetime = 3,
@@ -235,16 +237,13 @@ UnitBlueprint {
                     RackBone = 'rocketlauncher01',
                 },
             },
-
             RackFireTogether = true,
-
-            RackSalvoSize = 1,
 
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.08,	-- 16dps
+            RateOfFire = 0.1,	-- 20dps
 			RenderFireClock = true,
 			
             TargetCheckInterval = 2.5,
@@ -288,7 +287,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 20,
+            Damage = 6,
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -299,7 +298,7 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed|Air',
             },
 			
-			FiringRandomness = 0.6,
+			FiringRandomness = 0.3,
 			FiringRandomnessWhileMoving = 1.1,
             FiringTolerance = 1,
 			
@@ -307,9 +306,13 @@ UnitBlueprint {
 			
             MaxRadius = 32,
 
+            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoSize = 4,
             MuzzleVelocity = 46,
 			
 			NoPause = true,
+            
+            NotExclusive = true,
 
             ProjectileId = '/projectiles/TDFHeavyPlasmaGatlingCannon01/TDFHeavyPlasmaGatlingCannon01_proj.bp', --'/projectiles/TDPhalanx01/TDPhalanx01_proj.bp',
 			ProjectileLifetime = 0.9,
@@ -323,6 +326,87 @@ UnitBlueprint {
                     MuzzleBones = {'minigunmuzzle01'},
                     RackBone = 'minigun01',
                 },
+            },
+            RackFireTogether = true,
+
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1,	-- we get 48dps
+			
+            TargetCheckInterval = 0.3,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,WALL',
+            TrackingRadius = 1.05,
+			
+            TurretBoneDualMuzzle = 'minigunmuzzle',
+            TurretBoneDualPitch = 'minigun',
+			
+            TurretBoneMuzzle = 'minigunmuzzle01',
+            TurretBonePitch = 'minigun01',
+			
+            TurretBoneYaw = 'arm',
+			
+            TurretDualManipulators = true,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 65,
+            TurretPitchSpeed = 45,
+			
+            TurretYaw = 0,
+            TurretYawRange = 4,
+            TurretYawSpeed = 20,
+			
+            Turreted = true,
+        },
+		{
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XEL_Weapons',
+                    Cue = 'XEB2306_Gatling_Gun',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 6,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Gauss Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed|Air',
+                Water = 'Land|Water|Seabed|Air',
+            },
+			
+			FiringRandomness = 0.3,
+			FiringRandomnessWhileMoving = 1.1,
+            FiringTolerance = 1,
+			
+            Label = 'gatling',
+			
+            MaxRadius = 32,
+
+            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoSize = 4,
+            MuzzleVelocity = 46,
+			
+			NoPause = true,
+            
+            NotExclusive = true,
+
+            ProjectileId = '/projectiles/TDFHeavyPlasmaGatlingCannon01/TDFHeavyPlasmaGatlingCannon01_proj.bp',
+			ProjectileLifetime = 0.9,
+
+            RackBones = {
                 {
                     MuzzleBones = {'minigunmuzzle02'},
                     RackBone = 'minigun02',
@@ -338,7 +422,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,	-- we get 80dps
+            RateOfFire = 1,	-- we get 48dps
 			
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -349,13 +433,13 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,WALL',
             TrackingRadius = 1.05,
 			
-            TurretBoneDualMuzzle = 'minigunmuzzle',
-            TurretBoneDualPitch = 'arm',
+            TurretBoneDualMuzzle = 'minigunmuzzle02',
+            TurretBoneDualPitch = 'minigun02',
 			
             TurretBoneMuzzle = 'minigunmuzzle03',
-            TurretBonePitch = 'arm01',
+            TurretBonePitch = 'minigun03',
 			
-            TurretBoneYaw = 'Turret',
+            TurretBoneYaw = 'arm01',
 			
             TurretDualManipulators = true,
 			
@@ -364,11 +448,11 @@ UnitBlueprint {
             TurretPitchSpeed = 45,
 			
             TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 45,
+            TurretYawRange = 4,
+            TurretYawSpeed = 20,
 			
             Turreted = true,
-        },
+        },        
     },
 	
     Wreckage = {

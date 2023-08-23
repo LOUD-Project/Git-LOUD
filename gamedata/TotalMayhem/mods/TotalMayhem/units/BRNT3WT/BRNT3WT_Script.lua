@@ -37,17 +37,15 @@ BRNT3WT = Class(TLandUnit) {
 				
   	            for k, v in self.FxVentEffect do
 				
-                    CreateAttachedEmitter(self.unit, 'vent01', army, v):ScaleEmitter(0.5)
+                    CreateAttachedEmitter(self.unit, 'vent01', army, v):ScaleEmitter(0.4)
                     CreateAttachedEmitter(self.unit, 'vent02', army, v):ScaleEmitter(0.2)
-                    CreateAttachedEmitter(self.unit, 'vent03', army, v):ScaleEmitter(0.5)
-                    CreateAttachedEmitter(self.unit, 'vent04', army, v):ScaleEmitter(0.2)
                 end
 				
   	            for k, v in self.FxVentEffect2 do
 				
                     CreateAttachedEmitter(self.unit, 'aim', army, v):ScaleEmitter(0.4)
-                    CreateAttachedEmitter(self.unit, 'vent03', army, v):ScaleEmitter(0.5)
-                    CreateAttachedEmitter(self.unit, 'vent04', army, v):ScaleEmitter(0.5)
+                    CreateAttachedEmitter(self.unit, 'vent03', army, v):ScaleEmitter(0.4)
+                    CreateAttachedEmitter(self.unit, 'vent04', army, v):ScaleEmitter(0.4)
 					
                 end
             end, 

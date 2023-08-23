@@ -198,8 +198,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -1,
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -218,7 +216,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 45,
@@ -233,10 +230,13 @@ UnitBlueprint {
 		
 		{
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Missile_Nanite', LodCutoff = 'Weapon_LodCutoff' },
+                Fire = Sound { Bank = 'TM_CYBRANWEAPONS', Cue = 'CYBRANMADCATROCKETFX', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
+
             Buffs = {
             	{
                     Add = { OnImpact = true },
@@ -252,7 +252,7 @@ UnitBlueprint {
 			
             Damage = 25,
 			DamageFriendly = true,
-            DamageRadius = 1.5,
+            DamageRadius = 1.4,
             DamageType = 'Normal',
 			
             DisplayName = 'Chaos Rocket Pack',
@@ -264,13 +264,15 @@ UnitBlueprint {
             FiringTolerance = 1,
             
             FiringRandomness = 1.9,
-            FiringRandomnessWhileMoving = 2.3,
+            FiringRandomnessWhileMoving = 2.8,
 			
             Label = 'rocket',
 			
             MaxRadius = 42,
+
             MuzzleSalvoDelay = 0.05,
             MuzzleSalvoSize = 6,	-- 6 rockets per rack
+
             MuzzleVelocity = 18,
 
 			NotExclusive = true,
@@ -306,10 +308,6 @@ UnitBlueprint {
             },
 			
             RackFireTogether = true,
-
-            RackSalvoSize = 1,
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			

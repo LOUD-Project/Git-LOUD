@@ -218,7 +218,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 80,
+            Damage = 100,
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -238,7 +238,7 @@ UnitBlueprint {
 			
             MaxRadius = 39,
 
-            MuzzleVelocity = 40,
+            MuzzleVelocity = 45,
             
             NotExclusive = true,
 			
@@ -258,7 +258,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1.5,	-- 120 dps
+            RateOfFire = 2,	-- 200 dps
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -272,18 +272,22 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'topgun01muzzle',
             TurretBoneDualPitch = 'shouldergun01',
+
             TurretBoneMuzzle = 'topgun02muzzle',
-			
             TurretBonePitch = 'shouldergun02',
+
             TurretBoneYaw = 'Turret',
 			
             TurretDualManipulators = true,
+
             TurretPitch = 0,
             TurretPitchRange = 45,
             TurretPitchSpeed = 60,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 16,
+
             Turreted = true,
 		},
         {
@@ -296,10 +300,41 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_LowArc',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.6,
+                    Radius = 1.5,
+                    TargetAllow = 'LAND,NAVAL,TECH1',
+                    TargetDisallow = 'WALL',
+                },
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.5,
+                    Radius = 1.0,
+                    TargetAllow = 'LAND,NAVAL,TECH2',
+                    TargetDisallow = 'WALL',
+                },
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.3,
+                    Radius = 1.0,
+                    TargetAllow = 'LAND,NAVAL,TECH3',
+                    TargetDisallow = 'WALL',
+                },
+            },			
+     
             CollideFriendly = false,
 			
-            Damage = 900,
-            DamageRadius = 1,
+            Damage = 740,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -317,7 +352,7 @@ UnitBlueprint {
 			
             MaxRadius = 36,
 
-            MuzzleVelocity = 45,
+            MuzzleVelocity = 40,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRNT3ABBproj/BRNT3ABBproj_proj.bp',
 
@@ -335,8 +370,11 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.5,	-- 450dps
-			
+            RateOfFire = 0.5,	-- 370dps
+
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 8,
+
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
@@ -350,10 +388,12 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'gunmuzzle02',
             TurretBoneDualPitch = 'gunbarrel01',
+
             TurretBoneMuzzle = 'gunmuzzle01',
-			
             TurretBonePitch = 'gunbarrel02',
+
             TurretBoneYaw = 'Turret',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 0,
@@ -361,8 +401,9 @@ UnitBlueprint {
             TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 16,
+            TurretYawRange = 5,
+            TurretYawSpeed = 30,
+
             Turreted = true,
 		},
     },
@@ -371,7 +412,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.7,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

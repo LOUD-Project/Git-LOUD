@@ -186,13 +186,11 @@ UnitBlueprint {
             DamageFriendly = true,
             DamageRadius = 3.55,
             DamageType = 'Normal',
-			
-            DisplayName = 'Heavy Rockets',
             
             EnergyChargeForFirstShot = false,
             
             EnergyRequired = 14440,
-            EnergyDrainPerSecond = 1900,     -- 7.6 seconds to charge
+            EnergyDrainPerSecond = 1900,            -- 7.6 seconds E event
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -207,14 +205,14 @@ UnitBlueprint {
             MaxRadius = 107,
             MinRadius = 24,
 			
-            MuzzleChargeDelay = 0.6,         -- not counted against cycle
+            MuzzleChargeDelay = 0.8,         -- 3.2 (followed by 3.3 pack - during E event)
 
             MuzzleVelocity = 23.5,
-            MuzzleVelocityRandom = 1.5,
-			MuzzleVelocityReduce = 40,
+            MuzzleVelocityRandom = 0.3,
+			MuzzleVelocityReduceDistance = 100,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRNT3PDROproj/BRNT3PDROproj_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 8,
+            ProjectileLifetimeUsesMultiplier = 7,
 			
             RackBones = {
                 {
@@ -228,13 +226,13 @@ UnitBlueprint {
                 },
             },
 
-            RackSalvoChargeTime = 0.1,      -- does unpack seq -- 3.4
+            RackSalvoReloadTime = 1.2,      -- (E event 1.1)        -- 0.1
 
-            RackSalvoReloadTime = 2.1,        -- reload after fire (charge ends here) -- .1
+            RackSalvoChargeTime = 0.1,      -- (unpack 3.3 first)   -- 3.4 total 
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,	-- 4000 Dmg every 10.9 = 367 DPS  -- controlled by charge --
+            RateOfFire = 1,	-- 4000 Dmg every 11.1 = 360 DPS  -- controlled by charge/delay --
 			
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -250,7 +248,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'muzzle03',
             TurretBonePitch = 'barrel01',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 45,

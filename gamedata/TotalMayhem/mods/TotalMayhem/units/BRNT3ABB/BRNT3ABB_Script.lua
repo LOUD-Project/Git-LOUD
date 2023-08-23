@@ -7,8 +7,10 @@ local TDFGaussCannonWeapon = WeaponsFile.TDFLandGaussCannonWeapon
 BRNT3ABB = Class(TWalkingLandUnit) {
 
     Weapons = {
-        topguns = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 1.0 },
-        guns = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 1.0 },
+
+        topguns = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0.25 },
+
+        guns = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0.45 },
     },
 }
 

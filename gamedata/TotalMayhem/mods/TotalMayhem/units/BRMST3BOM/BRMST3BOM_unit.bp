@@ -284,6 +284,7 @@ UnitBlueprint {
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 140,
+
             TargetCheckInterval = 2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -296,8 +297,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Muzzle02',
             TurretBonePitch = 'Front_Turret_Barrel02',
             TurretBoneYaw = 'Front_Turret',
-			
-            TurretDualManipulators = false,
 			
             TurretPitch = 30,
             TurretPitchRange = 45,
@@ -390,8 +389,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Muzzle02',
             TurretBonePitch = 'Back_Turret_Barrel02',
             TurretBoneYaw = 'Back_Turret',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 30,
             TurretPitchRange = 45,
             TurretPitchSpeed = 10,
@@ -475,8 +473,6 @@ UnitBlueprint {
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.5,	-- 450 DPS
-			
-            SlavedToBody = false,
 
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -489,7 +485,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Muzzle06',
             TurretBonePitch = 'Front_Turret_Barrel06',
             TurretBoneYaw = 'Front_Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 20,
             TurretPitchRange = 90,
@@ -550,8 +545,6 @@ UnitBlueprint {
                 },
             },
 
-            RackSlavedToTurret = true,
-
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,		-- 120 DPS Air
@@ -570,7 +563,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Barrel_AA',
             TurretBonePitch = 'Front_Barrel_AA',
             TurretBoneYaw = 'Front_Turret_AA',
-            TurretDualManipulators = false,
 			
             TurretPitch = 45,
             TurretPitchRange = 90,
@@ -630,8 +622,6 @@ UnitBlueprint {
                 },
             },
 
-            RackSlavedToTurret = true,
-
             RateOfFire = 2,		-- 120 DPS Air
 
             TargetCheckInterval = 0.3,
@@ -648,7 +638,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Barrel_AA',
             TurretBonePitch = 'Back_Barrel_AA',
             TurretBoneYaw = 'Back_Turret_AA',
-			TurretDualManipulators = false,
 			
             TurretPitch = 45,
             TurretPitchRange = 90,
@@ -789,7 +778,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Muzzle02',
             TurretBonePitch = 'Left_Turret01',
             TurretBoneYaw = 'Left_Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -856,7 +844,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Muzzle02',
             TurretBonePitch = 'Right_Turret',
             TurretBoneYaw = 'Right_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,

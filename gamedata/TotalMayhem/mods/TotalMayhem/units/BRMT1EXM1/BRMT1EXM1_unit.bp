@@ -233,8 +233,6 @@ UnitBlueprint {
             },
 
             RackReloadTimeout = 10,
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -254,18 +252,22 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'lefthand_muzzle1',
             TurretBoneDualPitch = 'gun01',
+
             TurretBoneMuzzle = 'righthand_muzzle1',
             TurretBonePitch = 'gun02',
+
             TurretBoneYaw = 'Turret',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 0,
             TurretPitchRange = 70,
             TurretPitchSpeed = 35,
+
             TurretYaw = 0,
-			
             TurretYawRange = 180,
             TurretYawSpeed = 48,
+
             Turreted = true,
 		},
     },

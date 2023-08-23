@@ -208,8 +208,8 @@ UnitBlueprint {
             MaxRadius = 48,
 			MinRadius = 10,
 			
-            MuzzleSalvoDelay = 0.6,
-            MuzzleSalvoSize = 4,
+            MuzzleChargeDelay = 0.6,
+
             MuzzleVelocity = 18,
             MuzzleVelocityRandom = 0.5,
 			MuzzleVelocityReduceDistance = 48,
@@ -242,8 +242,6 @@ UnitBlueprint {
 
             RackFireTogether = true,
 
-            RackSalvoSize = 1,
-			
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
@@ -314,6 +312,8 @@ UnitBlueprint {
             MuzzleVelocity = 42,
 			MuzzleVelocityRandom = 3,
 			
+            NotExclusive = true,			
+			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRNT3BTproj/BRNT3BTproj_proj.bp',
 			ProjectileLifetime = 1,			
 
@@ -327,8 +327,6 @@ UnitBlueprint {
                 },
             },
             RackRecoilDistance = -3,
-			
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -347,7 +345,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'stikkflamme',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 60,

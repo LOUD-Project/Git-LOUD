@@ -155,6 +155,7 @@ UnitBlueprint {
     Weapon = {
 		{
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 Fire = Sound { Bank = 'XEL_Weapons', Cue = 'XEB2306_Gatling_Gun', LodCutoff = 'Weapon_LodCutoff' },
             },
@@ -180,7 +181,8 @@ UnitBlueprint {
             MaxRadius = 34,
 			
             MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 10,
+            MuzzleSalvoSize = 8,
+
             MuzzleVelocity = 42,
 			
             ProjectileId = '/projectiles/TDFHeavyPlasmaGatlingCannon01/TDFHeavyPlasmaGatlingCannon01_proj.bp',
@@ -193,13 +195,9 @@ UnitBlueprint {
                 },
             },
             
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 1,
-            RackSalvoReloadTime = 2,
-            RackSalvoSize = 1,
+            RackSalvoChargeTime = 0.2,
+            RackSalvoReloadTime = 0.6,
 
-            RackSlavedToTurret = true,
-			
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1,
@@ -215,13 +213,9 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.05,
 			
-            TurretBoneDualMuzzle = 'Turret_Muzzle_Right02',
-            TurretBoneDualPitch = 'minigun02',
-			
             TurretBoneMuzzle = 'Turret_Muzzle_Right02',
             TurretBonePitch = 'minigun02',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = true,
 
             TurretPitch = 0,
             TurretPitchRange = 75,
@@ -232,9 +226,17 @@ UnitBlueprint {
             TurretYawSpeed = 45,
 
             Turreted = true,
+            
+            WeaponUnpacks = true,
         },
+
 		{
             AboveWaterTargetsOnly = true,
+
+            Audio = {
+                Fire = Sound { Bank = 'XEL_Weapons', Cue = 'XEB2306_Gatling_Gun', LodCutoff = 'Weapon_LodCutoff' },
+            },
+
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -254,7 +256,8 @@ UnitBlueprint {
             MaxRadius = 34,
 			
             MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 10,
+            MuzzleSalvoSize = 8,
+
             MuzzleVelocity = 42,
 
             ProjectileId = '/projectiles/TDFHeavyPlasmaGatlingCannon01/TDFHeavyPlasmaGatlingCannon01_proj.bp',
@@ -266,15 +269,15 @@ UnitBlueprint {
                     RackBone = 'minigun01',
                 },
             },
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 1,
-            RackSalvoReloadTime = 2,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = true,
+
+            RackSalvoChargeTime = .2,
+            RackSalvoReloadTime = .6,
 			
             RateOfFire = 1,
-			
+
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 3,
+            
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
@@ -286,23 +289,24 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
             TrackingRadius = 1.05,
 
-            TurretBoneDualMuzzle = 'Turret_Muzzle_Left02',
-            TurretBoneDualPitch = 'minigun01',
             TurretBoneMuzzle = 'Turret_Muzzle_Left02',
             TurretBonePitch = 'minigun01',
-            TurretBoneYaw = 'Turret',
-            TurretDualManipulators = true,
+
+            TurretBoneYaw = 'minigun01',
 
             TurretPitch = 0,
             TurretPitchRange = 75,
             TurretPitchSpeed = 45,
 
             TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 45,
+            TurretYawRange = 3,
+            TurretYawSpeed = 30,
 
             Turreted = true,
+            
+            WeaponUnpacks = true,
         },
+        
     },
 
     Wreckage = {

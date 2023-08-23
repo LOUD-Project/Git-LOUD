@@ -8,8 +8,8 @@ BRNT2BM = Class(TWalkingLandUnit) {
 
     Weapons = {
 	
-        rocket = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0.5 },
-        gatling = Class(TAMPhalanxWeapon) {},
+        rocket = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0.3 },
+        gatling = Class(TAMPhalanxWeapon) { FxMuzzleFlashScale = 0.25 },
 
     },
 }

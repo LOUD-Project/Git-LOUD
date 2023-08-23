@@ -176,7 +176,7 @@ UnitBlueprint {
                     },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 0.5,
+                    Duration = 0.4,
                     Radius = 1,
                     TargetAllow = 'LAND,NAVAL,TECH1,TECH2',
                     TargetDisallow = 'WALL,COMMAND,EXPERIMENTAL',
@@ -196,7 +196,7 @@ UnitBlueprint {
 			
             FiringTolerance = 1,
             FiringRandomness = 1.5,
-			FiringRandomnessWhileMoving = 4.5,
+			FiringRandomnessWhileMoving = 3.5,
 			
             Label = 'rocket',
 			
@@ -205,8 +205,9 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 6,
+
             MuzzleVelocity = 15,
-            MuzzleVelocityRandomness = 2.5,
+            MuzzleVelocityRandom = 0.5,
 			
 			NotExclusive = true,
 			
@@ -237,10 +238,7 @@ UnitBlueprint {
                     RackBone = 'rocketlauncher2',
                 },
             },
-
             RackFireTogether = true,
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -260,9 +258,12 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'rl01',
             TurretBoneDualPitch = 'rocketlauncher',
+
             TurretBoneMuzzle = 'rl07',
             TurretBonePitch = 'rocketlauncher2',
+
             TurretBoneYaw = 'Turret',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 0,
@@ -314,8 +315,6 @@ UnitBlueprint {
             },
             
             RackRecoilDistance = -1,
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -334,7 +333,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 45,

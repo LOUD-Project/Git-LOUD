@@ -9,14 +9,16 @@ BRNT1EXPD = Class(TStructureUnit) {
     Weapons = {
 	
         gatling1 = Class(TAMPhalanxWeapon) {
-		
+
+            FxMuzzleFlashScale = 0.3,		
+
             PlayFxWeaponUnpackSequence = function(self)
                 if not self.SpinManip then 
-                    self.SpinManip = CreateRotator(self.unit, 'spinner02', 'z', nil, 180, 180, 60)
+                    self.SpinManip = CreateRotator(self.unit, 'spinner02', 'z', nil, 180, 360, 0)
                     self.unit.Trash:Add(self.SpinManip)
                 end
                 if self.SpinManip then
-                    self.SpinManip:SetTargetSpeed(180)
+                    self.SpinManip:SetTargetSpeed(360)
                 end
                 TAMPhalanxWeapon.PlayFxWeaponUnpackSequence(self)
             end,
@@ -31,15 +33,17 @@ BRNT1EXPD = Class(TStructureUnit) {
         },
 
         gatling2 = Class(TAMPhalanxWeapon) {
+        
+            FxMuzzleFlashScale = 0.3,
 		
             PlayFxWeaponUnpackSequence = function(self)
 			
                 if not self.SpinManip then 
-                    self.SpinManip = CreateRotator(self.unit, 'spinner01', 'z', nil, 180, 180, 60)
+                    self.SpinManip = CreateRotator(self.unit, 'spinner01', 'z', nil, -180, 360, 0)
                     self.unit.Trash:Add(self.SpinManip)
                 end
                 if self.SpinManip then
-                    self.SpinManip:SetTargetSpeed(180)
+                    self.SpinManip:SetTargetSpeed(-360)
                 end
 				
                 TAMPhalanxWeapon.PlayFxWeaponUnpackSequence(self)

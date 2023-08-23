@@ -54,8 +54,8 @@ UnitBlueprint {
     Defense = {
         AntiMissile = {
             AttachBone = 'rocketaim',
-            Radius = 6,
-            RedirectRateOfFire = 1,
+            Radius = 4.5,
+            RedirectRateOfFire = 0.8,
             ProjectileCategories = { 'TACTICAL MISSILE',},
         },
         
@@ -195,9 +195,6 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
-            Audio = {
-                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0111_Missile_Cruise', LodCutoff = 'Weapon_LodCutoff' },
-            },
 			
             BallisticArc = 'RULEUBA_LowArc',
 			
@@ -209,14 +206,15 @@ UnitBlueprint {
                     Duration = 0.5,
                     Radius = 1,
                     TargetAllow = 'LAND,NAVAL',
-                    TargetDisallow = 'WALL,COMMAND,EXPERIMENTAL',
+                    TargetDisallow = 'WALL,COMMAND,EXPERIMENTAL,SUBCOMMANDER',
                 },
             },			
 
             CollideFriendly = false,
 			
             Damage = 150,
-            DamageRadius = 2.0,
+			DamageFriendly = true,
+            DamageRadius = 1.8,
             DamageType = 'Normal',
 			
             DisplayName = 'Chaos Rockets',
@@ -226,24 +224,24 @@ UnitBlueprint {
             },
 			
             FiringTolerance = 1,
-            FiringRandomness = 0.75,
+            FiringRandomness = 1.5,
 			FiringRandomnessWhileMoving = 3.0,
 			
             Label = 'Rockets',
 			
-            MaxRadius = 52,
-            MinRadius = 10,
+            MaxRadius = 50,
+            MinRadius = 15,
 			
-            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 12,
 			
-            MuzzleVelocity = 21,
-            MuzzleVelocityRandom = 2,
+            MuzzleVelocity = 16,
+            MuzzleVelocityRandom = 0.3,
             
 			NotExclusive = true,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/cybranrocketproj/cybranrocket_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 3,
+            ProjectileId = '/mods/TotalMayhem/projectiles/cybranheavyrocketproj/cybranheavyrocket_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 4,
 			
             RackBones = {
                 {
@@ -264,14 +262,13 @@ UnitBlueprint {
                     RackBone = 'rocketlauncher01',
                 },
             },
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.10,	-- 180dps
 			
             TargetCheckInterval = 2.5,
+
             TargetPriorities = {
                 'EXPERIMENTAL',
                 'DEFENSE',
@@ -280,13 +277,11 @@ UnitBlueprint {
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.10,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'rocketaim',
             TurretBonePitch = 'rocketlauncher01',
             TurretBoneYaw = 'Turret',
-			
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 60,
@@ -298,7 +293,59 @@ UnitBlueprint {
 
             Turreted = true,
 		},
-		
+
+		{
+            AboveWaterTargetsOnly = true,
+
+            Audio = {
+                Fire = Sound { Bank = 'TM_CYBRANWEAPONS', Cue = 'BRMROBOTTALK1FX', LodCutoff = 'Weapon_LodCutoff' },
+            },
+
+            BallisticArc = 'RULEUBA_None',
+
+            CollideFriendly = false,
+			
+            Damage = 0,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Robot Talk',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water',
+            },
+			
+            FiringTolerance = 1,
+			
+            Label = 'robottalk',
+			
+            MaxRadius = 52,
+
+            MuzzleVelocity = 40,
+            
+            NotExclusive = true,
+			
+			PrefersPrimaryWeaponTarget = true,
+			
+            ProjectileId = '/mods/TotalMayhem/projectiles/NULLWEAPON/NULLWEAPON_proj.bp',
+
+            RackBones = {
+                {
+                    MuzzleBones = { 'AttachPoint' },
+                    RackBone = 'AttachPoint',
+                },
+            },
+			
+            RateOfFire = 0.05,
+			
+            TargetCheckInterval = 5,
+            TargetPriorities = {'ALLUNITS'},
+			
+            TargetRestrictDisallow = 'UNTARGETABLE',
+
+            Turreted = false,
+        },		
+
 		{
             AboveWaterTargetsOnly = true,
             Audio = {
@@ -348,8 +395,6 @@ UnitBlueprint {
             RackFireTogether = true,
 			
             RackRecoilDistance = -2,
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -370,8 +415,10 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'rightarm_muzzle01',
             TurretBoneDualPitch = 'armgun01',
+
             TurretBoneMuzzle = 'rightarm_muzzle',
             TurretBonePitch = 'armgun',
+
             TurretBoneYaw = 'Turret',
 			
             TurretDualManipulators = true,
@@ -397,7 +444,7 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_None',
-            BeamCollisionDelay = 0,
+            BeamCollisionDelay = 0.1,
             BeamLifetime = 0.2,
 			
             CollideFriendly = false,
@@ -489,77 +536,13 @@ UnitBlueprint {
             Turreted = true,
         },
 
-		{
-            AboveWaterTargetsOnly = true,
-            Audio = {
-                Fire = Sound {
-                    Bank = 'TM_CYBRANWEAPONS',
-                    Cue = 'BRMROBOTTALK1FX',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-            BallisticArc = 'RULEUBA_LowArc',
-            CollideFriendly = false,
-			
-            Damage = 0,
-            DamageRadius = 0,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Gauss Cannon',
-			
-            FireTargetLayerCapsTable = {
-                Land = 'Land|Water',
-            },
-			
-            FiringTolerance = 1,
-            FiringRandomness = 0.5,
-			
-            Label = 'robottalk',
-			
-            MaxRadius = 52,
-            MinRadius = 0,
-            
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            MuzzleVelocity = 40,
-            
-            NotExclusive = true,
-			
-			PrefersPrimaryWeaponTarget = true,
-			
-            ProjectileId = '/mods/TotalMayhem/projectiles/NULLWEAPON/NULLWEAPON_proj.bp',
-
-            RackBones = {
-                {
-                    MuzzleBones = { 'AttachPoint' },
-                    RackBone = 'AttachPoint',
-                },
-            },
-            
-            RackRecoilDistance = -2,
-
-            RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_AntiNavy',
-			
-            RateOfFire = 0.05,
-			
-            TargetCheckInterval = 5,
-            TargetPriorities = {
-                'ALLUNITS',
-            },
-			
-            TargetRestrictDisallow = 'UNTARGETABLE',
-
-            Turreted = false,
-        },
     },
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
-        HealthMult = 0.7,
-        MassMult = 0.6,
+        HealthMult = 0.75,
+        MassMult = 0.75,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

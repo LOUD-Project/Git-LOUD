@@ -218,33 +218,36 @@ UnitBlueprint {
             Damage = 880,
             DamageFriendly = true,
             DamageRadius = 3,
-            
             DamageType = 'Normal',
-            
+
+            EnergyChargeForFirstShot = false,            
+
             EnergyRequired = 14000,
-            EnergyDrainPerSecond = 1453,     -- 9.5 seconds to charge
+            EnergyDrainPerSecond = 1474,     -- 9.5 seconds to charge
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringTolerance = 1,
-            FiringRandomness = .75,
+            FiringTolerance = 0.6,
+            FiringRandomness = .65,
 			
-            Label = 'MainGun',
-            MaxRadius = 105,
-            MinRadius = 20,
+            Label = 'RocketPod',
+
+            MaxRadius = 107,
+            MinRadius = 24,
 			
-            MuzzleChargeDelay = 0.1,        -- .1 second muzzle delay
-            MuzzleSalvoDelay = 0.5,         -- 2.4 second firing cycle
-			
-            MuzzleSalvoSize = 6,
+            MuzzleChargeDelay = 0.1,
+            MuzzleSalvoDelay = 0.5,
+            MuzzleSalvoSize = 6,        -- firing cycle is 3.6 seconds
+
             MuzzleVelocity = 26.5,
-            MuzzleVelocityRandomness = 3.5,
+            MuzzleVelocityRandom = .6,
+            MuzzleVelocityReduceDistance = 40,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/cybranheavyrocketproj/cybranheavyrocket_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 4,
+            ProjectileLifetimeUsesMultiplier = 5,
 			
             RackBones = {
                 {
@@ -260,13 +263,11 @@ UnitBlueprint {
                 },
             },
  
-            RackSalvoReloadTime = 2,
-
-            RackSlavedToTurret = true,
+            RackSalvoReloadTime = 9.2,  -- E drain consumes 5.9 seconds -- 3.3 actual delay
 			
-            RangeCategory = 'UWRC_IndirectFire',
+            RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1, 	-- 5280 Dmg every 12 seconds = 440 DPS -- controlled by charge
+            RateOfFire = 1, 	-- 5280 Dmg every 12.8 seconds = 416 DPS -- controlled by delays and reload time
 			
             TargetCheckInterval = 5,
 			
@@ -274,11 +275,7 @@ UnitBlueprint {
                 'EXPERIMENTAL',
                 'DEFENSE',
                 'SPECIALHIGHPRI',
-                'SHIELD',
-                'ARTILLERY',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
-                'TECH3 MOBILE',
+                'MOBILE',
                 'ALLUNITS',
             },
             
@@ -288,15 +285,14 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle2',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 0,
             TurretPitchRange = 45,
-            TurretPitchSpeed = 13,
+            TurretPitchSpeed = 15,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 13,
+            TurretYawSpeed = 15,
 			
             Turreted = true,
         },

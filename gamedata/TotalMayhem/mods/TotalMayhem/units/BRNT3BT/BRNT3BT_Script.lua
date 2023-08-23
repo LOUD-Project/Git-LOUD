@@ -17,9 +17,7 @@ BRNT3BT = Class(TLandUnit) {
             FxMuzzleFlashScale = 1.0,
 			
             FxMuzzleFlash = { '/effects/emitters/proton_artillery_muzzle_01_emit.bp' }, 
-			
-			FxGroundEffect = EffectTemplate.ConcussionRingLrg01,
-			
+
 	        FxVentEffect = EffectTemplate.CDisruptorVentEffect,
 			
 	        FxVentEffect2 = EffectTemplate.WeaponSteam01,
@@ -30,24 +28,18 @@ BRNT3BT = Class(TLandUnit) {
 	        PlayFxMuzzleSequence = function(self, muzzle)
 			
 		        local army = self.unit:GetArmy()
-		        
-	            for k, v in self.FxGroundEffect do
-                    CreateAttachedEmitter(self.unit, 'BRNT3BT', army, v):ScaleEmitter(0.5)
-                end
 
   	            for k, v in self.FxVentEffect do
-                    CreateAttachedEmitter(self.unit, 'vent01', army, v):ScaleEmitter(0.5)
-                    CreateAttachedEmitter(self.unit, 'vent02', army, v):ScaleEmitter(0.5)
-                    CreateAttachedEmitter(self.unit, 'vent03', army, v):ScaleEmitter(0.5)
-                    CreateAttachedEmitter(self.unit, 'vent04', army, v):ScaleEmitter(0.5)
+                    CreateAttachedEmitter(self.unit, 'vent01', army, v):ScaleEmitter(0.4)
+                    CreateAttachedEmitter(self.unit, 'vent02', army, v):ScaleEmitter(0.4)
                 end
 				
   	            for k, v in self.FxVentEffect2 do
-                    CreateAttachedEmitter(self.unit, 'stikkflamme', army, v):ScaleEmitter(1.0)
+                    CreateAttachedEmitter(self.unit, 'stikkflamme', army, v):ScaleEmitter(0.5)
                 end
 				
 	            for k, v in self.FxVentEffect3 do
-                    CreateAttachedEmitter(self.unit, 'BRNT3BT', army, v):ScaleEmitter(0.5)
+                    CreateAttachedEmitter(self.unit, 'BRNT3BT', army, v):ScaleEmitter(0.3)
                 end				
 
   	            for k, v in self.FxMuzzleEffect do
@@ -57,7 +49,7 @@ BRNT3BT = Class(TLandUnit) {
             end, 
 		},
 		
-        rocket = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0.7	},
+        rocket = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0.5	},
 
     },
 }

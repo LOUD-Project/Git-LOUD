@@ -184,6 +184,8 @@ UnitBlueprint {
 			
             DisplayName = 'Rockets',
             
+            EnergyChargeForFirstShot = false,
+            
             EnergyRequired = 7850,
             EnergyDrainPerSecond = 785,     -- 10 seconds to charge
 
@@ -192,19 +194,19 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringTolerance = 2,
-            FiringRandomness = 1.2,
+            FiringTolerance = 1,
+            FiringRandomness = 0.8,
 			
             Label = 'MainGun',
 			
-            MaxRadius = 100,
+            MaxRadius = 102,
             MinRadius = 24,
 			
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 3,
 
             MuzzleVelocity = 23,
-            MuzzleVelocityRandom = 2.2,
+            MuzzleVelocityRandom = 0.7,
             MuzzleVelocityReduceDistance = 100,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BROT3PDROproj/BROT3PDROproj_proj.bp',
@@ -229,10 +231,6 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = true,
-            
-            RackReloadTimeout = 10,
-
-            RackSalvoReloadTime = 1.5,
 
             RackSlavedToTurret = true,
 			
@@ -257,8 +255,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle01',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 0,
             TurretPitchRange = 45,
             TurretPitchSpeed = 15,

@@ -57,6 +57,14 @@ UnitBlueprint {
     },
     
     Defense = {
+
+        AntiMissile = {
+            AttachBone = 'rocketaim',
+            Radius = 4.5,
+            RedirectRateOfFire = 0.8,
+            ProjectileCategories = { 'TACTICAL MISSILE',},
+        },
+
         ArmorType = 'Experimental',
         Health = 34000,
         MaxHealth = 34000,
@@ -69,6 +77,7 @@ UnitBlueprint {
     Display = {
         Abilities = {
             'Amphibious',
+			'Tactical Missile Redirection',
         },
 
         AnimationDeath = {
@@ -174,8 +183,8 @@ UnitBlueprint {
     },
     
     Intel = {
-        VisionRadius = 32,
-		WaterVisionRadius = 20,
+        VisionRadius = 34,
+		WaterVisionRadius = 24,
     },
     
     Interface = {
@@ -239,37 +248,31 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'TM_CYBRANWEAPONS',
-                    Cue = 'BRMT3VULTURELAUNCH',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'TM_CYBRANWEAPONS', Cue = 'CYBRANMADCATROCKETFX', LodCutoff = 'Weapon_LodCutoff' },
             },
             
             AutoInitiateAttackCommand = true,
             
             BallisticArc = 'RULEUBA_LowArc',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.5,
+                    Radius = 1,
+                    TargetAllow = 'LAND,NAVAL',
+                    TargetDisallow = 'WALL,COMMAND,EXPERIMENTAL,SUBCOMMANDER',
+                },
+            },			
             
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 2.5,
+            DamageRadius = 2.2,
             DamageType = 'Normal',
 			
             DisplayName = 'Rockets',
@@ -283,7 +286,7 @@ UnitBlueprint {
             FiringRandomness = 0.9,
 			FiringRandomnessWhileMoving = 1.8,
 			
-            Label = 'rocket1',
+            Label = 'rockets',
 			
             MaxRadius = 50,
             MinRadius = 0,
@@ -291,7 +294,7 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 10,
             MuzzleVelocity = 16,
-            MuzzleVelocityRandomness = 3.5,
+            MuzzleVelocityRandom = 0.5,
 			
 			NotExclusive = true,
 			
@@ -304,12 +307,10 @@ UnitBlueprint {
                     RackBone = 'rocketlauncher01',
                 },
             },
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.1,	-- 300dps
-			RenderFireClock = true,
 			
             TargetCheckInterval = 2.5,
 			
@@ -327,11 +328,10 @@ UnitBlueprint {
             TurretBoneMuzzle = 'rocketaim',
             TurretBonePitch = 'rocketlauncher01',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 0,
             TurretPitchRange = 65,
-            TurretPitchSpeed = 45,
+            TurretPitchSpeed = 25,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
@@ -339,14 +339,63 @@ UnitBlueprint {
 			
             Turreted = true,
  	    },
+
+		{
+            AboveWaterTargetsOnly = true,
+
+            Audio = {
+                Fire = Sound { Bank = 'TM_CYBRANWEAPONS', Cue = 'BRMROBOTTALK1FX', LodCutoff = 'Weapon_LodCutoff' },
+            },
+
+            BallisticArc = 'RULEUBA_None',
+
+            CollideFriendly = false,
+			
+            Damage = 0,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Robot Talk',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water',
+            },
+			
+            FiringTolerance = 1,
+			
+            Label = 'robottalk',
+			
+            MaxRadius = 50,
+
+            MuzzleVelocity = 40,
+            
+            NotExclusive = true,
+			
+			PrefersPrimaryWeaponTarget = true,
+			
+            ProjectileId = '/mods/TotalMayhem/projectiles/NULLWEAPON/NULLWEAPON_proj.bp',
+
+            RackBones = {
+                {
+                    MuzzleBones = { 'AttachPoint' },
+                    RackBone = 'AttachPoint',
+                },
+            },
+			
+            RateOfFire = 0.05,
+			
+            TargetCheckInterval = 5,
+            TargetPriorities = {'ALLUNITS'},
+			
+            TargetRestrictDisallow = 'UNTARGETABLE',
+
+            Turreted = false,
+        },		
+
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'TM_CYBRANWEAPONS',
-                    Cue = 'CYBRANVULTUREGUNFX1',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'TM_CYBRANWEAPONS', Cue = 'CYBRANVULTUREGUNFX1', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -365,11 +414,10 @@ UnitBlueprint {
             FiringRandomness = 0.25,
             FiringTolerance = 2,
 			
-            Label = 'righthandweapon',
+            Label = 'armweapon',
 			
             MaxRadius = 40,
 			
-            MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 45,
 			
@@ -387,15 +435,13 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -1.5,
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.8,	-- 240 dps
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 35,
+            SlavedToBodyArcRange = 24,
 			
             TargetCheckInterval = 0.5,
             
@@ -412,16 +458,15 @@ UnitBlueprint {
 			
             TurretBoneMuzzle = 'righthand_muzzle2',
             TurretBonePitch = 'Gun02',
-            TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
-			
+            TurretBoneYaw = 'Gun02',
+
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 45,
 			
             TurretYaw = 0,
-            TurretYawRange = 45,
-            TurretYawSpeed = 1,
+            TurretYawRange = 10,
+            TurretYawSpeed = 6,
 			
             Turreted = true,
  	    },
@@ -449,7 +494,7 @@ UnitBlueprint {
             FiringRandomness = 0.25,
             FiringTolerance = 2,
 			
-            Label = 'lefthandweapon',
+            Label = 'armweapon',
 			
             MaxRadius = 40,
 
@@ -472,12 +517,10 @@ UnitBlueprint {
 
             RackRecoilDistance = -1.5,
 
-            RackSlavedToTurret = true,
-
             RateOfFire = 0.80,	-- 240 dps
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 35,
+            SlavedToBodyArcRange = 12,
 			
             TargetCheckInterval = 0.5,
             
@@ -494,16 +537,15 @@ UnitBlueprint {
 			
             TurretBoneMuzzle = 'lefthand_muzzle2',
             TurretBonePitch = 'Gun01',
-            TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
-			
+            TurretBoneYaw = 'Gun01',
+
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 45,
 			
             TurretYaw = 0,
-            TurretYawRange = 45,
-            TurretYawSpeed = 1,
+            TurretYawRange = 10,
+            TurretYawSpeed = 6,
 			
             Turreted = true,
  	    },
@@ -556,12 +598,10 @@ UnitBlueprint {
                 },
             },
 
-            RackSlavedToTurret = true,
-
             RateOfFire = 3,	-- 60 dps
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 45,
+            SlavedToBodyArcRange = 12,
 			
             TargetCheckInterval = 0.5,
             
@@ -577,9 +617,12 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'mgmuzzle01',
             TurretBoneDualPitch = 'MachineGun01',
+
             TurretBoneMuzzle = 'mgmuzzle02',
             TurretBonePitch = 'MachineGun02',
+
             TurretBoneYaw = 'Turret',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 0,
@@ -587,8 +630,8 @@ UnitBlueprint {
             TurretPitchSpeed = 45,
 			
             TurretYaw = 0,
-            TurretYawRange = 45,
-            TurretYawSpeed = 45,
+            TurretYawRange = 10,
+            TurretYawSpeed = 10,
 			
             Turreted = true,
  	    },
