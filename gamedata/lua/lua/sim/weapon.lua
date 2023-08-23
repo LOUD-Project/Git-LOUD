@@ -724,7 +724,11 @@ Weapon = Class(moho.weapon_methods) {
     --If the weapon is enhabled by an enhancement, this will check to see if the unit has the enhancement before
     --allowing it to try to be enabled or disabled.
     SetWeaponEnabled = function(self, enable)
-	
+    
+        if ScenarioInfo.WeaponDialog then
+            LOG("*AI DEBUG Weapon "..repr(self.bp.Label).." SetWeaponEnabled "..repr(enable).." at "..GetGameTick() )
+        end
+        
         if not enable then
             self:SetEnabled(enable)
             return
