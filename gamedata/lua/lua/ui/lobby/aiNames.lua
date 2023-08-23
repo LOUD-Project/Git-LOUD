@@ -34,6 +34,7 @@ ainames = {
         "Maxon",
         "RD",
         "Stealth Panda",
+        "Snek Returns",
     },
     aeon = {
         "Albarel",
@@ -58,7 +59,9 @@ ainames = {
         "Azraelian",
         "Goober",
         "Ironhand",
+        "PhoenixMT",
         "Svend Ziderzee",
+        "SivCorp",
         "Tanksy",
         "Xavier 4 Eyes",
     },
@@ -76,7 +79,6 @@ ainames = {
         "Kijanka",
         "Kraglor",
         "M4h0n",
-        "Phoenix",
         "Rokion Era",
         "Sckricko",
         "Snooker",
@@ -88,9 +90,10 @@ ainames = {
         "Winter Knight",
         "Xahvres",
         "XShadowStormX",
+
         "LOUDNESS",
-        "Loudolo",
         "Doc Tater",
+        "Dohlinho",
         "Sprouto",
     },
     seraphim = { 
@@ -116,12 +119,13 @@ ainames = {
         "Zan-Uushen",
         "Zan-Uyalthow",
 
+        "Zan-Iguloid",
         "Oum-Zala",
         "Oum-Ayla",
         "Stash-Ullevash",
-        "Stash-Ushi",
+        "Stash-420",
         "Stash-Ushithow",
-        "Terhminate-Or",
+        "Terhm-Inator",
     },
     
 }
