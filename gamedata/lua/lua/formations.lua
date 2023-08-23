@@ -53,7 +53,8 @@ local AntiAir = ( categories.ANTIAIR - ( categories.EXPERIMENTAL + categories.DI
 local Artillery = ( categories.ARTILLERY + categories.INDIRECTFIRE - categories.ANTIAIR ) * categories.LAND
 local Construction = ( categories.COMMAND + categories.CONSTRUCTION + categories.ENGINEER ) * categories.LAND - categories.EXPERIMENTAL
 local DirectFire = (( categories.DIRECTFIRE - categories.CONSTRUCTION ) ) * categories.LAND
-local ShieldCat = categories.SHIELD + categories.ANTIMISSILE
+local ShieldCat = categories.SHIELD + (categories.ANTIMISSILE * categories.TECH2)
+local SMDCat = categories.ANTIMISSILE * categories.TECH3
 local UtilityCat = (( ( categories.RADAR + categories.COUNTERINTELLIGENCE ) - categories.DIRECTFIRE ) + categories.SCOUT) * categories.LAND
 
 local DFExp = DirectFire * categories.EXPERIMENTAL
@@ -79,23 +80,25 @@ local LandCategories = {
 
     Util = UtilityCat,
 
-    Shields = ShieldCat,		
+    Shields = ShieldCat,
+
+    SMDS = SMDCat,
 
     Experimentals = DFExp,
 
-    RemainingCategory = categories.LAND - ( DirectFire + Construction + Artillery + AntiAir + UtilityCat + DFExp + ShieldCat )
+    RemainingCategory = categories.LAND - ( DirectFire + Construction + Artillery + AntiAir + UtilityCat + DFExp + ShieldCat + SMDCat )
 }
 
 --=== SUB GROUP ORDERING ===#
-local Bots = { 'Bot3', 'Bot2', 'Bot1', }
-local Tanks = { 'Tank3', 'Tank2', 'Tank1', }
-local DF = { 'Tank3', 'Bot3', 'Tank2', 'Bot2', 'Tank1', 'Bot1',}
-local Art = { 'Art1', 'Art2', 'Art3', }
+local Bots = { 'Bot3', 'Bot2', 'Bot1' }
+local Tanks = { 'Tank3', 'Tank2', 'Tank1' }
+local DF = { 'Tank3', 'Bot3', 'Tank2', 'Bot2', 'Tank1', 'Bot1' }
+local Art = { 'Art1', 'Art2', 'Art3' }
 local AA = { 'AA' }
 local Util = { 'Util' }
 local Com = { 'Com' }
-local Shield = { 'Shields' }
-local Experimental = { 'Experimentals', }
+local Shield = { 'Shields','SMDS' }
+local Experimental = { 'Experimentals' }
 	
 --=== LAND BLOCK TYPES =#
 local DFFirst = { Experimental, DF, Art, AA, Shield, Com, Util, RemainingCategory }
