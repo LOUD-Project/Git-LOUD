@@ -16,30 +16,26 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'CYBRAN',
         'PROJECTILE',
         'DIRECTFIRE',
     },
+
     Display = {
         ImpactEffects = {
             Type = 'Medium02',
         },
-        StrategicIconSize = 3,
+        StrategicIconSize = 1,
     },
+
     General = {
-        Category = 'Direct Fire',
         EntityCategory = {
-            'CYBRAN',
             'PROJECTILE',
             'DIRECTFIRE',
         },
-        Faction = 'Cybran',
-        Weapon = 'Proton Cannon',
     },
-    Interface = {
-        HelpText = 0,
-    },
+
     Physics = {
         Acceleration = 0,
         DestroyOnWater = true,
@@ -50,6 +46,7 @@ ProjectileBlueprint {
         RotationalVelocityRange = 0,
         VelocityAlign = true,
     },
+
     SizeX = 0.01,
     SizeY = 0.01,
     SizeZ = 0.25,

@@ -16,14 +16,15 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'CYBRAN',
         'PROJECTILE',
         'DIRECTFIRE',
     },
+
     Display = {
         ImpactEffects = {
-            Scale = 0.5,
+            Scale = 0.4,
             Type = 'Large01',
         },
         Mesh = {
@@ -40,18 +41,12 @@ ProjectileBlueprint {
         UniformScale = 0.85,
     },
     General = {
-        Category = 'Direct Fire',
         EntityCategory = {
-            'CYBRAN',
             'PROJECTILE',
             'DIRECTFIRE',
         },
-        Faction = 'Cybran',
-        Weapon = 'Iridium Rocket Pack',
     },
-    Interface = {
-        HelpText = 0,
-    },
+
     Physics = {
         Acceleration = 0,
         DestroyOnWater = true,

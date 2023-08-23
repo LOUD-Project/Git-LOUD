@@ -16,11 +16,12 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'UEF',
         'PROJECTILE',
         'DIRECTFIRE',
     },
+
     Display = {
         ImpactEffects = {
             Scale = 0.35,
@@ -28,19 +29,14 @@ ProjectileBlueprint {
         },
         StrategicIconSize = 1,
     },
+
     General = {
-        Category = 'Direct Fire',
         EntityCategory = {
-            'CYBRAN',
             'PROJECTILE',
             'DIRECTFIRE',
         },
-        Faction = 'Cybran',
-        Weapon = 'Light Plasma Cannon',
     },
-    Interface = {
-        HelpText = 0,
-    },
+
     Physics = {
         DestroyOnWater = true,
         InitialSpeed = 22,

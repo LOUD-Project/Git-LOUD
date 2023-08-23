@@ -16,32 +16,29 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'AEON',
         'PROJECTILE',
         'DIRECTFIRE',
     },
+
     Display = {
         ImpactEffects = {
-            Scale = 0.5,
+            Scale = 0.4,
             Type = 'Large01',
         },
         StrategicIconSize = 1,
-        UniformScale = 3.5,
+        UniformScale = 2,
     },
+
     General = {
-        Category = 'Direct Fire',
         EntityCategory = {
             'AEON',
             'PROJECTILE',
             'DIRECTFIRE',
         },
-        Faction = 'UEF',
-        Weapon = 'Iridium Rocket Pack',
     },
-    Interface = {
-        HelpText = 0,
-    },
+
     Physics = {
         Acceleration = 0,
         DestroyOnWater = true,

@@ -16,28 +16,26 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'AEON',
         'PROJECTILE',
         'DIRECTFIRE',
     },
+
     Display = {
         ImpactEffects = {
-
-            # ##Type = 'Small01',
             Type = 'Medium03',
         },
-        StrategicIconSize = 2,
+        StrategicIconSize = 1,
     },
+
     General = {
-        Category = 'Direct Fire',
-        Faction = 'Aeon',
-        TechLevel = 1,
-        Weapon = 'Ionized Plasma Gatling Cannon',
+        EntityCategory = {
+            'PROJECTILE',
+            'DIRECTFIRE',
+        },
     },
-    Interface = {
-        HelpText = 0,
-    },
+
     Physics = {
         DestroyOnWater = true,
         InitialSpeed = 14.6,

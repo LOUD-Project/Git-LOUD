@@ -16,27 +16,23 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'CYBRAN',
         'PROJECTILE',
         'DIRECTFIRE',
     },
+
     Display = {
-        StrategicIconSize = 2,
+        StrategicIconSize = 1,
     },
+
     General = {
-        Category = 'Direct Fire',
         EntityCategory = {
-            'CYBRAN',
             'PROJECTILE',
             'DIRECTFIRE',
         },
-        Faction = 'Cybran',
-        Weapon = 'Molecular Ripper Cannon',
     },
-    Interface = {
-        HelpText = 0,
-    },
+
     Physics = {
         DestroyOnWater = true,
         InitialSpeed = 20,

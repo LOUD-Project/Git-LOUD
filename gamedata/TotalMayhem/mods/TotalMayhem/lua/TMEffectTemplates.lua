@@ -1,8 +1,3 @@
-
-
-
---TableCat = import('/lua/utilities.lua').TableCat
-
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 local EmtBpPath = '/effects/emitters/'
@@ -22,7 +17,6 @@ CybranRocketFXTrail = EffectTemplate.CDisintegratorFxTrails01
 
 CybranHeavyRocketTrail = {
 	EmtBpPath .. 'electron_bolter_trail_02_emit.bp',
-	-- EmtBpPath .. 'default_polytrail_01_emit.bp', -- white trail
 	EmtBpPath .. 'disintegrator_polytrail_04_emit.bp' -- purple trail
 }
 CybranRocketHeavyTrailOffset = {0, 0}

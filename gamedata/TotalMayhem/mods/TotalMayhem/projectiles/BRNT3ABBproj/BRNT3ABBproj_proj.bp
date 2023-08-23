@@ -16,31 +16,27 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'UEF',
         'PROJECTILE',
         'DIRECTFIRE',
     },
+
     Display = {
         ImpactEffects = {
             Scale = 0.35,
-            Type = 'Small02',
+            Type = 'Large01',
         },
         StrategicIconSize = 1,
     },
+
     General = {
-        Category = 'Direct Fire',
         EntityCategory = {
-            'UEF',
             'PROJECTILE',
             'DIRECTFIRE',
         },
-        Faction = 'UEF',
-        Weapon = 'Light Plasma Cannon',
     },
-    Interface = {
-        HelpText = 0,
-    },
+
     Physics = {
         DestroyOnWater = true,
         InitialSpeed = 22,
