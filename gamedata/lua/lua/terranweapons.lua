@@ -303,7 +303,7 @@ TAMPhalanxWeapon = Class(DefaultProjectileWeapon) {
 		DefaultProjectileWeapon.PlayFxMuzzleSequence(self, muzzle)
         
 		for _, v in self.FxShellEject do
-            CreateAttachedEmitter(self.unit, bp.TurretBonePitch, army, v)
+            CreateAttachedEmitter(self.unit, bp.TurretBonePitch, army, v):ScaleEmitter(self.FxMuzzleFlashScale)
         end
     end,
 }
