@@ -1084,34 +1084,34 @@ Tooltips = {
 
     ["Lobby_UnusedResources"] = {
         title = "Unused Start Locations",
-        description = "Remove resources near unused Start Locations",
+        description = "Remove individual resources near unused Start Locations",
     },
     ["lob_UnusedResources_1"] = {
-        title = "Keep All",
+        title = "Keep All Resources",
         description = "Keep all resources at unused Start Locations",
     },
     ["lob_UnusedResources_2"] = {
-        title = "Keep 50%",
-        description = "50% chance that resources will be kept",
+        title = "Chance to keep 50%",
+        description = "50% chance that each resource will be kept",
     },
     ["lob_UnusedResources_3"] = {
-        title = "Keep 33%",
-        description = "33% chance that resources will be kept",
+        title = "Chance to keep 33%",
+        description = "33% chance that each resource will be kept",
     },
     ["lob_UnusedResources_4"] = {
-        title = "Keep 25%",
-        description = "25% chance that resources will be kept",
+        title = "Chance to keep 25%",
+        description = "25% chance that each resource will be kept",
     },
     ["lob_UnusedResources_5"] = {
-        title = "Keep 20%",
-        description = "20% chance that resources will be kept",
+        title = "Chance to keep 20%",
+        description = "20% chance that each resource will be kept",
     },
     ["lob_UnusedResources_10"] = {
-        title = "Keep 10%",
-        description = "10% chance that resources will be kept",
+        title = "Chance to keep 10%",
+        description = "10% chance that each resource will be kept",
     },
     ["lob_UnusedResources_100"] = {
-        title = "Remove All",
+        title = "Remove All Resources",
         description = "No start location resources will be kept",
     },
 
@@ -1165,15 +1165,15 @@ Tooltips = {
 
     Lobby_Gen_CheatsEnabled = {
         title = "Cheating",
-        description = "Enable or disable Cheats in the game",
+        description = "Enable or disable Cheats in the game. LOUD requires cheats to be ON to fully optimize the performance of the command queue and pathfinding parameters",
     },
     lob_CheatsEnabled_false = {
         title = 'Disable Cheats',
-        description = 'Disable all cheat functions',
+        description = 'Disable all cheat functions - disables some LOUD performance enhancements',
     },
     lob_CheatsEnabled_true = {
         title = 'Enable Cheats',
-        description = 'Enable cheat functions (reported to all players)',
+        description = 'Enable cheat functions (reported to all players) - used by LOUD',
     },
 
     -- **********************
@@ -1294,27 +1294,27 @@ Tooltips = {
 
     Lobby_ACT_Start_Delay = {
         title = "Timed Cheat Start Delay",
-        description = "If an AI cheats adaptively, this is the delay in minutes before any changes start happening.",
+        description = "If an AI cheats on a Timed basis, this is the delay in minutes before any changes start happening.",
     },
     Lobby_ACT_Time_Delay = {
         title = "Timed Cheat Delay",
-        description = "If an AI cheats more with time, this is the delay in minutes between each difficulty increase.",
+        description = "If an AI cheats on a Timed basis, this is the delay in minutes between each difficulty increase.",
     },
     Lobby_ACT_Time_Amount = {
         title = "Timed Cheat Amount",
-        description = "If an AI cheats more with time, this is how much the difficulty increases every interval. Can be negative.",
+        description = "If an AI cheats on a Timed basis, this is how much the difficulty increases every interval. Can be negative.",
     },
     Lobby_ACT_Time_Cap = {
         title = "Timed Cheat Limit",
-        description = "If an AI cheats more with time, its cheat multiplier cannot pass the selected number.",
+        description = "If an AI cheats on a Timed basis, the cheat multiplier cannot pass the selected value.",
     },
     Lobby_ACT_Ratio_Interval = {
         title = "Feedback Cheat Interval",
-        description = "If an AI is affected by feedback cheating, this is the time period in seconds between possible changes to its cheat multiplier. Increase for better performance.",
+        description = "If an AI cheats on a Feedback basis, this is the time period in seconds between possible changes to its cheat multiplier. ",
     },
     Lobby_ACT_Ratio_Scale = {
         title = "Feedback Cheat Scale",
-        description = "If an AI is affected by feedback cheating, this is the scale which affects the multiplier increase. At 1, the cheat will increase by a max of 0.5.",
+        description = "If an AI cheats on a Feedback basis, this is the value which limits the amount of AI cheat increase. At 1, the cheat will increase by a max of 0.5.",
     },
 
     -- **********************
