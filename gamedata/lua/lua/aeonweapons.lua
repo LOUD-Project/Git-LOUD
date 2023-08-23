@@ -575,7 +575,7 @@ AQuantumBeamGenerator = Class(DefaultBeamWeapon) {
 		local CreateAttachedEmitter = CreateAttachedEmitter
 		
         for k, v in self.FxUpackingChargeEffects do
-            for ek, ev in bp.RackBones[self.CurrentRackSalvoNumber].MuzzleBones do
+            for ek, ev in bp.RackBones[self.CurrentRackNumber].MuzzleBones do
                 CreateAttachedEmitter(self.unit, ev, army, v):ScaleEmitter(self.FxUpackingChargeEffectScale)
             end
         end
@@ -611,8 +611,8 @@ ADFPhasonLaser = Class(DefaultBeamWeapon) {
 			local CreateAttachedEmitter = CreateAttachedEmitter
 			
             for k, v in self.FxUpackingChargeEffects do
-				if bp.RackBones[self.CurrentRackSalvoNumber].MuzzleBones then
-					for ek, ev in bp.RackBones[self.CurrentRackSalvoNumber].MuzzleBones do
+				if bp.RackBones[self.CurrentRackNumber].MuzzleBones then
+					for ek, ev in bp.RackBones[self.CurrentRackNumber].MuzzleBones do
 						CreateAttachedEmitter(self.unit, ev, army, v):ScaleEmitter(self.FxUpackingChargeEffectScale)
 					end
 				end

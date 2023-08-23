@@ -69,7 +69,7 @@ DefaultProjectileWeapon = Class(Weapon) {
         Weapon.OnCreate(self)
 
         self.WeaponCanFire = true
-        self.CurrentRackSalvoNumber = 1
+        self.CurrentRackNumber = 1
         
         local bp = self.bp
 		
@@ -326,7 +326,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 		
         for _, v in self.FxRackChargeMuzzleFlash do
 		
-            for _, ev in bp.RackBones[self.CurrentRackSalvoNumber].MuzzleBones do
+            for _, ev in bp.RackBones[self.CurrentRackNumber].MuzzleBones do
 			
                 emit = LOUDATTACHEMITTER( unit, ev, army, v)
                 
@@ -379,13 +379,13 @@ DefaultProjectileWeapon = Class(Weapon) {
 		
         if bp.ShipRock == true then
 		
-            local ix,iy,iz = self.unit:GetBoneDirection(bp.RackBones[self.CurrentRackSalvoNumber].RackBone)
+            local ix,iy,iz = self.unit:GetBoneDirection(bp.RackBones[self.CurrentRackNumber].RackBone)
 			
             self.unit:RecoilImpulse(-ix,-iy,-iz)
         end
 		
         if bp.RackRecoilDistance and bp.RackRecoilDistance != 0 then
-            self:PlayRackRecoil({bp.RackBones[self.CurrentRackSalvoNumber]}, bp)
+            self:PlayRackRecoil({bp.RackBones[self.CurrentRackNumber]}, bp)
         end
     end,
 
@@ -771,9 +771,9 @@ DefaultProjectileWeapon = Class(Weapon) {
             
 			-- NOTE: This is setup so that it only works if there is more than 1 rack
             -- intended to force the reload rack process after a firing sequence
-            if LOUDGETN(bp.RackBones) > 1 and self.CurrentRackSalvoNumber > 1 then
+            if LOUDGETN(bp.RackBones) > 1 and self.CurrentRackNumber > 1 then
 
-                self.CurrentRackSalvoNumber = 1 
+                self.CurrentRackNumber = 1 
 
                 LOUDSTATE(self, self.RackSalvoReloadState)
 
@@ -1056,7 +1056,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 				self:DestroyRecoilManips()
 			end
 			
-            local numRackFiring = self.CurrentRackSalvoNumber
+            local numRackFiring = self.CurrentRackNumber
 		
 			local RacksToBeFired = LOUDGETN(bp.RackBones)
 			
@@ -1087,15 +1087,15 @@ DefaultProjectileWeapon = Class(Weapon) {
             local WaitSeconds = WaitSeconds
 
             -- Most of the time this will only run once per rack, the only time it doesn't is when racks fire together.
-            while self.CurrentRackSalvoNumber <= numRackFiring and not self.HaltFireOrdered do
+            while self.CurrentRackNumber <= numRackFiring and not self.HaltFireOrdered do
  			
-                rackInfo = bp.RackBones[self.CurrentRackSalvoNumber]
+                rackInfo = bp.RackBones[self.CurrentRackNumber]
             
                 if ScenarioInfo.WeaponStateDialog then
-                    LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State "..repr(bp.Label).." - PREPARING RACK "..self.CurrentRackSalvoNumber.." "..repr(rackInfo.RackBone) )
+                    LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State "..repr(bp.Label).." - PREPARING RACK "..self.CurrentRackNumber.." "..repr(rackInfo.RackBone) )
                 end
 
-				MuzzlesToBeFired = LOUDGETN(bp.RackBones[self.CurrentRackSalvoNumber].MuzzleBones)
+				MuzzlesToBeFired = LOUDGETN(bp.RackBones[self.CurrentRackNumber].MuzzleBones)
                 numMuzzlesFiring = bp.MuzzleSalvoSize or 1
 
                 -- this is a highly questionable statement since it always overrides the MuzzleSalvoSize
@@ -1120,7 +1120,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                     muzzle = rackInfo.MuzzleBones[muzzleIndex]
             
                     if ScenarioInfo.WeaponStateDialog then
-                        LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State "..repr(bp.Label).." - preps rack "..self.CurrentRackSalvoNumber.." "..repr(rackInfo.RackBone).." muzzle "..i.." "..repr(muzzle) )
+                        LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State "..repr(bp.Label).." - preps rack "..self.CurrentRackNumber.." "..repr(rackInfo.RackBone).." muzzle "..i.." "..repr(muzzle).." at "..GetGameTick() )
                     end
  					
                     if rackInfo.HideMuzzle == true then
@@ -1159,7 +1159,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                     ------------------					
             
                     if ScenarioInfo.WeaponStateDialog then
-                        LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State "..repr(bp.Label).." - FIRES rack "..self.CurrentRackSalvoNumber.." muzzle "..i )
+                        LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State "..repr(bp.Label).." - FIRES rack "..self.CurrentRackNumber.." muzzle "..i.." at "..GetGameTick() )
                     end
 
                     self:PlayFxMuzzleSequence(muzzle)                    
@@ -1221,8 +1221,8 @@ DefaultProjectileWeapon = Class(Weapon) {
                 end
 			
 				-- advance the rack number --
-                if self.CurrentRackSalvoNumber <= RacksToBeFired then
-                    self.CurrentRackSalvoNumber = self.CurrentRackSalvoNumber + 1
+                if self.CurrentRackNumber <= RacksToBeFired then
+                    self.CurrentRackNumber = self.CurrentRackNumber + 1
                 end
             end
 
@@ -1233,20 +1233,15 @@ DefaultProjectileWeapon = Class(Weapon) {
             self.HaltFireOrdered = false
 
 			-- if all the racks have fired --
-            if self.CurrentRackSalvoNumber > RacksToBeFired then
+            if self.CurrentRackNumber > RacksToBeFired then
 			
 				-- reset the rack count
-                self.CurrentRackSalvoNumber = 1
+                self.CurrentRackNumber = 1
 
                 -- this takes precedence - delay for reloading the rack
-                if bp.RackSalvoReloadTime > 0 or bp.AnimationReload then
+                if bp.RackSalvoReloadTime > 0 or bp.AnimationReload or self.EconDrain then
 				
                     LOUDSTATE(self, self.RackSalvoReloadState)
-                    
-                -- otherwise if there is a pre-firing chargeup delay
-                elseif bp.RackSalvoChargeTime or bp.EnergyRequired then
-				
-                    LOUDSTATE(self, self.IdleState)
 				
                 -- otherwise counted projectiles either pack up or go back to idle state
                 elseif bp.CountedProjectile == true then
@@ -1471,7 +1466,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             SetBusy( self.unit, true )
 
 			-- reset the rack count
-            self.CurrentRackSalvoNumber = 1
+            self.CurrentRackNumber = 1
 
             self:PlayFxWeaponPackSequence(bp)
       
