@@ -297,7 +297,7 @@ UnitBlueprint {
                 'MOBILE',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             
             TrackingRadius = 1.25,
@@ -305,7 +305,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Gun_001',
             TurretBonePitch = 'Gun_001',
             TurretBoneYaw = 'Gun_001',
-            TurretDualManipulators = false,
             
             TurretPitch = 0,
             TurretPitchRange = 35,
@@ -371,13 +370,12 @@ UnitBlueprint {
                 'MOBILE',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             
             TurretBoneMuzzle = 'Gun_002',
             TurretBonePitch = 'Gun_002',
             TurretBoneYaw = 'Gun_002',
-            TurretDualManipulators = false,
             
             TurretPitch = 0,
             TurretPitchRange = 35,
@@ -447,7 +445,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Gun_003',
             TurretBonePitch = 'Gun_003',
             TurretBoneYaw = 'Gun_003',
-            TurretDualManipulators = false,
             
             TurretPitch = 25,
             TurretPitchRange = 80,

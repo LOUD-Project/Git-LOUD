@@ -233,8 +233,10 @@ UnitBlueprint {
             Label = 'AntiAirMissiles',
 			
             MaxRadius = 36,
+
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 58,
 			
             ProjectileId = '/projectiles/CAANanoDart04/CAANanoDart04_proj.bp',
@@ -261,7 +263,7 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
             TrackingRadius = 1.1,
@@ -269,7 +271,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Projectile_Aim',
             TurretBonePitch = 'Projectile_Aim',
             TurretBoneYaw = 'Projectile_Aim',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -329,8 +330,6 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = true,
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			

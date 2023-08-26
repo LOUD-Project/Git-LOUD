@@ -249,16 +249,16 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Muzzle01',
             TurretBonePitch = 'Left_Muzzle01',
             TurretBoneYaw = 'Left_Muzzle01',
+
             TurretPitch = 0,
-			
             TurretPitchRange = 55,
             TurretPitchSpeed = 360,
+
             TurretYaw = 0,
-			
             TurretYawRange = 55,
             TurretYawSpeed = 360,
+
             Turreted = true,
-			
             UseFiringSolutionInsteadOfAimBone = true,
         },
         {
@@ -324,16 +324,16 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Muzzle01',
             TurretBonePitch = 'Right_Muzzle01',
             TurretBoneYaw = 'Right_Muzzle01',
+
             TurretPitch = 0,
-			
             TurretPitchRange = 55,
             TurretPitchSpeed = 360,
+
             TurretYaw = 0,
-			
             TurretYawRange = 55,
             TurretYawSpeed = 360,
+
             Turreted = true,
-			
             UseFiringSolutionInsteadOfAimBone = true,
         },
     },

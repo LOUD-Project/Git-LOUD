@@ -314,7 +314,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Big_Ring',
             TurretBonePitch = 'Big_Ring',
             TurretBoneYaw = 'Big_Ring',
-            TurretDualManipulators = false,
             
             TurretPitch = 0,
             TurretPitchRange = 45,
@@ -391,7 +390,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Med_Ring',
             TurretBonePitch = 'Med_Ring',
             TurretBoneYaw = 'Med_Ring',
-            TurretDualManipulators = false,
             
             TurretPitch = 0,
             TurretPitchRange = 45,

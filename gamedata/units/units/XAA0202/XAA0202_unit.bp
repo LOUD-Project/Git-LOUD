@@ -267,14 +267,13 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,STRUCTURE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Muzzle',
             TurretBonePitch = 'Muzzle',
             TurretBoneYaw = 'Muzzle',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 80,

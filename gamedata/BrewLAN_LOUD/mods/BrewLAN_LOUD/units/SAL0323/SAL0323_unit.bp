@@ -47,6 +47,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYDEFENSE',
+        'ANTIMISSILE',
     },
 	
     Defense = {
@@ -184,8 +185,8 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 60,
         
-        WobbleFactor = 0,
-        WobbleSpeed = 0,
+        WobbleFactor = 0.02,
+        WobbleSpeed = 0.02,
     },
 	
     SelectionSizeX = 0.6,
@@ -217,31 +218,31 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 30,
+            Damage = 10,
             DamageType = 'Normal',
 			
             DisplayName = 'Will O Wisp Anti Missile',
 			
-            EffectiveRadius = 22,
+            EffectiveRadius = 24,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Water = 'Air',
             },
 			
-			FiringRandomness = 20,
+			FiringRandomness = 16,
             FiringTolerance = 360,
 			
             Flare = {
                 Category = 'MISSILE',
-                Radius = 22,
+                Radius = 18,
             },
 			
             Label = 'AntiMissile',
 			
-            MaxRadius = 22,
+            MaxRadius = 24,
 
-            MuzzleVelocity = 25,
+            MuzzleVelocity = 5,
 			
             ProjectileId = '/projectiles/AIMAntiMissile01/AIMAntiMissile01_proj.bp',
             ProjectileLifetime = 4,
@@ -252,6 +253,8 @@ UnitBlueprint {
                     RackBone = 'Barrel',
                 },
             },
+            
+            RackRecoilDistance = -1,
 			
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -261,11 +264,12 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'TACTICAL MISSILE',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.35,
+
+            TrackingRadius = 1.4,
 
             WeaponRepackTimeout = 0.8,
             WeaponUnpackAnimation = '/mods/BrewLAN_LOUD/units/sal0323/sal0323_aopen.sca',
-            WeaponUnpackAnimationRate = 10,
+            WeaponUnpackAnimationRate = 5,
             WeaponUnpacks = true,
         },
     },

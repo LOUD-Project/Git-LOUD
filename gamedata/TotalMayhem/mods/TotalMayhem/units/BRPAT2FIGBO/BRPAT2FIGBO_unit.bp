@@ -291,8 +291,6 @@ UnitBlueprint {
             },
 
             RackFireTogether = true,
-            
-            RackReloadTimeout = 10,
 
             RangeCategory = 'UWRC_AntiAir',
 			

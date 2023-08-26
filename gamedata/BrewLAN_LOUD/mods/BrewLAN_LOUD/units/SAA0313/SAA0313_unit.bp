@@ -285,13 +285,12 @@ UnitBlueprint {
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             
             TurretBoneMuzzle = 'Muzzle_L',
             TurretBonePitch = 'Muzzle_L',
             TurretBoneYaw = 'Muzzle_L',
-            TurretDualManipulators = false,
             
             TurretPitch = 0,
             TurretPitchRange = 35,

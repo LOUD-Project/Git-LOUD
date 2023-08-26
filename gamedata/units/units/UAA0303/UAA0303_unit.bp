@@ -255,14 +255,13 @@ UnitBlueprint {
                 'MOBILE',
             },
 			
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Muzzle',
             TurretBonePitch = 'Muzzle',
             TurretBoneYaw = 'Muzzle',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 80,

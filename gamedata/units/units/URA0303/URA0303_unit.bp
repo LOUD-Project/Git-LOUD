@@ -266,9 +266,9 @@ UnitBlueprint {
 				'EXPERIMENTAL',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,STRUCTURE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Missile_L',
             TurretBonePitch = 'Missile_L',

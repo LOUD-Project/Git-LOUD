@@ -141,9 +141,10 @@ UnitBlueprint {
         RotateBodyWhileMoving = true,
 		
         RotateOnSpot = false,
-        TurnFacingRate = 60,
+        TurnFacingRate = 46,
         TurnRadius = 0,
         TurnRate = 46,
+
         WobbleFactor = 0.02,
         WobbleSpeed = 0.01,
     },
@@ -170,6 +171,7 @@ UnitBlueprint {
         Level4 = 20,
         Level5 = 25,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -187,7 +189,7 @@ UnitBlueprint {
             DamageRadius = 0,
             DamageType = 'Normal',
 			
-            DisplayName = 'Quantum Autoguns',
+            DisplayName = 'Autoguns',
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -200,28 +202,21 @@ UnitBlueprint {
             Label = 'MainGun',
 			
             MaxRadius = 24,
-			
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 30,
+
+            MuzzleVelocity = 36,
 			
             ProjectileId = '/projectiles/ADFQuatumAutoGun01/ADFQuatumAutoGun01_proj.bp',
 
             RackBones = {
                 {
-                    MuzzleBones = {'Gun_Muzzle01'},
-                    RackBone = 'Gun_Barrel',
-                },
-                {
-                    MuzzleBones = {'Gun_Muzzle02'},
+                    MuzzleBones = {
+                        'Gun_Muzzle01',
+                        'Gun_Muzzle02',
+                    },
                     RackBone = 'Gun_Barrel',
                 },
             },
 
-            RackReloadTimeout = 10,
-
-            RackSlavedToTurret = true,
-			
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 2,		-- 80 Dps
@@ -250,7 +245,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 10,
-            TurretYawSpeed = 50,
+            TurretYawSpeed = 45,
 			
             Turreted = true,
         },
