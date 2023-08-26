@@ -11,7 +11,9 @@ local CDFHeavyMicrowaveLaserGeneratorCom = CybranWeaponsFile.CDFHeavyMicrowaveLa
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 BROT3SHBM = Class(AWalkingLandUnit) {
+
     Weapons = {
+
         MainGun = Class(TDFGaussCannonWeapon) {
             FxMuzzleFlashScale = 1.5,
             FxMuzzleFlash = EffectTemplate.AIFBallisticMortarFlash02,
@@ -23,16 +25,6 @@ BROT3SHBM = Class(AWalkingLandUnit) {
 		
         robottalk = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0 },
     }, 
-    
-    OnStopBeingBuilt = function(self,builder,layer)
-        AWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
-      
-        if self:GetAIBrain().BrainType == 'Human' and IsUnit(self) then
-            self:SetWeaponEnabledByLabel('robottalk', false)
-        else
-            self:SetWeaponEnabledByLabel('robottalk', true)
-        end      
-    end,
     
 }
 TypeClass = BROT3SHBM

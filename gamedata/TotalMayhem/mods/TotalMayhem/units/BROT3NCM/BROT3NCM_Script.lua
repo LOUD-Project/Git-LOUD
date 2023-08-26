@@ -18,29 +18,21 @@ local AAAZealotMissileWeapon = AWeapons.AAAZealotMissileWeapon
 local CreateAttachedEmitter = CreateAttachedEmitter
 
 BROT3NCM = Class(AWalkingLandUnit) {
-    Weapons = {
-	
-        laserblue = Class(TMAnovacatbluelaserweapon) {},
-        laserblue2 = Class(CDFHeavyMicrowaveLaserGeneratorCom) {},
-        laserblue3 = Class(TMAmizurabluelaserweapon) {},
-		
-        lasergreen = Class(TMAnovacatgreenlaserweapon) {},
 
-        AntiAirMissiles = Class(AAAZealotMissileWeapon) {},
+    Weapons = {
+
+        MainLaser = Class(TMAnovacatgreenlaserweapon) {FxMuzzleFlashScale = 0.5},	
+
+        laserblu = Class(TMAnovacatbluelaserweapon) {FxMuzzleFlashScale = 0},
+        laserred = Class(CDFHeavyMicrowaveLaserGeneratorCom) {FxMuzzleFlashScale = 0},
+        lasermix = Class(TMAmizurabluelaserweapon) {FxMuzzleFlashScale = 0},
+
+        AAMissiles = Class(AAAZealotMissileWeapon) {},
 		
         robottalk = Class(AAAZealotMissileWeapon) { FxMuzzleFlashScale = 0 },
 		
         DeathWeapon = Class(TIFCommanderDeathWeapon) {},
     },
-	
-	OnStopBeingBuilt = function(self,builder,layer)
-		AWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
-      
-		if self:GetAIBrain().BrainType == 'Human' and IsUnit(self) then
-			self:SetWeaponEnabledByLabel('robottalk', false)
-		else
-			self:SetWeaponEnabledByLabel('robottalk', true)
-		end      
-    end,
+
 }
 TypeClass = BROT3NCM

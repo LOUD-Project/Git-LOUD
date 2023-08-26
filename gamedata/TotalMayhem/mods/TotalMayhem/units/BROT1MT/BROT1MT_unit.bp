@@ -192,10 +192,6 @@ UnitBlueprint {
             
             RackRecoilDistance = -2,
 
-            RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
-
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -205,9 +201,7 @@ UnitBlueprint {
             TargetCheckInterval = 0.4,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'TECH1 MOBILE',
-                'TECH2 MOBILE',
-                'TECH3 MOBILE',
+                'MOBILE',
                 'DEFENSE',
                 'ALLUNITS',
             },
@@ -217,7 +211,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 45,

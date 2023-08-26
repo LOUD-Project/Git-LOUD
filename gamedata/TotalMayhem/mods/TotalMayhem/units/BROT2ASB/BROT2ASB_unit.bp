@@ -36,6 +36,13 @@ UnitBlueprint {
             Level4 = 8,
             Level5 = 10,
         },
+        VisionRadius = {
+            Level1 = 2,
+            Level2 = 3,
+            Level3 = 5,
+            Level4 = 7,
+            Level5 = 9,            
+        },        
     },
 	
     BuildIconSortPriority = 23,
@@ -165,10 +172,10 @@ UnitBlueprint {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 2.8,
-        MaxBrake = 2.8,
-        MaxSpeed = 2.8,
-        MaxSpeedReverse = 2,
+        MaxAcceleration = 6,
+        MaxBrake = 3.0,
+        MaxSpeed = 3.0,
+        MaxSpeedReverse = 3,
         MaxSteerForce = 10,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Amphibious',
@@ -178,7 +185,7 @@ UnitBlueprint {
         SkirtSizeZ = 4,
         TurnRadius = 5,
         TurnRate = 45,
-		WaterSpeedMultiplier = 1.2,
+		WaterSpeedMultiplier = 1.15,
     },
 	
     SelectionCenterOffsetX = 0,
@@ -211,45 +218,30 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
+
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'TM_AEONWEAPONS',
-                    Cue = 'AEONTERMINATORLASERFIRE',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'TM_AEONWEAPONS',
-                    Cue = 'AEONTERMINATORLASERSTOPFX',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Unpack = Sound {
-                    Bank = 'TM_AEONWEAPONS',
-                    Cue = 'AEONTERMINATORLASERCHARGEFX',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Start', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
 			
 			BeamCollisionDelay = 0,
-            BeamLifetime = 0.6,
+            BeamLifetime = 0.3,
 			
             CollideFriendly = false,
+
             ContinuousBeam = false,
 			
-            Damage = 20,
-            DamageRadius = 0,
+            Damage = 23,
             DamageFriendly = false,
             DamageType = 'Normal',
 			
-            DisplayName = 'Microwave Laser',
+            DisplayName = 'Blue Laser',
 			
-            EnergyDrainPerSecond = 100,
-            EnergyRequired = 50,
+            EnergyDrainPerSecond = 121,
+            EnergyRequired = 60,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -259,7 +251,7 @@ UnitBlueprint {
             FiringTolerance = 2,
             Label = 'laser',
 			
-            MaxRadius = 32,
+            MaxRadius = 34,
 
             RackBones = {
                 {
@@ -268,11 +260,9 @@ UnitBlueprint {
                 },
             },
 
-            RackSlavedToTurret = true,
-
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,			-- 120 dps RoF controlled by energydrain above
+            RateOfFire = 10,			-- 138 dps RoF controlled by energy
 
             ReTargetOnMiss = true,
 			
@@ -290,7 +280,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -301,11 +290,12 @@ UnitBlueprint {
             TurretYawSpeed = 30,
             Turreted = true,
 			
-            WeaponRepackTimeout = 0,
-            WeaponUnpackAnimation = '/mods/TotalMayhem/units/BROT2ASB/BROT2ASB_Deploy.sca',
-            WeaponUnpackAnimationRate = 2,
-            WeaponUnpackLocksMotion = false,
-            WeaponUnpacks = true,
+            -- We dont use the pack/unpack animation on this unit - it just moves the antenna - ugh
+            --WeaponRepackTimeout = 0,
+            --WeaponUnpackAnimation = '/mods/TotalMayhem/units/BROT2ASB/BROT2ASB_Deploy.sca',
+            --WeaponUnpackAnimationRate = 2,
+            --WeaponUnpackLocksMotion = false,
+            --WeaponUnpacks = true,
         },
     },
     Wreckage = {

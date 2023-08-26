@@ -14,7 +14,9 @@ BROT1EXM1 = Class(CWalkingLandUnit) {
 
     Weapons = {
         MainGun = Class(TDFGaussCannonWeapon) {
-            FxMuzzleFlashScale = 1.1,
+
+            FxMuzzleFlashScale = 1,
+
             FxMuzzleFlash = { 
             	'/effects/emitters/proton_artillery_muzzle_01_emit.bp',
             	'/effects/emitters/proton_artillery_muzzle_03_emit.bp',

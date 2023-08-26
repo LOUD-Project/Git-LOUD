@@ -6,12 +6,14 @@ local EffectTemplate = import('/lua/EffectTemplates.lua')
 BROT3HM = Class(CWalkingLandUnit) {
 
     Weapons = {
+
         MainGun = Class(TDFGaussCannonWeapon) {
             FxMuzzleFlashScale = 0.2,   
             FxMuzzleFlash = EffectTemplate.AOblivionCannonMuzzleFlash02,
 		}, 
+
         MainGun2 = Class(TDFGaussCannonWeapon) {
-            FxMuzzleFlashScale = 1,   
+            FxMuzzleFlashScale = 0.5,   
             FxMuzzleFlash = EffectTemplate.AIFBallisticMortarFlash02,
 		}, 
     },

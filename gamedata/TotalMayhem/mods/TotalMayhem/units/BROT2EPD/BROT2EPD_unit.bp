@@ -30,6 +30,13 @@ UnitBlueprint {
             Level4 = 12,
             Level5 = 15,
         },
+        VisionRadius = {
+            Level1 = 2,
+            Level2 = 3,
+            Level3 = 4,
+            Level4 = 5,
+            Level5 = 6,            
+        },        
     },
 	
     BuildIconSortPriority = 111,
@@ -220,14 +227,22 @@ UnitBlueprint {
                     Cue = 'AEONGUN4',
                     LodCutoff = 'Weapon_LodCutoff',
                 },
-                MuzzleChargeStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2301_Cannon_Oblivion_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
             },
+
             BallisticArc = 'RULEUBA_None',
 			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.3,
+                    Radius = 1,
+                    TargetAllow = 'LAND,NAVAL,TECH1,TECH2',
+                    TargetDisallow = 'WALL,COMMAND,EXPERIMENTAL',
+                },
+            },
+				
             CollideFriendly = false,
 			
             Damage = 160,
@@ -269,15 +284,11 @@ UnitBlueprint {
             },
             RackRecoilDistance = -1,
 
-            RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
-
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1.5,
+            RateOfFire = 1.5,       -- 240 DPS
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -292,7 +303,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 55,
@@ -305,6 +315,7 @@ UnitBlueprint {
             Turreted = true,
 		},
         {
+            advancedTracking = true,
             AlwaysRecheckTarget = true,
             Audio = {
                 Fire = Sound {
@@ -334,7 +345,7 @@ UnitBlueprint {
             },
             FiringTolerance = 10,
 			
-            Label = 'AntiAirMissiles',
+            Label = 'AAMissiles',
 			
             MaxRadius = 50,
 			
@@ -380,7 +391,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'aa01',
             TurretBonePitch = 'aa01',
             TurretBoneYaw = 'aa01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 25,
             TurretPitchRange = 80,

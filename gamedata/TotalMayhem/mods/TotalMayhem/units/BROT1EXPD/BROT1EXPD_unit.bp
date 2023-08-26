@@ -167,6 +167,7 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 BeamLoop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
                 BeamStart = Sound { Bank = 'TM_AEONWEAPONS', Cue = 'AEONNOVACATBLUELASERFX', LodCutoff = 'Weapon_LodCutoff' },
@@ -208,12 +209,10 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 2.5,		-- twice per second - 148 dps - controlled by charge
+            RateOfFire = 2.5,		-- 74 per on fire - 148 dps - controlled by charge
 			
             ReTargetOnMiss = true,
             TargetCheckInterval = 0.5,
@@ -233,14 +232,17 @@ UnitBlueprint {
             TurretBonePitch = 'Turret_Barrel',
 			
             TurretBoneYaw = 'Turret',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 45,
+
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 35,
+
             Turreted = true,
         },
     },

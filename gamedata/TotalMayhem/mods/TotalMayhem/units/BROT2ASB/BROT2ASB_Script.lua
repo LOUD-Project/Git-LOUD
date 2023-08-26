@@ -6,7 +6,7 @@ local TMAmizurabluelaserweapon = TMWeaponsFile.TMAmizurabluelaserweapon
 BROT2ASB = Class(CWalkingLandUnit) {
 
     Weapons = {
-        laser = Class(TMAmizurabluelaserweapon) { FxMuzzleFlashScale = 0.3 },  
+        laser = Class(TMAmizurabluelaserweapon) { FxMuzzleFlashScale = 0.1 },  
     },
 }
 

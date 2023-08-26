@@ -23,6 +23,13 @@ UnitBlueprint {
     },
 	
     Buffs = {
+        EnergyWeapon = {
+            Level1 = 0.97,
+            Level2 = 0.94,
+            Level3 = 0.91,
+            Level4 = 0.88,
+            Level5 = 0.85,
+        },    
         Regen = {
             Level1 = 12,
             Level2 = 24,
@@ -33,9 +40,9 @@ UnitBlueprint {
 		VisionRadius = {
             Level1 = 2,
             Level2 = 3,
-            Level3 = 3,
-            Level4 = 4,
-            Level5 = 5,
+            Level3 = 4,
+            Level4 = 5,
+            Level5 = 6,
 		},		
     },
 	
@@ -125,6 +132,47 @@ UnitBlueprint {
 			Command = {},
         },
 		
+		InstallRegenPackage1 = {
+		
+            BuildCostEnergy = 25000,
+            BuildCostMass = 2160,
+            BuildTime = 1800,
+			
+            Icon = 'Regen',
+			
+            Name = 'Regen Package 1',
+			
+            Slot = 'LCH',
+			
+            UpgradeEffectBones = {'Turret'},
+			UpgradeUnitAmbientBones = {'Turret'},
+			
+			NewRegenRate = 45,
+        },
+		
+		InstallRegenPackage2 = {
+		
+            BuildCostEnergy = 35000,
+            BuildCostMass = 5320,
+            BuildTime = 3600,
+			
+            Icon = 'Regen',
+
+            Name = 'Regen Package 2',
+            Prerequisite = 'InstallRegenPackage1',			
+			
+            Slot = 'LCH',
+			
+            UpgradeEffectBones = {'Turret'},
+			UpgradeUnitAmbientBones = {'Turret'},
+			
+            RemoveEnhancements = {
+                'InstallRegenPackage1',
+            },
+			
+			NewRegenRate = 75,
+        },
+		
 		InstallT3Radar = {
 			BuildCostEnergy = 30000,
 			BuildCostMass = 2000,
@@ -152,7 +200,7 @@ UnitBlueprint {
                 'InstallT3Radar',
                 'InstallT3RadarRemove',
             },
-            Slot = 'Back',
+            Slot = 'Command',
         },
 
 		InstallFactoryShield = {
@@ -307,16 +355,50 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.8,
+                    Radius = 2.5,
+                    TargetAllow = 'LAND,NAVAL,TECH1',
+                    TargetDisallow = 'WALL',
+                },
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.5,
+                    Radius = 1.75,
+                    TargetAllow = 'LAND,NAVAL,TECH2',
+                    TargetDisallow = 'WALL',
+                },
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.3,
+                    Radius = 1,
+                    TargetAllow = 'LAND,NAVAL,TECH3',
+                    TargetDisallow = 'WALL',
+                },
+            },			
+   
             CollideFriendly = false,
 			
             Damage = 2800,
             DamageRadius = 3,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult1.1',
 			
             DisplayName = 'Gauss Cannon',
+
+            EnergyChargeForFirstShot = false,            
 			
-            EnergyDrainPerSecond = 3920,
+            EnergyDrainPerSecond = 3500,
             EnergyRequired = 9800,
 			
             FireTargetLayerCapsTable = {
@@ -324,16 +406,17 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
+            FiringRandomness = 0.2,
             FiringTolerance = 1,
 			
-            Label = 'cannonweapon',
+            Label = 'MainGun',
 			
-            MaxRadius = 95,
+            MaxRadius = 98,
             MinRadius = 10,
 			
-            MuzzleChargeDelay = 0.3,
+            MuzzleChargeDelay = 0.6,
 
-            MuzzleVelocity = 30,
+            MuzzleVelocity = 33,
 
             ProjectileId = '/mods/TotalMayhem/projectiles/HvyClawproj/HvyClawproj_proj.bp',
             ProjectileLifetime = 3.5,
@@ -357,7 +440,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- RoF by energy drain = 5600 damage every 2.8 seconds
+            RateOfFire = 0.5,		-- RoF by energy drain = 5600 damage every 2.8 seconds
 			
             TargetCheckInterval = 1,
 			
@@ -375,14 +458,15 @@ UnitBlueprint {
             TurretBoneMuzzle = 'aim',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 55,
             TurretPitchSpeed = 26,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 24,
+
             Turreted = true,
         },
         {
@@ -404,7 +488,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 220,
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Zealot AA Missile',
@@ -415,7 +498,8 @@ UnitBlueprint {
             },
 			
             FiringTolerance = 10,
-            Label = 'AntiAirMissiles',
+
+            Label = 'AAMissiles',
 			
             MaxRadius = 52,
 			
@@ -436,8 +520,6 @@ UnitBlueprint {
                     RackBone = 'aa00',
                 },
             },
-
-            RackSlavedToTurret = true,
             
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -460,7 +542,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'aa00',
             TurretBonePitch = 'aa00',
             TurretBoneYaw = 'aa00',
-            TurretDualManipulators = false,
 			
             TurretPitch = 25,
             TurretPitchRange = 80,
@@ -469,6 +550,7 @@ UnitBlueprint {
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 120,
+
             Turreted = true,
         },
         {

@@ -78,8 +78,10 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+
         AnimationWalk = '/mods/TotalMayhem/units/BROT1EXM1/BROT1EXM1_Walk.sca',
         AnimationWalkRate = 6,
+
         Mesh = {
             IconFadeInZoom = 170,
             LODs = {
@@ -132,7 +134,7 @@ UnitBlueprint {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 1.5,
+        MaxAcceleration = 1.55,
         MaxBrake = 3.1,
         MaxSpeed = 3.1,
         MaxSpeedReverse = 2.5,
@@ -232,8 +234,6 @@ UnitBlueprint {
                 },
             },
 
-            RackSlavedToTurret = true,
-			
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.6,	-- 36dps
@@ -252,7 +252,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'mainmuzzle01',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 55,
@@ -292,8 +291,7 @@ UnitBlueprint {
             Label = 'Riotgun',
 			
             MaxRadius = 28,
-			
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 46,
 			
@@ -311,12 +309,7 @@ UnitBlueprint {
                     RackBone = 'minigun_Barrel01',
                 },
             },
-
             RackFireTogether = true,
-            
-            RackReloadTimeout = 10,
-
-            RackSlavedToTurret = true,
 
             RateOfFire = 2,	-- 20dps
 
@@ -331,9 +324,12 @@ UnitBlueprint {
 
             TurretBoneDualMuzzle = 'minigunmuzzle01',
             TurretBoneDualPitch = 'minigun',
+
             TurretBoneMuzzle = 'minigunmuzzle02',
             TurretBonePitch = 'minigun01',
+
             TurretBoneYaw = 'Turret',
+
             TurretDualManipulators = true,
 
             TurretPitch = 0,
@@ -343,6 +339,7 @@ UnitBlueprint {
             TurretYaw = 0,
             TurretYawRange = 45,
             TurretYawSpeed = 15,
+
             Turreted = true,
 
             UseFiringSolutionInsteadOfAimBone = true,
@@ -400,8 +397,6 @@ UnitBlueprint {
                     RackBone = 'arm',
                 },
             },
-
-            RackSlavedToTurret = true,
 			
             RateOfFire = 0.1,	-- 15dps
 			RenderFireClock = true,
@@ -417,9 +412,12 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'rl01',
             TurretBoneDualPitch = 'rl01',
+
             TurretBoneMuzzle = 'rl04',
             TurretBonePitch = 'rl04',
+
             TurretBoneYaw = 'Turret',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 0,

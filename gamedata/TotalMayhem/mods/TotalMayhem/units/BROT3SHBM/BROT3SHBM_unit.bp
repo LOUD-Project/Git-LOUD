@@ -226,19 +226,45 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+			
             Audio = {
                 Fire = Sound {
-                    Bank = 'TM_AEONWEAPONS',
-                    Cue = 'AEONENFORCERGUNFIREFX',
+                    Bank = 'UALWeapon',
+                    Cue = 'UAL0304_Artillery_Sonance',
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_LowArc',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.7,
+                    Radius = 1.8,
+                    TargetAllow = 'LAND,NAVAL,TECH1',
+                    TargetDisallow = 'WALL',
+                },
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.5,
+                    Radius = 1.2,
+                    TargetAllow = 'LAND,NAVAL,TECH2',
+                    TargetDisallow = 'WALL',
+                },
+
+            },			
+
             CollideFriendly = false,
 			
-            Damage = 350,
-            DamageRadius = 2,
+            Damage = 700,
+            DamageRadius = 1.8,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -249,18 +275,22 @@ UnitBlueprint {
             },
 			
             FiringTolerance = 1,
+
 			FiringRandomness = 0.5,
             FiringRandomnessWhileMoving = 1.5,
 			
             Label = 'MainGun',
 			
-            MaxRadius = 44,
+            MaxRadius = 45,
 			
-            MuzzleChargeDelay = 0.2,
+            MuzzleChargeDelay = 0.1,
+
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,
 			
-            MuzzleVelocity = 60,
+            MuzzleVelocity = 55,
+            
+            NotExclusive = true,
 
             ProjectileId = '/mods/TotalMayhem/projectiles/BROT3SHBMproj/BROT3SHBMproj_proj.bp',
 			ProjectileLifetime = 1,
@@ -283,14 +313,10 @@ UnitBlueprint {
             },
 			
             RackFireTogether = true,
-            
-            RackReloadTimeout = 10,
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- 1400dps
+            RateOfFire = 0.5,		-- 1400dps
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -300,7 +326,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneDualMuzzle = 'gunmuzzle01',
             TurretBoneDualPitch = 'gun',
@@ -309,6 +335,7 @@ UnitBlueprint {
             TurretBonePitch = 'gun01',
 			
             TurretBoneYaw = 'Turret',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 0,
@@ -317,7 +344,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 30,
+            TurretYawSpeed = 32,
 			
             Turreted = true,
 		},
@@ -350,7 +377,6 @@ UnitBlueprint {
             ContinuousBeam = false,		
 
             Damage = 150,
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             FireTargetLayerCapsTable = {
@@ -363,12 +389,10 @@ UnitBlueprint {
 			
             Label = 'Laser',
 			
-            MaxRadius = 44,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            MuzzleVelocity = 65,
+            MaxRadius = 40,
 
+            NotExclusive = true,
+            
             RackBones = {
                 {
                     MuzzleBones = {'mgmuzzle01'},
@@ -381,12 +405,6 @@ UnitBlueprint {
             },
 			
             RackFireTogether = true,
-            
-            RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
-
-            RackSlavedToTurret = true,
 
             RateOfFire = 1,	-- 1200dps
 			
@@ -430,7 +448,9 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
+
             Buffs = {
             	{
                     Add = { OnImpact = true },
@@ -442,13 +462,14 @@ UnitBlueprint {
                     TargetDisallow = 'WALL,COMMAND,EXPERIMENTAL',
                 },
             },
+
             CollideFriendly = false,
 			
             Damage = 200,
             DamageRadius = 24,
             DamageType = 'Normal',
 			
-            DisplayName = 'Gauss Cannon',
+            DisplayName = 'EMP',
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -466,7 +487,7 @@ UnitBlueprint {
 
             MuzzleVelocity = 25,
 			
-			PrefersPrimaryWeaponTarget = true,
+            NotExclusive = true,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BROT3SHBMEMPproj/BROT3SHBMEMPproj_proj.bp',
             ProjectileLifetimeUsesMultiplier = 5,
@@ -492,7 +513,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'empaim',
             TurretBonePitch = 'empaim',
             TurretBoneYaw = 'empaim',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 10,
@@ -513,12 +533,17 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
+
             CollideFriendly = false,
+
             Damage = 0,
             DamageRadius = 0,
             DamageType = 'Normal',
-            DisplayName = 'Gauss Cannon',
+
+            DisplayName = 'Robot Talk',
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
@@ -534,12 +559,10 @@ UnitBlueprint {
             MaxRadius = 44,
             MinRadius = 0,
 
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 40,
 
-			PrefersPrimaryWeaponTarget = true,
-
+            NotExclusive = true,
+            
             ProjectileId = '/mods/TotalMayhem/projectiles/NULLWEAPON/NULLWEAPON_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1,
 
@@ -552,23 +575,16 @@ UnitBlueprint {
             
             RackRecoilDistance = -2,
 
-            RackSlavedToTurret = true,
-
             RateOfFire = 0.05,
+
             TargetCheckInterval = 0.5,
-            TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE',
-                'DEFENSE',
-                'ALLUNITS',
-            },
+            TargetPriorities = {'ALLUNITS'},
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1,
 
             TurretBoneMuzzle = 'AttachPoint',
             TurretBonePitch = 'AttachPoint',
             TurretBoneYaw = 'AttachPoint',
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -581,11 +597,12 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.7,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -1,6 +1,6 @@
 UnitBlueprint {
     AI = { 
-        GuardScanRadius = 32, 
+        GuardScanRadius = 34, 
 		TargetBones = {'B13'},		
     },
 	
@@ -20,11 +20,7 @@ UnitBlueprint {
             Cue = 'Aeon_Select_Tank',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        Unpack = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0202_Open',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+
     },
 	
     Buffs = {
@@ -73,7 +69,7 @@ UnitBlueprint {
             ShieldRechargeTime = 15,
             ShieldRegenRate = 60,
             ShieldRegenStartTime = 1,
-            ShieldSize = 3,
+            ShieldSize = 2,
             ShieldVerticalOffset = 0,
             StartOn = true,
         },
@@ -102,9 +98,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 15000,
+        BuildCostEnergy = 16500,
         BuildCostMass = 1200,
-        BuildTime = 6000,
+        BuildTime = 600,
 		
         MaintenanceConsumptionPerSecondEnergy = 25,
     },
@@ -154,9 +150,9 @@ UnitBlueprint {
             LAYER_Seabed = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 1.9,
-        MaxBrake = 2.5,
-        MaxSpeed = 2.5,
+        MaxAcceleration = 1.6,
+        MaxBrake = 2.6,
+        MaxSpeed = 2.6,
         MaxSpeedReverse = 2,
 		
         MaxSteerForce = 10,
@@ -166,8 +162,6 @@ UnitBlueprint {
 		
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Amphibious',
-        RotateOnSpot = true,
-        RotateOnSpotThreshold = 0.1,
 		
         TurnRadius = 0,
         TurnRate = 50,
@@ -185,6 +179,7 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_seabed3_directfire',
     StrategicIconSortPriority = 125,
+
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -192,10 +187,100 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+
     Transport = {
         TransportClass = 3,
     },
+
     Weapon = {
+		{
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'TM_AEONWEAPONS',
+                    Cue = 'AEONROCKETLAUNCHERFX',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 150,
+            DamageRadius = 1.5,
+            DamageFriendly = false,
+			
+            DamageType = 'Normal',
+			
+            DisplayName = 'Rockets',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water',
+            },
+			
+            FiringTolerance = 1,
+			
+            Label = 'rocket',
+			
+            FiringRandomness = 0.8,
+			
+            MaxRadius = 48,
+			
+            MuzzleSalvoDelay = 0.6,
+            MuzzleSalvoSize = 6,
+
+            MuzzleVelocity = 18,
+            MuzzleVelocityRandom = 0.4,
+			MuzzleVelocityReduceDistance = 35,
+			
+            NotExclusive = true,
+			
+            ProjectileId = '/mods/TotalMayhem/projectiles/BROT2MTRLproj/BROT2MTRLproj_proj.bp',
+			ProjectileLifetime = 6,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'rl01',
+                        'rl02',
+                    },
+                    RackBone = 'rl01',
+                },
+            },
+			
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 0.1,	-- 90 dps
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'DEFENSE',
+                'ALLUNITS,-WALL',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.05,
+			
+            TurretBoneDualMuzzle = 'rl01',
+            TurretBoneDualPitch = 'rl01',
+
+            TurretBoneMuzzle = 'rl02',
+            TurretBonePitch = 'rl02',
+            
+            TurretBoneYaw = 'Turret',
+
+            TurretDualManipulators = true,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 33,
+			
+            Turreted = true,
+        },
         {
             AboveWaterTargetsOnly = true,
             Audio = {
@@ -225,7 +310,9 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
+
             CollideFriendly = false,
 			
             Damage = 440,
@@ -243,12 +330,13 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-            MaxRadius = 32,
+            MaxRadius = 34,
 			
-            MuzzleChargeDelay = 0.4,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+            MuzzleChargeDelay = 0.2,
+
             MuzzleVelocity = 48,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BROT3BTproj/BROT3BTproj_proj.bp',
 			ProjectileLifetime = 1,
@@ -266,16 +354,12 @@ UnitBlueprint {
             
             RackRecoilDistance = -2,
 
-            RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
-
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.5,	-- 220 dps
-			
+
             TargetCheckInterval = 1.0,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -289,15 +373,14 @@ UnitBlueprint {
             TurretBoneMuzzle = 'aim',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 45,
             TurretPitchSpeed = 30,
 			
             TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 33,
+            TurretYawRange = 5,
+            TurretYawSpeed = 30,
 			
             Turreted = true,
 		},
@@ -333,7 +416,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 10,
             MuzzleVelocity = 70,
 			
-            PrefersPrimaryWeaponTarget = true,
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/AAASonicPulse02/AAASonicPulse02_proj.bp',
 			ProjectileLifetime = 0.6,			
@@ -361,102 +444,30 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1,
+			
+            TurretBoneMuzzle = 'mgmuzzle',
+            TurretBonePitch = 'mgmuzzle',
 
-            UseFiringSolutionInsteadOfAimBone = true,
+            TurretBoneDualMuzzle = 'mgmuzzle01',
+            TurretBoneDualPitch = 'mgmuzzle01',
 
-        },
-		{
-            AboveWaterTargetsOnly = true,
-            Audio = {
-                Fire = Sound {
-                    Bank = 'TM_AEONWEAPONS',
-                    Cue = 'AEONROCKETLAUNCHERFX',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-            BallisticArc = 'RULEUBA_LowArc',
-            CollideFriendly = false,
-			
-            Damage = 150,
-            DamageRadius = 1.5,
-            DamageFriendly = false,
-			
-            DamageType = 'Normal',
-			
-            DisplayName = 'Rockets',
-			
-            FireTargetLayerCapsTable = {
-                Land = 'Land|Water',
-            },
-			
-            FiringTolerance = 1,
-			
-            Label = 'rocket',
-			
-            FiringRandomness = 0.95,
-			
-            MaxRadius = 48,
-			
-            MuzzleSalvoDelay = 0.6,
-            MuzzleSalvoSize = 6,
-            MuzzleVelocity = 16,
-			
-            MuzzleVelocityRandomness = 5,
-			MuzzleVelocityReduceDistance = 35,
-			
-            NotExclusive = true,
-			
-            PrefersPrimaryWeaponTarget = true,
-			
-            ProjectileId = '/mods/TotalMayhem/projectiles/BROT2MTRLproj/BROT2MTRLproj_proj.bp',
-			ProjectileLifetime = 6,
-			
-            RackBones = {
-                {
-                    MuzzleBones = {
-                        'rl01',
-                        'rl02',
-                    },
-                    RackBone = 'rl01',
-                },
-            },
-
-            RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_IndirectFire',
-			
-            RateOfFire = 0.1,	-- 90 dps
-			
-            TargetCheckInterval = 0.5,
-            TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE',
-                'DEFENSE',
-                'ALLUNITS,-WALL',
-            },
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.05,
-			
-            TurretBoneDualMuzzle = 'rl01',
-            TurretBoneDualPitch = 'rl01',
-            TurretBoneMuzzle = 'rl02',
-            TurretBonePitch = 'rl02',
-            
-            TurretBoneAimYaw = 'rl01',
-            
             TurretBoneYaw = 'Turret',
+
             TurretDualManipulators = true,
-			
+            
             TurretPitch = 0,
             TurretPitchRange = 45,
             TurretPitchSpeed = 30,
 			
             TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 33,
+            TurretYawRange = 5,
+            TurretYawSpeed = 30,
 			
             Turreted = true,
+            UseFiringSolutionInsteadOfAimBone = true,
+
         },
+
         {
             Damage = 500,
             DamageFriendly = true,
@@ -473,7 +484,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.7,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

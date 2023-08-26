@@ -164,13 +164,11 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'TM_AEONWEAPONS',
-                    Cue = 'AEONGUN9',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'TM_AEONWEAPONS', Cue = 'AEONGUN9', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
+
             CollideFriendly = false,
 			
             Damage = 82,
@@ -209,10 +207,6 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.3,
 
-            RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
-
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -234,7 +228,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'aim',
             TurretBonePitch = 'Turret_Barrel01',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 35,

@@ -231,8 +231,6 @@ UnitBlueprint {
                 },
             },
 
-            RackSlavedToTurret = true,
-
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.08,	-- 57 dps
@@ -243,19 +241,16 @@ UnitBlueprint {
             TargetPriorities = {
                 'DEFENSE',
                 'SPECIALHIGHPRI',
-                'TECH1 MOBILE',
-                'TECH2 MOBILE',
-                'TECH3 MOBILE',
-
+                'MOBILE',
                 'ALLUNITS',
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.10,
+
             TurretBoneMuzzle = 'aim',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 80,
