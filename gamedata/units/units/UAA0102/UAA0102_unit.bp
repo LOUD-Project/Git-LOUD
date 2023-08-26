@@ -321,7 +321,7 @@ UnitBlueprint {
                 'MOBILE',
                 'MOBILE -INTELLIGENCE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.2,
 			
