@@ -226,13 +226,13 @@ UnitBlueprint {
 			
             InitialProjectileStorage = 1,
 			
-            Label = 'MissileRack',
+            Label = 'AntiMissile',
 			
             MaxProjectileStorage = 1,
 			
             MaxRadius = 90,
 
-            MuzzleVelocity = 5,
+            MuzzleVelocity = 25,
 			
             ProjectileId = '/mods/BrewLAN_LOUD/projectiles/CAAMobileDissidentAntiNuke01/CAAMobileDissidentAntiNuke01_proj.bp',
             ProjectileLifetime = 12,
@@ -245,6 +245,8 @@ UnitBlueprint {
                 },
             },
 			
+            RackSalvoReloadTime = 3.3,
+            
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 0.5,

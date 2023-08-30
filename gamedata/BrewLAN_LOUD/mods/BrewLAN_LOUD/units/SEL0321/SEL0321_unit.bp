@@ -220,12 +220,12 @@ UnitBlueprint {
 			
             MaxProjectileStorage = 4,
 			
-            MaxRadius = 72,
+            MaxRadius = 78,
 			
-            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
 
-            MuzzleVelocity = 5,
+            MuzzleVelocity = 25,
 			
             ProjectileId = '/mods/BrewLAN_LOUD/projectiles/TIMMobileMissileIntercerptor01/TIMMobileMissileIntercerptor01_proj.bp',
 			ProjectileLifetime = 12,
@@ -239,22 +239,13 @@ UnitBlueprint {
                     },
                     RackBone = 'B05_Launcher',
                 },
-                {
-                    HideMuzzle = true,
-                    MuzzleBones = {
-                        'Projectile_02',
-                        'Projectile_05',
-
-                    },
-                    RackBone = 'B05_Launcher',
-                },
             },
 
-            RackReloadTimeout = .5,
-			
+            RackSalvoReloadTime = 2,           
+
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 0.7,
+            RateOfFire = 0.5,
 
             TargetCheckInterval = 0.5,
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -262,9 +253,9 @@ UnitBlueprint {
             TargetType = 'RULEWTT_Projectile',
             TrackingRadius = 1.5,
 
-            WeaponRepackTimeout = 1,
+            WeaponRepackTimeout = 1.2,
             WeaponUnpackAnimation = '/units/xel0306/xel0306_aopen.sca',
-            WeaponUnpackAnimationRate = 1.5,
+            WeaponUnpackAnimationRate = 3,
             WeaponUnpacks = true,
         },
 		

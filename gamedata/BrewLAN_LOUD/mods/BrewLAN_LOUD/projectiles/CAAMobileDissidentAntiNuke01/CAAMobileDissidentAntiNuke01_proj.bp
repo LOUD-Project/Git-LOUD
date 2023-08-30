@@ -14,7 +14,6 @@ ProjectileBlueprint {
     Categories = {
         'PROJECTILE',
         'ANTIMISSILE',
-        'NOSPLASHDAMAGE',
     },
 	
     Description = 'Anti Nuclear Missile',
@@ -39,16 +38,7 @@ ProjectileBlueprint {
         BuildCostMass = 1800,
         BuildTime = 12200,
     },
-	
-    General = {
-        Category = 'Defense',
-        Faction = 'Cybran',
-    },
-	
-    Interface = {
-        HelpText = 'CYBRAN Anti Nuclear Missile',
-    },
-	
+
     Physics = {
         Acceleration = 22,
         DestroyOnWater = false,

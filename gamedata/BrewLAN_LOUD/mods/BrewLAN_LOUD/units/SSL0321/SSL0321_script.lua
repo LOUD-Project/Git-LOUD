@@ -6,7 +6,7 @@ SSL0321 = Class(SLandUnit) {
 
     Weapons = {
 
-        MissileRack = Class(SIFHuAntiNukeWeapon) {
+        AntiNuke = Class(SIFHuAntiNukeWeapon) {
 
             OnWeaponFired = function(self)
                 self.unit:ForkThread(self.unit.HideMissile)   

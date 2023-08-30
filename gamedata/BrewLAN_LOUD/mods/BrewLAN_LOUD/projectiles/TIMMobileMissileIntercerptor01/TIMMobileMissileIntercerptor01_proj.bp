@@ -14,7 +14,6 @@ ProjectileBlueprint {
 	
     Categories = {
         'PROJECTILE',
-        'NOSPLASHDAMAGE',
         'ANTIMISSILE',
     },
 	
@@ -39,15 +38,6 @@ ProjectileBlueprint {
         BuildCostEnergy = 72000/2,
         BuildCostMass = 1800/2,
         BuildTime = 12200/2,
-    },
-	
-    General = {
-        Category = 'Defense',
-        Faction = 'UEF',
-    },
-	
-    Interface = {
-        HelpText = 'UEF Anti Nuclear Missile',
     },
 	
     Physics = {

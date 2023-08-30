@@ -254,13 +254,13 @@ UnitBlueprint {
 			
             InitialProjectileStorage = 0,
 			
-            Label = 'MissileRack',
+            Label = 'AntiNuke',
 			
             MaxProjectileStorage = 2,
 			
-            MaxRadius = 72,
+            MaxRadius = 78,
 
-            MuzzleVelocity = 10,
+            MuzzleVelocity = 25,
 			
             ProjectileId = '/mods/BrewLAN_LOUD/projectiles/SIFMobileHuAntiNuke01/SIFMobileHuAntiNuke01_proj.bp',
             ProjectileLifetime = 10,
@@ -272,6 +272,8 @@ UnitBlueprint {
                     RackBone = 'missile',
                 },
             },
+			
+            RackSalvoReloadTime = 3.3,
 			
             RangeCategory = 'UWRC_Countermeasure',
 			

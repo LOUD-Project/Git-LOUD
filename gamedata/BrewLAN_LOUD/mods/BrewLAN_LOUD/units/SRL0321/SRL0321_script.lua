@@ -9,7 +9,8 @@ SRL0321 = Class(CLandUnit) {
 
     Weapons = {
 	
-        MissileRack = Class(CAMEMPMissileWeapon) {
+        AntiMissile = Class(CAMEMPMissileWeapon) {
+
             OnWeaponFired = function(self)
 			
                 CAMEMPMissileWeapon.OnWeaponFired()

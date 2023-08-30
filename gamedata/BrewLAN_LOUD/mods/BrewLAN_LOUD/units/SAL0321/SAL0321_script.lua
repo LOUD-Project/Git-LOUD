@@ -3,10 +3,11 @@ local AWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 local CAMEMPMissileWeapon = import('/lua/cybranweapons.lua').CAMEMPMissileWeapon
 
 SAL0321 = Class(AWalkingLandUnit) {
+
     Weapons = {
 
-        MissileRack = Class(CAMEMPMissileWeapon) {
-        
+        AntiNuke = Class(CAMEMPMissileWeapon) {
+--[[        
             IdleState = State(CAMEMPMissileWeapon.IdleState) {
 
                 OnGotTarget = function(self)
@@ -39,6 +40,7 @@ SAL0321 = Class(AWalkingLandUnit) {
                     end)
                 end,
             },
+--]]
         },
     },
 }

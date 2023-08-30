@@ -212,7 +212,7 @@ UnitBlueprint {
             Damage = 30,
             DamageType = 'Normal',
 			
-            DisplayName = 'EMP Anti Nuke',
+            DisplayName = 'Anti Nuke',
 			
             FireTargetLayerCapsTable = {
                 Land = 'Air',
@@ -224,13 +224,13 @@ UnitBlueprint {
 			
             InitialProjectileStorage = 0,
 			
-            Label = 'MissileRack',
+            Label = 'AntiNuke',
 			
             MaxProjectileStorage = 2,
 			
-            MaxRadius = 72,
+            MaxRadius = 78,
 
-            MuzzleVelocity = 5,
+            MuzzleVelocity = 25,
 			
             ProjectileId = '/mods/BrewLAN_LOUD/projectiles/CAAMobileDissidentAntiNuke01/CAAMobileDissidentAntiNuke01_proj.bp',
             ProjectileLifetime = 12,
@@ -242,6 +242,8 @@ UnitBlueprint {
                     RackBone = 'Silo',
                 },
             },
+			
+            RackSalvoReloadTime = 1.8,
 
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -255,9 +257,9 @@ UnitBlueprint {
 			
             Turreted = false,
 
-            WeaponRepackTimeout = 1,
+            WeaponRepackTimeout = 1.2,
             WeaponUnpackAnimation = '/mods/BrewLAN_LOUD/units/sal0321/SAL0321_Aunfold.sca',
-            WeaponUnpackAnimationRate = 1.5,
+            WeaponUnpackAnimationRate = 3,
             WeaponUnpacks = true,
         },
     },
