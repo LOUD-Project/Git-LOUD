@@ -198,7 +198,7 @@ UnitBlueprint {
             MuzzleChargeDelay = 0.5,
 
             MuzzleVelocity = 18,
-            MuzzleVelocityRandomness = 1,
+            MuzzleVelocityRandom = 0.6,
 			MuzzleVelocityReduceDistance = 40,
 			
             NotExclusive = true,			

@@ -297,7 +297,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'muzzle01',
             TurretBonePitch = 'Left_Arm_B01',
             TurretBoneYaw = 'Left_Arm_B01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 65,

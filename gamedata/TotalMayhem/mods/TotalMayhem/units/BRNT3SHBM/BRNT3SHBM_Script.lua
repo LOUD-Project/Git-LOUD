@@ -6,6 +6,7 @@ local TDFGaussCannonWeapon = WeaponsFile.TDFLandGaussCannonWeapon
 local TIFCruiseMissileUnpackingLauncher = WeaponsFile.TIFCruiseMissileUnpackingLauncher
 local TANTorpedoLandWeapon = WeaponsFile.TANTorpedoLandWeapon
 local TIFCommanderDeathWeapon = WeaponsFile.TIFCommanderDeathWeapon
+local TDFRiotWeapon = WeaponsFile.TDFRiotWeapon
 local TSAMLauncher = WeaponsFile.TSAMLauncher 
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
@@ -15,13 +16,18 @@ BRNT3SHBM = Class(TWalkingLandUnit) {
 
     Weapons = {
 
-        MissileWeapon = Class(TIFCruiseMissileUnpackingLauncher) { FxMuzzleFlash = {'/effects/emitters/terran_mobile_missile_launch_01_emit.bp'} },
-		
-        MissileTube = Class(TSAMLauncher) { FxMuzzleFlash = EffectTemplate.TAAMissileLaunchNoBackSmoke },	
+        TacMissiles = Class(TIFCruiseMissileUnpackingLauncher) {
+
+            FxMuzzleFlashScale = 0.5,
+
+            FxMuzzleFlash = {
+                '/effects/emitters/terran_mobile_missile_launch_01_emit.bp'
+            }
+        },
 		
         handweapon = Class(TDFGaussCannonWeapon) {
 		
-            FxMuzzleFlashScale = 1.1,
+            FxMuzzleFlashScale = 1,
 			
             FxMuzzleFlash = { 
             	'/effects/emitters/proton_artillery_muzzle_01_emit.bp',
@@ -31,6 +37,7 @@ BRNT3SHBM = Class(TWalkingLandUnit) {
 			
 	        FxVentEffect2 = EffectTemplate.WeaponSteam01,
 	        FxVentEffect3 = EffectTemplate.CDisruptorGroundEffect,
+
 	        FxMuzzleEffect = EffectTemplate.TPlasmaGatlingCannonMuzzleFlash,
 			
 	        PlayFxMuzzleSequence = function(self, muzzle)
@@ -38,32 +45,27 @@ BRNT3SHBM = Class(TWalkingLandUnit) {
 		        local army = self.unit:GetArmy()
 
   	            for k, v in self.FxMuzzleEffect do
-                    CreateAttachedEmitter(self.unit, 'gun_muzzle01', army, v):ScaleEmitter(1.2)
-                    CreateAttachedEmitter(self.unit, 'gun_muzzle02', army, v):ScaleEmitter(1.2)
-                    CreateAttachedEmitter(self.unit, 'gun_muzzle03', army, v):ScaleEmitter(1.2)
-                    CreateAttachedEmitter(self.unit, 'gun_muzzle04', army, v):ScaleEmitter(1.2)
-                    CreateAttachedEmitter(self.unit, 'gun_muzzle05', army, v):ScaleEmitter(1.2)
-                    CreateAttachedEmitter(self.unit, 'gun_muzzle06', army, v):ScaleEmitter(1.2)
-                    CreateAttachedEmitter(self.unit, 'gun_muzzle07', army, v):ScaleEmitter(1.2)
-                    CreateAttachedEmitter(self.unit, 'gun_muzzle08', army, v):ScaleEmitter(1.2)					
+                    CreateAttachedEmitter(self.unit, muzzle, army, v):ScaleEmitter(1)
                 end
 				
   	            for k, v in self.FxVentEffect2 do
-                    CreateAttachedEmitter(self.unit, 'gun_muzzle01', army, v):ScaleEmitter(0.5)
-                    CreateAttachedEmitter(self.unit, 'gun_muzzle02', army, v):ScaleEmitter(0.5)
-                    CreateAttachedEmitter(self.unit, 'gun_muzzle03', army, v):ScaleEmitter(0.5)
-                    CreateAttachedEmitter(self.unit, 'gun_muzzle04', army, v):ScaleEmitter(0.5)
-                    CreateAttachedEmitter(self.unit, 'gun_muzzle05', army, v):ScaleEmitter(0.5)
-                    CreateAttachedEmitter(self.unit, 'gun_muzzle06', army, v):ScaleEmitter(0.5)
-                    CreateAttachedEmitter(self.unit, 'gun_muzzle07', army, v):ScaleEmitter(0.5)
-                    CreateAttachedEmitter(self.unit, 'gun_muzzle08', army, v):ScaleEmitter(0.5)
+                    CreateAttachedEmitter(self.unit, muzzle, army, v):ScaleEmitter(0.6)
                 end
             end, 
 		},
 		
-        rocketweapon = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 1.1 },
+        Rockets = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0.5 },
+		
+        SAM = Class(TSAMLauncher) { FxMuzzleFlash = EffectTemplate.TAAMissileLaunchNoBackSmoke },	
 		
         Torpedoes = Class(TANTorpedoLandWeapon) {},		
+
+        Riotgun = Class(TDFRiotWeapon) {
+		
+            FxMuzzleFlash = EffectTemplate.TRiotGunMuzzleFxTank,
+            FxMuzzleFlashScale = 0.2, 
+			
+        },
 		
         robottalk = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0 },
 		

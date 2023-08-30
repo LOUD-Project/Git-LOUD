@@ -41,6 +41,13 @@ UnitBlueprint {
             Level4 = 8,
             Level5 = 10,
         },
+        VisionRadius = {
+            Level1 = 2,
+            Level2 = 3,
+            Level3 = 5,
+            Level4 = 7,
+            Level5 = 9,            
+        },                
 	},
 	
     BuildIconSortPriority = 80,
@@ -202,7 +209,7 @@ UnitBlueprint {
     LifeBarSize = 0.95,
 	
     Physics = {
-		BackUpDistance = 4,
+		BackUpDistance = 7,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
@@ -212,7 +219,7 @@ UnitBlueprint {
         MaxAcceleration = 1.0,
         MaxBrake = 2.8,
         MaxSpeed = 2.8,
-        MaxSpeedReverse = 0,
+        MaxSpeedReverse = 2.8,
         MaxSteerForce = 3,
         MeshExtentsX = 1,
         MeshExtentsY = 0.5,
@@ -261,7 +268,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 30,
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Aire-au Bolter',
@@ -304,8 +310,6 @@ UnitBlueprint {
 
             },
             RackFireTogether = true,
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -321,14 +325,16 @@ UnitBlueprint {
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
-			
             TrackingRadius = 1.1,
 			
             TurretBoneDualMuzzle = 'Left_Muzzle',
             TurretBoneDualPitch = 'Left_Arm',
+
             TurretBoneMuzzle = 'Right_Muzzle',
             TurretBonePitch = 'Right_Arm',
+
             TurretBoneYaw = 'Torso',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 0,

@@ -11,15 +11,9 @@ BRPEXSHBM = Class( SWalkingLandUnit ) {
 
     IntelEffects = {
 		{
-			Bones = {
-				'Arm01',
-			},
-			Offset = {
-				0,
-				1.6,
-				0,
-			},
-			Scale = 0.8,
+			Bones = {'Arm01'},
+			Offset = {0,1.6,0},
+			Scale = 0.45,
 			Type = 'Jammer01',
 		},
     },
@@ -33,13 +27,13 @@ BRPEXSHBM = Class( SWalkingLandUnit ) {
 	
     Weapons = {
 
-        Topguns = Class(SIFZthuthaamArtilleryCannon){ FxMuzzleFlashScale = 3.0 },		
+        Topguns = Class(SIFZthuthaamArtilleryCannon){ FxMuzzleFlashScale = 2.2 },		
 
         Beam = Class(SDFUltraChromaticBeamGenerator) { FxMuzzleFlashScale = 1 },
 
         NoseGun = Class(SDFAireauWeapon) { },
 		
-        aa = Class(SDFUltraChromaticBeamGenerator) { FxMuzzleFlashScale = 1.4 },
+        aa = Class(SDFUltraChromaticBeamGenerator) { FxMuzzleFlashScale = 1.2 },
     },
 
     OnKilled = function(self, instigator, damagetype, overkillRatio)

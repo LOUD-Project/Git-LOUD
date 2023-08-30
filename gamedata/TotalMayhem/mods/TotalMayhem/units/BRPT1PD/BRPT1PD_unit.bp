@@ -163,7 +163,30 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.4,
+                    Radius = 1,
+                    TargetAllow = 'LAND,NAVAL,TECH1',
+                    TargetDisallow = 'WALL',
+                },
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.2,
+                    Radius = 0.5,
+                    TargetAllow = 'LAND,NAVAL,TECH2',
+                    TargetDisallow = 'WALL',
+                },                
+            },			
+     
             CollideFriendly = false,
 			
             Damage = 320,
@@ -182,9 +205,9 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-            MaxRadius = 32,
+            MaxRadius = 34,
 
-            MuzzleVelocity = 30,
+            MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/SDFHeavyQuarnonCannon01/SDFHeavyQuarnonCannon01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1,
@@ -213,11 +236,11 @@ UnitBlueprint {
                 'ALLUNITS -AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
+
             TurretBoneMuzzle = 'muzzle',
             TurretBonePitch = 'Object84',
             TurretBoneYaw = 'Object103',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 60,

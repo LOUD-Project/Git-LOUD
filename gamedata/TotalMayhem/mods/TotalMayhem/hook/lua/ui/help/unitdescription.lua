@@ -21,6 +21,7 @@ Description['brmt3ava']		=	"The Avalanche is the largest mobile experimental eve
 
 Description['brnt3shpd-Radar_T3'] = "Installs a typical T3 radar package onto the unit."
 Description['brnt3shpd-Shield'] = "Installs a custom Shield Dome into the unit."
+Description['brnt3shpd-Regen'] = "Improves Regeneration rate."
 
 Description['brot1bt']		=	"The Hervour is simply a larger Aurora. The same simple but effective configuration in a larger format. Sometimes hampered by its lack of a fully rotating turret."
 Description['brot3shpd-Radar_T3'] = "Installs a typical T3 radar package onto the unit."

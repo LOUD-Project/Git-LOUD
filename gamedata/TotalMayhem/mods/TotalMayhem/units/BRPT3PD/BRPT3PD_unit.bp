@@ -30,6 +30,13 @@ UnitBlueprint {
             Level4 = 8,
             Level5 = 10,
         },
+		VisionRadius = {
+            Level1 = 1,
+            Level2 = 2,
+            Level3 = 3,
+            Level4 = 4,
+            Level5 = 5,
+		},	
     },
 	
     BuildIconSortPriority = 112,
@@ -171,7 +178,30 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.8,
+                    Radius = 1.5,
+                    TargetAllow = 'LAND,NAVAL,TECH1',
+                    TargetDisallow = 'WALL',
+                },
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.5,
+                    Radius = 1,
+                    TargetAllow = 'LAND,NAVAL,TECH2',
+                    TargetDisallow = 'WALL',
+                },
+            },			
+
             CollideFriendly = false,
 			
             Damage = 820,
@@ -194,7 +224,7 @@ UnitBlueprint {
             MaxRadius = 67,
 			MinRadius = 6,
 
-            MuzzleVelocity = 45,
+            MuzzleVelocity = 48,
 			
             ProjectileId = '/projectiles/SDFHeavyQuarnonCannon01/SDFHeavyQuarnonCannon01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.6,
@@ -208,7 +238,7 @@ UnitBlueprint {
 			
             RackRecoilDistance = -2,
 
-            RackSalvoReloadTime = 1,
+            --RackSalvoReloadTime = 0.8,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -228,7 +258,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 70,

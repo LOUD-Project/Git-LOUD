@@ -306,7 +306,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle',
             TurretBonePitch = 'Muzzle',
             TurretBoneYaw = 'Muzzle',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -352,7 +351,9 @@ UnitBlueprint {
 			LeadTarget = true,
 			
             MaxRadius = 34,
+
             MuzzleSalvoDelay = 0.1,
+
             MuzzleSalvoSize = 3,
             MuzzleVelocity = 90,
 			
@@ -384,7 +385,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle01',
             TurretBonePitch = 'Muzzle01',
             TurretBoneYaw = 'Muzzle01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 70,
@@ -430,7 +430,9 @@ UnitBlueprint {
 			LeadTarget = true,
 			
             MaxRadius = 34,
+
             MuzzleSalvoDelay = 0.1,
+
             MuzzleSalvoSize = 3,
             MuzzleVelocity = 90,
 			
@@ -460,7 +462,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle02',
             TurretBonePitch = 'Muzzle02',
             TurretBoneYaw = 'Muzzle02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 70,

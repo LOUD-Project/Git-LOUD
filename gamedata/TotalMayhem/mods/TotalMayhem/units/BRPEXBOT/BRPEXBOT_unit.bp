@@ -239,7 +239,6 @@ UnitBlueprint {
         TurnRate = 35,
     },
 	
-    SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.5,
 	
     SelectionSizeX = 1.5,
@@ -275,7 +274,39 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.8,
+                    Radius = 2,
+                    TargetAllow = 'LAND,NAVAL,TECH1',
+                    TargetDisallow = 'WALL',
+                },
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.5,
+                    Radius = 1.5,
+                    TargetAllow = 'LAND,NAVAL,TECH2',
+                    TargetDisallow = 'WALL',
+                },
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.3,
+                    Radius = 1.0,
+                    TargetAllow = 'LAND,NAVAL,TECH3',
+                    TargetDisallow = 'WALL',
+                },
+            },			
+
             CollideFriendly = false,
 			
             Damage = 750,
@@ -283,7 +314,7 @@ UnitBlueprint {
             DamageRadius = 3,
             DamageType = 'Normal',
 			
-            DisplayName = 'Suthanus Heavy Artillery Cannon',
+            DisplayName = 'Suthanus Cannon',
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -301,6 +332,8 @@ UnitBlueprint {
             MuzzleChargeDelay = 0.3,
 
             MuzzleVelocity = 35,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SIFSuthanusArtilleryShell01/SIFSuthanusArtilleryShell01_proj.bp',
 
@@ -319,11 +352,9 @@ UnitBlueprint {
 
             RackRecoilReturnSpeed = 4,
 
-            RackSalvoReloadTime = 1,
-
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 2,		-- 1500 DPS
+            RateOfFire = 1,		-- 1500 DPS
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -336,9 +367,12 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'RightCannonBarrel02_Muzzle',
             TurretBoneDualPitch = 'RightCannon',
+
             TurretBoneMuzzle = 'RightCannonBarrel02_Muzzle',
             TurretBonePitch = 'RightCannon',
+
             TurretBoneYaw = 'Turret',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 0,
@@ -363,7 +397,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 150,
+            Damage = 120,
 			DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -382,10 +416,10 @@ UnitBlueprint {
             Label = 'SecondaryGun',
 			
             MaxRadius = 39,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SDFOhCannon03/SDFOhCannon03_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.5,
@@ -399,7 +433,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 4,		-- 600 DPS
+            RateOfFire = 5,		-- 600 DPS
 			
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -410,13 +444,16 @@ UnitBlueprint {
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.05,
 			
             TurretBoneDualMuzzle = 'Left_Barrel_Muzzle',
             TurretBoneDualPitch = 'Left_Barrel',
+
             TurretBoneMuzzle = 'Left_Barrel_Muzzle',
             TurretBonePitch = 'Left_Barrel',
+
             TurretBoneYaw = 'Turret',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 0,
@@ -424,8 +461,8 @@ UnitBlueprint {
             TurretPitchSpeed = 40,
 			
             TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 40,
+            TurretYawRange = 8,
+            TurretYawSpeed = 12,
 			
             Turreted = true,
         },

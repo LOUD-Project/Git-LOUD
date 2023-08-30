@@ -15,7 +15,7 @@ TMAnovacatbluelaserweapon = Class(DefaultBeamWeapon) {
     FxMuzzleFlash = {},
     FxChargeMuzzleFlash = {},
     FxUpackingChargeEffects = EffectTemplate.CMicrowaveLaserCharge01,
-    FxUpackingChargeEffectScale = 1,
+    FxUpackingChargeEffectScale = 0.5,
 }
 
 TMAnovacatgreenlaserweapon = Class(DefaultBeamWeapon) {
@@ -23,7 +23,7 @@ TMAnovacatgreenlaserweapon = Class(DefaultBeamWeapon) {
     FxMuzzleFlash = {},
     FxChargeMuzzleFlash = EffectTemplate.SDFExperimentalPhasonProjChargeMuzzleFlash,
     FxUpackingChargeEffects = EffectTemplate.SDFExperimentalPhasonProjChargeMuzzleFlash,
-    FxUpackingChargeEffectScale = 1,
+    FxUpackingChargeEffectScale = 0.5,
 }
 
 TMAmizurabluelaserweapon = Class(DefaultBeamWeapon) {
@@ -31,5 +31,5 @@ TMAmizurabluelaserweapon = Class(DefaultBeamWeapon) {
     FxMuzzleFlash = {},
     FxChargeMuzzleFlash = {},
     FxUpackingChargeEffects = EffectTemplate.CMicrowaveLaserCharge01,
-    FxUpackingChargeEffectScale = 1,
+    FxUpackingChargeEffectScale = 0.5,
 }

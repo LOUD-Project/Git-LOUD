@@ -6,21 +6,38 @@ local SDFUltraChromaticBeamGenerator = SeraphimWeapons.SDFUltraChromaticBeamGene
 local SDFChronotronCannonWeapon = SeraphimWeapons.SDFChronotronCannonWeapon
 local SDFAireauBolterWeapon = SeraphimWeapons.SDFAireauBolterWeapon02
 
+local SeraLambdaFieldDestroyer = import('/lua/defaultantiprojectile.lua').SeraLambdaFieldDestroyer
+
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 BRPT2HVBOT = Class( SWalkingLandUnit ) {
 
 	Weapons = {
 	
-		Beam = Class(SDFUltraChromaticBeamGenerator) { FxMuzzleFlashScale = 2.4 },
+		Beam = Class(SDFUltraChromaticBeamGenerator) { FxMuzzleFlashScale = 2 },
 	
-		ChronotronCannon = Class(SDFChronotronCannonWeapon) {},
+		ChronoCannon = Class(SDFChronotronCannonWeapon) {},
 		
-		Bolter = Class(SDFAireauBolterWeapon) { FxMuzzleFlashScale = 1.2 },
+		Bolter = Class(SDFAireauBolterWeapon) { FxMuzzleFlashScale = 0.9 },
 	},
 
 	OnStopBeingBuilt = function(self,builder,layer)
+
 		SWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
+
+        local bp = self:GetBlueprint().Defense.LambdaDestroy01
+
+        self.Lambda1 = SeraLambdaFieldDestroyer {
+            Owner = self,
+            Radius = bp.Radius,
+            AttachBone = bp.AttachBone,
+            RedirectRateOfFire = bp.RedirectRateOfFire
+        }
+
+        self.Trash:Add(self.Lambda1)   
+
+        self.Lambda1:Enable()        
+
 		self:CreatTheEffects()   
 	end,
 
@@ -29,10 +46,10 @@ BRPT2HVBOT = Class( SWalkingLandUnit ) {
 		local army =  self:GetArmy()
 		
 		for k, v in EffectTemplate['SDFSinnutheWeaponFXTrails01'] do
-			self.Trash:Add(CreateAttachedEmitter(self, 'aa01', army, v):ScaleEmitter(0.1))
-			self.Trash:Add(CreateAttachedEmitter(self, 'aa02', army, v):ScaleEmitter(0.1))
-			self.Trash:Add(CreateAttachedEmitter(self, 'aa03', army, v):ScaleEmitter(0.1))
-			self.Trash:Add(CreateAttachedEmitter(self, 'aa04', army, v):ScaleEmitter(0.1))
+			--self.Trash:Add(CreateAttachedEmitter(self, 'aa01', army, v):ScaleEmitter(0.1))
+			--self.Trash:Add(CreateAttachedEmitter(self, 'aa02', army, v):ScaleEmitter(0.1))
+			--self.Trash:Add(CreateAttachedEmitter(self, 'aa03', army, v):ScaleEmitter(0.1))
+			--self.Trash:Add(CreateAttachedEmitter(self, 'aa04', army, v):ScaleEmitter(0.1))
 			self.Trash:Add(CreateAttachedEmitter(self, 'eff01', army, v):ScaleEmitter(0.3))
 			self.Trash:Add(CreateAttachedEmitter(self, 'eff02', army, v):ScaleEmitter(0.3))
 		end

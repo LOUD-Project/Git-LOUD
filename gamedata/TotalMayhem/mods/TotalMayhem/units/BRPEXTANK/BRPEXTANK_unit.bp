@@ -46,6 +46,13 @@ UnitBlueprint {
             Level4 = 28,
             Level5 = 35,
         },
+		VisionRadius = {
+            Level1 = 1,
+            Level2 = 2,
+            Level3 = 3,
+            Level4 = 4,
+            Level5 = 5,
+		},	        
     },
 	
     BuildIconSortPriority = 10,
@@ -67,6 +74,9 @@ UnitBlueprint {
     },
 	
     Defense = {
+
+        LambdaDestroy01 = {AttachBone = 'Upgrade05_01', Radius = 4.2, RedirectRateOfFire = 5 },
+
         ArmorType = 'Normal',
         Health = 31000,
         MaxHealth = 31000,
@@ -80,6 +90,7 @@ UnitBlueprint {
         Abilities = {
             'Amphibious',
 			'Radar & Sonar Stealth',
+            'Lambda Destruction Field',
         },
 		
         Mesh = {
@@ -163,7 +174,7 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
 		
-        MaxAcceleration = 1.1,
+        MaxAcceleration = 1.2,
         MaxBrake = 1.7,
         MaxSpeed = 3.4,
         MaxSpeedReverse = 3,
@@ -234,7 +245,39 @@ UnitBlueprint {
                     LodCutoff = 'WeaponBig_LodCutoff',
                 },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.6,
+                    Radius = 1.25,
+                    TargetAllow = 'LAND,NAVAL,TECH1',
+                    TargetDisallow = 'WALL',
+                },
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.4,
+                    Radius = 1.0,
+                    TargetAllow = 'LAND,NAVAL,TECH2',
+                    TargetDisallow = 'WALL',
+                },
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.2,
+                    Radius = 1.0,
+                    TargetAllow = 'LAND,NAVAL,TECH3',
+                    TargetDisallow = 'WALL',
+                },
+            },			
+    
             CollideFriendly = false,
 			
             Damage = 650,
@@ -257,7 +300,7 @@ UnitBlueprint {
 			
             MaxRadius = 42,
 
-            MuzzleVelocity = 42,
+            MuzzleVelocity = 45,
 			
             ProjectileId = '/projectiles/SDFHeavyQuarnonCannon01/SDFHeavyQuarnonCannon01_proj.bp',
 			ProjectileLifetime = 1.2,
@@ -274,10 +317,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -3,
-
             RackRecoilReturnSpeed = 2.5,
-
-            RackReloadTimeout = 10,
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -294,9 +334,12 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'Turret_Barrel_Muzzle',
             TurretBoneDualPitch = 'Turret_Barrel',
+
             TurretBoneMuzzle = 'Turret_Barrel_Muzzle01',
             TurretBonePitch = 'Turret_Barrel01',
+
             TurretBoneYaw = 'Turret',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 0,

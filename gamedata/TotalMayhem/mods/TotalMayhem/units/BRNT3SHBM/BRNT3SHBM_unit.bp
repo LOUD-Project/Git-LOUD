@@ -56,6 +56,7 @@ UnitBlueprint {
         'DIRECTFIRE',
         'VISIBLETORECON',
         'RECLAIMABLE',
+        'OVERLAYOMNI',
         'OVERLAYRADAR',
         'NEEDMOBILEBUILD',
         'DRAGBUILD',
@@ -75,9 +76,10 @@ UnitBlueprint {
     Display = {
 	
         Abilities = {
-			'Tactical Missile Barrage',
+			'Missile Barrage',
 			'Rocket Barrage',
-			'2 x SAM Launchers',
+			'SAM Launchers',
+            'Torpedoes',
             'Omni Radar',
             'Amphibious',
         },
@@ -154,7 +156,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 8,
+		CapCost = 10,
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -170,8 +172,8 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-		OmniRadius = 65,
-        RadarRadius = 128,
+		OmniRadius = 55,
+        RadarRadius = 120,
         VisionRadius = 42,
 		WaterVisionRadius = 22,
     },
@@ -247,17 +249,13 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEL_Weapons',
-                    Cue = 'XEL0306_Missile_Cruise',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEL_Weapons', Cue = 'XEL0306_Missile_Cruise', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 1200,
+            Damage = 1000,
             DamageFriendly = true,
             DamageRadius = 2.5,
             DamageType = 'Normal',
@@ -273,13 +271,12 @@ UnitBlueprint {
 			FiringRandomness = 4,
             FiringTolerance = 180,
 			
-            Label = 'MissileWeapon',
+            Label = 'TacMissiles',
 			
             MaxRadius = 132,
 	        MinRadius = 15,
 			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0.5,
+            MuzzleSalvoDelay = 0.6,
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 4.5,
 			
@@ -296,14 +293,11 @@ UnitBlueprint {
             },
 
             RackSalvoChargeTime = 1,
-
             RackSalvoReloadTime = 1,
-
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.12,	---- 4 times 1200 = 4800 Damage every 8 seconds = 600 DPS
+            RateOfFire = 0.12,	---- 4 times 1000 = 4000 Damage every 8 seconds = 500 DPS
 			
             TargetCheckInterval = 1,
             
@@ -315,7 +309,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, WALL',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.05,
 			
 			TurretBoneMuzzle = 'rl09',
 			TurretBonePitch = 'shoulder01',
@@ -337,17 +331,13 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEL_Weapons',
-                    Cue = 'XEL0306_Missile_Cruise',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEL_Weapons', Cue = 'XEL0306_Missile_Cruise', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 1200,
+            Damage = 1000,
             DamageFriendly = true,
             DamageRadius = 2.5,
             DamageType = 'Normal',
@@ -363,14 +353,14 @@ UnitBlueprint {
 			FiringRandomness = 4,
             FiringTolerance = 180,
 			
-            Label = 'MissileWeapon',
+            Label = 'TacMissiles',
 			
             MaxRadius = 132,
 	        MinRadius = 15,
-			
-            MuzzleChargeDelay = 0,
+
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 4,
+
             MuzzleVelocity = 4.5,
 			
 			NotExclusive = true,
@@ -386,14 +376,11 @@ UnitBlueprint {
             },
 
             RackSalvoChargeTime = 1,
-
             RackSalvoReloadTime = 1,
-
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.12,	---- 4 times 1200 = 4800 Damage every 8 seconds = 600 DPS
+            RateOfFire = 0.12,	---- 4 times 1000 = 4000 Damage every 8 seconds = 500 DPS
 			
             TargetCheckInterval = 1,
             
@@ -405,7 +392,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, WALL',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.05,
 
             TurretBoneMuzzle = 'rl10',
             TurretBonePitch = 'shoulder',
@@ -429,29 +416,41 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'TM_UEFWEAPONS',
-                    Cue = 'UEFEXPERIMENTALCANNONFX',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                Fire = Sound { Bank = 'TM_UEFWEAPONS', Cue = 'UEFEXPERIMENTALCANNONFX', LodCutoff = 'WeaponBig_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_LowArc',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.6,
+                    Radius = 1.5,
+                    TargetAllow = 'LAND,NAVAL,TECH1',
+                    TargetDisallow = 'WALL',
+                },
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.5,
+                    Radius = 1.0,
+                    TargetAllow = 'LAND,NAVAL,TECH2',
+                    TargetDisallow = 'WALL',
+                },
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.3,
+                    Radius = 1.0,
+                    TargetAllow = 'LAND,NAVAL,TECH3',
+                    TargetDisallow = 'WALL',
+                },
+            },			
+   
             CollideFriendly = false,
 			
             Damage = 800,
@@ -521,11 +520,9 @@ UnitBlueprint {
 
             RackRecoilDistance = -1,
 
-            RackReloadTimeout = 10,
-
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.50,	-- 1600 dps
+            RateOfFire = 0.50,	-- 800 * 8 = 6400 * .5 = 3200 dps
 			
             TargetCheckInterval = 1,
 			
@@ -541,6 +538,7 @@ UnitBlueprint {
 			
 			TurretBoneDualMuzzle = 'gun_muzzle01',
 			TurretBoneDualPitch = 'gunbarrels',
+
             TurretBoneMuzzle = 'gun_muzzle07',
             TurretBonePitch = 'gunbarrels01',
 			
@@ -576,7 +574,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 50,
+            Damage = 100,
             DamageRadius = 1.6,
             DamageType = 'Normal',
 			
@@ -590,14 +588,16 @@ UnitBlueprint {
             FiringTolerance = 5,
             FiringRandomness = 1.6,
 			
-            Label = 'rocketweapon',
+            Label = 'Rockets',
 			
-            MaxRadius = 82,
+            MaxRadius = 85,
             MinRadius = 15,
 			
-            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 8,
+
             MuzzleVelocity = 20,
+            MuzzleVelocityRandom = 0.5,
             MuzzleVelocityReduceDistance = 80,
             
             NeedPrep = true,
@@ -618,12 +618,10 @@ UnitBlueprint {
                     RackBone = 'rl01',
                 },
             },
-            
-            RackReloadTimeout = 10,
-			
+
             RangeCategory = 'UWRC_IndirectFire',
             
-            RateOfFire = 0.2,	-- 400 damage every 5 seconds = 80 dps
+            RateOfFire = 0.1,	-- 800 damage every 10 seconds = 80 dps
 			
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -639,15 +637,13 @@ UnitBlueprint {
             TurretBoneMuzzle = 'rl01',
             TurretBonePitch = 'rocketlauncher',
             TurretBoneYaw = 'rocketlauncher',
-			
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 8,
 			
             TurretYaw = 0,
-            TurretYawRange = 14, --11,
+            TurretYawRange = 14,
             TurretYawSpeed = 2,
 			
             Turreted = true,
@@ -668,7 +664,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 50,
+            Damage = 100,
             DamageRadius = 1.6,
             DamageType = 'Normal',
 			
@@ -682,14 +678,16 @@ UnitBlueprint {
             FiringTolerance = 5,
             FiringRandomness = 1.6,
 			
-            Label = 'rocketweapon',
+            Label = 'Rockets',
 			
-            MaxRadius = 82,
+            MaxRadius = 85,
             MinRadius = 15,
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 8,
+
             MuzzleVelocity = 20,
+            MuzzleVelocityRandom = 0.6,
             MuzzleVelocityReduceDistance = 80,
             
             NeedPrep = true,
@@ -710,10 +708,8 @@ UnitBlueprint {
                     RackBone = 'rl05',
                 },				
             },
-            
-            RackReloadTimeout = 10,
 
-            RateOfFire = 0.2,	-- 400 damage every 5 seconds = 80 dps
+            RateOfFire = 0.1,	-- 800 damage every 10 seconds = 80 dps
 			
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -730,14 +726,12 @@ UnitBlueprint {
             TurretBonePitch = 'rocketlauncher01',
             TurretBoneYaw = 'rocketlauncher01',
 			
-            TurretDualManipulators = false,
-			
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 8,
 			
             TurretYaw = 0,
-            TurretYawRange = 14, --11,
+            TurretYawRange = 14,
             TurretYawSpeed = 2,
 			
             Turreted = true,
@@ -773,7 +767,7 @@ UnitBlueprint {
 			
             FiringTolerance = 180,
 			
-            Label = 'MissileTube',
+            Label = 'SAM',
 			
             MaxRadius = 55,
 			
@@ -806,13 +800,10 @@ UnitBlueprint {
                 'BOMBER', 
                 'GROUNDATTACK', 
                 'MOBILE', 
-
                 'ALLUNITS', 
             }, 
             TargetRestrictDisallow = 'UNTARGETABLE', 
-            TrackingRadius = 1.4,
-			
-            Turreted = false,
+            TrackingRadius = 1.2,
         },
 		
 		-- torpedoes --
@@ -888,6 +879,180 @@ UnitBlueprint {
             TrackingRadius = 1.3,
         },
 		
+		-- Left Nose Guns --
+		
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+
+                Fire = Sound {
+                    Bank = 'TM_UEFWEAPONS',
+                    Cue = 'UEFOWENSMINIGUNSFX',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+			
+            CollideFriendly = false,
+			
+            Damage = 20,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Gauss Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Air|Land|Water|Seabed',
+                Water = 'Air|Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 0.5,
+            FiringRandomness = 0.1,
+			FiringRandomnessWhileMoving = 0.5,
+			
+            Label = 'Riotgun',
+
+			LeadTarget = true,
+			
+            MaxRadius = 35,
+			
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 8,
+
+            MuzzleVelocity = 42,
+            
+            NotExclusive = true,
+
+            ProjectileId = '/projectiles/TDFRiot02/TDFRiot02_proj.bp',
+            ProjectileLifetime = 1,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {'minigun01'},
+                    RackBone = 'minigun01',
+                },
+            },
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1,		-- 160dps
+
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 5,
+            
+            TargetCheckInterval = 0.5,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'DEFENSE',
+                'ALLUNITS',
+            },
+			
+            TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE',
+            TrackingRadius = 1.10,
+			
+            TurretBoneMuzzle = 'minigun01',
+            TurretBonePitch = 'minigun01',
+            TurretBoneYaw = 'minigun01',
+			
+            TurretPitch = 0,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 35,
+			
+            TurretYaw = 3,
+            TurretYawRange = 8,
+            TurretYawSpeed = 36,			
+
+            Turreted = true,
+			
+            UseFiringSolutionInsteadOfAimBone = true,			
+		},
+		
+		-- Right Nose Guns --
+		
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+
+                Fire = Sound {
+                    Bank = 'TM_UEFWEAPONS',
+                    Cue = 'UEFOWENSMINIGUNSFX',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+			
+            CollideFriendly = false,
+			
+            Damage = 20,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Gauss Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Air|Land|Water|Seabed',
+                Water = 'Air|Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 0.5,
+            FiringRandomness = 0.1,
+			FiringRandomnessWhileMoving = 0.5,
+			
+            Label = 'Riotgun',
+			LeadTarget = true,
+			
+            MaxRadius = 35,
+			
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 8,
+
+            MuzzleVelocity = 42,
+            
+            NotExclusive = true,
+
+            ProjectileId = '/projectiles/TDFRiot02/TDFRiot02_proj.bp',
+            ProjectileLifetime = 1,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {'minigun02'},
+                    RackBone = 'minigun02',
+                },
+            },
+
+            RateOfFire = 1,		-- 160dps
+
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 5,
+
+            TargetCheckInterval = 0.5,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'DEFENSE',
+                'ALLUNITS',
+            },
+			
+            TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE',
+            TrackingRadius = 1.10,
+			
+            TurretBoneMuzzle = 'minigun02',
+            TurretBonePitch = 'minigun02',
+            TurretBoneYaw = 'minigun02',
+			
+            TurretPitch = 0,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 35,
+			
+            TurretYaw = -3,
+            TurretYawRange = 8,
+            TurretYawSpeed = 36,			
+            Turreted = true,
+			
+            UseFiringSolutionInsteadOfAimBone = true,			
+		},		
+		
 		--- Robot Talk ---
 		
 		{
@@ -915,7 +1080,7 @@ UnitBlueprint {
 			
             Label = 'robottalk',
 			
-            MaxRadius = 65,
+            MaxRadius = 132,
             MinRadius = 0,
 
             MuzzleVelocity = 40,
@@ -940,9 +1105,6 @@ UnitBlueprint {
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE',
-                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -951,8 +1113,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'AttachPoint',
             TurretBonePitch = 'AttachPoint',
             TurretBoneYaw = 'AttachPoint',
-			
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,

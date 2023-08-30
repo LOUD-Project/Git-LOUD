@@ -3,6 +3,8 @@ local SWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 local SeraphimWeapons = import('/lua/seraphimweapons.lua')
 local SDFHeavyQuarnonCannon = SeraphimWeapons.SDFHeavyQuarnonCannon
 
+local SeraLambdaFieldDestroyer = import('/lua/defaultantiprojectile.lua').SeraLambdaFieldDestroyer
+
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 BRPEXTANK = Class(SWalkingLandUnit) {
@@ -16,6 +18,19 @@ BRPEXTANK = Class(SWalkingLandUnit) {
     OnStopBeingBuilt = function(self,builder,layer)
 	
         SWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
+
+        local bp = self:GetBlueprint().Defense.LambdaDestroy01
+
+        self.Lambda1 = SeraLambdaFieldDestroyer {
+            Owner = self,
+            Radius = bp.Radius,
+            AttachBone = bp.AttachBone,
+            RedirectRateOfFire = bp.RedirectRateOfFire
+        }
+
+        self.Trash:Add(self.Lambda1)   
+
+        self.Lambda1:Enable()        
 		
         self:CreatTheEffects()
 		

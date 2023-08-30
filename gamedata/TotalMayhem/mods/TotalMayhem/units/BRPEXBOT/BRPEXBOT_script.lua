@@ -23,15 +23,15 @@ BRPEXBOT = Class( SWalkingLandUnit ) {
 		local army =  self:GetArmy()
 		
 		for k, v in EffectTemplate['SDFSinnutheWeaponFXTrails01'] do
-			self.Trash:Add(CreateAttachedEmitter(self, 'eff01', army, v):ScaleEmitter(0.25))
-			self.Trash:Add(CreateAttachedEmitter(self, 'eff02', army, v):ScaleEmitter(0.25))
+			self.Trash:Add(CreateAttachedEmitter(self, 'eff01', army, v):ScaleEmitter(0.2))
+			self.Trash:Add(CreateAttachedEmitter(self, 'eff02', army, v):ScaleEmitter(0.2))
 		end
 
 		for k, v in EffectTemplate['OthuyAmbientEmanation'] do
-			self.Trash:Add(CreateAttachedEmitter(self, 'eff03', army, v):ScaleEmitter(0.11))
-			self.Trash:Add(CreateAttachedEmitter(self, 'eff04', army, v):ScaleEmitter(0.11))
-			self.Trash:Add(CreateAttachedEmitter(self, 'eff05', army, v):ScaleEmitter(0.11))
-			self.Trash:Add(CreateAttachedEmitter(self, 'eff06', army, v):ScaleEmitter(0.11))
+			self.Trash:Add(CreateAttachedEmitter(self, 'eff03', army, v):ScaleEmitter(0.1))
+			self.Trash:Add(CreateAttachedEmitter(self, 'eff04', army, v):ScaleEmitter(0.1))
+			self.Trash:Add(CreateAttachedEmitter(self, 'eff05', army, v):ScaleEmitter(0.1))
+			self.Trash:Add(CreateAttachedEmitter(self, 'eff06', army, v):ScaleEmitter(0.1))
 		end
 
 	end,
@@ -46,7 +46,7 @@ BRPEXBOT = Class( SWalkingLandUnit ) {
 		local army =  self:GetArmy()
 		
 		for k, v in EffectTemplate['SDFExperimentalPhasonProjHit01'] do
-			self.Trash:Add(CreateAttachedEmitter(self, 'Turret', army, v):ScaleEmitter(2.3))
+			self.Trash:Add(CreateAttachedEmitter(self, 'Turret', army, v):ScaleEmitter(2.2))
 		end
 	end,
 }

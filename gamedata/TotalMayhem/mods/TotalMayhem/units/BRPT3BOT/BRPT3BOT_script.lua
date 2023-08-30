@@ -10,10 +10,8 @@ BRPT3BOT = Class( SWalkingLandUnit ) {
 
 	Weapons = {
 
-		RightGun = Class(SAAOlarisCannonWeapon) {
-		},
-		MainTurret = Class(SDFThauCannon) {
-		},
+		RightGun = Class(SAAOlarisCannonWeapon) {},
+		MainTurret = Class(SDFThauCannon) {},
 	},
 
 

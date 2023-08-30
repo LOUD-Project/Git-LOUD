@@ -23,12 +23,26 @@ UnitBlueprint {
     },
     
     Buffs = {
+        EnergyWeapon = {
+            Level1 = 0.97,
+            Level2 = 0.94,
+            Level3 = 0.91,
+            Level4 = 0.88,
+            Level5 = 0.85,
+        },    
         Regen = {
             Level1 = 20,
             Level2 = 40,
             Level3 = 60,
             Level4 = 80,
             Level5 = 100,
+        },
+        VisionRadius = {
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,            
         },
     },
     
@@ -111,13 +125,54 @@ UnitBlueprint {
 	
 	Enhancements = {
 	
-		Sequence = {'InstallFactoryShield'},
+		Sequence = {'InstallFactoryShield','InstallRegenPackage1','InstallRegenPackage2' },
 		
         Slots = {
             Back = {},
             LCH = {},
             RCH = {},		
 			Command = {},
+        },
+		
+		InstallRegenPackage1 = {
+		
+            BuildCostEnergy = 25000,
+            BuildCostMass = 2160,
+            BuildTime = 1800,
+			
+            Icon = 'Regen',
+			
+            Name = 'Regen Package 1',
+			
+            Slot = 'LCH',
+			
+            UpgradeEffectBones = {'Turret'},
+			UpgradeUnitAmbientBones = {'Turret'},
+			
+			NewRegenRate = 45,
+        },
+		
+		InstallRegenPackage2 = {
+		
+            BuildCostEnergy = 35000,
+            BuildCostMass = 5320,
+            BuildTime = 3600,
+			
+            Icon = 'Regen',
+
+            Name = 'Regen Package 2',
+            Prerequisite = 'InstallRegenPackage1',			
+			
+            Slot = 'LCH',
+			
+            UpgradeEffectBones = {'Turret'},
+			UpgradeUnitAmbientBones = {'Turret'},
+			
+            RemoveEnhancements = {
+                'InstallRegenPackage1',
+            },
+			
+			NewRegenRate = 75,
         },
 		
 		InstallT3Radar = {
@@ -130,7 +185,7 @@ UnitBlueprint {
 			Icon = 'Radar_T3',
 			Name = 'Install Radar Upgrade',
 			
-			Slot = 'Back',
+			Slot = 'Command',
             UpgradeEffectBones = {'Turret',},
             UpgradeUnitAmbientBones = {'Turret',},
 		},
@@ -147,7 +202,7 @@ UnitBlueprint {
                 'InstallT3Radar',
                 'InstallT3RadarRemove',
             },
-            Slot = 'Back',
+            Slot = 'Command',
         },
 
 		InstallFactoryShield = {
@@ -208,12 +263,13 @@ UnitBlueprint {
             },
 			
             Slot = 'Back',
-        },	
+        },
+
     },	
 	
 	
     General = {
-		CapCost = 4,
+		CapCost = 5,
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -308,6 +364,37 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_LowArc',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.6,
+                    Radius = 1.5,
+                    TargetAllow = 'LAND,NAVAL,TECH1',
+                    TargetDisallow = 'WALL',
+                },
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.5,
+                    Radius = 1.0,
+                    TargetAllow = 'LAND,NAVAL,TECH2',
+                    TargetDisallow = 'WALL',
+                },
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.3,
+                    Radius = 1.0,
+                    TargetAllow = 'LAND,NAVAL,TECH3',
+                    TargetDisallow = 'WALL',
+                },
+            },			
+   
             CollideFriendly = false,
 			
             Damage = 900,
@@ -326,7 +413,7 @@ UnitBlueprint {
             FiringTolerance = 2,
             FiringRandomness = 0.35,
 			
-            Label = 'Gauss01',
+            Label = 'GaussCannon',
 			
             MaxRadius = 105,
             MinRadius = 15,
@@ -335,6 +422,8 @@ UnitBlueprint {
 			MuzzleVelocityRandom = 2,
 			
             NoPause = true,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/TDFGauss03/TDFGauss03_proj.bp',
             ProjectileLifetime = 3.5,
@@ -382,7 +471,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'aim',
             TurretBonePitch = 'Turret_Barrel02',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 24,
@@ -424,7 +512,7 @@ UnitBlueprint {
 			HeadingArcCenter = 0,
 			HeadingArcRange = 70,
 			
-            Label = 'SmallTurretGun01',
+            Label = 'TurretGun',
 			
             MaxRadius = 36,
 			
@@ -432,6 +520,8 @@ UnitBlueprint {
             MuzzleSalvoSize = 5,
 			
             MuzzleVelocity = 35,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/TDFPlasma01/TDFPlasma01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.15,
@@ -461,14 +551,15 @@ UnitBlueprint {
             TurretBoneMuzzle = 'SmallTurretMuzzle01',
             TurretBonePitch = 'SmallTurret_Barrel01',
             TurretBoneYaw = 'SmallTurret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 40,
+            TurretPitchRange = 60,
             TurretPitchSpeed = 60,
+
             TurretYaw = 0,
             TurretYawRange = 70,
             TurretYawSpeed = 90,
+
             Turreted = true,
         },
 		
@@ -502,13 +593,15 @@ UnitBlueprint {
 			HeadingArcCenter = 0,
 			HeadingArcRange = 70,
 			
-            Label = 'SmallTurretGun02',
+            Label = 'TurretGun',
 			
             MaxRadius = 36,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 5,
             MuzzleVelocity = 35,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/TDFPlasma01/TDFPlasma01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.15,
@@ -536,14 +629,15 @@ UnitBlueprint {
             TurretBoneMuzzle = 'SmallTurretMuzzle02',
             TurretBonePitch = 'SmallTurret_Barrel02',
             TurretBoneYaw = 'SmallTurret02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 40,
+            TurretPitchRange = 60,
             TurretPitchSpeed = 60,
+
             TurretYaw = 0,
             TurretYawRange = 70,
             TurretYawSpeed = 90,
+
             Turreted = true,
         },
 		
@@ -576,13 +670,15 @@ UnitBlueprint {
 			HeadingArcCenter = -90,
 			HeadingArcRange = 70,
 			
-            Label = 'SmallTurretGun03',
+            Label = 'TurretGun',
 			
             MaxRadius = 36,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 5,
             MuzzleVelocity = 35,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/TDFPlasma01/TDFPlasma01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.15,
@@ -610,14 +706,15 @@ UnitBlueprint {
             TurretBoneMuzzle = 'SmallTurretMuzzle03',
             TurretBonePitch = 'SmallTurret_Barrel03',
             TurretBoneYaw = 'SmallTurret03',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 40,
+            TurretPitchRange = 60,
             TurretPitchSpeed = 60,
+
             TurretYaw = 0,
             TurretYawRange = 70,
             TurretYawSpeed = 90,
+
             Turreted = true,
         },
 		-- -- LEFT Secondary 2
@@ -649,13 +746,15 @@ UnitBlueprint {
 			HeadingArcCenter = -90,
 			HeadingArcRange = 70,
 			
-            Label = 'SmallTurretGun04',
+            Label = 'TurretGun',
 			
             MaxRadius = 36,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 5,
             MuzzleVelocity = 35,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/TDFPlasma01/TDFPlasma01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.15,
@@ -683,14 +782,15 @@ UnitBlueprint {
             TurretBoneMuzzle = 'SmallTurretMuzzle04',
             TurretBonePitch = 'SmallTurret_Barrel04',
             TurretBoneYaw = 'SmallTurret04',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 40,
+            TurretPitchRange = 60,
             TurretPitchSpeed = 60,
+
             TurretYaw = 0,
             TurretYawRange = 70,
             TurretYawSpeed = 90,
+
             Turreted = true,
         },
 		
@@ -723,13 +823,15 @@ UnitBlueprint {
 			HeadingArcCenter = 180,
 			HeadingArcRange = 70,
 
-            Label = 'SmallTurretGun05',
+            Label = 'TurretGun',
 			
             MaxRadius = 36,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 5,
             MuzzleVelocity = 35,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/TDFPlasma01/TDFPlasma01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.15,
@@ -756,14 +858,15 @@ UnitBlueprint {
             TurretBoneMuzzle = 'SmallTurretMuzzle05',
             TurretBonePitch = 'SmallTurret_Barrel05',
             TurretBoneYaw = 'SmallTurret05',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 40,
+            TurretPitchRange = 60,
             TurretPitchSpeed = 60,
+
             TurretYaw = 0,
             TurretYawRange = 70,
             TurretYawSpeed = 90,
+
             Turreted = true,
         },
 		
@@ -796,9 +899,11 @@ UnitBlueprint {
 			HeadingArcCenter = 180,
 			HeadingArcRange = 70,
 			
-            Label = 'SmallTurretGun06',
+            Label = 'TurretGun',
 			
             MaxRadius = 36,
+            
+            NotExclusive = true,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 5,
@@ -830,14 +935,15 @@ UnitBlueprint {
             TurretBoneMuzzle = 'SmallTurretMuzzle06',
             TurretBonePitch = 'SmallTurret_Barrel06',
             TurretBoneYaw = 'SmallTurret06',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 40,
+            TurretPitchRange = 60,
             TurretPitchSpeed = 60,
+
             TurretYaw = 0,
             TurretYawRange = 70,
             TurretYawSpeed = 90,
+
             Turreted = true,
         },
 		
@@ -870,9 +976,11 @@ UnitBlueprint {
 			HeadingArcCenter = 90,
 			HeadingArcRange = 70,
 			
-            Label = 'SmallTurretGun07',
+            Label = 'TurretGun',
 			
             MaxRadius = 36,
+            
+            NotExclusive = true,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 5,
@@ -903,14 +1011,15 @@ UnitBlueprint {
             TurretBoneMuzzle = 'SmallTurretMuzzle07',
             TurretBonePitch = 'SmallTurret_Barrel07',
             TurretBoneYaw = 'SmallTurret07',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 40,
+            TurretPitchRange = 60,
             TurretPitchSpeed = 60,
+
             TurretYaw = 0,
             TurretYawRange = 70,
             TurretYawSpeed = 90,
+
             Turreted = true,
         },
 		
@@ -943,13 +1052,15 @@ UnitBlueprint {
 			HeadingArcCenter = 90,
 			HeadingArcRange = 70,
 			
-            Label = 'SmallTurretGun08',
+            Label = 'TurretGun',
 			
             MaxRadius = 36,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 5,
             MuzzleVelocity = 35,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/TDFPlasma01/TDFPlasma01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 3,
@@ -976,14 +1087,15 @@ UnitBlueprint {
             TurretBoneMuzzle = 'SmallTurretMuzzle08',
             TurretBonePitch = 'SmallTurret_Barrel08',
             TurretBoneYaw = 'SmallTurret08',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 40,
+            TurretPitchRange = 60,
             TurretPitchSpeed = 60,
+
             TurretYaw = 0,
             TurretYawRange = 70,
             TurretYawSpeed = 90,
+
             Turreted = true,
         },
 		
@@ -1012,13 +1124,16 @@ UnitBlueprint {
             },
 			
             FiringTolerance = 10,
-            Label = 'MissileRack01',
+
+            Label = 'SAM',
 			
             MaxRadius = 60,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 40,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
             ProjectileLifetime = 4,
@@ -1052,11 +1167,11 @@ UnitBlueprint {
             TurretBoneMuzzle = 'aa01',
             TurretBonePitch = 'aa01',
             TurretBoneYaw = 'aa01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 25,
             TurretPitchRange = 80,
             TurretPitchSpeed = 90,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 90,
@@ -1068,7 +1183,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.6,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

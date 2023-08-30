@@ -191,6 +191,7 @@ UnitBlueprint {
 
     Weapon = {
         {
+			AboveWaterFireOnly = true,		
             AboveWaterTargetsOnly = true,
 			AutoInitiateAttackCommand = true,
             Audio = {
@@ -291,6 +292,7 @@ UnitBlueprint {
             Turreted = true,
 		},
         {
+			AboveWaterFireOnly = true,		
             AboveWaterTargetsOnly = true,
             Audio = {
                 Fire = Sound {
@@ -307,7 +309,7 @@ UnitBlueprint {
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 0.6,
-                    Radius = 1.5,
+                    Radius = 1.25,
                     TargetAllow = 'LAND,NAVAL,TECH1',
                     TargetDisallow = 'WALL',
                 },
@@ -315,7 +317,7 @@ UnitBlueprint {
                     Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 0.5,
+                    Duration = 0.4,
                     Radius = 1.0,
                     TargetAllow = 'LAND,NAVAL,TECH2',
                     TargetDisallow = 'WALL',
@@ -324,7 +326,7 @@ UnitBlueprint {
                     Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 0.3,
+                    Duration = 0.2,
                     Radius = 1.0,
                     TargetAllow = 'LAND,NAVAL,TECH3',
                     TargetDisallow = 'WALL',
@@ -334,7 +336,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 740,
-            DamageRadius = 1.5,
+            DamageRadius = 1.25,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',

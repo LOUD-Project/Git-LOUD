@@ -100,9 +100,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 9.4,
                 Normal = 'Tarmacs/Tar12x_aeon_01_normals',
-                Orientations = {
-                    0,
-                },
+                Orientations = { 0 },
                 RemoveWhenDead = false,
                 Width = 9.4,
             },

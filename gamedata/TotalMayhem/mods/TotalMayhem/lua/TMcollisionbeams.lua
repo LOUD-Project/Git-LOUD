@@ -13,35 +13,35 @@ TMCollisionBeam = Class(CollisionBeam) {
 TMNovaCatBlueLaserBeam = Class(TMCollisionBeam) {
     TerrainImpactType = 'LargeBeam01',
     TerrainImpactScale = 0.2,
-    FxBeamStartPointScale = 0.8,
+    FxBeamStartPointScale = 0.6,
     FxBeamStartPoint = EffectTemplate.SDFExperimentalPhasonProjMuzzleFlash,
     FxBeam = {'/mods/TotalMayhem/effects/emitters/novacat_bluelaser_emit.bp'},
     FxBeamEndPoint = TMEffectTemplate.AeonNocaCatBlueLaserHit,
-    FxBeamEndPointScale = 0.5,
+    FxBeamEndPointScale = 0.4,
     SplatTexture = 'czar_mark01_albedo',
-    ScorchSplatDropTime = 0.25,
+    ScorchSplatDropTime = 0.4,
 }
 
 TMNovaCatGreenLaserBeam = Class(TMCollisionBeam) {
     TerrainImpactType = 'LargeBeam01',
     TerrainImpactScale = 0.2,
-    FxBeamStartPointScale = 1.2,
+    FxBeamStartPointScale = 1.0,
     FxBeamStartPoint = EffectTemplate.SDFExperimentalPhasonProjMuzzleFlash,
     FxBeam = {'/mods/TotalMayhem/effects/emitters/novacat_greenlaser_emit.bp'},
     FxBeamEndPoint = EffectTemplate.APhasonLaserImpact01,
-    FxBeamEndPointScale = 1,
+    FxBeamEndPointScale = 0.8,
     SplatTexture = 'czar_mark01_albedo',
-    ScorchSplatDropTime = 0.25,
+    ScorchSplatDropTime = 0.4,
 }
 
 TMMizuraBlueLaserBeam = Class(TMCollisionBeam) {
     TerrainImpactType = 'LargeBeam01',
     TerrainImpactScale = 0.2,
-    FxBeamStartPointScale = 1.2,
+    FxBeamStartPointScale = 0.8,
     FxBeamStartPoint = EffectTemplate.ASDisruptorCannonMuzzle01,
     FxBeam = {'/mods/TotalMayhem/effects/emitters/mizura_bluelaser_emit.bp'},
     FxBeamEndPoint = TMEffectTemplate.AeonNocaCatBlueLaserHit,
     FxBeamEndPointScale = 0.07,
     SplatTexture = 'czar_mark01_albedo',
-    ScorchSplatDropTime = 0.25,
+    ScorchSplatDropTime = 0.4,
 }

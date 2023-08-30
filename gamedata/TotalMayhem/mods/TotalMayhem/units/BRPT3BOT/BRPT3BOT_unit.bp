@@ -46,8 +46,7 @@ UnitBlueprint {
 		'SUBMERSIBLE',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'OVERLAYDIRECTFIRE',
-		'OVERLAYINDIRECTFIRE',
+        'OVERLAYRADAR',
     },
 	
     Defense = {
@@ -161,9 +160,6 @@ UnitBlueprint {
 		WaterSpeedMultiplier = 1.15,
     },
 	
-    SelectionCenterOffsetX = 0,
-    SelectionCenterOffsetZ = 0,
-	
     SelectionSizeX = 1.2,
     SelectionSizeZ = 1.2,
     SelectionThickness = 0.3,
@@ -176,11 +172,11 @@ UnitBlueprint {
     StrategicIconSortPriority = 50,
 	
     Veteran = {
-        Level1 = 10,
-        Level2 = 20,
-        Level3 = 30,
-        Level4 = 40,
-        Level5 = 50,
+        Level1 = 9,
+        Level2 = 18,
+        Level3 = 27,
+        Level4 = 36,
+        Level5 = 45,
     },
 	
     Transport = {
@@ -191,7 +187,8 @@ UnitBlueprint {
         {
 			AboveWaterFireOnly = true,		
             AboveWaterTargetsOnly = true,
-			
+			AutoInitiateAttackCommand = true,			
+
             Audio = {
                 Fire = Sound {
                     Bank = 'XSS_Weapon',
@@ -201,6 +198,37 @@ UnitBlueprint {
             },
 			
             BallisticArc = 'RULEUBA_LowArc',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.8,
+                    Radius = 2,
+                    TargetAllow = 'LAND,NAVAL,TECH1',
+                    TargetDisallow = 'WALL',
+                },
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.4,
+                    Radius = 1.6,
+                    TargetAllow = 'LAND,NAVAL,TECH2',
+                    TargetDisallow = 'WALL',
+                },
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.2,
+                    Radius = 1.0,
+                    TargetAllow = 'LAND,NAVAL,TECH3',
+                    TargetDisallow = 'WALL',
+                },
+            },			
+    
             CollideFriendly = false,
 			
             Damage = 880,
@@ -208,6 +236,11 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Thau Cannon',
+
+            EnergyChargeForFirstShot = false,            
+            
+            EnergyDrainPerSecond = 560,
+            EnergyRequired = 1400,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -215,7 +248,8 @@ UnitBlueprint {
             },
 			
 			FiringRandomness = 0.55,
-			FiringRandomnessWhileMoving = 1.2,
+			FiringRandomnessWhileMoving = 1.1,
+
             FiringTolerance = 1,
 			
 			HeadingArcCenter = 45,
@@ -226,7 +260,9 @@ UnitBlueprint {
 			
             MaxRadius = 46,
 
-            MuzzleVelocity = 25,
+            MuzzleVelocity = 27,
+            
+            NotExclusive = true,
 
             ProjectileId = '/projectiles/SDFHeavyQuarnonCannon01/SDFHeavyQuarnonCannon01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 2,
@@ -238,11 +274,9 @@ UnitBlueprint {
                 },
             },
 
-            RackSlavedToTurret = true,
-			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.4,	-- 352 DPS
+            RateOfFire = 1,	-- 880 damage every 2.5 seconds = 352 DPS
 			
             TargetCheckInterval = 0.6,
             TargetPriorities = {
@@ -256,9 +290,12 @@ UnitBlueprint {
 			
 			TurretBoneDualMuzzle = 'Arm0104',
 			TurretBoneDualPitch = 'Arm0103',
+
             TurretBoneMuzzle = 'Weapon02',
             TurretBonePitch = 'Arm0102',
+
             TurretBoneYaw = 'Arm0101',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 10,
@@ -267,13 +304,14 @@ UnitBlueprint {
 			
             TurretYaw = -45,
             TurretYawRange = 141,
-            TurretYawSpeed = 35,
+            TurretYawSpeed = 32,
 			
             Turreted = true,
         },
         {
 			AboveWaterFireOnly = true,
             AlwaysRecheckTarget = true,
+
             Audio = {
                 Fire = Sound {
                     Bank = 'XSS_Weapon',
@@ -282,22 +320,21 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_None',
-            CannotAttackGround = false,
+
             CollideFriendly = false,
 			
             Damage = 70,
-			DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Gatling Gun',
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed|Air',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed|Air',
             },
 			
-            FiringRandomness = 0.85,
-			FiringRandomnessWhileMoving = 1.2,
+            FiringRandomness = 0.65,
+			FiringRandomnessWhileMoving = 1.1,
 			
             FiringTolerance = 1.2,
 			
@@ -306,6 +343,8 @@ UnitBlueprint {
             MaxRadius = 36,
 
             MuzzleVelocity = 44,
+            
+            NotExclusive = true,
 
             ProjectileId = '/projectiles/SDFTauCannon01/SDFTauCannon01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1,
@@ -317,8 +356,6 @@ UnitBlueprint {
                 },
             },
 
-            RackSlavedToTurret = true,
-			
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire= 3,		-- 210 DPS
@@ -326,6 +363,7 @@ UnitBlueprint {
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'AIR',
                 'MOBILE',
                 'DEFENSE',
                 'ALLUNITS,-WALL',
@@ -336,9 +374,12 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'Arm0204',
             TurretBoneDualPitch = 'Arm0203',
+
             TurretBoneMuzzle = 'Weapon01',
             TurretBonePitch = 'Arm0202',
+
             TurretBoneYaw = 'Arm0201',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 10,
@@ -347,7 +388,7 @@ UnitBlueprint {
 			
             TurretYaw = -30,
             TurretYawRange = 120,
-            TurretYawSpeed = 47,
+            TurretYawSpeed = 49,
 			
             Turreted = true,
         },

@@ -7,7 +7,7 @@ local EffectTemplate = import('/lua/EffectTemplates.lua')
 BRPT2PD = Class(SStructureUnit) {
 
 	Weapons = {
-		MainGun = Class(SDFAireauBolterWeapon) { FxMuzzleFlashScale = 2.4 },
+		MainGun = Class(SDFAireauBolterWeapon) { FxMuzzleFlashScale = 1.6 },
 	},
 
 	OnStopBeingBuilt = function(self,builder,layer)
@@ -31,14 +31,14 @@ BRPT2PD = Class(SStructureUnit) {
 		local army =  self:GetArmy()
 		
 		for k, v in EffectTemplate['OthuyAmbientEmanation'] do
-			self.Trash:Add(CreateAttachedEmitter(self, 'eff02', army, v):ScaleEmitter(0.08))
-			self.Trash:Add(CreateAttachedEmitter(self, 'eff03', army, v):ScaleEmitter(0.08))
+			self.Trash:Add(CreateAttachedEmitter(self, 'eff02', army, v):ScaleEmitter(0.05))
+			self.Trash:Add(CreateAttachedEmitter(self, 'eff03', army, v):ScaleEmitter(0.05))
 		end
 		
 		for k, v in EffectTemplate['SDFSinnutheWeaponFXTrails01'] do
-			self.Trash:Add(CreateAttachedEmitter(self, 'eff01', army, v):ScaleEmitter(0.28))
-			self.Trash:Add(CreateAttachedEmitter(self, 'eff04', army, v):ScaleEmitter(0.12))
-			self.Trash:Add(CreateAttachedEmitter(self, 'eff05', army, v):ScaleEmitter(0.12))
+			self.Trash:Add(CreateAttachedEmitter(self, 'eff01', army, v):ScaleEmitter(0.2))
+			self.Trash:Add(CreateAttachedEmitter(self, 'eff04', army, v):ScaleEmitter(0.1))
+			self.Trash:Add(CreateAttachedEmitter(self, 'eff05', army, v):ScaleEmitter(0.1))
 			self.Trash:Add(CreateAttachedEmitter(self, 'Muzzle01', army, v):ScaleEmitter(0.10))
 		end
 	end,

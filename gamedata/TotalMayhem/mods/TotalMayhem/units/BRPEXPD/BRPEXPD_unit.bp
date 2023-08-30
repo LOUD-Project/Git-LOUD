@@ -28,6 +28,13 @@ UnitBlueprint {
     },
 	
     Buffs = {
+        EnergyWeapon = {
+            Level1 = 0.96,
+            Level2 = 0.92,
+            Level3 = 0.88,
+            Level4 = 0.84,
+            Level5 = 0.80,
+        },    
         Regen = {
             Level1 = 15,
             Level2 = 30,
@@ -35,7 +42,13 @@ UnitBlueprint {
             Level4 = 60,
             Level5 = 75,
         },
-		
+		VisionRadius = {
+            Level1 = 2,
+            Level2 = 3,
+            Level3 = 4,
+            Level4 = 5,
+            Level5 = 6,
+		},				
     },
 	
     BuildIconSortPriority = 71,
@@ -96,12 +109,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 9.8,
                 Normal = 'Tarmacs/Tar8x_seraphim_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 9.8,
             },
@@ -187,6 +195,7 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 BeamLoop = Sound {
                     Bank = 'XSS_Weapon',
@@ -204,7 +213,9 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
@@ -213,13 +224,13 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 340,
-            DamageRadius = 0,
-            DamageType = 'Normal',
+            DamageRadius = 1.5,
+            DamageType = 'ShieldMult1.1',
 			
             DisplayName = 'Ultrachromatic Beam Generator',
 
-            EnergyDrainPerSecond = 250,
-            EnergyRequired = 750,
+            EnergyDrainPerSecond = 525,
+            EnergyRequired = 2100,
 			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed|Air',
@@ -230,7 +241,7 @@ UnitBlueprint {
 			
             Label = 'MainWeapon',
 			
-            MaxRadius = 90,
+            MaxRadius = 92,
 			
             RackBones = {
                 {
@@ -248,27 +259,24 @@ UnitBlueprint {
             TargetPriorities = {
                 'EXPERIMENTAL',
                 'SPECIALHIGHPRI',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
+                'MOBILE',
                 'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'Muzzle01',
             TurretBonePitch = 'Object07',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 45,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 36,
+            TurretYawSpeed = 39,
 			
             Turreted = true,
         },
@@ -281,11 +289,12 @@ UnitBlueprint {
     		Label = 'DeathWeapon',
     	}, 
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.7,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -48,13 +48,13 @@ UnitBlueprint {
         'DIRECTFIRE',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'OVERLAYDIRECTFIRE',
-		'OVERLAYINDIRECTFIRE',
-		'OVERLAYANTIAIR',
 		'OVERLAYRADAR',
     },
 	
     Defense = {
+
+        LambdaDestroy01 = {AttachBone = 'Torso01', Radius = 4.8, RedirectRateOfFire = 5 },
+
         AirThreatLevel = 72,
         ArmorType = 'Normal',
         Health = 56000,
@@ -70,6 +70,7 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_amphibious>Amphibious',
             '<LOC ability_aa>Anti-Air',
+            'Lambda Destruction Field',
 			'Radar',
 			'Radar & Sonar Stealth',
         },
@@ -210,15 +211,16 @@ UnitBlueprint {
     LifeBarSize = 3.25,
 	
     Physics = {
+        BackUpDistance = 14,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 2,
-        MaxBrake = 1,
-        MaxSpeed = 2.8,
-        MaxSpeedReverse = 1,
+        MaxAcceleration = 1.5,
+        MaxBrake = 2.9,
+        MaxSpeed = 2.9,
+        MaxSpeedReverse = 2.9,
         MaxSteerForce = 10,
         MeshExtentsX = 2.5,
         MeshExtentsY = 2.3,
@@ -232,9 +234,6 @@ UnitBlueprint {
         TurnRadius = 3,
         TurnRate = 35,
     },
-	
-    SelectionCenterOffsetX = 0,
-    SelectionCenterOffsetZ = 0,
 	
     SelectionSizeX = 1.5,
     SelectionSizeZ = 1.3,
@@ -260,9 +259,228 @@ UnitBlueprint {
     },
 	
     Weapon = {
+
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0001_Chronotron_Cannon',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
 			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.8,
+                    Radius = 2,
+                    TargetAllow = 'LAND,NAVAL,TECH1',
+                    TargetDisallow = 'WALL',
+                },
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.5,
+                    Radius = 1.4,
+                    TargetAllow = 'LAND,NAVAL,TECH2',
+                    TargetDisallow = 'WALL',
+                },
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.3,
+                    Radius = 0.9,
+                    TargetAllow = 'LAND,NAVAL,TECH3',
+                    TargetDisallow = 'WALL',
+                },
+            },			
+
+            CollideFriendly = false,
+			
+            Damage = 500,
+            DamageRadius = 2,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Chrono Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 2,
+			
+            Label = 'ChronoCannon',
+			
+            MaxRadius = 56,
+			
+            MuzzleChargeDelay = 0.4,
+
+            MuzzleVelocity = 32,
+
+            NotExclusive = true,
+            
+            ProjectileId = '/projectiles/SDFChronatronCannon01/SDFChronatronCannon01_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 2,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {'muzzle03'},
+                    RackBone = 'Left_Upgrade_Weapon01_01',
+                },
+            },
+
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 1,		-- 500 DPS Ground
+			
+            TargetCheckInterval = 0.5,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'DEFENSE',
+                'ALLUNITS',
+            },
+			
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            TurretBoneMuzzle = 'muzzle03',
+            TurretBonePitch = 'Left_Upgrade_Weapon01_01',
+            TurretBoneYaw = 'Left_Upgrade_Weapon01_01',
+			
+            TurretPitch = 0,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = 25,
+            TurretYawRange = 60,
+            TurretYawSpeed = 25,
+		
+            Turreted = true,
+        },
+
+        {
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0001_Chronotron_Cannon',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+
+            BallisticArc = 'RULEUBA_LowArc',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.8,
+                    Radius = 2,
+                    TargetAllow = 'LAND,NAVAL,TECH1',
+                    TargetDisallow = 'WALL',
+                },
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.5,
+                    Radius = 1.4,
+                    TargetAllow = 'LAND,NAVAL,TECH2',
+                    TargetDisallow = 'WALL',
+                },
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.3,
+                    Radius = 0.9,
+                    TargetAllow = 'LAND,NAVAL,TECH3',
+                    TargetDisallow = 'WALL',
+                },
+            },			
+
+            CollideFriendly = false,
+			
+            Damage = 500,
+            DamageRadius = 2,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Chrono Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 2,
+			
+            Label = 'ChronoCannon',
+			
+            MaxRadius = 56,
+			
+            MuzzleChargeDelay = 0.4,
+
+            MuzzleVelocity = 32,
+            
+            NotExclusive = true,
+			
+            ProjectileId = '/projectiles/SDFChronatronCannon01/SDFChronatronCannon01_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 2,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {'muzzle02'},
+                    RackBone = 'Right_Upgrade_Weapon01_01',
+                },
+            },
+
+            RateOfFire = 1,		-- 500 DPS Ground
+			
+            TargetCheckInterval = 0.5,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'DEFENSE',
+                'ALLUNITS',
+            },
+			
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+			TurretBoneMuzzle = 'muzzle02',
+			TurretBonePitch = 'Right_Upgrade_Weapon01_01',
+            TurretBoneYaw = 'Right_Upgrade_Weapon01_01',
+			
+            TurretPitch = 0,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = -25,
+            TurretYawRange = 60,
+            TurretYawSpeed = 25,
+		
+            Turreted = true,
+        },
+
+        {
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+
+            AlwaysRecheckTarget = true,			
+
             Audio = {
                 BeamLoop = Sound {
                     Bank = 'XSS_Weapon',
@@ -281,8 +499,6 @@ UnitBlueprint {
                 },
             },
 			
-            AutoInitiateAttackCommand = true,
-			
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
@@ -290,11 +506,11 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 400,
+            Damage = 300,
             DamageRadius = 0,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult1.1',
 			
-            DisplayName = 'Ultrachromatic Beam Generator',
+            DisplayName = 'Ultrachromatic Beam',
 			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed|Air',
@@ -306,6 +522,8 @@ UnitBlueprint {
             Label = 'Beam',
 			
             MaxRadius = 40,
+            
+            NotExclusive = true,
 
             RackBones = {
                 {
@@ -316,7 +534,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.25,	-- 4000 Damage / 4 = 1000 DPS
+            RateOfFire = 0.25,	-- 3000 Damage / 4 = 750 * 2 = 1500 DPS
 			
 			RetargetOnMiss = true,
 
@@ -328,16 +546,16 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'muzzle',
             TurretBonePitch = 'Left_Arm03',
+
             TurretBoneYaw = 'Left_Arm03',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 40,
-            TurretPitchSpeed = 30,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 45,
 			
             TurretYaw = 30,
             TurretYawRange = 50,
@@ -345,6 +563,7 @@ UnitBlueprint {
 			
             Turreted = true,
         },
+
         {
             AboveWaterTargetsOnly = true,
 			
@@ -374,10 +593,9 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 400,
-            DamageRadius = 0,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult1.1',
 			
-            DisplayName = 'Ultrachromatic Beam Generator',
+            DisplayName = 'Ultrachromatic Beam',
 			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed|Air',
@@ -389,6 +607,8 @@ UnitBlueprint {
             Label = 'Beam',
 			
             MaxRadius = 40,
+            
+            NotExclusive = true,
 
             RackBones = {
                 {
@@ -414,7 +634,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'muzzle01',
             TurretBonePitch = 'Right_Arm01',
             TurretBoneYaw = 'Right_Arm01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 40,
@@ -425,164 +644,11 @@ UnitBlueprint {
             TurretYawSpeed = 30,
 			
             Turreted = true,
-
-            WeaponRepackTimeout = 3,
-            WeaponUnpackAnimation = '/mods/TotalMayhem/units/BRPEXHVBOT/BRPEXHVBOT_unpack.sca',
-            WeaponUnpackAnimationRate = 7.5,
-            WeaponUnpackLocksMotion = false,
-            WeaponUnpacks = true,
-        },
-
-        {
-            AboveWaterFireOnly = true,
-            AboveWaterTargetsOnly = true,
-            Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0001_Chronotron_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-            BallisticArc = 'RULEUBA_LowArc',
-            CollideFriendly = false,
-			
-            Damage = 200,
-            DamageRadius = 2,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Chronotron Cannon',
-			
-            FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
-            },
-			
-            FiringTolerance = 2,
-			
-            Label = 'ChronotronCannon',
-			
-            MaxRadius = 48,
-			
-            MuzzleChargeDelay = 0.4,
-
-            MuzzleVelocity = 35,
-			
-            ProjectileId = '/projectiles/SDFChronatronCannon01/SDFChronatronCannon01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 2,
-			
-            RackBones = {
-                {
-                    MuzzleBones = {'muzzle03'},
-                    RackBone = 'Left_Upgrade_Weapon01_01',
-                },
-            },
-
-            RangeCategory = 'UWRC_IndirectFire',
-			
-            RateOfFire = 1,		-- 200 DPS Ground
-			
-            TargetCheckInterval = 0.5,
-			
-            TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE',
-                'DEFENSE',
-                'ALLUNITS',
-            },
-			
-            TargetRestrictDisallow = 'UNTARGETABLE',
-			
-            TurretBoneMuzzle = 'muzzle03',
-            TurretBonePitch = 'Left_Upgrade_Weapon01_01',
-            TurretBoneYaw = 'Left_Upgrade_Weapon01_01',
-            TurretDualManipulators = false,
-			
-            TurretPitch = 0,
-            TurretPitchRange = 45,
-            TurretPitchSpeed = 30,
-			
-            TurretYaw = 0,
-            TurretYawRange = 25,
-            TurretYawSpeed = 25,
-		
-            Turreted = true,
-        },
-
-        {
-            AboveWaterFireOnly = true,
-            AboveWaterTargetsOnly = true,
-            Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0001_Chronotron_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-            BallisticArc = 'RULEUBA_LowArc',
-            CollideFriendly = false,
-			
-            Damage = 200,
-            DamageRadius = 2,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Chronotron Cannon',
-			
-            FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
-            },
-			
-            FiringTolerance = 2,
-			
-            Label = 'ChronotronCannon',
-			
-            MaxRadius = 48,
-			
-            MuzzleChargeDelay = 0.4,
-
-            MuzzleVelocity = 35,
-			
-            ProjectileId = '/projectiles/SDFChronatronCannon01/SDFChronatronCannon01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 2,
-			
-            RackBones = {
-                {
-                    MuzzleBones = {'muzzle02'},
-                    RackBone = 'Right_Upgrade_Weapon01_01',
-                },
-            },
-
-            RateOfFire = 1,		-- 200 DPS Ground
-			
-            TargetCheckInterval = 0.5,
-			
-            TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE',
-                'DEFENSE',
-                'ALLUNITS',
-            },
-			
-            TargetRestrictDisallow = 'UNTARGETABLE',
-			
-			TurretBoneMuzzle = 'muzzle02',
-			TurretBonePitch = 'Right_Upgrade_Weapon01_01',
-            TurretBoneYaw = 'Right_Upgrade_Weapon01_01',
-            TurretDualManipulators = false,
-			
-            TurretPitch = 0,
-            TurretPitchRange = 45,
-            TurretPitchSpeed = 30,
-			
-            TurretYaw = 0,
-            TurretYawRange = 25,
-            TurretYawSpeed = 25,
-		
-            Turreted = true,
         },
 
         {
             AboveWaterTargetsOnly = true,
+            AlwaysRecheckTarget = true,
 			
             Audio = {
                 Fire = Sound {
@@ -599,304 +665,85 @@ UnitBlueprint {
             DamageRadius = 1,
             DamageType = 'Normal',
 			
-            DisplayName = 'Aire-au Bolter',
+            DisplayName = 'AA Bolter',
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed|Air',
                 Water = 'Land|Water|Seabed|Air',
             },
 			
-            FiringRandomness = 0.6,
-			FiringRandomnessWhileMoving = 1.1,
-            FiringTolerance = 1,
+            FiringRandomness = 0.3,
+			FiringRandomnessWhileMoving = 0.6,
+
+            FiringTolerance = 5,
 			
             Label = 'Bolter',
 			
 			LeadTarget = true,
 			
-            MaxRadius = 42,
+            MaxRadius = 44,
 
-            MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 50,
-			
+            MuzzleVelocity = 68,
+
+            NotExclusive = true,
+            
             ProjectileId = '/projectiles/SDFAireauBolter01/SDFAireauBolter01_proj.bp',
 			ProjectileLifetime = 1,
 
             RackBones = {
                 {
-                    MuzzleBones = {'aa04'},
-                    RackBone = 'AA_LeftBarrel01',
+                    MuzzleBones = {'aa04','aa03'},
+                    RackBone = 'Left_Leg_B07',
+                },
+                {
+                    MuzzleBones = {'aa01','aa02'},
+                    RackBone = 'Left_Leg_B10',
                 },
             },
+            RackFireTogether = true,
+            
+            RackSalvoReloadTime = 0.1,
 
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 3,		-- 180 DPS surface/air
+            RateOfFire = 3,		-- 360 DPS surface/air
 			
             TargetCheckInterval = 0.66,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE SHIELD',
                 'MOBILE AIR',
                 'MOBILE',
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 			
             TurretBoneMuzzle = 'aa04',
-            TurretBonePitch = 'AA_LeftBarrel01',
-            TurretBoneYaw = 'AA_LeftBarrel01',
-            TurretDualManipulators = false,
+            TurretBonePitch = 'Left_Leg_B07',
+            
+            TurretBoneDualMuzzle = 'aa01',
+            TurretBoneDualPitch = 'Left_Leg_B10',
+
+            TurretBoneYaw = 'Object01',
+
+            TurretDualManipulators = true,
 			
             TurretPitch = 15,
-            TurretPitchRange = 75,
+            TurretPitchRange = 70,
             TurretPitchSpeed = 120,
 			
-            TurretYaw = -63,
-            TurretYawRange = 120,
+            TurretYaw = 0,
+            TurretYawRange = 180,
             TurretYawSpeed = 90,
 			
             Turreted = true,
         },
-        {
-            AboveWaterTargetsOnly = true,
-            Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0202_AireAuBolter',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-			
-            BallisticArc = 'RULEUBA_LowArc',
-            CollideFriendly = false,
-			
-            Damage = 30,
-            DamageRadius = 1,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Aire-au Bolter',
-			
-            FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed|Air',
-                Water = 'Land|Water|Seabed|Air',
-            },
 
-            FiringRandomness = 0.6,
-			FiringRandomnessWhileMoving = 1.1,
-            FiringTolerance = 1,
-			
-            Label = 'Bolter',
-			LeadTarget = true,
-			
-            MaxRadius = 42,
-			
-            MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 50,
-			
-            ProjectileId = '/projectiles/SDFAireauBolter01/SDFAireauBolter01_proj.bp',
-			ProjectileLifetime = 1,
-
-            RackBones = {
-                {
-                    MuzzleBones = {'aa03'},
-                    RackBone = 'AA_LeftBarrel02',
-                },
-            },
-
-            RateOfFire = 3,		-- 180 DPS Surface/Air
-			
-            TargetCheckInterval = 0.66,
-            TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE SHIELD',
-                'MOBILE AIR',
-                'MOBILE',
-                'ALLUNITS,-WALL',
-            },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.1,
-			
-            TurretBoneMuzzle = 'aa03',
-            TurretBonePitch = 'AA_LeftBarrel02',
-            TurretBoneYaw = 'AA_LeftBarrel02',
-            TurretDualManipulators = false,
-			
-            TurretPitch = 15,
-            TurretPitchRange = 75,
-            TurretPitchSpeed = 120,
-			
-            TurretYaw = -63,
-            TurretYawRange = 120,
-            TurretYawSpeed = 90,
-			
-            Turreted = true,
-        },	
-        {
-            AboveWaterTargetsOnly = true,
-            Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0202_AireAuBolter',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-            BallisticArc = 'RULEUBA_LowArc',
-            CollideFriendly = false,
-			
-            Damage = 30,
-            DamageRadius = 1,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Aire-au Bolter',
-			
-            FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed|Air',
-                Water = 'Land|Water|Seabed|Air',
-            },
-			
-            FiringTolerance = 1,
-            FiringRandomness = 0.6,
-			FiringRandomness = 1.1,
-			
-            Label = 'Bolter',
-			LeadTarget = true,
-			
-            MaxRadius = 42,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 50,
-			
-            ProjectileId = '/projectiles/SDFAireauBolter01/SDFAireauBolter01_proj.bp',
-            ProjectileLifetime = 1,
-
-            RackBones = {
-                {
-                    MuzzleBones = {'aa01'},
-                    RackBone = 'AA_LeftBarrel03',
-                },
-            },
-
-            RateOfFire = 3,		-- 180 DPS Surface/Air
-			
-            TargetCheckInterval = 0.4,
-            TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE AIR',
-                'MOBILE',
-
-                'ALLUNITS,-WALL',
-            },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.1,
-			
-            TurretBoneMuzzle = 'aa01',
-            TurretBonePitch = 'AA_LeftBarrel03',
-            TurretBoneYaw = 'AA_LeftBarrel03',
-            TurretDualManipulators = false,
-			
-            TurretPitch = 15,
-            TurretPitchRange = 75,
-            TurretPitchSpeed = 120,
-			
-            TurretYaw = 63,
-            TurretYawRange = 120,
-            TurretYawSpeed = 90,
-			
-            Turreted = true,
-        },
-        {
-            AboveWaterTargetsOnly = true,
-            Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0202_AireAuBolter',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-            BallisticArc = 'RULEUBA_LowArc',
-            CollideFriendly = false,
-			
-            Damage = 30,
-            DamageRadius = 1,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Aire-au Bolter',
-			
-            FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed|Air',
-                Water = 'Land|Water|Seabed|Air',
-            },
-			
-            FiringTolerance = 1,
-            FiringRandomness = 0.6,
-			FiringRandomnessWhileMoving = 1.1,
-			
-            Label = 'Bolter',
-			LeadTarget = true,
-			
-            MaxRadius = 42,
-
-            MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 50,
-			
-            ProjectileId = '/projectiles/SDFAireauBolter01/SDFAireauBolter01_proj.bp',
-            ProjectileLifetime = 1,
-
-            RackBones = {
-                {
-                    MuzzleBones = {'aa02'},
-                    RackBone = 'AA_LeftBarrel04',
-                },
-            },
-
-            RateOfFire = 3,		-- 180 DPS Surface/Air
-			
-            TargetCheckInterval = 0.4,
-            TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE AIR',
-                'MOBILE',
-                'ALLUNITS,-WALL',
-            },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.1,
-			
-            TurretBoneMuzzle = 'aa02',
-            TurretBonePitch = 'AA_LeftBarrel04',
-            TurretBoneYaw = 'AA_LeftBarrel04',
-            TurretDualManipulators = false,
-			
-            TurretPitch = 15,
-            TurretPitchRange = 75,
-            TurretPitchSpeed = 120,
-			
-            TurretYaw = 63,
-            TurretYawRange = 120,
-            TurretYawSpeed = 90,
-			
-            Turreted = true,
-        },
-        {
-    		Damage = 3750,
-    		DamageFriendly = true,
-    		DamageRadius = 6,
-    		DamageType = 'Normal',
-    		DummyWeapon = true,
-    		Label = 'DeathWeapon',
-    	}, 		
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.7,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

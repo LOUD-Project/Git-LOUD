@@ -7,9 +7,7 @@ local EffectTemplate = import('/lua/EffectTemplates.lua')
 BRPT3ML = Class(SWalkingLandUnit) {
     
     Weapons = {
-        FrontTurret = Class(SDFHeavyQuarnonCannon) {
-            FxMuzzleFlashScale = 0.5,
-        },
+        FrontTurret = Class(SDFHeavyQuarnonCannon) { FxMuzzleFlashScale = 0.5 },
     },
     
     OnStopBeingBuilt = function(self,builder,layer)

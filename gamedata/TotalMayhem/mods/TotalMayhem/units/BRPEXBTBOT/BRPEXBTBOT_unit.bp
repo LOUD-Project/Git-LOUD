@@ -258,8 +258,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 3,
@@ -276,9 +274,12 @@ UnitBlueprint {
             
             TurretBoneDualMuzzle = 'muzzle01',
             TurretBoneDualPitch = 'Object11',
+
             TurretBoneMuzzle = 'muzzle02',
             TurretBonePitch = 'Object06',
+
             TurretBoneYaw = 'Object106',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 0,
@@ -325,6 +326,8 @@ UnitBlueprint {
             MaxRadius = 40,
 
             MuzzleVelocity = 65,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SAAOlarisAAArtillery02/SAAOlarisAAArtillery02_proj.bp',
             ProjectileLifetimeUsesMultiplier = 0.8,
@@ -343,14 +346,11 @@ UnitBlueprint {
                     RackBone = 'Object08',
                 },
             },
-            
-             
+
             RackSalvoChargeTime = 0.1,
+
             RackSalvoFiresAfterCharge = true,
-             
-            RackSalvoSize = 1,
-            RackSlavedToTurret = true,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 4,
@@ -362,13 +362,16 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 			
             TurretBoneDualMuzzle = 'muzzle03',
             TurretBoneDualPitch = 'Object09',
+
             TurretBoneMuzzle = 'muzzle03',
             TurretBonePitch = 'Object09',
+
             TurretBoneYaw = 'Object09',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 35,

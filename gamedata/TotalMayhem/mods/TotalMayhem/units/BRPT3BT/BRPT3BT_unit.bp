@@ -160,7 +160,6 @@ UnitBlueprint {
         TurnRate = 45,
     },
 	
-    SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.03,
 	
     SelectionSizeX = 0.8,
@@ -258,7 +257,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'muzzle',
             TurretBonePitch = 'Turret_Barrel01',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 45,

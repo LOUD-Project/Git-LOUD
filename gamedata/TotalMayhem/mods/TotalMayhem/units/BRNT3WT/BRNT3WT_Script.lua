@@ -27,26 +27,18 @@ BRNT3WT = Class(TLandUnit) {
 		        local army = self.unit:GetArmy()
 		        
   	            for k, v in self.FxMuzzleEffect do
-				
-                    CreateAttachedEmitter(self.unit, 'Turret_Muzzle', army, v):ScaleEmitter(0.5)
-                    CreateAttachedEmitter(self.unit, 'Turret_Muzzle2', army, v):ScaleEmitter(0.5)
-                    CreateAttachedEmitter(self.unit, 'Turret_Muzzle3', army, v):ScaleEmitter(0.5)
-                    CreateAttachedEmitter(self.unit, 'Turret_Muzzle4', army, v):ScaleEmitter(0.5)
-					
+                    CreateAttachedEmitter(self.unit, muzzle, army, v):ScaleEmitter(0.5)
                 end
 				
   	            for k, v in self.FxVentEffect do
-				
                     CreateAttachedEmitter(self.unit, 'vent01', army, v):ScaleEmitter(0.4)
                     CreateAttachedEmitter(self.unit, 'vent02', army, v):ScaleEmitter(0.2)
                 end
 				
   	            for k, v in self.FxVentEffect2 do
-				
                     CreateAttachedEmitter(self.unit, 'aim', army, v):ScaleEmitter(0.4)
                     CreateAttachedEmitter(self.unit, 'vent03', army, v):ScaleEmitter(0.4)
                     CreateAttachedEmitter(self.unit, 'vent04', army, v):ScaleEmitter(0.4)
-					
                 end
             end, 
 		},

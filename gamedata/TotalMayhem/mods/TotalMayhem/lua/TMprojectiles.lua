@@ -33,11 +33,11 @@ AeonBROT3PDROproj = Class(MultiPolyTrailProjectile) {
     FxTrails = EffectTemplate.TIonizedPlasmaGatlingCannonFxTrails,
 
     FxImpactUnit = TMEffectTemplate.AeonT3HeavyRocketHit01,
-    FxUnitHitScale = 1.2,
+    FxUnitHitScale = 0.8,
     FxImpactProp = TMEffectTemplate.AeonT3HeavyRocketHit01,
-    FxPropHitScale = 1.2,
+    FxPropHitScale = 0.8,
     FxImpactLand = TMEffectTemplate.AeonT3HeavyRocketHit01,
-    FxLandHitScale = 1.2,
+    FxLandHitScale = 0.8,
 }
 
 AeonBROT1EXM1proj = Class(MultiPolyTrailProjectile) {

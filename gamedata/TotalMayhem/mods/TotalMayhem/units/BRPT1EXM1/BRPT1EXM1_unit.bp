@@ -254,8 +254,6 @@ UnitBlueprint {
 
             RackRecoilDistance = 0.35,
 
-            RackReloadTimeout = 5,
-
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 2.0,	-- 50 DPS
@@ -276,9 +274,12 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'Turret_Muzzle02a',
             TurretBoneDualPitch = 'Turret_Barrel01',
+
             TurretBoneMuzzle = 'Turret_Muzzle01a',
             TurretBonePitch = 'Turret_Barreld',
+
             TurretBoneYaw = 'Turreta',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 0,

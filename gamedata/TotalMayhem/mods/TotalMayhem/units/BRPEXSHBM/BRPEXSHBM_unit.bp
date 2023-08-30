@@ -293,9 +293,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 1050000,
-        BuildCostMass = 67500,
-        BuildTime = 17500,
+        BuildCostEnergy = 1080000,
+        BuildCostMass = 63500,
+        BuildTime = 18000,
 		
 		MaintenanceConsumptionPerSecondEnergy = 450,
     },
@@ -322,7 +322,7 @@ UnitBlueprint {
 	
     Intel = {
         OmniRadius = 60,
-		RadarRadius = 120,
+		RadarRadius = 125,
 		
 		RadarStealth = true,
 		RadarStealthFieldRadius = 36,
@@ -439,12 +439,14 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
-            Damage = 1650,
+            Damage = 1750,
 			DamageFriendly = true,
             DamageRadius = 3.5,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult1.1',
 			
             DisplayName = 'Dual Zthuthaam Cannon',
+
+            EnergyChargeForFirstShot = false,            
             
             EnergyDrainPerSecond = 2400,    -- a good portion of the energy is produced in the unit
             EnergyRequired = 1200,          -- .5 second energy drain
@@ -456,6 +458,7 @@ UnitBlueprint {
             },
 			
             FiringTolerance = 0.4,
+
             FiringRandomness = 1.2,
 			FiringRandomnessWhileMoving = 2.2,
 
@@ -466,7 +469,7 @@ UnitBlueprint {
 			
             MuzzleChargeDelay = 0.6,
 
-            MuzzleVelocity = 25,
+            MuzzleVelocity = 26,
 			MuzzleVelocityReduceDistance = 120,
 			
 			NotExclusive = true,
@@ -487,15 +490,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -4,
 
-            RackReloadTimeout = 10,
-
-            RackSalvoSize = 4,
-
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,		-- rate controlled by charge and delay = 1.1 seconds =  1500 DPS Surface
+            RateOfFire = 1,		-- rate controlled by charge and delay = 1.1 seconds =  1590 DPS Surface
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 44,
@@ -505,7 +504,6 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -513,7 +511,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'topaim',
             TurretBonePitch = 'Weapon03',
             TurretBoneYaw = 'Back_Upgrade01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 65,
@@ -567,7 +564,7 @@ UnitBlueprint {
 			
             Label = 'Beam',
 			
-            MaxRadius = 48,
+            MaxRadius = 50,
 			MinRadius = 4,
 			
 			NotExclusive = true,
@@ -599,7 +596,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Body03',
             TurretBonePitch = 'Body03',
             TurretBoneYaw = 'Body03',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 60,
@@ -669,10 +665,6 @@ UnitBlueprint {
                 },
             },
 
-            RackSalvoFiresAfterCharge = false,
-
-            RackSalvoSize = 1,
-
             RackSlavedToTurret = true,
 
             RateOfFire = 2,		-- 400 DPS Surface
@@ -688,7 +680,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'mgaim',
             TurretBonePitch = 'Left_Upgrade02',
             TurretBoneYaw = 'Arm01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 15,
             TurretPitchRange = 45,
@@ -719,7 +710,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 60,
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'AA Beam Generator',
@@ -736,6 +726,7 @@ UnitBlueprint {
 			LeadTarget = false,
 			
             MaxRadius = 46,
+
 			MaximumBeamLength = 46,
 			
 			NotExclusive = true,
@@ -770,7 +761,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'aa01',
             TurretBonePitch = 'aa01',
             TurretBoneYaw = 'aa01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 15,
             TurretPitchRange = 120,
@@ -800,7 +790,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 60,
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Ultrachromatic Beam Generator',
@@ -818,10 +807,6 @@ UnitBlueprint {
 			
             MaxRadius = 46,
 			MaximumBeamLength = 46,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
 			
             RackBones = {
                 {
@@ -851,7 +836,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'aa02',
             TurretBonePitch = 'aa02',
             TurretBoneYaw = 'aa02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 15,
             TurretPitchRange = 120,

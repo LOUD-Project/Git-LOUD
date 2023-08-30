@@ -22,7 +22,22 @@ UnitBlueprint {
         },
     },
 	
-    Buffs = {},
+    Buffs = {
+        Regen = {
+            Level1 = 3,
+            Level2 = 6,
+            Level3 = 9,
+            Level4 = 12,
+            Level5 = 15,
+        },
+        VisionRadius = {
+            Level1 = 2,
+            Level2 = 3,
+            Level3 = 4,
+            Level4 = 5,
+            Level5 = 6,            
+        },            
+    },
 	
     BuildIconSortPriority = 112,
 	
@@ -166,7 +181,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 40,
-            DamageRadius = 1,
+            DamageRadius = 0.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Aire-au Bolter',
@@ -176,7 +191,7 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed|Air',
             },
 			
-			FiringRandomness = 0.6,
+			FiringRandomness = 0.4,
             FiringTolerance = 1,
 			
             Label = 'MainGun',
@@ -226,7 +241,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 70,
+            TurretYawSpeed = 66,
 			
             Turreted = true,
         },

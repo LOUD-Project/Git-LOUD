@@ -146,13 +146,13 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 400000,
+        BuildCostEnergy = 411000,
         BuildCostMass = 21750,
         BuildTime = 40000,
     },
 	
     General = {
-		CapCost = 3,
+		CapCost = 3.5,
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -181,16 +181,17 @@ UnitBlueprint {
     LifeBarSize = 2.5,
 	
     Physics = {
+        BackUpDistance = 10,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
             LAYER_Seabed = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 1.4,
-        MaxBrake = 2.8,
-        MaxSpeed = 2.8,
-        MaxSpeedReverse = 2,
+        MaxAcceleration = 1,
+        MaxBrake = 3.0,
+        MaxSpeed = 3.0,
+        MaxSpeedReverse = 3.0,
         MaxSteerForce = 10,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Amphibious',
@@ -203,9 +204,7 @@ UnitBlueprint {
         TurnRate = 40,
 		WaterSpeedMultiplier = 1.2,
     },
-	
-    SelectionCenterOffsetX = 0,
-    SelectionCenterOffsetZ = 0,
+
     SelectionSizeX = 2.4,
     SelectionSizeZ = 2.4,
     SelectionThickness = 0.35,
@@ -296,8 +295,10 @@ UnitBlueprint {
             MuzzleSalvoSize = 2,
 			
             MuzzleVelocity = 60,
-			MuzzleVelocityRandomness = 1.5,
-			
+			MuzzleVelocityRandom = 0.4,
+
+            NotExclusive = true,
+
             ProjectileId = '/mods/TotalMayhem/projectiles/BRNT3BLASPproj/BRNT3BLASPproj_proj.bp',
             ProjectileLifetime = 1,
 			
@@ -362,7 +363,7 @@ UnitBlueprint {
                     Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 0.4,
+                    Duration = 0.6,
                     Radius = 1.5,
                     TargetAllow = 'LAND,NAVAL,TECH1',
                     TargetDisallow = 'WALL',
@@ -371,11 +372,20 @@ UnitBlueprint {
                     Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 0.2,
-                    Radius = 0.5,
+                    Duration = 0.5,
+                    Radius = 1.0,
                     TargetAllow = 'LAND,NAVAL,TECH2',
                     TargetDisallow = 'WALL',
-                },                
+                },
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.3,
+                    Radius = 1.0,
+                    TargetAllow = 'LAND,NAVAL,TECH3',
+                    TargetDisallow = 'WALL',
+                },
             },			
      
             CollideFriendly = false,
@@ -406,8 +416,10 @@ UnitBlueprint {
             MuzzleSalvoSize = 2,
 			
             MuzzleVelocity = 60,
-			MuzzleVelocityRandomness = 1.5,
-			
+			MuzzleVelocityRandom = 0.4,
+
+            NotExclusive = true,
+
             ProjectileId = '/mods/TotalMayhem/projectiles/BRNT3BLASPproj/BRNT3BLASPproj_proj.bp',
             ProjectileLifetime = 1,
 			
@@ -509,7 +521,9 @@ UnitBlueprint {
 			MuzzleSalvoChargeDelay = 0.5,	-- .5 second muzzle charge
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,
-			
+
+            NotExclusive = true,
+
             RackBones = {
                 {
                     MuzzleBones = {
@@ -613,7 +627,9 @@ UnitBlueprint {
 			MuzzleSalvoChargeDelay = 0.5,
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,
-			
+
+            NotExclusive = true,
+
             RackBones = {
 				{
                     MuzzleBones = {
@@ -697,6 +713,8 @@ UnitBlueprint {
             MuzzleSalvoSize = 8,
 
             MuzzleVelocity = 42,
+            
+            NotExclusive = true,
 
             ProjectileId = '/projectiles/TDFRiot02/TDFRiot02_proj.bp',
             ProjectileLifetime = 1,
@@ -781,6 +799,8 @@ UnitBlueprint {
             MuzzleSalvoSize = 8,
 
             MuzzleVelocity = 42,
+            
+            NotExclusive = true,
 
             ProjectileId = '/projectiles/TDFRiot02/TDFRiot02_proj.bp',
             ProjectileLifetime = 1,
@@ -858,13 +878,15 @@ UnitBlueprint {
 			
             Label = 'rocket',
 			
-            MaxRadius = 58,
+            MaxRadius = 60,
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 10,
 
             MuzzleVelocity = 18,
 			MuzzleVelocityRandom = 0.6,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRNT3BTRLproj/BRNT3BTRLproj_proj.bp',
             ProjectileLifetime = 3,
