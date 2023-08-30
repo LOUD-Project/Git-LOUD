@@ -465,7 +465,7 @@ BuffBlueprint { Name = 'VeterancyHealth1',
     Affects = {
         MaxHealth = {
             Add = 0,
-            Mult = 1.05,
+            Mult = 1.04,
         },
     },
 }
@@ -477,7 +477,7 @@ BuffBlueprint { Name = 'VeterancyHealth2',
     Affects = {
         MaxHealth = {
             Add = 0,
-            Mult = 1.1,
+            Mult = 1.08,
         },
     },
 }
@@ -489,7 +489,7 @@ BuffBlueprint { Name = 'VeterancyHealth3',
     Affects = {
         MaxHealth = {
             Add = 0,
-            Mult = 1.15,
+            Mult = 1.12,
         },
     },
 }
@@ -501,7 +501,7 @@ BuffBlueprint { Name = 'VeterancyHealth4',
     Affects = {
         MaxHealth = {
             Add = 0,
-            Mult = 1.2,
+            Mult = 1.16,
         },
     },
 }
@@ -513,11 +513,72 @@ BuffBlueprint { Name = 'VeterancyHealth5',
     Affects = {
         MaxHealth = {
             Add = 0,
-            Mult = 1.25,
+            Mult = 1.20,
         },
     },
 }
 
+
+-- VETERANCY BUFFS - ENERGY WEAPONS
+BuffBlueprint { Name = 'VeterancyEnergyWeapon1',
+    BuffType = 'VET_ENERGYWEAPON',
+    Stacks = 'REPLACE',
+    Duration = -1,
+    Affects = {
+        MaxHealth = {
+            Add = 0,
+            Mult = 0.98,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'VeterancyEnergyWeapon2',
+    BuffType = 'VET_ENERGYWEAPON',
+    Stacks = 'REPLACE',
+    Duration = -1,
+    Affects = {
+        MaxHealth = {
+            Add = 0,
+            Mult = 0.96,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'VeterancyEnergyWeapon3',
+    BuffType = 'VET_ENERGYWEAPON',
+    Stacks = 'REPLACE',
+    Duration = -1,
+    Affects = {
+        MaxHealth = {
+            Add = 0,
+            Mult = 0.94,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'VeterancyEnergyWeapon4',
+    BuffType = 'VET_ENERGYWEAPON',
+    Stacks = 'REPLACE',
+    Duration = -1,
+    Affects = {
+        MaxHealth = {
+            Add = 0,
+            Mult = 0.92,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'VeterancyEnergyWeapon5',
+    BuffType = 'VET_ENERGYWEAPON',
+    Stacks = 'REPLACE',
+    Duration = -1,
+    Affects = {
+        MaxHealth = {
+            Add = 0,
+            Mult = 0.9,
+        },
+    },
+}
 
 -- VETERANCY BUFFS - UNIT REGEN
 -- same as above -- why are they not stacking them ?

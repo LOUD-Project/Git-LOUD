@@ -168,6 +168,7 @@ Unit = Class(moho.unit_methods) {
     BuffTypes = {
         Regen = { BuffType = 'VET_REGEN', BuffValFunction = 'Add', BuffDuration = -1, BuffStacks = 'REPLACE' },
         Health = { BuffType = 'VET_HEALTH', BuffValFunction = 'Mult', BuffDuration = -1, BuffStacks = 'REPLACE' },
+        EnergyWeapon = { BuffType = 'VET_ENERGYWEAPON', BuffValFunction = 'Mult', BuffDuration = -1, BuffStacks = 'REPLACE' },
 		VisionRadius = { BuffType = 'VET_VISION', BuffValFunction = 'Add', BuffDuration = -1, BuffStacks = 'REPLACE' },
         WaterVisionRadius = { BuffType = 'VET_WATER_VISION', BuffValFunction = 'Add', BuffDuration = -1, BuffStacks = 'REPLACE' },
     },
