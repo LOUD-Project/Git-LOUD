@@ -47,7 +47,7 @@ ProjectileBlueprint {
         InitialSpeed = 40,
 
         Lifetime = 3,
-        MaxSpeed = 100,
+        MaxSpeed = 90,
         OnLostTargetLifetime = 2.0,
         TrackTarget = true,
         TurnRate = 180,
