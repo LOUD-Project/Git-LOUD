@@ -224,7 +224,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret01_Muzzle',
             TurretBonePitch = 'Turret01_Barrel',
             TurretBoneYaw = 'Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 5,
             TurretPitchRange = 40,
@@ -281,8 +280,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.4,
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -301,8 +298,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret02_Muzzle',
             TurretBonePitch = 'Turret02',
             TurretBoneYaw = 'Turret02',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 0,
             TurretPitchRange = 45,
             TurretPitchSpeed = 35,
@@ -333,6 +329,7 @@ UnitBlueprint {
                 Seabed = 'Seabed|Sub|Water',
             },
             FiringTolerance = 2,
+
             Label = 'Torpedo',
 			
             MaxRadius = 38,
@@ -366,7 +363,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret02_Muzzle',
             TurretBonePitch = 'Turret02',
             TurretBoneYaw = 'Turret02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 20,
             TurretPitchRange = 30,

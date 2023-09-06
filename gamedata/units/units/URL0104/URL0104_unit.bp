@@ -130,8 +130,8 @@ UnitBlueprint {
         TurnRate = 90,
     },
 	
-    SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.025,
+
     SelectionSizeX = 0.35,
     SelectionSizeZ = 0.45,
     SelectionThickness = 0.83,
@@ -185,7 +185,7 @@ UnitBlueprint {
 			
             MaxRadius = 35,
 
-            MuzzleVelocity = 16,
+            MuzzleVelocity = 14,
 			
             ProjectileId = '/projectiles/CAANanoDart01/CAANanoDart01_proj.bp',
             ProjectileLifetime = 2.7,
@@ -203,9 +203,7 @@ UnitBlueprint {
 			
             TargetCheckInterval = 0.3,
 
-            TargetPriorities = {
-                'AIR MOBILE',
-            },
+            TargetPriorities = {'AIR MOBILE'},
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			
             ToggleWeapon = 'GroundGun',
@@ -215,7 +213,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 40,
             TurretPitchRange = 65,
@@ -258,7 +255,7 @@ UnitBlueprint {
 			
             MaxRadius = 16,
 
-            MuzzleVelocity = 16,
+            MuzzleVelocity = 14,
 			
             ProjectileId = '/projectiles/CAANanoDart05/CAANanoDart05_proj.bp',
 
@@ -290,7 +287,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 40,
             TurretPitchRange = 65,
@@ -311,11 +307,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

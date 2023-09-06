@@ -58,8 +58,6 @@ UnitBlueprint {
         },
     },
 	
-    AverageDensity = 1,
-	
     Buffs = {},
 	
     BuildIconSortPriority = 40,
@@ -231,8 +229,6 @@ UnitBlueprint {
                 },
             },
 			
-            ChargeDelay = 0.2,
-			
             CollideFriendly = false,
 			
             Damage = 30,
@@ -250,9 +246,7 @@ UnitBlueprint {
             Label = 'EMPCannon',
 
             MaxRadius = 27,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 32,
 			
             ProjectileId = '/projectiles/CDFLaserDisintegrator01/CDFLaserDisintegrator01_proj.bp',
@@ -265,10 +259,7 @@ UnitBlueprint {
             },
 
             RackSalvoChargeTime = 1,
-            RackSalvoFiresAfterCharge = true,
 
-            RackSlavedToTurret = true,
-			
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1,		-- 30 DPS Ground
@@ -284,7 +275,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Down_Turret_Muzzle',
             TurretBonePitch = 'Front_Down_Turret',
             TurretBoneYaw = 'Front_Down_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = -30,
             TurretPitchRange = 45,
@@ -350,7 +340,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Up_Turret_Muzzle',
             TurretBonePitch = 'Back_Up_Turret',
             TurretBoneYaw = 'Back_Up_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 120,

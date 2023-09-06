@@ -33,22 +33,7 @@ XSS0201 = Class(SSubUnit) {
         for k, v in wep1.Beams do
             v.Beam:Disable()
         end     
---[[        
-        local wep2 = self:GetWeaponByLabel('BackTurret')
-        local bp2 = wep2:GetBlueprint()
-		
-        if bp2.Audio.BeamStop then
-            wep2:PlaySound(bp2.Audio.BeamStop)
-        end
-		
-        if bp2.Audio.BeamLoop and wep2.Beams[1].Beam then
-            wep2.Beams[1].Beam:SetAmbientSound(nil, nil)
-        end
-		
-        for k, v in wep2.Beams do
-            v.Beam:Disable()
-        end
---]]        
+
         SSubUnit.OnKilled(self, instigator, type, overkillRatio)
 		
     end,

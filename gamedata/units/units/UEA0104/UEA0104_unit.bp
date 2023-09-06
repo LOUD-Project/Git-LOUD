@@ -239,6 +239,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 5,
+
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/TDFRiot01/TDFRiot01_proj.bp',
@@ -267,7 +268,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Down_Muzzle',
             TurretBonePitch = 'Front_Down_Barrel',
             TurretBoneYaw = 'Front_Down_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = -45,
             TurretPitchRange = 45,
@@ -309,6 +309,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 5,
+
             MuzzleVelocity = 35,
 			
             PrefersPrimaryWeaponTarget = true,
@@ -320,8 +321,6 @@ UnitBlueprint {
                     RackBone = 'Back_Down_Barrel',
                 },
             },
-
-            RackSlavedToTurret = true,
 
             RateOfFire = 1,		---- 15 DPS Ground
 			
@@ -337,7 +336,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Down_Muzzle',
             TurretBonePitch = 'Back_Down_Barrel',
             TurretBoneYaw = 'Back_Down_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = -45,
             TurretPitchRange = 45,
@@ -354,7 +352,6 @@ UnitBlueprint {
                 Fire = Sound { Bank = 'UEAWeapon', Cue = 'UEA0104_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
 
-            AutoInitiateAttackCommand = false,
             BallisticArc = 'RULEUBA_None',
 			
             CannotAttackGround = true,
@@ -394,8 +391,6 @@ UnitBlueprint {
             },
 
             RackFireTogether = true,
-            
-            RackReloadTimeout = 10,
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -415,7 +410,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Up_Muzzle01',
             TurretBonePitch = 'Front_Up_Turret_Barrel01',
             TurretBoneYaw = 'Front_Up_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -432,9 +426,8 @@ UnitBlueprint {
                 Fire = Sound { Bank = 'UEAWeapon', Cue = 'UEA0104_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
 
-            AutoInitiateAttackCommand = false,
-
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -471,8 +464,6 @@ UnitBlueprint {
             },
 
             RackFireTogether = true,
-            
-            RackReloadTimeout = 10,
 
             RateOfFire = 2,	---- 40 DPS Air
 			
@@ -488,7 +479,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Up_Muzzle01',
             TurretBonePitch = 'Back_Up_Turret_Barrel01',
             TurretBoneYaw = 'Back_Up_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,

@@ -332,7 +332,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Muzzle_AA',
             TurretBonePitch = 'Left_Barrel_AA',
             TurretBoneYaw = 'Left_Barrel_AA',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 50,
@@ -357,6 +356,7 @@ UnitBlueprint {
             Label = 'DeathImpact',
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,

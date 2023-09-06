@@ -269,6 +269,8 @@ UnitBlueprint {
 	
     Weapon = {
         {
+            advancedTracking = true,
+            
             Audio = {
                 Fire = Sound {
                     Bank = 'XSS_Weapon',
@@ -297,8 +299,11 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.6,
             MuzzleSalvoSize = 9,
-            MuzzleVelocity = 3,
+
+            MuzzleVelocity = 3.5,
 			MuzzleVelocityRandom = 0.5,
+
+            NotExclusive = true,
 			
 			-- this is the bigger faster and thus longer ranged version --
             ProjectileId = '/projectiles/SANUallCavitationTorpedo04/SANUallCavitationTorpedo04_proj.bp',
@@ -331,8 +336,6 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
 			TrackingRadius = 1.2,
-			
-            Turreted = false,
         },
 		
         {
@@ -344,6 +347,7 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_None',
+
 			CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -366,6 +370,8 @@ UnitBlueprint {
             MaxRadius = 25,
 
             MuzzleVelocity = 10,
+
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SANAjelluAntiTorpedo01/SANAjelluAntiTorpedo01_proj.bp',
             ProjectileLifetime = 4,
@@ -383,7 +389,6 @@ UnitBlueprint {
 			
             TargetCheckInterval = 0.5,
 			
-            TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
             TrackingRadius = 1.1,
@@ -391,8 +396,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Turret_Muzzle',
             TurretBonePitch = 'Left_Turret_Barrel',
             TurretBoneYaw = 'Left_Turret_Barrel',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 0,
             TurretPitchRange = 15,
             TurretPitchSpeed = 180,
@@ -427,6 +431,8 @@ UnitBlueprint {
             MaxRadius = 28,
 
             MuzzleVelocity = 8,
+
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SANAjelluAntiTorpedo01/SANAjelluAntiTorpedo01_proj.bp',
             ProjectileLifetime = 4,
@@ -446,7 +452,6 @@ UnitBlueprint {
 			
             TargetCheckInterval = 0.5,
 			
-            TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
             TrackingRadius = 1.1,
@@ -454,8 +459,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Turret_Muzzle',
             TurretBonePitch = 'Right_Turret_Barrel',
             TurretBoneYaw = 'Right_Turret_Barrel',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 0,
             TurretPitchRange = 50,
             TurretPitchSpeed = 180,
@@ -500,7 +504,10 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
+
             MuzzleVelocity = 85,
+
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SAALosaareAutoCannon03/SAALosaareAutoCannon03_proj.bp',
 			ProjectileLifetime = 0.8,
@@ -537,8 +544,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Turret_Muzzle01',
             TurretBonePitch = 'Front_Turret_Barrel01',
             TurretBoneYaw = 'Front_Turret',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 15,
             TurretPitchRange = 90,
             TurretPitchSpeed = 60,

@@ -208,6 +208,8 @@ UnitBlueprint {
             DamageType = 'Normal',
             
             DisplayName = 'Rapid-Fire Artillery Cannon',
+
+            EnergyChargeForFirstShot = false,
 			
             EnergyDrainPerSecond = 1772,
             EnergyRequired = 7975,		---- a 4.5 second charge cycle
@@ -265,7 +267,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,

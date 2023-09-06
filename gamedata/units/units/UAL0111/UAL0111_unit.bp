@@ -222,8 +222,6 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-
-            Turreted = false,
         },
     },
 

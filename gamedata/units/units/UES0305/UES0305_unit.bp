@@ -242,6 +242,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp',

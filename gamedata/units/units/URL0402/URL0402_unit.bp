@@ -374,7 +374,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Turret_Muzzle',
             TurretBonePitch = 'Right_Turret_Barrel',
             TurretBoneYaw = 'Right_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = -10,
             TurretPitchRange = 45,
@@ -426,8 +425,6 @@ UnitBlueprint {
 			
             RateOfFire = 1.5,			---- 225 DPS
 			
-            SlavedToBody = false,
-			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -441,8 +438,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Turret_Muzzle',
             TurretBonePitch = 'Left_Turret_Barrel',
             TurretBoneYaw = 'Left_Turret',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = -10,
             TurretPitchRange = 90,
             TurretPitchSpeed = 90,
@@ -479,13 +475,9 @@ UnitBlueprint {
             ContinuousBeam = true,
 			
             Damage = 300,
-            DamageRadius = 0,
             DamageType = 'ShieldMult1.1',
 			
-            DoNotCollideList = {
-                'TORPEDO',
-                'MISSILE',	
-            },
+            DoNotCollideList = {'TORPEDO','MISSILE'},
 			
             DisplayName = 'Heavy Microwave Laser',
 			
@@ -530,7 +522,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Center_Turret_Muzzle',
             TurretBonePitch = 'Center_Turret',
             TurretBoneYaw = 'Center_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = -20,
             TurretPitchRange = 90,
@@ -579,7 +570,9 @@ UnitBlueprint {
             MaxRadius = 48,
 
             MuzzleVelocity = 33,
-			
+
+            NotExclusive = true,
+
             ProjectileId = '/projectiles/CAAMissileNanite02/CAAMissileNanite02_proj.bp',
             ProjectileLifetime = 5,
 			
@@ -644,7 +637,9 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 5,
-			
+
+            NotExclusive = true,
+
             ProjectileId = '/projectiles/CANTorpedoMeson02/CANTorpedoMeson02_proj.bp',
             ProjectileLifetime = 8,
 

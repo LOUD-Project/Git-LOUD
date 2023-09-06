@@ -207,7 +207,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 205,
-			DamageRadius = 0,
             DamageFriendly = false,
             DamageType = 'Normal',
 			
@@ -225,7 +224,8 @@ UnitBlueprint {
 
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 90,
+
+            MuzzleVelocity = 82,
 			
             ProjectileId = '/projectiles/SAALosaareAutoCannon01/SAALosaareAutoCannon01_proj.bp',
 			ProjectileLifetime = 1,
@@ -256,7 +256,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle',
             TurretBonePitch = 'Muzzle',
             TurretBoneYaw = 'Muzzle',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 55,

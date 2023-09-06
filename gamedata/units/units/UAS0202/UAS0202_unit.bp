@@ -210,8 +210,9 @@ UnitBlueprint {
             MaxRadius = 45,
 			
             MuzzleChargeDelay = 0.5,
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 40,
 			
             ProjectileId = '/projectiles/ADFQuantumCannon01/ADFQuantumCannon01_proj.bp',
@@ -226,8 +227,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -1,
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -246,7 +245,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Front_Barrel',
             TurretBonePitch = 'Turret_Front_Barrel',
             TurretBoneYaw = 'Turret_Front',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 40,
@@ -259,6 +257,7 @@ UnitBlueprint {
             Turreted = true,
         },
         {
+            advancedTracking = true,
             AlwaysRecheckTarget = true,
 
             Audio = {
@@ -271,7 +270,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 400,
-			DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Zealot AA Missile',
@@ -280,7 +278,7 @@ UnitBlueprint {
                 Water = 'Air',
             },
 			
-            FiringTolerance = 1,
+            FiringTolerance = 10,
 			
             Label = 'AntiAirMissiles01',
 			
@@ -305,18 +303,18 @@ UnitBlueprint {
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-				'AIR MOBILE ANTINAVY',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+				'ANTINAVY',
+                'GROUNDATTACK',
                 'AIR MOBILE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.2,
-            Turreted = false,
         },
         {
+            advancedTracking = true,
             AlwaysRecheckTarget = true,
 
             Audio = {
@@ -329,7 +327,6 @@ UnitBlueprint {
             CollideFriendly = false,
 
             Damage = 400,
-			DamageRadius = 0,
             DamageType = 'Normal',
 
             DisplayName = 'Zealot AA Missile',
@@ -337,7 +334,7 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Water = 'Air',
             },
-            FiringTolerance = 1,
+            FiringTolerance = 10,
 
             Label = 'AntiAirMissiles02',
 
@@ -362,15 +359,14 @@ UnitBlueprint {
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-				'AIR MOBILE ANTINAVY',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+				'ANTINAVY',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.4,
-            Turreted = false,
         },
         {
             Audio = {
@@ -400,9 +396,9 @@ UnitBlueprint {
 			
             Label = 'AntiMissile',
 			
-            MaxRadius = 22,
+            MaxRadius = 24,
 
-            MuzzleVelocity = 25,
+            MuzzleVelocity = 7,
 			
             ProjectileId = '/projectiles/AIMAntiMissile01/AIMAntiMissile01_proj.bp',
 			ProjectileLifetime = 4,

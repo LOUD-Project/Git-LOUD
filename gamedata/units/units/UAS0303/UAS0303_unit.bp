@@ -229,6 +229,7 @@ UnitBlueprint {
     Weapon = {
         {
             advancedTracking = true,
+
             AlwaysRecheckTarget = true,
 
             Audio = {
@@ -242,7 +243,6 @@ UnitBlueprint {
 			
             Damage = 200,
 			DamageFriendly = false,
-			DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Zealot AA Missile',
@@ -259,6 +259,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 40,
 			
             ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
@@ -290,7 +291,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle_Right',
             TurretBonePitch = 'Turret_Right_Barrel',
             TurretBoneYaw = 'Turret_Right',
-            TurretDualManipulators = false,
 			
             TurretPitch = 30,
             TurretPitchRange = 120,
@@ -337,6 +337,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 40,
 			
             ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
@@ -367,7 +368,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle_Left',
             TurretBonePitch = 'Turret_Left_Barrel',
             TurretBoneYaw = 'Turret_Left',
-            TurretDualManipulators = false,
 			
             TurretPitch = 30,
             TurretPitchRange = 120,

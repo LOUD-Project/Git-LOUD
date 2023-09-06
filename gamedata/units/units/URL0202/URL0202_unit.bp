@@ -165,7 +165,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 10,
-			DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Laser Cannon',
@@ -204,12 +203,11 @@ UnitBlueprint {
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle01',
             TurretBonePitch = 'Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 30,
@@ -218,6 +216,7 @@ UnitBlueprint {
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 50,
+
             Turreted = true,
         },
     },
@@ -226,7 +225,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.7,
         ReclaimTimeMultiplier = 1,
 
         WreckageLayers = {

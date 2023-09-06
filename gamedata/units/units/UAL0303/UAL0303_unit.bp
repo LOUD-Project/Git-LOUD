@@ -232,6 +232,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/ADFLaserHighIntensity01/ADFLaserHighIntensity01_proj.bp',
@@ -261,7 +262,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 50,

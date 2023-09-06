@@ -213,6 +213,8 @@ UnitBlueprint {
 	
     Weapon = {
         {
+            advancedTracking = true,
+            
             Audio = {
                 Fire = Sound { Bank = 'URAWeapon', Cue = 'URA0204_Torpedo_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
@@ -224,7 +226,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 50,
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Nanite Torpedo',
@@ -252,6 +253,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 4,
+
             MuzzleVelocity = 6,
 			
             ProjectileId = '/projectiles/CANTorpedoNanite03/CANTorpedoNanite03_proj.bp',

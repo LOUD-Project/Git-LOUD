@@ -294,7 +294,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 14,
-			DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Electron Autocannon',
@@ -312,6 +311,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 4,
+
             MuzzleVelocity = 48,
 			
             ProjectileId = '/projectiles/CAAAutocannon01/CAAAutocannon01_proj.bp',
@@ -347,7 +347,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Muzzle_AA_01',
             TurretBonePitch = 'Left_Barrel_AA',
             TurretBoneYaw = 'Left_Barrel_AA',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 60,
@@ -374,6 +373,7 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,

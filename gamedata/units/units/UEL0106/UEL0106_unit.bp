@@ -197,10 +197,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-
-            RackSlavedToTurret = true,
-			
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 3,	-- 15 DPS
@@ -216,9 +212,12 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'Arm_Left_Muzzle',
             TurretBoneDualPitch = 'Arm_Left_B02',
+
             TurretBoneMuzzle = 'Arm_Right_Muzzle',
             TurretBonePitch = 'Arm_Right_B02',
+
             TurretBoneYaw = 'Torso',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 0,

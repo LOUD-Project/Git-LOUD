@@ -167,7 +167,6 @@ UnitBlueprint {
         TurnRate = 90,
     },
     
-    SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.1,
     SelectionSizeX = 0.5,
     SelectionSizeZ = 0.5,
@@ -207,7 +206,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 1400,
-            DamageRadius = 0,
             DamageType = 'ShieldMult0.7',       -- class penalty --
 			
             DisplayName = 'Heavy Disruptor Cannon',
@@ -260,7 +258,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 60,
@@ -272,7 +269,7 @@ UnitBlueprint {
 			
             Turreted = true,
 
-            WeaponRepackTimeout = 0.5,
+            WeaponRepackTimeout = 0.7,
             WeaponUnpackAnimation = '/units/xal0305/xal0305_asetup.sca',
             WeaponUnpackAnimationRate = 1,
             WeaponUnpackLocksMotion = true,

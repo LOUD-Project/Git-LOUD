@@ -286,6 +286,8 @@ UnitBlueprint {
             MaxRadius = 175,
 
             MuzzleVelocity = 10,
+
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SIFLaanseTacticalMissile03/SIFLaanseTacticalMissile03_proj.bp',
             ProjectileLifetime = 30,
@@ -341,6 +343,8 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 90,
+
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SAALosaareAutoCannon03/SAALosaareAutoCannon03_proj.bp',
             ProjectileLifetime = 0.8,
@@ -373,8 +377,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Turret_Muzzle01',
             TurretBonePitch = 'Right_Turret_Barrel',
             TurretBoneYaw = 'Right_Turret',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 25,
             TurretPitchRange = 80,
             TurretPitchSpeed = 60,
@@ -419,6 +422,8 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 90,
+
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SAALosaareAutoCannon03/SAALosaareAutoCannon03_proj.bp',
             ProjectileLifetime = 0.8,
@@ -449,8 +454,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Turret_Muzzle01',
             TurretBonePitch = 'Left_Turret_Barrel',
             TurretBoneYaw = 'Left_Turret',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 30,
             TurretPitchRange = 80,
             TurretPitchSpeed = 60,

@@ -241,6 +241,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 4,
+
             MuzzleVelocity = 44,
 			
             ProjectileId = '/projectiles/ADFLaserLight01/ADFLaserLight01_proj.bp',

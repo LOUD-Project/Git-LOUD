@@ -244,6 +244,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 4,
+
             MuzzleVelocity = 9,
 			
             ProjectileId = '/projectiles/AANDepthCharge03/AANDepthCharge03_proj.bp',

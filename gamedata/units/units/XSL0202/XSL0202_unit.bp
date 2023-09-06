@@ -187,7 +187,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 45,
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Aire-au Bolter',
@@ -202,9 +201,9 @@ UnitBlueprint {
 			
             MaxRadius = 28,
 			
-            MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 33,
 			
             ProjectileId = '/projectiles/SDFAireauBolter01/SDFAireauBolter01_proj.bp',
@@ -220,8 +219,6 @@ UnitBlueprint {
                     RackBone = 'Left_Arm',
                 },
             },
-            
-            RackReloadTimeout = 10,
 
             RackSlavedToTurret = true,
 			
@@ -243,9 +240,12 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'Left_Muzzle',
             TurretBoneDualPitch = 'Left_Arm',
+
             TurretBoneMuzzle = 'Right_Muzzle',
             TurretBonePitch = 'Right_Arm',
+
             TurretBoneYaw = 'Torso',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 0,

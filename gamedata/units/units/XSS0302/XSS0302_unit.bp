@@ -283,6 +283,8 @@ UnitBlueprint {
             MaxRadius = 100,
 
             MuzzleVelocity = 40,
+
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SDFHeavyQuarnonCannon01/SDFHeavyQuarnonCannon01_proj.bp',
 			ProjectileLifetime = 3,
@@ -295,7 +297,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -4,
-
             RackRecoilReturnSpeed = 2,
 
             RangeCategory = 'UWRC_DirectFire',
@@ -318,8 +319,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Turret_Muzzle01',
             TurretBonePitch = 'Front_Turret_Barrel01',
             TurretBoneYaw = 'Front_Turret01',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 10,
             TurretPitchRange = 25,
             TurretPitchSpeed = 10,
@@ -373,7 +373,9 @@ UnitBlueprint {
             MaxRadius = 100,
             
             MuzzleVelocity = 40,
-			
+
+            NotExclusive = true,
+            
             PrefersPrimaryWeaponTarget = true,
 			
             ProjectileId = '/projectiles/SDFHeavyQuarnonCannon01/SDFHeavyQuarnonCannon01_proj.bp',
@@ -387,7 +389,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -4,
-
             RackRecoilReturnSpeed = 2,
 			
 			RateOfFire = 0.33,		-- 200 DPS Surface
@@ -407,8 +408,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Turret_Muzzle02',
             TurretBonePitch = 'Front_Turret_Barrel02',
             TurretBoneYaw = 'Front_Turret02',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 10,
             TurretPitchRange = 25,
             TurretPitchSpeed = 10,
@@ -462,7 +462,9 @@ UnitBlueprint {
             MaxRadius = 100,
 
             MuzzleVelocity = 40,
-			
+
+            NotExclusive = true,
+
             ProjectileId = '/projectiles/SDFHeavyQuarnonCannon01/SDFHeavyQuarnonCannon01_proj.bp',
 			ProjectileLifetime = 3,
 
@@ -474,7 +476,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -4,
-
             RackRecoilReturnSpeed = 2,
 
             RangeCategory = 'UWRC_DirectFire',
@@ -495,8 +496,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Turret_Muzzle01',
             TurretBonePitch = 'Back_Turret_Barrel01',
             TurretBoneYaw = 'Back_Turret01',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 10,
             TurretPitchRange = 25,
             TurretPitchSpeed = 10,
@@ -540,6 +540,8 @@ UnitBlueprint {
             MaxRadius = 50,
 
             MuzzleVelocity = 25,
+
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SIMAntiMissile02/SIMAntiMissile02_proj.bp',
             ProjectileLifetime = 2,
@@ -566,8 +568,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Turret_Muzzle01',
             TurretBonePitch = 'Left_Turret_Barrel01',
             TurretBoneYaw = 'Left_Turret01',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 180,
@@ -603,10 +604,10 @@ UnitBlueprint {
             Label = 'AntiMissile',
 			
             MaxRadius = 50,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 25,
+
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SIMAntiMissile02/SIMAntiMissile02_proj.bp',
             ProjectileLifetime = 2,
@@ -631,8 +632,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Turret_Muzzle03',
             TurretBonePitch = 'Right_Turret_Barrel02',
             TurretBoneYaw = 'Right_Turret02',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 180,
@@ -681,6 +681,8 @@ UnitBlueprint {
 			
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 60,
+
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SAAOlarisAAArtillery05/SAAOlarisAAArtillery05_proj.bp',
             ProjectileLifetime = 1,
@@ -696,7 +698,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -2,
-
             RackRecoilReturnSpeed = 10,
 
             RangeCategory = 'UWRC_AntiAir',
@@ -707,11 +708,9 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE TECH3 BOMBER',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
-                'AIR MOBILE TRANSPORTATION',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -720,7 +719,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Turret_Muzzle03',
             TurretBonePitch = 'Left_Turret_Barrel02',
             TurretBoneYaw = 'Left_Turret02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 45,
             TurretPitchRange = 90,
@@ -769,6 +767,8 @@ UnitBlueprint {
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 60,
 
+            NotExclusive = true,
+
             ProjectileId = '/projectiles/SAAOlarisAAArtillery05/SAAOlarisAAArtillery05_proj.bp',
 			ProjectileLifetime = 1,
 			
@@ -783,7 +783,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -2,
-
             RackRecoilReturnSpeed = 10,
 
             RangeCategory = 'UWRC_AntiAir',
@@ -804,8 +803,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Turret_Muzzle01',
             TurretBonePitch = 'Right_Turret_Barrel01',
             TurretBoneYaw = 'Right_Turret01',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 45,
             TurretPitchRange = 90,
             TurretPitchSpeed = 180,
@@ -860,6 +858,8 @@ UnitBlueprint {
             MinRadius = 128,
 
             MuzzleVelocity = 0,
+
+            NotExclusive = true,
 			
             NukeInnerRingDamage = 70000,
             NukeInnerRingRadius = 30,

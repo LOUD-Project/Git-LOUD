@@ -229,7 +229,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 120,
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Dual Gauss Cannon',
@@ -288,7 +287,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Turret01_Muzzle01',
             TurretBonePitch = 'Front_Turret01_Barrel01',
             TurretBoneYaw = 'Front_Turret01',
-            TurretDualManipulators = false,
 
             TurretPitch = 10,
             TurretPitchRange = 20,
@@ -314,7 +312,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 120,
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Dual Gauss Cannon',
@@ -370,7 +367,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Turret01_Muzzle01',
             TurretBonePitch = 'Back_Turret01_Barrel01',
             TurretBoneYaw = 'Back_Turret01',
-            TurretDualManipulators = false,
             
             TurretPitch = 10,
             TurretPitchRange = 20,
@@ -457,7 +453,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Turret02_Muzzle01',
             TurretBonePitch = 'Front_Turret02_Barrel01',
             TurretBoneYaw = 'Front_Turret02',
-            TurretDualManipulators = false,
             
             TurretPitch = 45,
             TurretPitchRange = 45,
@@ -530,6 +525,8 @@ UnitBlueprint {
         },
 		
         {
+            advancedTracking = true,
+            
             BallisticArc = 'RULEUBA_None',
 			
 			CannotAttackGround = true,			
@@ -551,11 +548,8 @@ UnitBlueprint {
             Label = 'AntiTorpedo',
 			
             MaxRadius = 25,
-            MinRadius = 0,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            MuzzleVelocity = 3,
+
+            MuzzleVelocity = 6,
 			
             ProjectileId = '/projectiles/TIMAntiTorpedo01/TIMAntiTorpedo01_proj.bp',
             ProjectileLifetime = 1.8,

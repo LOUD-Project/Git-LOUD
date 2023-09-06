@@ -309,8 +309,6 @@ UnitBlueprint {
                     RackBone = 'RightFront_Turret_Barrel',
                 },
             },
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -333,7 +331,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'RightFront_Turret_Muzzle',
             TurretBonePitch = 'RightFront_Turret_Barrel',
             TurretBoneYaw = 'RightFront_Turret_Barrel',
-            TurretDualManipulators = false,
 			
             TurretPitch = -15,
             TurretPitchRange = 90,
@@ -352,8 +349,8 @@ UnitBlueprint {
                 Fire = Sound { Bank = 'URAWeapon', Cue = 'URA0401_Rock_Pack', LodCutoff = 'Weapon_LodCutoff' },
             },
 
-            AutoInitiateAttackCommand = false,
             BallisticArc = 'RULEUBA_None',
+
             CollideFriendly = false,
 			
             Damage = 230,
@@ -378,6 +375,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 3,
+
             MuzzleVelocity = 22,
 			MuzzleVelocityRandom = 2,
 			
@@ -393,8 +391,6 @@ UnitBlueprint {
                 },
             },
 
-            RackSlavedToTurret = true,
-
             RateOfFire = 0.5,	--  345 DPS
             TargetCheckInterval = 1,
 			
@@ -404,13 +400,12 @@ UnitBlueprint {
                 'MOBILE',
                 'ALLUNITS -WALL',
             },
-            TargetRestrictDisallow = 'HIGHALTAIR, UNTARGETABLE',
+            TargetRestrictDisallow = 'HIGHALTAIR,UNTARGETABLE,STRUCTURE' ,
             TrackingRadius = 1.15,
 			
             TurretBoneMuzzle = 'LeftFront_Turret_Muzzle',
             TurretBonePitch = 'LeftFront_Turret_Barrel',
             TurretBoneYaw = 'LeftFront_Turret_Barrel',
-            TurretDualManipulators = false,
 			
             TurretPitch = -15,
             TurretPitchRange = 90,
@@ -434,7 +429,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 200,
-			DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Nanite Missile System',
@@ -454,6 +448,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 32,
 			
 			NotExclusive = true,
@@ -484,7 +479,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'LeftBack_Nanite_Turret_Muzzle',
             TurretBonePitch = 'LeftBack_Nanite_Turret_Barrel01',
             TurretBoneYaw = 'LeftBack_Nanite_Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 70,
@@ -506,7 +500,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 200,
-			DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Nanite Missile System',
@@ -525,6 +518,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 32,
 			
 			NotExclusive = true,
@@ -553,7 +547,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'RightBack_Nanite_Turret_Muzzle04',
             TurretBonePitch = 'RightBack_Nanite_Turret_Barrel01',
             TurretBoneYaw = 'RightBack_Nanite_Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 70,
@@ -615,6 +608,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 30,
 			
 			NotExclusive = true,
@@ -649,7 +643,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Turret_Muzzle01',
             TurretBonePitch = 'Front_Turret_Barrel',
             TurretBoneYaw = 'Front_Turret_Barrel',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 180,
@@ -707,6 +700,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 30,
 			
 			NotExclusive = true,
@@ -739,7 +733,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Turret_Muzzle01',
             TurretBonePitch = 'Back_Turret_Barrel01',
             TurretBoneYaw = 'Back_Turret_Barrel01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 180,

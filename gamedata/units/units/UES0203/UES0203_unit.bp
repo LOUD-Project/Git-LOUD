@@ -178,7 +178,6 @@ UnitBlueprint {
         Icon = 'sea',
 
         UnitName = '<LOC ues0203_name>Tigershark',
-
     },
 	
     Intel = {
@@ -266,7 +265,8 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.8,
             MuzzleSalvoSize = 3,
-            MuzzleVelocity = 3,
+
+            MuzzleVelocity = 4.5,
 			
             ProjectileId = '/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp',
             ProjectileLifetime = 8,
@@ -282,8 +282,6 @@ UnitBlueprint {
                 },
             },
 
-            RackSalvoSize = 1,
-
             RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 0.2,		-- 3 torps of 110 = 330 damage * .2 = 66 DPS Sub/Surface
@@ -295,7 +293,7 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'MOBILE SUBMARINE',
+                'SUBMARINE',
 				'MOBILE NAVAL',
 				'MOBILE',
                 'DEFENSE',
@@ -356,7 +354,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 60,

@@ -229,6 +229,7 @@ UnitBlueprint {
 			
             BeamCollisionDelay = 0,
             BeamLifetime = 1.0,
+
             CollideFriendly = false,
 			
             Damage = 25,
@@ -236,9 +237,7 @@ UnitBlueprint {
 			
             DisplayName = 'Dual-Barreled Hiro Plasma Cannon',
 			
-            DoNotCollideList = {
-                'TORPEDO',
-            },
+            DoNotCollideList = {'TORPEDO'},
 			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -288,7 +287,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Turret02_Muzzle01',
             TurretBonePitch = 'Front_Turret02_Barrel01',
             TurretBoneYaw = 'Front_Turret02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 35,
@@ -310,7 +308,7 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            AutoInitiateAttackCommand = false,
+
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
@@ -322,9 +320,7 @@ UnitBlueprint {
 			
             DisplayName = 'Dual-Barreled Hiro Plasma Cannon',
 			
-            DoNotCollideList = {
-                'TORPEDO',
-            },
+            DoNotCollideList = {'TORPEDO'},
 			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -371,7 +367,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Turret_Muzzle01',
             TurretBonePitch = 'Back_Turret_Barrel',
             TurretBoneYaw = 'Back_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 35,
@@ -476,6 +471,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 5,
+
             MuzzleVelocity = 75,
 			
             ProjectileId = '/projectiles/TDPhalanx01/TDPhalanx01_proj.bp',
@@ -501,7 +497,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Turret01_Barrel01',
             TurretBonePitch = 'Front_Turret01_Barrel01',
             TurretBoneYaw = 'Front_Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -521,7 +516,7 @@ UnitBlueprint {
             Damage = 2,
             DamageType = 'Normal',
 			
-            DepthCharge = { Radius = 8 },
+            DepthCharge = { Radius = 6 },
 			
             DisplayName = 'Smart Charge AntiTorpedo',
 			
@@ -534,9 +529,7 @@ UnitBlueprint {
 			
             MaxRadius = 24,
             MinRadius = 0,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/TIMAntiTorpedo01/TIMAntiTorpedo01_proj.bp',
@@ -556,10 +549,10 @@ UnitBlueprint {
             RateOfFire = 0.5,
 			
             TargetCheckInterval = 1.0,
-            TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.2,
+
+            TrackingRadius = 1.1,
         },
     },
 }

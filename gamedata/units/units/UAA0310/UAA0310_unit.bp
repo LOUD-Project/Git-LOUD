@@ -313,11 +313,9 @@ UnitBlueprint {
 			
             MaxRadius = 30,
             MaximumBeamLength = 32,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
+
+            NotExclusive = true,			
+
             RackBones = {
                 {
                     MuzzleBones = {'Center_Muzzle'},
@@ -370,6 +368,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 32,
 			
             ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
@@ -391,7 +390,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,STRUCTURE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.2,
         },
@@ -425,7 +424,10 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 32,
+
+            NotExclusive = true,
 
             ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
             ProjectileLifetime = 4,
@@ -444,10 +446,9 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,STRUCTURE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.2,
-            Turreted = false,
         },
         {
             Audio = {
@@ -478,7 +479,10 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 32,
+
+            NotExclusive = true,
 
             ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
             ProjectileLifetime = 4,
@@ -497,7 +501,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,STRUCTURE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.2,
         },
@@ -530,7 +534,10 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 32,
+
+            NotExclusive = true,
 
             ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
             ProjectileLifetime = 4,
@@ -549,7 +556,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,STRUCTURE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.2,
         },
@@ -581,6 +588,8 @@ UnitBlueprint {
             MaxRadius = 50,
 
             MuzzleVelocity = 0,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/AANDepthCharge01/AANDepthCharge01_proj.bp',
 			ProjectileLifetime = 10,
@@ -597,8 +606,6 @@ UnitBlueprint {
             },
 
             RackFireTogether = true,
-            
-            RackReloadTimeout = 10,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -651,7 +658,9 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 55,
-			
+
+            NotExclusive = true,			
+
             ProjectileId = '/projectiles/AAAFizz01/AAAFizz01_proj.bp',
 			ProjectileLifetime = 1,
 			
@@ -665,8 +674,6 @@ UnitBlueprint {
                 },
             },
 
-            RackSalvoFiresAfterCharge = true,
-
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,		-- 300 DPS Air
@@ -676,7 +683,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE,STRUCTURE',
             TargetRestrictOnlyAllow = 'AIR',
 			
             TrackingRadius = 1.2,
@@ -684,7 +691,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Turret02_WepFocus',
             TurretBonePitch = 'Left_Turret02_Barrel',
             TurretBoneYaw = 'Left_Turret02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 110,
@@ -732,7 +738,9 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 55,
-			
+
+            NotExclusive = true,			
+
             ProjectileId = '/projectiles/AAAFizz01/AAAFizz01_proj.bp',
 			ProjectileLifetime = 1,
 
@@ -746,10 +754,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-
-            RackSalvoFiresAfterCharge = true,
-
             RateOfFire = 2,		-- 300 DPS Air
 			
             TargetCheckInterval = 0.5,
@@ -757,7 +761,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE,STRUCTURE',
             TargetRestrictOnlyAllow = 'AIR',
 			
             TrackingRadius = 1.2,
@@ -765,7 +769,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Turret02_WepFocus',
             TurretBonePitch = 'Right_Turret02_Barrel',
             TurretBoneYaw = 'Right_Turret02',
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 110,
@@ -774,6 +777,7 @@ UnitBlueprint {
             TurretYaw = 0,
             TurretYawRange = 110,
             TurretYawSpeed = 90,
+
             Turreted = true,
         },
 		

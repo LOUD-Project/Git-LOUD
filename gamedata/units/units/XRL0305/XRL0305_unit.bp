@@ -228,7 +228,9 @@ UnitBlueprint {
             },
 			
             FiringTolerance = 1,
+
             Label = 'Disintigrator',
+
             LeadTarget = true,
 			
             MaxRadius = 34,
@@ -257,17 +259,19 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
+
             TurretBoneMuzzle = 'Projectile03',
             TurretBonePitch = 'Projectile03',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 75,
             TurretPitchSpeed = 60,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 60,
+
             Turreted = true,
         },
         {
@@ -298,6 +302,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
@@ -322,7 +327,6 @@ UnitBlueprint {
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            Turreted = false,
         },
 		
         {
@@ -339,7 +343,7 @@ UnitBlueprint {
             Damage = 2,
             DamageType = 'Normal',
 			
-            DepthCharge = { Radius = 6 },
+            DepthCharge = { Radius = 5 },
 			
             DisplayName = 'Anti-Torpedo Flare',
 			
@@ -373,11 +377,9 @@ UnitBlueprint {
             RateOfFire = 0.4,
 			
             TargetCheckInterval = 0.4,
-			
-            TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
-			
             TargetType = 'RULEWTT_Projectile',
+
             TrackingRadius = 1.3,
         },
     },

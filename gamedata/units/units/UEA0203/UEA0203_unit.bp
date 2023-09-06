@@ -274,6 +274,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 3,
+
             MuzzleVelocity = 40,
 			
             ProjectileId = '/projectiles/TDFRiot01/TDFRiot01_proj.bp',
@@ -300,8 +301,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle',
             TurretBonePitch = 'Muzzle',
             TurretBoneYaw = 'Muzzle',
-			
-            TurretDualManipulators = false,
 			
             TurretPitch = -40,
             TurretPitchRange = 70,

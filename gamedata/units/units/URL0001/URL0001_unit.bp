@@ -809,11 +809,15 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
+
             CollideFriendly = false,
+
             Damage = 100,
             DamageType = 'Normal',
             DisplayName = 'Molecular Ripper Cannon',
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
@@ -852,22 +856,27 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
+
             TurretBoneMuzzle = 'Turret_Muzzle_02',
             TurretBonePitch = 'Right_Turret',
+
             TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 90,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 90,
             Turreted = true,
+
             UseFiringSolutionInsteadOfAimBone = true,
         },
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 Fire = Sound {
                     Bank = 'URLWeapon',
@@ -875,25 +884,34 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             BallisticArc = 'RULEUBA_None',
             BeamCollisionDelay = 0.2,
             BeamLifetime = 0.4,
+
             CollideFriendly = false,
+
             Damage = 12000,
             DamageFriendly = false,
             DamageRadius = 2.5,
             DamageType = 'Overcharge',
+
             DisplayName = 'Overcharge Cannon',
+
             EnergyChargeForFirstShot = false,
+
             EnergyDrainPerSecond = 5000,
             EnergyRequired = 5000,
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
+
             Label = 'OverCharge',
+
             ManualFire = true,
             MaxRadius = 22,
 
@@ -990,31 +1008,37 @@ UnitBlueprint {
                     Cue = 'URL0402_Beam_Stop',
                     LodCutoff = 'Weapon_LodCutoff',
                 },
-                Unpack = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             BeamCollisionDelay = 0.1,
             BeamLifetime = 0,
+
             CanFireFromTransport = true,
+
             CollideFriendly = false,
+
             Damage = 800,
-            DamageRadius = 0.5,
             DamageType = 'Normal',
+
             DisplayName = 'Heavy Microwave Laser',
+
             EnabledByEnhancement = 'MicrowaveLaserGenerator',
+
             EnergyChargeForFirstShot = false,
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
+
             HeadingArcCenter = 0,
             HeadingArcRange = 180,
+
             Label = 'MLG',
+
             MaxRadius = 22,
 
             RackBones = {
@@ -1041,7 +1065,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle_03',
             TurretBonePitch = 'Turret_Muzzle_03',
             TurretBoneYaw = 'Turret_Muzzle_03',
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 80,
@@ -1053,10 +1076,8 @@ UnitBlueprint {
 
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
-
-            WeaponRepackTimeout = 0,
-            WeaponUnpacks = false,
         },
+
         {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,

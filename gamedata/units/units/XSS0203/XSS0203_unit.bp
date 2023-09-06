@@ -286,6 +286,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.8,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/SANUallCavitationTorpedo02/SANUallCavitationTorpedo02_proj.bp',
@@ -339,6 +340,8 @@ UnitBlueprint {
             MaxRadius = 25,
 
             MuzzleVelocity = 8,
+
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SANAjelluAntiTorpedo01/SANAjelluAntiTorpedo01_proj.bp',
             ProjectileLifetime = 4,
@@ -356,7 +359,6 @@ UnitBlueprint {
 			
             TargetCheckInterval = 1,
 			
-            TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
             TrackingRadius = 1.2,
@@ -364,8 +366,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'AntiTorpedo',
             TurretBonePitch = 'AntiTorpedo',
             TurretBoneYaw = 'AntiTorpedo',
-			
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 180,
@@ -402,6 +402,8 @@ UnitBlueprint {
             MaxRadius = 28,
 
             MuzzleVelocity = 30,
+
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SDFOhCannon02/SDFOhCannon02_proj.bp',
             ProjectileLifetime = 1,
@@ -431,8 +433,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Aim_Bone',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 0,
             TurretPitchRange = 60,
             TurretPitchSpeed = 40,

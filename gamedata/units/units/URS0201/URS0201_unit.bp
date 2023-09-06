@@ -342,8 +342,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'CannonBarrel_R',
             TurretBonePitch = 'Barrel_Cannon',
             TurretBoneYaw = 'Turret_Cannon',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 0,
             TurretPitchRange = 45,
             TurretPitchSpeed = 45,
@@ -386,12 +385,14 @@ UnitBlueprint {
             FiringTolerance = 0.5,
 			
             Label = 'AAGun',
+
             LeadTarget = true,
 			
             MaxRadius = 48,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
+
             MuzzleVelocity = 72,
 			
             ProjectileId = '/projectiles/CAABurstCloud01/CAABurstCloud01_proj.bp',
@@ -427,8 +428,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'AA_Barrel_R01',
             TurretBonePitch = 'Barrel_AA',
             TurretBoneYaw = 'Turret_AA',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 45,
             TurretPitchRange = 60,
             TurretPitchSpeed = 90,
@@ -468,6 +468,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
@@ -541,7 +542,6 @@ UnitBlueprint {
 			
             TargetCheckInterval = 0.4,
 			
-            TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
             TrackingRadius = 1.2,
@@ -549,7 +549,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle_Front',
             TurretBonePitch = 'Turret_Front',
             TurretBoneYaw = 'Turret_Pivot_Front',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 15,
@@ -570,7 +569,7 @@ UnitBlueprint {
             Damage = 2,
             DamageType = 'Normal',
 			
-            DepthCharge = { Radius = 6 },
+            DepthCharge = { Radius = 5 },
 			
             DisplayName = 'Anti Torpedo Flare',
 			
@@ -609,7 +608,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle_Back',
             TurretBonePitch = 'Turret_Back',
             TurretBoneYaw = 'Turret_Pivot_Back',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 15,

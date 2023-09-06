@@ -196,17 +196,13 @@ UnitBlueprint {
                 },
             },
 
-            RackSlavedToTurret = true,
-			
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,
 			
             TargetCheckInterval = 0.2,
 			
-            TargetPriorities = {
-                'AIR MOBILE',
-            },
+            TargetPriorities = {'AIR MOBILE'},
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			
             TrackingRadius = 1.2,
@@ -214,7 +210,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 45,
             TurretPitchRange = 90,

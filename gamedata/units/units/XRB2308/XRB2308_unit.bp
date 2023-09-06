@@ -168,13 +168,12 @@ UnitBlueprint {
 	
 		-- The Kril Long Range Fast torpedo --
         {
+            advancedTracking = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XRL_Weapon',
-                    Cue = 'XRB2308_Kril_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XRL_Weapon', Cue = 'XRB2308_Kril_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -199,6 +198,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 12,
+
             MuzzleVelocity = 5,
 			MuzzleVelocityRandom = 2.5,
 			
@@ -238,7 +238,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle_03',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = -30,
             TurretPitchRange = 45,

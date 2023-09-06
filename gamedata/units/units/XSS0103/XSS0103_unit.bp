@@ -252,8 +252,10 @@ UnitBlueprint {
             MaxRadius = 36,
 			
             MuzzleChargeDelay = 0.1,
+
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 3,
+
             MuzzleVelocity = 42,
 			
             ProjectileId = '/projectiles/SDFShieeihAutoCannon01/SDFShieeihAutoCannon01_proj.bp',
@@ -290,8 +292,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Turret_Muzzle03',
             TurretBonePitch = 'Back_Turret_Barrel',
             TurretBoneYaw = 'Back_Turret',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 0,
             TurretPitchRange = 45,
             TurretPitchSpeed = 30,
@@ -339,6 +340,8 @@ UnitBlueprint {
 			
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 60,
+
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SAAShleoAAGatlingGun02/SAAShleoAAGatlingGun02_proj.bp',
             ProjectileLifetimeUsesMultiplier = 0.8,
@@ -368,7 +371,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Turret_Muzzle02',
             TurretBonePitch = 'Front_Turret_Barrel',
             TurretBoneYaw = 'Front_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 45,
             TurretPitchRange = 60,

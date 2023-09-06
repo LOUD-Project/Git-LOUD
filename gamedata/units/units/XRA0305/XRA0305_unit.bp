@@ -226,8 +226,6 @@ UnitBlueprint {
 			
             BallisticArc = 'RULEUBA_None',
 			
-            ChargeDelay = 0.3,
-			
             CollideFriendly = false,
 			
             Damage = 100,
@@ -277,9 +275,12 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'Turret_Down_Muzzle_02',
             TurretBoneDualPitch = 'Turret_Down_Barrel_02',
+
             TurretBoneMuzzle = 'Turret_Down_Muzzle_01',
             TurretBonePitch = 'Turret_Down_Barrel_01',
+
             TurretBoneYaw = 'Turret_Down_01',
+
             TurretDualManipulators = true,
 			
             TurretPitch = -20,
@@ -302,8 +303,6 @@ UnitBlueprint {
                 },
             },
 			
-            AutoInitiateAttackCommand = false,
-			
             BallisticArc = 'RULEUBA_None',
 			
             CannotAttackGround = true,
@@ -311,7 +310,6 @@ UnitBlueprint {
 			
             Damage = 40,
             DamageFriendly = false,
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Nanite Missile Launcher',
@@ -321,13 +319,15 @@ UnitBlueprint {
             },
 			
             FiringTolerance = 3,
+
             Label = 'Missiles1',
 			
             MaxRadius = 36,
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 55,
+
+            MuzzleVelocity = 45,
 			
             ProjectileId = '/projectiles/CAAMissileNanite03/CAAMissileNanite03_proj.bp',
             ProjectileLifetime = 1.5,
@@ -359,7 +359,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Up_Barrel',
             TurretBonePitch = 'Turret_Up_Barrel',
             TurretBoneYaw = 'Turret_Up',
-            TurretDualManipulators = false,
 			
             TurretPitch = 20,
             TurretPitchRange = 55,

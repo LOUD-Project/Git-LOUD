@@ -193,7 +193,8 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 3,
-            MuzzleVelocity = 72,
+
+            MuzzleVelocity = 70,
 			
             ProjectileId = '/projectiles/AAASonicPulse01/AAASonicPulse01_proj.bp',
             ProjectileLifetime = 0.9,
@@ -213,10 +214,10 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-				'AIR MOBILE ANTINAVY',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+				'ANTINAVY',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -225,7 +226,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle01',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 45,
             TurretPitchRange = 90,

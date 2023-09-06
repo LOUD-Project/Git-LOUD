@@ -197,15 +197,17 @@ UnitBlueprint {
                 Land = 'Air',
                 Water = 'Air',
             },
-            FiringRandomness = 0.6,
+            FiringRandomness = 0.5,
             FiringTolerance = 2,
 			
             Label = 'AAGun',
 			LeadTarget = true,
 			
             MaxRadius = 38,
-			
-            MuzzleVelocity = 34,
+
+            MuzzleChargeDelay = 0.1,			
+
+            MuzzleVelocity = 48,
 			
             ProjectileId = '/projectiles/AAAFizz01/AAAFizz01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.4,
@@ -218,7 +220,6 @@ UnitBlueprint {
             },
 
             RackSalvoChargeTime = 0.1,
-            RackSalvoFiresAfterCharge = true,
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -241,9 +242,8 @@ UnitBlueprint {
             TurretBoneMuzzle = 'WepFocus',
             TurretBonePitch = 'Barrel_R',
             TurretBoneYaw = 'Barrel_R',
-            TurretDualManipulators = false,
 			
-            TurretPitch = 35,
+            TurretPitch = 40,
             TurretPitchRange = 80,
             TurretPitchSpeed = 180,
 			

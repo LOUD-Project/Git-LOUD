@@ -220,7 +220,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 700,
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Sih Energy Rifle',
@@ -248,7 +247,7 @@ UnitBlueprint {
                     RackBone = 'Barrel',
                 },
             },
-             
+
             RackRecoilDistance = -0.1,
 
             RangeCategory = 'UWRC_DirectFire',
@@ -258,6 +257,7 @@ UnitBlueprint {
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 5,
+
             TargetCheckInterval = 3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -271,7 +271,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle',
             TurretBonePitch = 'Barrel',
             TurretBoneYaw = 'Barrel',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 50,
@@ -341,12 +340,12 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
+
             TurretBoneMuzzle = 'Muzzle',
             TurretBonePitch = 'Barrel',
             TurretBoneYaw = 'Barrel',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 0,
             TurretPitchRange = 50,
             TurretPitchSpeed = 30,
@@ -354,6 +353,7 @@ UnitBlueprint {
             TurretYaw = 0,
             TurretYawRange = 10,
             TurretYawSpeed = 90,
+
             Turreted = true,
         },
     },

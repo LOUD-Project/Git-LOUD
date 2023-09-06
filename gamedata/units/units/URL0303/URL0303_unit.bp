@@ -235,8 +235,10 @@ UnitBlueprint {
             MaxRadius = 25,
 			
             MuzzleChargeDelay = 0.1,
+
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 3,
+
             MuzzleVelocity = 30,
 			
             NotExclusive = true,
@@ -268,7 +270,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle_Left',
             TurretBonePitch = 'Barrel_L',
             TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
             
             TurretPitch = 0,
             TurretPitchRange = 45,
@@ -295,7 +296,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 20,
-			DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Heavy Electron Bolter',
@@ -339,7 +339,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle_Right',
             TurretBonePitch = 'Barrel_R',
             TurretBoneYaw = 'Barrel_R',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 45,
@@ -354,7 +353,7 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
-            Accurate = true,
+
             BallisticArc = 'RULEUBA_None',
 			
             CollideFriendly = false,

@@ -277,7 +277,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'HIGHALTAIR, UNTARGETABLE, SATELLITE',
 			
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle03',
             TurretBonePitch = 'C_Barrel',
@@ -321,9 +321,7 @@ UnitBlueprint {
             Label = 'AAGun',
 			
             MaxRadius = 38,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/AAAZealotMissile02/AAAZealotMissile02_proj.bp',
@@ -347,20 +345,20 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle01',
             TurretBonePitch = 'R_Barrel',
             TurretBoneYaw = 'R_Turret',
 			
-            TurretDualManipulators = false,
-			
             TurretPitch = 20,
             TurretPitchRange = 180,
             TurretPitchSpeed = 60,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 45,
+
             Turreted = true,
         },
         {
@@ -388,9 +386,7 @@ UnitBlueprint {
             Label = 'AAGun',
 			
             MaxRadius = 38,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/AAAZealotMissile02/AAAZealotMissile02_proj.bp',
@@ -417,7 +413,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle02',
             TurretBonePitch = 'L_Barrel',
             TurretBoneYaw = 'L_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 20,
             TurretPitchRange = 180,
@@ -426,6 +421,7 @@ UnitBlueprint {
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 45,
+
             Turreted = true,
         },
         {

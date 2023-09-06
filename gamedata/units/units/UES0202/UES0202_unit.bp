@@ -248,6 +248,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 2.5,
             MuzzleSalvoSize = 4,
+
             MuzzleVelocity = 5,
 
             NotExclusive = true,
@@ -367,7 +368,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Turret01_Muzzle',
             TurretBonePitch = 'Front_Turret01_Barrel01',
             TurretBoneYaw = 'Front_Turret01',
-            TurretDualManipulators = false,
             
             TurretPitch = 10,
             TurretPitchRange = 20,
@@ -411,6 +411,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 4,
+
             MuzzleVelocity = 32,
 			
             ProjectileId = '/projectiles/TAAMissileFlayer02/TAAMissileFlayer02_proj.bp',
@@ -436,10 +437,10 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-				'AIR MOBILE ANTINAVY',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+				'ANTINAVY',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -448,7 +449,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Turret02_Projectile02',
             TurretBonePitch = 'Back_Turret02',
             TurretBoneYaw = 'Back_Turret02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 25,
             TurretPitchRange = 80,
@@ -484,6 +484,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 5,
+
             MuzzleVelocity = 75,
 			
             ProjectileId = '/projectiles/TDPhalanx01/TDPhalanx01_proj.bp',
@@ -509,7 +510,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Center_Turret_Muzzle',
             TurretBonePitch = 'Center_Turret_Barrel',
             TurretBoneYaw = 'Center_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,

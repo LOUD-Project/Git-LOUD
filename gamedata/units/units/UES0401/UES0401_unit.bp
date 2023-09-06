@@ -85,7 +85,9 @@ UnitBlueprint {
         'FACTORY',
         'NAVALCARRIER',
         'SHOWQUEUE',
-        'OVERLAYRADAR','OVERLAYSONAR','OVERLAYOMNI',
+        'OVERLAYRADAR',
+        'OVERLAYSONAR',
+        'OVERLAYOMNI',
     },
 	
     CollisionOffsetY = -0.375,
@@ -398,6 +400,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 8,
+
             MuzzleVelocity = 3,
             MuzzleVelocityRandom = 1,
 			
@@ -449,7 +452,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 200,
-			DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Flayer SAM Launcher',
@@ -466,6 +468,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 8,
+
             MuzzleVelocity = 33,
 			
             ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',

@@ -282,6 +282,7 @@ UnitBlueprint {
             MaxRadius = 55,
 			
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 48,
 			
             ProjectileId = '/projectiles/CDFProtonCannon02/CDFProtonCannon02_proj.bp',
@@ -317,7 +318,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Right_Muzzle',
             TurretBonePitch = 'front_barrel',
             TurretBoneYaw = 'front_turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 45,
@@ -365,6 +365,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 6,
+
             MuzzleVelocity = 32,
 			
             ProjectileId = '/projectiles/CAANanoDart03/CAANanoDart03_proj.bp',
@@ -405,7 +406,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Launcher_Muzzle01',
             TurretBonePitch = 'launcher_barrel',
             TurretBoneYaw = 'launcher_turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 35,
             TurretPitchRange = 80,
@@ -454,6 +454,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 6,
+
             MuzzleVelocity = 32,
 			
             ProjectileId = '/projectiles/CAANanoDart02/CAANanoDart02_proj.bp',
@@ -493,8 +494,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Launcher_Muzzle01',
             TurretBonePitch = 'launcher_barrel',
             TurretBoneYaw = 'launcher_turret',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 35,
             TurretPitchRange = 50,
             TurretPitchSpeed = 50,
@@ -559,7 +559,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Zapper_Muzzle',
             TurretBonePitch = 'zapper',
             TurretBoneYaw = 'zapper',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,

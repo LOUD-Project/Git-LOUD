@@ -201,14 +201,13 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.1,
 
-            RackSlavedToTurret = true,
-			
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 3,		---- 84 DPS
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 10,
+
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -223,7 +222,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle_01',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 40,

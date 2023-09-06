@@ -311,7 +311,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'PlasmaGun01_Muzzle',
             TurretBonePitch = 'PlasmaGun01',
             TurretBoneYaw = 'PlasmaGun01',
-            TurretDualManipulators = false,
 			
             TurretPitch = -45,
             TurretPitchRange = 60,
@@ -380,7 +379,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'PlasmaGun02_Muzzle',
             TurretBonePitch = 'PlasmaGun02',
             TurretBoneYaw = 'PlasmaGun02',
-            TurretDualManipulators = false,
 			
             TurretPitch = -45,
             TurretPitchRange = 60,
@@ -463,15 +461,14 @@ UnitBlueprint {
             TurretBoneMuzzle = 'AA_Turret01_Barrel01',
             TurretBonePitch = 'AA_Turret01',
             TurretBoneYaw = 'AA_Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 120,
-            TurretPitchSpeed = 100,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 70,
 			
             Turreted = true,
         },
@@ -540,15 +537,14 @@ UnitBlueprint {
             TurretBoneMuzzle = 'AA_Turret02_Barrel02',
             TurretBonePitch = 'AA_Turret02',
             TurretBoneYaw = 'AA_Turret02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 120,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 180,
+            TurretYawSpeed = 70,
 			
             Turreted = true,
         },
@@ -617,15 +613,14 @@ UnitBlueprint {
             TurretBoneMuzzle = 'AA_Turret03_Barrel03',
             TurretBonePitch = 'AA_Turret03',
             TurretBoneYaw = 'AA_Turret03',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 120,
-            TurretPitchSpeed = 90,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 70,
 			
             Turreted = true,
         },
@@ -661,6 +656,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 3,
+
             MuzzleVelocity = 35,
 
             ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
@@ -693,15 +689,14 @@ UnitBlueprint {
             TurretBoneMuzzle = 'AA_Turret04_Barrel04',
             TurretBonePitch = 'AA_Turret04',
             TurretBoneYaw = 'AA_Turret04',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 120,
-            TurretPitchSpeed = 90,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 70,
 			
             Turreted = true,
         },

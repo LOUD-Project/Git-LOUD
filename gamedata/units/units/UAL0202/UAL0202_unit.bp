@@ -210,8 +210,8 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
             },
 			
-			FiringRandomness = 0.5,
-			FiringRandomnessWhileMoving = 1.5,
+			FiringRandomness = 0.4,
+			FiringRandomnessWhileMoving = 1.2,
 			
             FiringTolerance = 1,
 			
@@ -252,7 +252,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 45,

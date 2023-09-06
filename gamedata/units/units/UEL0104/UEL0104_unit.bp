@@ -196,8 +196,6 @@ UnitBlueprint {
             },
             RackRecoilDistance = -0.5,
 
-            RackSlavedToTurret = true,
-			
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 1.5,	-- 27 DPS Air
@@ -212,7 +210,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle_01',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 45,
             TurretPitchRange = 65,

@@ -231,6 +231,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 6,
+
             MuzzleVelocity = 0,
 			
             NeedToComputeBombDrop = true,

@@ -233,8 +233,10 @@ UnitBlueprint {
             MinRadius = 25,
 			
             MuzzleChargeDelay = 0.1,
+
             MuzzleSalvoDelay = 0.9,
             MuzzleSalvoSize = 5,
+
             MuzzleVelocity = 4,
 			
 			NotExclusive = true,
@@ -272,7 +274,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Front_Muzzle02',
             TurretBonePitch = 'Turret_Front_Barrel',
             TurretBoneYaw = 'Turret_Front',
-            TurretDualManipulators = false,
 			
             TurretPitch = 55,
             TurretPitchRange = 0,
@@ -319,8 +320,10 @@ UnitBlueprint {
             MinRadius = 25,
 			
             MuzzleChargeDelay = 0.5,
+
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 5,
+
             MuzzleVelocity = 4,
 			
 			NotExclusive = true,
@@ -356,7 +359,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Back_Muzzle02',
             TurretBonePitch = 'Turret_Back_Barrel',
             TurretBoneYaw = 'Turret_Back',
-            TurretDualManipulators = false,
 			
             TurretPitch = 55,
             TurretPitchRange = 0,
@@ -413,13 +415,12 @@ UnitBlueprint {
             RateOfFire = 1,
 			
             TargetCheckInterval = 0.5,
-            TargetRestrictDisallow = 'UNTARGETABLE',
+
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
             TrackingRadius = 1.2,
-
-            Turreted = false,			
         },
+
         {
             advancedTracking = true,
 
@@ -460,13 +461,11 @@ UnitBlueprint {
             RateOfFire = 1,
 			
             TargetCheckInterval = 0.5,
-            TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
             TrackingRadius = 1,
-
-            Turreted = false,			
         },
+
         {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -489,7 +488,7 @@ UnitBlueprint {
             MaxRadius = 26,
 			MinRadius = 12,
 
-            MuzzleVelocity = 7,
+            MuzzleVelocity = 6.5,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
 			ProjectileLifetime = 4.5,
@@ -504,12 +503,9 @@ UnitBlueprint {
             RateOfFire = 1,
 			
             TargetCheckInterval = 0.5,
-            TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
             TrackingRadius = 1.1,
-			
-            Turreted = false,
         },
 		
         {
@@ -534,7 +530,7 @@ UnitBlueprint {
             MaxRadius = 18,
 			MinRadius = 6,
 
-            MuzzleVelocity = 8,
+            MuzzleVelocity = 7,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
 			ProjectileLifetime = 4.5,
@@ -549,12 +545,9 @@ UnitBlueprint {
             RateOfFire = 1,
 			
             TargetCheckInterval = 0.5,
-            TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
             TrackingRadius = 1,
-		
-            Turreted = false,
         },		
     },
 	

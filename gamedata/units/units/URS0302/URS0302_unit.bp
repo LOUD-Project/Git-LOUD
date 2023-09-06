@@ -304,7 +304,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Muzzle02',
             TurretBonePitch = 'Front_Turret_Barrel02',
             TurretBoneYaw = 'Front_Turret',
-            TurretDualManipulators = false,
             
             TurretPitch = 30,
             TurretPitchRange = 45,
@@ -402,8 +401,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Muzzle02',
             TurretBonePitch = 'Back_Turret_Barrel02',
             TurretBoneYaw = 'Back_Turret',
-            TurretDualManipulators = false,
-            
+
             TurretPitch = 30,
             TurretPitchRange = 35,
             TurretPitchSpeed = 10,
@@ -485,8 +483,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Barrel_AA',
             TurretBonePitch = 'Front_Barrel_AA',
             TurretBoneYaw = 'Front_Turret_AA',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 45,
             TurretPitchRange = 90,
             TurretPitchSpeed = 60,
@@ -551,9 +548,8 @@ UnitBlueprint {
                 },
             },
 
-            RackSlavedToTurret = true,
-			
             RateOfFire = 1,		-- 60 DPS Air
+
             TargetCheckInterval = 0.3,
 			
             TargetPriorities = {
@@ -569,8 +565,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Barrel_AA',
             TurretBonePitch = 'Back_Barrel_AA',
             TurretBoneYaw = 'Back_Turret_AA',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 45,
             TurretPitchRange = 90,
             TurretPitchSpeed = 60,
@@ -708,8 +703,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Muzzle02',
             TurretBonePitch = 'Left_Turret01',
             TurretBoneYaw = 'Left_Turret01',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 180,
@@ -773,8 +767,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Muzzle02',
             TurretBonePitch = 'Right_Turret',
             TurretBoneYaw = 'Right_Turret',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 180,

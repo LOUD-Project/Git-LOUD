@@ -227,7 +227,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 120,
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Proton Cannon',
@@ -276,7 +275,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Muzzle',
             TurretBonePitch = 'Front_Turret_Barrel',
             TurretBoneYaw = 'Front_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 45,
@@ -336,8 +334,6 @@ UnitBlueprint {
                     RackBone = 'Back_Turret_Barrel',
                 },
             },
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -351,8 +347,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Turret_Barrel',
             TurretBonePitch = 'Back_Turret_Barrel',
             TurretBoneYaw = 'Back_Turret_AA',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 45,
             TurretPitchRange = 60,
             TurretPitchSpeed = 80,

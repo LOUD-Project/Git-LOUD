@@ -230,7 +230,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 60,
-			DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Heavy Plasma Cannon',
@@ -265,8 +264,6 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.2,
 
-            RackSalvoSize = 1,
-
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 3,		-- 180 DPS
@@ -284,9 +281,12 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'Muzzle_L',
             TurretBoneDualPitch = 'ArmL_B04',
+
             TurretBoneMuzzle = 'Muzzle_R',
             TurretBonePitch = 'ArmR_B04',
+
             TurretBoneYaw = 'Torso',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 10,

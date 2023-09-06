@@ -229,6 +229,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 36,
 			
             ProjectileId = '/projectiles/SDFHeavyPhasicAutogun02/SDFHeavyPhasicAutogun02_proj.bp',
@@ -258,7 +259,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Muzzle01',
             TurretBonePitch = 'Left_Turret_Barrel',
             TurretBoneYaw = 'Left_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = -20,
             TurretPitchRange = 60,
@@ -299,6 +299,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 36,
 			
             ProjectileId = '/projectiles/SDFHeavyPhasicAutogun02/SDFHeavyPhasicAutogun02_proj.bp',
@@ -326,7 +327,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Muzzle01',
             TurretBonePitch = 'Right_Turret_Barrel',
             TurretBoneYaw = 'Right_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = -20,
             TurretPitchRange = 60,

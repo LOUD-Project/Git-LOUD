@@ -382,8 +382,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Turret_Muzzle01',
             TurretBonePitch = 'Right_Turret_Barrel',
             TurretBoneYaw = 'Right_Turret',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 10,
             TurretPitchRange = 90,
             TurretPitchSpeed = 90,
@@ -391,6 +390,7 @@ UnitBlueprint {
             TurretYaw = 0,
             TurretYawRange = 65,
             TurretYawSpeed = 40,
+
             Turreted = true,
         },
         {
@@ -466,10 +466,10 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.1,
+
             TurretBoneMuzzle = 'Left_Turret_Muzzle01',
             TurretBonePitch = 'Left_Turret_Barrel',
             TurretBoneYaw = 'Left_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 90,
@@ -482,6 +482,7 @@ UnitBlueprint {
             Turreted = true,
         },
         {
+            advancedTracking = true,
             Audio = {
                 Fire = Sound {
                     Bank = 'XRL_Weapon',
@@ -511,6 +512,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 4,
 			
             ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
@@ -546,9 +548,6 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = true,
-            
-
-
 
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -566,21 +565,19 @@ UnitBlueprint {
         },
 		
         {
+            advancedTracking = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XRL_Weapon',
-                    Cue = 'XRL0403_Anti_Torpedo_Flare',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XRL_Weapon', Cue = 'XRL0403_Anti_Torpedo_Flare', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
             Damage = 2,
             DamageType = 'Normal',
-            DepthCharge = {
-                Radius = 10,
-            },
+
+            DepthCharge = { Radius = 9 },
 			
             DisplayName = 'Anti-Torpedo Flare',
 			
@@ -613,14 +610,15 @@ UnitBlueprint {
                     RackBone = 'Flare_Muzzle01',
                 },
             },
+            
+            RackSalvoReloadTime = 5,
 
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 0.12,
+            RateOfFire = 1,     -- every 8 seconds controlled by delays and reload
 			
             TargetCheckInterval = 1.5,
 			
-            TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
             TrackingRadius = 1.1,
@@ -630,6 +628,7 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AlwaysRecheckTarget = true,
+
             Audio = {
                 Fire = Sound {
                     Bank = 'XRL_Weapon',
@@ -637,7 +636,9 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -660,6 +661,7 @@ UnitBlueprint {
             FiringTolerance = 0.5,
 			
             Label = 'AAGun',
+
 			LeadTarget = true,
 			
             MaxRadius = 48,
@@ -694,7 +696,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'AA_Muzzle',
             TurretBonePitch = 'AA_Barrel',
             TurretBoneYaw = 'AA_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 35,
             TurretPitchRange = 80,
@@ -721,8 +722,8 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        HealthMult = 0.7,
+        MassMult = 0.7,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

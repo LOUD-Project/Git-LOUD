@@ -183,7 +183,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 55,
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'AA Autocannon',
@@ -217,8 +216,6 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -234,12 +231,11 @@ UnitBlueprint {
 			
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.3,
 			
             TurretBoneMuzzle = 'Muzzle01',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 25,
             TurretPitchRange = 90,

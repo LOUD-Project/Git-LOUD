@@ -282,7 +282,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle_R01',
             TurretBonePitch = 'Turret_Right01',
             TurretBoneYaw = 'Turret_Right01',
-            TurretDualManipulators = false,
 
             TurretPitch = -10,
             TurretPitchRange = 90,
@@ -348,7 +347,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle_L',
             TurretBonePitch = 'Turret_Left',
             TurretBoneYaw = 'Turret_Left',
-            TurretDualManipulators = false,
 
             TurretPitch = -10,
             TurretPitchRange = 90,
@@ -373,7 +371,6 @@ UnitBlueprint {
             CollideFriendly = false,
 
             Damage = 15,
-			DamageRadius = 0,
             DamageType = 'Normal',
 
             DisplayName = 'Sonic Pulse Battery',
@@ -391,7 +388,8 @@ UnitBlueprint {
 
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 75,
+
+            MuzzleVelocity = 72,
 
             ProjectileId = '/projectiles/AAASonicPulse02/AAASonicPulse02_proj.bp',
 
@@ -419,7 +417,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle_F',
             TurretBonePitch = 'Turret_Front',
             TurretBoneYaw = 'Turret_Front',
-            TurretDualManipulators = false,
 
             TurretPitch = 25,
             TurretPitchRange = 90,
@@ -436,14 +433,13 @@ UnitBlueprint {
             Audio = {
                 Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0102_Pulse_Battery_01', LodCutoff = 'Weapon_LodCutoff' },
             },
-            AutoInitiateAttackCommand = false,
 
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
 
             Damage = 15,
-			DamageRadius = 0,
             DamageType = 'Normal',
 
             DisplayName = 'Heavy Sonic Pulse Battery',
@@ -461,7 +457,8 @@ UnitBlueprint {
 
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 75,
+
+            MuzzleVelocity = 72,
 
             ProjectileId = '/projectiles/AAASonicPulse02/AAASonicPulse02_proj.bp',
 
@@ -489,15 +486,15 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle_B',
             TurretBonePitch = 'Turret_Back',
             TurretBoneYaw = 'Turret_Back',
-            TurretDualManipulators = false,
 
             TurretPitch = 25,
             TurretPitchRange = 90,
             TurretPitchSpeed = 180,
-            TurretYaw = 0,
 
+            TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 150,
+
             Turreted = true,
         },
         {
@@ -529,7 +526,8 @@ UnitBlueprint {
 
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 75,
+
+            MuzzleVelocity = 72,
 
             ProjectileId = '/projectiles/AAASonicPulse02/AAASonicPulse02_proj.bp',
 
@@ -557,7 +555,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle_F01',
             TurretBonePitch = 'Turret_Front01',
             TurretBoneYaw = 'Turret_Front01',
-            TurretDualManipulators = false,
 
             TurretPitch = 25,
             TurretPitchRange = 90,
@@ -598,6 +595,7 @@ UnitBlueprint {
 
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 66,
 
             ProjectileId = '/projectiles/AAASonicPulse02/AAASonicPulse02_proj.bp',
@@ -625,7 +623,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle_B01',
             TurretBonePitch = 'Turret_Back01',
             TurretBoneYaw = 'Turret_Back01',
-            TurretDualManipulators = false,
 
             TurretPitch = 25,
             TurretPitchRange = 90,

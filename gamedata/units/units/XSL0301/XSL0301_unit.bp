@@ -569,9 +569,13 @@ UnitBlueprint {
             MinRadius = 1,
             
             MuzzleChargeDelay = 0.2,
+
             MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 33,
             MuzzleVelocityReduceDistance = 5,
+
+            NotExclusive = true,
             
             ProjectileId = '/projectiles/SDFLightChronatronCannon01/SDFLightChronatronCannon01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.25,
@@ -718,6 +722,8 @@ UnitBlueprint {
             MuzzleChargeDelay = 1.5,
 
             MuzzleVelocity = 5,
+
+            NotExclusive = true,
             
             ProjectileId = '/projectiles/SIFLaanseTacticalMissileSCU/SIFLaanseTacticalMissileSCU_proj.bp',
             ProjectileLifetime = 80,

@@ -194,6 +194,8 @@ UnitBlueprint {
             MaxRadius = 32,
 			
             MuzzleVelocity = 38,
+
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SDFTauCannon01/SDFTauCannon01_proj.bp',
 			ProjectileLifetime = 1,
@@ -227,7 +229,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Barrel_Recoil_Muzzle',
             TurretBonePitch = 'Turret',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 15,
@@ -268,7 +269,10 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 32,
+
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SDFAireauBolter02/SDFAireauBolter02_proj.bp',
             ProjectileLifetime = 1.5,
@@ -290,12 +294,11 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Right_Turret_Barrel_Muzzle01',
             TurretBonePitch = 'Right_Turret',
             TurretBoneYaw = 'Right_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 60,
@@ -340,6 +343,8 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 32,
+
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SDFAireauBolter02/SDFAireauBolter02_proj.bp',
             ProjectileLifetime = 1,
@@ -361,12 +366,11 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Left_Turret_Barrel_Muzzle01',
             TurretBonePitch = 'Left_Turret',
             TurretBoneYaw = 'Left_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 60,
@@ -406,7 +410,10 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 3,
+
             MuzzleVelocity = 3,
+
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SANUallCavitationTorpedo02/SANUallCavitationTorpedo02_proj.bp',
             ProjectileLifetime = 7,
@@ -426,14 +433,14 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-				'MOBILE SUBMARINE',
+				'SUBMARINE',
 				'MOBILE NAVAL',
 				'MOBILE',
                 'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 
             Turreted = false,
         },

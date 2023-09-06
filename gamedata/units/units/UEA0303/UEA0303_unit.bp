@@ -205,7 +205,6 @@ UnitBlueprint {
 			
             Damage = 205,
             DamageFriendly = false,
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Ginsu Pulse Beam',
@@ -221,7 +220,7 @@ UnitBlueprint {
 			
             MaxRadius = 40,
 
-            MuzzleVelocity = 95,
+            MuzzleVelocity = 80,
 			
             ProjectileId = '/projectiles/TDFGinsu01/TDFGinsu01_proj.bp',
 			ProjectileLifetime = 1,
@@ -253,7 +252,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle02',
             TurretBonePitch = 'Muzzle02',
             TurretBoneYaw = 'Muzzle02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 80,

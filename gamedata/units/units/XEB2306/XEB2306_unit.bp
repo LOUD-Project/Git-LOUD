@@ -180,7 +180,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 90,
-			DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Gatling Cannon',
@@ -200,6 +199,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 24,
+
             MuzzleVelocity = 40,
 			
             ProjectileId = '/projectiles/TDFHeavyPlasmaGatlingCannon01/TDFHeavyPlasmaGatlingCannon01_proj.bp',
@@ -212,7 +212,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
             RackSalvoChargeTime = 0.5,
             RackSalvoReloadTime = 2.7,
 
@@ -234,7 +233,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 60,

@@ -371,7 +371,7 @@ UnitBlueprint {
             MaxRadius = 30,
 			MinRadius = 16,
 
-            MuzzleVelocity = 8.5,
+            MuzzleVelocity = 7.5,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
             ProjectileLifetime = 4,
@@ -387,9 +387,8 @@ UnitBlueprint {
 			
             RateOfFire = 0.5,
 			
-            TargetCheckInterval = 0.25,
+            TargetCheckInterval = 0.3,
 			
-            TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
             TrackingRadius = 1.1,
@@ -420,9 +419,7 @@ UnitBlueprint {
 
             MaxRadius = 24,
 			MinRadius = 10,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 7,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
@@ -437,9 +434,8 @@ UnitBlueprint {
 			
             RateOfFire = 0.5,
 			
-            TargetCheckInterval = 0.25,
+            TargetCheckInterval = 0.3,
 			
-            TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
             TrackingRadius = 1.1,

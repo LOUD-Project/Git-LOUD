@@ -199,6 +199,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 66,
 			
             ProjectileId = '/projectiles/SAAShleoAAGatlingGun02/SAAShleoAAGatlingGun02_proj.bp',
@@ -213,8 +214,6 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -231,9 +230,12 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'Turret_Muzzle02',
             TurretBoneDualPitch = 'Turret_Barrel',
+
             TurretBoneMuzzle = 'Turret_Muzzle01',
             TurretBonePitch = 'Turret_Barrel',
+
             TurretBoneYaw = 'Turret',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 45,

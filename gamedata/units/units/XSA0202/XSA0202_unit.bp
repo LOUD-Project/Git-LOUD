@@ -231,7 +231,8 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 75,
+
+            MuzzleVelocity = 72,
 			
             ProjectileId = '/projectiles/SAAShleoAAGatlingGun02/SAAShleoAAGatlingGun02_proj.bp',
             ProjectileLifetime = 0.6,
@@ -269,6 +270,7 @@ UnitBlueprint {
             TurretYaw = 0,
             TurretYawRange = 50,
             TurretYawSpeed = 60,
+
             Turreted = true,
 			
             UseFiringSolutionInsteadOfAimBone = true,
@@ -301,7 +303,8 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 90,
+
+            MuzzleVelocity = 72,
 
             ProjectileId = '/projectiles/SAAShleoAAGatlingGun02/SAAShleoAAGatlingGun02_proj.bp',
             ProjectileLifetime = 0.6,
@@ -335,9 +338,11 @@ UnitBlueprint {
             TurretPitch = 0,
             TurretPitchRange = 80,
             TurretPitchSpeed = 60,
+
             TurretYaw = 0,
             TurretYawRange = 50,
             TurretYawSpeed = 60,
+
             Turreted = true,
         },
 

@@ -194,11 +194,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XRA_Weapon',
-                    Cue = 'XRA0105_Hvy_Laser_Autogun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XRA_Weapon', Cue = 'XRA0105_Hvy_Laser_Autogun', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             AutoInitiateAttackCommand = true,
@@ -231,9 +227,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Laser_Muzzle',
-                    },
+                    MuzzleBones = {'Laser_Muzzle'},
                     RackBone = 'Laser_Muzzle',
                 },
             },
@@ -254,7 +248,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Laser_Muzzle',
             TurretBonePitch = 'Laser_Muzzle',
             TurretBoneYaw = 'Laser_Muzzle',
-            TurretDualManipulators = false,
 			
             TurretPitch = -20,
             TurretPitchRange = 45,

@@ -104,10 +104,7 @@ UnitBlueprint {
 	
     General = {
         BuildBones = {
-            BuildEffectBones = {
-                'Turret_Muzzle_01',
-                'Turret_Muzzle_02',
-            },
+            BuildEffectBones = {'Turret_Muzzle_01','Turret_Muzzle_02'},
             PitchBone = 'Turret_Muzzle_01',
             YawBone = 'Torso',
         },
@@ -229,8 +226,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1,		-- 24dps
@@ -247,8 +242,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle_01',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 0,
             TurretPitchRange = 45,
             TurretPitchSpeed = 100,

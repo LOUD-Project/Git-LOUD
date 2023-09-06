@@ -186,7 +186,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 20,
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Autoguns',
@@ -237,7 +236,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Gun_Muzzle01',
             TurretBonePitch = 'Gun_Barrel',
             TurretBoneYaw = 'XAL0203',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 30,

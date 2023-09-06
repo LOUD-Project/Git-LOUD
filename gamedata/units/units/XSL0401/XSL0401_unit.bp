@@ -277,7 +277,7 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            AutoInitiateAttackCommand = false,
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -336,8 +336,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Head',
             TurretBonePitch = 'Head',
             TurretBoneYaw = 'Head',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = -20,
             TurretPitchRange = 50,
             TurretPitchSpeed = 28,
@@ -345,6 +344,7 @@ UnitBlueprint {
             TurretYaw = 0,
             TurretYawRange = 40,
             TurretYawSpeed = 40,
+
             Turreted = true,
         },
         {
@@ -388,6 +388,8 @@ UnitBlueprint {
             MuzzleVelocity = 40,
 			
             NoPause = true,
+
+            NotExclusive = true,
 			
             PrefersPrimaryWeaponTarget = true,
             ProjectileId = '/projectiles/SDFAireauWeapon01/SDFAireauWeapon01_proj.bp',
@@ -414,10 +416,10 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
+
             TurretBoneMuzzle = 'LeftHand_Muzzle',
             TurretBonePitch = 'Left_Arm_B07',
             TurretBoneYaw = 'Left_Arm_B10',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -511,7 +513,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'RightHand_Muzzle',
             TurretBonePitch = 'Right_Arm_B03',
             TurretBoneYaw = 'Right_Arm_B07',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -566,6 +567,8 @@ UnitBlueprint {
             MaxRadius = 45,
 
             MuzzleVelocity = 55,
+
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SAAOlarisAAArtillery03/SAAOlarisAAArtillery03_proj.bp',
 			ProjectileLifetime = 1,
@@ -595,7 +598,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_AA_Muzzle',
             TurretBonePitch = 'Left_AA_Turret03',
             TurretBoneYaw = 'Left_AA_Turret03',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 85,
@@ -650,6 +652,8 @@ UnitBlueprint {
 
             MuzzleVelocity = 55,
 
+            NotExclusive = true,
+
             ProjectileId = '/projectiles/SAAOlarisAAArtillery03/SAAOlarisAAArtillery03_proj.bp',
 			ProjectileLifetime = 1,
 
@@ -679,7 +683,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_AA_Muzzle',
             TurretBonePitch = 'Right_AA_Turret02',
             TurretBoneYaw = 'Right_AA_Turret02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 85,

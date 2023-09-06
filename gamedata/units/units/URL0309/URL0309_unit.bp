@@ -76,11 +76,7 @@ UnitBlueprint {
 	
     General = {
         BuildBones = {
-            BuildEffectBones = {
-                'Buildpoint_Left',
-                'Buildpoint_Center',
-                'Buildpoint_Right',
-            },
+            BuildEffectBones = {'Buildpoint_Left','Buildpoint_Center','Buildpoint_Right'},
             PitchBone = 'Buildpoint_Center',
             YawBone = 'Buildpoint_Center',
         },

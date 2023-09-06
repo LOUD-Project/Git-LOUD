@@ -283,6 +283,8 @@ UnitBlueprint {
 	
     Weapon = {
         {
+            advancedTracking = true,
+
             Audio = {
                 Fire = Sound {
                     Bank = 'XRS_Weapon',
@@ -290,6 +292,7 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -311,6 +314,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 3,
+
             MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
@@ -356,7 +360,7 @@ UnitBlueprint {
             Damage = 2,
             DamageType = 'Normal',
 			
-            DepthCharge = { Radius = 6 },
+            DepthCharge = { Radius = 5 },
 			
             DisplayName = 'Anti Torpedo Flare',
 			
@@ -393,10 +397,9 @@ UnitBlueprint {
 			
             TargetCheckInterval = 0.5,
 			
-            TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
         },
     },
 }

@@ -231,6 +231,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 4,
+
             MuzzleVelocity = 7,
 			
             ProjectileId = '/projectiles/SIFLaanseTacticalMissile02/SIFLaanseTacticalMissile02_proj.bp',
@@ -287,7 +288,9 @@ UnitBlueprint {
             MaxRadius = 55,
 			
             MuzzleVelocity = 58,
-			
+
+            NotExclusive = true,
+
             ProjectileId = '/projectiles/SAAOlarisAAArtillery04/SAAOlarisAAArtillery04_proj.bp',
 			ProjectileLifetime = 1,
 
@@ -297,13 +300,10 @@ UnitBlueprint {
                     RackBone = 'Left_Turret01_Barrel',
                 },
             },
-             
-            RackSalvoChargeTime = 0.1,
-			RackSalvoFiresAfterCharge = true,
-            RackSalvoReloadTime = 0.1,
 
-            RackSalvoSize = 1,
-            RackSlavedToTurret = true,
+            RackSalvoChargeTime = 0.1,
+
+            RackSalvoReloadTime = 0.1,
 			
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -322,8 +322,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Turret01_Muzzle01',
             TurretBonePitch = 'Left_Turret01_Barrel',
             TurretBoneYaw = 'Left_Turret01',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 35,
             TurretPitchRange = 55,
             TurretPitchSpeed = 80,
@@ -344,7 +343,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 35,
-			DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'AA Gatling Gun',
@@ -364,6 +362,8 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
+
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SAAShleoAAGatlingGun01/SAAShleoAAGatlingGun01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 0.8,
@@ -374,8 +374,6 @@ UnitBlueprint {
                     RackBone = 'Right_Turret01_Barrel01',
                 },
             },
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -395,7 +393,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Turret01_Muzzle01',
             TurretBonePitch = 'Right_Turret01_Barrel01',
             TurretBoneYaw = 'Right_Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 120,
@@ -430,6 +427,8 @@ UnitBlueprint {
             MaxRadius = 30,
 			
             MuzzleVelocity = 60,
+
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SIMAntiMissile02/SIMAntiMissile02_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1,
@@ -455,7 +454,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Turret01_Muzzle',
             TurretBonePitch = 'Front_Turret01_Barrel',
             TurretBoneYaw = 'Front_Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,

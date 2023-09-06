@@ -290,6 +290,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 1,
             MuzzleSalvoSize = 6,
+
             MuzzleVelocity = 5,
 			
             ProjectileId = '/projectiles/TIFMissileCruise02/TIFMissileCruise02_proj.bp',

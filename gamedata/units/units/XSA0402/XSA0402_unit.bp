@@ -326,6 +326,8 @@ UnitBlueprint {
             
             NeedToComputeBombDrop = true,			
             
+            NotExclusive = true,
+            
             ProjectileId = '/projectiles/SBOOhwalliStrategicBomb01/SBOOhwalliStrategicBomb01_proj.bp',
 
             RackBones = {
@@ -386,6 +388,8 @@ UnitBlueprint {
             MuzzleSalvoSize = 2,
 			
             MuzzleVelocity = 75,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SAALosaareAutoCannon02/SAALosaareAutoCannon02_proj.bp',
 			ProjectileLifetime = 0.8,
@@ -417,17 +421,18 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Front_Autocannon_Muzzle',
             TurretBonePitch = 'Right_Front_Autocannon_Muzzle',
             TurretBoneYaw = 'Right_Front_Autocannon_Muzzle',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 80,
             TurretPitchSpeed = 360,
+
             TurretYaw = 0,
             TurretYawRange = 100,
             TurretYawSpeed = 60,
-            Turreted = true,
 
+            Turreted = true,
         },
+
 		-- Left Right AA
         {
             Audio = {
@@ -464,6 +469,8 @@ UnitBlueprint {
 			
             MuzzleVelocity = 75,
 
+            NotExclusive = true,
+            
             ProjectileId = '/projectiles/SAALosaareAutoCannon02/SAALosaareAutoCannon02_proj.bp',
 			ProjectileLifetime = 0.8,
 			
@@ -489,16 +496,18 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Front_Autocannon_Muzzle',
             TurretBonePitch = 'Left_Front_Autocannon_Muzzle',
             TurretBoneYaw = 'Left_Front_Autocannon_Muzzle',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 80,
             TurretPitchSpeed = 360,
+
             TurretYaw = 0,
             TurretYawRange = 100,
             TurretYawSpeed = 60,
+
             Turreted = true,
         },
+
 		-- Right Rear AA
         {
             Audio = {
@@ -535,6 +544,8 @@ UnitBlueprint {
 			
             MuzzleVelocity = 75,
 
+            NotExclusive = true,
+
             ProjectileId = '/projectiles/SAALosaareAutoCannon02/SAALosaareAutoCannon02_proj.bp',
 			ProjectileLifetime = 0.8,
 
@@ -562,16 +573,18 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Rear_Autocannon_Muzzle',
             TurretBonePitch = 'Right_Rear_Autocannon_Muzzle',
             TurretBoneYaw = 'Right_Rear_Autocannon_Muzzle',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 80,
             TurretPitchSpeed = 360,
+
             TurretYaw = 0,
             TurretYawRange = 100,
             TurretYawSpeed = 90,
+
             Turreted = true,
         },
+
 		-- Left Rear AA
         {
             Audio = {
@@ -607,6 +620,8 @@ UnitBlueprint {
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 75,
 
+            NotExclusive = true,
+
             ProjectileId = '/projectiles/SAALosaareAutoCannon02/SAALosaareAutoCannon02_proj.bp',
 			ProjectileLifetime = 0.8,
 
@@ -633,16 +648,18 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Rear_Autocannon_Muzzle',
             TurretBonePitch = 'Left_Rear_Autocannon_Muzzle',
             TurretBoneYaw = 'Left_Rear_Autocannon_Muzzle',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 80,
             TurretPitchSpeed = 360,
+
             TurretYaw = 0,
             TurretYawRange = 100,
             TurretYawSpeed = 90,
+
             Turreted = true,
         },
+
         {
             AboveWaterTargetsOnly = true,
             Damage = 4000,
@@ -655,6 +672,7 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.05,

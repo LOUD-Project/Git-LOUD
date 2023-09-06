@@ -393,6 +393,7 @@ UnitBlueprint {
 		
         {
             advancedTracking = true,
+
             BallisticArc = 'RULEUBA_None',
 			
 			CannotAttackGround = true,
@@ -436,15 +437,12 @@ UnitBlueprint {
                 },
             },
 
-            RackSalvoSize = 1,
-
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 1.2,
 			
             TargetCheckInterval = 0.25,
 			
-            TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
             TrackingRadius = 1.5,

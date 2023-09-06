@@ -268,7 +268,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Turret_Muzzle',
             TurretBonePitch = 'Front_Turret_Barrel',
             TurretBoneYaw = 'Front_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 40,
@@ -296,7 +295,6 @@ UnitBlueprint {
 			
             Damage = 21,
 			DamageFriendly = false,
-			DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Linked Railgun',
@@ -313,8 +311,8 @@ UnitBlueprint {
 			
             MaxRadius = 36,
 			
-            MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 60,
 			
             ProjectileId = '/projectiles/TAARailgun01/TAARailgun01_proj.bp',
@@ -343,9 +341,7 @@ UnitBlueprint {
 			
             TargetCheckInterval = 0.3,
 			
-            TargetPriorities = {
-				'AIR MOBILE',
-            },
+            TargetPriorities = {'AIR MOBILE'},
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			
             TrackingRadius = 1.2,
@@ -353,7 +349,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Turret_Muzzle01',
             TurretBonePitch = 'Back_Turret_Barrel01',
             TurretBoneYaw = 'Back_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 45,
             TurretPitchRange = 60,

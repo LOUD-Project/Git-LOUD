@@ -228,6 +228,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 90,
 			
             ProjectileId = '/projectiles/AAAAutocannonQuantum01/AAAAutocannonQuantum01_proj.bp',

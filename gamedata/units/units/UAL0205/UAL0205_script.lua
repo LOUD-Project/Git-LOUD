@@ -7,6 +7,7 @@ UAL0205 = Class(ALandUnit) {
     
     Weapons = {
         AAGun = Class(AAATemporalFizzWeapon) {
+
             ChargeEffectMuzzles = {'Muzzle_R01', 'Muzzle_L01'},
             
             PlayFxRackSalvoChargeSequence = function(self)

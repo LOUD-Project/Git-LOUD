@@ -233,6 +233,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 50,	-- was 80
 			
             ProjectileId = '/projectiles/CAAMissileNanite03/CAAMissileNanite03_proj.bp',
@@ -273,7 +274,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Missile_L',
             TurretBonePitch = 'Missile_L',
             TurretBoneYaw = 'Missile_L',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 55,

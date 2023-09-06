@@ -175,8 +175,8 @@ UnitBlueprint {
                     Add = {OnImpact = true},
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 1,
-                    Radius = 1.2,
+                    Duration = 0.8,
+                    Radius = 1,
                     TargetAllow = 'TECH1,TECH2',
 					TargetDisallow = 'WALL,AIR',
                 },
@@ -236,7 +236,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 45,
             TurretPitchRange = 90,

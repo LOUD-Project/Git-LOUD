@@ -1011,7 +1011,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Arm_Muzzle',
             TurretBonePitch = 'Right_Arm_Barrel',
             TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -1075,8 +1074,6 @@ UnitBlueprint {
 			
             RateOfFire = 0.5,
 			
-            SlavedToBody = false,
-			
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
@@ -1090,7 +1087,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Upgrade_Muzzle',
             TurretBonePitch = 'Right_Upgrade',
             TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -1125,6 +1121,7 @@ UnitBlueprint {
             DisplayName = 'Overcharge Cannon',
 			
             EnergyChargeForFirstShot = false,
+
             EnergyDrainPerSecond = 5000,
             EnergyRequired = 5000,
 			
@@ -1159,8 +1156,6 @@ UnitBlueprint {
 			
             RateOfFire = 0.3,
 			
-            SlavedToBody = false,
-			
             TargetCheckInterval = 0.16,
 			
             TargetPriorities = {
@@ -1174,7 +1169,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Arm_Muzzle',
             TurretBonePitch = 'Right_Arm_Barrel',
             TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 60,
@@ -1279,7 +1273,6 @@ UnitBlueprint {
 			
             Damage = 0,
             DamageFriendly = true,
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Nuclear Warhead',

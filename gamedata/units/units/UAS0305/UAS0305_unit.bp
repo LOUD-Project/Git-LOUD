@@ -175,6 +175,8 @@ UnitBlueprint {
 	
     Weapon = {
         {
+            advancedTracking = true,
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -196,6 +198,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 5,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
@@ -214,7 +217,6 @@ UnitBlueprint {
 			
             TargetCheckInterval = 1,
 			
-            TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
             TrackingRadius = 1.5,
@@ -222,7 +224,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle_01',
             TurretBonePitch = 'Muzzle_01',
             TurretBoneYaw = 'Muzzle_01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,

@@ -236,6 +236,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 44,
 			
             ProjectileId = '/projectiles/TDFPlasmaHeavy02/TDFPlasmaHeavy02_proj.bp',
@@ -312,9 +313,6 @@ UnitBlueprint {
 			
             MaxRadius = 32,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
             MuzzleVelocity = 60,
 			
             ProjectileId = '/projectiles/TAARailgun01/TAARailgun01_proj.bp',
@@ -326,17 +324,13 @@ UnitBlueprint {
                     RackBone = 'Turret_Up_Barrel',
                 },
             },
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,		-- 48 DPS Air
 			
             TargetCheckInterval = 1,
-            TargetPriorities = {
-                'MOBILE',
-            },
+            TargetPriorities = {'MOBILE'},
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.2,
@@ -344,7 +338,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Up_Barrel',
             TurretBonePitch = 'Turret_Up_Barrel',
             TurretBoneYaw = 'Turret_Up',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 60,
@@ -353,6 +346,7 @@ UnitBlueprint {
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 70,
+
             Turreted = true,
         },
         {

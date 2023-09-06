@@ -225,7 +225,6 @@ UnitBlueprint {
 			
             Damage = 90,
             DamageFriendly = false,
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'AutoCannon',
@@ -258,7 +257,7 @@ UnitBlueprint {
             RateOfFire = 2,		---- 180 DPS Air
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 45,
+            SlavedToBodyArcRange = 40,
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -276,12 +275,12 @@ UnitBlueprint {
             TurretBoneYaw = 'Muzzle',
 			
             TurretPitch = 0,
-            TurretPitchRange = 80,
-            TurretPitchSpeed = 80,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
-            TurretYawRange = 50,
-            TurretYawSpeed = 80,
+            TurretYawRange = 45,
+            TurretYawSpeed = 70,
 			
             Turreted = true,
         },

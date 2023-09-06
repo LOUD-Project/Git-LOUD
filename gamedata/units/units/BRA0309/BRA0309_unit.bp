@@ -281,7 +281,6 @@ UnitBlueprint {
                 },
             },
 
-            ChargeDelay = 0.5,
             CollideFriendly = false,
 
             Damage = 30,
@@ -303,6 +302,7 @@ UnitBlueprint {
 
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 3,
+
             MuzzleVelocity = 40,
 
             ProjectileId = '/projectiles/CDFLaserDisintegrator01/CDFLaserDisintegrator01_proj.bp',
@@ -318,8 +318,6 @@ UnitBlueprint {
             },
 
             RackSalvoChargeTime = 1,
-
-            RackSalvoFiresAfterCharge = true,
 
             RangeCategory = 'UWRC_DirectFire',
 
@@ -339,7 +337,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Down_Turret_Muzzle',
             TurretBonePitch = 'Front_Down_Turret',
             TurretBoneYaw = 'Front_Down_Turret',
-            TurretDualManipulators = false,
 
             TurretPitch = -30,
             TurretPitchRange = 65,
@@ -361,7 +358,6 @@ UnitBlueprint {
             CollideFriendly = false,
 
             Damage = 60,
-			DamageRadius = 0,
             DamageType = 'Normal',
 
             DisplayName = 'Electron AA Autocannon',
@@ -379,7 +375,7 @@ UnitBlueprint {
 
             MaxRadius = 40,
 
-            MuzzleVelocity = 80,
+            MuzzleVelocity = 72,
 
             ProjectileId = '/projectiles/CAAAutocannon01/CAAAutocannon01_proj.bp',
 			ProjectileLifetime = 0.7,
@@ -409,7 +405,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Up_Turret_Muzzle',
             TurretBonePitch = 'Back_Up_Turret',
             TurretBoneYaw = 'Back_Up_Turret',
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 180,
@@ -430,7 +425,6 @@ UnitBlueprint {
             CollideFriendly = false,
 
             Damage = 60,
-			DamageRadius = 0,
             DamageType = 'Normal',
 
             DisplayName = 'Electron AA Autocannon',
@@ -448,7 +442,7 @@ UnitBlueprint {
 
             MaxRadius = 40,
 
-            MuzzleVelocity = 75,
+            MuzzleVelocity = 72,
 
             ProjectileId = '/projectiles/CAAAutocannon01/CAAAutocannon01_proj.bp',
 			ProjectileLifetime = 0.7,
@@ -476,7 +470,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Turret01_Muzzle01',
             TurretBonePitch = 'Back_Turret01',
             TurretBoneYaw = 'Back_Turret01',
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 180,
@@ -506,7 +499,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
         HealthMult = 0.7,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

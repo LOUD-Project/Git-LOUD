@@ -353,6 +353,8 @@ UnitBlueprint {
         },
 		
         {
+            advancedTracking = true,
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			

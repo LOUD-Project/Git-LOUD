@@ -185,6 +185,7 @@ UnitBlueprint {
             DamageFriendly = false,
             DamageRadius = 1.6,
             DamageType = 'Normal',
+
             DetonatesAtTargetHeight = true,
 			
             DisplayName = 'Olaris AA Artillery Cannon',
@@ -199,12 +200,14 @@ UnitBlueprint {
             FiringTolerance = 2,
 			
             Label = 'AAGun',
+
 			LeadTarget = true,
 			
             MaxRadius = 38,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 38,
 			
             ProjectileId = '/projectiles/SAAOlarisAAArtillery02/SAAOlarisAAArtillery02_proj.bp',
@@ -219,15 +222,10 @@ UnitBlueprint {
 
             RackSalvoChargeTime = 0.1,
 
-            RackSalvoFiresAfterCharge = true,
-
-            RackSlavedToTurret = true,
-
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,		---- 144 Dps
 			
-            SlavedToBody = false,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -243,8 +241,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 35,
             TurretPitchRange = 60,
             TurretPitchSpeed = 120,

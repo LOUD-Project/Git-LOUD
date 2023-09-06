@@ -357,7 +357,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Head_Muzzle',
             TurretBonePitch = 'Head',
             TurretBoneYaw = 'Head',
-            TurretDualManipulators = false,
 			
             TurretPitch = -20,
             TurretPitchRange = 70,
@@ -385,7 +384,6 @@ UnitBlueprint {
             BeamLifetime = 0,
 			
             Damage = 0.01,
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Right Tractor Claw',
@@ -427,7 +425,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Arm_Muzzle01',
             TurretBonePitch = 'Right_Arm_B02',
             TurretBoneYaw = 'Right_Arm_B01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 70,
@@ -516,7 +513,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Arm_Muzzle01',
             TurretBonePitch = 'Left_Arm_B02',
             TurretBoneYaw = 'Left_Arm_B01',
-            TurretDualManipulators = false,
             
             TurretPitch = 0,
             TurretPitchRange = 70,

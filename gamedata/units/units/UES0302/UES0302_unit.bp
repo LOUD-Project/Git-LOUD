@@ -300,7 +300,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Turret01_Muzzle02',
             TurretBonePitch = 'Front_Turret01_Barrel02',
             TurretBoneYaw = 'Front_Turret01',
-            TurretDualManipulators = false,
             
             TurretPitch = 10,
             TurretPitchRange = 25,
@@ -396,7 +395,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Turret02_Muzzle02',
             TurretBonePitch = 'Front_Turret02_Barrel02',
             TurretBoneYaw = 'Front_Turret02',
-            TurretDualManipulators = false,
             
             TurretPitch = 10,
             TurretPitchRange = 20,
@@ -493,7 +491,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Turret_Muzzle02',
             TurretBonePitch = 'Back_Turret_Barrel02',
             TurretBoneYaw = 'Back_Turret',
-            TurretDualManipulators = false,
             
             TurretPitch = 10,
             TurretPitchRange = 38,
@@ -548,6 +545,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 70,
 			
             ProjectileId = '/projectiles/TAALightFragmentationShell01/TAALightFragmentationShell01_proj.bp',
@@ -580,7 +578,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Turret01_Muzzle01',
             TurretBonePitch = 'Right_Turret01_Barrel01',
             TurretBoneYaw = 'Right_Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 45,
             TurretPitchRange = 90,
@@ -632,6 +629,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 66,
 
             ProjectileId = '/projectiles/TAALightFragmentationShell01/TAALightFragmentationShell01_proj.bp',
@@ -663,7 +661,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Turret03_Muzzle01',
             TurretBonePitch = 'Right_Turret03_Barrel01',
             TurretBoneYaw = 'Right_Turret03',
-            TurretDualManipulators = false,
             
             TurretPitch = 45,
             TurretPitchRange = 45,
@@ -715,6 +712,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 66,
 			
             ProjectileId = '/projectiles/TAALightFragmentationShell01/TAALightFragmentationShell01_proj.bp',
@@ -747,7 +745,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Turret01_Muzzle01',
             TurretBonePitch = 'Left_Turret01_Barrel01',
             TurretBoneYaw = 'Left_Turret01',
-            TurretDualManipulators = false,
             
             TurretPitch = 45,
             TurretPitchRange = 90,
@@ -799,6 +796,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 60,
 
             ProjectileId = '/projectiles/TAALightFragmentationShell01/TAALightFragmentationShell01_proj.bp',
@@ -813,8 +811,6 @@ UnitBlueprint {
                     RackBone = 'Left_Turret03_Barrel01',
                 },
             },
-
-            RackSlavedToTurret = true,
 			
             RateOfFire = 1,		-- another 60 DPS Air
             
@@ -831,7 +827,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Turret03_Muzzle01',
             TurretBonePitch = 'Left_Turret03_Barrel01',
             TurretBoneYaw = 'Left_Turret03',
-            TurretDualManipulators = false,
             
             TurretPitch = 45,
             TurretPitchRange = 80,
@@ -898,7 +893,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Turret02_Muzzle',
             TurretBonePitch = 'Right_Turret02_Barrel',
             TurretBoneYaw = 'Right_Turret02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -938,6 +932,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 5,
+
             MuzzleVelocity = 75,
 
             ProjectileId = '/projectiles/TDPhalanx01/TDPhalanx01_proj.bp',
@@ -962,7 +957,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Turret02_Muzzle',
             TurretBonePitch = 'Left_Turret02_Barrel',
             TurretBoneYaw = 'Left_Turret02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -978,6 +972,8 @@ UnitBlueprint {
         -- Torp Defense --
         
         {
+            advancedTracking = true,
+
             BallisticArc = 'RULEUBA_None',
 			CannotAttackGround = true,
             CollideFriendly = false,
@@ -1004,6 +1000,7 @@ UnitBlueprint {
             MuzzleVelocity = 4,
 			
             ProjectileId = '/projectiles/TIMAntiTorpedo01/TIMAntiTorpedo01_proj.bp',
+
             ProjectileLifetime = 3,
 			
             RackBones = {

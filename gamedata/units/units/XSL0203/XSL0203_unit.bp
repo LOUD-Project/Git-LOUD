@@ -186,7 +186,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 150,
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Tau Cannon',
@@ -233,17 +232,19 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 20,
             TurretPitchSpeed = 60,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 42,
+
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,

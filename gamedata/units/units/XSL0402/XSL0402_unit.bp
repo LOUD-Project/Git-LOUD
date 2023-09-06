@@ -155,20 +155,22 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            AutoInitiateAttackCommand = false,
+
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
             BeamLifetime = 0.2,
+
             CollideFriendly = true,
+
             ContinuousBeam = false,
 			
             Damage = 500,
             DamageFriendly = true,
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Unstable Phason Laser',
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
