@@ -45,8 +45,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 30,
-        MaxHealth = 30,
+        Health = 27,
+        MaxHealth = 27,
         RegenRate = 0,
         SurfaceThreatLevel = 1.0,
     },
@@ -79,7 +79,7 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 45,
-        BuildCostMass = 11,
+        BuildCostMass = 12,
         BuildTime = 40,
     },
 	
@@ -114,14 +114,14 @@ UnitBlueprint {
     LifeBarSize = 0.5,
 	
     Physics = {
-        BackUpDistance = 2,
+        BackUpDistance = 3.5,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 4,
-        MaxBrake = 4,
+        MaxAcceleration = 2,
+        MaxBrake = 2,
         MaxSpeed = 4,
         MaxSpeedReverse = 4,
         MaxSteerForce = 1000,
@@ -134,9 +134,9 @@ UnitBlueprint {
         TurnRate = 90,
     },
 	
-    SelectionSizeX = 0.35,
-    SelectionSizeZ = 0.5,
-    SelectionThickness = 0.75,
+    SelectionSizeX = 0.3,
+    SelectionSizeZ = 0.55,
+    SelectionThickness = 0.55,
 	
     SizeX = 0.35,
     SizeY = 0.4,
@@ -171,7 +171,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 12,
+            Damage = 4,
             DamageType = 'Normal',
 			
             DisplayName = 'MG',
@@ -185,11 +185,13 @@ UnitBlueprint {
             Label = 'MainGun',
 			
             MaxRadius = 18,
+            
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 3,
 
             MuzzleVelocity = 25,
 			
             ProjectileId = '/projectiles/TDFMachineGun01/TDFMachineGun01_proj.bp',
-			ProjectileLifetime = 1,
 
             RackBones = {
                 {
@@ -215,15 +217,14 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 20,
-            TurretPitchSpeed = 85,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 360,
+            TurretYawSpeed = 120,
 			
             Turreted = true,
         },

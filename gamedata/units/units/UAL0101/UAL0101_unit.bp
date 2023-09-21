@@ -53,8 +53,8 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Normal',
-        Health = 22,
-        MaxHealth = 22,
+        Health = 19,
+        MaxHealth = 19,
         RegenRate = 0,
         SurfaceThreatLevel = 1.0,
     },
@@ -86,7 +86,7 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 56,
-        BuildCostMass = 8,
+        BuildCostMass = 9,
         BuildTime = 40,
     },
 	
@@ -121,7 +121,7 @@ UnitBlueprint {
     LifeBarSize = 0.5,
     
     Physics = {
-        BackUpDistance = 2,
+        BackUpDistance = 6,
         BankingSlope = 0.5,
         BuildOnLayerCaps = {
             LAYER_Land = true,
@@ -129,9 +129,9 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         Elevation = 0.25,
         
-        MaxAcceleration = 2,
-        MaxBrake = 2,
-        MaxSpeed = 4.5,
+        MaxAcceleration = 1.8,
+        MaxBrake = 1.8,
+        MaxSpeed = 4.2,
         MaxSpeedReverse = 3,
         
         MaxSteerForce = 1000,
@@ -142,9 +142,9 @@ UnitBlueprint {
         MotionType = 'RULEUMT_Hover',
         RotateBodyWhileMoving = true,
         
-        TurnFacingRate = 60,
+        TurnFacingRate = 40,
         TurnRadius = 5,
-        TurnRate = 60,
+        TurnRate = 40,
     },
     
     SelectionSizeX = 0.4,
