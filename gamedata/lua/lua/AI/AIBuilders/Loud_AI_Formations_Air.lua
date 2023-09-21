@@ -1274,7 +1274,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 
 		PriorityFunction = NotPrimaryBase,
         
-        RTBLocation = 'LocationType',
+        --RTBLocation = 'LocationType',
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},		
@@ -1330,7 +1330,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 
 		PriorityFunction = NotPrimaryBase,
         
-        RTBLocation = 'LocationType',
+        --RTBLocation = 'LocationType',
 		
         BuilderConditions = {
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, AIRSCOUT }},            

@@ -35,7 +35,7 @@ local HaveZeroAirFactories = function( self, aiBrain )
         
     end
 
-	return self.Priority, false
+	return self.OldPriority or self.Priority, true
 
 end
 
@@ -51,7 +51,7 @@ local HaveZeroLandFactories = function( self, aiBrain )
         
     end
 
-	return self.Priority, false
+	return self.OldPriority or self.Priority, true
 
 end
 
@@ -67,7 +67,7 @@ local HaveZeroNavalFactories = function( self, aiBrain )
         
     end
 
-	return self.Priority, false
+	return self.OldPriority or self.Priority, true
 
 end
 

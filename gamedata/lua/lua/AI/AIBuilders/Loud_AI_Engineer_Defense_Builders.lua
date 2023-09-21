@@ -26,7 +26,7 @@ local IsEnemyNavalActive = function(self,aiBrain,manager)
 
 	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .011 and aiBrain.NavalRatio <= 5) then
 	
-		return self.Priority, false	-- standard naval priority -- 
+		return self.OldPriority or self.Priority, true	-- standard naval priority -- 
 
 	end
 
@@ -37,7 +37,7 @@ end
 local IsPrimaryBase = function(self,aiBrain,manager)
 	
 	if aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
-		return self.Priority, false
+		return self.OldPriority or self.Priority, true
 	end
 
 	return 10, true
@@ -64,32 +64,30 @@ local IsEnemyCrushingLand = function( builder, aiBrain, unit )
 
     if aiBrain.LandRatio <= 1.0 and aiBrain.CycleTime > 300 then
 	
-		return builder.Priority + 100, true	
+		return (builder.OldPriority or builder.Priority) + 100, true	
 
     end
     
     local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
 
     if threat > 30 then
-    
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." Threat at "..unit.LocationType.." IMAPblocks "..ScenarioInfo.IMAPBlocks.." range > 30 is "..threat)
 
-        return builder.Priority + 100, true
+        return (builder.OldPriority or builder.Priority) + 100, true
         
     end
     
-    return builder.Priority, false
+    return (builder.OldPriority or builder.Priority), true
 end
 
 local IsEnemyCrushingAir = function( builder, aiBrain, unit )
 
     if aiBrain.AirRatio <= 1.2 and aiBrain.CycleTime > 300 then
 	
-		return builder.Priority + 100, true	
+		return (builder.OldPriority or builder.Priority) + 100, true	
 
     end
     
-    return builder.Priority, false
+    return (builder.OldPriority or builder.Priority), true
 end
 
 local IsEnemyCrushingNaval = function( builder, aiBrain, unit )
@@ -98,13 +96,13 @@ local IsEnemyCrushingNaval = function( builder, aiBrain, unit )
 
         if aiBrain.CycleTime > 300 then
 	
-            return builder.Priority + 100, true	
+            return (builder.OldPriority or builder.Priority) + 100, true	
 
         end
     
     end
 
-    return builder.Priority, false
+    return (builder.OldPriority or builder.Priority), true
 end
 
 ---------------------
@@ -134,12 +132,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 				end
                 
                 if aiBrain.LandRatio < 1.5 then
-                    return self.Priority + 100, true
+                    return (self.OldPriority or self.Priority) + 100, true
                 end
 				
 			end
 			
-			return self.Priority
+			return (self.OldPriority or self.Priority)
 			
 		end,
 		
@@ -204,7 +202,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
                 
                 -- if air ratio poor 
                 if aiBrain.AirRatio < 1 then
-                    return self.Priority + 100, true
+                    return (self.OldPriority or self.Priority) + 100, true
                 end
 				
 			end
@@ -1373,7 +1371,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction',
 
 			end
 			
-			return self.Priority, false
+			return self.Priority, true
 		
 		end,
 		
@@ -1531,7 +1529,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 				end
                 
                 if aiBrain.LandRatio < 1.5 then
-                    return self.Priority + 100, true
+                    return (self.OldPriority or self.Priority) + 100, true
                 end
 				
 			end
@@ -1598,7 +1596,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 				end
                 
                 if aiBrain.LandRatio < 1.5 then
-                    return self.Priority + 100, true
+                    return (self.OldPriority or self.Priority) + 100, true
                 end
 				
 			end
@@ -1665,7 +1663,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 			end
             
             if aiBrain.AirRatio < 1 then
-                return self.Priority + 100, true
+                return (self.OldPriority or self.Priority) + 100, true
             end
 			
 			return self.Priority

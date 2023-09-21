@@ -28,7 +28,7 @@ end
 local IsEnemyNavalActive = function( self, aiBrain, manager )
 
 	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .011 and aiBrain.NavalRatio < 10) then
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." enemy naval is active at "..repr(aiBrain.NavalRatio))
+
 		return 600, true
 
 	end
@@ -42,7 +42,7 @@ local IsEnemyAirActive = function(self,aiBrain,manager)
 
 	if aiBrain.AirRatio and (aiBrain.AirRatio > .011 and aiBrain.AirRatio < 10) then
 	
-		return self.Priority, true
+		return self.OldPriority or self.Priority, true
 
 	end
 
@@ -61,7 +61,7 @@ local HaveLessThanThreeT2AirFactory = function( self, aiBrain )
 	
 	if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * categories.AIR - categories.TECH1, false, true )) < 3 then
 	
-		return self.Priority, true
+		return self.OldPriority or self.Priority, true
 		
 	end
 
@@ -74,7 +74,7 @@ local HaveLessThanThreeT3AirFactory = function( self, aiBrain )
 
 	if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * categories.AIR * categories.TECH3, false, true )) < 3 then
 	
-		return self.Priority, true
+		return self.OldPriority or self.Priority, true
 		
 	end
 

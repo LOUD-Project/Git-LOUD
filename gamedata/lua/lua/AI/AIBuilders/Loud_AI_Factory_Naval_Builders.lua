@@ -10,7 +10,7 @@ local IsEnemyNavalActive = function(self,aiBrain,manager)
 
 	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .011 and aiBrain.NavalRatio <= 10) then
 	
-		return self.Priority, true	-- standard naval priority -- 
+		return self.OldPriority or self.Priority, true	-- standard naval priority -- 
 
 	end
 

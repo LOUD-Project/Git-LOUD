@@ -60,7 +60,7 @@ local First15Minutes_Naval = function( self,aiBrain )
         return 10, true
     end
 	
-	return self.Priority, true
+	return self.OldPriority or self.Priority, true
 end
 
     

@@ -1094,7 +1094,11 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 				end
 			end
 			
-			return 10, true
+            if ScenarioInfo.MapWaterRatio > 0 then
+                return 10, true
+            else
+                return 0, false
+            end
 		end,
 		
         InstanceCount = 3,
@@ -1141,7 +1145,11 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 				end
 			end
 			
-			return 10, true
+            if ScenarioInfo.MapWaterRatio > 0 then
+                return 10, true
+            else
+                return 0, false
+            end
 		end,
 		
         InstanceCount = 2,
@@ -1573,7 +1581,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			UseFormation = 'LOUDClusterFormation',
         },
     },
-	    
+
 	Builder {BuilderName = 'Reinforce Primary - Amphibious',
 	
         PlatoonTemplate = 'ReinforceAmphibiousPlatoon',

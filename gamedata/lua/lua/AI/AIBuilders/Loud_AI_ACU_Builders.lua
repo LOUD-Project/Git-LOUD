@@ -80,28 +80,28 @@ local IsEnemyCrushingLand = function( builder, aiBrain, unit )
 
     if aiBrain.LandRatio <= 1.5 and aiBrain.CycleTime > 300 then
 
-		return builder.Priority + 100, true	
+		return (builder.OldPriority or builder.Priority) + 100, true	
 
     end
 
     if GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' ) > 30 then
 
-        return builder.Priority + 100, true
+        return (builder.OldPriority or builder.Priority) + 100, true
         
     end
     
-    return builder.Priority, false
+    return builder.OldPriority or builder.Priority, true
 end
 
 local IsEnemyCrushingAir = function( builder, aiBrain, unit )
 
     if aiBrain.AirRatio <= 1.2 and aiBrain.CycleTime > 300 then
 	
-		return builder.Priority + 100, true	
+		return (builder.OldPriority or builder.Priority) + 100, true	
 
     end
     
-    return builder.Priority, false
+    return builder.OldPriority or builder.Priority, true
 end
 
 -- Some notes here about the syntax of the Construction section of the builder task
@@ -711,10 +711,10 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             end
             
             if aiBrain.AirRatio < 1.5 then
-                return self.Priority + 100, true
+                return (self.OldPriority or self.Priority) + 100, true
             end
 			
-			return self.Priority, true
+			return (self.OldPriority or self.Priority), true
 		end,
 		
         BuilderConditions = {
@@ -766,10 +766,10 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 			end
             
             if aiBrain.LandRatio <= 1.5 then
-                return self.Priority + 100, true
+                return (self.OldPriority or self.Priority) + 100, true
             end
 			
-			return self.Priority
+			return (self.OldPriority or self.Priority)
 			
 		end,
 		
