@@ -154,6 +154,7 @@ Weapon = Class(moho.weapon_methods) {
                         end
                     end
                 end
+
             end
 
             local numbersexist = true
@@ -289,7 +290,18 @@ Weapon = Class(moho.weapon_methods) {
     AimManipulatorSetEnabled = function(self, enabled)
 	
         if self.AimControl then
-            SetEnabled( self.AimControl, enabled )
+        
+            if self.WeaponAimIsEnabled != enabled then
+   
+                if ScenarioInfo.WeaponDialog or ScenarioInfo.WeaponStateDialog then
+                    LOG("*AI DEBUG Weapon "..repr(self.bp.Label).." Aim Control "..repr(enabled).." at "..GetGameTick().." Enabled is "..repr(self.WeaponAimIsEnabled) )
+                end
+
+                SetEnabled( self.AimControl, enabled )
+
+                self.WeaponAimIsEnabled = enabled
+                
+            end
         end
 		
     end,
@@ -368,12 +380,12 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     OnGotTarget = function(self)
-	
-		if ScenarioInfo.WeaponDialog then
-			LOG("*AI DEBUG Weapon OnGotTarget for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
-		end
 
         if self.DisabledFiringBones and self.unit.Animator then
+	
+            if ScenarioInfo.WeaponDialog then
+                LOG("*AI DEBUG Weapon OnGotTarget for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
+            end
 		
             for _, value in self.DisabledFiringBones do
                 SetBoneEnabled( self.unit.Animator, value, false )
@@ -383,12 +395,12 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     OnLostTarget = function(self)
-	
-		if ScenarioInfo.WeaponDialog then
-			LOG("*AI DEBUG Weapon OnLostTarget for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
-		end
 
         if self.DisabledFiringBones and self.unit.Animator then
+	
+            if ScenarioInfo.WeaponDialog then
+                LOG("*AI DEBUG Weapon OnLostTarget for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
+            end
 		
             for _, value in self.DisabledFiringBones do
                 SetBoneEnabled( self.unit.Animator, value, true )
@@ -398,26 +410,31 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     OnStartTracking = function(self, label)
+    
+        if self.WeaponIsEnabled then
 	
-		if ScenarioInfo.WeaponDialog then
-			LOG("*AI DEBUG Weapon OnStartTracking for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
-		end
+            if ScenarioInfo.WeaponDialog then
+                LOG("*AI DEBUG Weapon OnStartTracking for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
+            end
 
-        self:PlayWeaponSound('BarrelStart')
+            self:PlayWeaponSound('BarrelStart')
+        end
     end,
 
     OnStopTracking = function(self, label)
 	
-		if ScenarioInfo.WeaponDialog then
-			LOG("*AI DEBUG Weapon OnStopTracking for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
-		end
+        if self.WeaponIsEnabled then
+        
+            if ScenarioInfo.WeaponDialog then
+                LOG("*AI DEBUG Weapon OnStopTracking for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
+            end
 
-        self:PlayWeaponSound('BarrelStop')
+            self:PlayWeaponSound('BarrelStop')
 		
-        if LOUDENTITY(STRUCTURE, self.unit) then
-            SetResetPoseTime( self.AimControl, 9999999 )
+            if LOUDENTITY(STRUCTURE, self.unit) then
+                SetResetPoseTime( self.AimControl, 9999999 )
+            end
         end
-
     end,
 
     PlayWeaponSound = function(self, sound)
@@ -694,44 +711,55 @@ Weapon = Class(moho.weapon_methods) {
     
     --Method to mark weapon when parent unit gets loaded on to a transport unit
     SetOnTransport = function(self, transportstate)
-	
-        self.onTransport = transportstate
-		
-        if not transportstate then
-            --send a message to tell the weapon that the unit just got dropped and needs to restart aim
-            self:OnLostTarget()
-        end
-		
-        --Disable weapon if on transport and not allowed to fire from it
+
+        -- if not allowed to fire from transport - disable/renable weapon
         if not __blueprints[self.unit.BlueprintID].Transport.CanFireFromTransport then
         
             if transportstate then
-                self.WeaponDisabledOnTransport = true
                 self:SetWeaponEnabled(false)
             else
                 self:SetWeaponEnabled(true)
-                self.WeaponDisabledOnTransport = false
             end
-        end        
+        end      
+
+        -- mark weapon with status
+        self.WeaponOnTransport = transportstate
+		
+        if not self.WeaponOnTransport then
+            -- tell weapon that it just got dropped and needs to restart aim
+            self:OnLostTarget()
+            -- remove mark on the weapon
+            self.WeaponOnTransport = nil
+        end
+
     end,
 
-    -- Method to retreive onTransport information. True if the parent unit has been loaded on to a transport unit
+    -- Method to retreive if the parent unit has been loaded onto a transport unit
     GetOnTransport = function(self)
-        return self.onTransport
+        return self.WeaponOnTransport
     end,
     
     --This is the function to set a weapon enabled. 
     --If the weapon is enhabled by an enhancement, this will check to see if the unit has the enhancement before
     --allowing it to try to be enabled or disabled.
     SetWeaponEnabled = function(self, enable)
-    
-        if ScenarioInfo.WeaponDialog then
-            LOG("*AI DEBUG Weapon "..repr(self.bp.Label).." SetWeaponEnabled "..repr(enable).." at "..GetGameTick() )
-        end
-        
+
+        -- standard disable path
         if not enable then
-            self:SetEnabled(enable)
-            return
+        
+            if self.WeaponIsEnabled != enable then
+    
+                if ScenarioInfo.WeaponDialog or ScenarioInfo.WeaponStateDialog then
+                    LOG("*AI DEBUG Weapon "..repr(self.bp.Label).." SetWeaponEnabled "..repr(enable).." at "..GetGameTick().." Enabled "..repr(self.WeaponIsEnabled) )
+                end
+    
+                self:SetEnabled(enable)
+                
+                self.WeaponIsEnabled = false
+                
+                ChangeState( self, self.DeadState )
+            end
+
         end
         
         local GetEntityId = moho.entity_methods.GetEntityId
@@ -746,19 +774,39 @@ Weapon = Class(moho.weapon_methods) {
 				
                     if v == self.bp.EnabledByEnhancement then
                     
-                        self:SetEnabled(enable)
-                        return
+                        if not self.WeaponIsEnabled then
+    
+                            if ScenarioInfo.WeaponDialog or ScenarioInfo.WeaponStateDialog then
+                                LOG("*AI DEBUG Weapon "..repr(self.bp.Label).." SetWeaponEnabled by Enhancement "..repr(enable).." at "..GetGameTick().." Enabled "..repr(self.WeaponIsEnabled) )
+                            end
+                        
+                            self:SetEnabled(enable)
+                            
+                            self.WeaponIsEnabled = true
+                        
+                            ChangeState( self, self.IdleState )
+                        end
                     end
-                    
                 end
-                
             end
 			
             --Enhancement needed but doesn't have it, don't allow weapon to be enabled.
             return
         end
-		
-        self:SetEnabled(enable)
+        
+        -- standard enable path
+        if self.WeaponIsEnabled != enable then
+    
+            if ScenarioInfo.WeaponDialog or ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG Weapon "..repr(self.bp.Label).." SetWeaponEnabled "..repr(enable).." at "..GetGameTick().." Enabled "..repr(self.WeaponIsEnabled) )
+            end
+        
+            self:SetEnabled(enable)
+            
+            self.WeaponIsEnabled = true
+
+            ChangeState( self, self.IdleState )
+        end
     end,    
 
 }

@@ -403,13 +403,13 @@ Projectile = Class(moho.projectile_methods, Entity) {
 		
         if damage > 0 then
 		
-			if ScenarioInfo.ProjectileDialog then
-				ForkThread( function() LOG("*AI DEBUG Projectile OnDamage to "..repr(targetEntity.BlueprintID).." for "..damage.." - damageData is "..repr(damageData) ) end )
-			end
-		
             local radius = damageData.DamageRadius or false
 			
             if radius then
+		
+                if ScenarioInfo.ProjectileDialog then
+                    ForkThread( function() LOG("*AI DEBUG Projectile OnDamage Area at "..repr(GetPosition(self)).." for "..damage.." - damageData is "..repr(damageData) ) end )
+                end
 
                 if not damageData.DoTTime then
 
@@ -422,6 +422,10 @@ Projectile = Class(moho.projectile_methods, Entity) {
                 end
 				
             elseif damageData.DamageAmount and targetEntity then
+		
+                if ScenarioInfo.ProjectileDialog then
+                    ForkThread( function() LOG("*AI DEBUG Projectile OnDamage to "..repr(targetEntity.BlueprintID).." for "..damage.." - damageData is "..repr(damageData) ) end )
+                end
 			
                 if not damageData.DoTTime then
 				

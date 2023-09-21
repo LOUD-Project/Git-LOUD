@@ -706,8 +706,10 @@ Unit = Class(moho.unit_methods) {
         for i = 1, GetWeaponCount(self) do
 		
             local wep = GetWeapon(self,i)
-			
-            wep:SetWeaponPriorities(priTable)
+            
+            if wep.WeaponIsEnabled then
+                wep:SetWeaponPriorities(priTable)
+            end
 			
         end
 		
@@ -726,11 +728,8 @@ Unit = Class(moho.unit_methods) {
                     wep:SetWeaponPriorities(priTable)
 					
                     break
-					
                 end
-				
             end
-			
         end
 		
     end,
@@ -2506,35 +2505,27 @@ Unit = Class(moho.unit_methods) {
 		
             local wep = GetWeapon(self,i)
             
-            if enable then
-                --wep:OnEnableWeapon()
-            else
-                --wep:OnDisableWeapon()
-            end
-            
             wep:SetWeaponEnabled(enable)
 
             wep:AimManipulatorSetEnabled(enable)
         end
-		
     end,
 
     SetWeaponEnabledByLabel = function(self, label, enable)
 	
         local wep = self:GetWeaponByLabel(label)
 		
-        if not wep then return end
+        if not wep then return nil end
 		
         if not enable then
-            --wep:OnDisableWeapon()
             wep:OnLostTarget()
-		else
-            --wep:OnEnableWeapon()
         end
 
         wep:SetWeaponEnabled(enable)
         
         wep:AimManipulatorSetEnabled(enable)
+        
+        return wep
     end,
 
     GetWeaponManipulatorByLabel = function(self, label)
@@ -2542,7 +2533,6 @@ Unit = Class(moho.unit_methods) {
         local wep = self:GetWeaponByLabel(label)
 		
 		return wep.AimControl
-
     end,
 
     GetWeaponByLabel = function(self, label)
@@ -2561,7 +2551,6 @@ Unit = Class(moho.unit_methods) {
         end
 		
         return nil
-		
     end,
 
     ResetWeaponByLabel = function(self, label)
@@ -4942,15 +4931,11 @@ Unit = Class(moho.unit_methods) {
             for i = 1, GetWeaponCount(unit) do
 			
                 local wep = GetWeapon(unit,i) or false
-				
+
 				if wep then
-				
-					wep:SetOnTransport(transport)
-					
+					wep.SetOnTransport( wep, transport )
 				end
-				
             end
-			
         end
 		
     end,
@@ -4958,24 +4943,18 @@ Unit = Class(moho.unit_methods) {
 	-- issued by the Transport as a unit loads on
     OnTransportAttach = function(self, attachBone, unit)
 
-        --self:PlayUnitSound('Load')
-		
         self:MarkWeaponsOnTransport(unit, true)
 		
         if unit:ShieldIsOn() then
-		
             unit:DisableShield()
             unit:DisableDefaultToggleCaps()
-			
         end
 		
 		unit:SetDoNotTarget(true)
         unit:SetCanTakeDamage(false)
 		
         if not LOUDENTITY(categories.PODSTAGINGPLATFORM, self) then
-		
             self:RequestRefreshUI()
-			
         end
 		
         unit:OnAttachedToTransport(self)
@@ -4987,24 +4966,18 @@ Unit = Class(moho.unit_methods) {
 	-- issued by the Transport as units are detached
     OnTransportDetach = function(self, attachBone, unit)
 
-        --self:PlayUnitSound('Unload')
-		
         self:MarkWeaponsOnTransport(unit, false)
 		
 		if not unit:ShieldIsOn() then
-		
 			unit:EnableShield()
 			unit:EnableDefaultToggleCaps()
-			
 		end
 		
 		unit:SetDoNotTarget(false)
         unit:SetCanTakeDamage(true)
 
         if not LOUDENTITY(categories.PODSTAGINGPLATFORM, self) then
-		
             self:RequestRefreshUI()
-			
         end
 		
         unit:TransportAnimation(-1)

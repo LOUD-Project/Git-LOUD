@@ -1624,10 +1624,13 @@ MobileUnit = Class(Unit) {
 
 		Unit.OnLayerChange( self, new, old) 
 
-		--self.WeaponCount = GetWeaponCount(self)
-
         for i = 1, GetWeaponCount(self) do
-            GetWeapon(self,i):SetValidTargetsForCurrentLayer(new)
+        
+            local wep = GetWeapon(self,i)
+            
+            if wep.WeaponIsEnabled then
+                wep:SetValidTargetsForCurrentLayer(new, wep.bp)
+            end
         end
 
         if new == 'Land' then

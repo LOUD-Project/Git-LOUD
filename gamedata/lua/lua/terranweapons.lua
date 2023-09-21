@@ -217,6 +217,7 @@ TIFCommanderDeathWeapon = Class(BareBonesWeapon) {
             NukeInnerRingTicks = myBlueprint.NukeInnerRingTicks or 24,
             NukeInnerRingTotalTime = myBlueprint.NukeInnerRingTotalTime or 24,
         }
+
         self:SetWeaponEnabled(false)
     end,
 
