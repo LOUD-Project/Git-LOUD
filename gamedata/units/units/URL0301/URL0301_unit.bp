@@ -438,7 +438,7 @@ UnitBlueprint {
         RadarStealth = true,
         SonarStealth = true,
 
-        OmniRadius = 18,
+        OmniRadius = 12,
         VisionRadius = 33,
         WaterVisionRadius = 18,
 

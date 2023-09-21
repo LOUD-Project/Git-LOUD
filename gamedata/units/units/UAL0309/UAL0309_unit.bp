@@ -36,6 +36,7 @@ UnitBlueprint {
         'PATROLHELPER',
         'SHOWQUEUE',
         'OVERLAYMISC',
+        'OVERLAYOMNI',
     },
 	
     CollisionOffsetY = -0.25,
@@ -115,7 +116,7 @@ UnitBlueprint {
     Intel = {
 		FreeIntel = true,
         VisionRadius = 28,
-		OmniRadius = 12,
+		OmniRadius = 6,
     },
 	
     Interface = {

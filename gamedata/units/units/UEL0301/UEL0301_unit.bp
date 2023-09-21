@@ -523,7 +523,7 @@ UnitBlueprint {
         JamRadius = { Max = 26, Min = 26 },
         JammerBlips = 10,
 
-        OmniRadius = 18,
+        OmniRadius = 12,
         VisionRadius = 33,
         WaterVisionRadius = 18,
     },
