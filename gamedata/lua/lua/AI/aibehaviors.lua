@@ -1162,8 +1162,6 @@ function AirScoutingAI( self, aiBrain )
 
 					targetArea = LOUDCOPY(vec)
 					break
-				else
-					noscoutcount = noscoutcount + 1
 				end
 			end
         end
@@ -1300,8 +1298,6 @@ function AirScoutingAI( self, aiBrain )
 		end
 
     end
-
-    --LOG("*AI DEBUG "..aiBrain.Nickname.." AirScoutAI "..self.BuilderName.." "..self.BuilderInstance.." mission expires" )
 
 	return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 end

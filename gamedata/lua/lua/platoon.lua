@@ -9867,7 +9867,7 @@ Platoon = Class(moho.platoon_methods) {
 
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			else
-				LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AIR "..repr(self.BuilderName).." got attack base same as source "..repr(self.RTBLocation))
+				LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AIR "..repr(self.BuilderName).." got attack base same as source "..repr(self.RTBLocation).." selections are "..repr(selections) )
 			end
 		end
 
@@ -9929,7 +9929,7 @@ Platoon = Class(moho.platoon_methods) {
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			
 			else
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AIR_LAND "..repr(self.BuilderName).." got attack base same as source "..repr(self.RTBLocation))
+				LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AIR_LAND "..repr(self.BuilderName).." got attack base same as source "..repr(self.RTBLocation).." selections are "..repr(selections) )
 			end
 			
 		end
@@ -10090,7 +10090,8 @@ Platoon = Class(moho.platoon_methods) {
 			return self:SetAIPlan('ReturnToBaseAI',aiBrain)
         else
 		
-			LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_LAND "..repr(self.BuilderName).." got primary land attack base same as source")
+			LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_LAND "..repr(self.BuilderName).." from "..repr(self.BuilderLocation).." got primary land attack base same as source")
+
 		end
 		
         return self:PlatoonDisband( aiBrain )

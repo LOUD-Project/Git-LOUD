@@ -48,7 +48,11 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 	
 				-- filter out the Group Headers 
 				if k != 'BuildersType' and k != 'BuilderGroupName' then
-		
+                    
+                    --if tableType == 'PlatoonFormManager' then
+                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." adding "..repr(tableType).." Builder "..repr(Builders[v].BuilderName).." at "..repr(Builders[v].Priority) )
+                    --end
+                    
 					aiBrain.BuilderManagers[locationType][tableType]:AddBuilder( aiBrain, Builders[v], locationType)
                     
                     buildercount = buildercount + 1

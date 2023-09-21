@@ -60,7 +60,8 @@ PlatoonFormManager = Class(BuilderManager) {
 		if newBuilder then
 		
 			self:AddInstancedBuilder(newBuilder, builderType, brain)
-			
+        
+            self:SortBuilderList('Any')			
 		end
 		
         return newBuilder

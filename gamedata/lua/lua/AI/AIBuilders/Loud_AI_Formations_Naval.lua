@@ -7,17 +7,17 @@ local BHVR = '/lua/ai/aibehaviors.lua'
 
 local NotPrimaryBase = function( self,aiBrain,manager)
 
-	if not aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
-		return 650, false
+	if aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
+		return self.OldPriority or self.Priority, true
 	end
 
-	return self.Priority, true
+	return 650, true
 end
 
 local IsPrimaryBase = function(self,aiBrain,manager)
 	
 	if aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
-		return self.Priority, false
+		return self.OldPriority or self.Priority, true
 	end
 
 	return 10, true
@@ -27,7 +27,7 @@ end
 local IsEnemyNavalActive = function(self,aiBrain,manager)
 
 	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .011 and aiBrain.NavalRatio <= 10) then
-		return self.Priority, false
+		return self.OldPriority or self.Priority, true
 	end
 
 	return 10, true
@@ -966,8 +966,6 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},
-			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.CRUISER }},
-			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
         },
 		
         BuilderData = {

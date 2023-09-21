@@ -86,6 +86,8 @@ BuilderManager = Class {
         local newBuilder = CreateBuilder(brain, builderData, locationType, builderType)
 
         self:AddInstancedBuilder(newBuilder, builderType, brain)
+        
+        self:SortBuilderList(builderType)
     end,
     
     AddInstancedBuilder = function(self, newBuilder, builderType, aiBrain)
@@ -490,11 +492,15 @@ BuilderManager = Class {
                 -- IDEALLY - we should evaluate both Land and Amphib paths and choose which is best - 
                 -- but for now - we'll settle for land production if any kind of land connection exists --
                 if path and not BuilderManager.LandMode then
+                    
+                    LOG("*AI DEBUG "..brain.Nickname.." "..repr(LocationType).." finds path to "..repr(AttackPlan.Goal).." Land mode set to true")
                 
                     brain.BuilderManagers[LocationType].LandMode = true
 
                 else
                     if not path and BuilderManager.LandMode then
+                    
+                        LOG("*AI DEBUG "..brain.Nickname.." "..repr(LocationType).." finds no path to "..repr(AttackPlan.Goal).." Land mode set to false")
                     
                         brain.BuilderManagers[LocationType].LandMode = false
 
@@ -555,6 +561,10 @@ BuilderManager = Class {
 			
                 -- loop thru all the platoon builders
 				for bType,bTypeData in self.BuilderData do
+                
+                    if self.BuilderData['Any'].NeedSort then
+                        break
+                    end
 
 					for key,bData in bTypeData.Builders do
 

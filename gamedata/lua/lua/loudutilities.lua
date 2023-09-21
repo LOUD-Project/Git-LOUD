@@ -1273,16 +1273,6 @@ function SetPrimaryLandAttackBase( aiBrain )
     if aiBrain.AttackPlan.Goal then
     
         local goal = aiBrain.AttackPlan.Goal
-    
-        if ScenarioInfo.AttackPlanDialog then
-        
-            LOG("*AI DEBUG "..aiBrain.Nickname.." setting Primary Land Attack Base for goal at "..repr(goal))
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Current Primary Land Attack Base is "..repr(aiBrain.PrimaryLandAttackBase).." - LAND mode "..repr(aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode))
-
-            if aiBrain.LastPrimaryLandAttackBase then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Previous Primary Land Attack Base is "..repr(aiBrain.LastPrimaryLandAttackBase))
-            end
-        end
         
         local Bases = {}
 		local counter = 0
@@ -1295,9 +1285,7 @@ function SetPrimaryLandAttackBase( aiBrain )
         local currentlandbasemode = false   -- assume all bases are in amphibious mode
         
         if aiBrain.AttackPlan.Method == "Land" then
-        
             currentlandbasemode = true      -- bases will be in land mode - rather than amphibious
-            
         end
 		
 		-- make a table of all land bases
@@ -1335,11 +1323,21 @@ function SetPrimaryLandAttackBase( aiBrain )
         if counter == 0 then
             return
         end
+    
+        if ScenarioInfo.AttackPlanDialog then
+        
+            LOG("*AI DEBUG "..aiBrain.Nickname.." setting Primary Land Attack Base for goal at "..repr(goal))
+            LOG("*AI DEBUG "..aiBrain.Nickname.." Current Primary Land Attack Base is "..repr(aiBrain.PrimaryLandAttackBase).." - LAND mode "..repr(aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode))
+
+            if aiBrain.LastPrimaryLandAttackBase then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Previous Primary Land Attack Base is "..repr(aiBrain.LastPrimaryLandAttackBase))
+            end
+        end
         
 		-- sort them by shortest path distance to goal
         LOUDSORT(Bases, function(a,b) return a.Distance < b.Distance end)
 
-        -- a new base must be 10% closer than the existing one -- or don't change --
+        -- a new primary base must be 10% closer than the existing one -- or don't change --
         if (currentgoaldistance and Bases[1].Distance < (currentgoaldistance * 0.9)) or LOUDGETN(Bases) == 1 then
         
             -- make this base the Primary
@@ -1354,20 +1352,21 @@ function SetPrimaryLandAttackBase( aiBrain )
                 
             end
             
-            -- set the distance trigger
+            -- set the goal distance of the new base
             currentgoaldistance = Bases[1].Distance
 
+            -- mark the base as being Primary --
             aiBrain.BuilderManagers[Primary].PrimaryLandAttackBase = true
-
+            -- record what the previous primary base was
             aiBrain.LastPrimaryLandAttackBase = aiBrain.PrimaryLandAttackBase or false
-	
-            -- store the current base selection and distance on the brain
+            -- store the current base selection and the goal distance on the brain
             aiBrain.PrimaryLandAttackBase = Primary
             aiBrain.PrimaryLandAttackBaseDistance = currentgoaldistance
             
+        
             local builderManager
         
-            -- loop thru all the potential bases - set Primary, clear all others
+            -- loop thru all the bases - set Primary, clear all others
             -- set the base mode according to the attack plan method
             for k,v in Bases do
 			
@@ -1415,9 +1414,9 @@ function SetPrimaryLandAttackBase( aiBrain )
         
             if aiBrain.PrimaryLandAttackBase then
             
-                --if aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode != currentlandbasemode then
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(aiBrain.PrimaryLandAttackBase).." PRIMARY - switching Land mode to "..repr(currentlandbasemode) )
-                --end
+                if aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode != currentlandbasemode then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(aiBrain.PrimaryLandAttackBase).." PRIMARY - switching Land mode to "..repr(currentlandbasemode) )
+                end
             
                 aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode = currentlandbasemode
             end
@@ -1462,17 +1461,6 @@ function SetPrimarySeaAttackBase( aiBrain )
     if aiBrain.AttackPlan.Goal then
     
         local goal = aiBrain.AttackPlan.Goal
-    
-        if ScenarioInfo.AttackPlanDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." setting Primary Sea Attack Base for goal at "..repr(goal))
-
-            if aiBrain.PrimarySeaAttackBase then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Current Primary Sea Attack Base is "..repr(aiBrain.PrimarySeaAttackBase))
-            end
-            if aiBrain.LastPrimarySeaAttackBase then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Previous Primary Sea Attack Base is "..repr(aiBrain.LastPrimarySeaAttackBase))
-            end
-        end
         
         local Bases = {}
 		local counter = 0
@@ -1516,7 +1504,18 @@ function SetPrimarySeaAttackBase( aiBrain )
         if counter == 0 then
             return
         end
-        
+    
+        if ScenarioInfo.AttackPlanDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." setting Primary Sea Attack Base for goal at "..repr(goal))
+
+            if aiBrain.PrimarySeaAttackBase then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Current Primary Sea Attack Base is "..repr(aiBrain.PrimarySeaAttackBase))
+            end
+            if aiBrain.LastPrimarySeaAttackBase then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Previous Primary Sea Attack Base is "..repr(aiBrain.LastPrimarySeaAttackBase))
+            end
+        end
+
 		-- sort them by shortest path distance to goal
         LOUDSORT(Bases, function(a,b) return a.Distance < b.Distance end)
 		
@@ -1879,7 +1878,7 @@ function ResetPFMTasks (PFM, aiBrain)
             if NewPriority and NewPriority != BuilderTask.Priority then
 
                 if ScenarioInfo.PriorityDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..PFM.ManagerType.." "..PFM.LocationType.." "..BuilderTask.BuilderName.." is set to "..repr(NewPriority).." Temporary is "..repr(temporary))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..PFM.ManagerType.." "..PFM.LocationType.." resets "..BuilderTask.BuilderName.." to "..repr(NewPriority).." Temporary is "..repr(temporary))
                 end
 
                 PFM:SetBuilderPriority(BuilderTask.BuilderName, NewPriority, temporary)
@@ -5665,10 +5664,10 @@ function CreateAttackPlan( self, enemyPosition )
 
     while not GoalReached do
     
-        if AttackPlanDialog then
-            LOG("*AI DEBUG "..self.Nickname.." Current distance to goal is "..VDist2(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3]).." stagesize is "..stagesize)
-            LOG("*AI DEBUG "..self.Nickname.." Next position will need to be less than "..(CurrentPointDistance * .7).." and have a path of less than "..CurrentBestPathLength )
-        end
+        --if AttackPlanDialog then
+          --  LOG("*AI DEBUG "..self.Nickname.." Current distance to goal is "..VDist2(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3]).." stagesize is "..stagesize)
+          --  LOG("*AI DEBUG "..self.Nickname.." Next position will need to be less than "..(CurrentPointDistance * .7).." and have a path of less than "..CurrentBestPathLength )
+        --end
     
     	-- if current point is within stagesize of goal we're done
         if VDist2Sq(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3]) <= maxstagesize then
@@ -5697,17 +5696,17 @@ function CreateAttackPlan( self, enemyPosition )
                 -- distance to the Goal
                 local goaldistance = VDist2( position[1],position[3], Goal[1],Goal[3])
                 
-                if AttackPlanDialog then
-                    LOG("*AI DEBUG "..self.Nickname.." reviewing point "..repr(v.Name).." from Current Point is "..math.sqrt(testdistance).." to goal is "..goaldistance)
-                end
+                --if AttackPlanDialog then
+                  --  LOG("*AI DEBUG "..self.Nickname.." reviewing point "..repr(v.Name).." from Current Point is "..math.sqrt(testdistance).." to goal is "..goaldistance)
+                --end
                 
                 -- check all points that are at least minimum distance from current point, minimum distance from Goal, within maximum stage size from current point, closer to the goal than current point
                 if testdistance >= minstagesize and VDist2Sq(position[1],position[3], Goal[1],Goal[3]) >= minstagesize and testdistance <= maxstagesize and goaldistance < (CurrentPointDistance * .7) then
         
-                    if ScenarioInfo.AttackPlanDialog then
-                        LOG("*AI DEBUG "..self.Nickname.." examines "..repr(v).." distance is "..math.sqrt(testdistance).." from current point "..repr(CurrentPoint) )
-                        LOG("*AI DEBUG "..self.Nickname.." examines "..repr(v).." distance is "..goaldistance.." to the goal "..repr(Goal) )
-                    end 
+                    --if AttackPlanDialog then
+                      --  LOG("*AI DEBUG "..self.Nickname.." examines "..repr(v).." distance is "..math.sqrt(testdistance).." from current point "..repr(CurrentPoint) )
+                      --  LOG("*AI DEBUG "..self.Nickname.." examines "..repr(v).." distance is "..goaldistance.." to the goal "..repr(Goal) )
+                    --end 
                     
                     cyclecount = cyclecount + 1
                     
@@ -5784,9 +5783,9 @@ function CreateAttackPlan( self, enemyPosition )
 
                 else
                 
-                    if AttackPlanDialog then
-                        LOG("*AI DEBUG "..self.Nickname.." Min Stage size = "..repr(testdistance >= minstagesize).." to Goal Stage Size = "..repr(VDist2Sq(position[1],position[3], Goal[1],Goal[3]) >= minstagesize).." Max Stage Size = "..repr(testdistance <= maxstagesize).." Goal Distance = "..repr(goaldistance < (CurrentPointDistance * .7)) )
-                    end
+                    --if AttackPlanDialog then
+                      --  LOG("*AI DEBUG "..self.Nickname.." Min Stage size = "..repr(testdistance >= minstagesize).." to Goal Stage Size = "..repr(VDist2Sq(position[1],position[3], Goal[1],Goal[3]) >= minstagesize).." Max Stage Size = "..repr(testdistance <= maxstagesize).." Goal Distance = "..repr(goaldistance < (CurrentPointDistance * .7)) )
+                    --end
                 
                 end
                 
@@ -6031,9 +6030,9 @@ function AttackPlanMonitor(self)
             
                 LOG("*AI DEBUG " ..self.Nickname.." Assessing Attack Plan to " ..repr(self.AttackPlan.Goal))
             
-                local threatTable = GetThreatsAroundPosition( self, self.AttackPlan.Goal, 64, true, 'Overall', CurrentEnemyIndex)
+                --local threatTable = GetThreatsAroundPosition( self, self.AttackPlan.Goal, 64, true, 'Overall', CurrentEnemyIndex)
             
-                LOG("*AI DEBUG "..self.Nickname.." Overall Threat Table is " ..repr(threatTable))
+                --LOG("*AI DEBUG "..self.Nickname.." Overall Threat Table is " ..repr(threatTable))
                 
                 LOG("*AI DEBUG "..self.Nickname.." Starting Point "..repr(self.AttackPlan.StagePoints[0]))
             

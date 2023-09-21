@@ -10,13 +10,13 @@ local BHVR = '/lua/ai/aibehaviors.lua'
 
 local NotPrimaryBase = function( self,aiBrain,manager)
 
-	if (not aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase) and (not aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase) then
-	
-		return 650, false
+	if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
+
+		return self.OldPriority or self.Priority, true
 		
 	end
 
-	return self.Priority, true
+	return 650, true
 	
 end
 
@@ -24,22 +24,12 @@ local IsPrimaryBase = function(self,aiBrain,manager)
 	
 	if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
 	
-		return self.Priority, false
+		return self.OldPriority or self.Priority, true
 		
 	end
 
 	return 10, true
 	
-end
-
-local MapSizeLargerThan20K = function(self,aiBrain)
-
-    if ScenarioInfo.size[1] <= 1028 or ScenarioInfo.size[2] <= 1028 then
-        return self.Priority, false
-    else
-        return 0, false
-    end
-
 end
 
 local MapSizeLessThan20k = function(self,aiBrain)

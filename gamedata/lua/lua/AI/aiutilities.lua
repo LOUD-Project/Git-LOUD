@@ -73,8 +73,7 @@ function AIPickEnemyLogic( self, brainbool )
     -- be based on his CURRENT PRIMARY position - and not always the starting position
     -- this will help keep him focused upon what he's already achieved
     -- rather than just switching to a stronger opponent
-    
-    --local testposition = self.BuilderManagers[self.PrimaryLandBase].Position or self:GetStartVector3f()
+
     local testposition = self.BuilderManagers['MAIN'].Position or self:GetStartVector3f()
 
     local GetEnemyUnitsInRect = import('/lua/loudutilities.lua').GetEnemyUnitsInRect    
@@ -94,7 +93,12 @@ function AIPickEnemyLogic( self, brainbool )
     local Brains = ArmyBrains
     local findEnemy = false
     local selfIndex = self.ArmyIndex
-	local threattypes = {'StructuresNotMex','Land','Naval'}
+
+    local threattypes = {'StructuresNotMex','Land'}
+    
+    if self.IsNavalMap then
+        threattypes = {'StructuresNotMex','Land','Naval'}
+    end
     
     local armyindex, counter, distance, insertTable, threats, threatWeight, unitPos, units, x1, x2, x3
     
@@ -105,52 +109,81 @@ function AIPickEnemyLogic( self, brainbool )
         if not v:IsDefeated() and selfIndex != armyindex and not IsAlly( selfIndex, armyindex) then
 		
 			if IsEnemy(selfIndex, armyindex) then
-            
-                insertTable = { Enemy = true, Strength = 0, Position = false, Brain = k, Alias = v.Nickname }    
-            
+
+                -- this table will hold the summed threat for specific positions
+                insertTable = {}
+
                 for _,threattype in threattypes do
-			
+
                     threats = GetThreatsAroundPosition( self, testposition, 32, true, threattype, armyindex)
                 
                     -- sort the threats for closest
                     LOUDSORT( threats, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a[1],a[2],testposition[1],testposition[3]) < VDist2Sq(b[1],b[2],testposition[1],testposition[3]) end )
 
+                    --LOG("*AI DEBUG "..self.Nickname.." reports "..repr(threattype).." threats as "..repr(threats) )
+
                     for _,data in threats do
 
-                        if data[3] > 60 then
+                        if data[3] > 20 then
                         
-                            if not insertTable.Position then
-                                -- use the closest position that reports enough threat
-                                insertTable.Position = {data[1],0,data[2]}
-                            end
-                            
-                            -- closer targets are worth more - much more
-               
+                            -- closer targets are worth more
                             -- distance of this enemy from current PRIMARY position
                             distance = VDist3( testposition, {data[1],0,data[2]} )
                 
-                            -- adjust the strength according to distance result against the maximum possible distance on this map
-                            threatWeight = MATHEXP((self.dist_comp/ distance )-1)
+                            -- adjust strength according to distance result against maximum possible distance on this map
+                            threatWeight = (self.dist_comp / distance ) - 1
 
-                            threatWeight = threatWeight * data[3]
+                            -- insure its above 0 and floor it
+                            threatWeight = math.floor(threatWeight * data[3])
+
+                            --LOG("*AI DEBUG "..self.Nickname.." inserts "..repr(data).." - times "..((self.dist_comp/ distance )-1).." using distance "..repr(distance) )
+
+                            local key = tostring(data[1])..","..tostring(data[2].."-"..tostring(k))
+
+                            if not insertTable[key] then
+                                
+                                insertTable[key] = { Brain = k, Position = { data[1],0,data[2] }, Strength = 0 }
+
+                            end
+
+                            insertTable[key].Strength = insertTable[key].Strength + threatWeight
                             
-                            if threatWeight > 60 then
-                                -- accumulate the total enemy strength from viable positions
-                                insertTable.Strength = insertTable.Strength + threatWeight
+                            if not armyStrengthTable[armyindex] then
+                            
+                                armyStrengthTable[armyindex] = { Alias = v.Nickname, Brain = armyindex, Enemy = true, Position = false, TotalStrength = 0 }
+                                
                             end
                             
+                            armyStrengthTable[armyindex].TotalStrength = armyStrengthTable[armyindex].TotalStrength + threatWeight
+
                         end
+
                     end
 
-                    -- make sure the value is positive
-                    insertTable.Strength = MATHMAX( insertTable.Strength, 0)
-			
-                    if insertTable.Strength > 35 then
-                        armyStrengthTable[armyindex] = insertTable
-                    end
                 end
+
 			end
         end
+    end
+
+    local maxthreat = {}
+    
+    for k,v in insertTable do
+        
+        if not maxthreat[v.Brain] then
+            maxthreat[v.Brain] = 0
+        end
+    
+        if v.Strength >= maxthreat[v.Brain] then
+        
+            armyStrengthTable[v.Brain].Position = v.Position
+            
+            maxthreat[v.Brain] = v.Strength
+        end
+    end
+
+    if ScenarioInfo.AttackPlanDialog then
+        LOG("*AI DEBUG "..self.Nickname.." armyStrengthTable is "..repr(armyStrengthTable) )
     end
 	
     -- if targetoveride is true then allow target switching
@@ -196,6 +229,7 @@ function AIPickEnemyLogic( self, brainbool )
             local enemyPosition = false
             local enemyStrength = 0
             local enemy = false
+            local newPosition = false
 			
             for k,v in armyStrengthTable do
 			
@@ -206,10 +240,10 @@ function AIPickEnemyLogic( self, brainbool )
 
                 -- store the highest value so far -- we'll pick this as the
                 -- enemy once we've checked all the enemies
-                if not enemy or v.Strength > enemyStrength then
+                if not enemy or v.TotalStrength > enemyStrength then
                     
                     enemyPosition = v.Position
-					enemyStrength = v.Strength
+					enemyStrength = v.TotalStrength
                     
                     enemy = ArmyBrains[v.Brain]
                 end
@@ -237,17 +271,21 @@ function AIPickEnemyLogic( self, brainbool )
                     
                             if unitPos then
                                 x1 = x1 + unitPos[1]
-                                x2 = x2 + unitPos[2]
+                                x2 = 0      --x2 + unitPos[2]
                                 x3 = x3 + unitPos[3]
                             end
                         end
                     end
 
-                    x1 = x1/counter
-                    x2 = x2/counter
-                    x3 = x3/counter
-                
-                    enemyPosition = { x1,x2,x3 }
+                    x1 = math.floor(x1/counter)
+                    x2 = 0
+                    x3 = math.floor(x3/counter)
+
+                    newPosition = { x1,x2,x3 }
+
+                    if ScenarioInfo.AttackPlanDialog then
+                        LOG("*AI DEBUG "..self.Nickname.." armyStrengthTable Position "..repr(enemyPosition).." averaged "..repr(newPosition) )                
+                    end
 
                     -- If we don't have an enemy or it's different than the one we already have
                     if not self:GetCurrentEnemy() or self:GetCurrentEnemy() != enemy then
@@ -264,12 +302,12 @@ function AIPickEnemyLogic( self, brainbool )
                     end
                     
                     -- if we have an enemy and we dont have an attack goal or the goal is quite different from the one we already have
-                    if self.CurrentEnemyIndex and ( (not self.AttackPlanGoal) or VDist3(self.AttackPlan.Goal, enemyPosition) > 100 ) then
+                    if self.CurrentEnemyIndex and ( (not self.AttackPlanGoal) or VDist3(self.AttackPlan.Goal, newPosition) > 100 ) then
                     
-                        --LOG("*AI DEBUG "..self.Nickname.." Choosing enemy - " ..enemy.Nickname.." at "..repr(enemyPosition).." distance "..repr(VDist3( testposition, enemyPosition )).." Strength is "..repr(enemyStrength) )
+                        --LOG("*AI DEBUG "..self.Nickname.." Choosing enemy - " ..enemy.Nickname.." at "..repr(newPosition).." distance "..repr(VDist3( testposition, newPosition )).." Strength is "..repr(enemyStrength) )
 					
                         -- create a new attack plan
-                        self:ForkThread( import('/lua/loudutilities.lua').AttackPlanner, enemyPosition)
+                        self:ForkThread( import('/lua/loudutilities.lua').AttackPlanner, newPosition)
                     end
                 end
 			end
