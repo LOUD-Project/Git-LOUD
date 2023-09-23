@@ -205,6 +205,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 25,
 			
             ProjectileId = '/projectiles/SDFPhasicAutogun01/SDFPhasicAutogun01_proj.bp',
@@ -237,7 +238,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Muzzle',
             TurretBoneYaw = 'Turret_Barrel',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 180,

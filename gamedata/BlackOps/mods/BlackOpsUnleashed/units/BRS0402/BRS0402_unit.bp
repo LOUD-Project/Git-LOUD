@@ -321,6 +321,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.7,
             MuzzleSalvoSize = 9,
+
             MuzzleVelocity = 3,
 			
 			NotExclusive = true,
@@ -363,7 +364,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Hailfire_Muzzle01',
             TurretBonePitch = 'Hailfire_Barrels',
             TurretBoneYaw = 'Hailfire_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 75,
             TurretPitchRange = 15,
@@ -487,8 +487,6 @@ UnitBlueprint {
             RackRecoilDistance = -2,
 
             RackRecoilReturnSpeed = 1,
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -513,7 +511,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Railgun_Muzzle',
             TurretBonePitch = 'Left_Railgun',
             TurretBoneYaw = 'Left_Railgun_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 45,
@@ -641,8 +638,6 @@ UnitBlueprint {
 
             RackRecoilReturnSpeed = 1,
 
-            RackSlavedToTurret = true,
-
             RateOfFire = 1,		-- 400 DPS Surface controlled by charge and delay
 			
             TargetCheckInterval = 1.5,
@@ -665,7 +660,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Railgun_Muzzle',
             TurretBonePitch = 'Right_Railgun',
             TurretBoneYaw = 'Right_Railgun_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 45,
@@ -759,7 +753,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Right_Muzzle01',
             TurretBonePitch = 'Front_Right_Barrel',
             TurretBoneYaw = 'Front_Right_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 70,
@@ -849,7 +842,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Left_Muzzle01',
             TurretBonePitch = 'Front_Left_Barrel',
             TurretBoneYaw = 'Front_Left_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 70,
@@ -942,7 +934,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Middle_Left_Muzzle01',
             TurretBonePitch = 'Middle_Left_Barrel',
             TurretBoneYaw = 'Middle_Left_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 70,
@@ -1034,7 +1025,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Middle_Right_Muzzle01',
             TurretBonePitch = 'Middle_Right_Barrel',
             TurretBoneYaw = 'Middle_Right_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 70,
@@ -1125,7 +1115,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Left_Muzzle01',
             TurretBonePitch = 'Back_Left_Barrel',
             TurretBoneYaw = 'Back_Left_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 70,
@@ -1215,7 +1204,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Right_Muzzle01',
             TurretBonePitch = 'Back_Right_Barrel',
             TurretBoneYaw = 'Back_Right_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 70,
@@ -1257,6 +1245,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 12,
+
             MuzzleVelocity = 3,
 			
             NotExclusive = true,
@@ -1359,7 +1348,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Zapper_Muzzle',
             TurretBonePitch = 'Zapper_Muzzle',
             TurretBoneYaw = 'Zapper_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -1439,7 +1427,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_AALaser',
             TurretBonePitch = 'Front_AALaser',
             TurretBoneYaw = 'Front_AALaser',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 360,
@@ -1519,7 +1506,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Center_AALaser',
             TurretBonePitch = 'Back_Center_AALaser',
             TurretBoneYaw = 'Back_Center_AALaser',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 360,
@@ -1591,10 +1577,10 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+
             TurretBoneMuzzle = 'Back_Left_AALaser',
             TurretBonePitch = 'Back_Left_AALaser',
             TurretBoneYaw = 'Back_Left_AALaser',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 360,
@@ -1670,7 +1656,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Right_AALaser',
             TurretBonePitch = 'Back_Right_AALaser',
             TurretBoneYaw = 'Back_Right_AALaser',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 360,
@@ -1748,7 +1733,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Middle_Right_AALaser',
             TurretBonePitch = 'Middle_Right_AALaser',
             TurretBoneYaw = 'Middle_Right_AALaser',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 360,
@@ -1826,7 +1810,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Middle_Left_AALaser',
             TurretBonePitch = 'Middle_Left_AALaser',
             TurretBoneYaw = 'Middle_Left_AALaser',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 360,

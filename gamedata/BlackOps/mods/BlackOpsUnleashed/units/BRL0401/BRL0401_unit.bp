@@ -298,7 +298,6 @@ UnitBlueprint {
 			
             MaxRadius = 70,
 
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 30,
 			
             NoPause = true,
@@ -329,7 +328,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Torso',
             TurretBonePitch = 'Torso',
             TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 10,
@@ -402,11 +400,10 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
+
             TurretBoneMuzzle = 'Jaw_Muzzle',
-			
             TurretBonePitch = 'Head',
             TurretBoneYaw = 'Head',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 70,
@@ -516,9 +513,12 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'Right_Cannon_Barrel',
             TurretBoneDualPitch = 'Right_Cannon',
+
             TurretBoneMuzzle = 'Left_Cannon_Barrel',
             TurretBonePitch = 'Left_Cannon',
+
             TurretBoneYaw = 'Torso',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 0,
@@ -589,8 +589,6 @@ UnitBlueprint {
             },
 
             RackFireTogether = true,
-            
-            RackReloadTimeout = 10,
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -609,9 +607,12 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'MainGun_Muzzle_Right',
             TurretBoneDualPitch = 'MainGun_Right_Pitch',
+
             TurretBoneMuzzle = 'MainGun_Muzzle_Left',
             TurretBonePitch = 'MainGun_Left_Pitch',
+
             TurretBoneYaw = 'MainGun_Turret',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 0,
@@ -682,6 +683,7 @@ UnitBlueprint {
             MuzzleVelocity = 30,
 			
             NotExclusive = true,
+
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/MGQAIPlasmaArty01/MGQAIPlasmaArty01_proj.bp',
 			ProjectileLifetime = 7,
 
@@ -695,8 +697,6 @@ UnitBlueprint {
                     RackBone = 'MainGun_Left_Pitch',
                 },
             },
-            
-            RackReloadTimeout = 10,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -715,9 +715,12 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'MainGun_Muzzle_Right',
             TurretBoneDualPitch = 'MainGun_Right_Pitch',
+
             TurretBoneMuzzle = 'MainGun_Muzzle_Left',
             TurretBonePitch = 'MainGun_Left_Pitch',
+
             TurretBoneYaw = 'MainGun_Turret',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 0,
@@ -807,7 +810,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Bolter_Muzzle_2',
             TurretBonePitch = 'Left_Bolter',
             TurretBoneYaw = 'Left_Bolter',
-            TurretDualManipulators = false,
 			
             TurretPitch = -25,
             TurretPitchRange = 45,
@@ -856,6 +858,7 @@ UnitBlueprint {
             MuzzleVelocity = 40,
 			
             NotExclusive = true,
+
 			PrefersPrimaryWeaponTarget = false,			
 			
             ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
@@ -891,7 +894,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Bolter_Muzzle_2',
             TurretBonePitch = 'Right_Bolter',
             TurretBoneYaw = 'Right_Bolter',
-            TurretDualManipulators = false,
 			
             TurretPitch = -25,
             TurretPitchRange = 45,
@@ -956,6 +958,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,     -- 2 seconds to fire salvo
             MuzzleSalvoSize = 10,
+
             MuzzleVelocity = 15,
 			
             NotExclusive = true,
@@ -1038,6 +1041,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.3,     -- 3 seconds for salvo
             MuzzleSalvoSize = 20,
+
             MuzzleVelocity = 6,
 			MuzzleVelocityRandom = 1,
 			
@@ -1133,6 +1137,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 6,
+
 			MuzzleVelocity = 8,
 			
             NotExclusive = true,

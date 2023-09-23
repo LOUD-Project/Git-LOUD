@@ -2,7 +2,7 @@ UnitBlueprint {
 
     AI = {
         GuardRadius = 10,
-		InitialAutoMode = true,
+		InitialAutoMode = false,
         TargetBones = {'Head','Right_Arm_B01','Left_Arm_B01','Torso','Left_Leg_B01','Right_Leg_B01'},
     },
 	
@@ -1653,9 +1653,11 @@ UnitBlueprint {
     },
 	
     Weapon = {
+
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0.1,
@@ -1680,10 +1682,10 @@ UnitBlueprint {
             HeadingArcRange = 180,
 			
             Label = 'EXTargetPainter',
+            
+            NotExclusive = true,
 			
             MaxRadius = 25, --script must change this to match weapon upgrade range
-
-            MuzzleSalvoSize = 1,
 
             RackBones = {
                 {
@@ -1692,12 +1694,7 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
-
-            RackSlavedToTurret = true,
-
-            RateOfFire = 2,
+            RateOfFire = 0.2,
 			
             TargetCheckInterval = 0.5,
 			
@@ -1724,6 +1721,7 @@ UnitBlueprint {
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
         },
+
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
@@ -1751,8 +1749,7 @@ UnitBlueprint {
             Label = 'RightZephyr',
 			
             MaxRadius = 28,
-			
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
 			
 			NotExclusive = true,
@@ -1766,9 +1763,6 @@ UnitBlueprint {
                     RackBone = 'Right_Arm_Barrel',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -1798,8 +1792,9 @@ UnitBlueprint {
             TurretYawSpeed = 85,
 			
             Turreted = true,
-            UseFiringSolutionInsteadOfAimBone = true,
+            --UseFiringSolutionInsteadOfAimBone = true,
         },
+
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
@@ -1836,7 +1831,6 @@ UnitBlueprint {
 
             MaxRadius = 30,
 
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 25,
 			
 			NotExclusive = true,
@@ -1852,9 +1846,6 @@ UnitBlueprint {
                     RackBone = 'Right_Arm_Barrel',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -1879,6 +1870,7 @@ UnitBlueprint {
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
         },
+
         {
             AboveWaterTargetsOnly = true,
             CollideFriendly = false,
@@ -1897,8 +1889,6 @@ UnitBlueprint {
 			
             MaxRadius = 1,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 0,
 			
             NukeInnerRingDamage = 14500,	--3500
@@ -1927,7 +1917,7 @@ UnitBlueprint {
         },
 		
 		--- Flamethrower ---
-		
+
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
@@ -1962,9 +1952,7 @@ UnitBlueprint {
 			
             MaxRadius = 22,
             MinRadius = 1,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 18,
 			
 			NotExclusive = true,
@@ -1979,8 +1967,6 @@ UnitBlueprint {
                     RackBone = 'Left_Arm_Barrel',
                 },
             },
-
-            RackSalvoSize = 1,
 
             RateOfFire = 3,	    -- 120 DPS -- 3 * 10 pulses of 4 dmg
 
@@ -1998,7 +1984,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Flamer_Muzzle',
             TurretBonePitch = 'Left_Arm_Barrel',
             TurretBoneYaw = 'Left_Arm_Barrel',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -2045,9 +2030,7 @@ UnitBlueprint {
 			
             MaxRadius = 30,
             MinRadius = 1,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 18,
 			
             NoPause = true,
@@ -2062,8 +2045,6 @@ UnitBlueprint {
                     RackBone = 'Left_Arm_Barrel',
                 },
             },
-
-            RackSalvoSize = 1,
 
             RateOfFire = 3,		-- 180 DPS
 			
@@ -2082,7 +2063,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Flamer_Muzzle',
             TurretBonePitch = 'Left_Arm_Barrel',
             TurretBoneYaw = 'Left_Arm_Barrel',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -2095,7 +2075,7 @@ UnitBlueprint {
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
         },
-		
+
 		--- Torpedo Launcher ---
 		
         {
@@ -2106,6 +2086,8 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Torpedo Launcher',
+            
+            EnabledByEnhancement = 'EXTorpedoLauncher',
 			
             FireTargetLayerCapsTable = {
                 Seabed = 'Seabed|Sub|Water',
@@ -2118,6 +2100,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 6,
 			
             ProjectileId = '/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp',
@@ -2129,9 +2112,6 @@ UnitBlueprint {
                     RackBone = 'Torpedo_Tauncher',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -2155,6 +2135,8 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Torpedo Launcher',
+            
+            EnabledByEnhancement = 'EXTorpedoRapidLoader',
 			
             FireTargetLayerCapsTable = {
                 Seabed = 'Seabed|Sub|Water',
@@ -2167,6 +2149,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 4,
+
             MuzzleVelocity = 6,
 			
             ProjectileId = '/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp',
@@ -2181,9 +2164,6 @@ UnitBlueprint {
                     RackBone = 'Torpedo_Tauncher',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -2207,6 +2187,8 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Torpedo Launcher',
+            
+            EnabledByEnhancement = 'EXTorpedoClusterLauncher',
 			
             FireTargetLayerCapsTable = {
                 Seabed = 'Seabed|Sub|Water',
@@ -2219,6 +2201,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 5,
+
             MuzzleVelocity = 8,
 			
             ProjectileId = '/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp',
@@ -2230,9 +2213,6 @@ UnitBlueprint {
                     RackBone = 'Torpedo_Tauncher',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -2269,6 +2249,8 @@ UnitBlueprint {
             
             DisplayName = 'Anti-Matter Cannon',
             
+            EnabledByEnhancement = 'EXAntiMatterCannon',
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
@@ -2281,8 +2263,6 @@ UnitBlueprint {
             MaxRadius = 30,
             MinRadius = 1,
             
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 32,
             
             PrefersPrimaryWeaponTarget = true,
@@ -2295,9 +2275,6 @@ UnitBlueprint {
                     RackBone = 'HAC',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_DirectFire',
 
@@ -2315,7 +2292,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'HAC_Muzzle',
             TurretBonePitch = 'Right_Arm_Barrel',
             TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
             
             TurretPitch = 0,
             TurretPitchRange = 4,
@@ -2347,6 +2323,8 @@ UnitBlueprint {
             
             DisplayName = 'Anti-Matter Cannon',
             
+            EnabledByEnhancement = 'EXImprovedContainmentBottle',
+            
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
@@ -2358,9 +2336,7 @@ UnitBlueprint {
             
             MaxRadius = 36,
             MinRadius = 1,
-            
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 34,
             
             PrefersPrimaryWeaponTarget = true,
@@ -2372,9 +2348,6 @@ UnitBlueprint {
                     RackBone = 'HAC',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
             
             RangeCategory = 'UWRC_DirectFire',
             
@@ -2392,7 +2365,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'HAC_Muzzle',
             TurretBonePitch = 'Right_Arm_Barrel',
             TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 4,
@@ -2436,6 +2408,8 @@ UnitBlueprint {
             DamageType = 'Normal',
 
             DisplayName = 'Anti-Matter Cannon',
+            
+            EnabledByEnhancement = 'EXPowerBooster',
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -2449,8 +2423,6 @@ UnitBlueprint {
             MaxRadius = 42,
             MinRadius = 1,
 
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 38,
 
             PrefersPrimaryWeaponTarget = true,
@@ -2462,9 +2434,6 @@ UnitBlueprint {
                     RackBone = 'HAC',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_DirectFire',
  
@@ -2482,7 +2451,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'HAC_Muzzle',
             TurretBonePitch = 'Right_Arm_Barrel',
             TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 4,
@@ -2511,10 +2479,11 @@ UnitBlueprint {
             CollideFriendly = false,
 
             Damage = 20,
-            DamageRadius = 0,
             DamageType = 'Normal',
 
             DisplayName = 'Banshee Gatling Cannon',
+            
+            EnabledByEnhancement = 'EXGattlingEnergyCannon',
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed|Air',
@@ -2531,7 +2500,8 @@ UnitBlueprint {
             MaxRadius = 38,
 
             MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 4,
+            MuzzleSalvoSize = 8,
+
             MuzzleVelocity = 46,
 
 			NotExclusive = true,
@@ -2547,11 +2517,12 @@ UnitBlueprint {
                 },
             },
 
-            RackSalvoSize = 1,
+            RackSalvoChargeTime = 0.1,
+            RackSalvoReloadTime = 0.1,
 
             RangeCategory = 'UWRC_DirectFire',
 
-            RateOfFire = 2,     -- 160 DPS
+            RateOfFire = 1,     -- 160 DPS
 
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -2565,7 +2536,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Gatling_Cannon_Muzzle',
             TurretBonePitch = 'Right_Arm_Barrel',
             TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 4,
@@ -2595,6 +2565,8 @@ UnitBlueprint {
             DamageType = 'Normal',
 
             DisplayName = 'Ravager Gatling Cannon',
+            
+            EnabledByEnhancement = 'EXImprovedCoolingSystem',
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -2613,6 +2585,7 @@ UnitBlueprint {
 
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 24,
+
             MuzzleVelocity = 40,
 
 			NotExclusive = true,
@@ -2629,7 +2602,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
             RackSalvoChargeTime = 0.2,
             RackSalvoReloadTime = 2,
 
@@ -2649,7 +2621,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Gatling_Cannon_Muzzle',
             TurretBonePitch = 'Right_Arm_Barrel',
             TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 4,
@@ -2679,6 +2650,8 @@ UnitBlueprint {
             DamageType = 'Normal',
 
             DisplayName = 'Devastator Gatling Cannon',
+            
+            EnabledByEnhancement = 'EXEnergyShellHardener',
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -2695,6 +2668,7 @@ UnitBlueprint {
 
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 16,
+
             MuzzleVelocity = 40,
 
 			NotExclusive = true,
@@ -2711,7 +2685,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
             RackSalvoChargeTime = 0.2,
             RackSalvoReloadTime = 3,
 
@@ -2731,7 +2704,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Gatling_Cannon_Muzzle',
             TurretBonePitch = 'Right_Arm_Barrel',
             TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 4,
@@ -2758,6 +2730,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
 
             CollideFriendly = false,
+
             CountedProjectile = true,
 
             Damage = 6000,
@@ -2768,6 +2741,8 @@ UnitBlueprint {
             DisplayName = 'Tactical Warhead', -- Could be used with UI info.
 
             EffectiveRadius = 0, -- Why is this here?
+            
+            EnabledByEnhancement = 'EXTacticalMisslePack',
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -2785,10 +2760,9 @@ UnitBlueprint {
             MaxRadius = 256,
             MinRadius = 5,
 
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 8,
+            
+            NotExclusive = true,
 
             ProjectileId = '/projectiles/TIFMissileCruiseCDR/TIFMissileCruiseCDR_proj.bp',
 
@@ -2799,9 +2773,6 @@ UnitBlueprint {
                     RackBone = 'Back_MissilePack_Muzzle',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_IndirectFire',
 
@@ -2816,12 +2787,12 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 
-            WeaponRepackTimeout = 4,
-            WeaponUnpacks = true,
+            --WeaponRepackTimeout = 4,
+            --WeaponUnpacks = true,
         },
 		
 		--- Billy Nuke Missile ---
-		
+
         {
             AboveWaterTargetsOnly = true,
 
@@ -2840,6 +2811,8 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Nuclear Warhead',
+            
+            EnabledByEnhancement = 'EXTacticalNukeSubstitution',
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -2857,9 +2830,6 @@ UnitBlueprint {
             MaxRadius = 256,
             MinRadius = 5,
 			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 8,
 			
             NukeInnerRingDamage = 12000,
@@ -2883,18 +2853,15 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
-
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 5,
+            RateOfFire = 1,
 
-            TargetCheckInterval = 0.1,
+            TargetCheckInterval = 1,
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 
-            WeaponRepackTimeout = 5,
-            WeaponUnpacks = true,
+            --WeaponRepackTimeout = 5,
+            --WeaponUnpacks = true,
         },
 		
 		-- Right Shoulder Energy Lance --
@@ -2943,9 +2910,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
-
             RangeCategory = 'UWRC_AntiAir',
 
             RateOfFire = 1,     -- 160 DPS AIR
@@ -2963,7 +2927,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Lance_Muzzle',
             TurretBonePitch = 'Right_Lance_Pitch',
             TurretBoneYaw = 'Right_Lance_Turret',
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 100,
@@ -3024,9 +2987,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
-
             RangeCategory = 'UWRC_AntiAir',
 
             RateOfFire = 1,     -- 160 DPS Air
@@ -3044,7 +3004,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Lance_Muzzle',
             TurretBonePitch = 'Left_Lance_Pitch',
             TurretBoneYaw = 'Left_Lance_Turret',
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 100,
@@ -3080,6 +3039,8 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Flapjack Missile Cluster',
+            
+            EnabledByEnhancement = 'EXClusterMisslePack',
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -3117,8 +3078,6 @@ UnitBlueprint {
                 },
             },
 
-            RackSalvoSize = 1,
-
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.2,       -- 6 x 150 = 900 * .2 = 180 DPS
@@ -3152,6 +3111,8 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Spearhead Missile Pack',
+            
+            EnabledByEnhancement = 'EXClusterMisslesPack',
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -3168,15 +3129,13 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 6,
+
             MuzzleVelocity = 5,
 			
 			NotExclusive = true,
 			
             ProjectileId = '/projectiles/TIFMissileCruise05/TIFMissileCruise05_proj.bp',
             ProjectileLifetime = 20,
-
-            --ProjectileId = '/mods/BlackopsACUs/projectiles/EXClusterMissle01/EXClusterMissle01_proj.bp',
-            --ProjectileLifetime = 20,
 			
             RackBones = {
                 {
@@ -3191,8 +3150,6 @@ UnitBlueprint {
                     RackBone = 'Back_Upgrade_B01',
                 },
             },
-
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -3228,6 +3185,8 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Fractal Cluster Missiles',
+            
+            EnabledByEnhancement = 'EXClusterMissleSalvoPack',
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -3244,6 +3203,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 6,
+
             MuzzleVelocity = 10,
 
             NotExclusive = true,
@@ -3264,8 +3224,6 @@ UnitBlueprint {
                     RackBone = 'Back_Upgrade_B01',
                 },
             },
-
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			

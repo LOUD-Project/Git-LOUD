@@ -352,7 +352,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Beam_Muzzle01',
             TurretBonePitch = 'Beam_Muzzle01',
             TurretBoneYaw = 'Beam_Muzzle01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 60,
@@ -393,12 +392,16 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
             BeamLifetime = 0,
+
             CollideFriendly = false,
+
             ContinuousBeam = true,
 			
             Damage = 75,
@@ -452,7 +455,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Beam_Muzzle02',
             TurretBonePitch = 'Beam_Muzzle02',
             TurretBoneYaw = 'Beam_Muzzle02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 60,
@@ -493,7 +495,9 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
@@ -554,7 +558,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Beam_Muzzle03',
             TurretBonePitch = 'Beam_Muzzle03',
             TurretBoneYaw = 'Beam_Muzzle03',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 60,
@@ -611,6 +614,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 66,
 			
             ProjectileId = '/projectiles/SAAOlarisAAArtillery03/SAAOlarisAAArtillery03_proj.bp',
@@ -641,7 +645,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_AA_Muzzle',
             TurretBonePitch = 'Left_AA_Turret',
             TurretBoneYaw = 'Left_AA_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 85,
@@ -696,6 +699,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 66,
 			
             ProjectileId = '/projectiles/SAAOlarisAAArtillery03/SAAOlarisAAArtillery03_proj.bp',
@@ -724,7 +728,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_AA_Muzzle',
             TurretBonePitch = 'Right_AA_Turret',
             TurretBoneYaw = 'Right_AA_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 85,

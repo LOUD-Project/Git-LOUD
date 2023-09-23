@@ -251,8 +251,10 @@ UnitBlueprint {
             MaxRadius = 80,
 			
             MuzzleChargeDelay = 0.1,
-            MuzzleSalvoDelay = 0.25,
+
+            MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 3,
+
             MuzzleVelocity = 36,
 			
             ProjectileId = '/projectiles/SDFShieeihAutoCannon01/SDFShieeihAutoCannon01_proj.bp',
@@ -288,7 +290,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret01_Muzzle03',
             TurretBonePitch = 'Turret01_Barrel',
             TurretBoneYaw = 'Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 40,
@@ -340,8 +341,10 @@ UnitBlueprint {
             MaxRadius = 80,
 			
             MuzzleChargeDelay = 0.1,
-            MuzzleSalvoDelay = 0.25,
+
+            MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 3,
+
             MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/SDFShieeihAutoCannon01/SDFShieeihAutoCannon01_proj.bp',
@@ -376,7 +379,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret02_Muzzle03',
             TurretBonePitch = 'Turret02_Barrel',
             TurretBoneYaw = 'Turret02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 40,
@@ -428,8 +430,10 @@ UnitBlueprint {
             MaxRadius = 80,
 			
             MuzzleChargeDelay = 0.1,
-            MuzzleSalvoDelay = 0.25,
+
+            MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 3,
+
             MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/SDFShieeihAutoCannon01/SDFShieeihAutoCannon01_proj.bp',
@@ -465,7 +469,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret03_Muzzle03',
             TurretBonePitch = 'Turret03_Barrel',
             TurretBoneYaw = 'Turret03',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 40,
@@ -497,7 +500,7 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            AutoInitiateAttackCommand = false,
+
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
@@ -553,7 +556,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Lasor_Turret01_Muzzle',
             TurretBonePitch = 'Lasor_Turret01_Barrel',
             TurretBoneYaw = 'Lasor_Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 20,
@@ -585,11 +587,12 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            AutoInitiateAttackCommand = false,
+
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
             BeamLifetime = 1,
+
             CollideFriendly = false,
 			
             Damage = 50,	-- 500 dmg
@@ -637,7 +640,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Lasor_Turret02_Muzzle',
             TurretBonePitch = 'Lasor_Turret02_Barrel',
             TurretBoneYaw = 'Lasor_Turret02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 20,
@@ -683,6 +685,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
+
             MuzzleVelocity = 70,
 			
             ProjectileId = '/projectiles/SAALosaareAutoCannon03/SAALosaareAutoCannon03_proj.bp',
@@ -717,7 +720,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_AA_Turret_Muzzle01',
             TurretBonePitch = 'Front_AA_Turret_Barrel',
             TurretBoneYaw = 'Front_AA_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 30,
             TurretPitchRange = 85,
@@ -763,6 +765,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 3,
+
             MuzzleVelocity = 70,
 			
             ProjectileId = '/projectiles/SAALosaareAutoCannon03/SAALosaareAutoCannon03_proj.bp',
@@ -794,7 +797,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_AA_Turret_Muzzle01',
             TurretBonePitch = 'Back_AA_Turret_Barrel',
             TurretBoneYaw = 'Back_AA_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 85,
@@ -841,10 +843,9 @@ UnitBlueprint {
             MaxRadius = 116,
             MinRadius = 30,
 			
-            MuzzleChargeDelay = 0.25,
+            MuzzleChargeDelay = 0.2,
 
             MuzzleVelocity = 26,
-			
             MuzzleVelocityReduceDistance = 85,
 			
             ProjectileId = '/projectiles/SIFSuthanusArtilleryShell01/SIFSuthanusArtilleryShell01_proj.bp',
@@ -875,7 +876,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Bombard_Turret_Muzzle',
             TurretBonePitch = 'Bombard_Turret_Barrel',
             TurretBoneYaw = 'Bombard_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 30,
             TurretPitchRange = 40,
@@ -951,7 +951,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Orb_Muzzle01',
             TurretBonePitch = 'Orb_Muzzle01',
             TurretBoneYaw = 'Orb_Muzzle01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 30,
             TurretPitchRange = 180,
@@ -973,8 +972,9 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            AutoInitiateAttackCommand = false,
+
             BallisticArc = 'RULEUBA_None',
+
             BeamCollisionDelay = 0,
             BeamLifetime = 0.2,
 			
@@ -983,7 +983,6 @@ UnitBlueprint {
 			
             Damage = 75,		-- 150 damage
             DamageFriendly = false,
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Unstable Phason Laser 2',
@@ -1024,7 +1023,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Orb_Muzzle02',
             TurretBonePitch = 'Orb_Muzzle02',
             TurretBoneYaw = 'Orb_Muzzle02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 60,

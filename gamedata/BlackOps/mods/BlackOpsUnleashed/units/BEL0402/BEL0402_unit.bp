@@ -299,9 +299,9 @@ UnitBlueprint {
 	        MinRadius = 12,
 			
             MuzzleChargeDelay = 0.5,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 3,
+
             MuzzleVelocityRandom = 0.2,
 			
 			NotExclusive = true,
@@ -440,8 +440,6 @@ UnitBlueprint {
                 },
             },
 
-            RackSlavedToTurret = true,
-
             RangeCategory = 'UWRC_DirectFire',
             
 			ReTargetOnMiss = true,
@@ -513,15 +511,11 @@ UnitBlueprint {
             FiringTolerance = 1,
             FiringRandomness = 1.5,
 			
-           -- HeadingArcCenter = -90,
-           -- HeadingArcRange = 110,
-			
             Label = 'Flamer',
 			
             MaxRadius = 38,
 			MinRadius = 4,
 			
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 20,
 			
 			NotExclusive = true,
@@ -536,8 +530,6 @@ UnitBlueprint {
                     RackBone = 'Right_Arm_Pitch',
                 },
             },
-
-            RackSlavedToTurret = true,
 
             RateOfFire = 3,		---- 900 DPS
 			
@@ -600,9 +592,7 @@ UnitBlueprint {
 			
             MaxRadius = 38,
 			MinRadius = 4,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 20,
 			
 			NotExclusive = true,
@@ -617,8 +607,6 @@ UnitBlueprint {
                     RackBone = 'Left_Arm_Pitch',
                 },
             },
-
-            RackSlavedToTurret = true,
 
             RateOfFire = 3,		---- 900 DPS
 			
@@ -756,7 +744,6 @@ UnitBlueprint {
 			
             MaxRadius = 55,
 			
-            MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 35,
@@ -766,9 +753,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Head',
-                    },
+                    MuzzleBones = {'Head'},
                     RackBone = 'Head',
                 },
             },
@@ -794,7 +779,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Head',
             TurretBonePitch = 'Head',
             TurretBoneYaw = 'Head',
-            TurretDualManipulators = false,
 			
             TurretPitch = 25,
             TurretPitchRange = 60,
@@ -863,11 +847,8 @@ UnitBlueprint {
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

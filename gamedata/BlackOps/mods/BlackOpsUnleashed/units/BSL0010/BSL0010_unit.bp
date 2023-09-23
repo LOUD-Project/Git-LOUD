@@ -212,7 +212,6 @@ UnitBlueprint {
 			
             MaxRadius = 33,
 
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/SDFTauCannon01/SDFTauCannon01_proj.bp',
@@ -287,7 +286,6 @@ UnitBlueprint {
 			
             MaxRadius = 25,
 
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/SIMAntiMissile01/SIMAntiMissile01_proj.bp',

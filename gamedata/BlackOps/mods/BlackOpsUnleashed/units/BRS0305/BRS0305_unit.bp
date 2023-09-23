@@ -323,6 +323,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 3,
             MuzzleVelocityRandom = 1,
 			
@@ -396,6 +397,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.6,
             MuzzleSalvoSize = 6,
+
             MuzzleVelocity = 5,
 			MuzzleVelocityRandom = 2,
 			
@@ -505,7 +507,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret01_Muzzle01',
             TurretBonePitch = 'Turret01_Barrel01',
             TurretBoneYaw = 'Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -580,7 +581,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret02_Muzzle01',
             TurretBonePitch = 'Turret02_Barrel01',
             TurretBoneYaw = 'Turret02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 120,

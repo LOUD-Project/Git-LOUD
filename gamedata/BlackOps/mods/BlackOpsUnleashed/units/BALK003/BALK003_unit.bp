@@ -182,21 +182,18 @@ UnitBlueprint {
     Weapon = {
 		{
 			advancedTracking = true,
+
             AlwaysRecheckTarget = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0111_Missile_Serpent',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-				Open = Sound {
-                    Bank = 'UAB',
-                    Cue = 'UAB2304_Activate',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAL0111_Missile_Serpent', LodCutoff = 'Weapon_LodCutoff' },
+				Open = Sound { Bank = 'UAB', Cue = 'UAB2304_Activate', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
+
             CollideFriendly = false,
 			
             Damage = 200,
@@ -210,17 +207,18 @@ UnitBlueprint {
             },
 			
             FiringTolerance = 100,
-            Label = 'Missile',
+
+            Label = 'AAMissile',
 			
             MaxRadius = 44,
-			
-            MuzzleChargeDelay = 0.1,
+
 			MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 3,
+
             MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/AAAZealotMissile02/AAAZealotMissile02_proj.bp',
-            ProjectileLifetime = 3.2,
+            ProjectileLifetime = 3,
 
             RackBones = {
                 {
@@ -229,10 +227,12 @@ UnitBlueprint {
                     RackBone = 'Missile',
                 },
             },
+            
+            RackSalvoReloadTime = 1.1,
 
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 0.5,	---- 300 DPS Air
+            RateOfFire = 2,	---- 600 every 2 seconds - by delays
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -244,19 +244,10 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			
             TrackingRadius = 1.2,
-            TurretDualManipulators = false,
 			
-            TurretPitch = 0,
-            TurretPitchRange = 0,
-            TurretPitchSpeed = 0,
-			
-            TurretYaw = 0,
-            TurretYawRange = 0,
-            TurretYawSpeed = 0,
-			
-			WeaponRepackTimeout = 3,
+			WeaponRepackTimeout = 1.2,
             WeaponUnpackAnimation = '/mods/BlackOpsUnleashed/units/BALK003/BALK003_unpack.sca',
-            WeaponUnpackAnimationRate = 4,
+            WeaponUnpackAnimationRate = 4,  -- at rate of 4 - animation is 9 ticks long
             WeaponUnpackLocksMotion = false,
             WeaponUnpacks = true,
         },

@@ -5,7 +5,7 @@ UnitList = {
     },
   
 	T4AirExperimental1 = {
-		UEF = {'bea0403', 75},		-- Citadel Mk 1
+		UEF = {'bea0403', 100},		-- Citadel Mk 1
 	},
 
     T4AirExperimentalTransport = {
@@ -13,6 +13,6 @@ UnitList = {
     },
     
 	T4AirExperimental2 = {
-        UEF = {'bea0402', 50},		-- Citadel Mk 2
+        UEF = {'bea0402', 100},		-- Citadel Mk 2
     }, 
 }

@@ -263,7 +263,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Turret01_Muzzle',
             TurretBonePitch = 'Front_Turret01_Barrel',
             TurretBoneYaw = 'Front_Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 30,
             TurretPitchRange = 60,
@@ -312,7 +311,7 @@ UnitBlueprint {
             MaxRadius = 116,
             MinRadius = 30,
 			
-            MuzzleChargeDelay = 0.25,
+            MuzzleChargeDelay = 0.2,
 
             MuzzleVelocity = 25,
             MuzzleVelocityReduceDistance = 85,
@@ -342,7 +341,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Turret02_Muzzle',
             TurretBonePitch = 'Front_Turret02_Barrel',
             TurretBoneYaw = 'Front_Turret02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 30,
             TurretPitchRange = 60,
@@ -381,6 +379,7 @@ UnitBlueprint {
             FiringTolerance = 0.1,
 			
             Label = 'AAGun',
+
 			LeadTarget = true,
 			
             MaxRadius = 45,
@@ -400,12 +399,9 @@ UnitBlueprint {
                     RackBone = 'Back_Turret01_Barrel',
                 },
             },
-            RackFireTogether = true,
 
             RackRecoilDistance = -0.5,
 
-            RackSlavedToTurret = true,
-			
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 3,		-- 120 DPS Air
@@ -424,7 +420,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Turret01_Muzzle01',
             TurretBonePitch = 'Back_Turret01_Barrel',
             TurretBoneYaw = 'Back_Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 180,

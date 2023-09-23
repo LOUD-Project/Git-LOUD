@@ -230,7 +230,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Barrel_Recoil_Muzzle',
             TurretBonePitch = 'Turret',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 15,
@@ -275,6 +274,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 32,
 			
             ProjectileId = '/projectiles/SDFAireauBolter02/SDFAireauBolter02_proj.bp',
@@ -302,7 +302,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Turret_Barrel_Muzzle01',
             TurretBonePitch = 'Right_Turret',
             TurretBoneYaw = 'Right_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 60,
@@ -346,8 +345,8 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 32,
 
+            MuzzleVelocity = 32,
 			
             ProjectileId = '/projectiles/SDFAireauBolter02/SDFAireauBolter02_proj.bp',
             ProjectileLifetime = 1,
@@ -376,7 +375,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Turret_Barrel_Muzzle01',
             TurretBonePitch = 'Left_Turret',
             TurretBoneYaw = 'Left_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 60,
@@ -417,6 +415,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 3,
+
             MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/SANUallCavitationTorpedo01/SANUallCavitationTorpedo01_proj.bp',

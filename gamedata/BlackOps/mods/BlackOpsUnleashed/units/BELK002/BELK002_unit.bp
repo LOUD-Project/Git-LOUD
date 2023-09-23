@@ -199,7 +199,8 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 8,
-            MuzzleVelocity = 74,
+
+            MuzzleVelocity = 70,
 			
             NoPause = true,		-- umm...what does this really do?
 			
@@ -216,12 +217,8 @@ UnitBlueprint {
                 },
 			},
 
-            RackSalvoReloadTime = 1,
-			
-            RackSalvoSize = 5,
-			
-            RackSlavedToTurret = true,
-			
+            RackSalvoReloadTime = 0.2,
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 1,		-- 320 DPS Air
@@ -249,6 +246,7 @@ UnitBlueprint {
             TurretBonePitch = 'Left_Gun',
 			
             TurretBoneYaw = 'Turret',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 0,
@@ -257,7 +255,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 100,
+            TurretYawSpeed = 82,
 			
             Turreted = true,
 			

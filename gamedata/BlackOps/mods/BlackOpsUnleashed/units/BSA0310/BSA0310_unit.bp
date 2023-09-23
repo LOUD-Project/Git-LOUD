@@ -273,8 +273,10 @@ UnitBlueprint {
             MaxRadius = 44,
 			
             MuzzleChargeDelay = 0.1,
+
             MuzzleSalvoDelay = 0.3,
-            MuzzleSalvoSize = 8,	-- 2.5 seconds to launch salvo
+            MuzzleSalvoSize = 8,	-- 3.2 seconds to launch salvo
+
             MuzzleVelocity = 7,
 			
 			NotExclusive = true,
@@ -298,9 +300,7 @@ UnitBlueprint {
                 },
             },
 
-            RackSalvoReloadTime = 2.5,	-- 2.5 seconds to reload rack salvo
-
-            RackSalvoSize = 1,
+            RackSalvoReloadTime = 1.8,	-- 1.8 seconds to reload rack salvo
 
             SlavedToBody = true,
             SlavedToBodyArcRange = 30,
@@ -350,6 +350,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 4,
+
             MuzzleVelocity = 45,
 			
 			NotExclusive = true,
@@ -382,7 +383,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Muzzle01',
             TurretBonePitch = 'Left_Turret',
             TurretBoneYaw = 'Left_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = -20,
             TurretPitchRange = 75,
@@ -423,6 +423,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 4,
+
             MuzzleVelocity = 45,
 			
 			NotExclusive = true,
@@ -451,7 +452,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Muzzle01',
             TurretBonePitch = 'Right_Turret',
             TurretBoneYaw = 'Right_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = -20,
             TurretPitchRange = 75,
@@ -490,6 +490,7 @@ UnitBlueprint {
             FiringTolerance = 1,
 			
             Label = 'AATurret',
+
 			LeadTarget = true,
 			
             MaxRadius = 33,
@@ -524,7 +525,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Center_Muzzle01',
             TurretBonePitch = 'Center_Turret_Barrel',
             TurretBoneYaw = 'Center_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 75,

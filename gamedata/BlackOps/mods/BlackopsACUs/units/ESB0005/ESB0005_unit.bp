@@ -72,8 +72,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
         UniformScale = 0.0001,
     },
     Economy = {
@@ -83,13 +81,9 @@ UnitBlueprint {
     },
     General = {
     	CapCost = 0,
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryAircraft',
         FactionName = 'Seraphim',
         Icon = 'air',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
     },
     Interface = {
         HelpText = 'Lamdba Emitter',

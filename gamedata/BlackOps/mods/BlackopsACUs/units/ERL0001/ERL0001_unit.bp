@@ -1507,18 +1507,12 @@ UnitBlueprint {
 			
             MaxRadius = 25, --script must change this to match weapon upgrade range
 
-            MuzzleSalvoSize = 1,
-
             RackBones = {
                 {
                     MuzzleBones = { 'Turret_Muzzle_02' },
                     RackBone = 'Right_Turret',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = true,
 
             RateOfFire = 2,
 			
@@ -1575,7 +1569,6 @@ UnitBlueprint {
 			
             MaxRadius = 28,
 
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 40,
 			
             ProjectileId = '/projectiles/CDFCannonMolecular01/CDFCannonMolecular01_proj.bp',
@@ -1587,7 +1580,6 @@ UnitBlueprint {
                     RackBone = 'Right_Turret',
                 },
             },
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -1660,7 +1652,6 @@ UnitBlueprint {
 
             MaxRadius = 30,
 
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 25,
 
             NotExclusive = true,
@@ -1676,8 +1667,6 @@ UnitBlueprint {
                     RackBone = 'Right_Turret',
                 },
             },
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_Countermeasure',
 
@@ -1721,7 +1710,6 @@ UnitBlueprint {
 
             MaxRadius = 1,
 
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 0,
 			
             NukeInnerRingDamage = 14500,	--3500
@@ -1788,6 +1776,7 @@ UnitBlueprint {
 
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 6,
+
             MuzzleVelocity = 35,
 
             ProjectileId = '/projectiles/CDFRocketIridium02/CDFRocketIridium02_proj.bp',
@@ -1806,7 +1795,6 @@ UnitBlueprint {
                     RackBone = 'Combat_Engineering',
                 },
             },
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_DirectFire',
 
@@ -1878,6 +1866,7 @@ UnitBlueprint {
 
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 6,
+
             MuzzleVelocity = 35,
 
             ProjectileId = '/projectiles/CDFRocketIridium02/CDFRocketIridium02_proj.bp',
@@ -1896,7 +1885,6 @@ UnitBlueprint {
                     RackBone = 'Combat_Engineering',
                 },
             },
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_DirectFire',
 
@@ -1964,9 +1952,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
-
             RangeCategory = 'UWRC_AntiNavy',
 
             RateOfFire = 0.3,       -- 380 x 2 * .3 = 228 DPS
@@ -2001,6 +1986,7 @@ UnitBlueprint {
 
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 4,
+
             MuzzleVelocity = 6,
 
             ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
@@ -2012,9 +1998,6 @@ UnitBlueprint {
                     RackBone = 'Torpedo_Launcher',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_AntiNavy',
 
@@ -2050,6 +2033,7 @@ UnitBlueprint {
 
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 5,
+
             MuzzleVelocity = 8,
 
             ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
@@ -2061,9 +2045,6 @@ UnitBlueprint {
                     RackBone = 'Torpedo_Launcher',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_AntiNavy',
 
@@ -2112,8 +2093,6 @@ UnitBlueprint {
 
             MaxRadius = 45,
 
-            MuzzleSalvoSize = 1,
-
 			PrefersPrimaryWeaponTarget = true,
 
             RackBones = {
@@ -2122,8 +2101,6 @@ UnitBlueprint {
                     RackBone = 'Turret_Muzzle_02',
                 },
             },
-            RackReloadTimeout = 1,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_DirectFire',
 
@@ -2193,7 +2170,6 @@ UnitBlueprint {
             MaxRadius = 45,
 
             MuzzleChargeDelay = 0.2,
-            MuzzleSalvoSize = 1,
 
             RackBones = {
                 {
@@ -2201,8 +2177,6 @@ UnitBlueprint {
                     RackBone = 'EMP_Array_Muzzle_01',
                 },
             },
-            RackReloadTimeout = 1,
-            RackSalvoSize = 1,
 
             RateOfFire = 3,
 
@@ -2269,7 +2243,6 @@ UnitBlueprint {
             MaxRadius = 45,
 
             MuzzleChargeDelay = 0.2,
-            MuzzleSalvoSize = 1,
 
             RackBones = {
                 {
@@ -2277,8 +2250,6 @@ UnitBlueprint {
                     RackBone = 'EMP_Array_Muzzle_02',
                 },
             },
-            RackReloadTimeout = 1,
-            RackSalvoSize = 1,
 
             RateOfFire = 3,
 
@@ -2345,7 +2316,6 @@ UnitBlueprint {
             MaxRadius = 45,
 
             MuzzleChargeDelay = 0.2,
-            MuzzleSalvoSize = 1,
 
             RackBones = {
                 {
@@ -2353,8 +2323,6 @@ UnitBlueprint {
                     RackBone = 'EMP_Array_Muzzle_03',
                 },
             },
-            RackReloadTimeout = 1,
-            RackSalvoSize = 1,
 
             RateOfFire = 3,
 
@@ -2424,6 +2392,7 @@ UnitBlueprint {
 
             MuzzleChargeDelay = 0.8,
             MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 100,
 
             ProjectileId = '/mods/BlackopsACUs/projectiles/EXInvisoProectile01/EXInvisoProectile01_proj.bp',
@@ -2434,8 +2403,6 @@ UnitBlueprint {
                     RackBone = 'EMP_Array_Helper',
                 },
             },
-            RackReloadTimeout = 1,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_DirectFire',
 
@@ -2508,8 +2475,7 @@ UnitBlueprint {
             MaxRadius = 40,
 
             MuzzleChargeDelay = 0.8,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 100,
 
             ProjectileId = '/mods/BlackopsACUs/projectiles/EXInvisoProectile02/EXInvisoProectile02_proj.bp',
@@ -2521,8 +2487,6 @@ UnitBlueprint {
                     RackBone = 'EMP_Array_Helper',
                 },
             },
-            RackReloadTimeout = 1,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_DirectFire',
 
@@ -2595,7 +2559,7 @@ UnitBlueprint {
             MaxRadius = 45,
 
             MuzzleChargeDelay = 0.8,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 100,
 
             ProjectileId = '/mods/BlackopsACUs/projectiles/EXInvisoProectile03/EXInvisoProectile03_proj.bp',
@@ -2607,8 +2571,6 @@ UnitBlueprint {
                     RackBone = 'EMP_Array_Helper',
                 },
             },
-            RackReloadTimeout = 1,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_DirectFire',
 
@@ -2618,8 +2580,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -2684,8 +2645,6 @@ UnitBlueprint {
 
             MaxRadius = 30,
 
-            MuzzleSalvoSize = 1,
-
 			PrefersPrimaryWeaponTarget = true,
             RackBones = {
                 {
@@ -2693,8 +2652,6 @@ UnitBlueprint {
                     RackBone = 'Turret_Muzzle_03',
                 },
             },
-            RackReloadTimeout = 1,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_DirectFire',
 
@@ -2704,8 +2661,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -2767,16 +2723,12 @@ UnitBlueprint {
 
             MaxRadius = 34,
 
-            MuzzleSalvoSize = 1,
-
             RackBones = {
                 {
                     MuzzleBones = { 'Turret_Muzzle_03' },
                     RackBone = 'Turret_Muzzle_03',
                 },
             },
-            RackReloadTimeout = 1,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_DirectFire',
 
@@ -2847,7 +2799,6 @@ UnitBlueprint {
 
             MaxRadius = 40,
 
-            MuzzleSalvoSize = 1,
 			PrefersPrimaryWeaponTarget = true,
 
             RackBones = {
@@ -2856,8 +2807,6 @@ UnitBlueprint {
                     RackBone = 'Turret_Muzzle_03',
                 },
             },
-            RackReloadTimeout = 1,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_DirectFire',
 
@@ -2867,8 +2816,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -2923,8 +2871,6 @@ UnitBlueprint {
 
             MaxRadius = 37,
 
-            MuzzleSalvoSize = 1,
-
 			PrefersPrimaryWeaponTarget = false,
 
             RackBones = {
@@ -2933,8 +2879,6 @@ UnitBlueprint {
                     RackBone = 'Back_AA_Muzzle_04',
                 },
             },
-            RackReloadTimeout = 1,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_AntiAir',
 
@@ -3000,8 +2944,6 @@ UnitBlueprint {
 
             MaxRadius = 35,
 
-            MuzzleSalvoSize = 1,
-
 			PrefersPrimaryWeaponTarget = false,
 
             RackBones = {
@@ -3010,8 +2952,6 @@ UnitBlueprint {
                     RackBone = 'Back_AA_Muzzle_03',
                 },
             },
-            RackReloadTimeout = 1,
-            RackSalvoSize = 1,
 
             RateOfFire = 1,
 
@@ -3076,8 +3016,6 @@ UnitBlueprint {
 
             MaxRadius = 35,
 
-            MuzzleSalvoSize = 1,
-
 			PrefersPrimaryWeaponTarget = false,
 
             RackBones = {
@@ -3086,8 +3024,6 @@ UnitBlueprint {
                     RackBone = 'Back_AA_Muzzle_01',
                 },
             },
-            RackReloadTimeout = 1,
-            RackSalvoSize = 1,
 
             RateOfFire = 1,
 
@@ -3151,8 +3087,6 @@ UnitBlueprint {
 
             MaxRadius = 35,
 
-            MuzzleSalvoSize = 1,
-
 			PrefersPrimaryWeaponTarget = false,
 
             RackBones = {
@@ -3161,8 +3095,6 @@ UnitBlueprint {
                     RackBone = 'Back_AA_Muzzle_02',
                 },
             },
-            RackReloadTimeout = 1,
-            RackSalvoSize = 1,
 
             RateOfFire = 1,
 

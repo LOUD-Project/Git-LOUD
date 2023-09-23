@@ -239,7 +239,6 @@ UnitBlueprint {
             MuzzleChargeDelay = 0.25,
 
             MuzzleVelocity = 22,
-			
             MuzzleVelocityReduceDistance = 85,
 			
             ProjectileId = '/projectiles/SIFSuthanusArtilleryShell01/SIFSuthanusArtilleryShell01_proj.bp',
@@ -271,7 +270,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Barrel_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 30,
             TurretPitchRange = 40,
@@ -283,7 +281,7 @@ UnitBlueprint {
 			
             Turreted = true,
 
-            WeaponRepackTimeout = 0.1,
+            WeaponRepackTimeout = 0.3,
             WeaponUnpackAnimation = '/units/XSL0304/XSL0304_attack01.sca',
             WeaponUnpackAnimationRate = 1,
             WeaponUnpackLocksMotion = true,

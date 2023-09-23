@@ -1402,19 +1402,12 @@ UnitBlueprint {
 			
             MaxRadius = 25, --script must change this to match weapon upgrade range
 
-            MuzzleSalvoSize = 1,
-
             RackBones = {
                 {
                     MuzzleBones = {'Right_Turret_Muzzle'},
                     RackBone = 'Right_Arm_B02',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
-
-            RackSlavedToTurret = true,
 
             RateOfFire = 2,
 			
@@ -1470,8 +1463,7 @@ UnitBlueprint {
             Label = 'ChronotronCannon',
 			
             MaxRadius = 28,
-			
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
 			
 			NotExclusive = true,
@@ -1485,9 +1477,7 @@ UnitBlueprint {
                     RackBone = 'Right_Arm_B02',
                 },
             },
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 2,
@@ -1554,7 +1544,6 @@ UnitBlueprint {
 
             MaxRadius = 30,
 
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 25,
 
             OverChargeWeapon = true,
@@ -1570,8 +1559,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_Countermeasure',
 
@@ -1613,7 +1600,6 @@ UnitBlueprint {
 
             MaxRadius = 1,
 
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 0,
 			
             NukeInnerRingDamage = 14500,
@@ -1662,6 +1648,7 @@ UnitBlueprint {
 
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 6,
 
             ProjectileId = '/projectiles/SANUallCavitationTorpedo02/SANUallCavitationTorpedo02_proj.bp',
@@ -1673,9 +1660,6 @@ UnitBlueprint {
                     RackBone = 'Torpedo_Launcher',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_AntiNavy',
 
@@ -1711,6 +1695,7 @@ UnitBlueprint {
 
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 4,
+
             MuzzleVelocity = 6,
 
             ProjectileId = '/projectiles/SANUallCavitationTorpedo02/SANUallCavitationTorpedo02_proj.bp',
@@ -1722,9 +1707,6 @@ UnitBlueprint {
                     RackBone = 'Torpedo_Launcher',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_AntiNavy',
 
@@ -1760,6 +1742,7 @@ UnitBlueprint {
 
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 5,
+
             MuzzleVelocity = 8,
 
             ProjectileId = '/projectiles/SANUallCavitationTorpedo02/SANUallCavitationTorpedo02_proj.bp',
@@ -1771,9 +1754,6 @@ UnitBlueprint {
                     RackBone = 'Torpedo_Launcher',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_AntiNavy',
 
@@ -1831,7 +1811,7 @@ UnitBlueprint {
             MinRadius = 2,
 
             MuzzleChargeDelay = 2.5,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 15,
 
 			NotExclusive = true,
@@ -1847,9 +1827,6 @@ UnitBlueprint {
                     RackBone = 'Big_Ball_Cannon',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_DirectFire',
 
@@ -1918,7 +1895,7 @@ UnitBlueprint {
             MinRadius = 2,
 
             MuzzleChargeDelay = 2.5,    -- 2.5 second muzzle charge delay
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 18,
 
 			NotExclusive = true,
@@ -1934,8 +1911,6 @@ UnitBlueprint {
                     RackBone = 'Big_Ball_Cannon',
                 },
             },
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_DirectFire',
 
@@ -2004,7 +1979,7 @@ UnitBlueprint {
             MinRadius = 3,
 
             MuzzleChargeDelay = 2,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 18,
 
 			NotExclusive = true,
@@ -2020,8 +1995,6 @@ UnitBlueprint {
                     RackBone = 'Big_Ball_Cannon',
                 },
             },
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_DirectFire',
 
@@ -2079,7 +2052,6 @@ UnitBlueprint {
             MaxRadius = 36,
             MinRadius = 2,
 
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 36,
 
 			NoPause = true,
@@ -2094,7 +2066,6 @@ UnitBlueprint {
                     RackBone = 'Rapid_Cannon',
                 },
             },
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_DirectFire',
 
@@ -2104,8 +2075,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -2152,7 +2122,6 @@ UnitBlueprint {
             MaxRadius = 48,
             MinRadius = 2,
 
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 40,
 
 			NoPause = true,
@@ -2168,7 +2137,6 @@ UnitBlueprint {
                     RackBone = 'Rapid_Cannon',
                 },
             },
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_DirectFire',
 
@@ -2226,7 +2194,6 @@ UnitBlueprint {
             MaxRadius = 57,
             MinRadius = 2,
 
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 40,
 
 			NoPause = true,
@@ -2242,7 +2209,6 @@ UnitBlueprint {
                     RackBone = 'Rapid_Cannon',
                 },
             },
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_DirectFire',
 
@@ -2322,8 +2288,6 @@ UnitBlueprint {
                     RackBone = 'Left_AA_Barrel03',
                 },
             },
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_AntiAir',
 
@@ -2398,6 +2362,7 @@ UnitBlueprint {
 
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 3,
+
             MuzzleVelocity = 20,
 
             PrefersPrimaryWeaponTarget = true,
@@ -2411,8 +2376,6 @@ UnitBlueprint {
                     RackBone = 'Right_AA_Barrel',
                 },
             },
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_AntiAir',
 
@@ -2421,13 +2384,10 @@ UnitBlueprint {
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE TECH3 BOMBER',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
-                'AIR MOBILE TRANSPORTATION',
+                'BOMBER',
+                'GROUNDATTACK',
+                'TRANSPORTATION',
                 'AIR MOBILE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',

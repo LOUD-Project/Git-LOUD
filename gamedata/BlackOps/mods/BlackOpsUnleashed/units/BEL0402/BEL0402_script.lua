@@ -98,9 +98,7 @@ BEL0402 = Class(TWalkingLandUnit) {
 	end,
 	
 	--+ Destruction Effects +--
-	DestructionEffectBones = {
-		'Left_Arm_Muzzle',
-	},
+	DestructionEffectBones = {'Left_Arm_Muzzle'},
 	
 	CreateDamageEffects = function(self, bone, army )
         for k, v in EffectTemplate.DamageFireSmoke01 do

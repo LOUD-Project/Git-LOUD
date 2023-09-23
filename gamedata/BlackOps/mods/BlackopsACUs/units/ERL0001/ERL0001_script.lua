@@ -45,6 +45,8 @@ ERL0001 = Class(CWalkingLandUnit) {
     Weapons = {
 
         DeathWeapon = Class(CIFCommanderDeathWeapon) {},
+		
+        EXTargetPainter = Class(EXCEMPArrayBeam01) {},
 
         RightRipper = Class(CCannonMolecularWeapon) {
 

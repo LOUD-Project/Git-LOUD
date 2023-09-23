@@ -318,16 +318,12 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL EXPERIMENTAL',
-                'NAVAL MOBILE TECH3',
-                'NAVAL MOBILE TECH2',
-                'NAVAL MOBILE TECH1',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
+                'NAVAL MOBILE',
+                'MOBILE',
                 'ARTILLERY',
                 'SHIELD',
                 'FACTORY',
                 'ECONOMIC',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -336,7 +332,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Right_Muzzle',
             TurretBonePitch = 'front_middle_barrel01',
             TurretBoneYaw = 'front_turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 45,
@@ -369,10 +364,13 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
+
             Damage = 55,
             DamageRadius = 1,
             DamageType = 'Normal',
+
             DisplayName = 'Proton Cannon',
+
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
@@ -427,7 +425,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Right_Muzzle01',
             TurretBonePitch = 'front_barrel',
             TurretBoneYaw = 'front_turret01',
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 45,
@@ -510,11 +507,8 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL EXPERIMENTAL',
-                'NAVAL MOBILE TECH3',
-                'NAVAL MOBILE TECH2',
-                'NAVAL MOBILE TECH1',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
+                'NAVAL MOBILE',
+                'MOBILE',
                 'ARTILLERY',
                 'SHIELD',
                 'FACTORY',
@@ -529,8 +523,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'right_barrel',
             TurretBonePitch = 'right_barrel',
             TurretBoneYaw = 'right_turret',
-			
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 80,
@@ -618,7 +610,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'left_barrel',
             TurretBonePitch = 'left_barrel',
             TurretBoneYaw = 'left_turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 80,
@@ -661,6 +652,7 @@ UnitBlueprint {
             
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 6,
+
             MuzzleVelocity = 40,
 			
             ProjectileId = '/projectiles/CAANanoDart03/CAANanoDart03_proj.bp',
@@ -693,13 +685,14 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+
             ToggleWeapon = 'GroundGun',
+
             TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Right_Launcher_Muzzle01',
             TurretBonePitch = 'launcher_barrel',
             TurretBoneYaw = 'launcher_turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 35,
             TurretPitchRange = 80,
@@ -764,7 +757,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Zapper_Muzzle',
             TurretBonePitch = 'zapper',
             TurretBoneYaw = 'zapper',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -802,12 +794,14 @@ UnitBlueprint {
             FiringTolerance = 2,
 			
             Label = 'GroundGun',
+
             LeadTarget = true,
 			
             MaxRadius = 65,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 6,
+
             MuzzleVelocity = 32,
 			
             ProjectileId = '/projectiles/CAANanoDart02/CAANanoDart02_proj.bp',
@@ -836,11 +830,8 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL EXPERIMENTAL',
-                'NAVAL MOBILE TECH3',
-                'NAVAL MOBILE TECH2',
-                'NAVAL MOBILE TECH1',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
+                'NAVAL MOBILE',
+                'MOBILE',
                 'ARTILLERY',
                 'SHIELD',
                 'FACTORY',
@@ -849,13 +840,14 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
+
             ToggleWeapon = 'AAGun',
+
             TrackingRadius = 1.1,
 
             TurretBoneMuzzle = 'Right_Launcher_Muzzle01',
             TurretBonePitch = 'launcher_barrel',
             TurretBoneYaw = 'launcher_turret',
-            TurretDualManipulators = false,
 
             TurretPitch = 35,
             TurretPitchRange = 40,
@@ -895,6 +887,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 4,
+
             MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
@@ -957,6 +950,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 1.2,
             MuzzleSalvoSize = 4,
+
             MuzzleVelocity = 4,
 			
 			NotExclusive = true,

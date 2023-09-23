@@ -28,36 +28,46 @@ BEA0402 = Class(TAirUnit) {
         GattlerTurret01 = Class(CitadelPlasmaGatlingCannonWeapon) {
 		
             PlayFxWeaponPackSequence = function(self)
+
                 if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(0)
                 end
+
 				if self.SpinManip2 then
                     self.SpinManip2:SetTargetSpeed(0)
                 end
+
                 self.ExhaustEffects = EffectUtils.CreateBoneEffects( self.unit, 'Gat_Muzzle_2', self.unit:GetArmy(), Effects.WeaponSteam01 )
+
                 CitadelPlasmaGatlingCannonWeapon.PlayFxWeaponPackSequence(self)
             end,
 
             PlayFxWeaponUnpackSequence = function(self)
+
                 if not self.SpinManip then 
                     self.SpinManip = CreateRotator(self.unit, 'Gat_Rotator_2', 'z', nil, 270, 180, 60)
                     self.unit.Trash:Add(self.SpinManip)
                 end
    
-   if self.SpinManip then
+                if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(500)
                 end
+
                 CitadelPlasmaGatlingCannonWeapon.PlayFxWeaponUnpackSequence(self)
             end,
 
             PlayFxRackSalvoReloadSequence = function(self)
+
                 if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(200)
                 end
+
 				if self.SpinManip2 then
                     self.SpinManip2:SetTargetSpeed(-200)
                 end
+
                 self.ExhaustEffects = EffectUtils.CreateBoneEffects( self.unit, 'Gat_Muzzle_2', self.unit:GetArmy(), Effects.WeaponSteam01 )
+
                 CitadelPlasmaGatlingCannonWeapon.PlayFxRackSalvoReloadSequence(self)
             end,    
         },
@@ -65,36 +75,46 @@ BEA0402 = Class(TAirUnit) {
 		GattlerTurret02 = Class(CitadelPlasmaGatlingCannonWeapon) {
 		
             PlayFxWeaponPackSequence = function(self)
+
                 if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(0)
                 end
+
 				if self.SpinManip2 then
                     self.SpinManip2:SetTargetSpeed(0)
                 end
+
                 self.ExhaustEffects = EffectUtils.CreateBoneEffects( self.unit, 'Gat_Muzzle_1', self.unit:GetArmy(), Effects.WeaponSteam01 )
+
                 CitadelPlasmaGatlingCannonWeapon.PlayFxWeaponPackSequence(self)
             end,
 
             PlayFxWeaponUnpackSequence = function(self)
+
                 if not self.SpinManip then 
                     self.SpinManip = CreateRotator(self.unit, 'Gat_Rotator_1', 'z', nil, 270, 180, 60)
                     self.unit.Trash:Add(self.SpinManip)
                 end
    
-   if self.SpinManip then
+                if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(500)
                 end
+
                 CitadelPlasmaGatlingCannonWeapon.PlayFxWeaponUnpackSequence(self)
             end,
 
             PlayFxRackSalvoReloadSequence = function(self)
+
                 if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(200)
                 end
+
 				if self.SpinManip2 then
                     self.SpinManip2:SetTargetSpeed(-200)
                 end
+
                 self.ExhaustEffects = EffectUtils.CreateBoneEffects( self.unit, 'Gat_Muzzle_1', self.unit:GetArmy(), Effects.WeaponSteam01 )
+
                 CitadelPlasmaGatlingCannonWeapon.PlayFxRackSalvoReloadSequence(self)
             end,    
         },

@@ -1542,17 +1542,12 @@ UnitBlueprint {
 			
             MaxRadius = 25, --script must change this to match weapon upgrade range
 
-            MuzzleSalvoSize = 1,
-
             RackBones = {
                 {
                     MuzzleBones = {'Right_Turret_Muzzle'},
                     RackBone = 'Right_Turret',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RateOfFire = 2,
 			
@@ -1617,7 +1612,6 @@ UnitBlueprint {
             MaxRadius = 28,
             MinRadius = 1,
 
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 40,
 
             ProjectileId = '/projectiles/ADFQuantumDisruptor01/ADFQuantumDisruptor01_proj.bp',
@@ -1629,9 +1623,6 @@ UnitBlueprint {
                     RackBone = 'Right_Turret',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -1701,7 +1692,6 @@ UnitBlueprint {
 			
             MaxRadius = 30,
 
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 25,
             
             NotExclusive = true,
@@ -1719,8 +1709,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -1763,7 +1751,6 @@ UnitBlueprint {
 			
             MaxRadius = 1,
 
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 0,
 			
             NukeInnerRingDamage = 14500,	--3500
@@ -1837,7 +1824,6 @@ UnitBlueprint {
 			
             MaxRadius = 22,
 
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 30,
             
             NotExclusive = true,
@@ -1848,9 +1834,6 @@ UnitBlueprint {
                     RackBone = 'Head',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RateOfFire = 1,     -- controlled by charge cycle
             TargetCheckInterval = 5,
@@ -1898,8 +1881,6 @@ UnitBlueprint {
 			
             MaxRadius = 30,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 30,
             
             NotExclusive = true,
@@ -1910,9 +1891,6 @@ UnitBlueprint {
                     RackBone = 'Head',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 			
             RateOfFire = 1,     -- controlled by charge cycle
             TargetCheckInterval = 5,
@@ -1955,9 +1933,6 @@ UnitBlueprint {
                     RackBone = 'Torpedo_Launcher',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -2008,9 +1983,6 @@ UnitBlueprint {
                     RackBone = 'Torpedo_Launcher',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -2062,9 +2034,6 @@ UnitBlueprint {
                     RackBone = 'Torpedo_Launcher',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_AntiNavy',
 
@@ -2144,7 +2113,6 @@ UnitBlueprint {
             RackFireTogether = true,
 			
             RackRecoilDistance = -2,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -2218,7 +2186,6 @@ UnitBlueprint {
             MaxRadius = 112,
             MinRadius = 10,
 
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 29,
 			MuzzleVelocityReduceDistance = 85,
             
@@ -2239,7 +2206,6 @@ UnitBlueprint {
             RackFireTogether = true,
 
             RackRecoilDistance = -2,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -2312,7 +2278,6 @@ UnitBlueprint {
             MaxRadius = 124,
             MinRadius = 10,
 
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 28,
 			MuzzleVelocityReduceDistance = 90,
             
@@ -2333,7 +2298,6 @@ UnitBlueprint {
             RackFireTogether = true,
 
             RackRecoilDistance = -3,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -2405,8 +2369,6 @@ UnitBlueprint {
 			
             MaxRadius = 38,
 
-            MuzzleSalvoSize = 1,
-            
             NotExclusive = true,
 			
             RackBones = {
@@ -2415,7 +2377,6 @@ UnitBlueprint {
                     RackBone = 'Right_Turret',
                 },
             },
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -2480,9 +2441,6 @@ UnitBlueprint {
             Label = 'EXPhasonBeam02',
 			
             MaxRadius = 46,
-
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             
             NotExclusive = true,
 			
@@ -2492,9 +2450,6 @@ UnitBlueprint {
                     RackBone = 'Right_Turret',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -2557,8 +2512,6 @@ UnitBlueprint {
             Label = 'EXPhasonBeam03',
 			
             MaxRadius = 55,
-
-            MuzzleSalvoSize = 1,
             
             NotExclusive = true,
 
@@ -2568,9 +2521,6 @@ UnitBlueprint {
                     RackBone = 'Right_Turret',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_DirectFire',
 			

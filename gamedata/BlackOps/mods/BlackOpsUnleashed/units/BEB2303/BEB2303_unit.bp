@@ -74,9 +74,8 @@ UnitBlueprint {
         BuildCostEnergy = 20000,
         BuildCostMass = 2200,
         BuildTime = 2200,
-        RebuildBonusIds = {
-            'beb2303',
-        },
+
+        RebuildBonusIds = {'beb2303'},
     },
 	
     Footprint = {
@@ -215,7 +214,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Fake_Muzzle',
             TurretBonePitch = 'Pitch',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 30,
             TurretPitchRange = 70,
@@ -227,7 +225,6 @@ UnitBlueprint {
 
             Turreted = true,
 			
-			WeaponUnpackTimeout = 3,
             WeaponRepackTimeout = 3,
             WeaponUnpacks = true,
         },

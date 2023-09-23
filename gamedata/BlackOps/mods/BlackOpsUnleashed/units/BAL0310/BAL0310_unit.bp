@@ -137,7 +137,9 @@ UnitBlueprint {
         MeshExtentsY = 0.7,
         MeshExtentsZ = 2.0,
         MinSpeedPercent = 0,
+
         MotionType = 'RULEUMT_Hover',
+
         RotateBodyWhileMoving = true,
         RotateOnSpot = false,
         
@@ -174,23 +176,23 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0304_Artillery_Sonance',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAL0304_Artillery_Sonance', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
             Damage = 800,
             DamageFriendly = true,
             DamageRadius = 1.6,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult1.1',
 			
             DisplayName = 'Sonance Artillery',
-            
+
+            EnergyChargeForFirstShot = false,
+
             EnergyRequired = 440,
             EnergyDrainPerSecond = 132,
 			
@@ -204,13 +206,13 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-            MaxRadius = 49,
+            MaxRadius = 50,
 
             LeadTarget = true,
 			
             MuzzleChargeDelay = 0.2,
 
-            MuzzleVelocity = 24,
+            MuzzleVelocity = 26,
 			
             NotExclusive = true,
 			
@@ -218,18 +220,12 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Main_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Main_Turret_Muzzle'},
                     RackBone = 'Main_Turret_Barrel',
                 },
             },
 
             RackRecoilDistance = -1,
-
-            RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -243,10 +239,10 @@ UnitBlueprint {
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
+
             TurretBoneMuzzle = 'Main_Turret_Muzzle',
             TurretBonePitch = 'Main_Turret_Barrel',
             TurretBoneYaw = 'Main_Turret_Barrel',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 45,
@@ -254,24 +250,22 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 30,
-            TurretYawSpeed = 20,
+            TurretYawSpeed = 22,
 			
             Turreted = true,
         },
         {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
+
             Audio = {
-                MuzzleChargeStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0202_Cannon_Quantum',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                MuzzleChargeStart = Sound { Bank = 'UALWeapon', Cue = 'UAL0202_Cannon_Quantum', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 160,
+            Damage = 120,
             DamageType = 'Normal',
 			
             DisplayName = 'Quantum Cannon',
@@ -291,6 +285,8 @@ UnitBlueprint {
             MuzzleChargeDelay = 0.4,
 
             MuzzleVelocity = 45,
+            
+            NotExclusive = true,
 
             ProjectileId = '/projectiles/ADFQuantumCannon02/ADFQuantumCannon02_proj.bp',
 
@@ -307,16 +303,12 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.5,
 
-            RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
-
             SlavedToBody = true,
-            SlavedToBodyArcRange = 10,
+            SlavedToBodyArcRange = 18,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1.5, -- 240 dps
+            RateOfFire = 2, -- 240 dps
 			
             TargetCheckInterval = 0.6,
             TargetPriorities = {
@@ -330,9 +322,12 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'L_Turret_Muzzle',
             TurretBoneDualPitch = 'Left_Gun_Pivot',
+
             TurretBoneMuzzle = 'R_Turret_Muzzle',
             TurretBonePitch = 'Right_Gun_Pivot',
+
             TurretBoneYaw = 'BAL0310',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 0,
@@ -340,8 +335,8 @@ UnitBlueprint {
             TurretPitchSpeed = 25,
 			
             TurretYaw = 0,
-            TurretYawRange = 30,
-            TurretYawSpeed = 15,
+            TurretYawRange = 18,
+            TurretYawSpeed = 10,
 			
             Turreted = true,
 

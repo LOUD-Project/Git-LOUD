@@ -13,12 +13,14 @@ local CreateRotator = CreateRotator
 
 BELK002 = Class(TLandUnit) {
     Weapons = {
-        GatlingCannon = Class(TAAPhalanxWeapon) 
-        {
+        GatlingCannon = Class(TAAPhalanxWeapon) {
+
             PlayFxWeaponPackSequence = function(self)
+
                 if self.SpinManip1 then
                     self.SpinManip1:SetTargetSpeed(0)
                 end
+
                 if self.SpinManip2 then
                     self.SpinManip2:SetTargetSpeed(0)
                 end
@@ -26,7 +28,7 @@ BELK002 = Class(TLandUnit) {
                 self.ExhaustEffects = CreateBoneEffects( self.unit, 'Left_Muzzle', self.unit.Army, Effects.WeaponSteam01 )
                 self.ExhaustEffects = CreateBoneEffects( self.unit, 'Right_Muzzle', self.unit.Army, Effects.WeaponSteam01 )
    
-   TAAPhalanxWeapon.PlayFxWeaponPackSequence(self)
+                TAAPhalanxWeapon.PlayFxWeaponPackSequence(self)
             end,
         
             PlayFxRackSalvoChargeSequence = function(self)

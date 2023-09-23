@@ -165,8 +165,6 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 1.5,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -178,9 +176,8 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Advanced',
+
         UnitName = '<LOC brl0307_name>Hailfire',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -329,7 +326,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle01',
             TurretBonePitch = 'Turret_Pitch',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 15,
             TurretPitchRange = 65,

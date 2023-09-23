@@ -216,8 +216,6 @@ UnitBlueprint {
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'XAB4307',
 
-            TurretDualManipulators = false,
-
             TurretPitch = 0,
             TurretPitchRange = 100,
             TurretPitchSpeed = 60,

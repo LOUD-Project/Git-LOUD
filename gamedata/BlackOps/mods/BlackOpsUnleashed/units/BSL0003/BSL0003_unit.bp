@@ -203,6 +203,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 2,
+
             MuzzleVelocity = 33,
 			
             ProjectileId = '/projectiles/SDFAireauBolter01/SDFAireauBolter01_proj.bp',
@@ -218,10 +219,6 @@ UnitBlueprint {
                     RackBone = 'Left_Arm',
                 },
             },
-            
-            RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
 
             RackSlavedToTurret = true,
 			
@@ -241,9 +238,12 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'Left_Muzzle',
             TurretBoneDualPitch = 'Left_Arm',
+
             TurretBoneMuzzle = 'Right_Muzzle',
             TurretBonePitch = 'Right_Arm',
+
             TurretBoneYaw = 'Torso',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 0,

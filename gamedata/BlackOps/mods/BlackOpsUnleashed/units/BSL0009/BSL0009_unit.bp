@@ -241,7 +241,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'muzzle01',
             TurretBonePitch = 'muzzle01',
             TurretBoneYaw = 'muzzle01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 30,
             TurretPitchRange = 180,
@@ -254,7 +253,6 @@ UnitBlueprint {
             Turreted = true,
 
 			WeaponRepackTimeout = 2,
-
 			WeaponUnpackAnimation = '/mods/BlackOpsUnleashed/units/BSLK004/BSLK004_updummy.sca',
             WeaponUnpackAnimationRate = 3.8,
             WeaponUnpackLocksMotion = false,
@@ -322,7 +320,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'muzzle02',
             TurretBonePitch = 'muzzle02',
             TurretBoneYaw = 'muzzle02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 60,
@@ -372,9 +369,7 @@ UnitBlueprint {
             RateOfFire = 0.1,
 			
             TargetCheckInterval = 2.5,
-            TargetPriorities = {
-                'ALLUNITS',
-            },
+            TargetPriorities = {'ALLUNITS'},
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 4,
 			

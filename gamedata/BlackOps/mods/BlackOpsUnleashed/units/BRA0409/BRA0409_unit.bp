@@ -355,7 +355,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'R_Muzzle_01',
             TurretBonePitch = 'R_Barrel_01',
             TurretBoneYaw = 'R_Turret_01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 100,
@@ -418,9 +417,9 @@ UnitBlueprint {
 			
             MaxRadius = 45,
 			
-            MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 4,
+
             MuzzleVelocity = 30,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/RedTurbolaser01/RedTurbolaser01_proj.bp',
@@ -453,7 +452,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'L_Muzzle_01',
             TurretBonePitch = 'L_Barrel_01',
             TurretBoneYaw = 'L_Turret_01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 100,
@@ -551,14 +549,15 @@ UnitBlueprint {
             TurretBoneMuzzle = 'R_Back_Muzzle_01',
             TurretBonePitch = 'R_Back_Barrel_01',
             TurretBoneYaw = 'R_Back_Turret_01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 100,
             TurretPitchSpeed = 45,
+
             TurretYaw = 0,
             TurretYawRange = 70,
             TurretYawSpeed = 45,
+
             Turreted = true,
         },
 		
@@ -599,7 +598,9 @@ UnitBlueprint {
             DamageRadius = 1.5,
 			
             DamageType = 'Normal',
+
             DisplayName = 'Iridium Rocket Pack',
+
             FireTargetLayerCapsTable = {
             	Air = 'Land|Water',
             },
@@ -612,7 +613,6 @@ UnitBlueprint {
             LeadTarget = false,
             MaxRadius = 45,
 			
-            MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 30,
@@ -648,14 +648,15 @@ UnitBlueprint {
             TurretBoneMuzzle = 'L_Back_Muzzle_01',
             TurretBonePitch = 'L_Back_Barrel_01',
             TurretBoneYaw = 'L_Back_Turret_01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 100,
             TurretPitchSpeed = 45,
+
             TurretYaw = 0,
             TurretYawRange = 70,
             TurretYawSpeed = 45,
+
             Turreted = true,
         },
 		
@@ -719,8 +720,7 @@ UnitBlueprint {
 			
             RateOfFire = 1,		-- 200 DPS Air
 			ReTargetOnMiss = true,
-			
-			SlavedToBody = false,
+
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
@@ -736,7 +736,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'R_F_AA_Muzzle_01',
             TurretBonePitch = 'R_F_AA_Muzzle_01',
             TurretBoneYaw = 'R_F_AA_Muzzle_01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 180,
@@ -805,8 +804,7 @@ UnitBlueprint {
             RateOfFire = 1,		-- 200 DPS Air
             
 			ReTargetOnMiss = true,
-			
-			SlavedToBody = false,
+
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
@@ -821,7 +819,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'L_F_AA_Muzzle_01',
             TurretBonePitch = 'L_F_AA_Muzzle_01',
             TurretBoneYaw = 'L_F_AA_Muzzle_01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 180,
@@ -890,8 +887,7 @@ UnitBlueprint {
             RateOfFire = 1,		-- 200 DPS Air
             
 			ReTargetOnMiss = true,
-			
-			SlavedToBody = false,
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'MOBILE ANTIAIR',
@@ -905,7 +901,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'R_U_Muzzle_01',
             TurretBonePitch = 'R_U_Muzzle_01',
             TurretBoneYaw = 'R_U_Muzzle_01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 100,
@@ -974,7 +969,6 @@ UnitBlueprint {
             
 			ReTargetOnMiss = true,
 			
-			SlavedToBody = false,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'MOBILE ANTIAIR',
@@ -989,7 +983,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'L_U_AA_Muzzle01',
             TurretBonePitch = 'L_U_AA_Muzzle01',
             TurretBoneYaw = 'L_U_AA_Muzzle01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 100,
@@ -1054,8 +1047,6 @@ UnitBlueprint {
 
 			RateOfFire = 1,		-- 200 DPS Air
 			ReTargetOnMiss = true,
-			
-			SlavedToBody = false,
             
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -1070,7 +1061,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'L_B_AA_Muzzle_01',
             TurretBonePitch = 'L_B_AA_Muzzle_01',
             TurretBoneYaw = 'L_B_AA_Muzzle_01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 120,
@@ -1137,8 +1127,6 @@ UnitBlueprint {
             RateOfFire = 1,		-- 200 DPS Air
             
 			ReTargetOnMiss = true,
-			
-			SlavedToBody = false,
             
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -1152,7 +1140,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'R_B_AA_Muzzle_01',
             TurretBonePitch = 'R_B_AA_Muzzle_01',
             TurretBoneYaw = 'R_B_AA_Muzzle_01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 130,
@@ -1292,7 +1279,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Main_Gun_Muzzle',
             TurretBonePitch = 'Main_Gun_Barrel',
             TurretBoneYaw = 'Main_Gun_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 100,

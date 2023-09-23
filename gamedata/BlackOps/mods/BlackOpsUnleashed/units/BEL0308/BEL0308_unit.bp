@@ -147,8 +147,9 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 90,
     },
-    SelectionCenterOffsetX = 0,
+
     SelectionCenterOffsetZ = -0.15,
+
     SelectionSizeX = 0.8,
     SelectionSizeZ = 0.8,
     SelectionThickness = 0.3,
@@ -233,8 +234,6 @@ UnitBlueprint {
 
             RackRecoilDistance = -2,
 
-            RackReloadTimeout = 10,
-
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.25,		-- 330 Damage every 4 seconds = 82.5 dps
@@ -254,7 +253,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Cannon_Left_Muzzle',
             TurretBonePitch = 'Cannon_Pitch',
             TurretBoneYaw = 'Cannon_Pitch',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 120,
@@ -332,9 +330,12 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'Guns_Right_Recoil',
             TurretBoneDualPitch = 'Guns_Right_Barrel',
+
             TurretBoneMuzzle = 'Guns_Left_Recoil',
             TurretBonePitch = 'Guns_Left_Barrel',
+
             TurretBoneYaw = 'Guns_Pitch',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 0,
@@ -352,8 +353,8 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        HealthMult = 0.7,
+        MassMult = 0.7,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

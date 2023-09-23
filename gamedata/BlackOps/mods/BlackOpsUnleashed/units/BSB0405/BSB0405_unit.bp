@@ -245,7 +245,7 @@ UnitBlueprint {
             MinRadius = 12,
 			
             MuzzleChargeDelay = 1,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 18,
 			
             NotExclusive = true,

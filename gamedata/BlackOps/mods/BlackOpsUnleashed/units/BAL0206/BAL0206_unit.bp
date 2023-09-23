@@ -86,7 +86,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 21,
+        VisionRadius = 23,
     },
 	
     Interface = {
@@ -103,10 +103,10 @@ UnitBlueprint {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 3,
-        MaxBrake = 3,
-        MaxSpeed = 3,
-        MaxSpeedReverse = 2,
+        MaxAcceleration = 3.2,
+        MaxBrake = 3.2,
+        MaxSpeed = 3.2,
+        MaxSpeedReverse = 3.2,
 		
         MaxSteerForce = 100,
         MeshExtentsX = 1,
@@ -120,7 +120,6 @@ UnitBlueprint {
         TurnRate = 90,
     },
 	
-    SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0.025,
 	
     SelectionSizeX = 0.5,
@@ -160,7 +159,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 27,
+            Damage = 28,
             DamageType = 'Normal',
 			
             DisplayName = 'Sonic Pulse Battery',
@@ -171,13 +170,13 @@ UnitBlueprint {
             FiringRandomness = 0.1,
             FiringTolerance = 0.3,
 			
-            Label = 'AAGun',
+            Label = 'MainGun',
 			
             MaxRadius = 24,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 35,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/RaiderCannon01/RaiderCannon01_proj.bp',
 			ProjectileLifetime = 0.9,
@@ -193,16 +192,10 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = true,
-            
-            RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_Directfire',
 			
-            RateOfFire = 1,		-- 54 dps
+            RateOfFire = 1,		-- 56 dps
 			
             TargetCheckInterval = 0.4,
             TargetPriorities = {
@@ -216,9 +209,12 @@ UnitBlueprint {
 			
             TurretBoneDualMuzzle = 'L_Muzzle',
             TurretBoneDualPitch = 'L_Turret',
+
             TurretBoneMuzzle = 'R_Muzzle',
             TurretBonePitch = 'R_Turret',
+
             TurretBoneYaw = 'Turret',
+
             TurretDualManipulators = true,
 			
             TurretPitch = 0,

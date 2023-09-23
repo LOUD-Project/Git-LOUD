@@ -15,6 +15,10 @@ local UEFACUAntiMatterWeapon = Weapons2.UEFACUAntiMatterWeapon
 local UEFACUHeavyPlasmaGatlingCannonWeapon = Weapons2.UEFACUHeavyPlasmaGatlingCannonWeapon
 local PDLaserGrid = Weapons2.PDLaserGrid2
 
+
+local EXCEMPArrayBeam01 = import('/mods/BlackOpsACUs/lua/EXBlackOpsweapons.lua').EXCEMPArrayBeam01
+
+
 local Buff = import('/lua/sim/Buff.lua')
 local Shield = import('/lua/shield.lua').Shield
 
@@ -48,10 +52,29 @@ EEL0001 = Class(TWalkingLandUnit) {
 	
         DeathWeapon = Class(TIFCommanderDeathWeapon) {},
 		
+        EXTargetPainter = Class(EXCEMPArrayBeam01) {},
+		
         RightZephyr = Class(TDFZephyrCannonWeapon) {},
 		
-        EXFlameCannon01 = Class(EXFlameCannonWeapon) {},
-        EXFlameCannon02 = Class(EXFlameCannonWeapon) {},
+        EXFlameCannon01 = Class(EXFlameCannonWeapon) {
+        
+            OnCreate = function(self)
+        
+                EXFlameCannonWeapon.OnCreate(self)
+                
+                ChangeState(self, self.DeadState)
+            end,
+        },
+        
+        EXFlameCannon02 = Class(EXFlameCannonWeapon) {
+        
+            OnCreate = function(self)
+        
+                EXFlameCannonWeapon.OnCreate(self)
+                
+                ChangeState(self, self.DeadState)
+            end,
+        },
 		
         EXTorpedoLauncher01 = Class(TANTorpedoAngler) {},
         EXTorpedoLauncher02 = Class(TANTorpedoAngler) {},
@@ -94,6 +117,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 		},
 		
         EXGattlingEnergyCannon02 = Class(UEFACUHeavyPlasmaGatlingCannonWeapon) {
+
             OnCreate = function(self)
             
                 UEFACUHeavyPlasmaGatlingCannonWeapon.OnCreate(self)
@@ -125,6 +149,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 		},
 		
         EXGattlingEnergyCannon03 = Class(UEFACUHeavyPlasmaGatlingCannonWeapon) {
+
             OnCreate = function(self)
             
                 UEFACUHeavyPlasmaGatlingCannonWeapon.OnCreate(self)
@@ -159,17 +184,41 @@ EEL0001 = Class(TWalkingLandUnit) {
         EXClusterMissles02 = Class(TIFCruiseMissileLauncher) {},
         EXClusterMissles03 = Class(TIFCruiseMissileLauncher) {},
 		
-        EXEnergyLance01 = Class(PDLaserGrid) { PlayOnlyOneSoundCue = true }, 
-        EXEnergyLance02 = Class(PDLaserGrid) { PlayOnlyOneSoundCue = true }, 
+        EXEnergyLance01 = Class(PDLaserGrid) {
+
+            PlayOnlyOneSoundCue = true,
+        
+            OnCreate = function(self)
+        
+                PDLaserGrid.OnCreate(self)
+                
+                ChangeState(self, self.DeadState)
+            end,
+        }, 
+
+        EXEnergyLance02 = Class(PDLaserGrid) {
+
+            PlayOnlyOneSoundCue = true,
+        
+            OnCreate = function(self)
+        
+                PDLaserGrid.OnCreate(self)
+                
+                ChangeState(self, self.DeadState)
+            end,
+        }, 
 		
         OverCharge = Class(TDFOverchargeWeapon) {
 		
             OnCreate = function(self)
             
                 TDFOverchargeWeapon.OnCreate(self)
+
                 self:SetWeaponEnabled(false)
                 self.AimControl:SetEnabled(false)
+
                 self.AimControl:SetPrecedence(0)
+
                 self.unit:SetOverchargePaused(false)
             end,
             
@@ -178,12 +227,17 @@ EEL0001 = Class(TWalkingLandUnit) {
                 if self:BeenDestroyed() then return end
    
                 self:SetWeaponEnabled(true)
+
                 self.unit:SetWeaponEnabledByLabel('RightZephyr', false)
                 self.unit:ResetWeaponByLabel('RightZephyr')
+
                 self.unit:BuildManipulatorSetEnabled(false)
+
                 self.AimControl:SetEnabled(true)
                 self.AimControl:SetPrecedence(20)
+
                 self.unit.BuildArmManipulator:SetPrecedence(0)
+
                 self.AimControl:SetHeadingPitch( self.unit:GetWeaponManipulatorByLabel('RightZephyr'):GetHeadingPitch() )
             end,
             
@@ -249,29 +303,44 @@ EEL0001 = Class(TWalkingLandUnit) {
         },
         
         TacMissile = Class(TIFCruiseMissileLauncher) {
+
             CreateProjectileAtMuzzle = function(self)
+
 				muzzle = self:GetBlueprint().RackBones[1].MuzzleBones[1]
+
 				self.slider = CreateSlider(self.unit, 'Back_MissilePack_B02', 0, 0, 0, 0.25, true)
 				self.slider:SetGoal(0, 0, 0.22)
+
 				WaitTicks(1)
 				WaitFor(self.slider)
+
 				TIFCruiseMissileLauncher.CreateProjectileAtMuzzle(self, muzzle)
+
 				self.slider:SetGoal(0, 0, 0)
 				WaitFor(self.slider)
+
 				self.slider:Destroy()
             end,
         },
         
         TacNukeMissile = Class(TIFCruiseMissileLauncher) {
-             CreateProjectileAtMuzzle = function(self)
+
+            CreateProjectileAtMuzzle = function(self)
+
 				muzzle = self:GetBlueprint().RackBones[1].MuzzleBones[1]
+
 				self.slider = CreateSlider(self.unit, 'Back_MissilePack_B02', 0, 0, 0, 0.25, true)
 				self.slider:SetGoal(0, 0, 0.22)
+
 				WaitTicks(1)
+
 				WaitFor(self.slider)
+
 				TIFCruiseMissileLauncher.CreateProjectileAtMuzzle(self, muzzle)
+
 				self.slider:SetGoal(0, 0, 0)
 				WaitFor(self.slider)
+
 				self.slider:Destroy()
             end,
         },
@@ -666,257 +735,184 @@ EEL0001 = Class(TWalkingLandUnit) {
     end,
 
     WeaponConfigCheck = function(self)
-    
+
 		if self.wcBuildMode then
 
 			self:SetWeaponEnabledByLabel('EXTargetPainter', false)
-			self:SetWeaponEnabledByLabel('RightZephyr', false)
-			self:SetWeaponEnabledByLabel('OverCharge', false)
 
-			self:SetWeaponEnabledByLabel('EXFlameCannon01', false)
-			self:SetWeaponEnabledByLabel('EXFlameCannon02', false)
+			--self:SetWeaponEnabledByLabel('RightZephyr', false)
+			--self:SetWeaponEnabledByLabel('OverCharge', false)
 
-			self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', false)
-			self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', false)
-			self:SetWeaponEnabledByLabel('EXTorpedoLauncher03', false)
+			--self:SetWeaponEnabledByLabel('EXFlameCannon01', false)
+			--self:SetWeaponEnabledByLabel('EXFlameCannon02', false)
 
-			self:SetWeaponEnabledByLabel('EXAntiMatterCannon01', false)
-			self:SetWeaponEnabledByLabel('EXAntiMatterCannon02', false)
-			self:SetWeaponEnabledByLabel('EXAntiMatterCannon03', false)
+			--self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', false)
+			--self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', false)
+			--self:SetWeaponEnabledByLabel('EXTorpedoLauncher03', false)
 
-			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon01', false)
-			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon02', false)
-			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon03', false)
+			--self:SetWeaponEnabledByLabel('EXAntiMatterCannon01', false)
+			--self:SetWeaponEnabledByLabel('EXAntiMatterCannon02', false)
+			--self:SetWeaponEnabledByLabel('EXAntiMatterCannon03', false)
 
-			self:SetWeaponEnabledByLabel('EXClusterMissles01', false)
-			self:SetWeaponEnabledByLabel('EXClusterMissles02', false)
-			self:SetWeaponEnabledByLabel('EXClusterMissles03', false)
+			--self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon01', false)
+			--self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon02', false)
+			--self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon03', false)
 
-			self:SetWeaponEnabledByLabel('TacMissile', false)
-			self:SetWeaponEnabledByLabel('TacNukeMissile', false)
+			--self:SetWeaponEnabledByLabel('EXClusterMissles01', false)
+			--self:SetWeaponEnabledByLabel('EXClusterMissles02', false)
+			--self:SetWeaponEnabledByLabel('EXClusterMissles03', false)
+
+			--self:SetWeaponEnabledByLabel('TacMissile', false)
+			--self:SetWeaponEnabledByLabel('TacNukeMissile', false)
 		end
 
 		if self.wcOCMode then
 
 			self:SetWeaponEnabledByLabel('EXTargetPainter', false)
-			self:SetWeaponEnabledByLabel('RightZephyr', false)
 
-			self:SetWeaponEnabledByLabel('EXFlameCannon01', false)
-			self:SetWeaponEnabledByLabel('EXFlameCannon02', false)
+			--self:SetWeaponEnabledByLabel('RightZephyr', false)
 
-			self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', false)
-			self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', false)
-			self:SetWeaponEnabledByLabel('EXTorpedoLauncher03', false)
+			--self:SetWeaponEnabledByLabel('EXFlameCannon01', false)
+			--self:SetWeaponEnabledByLabel('EXFlameCannon02', false)
 
-			self:SetWeaponEnabledByLabel('EXAntiMatterCannon01', false)
-			self:SetWeaponEnabledByLabel('EXAntiMatterCannon02', false)
-			self:SetWeaponEnabledByLabel('EXAntiMatterCannon03', false)
+			--self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', false)
+			--self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', false)
+			--self:SetWeaponEnabledByLabel('EXTorpedoLauncher03', false)
 
-			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon01', false)
-			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon02', false)
-			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon03', false)
+			--self:SetWeaponEnabledByLabel('EXAntiMatterCannon01', false)
+			--self:SetWeaponEnabledByLabel('EXAntiMatterCannon02', false)
+			--self:SetWeaponEnabledByLabel('EXAntiMatterCannon03', false)
 
-			--self:SetWeaponEnabledByLabel('EXEnergyLance01', false)
-			--self:SetWeaponEnabledByLabel('EXEnergyLance02', false)
+			--self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon01', false)
+			--self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon02', false)
+			--self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon03', false)
+
 		end
 
 		if not self.wcBuildMode and not self.wcOCMode then
 		
 			self:SetWeaponEnabledByLabel('EXTargetPainter', true)        
-			self:SetWeaponEnabledByLabel('RightZephyr', true)
-			self:SetWeaponEnabledByLabel('OverCharge', false)
+			--self:SetWeaponEnabledByLabel('RightZephyr', true)
+			--self:SetWeaponEnabledByLabel('OverCharge', false)
 			
-			if self.wcFlamer01 then
+			if self.wcFlamer01 or self.wcFlamer02 then
 
-				self:SetWeaponEnabledByLabel('EXFlameCannon01', true)
+                if self.wcFlamer01 then
+
+                    self:SetWeaponEnabledByLabel('EXFlameCannon01', true)
+                    self:SetWeaponEnabledByLabel('EXFlameCannon02', false)
+
+                    wep = self:GetWeaponByLabel('EXFlameCannon01')
+                    wep:ChangeMaxRadius(self:GetBlueprint().Weapon[5].MaxRadius)
+                    
+                else
+                    self:SetWeaponEnabledByLabel('EXFlameCannon01', false)
+                    self:SetWeaponEnabledByLabel('EXFlameCannon02', true)
+
+                    wep = self:GetWeaponByLabel('EXFlameCannon02')
+                    wep:ChangeMaxRadius(self:GetBlueprint().Weapon[6].MaxRadius)
+
+                end
+                
                 self:ShowBone('Flamer',true)
 
                 self.FlamerEffectsBag[1] = CreateAttachedEmitter( self, 'Flamer_Torch', self:GetArmy(), self.FlamerEffects[1] ):ScaleEmitter(0.0625)
-
-				wep = self:GetWeaponByLabel('EXFlameCannon01')
-				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[5].MaxRadius)
 			else
+                
+                self:ShowBone('Flamer',false)
+
                 for k, v in self.FlamerEffectsBag do
                     v:Destroy()
                 end
-
-				self:SetWeaponEnabledByLabel('EXFlameCannon01', false)
-			end
-			
-			if self.wcFlamer02 then
-
-				self:SetWeaponEnabledByLabel('EXFlameCannon02', true)
-                self:ShowBone('Flamer',true)
-
-                self.FlamerEffectsBag[1] = CreateAttachedEmitter( self, 'Flamer_Torch', self:GetArmy(), self.FlamerEffects[1] ):ScaleEmitter(0.0625)
-
-				wep = self:GetWeaponByLabel('EXFlameCannon02')
-				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[6].MaxRadius)
-			else
-                for k, v in self.FlamerEffectsBag do
-                    v:Destroy()
-                end
-
-				self:SetWeaponEnabledByLabel('EXFlameCannon02', false)
 			end
 			
 			if self.wcTorp01 then
 
-				self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', true)
-
 				wep = self:GetWeaponByLabel('EXTorpedoLauncher01')
 				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[7].MaxRadius)
-			else
-				self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', false)
 			end
 			
 			if self.wcTorp02 then
 
-				self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', true)
-
 				wep = self:GetWeaponByLabel('EXTorpedoLauncher02')
 				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[8].MaxRadius)
-			else
-				self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', false)
 			end
 			
 			if self.wcTorp03 then
 
-				self:SetWeaponEnabledByLabel('EXTorpedoLauncher03', true)
-
 				wep = self:GetWeaponByLabel('EXTorpedoLauncher03')
 				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[9].MaxRadius)
-			else
-				self:SetWeaponEnabledByLabel('EXTorpedoLauncher03', false)
 			end
 			
 			if self.wcAMC01 then
 
-				self:SetWeaponEnabledByLabel('EXAntiMatterCannon01', true)
-       			self:SetWeaponEnabledByLabel('RightZephyr', false)
-                
 				wep = self:GetWeaponByLabel('EXAntiMatterCannon01')
 				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[10].MaxRadius)
-			else
-				self:SetWeaponEnabledByLabel('EXAntiMatterCannon01', false)
 			end
             
 			if self.wcAMC02 then
 
-				self:SetWeaponEnabledByLabel('EXAntiMatterCannon02', true)
-       			self:SetWeaponEnabledByLabel('RightZephyr', false)    
                 wep = self:GetWeaponByLabel('EXAntiMatterCannon02')
 				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[11].MaxRadius)
 
 				wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[11].MaxRadius)
-			else
-				self:SetWeaponEnabledByLabel('EXAntiMatterCannon02', false)
 			end
 
 			if self.wcAMC03 then
-
-				self:SetWeaponEnabledByLabel('EXAntiMatterCannon03', true)
-       			self:SetWeaponEnabledByLabel('RightZephyr', false)
                 
 				wep = self:GetWeaponByLabel('EXAntiMatterCannon03')
 				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[12].MaxRadius)
 
 				wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[12].MaxRadius)
-			else
-				self:SetWeaponEnabledByLabel('EXAntiMatterCannon03', false)
 			end
 
 			if self.wcGatling01 then
-
-				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon01', true)
 
 				wep = self:GetWeaponByLabel('EXGattlingEnergyCannon01')
 				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[13].MaxRadius)
 
 				wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[13].MaxRadius)
-			else
-				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon01', false)
 			end
 
 			if self.wcGatling02 then
-
-				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon02', true)
 
 				wep = self:GetWeaponByLabel('EXGattlingEnergyCannon02')
 				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[14].MaxRadius)
 
 				wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[14].MaxRadius)
-			else
-				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon02', false)
 			end
 
 			if self.wcGatling03 then
-
-				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon03', true)
 
 				wep = self:GetWeaponByLabel('EXGattlingEnergyCannon03')
 				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[15].MaxRadius)
 
 				wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[15].MaxRadius)
-			else
-				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon03', false)
 			end
 			
 			if self.wcCMissiles01 then
-
-				self:SetWeaponEnabledByLabel('EXClusterMissles01', true)
 
 				wep = self:GetWeaponByLabel('EXClusterMissles01')
 				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[20].MaxRadius)
 
 				wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[20].MaxRadius)
-			else
-				self:SetWeaponEnabledByLabel('EXClusterMissles01', false)
 			end
 
 			if self.wcCMissiles02 then
-                
-				self:SetWeaponEnabledByLabel('EXClusterMissles02', true)
 
 				wep = self:GetWeaponByLabel('EXClusterMissles02')
 				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[21].MaxRadius)
 
 				wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[21].MaxRadius)
-			else
-				self:SetWeaponEnabledByLabel('EXClusterMissles02', false)
 			end
 
 			if self.wcCMissiles03 then
-
-				self:SetWeaponEnabledByLabel('EXClusterMissles03', true)
 
 				wep = self:GetWeaponByLabel('EXClusterMissles03')
 				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[22].MaxRadius)
 
 				wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[22].MaxRadius)
-			else
-				self:SetWeaponEnabledByLabel('EXClusterMissles03', false)
 			end
-			
-			if self.wcTMissiles01 then
-
-				self:SetWeaponEnabledByLabel('TacMissile', true)
-
-				wep = self:GetWeaponByLabel('TacMissile')
-				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[16].MaxRadius)
-			else
-				self:SetWeaponEnabledByLabel('TacMissile', false)
-			end
-
-			if self.wcNMissiles01 then
-
-				self:SetWeaponEnabledByLabel('TacNukeMissile', true)
-
-				wep = self:GetWeaponByLabel('TacNukeMissile')
-				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[17].MaxRadius)
-			else
-				self:SetWeaponEnabledByLabel('TacNukeMissile', false)
-			end			
 
 			if self.wcLance01 then
 
@@ -1244,26 +1240,45 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:HideBone('Zephyr_Amplifier', true)
 			
         elseif enh =='EXTorpedoLauncher' then
+
+			self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', true)
+
 			self.wcTorp01 = true
 			self.wcTorp02 = false
 			self.wcTorp03 = false
 
         elseif enh =='EXTorpedoLauncherRemove' then
+
+			self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', false)
+
 			self.wcTorp01 = false
 			self.wcTorp02 = false
 			self.wcTorp03 = false
 
         elseif enh =='EXTorpedoRapidLoader' then
+
+			self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', true)
+
+			self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', false)
+
 			self.wcTorp01 = false
 			self.wcTorp02 = true
 			self.wcTorp03 = false
 			
         elseif enh =='EXTorpedoRapidLoaderRemove' then
+
+			self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', false)
+
 			self.wcTorp01 = false
 			self.wcTorp02 = false
 			self.wcTorp03 = false
 
 		elseif enh =='EXTorpedoClusterLauncher' then
+
+			self:SetWeaponEnabledByLabel('EXTorpedoLauncher03', true)
+
+			self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', false)
+
 			self.wcTorp01 = false
 			self.wcTorp02 = false
 			self.wcTorp03 = true
@@ -1271,6 +1286,9 @@ EEL0001 = Class(TWalkingLandUnit) {
             Buff.ApplyBuff(self,'MobilityPenalty')
 
         elseif enh =='EXTorpedoClusterLauncherRemove' then
+
+			self:SetWeaponEnabledByLabel('EXTorpedoLauncher03', false)
+
 			self.wcTorp01 = false
 			self.wcTorp02 = false
 			self.wcTorp03 = false
@@ -1280,26 +1298,45 @@ EEL0001 = Class(TWalkingLandUnit) {
             end
 
         elseif enh =='EXClusterMisslePack' then
+
+			self:SetWeaponEnabledByLabel('EXClusterMissles01', true)
+
 			self.wcCMissiles01 = true
 			self.wcCMissiles02 = false
 			self.wcCMissiles03 = false
 
         elseif enh =='EXClusterMisslePackRemove' then
+
+			self:SetWeaponEnabledByLabel('EXClusterMissles01', false)
+
 			self.wcCMissiles01 = false
 			self.wcCMissiles02 = false
 			self.wcCMissiles03 = false
 
         elseif enh =='EXClusterMisslesPack' then
+
+			self:SetWeaponEnabledByLabel('EXClusterMissles02', true)
+
+			self:SetWeaponEnabledByLabel('EXClusterMissles01', false)
+
 			self.wcCMissiles01 = false
 			self.wcCMissiles02 = true
 			self.wcCMissiles03 = false
 
         elseif enh =='EXClusterMisslesPackRemove' then
+
+			self:SetWeaponEnabledByLabel('EXClusterMissles02', false)
+
 			self.wcCMissiles01 = false
 			self.wcCMissiles02 = false
 			self.wcCMissiles03 = false
 
         elseif enh =='EXClusterMissleSalvoPack' then
+
+			self:SetWeaponEnabledByLabel('EXClusterMissles03', true)
+
+			self:SetWeaponEnabledByLabel('EXClusterMissles02', false)
+
 			self.wcCMissiles01 = false
 			self.wcCMissiles02 = false
 			self.wcCMissiles03 = true
@@ -1307,6 +1344,9 @@ EEL0001 = Class(TWalkingLandUnit) {
             Buff.ApplyBuff(self,'MobilityPenalty')
 
         elseif enh =='EXClusterMissleSalvoPackRemove' then
+
+			self:SetWeaponEnabledByLabel('EXClusterMissles03', false)
+
 			self.wcCMissiles01 = false
 			self.wcCMissiles02 = false
 			self.wcCMissiles03 = false
@@ -1316,26 +1356,51 @@ EEL0001 = Class(TWalkingLandUnit) {
             end
 
         elseif enh =='EXAntiMatterCannon' then
+
+			self:SetWeaponEnabledByLabel('EXAntiMatterCannon01', true)
+
+   			self:SetWeaponEnabledByLabel('RightZephyr', false)
+  
 			self.wcAMC01 = true
 			self.wcAMC02 = false
 			self.wcAMC03 = false
 
         elseif enh =='EXAntiMatterCannonRemove' then
+
+			self:SetWeaponEnabledByLabel('EXAntiMatterCannon01', false)
+
+   			self:SetWeaponEnabledByLabel('RightZephyr', true)
+
 			self.wcAMC01 = false
 			self.wcAMC02 = false
 			self.wcAMC03 = false
 
         elseif enh =='EXImprovedContainmentBottle' then
+
+			self:SetWeaponEnabledByLabel('EXAntiMatterCannon02', true)
+
+			self:SetWeaponEnabledByLabel('EXAntiMatterCannon01', false)
+
+   			self:SetWeaponEnabledByLabel('RightZephyr', true)
+
 			self.wcAMC01 = false
 			self.wcAMC02 = true
 			self.wcAMC03 = false
 			
         elseif enh =='EXImprovedContainmentBottleRemove' then    
+
+			self:SetWeaponEnabledByLabel('EXAntiMatterCannon02', false)
+
 			self.wcAMC01 = false
 			self.wcAMC02 = false
 			self.wcAMC03 = false
 
         elseif enh =='EXPowerBooster' then
+
+			self:SetWeaponEnabledByLabel('EXAntiMatterCannon03', true)
+
+			self:SetWeaponEnabledByLabel('EXAntiMatterCannon02', false)
+
             self.wcAMC01 = false
 			self.wcAMC02 = false
 			self.wcAMC03 = true
@@ -1343,6 +1408,9 @@ EEL0001 = Class(TWalkingLandUnit) {
             Buff.ApplyBuff(self,'MobilityPenalty')
 
         elseif enh =='EXPowerBoosterRemove' then    
+
+			self:SetWeaponEnabledByLabel('EXAntiMatterCannon03', false)
+
 			self.wcAMC01 = false
 			self.wcAMC02 = false
 			self.wcAMC03 = false
@@ -1352,16 +1420,27 @@ EEL0001 = Class(TWalkingLandUnit) {
             end
 
         elseif enh =='EXGattlingEnergyCannon' then
+
+			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon01', true)
+
 			self.wcGatling01 = true
 			self.wcGatling02 = false
 			self.wcGatling03 = false
 
         elseif enh =='EXGattlingEnergyCannonRemove' then
+
+			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon01', false)
+
 			self.wcGatling01 = false
 			self.wcGatling02 = false
 			self.wcGatling03 = false
 
         elseif enh =='EXImprovedCoolingSystem' then
+
+			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon02', true)
+
+			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon01', false)
+
             self.wcGatling01 = false
 			self.wcGatling02 = true
 			self.wcGatling03 = false
@@ -1370,6 +1449,9 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self.wcFlamer02 = false
 			
         elseif enh =='EXImprovedCoolingSystemRemove' then
+
+			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon02', false)
+
 			self.wcGatling01 = false
 			self.wcGatling02 = false
 			self.wcGatling03 = false
@@ -1378,6 +1460,11 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self.wcFlamer02 = false
 
         elseif enh =='EXEnergyShellHardener' then
+
+			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon03', true)
+
+			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon02', false)
+
             self.wcGatling01 = false
 			self.wcGatling02 = false
 			self.wcGatling03 = true
@@ -1388,6 +1475,9 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self.wcFlamer02 = true
 
         elseif enh =='EXEnergyShellHardenerRemove' then
+
+			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon03', false)
+
 			self.wcGatling01 = false
 			self.wcGatling02 = false
 			self.wcGatling03 = false
@@ -1694,6 +1784,11 @@ EEL0001 = Class(TWalkingLandUnit) {
             
             Buff.ApplyBuff(self,'MobilityPenalty')
 
+			self:SetWeaponEnabledByLabel('TacMissile', true)
+
+			wep = self:GetWeaponByLabel('TacMissile')
+			wep:ChangeMaxRadius(self:GetBlueprint().Weapon[16].MaxRadius)
+
 			self.wcTMissiles01 = true
 			self.wcNMissiles01 = false
 
@@ -1718,6 +1813,11 @@ EEL0001 = Class(TWalkingLandUnit) {
             self:RemoveNukeSiloAmmo(amt or 0)
             self:StopSiloBuild()
 
+			wep = self:GetWeaponByLabel('TacMissile')
+			wep:ChangeMaxRadius( 1 )
+
+			self:SetWeaponEnabledByLabel('TacMissile', false)
+			
 			self.wcTMissiles01 = false
 			self.wcNMissiles01 = false
 
@@ -1735,6 +1835,11 @@ EEL0001 = Class(TWalkingLandUnit) {
 
             self:RemoveTacticalSiloAmmo(amt or 0)
             self:StopSiloBuild()
+
+			self:SetWeaponEnabledByLabel('TacNukeMissile', true)
+
+			wep = self:GetWeaponByLabel('TacNukeMissile')
+			wep:ChangeMaxRadius(self:GetBlueprint().Weapon[17].MaxRadius)
 
 			self.wcTMissiles01 = false
 			self.wcNMissiles01 = true
@@ -1759,6 +1864,11 @@ EEL0001 = Class(TWalkingLandUnit) {
 
             self:RemoveNukeSiloAmmo(amt or 0)
             self:StopSiloBuild()
+
+			wep = self:GetWeaponByLabel('TacNukeMissile')
+			wep:ChangeMaxRadius( 1 )
+
+			self:SetWeaponEnabledByLabel('TacNukeMissile', false)
 
 			self.wcTMissiles01 = false
 			self.wcNMissiles01 = false

@@ -21,6 +21,7 @@ BEB2303 = Class(TStructureUnit) {
     end,
 
     Weapons = {
+
         MainGun = Class(BOHellstormGun) {
 		
 			OnCreate = function(self) 

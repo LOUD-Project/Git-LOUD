@@ -313,8 +313,9 @@ UnitBlueprint {
 
             RackRecoilDistance = -4,
             RackRecoilReturnSpeed = 2,
+
             RackSalvoChargeTime = 1,
-            RackSalvoFiresAfterCharge = false,
+
             RackSalvoReloadTime = 1,        -- 1 second delay
 
             RangeCategory = 'UWRC_IndirectFire',
@@ -337,7 +338,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Main_Front_Turret_Muzzle01',
             TurretBonePitch = 'Main_Front_Turret_Barrel',
             TurretBoneYaw = 'Main_Front_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 75,
@@ -377,7 +377,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 1,		-- again, damage is specified by the projectile - see BSL0404
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Heavy Quarnon Cannon',
@@ -419,8 +418,9 @@ UnitBlueprint {
 
             RackRecoilDistance = -4,
             RackRecoilReturnSpeed = 2,
+
             RackSalvoChargeTime = 1,
-            RackSalvoFiresAfterCharge = false,
+
             RackSalvoReloadTime = 1,
 
             RateOfFire = 1,	-- 333 DPS
@@ -440,7 +440,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Main_Back_Turret_Muzzle01',
             TurretBonePitch = 'Main_Back_Turret_Barrel',
             TurretBoneYaw = 'Main_Back_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 75,
@@ -536,7 +535,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Turret_Muzzle01',
             TurretBonePitch = 'Front_Turret_Barrel01',
             TurretBoneYaw = 'Front_Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 35,
@@ -624,7 +622,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Turret_Muzzle02',
             TurretBonePitch = 'Front_Turret_Barrel02',
             TurretBoneYaw = 'Front_Turret02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 35,
@@ -713,7 +710,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Turret_Muzzle03',
             TurretBonePitch = 'Front_Turret_Barrel03',
             TurretBoneYaw = 'Front_Turret03',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 35,
@@ -753,6 +749,7 @@ UnitBlueprint {
 			
             BeamCollisionDelay = 0,
             BeamLifetime = 1,
+
             CollideFriendly = false,
 			
             Damage = 50,
@@ -803,7 +800,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Deck_Turret01_Muzzle',
             TurretBonePitch = 'Left_Deck_Turret01_Barrel',
             TurretBoneYaw = 'Left_Deck_Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 20,
@@ -889,7 +885,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Deck_Turret01_Muzzle',
             TurretBonePitch = 'Right_Deck_Turret01_Barrel',
             TurretBoneYaw = 'Right_Deck_Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 20,
@@ -926,6 +921,7 @@ UnitBlueprint {
 			
             BeamCollisionDelay = 0,
             BeamLifetime = 1,
+
             CollideFriendly = false,
 			
             Damage = 50,
@@ -971,7 +967,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Deck_Turret02_Muzzle',
             TurretBonePitch = 'Left_Deck_Turret02_Barrel',
             TurretBoneYaw = 'Left_Deck_Turret02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 20,
@@ -1008,6 +1003,7 @@ UnitBlueprint {
 			
             BeamCollisionDelay = 0,
             BeamLifetime = 1,
+
             CollideFriendly = false,
 			
             Damage = 50,
@@ -1054,7 +1050,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Deck_Turret02_Muzzle',
             TurretBonePitch = 'Right_Deck_Turret02_Barrel',
             TurretBoneYaw = 'Right_Deck_Turret02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 20,
@@ -1126,7 +1121,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'TMD_Turret_Muzzle',
             TurretBonePitch = 'TMD_Turret_Barrel',
             TurretBoneYaw = 'TMD_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -1195,8 +1189,6 @@ UnitBlueprint {
 
 			RackFiresAfterCharge = true,
 
-            RackSalvoSize = 1,
-
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_AntiAir',
@@ -1218,7 +1210,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_AA_Turret01_Muzzle01',
             TurretBonePitch = 'Left_AA_Turret01_Barrel01',
             TurretBoneYaw = 'Left_AA_Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 15,
             TurretPitchRange = 80,
@@ -1284,8 +1275,6 @@ UnitBlueprint {
 
 			RackSalveFiresAfterCharge = true,
 
-            RackSalvoSize = 1,
-
             RackSlavedToTurret = true,
 
             RateOfFire = 3,		-- 120 DPS Air
@@ -1305,7 +1294,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_AA_Turret02_Muzzle01',
             TurretBonePitch = 'Left_AA_Turret02_Barrel01',
             TurretBoneYaw = 'Left_AA_Turret02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 15,
             TurretPitchRange = 80,
@@ -1371,8 +1359,6 @@ UnitBlueprint {
 
 			RackSalvoFiresAfterCharge = true,
 
-            RackSalvoSize = 1,
-
             RackSlavedToTurret = true,
 
             RateOfFire = 3,		-- 120 DPS Air
@@ -1392,7 +1378,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_AA_Turret01_Muzzle01',
             TurretBonePitch = 'Right_AA_Turret01_Barrel01',
             TurretBoneYaw = 'Right_AA_Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 15,
             TurretPitchRange = 80,
@@ -1458,8 +1443,6 @@ UnitBlueprint {
 
 			RackSalvoFiresAfterCharge = true,
 
-            RackSalvoSize = 1,
-
             RackSlavedToTurret = true,
 
             RateOfFire = 3,		-- 120 DPS Air
@@ -1479,7 +1462,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_AA_Turret02_Muzzle01',
             TurretBonePitch = 'Right_AA_Turret02_Barrel01',
             TurretBoneYaw = 'Right_AA_Turret02',
-            TurretDualManipulators = false,
 			
             TurretPitch = 15,
             TurretPitchRange = 80,

@@ -90,7 +90,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret', 
+
         ToggleCaps = { RULEUTC_ShieldToggle = true },
         OrderOverrides = {
             RULEUTC_ShieldToggle = {

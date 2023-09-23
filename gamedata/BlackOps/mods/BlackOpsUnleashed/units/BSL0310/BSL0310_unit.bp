@@ -212,9 +212,10 @@ UnitBlueprint {
 			
             MaxRadius = 33,
 
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 30,
 			
+            NotExclusive = true,
+            
             ProjectileId = '/projectiles/SDFTauCannon01/SDFTauCannon01_proj.bp',
             ProjectileLifetime = 1.2,
 
@@ -230,8 +231,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -289,7 +288,6 @@ UnitBlueprint {
 			
             MaxRadius = 25,
 
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/SIMAntiMissile01/SIMAntiMissile01_proj.bp',

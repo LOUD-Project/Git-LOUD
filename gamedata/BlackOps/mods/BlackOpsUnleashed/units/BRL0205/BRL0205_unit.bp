@@ -246,8 +246,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-
             SlavedToBody = true,
             SlavedToBodyArcRange = 50,
 			
@@ -269,7 +267,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret01_Muzzle01',
             TurretBonePitch = 'Turret01',
             TurretBoneYaw = 'Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 45,
@@ -350,7 +347,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Tail_Muzzle01',
             TurretBonePitch = 'Tail_Turret',
             TurretBoneYaw = 'Tail_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 25,

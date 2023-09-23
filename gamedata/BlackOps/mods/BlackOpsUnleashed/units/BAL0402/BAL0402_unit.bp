@@ -395,7 +395,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Wraith_Weapon_Focus',
             TurretBonePitch = 'Wraith_Turret_Barrel',
             TurretBoneYaw = 'Wraith_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 45,
@@ -474,7 +473,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Turret_Muzzle',
             TurretBonePitch = 'Left_Barrel',
             TurretBoneYaw = 'Left_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 40,
@@ -555,7 +553,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Turret_Muzzle',
             TurretBonePitch = 'Right_Turret',
             TurretBoneYaw = 'Right_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 40,

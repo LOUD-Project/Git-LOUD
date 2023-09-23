@@ -52,8 +52,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
         UniformScale = 0.0001,
     },
     Economy = {
@@ -63,13 +61,9 @@ UnitBlueprint {
     },
     General = {
     	CapCost = 0,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         FactionName = 'Seraphim',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
     },
     Interface = {
         HelpText = 'Lamdba Emitter',

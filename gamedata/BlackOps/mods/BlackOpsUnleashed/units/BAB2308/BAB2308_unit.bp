@@ -91,9 +91,7 @@ UnitBlueprint {
 		
         BuildRate = 200,	-- for missiles
 		
-        RebuildBonusIds = {
-            'bab2308',
-        },
+        RebuildBonusIds = {'bab2308'},
     },
 	
     Footprint = {
@@ -209,6 +207,7 @@ UnitBlueprint {
             Label = 'CruiseMissile',
 			
             ManualFire = true,
+
             MaxProjectileStorage = 8,
 			
             MaxRadius = 256,
@@ -238,11 +237,7 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 20,
-
             RackSalvoReloadTime = 20,
-
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_IndirectFire',
 			

@@ -234,6 +234,7 @@ UnitBlueprint {
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 5,
+
             TargetCheckInterval = 3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -247,7 +248,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle',
             TurretBonePitch = 'Barrel',
             TurretBoneYaw = 'Barrel',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 50,
@@ -315,11 +315,12 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
+
             TrackingRadius = 1.15,
+
             TurretBoneMuzzle = 'Muzzle',
             TurretBonePitch = 'Barrel',
             TurretBoneYaw = 'Barrel',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 50,
@@ -328,6 +329,7 @@ UnitBlueprint {
             TurretYaw = 0,
             TurretYawRange = 10,
             TurretYawSpeed = 90,
+
             Turreted = true,
         },
     },

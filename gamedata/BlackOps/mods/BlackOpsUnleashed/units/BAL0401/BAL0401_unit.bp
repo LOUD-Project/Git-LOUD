@@ -375,7 +375,7 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            AutoInitiateAttackCommand = false,
+
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
@@ -385,15 +385,11 @@ UnitBlueprint {
             ContinuousBeam = false,
 			
             Damage = 150,	-- over 2 seconds  = 3000dmg
-			
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Heavy Microwave Laser',
 			
-			DoNotCollideList = {
-                'MISSILE',
-            },
+			DoNotCollideList = {'MISSILE'},
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -407,25 +403,15 @@ UnitBlueprint {
             LeadTarget = false,
 			
             MaxRadius = 36,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-			
+
             NotExclusive = true,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle01',
-
-                    },
+                    MuzzleBones = {'Muzzle01'},
                     RackBone = 'Muzzle01',
                 },
             },
-
-            RackFireTogether = true, 
-
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.25,		-- 750 DPS
@@ -444,7 +430,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle01',
             TurretBonePitch = 'Muzzle01',
             TurretBoneYaw = 'Muzzle01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 360,
@@ -472,15 +457,12 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        HealthMult = 0.7,
+        MassMult = 0.7,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -193,7 +193,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult0.8',
 			
             DisplayName = 'Sonic Pulsar',
 			
@@ -213,7 +213,7 @@ UnitBlueprint {
             MuzzleVelocity = 45,
 			
             ProjectileId = '/projectiles/AAASonicPulse01/AAASonicPulse01_proj.bp',
-			ProjectileLifetime = 1,			
+			ProjectileLifetime = 0.9,
 
             RackBones = {
                 {
@@ -240,7 +240,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle',
             TurretBonePitch = 'Turret',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,

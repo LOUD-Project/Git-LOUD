@@ -202,7 +202,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 100,
-			DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Nanodart Launcher AA',
@@ -219,6 +218,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 6,
+
             MuzzleVelocity = 32,
 
             ProjectileId = '/projectiles/CAANanoDart03/CAANanoDart03_proj.bp',
@@ -257,10 +257,10 @@ UnitBlueprint {
 			ToggleWeapon = 'GroundGun',
 			
             TrackingRadius = 1.2,
+
             TurretBoneMuzzle = 'Turret_Muzzle_01',
             TurretBonePitch = 'Turret_Barrel01',
 			TurretBoneYaw = 'Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 35,
             TurretPitchRange = 60,
@@ -329,7 +329,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Lazor',
             TurretBonePitch = 'Lazor',
             TurretBoneYaw = 'Lazor',
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 180,
@@ -373,6 +372,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 6,
+
             MuzzleVelocity = 18,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/CAANanoDartExGr/CAANanoDartExGr_proj.bp',
@@ -412,7 +412,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle_01',
             TurretBonePitch = 'Turret_Barrel01',
 			TurretBoneYaw = 'Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 35,
             TurretPitchRange = 60,

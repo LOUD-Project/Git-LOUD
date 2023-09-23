@@ -163,9 +163,7 @@ UnitBlueprint {
             RangeCategory = 'UWRC_Countermeasure',
 			
             TargetCheckInterval = 6,
-            TargetPriorities = {
-                'ALLUNITS',
-            },
+            TargetPriorities = {'ALLUNITS'},
             TargetRestrictDisallow = 'UNTARGETABLE',
 		},
         {

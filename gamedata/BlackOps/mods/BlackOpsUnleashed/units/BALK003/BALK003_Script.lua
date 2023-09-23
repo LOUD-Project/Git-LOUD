@@ -4,7 +4,7 @@ local AAAZealotMissileWeapon = import('/lua/aeonweapons.lua').AAAZealotMissileWe
 
 BALK003 = Class(AWalkingLandUnit) {    
     Weapons = {
-		Missile = Class(AAAZealotMissileWeapon) {},
+		AAMissile = Class(AAAZealotMissileWeapon) {},
     },
 }
 

@@ -8,8 +8,6 @@ UnitBlueprint {
 	
     Categories = {
 		'UNTARGETABLE',
-        'CYBRAN',
-        'DEFENSE',
         'ANTITELEPORT',
 		'INSIGNIFICANTUNIT',
     },

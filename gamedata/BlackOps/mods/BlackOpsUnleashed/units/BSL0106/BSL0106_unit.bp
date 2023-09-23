@@ -225,7 +225,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Muzzle',
             TurretBoneYaw = 'Turret_Barrel',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 180,
@@ -234,6 +233,7 @@ UnitBlueprint {
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 60,
+
             Turreted = true,
 			
             UseFiringSolutionInsteadOfAimBone = true,

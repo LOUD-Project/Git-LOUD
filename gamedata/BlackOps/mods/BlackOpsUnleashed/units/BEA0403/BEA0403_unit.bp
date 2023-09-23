@@ -193,7 +193,7 @@ UnitBlueprint {
         SkirtSizeX = 8,
         SkirtSizeZ = 10,
         TurnRadius = 35,
-        TurnRate = 100,
+        TurnRate = 80,
     },
 	
     SelectionCenterOffsetX = 0,
@@ -275,12 +275,6 @@ UnitBlueprint {
             RackFireTogether = true,
 
             RackRecoilDistance = -1,
-
-            RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -299,7 +293,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_SG_Muzzle01',
             TurretBonePitch = 'Right_SG_Barrel01',
             TurretBoneYaw = 'Front_Right_SG_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -367,12 +360,6 @@ UnitBlueprint {
 
             RackRecoilDistance = -1,
 
-            RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
-
-            RackSlavedToTurret = true,
-
             RateOfFire = 1,							-- 360 DPS Surface
 			
             TargetCheckInterval = 0.5,
@@ -388,7 +375,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Back_SG_Muzzle01',
             TurretBonePitch = 'Right_Back_SG_Barrel01',
             TurretBoneYaw = 'Back_Right_SG_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -456,12 +442,6 @@ UnitBlueprint {
 
             RackRecoilDistance = -1,
 
-            RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
-
-            RackSlavedToTurret = true,
-
             RateOfFire = 1,							-- 360 DPS
 			
             TargetCheckInterval = 0.5,
@@ -478,7 +458,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_SG_Muzzle01',
             TurretBonePitch = 'Left_SG_Barrel01',
             TurretBoneYaw = 'Front_Left_SG_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -546,12 +525,6 @@ UnitBlueprint {
 
             RackRecoilDistance = -1,
 
-            RackReloadTimeout = 10,
-
-            RackSalvoSize = 1,
-
-            RackSlavedToTurret = true,
-
             RateOfFire = 1,							-- 360 DPS
 			
             TargetCheckInterval = 0.5,
@@ -567,7 +540,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Back_SG_Muzzle01',
             TurretBonePitch = 'Left_Back_SG_Barrel01',
             TurretBoneYaw = 'Back_Left_SG_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -618,8 +590,6 @@ UnitBlueprint {
 
             MaxRadius = 50,
 
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
             MuzzleVelocity = 60,
 
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/TAAHeavyFragmentationShell01/TAAHeavyFragmentationShell01_proj.bp',
@@ -641,7 +611,7 @@ UnitBlueprint {
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
+                'HIGHPRIAIR',
                 'AIR MOBILE',
                 'ALLUNITS',
             },
@@ -651,7 +621,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Left_Flak_Muzzle',
             TurretBonePitch = 'Front_Left_Flak_Barrel',
             TurretBoneYaw = 'Front_Left_Flak_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -726,7 +695,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Right_Flak_Muzzle',
             TurretBonePitch = 'Front_Right_Flak_Barrel',
             TurretBoneYaw = 'Front_Right_Flak_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -802,7 +770,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Left_Flak_Muzzle',
             TurretBonePitch = 'Back_Left_Flak_Barrel',
             TurretBoneYaw = 'Back_Left_Flak_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -877,7 +844,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Right_Flak_Muzzle',
             TurretBonePitch = 'Back_Right_Flak_Barrel',
             TurretBoneYaw = 'Back_Right_Flak_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -917,16 +883,17 @@ UnitBlueprint {
             FiringTolerance = 0.1,
 
             Label = 'GatlingAACannon01',
+
 			LeadTarget = true,
 
             MaxRadius = 35,
 
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 6,
-            MuzzleVelocity = 80,
+
+            MuzzleVelocity = 65,
 
             ProjectileId = '/projectiles/TDFHeavyPlasmaGatlingCannon01/TDFHeavyPlasmaGatlingCannon01_proj.bp',
-			ProjectileLifetime = 1,			
             ProjectileLifetimeUsesMultiplier = 0.75,
 			
             RackBones = {
@@ -950,7 +917,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Left_AAC_Muzzle',
             TurretBonePitch = 'Front_Left_AAC_Barrel',
             TurretBoneYaw = 'Front_Left_AAC_Turret',
-            TurretDualManipulators = false,
             
             TurretPitch = 0,
             TurretPitchRange = 50,
@@ -991,15 +957,16 @@ UnitBlueprint {
             FiringTolerance = 0.1,
 
             Label = 'GatlingAACannon02',
+
 			LeadTarget = true,
 
             MaxRadius = 45,
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 6,
-            MuzzleVelocity = 80,
+
+            MuzzleVelocity = 65,
 
             ProjectileId = '/projectiles/TDFHeavyPlasmaGatlingCannon01/TDFHeavyPlasmaGatlingCannon01_proj.bp',
-			ProjectileLifetime = 1,			
             ProjectileLifetimeUsesMultiplier = 0.75,
 
             RackBones = {
@@ -1023,7 +990,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Front_Right_AAC_Muzzle',
             TurretBonePitch = 'Front_Right_AAC_Barrel',
             TurretBoneYaw = 'Front_Right_AAC_Turret',
-            TurretDualManipulators = false,
             
             TurretPitch = 0,
             TurretPitchRange = 50,
@@ -1068,10 +1034,10 @@ UnitBlueprint {
             MaxRadius = 45,
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 6,
-            MuzzleVelocity = 80,
+
+            MuzzleVelocity = 65,
 
             ProjectileId = '/projectiles/TDFHeavyPlasmaGatlingCannon01/TDFHeavyPlasmaGatlingCannon01_proj.bp',
-			ProjectileLifetime = 1,			
             ProjectileLifetimeUsesMultiplier = 0.75,
 
             RackBones = {
@@ -1095,7 +1061,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Left_AAC_Muzzle',
             TurretBonePitch = 'Back_Left_AAC_Barrel',
             TurretBoneYaw = 'Back_Left_AAC_Turret',
-            TurretDualManipulators = false,
             
             TurretPitch = 0,
             TurretPitchRange = 50,
@@ -1135,16 +1100,17 @@ UnitBlueprint {
             FiringTolerance = 0.1,
 
             Label = 'GatlingAACannon04',
+
 			LeadTarget = true,
 
             MaxRadius = 45,
 
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 6,
-            MuzzleVelocity = 80,
+
+            MuzzleVelocity = 65,
 
             ProjectileId = '/projectiles/TDFHeavyPlasmaGatlingCannon01/TDFHeavyPlasmaGatlingCannon01_proj.bp',
-			ProjectileLifetime = 1,			
             ProjectileLifetimeUsesMultiplier = 0.75,
 
             RackBones = {
@@ -1169,7 +1135,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Right_AAC_Muzzle',
             TurretBonePitch = 'Back_Right_AAC_Barrel',
             TurretBoneYaw = 'Back_Right_AAC_Turret',
-            TurretDualManipulators = false,
             
             TurretPitch = 0,
             TurretPitchRange = 50,

@@ -231,8 +231,6 @@ UnitBlueprint {
                     RackBone = 'Railgun_Barrel',
                 },
             },
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -251,7 +249,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Railgun_Muzzle',
             TurretBonePitch = 'Railgun_Barrel',
             TurretBoneYaw = 'Railgun_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 50,
@@ -303,6 +300,7 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 20,	---- takes 4 seconds to fire the salvo
             MuzzleVelocity = 50,
+
 			MuzzleVelocityRandom = 3,
 			
 			NotExclusive = true,
@@ -325,8 +323,6 @@ UnitBlueprint {
 
             RackSalvoReloadTime = 2,	---- 2 seconds to reload
 
-            RackSalvoSize = 1,
-
             RateOfFire = 4,		---- 20 * 50 every 7 seconds = 142 dps
 			
             TargetCheckInterval = 0.3,
@@ -342,7 +338,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Gat_align_muzzle',
             TurretBonePitch = 'Gat_Barrel',
             TurretBoneYaw = 'Gat_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 50,
@@ -403,6 +398,7 @@ UnitBlueprint {
             Label = 'Laser',
 			
 			LeadTarget = false,
+
             MaxRadius = 28,
 			
 			DoNotCollideList = {
@@ -412,8 +408,6 @@ UnitBlueprint {
 			
 			HeadingArcCenter = 90,
 			HeadingArcRange = 100,
-
-            MuzzleVelocity = 30,
 			
             NoPause = true,
             NotExclusive = true,
@@ -439,7 +433,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Beam_Muzzle',
             TurretBonePitch = 'Left_Beam_Barrel',
             TurretBoneYaw = 'Left_Beam_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 45,
@@ -503,11 +496,10 @@ UnitBlueprint {
 			
 			HeadingArcCenter = 270,
 			HeadingArcRange = 100,
-
-            MuzzleVelocity = 30,
 			
             NoPause = true,
             NotExclusive = true,
+
             RackBones = {
                 {
                     MuzzleBones = {'Right_Beam_Muzzle'},
@@ -529,7 +521,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Beam_Muzzle',
             TurretBonePitch = 'Right_Beam_Barrel',
             TurretBoneYaw = 'Right_Beam_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 45,
@@ -577,6 +568,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 6,
+
             MuzzleVelocity = 8,
 			
             NoPause = true,
@@ -612,8 +604,6 @@ UnitBlueprint {
 
             RackFireTogether = true,
 
-            RackSalvoSize = 1,
-
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.1,	-- 66 dps
@@ -634,8 +624,8 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        HealthMult = 0.7,
+        MassMult = 0.7,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

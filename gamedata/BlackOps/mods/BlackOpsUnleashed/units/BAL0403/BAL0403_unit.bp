@@ -315,14 +315,11 @@ UnitBlueprint {
             FiringTolerance = 0,
 			
             Label = 'MainGun',
+
             LeadTarget = false,
 			
             MaxRadius = 110,
             MinRadius = 35,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
 			
             RackBones = {
                 {
@@ -346,11 +343,7 @@ UnitBlueprint {
 
             RackSalvoChargeTime = 4,	-- so sequence is deploy, racksalvocharge (2 seconds), fire (3 seconds), reload (8 seconds) 
 
-            RackSalvoFiresAfterCharge = false,
-			
             RackSalvoReloadTime = 10,
-
-			RenderFireClock = true,
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 40,
@@ -371,7 +364,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle01',
             TurretBonePitch = 'Turret01',
             TurretBoneYaw = 'Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -415,6 +407,8 @@ UnitBlueprint {
             Label = 'BoomWeapon',
 			
             LeadTarget = false,
+            
+            ManualFire = true,  -- this weapon is fired by the beam weapon
 			
             MaxRadius = 110,
             MinRadius = 35,
@@ -434,8 +428,6 @@ UnitBlueprint {
                     RackBone = 'Muzzle01',
                 },
             },
-
-			RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -456,7 +448,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle01',
             TurretBonePitch = 'Muzzle01',
             TurretBoneYaw = 'Muzzle01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -484,8 +475,8 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        HealthMult = 0.6,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,
