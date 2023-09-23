@@ -251,7 +251,7 @@ end
 function GetTransports( platoon, aiBrain)
 
     if platoon.UsingTransport then
-        return false, false
+        return false, false, 0
     end
     
     if not aiBrain.TransportPool then
@@ -298,7 +298,7 @@ function GetTransports( platoon, aiBrain)
     
         aiBrain.NeedTransports = true   -- turn on need flag
 
-        return false, false
+        return false, false, 0
     end
 
 
@@ -346,7 +346,7 @@ function GetTransports( platoon, aiBrain)
             LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." no units in platoon can use transports")
         end
         
-        return false, false
+        return false, false, 0
     end
     
     
@@ -489,7 +489,7 @@ function GetTransports( platoon, aiBrain)
 
 		platoon.UsingTransport = false
 		
-		return false, false
+		return false, false, 0
 	end
 
 	
@@ -741,7 +741,7 @@ function GetTransports( platoon, aiBrain)
 		
 		platoon.UsingTransport = false
 		
-        return false, false
+        return false, false, 0
 	end
 	
 	Collected = nil
@@ -750,7 +750,8 @@ function GetTransports( platoon, aiBrain)
 	-- at this point we have a list of all the eligible transports in range in the TRANSPORTS table
 	AvailableTransports = nil	-- we dont need this anymore
 	
-	local transportplatoon = false	
+	local transportplatoon = false
+    local transportplatoonairthreat = 0
 	
     if CanUseTransports and counter > 0 then
 	
@@ -777,9 +778,6 @@ function GetTransports( platoon, aiBrain)
 			
 				-- mark the transport as InUse
 				transport.InUse = true
-		
-				-- count the number of transports used
-				counter = counter + 1
 			
 				-- create a platoon for the transports
 				if not transportplatoon then
@@ -799,8 +797,13 @@ function GetTransports( platoon, aiBrain)
                 if TransportDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." "..transportplatoon.BuilderName.." adds transport "..transport.EntityID)
                 end
+		
+				-- count the number of transports used
+				counter = counter + 1
                 
 				AssignUnitsToPlatoon( aiBrain, transportplatoon, {transport}, 'Support', 'BlockFormation')
+                
+                transportplatoonairthreat = transportplatoonairthreat + math.max( 5, __blueprints[transport.BlueprintID].Defense.AirThreatLevel or 1)
 
 				IssueClearCommands({transport})
 				
@@ -846,29 +849,25 @@ function GetTransports( platoon, aiBrain)
             transport.Assigning = false
         end
     end
+    
+    local location = false
 
 	-- one last check for the validity of both unit and transport platoons
 	if CanUseTransports and counter > 0 then
 
-		counter = 0
-		
-		local location = false
-		
 		if PlatoonExists(aiBrain, platoon) then
 			
 			for _,u in GetPlatoonUnits(platoon) do
 			
 				if not u.Dead then
-					counter = counter + 1
+                    location = LOUDCOPY(GetPlatoonPosition(platoon))
+                    break
 				end
 			end
-			
-			if counter > 0 then
-				location = LOUDCOPY(GetPlatoonPosition(platoon))
-			end
+
 		end
 
-		if not transportplatoon or counter < 1 then
+		if not transportplatoon or not location then
 		
             if TransportDialog then
             
@@ -887,18 +886,15 @@ function GetTransports( platoon, aiBrain)
 	
 	-- if we need more transport then fail (I no longer permit partial transportation)
 	-- or if some other situation (dead units) -- send the transports back to the pool
-    if not CanUseTransports or counter < 1 then
+    if not CanUseTransports or not location then
 
 		if transportplatoon then
         
             if TransportDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." cannot be serviced by "..transportplatoon.BuilderName )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." cannot be serviced by "..transportplatoon.BuilderName.." returning transports to pool" )
             end
             
             for _,transport in GetPlatoonUnits(transportplatoon) do
-
-                -- unmark the transport
-                --transport.InUse = false
                 
                 if not transport.Dead then
                     -- and return it to the transport pool
@@ -909,14 +905,14 @@ function GetTransports( platoon, aiBrain)
 
 		platoon.UsingTransport = false
 		
-        return false, false
+        return false, false, 0
     else
 		
         if TransportDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." "..transportplatoon.BuilderName.." authorized for use" )
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." "..transportplatoon.BuilderName.." authorized "..counter.." transports for use" )
         end
 
-        return counter, transportplatoon
+        return counter, transportplatoon, transportplatoonairthreat
     end
 	
 end
@@ -1194,6 +1190,7 @@ function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bS
         local counter = 0
 		local bUsedTransports = false
 		local transportplatoon = false
+        local transportplatoonairthreat = 0
 
 		local PlatoonGenerateSafePathToLOUD = self.PlatoonGenerateSafePathToLOUD            
 
@@ -1224,7 +1221,7 @@ function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bS
 
 				-- check if we can get enough transport and how many transports we are using
 				-- this call will return the # of units transported (true) or false, if true, the self holding the transports or false
-				bUsedTransports, transportplatoon = GetTransports( self, aiBrain )
+				bUsedTransports, transportplatoon, transportplatoonairthreat = GetTransports( self, aiBrain )
 			
 				if bUsedTransports or counter == attempts then
 					break 
@@ -1348,8 +1345,8 @@ function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bS
                                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." got transports but they cannot find a safe drop point")
                                 end
                                 
-                                if platoonpath then
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." has a path of it's own "..repr(platoonpath))
+                                if platoonpath and TransportDialog then
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." has a path of it's own ")
                                 end
                             end
 						end
@@ -1361,6 +1358,10 @@ function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bS
                             for k,v in platoonpath do
                             
                                 stest, atest = GetRealThreatAtPosition( v, 80 )
+                                
+                                if TransportDialog then
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." tests "..repr(v).." Surface "..stest.." - Max "..threatMax.."  Air "..atest.." - Max "..airthreatMax)
+                                end
                                 
                                 if stest <= threatMax and atest <= airthreatMax then
                                 
@@ -1391,13 +1392,15 @@ function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bS
 		-- FIND A DROP ZONE FOR THE TRANSPORTS
 		-- this is based upon the enemy threat at the destination and the threat of the unit platoon and the transport platoon
 
-		-- a threat value for the transports based upon the number of transports
+		-- a threat value for the transports based upon the number of transports (but not the tier...hmmm).
 		transportcount = LOUDGETN( GetPlatoonUnits(transportplatoon))
 		airthreatMax = transportcount * 5
 		airthreatMax = airthreatMax + ( airthreatMax * LOUDLOG10(transportcount))
+        
+        airthreatMax = transportplatoonairthreat
 
         if TransportDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..transportplatoon.BuilderName.." with "..transportcount.." airthreatMax = "..repr(airthreatMax).." extra calc was "..math.log10(transportcount).." seeking dropzone" )
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..transportplatoon.BuilderName.." with "..transportcount.." transports. AirthreatMax = "..repr(airthreatMax).." extra calc was "..math.log10(transportcount).." seeking dropzone" )
         end
 
 		-- this is the desired drop location
