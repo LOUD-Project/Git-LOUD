@@ -137,7 +137,7 @@ UnitBlueprint{
 
     SelectionSizeX = 0.4,
     SelectionSizeZ = 0.5,
-    SelectionThickness = 0.4,
+    SelectionThickness = 0.5,
 
     SizeX = 0.4,
     SizeY = 0.25,
@@ -191,6 +191,7 @@ UnitBlueprint{
 
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 4,
+
             MuzzleVelocity = 12.5,
             MuzzleVelocityRandomness = 2.0,
             MuzzleVelocityReduceDistance = 1,
