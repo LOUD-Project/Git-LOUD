@@ -5664,10 +5664,10 @@ function CreateAttackPlan( self, enemyPosition )
 
     while not GoalReached do
     
-        --if AttackPlanDialog then
-          --  LOG("*AI DEBUG "..self.Nickname.." Current distance to goal is "..VDist2(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3]).." stagesize is "..stagesize)
-          --  LOG("*AI DEBUG "..self.Nickname.." Next position will need to be less than "..(CurrentPointDistance * .7).." and have a path of less than "..CurrentBestPathLength )
-        --end
+        if AttackPlanDialog then
+            LOG("*AI DEBUG "..self.Nickname.." Current distance to goal is "..VDist2(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3]).." stagesize is "..stagesize)
+            LOG("*AI DEBUG "..self.Nickname.." Next position will need to be less than "..(CurrentPointDistance * .75).." and have a path of less than "..CurrentBestPathLength )
+        end
     
     	-- if current point is within stagesize of goal we're done
         if VDist2Sq(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3]) <= maxstagesize then
@@ -5693,102 +5693,112 @@ function CreateAttackPlan( self, enemyPosition )
         
                 -- distance from the Current Point
                 local testdistance = VDist2Sq( position[1],position[3], CurrentPoint[1],CurrentPoint[3])
+
                 -- distance to the Goal
                 local goaldistance = VDist2( position[1],position[3], Goal[1],Goal[3])
                 
-                --if AttackPlanDialog then
-                  --  LOG("*AI DEBUG "..self.Nickname.." reviewing point "..repr(v.Name).." from Current Point is "..math.sqrt(testdistance).." to goal is "..goaldistance)
-                --end
+                if AttackPlanDialog then
+                    LOG("*AI DEBUG "..self.Nickname.." reviewing point "..repr(v.Name).." from Current Point is "..math.sqrt(testdistance).." to goal is "..goaldistance)
+                end
                 
-                -- check all points that are at least minimum distance from current point, minimum distance from Goal, within maximum stage size from current point, closer to the goal than current point
-                if testdistance >= minstagesize and VDist2Sq(position[1],position[3], Goal[1],Goal[3]) >= minstagesize and testdistance <= maxstagesize and goaldistance < (CurrentPointDistance * .7) then
+                if testdistance < minstagesize then
+                    --LOG("*AI DEBUG "..self.Nickname.." point too close to current point ")
+                    continue
+                end
+                
+                if VDist2Sq(position[1],position[3], Goal[1],Goal[3]) < minstagesize then
+                    --LOG("*AI DEBUG "..self.Nickname.." point too close to goal ")
+                    continue
+                end
+
+                if testdistance > maxstagesize then
+                    --LOG("*AI DEBUG "..self.Nickname.." point too far from current point ")
+                    continue
+                end
+                
+                if goaldistance >= (CurrentPointDistance * .75) then
+                    --LOG("*AI DEBUG "..self.Nickname.." point is not 25% closer to goal ")
+                    continue
+                end
         
-                    --if AttackPlanDialog then
-                      --  LOG("*AI DEBUG "..self.Nickname.." examines "..repr(v).." distance is "..math.sqrt(testdistance).." from current point "..repr(CurrentPoint) )
-                      --  LOG("*AI DEBUG "..self.Nickname.." examines "..repr(v).." distance is "..goaldistance.." to the goal "..repr(Goal) )
-                    --end 
-                    
-                    cyclecount = cyclecount + 1
-                    
-                    path = false
-                    pathlength = 0
+                --if AttackPlanDialog then
+                --  LOG("*AI DEBUG "..self.Nickname.." examines "..repr(v).." distance is "..math.sqrt(testdistance).." from current point "..repr(CurrentPoint) )
+                --  LOG("*AI DEBUG "..self.Nickname.." examines "..repr(v).." distance is "..goaldistance.." to the goal "..repr(Goal) )
+                --end 
 
-                    -- get the pathlength of this position to the Goal position -- using LAND
-                    if (not LocationInWaterCheck(Goal)) and (not LocationInWaterCheck(position)) then
-                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand2', 'Land', Goal, position, 99999, 160)
-                    end
+                cyclecount = cyclecount + 1
+
+                path = false
+                pathlength = 0
+
+                -- get the pathlength of this position to the Goal position -- using LAND
+                if (not LocationInWaterCheck(Goal)) and (not LocationInWaterCheck(position)) then
+                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand2', 'Land', Goal, position, 99999, 160)
+                end
                 
-                    -- then try AMPHIB --
-                    if not path then
-                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib2', 'Amphibious', Goal, position, 99999, 250)
-                    end
+                -- then try AMPHIB --
+                if not path then
+                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib2', 'Amphibious', Goal, position, 99999, 250)
+                end
  
-                    -- if we have a path and its closer to goal than the best so far
-                    if path and ( pathlength < CurrentBestPathLength ) and not DestinationBetweenPoints( Goal, CurrentPoint, position ) then
-                        
-                        -- try to make a LAND path first 
-                        path = false
-                        
-                        local holdpathlength = pathlength
-                        
-                        if (not LocationInWaterCheck(CurrentPoint)) and (not LocationInWaterCheck(position)) then
-                        
-                            pathtype = "Land"
-                            path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand3', 'Land', CurrentPoint, position, 99999, 160)
-                            
-                        end
-					
-                        -- if not try an AMPHIB path --
-                        if not path then
-                        
-                            pathtype = "Amphibious"
-                            path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib3', 'Amphibious', CurrentPoint, position, 99999, 250)
-                            
-                        end
+                -- if we have a path and its closer to goal than the best so far
+                if path and ( pathlength < CurrentBestPathLength ) and not DestinationBetweenPoints( Goal, CurrentPoint, position ) then
 
-                        if path then
-                        
-                            if AttackPlanDialog then
-                                LOG("*AI DEBUG "..self.Nickname.." adding "..repr(v.Name).." at "..repr(position).." w "..pathtype.." path to goal of "..repr(holdpathlength))
-                            end
-                            
-                            counter = counter + 1
-                            positions[counter] = {Name = v.Name, Position = position, Pathvalue = holdpathlength, Type = pathtype, Path = path}
-                            
-                            CurrentBestPathLength = holdpathlength
-                            
-                            if self.AttackPlan.Method != 'Amphibious' then
-                                self.AttackPlan.Method = pathtype
-                            end
+                    -- try to make a LAND path first 
+                    path = false
 
-                        end
+                    local holdpathlength = pathlength
 
-                    else
-                    
-                        if AttackPlanDialog then
-                    
-                            if path and pathlength >= CurrentBestPathLength then
-                                LOG("*AI DEBUG "..self.Nickname.." "..pathtype.." path from "..repr(v.Name).." at "..repr(position).." to goal was "..pathlength)
-                            end
-                            
-                        end
+                    if (not LocationInWaterCheck(CurrentPoint)) and (not LocationInWaterCheck(position)) then
                         
+                        pathtype = "Land"
+                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand3', 'Land', CurrentPoint, position, 99999, 160)
+
                     end
-                    
-                    -- load balancing --
-                    if cyclecount > 2 then
-                        WaitTicks(1)
-                        cyclecount = 0
+
+                    -- if not try an AMPHIB path --
+                    if not path then
+
+                        pathtype = "Amphibious"
+                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib3', 'Amphibious', CurrentPoint, position, 99999, 250)
+
+                    end
+
+                    if path then
+
+                        if AttackPlanDialog then
+                            LOG("*AI DEBUG "..self.Nickname.." adding "..repr(v.Name).." at "..repr(position).." w "..pathtype.." path to goal of "..repr(holdpathlength))
+                        end
+
+                        counter = counter + 1
+                        positions[counter] = {Name = v.Name, Position = position, Pathvalue = holdpathlength, Type = pathtype, Path = path}
+
+                        CurrentBestPathLength = holdpathlength
+
+                        if self.AttackPlan.Method != 'Amphibious' then
+                            self.AttackPlan.Method = pathtype
+                        end
+
                     end
 
                 else
-                
-                    --if AttackPlanDialog then
-                      --  LOG("*AI DEBUG "..self.Nickname.." Min Stage size = "..repr(testdistance >= minstagesize).." to Goal Stage Size = "..repr(VDist2Sq(position[1],position[3], Goal[1],Goal[3]) >= minstagesize).." Max Stage Size = "..repr(testdistance <= maxstagesize).." Goal Distance = "..repr(goaldistance < (CurrentPointDistance * .7)) )
-                    --end
-                
+                    
+                    if AttackPlanDialog then
+                    
+                        if path and pathlength >= CurrentBestPathLength then
+                            LOG("*AI DEBUG "..self.Nickname.." "..pathtype.." path from "..repr(v.Name).." at "..repr(position).." to goal was "..pathlength)
+                        end
+
+                    end
+
                 end
-                
+                    
+                -- load balancing --
+                if cyclecount > 2 then
+                    WaitTicks(1)
+                    cyclecount = 0
+                end
+
             end
             
             LOUDSORT(positions, function(a,b) return a.Pathvalue < b.Pathvalue end )

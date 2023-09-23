@@ -271,7 +271,7 @@ function AIPickEnemyLogic( self, brainbool )
                     
                             if unitPos then
                                 x1 = x1 + unitPos[1]
-                                x2 = 0      --x2 + unitPos[2]
+                                x2 = 0
                                 x3 = x3 + unitPos[3]
                             end
                         end
