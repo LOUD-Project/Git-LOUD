@@ -10,11 +10,6 @@ UnitBlueprint {
             Cue = 'URB_Destroy_Huge',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
     },
     Categories = {
         'CYBRAN',
@@ -67,8 +62,6 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
-        SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
     Economy = {
@@ -81,12 +74,8 @@ UnitBlueprint {
         SizeZ = 3,
     },
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_MiscSupport',
         FactionName = 'Cybran',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
     },
     Interface = {
         HelpText = '<LOC xrc8010_help>Cybran Wall Segment',
@@ -128,10 +117,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
             Water = true,
         },
     },
