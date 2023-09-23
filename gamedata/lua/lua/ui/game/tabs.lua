@@ -139,6 +139,17 @@ local menus = {
                 tooltip = 'esc_options',
             },
             {
+                action = 'Load_LAN',
+                label = '<LOC _Load_Game>Load MP Game',
+                tooltip = 'esc_load',
+            },
+            {
+                action = 'Save_LAN',
+                disableOnGameOver = true,
+                label = '<LOC _Save_Game>Save MP Game',
+                tooltip = 'esc_save',
+            },
+            {
                 action = 'EndMPGame',
                 label = '<LOC _End_Game>',
                 tooltip = 'esc_quit',
@@ -146,24 +157,6 @@ local menus = {
             {
                 action = 'ExitMPGame',
                 label = '<LOC _Exit_to_Windows>',
-                tooltip = 'esc_exit',
-            },
-            {
-                action = 'Return',
-                disableOnGameOver = true,
-                label = '<LOC main_menu_9586>Close Menu',
-                tooltip = 'esc_return',
-            },
-        },
-        gpgnet = {
-            {
-                action = 'Options',
-                label = '<LOC _Options>',
-                tooltip = 'esc_options',
-            },
-            {
-                action = 'ExitMPGame',
-                label = '<LOC _Exit_to_GPGNet>Exit to GPGNet',
                 tooltip = 'esc_exit',
             },
             {
@@ -193,6 +186,24 @@ local actions = {
 
         import('/lua/ui/dialogs/saveload.lua').CreateLoadDialog(GetFrame(0), nil, saveType)
     end,
+
+    Save_LAN = function()
+    
+        local saveType
+
+        saveType = "SaveLANGame"
+
+        import('/lua/ui/dialogs/saveload.lua').CreateSaveDialog(GetFrame(0), nil, saveType)
+    end,
+	
+    Load_LAN = function()
+
+        saveType = "SaveLANGame"
+
+        import('/lua/ui/dialogs/saveload.lua').CreateLoadDialog(GetFrame(0), nil, saveType)
+    end,
+    
+
 	
     LoadReplay = function()
         import('/lua/ui/dialogs/replay.lua').CreateDialog(GetFrame(0), true)

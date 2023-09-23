@@ -4991,7 +4991,11 @@ Unit = Class(moho.unit_methods) {
     OnAddToStorage = function(self, unit)
 		
         if LOUDENTITY(categories.CARRIER, unit) then
-		
+
+            -- detach any attached units
+            -- transport units cannot carry loaded units into storage
+            self:TransportDetachAllUnits(0)
+
             self:MarkWeaponsOnTransport(self, true)
 			
             HideBone(self,0, true)
@@ -4999,28 +5003,7 @@ Unit = Class(moho.unit_methods) {
             self:SetCanTakeDamage(false)
             self:SetReclaimable(false)
             self:SetCapturable(false)
-			
-            if LOUDENTITY(categories.TRANSPORTATION, self) then
-			
-                local cargo = self:GetCargo()
-				
-                if cargo[1] then
-				
-                    for _, v in cargo do
-					
-                        v:MarkWeaponsOnTransport(self, true)
-                        HideBone( v, 0, true)
-                        v:SetCanTakeDamage(false)
-                        v:SetReclaimable(false)
-                        v:SetCapturable(false)
-                        --v:DisableShield()
-						
-                    end
-					
-                end
-				
-            end
-			
+
         end
 		
     end,
@@ -5029,32 +5012,13 @@ Unit = Class(moho.unit_methods) {
 
         if LOUDENTITY(categories.CARRIER, unit) then
 		
-            self:SetCanTakeDamage(true)
-            self:SetReclaimable(true)
             self:SetCapturable(true)
+            self:SetReclaimable(true)
+            self:SetCanTakeDamage(true)
+
             self:ShowBone(0, true)
+
             self:MarkWeaponsOnTransport(self, false)
-			
-            if LOUDENTITY(categories.TRANSPORTATION, self) then
-			
-                local cargo = self:GetCargo()
-				
-                if cargo[1] then
-				
-                    for _, v in cargo do
-					
-                        v:MarkWeaponsOnTransport(self, false)
-                        v:ShowBone(0, true)
-                        v:SetCanTakeDamage(true)
-                        v:SetReclaimable(true)
-                        v:SetCapturable(true)
-                        --v:EnableShield()
-						
-                    end
-					
-                end
-				
-            end
 			
         end
 		

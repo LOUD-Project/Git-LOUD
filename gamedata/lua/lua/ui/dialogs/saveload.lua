@@ -15,6 +15,7 @@ local FilePicker = import('/lua/ui/controls/filepicker.lua').FilePicker
 local IsNISMode = import('/lua/ui/game/gamemain.lua').IsNISMode
 
 local function CreateDialog(over, isLoad, callback, exitBehavior, fileType)
+
     fileType = fileType or "SaveGame"
 
     ---------------------------------------------------------------------------
@@ -22,6 +23,7 @@ local function CreateDialog(over, isLoad, callback, exitBehavior, fileType)
     ---------------------------------------------------------------------------
     local parent = nil
     local background = nil
+
     if over then
         parent = over
     else
@@ -31,11 +33,13 @@ local function CreateDialog(over, isLoad, callback, exitBehavior, fileType)
 
     -- don't parent background to screen group so it doesn't get destroyed until we leave the menus
     local exitButton = nil
+
     if background then
         exitButton = MenuCommon.CreateExitMenuButton(parent, background, "<LOC _Back>")
     end
 
     local panel = Bitmap(parent, UIUtil.UIFile('/scx_menu/replay/panel_bmp.dds'))
+
     LayoutHelpers.AtCenterIn(panel, parent)
     
     panel.brackets = UIUtil.CreateDialogBrackets(panel, 43, 25, 43, 25)
@@ -47,8 +51,10 @@ local function CreateDialog(over, isLoad, callback, exitBehavior, fileType)
     local worldCover = UIUtil.CreateWorldCover(panel)
 
     local dlgHead = UIUtil.CreateText(panel, "", 20, UIUtil.titleFont)
+
     LayoutHelpers.AtTopIn(dlgHead, panel, 35)
     LayoutHelpers.AtHorizontalCenterIn(dlgHead, panel)
+
     if isLoad then
         dlgHead:SetText(LOC("<LOC uisaveload_0001>Load"))
     else
@@ -153,16 +159,26 @@ local InternalErrors = {
 }
 
 function CreateSaveDialog(parent, exitBehavior, fileType)
+
     local function DoSave(fileInfo, lparent, killBehavior)
+
         local function ExecuteSave()
+
             if not IsNISMode() then
+            
                 local prettyName = Basename(fileInfo.fspec, true)
+            
                 Prefs.SetToCurrentProfile(fileType, prettyName)
+
                 local statusStr = "<LOC saveload_0001>Saving game..."
                 local status = UIUtil.ShowInfoDialog(lparent, statusStr)
-                InternalSaveGame(fileInfo.fspec, prettyName, function(worked, errmsg)
+
+                InternalSaveGame( fileInfo.fspec, prettyName, function(worked, errmsg)
+
                     status:Destroy()
+
                     local infoStr
+
                     if not worked then
                         errmsg = InternalErrors[errmsg] or errmsg
                         infoStr = LOC("<LOC uisaveload_0008>Save failed! ") .. LOC(errmsg)
@@ -170,20 +186,26 @@ function CreateSaveDialog(parent, exitBehavior, fileType)
                     else
                         killBehavior()
                     end
+
                 end)
+
             end
+
         end
 
         if GetSpecialFileInfo(fileInfo.profile, fileInfo.fname, fileInfo.type) then
-            UIUtil.QuickDialog(parent, "<LOC filepicker_0004>A file already exists with that name. Are you sure you want to overwrite it?", 
+
+            UIUtil.QuickDialog( parent, "<LOC filepicker_0004>A file already exists with that name. Are you sure you want to overwrite it?", 
                 "<LOC _Yes>", function() ExecuteSave() end, 
                 "<LOC _No>", nil, 
                 nil, nil, 
-                true, {worldCover = false, enterButton = 1, escapeButton = 2})
+                true, {worldCover = false, enterButton = 1, escapeButton = 2}
+            )
         else
             ExecuteSave()
         end
     end
+    
     dlg = CreateDialog(parent, false, DoSave, exitBehavior, fileType)
 end
 
