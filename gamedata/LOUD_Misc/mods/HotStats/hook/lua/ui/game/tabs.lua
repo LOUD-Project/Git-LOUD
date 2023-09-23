@@ -19,13 +19,6 @@ table.insert(menus.main.lan,
         tooltip = 'esc_stats',
     })
 
-table.insert(menus.main.gpgnet,
-    {
-        action = 'ExitHotstats',
-        label = 'Exit to Hotstats',
-        tooltip = 'esc_stats',
-    })
-
 
 actions['ExitHotstats'] = function()
         UIUtil.QuickDialog(GetFrame(0), "<LOC EXITDLG_0003>Are you sure you'd like to exit?", 
