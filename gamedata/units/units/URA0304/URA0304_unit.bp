@@ -305,7 +305,7 @@ UnitBlueprint {
             FiringRandomness = 0,
             FiringTolerance = 0,
 			
-            Label = 'AAGun1',
+            Label = 'AAGun',
 			
             MaxRadius = 29,
 			
@@ -328,8 +328,6 @@ UnitBlueprint {
                     RackBone = 'Left_Barrel_AA',
                 },
             },
-
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -354,7 +352,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 40,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 75,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,			

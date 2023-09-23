@@ -174,32 +174,5 @@ UnitBlueprint {
     Transport = {
         TransportClass = 3,
     },
-    
-    Weapon = {
-        { -- special dummy weapon to make the unit stop a certain distance away
-            Damage = 0,
-            DamageFriendly = false,
-            FireTargetLayerCapsTable = { --what the unit will stop for
-                Land = 'Land|Water',
-                Water = 'Land|Water',
-            },
-            MaxRadius = 33,
-            RackBones = {
-                {
-                    MuzzleBones = {'Attachpoint'},
-                    RackBone = 'Attachpoint',
-                },
-            },
-            RateOfFire = 0.5,
-            TargetCheckInterval = 1,
-            TargetPriorities = {
-                'ALLUNITS',
-            },
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
-            Turreted = false,
-            SlavedToBody = false,
-        },
-    },
-    
+
 }

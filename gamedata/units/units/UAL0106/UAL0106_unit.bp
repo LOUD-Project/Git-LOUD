@@ -178,7 +178,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 5,
+            Damage = 6,
             DamageType = 'Normal',
 			
             DisplayName = 'Sonic Pulsar',
@@ -198,6 +198,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 3,
+
             MuzzleVelocity = 25,
 			
             ProjectileId = '/projectiles/ADFSonicPulsar01/ADFSonicPulsar01_proj.bp',
@@ -211,7 +212,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,	-- 15 DPS
+            RateOfFire = 1,	-- 18 DPS
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {

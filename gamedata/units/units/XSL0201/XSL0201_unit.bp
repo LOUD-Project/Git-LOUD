@@ -166,7 +166,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 30,
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Oh Spectra Cannon',

@@ -130,7 +130,7 @@ UnitBlueprint {
 	
     SelectionSizeX = 0.3,
     SelectionSizeZ = 0.3,
-    SelectionThickness = 1.2,
+    SelectionThickness = 0.6,
 	
     SizeX = 0.45,
     SizeY = 0.45,
@@ -165,7 +165,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 5,
+            Damage = 3,
             DamageType = 'Normal',
 			
             DisplayName = 'MG',
@@ -181,6 +181,9 @@ UnitBlueprint {
             Label = 'ArmCannonTurret',
 			
             MaxRadius = 18,
+            
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 3,
 
             MuzzleVelocity = 25,
 			
@@ -199,7 +202,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 3,	-- 15 DPS
+            RateOfFire = 2,	-- 18 DPS
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -226,7 +229,8 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 65,
+
             Turreted = true,
 			
             UseFiringSolutionInsteadOfAimBone = true,

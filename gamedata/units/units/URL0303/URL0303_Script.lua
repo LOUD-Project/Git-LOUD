@@ -5,9 +5,10 @@ local cWeapons = import('/lua/cybranweapons.lua')
 
 local CDFLaserDisintegratorWeapon = cWeapons.CDFLaserDisintegratorWeapon01
 local CDFElectronBolterWeapon = cWeapons.CDFElectronBolterWeapon
+local EMPDeathWeapon = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
 
 local MissileRedirect = import('/lua/defaultantiprojectile.lua').MissileRedirect
-
+--[[
 local EMPDeathWeapon = Class(Weapon) {
 
     OnCreate = function(self)
@@ -23,15 +24,32 @@ local EMPDeathWeapon = Class(Weapon) {
                    blueprint.Damage, blueprint.DamageType, blueprint.DamageFriendly)
     end,
 }
-
+--]]
 URL0303 = Class(CWalkingLandUnit) {
 
     PlayEndAnimDestructionEffects = false,
 
     Weapons = {
+
         Disintigrator = Class(CDFLaserDisintegratorWeapon) {},
         HeavyBolter = Class(CDFElectronBolterWeapon) {},
-        EMP = Class(EMPDeathWeapon) {},
+
+        EMP = Class(EMPDeathWeapon) {
+        
+            OnCreate = function(self)
+                
+                Weapon.OnCreate(self)
+
+                ChangeState( self, self.DeadState)
+            end,
+
+            OnFire = function(self)
+    
+                local blueprint = self:GetBlueprint()
+        
+                DamageArea(self.unit, self.unit:GetPosition(), blueprint.DamageRadius, blueprint.Damage, blueprint.DamageType, blueprint.DamageFriendly)
+            end,
+        },
     },
     
     OnStopBeingBuilt = function(self,builder,layer)

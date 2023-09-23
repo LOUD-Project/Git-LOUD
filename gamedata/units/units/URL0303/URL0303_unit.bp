@@ -361,7 +361,7 @@ UnitBlueprint {
             Damage = 1,
             DamageFriendly = false,
             DamageRadius = 10,
-            DamageType = 'EMP',
+            DamageType = 'Normal',
 			
             DisplayName = 'EMP',
 			
@@ -391,8 +391,7 @@ UnitBlueprint {
             },
 
             RateOfFire = 0.5,
-            
-            SalvoSize = 1,
+
             SlavedToBody = true,
             
             TargetCheckInterval = 1,
