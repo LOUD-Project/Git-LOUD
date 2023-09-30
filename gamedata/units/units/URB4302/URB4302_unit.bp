@@ -188,6 +188,8 @@ UnitBlueprint {
                     RackBone = 'URB4302',
                 },
             },
+			
+            RackSalvoReloadTime = 3.3,
 
             RangeCategory = 'UWRC_Countermeasure',
 

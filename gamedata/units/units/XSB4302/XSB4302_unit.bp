@@ -201,6 +201,8 @@ UnitBlueprint {
                     RackBone = 'Missile_Attachpoint',
                 },
             },
+			
+            RackSalvoReloadTime = 3.3,
 
             RangeCategory = 'UWRC_Countermeasure',
 

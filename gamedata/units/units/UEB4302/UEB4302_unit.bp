@@ -209,6 +209,8 @@ UnitBlueprint {
                     RackBone = 'Turret_Muzzle01',
                 },
             },
+			
+            RackSalvoReloadTime = 3.3,
 
             RangeCategory = 'UWRC_Countermeasure',
 			

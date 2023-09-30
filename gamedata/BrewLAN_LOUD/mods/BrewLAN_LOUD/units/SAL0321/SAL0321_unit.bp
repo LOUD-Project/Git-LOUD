@@ -243,13 +243,13 @@ UnitBlueprint {
                 },
             },
 			
-            RackSalvoReloadTime = 1.8,
+            RackSalvoReloadTime = 3.3,
 
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 0.5,
+            RateOfFire = 0.6,
 			
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1,
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'STRATEGIC MISSILE',
             TargetType = 'RULEWTT_Projectile',

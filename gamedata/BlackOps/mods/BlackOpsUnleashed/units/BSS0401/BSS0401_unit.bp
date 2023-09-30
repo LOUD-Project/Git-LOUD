@@ -1527,12 +1527,14 @@ UnitBlueprint {
                     RackBone = 'Projectile01',
                 },
             },
+			
+            RackSalvoReloadTime = 3.3,
 
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 1,
+            RateOfFire = 0.6,
 			
-            TargetCheckInterval = 0.3,
+            TargetCheckInterval = 1,
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'STRATEGIC MISSILE',

@@ -269,6 +269,8 @@ UnitBlueprint {
                     RackBone = 'AntiNuke',
                 },
             },
+			
+            RackSalvoReloadTime = 3.3,
 
             RangeCategory = 'UWRC_Countermeasure',
 			
