@@ -3434,7 +3434,7 @@ SubUnit = Class(MobileUnit) {
 
             d = d + 1
 
-            WaitTicks(Random( 3, 10 ) + d)
+            WaitTicks(Random( 5, 12 ) + d)
         end
     end,
 
@@ -3471,7 +3471,7 @@ SubUnit = Class(MobileUnit) {
 
             i = i - 1
 
-            WaitTicks(10)
+            WaitTicks(10 + Random(3,6) )
         end
     end,
 }
@@ -3648,7 +3648,7 @@ SeaUnit = Class(MobileUnit) {
             CreateEmitterAtBone( self, randBone, army, '/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp'):OffsetEmitter(rx, ry, rz):ScaleEmitter(rs)
             CreateEmitterAtBone( self, randBone, army, '/effects/emitters/destruction_underwater_explosion_splash_01_emit.bp'):OffsetEmitter(rx, ry, rz):ScaleEmitter(rs)
 
-            WaitTicks( 4 + (Random() * (6) ))
+            WaitTicks( 8 + (Random() * (6) ))
         end
         
         --LOG("*AI DEBUG SEA UNIT "..self.EntityID.." Explosion thread ends for "..self.BlueprintID)
@@ -3694,7 +3694,7 @@ SeaUnit = Class(MobileUnit) {
 
             i = i - 1
 
-            WaitTicks(10)
+            WaitTicks(10 + Random(1,6) )
         end
         
         --LOG("*AI DEBUG SEA UNIT "..self.EntityID.." Sinking thread ends for "..self.BlueprintID)
@@ -4073,7 +4073,7 @@ AirUnit = Class(MobileUnit) {
 
 				CreateEmitterAtBone( self, 0, army, '/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):ScaleEmitter(sx * 0.5):OffsetEmitter(rx, ry, rz)
 
-				WaitSeconds(0.4 + i + (Random() * (0.6 + i) ))
+				WaitSeconds(0.5 + i + (Random() * (0.6 + i) ))
 
 				i = i + 0.3
 			end
