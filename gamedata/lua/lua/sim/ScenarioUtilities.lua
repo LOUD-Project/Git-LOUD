@@ -1148,7 +1148,7 @@ function InitializeArmies()
             aiBrain.MassPointShare = math.min( 12 + ScenarioInfo.Options.PlayerCount, math.floor(ScenarioInfo.NumMassPoints/ScenarioInfo.Options.PlayerCount) - 1)
 
             if aiBrain.OutnumberedRatio >= aiBrain.CheatValue then
-                aiBrain.MassPointShare = math.floor(aiBrain.MassPointShare * (aiBrain.OutnumberedRatio/aiBrain.CheatValue))
+                aiBrain.MassPointShare = math.min( math.floor(ScenarioInfo.NumMassPoints/ScenarioInfo.Options.PlayerCount), math.floor(aiBrain.MassPointShare * (aiBrain.OutnumberedRatio/aiBrain.CheatValue)))
             end
 		end
         
@@ -1179,7 +1179,7 @@ function InitializeArmies()
 
                         -- sort the list for closest
                         table.sort(ScenarioInfo.TeamMassPointList[brain.Team], function(a,b) return VDist3( a.Position, Position ) < VDist3( b.Position, Position) end )
-                    
+                        
                         -- take the closest one and remove it from master list
                         table.insert( brain.StartingMassPointList, table.remove( ScenarioInfo.TeamMassPointList[brain.Team], 1 ))
                         
