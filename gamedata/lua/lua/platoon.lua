@@ -953,15 +953,22 @@ Platoon = Class(moho.platoon_methods) {
 				local positions = {}			
 
                 local maxthreat = (threatallowed * threatmodifier)
+                local maxthreattest = maxthreat
                 local nomarkers = true
 
-                local Node, Position, testdistance, thisthreat
+                local Node, Position, goaldistance, testdistance, thisdistance, thisthreat
 				
-				-- sort the table by closest to the given location
+				-- sort the table by closest to the given location (start position of this test)
 				LOUDSORT(markerlist, function(a,b) local VDist3Sq = VDist3Sq return VDist3Sq( a.position, location ) < VDist3Sq( b.position, location ) end)
+                
+                if goalseek then
+                    goaldistance = VDist3(location,goalseek)
+                end
 	
-				-- traverse the list and make a new list of those with allowable threat and within range
+				-- traverse the list and make a new list of those with allowable threat and within the MaxMarkerDist range
 				-- since the source table is already sorted by range, the output table will be created in a sorted order
+                -- if we are seeking the safest, we should always immediately return when we get a 0 or less threat - as it will also be the closest
+                -- if we are goalseeking then we must review them all - and then sort to get the one closest to the goal (that is still safe)
 				for _,v in markerlist do
                 
                     Node = v.node
