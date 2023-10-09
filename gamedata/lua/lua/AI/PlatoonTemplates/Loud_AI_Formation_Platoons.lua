@@ -409,7 +409,7 @@ PlatoonTemplate { Name = 'T1LandScoutForm',
         },
         Aeon = {
             { 'ual0101', 2, 4, 'Scout', 'none' },
-            { LANDAMPHIB - categories.SCOUT, 0, 2, 'Attack', 'none' }
+            { LANDAMPHIB - categories.EXPERIMENTAL - categories.SCOUT, 0, 2, 'Attack', 'none' }
         },
         Cybran = {
             { 'url0101', 1, 1, 'Scout', 'none' }
