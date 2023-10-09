@@ -6094,7 +6094,8 @@ end
 
 -- We are basically re-checking the work that was done to put this data into the HiPri list to get
 -- refreshed position and strength values - May 2019
-function GetHiPriTargetList(aiBrain, location)
+-- added threat type, range and Entity filtering options
+function GetHiPriTargetList(aiBrain, location, threattypes, maxrange, EntityControl)
 
     if not location then
         return {}
@@ -6118,8 +6119,6 @@ function GetHiPriTargetList(aiBrain, location)
 
     local threatlist = LOUDCOPY(aiBrain.IL.HiPri)
 	
-	--local GetEnemyUnitsInRect = import('/lua/loudutilities.lua').GetEnemyUnitsInRect
-	
 	-- this defines the 'box' that we'll use around the threat position to find enemy units
 	-- it varies with the map size and is set in the PARSEINTEL thread
 	local IMAPRadius = ScenarioInfo.IMAPRadius
@@ -6129,8 +6128,8 @@ function GetHiPriTargetList(aiBrain, location)
 	local counter = 0
 	local targetlist = {}	
 
-	local allthreat, airthreat, bp, ecothreat, newPos, subthreat, surthreat, targets, unitcount, unitPos, x1, x2, x3
-    local TPosition
+	local allthreat, airthreat, bp, ecothreat, newPos, subthreat, surthreat, targets, targetcount, unitcount, unitPos, x1, x2, x3
+    local EntityCheck, TPosition
 
 	LOUDSORT( threatlist, function(a,b) local VDist3 = VDist3 return VDist3(a.Position,location) < VDist3(b.Position,location) end )
 
@@ -6140,17 +6139,33 @@ function GetHiPriTargetList(aiBrain, location)
             continue
         end
         
-        TPosition = threat.Position
-
-        local EntityCheck = intelChecks[threat.Type] or false       
-
-        if not EntityCheck then
+        if threattypes and not threattypes[threat.Type] then
             continue
         end
         
+        TPosition = threat.Position
+        
+        if maxrange and VDist3(location, TPosition) > maxrange then
+            break
+        end
+
+        if EntityControl then
+            EntityCheck = false
+        else
+            EntityCheck = intelChecks[threat.Type] or false
+        end
+   
         -- ok - this result is going to differ from the one in PARSEINTEL because of the position - at this point it's already offset from the IMAP block
         -- so it can move in relation to what the HiPri list actually has
-		targets = GetEnemyUnitsInRect( aiBrain, TPosition[1]-IMAPRadius, TPosition[3]-IMAPRadius, TPosition[1]+IMAPRadius, TPosition[3]+IMAPRadius)
+		targets, targetcount = GetEnemyUnitsInRect( aiBrain, TPosition[1]-IMAPRadius, TPosition[3]-IMAPRadius, TPosition[1]+IMAPRadius, TPosition[3]+IMAPRadius)
+
+        if targetcount == 0 then
+            continue
+        end
+
+        if EntityCheck then
+            targets = EntityCategoryFilterDown( EntityCheck, targets )
+        end
 		
 		airthreat = 0.0
 		ecothreat = 0.0
@@ -6168,7 +6183,7 @@ function GetHiPriTargetList(aiBrain, location)
 
 			checks = checks + 1
 
-			for _, target in EntityCategoryFilterDown( EntityCheck, targets ) do
+			for _, target in targets do
 			
 				if not target.Dead then
 				
@@ -6196,10 +6211,15 @@ function GetHiPriTargetList(aiBrain, location)
 
             if allthreat > 0 then
             
-                newPos = { LOUDFLOOR(x1/unitcount), LOUDFLOOR(x2/unitcount), LOUDFLOOR(x3/unitcount) }
+                -- if we parsed the targets by Entity - use the average position - otherwise use the original position
+                if EntityCheck then
+                    newPos = { LOUDFLOOR(x1/unitcount), LOUDFLOOR(x2/unitcount), LOUDFLOOR(x3/unitcount) }
+                else
+                    newPos = TPosition
+                end
 			
                 counter = counter + 1		
-                targetlist[counter] = { Position = newPos, Type = threat.Type, LastScouted = threat.LastScouted,  Distance = LOUDFLOOR(VDist3(location, newPos)), Threats = { Air = airthreat, Eco = ecothreat, Sub = subthreat, Sur = surthreat, All = allthreat} }
+                targetlist[counter] = { Distance = LOUDFLOOR(VDist3(location, newPos)), LastScouted = threat.LastScouted, Position = newPos, Threats = { Air = airthreat, Eco = ecothreat, Sub = subthreat, Sur = surthreat, All = allthreat}, Type = threat.Type, }
 
             end
 
@@ -6212,49 +6232,34 @@ function GetHiPriTargetList(aiBrain, location)
 
     end
 	
-	return targetlist
+	return targetlist, counter
 end
 
 
 	-- checks if a targetposition is still on the hipri intel list and return true or false
-	-- If true, the threat level will also be returned which can then be used by the platoon to do further
-	-- evaluation of the target
+	-- If true, the threat levels will also be returned which can then be used by the platoon to do further evaluation
 	-- NOTE the use of intelresolution which is set by the ParseIntel thread.  This value changes according to
-	-- map size and should allow this routine to keep up with moving intel targets- at least those within the
-	-- same IMAP block
+	-- map size and should allow this routine to keep up with moving intel targets - at least those within the IMAP block
 	-- It's always a larger value than the IMAPRadius that was used to find targets originally and allows this
 	-- routine to return TRUE on moving HiPri targets
-function RecheckHiPriTarget( aiBrain, targetlocation, targetclass, pos)
+function RecheckHiPriTarget( aiBrain, targetlocation, targetclass, nulrange, EntityControl )
+    
+    local testtypes = {}
+    
+    testtypes[targetclass] = true
+    
+    --LOG("*AI DEBUG Rechecking HiPri targetclass is "..targetclass.." MaxDistance is "..ScenarioInfo.IntelResolution.." from "..repr(targetlocation) )
 
-    local VDist3Sq = VDist3Sq 
+	local targetlist, targetlistcount = GetHiPriTargetList( aiBrain, targetlocation, testtypes, ScenarioInfo.IntelResolution, EntityControl or false )
+    
+    --LOG("*AI DEBUG reported targetlist is "..repr(targetlist))
 
-    local intelresolution = ScenarioInfo.IntelResolution * ScenarioInfo.IntelResolution
+    if targetlistcount > 0 then
+    
+        Target = targetlist[1]
 
-	local targetlist = GetHiPriTargetList( aiBrain, pos )
-
-    local TPosition
-
-	-- sort this list by distance from targetlocation so I can break early
-	LOUDSORT(targetlist, function (a,b) local VDist3Sq = VDist3Sq return VDist3Sq( a.Position,targetlocation ) < VDist3Sq( b.Position,targetlocation ) end)
-
-    for _,Target in targetlist do
-
-        TPosition = Target.Position
-
-        -- as soon as we hit one that is beyond the intelresolution we're done
-		if VDist3Sq( targetlocation, TPosition ) > intelresolution then
-
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Recheck HiPri but "..repr(targetlocation).." was beyond "..ScenarioInfo.IntelResolution.." of HiPri list")
-
-			break
-		end
-		
-		-- filter for the same target type (ie. - StructureNotMex, Land, etc)
-		if Target.Type == targetclass then
-
-			-- return true and table of different threat values (Air,Eco,Sub,Sur,All)
-			return true, Target.Threats, TPosition
-		end
+		-- return true and table of different threat values (Air,Eco,Sub,Sur,All) and potentially new location
+        return true, Target.Threats, Target.Position
 	end
 
 	-- current target is no longer HiPri
@@ -6322,7 +6327,7 @@ function DrawIntel( aiBrain, parseinterval)
     
         local DrawC = DrawC
     
-        local distmax = math.log10( math.sqrt( threatamount ))
+        local distmax = math.log10( LOUDSQRT( threatamount ))
         local surface = GetSurfaceHeight(position[1],position[3])
 
         -- controls display length
