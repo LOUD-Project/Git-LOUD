@@ -5031,13 +5031,13 @@ Unit = Class(moho.unit_methods) {
 	
         if not self.teleporting then
         
-            LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location) )
+            --LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location) )
             
             self.teleporting = true
 
         else 
         
-            LOG("*AI DEBUG OnTelportUnit FAILS for "..repr(self.BlueprintID).." to location "..repr(location).." - teleport already in progress")
+            --LOG("*AI DEBUG OnTelportUnit FAILS for "..repr(self.BlueprintID).." to location "..repr(location).." - teleport already in progress")
         
             return
         end
@@ -5057,7 +5057,7 @@ Unit = Class(moho.unit_methods) {
 		
 		if destRange > (teleRange * 4) then
         
-            LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." at "..repr(destRange).." - failed - beyond "..(teleRange*4).." range. " )
+            --LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." at "..repr(destRange).." - failed - beyond "..(teleRange*4).." range. " )
 		
 			FloatingEntityText(self.EntityID,'Destination Out Of Range')
             
@@ -5093,7 +5093,7 @@ Unit = Class(moho.unit_methods) {
 				
                         FloatingEntityText(self.EntityID,'Teleport Destination Scrambled')
                     
-                        LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." - failed - destination blocked ")
+                        --LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." - failed - destination blocked ")
                     
                         self.teleporting = nil
                     
@@ -5104,7 +5104,7 @@ Unit = Class(moho.unit_methods) {
 				
                         FloatingEntityText(self.EntityID,'Teleport Source Scrambled')
                     
-                        LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." - failed - source area blocked ")
+                        --LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." - failed - source area blocked ")
                     
                         self.teleporting = nil
                     
@@ -5134,7 +5134,7 @@ Unit = Class(moho.unit_methods) {
 			
 				FloatingEntityText(self.EntityID,'Insufficient Energy Storage ('..telecost..')' )
 
-                LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." - failed - Insufficient energy - "..repr(telecost).." required to initialize a teleport - storage "..repr(storedenergy) )
+                --LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." - failed - Insufficient energy - "..repr(telecost).." required to initialize a teleport - storage "..repr(storedenergy) )
                 
                 self.teleporting = nil
                 
@@ -5161,7 +5161,7 @@ Unit = Class(moho.unit_methods) {
 		
         EffectUtilities.CleanupTeleportChargeEffects(self)
         
-        LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." Teleport process begins")
+        --LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." Teleport process begins")
         
 		-- start teleportation sequence --
         self.TeleportThread = self:ForkThread(self.InitiateTeleportThread, teleporter, bp, location, destRange, teleRange, orientation, telecost)
@@ -5307,15 +5307,15 @@ Unit = Class(moho.unit_methods) {
 
             if teledistance <= teleRange then
                 teleportenergy = teleportenergy * ( math.max( .25, teledistance/teleRange ) * math.max( .25, teledistance/teleRange ) )
-                LOG("*AI DEBUG Teleport dist "..teledistance.." -- optimal range "..teleRange.." -- Distance mod "..repr( ( math.max( .25, teledistance/teleRange )) * ( math.max( .25, teledistance/teleRange ))) )
+                --LOG("*AI DEBUG Teleport dist "..teledistance.." -- optimal range "..teleRange.." -- Distance mod "..repr( ( math.max( .25, teledistance/teleRange )) * ( math.max( .25, teledistance/teleRange ))) )
             else
                 teleportenergy = teleportenergy * teledistance/teleRange
-                LOG("*AI DEBUG Teleport dist "..teledistance.." -- optimal range "..teleRange.." -- Distance mod "..repr(teledistance/teleRange ) )
+                --LOG("*AI DEBUG Teleport dist "..teledistance.." -- optimal range "..teleRange.." -- Distance mod "..repr(teledistance/teleRange ) )
             end
             
             teleportenergy = teleportenergy * ((2 * (math.cos( (3.14*teledistance)/400) )) + 3)
             
-            LOG("*AI DEBUG Teleport dist "..teledistance.." range mod is ".. ((2 * (math.cos( (3.14*teledistance)/400) )) + 3).." E required is "..teleportenergy )
+            --LOG("*AI DEBUG Teleport dist "..teledistance.." range mod is ".. ((2 * (math.cos( (3.14*teledistance)/400) )) + 3).." E required is "..teleportenergy )
             
             local buildrate = teleporter:GetBuildRate()
 
@@ -5328,7 +5328,7 @@ Unit = Class(moho.unit_methods) {
 
             teleporttime = math.max( 12, ( teleportenergy / (buildrate * 10) ))
 
-			LOG('*AI DEBUG Teleporting value '..repr(teleportenergy)..'  time = '..repr(teleporttime).."  will be using "..repr(teleportenergy/teleporttime).."E per second" )
+			--LOG('*AI DEBUG Teleporting value '..repr(teleportenergy)..'  time = '..repr(teleporttime).."  will be using "..repr(teleportenergy/teleporttime).."E per second" )
 			
         end
         
