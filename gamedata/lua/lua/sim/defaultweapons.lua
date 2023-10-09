@@ -403,8 +403,6 @@ DefaultProjectileWeapon = Class(Weapon) {
         local bp = self.bp
         
         local unitBP = __blueprints[self.unit.BlueprintID].Audio
-        
-        self.ElapsedRepackTime = GetGameTick()
 
         if ScenarioInfo.WeaponStateDialog then
             LOG("*AI DEBUG DefaultWeapon Unpack Sequence "..repr(self.bp.Label).." at "..GetGameTick() )
@@ -422,20 +420,26 @@ DefaultProjectileWeapon = Class(Weapon) {
             PlaySound( self, bp.Audio.Unpack)
         end
         
-        if bp.WeaponUnpackAnimation and not self.UnpackAnimator then
+        self.ElapsedRepackTime = 0
         
-            self.ElapsedRepackTime = GetGameTick()
+        if bp.WeaponUnpackAnimation and not self.UnpackAnimator then
         
             self.UnpackAnimator = CreateAnimator(self.unit)
             
+            self.ElapsedRepackTime = GetGameTick()
+
             PlayAnim( self.UnpackAnimator, bp.WeaponUnpackAnimation ):SetRate(0)
-            
+
+            self.ElapsedRepackTime = GetGameTick() - self.ElapsedRepackTime            
+
             SetPrecedence( self.UnpackAnimator, bp.WeaponUnpackAnimatorPrecedence or 0)
             
             TrashAdd( self.unit.Trash, self.UnpackAnimator )
         end
         
         if self.UnpackAnimator then
+
+            self.ElapsedRepackTime = GetGameTick() - self.ElapsedRepackTime
 
             self.UnpackAnimator:SetRate(bp.WeaponUnpackAnimationRate)
             
@@ -449,6 +453,10 @@ DefaultProjectileWeapon = Class(Weapon) {
                 else
                     LOG("*AI DEBUG DefaultWeapon Unpack Sequence ends "..repr(bp.Label).." after "..self.ElapsedRepackTime.." ticks at "..GetGameTick() )
                 end
+            end
+            
+            if self.ElapsedRepackTime > 0 and ( not bp.WeaponRepackTimeout or (math.floor(bp.WeaponRepackTimeout*10) - self.ElapsedRepackTime < 0 )) then
+                LOG("*AI DEBUG DefaultWeapon WeaponRepackTimeout -(".. (bp.WeaponRepackTimeout or 0) * 10 ..") during unpack - is either not existant or less than the WeaponUnpackAnimation - "..self.ElapsedRepackTime.." ticks. "..repr(self.unit.BlueprintID))
             end
             
 			if bp.WeaponRepackTimeout and ( math.floor(bp.WeaponRepackTimeout*10) - self.ElapsedRepackTime) >= 1 then
@@ -474,8 +482,6 @@ DefaultProjectileWeapon = Class(Weapon) {
         local bp = self.bp
         
         local unitBP = __blueprints[self.unit.BlueprintID].Audio
-        
-        self.ElapsedRepackTime = 0
 
         if ScenarioInfo.WeaponStateDialog then
             LOG("*AI DEBUG DefaultWeapon Pack Sequence "..repr(bp.Label).." at "..GetGameTick() )
@@ -487,12 +493,12 @@ DefaultProjectileWeapon = Class(Weapon) {
         
         if bp.WeaponUnpackAnimation and self.UnpackAnimator then
         
+            self.ElapsedRepackTime = GetGameTick()
+        
             self.UnpackAnimator:SetRate(-bp.WeaponUnpackAnimationRate)
         end
         
         if self.UnpackAnimator then
-        
-            self.ElapsedRepackTime = GetGameTick()
 
             WaitFor(self.UnpackAnimator)
             
@@ -504,6 +510,10 @@ DefaultProjectileWeapon = Class(Weapon) {
                 else
                     LOG("*AI DEBUG DefaultWeapon Pack Sequence ends "..repr(bp.Label).." after "..self.ElapsedRepackTime.." ticks" )
                 end
+            end
+            
+            if self.ElapsedRepackTime > 0 and ( not bp.WeaponRepackTimeout or (math.floor(bp.WeaponRepackTimeout * 10) -self.ElapsedRepackTime < 0 ) ) then
+                LOG("*AI DEBUG DefaultWeapon WeaponRepackTimeout (".. (bp.WeaponRepackTimeout or 0) * 10 ..") - during pack - is either not existant or less than the WeaponUnpackAnimation - "..self.ElapsedRepackTime.." ticks. "..repr(self.unit.BlueprintID))
             end
 
 			if bp.WeaponRepackTimeout and (math.floor(bp.WeaponRepackTimeout * 10) - self.ElapsedRepackTime) > 1 then
@@ -617,7 +627,7 @@ DefaultProjectileWeapon = Class(Weapon) {
         if target and self.WeaponIsEnabled then
 
             if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon OnLostTarget for "..repr(bp.Label).." Enabled is "..repr(self.WeaponWantEnabled))
+                LOG("*AI DEBUG DefaultWeapon OnLostTarget for "..repr(bp.Label).." Enabled is "..repr(self.WeaponWantEnabled).." at "..GetGameTick() )
             end
         
             Weapon.OnLostTarget(self)
@@ -900,7 +910,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             local bp = self.bp
             local unit = self.unit
             
-            SetBusy( unit, true )
+            --SetBusy( unit, true )
 
             if bp.WeaponUnpackLocksMotion then
                 unit:SetImmobile(true)
@@ -1003,7 +1013,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             end
             
             local unit = self.unit
-            
+--[[            
             if (self.bp.CountedProjectile == true and self.bp.WeaponUnpacks == true) then
 			
                 SetBusy( unit, true )
@@ -1011,7 +1021,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 			
                 SetBusy( unit, false)
             end
-			
+--]]			
             self.WeaponCanFire = false
 			
             if self.EconDrain then
@@ -1360,6 +1370,10 @@ DefaultProjectileWeapon = Class(Weapon) {
 
             self:PlayFxRackSalvoReloadSequence(bp)
             
+            if self.ElapsedRackReloadTime > 0 and ( not bp.RackSalvoReloadTime or ((bp.RackSalvoReloadTime*10) < self.ElapsedRackReloadTime )) then
+                LOG("*AI DEBUG DefaultWeapon RackReloadTime - is either not existant or less than the RackSalvoReloadSequnce - "..self.ElapsedRackReloadTime.." ticks. "..repr(self.unit.BlueprintID))
+            end
+            
             if bp.RackSalvoReloadTime and (math.floor(bp.RackSalvoReloadTime * 10) - self.ElapsedRackReloadTime) >= 1 then
             
                 if WeaponStateDialog then
@@ -1439,7 +1453,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                 LOG("*AI DEBUG DefaultWeapon WeaponPacking State "..repr(self.bp.Label) )
 			end
 
-            SetBusy( self.unit, true )
+            --SetBusy( self.unit, true )
 
 			-- reset the rack count
             self.CurrentRackNumber = 1

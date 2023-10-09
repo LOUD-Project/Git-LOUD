@@ -100,7 +100,10 @@ function AIPickEnemyLogic( self, brainbool )
         threattypes = {'StructuresNotMex','Land','Naval'}
     end
     
-    local armyindex, counter, distance, insertTable, threats, threatWeight, unitPos, units, x1, x2, x3
+    local armyindex, counter, distance, insertTable, key, threats, threatWeight, unitPos, units, x1, x2, x3
+
+    -- this table will hold the summed threat for specific positions
+    insertTable = {}
     
     for k,v in Brains do
 	
@@ -109,9 +112,6 @@ function AIPickEnemyLogic( self, brainbool )
         if not v:IsDefeated() and selfIndex != armyindex and not IsAlly( selfIndex, armyindex) then
 		
 			if IsEnemy(selfIndex, armyindex) then
-
-                -- this table will hold the summed threat for specific positions
-                insertTable = {}
 
                 for _,threattype in threattypes do
 
@@ -138,7 +138,7 @@ function AIPickEnemyLogic( self, brainbool )
 
                             --LOG("*AI DEBUG "..self.Nickname.." inserts "..repr(data).." - times "..((self.dist_comp/ distance )-1).." using distance "..repr(distance) )
 
-                            local key = tostring(data[1])..","..tostring(data[2].."-"..tostring(k))
+                            key = tostring(data[1])..","..tostring(data[2].."-"..tostring(k))
 
                             if not insertTable[key] then
                                 
