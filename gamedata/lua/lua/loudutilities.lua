@@ -22,6 +22,8 @@ local LOUDINSERT = table.insert
 local LOUDREMOVE = table.remove
 local LOUDSORT = table.sort
 local LOUDFLOOR = math.floor
+local LOUDSQRT = math.sqrt
+
 local tostring = tostring
 local VDist2Sq = VDist2Sq
 local VDist3 = VDist3
@@ -1282,10 +1284,10 @@ function SetPrimaryLandAttackBase( aiBrain )
         
         local currentgoaldistance = aiBrain.PrimaryLandAttackBaseDistance or 99999       -- default in case current primary doesn't exist --
         
-        local currentlandbasemode = false   -- assume all bases are in amphibious mode
+        local currentlandbasemode = false   -- assume all bases are amphibious mode
         
         if aiBrain.AttackPlan.Method == "Land" then
-            currentlandbasemode = true      -- bases will be in land mode - rather than amphibious
+            currentlandbasemode = true      -- bases will be in land mode
         end
 		
 		-- make a table of all land bases
@@ -1297,7 +1299,7 @@ function SetPrimaryLandAttackBase( aiBrain )
                 pathlength = 0
                 
 				-- here is the distance calculation 
-                path,reason,pathlength = PlatoonGenerateSafePathToLOUD( aiBrain, 'PrimaryLandBaseFinderfrom'..v.BaseName, 'Amphibious', v.Position, goal, 99999, 200)
+                path,reason,pathlength = PlatoonGenerateSafePathToLOUD( aiBrain, 'FindPrimaryLandAttackPlanner'..v.BaseName, 'Amphibious', v.Position, goal, 99999, 200)
                 
                 if path then
 
@@ -5473,7 +5475,7 @@ function AttackPlanner(self, enemyPosition)
 
     self.AttackPlan.Goal = nil
     self.AttackPlan.CurrentGoal = nil
-    self.AttackPlan.StagePoints = {}
+    self.AttackPlan.StagePoints = { [0] = { Name = 'StartPoint'} }
     self.AttackPlan.GoSignal = false
 
     CreateAttackPlan( self, enemyPosition )
@@ -5524,10 +5526,6 @@ function CreateAttackPlan( self, enemyPosition )
     
     startx = enemyPosition[1]
     startz = enemyPosition[3]
-
-    if AttackPlanDialog then
-        LOG("*AI DEBUG "..self.Nickname.." Creating attack plan to "..repr(enemyPosition))
-    end
   
     local starty = GetSurfaceHeight( startx, startz )
     local Goal = {startx, starty, startz}
@@ -5538,13 +5536,16 @@ function CreateAttackPlan( self, enemyPosition )
     local StartPosition = self.BuilderManagers.MAIN.Position
     
     if AttackPlanDialog then
-        LOG("*AI DEBUG "..self.Nickname.." Creating attack plan FROM "..repr(StartPosition))
+        LOG("*AI DEBUG "..self.Nickname.." Creating attack plan FROM "..repr(StartPosition).." TO "..repr(enemyPosition) )
     end
   
     local markertypes = { 'Defensive Point','Naval Area','Naval Defensive Point','Blank Marker','Expansion Area','Large Expansion Area','Small Expansion Area' }
+
     local markerlist = {}
+
+    local CDistance,GDistance,SDistance
     local counter = 0
-    
+
     local markers = ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers
 
 	-- checks if destination is somewhere between two points
@@ -5573,29 +5574,32 @@ function CreateAttackPlan( self, enemyPosition )
     local LocationInWaterCheck = function(position)
         return GetTerrainHeight(position[1], position[3]) < GetSurfaceHeight(position[1], position[3])
     end    
+
+    CDistance = VDist2Sq(StartPosition[1],StartPosition[3], Goal[1],Goal[3])
 	
-    -- first lets build a masterlist of all valid staging points between start and goal
+    -- first lets build a masterlist of ALL valid staging points between start and goal
     for k,v in markers do
-	
+
+        GDistance = VDist2Sq(v.position[1],v.position[3], Goal[1],Goal[3])
+        SDistance = VDist2Sq(v.position[1],v.position[3], StartPosition[1],StartPosition[3])
+
         for _,t in markertypes do
 		
             if v.type == t then
-			
-                local Position = {v.position[1], v.position[2], v.position[3]}
-				
-				-- only add markers that are at least minstagesize away
-                if VDist2Sq(Position[1],Position[3], StartPosition[1],StartPosition[3]) > minstagesize
+
+				-- only add markers that are at least minstagesize away from the start
+                if SDistance > minstagesize
 				
 					-- and at least minstagesize from the final goal
-					and VDist2Sq(Position[1],Position[3], Goal[1],Goal[3]) > minstagesize
+					and GDistance > minstagesize
 					
-					-- and closer to the goal than the startposition
-					and VDist2Sq(Position[1],Position[3], Goal[1],Goal[3]) <= VDist2Sq(StartPosition[1],StartPosition[3], Goal[1],Goal[3])
+					-- and 20% closer to the goal than the startposition
+					and GDistance <= (CDistance * .8)
 					
 					then
 	
                     counter = counter + 1
-                    markerlist[counter] = { Position = {v.position[1], v.position[2], v.position[3]}, Name = v.type } 
+                    markerlist[counter] = { Position = {v.position[1],v.position[2],v.position[3]}, Name = t } 
                     break
                 end
             end
@@ -5609,7 +5613,7 @@ function CreateAttackPlan( self, enemyPosition )
         end
         
 		GoalReached = true
-	end
+    end
 
     -- we always start checking from here --
     local CurrentPoint = LOUDCOPY(StartPosition)
@@ -5620,6 +5624,7 @@ function CreateAttackPlan( self, enemyPosition )
 
     local StageCount = 0
     local looptest = 0
+    
 	local position, positions, path, reason, pathlength, pathtype, CurrentBestPathLength
     
     path = false
@@ -5631,6 +5636,11 @@ function CreateAttackPlan( self, enemyPosition )
     
     -- if not - try AMPHIB --
     if not path then
+        
+        if AttackPlanDialog then
+            LOG("*AI DEBUG "..self.Nickname.." Attack Planner finds no LAND path to Goal "..repr(Goal).." from StartPosition of "..repr(CurrentPoint).." reason is "..repr(reason) )
+        end
+
         pathtype = 'Amphibious'
         path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib', 'Amphibious', CurrentPoint, Goal, 99999, 250)
     end
@@ -5640,7 +5650,7 @@ function CreateAttackPlan( self, enemyPosition )
         pathtype = 'Unknown'
         
         if AttackPlanDialog then
-            LOG("*AI DEBUG "..self.Nickname.." Attack Planner finds no path to Goal "..repr(Goal).." from StartPosition of "..repr(CurrentPoint))
+            LOG("*AI DEBUG "..self.Nickname.." Attack Planner finds no AMPHIB path to Goal "..repr(Goal).." from StartPosition of "..repr(CurrentPoint).." reason is "..repr(reason) )
         end
         
         GoalReached = true
@@ -5652,30 +5662,34 @@ function CreateAttackPlan( self, enemyPosition )
         end
         
         CurrentBestPathLength = pathlength
+
+        if AttackPlanDialog then
+            LOG("*AI DEBUG "..self.Nickname.." sets Attack Plan Method to "..repr(pathtype) )
+        end
+
+        -- record if attack plan can be land based or not - start with land - but fail over to amphibious if no path --
+        self.AttackPlan.Method = pathtype
         
     end
 
-    
-	-- record if attack plan can be land based or not - start with land - but fail over to amphibious if no path --
-    self.AttackPlan.Method = pathtype
 
     -- performance throttle
     local cyclecount = 0
 
     while not GoalReached do
-    
-        if AttackPlanDialog then
-            LOG("*AI DEBUG "..self.Nickname.." Current distance to goal is "..VDist2(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3]).." stagesize is "..stagesize)
-            LOG("*AI DEBUG "..self.Nickname.." Next position will need to be less than "..(CurrentPointDistance * .75).." and have a path of less than "..CurrentBestPathLength )
-        end
-    
+ 
     	-- if current point is within stagesize of goal we're done
         if VDist2Sq(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3]) <= maxstagesize then
 		
             GoalReached = true
 			
         else
-       
+
+            if AttackPlanDialog then
+                LOG("*AI DEBUG "..self.Nickname.." START STAGECOUNT ".. StageCount+1 .." Current distance to goal is "..VDist2(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3]).." stagesize is "..stagesize)
+                LOG("*AI DEBUG "..self.Nickname.." This stage needs to be less than "..(CurrentPointDistance * .75).." from the goal and have a path length of less than "..CurrentBestPathLength )
+            end
+          
             -- sort the markerlist for closest to the current point --
             LOUDSORT( markerlist, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], CurrentPoint[1],CurrentPoint[3]) < VDist2Sq(b.Position[1],b.Position[3], CurrentPoint[1],CurrentPoint[3]) end )
 
@@ -5685,46 +5699,51 @@ function CreateAttackPlan( self, enemyPosition )
             -- Now we'll test each valid position and assign a value to it
             -- seek the position which has the lowest path value between our minimum(100) and maximum(300) stage size distance
             -- note that the path value might exceed these limits - but the crow flies distance cannot
+            
+            local goaldistance, testdistance, holdpathlength
 
 			-- Filter the list of markers
             for _,v in markerlist do
             
                 position = v.Position
-        
-                -- distance from the Current Point
-                local testdistance = VDist2Sq( position[1],position[3], CurrentPoint[1],CurrentPoint[3])
 
-                -- distance to the Goal
-                local goaldistance = VDist2( position[1],position[3], Goal[1],Goal[3])
-                
-                if AttackPlanDialog then
-                    LOG("*AI DEBUG "..self.Nickname.." reviewing point "..repr(v.Name).." from Current Point is "..math.sqrt(testdistance).." to goal is "..goaldistance)
-                end
-                
-                if testdistance < minstagesize then
-                    --LOG("*AI DEBUG "..self.Nickname.." point too close to current point ")
-                    continue
-                end
-                
-                if VDist2Sq(position[1],position[3], Goal[1],Goal[3]) < minstagesize then
-                    --LOG("*AI DEBUG "..self.Nickname.." point too close to goal ")
-                    continue
-                end
+                -- distance from the Current Point
+                testdistance = VDist2Sq( position[1],position[3], CurrentPoint[1],CurrentPoint[3])
 
                 if testdistance > maxstagesize then
-                    --LOG("*AI DEBUG "..self.Nickname.." point too far from current point ")
+                    break -- the remainder will fail --
+                end
+
+                -- distance to the Goal
+                goaldistance = VDist2( position[1],position[3], Goal[1],Goal[3])
+                
+                if testdistance < minstagesize then
+                    --if AttackPlanDialog then
+                        --LOG("*AI DEBUG "..self.Nickname.." point too close to current point "..testdistance.." < "..minstagesize )
+                    --end
+
                     continue
                 end
                 
                 if goaldistance >= (CurrentPointDistance * .75) then
-                    --LOG("*AI DEBUG "..self.Nickname.." point is not 25% closer to goal ")
+                    --if AttackPlanDialog then
+                        --LOG("*AI DEBUG "..self.Nickname.." point is not 25% closer to goal "..goaldistance.." >= "..(CurrentPointDistance * .75) )
+                    --end
+
                     continue
                 end
-        
-                --if AttackPlanDialog then
-                --  LOG("*AI DEBUG "..self.Nickname.." examines "..repr(v).." distance is "..math.sqrt(testdistance).." from current point "..repr(CurrentPoint) )
-                --  LOG("*AI DEBUG "..self.Nickname.." examines "..repr(v).." distance is "..goaldistance.." to the goal "..repr(Goal) )
-                --end 
+                
+                if goaldistance < LOUDSQRT(minstagesize) then
+                    --if AttackPlanDialog then
+                        --LOG("*AI DEBUG "..self.Nickname.." point too close to goal "..goaldistance.." < "..LOUDSQRT(minstagesize) )
+                    --end
+
+                    continue
+                end
+
+                if AttackPlanDialog then
+                    LOG("*AI DEBUG "..self.Nickname.." Stagecount ".. StageCount+1 .." reviewing "..repr(v.Name).." at "..repr(position).." distance from Current Point is "..LOUDSQRT(testdistance).." to goal is "..goaldistance)
+                end
 
                 cyclecount = cyclecount + 1
 
@@ -5733,12 +5752,14 @@ function CreateAttackPlan( self, enemyPosition )
 
                 -- get the pathlength of this position to the Goal position -- using LAND
                 if (not LocationInWaterCheck(Goal)) and (not LocationInWaterCheck(position)) then
-                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand2', 'Land', Goal, position, 99999, 160)
+                    pathtype = "Land"
+                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountAttackPlannerToGoalLand', 'Land', position, Goal, 99999, 160)
                 end
                 
                 -- then try AMPHIB --
                 if not path then
-                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib2', 'Amphibious', Goal, position, 99999, 250)
+                    pathtype = "Amphibious"
+                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountAttackPlannerToGoalAmphib', 'Amphibious', position, Goal, 99999, 250)
                 end
  
                 -- if we have a path and its closer to goal than the best so far
@@ -5747,37 +5768,29 @@ function CreateAttackPlan( self, enemyPosition )
                     -- try to make a LAND path first 
                     path = false
 
-                    local holdpathlength = pathlength
+                    holdpathlength = pathlength
 
                     if (not LocationInWaterCheck(CurrentPoint)) and (not LocationInWaterCheck(position)) then
-                        
                         pathtype = "Land"
-                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand3', 'Land', CurrentPoint, position, 99999, 160)
-
+                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountCurrentToPositionLand', 'Land', CurrentPoint, position, 99999, 160)
                     end
 
                     -- if not try an AMPHIB path --
                     if not path then
-
                         pathtype = "Amphibious"
-                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib3', 'Amphibious', CurrentPoint, position, 99999, 250)
-
+                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountCurrentToPositionAmphib', 'Amphibious', CurrentPoint, position, 99999, 250)
                     end
 
                     if path then
 
                         if AttackPlanDialog then
-                            LOG("*AI DEBUG "..self.Nickname.." adding "..repr(v.Name).." at "..repr(position).." w "..pathtype.." path to goal of "..repr(holdpathlength))
+                            LOG("*AI DEBUG "..self.Nickname.." Stagecount ".. StageCount+1 .." adding "..repr(v.Name).." at "..repr(position).." w "..pathtype.." path length of "..repr(holdpathlength).." to goal")
                         end
 
                         counter = counter + 1
-                        positions[counter] = {Name = v.Name, Position = position, Pathvalue = holdpathlength, Type = pathtype, Path = path}
+                        positions[counter] = {Name = v.Name, Position = position, Pathvalue = holdpathlength, PathvalueCurrent = pathlength, Type = pathtype, Path = path}
 
                         CurrentBestPathLength = holdpathlength
-
-                        if self.AttackPlan.Method != 'Amphibious' then
-                            self.AttackPlan.Method = pathtype
-                        end
 
                     end
 
@@ -5792,7 +5805,7 @@ function CreateAttackPlan( self, enemyPosition )
                     end
 
                 end
-                    
+
                 -- load balancing --
                 if cyclecount > 2 then
                     WaitTicks(1)
@@ -5801,11 +5814,11 @@ function CreateAttackPlan( self, enemyPosition )
 
             end
             
-            LOUDSORT(positions, function(a,b) return a.Pathvalue < b.Pathvalue end )
+            LOUDSORT(positions, function(a,b) return a.Pathvalue + a.PathvalueCurrent < b.Pathvalue + b.PathvalueCurrent end )
             
-            if AttackPlanDialog then
-                LOG("*AI DEBUG "..self.Nickname.." Sorted "..repr(LOUDGETN(positions)).." possible positions are "..repr(positions))
-            end
+            --if AttackPlanDialog then
+              --  LOG("*AI DEBUG "..self.Nickname.." Stagecount ".. StageCount+1 .." Sorted "..repr(LOUDGETN(positions)).." possible positions are "..repr(positions))
+            --end
             
 			-- if there are no positions we'll have to create one out of a movement node
             if not positions[1] then
@@ -5815,7 +5828,7 @@ function CreateAttackPlan( self, enemyPosition )
                 if not positions[1] then
 				
                     if AttackPlanDialog then
-                        LOG("*AI DEBUG "..self.Nickname.." could find no marker positions from "..repr(CurrentPoint))
+                        LOG("*AI DEBUG "..self.Nickname.." Stagecount ".. StageCount+1 .." could find no marker positions from "..repr(CurrentPoint))
 					end
                     
                     a = Goal[1] + CurrentPoint[1]
@@ -5824,7 +5837,7 @@ function CreateAttackPlan( self, enemyPosition )
                 else
 				
                     if AttackPlanDialog then
-                        LOG("*AI DEBUG "..self.Nickname.." could only find a marker at " .. VDist3(positions[1].Position, CurrentPoint) .. " from "..repr(CurrentPoint).." Max Distance is "..stagesize)
+                        LOG("*AI DEBUG "..self.Nickname.." Stagecount ".. StageCount+1 .." could only find a marker at " .. VDist3(positions[1].Position, CurrentPoint) .. " from "..repr(CurrentPoint).." Max Distance is "..stagesize)
                     end
 					
                     a = CurrentPoint[1] + positions[1].Position[1]
@@ -5842,19 +5855,19 @@ function CreateAttackPlan( self, enemyPosition )
                 if not landposition[1] then
 				
                     if AttackPlanDialog then
-                        LOG("*AI DEBUG "..self.Nickname.." Could not find a Land Node with 200 of resultposition "..repr(result).." using Water at 300")
+                        LOG("*AI DEBUG "..self.Nickname.." Stagecount ".. StageCount+1 .." Could not find a Land Node with 200 of resultposition "..repr(result).." using Water at 300")
                     end
 					
                     fakeposition = AIGetMarkersAroundLocation( self, 'Water Path Node', result, 300)
                 else
                 
                     pathtype = "Land"
-                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand4', 'Land', CurrentPoint, landposition[1].Position, 99999, 160)
+                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountFindFakeLand', 'Land', CurrentPoint, landposition[1].Position, 99999, 160)
                     
                     if not path then
                     
                         pathtype = "Amphibious"
-                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib4', 'Amphibious', CurrentPoint, landposition[1].Position, 99999, 250)
+                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountFindFakeAmphib', 'Amphibious', CurrentPoint, landposition[1].Position, 99999, 250)
                     end
 				
                     LOUDINSERT(positions, { Name = "FakeLAND", Position = landposition[1].Position, Pathvalue = pathlength, Type = pathtype, Path = path})
@@ -5864,17 +5877,16 @@ function CreateAttackPlan( self, enemyPosition )
                 if fakeposition[1].Position then
 				
                     if AttackPlanDialog then
-                        LOG("*AI DEBUG "..self.Nickname.." using Fakeposition assign - working from CurrentPoint of "..repr(CurrentPoint))
-                        LOG("*AI DEBUG "..self.Nickname.." Fakeposition is "..repr(fakeposition))
+                        LOG("*AI DEBUG "..self.Nickname.." Stagecount ".. StageCount+1 .." using Fakeposition assign - working from CurrentPoint of "..repr(CurrentPoint).." Fake Position is "..repr(fakeposition) )
                     end
                     
                     pathtype = "Land"
-                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand5', 'Land', CurrentPoint, fakeposition[1].Position, 99999, 160)
+                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountFindFakeNavalLand', 'Land', CurrentPoint, fakeposition[1].Position, 99999, 160)
                     
                     if not path then
                     
                         pathtype = "Amphibious"
-                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib5', 'Amphibious', CurrentPoint, fakeposition[1].Position, 99999, 250)
+                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountFindFakeNavalAmphib', 'Amphibious', CurrentPoint, fakeposition[1].Position, 99999, 250)
                     end
 
                     LOUDINSERT(positions, {Name = "FakeNAVAL", Position = fakeposition[1].Position, Pathvalue = pathlength, Type = pathtype, Path = path})
@@ -5887,28 +5899,41 @@ function CreateAttackPlan( self, enemyPosition )
 			if positions[1] and (not table.equal( positions[1].Position, CurrentPoint )) then
 			
 				StageCount = StageCount + 1 
-				
-				LOUDINSERT(StagePoints, positions[1])
+
+                StagePoints[StageCount] = positions[1]
 
 				CurrentPoint = LOUDCOPY(positions[1].Position)
                 CurrentPointDistance = VDist2(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3])
+
+                if positions[1].Type == 'Land' then
                 
-                pathtype = "Land"
-                path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand6', 'Land', CurrentPoint, Goal, 99999, 160 )
-                
-                if not path then
+                    pathtype = "Land"
+                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerToGoalLand', 'Land', CurrentPoint, Goal, 99999, 160 )
+                else
                     pathtype = "Amphibious"
-                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib6', 'Amphibious', CurrentPoint, Goal, 99999, 250 )
+                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerToGoalAmphib', 'Amphibious', CurrentPoint, Goal, 99999, 250 )
                 end
                 
                 if path then
                     CurrentPointDistance = pathlength
+            
+                    if AttackPlanDialog then
+                        LOG("*AI DEBUG "..self.Nickname.." END STAGECOUNT ".. StageCount .." selects "..positions[1].Name.." at "..repr(positions[1].Position).." type is "..repr(positions[1].Type) )
+                    end
                     
                 else
-                
                     if AttackPlanDialog then
-                        LOG("*AI DEBUG "..self.Nickname.." finds no path from "..repr(CurrentPoint).." to goal position "..repr(Goal))
+                        LOG("*AI DEBUG "..self.Nickname.." END STAGECOUNT ".. StageCount .." finds no path from "..repr(CurrentPoint).." to goal position "..repr(Goal))
                     end
+                end
+
+                if self.AttackPlan.Method != "Amphibious" then
+                    
+                    if AttackPlanDialog then
+                        LOG("*AI DEBUG "..self.Nickname.." changing Attack Plan Method from "..self.AttackPlan.Method.." to "..repr(pathtype) )                    
+                    end
+
+                    self.AttackPlan.Method = pathtype
                 end
 				
 			else
@@ -5920,31 +5945,18 @@ function CreateAttackPlan( self, enemyPosition )
 
 	
     if StageCount >= 0 then
-	
+
+        self.AttackPlan.CurrentGoal = 1
         self.AttackPlan.Goal = Goal
-        self.AttackPlan.CurrentGoal = 0
-		self.AttackPlan.StageCount = StageCount
-        self.AttackPlan.StagePoints = { [0] = StartPosition }
         self.AttackPlan.GoSignal = false
-
-        local counter = 1
-
-        if StageCount > 0 then
+		self.AttackPlan.StageCount = StageCount
         
-            for _,i in StagePoints do
-		
-                self.AttackPlan.StagePoints[counter] = i
-                counter = counter + 1
-			
-            end
-        end
+        self.AttackPlan.StagePoints = table.copy(StagePoints)
+        
+        self.AttackPlan.StagePoints[0] = { Name = "Startpoint", Position = StartPosition }
 
-        self.AttackPlan.StagePoints[counter] = Goal
-		
-        if ScenarioInfo.AttackPlanDialog then
-            LOG("*AI DEBUG "..self.Nickname.." Attack Plan Method is "..repr(self.AttackPlan.Method) )
-            LOG("*AI DEBUG "..self.Nickname.." Attack Plan is "..repr(self.AttackPlan))
-        end
+        self.AttackPlan.StagePoints[StageCount + 1] = { Name = "Goal", Path = path, Position = Goal, Type = pathtype }
+
     else
 		LOG("*AI DEBUG "..self.Nickname.." fails Attack Planning for "..repr(Goal) )
 	end
@@ -5960,12 +5972,10 @@ function DrawPlanNodes(self)
 	
 		if ( self.ArmyIndex == GetFocusArmy() or ( GetFocusArmy() != -1 and self.ArmyIndex and IsAlly(GetFocusArmy(), self.ArmyIndex)) ) and self.AttackPlan.StagePoints[0] then
 		
-			DC(self.AttackPlan.StagePoints[0], 1, '00ff00')
-			DC(self.AttackPlan.StagePoints[0], 3, '00ff00')
+			DC(self.AttackPlan.StagePoints[0].Position, 1, '00ff00')
+			DC(self.AttackPlan.StagePoints[0].Position, 3, '00ff00')
 
-			local lastpoint = self.AttackPlan.StagePoints[0]				
-				local lastpoint = self.AttackPlan.StagePoints[0]				
-			local lastpoint = self.AttackPlan.StagePoints[0]				
+			local lastpoint = self.AttackPlan.StagePoints[0].Position				
 			local lastdraw = lastpoint
 			
 			if self.AttackPlan.StagePoints[0].Path then
@@ -5979,7 +5989,7 @@ function DrawPlanNodes(self)
 				end
 			end
 			
-			for i = 1, self.AttackPlan.StageCount do
+			for i = 1, self.AttackPlan.StageCount + 1 do
 			
 				DLP( lastpoint, self.AttackPlan.StagePoints[i].Position, 'ffffff')
 				
@@ -6001,14 +6011,7 @@ function DrawPlanNodes(self)
 				
 				lastpoint = self.AttackPlan.StagePoints[i].Position
 			end
-			
-			DLP( lastpoint, self.AttackPlan.Goal, 'ffffff')
-			
-			lastdraw = lastpoint
-			
-			DC( self.AttackPlan.Goal, 1, 'ff00ff')
-			DC( self.AttackPlan.Goal, 3, '00ff00')
-			DC( self.AttackPlan.Goal, 5, 'ff00ff')
+
 		end
 		
 		WaitTicks(6)
@@ -6039,30 +6042,32 @@ function AttackPlanMonitor(self)
 		    if ScenarioInfo.AttackPlanDialog then   
             
                 LOG("*AI DEBUG " ..self.Nickname.." Assessing Attack Plan to " ..repr(self.AttackPlan.Goal))
-            
-                --local threatTable = GetThreatsAroundPosition( self, self.AttackPlan.Goal, 64, true, 'Overall', CurrentEnemyIndex)
-            
-                --LOG("*AI DEBUG "..self.Nickname.." Overall Threat Table is " ..repr(threatTable))
-                
+
                 LOG("*AI DEBUG "..self.Nickname.." Starting Point "..repr(self.AttackPlan.StagePoints[0]))
             
+            end
 
-                -- what I want to do is loop thru the stages - and evaluate if its complete (we own that stage)
-                -- essentially - is there still enemy threat at the goal point ?
-                -- if not, the plan is complete ?   -- ABORT -- MAKE A NEW PLAN
+            -- what I want to do is loop thru the stages - and evaluate if its complete (we own that stage)
+            -- essentially - is there still enemy threat at the goal point ?
+            -- if not, the plan is complete ?   -- ABORT -- MAKE A NEW PLAN
             
-                -- of do we go thru each stagepoint - check threat at each position -
-                -- and if threat at THAT position is higher than the GOAL threat
-                -- ABORT -- MAKE NEW PLAN
+            -- of do we go thru each stagepoint - check threat at each position -
+            -- and if threat at THAT position is higher than the GOAL threat
+            -- ABORT -- MAKE NEW PLAN
             
-                for k = 1,self.AttackPlan.StageCount do
+            self.AttackPlan.Method = "Land"     -- default to Land
             
-                    LOG("*AI DEBUG "..self.Nickname.." Stagepoint "..repr(self.AttackPlan.StagePoints[k]))
+            for k = 0, self.AttackPlan.StageCount + 1 do
 
+                if ScenarioInfo.AttackPlanDialog then
+                    LOG("*AI DEBUG "..self.Nickname.." Stagepoint "..repr(k).." "..repr(self.AttackPlan.StagePoints[k] ) )
                 end
-            
-                LOG("*AI DEBUG "..self.Nickname.." Goal Point "..repr(self.AttackPlan.StagePoints[self.AttackPlan.StageCount+1]))
-            
+
+                -- if any stage is Amphibious - the overall Method will be set to Amphibious
+                if self.AttackPlan.StagePoints[k].Type and self.AttackPlan.StagePoints[k].Type != "Land" then
+                    self.AttackPlan.Method = "Amphibious"
+                end
+
             end
             
             -- otherwise just check primary bases 

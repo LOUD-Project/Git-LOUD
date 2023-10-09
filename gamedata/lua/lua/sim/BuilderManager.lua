@@ -487,20 +487,20 @@ BuilderManager = Class {
             -- if this is not a naval base - see if mode should change from Amphibious to Land
             if AttackPlan.Goal and ( not self.LastGoalCheck or not LOUDEQUAL(self.LastGoalCheck, AttackPlan.Goal) ) and BuilderManager.BaseType != 'Sea' then
         
-                path, reason, landpathlength, pathcost = PlatoonGenerateSafePathToLOUD( brain, 'AttackPlanner', 'Land', BuilderManager.Position, AttackPlan.Goal, 999999, 160 )
+                path, reason, landpathlength, pathcost = PlatoonGenerateSafePathToLOUD( brain, 'ManagerThreadAttackPlanner', 'Land', BuilderManager.Position, AttackPlan.Goal, 999999, 160 )
                 
                 -- IDEALLY - we should evaluate both Land and Amphib paths and choose which is best - 
                 -- but for now - we'll settle for land production if any kind of land connection exists --
                 if path and not BuilderManager.LandMode then
                     
-                    LOG("*AI DEBUG "..brain.Nickname.." "..repr(LocationType).." finds path to "..repr(AttackPlan.Goal).." Land mode set to true")
+                    LOG("*AI DEBUG "..brain.Nickname.." "..repr(LocationType).." finds Land path to Attack Plan Goal "..repr(AttackPlan.Goal).." - Land mode set to true")
                 
                     brain.BuilderManagers[LocationType].LandMode = true
 
                 else
                     if not path and BuilderManager.LandMode then
                     
-                        LOG("*AI DEBUG "..brain.Nickname.." "..repr(LocationType).." finds no path to "..repr(AttackPlan.Goal).." Land mode set to false")
+                        LOG("*AI DEBUG "..brain.Nickname.." "..repr(LocationType).." finds NO LAND PATH to Attack Plan Goal "..repr(AttackPlan.Goal).." - Land mode set to false")
                     
                         brain.BuilderManagers[LocationType].LandMode = false
 
