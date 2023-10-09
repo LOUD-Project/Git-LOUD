@@ -167,6 +167,10 @@ function AIPickEnemyLogic( self, brainbool )
     end
 
     local maxthreat = {}
+
+    if ScenarioInfo.AttackPlanDialog then
+        LOG("*AI DEBUG "..self.Nickname.." insertTable is "..repr(insertTable) )
+    end
     
     for k,v in insertTable do
         

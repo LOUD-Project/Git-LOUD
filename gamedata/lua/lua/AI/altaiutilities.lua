@@ -763,7 +763,7 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
             
 			-- must be able to path from current Sea Primary to new position
             -- this prevents the AI from trying to locate naval DPs on another body of water
-			path, reason = PlatoonGenerateSafePathToLOUD( aiBrain, 'AttackPlanner', 'Water', PrimarySeaAttackBasePosition, position, 9999, 250 )
+			path, reason = PlatoonGenerateSafePathToLOUD( aiBrain, 'AttackPlannerWater', 'Water', PrimarySeaAttackBasePosition, position, 99999, 250 )
 
 			if not path then
 				continue

@@ -1342,7 +1342,7 @@ function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bS
 							else
 
                                 if TransportDialog then
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." got transports but they cannot find a safe drop point")
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." got transports but they cannot find a safe drop point - reason "..repr(reason) )
                                 end
                                 
                                 if platoonpath and TransportDialog then
@@ -2022,7 +2022,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
             if TransportDialog then
             
                 if not safePath then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transports.BuilderName.." no safe path to "..repr(location).." using threat of "..airthreatMax)
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transports.BuilderName.." no safe path to "..repr(location).." using threat of "..airthreatMax.." reason "..reason )
                 else
                     
                     if GetFocusArmy() == aiBrain.ArmyIndex then

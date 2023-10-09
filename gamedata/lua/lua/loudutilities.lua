@@ -3206,7 +3206,7 @@ function PathGeneratorThread( aiBrain )
 	end
 	-- the maximum possible distance you can travel on a map - corner to corner
 	if not aiBrain.dist_comp then
-		aiBrain.dist_comp = math.sqrt( math.pow(ScenarioInfo.size[1],2) + math.pow(ScenarioInfo.size[2],2) )
+		aiBrain.dist_comp = LOUDSQRT( math.pow(ScenarioInfo.size[1],2) + math.pow(ScenarioInfo.size[2],2) )
 	end
 
 	WaitSeconds(20)
@@ -3262,18 +3262,21 @@ function PathGeneratorAir( aiBrain )
 
         local VDist2Sq = VDist2Sq
 
-		local steps = LOUDFLOOR( VDist3(position, testposition) / stepsize ) + 1
+		local steps = LOUDFLOOR( VDist3(position, testposition) / stepsize )
+        
+        if steps == 0 then
+            return false
+        end
 
         local xstep = ( position[1] - testposition[1]) / steps
 		local ystep = ( position[3] - testposition[3]) / steps
 	
 		for i = 1, steps do
 
-			if VDist2Sq( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3]) <= checkrange then
+			if VDist2Sq( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3]) <= (checkrange*.6) then
 				return true
 			end
 		end	
-
 	
 		return false
 	end
@@ -3290,7 +3293,7 @@ function PathGeneratorAir( aiBrain )
         local MATHMAX = MATHMAX
         local VDist3 = VDist3
 
-        local Cost, newnode, Node, Pathcount, position, queueitem, testposition, Threat		
+        local Cost, newnode, Node, Pathcount, position, queueitem, testposition, testpositionlength, Threat		
 
 		queueitem = LOUDREMOVE(queue, 1)
         
@@ -3328,18 +3331,20 @@ function PathGeneratorAir( aiBrain )
              
 				return queueitem.path, queueitem.length, true, Cost
 			end
-			
-			threat = GetThreatBetweenPositions( aiBrain, position, testposition, false, ThreatLayer)
 
-			if threat > Threat then
-				continue
-			end
+            testpositionlength = VDist3( position, testposition )
+            
+            threat = 0
+            
+            if Threat < 99999 then
 			
-			threat = MATHMAX(0, GetThreatAtPosition( aiBrain, testposition, Rings, true, ThreatLayer ))
-			
-			if threat > Threat then
-				continue
-			end
+                threat = GetThreatBetweenPositions( aiBrain, position, testposition, true, ThreatLayer) * LOUDSQRT( testpositionlength/IMAPRadius )
+
+                if threat > Threat then
+                    continue
+                end
+
+            end
 			
 			fork = { cost = 0, goaldist = 0, length = 0, Node = graph[newnode], path = LOUDCOPY(queueitem.path) }
             
@@ -3414,13 +3419,17 @@ function PathGeneratorAir( aiBrain )
             ThreatWeight = data.ThreatWeight
             
             if PathFindingDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." starts AIR pathfind from "..repr(StartPosition).." to "..repr(EndPosition) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind AIR starts find from "..repr(StartNode[1]).." "..repr(StartPosition).." to "..repr(data.EndNode[1]).." "..repr(EndPosition) )
             end
             
             -- we must take into account the threat between the EndNode and the destination - they are rarely the same point
             -- we add this threat to the cost value to start with since the final step is just added to the path after the
             -- path has been decided
-            EndThreat = GetThreatBetweenPositions( aiBrain, EndPosition, destination, nil, ThreatLayer )
+            EndThreat = 0
+            
+            if ThreatWeight < 99999 then
+                EndThreat = GetThreatBetweenPositions( aiBrain, EndPosition, destination, nil, ThreatLayer ) / MATHMAX(1,(VDist3( EndPosition, destination )/IMAPRadius ))
+            end
             
             -- NOTE: We insert the ThreatWeight into the data we carry in the queue now - which will allow us to decrease it with each step we take that has threat
             queue = { { cost = EndThreat, goaldist = 0, length = StartLength, Node = StartNode, path = { StartPosition, }, pathcount = 1, threat = ThreatWeight - EndThreat } }
@@ -3480,6 +3489,9 @@ function PathGeneratorAmphibious(aiBrain)
 	local graph = ScenarioInfo.PathGraphs['Amphibious']
     local Rings = ScenarioInfo.RingSize or 0
 
+	local IMAPRadius = ScenarioInfo.IMAPSize * .5
+    local IMAPSize = ScenarioInfo.IMAPSize
+
 	local data = false	
 	local queue = {}
 	local closed = {}
@@ -3492,14 +3504,23 @@ function PathGeneratorAmphibious(aiBrain)
 
         local VDist2 = VDist2
         
-		local steps = LOUDFLOOR( VDist2( position[1],position[3], testposition[1],testposition[3] ) / stepsize ) + 1
+		local steps = LOUDFLOOR( VDist2( position[1],position[3], testposition[1],testposition[3] ) / stepsize )
+        
+        if steps == 0 then
+            return false
+        end
 
         local xstep = ( position[1] - testposition[1]) / steps
 		local ystep = ( position[3] - testposition[3]) / steps
 
 		for i = 1, steps do
 
-            if VDist2( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3]) <= stepsize then
+            if VDist2( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3]) <= (stepsize*.6) then
+            
+                if ScenarioInfo.PathFindingDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." found destination "..repr(destination).." on step "..i.." within stepsize "..(stepsize*.6).." range of "..repr({position[1] - (xstep * i), position[3] - (ystep * i)}).." while examining "..repr(testposition) )
+                end
+     
                 return true
             end
 		end	
@@ -3519,7 +3540,7 @@ function PathGeneratorAmphibious(aiBrain)
         local MATHMAX = MATHMAX
         local VDist3 = VDist3
 
-        local Cost, newnode, Node, Pathcount, position, queueitem, testposition, Threat	
+        local Cost, newnode, Node, Pathcount, position, queueitem, testposition, testpositionlength, Threat	
 
 		queueitem = LOUDREMOVE(queue, 1)
         
@@ -3558,6 +3579,8 @@ function PathGeneratorAmphibious(aiBrain)
 				return queueitem.path, queueitem.length, true, Cost
 			end
 
+            testpositionlength = VDist3( position, testposition )
+
             -- in the case of amphibious units - we'd like to discount movements thru the water - so either at the point of transition or 
             -- with each water-based point - we'd discount the cost just a bit - AND - we'd change the ThreatLayer.
             ThreatLayerCheck = ThreatLayer
@@ -3568,22 +3591,25 @@ function PathGeneratorAmphibious(aiBrain)
             if Node.InWater then
                 ThreatLayerCheck = 'AntiSub'
             end
-
-            threat = GetThreatBetweenPositions( aiBrain, position, testposition, nil, ThreatLayerCheck )
-
-			if threat > Threat then
-				continue
-			end
             
-			threat = MATHMAX(0, GetThreatAtPosition( aiBrain, testposition, Rings, true, ThreatLayerCheck ))
-			
-			if threat > Threat then
-				continue
-			end
+            threat = 0
+            
+            if Threat < 99999 then
+
+                -- So - we take the threat value - and modify it according to the % of an IMPARadius that this step is
+                -- testpositionlength less than the IMAPRadius decrease the threat - greater than increases it --
+                -- the idea is the more distance you're covering in an IMAP block - the more dangerous that block can be
+                threat = GetThreatBetweenPositions( aiBrain, position, testposition, true, ThreatLayerCheck ) * LOUDSQRT( testpositionlength/IMAPRadius )
+
+                if threat > Threat then
+                    continue
+                end
+
+            end
 			
 			fork = { cost = 0, goaldist = 0, length = 0, Node = graph[newnode], path = LOUDCOPY(queueitem.path) }
             
-            stepcostadjust = 10
+            stepcostadjust = 20
             
             -- make water based movement cheaper
             if Node.InWater then
@@ -3633,7 +3659,7 @@ function PathGeneratorAmphibious(aiBrain)
             ThreatWeight = data.ThreatWeight
             
             if PathFindingDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." starts AMPHIB pathfind from "..repr(StartPosition).." to "..repr(EndPosition) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." starts AMPHIB pathfind from "..repr(StartPosition).." to "..repr(EndPosition).." maxthreat is "..repr(ThreatWeight) )
             end
 
 			closed = {}
@@ -3641,7 +3667,11 @@ function PathGeneratorAmphibious(aiBrain)
             -- we must take into account the threat between the EndNode and the destination - they are rarely the same point
             -- we add this threat to the cost value to start with since the final step is just added to the path after the
             -- path has been decided
-            EndThreat = GetThreatBetweenPositions( aiBrain, EndPosition, destination, nil, ThreatLayer )
+            EndThreat = 0
+            
+            if ThreatWeight < 99999 then
+                EndThreat = GetThreatBetweenPositions( aiBrain, EndPosition, destination, nil, ThreatLayer ) / MATHMAX(1,(VDist3( EndPosition, destination )/IMAPRadius ))
+            end
 			
 			-- NOTE: We insert the ThreatWeight into the data we carry in the queue now - which will allow us to decrease it with each step we take that has threat
 			-- we also no longer need to pass it to the AStar function as it is part of the queue data
@@ -3699,6 +3729,8 @@ function PathGeneratorLand(aiBrain)
 	local graph = ScenarioInfo.PathGraphs['Land']
     local Rings = ScenarioInfo.RingSize or 0
 
+	local IMAPRadius = ScenarioInfo.IMAPSize * .5
+
 	local data = false	
 	local queue = {}
 	local closed = {}
@@ -3712,14 +3744,18 @@ function PathGeneratorLand(aiBrain)
 
         local VDist2Sq = VDist2Sq
 
-        local steps = LOUDFLOOR( VDist2( position[1], position[3], testposition[1], testposition[3]) / stepsize ) + 1
-            
+        local steps = LOUDFLOOR( VDist2( position[1], position[3], testposition[1], testposition[3]) / stepsize )
+
+        if steps == 0 then
+            return false
+        end
+       
         local xstep = ( position[1] - testposition[1]) / steps
 		local ystep = ( position[3] - testposition[3]) / steps
 	
 		for i = 1, steps do
 
-			if VDist2Sq( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3]) <= checkrange then
+			if VDist2Sq( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3]) <= (checkrange*.6) then
 				return true
 			end
 		end	
@@ -3776,21 +3812,27 @@ function PathGeneratorLand(aiBrain)
 
 				return queueitem.path, queueitem.length, true, queueitem.cost
 			end
+            
+            threat = 0
+            
+            if Threat < 99999 then
 			
-			threat = MATHMAX(0, GetThreatAtPosition( aiBrain, testposition, Rings, true, ThreatLayer ))
+                threat = MATHMAX(0, GetThreatAtPosition( aiBrain, testposition, Rings, true, ThreatLayer ))
 			
-			if threat > Threat then
-				continue
-			end
+                if threat > Threat then
+                    continue
+                end
 			
-            -- if below min threat - devalue it even further - tiny threats should not impair pathing
-			if threat <= ThreatWeight * minthreat then
-				threat = threat * 0.5
+                -- if below min threat - devalue it even further - tiny threats should not impair pathing
+                if threat <= ThreatWeight * minthreat then
+                    threat = threat * 0.5
                 
-            -- if above max threat - inflate by ratio - really stay away from big threats
-			elseif threat > ThreatWeight then
-				threat = (threat/maxthreat) * threat
-			end
+                -- if above max threat - inflate by ratio - really stay away from big threats
+                elseif threat > ThreatWeight then
+                    threat = (threat/maxthreat) * threat
+                end
+                
+            end
 
 			fork = { cost = 0, goaldist = 0, length = 0, Node = graph[newnode], path = LOUDCOPY(queueitem.path), pathcount = 0 }
 
@@ -3845,7 +3887,11 @@ function PathGeneratorLand(aiBrain)
             -- we must take into account the threat between the EndNode and the destination - they are rarely the same point
             -- we add this threat to the cost value to start with since the final step is just added to the path after the
             -- path has been decided
-            EndThreat = GetThreatBetweenPositions( aiBrain, EndPosition, destination, nil, ThreatLayer )
+            EndThreat = 0
+            
+            if ThreatWeight < 99999 then
+                EndThreat = GetThreatBetweenPositions( aiBrain, EndPosition, destination, nil, ThreatLayer )
+            end
           
 			queue = { { cost = EndThreat, goaldist = 0, length = data.Startlength or 0, Node = StartNode, path = { StartPosition, }, pathcount = 1, threat = ThreatWeight - EndThreat } }
             
@@ -3895,6 +3941,7 @@ function PathGeneratorWater(aiBrain)
 	local LOUDINSERT = table.insert
 	local LOUDREMOVE = table.remove
 	local LOUDSORT = LOUDSORT
+    local MATHMAX = math.max
 	local ForkThread = ForkThread
 
 	local WaitTicks = coroutine.yield
@@ -3903,6 +3950,9 @@ function PathGeneratorWater(aiBrain)
 	
 	local graph = ScenarioInfo.PathGraphs['Water']
     local Rings = ScenarioInfo.RingSize or 0
+
+
+	local IMAPRadius = ScenarioInfo.IMAPSize * .5
 
 	local data = false	
 	local queue = {}
@@ -3916,14 +3966,18 @@ function PathGeneratorWater(aiBrain)
 
         local checkrange = (stepsize * stepsize)
 
-		local steps = LOUDFLOOR( VDist2( position[1], position[3], testposition[1], testposition[3]) / stepsize ) + 1
+		local steps = LOUDFLOOR( VDist2( position[1], position[3], testposition[1], testposition[3]) / stepsize )
+        
+        if steps == 0 then
+            return false
+        end
 
 		local xstep = ( position[1] - testposition[1]) / steps
 		local ystep = ( position[3] - testposition[3]) / steps
 	
 		for i = 1, steps do
 
-			if VDist2Sq( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3]) <= checkrange then
+			if VDist2Sq( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3]) <= (checkrange*.6) then
 				return true
 			end
 		end	
@@ -3938,6 +3992,7 @@ function PathGeneratorWater(aiBrain)
         local LOUDEQUAL = LOUDEQUAL
         local LOUDINSERT = LOUDINSERT
         local LOUDSORT = LOUDSORT
+        local MATHMAX = MATHMAX
         local VDist2 = VDist2
         local VDist3 = VDist3
 
@@ -3977,7 +4032,7 @@ function PathGeneratorWater(aiBrain)
 				return queueitem.path, queueitem.length, true, queueitem.cost
 			end
 
-			threat = GetThreatBetweenPositions( aiBrain, position, testposition, nil, ThreatLayer)
+			threat = GetThreatBetweenPositions( aiBrain, position, testposition, nil, ThreatLayer) / MATHMAX( 1, queueitem.length/IMAPRadius )
 			
 			if threat > queueitem.threat then
 				continue

@@ -26,7 +26,6 @@ local AISendPing = import('/lua/ai/altaiutilities.lua').AISendPing
 local AssistBody = import('/lua/ai/altaiutilities.lua').AssistBody
 local GetTemplateReplacement = import('/lua/ai/altaiutilities.lua').GetTemplateReplacement
 local GetTransports = import('/lua/ai/transportutilities.lua').GetTransports
---local ReturnTransportsToPool = import('/lua/ai/transportutilities.lua').ReturnTransportsToPool
 local SendPlatoonWithTransportsLOUD = import('/lua/ai/transportutilities.lua').SendPlatoonWithTransportsLOUD
 local UnfinishedBody = import('/lua/ai/altaiutilities.lua').UnfinishedBody
 local UseTransports = import('/lua/ai/transportutilities.lua').UseTransports
@@ -104,6 +103,7 @@ local LOUDINSERT = table.insert
 local LOUDLOG10 = math.log10
 local LOUDMAX = math.max
 local LOUDMIN = math.min
+local LOUDMOD = math.mod
 local LOUDPARSE = ParseEntityCategory
 local LOUDREMOVE = table.remove
 local LOUDSORT = table.sort
@@ -749,6 +749,8 @@ Platoon = Class(moho.platoon_methods) {
         -- the number of blocks to use for threat lookups - based on IMAP size
         -- basically 2, 2, 1, 0 for 5k, 10k, 20k, 40k+
         local IMAPblocks = ScenarioInfo.IMAPBlocks
+        local IMAPRadius = ScenarioInfo.IMAPSize * .5
+
 		
 		-- step size is used when making DestinationBetweenPoints checks
 		local stepsize = 96
@@ -785,12 +787,7 @@ Platoon = Class(moho.platoon_methods) {
 				if distance <= stepsize then
 					return {destination}, 'Direct', distance, 0
 				end
-				
-			elseif platoonLayer == 'Air' then
 
-				if distance <= stepsize then
-					return {destination}, 'Direct', distance, 0
-				end
 			end
 			
 		else
@@ -823,6 +820,7 @@ Platoon = Class(moho.platoon_methods) {
 		
 		--** A Whole set of localized function **--
 		-------------------------------------------
+
 		local AIGetThreatLevelsAroundPoint = function( position )
 
 			if threattype == 'AntiAir' then
@@ -845,8 +843,12 @@ Platoon = Class(moho.platoon_methods) {
         
             local VDist2Sq = VDist2Sq
 
-			local steps = LOUDFLOOR( VDist2(start[1], start[3], finish[1], finish[3]) / stepsize ) + 1
+			local steps = LOUDFLOOR( VDist2(start[1], start[3], finish[1], finish[3]) / stepsize )
 
+            if steps == 0 then
+                return false
+            end
+            
 			local xstep = (start[1] - finish[1]) / steps
 			local ystep = (start[3] - finish[3]) / steps
 	
@@ -857,7 +859,7 @@ Platoon = Class(moho.platoon_methods) {
 				if VDist2Sq(start[1] - (xstep * i), start[3] - (ystep * i), destination[1], destination[3]) < stepcheck then
             
                     if PathFindingDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." finds destination "..repr(destination).." at "..i.." x "..stepsize.." of "..repr(start) )
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." finds destination within "..stepsize.." range of ".. repr({start[1] - (xstep * i), start[3] - (ystep * i)}) )
                     end
 
 					return { start[1] - (xstep * i), destination[2], start[3] - (ystep * i) }
@@ -870,9 +872,13 @@ Platoon = Class(moho.platoon_methods) {
 		-- the intent of this function is to make sure that we don't try and respond over mountains
 		-- and rivers and other serious terrain blockages -- these are generally identified by
         -- a rapid elevation change over a very short distance
-		local function CheckBlockingTerrain( pos, targetPos )
+		local function CheckBlockingTerrain( pos, targetPos, blockingcheck )
         
             if platoonLayer == 'Air' then
+                return false
+            end
+            
+            if not blockingcheck then
                 return false
             end
             
@@ -888,10 +894,6 @@ Platoon = Class(moho.platoon_methods) {
                 terrainfunction = GetSurfaceHeight
                 deviation = 0.5
             end
-
-            if PathFindingDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." "..platoonLayer.." checks blocking from "..repr(pos).." to "..repr(targetPos).." deviation is "..repr(deviation) )
-            end            
             
 			-- This gives us the number of approx. 6 ogrid steps in the distance
 			steps = LOUDFLOOR( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 ) + 1
@@ -919,7 +921,7 @@ Platoon = Class(moho.platoon_methods) {
 				if LOUDABS(lastposHeight - nextposHeight) > deviation or (InWater and platoonLayer != 'Amphibious') then
 
                     if PathFindingDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." "..platoonLayer.." obstructued between "..repr(pos).." and "..repr(targetPos) )
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." "..platoonLayer.." obstructed between "..repr(pos).." and "..repr(targetPos) )
                     end                
 
 					return true
@@ -935,8 +937,9 @@ Platoon = Class(moho.platoon_methods) {
 		end
 		
 		-- this function will return a 3D position and a named marker
-		local GetClosestSafePathNodeInRadiusByLayerLOUD = function( location, seeksafest, goalseek, threatmodifier )
-	
+		local GetClosestSafePathNodeInRadiusByLayerLOUD = function( location, seeksafest, goalseek, threatmodifier, blockingcheck )
+
+            -- the marker list is the master list of all movement markers of the Platoons current layer (Land, Amphib, Air, Water)
 			if markerlist then
 
                 local CheckBlockingTerrain = CheckBlockingTerrain
@@ -970,39 +973,59 @@ Platoon = Class(moho.platoon_methods) {
 					if testdistance <= MaxMarkerDist then
                     
                         nomarkers = false
+                        
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." IMAPRadius is "..IMAPRadius.." testdistance is "..testdistance.." factor would be "..testdistance/IMAPRadius )
 
-                        thisthreat = GetThreatBetweenPositions( aiBrain, location, Position, nil, threattype )
+                        thisthreat = GetThreatBetweenPositions( aiBrain, location, Position, nil, threattype ) / math.max( 1, testdistance/IMAPRadius )
+                        
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." Gets "..thisthreat.." "..threattype.." threat between "..repr(location).." and "..repr(Position).." Max "..maxthreattest.." modifier is "..math.max( 1, testdistance/IMAPRadius )  )
 
-                        if thisthreat <= maxthreat then
-            
-                            if PathFindingDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." checks "..repr(location).." to "..Node.." at "..repr(Position).." distance is "..testdistance )
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." goalseek is "..repr(goalseek).." threat is "..thisthreat )
-                                if goalseek then
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." marker is "..VDist3( Position, goalseek ).." to goalseek. We are "..VDist3( location, goalseek ) )
-                                end
+                        if thisthreat <= maxthreattest then
+                        
+                            if goalseek then
+                                thisdistance = VDist3(Position, goalseek)
+                            else
+                                -- record lowest threat
+                                maxthreattest = thisthreat
                             end
 
-                            if not CheckBlockingTerrain( location, Position ) then
+                            if not CheckBlockingTerrain( location, Position, blockingcheck ) then
 
                                 -- add only those with acceptable threat to the new list
                                 -- if seeksafest or goalseek and there is any kind of threat, we'll build a table of points with allowable threats
                                 -- otherwise we'll just take the closest one with zero threat
 
-                                -- if threat is zero we'll use it immedidately unless we're goalseeking - in which case we'll only do that if the Position is closer to the goal than we are
-                                -- otherwise we'll just add the location to the list of positions and sort it afterwards by which is closer to the goal
-                                if ((seeksafest or goalseek) and
-                                    (thisthreat > 0 or
-                                    (thisthreat < 1 and goalseek and ( VDist3(Position, goalseek) > VDist3(location, goalseek) ) ) ) ) then
+                                -- if threat is zero - and we're not goalseeking - we'll use it immediately
+                                -- if we are goalseeking - the tested Position has to be closer to the goal than the location where we started this test from
+                                -- we'll just add the location to the list of positions and sort it afterwards by which is closer to the goal
+                                if thisthreat > 0 or ( goalseek and thisdistance < goaldistance ) then
+                                
+                                    if counter > 0 then
+                                    
+                                        if platoonLayer != 'Air' and testdistance > (MaxMarkerDist * .5) then
+                                            break
+                                        end
+
+                                    end
 
                                     counter = counter + 1						
-                                    positions[counter] = { thisthreat, Node, Position }
+                                    positions[counter] = { thisthreat, Node, Position, math.floor(testdistance), math.floor(thisdistance or 0) }
+
+                                    -- within DIRECT range --
+                                    if platoonLayer == 'Air' and thisdistance and thisdistance < stepsize then
+                                        break
+                                    end
+                                    
+                                    goaldistance = thisdistance
                                 
                                 else
-                                    return ScenarioInfo.PathGraphs[platoonLayer][Node], Node or GetPathGraphs()[platoonLayer][Node], Node
+                                    if not goalseek then
+                                        return ScenarioInfo.PathGraphs[platoonLayer][Node], Node or GetPathGraphs()[platoonLayer][Node], Node
+                                    end
                                 end
 
                             end
+
                         end
                         
 					else
@@ -1011,11 +1034,20 @@ Platoon = Class(moho.platoon_methods) {
                     
 				end
 
-				-- resort positions to be closest to goalseek position
-				-- just a note here -- the goalseek position is often sent WITHOUT a vertical indication so I had to use VDIST2 rather than VDIST 3 to be sure
-				if goalseek then
-					LOUDSORT(positions, function(a,b) local VDist2 = VDist2 return VDist2( a[3][1],a[3][3], goalseek[1],goalseek[3] ) < VDist2( b[3][1],b[3][3], goalseek[1],goalseek[3] ) end)
-				end
+				-- resort positions 
+
+				if goalseek and not seeksafest then
+                    -- sort by shortest total distance to goal (sum of both distances, from start and to goal)
+					LOUDSORT(positions, function(a,b) return a[4]+a[5] < b[4]+b[5] end)
+				else
+                    if seeksafest and not goalseek then
+                        -- sort by threat -- plus a small distance modifier - so if threat is the same (or very close), we prefer the result closer to the start
+                        LOUDSORT(positions, function(a,b) return a[1]+(a[4]*.05) < b[1]+(b[4]*.05) end)
+                    else
+                        -- seeksafest and goalseek
+                        LOUDSORT(positions, function(a,b) return a[1]+((a[4]+a[5])*.05) < b[1]+((b[4]+b[5])*.05) end)
+                    end
+                end
 
 				local bestThreat = maxthreat
 				local bestMarker = positions[1][2]	-- default to the one closest to goalseek
@@ -1033,15 +1065,15 @@ Platoon = Class(moho.platoon_methods) {
 				end
 
 				if bestMarker then
-                
+               
 					return ScenarioInfo.PathGraphs[platoonLayer][bestMarker],bestMarker or GetPathGraphs()[platoonLayer][bestMarker],bestMarker
 				else
                 
                     if nomarkers then
-                        --WARN("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." -- no "..repr(platoonLayer).." markers found within "..MaxMarkerDist.." range of "..repr(location).." closest marker is "..repr(markerlist[1].position).." at "..repr(VDist3(markerlist[1].position, location)) )
+                        WARN("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." -- no "..repr(platoonLayer).." markers found within "..MaxMarkerDist.." range of "..repr(location).." closest marker is "..repr(markerlist[1].position).." at "..repr(VDist3(markerlist[1].position, location)) )
                     else
                         if PathFindingDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." No safe "..repr(platoonLayer).." marker was found - using "..maxthreat.." threat - near "..repr(location) )    --.." available markers were "..repr(markerlist))
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." No safe "..repr(platoonLayer).." marker was found - using "..maxthreat.." threat - near "..repr(location).." available positions were "..repr(positions) )
                         end
                     end
                     
@@ -1077,9 +1109,13 @@ Platoon = Class(moho.platoon_methods) {
 		if platoonLayer == 'Air' or platoonLayer == 'Amphibious' then
 			testPath = true
 		end
+        
+        if PathFindingDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." wants to find a path from "..repr(start).." to "..repr(destination).." Distance is "..VDist3(start,destination) )
+        end
 	
-		-- Get the closest safe node at platoon position which is closest to the destination
-		local startNode, startNodeName = GetClosestSafePathNodeInRadiusByLayerLOUD( start, false, destination, 2 )
+		-- Get the node at platoon position which is closest to the destination
+		local startNode, startNodeName = GetClosestSafePathNodeInRadiusByLayerLOUD( start, false, destination, 1.5, true )
 
 		if not startNode and platoonLayer == 'Amphibious' then
 		
@@ -1088,49 +1124,52 @@ Platoon = Class(moho.platoon_methods) {
             end
             
 			platoonLayer = 'Land'
-			startNode, startNodeName = GetClosestSafePathNodeInRadiusByLayerLOUD( start, false, destination, 2 )
+			startNode, startNodeName = GetClosestSafePathNodeInRadiusByLayerLOUD( start, false, destination, 1.5, true )
 			
-		else
-            if PathFindingDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." gets startnode "..repr(startNode).." Distance is " )
-            end
+		--else
+            --if PathFindingDialog and startNode.position then
+              --  LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." gets startnode "..repr(startNodeName).." Distance from start "..VDist3( start, startNode.position).." to destination is "..repr(VDist3( destination, startNode.position )) )
+            --end
         end
 	
 		if not startNode then
             
 			WaitTicks(1)
-			return false, 'NoPath', 0, 0
+			return false, 'NoSafeStart', 0, 0
 			
 		end
 		
 		if DestinationBetweenPoints( destination, start, startNode.position ) then
 
             if PathFindingDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." goes DIRECT from "..repr(startNode) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." goes DIRECT from "..repr(startNodeName) )
             end            
 
 			return {destination}, 'Direct', VDist2( start[1],start[3], destination[1],destination[3] ), 0
 			
 		end			
     
-		-- Get the closest safe node at the destination which is cloest to the start
-		local endNode, endNodeName = GetClosestSafePathNodeInRadiusByLayerLOUD( destination, true, false, 1 )
+
+        local blockingcheck = true
+        
+        if string.find( platoon.BuilderName or platoon, "AttackPlanner") then
+            blockingcheck = false
+        end
+
+		-- Get the closest safe node at the destination which is closest to the start        
+		local endNode, endNodeName = GetClosestSafePathNodeInRadiusByLayerLOUD( destination, true, start, 1, blockingcheck )
 
 		if not endNode then
             
 			WaitTicks(1)
-			return false, 'NoPath', 0, 0
-			
-		else
-            if PathFindingDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." gets endnode "..repr(endNode).." Distance to destination is "..VDist3(endNode.position, destination) )
-            end        
+			return false, 'NoSafeEnd', 0, 0
+
         end
 		
 		if startNodeName == endNodeName then
 
             if PathFindingDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." goes DIRECT from "..repr(startNode) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." goes DIRECT from "..repr(startNodeName) )
             end            
 
 			return {destination}, 'Direct', VDist2( start[1],start[3], destination[1],destination[3] ), 0
@@ -1148,7 +1187,7 @@ Platoon = Class(moho.platoon_methods) {
 		if not BadPath[startNodeName][endNodeName] then
 
             if PathFindingDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." requests "..platoonLayer.." path from "..repr(startNode).." to "..repr(endNode) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." requests "..platoonLayer.." path from "..repr(startNodeName).." "..repr(startNode.position).." to "..repr(endNodeName).." "..repr(endNode.position) )
             end            
 
 			-- add the platoons request for a path to the respective path generator for that layer
@@ -1196,7 +1235,11 @@ Platoon = Class(moho.platoon_methods) {
 
             -- remove reply
 			Replies[platoon] = nil  --false
-		end
+		else
+            if PathFindingDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." got a BAD "..platoonLayer.." PATH from startnode "..repr(startNodeName).." to endnode "..repr(endNodeName) )
+            end            
+        end
 
 		if not path or path == 'NoPath' then
 
@@ -1243,7 +1286,7 @@ Platoon = Class(moho.platoon_methods) {
 
         local LOUDCOPY = LOUDCOPY
         local LOUDENTITY = LOUDENTITY
-        local LOUDMOD = math.mod
+        local LOUDMOD = LOUDMOD
         local LOUDSORT = LOUDSORT
 		local VDist3 = VDist3
 		local VDist2 = VDist2
@@ -7656,7 +7699,7 @@ Platoon = Class(moho.platoon_methods) {
         
             local LOUDMAX = LOUDMAX
             local LOUDMIN = LOUDMIN
-			local LOUDMOD = math.mod
+			local LOUDMOD = LOUDMOD
             
             local BeenDestroyed = BeenDestroyed
 			local CanBuildStructureAt = CanBuildStructureAt
