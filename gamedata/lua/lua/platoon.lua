@@ -1083,6 +1083,7 @@ Platoon = Class(moho.platoon_methods) {
 			return false, false
 		end	
 
+        -- when a path returns 'No Path' we'll cache it for six seconds to minimize immediate thrashing
 		local AddBadPath = function( layer, startnode, endnode )
 
 			if not ScenarioInfo.BadPaths[layer][startnode] then
@@ -1100,6 +1101,11 @@ Platoon = Class(moho.platoon_methods) {
 		
 				ScenarioInfo.BadPaths[layer][endnode][startnode] = {}
 			end
+            
+            WaitTicks(61)
+            
+            ScenarioInfo.BadPaths[layer][endnode][startnode] = nil
+            ScenarioInfo.BadPaths[layer][startnode][endnode] = nil
 		end
 
 		-- this flag is set but passed into the path generator
