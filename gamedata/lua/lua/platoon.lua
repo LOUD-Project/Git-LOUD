@@ -8509,6 +8509,7 @@ Platoon = Class(moho.platoon_methods) {
 		local LOUDGETN = LOUDGETN
         local LOUDLOG10 = LOUDLOG10
         local LOUDMAX = LOUDMAX
+        local LOUDMOD = LOUDMOD
         local LOUDSORT = LOUDSORT
         
 		local VDist2Sq = VDist2Sq        
@@ -8554,9 +8555,17 @@ Platoon = Class(moho.platoon_methods) {
             LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." begins")
         end
         
-        local bNeedTransports, calltransport, distancefactor, enemyindex, ethreat, experimentalunit, milvalue, mythreat, name
-        local newposition, oldplatpos, path, pathlength, platPos, reason, sthreat, stuckcount, targetthreat, targetvalue, usedTransports, value
+        local bNeedTransports, distancefactor, enemyindex, ethreat, experimentalunit, milvalue, mythreat, name, travelcount
+        local newposition, oldplatpos, path, pathlength, platPos, reason, sthreat, stuckcount, targetthreat, targetmilvalue, targetvalue, usedTransports, value
 		
+        local targettypes = {}
+        
+        targettypes["AntiAir"] = true
+        targettypes["Economy"] = true
+        targettypes["Commander"] = true
+        targettypes["Land"] = true
+        targettypes["StructuresNotMex"] = true
+
         while PlatoonExists(aiBrain, self) do
 		
             platPos = GetPlatoonPosition(self) or false
@@ -8637,23 +8646,14 @@ Platoon = Class(moho.platoon_methods) {
                 
        			mythreat = CalculatePlatoonThreat( self, 'Surface', ALLUNITS )
 
-				dataList = GetHiPriTargetList( aiBrain, newposition )
+				dataList = GetHiPriTargetList( aiBrain, newposition, targettypes, MaximumAttackRange, true )
+
 				targetvalue = 0
-                
-				LOUDSORT(dataList, function(a,b) return a.Distance < b.Distance end )
 				
 				for _,Target in dataList do
 
                     targetLocation = Target.Position
                     targetclass = Target.Type                
-                
-					if targetclass != 'AntiAir' and targetclass != 'StructuresNotMex' and targetclass != 'Commander' and targetclass != 'Land' and targetclass != "Economy" then
-						continue	-- allow only the targets listed above
-					end
-                    
-					if VDist3( targetLocation, platPos ) > MaximumAttackRange then
-						break	-- all additional targets are beyond attack range
-					end
 
 					sthreat = Target.Threats.Sur
 					ethreat = Target.Threats.Eco
@@ -8954,7 +8954,7 @@ Platoon = Class(moho.platoon_methods) {
     -- drops too low, it will try and Return To Base and disband
     AmphibForceAILOUD = function( self, aiBrain )
 
-        local AmphibForceAIDialog = false
+        local AmphibForceAIDialog = true
 
         local CalculatePlatoonThreat = CalculatePlatoonThreat
         local GetPlatoonPosition = GetPlatoonPosition
@@ -8968,6 +8968,7 @@ Platoon = Class(moho.platoon_methods) {
 		local LOUDGETN = LOUDGETN
         local LOUDLOG10 = LOUDLOG10
         local LOUDMAX = LOUDMAX
+        local LOUDMOD = LOUDMOD
         local LOUDSORT = LOUDSORT
 
 		local VDist2Sq = VDist2Sq        
@@ -9010,8 +9011,16 @@ Platoon = Class(moho.platoon_methods) {
             LOG("*AI DEBUG "..aiBrain.Nickname.." AmphibForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." begins")
         end
 
-		local calltransport, ecovalue, enemyindex, ethreat, experimentalunit, landattackposition, milvalue, mythreat, newposition, path, pathlength, platPos 
-		local reason, sthreat, stuckcount, target, targetclass, targetlist, targetLocation, targettype, targetvalue, usedTransports, value
+		local distancefactor, ecovalue, enemyindex, ethreat, experimentalunit, landattackposition, milvalue, mythreat, newposition, path, pathlength, platPos, travelcount
+		local reason, sthreat, stuckcount, target, targetclass, targetcount, targetlist, targetLocation, targettype, targetmilvalue, targetvalue, usedTransports, value
+
+        local targettypes = {}
+        
+        targettypes["AntiAir"] = true
+        targettypes["Economy"] = true
+        targettypes["Commander"] = true
+        targettypes["Land"] = true
+        targettypes["StructuresNotMex"] = true
 
         while PlatoonExists(aiBrain,self) do
 
