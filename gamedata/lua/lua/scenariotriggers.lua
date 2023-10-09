@@ -597,7 +597,7 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, triggerdis
 	WaitTicks( delay )
 
     --if platoon.MovingToWaypoint then
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." begins watching - thread flag is "..repr(platoon.MovingToWaypoint).." for "..repr(marker) )
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." MTWayPt begins watching - thread flag is "..repr(platoon.MovingToWaypoint).." for "..repr(marker) )
     --else
         --LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." FAILS - NO MovingToWaypoint THREAD " )
     --end
@@ -608,11 +608,11 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, triggerdis
     
     while PlatoonExists( aiBrain, platoon) do
     
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." thread cycle "..repr(count).." - thread flag is "..repr(platoon.MovingToWaypoint) )
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." MTWayPt cycle "..repr(count).." - thread flag is "..repr(platoon.MovingToWaypoint) )
 	
         if not marker or not platoon.MovingToWaypoint then
         
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." thread exits - flag is "..repr(platoon.MovingToWaypoint) )
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." MTWayPt thread exits - flag is "..repr(platoon.MovingToWaypoint) )
 		
             return
 			
@@ -628,7 +628,7 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, triggerdis
 
             if distance <= triggerdistance or count > 80 then
             
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." at trigger "..distance )
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." MTWayPt at trigger "..distance )
 
                 if name then
 				
@@ -645,10 +645,12 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, triggerdis
             end
         
             -- delay of 3 seconds for each multiple of the trigger distance
-            delay = MATHMAX( 8, (LOUDFLOOR(( (distance-triggerdistance) / triggerdistance )* 31) ) )
+            delay = MATHMAX( 8, (LOUDFLOOR(( (distance-(triggerdistance/1.5)) / triggerdistance )* 31) ) )
 
 			if count > 20 and (distance/triggerdistance) < 2.25 then
-            
+
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." MTWayPt cycle "..count.."  Distance "..distance.."  trigger "..triggerdistance.."  delay "..delay.." ticks" )            
+
                 platoon:Stop()
 			
 				for _,u in GetPlatoonUnits(platoon) do
@@ -660,18 +662,19 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, triggerdis
 						if position then
 			
 							IssueMove( {u}, RandomLocation( marker[1], marker[3], 12 ) )
-                            
-                            delay = delay + 10 -- increase the delay temporarily to avoid overtriggering this
 
                         end
 					end
 					
 				end
 
+                delay = delay + 8 -- increase the delay temporarily to avoid overtriggering this
+
             end
 
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." MTWayPt cycle "..count.."  Distance "..distance.."  trigger "..triggerdistance.."  delay "..delay.." ticks" )
+
             if count > 24 then
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).."  cycle "..count.."  Distance "..distance.."  trigger "..triggerdistance.."  delay "..delay.." ticks" )
                 triggerdistance = triggerdistance + 1
             end
         end
