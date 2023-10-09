@@ -1347,7 +1347,7 @@ function LandScoutingAI( self, aiBrain )
 
 	local baseradius, curPos, cyclecount, defaultthreat, distance, IL, lastpos, loopcount, path, Position, platooncount, reason, reconcomplete, scout, scoutpriority, targetArea, usedTransports
 
-    defaultthreat = 15
+    defaultthreat = 12
     
     -- Cybran Scouts
     if aiBrain.FactionIndex == 3 then
@@ -1486,11 +1486,15 @@ function LandScoutingAI( self, aiBrain )
 
             -- with Land Scouting we use an artificial high self-threat so they'll continue scouting later into the game
             path, reason = PlatoonGenerateSafePathToLOUD( aiBrain, self, MovementLayer, curPos, Position, platooncount * defaultthreat, markerseek )
+            
+            if not path then
+                path, reason = PlatoonGenerateSafePathToLOUD( aiBrain, self, MovementLayer, curPos, Position, (platooncount * defaultthreat) * 1.5, markerseek )
+            end
 
 			if not path then
 
 				-- try 6 transport calls -- 
-				usedTransports = SendPlatoonWithTransportsLOUD( self, aiBrain, targetArea, 6, false )
+				usedTransports = SendPlatoonWithTransportsLOUD( self, aiBrain, targetArea, 5, false )
 
 				if not usedTransports and PlatoonExists(aiBrain, self) then
 
