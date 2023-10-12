@@ -3286,24 +3286,20 @@ SubUnit = Class(MobileUnit) {
     FxDamage3 = {EffectTemplate.DamageSparks01},
 
     -- DESTRUCTION PARAMS
-    PlayDestructionEffects = true,
-	
-    DeathThreadDestructionWaitTime = 7,	-- 7 seconds
+    PlayDestructionEffects = false,
 
     OnKilled = function(self, instigator, type, overkillRatio)
 
         self:DestroyIdleEffects()
 
-        if __blueprints[self.BlueprintID].Display.AnimationDeath then
+        if (self.CacheLayer == 'Water' or self.CacheLayer == 'Seabed' or self.CacheLayer == 'Sub') then
 
-			if (self.CacheLayer == 'Water' or self.CacheLayer == 'Seabed' or self.CacheLayer == 'Sub') then
+			self.SinkExplosionThread = self:ForkThread(self.ExplosionThread)
+			self.Trash:Add(self.SinkExplosionThread)
 
-				self.SinkExplosionThread = self:ForkThread(self.ExplosionThread)
-				self.Trash:Add(self.SinkExplosionThread)
-				self.SinkThread = self:ForkThread(self.SinkingThread)
-				self.Trash:Add(self.SinkThread)
+			self.SinkThread = self:ForkThread(self.SinkingThread)
+			self.Trash:Add(self.SinkThread)
 
-			end
 		end
 
         MobileUnit.OnKilled(self, instigator, type, overkillRatio)
@@ -3314,31 +3310,17 @@ SubUnit = Class(MobileUnit) {
         if self.DeathAnimManip then
 			WaitFor(self.DeathAnimManip)
 		end
-
-        --LOG("*AI DEBUG SUB Unit DeathThread "..self.BlueprintID)	
-
-        local bp = __blueprints[self.BlueprintID]
 		
         local army = self.Army
         local pos = GetPosition(self)
+
         local seafloor = GetTerrainHeight(pos[1], pos[3])
 
-        self:DestroyAllDamageEffects()
-
-        if self.PlayDestructionEffects then
-
-            if self.CacheLayer == "Water" then
-                self:CreateDestructionEffects( self, overkillRatio )
-            else
-				CreateDefaultHitExplosionAtBone( self, 0, CreateUnitExplosionEntity( self, overkillRatio, army, pos ).Spec.BoundingXZRadius)
-            end
-        end
-
-        if bp.Display.AnimationDeath then
+        if self.PlayAnimationDeath then
 
             local sinkcount = 0
 
-            while self.DeathAnimManip and sinkcount < 20 do   #-- wait 20 seconds
+            while self.DeathAnimManip and sinkcount < 20 do
                 WaitTicks(10)
                 sinkcount = sinkcount + 1
             end
@@ -3351,32 +3333,34 @@ SubUnit = Class(MobileUnit) {
                 local LOUDFLOOR = LOUDFLOOR
 
                 local numBones = GetBoneCount(self)-1
-                local sx, y, z = self:GetUnitSizes()
-                local vol = sx * y * z
+                local rx, ry, rz = self:GetUnitSizes()
+                local vol = rx * ry * rz
+                
+                local rs, randBone
 
-                local i = 0
+                local i = 1
 
-                while true do
+                while i < 12 do
 
-                    local rx, ry, rz = GetRandomOffset( self, 0.25 )
-					local rs = Random(vol * 0.5, vol*2) / (vol*2)
+                    rx, ry, rz = GetRandomOffset( self, 0.25 )
+					rs = Random(vol * 0.5, vol*2) / (vol*2)
                     
-                    local randBone = LOUDFLOOR(Random() * (numBones + 1))
+                    randBone = LOUDFLOOR(Random() * (numBones + 1))
 
                     CreateEmitterAtBone( self, randBone, army, '/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp'):ScaleEmitter(rs):OffsetEmitter(rx, ry, rz)
 
-                    CreateEmitterAtBone( self, randBone, army, '/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):ScaleEmitter(sx * 0.33):OffsetEmitter(rx, ry, rz)
+                    CreateEmitterAtBone( self, randBone, army, '/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):ScaleEmitter(rx * 0.33):OffsetEmitter(rx, ry, rz)
 
-                    CreateEmitterAtBone( self, 0, army, '/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):ScaleEmitter(sx* 0.5):OffsetEmitter(rx, ry, rz)
+                    CreateEmitterAtBone( self, 0, army, '/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):ScaleEmitter(rx* 0.5):OffsetEmitter(rx, ry, rz)
 
-                    WaitSeconds(0.4 + i + (Random() * (0.6 + i) ))
+                    WaitTicks( 4 + i + (Random(1,3)*6) )
                     
-                    i = i + 0.3
+                    i = i + 3
                 end
             end)
 
 
-            local slider = CreateSlider(self, 0, 0, seafloor-pos[2], 0, 4)
+            local slider = CreateSlider(self, 0, 0, -(pos[2]-seafloor)*10, 0, 4)
 
 			self.Trash:Add(slider)
 
@@ -3390,26 +3374,31 @@ SubUnit = Class(MobileUnit) {
 			self.DeathAnimManip = nil
 		end
 
-		self:CreateWreckageProp( overkillRatio )
+        self:DestroyAllDamageEffects()
+
+        -- create wreckage but no surface effects
+		self:CreateWreckageProp( overkillRatio, nil, true )
+
         self:Destroy()
     end,
 
     ExplosionThread = function(self)
 
+        local army = self.Army
+
         local d = 0
+
         local rx, ry, rz = self:GetUnitSizes()
         local vol = rx * ry * rz
 
         local volmin = 1.5
         local volmax = 12
+
         local scalemin = 1
         local scalemax = 2.5
+
         local t = (vol-volmin)/(volmax-volmin)
         local rs = scalemin + (t * (scalemax-scalemin))
-
-		local CreateEmitterAtEntity = CreateEmitterAtEntity
-		local Random = Random
-		local WaitTicks = coroutine.yield
 
         if rs < scalemin then
             rs = scalemin
@@ -3417,68 +3406,71 @@ SubUnit = Class(MobileUnit) {
             rs = scalemax
         end
 
-        local army = self.Army
+		local CreateEmitterAtEntity = CreateEmitterAtEntity
+		local Random = Random
+		local WaitTicks = coroutine.yield
 
         CreateEmitterAtEntity(self,army,'/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp'):ScaleEmitter(rs)
         CreateEmitterAtEntity(self,army,'/effects/emitters/destruction_underwater_explosion_splash_02_emit.bp'):ScaleEmitter(rs)
-        CreateEmitterAtEntity(self,army,'/effects/emitters/destruction_underwater_explosion_surface_ripples_01_emit.bp'):ScaleEmitter(rs)
 
-        while true do
+        for i = 1, LOUDFLOOR(Random(2,4)) do
 
-            local rx, ry, rz = GetRandomOffset( self, 1)
-            local rs = Random(vol * 0.5, vol*2) / (vol*2)
+            rx, ry, rz = GetRandomOffset( self, 1)
+            rs = Random(vol * 0.5, vol*2) / (vol*2)
 
-            CreateEmitterAtEntity(self,army,'/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp'):ScaleEmitter(rs):OffsetEmitter(rx, ry, rz)
-            CreateEmitterAtEntity(self,army,'/effects/emitters/destruction_underwater_explosion_splash_01_emit.bp'):ScaleEmitter(rs):OffsetEmitter(rx, ry, rz)
-
-            d = d + 1
-
-            WaitTicks(Random( 5, 12 ) + d)
+            CreateEmitterAtEntity(self,army,'/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp'):ScaleEmitter(rs):OffsetEmitter(rx, ry -i/2, rz)
+            WaitTicks(2)
+            
+            CreateEmitterAtEntity(self,army,'/effects/emitters/destruction_underwater_explosion_splash_01_emit.bp'):ScaleEmitter(rs):OffsetEmitter(rx, ry -i/2, rz)
+            WaitTicks(5 + Random( 5, 12 ) + d)
         end
     end,
 
     SinkingThread = function(self)
 
-        local i = 8     -- initializing the above surface counter
+        local army = self.Army
+
         local rx, ry, rz = self:GetUnitSizes()
         local vol = rx * ry * rz
 
-        local army = self.Army
+		local CreateAttachedEmitter = CreateAttachedEmitter
+		local Random = Random
         
         local LeftFrontWakeBone = self.LeftFrontWakeBone
         local RightFrontWakeBone = self.RightFrontWakeBone
+        
+        local rs
 
-        while true and i > 0 do
+        for i = 1, 8 do
 
-            local rx, ry, rz = GetRandomOffset( self, 1)
-            local rs = Random( vol * 0.5, vol * 2 ) / ( vol * 2)
+            rx, ry, rz = GetRandomOffset( self, 0.5)            
 
-            CreateAttachedEmitter(self, -1, army,'/effects/emitters/destruction_water_sinking_ripples_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
+            rs = Random(vol*0.5, vol*2) / (vol*2)
 
-            local rx, ry, rz = GetRandomOffset( self, 1)
+            if i == 1 then
 
-            CreateAttachedEmitter(self, LeftFrontWakeBone, army, '/effects/emitters/destruction_water_sinking_wash_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
+                CreateAttachedEmitter(self, -1, army, '/effects/emitters/destruction_water_sinking_ripples_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
+                WaitTicks(2)
+                
+                CreateAttachedEmitter(self, LeftFrontWakeBone, army, '/effects/emitters/destruction_water_sinking_wash_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
+                WaitTicks(2)
+                
+                CreateAttachedEmitter(self, RightFrontWakeBone,army, '/effects/emitters/destruction_water_sinking_wash_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
+            else
 
-            local rx, ry, rz = GetRandomOffset( self, 1)
+                CreateAttachedEmitter(self,-1,army,'/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):OffsetEmitter(rx, -i/2, rz):ScaleEmitter(rs)
+            end
 
-            CreateAttachedEmitter(self, RightFrontWakeBone, army, '/effects/emitters/destruction_water_sinking_wash_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
-
-            local rx, ry, rz = GetRandomOffset( self, 1)
-            local rs = Random( vol * 0.5, vol * 2 ) / ( vol * 2)
-
-            CreateAttachedEmitter(self, -1, army, '/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
-
-            i = i - 1
-
-            WaitTicks(10 + Random(3,6) )
+            WaitTicks( 6 + i + Random(4,6) )
         end
+        
     end,
 }
 
 SeaUnit = Class(MobileUnit) {
 
-    DeathThreadDestructionWaitTime = 7,	-- 7 seconds
-
+    PlayDestructionEffects = false,
+    
     OnStopBeingBuilt = function(self,builder,layer)
 
         Unit.OnStopBeingBuilt(self,builder,layer)
@@ -3488,8 +3480,6 @@ SeaUnit = Class(MobileUnit) {
 
     -- by default, just destroy us when we are killed.
     OnKilled = function(self, instigator, type, overkillRatio)
-    
-        --LOG("*AI DEBUG SEA UNIT "..self.EntityID.." OnKilled for "..self.BlueprintID)
 
         self:DestroyIdleEffects()
 
@@ -3511,82 +3501,53 @@ SeaUnit = Class(MobileUnit) {
 			WaitFor(self.DeathAnimManip)
 		end
 
-        --LOG("*AI DEBUG SEA UNIT "..self.EntityID.." begins DeathThread ")
-
         local bp = __blueprints[self.BlueprintID]
         local army = self.Army
-        local pos = GetPosition(self)
-
-        local seafloor = GetTerrainHeight(pos[1], pos[3])
-
-        self:DestroyAllDamageEffects()
-
-        if self.PlayDestructionEffects then
-
-            if self.CacheLayer == "Water" then
-                self:CreateDestructionEffects( self, overkillRatio )
-            else
-				CreateDefaultHitExplosionAtBone( self, 0, CreateUnitExplosionEntity( self, overkillRatio, army, pos ).Spec.BoundingXZRadius)
-            end
-        end
 
         if bp.Display.AnimationDeath then
 
             local sinkcount = 0
-            
-            --LOG("*AI DEBUG SEA UNIT "..self.EntityID.." DeathThread Animation ")
 
             while self.DeathAnimManip and sinkcount < 20 do
-                WaitTicks(10)
+
+                WaitTicks(6)
                 sinkcount = sinkcount + 1
-                
-                --LOG("*AI DEBUG SEA Unit DeathThread Animation sinkcount "..sinkcount.." for "..self.BlueprintID.." "..self.EntityID)
+
             end
 
         else  -- if no death animation use slider
+
+            local pos = GetPosition(self)
+
+            local seafloor = GetTerrainHeight(pos[1], pos[3])
+
+            local slider = CreateSlider(self, 0, 0, (seafloor-pos[2])*10, 0, 4)
+
+			TrashAdd( self.Trash, slider )
 
             self:ForkThread(function()
 
                 local CreateEmitterAtBone = CreateEmitterAtBone
                 local LOUDFLOOR = LOUDFLOOR
-                
-                local i = 0
 
                 local numBones = GetBoneCount(self) - 1
-                local sx, sy, sz = self:GetUnitSizes()
-                local vol = sx * sy * sz
+                local sx, ry, rz = self:GetUnitSizes()
+                local vol = sx * ry * rz
+                
+                local rs, rx, randBone
 
-                while true do
+                rx, ry, rz = GetRandomOffset( self, 0.25)
+				rs = Random(vol * 0.5, vol*2) / (vol*2)
 
-                    local rx, ry, rz = GetRandomOffset( self, 0.25)
-					local rs = Random(vol * 0.5, vol*2) / (vol*2)
-                    
-                    local randBone = LOUDFLOOR(Random() * (numBones + 1))
+                randBone = LOUDFLOOR(Random() * (numBones + 1))
 
-                    CreateEmitterAtBone( self, randBone, army, '/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp'):ScaleEmitter(rs):OffsetEmitter(rx, ry, rz)
+                CreateEmitterAtBone( self, randBone, army, '/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp'):ScaleEmitter(rs):OffsetEmitter(rx, ry, rz)
 
-                    CreateEmitterAtBone( self, randBone, army, '/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):ScaleEmitter(sx * 0.33):OffsetEmitter(rx, ry, rz)
+                CreateEmitterAtBone( self, randBone, army, '/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):ScaleEmitter(sx * 0.33):OffsetEmitter(rx, ry, rz)
 
-                    CreateEmitterAtBone( self, 0, army, '/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):ScaleEmitter(sx* 0.5):OffsetEmitter(rx, ry, rz)
-
-                    WaitSeconds( 0.4 + i + (Random() * (0.6 + i) ) )
-                    
-                    --LOG("*AI DEBUG SEA UNIT "..self.EntityID.." DeathThread "..i)
-
-                    i = i + 0.3
-                end
             end)
 
-
-            local slider = CreateSlider(self, 0, 0, seafloor-pos[2], 0, 4)
-
-			TrashAdd( self.Trash, slider )
-            
-            --LOG("*AI DEBUG SEA UNIT "..self.EntityID.." DeathThread Waitfor starts ")
-
             WaitFor(slider)
-
-            --LOG("*AI DEBUG SEA UNIT "..self.EntityID.." DeathThread Waitfor ends " )
 
             slider:Destroy()
 
@@ -3597,106 +3558,109 @@ SeaUnit = Class(MobileUnit) {
 			self.DeathAnimManip = nil
 		end
 
+        self:DestroyAllDamageEffects()
 
-        self:CreateWreckageProp( overkillRatio )
+        -- create wreckage prop but bypass final surface debris
+        self:CreateWreckageProp( overkillRatio, nil, true )
 
         self:Destroy()
 
-        --LOG("*AI DEBUG SEA UNIT "..self.EntityID.." DeathThread ends "..self.BlueprintID)        
     end,
 
     ExplosionThread = function(self)
 
-        local i = LOUDFLOOR(Random() * (8) + 4)		 	-- number of above surface explosions. timed to animation
-        local d = 0 							-- delay offset after surface explosions cease
-        local sx, sy, sz = self:GetUnitSizes()
-        local vol = sx * sy * sz
         local army = self.Army
+
+        local d = 0
+
+        local rx, ry, rz = self:GetUnitSizes()
+        local vol = rx * ry * rz
+
+        local volmin = 1.5
+        local volmax = 12
+
+        local scalemin = 1
+        local scalemax = 2.5
+
+        local t = (vol-volmin)/(volmax-volmin)
+        local rs = scalemin + (t * (scalemax-scalemin))
+
+        if rs < scalemin then
+            rs = scalemin
+        elseif rs > scalemax then
+            rs = scalemax
+        end
         
         local numBones = GetBoneCount(self) - 1
 
-		local CreateEmitterAtBone = CreateEmitterAtBone
+		local CreateEmitterAtEntity = CreateEmitterAtEntity
 		local Random = Random
 		local WaitTicks = coroutine.yield
 
-        while i > 0 do
-
-            --LOG("*AI DEBUG SEA UNIT "..self.EntityID.." Explosion thread "..i)
-
-            if i > 0 then
-
-                local rx, ry, rz = GetRandomOffset( self, 1)
-                local rs = Random(vol*0.5, vol*2) / (vol*2)
-
-                CreateDefaultHitExplosionAtBone( self, LOUDFLOOR(Random() * (numBones + 1)), 1.0 )
-
-            else
-
-                d = d + 1 		-- if submerged, increase delay offset
-                self:DestroyAllDamageEffects()
-
-            end
-
-            i = i - 1
-
-            local rx, ry, rz = GetRandomOffset( self, 0.25)
-            local rs = Random(vol*0.5, vol*2) / (vol*2)
-            
-            local randBone = LOUDFLOOR(Random() * (numBones + 1))
-
-            CreateEmitterAtBone( self, randBone, army, '/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp'):OffsetEmitter(rx, ry, rz):ScaleEmitter(rs)
-            CreateEmitterAtBone( self, randBone, army, '/effects/emitters/destruction_underwater_explosion_splash_01_emit.bp'):OffsetEmitter(rx, ry, rz):ScaleEmitter(rs)
-
-            WaitTicks( 8 + (Random() * (6) ))
-        end
+        CreateEmitterAtEntity(self,army,'/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp'):ScaleEmitter(rs)
+        CreateEmitterAtEntity(self,army,'/effects/emitters/destruction_underwater_explosion_splash_02_emit.bp'):ScaleEmitter(rs)
         
-        --LOG("*AI DEBUG SEA UNIT "..self.EntityID.." Explosion thread ends for "..self.BlueprintID)
+        for i = 1, LOUDFLOOR(Random(4,6)) do
+
+            rx, ry, rz = GetRandomOffset( self, 1)
+            rs = Random(vol * 0.5, vol*2) / (vol*2)
+
+            CreateEmitterAtEntity(self,army,'/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp'):OffsetEmitter( rx, -i/2, rz):ScaleEmitter(rs)
+        
+            WaitTicks( 2 + Random(1,2) )
+
+            CreateDefaultHitExplosionAtBone( self, LOUDFLOOR(Random() * (numBones + 1)), rs )  
+
+            WaitTicks( 6 + Random(5,10) )
+        end
+
+        self:DestroyAllDamageEffects()
     end,
 
     SinkingThread = function(self)
 
-        local i = 8
-        local sx, sy, sz = self:GetUnitSizes()
-        local vol = sx * sy * sz
         local army = self.Army
+
+        local rx, ry, rz = self:GetUnitSizes()
+
+        local vol = rx * ry * rz
+
 
 		local CreateAttachedEmitter = CreateAttachedEmitter
 		local Random = Random
         
         local LeftFrontWakeBone = self.LeftFrontWakeBone
         local RightFrontWakeBone = self.RightFrontWakeBone
+        
+        local rs
 
-        while i > 0 do
+        for i = 1, 8 do
 
-            --LOG("*AI DEBUG SEA UNIT "..self.EntityID.." Sinking thread "..i)
-            
-            if i > 0 then
+            rx, ry, rz = GetRandomOffset( self, 0.5)            
 
-                local rx, ry, rz = GetRandomOffset( self, 1)
-                local rs = Random(vol*0.5, vol*2) / (vol*2)
+            rs = Random(vol*0.5, vol*2) / (vol*2)
 
-                CreateAttachedEmitter(self,-1,army,'/effects/emitters/destruction_water_sinking_ripples_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
+            if i == 1 then
 
-                local rx, ry, rz = GetRandomOffset( self, 1)
+                CreateAttachedEmitter(self, -1, army, '/effects/emitters/destruction_water_sinking_ripples_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
 
+                WaitTicks(2)
+                
                 CreateAttachedEmitter(self, LeftFrontWakeBone, army, '/effects/emitters/destruction_water_sinking_wash_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
 
-                local rx, ry, rz = GetRandomOffset( self, 1)
-
+                WaitTicks(2)
+                
                 CreateAttachedEmitter(self, RightFrontWakeBone,army, '/effects/emitters/destruction_water_sinking_wash_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
+
+            else
+
+                CreateAttachedEmitter(self,-1,army,'/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):OffsetEmitter(rx, -i/2, rz):ScaleEmitter(rs)
+
             end
 
-            local rx, ry, rz = GetRandomOffset( self, 1)
-            local rs = Random(vol*0.5, vol*2) / (vol*2)
-
-            CreateAttachedEmitter(self,-1,army,'/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
-
-            i = i - 1
-
-            WaitTicks(10 + Random(1,6) )
+            WaitTicks( 6 + i + Random(4,6) )
         end
-        
-        --LOG("*AI DEBUG SEA UNIT "..self.EntityID.." Sinking thread ends for "..self.BlueprintID)
+
     end,
 }
 

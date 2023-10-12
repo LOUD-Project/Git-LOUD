@@ -158,7 +158,7 @@ function CreateDefaultHitExplosionAtBone( obj, boneName, scale )
 	
 		local army = obj.Army
 		
-		LOUDPARTICLE( obj, boneName, army, 3 + (Random() * (2) ), 8.5 + (Random() * (4) ), 'glow_03', 'ramp_flare_02' )
+		LOUDPARTICLE( obj, boneName, army, 3 + (Random() * (2) ) * scale, 8.5 + (Random() * (4) ), 'glow_03', 'ramp_flare_02' )
 
 		CreateBoneEffects( obj, boneName, army, EffectTemplate.FireCloudMed01 )
 	end

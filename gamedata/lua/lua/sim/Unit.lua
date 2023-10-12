@@ -1763,8 +1763,6 @@ Unit = Class(moho.unit_methods) {
 		
         if bp.Display[anim] then
         
-            --LOG("*AI DEBUG UNIT "..self.EntityID.." Play Animation "..repr(anim).." for "..repr(self.BlueprintID) )
-        
             local animBlock = self:ChooseAnimBlock( bp.Display[anim] )
 			
             if animBlock.Mesh then
@@ -1773,30 +1771,35 @@ Unit = Class(moho.unit_methods) {
             end
 			
             if animBlock.Animation then
-			
-                --self:StopRocking()
-                local rate = rate or 1
+
+                local rate = rate or 2
 				
                 if animBlock.AnimationRateMax and animBlock.AnimationRateMin then
 				
                     rate = Random(animBlock.AnimationRateMin * 10, animBlock.AnimationRateMax * 10) / 10
 					
                 end
+        
+                --LOG("*AI DEBUG UNIT "..self.EntityID.." Play Animation "..repr(anim).." for "..repr(self.BlueprintID).." rate is "..rate )
 				
                 self.DeathAnimManip = CreateAnimator(self)
-                
+
+                --local elapsedtime = GetGameTick()                
+
                 PlayAnim( self.DeathAnimManip, animBlock.Animation):SetRate(rate)
 
-                TrashAdd( self.Trash,self.DeathAnimManip)
+                TrashAdd( self.Trash, self.DeathAnimManip)
 				
                 --LOG("*AI DEBUG UNIT "..self.EntityID.." Play Animation Waitfor for "..self.BlueprintID)
 
-                WaitFor(self.DeathAnimManip)
-				
+                WaitFor( self.DeathAnimManip )
+
+                --LOG("*AI DEBUG UNIT "..self.EntityID.." Play Animation Waitfor ends "..self.BlueprintID.." after ".. GetGameTick()-elapsedtime .." ticks")				
+
 				self.DeathAnimManip = nil
-                
-                --LOG("*AI DEBUG UNIT "..self.EntityID.." Play Animation Waitfor ends "..self.BlueprintID)
+
             end
+
         end
 		
     end,
@@ -1857,7 +1860,7 @@ Unit = Class(moho.unit_methods) {
         end
     end,
 
-    CreateWreckageProp = function( self, overkillRatio, overridetime )
+    CreateWreckageProp = function( self, overkillRatio, overridetime, bypasswreckageeffects )
 
 		local bp = ALLBPS[self.BlueprintID]
 		local wreck = bp.Wreckage.Blueprint
@@ -1873,12 +1876,12 @@ Unit = Class(moho.unit_methods) {
 				prop:Destroy()
 			end
 			
-			local pos = self:GetPosition()
+			local pos = table.copy(self:GetPosition())
 			
 			local mass = bp.Economy.BuildCostMass * (bp.Wreckage.MassMult or 0)
 			local energy = bp.Economy.BuildCostEnergy * (bp.Wreckage.EnergyMult or 0)
 			local time = (bp.Wreckage.ReclaimTimeMultiplier or 1)
-
+            
 			local prop = CreateProp( pos, wreck )
 
 			prop:AddBoundedProp(mass)
@@ -1907,15 +1910,25 @@ Unit = Class(moho.unit_methods) {
             -- except starting props or those with an override value
 			prop:ForkThread( LifetimeThread, overridetime or bp.Wreckage.LifeTime or 900 )
 
-            TryCopyPose(self,prop,false)
+            if not bypasswreckageeffects then
+                TryCopyPose(self,prop,false)
+            end
+            
+            pos[2] = GetTerrainHeight(pos[1],pos[3])
+
+            Warp( prop, pos )
 
             prop.AssociatedBP = self.BlueprintID
 			prop.IsWreckage = true
 			
-			-- when simspeed drops too low turn off visual effects
-			if Sync.SimData.SimSpeed > -1 then
-				CreateWreckageEffects(self,prop)
-			end
+            -- this plays a final surface explosion with debris
+            if not bypasswreckageeffects then
+
+                -- when simspeed drops too low turn off visual effects			
+                if Sync.SimData.SimSpeed > -1 then
+                    CreateWreckageEffects(self,prop)
+                end
+            end
 			
 			return prop
 			
