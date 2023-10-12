@@ -3287,7 +3287,6 @@ SubUnit = Class(MobileUnit) {
 
     -- DESTRUCTION PARAMS
     PlayDestructionEffects = true,
-    --ShowUnitDestructionDebris = false,
 	
     DeathThreadDestructionWaitTime = 7,	-- 7 seconds
 

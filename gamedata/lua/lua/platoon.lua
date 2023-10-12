@@ -391,7 +391,9 @@ Platoon = Class(moho.platoon_methods) {
 						end
                         
                         GUARDS = GetSquadUnits(self,'Guard') or false
-					
+
+                        SUPPORTS = GetSquadUnits(self,'Support') or false					
+
 						if GUARDS[1] then
                      
                             if not ARTILLERY[1] and not ATTACKS[1] then
@@ -405,14 +407,17 @@ Platoon = Class(moho.platoon_methods) {
                             elseif ATTACKS[1] then
                                 
                                 IssueGuard( GUARDS, ATTACKS[1] )
+                            
+                            elseif SUPPORTS[1] then
+                            
+                                IssueGuard( GUARDS, SUPPORTS[1] )
+                            
                             end
 						end
-                        
-                        SUPPORTS = GetSquadUnits(self,'Support') or false
 					
 						if SUPPORTS[1] then
                         
-                            if not ATTACKS[1] and not ARTILLERY[1] then
+                            if not ATTACKS[1] and not ARTILLERY[1] and not GUARDS[1] then
                             
                                 IssueFormAggressiveMove( SUPPORTS, waypointPath, 'BlockFormation', Direction)
                                 
@@ -423,6 +428,11 @@ Platoon = Class(moho.platoon_methods) {
                             elseif ARTILLERY[1] then
                             
                                 IssueGuard( SUPPORTS, ARTILLERY[1] )                            
+                            
+                            elseif GUARDS[1] then
+                            
+                                IssueGuard( SUPPORTS, GUARDS[1] )
+                                
                             end
 						end
 					
