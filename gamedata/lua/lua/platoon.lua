@@ -5534,25 +5534,23 @@ Platoon = Class(moho.platoon_methods) {
 	-- This function complements the work of Platoon Call For Help AI
 	-- It manages the UnderAttack flag which is set when any unit is damaged - flag is reset after 7.5 seconds
 	PlatoonUnderAttack = function(self, aiBrain)
-
-		if not self.UnderAttack then
         
-            local platPos = GetPlatoonPosition(self) or false
+        local platPos = GetPlatoonPosition(self) or false
 
-            if platPos then
+        if platPos then
         
-                self.UnderAttack = true
+            self.UnderAttack = true
 
-                ForkTo( AIAddMustScoutArea, aiBrain, platPos )
+            ForkTo( AIAddMustScoutArea, aiBrain, platPos )
 		
-                WaitTicks(76)
+            WaitTicks(76)
 		
-                if PlatoonExists( aiBrain, self) then
-                    self.UnderAttack = nil
-                end
-                
+            if PlatoonExists( aiBrain, self) then
+                self.UnderAttack = nil
             end
+
         end
+
 	end,
 	
 	------------- Platoon Call For Help AI --------------------
