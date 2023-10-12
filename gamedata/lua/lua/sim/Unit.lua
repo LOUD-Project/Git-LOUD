@@ -1459,9 +1459,7 @@ Unit = Class(moho.unit_methods) {
 
         -- if the unit is in a platoon that exists and that platoon has a CallForHelpAI
 		-- I should probably do this thru a callback but it's much easier to find and work with it here until I have it right
-		if platoon.CallForHelpAI then
-            
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(ALLBPS[self.BlueprintID].Description).." Calling for Help - platoon is "..repr(aiBrain:PlatoonExists(self.PlatoonHandle)) )
+		if platoon.CallForHelpAI or platoon.RetreatAI then
 			
 			if (not platoon.DistressCall) and (not platoon.UnderAttack) then
 
@@ -1470,7 +1468,9 @@ Unit = Class(moho.unit_methods) {
                 if PlatoonExists( aiBrain, platoon ) then
 			
                     -- turn on the UnderAttack flag and process it
-                    platoon:ForkThread( platoon.PlatoonUnderAttack, aiBrain)
+                    if not platoon.UnderAttack then
+                        platoon:ForkThread( platoon.PlatoonUnderAttack, aiBrain)
+                    end
                 end
 				
 			end

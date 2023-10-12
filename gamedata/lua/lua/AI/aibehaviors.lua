@@ -2031,14 +2031,37 @@ function RetreatAI( self, aiBrain )
         return
     end
     
+    -- note that this platoon is using RetreatAI
+    self.RetreatAI = true
+
     local CalculatePlatoonThreat = CalculatePlatoonThreat
     local UNITCHECK = categories.ALLUNITS - categories.WALL
     local WaitTicks = WaitTicks
-
+    
+    local ThreatCheck = 'Overall'
     local OriginalStrength = CalculatePlatoonThreat( self, 'Overall', UNITCHECK)
+    
+    local SurfaceStrength = CalculatePlatoonThreat( self, 'Surface', UNITCHECK)
+    local AirStrength = CalculatePlatoonThreat( self, 'Air', UNITCHECK)
+    local SubStrength = CalculatePlatoonThreat( self, 'Sub', UNITCHECK)
+    
+    if SurfaceStrength > OriginalStrength * .5 then
+        OriginalStrength = SurfaceStrength
+        ThreatCheck = 'Surface'
+    
+    elseif AirStrength > OriginalStrength *.5 then
+        OriginalStrength = AirStrength
+        ThreatCheck = 'Air'
+        
+    elseif SubStrength > OriginalStrength *.5 then
+        OriginalStrength = SubStrength
+        ThreatCheck = 'Sub'
+    end
     
     local OriginalSize = 0
     local CurrentSize = 0
+    
+    local messageflag = false
     
     local function CountPlatoonUnits()
     
@@ -2063,8 +2086,13 @@ function RetreatAI( self, aiBrain )
     while PlatoonExists( aiBrain, self) do
     
         if self.UnderAttack then
-    
-            if (OriginalStrength * .4) >= CalculatePlatoonThreat( self, 'Overall', UNITCHECK) or (OriginalSize * .4) >= CountPlatoonUnits() then
+
+            --if not messageflag then
+              --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." is under attack")    
+              --  messageflag = true
+            --end
+
+            if (OriginalStrength * .4) >= CalculatePlatoonThreat( self, ThreatCheck, UNITCHECK) or (OriginalSize * .4) >= CountPlatoonUnits() then
             
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." triggers RETREAT AI")
 
@@ -2086,7 +2114,11 @@ function RetreatAI( self, aiBrain )
                 end
             end
             
-            WaitTicks(3)
+            WaitTicks(2)
+
+        --else
+          --  messageflag = false
+
         end
         
         WaitTicks(2)
