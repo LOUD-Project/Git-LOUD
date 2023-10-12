@@ -3251,6 +3251,9 @@ function PathGeneratorAir( aiBrain )
 	local graph = ScenarioInfo.PathGraphs['Air']
     local Rings = ScenarioInfo.RingSize or 0
 
+	local IMAPRadius = ScenarioInfo.IMAPSize * .5
+    local IMAPSize = ScenarioInfo.IMAPSize
+
 	local data = false	
 	local queue = {}
 	local closed = {}
