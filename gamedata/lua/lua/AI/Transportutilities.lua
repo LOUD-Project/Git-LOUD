@@ -2545,7 +2545,7 @@ function WatchTransportTravel( transport, destination, aiBrain, UnitPlatoon )
 
             WaitTicks(14)
 
-            watchcount = watchcount + 1
+            watchcount = watchcount + 1.3
 
         end
 

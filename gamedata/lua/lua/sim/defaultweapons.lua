@@ -456,7 +456,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             end
             
             if self.ElapsedRepackTime > 0 and ( not bp.WeaponRepackTimeout or (math.floor(bp.WeaponRepackTimeout*10) - self.ElapsedRepackTime < 0 )) then
-                LOG("*AI DEBUG DefaultWeapon WeaponRepackTimeout -(".. (bp.WeaponRepackTimeout or 0) * 10 ..") during unpack - is either not existant or less than the WeaponUnpackAnimation - "..self.ElapsedRepackTime.." ticks. "..repr(self.unit.BlueprintID))
+                LOG("*AI DEBUG DefaultWeapon WeaponRepackTimeout -(".. (bp.WeaponRepackTimeout or 0) ..") during unpack - is either not existant or less than the WeaponUnpackAnimation - "..self.ElapsedRepackTime.." ticks. "..repr(self.unit.BlueprintID))
             end
             
 			if bp.WeaponRepackTimeout and ( math.floor(bp.WeaponRepackTimeout*10) - self.ElapsedRepackTime) >= 1 then
@@ -513,7 +513,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             end
             
             if self.ElapsedRepackTime > 0 and ( not bp.WeaponRepackTimeout or (math.floor(bp.WeaponRepackTimeout * 10) -self.ElapsedRepackTime < 0 ) ) then
-                LOG("*AI DEBUG DefaultWeapon WeaponRepackTimeout (".. (bp.WeaponRepackTimeout or 0) * 10 ..") - during pack - is either not existant or less than the WeaponUnpackAnimation - "..self.ElapsedRepackTime.." ticks. "..repr(self.unit.BlueprintID))
+                LOG("*AI DEBUG DefaultWeapon WeaponRepackTimeout (".. (bp.WeaponRepackTimeout or 0) ..") - during pack - is either not existant or less than the WeaponUnpackAnimation - "..self.ElapsedRepackTime.." ticks. "..repr(self.unit.BlueprintID))
             end
 
 			if bp.WeaponRepackTimeout and (math.floor(bp.WeaponRepackTimeout * 10) - self.ElapsedRepackTime) > 1 then

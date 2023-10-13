@@ -1,3 +1,66 @@
+
+
+LUA 6.3.16
+4DC for LOUD 6.3.04
+LOUD_MISC 6.3.04
+LOUD_UNITS 6.3.05
+Black Ops for LOUD 6.3.08
+BrewLAN for LOUD 0.8.8.9.75
+Projectiles 6.3.03
+Total Mayhem for LOUD 6.3.05
+CIV_UNITS 6.3.03
+UNITS 6.3.13
+
+-- removed redundant GPG menu choices from game, and HotStats mod
+-- replaced SCMAP file for Great 2.0, Desert Island 40
+-- added some new ACU names - Snek Returns & Dohlinho & SivCorp - beware!
+-- fixed an issue with several Civ units not having proper class names
+-- fixed an issue with civilian spawned UEF kennels trying to destroy a trashbag they didn't have
+-- extensive revision to weapon logging for timing concerns, allows per tick examination of weapon firing cycles
+-- AI Attack Planner now more reliably evaluates targets, and selects point positions
+-- fixed issue with timeouts in PlatoonToPositionDistanceTriggerThread() causing platoons to sit for extended time periods
+-- very low AI cheat levels were causing an error with MassPointShare - causing the AI to fail to load
+-- added true transport threat values to transport utilites, and improved AI debug dialog
+-- extensive rework of Attack Planner position and strength mapping logic
+-- introduced new 'WeaponEmptyState' for all non-nuke ammo based weapons - this will disable empty silo build weapons (like mobile anti-nukes)
+-- some additional data reduction, and weapon timing fixes across a wide number of units
+-- transport capable units will now drop any cargo unit before entering a carrier
+-- fixed numerous timing related issues in weapon states, animations and economy events
+-- unit formations should recognize, and insert, mobile TMD and SMD units into formations now, rather than always being at the very back
+-- improved lobby tooltips for Remove Unused Resources, Console cheats, and for the ACT parameters
+-- Veteran Buff for HP now steps by 4%, down from 5% - so 4,8,12,16,20 versus 5,10,15,20,25
+-- Introduced default 'EnergyWeapon' Veteran Buff which steps in 2% intervals, max being 10% E reduction to fire cost.-- AEON Aria T3 PD targeting fix, added new 'deploy' animation
+-- added T3 TMD buildings to the AI arsenal for UEF, AEON
+-- some updates to AEON Zealot AA missiles
+-- tamed the wildly over the top sinking and explosion effects on ships - curtails the particle cap errors
+-- sinking ships will no longer create an explosion effect, with debris, on the surface, when they hit bottom
+-- all standard engineers should have an very minor OMNI ring now
+-- review/revised T2 & T3 MML, mobile & static tactical artillery re: firing cycles, AOE range, etc
+-- reviewed all T1 land scout units for resource/firepower/HP/mobility balance
+-- fixed AEON & UEF T1 Interceptors attacking AIR STRUCTURES (factories).
+-- UEF T1 PD 'Thug' - DPS 150 >> 160 - Range 34 >> 36 - Mass 500 >> 480 Energy 4800 >> 5500, added mild stun to T1 and T2
+-- UEF T1 PD 'Mayor' - revised aiming, firing animations
+-- UEF T2 Amphib Gatling Bot 'Banshee' - DPS 108 >> 134, range 36 >> 38, revised aiming, vision bonus vet levels
+-- UEF T3 Amphib Battle Bot 'Ironfist' - rebalanced firepower, added mild stun, aiming fixes
+-- UEF T4 Mech 'Blood Asp' Speed 2.8 >> 3.0  Accel 1.4 >> 1.0  BackupDistance 10, weapon exclusion fix, rocket range 58 >> 60
+-- UEF T4 Mech 'Mayhem' Added close-range gatling guns, rebalanced DPS, missile/rocket timings, OMNI ring
+-- UEF T4 PD 'Blockhouse' add regen enhancements, radar to Command slot, add stun to main gun, vision bonus and energy consumption reduction with vet levels
+-- AEON T2 Amphib Bot 'Amphorak' DPS 115 >> 138 - Range 32 >> 34 - Speed 2.8 >> 3.0, eliminated unseen animation, firing cycle, vision bonus vet levels
+-- AEON T2 Mobile TMD hover wobble and rotating barrel animation, revised firing stats as per static TMD
+-- AEON T3 Amphib Tank 'Transoma' Gun Range 32 >> 34, fixed aim of secondary, turret rotation fix, Speed 2.5 >> 2.6 Accel 1.9 >> 1.6
+-- AEON T4 Mech 'Elias' Main Gun range 44 >> 45 Secondary Range 44 >> 40.  Corrected firing sequence, mild stun on main gun
+-- AEON T4 Mech 'Eliash' Main Gun damage now ShieldMult0.8, Accel 2.5 >> 1.4, Reverse Speed 2.0 >> 2.5 BackupDistance to 12
+-- AEON T4 PD 'Mothra' Gun range 95 >> 98, add regen enhancement, vision and energy weapon vet levels, add stun to main gun, ShieldMult1.1
+-- CYBRAN T4 Mech 'MadBolo' added TM redirection, turret rotations
+-- CYBRAN T4 Mech 'Vulture' added TM redirection, minor stun, turret rotations
+-- SERA T4 Mech 'Athusil' Main Gun range 50 >> 56, stun, turret rotation, lambda emitter, Speed 2.8 >> 2.9 Accel 1.9 >> 1.5, Reverse 1.0 >> 2.9 BackupDistance to 14
+-- SERA T4 PD 'Heth-Athala' Range 90 >> 92, vision and energy weapon vet levels, ShieldMult 1.1, firing cycle, turret tracking speed
+-- SERA T4 Mech 'Thaez-Atha' ShieldMult1.1, animations, DPS +90
+-- SERA T4 Mech 'Yath-Us' Vision vet levels, stun buff, Lambda destruction emitter
+-- all static and mobile anti-nuke units have had their firing cycle reviewed and revised to more reliably control 'overfire' during an intercept
+
+
+
 ### Release 11-08-2023
 
 LUA 6.3.15
