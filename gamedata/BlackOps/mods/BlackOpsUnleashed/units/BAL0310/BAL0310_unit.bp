@@ -340,7 +340,7 @@ UnitBlueprint {
 			
             Turreted = true,
 
-            WeaponRepackTimeout = 1,
+            WeaponRepackTimeout = 2.2,
             WeaponUnpackAnimation = '/mods/BlackOpsUnleashed/units/BAL0310/BAL0310_Aopen.sca',
             WeaponUnpackAnimationRate = 1,
             WeaponUnpackLocksMotion = false,
