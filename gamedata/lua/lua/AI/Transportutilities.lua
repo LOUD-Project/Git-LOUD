@@ -2427,18 +2427,20 @@ end
 function WatchTransportTravel( transport, destination, aiBrain, UnitPlatoon )
 
     local TransportDialog = ScenarioInfo.TransportDialog or false	
-    
+
+    local currentposition = false
+    local transportgunship = categories.uea0203
 	local unitsdead = false
 	local watchcount = 0
 	
 	local GetPosition = GetPosition
     
-    local VDist2 = VDist2
+    local VDist3Sq = VDist3Sq
     
     local WaitTicks = WaitTicks
 	
 	transport.StuckCount = 0
-	transport.LastPosition = LOUDCOPY(GetPosition(transport))
+	transport.LastPosition = {0,0,0}
     transport.Travelling = true
     
     if TransportDialog then
@@ -2446,95 +2448,106 @@ function WatchTransportTravel( transport, destination, aiBrain, UnitPlatoon )
     end
 	
 	while (not transport.Dead) and (not unitsdead) and transport.Travelling do
+
+		-- major distress call -- 
+		if transport.PlatoonHandle.DistressCall then
 			
-			-- major distress call -- 
-			if transport.PlatoonHandle.DistressCall then
+			-- reassign destination and begin immediate drop --
+			-- this really needs to be sensitive to the platoons layer
+			-- and find an appropriate marker to drop at -- 
+            
+            if TransportDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport "..transport.EntityID.." DISTRESS ends travelwatch after "..watchcount)
+            end
+
+            destination = GetPosition(transport)
+
+            break
+		end
+
+		-- someone in transport platoon is close - begin the drop -
+		if transport.PlatoonHandle.AtGoal then
+            
+            if TransportDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport "..transport.EntityID.." signals ARRIVAL after "..watchcount)
+            end
+            
+            break
+		end
+        
+		unitsdead = true
+
+		for _,u in transport:GetCargo() do
 			
-				-- reassign destination and begin immediate drop --
-				-- this really needs to be sensitive to the platoons layer
-				-- and find an appropriate marker to drop at -- 
-            
-                if TransportDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport "..transport.EntityID.." DISTRESS ends travelwatch after "..watchcount)
-                end
-                
-				destination = GetPosition(transport)
-                break
-			end
-			
-			-- someone in transport platoon is close - begin the drop -
-			if transport.PlatoonHandle.AtGoal then
-            
-                if TransportDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport "..transport.EntityID.." signals ARRIVAL after "..watchcount)
-                end
-            
+			if not u.Dead then
+				
+				unitsdead = false
 				break
 			end
-        
-			unitsdead = true
+		end
 
-			for _,u in transport:GetCargo() do
+		-- if all dead except UEF Gunship RTB the transport
+		if unitsdead and not EntityCategoryContains( transportgunship, transport ) then
 			
-				if not u.Dead then
-				
-					unitsdead = false
-					break
-				end
-			end
+			transport.StuckCount = nil
+			transport.LastPosition = nil
+			transport.Travelling = false
 
-			-- if all dead except UEF Gunship RTB the transport
-			if unitsdead and not EntityCategoryContains(categories.uea0203,transport) then
+            if TransportDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport "..transport.EntityID.." UNITS DEAD ends travelwatch after "..watchcount)
+            end
+
+			ForkTo( ReturnTransportsToPool, aiBrain, {transport}, true )
+
+            return
+		end
+
+        currentposition = GetPosition(transport)		
+
+		-- is the transport still close to its last position bump the stuckcount
+		if transport.LastPosition[1] != 0 then
 			
-				transport.StuckCount = nil
-				transport.LastPosition = nil
-				transport.Travelling = false
+			if VDist3Sq(transport.LastPosition, currentposition) < 9 then
 
-                if TransportDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport "..transport.EntityID.." UNITS DEAD ends travelwatch after "..watchcount)
-                end
-
-				ForkTo( ReturnTransportsToPool, aiBrain, {transport}, true )
-                return
-			end
-		
-			-- is the transport still close to its last position bump the stuckcount
-			if transport.LastPosition then
-			
-				if VDist2(transport.LastPosition[1], transport.LastPosition[3], GetPosition(transport)[1],GetPosition(transport)[3]) < 6 then
-				
-					transport.StuckCount = transport.StuckCount + 0.5
-				else
-					transport.StuckCount = 0
-				end
-			end
-
-			if ( IsIdleState(transport) or transport.StuckCount > 8 ) then
-		
-				if transport.StuckCount > 8 then
-				
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport "..transport.EntityID.." StuckCount in WatchTransportTravel to "..repr(destination) )				
-					transport.StuckCount = 0
-				end
-
-				IssueClearCommands( {transport} )
-				IssueMove( {transport}, destination )
-			end
-		
-			-- this needs some examination -- it should signal the entire transport platoon - not just itself --
-			if VDist2(GetPosition(transport)[1], GetPosition(transport)[3], destination[1],destination[3]) < 100 then
- 			
-				transport.PlatoonHandle.AtGoal = true
-
+				transport.StuckCount = transport.StuckCount + 0.5
 			else
+				transport.StuckCount = 0
+			end
+		end
 
-                transport.LastPosition = LOUDCOPY(transport:GetPosition())
-            end
-    
-            if not transport.PlatoonHandle.AtGoal then
-                WaitTicks(11)
-                watchcount = watchcount + 1
-            end
+		if ( IsIdleState(transport) or transport.StuckCount > 8 ) then
+		
+			if transport.StuckCount > 8 then
+				
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport "..transport.EntityID.." at "..repr(currentposition).." StuckCount "..transport.StuckCount.." in WatchTransportTravel to "..repr(destination) )				
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport "..transport.EntityID.." last position was "..repr(transport.LastPosition))
+
+                transport.StuckCount = 0
+			end
+
+			IssueClearCommands( {transport} )
+			IssueMove( {transport}, destination )
+		end
+		
+		-- this needs some examination -- it should signal the entire transport platoon - not just itself --
+		if VDist3Sq(currentposition, destination) < 10000 then
+ 			
+			transport.PlatoonHandle.AtGoal = true
+
+		end
+
+        -- if were not there yet record the position
+        if not transport.PlatoonHandle.AtGoal then
+
+            transport.LastPosition[1] = currentposition[1]
+            transport.LastPosition[2] = currentposition[2]
+            transport.LastPosition[3] = currentposition[3]
+
+            WaitTicks(14)
+
+            watchcount = watchcount + 1
+
+        end
 
 	end
 

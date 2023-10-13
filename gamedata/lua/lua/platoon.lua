@@ -1087,7 +1087,7 @@ Platoon = Class(moho.platoon_methods) {
 				else
                 
                     if nomarkers then
-                        WARN("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." -- no "..repr(platoonLayer).." markers found within "..MaxMarkerDist.." range of "..repr(location).." closest marker is "..repr(markerlist[1].position).." at "..repr(VDist3(markerlist[1].position, location)) )
+                        --WARN("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." -- no "..repr(platoonLayer).." markers found within "..MaxMarkerDist.." range of "..repr(location).." closest marker is "..repr(markerlist[1].position).." at "..repr(VDist3(markerlist[1].position, location)) )
                     else
                         if PathFindingDialog then
                             LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." No safe "..repr(platoonLayer).." marker was found - using "..maxthreat.." threat - near "..repr(location).." available positions were "..repr(positions) )
@@ -1747,7 +1747,7 @@ Platoon = Class(moho.platoon_methods) {
 						
 								if not v.WasWarped then
 								
-									WARN("*AI DEBUG "..aiBrain.Nickname.." RTB "..self.BuilderName.." Unit "..v.EntityID.." at "..distance.." warped to platPos "..repr(platPos) )
+									--WARN("*AI DEBUG "..aiBrain.Nickname.." RTB "..self.BuilderName.." Unit "..v.EntityID.." at "..distance.." warped to platPos "..repr(platPos) )
 
                                     IssueStop( {v} )
 
@@ -5370,7 +5370,7 @@ Platoon = Class(moho.platoon_methods) {
 		
         if self.MovementLayer == 'Water' then
         
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." in AttackForceAI")
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." in AttackForceAI")
 		
 			self:ForkAIThread( Behaviors.NavalForceAILOUD, aiBrain)
 		end	
@@ -8289,7 +8289,7 @@ Platoon = Class(moho.platoon_methods) {
 	
 											basetaken = true
 											
-											WARN("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." Eng "..eng.EntityID.." "..self.BuilderName.." Base already taken "..repr(NewBaseName) )
+											--WARN("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." Eng "..eng.EntityID.." "..self.BuilderName.." Base already taken "..repr(NewBaseName) )
 											
 											break
 										end
