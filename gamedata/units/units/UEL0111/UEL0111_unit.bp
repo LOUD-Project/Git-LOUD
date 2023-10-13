@@ -214,9 +214,9 @@ UnitBlueprint {
 
             Turreted = false,
 
-            WeaponRepackTimeout = 1,
+            WeaponRepackTimeout = 1.7,
             WeaponUnpackAnimation = '/units/uel0111/uel0111_aopen01.sca',
-            WeaponUnpackAnimationRate = 1,
+            WeaponUnpackAnimationRate = 2,
             WeaponUnpacks = true,
         },
     },

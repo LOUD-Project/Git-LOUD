@@ -139,6 +139,7 @@ UnitBlueprint {
 			'BUILTBYTIER2ENGINEER ANTINAVY UEF',
 			'BUILTBYTIER2ENGINEER INTELLIGENCE UEF',
 			'BUILTBYTIER2ENGINEER WALL UEF',
+            'BUILTBYTIER2ENGINEER DEFENSE UEF',
         },
 
         MaintenanceConsumptionPerSecondEnergy = 32,
@@ -196,14 +197,14 @@ UnitBlueprint {
     LifeBarSize = 0.6,
 
     Physics = {
-        BackUpDistance = 4,
+        BackUpDistance = 8,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
             LAYER_Water = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 2,
+        MaxAcceleration = 1.1,
         MaxBrake = 3.2,
         MaxSpeed = 3.2,
         MaxSpeedReverse = 3.2,
