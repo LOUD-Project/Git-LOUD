@@ -1,12 +1,3 @@
-------------------------------------------------------------------------------
---  File     :  /mods/4DC/lua/4D_weapons.lua
---
---  Author(s):  EbolaSoup, Resin Smoker, Optimus Prime, Vissroid 
---
---  Summary  :  Definition of 4DC weapons
---
---  Copyright © 2010 4DC  All rights reserved.
-------------------------------------------------------------------------------
 
 -- Local Weapon Files --
 local WeaponFile = import('/lua/sim/defaultweapons.lua')
@@ -21,18 +12,18 @@ local CollisionBeamFile = import('/lua/defaultcollisionbeams.lua')
 local DefaultBeamWeapon = WeaponFile.DefaultBeamWeapon
 
 -- Aeon Collision Beams --
-local DisruptorBeamCollisionBeam = CollisionBeamFile.DisruptorBeamCollisionBeam
-local PhasonLaserCollisionBeam = CollisionBeamFile.PhasonLaserCollisionBeam
-local QuantumBeamGeneratorCollisionBeam = CollisionBeamFile.QuantumBeamGeneratorCollisionBeam
-local TractorClawCollisionBeam = CollisionBeamFile.TractorClawCollisionBeam
+--local DisruptorBeamCollisionBeam = CollisionBeamFile.DisruptorBeamCollisionBeam
+--local PhasonLaserCollisionBeam = CollisionBeamFile.PhasonLaserCollisionBeam
+--local QuantumBeamGeneratorCollisionBeam = CollisionBeamFile.QuantumBeamGeneratorCollisionBeam
+--local TractorClawCollisionBeam = CollisionBeamFile.TractorClawCollisionBeam
 
 -- Effects& Explosions Files --
 local EffectTemplate = import('/lua/EffectTemplates.lua')
-local Explosion = import('/lua/defaultexplosions.lua')
+--local Explosion = import('/lua/defaultexplosions.lua')
 
 -- Custom Files --
 local Custom_4D_BeamFile = import('/mods/4DC/lua/4D_defaultcollisionbeams.lua')
-local Custom_4D_EffectTemplate = import('/mods/4DC/lua/4D_EffectTemplates.lua')
+--local Custom_4D_EffectTemplate = import('/mods/4DC/lua/4D_EffectTemplates.lua')
 
 -- Aeon Files --
 xsl031a_LightningWeapon = Class(DefaultBeamWeapon) {
@@ -62,9 +53,6 @@ BFGShellWeapon = Class(DefaultProjectileWeapon) {
     FxMuzzleFlashScale = 1.5,        
 }
 
--- Cybran Files --
-
--- Seraphem Files --
 
 -- UEF Files --
 Over_ChargeProjectile = Class(DefaultProjectileWeapon) {}

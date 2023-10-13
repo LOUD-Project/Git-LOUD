@@ -12,6 +12,7 @@ local TrashAdd = TrashBag.Add
 UAB2306 = Class(AStructureUnit) {
 
     Weapons = {
+
 		BFG = Class(BFGShellWeapon) {
 
             PlayFxMuzzleChargeSequence = function(self, muzzle)
@@ -20,7 +21,7 @@ UAB2306 = Class(AStructureUnit) {
             end,                
 
             PlayFxRackReloadSequence = function(self)          
-   self.unit:RemoveBeamFX() 
+                self.unit:RemoveBeamFX() 
                 BFGShellWeapon.PlayFxRackReloadSequence(self)             
             end,
 
