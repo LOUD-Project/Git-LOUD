@@ -2535,7 +2535,7 @@ Unit = Class(moho.unit_methods) {
         end
 
         wep:SetWeaponEnabled(enable)
-        
+
         wep:AimManipulatorSetEnabled(enable)
         
         return wep

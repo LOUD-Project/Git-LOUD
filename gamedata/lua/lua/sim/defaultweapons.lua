@@ -1514,7 +1514,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 	
 }
 
-KamikazeWeapon = Class(Weapon) {
+KamikazeWeapon = Class(DefaultProjectileWeapon) {
 
     OnFire = function(self)
 
@@ -1524,7 +1524,7 @@ KamikazeWeapon = Class(Weapon) {
     end,
 }
 
-BareBonesWeapon = Class(Weapon) {
+BareBonesWeapon = Class(DefaultProjectileWeapon) {
     Data = {},
 
     OnFire = function(self)
