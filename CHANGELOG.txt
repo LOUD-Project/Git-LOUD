@@ -1,4 +1,11 @@
+### Release 14-10-2023
 
+LUA 6.3.17
+
+- a hotfix for some issues with DeathWeapons not firing
+
+
+### Release 13-10-2023
 
 LUA 6.3.16
 4DC for LOUD 6.3.04
