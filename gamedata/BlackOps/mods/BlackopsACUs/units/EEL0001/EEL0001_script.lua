@@ -1836,6 +1836,11 @@ EEL0001 = Class(TWalkingLandUnit) {
             self:RemoveTacticalSiloAmmo(amt or 0)
             self:StopSiloBuild()
 
+			wep = self:GetWeaponByLabel('TacMissile')
+			wep:ChangeMaxRadius( 1 )
+
+			self:SetWeaponEnabledByLabel('TacMissile', false)
+
 			self:SetWeaponEnabledByLabel('TacNukeMissile', true)
 
 			wep = self:GetWeaponByLabel('TacNukeMissile')
@@ -1855,10 +1860,6 @@ EEL0001 = Class(TWalkingLandUnit) {
             if Buff.HasBuff( self, 'MobilityPenalty' ) then
                 Buff.RemoveBuff( self, 'MobilityPenalty' )
             end
-
-            local amt = self:GetTacticalSiloAmmoCount()
-
-            self:RemoveTacticalSiloAmmo(amt or 0)
 
             local amt = self:GetNukeSiloAmmoCount()
 
