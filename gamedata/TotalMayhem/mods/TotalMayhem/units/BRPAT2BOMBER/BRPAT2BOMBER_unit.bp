@@ -273,10 +273,10 @@ UnitBlueprint {
                     RackBone = 'Center_Projectile',
                 },
             },
+            
+            RackSalvoReloadTime = 2,    -- 2 second reload between firings
 
-            RateOfFire = 0.5,	-- 240 DPS
-			
-			SkipReadyState = true,
+            RateOfFire = 1,	-- 240 DPS controlled by charge
 			
             TargetCheckInterval = 4,
 			
