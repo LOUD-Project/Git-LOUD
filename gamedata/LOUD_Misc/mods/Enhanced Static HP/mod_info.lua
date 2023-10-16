@@ -3,8 +3,7 @@ uid = "b8d941e131multiplier"
 version = 6.3
 copyright = ""
 description = "All static units have health and shield points multiplied by number noted in config."
-author = "Balthazar (edit by Sad Turtle Man)"
-
+author = "Balthazar"
 selectable = true
 enabled = true
 exclusive = false
