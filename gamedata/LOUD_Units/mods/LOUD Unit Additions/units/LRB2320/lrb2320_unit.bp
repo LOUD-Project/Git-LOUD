@@ -179,8 +179,8 @@ UnitBlueprint {
                     BuffType = 'STUN',
                     Duration = 1.5,
                     Radius = 2,
-                    TargetAllow = 'LAND,NAVAL,TECH1,TECH2,TECH3',
-                    TargetDisallow = 'EXPERIMENTAL,AIR,COMMAND,WALL',
+                    TargetAllow = 'LAND TECH1,NAVAL TECH1,LAND TECH2,NAVAL TECH2,LAND TECH3,NAVAL TECH3',
+                    TargetDisallow = 'WALL',
                 },
             },
 
@@ -277,8 +277,8 @@ UnitBlueprint {
                     BuffType = 'STUN',
                     Duration = 1.5,
                     Radius = 2,
-                    TargetAllow = 'LAND,NAVAL,TECH1,TECH2,TECH3',
-                    TargetDisallow = 'EXPERIMENTAL,AIR,COMMAND,WALL',
+                    TargetAllow = 'LAND TECH1,NAVAL TECH1,LAND TECH2,NAVAL TECH2,LAND TECH3,NAVAL TECH3',
+                    TargetDisallow = 'WALL',
                 },
             },
 			
@@ -372,8 +372,8 @@ UnitBlueprint {
                     BuffType = 'STUN',
                     Duration = 1.5,
                     Radius = 2,
-                    TargetAllow = 'LAND,NAVAL,TECH1,TECH2,TECH3',
-                    TargetDisallow = 'EXPERIMENTAL,AIR,COMMAND,WALL',
+                    TargetAllow = 'LAND TECH1,NAVAL TECH1,LAND TECH2,NAVAL TECH2,LAND TECH3,NAVAL TECH3',
+                    TargetDisallow = 'WALL',
                 },
             },
 			
