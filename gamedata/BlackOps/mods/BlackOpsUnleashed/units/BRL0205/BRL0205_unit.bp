@@ -295,7 +295,7 @@ UnitBlueprint {
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 0.8,
-                    TargetAllow = 'LAND,NAVAL,TECH1,TECH2',
+                    TargetAllow = 'LAND TECH1,NAVAL TECH1,LAND TECH2,NAVAL TECH2',
                     TargetDisallow = 'STRUCTURE,WALL,COMMAND',
                 },
             },
