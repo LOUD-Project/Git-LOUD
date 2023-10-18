@@ -255,7 +255,7 @@ UnitBlueprint {
                     BuffType = 'STUN',
                     Duration = 0.6,
                     Radius = 1.25,
-                    TargetAllow = 'LAND,NAVAL,TECH1',
+                    TargetAllow = 'LAND TECH1,NAVAL TECH1',
                     TargetDisallow = 'WALL',
                 },
             	{
@@ -264,7 +264,7 @@ UnitBlueprint {
                     BuffType = 'STUN',
                     Duration = 0.4,
                     Radius = 1.0,
-                    TargetAllow = 'LAND,NAVAL,TECH2',
+                    TargetAllow = 'LAND TECH2,NAVAL TECH2',
                     TargetDisallow = 'WALL',
                 },
             	{
@@ -273,7 +273,7 @@ UnitBlueprint {
                     BuffType = 'STUN',
                     Duration = 0.2,
                     Radius = 1.0,
-                    TargetAllow = 'LAND,NAVAL,TECH3',
+                    TargetAllow = 'LAND TECH3,NAVAL TECH3',
                     TargetDisallow = 'WALL',
                 },
             },			
