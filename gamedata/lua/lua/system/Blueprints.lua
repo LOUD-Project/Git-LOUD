@@ -654,32 +654,7 @@ function ModBlueprints(all_blueprints)
 	local viewScale = 0
 
     for id, bp in all_blueprints.Unit do
---[[
-		if bp.AI.GuardReturnRadius then
-			
-			if bp.AI.GuardReturnRadius > capreturnradius then
-				bp.AI.GuardReturnRadius = capreturnradius
-			end
 
-		else
-
-			if not bp.AI then
-				bp.AI = {}
-			end
-
-			bp.AI.GuardReturnRadius = capreturnradius
-		end
-		
-		if bp.AI.GuardScanRadius then
-		
-			if bp.AI.GuardScanRadius < 95 then
-			
-				bp.AI.GuardScanRadius = 95
-			end
-		else
-			bp.AI.GuardScanRadius = 95
-		end
---]]        
 		if bp.Economy.MaxBuildDistance and bp.Economy.MaxBuildDistance < 3 then
 
 			bp.Economy.MaxBuildDistance = 3
@@ -698,6 +673,20 @@ function ModBlueprints(all_blueprints)
 
                 bp.AI.StagingPlatformScanRadius = bp.Economy.MaxBuildDistance + 1
 
+            end
+            
+            if bp.AI.InitialAutoMode then
+            
+                for _,cat in bp.Categories do
+                
+                    if cat == "COMMAND" then
+
+                        bp.AI.InitialAutoMode = false
+                        
+                        LOG("*AI DEBUG Automode "..repr(bp.Description).." set to false")
+                        break
+                    end
+                end
             end
 
 		end
