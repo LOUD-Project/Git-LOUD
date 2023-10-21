@@ -114,21 +114,25 @@ BSS0401 = Class(SSeaUnit) {
         DeckGun = Class(SDFUltraChromaticBeamGenerator) {},
 		
         MissileRack = Class(SIFHuAntiNukeWeapon) {},  
-
-        },
 		
     },
-	
+
 	OnStopBeingBuilt = function(self, builder, layer)
+    
         self:HideBone('Pod04', true)
+
         self:HideBone('Pod05', true)
+
         self:HideBone('Pod06', true)
+
         SSeaUnit.OnStopBeingBuilt(self, builder, layer)
+
     end,
 
 	OnKilled = function(self, inst, type, okr)
 
 		self.Trash:Destroy()
+
         self.Trash = TrashBag()
 
         SSeaUnit.OnKilled(self, inst, type, okr)

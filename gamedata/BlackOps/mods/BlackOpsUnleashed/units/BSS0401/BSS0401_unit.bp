@@ -3,7 +3,9 @@ UnitBlueprint {
         AttackAngle = 60,
         GuardReturnRadius = 160,
         GuardScanRadius = 145,
+
         InitialAutoMode = true,
+
         TargetBones = {'XSS0401','Left_AA_Turret01','Right_AA_Turret02','Front_Turret01','TMD_Turret','Exhaust02'},
     },
 	
@@ -112,7 +114,7 @@ UnitBlueprint {
                             0,
                             0.5,
                         },
-                        Scale = 3,
+                        Scale = 2,
                         Type = 'SeaIdle01',
                     },
                 },
