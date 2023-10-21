@@ -13,7 +13,7 @@ local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
 local IsEnemyNavalActive = function( self, aiBrain, manager )
 
 	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .011 and aiBrain.NavalRatio <= 10) then
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." enemy naval is active at "..repr(aiBrain.NavalRatio))
+
 		return 800, true
 
 	end
@@ -444,10 +444,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Naval',
             { UCBC, 'FactoryCapCheck', { 'LocationType', 'SEA' }},
             
             -- this was intended to minimize naval factory spam by
-            -- only adding another factory if we had less than 2 T1 already here
+            -- only adding another factory if we had less than 3 T1 already here
             -- in practice - this sometimes just forced the creation of another
             -- naval yard if available
-			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.NAVAL * categories.TECH1 }},
+			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 3, categories.NAVAL * categories.TECH1 }},
 			
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.02 }},

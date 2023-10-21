@@ -126,7 +126,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 6 } },
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
  
@@ -427,7 +427,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
  
-            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } }, 
+            { LUTL, 'AirStrengthRatioLessThan', { 6 } }, 
 
             -- must have some Directfire in the Pool at this Location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
@@ -451,7 +451,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
 
             { LUTL, 'UnitCapCheckLess', { .85 } },
  
-            { LUTL, 'AirStrengthRatioLessThan', { 2 } }, 
+            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } }, 
 
             -- must have some Directfire in the Pool at this Location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
@@ -567,7 +567,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
  
-			{ LUTL, 'AirStrengthRatioLessThan', { 4.5 } }, 
+			{ LUTL, 'AirStrengthRatioLessThan', { 6 } }, 
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.LAND * categories.TECH3 }},
 
@@ -593,7 +593,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
 
             { LUTL, 'UnitCapCheckLess', { .85 } },
  
-			{ LUTL, 'AirStrengthRatioLessThan', { 2 } }, 
+			{ LUTL, 'AirStrengthRatioLessThan', { 4 } }, 
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
 

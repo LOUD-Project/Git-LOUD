@@ -245,7 +245,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 		PriorityFunction = HaveLessThanThreeT3AirFactory,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 8 } },
+
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.HIGHALTAIR * categories.ANTIAIR, categories.AIR * categories.TECH3 }},			
         },
 		
         BuilderType =  {'AirT2','AirT3'},
@@ -474,6 +476,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
             { UCBC, 'ArmyNeedsTransports', { true } },
 
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, categories.AIR - categories.TECH1 }},
+
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 6, [512] = 8, [1024] = 12, [2048] = 18, [4096] = 21}, categories.TRANSPORTFOCUS * categories.TECH2}},
         },
 		
         BuilderType =  {'AirT2','AirT3'},

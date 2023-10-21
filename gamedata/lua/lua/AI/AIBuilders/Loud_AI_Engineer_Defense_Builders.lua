@@ -306,7 +306,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
 
-            { LUTL, 'AirStrengthRatioLessThan', { 3 } }, 
+            { LUTL, 'AirStrengthRatioLessThan', { 6 } }, 
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
 
@@ -343,7 +343,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
 
-            { LUTL, 'LandStrengthRatioLessThan', { 3 } }, 
+            { LUTL, 'LandStrengthRatioLessThan', { 2 } }, 
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
@@ -426,7 +426,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
 
-            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } }, 
+            { LUTL, 'AirStrengthRatioLessThan', { 6 } }, 
 
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
 
@@ -592,7 +592,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},			
 
-            { LUTL, 'LandStrengthRatioLessThan', { 3 } }, 
+            { LUTL, 'LandStrengthRatioLessThan', { 2 } }, 
 
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 
@@ -1671,7 +1671,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		end,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 4.5 }},
+            { LUTL, 'AirStrengthRatioLessThan', { 6 }},
 
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},            
 
