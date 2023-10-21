@@ -4368,7 +4368,7 @@ function ParseIntelThread( aiBrain )
     
     local newPos = { 0,0,0 }
     
-    local AIRUNITS = (categories.AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE - categories.SCOUT
+    local AIRUNITS = (categories.AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE - categories.SCOUT + categories.uea0203
     local LANDUNITS = (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.ENGINEER - categories.SCOUT
     local NAVALUNITS = (categories.NAVAL * categories.MOBILE) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE)
 
@@ -5133,9 +5133,9 @@ function ParseIntelThread( aiBrain )
                     
                     grandairtot = grandairtot + airtot
 
-                    if airtot > 0 and ReportRatios then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy "..brain.Nickname.." AIR  Fac Count "..aircount.."  IDLE "..airidle.." Value "..airtot)
-                    end
+                    --if airtot > 0 and ReportRatios then
+                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy "..brain.Nickname.." AIR  Fac Count "..aircount.."  IDLE "..airidle.." Value "..airtot)
+                    --end
 
                     landcount = 0
                     landidle = 0
@@ -5165,9 +5165,9 @@ function ParseIntelThread( aiBrain )
                     
                     grandlandtot = grandlandtot + landtot
                     
-                    if landtot > 0 and ReportRatios then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy "..brain.Nickname.." LAND Fac Count "..landcount.."  IDLE "..landidle.." Value "..landtot)
-                    end
+                    --if landtot > 0 and ReportRatios then
+                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy "..brain.Nickname.." LAND Fac Count "..landcount.."  IDLE "..landidle.." Value "..landtot)
+                    --end
             
                     navcount = 0
                     navidle = 0
@@ -5197,9 +5197,9 @@ function ParseIntelThread( aiBrain )
                     
                     grandnavaltot = grandnavaltot + navaltot
                     
-                    if navaltot > 0 and ReportRatios then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy "..brain.Nickname.." NAVAL Fac Count "..navcount.."  IDLE "..navidle.." Value "..navaltot)
-                    end
+                    --if navaltot > 0 and ReportRatios then
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy "..brain.Nickname.." NAVAL Fac Count "..navcount.."  IDLE "..navidle.." Value "..navaltot)
+                    --end
 
                 end
 
@@ -5291,8 +5291,8 @@ function ParseIntelThread( aiBrain )
 
 
             if ReportRatios then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." I have "..aiBrain.NumOpponents.." Opponents")
-                LOG("*AI DEBUG "..aiBrain.Nickname.." My factory TOTALS AIR "..myairtot.." -- LAND "..mylandtot.." -- NAVAL "..mynavaltot)
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." I have "..aiBrain.NumOpponents.." Opponents")
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." My factory TOTALS AIR "..myairtot.." -- LAND "..mylandtot.." -- NAVAL "..mynavaltot)
                 LOG("*AI DEBUG "..aiBrain.Nickname.." Grand Factory Totals AIR "..grandairtot/aiBrain.NumOpponents.." -- LAND "..grandlandtot/aiBrain.NumOpponents.." -- NAVAL "..grandnavaltot/aiBrain.NumOpponents)
             end
         
