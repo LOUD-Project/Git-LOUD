@@ -422,6 +422,7 @@ SDFGapingMaw = Class(DefaultBeamWeapon) {
     OnLostTarget = function(self)
     
         self:AimManipulatorSetEnabled(true)
+
         DefaultBeamWeapon.OnLostTarget(self)
         
         ------enabled= false
@@ -446,7 +447,7 @@ SDFGapingMaw = Class(DefaultBeamWeapon) {
         local pos1 = beam:GetPosition(1)
         local dist = VDist3(pos0, pos1)
         
-                    --CreateSlider(unit,      bone, [goal_x, goal_y, goal_z, [speed,
+                    --CreateSlider(unit,      bone, goal_x, goal_y, goal_z, speed, world_unit?
         self.Slider = CreateSlider(self.unit, muzzle, 0, 0, dist, -1, true)
         
         if not self.Animator and bp.AnimationAttack and bp.AnimationEat then

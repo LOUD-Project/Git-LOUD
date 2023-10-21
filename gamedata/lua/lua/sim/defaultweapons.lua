@@ -984,11 +984,11 @@ DefaultProjectileWeapon = Class(Weapon) {
 
             end
             
-            if bp.SkipReadyState then
-                LOUDSTATE(self, self.RackSalvoFiringState)
-            else
+            --if bp.SkipReadyState then
+              --  LOUDSTATE(self, self.RackSalvoFiringState)
+            --else
                 LOUDSTATE(self, self.RackSalvoFireReadyState)
-            end
+            --end
 
         end,
 
@@ -1013,15 +1013,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             end
             
             local unit = self.unit
---[[            
-            if (self.bp.CountedProjectile == true and self.bp.WeaponUnpacks == true) then
-			
-                SetBusy( unit, true )
-            else
-			
-                SetBusy( unit, false)
-            end
---]]			
+
             self.WeaponCanFire = false
 			
             if self.EconDrain then

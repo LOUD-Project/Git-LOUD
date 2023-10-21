@@ -3875,7 +3875,7 @@ AirUnit = Class(MobileUnit) {
 
         self:SetSpeedMult(0.4)
         self:SetAccMult(0.5)
-        self:SetTurnMult(0.6)
+        self:SetTurnMult(0.4)
 
 		if self.TopSpeedEffectsBag then
 			self:DestroyTopSpeedEffects()
@@ -3989,7 +3989,7 @@ AirUnit = Class(MobileUnit) {
             CreateEffects( self, army, EffectTemplate.DefaultProjectileWaterImpact )
 
 			self:ForkThread( self.SinkIntoWaterAfterDeath, self.OverKillRatio)
-
+            
         else
             if not self.DeathBounce then
                 self.DeathBounce = 1
@@ -4008,46 +4008,55 @@ AirUnit = Class(MobileUnit) {
 
 		local sx, sy, sz = self:GetUnitSizes()
 		local vol = sx * sy * sz
+
 		local army = self.Army
 		local pos = GetPosition(self)
 
 		local seafloor = GetTerrainHeight(pos[1], pos[3])
-		local surface = GetSurfaceHeight(pos[1], pos[3])
         
 		local numBones = GetBoneCount(self) - 1
+
+        self:DestroyAllDamageEffects()
 
 		-- this thread will create effects until the slider reaches its goal and then destroys it
 		self:ForkThread(function()
 
-			local i = 0
+			local rx, ry, rz = GetRandomOffset( self, 1 )
+
+			local rs = Random(vol, vol*2) / (vol)
+
+			local i = 1
+            
+            local randBone
+
+			CreateEmitterAtBone( self, 0, army, '/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):ScaleEmitter(sx * 0.5):OffsetEmitter(rx, ry - i, rz)
 
 			while true do
-            
-                --LOG("*AI DEBUG AIR UNIT SinkIntoWater")
 
-				local rx, ry, rz = GetRandomOffset( self, 1 )
-				local rs = Random(vol, vol*2) / (vol)
+				WaitTicks( 5 + i )
+
+				randBone = LOUDFLOOR(Random() * (numBones + 1))
+
+				CreateEmitterAtBone( self, randBone, army, '/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp'):ScaleEmitter(rs):OffsetEmitter(rx, ry - i, rz)
                 
-				local randBone = LOUDFLOOR(Random() * (numBones + 1))
+                WaitTicks( 3 + i )
 
-				CreateEmitterAtBone( self, randBone, army, '/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp'):ScaleEmitter(rs):OffsetEmitter(rx, ry, rz)
+                randBone = LOUDFLOOR(Random() * (numBones + 1))
 
-				CreateEmitterAtBone( self, randBone, army, '/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):ScaleEmitter(sx * 0.5):OffsetEmitter(rx, ry, rz)
+				CreateEmitterAtBone( self, randBone, army, '/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):ScaleEmitter((sx * 0.5)/i):OffsetEmitter(rx, ry - i, rz)
 
-				CreateEmitterAtBone( self, 0, army, '/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):ScaleEmitter(sx * 0.5):OffsetEmitter(rx, ry, rz)
-
-				WaitSeconds(0.5 + i + (Random() * (0.6 + i) ))
-
-				i = i + 0.3
+				i = i + 1
 			end
 		end)
 
 		local orientation = self:GetOrientation()
-		local SinkOrient = { 0, orientation[2], 0, orientation[4] }
 
-		self:SetOrientation(SinkOrient,true)
+        orientation[1] = 0
+        orientation[3] = 0
 
-		local slider = CreateSlider(self, 0, 0, seafloor-pos[2], 0, 3)
+		self:SetOrientation( orientation, true )
+
+		local slider = CreateSlider(self, 0, 0, (seafloor-pos[2])*10, 0, 4 )
 
 		self.Trash:Add(slider)
 
@@ -4055,7 +4064,7 @@ AirUnit = Class(MobileUnit) {
 
 		slider:Destroy()
 
-		self:CreateWreckage(overkillRatio)
+        self:CreateWreckageProp(overkillRatio, nil, true)
         
 		self:Destroy()
 	end,
