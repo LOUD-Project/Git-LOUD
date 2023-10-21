@@ -5005,9 +5005,12 @@ Unit = Class(moho.unit_methods) {
 		
         if LOUDENTITY(categories.CARRIER, unit) then
 
-            -- detach any attached units
-            -- transport units cannot carry loaded units into storage
-            self:TransportDetachAllUnits(0)
+            if LOUDENTITY(categories.TRANSPORTFOCUS, self) then
+
+                -- detach any attached units
+                -- transport units cannot carry loaded units into storage
+                self:TransportDetachAllUnits(true)
+            end   
 
             self:MarkWeaponsOnTransport(self, true)
 			
