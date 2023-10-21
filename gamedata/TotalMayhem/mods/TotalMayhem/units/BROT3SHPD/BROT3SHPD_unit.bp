@@ -415,6 +415,8 @@ UnitBlueprint {
             MuzzleChargeDelay = 0.6,
 
             MuzzleVelocity = 33,
+            
+            NotExclusive = true,
 
             ProjectileId = '/mods/TotalMayhem/projectiles/HvyClawproj/HvyClawproj_proj.bp',
             ProjectileLifetime = 3.5,
@@ -495,7 +497,7 @@ UnitBlueprint {
                 Water = 'Air',
             },
 			
-            FiringTolerance = 10,
+            FiringTolerance = 60,
 
             Label = 'AAMissiles',
 			
@@ -504,6 +506,8 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 3,
             MuzzleVelocity = 33,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
             ProjectileLifetime = 4,
