@@ -4349,7 +4349,7 @@ function ParseIntelThread( aiBrain )
 	local parseinterval = 58    -- the rate of a single iteration in ticks - every 5.7 seconds (relative to the IMAP update cycle which is 3 seconds)
 
 	-- this moves all the local creation up front so NO locals need to be declared in the primary loop
-	local bp, counter, dupe, gametime, newthreat, newtime, oldthreat, threatamounttrigger, threatcategories, threatreport, threats, totalThreat
+	local bp, counter, dupe, gametime, newthreat, newtime, oldthreat, threatamounttrigger, threatcategories, threatreport, threats, totalThreat, totalThreatAir, totalThreatSurface
 	local DisplayIntelPoints, IntelDialog, LastUpdate, numchecks, Permanent, Position, rebuild, ReportRatios, Threat, Type, units, usedticks, x1,x2,x3
     local aircount, airidle, landcount, landidle, navcount, navidle, myaircount, myairidle, mylandcount, mylandidle, mynavalcount, mynavalidle
     
@@ -4882,12 +4882,15 @@ function ParseIntelThread( aiBrain )
             --- AIR UNITS ---
             -----------------
             totalThreat = 0
+            totalThreatAir = 0
+            totalThreatSurface = 0
+
             oldthreat = 0
 
             if EnemyData['Air']['Total'] > 0 or airtot > 0 then
             
                 for v, brain in BRAINS do
-            
+
                     if IsEnemy( aiBrain.ArmyIndex, v ) then
 
                         units = GetListOfUnits( brain, AIRUNITS, false, true)
@@ -4899,6 +4902,9 @@ function ParseIntelThread( aiBrain )
                         for _,v in units do
                     
                             bp = ALLBPS[v.BlueprintID].Defense
+                            
+                            totalThreatAir = totalThreatAir + bp.AirThreatLevel
+                            totalThreatSurface = totalThreatSurface + bp.SurfaceThreatLevel
                             
                             --LOG("*AI DEBUG Enemy "..v.BlueprintID.." Threats are "..repr(bp))
 
@@ -4928,8 +4934,10 @@ function ParseIntelThread( aiBrain )
 
                 if oldthreat > 0 then
 
+                    aiBrain.AirBias = LOUDMIN( 2, LOUDMAX( 0.66, (totalThreatSurface/totalThreatAir) ) )
+
                     if ReportRatios then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy Air Threat is "..oldthreat )
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy Air Threat is "..oldthreat.." AIR BIAS IS "..aiBrain.AirBias.."  Sur "..totalThreatSurface.."  Air "..totalThreatAir )
                     end
 
                     aiBrain.AirRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
@@ -4939,10 +4947,12 @@ function ParseIntelThread( aiBrain )
                     if aiBrain.CycleTime < 600 then
                     
                         aiBrain.AirRatio = .011
+                        aiBrain.AirBias = 1
                         
                     else
                     
                         aiBrain.AirRatio = 10
+                        aiBrain.AirBias = 1
                     end
                 end
                 
@@ -4950,10 +4960,12 @@ function ParseIntelThread( aiBrain )
                 if aiBrain.CycleTime < 600 then
                     
                     aiBrain.AirRatio = 0.01
+                    aiBrain.AirBias = 1
                     
                 else
                 
                     aiBrain.AirRatio = 10
+                    aiBrain.AirBias = 1
                 end
             end
 
