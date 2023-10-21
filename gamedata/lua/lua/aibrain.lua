@@ -940,6 +940,7 @@ AIBrain = Class(moho.aibrain_methods) {
 
 		self.ArmyIndex = self:GetArmyIndex()
         
+        self.AirBias = 1
         self.AirRatio = 0.01
         self.LandRatio = 0.01
         self.NavalRatio = 0.01
