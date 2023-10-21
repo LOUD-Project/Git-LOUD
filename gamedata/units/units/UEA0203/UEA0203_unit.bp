@@ -304,11 +304,11 @@ UnitBlueprint {
 			
             TurretPitch = -40,
             TurretPitchRange = 70,
-            TurretPitchSpeed = 70,
+            TurretPitchSpeed = 35,
 			
             TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 60,
+            TurretYawRange = 60,
+            TurretYawSpeed = 40,
 			
             Turreted = true,
         },
