@@ -120,6 +120,7 @@ UnitBlueprint {
         CapCost = 4,
         FactionName = 'Cybran',
         Icon = 'amph',
+        SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
         
         UpgradesFrom = 'urb1201',

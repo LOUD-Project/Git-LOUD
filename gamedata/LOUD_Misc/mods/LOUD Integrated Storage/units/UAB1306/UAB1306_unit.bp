@@ -263,6 +263,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
+        SelectionPriority = 5,
 
         UpgradesFrom = 'uab1301',
     },

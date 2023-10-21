@@ -271,6 +271,7 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'amph',
+        SelectionPriority = 5,
 
         UpgradesFrom = 'ueb1301',
     },
