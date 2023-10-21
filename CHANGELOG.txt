@@ -1,8 +1,36 @@
-### Release 14-10-2023
+
+### Release 21-10-2023
+
+LUA 6.3.18
+LOUD_MISC 6.3.05
+LOUD_UNITS 6.3.06
+Black Ops for LOUD 6.3.09
+BrewLAN for LOUD 0.8.8.9.76
+Total Mayhem for LOUD 6.3.06
+UNITS 6.3.14
+
+
+-- fixed an issue with vanilla UEF ACU drawing power for tactical missiles it doesn't have
+-- fixed an error with units loading into a carrier
+-- air units crashing on water and sinking fixed, with reduced effects
+-- AI will now better react to air threat
+-- fixed a bug in threat calculations that was ignoring the UEF T2 gunship
+-- introduction of an AI metric 'AirBias' which allows the AI to recognize the nature of enemy airpower (A2A versus A2G)
+-- Total Mayhem, many edits to fix and issue with 'STUN' not being applied as intended
+-- BrewLAN, as above
+-- Black Ops Unleashed fixed an issue Sera Dreadnought not firing
+-- some mod info changes in LOUD_MISC
+-- fixed some missing SelectionPriority values in LOUD_MISC
+-- fixed some STUN effects in LOUD_UNITS
+-- fixed some STUN effects in UNITS
+
+
+### Release 15-10-2023
 
 LUA 6.3.17
 
-- a hotfix for some issues with DeathWeapons not firing
+-- a hotfix for some issues with DeathWeapons not firing
+-- a hotfix for SkipReadyState on weapons causing endless firing
 
 
 ### Release 13-10-2023
