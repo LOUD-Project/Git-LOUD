@@ -345,7 +345,7 @@ UnitBlueprint {
             },
             FiringTolerance = 10,
 			
-            Label = 'AAMissiles',
+            Label = 'AntiAirMissiles',
 			
             MaxRadius = 50,
 			

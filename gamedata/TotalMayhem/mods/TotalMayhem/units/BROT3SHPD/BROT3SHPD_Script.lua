@@ -69,7 +69,7 @@ BROT3SHPD = Class(TStructureUnit) {
             end,  
 		},
 		
-        AAMissile = Class(AAAZealotMissileWeapon) {},		
+        AntiAirMissiles = Class(AAAZealotMissileWeapon) {},		
 
         DeathWeapon = Class(TIFCommanderDeathWeapon) {},
 
