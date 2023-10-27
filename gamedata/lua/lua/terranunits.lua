@@ -198,9 +198,6 @@ TConstructionStructureUnit = Class(StructureUnit) {
         StructureUnit.OnCreate(self)
 
         local bp = __blueprints[self.BlueprintID]
-        
-        --Construction stuff   
-        --self.EffectsBag = {}
 		
         if bp.General.BuildBones then
             self:SetupBuildBones()

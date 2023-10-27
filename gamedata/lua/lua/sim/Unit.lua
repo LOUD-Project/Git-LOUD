@@ -1690,6 +1690,15 @@ Unit = Class(moho.unit_methods) {
                 Kill( self.UnitBeingBuilt)
             end
         end
+		
+        for i = 1, GetWeaponCount(self) do
+			
+            local wep = GetWeapon(self,i) or false
+
+            if wep then
+                wep:SetWeaponEnabled(false)
+			end
+        end
 
         if self.PlayDeathAnimation then 
 		

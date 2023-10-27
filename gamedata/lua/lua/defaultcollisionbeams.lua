@@ -14,34 +14,25 @@ SCCollisionBeam = Class(CollisionBeam) {
 
 GinsuCollisionBeam = Class(SCCollisionBeam) {
 
-    FxBeam = {'/effects/emitters/riot_gun_beam_01_emit.bp',
-              '/effects/emitters/riot_gun_beam_02_emit.bp',},
+    FxBeam = {'/effects/emitters/riot_gun_beam_01_emit.bp','/effects/emitters/riot_gun_beam_02_emit.bp'},
     FxBeamEndPoint = {'/effects/emitters/sparks_02_emit.bp',},
 
     FxImpactUnit = {'/effects/emitters/riotgun_hit_flash_01_emit.bp',},
     FxUnitHitScale = 0.125,
-    FxImpactLand = {'/effects/emitters/destruction_land_hit_puff_01_emit.bp',
-                    '/effects/emitters/destruction_explosion_flash_01_emit.bp'},
+    FxImpactLand = {'/effects/emitters/destruction_land_hit_puff_01_emit.bp','/effects/emitters/destruction_explosion_flash_01_emit.bp'},
     FxLandHitScale = 0.1625,
 }
 
 ParticleCannonCollisionBeam = Class(SCCollisionBeam) {
-    FxBeam = {
-		'/effects/emitters/particle_cannon_beam_01_emit.bp',
-        '/effects/emitters/particle_cannon_beam_02_emit.bp'
-	},
-    FxBeamEndPoint = {
-		'/effects/emitters/particle_cannon_end_01_emit.bp',
-		'/effects/emitters/particle_cannon_end_02_emit.bp',
-	},
+    FxBeam = {'/effects/emitters/particle_cannon_beam_01_emit.bp','/effects/emitters/particle_cannon_beam_02_emit.bp'},
+    FxBeamEndPoint = {'/effects/emitters/particle_cannon_end_01_emit.bp','/effects/emitters/particle_cannon_end_02_emit.bp'},
     FxBeamEndPointScale = 1,
 }
 
 ZapperCollisionBeam = Class(SCCollisionBeam) {
 
     FxBeam = {'/effects/emitters/zapper_beam_01_emit.bp'},
-    FxBeamEndPoint = {'/effects/emitters/cannon_muzzle_flash_01_emit.bp',
-                       '/effects/emitters/sparks_07_emit.bp',},
+    FxBeamEndPoint = {'/effects/emitters/cannon_muzzle_flash_01_emit.bp','/effects/emitters/sparks_07_emit.bp'},
 }
 
 --   QUANTUM BEAM GENERATOR COLLISION BEAM
@@ -135,14 +126,12 @@ ExperimentalPhasonLaserCollisionBeam = Class(SCCollisionBeam) {
         local army = self.Sync.army
         
         for _, v in EffectTemplate.SExperimentalPhasonLaserBeam do
+
 			local fxBeam = CreateBeamEntityToEntity(self, 0, self, 1, army, v )
-			LOUDINSERT( self.BeamEffectsBag, fxBeam )
             
-            if not self.Trash then
-                self.Trash = TrashBag()
-            end
-            
-			TrashAdd( self.Trash, fxBeam )
+            self.BeamEffectsBag[self.BeamEffectsBagCounter] = fxBeam
+            self.BeamEffectsBagCounter = self.BeamEffectsBagCounter + 1
+
         end
 
     end, 

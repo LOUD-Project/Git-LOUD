@@ -45,6 +45,10 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
 	
         self.Army = GetArmy(self)
 
+        if ScenarioInfo.WeaponDialog then
+            LOG("*AI DEBUG CollisionBeam Weapon OnCreate for "..repr(self) )
+        end
+
     end,
 
     OnDestroy = function(self)
@@ -121,29 +125,31 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
 		
 		local LOUDATTACHEMITTER = CreateAttachedEmitter
 		local LOUDGETN = LOUDGETN
-		local LOUDINSERT = LOUDINSERT
         
         local fx
         local weapon = self.Weapon
 
-        self.BeamEffectsBag = {}		
+        if not self.BeamEffectsBag then
+            self.BeamEffectsBag = {}
+            self.BeamEffectsBagCounter = 1
+        end
 
         for k, y in self.FxBeamStartPoint do
         
             fx = LOUDATTACHEMITTER(self, 0, army, y ):ScaleEmitter(self.FxBeamStartPointScale)
             
-            LOUDINSERT( self.BeamEffectsBag, fx)
-            
-            TrashAdd( weapon.Trash, fx )
+            self.BeamEffectsBag[self.BeamEffectsBagCounter] = fx
+            self.BeamEffectsBagCounter = self.BeamEffectsBagCounter + 1
+
         end
 		
         for k, y in self.FxBeamEndPoint do
         
             fx = LOUDATTACHEMITTER(self, 1, army, y ):ScaleEmitter(self.FxBeamEndPointScale)
             
-            LOUDINSERT( self.BeamEffectsBag, fx)
-            
-            TrashAdd( weapon.Trash, fx )
+            self.BeamEffectsBag[self.BeamEffectsBagCounter] = fx
+            self.BeamEffectsBagCounter = self.BeamEffectsBagCounter + 1
+
         end
 		
         if LOUDGETN(self.FxBeam) != 0 then
@@ -154,14 +160,13 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
 			
             self:SetBeamFx(fxBeam, weapon.bp.BeamLifetime <= 0 )
             
-            LOUDINSERT( self.BeamEffectsBag, fxBeam )
-            
-            TrashAdd( weapon.Trash, fxBeam )
+            self.BeamEffectsBag[self.BeamEffectsBagCounter] = fxBeam
+            self.BeamEffectsBagCounter = self.BeamEffectsBagCounter + 1
+
         end
     
         if ScenarioInfo.ProjectileDialog then
-            LOG("*AI DEBUG Created Beam Effects for Weapon "..repr(self.Weapon.bp.Label).." data "..repr(self.Weapon.damageTable) )
-            LOG("*AI DEBUG BeamEffectsBag is "..repr(self.BeamEffectsBag) )
+            LOG("*AI DEBUG Created Beam Effects for Weapon - data "..repr(self) )
         end
 	
     end,
@@ -170,9 +175,15 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
     
         for k, v in self.BeamEffectsBag do
             v:Destroy()
+            self.BeamEffectsBag[k] = nil
         end
 
-        self.BeamEffectsBag = nil
+        self.BeamEffectsBagCounter = 1
+    
+        if ScenarioInfo.ProjectileDialog then
+            LOG("*AI DEBUG Destroy Beam Effects for Weapon - data "..repr(self) )
+        end
+
     end,
 
     CreateImpactEffects = function( self, army, EffectTable, EffectScale )
@@ -180,6 +191,10 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
         if EffectTable then
     
             local emit
+
+            if ScenarioInfo.ProjectileDialog then
+                LOG("*AI DEBUG CollisionBeam CreateImpactEffects is "..repr(EffectTable) )
+            end
 
             for k, v in EffectTable do
         
@@ -197,33 +212,52 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
     
         local emit = nil
         
+        if not EffectTable[1] then
+            return
+        end
+
+        if ScenarioInfo.ProjectileDialog then
+            LOG("*AI DEBUG CollisionBeam CreateTerrainEffects is "..repr(EffectTable) )
+        end
+
         for k, v in EffectTable do
         
             emit = LOUDATTACHEMITTER(self,1,army,v)
             
             if not self.TerrainEffectsBag then
                 self.TerrainEffectsBag = {}
+                self.TerrainEffectsBagCounter = 1
             end
             
-            LOUDINSERT(self.TerrainEffectsBag, emit )
+            self.TerrainEffectsBag[self.TerrainEffectsBagCounter] = emit
+            self.TerrainEffectsBagCounter = self.TerrainEffectsBagCounter + 1
             
             if emit and EffectScale != 1 then
                 emit:ScaleEmitter(EffectScale)
             end
             
         end
-        
+
+        if ScenarioInfo.ProjectileDialog then
+            LOG("*AI DEBUG CollisionBeam CreateTerrainEffects bag is "..repr(self.TerrainEffectsBag) )
+        end
+
     end,
 
     DestroyTerrainEffects = function( self )
     
         if self.TerrainEffectsBag then
-    
+
+            if ScenarioInfo.ProjectileDialog then
+                LOG("*AI DEBUG CollisionBeam DestroyTerrainEffects bag is "..repr(self.TerrainEffectsBag) )
+            end
+     
             for k, v in self.TerrainEffectsBag do
                 v:Destroy()
+                self.TerrainEffectsBag[v] = nil
             end
         
-            self.TerrainEffectsBag = nil
+            self.TerrainEffectsBagCounter = 1
         end
     end,
 
@@ -294,7 +328,7 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
             
                 -- because we are going to change the damageTable we want a copy
                 -- and not the original table
-                local damageTable = table.copy(self.Weapon.damageTable)
+                local damageTable = table.copy(self.DamageTable)
 
                 -- LOUD 'marshmallow shield effect' all AOE to 0 on shields
                 if damageTable.DamageRadius > 0 then
@@ -373,12 +407,14 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
     ForkThread = function(self, fn, ...)
     
         if fn then
-        
-            --LOG("*AI DEBUG Self is "..repr(self))
-        
+
             local thread = ForkThread(fn, self, unpack(arg))
             
-            TrashAdd( self.Weapon.Trash, thread )
+            if self.Trash then
+            
+                TrashAdd( self.Trash, thread )
+            
+            end
 
             return thread
         else
