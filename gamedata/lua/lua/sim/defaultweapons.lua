@@ -108,7 +108,7 @@ DefaultProjectileWeapon = Class(Weapon) {
         NumMuzzles = NumMuzzles / LOUDGETN(bp.RackBones)
 
         if bp.EnergyChargeForFirstShot == false then
-            self.FirstShot = true
+            self.WeaponCharged = true
         end
 		
         if bp.RenderFireClock then
@@ -214,7 +214,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 	-- passed in the bp data to save the call
     StartEconomyDrain = function(self)
 
-        if self.FirstShot then return end
+        if self.WeaponCharged then return end
 		
         local bp = self.bp
 		
@@ -240,7 +240,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                 end
 
                 self.EconDrain = CreateEconomyEvent( self.unit, nrgReq, 0, chargetime - 0.100, ChargeProgress )
-                self.FirstShot = true   -- technically - this should be called WeaponCharged
+                self.WeaponCharged = true
             end
         end
     end,
@@ -1152,7 +1152,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                         end
                     end
 
-                    self.FirstShot = false
+                    self.WeaponCharged = false
                     
                     self:StartEconomyDrain() -- the recharge begins as soon as the weapon starts firing
 					
@@ -1389,8 +1389,16 @@ DefaultProjectileWeapon = Class(Weapon) {
                 elseif self:CanWeaponFire() then
 			
                     if not (bp.ManualFire or bp.CountedProjectile or bp.ForceSingleFire) then
+                    
+                        if not self.EconDrain then
 			
-                        LOUDSTATE(self, self.RackSalvoFireReadyState)
+                            LOUDSTATE(self, self.RackSalvoFireReadyState)
+                        
+                        else
+                        
+                            LOUDSTATE(self, self.RackSalvoChargeState)
+                            
+                        end
 
                     else
 				
@@ -1715,10 +1723,8 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
     end,
 
     BeamLifetimeThread = function(self, beam, lifeTime)
-    
-        WaitTicks(lifeTime * 10)
-        
-		WaitTicks(1)
+
+        WaitTicks( math.floor(lifeTime * 10.001) + 1 )
         
         self:PlayFxBeamEnd(beam)
     end,
@@ -1738,18 +1744,6 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
         end
     end,
     
-    StartEconomyDrain = function(self)
-
-        if not self.EconDrain and self.bp.EnergyRequired and self.bp.EnergyDrainPerSecond then
-        
-            if not self:EconomySupportsBeam() then
-                return
-            end
-        end
-		
-        DefaultProjectileWeapon.StartEconomyDrain(self)
-    end,
-    
     OnHaltFire = function(self)
     
         for _,v in self.Beams do
@@ -1757,36 +1751,25 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
             if not v.Beam:IsEnabled() then
                 continue
             end
-            
+
             self:PlayFxBeamEnd( v.Beam )
         end
     end,
-    
-    EconomySupportsBeam = function(self)
-    
-        local aiBrain = GetAIBrain(self.unit)
-        
-        local energyIncome = GetEconomyIncome( aiBrain, 'ENERGY' ) * 10
-        local energyStored = GetEconomyStored( aiBrain, 'ENERGY' )
-        
-        local nrgReq = self:GetWeaponEnergyRequired()
-        local nrgDrain = self:GetWeaponEnergyDrain()
 
-        if energyStored < nrgReq and energyIncome < nrgDrain then
-            return false
-        end
-        
-        return true    
-    end,
-    
+    -- beam weapons will return to Idle State if not marked as 'charged'
     RackSalvoFireReadyState = State (DefaultProjectileWeapon.RackSalvoFireReadyState) {
 
         Main = function(self)
-            if not self:EconomySupportsBeam() then
+
+            if not self.WeaponCharged then
+
                 self:PlayFxBeamEnd()
+
                 LOUDSTATE(self, self.IdleState)
+
                 return
             end
+
             DefaultProjectileWeapon.RackSalvoFireReadyState.Main(self)
         end,
     },
