@@ -448,11 +448,10 @@ Projectile = Class(moho.projectile_methods, Entity) {
         local LOUDEMITATENTITY = LOUDEMITATENTITY
 
 		if ScenarioInfo.ProjectileDialog then
-			LOG("*AI DEBUG Projectile CreateImpactEffects for "..LOUDGETN(EffectTable) )
+			LOG("*AI DEBUG Projectile CreateImpactEffects Scale "..repr(EffectScale).." for "..repr(EffectTable) )
 		end	
 
         for _,v in EffectTable do
-
 		
 			if self.FxImpactTrajectoryAligned then
 			
@@ -579,12 +578,11 @@ Projectile = Class(moho.projectile_methods, Entity) {
             end
 
             if ScenarioInfo.ProjectileDialog then
-		
-                LOG("*AI DEBUG Projectile OnImpact targetType is "..repr(targetType))
-                --LOG("*AI DEGUG Projectile OnImpact data is "..repr(DD))
+        
+                LOG("*AI DEBUG Projectile OnImpact targetType is "..repr(targetType).." data is "..repr(DD).." at "..GetGameTick() )
 			
                 if targetEntity then
-                    LOG("*AI DEBUG Projectile OnImpact Target entity is "..repr(targetEntity.BlueprintID))
+                    LOG("*AI DEBUG CollisionBeam Target entity is "..repr(targetEntity.BlueprintID))
                 end
             end
 
@@ -603,7 +601,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 		if Sync.SimData.SimSpeed > -1 then
 
 			local ImpactEffects = false
-			local ImpactEffectScale = 1     -- default scaling
+			local ImpactEffectScale = 0.8     -- default scaling
 	
 			local army = self.Army
 	
@@ -685,9 +683,13 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			
 				local TerrainEffect = TerrainType.FXImpact[targetType][bp.Display.ImpactEffects.Type] or false
 			
-				if TerrainEffect then
+				if TerrainEffect[1] then
+
+                    if ScenarioInfo.ProjectileDialog then
+                        LOG("*AI DEBUG CollisionBeam UpdateTerrainCollisionEffects is "..repr(TerrainType.Description).." impact type "..repr(self.TerrainImpactType).." table data is "..repr(TerrainType.FXImpact[targetType][bp.Display.ImpactEffects.Type]).." "..repr(TerrainEffects) )
+                    end
 			
-					if (not LOUDEMPTY(TerrainEffect)) and (not BeenDestroyed(self)) then
+					if not BeenDestroyed(self) then
                         ForkTo( self.CreateTerrainEffects, self, army, TerrainEffect, bp.Display.ImpactEffects.Scale or 1 )
 					end
 				end

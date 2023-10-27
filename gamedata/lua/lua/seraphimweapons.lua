@@ -722,7 +722,7 @@ SMeleeBladeBeamWeapon = Class(Weapon) {
                     CollisionCheckInterval = 1,
                 }
                 
-                self.Beams[counter] = { Beam = beam, Muzzle = muzzle }
+                self.Beams[counter] = { Beam = beam, BeamMuzzle = muzzle }
                 counter = counter + 1
                 
                 self.unit.Trash:Add(beam)
@@ -826,7 +826,7 @@ SMeleeBladeBeamWeapon = Class(Weapon) {
         local beamTable
         
         for k, v in self.Beams do
-            if v.Muzzle == muzzle then
+            if v.BeamMuzzle == muzzle then
                 beam = v.Beam
                 beamTable = v
             end

@@ -732,6 +732,8 @@ DefaultProjectileWeapon = Class(Weapon) {
         if ScenarioInfo.WeaponStateDialog then
             LOG("*AI DEBUG DefaultWeapon OnEnableWeapon "..repr(self.bp.Label) )
         end
+        
+        Weapon.OnEnableWeapon(self)
 
     end,
 
@@ -983,20 +985,12 @@ DefaultProjectileWeapon = Class(Weapon) {
                 WaitTicks( math.floor(bp.RackSalvoChargeTime*10) - self.ElapsedRackChargeTime ) 
 
             end
-            
-            --if bp.SkipReadyState then
-              --  LOUDSTATE(self, self.RackSalvoFiringState)
-            --else
-                LOUDSTATE(self, self.RackSalvoFireReadyState)
-            --end
+
+            LOUDSTATE(self, self.RackSalvoFireReadyState)
 
         end,
 
         OnFire = function(self)
-
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon RackSalvo Charge OnFire "..repr(self.bp.Label) )
-            end
             
         end,
     },
@@ -1045,11 +1039,11 @@ DefaultProjectileWeapon = Class(Weapon) {
 		-- then the weapon will Never do an OnFire() event unless the unit is set to IMMOBILE
         OnFire = function(self)
 
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon RackSalvo Fire Ready State "..repr(self.bp.Label).." OnFire at "..GetGameTick() )
-            end
-            
             if self.WeaponCanFire then
+
+                if ScenarioInfo.WeaponStateDialog then
+                    LOG("*AI DEBUG DefaultWeapon RackSalvo Fire Ready State "..repr(self.bp.Label).." OnFire at "..GetGameTick() )
+                end
 
                 LOUDSTATE(self, self.RackSalvoFiringState)
             end
@@ -1294,10 +1288,6 @@ DefaultProjectileWeapon = Class(Weapon) {
 		
 		OnFire = function(self)
 
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State OnFire "..repr(self.bp.Label) )		
-            end
-
 		end,
 
         OnLostTarget = function(self)
@@ -1357,6 +1347,8 @@ DefaultProjectileWeapon = Class(Weapon) {
 
             local bp = self.bp
             local unit = self.unit	     
+
+            self.WeaponCanFire = false
             
             self.ElapsedRackReloadTime = 0
 
@@ -1378,6 +1370,8 @@ DefaultProjectileWeapon = Class(Weapon) {
             if self.RecoilManipulators then
                 self:WaitForAndDestroyManips()
             end
+			
+            self.WeaponCanFire = true
 
             -- if the weapon has a target follow normal steps
             if WeaponHasTarget( self ) then 
@@ -1433,10 +1427,6 @@ DefaultProjectileWeapon = Class(Weapon) {
 
         OnFire = function(self)
 
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State "..repr(self.bp.Label).." OnFire" )
-            end
-
         end,
     },
 
@@ -1484,11 +1474,11 @@ DefaultProjectileWeapon = Class(Weapon) {
         -- we're not actually creating the projectile yet
         OnFire = function(self)
             
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon WeaponPacking State "..repr(self.bp.Label).." OnFire")
-            end
-            
             if self.bp.CountedProjectile == true and not self.bp.ForceSingleFire then
+            
+                if ScenarioInfo.WeaponStateDialog then
+                    LOG("*AI DEBUG DefaultWeapon WeaponPacking State "..repr(self.bp.Label).." OnFire")
+                end
 			
                 LOUDSTATE(self, self.WeaponUnpackingState)
 				
@@ -1507,6 +1497,15 @@ DefaultProjectileWeapon = Class(Weapon) {
             
             if ScenarioInfo.WeaponStateDialog then
                 LOG("*AI DEBUG DefaultWeapon Dead State "..repr(self.bp.Label).." at "..GetGameTick() )
+            end
+            
+            if self.BeamStarted then
+            
+                if ScenarioInfo.WeaponStateDialog then
+                    LOG("*AI DEBUG DefaultWeapon Dead State beam started "..repr(self.BeamStarted).." "..repr(self.Beams[1]) )
+                end
+                
+                self:PlayFxBeamEnd( self.Beams[1] )
             end
 
         end,
@@ -1556,24 +1555,32 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
             for mk, mv in rv.MuzzleBones do
 
                 -- create the beam -- initially disabled
+                -- this will start the OnCreate in CollisionBeam
                 beam = self.BeamType{ BeamBone = 0, CollisionCheckInterval = bp.BeamCollisionDelay * 10, OtherBone = mv, Weapon = self }
+
                 -- store reference to the parent weapon
-                beam.Weapon = self
+                --beam.Weapon = self
+                
+                beam.DamageTable = self.damageTable
 
                 beam:Disable()
 
                 if ScenarioInfo.WeaponDialog then
-                    LOG("*AI DEBUG OnCreate Beam for weapon "..repr(bp.Label).." on muzzle "..repr(mv).." for unit "..repr(beam.Weapon.unit.BlueprintID))
+                    LOG("*AI DEBUG DefaultWeapon BEAM OnCreate for weapon "..repr(bp.Label).." on muzzle "..repr(mv).." for unit "..repr( self.unit.BlueprintID))
                 end
 
                 -- add beam to the weapons trash table
                 TrashAdd( self.Trash, beam)
 
                 -- add a reference to the beam in the weapons Beams table
-                self.Beams[counter] = { Beam = beam, Muzzle = mv }
+                self.Beams[counter] = { Beam = beam, BeamMuzzle = mv }
                 counter = counter + 1
             end
 
+        end
+        
+        if ScenarioInfo.WeaponDialog then
+            LOG("*AI DEBUG DefaultWeapon BEAM OnCreate beams table is "..repr(self.Beams) )
         end
 
     end,
@@ -1581,7 +1588,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
     CreateProjectileAtMuzzle = function(self, muzzle)
 	
 		if ScenarioInfo.ProjectileDialog then
-			LOG("*AI DEBUG DefaultBeamWeapon CreateProjectileAtMuzzle For "..repr(self.bp.Label).." for "..repr(__blueprints[self.unit.BlueprintID].Description).." using muzzle "..repr(muzzle) )
+			LOG("*AI DEBUG DefaultWeapon BEAM CreateProjectileAtMuzzle For "..repr(self.bp.Label).." for "..repr(__blueprints[self.unit.BlueprintID].Description).." using muzzle "..repr(muzzle) )
 		end
 		
 		local PlaySound = moho.weapon_methods.PlaySound
@@ -1589,7 +1596,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
         local enabled = false
 		
         for _, v in self.Beams do
-            if v.Muzzle == muzzle and v.Beam:IsEnabled() then
+            if v.BeamMuzzle == muzzle and v.Beam:IsEnabled() then
                 enabled = true
             end
         end
@@ -1614,7 +1621,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
         local beam
 		
         for _, v in self.Beams do
-            if v.Muzzle == muzzle then
+            if v.BeamMuzzle == muzzle then
                 beam = v.Beam
                 break
             end
@@ -1650,7 +1657,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
     PlayFxWeaponUnpackSequence = function(self)
 
         if ScenarioInfo.WeaponStateDialog then
-            LOG("*AI DEBUG Default BEAM Weapon Unpack Sequence "..repr(self.bp.Label) )
+            LOG("*AI DEBUG DefaultWeapon BEAM Unpack Sequence "..repr(self.bp.Label) )
         end
 
         if ( self.bp.BeamLifetime > 0 ) or (( self.bp.BeamLifetime <= 0 ) and not self.ContBeamOn) then

@@ -35,9 +35,8 @@ TrashBag = Class {
                 end
             end
             
+            self.Count = 1
         end
 
-        self.Count = 1
-        
     end
 }

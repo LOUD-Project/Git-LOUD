@@ -16,6 +16,7 @@ local ForkTo = ForkThread
 
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
 
 local WaitSeconds = WaitSeconds
 local WaitTicks = coroutine.yield
@@ -64,8 +65,9 @@ Weapon = Class(moho.weapon_methods) {
         local WaitTicks = WaitTicks
 
 		-- use the trash on the parent unit
-		self.Trash = self.unit.Trash
-        
+		--self.Trash = self.unit.Trash
+        self.Trash = TrashBag()
+
         -- store the blueprint of the weapon 
         self.bp = GetBlueprint(self)
 		
@@ -285,6 +287,7 @@ Weapon = Class(moho.weapon_methods) {
 			LOG("*AI DEBUG Weapon OnDestroy")
 		end
 
+        TrashDestroy(self.Trash)
     end,
 
     AimManipulatorSetEnabled = function(self, enabled)
@@ -762,6 +765,8 @@ Weapon = Class(moho.weapon_methods) {
 
         end
         
+        -- enabling path -- 
+        
         local GetEntityId = moho.entity_methods.GetEntityId
 
         if self.bp.EnabledByEnhancement then
@@ -783,7 +788,7 @@ Weapon = Class(moho.weapon_methods) {
                             self:SetEnabled(enable)
                             
                             self.WeaponIsEnabled = true
-                        
+
                             ChangeState( self, self.IdleState )
                         end
                     end
