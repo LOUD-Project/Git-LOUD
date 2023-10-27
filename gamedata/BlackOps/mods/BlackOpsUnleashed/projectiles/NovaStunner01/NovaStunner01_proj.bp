@@ -16,32 +16,19 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
         'CYBRAN',
         'PROJECTILE',
         'INDIRECTFIRE',
         'STRATEGIC',
     },
-    Display = {
-        CameraFollowTimeout = 5,
-        #CameraFollowsProjectile = true,
-       # StrategicIconSize = 3,
-    },
+
     General = {
         Category = 'Artillery',
-        Faction = 'Aeon',
-        EntityCategory = {
-            'CYBRAN',
-        	'PROJECTILE',
-        	'INDIRECTFIRE',
-        	'STRATEGIC',
-        },
         TechLevel = 3,
-        Weapon = 'Sonance Artillery',
     },
-    Interface = {
-        HelpText = 0,
-    },
+
     Physics = {
         DestroyOnWater = true,
         InitialSpeed = 50,

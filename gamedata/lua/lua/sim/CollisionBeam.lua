@@ -13,9 +13,12 @@ local LOUDDAMAGE = Damage
 local LOUDDAMAGEAREA = DamageArea
 local LOUDEMITATBONE = CreateEmitterAtBone
 local LOUDATTACHEMITTER = CreateAttachedEmitter
+local LOUDSPLAT = CreateSplat
+
 local ForkThread = ForkThread
 
 local GetArmy = moho.entity_methods.GetArmy
+local GetRandomFloat = import('/lua/utilities.lua').GetRandomFloat
 
 local STRINGSUB = string.sub
 local TONUMBER = tonumber
@@ -237,21 +240,50 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
 
         local TerrainEffects = TerrainType.FXImpact[TargetType][self.TerrainImpactType] or nil
 
-        if TerrainEffects and (self.LastTerrainType != TerrainType) then
+        if TerrainEffects and (self.LastTerrainType != TerrainType.Description) then
+
+            if ScenarioInfo.ProjectileDialog then
+                LOG("*AI DEBUG CollisionBeam UpdateTerrainCollisionEffects is "..repr(TerrainType.Description).." impact type "..repr(self.TerrainImpactType).." table data is "..repr(TerrainType.FXImpact[TargetType][self.TerrainImpactType]).." "..repr(TerrainEffects) )
+            end
+ 
             self:DestroyTerrainEffects()
-            self:CreateTerrainEffects( self.Army, TerrainEffects, self.TerrainImpactScale )
-            self.LastTerrainType = TerrainType
+            
+            if TerrainEffects[1] then
+                self:CreateTerrainEffects( self.Army, TerrainEffects, self.TerrainImpactScale )
+            end
+            
+            if TargetType == 'Terrain' then
+
+                if self.SplatTexture and self.ScorchSize then
+
+                    local pos = self:GetPosition(1)
+            
+                    LOUDSPLAT( pos, GetRandomFloat(0,6.28), self.SplatTexture, self.ScorchSize, self.ScorchSize, 100, self.ScorchTime or 60, self.Army )
+
+                end
+            end
+
+
+            self.LastTerrainType = TerrainType.Description
         end
     end,
 
-    -- This is called when the collision beam hits something new. Because the beam
-    -- is continuously detecting collisions it only executes this function when the
-    -- thing it is touching changes. Expect Impacts with non-physical things like
+    -- This is called when the collision beam hits something.
+    -- Expect Impacts with non-physical things like
     -- 'Air' (hitting nothing) and 'Underwater' (hitting nothing underwater).
     OnImpact = function(self, impactType, targetEntity)
+
+        local damageTable = self.DamageTable
+
+        if ScenarioInfo.ProjectileDialog then
         
-        local damageTable = self.Weapon.damageTable
-        
+            LOG("*AI DEBUG CollisionBeam OnImpact targetType is "..repr(impactType).." data is "..repr(damageTable).." at "..GetGameTick() )
+			
+            if targetEntity then
+                LOG("*AI DEBUG CollisionBeam Target entity is "..repr(targetEntity.BlueprintID))
+            end
+        end
+
         if damageTable.DamageAmount then
 
             if damageTable.Buffs then
@@ -276,15 +308,6 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
                     local mult = TONUMBER( STRINGSUB(damageTable.DamageType, 11) ) or 1
 
                     damageTable.DamageAmount = damageTable.DamageAmount * mult
-                end
-            end
-
-            if ScenarioInfo.ProjectileDialog then
-		
-                LOG("*AI DEBUG Beam OnImpact targetType is "..repr(impactType).." data is "..repr(damageTable) )
-			
-                if targetEntity then
-                    LOG("*AI DEBUG Beam Target entity is "..repr(targetEntity.BlueprintID))
                 end
             end
 
@@ -328,66 +351,11 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
             
         end
 		
-        if ImpactEffects then
+        if ImpactEffects[1] then
             self:CreateImpactEffects( self.Army, ImpactEffects, ImpactEffectScale )
         end
         
         self:UpdateTerrainCollisionEffects( impactType )
-    end,
-
-    GetCollideFriendly = function(self)
-        return self.damageTable.CollideFriendly
-    end,
-
-    SetDamageTable = function(self)
-    
-        local damageData = self.Weapon.bp
-        
-        self.DamageData = { DamageAmount = false, DamageType = 'Normal' }
-		
-        self.DamageData.DamageAmount = damageData.Damage or 0.1
-        self.DamageData.DamageType = damageData.DamageType
-
-		if damageData.DamageRadius > 0 then
-			self.DamageData.DamageRadius = damageData.DamageRadius
-		end
-	
-		if damageData.DamageFriendly then
-			self.DamageData.DamageFriendly = damageData.DamageFriendly
-		end
-		
-		if damageData.CollideFriendly then
-			self.DamageData.CollideFriendly = damageData.CollideFriendly
-		end
-		
-		if damageData.DoTTime then
-			self.DamageData.DoTTime = damageData.DoTTime
-		end
-		
-		if damageData.DoTPulses then
-			self.DamageData.DoTPulses = damageData.DoTPulses
-		end
-
-		if damageData.advancedTracking then
-			self.DamageData.advancedTracking = damageData.advancedTracking
-            
-            if damageData.TargetType == 'RULEWTT_Projectile' then
-                self.DamageData.TrackingWeapon = self
-            end
-		end
-		
-		if damageData.Buffs then
-			self.DamageData.Buffs = damageData.Buffs
-		end
-		
-		if damageData.ArtilleryShieldBlocks then
-			self.DamageData.ArtilleryShieldBlocks = damageData.ArtilleryShieldBlocks
-		end
-		
-		if ScenarioInfo.ProjectileDialog then
-			LOG("*AI DEBUG CollisionBeam SetDamageTable is "..repr(self.DamageData))
-		end
-
     end,
 
     --When this beam impacts with the target, do any buffs that have been passed to it.

@@ -35,7 +35,7 @@ PDLaserCollisionBeam = Class(SCCollisionBeam) {
     FxBeamEndPointScale = 0.05,
     
     SplatTexture = 'czar_mark01_albedo',
-    ScorchSplatDropTime = 0.5,
+    ScorchSize = 0.5,
 }
 
 EXCEMPArrayBeam01CollisionBeam = Class(SCCollisionBeam) {
@@ -46,7 +46,7 @@ EXCEMPArrayBeam01CollisionBeam = Class(SCCollisionBeam) {
     FxBeamEndPointScale = 0.05,
     
     SplatTexture = 'czar_mark01_albedo',
-    ScorchSplatDropTime = 0.5,
+    ScorchSize = 0.5,
 }
 
 EXCEMPArrayBeam02CollisionBeam = Class(SCCollisionBeam) {
@@ -57,7 +57,7 @@ EXCEMPArrayBeam02CollisionBeam = Class(SCCollisionBeam) {
     FxBeamEndPointScale = 0.05,
     
     SplatTexture = 'czar_mark01_albedo',
-    ScorchSplatDropTime = 0.5,
+    ScorchSize = 0.5,
 }
 
 EXCEMPArrayBeam03CollisionBeam = Class(SCCollisionBeam) {
@@ -68,7 +68,7 @@ EXCEMPArrayBeam03CollisionBeam = Class(SCCollisionBeam) {
     FxBeamEndPointScale = 1,
     
     SplatTexture = 'czar_mark01_albedo',
-    ScorchSplatDropTime = 0.5,
+    ScorchSize = 0.5,
 	
     OnImpact = function(self, targetType, targetEntity)
     
@@ -111,6 +111,7 @@ AeonACUPhasonLaserCollisionBeam = Class(SCCollisionBeam) {
     FxBeamEndPoint = EffectTemplate.APhasonLaserImpact01,
     
     SplatTexture = 'czar_mark01_albedo',
+    ScorchSize = 0.4,
 
 	FxBeamStartPointScale = 0.25,
     FxBeamEndPointScale = 0.5,

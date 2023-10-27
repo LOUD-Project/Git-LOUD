@@ -210,17 +210,7 @@ MiniRocketPRojectile = Class(SingleBeamProjectile) {
 
         SingleBeamProjectile.OnImpact(self, targetType, targetEntity)
     end,
---[[
-    CreateImpactEffects = function( self, army, EffectTable, EffectScale )
-        local emit = nil
-        for k, v in EffectTable do
-            emit = CreateEmitterAtEntity(self,army,v)
-            if emit and EffectScale != 1 then
-                emit:ScaleEmitter(EffectScale or 1)
-            end
-        end
-    end,
---]]    
+
 }
 
 MiniRocket03PRojectile = Class(SingleBeamProjectile) {
@@ -239,17 +229,7 @@ MiniRocket03PRojectile = Class(SingleBeamProjectile) {
 
         SingleBeamProjectile.OnImpact(self, targetType, targetEntity)
     end,
---[[
-    CreateImpactEffects = function( self, army, EffectTable, EffectScale )
-        local emit = nil
-        for k, v in EffectTable do
-            emit = CreateEmitterAtEntity(self,army,v)
-            if emit and EffectScale != 1 then
-                emit:ScaleEmitter(EffectScale or 1)
-            end
-        end
-    end,
---]]    
+
 }
 
 MiniRocket04PRojectile = Class(SingleBeamProjectile) {
@@ -261,17 +241,7 @@ MiniRocket04PRojectile = Class(SingleBeamProjectile) {
 
         SingleBeamProjectile.OnImpact(self, targetType, targetEntity)
     end,
---[[
-    CreateImpactEffects = function( self, army, EffectTable, EffectScale )
-        local emit = nil
-        for k, v in EffectTable do
-            emit = CreateEmitterAtEntity(self,army,v)
-            if emit and EffectScale != 1 then
-                emit:ScaleEmitter(EffectScale or 1)
-            end
-        end
-    end,
---]]    
+
 }
 
 MiniRocket02Projectile = Class(SingleBeamProjectile) {
@@ -285,18 +255,7 @@ MiniRocket02Projectile = Class(SingleBeamProjectile) {
     FxImpactLand = EffectTemplate.CMissileLOAHit01,
     FxImpactProp = EffectTemplate.CMissileLOAHit01,
     FxImpactNone = EffectTemplate.CMissileLOAHit01,
-    
---[[    
-    CreateImpactEffects = function( self, army, EffectTable, EffectScale )
-        local emit = nil
-        for k, v in EffectTable do
-            emit = CreateEmitterAtEntity(self,army,v)
-            if emit and EffectScale != 1 then
-                emit:ScaleEmitter(EffectScale or 1)
-            end
-        end
-    end,
---]]    
+
     OnExitWater = function(self)
 		EmitterProjectile.OnExitWater(self)
         
@@ -946,8 +905,12 @@ NovaStunProjectile = Class(NullShell) {
     FxTrails = BlackOpsEffectTemplate.MGHeadshotFxtrail01,
 
 	FxImpactUnit = BlackOpsEffectTemplate.NovaCannonHitUnit,
+
     FxImpactProp = BlackOpsEffectTemplate.NovaCannonHitUnit,
+
     FxImpactLand = BlackOpsEffectTemplate.NovaCannonHitUnit,
+    FxLandHitScale = 0.4,
+
     FxImpactUnderWater = BlackOpsEffectTemplate.NovaCannonHitUnit,
     FxImpactWater = BlackOpsEffectTemplate.NovaCannonHitUnit,
 
@@ -955,16 +918,15 @@ NovaStunProjectile = Class(NullShell) {
     
         local army = self.Army
 
-        local blanketSides = 12
-        local blanketAngle = 6.28 / blanketSides
-        local blanketStrength = 1
-        local blanketVelocity = 2
+        local Angle = 6.28 / 5
+        local Velocity = 1
 
-        for i = 0, (blanketSides-1) do
-            local blanketX = LOUDSIN(i*blanketAngle)
-            local blanketZ = LOUDCOS(i*blanketAngle)
-            self:CreateProjectile('/effects/entities/EffectProtonAmbient01/EffectProtonAmbient01_proj.bp', blanketX, 0.5, blanketZ, blanketX, 0, blanketZ)
-                :SetVelocity(blanketVelocity):SetAcceleration(-0.3)
+        for i = 0, ( 5 - 1 ) do
+
+            local X = LOUDSIN(i*Angle)
+            local Z = LOUDCOS(i*Angle)
+
+            self:CreateProjectile('/effects/entities/EffectProtonAmbient01/EffectProtonAmbient01_proj.bp', X, 0.5, Z, X, 0, Z):SetVelocity(Velocity):SetAcceleration(-0.5)
         end
 
         EmitterProjectile.OnImpact(self, targetType, targetEntity)
@@ -1073,83 +1035,3 @@ CitadelHVM01Projectile = Class(EmitterProjectile) {
     FxImpactProp = EffectTemplate.TMissileHit02,    
     FxImpactLand = EffectTemplate.TMissileHit02,
 }
-
---[[
-CybranHailfire01ChildProjectile = Class(SinglePolyTrailProjectile) {
-
-    PolyTrail = '/effects/emitters/default_polytrail_05_emit.bp',
-    FxTrails = BlackOpsEffectTemplate.CybranHailfire02FXTrails,
-    FxTrailOffset = -0.3,
-	FxTrailScale = 0.005,
-
-    FxImpactUnit = BlackOpsEffectTemplate.CybranHailfire01HitUnit01,
-    FxImpactProp = BlackOpsEffectTemplate.CybranHailfire01HitUnit01,    
-    FxImpactLand = BlackOpsEffectTemplate.CybranHailfire01HitLand01,
-    FxImpactWater = BlackOpsEffectTemplate.CybranHailfire01HitWater01,
-
-    FxLandHitScale = 1.5,
-    FxUnitHitScale = 1.5,
-    FxPropHitScale = 1.5,
-    FxWaterHitScale = 1.5,
-}
-
-CybranHailfire02Projectile = Class(SinglePolyTrailProjectile) {
-
-    FxTrails = BlackOpsEffectTemplate.CybranHailfire01FXTrails,
-
-    FxTrailOffset = -0.3,
-	FxTrailScale = 0.05,
-
-    PolyTrail = EffectTemplate.CNanoDartPolyTrail01,
-
-    FxImpactUnit = BlackOpsEffectTemplate.CybranHailfire01HitUnit01,
-    FxImpactProp = BlackOpsEffectTemplate.CybranHailfire01HitUnit01,    
-    FxImpactLand = BlackOpsEffectTemplate.CybranHailfire01HitLand01,
-    FxImpactWater = BlackOpsEffectTemplate.CybranHailfire01HitWater01,
-
-    FxLandHitScale = 1.5,
-    FxUnitHitScale = 1.5,
-    FxPropHitScale = 1.5,
-    FxWaterHitScale = 1.5,
-}
-
-CybranHailfire03Projectile = Class(SinglePolyTrailProjectile) {
-
-    FxTrails = BlackOpsEffectTemplate.CybranHailfire01FXTrails,
-
-    FxTrailOffset = -0.3,
-	FxTrailScale = 0.05,
-
-    PolyTrail = EffectTemplate.CNanoDartPolyTrail01,
-
-    FxImpactUnit = BlackOpsEffectTemplate.CybranHailfire01HitUnit01,
-    FxImpactProp = BlackOpsEffectTemplate.CybranHailfire01HitUnit01,    
-    FxImpactLand = BlackOpsEffectTemplate.CybranHailfire01HitLand01,
-    FxImpactWater = BlackOpsEffectTemplate.CybranHailfire01HitWater01,
-
-    FxLandHitScale = 1.6,
-    FxUnitHitScale = 1.6,
-    FxPropHitScale = 1.6,
-    FxWaterHitScale = 1.6,
-}
-
-CybranHailfire04Projectile = Class(SinglePolyTrailProjectile) {
-
-    FxTrails = BlackOpsEffectTemplate.CybranHailfire03FXTrails,
-
-    FxTrailOffset = -0.3,
-	FxTrailScale = 0.05,
-
-    PolyTrail = EffectTemplate.CNanoDartPolyTrail01,
-
-    FxImpactUnit = BlackOpsEffectTemplate.CybranHailfire01HitUnit01,
-    FxImpactProp = BlackOpsEffectTemplate.CybranHailfire01HitUnit01,    
-    FxImpactLand = BlackOpsEffectTemplate.CybranHailfire01HitLand01,
-    FxImpactWater = BlackOpsEffectTemplate.CybranHailfire01HitWater01,
-
-    FxLandHitScale = 1.5,
-    FxUnitHitScale = 1.5,
-    FxPropHitScale = 1.5,
-    FxWaterHitScale = 1.5,
-}
---]]

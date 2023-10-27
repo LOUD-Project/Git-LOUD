@@ -1,12 +1,3 @@
---****************************************************************************
---**
---**  File     :  /lua/defaultcollisionbeams.lua
---**  Author(s):  Gordon Duclos
---**
---**  Summary  :  Default definitions collision beams
---**
---**  Copyright � 2005 Gas Powered Games, Inc.  All rights reserved.
---****************************************************************************
 
 local CollisionBeam = import('/lua/sim/CollisionBeam.lua').CollisionBeam
 local EffectTemplate = import('/lua/EffectTemplates.lua')
@@ -39,8 +30,10 @@ TMNovaCatBlueLaserBeam = Class(SCCollisionBeam) {
     FxBeam = {'/mods/BattlePack/effects/emitters/novacat_bluelaser_emit.bp'},
     FxBeamEndPoint = BattlePackEffectTemplate.AeonNocaCatBlueLaserHit,
     FxBeamEndPointScale = 0.5,
+
     SplatTexture = 'czar_mark01_albedo',
-    ScorchSplatDropTime = 0.25,
+    ScorchSize = 0.25,
+    ScorchTime = 30,
 }
 
 TMNovaCatGreenLaserBeam = Class(SCCollisionBeam) {
@@ -51,8 +44,10 @@ TMNovaCatGreenLaserBeam = Class(SCCollisionBeam) {
     FxBeam = {'/mods/BattlePack/effects/emitters/novacat_greenlaser_emit.bp'},
     FxBeamEndPoint = EffectTemplate.APhasonLaserImpact01,
     FxBeamEndPointScale = 2.0,
+
     SplatTexture = 'czar_mark01_albedo',
-    ScorchSplatDropTime = 0.25,
+    ScorchSize = 0.25,
+    ScorchTime = 30,
 }
 
 -------------------------------
@@ -67,8 +62,7 @@ HeavyMicrowaveLaserCollisionBeam01 = Class(SCCollisionBeam) {
     FxBeamStartPoint = EffectTemplate.CMicrowaveLaserMuzzle01,
     FxBeam = {'/mods/BattlePack/effects/emitters/mini_microwave_laser_beam_01_emit.bp'},
     FxBeamEndPoint = EffectTemplate.CMicrowaveLaserEndPoint01,
-    SplatTexture = 'czar_mark01_albedo',
-    ScorchSplatDropTime = 0.25,
+
 }
 ------------------------------------
 --   Exaviers Target Painter
@@ -76,17 +70,11 @@ HeavyMicrowaveLaserCollisionBeam01 = Class(SCCollisionBeam) {
 
 EXCEMPArrayBeam01CollisionBeam = Class(SCCollisionBeam) {
     FxBeam = {'/mods/BattlePack/effects/emitters/excemparraybeam01_emit.bp'},
-    FxBeamEndPoint = {
-
-    },
-    FxBeamStartPoint = {
-
-    },
+    FxBeamEndPoint = {},
+    FxBeamStartPoint = {},
     FxBeamStartPointScale = 0.05,
     FxBeamEndPointScale = 0.05,
-    
-    SplatTexture = 'czar_mark01_albedo',
-    ScorchSplatDropTime = 0.5,
+
 }
 
 EXCEMPArrayBeam02CollisionBeam = Class(SCCollisionBeam) {
@@ -95,41 +83,16 @@ EXCEMPArrayBeam02CollisionBeam = Class(SCCollisionBeam) {
     FxBeamStartPoint = EffectTemplate.CMicrowaveLaserMuzzle01,
     FxBeamStartPointScale = 0.05,
     FxBeamEndPointScale = 0.05,
-    
-    SplatTexture = 'czar_mark01_albedo',
-    ScorchSplatDropTime = 0.5,
+
 }
 
 SeraphimPhasonLaserCollisionBeam = Class(SCCollisionBeam) {
     FxBeamStartPoint = EffectTemplate.APhasonLaserMuzzle01,
     FxBeam = {'/mods/BattlePack/effects/emitters/alienphason_beam_01_emit.bp'},
     FxBeamEndPoint = EffectTemplate.APhasonLaserImpact01,
-    SplatTexture = 'czar_mark01_albedo',
-    ScorchSplatDropTime = 0.25,
 	FxBeamStartPointScale = 0.25,
     FxBeamEndPointScale = 0.5,
 
-    OnImpact = function(self, impactType, targetEntity)
-        if impactType == 'Terrain' then
-            if self.Scorching == nil then
-                self.Scorching = self:ForkThread( self.ScorchThread )   
-            end
-        elseif not impactType == 'Unit' then
-            KillThread(self.Scorching)
-            self.Scorching = nil
-        end
-        CollisionBeam.OnImpact(self, impactType, targetEntity)
-    end,
-    
-    OnDisable = function( self )
-        CollisionBeam.OnDisable(self)
-        KillThread(self.Scorching)
-        self.Scorching = nil   
-    end,
-
-    ScorchThread = function(self)
-
-    end,
 }
 
 ZapperCollisionBeam02 = Class(SCCollisionBeam) {
@@ -163,47 +126,10 @@ SC2CollosusCollisionBeam = Class(SCCollisionBeam) {
     },
     FxBeamStartPointScale = 1,
     FxBeamEndPointScale = 0.5,
-	    SplatTexture = 'czar_mark01_albedo',
-    ScorchSplatDropTime = 0.25,
-	
-	    OnImpact = function(self, impactType, targetEntity)
-        if impactType == 'Terrain' then
-            if self.Scorching == nil then
-                self.Scorching = self:ForkThread( self.ScorchThread )   
-            end
-        elseif not impactType == 'Unit' then
-            KillThread(self.Scorching)
-            self.Scorching = nil
-        end
-        CollisionBeam.OnImpact(self, impactType, targetEntity)
-    end,
-    
-    OnDisable = function( self )
-        CollisionBeam.OnDisable(self)
-        KillThread(self.Scorching)
-        self.Scorching = nil   
-    end,
 
-    ScorchThread = function(self)
-        local army = self:GetArmy()
-        local size = 1.5 + (Random() * 1.5) 
-        local CurrentPosition = self:GetPosition(1)
-        local LastPosition = Vector(0,0,0)
-        local skipCount = 1
-        while true do
-            if Util.GetDistanceBetweenTwoVectors( CurrentPosition, LastPosition ) > 0.25 or skipCount > 100 then
-                CreateSplat( CurrentPosition, Util.GetRandomFloat(0,2*math.pi), self.SplatTexture, size, size, 100, 100, army )
-                LastPosition = CurrentPosition
-                skipCount = 1
-            else
-                skipCount = skipCount + self.ScorchSplatDropTime
-            end
-                
-            WaitSeconds( self.ScorchSplatDropTime )
-            size = 1.2 + (Random() * 1.5)
-            CurrentPosition = self:GetPosition(1)
-        end
-    end,
+    SplatTexture = 'czar_mark01_albedo',
+    ScorchSize = 1.5,
+
 }
 
 SC2ACUCollisionBeam = Class(SCCollisionBeam) {
@@ -222,47 +148,10 @@ SC2ACUCollisionBeam = Class(SCCollisionBeam) {
     },
     FxBeamStartPointScale = 0.3,
     FxBeamEndPointScale = 0.2,
-	    SplatTexture = 'czar_mark01_albedo',
-    ScorchSplatDropTime = 0.25,
-	
-	    OnImpact = function(self, impactType, targetEntity)
-        if impactType == 'Terrain' then
-            if self.Scorching == nil then
-                self.Scorching = self:ForkThread( self.ScorchThread )   
-            end
-        elseif not impactType == 'Unit' then
-            KillThread(self.Scorching)
-            self.Scorching = nil
-        end
-        CollisionBeam.OnImpact(self, impactType, targetEntity)
-    end,
-    
-    OnDisable = function( self )
-        CollisionBeam.OnDisable(self)
-        KillThread(self.Scorching)
-        self.Scorching = nil   
-    end,
 
-    ScorchThread = function(self)
-        local army = self:GetArmy()
-        local size = 1.5 + (Random() * 1.5) 
-        local CurrentPosition = self:GetPosition(1)
-        local LastPosition = Vector(0,0,0)
-        local skipCount = 1
-        while true do
-            if Util.GetDistanceBetweenTwoVectors( CurrentPosition, LastPosition ) > 0.25 or skipCount > 100 then
-                CreateSplat( CurrentPosition, Util.GetRandomFloat(0,2*math.pi), self.SplatTexture, size, size, 100, 100, army )
-                LastPosition = CurrentPosition
-                skipCount = 1
-            else
-                skipCount = skipCount + self.ScorchSplatDropTime
-            end
-                
-            WaitSeconds( self.ScorchSplatDropTime )
-            size = 1.2 + (Random() * 1.5)
-            CurrentPosition = self:GetPosition(1)
-        end
-    end,
+    SplatTexture = 'czar_mark01_albedo',
+    ScorchSize = 1.5,
+
 }
 
 AAMicrowaveLaserCollisionBeam01 = Class(SCCollisionBeam) {
@@ -273,8 +162,7 @@ AAMicrowaveLaserCollisionBeam01 = Class(SCCollisionBeam) {
     FxBeamStartPoint = EffectTemplate.CMicrowaveLaserMuzzle01,
     FxBeam = {'/mods/BattlePack/effects/emitters/mini_microwave_laser_beam_01_emit.bp'},
     FxBeamEndPoint = EffectTemplate.CMicrowaveLaserEndPoint01,
-    SplatTexture = 'czar_mark01_albedo',
-    ScorchSplatDropTime = 0.25,
+
 }
 
 StarAdderLaserCollisionBeam02 = Class(SCCollisionBeam) {
@@ -312,45 +200,9 @@ WyvernLaserWeaponCollisionBeam = Class(SCCollisionBeam) {
 		'/effects/emitters/uef_orbital_death_laser_muzzle_05_emit.bp',	# big glow
     },
     FxBeamStartPointScale= 0.5,
+
     SplatTexture = 'czar_mark01_albedo',
-    ScorchSplatDropTime = 0.5,
+    ScorchSize = 3.5,
+    ScorchTime = 20,
 
-    OnImpact = function(self, impactType, targetEntity)
-        if impactType == 'Terrain' then
-            if self.Scorching == nil then
-                self.Scorching = self:ForkThread( self.ScorchThread )   
-            end
-        elseif not impactType == 'Unit' then
-            KillThread(self.Scorching)
-            self.Scorching = nil
-        end
-        CollisionBeam.OnImpact(self, impactType, targetEntity)
-    end,
-    
-    OnDisable = function( self )
-        CollisionBeam.OnDisable(self)
-        KillThread(self.Scorching)
-        self.Scorching = nil   
-    end,
-
-    ScorchThread = function(self)
-        local army = self:GetArmy()
-        local size = 3.5 + (Random() * 3.5) 
-        local CurrentPosition = self:GetPosition(1)
-        local LastPosition = Vector(0,0,0)
-        local skipCount = 1
-        while true do
-            if Util.GetDistanceBetweenTwoVectors( CurrentPosition, LastPosition ) > 0.25 or skipCount > 100 then
-                CreateSplat( CurrentPosition, Util.GetRandomFloat(0,2*math.pi), self.SplatTexture, size, size, 250, 15, army )
-                LastPosition = CurrentPosition
-                skipCount = 1
-            else
-                skipCount = skipCount + self.ScorchSplatDropTime
-            end
-                
-            WaitSeconds( self.ScorchSplatDropTime )
-            size = 3.2 + (Random() * 3.5)
-            CurrentPosition = self:GetPosition(1)
-        end
-    end,    
 }

@@ -2,7 +2,6 @@ local AStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
 local MiniPhasonLaser = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').MiniPhasonLaser
 
---local EffectUtils = import('/lua/effectutilities.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 local CreateAttachedEmitter = CreateAttachedEmitter

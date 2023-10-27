@@ -520,8 +520,8 @@ GoldenTurboLaserShot01FXTrail =  {
 -- Nova weapon
 NovaCannonHitUnit = {
 
-	EmtBpPathAlt .. 'nova_bomb_hit_02_emit.bp',#sparks
-    EmtBpPathAlt .. 'nova_light_artillery_hit_02_emit.bp',#t2 arty sparks
+	EmtBpPathAlt .. 'nova_bomb_hit_02_emit.bp',
+    EmtBpPathAlt .. 'nova_light_artillery_hit_02_emit.bp',
 
 }
 
