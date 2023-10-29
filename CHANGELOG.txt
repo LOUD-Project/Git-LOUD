@@ -1,4 +1,20 @@
 
+### Release 29-10-2023
+
+LUA 6.3.19
+Black Ops for LOUD 6.3.10
+Total Mayhem for LOUD 6.3.08
+Wyvern Battlepack for LOUD 6.3.03
+UNITS 6.3.15
+
+-- fixed issue with air wrecks not sinking on water
+-- addtional refinements to sinking effects to reduce particle usage
+-- some selection fixes 
+-- fixes for various weapons not targeting and/or shooting properly
+-- Beam weapons with scorch effects - got rid of custom scripts in TM, Wyvern and BO, reduced data sets
+-- reviewed CollisionBeams, better Trash handling, reduced data, weapon states, debug dialogs
+
+
 ### Release 21-10-2023
 
 LUA 6.3.18
