@@ -11,14 +11,16 @@ local ForkThread = ForkThread
 BRB2306 = Class(CRadarUnit) { 
 
 	ChargeEffects01 = {
-        '/mods/BlackOpsUnleashed/effects/emitters/manticore_charge_laser_flash_01_emit.bp',  #glow
-        '/mods/BlackOpsUnleashed/effects/emitters/manticore_charge_laser_muzzle_01_emit.bp',  # sparks
+        '/mods/BlackOpsUnleashed/effects/emitters/manticore_charge_laser_flash_01_emit.bp',
+        '/mods/BlackOpsUnleashed/effects/emitters/manticore_charge_laser_muzzle_01_emit.bp',
     },
 
     Weapons = {
-        Turret01 = Class(StunZapperWeapon) { 
+
+        LaserTurret = Class(StunZapperWeapon) { 
 			
-			#-- there is some interesting things going on here - for example - the Stun Weapon is fired whenever the main weapon fires
+			-- there is some interesting things going on here
+            -- for example - the Stun Weapon is only fired when the main weapon fires
             OnWeaponFired = function(self)
 			
             	StunZapperWeapon.OnWeaponFired(self)
@@ -40,12 +42,8 @@ BRB2306 = Class(CRadarUnit) {
 			
 				StunZapperWeapon.PlayFxRackSalvoChargeSequence(self, muzzle) 
 				
-            	local wep = self.unit:GetWeaponByLabel('Turret01')
+            	local wep = self.unit:GetWeaponByLabel('LaserTurret')
         		local bp = wep:GetBlueprint()
-				
-        		if bp.Audio.RackSalvoCharge then
-            		wep:PlaySound(bp.Audio.RackSalvoCharge)
-        		end
 				
         		if self.unit.ChargeEffects01Bag then
             		for k, v in self.unit.ChargeEffects01Bag do
@@ -93,7 +91,7 @@ BRB2306 = Class(CRadarUnit) {
 		
         StunWeapon = Class(CDFLaserHeavyWeapon){
 		
-			#-- right after firing the stun weapon turns itself off
+			-- after firing the stun weapon turns itself off
         	OnWeaponFired = function(self)
                 CDFLaserHeavyWeapon.OnWeaponFired(self)
 				self:SetWeaponEnabled(false)
@@ -102,9 +100,12 @@ BRB2306 = Class(CRadarUnit) {
     }, 
 	
     OnStopBeingBuilt = function(self,builder,layer)
+
         CRadarUnit.OnStopBeingBuilt(self,builder,layer)
+
 		self.BeamChargeEffects = {}
 		self.ChargeEffects01Bag = {}
+
 		self:SetWeaponEnabledByLabel('StunWeapon', false)
     end,
 

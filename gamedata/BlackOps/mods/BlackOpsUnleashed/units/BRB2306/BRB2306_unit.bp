@@ -1,7 +1,7 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {'Turret'},
+        TargetBones = {'Turret','BRB2306'},
     },
 	
     Audio = {
@@ -172,7 +172,7 @@ UnitBlueprint {
                     Cue = 'URL0402_Beam_Stop',
                     LodCutoff = 'Weapon_LodCutoff',
                 },
-                RackSalvoCharge = Sound {
+                ChargeStart = Sound {
                     Bank = 'URLWeapon',
                     Cue = 'URL0402_Beam_Charge',
                     LodCutoff = 'Weapon_LodCutoff',
@@ -202,7 +202,7 @@ UnitBlueprint {
 			
             FiringTolerance = 1.5,
 			
-            Label = 'Turret01',
+            Label = 'LaserTurret',
 			
             LeadTarget = false,
 			
@@ -218,12 +218,16 @@ UnitBlueprint {
                 },
             },
 
+            RackSalvoReloadTime = 5,
+
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 10,		---- Weapon Fires every 6 seconds causing 1650 damage (75 * 22) + 2 from stun weapon = 275 dps + stun effects
+            RateOfFire = 1,		---- Weapon Fires every 6 seconds causing 1650 damage (75 * 22) + 2 from stun weapon = 275 dps + stun effects
 			
-            TargetCheckInterval = 3,
+            TargetCheckInterval = 2,
+
             TargetRestrictDisallow = 'UNTARGETABLE',
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
@@ -238,8 +242,8 @@ UnitBlueprint {
             TurretDualManipulators = false,
             
             TurretPitch = 0,
-            TurretPitchRange = 180,
-            TurretPitchSpeed = 120,
+            TurretPitchRange = 75,
+            TurretPitchSpeed = 45,
             
             TurretYaw = 0,
             TurretYawRange = 360,
@@ -250,9 +254,8 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
-            AutoInitialAttackCommand = false,
+
             BallisticArc = 'RULEUBA_None',
-            CollideFriendly = false,
 			
             Buffs = {
                 {
@@ -260,7 +263,7 @@ UnitBlueprint {
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 1.5,
-                    Radius = 4,
+                    Radius = 3.5,
                     TargetAllow = 'ALLUNITS',
                     TargetDisallow = 'EXPERIMENTAL,COMMAND,SUBCOMMANDER,AIR,WALL,MISSILE',
                 },
@@ -289,7 +292,7 @@ UnitBlueprint {
 			
             MaxRadius = 60,
 			
-            MuzzleChargeDelay = 1.5,
+            MuzzleSalveDelay = 0.1,
 
             MuzzleVelocity = 180,
 			
@@ -305,29 +308,30 @@ UnitBlueprint {
                 },
             },
 
-            RateOfFire = 1,		---- This weapon is controlled by the script and is only turned on when the main weapon fires - then turned off again after it fires once
+            RateOfFire = 0.1,		---- This weapon is controlled by the script and is only turned on when the main weapon fires - then turned off again after it fires once
 			
-            TargetCheckInterval = 0.25,
+            TargetCheckInterval = 1,
+
             TargetRestrictDisallow = 'UNTARGETABLE',
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'ALLUNITS',
             },
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.0,
 
             TurretBoneMuzzle = 'Muzzle02',
             TurretBonePitch = 'Muzzle02',
             TurretBoneYaw = 'Muzzle02',
-            TurretDualManipulators = false,
             
             TurretPitch = 0,
-            TurretPitchRange = 360,
-            TurretPitchSpeed = 180,
+            TurretPitchRange = 75,
+            TurretPitchSpeed = 45,
             
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 50,
+            TurretYawSpeed = 45,
             
             Turreted = true,
         },
