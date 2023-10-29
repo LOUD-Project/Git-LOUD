@@ -292,7 +292,7 @@ UnitBlueprint {
                 'DEFENSE',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER','AIR',
             TrackingRadius = 1.2,
         },
         {
