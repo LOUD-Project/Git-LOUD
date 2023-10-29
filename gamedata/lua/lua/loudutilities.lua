@@ -5522,11 +5522,10 @@ function PickEnemy( self )
 	self.targetoveride = nil
 
     while true do
+
         AIPickEnemyLogic( self, true)
 
         WaitTicks(4801)	-- every 8 minutes
-        
-        LOG("*AI DEBUG "..self.Nickname.." reports memory used is "..(gcinfo()*1024) .. " bytes at time "..repr(GetGameTimeSeconds()))
         
     end
 end

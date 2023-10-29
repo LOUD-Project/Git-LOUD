@@ -3504,6 +3504,8 @@ SeaUnit = Class(MobileUnit) {
         local bp = __blueprints[self.BlueprintID]
         local army = self.Army
 
+        self:DestroyAllDamageEffects()
+
         if bp.Display.AnimationDeath then
 
             local sinkcount = 0
@@ -3558,8 +3560,6 @@ SeaUnit = Class(MobileUnit) {
 			self.DeathAnimManip = nil
 		end
 
-        self:DestroyAllDamageEffects()
-
         -- create wreckage prop but bypass final surface debris
         self:CreateWreckageProp( overkillRatio, nil, true )
 
@@ -3597,19 +3597,19 @@ SeaUnit = Class(MobileUnit) {
 		local Random = Random
 		local WaitTicks = coroutine.yield
 
-        CreateEmitterAtEntity(self,army,'/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp'):ScaleEmitter(rs)
-        CreateEmitterAtEntity(self,army,'/effects/emitters/destruction_underwater_explosion_splash_02_emit.bp'):ScaleEmitter(rs)
+
+        CreateEmitterAtEntity(self,army,'/effects/emitters/destruction_underwater_explosion_splash_02_emit.bp'):ScaleEmitter(rs*.66)
         
         for i = 1, LOUDFLOOR(Random(4,6)) do
 
             rx, ry, rz = GetRandomOffset( self, 1)
             rs = Random(vol * 0.5, vol*2) / (vol*2)
 
-            CreateEmitterAtEntity(self,army,'/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp'):OffsetEmitter( rx, -i/2, rz):ScaleEmitter(rs)
+            CreateEmitterAtEntity(self,army,'/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp'):OffsetEmitter( rx, -i/2, rz):ScaleEmitter(rs/i)
         
             WaitTicks( 2 + Random(1,2) )
 
-            CreateDefaultHitExplosionAtBone( self, LOUDFLOOR(Random() * (numBones + 1)), rs )  
+            CreateDefaultHitExplosionAtBone( self, LOUDFLOOR(Random() * (numBones + 1)), rs/i )  
 
             WaitTicks( 6 + Random(5,10) )
         end
@@ -3654,7 +3654,7 @@ SeaUnit = Class(MobileUnit) {
 
             else
 
-                CreateAttachedEmitter(self,-1,army,'/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):OffsetEmitter(rx, -i/2, rz):ScaleEmitter(rs)
+                CreateAttachedEmitter(self,-1,army,'/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):OffsetEmitter(rx, -i/2, rz):ScaleEmitter(rs/i)
 
             end
 
