@@ -218,28 +218,33 @@ DefaultProjectileWeapon = Class(Weapon) {
 		
         local bp = self.bp
 		
-        if not self.EconDrain and bp.EnergyRequired and bp.EnergyDrainPerSecond then
+        if not self.EconDrain then
+        
+            if bp.EnergyRequired and bp.EnergyDrainPerSecond then
 		
-			local function ChargeProgress( self, progress)
-				moho.unit_methods.SetWorkProgress( self, progress )
-			end
+                local function ChargeProgress( self, progress)
+                    moho.unit_methods.SetWorkProgress( self, progress )
+                end
 		
-            local nrgReq = self:GetWeaponEnergyRequired(bp)
-            local nrgDrain = self:GetWeaponEnergyDrain(bp)
+                local nrgReq = self:GetWeaponEnergyRequired(bp)
+                local nrgDrain = self:GetWeaponEnergyDrain(bp)
             
-            if nrgReq > 0 and nrgDrain > 0 then
+                if nrgReq > 0 and nrgDrain > 0 then
 
-                local chargetime = (nrgReq / nrgDrain) * 1.0001
+                    local chargetime = (nrgReq / nrgDrain) * 1.0001
                 
-                if chargetime < 0.2 then
-                    chargetime = 0.2
-                end
+                    if chargetime < 0.2 then
+                        chargetime = 0.2
+                    end
             
-                if ScenarioInfo.WeaponStateDialog then
-                    LOG("*AI DEBUG DefaultWeapon Start Economy Drain for "..repr(self.bp.Label).." -- Required "..nrgReq.." -- Rate "..nrgDrain.." -- Time "..repr(chargetime).." at "..GetGameTick() )
-                end
+                    if ScenarioInfo.WeaponStateDialog then
+                        LOG("*AI DEBUG DefaultWeapon Start Economy Drain for "..repr(self.bp.Label).." -- Required "..nrgReq.." -- Rate "..nrgDrain.." -- Time "..repr(chargetime).." at "..GetGameTick() )
+                    end
 
-                self.EconDrain = CreateEconomyEvent( self.unit, nrgReq, 0, chargetime - 0.100, ChargeProgress )
+                    self.EconDrain = CreateEconomyEvent( self.unit, nrgReq, 0, chargetime - 0.100, ChargeProgress )
+                    self.WeaponCharged = true
+                end
+            else
                 self.WeaponCharged = true
             end
         end
@@ -304,6 +309,10 @@ DefaultProjectileWeapon = Class(Weapon) {
 	
         local bp = blueprint or self.bp
         local unit = self.unit
+
+        if ScenarioInfo.WeaponStateDialog then
+            LOG("*AI DEBUG DefaultWeapon PlayFxRackSalvoChargeSequence "..repr(bp.Label).." at "..GetGameTick() )
+        end
 
         if self.FxRackChargeMuzzleFlash then
 
@@ -765,7 +774,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                 self:WaitForAndDestroyManips()
             end
 
-			if bp.EnergyRequired and bp.EnergyDrainPerSecond and not self.EconDrain then
+			if not self.EconDrain then
                 self:ForkThread( self.StartEconomyDrain )
 			end
    	     
@@ -1628,6 +1637,10 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
         end
 		
         if beam:IsEnabled() then return end
+
+        if ScenarioInfo.WeaponStateDialog then
+            LOG("*AI DEBUG DefaultWeapon BEAM PlayFxBeamStart "..repr(self.bp.Label).." at "..GetGameTick() )
+        end
 	
         local bp = self.bp
 
@@ -1669,7 +1682,11 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
     IdleState = State (DefaultProjectileWeapon.IdleState) {
 	
         Main = function(self)
-        
+
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon BEAM Idle State "..repr(self.bp.Label).." at "..GetGameTick() )
+			end
+       
             DefaultProjectileWeapon.IdleState.Main(self)
             
             self:PlayFxBeamEnd()
@@ -1682,6 +1699,10 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
 	
         Main = function(self)
 
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon BEAM Packing State "..repr(self.bp.Label).." at "..GetGameTick() )
+			end
+			
             if (self.bp.BeamLifetime > 0) then
                 self:PlayFxBeamEnd()
             else
@@ -1703,6 +1724,10 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
             if self.bp.Audio.BeamLoop and self.Beams[1].Beam then
                 self.Beams[1].Beam:SetAmbientSound(nil, nil)
             end
+
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon BEAM PlayFxBeamEnd "..repr(self.bp.Label).." at "..GetGameTick() )
+			end
 			
             if beam then
                 beam:Disable()
@@ -1752,7 +1777,11 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
     end,
     
     OnHaltFire = function(self)
-    
+
+        if ScenarioInfo.WeaponStateDialog then
+            LOG("*AI DEBUG DefaultWeapon BEAM OnHaltFire "..repr(self.bp.Label).." at "..GetGameTick() )
+        end
+			    
         for _,v in self.Beams do
 
             if not v.Beam:IsEnabled() then
@@ -1767,6 +1796,10 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
     RackSalvoFireReadyState = State (DefaultProjectileWeapon.RackSalvoFireReadyState) {
 
         Main = function(self)
+
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon BEAM Fire Ready State "..repr(self.bp.Label).." at "..GetGameTick() )
+			end
 
             if not self.WeaponCharged then
 

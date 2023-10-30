@@ -1,3 +1,9 @@
+### Release 30-10-2023
+
+LUA 6.3.19.1
+
+-- hotfix for beam weapons with no energy cost not firing
+
 
 ### Release 29-10-2023
 
