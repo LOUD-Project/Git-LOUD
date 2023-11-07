@@ -8,7 +8,7 @@ local SinglePolyTrailProjectile = import('/lua/sim/defaultprojectiles.lua').Sing
 local MultiPolyTrailProjectile = import('/lua/sim/defaultprojectiles.lua').MultiPolyTrailProjectile 
 local SingleCompositeEmitterProjectile = import('/lua/sim/defaultprojectiles.lua').SingleCompositeEmitterProjectile
 
-local NullShell = import('/lua/sim/defaultprojectiles.lua').NullShell
+local NullShells = import('/lua/sim/defaultprojectiles.lua').NullShell
 local DepthCharge = import('/lua/defaultantiprojectile.lua').DepthCharge
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
@@ -31,7 +31,9 @@ local LOUDCOS = math.cos
 
 local WaitTicks = coroutine.yield
 
-CIFProtonBombProjectile = Class(NullShell) {
+NullShell = Class(NullShells) {}
+
+CIFProtonBombProjectile = Class(NullShells) {
 
     FxImpactUnit = EffectTemplate.CProtonBombHit01,
     FxImpactProp = EffectTemplate.CProtonBombHit01,
@@ -179,7 +181,7 @@ CArtilleryProtonProjectile = Class(SinglePolyTrailProjectile) {
     FxImpactLand = EffectTemplate.CProtonArtilleryHit01,
 }
 
-CBeamProjectile = Class(NullShell) {
+CBeamProjectile = Class(NullShells) {
 
     FxUnitHitScale = 0.5,
     FxImpactUnit = EffectTemplate.CBeamHitUnit01,

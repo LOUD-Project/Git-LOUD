@@ -2,6 +2,7 @@
 ---  Default definitions of weapons
 
 local Weapon = import('/lua/sim/Weapon.lua').Weapon
+local WeaponOnCreate = Weapon.OnCreate
 
 local CollisionBeam = import('/lua/sim/CollisionBeam.lua').CollisionBeam
 local CalculateBallisticAcceleration = import('/lua/sim/CalcBallisticAcceleration.lua').CalculateBallisticAcceleration 
@@ -67,7 +68,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 
     OnCreate = function(self)
 	
-        Weapon.OnCreate(self)
+        WeaponOnCreate(self)
 
         self.WeaponCanFire = true
         self.CurrentRackNumber = 1

@@ -3,6 +3,7 @@
 --**  Summary  :  Default definitions collision beams
 
 local Entity = import('/lua/sim/Entity.lua').Entity
+local EntityOnCreate = Entity.OnCreate
 
 local LOUDENTITY = EntityCategoryContains
 local LOUDEMITONENTITY = CreateEmitterOnEntity
@@ -161,7 +162,7 @@ MissileDetector = Class(Entity) {
 
     OnCreate = function(self, spec)
 
-		Entity.OnCreate(self, spec)
+		EntityOnCreate(self, spec)
 
         self.Army = spec.Owner.Army
 		self.AttachBone = spec.AttachBone
@@ -284,7 +285,7 @@ MissileRedirect = Class(Entity) {
 
     OnCreate = function(self, spec)
 	
-        Entity.OnCreate(self, spec)
+        EntityOnCreate(self, spec)
 		
         self.Army = spec.Owner.Army
         self.Owner = spec.Owner
@@ -448,7 +449,7 @@ MissileTorpDestroy = Class(Entity) {
 
     OnCreate = function(self, spec)
 	
-        Entity.OnCreate(self, spec)
+        EntityOnCreate(self, spec)
 		
         self.Army = spec.Owner.Army
         self.Owner = spec.Owner
@@ -610,7 +611,8 @@ SeraLambdaFieldRedirector = Class(Entity) {
     LambdaEffects = {'/effects/emitters/seraphim_rift_in_small_01_emit.bp','/effects/emitters/seraphim_rift_in_small_02_emit.bp'},
 
     OnCreate = function(self, spec)
-        Entity.OnCreate(self, spec)
+
+        EntityOnCreate(self, spec)
         
         self.Army = spec.Owner.Army
         self.Owner = spec.Owner
@@ -793,7 +795,8 @@ SeraLambdaFieldDestroyer = Class(Entity) {
     LambdaEffects = {'/effects/emitters/seraphim_rift_in_small_01_emit.bp','/effects/emitters/seraphim_rift_in_small_02_emit.bp'},
     
     OnCreate = function(self, spec)
-        Entity.OnCreate(self, spec)
+
+        EntityOnCreate(self, spec)
         
         self.Army = GetArmy(self)
         self.Owner = spec.Owner

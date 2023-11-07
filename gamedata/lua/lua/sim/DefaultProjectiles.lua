@@ -2,6 +2,7 @@
 ---  Script for default projectiles
 
 local Projectile = import('/lua/sim/Projectile.lua').Projectile
+local ProjectileOnCreate = Projectile.OnCreate
 
 local LOUDEMITONENTITY = CreateEmitterOnEntity
 local LOUDBEAMEMITONENTITY = CreateBeamEmitterOnEntity
@@ -21,7 +22,7 @@ EmitterProjectile = Class(Projectile) {
 
     OnCreate = function(self)
 
-        Projectile.OnCreate(self)
+        ProjectileOnCreate(self)
         
         if self.FxTrails then
         
@@ -185,7 +186,7 @@ OnWaterEntryEmitterProjectile = Class(Projectile) {
 
     OnCreate = function(self, inWater)
 	
-        Projectile.OnCreate(self, inWater)
+        ProjectileOnCreate(self, inWater)
         
         local Army = self.Army
 		

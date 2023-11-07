@@ -674,8 +674,8 @@ InvisibleCollisionBeam = Class(moho.CollisionBeamEntity) {
         
         if data.Buffs then
             for k, v in data.Buffs do
-                if v.Add.OnImpact == true and not EntityCategoryContains((ParseEntityCategory(v.TargetDisallow) or ''), target)
-                    and EntityCategoryContains((ParseEntityCategory(v.TargetAllow) or categories.ALLUNITS), target) then
+                if v.Add.OnImpact == true and not EntityCategoryContains( v.TargetDisallow, target)
+                    and EntityCategoryContains( v.TargetAllow, target) then
 
                     target:AddBuff(v)
                 end

@@ -7,6 +7,7 @@ local ParseEntityCategory = ParseEntityCategory
 local LOUDCOPY = table.copy
 local LOUDFLOOR = math.floor
 local LOUDINSERT = table.insert
+local LOUDPARSE = ParseEntityCategory
 local LOUDREMOVE = table.remove
 
 local LOUDCREATEPROJECTILE = moho.weapon_methods.CreateProjectile
@@ -284,7 +285,7 @@ Weapon = Class(moho.weapon_methods) {
 		-- this only triggers when the unit itself is destroyed
 		-- but I don't see it all the time
 		if ScenarioInfo.WeaponDialog then
-			LOG("*AI DEBUG Weapon OnDestroy")
+			LOG("*AI DEBUG Weapon OnDestroy ")
 		end
 
         TrashDestroy(self.Trash)
@@ -508,8 +509,18 @@ Weapon = Class(moho.weapon_methods) {
 			self.damageTable.Buffs = {}
 			
             for k, v in weaponBlueprint.Buffs do
+                
+                if v.TargetAllow and type(v.TargetAllow) == 'string' then
+                    v.TargetAllow = LOUDPARSE(v.TargetAllow)
+                end
+                
+                if v.TargetDisallow and type(v.TargetDisallow) == 'string' then
+                    v.TargetDisallow = LOUDPARSE(v.TargetDisallow)
+                end
+                
                 self.damageTable.Buffs[k] = {}
                 self.damageTable.Buffs[k] = v
+
             end   
 			
         end     

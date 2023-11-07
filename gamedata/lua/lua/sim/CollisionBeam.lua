@@ -397,7 +397,7 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
 
         for k, v in data.Buffs do
 
-            if v.Add.OnImpact == true and not LOUDENTITY((LOUDPARSE(v.TargetDisallow) or ''), target) and LOUDENTITY((LOUDPARSE(v.TargetAllow) or categories.ALLUNITS), target) then
+            if v.Add.OnImpact == true and not LOUDENTITY( v.TargetDisallow, target ) and LOUDENTITY( v.TargetAllow, target ) then
 
                 target:AddBuff(v)
             end

@@ -1,6 +1,7 @@
 --**  File     :  /lua/unit.lua
 
 local Entity = import('/lua/sim/Entity.lua').Entity
+local EntityOnCreate = Entity.OnCreate
 
 local CreateWreckageEffects = import('/lua/defaultexplosions.lua').CreateWreckageEffects
 local CreateScalableUnitExplosion = import('/lua/defaultexplosions.lua').CreateScalableUnitExplosion
@@ -297,7 +298,7 @@ Unit = Class(moho.unit_methods) {
 
     OnCreate = function(self)
 
-        Entity.OnCreate(self)
+        EntityOnCreate(self)
         
         local aiBrain = GetAIBrain(self)
         
@@ -4250,26 +4251,27 @@ Unit = Class(moho.unit_methods) {
 	-- was made from before you can follow the flow
 
 	-- the allow and disallow parsing has turned out to be problematic as well needing to be seperated by commas
-	-- and not seeming to recognize the '-' (minus) operator
+	-- and not seeming to recognize the '-' (minus) operator -- Nov 2023 - I parse the buff allow and disallow categories
+    -- when the weapon is created - so it doesn't need to be evaluated on the fly - repeatedly
     AddBuff = function(self, buffTable, PosEntity)
     
         local GetHealth = GetHealth
 	
         local bt = buffTable.BuffType
 
-        local allow = categories.ALLUNITS
-		
-        if buffTable.TargetAllow then
-            allow = LOUDPARSE(buffTable.TargetAllow)
-        end
-		
-        local disallow = false
-		
-        if buffTable.TargetDisallow then
-			disallow = LOUDPARSE(buffTable.TargetDisallow)
-        end
-
         if bt == 'STUN' then
+
+            local allow = categories.ALLUNITS
+
+            if buffTable.TargetAllow then
+                allow = buffTable.TargetAllow
+            end
+		
+            local disallow = false
+		
+            if buffTable.TargetDisallow then
+                disallow = buffTable.TargetDisallow
+            end
 
 			if buffTable.Radius and buffTable.Radius > 0 then
                 --if the radius is bigger than 0 then we will either use the provided position as the center of the stun blast
