@@ -490,9 +490,9 @@ Weapon = Class(moho.weapon_methods) {
 			self.damageTable.ProjectileLifetime = self.ProjectileLifetime
 			self.damageTable.TrackingRadius = self.TrackingRadius
             
-            if weaponBlueprint.TargetType == 'RULEWTT_Projectile' then
+            --if weaponBlueprint.TargetType == 'RULEWTT_Projectile' then
                 self.damageTable.TrackingWeapon = self
-            end
+            --end
 		end
 		
 		if weaponBlueprint.ArtilleryShieldBlocks then
