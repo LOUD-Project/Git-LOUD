@@ -836,7 +836,7 @@ ERL0001 = Class(CWalkingLandUnit) {
 
 				self:SetWeaponEnabledByLabel('EXEMPArray01', true)
    
-   local radius = __blueprints[self.BlueprintID].Weapon[14].MaxRadius
+                local radius = __blueprints[self.BlueprintID].Weapon[14].MaxRadius
 
 				wep = self:GetWeaponByLabel('EXEMPArray01')
                 wep:ChangeMaxRadius(radius)
@@ -859,7 +859,7 @@ ERL0001 = Class(CWalkingLandUnit) {
 
 				self:SetWeaponEnabledByLabel('EXEMPArray01', true)
    
-   local radius = __blueprints[self.BlueprintID].Weapon[15].MaxRadius
+                local radius = __blueprints[self.BlueprintID].Weapon[15].MaxRadius
 
 				wep = self:GetWeaponByLabel('EXEMPArray01')
                 wep:ChangeMaxRadius(radius)
@@ -882,7 +882,7 @@ ERL0001 = Class(CWalkingLandUnit) {
 
 				self:SetWeaponEnabledByLabel('EXEMPArray01', true)
    
-   local radius = __blueprints[self.BlueprintID].Weapon[16].MaxRadius
+                local radius = __blueprints[self.BlueprintID].Weapon[16].MaxRadius
 
 				wep = self:GetWeaponByLabel('EXEMPArray01')
                 wep:ChangeMaxRadius(radius)

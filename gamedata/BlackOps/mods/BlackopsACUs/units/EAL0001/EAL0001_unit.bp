@@ -1513,8 +1513,6 @@ UnitBlueprint {
 	
     Weapon = {
         {
-            AboveWaterFireOnly = true,
-            AboveWaterTargetsOnly = true,
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0.1,
