@@ -605,26 +605,6 @@ URL0001 = Class(CWalkingLandUnit) {
             self:SetMaintenanceConsumptionInactive()
         end          
     end,
-
-    OnKilled = function(self, instigator, type, overkillRatio)
-    
-        local bp
-        
-        for k, v in self:GetBlueprint().Buffs do
-            if v.Add.OnDeath then
-                bp = v
-            end
-        end 
-        
-        --if we could find a blueprint with v.Add.OnDeath, then add the buff 
-        if bp != nil then 
-            --Apply Buff
-			self:AddBuff(bp)
-        end
-        
-        --otherwise, we should finish killing the unit
-        CWalkingLandUnit.OnKilled(self, instigator, type, overkillRatio)
-    end,
     
     OnPaused = function(self)
     

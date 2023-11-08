@@ -960,12 +960,17 @@ UnitBlueprint {
             DamageRadius = 0,
             DamageType = 'Deathnuke',
             DisplayName = 'Death Nuke',
+
             FireOnDeath = true,
+
             FiringTolerance = 2,
+
             Label = 'DeathWeapon',
+
             MaxRadius = 1,
 
             MuzzleVelocity = 0,
+
             NukeInnerRingDamage = 45000,
             NukeInnerRingRadius = 30,
             NukeInnerRingTicks = 24,

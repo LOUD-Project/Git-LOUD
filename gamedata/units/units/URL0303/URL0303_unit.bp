@@ -352,50 +352,19 @@ UnitBlueprint {
             UseFiringSolutionInsteadOfAimBone = true,
         },
         {
-            AboveWaterTargetsOnly = true,
-
-            BallisticArc = 'RULEUBA_None',
-			
-            CollideFriendly = false,
-			
-            Damage = 1,
-            DamageFriendly = false,
-            DamageRadius = 10,
-            DamageType = 'Normal',
-			
-            DisplayName = 'EMP',
-			
-            FireTargetLayerCapsTable = {
-                Land = 'Air|Land|Seabed|Water',
-                Water = 'Air|Land|Water',
+            Buffs = {
+                BuffType = 'STUN',
+                Duration = 2.5,
+                Radius = 10,
+                TargetAllow = 'MOBILE',
+                TargetDisallow = 'EXPERIMENTAL,COMMAND,AIR',
             },
 			
-            FiringTolerance = 2,
-			
-            IgnoreIfDisabled = true,
-			
-            Label = 'EMP',
-			
-            MaxRadius = 3,
+            Damage = 0,
+            DummyWeapon = true,
 
-            MuzzleVelocity = 0,
-
-            ProjectileId = '/projectiles/CIFEMP01/CIFEMP01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.15,
-
-            RackBones = {
-                {
-                    MuzzleBones = {0},
-                    RackBone = 0,
-                },
-            },
-
-            RateOfFire = 0.5,
-
-            SlavedToBody = true,
-            
-            TargetCheckInterval = 1,
-            TargetRestrictDisallow = 'UNTARGETABLE, AIR',
+            Label = 'DeathWeapon',
+            WeaponCategory = 'Death',
         },
     },
     
