@@ -1681,13 +1681,10 @@ Unit = Class(moho.unit_methods) {
     OnKilled = function(self, instigator, deathtype, overkillRatio)
 
         --LOG("*AI DEBUG UNIT "..self.EntityID.." OnKilled "..self.BlueprintID)
-        
-		self:PlayUnitSound('Killed')
 
-        if LOUDENTITY(FACTORY, self) then
+        if self.UnitBeingBuilt and LOUDENTITY(FACTORY, self) then
 		
-            if self.UnitBeingBuilt and not self.UnitBeingBuilt.Dead and GetFractionComplete(self.UnitBeingBuilt) < 1 then
-			
+            if  not self.UnitBeingBuilt.Dead and GetFractionComplete(self.UnitBeingBuilt) < 1 then
                 Kill( self.UnitBeingBuilt)
             end
         end
@@ -1701,63 +1698,49 @@ Unit = Class(moho.unit_methods) {
 			end
         end
 
-        if self.PlayDeathAnimation then 
-		
-			if not self:IsBeingBuilt() then
-			
-			    self:ForkThread(self.PlayAnimationThread, 'AnimationDeath')
-				
-				self:SetCollisionShape('None')
-			end
+        if not self:IsBeingBuilt() then
+
+            if self.DeathWeaponEnabled != false then
+                self:DoDeathWeapon()
+            end
+
+            if self.PlayDeathAnimation then 
+                self:ForkThread(self.PlayAnimationThread, 'AnimationDeath')
+                self:SetCollisionShape('None')
+            end
         end
+        
+		self:PlayUnitSound('Killed')
 		
 		self:DoUnitCallbacks( 'OnKilled' )
 		
 		if self.TopSpeedEffectsBag then
-		
 			self:DestroyTopSpeedEffects()
 		end
 		
 		if self.BeamExhaustEffectsBag then
-		
 		    self:DestroyBeamExhaust()
 		end
 		
 		if self.BuildEffectsBag then
-		
 			TrashDestroy(self.BuildEffectsBag)
-            
 			self.BuildEffectsBag = nil
 		end
 
         if self.UnitBeingTeleported and not self.UnitBeingTeleported.Dead then
-		
             self.UnitBeingTeleported:Destroy()
             self.UnitBeingTeleported = nil
         end
 
         -- Notify instigator that you killed me - do not grant kills for walls
-		if not LOUDENTITY(WALL, self) then
+		if instigator then
 
-			if instigator and IsUnit(instigator) then
-				instigator:ForkThread( instigator.OnKilledUnit, self )
-			end
-            
-		else
-		
-			-- remove the kill before the instigator has a chance to test veterancy
-			--if instigator and IsUnit(instigator) then
-			
-				--local kills = instigator:GetStat('KILLS', 0).Value
-				
-				--instigator:SetStat('KILLS', kills - 1)
-			--end
+            if not LOUDENTITY(WALL, self) then
+                if IsUnit(instigator) then
+                    instigator:ForkThread( instigator.OnKilledUnit, self )
+                end
+            end
 		end
-		
-        if self.DeathWeaponEnabled != false then
-		
-            self:DoDeathWeapon()
-        end
 		
         self:DisableShield()
         self:DisableUnitIntel()
@@ -1765,6 +1748,51 @@ Unit = Class(moho.unit_methods) {
         if not self.Impact then
             self:ForkThread(self.DeathThread, overkillRatio, instigator)
         end
+    end,
+
+    DoDeathWeapon = function(self)
+
+        local weapons = ALLBPS[self.BlueprintID].Weapon or {}
+		
+        for _, v in weapons do
+		
+            if (v.Label == 'DeathWeapon') then
+
+                if v.FireOnDeath == true then
+				
+                    self:SetWeaponEnabledByLabel('DeathWeapon', true)
+                    self:GetWeaponByLabel('DeathWeapon'):Fire()
+
+                else
+
+                    if v.Damage > 0 and v.DamageRadius > 0 then
+                        self:ForkThread(self.DeathWeaponDamageThread, v.DamageRadius, v.Damage, v.DamageType, v.DamageFriendly)
+                    end
+                end
+                
+                if v.Buffs then
+                
+                    local Buff = v.Buffs
+                    
+                    if type(Buff.TargetAllow) == 'string' then
+                        Buff.TargetAllow = LOUDPARSE(Buff.TargetAllow)
+                        Buff.TargetDisallow = LOUDPARSE(Buff.TargetDisallow)
+                    end
+                    
+                    --LOG("*AI DEBUG DeathWeapon Buff is "..repr(Buff))
+                    
+					self:AddBuff( Buff, self:GetCachePosition() )
+                end
+            end
+        end
+		
+    end,
+
+    DeathWeaponDamageThread = function( self , damageRadius, damage, damageType, damageFriendly)
+	
+        WaitTicks(1)
+		
+        DamageArea(self, self:GetPosition(), damageRadius or 1, damage, damageType or 'Normal', damageFriendly or false)
     end,
 	
     PlayAnimationThread = function(self, anim, rate)
@@ -1776,7 +1804,6 @@ Unit = Class(moho.unit_methods) {
             local animBlock = self:ChooseAnimBlock( bp.Display[anim] )
 			
             if animBlock.Mesh then
-			
                 SetMesh(self,animBlock.Mesh)
             end
 			
@@ -1787,7 +1814,6 @@ Unit = Class(moho.unit_methods) {
                 if animBlock.AnimationRateMax and animBlock.AnimationRateMin then
 				
                     rate = Random(animBlock.AnimationRateMin * 10, animBlock.AnimationRateMax * 10) / 10
-					
                 end
         
                 --LOG("*AI DEBUG UNIT "..self.EntityID.." Play Animation "..repr(anim).." for "..repr(self.BlueprintID).." rate is "..rate )
@@ -1815,12 +1841,12 @@ Unit = Class(moho.unit_methods) {
     end,
 
     DeathThread = function( self, overkillRatio, instigator)
-    
-        --LOG("*AI DEBUG UNIT "..self.EntityID.." DeathThread begins "..self.BlueprintID)
 
         if self.DeathAnimManip then
 			WaitFor(self.DeathAnimManip)
 		end
+    
+        --LOG("*AI DEBUG UNIT "..self.EntityID.." DeathThread begins "..self.BlueprintID)
 		
 		self:PlayUnitSound('Destroyed')		
 		
@@ -1834,8 +1860,6 @@ Unit = Class(moho.unit_methods) {
 		if Sync.SimData.SimSpeed > -1 then
 		
 			if self.PlayDestructionEffects then
-		
-				--CreateScalableUnitExplosion( self,overkillRatio )	
 				self:CreateDestructionEffects( overkillRatio )
 			end
         
@@ -1855,11 +1879,147 @@ Unit = Class(moho.unit_methods) {
         
         --LOG("*AI DEBUG UNIT "..self.EntityID.." Waiting for DeathThread Destruction time "..repr(self.DeathThreadDestructionWaitTime).." for "..self.BlueprintID )
 
-        WaitTicks((self.DeathThreadDestructionWaitTime or 0.1) * 10)
+        WaitTicks( (self.DeathThreadDestructionWaitTime or 0.1) * 10 )
 
         self:Destroy()
 
         --LOG("*AI DEBUG UNIT "..self.EntityID.." DeathThread Destruction time ends "..self.BlueprintID)        
+    end,
+
+	-- this call can be made in two ways - one with a PosEntity value and one without
+	-- and self can either be a target unit or the origin unit of the buff
+	-- this makes it very flexible but tricky to read and you need to know where the call
+	-- was made from before you can follow the flow
+
+	-- the allow and disallow parsing has turned out to be problematic as well needing to be seperated by commas
+	-- and not seeming to recognize the '-' (minus) operator -- Nov 2023 - I parse the buff allow and disallow categories
+    -- when the weapon is created - so it doesn't need to be evaluated on the fly - repeatedly
+    -- NOTE: DeathWeapons are usually 'dummy' weapons and don't get created like other weapons, I'll have to parse them elsewhere
+    AddBuff = function(self, buffTable, PosEntity)
+    
+        local GetHealth = GetHealth
+	
+        local bt = buffTable.BuffType
+
+        if bt == 'STUN' then
+
+            local allow = categories.ALLUNITS
+
+            if buffTable.TargetAllow then
+                allow = buffTable.TargetAllow
+            end
+		
+            local disallow = false
+		
+            if buffTable.TargetDisallow then
+                disallow = buffTable.TargetDisallow
+            end
+
+			if buffTable.Radius and buffTable.Radius > 0 then
+                --if the radius is bigger than 0 then we will either use the provided position as the center of the stun blast
+				--or if not provided, the self unit's position -- note -- self must be a friendly entity if you want to 
+                --collect all enemy targets from that point -- we'd never want to STUN friendly units
+                local targets = false
+				
+                if PosEntity then
+				
+                    targets = GetEnemyUnitsInSphere(self, PosEntity, buffTable.Radius)
+					
+                else
+
+                    targets = GetEnemyUnitsInSphere(self, self:GetPosition(), buffTable.Radius)
+					
+                end
+				
+				if not targets then return end
+				
+                for k, v in EntityCategoryFilterDown( allow, targets ) do
+			
+                    if (not disallow) or (not LOUDENTITY( disallow, v)) then
+
+                        v:SetStunned(buffTable.Duration or 1)
+                    end
+                end
+				
+            else
+			
+                --The buff will be applied to the unit
+                if LOUDENTITY( allow, self) and (not disallow or not LOUDENTITY( disallow, self)) then
+				
+					self:SetStunned(buffTable.Duration or 1)
+                end
+            end
+			
+        elseif bt == 'MAXHEALTH' then
+		
+            self:SetMaxHealth(self:GetMaxHealth() + (buffTable.Value or 0))
+			
+        elseif bt == 'HEALTH' then
+		
+            SetHealth( self, self, GetHealth(self) + (buffTable.Value or 0))
+			
+        elseif bt == 'SPEEDMULT' then
+		
+            self:SetSpeedMult(buffTable.Value or 0)
+			
+        elseif bt == 'MAXFUEL' then
+		
+            self:SetFuelUseTime(buffTable.Value or 0)
+			
+        elseif bt == 'FUELRATIO' then
+		
+            self:SetFuelRatio(buffTable.Value or 0)
+			
+        elseif bt == 'HEALTHREGENRATE' then
+		
+            self:SetRegenRate(buffTable.Value or 0)
+            
+            self.CurrentRegenRate = val
+			
+        end
+
+    end,
+
+    AddWeaponBuff = function(self, buffTable, weapon)
+	
+        local bt = buffTable.BuffType
+		
+        if not bt then
+		
+            error('*ERROR: Tried to add a weapon buff in unit.lua but got no buff table.  Wierd.', 1)
+            return
+        end
+		
+        if bt == 'RATEOFFIRE' then
+		
+            weapon:ChangeRateOfFire(buffTable.Value or 1)
+			
+        elseif bt == 'TURRETYAWSPEED' then
+		
+            weapon:SetTurretYawSpeed(buffTable.Value or 0)
+			
+        elseif bt == 'TURRETPITCHSPEED' then
+		
+            weapon:SetTurretPitchSpeed(buffTable.Value or 0)
+			
+        elseif bt == 'DAMAGE' then
+		
+            weapon:AddDamageMod(buffTable.Value or 0)
+			
+        elseif bt == 'MAXRADIUS' then
+		
+            weapon:ChangeMaxRadius(buffTable.Value or weapon.bp.MaxRadius)
+			
+        elseif bt == 'FIRINGRANDOMNESS' then
+		
+            weapon:SetFiringRandomness(buffTable.Value or 0)
+			
+        else
+		
+            self:AddBuff(buffTable)
+			
+        end
+		
     end,
 
     CreateWreckage = function( self, overkillRatio )
@@ -1954,53 +2114,12 @@ Unit = Class(moho.unit_methods) {
 			self:CheckVeteranLevel()
 		end
     end,
-
-    DoDeathWeapon = function(self)
-	
-        if self:IsBeingBuilt() then
-		
-			return
-		end
-		
-        local weapons = ALLBPS[self.BlueprintID].Weapon or {}
-		
-        for _, v in weapons do
-		
-            if (v.Label == 'DeathWeapon') then
-
-                if v.FireOnDeath == true then
-				
-                    self:SetWeaponEnabledByLabel('DeathWeapon', true)
-                    self:GetWeaponByLabel('DeathWeapon'):Fire()
-					
-                else
-				
-                    self:ForkThread(self.DeathWeaponDamageThread, v.DamageRadius, v.Damage, v.DamageType, v.DamageFriendly)
-					
-                end
-				
-                break
-				
-            end
-			
-        end
-		
-    end,
-
-    DeathWeaponDamageThread = function( self , damageRadius, damage, damageType, damageFriendly)
-	
-        WaitTicks(1)
-		
-        DamageArea(self, self:GetPosition(), damageRadius or 1, damage or 1, damageType or 'Normal', damageFriendly or false)
-		
-    end,
 	
     OnCollisionCheck = function(self, other, firingWeapon)
 
         if self.DisallowCollisions then
 		
             return false
-			
         end
 		
 		-- for rail guns from 4DC credit Resin_Smoker
@@ -2034,9 +2153,7 @@ Unit = Class(moho.unit_methods) {
 				if not other.DamageData.CollideFriendly then
 				
 					return false
-					
 				end
-				
             end
 			
         end
@@ -2048,11 +2165,8 @@ Unit = Class(moho.unit_methods) {
 			for _,v in DNCList do
 			
 				if LOUDENTITY(LOUDPARSE(v), self) then
-				
 					return false
-					
 				end
-				
 			end
 			
 		end
@@ -2064,11 +2178,8 @@ Unit = Class(moho.unit_methods) {
 			for _,v in DNCList do
 			
 				if LOUDENTITY(LOUDPARSE(v), other) then
-				
 					return false
-					
 				end
-				
 			end
 			
 		end
@@ -2092,9 +2203,7 @@ Unit = Class(moho.unit_methods) {
 				
                     -- Returning false allows the projectile to pass thru
                     return false
-					
                 end
-				
             end
 			
         end
@@ -2103,10 +2212,8 @@ Unit = Class(moho.unit_methods) {
 		-- essentially the railgun never registers a hit
 		-- the projectile just carries thru to hit additional targets
 		if other.DamageData.DamageType == 'Railgun' then
-		
 			other.LastImpact = self.EntityID
-
-		end
+        end
 
         return true
 		
@@ -4244,141 +4351,6 @@ Unit = Class(moho.unit_methods) {
         end,
 		
     },
-
-	-- this call can be made in two ways - one with a PosEntity value and one without
-	-- and self can either be a target unit or the origin unit of the buff
-	-- this makes it very flexible but tricky to read and you need to know where the call
-	-- was made from before you can follow the flow
-
-	-- the allow and disallow parsing has turned out to be problematic as well needing to be seperated by commas
-	-- and not seeming to recognize the '-' (minus) operator -- Nov 2023 - I parse the buff allow and disallow categories
-    -- when the weapon is created - so it doesn't need to be evaluated on the fly - repeatedly
-    AddBuff = function(self, buffTable, PosEntity)
-    
-        local GetHealth = GetHealth
-	
-        local bt = buffTable.BuffType
-
-        if bt == 'STUN' then
-
-            local allow = categories.ALLUNITS
-
-            if buffTable.TargetAllow then
-                allow = buffTable.TargetAllow
-            end
-		
-            local disallow = false
-		
-            if buffTable.TargetDisallow then
-                disallow = buffTable.TargetDisallow
-            end
-
-			if buffTable.Radius and buffTable.Radius > 0 then
-                --if the radius is bigger than 0 then we will either use the provided position as the center of the stun blast
-				--or if not provided, the self unit's position -- note -- self must be a friendly entity if you want to 
-                --collect all enemy targets from that point -- we'd never want to STUN friendly units
-                local targets = false
-				
-                if PosEntity then
-				
-                    targets = GetEnemyUnitsInSphere(self, PosEntity, buffTable.Radius)
-					
-                else
-				
-                    targets = GetEnemyUnitsInSphere(self, self:GetPosition(), buffTable.Radius)
-					
-                end
-				
-				if not targets then return end
-				
-                for k, v in EntityCategoryFilterDown( allow, targets ) do
-			
-                    if (not disallow) or (not LOUDENTITY( disallow, v)) then
-
-                        v:SetStunned(buffTable.Duration or 1)
-                    end
-                end
-				
-            else
-			
-                --The buff will be applied to the unit
-                if LOUDENTITY( allow, self) and (not disallow or not LOUDENTITY( disallow, self)) then
-				
-					self:SetStunned(buffTable.Duration or 1)
-                end
-            end
-			
-        elseif bt == 'MAXHEALTH' then
-		
-            self:SetMaxHealth(self:GetMaxHealth() + (buffTable.Value or 0))
-			
-        elseif bt == 'HEALTH' then
-		
-            SetHealth( self, self, GetHealth(self) + (buffTable.Value or 0))
-			
-        elseif bt == 'SPEEDMULT' then
-		
-            self:SetSpeedMult(buffTable.Value or 0)
-			
-        elseif bt == 'MAXFUEL' then
-		
-            self:SetFuelUseTime(buffTable.Value or 0)
-			
-        elseif bt == 'FUELRATIO' then
-		
-            self:SetFuelRatio(buffTable.Value or 0)
-			
-        elseif bt == 'HEALTHREGENRATE' then
-		
-            self:SetRegenRate(buffTable.Value or 0)
-            
-            self.CurrentRegenRate = val
-			
-        end
-
-    end,
-
-    AddWeaponBuff = function(self, buffTable, weapon)
-	
-        local bt = buffTable.BuffType
-		
-        if not bt then
-		
-            error('*ERROR: Tried to add a weapon buff in unit.lua but got no buff table.  Wierd.', 1)
-            return
-        end
-		
-        if bt == 'RATEOFFIRE' then
-		
-            weapon:ChangeRateOfFire(buffTable.Value or 1)
-			
-        elseif bt == 'TURRETYAWSPEED' then
-		
-            weapon:SetTurretYawSpeed(buffTable.Value or 0)
-			
-        elseif bt == 'TURRETPITCHSPEED' then
-		
-            weapon:SetTurretPitchSpeed(buffTable.Value or 0)
-			
-        elseif bt == 'DAMAGE' then
-		
-            weapon:AddDamageMod(buffTable.Value or 0)
-			
-        elseif bt == 'MAXRADIUS' then
-		
-            weapon:ChangeMaxRadius(buffTable.Value or weapon.bp.MaxRadius)
-			
-        elseif bt == 'FIRINGRANDOMNESS' then
-		
-            weapon:SetFiringRandomness(buffTable.Value or 0)
-			
-        else
-		
-            self:AddBuff(buffTable)
-			
-        end
-		
-    end,
     
     -- This function should be used for kills made through the script, since kills through the engine (projectiles etc...) are already counted.
     AddKills = function(self, numKills)
