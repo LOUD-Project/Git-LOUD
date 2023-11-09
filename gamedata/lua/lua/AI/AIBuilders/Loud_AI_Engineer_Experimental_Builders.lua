@@ -208,7 +208,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 150, 1.02, 1.03 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2.75, 120, 1.02, 1.0275 }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -386,7 +386,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction - Expansions',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 150, 1.02, 1.03 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2.75, 120, 1.02, 1.0275 }},
         },
 		
         BuilderType = { 'SubCommander' },

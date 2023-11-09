@@ -58,7 +58,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 75, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
 
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, (categories.STRATEGIC * categories.ARTILLERY * categories.STRUCTURE) - categories.TECH2 }},
 
@@ -108,7 +108,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 150, 1.02, 1.03 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2.75, 120, 1.02, 1.0275 }},
 
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 3, categories.ueb2401 + categories.xab2307 + categories.url0401 + categories.xsb2401 }},
         },
@@ -156,7 +156,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction - Expansions',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 75, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
 
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, (categories.STRATEGIC * categories.ARTILLERY * categories.STRUCTURE) - categories.TECH2 }},
 
@@ -205,7 +205,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction - Expansions',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 150, 1.02, 1.03 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2.75, 120, 1.02, 1.0275 }},
 
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 3, categories.ueb2401 + categories.xab2307 + categories.url0401 + categories.xsb2401 }},
         },
