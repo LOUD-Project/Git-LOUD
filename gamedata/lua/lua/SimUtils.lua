@@ -67,9 +67,9 @@ function TransferUnitsOwnership(units, ToArmyIndex)
         local unitId = unit.BlueprintID
 		
         -- B E F O R E
-        local numNukes = unit:GetNukeSiloAmmoCount()  #looks like one of these 2 works for SMDs also
+        local numNukes = unit:GetNukeSiloAmmoCount()  -- looks like one of these 2 works for SMDs also
         local numTacMsl = unit:GetTacticalSiloAmmoCount()
-        local unitKills = unit:GetStat('KILLS', 0).Value   #also takes care of the veteran level
+        local unitKills = unit:GetStat('KILLS', 0).Value   -- also takes care of the veteran level
         local unitHealth = unit:GetHealth()
 
 		local shieldIsOn = false
@@ -116,7 +116,7 @@ function TransferUnitsOwnership(units, ToArmyIndex)
         table.insert(newUnits, unit)
 
         -- A F T E R
-        if unitKills and unitKills > 0 then # set veterancy first
+        if unitKills and unitKills > 0 then -- set veterancy first
             unit:AddKills( unitKills )
         end
 		

@@ -24,7 +24,7 @@ end
 
 function GetEnemyUnitsInSphere(unit, position, radius)
 
-	local UnitsinRec = GetUnitsInRect( Rect(position.x - radius, position.z - radius, position.x + radius, position.z + radius) )
+	local UnitsinRec = GetUnitsInRect( Rect(position[1] - radius, position[3] - radius, position[1] + radius, position[3] + radius) )
 	
 	--Check for empty rectangle
 	if not UnitsinRec then

@@ -65,11 +65,7 @@ ADFTractorClaw = Class(DefaultBeamWeapon) {
         local target = GetCurrentTarget(self)
 
         if not target or
-            --EntityCategoryContains(categories.STRUCTURE, target) or
-            --EntityCategoryContains(categories.COMMAND, target) or
-            --EntityCategoryContains(categories.EXPERIMENTAL, target) or
-            --EntityCategoryContains(categories.NAVAL, target) or
-            --EntityCategoryContains(categories.SUBCOMMANDER, target) or
+
             EntityCategoryContains( TARGETS, target ) or
             
             not EntityCategoryContains(categories.ALLUNITS, target) then
