@@ -35,10 +35,10 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 35,
-        Health = 60,
-        MaxHealth = 60,
-        RegenRate = 1,
+        EconomyThreatLevel = 32 + 42,   -- Radar *.1 + Omni *.3
+        Health = 95,
+        MaxHealth = 95,
+        RegenRate = 2,
     },
 
     Description = '<LOC uab3104_desc>Omni Sensor Array',
@@ -96,7 +96,7 @@ UnitBlueprint {
     Intel = {
         OmniRadius = 140,
         RadarRadius = 325,
-        ReactivateTime = 5,
+        ReactivateTime = 12,
         ShowIntelOnSelect = true,
         VisionRadius = 46,
     },
