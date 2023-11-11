@@ -186,8 +186,7 @@ UnitBlueprint {
     Weapon = {
         {
 			AboveWaterFireOnly = true,		
-            AboveWaterTargetsOnly = true,
-			AutoInitiateAttackCommand = true,			
+            AboveWaterTargetsOnly = true,			
 
             Audio = {
                 Fire = Sound {
