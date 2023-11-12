@@ -245,11 +245,11 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            BallisticArc = 'RULEUBA_LowArc',
+            BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
             Damage = 200,
-            DamageType = 'ShieldMult1.5',
+            DamageType = 'ShieldMult1.2',
 			
             DisplayName = 'Meson Rocket',
 			
@@ -258,7 +258,7 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-			FiringRandomness = 0.4,
+			FiringRandomness = 0.5,
             FiringTolerance = 1.1,
 			
             Label = 'Rocket',
@@ -266,7 +266,7 @@ UnitBlueprint {
 			
             MaxRadius = 32,
 
-            MuzzleVelocity = 16,
+            MuzzleVelocity = 10,
             MuzzleVelocityReduceDistance = 2,
 			
             ProjectileId = '/projectiles/CDFRocketMeson01/CDFRocketMeson01_proj.bp',
@@ -278,8 +278,6 @@ UnitBlueprint {
                     RackBone = 'Turret02',
                 },
             },
-
-            RackRecoilDistance = -0.4,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -295,8 +293,8 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.1,
 			
-            TurretBoneMuzzle = 'Turret02_Muzzle',
-            TurretBonePitch = 'Turret02',
+            TurretBoneMuzzle = 'Turret03_Muzzle',
+            TurretBonePitch = 'Turret03_Muzzle',
             TurretBoneYaw = 'Turret02',
 
             TurretPitch = 0,
@@ -328,7 +326,7 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Seabed = 'Seabed|Sub|Water',
             },
-            FiringTolerance = 2,
+            FiringTolerance = 30,
 
             Label = 'Torpedo',
 			
@@ -360,19 +358,19 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
             TrackingRadius = 1.1,
 			
-            TurretBoneMuzzle = 'Turret02_Muzzle',
-            TurretBonePitch = 'Turret02',
+            TurretBoneMuzzle = 'Turret03_Muzzle',
+            TurretBonePitch = 'Turret03_Muzzle',
             TurretBoneYaw = 'Turret02',
 			
-            TurretPitch = 20,
-            TurretPitchRange = 30,
-            TurretPitchSpeed = 70,
+            TurretPitch = 0,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 35,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 40,
+            TurretYawSpeed = 37,
 			
-            Turreted = true,
+            Turreted = false,
         },
     },
 
