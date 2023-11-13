@@ -168,12 +168,13 @@ do
 			
 			-- Just a header
 			if string.find(SWITCHES[index], "*") then
-                --LOG("*AI DEBUG Switch is "..repr(SWITCHES[index]))
 				grp.Height:Set(28)
 				return grp
 			end
 			
 			local check = UIUtil.CreateCheckboxStd(grp, '/dialogs/check-box_btn/radio')
+            
+            check:SetCheck(DebugPrefs[SWITCHES[index]] or false)
 
 			LayoutHelpers.AtRightIn(check, grp)
 			LayoutHelpers.AtVerticalCenterIn(check, grp)
@@ -276,6 +277,7 @@ do
                 
 				Prefs.SetToCurrentProfile('loud_ai_debug', DebugPrefs)
 			end
+           
 
 			listIntel[k].color = Bitmap(listIntel[k])
 			listIntel[k].color.Width:Set(12)
