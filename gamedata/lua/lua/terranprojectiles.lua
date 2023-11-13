@@ -155,7 +155,7 @@ TDepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
     FxUnitHitScale = 1.25,
     FxImpactUnit = EffectTemplate.TTorpedoHitUnit01,
     FxImpactProp = EffectTemplate.TTorpedoHitUnit01,
-    FxImpactUnderWater = EffectTemplate.TTorpedoHitUnit01,
+    FxImpactUnderWater = EffectTemplate.TTorpedoHitUnitUnderwater01,
     FxImpactProjectile = EffectTemplate.TTorpedoHitUnit01,
 
     FxEnterWater= EffectTemplate.WaterSplash01,
@@ -541,7 +541,7 @@ TTorpedoSubProjectile = Class(EmitterProjectile) {
     FxUnitHitScale = 1.25,
     FxImpactUnit = EffectTemplate.TTorpedoHitUnit01,
     FxImpactProp = EffectTemplate.TTorpedoHitUnit01,
-    FxImpactUnderWater = EffectTemplate.TTorpedoHitUnit01,
+    FxImpactUnderWater = EffectTemplate.TTorpedoHitUnitUnderwater01,
 
     OnCreate = function(self, inWater)
     

@@ -102,7 +102,6 @@ DefaultProjectileWaterImpact = {
 }
 DefaultProjectileUnderWaterImpact = {
     '/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp',
-    --'/effects/emitters/destruction_underwater_explosion_flash_02_emit.bp',
     '/effects/emitters/destruction_underwater_explosion_splash_01_emit.bp',
 }
 DustDebrisLand01 = {
@@ -1282,6 +1281,8 @@ CProtonArtilleryHit01 = {
 
 CTorpedoUnitHit01 = TableCat( DefaultProjectileWaterImpact, DefaultProjectileUnderWaterImpact )
 
+CTorpedoUnderWaterImpactHit = DefaultProjectileUnderWaterImpact
+
 CZealotLaunch01 = {
     '/effects/emitters/muzzle_flash_01_emit.bp',
     '/effects/emitters/zealot_launch_01_emit.bp',
@@ -1930,6 +1931,7 @@ TMissileHit02 = {
 }
 
 TTorpedoHitUnit01 = TableCat( DefaultProjectileWaterImpact, DefaultProjectileUnderWaterImpact )
+
 TTorpedoHitUnitUnderwater01 = DefaultProjectileUnderWaterImpact
 
 --- ---- SERAPHIM AMBIENTS ----
