@@ -113,6 +113,7 @@ AAFlare = Class(Entity) {
             if ScenarioInfo.ProjectileDialog then
                 LOG("*AI DEBUG AAFlare Collision - New Turn")
             end
+
 			other:SetTurnRate(540)
 
 			other.Deflected = true
@@ -299,9 +300,10 @@ MissileRedirect = Class(Entity) {
         self:AttachTo(spec.Owner, spec.AttachBone)
 		
         LOUDSTATE(self, self.WaitingState)
-		
-        -- rest of the code is for loyalist tactical missile deflection fix   [161]
-        local bp = self:GetBlueprint()
+	
+
+        local bp = __blueprints[self.Owner.BlueprintID].Defense.AntiMissile
+
         local ProjectileCategories = bp.ProjectileCategories or { 'MISSILE -STRATEGIC' }
         
         local ParsedProjectileCategories = {}
@@ -322,10 +324,6 @@ MissileRedirect = Class(Entity) {
         end
 
         self.ProjectileCategories = ParsedProjectileCategories
-    end,
-	
-    GetBlueprint = function(self)
-        return __blueprints[self.Owner.BlueprintID].Defense.AntiMissile
     end,
 	
     OnDestroy = function(self)
@@ -773,8 +771,6 @@ SeraLambdaFieldRedirector = Class(Entity) {
             WaitTicks( self.RedirectRateOfFire - 1 )
 
             if not BeenDestroyed( EnemyProj ) then
-
-                --LOG("*AI DEBUG Setting Velocity of "..repr(EnemyProj).." to "..(targetspeed * 2).." Enemy is "..repr(self.Enemy.BlueprintID).." "..repr(self.Enemy:GetPosition()) )
 
                 self.EnemyProj:ForkThread( function()  EnemyProj:SetVelocity( targetspeed * 2 ) WaitTicks(15) EnemyProj:TrackTarget(false) end )
             end

@@ -582,7 +582,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
                 LOG("*AI DEBUG Projectile OnImpact targetType is "..repr(targetType).." data is "..repr(DD).." at "..GetGameTick() )
 			
                 if targetEntity then
-                    LOG("*AI DEBUG CollisionBeam Target entity is "..repr(targetEntity.BlueprintID))
+                    LOG("*AI DEBUG Projectile OnImpact Target entity is "..repr(targetEntity.BlueprintID))
                 end
             end
 
@@ -646,7 +646,6 @@ Projectile = Class(moho.projectile_methods, Entity) {
 		
 				ImpactEffects = self.FxImpactUnderWater
 				ImpactEffectScale = self.FxUnderWaterHitScale
-			
 
 			elseif targetType == 'Air' then
 		
@@ -686,7 +685,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 				if TerrainEffect[1] then
 
                     if ScenarioInfo.ProjectileDialog then
-                        LOG("*AI DEBUG CollisionBeam UpdateTerrainCollisionEffects is "..repr(TerrainType.Description).." impact type "..repr(self.TerrainImpactType).." table data is "..repr(TerrainType.FXImpact[targetType][bp.Display.ImpactEffects.Type]).." "..repr(TerrainEffects) )
+                        LOG("*AI DEBUG CollisionBeam UpdateTerrainCollisionEffects is "..repr(TerrainType.Description).." impact type "..repr(self.TerrainImpactType).." table data is "..repr(TerrainType.FXImpact[targetType][bp.Display.ImpactEffects.Type]).." "..repr(TerrainEffect) )
                     end
 			
 					if not BeenDestroyed(self) then

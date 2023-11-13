@@ -668,7 +668,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 
             self:SetWeaponEnabled(true)
 			
-        elseif not self.WeaponWantEnabled or not self.WeaponIsEnabled then --and self.WeaponIsEnabled then
+        elseif not self.WeaponWantEnabled or not self.WeaponIsEnabled then
 
             self.WeaponIsEnabled = false
 
@@ -683,7 +683,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 
                 self:AimManipulatorSetEnabled(true)
 			
-            elseif not self.WeaponAimWantEnabled or not self.WeaponAimIsEnabled then --and self.WeaponAimIsEnabled then
+            elseif not self.WeaponAimWantEnabled or not self.WeaponAimIsEnabled then
 		
                 self.WeaponAimIsEnabled = false
 

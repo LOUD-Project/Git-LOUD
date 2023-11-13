@@ -348,13 +348,10 @@ CConstructionUnit = Class(ConstructionUnit){
 CConstructionStructureUnit = Class(StructureUnit) {
    
     OnCreate = function(self)
-        -- Structure stuff
+
         StructureUnit.OnCreate(self)
 
         local bp = __blueprints[self.BlueprintID]
-        
-        --Construction stuff   
-        --self.EffectsBag = {}
 		
         if bp.General.BuildBones then
             self:SetupBuildBones()
@@ -374,6 +371,7 @@ CConstructionStructureUnit = Class(StructureUnit) {
             end
             
         end
+
         self.BuildingUnit = false
     end,
     

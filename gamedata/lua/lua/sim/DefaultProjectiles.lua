@@ -187,10 +187,10 @@ OnWaterEntryEmitterProjectile = Class(Projectile) {
     OnCreate = function(self, inWater)
 	
         ProjectileOnCreate(self, inWater)
-        
-        local Army = self.Army
 		
         if inWater then
+        
+            local Army = self.Army
 		
             if self.FxTrails then
             

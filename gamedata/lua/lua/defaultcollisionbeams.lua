@@ -6,6 +6,7 @@ local CollisionBeam = import('/lua/sim/CollisionBeam.lua').CollisionBeam
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 SCCollisionBeam = Class(CollisionBeam) {
+
     FxImpactUnit = EffectTemplate.DefaultProjectileLandUnitImpact,
     FxImpactWater = EffectTemplate.DefaultProjectileWaterImpact,
     FxImpactUnderWater = EffectTemplate.DefaultProjectileUnderWaterImpact,
@@ -24,6 +25,7 @@ GinsuCollisionBeam = Class(SCCollisionBeam) {
 }
 
 ParticleCannonCollisionBeam = Class(SCCollisionBeam) {
+
     FxBeam = {'/effects/emitters/particle_cannon_beam_01_emit.bp','/effects/emitters/particle_cannon_beam_02_emit.bp'},
     FxBeamEndPoint = {'/effects/emitters/particle_cannon_end_01_emit.bp','/effects/emitters/particle_cannon_end_02_emit.bp'},
     FxBeamEndPointScale = 1,
@@ -112,6 +114,7 @@ ExperimentalPhasonLaserCollisionBeam = Class(SCCollisionBeam) {
 
     TerrainImpactType = 'LargeBeam01',
     TerrainImpactScale = 1,
+
     FxBeamStartPoint = EffectTemplate.SExperimentalPhasonLaserMuzzle01,
     FxBeam = EffectTemplate.SExperimentalPhasonLaserBeam,
     FxBeamEndPoint = EffectTemplate.SExperimentalPhasonLaserHitLand,
@@ -141,6 +144,7 @@ UnstablePhasonLaserCollisionBeam = Class(SCCollisionBeam) {
 
     TerrainImpactType = 'LargeBeam01',
     TerrainImpactScale = 1,
+
     FxBeamStartPoint = EffectTemplate.SExperimentalUnstablePhasonLaserMuzzle01,
     FxBeam = EffectTemplate.OthuyElectricityStrikeBeam,
     FxBeamEndPoint = EffectTemplate.OthuyElectricityStrikeHit,
@@ -155,6 +159,7 @@ UltraChromaticBeamGeneratorCollisionBeam = Class(SCCollisionBeam) {
 
     TerrainImpactType = 'LargeBeam01',
     TerrainImpactScale = 1,
+
     FxBeamStartPoint = EffectTemplate.SUltraChromaticBeamGeneratorMuzzle01,
     FxBeam = EffectTemplate.SUltraChromaticBeamGeneratorBeam,
     FxBeamEndPoint = EffectTemplate.SUltraChromaticBeamGeneratorHitLand,
@@ -193,6 +198,7 @@ TDFHiroCollisionBeam = Class(CollisionBeam) {
 
 ---   ORBITAL DEATH LASER COLLISION BEAM
 OrbitalDeathLaserCollisionBeam = Class(SCCollisionBeam) {
+
     TerrainImpactType = 'LargeBeam02',
 
     FxBeam = {'/effects/emitters/uef_orbital_death_laser_beam_01_emit.bp'},

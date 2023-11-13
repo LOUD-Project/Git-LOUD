@@ -80,9 +80,7 @@ CIFProtonBombProjectile = Class(NullShells) {
 
 CDFProtonCannonProjectile = Class(MultiPolyTrailProjectile) {
 
-    PolyTrails = { EffectTemplate.CProtonCannonPolyTrail,
-        '/effects/emitters/default_polytrail_01_emit.bp',
-    },
+    PolyTrails = { EffectTemplate.CProtonCannonPolyTrail,'/effects/emitters/default_polytrail_01_emit.bp'},
 
     FxTrails = EffectTemplate.CProtonCannonFXTrail01,
     FxImpactUnit = EffectTemplate.CProtonCannonHit01,
@@ -93,9 +91,7 @@ CDFProtonCannonProjectile = Class(MultiPolyTrailProjectile) {
 -- XRL0403 experimental crab heavy proton cannon
 CDFHvyProtonCannonProjectile = Class(MultiPolyTrailProjectile) {
 
-    PolyTrails = { EffectTemplate.CHvyProtonCannonPolyTrail,
-        '/effects/emitters/default_polytrail_01_emit.bp',
-    },
+    PolyTrails = { EffectTemplate.CHvyProtonCannonPolyTrail,'/effects/emitters/default_polytrail_01_emit.bp'},
 
     FxTrails = EffectTemplate.CHvyProtonCannonFXTrail01,
     FxImpactUnit = EffectTemplate.CHvyProtonCannonHitUnit,
@@ -155,7 +151,6 @@ CAANanoDartProjectile02 = Class(CAANanoDartProjectile) {
     PolyTrail= EffectTemplate.CNanoDartPolyTrail02,
 }
 
--- adjustment to cheapen effects for URL0104
 CAANanoDartProjectile03 = Class(CAANanoDartProjectile) {
 
     FxImpactAirUnit = EffectTemplate.CNanoDartUnitHit02,
@@ -343,6 +338,7 @@ CIridiumRocketProjectile = Class(SingleCompositeEmitterProjectile) {
 
 	PolyTrail = '/effects/emitters/cybran_iridium_missile_polytrail_01_emit.bp',    
     BeamName = '/effects/emitters/rocket_iridium_exhaust_beam_01_emit.bp',
+
     FxImpactUnit = EffectTemplate.CMissileHit02,
     FxImpactProp = EffectTemplate.CMissileHit02,
     FxImpactLand = EffectTemplate.CMissileHit02,
@@ -352,6 +348,7 @@ CCorsairRocketProjectile = Class(SingleCompositeEmitterProjectile) {
 
 	PolyTrail = EffectTemplate.CCorsairMissilePolyTrail01,    
     BeamName = '/effects/emitters/rocket_iridium_exhaust_beam_01_emit.bp',
+
     FxImpactUnit = EffectTemplate.CCorsairMissileUnitHit01,
     FxImpactProp = EffectTemplate.CCorsairMissileHit01,
     FxImpactLand = EffectTemplate.CCorsairMissileLandHit01,
@@ -600,7 +597,7 @@ CTorpedoShipProjectile = Class(OnWaterEntryEmitterProjectile) {
     FxUnitHitScale = 1.25,
     FxImpactUnit = EffectTemplate.CTorpedoUnitHit01,
     FxImpactProp = EffectTemplate.CTorpedoUnitHit01,
-    FxImpactUnderWater = EffectTemplate.CTorpedoUnitHit01,
+    FxImpactUnderWater = EffectTemplate.CTorpedoUnderWaterImpactHit,
 
     OnCreate = function(self, inWater)
     
@@ -622,13 +619,14 @@ CTorpedoShipProjectile = Class(OnWaterEntryEmitterProjectile) {
 }
 
 CTorpedoSubProjectile = Class(EmitterProjectile) {
-    FxTrails = {'/effects/emitters/torpedo_underwater_wake_02_emit.bp',},
 
-    FxUnitHitScale = 1.25,
+    FxTrails = {'/effects/emitters/torpedo_underwater_wake_02_emit.bp' },
+
+    FxUnitHitScale = 1,
     FxImpactUnit = EffectTemplate.CTorpedoUnitHit01,
     FxImpactProp = EffectTemplate.CTorpedoUnitHit01,
-    FxImpactUnderWater = EffectTemplate.CTorpedoUnitHit01,    
-    FxImpactLand = EffectTemplate.CTorpedoUnitHit01,
+    FxImpactUnderWater = EffectTemplate.CTorpedoUnderWaterImpactHit,
+    FxImpactLand = EffectTemplate.CTorpedoUnderWaterImpactHit,
     FxLandHitScale = 0.25,
 
     OnCreate = function(self, inWater)
@@ -711,17 +709,3 @@ CHeavyDisintegratorPulseLaser = Class(MultiPolyTrailProjectile) {
 }
 
 CKrilTorpedo = Class(OnWaterEntryEmitterProjectile) {}
-
---[[
-CDFBrackmanHackPegProjectile01 = Class(MultiPolyTrailProjectile) {
-
-    PolyTrails = EffectTemplate.CBrackmanCrabPegPodTrails,
-}
-
-CDFBrackmanHackPegProjectile02 = Class(MultiPolyTrailProjectile) {
-
-    PolyTrails = EffectTemplate.CBrackmanCrabPegTrails,
-
-    FxImpactLand = EffectTemplate.CBrackmanCrabPegHit01,
-}
---]]

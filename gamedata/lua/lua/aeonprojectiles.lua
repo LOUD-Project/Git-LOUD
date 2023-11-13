@@ -622,6 +622,7 @@ ATemporalFizzAAProjectile = Class(SingleCompositeEmitterProjectile) {
 
     BeamName = '/effects/emitters/temporal_fizz_munition_beam_01_emit.bp',
     PolyTrail = '/effects/emitters/default_polytrail_03_emit.bp',
+
     FxImpactUnit = EffectTemplate.ATemporalFizzHit01,
     FxImpactAirUnit = EffectTemplate.ATemporalFizzHit01,
     FxImpactNone = EffectTemplate.ATemporalFizzHit01,

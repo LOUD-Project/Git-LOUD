@@ -52,14 +52,14 @@ CDFOverchargeWeapon = Class(DefaultProjectileWeapon) {
 CDFHeavyMicrowaveLaserGeneratorCom = Class(DefaultBeamWeapon) {
 
     BeamType = CollisionBeamFile.MicrowaveLaserCollisionBeam02,
+
     FxMuzzleFlash = {},
     FxChargeMuzzleFlash = {},
+
     FxUpackingChargeEffects = EffectTemplate.CMicrowaveLaserCharge01,
     FxUpackingChargeEffectScale = 1,
 
     PlayFxWeaponUnpackSequence = function( self )
-    
-        if not self:EconomySupportsBeam() then return end
         
         local army = self.unit.Army
         local bp = self.bp
@@ -80,8 +80,10 @@ CDFHeavyMicrowaveLaserGeneratorCom = Class(DefaultBeamWeapon) {
 CDFHeavyMicrowaveLaserGenerator = Class(DefaultBeamWeapon) {
 
     BeamType = CollisionBeamFile.MicrowaveLaserCollisionBeam01,
+
     FxMuzzleFlash = {},
     FxChargeMuzzleFlash = {},
+
     FxUpackingChargeEffects = EffectTemplate.CMicrowaveLaserCharge01,
     FxUpackingChargeEffectScale = 1,
 
@@ -112,6 +114,7 @@ CDFHeavyMicrowaveLaserGenerator = Class(DefaultBeamWeapon) {
         end
         
         self.RotatorManip:SetSpeed(180)
+
         self.SliderManip:SetPrecedence(11)
         self.SliderManip:SetGoal(0, 0, -1)
         self.SliderManip:SetSpeed(-1)

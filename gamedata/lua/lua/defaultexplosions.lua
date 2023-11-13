@@ -351,8 +351,6 @@ end
 
 function CreateDefaultExplosion( unit, scale, overKillRatio )
 
-    --local spec = { Position = GetPosition(unit), Dimensions = GetUnitSizes( unit ), Volume = GetUnitVolume( unit ), }
-
     CreateConcussionRing( Explosion, scale )
 
 end
