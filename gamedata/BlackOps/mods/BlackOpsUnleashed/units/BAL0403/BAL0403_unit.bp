@@ -305,7 +305,7 @@ UnitBlueprint {
 			DoNotCollideList = {'MISSILE'},
             
             EnergyRequired = 22000,
-            EnergyDrainPerSecond = 2000,    -- recharge weapon in 11 seconds
+            EnergyDrainPerSecond = 2000,    -- recharge weapon in 11 seconds - controls RateOfFire
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -341,16 +341,16 @@ UnitBlueprint {
 
             RackFireTogether = true, 
 
-            RackSalvoChargeTime = 4,	-- so sequence is deploy, racksalvocharge (2 seconds), fire (3 seconds), reload (8 seconds) 
+            RackSalvoChargeTime = 4,	-- so sequence is deploy, racksalvocharge (4 seconds), fire (3 seconds), reload (8 seconds) 
 
-            RackSalvoReloadTime = 10,
+            RackSalvoReloadTime = 8,
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 40,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.07,		-- - 10 muzzles * 1050 = 10500 damage + the Boom Weapon = 13500 Damage every 15 seconds = 900 DPS
+            RateOfFire = 0.5,		-- - 10 muzzles * 1050 = 10500 damage + the Boom Weapon = 13500 Damage every 15 seconds = 900 DPS
 
             TargetCheckInterval = 2.5,
             TargetPriorities = {
