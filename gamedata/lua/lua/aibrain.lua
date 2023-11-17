@@ -291,74 +291,16 @@ Marker = function(mType, mposition)
 	
 end
 
---[[
-function locals()
 
-	local variables = {}
-	local idx = 1
-	
-	while true do
-	
-		local ln, lv = debug.getlocal(2, idx)
-		
-		if ln ~= nil then
-		
-			variables[ln] = lv
-			
-		else
-		
-			break
-			
-		end
-		
-		idx = 1 + idx
-		
-	end
-	
-	return variables
-	
-end 
-
-function upvalues()
-
-	local variables = {}
-	local idx = 1
-	local func = debug.getinfo(2, "f").func
-	
-	while true do 
-	
-		local ln, lv = debug.getupvalue(func, idx)
-		
-		if ln ~= nil then
-		
-			variables[ln] = lv
-			
-		else
-		
-			break
-			
-		end
-		
-		idx = 1 + idx
-		
-	end
-	
-	return variables
-	
-end 
---]]
-
-
--- this function will bring a debug switch settings into the SIM from the UI
--- but not during a replay
+-- this function will bring debug switch settings into the SIM from the UI
 function SetAIDebug(data)
 
     if type(data.Active) ~= 'boolean' then
         WARN("SETAIDEBUG: illegal On argument, returning")
         return
     end
-
-    LOG("SETAIDEBUG: Call w/ "..repr(data))
+    
+    LOG("*AI DEBUG SETAIDEBUG data is "..repr(data))
 
     if data.Switch then
         -- This branch mutates ScenarioInfo directly, so it has to be foolproof.
@@ -408,8 +350,6 @@ function SetAIDebug(data)
         end
 
         ScenarioInfo[data.Switch] = data.Active
-        
-        LOG("SETAIDEBUG: "..repr(data.Switch).." "..repr(ScenarioInfo[data.Switch]))
 
         if data.Switch == 'DisplayAttackPlans' then
         
@@ -471,32 +411,18 @@ function SetAIDebug(data)
         end
         
     elseif data.ThreatType then
-    
-        local LoudUtils = import('/lua/loudutilities.lua')
-
-        -- local table
-        -- if data.Table == 1 then
-        --     table = LoudUtils.threatColor
-        -- else
-        --     table = LoudUtils.threatColor2
-        -- end
-
-        -- if data.Active then
-        --     table[data.ThreatType] = data.Color
-        -- else
-        --     table[data.ThreatType] = nil
-        -- end
-
-        if data.Active then
-            LoudUtils.intelChecks[data.ThreatType][6] = true
-        else
-            LoudUtils.intelChecks[data.ThreatType][6] = false
+        
+        if not ScenarioInfo.ThreatTypes then
+            ScenarioInfo.ThreatTypes = {}
         end
         
-        LOG("SETAIDEBUG: "..repr(LoudUtils.intelChecks[data.ThreatType]))
-        -- LOG("SETAIDEBUG: New threatColor tables: ")
-        -- LOG("SETAIDEBUG: 1 -> "..repr(LoudUtils.threatColor))
-        -- LOG("SETAIDEBUG: 2 -> "..repr(LoudUtils.threatColor2))
+        if not ScenarioInfo.ThreatTypes[data.ThreatType] then
+            ScenarioInfo.ThreatTypes[data.ThreatType] = {}
+        end
+        
+        ScenarioInfo.ThreatTypes[data.ThreatType].Active = data.Active
+        ScenarioInfo.ThreatTypes[data.ThreatType].Color = data.Color
+
     end
 end
 
@@ -796,10 +722,6 @@ function SyncCurrentScores( Brains, ArmyScore, ScoreInterval )
     local A,lastA
 
     while true do
-
-        --Sync.AIDebug = {}
-
-        --Sync.AIDebug['NameEngineers'] = ScenarioInfo.NameEngineers
 	
 	    WaitTicks(ScoreInterval)  	
 		
@@ -1805,6 +1727,63 @@ AIBrain = Class(moho.aibrain_methods) {
     end
 
 }
+
+--[[
+function locals()
+
+	local variables = {}
+	local idx = 1
+	
+	while true do
+	
+		local ln, lv = debug.getlocal(2, idx)
+		
+		if ln ~= nil then
+		
+			variables[ln] = lv
+			
+		else
+		
+			break
+			
+		end
+		
+		idx = 1 + idx
+		
+	end
+	
+	return variables
+	
+end 
+
+function upvalues()
+
+	local variables = {}
+	local idx = 1
+	local func = debug.getinfo(2, "f").func
+	
+	while true do 
+	
+		local ln, lv = debug.getupvalue(func, idx)
+		
+		if ln ~= nil then
+		
+			variables[ln] = lv
+			
+		else
+		
+			break
+			
+		end
+		
+		idx = 1 + idx
+		
+	end
+	
+	return variables
+	
+end 
+--]]
 
 --[[
 

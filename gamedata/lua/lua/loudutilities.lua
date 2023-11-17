@@ -4227,6 +4227,8 @@ function ParseIntelThread( aiBrain )
 	-- save the current resolution globally - it will be used by other routines to follow moving intel targets
 	ScenarioInfo.IMAPRadius = IMAPRadius
     ScenarioInfo.IMAPBlocks = Rings
+    
+    ScenarioInfo.ThreatTypes = {}
 
 	
     -- when turned on - this function will highlight the IMAP block 
@@ -4301,26 +4303,25 @@ function ParseIntelThread( aiBrain )
         
         Unknown,
 	}
-	--]]
-	
+--]]	
 	local intelChecks = {
 		-- ThreatType	= { threat min, timeout (-1 = never) in seconds, category for exact pos, parse every x iterations, color, AI Debug flag }
 		-- note that some categories dont have a dynamic threat threshold - just air,land,naval and structures - since you can only pack so many in a smaller IMAP block
         
-		Air 			    = { 15 * ThresholdMult, 4.5, categories.AIR - categories.SATELLITE - categories.SCOUT - categories.TRANSPORTFOCUS, 1,'ff76bdff', true},
-		Land 			    = { 8 * ThresholdMult, 13.5, categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT, 3,'9000ff00', true },
-		Naval 		    	= { 8 * ThresholdMult, 9, categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT, 2,'ff0060ff', true },
-        AntiAir             = { 20 * ThresholdMult, 22.5, categories.ANTIAIR - categories.AIR, 5, 'e0ff0000', true},
-
-		Economy	    		= { 50, 33.8, categories.ECONOMIC + categories.FACTORY, 7,'90ff7000', true },
-		StructuresNotMex    = { 100, 67.5, categories.STRUCTURE - categories.WALL - categories.ECONOMIC - categories.ANTIAIR, 11, '90ffff00', true },
-		Commander 	    	= { 50, 67.5, categories.COMMAND, 13,'90ffffff', true },
+		Air 			    = { 15 * ThresholdMult, 4.5, categories.AIR - categories.SATELLITE - categories.SCOUT - categories.TRANSPORTFOCUS, 1 },
+        AntiAir             = { 20 * ThresholdMult, 22.5, categories.ANTIAIR - categories.AIR, 5 },
+        AntiSub             = { 8 * ThresholdMult, 26, categories.ALLUNITS - categories.WALL, 3 },
+		Commander 	    	= { 50, 67.5, categories.COMMAND, 13 },
+		Economy	    		= { 50, 33.8, categories.ECONOMIC + categories.FACTORY, 7 },
+		Land 			    = { 8 * ThresholdMult, 13.5, categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT, 3 },
+		Naval 		    	= { 8 * ThresholdMult, 9, categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT, 2 },
+		StructuresNotMex    = { 100, 67.5, categories.STRUCTURE - categories.WALL - categories.ECONOMIC - categories.ANTIAIR, 11 },
         
 		--Experimental  	= { 50, 26, (categories.EXPERIMENTAL * categories.MOBILE), 4,'ff00fec3', false },        
         --AntiSurface       = { 20 * ThresholdMult, 26, categories.STRUCTURE - categories.WALL, 4, 'ffaf00ff', true},
-        AntiSub           = { 8 * ThresholdMult, 26, categories.ALLUNITS - categories.WALL, 3, 'ffff00ff', true },
 		--Artillery 	    = { 60, 52, (categories.ARTILLERY * categories.STRUCTURE - categories.TECH1) + (categories.EXPERIMENTAL * categories.ARTILLERY), 5,'60ffff00', false },
 	}
+
 
     -- Create EnemyData array - stores history of totalthreat by threattype over a period of time
 	-- History value controls how much history is kept 
@@ -4329,6 +4330,10 @@ function ParseIntelThread( aiBrain )
 	-- create a record for each type of intel & initialize the running total element & the counter that tracks which element is current for this type
     for threatType, v in intelChecks do
         aiBrain.EnemyData[threatType] = { ['Count'] = 0, ['Total'] = 0}
+        
+        if not ScenarioInfo.ThreatTypes[threatType] then
+            ScenarioInfo.ThreatTypes[threatType] = { Active = false, Color = 'ffffffff' }
+        end
 	end
 
     -- take the whole array local 
@@ -4382,6 +4387,7 @@ function ParseIntelThread( aiBrain )
 		usedticks = 0
         
         DisplayIntelPoints = ScenarioInfo.DisplayIntelPoints or false   -- we put these in the loop so we can toggle them on/off in the game
+
         IntelDialog = ScenarioInfo.IntelDialog or false
         ReportRatios = ScenarioInfo.ReportRatios or false
 
@@ -4392,14 +4398,11 @@ function ParseIntelThread( aiBrain )
         if iterationcount > iterationmax then
 
             -- Draw HiPri intel data on map - for visual aid - not required but useful for debugging threat assessment
-            if DisplayIntelPoints then
-            
-                if not aiBrain.IntelDebugThread then
+            if DisplayIntelPoints and not aiBrain.IntelDebugThread then
                 
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." Starting Intel Debug Thread")
-                    
-                    aiBrain.IntelDebugThread = aiBrain:ForkThread( DrawIntel, parseinterval )
-                end
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Starting Intel Debug Thread")
+
+                aiBrain.IntelDebugThread = aiBrain:ForkThread( DrawIntel, parseinterval )
 
             end
 
@@ -4436,10 +4439,6 @@ function ParseIntelThread( aiBrain )
 		-- loop thru each of the threattypes
 		-- processing only those types marked for this iteration
 		for ThreatTypeName, vx in intelChecks do
-
-			--if not vx[6] then
-				--continue
-			--end
 
             threatamounttrigger = vx[1]
             threatcategories = vx[3]
@@ -4485,9 +4484,11 @@ function ParseIntelThread( aiBrain )
                     -- add up the threat from each IMAP position - we'll use this as history even if it doesn't result in a InterestList entry
                     totalThreat = totalThreat + threatreport
 
-                    -- draw IMAP block if there is any threat --
-                    if DisplayIntelPoints and threatreport > 2 then
-						aiBrain:ForkThread(DrawRectangle,threat,vx[5])
+                    -- draw IMAP block if there is any threat and that threat is turned on in the DEBUG panel --
+                    if DisplayIntelPoints and ScenarioInfo.ThreatTypes[ThreatTypeName].Active and threatreport > 2 then
+                    
+						aiBrain:ForkThread( DrawRectangle, threat, ScenarioInfo.ThreatTypes[ThreatTypeName].Color )
+
 					end                                        
 
                     -- only check threats above minimumcheck otherwise break as rest will be below that
@@ -4567,8 +4568,8 @@ function ParseIntelThread( aiBrain )
                                 newPos[2] = x2/counter
                                 newPos[3] = x3/counter
 
-                                if DisplayIntelPoints then
-                                    ForkThread( DrawCirc, aiBrain, LOUDCOPY(newPos), vx[5] )
+                                if DisplayIntelPoints and ScenarioInfo.ThreatTypes[ThreatTypeName].Active then
+                                    ForkThread( DrawCirc, aiBrain, LOUDCOPY(newPos), ScenarioInfo.ThreatTypes[ThreatTypeName].Color )
                                 end
                                 
                             else
@@ -6360,37 +6361,7 @@ function DrawIntel( aiBrain, parseinterval)
     local DrawC = DrawCircle
     
     local ArmyIndex = aiBrain.ArmyIndex
-	
-	local threatColor = {
-		--ThreatType = { ARGB value }
-		Air = 'ff76bdff',
-		Land = '9000ff00',
-		Naval = 'ff0060ff',
-		Commander = '90ffffff',
-		Economy = '90ff7000',
-		StructuresNotMex = '90ffff00',
-		AntiAir = 'e0ff0000',
-        
-		--Experimental = 'ff00fec3',  #-- Cyan        
-        --AntiSurface = 'ffaf00ff',   #-- Bright Pink
-        --AntiSub = 'ff0000ff',   #-- Light Blue
-		--Artillery = 'ffffff00',   #--Yellow        
-	}
-	
-	local threatColor2 = {
-		--ThreatType = { ARGB value }
-		Air = 'ff76bdff',
-		Land = '9000ff00',
-		Naval = 'ff0060ff',
-		Commander = '90ffffff',
-		Economy = '90ff7000',
-		StructuresNotMex = '90ffff00',
-		AntiAir = 'e0ff0000',
-        
-		--Experimental = 'ff00fec3', #--Red
-		--Artillery = 'ffffff00', #--Yellow
-	}	
-	
+
 	-- this will draw resolved intel data (specific points)
 	local function DrawIntelPoint(position, color, threatamount)
     
@@ -6443,9 +6414,9 @@ function DrawIntel( aiBrain, parseinterval)
                 local Position = v.Position
 	
                 -- for any active types in the threatColor table --
-				if threatColor[Type] and v.Threat > 0 then
+				if ScenarioInfo.ThreatTypes[Type].Active and v.Threat > 0 then
 				
-					ForkThread( DrawIntelPoint, Position, threatColor[Type], Threat )
+					ForkThread( DrawIntelPoint, Position, ScenarioInfo.ThreatTypes[Type].Color, Threat )
 				end
 		    end
 		end
