@@ -148,7 +148,7 @@ TCannonTankProjectile = Class(SingleBeamProjectile) { BeamName = '/effects/emitt
 
 TDepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
 
-    FxInitial = {},
+    --FxInitial = {},
     FxTrails = {'/effects/emitters/torpedo_underwater_wake_01_emit.bp',},
     TrailDelay = 0,
 
@@ -295,7 +295,7 @@ TMachineGunProjectile = Class(SinglePolyTrailProjectile) {
 
 TMissileAAProjectile = Class(EmitterProjectile) {
 
-    FxInitial = {},
+    --FxInitial = {},
     TrailDelay = 1,
     FxTrails = {'/effects/emitters/missile_sam_munition_trail_01_emit.bp',},
     FxTrailOffset = -0.5,
@@ -494,7 +494,7 @@ TShellRiotProjectileLand02 = Class(TShellRiotProjectileLand) { PolyTrails = Effe
 
 TTorpedoShipProjectile = Class(OnWaterEntryEmitterProjectile) {
 
-    FxInitial = {},
+    --FxInitial = {},
     FxTrails = {'/effects/emitters/torpedo_underwater_wake_01_emit.bp',},
     TrailDelay = 0,
 

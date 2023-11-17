@@ -121,7 +121,7 @@ ACannonTankProjectile = Class(SingleBeamProjectile) {
 
 ADepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
 
-    FxInitial = {},
+    --FxInitial = {},
     FxTrails = {'/effects/emitters/torpedo_munition_trail_01_emit.bp',},
     TrailDelay = 0,
     TrackTime = 0,
@@ -588,7 +588,7 @@ AShieldDisruptorProjectile = Class(SinglePolyTrailProjectile) {
 
 ARocketProjectile = Class(EmitterProjectile) {
 
-    FxInitial = {},
+    --FxInitial = {},
     FxTrails = {'/effects/emitters/missile_sam_munition_trail_cybran_01_emit.bp',},
     FxTrailOffset = 0.5,
 
@@ -630,7 +630,7 @@ ATemporalFizzAAProjectile = Class(SingleCompositeEmitterProjectile) {
 
 ATorpedoShipProjectile = Class(OnWaterEntryEmitterProjectile) {
 
-    FxInitial = {},
+    --FxInitial = {},
     FxTrails = {'/effects/emitters/torpedo_munition_trail_01_emit.bp',},
     FxTrailScale = 1,
     TrailDelay = 0,
@@ -740,7 +740,7 @@ AHeavyDisruptorCannonShell = Class(MultiPolyTrailProjectile) {
 
 ATorpedoCluster = Class(ATorpedoShipProjectile) {
 
-    FxInitial = {},
+    --FxInitial = {},
 
     FxTrailScale = 1,
     TrailDelay = 0,

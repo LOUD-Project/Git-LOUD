@@ -1,3 +1,25 @@
+### Release 17-11-2023
+
+LUA 6.2.20
+LOUD_MISC 6.3.06
+4DC for LOUD 6.3.05
+Black Ops for LOUD 6.3.11
+Total Mayhem for LOUD 6.3.09
+UNITS 6.3.16
+
+-- fix for 'advanced tracking' weapons - projectiles will now retarget only to valid targets (torps were chasing air units)
+-- fix for BO ACU torpedos not firing - target painter was not allowed to fire at underwater units
+-- DeathWeapon handling and buffs - deathweapon buffs are now handled like all weapon buffs, no longer requires custom script
+-- removal of surface water plumes for torpedo detonations that take place well underwater
+-- AI Debug will now show the status of the switches, carried over from game to game - both in games, and replays
+-- Energy weapons were not reliably signaling the end of the weapon charge cycle
+-- Added guard that prevents bad script in some units from passing UNIT data, as if it was WEAPON data, causing weapon to not fire
+-- updated path markings for map Emerald Crater 40k
+-- updated BAL0403 (Interrogator) to correct firing cycle errors
+-- updated Wagner (Cybran T2 Amphib) to correct aim bones, rocket velocity and weapon enabling with changing layers
+-- updated Thaam-Thumm (Sera Mobile Arty) to remove AutoInitiateAttack flag
+
+
 ### Release 30-10-2023
 
 LUA 6.3.19.1

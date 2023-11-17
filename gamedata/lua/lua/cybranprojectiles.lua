@@ -199,7 +199,7 @@ CCannonTankProjectile = Class(SingleBeamProjectile) { BeamName = '/effects/emitt
 
 CDFTrackerProjectile = Class(SingleCompositeEmitterProjectile) {
 
-    FxInitial = {},
+    --FxInitial = {},
     TrailDelay = 1,
     FxTrails = {'/effects/emitters/missile_sam_munition_trail_01_emit.bp',},
     FxTrailOffset = 0.5,
@@ -391,7 +391,7 @@ CMolecularCannonProjectile = Class(SinglePolyTrailProjectile) {
 
 CMissileAAProjectile = Class(SingleCompositeEmitterProjectile) {
 
-    FxInitial = {},
+    --FxInitial = {},
     TrailDelay = 1,
     FxTrails = {'/effects/emitters/missile_sam_munition_trail_01_emit.bp',},
     FxTrailOffset = 0.5,
@@ -639,7 +639,7 @@ CTorpedoSubProjectile = Class(EmitterProjectile) {
 
 CDepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
 
-    FxInitial = {},
+    --FxInitial = {},
 	
     FxTrails = {'/effects/emitters/anti_torpedo_flare_01_emit.bp','/effects/emitters/anti_torpedo_flare_02_emit.bp'},
 

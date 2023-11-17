@@ -166,7 +166,11 @@ Projectile = Class(moho.projectile_methods, Entity) {
             if not weapon then
                 targetlist = GetUnitsAroundPoint( aiBrain, categories.AIR - categories.SATELLITE, position, self.range ,'ENEMY') 
             else
-                targetlist = { weapon:GetCurrentTarget() or nil }
+                if not weapon:BeenDestroyed() then
+                    targetlist = { weapon:GetCurrentTarget() or nil }
+                else
+                    return
+                end
             end
             
             if targetlist[1] then

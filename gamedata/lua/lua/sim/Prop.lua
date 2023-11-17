@@ -2,6 +2,7 @@
 -- This defines the behavior of props
 
 local Entity = import('/lua/sim/Entity.lua').Entity
+local EntityOnCreate = Entity.OnCreate
 
 local PlayReclaimEndEffects = import('/lua/EffectUtilities.lua').PlayReclaimEndEffects
 local RebuildBonusCheckCallback = import('/lua/sim/RebuildBonusCallback.lua').RunRebuildBonusCallback
@@ -26,7 +27,7 @@ Prop = Class(moho.prop_methods, Entity) {
 
     OnCreate = function(self)
     
-        Entity.OnCreate(self)
+        EntityOnCreate(self)
 
 		local bp = GetBlueprint(self).Economy
 
@@ -191,8 +192,6 @@ Prop = Class(moho.prop_methods, Entity) {
     -- The time to reclaim is the highest of the two values above.
     -- and never less than 0.1 (1 tick)
     GetReclaimCosts = function(self, reclaimer, buildrate)
-    
-        --LOG("*AI DEBUG Reclaiming Mass "..self.MassReclaim.." at "..self.ReclaimTimeMassMult.." and Energy "..self.EnergyReclaim.." at "..self.ReclaimTimeEnergyMult.." with BuildRate "..buildrate )
 
         local time, mtime, etime
         

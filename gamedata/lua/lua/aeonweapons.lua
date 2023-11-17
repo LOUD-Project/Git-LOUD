@@ -9,7 +9,9 @@ local PhasonLaserCollisionBeam = CollisionBeamFile.PhasonLaserCollisionBeam
 local TractorClawCollisionBeam = CollisionBeamFile.TractorClawCollisionBeam
 
 local KamikazeWeapon = WeaponFile.KamikazeWeapon
+
 local BareBonesWeapon = WeaponFile.BareBonesWeapon
+local BareBonesWeaponOnCreate = BareBonesWeapon.OnCreate
 
 local DefaultProjectileWeapon = WeaponFile.DefaultProjectileWeapon
 local DefaultBeamWeapon = WeaponFile.DefaultBeamWeapon
@@ -429,7 +431,7 @@ AIFCommanderDeathWeapon = Class(BareBonesWeapon) {
 
     OnCreate = function(self)
 	
-        BareBonesWeapon.OnCreate(self)
+        BareBonesWeaponOnCreate(self)
 
         local myBlueprint = self.bp
 		
@@ -465,7 +467,7 @@ AIFParagonDeathWeapon = Class(BareBonesWeapon) {
 
     OnCreate = function(self)
     
-        BareBonesWeapon.OnCreate(self)
+        BareBonesWeaponOnCreate(self)
 
         local myBlueprint = self.bp
 
