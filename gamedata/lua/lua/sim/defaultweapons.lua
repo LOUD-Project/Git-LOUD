@@ -243,7 +243,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                     end
 
                     self.EconDrain = CreateEconomyEvent( self.unit, nrgReq, 0, chargetime - 0.100, ChargeProgress )
-                    self.WeaponCharged = true
+
                 end
             else
                 self.WeaponCharged = true
@@ -732,6 +732,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             RemoveEconomyEvent( self, self.EconDrain)
 
             self.EconDrain = nil
+            self.WeaponCharged = false
         end
 
         Weapon.OnDisableWeapon(self)
@@ -782,6 +783,8 @@ DefaultProjectileWeapon = Class(Weapon) {
             if self.EconDrain then
 
                 WaitFor(self.EconDrain)
+                
+                self.WeaponCharged = true
 
                 RemoveEconomyEvent( unit, self.EconDrain )
 				
@@ -971,6 +974,8 @@ DefaultProjectileWeapon = Class(Weapon) {
                 self.ElapsedRackChargeTime = GetGameTick()
 
                 WaitFor(self.EconDrain)
+                
+                self.WeaponCharged = true
 				
                 RemoveEconomyEvent( unit, self.EconDrain )
 				
@@ -1001,6 +1006,10 @@ DefaultProjectileWeapon = Class(Weapon) {
         end,
 
         OnFire = function(self)
+
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon RackSalvo Charge State "..repr(self.bp.Label).." OnFire at "..GetGameTick() )
+            end
             
         end,
     },
@@ -1023,6 +1032,8 @@ DefaultProjectileWeapon = Class(Weapon) {
             if self.EconDrain then
 
                 WaitFor(self.EconDrain)
+                
+                self.WeaponCharged = true
 				
                 RemoveEconomyEvent( unit, self.EconDrain )
 				
