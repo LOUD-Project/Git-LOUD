@@ -66,60 +66,32 @@ do
         'WeaponStateDialog',
 	}
 
-	-- ThreatType = { ARGB value }
-	local THREAT_COLOR = {
-		Commander = '90ffffff', -- White
-		Land = '9000ff00', -- Green
-		Air = 'ff76bdff',
-		Naval = 'ff0060ff', -- Dark Blue
-		AntiAir = 'e0ff0000', -- Bright Red
-		Economy = '90ff7000', -- Gold
-		StructuresNotMex = '90ffff00', -- Yellow
-        
-		-- Artillery = '60ffff00', --Yellow        
-		-- Experimental = 'ff00fec3', -- Cyan
-		-- AntiSurface = 'ffaf000ff', -- Pink
-		-- AntiSub = 'ff0000ff', -- Light Blue        
-	}
-
-	-- ThreatType = { ARGB value }
-	local THREAT_COLOR_2 = {
-		Air = 'ff76bdff',
-		Land = '9000ff00', -- Purple
-		Naval = 'ff0060ff', -- Blueish (again)
-		Commander = '90ffffff', -- Cyan
-		Economy = '90ff7000', -- White
-		StructuresNotMex = '90ffff00', -- Green
-		AntiAir = 'e0ff0000', -- Red
-        
-		-- Artillery = '60ffff00', -- Yellow        
-		-- Experimental = 'ff00fec3', -- Red
-	}
-
-	local INTEL_CHECKS = {
+	__INTEL_CHECKS = {
 		'Air',
-		'Land',
-		'Naval',
-		-- 'Experimental',
+        'AntiAir',
 		'Commander',
 		'Economy',
+		'Land',
+		'Naval',
 		'StructuresNotMex',
+
 		-- 'Artillery',
-        'AntiAir',
        	-- 'AntiSurface',
        	-- 'AntiSub',
+		-- 'Experimental',
 	}
 
-	local INTEL_CHECKS_COLORS = {
+	__INTEL_CHECKS_COLORS = {
 		'ff76bdff',
-		'9000ff00',
-		'ff0060ff',
-		-- 'ff00fec3',
+		'e0ff0000',
 		'90ffffff',
 		'90ff7000',
+		'9000ff00',
+		'ff0060ff',
 		'90ffff00',
+
+		-- 'ff00fec3',
 		-- '60ffff00',
-		'e0ff0000',
 		-- 'ffaf00ff',
 		-- 'ff0000ff'
 	}
@@ -127,17 +99,13 @@ do
 	function CreateUI(isReplay)
 
 		OrigCreateUI(isReplay)
-        
-        --LOG("*AI DEBUG Creating AI Debug Panel")
-        
-        --LOG("*AI DEBUG data is "..repr(DebugPrefs))
 
 		local bg = Bitmap(GetFrame(0))
 		bg.Depth:Set(GetFrame(0):GetTopmostDepth() + 1)
 		LayoutHelpers.AtCenterIn(bg, GetFrame(0))
 		bg.Width:Set(800)
 		bg.Height:Set(520)
-		bg:SetSolidColor('AA111111')
+		bg:SetSolidColor('FF111111')
 
 		local title = UIUtil.CreateText(bg, "LOUD AI Debug Menu", 16, UIUtil.titleFont)
 		LayoutHelpers.AtTopIn(title, bg, 4)
@@ -173,18 +141,26 @@ do
 			end
 			
 			local check = UIUtil.CreateCheckboxStd(grp, '/dialogs/check-box_btn/radio')
-            
+
+            -- set the switch to the status that comes from the prefs
             check:SetCheck(DebugPrefs[SWITCHES[index]] or false)
 
 			LayoutHelpers.AtRightIn(check, grp)
 			LayoutHelpers.AtVerticalCenterIn(check, grp)
 
 			check.OnCheck = function(self, checked)
-				SimCallback( { Func = 'SetAIDebug', Args = { Switch = SWITCHES[index], Active = checked } } )
+            
+                if not isReplay then
+
+                    SimCallback( { Func = 'SetAIDebug', Args = { Switch = SWITCHES[index], Active = checked } } )
 				
-				DebugPrefs[SWITCHES[index]] = checked
+                    DebugPrefs[SWITCHES[index]] = checked
                 
-				Prefs.SetToCurrentProfile('loud_ai_debug', DebugPrefs)
+                    Prefs.SetToCurrentProfile('loud_ai_debug', DebugPrefs)
+                    
+                else
+                    LOG("SETAIDEBUG Cannot change option during replay")
+                end
 			end
 
 			SimCallback( { Func = 'SetAIDebug',	Args = { Switch = SWITCHES[index], Active = DebugPrefs[SWITCHES[index]] or false } } )
@@ -241,14 +217,20 @@ do
 
 		local k = 2
 
-		for idx, key in INTEL_CHECKS do
+		for idx, key in __INTEL_CHECKS do
         
 			listIntel[k] = Group(container)
 			listIntel[k].Width:Set(220)
 			listIntel[k].Height:Set(18)
 
+			listIntel[k].color = Bitmap(listIntel[k])
+			listIntel[k].color.Width:Set(12)
+			listIntel[k].color.Height:Set(12)
+
 			LayoutHelpers.Below(listIntel[k], listIntel[k - 1])
+
 			listIntel[k].key = key
+            listIntel[k].index = idx
 
 			local label = UIUtil.CreateText(listIntel[k], key, 12, UIUtil.bodyFont)
             
@@ -258,34 +240,28 @@ do
 
 			local check = UIUtil.CreateCheckboxStd(listIntel[k], '/dialogs/check-box_btn/radio')
             
+            check:SetCheck( DebugPrefs.intel[listIntel[k].key] or false )
+    
+			LayoutHelpers.CenteredLeftOf(listIntel[k].color, check, 64)
+
+			listIntel[k].color:SetSolidColor(__INTEL_CHECKS_COLORS[idx])
+			listIntel[k].color:DisableHitTest()
+            listIntel[k].color:SetAlpha(1)
+        
 			LayoutHelpers.AtRightIn(check, listIntel[k])
 			LayoutHelpers.AtVerticalCenterIn(check, listIntel[k])
             
 			check.OnCheck = function(self, checked)
-            
-				if checked then
-					self:GetParent().color:SetAlpha(1)
-				else
-					self:GetParent().color:SetAlpha(0)
-				end
-                
-				-- self:GetParent().color:SetHidden(not checked)
-                
-				SimCallback( { Func = 'SetAIDebug', Args = { ThreatType = self:GetParent().key, Active = checked } } )
-				
-				DebugPrefs.intel[self:GetParent().key] = checked
-                
-				Prefs.SetToCurrentProfile('loud_ai_debug', DebugPrefs)
-			end
-           
 
-			listIntel[k].color = Bitmap(listIntel[k])
-			listIntel[k].color.Width:Set(12)
-			listIntel[k].color.Height:Set(12)
-			LayoutHelpers.CenteredLeftOf(listIntel[k].color, check, 64)
-			listIntel[k].color:SetSolidColor(INTEL_CHECKS_COLORS[idx])
-			listIntel[k].color:DisableHitTest()
-			listIntel[k].color:SetAlpha(0)
+                SimCallback( { Func = 'SetAIDebug', Args = { ThreatType = self:GetParent().key, Active = checked, Color = __INTEL_CHECKS_COLORS[self:GetParent().index] } } )
+				
+                DebugPrefs.intel[self:GetParent().key] = checked
+                
+                Prefs.SetToCurrentProfile('loud_ai_debug', DebugPrefs)
+
+			end
+
+            SimCallback( { Func = 'SetAIDebug', Args = { ThreatType = key, Active = DebugPrefs.intel[key] or false, Color = __INTEL_CHECKS_COLORS[idx] } } )
 
 			k = k + 1
 		end
@@ -297,12 +273,8 @@ do
 		LayoutHelpers.AtRightTopIn(closeBtn, bg)
         
 		closeBtn.OnClick = function(self, modifiers)
-        
 			bg:Hide()
 		end
-		
-        -- Hide dialog, create button left of main menu to toggle it
-        --LOG("*AI DEBUG AI Debug Menu Hiding")
 
         --LOG("*AI DEBUG listSwitches are "..repr(listSwitches) )        
         
@@ -316,18 +288,16 @@ do
 
 		globalToggle.OnClick = function(self, modifiers)
         
+            --LOG("*AI DEBUG Debugprefs are "..repr(DebugPrefs))
+        
 			if bg:IsHidden() then
-                
 				bg:Show()
-
 			else
-                
 				bg:Hide()
-
 			end
             
 		end
 		
-	end -- function
+	end
 
-end -- do
+end
