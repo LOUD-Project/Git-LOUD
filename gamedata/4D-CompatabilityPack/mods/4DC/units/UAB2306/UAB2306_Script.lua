@@ -88,8 +88,6 @@ UAB2306 = Class(AStructureUnit) {
     end,     
     
     RemoveBeamFX = function(self)
-	
-        BFGShellWeapon.OnLostTarget(self)
 
         if self.FxStatus == true then
         
