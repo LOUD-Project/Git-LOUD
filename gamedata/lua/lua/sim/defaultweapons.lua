@@ -106,7 +106,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             NumMuzzles = NumMuzzles + LOUDGETN(rv.MuzzleBones or 0)
         end
 		
-        NumMuzzles = NumMuzzles / LOUDGETN(bp.RackBones)
+        NumMuzzles = NumMuzzles / LOUDGETN(bp.RackBones) or 1
 
         if bp.EnergyChargeForFirstShot == false then
             self.WeaponCharged = true
@@ -629,12 +629,12 @@ DefaultProjectileWeapon = Class(Weapon) {
 
     -- General State-less event handling
     OnLostTarget = function(self)
-		
-        local bp = self.bp
-        
-        local target = WeaponHasTarget(self)
 
-        if target and self.WeaponIsEnabled then
+        if self.WeaponIsEnabled then
+        
+            local bp = self.bp
+            
+            local target = WeaponHasTarget(self)
 
             if ScenarioInfo.WeaponStateDialog then
                 LOG("*AI DEBUG DefaultWeapon OnLostTarget for "..repr(bp.Label).." Enabled is "..repr(self.WeaponWantEnabled).." at "..GetGameTick() )

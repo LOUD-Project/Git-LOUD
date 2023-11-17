@@ -10,11 +10,9 @@ Entity = Class(moho.entity_methods) {
     end,
 
     OnCreate = function(self,spec)
-        --LOG("*AI DEBUG Entity OnCreate "..repr(self) )
         self.Spec = spec
     end,
     
     OnDestroy = function(self)
-        --LOG("*AI DEBUG Entity OnDestroy")
     end,
 }
