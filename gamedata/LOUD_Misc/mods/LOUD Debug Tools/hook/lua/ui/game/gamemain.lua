@@ -58,6 +58,8 @@ do
 		"* HARDCORE NERD DATA *",
 		'PriorityDialog',
         'GuardPointDialog',
+        'NavalForceDialog',
+        'NavalBombardDialog',
 		'InstanceDialog',
 		'BuffDialog',
 		'ProjectileDialog',
@@ -103,8 +105,8 @@ do
 		local bg = Bitmap(GetFrame(0))
 		bg.Depth:Set(GetFrame(0):GetTopmostDepth() + 1)
 		LayoutHelpers.AtCenterIn(bg, GetFrame(0))
-		bg.Width:Set(800)
-		bg.Height:Set(520)
+		bg.Width:Set(830)
+		bg.Height:Set(560)
 		bg:SetSolidColor('FF111111')
 
 		local title = UIUtil.CreateText(bg, "LOUD AI Debug Menu", 16, UIUtil.titleFont)
@@ -125,7 +127,7 @@ do
 		local function CreateSwitchToggleGroup(index, SWITCHES)
         
 			local grp = Group(container)
-			grp.Width:Set(265)
+			grp.Width:Set(255)
 			grp.Height:Set(18)
 			
 			local label = UIUtil.CreateText(grp, SWITCHES[index], 12, UIUtil.bodyFont)
@@ -185,7 +187,7 @@ do
 
 
 		listSwitches[i] = CreateSwitchToggleGroup( 1, SWITCHES_RIGHT)
-		LayoutHelpers.CenteredRightOf(listSwitches[i], listSwitches[1], 16)
+		LayoutHelpers.CenteredRightOf(listSwitches[i], listSwitches[1], 35)
 
 		i = i + 1
 
@@ -201,7 +203,7 @@ do
 		LayoutHelpers.AtVerticalCenterIn(intelHeaderLabel1, listIntel[1])
 		intelHeaderLabel1:DisableHitTest()
 
-		LayoutHelpers.CenteredRightOf(listIntel[1], listSwitches[i - 1], 16)
+		LayoutHelpers.CenteredRightOf(listIntel[1], listSwitches[i - 1], 35)
 
         -- Populate remainder of right-side switches
 

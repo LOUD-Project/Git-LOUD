@@ -149,7 +149,10 @@
 
     -- follows the decision process of NAVALFORCEAI behavior
     ScenarioInfo.NavalForceDialog = false
-    LOG("*AI DEBUG      GuardPoint Behavior Dialog is "..repr(ScenarioInfo.NavalForceDialog))    
+    LOG("*AI DEBUG      NavalForce Behavior Dialog is "..repr(ScenarioInfo.NavalForceDialog))    
+
+    ScenarioInfo.NavalBombardDialog = false
+    LOG("*AI DEBUG      NavalForce Bombardment Dialog is "..repr(ScenarioInfo.NavalBombardDialog))    
 
     -- INSTANCE COUNT dialogs - Instanced Builder count increase/decrease is dialoged to the LOG (very busy)
     -- this allows you to watch your instance count allocations - and see those that get filled up - or are barely used
@@ -333,6 +336,7 @@ function SetAIDebug(data)
             'PriorityDialog',
             'GuardPointDialog',
             'NavalForceDialog',
+            'NavalBombardDialog',
             'InstanceDialog',
             'BuffDialog',
             'ProjectileDialog',
