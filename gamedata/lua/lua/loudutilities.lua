@@ -4174,6 +4174,7 @@ function ParseIntelThread( aiBrain )
         ScenarioInfo.MapWaterRatio = aiBrain:GetMapWaterRatio()
         
         LOG("*AI DEBUG MapWaterRatio set to "..ScenarioInfo.MapWaterRatio)
+
     end
 
     -- set values according to mapsize

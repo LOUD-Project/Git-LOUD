@@ -247,7 +247,9 @@ function CreateUI(isReplay)
 	
     import('/lua/ui/game/construction.lua').SetupConstructionControl(controlClusterGroup, mfdControl, ordersControl)
     import('/lua/ui/game/unitview.lua').SetupUnitViewLayout(mapGroup, ordersControl)
+
     UnitViewDetail.SetupUnitViewLayout(mapGroup, mapGroup)
+
     import('/lua/ui/game/avatars.lua').CreateAvatarUI(mapGroup)
     import('/lua/ui/game/controlgroups.lua').CreateUI(mapGroup)
     import('/lua/ui/game/transmissionlog.lua').CreateTransmissionLog()
@@ -1229,12 +1231,7 @@ function AreaReclaim()
     
     if not units[1] then return end
     
-    local simCallback = {
-        Func = 'AreaReclaim',
-        Args = {
-            MousePos = mousePos,
-            Size = options.area_reclaim_size,
-        },
-    }
+    local simCallback = { Func = 'AreaReclaim', Args = { MousePos = mousePos, Size = options.area_reclaim_size }}
+
     SimCallback(simCallback, true)
 end

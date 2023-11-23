@@ -55,6 +55,8 @@ function OnSync()
     end
 
 	if Sync.SimData then
+    
+        --LOG("*AI DEBUG USERSYNC SimData is "..repr(Sync.SimData))
 	
 		-- if the sim rate has changed 
 		if GetSimRate() != CurrentSimSpeed then
@@ -66,6 +68,7 @@ function OnSync()
 			
 			CurrentSimSpeed = newspeed
 		end
+
 	end
 
     if Sync.ToggleGamePanels then
@@ -89,7 +92,7 @@ function OnSync()
     
     if Sync.AIDebug then
     
-        LOG("*AI DEBUG Sync AIDEBUG data "..repr(Sync.AIDebug) )
+        LOG("*AI DEBUG USERSYNC AIDEBUG data "..repr(Sync.AIDebug) )
         
         UpdateAIDebugData(Sync.AIDebug)
         
@@ -342,7 +345,7 @@ function UpdateAIDebugData(data)
 
     local AIDebugData = Prefs.GetFromCurrentProfile('loud_ai_debug') or false
 
-    LOG("*AI DEBUG Current AIDebugData is "..repr(AIDebugData))    
+    LOG("*AI DEBUG USERSYNC AIDebugData is "..repr(AIDebugData))    
 
     for k,v in data do
         AIDebugData[k] = v

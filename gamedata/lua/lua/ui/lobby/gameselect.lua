@@ -34,6 +34,7 @@ local scenarios = MapUtil.EnumerateSkirmishScenarios()
 local gameOptions = {}
 
 local lobbyOptions = import('/lua/ui/lobby/lobbyoptions.lua')
+
 gameOptions[1] = lobbyOptions.teamOptions
 gameOptions[2] = lobbyOptions.globalOpts
 gameOptions[3] = lobbyOptions.advAIOptions

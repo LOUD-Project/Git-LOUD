@@ -43,6 +43,10 @@ Callbacks.PingGroupClick = import('/lua/simpinggroup.lua').OnClickCallback
 
 Callbacks.SetAIDebug = import('/lua/aibrain.lua').SetAIDebug
 
+Callbacks.ReplayAIDebug = function(data)
+    SetSimData(data)
+end
+
 Callbacks.ToggleDebugChainByName = function(data, units)
     LOG("ToggleDebugChainByName")
 end

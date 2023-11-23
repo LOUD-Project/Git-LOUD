@@ -152,13 +152,14 @@ function NoteGameSpeedChanged(clientIndex, newSpeed)
 end
 
 function NoteGameOver()
+
     SetFocusArmy(-1)
+
     if not import('/lua/ui/dialogs/score.lua').scoreScreenActive then
         GetCursor():Show()
     end
+
     if SessionIsReplay() then
-        --local scoreDlg = import('/lua/ui/dialogs/score.lua').dialog
-        --import('/lua/ui/game/gameresult.lua').OnReplayEnd()
         import('/lua/ui/game/score.lua').ArmyAnnounce(1, '<LOC _Replay_over>Replay over.')
     else
         import('/lua/ui/game/score.lua').ArmyAnnounce(1, '<LOC _Game_over>Game over.')

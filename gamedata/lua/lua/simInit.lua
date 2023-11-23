@@ -139,7 +139,7 @@ function BeginSession()
     ScenarioInfo.Env.OnPopulate(ScenarioInfo)
     ScenarioInfo.Env.OnStart(ScenarioInfo)
     
-    import("/lua/sim/MarkerUtilities.lua")
+    --import("/lua/sim/MarkerUtilities.lua")
 
     local focusarmy = GetFocusArmy()
 	

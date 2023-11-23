@@ -5,9 +5,7 @@
 	-- Enable LOUD debugging options
 	LOG("*AI DEBUG Setting LOUD DEBUG & LOG options ")
 
-
     --- ENGINEER and FACTORY DEBUGS ---
-
 
     -- AI Engineers will be named according to the Builder they are running 
 	ScenarioInfo.NameEngineers = false
@@ -184,7 +182,6 @@
 
 
 local import = import
-
 
 local SetBaseRallyPoints = import('/lua/loudutilities.lua').SetBaseRallyPoints
 

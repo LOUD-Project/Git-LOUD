@@ -73,6 +73,7 @@ function CreateDialog(over, isLoad, exitBehavior)
     end
 
     local filePicker = FilePicker(panel, "Replay", (not isLoad), function(control, fileInfo)
+
         if isLoad then
             DoReplayLaunch(fileInfo.fspec)
         else
@@ -80,8 +81,10 @@ function CreateDialog(over, isLoad, exitBehavior)
                 DoReplaySave(control:GetProfile(), control:GetBaseName())
                 KillDialog()
             end
+
             if forbiddenSaveNames[string.lower(control:GetBaseName())] then
                 UIUtil.ShowInfoDialog(parent, LOCF("<LOC filepicker_0005>The file %s is protected and can not be overwritten.", control:GetBaseName()), "<LOC _Ok>")
+
             elseif GetSpecialFileInfo(fileInfo.profile, fileInfo.fname, fileInfo.type) then
                 UIUtil.QuickDialog(parent, "<LOC filepicker_0003>A file already exits with that name. Are you sure you want to overwrite it?", 
                 "<LOC _Yes>", function() ExecuteSave() end, 
@@ -93,6 +96,7 @@ function CreateDialog(over, isLoad, exitBehavior)
             end
         end
     end)
+    
     LayoutHelpers.AtLeftTopIn(filePicker, panel, 43, 118)
     filePicker.Width:Set(595)
     filePicker.Height:Set(362)

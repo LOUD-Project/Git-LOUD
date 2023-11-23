@@ -62,7 +62,7 @@ end
 -- this function updates the SimSpeed field of SimData
 function UpdateSimSpeed(data)
 
-	--LOG("*AI DEBUG SimSync UpdateSimSpeed "..repr(data))
+	--LOG("*AI DEBUG SIMSYNC UpdateSimSpeed "..repr(data))
 
 	if data then
 		SimData.SimSpeed = data
@@ -72,6 +72,8 @@ end
 -- this function will set a specific SimData field
 function SetSimData(name, param)
 
+    LOG("*AI DEBUG SIMSYNC SetSimData "..repr(name).." "..repr(param))
+    
 	SimData[name] = param
 	
 	SendSimData()
@@ -92,7 +94,7 @@ end
 -- this puts the SimData into the Sync table
 function SendSimData()
 
-	--LOG("*AI DEBUG Sim SIMSYNC SendSimData "..repr(SimData) )
+	LOG("*AI DEBUG SIMSYNC SendSimData "..repr(SimData) )
 	
 	Sync.SimData = SimData
 end
@@ -180,12 +182,16 @@ function UnlockInput()
 end
 
 function OnPostLoad()
+
     local focus = GetFocusArmy()
+    
     for entityID, data in UnitData do 
+
         if data.OwnerArmy == focus then
             Sync.UnitData[entityID] = data.Data
         end
     end
+
     Sync.IsSavedGame = true
 end
 
