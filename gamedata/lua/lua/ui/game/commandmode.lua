@@ -75,6 +75,7 @@ local startBehaviors = {}
 local endBehaviors = {}
 
 function OnCommandModeBeat()
+    
 	if issuedOneCommand and not IsKeyDown('Shift') then
 		EndCommandMode(true)
 	end
@@ -107,7 +108,9 @@ function GetCommandMode()
 end
 
 function EndCommandMode(isCancel)
+
     modeData.isCancel = isCancel or false
+
     for i,v in endBehaviors do
         v(commandMode, modeData)
     end
@@ -146,8 +149,13 @@ function OnCommandIssued(command)
 	else
 		EndCommandMode(true)
 	end
+    
+    if command.CommandType == 'Nuke' or command.CommandType == 'Tactical' then
+        EndCommandMode(true)
+    end
 
-	if command.CommandType == 'BuildMobile' then				
+	if command.CommandType == 'BuildMobile' then
+    
 		AddCommandFeedbackBlip({
 			Position = command.Target.Position, 
 			BlueprintID = command.Blueprint,			
@@ -155,9 +163,11 @@ function OnCommandIssued(command)
 			ShaderName = 'CommandFeedback',
 			UniformScale = 1,
 		}, 0.7)	
+        
 	else	
 	
 		if AddCommandFeedbackByType(command.Target.Position, command.CommandType) == false then	
+
 			AddCommandFeedbackBlip({
 				Position = command.Target.Position, 
 				MeshName = '/meshes/game/flag02d_lod0.scm',
@@ -172,9 +182,12 @@ function OnCommandIssued(command)
 				TextureName = '/meshes/game/crosshair02d_albedo.dds',
 				ShaderName = 'CommandFeedback2',
 				UniformScale = 0.5,
-			}, 0.75)		
+			}, 0.75)
+            
 		end		
 	end
+
+    --LOG("AI DEBUG Command is "..repr(command) )
 
 	-- from BO Unleashed - all credit to author Magic Power
 	import('/lua/spreadattack.lua').MakeShadowCopyOrders(command)	
