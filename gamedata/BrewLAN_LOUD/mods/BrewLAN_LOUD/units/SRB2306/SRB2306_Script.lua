@@ -15,70 +15,51 @@ SRB2306 = Class(CStructureUnit) {
     Weapons = {
 	
         MainGun = Class(CDFHeavyMicrowaveLaserGeneratorCom) {
-		
-            EconomySupportsBeam = function(self)
-			
-                if not self.EnergyCost then
-				
-                    self.EnergyInc = self:GetBlueprint().EnergyCumulativeUpkeepCost or 10
-                    self.EnergyMin = self:GetBlueprint().EnergyConsumptionPerSecondMin or 10
-                    self.EnergyMax = self:GetBlueprint().EnergyConsumptionPerSecondMax or 1000
-                    self.EnergyDissRate = self:GetBlueprint().EnergyDissipationPerSecond or 30
-                    self.EnergyCost = self.EnergyMin
-					
-                end
-				
+        
+            OnCreate = function(self)
+            
+                CDFHeavyMicrowaveLaserGeneratorCom.OnCreate(self)
+
+                self.EnergyInc = self.bp.EnergyCumulativeUpkeepCost or 10
+                self.EnergyMin = self.bp.EnergyConsumptionPerSecondMin or 10
+                self.EnergyMax = self.bp.EnergyConsumptionPerSecondMax or 1000
+                self.EnergyDissRate = self.bp.EnergyDissipationPerSecond or 30
+
+                self.EnergyCost = self.EnergyMin
+
+                self.ForceCooldown = false
+                
+                self.TimeSinceLastFire = 0
+                
+                self.unit.isexploding = false
+                self.unit.StopFireTime = false
+                
+            end,
+            
+            OnWeaponFired = function(self)
+            
+                CDFHeavyMicrowaveLaserGeneratorCom.OnWeaponFired(self)
+                
                 self.TimeSinceLastFire = GetGameTimeSeconds() - (self.unit.StopFireTime or GetGameTimeSeconds())
-				
-                local aiBrain = self.unit:GetAIBrain()
-                local energyIncome = aiBrain:GetEconomyIncome( 'ENERGY' ) * 10 # per tick to per seconds
-                local energyStored = aiBrain:GetEconomyStored( 'ENERGY' )
+
                 local nrgReq = self.EnergyCost * (self.AdjEnergyMod or 1)
                 local nrgDrain = self.EnergyCost
                 local nrgReqAlt = (math.max(self.EnergyMin, self.EnergyCost - math.floor((self.TimeSinceLastFire*self.EnergyDissRate)/10)*10)) * (self.AdjEnergyMod or 1)
                 local nrgDrainAlt = math.max(self.EnergyMin, self.EnergyCost - math.floor((self.TimeSinceLastFire*self.EnergyDissRate)/10)*10)
 				
                 self.unit.deathdamage = nrgDrainAlt
-				
-                if self.unit.PerformOnFireChecks then
-				
-                    if energyStored < nrgReqAlt and energyIncome < nrgDrainAlt then
-					
-                        return false
-						
-                    end 
-					
-                else   
-				
-                    if energyStored < nrgReq and energyIncome < nrgDrain then
-					
-                        return false
-						
-                    end
-					
-                    if nrgDrain > self.EnergyMax then   
-					
-                        self.ForceCooldown = true
-                        self.unit:Overheat()
-						
-                        return false
-                    end 
-				end
-				
-                if self.ForceCooldown and nrgDrainAlt > (self.EnergyMax / 2) then
-				
-                    return false
-					
-                else
-				
-                    self.ForceCooldown = false
-                    self.unit.isexploding = false
-					
+
+                --LOG("*AI DEBUG nrgDrain is "..repr(nrgDrain))
+                
+                --LOG("*AI DEBUG nrgDrainAlt is "..repr(nrgDrainAlt))
+                
+                --LOG("*AI DEBUG Time Since Last Fire is "..repr(self.TimeSinceLastFire))
+                
+                if nrgDrainAlt < self.EnergyCost then
+                    self.unit.PerformOnFireChecks = true
                 end
-				
-                return true
-				
-            end,  
+	
+            end,
             
             IdleState = State(CDFHeavyMicrowaveLaserGeneratorCom.IdleState) { 
 			
@@ -102,48 +83,72 @@ SRB2306 = Class(CStructureUnit) {
                     if self.PerformIdleChecks then
 					
                         self.FirstShot = true
-                        self.unit.StopFireTime = GetGameTimeSeconds()
+
                         self.PerformIdleChecks = false 
                         self.unit.PerformOnFireChecks = true
 						
                     end
 					
                 end,    
+                
+                OnGotTarget = function(self)
+                
+                    self.TimeSinceLastFire = GetGameTimeSeconds() - (self.unit.StopFireTime or GetGameTimeSeconds())
+
+                    self.EnergyCost = math.max(self.EnergyMin, self.EnergyCost - math.floor((self.TimeSinceLastFire*self.EnergyDissRate)/10)*10)
+                    
+                    --LOG("*AI DEBUG EnergyCost Reset to "..self.EnergyCost)
+                
+                    CDFHeavyMicrowaveLaserGeneratorCom.IdleState.OnGotTarget(self)
+                end,
             },
 
             StartEconomyDrain = function(self)
 			
-                local bp = self:GetBlueprint()
-				
-                if not self.EconDrain and not self:EconomySupportsBeam() then
-                    return
-                end
+                local bp = self.bp
 				
                 if self.FirstShot then return end
 				
                 if not self.EconDrain then
+		
+                    local function ChargeProgress( self, progress)
+                        moho.unit_methods.SetWorkProgress( self, progress )
+                    end
+                    
+                    local nrgReq = self.EnergyCost * (self.AdjEnergyMod or 1)
+                    local nrgDrain = self.EnergyCost
 				
                     if self.unit.PerformOnFireChecks then
 					
-                        self.EnergyCost = math.max(self.EnergyMin, self.EnergyCost - math.floor((self.TimeSinceLastFire*self.EnergyDissRate)/10)*10)
+                        nrgReq = math.max(self.EnergyMin, self.EnergyCost - math.floor((self.TimeSinceLastFire*self.EnergyDissRate)/10)*10)
+                        nrgDrain = nrgReq
+
                         self.unit.PerformOnFireChecks = false
 						
                     end
-					
-                    local nrgReq = self.EnergyCost * (self.AdjEnergyMod or 1)
-                    local nrgDrain = self.EnergyCost
+                    
+                    if nrgDrain > self.EnergyMax then
+                    
+                        self.ForceCooldown = true
+                        
+                        self.unit:Overheat()
+                        
+                        nrgDrain = nrgDrain/2
+                    else
+                        self.ForceCooldown = false
+                    end
 					
                     if self > 0 and nrgDrain > 0 then
 					
                         local time = math.max(nrgReq / nrgDrain, 0.1)
 						
-                        self.EconDrain = CreateEconomyEvent(self.unit, nrgReq, 0, time)   
+                        self.EconDrain = CreateEconomyEvent(self.unit, nrgReq, 0, time, ChargeProgress )   
                         self.FirstShot = true
 						
                     end
                 end
             end,
-            
+
             CreateProjectileAtMuzzle = function(self, muzzle)
 			
                 if not self.SliderManip then
@@ -170,27 +175,24 @@ SRB2306 = Class(CStructureUnit) {
                 self.EnergyCost = self.EnergyCost + self.EnergyInc
 				
                 self.PerformIdleChecks = true
-				
+
+                self.unit.StopFireTime = GetGameTimeSeconds()				
             end,
         },
     },
 	
     Overheat = function(self)
-	
-        if not self.isexploding then
-		
-            self.isexploding = true
-			
-            CreateEmitterAtBone(self, 'Turret_Muzzle01', self:GetArmy(),'/effects/emitters/destruction_explosion_fire_plume_02_emit.bp'):ScaleEmitter( 0.33 )
-            CreateEmitterAtBone(self, 'Turret_Muzzle01', self:GetArmy(),'/effects/emitters/destruction_damaged_smoke_01_emit.bp'):SetEmitterParam('LIFETIME', 150):ScaleEmitter( 0.6 )
-            CreateEmitterAtBone(self, 'Turret_Muzzle01', self:GetArmy(),'/effects/emitters/destruction_damaged_smoke_01_emit.bp'):SetEmitterParam('LIFETIME', 120)
-            
-            DamageArea(self, self:GetPosition(), 1, 500, 'Default', true, true)
-			
-            explosion.CreateDefaultHitExplosionAtBone( self, 'Turret_Muzzle01', 1.0 )
-            explosion.CreateDebrisProjectiles(self, explosion.GetAverageBoundingXYZRadius(self), {self:GetUnitSizes()})
-			
-        end
+    
+        ForkThread( FloatingEntityText, self.EntityID, "Overheating Damage ")
+
+        CreateEmitterAtBone(self, 'Turret_Muzzle01', self:GetArmy(),'/effects/emitters/destruction_explosion_fire_plume_02_emit.bp'):ScaleEmitter( 0.33 )
+        CreateEmitterAtBone(self, 'Turret_Muzzle01', self:GetArmy(),'/effects/emitters/destruction_damaged_smoke_01_emit.bp'):SetEmitterParam('LIFETIME', 150):ScaleEmitter( 0.6 )
+        CreateEmitterAtBone(self, 'Turret_Muzzle01', self:GetArmy(),'/effects/emitters/destruction_damaged_smoke_01_emit.bp'):SetEmitterParam('LIFETIME', 120)
+
+        DamageArea(self, self:GetPosition(), 1, 200 + self.deathdamage, 'Default', true, true)
+
+        explosion.CreateDefaultHitExplosionAtBone( self, 'Turret_Muzzle01', 1.0 )
+        explosion.CreateDebrisProjectiles(self, explosion.GetAverageBoundingXYZRadius(self), {self:GetUnitSizes()})
 		
     end,
     
