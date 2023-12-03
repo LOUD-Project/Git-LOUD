@@ -78,7 +78,9 @@ EAL0001 = Class(AWalkingLandUnit) {
                 self.AimControl:SetEnabled(true)
                 self.AimControl:SetPrecedence(20)
 
-                self.unit.BuildArmManipulator:SetPrecedence(0)
+                if self.unit.BuildArmManipulator then
+                    self.unit.BuildArmManipulator:SetPrecedence(0)
+                end
 
                 self.AimControl:SetHeadingPitch( self.unit:GetWeaponManipulatorByLabel('RightDisruptor'):GetHeadingPitch() )
             end,
@@ -103,7 +105,10 @@ EAL0001 = Class(AWalkingLandUnit) {
                 self.AimControl:SetEnabled(false)
                 self.AimControl:SetPrecedence(0)
 
-                self.unit.BuildArmManipulator:SetPrecedence(0)
+                if self.unit.BuildArmManipulator then
+                    self.unit.BuildArmManipulator:SetPrecedence(0)
+                end
+                
                 self.unit:GetWeaponManipulatorByLabel('RightDisruptor'):SetHeadingPitch( self.AimControl:GetHeadingPitch() )
             end,
             

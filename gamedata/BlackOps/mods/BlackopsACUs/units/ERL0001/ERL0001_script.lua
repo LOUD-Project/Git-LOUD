@@ -233,13 +233,16 @@ ERL0001 = Class(CWalkingLandUnit) {
                 self:SetWeaponEnabled(true)
 
                 self.unit:SetWeaponEnabledByLabel('RightRipper', false)
+
                 self.unit:BuildManipulatorSetEnabled(false)
+                
+                if self.unit.BuildArmManipulator then
+                    self.unit.BuildArmManipulator:SetPrecedence(0)
+                end
 
                 self.AimControl:SetEnabled(true)
                 self.AimControl:SetPrecedence(20)
-
-                self.unit.BuildArmManipulator:SetPrecedence(0)
-
+                
                 self.AimControl:SetHeadingPitch( self.unit:GetWeaponManipulatorByLabel('RightRipper'):GetHeadingPitch() )
             end,
 
@@ -258,12 +261,16 @@ ERL0001 = Class(CWalkingLandUnit) {
                 self:SetWeaponEnabled(false)
 
                 self.unit:SetWeaponEnabledByLabel('RightRipper', true)
+
                 self.unit:BuildManipulatorSetEnabled(false)
+
+                if self.unit.BuildArmManipulator then    
+                    self.unit.BuildArmManipulator:SetPrecedence(0)
+                end
 
                 self.AimControl:SetEnabled(false)
                 self.AimControl:SetPrecedence(0)
 
-                self.unit.BuildArmManipulator:SetPrecedence(0)
                 self.unit:GetWeaponManipulatorByLabel('RightRipper'):SetHeadingPitch( self.AimControl:GetHeadingPitch() )
             end,
 
