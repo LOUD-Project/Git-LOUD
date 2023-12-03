@@ -287,6 +287,8 @@ UnitBlueprint {
             Audio = {
                 Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0402_Strategic_Bomb', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
+            AttackGroundTries = 1,
 			
             AutoInitiateAttackCommand = true,
 			
@@ -316,11 +318,13 @@ UnitBlueprint {
             FiringTolerance = 0.295,
 			
 			HeadingArcCenter = 0,
-			HeadingArcRange = 32,
+			HeadingArcRange = 28,
 			
             Label = 'Bomb',
 			
-            MaxRadius = 90,
+            MaxRadius = 70,
+            
+            EffectiveRadius = 45,
 
             MuzzleVelocity = 0,
             
