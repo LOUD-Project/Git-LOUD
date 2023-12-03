@@ -129,7 +129,7 @@ UnitBlueprint {
     },
     
     General = {
-        CapCost = 4,
+        CapCost = 5,
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 5,

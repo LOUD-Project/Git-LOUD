@@ -162,7 +162,7 @@ UnitBlueprint {
     },
     
     General = {
-		CapCost = 4,
+		CapCost = 5,
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,

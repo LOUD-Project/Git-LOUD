@@ -8503,7 +8503,7 @@ Platoon = Class(moho.platoon_methods) {
 	-- If the threat of the platoon drops too low, it will try to Return To Base
     LandForceAILOUD = function( self, aiBrain )
     
-        local LandForceAIDialog = false
+        local LandForceAIDialog = ScenarioInfo.LandForceDialog
 
         local CalculatePlatoonThreat = CalculatePlatoonThreat
         local GetPlatoonPosition = GetPlatoonPosition
@@ -8978,7 +8978,7 @@ Platoon = Class(moho.platoon_methods) {
     -- drops too low, it will try and Return To Base and disband
     AmphibForceAILOUD = function( self, aiBrain )
 
-        local AmphibForceAIDialog = false
+        local AmphibForceAIDialog = ScenarioInfo.AmphibForceDialog or false
         
         local CalculatePlatoonThreat = CalculatePlatoonThreat
         local GetPlatoonPosition = GetPlatoonPosition

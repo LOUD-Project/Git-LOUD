@@ -5356,6 +5356,10 @@ end
 -- NAVAL BOMBARDMENT --
 function NavalBombardAILOUD( self, aiBrain )
 
+    if ScenarioInfo.NavalBombardDialog then
+        LOG("*AI DEBUG "..aiBrain.Nickname.." NFBAI "..self.BuilderName.." starts")
+    end
+
     local GetPlatoonPosition = GetPlatoonPosition
     local GetPlatoonUnits = GetPlatoonUnits    
     

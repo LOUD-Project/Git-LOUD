@@ -66,6 +66,9 @@
     ScenarioInfo.IntelDialog = false
     LOG("*AI DEBUG      Report Intel Dialog is "..repr(ScenarioInfo.IntelDialog))
     
+    ScenarioInfo.NukeDialog = false
+    LOG("*AI DEBUG      Report  Nuke Dialog to Log is "..repr(ScenarioInfo.NukeDialog))
+    
     -- AI will display color coded and relatively sized rings, on the map, for different types of threat
     -- the threats that are displayed (not all are) is controlled in PARSEINTELTHREAD
 	ScenarioInfo.DisplayIntelPoints = false
@@ -137,15 +140,19 @@
 
     -- HARDCORE NERD DATA - only for those who really need to dig into the guts of how things work
 
-    
-	-- PRIORITY dialogs - Builder priority changes are dialoged to the LOG - this will also report
-    -- all the builders, at a base, in sorted order - for checking priority sequence
-	ScenarioInfo.PriorityDialog = false
-	LOG("*AI DEBUG      Report Priority Changes to Log is "..repr(ScenarioInfo.PriorityDialog))
+    -- BEHAVIOR DIALOGS --
+
+    -- follows the decision process of the AMPHIBFORCEAILOUD behavior (for LAND & AMPHIB only at this time)
+    ScenarioInfo.AmphibForceDialog = false
+    LOG("*AI DEBUG      AmphibForce Behavior Dialog is "..repr(ScenarioInfo.AmphibForceDialog))
 
     -- follows the decision process of the GUARDPOINT behavior (for LAND & AMPHIB only at this time)
     ScenarioInfo.GuardPointDialog = false
     LOG("*AI DEBUG      GuardPoint Behavior Dialog is "..repr(ScenarioInfo.GuardPointDialog))
+
+    -- follows the decision process of the LANDFORCEAILOUD behavior (for LAND & AMPHIB only at this time)
+    ScenarioInfo.LandForceDialog = false
+    LOG("*AI DEBUG      LandForce Behavior Dialog is "..repr(ScenarioInfo.LandForceDialog))
 
     -- follows the decision process of NAVALFORCEAI behavior
     ScenarioInfo.NavalForceDialog = false
@@ -154,15 +161,22 @@
     ScenarioInfo.NavalBombardDialog = false
     LOG("*AI DEBUG      NavalForce Bombardment Dialog is "..repr(ScenarioInfo.NavalBombardDialog))    
 
+
+
+	-- BUFF dialog - show units being buffed and de-buffed (this can be pretty busy)
+    -- this allows you to see the buff activity of things like adjacency, veteran, effect fields - when they are applied - and when they are removed
+	ScenarioInfo.BuffDialog = false
+	LOG("*AI DEBUG      Buff System Dialogs to Log is "..repr(ScenarioInfo.BuffDialog))
+    
     -- INSTANCE COUNT dialogs - Instanced Builder count increase/decrease is dialoged to the LOG (very busy)
     -- this allows you to watch your instance count allocations - and see those that get filled up - or are barely used
     ScenarioInfo.InstanceDialog = false
     LOG("*AI DEBUG      Report Instance Counts to Log is "..repr(ScenarioInfo.InstanceDialog))
 
-	-- UNIT BUFF dialog - show units being buffed and de-buffed (this can be pretty busy)
-    -- this allows you to see the buff activity of things like adjacency, veteran, effect fields - when they are applied - and when they are removed
-	ScenarioInfo.BuffDialog = false
-	LOG("*AI DEBUG      Buff System Dialogs to Log is "..repr(ScenarioInfo.BuffDialog))
+	-- PRIORITY dialogs - Builder priority changes are dialoged to the LOG - this will also report
+    -- all the builders, at a base, in sorted order - for checking priority sequence
+	ScenarioInfo.PriorityDialog = false
+	LOG("*AI DEBUG      Report Priority Changes to Log is "..repr(ScenarioInfo.PriorityDialog))
 	
 	-- Projectile, Shield, Weapon and Nuke dialogs (VERY COSTLY)
     -- this allows you to see all kinds of details about the creation of, impacts caused by, projectiles, shields and weapons
@@ -179,9 +193,6 @@
     
     ScenarioInfo.WeaponStateDialog = false
     LOG("*AI DEBUG      Report  Weapon State Dialog to Log is "..repr(ScenarioInfo.WeaponStateDialog))
-    
-    ScenarioInfo.NukeDialog = false
-    LOG("*AI DEBUG      Report  Nuke Dialog to Log is "..repr(ScenarioInfo.NukeDialog))
 
 
 local import = import
@@ -310,22 +321,27 @@ function SetAIDebug(data)
             'NameEngineers',
             'EngineerDialog',
             'DisplayFactoryBuilds',
+
             'ACUEnhanceDialog',
             'SCUEnhanceDialog',
             'FactoryEnhanceDialog',
             'StructureUpgradeDialog',
-            'DisplayAttackPlans',
-            'AttackPlanDialog',
-            'ReportRatios',
-            'IntelDialog',
-            'NukeDialog',
-            'DisplayIntelPoints',
+
             'DisplayBaseNames',
             'BaseMonitorDialog',
             'DisplayBaseMonitors',
             'BaseDistressResponseDialog',
             'DeadBaseMonitorDialog',
             'DisplayPingAlerts',
+            
+            'DisplayAttackPlans',
+            'AttackPlanDialog',
+            'ReportRatios',
+
+            'IntelDialog',
+            'NukeDialog',
+            'DisplayIntelPoints',
+
             'PlatoonDialog',
             'DisplayPlatoonMembership',
             'DisplayPlatoonPlans',
@@ -333,12 +349,16 @@ function SetAIDebug(data)
             'PlatoonMergeDialog',
             'TransportDialog',
             'PathFindingDialog',
-            'PriorityDialog',
+
+            'AmphibForceDialog',
             'GuardPointDialog',
+            'LandForceDialog',
             'NavalForceDialog',
             'NavalBombardDialog',
-            'InstanceDialog',
+
             'BuffDialog',
+            'InstanceDialog',
+            'PriorityDialog',
             'ProjectileDialog',
             'ShieldDialog',
             'WeaponDialog',
@@ -389,7 +409,7 @@ function SetAIDebug(data)
 
                 for i, brain in BRAINS do
                 
-                    --LOG("*AI DEBUG "..brain.Nickname.." BrainType is "..repr(brain.BrainType).." Civilian is "..repr(ArmyIsCivilian(brain.ArmyIndex)) )
+                    LOG("*AI DEBUG "..brain.Nickname.." BrainType is "..repr(brain.BrainType).." Civilian is "..repr(ArmyIsCivilian(brain.ArmyIndex)) )
                 
                     if brain.BrainType == 'AI' and not ArmyIsCivilian(brain.ArmyIndex) and not brain.IntelDebugThread then
                         brain.IntelDebugThread = ForkThread( LoudUtils.DrawIntel, brain, 50)
@@ -402,7 +422,7 @@ function SetAIDebug(data)
                 
                     if brain.BrainType == 'AI' and brain.IntelDebugThread then
                     
-                        --LOG("*AI DEBUG "..brain.Nickname.." DrawIntel thread stopped")
+                        LOG("*AI DEBUG "..brain.Nickname.." DrawIntel thread stopped")
 
                         KillThread(brain.IntelDebugThread)
                         brain.IntelDebugThread = nil

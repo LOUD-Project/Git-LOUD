@@ -6358,6 +6358,8 @@ end
 -- function to draw HiPri Intel points on the map for debugging - all credit to Sorian
 function DrawIntel( aiBrain, parseinterval)
 
+    LOG("*AI DEBUG "..aiBrain.Nickname.." DrawIntel Thread starts")
+
     local WaitTicks = coroutine.yield
     local DrawC = DrawCircle
     
