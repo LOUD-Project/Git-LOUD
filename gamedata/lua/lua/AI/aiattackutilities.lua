@@ -662,11 +662,16 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
 
     local position = GetPlatoonPosition(self) or false
     
+    if squad then
+        position = self:GetSquadPosition( squad ) or false
+    end
+    
     if testposition then
         position = testposition
     end
     
 	if not position or not maxRange then
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." "..repr(squad).." has no position "..repr(position).." or maxRange")
 		return false,false
 	end
     
@@ -681,6 +686,7 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
 
         -- are there any enemy units ?
         if not enemyunits[1] then
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." "..repr(squad).." finds no enemy units")
             return false, false
         end
 
@@ -695,11 +701,11 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
   
             -- alter the function according to layer
             terrainfunction = GetTerrainHeight
-            deviation = 2.5
+            deviation = 2.2
             
             if MovementLayer == 'Water' then
                 terrainfunction = GetSurfaceHeight
-                deviation = 0.5
+                deviation = 1.5
             end
 
 			-- This gives us the number of approx. 8 ogrid steps in the distance
@@ -755,6 +761,8 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
         unitPos = false
 
 		for _,category in attackcategories do
+        
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." Seeking "..repr(category).." target in enemyunits "..repr(table.getn(enemyunits)) )
 
 			-- filter for the desired category
 			for _,unit in EntityCategoryFilterDown( category, enemyunits) do
@@ -765,14 +773,26 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
 					if CanAttackTarget( self, squad, unit ) then
                     
                         unitPos = GetPosition(unit)
+                        
+                        block = CheckBlockingTerrain( unitPos )
+                        
+                        if block then
+                            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." "..repr(squad).." terrain block to target "..repr(unit.BlueprintID) )
 
-						if nolayercheck then 
+                        elseif nolayercheck then 
+
+                            return unit, unitPos
+
+						elseif CanGraphTo( unitPos ) then
+
 							return unit, unitPos
+
                         end
 
-						if CanGraphTo( unitPos ) and not CheckBlockingTerrain( unitPos ) then
-							return unit, unitPos
-                        end
+                    else
+
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." "..repr(squad).." cannot attack unit "..repr(unit.BlueprintID) )
+
                     end
 				end
 			end
