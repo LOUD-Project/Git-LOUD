@@ -581,9 +581,17 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, triggerdis
 	local VDist3 = VDist3
 
     if type(marker) == 'string' then
-	
+
         marker = MarkerToPosition(marker)
 		
+    end
+    
+    if type(marker) != 'table' then
+    
+        LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." marker is "..repr(marker) )
+        
+        return
+    
     end
     
     triggerdistance = MATHMAX( 10, triggerdistance )

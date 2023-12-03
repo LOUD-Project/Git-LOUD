@@ -323,7 +323,7 @@ Platoon = Class(moho.platoon_methods) {
 
 		if prevpoint and path[1] then
             
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." starts MovePlatoon")
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." starts MovePlatoon with path "..repr(path))
 
             local GetDirection = GetDirection            
             local GetSquadUnits = GetSquadUnits
@@ -360,9 +360,16 @@ Platoon = Class(moho.platoon_methods) {
 			for wpidx, waypointPath in pathcopy do
 			
 				if self.MoveThread then
+                    
+                    if type(waypointPath) != 'table' then
+
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." using path "..repr(path))
+
+                        continue
+                    end
 
 					self.WaypointCallback = SetupPlatoonAtWaypointCallbacks( self, waypointPath, pathslack )
-			
+                    
 					Direction = GetDirection( prevpoint, waypointPath )
                     
                     self:Stop()

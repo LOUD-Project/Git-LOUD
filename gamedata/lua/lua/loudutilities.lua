@@ -6398,9 +6398,12 @@ function DrawIntel( aiBrain, parseinterval)
 		end
 	end
 
+    local ThreatTypes = ScenarioInfo.ThreatTypes
+    
 	while true do
 	
 		if ArmyIndex == GetFocusArmy() then
+        
 
             --local inteldata = aiBrain.IL.HiPri
             -- inteldata.LastScouted
@@ -6414,12 +6417,13 @@ function DrawIntel( aiBrain, parseinterval)
             
                 local Type = v.Type
                 local Threat = v.Threat
-                local Position = v.Position
 	
                 -- for any active types in the threatColor table --
-				if ScenarioInfo.ThreatTypes[Type].Active and v.Threat > 0 then
-				
-					ForkThread( DrawIntelPoint, Position, ScenarioInfo.ThreatTypes[Type].Color, Threat )
+				if ThreatTypes[Type].Active and Threat > 0 then
+
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." Intel Thread "..Type.." value is "..Threat.." at "..repr(v.Position) )
+    
+					ForkThread( DrawIntelPoint, v.Position, ThreatTypes[Type].Color, Threat )
 				end
 		    end
 		end
