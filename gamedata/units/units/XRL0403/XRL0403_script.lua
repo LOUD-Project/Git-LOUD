@@ -1,6 +1,5 @@
-
 local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
-local MobileUnit = import('/lua/defaultunits.lua').MobileUnit
+
 local explosion = import('/lua/defaultexplosions.lua')
 local CreateDeathExplosion = explosion.CreateDefaultHitExplosionAtBone
 local EffectTemplate = import('/lua/EffectTemplates.lua')
@@ -8,13 +7,12 @@ local utilities = import('/lua/Utilities.lua')
 local EffectUtil = import('/lua/EffectUtilities.lua')
 local Entity = import('/lua/sim/Entity.lua').Entity
 
-local Weapon = import('/lua/sim/Weapon.lua').Weapon
 local CybranWeaponsFile = import('/lua/cybranweapons.lua')
+
 local CDFHvyProtonCannonWeapon = CybranWeaponsFile.CDFHvyProtonCannonWeapon
 local CANNaniteTorpedoWeapon = CybranWeaponsFile.CANNaniteTorpedoWeapon
 local CIFSmartCharge = CybranWeaponsFile.CIFSmartCharge
 local CAABurstCloudFlakArtilleryWeapon = CybranWeaponsFile.CAABurstCloudFlakArtilleryWeapon
-local CDFBrackmanCrabHackPegLauncherWeapon = CybranWeaponsFile.CDFBrackmanCrabHackPegLauncherWeapon
 
 XRL0403 = Class(CWalkingLandUnit) {
 
@@ -23,35 +21,16 @@ XRL0403 = Class(CWalkingLandUnit) {
     Weapons = {
         ParticleGunRight = Class(CDFHvyProtonCannonWeapon) {},
         ParticleGunLeft = Class(CDFHvyProtonCannonWeapon) {},
+
         Torpedo01 = Class(CANNaniteTorpedoWeapon) {},
-        Torpedo02 = Class(CANNaniteTorpedoWeapon) {},
-        Torpedo03 = Class(CANNaniteTorpedoWeapon) {},
-        Torpedo04 = Class(CANNaniteTorpedoWeapon) {},
         AntiTorpedo = Class(CIFSmartCharge) {},
+
         AAGun = Class(CAABurstCloudFlakArtilleryWeapon) {},
-        HackPegLauncher= Class(CDFBrackmanCrabHackPegLauncherWeapon){},
     },
-    
-    DisableAllButHackPegLauncher= function(self)
-    
-        self:SetWeaponEnabledByLabel('ParticleGunRight', false)
-        self:SetWeaponEnabledByLabel('ParticleGunLeft', false)
-        self:SetWeaponEnabledByLabel('AAGun', false)
-        self:SetWeaponEnabledByLabel('Torpedo01', false)
-        
-        self:ShowBone('Missile_Turret', true)
-    end,
-    
-    EnableHackPegLauncher= function(self)
-    
-        self:SetWeaponEnabledByLabel('HackPegLauncher', true)
-    end,
     
     OnCreate = function(self)
     
         CWalkingLandUnit.OnCreate(self)
-        
-        self:SetWeaponEnabledByLabel('HackPegLauncher', false)
         
         if self:IsValidBone('Missile_Turret') then
             self:HideBone('Missile_Turret', true)
@@ -76,16 +55,9 @@ XRL0403 = Class(CWalkingLandUnit) {
         
         local layer = self:GetCurrentLayer()
         
-        -- If created with F2 on land, then play the transform anim.
-        if(layer == 'Land') then
-        
-	        self:SetWeaponEnabledByLabel('AAGun', true)       
-	        self:SetWeaponEnabledByLabel('Torpedo01', false)
-            
-        elseif (layer == 'Seabed') then
+        if (layer == 'Seabed') then
         
             self:EnableUnitIntel('SonarStealth')
-	        self:SetWeaponEnabledByLabel('Torpedo01', true)      
             
         end
         
@@ -123,14 +95,9 @@ XRL0403 = Class(CWalkingLandUnit) {
                     self.SonarEnt:Destroy()
                 end
 
-	            self:SetWeaponEnabledByLabel('Torpedo01', false)
-    	        self:SetWeaponEnabledByLabel('AAGun', true)
-
                 self:SetSpeedMult(1)
                 
 			elseif ( new == 'Seabed' ) then
-
-	            self:SetWeaponEnabledByLabel('Torpedo01', true)
 
                 self:SetSpeedMult(LandSpeedMult)
 			end
