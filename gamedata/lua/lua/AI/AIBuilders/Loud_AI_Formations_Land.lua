@@ -1563,7 +1563,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			
             AssistRange = 3,
 			
-            PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},		-- target selection when at point --
+            PrioritizedCategories = {'LAND','STRUCTURE','ENGINEER'},		-- target selection when at point --
 			
 			GuardRadius = 65,				-- range at which platoon will engage targets
 			GuardTimer = 240,				-- period that platoon will guard the point unless triggers are met
@@ -1947,7 +1947,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             AssistRange = 2,
 			
-            PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},		-- controls target selection
+            PrioritizedCategories = {'LAND','STRUCTURE','ENGINEER'},		-- controls target selection
 			
 			GuardRadius = 65,					-- range at which platoon will engage targets
 			GuardTimer = 1050,					-- period that platoon will guard the point 

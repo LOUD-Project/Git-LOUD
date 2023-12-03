@@ -521,25 +521,25 @@ PlatoonTemplate { Name = 'T4SatelliteExperimental',
 PlatoonTemplate { Name = 'T1WaterScoutForm',
     FactionSquads = {
         UEF = {
-            { categories.FRIGATE, 2, 5, 'Guard', 'none' },
+            { categories.FRIGATE, 2, 7, 'Guard', 'none' },
 			{ categories.SUBMARINE + categories.LIGHTBOAT, 0, 5, 'Guard', 'none' },
 			{ categories.CRUISER, 0, 1, 'Guard', 'none' },
 			{ categories.DEFENSIVEBOAT, 0, 1, 'Guard', 'none' },
         },
         Aeon = {
-            { categories.FRIGATE, 3, 6, 'Guard', 'none' },
+            { categories.FRIGATE, 3, 8, 'Guard', 'none' },
 			{ categories.SUBMARINE, 3, 5, 'Guard', 'none' },
 			{ categories.CRUISER, 0, 1, 'Guard', 'none' },
 			{ categories.LIGHTBOAT, 0, 2, 'Guard', 'none' },
         },
         Cybran = {
-            { categories.FRIGATE, 3, 6, 'Guard', 'none' },
+            { categories.FRIGATE, 3, 8, 'Guard', 'none' },
 			{ categories.SUBMARINE, 3, 5, 'Guard', 'none' },
 			{ categories.CRUISER, 0, 1, 'Guard', 'none' },
 			{ categories.DEFENSIVEBOAT, 0, 1, 'Guard', 'none' },
         },
         Seraphim = {
-            { categories.FRIGATE, 3, 6, 'Guard', 'none' },
+            { categories.FRIGATE, 3, 8, 'Guard', 'none' },
 			{ categories.SUBMARINE, 3, 5, 'Guard', 'none' },
 			{ categories.CRUISER, 0, 1, 'Guard', 'none' },
         },
@@ -761,6 +761,49 @@ PlatoonTemplate { Name = 'SeaAttack Bombardment',
 	
 			{ categories.BOMBARDMENT, 4, 8, 'Artillery', 'none' },												--Bombardment capable ships
 			{ categories.CRUISER, 4, 8, 'Support', 'none' },													--Cruisers
+		
+		},
+		
+    },
+	
+}
+
+PlatoonTemplate { Name = 'SeaAttack Raiding',
+
+    FactionSquads = {
+	
+		UEF = {
+	
+			{ categories.FRIGATE, 4, 10, 'Artillery', 'none' },
+            { categories.DESTROYER, 0, 2, 'Support', 'none' },
+            { categories.CRUISER, 0, 2, 'Guard', 'none' },
+            { categories.DEFENSIVEBOAT, 0, 2, 'Guard', 'none' }
+			
+		},
+		
+		Aeon = {
+	
+			{ categories.FRIGATE, 4, 10, 'Artillery', 'none' },												--Bombardment capable ships
+            { categories.DESTROYER, 0, 2, 'Support', 'none' },
+            { categories.CRUISER, 0, 2, 'Guard', 'none' },
+            { categories.DEFENSIVEBOAT, 0, 2, 'Guard', 'none' }
+		
+		},
+		
+		Cybran = {
+	
+			{ categories.FRIGATE, 4, 10, 'Artillery', 'none' },												--Bombardment capable ships
+            { categories.DESTROYER, 0, 2, 'Support', 'none' },
+            { categories.CRUISER, 0, 2, 'Guard', 'none' },
+            { categories.DEFENSIVEBOAT, 0, 2, 'Guard', 'none' }
+		
+		},
+		
+		Seraphim = {
+	
+			{ categories.FRIGATE, 4, 10, 'Artillery', 'none' },												--Bombardment capable ships
+            { categories.DESTROYER, 0, 2, 'Support', 'none' },
+            { categories.CRUISER, 0, 2, 'Guard', 'none' },
 		
 		},
 		

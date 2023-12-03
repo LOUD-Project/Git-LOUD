@@ -787,6 +787,46 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
     -- NAVAL BOMBARDMENT only appears once significant control over
     -- the water has been achieved (Naval Ratio > 1.5) and continues
     -- regardless of if the enemy is active in the water or not
+    Builder {BuilderName = 'Sea Attack - Coastal Raiding',
+	
+        PlatoonTemplate = 'SeaAttack Raiding',
+        
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'} },
+		
+		PlatoonAIPlan = 'BombardForceAI',		
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+		
+        Priority = 753,
+
+		PriorityFunction = IsPrimaryBase,
+
+        InstanceCount = 2,
+		
+		RTBLocation = 'Any',
+		
+        BuilderType = 'Any',
+		
+        BuilderConditions = {
+			{ LUTL, 'NavalStrengthRatioGreaterThan', { 1.5 } },
+		
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE}},
+        },
+		
+        BuilderData = {
+        
+            BombardRange = 32,
+            
+            MergeLimit = 12,
+			
+			MissionTime = 1320,		-- 22 minute mission
+			
+			UseFormation = 'AttackFormation',
+			
+			PrioritizedCategories = { 'ECONOMIC','FACTORY','ENGINEER','DEFENSE' },
+        },
+    },
+    
     Builder {BuilderName = 'Sea Attack - Bombardment',
 	
         PlatoonTemplate = 'SeaAttack Bombardment',
@@ -815,10 +855,12 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         },
 		
         BuilderData = {
+        
+            BombardRange = 100,
 			
 			MissionTime = 1800,		-- 30 minute mission
 			
-			UseFormation = 'DMSCircleFormation',
+			UseFormation = 'LOUDClusterFormation',
 			
 			PrioritizedCategories = { 'ECONOMIC', 'FACTORY','EXPERIMENTAL NAVAL','EXPERIMENTAL STRUCTURE','EXPERIMENTAL LAND', },
         },

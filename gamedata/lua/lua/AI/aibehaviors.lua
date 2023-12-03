@@ -5374,6 +5374,8 @@ function NavalBombardAILOUD( self, aiBrain )
 	
 	local FindTargetInRange = import('/lua/ai/aiattackutilities.lua').FindTargetInRange
 	local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
+
+    local GetDirection = import('/lua/utilities.lua').GetDirectionInDegrees
 	local GetHiPriTargetList = GetHiPriTargetList
 	local GetNumUnitsAroundPoint = GetNumUnitsAroundPoint
 	local GetUnitsAroundPoint = GetUnitsAroundPoint
@@ -5382,6 +5384,7 @@ function NavalBombardAILOUD( self, aiBrain )
     local data = self.PlatoonData
 
 	local bAggroMove = true
+    local BombardRange = data.BombardRange or 100       -- sets range required to perform this mission
 	local MergeLimit = data.MergeLimit or 60
     local MissionStartTime = self.CreationTime			-- when the mission began (creation of the platoon)
 	local MissionTime = data.MissionTime or 1200		-- how long platoon will operate before RTB
@@ -5415,14 +5418,18 @@ function NavalBombardAILOUD( self, aiBrain )
 
 	-- get all the possible naval markers that we want the bombardment platoon to operate from
 	local navalmarkers = ScenarioInfo['Naval Area'] or AIGetMarkerLocations('Naval Area')
+
 	-- include naval links
 	local linkmarkers = ScenarioInfo['Naval Link'] or AIGetMarkerLocations('Naval Link')
+
 	local navalmarkers = table.cat( navalmarkers, linkmarkers )
+
 	-- and water nodes
 	local nodemarkers = ScenarioInfo['Water Path Node'] or AIGetMarkerLocations('Water Path Node')
+
 	local navalmarkers = table.cat( navalmarkers, nodemarkers )
 
-	-- make a copy of the naval base markers
+	-- make a copy of ALL the above markers
 	local navalAreas = LOUDCOPY(navalmarkers)
 
 	navalmarkers = nil
@@ -5446,28 +5453,42 @@ function NavalBombardAILOUD( self, aiBrain )
 	local mythreat, targetlist, targetvalue, maxRange
 	local sthreat, ethreat, ecovalue, milvalue, value
 	local path, reason, pathlength, distancefactor
-	local previousbombardmentposition
-	local updatedtargetposition
+	local direction, previousbombardmentposition, updatedtargetposition
 	
 	-- force the plan name 
 	self.PlanName = 'NavalBombardAILOUD'	
 	
-	LOG("*AI DEBUG "..aiBrain.Nickname.." BFAI "..self.BuilderName.." begins")	
-
+    if ScenarioInfo.NavalBombardDialog then
+        LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." "..self.BuilderInstance.." begins with "..oldNumberOfUnitsInPlatoon.." units")	
+    end
+    
     while PlatoonExists(aiBrain, self) do
 
 		target = false
-		
+        updatedtargetposition = false		
+
 		mythreat = CalculatePlatoonThreat( self, 'Overall', categories.ALLUNITS)
+
 		maxRange = import('/lua/ai/aiattackutilities.lua').GetNavalPlatoonMaxRange(aiBrain, self)
 		
 		-- platoon no longer qualifies for bombardment
-		if maxRange < 100 then
+		if maxRange < BombardRange then
+        
+            if ScenarioInfo.NavalBombardDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." "..self.BuilderInstance.." no longer bombardment capable")
+            end
+            
 			return self:SetAIPlan('ReturnToBaseAI',aiBrain)		
 		end
 		
 		if not self.MoveThread then
+        
+            if ScenarioInfo.NavalBombardDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." "..self.BuilderInstance.." seeking target at "..maxRange )
+            end
+            
 			target, targetposition = FindTargetInRange( self, aiBrain, 'Artillery', maxRange, categoryList, true )
+
 		end
 
 		-- if target -- issue attack orders -- no need to move
@@ -5475,13 +5496,21 @@ function NavalBombardAILOUD( self, aiBrain )
 		
 			previousbombardmentposition = false
 
-			LOG("*AI DEBUG "..aiBrain.Nickname.." BFAI "..self.BuilderName.." finds target "..repr( target:GetBlueprint().Description ).." in bombard range")
+            if ScenarioInfo.NavalBombardDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." "..self.BuilderInstance.." finds target "..repr( target:GetBlueprint().Description ).." in bombard range")
+            end
             
             local ARTILLERY = GetSquadUnits( self,'Artillery' )
             local GUARDS = GetSquadUnits( self, 'Guard' )
 			
-			-- order the artillery units to form an attack on the target
-			IssueFormAttack( ARTILLERY, target, 'LOUDClusterFormation', 0)
+            --direction = GetDirection( self:GetSquadPosition( 'Artillery' ), targetposition )
+            
+			-- order the artillery to attack the target
+            for k, unit in ARTILLERY do 
+                IssueAggressiveMove( {unit}, RandomLocation(targetposition[1],targetposition[3], BombardRange/2) )
+            end
+            
+            WaitTicks(11)
 
 			-- Make sure any units in platoon which are guards are actually guarding
 			-- loop thru all the artillery units and clear the guarded marks
@@ -5556,7 +5585,11 @@ function NavalBombardAILOUD( self, aiBrain )
 		-- if no target and no movement orders -- use HiPri list
 		-- issue movement orders -- if list is empty RTB instead --
         if not target and not self.MoveThread then
-		
+        
+            if ScenarioInfo.NavalBombardDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." "..self.BuilderInstance.." seeks HiPri Target location")
+            end
+            
 			-- get HiPri list
 			targetlist = GetHiPriTargetList( aiBrain, GetPlatoonPosition(self) )
 
@@ -5576,15 +5609,16 @@ function NavalBombardAILOUD( self, aiBrain )
 						continue	-- allow only the target types listed above
 					
 					end
+
+					-- sort the markers to see if any are within range of the Target.Position
+					LOUDSORT( navalAreas, function(a,b) local VDist3 = VDist3 return VDist3(a.Position, Target.Position) < VDist3(b.Position, Target.Position) end )
 					
-					if LOUDEQUAL(Target.Position, previousbombardmentposition) then
+					if LOUDEQUAL( navalAreas[1].Position, previousbombardmentposition) then
 					
 						continue	-- dont pick the same location as last time
 						
 					end
 
-					-- sort the bombardment markers to see if any are within range of the Target.Position
-					LOUDSORT( navalAreas, function(a,b) local VDist3 = VDist3 return VDist3(a.Position, Target.Position) < VDist3(b.Position, Target.Position) end )
 					
 					if VDist3( navalAreas[1].Position, Target.Position ) > maxRange then
 				
@@ -5685,6 +5719,7 @@ function NavalBombardAILOUD( self, aiBrain )
 				else
 				
 					destination = false
+                    destinationpath = false
 					break
 					
 				end
@@ -5694,14 +5729,18 @@ function NavalBombardAILOUD( self, aiBrain )
 			-- if no HiPri target then RTB -
 			if PlatoonExists( aiBrain,self) and (not destination) then
 			
-				LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." no bombardment position - RTB ")
-				
+                if ScenarioInfo.NavalBombardDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." "..self.BuilderInstance.." no bombardment position - RTB ")
+				end
+                
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 				
 			else
 			
-				LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI selects bombardment position at "..repr(destination))
-				
+                if ScenarioInfo.NavalBombardDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." "..self.BuilderInstance.." selects HiPri bombardment position at "..repr(destination).." path is "..repr(destinationpath) )
+				end
+                
 				-- store the selected bombardment position
 				previousbombardmentposition = LOUDCOPY(destination)
 				
@@ -5724,11 +5763,11 @@ function NavalBombardAILOUD( self, aiBrain )
 
 			-- we should have a path to a bombardment position at this point --
 			-- so issue movement orders --
-			if PlatoonExists( aiBrain, self ) and destinationpath then
+			if PlatoonExists( aiBrain, self ) and destination then
 			
 				self:Stop()
 			
-				self.MoveThread = self:ForkThread( self.MovePlatoon, destinationpath, PlatoonFormation, false, 28 )
+				self.MoveThread = self:ForkThread( self.MovePlatoon, destinationpath, PlatoonFormation, false, 20 )
 				
 				-- this pause is here for two reasons -
 				-- first: to allow the platoon to get moving
@@ -5737,8 +5776,10 @@ function NavalBombardAILOUD( self, aiBrain )
 				
 			else
 			
-				LOG("*AI DEBUG "..aiBrain.Nickname.." BFAI "..self.BuilderName.." has no path")
-				
+                if ScenarioInfo.NavalBombardDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." "..self.BuilderInstance.." has no path")
+				end
+                
 				target = false
 				
 			end
@@ -5769,31 +5810,38 @@ function NavalBombardAILOUD( self, aiBrain )
         end
 
 		-- loop here until target dies or moves out of range -- 
-		-- wait 4 seconds between target checks --
-		while target and PlatoonExists(aiBrain, self) do
+		-- wait 3 seconds between target checks --
 
-			updatedtargetposition = false
+		while target and not target.Dead and PlatoonExists(aiBrain, self) do
+            
+            if not updatedtargetposition then
+                
+                if ScenarioInfo.NavalBombardDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." "..self.BuilderInstance.." BEGINS engaging target "..repr( target:GetBlueprint().Description ).." in bombard range" )
+                end
+            end
 
-			if not target.Dead then
-			
-				updatedtargetposition = LOUDCOPY(GetPosition(target))
-				
-			end
+			updatedtargetposition = LOUDCOPY(GetPosition(target)) or false
 
-			if target.Dead or (not updatedtargetposition) or VDist3( updatedtargetposition, GetPlatoonPosition(self) ) > maxRange then
-			
+			if not updatedtargetposition or VDist3( updatedtargetposition, self:GetSquadPosition( 'Artillery' ) ) > maxRange then
+
 				-- if the target is still alive but it's moved out of range - let me know
-				if target and updatedtargetposition and VDist3( updatedtargetposition, GetPlatoonPosition(self) ) > maxRange then
-				
-					LOG("*AI DEBUG "..aiBrain.Nickname.." BFAI "..self.BuilderName.." target is beyond radius "..repr(maxRange))
-					
-				end
+                if not updatedtargetposition then
+                
+                    if ScenarioInfo.NavalBombardDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." "..self.BuilderInstance.." target is Dead "..repr(target.Dead) )
+                    end
+                else
+                    if ScenarioInfo.NavalBombardDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." "..self.BuilderInstance.." target is at "..VDist3( updatedtargetposition, self:GetSquadPosition( 'Artillery' ) ).." beyond radius "..repr(maxRange))
+                    end
+                end
 
 				StopAttack(self)
 				
 				target = false
-				
-				break
+                
+                updatedtargetposition = false
 				
 			end
 
@@ -5801,21 +5849,42 @@ function NavalBombardAILOUD( self, aiBrain )
 
 			if PlatoonExists( aiBrain, self) and mythreat <= (OriginalThreat * .40) then
 			
-				self.MergeIntoNearbyPlatoons( self, aiBrain, 'BombardForceAI', 100, false)
+				if self.MergeIntoNearbyPlatoons( self, aiBrain, 'BombardForceAI', 100, false) then
+                    if ScenarioInfo.NavalBombardDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." "..self.BuilderInstance.." completes MERGEINTO - disbanding ")
+                    end
+                else
+                    if ScenarioInfo.NavalBombardDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." "..self.BuilderInstance.." fatigued - in RTB ")				
+                    end
+                end
 				
-				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+                return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			end
 
-			WaitTicks(40)
+			WaitTicks(31)
+
+            -- check mission timer for RTB
+            if LOUDFLOOR(LOUDTIME()) > EndMissionTime then
+            
+                target = false
+           
+                break
+
+            end
 			
-			LOG("*AI DEBUG "..aiBrain.Nickname.." BFAI "..self.BuilderName.." engaging target "..repr(target.Dead).." "..repr( target:GetBlueprint().Description ).." in bombard range "..maxRange.." at "..VDist3( updatedtargetposition, GetPlatoonPosition(self)) )
+            if ScenarioInfo.NavalBombardDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." "..self.BuilderInstance.." CONTINUES engaging target - dead "..repr(target.Dead).." "..repr( target:GetBlueprint().Description ).." in bombard range "..maxRange.." at "..VDist3( updatedtargetposition, GetPlatoonPosition(self)) )
+            end
 		end
 
 		-- check mission timer for RTB
 		if LOUDFLOOR(LOUDTIME()) > EndMissionTime then
 		
-			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Mission Time expires")
-			
+            if ScenarioInfo.NavalBombardDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." "..self.BuilderInstance.." Mission Timer expires")
+			end
+            
 			return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			
 		end
@@ -5826,8 +5895,16 @@ function NavalBombardAILOUD( self, aiBrain )
 			-- if weak try and join nearby platoon --
 			if mythreat <= (OriginalThreat * .40) then
 		
-				self.MergeIntoNearbyPlatoons( self, aiBrain, 'BombardForceAI', 100, false)
-			
+				if self.MergeIntoNearbyPlatoons( self, aiBrain, 'BombardForceAI', 100, false) then
+                    if ScenarioInfo.NavalBombardDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." "..self.BuilderInstance.." completes MERGEINTO - disbanding ")
+                    end
+                else
+                    if ScenarioInfo.NavalBombardDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." "..self.BuilderInstance.." fatigued - in RTB ")
+                    end
+                end
+                
 				-- leftovers will RTB
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			
@@ -5851,23 +5928,26 @@ function NavalBombardAILOUD( self, aiBrain )
 
                     StopAttack(self)
 
-					-- reform the platoon --
-                    if PlatoonFormation != 'None' then
-                        self:SetPlatoonFormationOverride(PlatoonFormation)
-                    end
-					
+                    --IssueFormMove( platoonUnits, GetPlatoonPosition(self), PlatoonFormation, 0 )
+
+                    self.MoveThread = self:ForkThread( self.MovePlatoon, GetPlatoonPosition(self), PlatoonFormation, false, 12 )
                 end
 
                 oldNumberOfUnitsInPlatoon = numberOfUnitsInPlatoon
 
                 OriginalThreat = CalculatePlatoonThreat( self, 'Overall', categories.ALLUNITS)
-				
+
+                if ScenarioInfo.NavalBombardDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." "..self.BuilderInstance.." completes merge to "..oldNumberOfUnitsInPlatoon.." units")
+                end
+                
+                target = false
             end
 			
         end
 
-		-- wait 4.5 seconds
-		WaitTicks(46)
+		-- wait 2 seconds
+		WaitTicks(21)
     end
 end
 
