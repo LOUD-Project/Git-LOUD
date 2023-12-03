@@ -120,7 +120,7 @@ UnitBlueprint {
     },
     
     General = {
-		CapCost = 6,
+		CapCost = 7,
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 5,

@@ -172,7 +172,7 @@ UnitBlueprint {
     },
     
     General = {
-		CapCost = 6,
+		CapCost = 7,
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
