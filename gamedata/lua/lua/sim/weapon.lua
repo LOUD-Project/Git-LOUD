@@ -262,7 +262,7 @@ Weapon = Class(moho.weapon_methods) {
 
             local function AmmoThread(amount)
 	
-                if not self.unit.Dead then
+                if not BeenDestroyed(self.unit) then
 			
                     WaitTicks(2)
 		
@@ -372,15 +372,15 @@ Weapon = Class(moho.weapon_methods) {
 	end,
     
     OnDisableWeapon = function(self)
-        if ScenarioInfo.WeaponDialog then
-            LOG("*AI DEBUG Weapon OnDisableWeapon "..repr(self.bp.Label) )
-        end
+        --if ScenarioInfo.WeaponDialog then
+          --  LOG("*AI DEBUG Weapon OnDisableWeapon "..repr(self.bp.Label) )
+        --end
     end,
     
     OnEnableWeapon = function(self)
-        if ScenarioInfo.WeaponDialog then
-            LOG("*AI DEBUG Weapon OnEnableWeapon "..repr(self.bp.Label) )
-        end
+        --if ScenarioInfo.WeaponDialog then
+          --  LOG("*AI DEBUG Weapon OnEnableWeapon "..repr(self.bp.Label) )
+        --end
     end,
 
     OnGotTarget = function(self)
@@ -764,14 +764,15 @@ Weapon = Class(moho.weapon_methods) {
             if self.WeaponIsEnabled != enable then
     
                 if ScenarioInfo.WeaponDialog or ScenarioInfo.WeaponStateDialog then
-                    LOG("*AI DEBUG Weapon "..repr(self.bp.Label).." SetWeaponEnabled "..repr(enable).." at "..GetGameTick().." Enabled "..repr(self.WeaponIsEnabled) )
+                    LOG("*AI DEBUG Weapon "..repr(self.bp.Label).." SetWeaponEnabled to "..repr(enable).." at "..GetGameTick().." Enabled currently "..repr(self.WeaponIsEnabled) )
                 end
     
                 self:SetEnabled(enable)
                 
                 self.WeaponIsEnabled = false
                 
-                ChangeState( self, self.DeadState )
+                self:OnDisableWeapon()
+
             end
 
         end
@@ -799,8 +800,9 @@ Weapon = Class(moho.weapon_methods) {
                             self:SetEnabled(enable)
                             
                             self.WeaponIsEnabled = true
+                            
+                            self:OnEnableWeapon()
 
-                            ChangeState( self, self.IdleState )
                         end
                     end
                 end
@@ -814,14 +816,15 @@ Weapon = Class(moho.weapon_methods) {
         if self.WeaponIsEnabled != enable then
     
             if ScenarioInfo.WeaponDialog or ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG Weapon "..repr(self.bp.Label).." SetWeaponEnabled "..repr(enable).." at "..GetGameTick().." Enabled "..repr(self.WeaponIsEnabled) )
+                LOG("*AI DEBUG Weapon "..repr(self.bp.Label).." SetWeaponEnabled to "..repr(enable).." at "..GetGameTick().." Enabled currently "..repr(self.WeaponIsEnabled) )
             end
         
             self:SetEnabled(enable)
             
             self.WeaponIsEnabled = true
+            
+            self:OnEnableWeapon()
 
-            ChangeState( self, self.IdleState )
         end
     end,    
 
