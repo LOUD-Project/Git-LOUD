@@ -3875,7 +3875,7 @@ AirUnit = Class(MobileUnit) {
 
         self:SetSpeedMult(0.4)
         self:SetAccMult(0.5)
-        self:SetTurnMult(0.4)
+        self:SetTurnMult(0.2)
 
 		if self.TopSpeedEffectsBag then
 			self:DestroyTopSpeedEffects()
@@ -3920,7 +3920,7 @@ AirUnit = Class(MobileUnit) {
 				
 						self:SetSpeedMult(0.82)
 						self:SetAccMult(0.82)
-						self:SetTurnMult(0.8)
+						self:SetTurnMult(0.6)
 					end
 
 				-- and below 25% it drops even more
@@ -3930,7 +3930,7 @@ AirUnit = Class(MobileUnit) {
 					
 						self:SetSpeedMult(0.6)
 						self:SetAccMult(0.6)
-						self:SetTurnMult(0.4)
+						self:SetTurnMult(0.3)
 					end
 					
 				end
@@ -3944,7 +3944,7 @@ AirUnit = Class(MobileUnit) {
 				
 						self:SetSpeedMult(0.82)
 						self:SetAccMult(0.82)
-						self:SetTurnMult(0.8)
+						self:SetTurnMult(0.6)
 					end
 					
 				-- at 50% restore full performance
