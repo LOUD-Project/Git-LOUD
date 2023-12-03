@@ -339,6 +339,9 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+
+            AttackGroundTries = 1,
+
             Audio = {
                 Fire = Sound {
                     Bank = 'URLWeapon',
@@ -400,6 +403,8 @@ UnitBlueprint {
                     RackBone = 'Center_Hatch02',
                 },
             },
+            RackSalvoChargeTime = 1.5,
+            RackSalvoReloadTime = 2,
 
             RangeCategory = 'UWRC_IndirectFire',
 

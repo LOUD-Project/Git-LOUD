@@ -412,6 +412,9 @@ UnitBlueprint {
 		
         {
             AboveWaterTargetsOnly = true,
+
+            AttackGroundTries = 1,
+
             Audio = {
                 Fire = Sound {
                     Bank = 'URSWeapon',
@@ -481,6 +484,8 @@ UnitBlueprint {
                     RackBone = 'Projectile_Center',
                 },
             },
+            RackSalvoChargeTime = 1.5,
+            RackSalvoReloadTime = 2,
 
             RangeCategory = 'UWRC_IndirectFire',
 

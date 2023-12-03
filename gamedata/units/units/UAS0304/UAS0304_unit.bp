@@ -325,6 +325,8 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
 
+            AttackGroundTries = 1,
+
             Audio = {
                 Fire = Sound { Bank = 'UASWeapon', Cue = 'UAS0304_Missile_Quantum', LodCutoff = 'Weapon_LodCutoff' },
             },
@@ -381,12 +383,14 @@ UnitBlueprint {
                     RackBone = 'Muzzle_05',
                 },
             },
+            RackSalvoChargeTime = 1.5,
+            RackSalvoReloadTime = 2,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 1,
 			
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1,
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
         },
