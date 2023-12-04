@@ -78,7 +78,7 @@ UnitBlueprint {
     },
 
     General = {
-        CapCost = 0.8,
+        CapCost = 1,
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,

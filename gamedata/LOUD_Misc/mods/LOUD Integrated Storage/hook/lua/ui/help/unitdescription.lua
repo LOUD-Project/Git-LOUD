@@ -23,19 +23,19 @@ Description['xsb1304'] = "Increases output, health, and health regeneration. Cap
 Description['xsb1304-Regen'] = "Installs Nano-lathe enhancements to increase repair rate."
 
 -- Upgraded T2 Fabricators
-Description['uab1107'] = "Increases output, health, and health regeneration. Adds 1K mass storage. Eliminates unit cap cost."
-Description['ueb1107'] = "Increases output, health, and health regeneration. Adds 1K mass storage. Eliminates unit cap cost."
-Description['urb1107'] = "Increases output, health, and health regeneration. Adds 1K mass storage. Eliminates unit cap cost."
-Description['xsb1107'] = "Increases output, health, and health regeneration. Adds 1K mass storage. Eliminates unit cap cost."
+Description['uab1107'] = "Increases output, health, and regeneration. Adds 1K mass storage. Reduces unit cap cost to 1."
+Description['ueb1107'] = "Increases output, health, and regeneration. Adds 1K mass storage. Reduces unit cap cost to 1."
+Description['urb1107'] = "Increases output, health, and regeneration. Adds 1K mass storage. Reduces unit cap cost to 1."
+Description['xsb1107'] = "Increases output, health, and regeneration. Adds 1K mass storage. Reduces unit cap cost to 1."
 
 -- Upgraded T3 Fabricators
-Description['uab1305'] = "Increases output, health, and health regeneration. Adds 5K mass storage. Eliminates unit cap cost."
+Description['uab1305'] = "Increases output, health, and regeneration. Adds 5K mass storage. Reduces unit cap cost to 2"
 Description['uab1305-Regen'] = "Installs Nano-lathe enhancements to increase repair rate."
-Description['ueb1305'] = "Increases output, health, and health regeneration. Adds 5K mass storage. Eliminates unit cap cost."
+Description['ueb1305'] = "Increases output, health, and regeneration. Adds 5K mass storage. Reduces unit cap cost to 2"
 Description['ueb1305-Regen'] = "Installs Nano-lathe enhancements to increase repair rate."
-Description['urb1305'] = "Increases output, health, and health regeneration. Adds 5K mass storage. Eliminates unit cap cost."
+Description['urb1305'] = "Increases output, health, and regeneration. Adds 5K mass storage. Reduces unit cap cost to 2"
 Description['urb1305-Regen'] = "Installs Nano-lathe enhancements to increase repair rate."
-Description['xsb1305'] = "Increases output, health, and health regeneration. Adds 5K mass storage. Eliminates unit cap cost."
+Description['xsb1305'] = "Increases output, health, and regeneration. Adds 5K mass storage. Reduces unit cap cost to 1.6"
 Description['xsb1305-Regen'] = "Installs Nano-lathe enhancements to increase repair rate."
 
 -- Upgraded T2 Power
