@@ -211,9 +211,12 @@ UnitBlueprint {
                     RackBone = 'Turret',
                 },
             },
+            
+            RackSalvoChargeTime = .3,
+            RackSalvoReloadTime = .7, 
 
             RangeCategory = 'UWRC_IndirectFire',
-            RateOfFire = .2,
+            RateOfFire = 1,
 
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -223,11 +226,9 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 
-            Turreted = false,
-			
-            WeaponRepackTimeout = 3,
+            WeaponRepackTimeout = 2.5,
             WeaponUnpackAnimation = '/units/uab2108/uab2108_aopen.sca',
-            WeaponUnpackAnimationRate = 1,
+            WeaponUnpackAnimationRate = 3,
             WeaponUnpacks = true,
         },
     },

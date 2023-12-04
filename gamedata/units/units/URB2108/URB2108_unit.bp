@@ -178,8 +178,6 @@ UnitBlueprint {
             },
             FiringTolerance = 5,
 
-            ForceSingleFire = true,
-
             InitialProjectileStorage = 0,
 
             Label = 'CruiseMissile',
@@ -214,17 +212,15 @@ UnitBlueprint {
                     RackBone = 'Projectile04',
                 },
             },
-
-            RackReloadTimeout = 10,
-
-            RackSalvoChargeTime = 1.5,
-            RackSalvoReloadTime = 3.5,
+            RackSalvoChargeTime = 0.5,
+            RackSalvoReloadTime = 2.5,
 
             RangeCategory = 'UWRC_IndirectFire',
 
-            RateOfFire = .2,
+            RateOfFire = 1,
 
-            TargetCheckInterval = 2,
+            TargetCheckInterval = 1,
+            
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'STRUCTURE -WALL',
@@ -232,10 +228,6 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 
-            Turreted = false,
-			
-            WeaponRepackTimeout = 3.5,
-            WeaponUnpacks = true,
         },
     },
 

@@ -194,7 +194,7 @@ UnitBlueprint {
             MaxRadius = 240,
             MinRadius = 15,
 
-            MuzzleChargeDelay = 1.5,
+            MuzzleChargeDelay = 0.3,
 
             MuzzleVelocity = 10,
 
@@ -207,10 +207,11 @@ UnitBlueprint {
                     RackBone = 'Muzzle',
                 },
             },
+            RackSalvoReloadTime = .5,
 
             RangeCategory = 'UWRC_IndirectFire',
 
-            RateOfFire = .2,
+            RateOfFire = 1,
 
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -222,7 +223,7 @@ UnitBlueprint {
 
             Turreted = false,
 			
-            WeaponRepackTimeout = 3,
+            WeaponRepackTimeout = 2.1,
             WeaponUnpackAnimation = '/units/ueb2108/ueb2108_aopen.sca',
             WeaponUnpackAnimationRate = 2,
             WeaponUnpacks = true,

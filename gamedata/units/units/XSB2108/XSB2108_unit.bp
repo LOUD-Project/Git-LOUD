@@ -238,9 +238,9 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 
-            RateOfFire = .2,
+            RateOfFire = 1,
 
-            TargetCheckInterval = 2,
+            TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'STRUCTURE -WALL',
@@ -248,9 +248,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 
-            Turreted = false,
-
-            WeaponRepackTimeout = 3,
+            WeaponRepackTimeout = 1.5,
             WeaponUnpackAnimation = '/units/xsb2108/xsb2108_aopen.sca',
             WeaponUnpackAnimationRate = 1,
             WeaponUnpacks = true,
