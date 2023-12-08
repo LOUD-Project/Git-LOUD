@@ -556,7 +556,7 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
 	
 		local positions = LOUDCONCAT(positions,AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Area', Position, radius, tMin, tMax, tRings, tType))
 
-		-- sort the possible positions by distance -- 
+		-- sort the possible positions by distance from base position -- 
 		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )
 	
 		local Brains = ArmyBrains
@@ -564,11 +564,15 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
 		-- minimum range that a Naval Base can be from any existing base
 		local minimum_baserange = 200
         
+        local distance_from_base = false
+        local distance_from_threat = false
+        local threatresult = 1
         local removed = false
+        
+        local choices = {}
 	
-		-- so we now have a list of ALL the Naval DP positions on the map
+		-- so we now have a list of ALL the Naval Area positions on the map
 		-- loop thru the list and eliminate any that are already in use by enemy AI 
-		-- the DP differs from the normal base in that we want to allow sharing with allies
 		-- note how I have to exclude my own brain as an ally to avoid sharing existing bases with myself
 		for m,marker in positions do
 	
@@ -583,27 +587,77 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
 					removed = true
 					break
 				end
-			end
-		
-			-- if valid then range check it to OUR other SEA bases
-			if (not removed) then
+            end
+            
+            if not removed then
 
+                -- range check against our other Sea bases
 				for basename, base in aiBrain.BuilderManagers do
-			
+
+                    distance_from_base = VDist3( base.Position, position )
+                    threat_distance = 0
+                   
+                    
 					-- if too close to one of our other existing 'Sea' bases
-					if base.BaseType == 'Sea' and VDist3( base.Position, position ) < minimum_baserange then
+					if distance_from_base < minimum_baserange then
 
 						removed = true
 						break
 					end
-				end
-
-				if not removed then
-                
-					return position, marker.Name
-				end						
+                end
             end
+            
+            if not removed then
+
+                -- distance from origin of engineer -- valued - closer is best - lower
+                distance_from_base = math.floor(VDist3( Position, position )) / minimum_baserange
+
+                local threatTable = aiBrain:GetThreatsAroundPosition( position, 12, true, 'StructuresNotMex')
+                
+                LOUDSORT( threatTable, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a[1],a[2], position[1],position[3]) < VDist2Sq(b[1],b[2], position[1],position[3] ) end )
+
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..tMax.." threatTable is "..repr(threatTable))
+                
+                threatresult = distance_from_base
+
+                for _,v in threatTable do
+ 
+                    -- ignore any cells below tMax --
+                    if v[3] > tMax then
+                    
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." Threat is "..v[3].." mult "..math.max(1, v[3]/tMax).." distance factor is "..minimum_baserange / math.floor(VDist2( v[1],v[2], position[1],position[3] )) )
+
+                        -- the further threat is away - the better - lower
+                        threatdistance = minimum_baserange / math.floor( VDist2( v[1],v[2], position[1], position[3] ))
+
+                        -- multiplied by relation to max threat allowed -- 
+                        threatdistance = math.max( 1, v[3]/tMax ) * threatdistance * distance_from_base
+                    
+                        if threatdistance > threatresult then
+                            threatresult = threatdistance
+                        end
+                    
+                    end
+
+                end
+			end
+
+			if not removed then
+               
+                LOUDINSERT( choices, {  DistThreatFactor = threatresult, Name = marker.Name, Position = position } )
+
+			end						
+
 		end
+        
+        if choices[1] then
+        
+            LOUDSORT( choices, function(a,b) return a.DistThreatFactor < b.DistThreatFactor end )
+        
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." Naval Area choices from "..repr(Position).." are "..repr(choices) )
+            
+            return choices[1].Position, choices[1].Name
+        end
 	end
     
     LOG("*AI DEBUG "..aiBrain.Nickname.." finds no NAVALAREA ")
