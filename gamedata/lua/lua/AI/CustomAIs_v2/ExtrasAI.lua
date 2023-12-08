@@ -1,7 +1,7 @@
 AI = {
 	Name = "AI Patch LOUD",
 	
-	Version = "6.3.20",
+	Version = "6.3.21",
 
 	AIList = {
 		{

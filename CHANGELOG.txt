@@ -1,3 +1,27 @@
+LUA 6.2.21
+LOUD_MISC 6.3.07
+LOUD_UNITS 6.3.07
+Black Ops for LOUD 6.3.12
+BrewLAN for LOUD 0.8.8.9.77
+UNITS 6.3.17
+
+-- updated flight mechanics for Ahwassa bomb-drop sequence permitting control after bomb drop
+-- some minor script fixes for BO ACUs
+-- updated the BrewLAN Hades T3 PD scripts to return proper functionality of all features
+-- further expansion of AI Debug tools to allow tracking of various platoon behaviors, ACU enhancements
+-- updated Unit Spreadsheet
+-- new naval platoon for Coastal bombardment during early game
+-- Cybran Megalith fixed weapon issue when transitioning from land/water/land
+-- UEF T2 Naval Shield boat now aligned with shield formula for consumption, size, recharge and regen rates (see GitHUB for full detail)
+-- The map The Pass 4 v 1 has been updated with new movement markers
+-- All upgraded T2 mass fabs now show cap cost ( .8 >> 1 ) instead of rounding down to zero
+-- Revised descriptions to denote actual cap cost values.
+-- Corrected targeting of manual weapons to enforce single fire, UI would permit shift-stacking of targets, but it didn't work
+-- revised AI threads for TML and Nukes, improved logging
+-- AI Naval base selection process now takes into account threat AND distance 
+
+
+
 ### Release 17-11-2023
 
 LUA 6.2.20
