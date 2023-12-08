@@ -196,13 +196,9 @@ UnitBlueprint {
             NukeOuterRingTotalTime = 10,
 
             ProjectileId = '/mods/BrewLAN_LOUD/effects/entities/QuantumWarheadEffectController/QuantumWarheadEffectController_proj.bp',
+
             RackBones = {
-                {
-                    MuzzleBones = {
-                        0,
-                    },
-                    RackBone = 0,
-                },
+                { MuzzleBones = { 0 }, RackBone = 0 },
             },
 
             RangeCategory = 'UWRC_DirectFire',
@@ -213,32 +209,29 @@ UnitBlueprint {
 
         {
             CollideFriendly = false,
-            Damage = 1000,
+            Damage = 15000,
             DamageFriendly = true,
-            DamageRadius = 10,
+            DamageRadius = 20,
             DamageType = 'Normal',
+
             DisplayName = 'Death Nuke',
+
             FireOnDeath = true,
+
             FiringTolerance = 2,
+
             Label = 'DeathWeapon',
-            MaxRadius = 1,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            MuzzleVelocity = 0,
+
             ProjectileId = '/effects/Entities/SCUDeath01/SCUDeath01_proj.bp',
             RackBones = {
-                {
-                    MuzzleBones = {
-                        0,
-                    },
-                    RackBone = 0,
-                },
+                { MuzzleBones = { 0 }, RackBone = 0 },
             },
-            RackRecoilDistance = 0,
+
             RateOfFire = 1,
+
             TargetCheckInterval = 9999999,
             TargetRestrictDisallow = 'UNTARGETABLE',
-            Turreted = false,
+
             WeaponCategory = 'Death',
         },
 
