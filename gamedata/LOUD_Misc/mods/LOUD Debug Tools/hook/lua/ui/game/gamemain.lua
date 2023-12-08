@@ -43,7 +43,6 @@ do
 	local SWITCHES_RIGHT = {
 		"* INTEL & THREAT DEBUGS *",
 		'IntelDialog',
-        'NukeDialog',
 		'DisplayIntelPoints',
 
 		"* PLATOONS *",
@@ -61,6 +60,7 @@ do
         'LandForceDialog',
         'NavalForceDialog',
         'NavalBombardDialog',
+        'NukeDialog',
 
         "* HARDCORD NERD DATA *",
 		'BuffDialog',
