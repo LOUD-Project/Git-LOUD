@@ -6916,6 +6916,10 @@ function TMLThread( unit, aiBrain )
     
 	local UnitLeadTarget = import('/lua/ai/sorianutilities.lua').LeadTarget	-- this uses the specific one for TMLs
 	local WaitTicks = WaitTicks
+    
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." TMLThread launched")
+    
+    unit.HasTMLTarget = false
 	
     unit:SetAutoMode(true)
 
@@ -6924,7 +6928,7 @@ function TMLThread( unit, aiBrain )
 	
     while not unit.Dead do
 
-        -- dont search for targets unless ammo is 3+
+        -- dont search for targets unless ammo is 2+
         while unit:GetTacticalSiloAmmoCount() > 2 do
 
             while unit:GetTacticalSiloAmmoCount() > 0 do
@@ -6933,9 +6937,9 @@ function TMLThread( unit, aiBrain )
 			
                 targetUnits = GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL - categories.AIR - categories.TECH1, position, maxRadius, 'Enemy' )
                 
-                if targetUnits[1] then
+                if targetUnits[1] and not unit.HasTMLTarget then
                 
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." TML examining targets")
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." TML examining targets")
             
                     -- loop thru each of the attack Priorities
                     for _,v in atkPri do
@@ -6957,7 +6961,11 @@ function TMLThread( unit, aiBrain )
 			
                             if LOUDENTITY(categories.STRUCTURE, target) then
                             
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." TML firing at structure")
+                            
                                 IssueTactical({unit}, target)
+                                
+                                break
                                 
                             else
                             
@@ -6965,7 +6973,11 @@ function TMLThread( unit, aiBrain )
                                 targPos = UnitLeadTarget(position, target) 
 					
                                 if targPos then
+                                
                                     IssueTactical({unit}, targPos)
+                                    
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." TML firing at position")
+
                                     target = false
                                     targPos = false 	-- clear targeting data 
                                     break	-- break out back to ammo loop
@@ -6983,10 +6995,9 @@ function TMLThread( unit, aiBrain )
                     end
 
                 end
-                
-                -- wait 2.5 seconds between target checks
-                WaitTicks(26)
-                
+
+                WaitTicks(16)    -- delay between targeting checks or busy
+
 			end
             
             targetUnits = nil
