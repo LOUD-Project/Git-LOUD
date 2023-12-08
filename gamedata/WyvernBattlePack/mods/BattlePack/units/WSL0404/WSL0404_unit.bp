@@ -1,9 +1,11 @@
 UnitBlueprint{
     Description = "<LOC wsl0404_desc>Experimental Mobile Artillery (Artillery)",
+
     AI = {
         GuardScanRadius = 96,
         TargetBones = {"PowerOrb","PowerOrb_FrontRight","PowerOrb_Left001","WSL0404"},
     },
+
     Audio = {
         AmbientMove = Sound { Bank = 'XSL',            Cue = 'XSL0201_Move_Loop',    LodCutoff = 'UnitMove_LodCutoff' },
         Destroyed   = Sound { Bank = 'XSL_Destroy',    Cue = 'XSL_Destroy_Land_Sml', LodCutoff = 'UnitMove_LodCutoff' },
@@ -11,6 +13,7 @@ UnitBlueprint{
         StopMove    = Sound { Bank = 'XSL',            Cue = 'XSL0201_Move_Stop',    LodCutoff = 'UnitMove_LodCutoff' },
         UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Tank', LodCutoff = 'UnitMove_LodCutoff' },
     },
+
     Buffs = {
         Regen = {
             Level1 = 15,
@@ -20,7 +23,9 @@ UnitBlueprint{
             Level5 = 75,
         },
     },
+
     BuildIconSortPriority = 20,
+
     Categories = {
         "AMPHIBIOUS",
         "ARTILLERY",
@@ -36,6 +41,7 @@ UnitBlueprint{
         "SERAPHIM",
         "VISIBLETORECON",
     },
+
     Defense = {
         AirThreatLevel = 14,
         ArmorType = "Experimental",
@@ -44,6 +50,7 @@ UnitBlueprint{
         RegenRate = 12,
         SurfaceThreatLevel = 427.9,
     },
+
     Display = {
         Abilities = {
             "<LOC ability_aa>Anti-Air",
@@ -77,11 +84,13 @@ UnitBlueprint{
         },
         UniformScale = 0.04,
     },
+
     Economy = {
         BuildCostEnergy = 165000,
         BuildCostMass = 13500,
         BuildTime = 2500,
     },
+
     General = {
         CapCost = 4,
         CommandCaps = {
@@ -97,13 +106,16 @@ UnitBlueprint{
         Icon = "amph",
         UnitName = "<LOC wsl0404_name>Yath-Yen",
     },
+
     Intel = {
         VisionRadius = 37,
         WaterVisionRadius = 24,
     },
+
     LifeBarHeight = 0.15,
     LifeBarOffset = 2.5,
     LifeBarSize = 4,
+
     Physics = {
         BackUpDistance = 8,
         BankingSlope = 0,
@@ -125,18 +137,23 @@ UnitBlueprint{
         TurnRadius = 15,
         TurnRate = 45,
     },
+
     SelectionSizeX = 2.4,
     SelectionSizeZ = 2.4,
     SelectionThickness = 0.3,
+
     SizeX = 3.2,
     SizeY = 1.3,
     SizeZ = 3.5,
+
     StrategicIconName = "icon_seabed4_artillery",
     StrategicIconSortPriority = 115,
+
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 10,
     },
+
     Veteran = {
         Level1 = 25,
         Level2 = 50,
@@ -144,18 +161,21 @@ UnitBlueprint{
         Level4 = 100,
         Level5 = 125,
     },
+
     Weapon = {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
+            
             ArtilleryShieldBlocks = true,
+
             Audio = {
                 Fire              = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_Exp_Phason_Fire',   LodCutoff = 'Weapon_LodCutoff' },
                 MuzzleChargeStart = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_Exp_Phason_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
 
-            AutoInitiateAttackCommand = true,
+            AutoInitiateAttackCommand = false,
 
             BallisticArc = "RULEUBA_HighArc",
             CollideFriendly = false,
@@ -188,6 +208,7 @@ UnitBlueprint{
             MuzzleVelocityReduceDistance = 99,
 
             NotExclusive = true,
+
             ProjectileId = "/projectiles/SIFSuthanusArtilleryShell01/SIFSuthanusArtilleryShell01_proj.bp",
             ProjectileLifetime = 20,
 
@@ -220,6 +241,7 @@ UnitBlueprint{
             TurretPitch = 35,
             TurretPitchRange = 50,
             TurretPitchSpeed = 32,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 32,
