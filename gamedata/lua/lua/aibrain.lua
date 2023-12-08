@@ -66,9 +66,6 @@
     ScenarioInfo.IntelDialog = false
     LOG("*AI DEBUG      Report Intel Dialog is "..repr(ScenarioInfo.IntelDialog))
     
-    ScenarioInfo.NukeDialog = false
-    LOG("*AI DEBUG      Report  Nuke Dialog to Log is "..repr(ScenarioInfo.NukeDialog))
-    
     -- AI will display color coded and relatively sized rings, on the map, for different types of threat
     -- the threats that are displayed (not all are) is controlled in PARSEINTELTHREAD
 	ScenarioInfo.DisplayIntelPoints = false
@@ -160,6 +157,9 @@
 
     ScenarioInfo.NavalBombardDialog = false
     LOG("*AI DEBUG      NavalForce Bombardment Dialog is "..repr(ScenarioInfo.NavalBombardDialog))    
+    
+    ScenarioInfo.NukeDialog = true
+    LOG("*AI DEBUG      Report  Nuke Dialog to Log is "..repr(ScenarioInfo.NukeDialog))
 
 
 
@@ -339,7 +339,6 @@ function SetAIDebug(data)
             'ReportRatios',
 
             'IntelDialog',
-            'NukeDialog',
             'DisplayIntelPoints',
 
             'PlatoonDialog',
@@ -355,6 +354,7 @@ function SetAIDebug(data)
             'LandForceDialog',
             'NavalForceDialog',
             'NavalBombardDialog',
+            'NukeDialog',
 
             'BuffDialog',
             'InstanceDialog',

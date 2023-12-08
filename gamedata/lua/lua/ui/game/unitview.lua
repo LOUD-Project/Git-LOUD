@@ -554,16 +554,17 @@ function UpdateWindow(info)
         controls.shieldText:Hide()
 
 		-- works properly but i've yet to find a good spot to put that data in
-		--    if info.userUnit != nil and info.userUnit:GetBlueprint().Economy.StorageMass > 0 and info.userUnit:GetBlueprint().Economy.StorageEnergy > 0 then
-		--       controls.StorageMass:SetText(string.format("%d",LOUDFLOOR(info.userUnit:GetBlueprint().Economy.StorageMass)))
-		--       controls.StorageEnergy:SetText(string.format("%d",LOUDFLOOR(info.userUnit:GetBlueprint().Economy.StorageEnergy)))
-		--       controls.StorageMass:Show()
-		--       controls.StorageEnergy:Show()
-		--    else
-		--       controls.StorageMass:Hide()
-		--       controls.StorageEnergy:Hide()
-		--    end
-
+--[[        
+		    if info.userUnit != nil and info.userUnit:GetBlueprint().Economy.StorageMass > 0 and info.userUnit:GetBlueprint().Economy.StorageEnergy > 0 then
+		       controls.StorageMass:SetText(string.format("%d",LOUDFLOOR(info.userUnit:GetBlueprint().Economy.StorageMass)))
+		       controls.StorageEnergy:SetText(string.format("%d",LOUDFLOOR(info.userUnit:GetBlueprint().Economy.StorageEnergy)))
+		       controls.StorageMass:Show()
+		       controls.StorageEnergy:Show()
+		    else
+		       controls.StorageMass:Hide()
+		       controls.StorageEnergy:Hide()
+		    end
+--]]
         -- show the unit health and regen
         if info.userUnit != nil then
     
@@ -729,7 +730,7 @@ function CreateUI()
     controls.BuildrateIcon = Bitmap(controls.bg, UIUtil.UIFile('/game/unit_view_icons/build.dds'))
 
     -- these are available but not implemented - showing storage values --
-	-- controls.StorageMass = UIUtil.CreateText(controls.bg, '', 12, UIUtil.bodyFont)
-	-- controls.StorageEnergy = UIUtil.CreateText(controls.bg, '', 12, UIUtil.bodyFont)
+	--controls.StorageMass = UIUtil.CreateText(controls.bg, '', 12, UIUtil.bodyFont)
+	--controls.StorageEnergy = UIUtil.CreateText(controls.bg, '', 12, UIUtil.bodyFont)
 
 end

@@ -2218,7 +2218,7 @@ function NukeAI( self, aiBrain )
 				allthreat = target.Threats.Eco + ((target.Threats.Sub + target.Threats.Sur) * 1.35) + (target.Threats.Air * 0.5)
 				
                 if ScenarioInfo.NukeDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI says value of target at distance "..repr(LOUDSQUARE(target.Distance)).." is "..repr(allthreat).."  Needed value is "..repr(minimumvalue))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI target at distance "..repr(LOUDSQUARE(target.Distance)).." is "..repr(allthreat).."  Needed value is "..repr(minimumvalue))
 				end
                 
 				-- factor in distance to make near targets worth more
@@ -2227,7 +2227,7 @@ function NukeAI( self, aiBrain )
 				allthreat = allthreat * LOUDSQUARE(aiBrain.dist_comp/target.Distance)
                 
                 if ScenarioInfo.NukeDialog then				
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI says value after distance adjust is "..repr(allthreat))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI says target value after distance adjust is "..repr(allthreat))
                 end
 				
 				-- ignore it if less than minimumvalue
@@ -2242,21 +2242,16 @@ function NukeAI( self, aiBrain )
 					LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI says there are "..antinukes.." antinukes along path to this target")
 				end
 
-				-- if too many antinukes
+				-- if too many antinukes versus launchers
 				if antinukes >= nukesavailable then
 					continue
 				end
-
-				-- the +0.75 is to insure the calculation is not divided by zero
-				-- AND it makes a target with NO ANTIS a little more valuable
-				antinukes = antinukes
 
 				-- value of target is divided by number of anti-nukes in area
 				value = ( allthreat/ LOUDMAX(antinukes,1) )
 
                 if ScenarioInfo.NukeDialog then
-                    LOG("*AI DEBUG NukeAI says there are "..repr(antinukes - 0.9).." AntiNukes within range of target")
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI modified value is "..repr(value))
+                    LOG("*AI DEBUG NukeAI says there are "..repr(antinukes).." AntiNukes within range of target - value is now "..repr(value) )
                 end
 
 				-- if this is a better target then store it
@@ -2266,7 +2261,7 @@ function NukeAI( self, aiBrain )
 					if not LOUDEQUAL(target.Position,lasttarget) then
 					
                         if ScenarioInfo.NukeDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI sees this as a NEW target -- New "..repr(target.Position).." Antis is "..(antinukes - 0.85).." Last Scouted "..repr(target.LastScouted))
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI sees this as a viable target -- "..repr(target.Position).." Antis is "..(antinukes).." Last Scouted "..repr(target.LastScouted))
                         end
 
 						targetvalue = value
@@ -2335,7 +2330,7 @@ function NukeAI( self, aiBrain )
 				if launches > targetantis then
                 
                     if ScenarioInfo.NukeDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." has "..launches.." missiles available for target with "..targetantis.." antinukes")
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." has "..launches.." launchers available for target with "..targetantis.." antinukes")
                     end
 					
 					-- store the target and time
@@ -2372,7 +2367,7 @@ function NukeAI( self, aiBrain )
 							end
 
                             if ScenarioInfo.NukeDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." Firing Nuke "..(firednukes + 1).." after "..(lastflighttime - u.flighttime).." seconds - target is "..repr(nukePos))
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." Firing Nuke "..(firednukes + 1).." after "..(lastflighttime - u.flighttime).." seconds - target is "..repr(nukePos).." status "..repr(u.HasTMLTarget) )
 							end
                             
 							IssueNuke( {u.unit}, nukePos )
