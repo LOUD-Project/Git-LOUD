@@ -629,8 +629,6 @@ DefaultProjectileWeapon = Class(Weapon) {
 
     -- General State-less event handling
     OnLostTarget = function(self)
-
-        --if self.WeaponIsEnabled then
         
             local bp = self.bp
             
@@ -645,10 +643,17 @@ DefaultProjectileWeapon = Class(Weapon) {
                 Weapon.OnLostTarget(self)
 
             end
+            
+            if bp.WeaponUnpacks then
+            
+                LOUDSTATE(self, self.WeaponPackingState)
+                
+            else
 
-            LOUDSTATE(self, self.IdleState)
+                LOUDSTATE(self, self.IdleState)
+                
+            end
 
-        --end
     end,
 
     OnDestroy = function(self)
@@ -761,10 +766,6 @@ DefaultProjectileWeapon = Class(Weapon) {
             if ScenarioInfo.WeaponStateDialog then
                 LOG("*AI DEBUG DefaultWeapon Idle State "..repr(self.bp.Label).." at "..GetGameTick() )
             end
-            
-            --if bp.CountedProjectile and WeaponHasTarget(self) then
-              --  self:OnLostTarget() -- this should clear all targeting
-            --end
 
             SetBusy( unit, false )
 
@@ -832,8 +833,13 @@ DefaultProjectileWeapon = Class(Weapon) {
 			
                 if bp.CountedProjectile == true and not self:CanWeaponFire() then
 				
+                    self.unit.HasTMLTarget = true
                     return
-                    
+                end
+                
+                if bp.CountedProjectile then
+
+                    self.unit.HasTMLTarget = true
                 end
 				
                 if bp.WeaponUnpacks == true then
@@ -1290,7 +1296,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             self.HaltFireOrdered = false
 
 			-- if all the racks have fired --
-            if self.CurrentRackNumber > TotalRacksOnWeapon then
+            if (self.CurrentRackNumber > TotalRacksOnWeapon) or bp.CountedProjectile then
 			
 				-- reset the rack count
                 self.CurrentRackNumber = 1
@@ -1306,17 +1312,11 @@ DefaultProjectileWeapon = Class(Weapon) {
                     LOUDSTATE(self, self.RackSalvoChargeState)
 					
                 end
-				
-            elseif bp.CountedProjectile then
 
-				if bp.WeaponUnpacks then
-					LOUDSTATE(self, self.WeaponPackingState)
-				else
-					LOUDSTATE(self, self.IdleState)
-				end
-				
             else
+
                 LOUDSTATE(self, self.RackSalvoChargeState)
+
             end
             
         end,
@@ -1480,9 +1480,9 @@ DefaultProjectileWeapon = Class(Weapon) {
             
             if bp.CountedProjectile then
 
-                WaitTicks(2)  -- this is what causes a counted projectile to drop it's targeting
+                WaitTicks(3)  -- this is what causes a counted projectile to drop it's targeting
                 
-                LOG("*AI DEBUG WeaponCanFire is "..repr(self.WeaponCanFire) )
+                self.unit.HasTMLTarget = false
                 
                 if self.WeaponCanFire then
                     LOUDSTATE(self, self.IdleState)
