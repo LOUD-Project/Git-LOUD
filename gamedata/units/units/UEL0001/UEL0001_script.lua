@@ -52,7 +52,11 @@ UEL0001 = Class(TWalkingLandUnit) {
                 self.unit:BuildManipulatorSetEnabled(false)
                 self.AimControl:SetEnabled(true)
                 self.AimControl:SetPrecedence(20)
-                self.unit.BuildArmManipulator:SetPrecedence(0)
+                
+                if self.unit.BuildArmManipulator then
+                    self.unit.BuildArmManipulator:SetPrecedence(0)
+                end
+                
                 self.AimControl:SetHeadingPitch( self.unit:GetWeaponManipulatorByLabel('RightZephyr'):GetHeadingPitch() )
             end,
 
@@ -69,7 +73,11 @@ UEL0001 = Class(TWalkingLandUnit) {
                 self.unit:BuildManipulatorSetEnabled(false)
                 self.AimControl:SetEnabled(false)
                 self.AimControl:SetPrecedence(0)
-                self.unit.BuildArmManipulator:SetPrecedence(0)
+                
+                if self.unit.BuildArmManipulator then
+                    self.unit.BuildArmManipulator:SetPrecedence(0)
+                end
+                
                 self.unit:GetWeaponManipulatorByLabel('RightZephyr'):SetHeadingPitch( self.AimControl:GetHeadingPitch() )
             end,
             

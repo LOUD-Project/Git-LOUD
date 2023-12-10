@@ -62,7 +62,11 @@ URL0001 = Class(CWalkingLandUnit) {
                 self.unit:BuildManipulatorSetEnabled(false)
                 self.AimControl:SetEnabled(true)
                 self.AimControl:SetPrecedence(20)
-                self.unit.BuildArmManipulator:SetPrecedence(0)
+                
+                if self.unit.BuildArmManipulator then
+                    self.unit.BuildArmManipulator:SetPrecedence(0)
+                end
+                
                 self.AimControl:SetHeadingPitch( self.unit:GetWeaponManipulatorByLabel('RightRipper'):GetHeadingPitch() )
             end,
 
@@ -79,7 +83,11 @@ URL0001 = Class(CWalkingLandUnit) {
                 self.unit:BuildManipulatorSetEnabled(false)
                 self.AimControl:SetEnabled(false)
                 self.AimControl:SetPrecedence(0)
-                self.unit.BuildArmManipulator:SetPrecedence(0)
+                
+                if self.unit.BuildArmManipulator then
+                    self.unit.BuildArmManipulator:SetPrecedence(0)
+                end
+                
                 self.unit:GetWeaponManipulatorByLabel('RightRipper'):SetHeadingPitch( self.AimControl:GetHeadingPitch() )
             end,
             

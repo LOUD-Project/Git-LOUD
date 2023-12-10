@@ -1,3 +1,13 @@
+### Release 09-12-2023
+
+Units 6.3.17.1
+
+-- Hotfix for issue with basic ACU's 
+
+
+
+### Release 08-12-2023
+
 LUA 6.2.21
 LOUD_MISC 6.3.07
 LOUD_UNITS 6.3.07
@@ -19,6 +29,7 @@ UNITS 6.3.17
 -- Corrected targeting of manual weapons to enforce single fire, UI would permit shift-stacking of targets, but it didn't work
 -- revised AI threads for TML and Nukes, improved logging
 -- AI Naval base selection process now takes into account threat AND distance 
+-- removed 'auto-attack' on Wyvern T4 Mobile Artillery
 
 
 

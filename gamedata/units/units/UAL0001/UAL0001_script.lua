@@ -41,11 +41,17 @@ UAL0001 = Class(AWalkingLandUnit) {
                 ADFOverchargeWeapon.OnEnableWeapon(self)
                 self:SetWeaponEnabled(true)
                 self.unit:SetWeaponEnabledByLabel('RightDisruptor', false)
+
                 self.unit:BuildManipulatorSetEnabled(false)
+
                 self.AimControl:SetEnabled(true)
                 self.AimControl:SetPrecedence(20)
-                self.unit.BuildArmManipulator:SetPrecedence(0)
                 self.AimControl:SetHeadingPitch( self.unit:GetWeaponManipulatorByLabel('RightDisruptor'):GetHeadingPitch() )
+
+                if self.unit.BuildArmManipulator then
+                    self.unit.BuildArmManipulator:SetPrecedence(0)
+                end
+
             end,
 
             OnWeaponFired = function(self)
@@ -58,10 +64,16 @@ UAL0001 = Class(AWalkingLandUnit) {
                 if self.unit:BeenDestroyed() then return end
                 self:SetWeaponEnabled(false)
                 self.unit:SetWeaponEnabledByLabel('RightDisruptor', true)
+                
                 self.unit:BuildManipulatorSetEnabled(false)
+                
                 self.AimControl:SetEnabled(false)
                 self.AimControl:SetPrecedence(0)
-                self.unit.BuildArmManipulator:SetPrecedence(0)
+                
+                if self.unit.BuildArmManipulator then
+                    self.unit.BuildArmManipulator:SetPrecedence(0)
+                end
+                
                 self.unit:GetWeaponManipulatorByLabel('RightDisruptor'):SetHeadingPitch( self.AimControl:GetHeadingPitch() )
             end,
             

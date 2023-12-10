@@ -95,7 +95,9 @@ XSL0001 = Class( SWalkingLandUnit ) {
                 self.AimControl:SetEnabled(true)
                 self.AimControl:SetPrecedence(20)
 
-                self.unit.BuildArmManipulator:SetPrecedence(0)
+                if self.unit.BuildArmManipulator then
+                    self.unit.BuildArmManipulator:SetPrecedence(0)
+                end
 
                 self.AimControl:SetHeadingPitch( self.unit:GetWeaponManipulatorByLabel('ChronotronCannon'):GetHeadingPitch() )
             end,
@@ -120,7 +122,10 @@ XSL0001 = Class( SWalkingLandUnit ) {
                 self.AimControl:SetEnabled(false)
                 self.AimControl:SetPrecedence(0)
 
-                self.unit.BuildArmManipulator:SetPrecedence(0)
+                if self.unit.BuildArmManipulator then
+                    self.unit.BuildArmManipulator:SetPrecedence(0)
+                end
+                
                 self.unit:GetWeaponManipulatorByLabel('ChronotronCannon'):SetHeadingPitch( self.AimControl:GetHeadingPitch() )
             end,
             
