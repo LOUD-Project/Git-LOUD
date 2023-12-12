@@ -72,7 +72,8 @@ EAL0001 = Class(AWalkingLandUnit) {
 
                 self:SetWeaponEnabled(true)
 
-                self.unit:SetWeaponEnabledByLabel('RightDisruptor', false)
+                --self.unit:SetWeaponEnabledByLabel('RightDisruptor', false)
+
                 self.unit:BuildManipulatorSetEnabled(false)
 
                 self.AimControl:SetEnabled(true)
@@ -99,7 +100,8 @@ EAL0001 = Class(AWalkingLandUnit) {
 
                 self:SetWeaponEnabled(false)
 
-                self.unit:SetWeaponEnabledByLabel('RightDisruptor', true)
+                --self.unit:SetWeaponEnabledByLabel('RightDisruptor', true)
+
                 self.unit:BuildManipulatorSetEnabled(false)
 
                 self.AimControl:SetEnabled(false)

@@ -232,7 +232,7 @@ ERL0001 = Class(CWalkingLandUnit) {
 
                 self:SetWeaponEnabled(true)
 
-                self.unit:SetWeaponEnabledByLabel('RightRipper', false)
+                --self.unit:SetWeaponEnabledByLabel('RightRipper', false)
 
                 self.unit:BuildManipulatorSetEnabled(false)
                 
@@ -260,7 +260,7 @@ ERL0001 = Class(CWalkingLandUnit) {
 
                 self:SetWeaponEnabled(false)
 
-                self.unit:SetWeaponEnabledByLabel('RightRipper', true)
+                --self.unit:SetWeaponEnabledByLabel('RightRipper', true)
 
                 self.unit:BuildManipulatorSetEnabled(false)
 

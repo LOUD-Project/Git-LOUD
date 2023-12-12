@@ -158,8 +158,11 @@ ESL0001 = Class( SWalkingLandUnit ) {
 				self.unit.EXOCFire = true
 				self:ForkThread(self.EXOCRecloakTimer)
                 self:SetWeaponEnabled(true)
-                self.unit:SetWeaponEnabledByLabel('ChronotronCannon', false)
+
+                --self.unit:SetWeaponEnabledByLabel('ChronotronCannon', false)
+
                 self.unit:BuildManipulatorSetEnabled(false)
+
                 self.AimControl:SetEnabled(true)
                 self.AimControl:SetPrecedence(20)
                 
@@ -184,8 +187,11 @@ ESL0001 = Class( SWalkingLandUnit ) {
             OnDisableWeapon = function(self)
                 if self.unit:BeenDestroyed() then return end
                 self:SetWeaponEnabled(false)
-                self.unit:SetWeaponEnabledByLabel('ChronotronCannon', true)
+
+                --self.unit:SetWeaponEnabledByLabel('ChronotronCannon', true)
+
                 self.unit:BuildManipulatorSetEnabled(false)
+
                 self.AimControl:SetEnabled(false)
                 self.AimControl:SetPrecedence(0)
                 

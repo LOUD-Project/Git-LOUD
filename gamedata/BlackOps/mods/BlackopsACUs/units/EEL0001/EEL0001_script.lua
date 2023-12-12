@@ -228,7 +228,8 @@ EEL0001 = Class(TWalkingLandUnit) {
    
                 self:SetWeaponEnabled(true)
 
-                self.unit:SetWeaponEnabledByLabel('RightZephyr', false)
+                --self.unit:SetWeaponEnabledByLabel('RightZephyr', false)
+
                 self.unit:ResetWeaponByLabel('RightZephyr')
 
                 self.unit:BuildManipulatorSetEnabled(false)
@@ -255,7 +256,9 @@ EEL0001 = Class(TWalkingLandUnit) {
                 if self.unit:BeenDestroyed() then return end
    
                 self:SetWeaponEnabled(false)
-                self.unit:SetWeaponEnabledByLabel('RightZephyr', true)
+
+                --self.unit:SetWeaponEnabledByLabel('RightZephyr', true)
+
                 self.unit:BuildManipulatorSetEnabled(false)
                 self.AimControl:SetEnabled(false)
                 self.AimControl:SetPrecedence(0)
