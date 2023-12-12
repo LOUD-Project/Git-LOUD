@@ -12,6 +12,7 @@ local GetHiPriTargetList = import('/lua/loudutilities.lua').GetHiPriTargetList
 local GetOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
 local RandomLocation = import('/lua/ai/aiutilities.lua').RandomLocation
 
+local LOUDABS = math.abs
 local LOUDCOPY = table.copy
 local LOUDENTITY = EntityCategoryContains
 local LOUDEQUAL = table.equal
@@ -1376,6 +1377,8 @@ function LandScoutingAI( self, aiBrain )
 		if not scout then
 			break
 		end
+        
+        IssueClearCommands( dataList )
 		
 		reconcomplete = false
         scoutpriority = false
@@ -1614,38 +1617,57 @@ function LandScoutingAI( self, aiBrain )
                     dataList = GetPlatoonUnits(self)
                 
                     baseradius = 22
+
+                    local areaelevation = GetTerrainHeight(targetArea[1],targetArea[3])                    
+
+                    if LocationInWaterCheck(targetArea) then
+                        areaelevation = GetSurfaceHeight(targetArea[1],targetArea[3])
+                    end
                 
                     for _,scout in dataList do
                     
+                        IssueClearCommands( {scout} )
+                    
                         -- assign upto 2 scouts to this patrol
                         if baseradius > 35 then
-                            break
-                        end
-                    
-                        if not scout.Dead then
-                        
-                            IssueStop( {scout} )
+
+                            continue
+
+                        else
 					
                             path = GetBasePerimeterPoints( aiBrain, targetArea, baseradius, false, false, MovementLayer, true )
+                            
+                            local firstmove = true
+                            local lastpos = targetArea
 					
                             for k,v in path do
+
+                                local TH = GetTerrainHeight(v[1],v[3])
+                                local SH = GetSurfaceHeight(v[1],v[3])
 
                                 if (not scout.Dead) and scout:CanPathTo( v ) then
 								
                                     if not MovementLayer == 'Amphibious' then
-							
-                                        v[2] = GetSurfaceHeight(v[1], v[3])
-									
-                                        if GetTerrainHeight(v[1], v[3]) < (v[2] - 1) then
+
+                                        -- if terrain drops off into water
+                                        if TH < (SH - 1) then
                                             continue
                                         end
                                     end
-					
-                                    if k == 1 then
+
+                                    if CheckBlockingTerrain( lastpos, v )then
+                                        continue
+                                    end
+
+                                    lastpos = LOUDCOPY(v)					
+
+                                    if firstmove then
                                         IssueMove( {scout}, v )
+                                        firstmove = false
                                     else
                                         IssuePatrol( {scout}, v )
                                     end
+
                                 end
 
                                 WaitTicks(1)
@@ -8550,6 +8572,44 @@ ExpPathToLocation = function(aiBrain, platoon, layer, dest, aggro, markerdist)
 	return cmd
 end
 
+
+function CheckBlockingTerrain( pos, targetPos )
+
+    local GetTerrainHeight = GetTerrainHeight	
+
+	-- This gives us the approx number of 8 ogrid steps in the distance
+	local steps = LOUDFLOOR( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 8 ) + 1
+	
+	local xstep = (pos[1] - targetPos[1]) / steps -- how much the X value will change from step to step
+	local ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
+
+	local lastpos = {pos[1], 0, pos[3]}
+    local lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
+
+    local nextpos = { 0, 0, 0 }
+	
+	-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
+	for i = 1, steps do
+		
+        nextpos[1] = pos[1] - (xstep * i)
+        nextpos[3] = pos[3] - (ystep * i)
+			
+        nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
+
+		-- if more than 3.6 ogrids change in height over 8 ogrids distance
+		if LOUDABS(lastposHeight - nextposHeight) > 3.6 then
+
+            return true
+		end
+
+        lastpos[1] = nextpos[1]
+        lastpos[3] = nextpos[3]
+        lastposHeight = nextposHeight
+
+	end
+	
+    return false
+end
 
 
 -- returns true if the platoon is presently in the water
