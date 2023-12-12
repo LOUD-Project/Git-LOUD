@@ -512,6 +512,8 @@ Platoon = Class(moho.platoon_methods) {
 		target,targetposition = FindTargetInRange( self, aiBrain, squad, range, attackcategories, false, scanposition )
 
 		if target and PlatoonExists( aiBrain,self) then
+        
+            targetposition = LOUDCOPY(targetposition)
  
             --if GuardpointDialog then
               --  LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." has target "..target.EntityID.." at "..repr(targetposition) )
@@ -5071,6 +5073,8 @@ Platoon = Class(moho.platoon_methods) {
                 end
 			
 				target, targetposition = FindTargetInRange( self, aiBrain, 'Attack', guardRadius, categoryList, false)
+                
+                targetposition = LOUDCOPY(targetposition)
 
 				units = GetPlatoonUnits(self)
 				
@@ -8649,6 +8653,7 @@ Platoon = Class(moho.platoon_methods) {
 					targetLocation = false
 				else
                     targettype = 'Local'
+                    targetLocation = LOUDCOPY(targetLocation)
 				end
 			end
 
@@ -9054,10 +9059,6 @@ Platoon = Class(moho.platoon_methods) {
         targettypes["StructuresNotMex"] = true
 
         while PlatoonExists(aiBrain,self) do
-        
-            --if GetGameTimeSeconds() > 60 * 17 then
-              --  AmphibForceAIDialog = true
-            --end
 
 			if self.MoveThread then
 				self:KillMoveThread()
@@ -9120,6 +9121,7 @@ Platoon = Class(moho.platoon_methods) {
                 LOG("*AI DEBUG "..aiBrain.Nickname.." AmphibForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." seeking local target at range 90 from "..repr(GetPlatoonPosition(self)))
             end
 			
+            -- this can return a moving targetLocation
 			target, targetLocation = FindTargetInRange( self, aiBrain, 'Attack', 90, TARGETSTUFF, false )
 			
 			if target and not target.Dead and PlatoonExists( aiBrain, self) then
@@ -9129,6 +9131,7 @@ Platoon = Class(moho.platoon_methods) {
 					targetLocation = false
 				else
                     targettype = 'Local'
+                    targetLocation = LOUDCOPY(targetLocation)
 				end
 			end
 			
