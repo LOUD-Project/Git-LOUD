@@ -4506,6 +4506,53 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             }
         }
     },	
+
+    Builder {BuilderName = 'T2 DP STD Artillery',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		InstanceCount = 1,
+        
+        Priority = 750,
+
+        PriorityFunction = IsEnemyCrushingLand,
+		
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .90 } },
+
+			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
+
+            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
+
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.01, 1.02 }},
+
+            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.ARTILLERY * categories.TECH2 }},
+        },
+		
+		BuilderType = { 'T3','SubCommander' },
+
+        BuilderData = {
+			DesiresAssist = true,
+            NumAssistees = 2,
+            
+            Construction = {
+	            NearBasePerimeterPoints = true,
+                
+                ThreatMax = 75,
+
+				BaseTemplateFile = '/lua/ai/aibuilders/LOUD_DP_Templates.lua',
+				BaseTemplate = 'DefensivePointStandard',
+				
+                BuildStructures = {'T2Artillery'},
+            }
+        }
+    },
 	
     Builder {BuilderName = 'T2 DP STD TML',
 	
@@ -4518,7 +4565,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
             
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
@@ -4627,9 +4674,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
             
-            --{ LUTL, 'LandStrengthRatioLessThan', { 3 } },
-            
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
