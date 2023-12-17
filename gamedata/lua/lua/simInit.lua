@@ -24,7 +24,7 @@
 --#   3b. The saved lua state is deserialized
 
 
---LOG("*DEBUG Mohodata simInit ")
+LOG("*DEBUG simInit begins" )
 
 
 
@@ -37,7 +37,6 @@ InitialRegistration = true
 doscript '/lua/globalInit.lua'
 
 WaitTicks = coroutine.yield
-
 
 LOG("*AI DEBUG     Setup Platoon Template Structure")
 -- Load Platoon Template systems
@@ -87,6 +86,13 @@ doscript '/lua/SimSync.lua'
 -- SetupSession will be called by the engine after ScenarioInfo is set
 -- but before any armies are created.
 function SetupSession()
+
+    _G.AITarget = nil
+    _G.MetaImpact = nil
+
+    --LOG("*AI DEBUG Preference is "..repr(_G) )
+
+    LOG("*AI DEBUG SetupSession " ) --..repr(ScenarioInfo.Options) )
    
     ArmyBrains = {}
 
@@ -111,7 +117,6 @@ function SetupSession()
 end
 
 -- OnCreateArmyBrain() is called by the engine as the brains are created
-
 function OnCreateArmyBrain(index, brain, name, nickname)
 
     import('/lua/sim/scenarioutilities.lua').InitializeStartLocation(name)
@@ -290,6 +295,8 @@ function OnPostLoad()
 
 end
 
+LOG("*AI DEBUG CreatePrefetchSet")
+
 Prefetcher = CreatePrefetchSet()
 
 function DefaultPrefetchSet()
@@ -298,6 +305,8 @@ function DefaultPrefetchSet()
 
     return set
 end
+
+LOG("*AI DEBUG PrefetchSet Update")
 
 Prefetcher:Update(DefaultPrefetchSet())
 
@@ -312,3 +321,5 @@ end
 for k,file in DiskFindFiles('/lua/ai/aibasetemplates', '*.lua') do
     import(file)
 end
+
+LOG("*AI DEBUG SimInit completed")

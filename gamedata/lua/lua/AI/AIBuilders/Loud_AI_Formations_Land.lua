@@ -2388,7 +2388,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
 	BuildersType = 'PlatoonFormBuilder',
 	
 	-- in general - we want base guards before anything else
-    -- but there must be a land threat within 7km of base
+    -- but there must be a land threat within 6km of base
     -- distress reaction time is very high so responses will carry on well after threat recedes
     Builder {BuilderName = 'Base Guard Patrol',
 	
@@ -2411,7 +2411,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
             
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 75, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 300, 75, 'Land' }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS - categories.ENGINEER - categories.EXPERIMENTAL }},
         },

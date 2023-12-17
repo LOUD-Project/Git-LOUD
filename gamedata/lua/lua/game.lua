@@ -5,9 +5,9 @@
 VeteranDefault = {
     Level1 = 25,
     Level2 = 100,
-    Level3 = 250,
-    Level4 = 500,
-    Level5 = 1000,
+    Level3 = 400,
+    Level4 = 1200,
+    Level5 = 4800,
 }
 
 SpecialWepRestricted = false

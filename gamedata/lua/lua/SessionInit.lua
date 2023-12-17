@@ -5,7 +5,7 @@
 -- file.  It is loaded into a fresh lua state when a new session is
 -- initialized.
 
---LOG("*DEBUG Mohodata SessionInit ")
+LOG("*DEBUG SessionInit")
 
 InitialRegistration = true
 
@@ -17,9 +17,12 @@ for i,m in ipairs(import('/lua/mods.lua').GetUiMods()) do
     table.insert(__active_mods, m)
 end
 
-LOG("*DEBUG Active mods in session: "..repr(__active_mods) )
+table.sort(__active_mods, function(a,b) return a.name < b.name end )
+ 
+LOG("*DEBUG Active mods in session: ")
+
+for _,mod in __active_mods do
+    LOG( "     "..mod.name )
+end
 
 doscript '/lua/UserSync.lua'
-
-
---LOG("*DEBUG Mohodata SessionInit Complete ")

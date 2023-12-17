@@ -3,7 +3,7 @@
 -- This is the top-level lua initialization file. It is run at initialization time
 -- to set up all lua state.
 
---LOG("*DEBUG Mohodata globalInit")
+LOG("*DEBUG GlobalInit begins")
 
 -- Uncomment this to turn on allocation tracking, so that memreport() in /lua/system/profile.lua
 -- does something useful.
@@ -35,11 +35,11 @@ doscript '/lua/system/trashbag.lua'
 LOG("*AI DEBUG     Localization begins")
 doscript '/lua/system/Localization.lua'
 
-LOG("*AI DEBUG     Creating MULTIEVENT Class")
-doscript '/lua/system/MultiEvent.lua'
+--LOG("*AI DEBUG     Creating MULTIEVENT Class")
+--doscript '/lua/system/MultiEvent.lua'
 
-LOG("*AI DEBUG     Loading COLLAPSE functions")
-doscript '/lua/system/collapse.lua'
+--LOG("*AI DEBUG     Loading COLLAPSE functions")
+--doscript '/lua/system/collapse.lua'
 
 
 -- Classes exported from the engine are in the 'moho' table. But they aren't full
@@ -54,4 +54,5 @@ for name,cclass in moho do
     --LOG("AI DEBUG "..name.." is "..repr(g))
 end
 
---LOG("*DEBUG Mohodata globalInit Complete")
+
+LOG("*DEBUG GlobalInit Complete")

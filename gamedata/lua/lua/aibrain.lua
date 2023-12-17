@@ -2,6 +2,8 @@
 -- AIBrain Lua Module
 --
 
+    --LOG("*AI DEBUG ScenarioInfo is "..repr(ScenarioInfo.Options) )
+    
 	-- Enable LOUD debugging options
 	LOG("*AI DEBUG Setting LOUD DEBUG & LOG options ")
 
@@ -158,7 +160,7 @@
     ScenarioInfo.NavalBombardDialog = false
     LOG("*AI DEBUG      NavalForce Bombardment Dialog is "..repr(ScenarioInfo.NavalBombardDialog))    
     
-    ScenarioInfo.NukeDialog = true
+    ScenarioInfo.NukeDialog = false
     LOG("*AI DEBUG      Report  Nuke Dialog to Log is "..repr(ScenarioInfo.NukeDialog))
 
 
