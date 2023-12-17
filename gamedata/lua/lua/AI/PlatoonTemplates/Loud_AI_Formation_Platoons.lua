@@ -428,9 +428,9 @@ PlatoonTemplate { Name = 'T1LandScoutForm',
 PlatoonTemplate { Name = 'T1MassGuard',
 
     GlobalSquads = {
-        { (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL, 2, 4, 'Attack', 'AttackFormation' },
-		{ LANDARTILLERY - categories.EXPERIMENTAL, 0, 1, 'Artillery', 'AttackFormation' },
-		{ LANDANTIAIR, 0, 1, 'Support', 'AttackFormation' },		
+        { (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL, 2, 5, 'Attack', 'AttackFormation' },
+		{ LANDARTILLERY - categories.EXPERIMENTAL, 0, 2, 'Artillery', 'AttackFormation' },
+		{ LANDANTIAIR, 0, 2, 'Support', 'AttackFormation' },		
 		{ LANDCOUNTERINTEL, 0, 1, 'Guard', 'none' },
         { LANDSCOUT, 0, 1, 'Scout', 'none' },        
     },
