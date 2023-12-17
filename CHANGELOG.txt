@@ -1,3 +1,21 @@
+### Release
+
+LUA 6.2.22
+Black Ops for LOUD 6.3.13
+UNITS 6.3.18
+
+-- AI - fixed an issue with local targets causing attack platoons to stall
+-- AI - will chat a complaint when badly outnumbered and insufficient cheat is provided to make it even remotely fair
+-- AI - a number of revisions to skirmish platoon sizes and guard ranges
+-- AI - DP positions will now build T2 artillery - and some builds are now triggered by 'AntiSurface' threat, instead of just 'Land'
+-- AI - NukeAI process will now better evaluate anti-nuke coverage of targets - and no longer 'overshoot' in that analysis
+-- AI - revised a lot of actions based on threat distance, to be more responsive to the reality
+-- AI - base orientation will now take into account all the major threats and rotate accordingly when the base is first made
+-- Balthazar converted remote viewing operations into an Economy Event rather than a 'take resource' event
+-- BO ACU - fix to issues with standard weapon not reactivated after using Overcharge
+-- Standard ACU and SACU Overcharge weapons, fix not being reactivated after using Overcharge
+
+
 ### Release 09-12-2023
 
 Units 6.3.17.1
