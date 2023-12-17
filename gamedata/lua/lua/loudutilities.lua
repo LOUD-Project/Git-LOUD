@@ -2288,6 +2288,8 @@ end
 -- Simple - carrying it around on each brain is a waste -  and loading factions that aren't used is also wasteful
 function AddCustomUnitSupport( aiBrain )
 
+    --LOG("*AI DEBUG AddCustomUnitSupport " )
+
 	local interExcludes = {}
 
 	-- First check for inter-mod exclusions
@@ -2643,13 +2645,20 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
 			
 			LOUDSORT( threats, function(a,b) local VDist2Sq = VDist2Sq return VDist2(a[1],a[2],location[1],location[3]) + a[3] < VDist2(b[1],b[2],location[1],location[3]) + b[3] end )
 			
+            local counter = 0
+            local avgposition = { 0,0,0 }
+            
 			for _,v in threats do
 			
-				Direction = GetDirectionInDegrees( {v[1],location[2],v[2]}, location )
-				break	-- process only the first one
+                avgposition[1] = avgposition[1] + v[1]
+                avgposition[3] = avgposition[3] + v[2]
+                
+                counter = counter + 1
 				
 			end
-			
+            
+			Direction = GetDirectionInDegrees( {avgposition[1]/counter,location[2],avgposition[3]/counter}, location )
+
 			if Direction then
 			
 				if Direction < 45 or Direction > 315 then
