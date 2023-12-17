@@ -1019,7 +1019,7 @@ function SetupAICheat(aiBrain)
     newbuff.Affects.BuildRate.Mult = math.max( 1.0, aiBrain.CheatValue )
 
     -- the Outnumbered condition increases a cheating AI's build rate and affects the sub modifiers
-    if aiBrain.OutnumberedRatio >= aiBrain.CheatValue then
+    if aiBrain.OutnumberedRatio > aiBrain.CheatValue then
 
         newbuff.Affects.BuildRate.Mult = aiBrain.CheatValue * math.min( aiBrain.OutnumberedRatio, aiBrain.MajorCheatModifier )
         
@@ -1157,7 +1157,7 @@ function SetupAICheat(aiBrain)
     
     newbuff = LOUDDEEPCOPY(Buffs['CheatMassStorage'])
     
-    newbuff.Name = 'CheatCDRMassStorage'..aiBrain.ArmyIndex
+    newbuff.Name = 'CheatMassStorage'..aiBrain.ArmyIndex
     
 	newbuff.Affects.MassStorage.Mult = LOUDMAX( aiBrain.CheatValue, 1)
     

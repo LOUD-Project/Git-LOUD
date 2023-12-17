@@ -63,8 +63,11 @@ function CreateDialog(over, isLoad, exitBehavior)
     end
     
     function DoReplayLaunch(filename)
+    
         if LaunchReplaySession(filename) == true then
+        
             SetFrontEndData('replay_filename', filename)
+            
             parent:Destroy()
             MenuCommon.MenuCleanup()
         else

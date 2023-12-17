@@ -6,14 +6,13 @@
 -- Init our language from prefs. This applies to both front-end and session init; for
 -- the Sim init, the engine sets __language for us.
 
---LOG("*DEBUG Mohodata userInit ")
+LOG("*DEBUG UserInit")
 
 __language = GetPreference('options_overrides.language', '')
 
 
 -- load global functions
 doscript '/lua/globalInit.lua'
-
 
 WaitFrames = coroutine.yield
 
@@ -35,6 +34,23 @@ function PrintText(textData)
     end
 end
 
+-- lets see what this causes
+
+AnyInputCapture = nil
+AITarget = nil
+
+DisplayAchievementScreen = nil
+
+OpenURL = nil
+
+PlayTutorialVO = nil
+
+SetMovieVolume = nil
+SaveOnlineAchievements = nil
+SetOnlineAchievement = nil
+
+UnProject = nil
+
 
 -- a table designed to allow communication from different user states to the front end lua state
 FrontEndData = {}
@@ -42,5 +58,6 @@ FrontEndData = {}
 -- Prefetch user side data
 Prefetcher = CreatePrefetchSet()
 
---LOG("*DEBUG Mohodata userInit Complete ")
+
+LOG("*DEBUG UserInit complete")
 

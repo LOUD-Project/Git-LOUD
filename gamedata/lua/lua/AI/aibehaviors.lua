@@ -2240,7 +2240,7 @@ function NukeAI( self, aiBrain )
 				allthreat = target.Threats.Eco + ((target.Threats.Sub + target.Threats.Sur) * 1.35) + (target.Threats.Air * 0.5)
 				
                 if ScenarioInfo.NukeDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI target at distance "..repr(LOUDSQUARE(target.Distance)).." is "..repr(allthreat).."  Needed value is "..repr(minimumvalue))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI target at distance "..repr(target.Distance).." is "..repr(allthreat).."  Needed value is "..repr(minimumvalue))
 				end
                 
 				-- factor in distance to make near targets worth more

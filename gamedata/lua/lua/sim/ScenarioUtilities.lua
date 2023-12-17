@@ -994,6 +994,16 @@ function InitializeArmies()
 		if self.CheatingAI then
 			import('/lua/ai/aiutilities.lua').SetupAICheat( self )
 		end
+        
+        if self.OutnumberedRatio > 1.5 and (self.VeterancyMult < self.OutnumberedRatio) then
+        
+            local AISendChat = import('/lua/ai/sorianutilities.lua').AISendChat
+        
+            ForkThread( AISendChat, 'enemies', self.Nickname, "WOW - Why dont you just beat me with a stick?" )
+            ForkThread( AISendChat, 'enemies', self.Nickname, "You Outnumber me "..tostring(self.OutnumberedRatio).." to 1 !")
+            ForkThread( AISendChat, 'enemies', self.Nickname, "And all you give me is a "..tostring(self.VeterancyMult).." bonus?")
+        
+        end
 
     end
 
@@ -1111,6 +1121,8 @@ function InitializeArmies()
         import('/lua/scenarioframework.lua').SetPlayableArea( 'AREA_1', false )
         
     end
+    
+    ScenarioInfo.Configurations = nil
    
     ScenarioInfo.TeamMassPointList = {}
     

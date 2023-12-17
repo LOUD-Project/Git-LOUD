@@ -1,4 +1,4 @@
---LOG("*AI DEBUG Loading LOUD UserSync ")
+LOG("*AI DEBUG UserSync begins" )
 
 -- The global sync table is copied from the sim layer every time the main and sim threads are
 -- synchronized on the sim beat (which is like a tick but happens even when the game is paused)
@@ -21,7 +21,8 @@ local type = type
 
 --local IsHeadPlaying = import('/lua/ui/game/missiontext.lua').IsHeadPlaying
 
-local Dialogue = import('/lua/ui/game/simdialogue.lua')
+--local Dialogue = import('/lua/ui/game/simdialogue.lua')
+
 local GameMain = import('/lua/ui/game/gamemain.lua')
 
 local Ping = import('/lua/ui/game/ping.lua')
@@ -280,7 +281,8 @@ function OnSync()
     if Sync.HighlightUIPanel then
         import('/lua/ui/game/tutorial.lua').HighlightPanels(Sync.HighlightUIPanel)
     end
-	
+
+--[[	
     if Sync.SetButtonDisabled then
         Dialogue.SetButtonDisabled(Sync.SetButtonDisabled)
     end
@@ -300,7 +302,7 @@ function OnSync()
     if Sync.DestroyDialogue then
         Dialogue.DestroyDialogue(Sync.DestroyDialogue)
     end
-
+--]]
     if Sync.IsSavedGame == true then
         GameMain.IsSavedGame = true
     end
@@ -381,3 +383,5 @@ function SetSimSpeed(name, param)
 		SendSimSpeed()
 	end
 end
+
+LOG("*AI DEBUG UserSync Complete " )
