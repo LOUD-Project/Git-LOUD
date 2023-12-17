@@ -19,7 +19,7 @@ function ThreatCloserThan( aiBrain, locationType, distance, threatcutoff, threat
         
         if threatTable[1] then
         
-            if threattype == 'Land' and aiBrain.LandRatio > 1.1 then
+            if threattype == 'Land' or threattype == 'AntiSurface' and aiBrain.LandRatio > 1.2 then
 
                 distance = distance * ( 1 / (1 + LOUDLOG10( aiBrain.VeterancyMult )))          -- cheat level makes us look farther
 
@@ -57,7 +57,7 @@ function ThreatFurtherThan( aiBrain, locationType, distance, threattype, threatc
             LOUDSORT(threatTable, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a[1],a[2], position[1],position[3]) < VDist2Sq(b[1],b[2], position[1],position[3]) end)
     
             -- this code makes this function dynamic via LandRatio and AIMult --
-            if threattype == 'Land' and aiBrain.LandRatio > 1.1 then
+            if threattype == 'Land' and aiBrain.LandRatio > 1.2 then
         
                 -- affect the distance with ratio AND AIMult --
                 --distance = distance * ( 1 / aiBrain.LandRatio )                             -- if we have a high ratio threat needs to be closer to impact us

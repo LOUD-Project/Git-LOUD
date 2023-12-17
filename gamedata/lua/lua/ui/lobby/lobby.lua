@@ -1816,10 +1816,10 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
         gameInfo.GameOptions.EvenFactions = nil
         
 		LOG("HERE WE GO "..repr({ Options = gameInfo.GameOptions, HostedBy = localPlayerName, PlayerCount = GetPlayerCount(), GameName = gameName }) )
-        
-        --LOG("*AI DEBUG GAMEINFO IS "..repr(gameInfo) )
     
         local modConfigs = Mods.GetSimConfigs(gameInfo.GameMods)
+
+        --LOG("*AI DEBUG MODCONFIGS ARE "..repr(modConfigs) )        
 
         -- Tell everyone else to launch and then launch ourselves.
         lobbyComm:BroadcastData({
@@ -1830,6 +1830,8 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
     
         -- set the mods
         gameInfo.GameMods = Mods.GetGameMods(gameInfo.GameMods)
+        
+        --LOG("*AI DEBUG GAMEINFO IS "..repr(gameInfo) )
     
         lobbyComm:LaunchGame(gameInfo)
     end
@@ -2350,7 +2352,9 @@ function HostConvertPlayerToObserver(senderID, name, playerSlot)
 
     gameInfo.Observers[index] = {
         PlayerName = name,
-        OwnerID = senderID,
+        
+        OwnerID = tostring(index),  --senderID,
+
         -- Preserve WheelColor in case player switches back from observer;
         -- they might want their colour back
         Color = gameInfo.PlayerOptions[playerSlot].WheelColor
@@ -4841,11 +4845,15 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
             elseif data.Type == 'Launch' then
 			
                 local info = data.GameInfo
+
                 info.GameMods = Mods.GetGameMods(info.GameMods)
+
                 for i, config in data.ModConfigs do
                     info.GameMods[i].config = config
                 end
+
                 LOG("LOBBY: Client launching with gameInfo: "..repr(info))
+
                 lobbyComm:LaunchGame(info)
 
             elseif data.Type == 'ClearSlot' then

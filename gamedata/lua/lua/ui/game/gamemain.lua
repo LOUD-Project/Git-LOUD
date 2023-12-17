@@ -106,6 +106,8 @@ end
 
 function OnFirstUpdate()
 
+    LOG("*AI DEBUG OnFirstUpdate")
+
     EnableWorldSounds()
 	
     local avatars = GetArmyAvatars()
