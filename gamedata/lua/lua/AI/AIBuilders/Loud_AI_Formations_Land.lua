@@ -1777,7 +1777,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
 			AssistRange = 3,
 			
-			GuardRadius = 65,				-- range at which platoon will engage targets
+			GuardRadius = 72,				-- range at which platoon will engage targets
 			GuardTimer = 180,				-- platoon will guard 3 minutes
 			
 			MissionTime = 1200,				-- platoon will operate 20 minutes
@@ -1866,7 +1866,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},
 			
-			GuardRadius = 65,
+			GuardRadius = 72,
 			GuardTimer = 360,
 			
 			MergeLimit = 18,
@@ -1949,7 +1949,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             PrioritizedCategories = {'LAND','STRUCTURE','ENGINEER'},		-- controls target selection
 			
-			GuardRadius = 65,					-- range at which platoon will engage targets
+			GuardRadius = 72,					-- range at which platoon will engage targets
 			GuardTimer = 1050,					-- period that platoon will guard the point 
 			
 			MergeLimit = 26,					-- limit to which unit merging is allowed - nil = original platoon size
@@ -2035,7 +2035,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             PrioritizedCategories = {'LAND MOBILE','ECONOMIC', 'STRUCTURE -WALL','ENGINEER'},
 			
-			GuardRadius = 65,
+			GuardRadius = 75,
 			GuardTimer = 1050,
 			
 			MergeLimit = 30,
