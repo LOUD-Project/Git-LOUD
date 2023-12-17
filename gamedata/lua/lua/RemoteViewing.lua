@@ -56,25 +56,24 @@ function RemoteViewing(SuperClass)
             self:AddToggleCap('RULEUTC_IntelToggle')
         end,
 
+        TargetLocationThread = function(self)
+            local Cost = CreateEconomyEvent(self, self:GetBlueprint().Economy.InitialRemoteViewingEnergyDrain * (self.EnergyMaintAdjMod or 1), 0, 1, self.SetWorkProgress)
+            WaitFor(Cost)
+            self:SetWorkProgress(0.0)
+            RemoveEconomyEvent(self, Cost)
+            self:RequestRefreshUI()
+            self.RemoteViewingData.VisibleLocation = self.RemoteViewingData.PendingVisibleLocation
+            self.RemoteViewingData.PendingVisibleLocation = nil
+            self:CreateVisibleEntity()
+        end,
+
         OnTargetLocation = function(self, location)
-
-			if self.RemoteViewingData.IntelButton then
-			
-				-- Initial energy drain here - we drain resources instantly when an eye is relocated (including initial move)
-				local aiBrain = self:GetAIBrain()
-				local drain = self:GetBlueprint().Economy.InitialRemoteViewingEnergyDrain
-				
-				if not ( aiBrain:GetEconomyStored('ENERGY') > drain ) then
-					FloatingEntityText( self.EntityID, "Insufficient Energy Storage")
-					return
-				end
-            
-				-- Drain economy here
-				aiBrain:TakeResource( 'ENERGY', drain )
-
-				self.RemoteViewingData.VisibleLocation = location
-				self:CreateVisibleEntity()
-			end
+            if self.RemoteViewingData.PendingVisibleLocation then
+                self.RemoteViewingData.PendingVisibleLocation = location
+            else
+                self.RemoteViewingData.PendingVisibleLocation = location
+                self:ForkThread(self.TargetLocationThread)
+            end
         end,
 
         CreateVisibleEntity = function(self)
