@@ -39,13 +39,16 @@ XSL0301 = Class(SWalkingLandUnit) {
 
                 self:ForkThread(self.PauseOvercharge)
 
-                self.unit:SetWeaponEnabledByLabel('LightChronatronCannon', false)
+                --self.unit:SetWeaponEnabledByLabel('LightChronatronCannon', false)
+
                 self.unit:BuildManipulatorSetEnabled(false)
 
                 self.AimControl:SetEnabled(true)
                 self.AimControl:SetPrecedence(20)
-
-                self.unit.BuildArmManipulator:SetPrecedence(0)
+                
+                if self.unit.BuildArmManipulator then
+                    self.unit.BuildArmManipulator:SetPrecedence(0)
+                end
 
                 self.AimControl:SetHeadingPitch( self.unit:GetWeaponManipulatorByLabel('LightChronatronCannon'):GetHeadingPitch() )
             end,
@@ -62,13 +65,17 @@ XSL0301 = Class(SWalkingLandUnit) {
 
                 self:SetWeaponEnabled(false)
 
-                self.unit:SetWeaponEnabledByLabel('LightChronatronCannon', true)
+                --self.unit:SetWeaponEnabledByLabel('LightChronatronCannon', true)
+
                 self.unit:BuildManipulatorSetEnabled(false)
 
                 self.AimControl:SetEnabled(false)
                 self.AimControl:SetPrecedence(0)
 
-                self.unit.BuildArmManipulator:SetPrecedence(0)
+                if self.unit.BuildArmManipulator then
+                    self.unit.BuildArmManipulator:SetPrecedence(0)
+                end
+                
                 self.unit:GetWeaponManipulatorByLabel('LightChronatronCannon'):SetHeadingPitch( self.AimControl:GetHeadingPitch() )
             end,
 

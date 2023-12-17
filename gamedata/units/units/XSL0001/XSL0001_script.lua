@@ -89,7 +89,8 @@ XSL0001 = Class( SWalkingLandUnit ) {
 
                 self:SetWeaponEnabled(true)
 
-                self.unit:SetWeaponEnabledByLabel('ChronotronCannon', false)
+                --self.unit:SetWeaponEnabledByLabel('ChronotronCannon', false)
+
                 self.unit:BuildManipulatorSetEnabled(false)
 
                 self.AimControl:SetEnabled(true)
@@ -116,7 +117,8 @@ XSL0001 = Class( SWalkingLandUnit ) {
 
                 self:SetWeaponEnabled(false)
 
-                self.unit:SetWeaponEnabledByLabel('ChronotronCannon', true)
+                --self.unit:SetWeaponEnabledByLabel('ChronotronCannon', true)
+
                 self.unit:BuildManipulatorSetEnabled(false)
 
                 self.AimControl:SetEnabled(false)

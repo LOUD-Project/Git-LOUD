@@ -47,9 +47,12 @@ UEL0001 = Class(TWalkingLandUnit) {
             OnEnableWeapon = function(self)
                 if self:BeenDestroyed() then return end
                 self:SetWeaponEnabled(true)
-                self.unit:SetWeaponEnabledByLabel('RightZephyr', false)
-                self.unit:ResetWeaponByLabel('RightZephyr')
+                
+                --self.unit:SetWeaponEnabledByLabel('RightZephyr', false)
+                --self.unit:ResetWeaponByLabel('RightZephyr')
+
                 self.unit:BuildManipulatorSetEnabled(false)
+
                 self.AimControl:SetEnabled(true)
                 self.AimControl:SetPrecedence(20)
                 
@@ -69,8 +72,11 @@ UEL0001 = Class(TWalkingLandUnit) {
             OnDisableWeapon = function(self)
                 if self.unit:BeenDestroyed() then return end
                 self:SetWeaponEnabled(false)
-                self.unit:SetWeaponEnabledByLabel('RightZephyr', true)
+
+                --self.unit:SetWeaponEnabledByLabel('RightZephyr', true)
+
                 self.unit:BuildManipulatorSetEnabled(false)
+
                 self.AimControl:SetEnabled(false)
                 self.AimControl:SetPrecedence(0)
                 

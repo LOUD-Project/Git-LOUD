@@ -58,8 +58,11 @@ URL0001 = Class(CWalkingLandUnit) {
                 if self:BeenDestroyed() then return end
                 CDFOverchargeWeapon.OnEnableWeapon(self)
                 self:SetWeaponEnabled(true)
-                self.unit:SetWeaponEnabledByLabel('RightRipper', false)
+
+                --self.unit:SetWeaponEnabledByLabel('RightRipper', false)
+
                 self.unit:BuildManipulatorSetEnabled(false)
+
                 self.AimControl:SetEnabled(true)
                 self.AimControl:SetPrecedence(20)
                 
@@ -79,8 +82,11 @@ URL0001 = Class(CWalkingLandUnit) {
             OnDisableWeapon = function(self)
                 if self.unit:BeenDestroyed() then return end
                 self:SetWeaponEnabled(false)
-                self.unit:SetWeaponEnabledByLabel('RightRipper', true)
+
+                --self.unit:SetWeaponEnabledByLabel('RightRipper', true)
+
                 self.unit:BuildManipulatorSetEnabled(false)
+
                 self.AimControl:SetEnabled(false)
                 self.AimControl:SetPrecedence(0)
                 
