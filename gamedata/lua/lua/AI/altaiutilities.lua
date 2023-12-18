@@ -570,7 +570,9 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
         local removed = false
         
         local choices = {}
-	
+
+        --LOG("*AI DEBUG Positions for Naval Area are "..repr(positions) )
+        
 		-- so we now have a list of ALL the Naval Area positions on the map
 		-- loop thru the list and eliminate any that are already in use by enemy AI 
 		-- note how I have to exclude my own brain as an ally to avoid sharing existing bases with myself
@@ -599,7 +601,7 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
                    
                     
 					-- if too close to one of our other existing 'Sea' bases
-					if distance_from_base < minimum_baserange then
+					if distance_from_base < minimum_baserange and base.BuilderType == 'Sea' then
 
 						removed = true
 						break
