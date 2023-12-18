@@ -2353,7 +2353,7 @@ function HostConvertPlayerToObserver(senderID, name, playerSlot)
     gameInfo.Observers[index] = {
         PlayerName = name,
         
-        OwnerID = tostring(index),  --senderID,
+        OwnerID = senderID,
 
         -- Preserve WheelColor in case player switches back from observer;
         -- they might want their colour back
@@ -2370,7 +2370,9 @@ function HostConvertPlayerToObserver(senderID, name, playerSlot)
 
     UpdateGame()
     
-    LOG("*AI DEBUG Moved Player "..repr(playerSlot).." to Observer with index "..index)
+    LOG("*AI DEBUG Moved Player "..repr(playerSlot).." to Observer with index "..index.." gameInfo is "..repr(gameInfo) )
+    
+    
 end
 
 function HostConvertObserverToPlayer(senderID, name, fromObserverSlot, toPlayerSlot)
