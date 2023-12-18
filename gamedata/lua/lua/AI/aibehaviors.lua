@@ -6956,7 +6956,7 @@ function TMLThread( unit, aiBrain )
                 
                 if targetUnits[1] and not unit.HasTMLTarget then
                 
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." TML examining targets")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." TML examining targets")
             
                     -- loop thru each of the attack Priorities
                     for _,v in atkPri do
@@ -6978,7 +6978,7 @@ function TMLThread( unit, aiBrain )
 			
                             if LOUDENTITY(categories.STRUCTURE, target) then
                             
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." TML firing at structure")
+                                --LOG("*AI DEBUG "..aiBrain.Nickname.." TML firing at structure")
                             
                                 IssueTactical({unit}, target)
                                 
@@ -6993,7 +6993,7 @@ function TMLThread( unit, aiBrain )
                                 
                                     IssueTactical({unit}, targPos)
                                     
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." TML firing at position")
+                                    --LOG("*AI DEBUG "..aiBrain.Nickname.." TML firing at position")
 
                                     target = false
                                     targPos = false 	-- clear targeting data 
