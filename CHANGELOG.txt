@@ -1,4 +1,16 @@
-### Release
+### Release 19-12-2023
+
+LUA 6.2.23
+
+-- fixed an issue with lobby observers 
+-- fix for finding Naval Base positions and pathfinding associated with it
+-- AI now will create T2 Artillery at DP
+-- AI now triggered by threat distance on many defensive builds, which reduces overbuilding where no threat is nearby
+-- AI will seek out open extractors at greater range from a DP
+-- AI ACU will use threat distance values to suppress overbuilding certain static defenses at MAIN
+
+
+### Release 17-12-2023
 
 LUA 6.2.22
 Black Ops for LOUD 6.3.13
