@@ -614,7 +614,7 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
                 -- distance from origin of engineer -- valued - closer is best - lower
                 distance_from_base = math.floor(VDist3( Position, position )) / minimum_baserange
 
-                local threatTable = aiBrain:GetThreatsAroundPosition( position, 12, true, 'StructuresNotMex')
+                local threatTable = aiBrain:GetThreatsAroundPosition( position, 4, true, tType)
                 
                 LOUDSORT( threatTable, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a[1],a[2], position[1],position[3]) < VDist2Sq(b[1],b[2], position[1],position[3] ) end )
 

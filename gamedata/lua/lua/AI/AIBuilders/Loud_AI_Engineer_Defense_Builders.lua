@@ -4029,9 +4029,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         Priority = 752,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
+        
+			{ EBC, 'LessThanEnergyTrend', { 45 }},        
+			{ EBC, 'LessThanEnergyTrendOverTime', { 40 }},
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE }},
         },
@@ -4049,12 +4050,55 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
                 
-                BuildStructures = {
-					'T2EnergyProduction',
-                }
+                BuildStructures = {'T2EnergyProduction'}
             }
         }
     },	
+
+    Builder {BuilderName = 'T2 DP STD Artillery',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		InstanceCount = 1,
+        
+        Priority = 751,
+
+        PriorityFunction = IsEnemyCrushingLand,
+		
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .90 } },
+
+			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
+
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.01, 1.02 }},
+
+            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.ARTILLERY * categories.TECH2 }},
+        },
+		
+		BuilderType = { 'T2','T3','SubCommander' },
+
+        BuilderData = {
+			DesiresAssist = true,
+            NumAssistees = 2,
+            
+            Construction = {
+	            NearBasePerimeterPoints = true,
+                
+                ThreatMax = 100,
+
+				BaseTemplateFile = '/lua/ai/aibuilders/LOUD_DP_Templates.lua',
+				BaseTemplate = 'DefensivePointSmall',
+				
+                BuildStructures = {'T2Artillery'},
+            }
+        }
+    },
 
     Builder {BuilderName = 'T2 DP STD PD',
 	
@@ -4068,6 +4112,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
             { LUTL, 'LandStrengthRatioLessThan', { 3 } },
+
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
@@ -4087,7 +4133,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 				NearBasePerimeterPoints = true,
 
                 ThreatMin = 20,
-                ThreatMax = 75,
+                ThreatMax = 125,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
@@ -4133,7 +4179,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 				NearBasePerimeterPoints = true,
 
                 ThreatMin = 20,
-                ThreatMax = 75,
+                ThreatMax = 90,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
@@ -4255,7 +4301,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-                ThreatMax = 60,
+                ThreatMax = 90,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
@@ -4279,6 +4325,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
             
             { LUTL, 'UnitCapCheckLess', { .85 } },
+
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
@@ -4362,6 +4410,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             
             { LUTL, 'LandStrengthRatioLessThan', { 3 } },
 
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.02 }}, 
@@ -4377,7 +4427,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-                ThreatMax = 100,
+                ThreatMax = 120,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
@@ -4402,6 +4452,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
@@ -4416,7 +4468,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-                ThreatMax = 100,
+                ThreatMax = 150,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
@@ -4456,7 +4508,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-                ThreatMax = 75,
+                ThreatMax = 150,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
@@ -4480,6 +4532,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 25, 1.012, 1.025 }},
@@ -4495,7 +4549,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-                ThreatMax = 60,
+                ThreatMax = 75,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
@@ -4506,53 +4560,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             }
         }
     },	
-
-    Builder {BuilderName = 'T2 DP STD Artillery',
-	
-        PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-		InstanceCount = 1,
-        
-        Priority = 750,
-
-        PriorityFunction = IsEnemyCrushingLand,
-		
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .90 } },
-
-			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
-
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
-
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.01, 1.02 }},
-
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.ARTILLERY * categories.TECH2 }},
-        },
-		
-		BuilderType = { 'T3','SubCommander' },
-
-        BuilderData = {
-			DesiresAssist = true,
-            NumAssistees = 2,
-            
-            Construction = {
-	            NearBasePerimeterPoints = true,
-                
-                ThreatMax = 75,
-
-				BaseTemplateFile = '/lua/ai/aibuilders/LOUD_DP_Templates.lua',
-				BaseTemplate = 'DefensivePointStandard',
-				
-                BuildStructures = {'T2Artillery'},
-            }
-        }
-    },
 	
     Builder {BuilderName = 'T2 DP STD TML',
 	
