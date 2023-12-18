@@ -871,7 +871,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
     },	
 	
     -- or build any locally available extractor
-    Builder {BuilderName = 'Mass Extractor 150 Active DP',
+    Builder {BuilderName = 'Mass Extractor 200 Active DP',
 	 
         PlatoonTemplate = 'EngineerBuilder',
         
@@ -881,13 +881,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 		
         Priority = 700,
 		
-		BuilderType = { 'T2','T3' },
+		BuilderType = { 'T2','T3','SubCommander' },
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 150, -9999, 40, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 200, -9999, 35, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -895,7 +895,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 				BuildClose = true,	#-- engineer will build on closest mass points to itself
 				LoopBuild = false,	#-- dont repeat this build - just build once then RTB
 				ThreatMin = -9999,
-				ThreatMax = 40,
+				ThreatMax = 35,
 				ThreatRings = 0,
 				ThreatType = 'AntiSurface',
                 BuildStructures = {'T2Resource'},
