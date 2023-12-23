@@ -166,7 +166,7 @@ end
 -- End helper functions to improve functionality for loading custom maps & mods
 
 --LOUD Strat Icons - various sizes
---mount_dir(InitFileDir .. '\\..\\..\\LOUD\\usermods\\BrewLAN-StrategicIcons*.scd', '/')
+mount_dir(InitFileDir .. '\\..\\..\\LOUD\\usermods\\BrewLAN-StrategicIcons*.scd', '/')
 
 --Git-LOUD content
 mount_dir(InitFileDir .. '\\..\\gamedata\\4D-CompatabilityPack\\mods', '/mods')
