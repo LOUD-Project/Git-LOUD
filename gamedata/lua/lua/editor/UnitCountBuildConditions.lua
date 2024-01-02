@@ -352,14 +352,21 @@ function UnitsGreaterAtLocation( aiBrain, locationType, unitCount, testCat )
 	return false
 end
 
+-- modified to use the bases 'rally point radius' if rangemax is set to false
 function UnitsGreaterAtLocationInRange( aiBrain, locationType, unitCount, testCat, rangemin, rangemax)
 
-	if aiBrain.BuilderManagers[locationType].EngineerManager then
+    local BM = aiBrain.BuilderManagers[locationType]
+
+	if BM.EngineerManager then
 	
-		local managerposition = aiBrain.BuilderManagers[locationType].Position
+		local managerposition = BM.Position
 		local numUnits = 0
         local GetPosition = GetPosition
         local VDist2Sq = VDist2Sq
+        
+        if not rangemax then 
+            rangemax = BM.RallyPointRadius
+        end
 		
 		local units = GetUnitsAroundPoint( aiBrain, testCat, managerposition, rangemax, 'Ally' )
 		
