@@ -89,6 +89,12 @@ BaseBuilderTemplate {
             
 				return 90, false
 			end
+            
+            if aiBrain:GetMapWaterRatio() <= .20 and ScenarioInfo.size[1] > 1024 then
+            
+                return 80, false
+            end
+
 		end
 
         return 0, false

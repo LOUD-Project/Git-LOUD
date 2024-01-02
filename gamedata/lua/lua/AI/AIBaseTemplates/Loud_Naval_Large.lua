@@ -102,8 +102,8 @@ BaseBuilderTemplate {
 			end
 			
 			-- if it's a large water map but unit cap less is 1000 or less
-			if (aiBrain:GetMapWaterRatio() > .20 and ScenarioInfo.size[1] >= 1024) then
-				return 50,false		-- return only 50 should promote the selection of the small naval base
+			if (aiBrain:GetMapWaterRatio() > .10 and ScenarioInfo.size[1] >= 1024) then
+				return 80,false		-- return 80 should match the small naval base for random choice
 			end
         end
 
