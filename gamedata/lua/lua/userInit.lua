@@ -49,8 +49,6 @@ SetMovieVolume = nil
 SaveOnlineAchievements = nil
 SetOnlineAchievement = nil
 
-UnProject = nil
-
 
 -- a table designed to allow communication from different user states to the front end lua state
 FrontEndData = {}

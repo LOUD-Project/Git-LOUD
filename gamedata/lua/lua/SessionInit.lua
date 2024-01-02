@@ -21,8 +21,12 @@ table.sort(__active_mods, function(a,b) return a.name < b.name end )
  
 LOG("*DEBUG Active mods in session: ")
 
+LOG("MODLIST START")
+
 for _,mod in __active_mods do
     LOG( "     "..mod.name )
 end
+
+LOG("MODLIST END")
 
 doscript '/lua/UserSync.lua'
