@@ -498,6 +498,10 @@ function AINewExpansionBase( aiBrain, baseName, position, engineer, construction
 			
 			-- assign him to his new base
 			aiBrain.BuilderManagers[baseName].EngineerManager:AddEngineerUnit(engineer, true)
+
+            import('/lua/ai/sorianutilities.lua').AISendChat('allies', aiBrain.Nickname, 'Creating new base '..baseName )
+
+            AISendPing( position, 'alert', aiBrain.ArmyIndex )
 			
 			return true
 		end

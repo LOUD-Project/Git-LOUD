@@ -8335,6 +8335,7 @@ Platoon = Class(moho.platoon_methods) {
 									
 									self.LocationType = NewBaseName
 									self.RTBLocation = NewBasePos
+                                    
 								else
 									
 									WARN("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." Eng "..eng.EntityID.." failed to start new base "..repr(NewBaseName).." at "..repr(NewBasePos) )
