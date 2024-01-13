@@ -269,7 +269,7 @@ UnitBlueprint {
 			
             Turreted = true,
 
-            WeaponRepackTimeout = 0.7,
+            WeaponRepackTimeout = 1,
             WeaponUnpackAnimation = '/units/xal0305/xal0305_asetup.sca',
             WeaponUnpackAnimationRate = 1,
             WeaponUnpackLocksMotion = true,
