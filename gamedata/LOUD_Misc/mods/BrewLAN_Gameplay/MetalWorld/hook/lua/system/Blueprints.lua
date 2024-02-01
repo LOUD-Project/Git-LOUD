@@ -20,10 +20,16 @@ end
 function MetalWorld(all_bps)
 
     for id, bp in all_bps do
+    
         if bp.Physics.BuildRestriction == 'RULEUBR_OnMassDeposit' then
             bp.Physics.BuildRestriction = nil
             table.insert(bp.Categories, 'DRAGBUILD')
         end
+        
+        if bp.General.CapCost then
+            bp.General.CapCost = bp.General.CapCost * 5
+        end
+
     end
 end
 
