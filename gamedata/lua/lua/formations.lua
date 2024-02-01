@@ -111,7 +111,7 @@ local UtilFirst = { Util, AA, DF, Art, Shield, Com, Util, RemainingCategory }
 
 --=== LAND BLOCKS ===#
 
---=== 3 Wide Growth Block / 6 Units ===#
+--=== 3 Wide Growth Block / 6 Units
 local ThreeWideGrowthFormationBlock = {
     -- first row
     { DFFirst, DFFirst, DFFirst, },
@@ -119,7 +119,7 @@ local ThreeWideGrowthFormationBlock = {
     { DFFirst, DFFirst, DFFirst, },
 }
 
---=== 4 Wide Growth Block / 16 Units ===#
+--=== 4 Wide Growth Block / 16 Units
 local FourWideGrowthFormationBlock = {
     -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, },
@@ -131,7 +131,7 @@ local FourWideGrowthFormationBlock = {
     { AAFirst, ArtFirst, ArtFirst, AAFirst,  },
 }
 
---=== 5 Wide Growth Block/ 25 Units ===#
+--=== 5 Wide Growth Block/ 25 Units
 local FiveWideGrowthFormationBlock = {
     -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, },
@@ -145,7 +145,7 @@ local FiveWideGrowthFormationBlock = {
     { AAFirst, ArtFirst, DFFirst, ArtFirst, AAFirst, },
 }
 
---=== 6 Wide Growth Block/ 36 Units ===#
+--=== 6 Wide Growth Block/ 36 Units
 local SixWideGrowthFormationBlock = {
     -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, },
@@ -161,7 +161,7 @@ local SixWideGrowthFormationBlock = {
     { DFFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, DFFirst, },
 }
 
---=== 7 Wide Growth Block/ 42 Units ===#
+--=== 7 Wide Growth Block/ 42 Units
 local SevenWideGrowthFormationBlock = {
     -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, },
@@ -177,7 +177,7 @@ local SevenWideGrowthFormationBlock = {
     { UtilFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, UtilFirst, },
 }
 
---=== 8 Wide Growth Block/ 56 Units ===#
+--=== 8 Wide Growth Block/ 56 Units
 local EightWideGrowthFormationBlock = {
     -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, },
@@ -195,7 +195,7 @@ local EightWideGrowthFormationBlock = {
     { DFFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, DFFirst, },
 }
 
---=== 9 Wide Growth Block/ 72 Units ===#
+--=== 9 Wide Growth Block/ 72 Units
 local NineWideGrowthFormationBlock = {
     -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, UtilFirst, DFFirst, DFFirst, DFFirst, DFFirst, },
@@ -215,7 +215,7 @@ local NineWideGrowthFormationBlock = {
     { DFFirst, ArtFirst, AAFirst, ArtFirst, ShieldFirst, ArtFirst, AAFirst, ArtFirst, DFFirst, },
 }
 
---=== Travelling Block ===#
+--=== Travelling Block
 local TravelSlot = { Experimental, Bots, Tanks, AA, Art, Shield, Util, Com }
 
 local TravelFormationBlock = {
@@ -229,7 +229,7 @@ local TravelFormationBlock = {
     { TravelSlot, TravelSlot, },
 }
 
---=== 2 Row Attack Block - 8 units wide ===#
+--=== 2 Row Attack Block - 8 units wide
 local TwoRowAttackFormationBlock = {
     -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -237,7 +237,16 @@ local TwoRowAttackFormationBlock = {
     { UtilFirst, AAFirst, ShieldFirst, ArtFirst, ArtFirst, ShieldFirst, AAFirst, UtilFirst },
 }
 
---=== 3 Row Attack Block - 10 units wide ===#
+--=== 2 Row Staggered Attack Block - 9 units wide
+local ThreeRowStaggeredAttackFormationBlock = {
+    -- first row
+    { ArtFirst, DFFirst, ArtFirst, DFFirst, ArtFirst, DFFirst, ArtFirst, DFFirst, ArtFirst },
+    -- second row
+    { UtilFirst, AAFirst, ShieldFirst, ArtFirst, ArtFirst, ShieldFirst, AAFirst, UtilFirst, AAFirst },
+}
+    -- first row
+
+--=== 3 Row Attack Block - 10 units wide
 local ThreeRowAttackFormationBlock = {
     -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -247,7 +256,7 @@ local ThreeRowAttackFormationBlock = {
     { DFFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, ArtFirst, AAFirst, DFFirst },  
 }
 
---=== 4 Row Attack Block - 12 units wide ===#
+--=== 4 Row Attack Block - 12 units wide
 local FourRowAttackFormationBlock = {
     -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -259,7 +268,7 @@ local FourRowAttackFormationBlock = {
     { AAFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, ArtFirst, UtilFirst, ShieldFirst, ArtFirst, AAFirst, ShieldFirst, AAFirst },   
 }
 
---=== 5 Row Attack Block - 14 units wide ===#
+--=== 5 Row Attack Block - 14 units wide
 local FiveRowAttackFormationBlock = {
     -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -273,7 +282,7 @@ local FiveRowAttackFormationBlock = {
     { ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst },  
 }
 
---=== 6 Row Attack Block - 16 units wide ===#
+--=== 6 Row Attack Block - 16 units wide
 local SixRowAttackFormationBlock = {
     -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -289,7 +298,7 @@ local SixRowAttackFormationBlock = {
     { AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst },  
 }
 
---=== 7 Row Attack Block - 18 units wide ===#
+--=== 7 Row Attack Block - 18 units wide
 local SevenRowAttackFormationBlock = {
     -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -307,7 +316,7 @@ local SevenRowAttackFormationBlock = {
     { ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst },  
 }
 
---=== 8 Row Attack Block - 18 units wide ===#
+--=== 8 Row Attack Block - 18 units wide
 local EightRowAttackFormationBlock = {
     -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -327,7 +336,7 @@ local EightRowAttackFormationBlock = {
     { AAFirst, ShieldFirst, ArtFirst, AAFirst, ShieldFirst, ArtFirst, AAFirst, ShieldFirst, ArtFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst },  
 }
 
---=== 9 Row Attack Block - 18+ units wide ===#
+--=== 9 Row Attack Block - 18+ units wide
 local NineRowAttackFormationBlock = {
     -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -733,6 +742,10 @@ function AttackFormation( formationUnits )
     
 		if UnitTotal <= 16 then       -- 8 wide
 			landBlock = TwoRowAttackFormationBlock
+
+		elseif UnitTotal <= 27 then   -- 10 wide
+			landBlock = ThreeRowStaggeredAttackFormationBlock
+            defaultspacing = 1.2            
             
 		elseif UnitTotal <= 30 then   -- 10 wide
 			landBlock = ThreeRowAttackFormationBlock
