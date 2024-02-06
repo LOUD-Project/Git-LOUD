@@ -21,6 +21,15 @@ CDFRocketIridium03 = Class(CIridiumRocketProjectile) {
             )
         end
     end,
+    
+    OnCreate = function(self, inWater)
+
+        CIridiumRocketProjectile.OnCreate(self, inWater)
+        
+        -- turn on tracking shortly after leaving the rail
+        self:ForkThread( function() WaitTicks(7) self:TrackTarget(true) end )
+
+    end,
 }
 
 TypeClass = CDFRocketIridium03
