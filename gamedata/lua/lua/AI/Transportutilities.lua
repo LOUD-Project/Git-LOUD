@@ -32,11 +32,15 @@ local GetFuelRatio = moho.unit_methods.GetFuelRatio
 local GetFractionComplete = moho.entity_methods.GetFractionComplete
 local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
 local GetPosition = moho.entity_methods.GetPosition
+
 local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
 local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
+local GetSquadUnits = moho.platoon_methods.GetSquadUnits
+
 local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
 local IsIdleState = moho.unit_methods.IsIdleState
 local IsUnitState = moho.unit_methods.IsUnitState
+
 local PlatoonExists = moho.aibrain_methods.PlatoonExists
 
 local loudUtils = import('/lua/loudutilities.lua')
@@ -910,6 +914,40 @@ function GetTransports( platoon, aiBrain)
 		
         if TransportDialog then
             LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." "..transportplatoon.BuilderName.." authorized "..counter.." transports for use" )
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." "..transportplatoon.BuilderName.." finds "..repr(aiBrain.ArmyPool:PlatoonCategoryCount( categories.HIGHALTAIR * categories.ANTIAIR )).." fighters in pool")
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." "..transportplatoon.BuilderName.." finds "..repr(aiBrain.ArmyPool:PlatoonCategoryCount( categories.AIR * categories.SCOUT )).." air scouts in pool")
+        end
+        
+        if aiBrain.ArmyPool:PlatoonCategoryCount( categories.AIR * categories.SCOUT ) > 0 then
+        
+            for k,v in EntityCategoryFilterDown( categories.AIR * categories.SCOUT, aiBrain.ArmyPool:GetPlatoonUnits() ) do
+            
+                aiBrain:AssignUnitsToPlatoon( transportplatoon, {v}, 'Scout', 'none' )
+
+                break
+                
+            end
+            
+        end
+        
+        if aiBrain.ArmyPool:PlatoonCategoryCount( categories.HIGHALTAIR * categories.ANTIAIR ) > 0 then
+        
+            local count = 1
+        
+            for k,v in EntityCategoryFilterDown( categories.HIGHALTAIR * categories.ANTIAIR, aiBrain.ArmyPool:GetPlatoonUnits() ) do
+            
+                aiBrain:AssignUnitsToPlatoon( transportplatoon, {v}, 'Guard', 'none' )
+                
+                LOG("*AI DEBUG Assigned fighter "..repr(v).." to transportplatoon")
+                
+                count = count + 1
+            
+                if count > 3 then
+                    break
+                end
+                
+            end
+            
         end
 
         return counter, transportplatoon, transportplatoonairthreat
@@ -1393,7 +1431,7 @@ function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bS
 		-- this is based upon the enemy threat at the destination and the threat of the unit platoon and the transport platoon
 
 		-- a threat value for the transports based upon the number of transports (but not the tier...hmmm).
-		transportcount = LOUDGETN( GetPlatoonUnits(transportplatoon))
+		transportcount = LOUDGETN( GetSquadUnits( transportplatoon, 'Support'))
 		airthreatMax = transportcount * 5
 		airthreatMax = airthreatMax + ( airthreatMax * LOUDLOG10(transportcount))
         
@@ -1570,6 +1608,8 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
     local GetPlatoonPosition = GetPlatoonPosition
     local GetPlatoonUnits = GetPlatoonUnits
 
+    local GetSquadUnits = moho.platoon_methods.GetSquadUnits
+
     local transportTable = {}	
 	local counter = 0
 	
@@ -1577,7 +1617,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 	-- process any toggles (stealth, etc.) the transport may have
 	if PlatoonExists( aiBrain, transports ) then
 
-		for _,v in GetPlatoonUnits(transports) do
+		for _,v in EntityCategoryFilterDown( categories.TRANSPORTFOCUS, GetPlatoonUnits(transports)) do
 		
 			if not v.Dead then
 			
@@ -1993,7 +2033,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 	-- count number of loaded transports and send empty ones home
 	if PlatoonExists( aiBrain, transports ) then
 	
-		for k,v in GetPlatoonUnits(transports) do
+		for k,v in EntityCategoryFilterDown( categories.TRANSPORTFOCUS, GetPlatoonUnits(transports)) do
 	
 			if v and (not v.Dead) and LOUDGETN(v:GetCargo()) == 0 then
 
@@ -2043,16 +2083,45 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 				if safePath then 
 
 					local prevposition = GetPlatoonPosition(transports) or false
-                    local Direction
-		
+                    local Direction, SCOUTS, ATTACKS, ARTILLERY, FIGHTERS, TRANSPORTS
+                    
+                    SCOUTS = GetSquadUnits( transports,'Scout') or false
+                    FIGHTERS = GetSquadUnits( transports,'Guard') or false
+                    TRANSPORTS = GetSquadUnits( transports,'Support') or false
+                    
+                    if FIGHTERS[1] then
+
+                        local fcount = 1
+                        local count = 1
+                        
+                        for k,v in FIGHTERS do
+                        
+                            if not TRANSPORTS[count] then 
+                                count = 1
+                            end
+                           
+                            IssueGuard( {FIGHTERS[fcount]}, TRANSPORTS[count] )
+                            
+                            fcount = fcount + 1
+                            count = count + 1
+
+                        end
+                    end
+
 					for _,p in safePath do
 				
 						if prevposition then
 
 							Direction = import('/lua/utilities.lua').GetDirectionInDegrees( prevposition, p )
-					
-							IssueFormMove( GetPlatoonUnits(transports), p, 'AttackFormation', Direction)
-						
+
+                            if SCOUTS[1] then
+                                IssueFormMove( SCOUTS, p, 'BlockFormation', Direction)
+                            end
+
+                            if TRANSPORTS[1] then
+                                IssueFormMove( TRANSPORTS, p, 'AttackFormation', Direction)
+                            end
+
 							prevposition = p
 						end
 					end
@@ -2072,7 +2141,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transports.BuilderName.." starts travelwatch to "..repr(location))
                 end
 			
-				for _,v in GetPlatoonUnits(transports) do
+				for _,v in EntityCategoryFilterDown( categories.TRANSPORTFOCUS, GetPlatoonUnits(transports)) do
 		
 					if not v.Dead then
 						v.WatchTravelThread = v:ForkThread(WatchTransportTravel, location, aiBrain, UnitPlatoon)		
@@ -2083,7 +2152,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 		end
 	end
 	
-	local transporters = GetPlatoonUnits(transports) or false
+	local transporters = EntityCategoryFilterDown( categories.TRANSPORTFOCUS, GetPlatoonUnits(transports)) or false
 	
 	-- if there are loaded, moving transports, watch them while traveling
 	if transporters and LOUDGETN(transporters) != 0 then
@@ -2121,7 +2190,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
         end
     end
 
-	transporters = GetPlatoonUnits(transports) or false
+	transporters = EntityCategoryFilterDown( categories.TRANSPORTFOCUS, GetPlatoonUnits(transports)) or false
 	
 	-- watch the transports until they signal unloaded or dead
 	if transporters and LOUDGETN(transporters) != 0 then
