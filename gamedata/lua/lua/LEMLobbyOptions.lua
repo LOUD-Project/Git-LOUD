@@ -89,8 +89,8 @@ GPGrestrictedUnits = {
     },
 
     AIREXPERIMENTALS = {
-		categories = {"bea0402", "bea0403", "bra0409", "lea0401", "saa0306", "sea0401", "uaa0310", "ura0401", "wra0401", "xsa0402"},
-		name = "<LOC restricted_units_data_0026>No Air Experimentals",
+		categories = {"bea0402", "bea0403", "bra0409", "lea0401", "saa0306", "sea0401", "uaa0310", "ura0401", "wra0401", "xsa0402","veb2302","seb2402","vab2302","vrb2302","vsb2302"},
+		name = "<LOC restricted_units_data_0026>No Air Experimentals or T4AA",
 		tooltip = "restricted_units_air_experimentals",
     },
 	

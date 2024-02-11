@@ -2107,7 +2107,7 @@ Tooltips = {
     },
     restricted_units_air_experimentals = {
         title = "No Air Experimentals",
-        description = "Players will not be able to build any air experimentals.",
+        description = "Players will not be able to build any air experimentals or T4 AA defenses.",
     },
     restricted_units_tml = {
         title = "No TMLs",
