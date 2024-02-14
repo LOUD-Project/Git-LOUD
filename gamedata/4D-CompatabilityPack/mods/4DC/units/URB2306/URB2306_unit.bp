@@ -51,10 +51,11 @@ UnitBlueprint{
 
     Defense = {
         ArmorType = "Structure",
-        Health = 6500,
-        MaxHealth = 6500,
-        RegenRate = 5,
-        SurfaceThreatLevel = 77.4,
+        Health = 6100,
+        MaxHealth = 6100,
+        RegenRate = 4,
+
+        SurfaceThreatLevel = 80,
     },
 
     Display = {
@@ -82,9 +83,10 @@ UnitBlueprint{
     },
 
     Economy = {
-        BuildCostEnergy = 22000,
-        BuildCostMass = 2250,
-        BuildTime = 2040,
+        BuildCostEnergy = 30500,
+        BuildCostMass = 2350,
+        BuildTime = 23500,
+
         RebuildBonusIds = { "urb2306" },
     },
 
@@ -162,7 +164,7 @@ UnitBlueprint{
                 BeamLoop  = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop',   LodCutoff = 'Weapon_LodCutoff' },
                 BeamStart = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Start',  LodCutoff = 'Weapon_LodCutoff' },
                 BeamStop  = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop',   LodCutoff = 'Weapon_LodCutoff' },
-                Unpack    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Charge', LodCutoff = 'Weapon_LodCutoff' },
+                ChargeStart = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             AutoInitiateAttackCommand = true,
@@ -174,16 +176,13 @@ UnitBlueprint{
 
             CollideFriendly = false,
 
-            ContinuousBeam = true,
-
-            Damage = 70,
-            DamageRadius = 1.5,
-            DamageType = "Normal",
+            Damage = 85,
+            DamageType = "ShieldMult1.1",
 
             DisplayName = "Heavy Microwave Laser",
 
-            EnergyDrainPerSecond = 200,
-            EnergyRequired = 800,
+            EnergyDrainPerSecond = 360,
+            EnergyRequired = 1440,
 
             FireTargetLayerCapsTable = {
                 Land = "Land|Water",
@@ -191,24 +190,28 @@ UnitBlueprint{
             },
             FiringTolerance = 2,
 
-            Label = "MainGun",
+            Label = "BeamCannon",
 
-            MaxRadius = 65,
+            MaxRadius = 67,
             MinRadius = 6,
 
             NotExclusive = true,
+
             RackBones = {
                 {
                     MuzzleBones = { "Muzzle" },
                     RackBone = "Sleeve",
                 },
             },
+            
+            RackSalvoChargeTime = 1.2,
 
             RangeCategory = "UWRC_DirectFire",
 
-            RateOfFire = 10,
+            RateOfFire = 2,     -- 1400 damage every 4 seconds controlled by charge
 
             TargetCheckInterval = 2,
+
             TargetPriorities = {
                 "EXPERIMENTAL",
                 "MOBILE",
@@ -228,47 +231,54 @@ UnitBlueprint{
 
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 24,
+            TurretYawSpeed = 22,
 
             Turreted = true,
-
-            WeaponRepackTimeout = 0.6,
-            WeaponUnpacks = true,
         },
+
         {
             Audio = {
                 Fire = Sound { Bank = 'URLWeapon', Cue = 'URB2101_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = "RULEUBA_LowArc",
+
             CollideFriendly = false,
-            Damage = 50,
+
+            Damage = 75,
             DamageType = "Normal",
+
             DisplayName = "Laser",
+
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Water = "Land|Water|Seabed",
             },
             FiringTolerance = 2,
-            Label = "Laser",
-            MaxRadius = 26,
+
+            Label = "AutoCannon",
+
+            MaxRadius = 28,
             MinRadius = 0,
+
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 35,
+
             ProjectileId = "/projectiles/CDFLaserHeavy01/CDFLaserHeavy01_proj.bp",
             ProjectileLifetime = 1,
+
             RackBones = {
                 {
                     MuzzleBones = { "LaserMuzzle" },
                     RackBone = "LaserTurretBarrel",
                 },
             },
-            RackReloadTimeout = 10,
-
 
             RangeCategory = "UWRC_IndirectFire",
-            RateOfFire = 3,
-            TargetCheckInterval = 0.3,
+
+            RateOfFire = 2,
+
+            TargetCheckInterval = 0.5,
             TargetPriorities = {
                 "EXPERIMENTAL",
                 "MOBILE",
@@ -276,17 +286,22 @@ UnitBlueprint{
                 "ALLUNITS",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
+
             TrackingRadius = 1.1,
+
             TurretBoneMuzzle = "LaserMuzzle",
             TurretBonePitch = "LaserTurretBarrel",
             TurretBoneYaw = "LaserTurret",
             TurretDualManipulators = false,
+
             TurretPitch = 10,
             TurretPitchRange = 75,
             TurretPitchSpeed = 60,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 60,
+
             Turreted = true,
         },
         {
@@ -302,7 +317,7 @@ UnitBlueprint{
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.5,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,
