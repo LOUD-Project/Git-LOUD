@@ -8063,7 +8063,18 @@ Platoon = Class(moho.platoon_methods) {
 						WaitTicks(15)	-- to insure engy is underway --
 						
 						return not eng.Dead
+
 					else
+                    
+                        if SendPlatoonWithTransportsLOUD( self, aiBrain, RandomLocation( buildPosition[1],buildPosition[3], 8 ), 2, false ) then
+                            
+                            if EngineerDialog then
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.EntityID.." "..repr(self.BuilderName).." says reason is "..repr(reason).." distance is "..repr(distance).." but found transport ")
+                            end
+
+                            return not eng.Dead
+                        end
+
                         if EngineerDialog then
                             LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.EntityID.." "..repr(self.BuilderName).." says reason is "..repr(reason).." distance is "..repr(distance).." returning false - mythreat is "..repr(mythreat))
                         end
