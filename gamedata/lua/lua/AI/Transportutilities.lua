@@ -297,7 +297,7 @@ function GetTransports( platoon, aiBrain)
     if (armypooltransports and LOUDGETN(armypooltransports) < 1) and (TransportPoolTransports and LOUDGETN(TransportPoolTransports) < 1) then
     
         if TransportDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." there are no transports at all")
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." no transports available")
         end
     
         aiBrain.NeedTransports = true   -- turn on need flag
@@ -668,9 +668,9 @@ function GetTransports( platoon, aiBrain)
 						unitPos = GetPosition(transport)
 						range = VDist2( unitPos[1],unitPos[3], location[1], location[3] )
 
-						-- limit to 18 km range -- this insures that transport wont expire before loading takes place
+						-- limit to 16 km range -- this insures that transport wont expire before loading takes place
 						-- as loading has a 120 second time limit --
-						if range < 1800 then
+						if range < 800 + ( 200 * (math.min( 1, aiBrain.AirRatio ))) then
                             
                             -- mark the transport as being assigned 
                             -- to prevent it from being picked up in another transport collection
@@ -702,7 +702,7 @@ function GetTransports( platoon, aiBrain)
 						else
                         
                             if TransportDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." transport "..transport.EntityID.." rejected - out of range at "..range)
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." transport "..transport.EntityID.." rejected - out of range at "..range.." maximum range is "..repr(800 + ( 200 * (math.min( 1, aiBrain.AirRatio )))) )
                             end
                             
 							out_of_range = true
@@ -1015,7 +1015,7 @@ function ReturnTransportsToPool( aiBrain, units, move )
         unitcount = unitcount + 1
 
 		-- unload any units it might have and process for repair/refuel
-		if EntityCategoryContains( categories.TRANSPORTFOCUS + categories.uea0203, v ) then
+		if EntityCategoryContains( AIRTRANSPORTS + categories.uea0203, v ) then
 
             if LOUDGETN(v:GetCargo()) > 0 then
 
