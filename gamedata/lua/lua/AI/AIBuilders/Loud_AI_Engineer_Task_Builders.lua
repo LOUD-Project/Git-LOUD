@@ -659,6 +659,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures',
         },
     },
 	
+    -- start reclaiming T2 PD defenses when T3 defenses are already built
 	Builder {BuilderName = 'Reclaim T2 Defenses',
 	
         PlatoonTemplate = 'EngineerGeneral',
@@ -671,18 +672,20 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures',
         
         InstanceCount = 2,
 		
-        BuilderType = { 'T2','T3','Commander' },
+        BuilderType = { 'T3','Commander' },
 		
         BuilderConditions = {
-			{ LUTL, 'UnitCapCheckGreater', { .85 } },
+			{ LUTL, 'UnitCapCheckGreater', { .25 } },
             
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.3 } },
             
-			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 
 			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.TECH2 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD - categories.WALL - categories.SHIELD - categories.ANTIMISSILE - categories.ARTILLERY - categories.SORTSTRATEGIC, 5, false }},
+
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 8, categories.STRUCTURE * (categories.DIRECTFIRE + categories.INDIRECTFIRE) * categories.TECH3, 15, 42 }},
         },
 		
         BuilderData = {

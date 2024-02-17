@@ -269,6 +269,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 20, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH2, 15, 42 }},
+			
+            -- stop building if we have more than 10 T3 PD
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH3, 15, 42 }},            
         },
 		
         BuilderType = {'T2','T3'},
@@ -390,7 +393,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 			
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH3, 15, 42 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 36, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH3, 15, 42 }},
         },
 		
         BuilderType = { 'T3','SubCommander'},
@@ -426,7 +429,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
 
-            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } }, 
+            { LUTL, 'AirStrengthRatioLessThan', { 3 } }, 
 
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
 
@@ -470,11 +473,17 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
             { LUTL, 'UnitCapCheckLess', { .80 } },
 
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
+            
+			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 
-            { LUTL, 'LandStrengthRatioLessThan', { 3 } }, 
+            { LUTL, 'LandStrengthRatioLessThan', { 2 } }, 
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'Land' }},
+			
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.STRUCTURE * categories.ANTIMISSILE - categories.SILO, 14, 42 }},
         },
 		
@@ -1729,8 +1738,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
-			-- check for less than 18 T2 TMD 
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.STRUCTURE * categories.ANTIMISSILE - categories.SILO, 45, 85 }},
+			-- check for less than 16 TMD in the perimeter
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 16, categories.STRUCTURE * categories.ANTIMISSILE - categories.SILO, 45, 85 }},
         },
 		
 		BuilderType = { 'T2' },
@@ -1880,7 +1889,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.04 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
 			-- check outer perimeter for maximum T3 AA
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 36, categories.STRUCTURE * categories.ANTIAIR * categories.TECH3, 55, 88 }},
@@ -1927,7 +1936,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 500, 75, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'Land' }},
 
 			-- check for less than 18 T2 TMD 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.STRUCTURE * categories.ANTIMISSILE - categories.SILO, 45, 85 }},

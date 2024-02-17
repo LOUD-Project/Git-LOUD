@@ -781,7 +781,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             
             { LUTL, 'LandStrengthRatioLessThan', { 4 }},
 
-            { TBC, 'ThreatCloserThan', { 'LocationType', 500, 50, 'AntiSurface' }},
+            { TBC, 'ThreatCloserThan', { 'LocationType', 400, 50, 'AntiSurface' }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
@@ -834,11 +834,14 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 
             { LUTL, 'LandStrengthRatioLessThan', { 3 } }, 
 
-            { TBC, 'ThreatCloserThan', { 'LocationType', 400, 50, 'AntiSurface' }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+            { TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 20, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH2, 15, 42 }},
+			
+            -- stop building if we have more than 10 T3 PD
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH3, 15, 42 }},     
         },
 		
         BuilderType = {'Commander'},
@@ -879,11 +882,11 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             
             { LUTL, 'LandStrengthRatioLessThan', { 3 } }, 
 
-            { TBC, 'ThreatCloserThan', { 'LocationType', 400, 50, 'AntiSurface' }},
+            { TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH3, 15, 42 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 36, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH3, 15, 42 }},
         },
 		
         BuilderType = { 'Commander'},
