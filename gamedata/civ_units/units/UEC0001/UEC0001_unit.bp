@@ -35,6 +35,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'LAND',
         'MOBILE',
+        'AMPHIBIOUS',
 		'CIVILIAN',
     },
     Defense = {
@@ -91,7 +92,7 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0010',
+
         SpawnRandomRotation = false,
         UniformScale = 0.175,
     },
@@ -99,6 +100,7 @@ UnitBlueprint {
         BuildCostEnergy = 0,
         BuildCostMass = 158,
     },
+
     General = {
         Category = 'Civilian Truck',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -114,15 +116,19 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Advanced',
         UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 18,
     },
+
     Interface = {
         HelpText = '<LOC uec0001_help>UEF Civilian Truck',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 0.5,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
