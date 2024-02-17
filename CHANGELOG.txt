@@ -1,6 +1,25 @@
+LUA 6.4.01
+4DC for LOUD 6.3.06
+BrewLAN for LOUD 08.8.9.78
+Textures 6.4
+CIV_UNITS 6.3.04
+UNITS 6.3.19
+
+-- When using Air Experimental restriction, T4AA units are also restricted
+-- fixed issue with engineers not calling for transport to unpathable locations (plateau issue)
+-- transport usage range will now decrease from the nominal maximum of 16kms, down to 12 when the air ratio is poor
+-- AI will now escort transports with both fighters and an air scout
+-- AI transition to T3 defenses now fully structured, T2 defenses will be reclaimed when conditions are suitable, at MAIN base
+-- fixed beam issue with URB2306 4DC Beholder T3 Point Defense, added some effects, rebalancing
+-- initial allocation of new BrewLAN unit, not enabled for AI yet - nor is it combat tested.
+-- BrewLAN UEF T4 Shield updated with formula values, cap cost 2 >> 3 
+-- civilian unit UEC0001 modified to add dummy AMPHIBIOUS category, allowing NOAMPH mod to work without alteration
+-- MAP Desert Island 40 (7 v 4) updated with better markers and some terrain revisions
+
+
 ### Release 19-12-2023
 
-LUA 6.2.23
+LUA 6.3.23
 
 -- fixed an issue with lobby observers 
 -- fix for finding Naval Base positions and pathfinding associated with it
@@ -12,7 +31,7 @@ LUA 6.2.23
 
 ### Release 17-12-2023
 
-LUA 6.2.22
+LUA 6.3.22
 Black Ops for LOUD 6.3.13
 UNITS 6.3.18
 
@@ -38,7 +57,7 @@ Units 6.3.17.1
 
 ### Release 08-12-2023
 
-LUA 6.2.21
+LUA 6.3.21
 LOUD_MISC 6.3.07
 LOUD_UNITS 6.3.07
 Black Ops for LOUD 6.3.12
@@ -65,7 +84,7 @@ UNITS 6.3.17
 
 ### Release 17-11-2023
 
-LUA 6.2.20
+LUA 6.3.20
 LOUD_MISC 6.3.06
 4DC for LOUD 6.3.05
 Black Ops for LOUD 6.3.11

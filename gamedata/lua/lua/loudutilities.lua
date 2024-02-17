@@ -4906,9 +4906,9 @@ function ParseIntelThread( aiBrain )
 
                         units = GetListOfUnits( brain, AIRUNITS, false, true)
 
-                        if table.getn(units) > 0 and ReportRatios then
-                            LOG("*AI DEBUG Enemy "..brain.Nickname.." has "..table.getn(units).." air units")
-                        end
+                        --if table.getn(units) > 0 and ReportRatios then
+                          --  LOG("*AI DEBUG Enemy "..brain.Nickname.." has "..table.getn(units).." air units")
+                        --end
                         
                         for _,v in units do
                     
@@ -4927,9 +4927,9 @@ function ParseIntelThread( aiBrain )
                     
                         units = GetListOfUnits( brain, AIRUNITS, false, true)
 
-                        if table.getn(units) > 0 and ReportRatios then
-                            LOG("*AI DEBUG Ally "..brain.Nickname.." has "..table.getn(units).." air units")
-                        end
+                        --if table.getn(units) > 0 and ReportRatios then
+                          --  LOG("*AI DEBUG Ally "..brain.Nickname.." has "..table.getn(units).." air units")
+                        --end
 
                         for _,v in units do
                     
@@ -4947,9 +4947,9 @@ function ParseIntelThread( aiBrain )
 
                     aiBrain.AirBias = LOUDMIN( 2, LOUDMAX( 0.66, (totalThreatSurface/totalThreatAir) ) )
 
-                    if ReportRatios then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy Air Threat is "..oldthreat.." AIR BIAS IS "..aiBrain.AirBias.."  Sur "..totalThreatSurface.."  Air "..totalThreatAir )
-                    end
+                    --if ReportRatios then
+                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy Air Threat is "..oldthreat.." AIR BIAS IS "..aiBrain.AirBias.."  Sur "..totalThreatSurface.."  Air "..totalThreatAir )
+                    --end
 
                     aiBrain.AirRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
                     
@@ -5313,11 +5313,11 @@ function ParseIntelThread( aiBrain )
             end
 
 
-            if ReportRatios then
+            --if ReportRatios then
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." I have "..aiBrain.NumOpponents.." Opponents")
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." My factory TOTALS AIR "..myairtot.." -- LAND "..mylandtot.." -- NAVAL "..mynavaltot)
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Grand Factory Totals AIR "..grandairtot/aiBrain.NumOpponents.." -- LAND "..grandlandtot/aiBrain.NumOpponents.." -- NAVAL "..grandnavaltot/aiBrain.NumOpponents)
-            end
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." Grand Factory Totals AIR "..grandairtot/aiBrain.NumOpponents.." -- LAND "..grandlandtot/aiBrain.NumOpponents.." -- NAVAL "..grandnavaltot/aiBrain.NumOpponents)
+            --end
         
         end
         

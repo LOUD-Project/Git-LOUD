@@ -183,13 +183,15 @@ PlatoonTemplate { Name = 'ReinforceAirExperimental',
 ----- LAND FORMATIONS ----
 --------------------------
 
-local LANDAMPHIB = categories.LAND * categories.MOBILE * categories.AMPHIBIOUS
-local LANDANTIAIR = categories.LAND * categories.MOBILE * categories.ANTIAIR
-local LANDARTILLERY = categories.LAND * categories.MOBILE * categories.INDIRECTFIRE
-local LANDCOUNTERINTEL = categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE
-local LANDDIRECTFIRE = categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER
+local LAND = categories.LAND * categories.MOBILE
+
+local LANDAMPHIB = LAND * categories.AMPHIBIOUS
+local LANDANTIAIR = LAND * categories.ANTIAIR
+local LANDARTILLERY = LAND * categories.INDIRECTFIRE
+local LANDCOUNTERINTEL = LAND * categories.COUNTERINTELLIGENCE
+local LANDDIRECTFIRE = LAND * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER
 local LANDSCOUT = categories.LAND * categories.SCOUT
-local LANDSHIELD = categories.LAND * categories.MOBILE * categories.SHIELD
+local LANDSHIELD = LAND * categories.SHIELD
 
 -- not that it's used much - but you can have factional differences -- have a look at the T1 Scouting Platoon where all factions have
 -- 2 scouts except the Cybrans which only use 1 scout

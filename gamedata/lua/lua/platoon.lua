@@ -339,7 +339,7 @@ Platoon = Class(moho.platoon_methods) {
             end
 
             -- make a copy of the original to use for the primary loop
-            local pathcopy = LOUDCOPY(path)
+            self.pathcopy = LOUDCOPY(path)
 		
 			-- this variable controls what I call the 'path slack' - the distance at which a platoon considers this step complete
 			-- as a platoon moves from point to point when it's within this range of it's goal - it considers itself there
@@ -357,7 +357,7 @@ Platoon = Class(moho.platoon_methods) {
             
             local Direction, SCOUTS, ATTACKS, ARTILLERY, GUARDS, SUPPORTS
 
-			for wpidx, waypointPath in pathcopy do
+			for wpidx, waypointPath in self.pathcopy do
 			
 				if self.MoveThread then
                     
@@ -491,6 +491,7 @@ Platoon = Class(moho.platoon_methods) {
 		KillThread( self.MoveThread )
 		
 		self.MoveThread = nil
+        self.pathcopy = nil
 	end,
 
     -- this function will hunt and engage a local target within a radius
