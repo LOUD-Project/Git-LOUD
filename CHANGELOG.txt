@@ -1,3 +1,14 @@
+### Release 17-02-2024
+
+LUA 6.4.02
+LOUD_MISC 6.3.08
+
+-- left some debug tools turned on
+-- fixed an error with ACT stopping
+-- AI threat based defense building triggers moved from 'Land' to 'AntiSurface'
+-- Metalworld, Mutator mod - Extractors now use 5 unit cap per instead of one
+
+
 LUA 6.4.01
 4DC for LOUD 6.3.06
 BrewLAN for LOUD 08.8.9.78
