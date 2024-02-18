@@ -5074,13 +5074,13 @@ Platoon = Class(moho.platoon_methods) {
                 end
 			
 				target, targetposition = FindTargetInRange( self, aiBrain, 'Attack', guardRadius, categoryList, false)
-                
-                targetposition = LOUDCOPY(targetposition)
 
 				units = GetPlatoonUnits(self)
 				
 				if target then
-        
+
+                    targetposition = LOUDCOPY(targetposition)
+
                     if GuardpointDialog then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." has target "..repr(target:GetBlueprint().Description) )
                     end

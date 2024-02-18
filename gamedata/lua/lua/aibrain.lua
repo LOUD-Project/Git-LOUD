@@ -1746,7 +1746,7 @@ AIBrain = Class(moho.aibrain_methods) {
     end,
 
     TotalCheat = function(self)
-        return self.CheatValue + (self.FeedbackCheat or 0) + (self.TimeCheat or 0)
+        return (self.CheatValue or 1) + (self.FeedbackCheat or 0) + (self.TimeCheat or 0)
     end
 
 }

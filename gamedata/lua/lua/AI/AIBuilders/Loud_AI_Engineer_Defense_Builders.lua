@@ -350,7 +350,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.STRUCTURE * categories.ANTIMISSILE - categories.SILO, 14, 42 }},
         },
@@ -482,7 +482,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 			
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.STRUCTURE * categories.ANTIMISSILE - categories.SILO, 14, 42 }},
         },
@@ -1936,7 +1936,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
 			-- check for less than 18 T2 TMD 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.STRUCTURE * categories.ANTIMISSILE - categories.SILO, 45, 85 }},
@@ -2657,7 +2657,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 
@@ -2740,7 +2740,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
@@ -2820,7 +2820,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
             
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
@@ -2900,7 +2900,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 
@@ -3379,7 +3379,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 3, categories.FACTORY - categories.TECH1 }},
 
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
@@ -3529,7 +3529,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 3, categories.FACTORY - categories.TECH1 }},
             
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
@@ -5098,7 +5098,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
             
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.04 }}, 
             
@@ -5136,7 +5136,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-			--{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 75, 'Land' }},
+			--{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 75, 'AntiSurface' }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.025 }}, 
             
