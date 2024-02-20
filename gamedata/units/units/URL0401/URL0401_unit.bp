@@ -283,12 +283,12 @@ UnitBlueprint {
 			
             UseFiringSolutionInsteadOfAimBone = true,
 
-            WeaponRepackTimeout = 3,
+            WeaponRepackTimeout = 17,
             WeaponUnpackAnimation = '/units/URL0401/URL0401_aopen.sca',
             WeaponUnpackAnimationRate = 1,
             WeaponUnpackAnimatorPrecedence = 0,
             WeaponUnpackLocksMotion = true,
-            WeaponUnpackTimeout = 15,
+            WeaponUnpackTimeout = 17,
             WeaponUnpacks = true,
         },
     },
