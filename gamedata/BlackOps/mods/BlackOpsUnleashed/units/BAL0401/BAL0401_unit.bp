@@ -343,7 +343,7 @@ UnitBlueprint {
 
             Turreted = false,
 			
-            WeaponRepackTimeout = 2,
+            WeaponRepackTimeout = 2.8,
             WeaponUnpackAnimation = '/mods/BlackOpsUnleashed/units/BAL0401/BAL0401_ADeploy01.sca',
             WeaponUnpackAnimationRate = 1.2,
             WeaponUnpackLocksMotion = true,
