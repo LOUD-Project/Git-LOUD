@@ -52,50 +52,68 @@ BAL0402 = Class(AHoverLandUnit) {
         AntiMissile1 = Class(AAMWillOWisp) {},
 		
     },
+
+
+    OnCreate = function(self, createArgs)
+
+        self.MaelstromFieldName = 'AeonMaelstromBuffField2'
+        self.MaelstromFieldRadius = 32
+	
+		AHoverLandUnit.OnCreate(self, createArgs)
+	end,
 	
 	OnStopBeingBuilt = function(self,builder,layer)
-
-		self.MaelstromEffects01 = {}
-        
-		if self.MaelstromEffects01 then
-				for k, v in self.MaelstromEffects01 do
-					v:Destroy()
-				end
-			self.MaelstromEffects01 = {}
-		end
-        
-        local army = self.Army
-		local LOUDINSERT = table.insert
-		local LOUDATTACHEMITTER = CreateAttachedEmitter
-        
-		LOUDINSERT( self.MaelstromEffects01, LOUDATTACHEMITTER( self, 'Maelstrom', army, '/mods/BlackopsUnleashed/effects/emitters/genmaelstrom_aura_02_emit.bp' ):ScaleEmitter(0.75):OffsetEmitter(0, -1.5, 0) )
 		
 		AHoverLandUnit.OnStopBeingBuilt(self,builder,layer)
 		
-		-- we're not really cloaking so turn this off
-		-- we just use the CloakField radius to show the area of effect
-		self:DisableUnitIntel('CloakField')
-		
-		-- turn it on to start
-		self:SetScriptBit('RULEUTC_ShieldToggle',true)
+		-- turn on Maelstrom field
+		self:SetScriptBit('RULEUTC_SpecialToggle',true)
 	end,
 	
 	OnScriptBitSet = function(self, bit)
-	
-		if bit == 0 then
-			self:GetBuffFieldByName('AeonMaelstromBuffField2'):Enable()
+
+        if bit == 7 then
+
+            if self.MaelstromFieldName then
+            
+                self:SetIntelRadius( 'RadarStealth', self.MaelstromFieldRadius )
+                self:SetIntelRadius( 'RadarStealthField', self.MaelstromFieldRadius )
+                self:SetIntelRadius( 'SonarStealth', self.MaelstromFieldRadius )
+                self:SetIntelRadius( 'SonarStealthField', self.MaelstromFieldRadius )
+
+                self:EnableUnitIntel('RadarStealthField')
+                self:EnableUnitIntel('SonarStealthField')
+
+                self:GetBuffFieldByName( self.MaelstromFieldName ):Enable()
+
+                self.MaelstromFieldOn = true
+            end
 		end
 	
 	end,
 	
 	OnScriptBitClear = function(self, bit)
-	
-		if bit == 0 then
-			self:GetBuffFieldByName('AeonMaelstromBuffField2'):Disable()
+
+        if bit == 7 then    -- Maelstrom Field
+
+            if self.MaelstromFieldName then
+            
+                self:SetIntelRadius( 'RadarStealth', 1 )
+                self:SetIntelRadius( 'RadarStealthField', 1 )
+                self:SetIntelRadius( 'SonarStealth', 1 )
+                self:SetIntelRadius( 'SonarStealthField', 1 )
+
+                self:DisableUnitIntel('RadarStealthField')
+                self:DisableUnitIntel('SonarStealthField')
+
+                self:GetBuffFieldByName( self.MaelstromFieldName ):Disable()
+
+                self.MaelstromFieldOn = false
+            end
 		end
 	
-	end,	
-    
+	end,
+  
 	DeathThread = function( self, overkillRatio , instigator)
     
         explosion.CreateDefaultHitExplosionAtBone( self, 'BAL0402', 4.0 )

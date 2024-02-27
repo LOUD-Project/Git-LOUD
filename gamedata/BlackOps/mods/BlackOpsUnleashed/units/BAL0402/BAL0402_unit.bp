@@ -155,21 +155,24 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
-		OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'Toggle Maelstrom Field',
-            },
-        },
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+		OrderOverrides = { RULEUTC_SpecialToggle = { helpText = 'Maelstrom Field' } },
+        ToggleCaps = { RULEUTC_SpecialToggle = true },
         UnitName = '<LOC bal0402_name>Genesis',
     },
     
     Intel = {
-		CloakFieldRadius = 32,	-- this is for the Maelstrom field
+        FreeIntel = true,
+
+        RadarStealth = true,
+        RadarStealthField = true,
+        RadarStealthFieldRadius = 1,        -- used and altered by Maelstrom Field
+
+        SonarStealth = true,
+        SonarStealthField = true,
+        SonarStealthFieldRadius = 1,        -- as above
+        
         VisionRadius = 36,
+        WaterVisionRadius = 18,
     },
 	
     Interface = {
