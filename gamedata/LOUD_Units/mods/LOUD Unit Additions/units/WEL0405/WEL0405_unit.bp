@@ -74,9 +74,9 @@ UnitBlueprint {
     Defense = {
 		AirThreatLevel = 80,
         ArmorType = 'Experimental',
-        Health = 142000,
-        MaxHealth = 142000,
-        RegenRate = 38,
+        Health = 139000,
+        MaxHealth = 139000,
+        RegenRate = 30,
         SurfaceThreatLevel = 1604.4,
     },
 	
@@ -84,10 +84,10 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Wave Cannons (Shield Draining)',
+            'Wave Cannons (++ Shield Damage)',
+			'Maelstrom Field (Stealth & Damage)',
 			'Missile Barrage',
 			'Anti Air',
-			'Emits Miasma field',
 			'Omni Radar',
 		},	
         AnimationDeath = {
@@ -196,7 +196,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 7,
+		CapCost = 10,
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -207,12 +207,8 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
-		OrderOverrides = {
-            RULEUTC_SpecialToggle = { helpText = 'Miasma Field' },        
-        },
-        ToggleCaps = {
-            RULEUTC_SpecialToggle = true,
-        },
+		OrderOverrides = { RULEUTC_SpecialToggle = { helpText = 'Maelstrom Field' } },
+        ToggleCaps = { RULEUTC_SpecialToggle = true },
         UnitName = '<LOC wel0405_name>King Kraptor',
     },
 	
@@ -227,10 +223,10 @@ UnitBlueprint {
         SonarStealthField = true,
         SonarStealthFieldRadius = 1,        -- as above
 
-		OmniRadius = 44,
-		RadarRadius = 110,
+		OmniRadius = 48,
+		RadarRadius = 112,
         VisionRadius = 44,
-        WaterVisionRadius = 35,
+        WaterVisionRadius = 36,
     },
 
     Interface = {
