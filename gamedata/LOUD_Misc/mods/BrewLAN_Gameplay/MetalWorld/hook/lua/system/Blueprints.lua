@@ -15,11 +15,20 @@ end
 
 --------------------------------------------------------------------------------
 -- Removing build restrictions on mass extractors.
+-- increasing cap cost * 5
+-- increasing E consumption * 2
+
+-- reducing cap bonus for SACU from 3 to 1
+
 --------------------------------------------------------------------------------
 
 function MetalWorld(all_bps)
 
     for id, bp in all_bps do
+    
+        if bp.General.CapCost == -3 then
+            bp.General.CapCost = -1
+        end
     
         if bp.Physics.BuildRestriction == 'RULEUBR_OnMassDeposit' then
 
@@ -29,6 +38,10 @@ function MetalWorld(all_bps)
             
             if bp.General.CapCost then
                 bp.General.CapCost = bp.General.CapCost * 5
+            end
+            
+            if bp.Economy.MaintenanceConsumptionPerSecondEnergy then
+                bp.Economy.MaintenanceConsumptionPerSecondEnergy = bp.Economy.MaintenanceConsumptionPerSecondEnergy * 2
             end
         end
 
