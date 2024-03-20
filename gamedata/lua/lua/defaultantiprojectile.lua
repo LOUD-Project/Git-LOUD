@@ -85,6 +85,10 @@ Flare = Class(Entity) {
 AAFlare = Class(Entity) {
 
 	OnCreate = function(self, spec)
+    
+        if ScenarioInfo.ProjectileDialog then
+            LOG("*AI DEBUG AAFlare OnCreate is "..repr(self).." spec is "..repr(spec) )
+        end
 
         self.Army = spec.Owner.Army		
         self.Owner = spec.Owner
@@ -127,6 +131,10 @@ AAFlare = Class(Entity) {
 DepthCharge = Class(Entity) {
 
     OnCreate = function(self, spec)
+
+		if ScenarioInfo.ProjectileDialog then    
+            LOG("*AI DEBUG DepthCharge OnCreate is "..repr(self).." spec is "..repr(spec) )
+        end
 	
         self.Army = spec.Owner.Army		    
         self.Owner = spec.Owner
@@ -141,6 +149,10 @@ DepthCharge = Class(Entity) {
     -- We only divert the projectiles. The projectile itself is responsible for
     -- accepting the collision and causing the hostile projectile to impact.
     OnCollisionCheck = function(self,other)
+
+		if ScenarioInfo.ProjectileDialog then    
+            LOG("*AI DEBUG DepthCharge OnCollision")
+        end
 	
         if LOUDENTITY(categories.TORPEDO, other) and self.Army != GetArmy(other) then
 		

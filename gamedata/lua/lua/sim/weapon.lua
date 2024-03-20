@@ -399,12 +399,12 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     OnLostTarget = function(self)
+	
+        if ScenarioInfo.WeaponDialog then
+            LOG("*AI DEBUG Weapon OnLostTarget for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
+        end
 
         if self.DisabledFiringBones and self.unit.Animator then
-	
-            if ScenarioInfo.WeaponDialog then
-                LOG("*AI DEBUG Weapon OnLostTarget for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
-            end
 		
             for _, value in self.DisabledFiringBones do
                 SetBoneEnabled( self.unit.Animator, value, true )
@@ -463,8 +463,9 @@ Weapon = Class(moho.weapon_methods) {
 			--	Damage Over Time & Pulses   (for those weapons which do that)
 
 			--	Artillery Shield Blocks     
+
 			--	advancedTracking	        (used by tracking projectiles)
-			--		also add ProjectileLifetime and TrackingRadius
+			--		also add ProjectileLifetime, TrackingRadius and TargetRestrictOnlyAllow
             --  TrackingWeapon              (used by weapons thattrack projectiles rather than units)
 
 			

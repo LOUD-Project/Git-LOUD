@@ -982,7 +982,9 @@ Platoon = Class(moho.platoon_methods) {
 				LOUDSORT(markerlist, function(a,b) local VDist3Sq = VDist3Sq return VDist3Sq( a.position, location ) < VDist3Sq( b.position, location ) end)
                 
                 if goalseek then
-                    goaldistance = VDist3(location,goalseek)
+                    -- only allow points that are closer (within 10%) of the goal
+                    -- as sometimes the only connecting marker is actually a bit further away from the desired goal
+                    goaldistance = VDist3(location,goalseek) * 1.1
                 end
 	
 				-- traverse the list and make a new list of those with allowable threat and within the MaxMarkerDist range
@@ -1001,6 +1003,7 @@ Platoon = Class(moho.platoon_methods) {
                     
                         nomarkers = false
                         
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind checking marker "..repr(Node).." at "..repr(Position).." goalseek is "..repr(goalseek).." seeksafest is "..repr(seeksafest) )
                         --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." IMAPRadius is "..IMAPRadius.." testdistance is "..testdistance.." factor would be "..testdistance/IMAPRadius )
 
                         thisthreat = GetThreatBetweenPositions( aiBrain, location, Position, nil, threattype ) / math.max( 1, testdistance/IMAPRadius )
@@ -1034,6 +1037,8 @@ Platoon = Class(moho.platoon_methods) {
                                         end
 
                                     end
+                                    
+                                    --LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind checking marker "..repr(Node).." at "..repr(Position).." ADDED" )
 
                                     counter = counter + 1						
                                     positions[counter] = { thisthreat, Node, Position, math.floor(testdistance), math.floor(thisdistance or 0) }
@@ -1061,6 +1066,8 @@ Platoon = Class(moho.platoon_methods) {
                     
 				end
 
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind checking marker list is "..counter) 
+
 				-- resort positions 
 
 				if goalseek and not seeksafest then
@@ -1075,6 +1082,8 @@ Platoon = Class(moho.platoon_methods) {
                         LOUDSORT(positions, function(a,b) return a[1]+((a[4]+a[5])*.05) < b[1]+((b[4]+b[5])*.05) end)
                     end
                 end
+                
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind checking marker positions maxthreat is "..repr(maxthreat).." positions are "..repr(positions) )
 
 				local bestThreat = maxthreat
 				local bestMarker = positions[1][2]	-- default to the one closest to goalseek

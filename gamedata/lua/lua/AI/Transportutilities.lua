@@ -1051,7 +1051,7 @@ function ReturnTransportsToPool( aiBrain, units, move )
                 end
             end
 
-            v.InUse = nil
+            v.InUse = false
 
             v.Assigning = nil
 

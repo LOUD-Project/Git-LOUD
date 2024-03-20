@@ -4093,7 +4093,7 @@ function PathGeneratorWater(aiBrain)
             ThreatLayer = data.ThreatLayer     
             
             if PathFindingDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." starts AIR pathfind from "..repr(data.StartNode.position).." to "..repr(data.EndNode.position) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind AIR starts find from "..repr(data.StartNode.position).." to "..repr(data.EndNode.position) )
             end
 
 			queue = { {cost = 0, goaldist = 0, length = data.Startlength or 0, Node = data.StartNode, path = {data.StartNode.position, }, pathcount = 1, threat = data.ThreatWeight } }
@@ -4119,6 +4119,7 @@ function PathGeneratorWater(aiBrain)
                 
 				aiBrain.PathRequests['Replies'][platoon] = { length = 0, path = 'NoPath', cost = 0 }
 			end
+
         else
             WaitTicks(3)
         end

@@ -160,6 +160,10 @@ DefaultProjectileWeapon = Class(Weapon) {
 
         local proj = self:CreateProjectileForWeapon(muzzle)
         local bp = self.bp
+	
+		if ScenarioInfo.ProjectileDialog then
+			LOG("*AI DEBUG Projectile CreateProjectileAtMuzzle "..repr(self.bp.Label).." Muzzle "..repr(muzzle).." Projectile "..repr(proj.BlueprintID) )
+		end
 		
         if not proj or BeenDestroyed( proj )then
             return proj
@@ -633,12 +637,12 @@ DefaultProjectileWeapon = Class(Weapon) {
             local bp = self.bp
             
             local target = WeaponHasTarget(self)
-            
-            if target then
 
-                if ScenarioInfo.WeaponStateDialog then
-                    LOG("*AI DEBUG DefaultWeapon OnLostTarget for "..repr(bp.Label).." target is "..repr(target).." at "..GetGameTick() )
-                end
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon OnLostTarget for "..repr(bp.Label).." target is "..repr(target).." at "..GetGameTick() )
+            end
+            
+            if not target then
         
                 Weapon.OnLostTarget(self)
 
@@ -803,8 +807,10 @@ DefaultProjectileWeapon = Class(Weapon) {
                 end
             end
             
-			-- NOTE: This is setup so that it only works if there is more than 1 rack
-            -- intended to force the reload rack process after a firing sequence
+			-- NOTE: This is setup so that it only works if there is more than 1 rack to be fired
+            -- but the rack wasn't reset (weapon didn't fire all the rackbones)
+            -- we force the reload rack process
+            -- this seems to happen when a multi-rackboned unit loses it's target during the fire sequence
             if LOUDGETN(bp.RackBones) > 1 and self.CurrentRackNumber > 1 then
 
                 self.CurrentRackNumber = 1 
@@ -864,7 +870,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             
             local bp = self.bp
 			
-            if bp.WeaponUnpacks == true then    --and not bp.RackSalvoChargeTime then
+            if bp.WeaponUnpacks == true then
 			
                 LOUDSTATE(self, self.WeaponUnpackingState)
 				
@@ -1022,8 +1028,16 @@ DefaultProjectileWeapon = Class(Weapon) {
             
             LOUDSTATE(self, self.RackSalvoFireReadyState)
         end,
-    },
+        
+        OnGotTarget = function(self)
 
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon RackSalvo Charge State "..repr(self.bp.Label).." OnGotTarget at "..GetGameTick() )		
+            end
+          
+        end,
+    },
+    
     RackSalvoFireReadyState = State {
 
         WeaponWantEnabled = true,
@@ -1031,11 +1045,12 @@ DefaultProjectileWeapon = Class(Weapon) {
 
         Main = function(self)
             
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon RackSalvo Fire Ready State "..repr(self.bp.Label).." at "..GetGameTick() )
-            end
-            
+            local bp = self.bp
             local unit = self.unit
+            
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon RackSalvo Fire Ready State "..repr(bp.Label).." at "..GetGameTick() )
+            end
 
             self.WeaponCanFire = false
 			
@@ -1076,15 +1091,22 @@ DefaultProjectileWeapon = Class(Weapon) {
 		-- then the weapon will Never do an OnFire() event unless the unit is set to IMMOBILE
         OnFire = function(self)
 
-            if self.WeaponCanFire then
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon RackSalvo Fire Ready State "..repr(self.bp.Label).." OnFire at "..GetGameTick() )
+            end
 
-                if ScenarioInfo.WeaponStateDialog then
-                    LOG("*AI DEBUG DefaultWeapon RackSalvo Fire Ready State "..repr(self.bp.Label).." OnFire at "..GetGameTick() )
-                end
-
+            if self.WeaponCanFire and WeaponHasTarget(self) then
                 LOUDSTATE(self, self.RackSalvoFiringState)
             end
 			
+        end,
+        
+        OnGotTarget = function(self)
+
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon RackSalvo Fire Ready State "..repr(self.bp.Label).." OnGotTarget at "..GetGameTick() )		
+            end
+          
         end,
     },
 
@@ -1145,10 +1167,6 @@ DefaultProjectileWeapon = Class(Weapon) {
             while self.CurrentRackNumber <= numRackFiring and not self.HaltFireOrdered and not unit.Dead do
  			
                 rackInfo = bp.RackBones[self.CurrentRackNumber]
-            
-                if ScenarioInfo.WeaponStateDialog then
-                    LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State "..repr(bp.Label).." - PREPARING RACK "..self.CurrentRackNumber.." "..repr(rackInfo.RackBone) )
-                end
 
 				MuzzlesToBeFired = LOUDGETN(bp.RackBones[self.CurrentRackNumber].MuzzleBones)
                 numMuzzlesFiring = bp.MuzzleSalvoSize or 1
@@ -1163,6 +1181,16 @@ DefaultProjectileWeapon = Class(Weapon) {
 
 				-- fire all the muzzles --
                 for i = 1, numMuzzlesFiring do
+                
+                    --LOG("*AI DEBUG Current target for "..repr(bp.Label).." is "..repr(self:GetCurrentTarget()) )
+
+                    if not self.HaltFireOrdered and (not self:GetCurrentTarget() and bp.CannotAttackGround) then
+                        LOG("*AI DEBUG Weapon has no target to shoot at")
+
+                        self:OnLostTarget()
+
+                        self.HaltFireOrdered = true
+                    end
 
                     if self.HaltFireOrdered then
                         continue
@@ -1238,7 +1266,11 @@ DefaultProjectileWeapon = Class(Weapon) {
                         HideBone( unit, muzzle, true)
                     end
 
-                    self:CreateProjectileAtMuzzle(muzzle)
+                    projectilefired = self:CreateProjectileAtMuzzle(muzzle)
+                    
+                    if ScenarioInfo.ProjectileDialog then
+                        LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State "..repr(bp.Label).." - FIRED PROJECTILE "..repr(projectilefired.BlueprintID).." at "..GetGameTick() )
+                    end
 
                     if bp.CountedProjectile == true then
 					
@@ -1376,30 +1408,36 @@ DefaultProjectileWeapon = Class(Weapon) {
 
             local WeaponStateDialog = ScenarioInfo.WeaponStateDialog
 
-            if WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State "..repr(self.bp.Label).." at "..GetGameTick() )		
-            end
-
             local bp = self.bp
             local unit = self.unit	     
 
-            self.WeaponCanFire = self:CanWeaponFire()
+            if WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State "..repr(bp.Label).." at "..GetGameTick() )		
+            end
             
-            self.ElapsedRackReloadTime = 0
+            self.ElapsedRackReloadTicks = 0
 
             self:PlayFxRackSalvoReloadSequence(bp)
             
-            if self.ElapsedRackReloadTime > 0 and ( not bp.RackSalvoReloadTime or ((bp.RackSalvoReloadTime*10) < self.ElapsedRackReloadTime )) then
-                LOG("*AI DEBUG DefaultWeapon RackReloadTime - is either not existant or less than the RackSalvoReloadSequnce - "..self.ElapsedRackReloadTime.." ticks. "..repr(self.unit.BlueprintID))
+            if self.ElapsedRackReloadTicks > 0 and ( not bp.RackSalvoReloadTime or ((bp.RackSalvoReloadTime*10) < self.ElapsedRackReloadTicks )) then
+                LOG("*AI DEBUG DefaultWeapon RackReloadTime - is either not existant or less than the RackSalvoReloadSequnce - "..self.ElapsedRackReloadTicks.." ticks. "..repr(self.unit.BlueprintID))
             end
             
-            if bp.RackSalvoReloadTime and (math.floor(bp.RackSalvoReloadTime * 10) - self.ElapsedRackReloadTime) >= 1 then
+            if bp.RackSalvoReloadTime and (math.ceil(bp.RackSalvoReloadTime * 10) - self.ElapsedRackReloadTicks) >= 0 then
             
                 if WeaponStateDialog then
-                    LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State "..repr(bp.Label).." RackSalvoReloadTime waits "..math.floor(bp.RackSalvoReloadTime * 10) - self.ElapsedRackReloadTime.." ticks" )
+                    LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State "..repr(bp.Label).." RackSalvoReloadTime waits "..math.ceil(bp.RackSalvoReloadTime * 10) - self.ElapsedRackReloadTicks.." ticks" )
                 end
             
-                WaitSeconds( (math.floor(bp.RackSalvoReloadTime * 10) - self.ElapsedRackReloadTime)/10 )
+                WaitTicks( (math.ceil(bp.RackSalvoReloadTime * 10) - self.ElapsedRackReloadTicks) )
+            end
+            
+            if self.BeamLifetimeWatch then
+            
+                while self.BeamLifetimeWatch do
+                    WaitTicks(1)
+                end
+
             end
 
             if self.RecoilManipulators then
@@ -1464,35 +1502,65 @@ DefaultProjectileWeapon = Class(Weapon) {
         Main = function(self)
           
             local bp = self.bp
-            
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon WeaponPacking State "..repr(bp.Label) )
-			end
 
 			-- reset the rack count
             self.CurrentRackNumber = 1
 
             self:PlayFxWeaponPackSequence(bp)
+            
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon WeaponPacking State "..repr(bp.Label).." at "..GetGameTick() )
+			end
       
             if bp.WeaponUnpackLocksMotion then
                 self.unit:SetImmobile(false)
             end
             
+            -- this is a bit of kludge for projectile targeting weapons --
+            -- we get here because we want those weapons to go offline for a spell
+            -- so that inbound projectiles can be targeted by others, if needed (DesiredShooterCap)
             if bp.CountedProjectile then
 
-                WaitTicks(3)  -- this is what causes a counted projectile to drop it's targeting
+                WaitTicks(3)  -- this is what causes a counted projectile weapon to drop it's lock (DesiredShooterCap)
+            
+                if ScenarioInfo.WeaponStateDialog then
+                    LOG("*AI DEBUG DefaultWeapon WeaponPacking State "..repr(bp.Label).." complete at "..GetGameTick() )
+                end
                 
-                self.unit.HasTMLTarget = false
+                if bp.CountedProjectile then
+                    self.unit.HasTMLTarget = false
+                end
                 
                 if self.WeaponCanFire then
-                    LOUDSTATE(self, self.IdleState)
+                
+                    if WeaponHasTarget(self) then
+                    
+                        LOUDSTATE( self, self.RackSalvoChargeState)
+                        
+                    else
+                    
+                        LOUDSTATE(self, self.IdleState)
+                        
+                    end
+
                 else
+
                     LOUDSTATE(self, self.WeaponEmptyState)
                 end
             
-            else
-                LOUDSTATE(self, self.IdleState)
             end
+
+            self:ChangeMaxRadius( 1 )
+
+            WaitTicks(3)
+            
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon WeaponPacking State "..repr(bp.Label).." complete at "..GetGameTick() )
+            end
+
+            self:ChangeMaxRadius( bp.MaxRadius )            
+
+            LOUDSTATE(self, self.IdleState)
 			
         end,
 
@@ -1500,13 +1568,16 @@ DefaultProjectileWeapon = Class(Weapon) {
         -- we're not actually creating the projectile yet
         OnFire = function(self)
             
-            if self.bp.CountedProjectile == true and not self.bp.ForceSingleFire then
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon WeaponPacking State "..repr(self.bp.Label).." OnFire")
+            end
             
-                if ScenarioInfo.WeaponStateDialog then
-                    LOG("*AI DEBUG DefaultWeapon WeaponPacking State "..repr(self.bp.Label).." OnFire")
-                end
+            if self.bp.CountedProjectile == true and not self.bp.ForceSingleFire then
 			
                 LOUDSTATE(self, self.WeaponUnpackingState)
+
+            else
+                LOUDSTATE(self, self.RackSalvoChargeState)
             end
 			
         end,
@@ -1793,8 +1864,18 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
     end,
 
     BeamLifetimeThread = function(self, beam, lifeTime)
+    
+        if ScenarioInfo.WeaponStateDialog then
+            LOG("*AI DEBUG DefaultWeapon BEAM Lifetime Thread starts "..repr(self.bp.Label).." at "..GetGameTick().." for "..lifeTime.." seconds" )        
+        end
 
         WaitTicks( math.floor(lifeTime * 10.001) + 1 )
+    
+        if ScenarioInfo.WeaponStateDialog then
+            LOG("*AI DEBUG DefaultWeapon BEAM Lifetime Thread ends "..repr(self.bp.Label).." at "..GetGameTick() )
+        end
+
+        self.BeamLifetimeWatch = nil
         
         self:PlayFxBeamEnd(beam)
     end,

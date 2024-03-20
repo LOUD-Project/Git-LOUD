@@ -105,11 +105,14 @@ Projectile = Class(moho.projectile_methods, Entity) {
         SetHealth( self, self, GetMaxHealth(self))
 	
 		if ScenarioInfo.ProjectileDialog then
+
             if self.BlueprintID then
-                ForkThread( function() LOG("*AI DEBUG Projectile OnCreate BlueprintID is "..repr(self.BlueprintID)) end )
+                --ForkThread( function() LOG("*AI DEBUG Projectile OnCreate BlueprintID is "..repr(self.BlueprintID)) end )
+                LOG("*AI DEBUG Projectile OnCreate BlueprintID is "..repr(self) )
             else
                 LOG("*AI DEBUG Projectile OnCreate BlueprintID is FALSE "..repr(bp) )
             end
+
 		end
 	
         if bp.Audio.ExistLoop then
@@ -138,11 +141,18 @@ Projectile = Class(moho.projectile_methods, Entity) {
     	local target = GetTrackingTarget(self)
         
         if not target then return end
+        
+        local targetlauncher = false
+        
+        if ScenarioInfo.ProjectileDialog then
+            LOG("*AI DEBUG Projectile Advanced Tracking engaged for "..repr(self.BlueprintID) )
+            LOG("*AI DEBUG Current target is "..repr(target.BlueprintID) )
+        end
 
         local BeenDestroyed = BeenDestroyed
         local GetHealth = GetHealth
         local GetPosition = GetPosition
-        local SetNewTarget = moho.projectile_methods.SetNewTarget
+        local SetNewTarget = ProjectileMethods.SetNewTarget
         local WaitTicks = WaitTicks
         
 
@@ -176,38 +186,93 @@ Projectile = Class(moho.projectile_methods, Entity) {
             if targetlist[1] then
 
                 if ScenarioInfo.ProjectileDialog and weapon then
-                    LOG("*AI DEBUG Projectile activates retargeting "..repr(targetlist[1]) )
+                    LOG("*AI DEBUG Projectile "..repr(self.BlueprintID).." Tracking activates retargeting "..repr(targetlist[1]) )
                 end
+                
+               
+                if targetlist[1] == target and self.DamageData.TargetRestrictOnlyAllow then
 
-                SetNewTarget( self, targetlist[1] )
+                    position = GetPosition(self)                    
+
+                    local x = position[1]
+                    local y = position[3]
+                    
+                    local trackradius = self.DamageData.TrackingRadius
+                    local trackcategory = ParseEntityCategory( self.DamageData.TargetRestrictOnlyAllow )
+                    
+                    targetlist = GetEntitiesInRect( x-trackradius,y-trackradius, x+trackradius, y+trackradius )
+                    
+                    targetlist = EntityCategoryFilterDown( trackcategory, targetlist)
+                    
+                    table.sort( targetlist, function(a,b) return VDist3( position, GetPosition(a)) < VDist3( position, GetPosition(b)) end )
+                    
+                    LOG("*AI DEBUG Projectile "..repr(self.BlueprintID).." Found "..table.getn(targetlist).." "..repr(self.DamageData.TargetRestrictOnlyAllow).." targets")
+
+                end
 			
                 for k, v in targetlist do
-			
-                    if not v.IncommingDamage then
-				
-                        SetNewTarget( self, v )
-                    
-                        v.IncommingDamage = self.DamageData.DamageAmount
-                    
-                        self.advancedTrackinglock = true
-                        break
-                    
-                    else
                 
-                        if v.IncommingDamage < GetHealth(v)*2 then
-					
-                            SetNewTarget( self, v )	
+                    if IsEnemy( v.Army, self.Army ) then
+			
+                        if not v.IncommingDamage or v.IncommingDamage < GetHealth(v) then
+				
+                            SetNewTarget( self, v )
+                        
+                            LOG("*AI DEBUG Projectile "..repr(self.BlueprintID).." Retargeted to "..repr(v.BlueprintID).." total "..repr(v.IncommingDamage) )
                             
-                            v.IncommingDamage = v.IncommingDamage + self.DamageData.DamageAmount
+                            if v.IncommingDamage then
+                    
+                                v.IncommingDamage = v.IncommingDamage + self.DamageData.DamageAmount
+                                
+                            else
                             
-                            self.advancedTrackinglock = true
+                                v.IncommingDamage = self.DamageData.DamageAmount
+                                
+                            end
+                    
+                            self.AdvancedTrackinglock = true
+                            
+                            target = v      --GetTrackingTarget(self)
+                            
+                            targetlauncher = false
+                            
+                            if not BeenDestroyed(target) then
+                                targetlauncher = GetLauncher(target)
+                            end
+                            
                             break
-                        end 
+
+                        end
+
                     end
+
+                end
+                
+                if not self.AdvancedTrackinglock then
+                
+                    if targetlauncher then
+                
+                        LOG("*AI DEBUG Projectile "..repr(self.BlueprintID).." No target found - targeting launcher")
+                    
+                        SetNewTarget( self, targetlauncher )
+                    
+                        self.AdvancedTrackinglock = true
+                    
+                        target = false
+                        targetlauncher = false
+                    end    
+
+                    return
+                    
                 end
                 
             else
-                Destroy(self) 
+
+                if ScenarioInfo.ProjectileDialog then
+                    LOG("*AI DEBUG Projectile "..repr(self.BlueprintID).." Advanced Tracking fails" )
+                end
+
+                return
             end  
         end
 
@@ -219,12 +284,14 @@ Projectile = Class(moho.projectile_methods, Entity) {
 		-- if the target already has damage assigned to it
         if target.IncommingDamage then
 		
-			-- if that damage is less the 2x target health then assign to this target
-        	if target.IncommingDamage < GetHealth(target) * 2 then
+			-- if that damage is less than target health then assign to this target
+        	if target.IncommingDamage < GetHealth(target) then
 			
         		target.IncommingDamage = target.IncommingDamage + self.DamageData.DamageAmount
                 
-        		self.advancedTrackinglock = true
+        		self.AdvancedTrackinglock = true
+                
+                LOG("*AI DEBUG Projectile "..repr(self.BlueprintID).." Added to target "..repr(target.BlueprintID).." total "..repr(target.IncommingDamage) )
                 
         	else
         		Retarget()
@@ -233,18 +300,32 @@ Projectile = Class(moho.projectile_methods, Entity) {
         else 
         	target.IncommingDamage = self.DamageData.DamageAmount
             
-        	self.advancedTrackinglock = true
+            LOG("*AI DEBUG Projectile "..repr(self.BlueprintID).." Initial targeting for  "..repr(target.BlueprintID).." total "..repr(target.IncommingDamage) )
+            
+        	self.AdvancedTrackinglock = true
         end
         
-        while not BeenDestroyed(self) and self.advancedTrackinglock do 
+        while not BeenDestroyed(self) and self.AdvancedTrackinglock do 
             
 			self.range = self.range - rangedecrement
 
-        	if target.Dead then
+        	if not target then
+            
+                self.AdvancedTrackinglock = false
+
         		Retarget()   		
-        	end
+
+        	elseif BeenDestroyed(target) then
+            
+                self.AdvancedTrackinglock = false
+
+                Retarget()
+                
+            else
 			
-        	WaitTicks(5)
+                WaitTicks(3)
+                
+            end
 
         end
 		
