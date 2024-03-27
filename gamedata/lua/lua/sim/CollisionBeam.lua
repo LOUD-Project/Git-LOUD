@@ -127,7 +127,10 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
 		local LOUDGETN = LOUDGETN
         
         local fx
-        local weapon = self.Weapon
+    
+        if ScenarioInfo.ProjectileDialog then
+            LOG("*AI DEBUG CollisionBeam Creating Beam Effects for "..repr(self.Label).." on Muzzle "..repr(self.Muzzle) )
+        end
 
         if not self.BeamEffectsBag then
             self.BeamEffectsBag = {}
@@ -153,20 +156,18 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
         end
 		
         if LOUDGETN(self.FxBeam) != 0 then
-        
-            local fxBeam = CreateBeamEmitter(self.FxBeam[Random(1, LOUDGETN(self.FxBeam))], army)
+
+            fx = CreateBeamEmitter(self.FxBeam[Random(1, LOUDGETN(self.FxBeam))], army)
+
+            AttachBeamToEntity(fx, self, 0, army)
+
+            -- when this value is 'true' - a free immediate collision occurs
+            -- this was originally triggered if the beam delay was <= 0
+            self:SetBeamFx(fx, false )
             
-            AttachBeamToEntity(fxBeam, self, 0, army)
-			
-            self:SetBeamFx(fxBeam, weapon.bp.BeamLifetime <= 0 )
-            
-            self.BeamEffectsBag[self.BeamEffectsBagCounter] = fxBeam
+            self.BeamEffectsBag[self.BeamEffectsBagCounter] = fx
             self.BeamEffectsBagCounter = self.BeamEffectsBagCounter + 1
 
-        end
-    
-        if ScenarioInfo.ProjectileDialog then
-            LOG("*AI DEBUG Created Beam Effects for Weapon - data "..repr(self) )
         end
 	
     end,
@@ -181,7 +182,7 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
         self.BeamEffectsBagCounter = 1
     
         if ScenarioInfo.ProjectileDialog then
-            LOG("*AI DEBUG Destroy Beam Effects for Weapon - data "..repr(self) )
+            LOG("*AI DEBUG Destroy Beam Effects for Weapon - data "..repr(self.Label).." on Muzzle "..repr(self.Muzzle) )
         end
 
     end,

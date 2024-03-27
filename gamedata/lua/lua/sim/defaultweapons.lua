@@ -1593,6 +1593,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             end
 			
         end,
+
 --[[        
         OnLostTarget = function(self)
         
@@ -1676,10 +1677,10 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
                 -- this will start the OnCreate in CollisionBeam
                 beam = self.BeamType{ BeamBone = 0, CollisionCheckInterval = bp.BeamCollisionDelay * 10, OtherBone = mv, Weapon = self }
 
-                -- store reference to the parent weapon
-                --beam.Weapon = self
-                
+                beam.CollsionDelay = bp.BeamCollisionDelay >= 0 
                 beam.DamageTable = self.damageTable
+                beam.Label = bp.Label
+                beam.Muzzle = mv
 
                 beam:Disable()
 
@@ -1691,7 +1692,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
                 TrashAdd( self.Trash, beam)
 
                 -- add a reference to the beam in the weapons Beams table
-                self.Beams[counter] = { Beam = beam, BeamMuzzle = mv }
+                self.Beams[counter] = { Beam = beam }   --, BeamMuzzle = mv }
                 counter = counter + 1
             end
 
@@ -1704,17 +1705,17 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
     end,
 
     CreateProjectileAtMuzzle = function(self, muzzle)
-	
-		if ScenarioInfo.ProjectileDialog then
-			LOG("*AI DEBUG DefaultWeapon BEAM CreateProjectileAtMuzzle For "..repr(self.bp.Label).." for "..repr(__blueprints[self.unit.BlueprintID].Description).." using muzzle "..repr(muzzle) )
-		end
 		
 		local PlaySound = moho.weapon_methods.PlaySound
 		
         local enabled = false
+  	
+		if ScenarioInfo.ProjectileDialog then
+			LOG("*AI DEBUG DefaultWeapon BEAM CreateProjectileAtMuzzle For "..repr(self.bp.Label).." for "..repr(__blueprints[self.unit.BlueprintID].Description) )
+		end
 		
         for _, v in self.Beams do
-            if v.BeamMuzzle == muzzle and v.Beam:IsEnabled() then
+            if v.Beam.Muzzle == muzzle and v.Beam:IsEnabled() then
                 enabled = true
             end
         end
@@ -1739,7 +1740,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
         local beam
 		
         for _, v in self.Beams do
-            if v.BeamMuzzle == muzzle then
+            if v.Beam.Muzzle == muzzle then
                 beam = v.Beam
                 break
             end
@@ -1748,22 +1749,22 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
         if beam:IsEnabled() then return end
 
         if ScenarioInfo.WeaponStateDialog then
-            LOG("*AI DEBUG DefaultWeapon BEAM PlayFxBeamStart "..repr(self.bp.Label).." at "..GetGameTick() )
+            LOG("*AI DEBUG DefaultWeapon BEAM PlayFxBeamStart "..repr(beam.Label).." Muzzle "..repr(beam.Muzzle).." at "..GetGameTick() )
         end
 	
         local bp = self.bp
-
-        beam:Enable()
-		
-        TrashAdd( self.Trash, beam )
 		
         if bp.BeamLifetime > 0 then
-            self:ForkThread( self.BeamLifetimeThread, beam, bp.BeamLifetime or 1)
+            self.BeamLifetimeWatch = self:ForkThread( self.BeamLifetimeThread, beam, bp.BeamLifetime or 1)
         end
 		
         if bp.BeamLifetime == 0 then
             self.HoldFireThread = self:ForkThread(self.WatchForHoldFire, beam)
         end
+
+        beam:Enable()
+		
+        TrashAdd( self.Trash, beam )
 		
         if bp.Audio.BeamStart then
             PlaySound( self, bp.Audio.BeamStart )
