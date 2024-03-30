@@ -7,7 +7,7 @@
 	-- Enable LOUD debugging options
 	LOG("*AI DEBUG Setting LOUD DEBUG & LOG options ")
 
-    --- ENGINEER and FACTORY DEBUGS ---
+    -- ENGINEER and FACTORY DEBUGS ---
 
     -- AI Engineers will be named according to the Builder they are running 
 	ScenarioInfo.NameEngineers = false
@@ -186,7 +186,10 @@
     
 	ScenarioInfo.ProjectileDialog = false
 	LOG("*AI DEBUG      Report  Projectile Dialog to Log is "..repr(ScenarioInfo.ProjectileDialog))
-	
+
+    ScenarioInfo.ProjectileTrackingDialog = false
+	LOG("*AI DEBUG      Report  Projectile Tracking Dialog to Log is "..repr(ScenarioInfo.ProjectileTrackingDialog))    
+
 	ScenarioInfo.ShieldDialog = false
 	LOG("*AI DEBUG      Report  Shield Dialog to Log is "..repr(ScenarioInfo.ShieldDialog))
 	
@@ -362,6 +365,7 @@ function SetAIDebug(data)
             'InstanceDialog',
             'PriorityDialog',
             'ProjectileDialog',
+            'ProjectileTrackingDialog',
             'ShieldDialog',
             'WeaponDialog',
             'WeaponStateDialog',

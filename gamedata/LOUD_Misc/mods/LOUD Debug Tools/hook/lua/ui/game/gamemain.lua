@@ -67,6 +67,7 @@ do
 		'InstanceDialog',
 		'PriorityDialog',
 		'ProjectileDialog',
+        'ProjectileTrackingDialog',
 		'ShieldDialog',
 		'WeaponDialog',
         'WeaponStateDialog',

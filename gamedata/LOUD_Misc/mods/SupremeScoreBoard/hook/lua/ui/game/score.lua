@@ -54,7 +54,7 @@ local Stats = {}
 -- stores info about active score columns, e.g. eco.massIncome, units.Total
 local Columns = {}
 
-log.IsEnabled = true        
+log.IsEnabled = false        
 
 local lastUnitWarning = false
 local unitWarningUsed = false

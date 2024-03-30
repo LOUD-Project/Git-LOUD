@@ -295,8 +295,6 @@ function OnPostLoad()
 
 end
 
-LOG("*AI DEBUG CreatePrefetchSet")
-
 Prefetcher = CreatePrefetchSet()
 
 function DefaultPrefetchSet()
@@ -305,8 +303,6 @@ function DefaultPrefetchSet()
 
     return set
 end
-
-LOG("*AI DEBUG PrefetchSet Update")
 
 Prefetcher:Update(DefaultPrefetchSet())
 
