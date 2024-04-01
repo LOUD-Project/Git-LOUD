@@ -30,6 +30,7 @@ ProjectileBlueprint {
     DesiredShooterCap = 1,
     
     Display = {
+        MeshBlueprint = '/meshes/projectiles/torpedo_default_mesh.bp',
         ImpactEffects = { Type = 'Small01' },
         StrategicIconSize = 1,
     },
@@ -42,12 +43,12 @@ ProjectileBlueprint {
         Acceleration = 2.5,
         CollideSurface = true,
         DestroyOnWater = false,
-        InitialSpeed = 0.5,
+        InitialSpeed = 1.5,
 		Lifetime = 10,
-        MaxSpeed = 10,
+        MaxSpeed = 14,
         StayUnderwater = true,
         TrackTarget = false,
-        TurnRate = 540,
+        TurnRate = 480,
         UseGravity = false,
         VelocityAlign = true,
     },

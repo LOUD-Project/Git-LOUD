@@ -23,7 +23,7 @@ ProjectileBlueprint {
         'TORPEDO',
     },
 
-    DesiredShooterCap = 1,
+    DesiredShooterCap = 2,
 
     Display = {
         ImpactEffects = { Type = 'Small01' },

@@ -354,10 +354,33 @@ SUallCavitationTorpedo = Class(SinglePolyTrailProjectile) {
     
     OnCreate = function(self, inWater)
     
+        if not inWater then
+        
+            self:TrackTarget(false)
+        
+        end
+    
         SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
         
         SinglePolyTrailProjectile.OnCreate(self, inWater)
     end,
+    
+    OnEnterWater = function(self)
+
+        self:ForkThread(self.EngageTracking)
+        
+        SinglePolyTrailProjectile.OnEnterWater(self)
+        
+    end,
+    
+    EngageTracking = function(self)
+    
+        WaitTicks(2)
+        
+        self:TrackTarget(true)
+    
+    end,
+
 }
 
 SIFInainoStrategicMissile = Class(EmitterProjectile) {

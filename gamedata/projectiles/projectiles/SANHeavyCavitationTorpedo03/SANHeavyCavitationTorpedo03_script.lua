@@ -9,7 +9,7 @@ local VDist2 = VDist2
 
 local CreateEmitterOnEntity = CreateEmitterOnEntity
 
--- this torpedo is the split projectile created by the Heavy Cavitation Torpedo 1 ( from T2 Torpedo launcher )
+-- this torpedo is the split projectile created by the Heavy Cavitation Torpedo 1 & 2 ( from T2 & T3 Torpedo launcher )
 SANHeavyCavitationTorpedo03 = Class(SHeavyCavitationTorpedo) {
 
     OnCreate = function(self)
@@ -18,13 +18,17 @@ SANHeavyCavitationTorpedo03 = Class(SHeavyCavitationTorpedo) {
 		
         self:ForkThread( self.PauseUntilTrack )
 		
-        CreateEmitterOnEntity( self, self:GetArmy(), EffectTemplate.SHeavyCavitationTorpedoFxTrails )
+        CreateEmitterOnEntity( self, self:GetArmy(), EffectTemplate.SHeavyCavitationTorpedoFxTrails ):ScaleEmitter(0.35)  
 		
     end,
 
     PauseUntilTrack = function(self)
 	
-        local distance = self:GetDistanceToTarget()
+        local tpos = self:GetCurrentTargetPosition()
+	
+        local mpos = self:GetPosition()
+		
+        local distance = VDist2(mpos[1], mpos[3], tpos[1], tpos[3])
 		
         local waittime
 		
@@ -32,7 +36,7 @@ SANHeavyCavitationTorpedo03 = Class(SHeavyCavitationTorpedo) {
         -- the torpedoes will initially shoot past their target.
         if distance > 6 then
 		
-            waittime = .45
+            waittime = .4
 			
             if distance > 12 then
 			
@@ -43,14 +47,13 @@ SANHeavyCavitationTorpedo03 = Class(SHeavyCavitationTorpedo) {
                     waittime = 1
 					
                 end
-				
             end
 			
         else
 		
             waittime = .2
 		
-			self:SetTurnRate(720)
+			self:SetTurnRate(240)
 
         end
 		
@@ -60,17 +63,6 @@ SANHeavyCavitationTorpedo03 = Class(SHeavyCavitationTorpedo) {
 
     end,
 
-    GetDistanceToTarget = function(self)
-	
-        local tpos = self:GetCurrentTargetPosition()
-		
-        local mpos = self:GetPosition()
-		
-        local dist = VDist2(mpos[1], mpos[3], tpos[1], tpos[3])
-		
-        return dist
-		
-    end,
 }
 
 TypeClass = SANHeavyCavitationTorpedo03
