@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
         GuardReturnRadius = 50,
-        GuardScanRadius = 32,
+        GuardScanRadius = 36,
     },
 	
     Audio = {
@@ -59,18 +59,19 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
+
         Health = 540,
         MaxHealth = 540,
         RegenRate = 2,
-        SubThreatLevel = 6,
+        
+        SubThreatLevel = 10,
     },
 	
-    Description = '<LOC uas0203_desc>Submarine',
+    Description = '<LOC uas0203_desc>Basic Submarine',
 	
     Display = {
         Abilities = {
-            'Sonar',
-            'Torpedoes',
+           '<LOC ability_sonar>Sonar',
         },
 		
         Mesh = {
@@ -88,37 +89,12 @@ UnitBlueprint {
                 },
             },
         },
-        MotionChangeEffects = {
-            SubBottomUp = {
-                Effects = {
-                    {
-                        Bones = {
-                            'UAS0203',
-                        },
-                        Type = 'Surface01',
-                    },
-                },
-            },
-            WaterTopDown = {
-                Effects = {
-                    {
-                        Bones = {
-                            'UAS0203',
-                        },
-                        Type = 'Submerge01',
-                    },
-                },
-            },
-        },
+
         MovementEffects = {
             Sub = {
                 Effects = {
                     {
-                        Bones = {
-                            'Exhaust_01',
-                            'Exhaust_02',
-                        },
-                        Scale = 1.5,
+                        Bones = {'Exhaust_01','Exhaust_02'},
                         Type = 'BackWake',
                     },
                 },
@@ -126,30 +102,14 @@ UnitBlueprint {
             Water = {
                 Effects = {
                     {
-                        Bones = {
-                            'muzzle_01',
-                        },
+                        Bones = {'muzzle_01'},
                         Scale = 0.4,
                         Type = 'LeftFrontWake',
                     },
                     {
-                        Bones = {
-                            'Muzzle_02',
-                        },
+                        Bones = {'Muzzle_02'},
                         Scale = 0.4,
                         Type = 'RightFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'UAS0203',
-                        },
-                        Offset = {
-                            0,
-                            0,
-                            -0.5,
-                        },
-                        Scale = 0.4,
-                        Type = 'BackWake',
                     },
                 },
             },
@@ -159,7 +119,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 4200,
+        BuildCostEnergy = 4600,
         BuildCostMass = 360,
         BuildTime = 1800,
     },
@@ -181,10 +141,12 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
+
 		RadarStealth = true,
-        SonarRadius = 45,
+
+        SonarRadius = 44,
         VisionRadius = 24,
-        WaterVisionRadius = 24,
+        WaterVisionRadius = 28,
     },
 	
     Interface = {
@@ -196,7 +158,7 @@ UnitBlueprint {
     LifeBarSize = 0.75,
 	
     Physics = {
-        BackUpDistance = 6,
+        BackUpDistance = 8,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Sub = true,
@@ -206,8 +168,8 @@ UnitBlueprint {
         Elevation = -2.8,
         MaxAcceleration = 1,
         MaxBrake = 2,
-        MaxSpeed = 4,
-        MaxSpeedReverse = 2,
+        MaxSpeed = 3.8,
+        MaxSpeedReverse = 3,
         MaxSteerForce = 5,
         MeshExtentsX = 0.6,
         MeshExtentsY = 0.65,
@@ -240,13 +202,14 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound {Bank = 'UASWeapon',Cue = 'UAS0203_Torpedo',LodCutoff = 'Weapon_LodCutoff'},
+                Fire            = Sound {Bank = 'UASWeapon',Cue = 'UAS0203_Torpedo',LodCutoff = 'Weapon_LodCutoff'},
+                FireUnderWater  = Sound {Bank = 'UASWeapon',Cue = 'UAS0203_Torpedo',LodCutoff = 'Weapon_LodCutoff'},
             },
 
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 100,
+            Damage = 300,
             DamageType = 'Normal',
 			
             DisplayName = 'Chrono Torpedo',
@@ -256,19 +219,18 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 2,
+            FiringTolerance = 20,
 			
             Label = 'Torpedo',
 			
-            MaxRadius = 32,
-			
-            MuzzleSalvoDelay = 0.8,
+            MaxRadius = 36,
+            
+            MuzzleSalvoDelay = 0.8,     -- 1.6 second firing cycle
             MuzzleSalvoSize = 2,
-
-            MuzzleVelocity = 3,
+            MuzzleVelocity = 3.5,
 			
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
-            ProjectileLifetime = 8,
+            ProjectileLifetime = 5,
 			
             RackBones = {
                 {
@@ -276,13 +238,15 @@ UnitBlueprint {
                     RackBone = 'muzzle_01',
                 },
             },
+            
+            RackSalvoReloadTime = 2.4,    -- 2.1 second reload
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.3,		-- 2 torps of 100 = 200 damage * .3 = 60 DPS Sub/Surface
+            RateOfFire = 1,     -- 2 x 200 = 400 every 4 seconds = 100 DPS Sub/Surface
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 10,
+            SlavedToBodyArcRange = 15,
 
             TargetCheckInterval = 2,
 			
@@ -296,7 +260,7 @@ UnitBlueprint {
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
         },
     },
 }

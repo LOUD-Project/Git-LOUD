@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
         GuardReturnRadius = 50,
-        GuardScanRadius = 32,
+        GuardScanRadius = 36,
     },
 
     Audio = {
@@ -61,19 +61,20 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
+
         Health = 540,
         MaxHealth = 540,
         RegenRate = 4,
-        SubThreatLevel = 6,
+        SubThreatLevel = 9.5,
+
 		SurfaceThreatLevel = 2,
     },
 	
-    Description = '<LOC urs0203_desc>Submarine',
+    Description = '<LOC urs0203_desc>Basic Submarine',
 	
     Display = {
         Abilities = {
-            'Sonar',
-            'Torpedoes',
+           '<LOC ability_sonar>Sonar',
 			'Deck Gun',
         },
 
@@ -92,36 +93,13 @@ UnitBlueprint {
                 },
             },
         },
-        MotionChangeEffects = {
-            SubBottomUp = {
-                Effects = {
-                    {
-                        Bones = {
-                            'URS0203',
-                        },
-                        Type = 'Surface01',
-                    },
-                },
-            },
-            WaterTopDown = {
-                Effects = {
-                    {
-                        Bones = {
-                            'URS0203',
-                        },
-                        Type = 'Submerge01',
-                    },
-                },
-            },
-        },
+
         MovementEffects = {
             Sub = {
                 Effects = {
                     {
-                        Bones = {
-                            'Exhaust',
-                        },
-                        Scale = 2,
+                        Bones = {'Exhaust'},
+                        Scale = 1.5,
                         Type = 'BackWake',
                     },
                 },
@@ -129,30 +107,14 @@ UnitBlueprint {
             Water = {
                 Effects = {
                     {
-                        Bones = {
-                            'Left_Projectile',
-                        },
+                        Bones = {'Left_Projectile'},
                         Scale = 0.7,
                         Type = 'LeftFrontWake',
                     },
                     {
-                        Bones = {
-                            'Right_Projectile',
-                        },
+                        Bones = {'Right_Projectile'},
                         Scale = 0.7,
                         Type = 'RightFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'Exhaust',
-                        },
-                        Offset = {
-                            0,
-                            0,
-                            -0.3,
-                        },
-                        Scale = 0.5,
-                        Type = 'BackWake',
                     },
                 },
             },
@@ -162,8 +124,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 4675,
-        BuildCostMass = 390,
+        BuildCostEnergy = 4950,
+        BuildCostMass = 400,
         BuildTime = 2000,
     },
 
@@ -185,10 +147,12 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
+
 		RadarStealth = true,
-        SonarRadius = 45,
+
+        SonarRadius = 44,
         VisionRadius = 24,
-        WaterVisionRadius = 24,
+        WaterVisionRadius = 28,
     },
 	
     Interface = {
@@ -210,8 +174,8 @@ UnitBlueprint {
         Elevation = -2.8,
         MaxAcceleration = 1,
         MaxBrake = 2,
-        MaxSpeed = 4,
-        MaxSpeedReverse = 2,
+        MaxSpeed = 3.8,
+        MaxSpeedReverse = 3,
         MaxSteerForce = 5,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_SurfacingSub',
@@ -241,12 +205,13 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0203_Torpedo_Nanite', LodCutoff = 'Weapon_LodCutoff' },
+                Fire            = Sound { Bank = 'URSWeapon', Cue = 'URS0203_Torpedo_Nanite', LodCutoff = 'Weapon_LodCutoff' },
+                FireUnderWater  = Sound { Bank = 'URSWeapon', Cue = 'URS0203_Torpedo_Nanite', LodCutoff = 'Weapon_LodCutoff' },                
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 60,
+            Damage = 200,
             DamageType = 'Normal',
 			
             DisplayName = 'Nanite Torpedo',
@@ -256,18 +221,18 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 2,
+            FiringTolerance = 20,
 			
             Label = 'Torpedo',
 			
-            MaxRadius = 32,
+            MaxRadius = 36,
 			
-            MuzzleSalvoDelay = 0.5,
+            MuzzleSalvoDelay = 0.9,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 3,
+            MuzzleVelocity = 5,
 			
             ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
-            ProjectileLifetime = 8,
+            ProjectileLifetime = 6,
 
             RackBones = {
                 {
@@ -275,25 +240,26 @@ UnitBlueprint {
                     RackBone = 'Left_Projectile',
                 },
             },
+            
+            RackSalvoReloadTime = 2.5,    -- 2.5 second reload
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.5,		-- 2 torps of 60 dmg every 2 secs = 60 DPS Sub
+            RateOfFire = 1,		-- 2 torps of 200 dmg every 4.3 secs = 93 DPS Sub
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 10,
+            SlavedToBodyArcRange = 20,
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'SUBMARINE',
-				'MOBILE NAVAL',
 				'MOBILE',
                 'DEFENSE',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE, HOVER','AIR',
-            TrackingRadius = 1.2,
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+            TrackingRadius = 1.1,
         },
         {
             AboveWaterTargetsOnly = true,
@@ -303,7 +269,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 10,
+            Damage = 40,
             DamageType = 'Normal',
 			
             DisplayName = 'Light Pulse Laser',
@@ -332,7 +298,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 2,		-- 20 DPS Surface
+            RateOfFire = 0.5,		-- 20 DPS Surface
 			
             TargetCheckInterval = 0.5,
 			

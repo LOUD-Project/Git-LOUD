@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
         GuardReturnRadius = 60,
-        GuardScanRadius = 32,
+        GuardScanRadius = 36,
     },
 
     Audio = {
@@ -61,26 +61,27 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
+
         Health = 590,
         MaxHealth = 590,
         RegenRate = 2,
-        SubThreatLevel = 6.6,
-		SurfaceThreatLevel = 2.5,
+
+        SubThreatLevel = 9.3,
+		SurfaceThreatLevel = 2,
     },
 	
-    Description = '<LOC ues0203_desc>Submarine',
+    Description = '<LOC ues0203_desc>Basic Submarine',
 	
     Display = {
         Abilities = {
 			'Deck Gun',
-            'Sonar',
-            'Torpedoes',
+           '<LOC ability_sonar>Sonar',
         },
         IdleEffects = {
             Sub = {
                 Effects = {
                     {
-                        Bones = { 'Center_wake' },
+                        Bones = {'Center_wake'},
                         Type = 'UnderWater01',
                     },
                 },
@@ -88,7 +89,7 @@ UnitBlueprint {
             Water = {
                 Effects = {
                     {
-                        Bones = { 'UES0203' },
+                        Bones = {'UES0203'},
                         Scale = 0.4,
                         Type = 'SeaIdle01',
                     },
@@ -110,33 +111,12 @@ UnitBlueprint {
                 },
             },
         },
-        MotionChangeEffects = {
-            SubBottomUp = {
-                Effects = {
-                    {
-                        Bones = {
-                            'UES0203',
-                        },
-                        Type = 'Surface01',
-                    },
-                },
-            },
-            WaterTopDown = {
-                Effects = {
-                    {
-                        Bones = {
-                            'UES0203',
-                        },
-                        Type = 'Submerge01',
-                    },
-                },
-            },
-        },
+
         MovementEffects = {
             Sub = {
                 Effects = {
                     {
-                        Bones = { 'Back_Wake' },
+                        Bones = {'Back_Wake'},
                         Scale = 1.2,
                         Type = 'BackWake',
                     },
@@ -158,8 +138,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 4675,
-        BuildCostMass = 390,
+        BuildCostEnergy = 4950,
+        BuildCostMass = 400,
         BuildTime = 2000,
     },
 
@@ -182,10 +162,12 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
+        
 		RadarStealth = true,
-        SonarRadius = 45,
+        
+        SonarRadius = 44,
         VisionRadius = 24,
-        WaterVisionRadius = 24,
+        WaterVisionRadius = 28,
     },
 	
     Interface = {
@@ -197,7 +179,7 @@ UnitBlueprint {
     LifeBarSize = 0.75,
 	
     Physics = {
-        BackUpDistance = 6,
+        BackUpDistance = 8,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Sub = true,
@@ -208,8 +190,8 @@ UnitBlueprint {
         Elevation = -2.8,
         MaxAcceleration = 1,
         MaxBrake = 2,
-        MaxSpeed = 4,
-        MaxSpeedReverse = 2,
+        MaxSpeed = 3.8,
+        MaxSpeedReverse = 3,
         MaxSteerForce = 5,
         MeshExtentsX = 1,
         MeshExtentsY = 0.65,
@@ -242,12 +224,13 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0203_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
+                Fire            = Sound { Bank = 'UESWeapon', Cue = 'UES0203_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
+                FireUnderWater  = Sound { Bank = 'UESWeapon', Cue = 'UES0203_Torpedo', LodCutoff = 'Weapon_LodCutoff' },                
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 110,
+            Damage = 200,
             DamageType = 'Normal',
 			
             DisplayName = 'Angler Torpedo',
@@ -257,19 +240,19 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 2,
+            FiringTolerance = 20,
 			
             Label = 'Torpedo',
 			
-            MaxRadius = 32,
+            MaxRadius = 36,
 			
-            MuzzleSalvoDelay = 0.8,
-            MuzzleSalvoSize = 3,
+            MuzzleSalvoDelay = 0.9,
+            MuzzleSalvoSize = 1,
 
-            MuzzleVelocity = 4.5,
+            MuzzleVelocity = 4.6,
 			
             ProjectileId = '/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp',
-            ProjectileLifetime = 8,
+            ProjectileLifetime = 6,
 
             RackBones = {
                 {
@@ -281,10 +264,12 @@ UnitBlueprint {
                     RackBone = 'Projectile02',
                 },
             },
+            
+            RackSalvoReloadTime = 2.5,    -- 2.5 second reload
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.2,		-- 3 torps of 110 = 330 damage * .2 = 66 DPS Sub/Surface
+            RateOfFire = 1,		-- 2 torps of 200 = 400 damage every 4.3 = 93 DPS
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 10,
@@ -310,7 +295,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 25,
+            Damage = 40,
             DamageType = 'Normal',
 			
             DisplayName = 'Light Plasma Cannon',
@@ -339,7 +324,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- 25 DPS Surface
+            RateOfFire = 0.5,		-- 20 DPS Surface
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -349,7 +334,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',

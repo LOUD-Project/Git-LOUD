@@ -5,9 +5,7 @@ local AANChronoTorpedoWeapon = import('/lua/aeonweapons.lua').AANChronoTorpedoWe
 UAS0203 = Class(ASubUnit) {
 
     Weapons = {
-	
         Torpedo = Class(AANChronoTorpedoWeapon) {},
-		
     },
 	
 }

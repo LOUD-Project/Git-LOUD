@@ -5,8 +5,6 @@ local TDFLightPlasmaCannonWeapon = import('/lua/terranweapons.lua').TDFLightPlas
 
 UES0203 = Class(TSubUnit) {
 
-    PlayDestructionEffects = true,
-
     Weapons = {
         Torpedo = Class(TANTorpedoAngler) {},
         PlasmaGun = Class(TDFLightPlasmaCannonWeapon) {}

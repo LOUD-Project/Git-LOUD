@@ -1,7 +1,9 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 60,
-        GuardScanRadius = 32,
+        GuardReturnRadius = 50,
+        GuardScanRadius = 36,
+        
+        TargetBones = {'AntiTorpedo'},
     },
 
     Audio = {
@@ -57,25 +59,26 @@ UnitBlueprint {
         'OVERLAYSONAR',
     },
 	
-    CollisionOffsetX = 0.05,
-    CollisionOffsetY = -0.2,
+    CollisionOffsetX = 0.04,
+    CollisionOffsetY = -0.25,
     CollisionOffsetZ = -0.01,
 	
     Defense = {
         ArmorType = 'Normal',
+
         Health = 540,
         MaxHealth = 540,
         RegenRate = 3,
-        SubThreatLevel = 7.2,
+
+        SubThreatLevel = 9.3,
     },
 	
     Description = '<LOC xss0203_desc>Attack Submarine',
 	
     Display = {
         Abilities = {
-            'Sonar',
-            'Torpedoes',
-            'Torpedo Defense',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_torpedodef>Torpedo Defense',
 			'Deck Gun',
         },
 
@@ -85,11 +88,7 @@ UnitBlueprint {
             Sub = {
                 Effects = {
                     {
-                        Bones = {
-                            'Exhaust01',
-                            'Exhaust02',
-                            'XSS0203',
-                        },
+                        Bones = {'Exhaust01','Exhaust02'},
                         Type = 'UnderWater01',
                     },
                 },
@@ -97,9 +96,7 @@ UnitBlueprint {
             Water = {
                 Effects = {
                     {
-                        Bones = {
-                            'XSS0203',
-                        },
+                        Bones = {'XSS0203'},
                         Scale = 0.5,
                         Type = 'SeaIdle01',
                     },
@@ -124,37 +121,12 @@ UnitBlueprint {
                 },
             },
         },
-        MotionChangeEffects = {
-            SubBottomUp = {
-                Effects = {
-                    {
-                        Bones = {
-                            'XSS0203',
-                        },
-                        Type = 'Surface01',
-                    },
-                },
-            },
-            WaterTopDown = {
-                Effects = {
-                    {
-                        Bones = {
-                            'XSS0203',
-                        },
-                        Type = 'Submerge01',
-                    },
-                },
-            },
-        },
+
         MovementEffects = {
             Sub = {
                 Effects = {
                     {
-                        Bones = {
-                            'Exhaust01',
-                            'Exhaust02',
-                        },
-                        Scale = 1.5,
+                        Bones = {'Exhaust01','Exhaust02'},
                         Type = 'BackWake',
                     },
                 },
@@ -162,14 +134,8 @@ UnitBlueprint {
             Water = {
                 Effects = {
                     {
-                        Bones = {
-                            'XSS0203',
-                        },
-                        Offset = {
-                            0,
-                            0,
-                            -0.5,
-                        },
+                        Bones = {'XSS0203'},
+                        Offset = {0,0,-0.5},
                         Scale = 0.4,
                         Type = 'BackWake',
                     },
@@ -181,7 +147,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 4675,
+        BuildCostEnergy = 5000,
         BuildCostMass = 390,
         BuildTime = 2000,
     },
@@ -203,10 +169,12 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
+
 		RadarStealth = true,
-        SonarRadius = 45,
+
+        SonarRadius = 44,
         VisionRadius = 24,
-        WaterVisionRadius = 25,
+        WaterVisionRadius = 28,
     },
 	
     Interface = {
@@ -218,7 +186,7 @@ UnitBlueprint {
     LifeBarSize = 0.6,
 	
     Physics = {
-        BackUpDistance = 6,
+        BackUpDistance = 8,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Sub = true,
@@ -228,8 +196,8 @@ UnitBlueprint {
         Elevation = -2.8,
         MaxAcceleration = 1,
         MaxBrake = 2,
-        MaxSpeed = 4,
-        MaxSpeedReverse = 2,
+        MaxSpeed = 3.8,
+        MaxSpeedReverse = 3,
         MaxSteerForce = 5,
         MeshExtentsX = 0.6,
         MeshExtentsY = 0.65,
@@ -262,13 +230,14 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0203_Uall_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
+                Fire            = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0203_Uall_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
+                FireUnderWater  = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0203_Uall_Torpedo', LodCutoff = 'Weapon_LodCutoff' },                
             },
 
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 125,
+            Damage = 200,
             DamageType = 'Normal',
 			
             DisplayName = 'Uall Cavitation Torpedo',
@@ -278,30 +247,29 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 2,
+            FiringTolerance = 20,
 
             Label = 'Torpedo',
 			
-            MaxRadius = 32,
-			
-            MuzzleSalvoDelay = 0.8,
-            MuzzleSalvoSize = 2,
+            MaxRadius = 36,
 
-            MuzzleVelocity = 3,
+            MuzzleVelocity = 5,
 			
             ProjectileId = '/projectiles/SANUallCavitationTorpedo02/SANUallCavitationTorpedo02_proj.bp',
-            ProjectileLifetime = 8,
+            ProjectileLifetime = 6,
 
             RackBones = {
                 {
-                    MuzzleBones = { 'Projectile01', 'Projectile02' },
+                    MuzzleBones = { 'Projectile01' },
                     RackBone = 'Projectile01',
                 },
             },
 
+            RackSalvoReloadTime = 2.2,    -- 2.2 second reload
+
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.2,		-- 250 * .2 = 50 DPS Sub/Surface
+            RateOfFire = 1,		-- 90 DPS Sub/Surface
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 10,
@@ -319,11 +287,12 @@ UnitBlueprint {
         },
         {
             BallisticArc = 'RULEUBA_None',
+            BelowWaterTargetsOnly = true,
+
             CollideFriendly = false,
 			
             Damage = 2,
 			DamageFriendly = false,
-			DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Anti Torpedo',
@@ -333,18 +302,17 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 10,
+            FiringTolerance = 40,
 			
             Label = 'AntiTorpedo',
 			
-            MaxRadius = 25,
+            MaxRadius = 24,
+            MinRadius = 6,
 
             MuzzleVelocity = 8,
-
-            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SANAjelluAntiTorpedo01/SANAjelluAntiTorpedo01_proj.bp',
-            ProjectileLifetime = 4,
+            ProjectileLifetime = 3,
 			
             RackBones = {
                 {
@@ -352,16 +320,17 @@ UnitBlueprint {
                     RackBone = 'AntiTorpedo',
                 },
             },
+            
+            RackSalvoReloadTime = 1.5,
 
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 0.4,
+            RateOfFire = 1,
 			
-            TargetCheckInterval = 1,
+            TargetCheckInterval = 0.5,
 			
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'AntiTorpedo',
             TurretBonePitch = 'AntiTorpedo',
@@ -369,11 +338,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 180,
-            TurretPitchSpeed = 60,
+            TurretPitchSpeed = 120,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 40,
+            TurretYawSpeed = 80,
 			
             Turreted = true,
         },
@@ -386,7 +355,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 15,
+            Damage = 30,
             DamageType = 'Normal',
 			
             DisplayName = 'Oh Spectra Cannon',
@@ -417,7 +386,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 2,		-- 20 DPS Surface
+            RateOfFire = 0.5,		-- 15 DPS Surface
             ReTargetOnMiss = true,
 			
             TargetCheckInterval = 0.5,
@@ -428,7 +397,7 @@ UnitBlueprint {
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 
             TurretBoneMuzzle = 'Turret_Aim_Bone',
             TurretBonePitch = 'Turret_Barrel',
