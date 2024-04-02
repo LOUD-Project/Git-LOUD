@@ -1,8 +1,6 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Turret',
-        },
+        TargetBones = {'UEB2109'},
     },
 
     Audio = {
@@ -41,22 +39,24 @@ UnitBlueprint {
         'SORTDEFENSE',
     },
 	
-    CollisionOffsetY = -1,
+    CollisionOffsetY = -0.8,
     CollisionOffsetZ = 0.05,
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 5,
+
         Health = 1700,
         MaxHealth = 1700,
-        RegenRate = 1,
+        RegenRate = 2,
+
+        SubThreatLevel = 18,        
     },
 	
     Description = '<LOC ueb2109_desc>Basic Torpedo Launcher',
 	
     Display = {
         Abilities = {
-            'Sonar',
+            '<LOC ability_sonar>Sonar',
         },
         Mesh = {
             IconFadeInZoom = 130,
@@ -100,8 +100,9 @@ UnitBlueprint {
 
     Intel = {
 		FreeIntel = true,
-        SonarRadius = 50,
-        VisionRadius = 24,
+
+        SonarRadius = 52,
+        VisionRadius = 28,
         WaterVisionRadius = 40,
     },
 
@@ -138,7 +139,7 @@ UnitBlueprint {
     SelectionThickness = 0.6,
 
     SizeX = 0.9,
-    SizeY = 2,
+    SizeY = 1.4,
     SizeZ = 0.9,
 
     StrategicIconName = 'icon_structure1_antinavy',
@@ -164,7 +165,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 200,
+            Damage = 300,
             DamageType = 'Normal',
 			
             DisplayName = 'Angler Torpedo',
@@ -172,18 +173,18 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Water = 'Seabed|Sub|Water',
             },
-            FiringTolerance = 30,
+            FiringTolerance = 20,
 			
             Label = 'Turret01',
 			
-            MaxRadius = 45,
+            MaxRadius = 48,
 			
             MuzzleSalvoDelay = 0.8,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 5,
 			
             ProjectileId = '/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp',
-            ProjectileLifetime = 7,
+            ProjectileLifetime = 6,
 			
             RackBones = {
                 {
@@ -192,9 +193,11 @@ UnitBlueprint {
                 },
             },
 
+            RackSalvoReloadTime = 1.7,  -- fires every 3.3 seconds
+
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.25,
+            RateOfFire = 1,             -- 600 every 3.3 = 181 DPS
             TargetCheckInterval = 1,
 			
             TargetPriorities = {
@@ -217,7 +220,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 28,
 			
             Turreted = true,
         },

@@ -1,8 +1,6 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'XSB2109',
-        },
+        TargetBones = {'XSB2109'},
     },
 
     Audio = {
@@ -46,24 +44,27 @@ UnitBlueprint {
         'SORTDEFENSE',
     },
 
-    CollisionOffsetY = -1,
+    CollisionOffsetY = -0.8,
     CollisionOffsetZ = 0.05,
 
     Defense = {
         ArmorType = 'Structure',
+
         Health = 1625,
         MaxHealth = 1625,
-        RegenRate = 3,
-        SubThreatLevel = 10,
-        SurfaceThreatLevel = 10,
+
+        RegenRate = 2,
+
+        SubThreatLevel = 18,
     },
 
     Description = '<LOC xsb2109_desc>Basic Torpedo Launcher',
 
     Display = {
         Abilities = {
-            'Sonar',
+            '<LOC ability_sonar>Sonar',
         },
+
         AnimationDeath = {
             {
                 Animation = '/units/xsb2109/xsb2109_Adeath.sca',
@@ -90,7 +91,7 @@ UnitBlueprint {
                 },
             },
         },
-        UniformScale = 0.03,
+        UniformScale = 0.045,
     },
 
     Economy = {
@@ -117,8 +118,9 @@ UnitBlueprint {
 
     Intel = {
 		FreeIntel = true,
-        SonarRadius = 50,
-        VisionRadius = 24,
+
+        SonarRadius = 52,
+        VisionRadius = 28,
         WaterVisionRadius = 40,
     },
 
@@ -149,12 +151,12 @@ UnitBlueprint {
         TurnRate = 0,
     },
 
-    SelectionSizeX = 0.5,
-    SelectionSizeZ = 0.8,
-    SelectionThickness = 0.47,
+    SelectionSizeX = 0.6,
+    SelectionSizeZ = 0.9,
+    SelectionThickness = 0.5,
 
     SizeX = 0.9,
-    SizeY = 2,
+    SizeY = 1.4,
     SizeZ = 0.9,
 
     StrategicIconName = 'icon_structure1_antinavy',
@@ -179,7 +181,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 
-            Damage = 100,
+            Damage = 300,
             DamageType = 'Normal',
 
             DisplayName = 'Uall Cavitation Torpedo Launcher',
@@ -187,18 +189,19 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Water = 'Seabed|Sub|Water',
             },
-            FiringTolerance = 30,
+
+            FiringTolerance = 20,
 
             Label = 'Turret01',
 
-            MaxRadius = 45,
+            MaxRadius = 48,
 
-            MuzzleSalvoDelay = 0.5,
-            MuzzleSalvoSize = 4,
+            MuzzleSalvoDelay = 0.8,
+            MuzzleSalvoSize = 1,
             MuzzleVelocity = 5,
 
             ProjectileId = '/projectiles/SANUallCavitationTorpedo03/SANUallCavitationTorpedo03_proj.bp',
-            ProjectileLifetime = 7,
+            ProjectileLifetime = 6,
 
             RackBones = {
                 {
@@ -210,10 +213,12 @@ UnitBlueprint {
                     RackBone = 'Muzzle02',
                 },
             },
+            
+            RackSalvoReloadTime = 1.7,  -- fires every 3.3 seconds
 
             RangeCategory = 'UWRC_AntiNavy',
 
-            RateOfFire = 0.25,		-- 400 dmg every 4 secs = 100 dps
+            RateOfFire = 1,		-- 600 dmg = 181 dps    -- controlled by salvodelay and reloadtime
             TargetCheckInterval = 1,
 
             TargetPriorities = {
@@ -228,7 +233,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle01',
             TurretBonePitch = 'XSB2109',
             TurretBoneYaw = 'XSB2109',
-            TurretDualManipulators = false,
 
             TurretPitch = -10,
             TurretPitchRange = 35,
@@ -236,7 +240,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 28,
 
             Turreted = true,
         },

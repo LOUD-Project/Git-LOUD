@@ -1,8 +1,6 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Turret',
-        },
+        TargetBones = {'UAB2109'},
     },
 
     Audio = {
@@ -41,23 +39,25 @@ UnitBlueprint {
         'SORTDEFENSE',
     },
 	
-    CollisionOffsetY = -1,
+    CollisionOffsetY = -0.8,
 	
     CollisionOffsetZ = 0.05,
 	
     Defense = {
         ArmorType = 'Structure',
+
         Health = 1625,
         MaxHealth = 1625,
         RegenRate = 2,
-        SubThreatLevel = 9,
+
+        SubThreatLevel = 18,
     },
 	
     Description = '<LOC uab2109_desc>Basic Torpedo Launcher',
 
     Display = {
         Abilities = {
-            'Sonar',
+           '<LOC ability_sonar>Sonar',
         },
         Mesh = {
             IconFadeInZoom = 130,
@@ -80,7 +80,7 @@ UnitBlueprint {
 
     Economy = {
         BuildCostEnergy = 3600,
-        BuildCostMass = 450,
+        BuildCostMass = 425,
         BuildTime = 450,
     },
 
@@ -103,8 +103,9 @@ UnitBlueprint {
 
     Intel = {
 		FreeIntel = true,
-        SonarRadius = 50,
-        VisionRadius = 24,
+
+        SonarRadius = 52,
+        VisionRadius = 28,
         WaterVisionRadius = 40,
     },
 
@@ -140,7 +141,7 @@ UnitBlueprint {
     SelectionThickness = 0.6,
 
     SizeX = 0.9,
-    SizeY = 2,
+    SizeY = 1.4,
     SizeZ = 0.9,
 
     StrategicIconName = 'icon_structure1_antinavy',
@@ -153,6 +154,7 @@ UnitBlueprint {
         Level4 = 24,
         Level5 = 30,
     },
+
     Weapon = {
         {
             Audio = {
@@ -161,7 +163,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 200,
+            Damage = 300,
             DamageType = 'Normal',
 			
             DisplayName = 'Chrono Torpedo',
@@ -169,18 +171,18 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Water = 'Seabed|Sub|Water',
             },
-            FiringTolerance = 30,
+            FiringTolerance = 20,
 			
             Label = 'Turret01',
 			
-            MaxRadius = 45,
+            MaxRadius = 48,
 			
             MuzzleSalvoDelay = 0.8,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 5,
 			
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
-            ProjectileLifetime = 7,
+            ProjectileLifetime = 6,
 
             RackBones = {
                 {
@@ -188,10 +190,12 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-
+            
+            RackSalvoReloadTime = 1.7,  -- fires every 3.3 seconds
+            
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.25,
+            RateOfFire = 1,             -- 600 every 3.3 = 181 DPS
             TargetCheckInterval = 1,
 			
             TargetPriorities = {
@@ -201,12 +205,11 @@ UnitBlueprint {
                 'ALLUNITS -AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = -20,
             TurretPitchRange = 35,
@@ -214,7 +217,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 28,
 			
             Turreted = true,
         },
