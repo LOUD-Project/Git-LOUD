@@ -5,7 +5,7 @@ local AANChronoTorpedoWeapon = import('/lua/aeonweapons.lua').AANChronoTorpedoWe
 UAB2205 = Class(AStructureUnit) {
 
     Weapons = {
-        Turret01 = Class(AANChronoTorpedoWeapon) {},
+        TorpedoLauncher = Class(AANChronoTorpedoWeapon) {},
     },
     
 	OnCreate = function(self)

@@ -1,8 +1,6 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'UEB2205',
-        },
+        TargetBones = {'UEB2205'},
     },
     
     Audio = {
@@ -18,7 +16,22 @@ UnitBlueprint {
         },
     },
     
-    Buffs = {},
+    Buffs = {
+        Regen = {
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
+        },
+        WaterVisionRadius = {
+            Level1 = 4,
+            Level2 = 6,
+            Level3 = 8,
+            Level4 = 10,
+            Level5 = 12,        
+        },                
+    },
 	
     BuildIconSortPriority = 310,
     
@@ -45,19 +58,48 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        Health = 6400,
-        MaxHealth = 6400,
-        RegenRate = 5,
-        SubThreatLevel = 24,
+        Health = 6100,
+        MaxHealth = 6100,
+        RegenRate = 4,
+        
+        SubThreatLevel = 30,
     },
     
     Description = '<LOC ueb2205_desc>Improved Torpedo Launcher',
     
     Display = {
         Abilities = {
-            'Sonar',
-			'Radar & Sonar Stealth',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_personalstealth>Personal Stealth',
         },
+
+        DamageEffects = {
+            {
+                Bone = 0,
+                OffsetX = 0.3,
+                OffsetY = 0.25,
+                OffsetZ = 0.3,
+            },
+            {
+                Bone = 0,
+                OffsetX = -0.3,
+                OffsetY = 0.25,
+                OffsetZ = 0.3,
+            },
+            {
+                Bone = 0,
+                OffsetX = 0.3,
+                OffsetY = 0.25,
+                OffsetZ = -0.3,
+            },
+            {
+                Bone = 0,
+                OffsetX = -0.3,
+                OffsetY = 0.25,
+                OffsetZ = -0.3,
+            },
+        },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -79,7 +121,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 9000,
         BuildCostMass = 1280,
-        BuildTime = 1200,
+        BuildTime = 1280,
     },
     
     Footprint = {
@@ -102,11 +144,13 @@ UnitBlueprint {
     
     Intel = {
 		FreeIntel = true,
+
         RadarStealth = true,
-        SonarRadius = 60,
         SonarStealth = true,
-        VisionRadius = 30,
-        WaterVisionRadius = 40,
+
+        SonarRadius = 60,
+        VisionRadius = 32,
+        WaterVisionRadius = 44,
     },
     
     Interface = {
@@ -159,21 +203,26 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2205_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                FireUnderWater = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2205_Torpedo_Water',
-                    LodCutoff = 'Weapon_LodCutoff',
+                FireUnderWater = Sound { Bank = 'UELWeapon', Cue = 'UEB2205_Torpedo_Water', LodCutoff = 'Weapon_LodCutoff' },
+            },
+
+            BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.3,
+                    Radius = 2,
+                    TargetAllow = 'LAND TECH1,NAVAL TECH1,LAND TECH2',
+                    TargetDisallow = 'WALL,COMMAND,EXPERIMENTAL',
                 },
             },
-            BallisticArc = 'RULEUBA_None',
+
             CollideFriendly = false,
 			
-            Damage = 200,
+            Damage = 300,
             DamageType = 'Normal',
 			
             DisplayName = 'Angler Torpedo',
@@ -182,9 +231,9 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 60,
+            FiringTolerance = 20,
 			
-            Label = 'Torpedo',
+            Label = 'TorpedoLauncher',
 			
             MaxRadius = 60,
 			
@@ -193,7 +242,7 @@ UnitBlueprint {
             MuzzleVelocity = 8,
 			
             ProjectileId = '/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp',
-            ProjectileLifetime = 15,
+            ProjectileLifetime = 8,
 			
             RackBones = {
                 {
@@ -206,14 +255,17 @@ UnitBlueprint {
                     RackBone = 'Turret_Muzzle01',
                 },
             },
+            
+            RackSalvoReloadTime = 1.6,
 			
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.3,	--	240 DPS
+            RateOfFire = 1,	        --	1200 damage every 4 seconds = 300 DPS
             TargetCheckInterval = 1,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SUBMERSIBLE',
                 'NAVAL',
                 'ALLUNITS',
             },
@@ -223,7 +275,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle01',
             TurretBonePitch = 'Turret',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = -10,
             TurretPitchRange = 45,
@@ -231,7 +282,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 40,
+            TurretYawSpeed = 26,
             Turreted = true,
         },
     },

@@ -1,8 +1,6 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'URB2205',
-        },
+        TargetBones = {'URB2205'},
     },
 
     Audio = {
@@ -20,12 +18,19 @@ UnitBlueprint {
 
     Buffs = {
         Regen = {
-            Level1 = 2,
-            Level2 = 4,
-            Level3 = 6,
-            Level4 = 8,
-            Level5 = 10,
+            Level1 = 3,
+            Level2 = 6,
+            Level3 = 9,
+            Level4 = 12,
+            Level5 = 15,
         },
+        WaterVisionRadius = {
+            Level1 = 4,
+            Level2 = 6,
+            Level3 = 8,
+            Level4 = 10,
+            Level5 = 12,        
+        },                
     },
 
     BuildIconSortPriority = 310,
@@ -48,22 +53,24 @@ UnitBlueprint {
         'SORTDEFENSE',
     },
 
-    CollisionOffsetY = -1,
+    CollisionOffsetY = -1.2,
 	
     Defense = {
         ArmorType = 'Structure',
-        Health = 6100,
-        MaxHealth = 6100,
-        RegenRate = 8,
-        SubThreatLevel = 24,
+
+        Health = 5600,
+        MaxHealth = 5600,
+        RegenRate = 6,
+        
+        SubThreatLevel = 30,
     },
 
     Description = '<LOC urb2205_desc>Improved Torpedo Launcher',
 
     Display = {
         Abilities = {
-            'Sonar',
-			'Radar & Sonar Stealth',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_personalstealth>Personal Stealth',
         },
         Mesh = {
             IconFadeInZoom = 130,
@@ -103,11 +110,13 @@ UnitBlueprint {
 
     Intel = {
 		FreeIntel = true,
+
         RadarStealth = true,
-        SonarRadius = 60,
         SonarStealth = true,
-        VisionRadius = 30,
-        WaterVisionRadius = 40,
+
+        SonarRadius = 60,
+        VisionRadius = 32,
+        WaterVisionRadius = 44,
     },
 
     Interface = {
@@ -140,7 +149,7 @@ UnitBlueprint {
     SelectionThickness = 0.4,
 
     SizeX = 1.5,
-    SizeY = 2.0,
+    SizeY = 1.6,
     SizeZ = 1.5,
 
     StrategicIconName = 'icon_structure2_antinavy',
@@ -157,38 +166,46 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2205_Torpedo_Nanite',
-                    LodCutoff = 'Weapon_LodCutoff',
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URB2205_Torpedo_Nanite', LodCutoff = 'Weapon_LodCutoff' },
+            },
+
+            BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.3,
+                    Radius = 2,
+                    TargetAllow = 'LAND TECH1,NAVAL TECH1,LAND TECH2',
+                    TargetDisallow = 'WALL,COMMAND,EXPERIMENTAL',
                 },
             },
-            BallisticArc = 'RULEUBA_None',
+
             CollideFriendly = false,
 			
-            Damage = 40,
+            Damage = 300,
             DamageType = 'Normal',
 			
             DisplayName = 'Nanite Torpedo',
 			
-            DoTPulses = 5,
-            DoTTime = 2,
-			
             FireTargetLayerCapsTable = {
                 Water = 'Seabed|Sub|Water',
             },
-            FiringTolerance = 60,
+
+            FiringTolerance = 20,
 			
-            Label = 'Turret01',
+            Label = 'TorpedoLauncher',
 			
             MaxRadius = 60,
 			
             MuzzleSalvoDelay = 0.6,
             MuzzleSalvoSize = 4,
-            MuzzleVelocity = 4,
+            MuzzleVelocity = 7.5,
 			
             ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
-            ProjectileLifetime = 15,
+            ProjectileLifetime = 8,
 
             RackBones = {
                 {
@@ -196,15 +213,18 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
+            
+            RackSalvoReloadTime = 1.6,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.25,	-- 240 DPS Sub
+            RateOfFire = 1,	-- controlled by salvo delay and salvo reload = 300 DPS Sub
 			
-            TargetCheckInterval = 0.25,
+            TargetCheckInterval = 1,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SUBMERSIBLE',
                 'MOBILE',
                 'DEFENSE',
                 'ALLUNITS',
@@ -215,7 +235,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret_Barrel',
-            TurretDualManipulators = false,
 			
             TurretPitch = -30,
             TurretPitchRange = 45,
@@ -223,7 +242,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 40,
+            TurretYawSpeed = 28,
 			
             Turreted = true,
         },
