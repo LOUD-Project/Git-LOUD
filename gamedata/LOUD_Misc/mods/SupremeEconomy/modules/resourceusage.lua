@@ -87,7 +87,7 @@ function UpdateResourceUsage()
 
 	for index, unit in units do
 
-		econData = unit:GetEconData()
+		local econData = unit:GetEconData()
 
 		-- filter out units that do not use resources
 		local usesResources = false
@@ -161,13 +161,13 @@ function UpdateResourceUsage()
 
 	for _, dataType in dataTypes do
 
-		unitTable = topUnitsData[dataType]
+		local unitTable = topUnitsData[dataType]
 
 		-- sort according to resource usage
 		local sortedTable = {}
 
 		for name, data in unitTable do
-			LOUDINSERT(sortedTable,{name=name, data=data})
+			LOUDINSERT(sortedTable,{name=name, data=math.floor(data)})
 		end
 
 		table.sort(sortedTable, function(a,b) return a.data > b.data end)
@@ -203,7 +203,8 @@ function UpdateResourceUsage()
 
 				for _, unit in unitsWorkedUpon[info.name] do
 
-					if workProgressOnUnit[unit:GetEntityId()] > maxWorkProgress then
+					-- prefer to have any unit at all
+					if unitWithMostProgress == nil or workProgressOnUnit[unit:GetEntityId()] > maxWorkProgress then
 
 						maxWorkProgress = workProgressOnUnit[unit:GetEntityId()]
 						unitWithMostProgress = unit
@@ -225,9 +226,11 @@ function UpdateResourceUsage()
 				button.income:SetText("-" .. info.data)
 
 				-- set the texture that corresponds to the unit
-				local iconName1 = GameCommon.GetUnitIconPath(unitWithMostProgress:GetBlueprint())
+				if unitWithMostProgress != nil then
+					local iconName1 = GameCommon.GetUnitIconPath(unitWithMostProgress:GetBlueprint())
 
-				button.icon:SetTexture(iconName1)
+					button.icon:SetTexture(iconName1)
+				end
 
 				-- show the button
 				button:Show()

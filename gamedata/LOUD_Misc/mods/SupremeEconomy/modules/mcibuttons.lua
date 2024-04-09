@@ -81,7 +81,7 @@ end
 
 function CreateTextBG(parent, control, color)
 
-	background = Bitmap(control)
+	local background = Bitmap(control)
 	background:SetSolidColor(color)
 	background.Top:Set(control.Top)
 	background.Left:Set(control.Left)

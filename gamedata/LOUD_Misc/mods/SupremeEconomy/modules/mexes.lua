@@ -187,7 +187,7 @@ function CreateModUI(isReplay, parent)
 
 	for tech = 1, 3 do
 
-		img = Bitmap(parent)
+		local img = Bitmap(parent)
 		img:SetTexture(UIUtil.UIFile('/game/avatar-engineers-panel/tech-'.. tech .. '_bmp.dds'))
 		LayoutHelpers.CenteredLeftOf(img, buttons[1][tech], -6)
 
