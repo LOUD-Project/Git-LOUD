@@ -36,31 +36,42 @@ local VDist3 = VDist3
 local WaitSeconds = WaitSeconds
 local WaitTicks = coroutine.yield
 
-local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
-local AttackTarget = moho.platoon_methods.AttackTarget
-local CalculatePlatoonThreat = moho.platoon_methods.CalculatePlatoonThreat
-local GetAIBrain = moho.unit_methods.GetAIBrain
-local GetBrain = moho.platoon_methods.GetBrain
-local GetBuildRate = moho.unit_methods.GetBuildRate
-local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
-local GetEconomyStoredRatio = moho.aibrain_methods.GetEconomyStoredRatio
-local GetEconomyTrend = moho.aibrain_methods.GetEconomyTrend
-local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
-local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
+
+local AIBrainMethods = moho.aibrain_methods
+local PlatoonMethods = moho.platoon_methods
+local UnitMethods = moho.unit_methods
+
+local AssignUnitsToPlatoon          = AIBrainMethods.AssignUnitsToPlatoon
+local GetEconomyStored              = AIBrainMethods.GetEconomyStored
+local GetEconomyStoredRatio         = AIBrainMethods.GetEconomyStoredRatio
+local GetEconomyTrend               = AIBrainMethods.GetEconomyTrend
+local GetUnitsAroundPoint           = AIBrainMethods.GetUnitsAroundPoint
+local GetNumUnitsAroundPoint        = AIBrainMethods.GetNumUnitsAroundPoint
+local GetThreatsAroundPosition      = AIBrainMethods.GetThreatsAroundPosition
+local GetThreatAtPosition           = AIBrainMethods.GetThreatAtPosition
+local MakePlatoon                   = AIBrainMethods.MakePlatoon
+local PlatoonExists                 = AIBrainMethods.PlatoonExists
+
+local AttackTarget                  = PlatoonMethods.AttackTarget
+local CalculatePlatoonThreat        = PlatoonMethods.CalculatePlatoonThreat
+local GetBrain                      = PlatoonMethods.GetBrain
+local GetPlatoonPosition            = PlatoonMethods.GetPlatoonPosition
+local GetPlatoonUnits               = PlatoonMethods.GetPlatoonUnits
+local GetSquadUnits                 = PlatoonMethods.GetSquadUnits
+
+local GetAIBrain                    = UnitMethods.GetAIBrain
+local GetBuildRate                  = UnitMethods.GetBuildRate
+local IsIdleState                   = UnitMethods.IsIdleState
+local IsUnitState                   = UnitMethods.IsUnitState
+local SetCustomName                 = UnitMethods.SetCustomName
+
+PlatoonMethods = nil
+UnitMethods = nil
+
 local GetPosition = moho.entity_methods.GetPosition	
-local GetSquadUnits = moho.platoon_methods.GetSquadUnits
-local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
+
 local GetSurfaceHeight = GetSurfaceHeight
 local GetTerrainHeight = GetTerrainHeight
-local GetThreatsAroundPosition = moho.aibrain_methods.GetThreatsAroundPosition
-local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
-local IsIdleState = moho.unit_methods.IsIdleState
-local IsUnitState = moho.unit_methods.IsUnitState
-local MakePlatoon = moho.aibrain_methods.MakePlatoon
-local PlatoonExists = moho.aibrain_methods.PlatoonExists
-local SetCustomName = moho.unit_methods.SetCustomName
-
 
 function CommanderThread( platoon, aiBrain )
 
@@ -167,10 +178,10 @@ function LifeThread( aiBrain, cdr )
     local mincome, mrequested, mneeded
     local eincome, erequested, eneeded
     
-    local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
-    local GetEconomyRequested = moho.aibrain_methods.GetEconomyRequested
+    local GetEconomyIncome = AIBrainMethods.GetEconomyIncome
+    local GetEconomyRequested = AIBrainMethods.GetEconomyRequested
     local GetEconomyStoredRatio = GetEconomyStoredRatio
-    local GiveResource = moho.aibrain_methods.GiveResource
+    local GiveResource = AIBrainMethods.GiveResource
     local WaitTicks = WaitTicks
     
     local MATHMIN = LOUDMIN
@@ -6182,7 +6193,7 @@ end
 -- uses the Rift Gate to produce elite Sera units
 function RiftGateBehavior( unit, aiBrain, manager )
 
-    local BuildUnit = moho.aibrain_methods.BuildUnit
+    local BuildUnit = AIBrainMethods.BuildUnit
 
 	local IsIdleState = IsIdleState
 	local Random = Random

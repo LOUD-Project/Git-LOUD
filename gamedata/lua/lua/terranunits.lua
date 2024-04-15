@@ -6,19 +6,24 @@
 
 local DefaultUnitsFile = import('defaultunits.lua')
 
-local ConstructionUnit = DefaultUnitsFile.ConstructionUnit
+local ConstructionUnit          = DefaultUnitsFile.ConstructionUnit
+local FactoryUnit               = DefaultUnitsFile.FactoryUnit
+local MassCollectionUnit        = DefaultUnitsFile.MassCollectionUnit
+local MobileUnit                = DefaultUnitsFile.MobileUnit
+local RadarJammerUnit           = DefaultUnitsFile.RadarJammerUnit
+local ShieldStructureUnit       = DefaultUnitsFile.StructureUnit
+local StructureUnit             = DefaultUnitsFile.StructureUnit
 
-local FactoryUnit = DefaultUnitsFile.FactoryUnit
+DefaultUnitsFile = nil
 
-local MassCollectionUnit = DefaultUnitsFile.MassCollectionUnit
+local StructureUnitOnCreate         = StructureUnit.OnCreate
 
-local MobileUnit = DefaultUnitsFile.MobileUnit
+local FactoryUnitOnStartBuild      = FactoryUnit.OnStartBuild
+local StructureUnitOnStartBuild    = StructureUnit.OnStartBuild
 
-local RadarJammerUnit = DefaultUnitsFile.RadarJammerUnit
-
-local ShieldStructureUnit = DefaultUnitsFile.StructureUnit
-
-local StructureUnit = DefaultUnitsFile.StructureUnit
+local ConstructionUnitOnStopBuild   = ConstructionUnit.OnStopBuild
+local FactoryUnitOnStopBuild        = FactoryUnit.OnStopBuild
+local StructureUnitOnStopBuild      = StructureUnit.OnStopBuild
 
 local CreateBuildCubeThread = import('effectutilities.lua').CreateBuildCubeThread
 local CreateDefaultBuildBeams = import('effectutilities.lua').CreateDefaultBuildBeams
@@ -51,19 +56,25 @@ TAirFactoryUnit = Class(FactoryUnit) {
     end,
    
     OnPaused = function(self)
+
         FactoryUnit.OnPaused(self)
+
         self:StopArmsMoving()
     end,
     
     OnUnpaused = function(self)
+
         FactoryUnit.OnUnpaused(self)
+
         if self:GetNumBuildOrders(categories.ALLUNITS) > 0 and not self:IsUnitState('Upgrading') then
             self:StartArmsMoving()
         end
     end,
 
     OnStartBuild = function(self, unitBeingBuilt, order )
-        FactoryUnit.OnStartBuild(self, unitBeingBuilt, order )
+
+        FactoryUnitOnStartBuild(self, unitBeingBuilt, order )
+
         if order != 'Upgrade' then
             self:StartArmsMoving()
         end
@@ -82,7 +93,8 @@ TAirFactoryUnit = Class(FactoryUnit) {
             end
         end
 
-        FactoryUnit.OnStopBuild(self, unitBuilding)
+        FactoryUnitOnStopBuild(self, unitBuilding)
+
         self:StopArmsMoving()
     end,
 
@@ -134,7 +146,7 @@ TLandFactoryUnit = Class(FactoryUnit) {
             end
         end
         
-        FactoryUnit.OnStopBuild( self, unitBeingBuilt )
+        FactoryUnitOnStopBuild( self, unitBeingBuilt )
     end,
 
 }
@@ -148,7 +160,7 @@ TConstructionUnit = Class(ConstructionUnit) {
     end,
     
     OnStopBuild = function(self, unitBeingBuilt)
-        ConstructionUnit.OnStopBuild(self, unitBeingBuilt)
+        ConstructionUnitOnStopBuild(self, unitBeingBuilt)
     end,
 
     OnLayerChange = function(self, new, old)
@@ -195,7 +207,7 @@ TConstructionStructureUnit = Class(StructureUnit) {
    
     OnCreate = function(self)
         -- Structure stuff
-        StructureUnit.OnCreate(self)
+        StructureUnitOnCreate(self)
 
         local bp = __blueprints[self.BlueprintID]
 		
@@ -226,7 +238,7 @@ TConstructionStructureUnit = Class(StructureUnit) {
         self.UnitBuildOrder = order
         self.BuildingUnit = true
 
-        StructureUnit.OnStartBuild(self,unitBeingBuilt, order)
+        StructureUnitOnStartBuild(self,unitBeingBuilt, order)
     end,
     
     OnStopBeingBuilt = function(self,builder,layer)
@@ -301,7 +313,7 @@ TConstructionStructureUnit = Class(StructureUnit) {
 
         self.BuildingUnit = false
     
-        StructureUnit.OnStopBuild(self, unitBeingBuilt)
+        StructureUnitOnStopBuild(self, unitBeingBuilt)
        
     end,
     

@@ -7,6 +7,13 @@ local SinglePolyTrailProjectile = import('/lua/sim/defaultprojectiles.lua').Sing
 local MultiPolyTrailProjectile = import('/lua/sim/defaultprojectiles.lua').MultiPolyTrailProjectile
 local SingleCompositeEmitterProjectile = import('/lua/sim/defaultprojectiles.lua').SingleCompositeEmitterProjectile
 
+local EmitterProjectileOnCreate                 = EmitterProjectile.OnCreate
+local EmitterProjectileOnExitWater              = EmitterProjectile.OnExitWater
+local EmitterProjectileOnImpact                 = EmitterProjectile.OnImpact
+local OnWaterEntryEmitterProjectileOnCreate     = OnWaterEntryEmitterProjectile.OnCreate
+local OnWaterEntryEmitterProjectileOnEnterWater = OnWaterEntryEmitterProjectile.OnEnterWater
+local SingleBeamProjectileOnImpact              = SingleBeamProjectile.OnImpact
+
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local DepthCharge = import('/lua/defaultantiprojectile.lua').DepthCharge
 
@@ -26,7 +33,10 @@ local CreateEmitterAtEntity = CreateEmitterAtEntity
 local CreateEmitterAtBone = CreateEmitterAtBone
 
 local Random = Random
+
 local SetCollisionShape = moho.entity_methods.SetCollisionShape
+local StayUnderwater    = moho.projectile_methods.StayUnderwater
+local TrackTarget       = moho.projectile_methods.TrackTarget
 
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
@@ -89,7 +99,8 @@ TArtilleryAntiMatterProjectile = Class(SinglePolyTrailProjectile) {
         
         DamageArea(self, pos, self.DamageData.DamageRadius, 1, 'Force', true)
         DamageArea(self, pos, self.DamageData.DamageRadius, 1, 'Force', true)
-        EmitterProjectile.OnImpact(self, targetType, targetEntity)
+
+        EmitterProjectileOnImpact(self, targetType, targetEntity)
     end,
 }
 
@@ -116,7 +127,8 @@ TArtilleryAntiMatterProjectile02 = Class(TArtilleryAntiMatterProjectile) {
 
         DamageArea(self, pos, self.DamageData.DamageRadius, 1, 'Force', true)
         DamageArea(self, pos, self.DamageData.DamageRadius, 1, 'Force', true)
-        EmitterProjectile.OnImpact(self, targetType, targetEntity)
+
+        EmitterProjectileOnImpact(self, targetType, targetEntity)
     end,
 }
 
@@ -253,7 +265,7 @@ TIFSmallYieldNuclearBombProjectile = Class(EmitterProjectile) {
             CreateSplat( self:GetPosition(), 0, 'scorch_008_albedo', 6, 6, 200, 120, self.Army )
         end
         
-        EmitterProjectile.OnImpact( self, TargetType, TargetEntity )
+        EmitterProjectileOnImpact( self, TargetType, TargetEntity )
     end,
 }
 
@@ -333,7 +345,8 @@ TMissileCruiseProjectile = Class(SingleBeamProjectile) {
     FxImpactProp = EffectTemplate.TMissileHit01,
 
     OnImpact = function(self, targetType, targetEntity)
-        SingleBeamProjectile.OnImpact(self, targetType, targetEntity)
+
+        SingleBeamProjectileOnImpact(self, targetType, targetEntity)
     end,
 --[[
     CreateImpactEffects = function( self, army, EffectTable, EffectScale )
@@ -362,7 +375,8 @@ TMissileCruiseProjectile02 = Class(SingleBeamProjectile) {
     FxImpactLand = EffectTemplate.TShipGaussCannonHit02,
 
     OnImpact = function(self, targetType, targetEntity)
-        SingleBeamProjectile.OnImpact(self, targetType, targetEntity)
+
+        SingleBeamProjectileOnImpact(self, targetType, targetEntity)
     end,
 --[[
     CreateImpactEffects = function( self, army, EffectTable, EffectScale )
@@ -397,7 +411,7 @@ TMissileCruiseSubProjectile = Class(SingleBeamProjectile) {
 
     OnExitWater = function(self)
     
-		EmitterProjectile.OnExitWater(self)
+		EmitterProjectileOnExitWater(self)
 		
 		for k, v in self.FxExitWaterEmitter do
 			CreateEmitterAtBone(self, -2, self.Army, v)
@@ -505,24 +519,29 @@ TTorpedoShipProjectile = Class(OnWaterEntryEmitterProjectile) {
     FxEnterWater= EffectTemplate.WaterSplash01,
 
     OnCreate = function(self, inWater)
-        OnWaterEntryEmitterProjectile.OnCreate(self)
+
+        OnWaterEntryEmitterProjectileOnCreate(self)
+
         if inWater == true then
-            self:TrackTarget(true):StayUnderwater(true)
+            TrackTarget(self,true)
+            StayUnderwater(self,true)
             self:OnEnterWater(self)
         end
     end,
 
     OnEnterWater = function(self)
-        OnWaterEntryEmitterProjectile.OnEnterWater(self)
+
+        OnWaterEntryEmitterProjectileOnEnterWater(self)
         
         SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
 
         for k, v in self.FxEnterWater do
-            CreateEmitterAtEntity(self, self.Army, v)
+            CreateEmitterAtEntity(self, self.Army, v):ScaleEmitter(0.4)
         end
         
-        self:TrackTarget(true)
-        self:StayUnderwater(true)
+        TrackTarget(self,true)
+        StayUnderwater(self,true)
+
         self:SetTurnRate(120)
         self:SetMaxSpeed(18)
         self:ForkThread(self.MovementThread)
@@ -547,7 +566,7 @@ TTorpedoSubProjectile = Class(EmitterProjectile) {
     
         SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
         
-        EmitterProjectile.OnCreate(self, inWater)
+        EmitterProjectileOnCreate(self, inWater)
     end,
 }
 

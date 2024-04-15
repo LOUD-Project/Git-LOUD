@@ -2,11 +2,24 @@
 
 local DefaultUnitsFile = import('defaultunits.lua')
 
-local StructureUnit = DefaultUnitsFile.StructureUnit
-local DirectionalWalkingLandUnit = DefaultUnitsFile.DirectionalWalkingLandUnit
+local ConstructionUnit                  = DefaultUnitsFile.ConstructionUnit
+local DirectionalWalkingLandUnit        = DefaultUnitsFile.DirectionalWalkingLandUnit
+local FactoryUnit                       = DefaultUnitsFile.FactoryUnit
+local StructureUnit                     = DefaultUnitsFile.StructureUnit
 
-local FactoryUnit = DefaultUnitsFile.FactoryUnit
-local ConstructionUnit = DefaultUnitsFile.ConstructionUnit
+DefaultUnitsFile = nil
+
+local ConstructionUnitOnStopBeingBuilt  = ConstructionUnit.OnStopBeingBuilt
+local ConstructionUnitOnStopBuild       = ConstructionUnit.OnStopBuild
+
+local FactoryUnitOnStartBuild           = FactoryUnit.OnStartBuild
+local FactoryUnitOnStopBeingBuilt       = FactoryUnit.OnStopBeingBuilt
+local FactoryUnitOnStopBuild            = FactoryUnit.OnStopBuild
+
+local StructureUnitOnCreate             = StructureUnit.OnCreate
+local StructureUnitOnStartBuild         = StructureUnit.OnStartBuild
+local StructureUnitOnStopBeingBuilt     = StructureUnit.OnStopBeingBuilt
+local StructureUnitOnStopBuld           = StructureUnit.OnStopBuild
 
 local CreateCybranBuildBeams = import('EffectUtilities.lua').CreateCybranBuildBeams
 local CreateCybranEngineerBuildEffects = import('EffectUtilities.lua').CreateCybranEngineerBuildEffects
@@ -70,7 +83,7 @@ CAirFactoryUnit = Class(FactoryUnit) {
         
         TrashDestroy( self.BuildEffectsBag )
     
-        FactoryUnit.OnStopBuild(self, unitBeingBuilt)
+        FactoryUnitOnStopBuild(self, unitBeingBuilt)
     end,
     
     OnPaused = function(self)
@@ -130,7 +143,7 @@ CLandFactoryUnit = Class(FactoryUnit) {
         
         TrashDestroy( self.BuildEffectsBag )
     
-        FactoryUnit.OnStopBuild(self, unitBeingBuilt)
+        FactoryUnitOnStopBuild(self, unitBeingBuilt)
     end,
 
     OnPaused = function(self)
@@ -178,7 +191,7 @@ CSeaFactoryUnit = Class(FactoryUnit) {
         
         TrashDestroy( self.BuildEffectsBag )
         
-        FactoryUnit.OnStopBuild( self, unitBeingBuilt )
+        FactoryUnitOnStopBuild( self, unitBeingBuilt )
     end,
 
     OnPaused = function(self)
@@ -194,7 +207,9 @@ CSeaFactoryUnit = Class(FactoryUnit) {
     end,
 
     OnStartBuild = function(self, unitBeingBuilt, order )
-        FactoryUnit.OnStartBuild(self, unitBeingBuilt, order )
+
+        FactoryUnitOnStartBuild(self, unitBeingBuilt, order )
+
         if order != 'Upgrade' then
             self:StartArmsMoving()
         end
@@ -277,12 +292,12 @@ CConstructionUnit = Class(ConstructionUnit){
         
         TrashDestroy( self.BuildEffectsBag )
         
-        ConstructionUnit.OnStopBuild( self, unitBeingBuilt )
+        ConstructionUnitOnStopBuild( self, unitBeingBuilt )
     end,
 
     OnStopBeingBuilt = function(self,builder,layer)
 	
-        ConstructionUnit.OnStopBeingBuilt(self,builder,layer)
+        ConstructionUnitOnStopBeingBuilt(self,builder,layer)
 
         if(self:GetCurrentLayer() == 'Water') then
 		
@@ -349,7 +364,7 @@ CConstructionStructureUnit = Class(StructureUnit) {
    
     OnCreate = function(self)
 
-        StructureUnit.OnCreate(self)
+        StructureUnitOnCreate(self)
 
         local bp = __blueprints[self.BlueprintID]
 		
@@ -381,12 +396,12 @@ CConstructionStructureUnit = Class(StructureUnit) {
         self.UnitBuildOrder = order
         self.BuildingUnit = true
 
-        StructureUnit.OnStartBuild(self,unitBeingBuilt, order)
+        StructureUnitOnStartBuild(self,unitBeingBuilt, order)
     end,
     
     OnStopBeingBuilt = function(self,builder,layer)
     
-        StructureUnit.OnStopBeingBuilt(self,builder,layer)
+        StructureUnitOnStopBeingBuilt(self,builder,layer)
         
         -- If created with F2 on land, then play the transform anim.
         if(self:GetCurrentLayer() == 'Water') then
@@ -466,7 +481,7 @@ CConstructionStructureUnit = Class(StructureUnit) {
 
         self.BuildingUnit = false
     
-        StructureUnit.OnStopBuild(self, unitBeingBuilt)
+        StructureUnitOnStopBuild(self, unitBeingBuilt)
        
     end,
     
@@ -503,7 +518,7 @@ CConstructionEggUnit = Class(StructureUnit) {
 
     OnStopBeingBuilt = function(self, builder, layer)
 
-        FactoryUnit.OnStopBeingBuilt(self,builder,layer)
+        FactoryUnitOnStopBeingBuilt(self,builder,layer)
 		
         local bp = __blueprints[self.BlueprintID]
         local buildUnit = bp.Economy.BuildUnit

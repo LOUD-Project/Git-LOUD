@@ -1,12 +1,20 @@
 ---  /lua/seraphimprojectiles.lua
 
-local SinglePolyTrailProjectile = import('/lua/sim/defaultprojectiles.lua').SinglePolyTrailProjectile
-local MultiPolyTrailProjectile = import('/lua/sim/defaultprojectiles.lua').MultiPolyTrailProjectile 
-local SingleBeamProjectile = import('/lua/sim/defaultprojectiles.lua').SingleBeamProjectile
 local EmitterProjectile = import('/lua/sim/defaultprojectiles.lua').EmitterProjectile
+local MultiPolyTrailProjectile = import('/lua/sim/defaultprojectiles.lua').MultiPolyTrailProjectile 
+local SinglePolyTrailProjectile = import('/lua/sim/defaultprojectiles.lua').SinglePolyTrailProjectile
+
+--local OnWaterEntryEmitterProjectile = import('/lua/sim/defaultprojectiles.lua').OnWaterEntryEmitterProjectile
+--local SingleBeamProjectile = import('/lua/sim/defaultprojectiles.lua').SingleBeamProjectile
+
+local EmitterProjectileOnCreate             = EmitterProjectile.OnCreate 
+local MultiPolyTrailProjectileOnCreate      = MultiPolyTrailProjectile.OnCreate
+local SinglePolyTrailProjectileOnCreate     = SinglePolyTrailProjectile.OnCreate
+local SinglePolyTrailProjectileOnEnterWater = SinglePolyTrailProjectile.OnEnterWater
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
+local CreateTrail = CreateTrail
 local Random = Random
 local LOUDFLOOR = math.floor
 local LOUDGETN = table.getn
@@ -16,10 +24,7 @@ local function GetRandomInt( nmin, nmax)
 end
 
 local RandomInt = GetRandomInt
-
 local SetCollisionShape = moho.entity_methods.SetCollisionShape
-
-local CreateTrail = CreateTrail
 
 SIFHuAntiNuke = Class(SinglePolyTrailProjectile) {
 
@@ -188,7 +193,8 @@ SLaanseTacticalMissile = Class(SinglePolyTrailProjectile) {
     PolyTrail = EffectTemplate.SLaanseMissleExhaust01,
 
     OnCreate = function(self)
-        SinglePolyTrailProjectile.OnCreate(self)
+
+        SinglePolyTrailProjectileOnCreate(self)
         
         SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
     end,
@@ -262,7 +268,8 @@ SShleoAACannon = Class(EmitterProjectile) {
     PolyTrails = EffectTemplate.SShleoCannonProjectilePolyTrails,
     
     OnCreate = function(self)
-        EmitterProjectile.OnCreate(self)
+
+        EmitterProjectileOnCreate(self)
 		
         local PolytrailGroup = self.PolyTrails[RandomInt(1, LOUDGETN( self.PolyTrails ))]
 
@@ -322,24 +329,23 @@ SAnaitTorpedo = Class(MultiPolyTrailProjectile) {
     
         SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
         
-        MultiPolyTrailProjectile.OnCreate(self, inWater)
+        MultiPolyTrailProjectileOnCreate(self, inWater)
     end,
 }
 
 SHeavyCavitationTorpedo = Class(MultiPolyTrailProjectile) {
+
 	FxImpactLand =			EffectTemplate.SHeavyCavitationTorpedoHit,
-    FxImpactNone =			EffectTemplate.SHeavyCavitationTorpedoHit,
-    FxImpactProp =			EffectTemplate.SHeavyCavitationTorpedoHit,    
-    FxImpactUnderWater =	EffectTemplate.SHeavyCavitationTorpedoHit,
     FxImpactUnit =			EffectTemplate.SHeavyCavitationTorpedoHit,    
 
+    FxTrails =				EffectTemplate.SUallTorpedoFxTrails,
     PolyTrails =			EffectTemplate.SHeavyCavitationTorpedoPolyTrails,
 
     OnCreate = function(self, inWater)
     
         SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
         
-        MultiPolyTrailProjectile.OnCreate(self, inWater)
+        MultiPolyTrailProjectileOnCreate(self, inWater)
     end,
 }
 
@@ -362,15 +368,14 @@ SUallCavitationTorpedo = Class(SinglePolyTrailProjectile) {
     
         SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
         
-        SinglePolyTrailProjectile.OnCreate(self, inWater)
+        SinglePolyTrailProjectileOnCreate(self, inWater)
     end,
     
     OnEnterWater = function(self)
 
         self:ForkThread(self.EngageTracking)
         
-        SinglePolyTrailProjectile.OnEnterWater(self)
-        
+        SinglePolyTrailProjectileOnEnterWater(self)
     end,
     
     EngageTracking = function(self)
@@ -378,7 +383,6 @@ SUallCavitationTorpedo = Class(SinglePolyTrailProjectile) {
         WaitTicks(2)
         
         self:TrackTarget(true)
-    
     end,
 
 }
@@ -470,17 +474,22 @@ SOhwalliStrategicBombProjectile = Class(MultiPolyTrailProjectile) {
     PolyTrails = EffectTemplate.SOhwalliBombPolyTrails, 
 }
 
-SAnjelluTorpedoDefenseProjectile = Class(MultiPolyTrailProjectile) {
-    FxImpactProjectileUnderWater = EffectTemplate.SDFAjelluAntiTorpedoHit01,
-    PolyTrails = EffectTemplate.SDFAjelluAntiTorpedoPolyTrail01,  
-	
+SAnjelluTorpedoDefenseProjectile = Class(SinglePolyTrailProjectile) {
+
+    FxImpactUnderWater =	EffectTemplate.SUallTorpedoHit,
+
+    FxUnderWaterHitScale =	0.5,
+
+    FxTrails =	false,  --			EffectTemplate.SUallTorpedoFxTrails,
+    PolyTrail = 			EffectTemplate.SUallTorpedoPolyTrail,
+    
     OnCreate = function(self, inWater)
-	
-        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0 )
+    
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 0.7)
         
-        EmitterProjectile.OnCreate(self, inWater)
-		
-    end,    
+        SinglePolyTrailProjectileOnCreate(self, inWater)
+    end,
+
 }
 
 SDFSniperShotNormal = Class(MultiPolyTrailProjectile) {

@@ -3,24 +3,35 @@
 -- SERAPHIM DEFAULT UNITS
 
 local DefaultUnitsFile = import('defaultunits.lua')
-local AirStagingPlatformUnit = DefaultUnitsFile.AirStagingPlatformUnit
-local AirUnit = DefaultUnitsFile.AirUnit
-local ConcreteStructureUnit = DefaultUnitsFile.ConcreteStructureUnit
-local WallStructureUnit = import('defaultunits.lua').WallStructureUnit
-local ConstructionUnit = DefaultUnitsFile.ConstructionUnit
-local EnergyCreationUnit = DefaultUnitsFile.EnergyCreationUnit
-local FactoryUnit = DefaultUnitsFile.FactoryUnit
-local MassCollectionUnit = DefaultUnitsFile.MassCollectionUnit
-local MassFabricationUnit = DefaultUnitsFile.MassFabricationUnit
-local MobileUnit = DefaultUnitsFile.MobileUnit
-local RadarUnit = DefaultUnitsFile.RadarUnit
 
-local ShieldStructureUnit = DefaultUnitsFile.StructureUnit
+local AirStagingPlatformUnit        = DefaultUnitsFile.AirStagingPlatformUnit
+local AirUnit                       = DefaultUnitsFile.AirUnit
+local ConcreteStructureUnit         = DefaultUnitsFile.ConcreteStructureUnit
+local WallStructureUnit             = DefaultUnitsFile.WallStructureUnit
+local ConstructionUnit              = DefaultUnitsFile.ConstructionUnit
+local EnergyCreationUnit            = DefaultUnitsFile.EnergyCreationUnit
+local FactoryUnit                   = DefaultUnitsFile.FactoryUnit
+local MassCollectionUnit            = DefaultUnitsFile.MassCollectionUnit
+local MassFabricationUnit           = DefaultUnitsFile.MassFabricationUnit
+local MobileUnit                    = DefaultUnitsFile.MobileUnit
+local RadarUnit                     = DefaultUnitsFile.RadarUnit
+local SeaUnit                       = DefaultUnitsFile.SeaUnit
+local ShieldStructureUnit           = DefaultUnitsFile.StructureUnit
+local SonarUnit                     = DefaultUnitsFile.SonarUnit
+local StructureUnit                 = DefaultUnitsFile.StructureUnit
+local SubUnit                       = DefaultUnitsFile.SubUnit
+local QuantumGateUnit               = DefaultUnitsFile.QuantumGateUnit
+local RadarJammerUnit               = DefaultUnitsFile.RadarJammerUnit
+local TransportBeaconUnit           = DefaultUnitsFile.TransportBeaconUnit
+local WalkingLandUnit               = DefaultUnitsFile.WalkingLandUnit
 
-local SonarUnit = DefaultUnitsFile.SonarUnit
-local StructureUnit = DefaultUnitsFile.StructureUnit
-local QuantumGateUnit = DefaultUnitsFile.QuantumGateUnit
-local RadarJammerUnit = DefaultUnitsFile.RadarJammerUnit
+DefaultUnitsFile = nil
+
+local ConstructionUnitOnCreate      = ConstructionUnit.OnCreate
+local EnergyCreationUnitOnCreate    = EnergyCreationUnit.OnCreate
+local MobileUnitOnCreate            = MobileUnit.OnCreate
+
+local FactoryUnitOnStartBuild       = FactoryUnit.OnStartBuild
 
 
 local DefaultBeamWeapon = import('/lua/sim/DefaultWeapons.lua').DefaultBeamWeapon
@@ -185,7 +196,8 @@ SAirFactoryUnit = Class(FactoryUnit) {
                 unitBeingBuilt.Rotator3:SetGoal(0)
             end
         end
-        FactoryUnit.OnStartBuild(self,unitBeingBuilt,order)
+        
+        FactoryUnitOnStartBuild(self,unitBeingBuilt,order)
     end,
   
     UpgradingState = State(FactoryUnit.UpgradingState) {
@@ -277,7 +289,7 @@ SLandFactoryUnit = Class(FactoryUnit) {
             end
         end
         
-        FactoryUnit.OnStartBuild(self,unitBeingBuilt,order)
+        FactoryUnitOnStartBuild(self,unitBeingBuilt,order)
     end,
   
     UpgradingState = State(FactoryUnit.UpgradingState) {
@@ -350,7 +362,8 @@ SSeaFactoryUnit = Class(FactoryUnit) {
                 unitBeingBuilt.Rotator3:SetGoal(0)
             end
         end
-        FactoryUnit.OnStartBuild(self,unitBeingBuilt,order)
+        
+        FactoryUnitOnStartBuild(self,unitBeingBuilt,order)
     end,
   
     UpgradingState = State(FactoryUnit.UpgradingState) {   
@@ -391,7 +404,7 @@ SConstructionUnit = Class(ConstructionUnit) {
 
     OnCreate = function(self)
     
-        ConstructionUnit.OnCreate(self)
+        ConstructionUnitOnCreate(self)
         
         if self.BuildingOpenAnim then
             if self.BuildArm2Manipulator then
@@ -508,7 +521,7 @@ SConstructionUnit = Class(ConstructionUnit) {
 SEnergyCreationUnit = Class(EnergyCreationUnit) {
 
     OnCreate = function(self)
-        EnergyCreationUnit.OnCreate(self)
+        EnergyCreationUnitOnCreate(self)
     end,
 
     OnStopBeingBuilt = function(self,builder,layer)
@@ -534,7 +547,7 @@ SRadarUnit = Class(RadarUnit) {}
 
 SSonarUnit = Class(SonarUnit) {}
 
-SSeaUnit = Class(DefaultUnitsFile.SeaUnit) {}
+SSeaUnit = Class(SeaUnit) {}
 
 SShieldHoverLandUnit = Class(MobileUnit) {}
 
@@ -566,15 +579,15 @@ SShieldStructureUnit = Class(ShieldStructureUnit) {
 
 SStructureUnit = Class(StructureUnit) {}
 
-SSubUnit = Class(DefaultUnitsFile.SubUnit) {}
+SSubUnit = Class(SubUnit) {}
 
-STransportBeaconUnit = Class(DefaultUnitsFile.TransportBeaconUnit) {}
+STransportBeaconUnit = Class(TransportBeaconUnit) {}
 
-SWalkingLandUnit = Class(DefaultUnitsFile.WalkingLandUnit) {}
+SWalkingLandUnit = Class(WalkingLandUnit) {}
 
 SWallStructureUnit = Class(WallStructureUnit) {}
 
-SCivilianStructureUnit = Class(SStructureUnit) {}
+SCivilianStructureUnit = Class(StructureUnit) {}
 
 SQuantumGateUnit = Class(QuantumGateUnit) {}
 
@@ -584,10 +597,13 @@ SEnergyBallUnit = Class(MobileUnit) {
     timeAlive = 0,
     
     OnCreate = function(self)
-        MobileUnit.OnCreate(self)
+
+        MobileUnitOnCreate(self)
+
         self:SetCanTakeDamage(false)
         self:SetCanBeKilled(false)
         self:PlayUnitSound('Spawn')
+
         ChangeState( self, self.KillingState )
     end,
 

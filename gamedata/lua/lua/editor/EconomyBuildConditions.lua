@@ -5,17 +5,15 @@ local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocati
 local AIGetReclaimablesAroundLocation = import('/lua/ai/aiutilities.lua').AIGetReclaimablesAroundLocation
 local AISortMarkersFromLastPosWithThreatCheck = import('/lua/ai/aiutilities.lua').AISortMarkersFromLastPosWithThreatCheck
 
-local CanBuildStructureAt = moho.aibrain_methods.CanBuildStructureAt
+local BrainMethods = moho.aibrain_methods
 
-local GetCurrentUnits = moho.aibrain_methods.GetCurrentUnits
-
-local GetEconomyTrend = moho.aibrain_methods.GetEconomyTrend
-local GetEconomyStoredRatio = moho.aibrain_methods.GetEconomyStoredRatio
-local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
-
-local GetEconomyRequested = moho.aibrain_methods.GetEconomyRequested
-local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
-
+local CanBuildStructureAt   = BrainMethods.CanBuildStructureAt
+local GetCurrentUnits       = BrainMethods.GetCurrentUnits
+local GetEconomyTrend       = BrainMethods.GetEconomyTrend
+local GetEconomyStoredRatio = BrainMethods.GetEconomyStoredRatio
+local GetEconomyIncome      = BrainMethods.GetEconomyIncome
+local GetEconomyRequested   = BrainMethods.GetEconomyRequested
+local GetEconomyStored      = BrainMethods.GetEconomyStored
 
 local VDist3 = VDist3
 

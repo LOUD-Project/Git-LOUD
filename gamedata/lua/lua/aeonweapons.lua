@@ -4,17 +4,19 @@
 local WeaponFile = import('/lua/sim/DefaultWeapons.lua')
 local CollisionBeamFile = import('defaultcollisionbeams.lua')
 
-local QuantumBeamGeneratorCollisionBeam = CollisionBeamFile.QuantumBeamGeneratorCollisionBeam
-local PhasonLaserCollisionBeam = CollisionBeamFile.PhasonLaserCollisionBeam
-local TractorClawCollisionBeam = CollisionBeamFile.TractorClawCollisionBeam
+local QuantumBeamGeneratorCollisionBeam     = CollisionBeamFile.QuantumBeamGeneratorCollisionBeam
+local PhasonLaserCollisionBeam              = CollisionBeamFile.PhasonLaserCollisionBeam
+local TractorClawCollisionBeam              = CollisionBeamFile.TractorClawCollisionBeam
 
-local KamikazeWeapon = WeaponFile.KamikazeWeapon
+local BareBonesWeapon               = WeaponFile.BareBonesWeapon
+local DefaultProjectileWeapon       = WeaponFile.DefaultProjectileWeapon
+local DefaultBeamWeapon             = WeaponFile.DefaultBeamWeapon
+local KamikazeWeapon                = WeaponFile.KamikazeWeapon
 
-local BareBonesWeapon = WeaponFile.BareBonesWeapon
 local BareBonesWeaponOnCreate = BareBonesWeapon.OnCreate
 
-local DefaultProjectileWeapon = WeaponFile.DefaultProjectileWeapon
-local DefaultBeamWeapon = WeaponFile.DefaultBeamWeapon
+WeaponFile = nil
+CollisionBeamFile = nil
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
@@ -361,6 +363,7 @@ AANDepthChargeBombWeapon = Class(DefaultProjectileWeapon) {
 }
 
 AANTorpedoCluster = Class(DefaultProjectileWeapon) {
+
     FxMuzzleFlash = {'/effects/emitters/aeon_torpedocluster_flash_01_emit.bp',},
 
     CreateProjectileForWeapon = function(self, bone)
@@ -387,13 +390,16 @@ AANTorpedoCluster = Class(DefaultProjectileWeapon) {
         end
 
         if proj and not proj:BeenDestroyed() then
+        
             proj:PassDamageData(damageTable)
+
             if data then
                 proj:PassData(data)
             end
         end
         
         return proj
+
     end,
 }
 

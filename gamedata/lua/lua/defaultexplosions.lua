@@ -4,6 +4,7 @@ local import = import
 
 local Entity = import('/lua/sim/Entity.lua').Entity
 local EffectTemplate = import('/lua/EffectTemplates.lua')
+local EffectUtilities = import('EffectUtilities.lua')
 
 local TableCat = import('utilities.lua').TableCat
 
@@ -11,12 +12,14 @@ local Random = Random
 
 local GetRandomOffset = import('utilities.lua').GetRandomOffset
 
-local CreateEffects = import('EffectUtilities.lua').CreateEffects
-local CreateEffectsWithOffset = import('EffectUtilities.lua').CreateEffectsWithOffset
-local CreateEffectsWithRandomOffset = import('EffectUtilities.lua').CreateEffectsWithRandomOffset
-local CreateBoneEffects = import('EffectUtilities.lua').CreateBoneEffects
-local CreateBoneEffectsOffset = import('EffectUtilities.lua').CreateBoneEffectsOffset
-local CreateRandomEffects = import('EffectUtilities.lua').CreateRandomEffects
+local CreateEffects                     = EffectUtilities.CreateEffects
+local CreateEffectsWithOffset           = EffectUtilities.CreateEffectsWithOffset
+local CreateEffectsWithRandomOffset     = EffectUtilities.CreateEffectsWithRandomOffset
+local CreateBoneEffects                 = EffectUtilities.CreateBoneEffects
+local CreateBoneEffectsOffset           = EffectUtilities.CreateBoneEffectsOffset
+local CreateRandomEffects               = EffectUtilities.CreateRandomEffects
+
+EffectUtilities = nil
 
 local LOUDFLOOR = math.floor
 local LOUDPI = math.pi
@@ -34,15 +37,19 @@ local LOUDPARTICLE = CreateLightParticle
 local ForkThread = ForkThread
 local WaitTicks = coroutine.yield
 
-local BeenDestroyed = moho.entity_methods.BeenDestroyed
-local CreateProjectile = moho.entity_methods.CreateProjectile
+local EntityMethods = moho.entity_methods
 
-local GetArmy = moho.entity_methods.GetArmy
-local GetPosition = moho.entity_methods.GetPosition
+local BeenDestroyed         = EntityMethods.BeenDestroyed
+local CreateProjectile      = EntityMethods.CreateProjectile
+local GetArmy               = EntityMethods.GetArmy
+local GetPosition           = EntityMethods.GetPosition
+
+EntityMethods = nil
 
 local function GetRandomFloat( Min, Max )
     return Min + (Random() * (Max-Min) )
 end
+
 local function GetRandomInt( nmin, nmax)
     return LOUDFLOOR(Random() * (nmax - nmin + 1) + nmin)
 end

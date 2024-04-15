@@ -8,26 +8,32 @@ local AIFindBrainTargetAroundPoint = import('/lua/ai/aiutilities.lua').AIFindBra
 local GetOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
 local GetNumberOfOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetNumberOfOwnUnitsAroundPoint
 
-local AIFindBaseAreaForExpansion = import('/lua/ai/altaiutilities.lua').AIFindBaseAreaForExpansion
-local AIFindBaseAreaForDP = import('/lua/ai/altaiutilities.lua').AIFindBaseAreaForDP
-local AIFindDefensivePointForDP = import('/lua/ai/altaiutilities.lua').AIFindDefensivePointForDP
-local AIFindDefensivePointNeedsStructure = import('/lua/ai/altaiutilities.lua').AIFindDefensivePointNeedsStructure
-local AIFindExpansionPointNeedsStructure = import('/lua/ai/altaiutilities.lua').AIFindExpansionPointNeedsStructure
-local AIFindStartPointNeedsStructure = import('/lua/ai/altaiutilities.lua').AIFindStartPointNeedsStructure
-local AIFindBasePointNeedsStructure = import('/lua/ai/altaiutilities.lua').AIFindBasePointNeedsStructure
-local AIFindNavalAreaForExpansion = import('/lua/ai/altaiutilities.lua').AIFindNavalAreaForExpansion
-local AIFindNavalDefensivePointNeedsStructure = import('/lua/ai/altaiutilities.lua').AIFindNavalDefensivePointNeedsStructure
+local AltAIUtils = import('/lua/ai/altaiutilities.lua')
+
+local AIFindBaseAreaForExpansion                = AltAIUtils.AIFindBaseAreaForExpansion
+local AIFindBaseAreaForDP                       = AltAIUtils.AIFindBaseAreaForDP
+local AIFindDefensivePointForDP                 = AltAIUtils.AIFindDefensivePointForDP
+local AIFindDefensivePointNeedsStructure        = AltAIUtils.AIFindDefensivePointNeedsStructure
+local AIFindExpansionPointNeedsStructure        = AltAIUtils.AIFindExpansionPointNeedsStructure
+local AIFindStartPointNeedsStructure            = AltAIUtils.AIFindStartPointNeedsStructure
+local AIFindBasePointNeedsStructure             = AltAIUtils.AIFindBasePointNeedsStructure
+local AIFindNavalAreaForExpansion               = AltAIUtils.AIFindNavalAreaForExpansion
+local AIFindNavalDefensivePointNeedsStructure   = AltAIUtils.AIFindNavalDefensivePointNeedsStructure
+
+AltAIUtils = nil
 
 local NumCatUnitsInArea = import('/lua/scenarioframework.lua').NumCatUnitsInArea
 local AreaToRect = import('/lua/sim/scenarioutilities.lua').AreaToRect
 
-local GetCurrentUnits = moho.aibrain_methods.GetCurrentUnits
-local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
-local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
-local GetPosition = moho.entity_methods.GetPosition	
-local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
-local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
+local AIBrainMethods = moho.aibrain_methods
 
+local GetCurrentUnits           = AIBrainMethods.GetCurrentUnits
+local GetListOfUnits            = AIBrainMethods.GetListOfUnits
+local GetNumUnitsAroundPoint    = AIBrainMethods.GetNumUnitsAroundPoint
+local GetThreatAtPosition       = AIBrainMethods.GetThreatAtPosition
+local GetUnitsAroundPoint       = AIBrainMethods.GetUnitsAroundPoint
+
+local GetPosition = moho.entity_methods.GetPosition	
 local IsUnitState = moho.unit_methods.IsUnitState
 
 local PlatoonCategoryCount = moho.platoon_methods.PlatoonCategoryCount
@@ -749,7 +755,7 @@ function AdjacencyCheck( aiBrain, locationType, category, radius, testUnit )
 	local LOUDPARSE = LOUDPARSE
 	local LOUDTYPE = LOUDTYPE
 	
-	local CanBuildStructureAt = moho.aibrain_methods.CanBuildStructureAt
+	local CanBuildStructureAt = AIBrainMethods.CanBuildStructureAt
 
     local position = aiBrain.BuilderManagers[locationType].Position
     local testCat = category

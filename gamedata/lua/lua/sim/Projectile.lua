@@ -2,67 +2,68 @@
 --  Author(s):  John Comes, Gordon Duclos
 --  This file governs the behavior of projectiles
 
-local Entity = import('/lua/sim/Entity.lua').Entity
+--local Entity = import('/lua/sim/Entity.lua').Entity
+--local EntityOnCreate = Entity.OnCreate
+local EntityMethods = moho.entity_methods
+local ProjectileMethods = moho.projectile_methods
 
 local CreateRandomScorchSplatAtObject = import('/lua/defaultexplosions.lua').CreateRandomScorchSplatAtObject
 
 local AreaDoTThread = import('/lua/sim/defaultdamage.lua').AreaDoTThread
 local UnitDoTThread = import('/lua/sim/defaultdamage.lua').UnitDoTThread
 
-local AAFlare = import('/lua/defaultantiprojectile.lua').AAFlare
-local Flare = import('/lua/defaultantiprojectile.lua').Flare
+local AAFlare       = import('/lua/defaultantiprojectile.lua').AAFlare
+local DepthCharge   = import('/lua/defaultantiprojectile.lua').DepthCharge
+local Flare         = import('/lua/defaultantiprojectile.lua').Flare
 
-local LOUDEMPTY = table.empty
-local LOUDENTITY = EntityCategoryContains
-local LOUDEMITATENTITY = CreateEmitterAtEntity
-local LOUDEMITATBONE = CreateEmitterAtBone
-local LOUDGETN = table.getn
-local LOUDPARSE = ParseEntityCategory
+local LOUDCOPY          = table.copy
+local LOUDEMPTY         = table.empty
+local LOUDENTITY        = EntityCategoryContains
+local LOUDEMITATENTITY  = CreateEmitterAtEntity
+local LOUDEMITATBONE    = CreateEmitterAtBone
+local LOUDGETN          = table.getn
+local LOUDPARSE         = ParseEntityCategory
 
-local ForkThread = ForkThread
-local ForkTo = ForkThread
+local ForkThread        = ForkThread
+local ForkTo            = ForkThread
 
-local STRINGSUB = string.sub
-local TONUMBER = tonumber
+local STRINGSUB         = string.sub
+local TONUMBER          = tonumber
 
-local Damage = Damage
-local DamageArea = DamageArea
+local Damage            = Damage
+local DamageArea        = DamageArea
 
-local GetTerrainType = GetTerrainType
+local GetTerrainType    = GetTerrainType
 
-local AdjustHealth = moho.entity_methods.AdjustHealth
-local BeenDestroyed = moho.entity_methods.BeenDestroyed
-local Destroy = moho.entity_methods.Destroy
-local GetArmy = moho.entity_methods.GetArmy
+local AdjustHealth              = EntityMethods.AdjustHealth
+local BeenDestroyed             = EntityMethods.BeenDestroyed
+local Destroy                   = EntityMethods.Destroy
+local GetArmy                   = EntityMethods.GetArmy
+local GetBlueprint              = EntityMethods.GetBlueprint
+local GetHealth                 = EntityMethods.GetHealth
+local GetMaxHealth              = EntityMethods.GetMaxHealth
+local GetPosition               = EntityMethods.GetPosition
+local PlaySound                 = EntityMethods.PlaySound
+local SetHealth                 = EntityMethods.SetHealth
+local SetMaxHealth              = EntityMethods.SetMaxHealth
 
-local GetBlueprint = moho.entity_methods.GetBlueprint
-local GetCurrentTargetPosition = moho.projectile_methods.GetCurrentTargetPosition
-local GetHealth = moho.entity_methods.GetHealth
-local GetMaxHealth = moho.entity_methods.GetMaxHealth
+EntityMethods = nil
 
-local GetLauncher = moho.projectile_methods.GetLauncher
-local GetPosition = moho.entity_methods.GetPosition
-local GetTrackingTarget= moho.projectile_methods.GetTrackingTarget
-local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
+local GetCurrentTargetPosition  = ProjectileMethods.GetCurrentTargetPosition
+local GetLauncher               = ProjectileMethods.GetLauncher
+local GetTrackingTarget         = ProjectileMethods.GetTrackingTarget
 
-local SetHealth = moho.entity_methods.SetHealth
-local SetMaxHealth = moho.entity_methods.SetMaxHealth
+local GetUnitsAroundPoint       = moho.aibrain_methods.GetUnitsAroundPoint
 
-local TrashBag = TrashBag
-local TrashAdd = TrashBag.Add
-local TrashDestroy = TrashBag.Destroy
-
-
-local PlaySound = moho.entity_methods.PlaySound
+local TrashBag          = TrashBag
+local TrashAdd          = TrashBag.Add
+local TrashDestroy      = TrashBag.Destroy
 
 local DefaultTerrainType = GetTerrainType( -1, -1 )
 
 local ALLBPS = __blueprints
 
-Projectile = Class(moho.projectile_methods, Entity) {
-
-    __init = false,
-    __post_init = false,
+Projectile = Class( ProjectileMethods ) {
 
     DestroyOnImpact = true,
 	
@@ -94,9 +95,12 @@ Projectile = Class(moho.projectile_methods, Entity) {
 		
     end,
 
-    OnCreate = function(self, inWater)
+    OnCreate = function(self, InWater)
 
 		local bp = GetBlueprint(self)
+        
+        local AudioExist        = bp.Audio.ExistLoop or false
+        local TrackTargetGround = bp.Physics.TrackTargetGround or false
         
         self.Army = GetArmy(self)        
         self.BlueprintID = bp.BlueprintId or false
@@ -107,19 +111,18 @@ Projectile = Class(moho.projectile_methods, Entity) {
 		if ScenarioInfo.ProjectileDialog then
 
             if self.BlueprintID then
-                --ForkThread( function() LOG("*AI DEBUG Projectile OnCreate BlueprintID is "..repr(self.BlueprintID)) end )
-                LOG("*AI DEBUG Projectile OnCreate BlueprintID is "..repr(self) )
+                LOG("*AI DEBUG Projectile OnCreate BlueprintID is "..repr(self.BlueprintID) )
             else
                 LOG("*AI DEBUG Projectile OnCreate BlueprintID is FALSE "..repr(bp) )
             end
 
 		end
 	
-        if bp.Audio.ExistLoop then
-            self:SetAmbientSound( bp.Audio.ExistLoop, nil)
+        if AudioExist then
+            self:SetAmbientSound( AudioExist, nil)
         end
         
-        if bp.Physics.TrackTargetGround and bp.Physics.TrackTargetGround == true then
+        if TrackTargetGround then
 		
             local pos = GetCurrentTargetPosition(self)
 			
@@ -131,6 +134,8 @@ Projectile = Class(moho.projectile_methods, Entity) {
 
 	-- adv missile track and retarget
 	Tracking = function(self)
+    
+        if self.AdvancedTrackinglock then return end
 
   	    local launcher = GetLauncher(self)
         
@@ -335,17 +340,17 @@ Projectile = Class(moho.projectile_methods, Entity) {
     
         local ProjectileDialog = ScenarioInfo.ProjectileDialog
         
-        local LOUDENTITY = LOUDENTITY
-        local LOUDPARSE = LOUDPARSE
+        local LOUDENTITY    = LOUDENTITY
+        local LOUDPARSE     = LOUDPARSE
 	
 		--if ProjectileDialog then
 			--LOG("*AI DEBUG Projectile OnCollisionCheck ")
 		--end
         
-        local TORPEDO = categories.TORPEDO
-        local DIRECTFIRE = categories.DIRECTFIRE
-        local MISSILE = categories.MISSILE
-        local ANTIMISSILE = categories.ANTIMISSILE
+        local TORPEDO       = categories.TORPEDO
+        local DIRECTFIRE    = categories.DIRECTFIRE
+        local MISSILE       = categories.MISSILE
+        local ANTIMISSILE   = categories.ANTIMISSILE
 
         if (LOUDENTITY(TORPEDO, self) and ( LOUDENTITY(TORPEDO, other) or LOUDENTITY(DIRECTFIRE, other))) or 
            (LOUDENTITY(MISSILE, self) and ( LOUDENTITY(MISSILE, other) or LOUDENTITY(DIRECTFIRE, other))) or 
@@ -631,10 +636,13 @@ Projectile = Class(moho.projectile_methods, Entity) {
     --  'ProjectileUnderWater'
     OnImpact = function(self, targetType, targetEntity)
     
-        local DD = self.DamageData
+        local ProjectileDialog = ScenarioInfo.ProjectileDialog
+    
+        local DD            = self.DamageData
+        local DamageType    = DD.DamageType
         
-        local STRINGSUB = STRINGSUB
-        local TONUMBER = TONUMBER
+        local STRINGSUB     = STRINGSUB
+        local TONUMBER      = TONUMBER
     
         if DD.DamageAmount then
 
@@ -646,7 +654,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
             -- we'll take a copy of and use that instead
             if targetType == 'Shield' then
             
-                local DD = table.copy(self.DamageData)
+                local DD = LOUDCOPY(self.DamageData)
 
                 -- LOUD 'marshmallow shield effect' all AOE to 0 on shields
                 if DD.DamageRadius > 0 then
@@ -654,17 +662,17 @@ Projectile = Class(moho.projectile_methods, Entity) {
                 end
 
                 -- LOUD ShieldMult effect
-                if STRINGSUB(DD.DamageType, 1, 10) == 'ShieldMult' then
+                if STRINGSUB(DamageType, 1, 10) == 'ShieldMult' then
 
-                    local mult = TONUMBER( STRINGSUB(DD.DamageType, 11) ) or 1
+                    local mult = TONUMBER( STRINGSUB(DamageType, 11) ) or 1
                     self.DamageData.DamageAmount = DD.DamageAmount * mult
 
                 end
             end
 
-            if ScenarioInfo.ProjectileDialog then
+            if ProjectileDialog then
         
-                LOG("*AI DEBUG Projectile OnImpact targetType is "..repr(targetType).." data is "..repr(DD).." at "..GetGameTick() )
+                LOG("*AI DEBUG Projectile OnImpact targetType is "..repr(targetType).." damage data is "..repr(DD.DamageAmount).." at "..GetGameTick() )
 			
                 if targetEntity then
                     LOG("*AI DEBUG Projectile OnImpact Target entity is "..repr(targetEntity.BlueprintID))

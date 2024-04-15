@@ -3,10 +3,20 @@
 local EmitterProjectile = import('/lua/sim/defaultprojectiles.lua').EmitterProjectile
 local OnWaterEntryEmitterProjectile = import('/lua/sim/defaultprojectiles.lua').OnWaterEntryEmitterProjectile
 local SingleBeamProjectile = import('/lua/sim/defaultprojectiles.lua').SingleBeamProjectile
-local MultiBeamProjectile = import('/lua/sim/defaultprojectiles.lua').MultiBeamProjectile
+
+--local MultiBeamProjectile = import('/lua/sim/defaultprojectiles.lua').MultiBeamProjectile
 local SinglePolyTrailProjectile = import('/lua/sim/defaultprojectiles.lua').SinglePolyTrailProjectile
 local MultiPolyTrailProjectile = import('/lua/sim/defaultprojectiles.lua').MultiPolyTrailProjectile 
 local SingleCompositeEmitterProjectile = import('/lua/sim/defaultprojectiles.lua').SingleCompositeEmitterProjectile
+
+local EmitterProjectileOnCreate                 = EmitterProjectile.OnCreate
+local EmitterProjectileOnImpact                 = EmitterProjectile.OnImpact
+local OnWaterEntryEmitterProjectileOnCreate     = OnWaterEntryEmitterProjectile.OnCreate
+local OnWaterEntryEmitterProjectileOnEnterWater = OnWaterEntryEmitterProjectile.OnEnterWater
+local SingleBeamProjectileOnCreate              = SingleBeamProjectile.OnCreate
+local SingleBeamProjectileOnImpact              = SingleBeamProjectile.OnImpact
+local SinglePolyTrailProjectileOnCreate         = SinglePolyTrailProjectile.OnCreate
+local SinglePolyTrailProjectileOnImpact         = SinglePolyTrailProjectile.OnImpact
 
 local NullShells = import('/lua/sim/defaultprojectiles.lua').NullShell
 local DepthCharge = import('/lua/defaultantiprojectile.lua').DepthCharge
@@ -25,6 +35,8 @@ local ForkThread = ForkThread
 
 local Random = Random
 local SetCollisionShape = moho.entity_methods.SetCollisionShape
+local StayUnderwater    = moho.projectile_methods.StayUnderwater
+local TrackTarget       = moho.projectile_methods.TrackTarget
 
 local LOUDSIN = math.sin
 local LOUDCOS = math.cos
@@ -74,7 +86,7 @@ CIFProtonBombProjectile = Class(NullShells) {
                 :SetVelocity(blanketVelocity):SetAcceleration(-0.3)
         end
 
-        EmitterProjectile.OnImpact(self, targetType, targetEntity)
+        EmitterProjectileOnImpact(self, targetType, targetEntity)
     end,
 }
 
@@ -310,7 +322,9 @@ CIFMolecularResonanceShell = Class(SinglePolyTrailProjectile) {
     FxImpactLand = EffectTemplate.CMolecularResonanceHitUnit01,
 
     OnCreate = function(self)
-        SinglePolyTrailProjectile.OnCreate(self)
+
+        SinglePolyTrailProjectileOnCreate(self)
+
         self.Impacted = false
     end,
 
@@ -324,10 +338,14 @@ CIFMolecularResonanceShell = Class(SinglePolyTrailProjectile) {
         if self.Impacted == false then
             self.Impacted = true
             if TargetType == 'Terrain' then
-                SinglePolyTrailProjectile.OnImpact(self, TargetType, TargetEntity)
+
+                SinglePolyTrailProjectileOnImpact(self, TargetType, TargetEntity)
+
                 self:ForkThread( self.DelayedDestroyThread )
             else
-                SinglePolyTrailProjectile.OnImpact(self, TargetType, TargetEntity)
+
+                SinglePolyTrailProjectileOnImpact(self, TargetType, TargetEntity)
+
                 self:Destroy()
             end
         end
@@ -408,7 +426,7 @@ CMissileAAProjectile = Class(SingleCompositeEmitterProjectile) {
     
         SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
         
-        SingleBeamProjectile.OnCreate(self)
+        SingleBeamProjectileOnCreate(self)
     end,
 }
 
@@ -432,7 +450,7 @@ CNeutronClusterBombProjectile = Class(SinglePolyTrailProjectile) {
     ChildProjectile = '/projectiles/CIFNeutronClusterBomb02/CIFNeutronClusterBomb02_proj.bp',
 
     OnCreate = function(self)
-        SinglePolyTrailProjectile.OnCreate(self)
+        SinglePolyTrailProjectileOnCreate(self)
         self.Impacted = false
     end,
 
@@ -457,7 +475,8 @@ CNeutronClusterBombProjectile = Class(SinglePolyTrailProjectile) {
             self:CreateChildProjectile(self.ChildProjectile):SetVelocity(-Random(1,2),Random(1,3),-Random(1,2))
             self:CreateChildProjectile(self.ChildProjectile):SetVelocity(-Random(1.5,2.5),Random(1,3),0)
             self:CreateChildProjectile(self.ChildProjectile):SetVelocity(-Random(1,2),Random(1,3),Random(2,4))
-            SinglePolyTrailProjectile.OnImpact(self, TargetType, TargetEntity)
+
+            SinglePolyTrailProjectileOnImpact(self, TargetType, TargetEntity)
         end
     end,
     
@@ -544,14 +563,14 @@ CLOATacticalChildMissileProjectile = Class(SingleBeamProjectile) {
     
         SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
         
-        SingleBeamProjectile.OnCreate(self)
+        SingleBeamProjectileOnCreate(self)
     end,
     
     OnImpact = function(self, targetType, targetEntity)
 
         CreateLightParticle( self, -1, self.Army, 1, 7, 'glow_03', 'ramp_fire_11' ) 
         
-        SingleBeamProjectile.OnImpact(self, targetType, targetEntity)
+        SingleBeamProjectileOnImpact(self, targetType, targetEntity)
     end,
 
     OnExitWater = function(self)
@@ -601,18 +620,20 @@ CTorpedoShipProjectile = Class(OnWaterEntryEmitterProjectile) {
 
     OnCreate = function(self, inWater)
     
-        OnWaterEntryEmitterProjectile.OnCreate(self, inWater)
+        OnWaterEntryEmitterProjectileOnCreate(self, inWater)
         
         -- if we are starting in the water then immediately switch to tracking in water
         if inWater == true then
-            self:TrackTarget(true):StayUnderwater(true)
+            TrackTarget(self,true)
+            StayUnderwater(self,true)
+
             self:OnEnterWater(self)
         end
     end,
     
     OnEnterWater = function(self)
     
-        OnWaterEntryEmitterProjectile.OnEnterWater(self)
+        OnWaterEntryEmitterProjectileOnEnterWater(self)
         
         SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
     end,     
@@ -633,7 +654,7 @@ CTorpedoSubProjectile = Class(EmitterProjectile) {
     
         SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
         
-        EmitterProjectile.OnCreate(self, inWater)
+        EmitterProjectileOnCreate(self, inWater)
     end,
 }
 
@@ -653,14 +674,14 @@ CDepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
 
     OnCreate = function(self, inWater)
 	
-        OnWaterEntryEmitterProjectile.OnCreate(self)
+        OnWaterEntryEmitterProjectileOnCreate(self)
      
-        self:TrackTarget(false)
+        TrackTarget(self,false)
     end,
 
     OnEnterWater = function(self)
 	
-        OnWaterEntryEmitterProjectile.OnEnterWater(self)
+        OnWaterEntryEmitterProjectileOnEnterWater(self)
 
         for k, v in self.FxEnterWater do
             CreateEmitterAtEntity( self, self.Army, v )

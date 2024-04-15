@@ -1,14 +1,26 @@
 ---  /lua/aeonprojectiles.lua
+local DefaultProjectile = import('/lua/sim/defaultprojectiles.lua')
 
-local EmitterProjectile = import('/lua/sim/defaultprojectiles.lua').EmitterProjectile
-local OnWaterEntryEmitterProjectile = import('/lua/sim/defaultprojectiles.lua').OnWaterEntryEmitterProjectile
-local SingleBeamProjectile = import('/lua/sim/defaultprojectiles.lua').SingleBeamProjectile
-local SinglePolyTrailProjectile = import('/lua/sim/defaultprojectiles.lua').SinglePolyTrailProjectile
-local MultiPolyTrailProjectile = import('/lua/sim/defaultprojectiles.lua').MultiPolyTrailProjectile
-local SingleCompositeEmitterProjectile = import('/lua/sim/defaultprojectiles.lua').SingleCompositeEmitterProjectile
-local MultiCompositeEmitterProjectile = import('/lua/sim/defaultprojectiles.lua').MultiCompositeEmitterProjectile
+local EmitterProjectile                     = DefaultProjectile.EmitterProjectile
+local MultiCompositeEmitterProjectile       = DefaultProjectile.MultiCompositeEmitterProjectile
+local MultiPolyTrailProjectile              = DefaultProjectile.MultiPolyTrailProjectile
+local NullShell                             = DefaultProjectile.NullShell
+local OnWaterEntryEmitterProjectile         = DefaultProjectile.OnWaterEntryEmitterProjectile
+local SingleBeamProjectile                  = DefaultProjectile.SingleBeamProjectile
+local SingleCompositeEmitterProjectile      = DefaultProjectile.SingleCompositeEmitterProjectile
+local SinglePolyTrailProjectile             = DefaultProjectile.SinglePolyTrailProjectile
 
-local NullShell = import('/lua/sim/defaultprojectiles.lua').NullShell
+DefaultProjectile = nil
+
+local EmitterProjectileOnCreate                 = EmitterProjectile.OnCreate
+local EmitterProjectileOnImpact                 = EmitterProjectile.OnImpact
+local NullShellOnCreate                         = NullShell.OnCreate
+local OnWaterEntryEmitterProjectileOnCreate     = OnWaterEntryEmitterProjectile.OnCreate
+local OnWaterEntryEmitterProjectileOnEnterWater = OnWaterEntryEmitterProjectile.OnEnterWater
+local SingleBeamProjectileOnCreate              = SingleBeamProjectile.OnCreate
+local SingleCompositeEmitterProjectileOnCreate  = SingleCompositeEmitterProjectile.OnCreate
+local SinglePolyTrailProjectileOnCreate         = SinglePolyTrailProjectile.OnCreate
+
 
 local CreateScorchMarkSplat = import('defaultexplosions.lua').CreateScorchMarkSplat
 
@@ -16,25 +28,28 @@ local DepthCharge = import('/lua/defaultantiprojectile.lua').DepthCharge
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
-local AMissileHit01 = EffectTemplate.AMissileHit01
-local ATorpedoUnitHit01 = EffectTemplate.ATorpedoUnitHit01
+local AMissileHit01             = EffectTemplate.AMissileHit01
+local ATorpedoUnitHit01         = EffectTemplate.ATorpedoUnitHit01
 
-local CreateTrail = CreateTrail
-local CreateEmitterAtEntity = CreateEmitterAtEntity
-local CreateLightParticle = CreateLightParticle
+local CreateTrail               = CreateTrail
+local CreateEmitterAtEntity     = CreateEmitterAtEntity
+local CreateLightParticle       = CreateLightParticle
 
-local DamageArea = DamageArea
-local ForkThread = ForkThread
+local DamageArea                = DamageArea
+local ForkThread                = ForkThread
 
-local LOUDINSERT = table.insert
+local LOUDENTITY                = EntityCategoryContains
+local LOUDINSERT                = table.insert
 
 local SetCollisionShape = moho.entity_methods.SetCollisionShape
+local StayUnderwater    = moho.projectile_methods.StayUnderwater
+local TrackTarget       = moho.projectile_methods.TrackTarget
 
-local TrashBag = TrashBag
-local TrashAdd = TrashBag.Add
-local TrashDestroy = TrashBag.Destroy
+local TrashBag          = TrashBag
+local TrashAdd          = TrashBag.Add
+local TrashDestroy      = TrashBag.Destroy
 
-local WaitTicks = coroutine.yield
+local WaitTicks         = coroutine.yield
 
 ASaintAntiNuke = Class(SinglePolyTrailProjectile) {
 
@@ -108,7 +123,7 @@ ACannonTankProjectile = Class(SingleBeamProjectile) {
 
     OnCreate = function(self)
     
-        SingleBeamProjectile.OnCreate(self)
+        SingleBeamProjectileOnCreate(self)
 		
         if self.PolyTrails then
 			
@@ -131,12 +146,12 @@ ADepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
     FxImpactUnderWater = EffectTemplate.ADepthChargeHitUnderWaterUnit01,
 
     OnCreate = function(self, inWater)
-        OnWaterEntryEmitterProjectile.OnCreate(self)
+        OnWaterEntryEmitterProjectileOnCreate(self)
     end,
 
     OnEnterWater = function(self)
     
-        OnWaterEntryEmitterProjectile.OnEnterWater(self)
+        OnWaterEntryEmitterProjectileOnEnterWater(self)
         
         SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0 )
 		
@@ -199,7 +214,7 @@ AIMFlareProjectile = Class(EmitterProjectile) {
 
     OnImpact = function(self, TargetType, targetEntity)
 	
-        EmitterProjectile.OnImpact(self, TargetType, targetEntity)
+        EmitterProjectileOnImpact(self, TargetType, targetEntity)
 		
         if TargetType == 'Terrain' or TargetType == 'Water' or TargetType == 'Prop' then
             if self.Trash then
@@ -336,7 +351,7 @@ AMissileCruiseSubProjectile = Class(EmitterProjectile) {
     
         SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0 )
         
-        SinglePolyTrailProjectile.OnCreate(self)
+        SinglePolyTrailProjectileOnCreate(self)
     end,
 }
 
@@ -355,7 +370,7 @@ AMissileSerpentineProjectile = Class(SingleCompositeEmitterProjectile) {
     
         SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0 )
         
-        SingleCompositeEmitterProjectile.OnCreate(self)
+        SingleCompositeEmitterProjectileOnCreate(self)
     end,
 }
 
@@ -374,7 +389,7 @@ AMissileSerpentine02Projectile = Class(SingleCompositeEmitterProjectile) {
     
         SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0 )
         
-        SingleCompositeEmitterProjectile.OnCreate(self)
+        SingleCompositeEmitterProjectileOnCreate(self)
     end,
 }
 
@@ -435,7 +450,8 @@ AAAQuantumDisplacementCannonProjectile = Class(NullShell) {
     FxInvisible = '/effects/emitters/sparks_08_emit.bp',
 
     OnCreate = function(self)
-        NullShell.OnCreate(self)
+
+        NullShellOnCreate(self)
 
         self.TrailEmitters = {}
 
@@ -526,7 +542,7 @@ AQuarkBombProjectile = Class(EmitterProjectile) {
             DamageArea( self, pos, self.DamageData.DamageRadius - 1, 1, 'Force', true )            
         end        
 
-        EmitterProjectile.OnImpact( self, targetType, targetEntity )
+        EmitterProjectileOnImpact( self, targetType, targetEntity )
     end,
 }
 
@@ -630,74 +646,105 @@ ATemporalFizzAAProjectile = Class(SingleCompositeEmitterProjectile) {
 
 ATorpedoShipProjectile = Class(OnWaterEntryEmitterProjectile) {
 
-    --FxInitial = {},
     FxTrails = {'/effects/emitters/torpedo_munition_trail_01_emit.bp',},
+
     FxTrailScale = 1,
-    TrailDelay = 0,
-    TrackTime = 0,
+    TrailDelay = 2,
 
-    FxUnitHitScale = 1.25,
+    FxUnitHitScale = 1.1,
+    
+    FxEnterWater= { '/effects/emitters/water_splash_ripples_ring_01_emit.bp'},
+    FxSplashScale = 0.65,
 
-    FxImpactUnit = ATorpedoUnitHit01,
-    FxImpactProp = ATorpedoUnitHit01,
-    FxImpactUnderWater = EffectTemplate.DefaultProjectileUnderWaterImpact,
-    FxImpactProjectile = ATorpedoUnitHit01,
-    FxImpactProjectileUnderWater = EffectTemplate.DefaultProjectileUnderWaterImpact,
-    FxKilled = ATorpedoUnitHit01,
+    FxImpactProp                    = ATorpedoUnitHit01,
+    FxImpactUnit                    = ATorpedoUnitHit01,
+    FxImpactUnitUnderWater          = EffectTemplate.ATorpedoUnitHitUnderWater01,
+
+    FxImpactProjectileUnderWater    = EffectTemplate.SUallTorpedoHit,
+
+    FxNoneHitScale = 0.2,
 
     OnCreate = function(self,inWater)
 	
-        OnWaterEntryEmitterProjectile.OnCreate(self,inWater)
+        OnWaterEntryEmitterProjectileOnCreate(self,inWater)
 		
         -- if we are starting in the water then immediately switch to tracking in water
-        if inWater == true then
-            self:TrackTarget(true):StayUnderwater(true)
-            self:OnEnterWater(self)
+        if not inWater then
+
+            TrackTarget(self,false)             -- dont track target while in the air
+
+            self:SetAcceleration( -1 )           -- start slowing down while in the air
+
         else
-            self:TrackTarget(false)
+        
+            SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0 )
+            
         end
+        
     end,
     
     OnEnterWater = function(self)
     
-        OnWaterEntryEmitterProjectile.OnEnterWater(self)
+        OnWaterEntryEmitterProjectileOnEnterWater(self)
         
         SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0 )
+        
+        local bp = __blueprints[self.BlueprintID].Physics
+        
+        self:SetVelocity( 0, -1, 0 )                -- stop and descend in the water
+
+        TrackTarget(self, bp.TrackTarget)           -- restore Target tracking
+
+        self:SetAcceleration( bp.Acceleration )     -- restore blueprint accel
+        
+        self:SetMaxSpeed( bp.MaxSpeed )             -- set maximum speed
+
+        StayUnderwater(self, bp.StayUnderwater)     -- restore
+
     end,    
 }
 
-ATorpedoSubProjectile = Class(OnWaterEntryEmitterProjectile) {
+--ATorpedoCluster = Class(ATorpedoShipProjectile) {}
+--ATorpedoSubProjectile = Class(ATorpedoShipProjectile) {}
 
-    FxTrails = {'/effects/emitters/torpedo_munition_trail_01_emit.bp',},
+QuasarAntiTorpedoChargeSubProjectile = Class(SinglePolyTrailProjectile) {
 
-    FxUnitHitScale = 1.25,
-    FxImpactUnit = ATorpedoUnitHit01,
-    FxImpactProp = ATorpedoUnitHit01,
-    FxImpactUnderWater = ATorpedoUnitHit01,
-    FxImpactProjectileUnderWater = EffectTemplate.DefaultProjectileUnderWaterImpact,
+    FxTrails = false,
+    
+    FxUnderWaterHitScale = 0.4,
 
-    FxNoneHitScale = 1,
+    FxImpactProjectileUnderWater    = EffectTemplate.SUallTorpedoHit,
+
+    PolyTrail = EffectTemplate.SUallTorpedoPolyTrail,
 	
     OnCreate = function(self, inWater)
 	
-        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0 )
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 0.7 )
         
-        EmitterProjectile.OnCreate(self, inWater)
+        SinglePolyTrailProjectileOnCreate(self, inWater)
 		
     end,
-}
 
-QuasarAntiTorpedoChargeSubProjectile = Class(MultiPolyTrailProjectile) {
+    OnCollisionCheck = function( self, other )
+    
+        if LOUDENTITY( categories.TORPEDO, other ) and not (self.Army == other.Army) then
+        
+            SetCollisionShape( other, 'none' )
+            other:SetVelocity( 0 )
+            other:SetDrawScale( 0.1 )
+            
+            SetCollisionShape( self, 'none' )
+            self:SetVelocity( 0 )
 
-    FxImpactLand = EffectTemplate.AQuasarAntiTorpedoHit,
-    FxUnitHitScale = 1.25,
-    FxImpactUnit = EffectTemplate.AQuasarAntiTorpedoHit,
-    FxImpactProp = EffectTemplate.AQuasarAntiTorpedoHit,
-    FxImpactUnderWater = EffectTemplate.AQuasarAntiTorpedoHit,
-    FxImpactProjectileUnderWater = EffectTemplate.AQuasarAntiTorpedoHit,
-    FxNoneHitScale = 1,
-    FxImpactNone = EffectTemplate.AQuasarAntiTorpedoHit,
-    PolyTrails= EffectTemplate.AQuasarAntiTorpedoPolyTrails,
+            other:Destroy()            
+            self:Destroy()
+            
+            return true
+        else
+            return false
+        end
+
+    end,    
 }
 
 ABaseTempProjectile = Class(SinglePolyTrailProjectile) {

@@ -7,27 +7,44 @@
 local Entity = import('/lua/sim/Entity.lua').Entity
 local Unit = import('/lua/sim/unit.lua').Unit
 
-local CreateDebrisProjectiles = import('defaultexplosions.lua').CreateDebrisProjectiles
-local CreateDefaultHitExplosion = import('defaultexplosions.lua').CreateDefaultHitExplosion
-local CreateDefaultHitExplosionAtBone = import('defaultexplosions.lua').CreateDefaultHitExplosionAtBone
-local CreateScalableUnitExplosion = import('defaultexplosions.lua').CreateScalableUnitExplosion
-local CreateTimedStuctureUnitExplosion = import('defaultexplosions.lua').CreateTimedStuctureUnitExplosion
-local CreateUnitExplosionEntity = import('defaultexplosions.lua').CreateUnitExplosionEntity
-local GetAverageBoundingXZRadius = import('defaultexplosions.lua').GetAverageBoundingXZRadius
-local GetAverageBoundingXYZRadius = import('defaultexplosions.lua').GetAverageBoundingXYZRadius
+local GetRandomOffset                   = Unit.GetRandomOffset
+
+local UnitOnCreate                      = Unit.OnCreate
+local UnitOnPreCreate                   = Unit.OnPreCreate
+local UnitOnStartBuild                  = Unit.OnStartBuild
+local UnitOnStopBeingBuilt              = Unit.OnStopBeingBuilt
+local UnitOnStopBuild                   = Unit.OnStopBuild
+local UnitOnKilled                      = Unit.OnKilled
+local PlayUnitSound                     = Unit.PlayUnitSound
+local UnitStartBeingBuiltEffects        = Unit.StartBeingBuiltEffects
+local UnitStopBeingBuiltEffects         = Unit.StopBeingBuiltEffects
+
+local DefaultExplosions = import('defaultexplosions.lua')
+
+local CreateDebrisProjectiles               = DefaultExplosions.CreateDebrisProjectiles
+local CreateDefaultHitExplosion             = DefaultExplosions.CreateDefaultHitExplosion
+local CreateDefaultHitExplosionAtBone       = DefaultExplosions.CreateDefaultHitExplosionAtBone
+local CreateScalableUnitExplosion           = DefaultExplosions.CreateScalableUnitExplosion
+local CreateTimedStuctureUnitExplosion      = DefaultExplosions.CreateTimedStuctureUnitExplosion
+local CreateUnitExplosionEntity             = DefaultExplosions.CreateUnitExplosionEntity
+local GetAverageBoundingXZRadius            = DefaultExplosions.GetAverageBoundingXZRadius
+local GetAverageBoundingXYZRadius           = DefaultExplosions.GetAverageBoundingXYZRadius
+
+DefaultExplosions = nil
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
+
 local EffectUtilities = import('/lua/EffectUtilities.lua')
 
-local CleanupEffectBag = EffectUtilities.CleanupEffectBag
-local CreateAdjacencyBeams = EffectUtilities.CreateAdjacencyBeams
-local CreateAeonBuildBaseThread = EffectUtilities.CreateAeonBuildBaseThread
-local CreateBuildCubeThread = EffectUtilities.CreateBuildCubeThread
-local CreateEffects = EffectUtilities.CreateEffects
-local CreateSeraphimBuildBaseThread = EffectUtilities.CreateSeraphimBuildBaseThread
-local CreateUEFUnitBeingBuiltEffects = EffectUtilities.CreateUEFUnitBeingBuiltEffects
-local PlayReclaimEffects = EffectUtilities.PlayReclaimEffects
-local PlayReclaimEndEffects = EffectUtilities.PlayReclaimEndEffects
+local CleanupEffectBag                  = EffectUtilities.CleanupEffectBag
+local CreateAdjacencyBeams              = EffectUtilities.CreateAdjacencyBeams
+local CreateAeonBuildBaseThread         = EffectUtilities.CreateAeonBuildBaseThread
+local CreateBuildCubeThread             = EffectUtilities.CreateBuildCubeThread
+local CreateEffects                     = EffectUtilities.CreateEffects
+local CreateSeraphimBuildBaseThread     = EffectUtilities.CreateSeraphimBuildBaseThread
+local CreateUEFUnitBeingBuiltEffects    = EffectUtilities.CreateUEFUnitBeingBuiltEffects
+local PlayReclaimEffects                = EffectUtilities.PlayReclaimEffects
+local PlayReclaimEndEffects             = EffectUtilities.PlayReclaimEndEffects
 
 local GetMarkers = import('/lua/sim/scenarioutilities.lua').GetMarkers
 
@@ -68,23 +85,26 @@ local VDist3 = VDist3
 local WaitTicks = coroutine.yield
 
 local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
+local MakePlatoon = moho.aibrain_methods.MakePlatoon
+
 local BeenDestroyed = moho.entity_methods.BeenDestroyed
 local DisableIntel = moho.entity_methods.DisableIntel
 local EnableIntel = moho.entity_methods.EnableIntel
-local GetAIBrain = moho.unit_methods.GetAIBrain
 local GetBoneCount = moho.entity_methods.GetBoneCount
 local GetFractionComplete = moho.entity_methods.GetFractionComplete
 local GetPosition = moho.entity_methods.GetPosition
-local GetRandomOffset = Unit.GetRandomOffset
+
+local GetAIBrain = moho.unit_methods.GetAIBrain
+
 local GetWeapon = moho.unit_methods.GetWeapon
 local GetWeaponCount = moho.unit_methods.GetWeaponCount
 local HideBone = moho.unit_methods.HideBone
 local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
-local MakePlatoon = moho.aibrain_methods.MakePlatoon
-local PlayAnim = moho.AnimationManipulator.PlayAnim
 local SetConsumptionPerSecondMass = moho.unit_methods.SetConsumptionPerSecondMass
 local SetProductionActive = moho.unit_methods.SetProductionActive
 local SetProductionPerSecondMass = moho.unit_methods.SetProductionPerSecondMass
+
+local PlayAnim = moho.AnimationManipulator.PlayAnim
 
 local VectorCached = { 0, 0, 0 }
 
@@ -131,7 +151,7 @@ StructureUnit = Class(Unit) {
         Main = function(self)
 
             self:DestroyTarmac()
-            self:PlayUnitSound('UpgradeStart')
+            PlayUnitSound(self,'UpgradeStart')
             self:DisableDefaultToggleCaps()
 
             local bp = __blueprints[self.BlueprintID].Display
@@ -170,7 +190,7 @@ StructureUnit = Class(Unit) {
 
         OnStopBuild = function(self, unitBuilding)
 
-            Unit.OnStopBuild(self, unitBuilding)
+            UnitOnStopBuild(self, unitBuilding)
 
             self:EnableDefaultToggleCaps()
 
@@ -180,7 +200,7 @@ StructureUnit = Class(Unit) {
 
                 self:StopUpgradeEffects(unitBuilding)
 
-                self:PlayUnitSound('UpgradeEnd')
+                PlayUnitSound(self,'UpgradeEnd')
 				self:DoDestroyCallbacks()
                 self:Destroy()
 
@@ -202,7 +222,7 @@ StructureUnit = Class(Unit) {
 
 			end
 
-            self:PlayUnitSound('UpgradeFailed')
+            PlayUnitSound(self,'UpgradeFailed')
 
             self:PlayActiveAnimation()
 
@@ -215,14 +235,14 @@ StructureUnit = Class(Unit) {
 
     OnCreate = function(self)
 
-        Unit.OnCreate(self)
+        UnitOnCreate(self)
 
 		-- ALL STRUCTURES now cache their position - as it never changes
-		self.CachePosition = LOUDCOPY(moho.entity_methods.GetPosition(self))
+		self.CachePosition = LOUDCOPY(GetPosition(self))
 
         if self.CacheLayer == 'Land' then
-
-			local bp = __blueprints[self.BlueprintID]
+        
+            local bp = __blueprints[self.BlueprintID]
 
 			if bp.Physics.FlattenSkirt then
 				self:FlattenSkirt(bp)
@@ -603,7 +623,7 @@ StructureUnit = Class(Unit) {
 
     OnStartBuild = function(self, unitBeingBuilt, order )
 
-        Unit.OnStartBuild(self,unitBeingBuilt, order)
+        UnitOnStartBuild(self,unitBeingBuilt, order)
         
 		self.UnitBeingBuilt = unitBeingBuilt
 
@@ -617,7 +637,8 @@ StructureUnit = Class(Unit) {
 
     OnStopBeingBuilt = function(self,builder,layer)
 
-        Unit.OnStopBeingBuilt(self,builder,layer)
+        UnitOnStopBeingBuilt(self,builder,layer)
+
         self:PlayActiveAnimation()
     end,
 
@@ -786,7 +807,7 @@ StructureUnit = Class(Unit) {
 
     StartBeingBuiltEffects = function(self, builder, layer)
 
-		Unit.StartBeingBuiltEffects(self, builder, layer)
+		UnitStartBeingBuiltEffects(self, builder, layer)
 
 		local bp = __blueprints[self.BlueprintID].General
 
@@ -825,7 +846,7 @@ StructureUnit = Class(Unit) {
             self:HideLandBones()
         end
 
-		Unit.StopBeingBuiltEffects(self, builder, layer)
+		UnitStopBeingBuiltEffects(self, builder, layer)
     end,
 
     StartUpgradeEffects = function(self, unitBeingBuilt)
@@ -849,7 +870,7 @@ StructureUnit = Class(Unit) {
 			self:DestroyTarmac()
 		end
 
-        Unit.OnKilled(self, instigator, type, overkillRatio)
+        UnitOnKilled(self, instigator, type, overkillRatio)
     end,
 
     -- When we're adjacent, try all the possible bonuses.
@@ -948,11 +969,17 @@ StructureUnit = Class(Unit) {
     end,
 }
 
+local StructureUnitOnCreate             = StructureUnit.OnCreate
+local StructureUnitOnKilled             = StructureUnit.OnKilled
+local StructureUnitOnStopBeingBuilt     = StructureUnit.OnStopBeingBuilt
+local StructureUnitOnStartBuild         = StructureUnit.OnStartBuild
+local StructureUnitOnStopBuild          = StructureUnit.OnStopBuild
+
 MobileUnit = Class(Unit) {
 
 	OnPreCreate = function(self)
 
-		Unit.OnPreCreate(self)
+		UnitOnPreCreate(self)
 
 		self.TransportClass = __blueprints[self.BlueprintID].Transport.TransportClass or false
 	end,
@@ -1010,30 +1037,30 @@ MobileUnit = Class(Unit) {
             
         end
         
-        Unit.OnKilled(self, instigator, type, overkillRatio)
+        UnitOnKilled(self, instigator, type, overkillRatio)
     end,
 
 	-- when you start capturing a unit
     OnStartCapture = function(self, target)
         self:DoUnitCallbacks( 'OnStartCapture', target )
         self:StartCaptureEffects(target)
-        --self:PlayUnitSound('StartCapture')
-        --self:PlayUnitAmbientSound('CaptureLoop')
+        PlayUnitSound(self,'StartCapture')
+        self:PlayUnitAmbientSound('CaptureLoop')
     end,
 
 	-- when you capture a unit
     OnStopCapture = function(self, target)
         self:DoUnitCallbacks( 'OnStopCapture', target )
         self:StopCaptureEffects(target)
-        --self:PlayUnitSound('StopCapture')
-        --self:StopUnitAmbientSound('CaptureLoop')
+        PlayUnitSound(self,'StopCapture')
+        self:StopUnitAmbientSound('CaptureLoop')
     end,
 
 	-- when you fail to capture a unit
     OnFailedCapture = function(self, target)
         self:DoUnitCallbacks( 'OnFailedCapture', target )
         self:StopCaptureEffects(target)
-        --self:PlayUnitSound('FailedCapture')
+        PlayUnitSound(self,'FailedCapture')
     end,
 
     StartCaptureEffects = function( self, target )
@@ -1079,7 +1106,7 @@ MobileUnit = Class(Unit) {
 
 		TrashAdd( self.ReclaimEffectsBag, self:ForkThread( self.CreateReclaimEffects, target ) )
 
-        self:PlayUnitSound('StartReclaim')
+        PlayUnitSound(self,'StartReclaim')
 		
 		if IsUnit(target) and not target.BeingReclaimed then
 		
@@ -1110,7 +1137,7 @@ MobileUnit = Class(Unit) {
 		end
 
 		--self:StopUnitAmbientSound('ReclaimLoop')
-		--self:PlayUnitSound('StopReclaim')
+		--PlayUnitSound(self,'StopReclaim')
     end,
 	
     CreateReclaimEffects = function( self, target )
@@ -1423,17 +1450,17 @@ MobileUnit = Class(Unit) {
                         if x and x > 0 then
 
                             if CacheLayer != 'Seabed' then
-                                self:PlayUnitSound('FootFallLeft')
+                                PlayUnitSound(self,'FootFallLeft')
                             else
-                                self:PlayUnitSound('FootFallLeftSeabed')
+                                PlayUnitSound(self,'FootFallLeftSeabed')
                             end
 
                         elseif x and x < 0 then
 
                             if CacheLayer != 'Seabed' then
-                                self:PlayUnitSound('FootFallRight')
+                                PlayUnitSound(self,'FootFallRight')
                             else
-                                self:PlayUnitSound('FootFallRightSeabed')
+                                PlayUnitSound(self,'FootFallRightSeabed')
                             end
                         end
                     end
@@ -1446,9 +1473,9 @@ MobileUnit = Class(Unit) {
                     end
 
                     if CacheLayer != 'Seabed' then
-                        self:PlayUnitSound('FootFallGeneric')
+                        PlayUnitSound(self,'FootFallGeneric')
                     else
-                        self:PlayUnitSound('FootFallGenericSeabed')
+                        PlayUnitSound(self,'FootFallGenericSeabed')
                     end
                 end
             end
@@ -1459,13 +1486,15 @@ MobileUnit = Class(Unit) {
 	
 		-- If SimSpeed drops too low -- curtail movement effects
 		if Sync.SimData.SimSpeed < 0 then return end
+        
+        local MotionEffects = __blueprints[self.BlueprintID].Display.MotionChangeEffects or false
 
-		if __blueprints[self.BlueprintID].Display.MotionChangeEffects then
+		if MotionEffects then
 
-			local bptable = __blueprints[self.BlueprintID].Display.MotionChangeEffects[self.CacheLayer..old..new] or false
+			local Effects = MotionEffects[self.CacheLayer..old..new] or false
 
 			if bpTable then
-				self:CreateTerrainTypeEffects( bpTable.Effects, 'FXMotionChange', key )
+				self:CreateTerrainTypeEffects( Effects, 'FXMotionChange', key, nil, self.IdleEffectsBag )
 			end
 		end
     end,
@@ -1602,7 +1631,7 @@ MobileUnit = Class(Unit) {
 
 	OnStopBeingBuilt = function(self, builder, layer)
 		
-		Unit.OnStopBeingBuilt(self, builder, layer)
+		UnitOnStopBeingBuilt(self, builder, layer)
 		
         if self.CacheLayer == 'Water' then
 
@@ -1717,7 +1746,7 @@ MobileUnit = Class(Unit) {
 
         if ( old == 'Stopped' or (old == 'Stopping' and (new == 'Cruise' or new == 'TopSpeed'))) then
 
-            self:PlayUnitSound('StartMove')
+            PlayUnitSound( self,'StartMove')
 
             --self:PlayUnitAmbientSound('AmbientMove')
 
@@ -1732,7 +1761,7 @@ MobileUnit = Class(Unit) {
 
 			if (old == 'Cruise' or old == 'TopSpeed') then
 
-				self:PlayUnitSound('StopMove')
+				PlayUnitSound( self, 'StopMove')
 
 				if self.CacheLayer == 'Water' then
 					self:StartRocking()
@@ -1767,11 +1796,11 @@ MobileUnit = Class(Unit) {
 			local layer = self.CacheLayer
 
             if new == 'Up' and layer == 'Sub' then
-                self:PlayUnitSound('SurfaceStart')
+                PlayUnitSound(self,'SurfaceStart')
             end
 
             if new == 'Down' and layer == 'Water' then
-                self:PlayUnitSound('SubmergeStart')
+                PlayUnitSound(self,'SubmergeStart')
                 if self.SurfaceAnimator then
                     self.SurfaceAnimator:SetRate(-1)
                 end
@@ -1784,11 +1813,11 @@ MobileUnit = Class(Unit) {
 			local layer = self.CacheLayer
 
             if new == 'Bottom' and layer == 'Sub' then
-                self:PlayUnitSound('SubmergeEnd')
+                PlayUnitSound(self,'SubmergeEnd')
             end
 
             if new == 'Top' and layer == 'Water' then
-                self:PlayUnitSound('SurfaceEnd')
+                PlayUnitSound(self,'SurfaceEnd')
                 local surfaceAnim = __blueprints[self.BlueprintID].Display.AnimationSurface
 
                 if not self.SurfaceAnimator and surfaceAnim then
@@ -1847,11 +1876,17 @@ MobileUnit = Class(Unit) {
     end,
 }
 
+local MobileUnitOnKilled                = MobileUnit.OnKilled
+local MobileUnitOnLayerChange           = MobileUnit.OnLayerChange
+local MobileUnitOnPreCreate             = MobileUnit.OnPreCreate
+local MobileUnitOnMotionHorzEventChange = MobileUnit.OnMotionHorzEventChange
+local MobileUnitOnMotionVertEventChange = MobileUnit.OnMotionVertEventChange
+
 FactoryUnit = Class(StructureUnit) {
 
     OnCreate = function(self)
 
-        StructureUnit.OnCreate(self)
+        StructureUnitOnCreate(self)
         self.BuildingUnit = false
 
     end,
@@ -1886,7 +1921,7 @@ FactoryUnit = Class(StructureUnit) {
 
     OnStartBuild = function(self, unitBeingBuilt, order )
 
-        StructureUnit.OnStartBuild(self, unitBeingBuilt, order )
+        StructureUnitOnStartBuild(self, unitBeingBuilt, order )
         
         self.BuildingUnit = true
 
@@ -1901,7 +1936,7 @@ FactoryUnit = Class(StructureUnit) {
 
     OnStopBuild = function(self, unitBeingBuilt, order )
 
-        StructureUnit.OnStopBuild(self, unitBeingBuilt, order )
+        StructureUnitOnStopBuild(self, unitBeingBuilt, order )
 
         if not self.FactoryBuildFailed then
 
@@ -2176,7 +2211,7 @@ FactoryUnit = Class(StructureUnit) {
 
     OnKilled = function(self, instigator, type, overkillRatio)
 
-        StructureUnit.OnKilled(self, instigator, type, overkillRatio)
+        StructureUnitOnKilled(self, instigator, type, overkillRatio)
 
         if self.UnitBeingBuilt and not BeenDestroyed(self.UnitBeingBuilt) and GetFractionComplete(self.UnitBeingBuilt) < 1 then
 
@@ -2188,7 +2223,7 @@ FactoryUnit = Class(StructureUnit) {
 
 	OnStopBeingBuilt = function(self,builder,layer)
 
-       StructureUnit.OnStopBeingBuilt(self,builder,layer)
+       StructureUnitOnStopBeingBuilt(self,builder,layer)
 
 	end,
 }
@@ -2312,7 +2347,7 @@ QuantumGateUnit = Class(FactoryUnit) {
 		self.TeleportInProgress = false		-- true when a teleport is currently underway
 
 		-- bubble event
-		Unit.OnStopBeingBuilt(self, builder, layer)
+		UnitOnStopBeingBuilt(self, builder, layer)
 	end,
 
 
@@ -2360,7 +2395,7 @@ QuantumGateUnit = Class(FactoryUnit) {
 		end
 
 		-- bubble event
-		Unit.OnKilled(self, instigator, type, overkillRatio)
+		UnitOnKilled(self, instigator, type, overkillRatio)
 	end,
 
 
@@ -2710,7 +2745,7 @@ AirStagingPlatformUnit = Class(StructureUnit) {
 
 	OnCreate = function(self)
 
-		StructureUnit.OnCreate(self)
+		StructureUnitOnCreate(self)
 
 		--self.EventCallbacks.OnTransportDetach = {}
 		--self.EventCallbacks.OnTransportAttach = {}
@@ -2756,7 +2791,7 @@ AirStagingPlatformUnit = Class(StructureUnit) {
 ConcreteStructureUnit = Class(StructureUnit) {
 
     OnCreate = function(self)
-        StructureUnit.OnCreate(self)
+        StructureUnitOnCreate(self)
         self:Destroy()
     end
 }
@@ -2815,7 +2850,7 @@ WallStructureUnit = Class(StructureUnit) {
 
         CreateScalableUnitExplosion( self, overkillRatio )
 
-		self:PlayUnitSound('Destroyed')
+		PlayUnitSound( self, 'Destroyed')
 
 		self:CreateWreckageProp( overkillRatio )
 
@@ -2837,7 +2872,7 @@ EnergyCreationUnit = Class(StructureUnit) {
             end
         end
 
-		Unit.OnStopBeingBuilt(self,builder,layer)
+		UnitOnStopBeingBuilt(self,builder,layer)
     end,
 }
 
@@ -2864,14 +2899,14 @@ MassCollectionUnit = Class(StructureUnit) {
 
     OnStopBeingBuilt = function(self,builder,layer)
 
-        StructureUnit.OnStopBeingBuilt(self,builder,layer)
+        StructureUnitOnStopBeingBuilt(self,builder,layer)
         
         self:SetMaintenanceConsumptionActive()
     end,
 
     OnStartBuild = function(self, unitbuilding, order)
 
-        StructureUnit.OnStartBuild(self, unitbuilding, order)
+        StructureUnitOnStartBuild(self, unitbuilding, order)
 
         self:AddCommandCap('RULEUCC_Stop')
 
@@ -2883,7 +2918,7 @@ MassCollectionUnit = Class(StructureUnit) {
 
     OnStopBuild = function(self, unitbuilding, order)
 
-        StructureUnit.OnStopBuild(self, unitbuilding, order)
+        StructureUnitOnStopBuild(self, unitbuilding, order)
 
         self:RemoveCommandCap('RULEUCC_Stop')
 
@@ -2971,7 +3006,7 @@ MassFabricationUnit = Class(StructureUnit) {
 
     OnStopBeingBuilt = function(self,builder,layer)
 
-        StructureUnit.OnStopBeingBuilt(self,builder,layer)
+        StructureUnitOnStopBeingBuilt(self,builder,layer)
         
         self:SetMaintenanceConsumptionActive()
 
@@ -3042,7 +3077,7 @@ RadarUnit = Class(StructureUnit) {
 
     OnStopBeingBuilt = function(self,builder,layer)
 
-        StructureUnit.OnStopBeingBuilt(self,builder,layer)
+        StructureUnitOnStopBeingBuilt(self,builder,layer)
         self:SetMaintenanceConsumptionActive()
     end,
 
@@ -3066,7 +3101,7 @@ RadarJammerUnit = Class(StructureUnit) {
     -- Shut down intel while upgrading
     OnStartBuild = function(self, unitbuilding, order)
 
-        StructureUnit.OnStartBuild(self, unitbuilding, order)
+        StructureUnitOnStartBuild(self, unitbuilding, order)
 
         self:SetMaintenanceConsumptionInactive()
         self:DisableIntel('Jammer')
@@ -3077,7 +3112,7 @@ RadarJammerUnit = Class(StructureUnit) {
     -- If we abort the upgrade, re-enable the intel
     OnStopBuild = function(self, unitBeingBuilt)
 
-        StructureUnit.OnStopBuild(self, unitBeingBuilt)
+        StructureUnitOnStopBuild(self, unitBeingBuilt)
 
         self:SetMaintenanceConsumptionActive()
         self:EnableIntel('Jammer')
@@ -3088,7 +3123,7 @@ RadarJammerUnit = Class(StructureUnit) {
     -- If we abort the upgrade, re-enable the intel
     OnFailedToBuild = function(self)
 
-        StructureUnit.OnStopBuild(self)
+        StructureUnitOnStopBuild(self)
 
         self:SetMaintenanceConsumptionActive()
         self:EnableIntel('Jammer')
@@ -3098,7 +3133,7 @@ RadarJammerUnit = Class(StructureUnit) {
 
     OnStopBeingBuilt = function(self,builder,layer)
 
-        StructureUnit.OnStopBeingBuilt(self,builder,layer)
+        StructureUnitOnStopBeingBuilt(self,builder,layer)
         self:SetMaintenanceConsumptionActive()
 
     end,
@@ -3134,7 +3169,7 @@ SonarUnit = Class(StructureUnit) {
 
     OnStopBeingBuilt = function(self,builder,layer)
 
-        StructureUnit.OnStopBeingBuilt(self,builder,layer)
+        StructureUnitOnStopBeingBuilt(self,builder,layer)
         self:SetMaintenanceConsumptionActive()
     end,
 
@@ -3184,7 +3219,7 @@ TransportBeaconUnit = Class(StructureUnit) {
     end,
 
     OnCreate = function(self)
-        StructureUnit.OnCreate(self)
+        StructureUnitOnCreate(self)
         self:SetCapturable(false)
         self:SetReclaimable(false)
     end,
@@ -3201,7 +3236,7 @@ WalkingLandUnit = Class(MobileUnit) {
     DeathAnim = false,
 
 	OnPreCreate = function(self)
-		MobileUnit.OnPreCreate(self)
+		MobileUnitOnPreCreate(self)
 	end,
 
     OnCmdrUpgradeFinished = function(self)
@@ -3216,7 +3251,7 @@ WalkingLandUnit = Class(MobileUnit) {
 
 		if not self.Dead then
 
-			MobileUnit.OnMotionHorzEventChange(self, new, old)
+			MobileUnitOnMotionHorzEventChange(self, new, old)
 
 			if ( old == 'Stopped' ) then
 
@@ -3262,7 +3297,7 @@ WalkingLandUnit = Class(MobileUnit) {
 	end,
     
     OnKilled = function(self, instigator, type, overkillRatio)
-        MobileUnit.OnKilled(self, instigator, type, overkillRatio) 
+        MobileUnitOnKilled(self, instigator, type, overkillRatio) 
     end,
 }
 
@@ -3302,7 +3337,7 @@ SubUnit = Class(MobileUnit) {
 
 		end
 
-        MobileUnit.OnKilled(self, instigator, type, overkillRatio)
+        MobileUnitOnKilled(self, instigator, type, overkillRatio)
     end,
 
     DeathThread = function(self, overkillRatio, instigator)
@@ -3473,7 +3508,7 @@ SeaUnit = Class(MobileUnit) {
     
     OnStopBeingBuilt = function(self,builder,layer)
 
-        Unit.OnStopBeingBuilt(self,builder,layer)
+        UnitOnStopBeingBuilt(self,builder,layer)
 
         self:SetMaintenanceConsumptionActive()
     end,
@@ -3492,7 +3527,7 @@ SeaUnit = Class(MobileUnit) {
 			TrashAdd( self.Trash, self.SinkThread )
         end
 
-        MobileUnit.OnKilled(self, instigator, type, overkillRatio)
+        MobileUnitOnKilled(self, instigator, type, overkillRatio)
     end,
 
     DeathThread = function(self, overkillRatio, instigator)
@@ -3668,7 +3703,7 @@ AirUnit = Class(MobileUnit) {
 
     OnCreate = function(self)
 
-        Unit.OnCreate(self)
+        UnitOnCreate(self)
 
         self:AddPingPong()
 
@@ -3744,11 +3779,11 @@ AirUnit = Class(MobileUnit) {
 
     AddPingPong = function(self)
 
-        local bp = __blueprints[self.BlueprintID]
+        local bp = __blueprints[self.BlueprintID].Display
 
-        if bp.Display.PingPongScroller then
+        if bp.PingPongScroller then
 
-            bp = bp.Display.PingPongScroller
+            bp = bp.PingPongScroller
 
             if bp.Ping1 and bp.Ping1Speed and bp.Pong1 and bp.Pong1Speed and bp.Ping2 and bp.Ping2Speed
                 and bp.Pong2 and bp.Pong2Speed then
@@ -3763,7 +3798,7 @@ AirUnit = Class(MobileUnit) {
 
 	OnLayerChange = function (self, new, old )
 
-		MobileUnit.OnLayerChange( self, new, old )
+		MobileUnitOnLayerChange( self, new, old )
 
         local VDist2Sq = VDist2Sq
 		local vis = __blueprints[self.BlueprintID].Intel.VisionRadius or 2
@@ -3841,15 +3876,15 @@ AirUnit = Class(MobileUnit) {
 
 			if (new == 'Down') then
 
-				self:PlayUnitSound('Landing')
+				PlayUnitSound(self,'Landing')
 
 			elseif (new == 'Bottom') or (new == 'Hover') then
 
-				self:PlayUnitSound('Landed')
+				PlayUnitSound(self,'Landed')
 
 			elseif (new == 'Up' or ( new == 'Top' and ( old == 'Down' or old == 'Bottom' ))) then
 
-				self:PlayUnitSound('TakeOff')
+				PlayUnitSound(self,'TakeOff')
 
 			end
 
@@ -3864,7 +3899,7 @@ AirUnit = Class(MobileUnit) {
 
 		end
 
-		MobileUnit.OnMotionVertEventChange( self, new, old )
+		MobileUnitOnMotionVertEventChange( self, new, old )
 
     end,
 
@@ -3901,7 +3936,7 @@ AirUnit = Class(MobileUnit) {
 	-- this fires only when the unit attaches to an airpad
     OnStartRefueling = function(self)
 
-        self:PlayUnitSound('Refueling')
+        PlayUnitSound(self,'Refueling')
 		
         self:DoUnitCallbacks('OnStartRefueling')
     end,
@@ -3984,7 +4019,7 @@ AirUnit = Class(MobileUnit) {
 		-- if the air unit impacts water and has seabed wreckage then animate the sinking
         if with == 'Water' and (bp.Wreckage.WreckageLayers['Seabed'] or bp.Wreckage.WreckageLayers['Water']) then
 
-            self:PlayUnitSound('AirUnitWaterImpact')
+            PlayUnitSound(self,'AirUnitWaterImpact')
 
             CreateEffects( self, army, EffectTemplate.DefaultProjectileWaterImpact )
 
@@ -4107,7 +4142,7 @@ AirUnit = Class(MobileUnit) {
 
             self.OverKillRatio = overkillRatio
 
-            self:PlayUnitSound('Killed')
+            PlayUnitSound(self,'Killed')
 
             self:DoUnitCallbacks('OnKilled')
 
@@ -4116,7 +4151,7 @@ AirUnit = Class(MobileUnit) {
             
             self.Impact = true
             
-            MobileUnit.OnKilled(self, instigator, deathtype, overkillRatio)
+            MobileUnitOnKilled(self, instigator, deathtype, overkillRatio)
             
 		-- this is the disintegrate path -- always used when air units are on the ground
         else
@@ -4126,7 +4161,7 @@ AirUnit = Class(MobileUnit) {
 			self.PlayDeathAnimation = false
 			self.DeathWeaponEnabled = false
 			
-			MobileUnit.OnKilled(self, instigator, deathtype, overkillRatio)
+			MobileUnitOnKilled(self, instigator, deathtype, overkillRatio)
         end
 
     end,
@@ -4234,7 +4269,7 @@ ConstructionUnit = Class(MobileUnit) {
 
     OnCreate = function(self)
 
-        Unit.OnCreate(self)
+        UnitOnCreate(self)
 
         if __blueprints[self.BlueprintID].General.BuildBones then
             self:SetupBuildBones()
@@ -4290,7 +4325,7 @@ ConstructionUnit = Class(MobileUnit) {
 
     OnStartBuild = function(self, unitBeingBuilt, order )
 
-        Unit.OnStartBuild(self,unitBeingBuilt, order)
+        UnitOnStartBuild(self,unitBeingBuilt, order)
 
         self.UnitBeingBuilt = unitBeingBuilt
         self.UnitBuildOrder = order
@@ -4308,7 +4343,7 @@ ConstructionUnit = Class(MobileUnit) {
 
     OnStopBuild = function(self, unitBeingBuilt)
 
-        Unit.OnStopBuild(self,unitBeingBuilt)
+        UnitOnStopBuild(self,unitBeingBuilt)
 
         if self.CurrentBuildOrder == 'MobileBuild' then  -- this prevents false positives by assisted enhancing
 

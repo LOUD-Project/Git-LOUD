@@ -248,6 +248,10 @@ FactoryBuilderManager = Class(BuilderManager) {
             
                 local BuilderName = builder.BuilderName
                 local BuildersData = Builders[BuilderName]
+                
+                local PlatoonAddPlans           = BuildersData.PlatoonAddPlans
+                local PlatoonAddBehaviors       = BuildersData.PlatoonAddBehaviors
+                local PlatoonAddFunctions       = BuildersData.PlatoonAddFunctions
             
                 if DisplayFactoryBuilds then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..factory.EntityID.." building "..repr(builder.BuilderName))
@@ -273,17 +277,17 @@ FactoryBuilderManager = Class(BuilderManager) {
                     -- factory plans and behaviors are stored on the factory here
                     -- note how only ONE of each is supported at the moment
                     -- and they are only executed upon COMPLETION of the build
-					if BuildersData.PlatoonAddPlans then
+					if PlatoonAddPlans then
 				
-						for _, papv in BuildersData.PlatoonAddPlans do
+						for _, papv in PlatoonAddPlans do
 					
 							factory.addplan = papv
 						end
 					end
 
-					if BuildersData.PlatoonAddBehaviors then
+					if PlatoonAddBehaviors then
 				
-						for _, papv in BuilderDatas.PlatoonAddBehaviors do
+						for _, papv in PlatoonAddBehaviors do
 					
 							factory.addbehavior = papv
 						end
@@ -300,9 +304,9 @@ FactoryBuilderManager = Class(BuilderManager) {
 
                     -- unlike the Plans & Behaviors, we can execute multiple functions against the factory
                     -- also unlike the above, functions begin executing immediately
-					if BuildersData.PlatoonAddFunctions then
+					if PlatoonAddFunctions then
 				
-						for _, pafv in BuildersData.PlatoonAddFunctions do
+						for _, pafv in PlatoonAddFunctions do
 
 							ForkThread( import( pafv[1])[ pafv[2] ], aiBrain, factory, builder )
 						end
@@ -537,13 +541,16 @@ FactoryBuilderManager = Class(BuilderManager) {
 
             EM:ForkThread( EM.AddEngineerUnit, finishedUnit )
 		end
+        
+        local addplan           = factory.addplan
+        local addbehavior       = factory.addbehavior
 
-		if factory.addplan then
-			finishedUnit:ForkThread( import('/lua/ai/aibehaviors.lua')[factory.addplan], aiBrain )
+		if addplan then
+			finishedUnit:ForkThread( import('/lua/ai/aibehaviors.lua')[addplan], aiBrain )
 		end
 		
-		if factory.addbehavior then
-			finishedUnit:ForkThread( import('/lua/ai/aibehaviors.lua')[factory.addbehavior], aiBrain )
+		if addbehavior then
+			finishedUnit:ForkThread( import('/lua/ai/aibehaviors.lua')[addbehavior], aiBrain )
 		end
         
         local Enhancements = __blueprints[finishedUnit.BlueprintID].Enhancements.Sequence or false

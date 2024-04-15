@@ -2,15 +2,18 @@
 ---  Script for default projectiles
 
 local Projectile = import('/lua/sim/Projectile.lua').Projectile
-local ProjectileOnCreate = Projectile.OnCreate
 
-local LOUDEMITONENTITY = CreateEmitterOnEntity
-local LOUDBEAMEMITONENTITY = CreateBeamEmitterOnEntity
-local LOUDFLOOR = math.floor
-local LOUDGETN = table.getn
-local LOUDTRAIL = CreateTrail
+local ProjectileOnCreate        = Projectile.OnCreate
+local ProjectileOnEnterWater    = Projectile.OnEnterWater
+local ProjectileOnImpact        = Projectile.OnImpact
 
-local WaitTicks = coroutine.yield
+local LOUDEMITONENTITY          = CreateEmitterOnEntity
+local LOUDBEAMEMITONENTITY      = CreateBeamEmitterOnEntity
+local LOUDFLOOR                 = math.floor
+local LOUDGETN                  = table.getn
+local LOUDTRAIL                 = CreateTrail
+
+local WaitTicks                 = coroutine.yield
 
 
 NullShell = Class(Projectile) {}
@@ -47,13 +50,15 @@ EmitterProjectile = Class(Projectile) {
     end,
 }
 
+local EmitterProjectileOnCreate = EmitterProjectile.OnCreate
+
 SingleBeamProjectile = Class(EmitterProjectile) {
 
     BeamName = '/effects/emitters/default_beam_01_emit.bp',
 
     OnCreate = function(self)
 
-        EmitterProjectile.OnCreate(self)
+        EmitterProjectileOnCreate(self)
 
         if self.BeamName then
             LOUDBEAMEMITONENTITY( self, -1, self.Army, self.BeamName )
@@ -67,7 +72,7 @@ MultiBeamProjectile = Class(EmitterProjectile) {
 
     OnCreate = function(self)
     
-        EmitterProjectile.OnCreate(self)
+        EmitterProjectileOnCreate(self)
         
         LOUDBEAMEMITONENTITY = LOUDBEAMEMITONENTITY
 		
@@ -79,13 +84,13 @@ MultiBeamProjectile = Class(EmitterProjectile) {
 
 SinglePolyTrailProjectile = Class(EmitterProjectile) {
 
-    PolyTrail = '/effects/emitters/test_missile_trail_emit.bp',
+    PolyTrails = '/effects/emitters/test_missile_trail_emit.bp',
 
     OnCreate = function(self)
     
-        EmitterProjectile.OnCreate(self)
+        EmitterProjectileOnCreate(self)
 	
-        if self.PolyTrail then
+        if self.PolyTrails then
         
             if self.PolytrailOffset then
                 LOUDTRAIL(self, -1, self.Army, self.PolyTrail):OffsetEmitter(0, 0, self.PolyTrailOffset)
@@ -104,7 +109,7 @@ MultiPolyTrailProjectile = Class(EmitterProjectile) {
 
     OnCreate = function(self)
     
-        EmitterProjectile.OnCreate(self)
+        EmitterProjectileOnCreate(self)
 		
         if self.PolyTrails then
 		
@@ -190,11 +195,11 @@ OnWaterEntryEmitterProjectile = Class(Projectile) {
 		
         if inWater then
         
-            local Army = self.Army
+            local Army      = self.Army
+            local FxTrails  = self.FxTrails or false
+            local PolyTrail = self.PolyTrail or false
 		
-            if self.FxTrails then
-            
-                local FxTrails = self.FxTrails
+            if FxTrails then
                 
                 LOUDEMITONENTITY = LOUDEMITONENTITY
             
@@ -212,52 +217,65 @@ OnWaterEntryEmitterProjectile = Class(Projectile) {
                 end
             end
 			
-			if self.PolyTrail then
+			if PolyTrail then
             
                 if self.PolyTrailOffset then
-                    LOUDTRAIL(self, -1, Army, self.PolyTrail):OffsetEmitter(0, 0, self.PolyTrailOffset)
+                    LOUDTRAIL(self, -1, Army, PolyTrail):OffsetEmitter(0, 0, self.PolyTrailOffset)
                 else
-                    LOUDTRAIL(self, -1, Army, self.PolyTrail)
+                    LOUDTRAIL(self, -1, Army, PolyTrail)
                 end
 			end
 			
 		end
+        
     end,
 
     EnterWaterThread = function(self)
-	
-        WaitTicks(self.TrailDelay)
 
         local Army = self.Army
         
-        if self.FxTrails then
+        local FxEnterWater  = self.FxEnterWater or false
+        local FxTrails      = self.FxTrails or false
+        local PolyTrail     = self.PolyTrail or false
+		
+        if FxEnterWater then
+
+            for k, v in FxEnterWater do
+                CreateEmitterAtEntity(self, Army, v):ScaleEmitter(self.FxSplashScale or 1)
+			end
+        end
+	
+        WaitTicks(self.TrailDelay)
+
+        if FxTrails then
         
             LOUDEMITONENTITY = LOUDEMITONENTITY
         
-            for i in self.FxTrails do
+            for i in FxTrails do
             
                 if self.FxTrailOffset then
-                    LOUDEMITONENTITY(self, Army, self.FxTrails[i]):ScaleEmitter(self.FxTrailScale):OffsetEmitter(0, 0, self.FxTrailOffset)
+                    LOUDEMITONENTITY(self, Army, FxTrails[i]):ScaleEmitter(self.FxTrailScale):OffsetEmitter(0, 0, self.FxTrailOffset)
                 else
-                    LOUDEMITONENTITY(self, Army, self.FxTrails[i]):ScaleEmitter(self.FxTrailScale)
+                    LOUDEMITONENTITY(self, Army, FxTrails[i]):ScaleEmitter(self.FxTrailScale)
                 end
             end
         end
 		
-        if self.PolyTrail then
+        if PolyTrail then
         
             if self.PolyTrailOffset != 0 then
-                LOUDTRAIL(self, -1, Army, self.PolyTrail):OffsetEmitter(0, 0, self.PolyTrailOffset)
+                LOUDTRAIL(self, -1, Army, PolyTrail):OffsetEmitter(0, 0, self.PolyTrailOffset)
             else
-                LOUDTRAIL(self, -1, Army, self.PolyTrail)
+                LOUDTRAIL(self, -1, Army, PolyTrail)
             end
         end
 		
     end,
 
     OnEnterWater = function(self)
-	
-        Projectile.OnEnterWater(self)
+
+        -- this should create the audio event
+        ProjectileOnEnterWater(self)
 		
         self:TrackTarget(true)
         self:StayUnderwater(true)
@@ -268,7 +286,7 @@ OnWaterEntryEmitterProjectile = Class(Projectile) {
 
     OnImpact = function(self, TargetType, TargetEntity)
 	
-        Projectile.OnImpact(self, TargetType, TargetEntity)
+        ProjectileOnImpact(self, TargetType, TargetEntity)
 		
         KillThread(self.TTT1)
     end,

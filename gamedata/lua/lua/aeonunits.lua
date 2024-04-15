@@ -1,10 +1,17 @@
 ---  /lua/aeonunits.lua
 
-local ConstructionUnit = import('defaultunits.lua').ConstructionUnit
-local FactoryUnit = import('defaultunits.lua').FactoryUnit
-local MobileUnit = import('defaultunits.lua').MobileUnit
-local ShieldStructureUnit = import('defaultunits.lua').StructureUnit
-local RadarJammerUnit = import('defaultunits.lua').RadarJammerUnit
+local DefaultUnits = import('defaultunits.lua')
+
+local ConstructionUnit      = DefaultUnits.ConstructionUnit
+local FactoryUnit           = DefaultUnits.FactoryUnit
+local MobileUnit            = DefaultUnits.MobileUnit
+local ShieldStructureUnit   = DefaultUnits.StructureUnit
+local RadarJammerUnit       = DefaultUnits.RadarJammerUnit
+
+DefaultUnits = nil
+
+local ConstructionUnitOnStopBuild       = ConstructionUnit.OnStopBuild
+local FactoryUnitOnStopBuild            = FactoryUnit.OnStopBuild
 
 local CreateAeonConstructionUnitBuildingEffects = import('/lua/EffectUtilities.lua').CreateAeonConstructionUnitBuildingEffects
 local CreateAeonFactoryBuildingEffects = import('/lua/EffectUtilities.lua').CreateAeonFactoryBuildingEffects
@@ -12,7 +19,6 @@ local CreateAeonFactoryBuildingEffects = import('/lua/EffectUtilities.lua').Crea
 local ScaleEmitter = moho.IEffect.ScaleEmitter
 
 local TrashAdd = TrashBag.Add
-
 
 AeonFactoryUnit = Class(FactoryUnit) {
 
@@ -29,7 +35,7 @@ AeonFactoryUnit = Class(FactoryUnit) {
             end
         end
     
-        FactoryUnit.OnStopBuild(self, unitBeingBuilt)
+        FactoryUnitOnStopBuild(self, unitBeingBuilt)
     end,
     
 }
@@ -54,7 +60,7 @@ AConstructionUnit = Class(ConstructionUnit) {
             self.BuildProjectile.Detached = false
         end
         
-        ConstructionUnit.OnStopBuild( self, unitBeingBuilt )
+        ConstructionUnitOnStopBuild( self, unitBeingBuilt )
     end,
 }
 

@@ -65,29 +65,37 @@ local RecheckHiPriTarget = import('/lua/loudutilities.lua').RecheckHiPriTarget
 
 local UnitCapCheckGreater = import('/lua/editor/UnitCountBuildConditions.lua').UnitCapCheckGreater
 
+local AIBrainMethods = moho.aibrain_methods
+local EntityMethods = moho.entity_methods
+local PlatoonMethods = moho.platoon_methods
 
-local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
-local BeenDestroyed = moho.entity_methods.BeenDestroyed
-local BuildStructure = moho.aibrain_methods.BuildStructure
-local CalculatePlatoonThreat = moho.platoon_methods.CalculatePlatoonThreat
-local CanAttackTarget = moho.platoon_methods.CanAttackTarget
-local CanBuildStructureAt = moho.aibrain_methods.CanBuildStructureAt
+local AssignUnitsToPlatoon              = AIBrainMethods.AssignUnitsToPlatoon
+local BuildStructure                    = AIBrainMethods.BuildStructure
+local CanBuildStructureAt               = AIBrainMethods.CanBuildStructureAt
+local GetThreatAtPosition               = AIBrainMethods.GetThreatAtPosition
+local GetThreatBetweenPositions         = AIBrainMethods.GetThreatBetweenPositions
+local GetUnitsAroundPoint               = AIBrainMethods.GetUnitsAroundPoint
+local PlatoonExists                     = AIBrainMethods.PlatoonExists
+
+local BeenDestroyed             = EntityMethods.BeenDestroyed
+local GetBlueprint              = EntityMethods.GetBlueprint
+local GetFractionComplete       = EntityMethods.GetFractionComplete
+local GetPosition               = EntityMethods.GetPosition
+
+local CalculatePlatoonThreat                = PlatoonMethods.CalculatePlatoonThreat
+local CanAttackTarget                       = PlatoonMethods.CanAttackTarget
+local GetBrain                              = PlatoonMethods.GetBrain
+local GetPlatoonPosition                    = PlatoonMethods.GetPlatoonPosition
+local GetPlatoonUnits                       = PlatoonMethods.GetPlatoonUnits
+local GetSquadUnits                         = PlatoonMethods.GetSquadUnits
+local PlatoonCategoryCount                  = PlatoonMethods.PlatoonCategoryCount
+local PlatoonCategoryCountAroundPosition    = PlatoonMethods.PlatoonCategoryCountAroundPosition
+
 local GetAIBrain = moho.unit_methods.GetAIBrain
-local GetBlueprint = moho.entity_methods.GetBlueprint
-local GetBrain = moho.platoon_methods.GetBrain
-local GetFractionComplete = moho.entity_methods.GetFractionComplete
-local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
-local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
-local GetPosition = moho.entity_methods.GetPosition
-local GetSquadUnits = moho.platoon_methods.GetSquadUnits
-local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
-local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
-local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 local IsIdleState = moho.unit_methods.IsIdleState
 local IsUnitState = moho.unit_methods.IsUnitState
-local PlatoonCategoryCount = moho.platoon_methods.PlatoonCategoryCount
-local PlatoonCategoryCountAroundPosition = moho.platoon_methods.PlatoonCategoryCountAroundPosition
-local PlatoonExists = moho.aibrain_methods.PlatoonExists
+
+EntityMethods = nil
 
 local LOUDABS = math.abs
 local LOUDCAT = table.cat
@@ -129,7 +137,7 @@ local EXPERIMENTALS = categories.EXPERIMENTAL
 -- types of threat to look at based on composition of platoon
 local ThreatTable = { Land = 'AntiSurface', Water = 'AntiSurface', Amphibious = 'AntiSurface', Air = 'AntiAir', }
 
-Platoon = Class(moho.platoon_methods) {
+Platoon = Class(PlatoonMethods) {
     
     OnCreate = function( self, plan)
 	
@@ -257,14 +265,15 @@ Platoon = Class(moho.platoon_methods) {
     OnDestroy = function( self)
 
         local aiBrain = GetBrain(self)
+        local Callbacks = self.EventCallbacks.OnDestroyed
 
 		if ScenarioInfo.PlatoonDialog then
             LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." platoon destroyed "..repr(self) )
 		end
 
-        if self.EventCallbacks.OnDestroyed then
+        if Callbacks then
 
-            for k, cb in self.EventCallbacks.OnDestroyed do
+            for k, cb in Callbacks do
 	
                 if cb then
 
@@ -325,12 +334,13 @@ Platoon = Class(moho.platoon_methods) {
             
             --LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." starts MovePlatoon with path "..repr(path))
 
-            local GetDirection = GetDirection            
-            local GetSquadUnits = GetSquadUnits
-            local GetPlatoonUnits = GetPlatoonUnits
-            local LOUDCOPY = LOUDCOPY
-            local LOUDREMOVE = LOUDREMOVE
-            local WaitTicks = WaitTicks
+            local GetDirection          = GetDirection            
+            local GetSquadUnits         = GetSquadUnits
+            local GetPlatoonUnits       = GetPlatoonUnits
+
+            local LOUDCOPY      = LOUDCOPY
+            local LOUDREMOVE    = LOUDREMOVE
+            local WaitTicks     = WaitTicks
 
             SetupPlatoonAtWaypointCallbacks = self.SetupPlatoonAtWaypointCallbacks
             
@@ -499,13 +509,13 @@ Platoon = Class(moho.platoon_methods) {
     -- returns true if a target was found - false if not
     PlatoonFindTarget = function( self, aiBrain, squad, scanposition, range, attackcategories)
     
-        local GetDirection = GetDirection
-        local GetPlatoonPosition = GetPlatoonPosition
-        local GetSquadUnits = GetSquadUnits
-        local PlatoonExists = PlatoonExists
+        local GetDirection          = GetDirection
+        local GetPlatoonPosition    = GetPlatoonPosition
+        local GetSquadUnits         = GetSquadUnits
+        local PlatoonExists         = PlatoonExists
         
-        local VDist3 = VDist3
-        local WaitTicks = WaitTicks
+        local VDist3        = VDist3
+        local WaitTicks     = WaitTicks
         
 		-- seek a target around the point --
 		local target, targetposition, position
@@ -638,11 +648,15 @@ Platoon = Class(moho.platoon_methods) {
     PlatoonDisband = function( self, aiBrain)
 	
 		if PlatoonExists(aiBrain,self) then
+        
+            local EngineerDialog    = ScenarioInfo.EngineerDialog
+            local NameEngineers     = ScenarioInfo.NameEngineers
+            local PlatoonDialog     = ScenarioInfo.PlatoonDialog
     
-            local LOUDENTITY = LOUDENTITY
-            local LOUDFIND = LOUDFIND
+            local LOUDENTITY    = LOUDENTITY
+            local LOUDFIND      = LOUDFIND
 
-			if ScenarioInfo.PlatoonDialog then
+			if PlatoonDialog then
 				LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." Platoon beginning Disband")
 			end
 
@@ -673,7 +687,7 @@ Platoon = Class(moho.platoon_methods) {
                                 
 								v.failedbuilds = (v.failedbuilds + 1) or 1
                         
-                                if ScenarioInfo.EngineerDialog then
+                                if EngineerDialog then
                                     LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..v.EntityID.." "..BuilderName.." immediately disbands - assigning TIMEOUT to this task - failedbuilds is "..v.failedbuilds )
                                 end
 								
@@ -681,11 +695,11 @@ Platoon = Class(moho.platoon_methods) {
 							end
 						end
                         
-                        if ScenarioInfo.EngineerDialog then
+                        if EngineerDialog then
                             LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..v.EntityID.." "..repr(BuilderName).." disbands - failedbuilds is "..(v.failedbuilds or 0) )
                         end
                     
-						if ScenarioInfo.NameEngineers then
+						if NameEngineers then
 						
 							if v.BuilderName and not LOUDENTITY( categories.COMMAND, v ) then
 							
@@ -746,30 +760,30 @@ Platoon = Class(moho.platoon_methods) {
     -- May 2020 - added the pathcost to the return value for Land and Amphib paths
 	PlatoonGenerateSafePathToLOUD = function( aiBrain, platoon, platoonLayer, start, destination, threatallowed, MaxMarkerDist)
 
-        local PathFindingDialog = ScenarioInfo.PathFindingDialog
+        local PathFindingDialog         = ScenarioInfo.PathFindingDialog
 
-        local GetPlatoonUnits = GetPlatoonUnits
-		local GetUnitsAroundPoint = GetUnitsAroundPoint
-        local PlatoonExists = PlatoonExists
+        local GetPlatoonUnits           = GetPlatoonUnits
+		local GetUnitsAroundPoint       = GetUnitsAroundPoint
+        local PlatoonExists             = PlatoonExists
 
-        local LOUDFLOOR = LOUDFLOOR
-        local LOUDMAX = LOUDMAX
-        local LOUDMIN = LOUDMIN
-        local LOUDSORT = LOUDSORT
-		local VDist2Sq = VDist2Sq
-		local VDist2 = VDist2
-        local VDist3Sq = VDist3Sq
-        local WaitTicks = WaitTicks
+        local LOUDFLOOR     = LOUDFLOOR
+        local LOUDMAX       = LOUDMAX
+        local LOUDMIN       = LOUDMIN
+        local LOUDSORT      = LOUDSORT
+		local VDist2Sq      = VDist2Sq
+		local VDist2        = VDist2
+        local VDist3Sq      = VDist3Sq
+        local WaitTicks     = WaitTicks
 
-		local threattype = ThreatTable[platoonLayer]
+		local threattype    = ThreatTable[platoonLayer]
 
 		-- threatallowed controls how much threat is considered acceptable at any point
 		local threatallowed = threatallowed or 5
         
         -- the number of blocks to use for threat lookups - based on IMAP size
         -- basically 2, 2, 1, 0 for 5k, 10k, 20k, 40k+
-        local IMAPblocks = ScenarioInfo.IMAPBlocks
-        local IMAPRadius = ScenarioInfo.IMAPSize * .5
+        local IMAPblocks    = ScenarioInfo.IMAPBlocks
+        local IMAPRadius    = ScenarioInfo.IMAPSize * .5
 
 		
 		-- step size is used when making DestinationBetweenPoints checks
@@ -1167,11 +1181,7 @@ Platoon = Class(moho.platoon_methods) {
             
 			platoonLayer = 'Land'
 			startNode, startNodeName = GetClosestSafePathNodeInRadiusByLayerLOUD( start, false, destination, 1.5, true )
-			
-		--else
-            --if PathFindingDialog and startNode.position then
-              --  LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." gets startnode "..repr(startNodeName).." Distance from start "..VDist3( start, startNode.position).." to destination is "..repr(VDist3( destination, startNode.position )) )
-            --end
+
         end
 	
 		if not startNode then
@@ -1314,30 +1324,30 @@ Platoon = Class(moho.platoon_methods) {
     
         local RTBDialog = false
 
-        local EngineerDialog = ScenarioInfo.EngineerDialog    
-        local NameEngineers = ScenarioInfo.NameEngineers
-        local PlatoonDialog = ScenarioInfo.PlatoonDialog
+        local EngineerDialog    = ScenarioInfo.EngineerDialog    
+        local NameEngineers     = ScenarioInfo.NameEngineers
+        local PlatoonDialog     = ScenarioInfo.PlatoonDialog
 	
 		-- since RTB always deals with MOBILE units we use the Entity based GetPosition
-        local CalculatePlatoonThreat = CalculatePlatoonThreat
-		local GetPosition = GetPosition
-		local GetCommandQueue = moho.unit_methods.GetCommandQueue
-        local GetPlatoonPosition = GetPlatoonPosition
-        local GetPlatoonUnits = GetPlatoonUnits
-        local PlatoonExists = PlatoonExists        
+        local CalculatePlatoonThreat    = CalculatePlatoonThreat
+		local GetPosition               = GetPosition
+		local GetCommandQueue           = moho.unit_methods.GetCommandQueue
+        local GetPlatoonPosition        = GetPlatoonPosition
+        local GetPlatoonUnits           = GetPlatoonUnits
+        local PlatoonExists             = PlatoonExists        
 
-        local LOUDCOPY = LOUDCOPY
-        local LOUDENTITY = LOUDENTITY
-        local LOUDMOD = LOUDMOD
-        local LOUDSORT = LOUDSORT
-		local VDist3 = VDist3
-		local VDist2 = VDist2
-  		local VDist2Sq = VDist2Sq
-        local VDist3Sq = VDist3Sq
-        local WaitTicks = WaitTicks
+        local LOUDCOPY      = LOUDCOPY
+        local LOUDENTITY    = LOUDENTITY
+        local LOUDMOD       = LOUDMOD
+        local LOUDSORT      = LOUDSORT
+		local VDist3        = VDist3
+		local VDist2        = VDist2
+  		local VDist2Sq      = VDist2Sq
+        local VDist3Sq      = VDist3Sq
+        local WaitTicks     = WaitTicks
 
-        local MergeIntoNearbyPlatoons = self.MergeIntoNearbyPlatoons
-        local PlatoonGenerateSafePathToLOUD = self.PlatoonGenerateSafePathToLOUD
+        local MergeIntoNearbyPlatoons           = self.MergeIntoNearbyPlatoons
+        local PlatoonGenerateSafePathToLOUD     = self.PlatoonGenerateSafePathToLOUD
 
 		if not aiBrain then
 			aiBrain = GetBrain(self)
@@ -2049,10 +2059,10 @@ Platoon = Class(moho.platoon_methods) {
 	
 	ArtilleryAI = function( self, aiBrain )
     
-        local GetPlatoonPosition = GetPlatoonPosition
-        local GetPlatoonUnits = GetPlatoonUnits
-        local PlatoonExists = PlatoonExists
-        local WaitTicks = WaitTicks
+        local GetPlatoonPosition    = GetPlatoonPosition
+        local GetPlatoonUnits       = GetPlatoonUnits
+        local PlatoonExists         = PlatoonExists
+        local WaitTicks             = WaitTicks
 
         -- focusing on hardpoints
         local SurfacePriorities = { 
@@ -2595,21 +2605,22 @@ Platoon = Class(moho.platoon_methods) {
     
         local GuardpointDialog = ScenarioInfo.GuardPointDialog
 
-        local CalculatePlatoonThreat = CalculatePlatoonThreat
-		local GetDirectionInDegrees = GetDirection
-        local GetPlatoonPosition = GetPlatoonPosition
-        local GetPlatoonUnits = GetPlatoonUnits
-        local GetSquadUnits = GetSquadUnits
-        local PlatoonExists = PlatoonExists
-        local VDist3 = VDist3
-        local WaitTicks = WaitTicks
+        local CalculatePlatoonThreat    = CalculatePlatoonThreat
+		local GetDirectionInDegrees     = GetDirection
+        local GetPlatoonPosition        = GetPlatoonPosition
+        local GetPlatoonUnits           = GetPlatoonUnits
+        local GetSquadUnits             = GetSquadUnits
+        local PlatoonExists             = PlatoonExists
+
+        local VDist3        = VDist3
+        local WaitTicks     = WaitTicks
         
-        local LOUDCEIL = LOUDCEIL
-        local LOUDEQUAL = LOUDEQUAL
-        local LOUDINSERT = LOUDINSERT
-        local LOUDMAX = LOUDMAX
-        local LOUDMIN = LOUDMIN
-        local LOUDREMOVE = LOUDREMOVE
+        local LOUDCEIL      = LOUDCEIL
+        local LOUDEQUAL     = LOUDEQUAL
+        local LOUDINSERT    = LOUDINSERT
+        local LOUDMAX       = LOUDMAX
+        local LOUDMIN       = LOUDMIN
+        local LOUDREMOVE    = LOUDREMOVE
     
         if not PlatoonExists(aiBrain, self) then
             return
@@ -2620,13 +2631,13 @@ Platoon = Class(moho.platoon_methods) {
         end
 
         -- other platoon functions 
-        local CheckForStuckPlatoon = self.CheckForStuckPlatoon
-        local GuardPointStructureCheck = self.GuardPointStructureCheck
-        local GuardPointUnitCheck = self.GuardPointUnitCheck
-        local MergeWithNearbyPlatoons = self.MergeWithNearbyPlatoons
-        local ProcessStuckPlatoon = self.ProcessStuckPlatoon
-        local PlatoonFindTarget = self.PlatoonFindTarget
-        local PlatoonGenerateSafePathToLOUD = self.PlatoonGenerateSafePathToLOUD
+        local CheckForStuckPlatoon              = self.CheckForStuckPlatoon
+        local GuardPointStructureCheck          = self.GuardPointStructureCheck
+        local GuardPointUnitCheck               = self.GuardPointUnitCheck
+        local MergeWithNearbyPlatoons           = self.MergeWithNearbyPlatoons
+        local ProcessStuckPlatoon               = self.ProcessStuckPlatoon
+        local PlatoonFindTarget                 = self.PlatoonFindTarget
+        local PlatoonGenerateSafePathToLOUD     = self.PlatoonGenerateSafePathToLOUD
    
 		for _,v in GetPlatoonUnits(self) do
 		
@@ -3390,7 +3401,7 @@ Platoon = Class(moho.platoon_methods) {
     
         local GuardpointDialog = ScenarioInfo.GuardPointDialog
 
-		local AggressiveMoveToLocation = moho.platoon_methods.AggressiveMoveToLocation
+		local AggressiveMoveToLocation = PlatoonMethods.AggressiveMoveToLocation
         local CalculatePlatoonThreat = CalculatePlatoonThreat
         local GetPlatoonPosition = GetPlatoonPosition
         local GetPlatoonUnits = GetPlatoonUnits
@@ -6795,7 +6806,7 @@ Platoon = Class(moho.platoon_methods) {
 		
 		if eng then
 		
-			local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
+			local GetEconomyStored = AIBrainMethods.GetEconomyStored
 			local IsIdleState = IsIdleState
             
             local WaitTicks = WaitTicks
@@ -7683,8 +7694,8 @@ Platoon = Class(moho.platoon_methods) {
         local LOUDEQUAL = LOUDEQUAL
         local LOUDREMOVE = LOUDREMOVE
         
-        local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
-        local GetEconomyStoredRatio = moho.aibrain_methods.GetEconomyStoredRatio
+        local GetEconomyStored = AIBrainMethods.GetEconomyStored
+        local GetEconomyStoredRatio = AIBrainMethods.GetEconomyStoredRatio
 
 		-- remove first item from the build queue
         if removeLastBuild and eng.EngineerBuildQueue[1] then
@@ -9563,7 +9574,7 @@ Platoon = Class(moho.platoon_methods) {
 		local platPos = LOUDCOPY(GetPlatoonPosition(self))
 
 		-- get a list of all the platoons for this brain
-		local GetPlatoonsList = moho.aibrain_methods.GetPlatoonsList
+		local GetPlatoonsList = AIBrainMethods.GetPlatoonsList
         local AlliedPlatoons = LOUDCOPY(GetPlatoonsList(aiBrain))
 		
 		LOUDSORT(AlliedPlatoons, function(a,b) local GetPlatoonPosition = GetPlatoonPosition local VDist3Sq = VDist3Sq return VDist3Sq( GetPlatoonPosition(a), platPos ) < VDist3Sq( GetPlatoonPosition(b), platPos ) end)
@@ -9719,7 +9730,7 @@ Platoon = Class(moho.platoon_methods) {
         end
 		
         -- get all the platoons
-		local GetPlatoonsList = moho.aibrain_methods.GetPlatoonsList
+		local GetPlatoonsList = AIBrainMethods.GetPlatoonsList
         local AlliedPlatoons = GetPlatoonsList(aiBrain)
         
         local count = 0     -- number of allied platoons reviewed

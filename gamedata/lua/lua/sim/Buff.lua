@@ -7,33 +7,34 @@ local LOUDPARSE = ParseEntityCategory
 local LOUDCOPY = table.copy
 local LOUDEMPTY = table.empty
 
-local GetBlueprint = moho.entity_methods.GetBlueprint
+local EntityMethods = moho.entity_methods
+local UnitMethods = moho.unit_methods
 
-local AdjustHealth = moho.entity_methods.AdjustHealth
-local GetHealth = moho.unit_methods.GetHealth
-local GetMaxHealth = moho.entity_methods.GetMaxHealth
-local SetHealth = moho.entity_methods.SetHealth
-local SetMaxHealth = moho.entity_methods.SetMaxHealth
-local SetShieldRatio = moho.unit_methods.SetShieldRatio
+local AdjustHealth          = EntityMethods.AdjustHealth
+local BeenDestroyed         = EntityMethods.BeenDestroyed
+local DisableIntel          = EntityMethods.DisableIntel
+local EnableIntel           = EntityMethods.EnableIntel
+local GetBlueprint          = EntityMethods.GetBlueprint
+local GetMaxHealth          = EntityMethods.GetMaxHealth
+local RequestRefreshUI      = EntityMethods.RequestRefreshUI
+local SetHealth             = EntityMethods.SetHealth
+local SetIntelRadius        = EntityMethods.SetIntelRadius
+local SetMaxHealth          = EntityMethods.SetMaxHealth
 
-local GetAIBrain = moho.unit_methods.GetAIBrain
-local GetFuelRatio = moho.unit_methods.GetFuelRatio
-local SetFuelRatio = moho.unit_methods.SetFuelRatio
+local GetAIBrain            = UnitMethods.GetAIBrain
+local GetFuelRatio          = UnitMethods.GetFuelRatio
+local GetHealth             = UnitMethods.GetHealth
+local SetAccMult            = UnitMethods.SetAccMult
+local SetBuildRate          = UnitMethods.SetBuildRate
+local SetFuelRatio          = UnitMethods.SetFuelRatio
+local SetRegenRate          = UnitMethods.SetRegenRate
+local SetShieldRatio        = UnitMethods.SetShieldRatio
+local SetSpeedMult          = UnitMethods.SetSpeedMult
+local SetStat               = UnitMethods.SetStat
+local SetTurnMult           = UnitMethods.SetTurnMult
 
-local SetRegenRate = moho.unit_methods.SetRegenRate
-
-local SetAccMult = moho.unit_methods.SetAccMult
-local SetSpeedMult = moho.unit_methods.SetSpeedMult
-local SetStat = moho.unit_methods.SetStat
-local SetTurnMult = moho.unit_methods.SetTurnMult
-
-local SetBuildRate = moho.unit_methods.SetBuildRate
-
-local DisableIntel = moho.entity_methods.DisableIntel
-local EnableIntel = moho.entity_methods.EnableIntel
-local SetIntelRadius = moho.entity_methods.SetIntelRadius
-
-local RequestRefreshUI = moho.entity_methods.RequestRefreshUI
+EntityMethods = nil
+UnitMethods = nil
 
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
@@ -300,7 +301,6 @@ function BuffWorkThread(unit, buffName, instigator)
 	local buffTable = Buffs[buffName]
 
     local BuffAffectUnit = BuffAffectUnit
-	local BeenDestroyed = moho.entity_methods.BeenDestroyed
     local WaitTicks = WaitTicks
 
 	local pulse = 0

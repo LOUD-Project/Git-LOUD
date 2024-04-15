@@ -18,17 +18,22 @@ local RandomLocation = import('/lua/ai/aiutilities.lua').RandomLocation
 local RiftGateBehavior = import('/lua/ai/aibehaviors.lua').RiftGateBehavior
 local TMLThread = import('/lua/ai/aibehaviors.lua').TMLThread
 
-local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
+local AIBrainMethods = moho.aibrain_methods
+
+local AssignUnitsToPlatoon      = AIBrainMethods.AssignUnitsToPlatoon
+local DecideWhatToBuild         = AIBrainMethods.DecideWhatToBuild
+local GetThreatAtPosition       = AIBrainMethods.GetThreatAtPosition
+local MakePlatoon               = AIBrainMethods.MakePlatoon
+local PlatoonExists             = AIBrainMethods.PlatoonExists	
+
+
 local BeenDestroyed = moho.entity_methods.BeenDestroyed
-local DecideWhatToBuild = moho.aibrain_methods.DecideWhatToBuild
-local GetAIBrain = moho.unit_methods.GetAIBrain
 local GetFractionComplete = moho.entity_methods.GetFractionComplete
-local GetGuards = moho.unit_methods.GetGuards
 local GetPosition = moho.entity_methods.GetPosition
-local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
+
+local GetAIBrain = moho.unit_methods.GetAIBrain
+local GetGuards = moho.unit_methods.GetGuards
 local IsUnitState = moho.unit_methods.IsUnitState
-local MakePlatoon = moho.aibrain_methods.MakePlatoon
-local PlatoonExists = moho.aibrain_methods.PlatoonExists	
 
 local LOUDABS = math.abs
 local LOUDCOPY = table.copy
@@ -240,27 +245,35 @@ EngineerManager = Class(BuilderManager) {
 
         local BuilderName = builder.BuilderName
         local Builder = Builders[builder.BuilderName]
+        
+        local PlatoonAddBehaviors   = Builder.PlatoonAddBehaviors
+        local PlatoonAddFunctions   = Builder.PlatoonAddFunctions
+        local PlatoonAddPlans       = Builder.PlatoonAddPlans
+        local PlatoonAIPlan         = Builder.PlatoonAIPlan
 
         if builder and (not unit.Dead) and (not unit.Fighting) then
+            
+            local LocationType  = self.LocationType
+            local PlanName      = PlatoonTemplates[Builder.PlatoonTemplate].Plan
 
 			if PlatoonDialog then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." EM "..self.LocationType.." forms "..repr(BuilderName) )
+				LOG("*AI DEBUG "..aiBrain.Nickname.." EM "..LocationType.." forms "..repr(BuilderName) )
 			end
 
             if EngineerDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..unit.EntityID.." "..repr(BuilderName).." forms at "..self.LocationType )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..unit.EntityID.." "..repr(BuilderName).." forms at "..LocationType )
             end
 			
-            local hndl = MakePlatoon( aiBrain, BuilderName, PlatoonTemplates[Builder.PlatoonTemplate].Plan or 'none' )
+            local hndl = MakePlatoon( aiBrain, BuilderName, PlanName or 'none' )
 
 			hndl.BuilderName = BuilderName
-            hndl.LocationType = self.LocationType
+            hndl.LocationType = LocationType
 			hndl.MovementLayer = 'Amphibious'
             
-            hndl.PlanName = PlatoonTemplates[Builder.PlatoonTemplate].Plan
+            hndl.PlanName = PlanName
             
-            hndl.PlatoonData = builder:GetBuilderData(self.LocationType)
-			hndl.RTBLocation = builder.RTBLocation or self.LocationType
+            hndl.PlatoonData = builder:GetBuilderData(LocationType)
+			hndl.RTBLocation = builder.RTBLocation or LocationType
 
 			IssueStop( {unit} )
 			
@@ -301,9 +314,9 @@ EngineerManager = Class(BuilderManager) {
 
 			--Add functions are run immediately upon platoon creation
 			-- since these functions are not forked off of the platoon they can persist beyond the death of the platoon (ie. - Commander Thread)
-            if Builder.PlatoonAddFunctions then
+            if PlatoonAddFunctions then
 			
-                for pafk, pafv in Builder.PlatoonAddFunctions do
+                for pafk, pafv in PlatoonAddFunctions do
                 
                     ForkThread( import(pafv[1])[pafv[2]], hndl, aiBrain)
 
@@ -315,15 +328,15 @@ EngineerManager = Class(BuilderManager) {
 			
 			-- PlatoonAIPlan is intended to replace whatever the Normal plan might be
 			-- the SetAIPlan function will kill whatever AIThread is already running
-            if Builder.PlatoonAIPlan then
+            if PlatoonAIPlan then
 			
-                hndl.PlanName = Builder.PlatoonAIPlan
-                hndl:SetAIPlan(hndl.PlanName, aiBrain)
+                hndl.PlanName = PlatoonAIPlan
+                hndl:SetAIPlan(PlatoonAIPlan, aiBrain)
             end
 
-            if Builder.PlatoonAddPlans then
+            if PlatoonAddPlans then
 			
-                for papk, papv in Builder.PlatoonAddPlans do
+                for papk, papv in PlatoonAddPlans do
 
 					if PlatoonDialog then
 						LOG("*AI DEBUG "..aiBrain.Nickname.." "..BuilderName.." adds plan "..repr(papv))
@@ -333,10 +346,10 @@ EngineerManager = Class(BuilderManager) {
                 end
             end
             
-            if Builder.PlatoonAddBehaviors then
+            if PlatoonAddBehaviors then
 			
 				-- fork off all the additional behaviors --
-                for pafk, pafv in Builder.PlatoonAddBehaviors do
+                for pafk, pafv in PlatoonAddBehaviors do
 
 					if PlatoonDialog then
 						LOG("*AI DEBUG "..aiBrain.Nickname.." "..BuilderName.." adds behavior "..repr(pafv))
@@ -752,7 +765,7 @@ EngineerManager = Class(BuilderManager) {
 		local LOUDMIN = LOUDMIN
 		local LOUDSORT = LOUDSORT
 		
-		local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
+		local GetUnitsAroundPoint = AIBrainMethods.GetUnitsAroundPoint
         
         local BaseMonitorDialog = ScenarioInfo.BaseMonitorDialog or false
 		
@@ -832,7 +845,8 @@ EngineerManager = Class(BuilderManager) {
             -- if there is a HiPri Intel List
 			if aiBrain.IL.HiPri[1] then
 	
-				local AlertRadius = self.BaseMonitor.AlertRange
+                local AlertLevel    = self.BaseMonitor.AlertLevel
+				local AlertRadius   = self.BaseMonitor.AlertRange
 		
                 -- primary land base has a larger radius
 				if aiBrain.BuilderManagers[LocationType].PrimaryLandAttackBase then
@@ -849,16 +863,22 @@ EngineerManager = Class(BuilderManager) {
                 threatTable = {}        -- table of threat items to process
                 ThreatTypesUsed = {}    -- table of threat types we processed
                 
+                local TType, TThreat, TPosition
+                
                 for _,v in aiBrain.IL.HiPri do
+                
+                    TType       = v.Type or false
+                    TThreat     = v.Threat
+                    TPosition   = v.Position
 
-                    if v.Type and v.Threat > 0 and VDist3( v.Position, Location ) <= (AlertRadius + 50) then
+                    if TType and TThreat > 0 and VDist3( TPosition, Location ) <= (AlertRadius + 50) then
 
-                        if LOUDFIND( ThreatTypes, v.Type ) then
+                        if LOUDFIND( ThreatTypes, TType ) then
 
-                            LOUDINSERT( threatTable, { Position = v.Position, Threat = v.Threat, Type = v.Type } )
+                            LOUDINSERT( threatTable, { Position = TPosition, Threat = TThreat, Type = TType } )
                             
-                            if not LOUDFIND( ThreatTypesUsed, v.Type ) then
-                                LOUDINSERT( ThreatTypesUsed, v.Type )
+                            if not LOUDFIND( ThreatTypesUsed, TType ) then
+                                LOUDINSERT( ThreatTypesUsed, TType )
                             end
 
                         end
@@ -885,7 +905,7 @@ EngineerManager = Class(BuilderManager) {
 						alertrangemod = 0
 
                         -- highthreat can now be modified by a ratio or the AIMult --
-						highThreat = self.BaseMonitor.AlertLevel	-- this sets the basic threat required to trigger an alert
+						highThreat = AlertLevel	-- this sets the basic threat required to trigger an alert
                         
                         if LoopType == 'Land' then
                         
@@ -929,9 +949,9 @@ EngineerManager = Class(BuilderManager) {
 							-- loop thru the threat list
 							for _,threat in threatTable do
                             
-                                Position = threat.Position
-                                Threat = threat.Threat
-                                Type = threat.Type or false
+                                Position    = threat.Position
+                                Threat      = threat.Threat
+                                Type        = threat.Type or false
 
 								-- filter by distance from the base and break out if threats are farther away (we presorted by distance)
 								if Type == LoopType and Threat >= highThreat then
@@ -958,7 +978,7 @@ EngineerManager = Class(BuilderManager) {
 											highThreatType = 'Air'
 
 										elseif experimentalssea[1] then
-
+    
 											highThreatType = 'Naval'
 
 										else
@@ -1111,7 +1131,7 @@ EngineerManager = Class(BuilderManager) {
 		local VDist2Sq = VDist2Sq
 		local WaitTicks = WaitTicks
 	
-		local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
+		local GetUnitsAroundPoint = AIBrainMethods.GetUnitsAroundPoint
 		
 		local threat = 0
 		
@@ -1331,10 +1351,8 @@ EngineerManager = Class(BuilderManager) {
 				for _,u in group do
                 
 					if not u.Dead then
-                    
-                        Defense = __blueprints[u.BlueprintID].Defense
-                        
-						totalThreat = totalThreat + (Defense.SubThreatLevel or 0)
+
+						totalThreat = totalThreat + (__blueprints[u.BlueprintID].Defense.SubThreatLevel or 0)
 					end
 				end
 			
@@ -1897,8 +1915,10 @@ EngineerManager = Class(BuilderManager) {
 			local returnPos = { 0, 0, 0 }
 			local returnThreat = 0
 			local distressdist, distressposition
+            
+            local Platoons = aiBrain.PlatoonDistress.Platoons
 		
-			for _,v in aiBrain.PlatoonDistress.Platoons do
+			for _,v in Platoons do
 		
 				if threattype == v.DistressType then
 			

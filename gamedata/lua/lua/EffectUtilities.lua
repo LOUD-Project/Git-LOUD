@@ -11,15 +11,16 @@ local Random = Random
 local Entity = import('/lua/sim/Entity.lua').Entity
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
-local ReclaimBeams = import('/lua/EffectTemplates.lua').ReclaimBeams
-local ReclaimObjectAOE = import('/lua/EffectTemplates.lua').ReclaimObjectAOE
-local ReclaimObjectEnd = import('/lua/EffectTemplates.lua').ReclaimObjectEnd
-local AeonBuildBeams01 = import('/lua/EffectTemplates.lua').AeonBuildBeams01
-local AeonBuildBeams02 = import('/lua/EffectTemplates.lua').AeonBuildBeams02
-local CybranBuildSparks01 = import('/lua/EffectTemplates.lua').CybranBuildSparks01
-local CybranBuildFlash01 = import('/lua/EffectTemplates.lua').CybranBuildFlash01
-local CybranBuildUnitBlink01 = import('/lua/EffectTemplates.lua').CybranBuildUnitBlink01
-local SeraphimBuildBeams01 = import('/lua/EffectTemplates.lua').SeraphimBuildBeams01
+
+local ReclaimBeams              = EffectTemplate.ReclaimBeams
+local ReclaimObjectAOE          = EffectTemplate.ReclaimObjectAOE
+local ReclaimObjectEnd          = EffectTemplate.ReclaimObjectEnd
+local AeonBuildBeams01          = EffectTemplate.AeonBuildBeams01
+local AeonBuildBeams02          = EffectTemplate.AeonBuildBeams02
+local CybranBuildSparks01       = EffectTemplate.CybranBuildSparks01
+local CybranBuildFlash01        = EffectTemplate.CybranBuildFlash01
+local CybranBuildUnitBlink01    = EffectTemplate.CybranBuildUnitBlink01
+local SeraphimBuildBeams01      = EffectTemplate.SeraphimBuildBeams01
 
 local LOUDCOPY = table.copy
 local LOUDFLOOR = math.floor	
@@ -29,27 +30,32 @@ local LOUDREMOVE = table.remove
 local LOUDSORT = table.sort
 local LOUDWARP = Warp
 
-local BeenDestroyed = moho.entity_methods.BeenDestroyed
-local CreateLightParticle = CreateLightParticle
-local CreateProjectile = moho.entity_methods.CreateProjectile
-local GetFractionComplete = moho.entity_methods.GetFractionComplete
-local GetPosition = moho.entity_methods.GetPosition
+local EntityMethods = moho.entity_methods
+
+local AttachBoneToEntityBone    = EntityMethods.AttachBoneToEntityBone
+local BeenDestroyed             = EntityMethods.BeenDestroyed
+local CreateProjectile          = EntityMethods.CreateProjectile
+local GetFractionComplete       = EntityMethods.GetFractionComplete
+local GetPosition               = EntityMethods.GetPosition
+local SetMesh                   = EntityMethods.SetMesh
+
 local HideBone = moho.unit_methods.HideBone
 local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
+
 local ScaleEmitter = moho.IEffect.ScaleEmitter
-local SetMesh = moho.entity_methods.SetMesh
+
 local SetVelocity = moho.projectile_methods.SetVelocity
 
 local WaitTicks = coroutine.yield
 local VDist3Sq = VDist3Sq
+
+local CreateLightParticle = CreateLightParticle
 
 local LOUDEMITONENTITY = CreateEmitterOnEntity
 local LOUDEMITATENTITY = CreateEmitterAtEntity
 local LOUDEMITATBONE = CreateEmitterAtBone
 local LOUDATTACHEMITTER = CreateAttachedEmitter
 local LOUDATTACHBEAMENTITY = AttachBeamEntityToEntity
-
-local AttachBoneToEntityBone = moho.entity_methods.AttachBoneToEntityBone
 
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add

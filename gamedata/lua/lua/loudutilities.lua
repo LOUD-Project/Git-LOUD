@@ -30,24 +30,30 @@ local VDist3 = VDist3
 local WaitSeconds = WaitSeconds
 local WaitTicks = coroutine.yield
 
-local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
-local GetAIBrain = moho.unit_methods.GetAIBrain
-local GetCurrentUnits = moho.aibrain_methods.GetCurrentUnits
-local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
-local GetFuelRatio = moho.unit_methods.GetFuelRatio
-local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
-local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
-local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
+local AIBrainMethods = moho.aibrain_methods
+
+local AssignUnitsToPlatoon          = AIBrainMethods.AssignUnitsToPlatoon
+local GetCurrentUnits               = AIBrainMethods.GetCurrentUnits
+local GetEconomyIncome              = AIBrainMethods.GetEconomyIncome
+local GetListOfUnits                = AIBrainMethods.GetListOfUnits
+local GetNumUnitsAroundPoint        = AIBrainMethods.GetNumUnitsAroundPoint
+local GetThreatAtPosition           = AIBrainMethods.GetThreatAtPosition
+local GetThreatsAroundPosition      = AIBrainMethods.GetThreatsAroundPosition
+local GetUnitsAroundPoint           = AIBrainMethods.GetUnitsAroundPoint
+local MakePlatoon                   = AIBrainMethods.MakePlatoon
+local PlatoonExists                 = AIBrainMethods.PlatoonExists
+
 local GetPosition = moho.entity_methods.GetPosition
-local GetTerrainHeight = GetTerrainHeight
-local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
-local GetThreatsAroundPosition = moho.aibrain_methods.GetThreatsAroundPosition
-local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-local GetUnitsInRect = GetUnitsInRect
-local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
-local MakePlatoon = moho.aibrain_methods.MakePlatoon
+
+local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
 local PlatoonCategoryCount = moho.platoon_methods.PlatoonCategoryCount
-local PlatoonExists = moho.aibrain_methods.PlatoonExists
+
+local GetAIBrain = moho.unit_methods.GetAIBrain
+local GetFuelRatio = moho.unit_methods.GetFuelRatio
+local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
+
+local GetTerrainHeight = GetTerrainHeight
+local GetUnitsInRect = GetUnitsInRect
 
 local VectorCached = { 0, 0, 0 }
 
@@ -2467,9 +2473,9 @@ function EconomyMonitor( aiBrain )
 	end    
 
     local GetEconomyIncome = GetEconomyIncome
-    local GetEconomyRequested = moho.aibrain_methods.GetEconomyRequested
-	local GetEconomyTrend = moho.aibrain_methods.GetEconomyTrend
-    --local GetEconomyStoredRatio = moho.aibrain_methods.GetEconomyStoredRatio
+    local GetEconomyRequested = AIBrainMethods.GetEconomyRequested
+	local GetEconomyTrend = AIBrainMethods.GetEconomyTrend
+    --local GetEconomyStoredRatio = AIBrainMethods.GetEconomyStoredRatio
 
 	local LOUDMIN = math.min
 
@@ -3235,7 +3241,7 @@ end
 -- which makes path selections sensitive to threat that might prevent them from getting to a goal
 function PathGeneratorAir( aiBrain )
 	
-	local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
+	local GetThreatBetweenPositions = AIBrainMethods.GetThreatBetweenPositions
     local PlatoonExists = PlatoonExists
 
 	local LOUDCOPY = LOUDCOPY
@@ -3295,7 +3301,7 @@ function PathGeneratorAir( aiBrain )
 
 	local function AStarLoopBody()
 
-        local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
+        local GetThreatBetweenPositions = AIBrainMethods.GetThreatBetweenPositions
         local GetThreatAtPosition = GetThreatAtPosition
         local LOUDCOPY = LOUDCOPY
         local LOUDEQUAL = LOUDEQUAL
@@ -3477,7 +3483,7 @@ end
 
 function PathGeneratorAmphibious(aiBrain)
 
-	local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
+	local GetThreatBetweenPositions = AIBrainMethods.GetThreatBetweenPositions
     local PlatoonExists = PlatoonExists
 
 	local LOUDCOPY = LOUDCOPY
@@ -3542,7 +3548,7 @@ function PathGeneratorAmphibious(aiBrain)
     
 	local function AStarLoopBody()
 
-        local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
+        local GetThreatBetweenPositions = AIBrainMethods.GetThreatBetweenPositions
         local GetThreatAtPosition = GetThreatAtPosition
         local LOUDCOPY = LOUDCOPY
         local LOUDEQUAL = LOUDEQUAL
@@ -3721,7 +3727,7 @@ function PathGeneratorLand(aiBrain)
 
     local PlatoonExists = PlatoonExists
 
-    local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
+    local GetThreatBetweenPositions = AIBrainMethods.GetThreatBetweenPositions
 	local LOUDCOPY = LOUDCOPY
     local LOUDEQUAL = LOUDEQUAL
 	local LOUDFLOOR = math.floor
@@ -3944,7 +3950,7 @@ end
 function PathGeneratorWater(aiBrain)
 
     local GetThreatAtPosition = GetThreatAtPosition	
-    local PlatoonExists = moho.aibrain_methods.PlatoonExists
+    local PlatoonExists = PlatoonExists
 
 	local LOUDCOPY = LOUDCOPY
     local LOUDEQUAL = LOUDEQUAL
@@ -3999,7 +4005,7 @@ function PathGeneratorWater(aiBrain)
     
 	local AStarLoopBody = function()
 
-        local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
+        local GetThreatBetweenPositions = AIBrainMethods.GetThreatBetweenPositions
         local LOUDCOPY = LOUDCOPY
         local LOUDEQUAL = LOUDEQUAL
         local LOUDINSERT = LOUDINSERT
@@ -4168,10 +4174,10 @@ function ParseIntelThread( aiBrain )
 	local VD2 = VDist2Sq
 	local WaitTicks = WaitTicks
 
-    local ASSIGN = moho.aibrain_methods.AssignThreatAtPosition
+    local ASSIGN = AIBrainMethods.AssignThreatAtPosition
 	local EntityCategoryFilterDown = EntityCategoryFilterDown
 	local GETTHREATATPOSITION = GetThreatAtPosition
-	local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
+	local GetListOfUnits = GetListOfUnits
 	local GetPosition = moho.entity_methods.GetPosition
 	local GetUnitsAroundPoint = GetUnitsAroundPoint
 	local GetThreatsAroundPosition = GetThreatsAroundPosition

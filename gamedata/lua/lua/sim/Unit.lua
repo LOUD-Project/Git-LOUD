@@ -58,45 +58,50 @@ local DamageArea = DamageArea
 
 local GetTerrainType = GetTerrainType
 
-local AdjustHealth = moho.entity_methods.AdjustHealth
-local GetAIBrain = moho.unit_methods.GetAIBrain
-local GetArmy = moho.entity_methods.GetArmy
-local GetBlueprint = moho.entity_methods.GetBlueprint
-local GetBoneCount = moho.entity_methods.GetBoneCount
-local GetBuildRate = moho.unit_methods.GetBuildRate
-local GetCurrentLayer = moho.unit_methods.GetCurrentLayer
-local GetEntityId = moho.entity_methods.GetEntityId
-local GetFocusUnit = moho.unit_methods.GetFocusUnit
-local GetFractionComplete = moho.entity_methods.GetFractionComplete
-local GetHeading = moho.unit_methods.GetHeading
-local GetHealth = moho.entity_methods.GetHealth
-local GetMaxHealth = moho.entity_methods.GetMaxHealth
-local GetStat = moho.unit_methods.GetStat
-local GetWeapon = moho.unit_methods.GetWeapon
-local GetWeaponCount = moho.unit_methods.GetWeaponCount
-local HideBone = moho.unit_methods.HideBone
-local IsAllied = IsAlly
-local IsUnitState = moho.unit_methods.IsUnitState
-local IsValidBone = moho.entity_methods.IsValidBone
-local Kill = moho.entity_methods.Kill
+local EntityMethods = moho.entity_methods
+
+local AdjustHealth          = EntityMethods.AdjustHealth
+local GetArmy               = EntityMethods.GetArmy
+local GetBlueprint          = EntityMethods.GetBlueprint
+local GetBoneCount          = EntityMethods.GetBoneCount
+local GetEntityId           = EntityMethods.GetEntityId
+local GetFractionComplete   = EntityMethods.GetFractionComplete
+local GetHealth             = EntityMethods.GetHealth
+local GetMaxHealth          = EntityMethods.GetMaxHealth
+local IsValidBone           = EntityMethods.IsValidBone
+local Kill                  = EntityMethods.Kill
+local PlaySound             = EntityMethods.PlaySound
+local RequestRefreshUI      = EntityMethods.RequestRefreshUI
+local SetHealth             = EntityMethods.SetHealth
+local SetIntelRadius        = EntityMethods.SetIntelRadius
+local SetMesh               = EntityMethods.SetMesh
+
+local UnitMethods = moho.unit_methods
+
+local GetAIBrain                        = UnitMethods.GetAIBrain
+local GetBuildRate                      = UnitMethods.GetBuildRate
+local GetCurrentLayer                   = UnitMethods.GetCurrentLayer
+local GetFocusUnit                      = UnitMethods.GetFocusUnit
+local GetHeading                        = UnitMethods.GetHeading
+local GetStat                           = UnitMethods.GetStat
+local GetWeapon                         = UnitMethods.GetWeapon
+local GetWeaponCount                    = UnitMethods.GetWeaponCount
+local HideBone                          = UnitMethods.HideBone
+local IsUnitState                       = UnitMethods.IsUnitState
+local SetConsumptionActive              = UnitMethods.SetConsumptionActive
+local SetConsumptionPerSecondEnergy     = UnitMethods.SetConsumptionPerSecondEnergy
+local SetConsumptionPerSecondMass       = UnitMethods.SetConsumptionPerSecondMass
+local SetProductionActive               = UnitMethods.SetProductionActive
+local SetProductionPerSecondEnergy      = UnitMethods.SetProductionPerSecondEnergy
+local SetProductionPerSecondMass        = UnitMethods.SetProductionPerSecondMass
+local SetStat                           = UnitMethods.SetStat
+
 local PlatoonExists = moho.aibrain_methods.PlatoonExists
 local PlayAnim = moho.AnimationManipulator.PlayAnim
-local PlaySound = moho.entity_methods.PlaySound
-local RequestRefreshUI = moho.entity_methods.RequestRefreshUI
-local SetConsumptionActive = moho.unit_methods.SetConsumptionActive
-local SetConsumptionPerSecondEnergy = moho.unit_methods.SetConsumptionPerSecondEnergy
-local SetConsumptionPerSecondMass = moho.unit_methods.SetConsumptionPerSecondMass
-local SetHealth = moho.entity_methods.SetHealth
-local SetIntelRadius = moho.entity_methods.SetIntelRadius
-local SetMesh = moho.entity_methods.SetMesh
-local SetProductionActive = moho.unit_methods.SetProductionActive
-local SetProductionPerSecondEnergy = moho.unit_methods.SetProductionPerSecondEnergy
-local SetProductionPerSecondMass = moho.unit_methods.SetProductionPerSecondMass
-local SetStat = moho.unit_methods.SetStat
 
 local ForkThread = ForkThread
 local ForkTo = ForkThread
-
+local IsAllied = IsAlly
 local LOUDSTATE = ChangeState
 
 local TrashBag = TrashBag
@@ -104,13 +109,12 @@ local TrashAdd = TrashBag.Add
 local TrashDestroy = TrashBag.Destroy
 
 local unpack = unpack
-
 local setmetatable = setmetatable
 
 local WaitFor = WaitFor
 local WaitTicks = coroutine.yield
 	
---LOG('entity_methods.__index = ',moho.entity_methods.__index,' ',repr(moho.entity_methods))
+--LOG('entity_methods.__index = ',EntityMethods.__index,' ',repr(EntityMethods))
 --LOG(' URGH ',repr(moho))
 --LOG('scripttask_methods.__index = ',moho.ScriptTask_methods.__index,' ',repr(moho.ScriptTask_methods))
 --LOG('blip_methods.__index = ',moho.blip_methods.__index,' ',repr(moho.blip_methods))
@@ -119,7 +123,7 @@ local WaitTicks = coroutine.yield
 --LOG('projectile_methods.__index = ',moho.projectile_methods.__index,' ',repr(moho.projectile_methods))
 --LOG('prop_methods.__index = ',moho.prop_methods.__index,' ',repr(moho.prop_methods))
 --LOG('shield_methods.__index = ',moho.shield_methods.__index,' ',repr(moho.shield_methods))
---LOG('unit_methods.__index = ',moho.unit_methods.__index,' ',repr(moho.unit_methods))
+--LOG('unit_methods.__index = ',UnitMethods.__index,' ',repr(UnitMethods))
 --LOG('weapon_methods.__index = ',moho.weapon_methods.__index,' ',repr(moho.weapon_methods))
 
 SyncMeta = {
@@ -164,7 +168,7 @@ local PROJECTILE = categories.PROJECTILE
 local SUBCOMMANDER = categories.SUBCOMMANDER
 local WALL = categories.WALL
 
-Unit = Class(moho.unit_methods) {
+Unit = Class(UnitMethods) {
 
     BuffTypes = {
         Regen = { BuffType = 'VET_REGEN', BuffValFunction = 'Add', BuffDuration = -1, BuffStacks = 'REPLACE' },
@@ -530,7 +534,7 @@ Unit = Class(moho.unit_methods) {
 	-- if the unit becomes undetected, the audio cue will be reset but
     WatchIntelFromOthers = function(self, bp, mybrain)
 		
-		local GetBlip = moho.unit_methods.GetBlip
+		local GetBlip = UnitMethods.GetBlip
 		local IsSeenEver = moho.blip_methods.IsSeenEver
 		local WaitTicks = WaitTicks
 		
@@ -1511,7 +1515,7 @@ Unit = Class(moho.unit_methods) {
 				
                 -- Calculate the excess damage amount
                 local excess = preAdjHealth - amount
-                local maxHealth = moho.entity_methods.GetMaxHealth(self)
+                local maxHealth = EntityMethods.GetMaxHealth(self)
 				
                 if (excess < 0 and maxHealth > 0) then
 				
@@ -1710,7 +1714,7 @@ Unit = Class(moho.unit_methods) {
             end
         end
         
-		self:PlayUnitSound('Killed')
+		self.PlayUnitSound( self, 'Killed')
 		
 		self:DoUnitCallbacks( 'OnKilled' )
 		
@@ -1845,10 +1849,8 @@ Unit = Class(moho.unit_methods) {
         if self.DeathAnimManip then
 			WaitFor(self.DeathAnimManip)
 		end
-    
-        --LOG("*AI DEBUG UNIT "..self.EntityID.." DeathThread begins "..self.BlueprintID)
-		
-		self:PlayUnitSound('Destroyed')		
+
+		self.PlayUnitSound(self,'Destroyed')		
 		
 		WaitTicks(2)
 		
@@ -1876,14 +1878,11 @@ Unit = Class(moho.unit_methods) {
 		if overkillRatio <= 0.10 then
 			self:CreateWreckage( overkillRatio )
 		end
-        
-        --LOG("*AI DEBUG UNIT "..self.EntityID.." Waiting for DeathThread Destruction time "..repr(self.DeathThreadDestructionWaitTime).." for "..self.BlueprintID )
 
         WaitTicks( (self.DeathThreadDestructionWaitTime or 0.1) * 10 )
 
         self:Destroy()
 
-        --LOG("*AI DEBUG UNIT "..self.EntityID.." DeathThread Destruction time ends "..self.BlueprintID)        
     end,
 
 	-- this call can be made in two ways - one with a PosEntity value and one without
@@ -2921,19 +2920,20 @@ Unit = Class(moho.unit_methods) {
                 
 				self.DisallowCollisions = false
 			end
+            
 		end
 		
 		if bp.Defense.LifeTime then
-		
 			self:ForkThread( self.LifeTimeThread, bp.Defense.Lifetime )
 		end
 		
         if bp.SizeSphere then
-		
             self:SetCollisionShape('Sphere', bp.CollisionSphereOffsetX or 0, bp.CollisionSphereOffsetY or 0, bp.CollisionSphereOffsetZ or 0, bp.SizeSphere )
         end
-		
-		self:PlayUnitSound('DoneBeingBuilt')
+        
+        if bp.Audio.DoneBeingBuilt then
+            PlaySound( self, bp.Audio.DoneBeingBuilt )
+        end
 
 		--self:PlayUnitAmbientSound( 'ActiveLoop' )
 
@@ -3255,7 +3255,7 @@ Unit = Class(moho.unit_methods) {
 		
         if self.Dead or not self.IntelDisables then return end
 
-		local DisableIntel = moho.entity_methods.DisableIntel
+		local DisableIntel = EntityMethods.DisableIntel
 		
 		-- just some notes in here - the conditions for the intel flags are simple
 		-- 0 means the intel is ON
@@ -3297,7 +3297,7 @@ Unit = Class(moho.unit_methods) {
 
 		if not self.Dead then
 		
-			local EnableIntel = moho.entity_methods.EnableIntel
+			local EnableIntel = EntityMethods.EnableIntel
 			
 			if self.CacheLayer == 'Seabed' or self.CacheLayer == 'Sub' or self.CacheLayer == 'Water' then
 			
@@ -3396,9 +3396,9 @@ Unit = Class(moho.unit_methods) {
         local bp = ALLBPS[self.BlueprintID]
 	
 		local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
-		local GetScriptBit = moho.unit_methods.GetScriptBit
-		local IsIntelEnabled = moho.entity_methods.IsIntelEnabled
-		local TestToggleCaps = moho.unit_methods.TestToggleCaps
+		local GetScriptBit = UnitMethods.GetScriptBit
+		local IsIntelEnabled = EntityMethods.IsIntelEnabled
+		local TestToggleCaps = UnitMethods.TestToggleCaps
         
 		local WaitTicks = WaitTicks
         
@@ -4030,12 +4030,12 @@ Unit = Class(moho.unit_methods) {
 
     PlayUnitSound = function(self, sound)
 		
-        local bp = ALLBPS[self.BlueprintID].Audio
-		
-        if bp and bp[sound] then
+        local bp = ALLBPS[self.BlueprintID].Audio[sound] or false
 
-            PlaySound( self, bp[sound])
+        if bp then
+            PlaySound( self, bp )
         end
+
     end,
 
     PlayUnitAmbientSound = function(self, sound)
@@ -5633,7 +5633,7 @@ Unit = Class(moho.unit_methods) {
 		
 		-- local a bunch of repetitive functions
 		local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-		local IsIntelEnabled = moho.entity_methods.IsIntelEnabled
+		local IsIntelEnabled = EntityMethods.IsIntelEnabled
         
         WaitTicks(61)
 	
@@ -5770,7 +5770,7 @@ Unit = Class(moho.unit_methods) {
 
     OnDetectedBy = function(self, index)
 
-        local GetBlip = moho.unit_methods.GetBlip
+        local GetBlip = UnitMethods.GetBlip
         local IsSeenNow = moho.blip_methods.IsSeenNow
 
         local blip = GetBlip(self,index)    

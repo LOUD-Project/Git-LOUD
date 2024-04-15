@@ -170,12 +170,18 @@ PlatoonFormManager = Class(BuilderManager) {
         
         local PlatoonDialog = ScenarioInfo.PlatoonDialog or false
         
-        local Location = self.Location
-        local LocationType = self.LocationType
-        local Radius = self.Radius
+        local Location          = self.Location
+        local LocationType      = self.LocationType
+        local Radius            = self.Radius
         
         local BuilderName = builder.BuilderName
+        
         local Builder = Builders[BuilderName]
+
+        local PlatoonAIPlan         = Builder.PlatoonAIPlan
+        local PlatoonAddPlans       = Builder.PlatoonAddPlans
+        local PlatoonAddFunctions   = Builder.PlatoonAddFunctions
+        local PlatoonAddBehaviors   = Builder.PlatoonAddBehaviors
 
 		if aiBrain.BuilderManagers[LocationType] and Location and Radius then
 		
@@ -208,15 +214,15 @@ PlatoonFormManager = Class(BuilderManager) {
 				
 				GetMostRestrictiveLayer(hndl)
 
-				if Builder.PlatoonAIPlan then
+				if PlatoonAIPlan then
                 
-					hndl.PlanName = Builder.PlatoonAIPlan
-					hndl:SetAIPlan(hndl.PlanName, aiBrain)
+					hndl.PlanName = PlatoonAIPlan
+					hndl:SetAIPlan( PlatoonAIPlan, aiBrain)
 				end
 
-				if Builder.PlatoonAddPlans then
+				if PlatoonAddPlans then
 				
-					for _, papv in Builder.PlatoonAddPlans do
+					for _, papv in PlatoonAddPlans do
 
 						if PlatoonDialog then
 							LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(BuilderName).." "..repr(hndl.BuilderInstance).." adds plan "..repr(papv))
@@ -226,9 +232,9 @@ PlatoonFormManager = Class(BuilderManager) {
 					end
 				end
 
-				if Builder.PlatoonAddFunctions then
+				if PlatoonAddFunctions then
 				
-					for _, papv in Builder.PlatoonAddFunctions do
+					for _, papv in PlatoonAddFunctions do
 					
 						-- this will run a non critical function -- Wait ?  What do you think that means ? 
 						-- these forks are NOT put into the platoons TRASH -- so they save on processing and storage - BUT 
@@ -246,9 +252,9 @@ PlatoonFormManager = Class(BuilderManager) {
 					end
 				end
 
-				if Builder.PlatoonAddBehaviors then
+				if PlatoonAddBehaviors then
 				
-					for _, papv in Builder.PlatoonAddBehaviors do
+					for _, papv in PlatoonAddBehaviors do
 
 						if PlatoonDialog then
 							LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(BuilderName).." "..repr(hndl.BuilderInstance).." adds behavior "..repr(papv))

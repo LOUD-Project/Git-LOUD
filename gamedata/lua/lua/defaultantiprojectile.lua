@@ -13,11 +13,20 @@ local LOUDPARSE = ParseEntityCategory
 local LOUDSTATE = ChangeState
 local WaitSeconds = WaitSeconds
 
-local BeenDestroyed = moho.entity_methods.BeenDestroyed
-local GetArmy = moho.entity_methods.GetArmy
-local GetLauncher = moho.projectile_methods.GetLauncher
-local SetCollisionShape = moho.entity_methods.SetCollisionShape
-local SetDrawScale = moho.entity_methods.SetDrawScale
+local EntityMethods = moho.entity_methods
+local ProjectileMethods = moho.Projectile_methods
+
+local BeenDestroyed         = EntityMethods.BeenDestroyed
+local GetArmy               = EntityMethods.GetArmy
+local SetCollisionShape     = EntityMethods.SetCollisionShape
+local SetDrawScale          = EntityMethods.SetDrawScale
+
+local GetLauncher           = ProjectileMethods.GetLauncher
+local SetVelocity           = ProjectileMethods.SetVelocity
+local TrackTarget           = ProjectileMethods.TrackTarget
+
+EntityMethods = nil
+ProjectileMethods = nil
 
 local type = type
 local WaitTicks = coroutine.yield
@@ -25,6 +34,10 @@ local WaitTicks = coroutine.yield
 Flare = Class(Entity) {
 
     OnCreate = function(self, spec)
+    
+        if ScenarioInfo.ProjectileDialog then
+            LOG("*AI DEBUG Flare OnCreate is "..repr(self).." spec is "..repr(spec) )
+        end
     
         local function GrowThread( Owner, self )
 
@@ -60,19 +73,15 @@ Flare = Class(Entity) {
     -- accepting the collision and causing the hostile projectile to impact.
     OnCollisionCheck = function(self,other)
 
-		if ScenarioInfo.ProjectileDialog then    
-            LOG("*AI DEBUG Flare OnCollision")
-        end
-	
+        local ProjectileDialog = ScenarioInfo.ProjectileDialog
+        
         if LOUDENTITY(self.RedirectCat, other) and self.Army ~= GetArmy(other) and not other.Deflected then
         
-       		if ScenarioInfo.ProjectileDialog then
-                LOG("*AI DEBUG Flare Collision - New Target")
+       		if ProjectileDialog then
+                LOG("*AI DEBUG Flare Collision - Redirecting "..repr(other).." to "..repr(self.Owner) )
             end
             
             other:SetNewTarget(self.Owner)
-
-            other:TrackTarget(true)
 
 			other.Deflected = true
 
@@ -102,19 +111,22 @@ AAFlare = Class(Entity) {
 	end,
 	
 	OnCollisionCheck = function(self,other)
+    
+        local ProjectileDialog = ScenarioInfo.ProjectileDialog
 
-		if ScenarioInfo.ProjectileDialog then    
+		if ProjectileDialog then    
             LOG("*AI DEBUG AAFlare OnCollision")
         end
 		
         if LOUDENTITY(self.RedirectCat, other) and self.Army ~= GetArmy(other) and not other.Deflected then
 
-            if ScenarioInfo.ProjectileDialog then
+            if ProjectileDialog then
                 LOG("*AI DEBUG AAFlare Collision - New target")
             end
+
 			other:SetNewTarget(self.Owner)
 
-            if ScenarioInfo.ProjectileDialog then
+            if ProjectileDialog then
                 LOG("*AI DEBUG AAFlare Collision - New Turn")
             end
 

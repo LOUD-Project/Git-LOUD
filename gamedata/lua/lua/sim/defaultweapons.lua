@@ -158,11 +158,16 @@ DefaultProjectileWeapon = Class(Weapon) {
 
     CreateProjectileAtMuzzle = function(self, muzzle)
 
-        local proj = self:CreateProjectileForWeapon(muzzle)
-        local bp = self.bp
+        local proj          = self:CreateProjectileForWeapon(muzzle)
+
+        local bp            = self.bp
+        local unit          = self.unit
+        
+        local Audio         = bp.Audio
+        local CacheLayer    = unit.CacheLayer
 	
 		if ScenarioInfo.ProjectileDialog then
-			LOG("*AI DEBUG Projectile CreateProjectileAtMuzzle "..repr(self.bp.Label).." Muzzle "..repr(muzzle).." Projectile "..repr(proj.BlueprintID) )
+			LOG("*AI DEBUG Projectile CreateProjectileAtMuzzle "..repr(bp.Label).." Muzzle "..repr(muzzle).." Projectile "..repr(proj.BlueprintID) )
 		end
 		
         if not proj or BeenDestroyed( proj )then
@@ -185,16 +190,20 @@ DefaultProjectileWeapon = Class(Weapon) {
         if bp.Flare then
             proj:AddFlare(bp.Flare)
         end
-		
-        if self.unit.CacheLayer == 'Water' and bp.Audio.FireUnderWater then
         
-            PlaySound( self, bp.Audio.FireUnderWater )
-            
-        elseif bp.Audio.Fire then
-        
-            PlaySound( self, bp.Audio.Fire)
+        if (CacheLayer == 'Water' or CacheLayer == 'Sub') then
+
+            if Audio.FireUnderWater then
+                PlaySound( self, Audio.FireUnderWater )
+            elseif Audio.Fire then
+                PlaySound( self, Audio.Fire)
+            end
+        else
+            if Audio.Fire then
+                PlaySound( self, Audio.Fire)
+            end
         end
-		
+
 		if self.CBFP_CalcBallAcc then
 			self:CheckBallisticAcceleration(proj)
 		end
@@ -273,36 +282,49 @@ DefaultProjectileWeapon = Class(Weapon) {
 
     -- Played when a muzzle is fired.  Mostly used for muzzle flashes
     PlayFxMuzzleSequence = function(self, muzzle)
+    
+        local FxMuzzleFlash = self.FxMuzzleFlash or false
 	
-        local unit = self.unit
-        local army = unit.Army
+        if FxMuzzleFlash then
 
-        local emit
-		
-        for _, v in self.FxMuzzleFlash do
-            emit = LOUDATTACHEMITTER( unit, muzzle, army, v)
+            local unit = self.unit
+            local army = unit.Army
+
+            local emit
             
-            if self.FxMuzzleFlashScale != 1 then
-                ScaleEmitter( emit, self.FxMuzzleFlashScale )
+            local MuzzleFlashScale = self.FxMuzzleFlashScale or 1
+		
+            for _, v in FxMuzzleFlash do
+            
+                emit = LOUDATTACHEMITTER( unit, muzzle, army, v)
+            
+                if MuzzleFlashScale != 1 then
+                    ScaleEmitter( emit, MuzzleFlashScale )
+                end
             end
         end
     end,
 
     -- Played during the beginning of a MuzzleChargeDelay time when a muzzle in a rack is fired.
     PlayFxMuzzleChargeSequence = function(self, muzzle)
+    
+        local FxChargeMuzzleFlash = self.FxMuzzleChargeFlash or false
         
-        if self.FxChargeMuzzleFlash then
+        if FxChargeMuzzleFlash then
 	
             local unit = self.unit
             local army = unit.Army
+
             local emit
+            
+            local ChargeMuzzleFlashScale = self.FxChargeMuzzleFlashScale or 1
         
-            for _, v in self.FxChargeMuzzleFlash do
+            for _, v in FxChargeMuzzleFlash do
         
                 emit = LOUDATTACHEMITTER( unit, muzzle, army, v)
             
-                if self.FxChargeMuzzleFlashScale != 1 then
-                    ScaleEmitter( emit, self.FxChargeMuzzleFlashScale )
+                if ChargeMuzzleFlashScale != 1 then
+                    ScaleEmitter( emit, ChargeMuzzleFlashScale )
                 end
             end
         end
@@ -313,41 +335,48 @@ DefaultProjectileWeapon = Class(Weapon) {
     PlayFxRackSalvoChargeSequence = function(self, blueprint)
 	
         local bp = blueprint or self.bp
+        
         local unit = self.unit
+        
+        local AnimationCharge           = bp.AnimationCharge or false
+        local Audio                     = bp.Audio.ChargeStart or false
+        local FxRackChargeMuzzleFlash   = self.FxRackChargeMuzzleFlash or false
 
-        if ScenarioInfo.WeaponStateDialog then
-            LOG("*AI DEBUG DefaultWeapon PlayFxRackSalvoChargeSequence "..repr(bp.Label).." at "..GetGameTick() )
-        end
-
-        if self.FxRackChargeMuzzleFlash then
+        if FxRackChargeMuzzleFlash then
 
             local army = unit.Army
             local emit
+            
+            local RackChargeMuzzleFlashScale = self.FxRackChargeMuzzleFlashScale or 1
 
-            for _, v in self.FxRackChargeMuzzleFlash do
+            for _, v in FxRackChargeMuzzleFlash do
 		
                 for _, ev in bp.RackBones[self.CurrentRackNumber].MuzzleBones do
 			
                     emit = LOUDATTACHEMITTER( unit, ev, army, v)
                 
-                    if self.FxRackChargeMuzzleFlashScale != 1 then
-                        ScaleEmitter( emit, self.FxRackChargeMuzzleFlashScale)
+                    if RackChargeMuzzleFlashScale != 1 then
+                        ScaleEmitter( emit, RackChargeMuzzleFlashScale)
                     end
                 end
             end
         end
 		
-        if bp.Audio.ChargeStart then
-            PlaySound( self, bp.Audio.ChargeStart)
+        if Audio then
+            PlaySound( self, Audio)
         end
 		
-        if bp.AnimationCharge and not self.Animator then
+        if AnimationCharge and not self.Animator then
+
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon PlayFxRackSalvoChargeSequence "..repr(bp.Label).." at "..GetGameTick() )
+            end
         
             self.ElapsedRackChargeTime = GetGameTick()
 		
             self.Animator = CreateAnimator(unit)
             
-            PlayAnim( self.Animator, bp.AnimationCharge ):SetRate( bp.AnimationChargeRate or 1 )
+            PlayAnim( self.Animator, AnimationCharge ):SetRate( bp.AnimationChargeRate or 1 )
             
             WaitFor(self.Animator)
             
@@ -360,11 +389,15 @@ DefaultProjectileWeapon = Class(Weapon) {
     PlayFxRackSalvoReloadSequence = function(self, blueprint)
     
         local bp = blueprint or self.bp
+        
+        local AnimationReload       = bp.AnimationReload or false
 
         -- play the reload animation and measure how long that takes --        
-        if bp.AnimationReload and not self.Animator then
+        if AnimationReload and not self.Animator then
 
-            if ScenarioInfo.WeaponStateDialog then
+            local WeaponStateDialog     = ScenarioInfo.WeaponStateDialog
+            
+            if WeaponStateDialog then
                 LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State "..repr(bp.Label).." reload animation" )		
             end
 
@@ -372,17 +405,17 @@ DefaultProjectileWeapon = Class(Weapon) {
 
             self.Animator = CreateAnimator(self.unit)
         
-            PlayAnim( self.Animator, bp.AnimationReload):SetRate( bp.AnimationReloadRate or 1)
+            PlayAnim( self.Animator, AnimationReload):SetRate( bp.AnimationReloadRate or 1)
         
             WaitFor(self.Animator)
 
             seqtime = GetGameTick() - seqtime
 
-            if ScenarioInfo.WeaponStateDialog then
+            if WeaponStateDialog then
                 LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State "..repr(bp.Label).." reload animation takes "..repr(seqtime).." ticks" )		
             end
 
-            self.ElapsedRackReloadTime = seqtime + self.ElapsedRackReloadTime
+            self.ElapsedRackReloadTicks = seqtime + self.ElapsedRackReloadTicks
         end
 		
     end,
@@ -391,21 +424,33 @@ DefaultProjectileWeapon = Class(Weapon) {
     PlayFxRackReloadSequence = function(self, blueprint)
 	
         local bp = self.bp
-		
-        if bp.CameraShakeRadius and bp.CameraShakeMax and bp.CameraShakeMin and bp.CameraShakeDuration and
-		   bp.CameraShakeRadius > 0 and bp.CameraShakeMax > 0 and bp.CameraShakeMin >= 0 and bp.CameraShakeDuration > 0 then
+        local unit = self.unit
+
+        local CameraShakeRadius     = bp.CameraShakeRadius or false
+        local RackRecoilDistance    = bp.RackRecoilDistance or false
+
+        if CameraShakeRadius then
+
+            local CameraShakeMax        = bp.CameraShakeMax
+            local CameraShakeMin        = bp.CameraShakeMin
+            local CameraShakeDuration   = bp.CameraShakeDuration
+        
+            if CameraShakeMax and CameraShakeMin and CameraShakeDuration and
+                CameraShakeRadius > 0 and CameraShakeMax > 0 and CameraShakeMin >= 0 and CameraShakeDuration > 0 then
 			
-            self.unit:ShakeCamera(bp.CameraShakeRadius, bp.CameraShakeMax, bp.CameraShakeMin, bp.CameraShakeDuration)
+                unit:ShakeCamera( CameraShakeRadius, CameraShakeMax, CameraShakeMin, CameraShakeDuration)
+            end
+            
         end
 		
         if bp.ShipRock == true then
 		
-            local ix,iy,iz = self.unit:GetBoneDirection(bp.RackBones[self.CurrentRackNumber].RackBone)
+            local ix,iy,iz = unit:GetBoneDirection(bp.RackBones[self.CurrentRackNumber].RackBone)
 			
-            self.unit:RecoilImpulse(-ix,-iy,-iz)
+            unit:RecoilImpulse(-ix,-iy,-iz)
         end
 		
-        if bp.RackRecoilDistance and bp.RackRecoilDistance != 0 then
+        if RackRecoilDistance and RackRecoilDistance != 0 then
             self:PlayRackRecoil({bp.RackBones[self.CurrentRackNumber]}, bp)
         end
     end,
@@ -491,11 +536,12 @@ DefaultProjectileWeapon = Class(Weapon) {
     end,
 
     -- Played when a weapon packs up.  It has no target and is done with all of its rack salvos
-    PlayFxWeaponPackSequence = function(self, blueprint)
+    PlayFxWeaponPackSequence = function(self, blueprint, unit)
 	
-        local bp = self.bp
+        local bp    = blueprint or self.bp
+        local unit  = unit or self.unit
         
-        local unitBP = __blueprints[self.unit.BlueprintID].Audio
+        local unitBP = __blueprints[unit.BlueprintID].Audio
 
         if ScenarioInfo.WeaponStateDialog then
             LOG("*AI DEBUG DefaultWeapon Pack Sequence "..repr(bp.Label).." at "..GetGameTick() )
@@ -506,42 +552,13 @@ DefaultProjectileWeapon = Class(Weapon) {
         end
         
         if bp.WeaponUnpackAnimation and self.UnpackAnimator then
-        
-            self.ElapsedRepackTime = GetGameTick()
-        
+
             self.UnpackAnimator:SetRate(-bp.WeaponUnpackAnimationRate)
         end
         
         if self.UnpackAnimator then
 
             WaitFor(self.UnpackAnimator)
-            
-            self.ElapsedRepackTime = GetGameTick() - self.ElapsedRepackTime
-
-            if ScenarioInfo.WeaponStateDialog then
-                if self.EconDrain then
-                    LOG("*AI DEBUG DefaultWeapon Pack Sequence ends "..repr(bp.Label).." at "..GetGameTick() )
-                else
-                    LOG("*AI DEBUG DefaultWeapon Pack Sequence ends "..repr(bp.Label).." after "..self.ElapsedRepackTime.." ticks" )
-                end
-            end
-            
-            if self.ElapsedRepackTime > 0 and ( not bp.WeaponRepackTimeout or (math.floor(bp.WeaponRepackTimeout * 10) -self.ElapsedRepackTime < 0 ) ) then
-                LOG("*AI DEBUG DefaultWeapon WeaponRepackTimeout (".. (bp.WeaponRepackTimeout or 0) ..") - during pack - is either not existant or less than the WeaponUnpackAnimation - "..self.ElapsedRepackTime.." ticks. "..repr(self.unit.BlueprintID))
-            end
-
-			if bp.WeaponRepackTimeout and (math.floor(bp.WeaponRepackTimeout * 10) - self.ElapsedRepackTime) > 1 then
-            
-                if ScenarioInfo.WeaponStateDialog then
-                    if self.EconDrain then
-                        LOG("*AI DEBUG DefaultWeapon WeaponRepackTimeout "..repr(bp.Label).." at "..GetGameTick() )
-                    else
-                        LOG("*AI DEBUG DefaultWeapon WeaponRepackTimeout "..repr(bp.Label).." waits "..math.floor(self.bp.WeaponRepackTimeout * 10) - self.ElapsedRepackTime.." ticks" )
-                    end
-                end
-
-				WaitSeconds( bp.WeaponRepackTimeout - (self.ElapsedRepackTime/10) )
-			end
 
         end
 

@@ -13,16 +13,22 @@ local LOUDREMOVE = table.remove
 local LOUDSORT = table.sort
 local VDist2Sq = VDist2Sq
 
+local AIBrainMethods = moho.aibrain_methods
+
+local GetNumUnitsAroundPoint = AIBrainMethods.GetNumUnitsAroundPoint
+local GetThreatsAroundPosition = AIBrainMethods.GetThreatsAroundPosition
+local GetThreatAtPosition = AIBrainMethods.GetThreatAtPosition
+local GetUnitsAroundPoint = AIBrainMethods.GetUnitsAroundPoint
+
+AIBrainMethods = nil
+
 local GetAIBrain = moho.unit_methods.GetAIBrain
+
 local GetFractionComplete = moho.entity_methods.GetFractionComplete
-local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
 local GetPosition = moho.entity_methods.GetPosition	
+
 local GetSurfaceHeight = GetSurfaceHeight 
 local GetTerrainHeight = GetTerrainHeight
-local GetThreatsAroundPosition = moho.aibrain_methods.GetThreatsAroundPosition
-local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
-local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-
 
 local SEARCHCATS = categories.ALLUNITS - categories.MASSEXTRACTION - categories.MASSSTORAGE - categories.MOBILE - categories.WALL
 

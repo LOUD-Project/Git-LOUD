@@ -8,12 +8,17 @@ local BuildingTemplates = import('/lua/buildingtemplates.lua').BuildingTemplates
 local AISendPing = import('/lua/ai/altaiutilities.lua').AISendPing
 local AISortMarkersFromLastPosWithThreatCheck = import('/lua/ai/aiutilities.lua').AISortMarkersFromLastPosWithThreatCheck
 
-local CanBuildStructureAt = moho.aibrain_methods.CanBuildStructureAt
-local DecideWhatToBuild = moho.aibrain_methods.DecideWhatToBuild
-local FindPlaceToBuild = moho.aibrain_methods.FindPlaceToBuild
+local AIBrainMethods = moho.aibrain_methods
+
+local CanBuildStructureAt       = AIBrainMethods.CanBuildStructureAt
+local DecideWhatToBuild         = AIBrainMethods.DecideWhatToBuild
+local FindPlaceToBuild          = AIBrainMethods.FindPlaceToBuild
+local GetUnitsAroundPoint       = AIBrainMethods.GetUnitsAroundPoint
+
+AIBrainMethods = nil
+
 local GetFractionComplete = moho.entity_methods.GetFractionComplete
 local GetPosition = moho.entity_methods.GetPosition
-local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 
 local LOUDCOPY = table.copy
 local LOUDFLOOR = math.floor

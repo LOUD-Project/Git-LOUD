@@ -177,34 +177,9 @@ Builder = Class {
         end
     end,
 
---[[    
-    CalculatePriority = function(self, builderManager)
-	
-        self.PriorityAltered = nil
-        
-		if Builders[self.BuilderName].PriorityFunction then
-        
-            LOG("*AI DEBUG reviewing priority function for "..repr(self.BuilderName))
-		
-			local newPri = false
-			local temporary = true
-
-			local newPri, temporary = Builders[self.BuilderName]:PriorityFunction(self.Brain)
-
-			if newPri and newPri != self.Priority then
-				builderManager:SetBuilderPriority(self.BuilderName, newPri, temporary)
-			end
-
-		end
-		
-        return self.PriorityAltered or false
-    end,
-
-    GetPlatoonTemplate = function(self)
-        return Builders[self.BuilderName].PlatoonTemplate or false
-    end,
---]]
 }
+
+local BuilderCreate     = Builder.Create
 
 
 ------------------------
@@ -216,7 +191,7 @@ FactoryBuilder = Class(Builder) {
 	
 		if not data.FactionIndex or data.FactionIndex == brain.FactionIndex then
 		
-			Builder.Create( self, brain, data, locationType )
+			BuilderCreate( self, brain, data, locationType )
 			return true
 		end
 		
@@ -250,7 +225,7 @@ PlatoonBuilder = Class(Builder) {
 		-- if the platoon spec has a FactionIndex tag then it's compared here	
 		if not data.FactionIndex or data.FactionIndex == brain.FactionIndex then
 	
-			Builder.Create( builder, brain, data, locationType)
+			BuilderCreate( builder, brain, data, locationType)
 
 			builder.InstanceCount = {}
 			builder.InstanceAvailable = 0
@@ -283,8 +258,9 @@ PlatoonBuilder = Class(Builder) {
 	StoreHandle = function( builder, platoon, manager, BuilderType )
 
         local LOUDINSERT = table.insert
+        local InstanceCount = builder.InstanceCount
 	
-        for k,v in builder.InstanceCount do
+        for k,v in InstanceCount do
 		
             if not v then
 				
@@ -314,11 +290,11 @@ PlatoonBuilder = Class(Builder) {
 						manager = 'FactoryManager'
 					end
 					
-					local buildertable = aiBrain.BuilderManagers[platoon.BuilderLocation][manager]['BuilderData'][platoon.BuilderType] or false
+					local buildertable = aiBrain.BuilderManagers[platoon.BuilderLocation][manager]['BuilderData'][platoon.BuilderType]['Builders'] or false
 					
 					if buildertable then
 					
-						for a,b in buildertable['Builders'] do
+						for a,b in buildertable do
 						
 							if b.BuilderName == BuilderName then
 							
@@ -352,6 +328,8 @@ PlatoonBuilder = Class(Builder) {
 	
 }
 
+local PlatoonBuilderCreate      = PlatoonBuilder.Create
+
 
 function CreatePlatoonBuilder( manager, brain, data, locationType)
 
@@ -376,7 +354,7 @@ EngineerBuilder = Class(PlatoonBuilder) {
 		-- if the platoon spec has a FactionIndex tag then it's compared here
 		if not data.FactionIndex or data.FactionIndex == brain.FactionIndex then
 		
-			PlatoonBuilder.Create( self, manager, brain, data, locationType)
+			PlatoonBuilderCreate( self, manager, brain, data, locationType)
 			
 			return true
 		else
