@@ -1,9 +1,10 @@
 local originalUpdateScoreData = UpdateScoreData
 local modFolder = 'SupremeEconomy'
+local SEUpdateScoreData = import('/mods/' .. modFolder .. '/modules/mciscore.lua').UpdateScoreData
 
-function UpdateScoreData(newData) 
+function UpdateScoreData(newData)
 
   originalUpdateScoreData(newData)
-  
-  import('/mods/' .. modFolder .. '/modules/mciscore.lua').UpdateScoreData(newData)
+
+  SEUpdateScoreData(newData)
 end
