@@ -29,6 +29,7 @@ ainames = {
         "Budac",
 
         "Handsome Dewey",
+        "FrustBerry",
         "Gecko Mucousface",
         "Jesus Chrysler",
         "Maxon",
@@ -63,6 +64,7 @@ ainames = {
         "Svend Ziderzee",
         "SivCorp",
         "Tanksy",
+        "Toe Fungus",
         "Xavier 4 Eyes",
     },
     cybran = {
@@ -94,6 +96,7 @@ ainames = {
         "LOUDNESS",
         "Doc Tater",
         "Dohlinho",
+        "IWillDestroyYou",
         "Sprouto",
     },
     seraphim = { 
