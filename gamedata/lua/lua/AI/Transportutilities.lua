@@ -1497,7 +1497,7 @@ function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bS
 
                     if TransportDialog then
 
-                        if (mythreat * 1.3) > mythreat then
+                        if (mythreat * 1.3) > surthreat then
                             LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." finds alternate landing position at "..repr(transportLocation).." surthreat is "..surthreat.." vs. mine "..mythreat)
                         else
                             LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." finds alternate landing position at "..repr(transportLocation).." AIRthreat is "..airthreat.." vs. my max of "..airthreatMax)
