@@ -7069,7 +7069,7 @@ Platoon = Class(PlatoonMethods) {
 				else
 				
 					-- Land Base - finds both Starts and Large Expansion areas
-					startpos, refName = AIFindBaseAreaForExpansion( aiBrain, self.BuilderLocation, (cons.LocationRadius or 2000), cons.ThreatMin, cons.ThreatMax, cons.ThreatRings, cons.ThreatType, false )
+					startpos, refName = AIFindBaseAreaForExpansion( aiBrain, self.BuilderLocation, (cons.LocationRadius or 2000), cons.ExpansionRadius, cons.ThreatMin, cons.ThreatMax, cons.ThreatRings, cons.ThreatType, false )
 				end
 			end
 

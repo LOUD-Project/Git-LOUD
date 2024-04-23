@@ -233,7 +233,8 @@ end
 -- This function finds any kind of available large base position (either start or expansion)
 -- that is not too close to any of our other 'counted' bases - DPs and Sea bases are ignored
 -- position is NOT driven by the Attack Plan but by the source base of the engineer doing this job
-function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, tMin, tMax, tRings, tType, eng)
+-- added the check for 'allied' structures based on the baseradius in the engineer task
+function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, expradius, tMin, tMax, tRings, tType, eng)
 
     local BuilderManager = aiBrain.BuilderManagers[locationType]
     local Position = BuilderManager.Position or false
@@ -248,14 +249,14 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, tMin, tMax, 
     
         local VDist3 = VDist3
 
-        local position
+        local position, name
 		local positions = {}
 
 		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Blank Marker', Position, radius, tMin, tMax, tRings, tType))
 	
 		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Large Expansion Area', Position, radius, tMin, tMax, tRings, tType))
 	
-		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], BuilderManager.Position[1],BuilderManager.Position[3]) < VDist2Sq(b.Position[1],b.Position[3], BuilderManager.Position[1],BuilderManager.Position[3] ) end )
+		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )
 	
 		-- I put a check in here to eliminate not only the current position but any position within a range of the current position
 		-- I expanded this concept further to base the exclusion radius upon map size
@@ -271,15 +272,18 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, tMin, tMax, 
 		-- loop thru all the positions
 		for m,marker in positions do
         
-            position = marker.Position
+            position    = marker.Position
+            name        = marker.Name
 	
 			removed = false
 		
 			-- check all the other brains to see if they own it already
 			for index,brain in Brains do
-			
+            
+                local Manager = brain.BuilderManagers
+                
 				-- if someone else owns it or the co-ordinates are the same as this brains 'MAIN' position -- 
-				if brain.BuilderManagers[marker.Name] or ( position[1] == brain.BuilderManagers['MAIN'].Position[1] and position[3] == brain.BuilderManagers['MAIN'].Position[3] ) then
+				if Manager[name] or ( position[1] == Manager['MAIN'].Position[1] and position[3] == Manager['MAIN'].Position[3] ) then
 					
 					removed = true
 					break
@@ -299,11 +303,18 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, tMin, tMax, 
 					end
 				end
 			
+                -- check the location for allied structures at HALF the expansion radius --
 				if not removed then
-				
-					return position, marker.Name
+            
+                    if GetNumUnitsAroundPoint( aiBrain, categories.STRUCTURE - categories.MASSEXTRACTION - categories.WALL, position, expradius/2, 'Ally') < 1 then
+
+                        return position, name
+                    end
+                    
 				end
+                
 			end
+            
 		end
 
 	end

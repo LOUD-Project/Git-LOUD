@@ -123,8 +123,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
 			-- must have enough mass input to sustain existing factories and surplus
 			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.05, 1.05 } },
 
-			-- there must be an start/expansion area
-            { UCBC, 'BaseAreaForExpansion', { 'LocationType', 2000, -9999, 60, 0, 'AntiSurface' } },
+			-- there must be a vacant start/expansion area with no allied structures within ExpansionRadius range (115)
+            { UCBC, 'BaseAreaForExpansion', { 'LocationType', 2000, 115, -9999, 60, 0, 'AntiSurface' } },
         },
 		
         BuilderType = { 'T2','T3' },
@@ -141,6 +141,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
                 
 				-- this controls the radius at which this base will draw 'pool' units
 				-- and it forms the basis for the Base Alert radius as well
+                -- and controls the initial check for 'allied' positions
                 ExpansionRadius = 115,
                 
 				-- this controls the radius for creation of auto-rally points 
@@ -201,7 +202,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
 			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.05, 1.05 } },
 
 			-- there must be an start/expansion area
-            { UCBC, 'BaseAreaForExpansion', { 'LocationType', 2000, -9999, 75, 0, 'AntiSurface' } },
+            { UCBC, 'BaseAreaForExpansion', { 'LocationType', 2000, 115, -9999, 75, 0, 'AntiSurface' } },
         },
 		
         BuilderType = { 'SubCommander' },
@@ -218,6 +219,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
                 
 				-- this controls the radius at which this base will draw 'pool' units
 				-- and it forms the basis for the Base Alert radius as well
+                -- and controls the initial check for 'allied' positions
                 ExpansionRadius = 115,
                 
 				-- this controls the radius for creation of auto-rally points 
@@ -279,7 +281,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
 			-- there must be an start/expansion area
-            { UCBC, 'BaseAreaForExpansion', { 'LocationType', 700, -9999, 60, 0, 'AntiSurface' } },
+            { UCBC, 'BaseAreaForExpansion', { 'LocationType', 700, 115, -9999, 115, 60, 0, 'AntiSurface' } },
         },
 		
         BuilderType = { 'T1' },
@@ -296,6 +298,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
                 
 				-- this controls the radius at which this base will draw 'pool' units
 				-- and it forms the basis for the Base Alert radius as well
+                -- and controls the initial check for 'allied' positions
                 ExpansionRadius = 115,
                 
 				-- this controls the radius for creation of auto-rally points 

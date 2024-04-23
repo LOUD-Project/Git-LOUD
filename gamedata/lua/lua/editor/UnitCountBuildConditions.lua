@@ -218,9 +218,9 @@ end
 
 --  Base Area Needs Engineer -- used on both Start and Expansion markers
 -- returns true if there is an available position
-function BaseAreaForExpansion( aiBrain, locationType, locationRadius, threatMin, threatMax, threatRings, threatType )
+function BaseAreaForExpansion( aiBrain, locationType, locationRadius, expradius, threatMin, threatMax, threatRings, threatType )
 
-    if AIFindBaseAreaForExpansion( aiBrain, locationType, locationRadius, threatMin, threatMax, threatRings, threatType) then
+    if AIFindBaseAreaForExpansion( aiBrain, locationType, locationRadius, expradius, threatMin, threatMax, threatRings, threatType) then
         return true
     end
 	
