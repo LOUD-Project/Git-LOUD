@@ -11,30 +11,18 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0401_Death',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0401_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed = Sound { Bank = 'XSL', Cue = 'XSL0401_Death', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove = Sound { Bank = 'XSL', Cue = 'XSL0401_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Bot', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 20,
-            Level2 = 40,
-            Level3 = 60,
-            Level4 = 80,
-            Level5 = 100,
+            Level1 = 16,
+            Level2 = 32,
+            Level3 = 48,
+            Level4 = 54,
+            Level5 = 70,
         },
     },
 	
@@ -68,7 +56,7 @@ UnitBlueprint {
         Health = 52000,
         MaxHealth = 52000,
         
-        RegenRate = 20,
+        RegenRate = 16,
         
         SurfaceThreatLevel = 509,
     },
@@ -77,12 +65,13 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Hover',
+            '<LOC ability_hover>Hover',
 			'Multi-stage Phason Cascade Beam',
 			'7 x Attack Drones',
-            '2 x AA Flak',
-            'Volatile',
+            "<LOC ability_aa>Anti-Air",
+            '<LOC ability_deathaoe>Volatile',
         },
+        
 		AnimationDeath = {
             {
                 Animation = '/mods/BlackOpsUnleashed/units/BSL0401/BSL0401_aDeath01.sca',
@@ -103,6 +92,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -114,38 +104,18 @@ UnitBlueprint {
                 },
             },
         },
+        
         UniformScale = 0.5,
     },
 	
 	DroneData = {
-        Drone1 = {
-            Attachpoint = 'AttachSpecial01',
-            UnitID = 'BSA0004',
-        },
-		Drone2 = {
-            Attachpoint = 'AttachSpecial02',
-            UnitID = 'BSA0004',
-        },
-		Drone3 = {
-            Attachpoint = 'AttachSpecial03',
-            UnitID = 'BSA0004',
-        },
-		Drone4 = {
-            Attachpoint = 'AttachSpecial04',
-            UnitID = 'BSA0004',
-        },
-		Drone5 = {
-            Attachpoint = 'AttachSpecial05',
-            UnitID = 'BSA0004',
-        },
-		Drone6 = {
-            Attachpoint = 'AttachSpecial06',
-            UnitID = 'BSA0004',
-        },
-		Drone7 = {
-            Attachpoint = 'AttachSpecial07',
-            UnitID = 'BSA0004',
-        },
+        Drone1 = { Attachpoint = 'AttachSpecial01', UnitID = 'BSA0004'},
+		Drone2 = { Attachpoint = 'AttachSpecial02', UnitID = 'BSA0004'},
+		Drone3 = { Attachpoint = 'AttachSpecial03', UnitID = 'BSA0004'},
+		Drone4 = { Attachpoint = 'AttachSpecial04', UnitID = 'BSA0004'},
+		Drone5 = { Attachpoint = 'AttachSpecial05', UnitID = 'BSA0004'},
+		Drone6 = { Attachpoint = 'AttachSpecial06', UnitID = 'BSA0004'},
+		Drone7 = { Attachpoint = 'AttachSpecial07', UnitID = 'BSA0004'},
     }, 
 	
     Economy = {
@@ -174,20 +144,15 @@ UnitBlueprint {
             RULEUTC_SpecialToggle = true,
             RULEUTC_WeaponToggle = true,
         },
+        
         OrderOverrides = {
-            RULEUTC_SpecialToggle = {
-                bitmapId = 'dock',
-                helpText = 'drone_recal',
-            },
-            RULEUTC_WeaponToggle = {
-                bitmapId = 'area-assist',
-                helpText = 'drone_assist',
-            },
+            RULEUTC_SpecialToggle = { bitmapId = 'dock', helpText = 'drone_recal' },
+            RULEUTC_WeaponToggle = { bitmapId = 'area-assist', helpText = 'drone_assist' },
         }, 
     },
 	
     Intel = {
-        VisionRadius = 37,
+        VisionRadius = 40,
     },
 	
     Interface = {
@@ -266,27 +231,12 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
+            
             Audio = {
-                BeamStart = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Exp_Phason_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Unpack  = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Exp_Phason_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-				BeamLoop = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2301_Ultrachromatic_Beam',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-				BeamStop = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2301_Ultrachromatic_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamStart = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_Exp_Phason_Fire', LodCutoff = 'Weapon_LodCutoff' },
+                Unpack  = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_Exp_Phason_Charge', LodCutoff = 'Weapon_LodCutoff'},
+				BeamLoop = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2301_Ultrachromatic_Beam', LodCutoff = 'Weapon_LodCutoff'},
+				BeamStop = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2301_Ultrachromatic_Beam_Stop', LodCutoff = 'Weapon_LodCutoff'},
             },
 
             AutoInitiateAttackCommand = true,
@@ -370,27 +320,12 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
+            
             Audio = {
-                BeamStart = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Exp_Phason_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Unpack  = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Exp_Phason_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-				BeamLoop = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2301_Ultrachromatic_Beam',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-				BeamStop = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2301_Ultrachromatic_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamStart   = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_Exp_Phason_Fire', LodCutoff = 'Weapon_LodCutoff' },
+                Unpack      = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_Exp_Phason_Charge', LodCutoff = 'Weapon_LodCutoff' },
+				BeamLoop    = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2301_Ultrachromatic_Beam', LodCutoff = 'Weapon_LodCutoff' },
+				BeamStop    = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2301_Ultrachromatic_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             AutoInitiateAttackCommand = true,
@@ -473,27 +408,12 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
+
             Audio = {
-                BeamStart = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Exp_Phason_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Unpack  = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Exp_Phason_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-				BeamLoop = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2301_Ultrachromatic_Beam',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-				BeamStop = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2301_Ultrachromatic_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamStart   = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_Exp_Phason_Fire', LodCutoff = 'Weapon_LodCutoff' },
+                Unpack      = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_Exp_Phason_Charge', LodCutoff = 'Weapon_LodCutoff' },
+				BeamLoop    = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2301_Ultrachromatic_Beam', LodCutoff = 'Weapon_LodCutoff' },
+				BeamStop    = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2301_Ultrachromatic_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             AutoInitiateAttackCommand = true,
@@ -575,14 +495,13 @@ UnitBlueprint {
         {
             AboveWaterFireOnly = true,
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Aire_Autocannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_Aire_Autocannon', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -592,9 +511,7 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
-			
-            DisplayName = 'Olaris AA Artillery Cannon',
-			
+
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Water = 'Air',
@@ -608,6 +525,7 @@ UnitBlueprint {
             HeadingArcRange = 160,
 			
             Label = 'AA',
+
 			LeadTarget = true,
 			
             MaxRadius = 42,
@@ -659,15 +577,15 @@ UnitBlueprint {
         {
             AboveWaterFireOnly = true,
             AlwaysRecheckTarget = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Aire_Autocannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_Aire_Autocannon', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
+
             CollideFriendly = false,
 			
             Damage = 50,
@@ -739,9 +657,10 @@ UnitBlueprint {
 			
             Turreted = true,
         },
+
         {
             AboveWaterTargetsOnly = true,
-            Damage = 4500,
+            Damage = 4000,
             DamageFriendly = true,
             DamageRadius = 10,
             DamageType = 'Normal',
@@ -756,7 +675,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.35,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -2,20 +2,20 @@ local CSubUnit = import('/lua/defaultunits.lua').SubUnit
 
 local WeaponsFile = import('/lua/cybranweapons.lua')
 
-local CANNaniteTorpedoWeapon = WeaponsFile.CANNaniteTorpedoWeapon
-local CDFElectronBolterWeapon = WeaponsFile.CDFElectronBolterWeapon
-local CKrilTorpedoLauncherWeapon = WeaponsFile.CKrilTorpedoLauncherWeapon
+local CANNaniteTorpedoWeapon        = WeaponsFile.CANNaniteTorpedoWeapon
+local CDFElectronBolterWeapon       = WeaponsFile.CDFElectronBolterWeapon
+local CKrilTorpedoLauncherWeapon    = WeaponsFile.CKrilTorpedoLauncherWeapon
+
+WeaponsFile = nil
 
 local TorpRedirectField = import('/mods/BlackOpsUnleashed/lua/BlackOpsdefaultantiprojectile.lua').TorpRedirectField
 
 BRS0305 = Class(CSubUnit) {
     
     Weapons = {
-	
         DeckGun = Class(CDFElectronBolterWeapon) {},
         Torpedo01 = Class(CANNaniteTorpedoWeapon) {},
         Torpedo02 = Class(CKrilTorpedoLauncherWeapon) {},
-		
     },
 	
     OnStopBeingBuilt = function(self, builder, layer)

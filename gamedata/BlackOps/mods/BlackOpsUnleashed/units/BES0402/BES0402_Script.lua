@@ -1,11 +1,10 @@
 local TSeaUnit = import('/lua/defaultunits.lua').SeaUnit
 
-local ZCannonWeapon = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').ZCannonWeapon
+local TDFShipGaussCannonWeapon  = import('/lua/terranweapons.lua').TDFShipGaussCannonWeapon
+local TAALinkedRailgun          = import('/lua/terranweapons.lua').TAALinkedRailgun
 
-local TDFShipGaussCannonWeapon = import('/lua/terranweapons.lua').TDFShipGaussCannonWeapon
-local TAALinkedRailgun = import('/lua/terranweapons.lua').TAALinkedRailgun
-
-local BlackOpsEffectTemplate = import('/mods/BlackOpsUnleashed/lua/BlackOpsEffectTemplates.lua')
+local ZCannonWeapon             = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').ZCannonWeapon
+local BlackOpsEffectTemplate    = import('/mods/BlackOpsUnleashed/lua/BlackOpsEffectTemplates.lua')
 
 local CreateAttachedEmitter = CreateAttachedEmitter
 local LOUDINSERT = table.insert

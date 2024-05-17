@@ -1,73 +1,43 @@
 ProjectileBlueprint {
-    Audio = {
-        Impact = Sound {
-            Bank = 'Impacts',
-            Cue = 'AEON_Expl_Med_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        ImpactTerrain = Sound {
-            Bank = 'Impacts',
-            Cue = 'Impact_Land_Gen_AEON',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        ImpactWater = Sound {
-            Bank = 'Impacts',
-            Cue = 'Impact_Water_Splash_AEON',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-    },
+
     Categories = {
-        'AEON',
         'PROJECTILE',
-        'INDIRECTFIRE',
         'TACTICAL',
         'MISSILE',
-        'NOSPLASHDAMAGE',
     },
+
     Defense = {
-        Health = 1,
-        MaxHealth = 1,
+        Health = 2,
+        MaxHealth = 2,
     },
+    
     Display = {
-        CameraFollowTimeout = 2,
-        CameraFollowsProjectile = true,
         Mesh = {
             LODs = {
-                {
-                    LODCutoff = 150,
-                    ShaderName = 'NormalMappedAlpha',
-                },
+                {LODCutoff = 150,ShaderName = 'NormalMappedAlpha'},
             },
         },
-        StrategicIconSize = 2,
-        UniformScale = 0.1,
+        StrategicIconSize = 1,
+        UniformScale = 0.16,
     },
-    General = {
-        Category = 'Missile',
-        EntityCategory = {
-            'AEON',
-            'PROJECTILE',
-            'INDIRECTFIRE',
-            'MISSILE',
-            'NOSPLASHDAMAGE',
-        },
-        Faction = 'Aeon',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
-        Acceleration = 10,
+        Acceleration = 3,
         DestroyOnWater = true,
         InitialSpeed = 5,
         LifeTime = 30,
-        MaxSpeed = 50,
-        MaxZigZag = 12,
-        TrackTarget = true,
-        RotationalVelocityRange = 200,
-        TrackTargetGround = true,
-        TurnRate = 0,
+
+        MaxSpeed = 24,
+
+        TrackTarget = false,
+        TrackTargetGround = false,
+
+        TurnRate = 10,
+
         VelocityAlign = true,
-        ZigZagFrequency = 1.5,
     },
 }

@@ -1,9 +1,7 @@
---
--- Terran Anti Air Missile
---
 CAANanoDartProjectile = import('/lua/cybranprojectiles.lua').CAANanoDartProjectile
-BaaMissile01 = Class(CAANanoDartProjectile)
-{
+
+BaaMissile01 = Class(CAANanoDartProjectile){
+
 	OnCreate = function(self)
 		CAANanoDartProjectile.OnCreate(self)
 		

@@ -16,26 +16,20 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'SERAPHIM',
         'PROJECTILE',
-        'DIRECTFIRE',
     },
+
     Display = {
-        ImpactEffects = {
-            Type = 'Large01',
-        },
+        ImpactEffects = {Type = 'Large01'},
         StrategicIconSize = 2,
     },
-    General = {
-        Category = 'Direct Fire',
-        Faction = 'Seraphim',
-        TechLevel = 1,
-        Weapon = 'Heavy Quarnon Cannon',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         DestroyOnWater = true,
         InitialSpeed = 14.6,

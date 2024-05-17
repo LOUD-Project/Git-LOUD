@@ -6,26 +6,10 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0202_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0202_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'UEL', Cue = 'UEL0202_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'UEL', Cue = 'UEL0202_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Tank', LodCutoff = 'UnitMove_LodCutoff' },
     },
     Buffs = {},
 	
@@ -62,25 +46,14 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 215,
-                    Scrolling = true,
-                    ShaderName = 'Unit',
-                },
+                { LODCutoff = 215, Scrolling = true, ShaderName = 'Unit' },
             },
         },
+        
         MovementEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {
-
-                             'Left_Exhaust',
-                             'Right_Exhaust',
-                        },
-                        Type = 'GroundKickup02',
-                        Scale = 0.2,
-                    },
+                    { Bones = {'Left_Exhaust','Right_Exhaust'}, Type = 'GroundKickup02', Scale = 0.2 },
                 },
             },
         },
@@ -110,7 +83,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 21,
+        VisionRadius = 20,
     },
 	
     Interface = {
@@ -172,13 +145,11 @@ UnitBlueprint {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2104_Railgun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2104_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -253,13 +224,11 @@ UnitBlueprint {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2104_Railgun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2104_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			

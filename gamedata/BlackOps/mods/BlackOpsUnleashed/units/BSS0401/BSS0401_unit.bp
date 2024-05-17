@@ -2,7 +2,7 @@ UnitBlueprint {
     AI = {
         AttackAngle = 60,
         GuardReturnRadius = 160,
-        GuardScanRadius = 145,
+        GuardScanRadius = 136,
 
         InitialAutoMode = true,
 
@@ -10,30 +10,18 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'XSS_Destroy',
-            Cue = 'XSS0302_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSS',
-            Cue = 'XSS0302_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'XSS_Destroy', Cue = 'XSS0302_Destroy', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'XSS', Cue = 'XSS0302_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Naval', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 30,
-            Level2 = 60,
-            Level3 = 90,
-            Level4 = 120,
-            Level5 = 150,
+            Level1 = 12,
+            Level2 = 24,
+            Level3 = 36,
+            Level4 = 48,
+            Level5 = 60,
         },
     },
 	
@@ -62,11 +50,13 @@ UnitBlueprint {
     CollisionOffsetY = -1,
 	
     Defense = {
-        AirThreatLevel = 48,
         ArmorType = 'Normal',
+
         Health = 70000,
         MaxHealth = 70000,
-        RegenRate = 30,
+        RegenRate = 25,
+
+        AirThreatLevel = 48,
         SurfaceThreatLevel = 275,
     },
 	
@@ -77,11 +67,13 @@ UnitBlueprint {
 			'2 Dread Cannons',
 			'3 Heavy Quarnon Weapons',
 			'4 UltraChromatic Beam Weapons',
-            '4 x Anti-Air Flak',
-            'Radar & Sonar & Tactical Missile Defense',
-            'Strategic Missile Defense',
+            '<LOC ability_aa>Anti-Air',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_stratmissiledef>Strategic Missile Defense',
             '<LOC ability_deathaoe>Volatile',
         },
+        
         AnimationDeath = {
             {
                 Animation = '/mods/BlackOpsUnleashed/units/BSS0401/BSS0401_ADeath01.sca',
@@ -102,24 +94,13 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+        
         IdleEffects = {
             Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'XSS0401',
-                        },
-                        Offset = {
-                            0,
-                            0,
-                            0.5,
-                        },
-                        Scale = 2,
-                        Type = 'SeaIdle01',
-                    },
-                },
+                Effects = { { Bones = {'XSS0401'},Offset = {0,0,0.5},Scale = 2,Type = 'SeaIdle01'} },
             },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -133,19 +114,10 @@ UnitBlueprint {
                 },
             },
         },
+        
         MovementEffects = {
             Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Exhaust01',
-                            'Exhaust04',
-                            'Exhaust05',
-                        },
-                        Scale = 2,
-                        Type = 'BackWake',
-                    },
-                },
+                Effects = { { Bones = {'Exhaust01','Exhaust04','Exhaust05'},Scale = 2,Type = 'BackWake'} },
             },
         },
 
@@ -185,10 +157,12 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 140,
-		SonarRadius = 70,
+
+        RadarRadius = 120,
+		SonarRadius = 56,
+
         VisionRadius = 40,
-        WaterVisionRadius = 24,
+        WaterVisionRadius = 20,
     },
 	
     Interface = {
@@ -247,28 +221,14 @@ UnitBlueprint {
     Weapon = {
     	{
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Lrg_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Lrg_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_SinnUnthe_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_SinnUnthe_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop          = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire                = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_SinnUnthe_Fire', LodCutoff = 'Weapon_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_SinnUnthe_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
@@ -293,7 +253,7 @@ UnitBlueprint {
 			
             Label = 'FrontMainTurret',
 			
-            MaxRadius = 145,
+            MaxRadius = 140,
             MinRadius = 24,
 			
             MuzzleChargeDelay = 1,      -- 1 second delay
@@ -353,28 +313,14 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Lrg_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Lrg_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_SinnUnthe_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_SinnUnthe_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop          = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire                = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_SinnUnthe_Fire', LodCutoff = 'Weapon_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_SinnUnthe_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
@@ -398,7 +344,7 @@ UnitBlueprint {
 			
             Label = 'BackMainTurret',
 			
-            MaxRadius = 145,
+            MaxRadius = 140,
             MinRadius = 24,
 			
             MuzzleChargeDelay = 1,
@@ -459,22 +405,11 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Lrg_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Lrg_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0302_Quarnon_Cannon',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff'},
+                BarrelStart = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff'},
+                Fire        = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0302_Quarnon_Cannon', LodCutoff = 'WeaponBig_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -496,7 +431,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryTurret',
 			
-            MaxRadius = 95,
+            MaxRadius = 88,
 
             MuzzleVelocity = 35,
 			
@@ -550,23 +485,13 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Lrg_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Lrg_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0302_Quarnon_Cannon',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff'},
+                BarrelStart = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff'},
+                Fire        = Sound { Bank = 'XSS_Weapon',Cue = 'XSS0302_Quarnon_Cannon', LodCutoff = 'WeaponBig_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -587,7 +512,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryTurret',
 			
-            MaxRadius = 95,
+            MaxRadius = 88,
 
             MuzzleVelocity = 35,
 
@@ -637,22 +562,11 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Lrg_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Lrg_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0302_Quarnon_Cannon',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff'},
+                BarrelStart = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff'},
+                Fire        = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0302_Quarnon_Cannon', LodCutoff = 'WeaponBig_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
@@ -675,7 +589,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryTurret',
 
-            MaxRadius = 95,
+            MaxRadius = 88,
 
             MuzzleVelocity = 35,
 			
@@ -729,22 +643,11 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = false,
+
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0201_Ultrachromatic_Beam',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0201_Ultrachromatic_Beam_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0201_Ultrachromatic_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop    = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_Ultrachromatic_Beam', LodCutoff = 'Weapon_LodCutoff'},
+                BeamStart   = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_Ultrachromatic_Beam_Start', LodCutoff = 'Weapon_LodCutoff'},
+                BeamStop    = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_Ultrachromatic_Beam_Stop', LodCutoff = 'Weapon_LodCutoff'},
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -760,10 +663,8 @@ UnitBlueprint {
 			
             DisplayName = 'Ultrachromatic Beam Generator',
 			
-            DoNotCollideList = {
-                'TORPEDO',
-				'MISSILE',
-            },
+            DoNotCollideList = {'TORPEDO','MISSILE'},
+            
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
@@ -816,24 +717,13 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = false,
+
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0201_Ultrachromatic_Beam',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0201_Ultrachromatic_Beam_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0201_Ultrachromatic_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop    = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_Ultrachromatic_Beam', LodCutoff = 'Weapon_LodCutoff'},
+                BeamStart   = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_Ultrachromatic_Beam_Start', LodCutoff = 'Weapon_LodCutoff'},
+                BeamStop    = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_Ultrachromatic_Beam_Stop', LodCutoff = 'Weapon_LodCutoff'},
             },
-            AutoInitiateAttackCommand = false,
+
             BallisticArc = 'RULEUBA_None',
 
             BeamCollisionDelay = 0,
@@ -901,22 +791,11 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = false,
+
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0201_Ultrachromatic_Beam',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0201_Ultrachromatic_Beam_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0201_Ultrachromatic_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop    = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_Ultrachromatic_Beam', LodCutoff = 'Weapon_LodCutoff'},
+                BeamStart   = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_Ultrachromatic_Beam_Start', LodCutoff = 'Weapon_LodCutoff'},
+                BeamStop    = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_Ultrachromatic_Beam_Stop', LodCutoff = 'Weapon_LodCutoff'},
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -983,24 +862,13 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = false,
+
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0201_Ultrachromatic_Beam',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0201_Ultrachromatic_Beam_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0201_Ultrachromatic_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop    = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_Ultrachromatic_Beam', LodCutoff = 'Weapon_LodCutoff'},
+                BeamStart   = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_Ultrachromatic_Beam_Start', LodCutoff = 'Weapon_LodCutoff'},
+                BeamStop    = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_Ultrachromatic_Beam_Stop', LodCutoff = 'Weapon_LodCutoff'},
             },
-            AutoInitiateAttackCommand = false,
+
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
@@ -1068,17 +936,15 @@ UnitBlueprint {
 
         {
             AimsStraightOnDisable = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0302_Missile_Defense',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0302_Missile_Defense', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 1,
+            Damage = 2,
             DamageType = 'Normal',
 			
             DisplayName = 'Ele-athrun Tactical Missile Defense',
@@ -1139,26 +1005,22 @@ UnitBlueprint {
 		
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0302_Olaris_AA',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0302_Olaris_AA', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 40,
+            Damage = 60,
             DamageFriendly = false,
             DamageRadius = 2,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
-			
-            DisplayName = 'Olaris AA Cannon',
-			
+
             FireTargetLayerCapsTable = {
                 Water = 'Air',
             },
@@ -1195,7 +1057,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 3,	-- 120 DPS Air
+            RateOfFire = 2,	-- 120 DPS Air
             
             TargetCheckInterval = 0.3,
 			
@@ -1225,18 +1087,16 @@ UnitBlueprint {
         },
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0302_Olaris_AA',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0302_Olaris_AA', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 40,
+            Damage = 60,
             DamageFriendly = false,
             DamageRadius = 2,
             DamageType = 'Normal',
@@ -1279,7 +1139,7 @@ UnitBlueprint {
 
             RackSlavedToTurret = true,
 
-            RateOfFire = 3,		-- 120 DPS Air
+            RateOfFire = 2,		-- 120 DPS Air
             
             TargetCheckInterval = 0.3,
 			
@@ -1309,26 +1169,22 @@ UnitBlueprint {
         },
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0302_Olaris_AA',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0302_Olaris_AA', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 40,
+            Damage = 60,
             DamageFriendly = false,
             DamageRadius = 2,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
-			
-            DisplayName = 'Olaris AA Cannon',
-			
+
             FireTargetLayerCapsTable = {
                 Water = 'Air',
             },
@@ -1363,7 +1219,7 @@ UnitBlueprint {
 
             RackSlavedToTurret = true,
 
-            RateOfFire = 3,		-- 120 DPS Air
+            RateOfFire = 2,		-- 120 DPS Air
             
             TargetCheckInterval = 0.3,
 			
@@ -1393,25 +1249,21 @@ UnitBlueprint {
         },
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0302_Olaris_AA',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0302_Olaris_AA', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 40,
+            Damage = 60,
             DamageFriendly = false,
             DamageRadius = 2,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
-			
-            DisplayName = 'Olaris AA Cannon',
 			
             FireTargetLayerCapsTable = {
                 Water = 'Air',
@@ -1447,7 +1299,7 @@ UnitBlueprint {
 
             RackSlavedToTurret = true,
 
-            RateOfFire = 3,		-- 120 DPS Air
+            RateOfFire = 2,		-- 120 DPS Air
             
             TargetCheckInterval = 0.3,
 			

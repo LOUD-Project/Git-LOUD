@@ -21,53 +21,43 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'CYBRAN',
         'PROJECTILE',
-        'INDIRECTFIRE',
         'TACTICAL',
         'MISSILE',
         'NOSPLASHDAMAGE',
     },
+
     Defense = {
         Health = 3,
         MaxHealth = 3,
     },
+
     Economy = {
         BuildCostEnergy = 6000,
         BuildCostMass = 5,
         BuildTime = 300,
     },
+
     Description = 'CYBRAN EMP Missile',
+
     DesiredShooterCap = 1,
+
     Display = {
-        CameraFollowTimeout = 5,
-        CameraFollowsProjectile = true,
         Mesh = {
             IconFadeInZoom = 200,
             LODs = {
-                {
-                    ShaderName = 'TMeshAlpha',
-                },
+                {ShaderName = 'TMeshAlpha'},
             },
         },
         UniformScale = 1,
     },
-    General = {
-        Category = 'Missile',
-        EntityCategory = {
-            'CYBRAN',
-            'PROJECTILE',
-            'INDIRECTFIRE',
-            'TACTICAL',
-            'MISSILE',
-            'NOSPLASHDAMAGE',
-        },
-        Faction = 'Cybran',
-    },
+    
     Interface = {
         HelpText = 'CYBRAN EMP Missile',
     },
+    
     Physics = {
         Acceleration = 5,
         CollideEntity = false,
@@ -86,5 +76,5 @@ ProjectileBlueprint {
         VelocityAlign = true,
         ZigZagFrequency = 0.5,
     },
-    #StrategicIconName = '/textures/ui/common/game/unit-over/icon-nuke_bmp.dds',
+
 }

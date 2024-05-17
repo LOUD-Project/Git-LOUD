@@ -7,16 +7,8 @@ UnitBlueprint {
     Adjacency = 'HydrocarbonAdjacencyBuffs',
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Resource', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     BuildIconSortPriority = 70,
@@ -59,11 +51,7 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 300,
-                    Scrolling = true,
-                    ShaderName = 'Aeon',
-                },
+                { LODCutoff = 300, Scrolling = true, ShaderName = 'Aeon' },
             },
         },
 

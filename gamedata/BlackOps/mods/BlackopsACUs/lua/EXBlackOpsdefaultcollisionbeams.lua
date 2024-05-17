@@ -40,8 +40,8 @@ PDLaserCollisionBeam = Class(SCCollisionBeam) {
 
 EXCEMPArrayBeam01CollisionBeam = Class(SCCollisionBeam) {
     FxBeam = {'/mods/BlackOpsACUs/effects/emitters/excemparraybeam01_emit.bp'},
-    FxBeamEndPoint = {},
-    FxBeamStartPoint = {},
+    FxBeamEndPoint = false,
+    FxBeamStartPoint = false,
     FxBeamStartPointScale = 0.05,
     FxBeamEndPointScale = 0.05,
     
@@ -63,7 +63,7 @@ EXCEMPArrayBeam02CollisionBeam = Class(SCCollisionBeam) {
 EXCEMPArrayBeam03CollisionBeam = Class(SCCollisionBeam) {
     FxBeam = {'/mods/BlackOpsACUs/effects/emitters/excemparraybeam01_emit.bp'},
     FxBeamEndPoint = EXEffectTemplate.CybranACUEMPArrayHit01,
-    FxBeamStartPoint = {},
+    FxBeamStartPoint = false,
     FxBeamStartPointScale = 0.05,
     FxBeamEndPointScale = 1,
     

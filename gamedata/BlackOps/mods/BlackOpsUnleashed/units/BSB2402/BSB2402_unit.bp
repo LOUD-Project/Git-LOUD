@@ -1,21 +1,9 @@
 UnitBlueprint {
 
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed       = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Structure', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Categories = {
@@ -59,18 +47,8 @@ UnitBlueprint {
         BuildAttachBone = 'Attachpoint',
 		
         DamageEffects = {
-            {
-                Bone = 0,
-                OffsetX = 1,
-                OffsetY = 2.5,
-                OffsetZ = 0.25,
-            },
-            {
-                Bone = 0,
-                OffsetX = -1,
-                OffsetY = 2.5,
-                OffsetZ = 0.25,
-            },
+            { Bone = 0,OffsetX = 1,OffsetY = 2.5,OffsetZ = 0.25},
+            { Bone = 0,OffsetX = -1,OffsetY = 2.5,OffsetZ = 0.25},
         },
 		
         Mesh = {
@@ -109,6 +87,7 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 15,
+        
     	BuildBones = {
             BuildAttachBone = 'Attachpoint',
             BuildEffectBones = {
@@ -128,6 +107,7 @@ UnitBlueprint {
                 'FX_14',
             },
         },
+        
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -144,7 +124,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 10,
+        VisionRadius = 12,
     },
 	
     Interface = {
@@ -205,7 +185,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
         HealthMult = 0.9,
-        MassMult = 1.0,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -5,26 +5,10 @@ UnitBlueprint {
     },
 	
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed       = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed          = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -200,8 +184,8 @@ UnitBlueprint {
             AimsStraightOnDisable = true,
 			
             Audio = {
-                Fire = Sound { Bank = 'XSL_Weapon',Cue = 'XSL0401_Exp_Phason_Fire',LodCutoff = 'Weapon_LodCutoff'},
-                MuzzleChargeStart = Sound { Bank = 'XSL_Weapon',Cue = 'XSL0401_Exp_Phason_Charge',LodCutoff = 'Weapon_LodCutoff'},
+                Fire                = Sound { Bank = 'XSL_Weapon',Cue = 'XSL0401_Exp_Phason_Fire',LodCutoff = 'Weapon_LodCutoff'},
+                MuzzleChargeStart   = Sound { Bank = 'XSL_Weapon',Cue = 'XSL0401_Exp_Phason_Charge',LodCutoff = 'Weapon_LodCutoff'},
             },
 
             BallisticArc = 'RULEUBA_HighArc',

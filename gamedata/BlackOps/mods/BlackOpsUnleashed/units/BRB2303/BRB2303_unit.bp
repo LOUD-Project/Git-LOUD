@@ -5,16 +5,8 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Gun', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -72,10 +64,7 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 215,
-                    ShaderName = 'Insect',
-                },
+                { LODCutoff = 215, ShaderName = 'Insect' },
             },
         },
 
@@ -156,12 +145,9 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 			AimsStraightOnDisable = true,
             ArtilleryShieldBlocks = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0202_Nano_Dart',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0202_Nano_Dart', LodCutoff = 'Weapon_LodCutoff' },
             },
             
             -- factional bonus --
@@ -259,7 +245,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

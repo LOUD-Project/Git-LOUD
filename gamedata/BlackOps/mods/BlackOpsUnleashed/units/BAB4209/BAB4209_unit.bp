@@ -2,23 +2,10 @@ UnitBlueprint {
     AI = {
         TargetBones = {'xab4309'},
     },
-	
+
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy',   Cue = 'UEB_Destroy_Med_Land',   LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',    Cue = 'UEF_Select_Radar',       LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     BuildIconSortPriority = 190,
@@ -44,10 +31,12 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 155,
-        Health = 775,
-        MaxHealth = 775,
+
+        Health = 800,
+        MaxHealth = 800,
         RegenRate = 1,
+
+        EconomyThreatLevel = 16,
     },
 	
     Description = '<LOC bab4209_desc>Anti-Teleport Generator',
@@ -59,14 +48,13 @@ UnitBlueprint {
             'Volatile',
             'Upgradeable',
         },
+        
         AnimationUpgrade = '/mods/BlackOpsUnleashed/units/bab4209/bab4209_aupgrade.sca',
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 300,
-                    ShaderName = 'Aeon',
-                },
+                { LODCutoff = 300, ShaderName = 'Aeon' },
             },
         },
 
@@ -74,9 +62,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 13125,
-        BuildCostMass = 665,
-        BuildTime = 1050,
+        BuildCostEnergy = 12500,
+        BuildCostMass = 675,
+        BuildTime = 1200,
 		
         BuildRate = 15,
         
@@ -86,18 +74,16 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 1,
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,
 
         ToggleCaps = { RULEUTC_ShieldToggle = true },
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'Toggle Anti-Teleport Field',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-dome', helpText = 'Toggle Anti-Teleport Field' },
         },
+        
         UnitName = '<LOC bab4209_name>Quantum Wake Generator',
 
         UpgradesFromBase = 'bab4209',
@@ -105,8 +91,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-    	FreeIntel = true,
-        CloakFieldRadius = 45,
+        VisionRadius = 16,
     },
 	
     Interface = {
@@ -166,15 +151,13 @@ UnitBlueprint {
 			
             Label = 'DummyWeapon',
 			
-            MaxRadius = 45,
+            MaxRadius = 48,
 			
             RateOfFire = 0.1,
             RangeCategory = 'UWRC_Countermeasure',
 			
             TargetCheckInterval = 6,
-            TargetPriorities = {
-                'ALLUNITS',
-            },
+            TargetPriorities = {'ALLUNITS'},
             TargetRestrictDisallow = 'UNTARGETABLE',
 		},
         {

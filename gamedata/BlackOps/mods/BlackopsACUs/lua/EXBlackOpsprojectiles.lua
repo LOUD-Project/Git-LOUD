@@ -1,19 +1,26 @@
-local Projectile = import('/lua/sim/projectile.lua').Projectile
+local Projectile            = import('/lua/sim/projectile.lua').Projectile
+local ProjectileOnCreate    = Projectile.OnCreate
+
 local DefaultProjectileFile = import('/lua/sim/defaultprojectiles.lua')
 
-local EmitterProjectile = DefaultProjectileFile.EmitterProjectile
-local OnWaterEntryEmitterProjectile = DefaultProjectileFile.OnWaterEntryEmitterProjectile
-local SingleBeamProjectile = DefaultProjectileFile.SingleBeamProjectile
-local SinglePolyTrailProjectile = DefaultProjectileFile.SinglePolyTrailProjectile
-local MultiPolyTrailProjectile = DefaultProjectileFile.MultiPolyTrailProjectile
-local SingleCompositeEmitterProjectile = DefaultProjectileFile.SingleCompositeEmitterProjectile
-local MultiCompositeEmitterProjectile = DefaultProjectileFile.MultiCompositeEmitterProjectile
+local EmitterProjectile                 = DefaultProjectileFile.EmitterProjectile
+local EmitterProjectileOnCreate         = EmitterProjectile.OnCreate
+local EmitterProjectileOnImpact         = EmitterProjectile.OnImpact
+
+local OnWaterEntryEmitterProjectile     = DefaultProjectileFile.OnWaterEntryEmitterProjectile
+local SingleBeamProjectile              = DefaultProjectileFile.SingleBeamProjectile
+local SinglePolyTrailProjectile         = DefaultProjectileFile.SinglePolyTrailProjectile
+local MultiPolyTrailProjectile          = DefaultProjectileFile.MultiPolyTrailProjectile
+local SingleCompositeEmitterProjectile  = DefaultProjectileFile.SingleCompositeEmitterProjectile
+local MultiCompositeEmitterProjectile   = DefaultProjectileFile.MultiCompositeEmitterProjectile
+
+DefaultProjectileFile = nil
 
 --local DepthCharge = import('/lua/defaultantiprojectile.lua').DepthCharge
 --local Explosion = import('/lua/defaultexplosions.lua')
 
-local EffectTemplate = import('/lua/EffectTemplates.lua')
-local EXEffectTemplate = import('/mods/BlackopsACUs/lua/EXBlackOpsEffectTemplates.lua')
+local EffectTemplate        = import('/lua/EffectTemplates.lua')
+local EXEffectTemplate      = import('/mods/BlackopsACUs/lua/EXBlackOpsEffectTemplates.lua')
 
 local GetPosition = moho.entity_methods.GetPosition
 
@@ -26,15 +33,14 @@ local function GetRandomFloat( Min, Max )
     return Min + (Random() * (Max-Min) )
 end
 
---EXNullShell = Class(Projectile) {}
-
-
 EXEmitterProjectile = Class(Projectile) {
+
     FxTrails = {'/effects/emitters/missile_munition_trail_01_emit.bp',},
     FxTrailScale = 1,
 
     OnCreate = function(self)
-        Projectile.OnCreate(self)
+
+        ProjectileOnCreate(self)
 
         for i in self.FxTrails do
             CreateEmitterOnEntity(self, self.Army, self.FxTrails[i]):ScaleEmitter(self.FxTrailScale):OffsetEmitter(0, 0, self.FxTrailOffset)
@@ -42,40 +48,13 @@ EXEmitterProjectile = Class(Projectile) {
     end,
 }
 
---[[
-EXSingleBeamProjectile = Class(EXEmitterProjectile) {
-
-    BeamName = '/effects/emitters/default_beam_01_emit.bp',
-
-    OnCreate = function(self)
-        EmitterProjectile.OnCreate(self)
-        if self.BeamName then
-            CreateBeamEmitterOnEntity( self, -1, self.Army, self.BeamName )
-        end
-    end,
-}
-
-EXMultiBeamProjectile = Class(EXEmitterProjectile) {
-
-    Beams = {'/effects/emitters/default_beam_01_emit.bp',},
-
-    OnCreate = function(self)
-        EmitterProjectile.OnCreate(self)
-
-        for k, v in self.Beams do
-            CreateBeamEmitterOnEntity( self, -1, self.Army, v )
-        end
-    end,
-}
---]]
-
 EXSinglePolyTrailProjectile = Class(EXEmitterProjectile) {
 
     PolyTrail = '/effects/emitters/test_missile_trail_emit.bp',
 
     OnCreate = function(self)
     
-        EmitterProjectile.OnCreate(self)
+        EmitterProjectileOnCreate(self)
         
         if self.PolyTrail then
             CreateTrail(self, -1, self.Army, self.PolyTrail)
@@ -84,27 +63,13 @@ EXSinglePolyTrailProjectile = Class(EXEmitterProjectile) {
     end,
 }
 
---[[
-EXSingleCompositeEmitterProjectile = Class(EXSinglePolyTrailProjectile) {
-
-    BeamName = '/effects/emitters/default_beam_01_emit.bp',
-
-    OnCreate = function(self)
-        SinglePolyTrailProjectile.OnCreate(self)
-        if self.BeamName != '' then
-            CreateBeamEmitterOnEntity( self, -1, self.Army, self.BeamName )
-        end
-    end,
-}
---]]
-
 EXMultiPolyTrailProjectile = Class(EXEmitterProjectile) {
 
     RandomPolyTrails = 0,
 
     OnCreate = function(self)
     
-        EmitterProjectile.OnCreate(self)
+        EmitterProjectileOnCreate(self)
         
         if self.PolyTrails then
         
@@ -140,6 +105,7 @@ EXMultiCompositeEmitterProjectile = Class(EXMultiPolyTrailProjectile) {
     RandomPolyTrails = 0,
 
     OnCreate = function(self)
+    
         MultiPolyTrailProjectile.OnCreate(self)
 
         for k, v in self.Beams do
@@ -150,6 +116,7 @@ EXMultiCompositeEmitterProjectile = Class(EXMultiPolyTrailProjectile) {
 
 
 FlameThrowerProjectile01 = Class(EmitterProjectile) {
+
     FxTrails = {'/mods/BlackOpsACUs/Effects/Emitters/NapalmTrailFX.bp',},
     FxTrailScale = 0.75,
 
@@ -177,29 +144,28 @@ UEFACUAntiMatterProjectile01 = Class(EXMultiCompositeEmitterProjectile ) {
     FxImpactWater = EXEffectTemplate.ACUAntiMatter01,
 	FxImpactShield = EXEffectTemplate.ACUAntiMatter01,
 
-	FxSplatScale = 4,
+	FxSplatScale = 3,
 
-    FxLandHitScale = 0.5,
-    FxPropHitScale = 0.5,
-    FxUnitHitScale = 0.5,
-    FxWaterHitScale = 0.5,
-	FxShieldHitScale = 0.5,
+    FxLandHitScale = 0.3,
+    FxPropHitScale = 0.3,
+    FxUnitHitScale = 0.3,
+    FxWaterHitScale = 0.3,
+	FxShieldHitScale = 0.3,
 
     OnImpact = function(self, targetType, targetEntity)
     
         local army = self.Army
+        local pos = GetPosition(self)
 
         if targetType == 'Terrain' then
-            CreateDecal( GetPosition(self), GetRandomFloat(0.0,6.28), 'nuke_scorch_001_normals', '', 'Alpha Normals', self.FxSplatScale, self.FxSplatScale, 150, 30, army )
-            CreateDecal( GetPosition(self), GetRandomFloat(0.0,6.28), 'nuke_scorch_002_albedo', '', 'Albedo', self.FxSplatScale * 2, self.FxSplatScale * 2, 150, 30, army )
+            CreateDecal( pos, GetRandomFloat(0.0,6.28), 'nuke_scorch_001_normals', '', 'Alpha Normals', self.FxSplatScale, self.FxSplatScale, 100, 30, army )
+            CreateDecal( pos, GetRandomFloat(0.0,6.28), 'nuke_scorch_002_albedo' , '', 'Albedo', self.FxSplatScale * 2, self.FxSplatScale * 2, 100, 30, army )
         end
         
-        local pos = GetPosition(self)
-        
         DamageArea(self, pos, self.DamageData.DamageRadius, 1, 'Force', true)
         DamageArea(self, pos, self.DamageData.DamageRadius, 1, 'Force', true)
         
-        EmitterProjectile.OnImpact(self, targetType, targetEntity)
+        EmitterProjectileOnImpact(self, targetType, targetEntity)
     end,
 }
 
@@ -214,30 +180,28 @@ UEFACUAntiMatterProjectile02 = Class(EXMultiCompositeEmitterProjectile ) {
     FxImpactWater = EXEffectTemplate.ACUAntiMatter01,
 	FxImpactShield = EXEffectTemplate.ACUAntiMatter01,
 
-	FxSplatScale = 5.5,
+	FxSplatScale = 3.6,
 	
-    FxLandHitScale = 0.7,
-    FxPropHitScale = 0.7,
-    FxUnitHitScale = 0.7,
-    FxWaterHitScale = 0.7,
-	FxShieldHitScale = 0.7,
+    FxLandHitScale = 0.36,
+    FxPropHitScale = 0.36,
+    FxUnitHitScale = 0.36,
+    FxWaterHitScale = 0.36,
+	FxShieldHitScale = 0.36,
 
     OnImpact = function(self, targetType, targetEntity)
     
         local army = self.Army
+        local pos = GetPosition(self)
 
         if targetType == 'Terrain' then
-            CreateDecal( GetPosition(self), GetRandomFloat(0.0,6.28), 'nuke_scorch_001_normals', '', 'Alpha Normals', self.FxSplatScale, self.FxSplatScale, 150, 30, army )
-            CreateDecal( GetPosition(self), GetRandomFloat(0.0,6.28), 'nuke_scorch_002_albedo', '', 'Albedo', self.FxSplatScale * 2, self.FxSplatScale * 2, 150, 30, army )
-            self:ShakeCamera(20, 1, 0, 1)
+            CreateDecal( pos, GetRandomFloat(0.0,6.28), 'nuke_scorch_001_normals', '', 'Alpha Normals', self.FxSplatScale, self.FxSplatScale, 140, 30, army )
+            CreateDecal( pos, GetRandomFloat(0.0,6.28), 'nuke_scorch_002_albedo',  '', 'Albedo', self.FxSplatScale * 2, self.FxSplatScale * 2, 140, 30, army )
         end
         
-        local pos = GetPosition(self)
-        
         DamageArea(self, pos, self.DamageData.DamageRadius, 1, 'Force', true)
         DamageArea(self, pos, self.DamageData.DamageRadius, 1, 'Force', true)
         
-        EmitterProjectile.OnImpact(self, targetType, targetEntity)
+        EmitterProjectileOnImpact(self, targetType, targetEntity)
     end,
 }
 
@@ -252,24 +216,28 @@ UEFACUAntiMatterProjectile03 = Class(EXMultiCompositeEmitterProjectile ) {
     FxImpactWater = EXEffectTemplate.ACUAntiMatter01,
 	FxImpactShield = EXEffectTemplate.ACUAntiMatter01,
 
-	FxSplatScale = 8,
+	FxSplatScale = 4.5,
+	
+    FxLandHitScale = 0.5,
+    FxPropHitScale = 0.5,
+    FxUnitHitScale = 0.5,
+    FxWaterHitScale = 0.5,
+	FxShieldHitScale = 0.5,
 
     OnImpact = function(self, targetType, targetEntity)
     
         local army = self.Army
+        local pos = GetPosition(self)
 
         if targetType == 'Terrain' then
-            CreateDecal( GetPosition(self), GetRandomFloat(0.0,6.28), 'nuke_scorch_001_normals', '', 'Alpha Normals', self.FxSplatScale, self.FxSplatScale, 150, 30, army )
-            CreateDecal( GetPosition(self), GetRandomFloat(0.0,6.28), 'nuke_scorch_002_albedo', '', 'Albedo', self.FxSplatScale * 2, self.FxSplatScale * 2, 150, 30, army )
-            self:ShakeCamera(20, 1, 0, 1)
+            CreateDecal( pos, GetRandomFloat(0.0,6.28), 'nuke_scorch_001_normals', '', 'Alpha Normals', self.FxSplatScale, self.FxSplatScale, 160, 30, army )
+            CreateDecal( pos, GetRandomFloat(0.0,6.28), 'nuke_scorch_002_albedo',  '', 'Albedo', self.FxSplatScale * 2, self.FxSplatScale * 2, 160, 30, army )
         end
         
-        local pos = GetPosition(self)
-        
         DamageArea(self, pos, self.DamageData.DamageRadius, 1, 'Force', true)
         DamageArea(self, pos, self.DamageData.DamageRadius, 1, 'Force', true)
         
-        EmitterProjectile.OnImpact(self, targetType, targetEntity)
+        EmitterProjectileOnImpact(self, targetType, targetEntity)
     end,
 }
 

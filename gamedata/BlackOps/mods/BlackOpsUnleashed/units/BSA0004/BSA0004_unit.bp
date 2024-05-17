@@ -36,21 +36,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        StartMove = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0303_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0303_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        StartMove = Sound { Bank = 'XSA', Cue = 'XSA0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        StopMove = Sound { Bank = 'XSA', Cue = 'XSA0303_Move_Stop', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -87,15 +75,8 @@ UnitBlueprint {
     Description = '<LOC bsa0004_desc>Attack Drone',
 	
     Display = {
-        Mesh = {
-            IconFadeInZoom = 175,
-            LODs = {
-                {
-                    LODCutoff = 150,
-                    ShaderName = 'Unit',
-                },
-            },
-        },
+    
+        Mesh = { IconFadeInZoom = 175, LODs = { {LODCutoff = 150,ShaderName = 'Unit'} } },
 
         UniformScale = 0.45,
     },
@@ -121,7 +102,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 15,
+        VisionRadius = 16,
     },
 	
     Interface = {

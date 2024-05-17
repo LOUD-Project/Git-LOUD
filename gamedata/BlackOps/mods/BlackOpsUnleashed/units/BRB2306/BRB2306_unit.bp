@@ -5,16 +5,8 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Radar', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -73,10 +65,7 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 215,
-                    ShaderName = 'Insect',
-                },
+                { LODCutoff = 215, ShaderName = 'Insect' },
             },
         },
 
@@ -157,37 +146,24 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                ChargeStart = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart   = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Start',LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
+                ChargeStart = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
             BeamLifetime = 2.2,
+            
             CollideFriendly = false,
             ContinuousBeam = false,
 			
             Damage = 75,
             DamageRadius = 0,
             DamageType = 'Normal',
+
             DisplayName = 'Microwave Beam',
 			
             EnergyChargeForFirstShot = false,
@@ -339,9 +315,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.5,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

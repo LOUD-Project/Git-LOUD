@@ -5,55 +5,25 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XRL_Destroy',
-            Cue = 'XRL0403_Death',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed2 = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL0401_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Pack = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0111_Close',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },		
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0301_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0301_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Commander',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Unpack = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0111_Open',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },		
-		NukeExplosion = Sound {
-            Bank = 'Explosions',
-            Cue = 'UEF_Nuke_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
+        Destroyed       = Sound { Bank = 'XRL_Destroy', Cue = 'XRL0403_Death', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed2      = Sound { Bank = 'UELDestroy', Cue = 'UEL0401_Destroy', LodCutoff = 'UnitMove_LodCutoff' },
+        Pack            = Sound { Bank = 'UEL', Cue = 'UEL0111_Close', LodCutoff = 'UnitMove_LodCutoff' },		
+        StartMove       = Sound { Bank = 'UEL', Cue = 'UEL0301_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove        = Sound { Bank = 'UEL', Cue = 'UEL0301_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Commander', LodCutoff = 'UnitMove_LodCutoff' },
+        Unpack          = Sound { Bank = 'UEL', Cue = 'UEL0111_Open', LodCutoff = 'UnitMove_LodCutoff' },		
+		NukeExplosion   = Sound { Bank = 'Explosions', Cue = 'UEF_Nuke_Impact', LodCutoff = 'Weapon_LodCutoff' },
+        FootFallGeneric = Sound { Bank = 'UEL', Cue = 'UEL0001_Move_Step', LodCutoff = 'UnitMove_LodCutoff' },
+        FootFallGenericSeabed = Sound { Bank = 'UEL', Cue = 'UEL0001_Move_UW_Step', LodCutoff = 'UnitMove_LodCutoff' },        
     },
 	
 	Buffs = {
         Regen = {
-            Level1 = 35,
-            Level2 = 70,
-            Level3 = 105,
-            Level4 = 140,
-            Level5 = 175,
+            Level1 = 15,
+            Level2 = 30,
+            Level3 = 45,
+            Level4 = 60,
+            Level5 = 75,
         },
     },
 	
@@ -80,11 +50,12 @@ UnitBlueprint {
     CollisionOffsetZ = -0.25,
 	
     Defense = {
-    	AirThreatLevel = 44,
         ArmorType = 'Experimental',
         Health = 104000,
         MaxHealth = 104000,
-        RegenRate = 35,
+        RegenRate = 30,
+
+    	AirThreatLevel = 44,        
         SurfaceThreatLevel = 1042.8,
     },
 	
@@ -99,28 +70,12 @@ UnitBlueprint {
             'Volatile',
         },
 		
-        AnimationDeath = {
-            {
-                Animation = '/mods/BlackOpsUnleashed/units/BEL0402/BEL0402_ADeath01.sca',
-                AnimationRateMax = 0.4,
-                AnimationRateMin = 0.4,
-                Weight = 100,
-            },
-        },
-		
+        AnimationDeath = { {Animation = '/mods/BlackOpsUnleashed/units/BEL0402/BEL0402_ADeath01.sca',AnimationRateMax = 0.4,AnimationRateMin = 0.4,Weight = 100 } },
         AnimationWalk = '/mods/BlackOpsUnleashed/units/BEL0402/BEL0402_AWalk.sca',
         AnimationActivate = '/mods/BlackOpsUnleashed/units/BEL0402/BEL0402_AActivate.sca',
-        AnimationWalkRate = 1.4,
+        AnimationWalkRate = 1.5,
 		
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 300,
-                    ShaderName = 'Unit',
-                },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 300, ShaderName = 'Unit' } } },
 		
         MovementEffects = {
             Land = {
@@ -131,8 +86,8 @@ UnitBlueprint {
                             FootBone = 'L_FootFall',
                             Tread = {
                                 TreadMarks = 'CommanderPrint_albedo',
-                                TreadMarksSizeX = 2.1,
-                                TreadMarksSizeZ = 2.1,
+                                TreadMarksSizeX = 1.7,
+                                TreadMarksSizeZ = 1.7,
                                 TreadOffset = { -0.8, 0,-1 },
                             },
                         },
@@ -140,14 +95,15 @@ UnitBlueprint {
                             FootBone = 'R_FootFall',
                             Tread = {
                                 TreadMarks = 'CommanderPrint_albedo',
-                                TreadMarksSizeX = 2.1,
-                                TreadMarksSizeZ = 2.1,
+                                TreadMarksSizeX = 1.7,
+                                TreadMarksSizeZ = 1.7,
                                 TreadOffset = { 0.8, 0,-1 },
                             },
                         },
                     },
+                    
                     Damage = {
-                        Amount = 2500,
+                        Amount = 2200,
                         DamageFriendly = false,
                         Radius = 2.5,
                         Type = 'ExperimentalFootfall',
@@ -183,9 +139,10 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 110,
-        VisionRadius = 42,
-		WaterVisionRadius = 22,
+        
+        RadarRadius = 96,
+        VisionRadius = 40,
+		WaterVisionRadius = 24,
     },
 	
     Interface = {
@@ -205,7 +162,7 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
 		
-        LayerChangeOffsetHeight = -3.3,
+        LayerChangeOffsetHeight = -4.3,
 		
         MaxAcceleration = 2.8,
         MaxBrake = 2.8,
@@ -267,11 +224,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0111_Missile_Cruise',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0111_Missile_Cruise', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -287,7 +240,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
 			FiringRandomness = 3.3,
@@ -295,8 +247,8 @@ UnitBlueprint {
 			
             Label = 'MissileWeapon',
 			
-            MaxRadius = 150,
-	        MinRadius = 12,
+            MaxRadius = 148,
+	        MinRadius = 20,
 			
             MuzzleChargeDelay = 0.5,
 
@@ -373,26 +325,10 @@ UnitBlueprint {
 			AimsStraightOnDisable = true,
 			
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop            = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart           = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Start', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop            = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             AutoInitiateAttackCommand = true,
@@ -417,7 +353,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = { 
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 0.5,
@@ -425,8 +360,8 @@ UnitBlueprint {
             Label = 'Laser',
             LeadTarget = false,
 			
-            MaxRadius = 58,
-			MinRadius = 11,
+            MaxRadius = 60,
+			MinRadius = 12,
 			
             MuzzleChargeDelay = 0.4,
 			
@@ -485,19 +420,18 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0201_Cannon_Dbl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0201_Cannon_Dbl', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
             Damage = 60,
             DamageRadius = 2.5,
+            
             DoTPulses = 5,	-- 300 Damage per shell ( 5 * 60 )
             DoTTime = 2.5,
+            
             DamageType = 'Normal',
 			
             DisplayName = 'Flamers',
@@ -505,7 +439,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 1,
@@ -513,7 +446,7 @@ UnitBlueprint {
 			
             Label = 'Flamer',
 			
-            MaxRadius = 38,
+            MaxRadius = 36,
 			MinRadius = 4,
 			
             MuzzleVelocity = 20,
@@ -562,19 +495,18 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0201_Cannon_Dbl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0201_Cannon_Dbl', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
             Damage = 60,
             DamageRadius = 2.5,
+            
             DoTPulses = 5,	-- 300 Damage per shell ( 5 * 60 )
             DoTTime = 2.5,
+            
             DamageType = 'Normal',
 			
             DisplayName = 'Flamers',
@@ -582,7 +514,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 1,
@@ -590,7 +521,7 @@ UnitBlueprint {
 			
             Label = 'Flamer2',
 			
-            MaxRadius = 38,
+            MaxRadius = 36,
 			MinRadius = 4,
 
             MuzzleVelocity = 20,
@@ -640,13 +571,11 @@ UnitBlueprint {
 			AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,		
             AimsStraightOnDisable = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB4201_Phalanx_01',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB4201_Phalanx_01', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -657,7 +586,6 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Air',
-                Water = 'Air',
 				Seabed = 'Air',
             },
 			
@@ -665,7 +593,7 @@ UnitBlueprint {
 			
             Label = 'TMDTurret',
 			
-            MaxRadius = 40,
+            MaxRadius = 36,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 5,
@@ -676,9 +604,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'TMD_Muzzle_Recoil',
-                    },
+                    MuzzleBones = {'TMD_Muzzle_Recoil'},
                     RackBone = 'TMD_Barrel',
                 },
             },
@@ -691,7 +617,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TACTICAL MISSILE',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'TMD_Muzzle_Recoil',
             TurretBonePitch = 'TMD_Barrel',
@@ -716,18 +642,14 @@ UnitBlueprint {
             AlwaysRecheckTarget = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2304_Missile_Flayer',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2304_Missile_Flayer', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
 			
             CollideFriendly = false,
 			
-            Damage = 440,
+            Damage = 320,
             DamageType = 'Normal',
 			
             DisplayName = 'SAM Launcher',
@@ -742,7 +664,7 @@ UnitBlueprint {
             Label = 'HeadWeapon',
 			LeadTarget = false,
 			
-            MaxRadius = 55,
+            MaxRadius = 48,
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 2,
@@ -774,7 +696,7 @@ UnitBlueprint {
             },			
 
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Head',
             TurretBonePitch = 'Head',
@@ -796,9 +718,9 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             CollideFriendly = false,
 			
-            Damage = 12500,
+            Damage = 15500,
             DamageFriendly = true,
-            DamageRadius = 12,
+            DamageRadius = 16,
             DamageType = 'Normal',
 			
             DisplayName = 'Death Nuke',
@@ -816,12 +738,12 @@ UnitBlueprint {
             NukeInnerRingDamage = 12500,
             NukeInnerRingRadius = 12,
             NukeInnerRingTicks = 3,
-            NukeInnerRingTotalTime = 0,
+            NukeInnerRingTotalTime = 1,
 			
             NukeOuterRingDamage = 650,
             NukeOuterRingRadius = 28,
             NukeOuterRingTicks = 3,
-            NukeOuterRingTotalTime = 1,
+            NukeOuterRingTotalTime = 3,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/BasiliskNuke01/BasiliskNuke01_proj.bp',
 			
@@ -840,6 +762,7 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,

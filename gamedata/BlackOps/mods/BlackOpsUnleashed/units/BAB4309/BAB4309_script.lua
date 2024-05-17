@@ -149,7 +149,8 @@ BAB4309 = Class(AStructureUnit) {
 
             	local location = self:GetPosition('XAB4309')
 
-            	local antiteleportEmitter = CreateUnit('bab0003', self:GetArmy(), location[1], location[2]+1, location[3], platOrient[1], platOrient[2], platOrient[3], platOrient[4], 'Land') 
+                -- create the antiteleport entity using the standardized (72 range) blueprint
+            	local antiteleportEmitter = CreateUnit('beb0003', self:GetArmy(), location[1], location[2]+1, location[3], platOrient[1], platOrient[2], platOrient[3], platOrient[4], 'Land') 
 
             	LOUDINSERT (self.antiteleportEmitterTable, antiteleportEmitter)
 

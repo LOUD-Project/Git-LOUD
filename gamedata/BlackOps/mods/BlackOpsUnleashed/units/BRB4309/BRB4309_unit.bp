@@ -1,16 +1,8 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Radar', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     BuildIconSortPriority = 190,
@@ -34,10 +26,12 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 300,
-        Health = 1200,
-        MaxHealth = 1200,
-        RegenRate = 4,
+
+        Health = 1300,
+        MaxHealth = 1300,
+        RegenRate = 3,
+        
+        EconomyThreatLevel = 34,        
     },
 	
     Description = '<LOC brb4309_desc>Advanced Anti-Teleport Tower',
@@ -51,10 +45,7 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 300,
-                    ShaderName = 'Insect',
-                },
+                { LODCutoff = 300, ShaderName = 'Insect' },
             },
         },
 
@@ -62,28 +53,27 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 39375,
-        BuildCostMass = 2100,
-        BuildTime = 3150,
+        BuildCostEnergy = 32500,
+        BuildCostMass = 1900,
+        BuildTime = 2500,
 		
         MaintenanceConsumptionPerSecondEnergy = 1050,
     },
 
     General = {
 		CapCost = 2,
-        CommandCaps = {
-            RULEUCC_Pause = true,
-        },
+        CommandCaps = { RULEUCC_Pause = true },
+        
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 5,
+        
         ToggleCaps = { RULEUTC_ShieldToggle = true },
+        
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'Toggle Anti-Teleport Field',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-dome', helpText = 'Toggle Anti-Teleport Field' },
         },
+        
         UnitName = '<LOC brb4309_name>Shroud',
 		
 		UpgradesFrom = 'brb4209',
@@ -91,8 +81,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-    	FreeIntel = true,
-        CloakFieldRadius = 70,
+        VisionRadius = 16,
     },
 	
     Interface = {
@@ -149,7 +138,7 @@ UnitBlueprint {
 			
             Label = 'DummyWeapon',
 			
-            MaxRadius = 70,
+            MaxRadius = 72,
 			
             RateOfFire = 0.1,
             RangeCategory = 'UWRC_Countermeasure',

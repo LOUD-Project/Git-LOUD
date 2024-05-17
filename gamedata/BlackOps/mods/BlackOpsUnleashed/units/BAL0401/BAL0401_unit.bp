@@ -6,50 +6,22 @@ UnitBlueprint {
     },
     
     Audio = {
-        FootFallGeneric = Sound {
-            Bank = 'URL',
-            Cue = 'URL0402_Move_Footfall',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        FootFallGenericSeabed = Sound {
-            Bank = 'URL',
-            Cue = 'URL0402_Move_UW_Step',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0402_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0402_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL0401_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-		WarpingProjectile = Sound {
-            Bank = 'UALWeapon',
-            Cue = 'UAB2302_Artillery_Sonance',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
+        FootFallGeneric         = Sound { Bank = 'URL', Cue = 'URL0402_Move_Footfall', LodCutoff = 'UnitMove_LodCutoff' },
+        FootFallGenericSeabed   = Sound { Bank = 'URL', Cue = 'URL0402_Move_UW_Step', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove               = Sound { Bank = 'URL', Cue = 'URL0402_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove                = Sound { Bank = 'URL', Cue = 'URL0402_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed               = Sound { Bank = 'UALDestroy', Cue = 'UAL0401_Destroy', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection             = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Gun', LodCutoff = 'UnitMove_LodCutoff' },
+		WarpingProjectile       = Sound { Bank = 'UALWeapon', Cue = 'UAB2302_Artillery_Sonance', LodCutoff = 'Weapon_LodCutoff' },
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 12,
-            Level2 = 24,
-            Level3 = 36,
-            Level4 = 48,
-            Level5 = 60,
+            Level1 = 10,
+            Level2 = 20,
+            Level3 = 30,
+            Level4 = 40,
+            Level5 = 50,
         },
     },
 	
@@ -76,7 +48,7 @@ UnitBlueprint {
         ArmorType = 'Experimental',
         Health = 36500,
         MaxHealth = 36500,
-        RegenRate = 12,
+        RegenRate = 10,
         SurfaceThreatLevel = 552.1,
     },
 	
@@ -84,10 +56,11 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
+           '<LOC ability_personalstealth>Personal Stealth',
 			'An unusual unit - designed for siege work',
 			'Weapon teleports its shells into orbit above target',
             'Weapon is blocked/reflected back by Anti-Teleport emitters',
-            'Amphibious, Radar Stealth & Volatile',
+            'Amphibious & Volatile',
         },
 		
         AnimationOpen = '/mods/BlackOpsUnleashed/units/BAL0401/BAL0401_ADeploy01.sca',
@@ -107,10 +80,7 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 500,
-                    ShaderName = 'Aeon',
-                },
+                { LODCutoff = 500, ShaderName = 'Aeon' },
             },
         },
         
@@ -123,9 +93,7 @@ UnitBlueprint {
                             HipBone = 'Leg_A_1',
                             KneeBone = 'Leg_A_2',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Type = 'FootFall01',
                         },
@@ -134,9 +102,7 @@ UnitBlueprint {
                             HipBone = 'Leg_C_1',
                             KneeBone = 'Leg_C_2',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Type = 'FootFall01',
                         },
@@ -145,9 +111,7 @@ UnitBlueprint {
                             HipBone = 'Leg_B_1',
                             KneeBone = 'Leg_B_2',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Type = 'FootFall01',
                         },
@@ -156,9 +120,7 @@ UnitBlueprint {
                             HipBone = 'Leg_D_1',
                             KneeBone = 'Leg_D_2',
                             MaxFootFall = -0.25,
-                            Offset = {
-                               z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Type = 'FootFall01',
                         },
@@ -200,7 +162,9 @@ UnitBlueprint {
 	
     Intel = {
         VisionRadius = 44,
+        
 		RadarStealth = true,
+        SonarStealth = true,
     },
 	
     Interface = {
@@ -219,6 +183,7 @@ UnitBlueprint {
             LAYER_Water = true,
         },
         DragCoefficient = 0.2,
+
         LayerChangeOffsetHeight = -3,
 		
         MaxAcceleration = 0.35,
@@ -271,7 +236,7 @@ UnitBlueprint {
 		---- FOUND it - \BlackOpsUnleashed\effects\Entities\GoldLaserBombEffectController01\GoldLaserBombEffectController01_script.lua
         -- very similar to a nuke - 2000 inner ring damage >> 650 at maximum radius of 7
 		{
-
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
             ArtilleryShieldBlocks = true,
@@ -293,9 +258,8 @@ UnitBlueprint {
             EnergyDrainPerSecond = 2600,    -- recharge weapon in 16 seconds
 			
             FireTargetLayerCapsTable = {
-                Land = 'Land|Water',
-				Seabed = 'Land|Water',
-                Water = 'Land|Water',
+                Land = 'Land|Water|Seabed',
+				Seabed = 'Land|Water|Seabed',
             },
 			
             FiringRandomness = 0,
@@ -305,7 +269,7 @@ UnitBlueprint {
 			
             LeadTarget = false,
 			
-            MaxRadius = 130,
+            MaxRadius = 128,
 
             MuzzleVelocity = 6,
 			
@@ -353,27 +317,12 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
+            
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                RackSalvoCharge  = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop            = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart           = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Fire', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop            = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Stop', LodCutoff = 'Weapon_LodCutoff' },
+                RackSalvoCharge     = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -393,7 +342,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 2,
@@ -454,11 +403,12 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.1,
+        EnergyMult = 0.3,
         HealthMult = 0.7,
-        MassMult = 0.7,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

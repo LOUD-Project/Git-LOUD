@@ -16,25 +16,17 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+    
     Categories = {
-        'AEON',
         'PROJECTILE',
-        'INDIRECTFIRE',
     },
-    Display = {
-        CameraFollowTimeout = 5,
-        #CameraFollowsProjectile = true,
-       # StrategicIconSize = 3,
-    },
-    General = {
-        Category = 'Artillery',
-        Faction = 'Aeon',
-        TechLevel = 3,
-        Weapon = 'Sonance Artillery',
-    },
+    
+    Display = {},
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         DestroyOnWater = true,
         InitialSpeed = 50,

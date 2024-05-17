@@ -6,21 +6,9 @@ UnitBlueprint {
 	},
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL_Destroy_Land_Sml',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0104_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Sml', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0104_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Bot', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -57,6 +45,7 @@ UnitBlueprint {
             'Attracts enemy fire',
 			'Veterans quickly',
         },
+        
         AnimationDeath = {
             {
                 Animation = '/mods/BlackOpsUnleashed/units/BSL0106/BSL0106_ADeath01.sca',
@@ -73,6 +62,7 @@ UnitBlueprint {
         },
         AnimationWalk = '/mods/BlackOpsUnleashed/units/BSL0106/BSL0106_AWalk01.sca',
         AnimationWalkRate = 5,
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -169,13 +159,11 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0101_PhasicAutogun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0101_PhasicAutogun', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -244,7 +232,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

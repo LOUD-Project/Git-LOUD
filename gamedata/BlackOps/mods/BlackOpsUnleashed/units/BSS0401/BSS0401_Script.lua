@@ -2,17 +2,19 @@ local SSeaUnit = import('/lua/defaultunits.lua').SeaUnit
 
 local SeraphimWeapons = import('/lua/seraphimweapons.lua')
 
-local SDFHeavyQuarnonCannon = SeraphimWeapons.SDFHeavyQuarnonCannon
+local SDFHeavyQuarnonCannon     = SeraphimWeapons.SDFHeavyQuarnonCannon
 local SAMElectrumMissileDefense = SeraphimWeapons.SAMElectrumMissileDefense
-local SAAOlarisCannonWeapon = SeraphimWeapons.SAAOlarisCannonWeapon
-local SDFUltraChromaticBeamGenerator = SeraphimWeapons.SDFUltraChromaticBeamGenerator02
-local SIFHuAntiNukeWeapon = import('/lua/seraphimweapons.lua').SIFHuAntiNukeWeapon
-local SDFSinnuntheWeapon = SeraphimWeapons.SDFSinnuntheWeapon
+local SAAOlarisCannonWeapon     = SeraphimWeapons.SAAOlarisCannonWeapon
+local ChromaticBeamGenerator    = SeraphimWeapons.SDFUltraChromaticBeamGenerator02
+local SIFHuAntiNukeWeapon       = SeraphimWeapons.SIFHuAntiNukeWeapon
+local SDFSinnuntheWeapon        = SeraphimWeapons.SDFSinnuntheWeapon
+
+SeraphimWeapons = nil
 
 local nukeFiredOnGotTarget = false
 
 local CreateRotator = CreateRotator
-local explosion = import('/lua/defaultexplosions.lua')
+local CreateDefaultHitExplosionAtBone = import('/lua/defaultexplosions.lua').CreateDefaultHitExplosionAtBone
 
 BSS0401 = Class(SSeaUnit) {
 
@@ -28,7 +30,7 @@ BSS0401 = Class(SSeaUnit) {
 
     Weapons = {
 	
-    	FrontMainTurret = Class(SDFSinnuntheWeapon) {
+    	FrontMainTurret     = Class(SDFSinnuntheWeapon) {
 		
             PlayFxWeaponPackSequence = function(self)
 			
@@ -66,7 +68,7 @@ BSS0401 = Class(SSeaUnit) {
             end,
 		},
 		
-        BackMainTurret = Class(SDFSinnuntheWeapon) {
+        BackMainTurret      = Class(SDFSinnuntheWeapon) {
 		
             PlayFxWeaponPackSequence = function(self)
 			
@@ -105,24 +107,17 @@ BSS0401 = Class(SSeaUnit) {
 			
 		},
 		
-        SecondaryTurret = Class(SDFHeavyQuarnonCannon) {},
-		
+        SecondaryTurret     = Class(SDFHeavyQuarnonCannon) {},
         AntiMissileTactical = Class(SAMElectrumMissileDefense) {},
-		
-        AAGun = Class(SAAOlarisCannonWeapon) {},
-		
-        DeckGun = Class(SDFUltraChromaticBeamGenerator) {},
-		
-        MissileRack = Class(SIFHuAntiNukeWeapon) {},  
-		
+        AAGun               = Class(SAAOlarisCannonWeapon) {},
+        DeckGun             = Class(ChromaticBeamGenerator) {},
+        MissileRack         = Class(SIFHuAntiNukeWeapon) {},  
     },
 
 	OnStopBeingBuilt = function(self, builder, layer)
     
         self:HideBone('Pod04', true)
-
         self:HideBone('Pod05', true)
-
         self:HideBone('Pod06', true)
 
         SSeaUnit.OnStopBeingBuilt(self, builder, layer)
@@ -138,7 +133,6 @@ BSS0401 = Class(SSeaUnit) {
         SSeaUnit.OnKilled(self, inst, type, okr)
 		
     end,
-	
 	
     DeathThread = function( self, overkillRatio , instigator)
 
@@ -165,7 +159,7 @@ BSS0401 = Class(SSeaUnit) {
 			
 		end	
 
-        explosion.CreateDefaultHitExplosionAtBone( self, 'Main_Front_Turret', 5.0 )        
+        CreateDefaultHitExplosionAtBone( self, 'Main_Front_Turret', 5.0 )        
 
         if self.DeathAnimManip then
             WaitFor(self.DeathAnimManip)

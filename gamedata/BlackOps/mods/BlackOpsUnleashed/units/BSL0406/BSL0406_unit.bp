@@ -1,37 +1,14 @@
 UnitBlueprint {
 
 	AI = {
-
         GuardScanRadius = 22,
-        
-		TargetBones = { 
-			'Body',
-			'Leg_Upper_01',
-			'Leg_Upper_02',
-			'Leg_Upper_03',
-			'Leg_Upper_04',
-			'Leg_Upper_05',
-			'Leg_Upper_06',
-			'Leg_Upper_07',
-		},
+		TargetBones = {'Body','Leg_Upper_01','Leg_Upper_02','Leg_Upper_03','Leg_Upper_04','Leg_Upper_05','Leg_Upper_06','Leg_Upper_07'},
 	},
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL_Destroy_Land_Sml',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0104_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Sml', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0104_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Bot', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -85,8 +62,8 @@ UnitBlueprint {
     Display = {
 	
         Abilities = {
-			'Amphibious',
-			'Radar',
+            '<LOC ability_amphibious>Amphibious',
+            '<LOC ability_radar>Radar',
 			'Regenerative Aura +75% Regen +10 Vision',
             'Attracts enemy fire',
         },
@@ -158,9 +135,9 @@ UnitBlueprint {
 
 		FreeIntel = true,
 
-		RadarRadius = 75,
-        VisionRadius = 35,
-		WaterVisionRadius = 12,
+		RadarRadius = 72,
+        VisionRadius = 36,
+		WaterVisionRadius = 16,
     },
 	
     Interface = {

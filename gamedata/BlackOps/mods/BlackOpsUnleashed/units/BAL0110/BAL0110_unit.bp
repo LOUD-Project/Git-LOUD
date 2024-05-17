@@ -7,26 +7,10 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0106_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0106_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        StartMove   = Sound { Bank = 'UAL', Cue = 'UAL0106_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'UAL', Cue = 'UAL0106_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Bot', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {},
@@ -84,11 +68,7 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 215,
-                    Scrolling = true,
-                    ShaderName = 'Aeon',
-                },
+                { LODCutoff = 215, Scrolling = true, ShaderName = 'Aeon' },
             },
         },
 
@@ -182,13 +162,11 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0106_Pulsar_SR',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAL0106_Pulsar_SR', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -198,7 +176,6 @@ UnitBlueprint {
             DisplayName = 'Sonic Pulsar',
 			
             FireTargetLayerCapsTable = {
-                Air = 'Land|Water|Seabed',
                 Land = 'Land|Water|Seabed',
             },
 			

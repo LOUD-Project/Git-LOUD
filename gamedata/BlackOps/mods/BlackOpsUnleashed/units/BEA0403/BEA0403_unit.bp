@@ -41,31 +41,11 @@ UnitBlueprint {
     },
 	
     Audio = {
-    	AirUnitWaterImpact = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL0401_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0401_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0401_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+    	AirUnitWaterImpact  = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed           = Sound { Bank = 'UELDestroy', Cue = 'UEL0401_Destroy', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove           = Sound { Bank = 'UEL', Cue = 'UEL0401_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove            = Sound { Bank = 'UEL', Cue = 'UEL0401_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection         = Sound { Bank = 'Interface', Cue = 'UEF_Select_Tank', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -99,11 +79,13 @@ UnitBlueprint {
     CollisionOffsetZ = -1,
 
     Defense = {
-        AirThreatLevel = 91,
         ArmorType = 'Light',
+
         Health = 65000,
         MaxHealth = 65000,
         RegenRate = 20,
+
+        AirThreatLevel = 91,
         SurfaceThreatLevel = 144,
     },
 
@@ -117,16 +99,7 @@ UnitBlueprint {
 			'4x Anti-Air Gatlings',
         },
 
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 600,
-                    Scrolling = true,
-                    ShaderName = 'Unit',
-                },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 600, Scrolling = true, ShaderName = 'Unit' } } },
 
         UniformScale = 0.4,
     },
@@ -159,8 +132,9 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-		RadarRadius = 75,
-        VisionRadius = 42,
+        
+		RadarRadius = 72,
+        VisionRadius = 40,
     },
 	
     Interface = {
@@ -224,12 +198,9 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,		
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0401_Cannon_Exp_Lrg',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0401_Cannon_Exp_Lrg', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             AutoInitiateAttackCommand = true,
@@ -288,7 +259,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Right_SG_Muzzle01',
             TurretBonePitch = 'Right_SG_Barrel01',
@@ -312,12 +283,9 @@ UnitBlueprint {
             AlwaysRecheckTarget = true,
 
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0401_Cannon_Exp_Lrg',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0401_Cannon_Exp_Lrg', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -394,12 +362,9 @@ UnitBlueprint {
             AlwaysRecheckTarget = true,
 
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0401_Cannon_Exp_Lrg',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0401_Cannon_Exp_Lrg', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -477,12 +442,9 @@ UnitBlueprint {
             AlwaysRecheckTarget = true,
 
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0401_Cannon_Exp_Lrg',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0401_Cannon_Exp_Lrg', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -557,14 +519,13 @@ UnitBlueprint {
 		
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2204_Artillery_Flak',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2204_Artillery_Flak', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 
@@ -588,7 +549,7 @@ UnitBlueprint {
 			
 			LeadTarget = true,
 
-            MaxRadius = 50,
+            MaxRadius = 48,
 
             MuzzleVelocity = 60,
 
@@ -635,14 +596,13 @@ UnitBlueprint {
 		-- Flak --2
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2204_Artillery_Flak',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2204_Artillery_Flak', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 
@@ -665,7 +625,7 @@ UnitBlueprint {
 			
 			LeadTarget = true,
 
-            MaxRadius = 50,
+            MaxRadius = 48,
 
             MuzzleVelocity = 60,
 			
@@ -709,14 +669,13 @@ UnitBlueprint {
 		-- Flak --3
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2204_Artillery_Flak',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2204_Artillery_Flak', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -740,7 +699,7 @@ UnitBlueprint {
 			
 			LeadTarget = true,
 
-            MaxRadius = 50,
+            MaxRadius = 48,
 
             MuzzleVelocity = 60,
 
@@ -784,14 +743,13 @@ UnitBlueprint {
 		-- Flak --4
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2204_Artillery_Flak',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2204_Artillery_Flak', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -814,7 +772,7 @@ UnitBlueprint {
 
             Label = 'AAAFlak',
 
-            MaxRadius = 50,
+            MaxRadius = 48,
 
             MuzzleVelocity = 60,
 
@@ -861,13 +819,11 @@ UnitBlueprint {
 		
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0106_MachineGun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0106_MachineGun', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 
@@ -886,7 +842,7 @@ UnitBlueprint {
 
 			LeadTarget = true,
 
-            MaxRadius = 35,
+            MaxRadius = 40,
 
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 6,
@@ -935,13 +891,11 @@ UnitBlueprint {
 		-- Gatling --2
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0106_MachineGun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0106_MachineGun', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 
@@ -960,7 +914,8 @@ UnitBlueprint {
 
 			LeadTarget = true,
 
-            MaxRadius = 45,
+            MaxRadius = 40,
+
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 6,
 
@@ -1008,12 +963,9 @@ UnitBlueprint {
 		-- Gatling --3
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0106_MachineGun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0106_MachineGun', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -1031,7 +983,8 @@ UnitBlueprint {
 
             Label = 'GatlingAACannon03',
 
-            MaxRadius = 45,
+            MaxRadius = 40,
+            
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 6,
 
@@ -1079,13 +1032,11 @@ UnitBlueprint {
 		-- Gatling --4
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0106_MachineGun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0106_MachineGun', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 
@@ -1103,7 +1054,7 @@ UnitBlueprint {
 
 			LeadTarget = true,
 
-            MaxRadius = 45,
+            MaxRadius = 40,
 
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 6,
@@ -1162,11 +1113,12 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.4,
-        MassMult = 0.85,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

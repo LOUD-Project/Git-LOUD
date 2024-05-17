@@ -1,9 +1,7 @@
 local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local CybranWeaponsFile = import('/lua/cybranweapons.lua')
-local CybranWeaponsFile2 = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua')
-local CDFLaserHeavyWeapon = CybranWeaponsFile.CDFLaserHeavyWeapon
-local ScorpDisintegratorWeapon = CybranWeaponsFile2.ScorpDisintegratorWeapon
+local CDFLaserHeavyWeapon       = import('/lua/cybranweapons.lua').CDFLaserHeavyWeapon
+local ScorpDisintegratorWeapon  = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').ScorpDisintegratorWeapon
 
 local CreateCybranBuildBeams = import('/lua/EffectUtilities.lua').CreateCybranBuildBeams
 
@@ -13,6 +11,7 @@ local TrashDestroy = TrashBag.Destroy
 BRL0205 = Class(CWalkingLandUnit) {
 
     Weapons = {
+    
         LaserArms = Class(CDFLaserHeavyWeapon) {
         
 			OnWeaponFired = function(self, target)

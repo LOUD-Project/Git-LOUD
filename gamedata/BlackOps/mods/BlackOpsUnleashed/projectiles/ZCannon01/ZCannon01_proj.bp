@@ -16,21 +16,11 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'UEF',
         'PROJECTILE',
-        'DIRECTFIRE',
     },
-    General = {
-        Category = 'Direct Fire',
-        EntityCategory = {
-            'UEF',
-            'PROJECTILE',
-            'DIRECTFIRE',
-        },
-        Faction = 'UEF',
-        Weapon = 'ZCannon',
-    },
+
     Display = {
         StrategicIconSize = 3,
         MeshBlueprint = '/projectiles/TIFMortar01/TIFMortar01_mesh.bp',
@@ -38,6 +28,7 @@ ProjectileBlueprint {
         CameraFollowsProjectile = true,
         UniformScale = 0.45,
     },
+
     Physics = {
         DestroyOnWater = true,
         InitialSpeed = 15,

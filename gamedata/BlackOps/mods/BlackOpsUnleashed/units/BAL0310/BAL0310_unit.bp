@@ -6,21 +6,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'UAL', Cue = 'UAL0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -75,11 +63,7 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 140,
             LODs = {
-                {
-                    LODCutoff = 215,
-                    Scrolling = true,
-                    ShaderName = 'Aeon',
-                },
+                { LODCutoff = 215, Scrolling = true, ShaderName = 'Aeon' },
             },
         },
 
@@ -109,6 +93,7 @@ UnitBlueprint {
     
     Intel = {
         VisionRadius = 30,
+        WaterVisionRadius = 16,
     },
     
     Interface = {

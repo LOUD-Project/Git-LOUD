@@ -1,4 +1,3 @@
-
 local SeraHeavyLightningCannonChildProjectile = import('/mods/BlackOpsUnleashed/lua/BlackOpsprojectiles.lua').SeraHeavyLightningCannonChildProjectile
 
 local GetEnemyUnitsInSphere = import('/lua/utilities.lua').GetEnemyUnitsInSphere
@@ -31,10 +30,10 @@ SeraHeavyLightningCannonChild01 = Class(SeraHeavyLightningCannonChildProjectile)
 			
                 if table.getn(avalibleTargets) > 4 then
 				
-					#-- damage 4 targets randomly
+					-- damage 4 targets randomly
                     for i = 0, (4 -1) do
 					
-						#-- pick a target
+						-- pick a target
 						local ranTarget = Random( 1, table.getn(avalibleTargets) )
 						local target = avalibleTargets[ranTarget]   
 						
@@ -56,7 +55,7 @@ SeraHeavyLightningCannonChild01 = Class(SeraHeavyLightningCannonChildProjectile)
 					
 				elseif table.getn(avalibleTargets) <= 4 and table.getn(avalibleTargets) > 0 then
 				
-					#-- damage the targets equally
+					-- damage the targets equally
 					for i = 0, (table.getn(avalibleTargets) -1) do      
 					
 						local ranTarget = Random(1,table.getn(avalibleTargets))

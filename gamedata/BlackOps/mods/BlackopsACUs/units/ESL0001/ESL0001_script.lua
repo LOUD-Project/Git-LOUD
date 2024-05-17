@@ -5,24 +5,25 @@ local BuffField = import('/lua/sim/BuffField.lua').BuffField
 
 local SWeapons = import('/lua/seraphimweapons.lua')
 
-local SDFChronotronCannonWeapon = SWeapons.SDFChronotronCannonWeapon
-local SDFChronotronOverChargeCannonWeapon = SWeapons.SDFChronotronCannonOverChargeWeapon
-local SIFCommanderDeathWeapon = SWeapons.SIFCommanderDeathWeapon
+local SDFChronotronCannonWeapon             = SWeapons.SDFChronotronCannonWeapon
+local SDFChronotronOverChargeCannonWeapon   = SWeapons.SDFChronotronCannonOverChargeWeapon
+local SIFCommanderDeathWeapon               = SWeapons.SIFCommanderDeathWeapon
+local SDFSinnuntheWeapon                    = SWeapons.SDFSinnuntheWeapon
+local SANAnaitTorpedo                       = SWeapons.SANAnaitTorpedo
+local SAAOlarisCannonWeapon                 = SWeapons.SAAOlarisCannonWeapon
+local Targeting                             = SWeapons.SeraphimTargetPainter
 
-local SDFSinnuntheWeapon = SWeapons.SDFSinnuntheWeapon
-local SANUallCavitationTorpedo = SWeapons.SANUallCavitationTorpedo
-local SeraACURapidWeapon = import('/mods/BlackOpsACUs/lua/EXBlackOpsweapons.lua').SeraACURapidWeapon 
-local SeraACUBigBallWeapon = import('/mods/BlackOpsACUs/lua/EXBlackOpsweapons.lua').SeraACUBigBallWeapon 
-local SAAOlarisCannonWeapon = SWeapons.SAAOlarisCannonWeapon
+SWeapons = nil
 
-local EffectTemplate = import('/lua/EffectTemplates.lua')
-local EffectUtil = import('/lua/EffectUtilities.lua')
+local SeraACURapidWeapon    = import('/mods/BlackOpsACUs/lua/EXBlackOpsweapons.lua').SeraACURapidWeapon 
+local SeraACUBigBallWeapon  = import('/mods/BlackOpsACUs/lua/EXBlackOpsweapons.lua').SeraACUBigBallWeapon 
 
-local EXCEMPArrayBeam01 = import('/mods/BlackOpsACUs/lua/EXBlackOpsweapons.lua').EXCEMPArrayBeam01
+local EffectTemplate    = import('/lua/EffectTemplates.lua')
+local EffectUtil        = import('/lua/EffectUtilities.lua')
 
-local MissileRedirect = import('/lua/defaultantiprojectile.lua').MissileTorpDestroy
-local LambdaRedirect = import('/lua/defaultantiprojectile.lua').SeraLambdaFieldRedirector
-local LambdaDestroy = import('/lua/defaultantiprojectile.lua').SeraLambdaFieldDestroyer
+local MissileRedirect   = import('/lua/defaultantiprojectile.lua').MissileTorpDestroy
+local LambdaRedirect    = import('/lua/defaultantiprojectile.lua').SeraLambdaFieldRedirector
+local LambdaDestroy     = import('/lua/defaultantiprojectile.lua').SeraLambdaFieldDestroyer
 
 local CreateAttachedEmitter = CreateAttachedEmitter
 
@@ -48,11 +49,11 @@ ESL0001 = Class( SWalkingLandUnit ) {
 		
         ChronotronCannon = Class(SDFChronotronCannonWeapon) {},
 		
-        EXTargetPainter = Class(EXCEMPArrayBeam01) {},
+        TargetPainter = Class(Targeting) { FxMuzzleFlash = false },
 		
-        EXTorpedoLauncher01 = Class(SANUallCavitationTorpedo) {},
-        EXTorpedoLauncher02 = Class(SANUallCavitationTorpedo) {},
-        EXTorpedoLauncher03 = Class(SANUallCavitationTorpedo) {},
+        EXTorpedoLauncher01 = Class(SANAnaitTorpedo) { FxMuzzleFlash = false },
+        EXTorpedoLauncher02 = Class(SANAnaitTorpedo) { FxMuzzleFlash = false },
+        EXTorpedoLauncher03 = Class(SANAnaitTorpedo) { FxMuzzleFlash = false },
 		
         EXBigBallCannon01 = Class(SeraACUBigBallWeapon) {
 		
@@ -255,12 +256,6 @@ ESL0001 = Class( SWalkingLandUnit ) {
         self:AddBuildRestriction( categories.SERAPHIM * ( categories.BUILTBYTIER4COMMANDER) )
     end,
 
-    GiveInitialResources = function(self)
-        WaitTicks(2)
-        self:GetAIBrain():GiveResource('Energy', self:GetBlueprint().Economy.StorageEnergy)
-        self:GetAIBrain():GiveResource('Mass', self:GetBlueprint().Economy.StorageMass)
-    end,
-
     CreateBuildEffects = function( self, unitBeingBuilt, order )
         EffectUtil.CreateSeraphimUnitEngineerBuildingEffects( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
     end,
@@ -296,8 +291,6 @@ ESL0001 = Class( SWalkingLandUnit ) {
     end,
 
     OnStartBuild = function(self, unitBeingBuilt, order)
-
-        --SWalkingLandUnit.OnStartBuild( self, unitBeingBuilt, order)
 
         local bp = self:GetBlueprint()
 
@@ -386,19 +379,6 @@ ESL0001 = Class( SWalkingLandUnit ) {
         self:GetWeaponManipulatorByLabel('ChronotronCannon'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
     end,
 
-    OnCmdrUpgradeStart = function(self)
-        SWalkingLandUnit.OnCmdrUpgradeStart(self)
-    end,
-
-    OnCmdrUpgradeFinished = function(self)
-        SWalkingLandUnit.OnCmdrUpgradeFinished(self)
-    end,
-
-    OnWorkFail = function(self, work)
-        -- this fires if a STOP command is issued - ends any enhancement underway
-        SWalkingLandUnit.OnWorkFail(self, work)    
-    end,
-
     OnStopBeingBuilt = function(self,builder,layer)
 
         SWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
@@ -446,7 +426,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
 		self.EXMoving = false
 		self.EXOCFire = false
 
-		wpTarget = self:GetWeaponByLabel('EXTargetPainter')
+		wpTarget = self:GetWeaponByLabel('TargetPainter')
 
 		wpTarget:ChangeMaxRadius(100)
 
@@ -503,19 +483,6 @@ ESL0001 = Class( SWalkingLandUnit ) {
 
         self:ForkThread(self.WeaponConfigCheck)
     end,
-    
-    PlayCommanderWarpInEffect = function(self)
-
-        self:HideBone(0, true)
-
-        self:SetUnSelectable(true)
-
-        self:SetBusy(true)
-
-        self:SetBlockCommandQueue(true)
-
-        self:ForkThread(self.WarpInEffectThread)
-    end, 
     
     WarpInEffectThread = function(self)
 
@@ -628,7 +595,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
 
 		if self.wcBuildMode then
 
-			self:SetWeaponEnabledByLabel('EXTargetPainter', false)
+			self:SetWeaponEnabledByLabel('TargetPainter', false)
 			self:SetWeaponEnabledByLabel('ChronotronCannon', false)
 			self:SetWeaponEnabledByLabel('OverCharge', false)
 
@@ -647,7 +614,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
 
 		if self.wcOCMode then
 
-			self:SetWeaponEnabledByLabel('EXTargetPainter', false)
+			self:SetWeaponEnabledByLabel('TargetPainter', false)
 			self:SetWeaponEnabledByLabel('ChronotronCannon', false)
 
 			self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', false)
@@ -665,7 +632,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
 
 		if not self.wcBuildMode and not self.wcOCMode then
 
-			self:SetWeaponEnabledByLabel('EXTargetPainter', true)
+			self:SetWeaponEnabledByLabel('TargetPainter', true)
 			self:SetWeaponEnabledByLabel('ChronotronCannon', true)
 			self:SetWeaponEnabledByLabel('OverCharge', false)
 
@@ -872,8 +839,6 @@ ESL0001 = Class( SWalkingLandUnit ) {
     end,
 
     OnScriptBitSet = function(self, bit)
-    
-        --LOG("*AI DEBUG Script Bit Set "..repr(bit))
 
         if bit == 3 and self.IntelPackage and self.IntelPackageOn then
 
@@ -1620,29 +1585,8 @@ ESL0001 = Class( SWalkingLandUnit ) {
     end,
 
     IntelEffects = {
-		Cloak = {
-		    {
-			    Bones = {
-				    'Body',
-				    'Right_Arm_B01',
-				    'Left_Arm_B01',
-				    'Left_Leg_B01',
-				    'Right_Leg_B01',
-			    },
-			    Scale = 1.0,
-			    Type = 'Cloak01',
-		    },
-		},
-		Field = {
-		    {
-			    Bones = {
-				    'Body',
-			    },
-			    Scale = 0.65,
-			    Type = 'Jammer01',
-		    },
-        },
-
+		Cloak = { { Bones = {'Body','Right_Arm_B01','Left_Arm_B01','Left_Leg_B01','Right_Leg_B01'}, Scale = 1.0, Type = 'Cloak01' } },
+		Field = { { Bones = {'Body'}, Scale = 0.65, Type = 'Jammer01' } },
     },
 	
     OnIntelEnabled = function(self,intel)

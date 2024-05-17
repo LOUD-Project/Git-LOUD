@@ -1,23 +1,23 @@
 local AWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local AeonBuffField = import('/lua/aeonweapons.lua').AeonBuffField
-
 local Buff = import('/lua/sim/Buff.lua')
 
 local AWeapons = import('/lua/aeonweapons.lua')
 
-local AIFCommanderDeathWeapon = AWeapons.AIFCommanderDeathWeapon
-local ADFDisruptorCannonWeapon = AWeapons.ADFDisruptorCannonWeapon
-local ADFChronoDampener = AWeapons.ADFChronoDampener
-local AANChronoTorpedoWeapon = AWeapons.AANChronoTorpedoWeapon
+local AIFCommanderDeathWeapon       = AWeapons.AIFCommanderDeathWeapon
+local ADFDisruptorCannonWeapon      = AWeapons.ADFDisruptorCannonWeapon
+local ADFChronoDampener             = AWeapons.ADFChronoDampener
+local AANChronoTorpedoWeapon        = AWeapons.AANChronoTorpedoWeapon
 local AIFArtilleryMiasmaShellWeapon = AWeapons.AIFArtilleryMiasmaShellWeapon
-local AeonACUPhasonLaser = AWeapons.ADFPhasonLaser
-local ADFOverchargeWeapon = AWeapons.ADFOverchargeWeapon
+local PhasonLaser                   = AWeapons.ADFPhasonLaser
+local ADFOverchargeWeapon           = AWeapons.ADFOverchargeWeapon
+local Targeting                     = AWeapons.AeonTargetPainter
+
+AWeapons = nil
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local EffectUtil = import('/lua/EffectUtilities.lua')
-
-local EXCEMPArrayBeam01 = import('/mods/BlackOpsACUs/lua/EXBlackOpsweapons.lua').EXCEMPArrayBeam01
 
 local CreateAeonCommanderBuildingEffects = EffectUtil.CreateAeonCommanderBuildingEffects
 
@@ -48,7 +48,7 @@ EAL0001 = Class(AWalkingLandUnit) {
 	
         DeathWeapon = Class(AIFCommanderDeathWeapon) {},
 		
-        EXTargetPainter = Class(EXCEMPArrayBeam01) {},
+        TargetPainter = Class(Targeting) {},
 		
         RightDisruptor = Class(ADFDisruptorCannonWeapon) {},
 		
@@ -172,9 +172,9 @@ EAL0001 = Class(AWalkingLandUnit) {
         EXMiasmaArtillery02 = Class(AIFArtilleryMiasmaShellWeapon) {},
         EXMiasmaArtillery03 = Class(AIFArtilleryMiasmaShellWeapon) {},
 		
-        EXPhasonBeam01 = Class(AeonACUPhasonLaser) {},
-        EXPhasonBeam02 = Class(AeonACUPhasonLaser) {},
-        EXPhasonBeam03 = Class(AeonACUPhasonLaser) {},
+        EXPhasonBeam01 = Class(PhasonLaser) {},
+        EXPhasonBeam02 = Class(PhasonLaser) {},
+        EXPhasonBeam03 = Class(PhasonLaser) {},
     },
 
     OnCreate = function(self)
@@ -187,13 +187,6 @@ EAL0001 = Class(AWalkingLandUnit) {
         -- Restrict what enhancements will enable later
         self:AddBuildRestriction( categories.AEON * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
         self:AddBuildRestriction( categories.AEON * ( categories.BUILTBYTIER4COMMANDER) )
-    end,
-
-    GiveInitialResources = function(self)
-    
-        WaitTicks(2)
-        self:GetAIBrain():GiveResource('Energy', self:GetBlueprint().Economy.StorageEnergy)
-        self:GetAIBrain():GiveResource('Mass', self:GetBlueprint().Economy.StorageMass)
     end,
     
     CreateBuildEffects = function( self, unitBeingBuilt, order )
@@ -385,7 +378,7 @@ EAL0001 = Class(AWalkingLandUnit) {
 		self.Shield = false
         self.ShieldOn = false
 
-		wpTarget = self:GetWeaponByLabel('EXTargetPainter')
+		wpTarget = self:GetWeaponByLabel('TargetPainter')
 
 		wpTarget:ChangeMaxRadius(100)
 		
@@ -414,11 +407,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 
         TrashAdd( self.Trash, antiMissile)
         
-    end,
-
-    OnKilled = function(self, instigator, type, overkillRatio)
-    
-        AWalkingLandUnit.OnKilled(self, instigator, type, overkillRatio)
     end,
 
     OnTargetLocation = function(self, location)
@@ -636,15 +624,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 
         sat:SetIntelRadius('vision', endingRadius)
     end,
-    
-    PlayCommanderWarpInEffect = function(self)
-    
-        self:HideBone(0, true)
-        self:SetUnSelectable(true)
-        self:SetBusy(true)
-        self:SetBlockCommandQueue(true)
-        self:ForkThread(self.WarpInEffectThread)
-    end,
 
     WarpInEffectThread = function(self)
     
@@ -770,7 +749,7 @@ EAL0001 = Class(AWalkingLandUnit) {
         -- disables weapons --
 		if self.wcBuildMode then
 		
-			self:SetWeaponEnabledByLabel('EXTargetPainter', false)
+			self:SetWeaponEnabledByLabel('TargetPainter', false)
 			self:SetWeaponEnabledByLabel('RightDisruptor', false)
 			self:SetWeaponEnabledByLabel('OverCharge', false)
 
@@ -789,7 +768,7 @@ EAL0001 = Class(AWalkingLandUnit) {
 		
 		if self.wcOCMode then
 		
-			self:SetWeaponEnabledByLabel('EXTargetPainter', false)
+			self:SetWeaponEnabledByLabel('TargetPainter', false)
 			self:SetWeaponEnabledByLabel('RightDisruptor', false)
 
 			self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', false)
@@ -807,7 +786,7 @@ EAL0001 = Class(AWalkingLandUnit) {
         
 		if not self.wcBuildMode and not self.wcOCMode then
 		
-			self:SetWeaponEnabledByLabel('EXTargetPainter', true)
+			self:SetWeaponEnabledByLabel('TargetPainter', true)
 			self:SetWeaponEnabledByLabel('RightDisruptor', true)
 			self:SetWeaponEnabledByLabel('OverCharge', false)			
 
@@ -1139,20 +1118,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 
     end,
 
-
-    OnCmdrUpgradeStart = function(self)
-        AWalkingLandUnit.OnCmdrUpgradeStart(self)
-    end,
-
-    OnCmdrUpgradeFinished = function(self)
-        AWalkingLandUnit.OnCmdrUpgradeFinished(self)
-    end,
-
-    OnWorkFail = function(self, work)
-        -- this fires if a STOP command is issued - ends any enhancement underway
-        AWalkingLandUnit.OnWorkFail(self, work)    
-    end,
-    
     CreateEnhancement = function(self, enh)
 	
         AWalkingLandUnit.CreateEnhancement(self, enh)

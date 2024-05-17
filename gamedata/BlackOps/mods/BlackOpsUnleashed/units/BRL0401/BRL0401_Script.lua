@@ -2,26 +2,30 @@ local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local CybranWeaponsFile2 = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua')
 
-local BassieCannonWeapon01 = CybranWeaponsFile2.BassieCannonWeapon01
-local BasiliskAAMissile01 = CybranWeaponsFile2.BasiliskAAMissile01
+local BassieCannonWeapon01   = CybranWeaponsFile2.BassieCannonWeapon01
+local BasiliskAAMissile01    = CybranWeaponsFile2.BasiliskAAMissile01
+
+CybranWeaponsFile2 = nil
 
 local cWeapons = import('/lua/cybranweapons.lua')
 
-local CDFLaserHeavyWeapon = cWeapons.CDFLaserHeavyWeapon
-local CDFLaserDisintegratorWeapon = cWeapons.CDFLaserDisintegratorWeapon01
-local CIFMissileLoaWeapon = cWeapons.CIFMissileLoaWeapon
-local CDFElectronBolterWeapon = cWeapons.CDFElectronBolterWeapon
-local CIFCommanderDeathWeapon = cWeapons.CIFCommanderDeathWeapon
+local CDFLaserHeavyWeapon           = cWeapons.CDFLaserHeavyWeapon
+local CDFLaserDisintegratorWeapon   = cWeapons.CDFLaserDisintegratorWeapon01
+local CIFMissileLoaWeapon           = cWeapons.CIFMissileLoaWeapon
+local CDFElectronBolterWeapon       = cWeapons.CDFElectronBolterWeapon
+local CIFCommanderDeathWeapon       = cWeapons.CIFCommanderDeathWeapon
+
+cWeapons = nil
 
 local BasiliskNukeEffect04 = '/mods/BlackOpsUnleashed/projectiles/MGQAIPlasmaArty01/MGQAIPlasmaArty01_proj.bp' 
 local BasiliskNukeEffect05 = '/mods/BlackOpsUnleashed/effects/Entities/BasiliskNukeEffect05/BasiliskNukeEffect05_proj.bp'
 
-local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
-local Util = import('/lua/utilities.lua')
+local RandomFloat   = import('/lua/utilities.lua').GetRandomFloat
+local Util          = import('/lua/utilities.lua')
 
-local EffectTemplate = import('/lua/EffectTemplates.lua')
+local EffectTemplate        = import('/lua/EffectTemplates.lua')
 local BlacOpsEffectTemplate = import('/mods/BlackOpsUnleashed/lua/BlackOpsEffectTemplates.lua')
-local CreateDeathExplosion = import('/lua/defaultexplosions.lua').CreateDefaultHitExplosionAtBone
+local CreateDeathExplosion  = import('/lua/defaultexplosions.lua').CreateDefaultHitExplosionAtBone
 
 BRL0401 = Class(CWalkingLandUnit) {
 
@@ -30,7 +34,7 @@ BRL0401 = Class(CWalkingLandUnit) {
     Weapons = {
 
 		-- audio toggle weapons --
-		--TorsoWeapon = Class(CDFLaserHeavyWeapon){},
+
     	HeadWeapon = Class(CDFLaserHeavyWeapon){
 		
             OnWeaponFired = function(self, muzzle)
@@ -44,16 +48,17 @@ BRL0401 = Class(CWalkingLandUnit) {
         },
 		
 		-- default weapons --
-		SideCannons = Class(CDFLaserHeavyWeapon) {},
-        MainGun = Class(BassieCannonWeapon01) {},
-		LasMissile = Class(BasiliskAAMissile01) {},
-
-        MissileRack = Class(CIFMissileLoaWeapon) {},
-		Bolter = Class(CDFElectronBolterWeapon) {},
+		SideCannons     = Class(CDFLaserHeavyWeapon) {},
+        TopGun          = Class(BassieCannonWeapon01) { FxMuzzleFlashScale = 0.8 },
+		LasMissile      = Class(BasiliskAAMissile01) {},
+        MissileRack     = Class(CIFMissileLoaWeapon) {},
+        
+		BolterLeft      = Class(CDFElectronBolterWeapon) {},
+		BolterRight     = Class(CDFElectronBolterWeapon) {},        
 
 		-- Siege weapons
-		ShoulderGuns = Class(CDFLaserDisintegratorWeapon) {},
-        MissileRack2 = Class(CIFMissileLoaWeapon) {},
+		ShoulderGuns    = Class(CDFLaserDisintegratorWeapon) {},
+        MissileRack2    = Class(CIFMissileLoaWeapon) {},
 	
 		-- Death weapon
 		BasiliskDeathNuck = Class(CIFCommanderDeathWeapon) {},
@@ -75,9 +80,7 @@ BRL0401 = Class(CWalkingLandUnit) {
 	end,
 	
    	OnStartBeingBuilt = function(self, builder, layer)
-	
         CWalkingLandUnit.OnStartBeingBuilt(self, builder, layer)
-
     end,
     
     OnStopBeingBuilt = function(self,builder,layer)
@@ -133,8 +136,8 @@ BRL0401 = Class(CWalkingLandUnit) {
 				
 				--weapon stuff
 		
-				self:SetWeaponEnabledByLabel('MainGun', false)
-				local MainWep = self:GetWeaponByLabel('MainGun')
+				self:SetWeaponEnabledByLabel('TopGun', false)
+				local MainWep = self:GetWeaponByLabel('TopGun')
 				MainWep:ChangeMaxRadius(0)
 
 				self:SetWeaponEnabledByLabel('SideCannons', false)
@@ -209,8 +212,8 @@ BRL0401 = Class(CWalkingLandUnit) {
 				--local dummywep = self:GetWeaponByLabel('HeadWeapon')
 				--dummywep:ChangeMaxRadius(70)
 		
-				self:SetWeaponEnabledByLabel('MainGun', true)
-				local MainWep = self:GetWeaponByLabel('MainGun')
+				self:SetWeaponEnabledByLabel('TopGun', true)
+				local MainWep = self:GetWeaponByLabel('TopGun')
 				MainWep:ChangeMaxRadius(70)
 				MainWep:ChangeMinRadius(20)
 		

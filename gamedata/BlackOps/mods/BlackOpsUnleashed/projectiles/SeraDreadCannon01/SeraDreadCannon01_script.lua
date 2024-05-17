@@ -12,9 +12,7 @@ SDFSinnuntheWeapon01 = Class(SDFSinnuntheWeaponProjectile) {
 	},
 
 	OnCreate = function(self)
-	
 		SDFSinnuntheWeaponProjectile.OnCreate(self)
-
     end,
 
     OnImpact = function(self, targetType, targetEntity)

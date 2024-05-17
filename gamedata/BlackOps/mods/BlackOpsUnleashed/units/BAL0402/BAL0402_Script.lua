@@ -1,19 +1,19 @@
 local AHoverLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
-local ADFDisruptorWeapon = import('/lua/aeonweapons.lua').ADFDisruptorWeapon
-local AIFMissileTacticalSerpentineWeapon = import('/lua/aeonweapons.lua').AIFMissileTacticalSerpentineWeapon
-local AAMWillOWisp = import('/lua/aeonweapons.lua').AAMWillOWisp
+local ADFDisruptorWeapon                    = import('/lua/aeonweapons.lua').ADFDisruptorWeapon
+local AIFMissileTacticalSerpentineWeapon    = import('/lua/aeonweapons.lua').AIFMissileTacticalSerpentineWeapon
+local AAMWillOWisp                          = import('/lua/aeonweapons.lua').AAMWillOWisp
 
-local explosion = import('/lua/defaultexplosions.lua')
-local Weapon = import('/lua/sim/Weapon.lua').Weapon
+local explosion     = import('/lua/defaultexplosions.lua')
+local Weapon        = import('/lua/sim/Weapon.lua').Weapon
 
-local LOUDINSERT = table.insert
 local LOUDATTACHEMITTER = CreateAttachedEmitter
 
 local Buff = import('/lua/sim/Buff.lua')
 local AeonBuffField = import('/lua/aeonweapons.lua').AeonBuffField
 
 BAL0402 = Class(AHoverLandUnit) {
+
     FxDamageScale = 2,
     DestructionTicks = 400,
 	
@@ -31,22 +31,11 @@ BAL0402 = Class(AHoverLandUnit) {
 	
 		MissileRack = Class(AIFMissileTacticalSerpentineWeapon) {},
 		
-        MainGun = Class(ADFDisruptorWeapon) {},
+        MainGun     = Class(ADFDisruptorWeapon) {},
 		
-		LeftTurret = Class(import('/lua/aeonweapons.lua').ADFCannonOblivionWeapon) {
-			FxMuzzleFlash = {
-				'/effects/emitters/oblivion_cannon_flash_04_emit.bp',
-				'/effects/emitters/oblivion_cannon_flash_05_emit.bp',				
-				'/effects/emitters/oblivion_cannon_flash_06_emit.bp',
-			},        
-        },
-		
-		RightTurret = Class(import('/lua/aeonweapons.lua').ADFCannonOblivionWeapon) {
-			FxMuzzleFlash = {
-				'/effects/emitters/oblivion_cannon_flash_04_emit.bp',
-				'/effects/emitters/oblivion_cannon_flash_05_emit.bp',				
-				'/effects/emitters/oblivion_cannon_flash_06_emit.bp',
-			},        
+		Turret  = Class(import('/lua/aeonweapons.lua').ADFCannonOblivionWeapon) {
+        
+			FxMuzzleFlash = {'/effects/emitters/oblivion_cannon_flash_04_emit.bp','/effects/emitters/oblivion_cannon_flash_05_emit.bp','/effects/emitters/oblivion_cannon_flash_06_emit.bp'},        
         },
 		
         AntiMissile1 = Class(AAMWillOWisp) {},

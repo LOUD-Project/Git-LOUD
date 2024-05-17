@@ -1,52 +1,51 @@
 local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local CWeapons = import('/lua/cybranweapons.lua')
-local EffectUtil = import('/lua/EffectUtilities.lua')
 local Buff = import('/lua/sim/Buff.lua')
+local BuffField = import('/lua/cybranweapons.lua').CybranBuffField
 
-local CybranBuffField = import('/lua/cybranweapons.lua').CybranBuffField
-
-local CCannonMolecularWeapon = CWeapons.CCannonMolecularWeapon
-local CIFCommanderDeathWeapon = CWeapons.CIFCommanderDeathWeapon
-local EffectTemplate = import('/lua/EffectTemplates.lua')
-local CDFHeavyMicrowaveLaserGeneratorCom = CWeapons.CDFHeavyMicrowaveLaserGeneratorCom
-local CDFOverchargeWeapon = CWeapons.CDFOverchargeWeapon
-local CANTorpedoLauncherWeapon = CWeapons.CANTorpedoLauncherWeapon
 
 local Entity = import('/lua/sim/Entity.lua').Entity
+
+local CWeapons = import('/lua/cybranweapons.lua')
+
+local CCannonMolecularWeapon                = CWeapons.CCannonMolecularWeapon
+local CIFCommanderDeathWeapon               = CWeapons.CIFCommanderDeathWeapon
+local MicrowaveLaser                        = CWeapons.CDFHeavyMicrowaveLaserGeneratorCom
+local CDFOverchargeWeapon                   = CWeapons.CDFOverchargeWeapon
+local CANNaniteTorpedo                      = CWeapons.CANNaniteTorpedoWeapon
+local RocketPack                            = CWeapons.CDFRocketIridiumWeapon02
+local Targeting                             = CWeapons.CybranTargetPainter
+
+CWeapons = nil
 
 local EXCEMPArrayBeam01 = import('/mods/BlackOpsACUs/lua/EXBlackOpsweapons.lua').EXCEMPArrayBeam01
 local EXCEMPArrayBeam02 = import('/mods/BlackOpsACUs/lua/EXBlackOpsweapons.lua').EXCEMPArrayBeam02
 local EXCEMPArrayBeam03 = import('/mods/BlackOpsACUs/lua/EXBlackOpsweapons.lua').EXCEMPArrayBeam03
-local RocketPack = import('/lua/cybranweapons.lua').CDFRocketIridiumWeapon02
+
+local EffectTemplate = import('/lua/EffectTemplates.lua')
+local EffectUtil = import('/lua/EffectUtilities.lua')
 
 local MissileRedirect = import('/lua/defaultantiprojectile.lua').MissileTorpDestroy
-
-local wep, wpTarget
 
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
 local TrashDestroy = TrashBag.Destroy
 
-ERL0001 = Class(CWalkingLandUnit) {
+local wep, wpTarget
 
-	BuffFields = {
-	
-		OpticalInterferenceField = Class(CybranBuffField){
-		
-			OnCreate = function(self)
-				CybranBuffField.OnCreate(self)
-			end,
-		},
-	},
+ERL0001 = Class(CWalkingLandUnit) {
 	
     DeathThreadDestructionWaitTime = 2,
+
+	BuffFields = {
+		OpticalInterferenceField = Class(BuffField){},
+	},
 
     Weapons = {
 
         DeathWeapon = Class(CIFCommanderDeathWeapon) {},
 		
-        EXTargetPainter = Class(EXCEMPArrayBeam01) {},
+        TargetPainter = Class(Targeting) { FxMuzzleFlash = false },
 
         RightRipper = Class(CCannonMolecularWeapon) {
 
@@ -60,9 +59,9 @@ ERL0001 = Class(CWalkingLandUnit) {
         EXRocketPack01 = Class(RocketPack) {},
         EXRocketPack02 = Class(RocketPack) {},
 
-        EXTorpedoLauncher01 = Class(CANTorpedoLauncherWeapon) {},
-        EXTorpedoLauncher02 = Class(CANTorpedoLauncherWeapon) {},
-        EXTorpedoLauncher03 = Class(CANTorpedoLauncherWeapon) {},
+        EXTorpedoLauncher01 = Class(CANNaniteTorpedo) {},
+        EXTorpedoLauncher02 = Class(CANNaniteTorpedo) {},
+        EXTorpedoLauncher03 = Class(CANNaniteTorpedo) {},
 
         EXEMPArray01 = Class(EXCEMPArrayBeam01) {
 
@@ -202,9 +201,9 @@ ERL0001 = Class(CWalkingLandUnit) {
             end,
 		},
 
-        EXMLG01 = Class(CDFHeavyMicrowaveLaserGeneratorCom) {},
-        EXMLG02 = Class(CDFHeavyMicrowaveLaserGeneratorCom) {},
-        EXMLG03 = Class(CDFHeavyMicrowaveLaserGeneratorCom) {},
+        EXMLG01 = Class(MicrowaveLaser) {},
+        EXMLG02 = Class(MicrowaveLaser) {},
+        EXMLG03 = Class(MicrowaveLaser) {},
 
         EXAA01 = Class(EXCEMPArrayBeam02) {},
         EXAA02 = Class(EXCEMPArrayBeam02) {},
@@ -322,9 +321,7 @@ ERL0001 = Class(CWalkingLandUnit) {
         },
     },
 
-    # ********
-    # Creation
-    # ********
+
     OnCreate = function(self)
     
         CWalkingLandUnit.OnCreate(self)
@@ -335,14 +332,7 @@ ERL0001 = Class(CWalkingLandUnit) {
         self:AddBuildRestriction( categories.CYBRAN * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
         self:AddBuildRestriction( categories.CYBRAN * (categories.BUILTBYTIER4COMMANDER) )
     end,
-
-    GiveInitialResources = function(self)
-
-        WaitTicks(2)
-        self:GetAIBrain():GiveResource('Energy', self:GetBlueprint().Economy.StorageEnergy)
-        self:GetAIBrain():GiveResource('Mass', self:GetBlueprint().Economy.StorageMass)
-    end,
-    
+  
     CreateBuildEffects = function( self, unitBeingBuilt, order )
        EffectUtil.CreateCybranBuildBeams( self, unitBeingBuilt,  __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
     end,
@@ -531,7 +521,7 @@ ERL0001 = Class(CWalkingLandUnit) {
         self.CloakOn = false
         self.Deviator = false
 
-		wpTarget = self:GetWeaponByLabel('EXTargetPainter')
+		wpTarget = self:GetWeaponByLabel('TargetPainter')
 
 		wpTarget:ChangeMaxRadius(100)
 
@@ -560,19 +550,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 
 		self:StopSiloBuild()
         self:ForkThread(self.WeaponConfigCheck)
-    end,
-
-    PlayCommanderWarpInEffect = function(self)
-
-        self:HideBone(0, true)
-
-        self:SetUnSelectable(true)
-
-        self:SetBusy(true)
-
-        self:SetBlockCommandQueue(true)
-
-        self:ForkThread(self.WarpInEffectThread)
     end,
 
     WarpInEffectThread = function(self)
@@ -722,7 +699,7 @@ ERL0001 = Class(CWalkingLandUnit) {
 
 		if self.wcBuildMode then
 		
-			self:SetWeaponEnabledByLabel('EXTargetPainter', false)
+			self:SetWeaponEnabledByLabel('TargetPainter', false)
 			self:SetWeaponEnabledByLabel('RightRipper', false)
 			self:SetWeaponEnabledByLabel('OverCharge', false)
 
@@ -748,7 +725,7 @@ ERL0001 = Class(CWalkingLandUnit) {
 
 		if self.wcOCMode then
 		
-			self:SetWeaponEnabledByLabel('EXTargetPainter', false)
+			self:SetWeaponEnabledByLabel('TargetPainter', false)
 			self:SetWeaponEnabledByLabel('RightRipper', false)
 
 			self:SetWeaponEnabledByLabel('EXRocketPack01', false)
@@ -773,7 +750,7 @@ ERL0001 = Class(CWalkingLandUnit) {
 
 		if not self.wcBuildMode and not self.wcOCMode then
 		
-			self:SetWeaponEnabledByLabel('EXTargetPainter', true)
+			self:SetWeaponEnabledByLabel('TargetPainter', true)
 			self:SetWeaponEnabledByLabel('RightRipper', true)
 			self:SetWeaponEnabledByLabel('OverCharge', false)
 

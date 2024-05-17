@@ -1,7 +1,7 @@
 UnitBlueprint {
 
     AI = {
-        GuardScanRadius = 44,
+        GuardScanRadius = 36,
         GuardReturnRadius = 65,
 
 		TargetBones = {'XSA0310'},
@@ -35,7 +35,7 @@ UnitBlueprint {
 		
         LiftFactor = 4.5,
 		
-        MaxAirspeed = 10.5,
+        MaxAirspeed = 11,
         MinAirspeed = 3,
 		
         StartTurnDistance = 5,
@@ -43,40 +43,20 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSA_Destroy',
-            Cue = 'XSA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSA_Destroy',
-            Cue = 'XSA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0203_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0203_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSA_Destroy', Cue = 'XSA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        Killed      = Sound { Bank = 'XSA_Destroy', Cue = 'XSA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'XSA', Cue = 'XSA0203_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'XSA', Cue = 'XSA0203_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Air', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     Buffs = {
         Regen = {
-            Level1 = 3,
-            Level2 = 6,
-            Level3 = 9,
-            Level4 = 12,
-            Level5 = 15,
+            Level1 = 4,
+            Level2 = 8,
+            Level3 = 12,
+            Level4 = 16,
+            Level5 = 20,
         },
     },
 	
@@ -97,12 +77,13 @@ UnitBlueprint {
     CollisionOffsetY = -0.075,
 	
     Defense = {
-        AirThreatLevel = 6.6,
         ArmorType = 'Light',
-        Health = 4800,
-        MaxHealth = 4800,
-        RegenRate = 8,
-        SurfaceThreatLevel = 21,
+
+        Health = 4450,
+        MaxHealth = 4450,
+        RegenRate = 7,
+
+        SurfaceThreatLevel = 25,
     },
 	
     Description = '<LOC bsa0310_desc>Missile Gunship',
@@ -112,48 +93,22 @@ UnitBlueprint {
     	Abilities = {
 			'Tac Missile Barrage every 5 seconds',
             '2 x Autocannon w Shield Disruptor',
-			'AA Autocannon',
+            '<LOC ability_personalstealth>Personal Stealth',
         },
 		
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    {
-                        Bones = {
-                            'XSA0310',
-                        },
-                        Type = 'Landing01',
-                    },
-                },
-            },
-            LandAir = {
-                Effects = {
-                    {
-                        Bones = {
-                            'XSA0310',
-                        },
-                        Type = 'TakeOff01',
-                    },
-                },
-            },
+            AirLand = { Effects = { { Bones = {'XSA0310'}, Type = 'Landing01' } } },
+            LandAir = { Effects = { { Bones = {'XSA0310'}, Type = 'TakeOff01' } } },
         },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 215,
-                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
-                    ShaderName = 'Seraphim',
-                },
-            },
-        },
+        
+        Mesh = { IconFadeInZoom = 130, LODs = { {LODCutoff = 215,LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',ShaderName = 'Seraphim'} } },
 
         UniformScale = 0.07,
     },
 	
     Economy = {
         BuildCostEnergy = 80000,
-        BuildCostMass = 2400,
+        BuildCostMass = 2500,
         BuildTime = 1150,
     },
 	
@@ -180,7 +135,12 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 35,
+    
+        FreeIntel = true,
+
+        RadarStealth = true,
+        
+        VisionRadius = 40,
     },
 	
     Interface = {
@@ -236,15 +196,14 @@ UnitBlueprint {
     },
 	
     Weapon = {
+    
+        -- Missiles --
+        
         {
             AboveWaterTargetsOnly = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0111_LaanseMissile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0111_LaanseMissile', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             AutoInitiateAttackCommand = true,
@@ -253,11 +212,11 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 90,
+            Damage = 120,
             DamageRadius = 1.5,
             DamageType = 'Normal',
 			
-            DisplayName = 'Missile Barrage',
+            DisplayName = 'Missiles',
 			
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
@@ -270,19 +229,19 @@ UnitBlueprint {
             Label = 'Missile',
 			
 			MinRadius = 10,
-            MaxRadius = 44,
+            MaxRadius = 45,
 			
             MuzzleChargeDelay = 0.1,
 
             MuzzleSalvoDelay = 0.3,
-            MuzzleSalvoSize = 8,	-- 3.2 seconds to launch salvo
+            MuzzleSalvoSize = 8,	-- 2.4 seconds to launch salvo
 
             MuzzleVelocity = 7,
 			
 			NotExclusive = true,
 			
             ProjectileId = '/projectiles/SIFLaanseTacticalMissile01/SIFLaanseTacticalMissile01_proj.bp',
-            ProjectileLifetime = 20,
+            ProjectileLifetime = 10,
 			
             RackBones = {
                 {
@@ -300,16 +259,15 @@ UnitBlueprint {
                 },
             },
 
-            RackSalvoReloadTime = 1.8,	-- 1.8 seconds to reload rack salvo
+            RackSalvoReloadTime = 2.6,	-- cycle is 5 seconds = 960/5 =  192 DPS
 
             SlavedToBody = true,
             SlavedToBodyArcRange = 30,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.3,		---- 144 DPS -- controlled by muzzle delay and rack salvo reload - every 5 seconds -
-			
-            TargetCheckInterval = 0.5,
+            RateOfFire = 1,
+            TargetCheckInterval = 2,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -319,16 +277,16 @@ UnitBlueprint {
 			
             Turreted = false,
         },
+        
+        -- Shield Drain Autoguns x 2 --
 		
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0303_Bolter',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0303_Bolter', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
 			
             CollideFriendly = false,
@@ -394,15 +352,14 @@ UnitBlueprint {
 			
             Turreted = true,
         },
+        
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0303_Bolter',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0303_Bolter', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -464,81 +421,7 @@ UnitBlueprint {
         },
 		
         {
-            AboveWaterTargetsOnly = true,
-            Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0303_AA_AutoCanLosaare',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-
-            CannotAttackGround = true,
-            BallisticArc = 'RULEUBA_None',
-            CollideFriendly = false,
-			
-            Damage = 22,
-			DamageRadius = 0,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Losaare AA Autogun',
-			
-            FireTargetLayerCapsTable = {
-   				Air = 'Air',
-   				Land = 'Air',
-			},
-            FiringTolerance = 1,
-			
-            Label = 'AATurret',
-
-			LeadTarget = true,
-			
-            MaxRadius = 33,
-			
-            MuzzleSalvoSize = 3,
-            MuzzleVelocity = 65,
-			
-			NotExclusive = true,
-			
-            ProjectileId = '/projectiles/SAALosaareAutoCannon01/SAALosaareAutoCannon01_proj.bp',
-			ProjectileLifetime = 1,
-
-            RackBones = {
-                {
-                    MuzzleBones = {'Center_Muzzle01'},
-                    RackBone = 'Center_Turret_Barrel',
-                },
-            },
-
-            RangeCategory = 'UWRC_AntiAir',
-			
-            RateOfFire = 1,		---- 66 DPS Air
-			
-            TargetCheckInterval = 0.5,
-            TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE',
-            },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-			
-            TurretBoneMuzzle = 'Center_Muzzle01',
-            TurretBonePitch = 'Center_Turret_Barrel',
-            TurretBoneYaw = 'Center_Turret',
-			
-            TurretPitch = 0,
-            TurretPitchRange = 75,
-            TurretPitchSpeed = 60,
-			
-            TurretYaw = 0,
-            TurretYawRange = 120,
-            TurretYawSpeed = 180,
-			
-            Turreted = true,
-        },
-		
-        {
-            Damage = 300,
+            Damage = 250,
             DamageFriendly = true,
             DamageRadius = 1,
             DamageType = 'Normal',
@@ -555,7 +438,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
         HealthMult = 0.5,
-        MassMult = 0.5,
+        MassMult = 0.35,
 		LifeTime = 600,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {

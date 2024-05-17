@@ -6,16 +6,8 @@ UnitBlueprint {
     },
 	
     Audio = {
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0202_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0202_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Bot', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -87,6 +79,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+        
         UniformScale = 0.05,
     },
 	
@@ -175,13 +168,11 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0202_AireAuBolter',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0202_AireAuBolter', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			

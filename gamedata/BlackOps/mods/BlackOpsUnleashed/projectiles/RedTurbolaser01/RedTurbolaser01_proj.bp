@@ -17,23 +17,12 @@ ProjectileBlueprint {
         },
     },
     Categories = {
-        'AEON',
         'PROJECTILE',
-        'DIRECTFIRE',
     },
     Display = {
         StrategicIconSize = 1,
     },
-    General = {
-        Category = 'Direct Fire',
-        EntityCategory = {
-            'AEON',
-            'PROJECTILE',
-            'DIRECTFIRE',
-        },
-        Faction = 'UEF',
-        Weapon = 'High Intensity Laser',
-    },
+
     Interface = {
         HelpText = 0,
     },

@@ -11,9 +11,7 @@ SetParent = function(self, parent, droneName)
     self.Drone = droneName
 end,
 
-ShieldEffects = {'/effects/emitters/terran_shield_generator_t2_01_emit.bp',
-				'/effects/emitters/terran_shield_generator_t2_02_emit.bp',
-    },
+ShieldEffects = {'/effects/emitters/terran_shield_generator_t2_01_emit.bp','/effects/emitters/terran_shield_generator_t2_02_emit.bp'},
 	
 	OnCreate = function(self, builder, layer)
 	

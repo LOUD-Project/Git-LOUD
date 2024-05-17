@@ -15,30 +15,18 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'URSDestroy',
-            Cue = 'URS0202_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URS',
-            Cue = 'URS0202_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'URSDestroy',   Cue = 'URS0202_Destroy',        LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'URS',          Cue = 'URS0202_Move_Start',     LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',    Cue = 'Cybran_Select_Naval',    LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
         Regen = {
             Level1 = 6,
-            Level2 = 9,
-            Level3 = 12,
-            Level4 = 15,
-            Level5 = 18,
+            Level2 = 12,
+            Level3 = 18,
+            Level4 = 24,
+            Level5 = 30,
         },
     },
 	
@@ -64,11 +52,14 @@ UnitBlueprint {
     CollisionOffsetY = -0.29,
 	
     Defense = {
-        AirThreatLevel = 48,
+
         ArmorType = 'Normal',
+
         Health = 22500,
         MaxHealth = 22500,
-        RegenRate = 12,
+        RegenRate = 8,
+
+        AirThreatLevel = 48,
         SubThreatLevel = 16,
         SurfaceThreatLevel = 62,
     },
@@ -78,11 +69,14 @@ UnitBlueprint {
     Display = {
         Abilities = {
             'Air Staging',
-            'Anti-Air',
-            'Radar & Sonar',
-            'Torpedoes & Torpedo Defense',
-            'Tactical Missile Defense',
+            '<LOC ability_aa>Anti-Air',
+            "<LOC ability_radar>Radar",
+            "<LOC ability_sonar>Sonar",
+            "<LOC ability_tacmissiledef>Tactical Missile Defense",
+            "<LOC ability_torpedo>Torpedoes",
+            '<LOC ability_torpedodef>Torpedo Defense',            
         },
+        
         AnimationDeath = {
             {
                 Animation = '/mods/BlackOpsUnleashed/units/BRS0304/BRS0304_asink.sca',
@@ -103,50 +97,22 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+        
         IdleEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'URS0202',
-                        },
-                        Scale = 2.2,
-                        Type = 'SeaIdle01',
-                    },
+                    { Bones = {'URS0202'}, Scale = 1.1, Type = 'SeaIdle01' },
                 },
             },
         },
-        Mesh = {
-            IconFadeInZoom = 100,
-            LODs = {
-                {
-                    LODCutoff = 300,
-                    ShaderName = 'Insect',
-                },
-            },
-        },
+        
+        Mesh = { IconFadeInZoom = 100, LODs = { {LODCutoff = 300,ShaderName = 'Insect'} } },
+        
         MovementEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'Front_Left_Wake',
-                        },
-                        Type = 'LeftFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'Front_Right_Wake',
-                        },
-                        Type = 'RightFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'Back_Wake',
-                        },
-                        Scale = 1.08,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'Front_Left_Wake'}, Type = 'LeftFrontWake' },
+                    { Bones = {'Front_Right_Wake'}, Type = 'RightFrontWake' },
                 },
             },
         },
@@ -173,25 +139,23 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'sea',
+        
         OrderOverrides = {
-            RULEUCC_Transport = {
-                bitmapId = 'deploy',
-                helpText = 'deploy',
-            },
-            RULEUTC_WeaponToggle = {
-                bitmapId = 'toggle-weapon-air',
-            },
+            RULEUCC_Transport = { bitmapId = 'deploy', helpText = 'deploy' },
+            RULEUTC_WeaponToggle = { bitmapId = 'toggle-weapon-air' },
         },
-        ToggleCaps = {
-            RULEUTC_WeaponToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_WeaponToggle = true },
+        
         UnitName = '<LOC brs0304_name>Reaper Class',
     },
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 110,
-        SonarRadius = 70,
+
+        RadarRadius = 92,
+        SonarRadius = 68,
+        
         VisionRadius = 40,
         WaterVisionRadius = 24,
     },
@@ -205,7 +169,7 @@ UnitBlueprint {
     LifeBarSize = 1.75,
 	
     Physics = {
-        BackUpDistance = 6,
+        BackUpDistance = 10,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Water = true,
@@ -253,22 +217,11 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0302_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'URS',       Cue = 'URS_Turret_Lrg_Loop',  LodCutoff = 'Weapon_LodCutoff' },
+                BarrelStart = Sound { Bank = 'URS',       Cue = 'URS_Turret_Lrg_Start', LodCutoff = 'Weapon_LodCutoff' },
+                Fire        = Sound { Bank = 'URSWeapon', Cue = 'URS0302_Cannon',       LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -296,10 +249,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Right_Muzzle',
-                        'Front_Left_Muzzle',
-                    },
+                    MuzzleBones = {'Front_Right_Muzzle','Front_Left_Muzzle'},
                     RackBone = 'front_middle_barrel01',
                 },
             },
@@ -317,8 +267,8 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'NAVAL EXPERIMENTAL',
-                'NAVAL MOBILE',
+                'EXPERIMENTAL',
+                'NAVAL',
                 'MOBILE',
                 'ARTILLERY',
                 'SHIELD',
@@ -345,23 +295,13 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0302_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'URS',       Cue = 'URS_Turret_Lrg_Loop',  LodCutoff = 'Weapon_LodCutoff' },
+                BarrelStart = Sound { Bank = 'URS',       Cue = 'URS_Turret_Lrg_Start', LodCutoff = 'Weapon_LodCutoff' },
+                Fire        = Sound { Bank = 'URSWeapon', Cue = 'URS0302_Cannon',       LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 
@@ -386,17 +326,12 @@ UnitBlueprint {
             ProjectileId = '/projectiles/CDFProtonCannon02/CDFProtonCannon02_proj.bp',
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Right_Muzzle01',
-                        'Front_Left_Muzzle01',
-                    },
+                    MuzzleBones = {'Front_Right_Muzzle01','Front_Left_Muzzle01'},
                     RackBone = 'front_barrel',
                 },
             },
 
             RackRecoilDistance = -1,
-
-            RangeCategory = 'UWRC_DirectFire',
 			
 			RateOfFire = 1,		-- 110 DPS Surface
 			
@@ -406,12 +341,9 @@ UnitBlueprint {
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'NAVAL EXPERIMENTAL',
-                'NAVAL MOBILE TECH3',
-                'NAVAL MOBILE TECH2',
-                'NAVAL MOBILE TECH1',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
+                'EXPERIMENTAL',
+                'NAVAL',
+                'MOBILE',
                 'ARTILLERY',
                 'SHIELD',
                 'FACTORY',
@@ -438,24 +370,15 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Start', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = true,
             CollideFriendly = false,
 			
             BeamCollisionDelay = 0,
@@ -484,19 +407,14 @@ UnitBlueprint {
 
 			NeedPrep = true,
 			
-            DoNotCollideList = {'TORPEDO','MISSILE'},
+            DoNotCollideList = {'MISSILE','TORPEDO'},
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Right_Muzzle',
-                        'Right_Left_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Right_Muzzle','Right_Left_Muzzle'},
                     RackBone = 'right_barrel',
                 },
             },
-
-            RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.5,	-- 200 DPS Surface
 			
@@ -536,28 +454,20 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Start', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
             BeamLifetime = 1.0,
-			
+
+            CannotAttackGround = true,			
+
             Damage = 20,	-- 200dmg * 2 muzzles = 400dmg
             DamageType = 'Normal',
 			
@@ -581,19 +491,14 @@ UnitBlueprint {
 
 			NeedPrep = true,
 			
-			DoNotCollideList = {'TORPEDO','MISSILE'},
+			DoNotCollideList = {'MISSILE','TORPEDO'},
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Right_Muzzle',
-                        'Left_Left_Muzzle',
-                    },
+                    MuzzleBones = {'Left_Right_Muzzle','Left_Left_Muzzle'},
                     RackBone = 'left_barrel',
                 },
             },
-
-            RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.5,		-- 200 DPS Surface
 			
@@ -605,7 +510,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.125,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'left_barrel',
             TurretBonePitch = 'left_barrel',
@@ -624,14 +529,13 @@ UnitBlueprint {
 		
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0202_Nano_Dart',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0202_Nano_Dart', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -662,10 +566,10 @@ UnitBlueprint {
                 {
                     MuzzleBones = {
                         'Right_Launcher_Muzzle01',
-                        'Right_Launcher_Muzzle02',
-                        'Right_Launcher_Muzzle03',
                         'Left_Launcher_Muzzle01',
+                        'Right_Launcher_Muzzle02',
                         'Left_Launcher_Muzzle02',
+                        'Right_Launcher_Muzzle03',
                         'Left_Launcher_Muzzle03',
                     },
                     RackBone = 'launcher_barrel',
@@ -679,7 +583,6 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'HIGHPRIAIR',
-                'TECH3 BOMBER',
                 'BOMBER',
                 'GROUNDATTACK',
                 'AIR MOBILE',
@@ -704,81 +607,17 @@ UnitBlueprint {
 
             Turreted = true,
         },
-        {
-            Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0202_Anti_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-            BallisticArc = 'RULEUBA_None',
-            BeamCollisionDelay = 0,
-            BeamLifetime = 0.2,
-            CollideFriendly = false,
-			
-            Damage = 2,
-            DamageType = 'Normal',
-            
-			DisplayName = 'Zapper Anti Missile',
-			
-            FireTargetLayerCapsTable = {
-                Water = 'Air',
-            },
-			
-            FiringTolerance = 5,
-			
-            Label = 'Zapper',
-			
-            MaxRadius = 30,
-			
-            MaximumBeamLength = 40,
-			
-            NeedPrep = true,
-			
-            RackBones = {
-                {
-                    MuzzleBones = {'Zapper_Muzzle'},
-                    RackBone = 'zapper',
-                },
-            },
 
-            RangeCategory = 'UWRC_Countermeasure',
-			
-            RateOfFire = 0.65,
-			
-            TargetCheckInterval = 0.5,
-			
-            TargetRestrictDisallow = 'UNTARGETABLE,STRATEGIC',
-            TargetRestrictOnlyAllow = 'TACTICAL,MISSILE',
-            TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.2,
-			
-            TurretBoneMuzzle = 'Zapper_Muzzle',
-            TurretBonePitch = 'zapper',
-            TurretBoneYaw = 'zapper',
-			
-            TurretPitch = 0,
-            TurretPitchRange = 90,
-            TurretPitchSpeed = 90,
-			
-            TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 180,
-			
-            Turreted = true,
-        },
         {
             AboveWaterTargetsOnly = true,
             AlwaysRecheckTarget = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0202_Nano_Dart',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0202_Nano_Dart', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = true,
             CollideFriendly = false,
 			
             Damage = 60,
@@ -858,21 +697,19 @@ UnitBlueprint {
             TurretYawSpeed = 60,
             Turreted = true,
         },
+        
+        -- torpedo launcher --
+        
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0203_Torpedo_Nanite',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0203_Torpedo_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 120,
+            Damage = 240,
             DamageType = 'Normal',
-			
-            DisplayName = 'Nanite Torpedo',
 
             FireTargetLayerCapsTable = {
                 Sub = 'Seabed|Sub|Water',
@@ -885,29 +722,25 @@ UnitBlueprint {
 			
             MaxRadius = 40,
 			
-            MuzzleSalvoDelay = 0.5,
+            MuzzleSalvoDelay = 0.7,
             MuzzleSalvoSize = 4,
-
-            MuzzleVelocity = 3,
+            MuzzleVelocity = 5,
 			
-            ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
+            ProjectileId = '/projectiles/CANTorpedoNanite02/CANTorpedoNanite02_proj.bp',
             ProjectileLifetime = 8,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Torp01',
-                        'Torp02',
-                        'Torp03',
-                        'Torp04',
-                    },
+                    MuzzleBones = {'Torp01','Torp03','Torp02','Torp04'},
                     RackBone = 'Torp01',
                 },
             },
+
+            RackSalvoReloadTime = 2.1,  -- firing cycle is 4.9 seconds
             
             RangeCategory = 'UWRC_AntiNavy',
 			
-			RateOfFire = 0.3,	-- 144 DPS Sub/Surface
+			RateOfFire = 1,	-- 195 DPS Sub/Surface
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 30,
@@ -925,19 +758,23 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
             TrackingRadius = 1.1,
         },
-		
+        
+        -- torpedo defense --
+
         {
             advancedTracking = true,
+            
             BallisticArc = 'RULEUBA_None',
+
+			CannotAttackGround = true,
             CollideFriendly = false,
+            
+            CountedProjectile = true,
 			
             Damage = 2,
+			DamageFriendly = false,
             DamageType = 'Normal',
-			
-            DepthCharge = { Radius = 8 },
-			
-            DisplayName = 'Anti Torpedo Solution',
-			
+
             FireTargetLayerCapsTable = {
                 Water = 'Seabed|Sub|Water',
             },
@@ -946,39 +783,99 @@ UnitBlueprint {
 			
             Label = 'AntiTorpedo',
 			
-            MaxRadius = 24,
-			
-            MuzzleSalvoDelay = 1.2,
+            MaxRadius = 28,
+
+            MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 4,
-
-            MuzzleVelocity = 4,
+            MuzzleVelocity = 8,
 			
-			NotExclusive = true,
-
-            ProjectileId = '/projectiles/CIMAntiTorpedo01/CIMAntiTorpedo01_proj.bp',
-			ProjectileLifetime = 1.8,
+            ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
+            ProjectileLifetime = 3.2,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-						'Front_Left_Wake',
-						'Front_Right_Wake',					
-                        'Decoy01',
-                        'Decoy03',
-                    },
+                    MuzzleBones = {'Decoy02','Decoy04','Decoy01','Decoy03'},
                     RackBone = 'Decoy01',
                 },
             },
 
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 0.2,
+            RateOfFire = 1,     -- rate of fire controlled by SalvoDelay and WeaponRepackTimeout - 4 every 4.9 seconds
 			
-            TargetCheckInterval = 1.0,
+            TargetCheckInterval = 1,
+			
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
+			
+            Turreted = false,
+
+            WeaponRepackTimeout = 2.9,
+        },
+
+        -- TMD -- 
+        
+        {
+            Audio = {
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0202_Anti_Missile', LodCutoff = 'Weapon_LodCutoff' },
+            },
+
+            BallisticArc = 'RULEUBA_None',
+
+            BeamCollisionDelay = 0.1,
+            BeamLifetime = 0.1,
+
+            CollideFriendly = false,
+			
+            Damage = 2,
+            DamageType = 'Normal',
+            
+			DisplayName = 'Zapper Anti Missile',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Air',
+            },
+			
+            FiringTolerance = 2,
+			
+            Label = 'Zapper',
+			
+            MaxRadius = 28,
+			
+            MaximumBeamLength = 32,
+			
+            NeedPrep = true,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {'Zapper_Muzzle'},
+                    RackBone = 'zapper',
+                },
+            },
+			
+            RateOfFire = 0.9,
+			
+            TargetCheckInterval = 0.4,
+			
+            TargetRestrictDisallow = 'UNTARGETABLE,STRATEGIC',
+            TargetRestrictOnlyAllow = 'TACTICAL,MISSILE',
+            TargetType = 'RULEWTT_Projectile',
             TrackingRadius = 1.2,
+			
+            TurretBoneMuzzle = 'Zapper_Muzzle',
+            TurretBonePitch = 'zapper',
+            TurretBoneYaw = 'zapper',
+			
+            TurretPitch = 0,
+            TurretPitchRange = 90,
+            TurretPitchSpeed = 180,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 360,
+			
+            Turreted = true,
         },
     },
 }

@@ -1,11 +1,11 @@
 local CRadarUnit = import('/lua/defaultunits.lua').RadarUnit
 
-local cWeapons = import('/lua/cybranweapons.lua')
-local CDFLaserHeavyWeapon = cWeapons.CDFLaserHeavyWeapon
-local StunZapperWeapon = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').StunZapperWeapon
+local CDFLaserHeavyWeapon   = import('/lua/cybranweapons.lua').CDFLaserHeavyWeapon
+local StunZapperWeapon      = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').StunZapperWeapon
 
-local CreateAttachedEmitter = CreateAttachedEmitter
-local AttachBeamEntityToEntity = AttachBeamEntityToEntity
+local CreateAttachedEmitter     = CreateAttachedEmitter
+local AttachBeamEntityToEntity  = AttachBeamEntityToEntity
+
 local ForkThread = ForkThread
 
 BRB2306 = Class(CRadarUnit) { 

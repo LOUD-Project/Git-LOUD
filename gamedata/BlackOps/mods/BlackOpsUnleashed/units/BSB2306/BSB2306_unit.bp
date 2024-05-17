@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        Killed      = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_gun', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -71,16 +59,8 @@ UnitBlueprint {
 			'Requires Energy',
 		},
 		
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 215,
-                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
-                    ShaderName = 'Seraphim',
-                },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, LookupName = '/textures/environment/Falloff_seraphim_lookup.dds', ShaderName = 'Seraphim' } } },
+        
         UniformScale = 0.055,
     },
 	
@@ -164,23 +144,13 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Lrg_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Lrg_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0302_Quarnon_Cannon',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire        = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0302_Quarnon_Cannon', LodCutoff = 'WeaponBig_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -264,7 +234,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

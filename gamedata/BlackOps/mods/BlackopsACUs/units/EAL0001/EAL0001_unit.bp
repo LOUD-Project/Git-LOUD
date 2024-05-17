@@ -10,46 +10,14 @@ UnitBlueprint {
     },
 	
     Audio = {
-        CommanderArrival = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0001_Gate_In',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Construct = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0001_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        FootFallGeneric = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0001_Move_Step',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        FootFallGenericSeabed = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0001_Move_UW_Step',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'Explosions',
-            Cue = 'Aeon_Nuke_Impact',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0001_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartReclaim = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0001_Reclaim_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Commander',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        CommanderArrival            = Sound { Bank = 'UAL', Cue = 'UAL0001_Gate_In',         LodCutoff = 'UnitMove_LodCutoff' },
+        Construct                   = Sound { Bank = 'UAL', Cue = 'UAL0001_Construct_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        FootFallGeneric             = Sound { Bank = 'UAL', Cue = 'UAL0001_Move_Step',       LodCutoff = 'UnitMove_LodCutoff' },
+        FootFallGenericSeabed       = Sound { Bank = 'UAL', Cue = 'UAL0001_Move_UW_Step',    LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove                   = Sound { Bank = 'UAL', Cue = 'UAL0001_Move_Start',      LodCutoff = 'UnitMove_LodCutoff' },
+        StartReclaim                = Sound { Bank = 'UAL', Cue = 'UAL0001_Reclaim_Start',   LodCutoff = 'UnitMove_LodCutoff' },
+        Killed                      = Sound { Bank = 'Explosions', Cue = 'Aeon_Nuke_Impact', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection                 = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Commander', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -135,48 +103,22 @@ UnitBlueprint {
             '<LOC ability_radar>Radar',
             '<LOC ability_sonar>Sonar',
             '<LOC ability_tacmissiledef>Tactical Missile Defense',
-            '<LOC ability_torpedodef>Torpedo Defense',
+            '<LOC ability_torpedodef>Personal Torpedo Defense',
         },
 		
         AnimationWalk = '/mods/BlackopsACUs/units/eal0001/eal0001_awalk.sca',
         AnimationWalkRate = 2.1,
 		
         DamageEffects = {
-            {
-                Bone = 0,
-                OffsetX = 0.25,
-                OffsetY = 0.75,
-                OffsetZ = 0,
-            },
-            {
-                Bone = 0,
-                OffsetX = -0.25,
-                OffsetY = 0.75,
-                OffsetZ = 0,
-            },
-            {
-                Bone = 0,
-                OffsetX = -0.35,
-                OffsetY = 0.1,
-                OffsetZ = 0,
-            },
+            { Bone = 0, OffsetX = 0.25, OffsetY = 0.75, OffsetZ = 0 },
+            { Bone = 0, OffsetX = -0.25, OffsetY = 0.75, OffsetZ = 0 },
+            { Bone = 0, OffsetX = -0.35, OffsetY = 0.1, OffsetZ = 0 },
         },
 
         IdleEffects = {
-
             Seabed = {
-
                 Effects = {
-                    {
-                        Bones = {
-                            'Left_Arm_B02',
-                            'Right_Arm_B02',
-                            'Left_Turret_Muzzle',
-                            'Right_Turret_Muzzle',
-                        },
-                        Scale = 7,
-                        Type = 'UnderWater01',
-                    },
+                    { Bones = {'Left_Arm_B02','Right_Arm_B02','Left_Turret_Muzzle','Right_Turret_Muzzle'}, Scale = 7, Type = 'UnderWater01' },
                 },
             },
         },
@@ -189,7 +131,6 @@ UnitBlueprint {
         },
 		
         MovementEffects = {
-
             Land = {
 
                 Footfall = {
@@ -225,16 +166,7 @@ UnitBlueprint {
             Seabed = {
 
                 Effects = {
-                    {
-                        Bones = {
-                            'Left_Arm_B02',
-                            'Right_Arm_B02',
-                            'Left_Turret_Muzzle',
-                            'Right_Turret_Muzzle',
-                        },
-                        Scale = 4,
-                        Type = 'UnderWater01',
-                    },
+                    { Bones = {'Left_Arm_B02','Right_Arm_B02','Left_Turret_Muzzle','Right_Turret_Muzzle'}, Scale = 4, Type = 'UnderWater01' },
                 },
 
                 Footfall = {
@@ -1524,8 +1456,6 @@ UnitBlueprint {
             DamageRadius = 0,
             DamageType = 'Normal',
 			
-            DisplayName = 'Target Designator',
-			
             FireTargetLayerCapsTable = {
                 Land = 'Air|Land|Water|Seabed',
                 Seabed = 'Air|Land|Water|Seabed',
@@ -1536,7 +1466,7 @@ UnitBlueprint {
             HeadingArcCenter = 0,
             HeadingArcRange = 180,
 			
-            Label = 'EXTargetPainter',
+            Label = 'TargetPainter',
 			
             MaxRadius = 25, --script must change this to match weapon upgrade range
 
@@ -1579,12 +1509,9 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0001_Quantum_Beam',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAL0001_Quantum_Beam', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -1896,18 +1823,19 @@ UnitBlueprint {
             TargetPriorities = { 'MOBILE -AIR' },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
         },
+        
+        -- Torpedo Launcher -- 
 
         {
             Audio = {
                 Fire = Sound {Bank = 'UASWeapon',Cue = 'UAS0203_Torpedo',LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
             Damage = 380,
             DamageType = 'Normal',
-			
-            DisplayName = 'Chrono Torpedo',
 			
             FireTargetLayerCapsTable = {
                 Seabed = 'Seabed|Sub|Water',
@@ -1918,12 +1846,12 @@ UnitBlueprint {
 			
             MaxRadius = 60,
 			
-            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoDelay = 0.6,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 6,
 			
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
-            ProjectileLifetime = 8,
+            ProjectileLifetime = 7.5,
 			
             RackBones = {
                 {
@@ -1931,18 +1859,19 @@ UnitBlueprint {
                     RackBone = 'Torpedo_Launcher',
                 },
             },
+            
+            RackSalvoReloadTime = 2.1,
 			
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.3,           -- 380 x 2 * .3 = 228 DPS
+            RateOfFire = 1,
             
             TargetCheckInterval = 1,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SUBMERSIBLE',
                 'NAVAL',
-                'MOBILE',
-                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
@@ -1957,8 +1886,6 @@ UnitBlueprint {
             Damage = 250,
             DamageType = 'Normal',
 			
-            DisplayName = 'Chrono Torpedo',
-			
             FireTargetLayerCapsTable = {
                 Seabed = 'Seabed|Sub|Water',
             },
@@ -1968,12 +1895,13 @@ UnitBlueprint {
 			
             MaxRadius = 66,
 			
-            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 4,
+            
             MuzzleVelocity = 6,
 			
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
-            ProjectileLifetime = 10,
+            ProjectileLifetime = 9,
 			
             RackBones = {
                 {
@@ -1981,18 +1909,19 @@ UnitBlueprint {
                     RackBone = 'Torpedo_Launcher',
                 },
             },
+            
+            RackSalvoReloadTime = 1.3,
 			
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.3,      -- 250 x 4 * .3 = 300 DPS
+            RateOfFire = 1,
 			
             TargetCheckInterval = 1,
             
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SUBMERSIBLE',
                 'NAVAL',
-                'MOBILE',
-                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
@@ -2005,10 +1934,8 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 300,
+            Damage = 500,
             DamageType = 'Normal',
-			
-            DisplayName = 'Chrono Torpedo',
 			
             FireTargetLayerCapsTable = {
                 Seabed = 'Seabed|Sub|Water',
@@ -2019,9 +1946,10 @@ UnitBlueprint {
 			
             MaxRadius = 72,
 			
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 5,
-            MuzzleVelocity = 8,
+            MuzzleSalvoDelay = 0.5,
+            MuzzleSalvoSize = 4,
+            
+            MuzzleVelocity = 7,
 			
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
             ProjectileLifetime = 9,
@@ -2032,18 +1960,19 @@ UnitBlueprint {
                     RackBone = 'Torpedo_Launcher',
                 },
             },
+            
+            RackSalvoReloadTime = 2.5,
 
             RangeCategory = 'UWRC_AntiNavy',
 
-            RateOfFire = 0.3,       -- 300 x 5 * .3 = 450 DPS
+            RateOfFire = 1,       -- 300 x 5 * .3 = 450 DPS
 
             TargetCheckInterval = 1,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SUBMERSIBLE',
                 'MOBILE',
-                'NAVAL',
-                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',

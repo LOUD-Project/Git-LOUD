@@ -4,16 +4,8 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Gun', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     Buffs = {},
@@ -60,10 +52,7 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 215,
-                    ShaderName = 'Unit',
-                },
+                { LODCutoff = 215, ShaderName = 'Unit' },
             },
         },
 
@@ -151,13 +140,11 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
 			AimsStraightOnDisable = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2303_Artillery_APDS',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2303_Artillery_APDS', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -229,11 +216,12 @@ UnitBlueprint {
             WeaponUnpacks = true,
         },
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.5,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -5,10 +5,10 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Med', LodCutoff = 'UnitMove_LodCutoff' },
-        Killed = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Med', LodCutoff = 'UnitMove_LodCutoff' },
-        StartMove = Sound { Bank = 'XSL', Cue = 'XSL0202_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
-        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Bot', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Med', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed      = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Med', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0202_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Bot', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -118,9 +118,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
 		
-        ToggleCaps = {
-            RULEUTC_SpecialToggle = true,
-        },
+        ToggleCaps = { RULEUTC_SpecialToggle = true },
 		
         OrderOverrides = {
             RULEUTC_SpecialToggle = { bitmapId = 'area-assist', helpText = 'Toggle Lambda Field' },
@@ -130,7 +128,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 30,
+        VisionRadius = 32,
     },
 	
     Interface = {
@@ -191,7 +189,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 
             Audio = {
-                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0303_Bolter', LodCutoff = 'Weapon_LodCutoff' },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0303_Bolter', LodCutoff = 'Weapon_LodCutoff'},
             },
 
             BallisticArc = 'RULEUBA_None',

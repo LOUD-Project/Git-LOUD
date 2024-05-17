@@ -3,16 +3,8 @@ UnitBlueprint {
     Adjacency = 'T3MassEnergyStorageAdjacencyBuffs',
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 95,
@@ -45,15 +37,9 @@ UnitBlueprint {
     Description = '<LOC bsb1106_desc>Mass & Energy Storage',
 	
     Display = {
+
         Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 215,
-                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
-                    ShaderName = 'Seraphim',
-                },
-            },
+            IconFadeInZoom = 130, LODs = { {LODCutoff = 215,LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',ShaderName = 'Seraphim'} },
         },
 
         UniformScale = 0.041,
@@ -139,7 +125,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

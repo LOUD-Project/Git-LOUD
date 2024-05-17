@@ -1,4 +1,5 @@
 local MiniRocket03PRojectile = import('/mods/BlackOpsUnleashed/lua/BlackOpsprojectiles.lua').MiniRocket03PRojectile
+
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 AWMissileCruise01 = Class(MiniRocket03PRojectile) {
@@ -26,7 +27,7 @@ AWMissileCruise01 = Class(MiniRocket03PRojectile) {
     end,
 
     CruiseMissileThread = function(self)
-        self:SetTurnRate(180)
+        self:SetTurnRate(100)
         WaitSeconds(2)
         self:SetTurnRate(180)
         WaitSeconds(1)

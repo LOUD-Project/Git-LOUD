@@ -17,8 +17,6 @@ AIFMissileSerpentine01 = Class(AMissileSerpentineProjectile) {
 
         local launcherbp = self:GetLauncher():GetBlueprint()
         
-        LOG("*AI DEBUG Launcher is "..repr(launcherbp))
-        
         self.ChildDamageData = table.copy(damageData)
         self.ChildDamageData.DamageAmount = launcherbp.SplitDamage.DamageAmount or 2000
         self.ChildDamageData.DamageRadius = launcherbp.SplitDamage.DamageRadius or 2.4
@@ -58,7 +56,6 @@ AIFMissileSerpentine01 = Class(AMissileSerpentineProjectile) {
         local xVec = 0 
         local yVec = vy
         local zVec = 0
-        
 
         -- Launch projectiles at semi-random angles away from split location
         for i = 0, 4 do

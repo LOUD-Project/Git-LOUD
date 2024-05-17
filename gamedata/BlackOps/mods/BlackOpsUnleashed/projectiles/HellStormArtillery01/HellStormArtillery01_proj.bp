@@ -17,34 +17,20 @@ ProjectileBlueprint {
         },
     },
     Categories = {
-        'UEF',
         'PROJECTILE',
-        'INDIRECTFIRE',
     },
+
     Display = {
-        CameraFollowTimeout = 5,
-        CameraFollowsProjectile = true,
-        ImpactEffects = {
-            Type = 'Medium01',
-        },
+        ImpactEffects = {Type = 'Medium01'},
         MeshBlueprint = '/projectiles/CIFMolecularResonanceShell01/CIFMolecularResonanceShell01_mesh.bp',
-        StrategicIconSize = 3,
+        StrategicIconSize = 2,
         UniformScale = 0.3,
     },
-    General = {
-        Category = 'Artillery',
-        EntityCategory = {
-            'UEF',
-            'PROJECTILE',
-            'INDIRECTFIRE',
-        },
-        Faction = 'UEF',
-        TechLevel = 2,
-        Weapon = 'APDS Artillery',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         DestroyOnWater = true,
         LeadTarget = false,

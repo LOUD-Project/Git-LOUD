@@ -6,10 +6,13 @@ local CybranWeaponsFile2 = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.l
 local XCannonWeapon01 = CybranWeaponsFile2.XCannonWeapon01
 local MGAALaserWeapon = CybranWeaponsFile2.MGAALaserWeapon
 
-local CDFProtonCannonWeapon = CybranWeaponsFile.CDFProtonCannonWeapon
-local CANNaniteTorpedoWeapon = CybranWeaponsFile.CANNaniteTorpedoWeapon
-local CAMZapperWeapon = CybranWeaponsFile.CAMZapperWeapon
-local CIFMissileLoaWeapon = CybranWeaponsFile.CIFMissileLoaWeapon
+local CDFProtonCannonWeapon     = CybranWeaponsFile.CDFProtonCannonWeapon
+local CANNaniteTorpedoWeapon    = CybranWeaponsFile.CANNaniteTorpedoWeapon
+local CAMZapperWeapon           = CybranWeaponsFile.CAMZapperWeapon
+local CIFMissileLoaWeapon       = CybranWeaponsFile.CIFMissileLoaWeapon
+
+CybranWeaponsFile = nil
+CybranWeaponsFile2 = nil
 
 local CreateAttachedEmitter = CreateAttachedEmitter
 

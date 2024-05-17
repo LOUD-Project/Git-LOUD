@@ -1,19 +1,17 @@
 local TLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
-local RailGunWeapon = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').RailGunWeapon01
-
 local TIFCruiseMissileUnpackingLauncher = import('/lua/terranweapons.lua').TIFCruiseMissileUnpackingLauncher
 
-local JuggLaserweapon = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').JuggLaserweapon
-
+local JuggLaserweapon               = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').JuggLaserweapon
 local JuggPlasmaGatlingCannonWeapon = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').JuggPlasmaGatlingCannonWeapon
+local RailGunWeapon                 = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').RailGunWeapon01
 
 local GetRandomFloat = import('/lua/Utilities.lua').GetRandomFloat
 
 local CreateBoneEffects = import('/lua/effectutilities.lua').CreateBoneEffects
-local CleanupEffectBag = import('/lua/effectutilities.lua').CleanupEffectBag
+local CleanupEffectBag  = import('/lua/effectutilities.lua').CleanupEffectBag
 
-local Effects = import('/lua/effecttemplates.lua')
+local Effects       = import('/lua/effecttemplates.lua')
 local WeaponSteam01 = import('/lua/effecttemplates.lua').WeaponSteam01
 
 local CreateRotator = CreateRotator

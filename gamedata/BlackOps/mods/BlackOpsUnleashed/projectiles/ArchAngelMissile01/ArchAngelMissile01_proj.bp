@@ -16,32 +16,20 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
-    Categories = {
-        'AEON',
-        'PROJECTILE',
-        'INDIRECTFIRE',
-    },
-    Display = {
-        CameraFollowsProjectile = false,
 
-        # ##MeshBlueprint = '/units/DAA0206/DAA0206_mesh.bp',
+    Categories = {
+        'PROJECTILE',
+    },
+
+    Display = {
         StrategicIconSize = 1,
         UniformScale = 0.045,
     },
-    General = {
-        Category = 'Artillery',
-        EntityCategory = {
-            'AEON',
-            'PROJECTILE',
-            'INDIRECTFIRE',
-        },
-        Faction = 'Aeon',
-        TechLevel = 3,
-        Weapon = 'Artillery',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         DestroyOnWater = true,
         LeadTarget = false,

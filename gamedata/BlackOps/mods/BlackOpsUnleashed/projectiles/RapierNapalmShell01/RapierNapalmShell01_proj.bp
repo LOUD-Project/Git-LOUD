@@ -17,30 +17,20 @@ ProjectileBlueprint {
         },
     },
     Categories = {
-        'UEF',
         'PROJECTILE',
-        'INDIRECTFIRE',
     },
     Display = {
-        CameraFollowTimeout = 5,
-        CameraFollowsProjectile = true,
-        ImpactEffects = {
-            Type = 'Large01',
-        },
+        ImpactEffects = {Type = 'Large01'},
         MeshBlueprint = '/projectiles/CIFMolecularResonanceShell01/CIFMolecularResonanceShell01_mesh.bp',
         StrategicIconName = '/textures/ui/common/game/strategicicons/icon_strategic_artillery.dds',
         StrategicIconSize = 2,
         UniformScale = 0.65,
     },
-    General = {
-        Category = 'Artillery',
-        Faction = 'UEF',
-        TechLevel = 3,
-        Weapon = 'Anti Matter Artillery',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         DestroyOnWater = true,
         InitialSpeed = 50,

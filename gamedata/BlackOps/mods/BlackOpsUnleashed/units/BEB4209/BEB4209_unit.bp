@@ -1,16 +1,8 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy',   Cue = 'UEB_Destroy_Med_Land',   LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',    Cue = 'UEF_Select_Radar',       LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     BuildIconSortPriority = 190,
@@ -36,10 +28,12 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 155,
+
         Health = 850,
         MaxHealth = 850,
 		RegenRate = 1,
+
+        EconomyThreatLevel = 24,    -- 50% of NoTeleDistance -- 
     },
 	
     Description = '<LOC beb4209_desc>Anti-Teleport Field Tower',
@@ -51,13 +45,11 @@ UnitBlueprint {
             'Volatile',
 			'Upgradeable',
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 300,
-                    ShaderName = 'Unit',
-                },
+                { LODCutoff = 300, ShaderName = 'Unit' },
             },
         },
 
@@ -67,7 +59,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 13125,
         BuildCostMass = 700,
-        BuildTime = 1050,
+        BuildTime = 1250,
 		
 		BuildRate = 15,
 		
@@ -86,13 +78,13 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 5,
+
         ToggleCaps = { RULEUTC_ShieldToggle = true },
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'Toggle Anti-Teleport Field',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-dome', helpText = 'Toggle Anti-Teleport Field' },
         },
+
         UnitName = '<LOC beb4209_name>ATF-205 Preventer',
 
 		UpgradesFromBase = 'beb4209',		
@@ -100,8 +92,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-    	FreeIntel = true,
-        CloakFieldRadius = 45,
+        VisionRadius = 16,
     },
 	
     Interface = {
@@ -146,6 +137,7 @@ UnitBlueprint {
     StrategicIconSortPriority = 225,
 	
     Weapon = {
+
         { -- Dummy weapon for visualising area of effect
 		
             CollideFriendly = false,
@@ -161,7 +153,7 @@ UnitBlueprint {
 			
             Label = 'DummyWeapon',
 			
-            MaxRadius = 45,
+            MaxRadius = 48,
 			
             RateOfFire = 0.1,
             RangeCategory = 'UWRC_Countermeasure',

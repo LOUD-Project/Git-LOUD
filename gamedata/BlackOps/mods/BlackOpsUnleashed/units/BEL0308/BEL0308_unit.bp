@@ -6,26 +6,10 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'URLWeapon',
-            Cue = 'URL0303_Death_EMP',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0107_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0107_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'URLWeapon', Cue = 'URL0303_Death_EMP', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'UEL', Cue = 'UEL0107_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'UEL', Cue = 'UEL0107_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Bot', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     Buffs = {},
@@ -75,25 +59,18 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 215,
-                    ShaderName = 'Insect',
-                },
+                { LODCutoff = 215, ShaderName = 'Insect' },
             },
         },
 		
         TransportAnimation = {
-            {
-                Animation = '/mods/BlackOpsUnleashed/units/BEL0308/BEL0308_Afold.sca',
-                Weight = 100,
-            },
+            { Animation = '/mods/BlackOpsUnleashed/units/BEL0308/BEL0308_Afold.sca', Weight = 100 },
         },
+        
 		TransportDropAnimation = {
-            {
-                Animation = '/mods/BlackOpsUnleashed/units/BEL0308/BEL0308_AUnfold.sca',
-                Weight = 100,
-            },
+            { Animation = '/mods/BlackOpsUnleashed/units/BEL0308/BEL0308_AUnfold.sca', Weight = 100 },
         },
+        
         UniformScale = 0.085,
     },
 	
@@ -119,7 +96,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 30,
+        VisionRadius = 32,
     },
 	
     Interface = {
@@ -210,12 +187,12 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-            MaxRadius = 65,
+            MaxRadius = 68,
             MinRadius = 10,
 			
 			MuzzleChargeDelay = 0.3,
 
-            MuzzleVelocity = 18,
+            MuzzleVelocity = 18.5,
 			MuzzleVelocityReduceRange = 65,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/RapierNapalmShell01/RapierNapalmShell01_proj.bp',
@@ -268,13 +245,11 @@ UnitBlueprint {
 		{
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0202_Cannon_Dbl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0202_Cannon_Dbl', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -291,7 +266,7 @@ UnitBlueprint {
             Label = 'GaussCannons',
             LeadTarget = true,
 			
-            MaxRadius = 25,
+            MaxRadius = 28,
 
             MuzzleVelocity = 35,
 			
@@ -354,7 +329,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.7,
-        MassMult = 0.7,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -3,18 +3,20 @@ local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 local CybranWeaponsFile = import('/lua/cybranweapons.lua')
 
 local CAANanoDartWeapon = CybranWeaponsFile.CAANanoDartWeapon
-local TargetingLaser = CybranWeaponsFile.CDFParticleCannonWeapon
+local TargetingLaser    = CybranWeaponsFile.CDFParticleCannonWeapon
+
+CybranWeaponsFile = nil
 
 BRLK001 = Class(CWalkingLandUnit) 
 {
     Weapons = {
+
 		AAGun = Class(CAANanoDartWeapon) {},
 		
-		Lazor = Class(TargetingLaser) {
-            FxMuzzleFlash = {'/effects/emitters/particle_cannon_muzzle_02_emit.bp'},
-        },
+		Lazor = Class(TargetingLaser) { FxMuzzleFlash = {'/effects/emitters/particle_cannon_muzzle_02_emit.bp'} },
 		
 		GroundGun = Class(CAANanoDartWeapon) {
+
 			SetOnTransport = function(self, transportstate)
                 CAANanoDartWeapon.SetOnTransport(self, transportstate)
                 self.unit:SetScriptBit('RULEUTC_WeaponToggle', false)

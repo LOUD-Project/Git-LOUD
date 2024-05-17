@@ -2,41 +2,24 @@ UnitBlueprint {
     AI = {
         AttackAngle = 60,
         GuardReturnRadius = 60,
-        TargetBones = {
-            'XRS0402',
-            'Back_Wake',
-            'Front_Left_Wake',
-            'Front_Right_Wake',
-			'Front_Main_Turret',
-			'Back_Main_Turret',
-        },
+        GuardScanRadius = 136,
+        
+        TargetBones = {'XRS0402','Back_Wake','Front_Left_Wake','Front_Right_Wake','Front_Main_Turret','Back_Main_Turret'},
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'URSDestroy',
-            Cue = 'URS0302_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URS',
-            Cue = 'URS0302_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'URSDestroy', Cue = 'URS0302_Destroy', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'URS', Cue = 'URS0302_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Naval', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 40,
-            Level2 = 80,
-            Level3 = 120,
-            Level4 = 160,
-            Level5 = 200,
+            Level1 = 15,
+            Level2 = 30,
+            Level3 = 45,
+            Level4 = 60,
+            Level5 = 75,
         },
     },
 	
@@ -63,12 +46,14 @@ UnitBlueprint {
     CollisionOffsetY = -0.375,
 	
     Defense = {
-        AirThreatLevel = 48,
         ArmorType = 'Normal',
+
         Health = 66500,
         MaxHealth = 66500,
-        RegenRate = 36,
-		SubThreatLevel = 24,
+        RegenRate = 30,
+
+        AirThreatLevel = 48,
+		SubThreatLevel = 16,
         SurfaceThreatLevel = 224,
     },
 	
@@ -79,10 +64,11 @@ UnitBlueprint {
 			'SeaDragon Bombardment Cannon',
 			'2 Primary X-Proton Cannon',
 			'4 Secondary Proton Cannon',
-            '2 Quad Electro-Flas Anti-Air',
-            'Extended Range Nanite Torpedo Barrage',			
-            'Radar & Sonar & Tactical Missile Defense',
-            'Massive Energy Drain for Primary Weapons',
+            '<LOC ability_tacmissiledef>Tactical Missile Defense',
+            '<LOC ability_aa>Anti-Air',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_torpedo>Torpedoes',
         },
 		
         AnimationDeath = {
@@ -105,58 +91,29 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+        
         IdleEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'XRS0402',
-                        },
-                        Scale = 2.5,
-                        Type = 'SeaIdle01',
-                    },
+                    { Bones = {'XRS0402'},Scale = 2.5,Type = 'SeaIdle01'},
                 },
             },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 200,
-                    ShaderName = 'Insect',
-                },
-                {
-                    AlbedoName = 'XRS0402_lod1_albedo.dds',
-                    LODCutoff = 600,
-                    ShaderName = 'Insect',
-                    SpecularName = 'XRS0402_lod1_specteam.dds',
-                },
+                { LODCutoff = 200, ShaderName = 'Insect' },
+                { AlbedoName = 'XRS0402_lod1_albedo.dds', LODCutoff = 600, ShaderName = 'Insect', SpecularName = 'XRS0402_lod1_specteam.dds' },
             },
         },
+        
         MovementEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'Front_Left_Wake',
-                        },
-                        Scale = 1.5,
-                        Type = 'LeftFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'Front_Right_Wake',
-                        },
-                        Scale = 1.5,
-                        Type = 'RightFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'Back_Wake',
-                        },
-                        Scale = 1.5,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'Front_Left_Wake'},   Scale = 1.5, Type = 'LeftFrontWake'},
+                    { Bones = {'Front_Right_Wake'},  Scale = 1.5, Type = 'RightFrontWake'},
+                    { Bones = {'Back_Wake'},         Scale = 1.5, Type = 'BackWake' },
                 },
             },
         },
@@ -178,6 +135,7 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 12,
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -186,15 +144,19 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+
         FactionName = 'Cybran',
         Icon = 'sea',
+
         UnitName = '<LOC xrs0402_name>SeaDragon Class',
     },
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 125,
+
+        RadarRadius = 120,
 		SonarRadius = 60,
+        
         VisionRadius = 44,
         WaterVisionRadius = 32,
     },
@@ -250,28 +212,14 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0303_Disintegrator_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0302_Cannon',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop          = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'URLWeapon', Cue = 'URL0303_Disintegrator_Charge', LodCutoff = 'Weapon_LodCutoff' },
+                Fire                = Sound { Bank = 'URSWeapon', Cue = 'URS0302_Cannon', LodCutoff = 'WeaponBig_LodCutoff' },
             },
+     
             BallisticArc = 'RULEUBA_None',
 			
 			-- so this is neat -- the EMP effect has 3 rings
@@ -394,28 +342,13 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0303_Disintegrator_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0302_Cannon',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop          = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'URLWeapon', Cue = 'URL0303_Disintegrator_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
 			
 			-- so this is neat -- the EMP effect has 3 rings
@@ -541,21 +474,9 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 			
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0302_Cannon',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop          = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire                = Sound { Bank = 'URSWeapon', Cue = 'URS0302_Cannon', LodCutoff = 'WeaponBig_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_HighArc',
@@ -654,23 +575,13 @@ UnitBlueprint {
 
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Sml_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Sml_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0201_Cannon_Dbl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop          = Sound { Bank = 'URS', Cue = 'URS_Turret_Sml_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'URS', Cue = 'URS_Turret_Sml_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire                = Sound { Bank = 'URSWeapon', Cue = 'URS0201_Cannon_Dbl', LodCutoff = 'WeaponBig_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
 			
             CollideFriendly = false,
@@ -690,7 +601,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryCannon',
 			
-            MaxRadius = 90,
+            MaxRadius = 88,
 
             MuzzleVelocity = 28,
 			
@@ -748,22 +659,11 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Sml_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Sml_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0201_Cannon_Dbl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop          = Sound { Bank = 'URS', Cue = 'URS_Turret_Sml_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'URS', Cue = 'URS_Turret_Sml_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire                = Sound { Bank = 'URSWeapon', Cue = 'URS0201_Cannon_Dbl', LodCutoff = 'WeaponBig_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_LowArc',
@@ -785,7 +685,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryCannon',
 			
-            MaxRadius = 90,
+            MaxRadius = 88,
 
             MuzzleVelocity = 28,
 			
@@ -842,23 +742,13 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Sml_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Sml_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0201_Cannon_Dbl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop          = Sound { Bank = 'URS', Cue = 'URS_Turret_Sml_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'URS', Cue = 'URS_Turret_Sml_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire                = Sound { Bank = 'URSWeapon', Cue = 'URS0201_Cannon_Dbl', LodCutoff = 'WeaponBig_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
 			
             CollideFriendly = false,
@@ -878,7 +768,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryCannon',
 			
-            MaxRadius = 90,
+            MaxRadius = 88,
 
             MuzzleVelocity = 28,
 			
@@ -936,21 +826,9 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Sml_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Sml_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0201_Cannon_Dbl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop          = Sound { Bank = 'URS', Cue = 'URS_Turret_Sml_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'URS', Cue = 'URS_Turret_Sml_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire                = Sound { Bank = 'URSWeapon', Cue = 'URS0201_Cannon_Dbl', LodCutoff = 'WeaponBig_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_LowArc',
@@ -972,7 +850,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryCannon',
 			
-            MaxRadius = 90,
+            MaxRadius = 88,
 
             MuzzleVelocity = 28,
 			
@@ -1032,14 +910,13 @@ UnitBlueprint {
 
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0302_Anti_Air',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0302_Anti_Air', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -1062,7 +939,7 @@ UnitBlueprint {
             Label = 'AAGun',
             LeadTarget = true,
 			
-            MaxRadius = 44,
+            MaxRadius = 40,
 
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 75,
@@ -1085,7 +962,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 1.5,					-- 240 DPS Air
+            RateOfFire = 1.2,					-- 192 DPS Air
 			
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -1095,8 +972,8 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'AIR',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.2,
+            TargetRestrictDisallow = 'UNTARGETABLE','SATELLITE',
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Front_Barrel_AA',
             TurretBonePitch = 'Front_Barrel_AA',
@@ -1108,20 +985,19 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 180,
+            TurretYawSpeed = 90,
 			
             Turreted = true,
         },
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0302_Anti_Air',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0302_Anti_Air', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -1144,7 +1020,7 @@ UnitBlueprint {
 			
             LeadTarget = true,
 			
-            MaxRadius = 44,
+            MaxRadius = 40,
 
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 75,
@@ -1165,7 +1041,7 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.3,
 
-            RateOfFire = 1.5,			-- another 240 DPS Air
+            RateOfFire = 1.2,			-- another 192 DPS Air
             TargetCheckInterval = 0.3,
 			
             TargetPriorities = {
@@ -1175,8 +1051,8 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'AIR',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.2,
+            TargetRestrictDisallow = 'UNTARGETABLE','SATELLITE',
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Back_Barrel_AA',
             TurretBonePitch = 'Back_Barrel_AA',
@@ -1188,7 +1064,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 180,
+            TurretYawSpeed = 90,
 			
             Turreted = true,
         },
@@ -1197,31 +1073,28 @@ UnitBlueprint {
 
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0302_Torpedo_Nanite',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0302_Torpedo_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
             Damage = 200,
             DamageType = 'Normal',
 			
-            DisplayName = 'LR Medium Nanite Torpedo',
+            DisplayName = 'Nanite Torpedo',
 
             FireTargetLayerCapsTable = {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 75,
+            FiringTolerance = 60,
 			
             Label = 'Torpedo',
 			
-            MaxRadius = 55,
+            MaxRadius = 52,
 			
-            MuzzleSalvoDelay = 0.5,
+            MuzzleSalvoDelay = 0.6,
             MuzzleSalvoSize = 12,
 
             MuzzleVelocity = 3,
@@ -1229,7 +1102,7 @@ UnitBlueprint {
 			
 			NotExclusive = true,
 			
-            ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
+            ProjectileId = '/projectiles/CANTorpedoNanite02/CANTorpedoNanite02_proj.bp',
             ProjectileLifetime = 8,
 			
             RackBones = {
@@ -1251,11 +1124,13 @@ UnitBlueprint {
                     RackBone = 'Left_Torp01',
                 },
             },
+            
+            RackSalvoReloadTime = 7.8,  -- firing cycle is 15 seconds 
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.1,		-- 240 DPS Sub
-            TargetCheckInterval = 1,
+            RateOfFire = 1,		-- 240 DPS Sub
+            TargetCheckInterval = 3,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -1271,12 +1146,9 @@ UnitBlueprint {
 -- TMD --
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0302_Anti_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0302_Anti_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
@@ -1337,12 +1209,9 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0302_Anti_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0302_Anti_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,

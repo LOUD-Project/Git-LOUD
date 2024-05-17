@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
 		Arc = Sound {
             Bank = 'URLWeapon',
@@ -10,22 +11,12 @@ ProjectileBlueprint {
             Cue = 'CYB_Expl_Med_Impact',
             LodCutoff = 'Weapon_LodCutoff',
         },
-        ImpactTerrain = Sound {
-            Bank = 'Impacts',
-            Cue = 'Impact_Land_Gen_CYBRAN',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        ImpactWater = Sound {
-            Bank = 'Impacts',
-            Cue = 'Impact_Water_Splash_CYBRAN',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
     },
+
     Categories = {
-        'CYBRAN',
         'PROJECTILE',
-        'ANTIAIR',
     },
+
     Display = {
         Mesh = {
             LODs = {
@@ -40,20 +31,11 @@ ProjectileBlueprint {
         StrategicIconSize = 2,
         UniformScale = 0.3,
     },
-    General = {
-        Category = 'Anti Air',
-        EntityCategory = {
-            'CYBRAN',
-            'PROJECTILE',
-            'ANTIAIR',
-        },
-        Faction = 'Cybran',
-        TechLevel = 1,
-        Weapon = 'Nanodart Launcher',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         Acceleration = 20,
         DestroyOnWater = true,

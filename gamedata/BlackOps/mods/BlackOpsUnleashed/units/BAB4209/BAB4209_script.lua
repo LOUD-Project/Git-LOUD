@@ -12,6 +12,7 @@ BAB4209 = Class(AStructureUnit) {
         '/effects/emitters/aeon_gate_02_emit.bp',
         '/effects/emitters/aeon_gate_03_emit.bp',
     },
+
     AmbientEffects = {
         '/effects/emitters/aeon_shield_generator_t3_04_emit.bp',
     },
@@ -21,7 +22,7 @@ BAB4209 = Class(AStructureUnit) {
         AStructureUnit.OnStopBeingBuilt(self,builder,layer)
 		
         self:SetScriptBit('RULEUTC_ShieldToggle', true)
-        self:DisableUnitIntel('CloakField')
+
         self.AmbientEffectsBag = {}
         self.antiteleportEmitterTable = {}
 		
@@ -92,7 +93,8 @@ BAB4209 = Class(AStructureUnit) {
             
             	local location = self:GetPosition('BAB4209')
 
-            	local antiteleportEmitter = CreateUnit('bab0004', self.Army, location[1], location[2] + 1, location[3], platOrient[1], platOrient[2], platOrient[3], platOrient[4], 'Land') 
+                -- create the antiteleport entity using the standard (range 48) unit
+            	local antiteleportEmitter = CreateUnit('beb0004', self.Army, location[1], location[2] + 1, location[3], platOrient[1], platOrient[2], platOrient[3], platOrient[4], 'Land') 
 
             	LOUDINSERT (self.antiteleportEmitterTable, antiteleportEmitter)
 

@@ -5,26 +5,10 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0303_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0303_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        StartMove   = Sound { Bank = 'UAL',      Cue = 'UAL0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'UAL',      Cue = 'UAL0303_Move_Stop',  LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Bot',   LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     Buffs = {
@@ -84,26 +68,18 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 500,
-                    Scrolling = true,
-                    ShaderName = 'Aeon',
-                },
+                { LODCutoff = 500, Scrolling = true, ShaderName = 'Aeon' },
             },
         },
 
         TransportAnimation = {
-            {
-                Animation = '/mods/BlackOpsUnleashed/units/BALK003/BALK003_fold.sca',
-                Weight = 100,
-            },
+            { Animation = '/mods/BlackOpsUnleashed/units/BALK003/BALK003_fold.sca', Weight = 100 },
         },
+        
 		TransportDropAnimation = {
-            {
-                Animation = '/mods/BlackOpsUnleashed/units/BALK003/BALK003_unfold.sca',
-                Weight = 100,
-            },
+            { Animation = '/mods/BlackOpsUnleashed/units/BALK003/BALK003_unfold.sca', Weight = 100 },
         },
+        
         UniformScale = 0.048,
     },
 	
@@ -166,6 +142,7 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_land3_antiair',
     StrategicIconSortPriority = 115,
+    
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 3,
@@ -245,7 +222,7 @@ UnitBlueprint {
 			
             TrackingRadius = 1.2,
 			
-			WeaponRepackTimeout = 1.2,
+			WeaponRepackTimeout = 1.8,
             WeaponUnpackAnimation = '/mods/BlackOpsUnleashed/units/BALK003/BALK003_unpack.sca',
             WeaponUnpackAnimationRate = 4,  -- at rate of 4 - animation is 9 ticks long
             WeaponUnpackLocksMotion = false,

@@ -7,56 +7,16 @@ UnitBlueprint {
     },
 	
     Audio = {
-        CommanderArrival = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Gate_In',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Construct = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        FootFallGeneric = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Move_Step',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        FootFallGenericSeabed = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Move_UW_Step',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'Explosions',
-            Cue = 'UEF_Nuke_Impact',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        LaunchSat = Sound {
-            Bank = 'XEL_Weapons',
-            Cue = 'XEB2402_Launch',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },		
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartReclaim = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Reclaim_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Commander',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        CommanderArrival            = Sound { Bank = 'UEL', Cue = 'UEL0001_Gate_In',         LodCutoff = 'UnitMove_LodCutoff' },
+        Construct                   = Sound { Bank = 'UEL', Cue = 'UEL0001_Construct_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        FootFallGeneric             = Sound { Bank = 'UEL', Cue = 'UEL0001_Move_Step',       LodCutoff = 'UnitMove_LodCutoff' },
+        FootFallGenericSeabed       = Sound { Bank = 'UEL', Cue = 'UEL0001_Move_UW_Step',    LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove                   = Sound { Bank = 'UEL', Cue = 'UEL0001_Move_Start',      LodCutoff = 'UnitMove_LodCutoff' },
+        StartReclaim                = Sound { Bank = 'UEL', Cue = 'UEL0001_Reclaim_Start',   LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove                    = Sound { Bank = 'UEL', Cue = 'UEL0001_Move_Stop',       LodCutoff = 'UnitMove_LodCutoff' },
+        LaunchSat                   = Sound { Bank = 'XEL_Weapons', Cue = 'XEB2402_Launch',  LodCutoff = 'UnitMove_LodCutoff' },		
+        Killed                      = Sound { Bank = 'Explosions', Cue = 'UEF_Nuke_Impact',  LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection                 = Sound { Bank = 'Interface', Cue = 'UEF_Select_Commander', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -146,39 +106,15 @@ UnitBlueprint {
         AttackReticleSize = 55,
 		
         DamageEffects = {
-            {
-                Bone = 0,
-                OffsetX = 0.25,
-                OffsetY = 0.75,
-                OffsetZ = 0,
-            },
-            {
-                Bone = 0,
-                OffsetX = -0.25,
-                OffsetY = 0.75,
-                OffsetZ = 0,
-            },
-            {
-                Bone = 0,
-                OffsetX = -0.35,
-                OffsetY = 0.1,
-                OffsetZ = 0,
-            },
+            { Bone = 0, OffsetX = 0.25, OffsetY = 0.75, OffsetZ = 0 },
+            { Bone = 0, OffsetX = -0.25, OffsetY = 0.75, OffsetZ = 0 },
+            { Bone = 0, OffsetX = -0.35, OffsetY = 0.1, OffsetZ = 0 },
         },
 
         IdleEffects = {
             Seabed = {
                 Effects = {
-                    {
-                        Bones = {
-                            'Left_Arm_B02',
-                            'Right_Arm_B02',
-                            'Left_Arm_Muzzle',
-                            'Right_Arm_Muzzle',
-                        },
-                        Scale = 7,
-                        Type = 'UnderWater01',
-                    },
+                    { Bones = {'Left_Arm_B02','Right_Arm_B02','Left_Arm_Muzzle','Right_Arm_Muzzle'}, Scale = 7, Type = 'UnderWater01' },
                 },
             },
         },
@@ -204,11 +140,7 @@ UnitBlueprint {
                                 TreadMarks = 'CommanderPrint_albedo',
                                 TreadMarksSizeX = 0.6,
                                 TreadMarksSizeZ = 0.6,
-                                TreadOffset = {
-                                    0.32,
-                                    0,
-                                    0.55,
-                                },
+                                TreadOffset = {0.32,0,0.55},
                             },
                             Type = 'FootFall02',
                         },
@@ -220,11 +152,7 @@ UnitBlueprint {
                                 TreadMarks = 'CommanderPrint_albedo',
                                 TreadMarksSizeX = 0.6,
                                 TreadMarksSizeZ = 0.6,
-                                TreadOffset = {
-                                    -0.45,
-                                    0,
-                                    0.6,
-                                },
+                                TreadOffset = {0.45,0,0.6},
                             },
                             Type = 'FootFall02',
                         },
@@ -235,18 +163,7 @@ UnitBlueprint {
             Seabed = {
 
                 Effects = {
-                    {
-                        Bones = {
-                            'Left_Arm_B02',
-                            'Right_Arm_B02',
-                            'Left_Arm_Muzzle',
-                            'Right_Arm_Muzzle',
-                            'Left_Foot',
-                            'Right_Foot',
-                        },
-                        Scale = 4,
-                        Type = 'UnderWater01',
-                    },
+                    { Bones = {'Left_Arm_B02','Right_Arm_B02','Left_Arm_Muzzle','Right_Arm_Muzzle','Left_Foot','Right_Foot'}, Scale = 4, Type = 'UnderWater01' },
                 },
 
                 Footfall = {
@@ -259,11 +176,7 @@ UnitBlueprint {
                                 TreadMarks = 'CommanderPrint_albedo',
                                 TreadMarksSizeX = 0.6,
                                 TreadMarksSizeZ = 0.6,
-                                TreadOffset = {
-                                    0.32,
-                                    0,
-                                    0.55,
-                                },
+                                TreadOffset = {0.32,0,0.55},
                             },
                             Type = 'FootFall02',
                         },
@@ -275,11 +188,7 @@ UnitBlueprint {
                                 TreadMarks = 'CommanderPrint_albedo',
                                 TreadMarksSizeX = 0.6,
                                 TreadMarksSizeZ = 0.6,
-                                TreadOffset = {
-                                    -0.45,
-                                    0,
-                                    0.6,
-                                },
+                                TreadOffset = {-0.45,0,0.6},
                             },
                             Type = 'FootFall02',
                         },
@@ -1662,8 +1571,7 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 0.1,
-            DamageRadius = 0,
+            Damage = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Target Designator',
@@ -1673,12 +1581,13 @@ UnitBlueprint {
                 Seabed = 'Air|Land|Water|Seabed',
                 Water = 'Air|Land|Water|Seabed',
             },
+
             FiringTolerance = 3,
 			
             HeadingArcCenter = 0,
             HeadingArcRange = 180,
 			
-            Label = 'EXTargetPainter',
+            Label = 'TargetPainter',
             
             NotExclusive = true,
 			
@@ -2081,8 +1990,6 @@ UnitBlueprint {
 			
             Damage = 380,
             DamageType = 'Normal',
-			
-            DisplayName = 'Torpedo Launcher',
             
             EnabledByEnhancement = 'EXTorpedoLauncher',
 			
@@ -2091,17 +1998,17 @@ UnitBlueprint {
             },
             FiringTolerance = 2,
 			
-            Label = 'EXTorpedoLauncher01',
+            Label = 'TorpedoLauncher01',
 			
             MaxRadius = 60,
 			
-            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoDelay = 0.6,
             MuzzleSalvoSize = 2,
 
             MuzzleVelocity = 6,
 			
             ProjectileId = '/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp',
-            ProjectileLifetime = 8,
+            ProjectileLifetime = 7.5,
 
             RackBones = {
                 {
@@ -2109,17 +2016,18 @@ UnitBlueprint {
                     RackBone = 'Torpedo_Tauncher',
                 },
             },
+            
+            RackSalvoReloadTime = 2.1,  -- firing cycle 3.3 = 760/3.2
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.3,       -- 380 x 2 * .3 = 228 DPS
+            RateOfFire = 1,
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SUBMERSIBLE',
                 'NAVAL',
-                'MOBILE',
-                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
@@ -2130,8 +2038,6 @@ UnitBlueprint {
 			
             Damage = 250,
             DamageType = 'Normal',
-			
-            DisplayName = 'Torpedo Launcher',
             
             EnabledByEnhancement = 'EXTorpedoRapidLoader',
 			
@@ -2140,66 +2046,14 @@ UnitBlueprint {
             },
             FiringTolerance = 2,
 			
-            Label = 'EXTorpedoLauncher02',
+            Label = 'TorpedoLauncher02',
 			
             MaxRadius = 66,
 			
-            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 4,
 
             MuzzleVelocity = 6,
-			
-            ProjectileId = '/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp',
-            ProjectileLifetime = 10,
-
-            RackBones = {
-                {
-                    MuzzleBones = {
-                        'Torpedo_Muzzle01',
-                        'Torpedo_Muzzle02',
-                    },
-                    RackBone = 'Torpedo_Tauncher',
-                },
-            },
-
-            RangeCategory = 'UWRC_AntiNavy',
-			
-            RateOfFire = 0.3,       -- 250 x 4 * .3 = 300 DPS
-			
-            TargetCheckInterval = 1,
-            TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'NAVAL',
-                'MOBILE',
-                'DEFENSE',
-                'ALLUNITS',
-            },
-            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-        },
-        {
-            BallisticArc = 'RULEUBA_None',
-            CollideFriendly = false,
-			
-            Damage = 300,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Torpedo Launcher',
-            
-            EnabledByEnhancement = 'EXTorpedoClusterLauncher',
-			
-            FireTargetLayerCapsTable = {
-                Seabed = 'Seabed|Sub|Water',
-            },
-            FiringTolerance = 2,
-			
-            Label = 'EXTorpedoLauncher03',
-			
-            MaxRadius = 72,
-			
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 5,
-
-            MuzzleVelocity = 8,
 			
             ProjectileId = '/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp',
             ProjectileLifetime = 9,
@@ -2210,17 +2064,66 @@ UnitBlueprint {
                     RackBone = 'Torpedo_Tauncher',
                 },
             },
+            
+            RackSalvoReloadTime = 1.3,  -- cycle is 3.3 = 1000/3.3 = 303 DPS
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.3,       -- 300 x 5 * .3 = 450 DPS
+            RateOfFire = 1,
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SUBMERSIBLE',
                 'NAVAL',
-                'MOBILE',
-                'DEFENSE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+        },
+        {
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 500,
+            DamageType = 'Normal',
+            
+            EnabledByEnhancement = 'EXTorpedoClusterLauncher',
+			
+            FireTargetLayerCapsTable = {
+                Seabed = 'Seabed|Sub|Water',
+            },
+            FiringTolerance = 2,
+			
+            Label = 'TorpedoLauncher03',
+			
+            MaxRadius = 72,
+			
+            MuzzleSalvoDelay = 0.5,
+            MuzzleSalvoSize = 4,
+
+            MuzzleVelocity = 7,
+			
+            ProjectileId = '/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp',
+            ProjectileLifetime = 9,
+
+            RackBones = {
+                {
+                    MuzzleBones = {'Torpedo_Muzzle01','Torpedo_Muzzle02'},
+                    RackBone = 'Torpedo_Tauncher',
+                },
+            },
+            
+            RackSalvoReloadTime = 2.5,  -- cycle is 4.5 seconds = 2000/4.5 = 444 DPS
+
+            RangeCategory = 'UWRC_AntiNavy',
+			
+            RateOfFire = 1,
+			
+            TargetCheckInterval = 1,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'SUBMERSIBLE',
+                'NAVAL',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
@@ -2272,12 +2175,14 @@ UnitBlueprint {
                     RackBone = 'HAC',
                 },
             },
+            
+            RackSalvoReloadTime = 3.3,  -- cycle is 3.3 seconds = 900/3.3 = 272 DPS
 
             RangeCategory = 'UWRC_DirectFire',
 
-            RateOfFire = 0.3,       -- 270 DPS
-
-            TargetCheckInterval = 0.5,
+            RateOfFire = 1,
+            TargetCheckInterval = 1,
+            
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
@@ -2346,11 +2251,13 @@ UnitBlueprint {
                 },
             },
             
+            RackSalvoReloadTime = 3.3,  -- cycle is 3.3 seconds = 1600/3.3 = 485 DPS
+            
             RangeCategory = 'UWRC_DirectFire',
             
-            RateOfFire = 0.3,       -- 480 DPS
+            RateOfFire = 1,
+            TargetCheckInterval = 1,
             
-            TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
@@ -2431,12 +2338,14 @@ UnitBlueprint {
                     RackBone = 'HAC',
                 },
             },
+            
+            RackSalvoReloadTime = 3.3,  -- cycle is 3.3 seconds = 2500/3.3 = 757 DPS
 
             RangeCategory = 'UWRC_DirectFire',
  
-            RateOfFire = 0.3,       -- 750 DPS
-
-            TargetCheckInterval = 0.5,
+            RateOfFire = 1,
+            TargetCheckInterval = 1,
+            
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',

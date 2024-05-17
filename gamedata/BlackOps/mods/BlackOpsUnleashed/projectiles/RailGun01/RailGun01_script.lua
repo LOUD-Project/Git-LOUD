@@ -1,4 +1,3 @@
-
 local RailGun01Projectile = import('/mods/BlackOpsUnleashed/lua/BlackOpsprojectiles.lua').RailGun01Projectile
 
 RailGun01 = Class(RailGun01Projectile) {
@@ -17,13 +16,15 @@ RailGun01 = Class(RailGun01Projectile) {
 	if self.counter then
 		if self.counter >= 1 then
 			RailGun01Projectile.OnImpactDestroy(self, targetType, targetEntity)
-				return
+			return
 		else
 			self.counter = self.counter + 1
 		end
+
 		else
 			self.counter = 1
 		end
+
 		if targetEntity then
 			self.lastimpact = targetEntity:GetEntityId() #remember what was hit last
 		end

@@ -17,25 +17,18 @@ ProjectileBlueprint {
         },
     },
     Categories = {
-        'SERAPHIM',
         'PROJECTILE',
-        'DIRECTFIRE',
     },
+
     Display = {
-        ImpactEffects = {
-            Type = 'Large01',
-        },
+        ImpactEffects = {Type = 'Large01'},
         StrategicIconSize = 3,
     },
-    General = {
-        Category = 'Direct Fire',
-        Faction = 'Seraphim',
-        TechLevel = 1,
-        Weapon = 'Heavy Quarnon Cannon',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         DestroyOnWater = true,
         InitialSpeed = 14.6,

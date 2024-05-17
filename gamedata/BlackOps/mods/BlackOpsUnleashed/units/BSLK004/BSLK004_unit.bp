@@ -5,30 +5,18 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL_Destroy_Land_Lrg',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0303_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Lrg', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Tank', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 2,
-            Level2 = 4,
-            Level3 = 6,
-            Level4 = 8,
-            Level5 = 10,
+            Level1 = 1,
+            Level2 = 3,
+            Level3 = 4,
+            Level4 = 6,
+            Level5 = 7,
         },
     },
 	
@@ -47,13 +35,12 @@ UnitBlueprint {
     },
 
     Defense = {
-        AirThreatLevel = 35,
-        
         ArmorType = 'Normal',
         Health = 2250,
         MaxHealth = 2250,
         RegenRate = 1,
-        
+
+        AirThreatLevel = 35,        
         SurfaceThreatLevel = 20,
     },
 	
@@ -61,10 +48,11 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-			'Radar',
+            '<LOC ability_radar>Radar',
             'Lightning Weapon',
 			'Effective against both Ground & Air units',
         },
+        
 		AnimationDeath = {
             {
                 Animation = '/mods/BlackOpsUnleashed/units/BSLK004/BSLK004_death.sca',
@@ -73,6 +61,7 @@ UnitBlueprint {
                 Weight = 1,
             },
 		},
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -111,7 +100,8 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-		RadarRadius = 75,
+        
+		RadarRadius = 72,
         VisionRadius = 32,
     },
 	
@@ -174,13 +164,11 @@ UnitBlueprint {
         {
 			AlwaysRecheckTarget = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0402_Attack_Zap',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0402_Attack_Zap', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             AutoInitiateAttackCommand = false,
             BallisticArc = 'RULEUBA_None',
 			
@@ -260,13 +248,11 @@ UnitBlueprint {
         },
 		{
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0402_Attack_Zap',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0402_Attack_Zap', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             AutoInitiateAttackCommand = false,
             BallisticArc = 'RULEUBA_None',
 			
@@ -383,9 +369,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

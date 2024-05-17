@@ -3,16 +3,8 @@ UnitBlueprint {
     Adjacency = 'HydrocarbonAdjacencyBuffs',
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Resource', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     BuildIconSortPriority = 80,
@@ -56,10 +48,7 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 300,
-                    ShaderName = 'Insect',
-                },
+                { LODCutoff = 300, ShaderName = 'Insect' },
             },
         },
 

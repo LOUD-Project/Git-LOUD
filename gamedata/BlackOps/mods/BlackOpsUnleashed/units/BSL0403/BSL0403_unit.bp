@@ -1,21 +1,9 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL0402_Death',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        HoverKilledOnWater = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Spawn = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0402_Spawn',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'XSL_Destroy', Cue = 'XSL0402_Death', LodCutoff = 'UnitMove_LodCutoff'},
+        HoverKilledOnWater = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff'},
+        Spawn = Sound { Bank = 'XSL', Cue = 'XSL0402_Spawn', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 10,
@@ -49,16 +37,11 @@ UnitBlueprint {
         IdleEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'XSL0402',
-                        },
-                        Scale = 0.7,
-                        Type = 'SeaIdle02',
-                    },
+                    { Bones = {'XSL0402'}, Scale = 0.7, Type = 'SeaIdle02' },
                 },
             },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -69,27 +52,13 @@ UnitBlueprint {
                 },
             },
         },
+        
         MovementEffects = {
             Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Type = 'GroundKickup01',
-                    },
-                },
+                Effects = { { Bones = {0}, Type = 'GroundKickup01' } },
             },
             Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'XSL0402',
-                        },
-                        Scale = 0.3,
-                        Type = 'BackWake',
-                    },
-                },
+                Effects = { { Bones = {'XSL0402'}, Scale = 0.3, Type = 'BackWake' } },
             },
         },
 
@@ -170,12 +139,9 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0402_Attack_Zap',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0402_Attack_Zap', LodCutoff = 'Weapon_LodCutoff'},
             },
 
             AutoInitiateAttackCommand = false,

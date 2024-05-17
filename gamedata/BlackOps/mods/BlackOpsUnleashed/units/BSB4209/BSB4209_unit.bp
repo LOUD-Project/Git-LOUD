@@ -1,16 +1,8 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Radar', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     BuildIconSortPriority = 200,
@@ -36,10 +28,12 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 155,
+
         Health = 775,
         MaxHealth = 775,
         RegenRate = 1,
+
+        EconomyThreatLevel = 24,
     },
 	
     Description = '<LOC bsb4209_desc>Anti-Teleport Tower',
@@ -51,6 +45,7 @@ UnitBlueprint {
             'Volatile',
             'Upgradeable',
         },
+        
         AnimationDeath = {
             {
                 Animation = '/mods/BlackOpsUnleashed/units/BSB4309/BSB4309_ADeath.sca',
@@ -59,6 +54,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -90,22 +86,20 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
+
         ToggleCaps = { RULEUTC_ShieldToggle = true },
+        
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'Toggle Anti-Teleport Field',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-dome', helpText = 'Toggle Anti-Teleport Field' },
         },
+        
         UnitName = '<LOC bsb4209_name>Haazthue-Uhthena',
 		
         UpgradesTo = 'bsb4309',
     },
 	
     Intel = {
-    	FreeIntel = true,
-        CloakFieldRadius = 45,
+        VisionRadius = 16,
     },
 	
     Interface = {
@@ -150,17 +144,6 @@ UnitBlueprint {
     StrategicIconSortPriority = 225,
 	
     Weapon = {
-        {
-            Damage = 800,
-            DamageFriendly = true,
-            DamageRadius = 8,
-            DamageType = 'Normal',
-            DisplayName = 'Death Weapon',
-            DummyWeapon = true,
-            Label = 'DeathWeapon',
-            WeaponCategory = 'Death',
-        },
-
         { -- Dummy weapon for visualising area of effect
 		
             CollideFriendly = false,
@@ -176,7 +159,7 @@ UnitBlueprint {
 			
             Label = 'DummyWeapon',
 			
-            MaxRadius = 45,
+            MaxRadius = 48,
 			
             RateOfFire = 0.1,
             RangeCategory = 'UWRC_Countermeasure',
@@ -187,5 +170,17 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
 		},
+
+        {
+            Damage = 800,
+            DamageFriendly = true,
+            DamageRadius = 8,
+            DamageType = 'Normal',
+            DisplayName = 'Death Weapon',
+            DummyWeapon = true,
+            Label = 'DeathWeapon',
+            WeaponCategory = 'Death',
+        },
+        
     },
 }

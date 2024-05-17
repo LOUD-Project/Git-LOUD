@@ -1,26 +1,14 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 40,
+		GuardReturnRadius = 35,
         GuardScanRadius = 32,
 		TargetBones = {'Turret'},
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL_Destroy_Land_Lrg',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0303_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Lrg', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Tank', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -54,6 +42,7 @@ UnitBlueprint {
         Health = 4000,
         MaxHealth = 4000,
         RegenRate = 3,
+        
 		SubThreatLevel = 10.5,
         SurfaceThreatLevel = 40,
     },
@@ -64,7 +53,7 @@ UnitBlueprint {
         Abilities = {
 			'Quantum Powered - dies if run out of power',
             'Amphibious',
-            'Torpedoes',
+            "<LOC ability_torpedo>Torpedoes",
         },
 		
         Mesh = {
@@ -107,7 +96,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 30,
+        VisionRadius = 32,
         WaterVisionRadius = 24,
     },
 	
@@ -169,13 +158,11 @@ UnitBlueprint {
 	
     Weapon = {
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0303_Bolter',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0303_Bolter', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
@@ -187,7 +174,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 1,
@@ -243,13 +230,12 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+            AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0303_Cannon_Thau',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0303_Cannon_Thau', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -260,7 +246,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 0.5,
@@ -314,14 +300,13 @@ UnitBlueprint {
             Turreted = true,
         },
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0303_Cannon_Thau',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0303_Cannon_Thau', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -332,7 +317,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
             FiringTolerance = 0.5,
 			
@@ -389,16 +374,13 @@ UnitBlueprint {
 		
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0303_Torpedo_Launcher',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0303_Torpedo_Launcher', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 70,
+            Damage = 200,
             DamageType = 'Normal',
 			
             DisplayName = 'Uall Cavitation Torpedo Launcher',
@@ -412,11 +394,8 @@ UnitBlueprint {
             Label = 'Torpedo01',
 			
             MaxRadius = 44,
-			
-            MuzzleSalvoDelay = 0.5,
-            MuzzleSalvoSize = 3,
 
-            MuzzleVelocity = 3,
+            MuzzleVelocity = 2,
 			
             ProjectileId = '/projectiles/SANUallCavitationTorpedo01/SANUallCavitationTorpedo01_proj.bp',
             ProjectileLifetime = 7,
@@ -427,22 +406,21 @@ UnitBlueprint {
                     RackBone = 'Torpedo_Muzzle',
                 },
             },
+            
+            RackSalvoReloadTime = 4,    -- 4 second cycle = 75 DPS
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.5,
-			
+            RateOfFire = 1,
             TargetCheckInterval = 2,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SUBMARINE',
                 'STRUCTURE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.15,
-
-            Turreted = false,
         },
     },
 }

@@ -1,14 +1,15 @@
 local CStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
-local CybranWeaponsFile = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua')
-local HailfireLauncherWeapon = CybranWeaponsFile.HailfireLauncherWeapon
+local HailfireLauncherWeapon = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').HailfireLauncherWeapon
 
 -- Weapon bones for recoil effects 
 local muzzleBones = { 'Muzzle_1', 'Muzzle_2', 'Muzzle_3', 'Muzzle_4', 'Muzzle_5', 'Muzzle_6' } 
 local recoilgroup1 = { 'Recoil_1', 'Recoil_2', 'Recoil_3', 'Recoil_4', 'Recoil_5', 'Recoil_6' } 
 
 BRB2303 = Class(CStructureUnit) {
+
     Weapons = {
+
         MainGun = Class(HailfireLauncherWeapon) {
 		
             OnCreate = function(self) 

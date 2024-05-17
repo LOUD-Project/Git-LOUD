@@ -15,7 +15,7 @@ Description['eal0001-exrzb1'] = "Jury Rigged Disruptor\n Using parallel energy f
 
 Description['eal0001-exrtorp1'] = "When forced to fight underwater, a basic heavy torpedo system is an absolute necessity.                                         \n \n Installs Torpedo Launcher    \n 380 Damage \n 2 torpedoes per salvo \n 60 range"
 Description['eal0001-exrtorp2'] = "An improved reloader increases the torpedo salvo size using lighter, but longer ranged, torpedoes.                                                              \n \n 250 Damage \n 4 torpedoes per salvo \n 66 range"
-Description['eal0001-exrtorp3'] = "An added tube, plasma impellors & shaped charges, increases the salvo size, range & damage of the system. Mobility reduced.                                     \n \n 300 Damage \n 5 torpedoes per salvo \n 72 range \n +33% torpedo velocity \n -4% Movement"
+Description['eal0001-exrtorp3'] = "An added tube, plasma impellors & shaped charges, increases the salvo size, range & damage of the system. Mobility reduced.                                     \n \n 500 Damage \n 4 torpedoes per salvo \n 72 range \n -4% Movement"
 
 Description['eal0001-exramc1'] = "Miasma artillery uses shells containing corrosive materials that cause damage over a short period of time over an area. Excellent in range, accuracy is low.   \n \n 100 Range \n 144 Damage \n 2.0 AOE Radius "
 Description['eal0001-exramc2'] = "Using molecular compression, it becomes possible to condense the corrosive materials into a extremely dense state - increases range, damage, AOE & Accuracy.   \n \n 112 range \n 250 damage \n 2.5 AOE Radius \n +5% Accuracy "
@@ -59,7 +59,7 @@ Description['eel0001-exrzb1'] = "Jury Rigged Zephyr\n Coupling the ACU reactor d
 
 Description['eel0001-exrtorp1'] = "When forced to fight underwater, a basic heavy torpedo system is an absolute necessity.                                         \n \n Installs Torpedo Launcher    \n 380 Damage \n 2 torpedoes per salvo \n 60 range"
 Description['eel0001-exrtorp2'] = "An improved reloader increases the torpedo salvo size using lighter, but longer ranged, torpedoes.                                                              \n \n 250 Damage \n 4 torpedoes per salvo \n 66 range"
-Description['eel0001-exrtorp3'] = "An added tube, plasma impellors & shaped charges, increases the salvo size, range & damage of the system. Mobility reduced.                                     \n \n 300 Damage \n 5 torpedoes per salvo \n 72 range \n +33% torpedo velocity \n -4% Movement"
+Description['eel0001-exrtorp3'] = "An added tube, plasma impellors & shaped charges, increases the salvo size, range & damage of the system. Mobility reduced.                                     \n \n 500 Damage \n 4 torpedoes per salvo \n 72 range \n -4% Movement"
 
 Description['eel0001-exramc1'] = "Anti-Matter Cannon\n A very powerful but short range blast cannon with a large AOE. Disables the standard Zephyr weapon.  \n \n 270 Damage \n 30 Range \n 3.0 AOE Radius"
 Description['eel0001-exramc2'] = "An efficient particle accelerator makes it possible to impel more plasma, and thus denser plugs. Zephyr reactivated.      \n \n 390 Damage \n 36 Range \n 3.3 AOE Radius"
@@ -107,7 +107,7 @@ Description['erl0001-exrzb1'] = "Jury Rigged Ripper\n By running additional powe
 
 Description['erl0001-exrtorp1'] = "When forced to fight underwater, a basic heavy torpedo system is an absolute necessity.                                         \n \n Installs Torpedo Launcher    \n 380 Damage \n 2 torpedoes per salvo \n 60 range"
 Description['erl0001-exrtorp2'] = "An improved reloader increases the torpedo salvo size using lighter, but longer ranged, torpedoes.                                                              \n \n 250 Damage \n 4 torpedoes per salvo \n 66 range"
-Description['erl0001-exrtorp3'] = "An added tube, plasma impellors & shaped charges, increases the salvo size, range & damage of the system. Mobility reduced.                                     \n \n 300 Damage \n 5 torpedoes per salvo \n 72 range \n +33% torpedo velocity \n -4% Movement"
+Description['erl0001-exrtorp3'] = "An added tube, plasma impellors & shaped charges, increases the salvo size, range & damage of the system. Mobility reduced.                                     \n \n 500 Damage \n 4 torpedoes per salvo \n 72 range \n -4% Movement"
 
 Description['erl0001-exramc1'] = "EMP Blast Array\n Using AEON chrono tech, this weapon delivers a stunning blast of direct damage, and a secondary stun blast, to T1 & T2 units.  \n \n 300 Damage \n 2 AOE Radius \n 35 Range \n 2 Second Stun on T1 & T2    \n 4 Stun Radius"
 Description['erl0001-exramc2'] = "Again, using SERAPHIM tech, focusing crystals are improved, allowing the beams increased range, charge & AOE effects. Stuns T1-T3 units.         \n \n 500 Damage \n 2 AOE Radius \n 40 Range \n 2 Second Stun on T1,T2 & T3 \n 5 Stun Radius"
@@ -151,7 +151,7 @@ Description['esl0001-exrzb1'] = "Jury Rigged Chronotron \n By running additional
 
 Description['esl0001-exrtorp1'] = "When forced to fight underwater, a basic heavy torpedo system is an absolute necessity.                                         \n \n Installs Torpedo Launcher    \n 380 Damage \n 2 torpedoes per salvo \n 60 range" 
 Description['esl0001-exrtorp2'] = "An improved reloader increases the torpedo salvo size using lighter, but longer ranged, torpedoes.                                                              \n \n 250 Damage \n 4 torpedoes per salvo \n 66 range"
-Description['esl0001-exrtorp3'] = "An added tube, plasma impellors & shaped charges, increases the salvo size, range & damage of the system. Mobility reduced.                                     \n \n 300 Damage \n 5 torpedoes per salvo \n 72 range \n +33% torpedo velocity \n -4% Movement"
+Description['esl0001-exrtorp3'] = "An added tube, plasma impellors & shaped charges, increases the salvo size, range & damage of the system. Mobility reduced.                                     \n \n 500 Damage \n 4 torpedoes per salvo \n 72 range \n -4% Movement"
 
 Description['esl0001-exramc1'] = "Storm Cannon \n By creating miniature ruptures in the fabric of space and letting uncontrolled quantum energies out, the storm cannon can cause significant area damage. However, if the target moves quickly, it can avoid the reach of those rifts. \n \n Installs Quantum Storm Cannon \n 1000 Damage \n 2.0 AOE Radius \n 33 Range"
 Description['esl0001-exramc2'] = "By dumping a significant amount of energy directly into the weapon system, it is possible to open a larger rift at greater distance and over a larger area.                                                                                                                            \n \n 2000 Damage \n 2.6 AOE Radius \n 37 Range"

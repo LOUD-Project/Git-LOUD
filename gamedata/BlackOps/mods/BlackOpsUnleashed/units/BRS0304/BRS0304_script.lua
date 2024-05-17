@@ -2,34 +2,33 @@ local CSeaUnit = import('/lua/defaultunits.lua').SeaUnit
 
 local CybranWeaponsFile = import('/lua/cybranweapons.lua')
 
-local WeaponsFile = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua')
+local CDFProtonCannonWeapon     = CybranWeaponsFile.CDFProtonCannonWeapon
+local CAANanoDartWeapon         = CybranWeaponsFile.CAANanoDartWeapon
+local CAMZapperWeapon           = CybranWeaponsFile.CAMZapperWeapon
+local CANNaniteTorpedoWeapon    = CybranWeaponsFile.CANNaniteTorpedoWeapon
 
-local CDFProtonCannonWeapon = CybranWeaponsFile.CDFProtonCannonWeapon
-local CAANanoDartWeapon = CybranWeaponsFile.CAANanoDartWeapon
-local CAMZapperWeapon02 = CybranWeaponsFile.CAMZapperWeapon02
-local CANNaniteTorpedoWeapon = CybranWeaponsFile.CANNaniteTorpedoWeapon
-local CIFSmartCharge = CybranWeaponsFile.CIFSmartCharge
+local AIFQuasarAntiTorpedoWeapon = import('/lua/aeonweapons.lua').AIFQuasarAntiTorpedoWeapon
 
-local MartyrHeavyMicrowaveLaserGenerator = WeaponsFile.MartyrHeavyMicrowaveLaserGenerator
+local MicrowaveLaser             = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').MartyrHeavyMicrowaveLaserGenerator
+
+CybranWeaponsFile = nil
 
 
 BRS0304 = Class(CSeaUnit) {
 
     Weapons = {
 	
-        ParticleGun = Class(CDFProtonCannonWeapon) {},
+        ParticleGun     = Class(CDFProtonCannonWeapon) {},
 
-        RightGun = Class(MartyrHeavyMicrowaveLaserGenerator) {},
-        LeftGun = Class(MartyrHeavyMicrowaveLaserGenerator) {},
+        RightGun        = Class(MicrowaveLaser) {},
+        LeftGun         = Class(MicrowaveLaser) {},
 		
-        AAGun = Class(CAANanoDartWeapon) {},
-        GroundGun = Class(CAANanoDartWeapon) {},
+        AAGun           = Class(CAANanoDartWeapon) {},
+        GroundGun       = Class(CAANanoDartWeapon) {},
 		
-        Zapper = Class(CAMZapperWeapon02) {},
-		
-        Torpedo = Class(CANNaniteTorpedoWeapon) {},
-		
-        AntiTorpedo = Class(CIFSmartCharge) {},
+        Zapper          = Class(CAMZapperWeapon) {},
+        Torpedo         = Class(CANNaniteTorpedoWeapon) {},
+        AntiTorpedo     = Class(AIFQuasarAntiTorpedoWeapon) {},
 		
     },
     

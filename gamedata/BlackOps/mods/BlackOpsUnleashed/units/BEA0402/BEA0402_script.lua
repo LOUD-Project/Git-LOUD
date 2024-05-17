@@ -1,14 +1,14 @@
 local TAirUnit = import('/lua/defaultunits.lua').AirUnit
 
-local WeaponsFile = import('/lua/terranweapons.lua')
+local TAAFlakArtilleryCannon            = import('/lua/terranweapons.lua').TAAFlakArtilleryCannon
 
-local TAAFlakArtilleryCannon = WeaponsFile.TAAFlakArtilleryCannon
-local RailGunWeapon02 = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').RailGunWeapon02
-local CitadelHVMWeapon = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').CitadelHVMWeapon
-local CitadelPlasmaGatlingCannonWeapon = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').CitadelPlasmaGatlingCannonWeapon
+local RailGunWeapon02                   = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').RailGunWeapon02
+local CitadelHVMWeapon                  = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').CitadelHVMWeapon
+local CitadelPlasmaGatlingCannonWeapon  = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').CitadelPlasmaGatlingCannonWeapon
 
-local EffectUtils = import('/lua/effectutilities.lua')
-local Effects = import('/lua/effecttemplates.lua')
+local EffectUtils   = import('/lua/effectutilities.lua')
+local Effects       = import('/lua/effecttemplates.lua')
+
 local CreateRotator = CreateRotator
 local ForkThread = ForkThread
 
@@ -19,11 +19,11 @@ BEA0402 = Class(TAirUnit) {
 
     Weapons = {
 	
-		MainTurret = Class(RailGunWeapon02) {},
+		MainTurret  = Class(RailGunWeapon02) {},
 		
-        HVMTurret = Class(CitadelHVMWeapon) {},
+        HVMTurret   = Class(CitadelHVMWeapon) {},
 		
-        AAAFlak = Class(TAAFlakArtilleryCannon) {},
+        AAAFlak     = Class(TAAFlakArtilleryCannon) {},
 		
         GattlerTurret01 = Class(CitadelPlasmaGatlingCannonWeapon) {
 		

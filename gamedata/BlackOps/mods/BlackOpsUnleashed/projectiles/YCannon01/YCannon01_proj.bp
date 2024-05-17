@@ -16,31 +16,21 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+    
     Categories = {
-        'UEF',
         'PROJECTILE',
-        'DIRECTFIRE',
     },
-    General = {
-        Category = 'Direct Fire',
-        EntityCategory = {
-            'UEF',
-            'PROJECTILE',
-            'DIRECTFIRE',
-        },
-        Faction = 'UEF',
-        Weapon = 'YCannon',
-    },
+
     Display = {
         StrategicIconSize = 2,
-        CameraFollowTimeout = 2,
-        CameraFollowsProjectile = true,
     },
+
     Economy = {
         BuildCostEnergy = 168000,
         BuildCostMass = 1320,
         BuildTime = 32400,
     },
+
     Physics = {
         DestroyOnWater = true,
         InitialSpeed = 15,

@@ -3,16 +3,8 @@ UnitBlueprint {
     Adjacency = 'T3MassEnergyStorageAdjacencyBuffs',
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Resource', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     BuildIconSortPriority = 95,
@@ -48,10 +40,7 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 215,
-                    ShaderName = 'Unit',
-                },
+                { LODCutoff = 215, ShaderName = 'Unit' },
             },
         },
 
@@ -133,7 +122,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -3,30 +3,25 @@ local SEnergyCreationUnit = import('/lua/seraphimunits.lua').SEnergyCreationUnit
 local CreateAttachedEmitter = CreateAttachedEmitter
 
 BSB1202 = Class(SEnergyCreationUnit) {
-    
-    AirEffects = {'/effects/emitters/hydrocarbon_heatshimmer_01_emit.bp'},
-    AirEffectsBones = {'Exhaust01','Exhaust02','Exhaust03'},
-    WaterEffects = {'/effects/emitters/underwater_idle_bubbles_01_emit.bp',},
-    WaterEffectsBones = {'Exhaust01'},
-        
+
     OnStopBeingBuilt = function(self,builder,layer)
     
         SEnergyCreationUnit.OnStopBeingBuilt(self,builder,layer)
 
-        local effects = {}
-        local bones = {}
-        local scale = 0.75
+        local effects   = {'/effects/emitters/hydrocarbon_heatshimmer_01_emit.bp'}
+        local bones     = {'Exhaust01','Exhaust02','Exhaust03'}
+        local scale     = 0.75
 
-        if self:GetCurrentLayer() == 'Land' then
-            effects = self.AirEffects
-            bones = self.AirEffectsBones
-        elseif self:GetCurrentLayer() == 'Seabed' then
-            effects = self.WaterEffects
-            bones = self.WaterEffectsBones
-            scale = 3
+        if self:GetCurrentLayer() == 'Seabed' then
+        
+            effects     = {'/effects/emitters/underwater_idle_bubbles_01_emit.bp'}
+            bones       = {'Exhaust01'}
+            scale       = 3
+            
         end
 
         for keys, values in effects do
+        
             for keysbones, valuesbones in bones do
                 self.Trash:Add(CreateAttachedEmitter(self, valuesbones, self:GetArmy(), values):ScaleEmitter(scale):OffsetEmitter(0,-0.2,1))
             end
@@ -41,6 +36,7 @@ BSB1202 = Class(SEnergyCreationUnit) {
     end,
         
     OnKilled = function(self, instigator, type, overkillRatio)
+    
         SEnergyCreationUnit.OnKilled(self, instigator, type, overkillRatio)
 
         if self.LoopAnimation then

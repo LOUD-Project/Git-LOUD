@@ -6,21 +6,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0107_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'URL', Cue = 'URL0107_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Bot', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -80,26 +68,17 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 500,
-					Scrolling = true,
-                    ShaderName = 'Insect',
-                },
+                {LODCutoff = 500,Scrolling = true,ShaderName = 'Insect'},
             },
         },
 
         TransportAnimation = {
-            {
-                Animation = '/mods/BlackOpsUnleashed/units/BRLK001/BRLK001_fold.sca',
-                Weight = 100,
-            },
+            { Animation = '/mods/BlackOpsUnleashed/units/BRLK001/BRLK001_fold.sca', Weight = 100 },
         },
 		TransportDropAnimation = {
-            {
-                Animation = '/mods/BlackOpsUnleashed/units/BRLK001/BRLK001_unfold.sca',
-                Weight = 100,
-            },
+            { Animation = '/mods/BlackOpsUnleashed/units/BRLK001/BRLK001_unfold.sca', Weight = 100 },
         },
+        
         UniformScale = 0.19,
     },
 	
@@ -122,12 +101,13 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'land',
+        
 		OrderOverrides = {
-            RULEUTC_WeaponToggle = {
-                bitmapId = 'toggle-weapon-air',
-            },
+            RULEUTC_WeaponToggle = { bitmapId = 'toggle-weapon-air' },
         },
+        
 		ToggleCaps = { RULEUTC_WeaponToggle = true },
+        
         UnitName = '<LOC brlk001_name>Bouncer',
     },
 	
@@ -188,13 +168,11 @@ UnitBlueprint {
 		{
 			advancedTracking = true,
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0202_Nano_Dart',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0202_Nano_Dart', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
 			
             CannotAttackGround = true,
@@ -214,7 +192,7 @@ UnitBlueprint {
 			
             Label = 'AAGun',
 			
-            MaxRadius = 50,
+            MaxRadius = 48,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 6,
@@ -343,15 +321,15 @@ UnitBlueprint {
         },
 		{
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0202_Nano_Dart',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0202_Nano_Dart', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = false,
+            
             CollideFriendly = false,
 			
             Damage = 100,
@@ -428,7 +406,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

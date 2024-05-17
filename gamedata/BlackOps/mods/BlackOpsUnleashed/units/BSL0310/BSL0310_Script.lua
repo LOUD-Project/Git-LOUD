@@ -1,16 +1,16 @@
 local SWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local SDFThauCannon = import('/lua/seraphimweapons.lua').SDFThauCannon
+local SDFThauCannon             = import('/lua/seraphimweapons.lua').SDFThauCannon
 local SAMElectrumMissileDefense = import('/lua/seraphimweapons.lua').SAMElectrumMissileDefense
 
-local SeraLambdaFieldDestroyer = import('/lua/defaultantiprojectile.lua').SeraLambdaFieldDestroyer
+local SeraLambdaFieldDestroyer  = import('/lua/defaultantiprojectile.lua').SeraLambdaFieldDestroyer
 
 BSL0310 = Class(SWalkingLandUnit) {
 
     LambdaEffects = {'/effects/emitters/seraphim_rift_in_small_01_emit.bp','/effects/emitters/seraphim_rift_in_small_02_emit.bp'},
 
     Weapons = {
-        MainGun = Class(SDFThauCannon) {},
+        MainGun     = Class(SDFThauCannon) {},
         AntiMissile = Class(SAMElectrumMissileDefense) {},
     },
 

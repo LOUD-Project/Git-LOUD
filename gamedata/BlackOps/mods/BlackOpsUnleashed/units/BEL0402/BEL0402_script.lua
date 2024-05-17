@@ -1,19 +1,20 @@
 local TWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local TIFCruiseMissileUnpackingLauncher = import('/lua/terranweapons.lua').TIFCruiseMissileUnpackingLauncher
-local HawkGaussCannonWeapon = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').HawkGaussCannonWeapon
-local TDFGoliathShoulderBeam = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').TDFGoliathShoulderBeam
-local GoliathTMDGun = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').GoliathTMDGun
+local TSAMLauncher                      = import('/lua/terranweapons.lua').TSAMLauncher
+local TIFCommanderDeathWeapon           = import('/lua/terranweapons.lua').TIFCommanderDeathWeapon
 
-local TSAMLauncher = import('/lua/terranweapons.lua').TSAMLauncher
-local TIFCommanderDeathWeapon = import('/lua/terranweapons.lua').TIFCommanderDeathWeapon
+local HawkGaussCannonWeapon     = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').HawkGaussCannonWeapon
+local TDFGoliathShoulderBeam    = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').TDFGoliathShoulderBeam
+local GoliathTMDGun             = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').GoliathTMDGun
 
-local utilities = import('/lua/utilities.lua')
-local RandomFloat = utilities.GetRandomFloat
+local utilities     = import('/lua/utilities.lua')
+local RandomFloat   = utilities.GetRandomFloat
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 local explosion = import('/lua/defaultexplosions.lua')
+
 local CreateDeathExplosion = explosion.CreateDefaultHitExplosionAtBone
 
 local ForkThread = ForkThread
@@ -44,9 +45,6 @@ BEL0402 = Class(TWalkingLandUnit) {
 		
 		GoliathDeathNuck = Class(TIFCommanderDeathWeapon) {},
 	},
-	
-	
-	--+ Unit Callbacks +--
 	
 	OnStartBeingBuilt = function(self, builder, layer)
 	
@@ -93,11 +91,6 @@ BEL0402 = Class(TWalkingLandUnit) {
 		end
 	end,
 
-	OnKilled = function(self, instigator, type, overkillRatio)
-        TWalkingLandUnit.OnKilled(self, instigator, type, overkillRatio)
-	end,
-	
-	--+ Destruction Effects +--
 	DestructionEffectBones = {'Left_Arm_Muzzle'},
 	
 	CreateDamageEffects = function(self, bone, army )
@@ -226,7 +219,7 @@ BEL0402 = Class(TWalkingLandUnit) {
             LOUDINSERT( projectiles, proj )
         end  
         
-        WaitSeconds( 3 )
+        WaitSeconds( 2 )
 
         for k, v in projectiles do
             v:SetAcceleration(-0.45)
@@ -260,7 +253,7 @@ BEL0402 = Class(TWalkingLandUnit) {
             LOUDINSERT(projectiles, self:CreateProjectile('/effects/entities/UEFNukeFlavorPlume01/UEFNukeFlavorPlume01_proj.bp', 0, 0, 0, xVec, yVec, zVec):SetVelocity(velocity) )
         end
 
-        WaitSeconds( 3 )
+        WaitSeconds( 2 )
 
         # Slow projectiles down to normal speed
         for k, v in projectiles do
@@ -383,7 +376,8 @@ BEL0402 = Class(TWalkingLandUnit) {
         -- Create initial fireball dome effect
 		--CreateLightParticle(self, -1, self:GetArmy(), 50, 100, 'beam_white_01', 'ramp_blue_16')
 		CreateLightParticle(self, -1, army, 35, 4, 'glow_02', 'ramp_red_02')
-        WaitSeconds(0.25)
+        
+        WaitSeconds(0.2)
         
         CreateLightParticle(self, -1, army, 80, 20, 'glow_03', 'ramp_fire_06')
         
@@ -422,7 +416,7 @@ BEL0402 = Class(TWalkingLandUnit) {
 		
 		CreateLightParticle(self, -1, army, 200, 150, 'glow_03', 'ramp_nuke_04')
 
-		WaitSeconds(2.2)
+		WaitSeconds(2)
 
 		self:CreateGroundPlumeConvectionEffects(army)
 		

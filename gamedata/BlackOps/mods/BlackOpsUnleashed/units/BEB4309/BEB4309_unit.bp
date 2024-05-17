@@ -1,16 +1,8 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy',   Cue = 'UEB_Destroy_Med_Land',   LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',    Cue = 'UEF_Select_Radar',       LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     BuildIconSortPriority = 190,
@@ -34,27 +26,28 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 300,
-        Health = 1325,
-        MaxHealth = 1325,
+
+        Health = 1400,
+        MaxHealth = 1400,
 		RegenRate = 2,
+
+        EconomyThreatLevel = 34,
     },
 	
     Description = '<LOC beb4309_desc>Advanced Anti-Teleport Field Tower',
 	
     Display = {
+
         Abilities = {
         	'Anti-Teleport Field:Prevents Teleportation',
 			'Aquatic: Can be built underwater',
             'Volatile',
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 300,
-                    ShaderName = 'Unit',
-                },
+                { LODCutoff = 300, ShaderName = 'Unit' },
             },
         },
 
@@ -62,7 +55,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 39375,
+        BuildCostEnergy = 32500,
         BuildCostMass = 2100,
         BuildTime = 3150,
 		
@@ -71,16 +64,17 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
+
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 5,
+
         ToggleCaps = { RULEUTC_ShieldToggle = true },
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'Toggle Anti-Teleport Field',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-dome', helpText = 'Toggle Anti-Teleport Field' },
         },
+
         UnitName = '<LOC beb4309_name>ATF-305 Preventer',
 		
 		UpgradesFromBase = 'beb4209',		
@@ -88,8 +82,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-    	FreeIntel = true,
-        CloakFieldRadius = 70,
+        VisionRadius = 16,
     },
 	
     Interface = {
@@ -149,7 +142,7 @@ UnitBlueprint {
 			
             Label = 'DummyWeapon',
 			
-            MaxRadius = 70,
+            MaxRadius = 72,
 			
             RateOfFire = 0.1,
             RangeCategory = 'UWRC_Countermeasure',

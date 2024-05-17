@@ -16,7 +16,6 @@ BEB4209 = Class(TStructureUnit) {
         TStructureUnit.OnStopBeingBuilt(self,builder,layer)
 
         self:SetScriptBit('RULEUTC_ShieldToggle', true)
-        self:DisableUnitIntel('CloakField')
 		
         self.antiteleportEmitterTable = {}
         self.AntiTeleportBag = {}
@@ -114,6 +113,7 @@ BEB4209 = Class(TStructureUnit) {
             	self.Trash:Add(antiteleportEmitter)
         	end
     	end 
+
 	end,
 
 

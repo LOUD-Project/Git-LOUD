@@ -1,18 +1,16 @@
 local TLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
-local TWeapons = import('/lua/terranweapons.lua')
+local TAAPhalanxWeapon = import('/lua/terranweapons.lua').TAMPhalanxWeapon
 
-local TAAPhalanxWeapon = TWeapons.TAMPhalanxWeapon
-
-local EffectUtils = import('/lua/effectutilities.lua')
-local CreateBoneEffects = EffectUtils.CreateBoneEffects
-
-local Effects = import('/lua/effecttemplates.lua')
+local CreateBoneEffects  = import('/lua/effectutilities.lua').CreateBoneEffects
+local WeaponSteam        = import('/lua/effecttemplates.lua').WeaponSteam01
 
 local CreateRotator = CreateRotator
 
 BELK002 = Class(TLandUnit) {
+
     Weapons = {
+
         GatlingCannon = Class(TAAPhalanxWeapon) {
 
             PlayFxWeaponPackSequence = function(self)
@@ -25,8 +23,8 @@ BELK002 = Class(TLandUnit) {
                     self.SpinManip2:SetTargetSpeed(0)
                 end
 				
-                self.ExhaustEffects = CreateBoneEffects( self.unit, 'Left_Muzzle', self.unit.Army, Effects.WeaponSteam01 )
-                self.ExhaustEffects = CreateBoneEffects( self.unit, 'Right_Muzzle', self.unit.Army, Effects.WeaponSteam01 )
+                self.ExhaustEffects = CreateBoneEffects( self.unit, 'Left_Muzzle', self.unit.Army, WeaponSteam )
+                self.ExhaustEffects = CreateBoneEffects( self.unit, 'Right_Muzzle', self.unit.Army, WeaponSteam )
    
                 TAAPhalanxWeapon.PlayFxWeaponPackSequence(self)
             end,
@@ -60,8 +58,8 @@ BELK002 = Class(TLandUnit) {
                     self.SpinManip2:SetTargetSpeed(200)
                 end
    
-                self.ExhaustEffects = CreateBoneEffects( self.unit, 'Left_Muzzle', self.unit.Army, Effects.WeaponSteam01 )
-                self.ExhaustEffects = CreateBoneEffects( self.unit, 'Right_Muzzle', self.unit.Army, Effects.WeaponSteam01 )
+                self.ExhaustEffects = CreateBoneEffects( self.unit, 'Left_Muzzle', self.unit.Army, WeaponSteam )
+                self.ExhaustEffects = CreateBoneEffects( self.unit, 'Right_Muzzle', self.unit.Army, WeaponSteam )
                 
 				TAAPhalanxWeapon.PlayFxRackSalvoChargeSequence(self)
             end,

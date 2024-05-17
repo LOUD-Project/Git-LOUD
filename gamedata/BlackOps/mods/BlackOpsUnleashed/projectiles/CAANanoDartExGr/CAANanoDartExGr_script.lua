@@ -1,4 +1,3 @@
-
 CAANanoDartProjectile = import('/lua/cybranprojectiles.lua').CAANanoDartProjectile
 
 local WaitTicks = coroutine.yield
@@ -12,8 +11,11 @@ CAANanoDart01 = Class(CAANanoDartProjectile) {
 
 
     UpdateThread = function(self)
+
         WaitTicks(1)
+
         self:SetBallisticAcceleration(-0.5)
+
         local army = self:GetArmy()
 
         for i in self.FxTrails do
@@ -21,6 +23,7 @@ CAANanoDart01 = Class(CAANanoDartProjectile) {
         end
 
         WaitTicks(2)
+
         self:SetMesh('/projectiles/CAANanoDart01/CAANanoDartUnPacked01_mesh')
 
     end,

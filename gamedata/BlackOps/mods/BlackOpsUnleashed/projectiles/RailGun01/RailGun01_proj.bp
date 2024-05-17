@@ -16,29 +16,21 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'UEF',
         'PROJECTILE',
-        'DIRECTFIRE',
     },
+
     Display = {
 
-        ImpactEffects = {
-
-            # ##Type = 'Small01',
-            Type = 'Medium03',
-        },
+        ImpactEffects = {Type = 'Medium03'},
         StrategicIconSize = 2,
     },
-    General = {
-        Category = 'Direct Fire',
-        Faction = 'UEF',
-        TechLevel = 1,
-        Weapon = 'Ionized Plasma Gatling Cannon',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         DestroyOnWater = true,
         InitialSpeed = 14.6,

@@ -6,25 +6,17 @@ UnitBlueprint {
     },
 	
     Audio = {
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0202_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        StartMove   = Sound { Bank = 'UEL', Cue = 'UEL0202_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
 	Buffs = {
 		Regen = {
-			Level1 = 2,
-            Level2 = 4,
-            Level3 = 6,
-            Level4 = 8,
-            Level5 = 10,
+			Level1 = 1,
+            Level2 = 2,
+            Level3 = 3,
+            Level4 = 4,
+            Level5 = 5,
         },
     },
 	
@@ -59,11 +51,7 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 500,
-                    Scrolling = true,
-                    ShaderName = 'Unit',
-                },
+                { LODCutoff = 500, Scrolling = true, ShaderName = 'Unit' },
             },
         },
 
@@ -79,6 +67,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+        
         UniformScale = 0.11,
     },
 	
@@ -167,20 +156,21 @@ UnitBlueprint {
     Weapon = {
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB4201_Phalanx_01',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB4201_Phalanx_01', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
 			CannotAttackGround = false,
+            
             CollideFriendly = false,
 			
             Damage = 40,
 			DamageRadius = 1,
             DamageType = 'Normal',
+            
             DetonatesAtTargetHeight = true,
 			
             DisplayName = 'Gatling Cannon',
@@ -202,17 +192,14 @@ UnitBlueprint {
 
             MuzzleVelocity = 70,
 			
-            NoPause = true,		-- umm...what does this really do?
+            NoPause = true,
 			
             ProjectileId = '/projectiles/TDPhalanx01/TDPhalanx01_proj.bp',
             ProjectileLifetime = 0.7,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Muzzle',
-						'Right_Muzzle',
-                    },
+                    MuzzleBones = {'Left_Muzzle','Right_Muzzle'},
                     RackBone = 'Turret',
                 },
 			},
@@ -270,7 +257,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

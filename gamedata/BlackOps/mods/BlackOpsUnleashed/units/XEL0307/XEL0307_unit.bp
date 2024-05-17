@@ -85,7 +85,7 @@ UnitBlueprint {
         Abilities = {
             'Personal Shield',
             'Amphibious',
-            'Torpedo Defense',
+            '<LOC ability_torpedodef>Torpedo Defense',
         },
         Mesh = {
             IconFadeInZoom = 130,
@@ -141,7 +141,7 @@ UnitBlueprint {
 	
     Intel = {
         VisionRadius = 32,
-		WaterVisionRadius = 22,
+		WaterVisionRadius = 24,
     },
 	
     Interface = {
@@ -636,58 +636,58 @@ UnitBlueprint {
         -- ANTI TORPEDO SYSTEM --
 		
         {
+            advancedTracking = true,
+            
             BallisticArc = 'RULEUBA_None',
             BelowWaterFireOnly = true,
 			
 			CannotAttackGround = true,			
             CollideFriendly = false,
+            
+            CountedProjectile = true,
 			
             Damage = 2,
             DamageType = 'Normal',
 			
-            DepthCharge = { Radius = 5 },
-			
-            DisplayName = 'Smart Charge AntiTorpedo',
+            DisplayName = 'AntiTorpedo',
 			
             FireTargetLayerCapsTable = {
                 Seabed = 'Sub|Water|Seabed',
                 Water = 'Sub|Water|Seabed',
             },
-			
-            FiringRandomness = 18,
+
             FiringTolerance = 360,
 			
             Label = 'AntiTorpedo',
 			
-            MaxRadius = 22,
+            MaxRadius = 28,
 
-            MuzzleVelocity = 4.5,
-            
-            NotExclusive = true,
+            MuzzleSalvoDelay = 0.8,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 7,
 			
-            ProjectileId = '/projectiles/TIMAntiTorpedo01/TIMAntiTorpedo01_proj.bp',
-            ProjectileLifetime = 1.8,
+            ProjectileId = '/projectiles/SANAjelluAntiTorpedo01/SANAjelluAntiTorpedo01_proj.bp',
+            ProjectileLifetime = 2.5,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Left_Missile_01'},
-                    RackBone = 'Left_Missile_01',
-                },
                 {
                     MuzzleBones = {'Right_Missile_01'},
                     RackBone = 'Right_Missile_01',
                 },				
             },
+            
+            RackSalvoReloadTime = 1.6,
 
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 0.7,
+            RateOfFire = 1,     -- controlled by MuzzleSalvoDelay and WeaponRepackTimeout
 			
             TargetCheckInterval = 0.5,
-            TargetRestrictDisallow = 'UNTARGETABLE',
+			
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.2,
+            
+            WeaponRepackTimeout = 1.9,      -- 2 every 3.5 seconds
         },
         
         -- 2 x MISSILE PACKS --

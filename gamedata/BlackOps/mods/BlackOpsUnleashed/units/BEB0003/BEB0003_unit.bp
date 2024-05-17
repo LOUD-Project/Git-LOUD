@@ -17,7 +17,7 @@ UnitBlueprint {
         Health = 1,
         MaxHealth = 1,
 
-    	NoTeleDistance = 70,
+    	NoTeleDistance = 72,
     },
 	
     Description = 'Advanced Anti-Teleport Emitter',
@@ -26,10 +26,7 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 215,
-                    ShaderName = 'Unit',
-                },
+                { LODCutoff = 215, ShaderName = 'Unit' },
             },
         },
 

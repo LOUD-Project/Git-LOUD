@@ -3,61 +3,29 @@ UnitBlueprint {
 		AttackAngle = 42,
 
         GuardReturnRadius = 75,
-        GuardScanRadius = 60,
+        GuardScanRadius = 52,
 
 		TargetBones = {'XRS0305'},
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'URSDestroy',
-            Cue = 'URS0203_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URS',
-            Cue = 'URS0203_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMoveSub = Sound {
-            Bank = 'URS',
-            Cue = 'URS0203_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'URS',
-            Cue = 'URS0203_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMoveSub = Sound {
-            Bank = 'URS',
-            Cue = 'URS0203_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        SubmergeStart = Sound {
-            Bank = 'URS',
-            Cue = 'URS_Sub_Submerge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        SurfaceStart = Sound {
-            Bank = 'URS',
-            Cue = 'URS_Sub_Surface',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Sub',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed          = Sound {Bank = 'URSDestroy', Cue = 'URS0203_Destroy',  LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove       = Sound {Bank = 'URS',  Cue = 'URS0203_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMoveSub    = Sound {Bank = 'URS',  Cue = 'URS0203_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        StopMove        = Sound {Bank = 'URS',  Cue = 'URS0203_Move_Stop',  LodCutoff = 'UnitMove_LodCutoff'},
+        StopMoveSub     = Sound {Bank = 'URS',  Cue = 'URS0203_Move_Stop',  LodCutoff = 'UnitMove_LodCutoff'},
+        SubmergeStart   = Sound {Bank = 'URS',  Cue = 'URS_Sub_Submerge',   LodCutoff = 'UnitMove_LodCutoff'},
+        SurfaceStart    = Sound {Bank = 'URS',  Cue = 'URS_Sub_Surface',    LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound {Bank = 'Interface', Cue = 'Cybran_Select_Sub', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 3,
-            Level2 = 5,
-            Level3 = 7,
-            Level4 = 9,
-            Level5 = 11,
+            Level1 = 4,
+            Level2 = 8,
+            Level3 = 12,
+            Level4 = 16,
+            Level5 = 20,
         },
     },
 	
@@ -82,17 +50,14 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 4500,
-        MaxHealth = 4500,
-        RegenRate = 10,
+        Health = 4200,
+        MaxHealth = 4200,
+        RegenRate = 8,
+
         SubThreatLevel = 42,
         SurfaceThreatLevel = 7,
 		
-        TorpRedirectField01 = {
-            AttachBone = 'XRS0305',
-            Radius = 6,
-            RedirectRateOfFire = 6,	---- this is not rate of fire but ticks between firing
-        },
+        TorpRedirectField01 = { AttachBone = 'XRS0305', Radius = 6, RedirectRateOfFire = 6 },
     },
 	
     Description = '<LOC brs0305_desc>Assault Submarine',
@@ -100,9 +65,10 @@ UnitBlueprint {
     Display = {
 	
         Abilities = {
-            'Sonar',
-            'Torpedoes',
-            'Torpedo Redirection System',
+            "<LOC ability_sonar>Sonar",
+            "<LOC ability_torpedo>Torpedoes",
+            '<LOC ability_torpedodef>Torpedo Redirection Defense',
+            '<LOC ability_personalstealth>Personal Stealth',            
         },
 		
         CannonOpenAnimation = '/mods/BlackOpsUnleashed/units/BRS0305/BRS0305_AOpen.sca',
@@ -119,25 +85,12 @@ UnitBlueprint {
         IdleEffects = {
             Sub = {
                 Effects = {
-                    {
-                        Bones = {
-                            'Right_Projectile',
-                            'Turret01',
-                            'XRS0305',
-                        },
-                        Type = 'UnderWater01',
-                    },
+                    { Bones = { 'Right_Projectile','Turret01','XRS0305' }, Type = 'UnderWater01' },
                 },
             },
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'XRS0305',
-                        },
-                        Scale = 0.7,
-                        Type = 'SeaIdle01',
-                    },
+                    { Bones = {'XRS0305'}, Scale = 0.7, Type = 'SeaIdle01' },
                 },
             },
         },
@@ -145,58 +98,21 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 215,
-                    ShaderName = 'Insect',
-                },
+                { LODCutoff = 215, ShaderName = 'Insect' },
             },
         },
 		
         MovementEffects = {
             Sub = {
                 Effects = {
-                    {
-                        Bones = {
-                            'Exhaust01',
-                            'Exhaust02',
-                            'Exhaust03',
-                        },
-                        Scale = 6,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'Exhaust01','Exhaust02','Exhaust03'}, Scale = 6, Type = 'BackWake' },
                 },
             },
 			
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'Left_Projectile',
-                        },
-                        Scale = 0.7,
-                        Type = 'LeftFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'Right_Projectile',
-                        },
-                        Scale = 0.7,
-                        Type = 'RightFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'Exhaust01',
-                            'Exhaust02',
-                            'Exhaust03',
-                        },
-                        Offset = {
-                            0,
-                            0,
-                            -0.3,
-                        },
-                        Scale = 0.5,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'Left_Projectile'}, Scale = 0.7, Type = 'LeftFrontWake' },
+                    { Bones = {'Right_Projectile'}, Scale = 0.7, Type = 'RightFrontWake' },
                 },
             },
         },
@@ -234,8 +150,11 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        SonarRadius = 75,
+
+        SonarRadius = 76,
+
 		SonarStealth = true,
+
         VisionRadius = 36,
         WaterVisionRadius = 40,
     },
@@ -249,7 +168,7 @@ UnitBlueprint {
     LifeBarSize = 1.5,
 	
     Physics = {
-        BackUpDistance = 5,
+        BackUpDistance = 8,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Sub = true,
@@ -290,22 +209,33 @@ UnitBlueprint {
     Weapon = {
 
 		-- So we have 2 Torpedo launchers
-		-- the first fires four standard (but long range) torps every second - very typical torpedo system
-		-- The second fires a salvo of 6 Kril heavy torps but only every 10 seconds
+		-- the first fires two standard (but long range) torps - typical torpedo system
+		-- The second fires a salvo of 6 Kril torps (timed AOE damage) torpedoes
 		
         {
+            advancedTracking = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0203_Torpedo_Nanite',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0203_Torpedo_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.3,
+                    Radius = 2,
+                    TargetAllow = 'TECH1, TECH2',
+                    TargetDisallow = 'WALL,COMMAND,EXPERIMENTAL',
+                },
+            },
+	
             CollideFriendly = false,
 			
-            Damage = 60,
+            Damage = 250,
             DamageType = 'Normal',
 			
             DisplayName = 'Nanite Torpedo',
@@ -319,28 +249,26 @@ UnitBlueprint {
 			
             Label = 'Torpedo01',
 			
-            MaxRadius = 48,
+            MaxRadius = 52,
 			
-            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoDelay = 0.6,
             MuzzleSalvoSize = 2,
 
-            MuzzleVelocity = 3,
-            MuzzleVelocityRandom = 1,
+            MuzzleVelocity = 5,
 			
 			NotExclusive = true,
 			
-            ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
-            ProjectileLifetime = 9,
+            ProjectileId = '/projectiles/CANTorpedoNanite02/CANTorpedoNanite02_proj.bp',
+            ProjectileLifetime = 8.5,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Projectile',
-                        'Right_Projectile',
-                    },
+                    MuzzleBones = {'Left_Projectile','Right_Projectile'},
                     RackBone = 'Right_Projectile',
                 },
             },
+            
+            RackSalvoReloadTime = 1.3,  -- firing cycle 2.5 seconds = 200 DPS
 
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -349,7 +277,7 @@ UnitBlueprint {
             SlavedToBody = true,
             SlavedToBodyArcRange = 30,
 			
-            TargetCheckInterval = 1.5,
+            TargetCheckInterval = 1,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -360,17 +288,17 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
             TrackingRadius = 1.1,
+
             Turreted = false,
         },
 		
         {
+            advancedTracking = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XRL_Weapon',
-                    Cue = 'XRB2308_Kril_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XRL_Weapon', Cue = 'XRB2308_Kril_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -380,7 +308,7 @@ UnitBlueprint {
 			
             DisplayName = 'Kril Torpedo',
 			
-            DoTPulses = 5,		-- so 75 DPS - 5 times = 350 damage
+            DoTPulses = 5,		-- so 150 damage x 5 times = 750 damage
             DoTTime = 3,
 			
             FireTargetLayerCapsTable = {
@@ -388,14 +316,14 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-			FiringRandomness = 42,
+			FiringRandomness = 36,
             FiringTolerance = 15,
 			
             Label = 'Torpedo02',
 			
-            MaxRadius = 70,
+            MaxRadius = 68,
 			
-            MuzzleSalvoDelay = 0.6,
+            MuzzleSalvoDelay = 0.8,
             MuzzleSalvoSize = 6,
 
             MuzzleVelocity = 5,
@@ -404,30 +332,25 @@ UnitBlueprint {
 			NotExclusive = true,
 			
             ProjectileId = '/projectiles/CANKrilTorpedo01/CANKrilTorpedo01_proj.bp',
-            ProjectileLifetime = 11,
+            ProjectileLifetime = 10,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Torpedo01',
-                        'Torpedo02',
-                        'Torpedo03',
-                        'Torpedo04',
-                        'Torpedo05',
-                        'Torpedo06',
-                    },
+                    MuzzleBones = {'Torpedo01','Torpedo02','Torpedo03','Torpedo04','Torpedo05','Torpedo06'},
                     RackBone = 'Torpedo01',
                 },
             },
+            
+            RackSalvoReloadTime = 5.2,  -- firing cycle is 10 seconds
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.1,		-- 12 torps * 350 = 4200 every 10 seconds = 420 DPS SUB
+            RateOfFire = 1,		-- 6 torps * 750 = 4500 every 10 seconds = 450 DPS SUB - controlled by salvo times
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 10,
 			
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 2,
 			
             TargetPriorities = {
                 'SUBMARINE',
@@ -445,13 +368,11 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = false,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0303_Bolter',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0303_Bolter', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
 			
             CollideFriendly = false,
@@ -478,10 +399,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret01_Muzzle01',
-                        'Turret01_Muzzle02',
-                    },
+                    MuzzleBones = {'Turret01_Muzzle01','Turret01_Muzzle02'},
                     RackBone = 'Turret01_Barrel01',
                 },
             },
@@ -555,10 +473,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret02_Muzzle01',
-                        'Turret02_Muzzle02',
-                    },
+                    MuzzleBones = {'Turret02_Muzzle01','Turret02_Muzzle02'},
                     RackBone = 'Turret02_Barrel01',
                 },
             },

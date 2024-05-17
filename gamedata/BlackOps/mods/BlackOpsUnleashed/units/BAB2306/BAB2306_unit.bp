@@ -5,16 +5,8 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Gun', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     Buffs = {
@@ -67,11 +59,7 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 215,
-                    Scrolling = true,
-                    ShaderName = 'Aeon',
-                },
+                { LODCutoff = 215, Scrolling = true, ShaderName = 'Aeon' },
             },
         },
 
@@ -154,27 +142,12 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
 			AlwaysRecheckTarget = true,
+            
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Unpack = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop    = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart   = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Fire', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop    = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Stop', LodCutoff = 'Weapon_LodCutoff' },
+                Unpack      = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -258,7 +231,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

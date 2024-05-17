@@ -41,35 +41,19 @@ UnitBlueprint {
     },
 	
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0401_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'URADestroy', Cue = 'URA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        Killed          = Sound { Bank = 'URADestroy', Cue = 'URA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove       = Sound { Bank = 'URA', Cue = 'URA0401_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Air', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     Buffs = {
         Regen = {
-            Level1 = 24,
-            Level2 = 36,
-            Level3 = 48,
-            Level4 = 60,
-            Level5 = 72,
+            Level1 = 14,
+            Level2 = 28,
+            Level3 = 42,
+            Level4 = 56,
+            Level5 = 70,
         },
     },
 	
@@ -96,11 +80,12 @@ UnitBlueprint {
     CollisionOffsetY = -2,
 	
     Defense = {
-        AirThreatLevel = 120,
         ArmorType = 'Light',
         Health = 44500,
         MaxHealth = 44500,
         RegenRate = 28,
+
+        AirThreatLevel = 120,        
         SurfaceThreatLevel = 120,
     },
 	
@@ -124,44 +109,20 @@ UnitBlueprint {
         LayerChangeEffects = {
             AirLand = {
                 Effects = {
-                    {
-                        Bones = {
-                            'XRA0409',
-                        },
-                        Offset = {
-                            0,
-                            -1.5,
-                            -1,
-                        },
-                        Scale = 5,
-                        Type = 'Landing01',
-                    },
+                    { Bones = {'XRA0409'}, Offset = {0,-1.5,-1}, Scale = 5, Type = 'Landing01' },
                 },
             },
             LandAir = {
                 Effects = {
-                    {
-                        Bones = {
-                            'XRA0409',
-                        },
-                        Offset = {
-                            0,
-                            -1.5,
-                            -1,
-                        },
-                        Scale = 5,
-                        Type = 'TakeOff01',
-                    },
+                    { Bones = {'XRA0409'}, Offset = {0,-1.5,-1}, Scale = 5, Type = 'TakeOff01' },
                 },
             },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 500,
-                    ShaderName = 'Insect',
-                },
+                { LODCutoff = 500, ShaderName = 'Insect' },
             },
         },
 
@@ -169,7 +130,6 @@ UnitBlueprint {
     },
 	
     Economy = {
-	
         BuildCostEnergy = 605000,
         BuildCostMass = 28500,
         BuildTime = 9750,
@@ -203,8 +163,10 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        VisionRadius = 39,
-		RadarRadius = 128,
+
+        VisionRadius = 40,
+		RadarRadius = 96,
+        
 		RadarStealth = true,
         RadarStealthFieldRadius = 20,
     },
@@ -263,22 +225,11 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0302_Cannon',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire        = Sound { Bank = 'URSWeapon', Cue = 'URS0302_Cannon', LodCutoff = 'WeaponBig_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -313,15 +264,15 @@ UnitBlueprint {
             Label = 'RocketPod',
             LeadTarget = false,
 			
-            MaxRadius = 45,
+            MaxRadius = 48,
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 4,
 			
-            MuzzleVelocity = 30,
+            MuzzleVelocity = 28,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/RedTurbolaser01/RedTurbolaser01_proj.bp',
-			ProjectileLifetime = 2,
+			ProjectileLifetime = 1.5,
 
             RackBones = {
                 {
@@ -334,10 +285,12 @@ UnitBlueprint {
                     RackBone = 'R_Barrel_01',
                 },
             },
+            
+            RackSalvoReloadTime = 1.2,  -- cycle time is 2.4 = 600/2.4 = 250 DPS
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.5,		-- 300 DPS
+            RateOfFire = 1,
 			
             TargetCheckInterval = 1,
 			
@@ -368,24 +321,15 @@ UnitBlueprint {
 		
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0302_Cannon',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire        = Sound { Bank = 'URSWeapon', Cue = 'URS0302_Cannon', LodCutoff = 'WeaponBig_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             Buffs = {
             	{
                     Add = { OnImpact = true },
@@ -415,7 +359,7 @@ UnitBlueprint {
             Label = 'RocketPod',
             LeadTarget = false,
 			
-            MaxRadius = 45,
+            MaxRadius = 48,
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 4,
@@ -436,10 +380,12 @@ UnitBlueprint {
                     RackBone = 'L_Barrel_01',
                 },
             },
+            
+            RackSalvoReloadTime = 1.2,  -- cycle is 2.4 = 600/2.4 = 250 DPS
 
-            RateOfFire = 0.5,	-- about 300DPS
-			
-            TargetCheckInterval = 0.5,
+            RateOfFire = 2,
+            TargetCheckInterval = 1,
+            
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
@@ -465,24 +411,15 @@ UnitBlueprint {
 		
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0302_Cannon',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire        = Sound { Bank = 'URSWeapon', Cue = 'URS0302_Cannon', LodCutoff = 'WeaponBig_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             Buffs = {
             	{
                     Add = { OnImpact = true },
@@ -512,7 +449,7 @@ UnitBlueprint {
             Label = 'RocketPod',
 			
             LeadTarget = false,
-            MaxRadius = 45,
+            MaxRadius = 48,
 
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 4,
@@ -533,10 +470,12 @@ UnitBlueprint {
                     RackBone = 'R_Back_Barrel_01',
                 },
             },
+            
+            RackSalvoReloadTime = 1.2,  -- cycle is 2.4 = 600/2.4 = 250 DPS
 
-            RateOfFire = 0.5,
-			
-            TargetCheckInterval = 0.5,
+            RateOfFire = 2,
+            TargetCheckInterval = 1,
+            
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE -AIR',
@@ -563,24 +502,15 @@ UnitBlueprint {
 		
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0302_Cannon',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire        = Sound { Bank = 'URSWeapon', Cue = 'URS0302_Cannon', LodCutoff = 'WeaponBig_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             Buffs = {
             	{
                     Add = { OnImpact = true },
@@ -611,7 +541,7 @@ UnitBlueprint {
             Label = 'RocketPod',
 			
             LeadTarget = false,
-            MaxRadius = 45,
+            MaxRadius = 48,
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 4,
@@ -631,10 +561,11 @@ UnitBlueprint {
                     RackBone = 'L_Back_Barrel_01',
                 },
             },
+            
+            RackSalvoReloadTime = 1.2,  -- cycle is 2.4 = 600/2.4 = 250 DPS
 
-            RateOfFire = 0.5,
-			
-            TargetCheckInterval = 0.5,
+            RateOfFire = 2,
+            TargetCheckInterval = 1,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -660,28 +591,16 @@ UnitBlueprint {
             Turreted = true,
         },
 		
-		-- AA Lasers --
+		-- AA Lasers x 6 --
 		
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
 
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2301_Cannon_Sgl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart = Sound { Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -705,7 +624,7 @@ UnitBlueprint {
             Label = 'AA',
 			LeadTarget = false,
 			
-            MaxRadius = 52,
+            MaxRadius = 44,
 
             NotExclusive = true,
 			
@@ -753,22 +672,11 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2301_Cannon_Sgl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart = Sound { Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
@@ -790,7 +698,7 @@ UnitBlueprint {
             Label = 'AA',
 			LeadTarget = false,
 			
-            MaxRadius = 52,
+            MaxRadius = 44,
 
             NotExclusive = true,
 
@@ -836,22 +744,11 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2301_Cannon_Sgl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart = Sound { Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
@@ -873,7 +770,7 @@ UnitBlueprint {
             Label = 'AA',
 			LeadTarget = false,
 			
-            MaxRadius = 52,
+            MaxRadius = 44,
 
             NotExclusive = true,
 
@@ -917,24 +814,15 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
 			AimsStraightOnDisable = true,
+
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2301_Cannon_Sgl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart = Sound { Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             BeamCollisionDelay = 0,
             BeamLifetime = 0.4,
 			
@@ -954,7 +842,7 @@ UnitBlueprint {
             Label = 'AA',
 			LeadTarget = false,
 			
-            MaxRadius = 52,
+            MaxRadius = 44,
 
             NotExclusive = true,
 
@@ -999,24 +887,15 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
 			AimsStraightOnDisable = true,
+
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2301_Cannon_Sgl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart = Sound { Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             BeamCollisionDelay = 0,
             BeamLifetime = 0.4,
 
@@ -1034,7 +913,7 @@ UnitBlueprint {
             Label = 'AA',
 			LeadTarget = false,
 			
-            MaxRadius = 52,
+            MaxRadius = 44,
 
             NotExclusive = true,
 
@@ -1077,23 +956,13 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
 			AimsStraightOnDisable = true,
+
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2301_Cannon_Sgl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart = Sound { Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
@@ -1113,7 +982,7 @@ UnitBlueprint {
             Label = 'AA',
 			LeadTarget = false,
 			
-            MaxRadius = 52,
+            MaxRadius = 44,
 
             NotExclusive = true,
 			
@@ -1158,25 +1027,15 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2305_Missile_Cruise',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URB2305_Missile_Cruise', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             AutoInitialAttackCommand = false,
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -1233,7 +1092,7 @@ UnitBlueprint {
 
             LeadTarget = false,
 			
-            MaxRadius = 125,
+            MaxRadius = 124,
 
             MuzzleVelocity = 5,
 			
@@ -1262,11 +1121,11 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_InDirectFire',
 			
-            RateOfFire = 0.033,	-- controlled by energy - basically every 30 seconds
-            RenderFireClock = false,
-			
+            RateOfFire = 1,	-- controlled by energy - basically every 30 seconds
             TargetCheckInterval = 5,
+
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
 				'RADAR',
@@ -1306,8 +1165,8 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
-        HealthMult = 0.35,
-        MassMult = 0.35,
+        HealthMult = 0.3,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

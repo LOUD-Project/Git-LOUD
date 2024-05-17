@@ -3,47 +3,24 @@ UnitBlueprint {
     AI = {
         AttackAngle = 48,
         GuardReturnRadius = 160,
-        GuardScanRadius = 145,
+        GuardScanRadius = 136,
 		
-        TargetBones = {
-            'BES0402',
-            'Front_AMC_Turret01',
-            'Front_AMC_Turret02',
-            'Back_AMC_Turret',
-            'Right_AA_Turret03',
-            'Right_Deckgun_Turret02',
-            'Left_AA_Turret01',
-            'Left_AA_Turret04',
-            'Back_Deckgun_Turret',
-            'Front_Deckgun_Turret',
-        },
+        TargetBones = {'BES0402','Front_AMC_Turret01','Back_AMC_Turret','Right_AA_Turret03','Right_Deckgun_Turret02','Left_AA_Turret01','Left_AA_Turret04','Back_Deckgun_Turret','Front_Deckgun_Turret'},
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UESDestroy',
-            Cue = 'UES0302_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UES',
-            Cue = 'UES0302_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'UESDestroy',   Cue = 'UES0302_Destroy',    LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'UES',          Cue = 'UES0302_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',    Cue = 'UEF_Select_Naval',   LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 16,
-            Level2 = 32,
-            Level3 = 48,
-            Level4 = 64,
-            Level5 = 70,
+            Level1 = 12,
+            Level2 = 24,
+            Level3 = 36,
+            Level4 = 48,
+            Level5 = 60,
         },
     },
 	
@@ -69,11 +46,13 @@ UnitBlueprint {
     CollisionOffsetZ = 0.6,
 	
     Defense = {
-        AirThreatLevel = 96,
+
         ArmorType = 'Normal',
         Health = 82500,
         MaxHealth = 82500,
-        RegenRate = 45,
+        RegenRate = 25,
+
+        AirThreatLevel = 76,
         SurfaceThreatLevel = 220,
     },
 	
@@ -83,8 +62,8 @@ UnitBlueprint {
         Abilities = {
 			'3 Primary Z Cannons',
 			'8 Secondary Gauss Weapons',
-            '8 x Anti-Air Flak',
-            'Radar',
+            '<LOC ability_aa>Anti-Air x8',
+            '<LOC ability_radar>Radar',
         },
 		
         AnimationDeath = {
@@ -105,13 +84,7 @@ UnitBlueprint {
         IdleEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'BES0402',
-                        },
-                        Scale = 2.5,
-                        Type = 'SeaIdle01',
-                    },
+                    { Bones = {'BES0402'}, Scale = 1.8, Type = 'SeaIdle01' },
                 },
             },
         },
@@ -119,37 +92,16 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 600,
-                    ShaderName = 'Unit',
-                },
+                { LODCutoff = 600, ShaderName = 'Unit' },
             },
         },
 		
         MovementEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'Front_Left_Wake',
-                        },
-                        Scale = 1.5,
-                        Type = 'LeftFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'Front_Right_Wake',
-                        },
-                        Scale = 1.5,
-                        Type = 'RightFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'Back_Wake',
-                        },
-                        Scale = 1.5,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'Front_Left_Wake'},   Scale = 1.5, Type = 'LeftFrontWake' },
+                    { Bones = {'Front_Right_Wake'},  Scale = 1.5, Type = 'RightFrontWake' },
+                    { Bones = {'Back_Wake'},         Scale = 1.2, Type = 'BackWake' },
                 },
             },
         },
@@ -186,7 +138,9 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 155,
+
+        RadarRadius = 160,
+
         VisionRadius = 40,
         WaterVisionRadius = 24,
     },
@@ -247,32 +201,13 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+     
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2302_Artillery_AM',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2302_Artillery_Son_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop          = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Loop',     LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Start',    LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStop          = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Stop',     LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire                = Sound { Bank = 'UELWeapon', Cue = 'UEB2302_Artillery_AM',          LodCutoff = 'Weapon_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'UALWeapon', Cue = 'UAB2302_Artillery_Son_Charge',  LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_LowArc',
@@ -295,7 +230,7 @@ UnitBlueprint {
 			
             Label = 'FrontAMCCannon01',
 			
-            MaxRadius = 145,
+            MaxRadius = 140,
             MinRadius = 25,
 			
             MuzzleChargeDelay = 1.5,
@@ -359,33 +294,15 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+     
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-				Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2302_Artillery_AM',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2302_Artillery_Son_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop          = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Loop',     LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Start',    LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStop          = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Stop',     LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire                = Sound { Bank = 'UELWeapon', Cue = 'UEB2302_Artillery_AM',          LodCutoff = 'Weapon_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'UALWeapon', Cue = 'UAB2302_Artillery_Son_Charge',  LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -407,7 +324,7 @@ UnitBlueprint {
 			
             Label = 'FrontAMCCannon02',
 			
-            MaxRadius = 145,
+            MaxRadius = 140,
             MinRadius = 25,
 			
             MuzzleChargeDelay = 1.5,
@@ -472,33 +389,15 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+     
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2302_Artillery_AM',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2302_Artillery_Son_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop          = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Loop',     LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Start',    LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStop          = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Stop',     LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire                = Sound { Bank = 'UELWeapon', Cue = 'UEB2302_Artillery_AM',          LodCutoff = 'Weapon_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'UALWeapon', Cue = 'UAB2302_Artillery_Son_Charge',  LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -520,7 +419,7 @@ UnitBlueprint {
 			
             Label = 'BackAMCCannon',
 			
-            MaxRadius = 145,
+            MaxRadius = 140,
             MinRadius = 25,
 			
             MuzzleChargeDelay = 1.5,
@@ -585,28 +484,14 @@ UnitBlueprint {
 --Front deck gun
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0302_Cannon_Tri',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Loop',     LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Start',    LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Stop',     LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire        = Sound { Bank = 'UESWeapon', Cue = 'UES0302_Cannon_Tri', LodCutoff = 'WeaponBig_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -625,7 +510,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 90,
+            MaxRadius = 88,
 			
             HeadingArcCenter = 0,
             HeadingArcRange = 240,
@@ -691,28 +576,14 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0302_Cannon_Tri',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Loop',     LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Start',    LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Stop',     LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire        = Sound { Bank = 'UESWeapon', Cue = 'UES0302_Cannon_Tri', LodCutoff = 'WeaponBig_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -731,7 +602,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 90,
+            MaxRadius = 88,
 			
             HeadingArcCenter = 90,
             HeadingArcRange = 120,
@@ -796,28 +667,14 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0302_Cannon_Tri',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Loop',     LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Start',    LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Stop',     LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire        = Sound { Bank = 'UESWeapon', Cue = 'UES0302_Cannon_Tri', LodCutoff = 'WeaponBig_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -836,7 +693,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 90,
+            MaxRadius = 88,
 			
             HeadingArcCenter = 90,
             HeadingArcRange = 120,
@@ -901,28 +758,14 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0302_Cannon_Tri',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Loop',     LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Start',    LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Stop',     LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire        = Sound { Bank = 'UESWeapon', Cue = 'UES0302_Cannon_Tri', LodCutoff = 'WeaponBig_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -941,7 +784,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 90,
+            MaxRadius = 88,
 			
             HeadingArcCenter = 90,
             HeadingArcRange = 120,
@@ -1006,28 +849,14 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0302_Cannon_Tri',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Loop',     LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Start',    LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Stop',     LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire        = Sound { Bank = 'UESWeapon', Cue = 'UES0302_Cannon_Tri', LodCutoff = 'WeaponBig_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -1046,7 +875,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 90,
+            MaxRadius = 88,
 			
             HeadingArcCenter = 180,
             HeadingArcRange = 145,
@@ -1111,28 +940,14 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0302_Cannon_Tri',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Loop',     LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Start',    LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Stop',     LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire        = Sound { Bank = 'UESWeapon', Cue = 'UES0302_Cannon_Tri', LodCutoff = 'WeaponBig_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -1151,7 +966,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 90,
+            MaxRadius = 88,
 			
             HeadingArcCenter = -90,
             HeadingArcRange = 120,
@@ -1216,28 +1031,14 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0302_Cannon_Tri',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Loop',     LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Start',    LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Stop',     LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire        = Sound { Bank = 'UESWeapon', Cue = 'UES0302_Cannon_Tri', LodCutoff = 'WeaponBig_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -1256,7 +1057,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 90,
+            MaxRadius = 88,
 			
             HeadingArcCenter = -90,
             HeadingArcRange = 120,
@@ -1321,28 +1122,14 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0302_Cannon_Tri',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Loop',     LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Start',    LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Stop',     LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire        = Sound { Bank = 'UESWeapon', Cue = 'UES0302_Cannon_Tri', LodCutoff = 'WeaponBig_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -1361,7 +1148,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 90,
+            MaxRadius = 88,
 			
             HeadingArcCenter = -90,
             HeadingArcRange = 120,
@@ -1429,14 +1216,13 @@ UnitBlueprint {
 
         {
             AlwaysRecheckTarget = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0302_Railgun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0302_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -1463,7 +1249,7 @@ UnitBlueprint {
             HeadingArcCenter = 40,
             HeadingArcRange = 145,
 			
-            MaxRadius = 44,
+            MaxRadius = 40,
 
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
@@ -1485,7 +1271,8 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 1.5,		-- 120 DPS Air
+            RateOfFire = 1.2,		-- 96 DPS Air
+            
             TargetCheckInterval = 0.3,
 			
             TargetPriorities = {
@@ -1514,13 +1301,11 @@ UnitBlueprint {
         },
         {
             AlwaysRecheckTarget = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0302_Railgun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0302_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -1548,7 +1333,7 @@ UnitBlueprint {
             HeadingArcCenter = 45,
             HeadingArcRange = 140,
 			
-            MaxRadius = 44,
+            MaxRadius = 40,
 
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
@@ -1568,7 +1353,7 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.25,
 
-            RateOfFire = 1.5,		-- 120 DPS Air
+            RateOfFire = 1.2,		-- 96 DPS Air
             
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -1597,14 +1382,13 @@ UnitBlueprint {
         },
         {
             AlwaysRecheckTarget = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0302_Railgun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0302_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -1631,7 +1415,7 @@ UnitBlueprint {
             HeadingArcCenter = 90,
             HeadingArcRange = 120,
 			
-            MaxRadius = 44,
+            MaxRadius = 40,
 
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
@@ -1651,7 +1435,7 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.25,
 			
-            RateOfFire = 1.5,		-- 120 DPS Air
+            RateOfFire = 1.2,		-- 96 DPS Air
             TargetCheckInterval = 0.3,
 			
             TargetPriorities = {
@@ -1680,14 +1464,13 @@ UnitBlueprint {
         },
         {
             AlwaysRecheckTarget = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0302_Railgun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0302_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -1714,7 +1497,7 @@ UnitBlueprint {
             HeadingArcCenter = 120,
             HeadingArcRange = 125,
 			
-            MaxRadius = 44,
+            MaxRadius = 40,
 
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
@@ -1734,8 +1517,10 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.25,
 
-            RateOfFire = 1.5,
+            RateOfFire = 1.2,
+            
             TargetCheckInterval = 0.3,
+            
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'HIGHPRIAIR',
@@ -1762,14 +1547,13 @@ UnitBlueprint {
         },
         {
             AlwaysRecheckTarget = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0302_Railgun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0302_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -1794,7 +1578,7 @@ UnitBlueprint {
             HeadingArcCenter = -40,
             HeadingArcRange = 145,
 			
-            MaxRadius = 44,
+            MaxRadius = 40,
 
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
@@ -1814,7 +1598,8 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.25,
 			
-            RateOfFire = 1.5,
+            RateOfFire = 1.2,
+            
             TargetCheckInterval = 0.3,
 			
             TargetPriorities = {
@@ -1843,14 +1628,13 @@ UnitBlueprint {
         },
         {
             AlwaysRecheckTarget = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0302_Railgun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0302_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -1875,7 +1659,7 @@ UnitBlueprint {
             HeadingArcCenter = -45,
             HeadingArcRange = 140,
 			
-            MaxRadius = 44,
+            MaxRadius = 40,
 
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
@@ -1895,7 +1679,8 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.25,
 			
-            RateOfFire = 1.5,
+            RateOfFire = 1.2,
+            
             TargetCheckInterval = 0.3,
 			
             TargetPriorities = {
@@ -1924,14 +1709,13 @@ UnitBlueprint {
         },
         {
             AlwaysRecheckTarget = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0302_Railgun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0302_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -1956,7 +1740,7 @@ UnitBlueprint {
             HeadingArcCenter = -90,
             HeadingArcRange = 120,
 			
-            MaxRadius = 44,
+            MaxRadius = 40,
 			
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
@@ -1975,7 +1759,7 @@ UnitBlueprint {
             },
             RackRecoilDistance = -0.25,
 			
-            RateOfFire = 1.5,
+            RateOfFire = 1.2,
             TargetCheckInterval = 0.3,
 			
             TargetPriorities = {
@@ -2004,14 +1788,13 @@ UnitBlueprint {
 		},
         {
             AlwaysRecheckTarget = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0302_Railgun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0302_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -2036,7 +1819,7 @@ UnitBlueprint {
             HeadingArcCenter = -120,
             HeadingArcRange = 125,
 			
-            MaxRadius = 44,
+            MaxRadius = 40,
 
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
@@ -2056,7 +1839,7 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.25,
 			
-            RateOfFire = 1.5,
+            RateOfFire = 1.2,
             TargetCheckInterval = 0.6,
 			
             TargetPriorities = {

@@ -7,40 +7,20 @@ UnitBlueprint {
     },
 	
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0402_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UAB',
-            Cue = 'UAB2302_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove       = Sound { Bank = 'URL', Cue = 'URL0402_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed       = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'UAB', Cue = 'UAB2302_Activate', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Gun', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 6,
-            Level2 = 12,
-            Level3 = 18,
-            Level4 = 24,
-            Level5 = 30,
+            Level1 = 10,
+            Level2 = 20,
+            Level3 = 30,
+            Level4 = 40,
+            Level5 = 50,
         },
     },
 	
@@ -82,28 +62,17 @@ UnitBlueprint {
             'Amphibious',
             'Volatile',
 			'Radar',
-			'Radar and Sonar Stealth',
+           '<LOC ability_personalstealth>Personal Stealth',
         },
 		
-        AnimationActivate = '/mods/BlackOpsUnleashed/units/BAL0403/BAL0403_AActivate01.sca',
-        AnimationOpen = '/mods/BlackOpsUnleashed/units/BAL0403/BAL0403_ADeploy01.sca',
-        AnimationDeath = {
-            {
-                Animation = '/mods/BlackOpsUnleashed/units/BAL0401/BAL0403_ADeath01.sca',
-                Weight = 100,
-            },
-        },
-        AnimationWalk = '/mods/BlackOpsUnleashed/units/BAL0403/BAL0403_AWalk01.sca',
-        AnimationWalkRate = 2.5,
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 500,
-                    ShaderName = 'Aeon',
-                },
-            },
-        },
+        AnimationActivate   = '/mods/BlackOpsUnleashed/units/BAL0403/BAL0403_AActivate01.sca',
+        AnimationOpen       = '/mods/BlackOpsUnleashed/units/BAL0403/BAL0403_ADeploy01.sca',
+        AnimationDeath      = { {Animation = '/mods/BlackOpsUnleashed/units/BAL0401/BAL0403_ADeath01.sca', Weight = 100 } },
+        AnimationWalk       = '/mods/BlackOpsUnleashed/units/BAL0403/BAL0403_AWalk01.sca',
+        AnimationWalkRate   = 2.5,
+        
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 500, ShaderName = 'Aeon' } } },
+        
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -113,9 +82,7 @@ UnitBlueprint {
                             HipBone = 'F_L_Leg_B01',
                             KneeBone = 'F_L_Leg_B02',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Type = 'FootFall01',
                         },
@@ -124,9 +91,7 @@ UnitBlueprint {
                             HipBone = 'B_L_Leg_B01',
                             KneeBone = 'B_L_Leg_B02',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Type = 'FootFall01',
                         },
@@ -135,9 +100,7 @@ UnitBlueprint {
                             HipBone = 'F_R_Leg_B01',
                             KneeBone = 'F_R_Leg_B02',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Type = 'FootFall01',
                         },
@@ -146,9 +109,7 @@ UnitBlueprint {
                             HipBone = 'B_R_Leg_B01',
                             KneeBone = 'B_R_Leg_B02',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Type = 'FootFall01',
                         },
@@ -195,9 +156,11 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-		RadarRadius = 100,
+        
+		RadarRadius = 96,
         VisionRadius = 40,
-		WaterVisionRadius = 21,
+		WaterVisionRadius = 20,
+        
 		RadarStealth = true,
 		SonarStealth = true,
     },
@@ -264,29 +227,16 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
+            
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                RackSalvoCharge  = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop            = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart           = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Fire', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop            = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Stop', LodCutoff = 'Weapon_LodCutoff' },
+                RackSalvoCharge     = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             AutoInitiateAttackCommand = true,
+            
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
@@ -309,7 +259,7 @@ UnitBlueprint {
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 0,
@@ -318,8 +268,8 @@ UnitBlueprint {
 
             LeadTarget = false,
 			
-            MaxRadius = 110,
-            MinRadius = 35,
+            MaxRadius = 108,
+            MinRadius = 36,
 			
             RackBones = {
                 {
@@ -398,7 +348,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
-                Water = 'Land|Water',
+                Seabed = 'Land|Water',
             },
 			
             FiringRandomness = 0,
@@ -459,6 +409,7 @@ UnitBlueprint {
 			
             Turreted = true,
         },
+        
         {
             AboveWaterTargetsOnly = true,
             Damage = 7500,
@@ -474,9 +425,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.1,
+        EnergyMult = 0.3,
         HealthMult = 0.6,
-        MassMult = 0.6,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

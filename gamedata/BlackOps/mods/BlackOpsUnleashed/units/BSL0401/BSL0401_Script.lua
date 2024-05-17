@@ -1,10 +1,7 @@
 local SHoverLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
-local WeaponsFile = import ('/lua/seraphimweapons.lua')
-local WeaponsFile2 = import ('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua')
-
-local YenzothaExperimentalLaser = WeaponsFile2.YenzothaExperimentalLaser
-local SAAOlarisCannonWeapon = WeaponsFile.SAAOlarisCannonWeapon
+local YenzothaExperimentalLaser = import ('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').YenzothaExperimentalLaser
+local SAAOlarisCannonWeapon     = import ('/lua/seraphimweapons.lua').SAAOlarisCannonWeapon
 
 local EffectUtil = import('/lua/EffectUtilities.lua')
 local explosion = import('/lua/defaultexplosions.lua')
@@ -52,7 +49,7 @@ BSL0401 = Class(SHoverLandUnit) {
 					self.unit.BeamChargeEffects1 = {}
 				end
    
-   local army = self.unit.Sync.army
+                local army = self.unit.Sync.army
 
 				LOUDINSERT( self.unit.BeamChargeEffects1, AttachBeamEntityToEntity(self.unit, 'Focus_Beam01_Emitter01', self.unit, 'Focus_Beam01_Emitter02', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
 				

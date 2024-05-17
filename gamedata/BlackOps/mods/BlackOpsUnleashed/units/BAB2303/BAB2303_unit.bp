@@ -5,16 +5,8 @@ UnitBlueprint {
     },
 	
 	Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Gun', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -64,15 +56,12 @@ UnitBlueprint {
 		Abilities = {
 			'Area Effect',
 			'Aquatic: Can be built on water',
-			},
+		},
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 215,
-                    Scrolling = true,
-                    ShaderName = 'Aeon',
-                },
+                { LODCutoff = 215, Scrolling = true, ShaderName = 'Aeon' },
             },
         },
 
@@ -163,11 +152,7 @@ UnitBlueprint {
             ArtilleryShieldBlocks = true,
             
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0103_Mortar_Concussion',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAL0103_Mortar_Concussion', LodCutoff = 'Weapon_LodCutoff' },
             },
             
             BallisticArc = 'RULEUBA_HighArc',
@@ -250,7 +235,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

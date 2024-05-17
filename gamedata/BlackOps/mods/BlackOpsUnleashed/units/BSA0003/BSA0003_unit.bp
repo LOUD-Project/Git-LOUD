@@ -41,21 +41,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'XSA_Destroy',
-            Cue = 'XSA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0203_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed = Sound { Bank = 'XSA_Destroy', Cue = 'XSA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove = Sound { Bank = 'XSA', Cue = 'XSA0203_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {
@@ -97,16 +85,8 @@ UnitBlueprint {
     Description = '<LOC bsa0003_desc>Elite Gunship',
 	
     Display = {
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 215,
-                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
-                    ShaderName = 'Seraphim',
-                },
-            },
-        },
+    
+        Mesh = { IconFadeInZoom = 130, LODs = { {LODCutoff = 215,LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',ShaderName = 'Seraphim'} } },
 
         UniformScale = 0.04,
     },
@@ -206,11 +186,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0203_Phasic_Autogun_Hvy',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0203_Phasic_Autogun_Hvy', LodCutoff = 'Weapon_LodCutoff'},
             },
 			
             AutoInitiateAttackCommand = true,
@@ -245,10 +221,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Muzzle01',
-                        'Left_Muzzle02',
-                    },
+                    MuzzleBones = {'Left_Muzzle01','Left_Muzzle02'},
                     RackBone = 'Left_Turret_Barrel',
                 },
             },
@@ -281,12 +254,9 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0203_Phasic_Autogun_Hvy',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0203_Phasic_Autogun_Hvy', LodCutoff = 'Weapon_LodCutoff'},
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -319,10 +289,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Muzzle01',
-                        'Right_Muzzle02',
-                    },
+                    MuzzleBones = {'Right_Muzzle01','Right_Muzzle02'},
                     RackBone = 'Right_Turret_Barrel',
                 },
             },

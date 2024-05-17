@@ -17,31 +17,18 @@ ProjectileBlueprint {
         },
     },
     Categories = {
-        'AEON',
         'PROJECTILE',
-        'INDIRECTFIRE',
         'STRATEGIC',
     },
+
     Display = {
-        CameraFollowTimeout = 5,
-        CameraFollowsProjectile = true,
         StrategicIconSize = 2,
     },
-    General = {
-        Category = 'Missile',
-        EntityCategory = {
-            'AEON',
-        	'PROJECTILE',
-        	'INDIRECTFIRE',
-        	'STRATEGIC',
-        },
-        Faction = 'Aeon',
-        TechLevel = 3,
-        Weapon = 'Sonance Artillery',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         DestroyOnWater = true,
         InitialSpeed = 50,

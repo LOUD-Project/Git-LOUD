@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Impacts',
@@ -16,57 +17,49 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'AEON',
         'PROJECTILE',
         'INDIRECTFIRE',
         'TACTICAL',
         'MISSILE',
-        'NOSPLASHDAMAGE',
     },
+
     Defense = {
-        Health = 1,
-        MaxHealth = 1,
+        Health = 2,
+        MaxHealth = 2,
     },
+
     Display = {
-        CameraFollowTimeout = 2,
-        CameraFollowsProjectile = true,
         Mesh = {
             LODs = {
-                {
-                    LODCutoff = 150,
-                    ShaderName = 'NormalMappedAlpha',
-                },
+                {LODCutoff = 150,ShaderName = 'NormalMappedAlpha'},
             },
         },
         StrategicIconSize = 2,
         UniformScale = 0.1,
     },
-    General = {
-        Category = 'Missile',
-        EntityCategory = {
-            'AEON',
-            'PROJECTILE',
-            'INDIRECTFIRE',
-            'MISSILE',
-            'NOSPLASHDAMAGE',
-        },
-        Faction = 'Aeon',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
-        Acceleration = 20,
+        Acceleration = 6,
         DestroyOnWater = true,
-        InitialSpeed = 20,
+        InitialSpeed = 6,
         LifeTime = 30,
-        MaxSpeed = 70,
+        MaxSpeed = 24,
         MaxZigZag = 12,
-        TrackTarget = true,
-        RotationalVelocityRange = 200,
+
+        TrackTarget = false,
+        
+        RotationalVelocityRange = 400,
+        
         TrackTargetGround = true,
-        TurnRate = 0,
+
+        TurnRate = 30,
+
         VelocityAlign = true,
         ZigZagFrequency = 1.5,
     },

@@ -2,21 +2,24 @@ local SSeaUnit = import('/lua/defaultunits.lua').SeaUnit
 
 local SWeapon = import('/lua/seraphimweapons.lua')
 
-local SIFSuthanusArtilleryCannon = import('/lua/seraphimweapons.lua').SIFSuthanusMobileArtilleryCannon
 local SDFUnstablePhasonBeam = import('/lua/kirvesweapons.lua').SDFUnstablePhasonBeam
 
 local EffectTemplate = import('/lua/kirveseffects.lua')
+
+local MissileRedirect = import('/lua/defaultantiprojectile.lua').MissileTorpDestroy
+
+local TrashAdd = TrashBag.Add
 
 
 BSS0306 = Class(SSeaUnit) {
 
     Weapons = {
 	
-        MainGun = Class(SWeapon.SDFShriekerCannon){},
+        MainGun         = Class(SWeapon.SDFShriekerCannon){},
 
-        LazorTurret = Class(SWeapon.SDFUltraChromaticBeamGenerator) {},
+        LazorTurret     = Class(SWeapon.SDFUltraChromaticBeamGenerator) {},
 		
-        BombardTurret = Class(SIFSuthanusArtilleryCannon) {},
+        BombardTurret   = Class(SWeapon.SIFSuthanusArtilleryCannon) {},
 		
         AAGun = Class(SWeapon.SAALosaareAutoCannonWeapon) {},
 		
@@ -29,6 +32,17 @@ BSS0306 = Class(SSeaUnit) {
     OnStopBeingBuilt = function(self,builder,layer)
 	
 		SSeaUnit.OnStopBeingBuilt(self,builder,layer)
+
+        -- create Torp Defense emitters
+        local bp = __blueprints[self.BlueprintID].Defense.MissileTorpDestroy
+        
+        for _,v in bp.AttachBone do
+
+            local antiMissile1 = MissileRedirect { Owner = self, Radius = bp.Radius, AttachBone = v, RedirectRateOfFire = bp.RedirectRateOfFire }
+
+            TrashAdd( self.Trash, antiMissile1)
+            
+        end
 		
 		IssueDive({self})
 		
@@ -51,6 +65,7 @@ BSS0306 = Class(SSeaUnit) {
 	
         self.Trash:Destroy()
         self.Trash = TrashBag()
+
         SSeaUnit.OnKilled(self, inst, type, okr)
 		
     end,

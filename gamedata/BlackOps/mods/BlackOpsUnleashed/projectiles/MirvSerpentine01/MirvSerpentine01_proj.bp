@@ -17,51 +17,39 @@ ProjectileBlueprint {
         },
     },
     Categories = {
-        'AEON',
         'PROJECTILE',
-        'INDIRECTFIRE',
         'TACTICAL',
         'MISSILE',
         'NOSPLASHDAMAGE',
     },
+
     Defense = {
         Health = 3,
         MaxHealth = 3,
     },
+
     Display = {
         CameraFollowTimeout = 2,
         CameraFollowsProjectile = true,
         Mesh = {
             LODs = {
-                {
-                    LODCutoff = 150,
-                    ShaderName = 'NormalMappedAlpha',
-                },
+                {LODCutoff = 150,ShaderName = 'NormalMappedAlpha'},
             },
         },
         StrategicIconSize = 3,
         UniformScale = 0.05,
     },
+    
     Economy = {
         BuildCostEnergy = 12000,
         BuildCostMass = 720,
         BuildTime = 7800,
     },
-    General = {
-        Category = 'Missile',
-        EntityCategory = {
-            'AEON',
-            'PROJECTILE',
-            'INDIRECTFIRE',
-            'MISSILE',
-            'TACTICAL',
-            'NOSPLASHDAMAGE',
-        },
-        Faction = 'Aeon',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
     	DetonateBelowHeight = 15,
     	Acceleration = 4,

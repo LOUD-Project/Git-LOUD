@@ -3,16 +3,8 @@ UnitBlueprint {
     Adjacency = 'HydrocarbonAdjacencyBuffs',
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Resource', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     BuildIconSortPriority = 80,
@@ -60,10 +52,7 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 300,
-                    ShaderName = 'Unit',
-                },
+                { LODCutoff = 300, ShaderName = 'Unit' },
             },
         },
 

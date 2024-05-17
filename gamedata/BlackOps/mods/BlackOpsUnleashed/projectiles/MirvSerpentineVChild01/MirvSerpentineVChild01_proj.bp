@@ -17,44 +17,30 @@ ProjectileBlueprint {
         },
     },
     Categories = {
-        'AEON',
         'PROJECTILE',
-        'INDIRECTFIRE',
         'TACTICAL',
         'MISSILE',
     },
+
     Defense = {
         Health = 1,
         MaxHealth = 1,
     },
+
     Display = {
-        CameraFollowTimeout = 2,
-        CameraFollowsProjectile = true,
         Mesh = {
             LODs = {
-                {
-                    LODCutoff = 150,
-                    ShaderName = 'NormalMappedAlpha',
-                },
+                {LODCutoff = 150,ShaderName = 'NormalMappedAlpha'},
             },
         },
         StrategicIconSize = 2,
         UniformScale = 0.035,
     },
-    General = {
-        Category = 'Missile',
-        EntityCategory = {
-            'AEON',
-            'PROJECTILE',
-            'INDIRECTFIRE',
-            'MISSILE',
-            'NOSPLASHDAMAGE',
-        },
-        Faction = 'Aeon',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         Acceleration = 3,
         DestroyOnWater = true,

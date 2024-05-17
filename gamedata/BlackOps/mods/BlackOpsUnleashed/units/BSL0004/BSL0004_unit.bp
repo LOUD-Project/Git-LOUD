@@ -9,21 +9,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL_Destroy_Land_Med',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0111_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Med', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove = Sound { Bank = 'XSL', Cue = 'XSL0111_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Tank', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -166,13 +154,11 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             AnimationReload = '/units/xsl0111/xsl0111_areload.sca',
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0111_LaanseMissile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0111_LaanseMissile', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 

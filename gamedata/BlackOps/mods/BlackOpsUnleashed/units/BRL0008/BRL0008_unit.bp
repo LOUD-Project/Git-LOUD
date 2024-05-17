@@ -1,16 +1,8 @@
 UnitBlueprint {
 
     Audio = {
-        EggOpen = Sound {
-            Bank = 'XRL_Stream',
-            Cue = 'XRL_Crab_Egg_Open',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Factory',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        EggOpen     = Sound { Bank = 'XRL_Stream', Cue = 'XRL_Crab_Egg_Open', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Factory', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     BuildIconSortPriority = 60,
@@ -45,10 +37,7 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 500,
-                    ShaderName = 'Insect',
-                },
+                {LODCutoff = 500,ShaderName = 'Insect'},
             },
         },
 

@@ -1,13 +1,5 @@
---****************************************************************************
---**
---**  File     :  \data\effects\Entities\CybranNukeEffectController0101\CybranNukeEffectController0101_script.lua
---**  Author(s):  Greg Kohne
---**
---**  Summary  :  Ohwalli Bomb effect controller script, non-damaging
---**
---**  Copyright � 2007 Gas Powered Games, Inc.  All rights reserved.
---****************************************************************************
 local NullShell = import('/lua/sim/defaultprojectiles.lua').NullShell
+
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 local RandomInt = import('/lua/utilities.lua').GetRandomInt
 local EffectTemplate = import('/lua/EffectTemplates.lua')
@@ -28,16 +20,6 @@ BasiliskNukeEffectController01 = Class(NullShell) {
     NukeOuterRingRadius = 0,
     NukeOuterRingTicks = 0,
     NukeOuterRingTotalTime = 0,
-	
-	--NukeInnerRingDamage = 70000,
-    --NukeInnerRingRadius = 30,
-    --NukeInnerRingTicks = 24,
-    --NukeInnerRingTotalTime = 0,
-    --NukeOuterRingDamage = 500,
-    --NukeOuterRingRadius = 40,
-    --NukeOuterRingTicks = 20,
-    --NukeOuterRingTotalTime = 0,
-    
     
     PassData = function(self, Data)
         if Data.NukeOuterRingDamage then self.NukeOuterRingDamage = Data.NukeOuterRingDamage end
@@ -322,9 +304,7 @@ BasiliskNukeEffectController01 = Class(NullShell) {
           proj:SetBallisticAcceleration(-0.05)            
         end   
     end,
-	  
-    
 
-		
 }
+
 TypeClass = BasiliskNukeEffectController01

@@ -1,10 +1,15 @@
 local TLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
+
+local SWeapons = import('/lua/seraphimweapons.lua')
+
 local RailGunWeapon01 = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').RailGunWeapon01
+
 local TIFCruiseMissileUnpackingLauncher = import('/lua/terranweapons.lua').TIFCruiseMissileUnpackingLauncher
 local TDFPlasmaCannonWeapon = import('/lua/terranweapons.lua').TDFPlasmaCannonWeapon
 local TDFMachineGunWeapon = import('/lua/terranweapons.lua').TDFMachineGunWeapon
-local TIFSmartCharge = import('/lua/terranweapons.lua').TIFSmartCharge
+
+local AntiTorp = SWeapons.SDFAjelluAntiTorpedoDefense
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local GetRandomFloat = import('/lua/Utilities.lua').GetRandomFloat
@@ -42,8 +47,9 @@ XEL0307 = Class(TLandUnit) {
 		
         RocketRack = Class(TIFCruiseMissileUnpackingLauncher) {},
         
-        AntiTorpedo = Class(TIFSmartCharge) {},
-		
+        AntiTorpedo = Class(AntiTorp) {},
+        AntiTorpedo2 = Class(AntiTorp) {},		
+
         FlameGun = Class(TDFMachineGunWeapon) {
 		
 			PlayFxMuzzleSequence = function(self, muzzle)
@@ -76,7 +82,7 @@ XEL0307 = Class(TLandUnit) {
                     self.unit.Trash:Add(self.SpinManip2)
                 end
    
-   if self.SpinManip then
+                if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(120)
                 end
                 if self.SpinManip2 then

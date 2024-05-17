@@ -5,30 +5,18 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0202_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'UEL', Cue = 'UEL0202_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Tank', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 3,
-            Level2 = 6,
-            Level3 = 9,
-            Level4 = 12,
-            Level5 = 15,
+            Level1 = 4,
+            Level2 = 8,
+            Level3 = 12,
+            Level4 = 16,
+            Level5 = 20,
         },
     },
 	
@@ -71,11 +59,7 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 215,
-                    Scrolling = true,
-                    ShaderName = 'Unit',
-                },
+                { LODCutoff = 215, Scrolling = true, ShaderName = 'Unit' },
             },
         },
 
@@ -106,7 +90,7 @@ UnitBlueprint {
 	
     Intel = {
         VisionRadius = 32,
-		WaterVisionRadius = 22,
+		WaterVisionRadius = 24,
     },
 	
     Interface = {
@@ -125,6 +109,9 @@ UnitBlueprint {
             LAYER_Seabed = true,
         },
         DragCoefficient = 0.2,
+
+        LayerChangeOffsetHeight = -0.5,
+        
         MaxAcceleration = 1.45,
 		LayerChangeOffsetHeight = -0.75,
         MaxBrake = 2.9,
@@ -172,28 +159,14 @@ UnitBlueprint {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0303_Disintegrator_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0302_Cannon',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop          = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'URLWeapon', Cue = 'URL0303_Disintegrator_Charge', LodCutoff = 'Weapon_LodCutoff' },
+                Fire                = Sound { Bank = 'URSWeapon', Cue = 'URS0302_Cannon', LodCutoff = 'WeaponBig_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -205,7 +178,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
             FiringTolerance = 0.5,
 			
@@ -213,7 +186,7 @@ UnitBlueprint {
 			
             Label = 'MainTurret',
 			
-            MaxRadius = 38,
+            MaxRadius = 40,
 			
             MuzzleChargeDelay = 1,
 
@@ -269,11 +242,7 @@ UnitBlueprint {
             AimsStraightOnDisable = false,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEL_Weapons',
-                    Cue = 'XEB2306_Gatling_Gun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEL_Weapons', Cue = 'XEB2306_Gatling_Gun', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -287,7 +256,7 @@ UnitBlueprint {
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Air',
-                Water = 'Land|Water',
+                Seabed = 'Land|Water',
             },
 			
             FiringRandomness = 0.3,
@@ -295,10 +264,11 @@ UnitBlueprint {
 			
             Label = 'GattlerTurret',
 			
-            MaxRadius = 35,
+            MaxRadius = 36,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 20,	---- takes 4 seconds to fire the salvo
+            
             MuzzleVelocity = 50,
 
 			MuzzleVelocityRandom = 3,
@@ -311,10 +281,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Gat_Muzzle_01',
-                        'Gat_Muzzle_02',
-                    },
+                    MuzzleBones = {'Gat_Muzzle_01','Gat_Muzzle_02'},
                     RackBone = 'Gat_Barrel',
                 },
             },
@@ -357,25 +324,17 @@ UnitBlueprint {
 		-- Riot Beams --
 		
         {
+            AboveWaterFireOnly = true,
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                BeamStart  = Sound {
-                    Bank = 'XEA_Weapon',
-                    Cue = 'XEA0002_Orbital_Death_Ray',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-				BeamLoop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-				BeamStop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamStart   = Sound { Bank = 'XEA_Weapon', Cue = 'XEA0002_Orbital_Death_Ray', LodCutoff = 'Weapon_LodCutoff' },
+				BeamLoop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+				BeamStop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             BeamCollisionDelay = 0,
             BeamLifetime = 0.3,		---- will cause 60 damage
 			
@@ -390,7 +349,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 1,
@@ -401,10 +360,7 @@ UnitBlueprint {
 
             MaxRadius = 28,
 			
-			DoNotCollideList = {
-                'TORPEDO',
-                'MISSILE',	
-            },
+			DoNotCollideList = {'TORPEDO','MISSILE'},
 			
 			HeadingArcCenter = 90,
 			HeadingArcRange = 100,
@@ -446,24 +402,15 @@ UnitBlueprint {
             UseFiringSolutionInsteadOfAimBone = true,
         },
 		{
+            AboveWaterFireOnly = true,
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                BeamStart  = Sound {
-                    Bank = 'XEA_Weapon',
-                    Cue = 'XEA0002_Orbital_Death_Ray',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-				BeamLoop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-				BeamStop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamStart  = Sound { Bank = 'XEA_Weapon', Cue = 'XEA0002_Orbital_Death_Ray', LodCutoff = 'Weapon_LodCutoff' },
+				BeamLoop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+				BeamStop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             BeamCollisionDelay = 0,
             BeamLifetime = 0.3,
@@ -479,7 +426,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
             FiringTolerance = 1,
 			
@@ -489,10 +436,7 @@ UnitBlueprint {
 			
             MaxRadius = 28,
 			
-			DoNotCollideList = {
-                'TORPEDO',
-                'MISSILE',	
-            },
+			DoNotCollideList = {'TORPEDO','MISSILE'},
 			
 			HeadingArcCenter = 270,
 			HeadingArcRange = 100,
@@ -537,14 +481,13 @@ UnitBlueprint {
 		-- Rocket Rack --
 		
         {
+            AboveWaterFireOnly = true,
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEL_Weapons',
-                    Cue = 'XEL0306_Missile_Cruise',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEL_Weapons', Cue = 'XEL0306_Missile_Cruise', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -556,7 +499,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 			
             FiringRandomness = 0.8,
@@ -625,7 +568,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.7,
-        MassMult = 0.7,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -40,40 +40,20 @@ UnitBlueprint {
     },
 
     Audio = {
-    	AirUnitWaterImpact = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL0401_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0401_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0401_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+    	AirUnitWaterImpact  = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed           = Sound { Bank = 'UELDestroy', Cue = 'UEL0401_Destroy', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove           = Sound { Bank = 'UEL', Cue = 'UEL0401_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove            = Sound { Bank = 'UEL', Cue = 'UEL0401_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection         = Sound { Bank = 'Interface', Cue = 'UEF_Select_Tank', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 15,
-            Level2 = 30,
-            Level3 = 45,
-            Level4 = 60,
-            Level5 = 75,
+            Level1 = 10,
+            Level2 = 20,
+            Level3 = 30,
+            Level4 = 40,
+            Level5 = 50,
         },
     },
 	
@@ -99,11 +79,13 @@ UnitBlueprint {
     CollisionOffsetZ = 2.5,
 	
     Defense = {
-        AirThreatLevel = 334,
         ArmorType = 'Light',
-        Health = 64950,
-        MaxHealth = 64950,
-        RegenRate = 22,	
+
+        Health = 63000,
+        MaxHealth = 63000,
+        RegenRate = 20,	
+        
+        AirThreatLevel = 306,
         SurfaceThreatLevel = 90,
     },
 	
@@ -117,24 +99,16 @@ UnitBlueprint {
             '4x Flak Cannons',
 			'2x Anti-Air Gatlings',
         },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 600,
-                    Scrolling = true,
-                    ShaderName = 'Unit',
-                },
-            },
-        },
+        
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 600, Scrolling = true, ShaderName = 'Unit' } } },
 
         UniformScale = 0.21,
     },
 	
     Economy = {
-        BuildCostEnergy = 1150000,
+        BuildCostEnergy = 1350000,
         BuildCostMass = 52500,
-        BuildTime = 14583,
+        BuildTime = 22500,
     },
 	
 	Footprint = {
@@ -159,9 +133,10 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-		RadarRadius = 165,
-        VisionRadius = 50,
-		WaterVisionRadius = 30,
+        
+		RadarRadius = 140,
+        VisionRadius = 48,
+		WaterVisionRadius = 24,
     },
 	
     Interface = {
@@ -224,28 +199,14 @@ UnitBlueprint {
 		{
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0303_Disintegrator_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0302_Cannon',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop          = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'URLWeapon', Cue = 'URL0303_Disintegrator_Charge', LodCutoff = 'Weapon_LodCutoff' },
+                Fire                = Sound { Bank = 'URSWeapon', Cue = 'URS0302_Cannon', LodCutoff = 'WeaponBig_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
 			
             CollideFriendly = false,
@@ -272,18 +233,18 @@ UnitBlueprint {
 			
             Label = 'MainTurret',
 			
-            MaxRadius = 80,
+            MaxRadius = 72,
 			
 			NotExclusive = true,
 
             MuzzleChargeDelay = 1,
 
-            MuzzleVelocity = 45,
+            MuzzleVelocity = 40,
 			
             NotExclusive = true,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/RailGun01/RailGun01_proj.bp',
-			ProjectileLifetime = 2.5,
+			ProjectileLifetime = 2.2,
 			
             RackBones = {
                 {
@@ -325,28 +286,14 @@ UnitBlueprint {
 		{
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0303_Disintegrator_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0302_Cannon',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop          = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'URLWeapon', Cue = 'URL0303_Disintegrator_Charge', LodCutoff = 'Weapon_LodCutoff' },
+                Fire                = Sound { Bank = 'URSWeapon', Cue = 'URS0302_Cannon', LodCutoff = 'WeaponBig_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -372,16 +319,16 @@ UnitBlueprint {
 			
             Label = 'MainTurret',
 			
-            MaxRadius = 80,
+            MaxRadius = 72,
 
             MuzzleChargeDelay = 1,
 
-            MuzzleVelocity = 45,
+            MuzzleVelocity = 40,
 			
             NotExclusive = true,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/RailGun01/RailGun01_proj.bp',
-			ProjectileLifetime = 3,
+			ProjectileLifetime = 2.5,
 			
             RackBones = {
                 {
@@ -423,18 +370,17 @@ UnitBlueprint {
     	{
 			advancedTracking = true,
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEA_Weapon',
-                    Cue = 'XEA0306_Flayer_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEA_Weapon', Cue = 'XEA0306_Flayer_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CollideFriendly = false,
             CannotAttackGround = true,
 			
-            Damage = 360,
+            Damage = 320,
 			DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -448,12 +394,12 @@ UnitBlueprint {
 			
             Label = 'HVMTurret',
 			
-            MaxRadius = 60,
+            MaxRadius = 56,
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 4,
 
-            MuzzleVelocity = 45,
+            MuzzleVelocity = 32,
 			
 			NotExclusive = true,
 
@@ -474,7 +420,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 0.4,					-- 1440 Damage = 576 DPS Air
+            RateOfFire = 0.4,					-- 1280 Damage = 512 DPS Air
 			
             TargetCheckInterval = 1.0,
             TargetPriorities = {
@@ -488,7 +434,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			TargetRestrictOnlyAllow = 'AIR',
 
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'HVM_Muzzle_A_1',
             TurretBonePitch = 'HVM_Barrel_1',
@@ -504,16 +450,13 @@ UnitBlueprint {
 			
             Turreted = true,
         },
-		-- HVAA Missile Launcher --2
+
 		{
 			advancedTracking = true,
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEA_Weapon',
-                    Cue = 'XEA0306_Flayer_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEA_Weapon', Cue = 'XEA0306_Flayer_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -521,7 +464,7 @@ UnitBlueprint {
             CollideFriendly = false,
             CannotAttackGround = true,
 			
-            Damage = 360,
+            Damage = 320,
 			DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -535,12 +478,12 @@ UnitBlueprint {
 			
             Label = 'HVMTurret',
 			
-            MaxRadius = 60,
+            MaxRadius = 56,
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 4,
 
-            MuzzleVelocity = 45,
+            MuzzleVelocity = 32,
 			
 			NotExclusive = true,
 			
@@ -559,7 +502,7 @@ UnitBlueprint {
                 },
             },
 
-            RateOfFire = 0.4,					-- 576 DPS Air
+            RateOfFire = 0.4,					-- 512 DPS Air
             TargetCheckInterval = 1.0,
 			
             TargetPriorities = {
@@ -572,7 +515,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'HVM_Muzzle_A_2',
             TurretBonePitch = 'HVM_Barrel_2',
@@ -588,16 +531,14 @@ UnitBlueprint {
 			
             Turreted = true,
         },
+        
 		-- HVAA Missile Launcher --3
 		{
 			advancedTracking = true,
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEA_Weapon',
-                    Cue = 'XEA0306_Flayer_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEA_Weapon', Cue = 'XEA0306_Flayer_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -605,7 +546,7 @@ UnitBlueprint {
             CollideFriendly = false,
             CannotAttackGround = true,
 			
-            Damage = 360,
+            Damage = 320,
 			DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -618,12 +559,12 @@ UnitBlueprint {
 			
             Label = 'HVMTurret',
 			
-            MaxRadius = 60,
+            MaxRadius = 56,
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 4,
 
-            MuzzleVelocity = 45,
+            MuzzleVelocity = 30,
 			
 			NotExclusive = true,
 			
@@ -642,7 +583,7 @@ UnitBlueprint {
                 },
             },
 
-            RateOfFire = 0.4,					-- 576 DPS Air
+            RateOfFire = 0.4,					-- 512 DPS Air
             TargetCheckInterval = 1.0,
 			
             TargetPriorities = {
@@ -654,7 +595,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'HVM_Muzzle_A_3',
             TurretBonePitch = 'HVM_Barrel_3',
@@ -677,11 +618,7 @@ UnitBlueprint {
             AlwaysRecheckTarget = true,
 
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEA_Weapon',
-                    Cue = 'XEA0306_Flayer_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEA_Weapon', Cue = 'XEA0306_Flayer_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -689,7 +626,7 @@ UnitBlueprint {
             CollideFriendly = false,
             CannotAttackGround = true,
 			
-            Damage = 360,
+            Damage = 320,
 			DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -702,12 +639,12 @@ UnitBlueprint {
 			
             Label = 'HVMTurret',
 			
-            MaxRadius = 60,
+            MaxRadius = 56,
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 4,
 
-            MuzzleVelocity = 45,
+            MuzzleVelocity = 30,
 			
 			NotExclusive = true,
 			
@@ -738,7 +675,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'HVM_Muzzle_A_4',
             TurretBonePitch = 'HVM_Barrel_4',
@@ -758,18 +695,16 @@ UnitBlueprint {
 		-- Flak --1
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2204_Artillery_Flak',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2204_Artillery_Flak', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 80,
+            Damage = 72,
             DamageFriendly = false,
             DamageRadius = 2.5,
             DamageType = 'Normal',
@@ -789,7 +724,7 @@ UnitBlueprint {
 			
 			LeadTarget = true,
 			
-            MaxRadius = 50,
+            MaxRadius = 48,
 
             MuzzleVelocity = 55,
 			
@@ -813,7 +748,7 @@ UnitBlueprint {
 
             RackRecoilDistance = -1,
 
-            RateOfFire = 2,						-- 160 DPS Air
+            RateOfFire = 2,						-- 144 DPS Air
 			
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -841,18 +776,17 @@ UnitBlueprint {
 		-- Flak --2
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2204_Artillery_Flak',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2204_Artillery_Flak', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 80,
+            Damage = 72,
             DamageFriendly = false,
             DamageRadius = 2.5,
             DamageType = 'Normal',
@@ -871,7 +805,7 @@ UnitBlueprint {
             Label = 'AAAFlak',
 			LeadTarget = true,
 			
-            MaxRadius = 50,
+            MaxRadius = 48,
 
             MuzzleVelocity = 55,
 			
@@ -895,7 +829,7 @@ UnitBlueprint {
 
             RackRecoilDistance = -1,
 
-            RateOfFire = 2,						-- 160 DPS Air
+            RateOfFire = 2,						-- 144 DPS Air
 			
             TargetCheckInterval = 0.3,
 			
@@ -924,18 +858,17 @@ UnitBlueprint {
 		-- Flak --3
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2204_Artillery_Flak',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2204_Artillery_Flak', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 80,
+            Damage = 72,
             DamageFriendly = false,
             DamageRadius = 2.5,
             DamageType = 'Normal',
@@ -959,7 +892,7 @@ UnitBlueprint {
 
             PrefersPrimaryWeaponTarget = false,
 
-            MaxRadius = 50,
+            MaxRadius = 48,
 
             MuzzleVelocity = 55,
 			
@@ -979,7 +912,7 @@ UnitBlueprint {
 
             RackRecoilDistance = -1,
 
-            RateOfFire = 2,							-- 160 DPS Air
+            RateOfFire = 2,							-- 144 DPS Air
 			
             TargetCheckInterval = 0.3,
 			
@@ -1008,18 +941,17 @@ UnitBlueprint {
 		-- Flak --4
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2204_Artillery_Flak',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2204_Artillery_Flak', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 80,
+            Damage = 72,
             DamageFriendly = false,
             DamageRadius = 2.5,
 			
@@ -1040,7 +972,7 @@ UnitBlueprint {
 			
 			LeadTarget = true,
 
-            MaxRadius = 50,
+            MaxRadius = 48,
 
             MuzzleVelocity = 55,
 			
@@ -1064,7 +996,7 @@ UnitBlueprint {
 
             RackRecoilDistance = -1,
 
-            RateOfFire = 2,						-- 160 DPS Air
+            RateOfFire = 2,						-- 144 DPS Air
 			
             TargetCheckInterval = 0.3,
 			
@@ -1096,17 +1028,15 @@ UnitBlueprint {
 		
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB4201_Phalanx_01',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB4201_Phalanx_01', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 65,
+            Damage = 55,
             DamageType = 'Normal',
 			
             DisplayName = 'Gatling Cannon',
@@ -1120,7 +1050,7 @@ UnitBlueprint {
             Label = 'GattlerTurret01',
 			LeadTarget = true,
 			
-            MaxRadius = 35,
+            MaxRadius = 36,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
@@ -1142,7 +1072,7 @@ UnitBlueprint {
             },
             RackSlavedToTurret = true,
 
-            RateOfFire = 1,	-- 260 DPS Air
+            RateOfFire = 1,	-- 220 DPS Air
 			
             TargetCheckInterval = 0.5,
 			
@@ -1180,17 +1110,15 @@ UnitBlueprint {
 		-- Gatling --2
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB4201_Phalanx_01',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB4201_Phalanx_01', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 65,
+            Damage = 55,
             DamageType = 'Normal',
 			
             DisplayName = 'Gatling Cannon',
@@ -1204,7 +1132,7 @@ UnitBlueprint {
             Label = 'GattlerTurret02',
 			LeadTarget = true,
 			
-            MaxRadius = 35,
+            MaxRadius = 36,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
@@ -1227,7 +1155,7 @@ UnitBlueprint {
 
             RackSlavedToTurret = true,
 			
-            RateOfFire = 1,	-- 260 DPS Air
+            RateOfFire = 1,	-- 220 DPS Air
 			ReTargetOnMiss = true,
 			
             TargetCheckInterval = 0.2,
@@ -1281,7 +1209,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.3,
-        MassMult = 0.5,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

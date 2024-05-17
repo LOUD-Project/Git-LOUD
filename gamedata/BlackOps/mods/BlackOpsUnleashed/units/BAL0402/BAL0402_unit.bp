@@ -7,31 +7,11 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },	
-        Killed = Sound {
-            Bank = 'UASDestroy',
-            Cue = 'UAS0302_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0304_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },	
+        Killed      = Sound { Bank = 'UASDestroy', Cue = 'UAS0302_Destroy', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'UAL', Cue = 'UAL0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'UAL', Cue = 'UAL0304_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Tank', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -90,46 +70,18 @@ UnitBlueprint {
             'Tactical Missile Defense',
         },
 
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 600,
-                    ShaderName = 'Aeon',
-                },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 600, ShaderName = 'Aeon' } } },
+        
         MovementEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {
-                            'BAL0402',
-                        },
-                        Type = 'GroundKickup01',
-                    },
-                    {
-                        Bones = {
-                            'BAL0402',
-                        },
-                        Offset = {
-                            0,
-                            -0.05,
-                            0,
-                        },
-                        Type = 'AeonGroundFX01',
-                    },
+                    { Bones = {'BAL0402'}, Type = 'GroundKickup01' },
+                    { Bones = {'BAL0402'}, Offset = {0,-0.05,0}, Type = 'AeonGroundFX01' },
                 },
             },
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'BAL0402',
-                        },
-                        Scale = 0.5,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'BAL0402'}, Scale = 0.5, Type = 'BackWake' },
                 },
             },
         },
@@ -155,8 +107,11 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
+        
 		OrderOverrides = { RULEUTC_SpecialToggle = { helpText = 'Maelstrom Field' } },
+        
         ToggleCaps = { RULEUTC_SpecialToggle = true },
+        
         UnitName = '<LOC bal0402_name>Genesis',
     },
     
@@ -172,7 +127,7 @@ UnitBlueprint {
         SonarStealthFieldRadius = 1,        -- as above
         
         VisionRadius = 36,
-        WaterVisionRadius = 18,
+        WaterVisionRadius = 20,
     },
 	
     Interface = {
@@ -243,13 +198,11 @@ UnitBlueprint {
     Weapon = {
 		{
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0111_Missile_Serpent',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAL0111_Missile_Serpent', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -322,12 +275,9 @@ UnitBlueprint {
             ArtilleryShieldBlocks = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0304_Artillery_Sonance',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAL0304_Artillery_Sonance', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -351,7 +301,7 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-            MaxRadius = 55,
+            MaxRadius = 56,
             LeadTarget = true,
 			
             MuzzleChargeDelay = 0.2,
@@ -411,18 +361,12 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2301_Cannon_Oblivion_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2301_Cannon_Oblivion_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire                = Sound { Bank = 'UALWeapon', Cue = 'UAB2301_Cannon_Oblivion_Fire', LodCutoff = 'Weapon_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'UALWeapon', Cue = 'UAB2301_Cannon_Oblivion_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -440,7 +384,7 @@ UnitBlueprint {
             FiringRandomness = 0.25,
             FiringTolerance = 2,
 			
-            Label = 'LeftTurret',
+            Label = 'Turret',
 			
             MaxRadius = 48,
 			
@@ -489,18 +433,12 @@ UnitBlueprint {
         },
 		{
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2301_Cannon_Oblivion_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2301_Cannon_Oblivion_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire                = Sound { Bank = 'UALWeapon', Cue = 'UAB2301_Cannon_Oblivion_Fire', LodCutoff = 'Weapon_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'UALWeapon', Cue = 'UAB2301_Cannon_Oblivion_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -518,7 +456,7 @@ UnitBlueprint {
             FiringRandomness = 0.25,
             FiringTolerance = 2,
 			
-            Label = 'RightTurret',
+            Label = 'Turret',
 			
             MaxRadius = 48,
 			
@@ -570,17 +508,17 @@ UnitBlueprint {
 		
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB4201_Anti_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB4201_Anti_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
+            
             Damage = 30,
             DamageType = 'Normal',
+            
             DisplayName = 'Will O Wisp Anti Missile',
+            
             FireTargetLayerCapsTable = {
                 Water = 'Air',
 				Land = 'Air',

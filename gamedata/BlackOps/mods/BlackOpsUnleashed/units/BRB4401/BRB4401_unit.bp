@@ -1,16 +1,8 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy',   Cue = 'URB_Destroy_Huge',       LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',    Cue = 'Cybran_Select_Radar',    LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     BuildIconSortPriority = 200,
@@ -35,27 +27,28 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 595,
-        Health = 2250,
-        MaxHealth = 2250,
+
+        Health = 2950,
+        MaxHealth = 2950,
         RegenRate = 3,
+
+        EconomyThreatLevel = 1000,
     },
 	
     Description = '<LOC brb4401_desc>Cloak Field Generator',
 	
     Display = {
         Abilities = {
-            'Cloak Field',
-			'Volatile',
+            '<LOC ability_cloak>Cloak Field',
+            '<LOC ability_stealthfield>Stealth Field',
         },
+        
         AnimationPermOpen = '/mods/BlackOpsUnleashed/units/BRB4401/BRB4401_Aopen.sca',
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 200,
-                    ShaderName = 'Insect',
-                },
+                { LODCutoff = 200, ShaderName = 'Insect', },
             },
         },
 
@@ -64,7 +57,7 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 144000,
-        BuildCostMass = 11000,
+        BuildCostMass = 9850,
         BuildTime = 13500,
 		
         MaintenanceConsumptionPerSecondEnergy = 3500,
@@ -79,26 +72,29 @@ UnitBlueprint {
 		CapCost = 10,
         FactionName = 'Cybran',
         Icon = 'land',
+        
         OrderOverrides = {
-            RULEUTC_IntelToggle = {
-                bitmapId = 'stealth-personal',
-                helpText = 'Toggle Cloaking Field',
-            },
+            RULEUTC_IntelToggle = { bitmapId = 'stealth-personal', helpText = 'Toggle Cloaking Field' },
         },
+        
         SelectionPriority = 5,
+        
         ToggleCaps = { RULEUTC_IntelToggle = true },
+        
         UnitName = '<LOC brb4401_name>Shadow',
     },
 	
     Intel = {
-        CloakFieldRadius = 29,
-		RadarStealth = true,
-		RadarStealthFieldRadius = 29,
-		SonarStealth = true,
-		SonarStealthFieldRadius = 29,
         ReactivateTime = 5,
-        VisionRadius = 20,
-        ShowIntelOnSelect = true,
+        
+		RadarStealth = true,
+		SonarStealth = true,
+        
+        CloakFieldRadius = 32,
+		RadarStealthFieldRadius = 32,
+		SonarStealthFieldRadius = 32,
+
+        VisionRadius = 16,
     },
 	
     Interface = {
@@ -137,4 +133,35 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_structure3_counterintel',
     StrategicIconSortPriority = 200,
+	
+    Weapon = {
+        { -- Dummy weapon for visualising area of effect
+		
+            CollideFriendly = false,
+			
+            Damage = 0,
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Land|Water',
+                Land = 'Land|Water',
+                Water = 'Land|Water',
+            },
+            FiringTolerance = 1,
+			
+            Label = 'DummyWeapon',
+			
+            MaxRadius = 32,
+			
+            RateOfFire = 0.1,
+            RangeCategory = 'UWRC_Countermeasure',
+			
+            TargetCheckInterval = 6,
+            TargetPriorities = {
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            WeaponCategory = 'Direct Fire',
+		}
+    },
+    
 }

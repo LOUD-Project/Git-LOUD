@@ -18,15 +18,8 @@ ProjectileBlueprint {
     },
 
     Categories = {
-        'CYBRAN',
         'PROJECTILE',
-        'INDIRECTFIRE',
         'STRATEGIC',
-    },
-
-    General = {
-        Category = 'Artillery',
-        TechLevel = 3,
     },
 
     Physics = {

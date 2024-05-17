@@ -2,30 +2,30 @@ local TWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local TerranWeaponFile = import('/lua/terranweapons.lua')
 
-local TANTorpedoAngler = TerranWeaponFile.TANTorpedoAngler
-local TDFZephyrCannonWeapon = TerranWeaponFile.TDFZephyrCannonWeapon
-local TIFCommanderDeathWeapon = TerranWeaponFile.TIFCommanderDeathWeapon
-local TIFCruiseMissileLauncher = TerranWeaponFile.TIFCruiseMissileLauncher
-local TDFOverchargeWeapon = TerranWeaponFile.TDFOverchargeWeapon
+local TANTorpedoAngler          = TerranWeaponFile.TANTorpedoAngler
+local TDFZephyrCannonWeapon     = TerranWeaponFile.TDFZephyrCannonWeapon
+local TIFCommanderDeathWeapon   = TerranWeaponFile.TIFCommanderDeathWeapon
+local TIFCruiseMissileLauncher  = TerranWeaponFile.TIFCruiseMissileLauncher
+local TDFOverchargeWeapon       = TerranWeaponFile.TDFOverchargeWeapon
+local Targeting                 = TerranWeaponFile.TerranTargetPainter
 
 local Weapons2 = import('/mods/BlackOpsACUs/lua/EXBlackOpsweapons.lua')
 
-local EXFlameCannonWeapon = Weapons2.UEFACUFlamerWeapon
-local UEFACUAntiMatterWeapon = Weapons2.UEFACUAntiMatterWeapon
-local UEFACUHeavyPlasmaGatlingCannonWeapon = Weapons2.UEFACUHeavyPlasmaGatlingCannonWeapon
-local PDLaserGrid = Weapons2.PDLaserGrid2
+local EXFlameCannonWeapon                   = Weapons2.UEFACUFlamerWeapon
+local UEFACUAntiMatterWeapon                = Weapons2.UEFACUAntiMatterWeapon
+local UEFACUHeavyPlasmaGatlingCannonWeapon  = Weapons2.UEFACUHeavyPlasmaGatlingCannonWeapon
+local PDLaserGrid                           = Weapons2.PDLaserGrid2
 
+TerranWeaponFile = nil
+Weapons2 = nil
 
-local EXCEMPArrayBeam01 = import('/mods/BlackOpsACUs/lua/EXBlackOpsweapons.lua').EXCEMPArrayBeam01
+local Buff      = import('/lua/sim/Buff.lua')
+local Shield    = import('/lua/shield.lua').Shield
 
-
-local Buff = import('/lua/sim/Buff.lua')
-local Shield = import('/lua/shield.lua').Shield
-
-local EffectTemplate = import('/lua/EffectTemplates.lua')
-local EffectUtil = import('/lua/EffectUtilities.lua')
-local EffectUtils = import('/lua/effectutilities.lua')
-local Effects = import('/lua/effecttemplates.lua')
+local EffectTemplate    = import('/lua/EffectTemplates.lua')
+local EffectUtil        = import('/lua/EffectUtilities.lua')
+local EffectUtils       = import('/lua/effectutilities.lua')
+local Effects           = import('/lua/effecttemplates.lua')
 
 local LOUDINSERT = table.insert
 
@@ -52,7 +52,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 	
         DeathWeapon = Class(TIFCommanderDeathWeapon) {},
 		
-        EXTargetPainter = Class(EXCEMPArrayBeam01) {},
+        TargetPainter = Class(Targeting) {},
 		
         RightZephyr = Class(TDFZephyrCannonWeapon) {},
 		
@@ -76,9 +76,9 @@ EEL0001 = Class(TWalkingLandUnit) {
             end,
         },
 		
-        EXTorpedoLauncher01 = Class(TANTorpedoAngler) {},
-        EXTorpedoLauncher02 = Class(TANTorpedoAngler) {},
-        EXTorpedoLauncher03 = Class(TANTorpedoAngler) {},
+        TorpedoLauncher01 = Class(TANTorpedoAngler) { FxMuzzleFlash = false },
+        TorpedoLauncher02 = Class(TANTorpedoAngler) { FxMuzzleFlash = false },
+        TorpedoLauncher03 = Class(TANTorpedoAngler) { FxMuzzleFlash = false },
 		
         EXAntiMatterCannon01 = Class(UEFACUAntiMatterWeapon) {},
         EXAntiMatterCannon02 = Class(UEFACUAntiMatterWeapon) {},
@@ -443,7 +443,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 		self.Shield = false
         self.ShieldOn = false
 
-		wpTarget = self:GetWeaponByLabel('EXTargetPainter')
+		wpTarget = self:GetWeaponByLabel('TargetPainter')
 
 		wpTarget:ChangeMaxRadius(100)
 
@@ -474,7 +474,7 @@ EEL0001 = Class(TWalkingLandUnit) {
         self:BuildManipulatorSetEnabled(true)
         self.BuildArmManipulator:SetPrecedence(20)
 
-        self.BuildArmManipulator:SetHeadingPitch( self:GetWeaponManipulatorByLabel('EXTargetPainter'):GetHeadingPitch() )
+        self.BuildArmManipulator:SetHeadingPitch( self:GetWeaponManipulatorByLabel('TargetPainter'):GetHeadingPitch() )
 
         self.wcBuildMode = true
 
@@ -517,7 +517,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 		
 		self:ForkThread(self.WeaponConfigCheck)
 		
-        self:GetWeaponManipulatorByLabel('EXTargetPainter'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+        self:GetWeaponManipulatorByLabel('TargetPainter'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
 		
         self.UnitBeingBuilt = nil
         self.UnitBuildOrder = nil
@@ -536,7 +536,7 @@ EEL0001 = Class(TWalkingLandUnit) {
         self.wcBuildMode = false
 		self:ForkThread(self.WeaponConfigCheck)
 
-        self:GetWeaponManipulatorByLabel('EXTargetPainter'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+        self:GetWeaponManipulatorByLabel('TargetPainter'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
     end,
 
     OnStopCapture = function(self, target)
@@ -548,7 +548,7 @@ EEL0001 = Class(TWalkingLandUnit) {
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
 
-        self:GetWeaponManipulatorByLabel('EXTargetPainter'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+        self:GetWeaponManipulatorByLabel('TargetPainter'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
 
         self.wcBuildMode = false
 		self:ForkThread(self.WeaponConfigCheck)
@@ -561,7 +561,7 @@ EEL0001 = Class(TWalkingLandUnit) {
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
 
-        self:GetWeaponManipulatorByLabel('EXTargetPainter'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+        self:GetWeaponManipulatorByLabel('TargetPainter'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
 
         self.wcBuildMode = false
 		self:ForkThread(self.WeaponConfigCheck)
@@ -576,24 +576,10 @@ EEL0001 = Class(TWalkingLandUnit) {
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
 
-        self:GetWeaponManipulatorByLabel('EXTargetPainter'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+        self:GetWeaponManipulatorByLabel('TargetPainter'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
 
         self.wcBuildMode = false
 		self:ForkThread(self.WeaponConfigCheck)
-    end,
-
-    GiveInitialResources = function(self)
-        WaitTicks(5)
-        self:GetAIBrain():GiveResource('Energy', __blueprints[self.BlueprintID].Economy.StorageEnergy)
-        self:GetAIBrain():GiveResource('Mass', __blueprints[self.BlueprintID].Economy.StorageMass)
-    end,
-
-    PlayCommanderWarpInEffect = function(self)
-        self:HideBone(0, true)
-        self:SetUnSelectable(true)
-        self:SetBusy(true)
-        self:SetBlockCommandQueue(true)
-        self:ForkThread(self.WarpInEffectThread)
     end,
 
     WarpInEffectThread = function(self)
@@ -678,15 +664,15 @@ EEL0001 = Class(TWalkingLandUnit) {
 			wep:ChangeMaxRadius(1)
 		end
 		if not self.wcTorp01 then
-			wep = self:GetWeaponByLabel('EXTorpedoLauncher01')
+			wep = self:GetWeaponByLabel('TorpedoLauncher01')
 			wep:ChangeMaxRadius(1)
 		end
 		if not self.wcTorp02 then
-			wep = self:GetWeaponByLabel('EXTorpedoLauncher02')
+			wep = self:GetWeaponByLabel('TorpedoLauncher02')
 			wep:ChangeMaxRadius(1)
 		end
 		if not self.wcTorp03 then
-			wep = self:GetWeaponByLabel('EXTorpedoLauncher03')
+			wep = self:GetWeaponByLabel('TorpedoLauncher03')
 			wep:ChangeMaxRadius(1)
 		end
 		if not self.wcAMC01 then
@@ -747,62 +733,19 @@ EEL0001 = Class(TWalkingLandUnit) {
 
 		if self.wcBuildMode then
 
-			self:SetWeaponEnabledByLabel('EXTargetPainter', false)
+			self:SetWeaponEnabledByLabel('TargetPainter', false)
 
-			--self:SetWeaponEnabledByLabel('RightZephyr', false)
-			--self:SetWeaponEnabledByLabel('OverCharge', false)
-
-			--self:SetWeaponEnabledByLabel('EXFlameCannon01', false)
-			--self:SetWeaponEnabledByLabel('EXFlameCannon02', false)
-
-			--self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', false)
-			--self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', false)
-			--self:SetWeaponEnabledByLabel('EXTorpedoLauncher03', false)
-
-			--self:SetWeaponEnabledByLabel('EXAntiMatterCannon01', false)
-			--self:SetWeaponEnabledByLabel('EXAntiMatterCannon02', false)
-			--self:SetWeaponEnabledByLabel('EXAntiMatterCannon03', false)
-
-			--self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon01', false)
-			--self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon02', false)
-			--self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon03', false)
-
-			--self:SetWeaponEnabledByLabel('EXClusterMissles01', false)
-			--self:SetWeaponEnabledByLabel('EXClusterMissles02', false)
-			--self:SetWeaponEnabledByLabel('EXClusterMissles03', false)
-
-			--self:SetWeaponEnabledByLabel('TacMissile', false)
-			--self:SetWeaponEnabledByLabel('TacNukeMissile', false)
 		end
 
 		if self.wcOCMode then
 
-			self:SetWeaponEnabledByLabel('EXTargetPainter', false)
-
-			--self:SetWeaponEnabledByLabel('RightZephyr', false)
-
-			--self:SetWeaponEnabledByLabel('EXFlameCannon01', false)
-			--self:SetWeaponEnabledByLabel('EXFlameCannon02', false)
-
-			--self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', false)
-			--self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', false)
-			--self:SetWeaponEnabledByLabel('EXTorpedoLauncher03', false)
-
-			--self:SetWeaponEnabledByLabel('EXAntiMatterCannon01', false)
-			--self:SetWeaponEnabledByLabel('EXAntiMatterCannon02', false)
-			--self:SetWeaponEnabledByLabel('EXAntiMatterCannon03', false)
-
-			--self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon01', false)
-			--self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon02', false)
-			--self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon03', false)
+			self:SetWeaponEnabledByLabel('TargetPainter', false)
 
 		end
 
 		if not self.wcBuildMode and not self.wcOCMode then
 		
-			self:SetWeaponEnabledByLabel('EXTargetPainter', true)        
-			--self:SetWeaponEnabledByLabel('RightZephyr', true)
-			--self:SetWeaponEnabledByLabel('OverCharge', false)
+			self:SetWeaponEnabledByLabel('TargetPainter', true)        
 			
 			if self.wcFlamer01 or self.wcFlamer02 then
 
@@ -837,19 +780,19 @@ EEL0001 = Class(TWalkingLandUnit) {
 			
 			if self.wcTorp01 then
 
-				wep = self:GetWeaponByLabel('EXTorpedoLauncher01')
+				wep = self:GetWeaponByLabel('TorpedoLauncher01')
 				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[7].MaxRadius)
 			end
 			
 			if self.wcTorp02 then
 
-				wep = self:GetWeaponByLabel('EXTorpedoLauncher02')
+				wep = self:GetWeaponByLabel('TorpedoLauncher02')
 				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[8].MaxRadius)
 			end
 			
 			if self.wcTorp03 then
 
-				wep = self:GetWeaponByLabel('EXTorpedoLauncher03')
+				wep = self:GetWeaponByLabel('TorpedoLauncher03')
 				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[9].MaxRadius)
 			end
 			
@@ -1250,7 +1193,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 			
         elseif enh =='EXTorpedoLauncher' then
 
-			self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', true)
+			self:SetWeaponEnabledByLabel('TorpedoLauncher01', true)
 
 			self.wcTorp01 = true
 			self.wcTorp02 = false
@@ -1258,7 +1201,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 
         elseif enh =='EXTorpedoLauncherRemove' then
 
-			self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', false)
+			self:SetWeaponEnabledByLabel('TorpedoLauncher01', false)
 
 			self.wcTorp01 = false
 			self.wcTorp02 = false
@@ -1266,9 +1209,9 @@ EEL0001 = Class(TWalkingLandUnit) {
 
         elseif enh =='EXTorpedoRapidLoader' then
 
-			self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', true)
+			self:SetWeaponEnabledByLabel('TorpedoLauncher02', true)
 
-			self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', false)
+			self:SetWeaponEnabledByLabel('TorpedoLauncher01', false)
 
 			self.wcTorp01 = false
 			self.wcTorp02 = true
@@ -1276,7 +1219,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 			
         elseif enh =='EXTorpedoRapidLoaderRemove' then
 
-			self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', false)
+			self:SetWeaponEnabledByLabel('TorpedoLauncher02', false)
 
 			self.wcTorp01 = false
 			self.wcTorp02 = false
@@ -1284,9 +1227,9 @@ EEL0001 = Class(TWalkingLandUnit) {
 
 		elseif enh =='EXTorpedoClusterLauncher' then
 
-			self:SetWeaponEnabledByLabel('EXTorpedoLauncher03', true)
+			self:SetWeaponEnabledByLabel('TorpedoLauncher03', true)
 
-			self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', false)
+			self:SetWeaponEnabledByLabel('TorpedoLauncher02', false)
 
 			self.wcTorp01 = false
 			self.wcTorp02 = false
@@ -1296,7 +1239,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 
         elseif enh =='EXTorpedoClusterLauncherRemove' then
 
-			self:SetWeaponEnabledByLabel('EXTorpedoLauncher03', false)
+			self:SetWeaponEnabledByLabel('TorpedoLauncher03', false)
 
 			self.wcTorp01 = false
 			self.wcTorp02 = false
@@ -1893,41 +1836,21 @@ EEL0001 = Class(TWalkingLandUnit) {
     IntelEffects = {
 		Cloak = {
 		    {
-			    Bones = {
-				    'Head',
-				    'Right_Arm_B01',
-				    'Left_Arm_B01',
-				    'Torso',
-				    'Left_Leg_B01',
-				    'Left_Leg_B02',
-				    'Right_Leg_B01',
-				    'Right_Leg_B02',
-			    },
+			    Bones = {'Head','Right_Arm_B01','Left_Arm_B01','Torso','Left_Leg_B01','Left_Leg_B02','Right_Leg_B01','Right_Leg_B02'},
 			    Scale = 1.0,
 			    Type = 'Cloak01',
 		    },
 		},
 		Field = {
 		    {
-			    Bones = {
-				    'Head',
-				    'Right_Arm_B01',
-				    'Left_Arm_B01',
-				    'Torso',
-				    'Left_Leg_B01',
-				    'Left_Leg_B02',
-				    'Right_Leg_B01',
-				    'Right_Leg_B02',
-			    },
+			    Bones = {'Head','Right_Arm_B01','Left_Arm_B01','Torso','Left_Leg_B01','Left_Leg_B02','Right_Leg_B01','Right_Leg_B02'},
 			    Scale = 1.6,
 			    Type = 'Cloak01',
 		    },	
         },	
 		Jammer = {
 		    {
-			    Bones = {
-				    'Torso',
-			    },
+			    Bones = {'Torso'},
 				Scale = 0.5,
 				Type = 'Jammer01',
 		    },	

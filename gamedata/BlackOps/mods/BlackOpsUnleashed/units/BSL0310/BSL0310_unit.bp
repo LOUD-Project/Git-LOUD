@@ -130,7 +130,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 30,
+        VisionRadius = 32,
     },
 	
     Interface = {
@@ -332,7 +332,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

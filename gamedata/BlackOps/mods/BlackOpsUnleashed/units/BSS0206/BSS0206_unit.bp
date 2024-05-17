@@ -6,21 +6,9 @@ UnitBlueprint {
     },
 
     Audio = {
-        Killed = Sound {
-            Bank = 'XSS_Destroy',
-            Cue = 'XSS0202_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSS',
-            Cue = 'XSS0202_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'XSS_Destroy', Cue = 'XSS0202_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSS', Cue = 'XSS0202_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Naval', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -67,9 +55,10 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Anti-Air',
-            'Radar',
+            "<LOC ability_aa>Anti-Air",
+            '<LOC ability_radar>Radar',
         },
+        
         AnimationDeath = {
             {
                 Animation = '/mods/BlackOpsUnleashed/units/BSS0206/BSS0206_adeath01.sca',
@@ -90,18 +79,15 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+
         IdleEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {'XSS0206'},
-                        Offset = {0,0,-0.25},
-                        Scale = 1.35,
-                        Type = 'SeaIdle01',
-                    },
+                    { Bones = {'XSS0206'}, Offset = {0,0,-0.25}, Scale = 1.35, Type = 'SeaIdle01' },
                 },
             },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -138,9 +124,10 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 90,
+        
+        RadarRadius = 96,
         VisionRadius = 32,
-        WaterVisionRadius = 18,
+        WaterVisionRadius = 16,
     },
 	
     Interface = {
@@ -196,13 +183,11 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0304_Suthanus_Artillery',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0304_Suthanus_Artillery', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
@@ -217,7 +202,7 @@ UnitBlueprint {
             EnergyDrainPerSecond = 150,
 			
             FireTargetLayerCapsTable = {
-                Water= 'Land|Water',
+                Water= 'Land|Water|Seabed',
             },
 			
             FiringRandomness = 1.3,
@@ -277,13 +262,11 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0304_Suthanus_Artillery',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0304_Suthanus_Artillery', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
@@ -298,7 +281,7 @@ UnitBlueprint {
             EnergyDrainPerSecond = 150,
 
             FireTargetLayerCapsTable = {
-                Water= 'Land|Water',
+                Water= 'Land|Water|Seabed',
             },
 			
             FiringRandomness = 1.3,
@@ -354,23 +337,21 @@ UnitBlueprint {
         },
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0103_Shleo_AA',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0103_Shleo_AA', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
+            
             CollideFriendly = false,
 			
-            Damage = 20,
+            Damage = 30,
             DamageFriendly = false,
             DamageType = 'Normal',
-			
-            DisplayName = 'Shleo AA Autogun',
-			
+
             FireTargetLayerCapsTable = {
                 Water = 'Air',
             },
@@ -392,10 +373,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Turret01_Muzzle01',
-                        'Back_Turret01_Muzzle02',
-                    },
+                    MuzzleBones = {'Back_Turret01_Muzzle01','Back_Turret01_Muzzle02'},
                     RackBone = 'Back_Turret01_Barrel',
                 },
             },
@@ -404,7 +382,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 3,		-- 120 DPS Air
+            RateOfFire = 2,		-- 120 DPS Air
 			
             TargetCheckInterval = 0.3,
 			
