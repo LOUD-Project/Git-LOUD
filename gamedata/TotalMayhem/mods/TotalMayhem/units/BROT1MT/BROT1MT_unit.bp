@@ -6,22 +6,11 @@ UnitBlueprint {
     }, 
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0201_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove = Sound { Bank = 'UEL', Cue = 'UEL0201_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Tank', LodCutoff = 'UnitMove_LodCutoff' },
     },
+    
     Buffs = {},
 	
     BuildIconSortPriority = 41,
@@ -53,16 +42,8 @@ UnitBlueprint {
     Description = '<LOC brot1mt_desc>Light Tank',
 
     Display = {
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 200,
-                    Scrolling = true,
-                    ShaderName = 'Aeon',
-                },
-            },
-        },
+    
+        Mesh = { IconFadeInZoom = 130, LODs = { {LODCutoff = 200,Scrolling = true,ShaderName = 'Aeon'} } },
 
         UniformScale = 0.042,
     },
@@ -89,7 +70,7 @@ UnitBlueprint {
     },
 
     Intel = {
-        VisionRadius = 18,
+        VisionRadius = 20,
     },
 
     Interface = {
@@ -149,11 +130,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'TM_AEONWEAPONS',
-                    Cue = 'AEONINTERCEPTORFIRE',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'TM_AEONWEAPONS', Cue = 'AEONINTERCEPTORFIRE', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -227,7 +204,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.6,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

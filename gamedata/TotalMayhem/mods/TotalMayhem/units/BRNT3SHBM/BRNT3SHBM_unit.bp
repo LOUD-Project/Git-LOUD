@@ -6,40 +6,22 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'TMBIGROBOTDEATHFX',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0303_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-		DeathExplosion = Sound {
-			Bank = 'Explosions',
-			Cue = 'UEF_Nuke_Impact',
-			LodCutoff = 'UnitMove_LodCutoff',
-		},
-		Destroyed = Sound {
-			Bank = 'Explosions',
-			Cue = 'UEF_Nuke_Impact',
-			LodCutoff = 'UnitMove_LodCutoff',
-		},
+        Killed          = Sound { Bank = 'TM_EXPLOSIONS', Cue = 'TMBIGROBOTDEATHFX', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove       = Sound { Bank = 'URL', Cue = 'URL0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Bot', LodCutoff = 'UnitMove_LodCutoff' },
+		DeathExplosion  = Sound { Bank = 'Explosions', Cue = 'UEF_Nuke_Impact', LodCutoff = 'UnitMove_LodCutoff' },
+		Destroyed       = Sound { Bank = 'Explosions', Cue = 'UEF_Nuke_Impact', LodCutoff = 'UnitMove_LodCutoff' },
+        FootFallGeneric = Sound { Bank = 'UEL', Cue = 'UEL0001_Move_Step', LodCutoff = 'UnitMove_LodCutoff' },
+        FootFallGenericSeabed = Sound { Bank = 'UEL', Cue = 'UEL0001_Move_UW_Step', LodCutoff = 'UnitMove_LodCutoff' },        
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 50,
-            Level2 = 100,
-            Level3 = 150,
-            Level4 = 200,
-            Level5 = 250,
+            Level1 = 20,
+            Level2 = 40,
+            Level3 = 60,
+            Level4 = 80,
+            Level5 = 100,
         },
     },
 	
@@ -63,11 +45,17 @@ UnitBlueprint {
     },
 	
     Defense = {
+
+        MissileTorpDestroy = { AttachBone = {'gun01','gun02'}, Radius = 3.5, RedirectRateOfFire = 9, ProjectileCategories = {'TACTICAL','TORPEDO'} },
+    
         ArmorType = 'Experimental',
+
         Health = 117500,
         MaxHealth = 117500,
         RegenRate = 40,
+
 		AirThreatLevel = 88,
+        SubThreatLevel = 32,
         SurfaceThreatLevel = 1265.8,
     },
 	
@@ -76,33 +64,22 @@ UnitBlueprint {
     Display = {
 	
         Abilities = {
-			'Missile Barrage',
+            '<LOC ability_amphibious>Amphibious',
+            '<LOC ability_aa>Anti-Air',
+            '<LOC ability_omni>Omni Sensor',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_submersible>Submersible',
+            '<LOC ability_torpedo>Torpedo Barrage',
+			'Tac Missile Barrage',
 			'Rocket Barrage',
-			'SAM Launchers',
-            'Torpedoes',
-            'Omni Radar',
-            'Amphibious',
         },
 		
-        AnimationDeath = {
-            {
-                Animation = '/mods/TotalMayhem/units/BRNT3SHBM/BRNT3SHBM_Death.sca',
-                Weight = 100,
-            },
-        },
-		
+        AnimationDeath = { {Animation = '/mods/TotalMayhem/units/BRNT3SHBM/BRNT3SHBM_Death.sca',Weight = 100} },
         AnimationWalk = '/mods/TotalMayhem/units/BRNT3SHBM/BRNT3SHBM_Walk.sca',
-        AnimationWalkRate = 2.1,
+        AnimationWalkRate = 2.6,
 		
-        Mesh = {
-            IconFadeInZoom = 200,
-            LODs = {
-                {
-                    LODCutoff = 450,
-                    ShaderName = 'Unit',
-                },
-            },
-        },
+        Mesh = { IconFadeInZoom = 200, LODs = { { LODCutoff = 450, ShaderName = 'Unit' } } },
 		
         MovementEffects = {
             Land = {
@@ -113,10 +90,14 @@ UnitBlueprint {
                             HipBone = 'Footfall_Right',
                             KneeBone = 'Footfall_Right',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
+                            Tread = {
+                                TreadMarks = 'CommanderPrint_albedo',
+                                TreadMarksSizeX = 1.8,
+                                TreadMarksSizeZ = 1.8,
+                                TreadOffset = { -0.9, 0, 0.3 },
+                            },                            
                             Type = 'FootFall01',
                         },
                         {
@@ -124,19 +105,19 @@ UnitBlueprint {
                             HipBone = 'Footfall_Left',
                             KneeBone = 'Footfall_Left',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
+                            Tread = {
+                                TreadMarks = 'CommanderPrint_albedo',
+                                TreadMarksSizeX = 1.8,
+                                TreadMarksSizeZ = 1.8,
+                                TreadOffset = { 1, 0, 0.3 },
+                            },                            
                             Type = 'FootFall01',
                         },
                     },
-                    Damage = {
-                        Amount = 3500,
-                        DamageFriendly = false,
-                        Radius = 2.5,
-                        Type = 'ExperimentalFootfall',
-                    },
+                    
+                    Damage = { Amount = 3500, DamageFriendly = false, Radius = 2.5, Type = 'ExperimentalFootfall' },
                 },
             },
         },
@@ -172,10 +153,12 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-		OmniRadius = 55,
+        
+		OmniRadius = 48,
         RadarRadius = 120,
-        VisionRadius = 42,
-		WaterVisionRadius = 22,
+        SonarRadius = 60,
+        VisionRadius = 44,
+		WaterVisionRadius = 20,
     },
 	
     Interface = {
@@ -193,7 +176,7 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
 		
-		LayerChangeOffsetHeight = -3.3,
+		LayerChangeOffsetHeight = -3.9,
 		
         MaxAcceleration = 0.85,
         MaxBrake = 2.5,
@@ -265,7 +248,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
 			FiringRandomness = 4,
@@ -347,7 +329,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
 			FiringRandomness = 4,
@@ -461,7 +442,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 			
             FiringRandomness = 0.1,
@@ -564,11 +545,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'TM_UEFWEAPONS',
-                    Cue = 'BRNMISSILELAUNCHFX',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'TM_UEFWEAPONS', Cue = 'BRNMISSILELAUNCHFX', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_LowArc',
@@ -582,7 +559,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 5,
@@ -609,12 +586,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'rl01',
-						'rl02',
-						'rl03',
-						'rl04',
-                    },
+                    MuzzleBones = {'rl01','rl02','rl03','rl04'},
                     RackBone = 'rl01',
                 },
             },
@@ -654,11 +626,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'TM_UEFWEAPONS',
-                    Cue = 'BRNMISSILELAUNCHFX',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'TM_UEFWEAPONS', Cue = 'BRNMISSILELAUNCHFX', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_LowArc',
@@ -699,12 +667,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'rl05',
-						'rl06',
-						'rl07',
-						'rl08',
-                    },
+                    MuzzleBones = {'rl05','rl06','rl07','rl08'},
                     RackBone = 'rl05',
                 },				
             },
@@ -742,13 +705,11 @@ UnitBlueprint {
         {
 	        AboveWaterFireOnly = true,		
             AlwaysRecheckTarget = true,
+            
             Audio = { 
-                Fire = Sound { 
-                    Bank = 'UESWeapon', 
-                    Cue = 'UES0202_Missile_Flayer', 
-                    LodCutoff = 'Weapon_LodCutoff', 
-                }, 
+                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0202_Missile_Flayer', LodCutoff = 'Weapon_LodCutoff' }, 
             }, 
+            
             BallisticArc = 'RULEUBA_None',
 			
             CannotAttackGround = true, 
@@ -760,7 +721,6 @@ UnitBlueprint {
             DisplayName = 'SAM Launcher',
 			
             FireTargetLayerCapsTable = { 
-                Water = 'Air', 
                 Land = 'Air',
 				Seabed = 'Air',
             },
@@ -782,10 +742,7 @@ UnitBlueprint {
 			
             RackBones = { 
                 { 
-                    MuzzleBones = {
-						'rl09',
-						'rl10',
-                    }, 
+                    MuzzleBones = {'rl09','rl10'}, 
                     RackBone = 'rl09', 
                 }, 
             },
@@ -809,87 +766,71 @@ UnitBlueprint {
 		-- torpedoes --
 		
         {
+            advancedTracking = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0203_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0203_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
 			BelowWaterFireOnly = true,
 			
             CollideFriendly = false,
 			
-            Damage = 110,
+            Damage = 200,
             DamageType = 'Normal',
-			
-            DisplayName = 'Angler Torpedo',
 			
             FireTargetLayerCapsTable = {
                 Seabed = 'Seabed|Sub|Water',
                 Sub = 'Seabed|Sub|Water',
-                Water = 'Seabed|Sub|Water',
             },
 			
             FiringTolerance = 2,
 			
             Label = 'Torpedoes',
 			
-            MaxRadius = 45,
+            MaxRadius = 44,
 			
-            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 8,
-            MuzzleVelocity = 3,
+            
+            MuzzleVelocity = 5,
 			
-            ProjectileId = '/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp',
+            ProjectileId = '/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_proj.bp',
             ProjectileLifetime = 8,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'rl01',
-						'rl02',
-						'rl03',
-						'rl04',
-						'rl05',
-						'rl06',
-						'rl07',
-						'rl08',
-                    },
+                    MuzzleBones = {'rl01','rl02','rl03','rl04','rl05','rl06','rl07','rl08'},
                     RackBone = 'rl01',
                 },
             },
+            
+            RackSalvoReloadTime = 6,    -- cycle time is 10 seconds = 1600/10 = 160 DPS
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.3,	-- 264 dps
-			
+            RateOfFire = 1,
             TargetCheckInterval = 2,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'MOBILE SUBMARINE',
-				'MOBILE NAVAL',
+                'SUBMERSIBLE',
+				'NAVAL',
 				'MOBILE',
-                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.3,
         },
 		
 		-- Left Nose Guns --
 		
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-
-                Fire = Sound {
-                    Bank = 'TM_UEFWEAPONS',
-                    Cue = 'UEFOWENSMINIGUNSFX',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'TM_UEFWEAPONS', Cue = 'UEFOWENSMINIGUNSFX', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
 			
@@ -902,7 +843,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Air|Land|Water|Seabed',
-                Water = 'Air|Land|Water|Seabed',
+                Seabed = 'Air|Land|Water|Seabed',
             },
 			
             FiringTolerance = 0.5,
@@ -971,15 +912,13 @@ UnitBlueprint {
 		-- Right Nose Guns --
 		
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-
-                Fire = Sound {
-                    Bank = 'TM_UEFWEAPONS',
-                    Cue = 'UEFOWENSMINIGUNSFX',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'TM_UEFWEAPONS', Cue = 'UEFOWENSMINIGUNSFX', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
 			
             CollideFriendly = false,
@@ -991,7 +930,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Air|Land|Water|Seabed',
-                Water = 'Air|Land|Water|Seabed',
+                Seabed = 'Air|Land|Water|Seabed',
             },
 			
             FiringTolerance = 0.5,
@@ -1058,11 +997,7 @@ UnitBlueprint {
 		{
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'TM_CYBRANWEAPONS',
-                    Cue = 'BRMROBOTTALK1FX',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'TM_CYBRANWEAPONS', Cue = 'BRMROBOTTALK1FX', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -1072,7 +1007,6 @@ UnitBlueprint {
             DisplayName = 'Gauss Cannon',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 
             FiringTolerance = 1,

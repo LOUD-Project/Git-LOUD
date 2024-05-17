@@ -1,40 +1,24 @@
 UnitBlueprint {
 
     AI = { 
-        GuardScanRadius = 32, 
+        GuardScanRadius = 30, 
 		TargetBones = {'Turret'},		
     }, 
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0303_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'URL', Cue = 'URL0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Bot', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
         Regen = {
             Level1 = 2,
-            Level2 = 4,
-            Level3 = 6,
-            Level4 = 8,
-            Level5 = 10,
+            Level2 = 3,
+            Level3 = 5,
+            Level4 = 6,
+            Level5 = 8,
         },
         VisionRadius = {
             Level1 = 2,
@@ -76,26 +60,16 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Amphibious',
-            'Radar',
+            '<LOC ability_amphibious>Amphibious',
+            '<LOC ability_radar>Radar',
         },
-        AnimationDeath = {
-            {
-                Animation = '/mods/TotalMayhem/units/BROT2ASB/BROT2ASB_Death.sca',
-                Weight = 100,
-            },
-        },
+        
+        AnimationDeath = { {Animation = '/mods/TotalMayhem/units/BROT2ASB/BROT2ASB_Death.sca',Weight = 100} },
         AnimationWalk = '/mods/TotalMayhem/units/BROT2ASB/BROT2ASB_Walk.sca',
-        AnimationWalkRate = 3.75,
-        Mesh = {
-            IconFadeInZoom = 170,
-            LODs = {
-                {
-                    LODCutoff = 400,
-                    ShaderName = 'Aeon',
-                },
-            },
-        },
+        AnimationWalkRate = 4,
+        
+        Mesh = { IconFadeInZoom = 170, LODs = { {LODCutoff = 400,ShaderName = 'Aeon'} } },
+        
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -105,10 +79,14 @@ UnitBlueprint {
                             HipBone = 'Exhaust_Right',
                             KneeBone = 'Exhaust_Right',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
+                            Tread = {
+                                TreadMarks = 'CommanderPrint_albedo',
+                                TreadMarksSizeX = 0.3,
+                                TreadMarksSizeZ = 0.3,
+                                TreadOffset = { -0.34, 0, 0.5 },
+                            },                                                        
                             Type = 'FootFall01',
                         },
                         {
@@ -116,10 +94,14 @@ UnitBlueprint {
                             HipBone = 'Exhaust_Left',
                             KneeBone = 'Exhaust_Left',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
+                            Tread = {
+                                TreadMarks = 'CommanderPrint_albedo',
+                                TreadMarksSizeX = 0.3,
+                                TreadMarksSizeZ = 0.3,
+                                TreadOffset = { 0.34, 0, 0.5 },
+                            },                                                        
                             Type = 'FootFall01',
                         },
                     },
@@ -153,8 +135,9 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 50,
-        VisionRadius = 24,
+        
+        RadarRadius = 48,
+        VisionRadius = 28,
 		WaterVisionRadius = 20,
     },
 	
@@ -172,6 +155,9 @@ UnitBlueprint {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
+        
+        LayerChangeOffsetHeight = -1.1,
+        
         MaxAcceleration = 6,
         MaxBrake = 3.0,
         MaxSpeed = 3.0,
@@ -220,9 +206,9 @@ UnitBlueprint {
             AimsStraightOnDisable = true,
 
             Audio = {
-                BeamLoop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
-                BeamStart = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Start', LodCutoff = 'Weapon_LodCutoff' },
-                BeamStop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamLoop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart   = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Start', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -245,7 +231,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 
             FiringTolerance = 2,
@@ -288,21 +274,16 @@ UnitBlueprint {
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 30,
+
             Turreted = true,
-			
-            -- We dont use the pack/unpack animation on this unit - it just moves the antenna - ugh
-            --WeaponRepackTimeout = 0,
-            --WeaponUnpackAnimation = '/mods/TotalMayhem/units/BROT2ASB/BROT2ASB_Deploy.sca',
-            --WeaponUnpackAnimationRate = 2,
-            --WeaponUnpackLocksMotion = false,
-            --WeaponUnpacks = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

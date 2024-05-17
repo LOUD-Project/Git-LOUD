@@ -5,30 +5,18 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2301_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed       = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        DoneBeingBuilt  = Sound { Bank = 'UEB', Cue = 'UEB2301_Activate', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Gun', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 4,
-            Level2 = 8,
-            Level3 = 12,
-            Level4 = 16,
-            Level5 = 20,
+            Level1 = 3,
+            Level2 = 6,
+            Level3 = 9,
+            Level4 = 12,
+            Level5 = 15,
         },
 		VisionRadius = {
             Level1 = 2,
@@ -97,10 +85,7 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 160,
             LODs = {
-                {
-                    LODCutoff = 240,
-                    ShaderName = 'Unit',
-                },
+                {LODCutoff = 240,ShaderName = 'Unit'},
             },
         },
 
@@ -116,6 +101,7 @@ UnitBlueprint {
                 Width = 5.8,
             },
         },
+        
         UniformScale = 0.57,
     },
 	
@@ -138,14 +124,12 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 6,
-		ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+		ToggleCaps = { RULEUTC_ShieldToggle = true },
         UnitName = '<LOC brmt2epd_name>Anode',
     },
 	
     Intel = {
-        VisionRadius = 34,
+        VisionRadius = 36,
     },
 	
     Interface = {
@@ -235,7 +219,7 @@ UnitBlueprint {
 			
 			LeadTarget = true,
 
-            MaxRadius = 50,
+            MaxRadius = 48,
             MinRadius = 3,
 
             MuzzleVelocity = 80,

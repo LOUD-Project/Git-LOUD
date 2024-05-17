@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'TANKDEATH',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'TM_EXPLOSIONS', Cue = 'TANKDEATH', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove = Sound { Bank = 'UEL', Cue = 'UEL0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -66,23 +54,15 @@ UnitBlueprint {
 			'Assault Tank',
 			'Rocket Pod',
 		},
-        Mesh = {
-            IconFadeInZoom = 150,
-            LODs = {
-                {
-                    LODCutoff = 200,
-                    Scrolling = true,
-                    ShaderName = 'Unit',
-                },
-            },
-        },
+        
+        Mesh = { IconFadeInZoom = 150, LODs = { {LODCutoff = 200,Scrolling = true,ShaderName = 'Unit'} } },
 
         UniformScale = 0.040,
     },
 	
     Economy = {
         BuildCostEnergy = 5000,
-        BuildCostMass = 500,
+        BuildCostMass = 520,
         BuildTime = 2500,
     },
 	
@@ -168,11 +148,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'TM_UEFWEAPONS',
-                    Cue = 'BRNMISSILELAUNCHFX2',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'TM_UEFWEAPONS', Cue = 'BRNMISSILELAUNCHFX2', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_LowArc',
@@ -208,16 +184,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'rl01',
-                        'rl02',
-                        'rl03',
-                        'rl04',
-                        'rl05',
-                        'rl06',
-                        'rl07',
-                        'rl08',
-                    },
+                    MuzzleBones = {'rl01','rl02','rl03','rl04','rl05','rl06','rl07','rl08'},
                     RackBone = 'rocketlauncher',
                 },
             },
@@ -259,12 +226,9 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0302_Cannon_Tri',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0302_Cannon_Tri', LodCutoff = 'WeaponBig_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -297,12 +261,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                        'Turret_Muzzle2',
-                        'Turret_Muzzle3',
-                        'Turret_Muzzle4',
-                    },
+                    MuzzleBones = {'Turret_Muzzle','Turret_Muzzle2','Turret_Muzzle3','Turret_Muzzle4'},
                     RackBone = 'Turret_Barrel',
                 },
             },
@@ -342,7 +301,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -5,21 +5,9 @@ UnitBlueprint {
 	},
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2301_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        DoneBeingBuilt = Sound { Bank = 'UEB', Cue = 'UEB2301_Activate', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Gun', LodCutoff = 'UnitMove_LodCutoff' },
     },
     
     Buffs = {},
@@ -57,15 +45,8 @@ UnitBlueprint {
     Description = '<LOC brnt3pdro_desc>Rocket System',
     
     Display = {
-        Mesh = {
-            IconFadeInZoom = 160,
-            LODs = {
-                {
-                    LODCutoff = 200,
-                    ShaderName = 'Unit',
-                },
-            },
-        },
+    
+        Mesh = { IconFadeInZoom = 160, LODs = { {LODCutoff = 200,ShaderName = 'Unit'} } },
 
         Tarmacs = {
             {
@@ -79,6 +60,7 @@ UnitBlueprint {
                 Width = 8,
             },
         },
+        
         UniformScale = 0.066,
     },
     
@@ -92,6 +74,7 @@ UnitBlueprint {
     
     General = {
         CapCost = 5,
+        
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -161,36 +144,24 @@ UnitBlueprint {
             ArtilleryShieldBlocks = true,
             
             Audio = {
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'TM_CYBRANWEAPONS',
-                    Cue = 'CYBRANROCKETDEFENSEFIREFX',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelStart     = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStop      = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Stop', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire            = Sound { Bank = 'TM_CYBRANWEAPONS', Cue = 'CYBRANROCKETDEFENSEFIREFX', LodCutoff = 'Weapon_LodCutoff' },
             },
             
             BallisticArc = 'RULEUBA_LowArc',
             
             CollideFriendly = false,
 			
-            Damage = 1000,
+            Damage = 1050,
             DamageFriendly = true,
             DamageRadius = 3.55,
             DamageType = 'Normal',
             
             EnergyChargeForFirstShot = false,
             
-            EnergyRequired = 14440,
-            EnergyDrainPerSecond = 1900,            -- 7.6 seconds E event
+            EnergyRequired = 15600,
+            EnergyDrainPerSecond = 2052,            -- 7.6 seconds E event
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -202,7 +173,7 @@ UnitBlueprint {
 			
             Label = 'RocketPod',
 			
-            MaxRadius = 107,
+            MaxRadius = 108,
             MinRadius = 24,
 			
             MuzzleChargeDelay = 0.8,         -- 3.2 (followed by 3.3 pack - during E event)
@@ -216,12 +187,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'muzzle01',
-                        'muzzle02',
-                        'muzzle03',
-                        'muzzle04',
-                    },
+                    MuzzleBones = {'muzzle01','muzzle02','muzzle03','muzzle04'},
                     RackBone = 'barrel01',
                 },
             },
@@ -232,7 +198,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,	-- 4000 Dmg every 11.1 = 360 DPS  -- controlled by charge/delay --
+            RateOfFire = 1,	-- 4200 Dmg every 11.1 = 378 DPS  -- controlled by charge/delay --
 			
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -268,9 +234,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.5,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

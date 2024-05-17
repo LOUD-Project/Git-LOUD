@@ -5,21 +5,9 @@ UnitBlueprint {
     }, 
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2301_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed       = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        DoneBeingBuilt  = Sound { Bank = 'UEB', Cue = 'UEB2301_Activate', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Gun', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -62,11 +50,13 @@ UnitBlueprint {
     },
 	
     Defense = {
-        AirThreatLevel = 24,
         ArmorType = 'Structure',
-        Health = 5500,
-        MaxHealth = 5500,
+
+        Health = 4400,
+        MaxHealth = 4400,
         RegenRate = 3,
+
+        AirThreatLevel = 24,
         SurfaceThreatLevel = 45.5,
     },
 	
@@ -74,47 +64,19 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Anti-Air',
+            'Multi-Role Anti-Air',
         },
+
 		IdleEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {
-                            'eff01',
-                        },
-                        Offset = {
-                            0,
-                            0,
-                            0,
-                        },
-                        Scale = 6.1,
-                        Type = 'AT1PowerAmbient',
-                    },
-                    {
-                        Bones = {
-                            'eff02',
-                        },
-                        Offset = {
-                            0,
-                            0,
-                            0,
-                        },
-                        Scale = 6.6,
-                        Type = 'AT1PowerAmbient',
-                    },
+                    {Bones = {'eff01'},Offset = {0,0,0},Scale = 6.1,Type = 'AT1PowerAmbient'},
+                    {Bones = {'eff02'},Offset = {0,0,0},Scale = 6.6,Type = 'AT1PowerAmbient'},
                 },
             },
         },
-        Mesh = {
-            IconFadeInZoom = 160,
-            LODs = {
-                {
-                    LODCutoff = 240,
-                    ShaderName = 'Unit',
-                },
-            },
-        },
+        
+        Mesh = { IconFadeInZoom = 160, LODs = { {LODCutoff = 240,ShaderName = 'Unit'} } },
 
         Tarmacs = {
             {
@@ -128,6 +90,7 @@ UnitBlueprint {
                 Width = 6.4,
             },
         },
+        
         UniformScale = 0.075,
     },
 	
@@ -152,7 +115,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 34,
+        VisionRadius = 36,
     },
 	
     Interface = {
@@ -206,27 +169,12 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'TM_AEONWEAPONS',
-                    Cue = 'AEONGUN4',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Stop', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire        = Sound { Bank = 'TM_AEONWEAPONS', Cue = 'AEONGUN4', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -263,7 +211,7 @@ UnitBlueprint {
             MaxRadius = 52,
             MinRadius = 5,
 
-            MuzzleVelocity = 55,
+            MuzzleVelocity = 48,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BROT3SHPDproj/BROT3SHPDproj_proj.bp',
 			ProjectileLifetime = 1,
@@ -317,18 +265,11 @@ UnitBlueprint {
         {
             advancedTracking = true,
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2304_SAM',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Open = Sound {
-                    Bank = 'UAB',
-                    Cue = 'UAB2304_Activate',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB2304_SAM', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -343,29 +284,22 @@ UnitBlueprint {
                 Land = 'Air',
                 Water = 'Air',
             },
-            FiringTolerance = 10,
+            FiringTolerance = 12,
 			
-            Label = 'AntiAirMissiles',
+            Label = 'AAMissile',
 			
-            MaxRadius = 50,
+            MaxRadius = 48,
 			
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
-            ProjectileLifetime = 3.5,
+            ProjectileLifetime = 3.2,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'aa01',
-                        'aa02',
-                        'aa03',
-                        'aa04',
-                        'aa05',
-                        'aa06',
-                    },
+                    MuzzleBones = {'aa01','aa02','aa03','aa04','aa05','aa06'},
                     RackBone = 'aa01',
                 },
             },
@@ -386,6 +320,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictOnlyAllow = 'AIR -SATELLITE',
             TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'aa01',
@@ -398,7 +333,8 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 60,
+            
             Turreted = true,
         },
         {
@@ -416,7 +352,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

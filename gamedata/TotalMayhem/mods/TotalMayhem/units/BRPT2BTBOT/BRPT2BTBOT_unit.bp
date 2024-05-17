@@ -6,31 +6,10 @@ UnitBlueprint {
     },
 	
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0202_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL_Destroy_Land_Med',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0202_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0202_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Med', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0202_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'XSL', Cue = 'XSL0202_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Bot', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     Buffs = { 
@@ -84,10 +63,11 @@ UnitBlueprint {
 	
     Display = {
 		Abilities = {
-			'Amphibious',
-			'Radar',
-			'Sonar Stealth',
+            '<LOC ability_amphibious>Amphibious',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_personalstealth>Personal Sonar Stealth',
 		},
+        
         AnimationDeath = {
             {
                 Animation = '/units/XSL0202/XSL0202_ADeath.sca',
@@ -128,16 +108,11 @@ UnitBlueprint {
         },
         MovementEffects = {
             Land = {
+            
                 Effects = {
-                    {
-                        Bones = {
-                            'Left_Exhaust',
-                            'Right_Exhaust',
-                        },
-                        Scale = 0.5,
-                        Type = 'GroundKickup01',
-                    },
+                    { Bones = {'Left_Exhaust','Right_Exhaust'}, Scale = 0.5, Type = 'GroundKickup01' },
                 },
+                
                 Footfall = {
                     Bones = {
                         {
@@ -156,18 +131,10 @@ UnitBlueprint {
                 },
             },
         },
-        TransportAnimation = {
-            {
-                Animation = '/units/XSL0202/XSL0202_afold.sca',
-                Weight = 100,
-            },
-        },
-        TransportDropAnimation = {
-            {
-                Animation = '/units/XSL0202/XSL0202_aunfold.sca',
-                Weight = 100,
-            },
-        },
+        
+        TransportAnimation = { {Animation = '/units/XSL0202/XSL0202_afold.sca',Weight = 100} },
+        TransportDropAnimation = { {Animation = '/units/XSL0202/XSL0202_aunfold.sca',Weight = 100} },
+        
         UniformScale = 0.05,
     },
 	
@@ -194,9 +161,12 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-		RadarRadius = 50,
+        
+		RadarRadius = 48,
+        
 		SonarStealth = true,
-        VisionRadius = 27,
+        
+        VisionRadius = 28,
 		WaterVisionRadius = 20,
     },
 	
@@ -257,13 +227,11 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0202_AireAuBolter',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0202_AireAuBolter', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -294,17 +262,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Muzzle',
-                        'Right_Muzzle01',
-                    },
+                    MuzzleBones = {'Right_Muzzle','Right_Muzzle01'},
                     RackBone = 'Right_Arm',
                 },
                 {
-                    MuzzleBones = {
-                        'Left_Muzzle',
-                        'Left_Muzzle01',
-                    },
+                    MuzzleBones = {'Left_Muzzle','Left_Muzzle01'},
                     RackBone = 'Left_Arm',
                 },
 
@@ -348,11 +310,12 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -5,35 +5,19 @@ UnitBlueprint {
     }, 
 
     Audio = {
-        Killed = Sound {
-            Bank = 'URLWeapon',
-            Cue = 'URL0303_Death_EMP',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0303_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'URLWeapon', Cue = 'URL0303_Death_EMP', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'URL', Cue = 'URL0303_Move_Start',LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Bot', LodCutoff = 'UnitMove_LodCutoff' },
     },
     
     Buffs = {
         Regen = {
-            Level1 = 15,
-            Level2 = 30,
-            Level3 = 45,
-            Level4 = 60,
-            Level5 = 75,
+            Level1 = 12,
+            Level2 = 24,
+            Level3 = 36,
+            Level4 = 48,
+            Level5 = 60,
         },
     },
     
@@ -58,12 +42,7 @@ UnitBlueprint {
     
     Defense = {
 
-        AntiMissile = {
-            AttachBone = 'rocketaim',
-            Radius = 4.5,
-            RedirectRateOfFire = 0.8,
-            ProjectileCategories = { 'TACTICAL MISSILE',},
-        },
+        AntiMissile = { AttachBone = 'rocketaim', Radius = 4.5, RedirectRateOfFire = 0.8, ProjectileCategories = { 'TACTICAL MISSILE'} },
 
         ArmorType = 'Experimental',
         Health = 34000,
@@ -76,29 +55,21 @@ UnitBlueprint {
     
     Display = {
         Abilities = {
-            'Amphibious',
-			'Tactical Missile Redirection',
+            "<LOC ability_amphibious>Amphibious",
+            "<LOC ability_tacticalmissledeflect>Tactical Missile Deflection",
         },
 
-        AnimationDeath = {
-            {
-                Animation = '/mods/TotalMayhem/units/BRMT3VUL/BRMT3VUL_Death.sca',
-                Weight = 100,
-            },
-        },
-
+        AnimationDeath = { {Animation = '/mods/TotalMayhem/units/BRMT3VUL/BRMT3VUL_Death.sca',Weight = 100} },
         AnimationWalk = '/mods/TotalMayhem/units/BRMT3VUL/BRMT3VUL_Walk.sca',
-        AnimationWalkRate = 2.15,
+        AnimationWalkRate = 3.55,
 
         Mesh = {
             IconFadeInZoom = 230,
             LODs = {
-                {
-                    LODCutoff = 400,
-                    ShaderName = 'Insect',
-                },
+                {LODCutoff = 400,ShaderName = 'Insect'},
             },
         },
+        
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -108,46 +79,37 @@ UnitBlueprint {
                             HipBone = 'Exhaust_Right',
                             KneeBone = 'Exhaust_Right',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Tread = {
-                                TreadLifeTime = 1,
-                                TreadMarks = 'collosus_tread_02',
-                                TreadMarksSizeX = 0.1,
-                                TreadMarksSizeZ = 0.1,
-                                TreadOffset = {
-                                    -0.95,
-                                    0,
-                                    0.85,
-                                },
+                                TreadLifeTime = 12,
+                                TreadMarks = '/mods/BlackOpsUnleashed/env/common/splats/Basilisk_Foot_albedo.dds',
+                                TreadMarksSizeX = 0.5,
+                                TreadMarksSizeZ = 0.5,
+                                TreadOffset = {-0.7,0,0.7},
                             },
                             Type = 'FootFall01',
+                            Scale = 1.1,
                         },
                         {
                             FootBone = 'Exhaust_Left',
                             HipBone = 'Exhaust_Left',
                             KneeBone = 'Exhaust_Left',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Tread = {
-                                TreadLifeTime = 1,
-                                TreadMarks = 'collosus_tread_01',
-                                TreadMarksSizeX = 0.1,
-                                TreadMarksSizeZ = 0.1,
-                                TreadOffset = {
-                                    1,
-                                    0,
-                                    0.85,
-                                },
+                                TreadLifeTime = 12,
+                                TreadMarks = '/mods/BlackOpsUnleashed/env/common/splats/Basilisk_Foot_albedo.dds',
+                                TreadMarksSizeX = 0.5,
+                                TreadMarksSizeZ = 0.5,
+                                TreadOffset = {0.7,0,0.65},
                             },
                             Type = 'FootFall01',
+                            Scale = 1.1,
                         },
                     },
+                    
                     Damage = {
                         Amount = 500,
                         DamageFriendly = false,
@@ -183,8 +145,8 @@ UnitBlueprint {
     },
     
     Intel = {
-        VisionRadius = 34,
-		WaterVisionRadius = 24,
+        VisionRadius = 32,
+		WaterVisionRadius = 20,
     },
     
     Interface = {
@@ -202,6 +164,9 @@ UnitBlueprint {
             LAYER_Seabed = true,
         },
         DragCoefficient = 0.2,
+
+        LayerChangeOffsetHeight = -2.25,
+
         MaxAcceleration = 1,
         MaxBrake = 3,
         MaxSpeed = 3,
@@ -247,6 +212,7 @@ UnitBlueprint {
     
     Weapon = {
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
 
             Audio = {
@@ -279,7 +245,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
             
             FiringTolerance = 2,
@@ -340,59 +306,8 @@ UnitBlueprint {
             Turreted = true,
  	    },
 
-		{
-            AboveWaterTargetsOnly = true,
-
-            Audio = {
-                Fire = Sound { Bank = 'TM_CYBRANWEAPONS', Cue = 'BRMROBOTTALK1FX', LodCutoff = 'Weapon_LodCutoff' },
-            },
-
-            BallisticArc = 'RULEUBA_None',
-
-            CollideFriendly = false,
-			
-            Damage = 0,
-            DamageRadius = 0,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Robot Talk',
-			
-            FireTargetLayerCapsTable = {
-                Land = 'Land|Water',
-            },
-			
-            FiringTolerance = 1,
-			
-            Label = 'robottalk',
-			
-            MaxRadius = 50,
-
-            MuzzleVelocity = 40,
-            
-            NotExclusive = true,
-			
-			PrefersPrimaryWeaponTarget = true,
-			
-            ProjectileId = '/mods/TotalMayhem/projectiles/NULLWEAPON/NULLWEAPON_proj.bp',
-
-            RackBones = {
-                {
-                    MuzzleBones = { 'AttachPoint' },
-                    RackBone = 'AttachPoint',
-                },
-            },
-			
-            RateOfFire = 0.05,
-			
-            TargetCheckInterval = 5,
-            TargetPriorities = {'ALLUNITS'},
-			
-            TargetRestrictDisallow = 'UNTARGETABLE',
-
-            Turreted = false,
-        },		
-
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
                 Fire = Sound { Bank = 'TM_CYBRANWEAPONS', Cue = 'CYBRANVULTUREGUNFX1', LodCutoff = 'Weapon_LodCutoff' },
@@ -408,7 +323,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 			
             FiringRandomness = 0.25,
@@ -471,7 +386,9 @@ UnitBlueprint {
             Turreted = true,
  	    },
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
                 Fire = Sound { Bank = 'TM_CYBRANWEAPONS', Cue = 'CYBRANVULTUREGUNFX1', LodCutoff = 'Weapon_LodCutoff' },
             },
@@ -488,7 +405,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 			
             FiringRandomness = 0.25,
@@ -573,7 +490,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
             FiringRandomness = 0.25,
@@ -635,6 +551,60 @@ UnitBlueprint {
 			
             Turreted = true,
  	    },
+
+		{
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+
+            Audio = {
+                Fire = Sound { Bank = 'TM_CYBRANWEAPONS', Cue = 'BRMROBOTTALK1FX', LodCutoff = 'Weapon_LodCutoff' },
+            },
+
+            BallisticArc = 'RULEUBA_None',
+
+            CollideFriendly = false,
+			
+            Damage = 0,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Robot Talk',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water',
+            },
+			
+            FiringTolerance = 1,
+			
+            Label = 'robottalk',
+			
+            MaxRadius = 50,
+
+            MuzzleVelocity = 40,
+            
+            NotExclusive = true,
+			
+			PrefersPrimaryWeaponTarget = true,
+			
+            ProjectileId = '/mods/TotalMayhem/projectiles/NULLWEAPON/NULLWEAPON_proj.bp',
+
+            RackBones = {
+                {
+                    MuzzleBones = { 'AttachPoint' },
+                    RackBone = 'AttachPoint',
+                },
+            },
+			
+            RateOfFire = 0.05,
+			
+            TargetCheckInterval = 5,
+            TargetPriorities = {'ALLUNITS'},
+			
+            TargetRestrictDisallow = 'UNTARGETABLE',
+
+            Turreted = false,
+        },		
+        
     },
 
     Wreckage = {

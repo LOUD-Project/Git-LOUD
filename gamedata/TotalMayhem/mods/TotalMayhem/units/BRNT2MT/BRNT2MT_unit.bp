@@ -6,21 +6,9 @@ UnitBlueprint {
     }, 
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'TANKDEATH',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0202_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'TM_EXPLOSIONS', Cue = 'TANKDEATH', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'UEL', Cue = 'UEL0202_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Tank', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {},
@@ -58,16 +46,8 @@ UnitBlueprint {
 			'Fast Moving',
 			'Rocket Barrage',
         },
-        Mesh = {
-            IconFadeInZoom = 150,
-            LODs = {
-                {
-                    LODCutoff = 200,
-                    Scrolling = true,
-                    ShaderName = 'Unit',
-                },
-            },
-        },
+        
+        Mesh = { IconFadeInZoom = 150, LODs = { {LODCutoff = 200,Scrolling = true,ShaderName = 'Unit'} } },
 
         UniformScale = 0.053,
     },
@@ -79,8 +59,6 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -92,13 +70,11 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC brnt2mt_name>Statue',
-        UnitWeight = 1,
     },
 	
     Intel = {
-        VisionRadius = 22,
+        VisionRadius = 24,
     },
 	
     Interface = {
@@ -169,13 +145,11 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0401_Cannon_Exp_Lrg',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0401_Cannon_Exp_Lrg', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -249,9 +223,11 @@ UnitBlueprint {
 		
 		{
             AboveWaterTargetsOnly = true,
+            
             Audio = {
                 Fire = Sound {Bank = 'UELWeapon',Cue = 'UEB2304_Missile_Flayer',LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
@@ -324,7 +300,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

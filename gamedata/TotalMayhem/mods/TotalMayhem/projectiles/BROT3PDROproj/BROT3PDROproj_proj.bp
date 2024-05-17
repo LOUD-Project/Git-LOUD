@@ -19,24 +19,12 @@ ProjectileBlueprint {
 
     Categories = {
         'PROJECTILE',
-        'DIRECTFIRE',
     },
 
     Display = {
-        ImpactEffects = {
-            Scale = 0.4,
-            Type = 'Large01',
-        },
+        ImpactEffects = {Scale = 0.4,Type = 'Large01'},
         StrategicIconSize = 1,
         UniformScale = 2,
-    },
-
-    General = {
-        EntityCategory = {
-            'AEON',
-            'PROJECTILE',
-            'DIRECTFIRE',
-        },
     },
 
     Physics = {

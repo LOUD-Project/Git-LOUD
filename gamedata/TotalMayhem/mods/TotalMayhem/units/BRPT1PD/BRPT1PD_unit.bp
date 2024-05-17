@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2301_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        DoneBeingBuilt = Sound { Bank = 'UEB', Cue = 'UEB2301_Activate', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Gun', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {},
@@ -54,10 +42,9 @@ UnitBlueprint {
         SurfaceThreatLevel = 17.6,
     },
 	
-    Description = '<LOC brpt1pd_desc>Heavy Point Defense',
+    Description = '<LOC brpt1pd_desc>Point Defense',
 	
     Display = {
-		Abilities = {'Good Range',},
 		
         Mesh = {
             IconFadeInZoom = 130,
@@ -95,15 +82,16 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         SelectionPriority = 5,
+        
         UnitName = '<LOC brpt1pd_name>Hethula-Uttaus',
     },
 	
     Intel = {
-        VisionRadius = 26,
+        VisionRadius = 28,
     },
 	
     Interface = {
-        HelpText = 'Heavy Point Defense',
+        HelpText = 'Point Defense',
     },
 	
     LifeBarHeight = 0.075,
@@ -156,12 +144,9 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0203_Cannon_Tau',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0203_Cannon_Tau', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_LowArc',
@@ -198,7 +183,6 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 1,
@@ -253,11 +237,12 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -6,30 +6,18 @@ UnitBlueprint {
     }, 
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'TMBIGROBOTDEATHFX',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0303_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'TM_EXPLOSIONS', Cue = 'TMBIGROBOTDEATHFX', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'URL', Cue = 'URL0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Bot', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     Buffs = {
         Regen = {
-            Level1 = 4,
-            Level2 = 8,
-            Level3 = 12,
-            Level4 = 16,
-            Level5 = 20,
+            Level1 = 3,
+            Level2 = 6,
+            Level3 = 9,
+            Level4 = 12,
+            Level5 = 15,
         },
     },
 
@@ -52,10 +40,15 @@ UnitBlueprint {
     },
 
     Defense = {
+
+        MissileTorpDestroy = { AttachBone = {'Turret'}, Radius = 3.2, RedirectRateOfFire = 10, ProjectileCategories = {'TORPEDO'} },
+
         ArmorType = 'Normal',
+
         Health = 8250,
         MaxHealth = 8250,
         RegenRate = 3,
+
         SurfaceThreatLevel = 78.1,
     },
 	
@@ -63,28 +56,17 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Amphibious',
-            'Radar',
+            "<LOC ability_amphibious>Amphibious",
+            '<LOC ability_radar>Radar',
+            '<LOC ability_torpedodef>Personal Torpedo Defense',
         },
-        AnimationDeath = {
-            {
-                Animation = '/mods/TotalMayhem/units/BROT3HM/BROT3HM_Death.sca',
-                Weight = 100,
-            },
-        },
-
+        
+        AnimationDeath = { {Animation = '/mods/TotalMayhem/units/BROT3HM/BROT3HM_Death.sca',Weight = 100} },
         AnimationWalk = '/mods/TotalMayhem/units/BROT3HM/BROT3HM_Walk.sca',
-        AnimationWalkRate = 3.5,
+        AnimationWalkRate = 3.8,
 
-        Mesh = {
-            IconFadeInZoom = 160,
-            LODs = {
-                {
-                    LODCutoff = 250,
-                    ShaderName = 'Aeon',
-                },
-            },
-        },
+        Mesh = { IconFadeInZoom = 160, LODs = { {LODCutoff = 250,ShaderName = 'Aeon'} } },
+        
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -94,9 +76,7 @@ UnitBlueprint {
                             HipBone = 'Exhaust_Right',
                             KneeBone = 'Exhaust_Right',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Type = 'FootFall01',
                         },
@@ -105,9 +85,7 @@ UnitBlueprint {
                             HipBone = 'Exhaust_Left',
                             KneeBone = 'Exhaust_Left',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Type = 'FootFall01',
                         },
@@ -143,9 +121,10 @@ UnitBlueprint {
 
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 75,
-        VisionRadius = 34,
-		WaterVisionRadius = 21,
+        
+        RadarRadius = 56,
+        VisionRadius = 36,
+		WaterVisionRadius = 20,
     },
 
     Interface = {
@@ -163,6 +142,9 @@ UnitBlueprint {
             LAYER_Seabed = true,
         },
         DragCoefficient = 0.2,
+
+        LayerChangeOffsetHeight = -1.4,
+
         MaxAcceleration = 1.5,
         MaxBrake = 1.5,
         MaxSpeed = 2.1,
@@ -206,28 +188,14 @@ UnitBlueprint {
 
     Weapon = {
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'TM_AEONWEAPONS',
-                    Cue = 'AEONGUN3',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Stop', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire        = Sound { Bank = 'TM_AEONWEAPONS', Cue = 'AEONGUN3', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_LowArc',
@@ -241,7 +209,8 @@ UnitBlueprint {
             DisplayName = 'Gauss Cannon',
 			
             FireTargetLayerCapsTable = {
-                Land = 'Land|Water',
+                Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 			
 			FiringRandomnessWhileMoving = 0.5,			
@@ -318,13 +287,11 @@ UnitBlueprint {
             Turreted = true,
 		},
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'TM_AEONWEAPONS',
-                    Cue = 'BROT3HAMPLASMAFIRE',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'TM_AEONWEAPONS', Cue = 'BROT3HAMPLASMAFIRE', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_LowArc',
@@ -368,8 +335,10 @@ UnitBlueprint {
             DisplayName = 'Gauss Cannon',
 			
             FireTargetLayerCapsTable = {
-                Land = 'Land|Water',
+                Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
+            
             FiringTolerance = 2,
 			
             Label = 'MainGun2',
@@ -432,7 +401,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.7,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

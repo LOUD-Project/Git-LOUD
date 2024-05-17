@@ -19,21 +19,11 @@ ProjectileBlueprint {
 
     Categories = {
         'PROJECTILE',
-        'DIRECTFIRE',
     },
 
     Display = {
-        ImpactEffects = {
-            Type = 'Medium02',
-        },
+        ImpactEffects = {Type = 'Medium02'},
         StrategicIconSize = 3,
-    },
-
-    General = {
-        EntityCategory = {
-            'PROJECTILE',
-            'DIRECTFIRE',
-        },
     },
 
     Physics = {

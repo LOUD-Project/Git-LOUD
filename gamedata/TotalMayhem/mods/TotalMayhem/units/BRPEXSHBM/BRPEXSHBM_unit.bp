@@ -2,56 +2,18 @@ UnitBlueprint {
     AI = {
 		GuardScanRadius = 115,
 		GuardReturnRadius = 130,
-        TargetBones = {
-            'Arm01',
-			'Torso01',
-			'Left_Leg_B10',
-			'Left_Leg_B11',
-			'Object04',
-			'AttchPoint',
-        },
+        TargetBones = {'Arm01','Torso01','Left_Leg_B10','Left_Leg_B11','Object04','AttchPoint'},
     },
+    
     Audio = {
-        FootFallGeneric = Sound {
-            Bank = 'TM_UEFWEAPONS',
-            Cue = 'UEFMAYHEMFOOTSTEPFX',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        FootFallGenericSeabed = Sound {
-            Bank = 'TM_UEFWEAPONS',
-            Cue = 'UEFMAYHEMFOOTSTEPFX',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-		DeathExplosion = Sound {
-			Bank = 'Explosions',
-			Cue = 'UEF_Nuke_Impact',
-			LodCutoff = 'UnitMove_LodCutoff',
-		},
-		Destroyed = Sound {
-			Bank = 'Explosions',
-			Cue = 'UEF_Nuke_Impact',
-			LodCutoff = 'UnitMove_LodCutoff',
-		},
-        Killed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'TMBIGROBOTDEATHFX',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0001_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0001_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Commander',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        FootFallGeneric         = Sound { Bank = 'TM_UEFWEAPONS', Cue = 'UEFMAYHEMFOOTSTEPFX', LodCutoff = 'UnitMove_LodCutoff'},
+        FootFallGenericSeabed   = Sound { Bank = 'TM_UEFWEAPONS', Cue = 'UEFMAYHEMFOOTSTEPFX', LodCutoff = 'UnitMove_LodCutoff' },
+		DeathExplosion          = Sound {	Bank = 'Explosions',	Cue = 'UEF_Nuke_Impact',	LodCutoff = 'UnitMove_LodCutoff'},
+		Destroyed               = Sound {	Bank = 'Explosions',	Cue = 'UEF_Nuke_Impact',	LodCutoff = 'UnitMove_LodCutoff'},
+        Killed                  = Sound { Bank = 'TM_EXPLOSIONS', Cue = 'TMBIGROBOTDEATHFX', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove               = Sound { Bank = 'XSL', Cue = 'XSL0001_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove                = Sound { Bank = 'XSL', Cue = 'XSL0001_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection             = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Commander', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -94,20 +56,21 @@ UnitBlueprint {
         Health = 98500,
         MaxHealth = 98500,
         RegenRate = 20,
+        
         SurfaceThreatLevel = 1393.5,
     },
 	
-    Description = '<LOC brpexshbm_desc>Experimental Ultra Heavy Artillery Support Bot (Artillery)',
+    Description = '<LOC brpexshbm_desc>Experimental Heavy Artillery Support Bot (Artillery)',
 	
     Display = {
 	
         Abilities = {
-            'Amphibious',
-            'Anti-Air',
+            'Massive',
 			'Artillery',
-			'Omni Radar',
-			'Radar & Sonar Stealth',
-			'Stealth Field Generator',
+            "<LOC ability_aa>Anti-Air",
+            '<LOC ability_amphibious>Amphibious',
+            '<LOC ability_personalstealth>Stealth Field',
+            '<LOC ability_omni>Omni Sensor',
         },
 		
         AnimationDeath = {
@@ -136,6 +99,7 @@ UnitBlueprint {
                 },
             },
         },
+        
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -145,20 +109,14 @@ UnitBlueprint {
                             HipBone = 'footfall01',
                             KneeBone = 'footfall01',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Tread = {
                                 TreadLifeTime = 1,
                                 TreadMarks = 'collosus_tread_02',
                                 TreadMarksSizeX = 0.0,
                                 TreadMarksSizeZ = 0.0,
-                                TreadOffset = {
-                                    -0.95,
-                                    0,
-                                    0.85,
-                                },
+                                TreadOffset = {-0.95,0,.85},
                             },
                             Type = 'FootFall01',
                         },
@@ -167,20 +125,14 @@ UnitBlueprint {
                             HipBone = 'footfall02',
                             KneeBone = 'footfall02',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Tread = {
                                 TreadLifeTime = 1,
                                 TreadMarks = 'collosus_tread_02',
                                 TreadMarksSizeX = 0.0,
                                 TreadMarksSizeZ = 0.0,
-                                TreadOffset = {
-                                    -0.95,
-                                    0,
-                                    0.85,
-                                },
+                                TreadOffset = {-0.95,0,0.85},
                             },
                             Type = 'FootFall01',
                         },
@@ -189,20 +141,14 @@ UnitBlueprint {
                             HipBone = 'footfall03',
                             KneeBone = 'footfall03',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Tread = {
                                 TreadLifeTime = 1,
                                 TreadMarks = 'collosus_tread_02',
                                 TreadMarksSizeX = 0.0,
                                 TreadMarksSizeZ = 0.0,
-                                TreadOffset = {
-                                    -0.95,
-                                    0,
-                                    0.85,
-                                },
+                                TreadOffset = {-0.95,0,0.85},
                             },
                             Type = 'FootFall01',
                         },
@@ -211,20 +157,14 @@ UnitBlueprint {
                             HipBone = 'footfall04',
                             KneeBone = 'footfall04',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Tread = {
                                 TreadLifeTime = 1,
                                 TreadMarks = 'collosus_tread_02',
                                 TreadMarksSizeX = 0.0,
                                 TreadMarksSizeZ = 0.0,
-                                TreadOffset = {
-                                    -0.95,
-                                    0,
-                                    0.85,
-                                },
+                                TreadOffset = {-0.95,0,0.85},
                             },
                             Type = 'FootFall01',
                         },
@@ -233,20 +173,14 @@ UnitBlueprint {
                             HipBone = 'footfall05',
                             KneeBone = 'footfall05',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Tread = {
                                 TreadLifeTime = 1,
                                 TreadMarks = 'collosus_tread_02',
                                 TreadMarksSizeX = 0.0,
                                 TreadMarksSizeZ = 0.0,
-                                TreadOffset = {
-                                    -0.95,
-                                    0,
-                                    0.85,
-                                },
+                                TreadOffset = {-0.95,0,0.85},
                             },
                             Type = 'FootFall01',
                         },
@@ -255,30 +189,26 @@ UnitBlueprint {
                             HipBone = 'footfall06',
                             KneeBone = 'footfall06',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Tread = {
                                 TreadLifeTime = 1,
                                 TreadMarks = 'collosus_tread_02',
                                 TreadMarksSizeX = 0.0,
                                 TreadMarksSizeZ = 0.0,
-                                TreadOffset = {
-                                    -0.95,
-                                    0,
-                                    0.85,
-                                },
+                                TreadOffset = {-0.95,0,0.85},
                             },
                             Type = 'FootFall01',
                         },
                     },
+                    
                     CameraShake = {
                         Interval = 0.15,
                         MaxShakeEpicenter = 0.2,
                         MinShakeAtRadius = 0,
                         Radius = 15,
                     },
+                    
                     Damage = {
                         Amount = 2100,
                         DamageFriendly = false,
@@ -321,16 +251,16 @@ UnitBlueprint {
     },
 	
     Intel = {
-        OmniRadius = 60,
-		RadarRadius = 125,
+        OmniRadius = 32,
+		RadarRadius = 112,
 		
 		RadarStealth = true,
-		RadarStealthFieldRadius = 36,
+		RadarStealthFieldRadius = 32,
 		SonarStealth = true,
-		SonarStealthFieldRadius = 36,
+		SonarStealthFieldRadius = 32,
 
         VisionRadius = 40,
-		WaterVisionRadius = 22,
+		WaterVisionRadius = 28,
     },
 	
     Interface = {
@@ -348,6 +278,8 @@ UnitBlueprint {
             LAYER_Seabed = true,
         },
         DragCoefficient = 0.2,
+
+        LayerChangeOffsetHeight = -2.4,
 		
         MaxAcceleration = 0.6,
         MaxBrake = 2.4,
@@ -406,34 +338,12 @@ UnitBlueprint {
 			ArtilleryShieldBlocks = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2303_Zthuthaam_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire                = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2303_Zthuthaam_Cannon', LodCutoff = 'Weapon_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'XSB', Cue = 'XSB2303_Turret_Artillery_Start', LodCutoff = 'Weapon_LodCutoff' },
+                BarrelLoop          = Sound { Bank = 'XSB', Cue = 'XSB2303_Turret_Artillery_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2303_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
-            BarrelStart = {
-                Fire = Sound {
-                    Bank = 'XSB',
-                    Cue = 'XSB2303_Turret_Artillery_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-            BarrelLoop = {
-                Fire = Sound {
-                    Bank = 'XSB',
-                    Cue = 'XSB2303_Turret_Artillery_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-            MuzzleChargeStart = {
-                Fire = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2303_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-			
+            
             AutoInitiateAttackCommand = true,
 			
             BallisticArc = 'RULEUBA_HighArc',
@@ -454,7 +364,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 0.4,
@@ -523,23 +432,13 @@ UnitBlueprint {
             Turreted = true,
         },
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0201_Ultrachromatic_Beam',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_Ultrachromatic_Beam', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Fire', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -556,7 +455,7 @@ UnitBlueprint {
             DisplayName = 'Ultrachromatic Beam Generator',
 			
             FireTargetLayerCapsTable = {
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
                 Land = 'Land|Water|Seabed',
             },
 			
@@ -612,12 +511,9 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = false,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Gatling_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_Gatling_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -631,7 +527,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
             FiringRandomness = 0.2,
@@ -693,13 +588,11 @@ UnitBlueprint {
         },
 
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BeamStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamStart = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Fire', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -715,7 +608,7 @@ UnitBlueprint {
             DisplayName = 'AA Beam Generator',
 			
             FireTargetLayerCapsTable = {
-                Water = 'Air',
+                Seabed = 'Air',
                 Land = 'Air',
             },
 			
@@ -848,6 +741,7 @@ UnitBlueprint {
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
         },
+        
         {
             AboveWaterTargetsOnly = true,
             Damage = 8500,
@@ -864,7 +758,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.7,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -6,21 +6,9 @@ UnitBlueprint {
     }, 
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'UEL', Cue = 'UEL0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -52,11 +40,13 @@ UnitBlueprint {
     },
 	
     Defense = {
-		AirThreatLevel = 30,
         ArmorType = 'Normal',
+
         Health = 2500,
         MaxHealth = 2500,
         RegenRate = 4,
+
+		AirThreatLevel = 30,
         SurfaceThreatLevel = 35.9,
     },
 	
@@ -64,21 +54,13 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-			'Amphbious',
-            'Dual Role Ground/Anti-Air',
-			'Radar',
-			'Radar & Sonar Stealth',
+            '<LOC ability_amphibious>Amphibious',
+            "<LOC ability_aa>Anti-Air",
+            '<LOC ability_radar>Radar',
+            '<LOC ability_personalstealth>Personal Stealth',
         },
-        Mesh = {
-            IconFadeInZoom = 160,
-            LODs = {
-                {
-                    LODCutoff = 250,
-                    Scrolling = true,
-                    ShaderName = 'Insect',
-                },
-            },
-        },
+        
+        Mesh = { IconFadeInZoom = 160, LODs = { {LODCutoff = 250,Scrolling = true,ShaderName = 'Insect'} } },
 
         UniformScale = 0.04,
     },
@@ -107,11 +89,13 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-		RadarRadius = 75,
+        
 		RadarStealth = true,
-		SonarStealth = true,
+		SonarStealth = true,        
+
+		RadarRadius = 72,
         VisionRadius = 32,
-		WaterVisionRadius = 21,
+		WaterVisionRadius = 20,
     },
 	
     Interface = {
@@ -123,7 +107,7 @@ UnitBlueprint {
     LifeBarSize = 0.95,
 	
     Physics = {
-		BackUpDistance = 4.5,
+		BackUpDistance = 5,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
@@ -178,13 +162,11 @@ UnitBlueprint {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0303_Disintegrator',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0303_Disintegrator', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -193,9 +175,10 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Ionized Plasma Cannon',
-			
+
             FireTargetLayerCapsTable = {
-                Land = 'Land|Air',
+                Land = 'Land|Water|Seabed|Air',
+                Seabed = 'Land|Water|Seabed|Air',                
             },
 			
             FiringTolerance = 2,
@@ -267,7 +250,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

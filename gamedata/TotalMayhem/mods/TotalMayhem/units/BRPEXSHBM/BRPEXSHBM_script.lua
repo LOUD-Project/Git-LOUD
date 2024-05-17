@@ -1,8 +1,8 @@
 local SWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local SDFUltraChromaticBeamGenerator = import('/lua/seraphimweapons.lua').SDFUltraChromaticBeamGenerator02
-local SIFZthuthaamArtilleryCannon = import('/lua/seraphimweapons.lua').SIFZthuthaamArtilleryCannon
-local SDFAireauWeapon = import('/lua/seraphimweapons.lua').SDFAireauWeapon
+local SDFUltraChromaticBeamGenerator    = import('/lua/seraphimweapons.lua').SDFUltraChromaticBeamGenerator02
+local SIFZthuthaamArtilleryCannon       = import('/lua/seraphimweapons.lua').SIFZthuthaamArtilleryCannon
+local SDFAireauWeapon                   = import('/lua/seraphimweapons.lua').SDFAireauWeapon
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local CleanupEffectBag = import('/lua/EffectUtilities.lua').CleanupEffectBag
@@ -10,12 +10,7 @@ local CleanupEffectBag = import('/lua/EffectUtilities.lua').CleanupEffectBag
 BRPEXSHBM = Class( SWalkingLandUnit ) {
 
     IntelEffects = {
-		{
-			Bones = {'Arm01'},
-			Offset = {0,1.6,0},
-			Scale = 0.45,
-			Type = 'Jammer01',
-		},
+		{ Bones = {'Arm01'},Offset = {0,1.6,0},Scale = 0.45,Type = 'Jammer01'},
     },
 
     SpawnEffects = {
@@ -29,11 +24,11 @@ BRPEXSHBM = Class( SWalkingLandUnit ) {
 
         Topguns = Class(SIFZthuthaamArtilleryCannon){ FxMuzzleFlashScale = 2.2 },		
 
-        Beam = Class(SDFUltraChromaticBeamGenerator) { FxMuzzleFlashScale = 1 },
+        Beam    = Class(SDFUltraChromaticBeamGenerator) { FxMuzzleFlashScale = 1 },
 
         NoseGun = Class(SDFAireauWeapon) { },
 		
-        aa = Class(SDFUltraChromaticBeamGenerator) { FxMuzzleFlashScale = 1.2 },
+        aa      = Class(SDFUltraChromaticBeamGenerator) { FxMuzzleFlashScale = 1.2 },
     },
 
     OnKilled = function(self, instigator, damagetype, overkillRatio)

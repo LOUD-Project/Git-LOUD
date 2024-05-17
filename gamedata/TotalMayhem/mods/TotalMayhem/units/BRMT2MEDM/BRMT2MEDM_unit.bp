@@ -5,30 +5,18 @@ UnitBlueprint {
     },
 	
     Audio = {
-		Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0301_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+		Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'URL', Cue = 'URL0301_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Bot', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 2,
-            Level2 = 4,
-            Level3 = 6,
-            Level4 = 8,
-            Level5 = 10,
+            Level1 = 3,
+            Level2 = 6,
+            Level3 = 9,
+            Level4 = 12,
+            Level5 = 15,
         },
     },
 	
@@ -65,23 +53,15 @@ UnitBlueprint {
         Abilities = {
             'Amphibious',
         },
-        AnimationDeath = {
-            {
-                Animation = '/mods/TotalMayhem/units/BRMT2MEDM/BRMT2MEDM_Death.sca',
-                Weight = 100,
-            },
-        },
-		
+        
+        AnimationDeath = { {Animation = '/mods/TotalMayhem/units/BRMT2MEDM/BRMT2MEDM_Death.sca',Weight = 100} },
         AnimationWalk = '/mods/TotalMayhem/units/BRMT2MEDM/BRMT2MEDM_Walk.sca',
         AnimationWalkRate = 8,
 		
         Mesh = {
             IconFadeInZoom = 170,
             LODs = {
-                {
-                    LODCutoff = 400,
-                    ShaderName = 'Insect',
-                },
+                {LODCutoff = 400,ShaderName = 'Insect'},
             },
         },
 		
@@ -110,8 +90,8 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 26,
-		WaterVisionRadius = 15,
+        VisionRadius = 28,
+		WaterVisionRadius = 20,
     },
 	
     Interface = {
@@ -129,6 +109,8 @@ UnitBlueprint {
             LAYER_Seabed = true,
         },
         DragCoefficient = 0.2,
+        
+        LayerChangeOffsetHeight = -0.7,
 		
         MaxAcceleration = 2.8,
         MaxBrake = 2.8,
@@ -148,7 +130,8 @@ UnitBlueprint {
 		
         TurnRadius = 10,
         TurnRate = 45,
-		WaterSpeedMultiplier = 1.2,
+
+		WaterSpeedMultiplier = 1.1,
     },
 	
     SelectionCenterOffsetX = 0,
@@ -180,7 +163,9 @@ UnitBlueprint {
     Weapon = {
 	
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
                 Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Missile_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
@@ -195,7 +180,8 @@ UnitBlueprint {
             DisplayName = 'Rockets',
 			
             FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed',
+                Land    = 'Land|Water|Seabed',
+                Seabed  = 'Land|Water|Seabed',                
             },
 			
             FiringRandomness = 0.7,
@@ -286,7 +272,9 @@ UnitBlueprint {
         },
 
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
                 Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0202_Cannon_Dbl', LodCutoff = 'Weapon_LodCutoff' },
             },
@@ -301,8 +289,8 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             FireTargetLayerCapsTable = {
-                Land = 'Land|Water',
-                Water = 'Land',
+                Land    = 'Land|Water',
+                Seabed  = 'Land|Water',
             },
 			
             FiringTolerance = 1,
@@ -371,7 +359,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

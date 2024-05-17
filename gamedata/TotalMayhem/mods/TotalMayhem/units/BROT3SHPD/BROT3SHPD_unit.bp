@@ -5,21 +5,9 @@ UnitBlueprint {
     }, 
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2301_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed       = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        DoneBeingBuilt  = Sound { Bank = 'UEB', Cue = 'UEB2301_Activate', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Gun', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -66,11 +54,15 @@ UnitBlueprint {
     },
 	
     Defense = {
-        AirThreatLevel = 66,
+
+        MissileTorpDestroy = { AttachBone = {'Turret'}, Radius = 4.3, RedirectRateOfFire = 9, ProjectileCategories = {'TACTICAL MISSILE'} },
+ 
         ArmorType = 'Structure',
         Health = 22500,
         MaxHealth = 22500,
-        RegenRate = 25,
+        RegenRate = 24,
+
+        AirThreatLevel = 66,
         SurfaceThreatLevel = 588.1,
     },
 	
@@ -79,19 +71,13 @@ UnitBlueprint {
     Display = {
 	
 		Abilities = {
-			'2 Massive Plasma Cannons',
-			'1x Hi-V AA SAM',
+			'Dual Wave Cannon (++ Shield Damage)',
+            "<LOC ability_aa>Anti-Air",
+            "<LOC ability_tacmissiledef>Personal Tactical Missile Defense",
+            '<LOC ability_customizable>Customizable',
 		},
 		
-        Mesh = {
-            IconFadeInZoom = 180,
-            LODs = {
-                {
-                    LODCutoff = 260,
-                    ShaderName = 'Aeon',
-                },
-            },
-        },
+        Mesh = { IconFadeInZoom = 180, LODs = { {LODCutoff = 260,ShaderName = 'Aeon'} } },
 
         Tarmacs = {
             {
@@ -278,7 +264,7 @@ UnitBlueprint {
 		OmniRadius = 0,
 		RadarRadius = 0,
         ReactivateTime = 5,		
-        VisionRadius = 42,
+        VisionRadius = 44,
     },
 	
     Interface = {
@@ -331,27 +317,12 @@ UnitBlueprint {
     Weapon = {
 		{
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UAB',
-                    Cue = 'UAB2302_Turret_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UAB',
-                    Cue = 'UAB2302_Turret_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'TM_AEONWEAPONS',
-                    Cue = 'AEONSUPERCANNONFIRE',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2302_Artillery_Son_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop          = Sound { Bank = 'UAB', Cue = 'UAB2302_Turret_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'UAB', Cue = 'UAB2302_Turret_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire                = Sound { Bank = 'TM_AEONWEAPONS', Cue = 'AEONSUPERCANNONFIRE', LodCutoff = 'WeaponBig_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'UALWeapon', Cue = 'UAB2302_Artillery_Son_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_LowArc',
@@ -388,20 +359,19 @@ UnitBlueprint {
    
             CollideFriendly = false,
 			
-            Damage = 2800,
-            DamageRadius = 3,
-            DamageType = 'ShieldMult1.1',
+            Damage = 2950,
+            DamageRadius = 2.5,
+            DamageType = 'ShieldMult1.2',
 			
-            DisplayName = 'Gauss Cannon',
+            DisplayName = 'Wave Cannon',
 
             EnergyChargeForFirstShot = false,            
 			
-            EnergyDrainPerSecond = 3500,
-            EnergyRequired = 9800,
+            EnergyDrainPerSecond = 2800,
+            EnergyRequired = 9800,      -- 3.5 second charge 
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
             FiringRandomness = 0.2,
@@ -409,17 +379,17 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-            MaxRadius = 98,
+            MaxRadius = 100,
             MinRadius = 10,
 			
-            MuzzleChargeDelay = 0.6,
+            MuzzleChargeDelay = 0.8,
 
-            MuzzleVelocity = 33,
+            MuzzleVelocity = 26,
             
             NotExclusive = true,
 
-            ProjectileId = '/mods/TotalMayhem/projectiles/HvyClawproj/HvyClawproj_proj.bp',
-            ProjectileLifetime = 3.5,
+            ProjectileId = '/projectiles/UHandCannon01/UHandCannon01_proj.bp',
+            ProjectileLifetime = 4,
 
             RackBones = {
                 {
@@ -431,21 +401,22 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel2',
                 },
             },
-
             RackFireTogether = true,
 			
             RackRecoilDistance = -3,
-			
+
+            RackSalvoReloadTime = 1.9,  -- cycle is 3.6 = 5900/3.6 = 1638 DPS
+            
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.5,		-- RoF by energy drain = 5600 damage every 2.8 seconds
-			
-            TargetCheckInterval = 1,
+            RateOfFire = 2,
+            TargetCheckInterval = 2,
 			
             TargetPriorities = {
                 'EXPERIMENTAL',
+                'SHIELD',
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
@@ -453,7 +424,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
-            TrackingRadius = 1.05,
+            TrackingRadius = 1.10,
 			
             TurretBoneMuzzle = 'aim',
             TurretBonePitch = 'Turret_Barrel',
@@ -470,19 +441,13 @@ UnitBlueprint {
             Turreted = true,
         },
         {
+            advancedTracking = true,
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2304_SAM',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Open = Sound {
-                    Bank = 'UAB',
-                    Cue = 'UAB2304_Activate',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB2304_SAM', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -499,13 +464,13 @@ UnitBlueprint {
 			
             FiringTolerance = 60,
 
-            Label = 'AntiAirMissiles',
+            Label = 'AAMissiles',
 			
             MaxRadius = 52,
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 3,
-            MuzzleVelocity = 33,
+            MuzzleVelocity = 30,
             
             NotExclusive = true,
 			
@@ -514,11 +479,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'aa00',
-                        'aa01',
-                        'aa02',
-                    },
+                    MuzzleBones = {'aa00','aa01','aa02'},
                     RackBone = 'aa00',
                 },
             },
@@ -566,11 +527,12 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.75,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

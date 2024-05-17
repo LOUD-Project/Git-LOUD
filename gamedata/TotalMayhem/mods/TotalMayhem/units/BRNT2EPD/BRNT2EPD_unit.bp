@@ -5,21 +5,9 @@ UnitBlueprint {
 	},
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2301_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed       = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        DoneBeingBuilt  = Sound { Bank = 'UEB', Cue = 'UEB2301_Activate', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Gun', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -62,8 +50,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        Health = 4800,
-        MaxHealth = 4800,
+        Health = 4900,
+        MaxHealth = 4900,
         RegenRate = 2,
         SurfaceThreatLevel = 47.8,
     },
@@ -71,15 +59,8 @@ UnitBlueprint {
     Description = '<LOC brnt2epd_desc>Plasma Cannon',
 	
     Display = {
-        Mesh = {
-            IconFadeInZoom = 160,
-            LODs = {
-                {
-                    LODCutoff = 240,
-                    ShaderName = 'Unit',
-                },
-            },
-        },
+    
+        Mesh = { IconFadeInZoom = 160, LODs = { {LODCutoff = 240,ShaderName = 'Unit'} } },
 
         Tarmacs = {
             {
@@ -93,11 +74,12 @@ UnitBlueprint {
                 Width = 6.4,
             },
         },
+        
         UniformScale = 0.3,
     },
 	
     Economy = {
-        BuildCostEnergy = 16500,
+        BuildCostEnergy = 18000,
         BuildCostMass = 1800,
         BuildTime = 1800,
 		
@@ -117,7 +99,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 34,
+        VisionRadius = 40,
     },
 	
     Interface = {
@@ -172,12 +154,9 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'TM_UEFWEAPONS',
-                    Cue = 'UEFEXPERIMENTALCANNONFX',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'TM_UEFWEAPONS', Cue = 'UEFEXPERIMENTALCANNONFX', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_LowArc',
@@ -187,7 +166,7 @@ UnitBlueprint {
                     Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 1.0,
+                    Duration = 0.8,
                     Radius = 2,
                     TargetAllow = 'LAND TECH1,NAVAL TECH1,LAND TECH2,NAVAL TECH2',
                     TargetDisallow = 'WALL',
@@ -197,7 +176,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 480,
-            DamageRadius = 2,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Plasma Cannon',
@@ -220,7 +199,7 @@ UnitBlueprint {
             NoPause = true,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRNT2EPDproj/BRNT2EPDproj_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.3,
+            ProjectileLifetimeUsesMultiplier = 1.25,
 
             RackBones = {
                 {
@@ -228,13 +207,13 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-
             RackRecoilDistance = -0.4,
+            
+            RackSalvoReloadTime = 2,   -- cycle is 2 seconds = 240 DPS
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.5,
-			
+            RateOfFire = 1,
             TargetCheckInterval = 1.0,
 			
             TargetPriorities = {
@@ -267,7 +246,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

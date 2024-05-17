@@ -5,21 +5,9 @@ UnitBlueprint {
     }, 
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2301_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed       = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        DoneBeingBuilt  = Sound { Bank = 'UEB', Cue = 'UEB2301_Activate', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Gun', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {},
@@ -57,15 +45,8 @@ UnitBlueprint {
     Description = '<LOC brot3pdro_desc>Plasma Mortar Battery',
     
     Display = {
-        Mesh = {
-            IconFadeInZoom = 160,
-            LODs = {
-                {
-                    LODCutoff = 240,
-                    ShaderName = 'Unit',
-                },
-            },
-        },
+    
+        Mesh = { IconFadeInZoom = 160, LODs = { {LODCutoff = 240,ShaderName = 'Unit'} } },
 
         UniformScale = 0.074,
     },
@@ -160,16 +141,8 @@ UnitBlueprint {
             ArtilleryShieldBlocks = true,
             
             Audio = {
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'TM_AEONWEAPONS',
-                    Cue = 'AEONPLASMACANNONFIREFX',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelStart = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire        = Sound { Bank = 'TM_AEONWEAPONS', Cue = 'AEONPLASMACANNONFIREFX', LodCutoff = 'Weapon_LodCutoff' },
             },
             
             BallisticArc = 'RULEUBA_LowArc',
@@ -214,19 +187,11 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                        'Turret_Muzzle01',
-                        'Turret_Muzzle02',
-                    },
+                    MuzzleBones = {'Turret_Muzzle','Turret_Muzzle01','Turret_Muzzle02'},
                     RackBone = 'Turret_Barrel',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle03',
-                        'Turret_Muzzle04',
-                        'Turret_Muzzle05',
-                    },
+                    MuzzleBones = {'Turret_Muzzle03','Turret_Muzzle04','Turret_Muzzle05'},
                     RackBone = 'Turret_Barrel01',
                 },
             },
@@ -269,7 +234,7 @@ UnitBlueprint {
     
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.5,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,

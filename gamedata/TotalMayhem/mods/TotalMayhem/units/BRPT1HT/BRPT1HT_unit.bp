@@ -6,31 +6,10 @@ UnitBlueprint {
     }, 
 	
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0104_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL_Destroy_Land_Sml',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0104_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0104_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Sml', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove = Sound { Bank = 'XSL', Cue = 'XSL0104_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove = Sound { Bank = 'XSL', Cue = 'XSL0104_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Bot', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {},
@@ -63,19 +42,21 @@ UnitBlueprint {
         SurfaceThreatLevel = 2.5,
     },
 	
-    Description = '<LOC brpt1ht_desc>Medium Hovertank',
+    Description = '<LOC brpt1ht_desc>Light Hovertank',
 	
     Display = {
         Abilities = {
+            '<LOC ability_amphibious>Amphibious',        
             '<LOC ability_hover>Hover',
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
                     AlbedoName = '/Units/xsl0103/xsl0103_Albedo.dds',
 					NormalsName = '/Units/xsl0103/xsl0103_NormalsTS.DDS',
-                    LODCutoff = 200,
+                    LODCutoff = 180,
                     LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',				
                     ShaderName = 'Seraphim',
 					SpecularName = '/Units/xsl0103/xsl0103_SpecTeam.dds',
@@ -83,82 +64,15 @@ UnitBlueprint {
             },
         },
 		
-		IdleEffects = {
-            Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            'BRPT1HT',
-                        },
-                        Scale = 0.6,
-                        Type = 'GroundKickup01',
-                    },
-                    {
-                        Bones = {
-                            'BRPT1HT',
-                        },
-                        Offset = {
-                            0.2,
-                            -0.15,
-                            -0.1,
-                        },
-                        Scale = 0.6,
-                        Type = 'SeraphimGroundFX01',
-                    },
-                },
-            },
-        },
-		
 		MovementEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {
-                            'BRPT1HT',
-                        },
-                        Scale = 0.6,
-                        Type = 'GroundKickup01',
-                    },
-                    {
-                        Bones = {
-                            'BRPT1HT',
-                        },
-                        Offset = {
-                            0.2,
-                            -0.15,
-                            -0.1,
-                        },
-                        Scale = 0.6,
-                        Type = 'SeraphimGroundFX01',
-                    },
+                    { Bones = {'BRPT1HT'}, Offset = {0.2,-0.15,-0.1}, Scale = 0.3, Type = 'SeraphimGroundFX01' },
                 },
             },
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'BRPT1HT',
-                        },
-                        Offset = {
-                            0.2,
-                            -0.15,
-                            -0.1,
-                        },
-                        Scale = 0.5,
-                        Type = 'BackWake',
-                    },
-                    {
-                        Bones = {
-                            'BRPT1HT',
-                        },
-                        Offset = {
-                            0.2,
-                            -0.15,
-                            -0.1,
-                        },
-                        Scale = 0.6,
-                        Type = 'SeraphimGroundFX01',
-                    },
+                    { Bones = {'BRPT1HT'}, Offset = {0.2,-0.15,-0.1}, Scale = 0.2, Type = 'BackWake' },
                 },
             },
         },
@@ -328,6 +242,7 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.35,

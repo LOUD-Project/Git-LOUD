@@ -5,21 +5,9 @@ UnitBlueprint {
 	},
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'TANKDEATH',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2301_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed       = Sound { Bank = 'TM_EXPLOSIONS', Cue = 'TANKDEATH', LodCutoff = 'UnitMove_LodCutoff' },
+        DoneBeingBuilt  = Sound { Bank = 'UEB', Cue = 'UEB2301_Activate', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Gun', LodCutoff = 'UnitMove_LodCutoff' },
     },
     
     Buffs = {},
@@ -58,15 +46,8 @@ UnitBlueprint {
     Description = '<LOC brnt2pd2_desc>Point Defense',
 	
     Display = {
-        Mesh = {
-            IconFadeInZoom = 150,
-            LODs = {
-                {
-                    LODCutoff = 200,
-                    ShaderName = 'Unit',
-                },
-            },
-        },
+    
+        Mesh = { IconFadeInZoom = 150, LODs = { {LODCutoff = 200,ShaderName = 'Unit'} } },
 
         Tarmacs = {
             {
@@ -80,6 +61,7 @@ UnitBlueprint {
                 Width = 6.4,
             },
         },
+        
         UniformScale = 0.12,
     },
     
@@ -104,7 +86,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 30,
+        VisionRadius = 32,
     },
 	
     Interface = {
@@ -157,27 +139,12 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'TM_UEFWEAPONS',
-                    Cue = 'BRNT1BTFIRE',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Stop', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire        = Sound { Bank = 'TM_UEFWEAPONS', Cue = 'BRNT1BTFIRE', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -199,7 +166,7 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-            MaxRadius = 50,
+            MaxRadius = 48,
 			
             MuzzleVelocity = 62,
             MuzzleVelocityRandomness = 5,
@@ -208,12 +175,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                        'Turret_Muzzle2',
-                        'Turret_Muzzle3',
-						'Turret_Muzzle4',
-						},
+                    MuzzleBones = {'Turret_Muzzle','Turret_Muzzle2','Turret_Muzzle3','Turret_Muzzle4'},
                     RackBone = 'Turret_Barrel',
                 },
             },

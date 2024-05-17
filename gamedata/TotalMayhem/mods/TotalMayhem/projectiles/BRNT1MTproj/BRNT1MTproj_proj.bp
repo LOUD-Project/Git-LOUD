@@ -19,24 +19,13 @@ ProjectileBlueprint {
 
     Categories = {
         'PROJECTILE',
-        'DIRECTFIRE',
     },
 
     Display = {
-        ImpactEffects = {
-            Scale = 0.3,
-            Type = 'Large01',
-        },
+        ImpactEffects = {Scale = 0.3,Type = 'Large01'},
         MeshBlueprint = '/projectiles/TDFGauss01/TDFGauss01_mesh.bp',
         StrategicIconSize = 1,
         UniformScale = 0.5,
-    },
-
-    General = {
-        EntityCategory = {
-            'PROJECTILE',
-            'DIRECTFIRE',
-        },
     },
 
     Physics = {

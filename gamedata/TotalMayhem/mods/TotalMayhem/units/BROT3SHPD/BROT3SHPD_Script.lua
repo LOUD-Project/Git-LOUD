@@ -1,79 +1,92 @@
 local TStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
-local AWeapons = import('/lua/aeonweapons.lua')
-
-local AIFArtillerySonanceShellWeapon = AWeapons.AIFArtillerySonanceShellWeapon
-local AAAZealotMissileWeapon = AWeapons.AAAZealotMissileWeapon
-local TIFCommanderDeathWeapon = import('/lua/terranweapons.lua').TIFCommanderDeathWeapon
+local DefaultProjectileWeapon           = import('/lua/sim/defaultweapons.lua').DefaultProjectileWeapon
+local AAAZealotMissileWeapon            = import('/lua/aeonweapons.lua').AAAZealotMissileWeapon
+local TIFCommanderDeathWeapon           = import('/lua/terranweapons.lua').TIFCommanderDeathWeapon
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 local LOUDATTACHEMITTER = CreateAttachedEmitter
 
+local MissileRedirect = import('/lua/defaultantiprojectile.lua').MissileTorpDestroy
+
+local TrashBag      = TrashBag
+local TrashAdd      = TrashBag.Add
+
 BROT3SHPD = Class(TStructureUnit) {
 
     Weapons = {
 
-        MainGun = Class(AIFArtillerySonanceShellWeapon) {
+        MainGun = Class(DefaultProjectileWeapon) {
 
-            FxMuzzleFlashScale = 1,
+            FxMuzzleFlashScale = 0.6,
 
-            FxMuzzleFlash = { 
-            	'/effects/emitters/aeon_quanticcluster_muzzle_flash_03_emit.bp',
-            	'/effects/emitters/aeon_quanticcluster_muzzle_flash_06_emit.bp',
-            }, 
-			
-			FxImpactLand = EffectTemplate.TLandGaussCannonHit01,
-			FxLandHitScale = 2,
-			
-			FxGroundEffect = EffectTemplate.ConcussionRingLrg01,
-			
-	        FxVentEffect = EffectTemplate.CDisruptorVentEffect,
-	        FxVentEffect2 = EffectTemplate.WeaponSteam01,			
-	        FxVentEffect3 = EffectTemplate.CDisruptorGroundEffect,
+			FxGroundEffect  = EffectTemplate.ConcussionRingLrg01,
+	        FxMuzzleEffect  = EffectTemplate.TIonizedPlasmaGatlingCannonHit01,
+	        FxVentEffect    = EffectTemplate.CDisruptorVentEffect,
+	        FxVentEffect2   = EffectTemplate.WeaponSteam01,			
+	        FxVentEffect3   = EffectTemplate.CDisruptorGroundEffect,
 
-	        FxMuzzleEffect = EffectTemplate.TIonizedPlasmaGatlingCannonHit01,
-			
 	        PlayFxMuzzleSequence = function(self, muzzle)
-		        local army = self.unit:GetArmy()
-				
-  	            for k, v in self.FxMuzzleEffect do
-                    LOUDATTACHEMITTER(self.unit, muzzle, army, v):ScaleEmitter(0.8)
-                end
+
+                local unit = self.unit    
+		        local army = unit:GetArmy()
 		        
 	            for k, v in self.FxGroundEffect do
-                    LOUDATTACHEMITTER(self.unit, 'BROT3SHPD', army, v):ScaleEmitter(0.4)
+                    LOUDATTACHEMITTER( unit, 'BROT3SHPD', army, v):ScaleEmitter(0.4)
+                end
+				
+  	            for k, v in self.FxMuzzleEffect do
+                    LOUDATTACHEMITTER( unit, muzzle, army, v):ScaleEmitter(0.7)
                 end
 				
   	            for k, v in self.FxVentEffect do
-                    LOUDATTACHEMITTER(self.unit, 'vent01', army, v):ScaleEmitter(0.6)
-                    LOUDATTACHEMITTER(self.unit, 'vent02', army, v):ScaleEmitter(0.8)
-                    LOUDATTACHEMITTER(self.unit, 'vent03', army, v):ScaleEmitter(0.6)
-                    LOUDATTACHEMITTER(self.unit, 'vent04', army, v):ScaleEmitter(0.8)
-                    LOUDATTACHEMITTER(self.unit, 'vent05', army, v):ScaleEmitter(0.6)
-                    LOUDATTACHEMITTER(self.unit, 'vent06', army, v):ScaleEmitter(0.8)
-                    LOUDATTACHEMITTER(self.unit, 'vent07', army, v):ScaleEmitter(0.6)
-                    LOUDATTACHEMITTER(self.unit, 'vent08', army, v):ScaleEmitter(0.8)
-                    LOUDATTACHEMITTER(self.unit, 'vent09', army, v):ScaleEmitter(0.6)
-                    LOUDATTACHEMITTER(self.unit, 'vent10', army, v):ScaleEmitter(0.8)
+                    LOUDATTACHEMITTER( unit, 'vent01', army, v):ScaleEmitter(0.6)
+                    LOUDATTACHEMITTER( unit, 'vent02', army, v):ScaleEmitter(0.8)
+                    LOUDATTACHEMITTER( unit, 'vent03', army, v):ScaleEmitter(0.6)
+                    LOUDATTACHEMITTER( unit, 'vent04', army, v):ScaleEmitter(0.8)
+                    LOUDATTACHEMITTER( unit, 'vent05', army, v):ScaleEmitter(0.6)
+                    LOUDATTACHEMITTER( unit, 'vent06', army, v):ScaleEmitter(0.8)
+                    LOUDATTACHEMITTER( unit, 'vent07', army, v):ScaleEmitter(0.6)
+                    LOUDATTACHEMITTER( unit, 'vent08', army, v):ScaleEmitter(0.8)
+                    LOUDATTACHEMITTER( unit, 'vent09', army, v):ScaleEmitter(0.6)
+                    LOUDATTACHEMITTER( unit, 'vent10', army, v):ScaleEmitter(0.8)
                 end
 				
   	            for k, v in self.FxVentEffect2 do
-                    LOUDATTACHEMITTER(self.unit, muzzle, army, v):ScaleEmitter(0.5)
+                    LOUDATTACHEMITTER( unit, muzzle, army, v):ScaleEmitter(0.5)
                 end
 				
 	            for k, v in self.FxVentEffect3 do
-                    LOUDATTACHEMITTER(self.unit, 'BROT3SHPD', army, v):ScaleEmitter(0.4)
+                    LOUDATTACHEMITTER( unit, 'BROT3SHPD', army, v):ScaleEmitter(0.4)
                 end
 
             end,  
 		},
 		
-        AntiAirMissiles = Class(AAAZealotMissileWeapon) {},		
+        AAMissiles  = Class(AAAZealotMissileWeapon) {},		
 
         DeathWeapon = Class(TIFCommanderDeathWeapon) {},
 
     },
+	
+	OnStopBeingBuilt = function(self,builder,layer)
+		
+		TStructureUnit.OnStopBeingBuilt(self,builder,layer)
+
+        -- create Defense emitter
+        local bp = __blueprints[self.BlueprintID].Defense.MissileTorpDestroy
+        
+        for _,v in bp.AttachBone do
+
+            local antiMissile1 = MissileRedirect { Owner = self, Radius = bp.Radius, AttachBone = v, RedirectRateOfFire = bp.RedirectRateOfFire }
+
+            TrashAdd( self.Trash, antiMissile1)
+            
+        end
+
+	end,	
+
 }
 
 TypeClass = BROT3SHPD

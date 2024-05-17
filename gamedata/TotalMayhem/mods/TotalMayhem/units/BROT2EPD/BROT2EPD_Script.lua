@@ -21,7 +21,6 @@ BROT2EPD = Class(TStructureUnit) {
             FxMuzzleFlash = { 
             	'/effects/emitters/aeon_dualquantum_cannon_muzzle_flash_emit.bp',
             	'/effects/emitters/aeon_commander_overcharge_flash_01_emit.bp',
-                --'/effects/emitters/cannon_muzzle_smoke_06_emit.bp',                                
             }, 
 
 	        FxVentEffect = EffectTemplate.CDisruptorVentEffect,
@@ -30,35 +29,37 @@ BROT2EPD = Class(TStructureUnit) {
 			
 	        PlayFxMuzzleSequence = function(self, muzzle)
 			
-		        local army = self.unit:GetArmy()
+                local unit = self.unit
+		        local army = unit:GetArmy()
+
 				
   	            for k, v in self.FxMuzzleEffect do
-                    CreateAttachedEmitter(self.unit, muzzle, army, v):ScaleEmitter(0.5)
+                    CreateAttachedEmitter(unit, muzzle, army, v):ScaleEmitter(0.5)
                 end
 				
   	            for k, v in self.FxVentEffect do
-                    CreateAttachedEmitter(self.unit, 'vent01', army, v):ScaleEmitter(0.4)
-                    CreateAttachedEmitter(self.unit, 'vent02', army, v):ScaleEmitter(0.3)
-                    CreateAttachedEmitter(self.unit, 'vent03', army, v):ScaleEmitter(0.4)
-                    CreateAttachedEmitter(self.unit, 'vent04', army, v):ScaleEmitter(0.3)
-                    CreateAttachedEmitter(self.unit, 'vent05', army, v):ScaleEmitter(0.4)
-                    CreateAttachedEmitter(self.unit, 'vent06', army, v):ScaleEmitter(0.2)
-                    CreateAttachedEmitter(self.unit, 'vent07', army, v):ScaleEmitter(0.4)
-                    CreateAttachedEmitter(self.unit, 'vent08', army, v):ScaleEmitter(0.2)
+                    CreateAttachedEmitter(unit, 'vent01', army, v):ScaleEmitter(0.4)
+                    CreateAttachedEmitter(unit, 'vent02', army, v):ScaleEmitter(0.3)
+                    CreateAttachedEmitter(unit, 'vent03', army, v):ScaleEmitter(0.4)
+                    CreateAttachedEmitter(unit, 'vent04', army, v):ScaleEmitter(0.3)
+                    CreateAttachedEmitter(unit, 'vent05', army, v):ScaleEmitter(0.4)
+                    CreateAttachedEmitter(unit, 'vent06', army, v):ScaleEmitter(0.2)
+                    CreateAttachedEmitter(unit, 'vent07', army, v):ScaleEmitter(0.4)
+                    CreateAttachedEmitter(unit, 'vent08', army, v):ScaleEmitter(0.2)
                 end
 				
   	            for k, v in self.FxVentEffect2 do
-                    CreateAttachedEmitter(self.unit, muzzle, army, v):ScaleEmitter(0.3)
+                    CreateAttachedEmitter(unit, muzzle, army, v):ScaleEmitter(0.3)
                 end
 				
 	            for k, v in self.FxVentEffect3 do
-                    CreateAttachedEmitter(self.unit, 'BROT2EPD', army, v):ScaleEmitter(0.35)
+                    CreateAttachedEmitter(unit, 'BROT2EPD', army, v):ScaleEmitter(0.35)
                 end
 
             end, 
 		},      
 
-        AntiAirMissiles = Class(AAAZealotMissileWeapon) {FxMuzzleFlashScale = 0.4},		
+        AAMissile = Class(AAAZealotMissileWeapon) {FxMuzzleFlashScale = 0.4},		
 
         DeathWeapon = Class(TIFCommanderDeathWeapon) {},
 

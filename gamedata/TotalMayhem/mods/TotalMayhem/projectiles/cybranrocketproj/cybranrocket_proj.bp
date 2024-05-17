@@ -9,14 +9,10 @@ ProjectileBlueprint {
 
     Categories = {
         'PROJECTILE',
-        'DIRECTFIRE',
     },
 
     Display = {
-        ImpactEffects = {
-            Scale = 0.3,
-            Type = 'Large01',
-        },
+        ImpactEffects = {Scale = 0.3,Type = 'Large01'},
         Mesh = {
             LODs = {
                 {
@@ -29,13 +25,6 @@ ProjectileBlueprint {
         },
         StrategicIconSize = 1,
         UniformScale = 0.30,
-    },
-
-    General = {
-        EntityCategory = {
-            'PROJECTILE',
-            'DIRECTFIRE',
-        },
     },
 
     Physics = {

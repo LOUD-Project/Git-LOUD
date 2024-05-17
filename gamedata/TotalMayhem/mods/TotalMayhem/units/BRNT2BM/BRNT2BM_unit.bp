@@ -1,39 +1,23 @@
 UnitBlueprint {
     AI = { 
-        GuardScanRadius = 32, 
+        GuardScanRadius = 28, 
 		TargetBones = {'Turret'},
     }, 
 
     Audio = {
-        Killed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0303_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-		Destroyed = Sound {
-			Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Huge',
-			LodCutoff = 'UnitMove_LodCutoff',
-		},
+        Killed      = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'URL', Cue = 'URL0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Bot', LodCutoff = 'UnitMove_LodCutoff' },
+		Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'	},
     },
 
     Buffs = {
         Regen = {
-            Level1 = 2,
-            Level2 = 4,
-            Level3 = 6,
-            Level4 = 8,
-            Level5 = 10,
+            Level1 = 1,
+            Level2 = 3,
+            Level3 = 4,
+            Level4 = 6,
+            Level5 = 7,
         },
         VisionRadius = {
             Level1 = 2,
@@ -76,27 +60,16 @@ UnitBlueprint {
 
     Display = {
         Abilities = {
-            'Radar',
-            'Amphibious',
-            'Dual Role Anti Air',
+            "<LOC ability_radar>Radar",
+            "<LOC ability_amphibious>Amphibious",
+            "<LOC ability_aa> Dual Role Anti-Air",
         },
-        AnimationDeath = {
-            {
-                Animation = '/mods/TotalMayhem/units/BRNT2BM/BRNT2BM_Death.sca',
-                Weight = 100,
-            },
-        },
+        
+        AnimationDeath = { {Animation = '/mods/TotalMayhem/units/BRNT2BM/BRNT2BM_Death.sca',Weight = 100} },
         AnimationWalk = '/mods/TotalMayhem/units/BRNT2BM/BRNT2BM_Walk.sca',
         AnimationWalkRate = 3.2,
-        Mesh = {
-            IconFadeInZoom = 170,
-            LODs = {
-                {
-                    LODCutoff = 400,
-                    ShaderName = 'Unit',
-                },
-            },
-        },
+        
+        Mesh = { IconFadeInZoom = 170, LODs = { {LODCutoff = 400,ShaderName = 'Unit'} } },
 
         UniformScale = 0.03,
     },
@@ -125,8 +98,9 @@ UnitBlueprint {
 
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 50,
-        VisionRadius = 26,
+        
+        RadarRadius = 48,
+        VisionRadius = 28,
 		WaterVisionRadius = 20,
     },
 
@@ -145,6 +119,9 @@ UnitBlueprint {
             LAYER_Seabed = true,
         },
         DragCoefficient = 0.2,
+
+        LayerChangeOffsetHeight = -0.75,
+
         MaxAcceleration = 2.8,
         MaxBrake = 2.8,
         MaxSpeed = 2.8,
@@ -158,7 +135,8 @@ UnitBlueprint {
         SkirtSizeZ = 2.2,
         TurnRadius = 5,
         TurnRate = 50,
-		WaterSpeedMultiplier = 1.20,
+        
+		WaterSpeedMultiplier = 1.15,
     },
 
     SelectionSizeX = 1.0,
@@ -186,14 +164,13 @@ UnitBlueprint {
 
     Weapon = {
 		{
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'TM_UEFWEAPONS',
-                    Cue = 'BRNMISSILELAUNCHFX2',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'TM_UEFWEAPONS', Cue = 'BRNMISSILELAUNCHFX2', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -205,8 +182,9 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
+            
             FiringTolerance = 0.5,
 			
 			FiringRandomness = 0.2,
@@ -228,17 +206,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'rl01',
-                        'rl02',
-                    },
+                    MuzzleBones = {'rl01','rl02'},
                     RackBone = 'rocketlauncher',
                 },
                 {
-                    MuzzleBones = {
-                        'rl03',
-                        'rl04',
-                    },
+                    MuzzleBones = {'rl03','rl04'},
                     RackBone = 'rocketlauncher01',
                 },
             },
@@ -282,14 +254,13 @@ UnitBlueprint {
             Turreted = true,
         },
 		{
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEL_Weapons',
-                    Cue = 'XEB2306_Gatling_Gun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEL_Weapons', Cue = 'XEB2306_Gatling_Gun', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -301,7 +272,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed|Air',
-                Water = 'Land|Water|Seabed|Air',
+                Seabed = 'Land|Water|Seabed|Air',
             },
 			
 			FiringRandomness = 0.3,
@@ -320,7 +291,7 @@ UnitBlueprint {
             
             NotExclusive = true,
 
-            ProjectileId = '/projectiles/TDFHeavyPlasmaGatlingCannon01/TDFHeavyPlasmaGatlingCannon01_proj.bp', --'/projectiles/TDPhalanx01/TDPhalanx01_proj.bp',
+            ProjectileId = '/projectiles/TDFHeavyPlasmaGatlingCannon01/TDFHeavyPlasmaGatlingCannon01_proj.bp',
 			ProjectileLifetime = 0.9,
 
             RackBones = {
@@ -371,26 +342,24 @@ UnitBlueprint {
             Turreted = true,
         },
 		{
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEL_Weapons',
-                    Cue = 'XEB2306_Gatling_Gun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEL_Weapons', Cue = 'XEB2306_Gatling_Gun', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
             Damage = 6,
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed|Air',
-                Water = 'Land|Water|Seabed|Air',
+                Seabed = 'Land|Water|Seabed|Air',
             },
 			
 			FiringRandomness = 0.3,
@@ -465,7 +434,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -5,32 +5,10 @@ UnitBlueprint {
     },
 	
     Audio = {
-       AmbientMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0201_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'BRMT1BTEXPLODE1',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        StartMove = Sound {
-
-            Bank = 'URL',
-            Cue = 'URL0103_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0103_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'TM_EXPLOSIONS', Cue = 'BRMT1BTEXPLODE1', LodCutoff = 'Weapon_LodCutoff' },
+        StartMove   = Sound { Bank = 'URL', Cue = 'URL0103_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'URL', Cue = 'URL0103_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {},
@@ -69,11 +47,7 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 140,
             LODs = {
-                {
-                    LODCutoff = 180,
-                    Scrolling = true,
-                    ShaderName = 'Insect',
-                },
+                {LODCutoff = 180,Scrolling = true,ShaderName = 'Insect'},
             },
         },
 
@@ -165,8 +139,10 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = { Fire = Sound { Bank = 'URLWeapon', Cue = 'URB2101_Laser_Auto', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -186,7 +162,7 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-            MaxRadius = 22,
+            MaxRadius = 24,
 
             MuzzleVelocity = 35,
 			

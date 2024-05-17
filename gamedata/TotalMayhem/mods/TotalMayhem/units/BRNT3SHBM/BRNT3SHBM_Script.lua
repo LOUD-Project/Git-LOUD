@@ -2,32 +2,34 @@ local TWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local WeaponsFile = import('/lua/terranweapons.lua')
 
-local TDFGaussCannonWeapon = WeaponsFile.TDFLandGaussCannonWeapon
+local TDFGaussCannonWeapon              = WeaponsFile.TDFLandGaussCannonWeapon
 local TIFCruiseMissileUnpackingLauncher = WeaponsFile.TIFCruiseMissileUnpackingLauncher
-local TANTorpedoLandWeapon = WeaponsFile.TANTorpedoLandWeapon
-local TIFCommanderDeathWeapon = WeaponsFile.TIFCommanderDeathWeapon
-local TDFRiotWeapon = WeaponsFile.TDFRiotWeapon
-local TSAMLauncher = WeaponsFile.TSAMLauncher 
+local TANTorpedoLandWeapon              = WeaponsFile.TANTorpedoAngler
+local TIFCommanderDeathWeapon           = WeaponsFile.TIFCommanderDeathWeapon
+local TDFRiotWeapon                     = WeaponsFile.TDFRiotWeapon
+local TSAMLauncher                      = WeaponsFile.TSAMLauncher 
 
-local EffectTemplate = import('/lua/EffectTemplates.lua')
+WeaponsFile = nil
+
+local MissileRedirect = import('/lua/defaultantiprojectile.lua').MissileTorpDestroy
+
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
+
+local EffectTemplate        = import('/lua/EffectTemplates.lua')
 local CreateAttachedEmitter = CreateAttachedEmitter
 
 BRNT3SHBM = Class(TWalkingLandUnit) {
 
     Weapons = {
 
-        TacMissiles = Class(TIFCruiseMissileUnpackingLauncher) {
+        TacMissiles = Class(TIFCruiseMissileUnpackingLauncher) { FxMuzzleFlashScale = 0.5,
 
-            FxMuzzleFlashScale = 0.5,
-
-            FxMuzzleFlash = {
-                '/effects/emitters/terran_mobile_missile_launch_01_emit.bp'
-            }
+            FxMuzzleFlash = {'/effects/emitters/terran_mobile_missile_launch_01_emit.bp'}
         },
 		
-        handweapon = Class(TDFGaussCannonWeapon) {
-		
-            FxMuzzleFlashScale = 1,
+        handweapon = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 1,
 			
             FxMuzzleFlash = { 
             	'/effects/emitters/proton_artillery_muzzle_01_emit.bp',
@@ -54,22 +56,17 @@ BRNT3SHBM = Class(TWalkingLandUnit) {
             end, 
 		},
 		
-        Rockets = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0.5 },
+        Rockets             = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0.5 },
 		
-        SAM = Class(TSAMLauncher) { FxMuzzleFlash = EffectTemplate.TAAMissileLaunchNoBackSmoke },	
+        SAM                 = Class(TSAMLauncher) { FxMuzzleFlash = EffectTemplate.TAAMissileLaunchNoBackSmoke },	
 		
-        Torpedoes = Class(TANTorpedoLandWeapon) {},		
+        Torpedoes           = Class(TANTorpedoLandWeapon) {},		
 
-        Riotgun = Class(TDFRiotWeapon) {
+        Riotgun             = Class(TDFRiotWeapon) { FxMuzzleFlash = EffectTemplate.TRiotGunMuzzleFxTank, FxMuzzleFlashScale = 0.2 },
 		
-            FxMuzzleFlash = EffectTemplate.TRiotGunMuzzleFxTank,
-            FxMuzzleFlashScale = 0.2, 
-			
-        },
+        robottalk           = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0 },
 		
-        robottalk = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0 },
-		
-        DeathWeapon = Class(TIFCommanderDeathWeapon) {},
+        DeathWeapon         = Class(TIFCommanderDeathWeapon) {},
     },
 	
 	OnStopBeingBuilt = function(self,builder,layer)
@@ -77,6 +74,17 @@ BRNT3SHBM = Class(TWalkingLandUnit) {
         TWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
  
 		self:SetWeaponEnabledByLabel('robottalk', true)
+
+        -- create MissileTorp Defense emitter
+        local bp = __blueprints[self.BlueprintID].Defense.MissileTorpDestroy
+        
+        for _,v in bp.AttachBone do
+
+            local antiMissile1 = MissileRedirect { Owner = self, Radius = bp.Radius, AttachBone = v, RedirectRateOfFire = bp.RedirectRateOfFire }
+
+            TrashAdd( self.Trash, antiMissile1)
+            
+        end
 
 	end,
 }

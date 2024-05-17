@@ -2,49 +2,24 @@ UnitBlueprint {
 
     AI = { 
         GuardScanRadius = 42, 
-        TargetBones = {
-            'Object05',
-			'Upgrade01_02',
-			'Turret_Barrel_Muzzle',
-			'Turret_Barrel_Muzzle01',
-        },   
+        TargetBones = {'Object05','Upgrade01_02','Turret_Barrel_Muzzle','Turret_Barrel_Muzzle01'},   
 	},
 	
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0201_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0401_Death',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0201_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0201_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        AmbientMove = Sound { Bank = 'XSL', Cue = 'XSL0201_Move_Loop', LodCutoff = 'UnitMove_LodCutoff' },
+        Killed      = Sound { Bank = 'XSL', Cue = 'XSL0401_Death', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0201_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'XSL', Cue = 'XSL0201_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Tank', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 7,
-            Level2 = 14,
-            Level3 = 21,
-            Level4 = 28,
-            Level5 = 35,
+            Level1 = 6,
+            Level2 = 13,
+            Level3 = 19,
+            Level4 = 26,
+            Level5 = 32,
         },
 		VisionRadius = {
             Level1 = 1,
@@ -81,14 +56,15 @@ UnitBlueprint {
         Health = 31000,
         MaxHealth = 31000,
         RegenRate = 10,
+        
         SurfaceThreatLevel = 193.1,
     },
 	
-    Description = '<LOC brpextank_desc>Experimental Light Assault Tank (Assault)',
+    Description = '<LOC brpextank_desc>Experimental Assault Tank (Assault)',
 	
     Display = {
         Abilities = {
-            'Amphibious',
+            '<LOC ability_amphibious>Amphibious',
 			'Radar & Sonar Stealth',
             'Lambda Destruction Field',
         },
@@ -110,19 +86,8 @@ UnitBlueprint {
 		
 		MovementEffects = {
             Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            'tracks01',
-                            'tracks01',
-                        },
-                        Type = 'GroundKickup03',
-                    },
-                },
-
-                Treads = {
-                    ScrollTreads = true,
-                },
+                Effects = { {Bones = {'tracks01','tracks01'}, Type = 'GroundKickup03' } },
+                Treads = { ScrollTreads = true },
             },
         },
 
@@ -154,12 +119,13 @@ UnitBlueprint {
     Intel = {
 		RadarStealth = true,
 		SonarStealth = true,
-        VisionRadius = 33,
+        
+        VisionRadius = 36,
 		WaterVisionRadius = 20,
     },
 	
     Interface = {
-        HelpText = 'Light Assault Tank',
+        HelpText = 'Assault Tank',
     },
 	
     LifeBarHeight = 0.075,
@@ -173,6 +139,8 @@ UnitBlueprint {
             LAYER_Seabed = true,
         },
         DragCoefficient = 0.2,
+
+        LayerChangeOffsetHeight = -1.8,
 		
         MaxAcceleration = 1.2,
         MaxBrake = 1.7,
@@ -227,23 +195,13 @@ UnitBlueprint {
 	
     Weapon = {
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Lrg_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Lrg_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0302_Quarnon_Cannon',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire        = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0302_Quarnon_Cannon', LodCutoff = 'WeaponBig_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_LowArc',
@@ -281,14 +239,14 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 650,
-            DamageRadius = 2,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Heavy Quarnon Cannon',
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 			
             FiringRandomness = 0.5,
@@ -368,7 +326,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

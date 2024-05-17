@@ -5,21 +5,9 @@ UnitBlueprint {
 	},
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2301_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed       = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        DoneBeingBuilt  = Sound { Bank = 'UEB', Cue = 'UEB2301_Activate', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Gun', LodCutoff = 'UnitMove_LodCutoff' },
     },
     
     Buffs = {
@@ -31,11 +19,11 @@ UnitBlueprint {
             Level5 = 0.85,
         },    
         Regen = {
-            Level1 = 20,
-            Level2 = 40,
-            Level3 = 60,
-            Level4 = 80,
-            Level5 = 100,
+            Level1 = 15,
+            Level2 = 30,
+            Level3 = 45,
+            Level4 = 60,
+            Level5 = 75,
         },
         VisionRadius = {
             Level1 = 2,
@@ -65,39 +53,30 @@ UnitBlueprint {
     },
     
     Defense = {
-        AirThreatLevel = 88,
-        
+       
         ArmorType = 'Structure',
-        
+
         Health = 39900,
         MaxHealth = 39900,
         RegenRate = 25,
-        
+
+        AirThreatLevel = 44,        
         SurfaceThreatLevel = 787.2,
     },
-	
+
     Description = '<LOC brnt3shpd_desc>Heavy Fortification',
-	
+
     Display = {
-	
+
 		Abilities = {
 			'Powerful Defensive Structure with multiple guns',
-			'Regeneration',
-			'SAM AntiAir & Low Altitude AA',
-			'Radar',
-			'Customizable',
+            "<LOC ability_aa>Anti-Air",
+            '<LOC ability_radar>Radar',
+            '<LOC ability_customizable>Customizable',
 		},
-		
-        Mesh = {
-            IconFadeInZoom = 240,
-            LODs = {
-                {
-                    LODCutoff = 470,
-                    ShaderName = 'Unit',
-                },
-            },
-        },
-		
+
+        Mesh = { IconFadeInZoom = 240, LODs = { {LODCutoff = 470,ShaderName = 'Unit'} } },
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_01_albedo',
@@ -110,9 +89,10 @@ UnitBlueprint {
                 Width = 10.4,
             },
         },
+
         UniformScale = 0.026,
     },
-	
+
     Economy = {
         BuildCostEnergy = 295000,
         BuildCostMass = 35000,
@@ -121,7 +101,6 @@ UnitBlueprint {
 		
         RebuildBonusIds = {'BRNT3SHPD'},
     },
-	
 	
 	Enhancements = {
 	
@@ -270,6 +249,7 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 5,
+        
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -283,9 +263,10 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
+        
 		OmniRadius = 0,
-		RadarRadius = 120,
-        VisionRadius = 40,
+		RadarRadius = 108,
+        VisionRadius = 44,
     },
 	
     Interface = {
@@ -341,28 +322,14 @@ UnitBlueprint {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0302_Cannon_Tri',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Stop', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire        = Sound { Bank = 'UESWeapon', Cue = 'UES0302_Cannon_Tri', LodCutoff = 'WeaponBig_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
 			
             Buffs = {
@@ -415,7 +382,7 @@ UnitBlueprint {
 			
             Label = 'GaussCannon',
 			
-            MaxRadius = 105,
+            MaxRadius = 104,
             MinRadius = 15,
 
             MuzzleVelocity = 36,
@@ -455,9 +422,8 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	-- controlled by charge -- 3600 Damage every 2.5 seconds = 1440 DPS
-			
-            TargetCheckInterval = 0.5,
+            RateOfFire = 2,	-- controlled by charge -- 3600 Damage every 2.5 seconds = 1440 DPS
+            TargetCheckInterval = 2,
 			
             TargetPriorities = {
                 'EXPERIMENTAL',
@@ -487,13 +453,11 @@ UnitBlueprint {
         {
             AimsStraightOnDisable = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2101_Cannon_Sgl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2101_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -567,13 +531,11 @@ UnitBlueprint {
         {
             AimsStraightOnDisable = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2101_Cannon_Sgl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2101_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -645,13 +607,11 @@ UnitBlueprint {
         {
             AimsStraightOnDisable = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2101_Cannon_Sgl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2101_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -721,13 +681,11 @@ UnitBlueprint {
         {
             AimsStraightOnDisable = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2101_Cannon_Sgl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2101_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -798,13 +756,11 @@ UnitBlueprint {
         {
             AimsStraightOnDisable = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2101_Cannon_Sgl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2101_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -874,13 +830,11 @@ UnitBlueprint {
         {
             AimsStraightOnDisable = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2101_Cannon_Sgl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2101_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -951,13 +905,11 @@ UnitBlueprint {
         {
             AimsStraightOnDisable = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2101_Cannon_Sgl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2101_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -1027,13 +979,11 @@ UnitBlueprint {
         {
             AimsStraightOnDisable = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2101_Cannon_Sgl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2101_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -1102,14 +1052,13 @@ UnitBlueprint {
 		---- ROOF Mounted SAM Launcher
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2304_Missile_Flayer',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2304_Missile_Flayer', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -1127,7 +1076,7 @@ UnitBlueprint {
 
             Label = 'SAM',
 			
-            MaxRadius = 60,
+            MaxRadius = 52,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
@@ -1140,17 +1089,14 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'aa01',
-                        'aa02',
-                    },
+                    MuzzleBones = {'aa01','aa02'},
                     RackBone = 'aa01',
                 },
             },
 
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,		-- 4 Missiles per second = 880 DPS
+            RateOfFire = 1,		-- 2 Missiles per second = 440 DPS
 			
             TargetCheckInterval = 0.5,
 			

@@ -7,9 +7,7 @@ local EffectTemplate = import('/lua/EffectTemplates.lua')
 BRPT1HT = Class(SHoverLandUnit) {
     
     Weapons = {
-        TauCannon01 = Class(SDFOhCannon){
-            FxMuzzleFlashScale = 1.5,
-        },
+        TauCannon01 = Class(SDFOhCannon){ },
     },
 
     OnKilled = function(self, instigator, damagetype, overkillRatio)

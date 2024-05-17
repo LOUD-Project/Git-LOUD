@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 
     Audio = {
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0001_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0001_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Commander',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0001_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'XSL', Cue = 'XSL0001_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Commander', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
 	BuildIconSortPriority = 100,
@@ -50,11 +38,13 @@ UnitBlueprint {
     },
 	
     Defense = {
-		AirThreatLevel = 21,
         ArmorType = 'Normal',
+
         Health = 8250,
         MaxHealth = 8250,
         RegenRate = 5,
+
+        AirThreatLevel = 24,
         SurfaceThreatLevel = 89.4,
     },
 	
@@ -62,8 +52,9 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Amphibious',
-            'Radar and Sonar Stealth',
+            '<LOC ability_amphibious>Amphibious',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_personalstealth>Personal Stealth',        
 			'Secondary engages low alt air units',
         },
 		
@@ -120,11 +111,14 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 65,
+
+        RadarRadius = 56,
+
 		RadarStealth = true,
 		SonarStealth = true,
-        VisionRadius = 34,
-		WaterVisionRadius = 18,
+
+        VisionRadius = 36,
+		WaterVisionRadius = 16,
     },
 	
     Interface = {
@@ -141,6 +135,8 @@ UnitBlueprint {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
+
+        LayerChangeOffsetHeight = -0.85,
 		
         MaxAcceleration = 1.2,
         MaxBrake = 2.3,
@@ -189,11 +185,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,			
 
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0302_Quarnon_Cannon',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0302_Quarnon_Cannon', LodCutoff = 'WeaponBig_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_LowArc',
@@ -231,7 +223,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 880,
-            DamageRadius = 2.75,
+            DamageRadius = 2.7,
             DamageType = 'Normal',
 			
             DisplayName = 'Thau Cannon',
@@ -243,7 +235,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 			
 			FiringRandomness = 0.55,
@@ -312,12 +304,9 @@ UnitBlueprint {
             AlwaysRecheckTarget = true,
 
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0202_Olaris_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0202_Olaris_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
 
             CollideFriendly = false,
@@ -393,11 +382,12 @@ UnitBlueprint {
         },
 
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.8,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -5,21 +5,9 @@ UnitBlueprint {
 	},
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2304_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed       = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        DoneBeingBuilt  = Sound { Bank = 'UEB', Cue = 'UEB2304_Activate', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Gun', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     Buffs = {},
@@ -48,11 +36,13 @@ UnitBlueprint {
     CollisionOffsetY = -0.25,
 
     Defense = {
-        AirThreatLevel = 15,
         ArmorType = 'Structure',
+
         Health = 1720,
         MaxHealth = 1720,
         RegenRate = 1,
+
+        AirThreatLevel = 15,
         SurfaceThreatLevel = 17.5,
     },
 
@@ -63,15 +53,8 @@ UnitBlueprint {
             'Dual Role PD/Anti-Air',
             'Aquatic',
         },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 210,
-                    ShaderName = 'Unit',
-                },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { {LODCutoff = 210,ShaderName = 'Unit'} } },
 
         UniformScale = 0.09,
     },
@@ -85,7 +68,7 @@ UnitBlueprint {
     },
 
     Footprint = {
-        MinWaterDepth = 1,
+        MinWaterDepth = 1.5,
     },
 
     General = {
@@ -101,7 +84,7 @@ UnitBlueprint {
     },
 
     Intel = {
-        VisionRadius = 26,
+        VisionRadius = 28,
     },
 
     Interface = {
@@ -271,14 +254,14 @@ UnitBlueprint {
             },
 
             RackSalvoChargeTime = .2,
-            RackSalvoReloadTime = .6,
+            RackSalvoReloadTime = .6,   -- cycle is 1.6 seconds = 8 * 15 = 120/1.6 = 75 DPS
 			
-            RateOfFire = 1,
+            RateOfFire = 2,     -- controlled by muzzle & salvo times
 
             SlavedToBody = true,
             SlavedToBodyArcRange = 3,
             
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -313,7 +296,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.65,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

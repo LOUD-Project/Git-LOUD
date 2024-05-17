@@ -6,31 +6,10 @@ UnitBlueprint {
     }, 
 	
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0104_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL_Destroy_Land_Sml',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0104_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0104_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Sml', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0104_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'XSL', Cue = 'XSL0104_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Bot', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {},
@@ -92,36 +71,19 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 250,
-                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
-                    ShaderName = 'Seraphim',
-                },
+                {LODCutoff = 250,LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',ShaderName = 'Seraphim'},
             },
         },
         MovementEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {
-                            'Leg_Foot_01',
-                            'Leg_Foot_02',
-                            'Leg_Foot_03',
-                            'Leg_Foot_04',
-                        },
-                        Scale = 0.5,
-                        Type = 'GroundKickup01',
-                    },
+                    { Bones = {'Leg_Foot_01','Leg_Foot_02','Leg_Foot_03','Leg_Foot_04'}, Scale = 0.5, Type = 'GroundKickup01' },
                 },
             },
         },
 
-        TransportAnimation = {
-            {
-                Animation = '/units/XSL0104/XSL0104_afold01.sca',
-                Weight = 100,
-            },
-        },
+        TransportAnimation = { {Animation = '/units/XSL0104/XSL0104_afold01.sca',Weight = 100 } },
+
         UniformScale = 0.05,
     },
 	
@@ -147,7 +109,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 23,
+        VisionRadius = 24,
     },
 	
     Interface = {
@@ -227,7 +189,6 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
 			FiringRandomnessWhileMoving = 0.3,
@@ -293,11 +254,12 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

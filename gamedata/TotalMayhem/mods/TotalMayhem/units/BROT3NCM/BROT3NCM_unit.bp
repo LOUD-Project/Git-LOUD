@@ -6,26 +6,10 @@ UnitBlueprint {
     }, 
 	
     Audio = {
-		Destroyed = Sound {
-           Bank = 'Explosions',
-           Cue = 'UEF_Nuke_Impact',
-           LodCutoff = 'UnitMove_LodCutoff',
-		},
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0401_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'TMBIGROBOTDEATHFX',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+		Destroyed   = Sound { Bank = 'Explosions', Cue = 'UEF_Nuke_Impact', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'UAL', Cue = 'UAL0401_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Bot', LodCutoff = 'UnitMove_LodCutoff' },
+        Killed      = Sound { Bank = 'TM_EXPLOSIONS', Cue = 'TMBIGROBOTDEATHFX', LodCutoff = 'UnitMove_LodCutoff' },
     },
     
     Buffs = {
@@ -57,11 +41,16 @@ UnitBlueprint {
     },
 	
     Defense = {
-		AirThreatLevel = 32,
+
+        MissileTorpDestroy = { AttachBone = {'head'}, Radius = 4, RedirectRateOfFire = 9, ProjectileCategories = {'TACTICAL MISSILE','TORPEDO'} },
+
         ArmorType = 'Experimental',
+
         Health = 66500,
         MaxHealth = 66500,
-        RegenRate = 22,
+        RegenRate = 20,
+
+		AirThreatLevel = 32,
         SurfaceThreatLevel = 592,
     },
 	
@@ -69,30 +58,18 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Amphibious',
-            'Anti-Air',
+            "<LOC ability_amphibious>Amphibious",
+            "<LOC ability_aa>Anti-Air",
+            "<LOC ability_tacmissiledef>Personal Tac & Torpedo Defense",
+            '<LOC ability_radar>Radar',
         },
 
-        AnimationDeath = {
-            {
-                Animation = '/mods/TotalMayhem/units/BROT3NCM/BROT3NCM_Death.sca',
-                Weight = 100,
-            },
-        },
-
+        AnimationDeath = { {Animation = '/mods/TotalMayhem/units/BROT3NCM/BROT3NCM_Death.sca',Weight = 100} },
         AnimationWalk = '/mods/TotalMayhem/units/BROT3NCM/BROT3NCM_Walk.sca',
-        AnimationWalkRate = 1.8,
+        AnimationWalkRate = 2,
 
-        Mesh = {
-            IconFadeInZoom = 150,
-            LODs = {
-                {
-                    LODCutoff = 500,
-                    Scrolling = true,
-                    ShaderName = 'Aeon',
-                },
-            },
-        },
+        Mesh = { IconFadeInZoom = 150, LODs = { {LODCutoff = 500,Scrolling = true,ShaderName = 'Aeon'} } },
+        
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -102,9 +79,7 @@ UnitBlueprint {
                             HipBone = 'footfall_right',
                             KneeBone = 'footfall_right',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Type = 'FootFall01',
                         },
@@ -113,13 +88,12 @@ UnitBlueprint {
                             HipBone = 'footfall_left',
                             KneeBone = 'footfall_left',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Type = 'FootFall01',
                         },
                     },
+                    
                     Damage = {
                         Amount = 1100,
                         DamageFriendly = false,
@@ -161,9 +135,10 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-		RadarRadius = 65,
+        
+		RadarRadius = 64,
         VisionRadius = 36,
-        WaterVisionRadius = 25,
+        WaterVisionRadius = 24,
     },
     
     Interface = {
@@ -182,6 +157,8 @@ UnitBlueprint {
             LAYER_Seabed = true,
         },
         DragCoefficient = 0.2,
+
+        LayerChangeOffsetHeight = -4,
         
         MaxAcceleration = 1.4,
         MaxBrake = 2.5,
@@ -230,26 +207,16 @@ UnitBlueprint {
     
     Weapon = {
 		
-		
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'TM_AEONWEAPONS',
-                    Cue = 'AEONNOVACATGREENLASERFX',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'TM_AEONWEAPONS',
-                    Cue = 'AEONTERMINATORLASERSTOPFX',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart   = Sound { Bank = 'TM_AEONWEAPONS', Cue = 'AEONNOVACATGREENLASERFX', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop    = Sound { Bank = 'TM_AEONWEAPONS', Cue = 'AEONTERMINATORLASERSTOPFX', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
@@ -265,23 +232,20 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 2,
 			
             Label = 'MainLaser',
 			
-            MaxRadius = 48,
+            MaxRadius = 44,
 
             MuzzleChargeDelay = 0.6,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'leftarm_muzzle01',
-                        'leftarm_muzzle02',
-                    },
+                    MuzzleBones = {'leftarm_muzzle01','leftarm_muzzle02'},
                     RackBone = 'gun02',
                 },
             },
@@ -324,26 +288,15 @@ UnitBlueprint {
             Turreted = true,
         },
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
 
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'TM_AEONWEAPONS',
-                    Cue = 'AEONNOVACATBLUELASERFX',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-
+                BeamLoop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart   = Sound { Bank = 'TM_AEONWEAPONS', Cue = 'AEONNOVACATBLUELASERFX', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0.2,
@@ -361,14 +314,14 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 0.1,
 			
             Label = 'laserblu',
 			
-            MaxRadius = 44,
+            MaxRadius = 42,
 			
             RackBones = {
                 {
@@ -418,24 +371,15 @@ UnitBlueprint {
         },
         
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'TM_AEONWEAPONS',
-                    Cue = 'AEONNOVACATBLUELASERFX',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart   = Sound { Bank = 'TM_AEONWEAPONS', Cue = 'AEONNOVACATBLUELASERFX', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0.2,
@@ -450,14 +394,14 @@ UnitBlueprint {
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 
             FiringTolerance = 0.1,
             
             Label = 'laserred',
             
-            MaxRadius = 44,
+            MaxRadius = 42,
             
 			PrefersPrimaryWeaponTarget = true,
             
@@ -506,24 +450,15 @@ UnitBlueprint {
             Turreted = true,
         },
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'TM_AEONWEAPONS',
-                    Cue = 'AEONNOVACATBLUELASERFX',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart   = Sound { Bank = 'TM_AEONWEAPONS', Cue = 'AEONNOVACATBLUELASERFX', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0.2,
@@ -538,14 +473,14 @@ UnitBlueprint {
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 
             FiringTolerance = 0.1,
             
             Label = 'lasermix',
             
-            MaxRadius = 44,
+            MaxRadius = 42,
             
 			PrefersPrimaryWeaponTarget = true,
             
@@ -596,18 +531,11 @@ UnitBlueprint {
         },
 
         {
+            AboveWaterFireOnly = true,
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2304_SAM',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Open = Sound {
-                    Bank = 'UAB',
-                    Cue = 'UAB2304_Activate',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB2304_SAM', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -622,14 +550,14 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Air',
-                Water = 'Air',
+                Seabed = 'Air',
             },
 			
             FiringTolerance = 10,
 			
             Label = 'AAMissiles',
 			
-            MaxRadius = 42,
+            MaxRadius = 48,
 
             MuzzleVelocity = 30,
 
@@ -686,12 +614,9 @@ UnitBlueprint {
         },
 		{
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'TM_AEONWEAPONS',
-                    Cue = 'ROBOTTALK1FX',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'TM_AEONWEAPONS', Cue = 'ROBOTTALK1FX', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             AutoInitiateAttackCommand = true,
@@ -708,7 +633,6 @@ UnitBlueprint {
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 
             FiringTolerance = 1,
@@ -753,6 +677,7 @@ UnitBlueprint {
             
             Turreted = true,
         },
+        
 		{
             AboveWaterTargetsOnly = true,
             Damage = 6000,
@@ -765,11 +690,12 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.7,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

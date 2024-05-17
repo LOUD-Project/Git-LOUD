@@ -2,36 +2,14 @@ UnitBlueprint {
 
     AI = {
         GuardScanRadius = 39,
-		TargetBones = {
-            'Object02',
-			'Left_Leg_B002',
-			'BRPT2EXBOT',
-			'RightCannon',
-			'Left_Barrel',
-        },	
+		TargetBones = {'Object02','Left_Leg_B002','BRPT2EXBOT','RightCannon','Left_Barrel'},	
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XRL_Destroy',
-            Cue = 'XRL0403_Death',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0001_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0001_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Commander',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XRL_Destroy', Cue = 'XRL0403_Death', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0001_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        StopMove    = Sound { Bank = 'XSL', Cue = 'XSL0001_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Commander', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -78,9 +56,9 @@ UnitBlueprint {
         Abilities = {
             'Massive',
             '<LOC ability_amphibious>Amphibious',
-			'Radar & Sonar Stealth',
-            'Radar',
+            '<LOC ability_personalstealth>Personal Stealth',
         },
+        
         AnimationDeath = {
             {
                 Animation = '/mods/TotalMayhem/units/BRPEXBOT/BRPEXBOT_Death1.sca',
@@ -104,6 +82,7 @@ UnitBlueprint {
                 },
             },
         },
+        
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -113,20 +92,14 @@ UnitBlueprint {
                             HipBone = 'Right_Exhaust',
                             KneeBone = 'Right_Exhaust',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Tread = {
                                 TreadLifeTime = 1,
                                 TreadMarks = 'collosus_tread_02',
                                 TreadMarksSizeX = 0.0,
                                 TreadMarksSizeZ = 0.0,
-                                TreadOffset = {
-                                    -0.95,
-                                    0,
-                                    0.85,
-                                },
+                                TreadOffset = {-0.95,0,0.85},
                             },
                             Type = 'FootFall01',
                         },
@@ -135,24 +108,19 @@ UnitBlueprint {
                             HipBone = 'Left_Exhaust',
                             KneeBone = 'Left_Exhaust',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Tread = {
                                 TreadLifeTime = 1,
                                 TreadMarks = 'collosus_tread_02',
                                 TreadMarksSizeX = 0.0,
                                 TreadMarksSizeZ = 0.0,
-                                TreadOffset = {
-                                    -0.95,
-                                    0,
-                                    0.85,
-                                },
+                                TreadOffset = {-0.95,0,0.85},
                             },
                             Type = 'FootFall01',
                         },
                     },
+                    
                     Damage = {
                         Amount = 850,
                         DamageFriendly = false,
@@ -194,8 +162,9 @@ UnitBlueprint {
     Intel = {
 		RadarStealth = true,
 		SonarStealth = true,
-        VisionRadius = 37,
-		WaterVisionRadius = 18,
+
+        VisionRadius = 36,
+		WaterVisionRadius = 20,
     },
 	
     Interface = {
@@ -213,7 +182,9 @@ UnitBlueprint {
             LAYER_Seabed = true,
         },
         DragCoefficient = 0.2,
-		
+
+        LayerChangeOffsetHeight = -3.5,
+
         MaxAcceleration = 1.2,
         MaxBrake = 2.4,
         MaxSpeed = 3.0,
@@ -266,13 +237,11 @@ UnitBlueprint {
 	
     Weapon = {
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0304_Suthanus_Artillery',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0304_Suthanus_Artillery', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_LowArc',
@@ -318,6 +287,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 2,
@@ -386,14 +356,13 @@ UnitBlueprint {
             Turreted = true,
         },
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2101_Spectra_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2101_Spectra_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -405,7 +374,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 1.5,
@@ -477,11 +446,12 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

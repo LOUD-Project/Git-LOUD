@@ -2,45 +2,23 @@ UnitBlueprint {
 
     AI = {
         GuardScanRadius = 40,		
-		TargetBones = {
-            'Object109',
-			'Object02',
-			'Oject106',
-			'Object11',
-			'Object07',
-        },	
+		TargetBones = {'Object109','Object02','Oject106','Object11','Object07'},	
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XRL_Destroy',
-            Cue = 'XRL0403_Death',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0001_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0001_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Commander',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'XRL_Destroy', Cue = 'XRL0403_Death', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove = Sound { Bank = 'XSL', Cue = 'XSL0001_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove = Sound { Bank = 'XSL', Cue = 'XSL0001_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Commander', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 7,
-            Level2 = 14,
-            Level3 = 21,
-            Level4 = 28,
-            Level5 = 35,
+            Level1 = 6,
+            Level2 = 12,
+            Level3 = 18,
+            Level4 = 24,
+            Level5 = 30,
         },
     },
 	
@@ -64,11 +42,12 @@ UnitBlueprint {
     },
 	
     Defense = {
-        AirThreatLevel = 0,
         ArmorType = 'Normal',
         Health = 32500,
         MaxHealth = 32500,
         RegenRate = 10,
+        
+        AirThreatLevel = 28,
         SurfaceThreatLevel = 172.3,
     },
 	
@@ -79,8 +58,8 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_amphibious>Amphibious',
             '<LOC ability_aa>Anti-Air',
-			'Radar & Sonar Stealth',
-			'Radar',
+            '<LOC ability_personalstealth>Personal Stealth',
+            '<LOC ability_radar>Radar',
         },
 		
         AnimationDeath = {
@@ -135,10 +114,13 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 65,
+        
+        RadarRadius = 64,
+        
 		RadarStealth = true,
 		SonarStealth = true,
-        VisionRadius = 34,
+        
+        VisionRadius = 36,
     },
 	
     Interface = {
@@ -156,7 +138,9 @@ UnitBlueprint {
             LAYER_Seabed = true,
         },
         DragCoefficient = 0.2,
-		
+
+        LayerChangeOffsetHeight = -3.3,
+
         MaxAcceleration = 2,
         MaxBrake = 1.5,
         MaxSpeed = 3.3,
@@ -210,13 +194,11 @@ UnitBlueprint {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0001_Chronotron_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0001_Chronotron_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -228,7 +210,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 			
 			FiringRandomness = 0.2,
@@ -293,15 +275,15 @@ UnitBlueprint {
             Turreted = true,
         },
         {
+            AboveWaterFireOnly = true,
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0205_Olaris_AA_Artillery',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0205_Olaris_AA_Artillery', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -311,8 +293,6 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
-			
-            DisplayName = 'Olaris AA Artillery Cannon',
 			
             FireTargetLayerCapsTable = {
                 Land = 'Air',
@@ -334,15 +314,11 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'muzzle04',
-                    },
+                    MuzzleBones = {'muzzle04'},
                     RackBone = 'Object07',
                 },
                 {
-                    MuzzleBones = {
-                        'muzzle03',
-                    },
+                    MuzzleBones = {'muzzle03'},
                     RackBone = 'Object08',
                 },
             },
@@ -384,6 +360,7 @@ UnitBlueprint {
 			
             Turreted = true,
         },
+        
         {
             Damage = 3500,
             DamageFriendly = true,
@@ -395,6 +372,7 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

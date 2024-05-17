@@ -5,31 +5,11 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'URLWeapon',
-            Cue = 'URL0303_Death_EMP',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'URLWeapon',
-            Cue = 'URL0303_Death_EMP',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URLWeapon',
-            Cue = 'URL0303_Death_EMP',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0303_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed          = Sound { Bank = 'URLWeapon', Cue = 'URL0303_Death_EMP', LodCutoff = 'UnitMove_LodCutoff' },
+        DeathExplosion  = Sound { Bank = 'URLWeapon', Cue = 'URL0303_Death_EMP', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed       = Sound { Bank = 'URLWeapon', Cue = 'URL0303_Death_EMP', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove       = Sound { Bank = 'URL', Cue = 'URL0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Bot', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -71,35 +51,20 @@ UnitBlueprint {
     Description = '<LOC brmt1exm1_desc>Medium Assault Bot',
 	
     Display = {
-        AnimationDeath = {
-            {
-                Animation = '/mods/TotalMayhem/units/BRMT1EXM1/BRMT1EXM1_Death.sca',
-                Weight = 100,
-            },
-        },
-		
+        AnimationDeath = { { Animation = '/mods/TotalMayhem/units/BRMT1EXM1/BRMT1EXM1_Death.sca', Weight = 100 } },
         AnimationWalk = '/mods/TotalMayhem/units/BRMT1EXM1/BRMT1EXM1_Walk.sca',
         AnimationWalkRate = 10,
 		
         Mesh = {
             IconFadeInZoom = 120,
             LODs = {
-                {
-                    LODCutoff = 180,
-                    ShaderName = 'Insect',
-                },
+                {LODCutoff = 180,ShaderName = 'Insect'},
             },
         },
         MovementEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {
-                            'Exhaust_Left',
-                            'Exhaust_Right',
-                        },
-                        Type = 'GroundKickup01',
-                    },
+                    { Bones = {'Exhaust_Left','Exhaust_Right'}, Type = 'GroundKickup01' },
                 },
             },
         },
@@ -129,7 +94,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 23,
+        VisionRadius = 24,
     },
 	
     Interface = {
@@ -186,13 +151,11 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0107_Laser_Auto',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0107_Laser_Auto', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -201,11 +164,9 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
-			
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
             FiringRandomnessWhileMoving = 0.3,
@@ -271,11 +232,12 @@ UnitBlueprint {
             Turreted = true,
 		},
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.6,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

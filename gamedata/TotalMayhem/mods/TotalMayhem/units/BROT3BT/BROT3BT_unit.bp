@@ -5,22 +5,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'TANKDEATH',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0202_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-
+        Destroyed = Sound { Bank = 'TM_EXPLOSIONS', Cue = 'TANKDEATH', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove = Sound { Bank = 'UAL', Cue = 'UAL0202_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Tank', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -83,22 +70,14 @@ UnitBlueprint {
 			'Amphibious',
             'Personal Shield',
         },
-        Mesh = {
-            IconFadeInZoom = 170,
-            LODs = {
-                {
-                    LODCutoff = 250,
-                    Scrolling = true,
-                    ShaderName = 'Aeon',
-                },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 170, LODs = { {LODCutoff = 250,Scrolling = true,ShaderName = 'Aeon' } } },
 
         UniformScale = 0.105,
     },
 	
     Economy = {
-        BuildCostEnergy = 16500,
+        BuildCostEnergy = 17250,
         BuildCostMass = 1200,
         BuildTime = 600,
 		
@@ -107,6 +86,7 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -118,21 +98,19 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-personal',
-                helpText = 'toggle_shield_personal',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-personal', helpText = 'toggle_shield_personal' },
         },
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_ShieldToggle = true },
+        
         UnitName = '<LOC brot3bt_name>Transoma',
     },
 	
     Intel = {
         VisionRadius = 32,
-		WaterVisionRadius = 21,
+		WaterVisionRadius = 20,
     },
 	
     Interface = {
@@ -150,6 +128,9 @@ UnitBlueprint {
             LAYER_Seabed = true,
         },
         DragCoefficient = 0.2,
+
+        LayerChangeOffsetHeight = -0.5,
+
         MaxAcceleration = 1.6,
         MaxBrake = 2.6,
         MaxSpeed = 2.6,
@@ -194,14 +175,13 @@ UnitBlueprint {
 
     Weapon = {
 		{
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'TM_AEONWEAPONS',
-                    Cue = 'AEONROCKETLAUNCHERFX',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'TM_AEONWEAPONS', Cue = 'AEONROCKETLAUNCHERFX', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -214,7 +194,8 @@ UnitBlueprint {
             DisplayName = 'Rockets',
 			
             FireTargetLayerCapsTable = {
-                Land = 'Land|Water',
+                Land = 'Land|Seabed|Water',
+                Seabed = 'Land|Seabed|Water',
             },
 			
             FiringTolerance = 1,
@@ -239,10 +220,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'rl01',
-                        'rl02',
-                    },
+                    MuzzleBones = {'rl01','rl02'},
                     RackBone = 'rl01',
                 },
             },
@@ -282,47 +260,30 @@ UnitBlueprint {
             Turreted = true,
         },
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'TM_AEONWEAPONS',
-                    Cue = 'AEONGUN8',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2301_Cannon_Oblivion_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop          = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStop          = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Stop', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire                = Sound { Bank = 'TM_AEONWEAPONS', Cue = 'AEONGUN8', LodCutoff = 'Weapon_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'UALWeapon', Cue = 'UAB2301_Cannon_Oblivion_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_LowArc',
 
             CollideFriendly = false,
 			
-            Damage = 440,
+            Damage = 500,
             DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Primary',
 			
             FireTargetLayerCapsTable = {
-                Land = 'Land|Water',
+                Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 			
 			FiringRandomnessWhileMoving = 0.2,
@@ -358,7 +319,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.5,	-- 220 dps
+            RateOfFire = 0.5,	-- 250 dps
 
             TargetCheckInterval = 1.0,
             TargetPriorities = {
@@ -385,14 +346,13 @@ UnitBlueprint {
             Turreted = true,
 		},
 		{
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'TM_AEONWEAPONS',
-                    Cue = 'AEONGUNAUTOPULSEFX',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'TM_AEONWEAPONS', Cue = 'AEONGUNAUTOPULSEFX', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -402,7 +362,8 @@ UnitBlueprint {
             DisplayName = 'Secondary',
 			
             FireTargetLayerCapsTable = {
-                Land = 'Land|Water',
+                Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 			
             FiringRandomness = 0.5,
@@ -423,10 +384,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'mgmuzzle',
-                        'mgmuzzle01',
-                    },
+                    MuzzleBones = {'mgmuzzle','mgmuzzle01'},
                     RackBone = 'mgmuzzle',
                 },
             },
@@ -484,7 +442,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.7,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -1,25 +1,13 @@
 UnitBlueprint {
     AI = { 
-        GuardScanRadius = 42, 
+        GuardScanRadius = 41, 
 		TargetBones = {'Turret'},		
     }, 
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'TANKDEATH',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0202_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'TM_EXPLOSIONS', Cue = 'TANKDEATH', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'UAL', Cue = 'UAL0202_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Tank', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {},
@@ -54,16 +42,8 @@ UnitBlueprint {
     Description = '<LOC brot1ml_desc>Light Rocket Artillery',
 
     Display = {
-        Mesh = {
-            IconFadeInZoom = 140,
-            LODs = {
-                {
-                    LODCutoff = 170,
-                    Scrolling = true,
-                    ShaderName = 'Aeon',
-                },
-            },
-        },
+    
+        Mesh = { IconFadeInZoom = 140, LODs = { {LODCutoff = 170,Scrolling = true,ShaderName = 'Aeon'} } },
 
         UniformScale = 0.09,
     },
@@ -90,7 +70,7 @@ UnitBlueprint {
     },
 
     Intel = {
-        VisionRadius = 18,
+        VisionRadius = 16,
     },
 
     Interface = {
@@ -152,28 +132,14 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2304_Missile_Flayer',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Stop', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire        = Sound { Bank = 'UELWeapon', Cue = 'UEB2304_Missile_Flayer', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
@@ -181,25 +147,27 @@ UnitBlueprint {
             DamageRadius = 0.5,
             DamageType = 'Normal',
 			
-            DisplayName = 'Gauss Cannon',
-			
+            DisplayName = 'Rocket',
+            
+            EnergyDrainPerSecond = 30,	-- 12.5 second charge --
+            EnergyRequired = 375,
+            
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 2,
             FiringRandomness = 0.6,
 			FiringRandomnessWhileMoving = 1.1,
 			
-            Label = 'MainGun',
+            Label = 'Rockets',
 			
             MaxRadius = 42,
             MinRadius = 8,
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 18,
-            MuzzleVelocity = 13.5,
+            MuzzleVelocity = 14.5,
 			MuzzleVelocityReduceDistance = 25,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BROT1PDROproj/BROT1PDROproj_proj.bp',
@@ -233,8 +201,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.08,	-- 57 dps
-			RenderFireClock = true,
+            RateOfFire = 1,	-- controlled by charge = 720/12.5 = 57 DPS
 			
             TargetCheckInterval = 5,
 			
@@ -263,11 +230,12 @@ UnitBlueprint {
             Turreted = true,
 		},
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -5,21 +5,9 @@ UnitBlueprint {
     },
  
     Audio = { 
-        StartMove = Sound { 
-            Bank = 'XSL', 
-            Cue = 'XSL0001_Move_Start', 
-            LodCutoff = 'UnitMove_LodCutoff', 
-        }, 
-        StopMove = Sound { 
-            Bank = 'XSL', 
-            Cue = 'XSL0001_Move_Stop', 
-            LodCutoff = 'UnitMove_LodCutoff', 
-        }, 
-        UISelection = Sound { 
-            Bank = 'SeraphimSelect', 
-            Cue = 'Seraphim_Select_Commander', 
-            LodCutoff = 'UnitMove_LodCutoff', 
-        }, 
+        StartMove = Sound { Bank = 'XSL', Cue = 'XSL0001_Move_Start', LodCutoff = 'UnitMove_LodCutoff' }, 
+        StopMove = Sound { Bank = 'XSL', Cue = 'XSL0001_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' }, 
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Commander', LodCutoff = 'UnitMove_LodCutoff' }, 
     }, 
 
     Buffs = {
@@ -55,11 +43,12 @@ UnitBlueprint {
 
         LambdaDestroy01 = {AttachBone = 'Torso01', Radius = 4.8, RedirectRateOfFire = 5 },
 
-        AirThreatLevel = 72,
         ArmorType = 'Normal',
         Health = 56000,
         MaxHealth = 56000,
         RegenRate = 20,
+
+        AirThreatLevel = 72,
         SurfaceThreatLevel = 550.8,
     },
 	
@@ -71,8 +60,8 @@ UnitBlueprint {
             '<LOC ability_amphibious>Amphibious',
             '<LOC ability_aa>Anti-Air',
             'Lambda Destruction Field',
-			'Radar',
-			'Radar & Sonar Stealth',
+            '<LOC ability_personalstealth>Personal Stealth',
+            '<LOC ability_radar>Radar',
         },
 		
         AnimationDeath = {
@@ -101,6 +90,7 @@ UnitBlueprint {
                 },
             },
         },
+        
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -110,20 +100,14 @@ UnitBlueprint {
                             HipBone = 'footfall01',
                             KneeBone = 'footfall01',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Tread = {
                                 TreadLifeTime = 1,
                                 TreadMarks = 'collosus_tread_02',
                                 TreadMarksSizeX = 0.0,
                                 TreadMarksSizeZ = 0.0,
-                                TreadOffset = {
-                                    -0.95,
-                                    0,
-                                    0.85,
-                                },
+                                TreadOffset = {-0.95,0,.85},
                             },
                             Type = 'FootFall01',
                         },
@@ -132,30 +116,26 @@ UnitBlueprint {
                             HipBone = 'footfall02',
                             KneeBone = 'footfall02',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1,
                             StraightLegs = false,
                             Tread = {
                                 TreadLifeTime = 1,
                                 TreadMarks = 'collosus_tread_02',
                                 TreadMarksSizeX = 0.0,
                                 TreadMarksSizeZ = 0.0,
-                                TreadOffset = {
-                                    -0.95,
-                                    0,
-                                    0.85,
-                                },
+                                TreadOffset = {-0.95,0,0.85},
                             },
                             Type = 'FootFall01',
                         },
                     },
+                    
                     CameraShake = {
                         Interval = 0.15,
                         MaxShakeEpicenter = 0.2,
                         MinShakeAtRadius = 0,
                         Radius = 10,
                     },
+                    
                     Damage = {
                         Amount = 1500,
                         DamageFriendly = false,
@@ -195,9 +175,11 @@ UnitBlueprint {
     },
 	
     Intel = {
-		RadarRadius = 75,
+		RadarRadius = 72,
+        
 		RadarStealth = true,
 		SonarStealth = true,
+        
         VisionRadius = 40,
 		WaterVisionRadius = 20,
     },
@@ -217,6 +199,9 @@ UnitBlueprint {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
+
+        LayerChangeOffsetHeight = -2.3,
+
         MaxAcceleration = 1.5,
         MaxBrake = 2.9,
         MaxSpeed = 2.9,
@@ -265,12 +250,9 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0001_Chronotron_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0001_Chronotron_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
 			
             Buffs = {
@@ -313,7 +295,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 2,
@@ -373,11 +355,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0001_Chronotron_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0001_Chronotron_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_LowArc',
@@ -422,7 +400,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 2,
@@ -482,21 +460,9 @@ UnitBlueprint {
             AlwaysRecheckTarget = true,			
 
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0201_Ultrachromatic_Beam',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop    = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_Ultrachromatic_Beam', LodCutoff = 'Weapon_LodCutoff'},
+                BeamStart   = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Fire', LodCutoff = 'Weapon_LodCutoff'},
+                BeamStop    = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -513,7 +479,7 @@ UnitBlueprint {
             DisplayName = 'Ultrachromatic Beam',
 			
             FireTargetLayerCapsTable = {
-                Water = 'Land|Water|Seabed|Air',
+                Seabed = 'Land|Water|Seabed|Air',
                 Land = 'Land|Water|Seabed|Air',
             },
 			
@@ -565,24 +531,13 @@ UnitBlueprint {
         },
 
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
 			
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0201_Ultrachromatic_Beam',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop    = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_Ultrachromatic_Beam', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart   = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Fire', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop    = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -598,7 +553,7 @@ UnitBlueprint {
             DisplayName = 'Ultrachromatic Beam',
 			
             FireTargetLayerCapsTable = {
-                Water = 'Land|Water|Seabed|Air',
+                Seabed = 'Land|Water|Seabed|Air',
                 Land = 'Land|Water|Seabed|Air',
             },
 			
@@ -647,15 +602,12 @@ UnitBlueprint {
         },
 
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AlwaysRecheckTarget = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0202_AireAuBolter',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0202_AireAuBolter', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_LowArc',
@@ -669,7 +621,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed|Air',
-                Water = 'Land|Water|Seabed|Air',
+                Seabed = 'Land|Water|Seabed|Air',
             },
 			
             FiringRandomness = 0.3,
@@ -739,11 +691,12 @@ UnitBlueprint {
         },
 
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.7,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,
