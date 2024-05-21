@@ -328,8 +328,14 @@ Unit = Class(UnitMethods) {
         self.CurrentRegenRate = bp.Defense.RegenRate
         
         SetStat( self, 'REGEN', self.CurrentRegenRate )
-		
-        -- would be nice to reivew this as well
+        
+        GetStat( self, 'VISION', bp.Intel.VisionRadius or 4 )
+        SetStat( self, 'VISION', bp.Intel.VisionRadius or 4 )
+        
+        GetStat( self, 'WATERVISION', bp.Intel.WaterVisionRadius or 4)
+        SetStat( self, 'WATERVISION', bp.Intel.WaterVisionRadius or 4 )		
+
+        -- would be nice to review the need for this as well
         self.DamageEffectsBag = { {}, {}, {}, }
      
         local damageamounts = 1

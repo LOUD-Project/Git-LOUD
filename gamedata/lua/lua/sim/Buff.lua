@@ -494,6 +494,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
 			if val > 0 then
 				SetIntelRadius( unit, 'Vision', val)
+                SetStat( unit, 'VISION', val )
 			end
 
 		elseif atype == 'WaterVisionRadius' then
@@ -502,6 +503,8 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
 			if val > 0 then
 				SetIntelRadius( unit, 'WaterVision', val)
+                SetStat( unit, 'WATERVISION', val )
+                
 				EnableIntel( unit, 'WaterVision')
 			end
 

@@ -1664,15 +1664,13 @@ MobileUnit = Class(Unit) {
 
         if new == 'Land' then
 
-			local Intel = __blueprints[self.BlueprintID].Intel
-			local vis = Intel.VisionRadius or 2
+			local vis = self:GetStat('VISION', 0).Value
+            
+            LOG("*AI DEBUG Vis is "..repr(vis))
 			
-			-- if current vision radius is less than standard blueprint value
-			-- then it must have been turned down previously - turn it back up
-			if old == 'Seabed' and self:GetIntelRadius('Vision') <= (vis * 0.75) then
-
-				self:SetIntelRadius('Vision', self:GetIntelRadius('Vision') * 2.5)
-				
+			-- return vision radius to current value
+			if old == 'Seabed' then
+				self:SetIntelRadius('Vision', vis)
 			end
 			
 			self:EnableIntel('Vision')
@@ -1685,20 +1683,15 @@ MobileUnit = Class(Unit) {
 		-- all these inclusions are to cover Amphib units being dropped into, or constructed on the seabed
 		-- or to cover Sonar carrying aircraft (ie. Torpedo Bombers)
         elseif (old == 'Land' or old == 'Air' or old == 'None') and new == 'Seabed' then
-
-			local Intel = __blueprints[self.BlueprintID].Intel
-			local vis = Intel.VisionRadius or 2
+            
+			local vis       = self:GetStat('VISION', 0).Value
+            local watervis  = self:GetStat('WATERVISION', 0).Value
+            
+            LOG("*AI DEBUG Vis and Watervis are "..repr(vis).." "..repr(watervis) )
 			
-			-- if current vision is mostly normal then
-			-- turn it down to 40% of current vision
-			if self:GetIntelRadius('Vision') > (vis * 0.75) then
-			
-				self:SetIntelRadius('Vision', self:GetIntelRadius('Vision') * 0.4)
-				
-			end
+			self:SetIntelRadius('Vision', watervis)
 
 			self:EnableIntel('WaterVision')
-			
 			self:DisableIntel('Vision')
 
 			self:DisableUnitIntel('Radar')
