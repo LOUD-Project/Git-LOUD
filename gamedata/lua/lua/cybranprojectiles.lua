@@ -26,9 +26,9 @@ local EffectTemplate = import('/lua/EffectTemplates.lua')
 local CreateDecal = CreateDecal
 local CreateTrail = CreateTrail
 
-local CreateLightParticle = CreateLightParticle
+local CreateLightParticle   = CreateLightParticle
 local CreateEmitterAtEntity = CreateEmitterAtEntity
-local CreateEmitterAtBone = CreateEmitterAtBone
+local CreateEmitterAtBone   = CreateEmitterAtBone
 
 local DamageArea = DamageArea
 local ForkThread = ForkThread

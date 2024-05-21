@@ -21,18 +21,18 @@ CollisionBeamFile = nil
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 local EntityCategoryContains = EntityCategoryContains
-local CreateAttachedEmitter= CreateAttachedEmitter
-local CreateEmitterAtBone = CreateEmitterAtBone
-local CreateEmitterAtEntity = CreateEmitterAtEntity
+local CreateAttachedEmitter  = CreateAttachedEmitter
+local CreateEmitterAtBone    = CreateEmitterAtBone
+local CreateEmitterAtEntity  = CreateEmitterAtEntity
 
 local ForkThread = ForkThread
 local KillThread = KillThread
 local VDist2 = VDist2
 
-local GetArmy = moho.entity_methods.GetArmy
-local GetBlueprint = moho.weapon_methods.GetBlueprint
-local GetCurrentTarget = moho.weapon_methods.GetCurrentTarget
-local GetSource = moho.blip_methods.GetSource
+local GetArmy           = moho.entity_methods.GetArmy
+local GetBlueprint      = moho.weapon_methods.GetBlueprint
+local GetCurrentTarget  = moho.weapon_methods.GetCurrentTarget
+local GetSource         = moho.blip_methods.GetSource
 
 local DefaultBuffField = import('/lua/defaultbufffield.lua').DefaultBuffField
 

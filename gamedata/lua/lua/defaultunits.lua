@@ -4,16 +4,22 @@
 -- This file describes the first layer down from the UNIT entity
 -- covering basic concepts like -- DUMMY Units, STRUCTURE Units, MOBILE Units and
 -- then most of their sub-classes
-local Entity = import('/lua/sim/Entity.lua').Entity
-local Unit = import('/lua/sim/unit.lua').Unit
+local EntityOnCreate    = import('/lua/sim/Entity.lua').Entity.OnCreate
+
+local Unit      = import('/lua/sim/unit.lua').Unit
 
 local GetRandomOffset                   = Unit.GetRandomOffset
 
 local UnitOnCreate                      = Unit.OnCreate
+local UnitOnHealthChanged               = Unit.OnHealthChanged
 local UnitOnPreCreate                   = Unit.OnPreCreate
+local UnitOnScriptBitSet                = Unit.OnScriptBitSet
 local UnitOnStartBuild                  = Unit.OnStartBuild
 local UnitOnStopBeingBuilt              = Unit.OnStopBeingBuilt
 local UnitOnStopBuild                   = Unit.OnStopBuild
+local UnitOnTransportAttach             = Unit.OnTransportAttach
+local UnitOnTransportDetach             = Unit.OnTransportDetach
+local UnitOnLayerChange                 = Unit.OnLayerChange
 local UnitOnKilled                      = Unit.OnKilled
 local PlayUnitSound                     = Unit.PlayUnitSound
 local UnitStartBeingBuiltEffects        = Unit.StartBeingBuiltEffects
@@ -43,78 +49,84 @@ local CreateBuildCubeThread             = EffectUtilities.CreateBuildCubeThread
 local CreateEffects                     = EffectUtilities.CreateEffects
 local CreateSeraphimBuildBaseThread     = EffectUtilities.CreateSeraphimBuildBaseThread
 local CreateUEFUnitBeingBuiltEffects    = EffectUtilities.CreateUEFUnitBeingBuiltEffects
+local PlayCaptureEffects                = EffectUtilities.PlayCaptureEffects
 local PlayReclaimEffects                = EffectUtilities.PlayReclaimEffects
 local PlayReclaimEndEffects             = EffectUtilities.PlayReclaimEndEffects
+local PlaySacrificeEffects              = EffectUtilities.PlaySacrificeEffects
+local PlaySacrificingEffects            = EffectUtilities.PlaySacrificingEffects
 
-local GetMarkers = import('/lua/sim/scenarioutilities.lua').GetMarkers
+EffectUtilities = nil
 
-local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
-local HasBuff = import('/lua/sim/buff.lua').HasBuff
-local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff
+local GetMarkers    = import('/lua/sim/scenarioutilities.lua').GetMarkers
 
-local AssignTransportToPool = import('/lua/ai/transportutilities.lua').AssignTransportToPool
-local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
-local ReturnTransportsToPool = import('/lua/ai/transportutilities.lua').ReturnTransportsToPool
+local ApplyBuff     = import('/lua/sim/buff.lua').ApplyBuff
+local HasBuff       = import('/lua/sim/buff.lua').HasBuff
+local RemoveBuff    = import('/lua/sim/buff.lua').RemoveBuff
 
-local LOUDCOPY = table.copy
-local LOUDCEIL = math.ceil
-local LOUDFIND = string.find
+local AssignTransportToPool     = import('/lua/ai/transportutilities.lua').AssignTransportToPool
+local ProcessAirUnits           = import('/lua/loudutilities.lua').ProcessAirUnits
+local ReturnTransportsToPool    = import('/lua/ai/transportutilities.lua').ReturnTransportsToPool
+
+local LOUDCOPY  = table.copy
+local LOUDCEIL  = math.ceil
+local LOUDFIND  = string.find
 local LOUDFLOOR = math.floor
-local LOUDGETN = table.getn
+local LOUDGETN  = table.getn
 local LOUDINSERT = table.insert
-local LOUDSUB = string.sub
+local LOUDSUB   = string.sub
 
-local ChangeState = ChangeState
-local CreateDecal = CreateDecal
-local CreateAnimator = CreateAnimator
+local ChangeState           = ChangeState
+local CreateDecal           = CreateDecal
+local CreateAnimator        = CreateAnimator
 local CreateAttachedEmitter = CreateAttachedEmitter
 local CreateEmitterAtEntity = CreateEmitterAtEntity
-local CreateEmitterAtBone = CreateEmitterAtBone
+local CreateEmitterAtBone   = CreateEmitterAtBone
 local EntityCategoryContains = EntityCategoryContains
-local ForkThread = ForkThread
-local ForkTo = ForkThread
-local KillThread = KillThread
-local LOUDATTACHBEAMENTITY = AttachBeamEntityToEntity
-local Random = Random
-local TrashBag = TrashBag
-local TrashAdd = TrashBag.Add
-local TrashDestroy = TrashBag.Destroy
-local VDist2 = VDist2
-local VDist2Sq = VDist2Sq
-local VDist3 = VDist3
+local ForkThread            = ForkThread
+local ForkTo                = ForkThread
+local KillThread            = KillThread
+local LOUDATTACHBEAMENTITY  = AttachBeamEntityToEntity
+local Random                = Random
+
+local TrashBag      = TrashBag
+local TrashAdd      = TrashBag.Add
+local TrashDestroy  = TrashBag.Destroy
+
+local VDist2    = VDist2
+local VDist2Sq  = VDist2Sq
+local VDist3    = VDist3
 local WaitTicks = coroutine.yield
 
-local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
-local MakePlatoon = moho.aibrain_methods.MakePlatoon
+local AssignUnitsToPlatoon  = moho.aibrain_methods.AssignUnitsToPlatoon
+local MakePlatoon           = moho.aibrain_methods.MakePlatoon
 
-local BeenDestroyed = moho.entity_methods.BeenDestroyed
-local DisableIntel = moho.entity_methods.DisableIntel
-local EnableIntel = moho.entity_methods.EnableIntel
-local GetBoneCount = moho.entity_methods.GetBoneCount
-local GetFractionComplete = moho.entity_methods.GetFractionComplete
-local GetPosition = moho.entity_methods.GetPosition
+local BeenDestroyed         = moho.entity_methods.BeenDestroyed
+local DisableIntel          = moho.entity_methods.DisableIntel
+local EnableIntel           = moho.entity_methods.EnableIntel
+local GetBoneCount          = moho.entity_methods.GetBoneCount
+local GetFractionComplete   = moho.entity_methods.GetFractionComplete
+local GetPosition           = moho.entity_methods.GetPosition
 
-local GetAIBrain = moho.unit_methods.GetAIBrain
-
-local GetWeapon = moho.unit_methods.GetWeapon
-local GetWeaponCount = moho.unit_methods.GetWeaponCount
-local HideBone = moho.unit_methods.HideBone
-local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
-local SetConsumptionPerSecondMass = moho.unit_methods.SetConsumptionPerSecondMass
-local SetProductionActive = moho.unit_methods.SetProductionActive
-local SetProductionPerSecondMass = moho.unit_methods.SetProductionPerSecondMass
+local GetAIBrain                    = moho.unit_methods.GetAIBrain
+local GetWeapon                     = moho.unit_methods.GetWeapon
+local GetWeaponCount                = moho.unit_methods.GetWeaponCount
+local HideBone                      = moho.unit_methods.HideBone
+local IsBeingBuilt                  = moho.unit_methods.IsBeingBuilt
+local SetConsumptionPerSecondMass   = moho.unit_methods.SetConsumptionPerSecondMass
+local SetProductionActive           = moho.unit_methods.SetProductionActive
+local SetProductionPerSecondMass    = moho.unit_methods.SetProductionPerSecondMass
 
 local PlayAnim = moho.AnimationManipulator.PlayAnim
 
 local VectorCached = { 0, 0, 0 }
 
-local AIRUNITS = (categories.AIR * categories.MOBILE) - categories.INSIGNIFICANTUNIT
-local FACTORIES = categories.FACTORY - categories.EXPERIMENTAL
-local ENERGYPRODUCTION = categories.ENERGYPRODUCTION - categories.HYDROCARBON - categories.EXPERIMENTAL - categories.TECH1
-local MASSPRODUCTION = categories.MASSPRODUCTION - categories.EXPERIMENTAL
-local INTEL = categories.INTELLIGENCE - categories.OPTICS
-local SERAPHIMAIR = categories.SERAPHIM * categories.AIR
-local TRANSPORTS = categories.TRANSPORTFOCUS - categories.uea0203
+local AIRUNITS          = (categories.AIR * categories.MOBILE) - categories.INSIGNIFICANTUNIT
+local FACTORIES         = categories.FACTORY - categories.EXPERIMENTAL
+local ENERGYPRODUCTION  = categories.ENERGYPRODUCTION - categories.HYDROCARBON - categories.EXPERIMENTAL - categories.TECH1
+local MASSPRODUCTION    = categories.MASSPRODUCTION - categories.EXPERIMENTAL
+local INTEL             = categories.INTELLIGENCE - categories.OPTICS
+local SERAPHIMAIR       = categories.SERAPHIM * categories.AIR
+local TRANSPORTS        = categories.TRANSPORTFOCUS - categories.uea0203
 
 local function GetRandomFloat( Min, Max )
     return Min + (Random() * (Max-Min) )

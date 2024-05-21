@@ -1,14 +1,17 @@
 ---  /lua/cybranweapons.lua
 
-local KamikazeWeapon = import('/lua/sim/DefaultWeapons.lua').KamikazeWeapon
-local BareBonesWeapon = import('/lua/sim/DefaultWeapons.lua').BareBonesWeapon
-local DefaultProjectileWeapon = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
-local DefaultBeamWeapon = import('/lua/sim/DefaultWeapons.lua').DefaultBeamWeapon
+local BareBonesWeapon           = import('/lua/sim/DefaultWeapons.lua').BareBonesWeapon
+local KamikazeWeapon            = import('/lua/sim/DefaultWeapons.lua').KamikazeWeapon
+local DefaultBeamWeapon         = import('/lua/sim/DefaultWeapons.lua').DefaultBeamWeapon
+local DefaultProjectileWeapon   = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
 
-local CollisionBeamFile = import('defaultcollisionbeams.lua')
-local EffectTemplate = import('/lua/EffectTemplates.lua')
+local DefaultBeamWeaponOnCreate     = DefaultBeamWeapon.OnCreate
+local DefaultBeamWeaponIdleState    = DefaultBeamWeapon.IdleState
 
-local Entity = import('/lua/sim/Entity.lua').Entity
+local CollisionBeamFile         = import('defaultcollisionbeams.lua')
+local EffectTemplate            = import('/lua/EffectTemplates.lua')
+
+local Entity                    = import('/lua/sim/Entity.lua').Entity
 
 local CreateAttachedEmitter = CreateAttachedEmitter
 local CreateProjectile = moho.weapon_methods.CreateProjectile

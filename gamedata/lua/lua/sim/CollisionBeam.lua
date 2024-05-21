@@ -5,36 +5,37 @@
 
 local DefaultDamage = import('/lua/sim/defaultdamage.lua')
 
-local LOUDGETN = table.getn
-local LOUDINSERT = table.insert
-local LOUDENTITY = EntityCategoryContains
-local LOUDPARSE = ParseEntityCategory
-local LOUDDAMAGE = Damage
-local LOUDDAMAGEAREA = DamageArea
-local LOUDEMITATBONE = CreateEmitterAtBone
+local ForkThread        = ForkThread
 local LOUDATTACHEMITTER = CreateAttachedEmitter
-local LOUDSPLAT = CreateSplat
+local LOUDDAMAGE        = Damage
+local LOUDDAMAGEAREA    = DamageArea
+local LOUDEMITATBONE    = CreateEmitterAtBone
+local LOUDENTITY        = EntityCategoryContains
+local LOUDGETN          = table.getn
+local LOUDINSERT        = table.insert
+local LOUDPARSE         = ParseEntityCategory
+local LOUDSPLAT         = CreateSplat
+local STRINGSUB         = string.sub
+local TONUMBER          = tonumber
 
-local ForkThread = ForkThread
+local GetArmy           = moho.entity_methods.GetArmy
+local GetLauncher       = moho.CollisionBeamEntity.GetLauncher
 
-local GetArmy = moho.entity_methods.GetArmy
 local GetRandomFloat = import('/lua/utilities.lua').GetRandomFloat
-
-local STRINGSUB = string.sub
-local TONUMBER = tonumber
 
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
 local TrashDestroy = TrashBag.Destroy
 
+--LOG( "COLLISIONBEAM METHODS = ",repr(moho.CollisionBeamEntity) )
 
 CollisionBeam = Class(moho.CollisionBeamEntity) {
 
-    FxBeam = {},
-    FxBeamStartPoint = {},
-    FxBeamStartPointScale = 1,
-    FxBeamEndPoint = {},
-    FxBeamEndPointScale = 1,
+    FxBeam                  = false,
+    FxBeamStartPoint        = false,
+    FxBeamStartPointScale   = 1,
+    FxBeamEndPoint          = false,
+    FxBeamEndPointScale     = 1,
 
     FxUnderWaterHitScale = 0.25,
 

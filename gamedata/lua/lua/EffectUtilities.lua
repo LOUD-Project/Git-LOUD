@@ -199,10 +199,11 @@ end
 
 function CreateAeonBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
 
-    local BeenDestroyed = BeenDestroyed
-    local GetFractionComplete = GetFractionComplete
-    local LOUDEMITONENTITY = LOUDEMITONENTITY
-    local TrashAdd = TrashAdd
+    local BeenDestroyed         = BeenDestroyed
+    local GetFractionComplete   = GetFractionComplete
+    local LOUDEMITONENTITY      = LOUDEMITONENTITY
+    
+    local TrashAdd  = TrashAdd
     local WaitTicks = WaitTicks
 
 	local army = builder.Army

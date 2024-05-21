@@ -2,17 +2,18 @@
 --* Author: Chris Blackwell
 --* Summary: Economy bar UI
 
-local UIUtil = import('/lua/ui/uiutil.lua')
-local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
-local Group = import('/lua/maui/group.lua').Group
-local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
-local Checkbox = import('/lua/maui/checkbox.lua').Checkbox
-local StatusBar = import('/lua/maui/statusbar.lua').StatusBar
-local GameMain = import('/lua/ui/game/gamemain.lua')
+local UIUtil         = import('/lua/ui/uiutil.lua')
+local LayoutHelpers  = import('/lua/maui/layouthelpers.lua')
+local Group          = import('/lua/maui/group.lua').Group
+local Bitmap         = import('/lua/maui/bitmap.lua').Bitmap
+local Checkbox       = import('/lua/maui/checkbox.lua').Checkbox
+local StatusBar      = import('/lua/maui/statusbar.lua').StatusBar
+local GameMain       = import('/lua/ui/game/gamemain.lua')
 
 local Prefs = import('/lua/user/prefs.lua')
 
 local options = Prefs.GetFromCurrentProfile('options')
+
 local TextLine02 = false
 local TextLine03 = false
 
@@ -26,10 +27,10 @@ savedParent = false
 GUI = { bg = false }
 
 States = {
-    energyDetail = Prefs.GetFromCurrentProfile("energyDetailedView"),
+    energyDetail    = Prefs.GetFromCurrentProfile("energyDetailedView"),
     energyViewState = Prefs.GetFromCurrentProfile("energyRateView") or 1,
-    massDetail = Prefs.GetFromCurrentProfile("massDetailedView"),
-    massViewState = Prefs.GetFromCurrentProfile("massRateView") or 1,
+    massDetail      = Prefs.GetFromCurrentProfile("massDetailedView"),
+    massViewState   = Prefs.GetFromCurrentProfile("massRateView") or 1,
 }
 
 if States.energyDetail == nil then

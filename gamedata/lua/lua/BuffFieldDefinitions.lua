@@ -25,7 +25,9 @@ BuffFieldBlueprint { Name = 'AirStagingBuffField',
     DisableInTransport = true,
     InitiallyEnabled = false,
     MaintenanceConsumptionPerSecondEnergy = 0,
+    
     Radius = 20,
+    
     RadiusOffsetY = 5,
 
     Buffs = {'AIRSTAGING'},
@@ -40,6 +42,7 @@ BuffFieldBlueprint { Name = 'AeonMaelstromBuffField',
     DisableInTransport = true,
     InitiallyEnabled = false,
     MaintenanceConsumptionPerSecondEnergy = 500,
+    
     Radius = 24,
 
     VisualScale = 7.2,
@@ -56,6 +59,7 @@ BuffFieldBlueprint { Name = 'AeonMaelstromBuffField2',
     DisableInTransport = true,
     InitiallyEnabled = false,
     MaintenanceConsumptionPerSecondEnergy = 750,
+    
     Radius = 32,
 
     VisualScale = 9.7,
@@ -72,6 +76,7 @@ BuffFieldBlueprint { Name = 'AeonMaelstromBuffField3',
     DisableInTransport = true,
     InitiallyEnabled = false,
     MaintenanceConsumptionPerSecondEnergy = 1200,
+    
     Radius = 40,
 
     VisualScale = 12.3,

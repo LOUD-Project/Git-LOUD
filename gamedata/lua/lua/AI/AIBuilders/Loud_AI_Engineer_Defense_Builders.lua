@@ -2,16 +2,16 @@
 
 -- Constructs All Base Defenses and Shields
 
-local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
-local MIBC = '/lua/editor/MiscBuildConditions.lua'
-local EBC = '/lua/editor/EconomyBuildConditions.lua'
-local TBC = '/lua/editor/ThreatBuildConditions.lua'
-local LUTL = '/lua/loudutilities.lua'
+local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
+local MIBC  = '/lua/editor/MiscBuildConditions.lua'
+local EBC   = '/lua/editor/EconomyBuildConditions.lua'
+local TBC   = '/lua/editor/ThreatBuildConditions.lua'
+local LUTL  = '/lua/loudutilities.lua'
 
 local LOUDFLOOR = math.floor
 
-local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
-local GetPosition = moho.entity_methods.GetPosition
+local GetThreatAtPosition   = moho.aibrain_methods.GetThreatAtPosition
+local GetPosition           = moho.entity_methods.GetPosition
 
 -- Just a note -- many of these builders use the 'BasePerimeterSelection = true' function
 -- This will direct the AI to build only one of these positions at a time -- selecting randomly

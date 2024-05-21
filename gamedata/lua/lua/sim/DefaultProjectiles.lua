@@ -13,6 +13,10 @@ local LOUDFLOOR                 = math.floor
 local LOUDGETN                  = table.getn
 local LOUDTRAIL                 = CreateTrail
 
+local TrashBag          = TrashBag
+local TrashAdd          = TrashBag.Add
+local TrashDestroy      = TrashBag.Destroy
+
 local WaitTicks                 = coroutine.yield
 
 

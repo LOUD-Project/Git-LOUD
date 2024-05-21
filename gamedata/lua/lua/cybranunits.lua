@@ -9,6 +9,7 @@ local StructureUnit                     = DefaultUnitsFile.StructureUnit
 
 DefaultUnitsFile = nil
 
+local ConstructionUnitOnLayerChange     = ConstructionUnit.OnLayerChange
 local ConstructionUnitOnStopBeingBuilt  = ConstructionUnit.OnStopBeingBuilt
 local ConstructionUnitOnStopBuild       = ConstructionUnit.OnStopBuild
 
@@ -19,13 +20,12 @@ local FactoryUnitOnStopBuild            = FactoryUnit.OnStopBuild
 local StructureUnitOnCreate             = StructureUnit.OnCreate
 local StructureUnitOnStartBuild         = StructureUnit.OnStartBuild
 local StructureUnitOnStopBeingBuilt     = StructureUnit.OnStopBeingBuilt
-local StructureUnitOnStopBuld           = StructureUnit.OnStopBuild
+local StructureUnitOnStopBuild          = StructureUnit.OnStopBuild
 
-local CreateCybranBuildBeams = import('EffectUtilities.lua').CreateCybranBuildBeams
-local CreateCybranEngineerBuildEffects = import('EffectUtilities.lua').CreateCybranEngineerBuildEffects
-local CreateCybranFactoryBuildEffects = import('EffectUtilities.lua').CreateCybranFactoryBuildEffects
-
-local SpawnBuildBots = import('EffectUtilities.lua').SpawnBuildBots
+local CreateCybranBuildBeams            = import('EffectUtilities.lua').CreateCybranBuildBeams
+local CreateCybranEngineerBuildEffects  = import('EffectUtilities.lua').CreateCybranEngineerBuildEffects
+local CreateCybranFactoryBuildEffects   = import('EffectUtilities.lua').CreateCybranFactoryBuildEffects
+local SpawnBuildBots                    = import('EffectUtilities.lua').SpawnBuildBots
 
 local ForkThread = ForkThread
 local KillThread = KillThread
@@ -309,7 +309,7 @@ CConstructionUnit = Class(ConstructionUnit){
 
     OnLayerChange = function(self, new, old)
 	
-        ConstructionUnit.OnLayerChange(self, new, old)
+        ConstructionUnitOnLayerChange(self, new, old)
 		
         if __blueprints[self.BlueprintID].Display.AnimationWater then
 		
@@ -558,6 +558,7 @@ CConstructionEggUnit = Class(StructureUnit) {
             
             GetAIBrain(self):BuildUnit( self, buildUnit, 1 )
         end,
+
     },
     
     OnStopBuild = function(self, unitBeingBuilt, order)

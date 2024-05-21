@@ -1,7 +1,7 @@
 ---  /lua/sim/AdjacencyBuffFunctions.lua
 
-local GetWeapon = moho.unit_methods.GetWeapon
-local GetWeaponCount = moho.unit_methods.GetWeaponCount
+local GetWeapon         = moho.unit_methods.GetWeapon
+local GetWeaponCount    = moho.unit_methods.GetWeaponCount
 
 
 DefaultBuffRemove = function(buff, unit, instigator)

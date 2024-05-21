@@ -15,11 +15,13 @@ local GetEconomyIncome      = BrainMethods.GetEconomyIncome
 local GetEconomyRequested   = BrainMethods.GetEconomyRequested
 local GetEconomyStored      = BrainMethods.GetEconomyStored
 
+BrainMethods = nil
+
 local VDist3 = VDist3
 
-local LOUDENTITY = EntityCategoryContains
-local EntityCategoryCount = EntityCategoryCount
-local EntityCategoryFilterDown = EntityCategoryFilterDown
+local LOUDENTITY                = EntityCategoryContains
+local EntityCategoryCount       = EntityCategoryCount
+local EntityCategoryFilterDown  = EntityCategoryFilterDown
 
 local IsUnitState = moho.unit_methods.IsUnitState
 
@@ -337,16 +339,19 @@ end
 -- allows us to remove other eco checks in the builder conditions
 function MassToFactoryRatioBaseCheck( aiBrain, locationType, massefficiency, energyefficiency )
 
-    local EcoData = aiBrain.EcoData['OverTime']
-	local MassIncome = EcoData.MassIncome
-	local EnergyIncome = EcoData.EnergyIncome
+    local EcoData       = aiBrain.EcoData['OverTime']
+    
+	local MassIncome    = EcoData.MassIncome
+	local EnergyIncome  = EcoData.EnergyIncome
     
     local CheatAdjust = aiBrain.CheatValue or 1
 
 	if ( EcoData.MassRequested > MassIncome) and ( EcoData.EnergyRequested > EnergyIncome) then
+    
 		if not GreaterThanEconEfficiencyOverTime(aiBrain, massefficiency or 1, energyefficiency or 1) then
 			return false
 		end
+        
 	end
 
 	-- mult by 10 to save mult each time during check

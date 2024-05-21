@@ -16,18 +16,16 @@ local VDist3Sq = VDist3Sq
 
 local WaitTicks = coroutine.yield
 
-local CanAttackTarget = moho.platoon_methods.CanAttackTarget
-
 local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
+local GetThreatAtPosition    = moho.aibrain_methods.GetThreatAtPosition
+local GetUnitsAroundPoint    = moho.aibrain_methods.GetUnitsAroundPoint
+local PlatoonExists          = moho.aibrain_methods.PlatoonExists	
 
-local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
-local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
-local GetPosition = moho.entity_methods.GetPosition
+local GetPosition            = moho.entity_methods.GetPosition
 
-local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
-local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-
-local PlatoonExists = moho.aibrain_methods.PlatoonExists	
+local CanAttackTarget        = moho.platoon_methods.CanAttackTarget
+local GetPlatoonPosition     = moho.platoon_methods.GetPlatoonPosition
+local GetPlatoonUnits        = moho.platoon_methods.GetPlatoonUnits
 
 local GetTerrainHeight = GetTerrainHeight
 local GetSurfaceHeight = GetSurfaceHeight
@@ -200,10 +198,10 @@ function GetPathGraphs()
     
 		-- get all the marker data for the 4 layers --
 		local markerGroups = {
-			Land = AIGetMarkerLocationsEx( nil,'Land Path Node') or {},
-			Water = AIGetMarkerLocationsEx( nil,'Water Path Node') or {},
-			Air = AIGetMarkerLocationsEx( nil, 'Air Path Node') or {},
-			Amphibious = AIGetMarkerLocationsEx( nil,'Amphibious Path Node') or {},
+			Land        = AIGetMarkerLocationsEx( nil,'Land Path Node') or {},
+			Water       = AIGetMarkerLocationsEx( nil,'Water Path Node') or {},
+			Air         = AIGetMarkerLocationsEx( nil,'Air Path Node') or {},
+			Amphibious  = AIGetMarkerLocationsEx( nil,'Amphibious Path Node') or {},
 		}
 		
 		local adj, newadj, counter, water

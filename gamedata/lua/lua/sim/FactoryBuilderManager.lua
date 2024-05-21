@@ -5,36 +5,41 @@
 
 local import = import
 
-local AIGetClosestMarkerLocation = import('/lua/ai/aiutilities.lua').AIGetClosestMarkerLocation
-local BuilderManager = import('/lua/sim/BuilderManager.lua').BuilderManager
-local CreateFactoryBuilder = import('/lua/sim/Builder.lua').CreateFactoryBuilder
-local FactorySelfEnhanceThread = import('/lua/ai/aibehaviors.lua').FactorySelfEnhanceThread
-local RandomLocation = import('/lua/ai/aiutilities.lua').RandomLocation
+local FactorySelfEnhanceThread      = import('/lua/ai/aibehaviors.lua').FactorySelfEnhanceThread
 
-local BuildPlatoon = moho.aibrain_methods.BuildPlatoon
-local EntityCategoryCount = EntityCategoryCount
-local EntityCategoryFilterDown = EntityCategoryFilterDown
-local GetAIBrain = moho.unit_methods.GetAIBrain
-local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
-local GetFractionComplete = moho.entity_methods.GetFractionComplete
-local IsIdleState = moho.unit_methods.IsIdleState
-local IsUnitState = moho.unit_methods.IsUnitState
+local AIGetClosestMarkerLocation    = import('/lua/ai/aiutilities.lua').AIGetClosestMarkerLocation
+local RandomLocation                = import('/lua/ai/aiutilities.lua').RandomLocation
 
-local LOUDENTITY = EntityCategoryContains
-local LOUDGETN  = table.getn
-local LOUDINSERT = table.insert
-local LOUDMAX = math.max
-local LOUDREMOVE = table.remove
-local WaitTicks = coroutine.yield
+local CreateFactoryBuilder          = import('/lua/sim/Builder.lua').CreateFactoryBuilder
+
+local BuilderManager                = import('/lua/sim/BuilderManager.lua').BuilderManager
+
+local BuildPlatoon              = moho.aibrain_methods.BuildPlatoon
+local GetEconomyStored          = moho.aibrain_methods.GetEconomyStored
+
+local GetFractionComplete       = moho.entity_methods.GetFractionComplete
+
+local GetAIBrain        = moho.unit_methods.GetAIBrain
+local IsIdleState       = moho.unit_methods.IsIdleState
+local IsUnitState       = moho.unit_methods.IsUnitState
+
+local EntityCategoryCount       = EntityCategoryCount
+local EntityCategoryFilterDown  = EntityCategoryFilterDown
+local LOUDENTITY                = EntityCategoryContains
+local LOUDGETN                  = table.getn
+local LOUDINSERT                = table.insert
+local LOUDMAX                   = math.max
+local LOUDREMOVE                = table.remove
+local WaitTicks                 = coroutine.yield
 
 local PlatoonTemplates = PlatoonTemplates
 
-local FACTORY = categories.FACTORY * categories.STRUCTURE
-local ENGINEER = categories.ENGINEER
-local LAND = categories.LAND
-local AIR = categories.AIR
-local NAVAL = categories.NAVAL
-local TRAFFICUNITS = categories.MOBILE - categories.EXPERIMENTAL - categories.AIR - categories.ENGINEER
+local FACTORY       = categories.FACTORY * categories.STRUCTURE
+local ENGINEER      = categories.ENGINEER
+local LAND          = categories.LAND
+local AIR           = categories.AIR
+local NAVAL         = categories.NAVAL
+local TRAFFICUNITS  = categories.MOBILE - categories.EXPERIMENTAL - categories.AIR - categories.ENGINEER
 	
 function CreateFactoryBuilderManager(brain, lType, location, basetype)
 

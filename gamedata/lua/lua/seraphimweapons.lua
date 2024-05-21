@@ -1,24 +1,54 @@
 ---  /lua/seraphimweapons.lua
 ---  Summary  :  Default definitions of Seraphim weapons
 
-local KamikazeWeapon = import('/lua/sim/DefaultWeapons.lua').KamikazeWeapon
-local BareBonesWeapon = import('/lua/sim/DefaultWeapons.lua').BareBonesWeapon
-local DefaultProjectileWeapon = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
-local DefaultBeamWeapon = import('/lua/sim/DefaultWeapons.lua').DefaultBeamWeapon
+local KamikazeWeapon            = import('/lua/sim/DefaultWeapons.lua').KamikazeWeapon
+local BareBonesWeapon           = import('/lua/sim/DefaultWeapons.lua').BareBonesWeapon
+local DefaultProjectileWeapon   = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
+local DefaultBeamWeapon         = import('/lua/sim/DefaultWeapons.lua').DefaultBeamWeapon
 
-local CollisionBeamFile = import('defaultcollisionbeams.lua')
-local DisruptorBeamCollisionBeam = CollisionBeamFile.DisruptorBeamCollisionBeam
+local CollisionBeamFile         = import('defaultcollisionbeams.lua')
+
+local DisruptorBeamCollisionBeam        = CollisionBeamFile.DisruptorBeamCollisionBeam
 local QuantumBeamGeneratorCollisionBeam = CollisionBeamFile.QuantumBeamGeneratorCollisionBeam
-local PhasonLaserCollisionBeam = CollisionBeamFile.PhasonLaserCollisionBeam
-local TractorClawCollisionBeam = CollisionBeamFile.TractorClawCollisionBeam
+local PhasonLaserCollisionBeam          = CollisionBeamFile.PhasonLaserCollisionBeam
+local TractorClawCollisionBeam          = CollisionBeamFile.TractorClawCollisionBeam
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 local CreateAttachedEmitter = CreateAttachedEmitter
 
+SeraphimTargetPainter = Class(DefaultBeamWeapon) { FxMuzzleFlash = false }
+
 SANAnaitTorpedo = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = EffectTemplate.SAnaitTorpedoMuzzleFlash,
 }
+
+SANHeavyCavitationTorpedo = Class(DefaultProjectileWeapon) {
+
+    FxTrailScale = 0.5,
+
+    FxMuzzleFlashScale = 0.5,
+	FxMuzzleFlash = EffectTemplate.SHeavyCavitationTorpedoMuzzleFlash
+}
+
+-- Units: XSL0303
+SANUallCavitationTorpedo = Class(DefaultProjectileWeapon) {
+
+    FxTrailScale = 0.5,
+
+    FxMuzzleFlashScale = 0.5,
+	FxMuzzleFlash = EffectTemplate.SUallTorpedoMuzzleFlash
+}
+
+--[[
+SANHeavyCavitationTorpedo02 = Class(DefaultProjectileWeapon) {
+
+    FxTrailScale = 0.5,
+    FxMuzzleFlashScale = 0.5,
+
+	FxMuzzleFlash = EffectTemplate.SHeavyCavitationTorpedoMuzzleFlash02
+}
+--]]
 
 SDFAjelluAntiTorpedoDefense = Class(DefaultProjectileWeapon) {
 	FxMuzzleFlash = EffectTemplate.SDFAjelluAntiTorpedoLaunch01,

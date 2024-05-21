@@ -3,9 +3,10 @@
 
 local CollisionBeams = import('defaultcollisionbeams.lua')
 
-local BareBonesWeapon = import('/lua/sim/DefaultWeapons.lua').BareBonesWeapon
-local DefaultProjectileWeapon = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
-local DefaultBeamWeapon = import('/lua/sim/DefaultWeapons.lua').DefaultBeamWeapon
+local BareBonesWeapon           = import('/lua/sim/DefaultWeapons.lua').BareBonesWeapon
+local DefaultBeamWeapon         = import('/lua/sim/DefaultWeapons.lua').DefaultBeamWeapon
+local DefaultProjectileWeapon   = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
+
 
 local GinsuCollisionBeam = import('defaultcollisionbeams.lua').GinsuCollisionBeam
 local OrbitalDeathLaserCollisionBeam = import('defaultcollisionbeams.lua').OrbitalDeathLaserCollisionBeam

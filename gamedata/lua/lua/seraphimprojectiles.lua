@@ -12,12 +12,25 @@ local MultiPolyTrailProjectileOnCreate      = MultiPolyTrailProjectile.OnCreate
 local SinglePolyTrailProjectileOnCreate     = SinglePolyTrailProjectile.OnCreate
 local SinglePolyTrailProjectileOnEnterWater = SinglePolyTrailProjectile.OnEnterWater
 
+--local OnWaterEntryEmitterProjectileOnCreate     = OnWaterEntryEmitterProjectile.OnCreate
+--local OnWaterEntryEmitterProjectileOnEnterWater = OnWaterEntryEmitterProjectile.OnEnterWater
+
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 local CreateTrail = CreateTrail
 local Random = Random
 local LOUDFLOOR = math.floor
 local LOUDGETN = table.getn
+
+local SetCollisionShape = moho.entity_methods.SetCollisionShape
+local StayUnderwater    = moho.projectile_methods.StayUnderwater
+local TrackTarget       = moho.projectile_methods.TrackTarget
+
+local TrashBag          = TrashBag
+local TrashAdd          = TrashBag.Add
+local TrashDestroy      = TrashBag.Destroy
+
+local WaitTicks         = coroutine.yield
 
 local function GetRandomInt( nmin, nmax)
     return LOUDFLOOR(Random() * (nmax - nmin + 1) + nmin)

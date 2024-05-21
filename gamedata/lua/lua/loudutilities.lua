@@ -2,64 +2,77 @@
 --  LOUD specific things
 
 -- You will find lots of useful notes in here 
-
-local AssignTransportToPool = import('/lua/ai/transportutilities.lua').AssignTransportToPool
-local AIGetMarkersAroundLocation = import('/lua/ai/aiutilities.lua').AIGetMarkersAroundLocation
-local AIPickEnemyLogic = import('/lua/ai/aiutilities.lua').AIPickEnemyLogic
-local AISendChat = import('/lua/ai/sorianutilities.lua').AISendChat
 local Game = import('game.lua')
-local RandomLocation = import('/lua/ai/aiutilities.lua').RandomLocation
-local ReturnTransportsToPool = import('/lua/ai/transportutilities.lua').ReturnTransportsToPool
-local SetArmyPoolBuff = import('ai/aiutilities.lua').SetArmyPoolBuff
 
-local EntityCategoryCount = EntityCategoryCount
-local ForkThread = ForkThread
-local LOUDCOPY = table.copy
-local LOUDEQUAL = table.equal
-local LOUDENTITY = EntityCategoryContains
-local LOUDGETN = table.getn
-local LOUDINSERT = table.insert
-local LOUDREMOVE = table.remove
-local LOUDSORT = table.sort
-local LOUDFLOOR = math.floor
-local LOUDSQRT = math.sqrt
+local AIGetMarkersAroundLocation    = import('ai/aiutilities.lua').AIGetMarkersAroundLocation
+local AIPickEnemyLogic              = import('ai/aiutilities.lua').AIPickEnemyLogic
+local GetOwnUnitsAroundPoint        = import('ai/aiutilities.lua').GetOwnUnitsAroundPoint
+local RandomLocation                = import('ai/aiutilities.lua').RandomLocation
+local SetArmyPoolBuff               = import('ai/aiutilities.lua').SetArmyPoolBuff
 
-local tostring = tostring
-local VDist2Sq = VDist2Sq
-local VDist3 = VDist3
-local WaitSeconds = WaitSeconds
-local WaitTicks = coroutine.yield
+local AISendChat                = import('/lua/ai/sorianutilities.lua').AISendChat
+
+local AssignTransportToPool     = import('/lua/ai/transportutilities.lua').AssignTransportToPool
+local ReturnTransportsToPool    = import('/lua/ai/transportutilities.lua').ReturnTransportsToPool
+
+
+local EntityCategoryCount   = EntityCategoryCount
+local ForkThread            = ForkThread
+local LOUDCOPY              = table.copy
+local LOUDEQUAL             = table.equal
+local LOUDENTITY            = EntityCategoryContains
+local LOUDGETN              = table.getn
+local LOUDINSERT            = table.insert
+local LOUDREMOVE            = table.remove
+local LOUDSORT              = table.sort
+local LOUDFLOOR             = math.floor
+local LOUDSQRT              = math.sqrt
+
+local tostring          = tostring
+local VDist2Sq          = VDist2Sq
+local VDist3            = VDist3
+local WaitSeconds       = WaitSeconds
+local WaitTicks         = coroutine.yield
 
 local AIBrainMethods = moho.aibrain_methods
 
+local AssignThreatAtPosition        = AIBrainMethods.AssignThreatAtPosition
 local AssignUnitsToPlatoon          = AIBrainMethods.AssignUnitsToPlatoon
 local GetCurrentUnits               = AIBrainMethods.GetCurrentUnits
 local GetEconomyIncome              = AIBrainMethods.GetEconomyIncome
+local GetEconomyRequested           = AIBrainMethods.GetEconomyRequested
+local GetEconomyTrend               = AIBrainMethods.GetEconomyTrend
 local GetListOfUnits                = AIBrainMethods.GetListOfUnits
 local GetNumUnitsAroundPoint        = AIBrainMethods.GetNumUnitsAroundPoint
 local GetThreatAtPosition           = AIBrainMethods.GetThreatAtPosition
+local GetThreatBetweenPositions     = AIBrainMethods.GetThreatBetweenPositions
 local GetThreatsAroundPosition      = AIBrainMethods.GetThreatsAroundPosition
 local GetUnitsAroundPoint           = AIBrainMethods.GetUnitsAroundPoint
 local MakePlatoon                   = AIBrainMethods.MakePlatoon
 local PlatoonExists                 = AIBrainMethods.PlatoonExists
 
-local GetPosition = moho.entity_methods.GetPosition
+aiBrainMethods = nil
 
-local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
-local PlatoonCategoryCount = moho.platoon_methods.PlatoonCategoryCount
+local GetPosition           = moho.entity_methods.GetPosition
 
-local GetAIBrain = moho.unit_methods.GetAIBrain
-local GetFuelRatio = moho.unit_methods.GetFuelRatio
-local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
+local GetPlatoonPosition    = moho.platoon_methods.GetPlatoonPosition
+local PlatoonCategoryCount  = moho.platoon_methods.PlatoonCategoryCount
 
-local GetTerrainHeight = GetTerrainHeight
-local GetUnitsInRect = GetUnitsInRect
+local GetAIBrain            = moho.unit_methods.GetAIBrain
+local GetFuelRatio          = moho.unit_methods.GetFuelRatio
+local IsBeingBuilt          = moho.unit_methods.IsBeingBuilt
+local IsIdleState           = moho.unit_methods.IsIdleState
+local IsUnitState           = moho.unit_methods.IsUnitState
+
+local GetTerrainHeight  = GetTerrainHeight
+local GetUnitsInRect    = GetUnitsInRect
 
 local VectorCached = { 0, 0, 0 }
 
-local EXTRACTORS = categories.MASSEXTRACTION - categories.TECH1
-local FABRICATORS = categories.MASSFABRICATION * categories.TECH3
-local PARAGONS = categories.MASSFABRICATION * categories.EXPERIMENTAL
+local AIRPADS       = categories.AIRSTAGINGPLATFORM - categories.MOBILE
+local EXTRACTORS    = categories.MASSEXTRACTION - categories.TECH1
+local FABRICATORS   = categories.MASSFABRICATION * categories.TECH3
+local PARAGONS      = categories.MASSFABRICATION * categories.EXPERIMENTAL
 
 local timeACTBrains = {}
 local ratioACTBrains = {}

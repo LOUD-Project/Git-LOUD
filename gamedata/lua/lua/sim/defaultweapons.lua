@@ -2,54 +2,60 @@
 ---  Default definitions of weapons
 
 local Weapon = import('/lua/sim/Weapon.lua').Weapon
+
 local WeaponOnCreate = Weapon.OnCreate
 
 local CollisionBeam = import('/lua/sim/CollisionBeam.lua').CollisionBeam
 local CalculateBallisticAcceleration = import('/lua/sim/CalcBallisticAcceleration.lua').CalculateBallisticAcceleration 
 
-local LOUDABS = math.abs
-local LOUDGETN = table.getn
-local LOUDMAX = math.max
-local LOUDINSERT = table.insert
+local LOUDABS       = math.abs
+local LOUDGETN      = table.getn
+local LOUDMAX       = math.max
+local LOUDINSERT    = table.insert
 
-local CreateAnimator = CreateAnimator
-local LOUDATTACHEMITTER = CreateAttachedEmitter
+local CreateAnimator            = CreateAnimator
+local CreateEconomyEvent        = CreateEconomyEvent
+local DamageArea                = DamageArea
+local ForkThread                = ForkThread
+local GetGameTick               = GetGameTick
+local KillThread                = KillThread
+local LOUDATTACHEMITTER         = CreateAttachedEmitter
+local LOUDSTATE                 = ChangeState
+local RemoveEconomyEvent        = RemoveEconomyEvent
+local TrashAdd                  = TrashBag.Add
+local WaitSeconds               = WaitSeconds
+local WaitTicks                 = coroutine.yield
 
-local LOUDSTATE = ChangeState
-local ForkThread = ForkThread
-local GetGameTick = GetGameTick
-local KillThread = KillThread
-local WaitSeconds = WaitSeconds
-local WaitTicks = coroutine.yield
-local DamageArea = DamageArea
+local GetEconomyIncome          = moho.aibrain_methods.GetEconomyIncome
+local GetEconomyStored          = moho.aibrain_methods.GetEconomyStored
 
-local BeenDestroyed = moho.entity_methods.BeenDestroyed
+local PlayAnim                  = moho.AnimationManipulator.PlayAnim
+
+local BeenDestroyed             = moho.entity_methods.BeenDestroyed
+local GetAIBrain                = moho.entity_methods.GetAIBrain
+
+local ScaleEmitter              = moho.IEffect.ScaleEmitter
+
+local SetPrecedence             = moho.manipulator_methods.SetPrecedence
 
 local ChangeDetonateAboveHeight = moho.projectile_methods.ChangeDetonateAboveHeight
-local CreateEconomyEvent = CreateEconomyEvent
-local CreateProjectile = moho.weapon_methods.CreateProjectile
 
-local GetAIBrain = moho.entity_methods.GetAIBrain
-local GetBlueprint = moho.weapon_methods.GetBlueprint
-local GetCurrentTargetPos = moho.weapon_methods.GetCurrentTargetPos
-local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
-local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
+local HideBone                  = moho.unit_methods.HideBone
+local SetBusy                   = moho.unit_methods.SetBusy
+local SetWorkProgress           = moho.unit_methods.SetWorkProgress
+local ShowBone                  = moho.unit_methods.ShowBone
 
-local HideBone = moho.unit_methods.HideBone
 
-local PlayAnim = moho.AnimationManipulator.PlayAnim
-local PlaySound = moho.weapon_methods.PlaySound
+local WeaponMethods     = moho.weapon_methods
 
-local RemoveEconomyEvent = RemoveEconomyEvent
+local CreateProjectile          = WeaponMethods.CreateProjectile
+local GetBlueprint              = WeaponMethods.GetBlueprint
+local GetCurrentTargetPos       = WeaponMethods.GetCurrentTargetPos
+local PlaySound                 = WeaponMethods.PlaySound
+local SetFiringRandomness       = WeaponMethods.SetFiringRandomness
+local WeaponHasTarget           = WeaponMethods.WeaponHasTarget
 
-local ScaleEmitter = moho.IEffect.ScaleEmitter
-local SetBusy = moho.unit_methods.SetBusy
-local SetFiringRandomness = moho.weapon_methods.SetFiringRandomness
-local SetPrecedence = moho.manipulator_methods.SetPrecedence
-
-local TrashAdd = TrashBag.Add
-
-local WeaponHasTarget = moho.weapon_methods.WeaponHasTarget
+WeaponMethods = nil
 
 
 DefaultProjectileWeapon = Class(Weapon) {		
