@@ -208,11 +208,11 @@ BuffBlueprint { Name = 'CybranOpticalDisruptionField',
 		'/effects/emitters/jammer_ambient_01_emit.bp',
 		'/effects/emitters/jammer_ambient_02_emit.bp',
 	},
-	EffectsScale = 0.55,
+	EffectsScale = 0.45,
 }
 
-BuffBlueprint { Name = 'DarknessOmniNerf',
-    DisplayName = 'DarknessOmniNerf',
+BuffBlueprint { Name = 'DarknessEffect',
+    DisplayName = 'DarknessEffect',
     BuffType = 'COUNTERINTEL',
     Stacks = 'ALWAYS',
     Duration = 20.1,
@@ -360,7 +360,7 @@ BuffBlueprint { Name = 'INSTALL_T2_Radar',
     Duration = -1,
     Affects = {
 		RadarRadius = {
-			Add = 180,
+			Add = 176,
 			Mult = 1.0,
 		},
     },
@@ -372,7 +372,7 @@ BuffBlueprint { Name = 'INSTALL_T3_Radar',
     Duration = -1,
     Affects = {
 		RadarRadius = {
-			Add = 275,
+			Add = 308,
 			Mult = 1.0,
 		},
 		OmniRadius = {
@@ -388,7 +388,7 @@ BuffBlueprint { Name = 'INSTALL_T2_Sonar',
     Duration = -1,
     Affects = {
 		SonarRadius = {
-			Add = 120,
+			Add = 176,
 			Mult = 1.0,
 		},
     },
@@ -400,11 +400,15 @@ BuffBlueprint { Name = 'INSTALL_T3_Sonar',
     Duration = -1,
     Affects = {
 		SonarRadius = {
-			Add = 200,
+			Add = 228,
 			Mult = 1.0,
 		},
+		RadarRadius = {
+			Add = 90,
+			Mult = 1.0,
+		},        
 		OmniRadius = {
-			Add = 60,
+			Add = 32,
 			Mult = 1.0,
 		},
     },
@@ -1341,16 +1345,32 @@ BuffBlueprint { Name = 'ACU_T3_Intel_Package',
     },
 }
 
--- Just a note here - the relationship between RADAR range and power consumption is calculated
--- using Pasternaks Radar range calcuator - using a gain of 20db at 10GHZ
--- and a radar cross-section of 1 square metre with a return strength of 10 versus the power input
+-- Just a note here - the relationship between RADAR range and power consumption is calculated as follows
+-- using Pasternaks Radar range calcuator (this calculation is for the Panopticon - we use 12db gain for other radars and sonars)
+
+-- use a linear gain of 20db (12db if using this for regular radar and sonar ranges)
+-- frequency of 3.5GHZ
+-- radar cross-section of 1 square metre
+-- minimum detectable return signal of 10mw
+
+-- enter the consumption value you'd like to use as the radar output power (in Watts) and press 'Calculate'
+-- Take the result (which should be in metres) and multiply for 100 - this is your rough in-game range
+
+-- About OMNI - it's not linear, which is why lower powered systems don't have Omni range
+-- We assume that OMNI only happens beyond a certain level of power input (I would suggest 500+)
+-- the resultant Omni effect is only about 10% of the radar range at that input, but scales up as input rises
+-- It is effectively an 'oversaturation' of such degree that it overcomes typical stealth
+-- We really need a scaling formula based on power input to better control that
 
 -- A detailed explanation of this calcuation can be found at http://www.radartutorial.eu/01.basics/The%20Radar%20Range%20Equation.en.html
 -- The calculator itself can be found online at https://www.pasternack.com/t-calculator-radar-range.aspx
 
--- by contrast, for the regular T3 radar systems, I use a lower 12db gain.   All smaller radar systems
--- are NOT aligned with this formula but probably should be for conformity sake
+-- by contrast, for the regular T3 radar systems, I use a lower 12db gain
+-- Not all radar systems are aligned with this formula but probably should be for conformity sake
+-- many units with 'built in' intel ranges would be specifically powered, and tuned to the unit in question
+-- to overcome the various inefficiencies that are incurred by less than optimal antennae configurations
 
+-- Specifically for the PanOpticon
 -- as each pair of antenna come online, I move this gain figure up by 1db - eventually reaching
 -- a total of 24db linear gain
 
