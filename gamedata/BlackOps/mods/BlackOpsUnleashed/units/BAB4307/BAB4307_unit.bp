@@ -5,9 +5,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed       = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
-        DoneBeingBuilt  = Sound { Bank = 'UAB', Cue = 'UAB2304_Activate', LodCutoff = 'UnitMove_LodCutoff' },
-        UISelection     = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Gun', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed       = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'UAB', Cue = 'UAB2304_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -43,11 +43,16 @@ UnitBlueprint {
 	CollisionOffsetZ = -0.1,
 	
     Defense = {
+
+        MissileTorpDestroy = { AttachBone = {'XAB4307'}, Radius = 4, RedirectRateOfFire = 10, ProjectileCategories = {'TACTICAL MISSILE','TORPEDO'} },
+
         ArmorType = 'Structure',
-        EconomyThreatLevel = 65,
+
         Health = 3200,
         MaxHealth = 3200,
         RegenRate = 1,
+
+        EconomyThreatLevel = 65,
         SurfaceThreatLevel = 10,
     },
 	
@@ -55,15 +60,12 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Tactical Missile Defense',
-            'Aquatic',
+            "<LOC ability_tacmissiledef>Tactical Missile Defense",
+            '<LOC ability_aquatic>Aquatic: can be built on water',
+            '<LOC ability_torpedodef>Personal Torpedo Defense',
         },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 215, Scrolling = true, ShaderName = 'Aeon' },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, Scrolling = true, ShaderName = 'Aeon' } } },
 
         UniformScale = 0.25,
     },
@@ -77,7 +79,7 @@ UnitBlueprint {
     },
 	
     Footprint = {
-        MinWaterDepth = 1,
+        MinWaterDepth = 2,
     },
 	
     General = {
@@ -90,6 +92,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,
+
         UnitName = '<LOC bab4307_name>Purger',
     },
 	
@@ -163,16 +166,16 @@ UnitBlueprint {
                 Land = 'Air',
                 Water = 'Air',
             },
-            FiringTolerance = 1,
+            FiringTolerance = 2,
 
             Label = 'AntiMissile',
 
-            MaxRadius = 36,
+            MaxRadius = 40,
 
-            MuzzleVelocity = 72,
+            MuzzleVelocity = 70,
 
-            ProjectileId = '/mods/BlackOpsUnleashed/projectiles/ATMDDisk01/ATMDDisk01_proj.bp',
-            ProjectileLifetime = 1.1,
+            ProjectileId = '/projectiles/AAAFizz01/AAAFizz01_proj.bp',
+            ProjectileLifetime = 1,
 
             RackBones = {
                 {
@@ -180,14 +183,16 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
+            
+            RackSalvoReloadTime = .3,
 
             RackRecoilDistance = -0.5,
 
             RangeCategory = 'UWRC_Countermeasure',
 
-            RateOfFire = 1.1,
-
+            RateOfFire = 2,
             TargetCheckInterval = 0.3,
+
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TACTICAL MISSILE',
             TargetType = 'RULEWTT_Projectile',
@@ -199,11 +204,11 @@ UnitBlueprint {
 
             TurretPitch = 0,
             TurretPitchRange = 100,
-            TurretPitchSpeed = 60,
+            TurretPitchSpeed = 75,
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 72,
 
             Turreted = true,
         },

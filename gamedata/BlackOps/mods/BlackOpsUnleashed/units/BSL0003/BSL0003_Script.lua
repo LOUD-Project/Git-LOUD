@@ -1,6 +1,6 @@
 local SWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local SDFAireauBolterWeapon = import('/lua/seraphimweapons.lua').SDFAireauBolterWeapon02
+local SDFAireauBolterWeapon = import('/lua/seraphimweapons.lua').SDFAireauBolterWeapon
 
 local ForkThread = ForkThread
 local WaitTicks = coroutine.yield

@@ -19,8 +19,8 @@ local Targeting                             = CWeapons.CybranTargetPainter
 CWeapons = nil
 
 local EXCEMPArrayBeam01 = import('/mods/BlackOpsACUs/lua/EXBlackOpsweapons.lua').EXCEMPArrayBeam01
-local EXCEMPArrayBeam02 = import('/mods/BlackOpsACUs/lua/EXBlackOpsweapons.lua').EXCEMPArrayBeam02
-local EXCEMPArrayBeam03 = import('/mods/BlackOpsACUs/lua/EXBlackOpsweapons.lua').EXCEMPArrayBeam03
+local EXCEMPArrayBeam01 = import('/mods/BlackOpsACUs/lua/EXBlackOpsweapons.lua').EXCEMPArrayBeam01
+local EXCEMPArrayBeam01 = import('/mods/BlackOpsACUs/lua/EXBlackOpsweapons.lua').EXCEMPArrayBeam01
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local EffectUtil = import('/lua/EffectUtilities.lua')
@@ -159,44 +159,44 @@ ERL0001 = Class(CWalkingLandUnit) {
 			end,
 		},
 
-        EXEMPArray02 = Class(EXCEMPArrayBeam02) {
+        EXEMPArray02 = Class(EXCEMPArrayBeam01) {
             OnWeaponFired = function(self)
-                EXCEMPArrayBeam02.OnWeaponFired(self)
+                EXCEMPArrayBeam01.OnWeaponFired(self)
 					self:SetWeaponEnabled(false)
             end,
 		},
 
-        EXEMPArray03 = Class(EXCEMPArrayBeam02) {
+        EXEMPArray03 = Class(EXCEMPArrayBeam01) {
             OnWeaponFired = function(self)
-                EXCEMPArrayBeam02.OnWeaponFired(self)
+                EXCEMPArrayBeam01.OnWeaponFired(self)
 					self:SetWeaponEnabled(false)
             end,
 		},
 
-        EXEMPArray04 = Class(EXCEMPArrayBeam02) {
+        EXEMPArray04 = Class(EXCEMPArrayBeam01) {
             OnWeaponFired = function(self)
-                EXCEMPArrayBeam02.OnWeaponFired(self)
+                EXCEMPArrayBeam01.OnWeaponFired(self)
 					self:SetWeaponEnabled(false)
             end,
 		},
 
         EXEMPShot01 = Class(CCannonMolecularWeapon) {
             OnWeaponFired = function(self)
-                EXCEMPArrayBeam02.OnWeaponFired(self)
+                EXCEMPArrayBeam01.OnWeaponFired(self)
 					self:SetWeaponEnabled(false)
             end,
 		},
 
         EXEMPShot02 = Class(CCannonMolecularWeapon) {
             OnWeaponFired = function(self)
-                EXCEMPArrayBeam02.OnWeaponFired(self)
+                EXCEMPArrayBeam01.OnWeaponFired(self)
 					self:SetWeaponEnabled(false)
             end,
 		},
 
         EXEMPShot03 = Class(CCannonMolecularWeapon) {
             OnWeaponFired = function(self)
-                EXCEMPArrayBeam02.OnWeaponFired(self)
+                EXCEMPArrayBeam01.OnWeaponFired(self)
 					self:SetWeaponEnabled(false)
             end,
 		},
@@ -205,10 +205,10 @@ ERL0001 = Class(CWalkingLandUnit) {
         EXMLG02 = Class(MicrowaveLaser) {},
         EXMLG03 = Class(MicrowaveLaser) {},
 
-        EXAA01 = Class(EXCEMPArrayBeam02) {},
-        EXAA02 = Class(EXCEMPArrayBeam02) {},
-        EXAA03 = Class(EXCEMPArrayBeam02) {},
-        EXAA04 = Class(EXCEMPArrayBeam02) {},
+        EXAA01 = Class(EXCEMPArrayBeam01) {},
+        EXAA02 = Class(EXCEMPArrayBeam01) {},
+        EXAA03 = Class(EXCEMPArrayBeam01) {},
+        EXAA04 = Class(EXCEMPArrayBeam01) {},
 
         OverCharge = Class(CDFOverchargeWeapon) {
 

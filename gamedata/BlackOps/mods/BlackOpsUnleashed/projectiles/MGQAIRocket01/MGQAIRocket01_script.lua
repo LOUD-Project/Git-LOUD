@@ -23,7 +23,7 @@ MGQAIRocket01 = Class(CLOATacticalMissileProjectile) {
         
         local ChildProjectileBP = '/mods/BlackOpsUnleashed/projectiles/MGQAIRocketChild01/MGQAIRocketChild01_proj.bp'  
         
-        local angleRange = math.pi * 0.7
+        local angleRange = 3.14 * 0.7
         local angleInitial = -angleRange / 2
         local angleIncrement = angleRange / NumberOfChildProjectiles
         local angleVariation = angleIncrement * 0.85

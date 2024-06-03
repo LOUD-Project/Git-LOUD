@@ -60,7 +60,7 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Radar',
+            '<LOC ability_radar>Radar',
             'Attracts enemy fire',
         },
         AnimationDeath = {

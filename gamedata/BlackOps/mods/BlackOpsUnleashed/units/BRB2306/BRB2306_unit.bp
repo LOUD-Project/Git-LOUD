@@ -58,7 +58,7 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-			'Aquatic',
+			'<LOC ability_aquatic>Aquatic: can be built on water',
             'Stuns enemy units',
 			'Requires Energy',
         },
@@ -270,7 +270,7 @@ UnitBlueprint {
 			
             MuzzleSalveDelay = 0.1,
 
-            MuzzleVelocity = 180,
+            MuzzleVelocity = 90,
 			
             NotExclusive = true,
             PrefersPrimaryWeaponTarget = true,

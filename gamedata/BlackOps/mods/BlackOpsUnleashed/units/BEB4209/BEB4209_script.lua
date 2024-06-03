@@ -6,10 +6,7 @@ local LOUDINSERT = table.insert
 
 BEB4209 = Class(TStructureUnit) {
 
-	AntiTeleport = {
-        '/effects/emitters/seraphim_shield_generator_t3_03_emit.bp',
-        '/effects/emitters/seraphim_shield_generator_t2_03_emit.bp',
-    },
+	AntiTeleport = {'/effects/emitters/seraphim_shield_generator_t3_03_emit.bp','/effects/emitters/seraphim_shield_generator_t2_03_emit.bp'},
     
     OnStopBeingBuilt = function(self,builder,layer)
 

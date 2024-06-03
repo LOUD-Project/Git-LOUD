@@ -60,7 +60,8 @@ UnitBlueprint {
 			'An unusual unit - designed for siege work',
 			'Weapon teleports its shells into orbit above target',
             'Weapon is blocked/reflected back by Anti-Teleport emitters',
-            'Amphibious & Volatile',
+            '<LOC ability_amphibious>Amphibious',
+            '<LOC ability_deathaoe>Volatile',
         },
 		
         AnimationOpen = '/mods/BlackOpsUnleashed/units/BAL0401/BAL0401_ADeploy01.sca',
@@ -77,12 +78,7 @@ UnitBlueprint {
         AnimationWalk = '/mods/BlackOpsUnleashed/units/BAL0401/BAL0401_AWalk.sca',
         AnimationWalkRate = 1.2,
         
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 500, ShaderName = 'Aeon' },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 500, ShaderName = 'Aeon' } } },
         
         MovementEffects = {
             Land = {
@@ -162,6 +158,7 @@ UnitBlueprint {
 	
     Intel = {
         VisionRadius = 44,
+        WaterVisionRadius = 20,
         
 		RadarStealth = true,
         SonarStealth = true,

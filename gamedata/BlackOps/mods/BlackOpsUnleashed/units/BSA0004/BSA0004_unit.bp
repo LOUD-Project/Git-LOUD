@@ -1,6 +1,6 @@
 UnitBlueprint {
     AI = {
-        GuardScanRadius = 45,
+        GuardScanRadius = 25,
         InitialAutoMode = true,
     },
 	
@@ -12,7 +12,7 @@ UnitBlueprint {
 		CirclingDirChange = true,
         CirclingDirChangeFrequencySec = 5,
 		CirclingFlightChangeFrequency = 1.0,
-        CirclingElevationChangeRatio = 1.8,
+        CirclingElevationChangeRatio = 1.6,
         CirclingRadiusChangeMaxRatio = 0.95,
         CirclingRadiusChangeMinRatio = 0.50,
         CirclingTurnMult = 5,
@@ -28,7 +28,7 @@ UnitBlueprint {
 		
         LiftFactor = 5,
 		
-        MaxAirspeed = 13,
+        MaxAirspeed = 10,
         MinAirspeed = 2,
 		
 		TurnRate = 1,
@@ -36,18 +36,18 @@ UnitBlueprint {
     },
 	
     Audio = {
-        StartMove = Sound { Bank = 'XSA', Cue = 'XSA0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
-        StopMove = Sound { Bank = 'XSA', Cue = 'XSA0303_Move_Stop', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSA', Cue = 'XSA0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        StopMove    = Sound { Bank = 'XSA', Cue = 'XSA0303_Move_Stop', LodCutoff = 'UnitMove_LodCutoff'},
         UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
-        Regen = { -- time need for full hp regen assuming 4k base hp:
-            Level1 = 40, -- 220s
-            Level2 = 80, -- 120s
-            Level3 = 120, -- 86s
-            Level4 = 160, -- 70s
-            Level5 = 200, -- 60s
+        Regen = {
+            Level1 = 40,
+            Level2 = 80,
+            Level3 = 120,
+            Level4 = 160,
+            Level5 = 200,
         },
     }, 
 	
@@ -64,11 +64,14 @@ UnitBlueprint {
     CollisionOffsetZ = -0.07,
 	
     Defense = {
-		AirThreatLevel = 5,
         ArmorType = 'Light',
-        Health = 1400,
-        MaxHealth = 1400,
-        RegenRate = 5,
+
+        Health = 1000,
+        MaxHealth = 1000,
+
+        RegenRate = 4,
+
+		AirThreatLevel = 5,
 		SurfaceThreatLevel = 5,
     },
 	
@@ -78,12 +81,12 @@ UnitBlueprint {
     
         Mesh = { IconFadeInZoom = 175, LODs = { {LODCutoff = 150,ShaderName = 'Unit'} } },
 
-        UniformScale = 0.45,
+        UniformScale = 0.9,
     },
 	
     Economy = {
-        BuildCostEnergy = 1500,
-        BuildCostMass = 140,
+        BuildCostEnergy = 1400,
+        BuildCostMass = 120,
         BuildTime = 210,
     },
 	
@@ -157,12 +160,9 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0303_AA_AutoCanLosaare',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0303_AA_AutoCanLosaare', LodCutoff = 'Weapon_LodCutoff'},
             },
+
             AutoInitiateAttackCommand = true,
 			
             BallisticArc = 'RULEUBA_None',
@@ -187,9 +187,9 @@ UnitBlueprint {
             FiringTolerance = 0,
             FiringRandomness = 0.2,
 			
-            Label = 'EyeWeapon01',
+            Label = 'BeamWeapon',
 			
-            MaxRadius = 32,
+            MaxRadius = 28,
 			
             RackBones = {
                 {
@@ -200,7 +200,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 0.5,		-- 50 DPS Air
+            RateOfFire = 0.5,		-- 50 DPS Combo
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 50,
@@ -211,8 +211,7 @@ UnitBlueprint {
                 'AIR MOBILE',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.1,
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE,HIGHALTAIR',
 			
             TurretBoneMuzzle = 'Beam_Muzzle01',
             TurretBonePitch = 'Beam_Muzzle01',

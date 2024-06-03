@@ -1,25 +1,9 @@
 ProjectileBlueprint {
+
     Audio = {
-        ExistLoop = Sound {
-            Bank = 'UELWeapon',
-            Cue = 'UEF_Nuke_Flight',
-            LodCutoff = 'DefaultLodCutoff',
-        },
-        ImpactTerrain = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0402_Spawn',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        ImpactWater = Sound {
-            Bank = 'Explosions',
-            Cue = 'Cybran_Nuke_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        NukeExplosion = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0402_Spawn',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
+        ImpactTerrain   = Sound { Bank = 'XSL', Cue = 'XSL0402_Spawn', LodCutoff = 'Weapon_LodCutoff'},
+        ImpactWater     = Sound { Bank = 'Explosions', Cue = 'Cybran_Nuke_Impact', LodCutoff = 'Weapon_LodCutoff'},
+        NukeExplosion   = Sound { Bank = 'XSL', Cue = 'XSL0402_Spawn', LodCutoff = 'Weapon_LodCutoff'},
     },
 
     Categories = {
@@ -40,22 +24,11 @@ ProjectileBlueprint {
         BuildTime = 300,
     },
 
-    Description = 'CYBRAN EMP Missile',
-
     DesiredShooterCap = 1,
 
     Display = {
-        Mesh = {
-            IconFadeInZoom = 200,
-            LODs = {
-                {ShaderName = 'TMeshAlpha'},
-            },
-        },
+        Mesh = { IconFadeInZoom = 200, LODs = { {ShaderName = 'TMeshAlpha'} } },
         UniformScale = 1,
-    },
-    
-    Interface = {
-        HelpText = 'CYBRAN EMP Missile',
     },
     
     Physics = {

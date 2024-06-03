@@ -1,21 +1,22 @@
-local SeraHeavyLightningCannonChildProjectile = import('/mods/BlackOpsUnleashed/lua/BlackOpsprojectiles.lua').SeraHeavyLightningCannonChildProjectile
+local SeraLightningCannonChild = import('/mods/BlackOpsUnleashed/lua/BlackOpsprojectiles.lua').SeraLightningCannonChild
 
 local GetEnemyUnitsInSphere = import('/lua/utilities.lua').GetEnemyUnitsInSphere
 
-SeraHeavyLightningCannonChild01 = Class(SeraHeavyLightningCannonChildProjectile) {
+SeraHeavyLightningCannonChild01 = Class(SeraLightningCannonChild) {
 
     AttackBeams = {'/mods/BlackOpsUnleashed/effects/emitters/seraphim_lightning_beam_02_emit.bp'},
 
 	FxBeam = {'/mods/BlackOpsUnleashed/effects/emitters/seraphim_lightning_beam_02_emit.bp'},
+
 	FxBeamScale = 0.01,
 	
     OnCreate = function(self)
-		SeraHeavyLightningCannonChildProjectile.OnCreate(self)
+		SeraLightningCannonChildProjectile.OnCreate(self)
 		self:ForkThread(self.BFG)
     end,
 
 	BFG = function(self)
-        -- Setup the FX bag
+
         local arcFXBag = {}
         local radius = 0.5
         local army = self:GetArmy()       
@@ -77,14 +78,15 @@ SeraHeavyLightningCannonChild01 = Class(SeraHeavyLightningCannonChildProjectile)
 					end
 				end                                                                     
             end            
-            -- Small delay so that the beam and FX are visable
+
             WaitTicks(3)            
-            -- Remove all FX
+
             for k, v in arcFXBag do
                 v:Destroy()
             end            
+
             arcFXBag = {}              
-            -- Small delay to show the FX removal
+
             WaitTicks(3)          
         end
     end,

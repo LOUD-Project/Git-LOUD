@@ -107,24 +107,11 @@ UnitBlueprint {
 		AttackReticleSize = 24,
 		
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    { Bones = {'XRA0409'}, Offset = {0,-1.5,-1}, Scale = 5, Type = 'Landing01' },
-                },
-            },
-            LandAir = {
-                Effects = {
-                    { Bones = {'XRA0409'}, Offset = {0,-1.5,-1}, Scale = 5, Type = 'TakeOff01' },
-                },
-            },
+            AirLand = { Effects = { { Bones = {'XRA0409'}, Offset = {0,-1.5,-1}, Scale = 5, Type = 'Landing01' } } },
+            LandAir = { Effects = { { Bones = {'XRA0409'}, Offset = {0,-1.5,-1}, Scale = 5, Type = 'TakeOff01' } } },
         },
         
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 500, ShaderName = 'Insect' },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 500, ShaderName = 'Insect' } } },
 
         UniformScale = 0.243,
     },
@@ -158,6 +145,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'air',
         SelectionPriority = 2,
+
         UnitName = '<LOC bra0409_name>Gargantuan',
     },
 	
@@ -165,7 +153,7 @@ UnitBlueprint {
 		FreeIntel = true,
 
         VisionRadius = 40,
-		RadarRadius = 96,
+		RadarRadius = 72,
         
 		RadarStealth = true,
         RadarStealthFieldRadius = 20,
@@ -276,12 +264,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'R_Muzzle_01',
-                        'R_Muzzle_02',
-                        'R_Muzzle_03',
-                        'R_Muzzle_04',
-                    },
+                    MuzzleBones = {'R_Muzzle_01','R_Muzzle_02','R_Muzzle_03','R_Muzzle_04'},
                     RackBone = 'R_Barrel_01',
                 },
             },
@@ -371,12 +354,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'L_Muzzle_01',
-                        'L_Muzzle_02',
-                        'L_Muzzle_03',
-                        'L_Muzzle_04',
-                    },
+                    MuzzleBones = {'L_Muzzle_01','L_Muzzle_02','L_Muzzle_03','L_Muzzle_04'},
                     RackBone = 'L_Barrel_01',
                 },
             },
@@ -461,12 +439,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'R_Back_Muzzle_01',
-                        'R_Back_Muzzle_02',
-                        'R_Back_Muzzle_03',
-                        'R_Back_Muzzle_04',
-                    },
+                    MuzzleBones = {'R_Back_Muzzle_01','R_Back_Muzzle_02','R_Back_Muzzle_03','R_Back_Muzzle_04'},
                     RackBone = 'R_Back_Barrel_01',
                 },
             },
@@ -552,12 +525,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'L_Back_Muzzle_01',
-                        'L_Back_Muzzle_02',
-                        'L_Back_Muzzle_03',
-                        'L_Back_Muzzle_04',
-                    },
+                    MuzzleBones = {'L_Back_Muzzle_01','L_Back_Muzzle_02','L_Back_Muzzle_03','L_Back_Muzzle_04'},
                     RackBone = 'L_Back_Barrel_01',
                 },
             },
@@ -598,9 +566,9 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 
             Audio = {
-                BeamLoop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
-                BeamStart = Sound { Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
-                BeamStop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamLoop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart   = Sound { Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -672,9 +640,9 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 
             Audio = {
-                BeamLoop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
-                BeamStart = Sound { Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
-                BeamStop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamLoop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart   = Sound { Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -744,9 +712,9 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 
             Audio = {
-                BeamLoop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
-                BeamStart = Sound { Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
-                BeamStop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamLoop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart   = Sound { Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -816,9 +784,9 @@ UnitBlueprint {
 			AimsStraightOnDisable = true,
 
             Audio = {
-                BeamLoop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
-                BeamStart = Sound { Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
-                BeamStop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamLoop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart   = Sound { Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -889,9 +857,9 @@ UnitBlueprint {
 			AimsStraightOnDisable = true,
 
             Audio = {
-                BeamLoop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
-                BeamStart = Sound { Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
-                BeamStop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamLoop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart   = Sound { Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -958,9 +926,9 @@ UnitBlueprint {
 			AimsStraightOnDisable = true,
 
             Audio = {
-                BeamLoop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
-                BeamStart = Sound { Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
-                BeamStop = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamLoop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart   = Sound { Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -1029,9 +997,9 @@ UnitBlueprint {
             AimsStraightOnDisable = true,
             
             Audio = {
-                BarrelLoop = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelLoop  = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
                 BarrelStart = Sound { Bank = 'URS', Cue = 'URS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
-                Fire = Sound { Bank = 'URLWeapon', Cue = 'URB2305_Missile_Cruise', LodCutoff = 'Weapon_LodCutoff' },
+                Fire        = Sound { Bank = 'URLWeapon', Cue = 'URB2305_Missile_Cruise', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             AutoInitialAttackCommand = false,

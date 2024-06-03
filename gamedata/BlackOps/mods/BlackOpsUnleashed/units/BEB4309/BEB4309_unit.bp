@@ -40,8 +40,8 @@ UnitBlueprint {
 
         Abilities = {
         	'Anti-Teleport Field:Prevents Teleportation',
-			'Aquatic: Can be built underwater',
-            'Volatile',
+			'<LOC ability_aquatic>Aquatic: Can be built underwater',
+            '<LOC ability_deathaoe>Volatile',
         },
 
         Mesh = {

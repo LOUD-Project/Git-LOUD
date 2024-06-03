@@ -11,8 +11,8 @@ BaaMissile01 = Class(CAANanoDartProjectile){
 	
 	FxBeam = {'/mods/BlackOpsUnleashed/effects/emitters/mini_microwave_laser_beam_01_emit.bp'},
 	
-	#-- seems the purpose of this is to have a slow missile launch, but after 4 ticks, show exhaust trails  and then accelerate to 
-	#-- very high - but random - speeds - Gives the appearance of a two stage missile
+	-- seems the purpose of this is to have a slow missile launch, but after 4 ticks, show exhaust trails  and then accelerate to 
+	-- very high - but random - speeds - Gives the appearance of a two stage missile
 	UpdateThread = function(self)
 	
         WaitTicks(4)
@@ -53,7 +53,6 @@ BaaMissile01 = Class(CAANanoDartProjectile){
 			end
 
 			if VDist3(currentTarget:GetPosition(), self:GetPosition()) < 10 then
-				--	Now we go all Shoop-de-Whoop.
 				
 				self.Lasering = true
 				
@@ -66,7 +65,7 @@ BaaMissile01 = Class(CAANanoDartProjectile){
 				
 				--	Just in case there's lots of stuff in FxBeam, we'll loop through it.
 				for id, fx in self.FxBeam do
-					local effectEnt = AttachBeamEntityToEntity(currentTarget, -1, self, -1, army, fx)	--	the -2 is worrying.
+					local effectEnt = AttachBeamEntityToEntity(currentTarget, -1, self, -1, army, fx)
 
 					self.Trash:Add(effectEnt)
 				end
@@ -83,18 +82,7 @@ BaaMissile01 = Class(CAANanoDartProjectile){
 		end
 	
 	end,
-	--[[
-	OnImpact = function(self, with, who)
-	
-		if not self.Lasering then	--	if we collide with something else before being Shoop, don't DoT.
-			self.DamageData.DoTTime = nil
-			self.DamageData.DoTPulses = nil
-		end
-		
-		CAANanoDartProjectile.OnImpact(self, with, who)
-	
-	end,
-	]]--
+
 }
 
 TypeClass = BaaMissile01

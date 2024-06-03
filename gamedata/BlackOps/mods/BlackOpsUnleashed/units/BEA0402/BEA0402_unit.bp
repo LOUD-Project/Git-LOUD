@@ -93,7 +93,7 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Radar',
+            '<LOC ability_radar>Radar',
 			'2x Ground-Attack Rail Guns',
 			'4x HV Anti-Air Missiles',
             '4x Flak Cannons',
@@ -134,9 +134,9 @@ UnitBlueprint {
     Intel = {
 		FreeIntel = true,
         
-		RadarRadius = 140,
-        VisionRadius = 48,
-		WaterVisionRadius = 24,
+		RadarRadius = 128,
+        VisionRadius = 44,
+		WaterVisionRadius = 28,
     },
 	
     Interface = {

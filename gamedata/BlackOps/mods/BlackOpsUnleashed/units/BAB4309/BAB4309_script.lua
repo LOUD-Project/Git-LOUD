@@ -7,13 +7,9 @@ local ForkThread = ForkThread
 
 BAB4309 = Class(AStructureUnit) {
 
-	AntiTeleportEffects = {
-        '/effects/emitters/aeon_gate_02_emit.bp',
-        '/effects/emitters/aeon_gate_03_emit.bp',
-    },
-    AmbientEffects = {
-        '/effects/emitters/aeon_shield_generator_t3_04_emit.bp',
-    },
+	AntiTeleportEffects = {'/effects/emitters/aeon_gate_02_emit.bp','/effects/emitters/aeon_gate_03_emit.bp'},
+
+    AmbientEffects = {'/effects/emitters/aeon_shield_generator_t3_04_emit.bp'},
     
     OnStopBeingBuilt = function(self,builder,layer)
 	

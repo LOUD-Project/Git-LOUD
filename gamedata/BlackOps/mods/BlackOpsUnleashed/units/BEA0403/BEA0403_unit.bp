@@ -93,7 +93,7 @@ UnitBlueprint {
 
     Display = {
         Abilities = {
-			'Radar',
+			'<LOC ability_radar>Radar',
 			'4x Ground-Attack Cannon',
             '4x Flak Cannons',
 			'4x Anti-Air Gatlings',

@@ -4,7 +4,7 @@ local explosion = import('/lua/defaultexplosions.lua')
 
 local MartyrHeavyMicrowaveLaserGenerator = import('/lua/cybranweapons.lua').CDFParticleCannonWeapon
 
-local CIFMissileStrategicWeapon = import('/lua/cybranweapons.lua').CIFMissileLoaTacticalWeapon
+local CIFMissileStrategicWeapon = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
 local CDFLaserHeavyWeapon = import('/lua/cybranweapons.lua').CDFLaserHeavyWeapon
 
 local RedHeavyTurboLaserWeapon = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').RedHeavyTurboLaserWeapon

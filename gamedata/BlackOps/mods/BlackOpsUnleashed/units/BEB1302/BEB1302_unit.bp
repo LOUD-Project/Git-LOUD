@@ -38,7 +38,7 @@ UnitBlueprint {
     Display = {
 	
 		Abilities = {
-            'Volatile',
+            '<LOC ability_deathaoe>Volatile',
         },
 		
         AnimationOpen = '/units/UEB1102/ueb1102_Aopen.sca',

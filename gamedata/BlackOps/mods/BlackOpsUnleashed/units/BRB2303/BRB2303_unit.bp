@@ -59,7 +59,7 @@ UnitBlueprint {
 			'Rapid Fire Rocket Barrage',
 			'Low Yield Rockets stun enemies',
             'High Energy Consumption',
-			'Aquatic',
+			'<LOC ability_aquatic>Aquatic',
         },
         Mesh = {
             IconFadeInZoom = 130,

@@ -24,7 +24,7 @@ SIFHuAntiNuke01 = Class(SIFHuAntiNuke) {
     
 		-- Create several other projectiles in a dispersal pattern
         local num_projectiles = 5
-        local horizontal_angle = (2*math.pi) / num_projectiles
+        local horizontal_angle = 6.28 / num_projectiles
         local angleInitial = RandomFloat( 0, horizontal_angle )
         
         -- Randomization of the spread
@@ -48,7 +48,7 @@ SIFHuAntiNuke01 = Class(SIFHuAntiNuke) {
         
         -- Ensure that the number of smaller tendrils is more.
         num_projectiles= RandomInt((num_projectiles + 3),(num_projectiles*2 + 3) )
-        horizontal_angle = (2*math.pi) / num_projectiles
+        horizontal_angle = 6.28 / num_projectiles
 
         -- Create SMALL TENDRILS projectiles
         

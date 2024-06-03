@@ -55,7 +55,7 @@ UnitBlueprint {
     Display = {
 		Abilities = {
 			'Area Effect',
-			'Aquatic: Can be built on water',
+			'<LOC ability_aquatic>Aquatic: Can be built on water',
 		},
 
         Mesh = {

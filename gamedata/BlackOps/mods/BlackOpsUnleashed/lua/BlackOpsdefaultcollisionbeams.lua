@@ -260,12 +260,16 @@ YenaothaExperimentalLaserCollisionBeam = Class(HawkCollisionBeam) {
 
     TerrainImpactType = 'LargeBeam01',
     TerrainImpactScale = 1,
+
     FxBeamStartPoint = EffectTemplate.SExperimentalPhasonLaserMuzzle01,
-    FxBeam = EffectTemplate.SExperimentalPhasonLaserBeam,
+
+    FxBeam = {'/mods/BlackOpsUnleashed/effects/emitters/goliath_death_laser_beam_01_emit.bp'},  ---EffectTemplate.SExperimentalPhasonLaserBeam,
+
     FxBeamEndPoint = EffectTemplate.SExperimentalPhasonLaserHitLand,
+    FxBeamEndPointScale = 0.5,
 
     SplatTexture = 'scorch_004_albedo',
-    ScorchSize = 4,
+    ScorchSize = 3,
 
 }
 

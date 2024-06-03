@@ -26,10 +26,6 @@ ProjectileBlueprint {
         UniformScale = 0.045,
     },
 
-    Interface = {
-        HelpText = 0,
-    },
-
     Physics = {
         DestroyOnWater = true,
         LeadTarget = false,

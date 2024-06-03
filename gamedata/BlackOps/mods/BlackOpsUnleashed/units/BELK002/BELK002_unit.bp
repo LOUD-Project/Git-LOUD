@@ -46,7 +46,7 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Anti-Air',
+            "<LOC ability_aa>Anti-Air",
         },
         Mesh = {
             IconFadeInZoom = 130,

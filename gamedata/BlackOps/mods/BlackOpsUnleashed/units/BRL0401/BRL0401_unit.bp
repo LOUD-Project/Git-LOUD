@@ -71,6 +71,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+
         AnimationWalk = '/mods/BlackOpsUnleashed/units/BRL0401/BRL0401_AWalk01.sca',
         AnimationDeploy = '/mods/BlackOpsUnleashed/units/BRL0401/BRL0401_Deploy.sca',
 		AnimationPackUp = '/mods/BlackOpsUnleashed/units/BRL0401/BRL0401_PackUp.sca',
@@ -112,6 +113,7 @@ UnitBlueprint {
                             Scale = 1.8,
                         },
                     },
+
                     Damage = {
                         Amount = 3500,
                         DamageFriendly = false,
@@ -261,7 +263,7 @@ UnitBlueprint {
             NoPause = true,
 			NotExclusive = true,
 			
-            ProjectileId = '/mods/BlackOpsUnleashed/projectiles/MGHeadshot01/MGHeadshot01_proj.bp',
+            ProjectileId = '/projectiles/NullShell/NullShell_proj.bp',
             ProjectileLifetime = 1,
 
             RackBones = {
@@ -335,7 +337,7 @@ UnitBlueprint {
 			
 			NotExclusive = true,
 			
-            ProjectileId = '/mods/BlackOpsUnleashed/projectiles/MGHeadshot01/MGHeadshot01_proj.bp',
+            ProjectileId = '/projectiles/NullShell/NullShell_proj.bp',
             ProjectileLifetime = 1,
 
             RackBones = {

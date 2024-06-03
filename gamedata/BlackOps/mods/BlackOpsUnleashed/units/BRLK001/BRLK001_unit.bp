@@ -48,7 +48,7 @@ UnitBlueprint {
     Display = {
 	
 	    Abilities = {
-            'Anti-Air',
+            "<LOC ability_aa>Anti-Air",
 			'Can Toggle to fire at ground targets',
         },
 		
@@ -328,8 +328,6 @@ UnitBlueprint {
             
             BallisticArc = 'RULEUBA_None',
             
-            CannotAttackGround = false,
-            
             CollideFriendly = false,
 			
             Damage = 100,
@@ -346,14 +344,14 @@ UnitBlueprint {
 			
             Label = 'GroundGun',
 			
-            MaxRadius = 28,
+            MaxRadius = 30,
 			
-            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 6,
 
-            MuzzleVelocity = 18,
+            MuzzleVelocity = 10,
 			
-            ProjectileId = '/mods/BlackOpsUnleashed/projectiles/CAANanoDartExGr/CAANanoDartExGr_proj.bp',
+            ProjectileId = '/projectiles/CAANanoDart05/CAANanoDart05_proj.bp',
             ProjectileLifetime = 3,
 
             RackBones = {
@@ -369,10 +367,12 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel01',
                 },
             },
+            
+            RackSalvoReloadTime = 2,    -- 5 second cycle = 120 DPS
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.2,	-- 120 DPS Surface
+            RateOfFire = 1,	-- controlled by salvo and reload times
 			
             TargetCheckInterval = 1,
             TargetPriorities = {

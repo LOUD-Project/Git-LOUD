@@ -153,6 +153,7 @@ UnitBlueprint {
 	
     Intel = {
         VisionRadius = 40,
+        WaterVisionRadius = 20,
     },
 	
     Interface = {
@@ -252,7 +253,6 @@ UnitBlueprint {
             Damage = 50,
             DamageRadius = 3.5,
             DamageType = 'Normal',
-            DPSOverRide = 850, --Due to Drones
 
             DisplayName = 'Experimental Phason Beam Generator',
 			
@@ -528,7 +528,7 @@ UnitBlueprint {
 
 			LeadTarget = true,
 			
-            MaxRadius = 42,
+            MaxRadius = 40,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
@@ -570,7 +570,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 90,
-            TurretYawSpeed = 55,
+            TurretYawSpeed = 58,
 			
             Turreted = true,
         },
@@ -613,7 +613,7 @@ UnitBlueprint {
             Label = 'AA',
 			LeadTarget = true,
 			
-            MaxRadius = 42,
+            MaxRadius = 40,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
@@ -653,7 +653,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 90,
-            TurretYawSpeed = 55,
+            TurretYawSpeed = 58,
 			
             Turreted = true,
         },

@@ -42,8 +42,8 @@ UnitBlueprint {
 	
     Display = {
 		Abilities = {
-            'Upgradeable',
-			'Volatile',
+            '<LOC ability_upgradable>Upgradeable',
+			'<LOC ability_deathaoe>Volatile',
         },
         Mesh = {
             IconFadeInZoom = 130,

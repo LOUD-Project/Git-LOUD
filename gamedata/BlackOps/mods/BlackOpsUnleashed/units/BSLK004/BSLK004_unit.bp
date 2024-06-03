@@ -101,7 +101,7 @@ UnitBlueprint {
     Intel = {
 		FreeIntel = true,
         
-		RadarRadius = 72,
+		RadarRadius = 64,
         VisionRadius = 32,
     },
 	

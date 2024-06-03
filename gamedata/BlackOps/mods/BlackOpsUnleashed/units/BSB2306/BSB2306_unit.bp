@@ -54,7 +54,7 @@ UnitBlueprint {
     Display = {
 	
 		Abilities = {
-			'Aquatic',
+			'<LOC ability_aquatic>Aquatic',
 			'Damages up to 4 other units nearby',
 			'Requires Energy',
 		},

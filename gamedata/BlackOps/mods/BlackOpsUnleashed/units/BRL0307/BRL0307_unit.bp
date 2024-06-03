@@ -49,10 +49,12 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Stun Weapon',
+			'<LOC ability_stun>EMP Weapon',
         },
+
         AnimationWalk = '/mods/BlackOpsUnleashed/units/BRL0307/BRL0307_AWalk01.sca',
-        AnimationWalkRate = 4.4,
+        AnimationWalkRate = 6,
+
         AnimationDeath = {
             {
                 Animation = '/mods/BlackOpsUnleashed/units/BRL0307/BRL0307_ADeath01.sca',
@@ -80,7 +82,7 @@ UnitBlueprint {
                 {LODCutoff = 215,Scrolling = true,ShaderName = 'Insect'},
             },
         },
-
+--[[
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -129,7 +131,7 @@ UnitBlueprint {
                 },
             },
         },
-
+--]]
         UniformScale = 0.05,
     },
 	

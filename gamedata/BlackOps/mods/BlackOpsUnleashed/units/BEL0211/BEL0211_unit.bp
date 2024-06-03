@@ -41,7 +41,7 @@ UnitBlueprint {
     Display = {
         Abilities = {
 			'Short Range',
-            'Volatile',
+            '<LOC ability_deathaoe>Volatile',
         },
         Mesh = {
             IconFadeInZoom = 130,

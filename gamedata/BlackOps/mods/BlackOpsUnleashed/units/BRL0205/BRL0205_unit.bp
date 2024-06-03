@@ -52,8 +52,8 @@ UnitBlueprint {
     Display = {
         Abilities = {
             'Repairs',
-			'Radar & Cloaking',
-            'Personal Stealth',
+			'Cloaking',
+            '<LOC ability_personalstealth>Personal Stealth',
         },
         AnimationDeath = {
             {

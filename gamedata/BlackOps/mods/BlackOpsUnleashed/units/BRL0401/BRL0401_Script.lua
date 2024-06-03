@@ -474,7 +474,7 @@ BRL0401 = Class(CWalkingLandUnit) {
 		self:CreateFireBalls()
 		WaitSeconds(0.4)
 		
-        CreateDecal(self:GetPosition(), RandomFloat(0,2*math.pi), 'nuke_scorch_001_albedo', '', 'Albedo', 30, 30, 125, 300, army)
+        CreateDecal(self:GetPosition(), RandomFloat(0,6.28), 'nuke_scorch_001_albedo', '', 'Albedo', 30, 30, 125, 300, army)
 		
 		self:CreateHeadConvectionSpinners()
         

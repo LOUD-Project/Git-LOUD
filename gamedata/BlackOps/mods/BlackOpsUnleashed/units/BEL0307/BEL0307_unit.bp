@@ -50,7 +50,7 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Amphibious',
+            '<LOC ability_amphibious>Amphibious',
 			'Railgun - hits multiple targets',
 			'Gatling Close Defense system',
 			'2 x Riot Lasers',

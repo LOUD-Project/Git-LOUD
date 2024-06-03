@@ -16,6 +16,7 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Physics = {
         CollideEntity = false,
         CollideSurface = false,

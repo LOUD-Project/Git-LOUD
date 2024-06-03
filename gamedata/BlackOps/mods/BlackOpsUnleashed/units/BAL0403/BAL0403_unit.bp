@@ -59,10 +59,10 @@ UnitBlueprint {
     Display = {
 	
         Abilities = {
-            'Amphibious',
-            'Volatile',
-			'Radar',
-           '<LOC ability_personalstealth>Personal Stealth',
+            '<LOC ability_amphibious>Amphibious',
+            '<LOC ability_deathaoe>Volatile',
+			'<LOC ability_radar>Radar',
+            '<LOC ability_personalstealth>Personal Stealth',
         },
 		
         AnimationActivate   = '/mods/BlackOpsUnleashed/units/BAL0403/BAL0403_AActivate01.sca',
@@ -114,6 +114,7 @@ UnitBlueprint {
                             Type = 'FootFall01',
                         },
                     },
+
                     Damage = {
                         Amount = 1000,
                         DamageFriendly = false,

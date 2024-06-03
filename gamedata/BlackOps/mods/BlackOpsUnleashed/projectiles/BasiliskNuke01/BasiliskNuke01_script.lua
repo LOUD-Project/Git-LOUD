@@ -51,12 +51,14 @@ BasiliskNukeEffectController01 = Class(NullShell) {
         else
             local ringWidth = ( self.NukeOuterRingRadius / self.NukeOuterRingTicks )
             local tickLength = ( self.NukeOuterRingTotalTime / self.NukeOuterRingTicks )
-            # Since we're not allowed to have an inner radius of 0 in the DamageRing function,
-            # I'm manually executing the first tick of damage with a DamageArea function.
+
+            -- Since we're not allowed to have an inner radius of 0 in the DamageRing function,
+            -- I'm manually executing the first tick of damage with a DamageArea function.
             DamageArea(self:GetLauncher(), myPos, ringWidth, self.NukeOuterRingDamage, 'Normal', true, true)
             WaitSeconds(tickLength)
+
             for i = 2, self.NukeOuterRingTicks do
-                #print('Outer Damage Ring: MaxRadius:' .. 2*i)
+                --print('Outer Damage Ring: MaxRadius:' .. 2*i)
                 DamageRing(self:GetLauncher(), myPos, ringWidth * (i - 1), ringWidth * i, self.NukeOuterRingDamage, 'Normal', true, true)
                 WaitSeconds(tickLength)
             end
@@ -70,8 +72,9 @@ BasiliskNukeEffectController01 = Class(NullShell) {
         else
             local ringWidth = ( self.NukeInnerRingRadius / self.NukeInnerRingTicks )
             local tickLength = ( self.NukeInnerRingTotalTime / self.NukeInnerRingTicks )
-            # Since we're not allowed to have an inner radius of 0 in the DamageRing function,
-            # I'm manually executing the first tick of damage with a DamageArea function.
+
+            -- Since we're not allowed to have an inner radius of 0 in the DamageRing function,
+            -- I'm manually executing the first tick of damage with a DamageArea function.
             DamageArea(self:GetLauncher(), myPos, ringWidth, self.NukeInnerRingDamage, 'Normal', true, true)
             WaitSeconds(tickLength)
             for i = 2, self.NukeInnerRingTicks do
@@ -82,13 +85,11 @@ BasiliskNukeEffectController01 = Class(NullShell) {
         end
     end,   
 	
-	
-	# Create inner explosion plasma
     CreateEffectInnerPlasma = function(self)
 		#LOG('inner plasma')
         local vx, vy, vz = self:GetVelocity()
         local num_projectiles = 20        
-        local horizontal_angle = (2*math.pi) / num_projectiles
+        local horizontal_angle = 6.28 / num_projectiles
         local angleInitial = RandomFloat( 0, horizontal_angle )  
         local xVec, zVec
         local offsetMultiple = 5
@@ -107,7 +108,6 @@ BasiliskNukeEffectController01 = Class(NullShell) {
             proj:SetAcceleration(-0.9)            
         end
 	end,
-		 
     
     EffectThread = function(self)
         local army = self:GetArmy()
@@ -115,44 +115,28 @@ BasiliskNukeEffectController01 = Class(NullShell) {
 		
 		WaitSeconds(1)
 		
-        ####Create a light for this thing's flash.
 		CreateLightParticle(self, -1, self:GetArmy(), 50, 100, 'beam_white_01', 'ramp_blue_16')
         self:ShakeCamera( 75, 3, 0, 10 )
-			
-		--Moving damage threads to be activated later
-		-- Create Damage Threads only if damage is being delivered (prevents DamageArea script error for passing in 0 value)
+
 		if (self.NukeInnerRingDamage != 0) then
 			self:ForkThread(self.InnerRingDamage)
 		end
         if (self.NukeOuterRingDamage != 0) then
 			self:ForkThread(self.OuterRingDamage)
 		end
-        
-		# Create ground decals
-        --local orientation = RandomFloat(0,2*math.pi)  
-        --CreateDecal(position, orientation, 'Scorch_012_albedo', '', 'Albedo', 250, 250, 1200, 0, army)
-        --CreateDecal(position, orientation, 'Crater01_normals', '', 'Normals', 100, 100, 1200, 0, army) 
 		
-        # Knockdown force rings
         DamageRing(self, position, 0.1, 22, 1, 'Force', true)
         WaitSeconds(0.8)
         DamageRing(self, position, 0.1, 22, 1, 'Force', true)
 		
-        # Create initial fireball dome effect
         local FireballDomeYOffset = -15
+
         self:CreateProjectile('/mods/BlackOpsUnleashed/effects/entities/BasiliskNukeEffect01/BasiliskNukeEffect01_proj.bp',0,FireballDomeYOffset,0,0,0,1)
         
-		
-        ###self:ShakeCamera( radius, maxShakeEpicenter, minShakeAtRadius, interval )
-        --self:ShakeCamera( 105, 10, 0, 2 )
         WaitSeconds( 1 )
-        --self:ShakeCamera( 75, 1, 0, 15 )   
 
-		WaitSeconds(0.1)
-		
-		# Create fireball plumes to accentuate the explosive detonation
         local num_projectiles = 1        
-        local horizontal_angle = (2*math.pi) / num_projectiles
+        local horizontal_angle = 6.28 / num_projectiles
         local angleInitial = RandomFloat( 0, horizontal_angle )  
         local xVec, yVec, zVec
         local angleVariation = 0.1        
@@ -163,20 +147,20 @@ BasiliskNukeEffectController01 = Class(NullShell) {
             xVec = math.sin(angleInitial + (i*horizontal_angle) + RandomFloat(-angleVariation, angleVariation) ) 
             yVec = RandomFloat( 0.5, 1.7 ) + 1.2
             zVec = math.cos(angleInitial + (i*horizontal_angle) + RandomFloat(-angleVariation, angleVariation) ) 
+
             px = RandomFloat( 0.5, 1.0 ) * xVec
-           -- py = RandomFloat( 0.5, 1.0 ) * yVec
             pz = RandomFloat( 0.5, 1.0 ) * zVec
             
             local proj = self:CreateProjectile( BasiliskNukeEffect04, px, py, pz, xVec, yVec, zVec )
+
             proj:SetVelocity(RandomFloat( 10, 20  ))
             proj:SetBallisticAcceleration(-9.8)            
         end        
 		
 		WaitSeconds(0.1)
-		
-		# Create fireball plumes to accentuate the explosive detonation
+
         local num_projectiles = 2        
-        local horizontal_angle = (2*math.pi) / num_projectiles
+        local horizontal_angle = 6.28 / num_projectiles
         local angleInitial = RandomFloat( 0, horizontal_angle )  
         local xVec, yVec, zVec
         local angleVariation = 0.3        
@@ -184,11 +168,12 @@ BasiliskNukeEffectController01 = Class(NullShell) {
 		local py = -5     
      
         for i = 0, (num_projectiles -1) do            
+
             xVec = math.sin(angleInitial + (i*horizontal_angle) + RandomFloat(-angleVariation, angleVariation) ) 
             yVec = RandomFloat( 0.5, 1.7 ) + 1.2
             zVec = math.cos(angleInitial + (i*horizontal_angle) + RandomFloat(-angleVariation, angleVariation) ) 
+
             px = RandomFloat( 0.5, 1.0 ) * xVec
-            --py = RandomFloat( 0.5, 1.0 ) * yVec
             pz = RandomFloat( 0.5, 1.0 ) * zVec
             
             local proj = self:CreateProjectile( BasiliskNukeEffect04, px, py, pz, xVec, yVec, zVec )
@@ -198,9 +183,8 @@ BasiliskNukeEffectController01 = Class(NullShell) {
 		
 		WaitSeconds(.5)
 		
-		# Create fireball plumes to accentuate the explosive detonation
         local num_projectiles = 2       
-        local horizontal_angle = (2*math.pi) / num_projectiles
+        local horizontal_angle = 6.28 / num_projectiles
         local angleInitial = RandomFloat( 0, horizontal_angle )  
         local xVec, yVec, zVec
         local angleVariation = 0.5        
@@ -211,8 +195,8 @@ BasiliskNukeEffectController01 = Class(NullShell) {
             xVec = math.sin(angleInitial + (i*horizontal_angle) + RandomFloat(-angleVariation, angleVariation) ) 
             yVec = RandomFloat( 0.5, 1.7 ) + 1.2
             zVec = math.cos(angleInitial + (i*horizontal_angle) + RandomFloat(-angleVariation, angleVariation) ) 
+
             px = RandomFloat( 0.5, 1.0 ) * xVec
-          --  py = RandomFloat( 0.5, 1.0 ) * yVec
             pz = RandomFloat( 0.5, 1.0 ) * zVec
             
             local proj = self:CreateProjectile( BasiliskNukeEffect04, px, py, pz, xVec, yVec, zVec )
@@ -221,10 +205,9 @@ BasiliskNukeEffectController01 = Class(NullShell) {
         end  
 		
 		WaitSeconds(0.2)
-		
-		# Create fireball plumes to accentuate the explosive detonation
+
         local num_projectiles = 1        
-        local horizontal_angle = (2*math.pi) / num_projectiles
+        local horizontal_angle = 6.28 / num_projectiles
         local angleInitial = RandomFloat( 0, horizontal_angle )  
         local xVec, yVec, zVec
         local angleVariation = 0.7        
@@ -235,8 +218,8 @@ BasiliskNukeEffectController01 = Class(NullShell) {
             xVec = math.sin(angleInitial + (i*horizontal_angle) + RandomFloat(-angleVariation, angleVariation) ) 
             yVec = RandomFloat( 0.5, 1.7 ) + 1.2
             zVec = math.cos(angleInitial + (i*horizontal_angle) + RandomFloat(-angleVariation, angleVariation) ) 
+
             px = RandomFloat( 0.5, 1.0 ) * xVec
-          --  py = RandomFloat( 0.5, 1.0 ) * yVec
             pz = RandomFloat( 0.5, 1.0 ) * zVec
             
             local proj = self:CreateProjectile( BasiliskNukeEffect04, px, py, pz, xVec, yVec, zVec )
@@ -246,9 +229,8 @@ BasiliskNukeEffectController01 = Class(NullShell) {
 		
 		WaitSeconds(0.5)
 		
-		# Create fireball plumes to accentuate the explosive detonation
         local num_projectiles = 1        
-        local horizontal_angle = (2*math.pi) / num_projectiles
+        local horizontal_angle = 6.28 / num_projectiles
         local angleInitial = RandomFloat( 0, horizontal_angle )  
         local xVec, yVec, zVec
         local angleVariation = 0.2        
@@ -259,8 +241,8 @@ BasiliskNukeEffectController01 = Class(NullShell) {
             xVec = math.sin(angleInitial + (i*horizontal_angle) + RandomFloat(-angleVariation, angleVariation) ) 
             yVec = RandomFloat( 0.5, 1.7 ) + 1.2
             zVec = math.cos(angleInitial + (i*horizontal_angle) + RandomFloat(-angleVariation, angleVariation) ) 
+
             px = RandomFloat( 0.5, 1.0 ) * xVec
-           -- py = RandomFloat( 0.5, 1.0 ) * yVec
             pz = RandomFloat( 0.5, 1.0 ) * zVec
             
             local proj = self:CreateProjectile( BasiliskNukeEffect04, px, py, pz, xVec, yVec, zVec )
@@ -271,15 +253,14 @@ BasiliskNukeEffectController01 = Class(NullShell) {
 		WaitSeconds(0.5)
 		
 		local army = self:GetArmy()
-        CreateDecal(self:GetPosition(), RandomFloat(0,2*math.pi), 'nuke_scorch_001_albedo', '', 'Albedo', 30, 30, 500, 0, army)
+        CreateDecal(self:GetPosition(), RandomFloat(0,6.28), 'nuke_scorch_001_albedo', '', 'Albedo', 30, 30, 500, 0, army)
 		
-    self:ForkThread(self.CreateHeadConvectionSpinners)
+        self:ForkThread(self.CreateHeadConvectionSpinners)
     end,
-	  
     
     CreateHeadConvectionSpinners = function(self)
         local sides = 8
-        local angle = (2*math.pi) / sides
+        local angle = 6.28 / sides
         local HeightOffset = -10
         local velocity = 1
         local OffsetMod = 10
@@ -293,15 +274,17 @@ BasiliskNukeEffectController01 = Class(NullShell) {
             table.insert(projectiles, proj)
         end   
     
-    WaitSeconds(1)
+        WaitSeconds(1)
+        
         for i = 0, (sides-1) do
             local x = math.sin(i*angle)
             local z = math.cos(i*angle)
             local proj = projectiles[i+1]
-		proj:SetVelocityAlign(false)
-		proj:SetOrientation(OrientFromDir(Util.Cross( Vector(x,0,z), Vector(0,1,0))),true)
-		proj:SetVelocity(0,3,0) 
-          proj:SetBallisticAcceleration(-0.05)            
+
+            proj:SetVelocityAlign(false)
+            proj:SetOrientation(OrientFromDir(Util.Cross( Vector(x,0,z), Vector(0,1,0))),true)
+            proj:SetVelocity(0,3,0) 
+            proj:SetBallisticAcceleration(-0.05)            
         end   
     end,
 

@@ -52,7 +52,7 @@ UnitBlueprint {
     Display = {
         Abilities = {
 			'Quantum Powered - dies if run out of power',
-            'Amphibious',
+            '<LOC ability_amphibious>Amphibious',
             "<LOC ability_torpedo>Torpedoes",
         },
 		

@@ -1,15 +1,12 @@
 local TLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
-
-local SWeapons = import('/lua/seraphimweapons.lua')
-
 local RailGunWeapon01 = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').RailGunWeapon01
 
-local TIFCruiseMissileUnpackingLauncher = import('/lua/terranweapons.lua').TIFCruiseMissileUnpackingLauncher
+local TIFCruiseMissileUnpackingLauncher = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
 local TDFPlasmaCannonWeapon = import('/lua/terranweapons.lua').TDFPlasmaCannonWeapon
 local TDFMachineGunWeapon = import('/lua/terranweapons.lua').TDFMachineGunWeapon
 
-local AntiTorp = SWeapons.SDFAjelluAntiTorpedoDefense
+local AntiTorp = import('/lua/seraphimweapons.lua').SDFAjelluAntiTorpedoDefense
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local GetRandomFloat = import('/lua/Utilities.lua').GetRandomFloat

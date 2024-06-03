@@ -124,8 +124,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 665000,
-        BuildCostMass = 46150,
+        BuildCostEnergy = 715000,
+        BuildCostMass = 45250,
         BuildTime = 31000,
     },
 	
@@ -157,7 +157,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        RadarRadius = 120,
+        RadarRadius = 132,
         SonarRadius = 60,
         
         VisionRadius = 44,

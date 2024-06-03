@@ -47,7 +47,7 @@ UnitBlueprint {
     Display = {
 		Abilities = {
             'High Energy Consumption',
-			'Aquatic: Can be built on water',
+			'<LOC ability_aquatic>Aquatic: Can be built on water',
         },
         Mesh = {
             IconFadeInZoom = 130,

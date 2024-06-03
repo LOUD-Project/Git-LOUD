@@ -1,11 +1,11 @@
 local TWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local TIFCruiseMissileUnpackingLauncher = import('/lua/terranweapons.lua').TIFCruiseMissileUnpackingLauncher
+local TIFCruiseMissileUnpackingLauncher = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
 local TSAMLauncher                      = import('/lua/terranweapons.lua').TSAMLauncher
 local TIFCommanderDeathWeapon           = import('/lua/terranweapons.lua').TIFCommanderDeathWeapon
 
 local HawkGaussCannonWeapon     = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').HawkGaussCannonWeapon
-local TDFGoliathShoulderBeam    = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').TDFGoliathShoulderBeam
+local GoliathShoulderBeam    = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').GoliathShoulderBeam
 local GoliathTMDGun             = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').GoliathTMDGun
 
 local utilities     = import('/lua/utilities.lua')
@@ -33,7 +33,7 @@ BEL0402 = Class(TWalkingLandUnit) {
 		
 		MissileWeapon = Class(TIFCruiseMissileUnpackingLauncher) {},
 		
-		Laser = Class(TDFGoliathShoulderBeam) {},
+		Laser = Class(GoliathShoulderBeam) {},
 	
 		Flamer = Class(HawkGaussCannonWeapon) {},
 	

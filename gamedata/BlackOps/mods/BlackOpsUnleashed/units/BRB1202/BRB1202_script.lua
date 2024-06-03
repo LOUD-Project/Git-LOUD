@@ -3,10 +3,12 @@ local CEnergyCreationUnit = import('/lua/defaultunits.lua').EnergyCreationUnit
 local CreateAttachedEmitter = CreateAttachedEmitter
 
 URB1102 = Class(CEnergyCreationUnit) {
-    AirEffects = {'/effects/emitters/hydrocarbon_smoke_01_emit.bp',},
+
+    AirEffects      = {'/effects/emitters/hydrocarbon_smoke_01_emit.bp',},
     AirEffectsBones = {'Exhaust01', 'Exhaust02', 'Exhaust03', 'Exhaust04',},
-    WaterEffects = {'/effects/emitters/underwater_idle_bubbles_01_emit.bp',},
-    WaterEffectsBones = {'Exhaust01', 'Exhaust02', 'Exhaust03', 'Exhaust04',},
+
+    WaterEffects        = {'/effects/emitters/underwater_idle_bubbles_01_emit.bp',},
+    WaterEffectsBones   = {'Exhaust01', 'Exhaust02', 'Exhaust03', 'Exhaust04',},
 
     OnStopBeingBuilt = function(self,builder,layer)
         CEnergyCreationUnit.OnStopBeingBuilt(self,builder,layer)

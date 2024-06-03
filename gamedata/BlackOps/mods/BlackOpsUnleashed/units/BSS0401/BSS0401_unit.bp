@@ -54,7 +54,7 @@ UnitBlueprint {
 
         Health = 70000,
         MaxHealth = 70000,
-        RegenRate = 25,
+        RegenRate = 24,
 
         AirThreatLevel = 48,
         SurfaceThreatLevel = 275,
@@ -125,8 +125,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 495000,
-        BuildCostMass = 40500,
+        BuildCostEnergy = 545000,
+        BuildCostMass = 38400,
 		
         BuildRate = 1050,
 		
@@ -158,8 +158,8 @@ UnitBlueprint {
     Intel = {
 		FreeIntel = true,
 
-        RadarRadius = 120,
-		SonarRadius = 56,
+        RadarRadius = 144,
+		SonarRadius = 72,
 
         VisionRadius = 40,
         WaterVisionRadius = 20,

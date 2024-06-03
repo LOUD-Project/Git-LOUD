@@ -51,7 +51,7 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Amphibious',
+            '<LOC ability_amphibious>Amphibious',
             'Attracts enemy fire',
         },
         

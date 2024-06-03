@@ -92,9 +92,9 @@ BAL0401 = Class(AWalkingLandUnit) {
 				
 				if pos0 then
        
-       local shellpos
+                    local shellpos
        
-       local LOUDWARP = Warp
+                    local LOUDWARP = Warp
                     local WaitTicks = WaitTicks
                     
 					for i = 0, 8 do

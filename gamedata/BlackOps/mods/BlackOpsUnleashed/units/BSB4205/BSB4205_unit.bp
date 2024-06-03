@@ -49,7 +49,7 @@ UnitBlueprint {
 			'Increases Regen Rate of shields by 17.5% ',
 			'Increases Vision Radius of all units by 12.5%',
 			'Effects do NOT stack',
-            'Volatile',
+            '<LOC ability_deathaoe>Volatile',
         },
         AnimationDeath = {
             {

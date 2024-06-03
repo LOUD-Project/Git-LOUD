@@ -64,10 +64,10 @@ UnitBlueprint {
     Display = {
 	
 		Abilities = {
-            'Amphibious',
+            '<LOC ability_amphibious>Amphibious',
 			'Beam Weapon, Dual Flamers, Tactical Missiles',
             'Radar, AA, Tactical Missile Defense',
-            'Volatile',
+            '<LOC ability_deathaoe>Volatile',
         },
 		
         AnimationDeath = { {Animation = '/mods/BlackOpsUnleashed/units/BEL0402/BEL0402_ADeath01.sca',AnimationRateMax = 0.4,AnimationRateMin = 0.4,Weight = 100 } },
@@ -79,7 +79,6 @@ UnitBlueprint {
 		
         MovementEffects = {
             Land = {
-                Effects = { },
                 Footfall = {
                     Bones = {
                         {

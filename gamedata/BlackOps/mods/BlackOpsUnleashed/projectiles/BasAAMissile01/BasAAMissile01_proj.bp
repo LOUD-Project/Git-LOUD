@@ -15,6 +15,7 @@ ProjectileBlueprint {
 
     Categories = {
         'PROJECTILE',
+        'ANTIAIR',
     },
 
     Display = {
@@ -28,23 +29,19 @@ ProjectileBlueprint {
                 },
             },
         },
-        StrategicIconSize = 2,
+        StrategicIconSize = 1,
         UniformScale = 0.3,
     },
 
-    Interface = {
-        HelpText = 0,
-    },
-
     Physics = {
-        Acceleration = 20,
+        Acceleration = 16,
         DestroyOnWater = true,
         InitialSpeed = 1,
         LeadTarget = false,
         Lifetime = 4,
-        MaxSpeed = 100,
+        MaxSpeed = 65,
         MaxZigZag = 1,
-        OnLostTargetLifetime = 0.7,
+        OnLostTargetLifetime = 0.5,
 		RotationalVelocity = 100,
         RotationalVelocityRange = 200,
         TrackTarget = true,

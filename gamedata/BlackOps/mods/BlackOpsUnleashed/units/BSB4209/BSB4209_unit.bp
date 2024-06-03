@@ -41,9 +41,9 @@ UnitBlueprint {
     Display = {
         Abilities = {
             'Anti-Teleport Field: Prevents Teleportation',
-			'Aquatic: Can be built underwater',
-            'Volatile',
-            'Upgradeable',
+			'<LOC ability_aquatic>Aquatic: Can be built underwater',
+            '<LOC ability_deathaoe>Volatile',
+            '<LOC ability_upgradable>Upgradeable',
         },
         
         AnimationDeath = {

@@ -39,8 +39,8 @@ UnitBlueprint {
     Display = {
         Abilities = {
             'Anti-Teleport Field:Prevents Teleportation',
-			'Aquatic: Can be built underwater',
-            'Volatile',
+			'<LOC ability_aquatic>Aquatic: Can be built underwater',
+            '<LOC ability_deathaoe>Volatile',
         },
         
         AnimationOn = '/mods/BlackOpsUnleashed/units/BSB4309/BSB4309_Aactivate.sca',

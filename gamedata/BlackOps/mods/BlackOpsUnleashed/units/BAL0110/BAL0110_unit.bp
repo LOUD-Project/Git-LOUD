@@ -48,8 +48,8 @@ UnitBlueprint {
 	
     Display = {
     	Abilities = {
-			'Radar',
-			'Radar Stealth',
+			'<LOC ability_radar>Radar',
+            '<LOC ability_personalstealth>Personal Stealth',
             'Deploys to fire',
         },
 		
@@ -98,7 +98,7 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-		RadarRadius = 50,
+		RadarRadius = 48,
 		RadarStealth = true,
         VisionRadius = 28,
     },
