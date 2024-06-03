@@ -1,15 +1,7 @@
 UnitBlueprint {
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy',   Cue = 'URB_Destroy_Huge',       LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',    Cue = 'Cybran_Select_Radar',    LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     BuildIconSortPriority = 200,
@@ -34,11 +26,12 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 18,
-        Health = 1000,
-        MaxHealth = 1000,
+
+        Health = 1140,
+        MaxHealth = 1140,
         RegenRate = 3,
-		NoTeleDistance = 36,
+
+        EconomyThreatLevel = 26,
     },
 	
     Description = '<LOC urb4304_desc>Adv Radar & Sonar Stealth Field Generator',
@@ -46,8 +39,7 @@ UnitBlueprint {
     Display = {
         Abilities = {
 			'Aquatic',
-            'Large Radar & Sonar Stealth Field',
-			'Anti Teleport Field',
+            '<LOC ability_stealthfield>Radar & Sonar Stealth Field',
         },
 		
         Mesh = {
@@ -72,7 +64,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_cybran_01_albedo',
@@ -80,29 +71,24 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 8,
                 Normal = 'Tarmacs/Tar8x_cybran_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 8,
             },
         },
+
         UniformScale = 0.36,
     },
 	
     Economy = {
 	
-        BuildCostEnergy = 12000,
-        BuildCostMass = 675,
-        BuildTime = 720,
+        BuildCostEnergy = 12500,
+        BuildCostMass = 950,
+        BuildTime = 2000,
 		
-        MaintenanceConsumptionPerSecondEnergy = 350,
+        MaintenanceConsumptionPerSecondEnergy = 600,
 		
-        RebuildBonusIds = {	'urb4304' },
-		
+        RebuildBonusIds = {'urb4304'},
     },
 	
     Footprint = {
@@ -111,32 +97,30 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_CounterMeasure',
         FactionName = 'Cybran',
         Icon = 'amph',
+
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-field',
-                helpText = 'toggle_stealth_field',
-            },
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-field', helpText = 'toggle_stealth_field' },
         },
+        
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+        
         UnitName = '<LOC urb4304_name>BlackOut',
-        UnitWeight = 1,
+
 		UpgradesFrom = 'urb4203',
     },
 	
     Intel = {
-        RadarStealthFieldRadius = 42,
         ReactivateTime = 5,
-        SonarStealthFieldRadius = 42,
-        VisionRadius = 10,
-		WaterVisionRadius = 10,
+        
+        RadarStealthFieldRadius = 52,
+        SonarStealthFieldRadius = 52,
+
+        VisionRadius = 16,
+		WaterVisionRadius = 16,
     },
 	
     Interface = {
@@ -194,7 +178,7 @@ UnitBlueprint {
 			
             Label = 'DummyWeapon',
 			
-            MaxRadius = 36,
+            MaxRadius = 52,
 			
             RateOfFire = 0.1,
             RangeCategory = 'UWRC_Countermeasure',
@@ -215,11 +199,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -1,21 +1,9 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        Killed      = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Radar', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     BuildIconSortPriority = 200,
@@ -40,11 +28,12 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 12,
-        Health = 1100,
-        MaxHealth = 1100,
+
+        Health = 1140,
+        MaxHealth = 1140,
         RegenRate = 2,
-		NoTeleDistance = 36,
+
+        EconomyThreatLevel = 24,
     },
 	
     Description = '<LOC xsb4304_desc>Adv Stealth Field Generator',
@@ -108,11 +97,11 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 11500,
-        BuildCostMass = 750,
-        BuildTime = 720,
+        BuildCostEnergy = 12500,
+        BuildCostMass = 950,
+        BuildTime = 2000,
 		
-        MaintenanceConsumptionPerSecondEnergy = 375,
+        MaintenanceConsumptionPerSecondEnergy = 540,
 		
         RebuildBonusIds = { 'xsb4304' },
 		
@@ -124,32 +113,28 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_CounterMeasure',
         FactionName = 'Seraphim',
         Icon = 'amph',
+
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-field',
-                helpText = 'toggle_stealth_field',
-            },
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-field', helpText = 'toggle_stealth_field' },
         },
+        
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+        
         UnitName = '<LOC xsb4304_name>Ultha Sele-ioz',
-        UnitWeight = 1,
+
 		UpgradesFrom = 'xsb4203',
     },
 	
     Intel = {
-        RadarStealthFieldRadius = 38,
         ReactivateTime = 5,
-        SonarStealthFieldRadius = 38,
-        VisionRadius = 10,
-		WaterVisionRadius = 10,
+        RadarStealthFieldRadius = 48,
+        SonarStealthFieldRadius = 48,
+        VisionRadius = 16,
+		WaterVisionRadius = 16,
     },
 	
     Interface = {
@@ -208,7 +193,7 @@ UnitBlueprint {
 			
             Label = 'DummyWeapon',
 			
-            MaxRadius = 36,
+            MaxRadius = 48,
 			
             RateOfFire = 0.1,
             RangeCategory = 'UWRC_Countermeasure',

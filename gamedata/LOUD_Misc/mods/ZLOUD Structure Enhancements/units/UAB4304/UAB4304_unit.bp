@@ -1,21 +1,9 @@
 UnitBlueprint {
 
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed       = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Radar', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     BuildIconSortPriority = 200,
@@ -40,11 +28,12 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 18,
-        Health = 1025,
-        MaxHealth = 1025,
+
+        Health = 1130,
+        MaxHealth = 1130,
         RegenRate = 2,
-		NoTeleDistance = 36,
+
+        EconomyThreatLevel = 24,
     },
 	
     Description = '<LOC uab4304_desc>Adv Stealth Field Generator',
@@ -52,8 +41,7 @@ UnitBlueprint {
     Display = {
         Abilities = {
 			'Aquatic',
-            'Large Stealth Field',
-			'Anti Teleport Field',
+            '<LOC ability_stealthfield>Radar & Sonar Stealth Field',
         },
 		
         AnimationOpen = '/units/UAB4203/UAB4203_Aopen.sca',
@@ -80,7 +68,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_aeon_01_albedo',
@@ -88,29 +75,24 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar8x_aeon_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
         },
+        
         UniformScale = 1.9,
     },
 	
     Economy = {
 	
         BuildCostEnergy = 12000,
-        BuildCostMass = 800,
-        BuildTime = 750,
+        BuildCostMass = 900,
+        BuildTime = 2000,
 		
-        MaintenanceConsumptionPerSecondEnergy = 375,
+        MaintenanceConsumptionPerSecondEnergy = 600,
 		
-        RebuildBonusIds = { 'uab4304' },
-		
+        RebuildBonusIds = {'uab4304'},
     },
 	
     Footprint = {
@@ -119,36 +101,31 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_CounterMeasure',
         FactionName = 'Aeon',
         Icon = 'amph',
+
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-field',
-                helpText = 'toggle_stealth_field',
-            },
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-field', helpText = 'toggle_stealth_field' },
         },
+        
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+        
         UnitName = '<LOC uab4304_name>Shador',
-        UnitWeight = 1,
+
 		UpgradesFrom = 'uab4203',
     },
 	
     Intel = {
 
-        RadarStealthFieldRadius = 38,
+        RadarStealthFieldRadius = 48,
+        SonarStealthFieldRadius = 48,
+
         ReactivateTime = 5,
 		
-        SonarStealthFieldRadius = 38,
-		
-        VisionRadius = 10,
-		WaterVisionRadius = 10,
-		
+        VisionRadius = 16,
+		WaterVisionRadius = 16,
     },
 	
     Interface = {
@@ -207,7 +184,7 @@ UnitBlueprint {
 			
             Label = 'DummyWeapon',
 			
-            MaxRadius = 36,
+            MaxRadius = 48,
 			
             RateOfFire = 0.1,
             RangeCategory = 'UWRC_Countermeasure',
@@ -228,11 +205,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
+            Water = true,
         },
     },
 	

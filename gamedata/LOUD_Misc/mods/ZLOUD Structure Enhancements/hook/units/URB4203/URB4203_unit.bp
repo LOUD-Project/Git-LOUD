@@ -19,77 +19,27 @@ UnitBlueprint {
         'SORTINTEL',
 		'SHOWQUEUE',
     },
-
-    Defense = {
-        ArmorType = 'Structure',
-        EconomyThreatLevel = 5,
-        Health = 165,
-        MaxHealth = 165,
-        RegenRate = 1,
-    },
-	
-    Description = '<LOC urb4203_desc>Stealth Field Generator',
 	
     Display = {
         Abilities = {
 			'Upgradeable',
-            'Radar & Sonar Stealth Field',
+            '<LOC ability_stealthfield>Radar & Sonar Stealth Field',
         },
 
         UniformScale = 0.25,
     },
 	
     Economy = {
-        BuildCostEnergy = 4000,
-        BuildCostMass = 320,
-        BuildTime = 400,
-        MaintenanceConsumptionPerSecondEnergy = 100,
-        BuildableCategory = {
-            'urb4304',
-        },
+
+        BuildableCategory = {'urb4304'},
+        
 		BuildRate = 15,		-- for upgrade purposes
-        RebuildBonusIds = {
-            'urb4203',
-			'urb4304',
-        },
+        
+        RebuildBonusIds = {'urb4203','urb4304'},
     },
 	
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_CounterMeasure',
-        FactionName = 'Cybran',
-        Icon = 'land',
-        OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-field',
-                helpText = 'toggle_stealth_field',
-            },
-        },
-        SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
-        UnitName = '<LOC urb4203_name>Twilight',
-        UnitWeight = 1,
 		UpgradesTo = 'urb4304',
     },
-	
-    Intel = {
-        RadarStealthFieldRadius = 30,
-        ReactivateTime = 5,
-        SonarStealthFieldRadius = 30,
-        VisionRadius = 10,
-    },
-	
-    Interface = {
-        HelpText = 'Stealth Field Generator',
-    },
 
-    SelectionSizeX = 1.8,
-    SelectionSizeZ = 1.8,
-    SelectionThickness = 0.38,
-    SizeX = 1,
-    SizeY = 5.1,
-    SizeZ = 1,
 }

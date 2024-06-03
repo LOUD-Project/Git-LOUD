@@ -103,10 +103,10 @@ Description['xsb0303-Sonar_T3'] = "Installs a typical T3 sonar package onto the 
 Description['xsb0303-Shield'] = "Installs a custom shield dome into the factory. While not very large, the shield is robust and regenerates quickly. Does not benefit from any adjacent structures."
 Description['xsb0303'] = "Constructs Tech 3 naval units. Highest tech level available.\n\nProduction Enhancements available."
 
-Description['uab4304'] = "The T3 Advanced Stealth Field Generator provides considerably more radar and sonar jamming radius than the T2 unit, and is also usable on water."
-Description['ueb4304'] = "The T3 Advanced Stealth Field Generator provides considerably more radar and sonar jamming radius than the T2 unit, and is also usable on water."
-Description['urb4304'] = "The T3 Advanced Stealth Field Generator provides considerably more radar and sonar jamming radius than the T2 unit, and is also usable on water."
-Description['xsb4304'] = "The T3 Advanced Stealth Field Generator provides considerably more radar and sonar jamming radius than the T2 unit, and is also usable on water."
+Description['uab4304'] = "The T3 Advanced Stealth Field Generator provides more radar & sonar jamming radius and is also usable on water."
+Description['ueb4304'] = "The T3 Advanced Stealth Field Generator provides more radar & sonar jamming radius and is also usable on water."
+Description['urb4304'] = "The T3 Advanced Stealth Field Generator provides more radar & sonar jamming radius and is also usable on water."
+Description['xsb4304'] = "The T3 Advanced Stealth Field Generator provides more radar & sonar jamming radius and is also usable on water."
 
 Description['uab5202-Shield'] = "Installs a custom shield dome into the factory. While not very large, the shield is robust and regenerates quickly. Does not benefit from any adjacent structures."
 Description['uab5202-Radar_T3'] = "Installs a typical T3 radar package onto the airpad."

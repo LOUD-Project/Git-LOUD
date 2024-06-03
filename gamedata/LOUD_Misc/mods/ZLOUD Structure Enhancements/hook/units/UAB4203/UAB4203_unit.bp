@@ -19,21 +19,11 @@ UnitBlueprint {
         'SORTINTEL',
 		'SHOWQUEUE',
     },
-
-    Defense = {
-        ArmorType = 'Structure',
-        EconomyThreatLevel = 6,
-        Health = 325,
-        MaxHealth = 325,
-        RegenRate = 1,
-    },
-	
-    Description = '<LOC uab4203_desc>Stealth Field Generator',
 	
     Display = {
         Abilities = {
 			'Upgradeable',
-            'Radar & Sonar Stealth Field',
+            '<LOC ability_stealthfield>Radar & Sonar Stealth Field',
         },
 		
         AnimationOpen = '/units/UAB4203/UAB4203_Aopen.sca',
@@ -42,66 +32,16 @@ UnitBlueprint {
     },
 	
     Economy = {
-	
-        BuildCostEnergy = 5000,
-        BuildCostMass = 350,
-        BuildTime = 450,
-		
-        MaintenanceConsumptionPerSecondEnergy = 125,
 		
         BuildableCategory = { 'uab4304' },
 		
 		BuildRate = 15,		-- for upgrade purposes
 		
         RebuildBonusIds = { 'uab4203','uab4304' },
-		
     },
 
     General = {
-	
-        Category = 'Intelligence',
-        Classification = 'RULEUC_CounterMeasure',
-		
-        
-		
-        FactionName = 'Aeon',
-        Icon = 'land',
-		
-        OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-field',
-                helpText = 'toggle_stealth_field',
-            },
-        },
-		
-        SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-		
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
-		
-        UnitName = '<LOC uab4203_name>Veil',
-        UnitWeight = 1,
 		UpgradesTo = 'uab4304',
     },
-	
-    Intel = {
-        RadarStealthFieldRadius = 24,
-        ReactivateTime = 5,
-        SonarStealthFieldRadius = 24,
-        VisionRadius = 10,
-    },
-	
-    Interface = {
-        HelpText = 'Stealth Field Generator',
-    },
-	
-    SelectionSizeX = 1.7,
-    SelectionSizeZ = 1.7,
-    SelectionThickness = 0.4,
-    SizeX = 1.7,
-    SizeY = 1.7,
-    SizeZ = 1.7,
 
 }
