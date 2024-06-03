@@ -8,12 +8,17 @@ UnitBlueprint {
 	
     Air = {
         AutoLandTime = 1,
+
         BankFactor = 2.5,
         BankForward = false,
+
         BreakOffDistance = 40,
-        BreakOffTrigger = 15,
+        BreakOffTrigger = 64,
+        
         CanFly = true,
+
         CombatTurnSpeed = 0.8,
+
         EngageDistance = 50,
 		
         KLift = 3,
@@ -28,44 +33,24 @@ UnitBlueprint {
         KTurn = 0.8,
         KTurnDamping = 1,
 		
-        LiftFactor = 7,
+        LiftFactor = 9,
 		
         MaxAirspeed = 18,
         MinAirspeed = 14,
 		
-        StartTurnDistance = 5,
-        TightTurnMultiplier = 0,
+        StartTurnDistance = 8,
+
         TurnSpeed = 0.8,
 		
         Winged = true,
     },
 	
     Audio = {
-        AirUnitWaterImpact = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UAADestroy',
-            Cue = 'UAA_Destroy_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'UAADestroy',
-            Cue = 'UAA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XAA',
-            Cue = 'XAA0306_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        AirUnitWaterImpact  = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed           = Sound { Bank = 'UAADestroy', Cue = 'UAA_Destroy_Air', LodCutoff = 'UnitMove_LodCutoff' },
+        Killed              = Sound { Bank = 'UAADestroy', Cue = 'UAA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove           = Sound { Bank = 'XAA', Cue = 'XAA0306_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection         = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Air', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -76,7 +61,6 @@ UnitBlueprint {
             Level4 = 12,
             Level5 = 15,
         },
-    
 	},
 	
     BuildIconSortPriority = 30,
@@ -100,19 +84,23 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Light',
+
         Health = 3400,
         MaxHealth = 3400,
+
         RegenRate = 6,
-        SubThreatLevel = 33,
+
+        SubThreatLevel = 40,
     },
 	
     Description = '<LOC xaa0306_desc>Advanced Torpedo Bomber',
 	
     Display = {
         Abilities = {
-            'Sonar',
-            'Multi-Warhead Torpedoes',
+            '<LOC ability_sonar>Sonar',
+            "<LOC ability_torpedo>Multi-Warhead Torpedoes",
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -134,8 +122,8 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 66000,
-        BuildCostMass = 1980,
-        BuildTime = 11880,
+        BuildCostMass = 1600,
+        BuildTime = 1100,
     },
 
     General = {
@@ -151,16 +139,17 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Secret',
+
         UnitName = '<LOC xaa0306_name>Solace',
-        UnitWeight = 1,
     },
 	
     Intel = {
 		FreeIntel = true,
-        SonarRadius = 75,
-        VisionRadius = 32,
-		WaterVisionRadius = 32,
+
+        SonarRadius = 60,
+        
+        VisionRadius = 40,
+		WaterVisionRadius = 28,
     },
 	
     Interface = {
@@ -172,15 +161,19 @@ UnitBlueprint {
     LifeBarSize = 1.25,
 	
     Physics = {
-        AttackElevation = 3,
+        AttackElevation = 4,
+
         BuildOnLayerCaps = {
             LAYER_Air = true,
             LAYER_Sub = true,
         },
         Elevation = 20,
+
         FuelRechargeRate = 25,
         FuelUseTime = 750,
+
         GroundCollisionOffset = 1.6,
+
         MaxSpeed = 0.5,
         MotionType = 'RULEUMT_Air',
     },
@@ -213,19 +206,36 @@ UnitBlueprint {
 	
     Weapon = {
         {
+            advancedTracking = true,
+            
             Audio = {
-                Fire = Sound { Bank = 'XAA_Weapon', Cue = 'XAA0306_Torpedo_Cluster', LodCutoff = 'Weapon_LodCutoff' },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0204_Depth_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             AutoInitiateAttackCommand = true,
 
             BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.3,
+                    Radius = 2,
+                    TargetAllow = 'TECH1,TECH2',
+                    TargetDisallow = 'WALL,COMMAND,EXPERIMENTAL',
+                },
+            },
+	
             CollideFriendly = false,
 			
-            Damage = 500,
+            Damage = 400,
             DamageType = 'Normal',
 			
             DisplayName = 'Torpedo Cluster',
+            
+            EffectiveRadius = 64,
 			
             FireTargetLayerCapsTable = {
                 Air = 'Seabed|Sub|Water',
@@ -238,36 +248,43 @@ UnitBlueprint {
             HeadingArcCenter = 0,
             HeadingArcRange = 30,
 			
-            Label = 'Bomb',
+            Label = 'ClusterTorpedo',
 			
-            MaxRadius = 32,
-            MinRadius = 6,
+            MaxRadius = 56,
+            MinRadius = 8,
 			
             MuzzleSalvoDelay = 0.3,
-            MuzzleSalvoSize = 4,
-            MuzzleVelocity = 6,
+            MuzzleSalvoSize = 3,
+
+            MuzzleVelocity = 8,
 			
             ProjectileId = '/projectiles/AANTorpedoCluster01/AANTorpedoCluster01_proj.bp',
-            ProjectileLifetime = 12,
+            ProjectileLifetime = 10,
 
             RackBones = {
                 {
-                    MuzzleBones = {'Torpedo_Muzzle'},
-                    RackBone = 'Torpedo_Muzzle',
+                    MuzzleBones = {'XAA0306'},
+                    RackBone = 'XAA0306',
                 },
             },
+            
+            RackSalvoReloadTime = 5.1,
 
 			RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.1,	---- drops 4 torps every 10 secs - each torp splits into 2 - so 8 * 500 = 4000 every 10 or 400 DPS
+            RateOfFire = 1,	-- 3 torps - each torp splits into 2 - so 6 * 400 = 2400 every 6 or 400 DPS
 			
-            TargetCheckInterval = 1,
+            TargetCheckInterval = 2,
+            
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SUBMARINE',
+                'CRUISER',
+                'SUBMERSIBLE',
                 'MOBILE',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER, WALL',
         },
 		
         {

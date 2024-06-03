@@ -26,16 +26,8 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UEADestroy',
-            Cue = 'UEA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'UEADestroy', Cue = 'UEA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Air', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Categories = {
@@ -72,15 +64,9 @@ UnitBlueprint {
         Abilities = {
             'Provides T2 level engineering assistance',
         },
-        Mesh = {
-            IconFadeInZoom = 175,
-            LODs = {
-                {
-                    LODCutoff = 150,
-                    ShaderName = 'Unit',
-                },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 175, LODs = { { LODCutoff = 150, ShaderName = 'Unit' } } },
+
         UniformScale = 0.011,
     },
 	
@@ -98,7 +84,9 @@ UnitBlueprint {
             PitchBone = 'Arm_Nozzle',
             YawBone = 'Arm',
         },
+
 	    CapCost = 1,
+
         CommandCaps = {
             RULEUCC_Capture = true,
             RULEUCC_Guard = true,
@@ -109,15 +97,16 @@ UnitBlueprint {
             RULEUCC_Repair = true,
             RULEUCC_Stop = true,
         },
+
         FactionName = 'UEF',
         Icon = 'air',
+
         OrderOverrides = {
-            DroneL = {
-                bitmapId = 'drone',
-                helpText = 'drone_station',
-            },
+            DroneL = { bitmapId = 'drone', helpText = 'drone_station' },
         },
+
         SelectionPriority = 6,
+
         UnitName = '<LOC xea3204_name>C-D2 "Rover-2"',
     },
 	

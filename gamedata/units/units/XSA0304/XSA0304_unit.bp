@@ -41,21 +41,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'XSA_Destroy',
-            Cue = 'XSA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'XSA_Destroy', Cue = 'XSA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'XSA', Cue = 'XSA0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -97,8 +85,9 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Radar',
+            '<LOC ability_radar>Radar',
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -139,13 +128,15 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'air',
+
         UnitName = '<LOC xsa0304_name>Sinntha',
     },
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 65,
-        VisionRadius = 32,
+        
+        RadarRadius = 56,
+        VisionRadius = 40,
     },
 	
     Interface = {

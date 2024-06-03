@@ -1,15 +1,8 @@
 UnitBlueprint {
+
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy',   Cue = 'URB_Destroy_Huge',       LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',    Cue = 'Cybran_Select_Radar',    LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     BuildIconSortPriority = 180,
@@ -37,17 +30,19 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 11,
+
         Health = 20,
         MaxHealth = 20,
         RegenRate = 0,
+
+        EconomyThreatLevel = 10,        
     },
 
     Description = '<LOC urb3101_desc>Basic Radar System',
 
     Display = {
         Abilities = {
-            'Upgradeable',
+            '<LOC ability_upgradable>Upgradeable',
         },
 
         AnimationUpgrade = '/units/urb3101/urb3101_aupgrade.sca',
@@ -55,18 +50,11 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    ShaderName = 'Insect',
-                },
-                {
-                    AlbedoName = 'urb3101_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Insect',
-                    SpecularName = 'urb3101_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, ShaderName = 'Insect' },
+                { AlbedoName = 'urb3101_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Insect', SpecularName = 'urb3101_lod1_specteam.dds' },
             },
         },
+        
         UniformScale = 0.15,
     },
 
@@ -89,29 +77,27 @@ UnitBlueprint {
     },
 
     General = {
-        CommandCaps = {
-            RULEUCC_Pause = true,
-        },
+        CommandCaps = { RULEUCC_Pause = true },
+        
         FactionName = 'Cybran',
         Icon = 'land',
+
         OrderOverrides = {
-            RULEUTC_IntelToggle = {
-                bitmapId = 'radar',
-                helpText = 'toggle_radar',
-            },
+            RULEUTC_IntelToggle = { bitmapId = 'radar', helpText = 'toggle_radar' },
         },
+        
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_IntelToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_IntelToggle = true },
 
         UpgradesTo = 'urb3201',
     },
 
     Intel = {
-        RadarRadius = 115,
+        ReactivateTime = 5,
+        RadarRadius = 104,
         ShowIntelOnSelect = true,
-        VisionRadius = 26,
+        VisionRadius = 24,
     },
 
     Interface = {
@@ -154,7 +140,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

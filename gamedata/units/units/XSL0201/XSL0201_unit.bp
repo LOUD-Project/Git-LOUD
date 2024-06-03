@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL_Destroy_Land_Sml',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0201_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Sml', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0201_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Tank', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {},
@@ -54,6 +42,7 @@ UnitBlueprint {
     Description = '<LOC xsl0201_desc>Medium Tank',
 	
     Display = {
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -71,6 +60,7 @@ UnitBlueprint {
                 },
             },
         },
+
         UniformScale = 0.063,
     },
 	
@@ -92,11 +82,12 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'land',
+
         UnitName = '<LOC xsl0201_name>Thaam',
     },
 
     Intel = {
-        VisionRadius = 21,
+        VisionRadius = 24,
     },
 
     Interface = {
@@ -156,11 +147,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0201_Cannon_Spectra',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0201_Cannon_Spectra', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -222,11 +209,12 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -1,36 +1,16 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 115,
-        GuardScanRadius = 92,
+		GuardReturnRadius = 108,
+        GuardScanRadius = 88,
         NeedUnpack = true,
     },
     
     Audio = {
-        Close = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0304_Legs',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL_Destroy_Land_Lrg',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Open = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0304_Legs',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Close       = Sound { Bank = 'XSL', Cue = 'XSL0304_Legs', LodCutoff = 'UnitMove_LodCutoff'},
+        Open        = Sound { Bank = 'XSL', Cue = 'XSL0304_Legs', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Lrg', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Bot', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -70,6 +50,7 @@ UnitBlueprint {
     },
 	
     Description = '<LOC xsl0304_desc>Mobile Heavy Artillery',
+
     Display = {
         AnimationDeath = {
             {
@@ -91,8 +72,10 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+
         AnimationWalk = '/units/XSL0304/XSL0304_awalk01.sca',
         AnimationWalkRate = 2.8,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -110,18 +93,10 @@ UnitBlueprint {
                 },
             },
         },
-        TransportAnimation = {
-            {
-                Animation = '/units/XSL0304/XSL0304_afold.sca',
-                Weight = 100,
-            },
-        },
-        TransportDropAnimation = {
-            {
-                Animation = '/units/XSL0304/XSL0304_aunfold.sca',
-                Weight = 100,
-            },
-        },
+
+        TransportAnimation      = { { Animation = '/units/XSL0304/XSL0304_afold.sca', Weight = 100 } },
+        TransportDropAnimation  = { { Animation = '/units/XSL0304/XSL0304_aunfold.sca', Weight = 100 } },
+
         UniformScale = 0.05,
     },
 	
@@ -133,6 +108,7 @@ UnitBlueprint {
 	
     General = {
         CapCost = 2,
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -144,6 +120,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'land',
+
         UnitName = '<LOC xsl0304_name>Suthanus',
     },
 	
@@ -210,11 +187,7 @@ UnitBlueprint {
             ArtilleryShieldBlocks = true,
             
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0304_Suthanus_Artillery',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0304_Suthanus_Artillery', LodCutoff = 'Weapon_LodCutoff' },
             },
             
             BallisticArc = 'RULEUBA_HighArc',
@@ -300,9 +273,10 @@ UnitBlueprint {
             WeaponUnpacks = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
         MassMult = 0.5,
         ReclaimTimeMultiplier = 1,

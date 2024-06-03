@@ -3,16 +3,8 @@ UnitBlueprint {
     Adjacency = 'T1PowerGeneratorAdjacencyBuffs',
     
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
     
     BuildIconSortPriority = 70,
@@ -48,15 +40,8 @@ UnitBlueprint {
     Description = '<LOC ueb1101_desc>Basic Power Generator',
     
     Display = {
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 215,
-                    ShaderName = 'Unit',
-                },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, ShaderName = 'Unit' } } },
 
         Tarmacs = {
             {

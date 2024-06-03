@@ -1,13 +1,15 @@
+local TAirUnit = import('/lua/defaultunits.lua').AirUnit
 
 local CreateDefaultHitExplosionAtBone = import('/lua/defaultexplosions.lua').CreateDefaultHitExplosionAtBone
 local GetRandomFloat = import('/lua/utilities.lua').GetRandomFloat
 local GetRandomInt = import('/lua/utilities.lua').GetRandomInt
+
 local WeaponsFile = import('/lua/terranweapons.lua')
 
-local TAirUnit = import('/lua/defaultunits.lua').AirUnit
+local TAALinkedRailgun    = WeaponsFile.TAALinkedRailgun
+local TDFRiotWeapon             = WeaponsFile.TDFRiotWeapon
 
-local TAirToAirLinkedRailgun = WeaponsFile.TAirToAirLinkedRailgun
-local TDFRiotWeapon = WeaponsFile.TDFRiotWeapon
+WeaponsFile = nil
 
 local ForkThread = ForkThread
 local WaitTicks = coroutine.yield
@@ -22,10 +24,8 @@ UEA0104 = Class(TAirUnit) {
     BeamExhaustIdle = '/effects/emitters/transport_thruster_beam_02_emit.bp',
 
     Weapons = {
-	
-        LinkedRailGun = Class(TAirToAirLinkedRailgun) {},
+        LinkedRailGun = Class(TAALinkedRailgun) {},
         RiotGun = Class(TDFRiotWeapon) {},
-		
     },
 
     DestructionTicks = 250,

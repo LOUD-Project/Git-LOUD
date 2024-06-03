@@ -1,4 +1,3 @@
-
 local CMassCollectionUnit = import('/lua/defaultunits.lua').MassCollectionUnit
 
 URB1103 = Class(CMassCollectionUnit) {

@@ -5,9 +5,7 @@ local SDFPhasicAutoGunWeapon = import('/lua/seraphimweapons.lua').SDFPhasicAutoG
 XSA0203 = Class(SAirUnit) {
 
     Weapons = {
-	
         Turret = Class(SDFPhasicAutoGunWeapon) {},
-		
     },
 	
 }

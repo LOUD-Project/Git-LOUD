@@ -1,4 +1,3 @@
-
 local CSeaFactoryUnit = import('/lua/cybranunits.lua').CSeaFactoryUnit
 
 local WaitFor = WaitFor

@@ -4,21 +4,9 @@ UnitBlueprint {
         GuardScanRadius = 24,
     },
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0202_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        StartMove   = Sound { Bank = 'UEL',      Cue = 'UEL0202_Move_Start',     LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Tank',       LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {},
@@ -40,10 +28,12 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
+
         Health = 1250,
         MaxHealth = 1250,
-        RegenRate = 0.5,
-        SurfaceThreatLevel = 7.5,
+        RegenRate = 1,
+        
+        SurfaceThreatLevel = 6,
     },
 	
     Description = '<LOC uel0202_desc>Heavy Tank',
@@ -52,19 +42,11 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    Scrolling = true,
-                    ShaderName = 'Unit',
-                },
-                {
-                    AlbedoName = 'uel0202_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Unit',
-                    SpecularName = 'uel0202_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, Scrolling = true, ShaderName = 'Unit' },
+                { AlbedoName = 'uel0202_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Unit', SpecularName = 'uel0202_lod1_specteam.dds' },
             },
         },
+        
         UniformScale = 0.09,
     },
 	
@@ -90,7 +72,7 @@ UnitBlueprint {
     },
 
     Intel = {
-        VisionRadius = 22,
+        VisionRadius = 24,
     },
 
     Interface = {
@@ -149,17 +131,15 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0202_Cannon_Dbl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0202_Cannon_Dbl', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 
-            Damage = 35,
+            Damage = 43,
             DamageType = 'Normal',
 
             DisplayName = 'Gauss Cannon',
@@ -176,23 +156,22 @@ UnitBlueprint {
             MuzzleVelocity = 30,
 
             ProjectileId = '/projectiles/TDFGauss01/TDFGauss01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.15,
+            ProjectileLifetimeUsesMultiplier = 1.1,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle_01',
-                        'Turret_Muzzle_02',
-                    },
+                    MuzzleBones = {'Turret_Muzzle_01','Turret_Muzzle_02'},
                     RackBone = 'Turret_Barrel',
                 },
             },
+            
+            RackSalvoReloadTime = 1.3,  -- cycle is 1.3 = 86/1,3 = 66 DPS
 
             RackRecoilDistance = -3,
 
             RangeCategory = 'UWRC_DirectFire',
 
-            RateOfFire = 0.75,		---- 2 shells of 35 = 70 every 1.3 seconds = 52 DPS
+            RateOfFire = 1,
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -222,9 +201,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

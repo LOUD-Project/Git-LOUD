@@ -1,7 +1,7 @@
 local CAirUnit = import('/lua/defaultunits.lua').AirUnit
 
-local CIFBombNeutronWeapon = import('/lua/cybranweapons.lua').CIFBombNeutronWeapon
-local CAAAutocannon = import('/lua/cybranweapons.lua').CAAAutocannon
+local CIFBombNeutronWeapon  = import('/lua/cybranweapons.lua').CIFBombNeutronWeapon
+local CAAAutocannon         = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
 
 URA0304 = Class(CAirUnit) {
 

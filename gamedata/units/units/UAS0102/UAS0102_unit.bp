@@ -104,7 +104,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 26,
+        VisionRadius = 24,
     },
 	
     Interface = {
@@ -189,7 +189,7 @@ UnitBlueprint {
 			
 			LeadTarget = true,
 			
-            MaxRadius = 46,
+            MaxRadius = 44,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 3,

@@ -5,9 +5,7 @@ local TDFRiotWeapon = import('/lua/terranweapons.lua').TDFRiotWeapon
 
 UEL0203 = Class(THoverLandUnit) {
     Weapons = {
-        Riotgun01 = Class(TDFRiotWeapon) {
-            FxMuzzleFlash = TRiotGunMuzzleFxTank
-        },
+        Riotgun01 = Class(TDFRiotWeapon) { FxMuzzleFlash = TRiotGunMuzzleFxTank },
     },
 }
 

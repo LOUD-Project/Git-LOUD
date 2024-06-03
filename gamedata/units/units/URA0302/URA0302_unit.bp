@@ -32,21 +32,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0302_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'URADestroy', Cue = 'URA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'URA', Cue = 'URA0302_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 20,
@@ -73,29 +61,22 @@ UnitBlueprint {
         ArmorType = 'Light',
         Health = 1190,
         MaxHealth = 1190,
-        RegenRate = 4,
+        RegenRate = 3,
     },
 	
     Description = '<LOC ura0302_desc>Spy Plane',
 	
     Display = {
         Abilities = {
-            'Omni Sensor',
-            'Radar Stealth',
+            '<LOC ability_omni>Omni Sensor',
+            '<LOC ability_personalstealth>Personal Stealth',
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 140,
-                    ShaderName = 'Insect',
-                },
-                {
-                    AlbedoName = 'ura0302_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Insect',
-                    SpecularName = 'ura0302_lod1_specteam.dds',
-                },
+                { LODCutoff = 140, ShaderName = 'Insect' },
+                { AlbedoName = 'ura0302_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Insect', SpecularName = 'ura0302_lod1_specteam.dds' },
             },
         },
 
@@ -103,8 +84,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 7500,
-        BuildCostMass = 195,
+        BuildCostEnergy = 8300,
+        BuildCostMass = 200,
         BuildTime = 1185,
     },
 
@@ -119,16 +100,20 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'air',
+
         UnitName = '<LOC ura0302_name>Spook',
     },
 	
     Intel = {
 		FreeIntel = true,
-        OmniRadius = 30,
-        RadarRadius = 90,
+
         RadarStealth = true,
+
+        OmniRadius = 32,
+        RadarRadius = 72,
         SonarRadius = 60,
-        VisionRadius = 60,
+        VisionRadius = 48,
+        WaterVisionRadius = 36,
     },
 	
     Interface = {
@@ -143,9 +128,9 @@ UnitBlueprint {
         BuildOnLayerCaps = {
             LAYER_Air = true,
         },
-        Elevation = 35,
+        Elevation = 32,
         FuelRechargeRate = 25,
-        FuelUseTime = 2250,
+        FuelUseTime = 2500,
         GroundCollisionOffset = 1.6,
         MaxSpeed = 10,
         MinSpeedPercent = 0.85,

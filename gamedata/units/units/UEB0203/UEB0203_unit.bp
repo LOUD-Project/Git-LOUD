@@ -1,26 +1,10 @@
 UnitBlueprint {
 
     Audio = {
-        Construct = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB0203_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Factory',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Construct       = Sound { Bank = 'UEB', Cue = 'UEB0101_Construct_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        DeathExplosion  = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed       = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Factory', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 31,
@@ -57,7 +41,7 @@ UnitBlueprint {
 	
     Display = {
 	
-        Abilities = {'Upgradeable'},
+        Abilities = {'<LOC ability_upgradable>Upgradeable'},
 		
         AnimationUpgrade = '/units/ueb0203/ueb0203_aupgrade.sca',
         BuildAttachBone = 'Attachpoint01',
@@ -97,10 +81,7 @@ UnitBlueprint {
         InitialRallyX = 0,
         InitialRallyZ = 10,
         
-        RebuildBonusIds = {
-            'ueb0203',
-            'ueb0303',
-        },
+        RebuildBonusIds = {'ueb0203','ueb0303'},
 
         StorageEnergy = 1200,
 		StorageMass = 120,
@@ -132,7 +113,8 @@ UnitBlueprint {
     },
 
     Intel = {
-        VisionRadius = 10,
+        VisionRadius = 16,
+        WaterVisionRadius = 16,
     },
 
     Interface = {
@@ -190,9 +172,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.6,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Water = true,

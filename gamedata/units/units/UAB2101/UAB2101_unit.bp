@@ -1,22 +1,11 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Turret',
-            'Barrel01',
-        },
+        TargetBones = {'Turret','Barrel01'},
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {},
@@ -60,6 +49,7 @@ UnitBlueprint {
                 OffsetZ = 0,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -101,7 +91,7 @@ UnitBlueprint {
     },
 
     Intel = {
-        VisionRadius = 26,
+        VisionRadius = 24,
     },
 
     Interface = {

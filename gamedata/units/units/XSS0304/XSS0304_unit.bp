@@ -2,48 +2,26 @@ UnitBlueprint {
     AI = {
         GuardReturnRadius = 80,
         GuardScanRadius = 65,
+        
+        TargetBones = { 'Torpedo02','Exhaust02' },
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UASDestroy',
-            Cue = 'UAS0203_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSS',
-            Cue = 'XSS0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMoveSub = Sound {
-            Bank = 'XSS',
-            Cue = 'XSS0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        SubmergeStart = Sound {
-            Bank = 'XSS',
-            Cue = 'XSS_Sub_Submerge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        SurfaceStart = Sound {
-            Bank = 'XSS',
-            Cue = 'XSS_Sub_Surface',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Sub',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed          = Sound { Bank = 'UASDestroy', Cue = 'UAS0203_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove       = Sound { Bank = 'XSS', Cue = 'XSS0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMoveSub    = Sound { Bank = 'XSS', Cue = 'XSS0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        SubmergeStart   = Sound { Bank = 'XSS', Cue = 'XSS_Sub_Submerge', LodCutoff = 'UnitMove_LodCutoff'},
+        SurfaceStart    = Sound { Bank = 'XSS', Cue = 'XSS_Sub_Surface', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Sub', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 3,
-            Level2 = 6,
-            Level3 = 9,
-            Level4 = 12,
-            Level5 = 15,
+            Level1 = 4,
+            Level2 = 8,
+            Level3 = 12,
+            Level4 = 16,
+            Level5 = 20,
         },
     },
 	
@@ -64,52 +42,35 @@ UnitBlueprint {
     },
 	
     CollisionOffsetX = 0.05,
-    CollisionOffsetY = -0.4,
+    CollisionOffsetY = -0.35,
     CollisionOffsetZ = -0.01,
 	
     Defense = {
+
+        MissileTorpDestroy = { AttachBone = {'Projectile01','Exhaust01'}, Radius = 3.3, RedirectRateOfFire = 7, ProjectileCategories = {'TORPEDO'} },
+    
         ArmorType = 'Normal',
-        Health = 4500,
-        MaxHealth = 4500,
-        RegenRate = 10,
-        SubThreatLevel = 45,
+        Health = 4000,
+        MaxHealth = 4000,
+        RegenRate = 8,
+
+        SubThreatLevel = 49,
     },
 	
     Description = '<LOC xss0304_desc>Submarine Hunter',
     
     Display = {
         Abilities = {
-            'Anti-Air',
-            'Sonar',
-            'Torpedo Defense',
+            '<LOC ability_aa>Anti-Air',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_torpedodef>Torpedo Defense x2',
         },
         
         CannonOpenAnimation = '/units/xss0304/xss0304_aopen.sca',
         
         IdleEffects = {
-            Sub = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Exhaust02',
-                            'Exhaust01',
-                            'XSS0304',
-                        },
-                        Type = 'UnderWater01',
-                    },
-                },
-            },
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'XSS0304',
-                        },
-                        Scale = 0.5,
-                        Type = 'SeaIdle01',
-                    },
-                },
-            },
+            Sub     = { Effects = { { Bones = {'XSS0304'}, Type = 'UnderWater01' } } },
+            Water   = { Effects = { { Bones = {'XSS0304'}, Scale = 0.5, Type = 'SeaIdle01' } } },
         },
         
         Mesh = {
@@ -129,66 +90,19 @@ UnitBlueprint {
                 },
             },
         },
-        MotionChangeEffects = {
-            SubBottomUp = {
-                Effects = {
-                    {
-                        Bones = {
-                            'XSS0304',
-                        },
-                        Type = 'Surface01',
-                    },
-                },
-            },
-            WaterTopDown = {
-                Effects = {
-                    {
-                        Bones = {
-                            'XSS0304',
-                        },
-                        Type = 'Submerge01',
-                    },
-                },
-            },
-        },
+
         MovementEffects = {
-            Sub = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Exhaust01',
-                            'Exhaust02',
-                        },
-                        Scale = 1.75,
-                        Type = 'BackWake',
-                    },
-                },
-            },
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'XSS0304',
-                        },
-                        Offset = {
-                            0,
-                            0,
-                            -0.5,
-                        },
-                        Scale = 0.9,
-                        Type = 'BackWake',
-                    },
-                },
-            },
+            Sub     = { Effects = { { Bones = {'Exhaust01','Exhaust02'}, Scale = 1.75, Type = 'BackWake' } } },
+            Water   = { Effects = { { Bones = {'XSS0304'}, Offset = {0,0,-0.5}, Scale = 0.9, Type = 'BackWake' } } },
         },
 
         UniformScale = 0.035,
     },
 	
     Economy = {
-        BuildCostEnergy = 36000,
-        BuildCostMass = 4250,
-        BuildTime = 21250,
+        BuildCostEnergy = 40000,
+        BuildCostMass = 3900,
+        BuildTime = 15000,
     },
 
     General = {
@@ -204,16 +118,19 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'sea',
+
         UnitName = '<LOC xss0304_name>Yathsou',
     },
 	
     Intel = {
 		FreeIntel = true,
+        
 		RadarStealth = true,
-        SonarRadius = 75,
 		SonarStealth = true,
+
+        SonarRadius = 68,
         VisionRadius = 36,
-        WaterVisionRadius = 40,
+        WaterVisionRadius = 44,
     },
 	
     Interface = {
@@ -225,7 +142,7 @@ UnitBlueprint {
     LifeBarSize = 0.75,
 	
     Physics = {
-        BackUpDistance = 5,
+        BackUpDistance = 8,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Sub = true,
@@ -234,9 +151,9 @@ UnitBlueprint {
 		DiveSurfaceSpeed = 3,
         DragCoefficient = 0.2,
         Elevation = -3,
-        MaxAcceleration = 2.1,
-        MaxBrake = 2.1,
-        MaxSpeed = 4.2,
+        MaxAcceleration = 2,
+        MaxBrake = 2,
+        MaxSpeed = 4,
         MaxSpeedReverse = 4,
         MaxSteerForce = 5,
         MeshExtentsX = 0.6,
@@ -268,21 +185,20 @@ UnitBlueprint {
     },
 	
     Weapon = {
+
         {
             advancedTracking = true,
             
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0304_Uall_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire            = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0203_Uall_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 500,
+            Damage = 275,
             DamageType = 'Normal',
+
             DisplayName = 'Uall Cavitation Torpedo',
 			
             FireTargetLayerCapsTable = {
@@ -290,39 +206,36 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-			FiringRandomness = 35,
+			FiringRandomness = 22,
             FiringTolerance = 15,
 			
             Label = 'Torpedo',
 			
-            MaxRadius = 65,
+            MaxRadius = 64,
 			
-            MuzzleSalvoDelay = 0.6,
+            MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 9,
 
-            MuzzleVelocity = 3.5,
-			MuzzleVelocityRandom = 0.5,
-
+            MuzzleVelocity = 6,
+			MuzzleVelocityRandom = 0.8,
+            
             NotExclusive = true,
 			
-			-- this is the bigger faster and thus longer ranged version --
-            ProjectileId = '/projectiles/SANUallCavitationTorpedo04/SANUallCavitationTorpedo04_proj.bp',
+            ProjectileId = '/projectiles/SANUallCavitationTorpedo03/SANUallCavitationTorpedo03_proj.bp',
             ProjectileLifetime = 8,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile01',
-                        'Projectile02',
-                        'Projectile03',
-                    },
-                    RackBone = 'Torpedo02',
+                    MuzzleBones = {'Projectile01','Projectile02','Projectile03'},
+                    RackBone = 'Projectile02',
                 },
             },
+            
+            RackSalvoReloadTime = 1.4,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.1,		-- 9 torps of 500 every 10 seconds = 450 DPS Sub
+            RateOfFire = 1,		-- 9 torps of 275 every 5 seconds = 495 DPS -- controlled by muzzle and reload delays
 			
             TargetCheckInterval = 2,
 			
@@ -337,154 +250,21 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
 			TrackingRadius = 1.2,
         },
-		
+
         {
-            Audio = {
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0304_Ajellu_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-            BallisticArc = 'RULEUBA_None',
-
-			CannotAttackGround = true,
-            CollideFriendly = false,
-			
-            Damage = 2,
-			DamageFriendly = false,
-			DamageRadius = 2,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Anti Torpedo',
-			
-            FireTargetLayerCapsTable = {
-                Sub = 'Seabed|Sub|Water',
-                Water = 'Seabed|Sub|Water',
-            },
-			
-            FiringTolerance = 50,
-			
-            Label = 'AntiTorpedo',
-			
-            MaxRadius = 25,
-
-            MuzzleVelocity = 10,
-
-            NotExclusive = true,
-			
-            ProjectileId = '/projectiles/SANAjelluAntiTorpedo01/SANAjelluAntiTorpedo01_proj.bp',
-            ProjectileLifetime = 4,
-			
-            RackBones = {
-                {
-                    MuzzleBones = {'Left_Turret_Muzzle'},
-                    RackBone = 'Left_Turret_Muzzle',
-                },
-            },
-
-            RangeCategory = 'UWRC_Countermeasure',
-			
-            RateOfFire = 0.5,
-			
-            TargetCheckInterval = 0.5,
-			
-            TargetRestrictOnlyAllow = 'TORPEDO',
-            TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.1,
-			
-            TurretBoneMuzzle = 'Left_Turret_Muzzle',
-            TurretBonePitch = 'Left_Turret_Barrel',
-            TurretBoneYaw = 'Left_Turret_Barrel',
-
-            TurretPitch = 0,
-            TurretPitchRange = 15,
-            TurretPitchSpeed = 180,
-			
-            TurretYaw = 0,
-            TurretYawRange = 120,
-            TurretYawSpeed = 60,
-			
-            Turreted = true,
-        },
-        {
-            BallisticArc = 'RULEUBA_None',
-			CannotAttackGround = true,
-            CollideFriendly = false,
-			
-            Damage = 2,
-			DamageFriendly = false,
-			DamageRadius = 2,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Ajellu Anti-Torpedo Defense',
-			
-            FireTargetLayerCapsTable = {
-                Sub = 'Seabed|Sub|Water',
-                Water = 'Seabed|Sub|Water',
-            },
-			
-            FiringTolerance = 50,
-			
-            Label = 'AntiTorpedo',
-			
-            MaxRadius = 28,
-
-            MuzzleVelocity = 8,
-
-            NotExclusive = true,
-			
-            ProjectileId = '/projectiles/SANAjelluAntiTorpedo01/SANAjelluAntiTorpedo01_proj.bp',
-            ProjectileLifetime = 4,
-			
-            RackBones = {
-                {
-                    MuzzleBones = {
-                        'Right_Turret_Muzzle',
-                    },
-                    RackBone = 'Right_Turret_Muzzle',
-                },
-            },
-
-            RangeCategory = 'UWRC_Countermeasure',
-			
-            RateOfFire = 0.9,
-			
-            TargetCheckInterval = 0.5,
-			
-            TargetRestrictOnlyAllow = 'TORPEDO',
-            TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.1,
-			
-            TurretBoneMuzzle = 'Right_Turret_Muzzle',
-            TurretBonePitch = 'Right_Turret_Barrel',
-            TurretBoneYaw = 'Right_Turret_Barrel',
-
-            TurretPitch = 0,
-            TurretPitchRange = 50,
-            TurretPitchSpeed = 180,
-			
-            TurretYaw = 0,
-            TurretYawRange = 120,
-            TurretYawSpeed = 60,
-			
-            Turreted = true,
-        },
-        {
+            AboveWaterFireOnly = true,
             AlwaysRecheckTarget = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0304_Losaare_AA',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0304_Losaare_AA', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			
             Damage = 55,
-			DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Losaare AA Autocannon',
@@ -496,7 +276,7 @@ UnitBlueprint {
             FiringRandomness = 0,
             FiringTolerance = 0.2,
 			
-            Label = 'AutoCannon',
+            Label = 'AAAutoCannon',
 			
 			LeadTarget = true,
 			
@@ -506,7 +286,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 4,
 
             MuzzleVelocity = 85,
-
+            
             NotExclusive = true,
 			
             ProjectileId = '/projectiles/SAALosaareAutoCannon03/SAALosaareAutoCannon03_proj.bp',
@@ -514,10 +294,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Turret_Muzzle01',
-                        'Front_Turret_Muzzle02',
-                    },
+                    MuzzleBones = {'Front_Turret_Muzzle01','Front_Turret_Muzzle02'},
                     RackBone = 'Front_Turret_Barrel01',
                 },
             },

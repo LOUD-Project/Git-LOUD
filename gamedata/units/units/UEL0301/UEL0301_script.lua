@@ -1,8 +1,11 @@
 local TWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local TWeapons = import('/lua/terranweapons.lua')
-local TDFHeavyPlasmaCannonWeapon = TWeapons.TDFHeavyPlasmaCannonWeapon
-local TIFCommanderDeathWeapon = TWeapons.TIFCommanderDeathWeapon
+
+local TDFHeavyPlasmaCannonWeapon    = TWeapons.TDFHeavyPlasmaCannonWeapon
+local TIFCommanderDeathWeapon       = TWeapons.TIFCommanderDeathWeapon
+
+TWeapons = nil
 
 local CleanupEffectBag = import('/lua/EffectUtilities.lua').CleanupEffectBag
 local CreateDefaultBuildBeams = import('/lua/EffectUtilities.lua').CreateDefaultBuildBeams
@@ -16,9 +19,7 @@ UEL0301 = Class(TWalkingLandUnit) {
     
     IntelEffects = {
 		{
-			Bones = {
-				'Jetpack',
-			},
+			Bones = {'Jetpack'},
 			Scale = 0.5,
 			Type = 'Jammer01',
 		},
@@ -248,9 +249,9 @@ UEL0301 = Class(TWalkingLandUnit) {
         end
     end,
 
-    OnIntelEnabled = function(self)
+    OnIntelEnabled = function(self,intel)
     
-        TWalkingLandUnit.OnIntelEnabled(self)
+        TWalkingLandUnit.OnIntelEnabled(self,intel)
         
         if self.RadarJammerEnh and self:IsIntelEnabled('Jammer') then 
         
@@ -264,9 +265,9 @@ UEL0301 = Class(TWalkingLandUnit) {
         end    
     end,
 
-    OnIntelDisabled = function(self)
+    OnIntelDisabled = function(self,intel)
     
-        TWalkingLandUnit.OnIntelDisabled(self)
+        TWalkingLandUnit.OnIntelDisabled(self,intel)
         
         if self.RadarJammerEnh and not self:IsIntelEnabled('Jammer') then
         

@@ -1,15 +1,8 @@
 UnitBlueprint {
+
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy',   Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',    Cue = 'UEF_Select_Radar', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     BuildIconSortPriority = 190,
@@ -22,7 +15,6 @@ UnitBlueprint {
         'BUILTBYTIER3COMMANDER',
         'UEF',
         'STRUCTURE',
-        'INTELLIGENCE',
         'TECH2',
         'COUNTERINTELLIGENCE',
         'DRAGBUILD',
@@ -37,17 +29,22 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 6,
-        Health = 225,
-        MaxHealth = 225,
+
+        Health = 650,
+        MaxHealth = 650,
+        RegenRate = 2,
+
+        EconomyThreatLevel = 6,     -- 40% of stealth range
     },
 
     Description = '<LOC ueb4203_desc>Stealth Field Generator',
 
     Display = {
+
         Abilities = {
-            '<LOC ability_stealthfield>Stealth Field',
+            '<LOC ability_stealthfield>Radar & Sonar Stealth Field',
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -63,6 +60,7 @@ UnitBlueprint {
                 },
             },
         },
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_01_albedo',
@@ -75,15 +73,16 @@ UnitBlueprint {
                 Width = 12.8,
             },
         },
+
         UniformScale = 0.3,
     },
 
     Economy = {
         BuildCostEnergy = 5400,
         BuildCostMass = 360,
-        BuildTime = 450,
+        BuildTime = 600,
 
-        MaintenanceConsumptionPerSecondEnergy = 125,
+        MaintenanceConsumptionPerSecondEnergy = 250,
 
         RebuildBonusIds = {'ueb4203'},
     },
@@ -97,23 +96,23 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-field',
-                helpText = 'toggle_stealth_field',
-            },
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-field', helpText = 'toggle_stealth_field' },
         },
+
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+
         UnitName = '<LOC ueb4203_name>Scattershield',
     },
 
     Intel = {
-        RadarStealthFieldRadius = 24,
         ReactivateTime = 5,
+
+        RadarStealthFieldRadius = 24,
         SonarStealthFieldRadius = 24,
-        VisionRadius = 0,
+
+        VisionRadius = 4,
     },
 
     Interface = {
@@ -148,9 +147,9 @@ UnitBlueprint {
     SelectionSizeZ = 1.55,
     SelectionThickness = 0.45,
 
-    SizeX = 0.9,
-    SizeY = 4,
-    SizeZ = 0.9,
+    SizeX = 0.8,
+    SizeY = 3,
+    SizeZ = 0.8,
 
     StrategicIconName = 'icon_structure2_counterintel',
     StrategicIconSortPriority = 225,

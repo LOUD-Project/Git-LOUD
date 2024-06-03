@@ -3,22 +3,11 @@ UnitBlueprint {
 		GuardReturnRadius = 35,
         GuardScanRadius = 30,
     },
+
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL_Destroy_Land_Lrg',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0307_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Lrg', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0307_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 50,
@@ -57,6 +46,7 @@ UnitBlueprint {
             ShieldSize = 20,
             ShieldVerticalOffset = -3,
         },
+
         SurfaceThreatLevel = 93.7,
     },
 	
@@ -81,6 +71,7 @@ UnitBlueprint {
                 },
             },
         },
+
         UniformScale = 0.045,
     },
 	
@@ -102,20 +93,18 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'amph',
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'toggle_shield_dome',
-            },
+            RULEUTC_ShieldToggle = {bitmapId = 'shield-dome',helpText = 'toggle_shield_dome'},
         },
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+
+        ToggleCaps = {RULEUTC_ShieldToggle = true},
+
         UnitName = '<LOC xsl0307_name>Athanah',
     },
     
     Intel = {
-        VisionRadius = 22,
+        VisionRadius = 20,
     },
     
     Interface = {

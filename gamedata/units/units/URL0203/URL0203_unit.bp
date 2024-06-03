@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0203_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'URL', Cue = 'URL0203_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Tank', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -56,6 +44,7 @@ UnitBlueprint {
         Health = 1250,
         MaxHealth = 1250,
         RegenRate = 2,
+
         SubThreatLevel = 2,
         SurfaceThreatLevel = 9.3,
     },
@@ -64,18 +53,12 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Torpedoes',
+            '<LOC ability_amphibious>Amphibious',
+            '<LOC ability_torpedo>Torpedoes',
         },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 215,
-                    Scrolling = true,
-                    ShaderName = 'Insect',
-                },
-            },
-        },
+        
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, Scrolling = true, ShaderName = 'Insect' } } },
+        
         UniformScale = 0.125,
     },
 	
@@ -101,8 +84,8 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 21,
-        WaterVisionRadius = 21,
+        VisionRadius = 24,
+        WaterVisionRadius = 20,
     },
 	
     Interface = {
@@ -134,6 +117,7 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 60,
     },
+    
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0,
     SelectionSizeX = 0.55,
@@ -162,25 +146,23 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0203_Bolter',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0203_Bolter', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CollideFriendly = false,
 			
             Damage = 25,
-			DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Electron Bolter',
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
 			
@@ -199,10 +181,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret01_Muzzle',
-                        'Turret02_Muzzle',
-                    },
+                    MuzzleBones = {'Turret01_Muzzle','Turret02_Muzzle'},
                     RackBone = 'Turret01_Barrel',
                 },
             },
@@ -237,14 +216,13 @@ UnitBlueprint {
         },
 		
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL_Meson_Rocket',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL_Meson_Rocket', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
@@ -255,7 +233,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 			
 			FiringRandomness = 0.5,
@@ -309,16 +287,13 @@ UnitBlueprint {
 
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0203_Torpedo_Rocket',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0203_Torpedo_Rocket', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 40,
+            Damage = 200,
             DamageType = 'Normal',
 			
             DisplayName = 'Meson Torpedo',
@@ -326,16 +301,18 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Seabed = 'Seabed|Sub|Water',
             },
+            
             FiringTolerance = 30,
 
             Label = 'Torpedo',
 			
-            MaxRadius = 38,
+            MaxRadius = 36,
+            MinRadius = 4,
 			
-            MuzzleVelocity = 5,
-			
-            ProjectileId = '/projectiles/CANTorpedoMeson02/CANTorpedoMeson02_proj.bp',
-            ProjectileLifetime = 8,
+            MuzzleVelocity = 1,
+            
+            ProjectileId = '/projectiles/CANTorpedoNanite02/CANTorpedoNanite02_proj.bp',			
+            ProjectileLifetime = 5.5,
 
             RackBones = {
                 {
@@ -343,19 +320,22 @@ UnitBlueprint {
                     RackBone = 'Turret02',
                 },
             },
+            
+            RackSalvoReloadTime = 10,    -- 10 second cycle = 20 DPS
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.5,	-- 20 DPS sub
+            RateOfFire = 1,
 			
             TargetCheckInterval = 3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SUBMERSIBLE',
                 'MOBILE',
                 'STRUCTURE',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER, WALL',
             TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret03_Muzzle',
@@ -378,7 +358,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -1,15 +1,8 @@
 UnitBlueprint {
+
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -89,7 +82,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 30,
+        VisionRadius = 32,
     },
 	
     Interface = {
@@ -144,17 +137,10 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2301_Cannon_Oblivion_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2301_Cannon_Oblivion_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire                = Sound { Bank = 'UALWeapon', Cue = 'UAB2301_Cannon_Oblivion_Fire', LodCutoff = 'Weapon_LodCutoff'},
+                MuzzleChargeStart   = Sound { Bank = 'UALWeapon', Cue = 'UAB2301_Cannon_Oblivion_Charge', LodCutoff = 'Weapon_LodCutoff'},
             },
+
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -226,11 +212,12 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

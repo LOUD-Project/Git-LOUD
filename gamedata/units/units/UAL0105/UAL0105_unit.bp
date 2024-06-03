@@ -5,16 +5,8 @@ UnitBlueprint {
     },
 	
     Audio = {
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0105_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        StartMove   = Sound { Bank = 'UAL', Cue = 'UAL0105_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 10,
@@ -56,41 +48,20 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Sacrifice',
+            '<LOC ability_sacrifice>Sacrifice',
         },
         
         AnimationBuild = '/units/ual0105/ual0105_aopen01.sca',
         AnimationBuildRate = 3,
         
         IdleEffects = {
-            Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            'UAL0105',
-                        },
-                        Type = 'AeonGroundFXT1Engineer',
+            Land    = { Effects = { { Bones = {'UAL0105'}, Type = 'AeonGroundFXT1Engineer' } } },
+            Water   = { Effects = { { Bones = {'UAL0105'}, Type = 'AeonGroundFXT1Engineer' },
+                                    { Bones = {'UAL0105'}, Scale = 0.7, Type = 'SeaIdle02' },
+                                },
                     },
-                },
-            },
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'UAL0105',
-                        },
-                        Type = 'AeonGroundFXT1Engineer',
-                    },
-                    {
-                        Bones = {
-                            'UAL0105',
-                        },
-                        Scale = 0.7,
-                        Type = 'SeaIdle02',
-                    },
-                },
-            },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -151,7 +122,7 @@ UnitBlueprint {
     Intel = {
 		FreeIntel = true,
         VisionRadius = 18,
-		OmniRadius = 3,
+		OmniRadius = 4,
     },
 	
     Interface = {

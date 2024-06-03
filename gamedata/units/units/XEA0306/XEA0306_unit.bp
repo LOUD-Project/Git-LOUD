@@ -43,26 +43,10 @@ UnitBlueprint {
     },
 	
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'UEADestroy',
-            Cue = 'UEA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'UEADestroy',
-            Cue = 'UEA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XEA',
-            Cue = 'XEA0306_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'UEADestroy', Cue = 'UEA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed          = Sound { Bank = 'UEADestroy', Cue = 'UEA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove       = Sound { Bank = 'XEA', Cue = 'XEA0306_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -130,7 +114,6 @@ UnitBlueprint {
         },
 		
         AnimationLand = '/units/UEA0104/UEA0104_atakeoff01.sca',
-        ForcedBuildSpin = 90,
 		
         Mesh = {
             IconFadeInZoom = 130,
@@ -180,21 +163,20 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'air',
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'toggle_shield_dome',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-dome', helpText = 'toggle_shield_dome' },
         },
+
         SelectionPriority = 2,
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+
+        ToggleCaps = {RULEUTC_ShieldToggle = true},
+
         UnitName = '<LOC xea0306_name>Continental',
     },
 	
     Intel = {
-        VisionRadius = 40,
+        VisionRadius = 36,
     },
 	
     Interface = {
@@ -254,11 +236,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEA_Weapon',
-                    Cue = 'XEA0306_Plasma_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEA_Weapon', Cue = 'XEA0306_Plasma_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -325,11 +303,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEA_Weapon',
-                    Cue = 'XEA0306_Plasma_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEA_Weapon', Cue = 'XEA0306_Plasma_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -395,11 +369,7 @@ UnitBlueprint {
 		
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEA_Weapon',
-                    Cue = 'XEA0306_Flayer_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEA_Weapon', Cue = 'XEA0306_Flayer_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -422,7 +392,7 @@ UnitBlueprint {
 			
             Label = 'AAMissle',
 			
-            MaxRadius = 45,
+            MaxRadius = 40,
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 3,
@@ -433,12 +403,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'AA_Turret01_Muzzle01',
-                        'AA_Turret01_Muzzle02',
-                        'AA_Turret01_Muzzle03',
-                        'AA_Turret01_Muzzle04',
-                    },
+                    MuzzleBones = {'AA_Turret01_Muzzle01','AA_Turret01_Muzzle02','AA_Turret01_Muzzle03','AA_Turret01_Muzzle04'},
                     RackBone = 'AA_Turret01',
                 },
             },
@@ -474,11 +439,7 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEA_Weapon',
-                    Cue = 'XEA0306_Flayer_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEA_Weapon', Cue = 'XEA0306_Flayer_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -500,7 +461,7 @@ UnitBlueprint {
 			
             Label = 'AAMissle',
 			
-            MaxRadius = 45,
+            MaxRadius = 40,
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 3,
@@ -511,12 +472,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'AA_Turret02_Muzzle01',
-                        'AA_Turret02_Muzzle02',
-                        'AA_Turret02_Muzzle03',
-                        'AA_Turret02_Muzzle04',
-                    },
+                    MuzzleBones = {'AA_Turret02_Muzzle01','AA_Turret02_Muzzle02','AA_Turret02_Muzzle03','AA_Turret02_Muzzle04'},
                     RackBone = 'AA_Turret02',
                 },
             },
@@ -550,11 +506,7 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEA_Weapon',
-                    Cue = 'XEA0306_Flayer_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEA_Weapon',Cue = 'XEA0306_Flayer_Missile', LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -577,7 +529,7 @@ UnitBlueprint {
 			
             Label = 'AAMissle',
 			
-            MaxRadius = 45,
+            MaxRadius = 40,
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 3,
@@ -588,12 +540,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'AA_Turret03_Muzzle01',
-                        'AA_Turret03_Muzzle02',
-                        'AA_Turret03_Muzzle03',
-                        'AA_Turret03_Muzzle04',
-                    },
+                    MuzzleBones = {'AA_Turret03_Muzzle01','AA_Turret03_Muzzle02','AA_Turret03_Muzzle03','AA_Turret03_Muzzle04'},
                     RackBone = 'AA_Turret03',
                 },
             },
@@ -626,11 +573,7 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEA_Weapon',
-                    Cue = 'XEA0306_Flayer_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEA_Weapon', Cue = 'XEA0306_Flayer_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -652,7 +595,7 @@ UnitBlueprint {
 			
             Label = 'AAMissle',
 			
-            MaxRadius = 45,
+            MaxRadius = 40,
 			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 3,
@@ -664,12 +607,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'AA_Turret04_Muzzle01',
-                        'AA_Turret04_Muzzle02',
-                        'AA_Turret04_Muzzle03',
-                        'AA_Turret04_Muzzle04',
-                    },
+                    MuzzleBones = {'AA_Turret04_Muzzle01','AA_Turret04_Muzzle02','AA_Turret04_Muzzle03','AA_Turret04_Muzzle04'},
                     RackBone = 'AA_Turret04',
                 },
             },
@@ -719,7 +657,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.8,
-        MassMult = 0.5,
+        MassMult = 0.4,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

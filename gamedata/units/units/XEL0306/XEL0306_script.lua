@@ -1,6 +1,6 @@
 local TLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
-local TIFCruiseMissileUnpackingLauncher = import('/lua/terranweapons.lua').TIFCruiseMissileUnpackingLauncher
+local TIFCruiseMissileUnpackingLauncher = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
 
 local ForkThread = ForkThread
 local ChangeState = ChangeState

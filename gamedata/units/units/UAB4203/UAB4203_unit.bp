@@ -1,20 +1,9 @@
 UnitBlueprint {
+
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed       = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Radar', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     BuildIconSortPriority = 200,
@@ -28,7 +17,6 @@ UnitBlueprint {
         'AEON',
         'DRAGBUILD',
         'STRUCTURE',
-        'INTELLIGENCE',
         'TECH2',
         'COUNTERINTELLIGENCE',
         'SIZE12',
@@ -42,52 +30,34 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 6,
-        Health = 175,
-        MaxHealth = 175,
-        RegenRate = 0,
+
+        Health = 600,
+        MaxHealth = 600,
+        RegenRate = 2,
+        
+        EconomyThreatLevel = 10,        
     },
 	
     Description = '<LOC uab4203_desc>Stealth Field Generator',
 	
     Display = {
         Abilities = {
-            'Stealth Field',
+            '<LOC ability_stealthfield>Radar & Sonar Stealth Field',
         },
+		
+        AnimationOpen = '/units/UAB4203/UAB4203_Aopen.sca',
 
         DamageEffects = {
-            {
-                Bone = 0,
-                OffsetX = 0,
-                OffsetY = 4.5,
-                OffsetZ = 0,
-            },
-            {
-                Bone = 0,
-                OffsetX = 1,
-                OffsetY = 0.25,
-                OffsetZ = -0.5,
-            },
-            {
-                Bone = 0,
-                OffsetX = -1,
-                OffsetY = 0.25,
-                OffsetZ = 0.5,
-            },
+            { Bone = 0, OffsetX = 0, OffsetY = 4.5, OffsetZ = 0 },
+            { Bone = 0, OffsetX = 1, OffsetY = 0.25, OffsetZ = -0.5 },
+            { Bone = 0, OffsetX = -1, OffsetY = 0.25, OffsetZ = 0.5 },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 200,
-                    ShaderName = 'Aeon',
-                },
-                {
-                    AlbedoName = 'uab4203_lod1_albedo.dds',
-                    LODCutoff = 300,
-                    ShaderName = 'Aeon',
-                    SpecularName = 'uab4203_lod1_specteam.dds',
-                },
+                { LODCutoff = 200, ShaderName = 'Aeon' },
+                { AlbedoName = 'uab4203_lod1_albedo.dds', LODCutoff = 300, ShaderName = 'Aeon', SpecularName = 'uab4203_lod1_specteam.dds' },
             },
         },
 
@@ -103,15 +73,16 @@ UnitBlueprint {
                 Width = 12.8,
             },
         },
+        
         UniformScale = 1.7,
     },
 	
     Economy = {
-        BuildCostEnergy = 6000,
-        BuildCostMass = 400,
-        BuildTime = 500,
+        BuildCostEnergy = 5000,
+        BuildCostMass = 325,
+        BuildTime = 600,
 		
-        MaintenanceConsumptionPerSecondEnergy = 125,
+        MaintenanceConsumptionPerSecondEnergy = 250,
 		
         RebuildBonusIds = {'uab4203'},
     },
@@ -120,28 +91,29 @@ UnitBlueprint {
         SizeX = 3,
         SizeZ = 3,
     },
+
     General = {
         FactionName = 'Aeon',
         Icon = 'land',
+
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-field',
-                helpText = 'toggle_stealth_field',
-            },
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-field', helpText = 'toggle_stealth_field' },
         },
+        
         SelectionPriority = 5,
 
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+        
         UnitName = '<LOC uab4203_name>Veil',
     },
 
     Intel = {
-        RadarStealthFieldRadius = 24,
         ReactivateTime = 5,
+        
+        RadarStealthFieldRadius = 24,
         SonarStealthFieldRadius = 24,
-        VisionRadius = 10,
+
+        VisionRadius = 4,
     },
 
     Interface = {
@@ -185,9 +157,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

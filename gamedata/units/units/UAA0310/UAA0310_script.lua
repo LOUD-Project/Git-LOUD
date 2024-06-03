@@ -1,25 +1,31 @@
 local AAirUnit = import('/lua/defaultunits.lua').AirUnit
+
 local aWeapons = import('/lua/aeonweapons.lua')
-local AQuantumBeamGenerator = aWeapons.AQuantumBeamGenerator
-local AAAZealotMissileWeapon = aWeapons.AAAZealotMissileWeapon
-local AANDepthChargeBombWeapon = aWeapons.AANDepthChargeBombWeapon
-local AAATemporalFizzWeapon = aWeapons.AAATemporalFizzWeapon
+
+local AQuantumBeamGenerator     = aWeapons.AQuantumBeamGenerator
+local AAAZealotMissileWeapon    = aWeapons.AAAZealotMissileWeapon
+local AANDepthChargeBombWeapon  = aWeapons.AANDepthChargeBombWeapon
+local AAATemporalFizzWeapon     = aWeapons.AAATemporalFizzWeapon
+
+aWeapons = nil
 
 local explosion = import('/lua/defaultexplosions.lua')
 
 local LOUDSTATE = ChangeState
 
 UAA0310 = Class(AAirUnit) {
+
     DestroyNoFallRandomChance = 1.1,
+
     Weapons = {
 
         QuantumBeamGeneratorWeapon = Class(AQuantumBeamGenerator){},
-		
-        AA_Missile = Class(AAAZealotMissileWeapon) {},
-		
-        DepthCharge = Class(AANDepthChargeBombWeapon) {},
-		
-        AAFizz = Class(AAATemporalFizzWeapon) {},
+
+        AA_Missile          = Class(AAAZealotMissileWeapon) {},
+
+        AAFizz              = Class(AAATemporalFizzWeapon) {},		
+
+        DepthCharge         = Class(AANDepthChargeBombWeapon) {},
     },
 
     OnKilled = function(self, instigator, type, overkillRatio)

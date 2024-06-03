@@ -1,25 +1,9 @@
 UnitBlueprint {
     Audio = {
-        Close = Sound {
-            Bank = 'UAB',
-            Cue = 'UAB4201_Doors',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Open = Sound {
-            Bank = 'UAB',
-            Cue = 'UAB4201_Doors',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Close       = Sound { Bank = 'UAB', Cue = 'UAB4201_Doors', LodCutoff = 'UnitMove_LodCutoff'},
+        Open        = Sound { Bank = 'UAB', Cue = 'UAB4201_Doors', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     BuildIconSortPriority = 155,
@@ -56,7 +40,7 @@ UnitBlueprint {
 
     Display = {
         Abilities = {
-            'Aquatic',
+            '<LOC ability_aquatic>Aquatic: can be built on water',
         },
 
         Mesh = {
@@ -223,7 +207,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
         HealthMult = 0.9,
-        MassMult = 0.6,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

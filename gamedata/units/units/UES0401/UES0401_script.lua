@@ -1,9 +1,15 @@
 local TSubUnit =  import('/lua/defaultunits.lua').SubUnit
 
-local TANTorpedoAngler = import('/lua/terranweapons.lua').TANTorpedoAngler
-local TSAMLauncher = import('/lua/terranweapons.lua').TSAMLauncher
+local TANTorpedoAngler  = import('/lua/terranweapons.lua').TANTorpedoAngler
+local TSAMLauncher      = import('/lua/terranweapons.lua').TSAMLauncher
 
 local CreateBuildCubeThread = import('/lua/EffectUtilities.lua').CreateBuildCubeThread
+
+local MissileRedirect = import('/lua/defaultantiprojectile.lua').MissileTorpDestroy
+
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
 
 UES0401 = Class(TSubUnit) {
 
@@ -71,10 +77,16 @@ UES0401 = Class(TSubUnit) {
         if new == 'Down' then
 		
             self:PlayAllOpenAnims(false)
+            
+            self:DisableIntel('Omni')
+            self:DisableIntel('Radar')
 			
         elseif new == 'Top' then
 		
             self:PlayAllOpenAnims(true)
+            
+            self:EnableIntel('Omni')
+            self:EnableIntel('Radar')
 			
         end
 		
@@ -85,6 +97,17 @@ UES0401 = Class(TSubUnit) {
     OnStopBeingBuilt = function(self,builder,layer)
 	
         TSubUnit.OnStopBeingBuilt(self,builder,layer)
+
+        -- create Torp Defense emitter
+        local bp = __blueprints[self.BlueprintID].Defense.MissileTorpDestroy
+        
+        for _,v in bp.AttachBone do
+
+            local antiMissile1 = MissileRedirect { Owner = self, Radius = bp.Radius, AttachBone = v, RedirectRateOfFire = bp.RedirectRateOfFire }
+
+            TrashAdd( self.Trash, antiMissile1)
+            
+        end
 		
         ChangeState(self, self.IdleState)
 		

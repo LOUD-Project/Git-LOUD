@@ -5,8 +5,10 @@ local CreateDefaultHitExplosionAtBone = import('/lua/defaultexplosions.lua').Cre
 local util = import('/lua/utilities.lua')
 
 local cWeapons = import('/lua/cybranweapons.lua')
-local CAAAutocannon = cWeapons.CAAAutocannon
-local CEMPAutoCannon = cWeapons.CEMPAutoCannon
+local CAAAutocannon = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
+local CEMPAutoCannon = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
+
+cWeapons = nil
 
 URA0104 = Class(CAirUnit) {
 

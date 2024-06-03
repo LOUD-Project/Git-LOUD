@@ -1,19 +1,11 @@
 UnitBlueprint {
     Adjacency = 'T1MassStorageAdjacencyBuffs',
-    
+
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
-    
+
     BuildIconSortPriority = 50,
     
     Categories = {
@@ -46,6 +38,7 @@ UnitBlueprint {
     
     Display = {
         Abilities = {
+            '<LOC ability_aquatic>Aquatic: can be built underwater',
 			'Adjacency bonuses to Mass Production',
         },
 
@@ -89,9 +82,7 @@ UnitBlueprint {
     },
     
     General = {
-        CommandCaps = {
-			RULEUCC_Pause = true,
-        },
+        CommandCaps = {RULEUCC_Pause = true},
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,

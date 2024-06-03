@@ -5,36 +5,10 @@ UnitBlueprint {
     },
 
     Audio = {
-        Killed = Sound {
-            Bank = 'URSDestroy',
-            Cue = 'URS0203_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URS',
-            Cue = 'URS0203_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMoveSub = Sound {
-            Bank = 'URS',
-            Cue = 'URS0203_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        SubmergeStart = Sound {
-            Bank = 'URS',
-            Cue = 'URS_Sub_Submerge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        SurfaceStart = Sound {
-            Bank = 'URS',
-            Cue = 'URS_Sub_Surface',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Sub',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed          = Sound { Bank = 'URSDestroy', Cue = 'URS0203_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove       = Sound { Bank = 'URS', Cue = 'URS0203_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMoveSub    = Sound { Bank = 'URS', Cue = 'URS0203_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Sub', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -97,25 +71,13 @@ UnitBlueprint {
         MovementEffects = {
             Sub = {
                 Effects = {
-                    {
-                        Bones = {'Exhaust'},
-                        Scale = 1.5,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'Exhaust'}, Scale = 1.5, Type = 'BackWake' },
                 },
             },
             Water = {
                 Effects = {
-                    {
-                        Bones = {'Left_Projectile'},
-                        Scale = 0.7,
-                        Type = 'LeftFrontWake',
-                    },
-                    {
-                        Bones = {'Right_Projectile'},
-                        Scale = 0.7,
-                        Type = 'RightFrontWake',
-                    },
+                    { Bones = {'Left_Projectile'}, Scale = 0.7, Type = 'LeftFrontWake' },
+                    { Bones = {'Right_Projectile'}, Scale = 0.7, Type = 'RightFrontWake' },
                 },
             },
         },
@@ -206,7 +168,7 @@ UnitBlueprint {
         {
             Audio = {
                 Fire            = Sound { Bank = 'URSWeapon', Cue = 'URS0203_Torpedo_Nanite', LodCutoff = 'Weapon_LodCutoff' },
-                FireUnderWater  = Sound { Bank = 'URSWeapon', Cue = 'URS0203_Torpedo_Nanite', LodCutoff = 'Weapon_LodCutoff' },                
+                FireUnderWater  = Sound { Bank = 'URSWeapon', Cue = 'URS0203_Torpedo_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
@@ -231,7 +193,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 5,
 			
-            ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
+            ProjectileId = '/projectiles/CANTorpedoNanite02/CANTorpedoNanite02_proj.bp',
             ProjectileLifetime = 6,
 
             RackBones = {

@@ -1,6 +1,6 @@
 local CAirUnit = import('/lua/defaultunits.lua').AirUnit
 
-local CAAMissileNaniteWeapon = import('/lua/cybranweapons.lua').CAAMissileNaniteWeapon
+local CAAMissileNaniteWeapon = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
 local CIFMissileCorsairWeapon = import('/lua/cybranweapons.lua').CIFMissileCorsairWeapon
 
 DRA0202 = Class(CAirUnit) {
@@ -14,7 +14,7 @@ DRA0202 = Class(CAirUnit) {
                     CIFMissileCorsairWeapon.IdleState.Main(self)
                 end,
    
-   OnGotTarget = function(self)
+                OnGotTarget = function(self)
                     self.unit:SetBreakOffTriggerMult(2.0)
                     self.unit:SetBreakOffDistanceMult(8.0)
                     self.unit:SetSpeedMult(0.7)
@@ -23,15 +23,6 @@ DRA0202 = Class(CAirUnit) {
                     self.unit:SetSpeedMult(speedMulti)
                 end,            
             },
-        
-            OnGotTarget = function(self)
-                self.unit:SetBreakOffTriggerMult(2.0)
-                self.unit:SetBreakOffDistanceMult(8.0)
-                self.unit:SetSpeedMult(0.7)
-                CIFMissileCorsairWeapon.OnGotTarget(self)
-                local speedMulti = 0.7 * self.unit:GetSpeedModifier()   # [168]
-                self.unit:SetSpeedMult(speedMulti)
-            end,
         
             OnLostTarget = function(self)
                 self.unit:SetBreakOffTriggerMult(1.0)

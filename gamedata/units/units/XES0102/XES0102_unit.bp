@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 
     Audio = {
-        Killed = Sound {
-            Bank = 'XES_Destroy',
-            Cue = 'XES0102_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XES',
-            Cue = 'XES0102_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'XES_Destroy', Cue = 'XES0102_Destroy', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'XES', Cue = 'XES0102_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Naval', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {},
@@ -41,7 +29,7 @@ UnitBlueprint {
         'OVERLAYSONAR',
     },
 	
-    CollisionOffsetY = -0.28,
+    CollisionOffsetY = -0.25,
     CollisionOffsetZ = 0,
 	
     Defense = {
@@ -56,11 +44,12 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-			'Radar Stealth',
-            'Sonar',
-            'Torpedoes',
-            'Torpedo Defense',
+            '<LOC ability_personalstealth>Personal Stealth',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_torpedo>Torpedoes',
+            '<LOC ability_torpedodef>Torpedo Decoy Defense',
         },
+
         AnimationDeath = {
             {
                 Animation = '/units/xes0102/xes0102_adeath01.sca',
@@ -93,17 +82,7 @@ UnitBlueprint {
         },
 
         MovementEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'XES0102',
-                        },
-                        Scale = 0.3,
-                        Type = 'BackWake',
-                    },
-                },
-            },
+            Water = { Effects = { { Bones = {'XES0102'}, Scale = 0.25, Type = 'BackWake' } } },
         },
 
         UniformScale = 0.032,
@@ -126,13 +105,16 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'sea',
+
         UnitName = '<LOC xes0102_name>Cooper',
     },
 	
     Intel = {
 		FreeIntel = true,
+
 		RadarStealth = true,
-        SonarRadius = 45,
+        SonarRadius = 44,
+
         VisionRadius = 32,
         WaterVisionRadius = 24,
     },
@@ -171,9 +153,9 @@ UnitBlueprint {
     SelectionSizeZ = 1.0,
     SelectionThickness = 0.26,
 	
-    SizeX = 0.3,
-    SizeY = 0.46,
-    SizeZ = 0.92,
+    SizeX = 0.34,
+    SizeY = 0.4,
+    SizeZ = 0.95,
 	
     StrategicIconName = 'icon_ship2_antinavy',
     StrategicIconSortPriority = 165,
@@ -196,7 +178,7 @@ UnitBlueprint {
 
             CollideFriendly = false,
 			
-            Damage = 110,
+            Damage = 200,
             DamageType = 'Normal',
 			
             DisplayName = 'Angler Torpedo',
@@ -205,19 +187,19 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 2,
+            FiringTolerance = 30,
 			
             Label = 'Torpedo',
 			
-            MaxRadius = 40,
+            MaxRadius = 44,
 			
             MuzzleSalvoDelay = 0.8,
 
-            MuzzleSalvoSize = 4,
+            MuzzleSalvoSize = 2,
             MuzzleVelocity = 3,
 			
-            ProjectileId = '/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp',
-            ProjectileLifetime = 8,
+            ProjectileId = '/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_proj.bp',
+            ProjectileLifetime = 7,
 			
             RackBones = {
                 {
@@ -228,17 +210,15 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.3,		-- 4 torps * 110 = 440 dmg * .3 = 132 DPS Sub
+            RateOfFire = 0.3,		-- 2 torps * 200 = 400 dmg * .3 = 120 DPS Sub
 			
-            TargetCheckInterval = 2,
+            TargetCheckInterval = 1,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'SUBMARINE',
-				'MOBILE NAVAL',
-				'MOBILE',
+                'MOBILE -AIR',
                 'DEFENSE',
-                'ALLUNITS',
+                'ALLUNITS -AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
             TrackingRadius = 1.1,
@@ -253,24 +233,25 @@ UnitBlueprint {
             Damage = 2,
             DamageType = 'Normal',
 			
-            DepthCharge = { Radius = 6 },
+            Flare = { Category = 'TORPEDO', Radius = 4.5, RadiusGrowth = .2, RadiusStart = 0.3 },
 			
-            DisplayName = 'Smart Charge AntiTorpedo',
+            DisplayName = 'AntiTorpedo Flare',
 			
             FireTargetLayerCapsTable = {
                 Water = 'Sub|Water|Seabed|Land',
             },
+            
+            HeadingArcCenter = 270,
+            HeadingArcRange = 75,
 			
-			FiringRandomness = 0,
-            FiringTolerance = 360,
+            Label = 'AntiTorpedoRight',
 			
-            Label = 'AntiTorpedo',
-			
-            MaxRadius = 25,
+            MaxRadius = 18,
+            MinRadius = 6,
 
             MuzzleVelocity = 3,
 			
-            ProjectileId = '/projectiles/TIMAntiTorpedo01/TIMAntiTorpedo01_proj.bp',
+            ProjectileId = '/projectiles/TTorpedoDecoy/TTorpedoDecoy_proj.bp',
             ProjectileLifetime = 1.8,
 			
             RackBones = {
@@ -278,6 +259,51 @@ UnitBlueprint {
                     MuzzleBones = {'Anti_Torpedo_Right'},
                     RackBone = 'Anti_Torpedo_Right',
                 },
+
+            },
+
+            RangeCategory = 'UWRC_Countermeasure',
+			
+            RateOfFire = 0.7,
+			
+            TargetCheckInterval = 1,
+            TargetRestrictOnlyAllow = 'TORPEDO',
+            TargetType = 'RULEWTT_Projectile',
+            TrackingRadius = 1.1,
+        },
+		
+        {
+            BallisticArc = 'RULEUBA_None',
+			
+			CannotAttackGround = true,
+            CollideFriendly = false,
+			
+            Damage = 2,
+            DamageType = 'Normal',
+			
+            Flare = { Category = 'TORPEDO', Radius = 4.5, RadiusGrowth = .2, RadiusStart = 0.3 },
+			
+            DisplayName = 'AntiTorpedo Flare',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Sub|Water|Seabed|Land',
+            },
+            
+            HeadingArcCenter = 90,
+            HeadingArcRange = 75,
+			
+            Label = 'AntiTorpedoLeft',
+			
+            MaxRadius = 18,
+            MinRadius = 6,
+
+            MuzzleVelocity = 3,
+			
+            ProjectileId = '/projectiles/TTorpedoDecoy/TTorpedoDecoy_proj.bp',
+            ProjectileLifetime = 1.8,
+			
+            RackBones = {
+
                 {
                     MuzzleBones = {'Anti_Torpedo_Left'},
                     RackBone = 'Anti_Torpedo_Left',
@@ -286,12 +312,12 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 0.8,
+            RateOfFire = 0.7,
 			
             TargetCheckInterval = 1,
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.15,
-        },
+            TrackingRadius = 1.1,
+        },        
     },
 }

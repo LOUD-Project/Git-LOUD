@@ -1,41 +1,15 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Target01',
-            'Target02',
-            'Target03',
-            'Target04',
-        },
+        TargetBones = {'Target01','Target02','Target03','Target04'},
     },
 	
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-		EnemyUnitDetectedAeon = Sound {
-			Bank = 'XGG',
-			Cue = 'XGG_HQ_GD1_04181',
-		},
-		EnemyUnitDetectedUEF = Sound {
-			Bank = 'XGG',
-			Cue = 'XGG_HQ_GD1_04181',
-		},
-		EnemyUnitDetectedCybran = Sound {
-			Bank = 'XGG',
-			Cue = 'XGG_HQ_GD1_04181',
-		},
-         UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion          = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed               = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+		EnemyUnitDetectedAeon   = Sound { Bank = 'XGG', Cue = 'XGG_HQ_GD1_04181'},
+		EnemyUnitDetectedUEF    = Sound { Bank = 'XGG', Cue = 'XGG_HQ_GD1_04181'},
+		EnemyUnitDetectedCybran = Sound { Bank = 'XGG', Cue = 'XGG_HQ_GD1_04181'},
+        UISelection             = Sound { Bank = 'Interface', Cue = 'UEF_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -194,21 +168,9 @@ UnitBlueprint {
             ArtilleryShieldBlocks = true,
 			
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UEB',
-                    Cue = 'UEB2401_Turret_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UEB',
-                    Cue = 'UEB2401_Turret_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2401_Cannon_Mavor',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'UEB', Cue = 'UEB2401_Turret_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'UEB', Cue = 'UEB2401_Turret_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire        = Sound { Bank = 'UELWeapon', Cue = 'UEB2401_Cannon_Mavor', LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_HighArc',
 			
@@ -226,8 +188,8 @@ UnitBlueprint {
 			
             DisplayName = 'Anti Matter Artillery',
             
-            EnergyDrainPerSecond = 19714,
-            EnergyRequired = 138000,		-- fires after a 7 second charge
+            EnergyDrainPerSecond = 21514,
+            EnergyRequired = 150600,		-- fires after a 7 second charge
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -300,7 +262,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
         HealthMult = 0.7,
-        MassMult = 0.7,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

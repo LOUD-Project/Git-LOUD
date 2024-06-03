@@ -1,15 +1,8 @@
 UnitBlueprint {
+
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Radar', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     BuildIconSortPriority = 180,
@@ -38,17 +31,19 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 11,
+
         Health = 20,
         MaxHealth = 20,
         RegenRate = 0,
+
+        EconomyThreatLevel = 10,
     },
 
     Description = '<LOC uab3101_desc>Basic Radar System',
 
     Display = {
         Abilities = {
-            'Upgradeable',
+            '<LOC ability_upgradable>Upgradeable',
         },
 
         AnimationUpgrade = '/units/uab3101/uab3101_aupgrade.sca',
@@ -56,16 +51,8 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    ShaderName = 'Aeon',
-                },
-                {
-                    AlbedoName = 'uab3101_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Aeon',
-                    SpecularName = 'uab3101_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, ShaderName = 'Aeon' },
+                { AlbedoName = 'uab3101_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Aeon', SpecularName = 'uab3101_lod1_specteam.dds' },
             },
         },
 
@@ -73,8 +60,8 @@ UnitBlueprint {
     },
 
     Economy = {
-        BuildCostEnergy = 720,
-        BuildCostMass = 80,
+        BuildCostEnergy = 685,
+        BuildCostMass = 76,
         BuildRate = 10,
         BuildTime = 80,
 
@@ -82,11 +69,7 @@ UnitBlueprint {
 
         MaintenanceConsumptionPerSecondEnergy = 20,
 
-        RebuildBonusIds = {
-            'uab3101',
-            'uab3201',
-            'uab3104',
-        },
+        RebuildBonusIds = {'uab3101','uab3201','uab3104'},
     },
 
     Footprint = {
@@ -96,31 +79,26 @@ UnitBlueprint {
 
     General = {
 
-        CommandCaps = {
-            RULEUCC_Pause = true,
-        },
+        CommandCaps = { RULEUCC_Pause = true },
         FactionName = 'Aeon',
         Icon = 'land',
+        
         OrderOverrides = {
-            RULEUTC_IntelToggle = {
-                bitmapId = 'radar',
-                helpText = 'toggle_radar',
-            },
+            RULEUTC_IntelToggle = { bitmapId = 'radar', helpText = 'toggle_radar' },
         },
+        
         SelectionPriority = 5,
 
-        ToggleCaps = {
-            RULEUTC_IntelToggle = true,
-        },
+        ToggleCaps = { RULEUTC_IntelToggle = true },
 
         UpgradesTo = 'uab3201',
     },
 
     Intel = {
-        RadarRadius = 115,
+        RadarRadius = 104,
         ReactivateTime = 5,
         ShowIntelOnSelect = true,
-        VisionRadius = 26,
+        VisionRadius = 24,
     },
 
     Interface = {

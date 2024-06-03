@@ -39,21 +39,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'XSA_Destroy',
-            Cue = 'XSA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0102_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'XSA_Destroy', Cue = 'XSA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSA', Cue = 'XSA0102_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -87,7 +75,7 @@ UnitBlueprint {
     
     Display = {
         Abilities = {
-            'Anti-Air',
+            "<LOC ability_aa>Anti-Air",
         },
         Mesh = {
             IconFadeInZoom = 130,
@@ -135,6 +123,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'air',
         TarmacGlowDecal = 0.5,
+
         UnitName = '<LOC xsa0102_name>Ia-atha',
     },
 	

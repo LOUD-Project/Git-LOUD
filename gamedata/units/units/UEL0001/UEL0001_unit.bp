@@ -2,63 +2,18 @@ UnitBlueprint {
     AI = {
         GuardRadius = 10,
 		InitialAutoMode = false,
-        TargetBones = {
-            'Head',
-            'Right_Arm_B01',
-            'Left_Arm_B01',
-            'Torso',
-            'Left_Leg_B01',
-            'Right_Leg_B01',
-        },
+        TargetBones = {'Head','Right_Arm_B01','Left_Arm_B01','Torso','Left_Leg_B01','Right_Leg_B01'},
 
     },
 
     Audio = {
-        CommanderArrival = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Gate_In',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Construct = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        EnhanceStart = Sound {
-            Bank = 'UnitsGlobal',
-            Cue = 'GLB_Enhance_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        FootFallGeneric = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Move_Step',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        FootFallGenericSeabed = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Move_UW_Step',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'Explosions',
-            Cue = 'UEF_Nuke_Impact',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartReclaim = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0001_Reclaim_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Commander',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        CommanderArrival        = Sound { Bank = 'UEL', Cue = 'UEL0001_Gate_In', LodCutoff = 'UnitMove_LodCutoff' },
+        Construct               = Sound { Bank = 'UEL', Cue = 'UEL0001_Construct_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        FootFallGeneric         = Sound { Bank = 'UEL', Cue = 'UEL0001_Move_Step', LodCutoff = 'UnitMove_LodCutoff'},
+        FootFallGenericSeabed   = Sound { Bank = 'UEL', Cue = 'UEL0001_Move_UW_Step', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove               = Sound { Bank = 'UEL', Cue = 'UEL0001_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed                  = Sound { Bank = 'Explosions', Cue = 'UEF_Nuke_Impact', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection             = Sound { Bank = 'Interface', Cue = 'UEF_Select_Commander', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {
@@ -113,10 +68,10 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Amphibious',
-            'Customizable',
-            'Omni Sensor',
-            'Volatile',
+            '<LOC ability_amphibious>Amphibious',
+            '<LOC ability_customizable>Customizable',
+            '<LOC ability_omni>Omni Sensor',
+            '<LOC ability_deathaoe>Volatile',
         },
 
         AnimationWalk = '/units/uel0001/uel0001_a001.sca',
@@ -125,34 +80,13 @@ UnitBlueprint {
         AttackReticleSize = 55,
 
         DamageEffects = {
-            {
-                Bone = 0,
-                OffsetX = 0.25,
-                OffsetY = 0.75,
-                OffsetZ = 0,
-            },
-            {
-                Bone = 0,
-                OffsetX = -0.25,
-                OffsetY = 0.75,
-                OffsetZ = 0,
-            },
-            {
-                Bone = 0,
-                OffsetX = -0.35,
-                OffsetY = 0.1,
-                OffsetZ = 0,
-            },
+            { Bone = 0, OffsetX = 0.25, OffsetY = 0.75, OffsetZ = 0 },
+            { Bone = 0, OffsetX = -0.25, OffsetY = 0.75, OffsetZ = 0 },
+            { Bone = 0, OffsetX = -0.35, OffsetY = 0.1, OffsetZ = 0 },
         },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 175,
-                    ShaderName = 'Unit',
-                },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 175, ShaderName = 'Unit' } } },
+
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -165,11 +99,7 @@ UnitBlueprint {
                                 TreadMarks = 'CommanderPrint_albedo',
                                 TreadMarksSizeX = 0.6,
                                 TreadMarksSizeZ = 0.6,
-                                TreadOffset = {
-                                    0.32,
-                                    0,
-                                    0.55,
-                                },
+                                TreadOffset = {0.32,0,0.55},
                             },
                             Type = 'FootFall02',
                         },
@@ -181,11 +111,7 @@ UnitBlueprint {
                                 TreadMarks = 'CommanderPrint_albedo',
                                 TreadMarksSizeX = 0.6,
                                 TreadMarksSizeZ = 0.6,
-                                TreadOffset = {
-                                    -0.45,
-                                    0,
-                                    0.6,
-                                },
+                                TreadOffset = {-0.45,0,0.6},
                             },
                             Type = 'FootFall02',
                         },
@@ -206,6 +132,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+
         UniformScale = 0.105,
     },
 	
@@ -239,21 +166,9 @@ UnitBlueprint {
     Enhancements = {
 	
         Slots = {
-            Back = {
-                name = '<LOC _Back>',
-                x = 38,
-                y = -10,
-            },
-            LCH = {
-                name = '<LOC _LCH>',
-                x = 105,
-                y = 30,
-            },
-            RCH = {
-                name = '<LOC _RCH>',
-                x = -10,
-                y = 30,
-            },
+            Back = { name = '<LOC _Back>', x = 38, y = -10 },
+            LCH = { name = '<LOC _LCH>', x = 105, y = 30 },
+            RCH = { name = '<LOC _RCH>', x = -10, y = 30 },
         },
 		
         AdvancedEngineering = {
@@ -875,12 +790,8 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         OrderOverrides = {
-            RULEUCC_Nuke = {
-                helpText = 'fire_billy',
-            },
-            RULEUCC_SiloBuildNuke = {
-                helpText = 'build_billy',
-            },
+            RULEUCC_Nuke = { helpText = 'fire_billy' },
+            RULEUCC_SiloBuildNuke = { helpText = 'build_billy' },
         },
         QuickSelectPriority = 1,
         SelectionPriority = 3,
@@ -952,11 +863,7 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0001_MachineGun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0001_MachineGun', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -1028,11 +935,7 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0201_Cannon_Sgl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0201_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -1104,11 +1007,7 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2101_Cannon_Sgl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2101_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,

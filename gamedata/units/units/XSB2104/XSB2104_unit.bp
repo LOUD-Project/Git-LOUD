@@ -1,17 +1,8 @@
 UnitBlueprint {
 
     Audio = {
-
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {},
@@ -52,7 +43,7 @@ UnitBlueprint {
     Display = {
 
         Abilities = {
-            'Aquatic',
+            '<LOC ability_aquatic>Aquatic: can be built on water',
         },
 
         Mesh = {
@@ -72,6 +63,7 @@ UnitBlueprint {
                 },
             },
         },
+
         UniformScale = 0.037,
     },
 
@@ -94,11 +86,12 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
+
         UnitName = '<LOC xsb2104_name>Ialla',
     },
 
     Intel = {
-        VisionRadius = 29,
+        VisionRadius = 24,
     },
 
     Interface = {
@@ -152,11 +145,7 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2104_Shleo_AA_Autogun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2104_Shleo_AA_Autogun', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -178,7 +167,7 @@ UnitBlueprint {
 
 			LeadTarget = true,
 
-            MaxRadius = 44,
+            MaxRadius = 40,
 
             MuzzleSalvoSize = 2,
 
@@ -189,10 +178,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle01',
-                        'Turret_Muzzle02',
-                    },
+                    MuzzleBones = {'Turret_Muzzle01','Turret_Muzzle02'},
                     RackBone = 'Turret_Barrel',
                 },
             },
@@ -228,9 +214,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.5,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

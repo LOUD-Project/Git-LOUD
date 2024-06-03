@@ -4,13 +4,15 @@ local Buff = import('/lua/sim/Buff.lua')
 
 local AWeapons = import('/lua/aeonweapons.lua')
 
-local ADFOverchargeWeapon = AWeapons.ADFOverchargeWeapon
-local ADFDisruptorCannonWeapon = AWeapons.ADFDisruptorCannonWeapon
-local ADFChronoDampener = AWeapons.ADFChronoDampener
-local AIFCommanderDeathWeapon = AWeapons.AIFCommanderDeathWeapon
+local ADFOverchargeWeapon       = AWeapons.ADFOverchargeWeapon
+local ADFDisruptorCannonWeapon  = AWeapons.ADFDisruptorCannonWeapon
+local ADFChronoDampener         = AWeapons.ADFChronoDampener
+local AIFCommanderDeathWeapon   = AWeapons.AIFCommanderDeathWeapon
 
-local EffectTemplate = import('/lua/EffectTemplates.lua')
-local EffectUtil = import('/lua/EffectUtilities.lua')
+AWeapons = nil
+
+local EffectTemplate    = import('/lua/EffectTemplates.lua')
+local EffectUtil        = import('/lua/EffectUtilities.lua')
 
 local CreateAeonCommanderBuildingEffects = EffectUtil.CreateAeonCommanderBuildingEffects
 
@@ -240,24 +242,9 @@ UAL0001 = Class(AWalkingLandUnit) {
         self.BuildingUnit = false          
     end,
 
-    GiveInitialResources = function(self)
-    
-        WaitTicks(2)
-        self:GetAIBrain():GiveResource('Energy', self:GetBlueprint().Economy.StorageEnergy)
-        self:GetAIBrain():GiveResource('Mass', self:GetBlueprint().Economy.StorageMass)
-    end,
-    
     CreateBuildEffects = function( self, unitBeingBuilt, order )
         CreateAeonCommanderBuildingEffects( self, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
     end,  
-
-    PlayCommanderWarpInEffect = function(self)
-        self:HideBone(0, true)
-        self:SetUnSelectable(true)
-        self:SetBusy(true)
-        self:SetBlockCommandQueue(true)
-        self:ForkThread(self.WarpInEffectThread)
-    end,
 
     WarpInEffectThread = function(self)
         self:PlayUnitSound('CommanderArrival')

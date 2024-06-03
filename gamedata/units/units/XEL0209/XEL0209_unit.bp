@@ -1,25 +1,10 @@
 UnitBlueprint {
+
     Audio = {
-        Construct = Sound {
-            Bank = 'XEL',
-            Cue = 'XEL0209_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Sml_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XEL',
-            Cue = 'XEL0209_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Construct   = Sound { Bank = 'XEL', Cue = 'XEL0209_Construct_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Sml_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XEL', Cue = 'XEL0209_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     BuildIconSortPriority = 15,
@@ -53,10 +38,13 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Normal',
+
         EconomyThreatLevel = 106,	-- BuildRate * 2 + 3% of health (shield included)
+
         Health = 630,
         MaxHealth = 630,
         RegenRate = 2,
+
 		Shield = {
             ImpactEffects = 'UEFShieldHit01',
 			ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
@@ -79,8 +67,9 @@ UnitBlueprint {
     Display = {
         Abilities = {
             'Field Engineering Suite - Defenses Only',
-			'Shield Bubble',
-            'Radar & Sonar',
+            '<LOC ability_personalshield>Personal Shield',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_sonar>Sonar',
         },
 
         AnimationWater = '/units/XEL0209/xel0209_afold.sca',
@@ -88,39 +77,14 @@ UnitBlueprint {
 		MovementEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'Dust01',
-                        },
-                        Scale = 0.6,
-                        Type = 'LeftFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'Dust02',
-                        },
-                        Scale = 0.6,
-                        Type = 'RightFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'XEL0209',
-                        },
-                        Scale = 0.4,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'Dust01'}, Scale = 0.6, Type = 'LeftFrontWake' },
+                    { Bones = {'Dust02'}, Scale = 0.6, Type = 'RightFrontWake' },
+                    { Bones = {'XEL0209'}, Scale = 0.4, Type = 'BackWake' },
                 },
             },
         },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 300,
-                    ShaderName = 'Unit',
-                },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 300, ShaderName = 'Unit' } } },
 
         UniformScale = 0.04,
     },
@@ -175,9 +139,8 @@ UnitBlueprint {
             RULEUTC_ShieldToggle = {bitmapId = 'shield-dome',helpText = 'toggle_shield_dome'},
 		},
         SelectionPriority = 3,
-		ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+
+		ToggleCaps = { RULEUTC_ShieldToggle = true },
 
         UnitName = '<LOC xel0209_name>Sparky',
     },
@@ -185,11 +148,11 @@ UnitBlueprint {
     Intel = {
 		FreeIntel = true,
 
-        OmniRadius = 5,
+        OmniRadius = 8,
 		RadarRadius = 48,
-		SonarRadius = 33,
-        VisionRadius = 22,
-		WaterVisionRadius = 22,
+		SonarRadius = 32,
+        VisionRadius = 24,
+		WaterVisionRadius = 24,
     },
 
     LifeBarHeight = 0.075,
@@ -237,9 +200,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -1,27 +1,15 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 100,
-        GuardScanRadius = 75,
-        InitialAutoMode = true,
+		GuardReturnRadius = 96,
+        GuardScanRadius = 72,
+
         TargetBones = {'URL0111','Launcher'},
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0111_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'URL', Cue = 'URL0111_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -63,13 +51,10 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 215,
-                    Scrolling = true,
-                    ShaderName = 'Insect',
-                },
+                { LODCutoff = 215, Scrolling = true, ShaderName = 'Insect' },
             },
         },
+        
         UniformScale = 0.15,
     },
 	
@@ -95,7 +80,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 21,
+        VisionRadius = 20,
     },
 	
     Interface = {
@@ -161,13 +146,11 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0111_Missile_Cruise',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0111_Missile_Cruise', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 
@@ -182,7 +165,7 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringTolerance = 6,
+            FiringTolerance = 3,
 			
             Label = 'MissileRack',
 			
@@ -222,16 +205,14 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.0,
-
-            Turreted = false,
         },
     },
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.6,
+        EnergyMult = 0.3,
+        HealthMult = 0.7,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

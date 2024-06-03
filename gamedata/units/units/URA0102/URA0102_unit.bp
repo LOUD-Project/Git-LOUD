@@ -40,21 +40,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0102_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed = Sound { Bank = 'URADestroy', Cue = 'URA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove = Sound { Bank = 'URA', Cue = 'URA0102_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -88,21 +76,14 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Anti-Air',
+            "<LOC ability_aa>Anti-Air",
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 120,
-                    ShaderName = 'Insect',
-                },
-                {
-                    AlbedoName = 'ura0102_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Insect',
-                    SpecularName = 'ura0102_lod1_specteam.dds',
-                },
+                { LODCutoff = 120, ShaderName = 'Insect' },
+                { LODCutoff = 215, ShaderName = 'Insect', SpecularName = 'ura0102_lod1_specteam.dds', AlbedoName = 'ura0102_lod1_albedo.dds' },
             },
         },
 

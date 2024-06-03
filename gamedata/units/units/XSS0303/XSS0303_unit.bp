@@ -10,30 +10,18 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'XSS_Destroy',
-            Cue = 'XSS0303_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSS',
-            Cue = 'XSS0303_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'XSS_Destroy', Cue = 'XSS0303_Destroy', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'XSS', Cue = 'XSS0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Naval', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 5,
-            Level2 = 10,
-            Level3 = 15,
-            Level4 = 20,
-            Level5 = 25,
+            Level1 = 6,
+            Level2 = 12,
+            Level3 = 18,
+            Level4 = 24,
+            Level5 = 30,
         },
     },
 	
@@ -61,11 +49,13 @@ UnitBlueprint {
     CollisionOffsetY = -0.5,
 	
     Defense = {
-        AirThreatLevel = 96,
         ArmorType = 'Normal',
+
         Health = 24000,
         MaxHealth = 24000,
         RegenRate = 12,
+
+        AirThreatLevel = 96,
         SurfaceThreatLevel = 37,
     },
 	
@@ -79,8 +69,8 @@ UnitBlueprint {
             '<LOC ability_factory>Factory',
             '<LOC ability_radar>Radar',
             '<LOC ability_sonar>Sonar',
-			'Tactical Missile Launcher',
         },
+        
         AnimationDeath = {
             {
                 Animation = '/units/xss0303/xss0303_ADeath01.sca',
@@ -101,19 +91,9 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
-        IdleEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'XSS0303',
-                        },
-                        Scale = 4.2,
-                        Type = 'SeaIdle01',
-                    },
-                },
-            },
-        },
+        
+        IdleEffects = { Water = { Effects = { { Bones = {'XSS0303'},Scale = 4.2,Type = 'SeaIdle01'} } } },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -132,19 +112,8 @@ UnitBlueprint {
                 },
             },
         },
-        MovementEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'XSS0303',
-                        },
-                        Scale = 2.2,
-                        Type = 'BackWake',
-                    },
-                },
-            },
-        },
+
+        MovementEffects = { Water = { Effects = { { Bones = {'XSS0303'},Scale = 2.2,Type = 'BackWake'} } } },
 
         UniformScale = 0.032,
     },
@@ -164,6 +133,7 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 3,
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -174,14 +144,13 @@ UnitBlueprint {
             RULEUCC_Stop = true,
             RULEUCC_Transport = true,
         },
+
         ConstructionBar = true,
         FactionName = 'Seraphim',
         Icon = 'sea',
+
         OrderOverrides = {
-            RULEUCC_Transport = {
-                bitmapId = 'deploy',
-                helpText = 'deploy',
-            },
+            RULEUCC_Transport = { bitmapId = 'deploy', helpText = 'deploy' },
         },
 
         UnitName = '<LOC xss0303_name>Iavish',
@@ -190,8 +159,10 @@ UnitBlueprint {
     Intel = {
         ShowIntelOnSelect = true,    
 		FreeIntel = true,
-        RadarRadius = 150,
-		SonarRadius = 50,
+
+        RadarRadius = 128,
+		SonarRadius = 60,
+
         VisionRadius = 44,
         WaterVisionRadius = 32,
     },
@@ -254,13 +225,11 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0303_Laanse',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0303_Laanse', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
 			
             CollideFriendly = false,
@@ -283,7 +252,7 @@ UnitBlueprint {
             Label = 'CruiseMissiles',
 			
 			MinRadius = 15,
-            MaxRadius = 175,
+            MaxRadius = 176,
 
             MuzzleVelocity = 10,
 
@@ -312,18 +281,16 @@ UnitBlueprint {
         },
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0303_Losaare_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0303_Losaare_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 55,
+            Damage = 100,
             DamageType = 'Normal',
 			
             DisplayName = 'Losaare AA Autocannon',
@@ -338,10 +305,10 @@ UnitBlueprint {
             Label = 'AAGun',
 			
 			LeadTarget = true,
-            MaxRadius = 64,
+            MaxRadius = 52,
 			
             MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 4,
+            MuzzleSalvoSize = 2,
             MuzzleVelocity = 90,
 
             NotExclusive = true,
@@ -361,7 +328,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,	---- 440 DPS Air
+            RateOfFire = 2,	---- 400 DPS Air
 			
             TargetCheckInterval = 0.5,
 			
@@ -390,18 +357,16 @@ UnitBlueprint {
         },
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0303_Losaare_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0303_Losaare_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 55,
+            Damage = 100,
             DamageType = 'Normal',
 			
             DisplayName = 'Losaare AA Autocannon',
@@ -417,10 +382,10 @@ UnitBlueprint {
 			
 			LeadTarget = true,
 			
-            MaxRadius = 64,
+            MaxRadius = 52,
 			
             MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 4,
+            MuzzleSalvoSize = 2,
             MuzzleVelocity = 90,
 
             NotExclusive = true,
@@ -438,7 +403,7 @@ UnitBlueprint {
                 },
             },
 			
-            RateOfFire = 2.0,		---- 440 DPS air
+            RateOfFire = 2.0,		---- 400 DPS air
 
             TargetCheckInterval = 0.5,
 			

@@ -2,16 +2,8 @@ UnitBlueprint {
     Adjacency = 'T1MassStorageAdjacencyBuffs',
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     BuildIconSortPriority = 60,
@@ -45,9 +37,12 @@ UnitBlueprint {
     Description = '<LOC ueb1106_desc>Basic Mass Storage',
 
     Display = {
+
         Abilities = {
 			'Adjacency bonuses to Mass Production',
+            '<LOC ability_aquatic>Aquatic: can be built underwater',
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -84,9 +79,9 @@ UnitBlueprint {
 
     General = {
 		CapCost = .25,
-        CommandCaps = {
-			RULEUCC_Pause = true,
-        },
+
+        CommandCaps = {RULEUCC_Pause = true},
+
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 5,

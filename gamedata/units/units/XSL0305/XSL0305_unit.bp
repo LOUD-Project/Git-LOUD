@@ -3,22 +3,11 @@ UnitBlueprint {
 		GuardReturnRadius = 50,
         GuardScanRadius = 36,
     },
+
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL_Destroy_Land_Lrg',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0305_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Lrg', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0305_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -63,9 +52,10 @@ UnitBlueprint {
     Display = {
         Abilities = {
 			'Sniper role',
-			'Personal Stealth',
+            '<LOC ability_personalstealth>Personal Stealth',
             'Deploys for long range',
         },
+
         AnimationDeath = {
             {
                 Animation = '/units/xsl0305/xsl0305_ADeath.sca',
@@ -74,26 +64,16 @@ UnitBlueprint {
                 Weight = 1,
             },
         },
+
         IdleEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'XSL0305',
-                        },
-                        Scale = 1,
-                        Type = 'SeraphimGroundFX02',
-                    },
-                    {
-                        Bones = {
-                            'XSL0305',
-                        },
-                        Scale = 1,
-                        Type = 'SeaIdle02',
-                    },
+                    { Bones = {'XSL0305'}, Scale = 1, Type = 'SeraphimGroundFX02' },
+                    { Bones = {'XSL0305'}, Scale = 1, Type = 'SeaIdle02' },
                 },
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -111,6 +91,7 @@ UnitBlueprint {
                 },
             },
         },
+
         UniformScale = 0.068,
     },
 	
@@ -133,15 +114,13 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'land',
+
         OrderOverrides = {
-            RULEUTC_WeaponToggle = {
-                bitmapId = 'toggle-weapon',
-                helpText = 'toggle_sniper',
-            },
+            RULEUTC_WeaponToggle = { bitmapId = 'toggle-weapon', helpText = 'toggle_sniper' },
         },
-        ToggleCaps = {
-            RULEUTC_WeaponToggle = true,
-        },
+
+        ToggleCaps = {RULEUTC_WeaponToggle = true},
+
         UnitName = '<LOC xsl0305_name>Usha-Ah',
     },
 	
@@ -210,11 +189,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0305_SihEnergyRifle',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0305_SihEnergyRifle', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
@@ -307,7 +282,7 @@ UnitBlueprint {
 			
             Label = 'SniperGun',
 			
-            MaxRadius = 75,
+            MaxRadius = 72,
 			
             MuzzleChargeDelay = 1,      -- muzzle delay of 1 second
 

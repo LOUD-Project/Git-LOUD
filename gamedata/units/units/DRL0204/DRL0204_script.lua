@@ -1,4 +1,3 @@
-
 DRL0204 = Class(import('/lua/defaultunits.lua').WalkingLandUnit) {
 
     Weapons = {

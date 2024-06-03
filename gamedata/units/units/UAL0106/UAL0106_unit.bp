@@ -4,21 +4,9 @@ UnitBlueprint {
         GuardScanRadius = 18,
     },
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0106_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UAL', Cue = 'UAL0106_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Bot', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -55,6 +43,7 @@ UnitBlueprint {
     Display = {
         AnimationWalk = '/units/ual0106/ual0106_awalk01.sca',
         AnimationWalkRate = 2,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -72,12 +61,8 @@ UnitBlueprint {
             },
         },
 
-        TransportAnimation = {
-            {
-                Animation = '/units/UAL0106/UAL0106_Afold01.sca',
-                Weight = 100,
-            },
-        },
+        TransportAnimation = { { Animation = '/units/UAL0106/UAL0106_Afold01.sca', Weight = 100 } },
+
         UniformScale = 0.08,
     },
 	
@@ -99,11 +84,12 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'land',
+
         UnitName = '<LOC ual0106_name>Flare',
     },
 	
     Intel = {
-        VisionRadius = 18,
+        VisionRadius = 16,
     },
 	
     Interface = {
@@ -168,13 +154,11 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0106_Pulsar_SR',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAL0106_Pulsar_SR', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -186,7 +170,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
 			FiringRandomnessWhileMoving = 2,

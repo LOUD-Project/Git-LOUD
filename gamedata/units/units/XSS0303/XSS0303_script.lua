@@ -2,16 +2,18 @@ local SSeaUnit =  import('/lua/defaultunits.lua').SeaUnit
 
 local SeraphimWeapons = import('/lua/seraphimweapons.lua')
 
-local SAALosaareAutoCannonWeapon = SeraphimWeapons.SAALosaareAutoCannonWeaponSeaUnit
-local SLaanseMissileWeapon = SeraphimWeapons.SLaanseMissileWeapon
+local SAALosaareAutoCannonWeapon    = SeraphimWeapons.SAALosaareAutoCannonWeaponSeaUnit
+local SLaanseMissileWeapon          = SeraphimWeapons.SLaanseMissileWeapon
+
+SeraphimWeapons = nil
 
 XSS0303 = Class(SSeaUnit) {
 
     Weapons = {
-	
+
+        CruiseMissiles = Class(SLaanseMissileWeapon) {},	
+
         AAGun = Class(SAALosaareAutoCannonWeapon) {},
-        CruiseMissiles = Class(SLaanseMissileWeapon) {},
-		
     },
     
     BuildAttachBone = 'XSS0303',
@@ -19,6 +21,7 @@ XSS0303 = Class(SSeaUnit) {
     OnStopBeingBuilt = function(self,builder,layer)
 	
         SSeaUnit.OnStopBeingBuilt(self,builder,layer)
+
         ChangeState(self, self.IdleState)
 		
     end,
@@ -26,6 +29,7 @@ XSS0303 = Class(SSeaUnit) {
     OnFailedToBuild = function(self)
 	
         SSeaUnit.OnFailedToBuild(self)
+
         ChangeState(self, self.IdleState)
 		
     end,

@@ -1,22 +1,19 @@
 local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local Weapon = import('/lua/sim/Weapon.lua').Weapon
-local AWeapons = import('/lua/aeonweapons.lua')
 local cWeapons = import('/lua/cybranweapons.lua')
 
-local CDFLaserDisintegratorWeapon = cWeapons.CDFLaserDisintegratorWeapon01
-local CDFElectronBolterWeapon = cWeapons.CDFElectronBolterWeapon
+local CDFLaserDisintegratorWeapon   = cWeapons.CDFLaserDisintegratorWeapon01
+local CDFElectronBolterWeapon       = cWeapons.CDFElectronBolterWeapon
 
-local EMPDeathWeapon = AWeapons.ADFChronoDampener
+local EMPDeathWeapon                = import('/lua/aeonweapons.lua').ADFChronoDampener
+
+cWeapons = nil
 
 local MissileRedirect = import('/lua/defaultantiprojectile.lua').MissileRedirect
 
 URL0303 = Class(CWalkingLandUnit) {
 
-    PlayEndAnimDestructionEffects = false,
-
     Weapons = {
-
         Disintigrator = Class(CDFLaserDisintegratorWeapon) {},
         HeavyBolter = Class(CDFElectronBolterWeapon) {},
     },

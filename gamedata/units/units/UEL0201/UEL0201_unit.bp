@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0201_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'UEL', Cue = 'UEL0201_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Tank', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -42,8 +30,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 280,
-        MaxHealth = 280,
+        Health = 265,
+        MaxHealth = 265,
         RegenRate = 0,
         SurfaceThreatLevel = 2.5,
     },
@@ -67,12 +55,13 @@ UnitBlueprint {
                 },
             },
         },
+
         UniformScale = 0.07,
     },
 	
     Economy = {
         BuildCostEnergy = 280,
-        BuildCostMass = 70,
+        BuildCostMass = 72,
         BuildTime = 350,
     },
 	
@@ -92,11 +81,11 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 18,
+        VisionRadius = 20,
     },
 	
     Interface = {
-        HelpText = 'Medium Tank',
+        HelpText = 'Light Tank',
     },
 	
     LifeBarHeight = 0.075,
@@ -152,11 +141,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0201_Cannon_Sgl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0201_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -221,9 +206,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

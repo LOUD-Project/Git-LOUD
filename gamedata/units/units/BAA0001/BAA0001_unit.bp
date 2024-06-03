@@ -346,7 +346,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 100,
+            Damage = 120,
             DamageRadius = 2,
             DamageType = 'Normal',
 			
@@ -356,18 +356,18 @@ UnitBlueprint {
                 Air = 'Seabed|Sub|Water',
             },
 			
-            FiringRandomness = 1,
+            FiringRandomness = 5,
 			
             FiringTolerance = 15,
 			
             Label = 'Depthcharge',
 			
-            MaxRadius = 30,
+            MaxRadius = 12,
 
             MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/AANDepthCharge01/AANDepthCharge01_proj.bp',
-			ProjectileLifetime = 8,
+			ProjectileLifetime = 4.8,
 			
             RackBones = {
                 {
@@ -375,10 +375,11 @@ UnitBlueprint {
                     RackBone = 'Depthcharge',
                 },
             },
+            RackSalvoReloadTime = 6,    -- 6 second cycle = 20 DPS Sub
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.5,
+            RateOfFire = 1,
 			
             TargetCheckInterval = 2,
             TargetPriorities = {

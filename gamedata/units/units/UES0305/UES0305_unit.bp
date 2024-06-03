@@ -1,39 +1,28 @@
 UnitBlueprint {
 
-    AI = {
-        GuardScanRadius = 48,
-    },
+    AI = { GuardScanRadius = 48 },
     
     Audio = {
-        DoneBeingBuilt = Sound {
-            Bank = 'UES',
-            Cue = 'UES0305_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UES',
-            Cue = 'UES0305_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Sonar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DoneBeingBuilt  = Sound { Bank = 'UES', Cue = 'UES0305_Activate', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed       = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove       = Sound { Bank = 'UES', Cue = 'UES0305_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Sonar', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 3,
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
+        },
+        WaterVisionRadius = {
+            Level1 = 4,
             Level2 = 6,
-            Level3 = 9,
-            Level4 = 12,
-            Level5 = 15,
+            Level3 = 8,
+            Level4 = 10,
+            Level5 = 12,        
         },
     },
 	
@@ -52,6 +41,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'MOBILESONAR',
+        'OVERLAYOMNI',
 		'OVERLAYRADAR',
 		'OVERLAYSONAR',
         'SORTINTEL',
@@ -61,35 +51,29 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        EconomyThreatLevel = 50,
-        Health = 2000,
-        MaxHealth = 2000,
+
+        Health = 1200,
+        MaxHealth = 1200,
         RegenRate = 3,
+
+        EconomyThreatLevel = 40,
         SubThreatLevel = 6,
-        SurfaceThreatLevel = 7,
     },
 	
     Description = '<LOC ues0305_desc>Mobile Sonar Platform',
 	
     Display = {
         Abilities = {
-			'Sonar & Radar',
-			'Sonar & Radar Stealth',
-            'Torpedoes',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_personalstealth>Personal Stealth',        
+            "<LOC ability_torpedo>Torpedoes",
         },
+
         IdleEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Scale = 0.5,
-                        Type = 'SeaIdle02',
-                    },
-                },
-            },
+            Water = { Effects = { { Bones = {0}, Scale = 0.5, Type = 'SeaIdle02' } } },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -105,28 +89,20 @@ UnitBlueprint {
                 },
             },
         },
+
         MovementEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Scale = 0.5,
-                        Type = 'BackWake',
-                    },
-                },
-            },
+            Water = { Effects = { { Bones = {0}, Scale = 0.5, Type = 'BackWake' } } },
         },
+
         UniformScale = 0.02,
     },
 	
     Economy = {
-        BuildCostEnergy = 12000,
-        BuildCostMass = 400,
+        BuildCostEnergy = 16500,
+        BuildCostMass = 3200,
         BuildTime = 2000,
 		
-        MaintenanceConsumptionPerSecondEnergy = 750,
+        MaintenanceConsumptionPerSecondEnergy = 650,
     },
 
     General = {
@@ -140,26 +116,25 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'sea',
         OrderOverrides = {
-            RULEUTC_IntelToggle = {
-                bitmapId = 'sonar',
-                helpText = 'toggle_sonar',
-            },
+            RULEUTC_IntelToggle = { bitmapId = 'sonar', helpText = 'toggle_sonar' },
         },
 
-        ToggleCaps = {
-            RULEUTC_IntelToggle = true,
-        },
+        ToggleCaps = { RULEUTC_IntelToggle = true },
+
+        UnitName = '<LOC ueb3201_name>SP3 - 3000',
 
         UpgradesFrom = 'ueb3202',
     },
 	
     Intel = {
-		RadarRadius = 128,
 		RadarStealth = true,
-        SonarRadius = 175,
 		SonarStealth = true,
+
+		RadarRadius = 80,       -- T3 Naval unit standard
+        SonarRadius = 232,
+
         VisionRadius = 32,
-        WaterVisionRadius = 40,
+        WaterVisionRadius = 36,
     },
 	
     Interface = {
@@ -181,7 +156,7 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         MaxAcceleration = 1,
         MaxBrake = 2,
-        MaxSpeed = 4,
+        MaxSpeed = 3.5,
         MaxSpeedReverse = 0,
         MaxSteerForce = 5,
         MeshExtentsOffsetY = -1.7,
@@ -206,26 +181,23 @@ UnitBlueprint {
     StrategicIconSortPriority = 230,
 	
     Veteran = {
-        Level1 = 16,
-        Level2 = 32,
-        Level3 = 48,
-        Level4 = 64,
-        Level5 = 80,
+        Level1 = 6,
+        Level2 = 12,
+        Level3 = 18,
+        Level4 = 24,
+        Level5 = 30,
     },
 	
     Weapon = {
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0203_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0203_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 75,
+            Damage = 300,
             DamageType = 'Normal',
 			
             DisplayName = 'Angler Torpedo',
@@ -234,20 +206,20 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 2,
+            FiringTolerance = 30,
 			
             Label = 'Torpedo01',
 			
             MaxRadius = 48,
 			
-            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoDelay = 0.8,
             MuzzleSalvoSize = 2,
 
-            MuzzleVelocity = 3,
-			
-            ProjectileId = '/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp',
-            ProjectileLifetime = 7,
-			
+            MuzzleVelocity = 5,
+		
+            ProjectileId = '/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_proj.bp',
+            ProjectileLifetime = 6.5,
+
             RackBones = {
                 {
                     MuzzleBones = {
@@ -258,19 +230,22 @@ UnitBlueprint {
                 },
             },
 
+            RackSalvoReloadTime = 1.7,  -- fires every 3.3 seconds
+
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.5,		-- 75 DPS Sub/Surface
+            RateOfFire = 1,             -- 600 every 3.3 = 181 DPS
             TargetCheckInterval = 1,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'MOBILE',
+                'MOBILE -AIR',
                 'DEFENSE',
-                'ALLUNITS',
+                'ALLUNITS -AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
             TrackingRadius = 1.1,
+
         },
     },
 }

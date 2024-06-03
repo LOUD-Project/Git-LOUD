@@ -1,21 +1,9 @@
 UnitBlueprint {
 
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 60,
@@ -63,6 +51,7 @@ UnitBlueprint {
             ShieldSize = 18,
             ShieldVerticalOffset = -2,
         },
+
         SurfaceThreatLevel = 22.1,
     },
 	
@@ -70,9 +59,11 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Upgradeable',
+            '<LOC ability_upgradable>Upgradeable',
         },
+
         AnimationUpgrade = '/units/urb4202/urb4202_aopen.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -88,6 +79,7 @@ UnitBlueprint {
                 },
             },
         },
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_cybran_01_albedo',
@@ -126,18 +118,18 @@ UnitBlueprint {
             RULEUCC_Pause = true,
             RULEUCC_Stop = true,
         },
+
         FactionName = 'Cybran',
         Icon = 'land',
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'toggle_shield_dome',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-dome', helpText = 'toggle_shield_dome' },
         },
+
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+
+        ToggleCaps = {RULEUTC_ShieldToggle = true},
+
         UnitName = '<LOC urb4202_name>ED1',
 
         UpgradesTo = 'urb4204',
@@ -184,7 +176,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -42,21 +42,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'XSA_Destroy',
-            Cue = 'XSA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0202_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'XSA_Destroy', Cue = 'XSA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSA', Cue = 'XSA0202_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -92,9 +80,9 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Anti-Air',
+            "<LOC ability_aa>Anti-Air",
 			'Bomb',
-            'Radar',
+            '<LOC ability_radar>Radar',
         },
         Mesh = {
             IconFadeInZoom = 130,
@@ -148,7 +136,7 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 50,
+        RadarRadius = 48,
         VisionRadius = 32,
     },
 	

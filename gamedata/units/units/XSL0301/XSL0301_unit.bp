@@ -15,26 +15,10 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL0301_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'Explosions',
-            Cue = 'Aeon_Nuke_Impact',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0301_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Commander',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSL0301_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed      = Sound { Bank = 'Explosions', Cue = 'Aeon_Nuke_Impact', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0301_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Commander', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -105,12 +89,14 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-			'Amphibious',
-            'Customizable',
-            'Omni Sensor',
+			'<LOC ability_amphibious>Amphibious',
+            '<LOC ability_customizable>Customizable',
+            '<LOC ability_omni>Omni Sensor',
         },
+
         AnimationWalk = '/units/XSL0301/XSL0301_AWalk01.sca',
         AnimationWalkRate = 1,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -130,18 +116,9 @@ UnitBlueprint {
             },
         },
 
-        TransportAnimation = {
-            {
-                Animation = '/units/XSL0301/XSL0301_afold.sca',
-                Weight = 100,
-            },
-        },
-        TransportDropAnimation = {
-            {
-                Animation = '/units/XSL0301/XSL0301_aunfold.sca',
-                Weight = 100,
-            },
-        },
+        TransportAnimation      = { { Animation = '/units/XSL0301/XSL0301_afold.sca', Weight = 100 } },
+        TransportDropAnimation  = { { Animation = '/units/XSL0301/XSL0301_aunfold.sca', Weight = 100 } },
+
         UniformScale = 0.05,
     },
 	
@@ -174,23 +151,10 @@ UnitBlueprint {
     Enhancements = {
     
         Slots = {
-            Back = {
-                name = '<LOC _Back>',
-                x = -13,
-                y = -8,
-            },
-            LCH = {
-                name = '<LOC _LCH>',
-                x = 60,
-                y = 50,
-            },
-            RCH = {
-                name = '<LOC _RCH>',
-                x = -16,
-                y = 50,
-            },
-			Command = {
-			},
+            Back    = { name = '<LOC _Back>', x = -13, y = -8 },
+            LCH     = { name = '<LOC _LCH>', x = 60, y = 50 },
+            RCH     = { name = '<LOC _RCH>', x = -16, y = 50 },
+			Command = {},
         },
         
         DamageStabilization = {
@@ -201,33 +165,21 @@ UnitBlueprint {
             Name = 'Nano-Repair System',
             NewHealth = 14000,
             NewRegenRate = 200,
-            ShowBones = {
-                'Back_Upgrade',
-            },
+            ShowBones = {'Back_Upgrade'},
             Slot = 'LCH',
-            UpgradeEffectBones = {
-                'Left_Arm_Muzzle',
-                'Left_Arm_Barrel',
-            },
-            UpgradeUnitAmbientBones = {
-                'Torso',
-            },
+            UpgradeEffectBones = {'Left_Arm_Muzzle','Left_Arm_Barrel'},
+            UpgradeUnitAmbientBones = {'Torso'},
         },
         
         DamageStabilizationRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            HideBones = {
-                'Back_Upgrade',
-            },
+            HideBones = {'Back_Upgrade'},
             Icon = 'dss',
             Name = 'Remove Nano-Repair System',
             Prerequisite = 'DamageStabilization',
-            RemoveEnhancements = {
-                'DamageStabilization',
-                'DamageStabilizationRemove',
-            },
+            RemoveEnhancements = {'DamageStabilization','DamageStabilizationRemove'},
             Slot = 'LCH',
         },
         
@@ -239,13 +191,8 @@ UnitBlueprint {
             Name = 'Rapid Fabricator',
             NewBuildRate = 90,
             Slot = 'LCH',
-            UpgradeEffectBones = {
-                'Left_Arm_Muzzle',
-                'Left_Arm_Barrel',
-            },
-            UpgradeUnitAmbientBones = {
-                'Torso',
-            },
+            UpgradeEffectBones = {'Left_Arm_Muzzle','Left_Arm_Barrel'},
+            UpgradeUnitAmbientBones = {'Torso'},
         },
         
         EngineeringThroughputRemove = {
@@ -255,10 +202,7 @@ UnitBlueprint {
             Icon = 'efm',
             Name = 'Remove Rapid Fabricator',
             Prerequisite = 'EngineeringThroughput',
-            RemoveEnhancements = {
-                'EngineeringThroughput',
-                'EngineeringThroughputRemove',
-            },
+            RemoveEnhancements = {'EngineeringThroughput','EngineeringThroughputRemove'},
             Slot = 'LCH',
         },
         
@@ -270,16 +214,10 @@ UnitBlueprint {
             Name = 'Enhanced Sensor System',
             NewOmniRadius = 72,
             NewVisionRadius = 44,
-            ShowBones = {
-                'Back_Upgrade',
-            },
+            ShowBones = {'Back_Upgrade'},
             Slot = 'Back',
-            UpgradeEffectBones = {
-                'Back_Upgrade',
-            },
-            UpgradeUnitAmbientBones = {
-                'Torso',
-            },
+            UpgradeEffectBones = {'Back_Upgrade'},
+            UpgradeUnitAmbientBones = {'Torso'},
         },
         
         EnhancedSensorsRemove = {
@@ -292,10 +230,7 @@ UnitBlueprint {
             Icon = 'sre',
             Name = 'Remove Enhanced Sensor System',
             Prerequisite = 'EnhancedSensors',
-            RemoveEnhancements = {
-                'EnhancedSensors',
-                'EnhancedSensorsRemove',
-            },
+            RemoveEnhancements = {'EnhancedSensors','EnhancedSensorsRemove'},
             Slot = 'Back',
         },
         
@@ -305,32 +240,21 @@ UnitBlueprint {
             BuildTime = 6000,
             Icon = 'tmu',
             Name = 'Tactical Missile Launcher',
-            ShowBones = {
-                'Back_Upgrade',
-            },
+            ShowBones = {'Back_Upgrade'},
             Slot = 'RCH',
-            UpgradeEffectBones = {
-                'Back_Upgrade',
-            },
-            UpgradeUnitAmbientBones = {
-                'Torso',
-            },
+            UpgradeEffectBones = {'Back_Upgrade'},
+            UpgradeUnitAmbientBones = {'Torso'},
         },
         
         MissileRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            HideBones = {
-                'Back_Upgrade',
-            },
+            HideBones = {'Back_Upgrade'},
             Icon = 'tmu',
             Name = 'Remove Tactical Missile Launcher',
             Prerequisite = 'Missile',
-            RemoveEnhancements = {
-                'Missile',
-                'MissileRemove',
-            },
+            RemoveEnhancements = {'Missile','MissileRemove'},
             Slot = 'RCH',
         },
         
@@ -341,13 +265,8 @@ UnitBlueprint {
             Icon = 'oc',
             Name = 'Overcharge',
             Slot = 'RCH',
-            UpgradeEffectBones = {
-                'Right_Arm_Muzzle',
-                'Right_Arm_Barrel',
-            },
-            UpgradeUnitAmbientBones = {
-                'Torso',
-            },
+            UpgradeEffectBones = {'Right_Arm_Muzzle','Right_Arm_Barrel'},
+            UpgradeUnitAmbientBones = {'Torso'},
         },
         
         OverchargeRemove = {
@@ -357,10 +276,7 @@ UnitBlueprint {
             Icon = 'oc',
             Name = 'Remove Overcharge',
             Prerequisite = 'Overcharge',
-            RemoveEnhancements = {
-                'Overcharge',
-                'OverchargeRemove',
-            },
+            RemoveEnhancements = {'Overcharge','OverchargeRemove'},
             Slot = 'RCH',
         },
         
@@ -379,32 +295,21 @@ UnitBlueprint {
             ShieldRechargeTime = 160,
             ShieldRegenRate = 22,
             ShieldRegenStartTime = 1,
-            ShowBones = {
-                'Back_Upgrade',
-            },
+            ShowBones = {'Back_Upgrade'},
             Slot = 'Back',
-            UpgradeEffectBones = {
-                'Back_Upgrade',
-            },
-            UpgradeUnitAmbientBones = {
-                'Torso',
-            },
+            UpgradeEffectBones = {'Back_Upgrade'},
+            UpgradeUnitAmbientBones = {'Torso'},
         },
         
         ShieldRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            HideBones = {
-                'Back_Upgrade',
-            },
+            HideBones = {'Back_Upgrade'},
             Icon = 'sp',
             Name = 'Remove Personal Shield Generator',
             Prerequisite = 'Shield',
-            RemoveEnhancements = {
-                'Shield',
-                'ShieldRemove',
-            },
+            RemoveEnhancements = {'Shield','ShieldRemove'},
             Slot = 'Back',
         },
 
@@ -454,7 +359,9 @@ UnitBlueprint {
             PitchBone = 'Left_Arm',
             YawBone = 'Torso',
         },
+
 		CapCost = -3,
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -468,12 +375,15 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+
         ConstructionBar = true,
         FactionName = 'Seraphim',
         Icon = 'amph',
+
         OrderOverrides = {
             RULEUTC_ShieldToggle = { bitmapId = 'shield-personal', helpText = 'toggle_shield_personal' },
         },
+
         SelectionPriority = 3,
     },
 	
@@ -498,7 +408,9 @@ UnitBlueprint {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
+
         LayerChangeOffsetHeight = -0.85,
+
         MaxAcceleration = 1.1,
         MaxBrake = 2.2,
         MaxSpeed = 2.2,
@@ -559,7 +471,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Air|Land|Water',
                 Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
             
@@ -595,7 +506,7 @@ UnitBlueprint {
                 'DEFENSE',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
             
             TurretBoneMuzzle = 'Right_Arm_Muzzle',
             TurretBonePitch = 'Right_Arm',
@@ -623,21 +534,20 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
             
-            Damage = 12000,
+            Damage = 6000,
             DamageFriendly = false,
-            DamageRadius = 2.5,
+            DamageRadius = 1.5,
             DamageType = 'Overcharge',
             
             DisplayName = 'Light Overcharge Cannon',
             
             EnergyChargeForFirstShot = false,
             EnergyDrainPerSecond = 5000,
-            EnergyRequired = 5000,
+            EnergyRequired = 15000,
             
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
             
             FiringTolerance = 2,
@@ -646,9 +556,10 @@ UnitBlueprint {
             
             ManualFire = true,
             
-            MaxRadius = 30,
+            MaxRadius = 28,
+            MinRadius = 2,
 
-            MuzzleVelocity = 24,
+            MuzzleVelocity = 25,
             
             OverChargeWeapon = true,
             
@@ -663,7 +574,7 @@ UnitBlueprint {
             
             RangeCategory = 'UWRC_DirectFire',
             
-            RateOfFire = 0.4,
+            RateOfFire = 0.3,
             
             TargetCheckInterval = 1,
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -704,8 +615,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Sub = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 5,
 			ForceSingleFire = true,
@@ -725,7 +634,7 @@ UnitBlueprint {
 
             NotExclusive = true,
             
-            ProjectileId = '/projectiles/SIFLaanseTacticalMissileSCU/SIFLaanseTacticalMissileSCU_proj.bp',
+            ProjectileId = '/projectiles/SIFLaanseTacticalMissileSCU/SIFLaanseTacticalMissileCDR_proj.bp',
             ProjectileLifetime = 80,
 
             RackBones = {

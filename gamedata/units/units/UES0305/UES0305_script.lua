@@ -7,24 +7,24 @@ local CreateBuildCubeThread = import('/lua/EffectUtilities.lua').CreateBuildCube
 UES0305 = Class(TSeaUnit) {
 
     Weapons = {
-	
         Torpedo01 = Class(TANTorpedoAngler) {},
-		
     },
     
     TimedSonarTTIdleEffects = {
-        {
-            Bones = {
-                'B14',
-            },
-            Offset = {
-                0,
-                -0.6,
-                0,
-            },
-            Type = 'SonarBuoy01',
-        },
+        { Bones = {'B14'}, Offset = {0,-0.6,0}, Type = 'SonarBuoy01' },
     }, 
+
+    StartBeingBuiltEffects = function(self, builder, layer)
+	
+    	self:HideBone(0, true)
+
+		self.BeingBuiltShowBoneTriggered = false
+		
+		if self:GetBlueprint().General.UpgradesFrom != builder:GetUnitId() then
+			self.OnBeingBuiltEffectsBag:Add( self:ForkThread( CreateBuildCubeThread, builder, self.OnBeingBuiltEffectsBag )	)		
+		end
+		
+    end,    
 
     CreateIdleEffects = function(self)
 
@@ -32,6 +32,16 @@ UES0305 = Class(TSeaUnit) {
 		
     end,
     
+    DestroyIdleEffects = function(self)
+	
+		if self.TimedSonarEffectsThread then
+		
+			self.TimedSonarEffectsThread:Destroy()
+			
+		end
+
+    end,     
+
     TimedIdleSonarEffects = function( self )
 	
         local layer = self:GetCurrentLayer()
@@ -46,7 +56,7 @@ UES0305 = Class(TSeaUnit) {
 				
                     local effects = self.GetTerrainTypeEffects( 'FXIdle', layer, pos, vTypeGroup.Type, nil )
        
-       for kb, vBone in vTypeGroup.Bones do
+                    for kb, vBone in vTypeGroup.Bones do
 					
                         for ke, vEffect in effects do
 						
@@ -69,27 +79,42 @@ UES0305 = Class(TSeaUnit) {
         end
 		
     end,
-    
-    DestroyIdleEffects = function(self)
-	
-		if self.TimedSonarEffectsThread then
-		
-			self.TimedSonarEffectsThread:Destroy()
-			
-		end
 
-    end,     
-    
-    StartBeingBuiltEffects = function(self, builder, layer)
-	
-    	self:HideBone(0, true)
-		self.BeingBuiltShowBoneTriggered = false
-		
-		if self:GetBlueprint().General.UpgradesFrom != builder:GetUnitId() then
-			self.OnBeingBuiltEffectsBag:Add( self:ForkThread( CreateBuildCubeThread, builder, self.OnBeingBuiltEffectsBag )	)		
-		end
-		
-    end,          
+    OnMotionHorzEventChange = function( self, new, old )
+
+        if self.Dead then
+            return
+        end
+
+        TSeaUnit.OnMotionHorzEventChange( self, new, old )
+
+		local Intel = __blueprints[self.BlueprintID].Intel
+
+        -- blueprint defaults --
+        local radar = Intel.RadarRadius or 2
+        local sonar = Intel.SonarRadius or 2
+        local Omni  = Intel.OmniRadius or 2
+        
+        if ( old == 'Stopped' or (old == 'Stopping' and (new == 'Cruise' or new == 'TopSpeed'))) then
+        
+            -- intel ranges are halved while moving
+            self:SetIntelRadius('Radar', self:GetIntelRadius('Radar') * 0.5)
+            self:SetIntelRadius('Sonar', self:GetIntelRadius('Sonar') * 0.5)
+            self:SetIntelRadius('Omni', self:GetIntelRadius('Omni') * 0.5)
+
+        end
+
+        if (new == 'Stopped' or new == 'Stopping') then
+        
+            -- intel ranges are normalized
+            self:SetIntelRadius('Radar', self:GetIntelRadius('Radar') * 2)
+            self:SetIntelRadius('Sonar', self:GetIntelRadius('Sonar') * 2)
+            self:SetIntelRadius('Omni', self:GetIntelRadius('Omni') * 2)
+
+        end
+
+    end,
+
 }
 
 TypeClass = UES0305

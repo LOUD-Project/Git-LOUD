@@ -1,13 +1,15 @@
 local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 local CWeapons = import('/lua/cybranweapons.lua')
 
-local CCannonMolecularWeapon = CWeapons.CCannonMolecularWeapon
-local CIFCommanderDeathWeapon = CWeapons.CIFCommanderDeathWeapon
-local CDFHeavyMicrowaveLaserGeneratorCom = CWeapons.CDFHeavyMicrowaveLaserGeneratorCom
-local CDFOverchargeWeapon = CWeapons.CDFOverchargeWeapon
-local CANTorpedoLauncherWeapon = CWeapons.CANTorpedoLauncherWeapon
+local CCannonMolecularWeapon                = CWeapons.CCannonMolecularWeapon
+local CIFCommanderDeathWeapon               = CWeapons.CIFCommanderDeathWeapon
+local CDFHeavyMicrowaveLaserGeneratorCom    = CWeapons.CDFHeavyMicrowaveLaserGeneratorCom
+local CDFOverchargeWeapon                   = CWeapons.CDFOverchargeWeapon
+local CANTorpedoLauncherWeapon              = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
 
-local EffectTemplate = import('/lua/EffectTemplates.lua')
+CWeapons = nil
+
+local UnitTeleportSteam01 = import('/lua/EffectTemplates.lua').UnitTeleportSteam01
 local EffectUtil = import('/lua/EffectUtilities.lua')
 
 local Buff = import('/lua/sim/Buff.lua')
@@ -16,7 +18,6 @@ local Entity = import('/lua/sim/Entity.lua').Entity
 
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
-local TrashDestroy = TrashBag.Destroy
 
 URL0001 = Class(CWalkingLandUnit) {
     DeathThreadDestructionWaitTime = 2,
@@ -274,15 +275,6 @@ URL0001 = Class(CWalkingLandUnit) {
         self.BuildingUnit = false          
     end,
 
-    PlayCommanderWarpInEffect = function(self)
-    
-        self:HideBone(0, true)
-        self:SetUnSelectable(true)
-        self:SetBusy(true)        
-        self:SetBlockCommandQueue(true)
-        self:ForkThread(self.WarpInEffectThread)
-    end,
-
     WarpInEffectThread = function(self)
     
         self:PlayUnitSound('CommanderArrival')
@@ -299,7 +291,7 @@ URL0001 = Class(CWalkingLandUnit) {
         local totalBones = self:GetBoneCount() - 1
         local army = self:GetArmy()
         
-        for k, v in EffectTemplate.UnitTeleportSteam01 do
+        for k, v in UnitTeleportSteam01 do
             for bone = 1, totalBones do
                 CreateAttachedEmitter(self,bone,army, v)
             end
@@ -308,14 +300,7 @@ URL0001 = Class(CWalkingLandUnit) {
         WaitSeconds(6)
         self:SetMesh(self:GetBlueprint().Display.MeshBlueprint, true)
     end,    
-
-    GiveInitialResources = function(self)
-    
-        WaitTicks(2)
-        self:GetAIBrain():GiveResource('Energy', self:GetBlueprint().Economy.StorageEnergy)
-        self:GetAIBrain():GiveResource('Mass', self:GetBlueprint().Economy.StorageMass)
-    end,
-    
+   
     OnScriptBitSet = function(self, bit)
     
         if bit == 8 then # cloak toggle

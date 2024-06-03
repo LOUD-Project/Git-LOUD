@@ -5,16 +5,8 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -59,7 +51,7 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Aquatic',
+            '<LOC ability_aquatic>Aquatic',
         },
         Mesh = {
             IconFadeInZoom = 130,
@@ -157,11 +149,7 @@ UnitBlueprint {
 			advancedTracking = true,
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2304_Missile_Nanite',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URB2304_Missile_Nanite', LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -178,11 +166,11 @@ UnitBlueprint {
                 Water = 'Air',
             },
 			
-            FiringTolerance = 50,
+            FiringTolerance = 15,
 			
-            Label = 'Missile01',
+            Label = 'AAMissileRack',
 			
-            MaxRadius = 55,
+            MaxRadius = 52,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 4,
@@ -224,6 +212,7 @@ UnitBlueprint {
                 'AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictOnlyAllow = 'AIR -SATELLITE',
             TrackingRadius = 1.4,
 			
             TurretBoneMuzzle = 'Turret_Left_Muzzle01',
@@ -237,7 +226,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },
@@ -245,9 +234,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.5,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

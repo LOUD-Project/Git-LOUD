@@ -33,21 +33,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UAADestroy',
-            Cue = 'UAA_Destroy_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAA',
-            Cue = 'UAA0101_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UAADestroy', Cue = 'UAA_Destroy_Air', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UAA', Cue = 'UAA0101_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 20,
@@ -83,16 +71,8 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    ShaderName = 'Aeon',
-                },
-                {
-                    AlbedoName = 'uaa0101_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Aeon',
-                    SpecularName = 'uaa0101_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, ShaderName = 'Aeon' },
+                { AlbedoName = 'uaa0101_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Aeon', SpecularName = 'uaa0101_lod1_specteam.dds' },
             },
         },
 
@@ -100,8 +80,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 1950,
-        BuildCostMass = 30,
+        BuildCostEnergy = 1850,
+        BuildCostMass = 29,
         BuildTime = 585,
     },
 	
@@ -129,8 +109,9 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-		RadarRadius = 50,
-        VisionRadius = 42,
+
+		RadarRadius = 48,
+        VisionRadius = 40,
     },
 	
     Interface = {

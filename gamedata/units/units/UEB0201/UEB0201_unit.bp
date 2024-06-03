@@ -1,35 +1,13 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'UEB0201',
-            'Extruder_Right',
-            'Extruder_Left',
-            'Foot_Right',
-            'Foot_Left',
-        },
+        TargetBones = {'UEB0201','Extruder_Right','Extruder_Left','Foot_Right','Foot_Left'},
     },
 
     Audio = {
-        Construct = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB0201_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Factory',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Construct       = Sound { Bank = 'UEB', Cue = 'UEB0101_Construct_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        DeathExplosion  = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed       = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Factory', LodCutoff = 'UnitMove_LodCutoff'},
     },
     
     BuildIconSortPriority = 11,
@@ -64,7 +42,7 @@ UnitBlueprint {
     
     Display = {
         Abilities = {
-            'Upgradeable',
+            '<LOC ability_upgradable>Upgradeable',
         },
 
         AnimationUpgrade = '/units/ueb0201/UEB0201_Aupgrade.sca',
@@ -117,10 +95,7 @@ UnitBlueprint {
             'BUILTBYLANDTIER2FACTORY UEF MOBILE CONSTRUCTION',
         },
         
-        RebuildBonusIds = {
-            'ueb0201',
-            'ueb0301',
-        },
+        RebuildBonusIds = {'ueb0201','ueb0301'},
         
         StorageEnergy = 1200,
         StorageMass = 120,
@@ -153,7 +128,7 @@ UnitBlueprint {
     },
 
     Intel = {
-        VisionRadius = 10,
+        VisionRadius = 12,
     },
 
     Interface = {
@@ -334,9 +309,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

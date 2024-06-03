@@ -1,26 +1,10 @@
 UnitBlueprint {
 
     Audio = {
-        Construct = Sound {
-            Bank = 'URB',
-            Cue = 'URB0101_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Factory',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Construct       = Sound { Bank = 'URB', Cue = 'URB0101_Construct_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        DeathExplosion  = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Factory', LodCutoff = 'UnitMove_LodCutoff'},
     },
     
     BuildIconSortPriority = 10,
@@ -58,7 +42,7 @@ UnitBlueprint {
     
     Display = {
         Abilities = {
-            'Upgradeable',
+            '<LOC ability_upgradable>Upgradeable',
         },
 
         AnimationBuild = '/units/urb0101/urb0101_abuild.sca',
@@ -89,16 +73,12 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar12x_cybran_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
         },
+
         UniformScale = 0.05,
     },
     
@@ -115,11 +95,8 @@ UnitBlueprint {
             'BUILTBYTIER1FACTORY CYBRAN MOBILE LAND',
         },
         
-        RebuildBonusIds = {
-            'urb0101',
-            'urb0201',
-            'urb0301',
-        },
+        RebuildBonusIds = {'urb0101','urb0201','urb0301'},
+
         StorageEnergy = 600,
         StorageMass = 60,
     },
@@ -151,7 +128,7 @@ UnitBlueprint {
     },
 
     Intel = {
-        VisionRadius = 10,
+        VisionRadius = 12,
     },
 
     Interface = {
@@ -329,9 +306,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

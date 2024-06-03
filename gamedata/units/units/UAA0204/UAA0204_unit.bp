@@ -7,12 +7,12 @@ UnitBlueprint {
     Air = {
         AutoLandTime = 1.5,
 		
-        BankFactor = 4,
+        BankFactor = 3,
         BankForward = false,
 		
-        BreakOffDistance = 40,
+        BreakOffDistance = 18,
         BreakOffIfNearNewTarget = true,
-        BreakOffTrigger = 15,
+        BreakOffTrigger = 10,
 		
         CanFly = true,
 		
@@ -32,7 +32,7 @@ UnitBlueprint {
         KTurn = 1.5,
         KTurnDamping = 1.5,
 		
-        LiftFactor = 10,
+        LiftFactor = 12,
 		
         MaxAirspeed = 16,
         MinAirspeed = 11,
@@ -41,27 +41,15 @@ UnitBlueprint {
 		
         TightTurnMultiplier = 1.1,		
 		
-        TurnSpeed = 0.85,
+        TurnSpeed = 0.65,
 		
         Winged = true,
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UAADestroy',
-            Cue = 'UAA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAA',
-            Cue = 'UAA0204_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'UAADestroy', Cue = 'UAA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'UAA', Cue = 'UAA0204_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Air', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {},
@@ -88,19 +76,23 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Light',
-        Health = 1200,
-        MaxHealth = 1200,
+
+        Health = 1350,
+        MaxHealth = 1350,
+
         RegenRate = 4,
-        SubThreatLevel = 9.6,
+
+        SubThreatLevel = 13,
     },
 	
     Description = '<LOC uaa0204_desc>Torpedo Bomber',
 	
     Display = {
         Abilities = {
-            'Depth Charges',
-            'Sonar',
+            '<LOC ability_sonar>Sonar',
+            "<LOC ability_torpedo>Torpedoes",
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -124,7 +116,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 12000,
         BuildCostMass = 240,
-        BuildTime = 2572,
+        BuildTime = 300,
     },
 
     General = {
@@ -146,9 +138,10 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
+        
         SonarRadius = 60,
-        VisionRadius = 30,
-		WaterVisionRadius = 10,
+        VisionRadius = 36,
+		WaterVisionRadius = 16,
     },
 	
     Interface = {
@@ -160,14 +153,14 @@ UnitBlueprint {
     LifeBarSize = 1,
 	
     Physics = {
-        AttackElevation = 1.75,
+        AttackElevation = 3,
 		
         BuildOnLayerCaps = {
             LAYER_Air = true,
             LAYER_Sub = true,
         },
 		
-        Elevation = 17,
+        Elevation = 15,
 		
         FuelRechargeRate = 12,
         FuelUseTime = 270,
@@ -209,6 +202,8 @@ UnitBlueprint {
 	
     Weapon = {
         {
+            advancedTracking = true,
+            
             Audio = {
                 Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0204_Depth_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
@@ -218,18 +213,17 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 240,
-			DamageRadius = 1.5,
+            Damage = 300,
             DamageType = 'Normal',
 			
-            DisplayName = 'Harmonic Depth Charge',
-			
-            EffectiveRadius = 25,
+            DisplayName = 'Chrono Torpedo',
 			
             FireTargetLayerCapsTable = {
                 Air = 'Seabed|Sub|Water',
                 Land = 'Seabed|Sub|Water',
             },
+            
+            EffectiveRadius = 40,
 			
             FiringRandomness = 1.5,
             FiringTolerance = 3,
@@ -237,39 +231,43 @@ UnitBlueprint {
             HeadingArcCenter = 0,
             HeadingArcRange = 40,
 			
-            Label = 'DepthCharge',
+            Label = 'Torpedo',
 			
-            MaxRadius = 24,
-            MinRadius = 6,
+            MaxRadius = 32,
+            MinRadius = 8,
 			
             MuzzleSalvoDelay = 0.3,
-            MuzzleSalvoSize = 4,
+            MuzzleSalvoSize = 3,
 
-            MuzzleVelocity = 9,
-			
-            ProjectileId = '/projectiles/AANDepthCharge03/AANDepthCharge03_proj.bp',
-            ProjectileLifetime = 10,
+            MuzzleVelocity = 8,
+
+            ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
+            ProjectileLifetime = 8,
 
             RackBones = {
                 {
-                    MuzzleBones = {'Torpedo'},
-                    RackBone = 'Torpedo',
+                    MuzzleBones = {'UAA0204'},
+                    RackBone = 'UAA0204',
                 },
             },
+            
+            RackSalvoReloadTime = 6.1,      -- 7 seconds firing cycle
 
 			RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.1,	-- 960 every 10 = 96 DPS
+            RateOfFire = 1,	-- 900 every 7 = 128 DPS
 			
-            TargetCheckInterval = 4,
+            TargetCheckInterval = 2,
+            
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'CRUISER',
+                'SUBMARINE',
                 'MOBILE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,HOVER,WALL',
-			
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
         },
         {
             AboveWaterTargetsOnly = true,

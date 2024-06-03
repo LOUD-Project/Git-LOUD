@@ -2,9 +2,11 @@ local SLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
 local WeaponsFile = import('/lua/seraphimweapons.lua')
 
-local SDFThauCannon = WeaponsFile.SDFThauCannon
-local SDFAireauBolter = WeaponsFile.SDFAireauBolterWeapon
-local SANUallCavitationTorpedo = WeaponsFile.SANUallCavitationTorpedo
+local SDFThauCannon     = WeaponsFile.SDFThauCannon
+local SDFAireauBolter   = WeaponsFile.SDFAireauBolterWeapon
+local SANAnaitTorpedo   = WeaponsFile.SANAnaitTorpedo
+
+WeaponsFile = nil
 
 XSL0303 = Class(SLandUnit) {
 
@@ -15,7 +17,7 @@ XSL0303 = Class(SLandUnit) {
         LeftTurret = Class(SDFAireauBolter) {},
         RightTurret = Class(SDFAireauBolter) {},
 		
-        Torpedo = Class(SANUallCavitationTorpedo) {},		
+        Torpedo = Class(SANAnaitTorpedo) {},		
     },
 }
 

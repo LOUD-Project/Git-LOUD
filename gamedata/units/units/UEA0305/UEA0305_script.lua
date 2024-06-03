@@ -2,8 +2,10 @@ local TAirUnit = import('/lua/defaultunits.lua').AirUnit
 
 local TWeapons = import('/lua/terranweapons.lua')
 
-local TDFHeavyPlasmaCannonWeapon = TWeapons.TDFHeavyPlasmaCannonWeapon
-local TAirToAirLinkedRailgun = TWeapons.TAirToAirLinkedRailgun
+local TDFHeavyPlasmaCannonWeapon    = TWeapons.TDFHeavyPlasmaCannonWeapon
+local TAALinkedRailgun        = TWeapons.TAALinkedRailgun
+
+TWeapons = nil
 
 UEA0305 = Class(TAirUnit) {
     
@@ -14,7 +16,7 @@ UEA0305 = Class(TAirUnit) {
     Weapons = {
 	
         Plasma = Class(TDFHeavyPlasmaCannonWeapon) {},
-        AAGun = Class(TAirToAirLinkedRailgun) {},
+        AAGun = Class(TAALinkedRailgun) {},
 		
     },
     

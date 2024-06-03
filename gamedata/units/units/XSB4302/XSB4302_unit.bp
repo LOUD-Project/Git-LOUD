@@ -4,16 +4,8 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     BuildIconSortPriority = 155,
@@ -49,10 +41,13 @@ UnitBlueprint {
 
     Display = {
         Abilities = {
-            'Strategic Missile Defense',
+            '<LOC ability_aquatic>Aquatic: can be built underwater',
+            '<LOC ability_stratmissiledef>Strategic Missile Defense',
 			'Anti Satellite Weapon',
         },
+
         AnimationPermOpen = '/units/xsb4302/xsb4302_Aopen.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -71,6 +66,7 @@ UnitBlueprint {
                 },
             },
         },
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_seraphim_01_albedo',
@@ -83,6 +79,7 @@ UnitBlueprint {
                 Width = 6.4,
             },
         },
+
         UniformScale = 0.05,
     },
 
@@ -91,9 +88,8 @@ UnitBlueprint {
         BuildCostMass = 7500,
         BuildRate = 1350,	---- was 1080
         BuildTime = 7000,
-        RebuildBonusIds = {
-            'xsb4302',
-        },
+
+        RebuildBonusIds = {'xsb4302'},
     },
 
     General = {
@@ -106,11 +102,12 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
+
         UnitName = '<LOC xsb4302_name>Ythisioz',
     },
 
     Intel = {
-        VisionRadius = 10,
+        VisionRadius = 12,
     },
 
     Interface = {
@@ -157,11 +154,7 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = false,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB4302_Strat_Missile_Def',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSB_Weapon', Cue = 'XSB4302_Strat_Missile_Def', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
@@ -176,8 +169,6 @@ UnitBlueprint {
 
             FireTargetLayerCapsTable = {
                 Land = 'Air',
-				Sub = 'Air',
-				Water = 'Air',
                 Seabed = 'Air',
             },
             FiringTolerance = 60,
@@ -279,14 +270,13 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.5,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,
             Seabed = true,
-            Water = true,
         },
     },
 }

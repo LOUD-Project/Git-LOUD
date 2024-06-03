@@ -1,12 +1,14 @@
 local TWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 local TerranWeaponFile = import('/lua/terranweapons.lua')
 
-local TDFZephyrCannonWeapon = TerranWeaponFile.TDFZephyrCannonWeapon
-local TIFCommanderDeathWeapon = TerranWeaponFile.TIFCommanderDeathWeapon
-local TIFCruiseMissileLauncher = TerranWeaponFile.TIFCruiseMissileLauncher
-local TDFOverchargeWeapon = TerranWeaponFile.TDFOverchargeWeapon
+local TDFZephyrCannonWeapon     = TerranWeaponFile.TDFZephyrCannonWeapon
+local TIFCommanderDeathWeapon   = TerranWeaponFile.TIFCommanderDeathWeapon
+local TIFCruiseMissileLauncher  = TerranWeaponFile.TIFCruiseMissileLauncher
+local TDFOverchargeWeapon       = TerranWeaponFile.TDFOverchargeWeapon
 
-local EffectTemplate = import('/lua/EffectTemplates.lua')
+TerranWeaponFile = nil
+
+local UnitTeleportSteam01 = import('/lua/EffectTemplates.lua').UnitTeleportSteam01
 local EffectUtil = import('/lua/EffectUtilities.lua')
 
 local CreateUEFCommanderBuildSliceBeams = EffectUtil.CreateUEFCommanderBuildSliceBeams
@@ -18,7 +20,6 @@ local LOUDINSERT = table.insert
 
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
-local TrashDestroy = TrashBag.Destroy
 
 local WaitTicks = coroutine.yield
 
@@ -28,9 +29,9 @@ UEL0001 = Class(TWalkingLandUnit) {
     DeathThreadDestructionWaitTime = 2,
 
     Weapons = {
-        DeathWeapon = Class(TIFCommanderDeathWeapon) {},
+        DeathWeapon         = Class(TIFCommanderDeathWeapon) {},
         
-        RightZephyr = Class(TDFZephyrCannonWeapon) {},
+        RightZephyr         = Class(TDFZephyrCannonWeapon) {},
         
         RightZephyrUpgraded = Class(TDFZephyrCannonWeapon) {},
 
@@ -279,22 +280,6 @@ UEL0001 = Class(TWalkingLandUnit) {
         self:GetWeaponManipulatorByLabel('RightZephyr'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
     end,
 
-    GiveInitialResources = function(self)
-    
-        WaitTicks(5)
-        self:GetAIBrain():GiveResource('Energy', self:GetBlueprint().Economy.StorageEnergy)
-        self:GetAIBrain():GiveResource('Mass', self:GetBlueprint().Economy.StorageMass)
-    end,
-
-    PlayCommanderWarpInEffect = function(self)
-    
-        self:HideBone(0, true)
-        self:SetUnSelectable(true)
-        self:SetBusy(true)
-        self:SetBlockCommandQueue(true)
-        self:ForkThread(self.WarpInEffectThread)
-    end,
-
     WarpInEffectThread = function(self)
     
         self:PlayUnitSound('CommanderArrival')
@@ -311,7 +296,7 @@ UEL0001 = Class(TWalkingLandUnit) {
 
         local totalBones = self:GetBoneCount() - 1
         local army = self:GetArmy()
-        for k, v in EffectTemplate.UnitTeleportSteam01 do
+        for k, v in UnitTeleportSteam01 do
             for bone = 1, totalBones do
                 CreateAttachedEmitter(self,bone,army, v)
             end

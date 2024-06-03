@@ -2,8 +2,10 @@ local ASeaUnit =  import('/lua/defaultunits.lua').SeaUnit
 
 local WeaponsFile = import('/lua/aeonweapons.lua')
 
-local ADFCannonOblivionWeapon = WeaponsFile.ADFCannonOblivionWeapon
-local AAMWillOWisp = WeaponsFile.AAMWillOWisp
+local ADFCannonOblivionWeapon   = WeaponsFile.ADFCannonOblivionWeapon
+local AAMWillOWisp              = WeaponsFile.AAMWillOWisp
+
+WeaponsFile = nil
 
 UAS0302 = Class(ASeaUnit) {
 
@@ -11,11 +13,11 @@ UAS0302 = Class(ASeaUnit) {
     DestructionTicks = 400,
 
     Weapons = {
-        BackTurret = Class(ADFCannonOblivionWeapon) {},
-        FrontTurret = Class(ADFCannonOblivionWeapon) {},
-        MidTurret = Class(ADFCannonOblivionWeapon) {},
-        AntiMissile1 = Class(AAMWillOWisp) {},
-        AntiMissile2 = Class(AAMWillOWisp) {},
+        BackTurret      = Class(ADFCannonOblivionWeapon) {},
+        FrontTurret     = Class(ADFCannonOblivionWeapon) {},
+        MidTurret       = Class(ADFCannonOblivionWeapon) {},
+        AntiMissile1    = Class(AAMWillOWisp) {},
+        AntiMissile2    = Class(AAMWillOWisp) {},
     },
     
     OnCreate = function(self)

@@ -1,25 +1,10 @@
 UnitBlueprint {
+
     Audio = {
-        Construct = Sound {
-            Bank = 'XSB',
-            Cue = 'XSB0101_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Factory',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Construct       = Sound { Bank = 'XSB', Cue = 'XSB0101_Construct_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        DeathExplosion  = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Factory', LodCutoff = 'UnitMove_LodCutoff'},
     },
     
     BuildIconSortPriority = 10,
@@ -57,7 +42,7 @@ UnitBlueprint {
     
     Display = {
         Abilities = {
-            'Upgradeable',
+            '<LOC ability_upgradable>Upgradeable',
         },
 
         AnimationDeath = {
@@ -122,6 +107,7 @@ UnitBlueprint {
                 OffsetZ = 0.5,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -140,6 +126,7 @@ UnitBlueprint {
                 },
             },
         },
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_seraphim_01_albedo',
@@ -147,16 +134,12 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar12x_seraphim_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
         },
+
         UniformScale = 0.05,
     },
     
@@ -172,11 +155,9 @@ UnitBlueprint {
             'BUILTBYTIER1FACTORY SERAPHIM STRUCTURE LAND',
             'BUILTBYTIER1FACTORY SERAPHIM MOBILE LAND',
         },
-        RebuildBonusIds = {
-            'xsb0101',
-            'xsb0201',
-            'xsb0301',
-        },
+
+        RebuildBonusIds = {'xsb0101','xsb0201','xsb0301'},
+
         StorageEnergy = 660,
         StorageMass = 66,
     },
@@ -205,15 +186,19 @@ UnitBlueprint {
 
         UpgradesTo = 'xsb0201',
     },
+
     Intel = {
-        VisionRadius = 10,
+        VisionRadius = 12,
     },
+
     Interface = {
         HelpText = 'Basic Land Factory',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.9,
     LifeBarSize = 4.5,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -387,9 +372,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

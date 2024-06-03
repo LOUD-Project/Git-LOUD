@@ -1,25 +1,10 @@
 UnitBlueprint {
+
     Audio = {
-        Construct = Sound {
-            Bank = 'UAB',
-            Cue = 'UAB0203_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Factory',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Construct       = Sound { Bank = 'UAB', Cue = 'UAB0101_Construct_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        DeathExplosion  = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Factory', LodCutoff = 'UnitMove_LodCutoff'},
     },
     
     BuildIconSortPriority = 31,
@@ -57,9 +42,11 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Upgradeable',
+            '<LOC ability_upgradable>Upgradeable',
         },
+
         AnimationUpgrade = '/units/uab0203/uab0203_aopen.sca',
+
         BuildAttachBone = 'Attachpoint01',
 
         Mesh = {
@@ -95,10 +82,9 @@ UnitBlueprint {
         },
         InitialRallyX = 0,
         InitialRallyZ = 10,
-        RebuildBonusIds = {
-            'uab0203',
-            'uab0303',
-        },
+
+        RebuildBonusIds = {'uab0203','uab0303'},
+
         StorageEnergy = 1200,
         StorageMass = 120,
     },
@@ -108,12 +94,7 @@ UnitBlueprint {
     },
     
     General = {
-        BuildBones = {
-            BuildEffectBones = {
-                'Turret_Muzzle_01',
-                'Turret_Muzzle_02',
-            },
-        },
+        BuildBones = { BuildEffectBones = {'Turret_Muzzle_01','Turret_Muzzle_02'} },
 
         CommandCaps = {
             RULEUCC_Guard = true,
@@ -133,7 +114,8 @@ UnitBlueprint {
     },
 
     Intel = {
-        VisionRadius = 10,
+        VisionRadius = 16,
+        WaterVisionRadius = 16,
     },
 
     Interface = {
@@ -191,9 +173,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.6,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Water = true,

@@ -1,16 +1,8 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Sonar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy',   Cue = 'URB_Destroy_Huge',       LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',    Cue = 'Cybran_Select_Sonar',    LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     BuildIconSortPriority = 190,
@@ -37,65 +29,60 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 3,
+
         Health = 625,
         MaxHealth = 625,
-        RegenRate = 0,
+        RegenRate = 3,
+
+        EconomyThreatLevel = 19,
     },
 
     Description = '<LOC urb3202_desc>Improved Sonar System',
 
     Display = {
         Abilities = {
-            'Upgradeable',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_upgradable>Upgradeable',
         },
+        
         AnimationUpgrade = '/units/urb3202/urb3202_aupgrade.sca',
 
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    ShaderName = 'Insect',
-                },
-                {
-                    AlbedoName = 'urb3202_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Insect',
-                    SpecularName = 'urb3202_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, ShaderName = 'Insect' },
+                { AlbedoName = 'urb3202_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Insect', SpecularName = 'urb3202_lod1_specteam.dds' },
             },
         },
+
         UniformScale = 0.125,
     },
 	
     Economy = {
         BuildCostEnergy = 3600,
-        BuildCostMass = 120,
+        BuildCostMass = 360,
         BuildRate = 15,
-        BuildTime = 360,
+        BuildTime = 600,
 		
         BuildableCategory = {'urs0305'},
 		
-        MaintenanceConsumptionPerSecondEnergy = 100,
+        MaintenanceConsumptionPerSecondEnergy = 250,
     },
 	
     General = {
-        CommandCaps = {
-            RULEUCC_Pause = true,
-        },
+        CommandCaps = { RULEUCC_Pause = true },
+        
         FactionName = 'Cybran',
         Icon = 'sea',
+        
         OrderOverrides = {
-            RULEUTC_IntelToggle = {
-                bitmapId = 'sonar',
-                helpText = 'toggle_sonar',
-            },
+            RULEUTC_IntelToggle = { bitmapId = 'sonar', helpText = 'toggle_sonar' },
         },
+        
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_IntelToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_IntelToggle = true },
+        
         UnitName = '<LOC urb3202_name>Flood',
 
         UpgradesFrom = 'urb3102',
@@ -104,9 +91,13 @@ UnitBlueprint {
 
     Intel = {
         ShowIntelOnSelect = true,
-        SonarRadius = 180,
-        VisionRadius = 30,
-		WaterVisionRadius = 15,
+        
+        RadarStealth = true,
+        SonarStealth = true,
+
+        SonarRadius = 192,
+        VisionRadius = 28,
+		WaterVisionRadius = 32,
     },
 
     Interface = {

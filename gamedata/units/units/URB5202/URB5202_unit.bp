@@ -10,21 +10,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
 	BuffFields = {
@@ -65,11 +53,12 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-			'Aquatic',
-            'Air Staging',
+            '<LOC ability_aquatic>Aquatic: can be built on water',
+            '<LOC ability_airstaging>Air Staging',
             'Repairs Aircraft in Vicinity',
             'Refuels Aircraft in Vicinity',
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -85,6 +74,7 @@ UnitBlueprint {
                 },
             },
         },
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_cybran_01_albedo',
@@ -92,12 +82,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar8x_cybran_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0},
                 RemoveWhenDead = true,
                 Width = 12.8,
             },
@@ -120,10 +105,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         OrderOverrides = {
-            RULEUCC_Transport = {
-                bitmapId = 'deploy',
-                helpText = 'deploy',
-            },
+            RULEUCC_Transport = { bitmapId = 'deploy', helpText = 'deploy' },
         },
         SelectionPriority = 5,
     },
@@ -176,9 +158,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.1,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -5,31 +5,11 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Pack = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0111_Close',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0111_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Unpack = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0111_Open',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Unpack      = Sound { Bank = 'UEL', Cue = 'UEL0111_Open',        LodCutoff = 'UnitMove_LodCutoff' },
+        Pack        = Sound { Bank = 'UEL', Cue = 'UEL0111_Close',       LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'UEL', Cue = 'UEL0111_Move_Start',  LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     Buffs = {},
@@ -64,17 +44,8 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    Scrolling = true,
-                    ShaderName = 'Unit',
-                },
-                {
-                    AlbedoName = 'uel0111_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Unit',
-                    SpecularName = 'uel0111_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, Scrolling = true, ShaderName = 'Unit' },
+                { AlbedoName = 'uel0111_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Unit', SpecularName = 'uel0111_lod1_specteam.dds' },
             },
         },
 
@@ -103,7 +74,7 @@ UnitBlueprint {
     },
 
     Intel = {
-        VisionRadius = 21,
+        VisionRadius = 20,
     },
 
     LifeBarHeight = 0.075,
@@ -176,7 +147,10 @@ UnitBlueprint {
                 Land = 'Land|Water',
             },
             FiringTolerance = 5,
+            
             Label = 'MissileWeapon',
+            
+            LeadTarget = true,
 			
             MaxRadius = 75,
             MinRadius = 5,
@@ -220,11 +194,12 @@ UnitBlueprint {
             WeaponUnpacks = true,
         },
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        HealthMult = 0.7,
+        MassMult = 0.7,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

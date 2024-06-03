@@ -29,21 +29,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UAADestroy',
-            Cue = 'UAA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAA',
-            Cue = 'UAA0204_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'UAADestroy', Cue = 'UAA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UAA', Cue = 'UAA0204_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 35,
@@ -68,11 +56,13 @@ UnitBlueprint {
     },
 	
     Defense = {
-		AirThreatLevel = 23,
         ArmorType = 'Light',
+
         Health = 10,
         MaxHealth = 10,
         RegenRate = 0,
+        
+		AirThreatLevel = 23,
         SurfaceThreatLevel = 4,
     },
 	
@@ -85,20 +75,11 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 50,
-                    Scrolling = true,
-                    ShaderName = 'Aeon',
-                },
-                {
-                    AlbedoName = 'DAA0206_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Aeon',
-                    SpecularName = 'DAA0206_lod1_specteam.dds',
-                },
+                {LODCutoff = 50,Scrolling = true,ShaderName = 'Aeon'},
+                {AlbedoName = 'DAA0206_lod1_albedo.dds',LODCutoff = 215,ShaderName = 'Aeon',SpecularName = 'DAA0206_lod1_specteam.dds'},
             },
         },
-
+
         UniformScale = 0.15,
     },
 	
@@ -116,8 +97,7 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 1,
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryAircraft',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Move = true,
@@ -126,9 +106,8 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Secret',
+
         UnitName = '<LOC daa0206_name>Mercy',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -181,12 +160,9 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0304_Bomb_Quark',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0304_Bomb_Quark', LodCutoff = 'Weapon_LodCutoff'},
             },
             BallicsticArc = 'RULEUBA_None',
             CollideFriendly = true,
@@ -221,9 +197,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'DAA0206',
-                    },
+                    MuzzleBones = {'DAA0206'},
                     RackBone = 'DAA0206',
                 },
             },

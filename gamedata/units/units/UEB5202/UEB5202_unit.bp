@@ -10,21 +10,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
 	BuffFields = {
@@ -64,12 +52,14 @@ UnitBlueprint {
     Description = '<LOC ueb5202_desc>Air Staging Facility',
 	
     Display = {
+
         Abilities = {
-			'Aquatic',
-            'Air Staging',
+            '<LOC ability_aquatic>Aquatic: can be built on water',
+            '<LOC ability_airstaging>Air Staging',
             'Repairs Aircraft in Vicinity',
             'Refuels Aircraft in Vicinity',
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -85,6 +75,7 @@ UnitBlueprint {
                 },
             },
         },
+
         UniformScale = 0.1875,
     },
 	
@@ -100,15 +91,16 @@ UnitBlueprint {
         CommandCaps = {
             RULEUCC_Transport = true,
         },
+
         FactionName = 'UEF',
         Icon = 'amph',
+
         OrderOverrides = {
-            RULEUCC_Transport = {
-                bitmapId = 'deploy',
-                helpText = 'deploy',
-            },
+            RULEUCC_Transport = { bitmapId = 'deploy', helpText = 'deploy' },
         },
+
         SelectionPriority = 5,
+
         UnitName = '<LOC ueb5202_name>Refuel & Repair',
     },
 	
@@ -165,7 +157,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

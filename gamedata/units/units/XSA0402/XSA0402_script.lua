@@ -1,8 +1,12 @@
 local SAirUnit = import('/lua/defaultunits.lua').AirUnit
 
 local SeraphimWeapons = import('/lua/seraphimweapons.lua')
-local SAALosaareAutoCannonWeapon = SeraphimWeapons.SAALosaareAutoCannonWeapon
+
+local SAALosaareAutoCannonWeapon                = SeraphimWeapons.SAALosaareAutoCannonWeapon
 local SB0OhwalliExperimentalStrategicBombWeapon = SeraphimWeapons.SB0OhwalliExperimentalStrategicBombWeapon
+
+SeraphimWeapons = nil
+
 local CreateSeraphimExperimentalBuildBaseThread = import('/lua/EffectUtilities.lua').CreateSeraphimExperimentalBuildBaseThread
 local explosion = import('/lua/defaultexplosions.lua')
 

@@ -1,29 +1,12 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Panel_01',
-            'Panel_02',
-            'Panel_03',
-            'Panel_04',
-        },
+        TargetBones = {'Panel_01','Panel_02','Panel_03','Panel_04'},
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL0402_Death',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        HoverKilledOnWater = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Spawn = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0402_Spawn',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed           = Sound { Bank = 'XSL_Destroy', Cue = 'XSL0402_Death', LodCutoff = 'UnitMove_LodCutoff'},
+        HoverKilledOnWater  = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff'},
+        Spawn               = Sound { Bank = 'XSL', Cue = 'XSL0402_Spawn', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 10,
@@ -70,6 +53,7 @@ UnitBlueprint {
                 },
             },
         },
+
         UniformScale = 0.1,
     },
 	
@@ -149,11 +133,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0402_Attack_Zap',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0402_Attack_Zap', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',

@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0203_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'UEL', Cue = 'UEL0203_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Tank', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     Buffs = {},
@@ -55,18 +43,11 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    ShaderName = 'Unit',
-                },
-                {
-                    AlbedoName = 'uel0203_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Unit',
-                    SpecularName = 'uel0203_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, ShaderName = 'Unit' },
+                { AlbedoName = 'uel0203_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Unit', SpecularName = 'uel0203_lod1_specteam.dds' },
             },
         },
+        
         UniformScale = 0.09,
     },
 	
@@ -92,7 +73,8 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 21,
+        VisionRadius = 24,
+        WaterVisionRadius = 8,
     },
 	
     Interface = {
@@ -157,11 +139,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0203_Riot_Gun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0203_Riot_Gun', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -191,10 +169,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle_01',
-                        'Turret_Muzzle_02',
-                    },
+                    MuzzleBones = {'Turret_Muzzle_01','Turret_Muzzle_02'},
                     RackBone = 'Turret_Barrel',
                 },
             },

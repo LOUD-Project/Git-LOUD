@@ -10,26 +10,10 @@ UnitBlueprint {
     },
 	
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed          = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
 	BuffFields = {
@@ -56,6 +40,8 @@ UnitBlueprint {
         'SORTSTRATEGIC',
     },
 	
+    CollisionOffsetY = -0.2,
+    
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 4,
@@ -68,11 +54,12 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-			'Aquatic',
-            'Air Staging',
+            '<LOC ability_aquatic>Aquatic: can be built on water',
+            '<LOC ability_airstaging>Air Staging',
             'Repairs Aircraft in Vicinity',
             'Refuels Aircraft in Vicinity',
         },
+
         AnimationDeath = {
             {
                 Animation = '/units/xsb5202/xsb5202_ADeath.sca',
@@ -81,6 +68,7 @@ UnitBlueprint {
                 Weight = 1,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -99,6 +87,7 @@ UnitBlueprint {
                 },
             },
         },
+
         UniformScale = 0.05,
     },
 	
@@ -116,13 +105,13 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'amph',
+
         OrderOverrides = {
-            RULEUCC_Transport = {
-                bitmapId = 'deploy',
-                helpText = 'deploy',
-            },
+            RULEUCC_Transport = {bitmapId = 'deploy',helpText = 'deploy'},
         },
+
         SelectionPriority = 5,
+
         UnitName = '<LOC xsb5202_name>Iathu-uhthe',
     },
 	

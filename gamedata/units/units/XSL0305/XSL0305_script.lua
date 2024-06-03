@@ -5,6 +5,8 @@ local SeraphimWeapons = import('/lua/seraphimweapons.lua')
 local SDFSihEnergyRifleNormalMode = SeraphimWeapons.SDFSniperShotNormalMode
 local SDFSihEnergyRifleSniperMode = SeraphimWeapons.SDFSniperShotSniperMode
 
+SeraphimWeapons = nil
+
 XSL0305 = Class(SLandUnit) {
 
     Weapons = {

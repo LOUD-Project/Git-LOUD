@@ -7,36 +7,10 @@ UnitBlueprint {
     },
 
     Audio = {
-        Killed = Sound {
-            Bank = 'UASDestroy',
-            Cue = 'UAS0203_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSS',
-            Cue = 'XSS0203_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMoveSub = Sound {
-            Bank = 'XSS',
-            Cue = 'XSS0203_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        SubmergeStart = Sound {
-            Bank = 'XSS',
-            Cue = 'XSS_Sub_Submerge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        SurfaceStart = Sound {
-            Bank = 'XSS',
-            Cue = 'XSS_Sub_Surface',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Sub',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed          = Sound { Bank = 'UASDestroy', Cue = 'UAS0203_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove       = Sound { Bank = 'XSS', Cue = 'XSS0203_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMoveSub    = Sound { Bank = 'XSS', Cue = 'XSS0203_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Sub', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -85,23 +59,8 @@ UnitBlueprint {
         CannonOpenAnimation = '/units/xss0203/xss0203_aopen.sca',
 
         IdleEffects = {
-            Sub = {
-                Effects = {
-                    {
-                        Bones = {'Exhaust01','Exhaust02'},
-                        Type = 'UnderWater01',
-                    },
-                },
-            },
-            Water = {
-                Effects = {
-                    {
-                        Bones = {'XSS0203'},
-                        Scale = 0.5,
-                        Type = 'SeaIdle01',
-                    },
-                },
-            },
+            Sub     = { Effects = { { Bones = {'Exhaust01','Exhaust02'}, Type = 'UnderWater01' } } },
+            Water   = { Effects = { { Bones = {'XSS0203'}, Scale = 0.5, Type = 'SeaIdle01' } } },
         },
 
         Mesh = {
@@ -123,24 +82,8 @@ UnitBlueprint {
         },
 
         MovementEffects = {
-            Sub = {
-                Effects = {
-                    {
-                        Bones = {'Exhaust01','Exhaust02'},
-                        Type = 'BackWake',
-                    },
-                },
-            },
-            Water = {
-                Effects = {
-                    {
-                        Bones = {'XSS0203'},
-                        Offset = {0,0,-0.5},
-                        Scale = 0.4,
-                        Type = 'BackWake',
-                    },
-                },
-            },
+            Sub     = { Effects = { { Bones = {'Exhaust01','Exhaust02'}, Type = 'BackWake' } } },
+            Water   = { Effects = { { Bones = {'XSS0203'}, Offset = {0,0,-0.5}, Scale = 0.4, Type = 'BackWake' } } },
         },
 
         UniformScale = 0.05,
@@ -164,6 +107,7 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'sea',
+
         UnitName = '<LOC xss0203_name>Sou-istle',
     },
 	
@@ -230,8 +174,8 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire            = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0203_Uall_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
-                FireUnderWater  = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0203_Uall_Torpedo', LodCutoff = 'Weapon_LodCutoff' },                
+                Fire            = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_AnaIt_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
+                FireUnderwater  = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_AnaIt_Torpedo', LodCutoff = 'Weapon_LodCutoff' },                
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -240,7 +184,7 @@ UnitBlueprint {
             Damage = 200,
             DamageType = 'Normal',
 			
-            DisplayName = 'Uall Cavitation Torpedo',
+            DisplayName = 'Anait Torpedo',
 			
             FireTargetLayerCapsTable = {
                 Sub = 'Seabed|Sub|Water',
@@ -253,11 +197,11 @@ UnitBlueprint {
 			
             MaxRadius = 36,
 
-            MuzzleVelocity = 5,
-			
-            ProjectileId = '/projectiles/SANUallCavitationTorpedo02/SANUallCavitationTorpedo02_proj.bp',
-            ProjectileLifetime = 6,
+            MuzzleVelocity = 3,
 
+            ProjectileId = '/projectiles/SANAnaitTorpedo01/SANAnaitTorpedo01_proj.bp',
+            ProjectileLifetime = 7,
+	
             RackBones = {
                 {
                     MuzzleBones = { 'Projectile01' },
@@ -272,7 +216,7 @@ UnitBlueprint {
             RateOfFire = 1,		-- 90 DPS Sub/Surface
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 10,
+            SlavedToBodyArcRange = 20,
 			
             TargetCheckInterval = 1.5,
             TargetPriorities = {
@@ -289,13 +233,17 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             BelowWaterTargetsOnly = true,
 
+            CannotAttackGround = true,
+            
             CollideFriendly = false,
+
+            CountedProjectile = true,
 			
             Damage = 2,
 			DamageFriendly = false,
             DamageType = 'Normal',
 			
-            DisplayName = 'Anti Torpedo',
+            DisplayName = 'AntiTorpedo',
 
             FireTargetLayerCapsTable = {
                 Sub = 'Seabed|Sub|Water',
@@ -309,7 +257,8 @@ UnitBlueprint {
             MaxRadius = 24,
             MinRadius = 6,
 
-            MuzzleVelocity = 8,
+            MuzzleSalvoDelay = 0.5,
+            MuzzleVelocity = 7,
 			
             ProjectileId = '/projectiles/SANAjelluAntiTorpedo01/SANAjelluAntiTorpedo01_proj.bp',
             ProjectileLifetime = 3,
@@ -320,12 +269,10 @@ UnitBlueprint {
                     RackBone = 'AntiTorpedo',
                 },
             },
-            
-            RackSalvoReloadTime = 1.5,
 
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 1,
+            RateOfFire = 1,     -- controlled by muzzlesalvodelay and weaponrepacktimeout
 			
             TargetCheckInterval = 0.5,
 			
@@ -342,12 +289,16 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 80,
+            TurretYawSpeed = 100,
 			
             Turreted = true,
+            
+            WeaponRepackTimeout = 1,
         },
         {
+            AboveWaterFireOnly = true,        
             AboveWaterTargetsOnly = true,
+            
             Audio = {
                 Fire = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0203_Spectra_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },

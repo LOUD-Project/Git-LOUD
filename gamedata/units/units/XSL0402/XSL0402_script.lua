@@ -1,6 +1,7 @@
 local SEnergyBallUnit = import('/lua/seraphimunits.lua').SEnergyBallUnit
 
 local SDFUnstablePhasonBeam = import('/lua/seraphimweapons.lua').SDFUnstablePhasonBeam
+
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 XSL0402 = Class(SEnergyBallUnit) {

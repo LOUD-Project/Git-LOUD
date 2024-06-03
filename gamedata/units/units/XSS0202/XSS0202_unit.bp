@@ -1,25 +1,13 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 110,
-        GuardScanRadius = 95,
+        GuardReturnRadius = 108,
+        GuardScanRadius = 92,
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'XSS_Destroy',
-            Cue = 'XSS0202_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSS',
-            Cue = 'XSS0202_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'XSS_Destroy', Cue = 'XSS0202_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSS', Cue = 'XSS0202_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Naval', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -65,10 +53,11 @@ UnitBlueprint {
     Display = {
         Abilities = {
 			'Missile Barrage',
-            'Anti-Air',
-            'Radar',
-            'Tactical Missile Defense',
+            "<LOC ability_aa>Anti-Air",
+            '<LOC ability_radar>Radar',
+            "<LOC ability_tacmissiledef>Tactical Missile Defense",
         },
+
         AnimationDeath = {
             {
                 Animation = '/units/xss0202/xss0202_adeath01.sca',
@@ -83,24 +72,13 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+
         IdleEffects = {
             Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'XSS0202',
-                        },
-                        Offset = {
-                            0,
-                            0,
-                            -0.25,
-                        },
-                        Scale = 1.35,
-                        Type = 'SeaIdle01',
-                    },
-                },
+                Effects = { { Bones = {'XSS0202'}, Offset = {0,0,-0.25}, Scale = 1.35, Type = 'SeaIdle01' } },
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -140,14 +118,16 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'sea',
+
         UnitName = '<LOC xss0202_name>Ithalua',
     },
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 90,
+
+        RadarRadius = 72,
         VisionRadius = 36,
-        WaterVisionRadius = 18,
+        WaterVisionRadius = 20,
     },
 	
     Interface = {

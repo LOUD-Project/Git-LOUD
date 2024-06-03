@@ -16,9 +16,11 @@ local TrashDestroy = TrashBag.Destroy
 
 local Buff = import('/lua/sim/Buff.lua')
 
-local CAAMissileNaniteWeapon = CWeapons.CAAMissileNaniteWeapon
+local CAAMissileNaniteWeapon = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
 local CDFLaserDisintegratorWeapon = CWeapons.CDFLaserDisintegratorWeapon02
 local CIFCommanderDeathWeapon = CWeapons.CIFCommanderDeathWeapon
+
+CWeapons = nil
 
 URL0301 = Class(CWalkingLandUnit) {
     LeftFoot = 'Left_Foot02',

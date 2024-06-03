@@ -1,25 +1,10 @@
 UnitBlueprint {
+
     Audio = {
-        Construct = Sound {
-            Bank = 'UAB',
-            Cue = 'UAB0303_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Factory',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Construct       = Sound { Bank = 'UAB', Cue = 'UAB0101_Construct_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        DeathExplosion  = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Factory', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 32,
@@ -56,6 +41,11 @@ UnitBlueprint {
     Description = '<LOC uab0303_desc>Advanced Naval Factory',
 	
     Display = {
+
+        Abilities = {
+            '<LOC ability_torpedodef>Torpedo Defense',
+        },
+
         BuildAttachBone = 'Attachpoint01',
 
         Mesh = {
@@ -129,8 +119,8 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 15,
-		WaterVisionRadius = 15,
+        VisionRadius = 24,
+		WaterVisionRadius = 24,
     },
 	
     Interface = {
@@ -189,6 +179,8 @@ UnitBlueprint {
     Weapon = {
 
         {
+            advancedTracking = true,
+
             BallisticArc = 'RULEUBA_None',
 			CannotAttackGround = true,
             CollideFriendly = false,
@@ -208,8 +200,8 @@ UnitBlueprint {
 			
             Label = 'AntiTorpedo',
 
-            MaxRadius = 30,
-			MinRadius = 16,
+            MaxRadius = 24,
+			MinRadius = 8,
 
             MuzzleVelocity = 8.5,
 			
@@ -236,6 +228,8 @@ UnitBlueprint {
         },
 
         {
+            advancedTracking = true,
+            
             BallisticArc = 'RULEUBA_None',
 			CannotAttackGround = true,
             CollideFriendly = false,
@@ -255,8 +249,8 @@ UnitBlueprint {
 			
             Label = 'AntiTorpedo',
 
-            MaxRadius = 30,
-			MinRadius = 16,
+            MaxRadius = 24,
+			MinRadius = 8,
 
             MuzzleVelocity = 8.5,
 			
@@ -284,9 +278,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.6,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Water = true,

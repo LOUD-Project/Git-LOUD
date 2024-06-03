@@ -8,21 +8,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UASDestroy',
-            Cue = 'UAS0302_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XAS',
-            Cue = 'XAS0306_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'UASDestroy', Cue = 'UAS0302_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XAS', Cue = 'XAS0306_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Naval', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -59,9 +47,12 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
+
         Health = 21000,
         MaxHealth = 21000,
-        RegenRate = 13,
+        
+        RegenRate = 6,
+
         SurfaceThreatLevel = 225,
     },
 	
@@ -70,50 +61,29 @@ UnitBlueprint {
     Display = {
         Abilities = {
 			'Tac Missile Barrage',
-            'Radar & Sonar',
-            'Torpedo Defense',
+            "<LOC ability_radar>Radar",
+            '<LOC ability_sonar>Sonar',
+            "<LOC ability_torpedodef>Torpedo Defense",
         },
+        
         AnimationDeath = {
-            {
-                Animation = '/units/xas0306/xas0306_adeath01.sca',
-                Weight = 100,
-            },
-            {
-                Animation = '/units/xas0306/xas0306_adeath02.sca',
-                Weight = 100,
-            },
-            {
-                Animation = '/units/xas0306/xas0306_adeath03.sca',
-                Weight = 100,
-            },
+            { Animation = '/units/xas0306/xas0306_adeath01.sca', Weight = 100 },
+            { Animation = '/units/xas0306/xas0306_adeath02.sca', Weight = 100 },
+            { Animation = '/units/xas0306/xas0306_adeath03.sca', Weight = 100 },
         },
 
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 200,
-                    ShaderName = 'Aeon',
-                },
-                {
-                    AlbedoName = 'xas0306_lod1_albedo.dds',
-                    LODCutoff = 600,
-                    ShaderName = 'Aeon',
-                    SpecularName = 'xas0306_lod1_specteam.dds',
-                },
+                { LODCutoff = 200, ShaderName = 'Aeon' },
+                { LODCutoff = 600, ShaderName = 'Aeon', AlbedoName = 'xas0306_lod1_albedo.dds', SpecularName = 'xas0306_lod1_specteam.dds' },
             },
         },
 
         MovementEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'XAS0306',
-                        },
-                        Scale = 1.2,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'XAS0306'}, Scale = 1.2, Type = 'BackWake' },
                 },
             },
         },
@@ -144,10 +114,12 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 165,
-		SonarRadius = 75,
+
+        RadarRadius = 128,
+		SonarRadius = 60,
+
         VisionRadius = 36,
-        WaterVisionRadius = 18,
+        WaterVisionRadius = 16,
     },
 	
     Interface = {
@@ -159,7 +131,7 @@ UnitBlueprint {
     LifeBarSize = 3,
 	
     Physics = {
-        BackUpDistance = 9,
+        BackUpDistance = 10,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Water = true,
@@ -203,13 +175,10 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XAS_Weapon',
-                    Cue = 'XAS0306_TacticalMissile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XAS_Weapon', Cue = 'XAS0306_TacticalMissile', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
+
             CollideFriendly = false,
 			
             CountedProjectile = false,
@@ -380,32 +349,38 @@ UnitBlueprint {
 
             CannotAttackGround = true,
             CollideFriendly = false,
+            
+            CountedProjectile = true,
 			
             Damage = 2,
 			DamageFriendly = false,
             DamageType = 'Normal',
 			
-            DisplayName = 'Anti Torpedo',
+            DisplayName = 'AntiTorpedo',
 			
             FireTargetLayerCapsTable = {
                 Water = 'Sub|Water|Seabed',
             },
 			
-            FiringTolerance = 60,
+            FiringTolerance = 100,
+			
+            HeadingArcCenter = -85,
+            HeadingArcRange = 100,
 			
             Label = 'AntiTorpedo',
 			
-            MaxRadius = 32,
-			MinRadius = 16,
+            MaxRadius = 24,
 
+            MuzzleSalvoDelay = 0.7,
+            MuzzleSalvoSize = 2,
             MuzzleVelocity = 7,
 
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
-			ProjectileLifetime = 4.5,
+			ProjectileLifetime = 2.8,
 
             RackBones = {
                 {
-                    MuzzleBones = {'Projectile01'},
+                    MuzzleBones = {'Projectile01','Projectile02'},
                     RackBone = 'Projectile01',
                 },			
             },
@@ -419,6 +394,8 @@ UnitBlueprint {
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
             TrackingRadius = 1.2,
+            
+            WeaponRepackTimeout = 1.6,
         },
 
         {
@@ -428,74 +405,38 @@ UnitBlueprint {
 
             CannotAttackGround = true,
             CollideFriendly = false,
+            
+            CountedProjectile = true,
 			
             Damage = 2,
 			DamageFriendly = false,
             DamageType = 'Normal',
 			
-            DisplayName = 'Anti Torpedo',
+            DisplayName = 'AntiTorpedo',
 			
             FireTargetLayerCapsTable = {
                 Water = 'Sub|Water|Seabed',
             },
 			
-            FiringTolerance = 60,
+            FiringTolerance = 100,
+			
+            HeadingArcCenter = 85,
+            HeadingArcRange = 100,
 			
             Label = 'AntiTorpedo',
 			
-            MaxRadius = 22,
-			MinRadius = 10,
+            MaxRadius = 24,
 
+            MuzzleSalvoDelay = 0.8,
+            MuzzleSalvoSize = 2,
             MuzzleVelocity = 5,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
-			ProjectileLifetime = 4.5,
+			ProjectileLifetime = 2.8,
 
             RackBones = {
                 {
-                    MuzzleBones = {'Projectile02'},
-                    RackBone = 'Projectile02',
-                },			
-            },
-			
-            RateOfFire = 1,
-			
-            TargetCheckInterval = 0.5,
-            TargetRestrictOnlyAllow = 'TORPEDO',
-            TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1,
-        },
-
-        {
-            BallisticArc = 'RULEUBA_None',
-            CannotAttackGround = true,
-            CollideFriendly = false,
-			
-            Damage = 2,
-			DamageFriendly = false,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Anti Torpedo',
-			
-            FireTargetLayerCapsTable = {
-                Water = 'Sub|Water|Seabed',
-            },
-			
-            FiringTolerance = 60,
-			
-            Label = 'AntiTorpedo',
-			
-            MaxRadius = 26,
-			MinRadius = 12,
-
-            MuzzleVelocity = 6.5,
-			
-            ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
-			ProjectileLifetime = 4.5,
-
-            RackBones = {
-                {
-                    MuzzleBones = {'Projectile03'},
+                    MuzzleBones = {'Projectile03','Projectile04'},
                     RackBone = 'Projectile03',
                 },			
             },
@@ -505,50 +446,11 @@ UnitBlueprint {
             TargetCheckInterval = 0.5,
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.1,
-        },
-		
-        {
-            BallisticArc = 'RULEUBA_None',
-            CannotAttackGround = true,
-            CollideFriendly = false,
-			
-            Damage = 2,
-			DamageFriendly = false,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Anti Torpedo',
-			
-            FireTargetLayerCapsTable = {
-                Water = 'Sub|Water|Seabed',
-            },
-			
-            FiringTolerance = 60,
-			
-            Label = 'AntiTorpedo',
-			
-            MaxRadius = 18,
-			MinRadius = 6,
-
-            MuzzleVelocity = 7,
-			
-            ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
-			ProjectileLifetime = 4.5,
-
-            RackBones = {
-                {
-                    MuzzleBones = {'Projectile04'},
-                    RackBone = 'Projectile04',
-                },			
-            },
-			
-            RateOfFire = 1,
-			
-            TargetCheckInterval = 0.5,
-            TargetRestrictOnlyAllow = 'TORPEDO',
-            TargetType = 'RULEWTT_Projectile',
             TrackingRadius = 1,
-        },		
+            
+            WeaponRepackTimeout = 1.4,
+        },
+
     },
 	
 }

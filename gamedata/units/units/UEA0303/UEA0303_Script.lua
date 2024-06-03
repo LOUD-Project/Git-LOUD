@@ -4,8 +4,7 @@ local TAAGinsuRapidPulseWeapon = import('/lua/sim/DefaultWeapons.lua').DefaultPr
 
 UEA0303 = Class(TAirUnit) {
     Weapons = {
-        --RightBeam = Class(TAAGinsuRapidPulseWeapon) {},
-        LeftBeam = Class(TAAGinsuRapidPulseWeapon) {},
+        Beam = Class(TAAGinsuRapidPulseWeapon) {},
     },
 }
 

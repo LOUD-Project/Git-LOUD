@@ -34,21 +34,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UAADestroy',
-            Cue = 'UAA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAA',
-            Cue = 'UAA0302_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'UAADestroy', Cue = 'UAA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UAA', Cue = 'UAA0302_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 20,
@@ -81,9 +69,10 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Omni Radar',
-			'Radar Stealth',
+            '<LOC ability_omni>Omni Sensor',
+            '<LOC ability_personalstealth>Personal Stealth',
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -121,16 +110,20 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'air',
+
         UnitName = '<LOC uaa0302_name>Seer',
     },
 	
     Intel = {
 		FreeIntel = true,
-        OmniRadius = 30,
+
         RadarStealth = true,
-        RadarRadius = 90,
+
+        OmniRadius = 32,
+        RadarRadius = 72,
         SonarRadius = 60,
-        VisionRadius = 55,
+        VisionRadius = 48,
+        WaterVisionRadius = 36,
     },
 	
     Interface = {
@@ -145,7 +138,7 @@ UnitBlueprint {
         BuildOnLayerCaps = {
             LAYER_Air = true,
         },
-        Elevation = 35,
+        Elevation = 32,
         FuelRechargeRate = 25,
         FuelUseTime = 2500,
         GroundCollisionOffset = 1.6,

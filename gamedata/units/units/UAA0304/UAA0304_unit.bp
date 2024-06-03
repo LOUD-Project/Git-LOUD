@@ -40,21 +40,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UAADestroy',
-            Cue = 'UAA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAA',
-            Cue = 'UAA0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'UAADestroy', Cue = 'UAA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UAA', Cue = 'UAA0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -97,9 +85,11 @@ UnitBlueprint {
     Description = '<LOC uaa0304_desc>Strategic Bomber',
 	
     Display = {
+
         Abilities = {
-            'Radar',
+            '<LOC ability_radar>Radar',
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -139,13 +129,15 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'air',
+
         UnitName = '<LOC uaa0304_name>Shocker',
     },
 	
     Intel = {
 		FreeIntel = true,
+
         RadarRadius = 60,
-        VisionRadius = 32,
+        VisionRadius = 40,
     },
 	
     Interface = {

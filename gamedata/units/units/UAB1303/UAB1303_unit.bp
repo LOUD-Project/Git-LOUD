@@ -3,16 +3,8 @@ UnitBlueprint {
     Adjacency = 'T3MassFabricatorAdjacencyBuffs',
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 50,
@@ -48,8 +40,10 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Volatile',
+            '<LOC ability_aquatic>Aquatic; can be built underwater',
+            '<LOC ability_deathaoe>Volatile',
         },
+
         DamageEffects = {
             {
                 Bone = 0,
@@ -100,6 +94,7 @@ UnitBlueprint {
                 OffsetZ = -0.5,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -123,12 +118,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar8x_aeon_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },

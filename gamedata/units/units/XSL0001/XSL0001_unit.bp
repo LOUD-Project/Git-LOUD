@@ -1,14 +1,7 @@
 UnitBlueprint {
     AI = {
         GuardRadius = 22,
-        TargetBones = {
-            'Head',
-            'Right_Arm_B01',
-            'Left_Arm_B01',
-            'Torso',
-            'Left_Leg_B01',
-            'Right_Leg_B01',
-        },
+        TargetBones = {'Head','Right_Arm_B01','Left_Arm_B01','Torso','Left_Leg_B01','Right_Leg_B01'},
 
     },
 
@@ -17,36 +10,12 @@ UnitBlueprint {
     },
 
     Audio = {
-        CommanderArrival = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0001_Gate_In',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Construct = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0001_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        EnhanceStart = Sound {
-            Bank = 'UnitsGlobal',
-            Cue = 'GLB_Enhance_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'Impacts',
-            Cue = 'XSB2305_impact',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0001_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Commander',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        CommanderArrival    = Sound { Bank = 'UAL', Cue = 'UAL0001_Gate_In', LodCutoff = 'UnitMove_LodCutoff'},
+        Construct           = Sound { Bank = 'XSL', Cue = 'XSL0001_Construct_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        EnhanceStart        = Sound { Bank = 'UnitsGlobal', Cue = 'GLB_Enhance_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed              = Sound { Bank = 'Impacts', Cue = 'XSB2305_impact', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove           = Sound { Bank = 'XSL', Cue = 'XSL0001_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection         = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Commander', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     BuffFields = {
@@ -103,12 +72,14 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Customizable',
-            'Omni Sensor',
-            'Volatile',
+            '<LOC ability_customizable>Customizable',
+            '<LOC ability_omni>Omni Sensor',
+            '<LOC ability_deathaoe>Volatile',
         },
+
         AnimationWalk = '/units/xsl0001/xsl0001_awalk.sca',
         AnimationWalkRate = 1.1,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -120,6 +91,7 @@ UnitBlueprint {
                 },
             },
         },
+
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -132,11 +104,7 @@ UnitBlueprint {
                                 TreadMarks = 'CommanderPrint_albedo',
                                 TreadMarksSizeX = 0.5,
                                 TreadMarksSizeZ = 0.5,
-                                TreadOffset = {
-                                    0.15,
-                                    0,
-                                    0.5,
-                                },
+                                TreadOffset = {0.15,0,0.5},
                             },
                             Type = 'FootFall02',
                         },
@@ -148,11 +116,7 @@ UnitBlueprint {
                                 TreadMarks = 'CommanderPrint_albedo',
                                 TreadMarksSizeX = 0.5,
                                 TreadMarksSizeZ = 0.5,
-                                TreadOffset = {
-                                    -0.15,
-                                    0,
-                                    0.5,
-                                },
+                                TreadOffset = {-0.15,0,0.5},
                             },
                             Type = 'FootFall02',
                         },
@@ -161,18 +125,9 @@ UnitBlueprint {
             },
         },
 		
-        TransportAnimation = {
-            {
-                Animation = '/units/XSL0001/XSL0001_afold.sca',
-                Weight = 100,
-            },
-        },
-        TransportDropAnimation = {
-            {
-                Animation = '/units/XSL0001/XSL0001_aunfold.sca',
-                Weight = 100,
-            },
-        },
+        TransportAnimation      = { { Animation = '/units/XSL0001/XSL0001_afold.sca', Weight = 100 } },
+        TransportDropAnimation  = { { Animation = '/units/XSL0001/XSL0001_aunfold.sca', Weight = 100 } },
+
         UniformScale = 0.05,
     },
 	
@@ -208,21 +163,9 @@ UnitBlueprint {
     Enhancements = {
 
         Slots = {
-            Back = {
-                name = '<LOC _Back>',
-                x = -2,
-                y = -5,
-            },
-            LCH = {
-                name = '<LOC _LCH>',
-                x = 50,
-                y = -10,
-            },
-            RCH = {
-                name = '<LOC _RCH>',
-                x = -12,
-                y = -10,
-            },
+            Back    = { name = '<LOC _Back>', x = -2, y = -5 },
+            LCH     = { name = '<LOC _LCH>', x = 50, y = -10 },
+            RCH     = { name = '<LOC _RCH>', x = -12, y = -10 },
         },
 
         AdvancedEngineering = {
@@ -831,9 +774,7 @@ UnitBlueprint {
     General = {
         BuildBones = {
             AimBone = 'Left_Turret_Muzzle',
-            BuildEffectBones = {
-                'Left_Turret_Muzzle',
-            },
+            BuildEffectBones = {'Left_Turret_Muzzle'},
             PitchBone = 'Left_Arm_B02',
             YawBone = 'Torso',
         },
@@ -921,26 +862,28 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0001_Chronotron_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0001_Chronotron_Cannon', LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
+
             Damage = 100,
             DamageType = 'Normal',
+
             DisplayName = 'Chronotron Cannon',
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
+
             Label = 'ChronotronCannon',
+
             MaxRadius = 22,
             MinRadius = 2,
+
             MuzzleChargeDelay = 0.4,
 
             MuzzleVelocity = 35,
@@ -969,44 +912,52 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Turret_Muzzle',
             TurretBonePitch = 'Right_Arm_B02',
             TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 90,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 90,
+
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
         },
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0001_Chronotron_Cannon_OC',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0001_Chronotron_Cannon_OC', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
+
             Damage = 12000,
             DamageFriendly = false,
             DamageRadius = 2.5,
             DamageType = 'Overcharge',
+
             DisplayName = 'Chronotron Overcharge Cannon',
+
             EnergyChargeForFirstShot = false,
             EnergyDrainPerSecond = 5000,
             EnergyRequired = 5000,
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
+
             FiringTolerance = 2,
+
             Label = 'OverCharge',
+
             ManualFire = true,
+
             MaxRadius = 22,
             MinRadius = 2,
 
@@ -1030,9 +981,11 @@ UnitBlueprint {
 
             TargetCheckInterval = 0.16,
             TargetRestrictDisallow = 'UNTARGETABLE',
+
             TurretBoneMuzzle = 'Right_Turret_Muzzle',
             TurretBonePitch = 'Right_Arm_B02',
             TurretBoneYaw = 'Torso',
+
             TurretDualManipulators = false,
 
             TurretPitch = 0,

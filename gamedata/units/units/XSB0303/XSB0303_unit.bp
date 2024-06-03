@@ -1,27 +1,12 @@
 UnitBlueprint {
+
     Audio = {
-        Construct = Sound {
-            Bank = 'XSB',
-            Cue = 'XSB0303_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Factory',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Construct       = Sound { Bank = 'XSB', Cue = 'XSB0101_Construct_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        DeathExplosion  = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Factory', LodCutoff = 'UnitMove_LodCutoff'},
     },
-	
+
     BuildIconSortPriority = 32,
 	
     Categories = {
@@ -55,6 +40,11 @@ UnitBlueprint {
     Description = '<LOC xsb0303_desc>Advanced Naval Factory',
 	
     Display = {
+
+        Abilities = {
+            '<LOC ability_torpedodef>Torpedo Defense',
+        },
+
         AnimationDeath = {
             {
                 Animation = '/units/xsb0303/xsb0303_ADeath.sca',
@@ -133,8 +123,8 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 15,
-		WaterVisionRadius = 15,
+        VisionRadius = 24,
+		WaterVisionRadius = 30,
     },
 	
     Interface = {
@@ -222,7 +212,7 @@ UnitBlueprint {
 			
             Label = 'AntiTorpedo',
 			
-            MaxRadius = 25,
+            MaxRadius = 24,
 
             MuzzleVelocity = 8,
 			
@@ -276,7 +266,7 @@ UnitBlueprint {
 			
             Label = 'AntiTorpedo',
 			
-            MaxRadius = 25,
+            MaxRadius = 24,
 
             MuzzleVelocity = 8,
 			
@@ -303,9 +293,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.6,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Water = true,

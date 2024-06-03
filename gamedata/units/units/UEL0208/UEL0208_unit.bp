@@ -4,16 +4,8 @@ UnitBlueprint {
     },
 
     Audio = {
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0208_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        StartMove   = Sound { Bank = 'UEL', Cue = 'UEL0208_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     BuildIconSortPriority = 10,
@@ -56,6 +48,7 @@ UnitBlueprint {
         AnimationBuild = '/units/UEL0208/uel0208_aopen.sca',
         AnimationBuildRate = 5,
         AnimationWater = '/units/UEL0208/uel0208_awheels.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -72,33 +65,17 @@ UnitBlueprint {
                 },
             },
         },
+
         MovementEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'Front_Right_Wake',
-                        },
-                        Scale = 0.6,
-                        Type = 'LeftFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'Front_Left_Wake',
-                        },
-                        Scale = 0.6,
-                        Type = 'RightFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'UEL0208',
-                        },
-                        Scale = 0.4,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'Front_Right_Wake'}, Scale = 0.6, Type = 'LeftFrontWake' },
+                    { Bones = {'Front_Left_Wake'}, Scale = 0.6, Type = 'RightFrontWake' },
+                    { Bones = {'UEL0208'}, Scale = 0.4, Type = 'BackWake' },
                 },
             },
         },
+
         UniformScale = 0.08,
     },
 	
@@ -195,9 +172,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

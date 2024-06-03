@@ -7,12 +7,14 @@ XSB3104 = Class(SRadarUnit) {
     end,
 
     OnIntelEnabled = function(self)
+
         SRadarUnit.OnIntelEnabled(self)
 
         if(not self.Rotator1) then
             self.Rotator1 = CreateRotator(self, 'Array03', 'y')
             self.Trash:Add(self.Rotator1)
         end
+
         self.Rotator1:SetTargetSpeed(30)
         self.Rotator1:SetAccel(20)
         
@@ -20,6 +22,7 @@ XSB3104 = Class(SRadarUnit) {
             self.Rotator2 = CreateRotator(self, 'Array02', 'y')
             self.Trash:Add(self.Rotator2)
         end
+
         self.Rotator2:SetTargetSpeed(-20)
         self.Rotator2:SetAccel(20)
         
@@ -27,6 +30,7 @@ XSB3104 = Class(SRadarUnit) {
             self.Rotator3 = CreateRotator(self, 'Array01', 'y')
             self.Trash:Add(self.Rotator3)
         end
+
         self.Rotator3:SetTargetSpeed(10)
         self.Rotator3:SetAccel(20)
     end,

@@ -1,25 +1,13 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 45,
+		GuardReturnRadius = 44,
         GuardScanRadius = 36,
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0103_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'URL', Cue = 'URL0103_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {},
@@ -99,7 +87,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 18,
+        VisionRadius = 16,
     },
 	
     Interface = {
@@ -161,11 +149,7 @@ UnitBlueprint {
             ArtilleryShieldBlocks = true,
 
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0103_Grenade_EMP',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0103_Grenade_EMP', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_HighArc',

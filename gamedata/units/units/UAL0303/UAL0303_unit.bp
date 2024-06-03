@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0303_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UAL', Cue = 'UAL0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Bot', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {
@@ -54,6 +42,7 @@ UnitBlueprint {
         Health = 3100,
         MaxHealth = 3100,
         RegenRate = 2,
+
         Shield = {
             ImpactEffects = 'AeonShieldHit01',
             ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
@@ -69,16 +58,19 @@ UnitBlueprint {
             ShieldSize = 2.6,
             ShieldVerticalOffset = 0,
         },
+
         SurfaceThreatLevel = 40.7,
     },
 	
     Description = '<LOC ual0303_desc>Heavy Assault Bot',
 	
     Display = {
+
         Abilities = {
-            'Personal Shield',
+            '<LOC ability_personalshield>Personal Shield',
             'Can Assist',
         },
+
         AnimationDeath = {
             {
                 Animation = '/units/UAL0303/UAL0303_Adeath01.sca',
@@ -93,8 +85,10 @@ UnitBlueprint {
                 Weight = 1,
             },
         },
+
         AnimationWalk = '/units/ual0303/ual0303_awalk.sca',
         AnimationWalkRate = 10,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -132,7 +126,9 @@ UnitBlueprint {
     },
 	
     General = {
+
         BuildBones = { BuildEffectBones = {'Reclaim_Point'} },
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -143,9 +139,12 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+
         FactionName = 'Aeon',
         Icon = 'land',
+
         ToggleCaps = { RULEUTC_ShieldToggle = true },
+
         UnitName = '<LOC ual0303_name>Harbinger',
     },
 
@@ -277,9 +276,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.2,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.6,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

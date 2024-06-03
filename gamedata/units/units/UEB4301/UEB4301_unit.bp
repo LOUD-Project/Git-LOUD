@@ -1,16 +1,8 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 60,
@@ -55,6 +47,7 @@ UnitBlueprint {
             ShieldSize = 44,
             ShieldVerticalOffset = -4,
         },
+
         SurfaceThreatLevel = 111.3,
     },
 	
@@ -76,6 +69,7 @@ UnitBlueprint {
                 },
             },
         },
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_01_albedo',
@@ -88,6 +82,7 @@ UnitBlueprint {
                 Width = 10,
             },
         },
+
         UniformScale = 0.4,
     },
 	
@@ -109,16 +104,15 @@ UnitBlueprint {
     General = {
         FactionName = 'UEF',
         Icon = 'land',
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'toggle_shield_dome',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-dome', helpText = 'toggle_shield_dome' },
         },
+
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+
+        ToggleCaps = {RULEUTC_ShieldToggle = true},
+
         UnitName = '<LOC ueb4301_name>HSD Pulse',
 
         UpgradesFrom = 'ueb4202',

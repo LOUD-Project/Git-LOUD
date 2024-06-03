@@ -1,21 +1,9 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        Killed      = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Radar', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     BuildIconSortPriority = 180,
@@ -43,18 +31,21 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 18,
+
         Health = 65,
         MaxHealth = 65,
         RegenRate = 1,
+
+        EconomyThreatLevel = 19,
     },
 
     Description = '<LOC xsb3201_desc>Improved Radar System',
 
     Display = {
         Abilities = {
-            'Upgradeable',
+            '<LOC ability_upgradable>Upgradeable',
         },
+        
         AnimationDeath = {
             {
                 Animation = '/units/xsb3201/xsb3201_ADeath.sca',
@@ -63,6 +54,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -80,6 +72,7 @@ UnitBlueprint {
                 },
             },
         },
+        
         UniformScale = 0.075,
     },
 
@@ -91,12 +84,9 @@ UnitBlueprint {
 
         BuildableCategory = {'xsb3104'},
 
-        MaintenanceConsumptionPerSecondEnergy = 250,
+        MaintenanceConsumptionPerSecondEnergy = 225,
 
-        RebuildBonusIds = {
-            'xsb3201',
-            'xsb3104',
-        },
+        RebuildBonusIds = {'xsb3201','xsb3104'},
     },
 
     Footprint = {
@@ -105,21 +95,19 @@ UnitBlueprint {
     },
 
     General = {
-        CommandCaps = {
-            RULEUCC_Pause = true,
-        },
+        CommandCaps = { RULEUCC_Pause = true },
+        
         FactionName = 'Seraphim',
         Icon = 'land',
+        
         OrderOverrides = {
-            RULEUTC_IntelToggle = {
-                bitmapId = 'radar',
-                helpText = 'toggle_radar',
-            },
+            RULEUTC_IntelToggle = { bitmapId = 'radar', helpText = 'toggle_radar' },
         },
+        
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_IntelToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_IntelToggle = true },
+        
         UnitName = '<LOC xsb3201_name>Sele-esel',
 
         UpgradesFrom = 'xsb3101',
@@ -127,9 +115,9 @@ UnitBlueprint {
     },
 
     Intel = {
-        RadarRadius = 180,
         ReactivateTime = 5,
         ShowIntelOnSelect = true,
+        RadarRadius = 192,
         VisionRadius = 36,
     },
 

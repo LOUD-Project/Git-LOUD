@@ -4,10 +4,13 @@ local Buff = import('/lua/sim/Buff.lua')
 local BuffField = import('/lua/sim/BuffField.lua').BuffField
 
 local SWeapons = import('/lua/seraphimweapons.lua')
-local SDFChronotronCannonWeapon = SWeapons.SDFChronotronCannonWeapon
-local SDFChronotronOverChargeCannonWeapon = SWeapons.SDFChronotronCannonOverChargeWeapon
-local SIFCommanderDeathWeapon = SWeapons.SIFCommanderDeathWeapon
-local SIFLaanseTacticalMissileLauncher = SWeapons.SIFLaanseTacticalMissileLauncher
+
+local SDFChronotronCannonWeapon             = SWeapons.SDFChronotronCannonWeapon
+local SDFChronotronOverChargeCannonWeapon   = SWeapons.SDFChronotronCannonOverChargeWeapon
+local SIFCommanderDeathWeapon               = SWeapons.SIFCommanderDeathWeapon
+local SIFLaanseTacticalMissileLauncher      = SWeapons.SIFLaanseTacticalMissileLauncher
+
+SWeapons = nil,
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local EffectUtil = import('/lua/EffectUtilities.lua')
@@ -281,14 +284,6 @@ XSL0001 = Class( SWalkingLandUnit ) {
         self.BuildingUnit = false
     end,
     
-    PlayCommanderWarpInEffect = function(self)
-        self:HideBone(0, true)
-        self:SetUnSelectable(true)
-        self:SetBusy(true)
-        self:SetBlockCommandQueue(true)
-        self:ForkThread(self.WarpInEffectThread)
-    end, 
-    
     WarpInEffectThread = function(self)
         self:PlayUnitSound('CommanderArrival')
         self:CreateProjectile( '/effects/entities/UnitTeleport01/UnitTeleport01_proj.bp', 0, 1.35, 0, nil, nil, nil):SetCollision(false)
@@ -310,12 +305,6 @@ XSL0001 = Class( SWalkingLandUnit ) {
         end
 
         WaitSeconds(6)
-    end,
-
-    GiveInitialResources = function(self)
-        WaitTicks(2)
-        self:GetAIBrain():GiveResource('Energy', self:GetBlueprint().Economy.StorageEnergy)
-        self:GetAIBrain():GiveResource('Mass', self:GetBlueprint().Economy.StorageMass)
     end,
 
     CreateBuildEffects = function( self, unitBeingBuilt, order )

@@ -1,20 +1,8 @@
 UnitBlueprint {
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        Killed      = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Radar', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     BuildIconSortPriority = 200,
@@ -28,7 +16,6 @@ UnitBlueprint {
         'SERAPHIM',
         'DRAGBUILD',
         'STRUCTURE',
-        'INTELLIGENCE',
         'TECH2',
         'COUNTERINTELLIGENCE',
         'SIZE12',
@@ -42,10 +29,12 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 4,
+
         Health = 200,
         MaxHealth = 200,
         RegenRate = 0,
+
+        EconomyThreatLevel = 10,
     },
 
     Description = '<LOC xsb4203_desc>Stealth Field Generator',
@@ -54,6 +43,7 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_stealthfield>Stealth Field',
         },
+
         AnimationDeath = {
             {
                 Animation = '/units/xsb4203/xsb4203_ADeath.sca',
@@ -83,6 +73,7 @@ UnitBlueprint {
                 OffsetZ = 0.5,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -99,6 +90,7 @@ UnitBlueprint {
                 },
             },
         },
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_seraphim_01_albedo',
@@ -111,15 +103,16 @@ UnitBlueprint {
                 Width = 12.8,
             },
         },
+
         UniformScale = 0.035,
     },
 
     Economy = {
-        BuildCostEnergy = 5670,
-        BuildCostMass = 378,
-        BuildTime = 420,
+        BuildCostEnergy = 5400,
+        BuildCostMass = 360,
+        BuildTime = 600,
 
-        MaintenanceConsumptionPerSecondEnergy = 125,
+        MaintenanceConsumptionPerSecondEnergy = 225,
 
         RebuildBonusIds = {'xsb4203'},
     },
@@ -132,24 +125,23 @@ UnitBlueprint {
     General = {
         FactionName = 'Seraphim',
         Icon = 'land',
+
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-field',
-                helpText = 'toggle_stealth_field',
-            },
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-field', helpText = 'toggle_stealth_field' },
         },
+        
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+        
         UnitName = '<LOC xsb4203_name>Sele-ioz',
     },
 
     Intel = {
-        RadarStealthFieldRadius = 24,
         ReactivateTime = 5,
+        RadarStealthFieldRadius = 24,
         SonarStealthFieldRadius = 24,
-        VisionRadius = 0,
+        VisionRadius = 4,
     },
 
     Interface = {
@@ -195,7 +187,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

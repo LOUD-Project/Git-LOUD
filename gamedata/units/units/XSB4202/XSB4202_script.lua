@@ -1,11 +1,8 @@
 local SShieldStructureUnit = import('/lua/seraphimunits.lua').SShieldStructureUnit
 
 XSB4202 = Class(SShieldStructureUnit) {
-    ShieldEffects = {
---        '/effects/emitters/seraphim_shield_generator_t2_01_emit.bp',
---        '/effects/emitters/seraphim_shield_generator_t3_03_emit.bp',
---        '/effects/emitters/seraphim_shield_generator_t2_03_emit.bp',
-    },
+
+    ShieldEffects = {},
     
     OnStopBeingBuilt = function(self,builder,layer)
         SShieldStructureUnit.OnStopBeingBuilt(self,builder,layer)

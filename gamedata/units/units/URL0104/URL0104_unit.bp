@@ -6,21 +6,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0104_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'URL', Cue = 'URL0104_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -57,16 +45,9 @@ UnitBlueprint {
             'Toggles between AA and Ground',
 			'Inaccurate against Ground',
         },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 215,
-                    Scrolling = true,
-                    ShaderName = 'Insect',
-                },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, Scrolling = true, ShaderName = 'Insect' } } },
+
         UniformScale = 0.125,
     },
 	
@@ -88,14 +69,13 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'land',
+
         OrderOverrides = {
-            RULEUTC_WeaponToggle = {
-                bitmapId = 'toggle-weapon-air',
-            },
+            RULEUTC_WeaponToggle = { bitmapId = 'toggle-weapon-air' },
         },
-        ToggleCaps = {
-            RULEUTC_WeaponToggle = true,
-        },
+
+        ToggleCaps = { RULEUTC_WeaponToggle = true },
+
         UnitName = '<LOC url0104_name>Sky Slammer',
     },
 	
@@ -160,11 +140,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0104_Nano_Dart',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0104_Nano_Dart', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -183,7 +159,7 @@ UnitBlueprint {
 			
             Label = 'AAGun',
 			
-            MaxRadius = 35,
+            MaxRadius = 30,
 
             MuzzleVelocity = 14,
 			
@@ -229,11 +205,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0104_Nano_Dart',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0104_Nano_Dart', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = false,
@@ -248,12 +220,12 @@ UnitBlueprint {
                 Land = 'Land|Water',
             },
 			
-            FiringRandomness = 0.8,
+            FiringRandomness = 0.7,
             FiringTolerance = 0.5,
 			
             Label = 'GroundGun',
 			
-            MaxRadius = 16,
+            MaxRadius = 20,
 
             MuzzleVelocity = 14,
 			
@@ -302,9 +274,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

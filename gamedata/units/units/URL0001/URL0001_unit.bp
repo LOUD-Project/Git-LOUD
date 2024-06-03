@@ -2,64 +2,24 @@ UnitBlueprint {
     AI = {
         GuardScanRadius = 22,
 
-        TargetBones = {
-            'Head',
-            'Torso',
-            'Right_Arm_B01',
-            'Left_Arm_B01',
-            'Back_Upgrade',
-            'Left_Leg_B01',
-            'Right_Leg_B01',
-        },
+        TargetBones = {'Head','Torso','Right_Arm_B01','Left_Arm_B01','Back_Upgrade','Left_Leg_B01','Right_Leg_B01'},
 
     },
 
     Audio = {
-        CommanderArrival = Sound {
-            Bank = 'URL',
-            Cue = 'URL0001_Gate_In',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Construct = Sound {
-            Bank = 'URL',
-            Cue = 'URL0001_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        EnhanceStart = Sound {
-            Bank = 'UnitsGlobal',
-            Cue = 'GLB_Enhance_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        FootFallGeneric = Sound {
-            Bank = 'URL',
-            Cue = 'URL0001_Move_Step',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        FootFallGenericSeabed = Sound {
-            Bank = 'URL',
-            Cue = 'URL0001_Move_UW_Step',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'Explosions',
-            Cue = 'Cybran_Nuke_Impact',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0001_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Commander',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        CommanderArrival        = Sound { Bank = 'URL', Cue = 'URL0001_Gate_In',         LodCutoff = 'UnitMove_LodCutoff' },
+        Construct               = Sound { Bank = 'URL', Cue = 'URL0001_Construct_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        FootFallGeneric         = Sound { Bank = 'URL', Cue = 'URL0001_Move_Step',       LodCutoff = 'UnitMove_LodCutoff' },
+        FootFallGenericSeabed   = Sound { Bank = 'URL', Cue = 'URL0001_Move_UW_Step',    LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove               = Sound { Bank = 'URL', Cue = 'URL0001_Move_Start',      LodCutoff = 'UnitMove_LodCutoff' },
+        EnhanceStart            = Sound { Bank = 'UnitsGlobal',  Cue = 'GLB_Enhance_Start',         LodCutoff = 'UnitMove_LodCutoff' },
+        Killed                  = Sound { Bank = 'Explosions',   Cue = 'Cybran_Nuke_Impact',        LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection             = Sound { Bank = 'Interface',    Cue = 'Cybran_Select_Commander',   LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     Buffs = {
         Regen = {
-            Level1 = 16,
+            Level1 = 15,
             Level2 = 18,
             Level3 = 21,
             Level4 = 24,
@@ -106,28 +66,23 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Amphibious',
-            'Customizable',
-            'Omni Sensor',
-            'Volatile',
+            '<LOC ability_amphibious>Amphibious',
+            '<LOC ability_customizable>Customizable',
+            '<LOC ability_omni>Omni Sensor',
+            '<LOC ability_deathaoe>Volatile',
         },
+
         AnimationWalk = '/units/url0001/url0001_awalk02.sca',
         AnimationWalkRate = 1.7,
+
         IdleEffects = {
             Seabed = {
                 Effects = {
-                    {
-                        Bones = {
-                            'Left_Arm_B01',
-                            'Right_Arm_B01',
-                            'Turret_Muzzle_01',
-                            'Turret_Muzzle_02',
-                        },
-                        Type = 'UnderWater01',
-                    },
+                    { Bones = {'Left_Arm_B01','Right_Arm_B01','Turret_Muzzle_01','Turret_Muzzle_02'}, Type = 'UnderWater01' },
                 },
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -143,6 +98,7 @@ UnitBlueprint {
                 },
             },
         },
+
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -155,11 +111,7 @@ UnitBlueprint {
                                 TreadMarks = 'CommanderPrint_albedo',
                                 TreadMarksSizeX = 0.5,
                                 TreadMarksSizeZ = 0.5,
-                                TreadOffset = {
-                                    0.15,
-                                    0,
-                                    0.45,
-                                },
+                                TreadOffset = {0.15,0,0.45},
                             },
                             Type = 'FootFall02',
                         },
@@ -171,11 +123,7 @@ UnitBlueprint {
                                 TreadMarks = 'CommanderPrint_albedo',
                                 TreadMarksSizeX = 0.5,
                                 TreadMarksSizeZ = 0.5,
-                                TreadOffset = {
-                                    -0.15,
-                                    0,
-                                    0.45,
-                                },
+                                TreadOffset = {-0.15,0,0.45},
                             },
                             Type = 'FootFall02',
                         },
@@ -184,18 +132,9 @@ UnitBlueprint {
             },
         },
 
-        TransportAnimation = {
-            {
-                Animation = '/units/URL0001/URL0001_afold.sca',
-                Weight = 100,
-            },
-        },
-        TransportDropAnimation = {
-            {
-                Animation = '/units/URL0001/URL0001_aunfold.sca',
-                Weight = 100,
-            },
-        },
+        TransportAnimation = { { Animation = '/units/URL0001/URL0001_afold.sca', Weight = 100 } },
+        TransportDropAnimation = { { Animation = '/units/URL0001/URL0001_aunfold.sca', Weight = 100 } },
+
         UniformScale = 0.16,
     },
 	
@@ -232,21 +171,9 @@ UnitBlueprint {
     Enhancements = {
 	
         Slots = {
-            Back = {
-                name = '<LOC _Back>',
-                x = 0,
-                y = -10,
-            },
-            LCH = {
-                name = '<LOC _LCH>',
-                x = 60,
-                y = 2,
-            },
-            RCH = {
-                name = '<LOC _RCH>',
-                x = -16,
-                y = 0,
-            },
+            Back    = { name = '<LOC _Back>', x = 0, y = -10 },
+            LCH     = { name = '<LOC _LCH>', x = 60, y = 2 },
+            RCH     = { name = '<LOC _RCH>', x = -16, y = 0 },
         },	
 		
         AdvancedEngineering = {
@@ -706,9 +633,7 @@ UnitBlueprint {
     General = {
         BuildBones = {
             AimBone = 0,
-            BuildEffectBones = {
-                'Turret_Muzzle_01',
-            },
+            BuildEffectBones = {'Turret_Muzzle_01'},
             PitchBone = 'Left_Turret',
             YawBone = 'Torso',
         },
@@ -803,11 +728,7 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0001_Ripper',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0001_Ripper', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_LowArc',
@@ -821,7 +742,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
 
@@ -878,11 +798,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0001_Ripper',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0001_Ripper', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -906,7 +822,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
 
@@ -998,21 +913,9 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart   = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Start', LodCutoff = 'Weapon_LodCutoff'},
+                BeamStop    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop', LodCutoff = 'Weapon_LodCutoff'},
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -1035,7 +938,7 @@ UnitBlueprint {
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
 
@@ -1089,8 +992,11 @@ UnitBlueprint {
             Damage = 250,
             DamageType = 'Normal',
             DisplayName = 'Nanite Torpedo',
+
             EffectiveRadius = 0,
+
             EnabledByEnhancement = 'NaniteTorpedoTube',
+
             FireTargetLayerCapsTable = {
                 Seabed = 'Seabed|Sub|Water',
             },
@@ -1102,7 +1008,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 5,
 
-            ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
+            ProjectileId = '/projectiles/CANTorpedoNanite02/CANTorpedoNanite02_proj.bp',
             ProjectileLifetime = 7,
 
             RackBones = {

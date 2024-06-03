@@ -12,16 +12,8 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UEADestroy',
-            Cue = 'UEA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'UEADestroy', Cue = 'UEA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Air', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Categories = {
@@ -45,15 +37,9 @@ UnitBlueprint {
     Description = '<LOC xea0002_desc>Intelligence Satellite',
     
     Display = {
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 700,
-                    ShaderName = 'Unit',
-                },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 700, ShaderName = 'Unit' } } },
+
         UniformScale = 0.05,
     },
 	
@@ -63,8 +49,7 @@ UnitBlueprint {
 	
     General = {
         CapCost = 0,
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryAircraft',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -75,12 +60,10 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Secret',
-        UnitWeight = 1,
     },
 	
     Intel = {
-        VisionRadius = 50,
+        VisionRadius = 44,
     },
 	
     Interface = {

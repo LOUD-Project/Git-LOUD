@@ -4,31 +4,11 @@ UnitBlueprint {
     },
 
     Audio = {
-        Close = Sound {
-            Bank = 'XSB',
-            Cue = 'XSB2108_Doors_Close',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Open = Sound {
-            Bank = 'XSB',
-            Cue = 'XSB2108_Doors_Open',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Close       = Sound { Bank = 'XSB', Cue = 'XSB2108_Doors_Close', LodCutoff = 'UnitMove_LodCutoff' },
+        Open        = Sound { Bank = 'XSB', Cue = 'XSB2108_Doors_Open', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed      = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {
@@ -77,6 +57,7 @@ UnitBlueprint {
         Abilities = {
             'Manual Launch',
         },
+
         AnimationDeath = {
             {
                 Animation = '/units/xsb2108/xsb2108_ADeath.sca',
@@ -85,6 +66,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -103,6 +85,7 @@ UnitBlueprint {
                 },
             },
         },
+
         UniformScale = 0.05,
     },
 
@@ -134,7 +117,7 @@ UnitBlueprint {
     },
 
     Intel = {
-        VisionRadius = 15,
+        VisionRadius = 16,
     },
 
     Interface = {
@@ -187,11 +170,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2108_Laanse_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2108_Laanse_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
@@ -205,7 +184,6 @@ UnitBlueprint {
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 5,
 
@@ -254,11 +232,12 @@ UnitBlueprint {
             WeaponUnpacks = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.9,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

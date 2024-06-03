@@ -7,30 +7,18 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UASDestroy',
-            Cue = 'UAS0302_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAS',
-            Cue = 'UAS0302_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed = Sound { Bank = 'UASDestroy', Cue = 'UAS0302_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove = Sound { Bank = 'UAS', Cue = 'UAS0302_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Naval', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 18,
-            Level2 = 36,
-            Level3 = 54,
-            Level4 = 72,
-            Level5 = 90,
+            Level1 = 9,
+            Level2 = 18,
+            Level3 = 27,
+            Level4 = 36,
+            Level5 = 45,
         },
     },
 	
@@ -55,10 +43,11 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        EconomyThreatLevel = 0,
+
         Health = 40000,
         MaxHealth = 40000,
         RegenRate = 18,
+
         SurfaceThreatLevel = 63,
     },
 	
@@ -66,9 +55,10 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Radar',
-            'Tactical Missile Defense',
+            '<LOC ability_radar>Radar',
+            "<LOC ability_tacmissiledef>Tactical Missile Defense",
         },
+
         AnimationDeath = {
             {
                 Animation = '/units/uas0302/uas0302_adeath01.sca',
@@ -83,6 +73,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -98,13 +89,12 @@ UnitBlueprint {
                 },
             },
         },
+
         MovementEffects = {
             Water = {
                 Effects = {
                     {
-                        Bones = {
-                            'UAS0302',
-                        },
+                        Bones = {'UAS0302'},
                         Scale = 1.2,
                         Type = 'BackWake',
                     },
@@ -123,6 +113,7 @@ UnitBlueprint {
 
     General = {
 		CapCost = 3,
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -137,9 +128,10 @@ UnitBlueprint {
     },
 	
     Intel = {
-        RadarRadius = 90,
-        VisionRadius = 36,
-        WaterVisionRadius = 24,
+        RadarRadius = 88,
+
+        VisionRadius = 40,
+        WaterVisionRadius = 20,
     },
 	
     Interface = {
@@ -194,13 +186,14 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+
             AnimationOpen = '/units/uas0302/uas0302_awepF01.sca',
 
             Audio = {
-                BarrelLoop = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
-                BarrelStart = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
-                Fire = Sound { Bank = 'UASWeapon', Cue = 'UAS0302_Cannon_Oblivion', LodCutoff = 'WeaponBig_LodCutoff' },
-                MuzzleChargeStart = Sound { Bank = 'UASWeapon', Cue = 'UAS0302_Cannon_Oblv_Charge', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelLoop          = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire                = Sound { Bank = 'UASWeapon', Cue = 'UAS0302_Cannon_Oblivion', LodCutoff = 'WeaponBig_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'UASWeapon', Cue = 'UAS0302_Cannon_Oblv_Charge', LodCutoff = 'WeaponBig_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_LowArc',
@@ -284,10 +277,10 @@ UnitBlueprint {
             AnimationOpen = '/units/uas0302/uas0302_awepM01.sca',
 
             Audio = {
-                BarrelLoop = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
-                BarrelStart = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
-                Fire = Sound { Bank = 'UASWeapon', Cue = 'UAS0302_Cannon_Oblivion', LodCutoff = 'WeaponBig_LodCutoff' },
-                MuzzleChargeStart = Sound { Bank = 'UASWeapon', Cue = 'UAS0302_Cannon_Oblv_Charge', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelLoop          = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire                = Sound { Bank = 'UASWeapon', Cue = 'UAS0302_Cannon_Oblivion', LodCutoff = 'WeaponBig_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'UASWeapon', Cue = 'UAS0302_Cannon_Oblv_Charge', LodCutoff = 'WeaponBig_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_LowArc',
@@ -370,10 +363,10 @@ UnitBlueprint {
             AnimationOpen = '/units/uas0302/uas0302_awepB01.sca',
 
             Audio = {
-                BarrelLoop = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
-                BarrelStart = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
-                Fire = Sound { Bank = 'UASWeapon', Cue = 'UAS0302_Cannon_Oblivion', LodCutoff = 'WeaponBig_LodCutoff' },
-                MuzzleChargeStart = Sound { Bank = 'UASWeapon', Cue = 'UAS0302_Cannon_Oblv_Charge', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelLoop          = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire                = Sound { Bank = 'UASWeapon', Cue = 'UAS0302_Cannon_Oblivion', LodCutoff = 'WeaponBig_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'UASWeapon', Cue = 'UAS0302_Cannon_Oblv_Charge', LodCutoff = 'WeaponBig_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_LowArc',
@@ -465,10 +458,7 @@ UnitBlueprint {
 			FiringRandomness = 20,
             FiringTolerance = 360,
 			
-            Flare = {
-                Category = 'MISSILE',
-                Radius = 22,
-            },
+            Flare = { Category = 'MISSILE', Radius = 22 },
 			
             Label = 'AntiMissile1',
 			
@@ -513,10 +503,7 @@ UnitBlueprint {
 			FiringRandomness = 20,
             FiringTolerance = 360,
 			
-            Flare = {
-                Category = 'MISSILE',
-                Radius = 22,
-            },
+            Flare = { Category = 'MISSILE', Radius = 22 },
 			
             Label = 'AntiMissile2',
 			

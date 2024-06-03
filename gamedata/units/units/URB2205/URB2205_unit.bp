@@ -4,16 +4,8 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Gun', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     Buffs = {
@@ -72,15 +64,14 @@ UnitBlueprint {
             '<LOC ability_sonar>Sonar',
             '<LOC ability_personalstealth>Personal Stealth',
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 215,
-                    ShaderName = 'Insect',
-                },
+                { LODCutoff = 215, ShaderName = 'Insect' },
             },
         },
+
         UniformScale = 0.17,
     },
 
@@ -204,7 +195,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 7.5,
 			
-            ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
+            ProjectileId = '/projectiles/CANTorpedoNanite02/CANTorpedoNanite02_proj.bp',
             ProjectileLifetime = 8,
 
             RackBones = {

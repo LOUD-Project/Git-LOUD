@@ -7,21 +7,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UESDestroy',
-            Cue = 'UES0103_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UES',
-            Cue = 'UES0103_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'UESDestroy', Cue = 'UES0103_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UES', Cue = 'UES0103_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Naval', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -48,10 +36,13 @@ UnitBlueprint {
 	
     Defense = {
         AirThreatLevel = 7.2,
+
         ArmorType = 'Normal',
+
         Health = 2100,
         MaxHealth = 2100,
         RegenRate = 3,
+
         SurfaceThreatLevel = 6.5,
     },
 	
@@ -60,24 +51,16 @@ UnitBlueprint {
     Display = {
 	
         Abilities = {
-            'Anti-Air',
+            '<LOC ability_aa>Anti-Air',
+            '<LOC ability_radar>Radar',
             'Radar Spoofing - creates false blips',
-            'Radar & Sonar',
+            '<LOC ability_sonar>Sonar',                        
         },
 		
         AnimationDeath = {
-            {
-                Animation = '/units/ues0103/ues0103_ADeath01.sca',
-                Weight = 100,
-            },
-            {
-                Animation = '/units/ues0103/ues0103_A001.sca',
-                Weight = 100,
-            },
-            {
-                Animation = '/units/ues0103/ues0103_ADeath02.sca',
-                Weight = 100,
-            },
+            { Animation = '/units/ues0103/ues0103_ADeath01.sca', Weight = 100 },
+            { Animation = '/units/ues0103/ues0103_A001.sca', Weight = 100 },
+            { Animation = '/units/ues0103/ues0103_ADeath02.sca', Weight = 100 },
         },
 
         Mesh = {
@@ -97,24 +80,14 @@ UnitBlueprint {
         },
 		
         MovementEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Back_Wake',
-                        },
-                        Scale = 0.3,
-                        Type = 'BackWake',
-                    },
-                },
-            },
+            Water = { Effects = { { Bones = {'Back_Wake'}, Scale = 0.3, Type = 'BackWake' } } },
         },
 
         UniformScale = 0.05,
     },
 	
     Economy = {
-        BuildCostEnergy = 3500,
+        BuildCostEnergy = 3650,
         BuildCostMass = 400,
         BuildTime = 2000,
 		
@@ -132,23 +105,25 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'sea',
-        ToggleCaps = {
-            RULEUTC_JammingToggle = true,
-        },
+        ToggleCaps = {RULEUTC_JammingToggle = true},
+
         UnitName = '<LOC ues0103_name>Thunderhead Class',
     },
 	
     Intel = {
 		FreeIntel = true,
+
         JamRadius = {
             Max = 60,
             Min = 40,
         },
         JammerBlips = 4,
+
         RadarRadius = 60,
-        SonarRadius = 45,
+        SonarRadius = 44,
+
         VisionRadius = 32,
-        WaterVisionRadius = 18,
+        WaterVisionRadius = 16,
     },
 	
     Interface = {
@@ -160,7 +135,7 @@ UnitBlueprint {
     LifeBarSize = 1.25,
 	
     Physics = {
-        BackUpDistance = 2,
+        BackUpDistance = 8,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Water = true,
@@ -207,17 +182,17 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 
             Audio = {
-                BarrelLoop = Sound { Bank = 'UES', Cue = 'UES_Turret_Sml_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BarrelLoop  = Sound { Bank = 'UES', Cue = 'UES_Turret_Sml_Loop', LodCutoff = 'Weapon_LodCutoff' },
                 BarrelStart = Sound { Bank = 'UES', Cue = 'UES_Turret_Sml_Start', LodCutoff = 'Weapon_LodCutoff' },
-                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0103_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
+                Fire        = Sound { Bank = 'UESWeapon', Cue = 'UES0103_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
 
             CollideFriendly = false,
 			
-            Damage = 130,
-            DamageRadius = 0,
+            Damage = 180,
+            DamageRadius = 1,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -227,7 +202,6 @@ UnitBlueprint {
             },
 			
             FiringRandomness = 0.2,
-            FiringTolerance = 1,
 			
             Label = 'MainGun',
 			
@@ -248,7 +222,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.5,		-- 65 DPS Surface
+            RateOfFire = 0.5,		-- 90 DPS Surface
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 155,
@@ -356,7 +330,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 100,
+            TurretYawSpeed = 80,
             
 			Turreted = true,
         },

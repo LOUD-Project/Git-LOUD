@@ -1,15 +1,8 @@
 UnitBlueprint {
+
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy',   Cue = 'UEB_Destroy_Med_Land',   LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',    Cue = 'UEF_Select_Radar',       LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     BuildIconSortPriority = 10,
@@ -37,43 +30,29 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 11,
+
         Health = 20,
         MaxHealth = 20,
         RegenRate = 0,
+
+        EconomyThreatLevel = 11,
     },
 
     Description = '<LOC ueb3101_desc>Basic Radar System',
 
     Display = {
+
         Abilities = {
-            'Upgradeable',
+            '<LOC ability_upgradable>Upgradeable',
         },
 
         AnimationUpgrade = '/units/ueb3101/ueb3101_aupgrade.sca',
 
-        DamageEffects = {
-            {
-                Bone = 0,
-                OffsetX = 0,
-                OffsetY = 2,
-                OffsetZ = 0,
-            },
-        },
-
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    ShaderName = 'Unit',
-                },
-                {
-                    AlbedoName = 'ueb3101_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Unit',
-                    SpecularName = 'ueb3101_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, ShaderName = 'Unit' },
+                { AlbedoName = 'ueb3101_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Unit', SpecularName = 'ueb3101_lod1_specteam.dds' },
             },
         },
 
@@ -90,11 +69,7 @@ UnitBlueprint {
 
         MaintenanceConsumptionPerSecondEnergy = 20,
 
-        RebuildBonusIds = {
-            'ueb3101',
-            'ueb3201',
-            'ueb3104',
-        },
+        RebuildBonusIds = {'ueb3101','ueb3201','ueb3104'},
     },
 
     Footprint = {
@@ -103,31 +78,27 @@ UnitBlueprint {
     },
 
     General = {
-        CommandCaps = {
-            RULEUCC_Pause = true,
-        },
+        CommandCaps = { RULEUCC_Pause = true },
         FactionName = 'UEF',
         Icon = 'land',
         OrderOverrides = {
-            RULEUTC_IntelToggle = {
-                bitmapId = 'radar',
-                helpText = 'toggle_radar',
-            },
+            RULEUTC_IntelToggle = { bitmapId = 'radar', helpText = 'toggle_radar' },
         },
         SelectionPriority = 5,
 
-        ToggleCaps = {
-            RULEUTC_IntelToggle = true,
-        },
+        ToggleCaps = { RULEUTC_IntelToggle = true },
+
+        UnitName = '<LOC ueb3201_name>SA1 - 1000',
 
         UpgradesTo = 'ueb3201',
     },
 
     Intel = {
-        RadarRadius = 115,
         ReactivateTime = 10,
         ShowIntelOnSelect = true,
-        VisionRadius = 26,
+
+        RadarRadius = 116,
+        VisionRadius = 24,
     },
 
     Interface = {

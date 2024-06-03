@@ -2,16 +2,8 @@ UnitBlueprint {
     Adjacency = 'T1MassExtractorAdjacencyBuffs',
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     BuildIconSortPriority = 40,
@@ -47,7 +39,8 @@ UnitBlueprint {
 
     Display = {
         Abilities = {
-            'Upgradeable',
+            '<LOC ability_aquatic>Aquatic: can be built underwater',
+            '<LOC ability_upgradable>Upgradeable',
         },
 
         AnimationOpen = '/units/ueb1103/ueb1103_Apump.sca',
@@ -91,16 +84,13 @@ UnitBlueprint {
     },
     
     General = {
-        CommandCaps = {
-            RULEUCC_Pause = true,
-        },
+        CommandCaps = {RULEUCC_Pause = true},
+
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 5,
 
-        ToggleCaps = {
-            RULEUTC_ProductionToggle = true,
-        },
+        ToggleCaps = {RULEUTC_ProductionToggle = true},
 
         UpgradesTo = 'ueb1202',
     },

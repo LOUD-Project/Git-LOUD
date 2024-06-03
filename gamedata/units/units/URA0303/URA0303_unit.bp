@@ -39,21 +39,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0303_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'URADestroy', Cue = 'URA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'URA', Cue = 'URA0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -79,7 +67,7 @@ UnitBlueprint {
         ArmorType = 'Light',
         Health = 2100,
         MaxHealth = 2100,
-        RegenRate = 10,
+        RegenRate = 8,
     },
 	
     Description = '<LOC ura0303_desc>Air Superiority Fighter',
@@ -87,9 +75,9 @@ UnitBlueprint {
     Display = {
 	
         Abilities = {
-            'Anti-Air',
-			'Radar',
-            'Personal Stealth',
+            "<LOC ability_aa>Anti-Air",
+			'<LOC ability_radar>Radar',
+            '<LOC ability_personalstealth>Personal Stealth',
         },
 		
         Mesh = {
@@ -146,9 +134,11 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-		RadarRadius = 50,
+        
+		RadarRadius = 48,
         RadarStealth = true,
-        VisionRadius = 32,
+        
+        VisionRadius = 36,
     },
 	
     Interface = {
@@ -229,7 +219,7 @@ UnitBlueprint {
 			
             Label = 'Missiles1',
 			
-            MaxRadius = 48,
+            MaxRadius = 40,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,

@@ -1,4 +1,3 @@
-
 local CStructureUnit = import('/lua/cybranunits.lua').CStructureUnit
 
 URB5103 = Class(CStructureUnit) {

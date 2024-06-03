@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0202_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'URL', Cue = 'URL0202_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Tank', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {
@@ -51,24 +39,15 @@ UnitBlueprint {
         ArmorType = 'Normal',
         Health = 1050,
         MaxHealth = 1050,
-        RegenRate = 1.5,
+        RegenRate = 2,
         SurfaceThreatLevel = 8.0,
     },
 	
     Description = '<LOC url0202_desc>Laser Tank',
 	
     Display = {
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 215,
-                    Scrolling = true,
-                    ShaderName = 'Insect',
-                    Silhouette = true,
-                },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, Scrolling = true, ShaderName = 'Insect', Silhouette = true } } },
 
         UniformScale = 0.135,
     },
@@ -91,11 +70,12 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'land',
+
         UnitName = '<LOC url0202_name>Rhino',
     },
 	
     Intel = {
-        VisionRadius = 22,
+        VisionRadius = 24,
     },
 	
     Interface = {
@@ -159,12 +139,12 @@ UnitBlueprint {
 
             BallisticArc = 'RULEUBA_None',
 			
-            BeamCollisionDelay = 0,
+            BeamCollisionDelay = 0.2,
             BeamLifetime = 0.2,
 
             CollideFriendly = false,
 			
-            Damage = 10,
+            Damage = 20,
             DamageType = 'Normal',
 			
             DisplayName = 'Laser Cannon',
@@ -178,20 +158,20 @@ UnitBlueprint {
 			
             MaxRadius = 27,
 
-            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle01',
-                        'Turret_Muzzle02',
-                    },
+                    MuzzleBones = {'Turret_Muzzle01','Turret_Muzzle02'},
                     RackBone = 'Barrel',
                 },
             },
 
+            RackSalvoReloadTime = 0.2,
+            
             RangeCategory = 'UWRC_DirectFire',
+            
 			
             RateOfFire = 2.0,	---- 2 muzzles causing 20 damage when fired and twice per second = 80 DPS
             ReTargetOnMiss = true,
@@ -225,7 +205,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.7,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
 
         WreckageLayers = {

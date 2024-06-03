@@ -6,6 +6,8 @@ local ADFCannonOblivionWeapon = WeaponsFile.ADFCannonOblivionWeapon02
 local AANDepthChargeBombWeapon = WeaponsFile.AANDepthChargeBombWeapon
 local ADFQuantumAutogunWeapon = WeaponsFile.ADFQuantumAutogunWeapon
 
+WeaponsFile = nil
+
 BAA0001 = Class(AAirUnit) {
 
     Weapons = {

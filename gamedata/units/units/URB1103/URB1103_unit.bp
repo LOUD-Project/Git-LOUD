@@ -1,17 +1,9 @@
 UnitBlueprint {
     Adjacency = 'T1MassExtractorAdjacencyBuffs',
-
+    
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     BuildIconSortPriority = 40,
@@ -47,7 +39,7 @@ UnitBlueprint {
 
     Display = {
         Abilities = {
-            'Upgradeable',
+            '<LOC ability_upgradable>Upgradeable',
         },
 
         AnimationOpen = '/units/urb1103/urb1103_Apump.sca',
@@ -68,6 +60,7 @@ UnitBlueprint {
                 },
             },
         },
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar6x_cybran_01_albedo',
@@ -80,6 +73,7 @@ UnitBlueprint {
                 Width = 6.4,
             },
         },
+
         UniformScale = 0.1,
     },
 
@@ -95,26 +89,20 @@ UnitBlueprint {
         
         ProductionPerSecondMass = 2,
         
-        RebuildBonusIds = {
-            'urb1103',
-            'urb1202',
-            'urb1302',
-        },
+        RebuildBonusIds = {'urb1103','urb1202','urb1302'},
 
         StorageEnergy = 60,
         StorageMass = 6,        
     },
 
     General = {
-        CommandCaps = {
-            RULEUCC_Pause = true,
-        },
+        CommandCaps = {RULEUCC_Pause = true},
+
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_ProductionToggle = true,
-        },
+
+        ToggleCaps = {RULEUTC_ProductionToggle = true},
 
         UpgradesTo = 'urb1202',
     },

@@ -14,26 +14,10 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'Explosions',
-            Cue = 'Aeon_Nuke_Impact',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0301_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Commander',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed      = Sound { Bank = 'Explosions', Cue = 'Aeon_Nuke_Impact', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UAL', Cue = 'UAL0301_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Commander', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -103,9 +87,9 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Amphibious',
-            'Customizable',
-            'Omni Sensor',
+            '<LOC ability_amphibious>Amphibious',
+            '<LOC ability_customizable>Customizable',
+            '<LOC ability_omni>Omni Sensor',
         },
 
         AnimationWalk = '/units/UAL0301/UAL0301_AWalk01.sca',
@@ -175,23 +159,10 @@ UnitBlueprint {
     Enhancements = {
         
         Slots = {
-            Back = {
-                name = '<LOC _Back>',
-                x = -13,
-                y = -8,
-            },
-            LCH = {
-                name = '<LOC _LCH>',
-                x = 60,
-                y = 50,
-            },
-            RCH = {
-                name = '<LOC _RCH>',
-                x = -16,
-                y = 50,
-            },
-			Command = {
-			},
+            Back = { name = '<LOC _Back>', x = -13, y = -8 },
+            LCH = { name = '<LOC _LCH>', x = 60, y = 50 },
+            RCH = { name = '<LOC _RCH>', x = -16, y = 50 },
+			Command = {},
         },
 
         EngineeringFocusingModule = {
@@ -463,7 +434,9 @@ UnitBlueprint {
             PitchBone = 'Arm_Right_B03',
             YawBone = 'Torso',
         },
+
 		CapCost = -3,
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -477,23 +450,24 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+
         ConstructionBar = true,
         FactionName = 'Aeon',
         Icon = 'amph',
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-personal',
-                helpText = 'toggle_shield_personal',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-personal', helpText = 'toggle_shield_personal' },
         },
+
         SelectionPriority = 3,
     },
     
     Intel = {
         FreeIntel = true,
+
         OmniRadius = 12,
-        VisionRadius = 33,
-        WaterVisionRadius = 18,
+        VisionRadius = 32,
+        WaterVisionRadius = 20,
     },
     
     Interface = {
@@ -630,6 +604,7 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,

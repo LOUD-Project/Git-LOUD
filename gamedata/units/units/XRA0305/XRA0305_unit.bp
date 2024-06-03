@@ -41,30 +41,18 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XRA',
-            Cue = 'XRA0305_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'URADestroy', Cue = 'URA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'XRA', Cue = 'XRA0305_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Air', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     Buffs = {
         Regen = {
-            Level1 = 4,
-            Level2 = 8,
-            Level3 = 12,
-            Level4 = 16,
-            Level5 = 20,
+            Level1 = 5,
+            Level2 = 10,
+            Level3 = 15,
+            Level4 = 20,
+            Level5 = 25,
         },
     },
 	
@@ -84,11 +72,12 @@ UnitBlueprint {
     },
 
     Defense = {
-        AirThreatLevel = 8,
         ArmorType = 'Light',
         Health = 4450,
         MaxHealth = 4450,
         RegenRate = 10,
+        
+        AirThreatLevel = 8,
         SurfaceThreatLevel = 20,
     },
 	
@@ -96,9 +85,10 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-		'AA Missile',
-		'Personal Stealth',
+            "<LOC ability_aa>Anti-Air",
+            '<LOC ability_personalstealth>Personal Stealth',
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -139,21 +129,19 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'air',
+        
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-personal',
-                helpText = 'toggle_stealth_personal',
-            },
-        },		
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-personal', helpText = 'toggle_stealth_personal' },
         },
+        
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+        
         UnitName = '<LOC xra0305_name>Wailer',
     },
 	
     Intel = {
 		RadarStealth = true,
-        VisionRadius = 32,
+        VisionRadius = 36,
     },
 	
     Interface = {
@@ -215,11 +203,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XRA_Weapon',
-                    Cue = 'XRA0305_Disintegrator',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XRA_Weapon', Cue = 'XRA0305_Disintegrator', LodCutoff = 'Weapon_LodCutoff'},
             },
 			
             AutoInitiateAttackCommand = true,
@@ -296,11 +280,7 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XRA_Weapon',
-                    Cue = 'XRA0305_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XRA_Weapon', Cue = 'XRA0305_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -330,14 +310,11 @@ UnitBlueprint {
             MuzzleVelocity = 45,
 			
             ProjectileId = '/projectiles/CAAMissileNanite03/CAAMissileNanite03_proj.bp',
-            ProjectileLifetime = 1.5,
+            ProjectileLifetime = 1.8,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Up_Muzzle_01',
-                        'Turret_Up_Muzzle_02',
-                    },
+                    MuzzleBones = {'Turret_Up_Muzzle_01','Turret_Up_Muzzle_02'},
                     RackBone = 'Turret_Up_Barrel',
                 },
             },

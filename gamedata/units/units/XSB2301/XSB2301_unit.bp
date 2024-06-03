@@ -1,21 +1,10 @@
 UnitBlueprint {
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed      = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
+
     Buffs = {},
 
     BuildIconSortPriority = 110,
@@ -51,6 +40,11 @@ UnitBlueprint {
     Description = '<LOC xsb2301_desc>Improved Point Defense',
 
     Display = {
+
+        Abilities = {
+            '<LOC ability_aquatic>Aquatic: can be built on water',
+        },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -68,6 +62,7 @@ UnitBlueprint {
                 },
             },
         },
+
         UniformScale = 0.06,
     },
 
@@ -75,9 +70,8 @@ UnitBlueprint {
         BuildCostEnergy = 5000,
         BuildCostMass = 550,
         BuildTime = 550,
-        RebuildBonusIds = {
-            'xsb2301',
-        },
+
+        RebuildBonusIds = {'xsb2301'},
     },
 
     General = {
@@ -89,11 +83,12 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
+
         UnitName = '<LOC xsb2301_name>Uttaushala',
     },
 
     Intel = {
-        VisionRadius = 30,
+        VisionRadius = 32,
     },
 
     Interface = {
@@ -143,21 +138,9 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2301_Ultrachromatic_Beam',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2301_Ultrachromatic_Beam_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2301_Ultrachromatic_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop    = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2301_Ultrachromatic_Beam', LodCutoff = 'Weapon_LodCutoff'},
+                BeamStart   = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2301_Ultrachromatic_Beam_Start', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop    = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2301_Ultrachromatic_Beam_Stop', LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_None',
 
@@ -227,7 +210,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

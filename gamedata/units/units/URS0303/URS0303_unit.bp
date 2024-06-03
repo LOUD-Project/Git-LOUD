@@ -10,21 +10,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'URSDestroy',
-            Cue = 'URS0303_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URS',
-            Cue = 'URS0303_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'URSDestroy', Cue = 'URS0303_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'URS', Cue = 'URS0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Naval', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -61,22 +49,25 @@ UnitBlueprint {
 	
     Defense = {
         AirThreatLevel = 48,
+
         ArmorType = 'Normal',
         Health = 24000,
         MaxHealth = 24000,
-        RegenRate = 25,
+        RegenRate = 10,
     },
 	
     Description = '<LOC urs0303_desc>Aircraft Carrier',
+
     Display = {
         Abilities = {
-            '<LOC ability_aa>Anti-Air',
+            '<LOC ability_aa>Anti-Air x4',
             '<LOC ability_airstaging>Air Staging',
             '<LOC ability_carrier>Carrier',
             '<LOC ability_factory>Factory',
             '<LOC ability_radar>Radar',
             '<LOC ability_tacmissiledef>Tactical Missile Defense',
         },
+
         AnimationDeath = {
             {
                 Animation = '/units/urs0303/urs0303_Asink01.sca',
@@ -97,6 +88,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -112,6 +104,7 @@ UnitBlueprint {
                 },
             },
         },
+
         MotionAdjustment = {
             Sliderlanding = 0.5,
             Sliderstatic = -8,
@@ -119,30 +112,13 @@ UnitBlueprint {
             Yoffsetlanding = -0.375,
             slideinmotion = 0.5,
         },
+
         MovementEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'Front_Left_Wake',
-                        },
-                        Scale = 3,
-                        Type = 'LeftFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'Front_Right_Wake',
-                        },
-                        Scale = 3,
-                        Type = 'RightFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'Back_Wake',
-                        },
-                        Scale = 1.5,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'Front_Left_Wake'}, Scale = 3, Type = 'LeftFrontWake' },
+                    { Bones = {'Front_Right_Wake'}, Scale = 3, Type = 'RightFrontWake' },
+                    { Bones = {'Back_Wake'}, Scale = 1.5, Type = 'BackWake' },
                 },
             },
         },
@@ -178,11 +154,9 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'sea',
+
         OrderOverrides = {
-            RULEUCC_Transport = {
-                bitmapId = 'deploy',
-                helpText = 'deploy',
-            },
+            RULEUCC_Transport = { bitmapId = 'deploy', helpText = 'deploy' },
         },
 
         UnitName = '<LOC urs0303_name>Command Class',
@@ -190,10 +164,12 @@ UnitBlueprint {
 	
     Intel = {
         ShowIntelOnSelect = true,
+
 		FreeIntel = true,
-        RadarRadius = 165,
+
+        RadarRadius = 128,
         VisionRadius = 40,
-        WaterVisionRadius = 32,
+        WaterVisionRadius = 28,
     },
 	
     Interface = {
@@ -251,12 +227,9 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0303_Cannon_Electron',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0303_Cannon_Electron', LodCutoff = 'Weapon_LodCutoff'},
             },
+
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -281,7 +254,7 @@ UnitBlueprint {
 			
             LeadTarget = true,
 			
-            MaxRadius = 50,
+            MaxRadius = 44,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
@@ -292,12 +265,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Right_AA_Muzzle_01',
-                        'Front_Right_AA_Muzzle_02',
-                        'Front_Right_AA_Muzzle_03',
-                        'Front_Right_AA_Muzzle_04',
-                    },
+                    MuzzleBones = {'Front_Right_AA_Muzzle_01','Front_Right_AA_Muzzle_02','Front_Right_AA_Muzzle_03','Front_Right_AA_Muzzle_04'},
                     RackBone = 'Front_Right_AA_Turret_Barrel',
                 },
             },
@@ -311,10 +279,10 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE TORPEDOBOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'TORPEDOBOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -338,11 +306,7 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0303_Cannon_Electron',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0303_Cannon_Electron', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -368,7 +332,7 @@ UnitBlueprint {
 			
             LeadTarget = true,
 			
-            MaxRadius = 50,
+            MaxRadius = 44,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
@@ -379,12 +343,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Right_AA_Muzzle_01',
-                        'Back_Right_AA_Muzzle_02',
-                        'Back_Right_AA_Muzzle_03',
-                        'Back_Right_AA_Muzzle_04',
-                    },
+                    MuzzleBones = {'Back_Right_AA_Muzzle_01','Back_Right_AA_Muzzle_02','Back_Right_AA_Muzzle_03','Back_Right_AA_Muzzle_04'},
                     RackBone = 'Back_Right_AA_Turret_Barrel',
                 },
             },
@@ -396,10 +355,10 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE TORPEDOBOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'TORPEDOBOMBER',
+                'GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -423,11 +382,7 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0303_Cannon_Electron',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0303_Cannon_Electron', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -451,7 +406,7 @@ UnitBlueprint {
             Label = 'AAGun',
             LeadTarget = true,
 			
-            MaxRadius = 50,
+            MaxRadius = 44,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
@@ -462,12 +417,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Left_AA_Muzzle_01',
-                        'Back_Left_AA_Muzzle_02',
-                        'Back_Left_AA_Muzzle_03',
-                        'Back_Left_AA_Muzzle_04',
-                    },
+                    MuzzleBones = {'Back_Left_AA_Muzzle_01','Back_Left_AA_Muzzle_02','Back_Left_AA_Muzzle_03','Back_Left_AA_Muzzle_04'},
                     RackBone = 'Back_Left_AA_Turret_Barrel',
                 },
             },
@@ -505,11 +455,7 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0303_Cannon_Electron',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0303_Cannon_Electron', LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_None',
 			
@@ -535,7 +481,7 @@ UnitBlueprint {
             Label = 'AAGun',
             LeadTarget = true,
 			
-            MaxRadius = 50,
+            MaxRadius = 44,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
@@ -546,12 +492,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Left_AA_Muzzle_01',
-                        'Front_Left_AA_Muzzle_02',
-                        'Front_Left_AA_Muzzle_03',
-                        'Front_Left_AA_Muzzle_04',
-                    },
+                    MuzzleBones = {'Front_Left_AA_Muzzle_01','Front_Left_AA_Muzzle_02','Front_Left_AA_Muzzle_03','Front_Left_AA_Muzzle_04'},
                     RackBone = 'Front_Left_AA_Turret_Barrel',
                 },
             },
@@ -588,16 +529,13 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0303_Anti_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0303_Anti_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
 			
-            BeamCollisionDelay = 0,
-            BeamLifetime = 0.2,
+            BeamCollisionDelay = 0.1,
+            BeamLifetime = 0.1,
 			
             CollideFriendly = false,
 			
@@ -610,11 +548,11 @@ UnitBlueprint {
                 Water = 'Air',
             },
 			
-            FiringTolerance = 5,
+            FiringTolerance = 3,
 			
             Label = 'Zapper',
 			
-            MaxRadius = 30,
+            MaxRadius = 28,
 			
             NeedPrep = true,
 			
@@ -627,9 +565,9 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 0.8,
+            RateOfFire = 0.9,
 			
-            TargetCheckInterval = 1,
+            TargetCheckInterval = 0.4,
 			
             TargetRestrictDisallow = 'UNTARGETABLE,STRATEGIC',
             TargetRestrictOnlyAllow = 'TACTICAL,MISSILE',

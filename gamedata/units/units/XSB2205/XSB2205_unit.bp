@@ -5,19 +5,8 @@ UnitBlueprint {
     },
 
     Audio = {
-
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {
@@ -198,7 +187,7 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2205_Cavitation_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
+                Fire = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_AnaIt_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -234,18 +223,14 @@ UnitBlueprint {
 
             MuzzleSalvoDelay = 0.6,
             MuzzleSalvoSize = 3,
-            MuzzleVelocity = 8,
+            MuzzleVelocity = 6,
 
-            ProjectileId = '/projectiles/SANUallCavitationTorpedo03/SANUallCavitationTorpedo03_proj.bp',
+            ProjectileId = '/projectiles/SANAnaitTorpedo01/SANAnaitTorpedo01_proj.bp',
             ProjectileLifetime = 8,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle01',
-                        'Muzzle02',
-                        'Muzzle03',
-                    },
+                    MuzzleBones = {'Muzzle01','Muzzle02','Muzzle03'},
                     RackBone = 'Muzzle01',
                 },
             },

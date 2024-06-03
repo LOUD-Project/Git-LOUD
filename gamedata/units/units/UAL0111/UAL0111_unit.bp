@@ -5,31 +5,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Pack = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0111_Close',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0111_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Unpack = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0111_Open',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        StartMove   = Sound { Bank = 'UAL', Cue = 'UAL0111_Move_Start',  LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {},
@@ -65,17 +43,8 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    Scrolling = true,
-                    ShaderName = 'Aeon',
-                },
-                {
-                    AlbedoName = 'ual0111_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Aeon',
-                    SpecularName = 'ual0111_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, Scrolling = true, ShaderName = 'Aeon' },
+                { AlbedoName = 'ual0111_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Aeon', SpecularName = 'ual0111_lod1_specteam.dds' },
             },
         },
 
@@ -104,7 +73,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 21,
+        VisionRadius = 20,
     },
 	
     Interface = {
@@ -165,14 +134,13 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0111_Missile_Serpent',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAL0111_Missile_Serpent', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+
             CollideFriendly = false,
             CountedProjectile = false,
 			
@@ -188,6 +156,8 @@ UnitBlueprint {
             FiringTolerance = 5,
 			
             Label = 'MissileRack',
+            
+            LeadTarget = true,
 			
             MaxRadius = 75,
             MinRadius = 3,
@@ -200,11 +170,7 @@ UnitBlueprint {
             ProjectileLifetime = 25,
 
             RackBones = {
-                {
-                    HideMuzzle = true,
-                    MuzzleBones = {'Missile'},
-                    RackBone = 'Missile',
-                },
+                { HideMuzzle = true, MuzzleBones = {'Missile'}, RackBone = 'Missile' },
             },
 
             RangeCategory = 'UWRC_IndirectFire',
@@ -227,9 +193,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.6,
+        EnergyMult = 0.3,
+        HealthMult = 0.7,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

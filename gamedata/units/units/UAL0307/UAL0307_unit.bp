@@ -1,21 +1,9 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0307_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UAL', Cue = 'UAL0307_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 50,
@@ -63,8 +51,8 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Hover',
-            'Shield Dome',
+            '<LOC ability_hover>Hover',
+            '<LOC ability_shielddome>Shield Dome',
         },
 
         AnimationOpen = '/units/UAL0307/UAL0307_aopen.sca',
@@ -105,22 +93,21 @@ UnitBlueprint {
             RULEUCC_Patrol = true,
             RULEUCC_Stop = true,
         },
+
         FactionName = 'Aeon',
         Icon = 'amph',
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'toggle_shield_dome',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-dome', helpText = 'toggle_shield_dome' },
         },
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+
+        ToggleCaps = { RULEUTC_ShieldToggle = true },
+
         UnitName = '<LOC ual0307_name>Asylum',
     },
 	
     Intel = {
-        VisionRadius = 18,
+        VisionRadius = 20,
     },
 	
     Interface = {

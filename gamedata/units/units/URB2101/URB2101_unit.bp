@@ -1,20 +1,7 @@
 UnitBlueprint {
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Unpack = Sound {
-            Bank = 'URB',
-            Cue = 'URB2101_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {},
@@ -87,11 +74,12 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
+
         UnitName = '<LOC urb2101_name>Auto Gun',
     },
 
     Intel = {
-        VisionRadius = 26,
+        VisionRadius = 28,
     },
 
     Interface = {
@@ -140,11 +128,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2101_Laser_Auto',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URB2101_Laser_Auto', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -155,7 +139,6 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 2,
@@ -211,7 +194,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -4,9 +4,7 @@ local SAAShleoCannonWeapon = import('/lua/seraphimweapons.lua').SAAShleoCannonWe
 XSB2104 = Class(SStructureUnit) {
 
     Weapons = {
-	
         AAGun = Class(SAAShleoCannonWeapon) { FxMuzzleScale = 1.5 },
-		
     },
 	
 }

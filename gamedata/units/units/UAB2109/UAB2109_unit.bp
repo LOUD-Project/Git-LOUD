@@ -4,16 +4,8 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {},
@@ -59,6 +51,7 @@ UnitBlueprint {
         Abilities = {
            '<LOC ability_sonar>Sonar',
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -160,6 +153,7 @@ UnitBlueprint {
             Audio = {
                 Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB2109_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			

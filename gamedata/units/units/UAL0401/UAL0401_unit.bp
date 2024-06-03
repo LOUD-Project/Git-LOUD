@@ -3,46 +3,16 @@ UnitBlueprint {
         GuardScanRadius = 40,
 		GuardReturnRadius = 50,
 		
-        TargetBones = {
-            'Head_Muzzle',
-            'Torso',
-            'Projectile01',
-            'Left_Leg_B01',
-            'Right_Leg_B01',
-			'Head',
-            'AttachSpecial01',
-            'AttachSpecial02',
-        },
+        TargetBones = {'Head_Muzzle','Torso','Projectile01','Left_Leg_B01','Right_Leg_B01','Head','AttachSpecial01'},
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL0401_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-		EnemyUnitDetectedAeon = Sound {
-			Bank = 'XGG',
-			Cue = 'XGG_HQ_GD1_04185',
-		},
-		EnemyUnitDetectedUEF = Sound {
-			Bank = 'XGG',
-			Cue = 'XGG_HQ_GD1_04185',
-		},
-		EnemyUnitDetectedCybran = Sound {
-			Bank = 'XGG',
-			Cue = 'XGG_HQ_GD1_04185',
-		},
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0401_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+		EnemyUnitDetectedAeon   = Sound { Bank = 'XGG', Cue = 'XGG_HQ_GD1_04185'},
+		EnemyUnitDetectedUEF    = Sound { Bank = 'XGG', Cue = 'XGG_HQ_GD1_04185'},
+		EnemyUnitDetectedCybran = Sound { Bank = 'XGG', Cue = 'XGG_HQ_GD1_04185'},
+        Destroyed               = Sound { Bank = 'UALDestroy', Cue = 'UAL0401_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove               = Sound { Bank = 'UAL', Cue = 'UAL0401_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection             = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Bot', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -87,8 +57,8 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Amphibious',
-            'Omni Sensor',
+            '<LOC ability_amphibious>Amphibious',
+            '<LOC ability_omni>Omni Sensor',
         },
 
         AnimationActivate = '/units/UAL0401/UAL0401_aactivate.sca',
@@ -103,16 +73,7 @@ UnitBlueprint {
         AnimationWalk = '/units/ual0401/ual0401_awalk.sca',
         AnimationWalkRate = 2,
 
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 500,
-                    Scrolling = true,
-                    ShaderName = 'Aeon',
-                },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 500, Scrolling = true, ShaderName = 'Aeon' } } },
 
         MovementEffects = {
             Land = {
@@ -123,20 +84,14 @@ UnitBlueprint {
                             HipBone = 'Right_Leg_B01',
                             KneeBone = 'Right_Leg_B02',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Tread = {
                                 TreadLifeTime = 135,
                                 TreadMarks = 'collosus_tread_02',
                                 TreadMarksSizeX = 1.7,
                                 TreadMarksSizeZ = 1.7,
-                                TreadOffset = {
-                                    -0.95,
-                                    0,
-                                    0.85,
-                                },
+                                TreadOffset = {-0.95,0,0.85},
                             },
                             Type = 'FootFall01',
                         },
@@ -145,24 +100,19 @@ UnitBlueprint {
                             HipBone = 'Left_Leg_B01',
                             KneeBone = 'Left_Leg_B02',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Tread = {
                                 TreadLifeTime = 135,
                                 TreadMarks = 'collosus_tread_01',
                                 TreadMarksSizeX = 1.7,
                                 TreadMarksSizeZ = 1.7,
-                                TreadOffset = {
-                                    1,
-                                    0,
-                                    0.85,
-                                },
+                                TreadOffset = {1,0,0.85},
                             },
                             Type = 'FootFall01',
                         },
                     },
+
                     Damage = {
                         Amount = 2900,
                         DamageFriendly = false,
@@ -199,15 +149,17 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
+
         UnitName = '<LOC ual0401_name>Galactic Colossus',
     },
 	
     Intel = {
 		FreeIntel = true,
-		RadarRadius = 100,
-        OmniRadius = 60,
-        VisionRadius = 42,
-        WaterVisionRadius = 21,
+
+		RadarRadius = 96,
+        OmniRadius = 48,
+        VisionRadius = 40,
+        WaterVisionRadius = 20,
     },
 	
     Interface = {
@@ -275,29 +227,15 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
+
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Unpack = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Loop', LodCutoff = 'Weapon_LodCutoff'},
+                BeamStart = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Fire', LodCutoff = 'Weapon_LodCutoff'},
+                BeamStop = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Stop', LodCutoff = 'Weapon_LodCutoff'},
             },
+
             AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
@@ -317,7 +255,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 2,
@@ -372,11 +309,7 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Tractor_Beam',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Tractor_Beam', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
 			
@@ -391,7 +324,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 5,
@@ -441,26 +373,9 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Tractor_Beam',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Unpack = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Loop', LodCutoff = 'Weapon_LodCutoff'},
+                BeamStart = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Fire', LodCutoff = 'Weapon_LodCutoff'},
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Tractor_Beam', LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_None',
             
@@ -476,7 +391,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 5,
             
@@ -536,9 +450,10 @@ UnitBlueprint {
             Label = 'CollossusDeath',
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
         MassMult = 0.6,
         ReclaimTimeMultiplier = 1,

@@ -3,7 +3,9 @@ local SRadarUnit = import('/lua/seraphimunits.lua').SRadarUnit
 XSB3201 = Class(SRadarUnit) {
 
     OnIntelDisabled = function(self)
+
         SRadarUnit.OnIntelDisabled(self)
+
         if self.Rotator1 then
             self.Rotator1:SetSpinDown(true)
         end
@@ -14,12 +16,14 @@ XSB3201 = Class(SRadarUnit) {
     end,
 
     OnIntelEnabled = function(self)
+
         SRadarUnit.OnIntelEnabled(self)
 
         if(not self.Rotator1) then
             self.Rotator1 = CreateRotator(self, 'Array01', 'y')
             self.Trash:Add(self.Rotator1)
         end            
+
         self.Rotator1:SetSpinDown(false)
         self.Rotator1:SetTargetSpeed(15)
         self.Rotator1:SetAccel(10)
@@ -28,6 +32,7 @@ XSB3201 = Class(SRadarUnit) {
             self.Rotator2 = CreateRotator(self, 'Array02', 'y')
             self.Trash:Add(self.Rotator2)
         end            
+
         self.Rotator2:SetSpinDown(false)
         self.Rotator2:SetTargetSpeed(30)
         self.Rotator2:SetAccel(20)

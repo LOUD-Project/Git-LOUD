@@ -39,21 +39,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UAADestroy',
-            Cue = 'UAA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAA',
-            Cue = 'UAA0102_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'UAADestroy', Cue = 'UAA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UAA', Cue = 'UAA0102_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -87,21 +75,14 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Anti-Air',
+            "<LOC ability_aa>Anti-Air",
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    ShaderName = 'Aeon',
-                },
-                {
-                    AlbedoName = 'uaa0102_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Aeon',
-                    SpecularName = 'uaa0102_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, ShaderName = 'Aeon' },
+                { AlbedoName = 'uaa0102_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Aeon', SpecularName = 'uaa0102_lod1_specteam.dds' },
             },
         },
 
@@ -134,6 +115,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'air',
         TarmacGlowDecal = 0.5,
+
         UnitName = '<LOC uaa0102_name>Conservator',
     },
 	

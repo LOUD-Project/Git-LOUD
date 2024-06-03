@@ -1,13 +1,13 @@
 local TSeaFactoryUnit = import('/lua/terranunits.lua').TSeaFactoryUnit
 
-local TIFSmartCharge = import('/lua/terranweapons.lua').TIFSmartCharge
+local AntiTorpedo = import('/lua/aeonweapons.lua').AIFQuasarAntiTorpedoWeapon
 
 local WaitFor = WaitFor
 
 UEB0303 = Class(TSeaFactoryUnit) {
 
     Weapons = {
-        AntiTorpedo = Class(TIFSmartCharge) {},
+        AntiTorpedo = Class(AntiTorpedo) {},
     },
     
     OnCreate = function(self)

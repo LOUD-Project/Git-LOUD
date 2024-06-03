@@ -42,30 +42,18 @@ UnitBlueprint {
     },
 
     Audio = {
-        Killed = Sound {
-            Bank = 'XSA_Destroy',
-            Cue = 'XSA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0104_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'XSA_Destroy', Cue = 'XSA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSA', Cue = 'XSA0104_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {
         Regen = {
-            Level1 = 15,
-            Level2 = 30,
-            Level3 = 40,
-            Level4 = 50,
-            Level5 = 55,
+            Level1 = 10,
+            Level2 = 20,
+            Level3 = 30,
+            Level4 = 40,
+            Level5 = 50,
         },
     },
 
@@ -93,17 +81,8 @@ UnitBlueprint {
 
         AirThreatLevel = 30,
 
-        LambdaRedirect01 = {
-            AttachBone = 'XSA0309',
-            Radius = 12,
-            RedirectRateOfFire = 4,
-        },
-
-        LambdaDestroy01 = {
-            AttachBone = 'XSA0309',
-            Radius = 8,
-            RedirectRateOfFire = 4,
-        },
+        LambdaRedirect01    = { AttachBone = 'XSA0309', Radius = 12, RedirectRateOfFire = 4 },
+        LambdaDestroy01     = { AttachBone = 'XSA0309', Radius = 8, RedirectRateOfFire = 4 },
 
         ArmorType = 'Light',
 
@@ -124,8 +103,6 @@ UnitBlueprint {
             'Lambda Destruction Field',
             'Lambda Deflection Field',
         },
-
-        ForcedBuildSpin = 90,
 
         Mesh = {
             IconFadeInZoom = 130,
@@ -180,7 +157,7 @@ UnitBlueprint {
     },
 
     Intel = {
-        VisionRadius = 40,
+        VisionRadius = 36,
     },
 
     Interface = {

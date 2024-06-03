@@ -1,16 +1,8 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -102,7 +94,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 30,
+        VisionRadius = 32,
     },
 	
     Interface = {
@@ -154,11 +146,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2301_Cannon_Sgl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_None',
 			
@@ -190,11 +178,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle01',
-                        'Turret_Muzzle02',
-                        'Turret_Muzzle03',
-                    },
+                    MuzzleBones = {'Turret_Muzzle01','Turret_Muzzle02','Turret_Muzzle03'},
                     RackBone = 'Turret_B02',
                 },
             },
@@ -217,7 +201,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle01',
             TurretBonePitch = 'Turret_B02',
             TurretBoneYaw = 'Turret_B01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 55,
@@ -235,7 +218,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

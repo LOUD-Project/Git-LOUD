@@ -35,21 +35,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UAADestroy',
-            Cue = 'UAA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAA',
-            Cue = 'UAA0104_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'UAADestroy', Cue = 'UAA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UAA', Cue = 'UAA0104_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     AverageDensity = 1,
@@ -90,21 +78,14 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_transport>Transport',
         },
+
         AnimationOpen = '/units/UAA0104/UAA0104_aopen01.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 120,
-                    Scrolling = true,
-                    ShaderName = 'Aeon',
-                },
-                {
-                    AlbedoName = 'uaa0107_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Aeon',
-                    SpecularName = 'uaa0107_lod1_specteam.dds',
-                },
+                { LODCutoff = 120, Scrolling = true, ShaderName = 'Aeon' },
+                { AlbedoName = 'uaa0107_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Aeon', SpecularName = 'uaa0107_lod1_specteam.dds' },
             },
         },
 

@@ -2,13 +2,17 @@ local SWalkingLandUnit = import('/lua/seraphimunits.lua').SWalkingLandUnit
 
 local AWeapons = import('/lua/aeonweapons.lua')
 local SWeapons = import('/lua/seraphimweapons.lua')
-local Buff = import('/lua/sim/Buff.lua')
 
-local SDFLightChronotronCannonWeapon = SWeapons.SDFLightChronotronCannonWeapon
-local SDFOverChargeWeapon = SWeapons.SDFLightChronotronCannonOverchargeWeapon
-local SIFLaanseTacticalMissileLauncher = SWeapons.SIFLaanseTacticalMissileLauncher
-local AIFCommanderDeathWeapon = AWeapons.AIFCommanderDeathWeapon
-local EffectUtil = import('/lua/EffectUtilities.lua')
+local SDFLightChronotronCannonWeapon    = SWeapons.SDFLightChronotronCannonWeapon
+local SDFOverChargeWeapon               = SWeapons.SDFLightChronotronCannonWeapon
+local SIFLaanseTacticalMissileLauncher  = SWeapons.SIFLaanseTacticalMissileLauncher
+local AIFCommanderDeathWeapon           = AWeapons.AIFCommanderDeathWeapon
+
+AWeapons = nil
+SWeapons = nil
+
+local Buff = import('/lua/sim/Buff.lua')
+local CreateSeraphimUnitEngineerBuildingEffects = import('/lua/EffectUtilities.lua').CreateSeraphimUnitEngineerBuildingEffects
 
 XSL0301 = Class(SWalkingLandUnit) {
     
@@ -29,6 +33,7 @@ XSL0301 = Class(SWalkingLandUnit) {
                 self.AimControl:SetEnabled(false)
                 self.AimControl:SetPrecedence(0)
 
+				self.unit:SetOverchargePaused(false)
             end,
 
             OnEnableWeapon = function(self)
@@ -253,7 +258,7 @@ XSL0301 = Class(SWalkingLandUnit) {
     end,
     
     CreateBuildEffects = function( self, unitBeingBuilt, order )
-        EffectUtil.CreateSeraphimUnitEngineerBuildingEffects( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
+        CreateSeraphimUnitEngineerBuildingEffects( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
     end,  
     
     CreateEnhancement = function(self, enh)

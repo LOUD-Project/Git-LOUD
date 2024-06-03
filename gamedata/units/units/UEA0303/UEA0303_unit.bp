@@ -1,6 +1,6 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 80,
+        GuardReturnRadius = 72,
         GuardScanRadius = 40,
     },
 	
@@ -41,21 +41,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UEADestroy',
-            Cue = 'UEA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0303_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'UEADestroy', Cue = 'UEA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UEA', Cue = 'UEA0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -88,9 +76,10 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Anti-Air',
-			'Radar',
+            "<LOC ability_aa>Anti-Air",
+			'<LOC ability_radar>Radar',
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -134,8 +123,9 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-		RadarRadius = 50,
-        VisionRadius = 32,
+        
+		RadarRadius = 48,
+        VisionRadius = 36,
     },
 	
     Interface = {
@@ -216,7 +206,7 @@ UnitBlueprint {
 			
             FiringTolerance = 0,
 			
-            Label = 'LeftBeam',
+            Label = 'Beam',
 			
             MaxRadius = 40,
 

@@ -1,37 +1,14 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Target_01',
-            'Target_02',
-            'Target_03',
-            'Target_04',
-            'Target_05',
-            'Target_06',
-        },
+        TargetBones = {'Target_01','Target_02','Target_03','Target_04','Target_05','Target_06'},
     },
-	
+
     Audio = {
-        Construct = Sound {
-            Bank = 'URB',
-            Cue = 'URB0304_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Construct       = Sound { Bank = 'URB', Cue = 'URB0101_Construct_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        DeathExplosion  = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Factory', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 42,
@@ -81,6 +58,7 @@ UnitBlueprint {
                 },
             },
         },
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_cybran_01_albedo',
@@ -93,6 +71,7 @@ UnitBlueprint {
                 Width = 12.8,
             },
         },
+
         UniformScale = 0.07,
     },
 	
@@ -134,7 +113,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 10,
+        VisionRadius = 16,
     },
 	
     Interface = {
@@ -334,9 +313,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -1,13 +1,12 @@
 local AAirUnit = import('/lua/defaultunits.lua').AirUnit
 
-local AANDepthChargeBombWeapon = import('/lua/aeonweapons.lua').AANDepthChargeBombWeapon
+local AANChronoTorpedoWeapon = import('/lua/aeonweapons.lua').AANChronoTorpedoWeapon
+
 
 UAA0204 = Class(AAirUnit) {
 
     Weapons = {
-	
-        DepthCharge = Class(AANDepthChargeBombWeapon) {},
-		
+        Torpedo = Class(AANChronoTorpedoWeapon) { FxMuzzleFlash = false },
     },
 }
 

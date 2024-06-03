@@ -41,21 +41,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UAADestroy',
-            Cue = 'UAA_Destroy_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAA',
-            Cue = 'UAA0303_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UAADestroy', Cue = 'UAA_Destroy_Air', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UAA', Cue = 'UAA0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -91,8 +79,8 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Anti-Air',
-			'Radar',
+            "<LOC ability_aa>Anti-Air",
+			'<LOC ability_radar>Radar',
         },
         Mesh = {
             IconFadeInZoom = 130,
@@ -115,8 +103,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 48000,
-        BuildCostMass = 660,
+        BuildCostEnergy = 43200,
+        BuildCostMass = 645,
         BuildTime = 7579,
     },
 
@@ -133,13 +121,15 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'air',
+
         UnitName = '<LOC uaa0303_name>Corona',
     },
 	
     Intel = {
 		FreeIntel = true,
-		RadarRadius = 50,
-        VisionRadius = 32,
+        
+		RadarRadius = 48,
+        VisionRadius = 36,
     },
 	
     Interface = {

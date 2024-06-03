@@ -31,21 +31,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0101_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'URADestroy', Cue = 'URA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'URA', Cue = 'URA0101_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 20,
@@ -70,8 +58,8 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 0.1,
         ArmorType = 'Light',
-        Health = 76,
-        MaxHealth = 76,
+        Health = 80,
+        MaxHealth = 80,
         RegenRate = 1,
     },
 	
@@ -127,8 +115,8 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-		RadarRadius = 50,
-        VisionRadius = 42,
+		RadarRadius = 48,
+        VisionRadius = 40,
     },
 	
     Interface = {

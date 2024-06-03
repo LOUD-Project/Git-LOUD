@@ -2,16 +2,8 @@ UnitBlueprint {
     Adjacency = 'T1EnergyStorageAdjacencyBuffs',
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Resource', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     BuildIconSortPriority = 90,
@@ -47,7 +39,8 @@ UnitBlueprint {
     Display = {
         Abilities = {
 			'Adjacency bonuses to Energy Production & Shields',
-            'Volatile',
+            '<LOC ability_aquatic>Aquatic: can be built underwater',
+            '<LOC ability_deathaoe>Volatile',
         },
 
         Mesh = {
@@ -86,9 +79,9 @@ UnitBlueprint {
 
     General = {
 		CapCost = .25,
-        CommandCaps = {
-			RULEUCC_Pause = true,
-        },
+
+        CommandCaps = {RULEUCC_Pause = true},
+
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 5,

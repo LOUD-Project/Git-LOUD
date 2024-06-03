@@ -29,43 +29,14 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Close = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0401_Close',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL0401_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-		EnemyUnitDetectedAeon = Sound {
-			Bank = 'XGG',
-			Cue = 'XGG_HQ_GD1_04179',
-		},
-		EnemyUnitDetectedUEF = Sound {
-			Bank = 'XGG',
-			Cue = 'XGG_HQ_GD1_04179',
-		},
-		EnemyUnitDetectedCybran = Sound {
-			Bank = 'XGG',
-			Cue = 'XGG_HQ_GD1_04179',
-		},
-        Open = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0401_Open',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0401_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+		EnemyUnitDetectedAeon   = Sound { Bank = 'XGG',Cue = 'XGG_HQ_GD1_04179'},
+		EnemyUnitDetectedUEF    = Sound { Bank = 'XGG',Cue = 'XGG_HQ_GD1_04179'},
+		EnemyUnitDetectedCybran = Sound { Bank = 'XGG',Cue = 'XGG_HQ_GD1_04179'},
+        Close                   = Sound { Bank = 'UEL', Cue = 'UEL0401_Close', LodCutoff = 'UnitMove_LodCutoff'},
+        Open                    = Sound { Bank = 'UEL', Cue = 'UEL0401_Open', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove               = Sound { Bank = 'UEL', Cue = 'UEL0401_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed               = Sound { Bank = 'UELDestroy', Cue = 'UEL0401_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection             = Sound { Bank = 'Interface', Cue = 'UEF_Select_Tank', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -133,45 +104,29 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Air Staging',
-            'Amphibious',
-            'Anti-Air',
-            'Factory',
-            'Shield Dome',
-            'Torpedoes',
+            '<LOC ability_airstaging>Air Staging',
+            '<LOC ability_amphibious>Amphibious',
+            "<LOC ability_aa>Anti-Air",
+            '<LOC ability_factory>Factory',
+            '<LOC ability_shielddome>Shield Dome',
+            '<LOC ability_torpedo>Torpedoes',
         },
+
         AnimationBuild = '/units/uel0401/uel0401_aactivate.sca',
+
         IdleEffects = {
-            Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            'UEL0401',
-                        },
-                        Type = 'SeaIdle02',
-                    },
-                },
-            },
+            Land = { Effects = { { Bones = {'UEL0401'}, Type = 'SeaIdle02' } } },
         },
+
         LayerChangeEffects = {
             SeabedLand = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Front_Core',
-                        },
-                        Type = 'Surface01',
-                    },
-                    {
-                        Bones = {
-                            'Wheel_Left01',
-                            'Wheel_Right01',
-                        },
-                        Type = 'Surface02',
-                    },
+                Effects = { 
+                    { Bones = {'Front_Core'}, Type = 'Surface01' },
+                    { Bones = {'Wheel_Left01','Wheel_Right01'}, Type = 'Surface02' },
                 },
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -191,32 +146,9 @@ UnitBlueprint {
         MovementEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {
-
-                            -- 'Exhaust_Left01',
-                            'Exhaust_Left02',
-
-                            -- 'Exhaust_Right01',
-                            'Exhaust_Right02',
-                        },
-                        Type = 'GroundKickup02',
-                    },
-                    {
-                        Bones = {
-                            'Wheel_Left01',
-                            'Wheel_Left02',
-                            'Wheel_Right01',
-                            'Wheel_Right02',
-                        },
-                        Type = 'GroundKickup04',
-                    },
-                    {
-                        Bones = {
-                            'UEL0401',
-                        },
-                        Type = 'Shoreline01',
-                    },
+                    { Bones = {'Exhaust_Left02','Exhaust_Right02'}, Type = 'GroundKickup02' },
+                    { Bones = {'Wheel_Left01','Wheel_Left02','Wheel_Right01','Wheel_Right02'}, Type = 'GroundKickup04' },
+                    { Bones = {'UEL0401'}, Type = 'Shoreline01' },
                 },
                 Treads = {
                     ScrollTreads = true,
@@ -226,38 +158,21 @@ UnitBlueprint {
                             TreadMarksInterval = 0.6,
                             TreadMarksSizeX = 5,
                             TreadMarksSizeZ = 5.5,
-                            TreadOffset = {
-                                0,
-                                0,
-                                -1.5,
-                            },
+                            TreadOffset = {0,0,-1.5},
                         },
                         {
                             TreadMarks = 'tank_treads06_albedo',
                             TreadMarksInterval = 0.6,
                             TreadMarksSizeX = 5.5,
                             TreadMarksSizeZ = 5.5,
-                            TreadOffset = {
-                                0,
-                                0,
-                                -5.5,
-                            },
+                            TreadOffset = {0,0,-5.5},
                         },
                     },
                 },
             },
             Seabed = {
-                Effects = {
-                    {
-                        Bones = {
-                            'UEL0401',
-                        },
-                        Type = 'Shoreline01',
-                    },
-                },
-                Treads = {
-                    ScrollTreads = true,
-                },
+                Effects = { { Bones = {'UEL0401'}, Type = 'Shoreline01' } },
+                Treads = { ScrollTreads = true },
             },
         },
         UniformScale = 0.24,
@@ -304,24 +219,19 @@ UnitBlueprint {
         ConstructionBar = true,
         FactionName = 'UEF',
         Icon = 'amph',
+
         OrderOverrides = {
-            RULEUCC_Transport = {
-                bitmapId = 'deploy',
-                helpText = 'deploy',
-            },
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'toggle_shield_dome',
-            },
+            RULEUCC_Transport       = { bitmapId = 'deploy', helpText = 'deploy' },
+            RULEUTC_ShieldToggle    = { bitmapId = 'shield-dome', helpText = 'toggle_shield_dome' },
         },
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+
+        ToggleCaps = { RULEUTC_ShieldToggle = true },
+
         UnitName = '<LOC uel0401_name>Fatboy',
     },
 	
     Intel = {
-        VisionRadius = 35,
+        VisionRadius = 36,
         WaterVisionRadius = 28,
     },
 	
@@ -399,11 +309,7 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0401_Cannon_Exp_Lrg',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0401_Cannon_Exp_Lrg', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -491,11 +397,7 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0401_Cannon_Exp_Lrg',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0401_Cannon_Exp_Lrg', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -580,11 +482,7 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0401_Cannon_Exp_Lrg',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0401_Cannon_Exp_Lrg', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -668,11 +566,7 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0401_Cannon_Exp_Lrg',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0401_Cannon_Exp_Lrg', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -757,11 +651,7 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0203_Riot_Gun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0203_Riot_Gun', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -829,11 +719,7 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0203_Riot_Gun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0203_Riot_Gun', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -901,11 +787,7 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2204_Artillery_Flak',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2204_Artillery_Flak', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -944,10 +826,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Right_AA_Muzzle01',
-                        'Turret_Right_AA_Muzzle02',
-                    },
+                    MuzzleBones = {'Turret_Right_AA_Muzzle01','Turret_Right_AA_Muzzle02'},
                     RackBone = 'Turret_Right_AA_Barrel',
                 },
             },
@@ -987,11 +866,7 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2204_Artillery_Flak',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2204_Artillery_Flak', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -1029,10 +904,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Left_AA_Muzzle01',
-                        'Turret_Left_AA_Muzzle02',
-                    },
+                    MuzzleBones = {'Turret_Left_AA_Muzzle01','Turret_Left_AA_Muzzle02'},
                     RackBone = 'Turret_Left_AA_Barrel',
                 },
             },
@@ -1068,16 +940,13 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0203_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0203_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 110,
+            Damage = 250,
             DamageType = 'Normal',
 			
             DisplayName = 'Angler Torpedo',
@@ -1086,43 +955,40 @@ UnitBlueprint {
                 Seabed = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 15,
+            FiringTolerance = 25,
 			
             Label = 'Torpedo',
 			
-            MaxRadius = 45,
+            MaxRadius = 44,
 			
-            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 4,
-            MuzzleVelocity = 3,
+            MuzzleVelocity = 5,
 			
-            ProjectileId = '/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp',
+            ProjectileId = '/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_proj.bp',
             ProjectileLifetime = 8,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Torpedo_01',
-                        'Torpedo_02',
-                        'Torpedo_03',
-                        'Torpedo_04',
-                    },
+                    MuzzleBones = {'Torpedo_01','Torpedo_02','Torpedo_03','Torpedo_04'},
                     RackBone = 'Torpedo_01',
                 },
             },
+            
+            RackSalvoReloadTime = 2,    -- firing cycle 4 seconds
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.4,	---- 440 Damage every 2.5 seconds = 176 DPS Sub
+            RateOfFire = 1,	---- 1000 Damage every 4 seconds = 250 DPS Sub
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SUBMERSIBLE',
                 'MOBILE -AIR',
                 'DEFENSE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.1,
 
             Turreted = false,
         },
@@ -1141,7 +1007,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -6,12 +6,7 @@ UAL0103 = Class(ALandUnit) {
 
     Weapons = {
 	
-        MainGun = Class(AIFMortarWeapon) {
-            FxMuzzleFlash = {
-                '/effects/emitters/aeon_mortar_flash_01_emit.bp',
-                '/effects/emitters/aeon_mortar_flash_02_emit.bp',
-            },
-        }
+        MainGun = Class(AIFMortarWeapon) { FxMuzzleFlash = {'/effects/emitters/aeon_mortar_flash_01_emit.bp','/effects/emitters/aeon_mortar_flash_02_emit.bp'} }
     },
 }
 

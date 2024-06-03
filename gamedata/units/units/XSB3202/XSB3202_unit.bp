@@ -1,15 +1,7 @@
 UnitBlueprint {
     Audio = {
-        Killed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Sonar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'XSL_Destroy',      Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect',   Cue = 'Seraphim_Select_Sonar',      LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     BuildIconSortPriority = 190,
@@ -36,18 +28,22 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 3,
-        Health = 800,
-        MaxHealth = 800,
-        RegenRate = 0,
+
+        Health = 625,
+        MaxHealth = 625,
+        RegenRate = 2,
+
+        EconomyThreatLevel = 19,
     },
 
     Description = '<LOC xsb3202_desc>Improved Sonar System',
 
     Display = {
         Abilities = {
-			'Upgradeable',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_upgradable>Upgradeable',
         },
+        
         AnimationUpgrade = '/units/uab3202/uab3202_aopen.sca',
 
         Mesh = {
@@ -68,36 +64,34 @@ UnitBlueprint {
                 },
             },
         },
+        
         UniformScale = 0.05,
     },
 	
     Economy = {
-        BuildCostEnergy = 3700,
-        BuildCostMass = 120,
+        BuildCostEnergy = 3600,
+        BuildCostMass = 360,
 		BuildRate = 15,
-        BuildTime = 360,
+        BuildTime = 600,
 		
-        MaintenanceConsumptionPerSecondEnergy = 100,
+        MaintenanceConsumptionPerSecondEnergy = 225,
 		
         BuildableCategory = {'xss0305'},
     },
 	
     General = {
-        CommandCaps = {
-            RULEUCC_Pause = true,
-        },
+        CommandCaps = { RULEUCC_Pause = true },
+        
         FactionName = 'Seraphim',
         Icon = 'sea',
+        
         OrderOverrides = {
-            RULEUTC_IntelToggle = {
-                bitmapId = 'sonar',
-                helpText = 'toggle_sonar',
-            },
+            RULEUTC_IntelToggle = { bitmapId = 'sonar', helpText = 'toggle_sonar' },
         },
+        
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_IntelToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_IntelToggle = true },
 
         UpgradesFrom = 'xsb3102',
 		UpgradesTo = 'xss0305',
@@ -105,9 +99,13 @@ UnitBlueprint {
 
     Intel = {
         ShowIntelOnSelect = true,
-        SonarRadius = 180,
-        VisionRadius = 30,
-		WaterVisionRadius = 15,
+        
+        RadarStealth = true,
+        SonarStealth = true,
+        
+        SonarRadius = 192,
+        VisionRadius = 28,
+		WaterVisionRadius = 32,
     },
 
     Interface = {

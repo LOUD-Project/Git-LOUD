@@ -14,21 +14,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'URSDestroy',
-            Cue = 'URS0202_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URS',
-            Cue = 'URS0202_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'URSDestroy', Cue = 'URS0202_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'URS', Cue = 'URS0202_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Naval', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -76,11 +64,12 @@ UnitBlueprint {
     Display = {
 	
         Abilities = {
-            'Air Staging',
-            'Anti-Air',
-            'Radar',
-            'Tactical Missile Defense',
+            '<LOC ability_airstaging>Air Staging: when stationary',
+            '<LOC ability_aa>Anti-Air',
+            "<LOC ability_tacmissiledef>Tactical Missile Defense",
+            '<LOC ability_radar>Radar',
         },
+
         AnimationDeath = {
             {
                 Animation = '/units/urs0202/urs0202_asink.sca',
@@ -120,25 +109,8 @@ UnitBlueprint {
         MovementEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'Front_Left_Wake',
-                        },
-                        Type = 'LeftFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'Front_Right_Wake',
-                        },
-                        Type = 'RightFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'Back_Wake',
-                        },
-                        Scale = 1.08,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'Front_Left_Wake'}, Type = 'LeftFrontWake' },
+                    { Bones = {'Front_Right_Wake'}, Type = 'RightFrontWake' },
                 },
             },
         },
@@ -164,27 +136,22 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'sea',
+
         OrderOverrides = {
-            RULEUCC_Transport = {
-                bitmapId = 'deploy',
-                helpText = 'deploy',
-            },
-            RULEUTC_WeaponToggle = {
-                bitmapId = 'toggle-weapon-air',
-            },
+            RULEUCC_Transport = { bitmapId = 'deploy', helpText = 'deploy' },
+            RULEUTC_WeaponToggle = { bitmapId = 'toggle-weapon-air' },
         },
 
-        ToggleCaps = {
-            RULEUTC_WeaponToggle = true,
-        },
+        ToggleCaps = { RULEUTC_WeaponToggle = true },
+
         UnitName = '<LOC urs0202_name>Siren Class',
     },
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 90,
+        RadarRadius = 72,
         VisionRadius = 36,
-        WaterVisionRadius = 18,
+        WaterVisionRadius = 16,
     },
 	
     Interface = {
@@ -245,21 +212,9 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Sml_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Sml_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0202_Cannon_Dbl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'URS', Cue = 'URS_Turret_Sml_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BarrelStart = Sound { Bank = 'URS', Cue = 'URS_Turret_Sml_Start', LodCutoff = 'Weapon_LodCutoff'},
+                Fire        = Sound { Bank = 'URSWeapon', Cue = 'URS0202_Cannon_Dbl', LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -289,10 +244,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Right_Muzzle',
-                        'Front_Left_Muzzle',
-                    },
+                    MuzzleBones = {'Front_Right_Muzzle','Front_Left_Muzzle'},
                     RackBone = 'front_barrel',
                 },
             },
@@ -335,11 +287,7 @@ UnitBlueprint {
             AlwaysRecheckTarget = true,
 
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0202_Nano_Dart',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0202_Nano_Dart', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -357,11 +305,11 @@ UnitBlueprint {
                 Water = 'Air',
             },
 			
-            FiringTolerance = 10,
+            FiringTolerance = 12,
 			
             Label = 'AAGun',
 			
-            MaxRadius = 60,
+            MaxRadius = 55,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 6,
@@ -398,6 +346,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictOnlyAllow = 'AIR -SATELLITE',
 			
             ToggleWeapon = 'GroundGun',
 			
@@ -413,7 +362,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 80,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },
@@ -425,11 +374,7 @@ UnitBlueprint {
             AlwaysRecheckTarget = true,
 
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0202_Nano_Dart',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0202_Nano_Dart', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
@@ -450,7 +395,7 @@ UnitBlueprint {
             Label = 'GroundGun',
             LeadTarget = true,
 			
-            MaxRadius = 55,
+            MaxRadius = 48,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 6,
@@ -501,7 +446,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 70,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },
@@ -515,12 +460,12 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_None',
 			
-            BeamCollisionDelay = 0,
-            BeamLifetime = 0.2,
+            BeamCollisionDelay = 0.1,
+            BeamLifetime = 0.1,
 			
             CollideFriendly = false,
 			
-            Damage = 1,
+            Damage = 2,
             DamageType = 'Normal',
 			
             DisplayName = 'Zapper Anti Missile',
@@ -529,13 +474,13 @@ UnitBlueprint {
                 Water = 'Air',
             },
 			
-            FiringTolerance = 0.5,
+            FiringTolerance = 0.3,
 			
             Label = 'Zapper',
 			
-            MaxRadius = 30,
+            MaxRadius = 28,
 			
-            MaximumBeamLength = 40,
+            MaximumBeamLength = 32,
 			
             NeedPrep = true,
 			
@@ -549,7 +494,7 @@ UnitBlueprint {
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 1.1,
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 0.4,
 			
             TargetRestrictDisallow = 'UNTARGETABLE,STRATEGIC',
             TargetRestrictOnlyAllow = 'TACTICAL,MISSILE',

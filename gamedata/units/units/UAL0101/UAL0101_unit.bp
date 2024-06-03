@@ -5,26 +5,10 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        HoverKilledOnWater = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0101_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed           = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        HoverKilledOnWater  = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove           = Sound { Bank = 'UAL', Cue = 'UAL0101_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection         = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {},
@@ -63,8 +47,9 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Radar',
+            '<LOC ability_radar>Radar',
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -108,7 +93,7 @@ UnitBlueprint {
     
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 50,
+        RadarRadius = 48,
         VisionRadius = 28,
     },
     
@@ -173,9 +158,11 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 Fire = Sound { Bank = 'UALWeapon', Cue = 'UAL0101_Laser_Lgt', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -193,7 +180,7 @@ UnitBlueprint {
 
             Label = 'LaserTurret',
 			
-            MaxRadius = 18,
+            MaxRadius = 16,
 
             MuzzleVelocity = 30,
 			

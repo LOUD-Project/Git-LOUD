@@ -12,57 +12,24 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UESDestroy',
-            Cue = 'UES0401_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-		EnemyUnitDetectedAeon = Sound {
-			Bank = 'XGG',
-			Cue = 'XGG_HQ_GD1_04180',
-		},
-		EnemyUnitDetectedUEF = Sound {
-			Bank = 'XGG',
-			Cue = 'XGG_HQ_GD1_04180',
-		},
-		EnemyUnitDetectedCybran = Sound {
-			Bank = 'XGG',
-			Cue = 'XGG_HQ_GD1_04180',
-		},
-        StartMove = Sound {
-            Bank = 'UES',
-            Cue = 'UES0401_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMoveSub = Sound {
-            Bank = 'UES',
-            Cue = 'UES0401_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        SubmergeStart = Sound {
-            Bank = 'UES',
-            Cue = 'UES_Sub_Submerge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        SurfaceStart = Sound {
-            Bank = 'UES',
-            Cue = 'UES_Sub_Surface',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed                  = Sound { Bank = 'UESDestroy', Cue = 'UES0401_Destroy', LodCutoff = 'UnitMove_LodCutoff' },
+		EnemyUnitDetectedAeon   = Sound {	Bank = 'XGG',	Cue = 'XGG_HQ_GD1_04180'	},
+		EnemyUnitDetectedUEF    = Sound {	Bank = 'XGG',	Cue = 'XGG_HQ_GD1_04180'    },
+		EnemyUnitDetectedCybran = Sound {	Bank = 'XGG',	Cue = 'XGG_HQ_GD1_04180'	},
+        StartMove               = Sound { Bank = 'UES', Cue = 'UES0401_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMoveSub            = Sound { Bank = 'UES', Cue = 'UES0401_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        SubmergeStart           = Sound { Bank = 'UES', Cue = 'UES_Sub_Submerge', LodCutoff = 'UnitMove_LodCutoff' },
+        SurfaceStart            = Sound { Bank = 'UES', Cue = 'UES_Sub_Surface', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection             = Sound { Bank = 'Interface', Cue = 'UEF_Select_Naval', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 10,
-            Level2 = 20,
-            Level3 = 30,
-            Level4 = 40,
-            Level5 = 50,
+            Level1 = 12,
+            Level2 = 24,
+            Level3 = 36,
+            Level4 = 48,
+            Level5 = 60,
         },
     },
 	
@@ -94,13 +61,19 @@ UnitBlueprint {
     CollisionOffsetZ = 0.4,
 	
     Defense = {
-        AirThreatLevel = 160,
+
+        MissileTorpDestroy = { AttachBone = {'Front_Left_Projectile02','Front_Right_Projectile01','AA_Point'}, Radius = 3.5, RedirectRateOfFire = 9, ProjectileCategories = {'TORPEDO'} },
+
         ArmorType = 'Normal',
+
         EconomyThreatLevel = 200,
-        Health = 38000,
-        MaxHealth = 38000,
+
+        Health = 33550,
+        MaxHealth = 33550,
         RegenRate = 24,
-        SubThreatLevel = 52,
+
+        AirThreatLevel = 88,
+        SubThreatLevel = 46,
     },
 	
     Description = '<LOC ues0401_desc>Experimental Aircraft Carrier (Support)',
@@ -114,6 +87,7 @@ UnitBlueprint {
             'The Shark',
 			'Tube Sausage',
         },
+
         Abilities = {
             '<LOC ability_aa>Anti-Air',
             '<LOC ability_airstaging>Air Staging',
@@ -130,116 +104,18 @@ UnitBlueprint {
         AnimationDeath = false,
 		
         IdleEffects = {
-            Sub = {
-                Effects = {
-                    {
-                        Bones = {
-                            'UES0401',
-                            'Exhaust01',
-                            'Exhaust02',
-                        },
-                        Type = 'UnderWater01',
-                    },
-                },
-            },
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'UES0401',
-                        },
-                        Scale = 3.4,
-                        Type = 'SeaIdle01',
-                    },
-                },
-            },
+            Sub     = { Effects = { { Bones = {'UES0401','Exhaust01','Exhaust02'}, Type = 'UnderWater01' } } },
+            Water   = { Effects = { { Bones = {'UES0401'}, Scale = 1.7, Type = 'SeaIdle01' } } }
         },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 800,
-                    ShaderName = 'Unit',
-                },
-            },
-        },
-        MotionChangeEffects = {
-            SubBottomUp = {
-                Effects = {
-                    {
-                        Bones = {
-                            'UES0401',
-                        },
-                        Scale = 1.85,
-                        Type = 'Surface02',
-                    },
-                },
-            },
-            WaterTopDown = {
-                Effects = {
-                    {
-                        Bones = {
-                            'UES0401',
-                        },
-                        Scale = 6,
-                        Type = 'Submerge02',
-                    },
-                },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 800, ShaderName = 'Unit', } } },
+
         MovementEffects = {
-            Sub = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Exhaust01',
-                            'Exhaust02',
-                            'Exhaust03',
-                            'Exhaust04',
-                        },
-                        Scale = 13,
-                        Type = 'BackWake',
-                    },
-                },
-            },
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'UES0401',
-                        },
-                        Offset = {
-                            1,
-                            0,
-                            9,
-                        },
-                        Scale = 1.3,
-                        Type = 'LeftFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'UES0401',
-                        },
-                        Offset = {
-                            -1,
-                            0,
-                            9,
-                        },
-                        Scale = 1.3,
-                        Type = 'RightFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'UES0401',
-                        },
-                        Offset = {
-                            0,
-                            0,
-                            -7.8,
-                        },
-                        Scale = 1.5,
-                        Type = 'BackWake',
-                    },
+            Sub     = { Effects = { { Bones = {'Exhaust01','Exhaust02','Exhaust03','Exhaust04'}, Scale = 13, Type = 'BackWake' } } },
+            Water   = { Effects = {
+                    { Bones = {'UES0401'}, Offset = {1,0,9}, Scale = 1.3, Type = 'LeftFrontWake' },
+                    { Bones = {'UES0401'}, Offset = {-1,0,9}, Scale = 1.3, Type = 'RightFrontWake' },
+                    { Bones = {'UES0401'}, Offset = {0,0,-7.8}, Scale = 1, Type = 'BackWake' },
                 },
             },
         },
@@ -248,8 +124,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 385000,
-        BuildCostMass = 30000,
+        BuildCostEnergy = 345000,
+        BuildCostMass = 24750,
         BuildRate = 200,
         BuildTime = 38500,
 		
@@ -277,14 +153,13 @@ UnitBlueprint {
             RULEUCC_Stop = true,
             RULEUCC_Transport = true,
         },
+
         ConstructionBar = true,
         FactionName = 'UEF',
         Icon = 'sea',
+
         OrderOverrides = {
-            RULEUCC_Transport = {
-                bitmapId = 'deploy',
-                helpText = 'deploy',
-            },
+            RULEUCC_Transport = { bitmapId = 'deploy', helpText = 'deploy' },
         },
 
         UnitName = '<LOC ues0401_name>Atlantis',
@@ -293,12 +168,15 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
+
 		OmniRadius = 32,
-        RadarRadius = 165,
+        RadarRadius = 144,
+        SonarRadius = 80,
+
 		RadarStealth = true,
-        SonarRadius = 125,
 		SonarStealth = true,
-        VisionRadius = 42,
+
+        VisionRadius = 44,
         WaterVisionRadius = 48,
     },
 	
@@ -365,23 +243,31 @@ UnitBlueprint {
 	
     Weapon = {
         {
+            advancedTracking = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XES_Weapons',
-                    Cue = 'XES0102_Angler_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },			
-                FireUnderWater = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0401_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
+                Fire = Sound { Bank = 'XES_Weapons', Cue = 'XES0102_Angler_Torpedo', LodCutoff = 'Weapon_LodCutoff' },			
+                FireUnderWater = Sound { Bank = 'UESWeapon', Cue = 'UES0401_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
+            },
+
+            BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.3,
+                    Radius = 2,
+                    TargetAllow = 'LAND TECH1,NAVAL TECH1,LAND TECH2',
+                    TargetDisallow = 'WALL,COMMAND,EXPERIMENTAL',
                 },
             },
-            BallisticArc = 'RULEUBA_None',
+
             CollideFriendly = false,
 			
-            Damage = 220,
-            DamageRadius = 1.5,
+            Damage = 350,
+            DamageRadius = 2,
             DamageType = 'Normal',
 			
             DisplayName = 'LR Angler Torpedo',
@@ -396,16 +282,16 @@ UnitBlueprint {
 			
             Label = 'Torpedo',
 			
-            MaxRadius = 65,
+            MaxRadius = 64,
 			
-            MuzzleSalvoDelay = 0.3,
-            MuzzleSalvoSize = 8,
+            MuzzleSalvoDelay = 0.5,
+            MuzzleSalvoSize = 4,
 
-            MuzzleVelocity = 3,
+            MuzzleVelocity = 5,
             MuzzleVelocityRandom = 1,
 			
-            ProjectileId = '/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp',
-            ProjectileLifetime = 9,
+            ProjectileId = '/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_proj.bp',
+            ProjectileLifetime = 8.5,
 			
             RackBones = {
                 {
@@ -418,10 +304,12 @@ UnitBlueprint {
                     RackBone = 'Front_Right_Projectile01',
                 },
             },
+            
+            RackSalvoReloadTime = 1.5,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.3,		-- 528 DPS Sub
+            RateOfFire = 1,		-- 1400 every 3 = 466 DPS Sub
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -436,14 +324,11 @@ UnitBlueprint {
         {
             advancedTracking = true,
 
+            AboveWaterFireOnly = true,
             AlwaysRecheckTarget = true,
 
             Audio = {
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0401_Missile_Flayer',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0401_Missile_Flayer', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -451,7 +336,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 200,
+            Damage = 440,
             DamageType = 'Normal',
 			
             DisplayName = 'Flayer SAM Launcher',
@@ -464,12 +349,12 @@ UnitBlueprint {
 			
             Label = 'AA',
 			
-            MaxRadius = 53,
+            MaxRadius = 52,
 			
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 8,
+            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoSize = 4,
 
-            MuzzleVelocity = 33,
+            MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
             ProjectileLifetime = 4.5,
@@ -486,12 +371,11 @@ UnitBlueprint {
                 },
             },
 
-            RackSalvoChargeTime = 0.2,
-            RackSalvoReloadTime = 0.5,
+            RackSalvoReloadTime = 1.3,      -- 2.5 second cycle
 
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 1,		-- 1600 DPS Air
+            RateOfFire = 1,		-- 1760/2 =  880 DPS Air
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -503,6 +387,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.2,
 			
             Turreted = false,

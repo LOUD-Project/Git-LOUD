@@ -1,11 +1,10 @@
+local Torpedo = import('/lua/seraphimweapons.lua').SANAnaitTorpedo
+
 XSB2205 = Class(import('/lua/seraphimunits.lua').SStructureUnit) {
 
     Weapons = {
-
-        TorpedoTurret = Class(import('/lua/seraphimweapons.lua').SANHeavyCavitationTorpedo) {},
-
+        TorpedoTurret = Class(Torpedo) {},
         AntiTorpedo = Class(import('/lua/seraphimweapons.lua').SDFAjelluAntiTorpedoDefense) {},
-		
     },
 	
 }

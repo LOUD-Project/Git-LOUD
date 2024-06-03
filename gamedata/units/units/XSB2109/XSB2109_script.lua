@@ -1,10 +1,13 @@
 local SStructureUnit = import('/lua/seraphimunits.lua').SStructureUnit
 
-local SANUallCavitationTorpedo = import('/lua/seraphimweapons.lua').SANUallCavitationTorpedo
+local Torpedo = import('/lua/seraphimweapons.lua').SANAnaitTorpedo
 
 XSB2109 = Class(SStructureUnit) {
+
     Weapons = {
-        Turret01 = Class(SANUallCavitationTorpedo) {},
+        Turret01 = Class(Torpedo) {},
     },     
+
 }
+
 TypeClass = XSB2109

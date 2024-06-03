@@ -1,21 +1,9 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0306_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'URL', Cue = 'URL0306_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     BuffFields = {
@@ -41,41 +29,38 @@ UnitBlueprint {
         ArmorType = 'Normal',
         Health = 695,
         MaxHealth = 695,
-        RegenRate = 3,
+        RegenRate = 2,
+        
+        EconomyThreatLevel = 11,
         SurfaceThreatLevel = .1,
     },
 
     Description = '<LOC url0306_desc>Adv Mobile Stealth Field System',
 
     Display = {
+    
         Abilities = {
-            'Stealth Field',
+            '<LOC ability_stealthfield>Stealth Field',
 			'Sensor Disruption Array'
         },
 
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    Scrolling = true,
-                    ShaderName = 'Insect',
-                },
-                {
-                    AlbedoName = 'url0307_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Insect',
-                    SpecularName = 'url0307_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, Scrolling = true, ShaderName = 'Insect' },
+                { AlbedoName = 'url0307_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Insect', SpecularName = 'url0307_lod1_specteam.dds' },
             },
         },
+        
         UniformScale = 0.13,
     },
 
     Economy = {
-        BuildCostEnergy = 1600,
-        BuildCostMass = 160,
+        BuildCostEnergy = 3600,
+        BuildCostMass = 450,
         BuildTime = 800,
+
+        --MaintenanceConsumptionPerSecondEnergy = 660,  -- is controlled by the buff 
     },
 
     General = {
@@ -86,17 +71,16 @@ UnitBlueprint {
             RULEUCC_Patrol = true,
             RULEUCC_Stop = true,
         },
+        
         FactionName = 'Cybran',
         Icon = 'land',
+        
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-field',
-                helpText = 'toggle_stealth_field',
-            },
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-field', helpText = 'toggle_stealth_field' },
         },
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+        
         UnitName = '<LOC url0307_name>Deviator',
     },
 
@@ -104,7 +88,8 @@ UnitBlueprint {
         RadarStealth = true,
         RadarStealthField = true,
         RadarStealthFieldRadius = 28,
-        VisionRadius = 28,
+
+        VisionRadius = 20,
     },
 
     Interface = {
@@ -122,9 +107,9 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         MaxAcceleration = 1.7,
-        MaxBrake = 3.4,
-        MaxSpeed = 3.4,
-        MaxSpeedReverse = 3.4,
+        MaxBrake = 3.2,
+        MaxSpeed = 3.2,
+        MaxSpeedReverse = 3.2,
         MaxSteerForce = 10,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
@@ -154,8 +139,8 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        HealthMult = 0.6,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

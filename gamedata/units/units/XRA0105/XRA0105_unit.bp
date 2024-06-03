@@ -35,21 +35,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XRA',
-            Cue = 'XRA0105_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'URADestroy', Cue = 'URA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XRA', Cue = 'XRA0105_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -107,7 +95,6 @@ UnitBlueprint {
             },
         },
 
-
         UniformScale = 0.04,
     },
 	
@@ -136,11 +123,12 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'air',
+
         UnitName = '<LOC xra0105_name>Jester',
     },
 	
     Intel = {
-        VisionRadius = 26,
+        VisionRadius = 28,
     },
 	
     Interface = {
@@ -154,7 +142,7 @@ UnitBlueprint {
     Physics = {
         BuildOnLayerCaps = { LAYER_Air = true },
 		
-        Elevation = 13,
+        Elevation = 12,
 		
         FuelRechargeRate = 8,
         FuelUseTime = 160,

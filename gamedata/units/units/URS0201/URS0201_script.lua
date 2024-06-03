@@ -3,22 +3,36 @@ local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 local CSeaUnit =  import('/lua/defaultunits.lua').SeaUnit
 
 local CybranWeapons = import('/lua/cybranweapons.lua')
+local CAAAutocannon             = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
+local CDFProtonCannonWeapon     = CybranWeapons.CDFProtonCannonWeapon
+local CANNaniteTorpedoWeapon    = CybranWeapons.CANNaniteTorpedoWeapon
 
-local CAAAutocannon = CybranWeapons.CAAAutocannon
-local CDFProtonCannonWeapon = CybranWeapons.CDFProtonCannonWeapon
-local CANNaniteTorpedoWeapon = import('/lua/cybranweapons.lua').CANNaniteTorpedoWeapon
-local CIFSmartCharge = import('/lua/cybranweapons.lua').CIFSmartCharge
+local AeonWeapons = import('/lua/aeonweapons.lua')
+local AIFQuasarAntiTorpedoWeapon = AeonWeapons.AIFQuasarAntiTorpedoWeapon
+
+local WeaponsFile = import('/lua/terranweapons.lua')
+local TIFSmartCharge            = WeaponsFile.TIFSmartCharge
+
+AeonWeapons = nil
+CybranWeapons = nil
+WeaponsFile = nil
 
 URS0201 = Class(CSeaUnit) {
+
     SwitchAnims = true,
     Walking = false,
     IsWaiting = false,
 
     Weapons = {
         ParticleGun = Class(CDFProtonCannonWeapon) {},
+
         AAGun = Class(CAAAutocannon) {},
+
         Torpedo = Class(CANNaniteTorpedoWeapon) {},
-        AntiTorpedo = Class(CIFSmartCharge) {},
+
+        AntiTorpedo = Class(AIFQuasarAntiTorpedoWeapon) {},
+
+        TorpedoDecoy = Class(TIFSmartCharge) {}
     },
 
     OnCreate = function(self)

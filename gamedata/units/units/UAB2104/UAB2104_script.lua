@@ -5,13 +5,7 @@ local AAASonicPulseBatteryWeapon = import('/lua/aeonweapons.lua').AAASonicPulseB
 UAB2104 = Class(AStructureUnit) {
 
     Weapons = {
-	
-        AAGun = Class(AAASonicPulseBatteryWeapon) {
-		
-            FxMuzzleScale = 2.25,
-			
-        },
-		
+        AAGun = Class(AAASonicPulseBatteryWeapon) { FxMuzzleScale = 2.25 },
     },
 	
 }

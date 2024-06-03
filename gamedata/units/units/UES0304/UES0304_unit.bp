@@ -5,41 +5,11 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UESDestroy',
-            Cue = 'UES0304_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        NuclearLaunchDetected = Sound {
-            Bank = 'XGG',
-            Cue = 'Computer_Computer_MissileLaunch_01351',
-        },
-        StartMove = Sound {
-            Bank = 'UES',
-            Cue = 'UES0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMoveSub = Sound {
-            Bank = 'UES',
-            Cue = 'UES0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        SubmergeStart = Sound {
-            Bank = 'UES',
-            Cue = 'UES_Sub_Submerge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        SurfaceStart = Sound {
-            Bank = 'UES',
-            Cue = 'UES_Sub_Surface',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Sub',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-    
+        Killed                  = Sound { Bank = 'UESDestroy', Cue = 'UES0304_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        NuclearLaunchDetected   = Sound { Bank = 'XGG', Cue = 'Computer_Computer_MissileLaunch_01351'},
+        StartMove               = Sound { Bank = 'UES', Cue = 'UES0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMoveSub            = Sound { Bank = 'UES', Cue = 'UES0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection             = Sound { Bank = 'Interface', Cue = 'UEF_Select_Sub', LodCutoff = 'UnitMove_LodCutoff'},
 	},
 	
     Buffs = {
@@ -87,8 +57,8 @@ UnitBlueprint {
     Display = {
         Abilities = {
             'Manual Launch',
-            'Sonar',
-			
+            '<LOC ability_personalstealth>Personal Sonar Stealth',
+            '<LOC ability_sonar>Sonar',
         },
 
         Mesh = {
@@ -106,63 +76,16 @@ UnitBlueprint {
                 },
             },
         },
-        MotionChangeEffects = {
-            SubBottomUp = {
-                Effects = {
-                    {
-                        Bones = {
-                            'UES0304',
-                        },
-                        Type = 'Surface01',
-                    },
-                },
-            },
-            WaterTopDown = {
-                Effects = {
-                    {
-                        Bones = {
-                            'UES0304',
-                        },
-                        Type = 'Submerge01',
-                    },
-                },
-            },
-        },
+
         MovementEffects = {
             Sub = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Back_Left_Exhaust',
-                            'Back_Right_Exhaust',
-                        },
-                        Type = 'BackWake',
-                    },
-                },
+                Effects = { { Bones = {'Back_Left_Exhaust','Back_Right_Exhaust'}, Type = 'BackWake' } },
             },
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'UES0304',
-                        },
-                        Scale = 0.5,
-                        Type = 'LeftFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'UES0304',
-                        },
-                        Scale = 0.5,
-                        Type = 'RightFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'UES0304',
-                        },
-                        Scale = 0.4,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'UES0304'}, Scale = 0.5, Type = 'LeftFrontWake' },
+                    { Bones = {'UES0304'}, Scale = 0.5, Type = 'RightFrontWake'},
+                    { Bones = {'UES0304'}, Scale = 0.4, Type = 'BackWake' },
                 },
             },
         },
@@ -199,7 +122,8 @@ UnitBlueprint {
 		FreeIntel = true,
 		RadarStealth = true,
 		SonarStealth = true,		
-        SonarRadius = 75,
+
+        SonarRadius = 72,
         VisionRadius = 36,
         WaterVisionRadius = 36,
     },
@@ -258,11 +182,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0304_Missile_Tactical',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0304_Missile_Tactical', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,

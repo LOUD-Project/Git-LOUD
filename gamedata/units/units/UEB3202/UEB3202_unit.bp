@@ -1,15 +1,8 @@
 UnitBlueprint {
+
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Sonar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy',   Cue = 'UEB_Destroy_Med_Land',   LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',    Cue = 'UEF_Select_Sonar',       LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     BuildIconSortPriority = 190,
@@ -36,17 +29,21 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 3,
-        Health = 1400,
-        MaxHealth = 1400,
-        RegenRate = 0,
+
+        Health = 650,
+        MaxHealth = 650,
+        RegenRate = 2,
+
+        EconomyThreatLevel = 19,
     },
 
     Description = '<LOC ueb3202_desc>Improved Sonar System',
 
     Display = {
+
         Abilities = {
-            'Upgradeable to Mobile Sonar',
+            '<LOC ability_upgradable>Upgradeable',
+            '<LOC ability_personalstealth>Personal Stealth',            
         },
 
         AnimationUpgrade = '/units/ueb3202/ueb3202_aupgrade.sca',
@@ -54,16 +51,8 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    ShaderName = 'Unit',
-                },
-                {
-                    AlbedoName = 'ueb3202_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Unit',
-                    SpecularName = 'ueb3202_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, ShaderName = 'Unit' },
+                { AlbedoName = 'ueb3202_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Unit', SpecularName = 'ueb3202_lod1_specteam.dds' },
             },
         },
 
@@ -72,13 +61,13 @@ UnitBlueprint {
 
     Economy = {
         BuildCostEnergy = 3600,
-        BuildCostMass = 120,
+        BuildCostMass = 360,
         BuildRate = 15,
         BuildTime = 600,
 
         BuildableCategory = {'ues0305'},
 
-        MaintenanceConsumptionPerSecondEnergy = 100,
+        MaintenanceConsumptionPerSecondEnergy = 250,
     },
 
     Footprint = {
@@ -86,21 +75,14 @@ UnitBlueprint {
     },
 
     General = {
-        CommandCaps = {
-            RULEUCC_Pause = true,
-        },
+        CommandCaps = { RULEUCC_Pause = true },
         FactionName = 'UEF',
         Icon = 'sea',
         OrderOverrides = {
-            RULEUTC_IntelToggle = {
-                bitmapId = 'sonar',
-                helpText = 'toggle_sonar',
-            },
+            RULEUTC_IntelToggle = { bitmapId = 'sonar', helpText = 'toggle_sonar' },
         },
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_IntelToggle = true,
-        },
+        ToggleCaps = { RULEUTC_IntelToggle = true },
 
         UpgradesFrom = 'ueb3102',
         UpgradesTo = 'ues0305',
@@ -109,9 +91,13 @@ UnitBlueprint {
     Intel = {
         ReactivateTime = 10,
         ShowIntelOnSelect = true,
-        SonarRadius = 180,
-        VisionRadius = 30,
-		WaterVisionRadius = 15,
+        
+        RadarStealth = true,
+        SonarStealth = true,
+
+        SonarRadius = 192,
+        VisionRadius = 28,
+		WaterVisionRadius = 32,
     },
 
     Interface = {

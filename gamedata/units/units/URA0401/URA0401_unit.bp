@@ -4,15 +4,7 @@ UnitBlueprint {
         GuardReturnRadius = 90,
         GuardScanRadius = 45,
 		
-        TargetBones = {
-            'URA0401',
-            'Exhaust_Left01',
-            'Exhaust_Left02',
-            'Exhaust_Left03',
-            'Exhaust_Right01',
-            'Exhaust_Right02',
-            'Exhaust_Right03',
-        },
+        TargetBones = {'URA0401','Exhaust_Left01','Exhaust_Left02','Exhaust_Right01','Exhaust_Right02'},
     },
 	
     Air = {
@@ -47,38 +39,13 @@ UnitBlueprint {
     },
 	
     Audio = {
-        AirUnitWaterImpact = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },	
-		EnemyUnitDetectedAeon = Sound {
-			Bank = 'XGG',
-			Cue = 'XGG_HQ_GD1_04183',
-		},
-		EnemyUnitDetectedUEF = Sound {
-			Bank = 'XGG',
-			Cue = 'XGG_HQ_GD1_04183',
-		},
-		EnemyUnitDetectedCybran = Sound {
-			Bank = 'XGG',
-			Cue = 'XGG_HQ_GD1_04183',
-		},
-        Killed = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0401_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+		EnemyUnitDetectedAeon   = Sound { Bank = 'XGG', Cue = 'XGG_HQ_GD1_04183'},
+		EnemyUnitDetectedUEF    = Sound { Bank = 'XGG', Cue = 'XGG_HQ_GD1_04183'},
+		EnemyUnitDetectedCybran = Sound { Bank = 'XGG', Cue = 'XGG_HQ_GD1_04183'},
+        StartMove               = Sound { Bank = 'URA', Cue = 'URA0401_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        AirUnitWaterImpact      = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed                  = Sound { Bank = 'URADestroy', Cue = 'URA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection             = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {
@@ -125,8 +92,8 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Anti-Air',
-			'Radar',
+            "<LOC ability_aa>Anti-Air",
+			'<LOC ability_radar>Radar',
 			'Additional Shield Damage',
         },
 
@@ -136,47 +103,14 @@ UnitBlueprint {
         AttackReticle = 3,
 		
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    {
-                        Bones = {
-                            'URA0401',
-                        },
-                        Type = 'Landing01',
-                    },
-                },
-            },
-            LandAir = {
-                Effects = {
-                    {
-                        Bones = {
-                            'URA0401',
-                        },
-                        Type = 'TakeOff01',
-                    },
-                },
-            },
+            AirLand = { Effects = { { Bones = {'URA0401'}, Type = 'Landing01' } } },
+            LandAir = { Effects = { { Bones = {'URA0401'}, Type = 'TakeOff01' } } },
         },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 550,
-                    ShaderName = 'Insect',
-                },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 550, ShaderName = 'Insect' } } },
+
         MovementEffects = {
-            Air = {
-                Effects = {
-                    {
-                        Bones = {
-                            'URA0401',
-                        },
-                        Type = 'Hover03',
-                    },
-                },
-            },
+            Air = { Effects = { { Bones = {'URA0401'}, Type = 'Hover03' } } },
         },
 
         UniformScale = 0.18,
@@ -206,8 +140,8 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-		RadarRadius = 75,
-        VisionRadius = 42,
+		RadarRadius = 72,
+        VisionRadius = 44,
     },
 	
     Interface = {

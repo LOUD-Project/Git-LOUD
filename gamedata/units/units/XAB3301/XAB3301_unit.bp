@@ -1,29 +1,13 @@
 UnitBlueprint {
+
     Abilities = {
-        TargetLocation = {
-            bitmapId = 'skry-target',
-            helpText = 'scry_target',
-            preferredSlot = 11,
-            script = 'TargetLocation',
-        },
+        TargetLocation = { bitmapId = 'skry-target', helpText = 'scry_target', preferredSlot = 11, script = 'TargetLocation' },
     },
     
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed       = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Radar', LodCutoff = 'UnitMove_LodCutoff' },
     },
     
     BuildIconSortPriority = 200,
@@ -48,61 +32,30 @@ UnitBlueprint {
     
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 400,
+
         Health = 1200,
         MaxHealth = 1200,
         RegenRate = 2,
+
+        EconomyThreatLevel = 400,        
     },
     
     Description = '<LOC xab3301_desc>Quantum Optics Facility',
     
     Display = {
         DamageEffects = {
-            {
-                Bone = 0,
-                OffsetX = 0,
-                OffsetY = 2.75,
-                OffsetZ = 0,
-            },
-            {
-                Bone = 0,
-                OffsetX = 0.5,
-                OffsetY = 0.25,
-                OffsetZ = 0,
-            },
-            {
-                Bone = 0,
-                OffsetX = -0.5,
-                OffsetY = 0.25,
-                OffsetZ = 0,
-            },
-            {
-                Bone = 0,
-                OffsetX = 0,
-                OffsetY = 0.25,
-                OffsetZ = 0.5,
-            },
-            {
-                Bone = 0,
-                OffsetX = 0,
-                OffsetY = 0.25,
-                OffsetZ = -0.5,
-            },
+            { Bone = 0, OffsetX = 0, OffsetY = 2.75, OffsetZ = 0 },
+            { Bone = 0, OffsetX = 0.5, OffsetY = 0.25, OffsetZ = 0 },
+            { Bone = 0, OffsetX = -0.5, OffsetY = 0.25, OffsetZ = 0 },
+            { Bone = 0, OffsetX = 0, OffsetY = 0.25, OffsetZ = 0.5 },
+            { Bone = 0, OffsetX = 0, OffsetY = 0.25, OffsetZ = -0.5 },
         },
         
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    ShaderName = 'Aeon',
-                },
-                {
-                    AlbedoName = 'xab3301_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Aeon',
-                    SpecularName = 'xab3301_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, ShaderName = 'Aeon' },
+                { AlbedoName = 'xab3301_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Aeon', SpecularName = 'xab3301_lod1_specteam.dds' },
             },
         },
         
@@ -113,7 +66,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12,
                 Normal = 'Tarmacs/Tar8x_aeon_01_normals',
-                Orientations = {0,90,180,270},
+                Orientations = {0},
                 RemoveWhenDead = true,
                 Width = 12,
             },
@@ -147,7 +100,9 @@ UnitBlueprint {
             RULEUTC_IntelToggle = { bitmapId = 'skry-toggle', helpText = 'toggle_scrying' },
         },
         SelectionPriority = 5,
+
         ToggleCaps = { RULEUTC_IntelToggle = true },
+
         UnitName = '<LOC xab3301_name>Eye of Rhianne',
     },
     
@@ -155,9 +110,11 @@ UnitBlueprint {
 		Cooldown = 1,					---- time before scry button reappears once scrying begins (in this case they come back on just before the scrying is finished)
 		Viewtime = 30,					---- time that scrying area remains visible	(the scrying buttons disappear once the viewtime begins)
         ReactivateTime = 10,			---- time between the end of a scry and the start of a new one (a chance to pick a new target before the old one restarts)
-        RemoteViewingRadius = 30,		---- this would normally be the start size of the remote viewing radius
-		RemoteViewingRadiusFinal = 65,	---- and the final radius of the scry (controls the grow/shrink rate) 
-        VisionRadius = 10,				---- this is just the vision range of the tower itself
+
+        RemoteViewingRadius = 28,		---- this would normally be the start size of the remote viewing radius
+		RemoteViewingRadiusFinal = 60,	---- and the final radius of the scry (controls the grow/shrink rate) 
+
+        VisionRadius = 12,				---- this is just the vision range of the tower itself, not much
     },
     
     LifeBarHeight = 0.075,
@@ -199,7 +156,7 @@ UnitBlueprint {
     
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.3,
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,

@@ -1,10 +1,10 @@
 local TStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
-local TANTorpedoLandWeapon = import('/lua/terranweapons.lua').TANTorpedoLandWeapon
+local TANTorpedoAngler = import('/lua/terranweapons.lua').TANTorpedoAngler
 
 UEB2109 = Class(TStructureUnit) {
     Weapons = {
-        Turret01 = Class(TANTorpedoLandWeapon) {},
+        Turret01 = Class(TANTorpedoAngler) {},
     },
 }
 

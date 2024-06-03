@@ -1,25 +1,13 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Blade03',
-            'Extension01',
-            'Extension04',
-        },
+        TargetBones = {'Blade03','Extension01','Extension04'},
     },
     
     Adjacency = 'HydrocarbonAdjacencyBuffs',
     
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
     
     BuildIconSortPriority = 70,
@@ -56,7 +44,9 @@ UnitBlueprint {
     Description = '<LOC uab1102_desc>Basic Hydrocarbon Power Plant',
     
     Display = {
+
         AnimationPermOpen = '/Units/UAB1102/UAB1102_Aopen.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -81,12 +71,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar8x_aeon_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
@@ -108,11 +93,7 @@ UnitBlueprint {
         
 		BuildableCategory = { 'bab1202', },
         
-        RebuildBonusIds = {
-            'uab1102',
-			'bab1202',
-			'bab1302',
-        },
+        RebuildBonusIds = {'uab1102','bab1202','bab1302'},
         
 		StorageEnergy = 250,        
     },

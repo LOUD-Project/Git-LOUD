@@ -3,16 +3,8 @@ UnitBlueprint {
     Adjacency = 'T3MassExtractorAdjacencyBuffs',
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
     
     BuildIconSortPriority = 40,
@@ -85,9 +77,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_ProductionToggle = true,
-        },
+        ToggleCaps = { RULEUTC_ProductionToggle = true },
 
         UpgradesFrom = 'urb1202',
     },
@@ -137,11 +127,8 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

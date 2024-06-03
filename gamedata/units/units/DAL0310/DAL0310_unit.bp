@@ -1,29 +1,18 @@
 UnitBlueprint {
+
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove = Sound { Bank = 'UAL', Cue = 'UAL0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Tank', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 3,
-            Level2 = 6,
-            Level3 = 9,
-            Level4 = 12,
-            Level5 = 15,
+            Level1 = 2,
+            Level2 = 3,
+            Level3 = 5,
+            Level4 = 6,
+            Level5 = 8,
         },
     },
 	
@@ -57,25 +46,17 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Hover',
+            '<LOC ability_hover>Hover',
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    ShaderName = 'Aeon',
-                },
-                {
-                    AlbedoName = 'dal0310_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Aeon',
-                    SpecularName = 'dal0310_lod1_specteam.dds',
-                },
+                {LODCutoff = 100,ShaderName = 'Aeon'},
+                {AlbedoName = 'dal0310_lod1_albedo.dds',LODCutoff = 215,ShaderName = 'Aeon',SpecularName = 'dal0310_lod1_specteam.dds'},
             },
         },
 
-
         UniformScale = 0.06,
     },
 	
@@ -86,8 +67,7 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -99,9 +79,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC dal0310_name>Absolver',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -169,13 +147,11 @@ UnitBlueprint {
 	
     Weapon = {
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                MuzzleChargeStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0201_Cannon_Disruptor',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                MuzzleChargeStart = Sound { Bank = 'UALWeapon', Cue = 'UAL0201_Cannon_Disruptor', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -208,16 +184,12 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Barrel_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Barrel_Muzzle'},
                     RackBone = 'Turret_Barrel_Muzzle',
                 },
             },
 
             RackReloadTimeout = 10,
-
-
 
             RangeCategory = 'UWRC_DirectFire',
             
@@ -235,6 +207,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.2,
+
             TurretBoneMuzzle = 'Turret_Barrel',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
@@ -251,6 +224,7 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
@@ -258,11 +232,7 @@ UnitBlueprint {
         MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

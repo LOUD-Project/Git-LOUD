@@ -6,7 +6,6 @@ local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 XSB2401 = Class(SStructureUnit) {
 
-
     Weapons = {
         ExperimentalNuke = Class(SIFExperimentalStrategicMissile){
 

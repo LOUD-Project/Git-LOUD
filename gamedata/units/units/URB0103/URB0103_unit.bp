@@ -1,28 +1,12 @@
 UnitBlueprint {
 
     Audio = {
-        Construct = Sound {
-            Bank = 'URB',
-            Cue = 'URB0103_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Factory',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Construct       = Sound { Bank = 'URB', Cue = 'URB0101_Construct_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        DeathExplosion  = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Factory', LodCutoff = 'UnitMove_LodCutoff'},
     },
-    
+
     BuildIconSortPriority = 30,
     
     Categories = {
@@ -60,7 +44,7 @@ UnitBlueprint {
     
     Display = {
         Abilities = {
-            'Upgradeable',
+            '<LOC ability_upgradable>Upgradeable',
         },
 
         AnimationUpgrade = '/units/urb0103/urb0103_aupgrade.sca',
@@ -100,11 +84,8 @@ UnitBlueprint {
         InitialRallyX = 0,
         InitialRallyZ = 10,
 
-        RebuildBonusIds = {
-            'urb0103',
-            'urb0203',
-            'urb0303',
-        },
+        RebuildBonusIds = {'urb0103','urb0203','urb0303'},
+
         StorageEnergy = 600,
         StorageMass = 60,
     },
@@ -134,7 +115,8 @@ UnitBlueprint {
     },
 
     Intel = {
-        VisionRadius = 10,
+        VisionRadius = 12,
+        WaterVisionRadius = 8,
     },
 
     Interface = {
@@ -190,9 +172,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.6,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Water = true,

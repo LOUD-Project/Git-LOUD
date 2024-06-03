@@ -1,21 +1,9 @@
 UnitBlueprint {
 
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed       = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Gun', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -53,10 +41,12 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 1151,
+
         Health = 14500,
         MaxHealth = 14500,
         RegenRate = 3,
+
+        EconomyThreatLevel = 1151,
     },
 	
     Description = '<LOC urb2302_desc>Heavy Artillery Installation',
@@ -64,13 +54,9 @@ UnitBlueprint {
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 500,
-                    ShaderName = 'Insect',
-                },
-            },
+            LODs = { { LODCutoff = 500, ShaderName = 'Insect' } },
         },
+        
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_cybran_01_albedo',
@@ -83,6 +69,7 @@ UnitBlueprint {
                 Width = 12.8,
             },
         },
+        
         UniformScale = 0.081,
     },
 	
@@ -164,30 +151,18 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
+
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URB',
-                    Cue = 'URB2302_Turret_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URB',
-                    Cue = 'URB2302_Turret_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2302_Artillery_Proton',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'URB', Cue = 'URB2302_Turret_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'URB', Cue = 'URB2302_Turret_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire        = Sound { Bank = 'URLWeapon', Cue = 'URB2302_Artillery_Proton', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_HighArc',
 			
             Buffs = {
             	{
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 2,
@@ -211,8 +186,8 @@ UnitBlueprint {
 			
             DisplayName = 'Proton Artillery',
 			
-            EnergyDrainPerSecond = 2705,        -- 10 second charge --
-            EnergyRequired = 27050,
+            EnergyDrainPerSecond = 3120,        -- 10 second charge --
+            EnergyRequired = 31200,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -249,6 +224,7 @@ UnitBlueprint {
             TargetCheckInterval = 5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'ECONOMIC',
                 'STRUCTURE',
                 'ALLUNITS',
             },
@@ -257,7 +233,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 30,
             TurretPitchRange = 50,
@@ -273,9 +248,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.9,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        EnergyMult = 0.5,
+        HealthMult = 0.5,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

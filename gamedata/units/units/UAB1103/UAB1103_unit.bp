@@ -1,25 +1,13 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Turret01_B02',
-            'Turret02_B02',
-            'Turret03_B02',
-        },
+        TargetBones = {'Turret01_B02','Turret02_B02','Turret03_B02'},
     },
     
     Adjacency = 'T1MassExtractorAdjacencyBuffs',
     
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
     
     BuildIconSortPriority = 40,
@@ -55,10 +43,13 @@ UnitBlueprint {
     
     Display = {
         Abilities = {
-            'Upgradeable',
+            '<LOC ability_aquatic>Aquatic: can be built underwater',
+            '<LOC ability_upgradable>Upgradeable',
         },
+
         AnimationActivate = '/units/UAB1103/UAB1103_apump.sca',
         AnimationUpgrade = '/units/UAB1103/UAB1103_aupgrade.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -91,11 +82,7 @@ UnitBlueprint {
         
         ProductionPerSecondMass = 2,
         
-        RebuildBonusIds = {
-            'uab1103',
-            'uab1202',
-            'uab1302',
-        },
+        RebuildBonusIds = {'uab1103','uab1202','uab1302'},
 
         StorageEnergy = 60,
         StorageMass = 6,        
@@ -103,16 +90,12 @@ UnitBlueprint {
     
     General = {
 
-        CommandCaps = {
-            RULEUCC_Pause = true,
-        },
+        CommandCaps = { RULEUCC_Pause = true },
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,
 
-        ToggleCaps = {
-            RULEUTC_ProductionToggle = true,
-        },
+        ToggleCaps = { RULEUTC_ProductionToggle = true },
 
         UpgradesTo = 'uab1202',
     },
@@ -168,7 +151,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

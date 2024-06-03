@@ -2,21 +2,9 @@ UnitBlueprint {
     Adjacency = 'T3MassExtractorAdjacencyBuffs',
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed      = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     BuildIconSortPriority = 40,
@@ -57,6 +45,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -75,6 +64,7 @@ UnitBlueprint {
                 },
             },
         },
+
         UniformScale = 0.05,
     },
     
@@ -97,9 +87,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_ProductionToggle = true,
-        },
+        ToggleCaps = { RULEUTC_ProductionToggle = true },
 
         UpgradesFrom = 'xsb1202',
     },

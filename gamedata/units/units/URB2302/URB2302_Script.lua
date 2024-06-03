@@ -1,9 +1,10 @@
-local EffectTemplate = import('/lua/EffectTemplates.lua')
 local CStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
 local CIFArtilleryWeapon = import('/lua/cybranweapons.lua').CIFArtilleryWeapon
 
 local DefaultProjectileWeapon = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
+
+local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 URB2302 = Class(CStructureUnit) {
 

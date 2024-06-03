@@ -3,18 +3,10 @@ UnitBlueprint {
     Adjacency = 'T1MassFabricatorAdjacencyBuffs',
     
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
-    
+
     BuildIconSortPriority = 50,
     
     Categories = {
@@ -50,7 +42,7 @@ UnitBlueprint {
     
     Display = {
         Abilities = {
-            'Volatile',
+            '<LOC ability_deathaoe>Volatile',
         },
         Mesh = {
             IconFadeInZoom = 130,
@@ -86,9 +78,8 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_ProductionToggle = true,
-        },
+
+        ToggleCaps = { RULEUTC_ProductionToggle = true },
     },
     
     Interface = {

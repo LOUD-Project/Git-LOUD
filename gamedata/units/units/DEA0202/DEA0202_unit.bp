@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 99,
-        GuardScanRadius = 66,
+        GuardReturnRadius = 96,
+        GuardScanRadius = 64,
     },
     Air = {
         AutoLandTime = 1.6,
@@ -39,36 +39,12 @@ UnitBlueprint {
     },
 	
     Audio = {
-        AirUnitWaterImpact = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UEADestroy',
-            Cue = 'UEA_Destroy_Med',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'UEADestroy',
-            Cue = 'UEA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Landing = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0304_Move_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        AirUnitWaterImpact  = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff', },
+        Destroyed           = Sound { Bank = 'UEADestroy', Cue = 'UEA_Destroy_Med', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed              = Sound { Bank = 'UEADestroy', Cue = 'UEA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        Landing             = Sound { Bank = 'UEA', Cue = 'UEA0304_Move_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove           = Sound { Bank = 'UEA', Cue = 'UEA0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection         = Sound { Bank = 'Interface', Cue = 'UEF_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -107,8 +83,8 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Anti-Air',
-            'Radar',
+            "<LOC ability_aa>Anti-Air",
+            '<LOC ability_radar>Radar',
         },
 		
         AttackReticuleSize = 3,
@@ -116,40 +92,21 @@ UnitBlueprint {
         LayerChangeEffects = {
             AirLand = {
                 Effects = {
-                    {
-                        Bones = {
-                            'DEA0202',
-                        },
-                        Scale = 1.5,
-                        Type = 'Landing01',
-                    },
+                    { Bones = {'DEA0202'}, Scale = 1.5, Type = 'Landing01' },
                 },
             },
             LandAir = {
                 Effects = {
-                    {
-                        Bones = {
-                            'DEA0202',
-                        },
-                        Scale = 1.5,
-                        Type = 'TakeOff01',
-                    },
+                    { Bones = {'DEA0202'}, Scale = 1.5, Type = 'TakeOff01' },
                 },
             },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 60,
-                    ShaderName = 'Unit',
-                },
-                {
-                    AlbedoName = 'dea0202_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Unit',
-                    SpecularName = 'dea0202_lod1_specteam.dds',
-                },
+                { LODCutoff = 60, ShaderName = 'Unit' },
+                { AlbedoName = 'dea0202_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Unit', SpecularName = 'dea0202_lod1_specteam.dds' },
             },
         },
 
@@ -186,8 +143,9 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 50,
-        VisionRadius = 32,
+        
+        RadarRadius = 48,
+        VisionRadius = 36,
     },
 	
     Interface = {
@@ -244,11 +202,7 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UEAWeapon',
-                    Cue = 'UEA0104_Railgun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UEAWeapon', Cue = 'UEA0104_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             AutoInitiateAttackCommand = true,
@@ -325,11 +279,7 @@ UnitBlueprint {
 		
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UEAWeapon',
-                    Cue = 'UEA0104_Railgun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UEAWeapon', Cue = 'UEA0104_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',

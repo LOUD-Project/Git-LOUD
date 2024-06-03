@@ -3,26 +3,9 @@ UnitBlueprint {
     Adjacency = 'T3PowerGeneratorAdjacencyBuffs',
     
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed      = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
     
     BuildIconSortPriority = 70,
@@ -56,6 +39,11 @@ UnitBlueprint {
     Description = '<LOC xsb1301_desc>Advanced Power Generator',
     
     Display = {
+        Abilities = {
+            '<LOC ability_aquatic>Aquatic: can be built underwater',
+            '<LOC ability_deathaoe>Volatile',
+        },
+
         AnimationDeath = {
             {
                 Animation = '/units/xsb1301/xsb1301_ADeath.sca',
@@ -64,6 +52,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+
         DamageEffects = {
             {
                 Bone = 0,
@@ -114,6 +103,7 @@ UnitBlueprint {
                 OffsetZ = -1,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -131,6 +121,7 @@ UnitBlueprint {
                 },
             },
         },
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_seraphim_01_albedo',
@@ -138,16 +129,12 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar12x_seraphim_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
         },
+
         UniformScale = 0.1,
     },
     

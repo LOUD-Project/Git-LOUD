@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL_Destroy_Land_Sml',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0101_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Sml', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0101_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Bot', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -56,13 +44,14 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Cloaks when stationary',
-            'Radar',
-            'Stealth',
+            '<LOC ability_cloak>Cloaking when stationary',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_personalstealth>Personal Stealth',
         },
 		
         AnimationWalk = '/units/xsl0101/XSL0101_awalk01.sca',
         AnimationWalkRate = 1,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -81,18 +70,9 @@ UnitBlueprint {
             },
         },
 
-        TransportAnimation = {
-            {
-                Animation = '/units/XSL0101/XSL0101_afold.sca',
-                Weight = 100,
-            },
-        },
-        TransportDropAnimation = {
-            {
-                Animation = '/units/XSL0101/XSL0101_aunfold.sca',
-                Weight = 100,
-            },
-        },
+        TransportAnimation      = { { Animation = '/units/XSL0101/XSL0101_afold.sca', Weight = 100 } },
+        TransportDropAnimation  = { { Animation = '/units/XSL0101/XSL0101_aunfold.sca', Weight = 100 } },
+
         UniformScale = 0.064,
     },
 	
@@ -121,7 +101,7 @@ UnitBlueprint {
     Intel = {
         Cloak = true,
 		FreeIntel = true,
-        RadarRadius = 50,
+        RadarRadius = 48,
         RadarStealth = true,
         StealthWaitTime = 2,
         VisionRadius = 28,
@@ -184,11 +164,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0101_PhasicAutogun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0101_PhasicAutogun', LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -206,7 +182,7 @@ UnitBlueprint {
 			
             Label = 'LaserTurret',
 			
-            MaxRadius = 18,
+            MaxRadius = 16,
             
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,

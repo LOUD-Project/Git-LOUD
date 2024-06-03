@@ -13,30 +13,18 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UASDestroy',
-            Cue = 'UAS0303_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAS',
-            Cue = 'UAS0303_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed = Sound { Bank = 'UASDestroy', Cue = 'UAS0303_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove = Sound { Bank = 'UAS', Cue = 'UAS0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Naval', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 5,
-            Level2 = 10,
-            Level3 = 15,
-            Level4 = 20,
-            Level5 = 25,
+            Level1 = 6,
+            Level2 = 12,
+            Level3 = 18,
+            Level4 = 24,
+            Level5 = 30,
         },
     },
 	
@@ -63,11 +51,15 @@ UnitBlueprint {
     CollisionOffsetY = -0.5,
 	
     Defense = {
+
+        MissileTorpDestroy = { AttachBone = {'Turret_Left','Turret_Right'}, Radius = 3.8, RedirectRateOfFire = 10, ProjectileCategories = {'TORPEDO','MISSILE'} },
+    
         AirThreatLevel = 20,
+
         ArmorType = 'Normal',
         Health = 24000,
         MaxHealth = 24000,
-        RegenRate = 25,
+        RegenRate = 12,
     },
 	
     Description = '<LOC uas0303_desc>Aircraft Carrier',
@@ -79,7 +71,10 @@ UnitBlueprint {
             '<LOC ability_carrier>Carrier',
             '<LOC ability_factory>Factory',
             '<LOC ability_radar>Radar',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_torpedodef>Torpedo Defense',
         },
+
         AnimationDeath = {
             {
                 Animation = '/units/uas0303/uas0303_adeath01.sca',
@@ -94,6 +89,19 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+		
+        IdleEffects = {
+            Water = {
+                Effects = {
+                    {
+                        Bones = {'UAS0303'},
+                        Scale = 0.75,
+                        Type = 'SeaIdle01',
+                    },
+                },
+            },
+        },
+		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -110,14 +118,13 @@ UnitBlueprint {
                 },
             },
         },
+
         MovementEffects = {
             Water = {
                 Effects = {
                     {
-                        Bones = {
-                            'UAS0303',
-                        },
-                        Scale = 2.2,
+                        Bones = {'UAS0303'},
+                        Scale = 1.6,
                         Type = 'BackWake',
                     },
                 },
@@ -155,21 +162,22 @@ UnitBlueprint {
         ConstructionBar = true,
         FactionName = 'Aeon',
         Icon = 'sea',
+
         OrderOverrides = {
-            RULEUCC_Transport = {
-                bitmapId = 'deploy',
-                helpText = 'deploy',
-            },
+            RULEUCC_Transport = { bitmapId = 'deploy', helpText = 'deploy' },
         },
+
         UnitName = '<LOC uas0303_name>Keefer Class',
     },
 	
     Intel = {
         ShowIntelOnSelect = true,    
 		FreeIntel = true,
-        RadarRadius = 165,
+        
+        RadarRadius = 128,
+        SonarRadius = 60,
         VisionRadius = 40,
-        WaterVisionRadius = 32,
+        WaterVisionRadius = 28,
     },
 	
     Interface = {
@@ -181,7 +189,7 @@ UnitBlueprint {
     LifeBarSize = 3.5,
 	
     Physics = {
-        BackUpDistance = 9,
+        BackUpDistance = 10,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Water = true,
@@ -241,7 +249,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 200,
+            Damage = 400,
 			DamageFriendly = false,
             DamageType = 'Normal',
 			
@@ -251,14 +259,11 @@ UnitBlueprint {
                 Water = 'Air',
             },
 			
-            FiringTolerance = 50,
+            FiringTolerance = 30,
 			
-            Label = 'AntiAirMissiles',
+            Label = 'AAMissiles',
 			
-            MaxRadius = 60,
-			
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 2,
+            MaxRadius = 56,
 
             MuzzleVelocity = 40,
 			
@@ -271,10 +276,13 @@ UnitBlueprint {
                     RackBone = 'Turret_Right_Barrel',
                 },
             },
+            
+            RackSalvoReloadTime = 1,    -- one second firing cycle --
 
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 1,		-- 400 DPS Air
+            RateOfFire = 2,		-- 400 DPS Air controlled by RackSalvoReloadTime
+
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
@@ -285,8 +293,10 @@ UnitBlueprint {
                 'AIR MOBILE',
                 'ALLUNITS',
             },
+
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.2,
+            TargetRestrictOnlyAllow = 'AIR',            
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Muzzle_Right',
             TurretBonePitch = 'Turret_Right_Barrel',
@@ -318,9 +328,7 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 200,
-			DamageFriendly = false,
-			DamageRadius = 0,
+            Damage = 400,
             DamageType = 'Normal',
 			
             DisplayName = 'Zealot AA Missile',
@@ -329,15 +337,12 @@ UnitBlueprint {
                 Water = 'Air',
             },
 			
-            FiringTolerance = 50,
+            FiringTolerance = 30,
 			
-            Label = 'AntiAirMissiles',
+            Label = 'AAMissiles',
 			
-            MaxRadius = 60,
+            MaxRadius = 56,
 			
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 2,
-
             MuzzleVelocity = 40,
 			
             ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
@@ -350,9 +355,10 @@ UnitBlueprint {
                 },
             },
 
-            RangeCategory = 'UWRC_AntiAir',
+            RackSalvoReloadTime = 1,    -- one second cycle
 			
-            RateOfFire = 1,		-- 400 DPS Air
+            RateOfFire = 2,		-- 400 DPS Air - controlled by RackSalvoReloadTime
+
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
@@ -362,8 +368,10 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'AIR MOBILE',
             },
+
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.2,
+            TargetRestrictOnlyAllow = 'AIR',
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Muzzle_Left',
             TurretBonePitch = 'Turret_Left_Barrel',

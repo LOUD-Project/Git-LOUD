@@ -3,8 +3,8 @@ local util = import('/lua/utilities.lua')
 
 local TAirUnit = import('/lua/defaultunits.lua').AirUnit
 
-local TSAMLauncher = import('/lua/terranweapons.lua').TSAMLauncher
-local TDFHeavyPlasmaCannonWeapon = import('/lua/terranweapons.lua').TDFHeavyPlasmaCannonWeapon
+local TSAMLauncher                  = import('/lua/terranweapons.lua').TSAMLauncher
+local TDFHeavyPlasmaCannonWeapon    = import('/lua/terranweapons.lua').TDFHeavyPlasmaCannonWeapon
 
 XEA0306 = Class(TAirUnit) {
 

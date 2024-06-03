@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0103_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UAL', Cue = 'UAL0103_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {},
@@ -93,7 +81,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 18,
+        VisionRadius = 16,
     },
 	
     Interface = {
@@ -155,11 +143,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0103_Mortar_Concussion',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAL0103_Mortar_Concussion', LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,

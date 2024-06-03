@@ -2,28 +2,14 @@ UnitBlueprint {
     AI = {
         InitialAutoMode = true,
     },
+
     Audio = {
-        Close = Sound {
-            Bank = 'UAB',
-            Cue = 'UAB2108_Doors_Close',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Open = Sound {
-            Bank = 'UAB',
-            Cue = 'UAB2108_Doors',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Close       = Sound { Bank = 'UAB', Cue = 'UAB2108_Doors_Close', LodCutoff = 'UnitMove_LodCutoff'},
+        Open        = Sound { Bank = 'UAB', Cue = 'UAB2108_Doors', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
+
     Buffs = {},
 	
     BuildIconSortPriority = 150,
@@ -62,6 +48,7 @@ UnitBlueprint {
         Abilities = {
             'Manual Launch required',
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -110,7 +97,7 @@ UnitBlueprint {
     },
 
     Intel = {
-        VisionRadius = 15,
+        VisionRadius = 16,
     },
 
     Interface = {
@@ -182,8 +169,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Sub = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 5,
 
@@ -235,9 +220,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.9,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

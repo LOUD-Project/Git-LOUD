@@ -5,16 +5,8 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 155,
@@ -47,10 +39,12 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Strategic Missile Defense',
+            '<LOC ability_stratmissiledef>Strategic Missile Defense',
 			'Anti Satellite Weapon',
         },
+
         AnimationPermOpen = '/units/urb4302/urb4302_Aopen.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -66,6 +60,7 @@ UnitBlueprint {
                 },
             },
         },
+
         UniformScale = 0.1,
     },
 	
@@ -86,6 +81,7 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
+
         CommandCaps = {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_SiloBuildTactical = true,
@@ -94,6 +90,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 5,
+
         UnitName = '<LOC urb4302_name>Guardian',
     },
 	
@@ -143,11 +140,7 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = false,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB4302_Anti_Missile_EMP',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URB4302_Anti_Missile_EMP', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
@@ -162,8 +155,6 @@ UnitBlueprint {
 
             FireTargetLayerCapsTable = {
                 Land = 'Air',
-				Sub = 'Air',
-				Water = 'Air',
                 Seabed = 'Air',
             },
             FiringTolerance = 60,
@@ -208,14 +199,13 @@ UnitBlueprint {
 			AntiSat = true,
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB4302_Anti_Missile_EMP',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URB4302_Anti_Missile_EMP', LodCutoff = 'Weapon_LodCutoff' },
             },
+
 			AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
+
             CollideFriendly = false,
             Damage = 500,
 			DamageRadius = 0,
@@ -225,8 +215,6 @@ UnitBlueprint {
 
             FireTargetLayerCapsTable = {
                 Land = 'Air',
-				Sub = 'Air',
-				Water = 'Air',
                 Seabed = 'Air',
             },
             FiringTolerance = 60,
@@ -263,18 +251,16 @@ UnitBlueprint {
             Turreted = false,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.5,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = true,
         },
     },
 }

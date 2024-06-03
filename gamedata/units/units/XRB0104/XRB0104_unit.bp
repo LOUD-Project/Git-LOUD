@@ -6,31 +6,11 @@ UnitBlueprint {
     },
 
     Audio = {
-        Close = Sound {
-            Bank = 'XRB',
-            Cue = 'XRB0104_Close',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'XRB',
-            Cue = 'XRB0104_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Open = Sound {
-            Bank = 'XRB',
-            Cue = 'XRB0104_Open',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Factory',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Close           = Sound { Bank = 'XRB', Cue = 'XRB0104_Close', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'XRB', Cue = 'XRB0104_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        Open            = Sound { Bank = 'XRB', Cue = 'XRB0104_Open', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Factory', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     BuildIconSortPriority = 200,
@@ -79,7 +59,7 @@ UnitBlueprint {
     Display = {
         Abilities = {
             'Engineering Suite - provides T2 level Engineering Assist',
-            'Upgradeable',
+            '<LOC ability_upgradable>Upgradeable',
         },
 
         AnimationOpen = '/units/XRB0104/XRB0104_Aopen.sca',
@@ -115,11 +95,7 @@ UnitBlueprint {
 		
         MaxBuildDistance = 12.5,
 		
-        RebuildBonusIds = {
-            'xrb0104',
-			'xrb0204',
-			'xrb0304',
-        },
+        RebuildBonusIds = {'xrb0104','xrb0204','xrb0304'},
     },
 	
     Footprint = {
@@ -129,7 +105,9 @@ UnitBlueprint {
 
     General = {
         BuildBones = { AimBone = 0, BuildEffectBones = { 'Attachpoint01' } },
+
 		CapCost = 2,
+
         CommandCaps = {
             RULEUCC_Capture = true,
             RULEUCC_Guard = true,
@@ -140,16 +118,20 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'land',
+
         OrderOverrides = { RULEUTC_ProductionToggle = { bitmapId = 'area-assist', helpText = 'toggle_area_assist' } },
+
         SelectionPriority = 5,
+
         ToggleCaps = { RULEUTC_ProductionToggle = true },
+
         UnitName = '<LOC xrb0104_name>The Hive',
 
         UpgradesTo = 'xrb0204',
     },
 
     Intel = {
-        VisionRadius = 15,
+        VisionRadius = 12,
     },
 
     LifeBarHeight = 0.075,
@@ -194,9 +176,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.5,
-        MassMult = 0.5,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

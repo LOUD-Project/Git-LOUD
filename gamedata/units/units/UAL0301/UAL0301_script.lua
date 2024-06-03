@@ -4,8 +4,10 @@ local Buff = import('/lua/sim/Buff.lua')
 
 local AWeapons = import('/lua/aeonweapons.lua')
 
-local ADFReactonCannon = AWeapons.ADFReactonCannon
-local AIFCommanderDeathWeapon = AWeapons.AIFCommanderDeathWeapon
+local ADFReactonCannon          = AWeapons.ADFReactonCannon
+local AIFCommanderDeathWeapon   = AWeapons.AIFCommanderDeathWeapon
+
+AWeapons = nil
 
 local EffectUtil = import('/lua/EffectUtilities.lua')
 local CreateAeonCommanderBuildingEffects = EffectUtil.CreateAeonCommanderBuildingEffects

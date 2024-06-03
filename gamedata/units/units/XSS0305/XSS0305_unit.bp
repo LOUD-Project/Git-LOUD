@@ -6,26 +6,10 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'XSB',
-            Cue = 'XSB3202_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Sonar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed       = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        DoneBeingBuilt  = Sound { Bank = 'XSB', Cue = 'XSB3202_Activate', LodCutoff = 'UnitMove_LodCutoff' },
+        Killed          = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Sonar', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     BuildIconSortPriority = 190,
@@ -52,31 +36,31 @@ UnitBlueprint {
     CollisionOffsetY = -0.25,
 
     Defense = {
+
+        MissileTorpDestroy = { AttachBone = {'XSB3102'}, Radius = 3.2, RedirectRateOfFire = 8, ProjectileCategories = {'TORPEDO'} },
+
         ArmorType = 'Normal',
-        EconomyThreatLevel = 2,
+
         Health = 3500,
         MaxHealth = 3500,
         RegenRate = 0,
+
+        EconomyThreatLevel = 40,
     },
 
-    Description = '<LOC uas0305_desc>Sonar Platform',
+    Description = '<LOC uas0305_desc>Mobile Sonar Platform',
 
     Display = {
         Abilities = {
             '<LOC ability_sonar>Sonar',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_omni>Omni',
+            '<LOC ability_personalstealth>Personal Stealth',
+            '<LOC ability_torpedodef>Personal Torpedo Defense',            
         },
-        IdleEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Type = 'SeaIdle02',
-                    },
-                },
-            },
-        },
+        
+        IdleEffects = { Water = { Effects = { { Bones = {0}, Type = 'SeaIdle02' } } } },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -101,29 +85,18 @@ UnitBlueprint {
                 },
             },
         },
-        MovementEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Scale = 0.5,
-                        Type = 'BackWake',
-                    },
-                },
-            },
-        },
+        
+        MovementEffects = { Water = { Effects = { { Bones = {0}, Scale = 0.5, Type = 'BackWake' } } } },
 
         UniformScale = 0.06,
     },
     
     Economy = {
-        BuildCostEnergy = 12000,
-        BuildCostMass = 400,
+        BuildCostEnergy = 16500,
+        BuildCostMass = 3200,
         BuildTime = 2000,
         
-        MaintenanceConsumptionPerSecondEnergy = 750,
+        MaintenanceConsumptionPerSecondEnergy = 585,
     },
     
     Footprint = {
@@ -138,18 +111,16 @@ UnitBlueprint {
             RULEUCC_Patrol = true,
             RULEUCC_Stop = true,
         },
+        
         FactionName = 'Seraphim',
         Icon = 'sea',
+        
         OrderOverrides = {
-            RULEUTC_IntelToggle = {
-                bitmapId = 'sonar',
-                helpText = 'toggle_sonar',
-            },
+            RULEUTC_IntelToggle = { bitmapId = 'sonar', helpText = 'toggle_sonar' },
         },
 
-        ToggleCaps = {
-            RULEUTC_IntelToggle = true,
-        },
+        ToggleCaps = { RULEUTC_IntelToggle = true },
+        
         UnitName = '<LOC sss0305_name>Aezhou',
 
         UpgradesFrom = 'xsb3202',
@@ -158,9 +129,12 @@ UnitBlueprint {
     Intel = {
 		RadarStealth = true,
 		SonarStealth = true,
-        SonarRadius = 175,
+
+        RadarRadius = 80,
+        SonarRadius = 244,
+
         VisionRadius = 32,
-        WaterVisionRadius = 40,
+        WaterVisionRadius = 36,
     },
     
     Interface = {
@@ -178,10 +152,10 @@ UnitBlueprint {
         },
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
-        MaxAcceleration = 1.5,
+        MaxAcceleration = 1.8,
         MaxBrake = 2,
-        MaxSpeed = 4.5,
-        MaxSpeedReverse = 0,
+        MaxSpeed = 3.5,
+        MaxSpeedReverse = 3.5,
         MaxSteerForce = 5,
         MeshExtentsX = 1.8,
         MeshExtentsY = 1.2,

@@ -1,11 +1,17 @@
 local TSeaUnit =  import('/lua/defaultunits.lua').SeaUnit
 
+local AeonWeapons = import('/lua/aeonweapons.lua')
+local AIFQuasarAntiTorpedoWeapon = AeonWeapons.AIFQuasarAntiTorpedoWeapon
+
 local WeaponFile = import('/lua/terranweapons.lua')
 
-local TAALinkedRailgun = WeaponFile.TAALinkedRailgun
-local TDFGaussCannonWeapon = WeaponFile.TDFGaussCannonWeapon
-local TANTorpedoAngler = WeaponFile.TANTorpedoAngler
-local TIFSmartCharge = WeaponFile.TIFSmartCharge
+local TAALinkedRailgun      = WeaponFile.TAALinkedRailgun
+local TDFGaussCannonWeapon  = WeaponFile.TDFGaussCannonWeapon
+local TANTorpedoAngler      = WeaponFile.TANTorpedoAngler
+local TIFSmartCharge        = WeaponFile.TIFSmartCharge
+
+AeonWeapons = nil
+WeaponFile = nil
 
 local WaitFor = WaitFor
 
@@ -18,13 +24,14 @@ UES0201 = Class(TSeaUnit) {
         Turret = Class(TDFGaussCannonWeapon) {},
         AATurret = Class(TAALinkedRailgun) {},
         Torpedo = Class(TANTorpedoAngler) {},
-        AntiTorpedo = Class(TIFSmartCharge) {},
+        AntiTorpedo = Class(AIFQuasarAntiTorpedoWeapon) {},
 		
     },
 
     RadarThread = function(self)
 	
         local spinner = CreateRotator(self, 'Spinner02', 'x', nil, 0, 90, -90)
+
         self.Trash:Add(spinner)
 		
         while true do

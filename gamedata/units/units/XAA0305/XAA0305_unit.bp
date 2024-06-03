@@ -45,31 +45,11 @@ UnitBlueprint {
     },
 	
     Audio = {
-        AirUnitWaterImpact = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UAADestroy',
-            Cue = 'UAA_Destroy_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'UAADestroy',
-            Cue = 'UAA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XAA',
-            Cue = 'XAA0305_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        AirUnitWaterImpact  = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed           = Sound { Bank = 'UAADestroy', Cue = 'UAA_Destroy_Air', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed              = Sound { Bank = 'UAADestroy', Cue = 'UAA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove           = Sound { Bank = 'XAA', Cue = 'XAA0305_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection         = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -113,8 +93,9 @@ UnitBlueprint {
     Display = {
         Abilities = {
 			'Ground Attack',
-            'AA Missiles',
+            "<LOC ability_aa>Anti-Air",
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -160,7 +141,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 32,
+        VisionRadius = 36,
     },
 	
     Interface = {
@@ -257,10 +238,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle03',
-                        'Turret_Muzzle04',
-                    },
+                    MuzzleBones = {'Turret_Muzzle03','Turret_Muzzle04'},
                     RackBone = 'C_Barrel',
                 },
             },
@@ -442,7 +420,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
         HealthMult = 0.6,
-        MassMult = 0.6,
+        MassMult = 0.5,
 		LifeTime = 600,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {

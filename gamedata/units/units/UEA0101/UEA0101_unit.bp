@@ -33,21 +33,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UEADestroy',
-            Cue = 'UEA_Destroy_Med',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0101_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UEADestroy', Cue = 'UEA_Destroy_Med', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UEA', Cue = 'UEA0101_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 20,
@@ -72,20 +60,16 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 0.1,
         ArmorType = 'Light',
-        Health = 80,
-        MaxHealth = 80,
+        Health = 84,
+        MaxHealth = 84,
         RegenRate = 0.1,
     },
 	
     Description = '<LOC uea0101_desc>Air Scout',
 	
     Display = {
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 215, ShaderName = 'Unit' },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, ShaderName = 'Unit' } } },
 
         UniformScale = 0.08,
     },
@@ -121,8 +105,8 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-		RadarRadius = 50,
-        VisionRadius = 42,
+		RadarRadius = 48,
+        VisionRadius = 40,
     },
 	
     Interface = {

@@ -1,24 +1,12 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 35,
-        GuardScanRadius = 18,
+		GuardReturnRadius = 32,
+        GuardScanRadius = 16,
     },
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0106_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'URL', Cue = 'URL0106_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Bot', LodCutoff = 'UnitMove_LodCutoff'},
     },
     Buffs = {},
 	
@@ -43,10 +31,11 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        EconomyThreatLevel = 0,
+
         Health = 75,
         MaxHealth = 75,
         RegenRate = 0.5,
+
         SurfaceThreatLevel = 1.5,
     },
 	
@@ -55,21 +44,11 @@ UnitBlueprint {
     Display = {
         AnimationWalk = '/units/url0106/URL0106_Awalk01.sca',
         AnimationWalkRate = 10,
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 215,
-                    ShaderName = 'Insect',
-                },
-            },
-        },
-        TransportAnimation = {
-            {
-                Animation = '/units/URL0106/URL0106_afold01.sca',
-                Weight = 100,
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, ShaderName = 'Insect' } } },
+
+        TransportAnimation = { { Animation = '/units/URL0106/URL0106_afold01.sca', Weight = 100 } },
+
         UniformScale = 0.015,
     },
 	
@@ -95,7 +74,7 @@ UnitBlueprint {
     },
 
     Intel = {
-        VisionRadius = 18,
+        VisionRadius = 16,
     },
 
     Interface = {
@@ -154,11 +133,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0106_Laser_Pulse',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0106_Laser_Pulse', LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,

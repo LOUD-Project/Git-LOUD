@@ -7,43 +7,14 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Activate = Sound {
-            Bank = 'URL',
-            Cue = 'URL0401_Close',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Close = Sound {
-            Bank = 'URL',
-            Cue = 'URL0401_Close',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-		EnemyUnitDetectedAeon = Sound {
-			Bank = 'XGG',
-			Cue = 'XGG_HQ_GD1_04184',
-		},
-		EnemyUnitDetectedUEF = Sound {
-			Bank = 'XGG',
-			Cue = 'XGG_HQ_GD1_04184',
-		},
-		EnemyUnitDetectedCybran = Sound {
-			Bank = 'XGG',
-			Cue = 'XGG_HQ_GD1_04184',
-		},
-        Open = Sound {
-            Bank = 'URL',
-            Cue = 'URL0401_Open_Center',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0401_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+		EnemyUnitDetectedAeon   = Sound { Bank = 'XGG', Cue = 'XGG_HQ_GD1_04184'},
+		EnemyUnitDetectedUEF    = Sound { Bank = 'XGG',Cue = 'XGG_HQ_GD1_04184'},
+		EnemyUnitDetectedCybran = Sound { Bank = 'XGG',Cue = 'XGG_HQ_GD1_04184'},
+        Activate                = Sound { Bank = 'URL', Cue = 'URL0401_Close', LodCutoff = 'UnitMove_LodCutoff'},
+        Close                   = Sound { Bank = 'URL', Cue = 'URL0401_Close', LodCutoff = 'UnitMove_LodCutoff'},
+        Open                    = Sound { Bank = 'URL', Cue = 'URL0401_Open_Center', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove               = Sound { Bank = 'URL', Cue = 'URL0401_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection             = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -88,7 +59,9 @@ UnitBlueprint {
         Abilities = {
             'Must Deploy to fire',
         },
+
         AnimationOpen = '/units/URL0401/URL0401_aopen.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -105,6 +78,7 @@ UnitBlueprint {
                 },
             },
         },
+
         UniformScale = 0.1,
     },
 	
@@ -121,6 +95,7 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 8,
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -135,7 +110,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 26,
+        VisionRadius = 28,
     },
 	
     Interface = {
@@ -199,12 +174,9 @@ UnitBlueprint {
             ArtilleryShieldBlocks = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0401_Artillery_Proton',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0401_Artillery_Proton', LodCutoff = 'Weapon_LodCutoff'},
             },
+
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
@@ -216,8 +188,8 @@ UnitBlueprint {
 			
             DisplayName = 'Proton Artillery',
 			
-            EnergyDrainPerSecond = 8750,    -- 2 Second charge cycle --
-            EnergyRequired = 17500,
+            EnergyDrainPerSecond = 9700,    -- 2 Second charge cycle --
+            EnergyRequired = 19400,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -297,7 +269,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -4,21 +4,9 @@ UnitBlueprint {
     },
     
     Audio = {
-        Killed = Sound {
-            Bank = 'URLWeapon',
-            Cue = 'URL0303_Death_EMP',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0107_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed = Sound { Bank = 'URLWeapon', Cue = 'URL0303_Death_EMP', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove = Sound { Bank = 'UEL', Cue = 'UEL0107_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Bot', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -82,24 +70,13 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    ShaderName = 'Insect',
-                },
-                {
-                    AlbedoName = 'del0204_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Insect',
-                    SpecularName = 'del0204_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, ShaderName = 'Insect' },
+                { AlbedoName = 'del0204_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Insect', SpecularName = 'del0204_lod1_specteam.dds' },
             },
         },
-        TransportAnimation = {
-            {
-                Animation = '/units/DEL0204/DEL0204_afold1.sca',
-                Weight = 100,
-            },
-        },
+        
+        TransportAnimation = { { Animation = '/units/DEL0204/DEL0204_afold1.sca', Weight = 100 } },
+        
         UniformScale = 0.04,
     },
 	
@@ -125,7 +102,7 @@ UnitBlueprint {
     },
 
     Intel = {
-        VisionRadius = 26,
+        VisionRadius = 28,
     },
 
     Interface = {
@@ -185,13 +162,11 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = false,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0106_MachineGun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0106_MachineGun', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -264,13 +239,11 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = false,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2304_Missile_Flayer',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2304_Missile_Flayer', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -339,11 +312,12 @@ UnitBlueprint {
             UseFiringSolutionInsteadOfAimBone = true,
         },
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

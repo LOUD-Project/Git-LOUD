@@ -40,21 +40,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UEADestroy',
-            Cue = 'UEA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0203_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'UEADestroy', Cue = 'UEA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UEA', Cue = 'UEA0203_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -93,19 +81,12 @@ UnitBlueprint {
             '<LOC ability_transport>Transport',
             'Ground Attack',
         },
-		
-        ForcedBuildSpin = 0,
-		
+
         LayerChangeEffects = {
             AirLand = {
                 Effects = {
                     {
-                        Bones = {
-                            'Exhaust_Front01',
-                            'Exhaust_Front02',
-                            'Exhaust_Back01',
-                            'Exhaust_Back02',
-                        },
+                        Bones = {'Exhaust_Front01','Exhaust_Front02','Exhaust_Back01','Exhaust_Back02'},
                         Type = 'Landing01',
                     },
                 },
@@ -113,17 +94,13 @@ UnitBlueprint {
             LandAir = {
                 Effects = {
                     {
-                        Bones = {
-                            'Exhaust_Front01',
-                            'Exhaust_Front02',
-                            'Exhaust_Back01',
-                            'Exhaust_Back02',
-                        },
+                        Bones = {'Exhaust_Front01','Exhaust_Front02','Exhaust_Back01','Exhaust_Back02'},
                         Type = 'TakeOff01',
                     },
                 },
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -139,14 +116,10 @@ UnitBlueprint {
                 },
             },
         },
+
         MovementEffects = {
             BeamExhaust = {
-                Bones = {
-                    'Exhaust_Front01',
-                    'Exhaust_Front02',
-                    'Exhaust_Back01',
-                    'Exhaust_Back02',
-                },
+                Bones = {'Exhaust_Front01','Exhaust_Front02','Exhaust_Back01','Exhaust_Back02'},
                 Cruise = true,
                 Idle = true,
             },
@@ -186,7 +159,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 26,
+        VisionRadius = 36,
     },
 	
     Interface = {
@@ -252,6 +225,7 @@ UnitBlueprint {
             },
 
             AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -270,7 +244,7 @@ UnitBlueprint {
 			
             Label = 'Turret01',
 			
-            MaxRadius = 22,
+            MaxRadius = 24,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 3,

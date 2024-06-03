@@ -7,37 +7,10 @@ UnitBlueprint {
     },
 	
     Audio = {
-	
-        Killed = Sound {
-            Bank = 'XSS_Destroy',
-            Cue = 'XSS0201_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSS',
-            Cue = 'XSS0201_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMoveSub = Sound {
-            Bank = 'XSS',
-            Cue = 'XSS0201_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        SubmergeStart = Sound {
-            Bank = 'XSS',
-            Cue = 'XSS_Sub_Submerge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        SurfaceStart = Sound {
-            Bank = 'XSS',
-            Cue = 'XSS_Sub_Surface',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed          = Sound { Bank = 'XSS_Destroy', Cue = 'XSS0201_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove       = Sound { Bank = 'XSS', Cue = 'XSS0201_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMoveSub    = Sound { Bank = 'XSS', Cue = 'XSS0201_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Naval', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -72,11 +45,12 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 7300,
-        MaxHealth = 7300,
-        RegenRate = 5,
-        SubThreatLevel = 12,
-        SurfaceThreatLevel = 24,
+        Health = 7000,
+        MaxHealth = 7000,
+        RegenRate = 6,
+
+        SubThreatLevel = 30,
+        SurfaceThreatLevel = 27,
     },
 	
     Description = '<LOC xss0201_desc>Destroyer',
@@ -84,9 +58,11 @@ UnitBlueprint {
     Display = {
 	
         Abilities = {
-            'Radar & Sonar',
-            'Submersible',
-            'Torpedoes & Torpedo Defense',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_sonar>Sonar',
+            "<LOC ability_torpedo>Torpedoes",
+            '<LOC ability_torpedodef>Torpedo Defense',
+            '<LOC ability_submersible>Submersible',
         },
 		
         AnimationDeath = {
@@ -128,26 +104,14 @@ UnitBlueprint {
             },
         },
 		
-        MovementEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'XSS0201',
-                        },
-                        Scale = 0.9,
-                        Type = 'BackWake',
-                    },
-                },
-            },
-        },
+        MovementEffects = { Water = { Effects = { { Bones = {'XSS0201'},Scale = 0.9,Type = 'BackWake'} } } },
 
         UniformScale = 0.032,
     },
 	
     Economy = {
         BuildCostEnergy = 15000,
-        BuildCostMass = 2250,
+        BuildCostMass = 2450,
         BuildTime = 11250,
     },
 	
@@ -163,13 +127,18 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'sea',
+        
         UnitName = '<LOC xss0201_name>Uashavoh',
     },
 	
     Intel = {
 		FreeIntel = true,
+
         RadarRadius = 60,
-        SonarRadius = 45,
+        SonarRadius = 44,
+        
+        SonarStealth = true,
+        
         VisionRadius = 32,
         WaterVisionRadius = 32,
     },
@@ -183,7 +152,7 @@ UnitBlueprint {
     LifeBarSize = 1.5,
 	
     Physics = {
-        BackUpDistance = 5,
+        BackUpDistance = 8,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Sub = true,
@@ -230,37 +199,27 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = false,
+            
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0201_Ultrachromatic_Beam',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0201_Ultrachromatic_Beam_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0201_Ultrachromatic_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop    = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_Ultrachromatic_Beam', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart   = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_Ultrachromatic_Beam_Start', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop    = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_Ultrachromatic_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
-            AutoInitiateAttackCommand = false,
+
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
             BeamLifetime = 1,
+            
+            CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 55,		-- 480 damage on fire
-            DamageRadius = 0,
+            Damage = 54,		-- 540 damage on fire
             DamageType = 'Normal',
 			
             DisplayName = 'Ultrachromatic Beam Generator',
 			
-            DoNotCollideList = {'TORPEDO'},
+            DoNotCollideList = {'TORPEDO','MISSILE'},
 			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -270,7 +229,7 @@ UnitBlueprint {
 			
             Label = 'Turret',
 			
-            MaxRadius = 55,
+            MaxRadius = 56,
 			
             NeedPrep = true,
 
@@ -282,10 +241,12 @@ UnitBlueprint {
                     RackBone = 'Front_Turret_Barrel',
                 },
             },
+            
+            RackSalvoReloadTime = 3.0,
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.25,		-- 120 DPS Surface
+            RateOfFire = 1,		-- 540 damage every 4 seconds = 135 DPS
 			ReTargetOnMiss = true,
 			
             SlavedToBody = true,
@@ -310,7 +271,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 140,
-            TurretYawSpeed = 50,
+            TurretYawSpeed = 48,
 			
             Turreted = true,
         },
@@ -318,37 +279,27 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
+
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0201_Ultrachromatic_Beam',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop    = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_Ultrachromatic_Beam', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart   = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_Ultrachromatic_Beam_Start', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop    = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_Ultrachromatic_Beam_Stop', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
             BeamLifetime = 1,
-
+            
+            CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 48,		-- 480 damage on fire
+            Damage = 54,		-- 540 damage on fire
             DamageType = 'Normal',
 			
             DisplayName = 'Ultrachromatic Beam Generator',
 			
-            DoNotCollideList = {'TORPEDO'},
+            DoNotCollideList = {'TORPEDO','MISSILE'},
 			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -356,7 +307,7 @@ UnitBlueprint {
 			
             Label = 'Turret',
 			
-            MaxRadius = 55,
+            MaxRadius = 56,
 			
             NeedPrep = true,
 
@@ -370,8 +321,10 @@ UnitBlueprint {
                     RackBone = 'Back_Turret_Barrel',
                 },
             },
+            
+            RackSalvoReloadTime = 3.0,
 			
-            RateOfFire = 0.25,		-- 120 DPS Surface
+            RateOfFire = 1,		-- 540 damage every 4 seconds = 135 DPS
 			ReTargetOnMiss = true,
 			
             SlavedToBody = true,
@@ -397,19 +350,17 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 140,
-            TurretYawSpeed = 50,
+            TurretYawSpeed = 48,
 			
             Turreted = true,
         },
 		
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0201_AnaIt_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire            = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_AnaIt_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
+                FireUnderwater  = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_AnaIt_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -427,28 +378,31 @@ UnitBlueprint {
 			
             Label = 'Torpedo',
 			
-            MaxRadius = 45,
+            MaxRadius = 44,
 			
-            MuzzleSalvoDelay = 0.7,
+            MuzzleSalvoDelay = 0.6,
             MuzzleSalvoSize = 2,
 
             MuzzleVelocity = 3,
 
             NotExclusive = true,
 
+            -- this is a somewhat slower torpedo --
             ProjectileId = '/projectiles/SANAnaitTorpedo01/SANAnaitTorpedo01_proj.bp',
-            ProjectileLifetime = 8,
+            ProjectileLifetime = 7,
 			
             RackBones = {
                 {
-                    MuzzleBones = {'Projectile01'},
+                    MuzzleBones = {'Projectile01','Projectile02'},
                     RackBone = 'Projectile01',
                 },
             },
+            
+            RackSalvoReloadTime = 1.2,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.2,		-- 2 torps of 300 = 600 *.2 = 120 DPS Sub
+            RateOfFire = 1,		-- 2 torps of 300 = 600 every 2.4 = 250 DPS
 			
             TargetCheckInterval = 1,
 			
@@ -465,27 +419,32 @@ UnitBlueprint {
 		
         {
             BallisticArc = 'RULEUBA_None',
+
 			CannotAttackGround = true,
+
             CollideFriendly = false,
+
+            CountedProjectile = true,
 			
             Damage = 2,
 			DamageFriendly = false,
-			DamageRadius = 1.5,
             DamageType = 'Normal',
 			
-            DisplayName = 'Anti Torpedo',
+            DisplayName = 'AntiTorpedo',
 
             FireTargetLayerCapsTable = {
                 Sub = 'Seabed|Sub|Water',
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 90,
+            FiringTolerance = 40,
 			
             Label = 'AntiTorpedo',
 
-            MaxRadius = 28,
+            MaxRadius = 24,
+            MinRadius = 6,
 
+            MuzzleSalvoDelay = 0.6,
             MuzzleVelocity = 8,
 			
             ProjectileId = '/projectiles/SANAjelluAntiTorpedo01/SANAjelluAntiTorpedo01_proj.bp',
@@ -500,27 +459,28 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 0.5,
+            RateOfFire = 1,     -- controlled by MuzzleSalvoDelay and WeaponRepackTimeout
 			
             TargetCheckInterval = 0.5,
 			
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.3,
 			
-            TurretBoneMuzzle = 'Projectile02',
-            TurretBonePitch = 'Projectile02',
-            TurretBoneYaw = 'Projectile02',
+            TurretBoneMuzzle = 'Exhaust01',
+            TurretBonePitch = 'Exhaust01',
+            TurretBoneYaw = 'Exhaust01',
 			
             TurretPitch = 0,
-            TurretPitchRange = 50,
-            TurretPitchSpeed = 360,
+            TurretPitchRange = 30,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 65,
 			
             Turreted = true,
+            
+            WeaponRepackTimeout = 0.9,
         },
     },
 }

@@ -5,26 +5,10 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ShieldOn = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0303_Shield_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0303_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        ShieldOn    = Sound { Bank = 'UEL', Cue = 'UEL0303_Shield_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UEL', Cue = 'UEL0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Bot', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -57,6 +41,7 @@ UnitBlueprint {
         Health = 1300,
         MaxHealth = 1300,
         RegenRate = 1,
+
         Shield = {
             ImpactEffects = 'UEFShieldHit01',
             OwnerShieldMesh = '/units/uel0303/UEL0303_PersonalShield_mesh',
@@ -72,6 +57,7 @@ UnitBlueprint {
             ShieldVerticalOffset = 0,
             StartsOff = true,
         },
+
         SurfaceThreatLevel = 27.4,
     },
 	
@@ -79,8 +65,9 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Personal Shield',
+            '<LOC ability_personalshield>Personal Shield',
         },
+
         AnimationDeath = {
             {
                 Animation = '/units/uel0303/uel0303_adeath01.sca',
@@ -95,8 +82,10 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+
         AnimationWalk = '/units/uel0303/uel0303_awalk.sca',
         AnimationWalkRate = 5,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -119,6 +108,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+
         UniformScale = 0.7,
     },
 	
@@ -142,15 +132,13 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'land',
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-personal',
-                helpText = 'toggle_shield_personal',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-personal', helpText = 'toggle_shield_personal' },
         },
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+
+        ToggleCaps = {RULEUTC_ShieldToggle = true},
+
         UnitName = '<LOC uel0303_name>Titan',
     },
 	
@@ -220,11 +208,7 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0303_Plasma_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0303_Plasma_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
@@ -305,7 +289,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

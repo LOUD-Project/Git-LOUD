@@ -1,6 +1,6 @@
 local TStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
-local TDFHeavyPlasmaCannonWeapon = import('/lua/terranweapons.lua').TDFHeavyPlasmaGatlingCannonWeapon
+local TDFHeavyPlasmaCannonWeapon = import('/lua/terranweapons.lua').TDFHeavyPlasmaCannonWeapon
 
 local CreateBoneEffects = import('/lua/effectutilities.lua').CreateBoneEffects
 local WeaponSteam01 = import('/lua/effecttemplates.lua').WeaponSteam01

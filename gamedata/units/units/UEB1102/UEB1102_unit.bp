@@ -3,16 +3,8 @@ UnitBlueprint {
     Adjacency = 'HydrocarbonAdjacencyBuffs',
     
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Resource', LodCutoff = 'UnitMove_LodCutoff' },
     },
     
     BuildIconSortPriority = 80,
@@ -93,9 +85,7 @@ UnitBlueprint {
     
     General = {
         CapCost = 3,
-        CommandCaps = {
-			RULEUCC_Pause = true,
-        },
+        CommandCaps = {RULEUCC_Pause = true},
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 5,

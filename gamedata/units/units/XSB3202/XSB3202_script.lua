@@ -1,13 +1,9 @@
 local SSonarUnit = import('/lua/seraphimunits.lua').SSonarUnit
 
 XSB3202 = Class(SSonarUnit) {
+
     TimedSonarTTIdleEffects = {
-        {
-            Bones = {
-                0,
-            },
-            Type = 'SonarBuoy01',
-        },
+        { Bones = {0}, Type = 'SonarBuoy01' },
     },
 }
 

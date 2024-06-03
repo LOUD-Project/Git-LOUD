@@ -1,26 +1,17 @@
-
 local AEnergyCreationUnit = import('/lua/defaultunits.lua').EnergyCreationUnit
 
 UAB1102 = Class(AEnergyCreationUnit) {
 
-    AirEffects = {'/effects/emitters/hydrocarbon_smoke_01_emit.bp',},
-    AirEffectsBones = {'Extension02'},
-    WaterEffects = {'/effects/emitters/underwater_idle_bubbles_01_emit.bp',},
-    WaterEffectsBones = {'Extension02'},
-
     OnStopBeingBuilt = function(self,builder,layer)
+
         AEnergyCreationUnit.OnStopBeingBuilt(self,builder,layer)
-        local effects = {}
-        local bones = {}
+
+        local effects = {'/effects/emitters/hydrocarbon_smoke_01_emit.bp'}
+        local bones = {'Extension02'}
         local scale = 0.75
         
-        if self:GetCurrentLayer() == 'Land' then
-            effects = self.AirEffects
-            bones = self.AirEffectsBones
-            
-        elseif self:GetCurrentLayer() == 'Seabed' then
-            effects = self.WaterEffects
-            bones = self.WaterEffectsBones
+        if self:GetCurrentLayer() == 'Seabed' then
+            effects = {'/effects/emitters/underwater_idle_bubbles_01_emit.bp'}
             scale = 3
         end
         

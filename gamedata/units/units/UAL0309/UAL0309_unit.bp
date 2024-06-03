@@ -4,16 +4,8 @@ UnitBlueprint {
     },
 	
     Audio = {
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0309_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        StartMove   = Sound { Bank = 'UAL', Cue = 'UAL0309_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 10,
@@ -53,7 +45,7 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Sacrifice',
+            '<LOC ability_sacrifice>Sacrifice',
         },
 
         AnimationBuild = '/units/ual0309/ual0309_aopen.sca',

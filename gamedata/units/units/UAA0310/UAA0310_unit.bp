@@ -24,8 +24,8 @@ UnitBlueprint {
         KLift = 2,
         KLiftDamping = 3.5,
 		
-        KMove = 0.85,
-        KMoveDamping = 0.95,
+        KMove = 0.89,
+        KMoveDamping = 0.96,
 		
         KTurn = 2,
         KTurnDamping = 5,
@@ -39,52 +39,23 @@ UnitBlueprint {
     },
 	
     Audio = {
-        AirUnitWaterImpact = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UAADestroy',
-            Cue = 'UAA_Destroy_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-		EnemyUnitDetectedAeon = Sound {
-			Bank = 'XGG',
-			Cue = 'XGG_HQ_GD1_04186',
-		},
-		EnemyUnitDetectedUEF = Sound {
-			Bank = 'XGG',
-			Cue = 'XGG_HQ_GD1_04186',
-		},
-		EnemyUnitDetectedCybran = Sound {
-			Bank = 'XGG',
-			Cue = 'XGG_HQ_GD1_04186',
-		},
-        Killed = Sound {
-            Bank = 'UAADestroy',
-            Cue = 'UAA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAA',
-            Cue = 'UAA0310_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        AirUnitWaterImpact      = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff' },
+		EnemyUnitDetectedAeon   = Sound { Bank = 'XGG', Cue = 'XGG_HQ_GD1_04186' },
+		EnemyUnitDetectedUEF    = Sound { Bank = 'XGG', Cue = 'XGG_HQ_GD1_04186' },
+		EnemyUnitDetectedCybran = Sound { Bank = 'XGG', Cue = 'XGG_HQ_GD1_04186' },
+        StartMove               = Sound { Bank = 'UAA', Cue = 'UAA0310_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed               = Sound { Bank = 'UAADestroy', Cue = 'UAA_Destroy_Air', LodCutoff = 'UnitMove_LodCutoff' },
+        Killed                  = Sound { Bank = 'UAADestroy', Cue = 'UAA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection             = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Air', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 15,
-            Level2 = 25,
-            Level3 = 35,
-            Level4 = 45,
-            Level5 = 50,
+            Level1 = 11,
+            Level2 = 22,
+            Level3 = 33,
+            Level4 = 44,
+            Level5 = 55,
         },
     },
 	
@@ -116,12 +87,15 @@ UnitBlueprint {
     CollisionOffsetY = -1.5,
 	
     Defense = {
-        AirThreatLevel = 320,
+
         ArmorType = 'Light',
+
         Health = 63500,
         MaxHealth = 63500,
         RegenRate = 22,
-        SubThreatLevel = 50,
+
+        AirThreatLevel = 300,
+        SubThreatLevel = 60,
         SurfaceThreatLevel = 200,	-- an approximation to avoid overstating value of death ray
     },
 	
@@ -135,8 +109,6 @@ UnitBlueprint {
             '<LOC ability_depthcharge>Depth Charges',
             '<LOC ability_factory>Factory',
             '<LOC ability_radar>Radar',
-            '<LOC ability_sonar>Sonar',
-			'Ground Attack',
         },
 		
         --AnimationOpen = '/units/UAA0310/UAA0310_aopen.sca',
@@ -196,23 +168,24 @@ UnitBlueprint {
             RULEUCC_Stop = true,
             RULEUCC_Transport = true,
         },
+        
         ConstructionBar = true,
         FactionName = 'Aeon',
         Icon = 'air',
+        
         OrderOverrides = {
-            RULEUCC_Transport = {
-                bitmapId = 'deploy',
-                helpText = 'deploy',
-            },
+            RULEUCC_Transport = { bitmapId = 'deploy', helpText = 'deploy' },
         },
+        
         UnitName = '<LOC uaa0310_name>CZAR',
     },
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 165,
-        SonarRadius = 75,
-        VisionRadius = 50,
+
+        RadarRadius = 128,
+        VisionRadius = 48,
+        WaterVisionRadius = 36,
     },
 	
     Interface = {
@@ -228,22 +201,29 @@ UnitBlueprint {
         BuildOnLayerCaps = {
             LAYER_Air = true,
         },
+        
         Elevation = 25,
 		
         MaxAcceleration = 1,
         MaxSpeed = 8,
+        
         MaxSteerForce = 100,
+        
         MeshExtentsX = 27,
         MeshExtentsY = 8,
         MeshExtentsZ = 27,
+        
         MinSpeedPercent = 0,
+        
         MotionType = 'RULEUMT_Air',
+        
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -0.5,
         SkirtSizeX = 16,
         SkirtSizeZ = 16,
+        
         TurnRadius = 40,
-        TurnRate = 35,
+        TurnRate = 38,
     },
 	
     SelectionSizeX = 12,
@@ -266,16 +246,17 @@ UnitBlueprint {
     },
 	
     Veteran = {
-        Level1 = 40,
+        Level1 = 35,
         Level2 = 70,
-        Level3 = 100,
-        Level4 = 130,
-        Level5 = 160,
+        Level3 = 105,
+        Level4 = 140,
+        Level5 = 175,
     },
 	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 BeamLoop = Sound { Bank = 'UAAWeapon', Cue = 'UAA0310_Quantum_Beam_Loop', LodCutoff = 'Weapon_LodCutoff' },
                 BeamStart = Sound { Bank = 'UAAWeapon', Cue = 'UAA0310_Quantum_Beam_Fire', LodCutoff = 'Weapon_LodCutoff' },
@@ -288,7 +269,8 @@ UnitBlueprint {
 			
             BeamCollisionDelay = 0,
             BeamLifetime = 1.0,
-			
+
+            CannotAttackGround = true,
             CollideFriendly = false,
 			
             Damage = 800,
@@ -333,6 +315,7 @@ UnitBlueprint {
                 'MOBILE',
                 'ALLUNITS -WALL',
             },
+
             TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE',
         },
 		
@@ -561,65 +544,6 @@ UnitBlueprint {
             TrackingRadius = 1.2,
         },
 		
-		--- Depth Charges ---
-		
-        {
-            Audio = {
-                Fire = Sound { Bank = 'UASWeapon', Cue = 'UAS0201_Depth_Charge', LodCutoff = 'Weapon_LodCutoff' },
-            },
-            BallisticArc = 'RULEUBA_None',
-            CollideFriendly = false,
-			
-            Damage = 500,
-            DamageRadius = 2,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Harmonic Depth Charge',
-			
-            FireTargetLayerCapsTable = {
-                Air = 'Seabed|Sub|Water',
-            },
-			
-            FiringRandomness = 1,
-            FiringTolerance = 2,
-			
-            Label = 'DepthCharge',
-			
-            MaxRadius = 50,
-
-            MuzzleVelocity = 0,
-            
-            NotExclusive = true,
-			
-            ProjectileId = '/projectiles/AANDepthCharge01/AANDepthCharge01_proj.bp',
-			ProjectileLifetime = 10,
-			
-            RackBones = {
-                {
-                    MuzzleBones = {'Harmonic_Muzzle01'},
-                    RackBone = 'Harmonic_Muzzle01',
-                },
-                {
-                    MuzzleBones = {'Harmonic_Muzzle02'},
-                    RackBone = 'Harmonic_Muzzle02',
-                },
-            },
-
-            RackFireTogether = true,
-
-            RangeCategory = 'UWRC_AntiNavy',
-			
-            RateOfFire = 0.5,		-- 500 DPS Sub --
-			
-            TargetCheckInterval = 2,
-            TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE',
-            },
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            Turreted = false,
-        },
-		
 		-- 2 x Fizz ? Is Flak ? --
 		
         {
@@ -781,6 +705,68 @@ UnitBlueprint {
             Turreted = true,
         },
 		
+		--- Depth Charges ---
+        {
+            
+            Audio = {
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0204_Depth_Charge', LodCutoff = 'Weapon_LodCutoff' },
+            },
+
+            BallisticArc = 'RULEUBA_None',
+            BelowWaterTargetsOnly = true,
+            
+            CollideFriendly = false,
+			
+            Damage = 600,
+            DamageRadius = 2.5,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Harmonic Depth Charge',
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Seabed|Sub|Water',
+            },
+			
+            FiringRandomness = 18,
+            FiringTolerance = 5,
+			
+            Label = 'DepthCharge',
+			
+            MaxRadius = 12,
+
+            MuzzleSalvoDelay = 0.5,
+            MuzzleSalvoSize = 6,
+
+            MuzzleVelocity = 6,
+            
+            NotExclusive = true,
+			
+            ProjectileId = '/projectiles/AANDepthCharge01/AANDepthCharge01_proj.bp',
+			ProjectileLifetime = 7,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {'Harmonic_Muzzle01','Harmonic_Muzzle02'},
+                    RackBone = 'Harmonic_Muzzle01',
+                },
+            },
+
+            RackSalvoReloadTime = 3,
+            
+            RangeCategory = 'UWRC_AntiNavy',
+			
+            RateOfFire = 0.5,   -- controlled by MuzzleSalvoDelay and RackReload = 6 seconds = 3600/6 = 600 DPS
+			
+            TargetCheckInterval = 2,
+            
+            TargetPriorities = {
+                'SUBMARINE',
+                'SUBMERSIBLE',
+                'MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,HOVER',
+        },		
+
         {
             Damage = 6250,
             DamageFriendly = true,

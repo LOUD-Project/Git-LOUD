@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -21,7 +22,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 10,
+
     Categories = {
         'SELECTABLE',
         'CYBRAN',
@@ -36,6 +39,7 @@ UnitBlueprint {
         'SHOWQUEUE',
 		'INSIGNIFICANTUNIT',
     },
+
     Defense = {
         ArmorType = 'Normal',
         Health = 10,

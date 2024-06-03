@@ -1,15 +1,8 @@
 UnitBlueprint {
+
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy',   Cue = 'URB_Destroy_Huge',       LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',    Cue = 'Cybran_Select_Radar',    LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     BuildIconSortPriority = 200,
@@ -35,37 +28,33 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 32 + 42,
-        Health = 95,
-        MaxHealth = 95,
-        RegenRate = 2,
+
+        Health = 160,
+        MaxHealth = 160,
+        RegenRate = 3,
+        
+        EconomyThreatLevel = 32 + 54,
     },
 
     Description = '<LOC urb3104_desc>Omni Sensor Array',
 
     Display = {
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    ShaderName = 'Insect',
-                },
-                {
-                    AlbedoName = 'urb3104_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Insect',
-                    SpecularName = 'urb3104_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, ShaderName = 'Insect' },
+                { AlbedoName = 'urb3104_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Insect', SpecularName = 'urb3104_lod1_specteam.dds' },
             },
         },
+
         UniformScale = 0.15,
     },
 
     Economy = {
         BuildCostEnergy = 30000,
-        BuildCostMass = 2400,
-        BuildTime = 1800,
+        BuildCostMass = 2200,
+        BuildTime = 2500,
 
         MaintenanceConsumptionPerSecondEnergy = 2000,
 
@@ -80,26 +69,25 @@ UnitBlueprint {
     General = {
         FactionName = 'Cybran',
         Icon = 'land',
+
         OrderOverrides = {
-            RULEUTC_IntelToggle = {
-                bitmapId = 'omni',
-                helpText = 'toggle_omni',
-            },
+            RULEUTC_IntelToggle = { bitmapId = 'omni', helpText = 'toggle_omni' },
         },
+        
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_IntelToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_IntelToggle = true },
 
         UpgradesFrom = 'urb3201',
     },
 
     Intel = {
-        OmniRadius = 140,
-        RadarRadius = 325,
         ReactivateTime = 12,
         ShowIntelOnSelect = true,
-        VisionRadius = 46,
+
+        OmniRadius = 136,
+        RadarRadius = 320,
+        VisionRadius = 44,
     },
 
     Interface = {

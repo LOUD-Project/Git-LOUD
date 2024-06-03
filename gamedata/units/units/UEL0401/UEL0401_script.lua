@@ -1,27 +1,29 @@
 local TMobileFactoryUnit = import('/lua/terranunits.lua').TMobileFactoryUnit
 
 local WeaponsFile = import('/lua/terranweapons.lua')
-local TDFGaussCannonWeapon = WeaponsFile.TDFLandGaussCannonWeapon
-local TDFRiotWeapon = WeaponsFile.TDFRiotWeapon
-local TAALinkedRailgun = WeaponsFile.TAALinkedRailgun
-local TANTorpedoAngler = WeaponsFile.TANTorpedoAngler
+
+local TDFGaussCannonWeapon  = WeaponsFile.TDFLandGaussCannonWeapon
+local TDFRiotWeapon         = WeaponsFile.TDFRiotWeapon
+local TAALinkedRailgun      = WeaponsFile.TAALinkedRailgun
+local TANTorpedoAngler      = WeaponsFile.TANTorpedoAngler
+
+WeaponsFile = nil
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
-
---local CreateUEFBuildSliceBeams = import('/lua/EffectUtilities.lua').CreateUEFBuildSliceBeams
 
 local LOUDINSERT = table.insert
 local LOUDSTATE = ChangeState
 local WaitFor = WaitFor
 
 UEL0401 = Class(TMobileFactoryUnit) {
+
     Weapons = {
 	
-        Turret = Class(TDFGaussCannonWeapon) {},
+        Turret  = Class(TDFGaussCannonWeapon) {},
 		
         Riotgun = Class(TDFRiotWeapon) { FxMuzzleFlash = EffectTemplate.TRiotGunMuzzleFxTank },
 		
-        AAGun = Class(TAALinkedRailgun) {},
+        AAGun   = Class(TAALinkedRailgun) {},
 
         Torpedo = Class(TANTorpedoAngler) {},
     },

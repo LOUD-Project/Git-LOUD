@@ -4,26 +4,10 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Close = Sound {
-            Bank = 'UAB',
-            Cue = 'UAB4302_Doors',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Open = Sound {
-            Bank = 'UAB',
-            Cue = 'UAB4302_Doors',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Close       = Sound { Bank = 'UAB', Cue = 'UAB4302_Doors', LodCutoff = 'UnitMove_LodCutoff' },
+        Open        = Sound { Bank = 'UAB', Cue = 'UAB4302_Doors', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 155,
@@ -58,7 +42,8 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Strategic Missile Defense',
+            '<LOC ability_aquatic>Aquatic: can be built underwater',
+            '<LOC ability_stratmissiledef>Strategic Missile Defense',
 			'Anti Satellite',
         },
 
@@ -88,7 +73,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 6.4,
                 Normal = 'Tarmacs/Tar8x_aeon_01_normals',
-                Orientations = { 0, 90, 180, 270 },
+                Orientations = {0},
                 RemoveWhenDead = false,
                 Width = 6.4,
             },
@@ -190,8 +175,6 @@ UnitBlueprint {
 
             FireTargetLayerCapsTable = {
                 Land = 'Air',
-				Sub = 'Air',
-				Water = 'Air',
                 Seabed = 'Air',
             },
 
@@ -229,18 +212,12 @@ UnitBlueprint {
             TargetRestrictOnlyAllow = 'STRATEGIC MISSILE',
             TargetType = 'RULEWTT_Projectile',
             TrackingRadius = 1.2,
-			
-            Turreted = false,
         },
 		{
 			AntiSat = true,
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB4302_Anti_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB4302_Anti_Missile', LodCutoff = 'Weapon_LodCutoff'},
             },
 
 			AutoInitiateAttackCommand = true,
@@ -259,8 +236,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Seabed = 'Air',
-				Sub = 'Air',
-				Water = 'Air',
             },
 
             FiringTolerance = 60,
@@ -290,16 +265,14 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'SATELLITE',
             TrackingRadius = 1,
-			
-            Turreted = false,
         },
     },
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.5,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

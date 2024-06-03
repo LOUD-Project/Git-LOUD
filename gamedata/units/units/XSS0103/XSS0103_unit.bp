@@ -6,21 +6,9 @@ UnitBlueprint {
     },
     
     Audio = {
-        Killed = Sound {
-            Bank = 'XSS_Destroy',
-            Cue = 'XSS0103_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSS',
-            Cue = 'XSS0103_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'XSS_Destroy', Cue = 'XSS0103_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSS', Cue = 'XSS0103_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Naval', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -46,19 +34,22 @@ UnitBlueprint {
 	
     Defense = {
         AirThreatLevel = 7.2,
+
         ArmorType = 'Normal',
         Health = 1900,
         MaxHealth = 1900,
-        RegenRate = 2,
-        SurfaceThreatLevel = 7.5,
+        RegenRate = 3,
+
+        SurfaceThreatLevel = 9,
     },
 	
     Description = '<LOC xss0103_desc>Frigate',
 	
     Display = {
         Abilities = {
-            'Anti-Air',
-            'Radar & Sonar',
+            '<LOC ability_aa>Anti-Air',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_radar>Radar',
         },
 		
         AnimationDeath = {
@@ -81,20 +72,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
-		
-        IdleEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'XSS0103',
-                        },
-                        Type = 'SeaIdle01',
-                    },
-                },
-            },
-        },
-		
+	
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -114,24 +92,14 @@ UnitBlueprint {
         },
 		
         MovementEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'XSS0103',
-                        },
-                        Scale = 0.9,
-                        Type = 'BackWake',
-                    },
-                },
-            },
+            Water = { Effects = { { Bones = {'XSS0103'}, Scale = 0.6, Type = 'BackWake' } } },
         },
 
         UniformScale = 0.035,
     },
 	
     Economy = {
-        BuildCostEnergy = 3500,
+        BuildCostEnergy = 3600,
         BuildCostMass = 400,
         BuildTime = 2000,
     },
@@ -152,10 +120,12 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
+
         RadarRadius = 60,
-        SonarRadius = 45,
-        VisionRadius = 36,
-        WaterVisionRadius = 18,
+        SonarRadius = 44,
+
+        VisionRadius = 32,
+        WaterVisionRadius = 16,
     },
 	
     Interface = {
@@ -167,7 +137,7 @@ UnitBlueprint {
     LifeBarSize = 1.25,
 	
     Physics = {
-        BackUpDistance = 2,
+        BackUpDistance = 8,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Water = true,
@@ -213,30 +183,15 @@ UnitBlueprint {
 			AlwaysReCheckTarget = true,
 			
             Audio = {
-			
-                BarrelLoop = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Sml_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Sml_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0103_Shieeih_Autocannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-				
+                BarrelLoop  = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Sml_Loop', LodCutoff = 'Weapon_LodCutoff'},
+                BarrelStart = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Sml_Start', LodCutoff = 'Weapon_LodCutoff'},
+                Fire        = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0103_Shieeih_Autocannon', LodCutoff = 'Weapon_LodCutoff'},
             },
 			
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 25,
-            DamageRadius = 0,
+            Damage = 30,
             DamageType = 'Normal',
 			
             DisplayName = 'Auto-Cannon',
@@ -250,8 +205,6 @@ UnitBlueprint {
             Label = 'MainGun',
 			
             MaxRadius = 36,
-			
-            MuzzleChargeDelay = 0.1,
 
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 3,
@@ -263,18 +216,14 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Turret_Muzzle01',
-                        'Back_Turret_Muzzle02',
-                        'Back_Turret_Muzzle03',
-                    },
+                    MuzzleBones = {'Back_Turret_Muzzle01','Back_Turret_Muzzle02','Back_Turret_Muzzle03'},
                     RackBone = 'Turret_Front_Barrel',
                 },
             },
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- 75 DPS Surface
+            RateOfFire = 1,		-- 90 DPS Surface
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 175,
@@ -299,7 +248,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 70,
+            TurretYawSpeed = 52,
 			
             Turreted = true,
         },
@@ -307,22 +256,19 @@ UnitBlueprint {
 		-- T1 level Sera AA Autogun --
         {
             AlwaysRecheckTarget = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2104_Shleo_AA_Autogun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2104_Shleo_AA_Autogun', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			
             Damage = 21,
             DamageType = 'Normal',
-			
-            DisplayName = 'Shleo AA AutoGun',
-			
+
             FireTargetLayerCapsTable = {
                 Water = 'Air',
             },
@@ -348,10 +294,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Turret_Muzzle01',
-                        'Front_Turret_Muzzle02',
-                    },
+                    MuzzleBones = {'Front_Turret_Muzzle01','Front_Turret_Muzzle02'},
                     RackBone = 'Front_Turret_Barrel',
                 },
             },
@@ -378,7 +321,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 100,
+            TurretYawSpeed = 80,
 			
             Turreted = true,
         },

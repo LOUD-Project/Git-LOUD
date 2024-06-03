@@ -6,16 +6,8 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 200,
@@ -56,9 +48,9 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-			'Aquatic - can be built on seabed',
+            '<LOC ability_aquatic>Aquatic: can be built underwater',
             'Assists and repairs units within radius',
-            'Upgradeable',
+            '<LOC ability_upgradable>Upgradeable',
         },
 
         AnimationUpgrade = '/units/XEB0104/XEB0104_aupgrade.sca',
@@ -94,7 +86,9 @@ UnitBlueprint {
 	
     General = {
         BuildBones = { AimBone = 0, BuildEffectBones = { 'B04_Tower' } },
+
 		CapCost = 2,
+
         CommandCaps = {
             RULEUCC_Capture = true,
             RULEUCC_Guard = true,
@@ -103,22 +97,25 @@ UnitBlueprint {
             RULEUCC_Repair = true,
             RULEUCC_Stop = true,
         },
+
         FactionName = 'UEF',
         Icon = 'amph',
+
         OrderOverrides = {
             RULEUTC_ProductionToggle = { bitmapId = 'area-assist', helpText = 'toggle_area_assist' },
         },
-        ToggleCaps = {
-            RULEUTC_ProductionToggle = true,
-        },
+
+        ToggleCaps = { RULEUTC_ProductionToggle = true },
+
         SelectionPriority = 5,
+
         UnitName = '<LOC xeb0104_name>Kennel',
 
         UpgradesTo = 'xeb0204',
     },
 	
     Intel = {
-        VisionRadius = 15,
+        VisionRadius = 16,
     },
 	
     Interface = {
@@ -169,9 +166,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.1,
         HealthMult = 0.5,
-        MassMult = 0.5,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -42,30 +42,18 @@ UnitBlueprint {
     },
 
     Audio = {
-        Killed = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0104_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'URADestroy', Cue = 'URA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'URA', Cue = 'URA0104_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {
         Regen = {
-            Level1 = 15,
-            Level2 = 30,
-            Level3 = 45,
-            Level4 = 60,
-            Level5 = 75,
+            Level1 = 10,
+            Level2 = 20,
+            Level3 = 30,
+            Level4 = 40,
+            Level5 = 50,
         },
     },
 
@@ -109,51 +97,12 @@ UnitBlueprint {
 
         AnimationOpen = '/mods/BlackOpsUnleashed/units/BRA0309/BRA0309_Aopen.sca',
 
-        ForcedBuildSpin = 90,
-
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Char01',
-                        },
-                        Offset = {
-                            0,
-                            -1.5,
-                            -1,
-                        },
-                        Scale = 2,
-                        Type = 'Landing01',
-                    },
-                },
-            },
-            LandAir = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Char01',
-                        },
-                        Offset = {
-                            0,
-                            -1.5,
-                            -1,
-                        },
-                        Scale = 2,
-                        Type = 'TakeOff01',
-                    },
-                },
-            },
+            AirLand = { Effects = { { Bones = {'Char01'}, Offset = {0,-1.5,-1}, Scale = 2, Type = 'Landing01' } } },
+            LandAir = { Effects = { { Bones = {'Char01'}, Offset = {0,-1.5,-1}, Scale = 2, Type = 'TakeOff01' } } },
         },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 300,
-                    ShaderName = 'Insect',
-                },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 300, ShaderName = 'Insect' } } },
 
         UniformScale = 0.08,
     },
@@ -189,9 +138,7 @@ UnitBlueprint {
         Icon = 'air',
         SelectionPriority = 2,
 
-        ToggleCaps = {
-			RULEUTC_CloakToggle = true,
-        },
+        ToggleCaps = {RULEUTC_CloakToggle = true},
 		
         UnitName = '<LOC bra0309_name>Vanisher',
     },
@@ -206,8 +153,8 @@ UnitBlueprint {
 		SonarStealth = true,
 		SonarStealthFieldRadius = 12,
 		
-        VisionRadius = 38,
-		WaterVisionRadius = 0,
+        VisionRadius = 36,
+		WaterVisionRadius = 16,
     },
 
     Interface = {
@@ -298,7 +245,7 @@ UnitBlueprint {
 
             Label = 'EMPCannon',
 
-            MaxRadius = 33,
+            MaxRadius = 35,
 
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 3,
@@ -310,9 +257,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Down_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Front_Down_Turret_Muzzle'},
                     RackBone = 'Front_Down_Turret',
                 },
             },

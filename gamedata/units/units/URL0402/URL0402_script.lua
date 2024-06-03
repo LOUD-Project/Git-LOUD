@@ -2,18 +2,25 @@ local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local CybranWeaponsFile = import('/lua/cybranweapons.lua')
 
-local CDFHeavyMicrowaveLaserGenerator = CybranWeaponsFile.CDFHeavyMicrowaveLaserGenerator
-local CDFElectronBolterWeapon = CybranWeaponsFile.CDFElectronBolterWeapon
-local CAAMissileNaniteWeapon = CybranWeaponsFile.CAAMissileNaniteWeapon
+local CDFHeavyMicrowaveLaserGenerator   = CybranWeaponsFile.CDFHeavyMicrowaveLaserGenerator
+local CDFElectronBolterWeapon           = CybranWeaponsFile.CDFElectronBolterWeapon
+local CAAMissileNaniteWeapon            = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
+local CANNaniteTorpedoWeapon            = CybranWeaponsFile.CANNaniteTorpedoWeapon
+
+CybranWeaponsFile = nil
 
 local explosion = import('/lua/defaultexplosions.lua')
-local CreateDeathExplosion = explosion.CreateDefaultHitExplosionAtBone
+
+local CreateDeathExplosion  = explosion.CreateDefaultHitExplosionAtBone
+local CreateFlash           = explosion.CreateFlash
+
+explosion = nil
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local utilities = import('/lua/Utilities.lua')
 local CleanupEffectBag = import('/lua/EffectUtilities.lua').CleanupEffectBag
-local CANTorpedoLauncherWeapon = CybranWeaponsFile.CANTorpedoLauncherWeapon
-local Entity = import('/lua/sim/Entity.lua').Entity
+
+--local Entity = import('/lua/sim/Entity.lua').Entity
 
 local function GetRandomFloat( Min, Max )
     return Min + (Random() * (Max-Min) )
@@ -21,16 +28,14 @@ end
 
 
 URL0402 = Class(CWalkingLandUnit) {
-    WalkingAnimRate = 1.2,
 
     Weapons = {
-        MainGun = Class(CDFHeavyMicrowaveLaserGenerator) {},
 
-        BolterTurret = Class(CDFElectronBolterWeapon) {},
-		
-        AntiAirMissile = Class(CAAMissileNaniteWeapon) {},
-
-        Torpedo = Class(CANTorpedoLauncherWeapon) {},
+        MainGun         = Class(CDFHeavyMicrowaveLaserGenerator) {},
+        BolterLeft      = Class(CDFElectronBolterWeapon) {},
+        BolterRight     = Class(CDFElectronBolterWeapon) {},        
+        AAMissile       = Class(CAAMissileNaniteWeapon) {},
+        Torpedo         = Class(CANNaniteTorpedoWeapon) {},
     },
     
     OnStartBeingBuilt = function(self, builder, layer)
@@ -41,6 +46,7 @@ URL0402 = Class(CWalkingLandUnit) {
             self.AnimationManipulator = CreateAnimator(self)
             self.Trash:Add(self.AnimationManipulator)
         end
+        
         self.AnimationManipulator:PlayAnim(self:GetBlueprint().Display.AnimationActivate, false):SetRate(0)
     end,
 
@@ -67,29 +73,13 @@ URL0402 = Class(CWalkingLandUnit) {
         if(layer == 'Land') then
 		
             self:CreateUnitAmbientEffect(layer)
-
-			-- Disable Torpedo
-			if self.SonarEnt then
-                self.SonarEnt:Destroy()
-            end
-			
-            --self:DisableUnitIntel('Sonar')
-	        self:SetWeaponEnabledByLabel('Torpedo', false)
 			
         elseif (layer == 'Seabed') then
 		
             self:CreateUnitAmbientEffect(layer)
-			
-            self:EnableUnitIntel('SonarStealth')
-			
-			-- Enable Torpedo and Sonar
-            self.SonarEnt = Entity {}
-            self.Trash:Add(self.SonarEnt)
-            self.SonarEnt:InitIntel(self:GetArmy(), 'Sonar', 76)
-            self.SonarEnt:EnableIntel('Sonar')
-            self.SonarEnt:AttachBoneTo(-1, self, 0)
-	        self:SetWeaponEnabledByLabel('Torpedo', true)
+
         end
+
         self.WeaponsEnabled = true
     end,
 
@@ -99,53 +89,27 @@ URL0402 = Class(CWalkingLandUnit) {
 		
 		if self.WeaponsEnabled then
 			if( new == 'Land' ) then
+
 			    self:CreateUnitAmbientEffect(new)
-				# Enable Land weapons
-			    if self.SonarEnt then
-                    self.SonarEnt:Destroy()
-                end
-                #self:DisableUnitIntel('Sonar')
-			    # Disable Torpedo
-	            self:SetWeaponEnabledByLabel('Torpedo', false)
+
 			elseif ( new == 'Seabed' ) then
+
 			    self:CreateUnitAmbientEffect(new)
-				# Disable Land Weapons     
-                #self:EnableUnitIntel('Sonar')
-				# Enable Torpedo and Sonar
-			    if self.SonarEnt then
-                    self.SonarEnt:Destroy()
-                end
-                self.SonarEnt = Entity {}
-                self.Trash:Add(self.SonarEnt)
-                self.SonarEnt:InitIntel(self:GetArmy(), 'Sonar', 76)
-                self.SonarEnt:EnableIntel('Sonar')
-                self.SonarEnt:AttachBoneTo(-1, self, 0)
-	            self:SetWeaponEnabledByLabel('Torpedo', true)
+
 			end
 		end
 	end,
 	
-    AmbientExhaustBones = {
-		'Exhaust01',
-		'Exhaust02',
-		'Exhaust03',
-		'Exhaust06',
-		'Exhaust05',
-    },	
-    
-    AmbientLandExhaustEffects = {
-		'/effects/emitters/dirty_exhaust_smoke_02_emit.bp',
-		'/effects/emitters/dirty_exhaust_sparks_02_emit.bp',			
-	},
-	
-    AmbientSeabedExhaustEffects = {
-		'/effects/emitters/underwater_vent_bubbles_02_emit.bp',			
-	},	
+    AmbientExhaustBones         = {'Exhaust01','Exhaust02','Exhaust03','Exhaust06','Exhaust05'},	
+    AmbientLandExhaustEffects   = {'/effects/emitters/dirty_exhaust_smoke_02_emit.bp','/effects/emitters/dirty_exhaust_sparks_02_emit.bp'},
+    AmbientSeabedExhaustEffects = {'/effects/emitters/underwater_vent_bubbles_02_emit.bp'},	
 	
 	CreateUnitAmbientEffect = function(self, layer)
+    
 	    if( self.AmbientEffectThread != nil ) then
 	       self.AmbientEffectThread:Destroy()
         end	 
+        
         if self.AmbientExhaustEffectsBag then
             CleanupEffectBag(self,'AmbientExhaustEffectsBag')
         end        
@@ -156,7 +120,9 @@ URL0402 = Class(CWalkingLandUnit) {
 	    if layer == 'Land' then
 	        self.AmbientEffectThread = self:ForkThread(self.UnitLandAmbientEffectThread)
 	    elseif layer == 'Seabed' then
+
 	        local army = self:GetArmy()
+
 			for kE, vE in self.AmbientSeabedExhaustEffects do
 				for kB, vB in self.AmbientExhaustBones do
 					table.insert( self.AmbientExhaustEffectsBag, CreateAttachedEmitter(self, vB, army, vE ))
@@ -166,11 +132,11 @@ URL0402 = Class(CWalkingLandUnit) {
 	end, 
 	
 	UnitLandAmbientEffectThread = function(self)
-	
-		while not self:IsDead() do
-		
-            local army = self:GetArmy()			
-			
+
+        local army = self:GetArmy()
+
+		while not self.Dead do
+
 			for kE, vE in self.AmbientLandExhaustEffects do
 			
 				for kB, vB in self.AmbientExhaustBones do
@@ -261,19 +227,19 @@ URL0402 = Class(CWalkingLandUnit) {
         
         local army = self.Army
 
-
-        explosion.CreateFlash( self, 'Center_Turret', 4.5, army )
+        CreateFlash( self, 'Center_Turret', 4.5, army )
+        
         CreateAttachedEmitter(self, 'URL0402', army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp')
         CreateAttachedEmitter(self,'URL0402', army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
+        
         self:CreateFirePlumes( army, {'Center_Turret'}, 0 )
-
         self:CreateFirePlumes( army, {'Right_Leg01_B01','Right_Leg03_B01','Left_Leg03_B01',}, 0.5 )
 
         self:CreateExplosionDebris( army )
         self:CreateExplosionDebris( army )
         self:CreateExplosionDebris( army )
 
-        WaitSeconds(1)
+        WaitSeconds(0.8)
         
 
         CreateDeathExplosion( self, 'Center_Turret', 1.5)
@@ -307,7 +273,7 @@ URL0402 = Class(CWalkingLandUnit) {
         z = z + 3
         
         DamageRing(self, {x,y,z}, 0.1, 3, 1, 'Force', true)
-        WaitSeconds(0.5)
+        WaitSeconds(0.4)
         CreateDeathExplosion( self, 'Center_Turret', 2)
 
         -- Finish up force ring to push trees
@@ -318,17 +284,17 @@ URL0402 = Class(CWalkingLandUnit) {
         CreateDeathExplosion( self, 'Left_Projectile01', 2)
         self:CreateFirePlumes( army, {'Left_Projectile01'}, -1 )
         self:CreateDamageEffects( 'Right_Turret', army )
-        WaitSeconds(0.5)
+        WaitSeconds(0.4)
         
         CreateDeathExplosion( self, 'Left_Leg0' .. Random(1,3) .. '_B0' .. Random(1,3), 0.25)
         self:CreateDamageEffects( 'Right_Leg01_B03', army )
-        WaitSeconds(0.5)
+        WaitSeconds(0.4)
         CreateDeathExplosion( self, 'Left_Turret_Muzzle', 1)
         self:CreateExplosionDebris( army )
         
         CreateDeathExplosion( self, 'Right_Leg0' .. Random(1,3) .. '_B0' .. Random(1,3), 0.25)
         self:CreateDamageEffects( 'Right_Projectile0' .. Random(1,2), army )
-        WaitSeconds(0.5)
+        WaitSeconds(0.4)
         
         CreateDeathExplosion( self, 'Left_Leg0' .. Random(1,3) .. '_B0' .. Random(1,3), 0.25)
         CreateDeathExplosion( self, 'Left_Projectile01', 2 )

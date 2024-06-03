@@ -1,20 +1,9 @@
 UnitBlueprint {
+
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 140,
@@ -63,6 +52,7 @@ UnitBlueprint {
                 OffsetZ = 0.25,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -82,7 +72,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_01_albedo',
@@ -119,17 +108,15 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 55,
-        Category = 'Economy',
-        Classification = 'RULEUC_Resource',
+
         FactionName = 'UEF',
         Icon = 'amph',
+
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
-        ToggleCaps = {
-            RULEUTC_ProductionToggle = false,
-        },		
+
+        ToggleCaps = {RULEUTC_ProductionToggle = false},		
+
         UnitName = '<LOC seb1401_name>Apotheosis',
-        UnitWeight = 1,
     },
 	
     Interface = {

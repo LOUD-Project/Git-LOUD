@@ -1,15 +1,8 @@
 UnitBlueprint {
+
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Sonar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy',   Cue = 'UAB_Destroy_Land',   LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',    Cue = 'Aeon_Select_Sonar',  LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     BuildIconSortPriority = 190,
@@ -36,18 +29,20 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 1,
-        Health = 500,
-        MaxHealth = 500,
-        RegenRate = 0,
+
+        Health = 200,
+        MaxHealth = 200,
+        RegenRate = 1,
+
+        EconomyThreatLevel = 12,
     },
 
-    Description = '<LOC uab3102_desc>Sonar System',
+    Description = '<LOC uab3102_desc>Basic Sonar System',
 
     Display = {
         Abilities = {
-            'Sonar',
-            'Upgradeable',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_upgradable>Upgradeable',
         },
 
         AnimationUpgrade = '/units/uab3102/uab3102_aopen.sca',
@@ -55,17 +50,8 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    Scrolling = true,
-                    ShaderName = 'Aeon',
-                },
-                {
-                    AlbedoName = 'uab3102_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Aeon',
-                    SpecularName = 'uab3102_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, Scrolling = true, ShaderName = 'Aeon' },
+                { AlbedoName = 'uab3102_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Aeon', SpecularName = 'uab3102_lod1_specteam.dds' },
             },
         },
 
@@ -73,20 +59,16 @@ UnitBlueprint {
     },
 
     Economy = {
-        BuildCostEnergy = 544,
-        BuildCostMass = 64,
+        BuildCostEnergy = 690,
+        BuildCostMass = 152,
         BuildRate = 10,
         BuildTime = 80,
 
         BuildableCategory = {'uab3202'},
 
-        MaintenanceConsumptionPerSecondEnergy = 10,
+        MaintenanceConsumptionPerSecondEnergy = 20,
 
-        RebuildBonusIds = {
-            'uab3102',
-            'uab3202',
-            'uas0305',
-        },
+        RebuildBonusIds = {'uab3102','uab3202','uas0305'},
     },
 
     Footprint = {
@@ -95,31 +77,28 @@ UnitBlueprint {
 
     General = {
 
-        CommandCaps = {
-            RULEUCC_Pause = true,
-        },
+        CommandCaps = { RULEUCC_Pause = true },
+
         FactionName = 'Aeon',
         Icon = 'sea',
+
         OrderOverrides = {
-            RULEUTC_IntelToggle = {
-                bitmapId = 'sonar',
-                helpText = 'toggle_sonar',
-            },
+            RULEUTC_IntelToggle = { bitmapId = 'sonar', helpText = 'toggle_sonar' },
         },
+        
         SelectionPriority = 5,
 
-        ToggleCaps = {
-            RULEUTC_IntelToggle = true,
-        },
+        ToggleCaps = { RULEUTC_IntelToggle = true },
 
         UpgradesTo = 'uab3202',
     },
 
     Intel = {
         ShowIntelOnSelect = true,
-        SonarRadius = 115,
-        VisionRadius = 28,
-		WaterVisionRadius = 15,
+
+        SonarRadius = 116,
+        VisionRadius = 24,
+		WaterVisionRadius = 24,
     },
 
     Interface = {
@@ -159,15 +138,4 @@ UnitBlueprint {
 
     StrategicIconName = 'icon_structure1_intel',
     StrategicIconSortPriority = 235,
-
-    Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
-        ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Land = true,
-        },
-    },
 }

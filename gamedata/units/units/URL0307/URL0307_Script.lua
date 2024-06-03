@@ -1,19 +1,15 @@
 local CLandUnit = import('/lua/defaultunits.lua').MobileUnit
+
 local EffectUtil = import('/lua/EffectUtilities.lua')
 
 local Buff = import('/lua/sim/Buff.lua')
-local CybranBuffField = import('/lua/cybranweapons.lua').CybranBuffField
+
+local BuffField = import('/lua/cybranweapons.lua').CybranBuffField
 
 URL0307 = Class(CLandUnit) {
 
 	BuffFields = {
-	
-		OpticalInterferenceField = Class(CybranBuffField){
-		
-			OnCreate = function(self)
-				CybranBuffField.OnCreate(self)
-			end,
-		},
+		OpticalInterferenceField = Class(BuffField){},
 	},
 	
     OnStopBeingBuilt = function(self,builder,layer)
@@ -25,8 +21,8 @@ URL0307 = Class(CLandUnit) {
     end,
     
     IntelEffects = {
-		{
-			Bones = { 'AttachPoint'	}, Offset = { 0, 0.25, 0 },	Scale = 0.05, Type = 'Jammer01' },
+        -- the buff field adds another instance of this kind of effect, so we keep this one a bit smaller
+		{Bones = {'AttachPoint'}, Offset = {0,0,0},Scale = 0.1,Type = 'Jammer01' }
     },
     
     OnIntelEnabled = function(self,intel)
@@ -37,7 +33,7 @@ URL0307 = Class(CLandUnit) {
 		
 			self.IntelEffectsBag = {}
 			
-			self.CreateTerrainTypeEffects( self, self.IntelEffects, 'FXIdle',  self:GetCurrentLayer(), nil, self.IntelEffectsBag )
+			self.CreateTerrainTypeEffects( self, self.IntelEffects, 'FXIdle', 'Land', nil, self.IntelEffectsBag )
 			
 			self.IntelFxOn = true
 		end

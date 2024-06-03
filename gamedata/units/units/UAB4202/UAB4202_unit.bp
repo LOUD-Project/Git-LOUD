@@ -1,21 +1,9 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed      = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 60,
@@ -69,8 +57,9 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Upgradeable',
+            '<LOC ability_upgradable>Upgradeable',
         },
+
         AnimationDeath = {
             {
                 Animation = '/units/uab4202/uab4202_ADeath.sca',
@@ -79,7 +68,9 @@ UnitBlueprint {
                 Weight = 1,
             },
         },
+
         AnimationOpen = '/units/uab4202/uab4202_aopen.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -104,11 +95,12 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar8x_aeon_01_normals',
-                Orientations = { 0, 90, 180, 270 },
+                Orientations = {0},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
         },
+
         UniformScale = 0.06,
     },
 	
@@ -135,19 +127,18 @@ UnitBlueprint {
 			RULEUCC_Pause = true,
             RULEUCC_Stop = true,
         },
+
         FactionName = 'Aeon',
         Icon = 'land',
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'toggle_shield_dome',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-dome', helpText = 'toggle_shield_dome'},
         },
+
         SelectionPriority = 5,
 
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+        ToggleCaps = { RULEUTC_ShieldToggle = true },
+
         UnitName = '<LOC uab4202_name>Shield of Light',
 
         UpgradesTo = 'uab4301',
@@ -194,9 +185,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

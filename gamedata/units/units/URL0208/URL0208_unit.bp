@@ -1,15 +1,8 @@
 UnitBlueprint {
+
     Audio = {
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0208_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        StartMove   = Sound { Bank = 'URL', Cue = 'URL0208_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 10,
@@ -48,17 +41,10 @@ UnitBlueprint {
     Description = '<LOC url0208_desc>Engineer',
 	
     Display = {
+
         AnimationWater = '/units/URL0208/url0208_Awheels.sca',
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 215,
-                    Scrolling = true,
-                    ShaderName = 'Insect',
-                },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, Scrolling = true, ShaderName = 'Insect' } } },
 
         UniformScale = 0.117,
     },
@@ -152,9 +138,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

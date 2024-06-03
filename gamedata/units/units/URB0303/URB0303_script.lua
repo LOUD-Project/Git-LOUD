@@ -1,4 +1,3 @@
-
 local CSeaFactoryUnit = import('/lua/cybranunits.lua').CSeaFactoryUnit
 
 local CIFSmartCharge = import('/lua/cybranweapons.lua').CIFSmartCharge

@@ -46,7 +46,7 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Aquatic',
+            '<LOC ability_aquatic>Aquatic',
         },
         Mesh = {
             IconFadeInZoom = 130,
@@ -136,11 +136,7 @@ UnitBlueprint {
         {
             AimsStraightOnDisable = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB4201_Phalanx_01',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB4201_Phalanx_01', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -212,7 +208,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

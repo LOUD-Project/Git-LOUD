@@ -1,30 +1,18 @@
 UnitBlueprint {
 
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed       = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Gun', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 3,
-            Level2 = 6,
-            Level3 = 9,
-            Level4 = 12,
-            Level5 = 15,
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
         },
     },
 	
@@ -52,10 +40,12 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 1190,
+
         Health = 15000,
         MaxHealth = 15000,
         RegenRate = 2,
+        
+        EconomyThreatLevel = 1190,
     },
 	
     Description = '<LOC ueb2302_desc>Heavy Artillery Installation',
@@ -64,18 +54,11 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 300,
-                    ShaderName = 'Unit',
-                },
-                {
-                    AlbedoName = 'ueb2302_lod1_albedo.dds',
-                    LODCutoff = 500,
-                    ShaderName = 'Unit',
-                    SpecularName = 'ueb2302_lod1_specteam.dds',
-                },
+                { LODCutoff = 300, ShaderName = 'Unit' },
+                { AlbedoName = 'ueb2302_lod1_albedo.dds', LODCutoff = 500, ShaderName = 'Unit', SpecularName = 'ueb2302_lod1_specteam.dds' },
             },
         },
+        
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_01_albedo',
@@ -88,6 +71,7 @@ UnitBlueprint {
                 Width = 12.8,
             },
         },
+
         UniformScale = 0.036,
     },
 	
@@ -172,25 +156,14 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
-            AimsStraightOnDisable = true,
             ArtilleryShieldBlocks = true,
+
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UEB',
-                    Cue = 'UEB2302_Turret_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UEB',
-                    Cue = 'UEB2302_Turret_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2302_Artillery_AM',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'UEB', Cue = 'UEB2302_Turret_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart = Sound { Bank = 'UEB', Cue = 'UEB2302_Turret_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire        = Sound { Bank = 'UELWeapon', Cue = 'UEB2302_Artillery_AM', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_HighArc',
 			
             CameraShakeDuration = 0.4,
@@ -207,8 +180,8 @@ UnitBlueprint {
 			
             DisplayName = 'Anti Matter Artillery',
 			
-            EnergyDrainPerSecond = 2650,
-            EnergyRequired = 26500,
+            EnergyDrainPerSecond = 3060,
+            EnergyRequired = 30600,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -247,6 +220,7 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'ECONOMIC',
                 'STRUCTURE',
                 'ALLUNITS',
             },
@@ -255,7 +229,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 30,
             TurretPitchRange = 55,
@@ -271,9 +244,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.9,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        EnergyMult = 0.3,
+        HealthMult = 0.5,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

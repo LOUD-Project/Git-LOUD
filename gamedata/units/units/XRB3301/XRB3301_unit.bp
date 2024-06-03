@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'XRB',
-            Cue = 'XRB3301_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        DoneBeingBuilt  = Sound { Bank = 'XRB', Cue = 'XRB3301_Activate', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Radar', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     BuildIconSortPriority = 200,
@@ -44,31 +32,28 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 70,
+
         Health = 2150,
         MaxHealth = 2150,
-        RegenRate = 3,
+        RegenRate = 4,
+
+        EconomyThreatLevel = 60,    -- 30% of the vision radius
     },
 
     Description = '<LOC xrb3301_desc>Perimeter Monitoring System',
 
     Display = {
+
         AnimationPermOpen = '/units/xrb3301/xrb3301_aopen.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 200,
-                    ShaderName = 'Insect',
-                },
-                {
-                    AlbedoName = 'xrb3301_lod1_albedo.dds',
-                    LODCutoff = 300,
-                    ShaderName = 'Insect',
-                    SpecularName = 'xrb3301_lod1_specteam.dds',
-                },
+                { LODCutoff = 200, ShaderName = 'Insect' },
+                { AlbedoName = 'xrb3301_lod1_albedo.dds', LODCutoff = 300, ShaderName = 'Insect', SpecularName = 'xrb3301_lod1_specteam.dds' },
             },
         },
+        
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_cybran_01_albedo',
@@ -81,13 +66,14 @@ UnitBlueprint {
                 Width = 12,
             },
         },
+
         UniformScale = 0.048,
     },
 
     Economy = {
-        BuildCostEnergy = 60000,
-        BuildCostMass = 4250,
-        BuildTime = 3900,
+        BuildCostEnergy = 54000,
+        BuildCostMass = 3950,
+        BuildTime = 4000,
 
         MaintenanceConsumptionPerSecondEnergy = 3000,
 
@@ -102,16 +88,15 @@ UnitBlueprint {
     General = {
         FactionName = 'Cybran',
         Icon = 'land',
+        
         OrderOverrides = {
-            RULEUTC_IntelToggle = {
-                bitmapId = 'vision',
-                helpText = 'vision_toggle',
-            },
+            RULEUTC_IntelToggle = { bitmapId = 'vision', helpText = 'vision_toggle' },
         },
+        
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_IntelToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_IntelToggle = true },
+        
         UnitName = '<LOC xrb3301_name>Soothsayer',
     },
 
@@ -159,9 +144,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.9,
+        EnergyMult = 0.5,
         HealthMult = 0.9,
-        MassMult = 1.0,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

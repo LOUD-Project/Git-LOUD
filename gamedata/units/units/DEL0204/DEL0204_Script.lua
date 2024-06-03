@@ -1,7 +1,7 @@
 local TWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local TDFPlasmaCannonWeapon = import('/lua/terranweapons.lua').TDFPlasmaCannonWeapon
-local TIFFragLauncherWeapon = import('/lua/terranweapons.lua').TDFFragmentationGrenadeLauncherWeapon
+local TDFHeavyPlasmaCannonWeapon = import('/lua/terranweapons.lua').TDFFragmentationGrenadeLauncherWeapon
 
 local CreateBoneEffects = import('/lua/effectutilities.lua').CreateBoneEffects
 local WeaponSteam01 = import('/lua/effecttemplates.lua').WeaponSteam01
@@ -42,7 +42,7 @@ DEL0204 = Class(TWalkingLandUnit)
             end,
         },
         
-        Grenade = Class(TIFFragLauncherWeapon) {}
+        Grenade = Class(TDFHeavyPlasmaCannonWeapon) {}
     },
 }
 

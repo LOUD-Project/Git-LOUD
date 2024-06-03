@@ -2,18 +2,18 @@ local SSubUnit =  import('/lua/defaultunits.lua').SubUnit
 
 local SWeapons = import('/lua/seraphimweapons.lua')
 
-local SANUallCavitationTorpedo = SWeapons.SANUallCavitationTorpedo
-local SDFOhCannon = SWeapons.SDFOhCannon02
-local SDFAjelluAntiTorpedoDefense = SWeapons.SDFAjelluAntiTorpedoDefense
+local Torpedo                       = SWeapons.SANAnaitTorpedo
+local SDFAjelluAntiTorpedoDefense   = SWeapons.SDFAjelluAntiTorpedoDefense
+local SDFOhCannon                   = SWeapons.SDFOhCannon02
+
+SWeapons = nil
 
 XSS0203 = Class(SSubUnit) {
 
     Weapons = {
-	
-        Torpedo = Class(SANUallCavitationTorpedo) {},
-        Cannon = Class(SDFOhCannon) {},
+        Torpedo     = Class(Torpedo) {},
         AntiTorpedo = Class(SDFAjelluAntiTorpedoDefense) {},
-		
+        Cannon      = Class(SDFOhCannon) {},		
     },
 
     OnStopBeingBuilt = function(self,builder,layer)

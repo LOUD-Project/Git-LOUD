@@ -1,33 +1,42 @@
 local SSubUnit =  import('/lua/defaultunits.lua').SubUnit
 
 local SANUallCavitationTorpedo = import('/lua/seraphimweapons.lua').SANUallCavitationTorpedo
-local SDFAjelluAntiTorpedoDefense = import('/lua/seraphimweapons.lua').SDFAjelluAntiTorpedoDefense
 local SAALosaareAutoCannonWeapon = import('/lua/seraphimweapons.lua').SAALosaareAutoCannonWeaponSeaUnit
+
+local MissileRedirect = import('/lua/defaultantiprojectile.lua').MissileTorpDestroy
+
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
 
 XSS0304 = Class(SSubUnit) {
 
     Weapons = {
 	
         Torpedo = Class(SANUallCavitationTorpedo) {},
-		
-        AntiTorpedo = Class(SDFAjelluAntiTorpedoDefense) {},
 
-        AutoCannon = Class(SAALosaareAutoCannonWeapon) {},
-		
+        AAAutoCannon = Class(SAALosaareAutoCannonWeapon) {},
     },
     
     OnStopBeingBuilt = function(self,builder,layer)
 	
         SSubUnit.OnStopBeingBuilt(self,builder,layer)
+
+        -- create Torp Defense emitters
+        local bp = __blueprints[self.BlueprintID].Defense.MissileTorpDestroy
+        
+        for _,v in bp.AttachBone do
+
+            local antiMissile1 = MissileRedirect { Owner = self, Radius = bp.Radius, AttachBone = v, RedirectRateOfFire = bp.RedirectRateOfFire }
+
+            TrashAdd( self.Trash, antiMissile1)
+            
+        end
+
 		
         if layer == 'Water' then
-		
             ChangeState( self, self.OpenState )
-			
         else
-		
             ChangeState( self, self.ClosedState )
-			
         end
 		
     end,

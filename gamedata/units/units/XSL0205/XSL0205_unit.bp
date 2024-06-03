@@ -1,30 +1,14 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 45,
-        GuardScanRadius = 38,
+		GuardReturnRadius = 40,
+        GuardScanRadius = 32,
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL_Destroy_Land_Med',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        HoverKilledOnWater = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0205_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed           = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Med', LodCutoff = 'UnitMove_LodCutoff'},
+        HoverKilledOnWater  = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove           = Sound { Bank = 'XSL', Cue = 'XSL0205_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection         = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {},
@@ -102,6 +86,7 @@ UnitBlueprint {
 	
     Intel = {
         VisionRadius = 24,
+        WaterVisionRadius = 8,
     },
 	
     Interface = {
@@ -171,11 +156,7 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0205_Olaris_AA_Artillery',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0205_Olaris_AA_Artillery', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -203,7 +184,7 @@ UnitBlueprint {
 
 			LeadTarget = true,
 			
-            MaxRadius = 38,
+            MaxRadius = 36,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,

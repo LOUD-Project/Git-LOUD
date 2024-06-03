@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XRL_Weapon',
-            Cue = 'XRL0302_SelfDestructBomb',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XRL',
-            Cue = 'XRL0302_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XRL_Weapon', Cue = 'XRL0302_SelfDestructBomb', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'XRL', Cue = 'XRL0302_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 80,
@@ -56,8 +44,10 @@ UnitBlueprint {
         Abilities = {
             'Suicide Weapon',
         },
+
         AnimationWalk = '/units/XRL0302/XRL0302_Awalk.sca',
         AnimationWalkRate = 11.5,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -73,12 +63,14 @@ UnitBlueprint {
                 },
             },
         },
+
         TransportAnimation = {
             {
                 Animation = '/units/XRL0302/XRL0302_Afold01.sca',
                 Weight = 100,
             },
         },
+
         UniformScale = 0.054,
     },
 	

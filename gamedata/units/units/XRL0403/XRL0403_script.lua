@@ -2,30 +2,37 @@ local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local explosion = import('/lua/defaultexplosions.lua')
 local CreateDeathExplosion = explosion.CreateDefaultHitExplosionAtBone
+
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local utilities = import('/lua/Utilities.lua')
 local EffectUtil = import('/lua/EffectUtilities.lua')
-local Entity = import('/lua/sim/Entity.lua').Entity
 
 local CybranWeaponsFile = import('/lua/cybranweapons.lua')
 
-local CDFHvyProtonCannonWeapon = CybranWeaponsFile.CDFHvyProtonCannonWeapon
-local CANNaniteTorpedoWeapon = CybranWeaponsFile.CANNaniteTorpedoWeapon
-local CIFSmartCharge = CybranWeaponsFile.CIFSmartCharge
-local CAABurstCloudFlakArtilleryWeapon = CybranWeaponsFile.CAABurstCloudFlakArtilleryWeapon
+local CDFHvyProtonCannonWeapon   = CybranWeaponsFile.CDFHvyProtonCannonWeapon
+local CANNaniteTorpedoWeapon     = CybranWeaponsFile.CANNaniteTorpedoWeapon
+local FlakArtilleryWeapon        = CybranWeaponsFile.CAABurstCloudFlakArtilleryWeapon
+
+CybranWeaponsFile = nil
+
+local AIFQuasarAntiTorpedoWeapon = import('/lua/aeonweapons.lua').AIFQuasarAntiTorpedoWeapon
+
+local MissileRedirect = import('/lua/defaultantiprojectile.lua').MissileTorpDestroy
+
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
 
 XRL0403 = Class(CWalkingLandUnit) {
 
     WalkingAnimRate = 1.2,
 
     Weapons = {
-        ParticleGunRight = Class(CDFHvyProtonCannonWeapon) {},
-        ParticleGunLeft = Class(CDFHvyProtonCannonWeapon) {},
 
-        Torpedo01 = Class(CANNaniteTorpedoWeapon) {},
-        AntiTorpedo = Class(CIFSmartCharge) {},
-
-        AAGun = Class(CAABurstCloudFlakArtilleryWeapon) {},
+        ParticleGunRight    = Class(CDFHvyProtonCannonWeapon) {},
+        ParticleGunLeft     = Class(CDFHvyProtonCannonWeapon) {},
+        Torpedo01           = Class(CANNaniteTorpedoWeapon) {},
+        AntiTorpedo         = Class(AIFQuasarAntiTorpedoWeapon){},
+        AAGun               = Class(FlakArtilleryWeapon) {},
     },
     
     OnCreate = function(self)
@@ -35,6 +42,18 @@ XRL0403 = Class(CWalkingLandUnit) {
         if self:IsValidBone('Missile_Turret') then
             self:HideBone('Missile_Turret', true)
         end
+
+        -- create Torp Defense emitter
+        local bp = __blueprints[self.BlueprintID].Defense.MissileTorpDestroy
+        
+        for _,v in bp.AttachBone do
+
+            local antiMissile1 = MissileRedirect { Owner = self, Radius = bp.Radius, AttachBone = v, RedirectRateOfFire = bp.RedirectRateOfFire }
+
+            TrashAdd( self.Trash, antiMissile1)
+            
+        end
+
     end, 
     
     OnStartBeingBuilt = function(self, builder, layer)

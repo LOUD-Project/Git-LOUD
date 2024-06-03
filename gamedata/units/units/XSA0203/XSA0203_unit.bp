@@ -41,21 +41,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'XSA_Destroy',
-            Cue = 'XSA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0203_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'XSA_Destroy', Cue = 'XSA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSA', Cue = 'XSA0203_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -137,7 +125,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 26,
+        VisionRadius = 36,
     },
 	
     Interface = {
@@ -237,10 +225,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Muzzle01',
-                        'Left_Muzzle02',
-                    },
+                    MuzzleBones = {'Left_Muzzle01','Left_Muzzle02'},
                     RackBone = 'Left_Turret_Barrel',
                 },
             },
@@ -307,10 +292,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Muzzle01',
-                        'Right_Muzzle02',
-                    },
+                    MuzzleBones = {'Right_Muzzle01','Right_Muzzle02'},
                     RackBone = 'Right_Turret_Barrel',
                 },
             },

@@ -4,16 +4,8 @@ UnitBlueprint {
     },
 	
     Audio = {
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0309_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0309_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 10,
@@ -55,28 +47,12 @@ UnitBlueprint {
         IdleEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'XSL0309',
-                        },
-                        Offset = {
-                            0,
-                            -0.4,
-                            0,
-                        },
-                        Scale = 0.85,
-                        Type = 'SeraphimGroundFX01',
-                    },
-                    {
-                        Bones = {
-                            'XSL0309',
-                        },
-                        Scale = 1.4,
-                        Type = 'SeaIdle02',
-                    },
+                    { Bones = {'XSL0309'}, Offset = {0,-0.4,0}, Scale = 0.85, Type = 'SeraphimGroundFX01' },
+                    { Bones = {'XSL0309'}, Scale = 1.4, Type = 'SeaIdle02' },
                 },
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -94,6 +70,7 @@ UnitBlueprint {
                 },
             },
         },
+
         UniformScale = 0.07,
     },
 	
@@ -114,11 +91,7 @@ UnitBlueprint {
     General = {
         BuildBones = {
             AimBone = 'Turret_Muzzle2',
-            BuildEffectBones = {
-                'Turret_Muzzle',
-                'Turret_Muzzle1',
-                'Turret_Muzzle2',
-            },
+            BuildEffectBones = {'Turret_Muzzle','Turret_Muzzle1','Turret_Muzzle2'},
             PitchBone = 'Arm_Pitch',
             YawBone = 'Arm_Yaw',
         },
@@ -147,7 +120,7 @@ UnitBlueprint {
     Intel = {
 		FreeIntel = true,
         VisionRadius = 28,
-		OmniRadius = 6,
+		OmniRadius = 8,
     },
 	
     Interface = {

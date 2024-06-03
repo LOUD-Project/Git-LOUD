@@ -1,30 +1,14 @@
 UnitBlueprint {
     AI = {
-		GuardReturnRadius = 50,
-        GuardScanRadius = 38,
+		GuardReturnRadius = 45,
+        GuardScanRadius = 35,
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        HoverKilledOnWater = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0205_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed           = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        HoverKilledOnWater  = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove           = Sound { Bank = 'UAL', Cue = 'UAL0205_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection         = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {},
@@ -96,15 +80,17 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
+
         UnitName = '<LOC ual0205_name>Ascendant',
     },
 	
     Intel = {
         VisionRadius = 24,
+        WaterVisionRadius = 8,
     },
 	
     Interface = {
-        HelpText = 'Mobile Flak Hovertank',
+        HelpText = 'Flak Hovertank',
     },
 	
     LifeBarHeight = 0.075,
@@ -174,11 +160,7 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0205_AA_Fizz',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAL0205_AA_Fizz', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -203,14 +185,14 @@ UnitBlueprint {
             Label = 'AAGun',
 			LeadTarget = true,
 			
-            MaxRadius = 38,
+            MaxRadius = 36,
 
             MuzzleChargeDelay = 0.1,			
 
             MuzzleVelocity = 48,
 			
             ProjectileId = '/projectiles/AAAFizz01/AAAFizz01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.4,
+            ProjectileLifetime = 1,
 			
             RackBones = {
                 {
@@ -257,9 +239,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.35,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.35,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

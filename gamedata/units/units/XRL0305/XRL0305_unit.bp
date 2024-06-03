@@ -4,32 +4,13 @@ UnitBlueprint {
 		GuardScanRadius = 34,
 		GuardReturnRadius = 45,
 
-        TargetBones = {          
-            'Right_Leg01_B01',
-            'Right_Leg02_B01',
-            'Left_Leg01_B01',
-            'Left_Leg02_B01',
-            'Turret',
-            'Projectile03',            
-        },
+        TargetBones = {'Right_Leg01_B01','Right_Leg02_B01','Left_Leg01_B01','Left_Leg02_B01','Turret','Projectile03'},
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'URLWeapon',
-            Cue = 'URL0303_Death_EMP',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XRL',
-            Cue = 'XRL0305_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'URLWeapon', Cue = 'URL0303_Death_EMP', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XRL', Cue = 'XRL0305_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Bot', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -61,11 +42,15 @@ UnitBlueprint {
 	CollisionOffsetY = 0.1,
 	
     Defense = {
+
+        MissileTorpDestroy = { AttachBone = {'XRL0305'}, Radius = 3.2, RedirectRateOfFire = 10, ProjectileCategories = {'TORPEDO'} },
+    
         ArmorType = 'Normal',
         Health = 6250,
         MaxHealth = 6250,
         RegenRate = 4,
-        SubThreatLevel = 5,
+        
+        SubThreatLevel = 10,
         SurfaceThreatLevel = 56.8,
     },
 	
@@ -73,10 +58,11 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Amphibious',
-            'Torpedoes',
-            'Torpedo Defense',
+            '<LOC ability_amphibious>Amphibious',
+            '<LOC ability_torpedo>Torpedoes',
+            '<LOC ability_torpedodef>Torpedo Defense',
         },
+
         AnimationDeath = {
             {
                 Animation = '/units/XRL0305/XRL0305_Adeath01.sca',
@@ -97,8 +83,10 @@ UnitBlueprint {
                 Weight = 1,
             },
         },
+
         AnimationWalk = '/units/xrl0305/xrl0305_awalk.sca',
         AnimationWalkRate = 8,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -114,6 +102,7 @@ UnitBlueprint {
                 },
             },
         },
+
         UniformScale = 0.055,
     },
 	
@@ -135,12 +124,13 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'amph',
+
         UnitName = '<LOC xrl0305_name>Brick',
     },
 	
     Intel = {
         VisionRadius = 32,
-        WaterVisionRadius = 28,
+        WaterVisionRadius = 24,
     },
 	
     Interface = {
@@ -159,7 +149,9 @@ UnitBlueprint {
             LAYER_Water = true,
         },
         DragCoefficient = 0.2,
-        LayerChangeOffsetHeight = -0.9,
+        
+        LayerChangeOffsetHeight = -1,
+        
         MaxAcceleration = 2,
         MaxBrake = 2.5,
         MaxSpeed = 2.5,
@@ -201,18 +193,12 @@ UnitBlueprint {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XRL_Weapon',
-                    Cue = 'XRL0305_Pulse_Laser_Hvy',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0303_Disintegrator_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire                = Sound { Bank = 'XRL_Weapon', Cue = 'XRL0305_Pulse_Laser_Hvy', LodCutoff = 'Weapon_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'URLWeapon', Cue = 'URL0303_Disintegrator_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
 
             CollideFriendly = false,
@@ -229,7 +215,7 @@ UnitBlueprint {
 			
             FiringTolerance = 1,
 
-            Label = 'Disintigrator',
+            Label = 'Disintegrator',
 
             LeadTarget = true,
 			
@@ -276,16 +262,16 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XRL_Weapon',
-                    Cue = 'XRL0305_Torpedo_Nanite',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XRL_Weapon', Cue = 'XRL0305_Torpedo_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+
+            BelowWaterFireOnly = true,
+
             CollideFriendly = false,
 			
-            Damage = 100,
+            Damage = 200,
             DamageType = 'Normal',
 			
             DisplayName = 'Nanite Torpedo Launcher',
@@ -300,25 +286,28 @@ UnitBlueprint {
 			
             MaxRadius = 35,
 			
-            MuzzleSalvoSize = 1,
+            MuzzleSalvoDelay = 0.8,
+            MuzzleSalvoSize = 2,
 
             MuzzleVelocity = 3,
 			
-            ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
+            ProjectileId = '/projectiles/CANTorpedoNanite02/CANTorpedoNanite02_proj.bp',
             ProjectileLifetime = 8,
 			
             RackBones = {
                 {
-                    MuzzleBones = {'Projectile02'},
+                    MuzzleBones = {'Projectile01','Projectile02'},
                     RackBone = 'Turret',
                 },
             },
+            
+            RackSalvoReloadTime = 2.4,      -- 2 torps of 200 = 400 every 4 seconds = 100 DPS
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.5,
-			
-            TargetCheckInterval = 1.5,
+            RateOfFire = 2,
+            TargetCheckInterval = 2,
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
@@ -327,60 +316,14 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
         },
-		
-        {
-            BallisticArc = 'RULEUBA_None',
-            CollideFriendly = false,
-			
-            Damage = 2,
-			DamageFriendly = false,
-			DamageRadius = 1.5,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Anti Torpedo',
-			
-            FireTargetLayerCapsTable = {
-                Water = 'Seabed|Sub|Water',
-            },
-			
-            FiringTolerance = 15,
-			
-            Label = 'AntiTorpedo',
-			
-            MaxRadius = 24,
-			
-            MuzzleSalvoSize = 1,
 
-            MuzzleVelocity = 7,
-			
-            ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
-            ProjectileLifetime = 6,
-			
-            RackBones = {
-                {
-                    MuzzleBones = {'Projectile01'},
-                    RackBone = 'Projectile01',
-                },
-            },
-
-            RangeCategory = 'UWRC_Countermeasure',
-			
-            RateOfFire = 0.5,
-			
-            TargetCheckInterval = 0.5,
-			
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            TargetRestrictOnlyAllow = 'TORPEDO',
-            TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.1,
-        },
     },
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

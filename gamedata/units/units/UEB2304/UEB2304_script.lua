@@ -3,7 +3,7 @@ local TSAMLauncher = import('/lua/terranweapons.lua').TSAMLauncher
 
 UEB2304 = Class(TStructureUnit) {
     Weapons = {
-        MissileRack01 = Class(TSAMLauncher) {},
+        AAMissileRack = Class(TSAMLauncher) {},
     },
 }
 

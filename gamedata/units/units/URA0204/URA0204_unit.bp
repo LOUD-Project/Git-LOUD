@@ -8,12 +8,12 @@ UnitBlueprint {
     Air = {
         AutoLandTime = 1.5,
 		
-        BankFactor = 4,
+        BankFactor = 3,
         BankForward = false,
 		
-        BreakOffDistance = 40,
+        BreakOffDistance = 18,
         BreakOffIfNearNewTarget = true,
-        BreakOffTrigger = 15,
+        BreakOffTrigger = 10,
 		
         CanFly = true,
 		
@@ -21,8 +21,8 @@ UnitBlueprint {
 		
         EngageDistance = 45,
 		
-        KLift = 3,
-        KLiftDamping = 2.5,
+        KLift = 6,
+        KLiftDamping = 5.5,
 		
         KMove = 0.98,
         KMoveDamping = 1.2,
@@ -33,7 +33,7 @@ UnitBlueprint {
         KTurn = 1.5,
         KTurnDamping = 1.5,
 		
-        LiftFactor = 10,
+        LiftFactor = 12,
 		
         MaxAirspeed = 16,
         MinAirspeed = 11,
@@ -48,21 +48,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0204_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'URADestroy', Cue = 'URA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'URA', Cue = 'URA0204_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Air', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -97,32 +85,26 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Light',
-        Health = 1200,
-        MaxHealth = 1200,
+        Health = 1350,
+        MaxHealth = 1350,
         RegenRate = 6,
-        SubThreatLevel = 10,
+
+        SubThreatLevel = 12,
     },
 	
     Description = '<LOC ura0204_desc>Torpedo Bomber',
 	
     Display = {
         Abilities = {
-            'Sonar',
-            'Torpedoes',
+            '<LOC ability_sonar>Sonar',
+            "<LOC ability_torpedo>Torpedoes",
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 140,
-                    ShaderName = 'Insect',
-                },
-                {
-                    AlbedoName = 'ura0204_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Insect',
-                    SpecularName = 'ura0204_lod1_specteam.dds',
-                },
+                { LODCutoff = 140, ShaderName = 'Insect' },
+                { AlbedoName = 'ura0204_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Insect', SpecularName = 'ura0204_lod1_specteam.dds' },
             },
         },
 
@@ -130,9 +112,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 9500,
-        BuildCostMass = 240,
-        BuildTime = 1590,
+        BuildCostEnergy = 14000,
+        BuildCostMass = 265,
+        BuildTime = 200,
     },
 
     General = {
@@ -153,9 +135,10 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
+
         SonarRadius = 60,
-        VisionRadius = 30,
-		WaterVisionRadius = 10,
+        VisionRadius = 36,
+		WaterVisionRadius = 16,
     },
 	
     Interface = {
@@ -168,7 +151,7 @@ UnitBlueprint {
 	
     Physics = {
 	
-        AttackElevation = 2.5,
+        AttackElevation = 3,
 		
         BuildOnLayerCaps = {
             LAYER_Air = true,
@@ -225,62 +208,60 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 50,
+            Damage = 300,
             DamageType = 'Normal',
 			
             DisplayName = 'Nanite Torpedo',
-			
-			EffectiveRadius = 45,
-			
-            DoTPulses = 5,	--- so 50 x 5 = 250 damage
-            DoTTime = 2,	--- over 2 seconds --
+            
+            EffectiveRadius = 40,
 			
             FireTargetLayerCapsTable = {
                 Air = 'Seabed|Sub|Water',
                 Land = 'Seabed|Sub|Water',
             },
 			
-            FiringRandomness = 3,
+            FiringRandomness = 1.5,
             FiringTolerance = 3,
 			
             HeadingArcCenter = 0,
             HeadingArcRange = 40,
 			
-            Label = 'Bomb',
+            Label = 'Torpedo',
 			
-            MaxRadius = 26,
+            MaxRadius = 32,
             MinRadius = 8,
 			
-            MuzzleSalvoDelay = 0.3,
-            MuzzleSalvoSize = 4,
+            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoSize = 2,
 
-            MuzzleVelocity = 6,
+            MuzzleVelocity = 8,
 			
-            ProjectileId = '/projectiles/CANTorpedoNanite03/CANTorpedoNanite03_proj.bp',
+            ProjectileId = '/projectiles/CANTorpedoNanite02/CANTorpedoNanite02_proj.bp',
             ProjectileLifetime = 10,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'TorpedoL',
-                        'TorpedoR',
-                    },
-                    RackBone = 'TorpedoL',
+                    MuzzleBones = {'Muzzle_GunL','Muzzle_GunR'},
+                    RackBone = 'Muzzle_GunL',
                 },
             },
+            
+            RackSalvoReloadTime = 4.6,  -- 5 second cycle = 600/5 = 120 DPS
 
 			RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.1,		-- 100 DPS Sub
+            RateOfFire = 1,
 			
-            TargetCheckInterval = 3,
+            TargetCheckInterval = 4,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'CRUISER',
+                'SUBMARINE',
                 'MOBILE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,HOVER,WALL',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
         },
         {
             Damage = 150,

@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0306_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'URL', Cue = 'URL0306_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     BuildIconSortPriority = 60,
@@ -40,9 +28,12 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 450,
-        MaxHealth = 450,
-        RegenRate = 2,
+
+        Health = 400,
+        MaxHealth = 400,
+        RegenRate = 1,
+        
+        EconomyThreatLevel = 8,
         SurfaceThreatLevel = .1,
     },
 	
@@ -50,32 +41,26 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Stealth Field',
+            '<LOC ability_stealthfield>Stealth Field',
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    Scrolling = true,
-                    ShaderName = 'Insect',
-                },
-                {
-                    AlbedoName = 'url0306_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Insect',
-                    SpecularName = 'url0306_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, Scrolling = true, ShaderName = 'Insect' },
+                { AlbedoName = 'url0306_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Insect', SpecularName = 'url0306_lod1_specteam.dds' },
             },
         },
+        
         UniformScale = 0.1,
     },
 	
     Economy = {
-        BuildCostEnergy = 800,
-        BuildCostMass = 80,
-        BuildTime = 400,
-        MaintenanceConsumptionPerSecondEnergy = 25,
+        BuildCostEnergy = 1950,
+        BuildCostMass = 240,
+        BuildTime = 500,
+        
+        MaintenanceConsumptionPerSecondEnergy = 40,
     },
 	
     General = {
@@ -86,25 +71,26 @@ UnitBlueprint {
             RULEUCC_Patrol = true,
             RULEUCC_Stop = true,
         },
+        
         FactionName = 'Cybran',
         Icon = 'land',
+        
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-field',
-                helpText = 'toggle_stealth_field',
-            },
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-field', helpText = 'toggle_stealth_field' },
         },
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+        
         UnitName = '<LOC url0306_name>Deceiver',
     },
 	
     Intel = {
         RadarStealth = true,
         RadarStealthField = true,
-        RadarStealthFieldRadius = 21,
-        SonarStealthFieldRadius = 21,
+        
+        RadarStealthFieldRadius = 20,
+        SonarStealthFieldRadius = 20,
+
         VisionRadius = 20,
     },
 	
@@ -153,8 +139,8 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        HealthMult = 0.6,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

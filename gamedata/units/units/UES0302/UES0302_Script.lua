@@ -2,19 +2,19 @@ local TSeaUnit =  import('/lua/defaultunits.lua').SeaUnit
 
 local WeaponsFile = import('/lua/terranweapons.lua')
 
-local TAALinkedRailgun = WeaponsFile.TAALinkedRailgun
-local TAMPhalanxWeapon = WeaponsFile.TAMPhalanxWeapon
-local TDFGaussCannonWeapon = WeaponsFile.TDFShipGaussCannonWeapon
-local TIFSmartCharge = WeaponsFile.TIFSmartCharge
+local TAALinkedRailgun      = WeaponsFile.TAALinkedRailgun
+local TAMPhalanxWeapon      = WeaponsFile.TAMPhalanxWeapon
+local TDFGaussCannonWeapon  = WeaponsFile.TDFShipGaussCannonWeapon
+local TIFSmartCharge        = WeaponsFile.TIFSmartCharge
+
+WeaponsFile = nil
 
 UES0302 = Class(TSeaUnit) {
 
-
     Weapons = {
-	
-        AAGun = Class(TAALinkedRailgun) {},
-        PhalanxGun = Class(TAMPhalanxWeapon) {},
-        Turret = Class(TDFGaussCannonWeapon) {},
+        Turret      = Class(TDFGaussCannonWeapon) {},	
+        AAGun       = Class(TAALinkedRailgun) {},
+        PhalanxGun  = Class(TAMPhalanxWeapon) {},
         AntiTorpedo = Class(TIFSmartCharge) {},
     },
 

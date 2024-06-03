@@ -38,21 +38,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UAADestroy',
-            Cue = 'UAA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAA',
-            Cue = 'UAA0203_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'UAADestroy', Cue = 'UAA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UAA', Cue = 'UAA0203_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -85,37 +73,13 @@ UnitBlueprint {
     Description = '<LOC uaa0203_desc>Gunship',
 	
     Display = {
+
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    {
-                        Bones = {
-                            'UAA0203',
-                        },
-                        Type = 'Landing01',
-                    },
-                },
-            },
-            LandAir = {
-                Effects = {
-                    {
-                        Bones = {
-                            'UAA0203',
-                        },
-                        Type = 'TakeOff01',
-                    },
-                },
-            },
+            AirLand = { Effects = { { Bones = {'UAA0203'}, Type = 'Landing01' } } },
+            LandAir = { Effects = { { Bones = {'UAA0203'}, Type = 'TakeOff01' } } },
         },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 120,
-                    ShaderName = 'Aeon',
-                },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 120, ShaderName = 'Aeon' } } },
 
         UniformScale = 0.25,
     },
@@ -149,7 +113,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 26,
+        VisionRadius = 36,
     },
 	
     Interface = {
@@ -237,7 +201,7 @@ UnitBlueprint {
 			
             Label = 'Turret',
 			
-            MaxRadius = 22,
+            MaxRadius = 24,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 4,
@@ -248,12 +212,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle01',
-                        'Turret_Muzzle02',
-                        'Turret_Muzzle03',
-                        'Turret_Muzzle04',
-                    },
+                    MuzzleBones = {'Turret_Muzzle01','Turret_Muzzle02','Turret_Muzzle03','Turret_Muzzle04'},
                     RackBone = 'Turret_Barrel',
                 },
             },

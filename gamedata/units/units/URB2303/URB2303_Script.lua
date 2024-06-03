@@ -1,5 +1,5 @@
-
 local CStructureUnit = import('/lua/defaultunits.lua').StructureUnit
+
 local CIFArtilleryWeapon = import('/lua/cybranweapons.lua').CIFArtilleryWeapon
 
 URB2303 = Class(CStructureUnit) {

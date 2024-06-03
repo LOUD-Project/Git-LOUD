@@ -4,37 +4,13 @@ UnitBlueprint {
         InitialAutoMode = true,
         ShowAssistRangeOnSelect = true,
     },
+
     Audio = {
-        Close = Sound {
-            Bank = 'XRB',
-            Cue = 'XRB0204_Close',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Construct = Sound {
-            Bank = 'URL',
-            Cue = 'URL0105_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'XRB',
-            Cue = 'XRB0204_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Open = Sound {
-            Bank = 'XRB',
-            Cue = 'XRB0204_Open',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Factory',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Close           = Sound { Bank = 'XRB', Cue = 'XRB0104_Close', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'XRB', Cue = 'XRB0104_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        Open            = Sound { Bank = 'XRB', Cue = 'XRB0104_Open', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Factory', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     BuildIconSortPriority = 200,
@@ -149,7 +125,7 @@ UnitBlueprint {
     },
 
     Intel = {
-        VisionRadius = 15,
+        VisionRadius = 16,
     },
 
     LifeBarHeight = 0.075,

@@ -2,9 +2,7 @@ local AShieldHoverLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
 UAL0308 = Class(AShieldHoverLandUnit) {
     
-    ShieldEffects = {
-        '/effects/emitters/aeon_shield_generator_mobile_01_emit.bp',
-    },
+    ShieldEffects = {'/effects/emitters/aeon_shield_generator_mobile_01_emit.bp'},
     
     OnStopBeingBuilt = function(self,builder,layer)
         AShieldHoverLandUnit.OnStopBeingBuilt(self,builder,layer)

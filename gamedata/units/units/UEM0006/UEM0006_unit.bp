@@ -1,11 +1,7 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 290,
@@ -42,18 +38,8 @@ UnitBlueprint {
         BuildMeshBlueprint = '/props/UEB5101/UEB5101_prop.bp',
 
         DamageEffects = {
-            {
-                Bone = 0,
-                OffsetX = 0.25,
-                OffsetY = 0.4,
-                OffsetZ = 0.25,
-            },
-            {
-                Bone = 0,
-                OffsetX = -0.25,
-                OffsetY = 0.4,
-                OffsetZ = -0.25,
-            },
+            { Bone = 0, OffsetX = 0.25, OffsetY = 0.4, OffsetZ = 0.25 },
+            { Bone = 0, OffsetX = -0.25, OffsetY = 0.4, OffsetZ = -0.25 },
         },
 
         Mesh = {

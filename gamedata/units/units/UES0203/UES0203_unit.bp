@@ -5,36 +5,10 @@ UnitBlueprint {
     },
 
     Audio = {
-        Killed = Sound {
-            Bank = 'UESDestroy',
-            Cue = 'UES0203_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UES',
-            Cue = 'UES0203_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMoveSub = Sound {
-            Bank = 'UES',
-            Cue = 'UES0203_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        SubmergeStart = Sound {
-            Bank = 'UES',
-            Cue = 'UES_Sub_Submerge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        SurfaceStart = Sound {
-            Bank = 'UES',
-            Cue = 'UES_Sub_Surface',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Sub',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed          = Sound { Bank = 'UESDestroy', Cue = 'UES0203_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove       = Sound { Bank = 'UES', Cue = 'UES0203_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMoveSub    = Sound { Bank = 'UES', Cue = 'UES0203_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Sub', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -77,25 +51,12 @@ UnitBlueprint {
 			'Deck Gun',
            '<LOC ability_sonar>Sonar',
         },
+
         IdleEffects = {
-            Sub = {
-                Effects = {
-                    {
-                        Bones = {'Center_wake'},
-                        Type = 'UnderWater01',
-                    },
-                },
-            },
-            Water = {
-                Effects = {
-                    {
-                        Bones = {'UES0203'},
-                        Scale = 0.4,
-                        Type = 'SeaIdle01',
-                    },
-                },
-            },
+            Sub     = { Effects = { { Bones = {'Center_wake'}, Type = 'UnderWater01' } } },
+            Water   = { Effects = { { Bones = {'UES0203'}, Scale = 0.4, Type = 'SeaIdle01' } } },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -113,25 +74,8 @@ UnitBlueprint {
         },
 
         MovementEffects = {
-            Sub = {
-                Effects = {
-                    {
-                        Bones = {'Back_Wake'},
-                        Scale = 1.2,
-                        Type = 'BackWake',
-                    },
-                },
-            },
-            Water = {
-                Effects = {
-                    {
-                        Bones = {'Back_Wake'},
-                        Offset = { 0, 0, -0.5 },
-                        Scale = 0.3,
-                        Type = 'BackWake',
-                    },
-                },
-            },
+            Sub     = { Effects = { { Bones = {'Back_Wake'}, Scale = 1.2, Type = 'BackWake' } } },
+            Water   = { Effects = { { Bones = {'Back_Wake'}, Offset = { 0, 0, -0.5 }, Scale = 0.3, Type = 'BackWake' } } },
         },
 
         UniformScale = 0.05,
@@ -251,7 +195,7 @@ UnitBlueprint {
 
             MuzzleVelocity = 4.6,
 			
-            ProjectileId = '/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp',
+            ProjectileId = '/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_proj.bp',
             ProjectileLifetime = 6,
 
             RackBones = {

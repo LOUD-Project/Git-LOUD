@@ -6,21 +6,9 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XAL',
-            Cue = 'XAL0305_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'XAL', Cue = 'XAL0305_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Bot', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -59,6 +47,7 @@ UnitBlueprint {
             'Deploys to fire',
 			'Undeploys to move',
         },
+
         AnimationDeath = {
             {
                 Animation = '/units/xal0305/xal0305_adeath01.sca',
@@ -106,6 +95,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+
         UniformScale = 0.07,
     },
     
@@ -117,6 +107,7 @@ UnitBlueprint {
 	
     General = {
         CapCost = 3,
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -128,11 +119,12 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'land',
+
         UnitName = '<LOC xal0305_name>Sprite Striker',
     },
 	
     Intel = {
-        VisionRadius = 32,
+        VisionRadius = 36,
     },
 	
     Interface = {
@@ -196,11 +188,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XAL_Weapon',
-                    Cue = 'XAL0305_DisruptorCannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XAL_Weapon', Cue = 'XAL0305_DisruptorCannon', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,

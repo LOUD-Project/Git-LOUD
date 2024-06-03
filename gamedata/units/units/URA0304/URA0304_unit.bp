@@ -41,21 +41,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'URADestroy', Cue = 'URA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'URA', Cue = 'URA0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -98,9 +86,9 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Anti-Air',
-            'Personal Stealth',
-            'Radar',
+            "<LOC ability_aa>Anti-Air",
+            '<LOC ability_personalstealth>Personal Stealth',
+            '<LOC ability_radar>Radar',
         },
         Mesh = {
             IconFadeInZoom = 130,
@@ -141,23 +129,22 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'air',
+
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-personal',
-                helpText = 'toggle_stealth_personal',
-            },
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-personal', helpText = 'toggle_stealth_personal'},
         },
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+
         UnitName = '<LOC ura0304_name>Revenant',
     },
 	
     Intel = {
 		FreeIntel = true,
+
         RadarRadius = 60,
         RadarStealth = true,
-        VisionRadius = 32,
+        VisionRadius = 40,
     },
 	
     Interface = {
@@ -307,9 +294,9 @@ UnitBlueprint {
 			
             Label = 'AAGun',
 			
-            MaxRadius = 29,
+            MaxRadius = 30,
 			
-            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
 
             MuzzleVelocity = 48,

@@ -14,26 +14,10 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'Explosions',
-            Cue = 'UEF_Nuke_Impact',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0301_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Commander',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed      = Sound { Bank = 'Explosions', Cue = 'UEF_Nuke_Impact', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UEL', Cue = 'UEL0301_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Commander', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -106,12 +90,14 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Amphibious',
-            'Customizable',
-            'Omni Sensor',
+            '<LOC ability_amphibious>Amphibious',
+            '<LOC ability_customizable>Customizable',
+            '<LOC ability_omni>Omni Sensor',
         },
+
         AnimationWalk = '/units/uel0301/uel0301_awalk01.sca',
         AnimationWalkRate = 3.2,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -134,6 +120,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+
         UniformScale = 0.17,
     },
 	
@@ -166,23 +153,10 @@ UnitBlueprint {
     Enhancements = {
 
         Slots = {
-            Back = {
-                name = '<LOC _Back>',
-                x = 5,
-                y = -10,
-            },
-            LCH = {
-                name = '<LOC _LCH>',
-                x = 44,
-                y = 30,
-            },
-            RCH = {
-                name = '<LOC _RCH>',
-                x = -16,
-                y = 50,
-            },
-			Command = {
-			},
+            Back = { name = '<LOC _Back>', x = 5, y = -10 },
+            LCH = { name = '<LOC _LCH>', x = 44, y = 30 },
+            RCH = { name = '<LOC _RCH>', x = -16, y = 50 },
+			Command = {},
         },
         
         AdvancedCoolingUpgrade = {
@@ -524,8 +498,8 @@ UnitBlueprint {
         JammerBlips = 10,
 
         OmniRadius = 12,
-        VisionRadius = 33,
-        WaterVisionRadius = 18,
+        VisionRadius = 32,
+        WaterVisionRadius = 20,
     },
 	
     Interface = {
@@ -664,6 +638,7 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,

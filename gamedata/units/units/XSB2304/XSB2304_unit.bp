@@ -1,23 +1,8 @@
 UnitBlueprint {
 
     Audio = {
-	
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-		
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -64,7 +49,7 @@ UnitBlueprint {
 	
         Abilities = {
 			'Hi-V Autocannon',
-            'Aquatic',
+            '<LOC ability_aquatic>Aquatic: can be built on water',
         },
 		
         Mesh = {
@@ -171,11 +156,7 @@ UnitBlueprint {
             AlwaysRecheckTarget = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2304_Losaare_Autocannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2304_Losaare_Autocannon', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -197,7 +178,7 @@ UnitBlueprint {
             Label = 'AutoCannon',
 			LeadTarget = true,
 			
-            MaxRadius = 58,
+            MaxRadius = 55,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
@@ -209,10 +190,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle01',
-                        'Muzzle02',
-                    },
+                    MuzzleBones = {'Muzzle01','Muzzle02'},
                     RackBone = 'Turret_Barrel',
                 },
             },
@@ -230,7 +208,7 @@ UnitBlueprint {
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-			
+			TargetRestrictOnlyAllow = 'AIR -SATELLITE',
             TrackingRadius = 1.3,
 			
             TurretBoneMuzzle = 'Muzzle01',
@@ -251,9 +229,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.5,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

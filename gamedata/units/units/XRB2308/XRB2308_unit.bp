@@ -4,36 +4,27 @@ UnitBlueprint {
     },
 	
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'XRB',
-            Cue = 'XRB2308_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'XRB', Cue = 'XRB2308_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 4,
-            Level2 = 8,
-            Level3 = 12,
-            Level4 = 16,
-            Level5 = 20,
+            Level1 = 5,
+            Level2 = 10,
+            Level3 = 15,
+            Level4 = 20,
+            Level5 = 25,
         },
+        WaterVisionRadius = {
+            Level1 = 4,
+            Level2 = 6,
+            Level3 = 8,
+            Level4 = 10,
+            Level5 = 12,        
+        },                     
     },
 	
     BuildIconSortPriority = 310,
@@ -57,43 +48,45 @@ UnitBlueprint {
     CollisionOffsetY = -2.7,
 	
     Defense = {
+
+        MissileTorpDestroy = { AttachBone = {'Turret'}, Radius = 3.5, RedirectRateOfFire = 9, ProjectileCategories = {'TORPEDO'} },
+    
         ArmorType = 'Structure',
+
+        Health = 10800,
+        MaxHealth = 10800,
+        RegenRate = 7,
+
         SurfaceThreatLevel = 42,
 		SubThreatLevel = 42,
-        Health = 11000,
-        MaxHealth = 11000,
-        RegenRate = 7,
     },
 	
     Description = '<LOC xrb2308_desc>Torpedo Ambushing System',
 	
     Display = {
         Abilities = {
-            'Sonar',
-			'Sonar Stealth',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_personalstealth>Personal Stealth', 
+            '<LOC ability_torpedodef>Personal Torpedo Defense',            
             'Torpedo Barrage',
         },
+
         AnimationPermOpen = '/units/xrb2308/xrb2308_aopen.sca',
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 215,
-                    ShaderName = 'Insect',
-                },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, ShaderName = 'Insect' } } },
+
         UniformScale = 0.07,
     },
 	
     Economy = {
-        BuildCostEnergy = 25000,
-        BuildCostMass = 3000,
-        BuildTime = 3000,
+        BuildCostEnergy = 29500,
+        BuildCostMass = 3300,
+
+        BuildTime = 3300,
     },
 	
     Footprint = {
-        MinWaterDepth = 4,
+        MinWaterDepth = 4.8,
         SizeX = 2,
         SizeZ = 2,
     },
@@ -108,15 +101,19 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'sea',
         SelectionPriority = 5,
+
         UnitName = '<LOC xrb2308_name>HARMS',
     },
 	
     Intel = {
 		FreeIntel = true,
+
         RadarStealth = true,
-        SonarRadius = 95,
         SonarStealth = true,
+
+        SonarRadius = 72,
         VisionRadius = 20,
+
         WaterVisionRadius = 48,
     },
 	
@@ -134,7 +131,7 @@ UnitBlueprint {
             LAYER_Sub = true,
         },
         DragCoefficient = 0.2,
-        FlattenSkirt = true,
+
         MaxSteerForce = 0,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
@@ -166,44 +163,54 @@ UnitBlueprint {
 	
     Weapon = {
 	
-		-- The Kril Long Range Fast torpedo --
+		-- The Kril Fast torpedo --
         {
             advancedTracking = true,
 
             Audio = {
-                Fire = Sound { Bank = 'XRL_Weapon', Cue = 'XRB2308_Kril_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URB2205_Torpedo_Nanite', LodCutoff = 'Weapon_LodCutoff'},            
             },
 
             BallisticArc = 'RULEUBA_None',
+
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = "STUN",
+                    Duration = 1.5,
+                    Radius = 2,
+                    TargetAllow = "ALLUNITS",
+                    TargetDisallow = "COMMAND,EXPERIMENTAL,TECH3",
+                },
+            },            
+
             CollideFriendly = false,
 			
-            Damage = 35,
+            Damage = 300,
             DamageType = 'Normal',
 			
             DisplayName = 'Kril Torpedo',
-			
-            DoTPulses = 5,
-            DoTTime = 3,
-			
+
             FireTargetLayerCapsTable = {
                 Sub = 'Seabed|Sub|Water',
             },
 			
-			FiringRandomness = 40,
-            FiringTolerance = 15,
+			FiringRandomness = 25,
+            FiringTolerance = 10,
 			
             Label = 'Turret01',
 			
             MaxRadius = 80,
 			
-            MuzzleSalvoDelay = 0.5,
-            MuzzleSalvoSize = 12,
+            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoSize = 8,
 
-            MuzzleVelocity = 5,
-			MuzzleVelocityRandom = 2.5,
+            MuzzleVelocity = 5.5,
+			MuzzleVelocityRandom = 2,
 			
             ProjectileId = '/projectiles/CANKrilTorpedo01/CANKrilTorpedo01_proj.bp',
-            ProjectileLifetime = 12,
+            ProjectileLifetime = 10,
 
             RackBones = {
                 {
@@ -218,22 +225,25 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
+            
+            RackSalvoReloadTime = 1.8,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.2,	---- 12 torpedos doing 175 = 2100 every 5 seconds = 420 DPS
+            RateOfFire = 1,	-- controlled by delay and reload -- 8 torpedos doing 300 = 2400 every 5 seconds = 480 DPS
+
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'SUBMARINE',
+                'SUBMERSIBLE',
 				'NAVAL',
 				'MOBILE',
                 'DEFENSE',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.25,
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER, WALL',
+            TrackingRadius = 1.15,
 			
             TurretBoneMuzzle = 'Turret_Muzzle_03',
             TurretBonePitch = 'Turret_Barrel',
@@ -245,7 +255,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 35,
+            TurretYawSpeed = 30,
 			
             Turreted = true,
         },
@@ -254,8 +264,8 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        HealthMult = 0.5,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Sub = true,

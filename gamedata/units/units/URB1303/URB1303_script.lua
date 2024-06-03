@@ -1,4 +1,3 @@
-
 local CMassFabricationUnit = import('/lua/defaultunits.lua').MassFabricationUnit
 
 URB1303 = Class(CMassFabricationUnit) {

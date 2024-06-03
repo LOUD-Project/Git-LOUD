@@ -7,30 +7,18 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0107_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove = Sound { Bank = 'URL', Cue = 'URL0107_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Bot', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 2,
-            Level2 = 4,
-            Level3 = 6,
-            Level4 = 8,
-            Level5 = 10,
+            Level1 = 1,
+            Level2 = 3,
+            Level3 = 4,
+            Level4 = 6,
+            Level5 = 7,
         },
     },
 	
@@ -76,17 +64,8 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    Scrolling = true,
-                    ShaderName = 'Insect',
-                },
-                {
-                    AlbedoName = 'drl0204_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Insect',
-                    SpecularName = 'drl0204_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, Scrolling = true, ShaderName = 'Insect' },
+                { AlbedoName = 'drl0204_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Insect', SpecularName = 'drl0204_lod1_specteam.dds' },
             },
         },
 
@@ -118,7 +97,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 25,
+        VisionRadius = 24,
     },
 	
     Interface = {
@@ -228,11 +207,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle_01',
-                        'Turret_Muzzle_02',
-                        'Turret_Muzzle_03',
-                    },
+                    MuzzleBones = {'Turret_Muzzle_01','Turret_Muzzle_02','Turret_Muzzle_03'},
                     RackBone = 'Turret_Barrel',
                 },
             },
@@ -273,9 +248,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.2,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.7,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -15,26 +15,10 @@ UnitBlueprint {
     },
     
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'Explosions',
-            Cue = 'Cybran_Nuke_Impact',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0301_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Commander',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed      = Sound { Bank = 'Explosions', Cue = 'Cybran_Nuke_Impact', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'URL', Cue = 'URL0301_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Commander', LodCutoff = 'UnitMove_LodCutoff'},
     },
     
     Buffs = {
@@ -104,9 +88,9 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Amphibious',
-            'Customizable',
-            'Omni Sensor',
+            '<LOC ability_amphibious>Amphibious',
+            '<LOC ability_customizable>Customizable',
+            '<LOC ability_omni>Omni Sensor',
         },
 
         AnimationWalk = '/units/url0301/url0301_awalk01.sca',
@@ -127,12 +111,9 @@ UnitBlueprint {
                 },
             },
         },
-        TransportAnimation = {
-            {
-                Animation = '/units/URL0301/URL0301_afold01.sca',
-                Weight = 100,
-            },
-        },
+
+        TransportAnimation = { { Animation = '/units/URL0301/URL0301_afold01.sca', Weight = 100 } },
+
         UniformScale = 0.13,
     },
 	
@@ -165,23 +146,10 @@ UnitBlueprint {
     Enhancements = {
     
         Slots = {
-            Back = {
-                name = '<LOC _Back>',
-                x = 9,
-                y = -2,
-            },
-            LCH = {
-                name = '<LOC _LCH>',
-                x = 48,
-                y = 10,
-            },
-            RCH = {
-                name = '<LOC _RCH>',
-                x = -10,
-                y = 10,
-            },
-			Command = {
-			},
+            Back    = { name = '<LOC _Back>', x = 9, y = -2 },
+            LCH     = { name = '<LOC _LCH>', x = 48, y = 10 },
+            RCH     = { name = '<LOC _RCH>', x = -10, y = 10 },
+			Command = {},
         },    
         
         CloakingGenerator = {
@@ -194,9 +162,7 @@ UnitBlueprint {
             NewHealth = 15000,
             Prerequisite = 'StealthGenerator',
             Slot = 'Back',
-            UpgradeUnitAmbientBones = {
-                'URL0301',
-            },
+            UpgradeUnitAmbientBones = {'URL0301'},
         },
         
         CloakingGeneratorRemove = {
@@ -206,11 +172,7 @@ UnitBlueprint {
             Icon = 'cfs',
             Name = '<LOC enhancements_0090>Remove Personal Cloaking Generator',
             Prerequisite = 'CloakingGenerator',
-            RemoveEnhancements = {
-                'StealthGenerator',
-                'CloakingGenerator',
-                'CloakingGeneratorRemove',
-            },
+            RemoveEnhancements = {'StealthGenerator','CloakingGenerator','CloakingGeneratorRemove'},
             Slot = 'Back',
         },
         
@@ -221,9 +183,7 @@ UnitBlueprint {
             Icon = 'emp',
             Name = '<LOC enhancements_0091>EMP Burst',
             Slot = 'LCH',
-            UpgradeUnitAmbientBones = {
-                'URL0301',
-            },
+            UpgradeUnitAmbientBones = {'URL0301'},
         },
         
         EMPChargeRemove = {
@@ -233,10 +193,7 @@ UnitBlueprint {
             Icon = 'emp',
             Name = '<LOC enhancements_0092>Remove EMP Burst',
             Prerequisite = 'EMPCharge',
-            RemoveEnhancements = {
-                'EMPCharge',
-                'EMPChargeRemove',
-            },
+            RemoveEnhancements = {'EMPCharge','EMPChargeRemove'},
             Slot = 'LCH',
         },
         
@@ -248,9 +205,7 @@ UnitBlueprint {
             Name = '<LOC enhancements_0093>Disintegrator Amplifier',
             NewDamageMod = 250,
             Slot = 'RCH',
-            UpgradeUnitAmbientBones = {
-                'URL0301',
-            },
+            UpgradeUnitAmbientBones = {'URL0301'},
         },
         
         FocusConvertorRemove = {
@@ -260,10 +215,7 @@ UnitBlueprint {
             Icon = 'fc',
             Name = '<LOC enhancements_0094>Remove Disintegrator Amplifier',
             Prerequisite = 'FocusConvertor',
-            RemoveEnhancements = {
-                'FocusConvertor',
-                'FocusConvertorRemove',
-            },
+            RemoveEnhancements = {'FocusConvertor','FocusConvertorRemove'},
             Slot = 'RCH',
         },
         
@@ -274,9 +226,7 @@ UnitBlueprint {
             Icon = 'nms',
             Name = '<LOC enhancements_0095>Nanite Missile System',
             Slot = 'Back',
-            UpgradeUnitAmbientBones = {
-                'URL0301',
-            },
+            UpgradeUnitAmbientBones = {'URL0301'},
         },
         
         NaniteMissileSystemRemove = {
@@ -286,10 +236,7 @@ UnitBlueprint {
             Icon = 'nms',
             Name = '<LOC enhancements_0096>Remove Nanite Missile System',
             Prerequisite = 'NaniteMissileSystem',
-            RemoveEnhancements = {
-                'NaniteMissileSystem',
-                'NaniteMissileSystemRemove',
-            },
+            RemoveEnhancements = {'NaniteMissileSystem','NaniteMissileSystemRemove'},
             Slot = 'Back',
         },
         
@@ -302,9 +249,7 @@ UnitBlueprint {
             ProductionPerSecondEnergy = 200,
             ProductionPerSecondMass = 3,
             Slot = 'RCH',
-            UpgradeUnitAmbientBones = {
-                'URL0301',
-            },
+            UpgradeUnitAmbientBones = {'URL0301'},
         },
         
         ResourceAllocationRemove = {
@@ -314,10 +259,7 @@ UnitBlueprint {
             Icon = 'ras',
             Name = '<LOC enhancements_0098>Remove Resource Allocation System',
             Prerequisite = 'ResourceAllocation',
-            RemoveEnhancements = {
-                'ResourceAllocation',
-                'ResourceAllocationRemove',
-            },
+            RemoveEnhancements = {'ResourceAllocation','ResourceAllocationRemove'},
             Slot = 'RCH',
         },
         
@@ -329,9 +271,7 @@ UnitBlueprint {
             Name = '<LOC enhancements_0099>Nano-Repair System',
             NewRegenRate = 200,
             Slot = 'Back',
-            UpgradeUnitAmbientBones = {
-                'URL0301',
-            },
+            UpgradeUnitAmbientBones = {'URL0301'},
         },
         
         SelfRepairSystemRemove = {
@@ -341,10 +281,7 @@ UnitBlueprint {
             Icon = 'srs',
             Name = '<LOC enhancements_0100>Remove Nano-Repair System',
             Prerequisite = 'SelfRepairSystem',
-            RemoveEnhancements = {
-                'SelfRepairSystem',
-                'SelfRepairSystemRemove',
-            },
+            RemoveEnhancements = {'SelfRepairSystem','SelfRepairSystemRemove'},
             Slot = 'Back',
         },
 
@@ -356,9 +293,7 @@ UnitBlueprint {
             MaintenanceConsumptionPerSecondEnergy = 250,
             Name = '<LOC enhancements_0101>Personal Stealth Generator',
             Slot = 'Back',
-            UpgradeUnitAmbientBones = {
-                'URL0301',
-            },
+            UpgradeUnitAmbientBones = {'URL0301'},
         },
         
         StealthGeneratorRemove = {
@@ -368,10 +303,7 @@ UnitBlueprint {
             Icon = 'sfs',
             Name = '<LOC enhancements_0102>Remove Personal Stealth Generator',
             Prerequisite = 'StealthGenerator',
-            RemoveEnhancements = {
-                'StealthGenerator',
-                'StealthGeneratorRemove',
-            },
+            RemoveEnhancements = {'StealthGenerator','StealthGeneratorRemove'},
             Slot = 'Back',
         },
         
@@ -383,9 +315,7 @@ UnitBlueprint {
             Name = '<LOC enhancements_0109>Rapid Fabricator',
             NewBuildRate = 90,
             Slot = 'LCH',
-            UpgradeUnitAmbientBones = {
-                'URL0301',
-            },
+            UpgradeUnitAmbientBones = {'URL0301'},
         },
         
         SwitchbackRemove = {
@@ -395,22 +325,16 @@ UnitBlueprint {
             Icon = 'ses',
             Name = '<LOC enhancements_0110>Remove Rapid Fabricator',
             Prerequisite = 'Switchback',
-            RemoveEnhancements = {
-                'Switchback',
-                'SwitchbackRemove',
-            },
+            RemoveEnhancements = {'Switchback','SwitchbackRemove'},
             Slot = 'LCH',
         },
     },
     
     General = {
-        BuildBones = {
-            AimBone = 0,
-            BuildEffectBones = {'Build'},
-            PitchBone = 'Engineering_Arm',
-            YawBone = 'Torso',
-        },
+        BuildBones = { AimBone = 0, BuildEffectBones = {'Build'}, PitchBone = 'Engineering_Arm', YawBone = 'Torso' },
+
 		CapCost = -3,
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -439,8 +363,8 @@ UnitBlueprint {
         SonarStealth = true,
 
         OmniRadius = 12,
-        VisionRadius = 33,
-        WaterVisionRadius = 18,
+        VisionRadius = 32,
+        WaterVisionRadius = 20,
 
         ReactivateTime = 2,
     },
@@ -532,7 +456,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Air|Land|Water',
                 Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
             
@@ -606,7 +529,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Seabed = 'Air',
-                Water = 'Air',
             },
             FiringTolerance = 2,
             

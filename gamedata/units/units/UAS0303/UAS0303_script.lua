@@ -1,22 +1,39 @@
 local ASeaUnit =  import('/lua/defaultunits.lua').SeaUnit
 
-local WeaponsFile = import('/lua/aeonweapons.lua')
-local AAAZealotMissileWeapon = WeaponsFile.AAAZealotMissileWeapon
+local AAAZealotMissileWeapon = import('/lua/aeonweapons.lua').AAAZealotMissileWeapon
+
+local MissileRedirect = import('/lua/defaultantiprojectile.lua').MissileTorpDestroy
+
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+
+WeaponsFile = nil
 
 UAS0303 = Class(ASeaUnit) {
 
     Weapons = {
 	
-        AntiAirMissiles = Class(AAAZealotMissileWeapon) {},
+        AAMissiles = Class(AAAZealotMissileWeapon) {},
 		
     },
 
     BuildAttachBone = 'UAS0303',
 
     OnStopBeingBuilt = function(self,builder,layer)
-	
+
+        -- create Torp Defense emitter
+        local bp = __blueprints[self.BlueprintID].Defense.MissileTorpDestroy
+        
+        for _,v in bp.AttachBone do
+
+            local antiMissile1 = MissileRedirect { Owner = self, Radius = bp.Radius, AttachBone = v, RedirectRateOfFire = bp.RedirectRateOfFire }
+
+            TrashAdd( self.Trash, antiMissile1)
+            
+        end
+
         ASeaUnit.OnStopBeingBuilt(self,builder,layer)
-		
+
         ChangeState(self, self.IdleState)
 		
     end,

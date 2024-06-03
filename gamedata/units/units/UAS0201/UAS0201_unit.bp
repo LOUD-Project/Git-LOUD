@@ -2,25 +2,14 @@ UnitBlueprint {
     AI = {
         GuardReturnRadius = 66,
         GuardScanRadius = 58,
-		TargetBones = {'UAS0201','BackWake'},
+
+		TargetBones = {'UAS0201','Projectile02','Projectile04'},
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UASDestroy',
-            Cue = 'UAS0201_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAS',
-            Cue = 'UAS0201_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'UASDestroy', Cue = 'UAS0201_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UAS', Cue = 'UAS0201_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Naval', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -66,8 +55,10 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Radar & Sonar',
-            'Torpedoes & Torpedo Defense',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_radar>Radar',
+            "<LOC ability_torpedodef>Torpedo Defense",            
+            "<LOC ability_torpedo>Torpedoes",
         },
         AnimationDeath = {
             {
@@ -102,10 +93,8 @@ UnitBlueprint {
             Water = {
                 Effects = {
                     {
-                        Bones = {
-                            'UAS0201',
-                        },
-                        Scale = 0.9,
+                        Bones = {'UAS0201'},
+                        Scale = 0.7,
                         Type = 'BackWake',
                     },
                 },
@@ -138,7 +127,7 @@ UnitBlueprint {
     Intel = {
 		FreeIntel = true,
         RadarRadius = 60,
-        SonarRadius = 45,
+        SonarRadius = 44,
         VisionRadius = 32,
         WaterVisionRadius = 24,
     },
@@ -281,7 +270,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 100,
+            Damage = 200,
             DamageType = 'Normal',
 			
             DisplayName = 'Chrono Torpedo',
@@ -290,7 +279,7 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 10,
+            FiringTolerance = 25,
 			
             Label = 'Torpedo',
 			
@@ -299,33 +288,30 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.8,
             MuzzleSalvoSize = 4,
 
-            MuzzleVelocity = 3,
+            MuzzleVelocity = 5,
 			
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
-            ProjectileLifetime = 8,
+            ProjectileLifetime = 5,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile01',
-                        'Projectile03',
-						'Projectile02',
-						'Projectile04',
-                    },
+                    MuzzleBones = {'Projectile01','Projectile03','Projectile02','Projectile04'},
                     RackBone = 'Projectile01',
                 },
             },
+            
+            RackSalvoReloadTime = 2.5,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.2,		-- 4 torps of 100 = 400 damage * .2 = 80 DPS Sub
+            RateOfFire = 1,		-- 4 torps of 200 = 800 damage every 5.7 seconds = 140 DPS Sub
 			
             TargetCheckInterval = 2,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'MOBILE SUBMARINE',
-				'MOBILE NAVAL',
+                'SUBMARINE',
+				'NAVAL',
 				'MOBILE',
                 'DEFENSE',
                 'ALLUNITS',
@@ -333,148 +319,172 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
 			TrackingRadius = 1.1,
         },
-		
+
+        -- FLANK MOUNTED ANTITORP -- Right
         {
             advancedTracking = true,
-
+            
             BallisticArc = 'RULEUBA_None',
+            BelowWaterTargetsOnly = true,
 
 			CannotAttackGround = true,
             CollideFriendly = false,
+
+            CountedProjectile = true,
 			
             Damage = 2,
 			DamageFriendly = false,
             DamageType = 'Normal',
 			
-            DisplayName = 'Anti Torpedo',
+            DisplayName = 'AntiTorpedo',
 
             FireTargetLayerCapsTable = {
                 Water = 'Sub|Water|Seabed',
             },
 			
-            FiringTolerance = 60,
+            FiringTolerance = 90,
 			
-            Label = 'AntiTorpedo',
+            HeadingArcCenter = -85,
+            HeadingArcRange = 90,
 			
-            MaxRadius = 32,
-            MinRadius = 20,
+            Label = 'AntiTorpedo1',
 			
-            MuzzleVelocity = 6,
+            MaxRadius = 28,
+			
+            MuzzleSalvoDelay = 0.5,
+            MuzzleVelocity = 7.5,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
-            ProjectileLifetime = 4,
+            ProjectileLifetime = 3,
 			
             RackBones = {
                 {
-                    MuzzleBones = {'Projectile05'},
-                    RackBone = 'Projectile05',
+                    MuzzleBones = {'Projectile06'},
+                    RackBone = 'Projectile06',
                 },
             },
 
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 1,
+            RateOfFire = 1,     -- controlled by salvodelay and WeaponRepackTimeout - 1 every 1.5 seconds
 			
-            TargetCheckInterval = 0.25,
+            TargetCheckInterval = 0.5,
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.1,
+            
+            WeaponRepackTimeout = 1,
         },
 		
+        -- FLANK MOUNTED ANTITORP -- Left
         {
             advancedTracking = true,
-
+            
             BallisticArc = 'RULEUBA_None',
+            BelowWaterTargetsOnly = true,
+
 			CannotAttackGround = true,
             CollideFriendly = false,
+
+            CountedProjectile = true,
 			
             Damage = 2,
 			DamageFriendly = false,
-			DamageRadius = 1.5,
             DamageType = 'Normal',
 			
-            DisplayName = 'Anti Torpedo',
+            DisplayName = 'AntiTorpedo',
 
             FireTargetLayerCapsTable = {
                 Water = 'Sub|Water|Seabed',
             },
 			
-            FiringTolerance = 60,
+            FiringTolerance = 90,
 			
-            Label = 'AntiTorpedo',
+            HeadingArcCenter = 85,
+            HeadingArcRange = 90,
 			
-            MaxRadius = 26,
-            MinRadius = 15,
+            Label = 'AntiTorpedo2',
 			
-            MuzzleVelocity = 6,
+            MaxRadius = 28,
+
+            MuzzleSalvoDelay = 0.5,			
+            MuzzleVelocity = 7.5,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
-            ProjectileLifetime = 4,
+            ProjectileLifetime = 3,
 			
             RackBones = {
                 {
-                    MuzzleBones = {'Projectile07'},
-                    RackBone = 'Projectile07',
+                    MuzzleBones = {'Projectile08'},
+                    RackBone = 'Projectile08',
                 },
             },
-			
+
             RateOfFire = 1,
 			
-            TargetCheckInterval = 0.25,
+            TargetCheckInterval = 0.5,
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.1,
+
+            WeaponRepackTimeout = 1,            
         },
-		
+
+        -- REAR MOUNTED ANTITORP
         {
             advancedTracking = true,
-
+            
             BallisticArc = 'RULEUBA_None',
+            BelowWaterTargetsOnly = true,
+
 			CannotAttackGround = true,
             CollideFriendly = false,
+
+            CountedProjectile = true,
 			
             Damage = 2,
 			DamageFriendly = false,
-			DamageRadius = 1.5,
             DamageType = 'Normal',
 			
-            DisplayName = 'Anti Torpedo',
+            DisplayName = 'AntiTorpedo',
 
             FireTargetLayerCapsTable = {
                 Water = 'Sub|Water|Seabed',
             },
 			
-            FiringTolerance = 60,
+            FiringTolerance = 90,
 			
-            Label = 'AntiTorpedo',
+            HeadingArcCenter = 180,
+            HeadingArcRange = 90,
 			
-            MaxRadius = 22,
-            MinRadius = 10,
+            Label = 'AntiTorpedo3',
+			
+            MaxRadius = 28,
 
-            MuzzleVelocity = 6,
+            MuzzleSalvoDelay = 0.5,
+            MuzzleVelocity = 7.5,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
-            ProjectileLifetime = 4,
+            ProjectileLifetime = 3,
 			
             RackBones = {
                 {
-                    MuzzleBones = {'Projectile09'},
-                    RackBone = 'Projectile09',
+                    MuzzleBones = {'Projectile05'},
+                    RackBone = 'Projectile05',
                 },				
             },
-			
+
             RateOfFire = 1,
 			
-            TargetCheckInterval = 0.25,
+            TargetCheckInterval = 0.5,
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.1,
+
+            WeaponRepackTimeout = 1,
         },		
     },
 }

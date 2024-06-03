@@ -4,16 +4,8 @@ UnitBlueprint {
     },
 	
     Audio = {
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0208_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0208_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 10,
@@ -56,28 +48,12 @@ UnitBlueprint {
         IdleEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'XSL0208',
-                        },
-                        Offset = {
-                            0,
-                            0,
-                            -0.4,
-                        },
-                        Scale = 0.75,
-                        Type = 'SeraphimGroundFX01',
-                    },
-                    {
-                        Bones = {
-                            'XSL0208',
-                        },
-                        Scale = 1.2,
-                        Type = 'SeaIdle02',
-                    },
+                    { Bones = {'XSL0208'}, Offset = {0,0,-0.4}, Scale = 0.75, Type = 'SeraphimGroundFX01' },
+                    { Bones = {'XSL0208'}, Scale = 1.2, Type = 'SeaIdle02' },
                 },
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -116,10 +92,7 @@ UnitBlueprint {
     General = {
         BuildBones = {
             AimBone = 'Turret_Muzzle',
-            BuildEffectBones = {
-                'Turret_Muzzle',
-                'Turret_Muzzle1',
-            },
+            BuildEffectBones = {'Turret_Muzzle','Turret_Muzzle1'},
             PitchBone = 'Arm_Pitch',
             YawBone = 'Arm_Yaw',
         },

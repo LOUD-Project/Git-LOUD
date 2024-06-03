@@ -6,16 +6,8 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 200,
@@ -51,7 +43,7 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-			'Aquatic - can be built on the seabed',
+            '<LOC ability_aquatic>Aquatic: can be built underwater',
             'Assists and repairs units within radius',
         },
 
@@ -107,9 +99,7 @@ UnitBlueprint {
 
         SelectionPriority = 5,
 
-		ToggleCaps = {
-            RULEUTC_ProductionToggle = true,
-        },		
+		ToggleCaps = { RULEUTC_ProductionToggle = true },		
 
         UnitName = '<LOC xeb0204_name>Kennel',
 
@@ -164,9 +154,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.2,
         HealthMult = 0.5,
-        MassMult = 0.5,
+        MassMult = 0.4,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -1,36 +1,21 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Turret',
-            'Turret_B01',
-        },
+        TargetBones = {'Turret','Turret_B01'},
     },
 
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed       = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Gun', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 3,
-            Level2 = 6,
-            Level3 = 9,
-            Level4 = 12,
-            Level5 = 15,
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
         },
     },
 	
@@ -59,28 +44,23 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 1210,
+
         Health = 14500,
         MaxHealth = 14500,
         RegenRate = 2,
+        
+        EconomyThreatLevel = 1210,
     },
 	
     Description = '<LOC uab2302_desc>Heavy Artillery Installation',
 	
     Display = {
+    
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 300,
-                    ShaderName = 'Aeon',
-                },
-                {
-                    AlbedoName = 'uab2302_lod1_albedo.dds',
-                    LODCutoff = 500,
-                    ShaderName = 'Aeon',
-                    SpecularName = 'uab2302_lod1_specteam.dds',
-                },
+                { LODCutoff = 300, ShaderName = 'Aeon' },
+                { AlbedoName = 'uab2302_lod1_albedo.dds', LODCutoff = 500, ShaderName = 'Aeon', SpecularName = 'uab2302_lod1_specteam.dds' },
             },
         },
 
@@ -91,7 +71,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar12x_aeon_01_normals',
-                Orientations = { 0, 90, 180, 270 },
+                Orientations = {0},
                 RemoveWhenDead = true,
                 Width = 12.8,
             },
@@ -183,27 +163,12 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
+
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UAB',
-                    Cue = 'UAB2302_Turret_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UAB',
-                    Cue = 'UAB2302_Turret_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2302_Artillery_Sonance',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2302_Artillery_Son_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop          = Sound { Bank = 'UAB', Cue = 'UAB2302_Turret_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'UAB', Cue = 'UAB2302_Turret_Start', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire                = Sound { Bank = 'UALWeapon', Cue = 'UAB2302_Artillery_Sonance', LodCutoff = 'Weapon_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'UALWeapon', Cue = 'UAB2302_Artillery_Son_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_HighArc',
 			
@@ -214,18 +179,18 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 3000,
+            Damage = 2400,
             DamageFriendly = true,
-            DamageRadius = 4.5,
-            DamageType = 'ShieldMult1.2',
+            DamageRadius = 4.4,
+            DamageType = 'ShieldMult1.15',
 			
             DisplayName = 'Sonance Artillery',
 			
             DoTPulses = 2,
             DoTTime = 2,
 			
-            EnergyDrainPerSecond = 3105,    -- 9.5 second charge
-            EnergyRequired = 29500,
+            EnergyDrainPerSecond = 3400,    -- 9.5 second charge
+            EnergyRequired = 32300,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -259,19 +224,21 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	---- 3K times 2 pulses - damage every 10 seconds = 600 DPS - controlled by energy drain
+            RateOfFire = 1,	---- 2400 times 2 pulses - damage every 10 seconds = 480 DPS - controlled by energy drain
 			
-            TargetCheckInterval = 15,
+            TargetCheckInterval = 5,
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'ECONOMIC',
                 'STRUCTURE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
+
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_B01',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 30,
             TurretPitchRange = 45,
@@ -282,15 +249,14 @@ UnitBlueprint {
             TurretYawSpeed = 6,
 			
             Turreted = true,
-            WeaponCategory = 'Artillery',
         },
     },
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.9,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        EnergyMult = 0.3,
+        HealthMult = 0.5,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

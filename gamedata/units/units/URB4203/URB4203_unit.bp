@@ -1,16 +1,8 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy',   Cue = 'URB_Destroy_Huge',       LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',    Cue = 'Cybran_Select_Radar',    LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     BuildIconSortPriority = 200,
@@ -23,7 +15,6 @@ UnitBlueprint {
         'BUILTBYTIER3COMMANDER',
         'CYBRAN',
         'STRUCTURE',
-        'INTELLIGENCE',
         'TECH2',
         'COUNTERINTELLIGENCE',
         'DRAGBUILD',
@@ -38,10 +29,12 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 5,
-        Health = 150,
-        MaxHealth = 150,
-        RegenRate = 1,
+
+        Health = 600,
+        MaxHealth = 600,
+        RegenRate = 2,
+
+        EconomyThreatLevel = 10,
     },
 
     Description = '<LOC urb4203_desc>Stealth Field Generator',
@@ -50,21 +43,15 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_stealthfield>Stealth Field',
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 200,
-                    ShaderName = 'Insect',
-                },
-                {
-                    AlbedoName = 'urb4203_lod1_albedo.dds',
-                    LODCutoff = 300,
-                    ShaderName = 'Insect',
-                    SpecularName = 'urb4203_lod1_specteam.dds',
-                },
+                { LODCutoff = 200, ShaderName = 'Insect' },
+                { AlbedoName = 'urb4203_lod1_albedo.dds', LODCutoff = 300, ShaderName = 'Insect', SpecularName = 'urb4203_lod1_specteam.dds' },
             },
         },
+        
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_cybran_01_albedo',
@@ -77,15 +64,16 @@ UnitBlueprint {
                 Width = 8,
             },
         },
+        
         UniformScale = 0.3,
     },
 
     Economy = {
-        BuildCostEnergy = 4000,
-        BuildCostMass = 320,
-        BuildTime = 400,
+        BuildCostEnergy = 5400,
+        BuildCostMass = 360,
+        BuildTime = 600,
 
-        MaintenanceConsumptionPerSecondEnergy = 100,
+        MaintenanceConsumptionPerSecondEnergy = 250,
 
         RebuildBonusIds = {'urb4203'},
     },
@@ -98,24 +86,25 @@ UnitBlueprint {
     General = {
         FactionName = 'Cybran',
         Icon = 'land',
+        
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-field',
-                helpText = 'toggle_stealth_field',
-            },
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-field', helpText = 'toggle_stealth_field' },
         },
+        
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+        
         UnitName = '<LOC urb4203_name>Twilight',
     },
 
     Intel = {
-        RadarStealthFieldRadius = 30,
         ReactivateTime = 5,
-        SonarStealthFieldRadius = 30,
-        VisionRadius = 0,
+
+        RadarStealthFieldRadius = 28,
+        SonarStealthFieldRadius = 28,
+        
+        VisionRadius = 4,
     },
 
     Interface = {
@@ -157,9 +146,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

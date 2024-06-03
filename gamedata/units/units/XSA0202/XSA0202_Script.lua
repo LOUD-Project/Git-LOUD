@@ -3,22 +3,20 @@ local SeraphimWeapons = import('/lua/seraphimweapons.lua')
 local SAAShleoCannonWeapon = SeraphimWeapons.SAAShleoCannonWeapon
 local SDFBombOtheWeapon = SeraphimWeapons.SDFBombOtheWeapon
 
+SeraphimWeapons = nil
+
 XSA0202 = Class(SAirUnit) {
     Weapons = {
-        ShleoAAGun01 = Class(SAAShleoCannonWeapon) {
-			FxMuzzleFlash = {'/effects/emitters/sonic_pulse_muzzle_flash_02_emit.bp',},
-        },
-        ShleoAAGun02 = Class(SAAShleoCannonWeapon) {
-			FxMuzzleFlash = {'/effects/emitters/sonic_pulse_muzzle_flash_02_emit.bp',},
-        },
+        ShleoAAGun01 = Class(SAAShleoCannonWeapon){},
+        ShleoAAGun02 = Class(SAAShleoCannonWeapon){},
         Bomb = Class(SDFBombOtheWeapon) {
-                
+
             IdleState = State (SDFBombOtheWeapon.IdleState) {
                 Main = function(self)
                     SDFBombOtheWeapon.IdleState.Main(self)
                 end,
    
-   OnGotTarget = function(self)
+                OnGotTarget = function(self)
                     self.unit:SetBreakOffTriggerMult(2.0)
                     self.unit:SetBreakOffDistanceMult(8.0)
                     self.unit:SetSpeedMult(0.67)

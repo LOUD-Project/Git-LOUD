@@ -1,25 +1,14 @@
 UnitBlueprint {
+
     AI = {
 		GuardReturnRadius = 35,
         GuardScanRadius = 28,
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL_Destroy_Land_Lrg',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0303_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Lrg', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Tank', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -53,6 +42,7 @@ UnitBlueprint {
         Health = 4000,
         MaxHealth = 4000,
         RegenRate = 3,
+
 		SubThreatLevel = 10.5,
         SurfaceThreatLevel = 402.5,
     },
@@ -61,9 +51,10 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-			'Amphibious',
-            'Torpedoes',
+			'<LOC ability_amphibious>Amphibious',
+            "<LOC ability_torpedo>Torpedoes",
 		},
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -82,6 +73,7 @@ UnitBlueprint {
                 },
             },
         },
+        
         UniformScale = 0.06,
     },
 	
@@ -110,7 +102,7 @@ UnitBlueprint {
         VisionRadius = 30,
         WaterVisionRadius = 24,
     },
-	
+
     Interface = {
         HelpText = 'Siege Tank',
     },
@@ -142,7 +134,7 @@ UnitBlueprint {
         TurnRate = 75,
 		WaterSpeedMultiplier = 1.2,
     },
-	
+
     SelectionSizeX = 0.7,
     SelectionSizeZ = 1.4,
 	
@@ -154,7 +146,7 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_seabed3_directfire',
     StrategicIconSortPriority = 115,
-	
+
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 3,
@@ -167,13 +159,15 @@ UnitBlueprint {
         Level4 = 36,
         Level5 = 45,
     },
-	
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
                 Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0303_Bolter', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -184,7 +178,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water',
+                Seabed = 'Land|Water',
             },
 			
             FiringTolerance = 1,
@@ -240,12 +234,17 @@ UnitBlueprint {
 			
             Turreted = true,
         },
+
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
                 Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0303_Cannon_Thau', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
+            
             CollideFriendly = false,
 			
             Damage = 75,
@@ -255,7 +254,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 0.5,
@@ -310,16 +309,17 @@ UnitBlueprint {
 			
             Turreted = true,
         },
+
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0303_Cannon_Thau',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0303_Cannon_Thau', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
+            
             CollideFriendly = false,
 			
             Damage = 75,
@@ -329,7 +329,7 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
             FiringTolerance = 0.5,
 			
@@ -382,40 +382,34 @@ UnitBlueprint {
 			
             Turreted = true,
         },
+
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0303_Torpedo_Launcher',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                FireUnderwater  = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_AnaIt_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+            
             CollideFriendly = false,
 			
-            Damage = 70,
+            Damage = 200,
             DamageType = 'Normal',
-			
-            DisplayName = 'Uall Cavitation Torpedo',
 			
             FireTargetLayerCapsTable = {
                 Seabed = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 2,
+            FiringTolerance = 15,
 			
             Label = 'Torpedo',
 			
             MaxRadius = 44,
-			
-            MuzzleSalvoDelay = 0.5,
-            MuzzleSalvoSize = 3,
 
-            MuzzleVelocity = 3,
+            MuzzleVelocity = 2,
 
             NotExclusive = true,
 			
-            ProjectileId = '/projectiles/SANUallCavitationTorpedo02/SANUallCavitationTorpedo02_proj.bp',
+            ProjectileId = '/projectiles/SANAnaitTorpedo01/SANAnaitTorpedo01_proj.bp',
             ProjectileLifetime = 7,
 
             RackBones = {
@@ -424,37 +418,39 @@ UnitBlueprint {
                     RackBone = 'Torpedo_Muzzle',
                 },
             },
+            
+            RackSalvoReloadTime = 4,    -- 4 second cycle = 75 DPS
 			
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.5,		---- 105 DPS Sub
+            RateOfFire = 1,
 			
             TargetCheckInterval = 2,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
 				'SUBMARINE',
-				'MOBILE NAVAL',
+				'NAVAL',
 				'MOBILE',
                 'DEFENSE',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.1,
-
-            Turreted = false,
+            
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER, WALL',
         },
 
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,
             Seabed = true,
         },
     },
+  
 }

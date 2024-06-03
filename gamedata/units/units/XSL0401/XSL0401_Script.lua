@@ -3,12 +3,15 @@ local SWalkingLandUnit = import('/lua/seraphimunits.lua').SWalkingLandUnit
 local WeaponsFile = import ('/lua/seraphimweapons.lua')
 
 local SDFExperimentalPhasonProj = WeaponsFile.SDFExperimentalPhasonProj
-local SDFAireauWeapon = WeaponsFile.SDFAireauWeapon
-local SDFSinnuntheWeapon = WeaponsFile.SDFSinnuntheWeapon
-local SAAOlarisCannonWeapon = WeaponsFile.SAAOlarisCannonWeapon
+local SDFAireauWeapon           = WeaponsFile.SDFAireauWeapon
+local SDFSinnuntheWeapon        = WeaponsFile.SDFSinnuntheWeapon
+local SAAOlarisCannonWeapon     = WeaponsFile.SAAOlarisCannonWeapon
 
-local utilities = import('/lua/utilities.lua')
-local EffectUtil = import('/lua/EffectUtilities.lua')
+WeaponsFile = nil
+
+
+local CreateSeraphimExperimentalBuildBaseThread = import('/lua/EffectUtilities.lua').CreateSeraphimExperimentalBuildBaseThread
+
 local explosion = import('/lua/defaultexplosions.lua')
 
 XSL0401 = Class(SWalkingLandUnit) {
@@ -34,20 +37,20 @@ XSL0401 = Class(SWalkingLandUnit) {
                     self.ClawTopRotator = CreateRotator(self.unit, 'Top_Claw', 'x')
                     self.ClawBottomRotator = CreateRotator(self.unit, 'Bottom_Claw', 'x')
        
-       self.unit.Trash:Add(self.ClawTopRotator)
+                    self.unit.Trash:Add(self.ClawTopRotator)
                     self.unit.Trash:Add(self.ClawBottomRotator)
 					
                 end
    
-   self.ClawTopRotator:SetGoal(-45):SetSpeed(10)
+                self.ClawTopRotator:SetGoal(-45):SetSpeed(10)
                 self.ClawBottomRotator:SetGoal(45):SetSpeed(10)
    
-   SDFSinnuntheWeapon.PlayFxMuzzleChargeSequence(self, muzzle)
+                SDFSinnuntheWeapon.PlayFxMuzzleChargeSequence(self, muzzle)
    
-   self:ForkThread(function()
+                self:ForkThread(function()
                     WaitSeconds(self.unit:GetBlueprint().Weapon[3].MuzzleChargeDelay)
        
-       self.ClawTopRotator:SetGoal(0):SetSpeed(50)
+                    self.ClawTopRotator:SetGoal(0):SetSpeed(50)
                     self.ClawBottomRotator:SetGoal(0):SetSpeed(50)
                 end)
             end,
@@ -59,7 +62,7 @@ XSL0401 = Class(SWalkingLandUnit) {
     
     StartBeingBuiltEffects = function(self, builder, layer)
 		SWalkingLandUnit.StartBeingBuiltEffects(self, builder, layer)
-		self:ForkThread( EffectUtil.CreateSeraphimExperimentalBuildBaseThread, builder, self.OnBeingBuiltEffectsBag )
+		self:ForkThread( CreateSeraphimExperimentalBuildBaseThread, builder, self.OnBeingBuiltEffectsBag )
     end,       
     
     OnAnimCollision = function(self, bone, x, y, z)

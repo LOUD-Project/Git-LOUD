@@ -2,10 +2,13 @@ local SAirUnit = import('/lua/defaultunits.lua').AirUnit
 
 local explosion = import('/lua/defaultexplosions.lua')
 local util = import('/lua/utilities.lua')
+
 local SeraphimWeapons = import('/lua/seraphimweapons.lua')
 
-local SAAShleoCannonWeapon = SeraphimWeapons.SAAShleoCannonWeapon
-local SDFHeavyPhasicAutoGunWeapon = SeraphimWeapons.SDFHeavyPhasicAutoGunWeapon
+local SAAShleoCannonWeapon          = SeraphimWeapons.SAAShleoCannonWeapon
+local SDFHeavyPhasicAutoGunWeapon   = SeraphimWeapons.SDFHeavyPhasicAutoGunWeapon
+
+SeraphimWeapons = nil
 
 local SeraLambdaFieldRedirector = import('/lua/defaultantiprojectile.lua').SeraLambdaFieldRedirector
 local SeraLambdaFieldDestroyer = import('/lua/defaultantiprojectile.lua').SeraLambdaFieldDestroyer

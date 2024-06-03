@@ -1,25 +1,10 @@
 UnitBlueprint {
+
     Audio = {
-        Construct = Sound {
-            Bank = 'UAB',
-            Cue = 'UAB0101_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Factory',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Construct       = Sound { Bank = 'UAB', Cue = 'UAB0101_Construct_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        DeathExplosion  = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Factory', LodCutoff = 'UnitMove_LodCutoff'},
     },
     
     BuildIconSortPriority = 10,
@@ -57,60 +42,24 @@ UnitBlueprint {
     
     Display = {
         Abilities = {
-            'Upgradeable',
+            '<LOC ability_upgradable>Upgradeable',
         },
+
         AnimationUpgrade = '/units/uab0101/uab0101_aopen.sca',
+
         BuildAttachBone = 'Attachpoint',
+
         DamageEffects = {
-            {
-                Bone = 0,
-                OffsetX = 1.5,
-                OffsetY = 0,
-                OffsetZ = 1.5,
-            },
-            {
-                Bone = 0,
-                OffsetX = -1.5,
-                OffsetY = 0,
-                OffsetZ = 1.5,
-            },
-            {
-                Bone = 0,
-                OffsetX = -1.5,
-                OffsetY = 0,
-                OffsetZ = -1.5,
-            },
-            {
-                Bone = 0,
-                OffsetX = 1.5,
-                OffsetY = 0,
-                OffsetZ = -1.5,
-            },
-            {
-                Bone = 0,
-                OffsetX = 1.1,
-                OffsetY = 1.4,
-                OffsetZ = 0.5,
-            },
-            {
-                Bone = 0,
-                OffsetX = -1.1,
-                OffsetY = 1.4,
-                OffsetZ = 0.5,
-            },
-            {
-                Bone = 0,
-                OffsetX = 0,
-                OffsetY = 1.65,
-                OffsetZ = -0.5,
-            },
-            {
-                Bone = 0,
-                OffsetX = 0.5,
-                OffsetY = 0,
-                OffsetZ = 0.5,
-            },
+            { Bone = 0, OffsetX = 1.5,   OffsetY = 0,    OffsetZ = 1.5  },
+            { Bone = 0, OffsetX = -1.5,  OffsetY = 0,    OffsetZ = 1.5  },
+            { Bone = 0, OffsetX = -1.5,  OffsetY = 0,    OffsetZ = -1.5 },
+            { Bone = 0, OffsetX = 1.5,   OffsetY = 0,    OffsetZ = -1.5 },
+            { Bone = 0, OffsetX = 1.1,   OffsetY = 1.4,  OffsetZ = 0.5  },
+            { Bone = 0, OffsetX = -1.1,  OffsetY = 1.4,  OffsetZ = 0.5  },
+            { Bone = 0, OffsetX = 0,     OffsetY = 1.65, OffsetZ = -0.5 },
+            { Bone = 0, OffsetX = 0.5,   OffsetY = 0,    OffsetZ = 0.5  },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -135,16 +84,12 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar12x_aeon_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
         },
+
         UniformScale = 0.275,
     },
     
@@ -161,11 +106,7 @@ UnitBlueprint {
             'BUILTBYTIER1FACTORY AEON MOBILE LAND',
         },
         
-        RebuildBonusIds = {
-            'uab0101',
-            'uab0201',
-            'uab0301',
-        },
+        RebuildBonusIds = {'uab0101','uab0201','uab0301'},
         
         StorageEnergy = 600,
         StorageMass = 60,
@@ -177,11 +118,7 @@ UnitBlueprint {
     },
     
     General = {
-        BuildBones = {
-            BuildEffectBones = {
-                'Tier1_Arm_Refpoint',
-            },
-        },
+        BuildBones = { BuildEffectBones = {'Tier1_Arm_Refpoint'} },
 
         CommandCaps = {
             RULEUCC_Guard = true,
@@ -341,9 +278,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

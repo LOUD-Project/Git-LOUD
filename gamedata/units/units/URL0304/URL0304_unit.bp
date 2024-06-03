@@ -6,26 +6,10 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Activate = Sound {
-            Bank = 'URL',
-            Cue = 'URL0304_Move_Extend',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Activate    = Sound { Bank = 'URL', Cue = 'URL0304_Move_Extend', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'URL', Cue = 'URL0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -68,7 +52,9 @@ UnitBlueprint {
         Abilities = {
             'Deploys',
         },
+
         AnimationOpen = '/units/URL0304/URL0304_Aactivate.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -85,6 +71,7 @@ UnitBlueprint {
                 },
             },
         },
+
         UniformScale = 0.35,
     },
 	
@@ -174,11 +161,7 @@ UnitBlueprint {
             ArtilleryShieldBlocks = true,
             
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0304_Artillery_Proton',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0304_Artillery_Proton', LodCutoff = 'Weapon_LodCutoff' },
             },
             
             BallisticArc = 'RULEUBA_HighArc',
@@ -198,7 +181,7 @@ UnitBlueprint {
             EnergyDrainPerSecond = 480,     -- 5 seconds to charge
 
             FireTargetLayerCapsTable = {
-                Land = 'Land|Water',
+                Land = 'Land|Water|Seabed',
             },
             
             FiringRandomness = 1.2,
@@ -263,9 +246,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.5,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

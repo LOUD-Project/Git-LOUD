@@ -4,16 +4,8 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
     
     Buffs = {
@@ -206,6 +198,7 @@ UnitBlueprint {
             Audio = {
                 Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB2205_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
 			
             Buffs = {
@@ -239,19 +232,14 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.6,
             MuzzleSalvoSize = 4,
-            MuzzleVelocity = 7,
+            MuzzleVelocity = 5,
 
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',			
             ProjectileLifetime = 8,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle_01',
-                        'Turret_Muzzle_02',
-                        'Turret_Muzzle_03',
-                        'Turret_Muzzle_04',
-                    },
+                    MuzzleBones = {'Turret_Muzzle_01','Turret_Muzzle_02','Turret_Muzzle_03','Turret_Muzzle_04'},
                     RackBone = 'Turret_Barrel',
                 },
             },

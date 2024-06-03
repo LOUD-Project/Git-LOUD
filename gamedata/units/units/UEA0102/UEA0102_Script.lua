@@ -1,6 +1,6 @@
 local TAirUnit = import('/lua/defaultunits.lua').AirUnit
 
-local TAirToAirLinkedRailgun = import('/lua/terranweapons.lua').TAirToAirLinkedRailgun
+local TAALinkedRailgun = import('/lua/terranweapons.lua').TAALinkedRailgun
 
 UEA0102 = Class(TAirUnit) {
     PlayDestructionEffects = true,
@@ -8,7 +8,7 @@ UEA0102 = Class(TAirUnit) {
     DestroySeconds = 7.5,
 
     Weapons = {
-        LinkedRailGun = Class(TAirToAirLinkedRailgun) {
+        LinkedRailGun = Class(TAALinkedRailgun) {
         },
     },
 }

@@ -1,9 +1,8 @@
 local AStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
-local AIFQuantumWarhead = import('/lua/aeonweapons.lua').AIFQuantumWarhead
+local AIFQuantumWarhead = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
 
 UAB2305 = Class(AStructureUnit) {
-
 
     Weapons = {
         QuantumMissiles = Class(AIFQuantumWarhead) {

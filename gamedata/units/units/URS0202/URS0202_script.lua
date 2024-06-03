@@ -6,6 +6,9 @@ local CDFProtonCannonWeapon = CybranWeaponsFile.CDFProtonCannonWeapon
 local CAANanoDartWeapon = CybranWeaponsFile.CAANanoDartWeapon
 local CAMZapperWeapon02 = CybranWeaponsFile.CAMZapperWeapon02
 
+CybranWeaponsFile = nil
+
+
 URS0202 = Class(CSeaUnit) {
 
     Weapons = {

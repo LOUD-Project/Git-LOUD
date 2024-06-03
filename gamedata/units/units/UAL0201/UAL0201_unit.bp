@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0201_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove = Sound { Bank = 'UAL', Cue = 'UAL0201_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Tank', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {},
@@ -75,8 +63,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 418,
-        BuildCostMass = 45,
+        BuildCostEnergy = 420,
+        BuildCostMass = 48,
         BuildTime = 225,
     },
 	
@@ -92,11 +80,13 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
+
         UnitName = '<LOC ual0201_name>Aurora',
     },
 	
     Intel = {
         VisionRadius = 20,
+        WaterVisionRadius = 8,
     },
 	
     Interface = {
@@ -163,11 +153,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                MuzzleChargeStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0201_Cannon_Disruptor',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                MuzzleChargeStart = Sound { Bank = 'UALWeapon', Cue = 'UAL0201_Cannon_Disruptor', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,

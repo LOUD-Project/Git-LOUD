@@ -2,60 +2,26 @@ UnitBlueprint {
     AI = {
 		GuardScanRadius = 64,
 		GuardReturnRadius = 80,
-        TargetBones = {
-            'Left_Turret',
-            'Right_Turret',
-            'AA_Turret',
-            'Left_Leg02_B01',
-            'Left_Leg01_B01',
-            'Right_Leg02_B01',
-            'Right_Leg01_B01',
-            'XRL0403',
-            'Right_Turret_Barrel',
-            'Left_Turret_Barrel',            
-        },
+        
+        TargetBones = {'Left_Turret','Right_Turret','AA_Turret','Left_Leg02_B01','Left_Leg01_B01','Right_Leg02_B01','Right_Leg01_B01','XRL0403'},
     },
     
     Audio = {
-        Construct = Sound {
-            Bank = 'XRL',
-            Cue = 'XRL0403_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XRL_Destroy',
-            Cue = 'XRL0403_Death',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XRL',
-            Cue = 'XRL0403_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        FootFallGeneric = Sound {
-            Bank = 'URL',
-            Cue = 'URL0402_Move_Footfall',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        FootFallGenericSeabed = Sound {
-            Bank = 'URL',
-            Cue = 'URL0402_Move_UW_Step',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Spider',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Construct               = Sound { Bank = 'XRL', Cue = 'XRL0403_Construct_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove               = Sound { Bank = 'XRL', Cue = 'XRL0403_Move_Start',      LodCutoff = 'UnitMove_LodCutoff' },
+        FootFallGeneric         = Sound { Bank = 'URL', Cue = 'URL0402_Move_Footfall',   LodCutoff = 'UnitMove_LodCutoff' },
+        FootFallGenericSeabed   = Sound { Bank = 'URL', Cue = 'URL0402_Move_UW_Step',    LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed               = Sound { Bank = 'XRL_Destroy', Cue = 'XRL0403_Death',   LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection             = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Spider', LodCutoff = 'UnitMove_LodCutoff' },
     },
     
     Buffs = {
         Regen = {
-            Level1 = 20,
+            Level1 = 15,
             Level2 = 30,
-            Level3 = 40,
-            Level4 = 50,
-            Level5 = 60,
+            Level3 = 45,
+            Level4 = 60,
+            Level5 = 75,
         },
     },
     
@@ -86,12 +52,17 @@ UnitBlueprint {
     CollisionOffsetZ = -0.6,
     
     Defense = {
-        AirThreatLevel = 19,
+
+        MissileTorpDestroy = { AttachBone = {'Flare_Muzzle01','Flare_Muzzle04','Flare_Muzzle06'}, Radius = 3.8, RedirectRateOfFire = 9, ProjectileCategories = {'TORPEDO'} },
+    
         ArmorType = 'Experimental',
+
         Health = 110000,
         MaxHealth = 110000,
-        RegenRate = 32,
-        SubThreatLevel = 180,
+        RegenRate = 30,
+
+        AirThreatLevel = 24,
+        SubThreatLevel = 40,
         SurfaceThreatLevel = 776.2,
     },
     
@@ -99,22 +70,21 @@ UnitBlueprint {
     
     Display = {
         Abilities = {
-            'Amphibious',
-			'AntiAir',
-            'Factory',
-            'Torpedoes & Torpedo Defense',
-            'Radar & Sonar',
+            '<LOC ability_factory>Factory',
+            "<LOC ability_amphibious>Amphibious",
+            "<LOC ability_aa>Anti-Air",
+            '<LOC ability_radar>Radar',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_omni>Omni Sensor',
+            "<LOC ability_torpedo>Torpedo Barrage",
+            '<LOC ability_torpedodef>Personal & AntiTorpedo Defense',
+            '<LOC ability_personalstealth>Personal Stealth',
         },
 
         AnimationActivate = '/units/xrl0403/xrl0403_awake.sca',
-
-        AnimationDeath = {
-            {
-                Animation = '/units/xrl0403/xrl0403_adeath.sca',
-                Weight = 100,
-            },
-        },
+        AnimationDeath = { { Animation = '/units/xrl0403/xrl0403_adeath.sca',Weight = 100 } },
         AnimationWalk = '/units/xrl0403/xrl0403_awalk01.sca',
+        
         AnimationWalkRate = 3.6,
 
         Mesh = {
@@ -143,9 +113,7 @@ UnitBlueprint {
                             HipBone = 'Left_Leg01_B01',
                             KneeBone = 'Left_Leg01_B02',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             Scale = 1.5,
                             StraightLegs = false,
                             Type = 'FootFall01',
@@ -155,9 +123,7 @@ UnitBlueprint {
                             HipBone = 'Left_Leg02_B01',
                             KneeBone = 'Left_Leg02_B02',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             Scale = 1.5,
                             StraightLegs = false,
                             Type = 'FootFall01',
@@ -167,9 +133,7 @@ UnitBlueprint {
                             HipBone = 'Right_Leg01_B01',
                             KneeBone = 'Right_Leg01_B02',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             Scale = 1.5,
                             StraightLegs = false,
                             Type = 'FootFall01',
@@ -179,16 +143,15 @@ UnitBlueprint {
                             HipBone = 'Right_Leg02_B01',
                             KneeBone = 'Right_Leg02_B02',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             Scale = 1.5,
                             StraightLegs = false,
                             Type = 'FootFall01',
                         },
                     },
+                    
                     Damage = {
-                        Amount = 2500,
+                        Amount = 2250,
                         DamageFriendly = false,
                         Radius = 1,
                         Type = 'ExperimentalFootfall',
@@ -240,10 +203,15 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-		RadarRadius = 100,
-        SonarRadius = 65,
-        VisionRadius = 40,
-        WaterVisionRadius = 38,
+
+        RadarStealth = true,
+        SonarStealth = true,
+        
+		RadarRadius = 96,
+        SonarRadius = 56,
+        
+        VisionRadius = 44,
+        WaterVisionRadius = 36,
     },
 	
     Interface = {
@@ -276,7 +244,7 @@ UnitBlueprint {
         SkirtSizeZ = 9,
         TurnRadius = 15,
         TurnRate = 45,
-        WaterSpeedMultiplier = 1.25,
+        WaterSpeedMultiplier = 1.2,
     },
 	
     SelectionSizeX = 5.3,
@@ -307,21 +275,9 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Sml_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Sml_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'XRL_Weapon',
-                    Cue = 'XRL0403_Proton_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'URS', Cue = 'URS_Turret_Sml_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BarrelStart = Sound { Bank = 'URS', Cue = 'URS_Turret_Sml_Start', LodCutoff = 'Weapon_LodCutoff' },
+                Fire        = Sound { Bank = 'XRL_Weapon', Cue = 'XRL0403_Proton_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -336,7 +292,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
             FiringRandomness = 0.3,
@@ -353,10 +308,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Turret_Muzzle01',
-                        'Right_Turret_Muzzle02',
-                    },
+                    MuzzleBones = {'Right_Turret_Muzzle01','Right_Turret_Muzzle02'},
                     RackBone = 'Right_Turret_Barrel',
                 },
             },
@@ -396,22 +348,11 @@ UnitBlueprint {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Sml_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Sml_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'XRL_Weapon',
-                    Cue = 'XRL0403_Proton_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'URS', Cue = 'URS_Turret_Sml_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BarrelStart = Sound { Bank = 'URS', Cue = 'URS_Turret_Sml_Start', LodCutoff = 'Weapon_LodCutoff' },
+                Fire        = Sound { Bank = 'XRL_Weapon', Cue = 'XRL0403_Proton_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -426,7 +367,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
             FiringRandomness = 0.3,
@@ -443,10 +383,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Turret_Muzzle01',
-                        'Left_Turret_Muzzle02',
-                    },
+                    MuzzleBones = {'Left_Turret_Muzzle01','Left_Turret_Muzzle02'},
                     RackBone = 'Left_Turret_Barrel',
                 },
             },
@@ -483,22 +420,16 @@ UnitBlueprint {
         },
         {
             advancedTracking = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XRL_Weapon',
-                    Cue = 'XRL0403_Torpedo_Nanite',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XRL_Weapon', Cue = 'XRL0403_Torpedo_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 50,
+            Damage = 250,
             DamageType = 'Normal',
-            DisplayName = 'Nanite Torpedo Launcher',
-			
-            DoTPulses = 5,
-            DoTTime = 2,
 			
             FireTargetLayerCapsTable = {
                 Seabed = 'Seabed|Sub|Water',
@@ -510,12 +441,12 @@ UnitBlueprint {
 			
             MaxRadius = 48,
 			
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 1,
+            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoSize = 12,
 
             MuzzleVelocity = 4,
 			
-            ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
+            ProjectileId = '/projectiles/CANTorpedoNanite02/CANTorpedoNanite02_proj.bp',
             ProjectileLifetime = 8,
 
             RackBones = {
@@ -525,116 +456,100 @@ UnitBlueprint {
                         'Torpedo_Muzzle04',
                         'Torpedo_Muzzle07',
                         'Torpedo_Muzzle10',
-                    },
-                    RackBone = 'Torpedo_Muzzle01',
-                },
-                {
-                    MuzzleBones = {
                         'Torpedo_Muzzle02',
                         'Torpedo_Muzzle05',
                         'Torpedo_Muzzle08',
                         'Torpedo_Muzzle11',
-                    },
-                    RackBone = 'Torpedo_Muzzle02',
-                },
-                {
-                    MuzzleBones = {
                         'Torpedo_Muzzle03',
                         'Torpedo_Muzzle06',
                         'Torpedo_Muzzle09',
                         'Torpedo_Muzzle12',
                     },
-                    RackBone = 'Torpedo_Muzzle03',
+                    RackBone = 'Torpedo_Muzzle01',
                 },
             },
+            
+            RackSalvoReloadTime = 3.9,  -- 7.5 second cycle = 3000/7.5 = 400 DPS
             RackFireTogether = true,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.75,	-- 3000 Damage * .6 = 1800 DPS Sub
-			
-            TargetCheckInterval = 0.5,
+            RateOfFire = 1,
+            TargetCheckInterval = 2,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SUBMERSIBLE',
                 'MOBILE',
                 'STRUCTURE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
         },
-		
+        
+        -- torpedo defense --
+
         {
             advancedTracking = true,
-
-            Audio = {
-                Fire = Sound { Bank = 'XRL_Weapon', Cue = 'XRL0403_Anti_Torpedo_Flare', LodCutoff = 'Weapon_LodCutoff' },
-            },
-
+            
             BallisticArc = 'RULEUBA_None',
+            BelowWaterFireOnly = true,
+
+			CannotAttackGround = true,
             CollideFriendly = false,
+            
+            CountedProjectile = true,
 			
             Damage = 2,
+			DamageFriendly = false,
             DamageType = 'Normal',
 
-            DepthCharge = { Radius = 9 },
-			
-            DisplayName = 'Anti-Torpedo Flare',
-			
             FireTargetLayerCapsTable = {
                 Seabed = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 60,
+            FiringTolerance = 360,
 			
             Label = 'AntiTorpedo',
 			
-            MaxRadius = 25,
+            MaxRadius = 32,
+
             MuzzleSalvoDelay = 0.5,
-
-            MuzzleVelocity = 5,
+            MuzzleSalvoSize = 3,
+            MuzzleVelocity = 8,
 			
-            ProjectileId = '/projectiles/CIMAntiTorpedo02/CIMAntiTorpedo02_proj.bp',
-            ProjectileLifetime = 3,
-
+            ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
+            ProjectileLifetime = 3.2,
+			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Flare_Muzzle01',
-                        'Flare_Muzzle02',
-                        'Flare_Muzzle03',
-                        'Flare_Muzzle04',
-                        'Flare_Muzzle05',
-                        'Flare_Muzzle06',
-                    },
-                    RackBone = 'Flare_Muzzle01',
+                    MuzzleBones = {'Flare_Muzzle02','Flare_Muzzle03','Flare_Muzzle05'},
+                    RackBone = 'Flare_Muzzle02',                    
                 },
             },
-            
-            RackSalvoReloadTime = 5,
 
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 1,     -- every 8 seconds controlled by delays and reload
+            RateOfFire = 1,     -- rate of fire controlled by SalvoDelay and WeaponRepackTimeout - 3 every 3.9 seconds
 			
-            TargetCheckInterval = 1.5,
+            TargetCheckInterval = 1,
 			
+            TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.1,
+			
+            Turreted = false,
+
+            WeaponRepackTimeout = 2.4,
         },
-		
+
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AlwaysRecheckTarget = true,
 
             Audio = {
-                Fire = Sound {
-                    Bank = 'XRL_Weapon',
-                    Cue = 'XRL0403_AA_Flak_Artillery',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XRL_Weapon', Cue = 'XRL0403_AA_Flak_Artillery', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -719,11 +634,12 @@ UnitBlueprint {
             Label = 'MegalithDeath',
         },
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.1,
+        EnergyMult = 0.5,
         HealthMult = 0.7,
-        MassMult = 0.7,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

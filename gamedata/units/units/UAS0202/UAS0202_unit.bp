@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UASDestroy',
-            Cue = 'UAS0202_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAS',
-            Cue = 'UAS0202_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed = Sound { Bank = 'UASDestroy', Cue = 'UAS0202_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove = Sound { Bank = 'UAS', Cue = 'UAS0202_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Naval', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -64,9 +52,9 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'SAM AA x 2',
-            'Radar',
-            'Tactical Missile Defense',
+            '<LOC ability_aa>Anti-Air',
+            '<LOC ability_radar>Radar',
+            "<LOC ability_tacmissiledef>Tactical Missile Defense",
         },
 		
         AnimationDeath = {
@@ -125,9 +113,9 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 90,
+        RadarRadius = 72,
         VisionRadius = 36,
-        WaterVisionRadius = 18,
+        WaterVisionRadius = 16,
     },
 	
     Interface = {
@@ -183,9 +171,9 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                BarrelLoop = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Sml_Loop', LodCutoff = 'Weapon_LodCutoff' },
-                BarrelStart = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Sml_Start', LodCutoff = 'Weapon_LodCutoff' },
-                MuzzleChargeStart = Sound { Bank = 'UASWeapon', Cue = 'UAS0202_Cannon_Quantum', LodCutoff = 'Weapon_LodCutoff' },
+                BarrelLoop          = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Sml_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Sml_Start', LodCutoff = 'Weapon_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'UASWeapon', Cue = 'UAS0202_Cannon_Quantum', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_LowArc',
@@ -218,10 +206,7 @@ UnitBlueprint {
             ProjectileId = '/projectiles/ADFQuantumCannon01/ADFQuantumCannon01_proj.bp',
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle_Front01',
-						'Muzzle_Front02',
-                    },
+                    MuzzleBones = {'Muzzle_Front01','Muzzle_Front02'},
                     RackBone = 'Turret_Front_Barrel',
                 },
             },
@@ -278,13 +263,13 @@ UnitBlueprint {
                 Water = 'Air',
             },
 			
-            FiringTolerance = 10,
+            FiringTolerance = 30,
 			
             Label = 'AntiAirMissiles01',
 			
-            MaxRadius = 55,
+            MaxRadius = 48,
 
-            MuzzleVelocity = 32,
+            MuzzleVelocity = 36,
 			
             ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
             ProjectileLifetime = 5,
@@ -334,13 +319,13 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Water = 'Air',
             },
-            FiringTolerance = 10,
+            FiringTolerance = 30,
 
             Label = 'AntiAirMissiles02',
 
-            MaxRadius = 55,
+            MaxRadius = 48,
 
-            MuzzleVelocity = 32,
+            MuzzleVelocity = 36,
 
             ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
             ProjectileLifetime = 6,
@@ -389,10 +374,7 @@ UnitBlueprint {
 			FiringRandomness = 20,
             FiringTolerance = 360,
 			
-            Flare = {
-                Category = 'MISSILE',
-                Radius = 22,
-            },
+            Flare = { Category = 'MISSILE', Radius = 22 },
 			
             Label = 'AntiMissile',
 			

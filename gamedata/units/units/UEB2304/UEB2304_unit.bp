@@ -1,15 +1,8 @@
 UnitBlueprint {
+
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -54,7 +47,7 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-			'Aquatic',
+			'<LOC ability_aquatic>Aquatic',
         },
         Mesh = {
             IconFadeInZoom = 130,
@@ -155,11 +148,7 @@ UnitBlueprint {
 			advancedTracking = true,
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2304_Missile_Flayer',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2304_Missile_Flayer', LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -177,9 +166,9 @@ UnitBlueprint {
             },
             FiringTolerance = 10,
 			
-            Label = 'MissileRack01',
+            Label = 'AAMissileRack',
 			
-            MaxRadius = 55,
+            MaxRadius = 52,
             
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 6,
@@ -215,6 +204,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.4,
 			
             TurretBoneMuzzle = 'Turret_Barrel',
@@ -228,16 +218,17 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 60,
             
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.5,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

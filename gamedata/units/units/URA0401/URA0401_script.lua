@@ -1,8 +1,8 @@
 local CAirUnit = import('/lua/defaultunits.lua').AirUnit
 
-local CDFRocketIridiumWeapon = import('/lua/cybranweapons.lua').CDFRocketIridiumWeapon
-local CAAMissileNaniteWeapon = import('/lua/cybranweapons.lua').CAAMissileNaniteWeapon
-local CDFHeavyElectronBolterWeapon = import('/lua/cybranweapons.lua').CDFHeavyElectronBolterWeapon
+local CDFRocketIridiumWeapon        = import('/lua/cybranweapons.lua').CDFRocketIridiumWeapon
+local CAAMissileNaniteWeapon        = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
+local CDFHeavyElectronBolterWeapon  = import('/lua/cybranweapons.lua').CDFHeavyElectronBolterWeapon
 
 local util = import('/lua/utilities.lua')
 
@@ -11,13 +11,9 @@ local CleanupEffectBag = import('/lua/effectutilities.lua').CleanupEffectBag
 URA0401 = Class(CAirUnit) {
 
     Weapons = {
-	
-        Missile = Class(CDFRocketIridiumWeapon) {},
-
+        Missile     = Class(CDFRocketIridiumWeapon) {},
         HeavyBolter = Class(CDFHeavyElectronBolterWeapon){},
-
-        AAMissile = Class(CAAMissileNaniteWeapon) {},
-
+        AAMissile   = Class(CAAMissileNaniteWeapon) {},
     },
     
     MovementAmbientExhaustBones = {

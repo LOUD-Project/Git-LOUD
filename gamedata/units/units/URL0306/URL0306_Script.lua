@@ -1,5 +1,6 @@
 local CLandUnit = import('/lua/defaultunits.lua').MobileUnit
-local EffectUtil = import('/lua/EffectUtilities.lua')
+
+local CRadarJammerUnit = import('/lua/defaultunits.lua').RadarJammerUnit
 
 URL0306 = Class(CLandUnit) {
 
@@ -11,33 +12,18 @@ URL0306 = Class(CLandUnit) {
     end,
     
     IntelEffects = {
-	
-		{ Bones = { 'AttachPoint' }, Offset = { 0, 0.3, 0 }, Scale = 0.2, Type = 'Jammer01' },
-
+		{Bones = {'AttachPoint'},Offset = {0,0.1,0},Scale = 0.3,Type = 'Jammer01' },
     },
     
-    OnIntelEnabled = function(self)
+    OnIntelEnabled = function(self,intel)
 	
-        CLandUnit.OnIntelEnabled(self)
-		
-        if self.IntelEffects and not self.IntelFxOn then
-		
-			self.IntelEffectsBag = {}
-			
-			self.CreateTerrainTypeEffects( self, self.IntelEffects, 'FXIdle',  self:GetCurrentLayer(), nil, self.IntelEffectsBag )
-			
-			self.IntelFxOn = true
-			
-		end
+        CRadarJammerUnit.OnIntelEnabled(self,intel)
+
     end,
 
-    OnIntelDisabled = function(self)
+    OnIntelDisabled = function(self,intel)
 	
-        CLandUnit.OnIntelDisabled(self)
-		
-        EffectUtil.CleanupEffectBag(self,'IntelEffectsBag')
-		
-		self.IntelFxOn = false
+        CRadarJammerUnit.OnIntelDisabled(self,intel)
 		
     end,    
     

@@ -8,21 +8,21 @@ UnitBlueprint {
 	
         AutoLandTime = 1.5,
 		
-        BankFactor = 4,
+        BankFactor = 3,
         BankForward = false,
 		
-        BreakOffDistance = 40,
+        BreakOffDistance = 18,
 		BreakOffIfNearNewTarget = true,
-        BreakOffTrigger = 15,
+        BreakOffTrigger = 10,
 		
         CanFly = true,
 		
         CombatTurnSpeed = 0.65,
 		
-        EngageDistance = 65,
+        EngageDistance = 45,
 		
-        KLift = 3,
-        KLiftDamping = 2.5,
+        KLift = 6,
+        KLiftDamping = 5.5,
 		
         KMove = 0.99,
         KMoveDamping = 1.2,
@@ -33,7 +33,7 @@ UnitBlueprint {
         KTurn = 1.5,
         KTurnDamping = 1.5,
 		
-        LiftFactor = 10,
+        LiftFactor = 12,
 		
         MaxAirspeed = 16,
         MinAirspeed = 11,
@@ -42,28 +42,16 @@ UnitBlueprint {
 		
         TightTurnMultiplier = 1.1,
 		
-        TurnSpeed = 0.9,
+        TurnSpeed = 0.65,
 		
         Winged = true,
     },
 	
     Audio = {
 	
-        Killed = Sound {
-            Bank = 'UEADestroy',
-            Cue = 'UEA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0204_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'UEADestroy',   Cue = 'UEA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'UEA',          Cue = 'UEA0204_Move_Start',     LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',    Cue = 'UEF_Select_Air',         LodCutoff = 'UnitMove_LodCutoff' },
 		
     },
 	
@@ -92,10 +80,13 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Light',
-        Health = 1320,
-        MaxHealth = 1320,
+
+        Health = 1475,
+        MaxHealth = 1475,
+
         RegenRate = 4,
-        SubThreatLevel = 9.6,
+
+        SubThreatLevel = 13,
     },
 	
     Description = '<LOC uea0204_desc>Torpedo Bomber',
@@ -103,8 +94,8 @@ UnitBlueprint {
     Display = {
 	
         Abilities = {
-            'Sonar',
-            'Torpedoes',
+            '<LOC ability_sonar>Sonar',
+            "<LOC ability_torpedo>Torpedoes",
         },
 		
         Mesh = {
@@ -129,7 +120,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 14000,
         BuildCostMass = 265,
-        BuildTime = 3000,
+        BuildTime = 200,
     },
 
     General = {
@@ -150,9 +141,10 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
+
         SonarRadius = 60,
-        VisionRadius = 30,
-		WaterVisionRadius = 10,
+        VisionRadius = 36,
+		WaterVisionRadius = 16,
     },
 	
     Interface = {
@@ -164,7 +156,7 @@ UnitBlueprint {
     LifeBarSize = 1.25,
 	
     Physics = {
-        AttackElevation = 2,
+        AttackElevation = 3,
 		
         BuildOnLayerCaps = {
             LAYER_Air = true,
@@ -177,6 +169,7 @@ UnitBlueprint {
 		
         GroundCollisionOffset = 1.6,
         MaxSpeed = 0.5,
+
         MeshExtentsX = 2,
         MeshExtentsY = 0.55,
         MeshExtentsZ = 1.25,
@@ -222,12 +215,12 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 240,
+            Damage = 300,
             DamageType = 'Normal',
 			
             DisplayName = 'Angler Torpedo',
-			
-			EffectiveRadius = 25,
+            
+            EffectiveRadius = 40,
 			
             FireTargetLayerCapsTable = {
                 Air = 'Seabed|Sub|Water',
@@ -242,36 +235,40 @@ UnitBlueprint {
 			
             Label = 'Torpedo',
 			
-            MaxRadius = 25,
+            MaxRadius = 32,
             MinRadius = 8,
 			
             MuzzleSalvoDelay = 0.3,
-            MuzzleSalvoSize = 4,
+            MuzzleSalvoSize = 2,
 
-            MuzzleVelocity = 6,
+            MuzzleVelocity = 8,
 			
-            ProjectileId = '/projectiles/TANAnglerTorpedo06/TANAnglerTorpedo06_proj.bp',
-            ProjectileLifetime = 10,
+            ProjectileId = '/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_proj.bp',
+            ProjectileLifetime = 8,
 			
             RackBones = {
                 {
-                    MuzzleBones = {'Projectile'},
+                    MuzzleBones = {'UEA0204'},
                     RackBone = 'Projectile',
                 },
             },
+            
+            RackSalvoReloadTime = 4.4,  -- 5 second firing cycle
 
 			RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.1,	-- 960 Damage every 10 = 96 DPS
+            RateOfFire = 1,	-- 600 Damage every 5 = 120 DPS
 			
             TargetCheckInterval = 4,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'CRUISER',
+                'SUBMARINE',
                 'MOBILE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,HOVER,WALL',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
         },
         {
             AboveWaterTargetsOnly = true,

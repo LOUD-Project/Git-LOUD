@@ -11,15 +11,7 @@ URB3302 = Class(CSeaUnit) {
 		
     end,
 
-    TimedSonarTTIdleEffects = {
-	
-        {
-            Bones = {
-                'Plunger',
-            },
-            Type = 'SonarBuoy01',
-        },
-    }, 
+    TimedSonarTTIdleEffects = { {Bones = {'Plunger'},Type = 'SonarBuoy01' } }, 
 
     CreateIdleEffects = function(self)
 	
@@ -44,7 +36,7 @@ URB3302 = Class(CSeaUnit) {
 				
                     local effects = self.GetTerrainTypeEffects( 'FXIdle', layer, pos, vTypeGroup.Type, nil )
        
-       for kb, vBone in vTypeGroup.Bones do
+                    for kb, vBone in vTypeGroup.Bones do
 					
                         for ke, vEffect in effects do
 						
@@ -77,7 +69,43 @@ URB3302 = Class(CSeaUnit) {
 		end
 
 		CSeaUnit.DestroyIdleEffects(self)
-    end,               
+    end,
+
+    OnMotionHorzEventChange = function( self, new, old )
+
+        if self.Dead then
+            return
+        end
+
+        CSeaUnit.OnMotionHorzEventChange( self, new, old )
+
+		local Intel = __blueprints[self.BlueprintID].Intel
+
+        -- blueprint defaults --
+        local radar = Intel.RadarRadius or 2
+        local sonar = Intel.SonarRadius or 2
+        local Omni  = Intel.OmniRadius or 2
+        
+        if ( old == 'Stopped' or (old == 'Stopping' and (new == 'Cruise' or new == 'TopSpeed'))) then
+        
+            -- intel ranges are halved while moving
+            self:SetIntelRadius('Radar', self:GetIntelRadius('Radar') * 0.5)
+            self:SetIntelRadius('Sonar', self:GetIntelRadius('Sonar') * 0.5)
+            self:SetIntelRadius('Omni', self:GetIntelRadius('Omni') * 0.5)
+
+        end
+
+        if (new == 'Stopped' or new == 'Stopping') then
+        
+            -- intel ranges are normalized
+            self:SetIntelRadius('Radar', self:GetIntelRadius('Radar') * 2)
+            self:SetIntelRadius('Sonar', self:GetIntelRadius('Sonar') * 2)
+            self:SetIntelRadius('Omni', self:GetIntelRadius('Omni') * 2)
+
+        end
+
+    end,
+    
 }
 
 TypeClass = URB3302

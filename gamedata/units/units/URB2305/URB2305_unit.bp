@@ -4,35 +4,12 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Close = Sound {
-            Bank = 'URB',
-            Cue = 'URB2305_Close',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        NuclearLaunchDetected = Sound {
-            Bank = 'XGG',
-            Cue = 'Computer_Computer_MissileLaunch_01351',
-        },
-        Open = Sound {
-            Bank = 'URB',
-            Cue = 'URB2305_Open',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Close                   = Sound { Bank = 'URB', Cue = 'URB2305_Close', LodCutoff = 'UnitMove_LodCutoff'},
+        Open                    = Sound { Bank = 'URB', Cue = 'URB2305_Open', LodCutoff = 'UnitMove_LodCutoff'},
+        DeathExplosion          = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed               = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        NuclearLaunchDetected   = Sound { Bank = 'XGG', Cue = 'Computer_Computer_MissileLaunch_01351'},
+        UISelection             = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -213,19 +190,13 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2305_Missile_Cruise',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URB2305_Missile_Cruise', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
 			
 			Buffs = {
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 15,

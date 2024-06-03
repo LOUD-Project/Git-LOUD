@@ -39,21 +39,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0204_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed = Sound { Bank = 'URADestroy', Cue = 'URA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove = Sound { Bank = 'URA', Cue = 'URA0204_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -100,23 +88,17 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Anti-Air',
-            'Radar',
+            "<LOC ability_aa>Anti-Air",
+            '<LOC ability_radar>Radar',
         },
+        
         AttackReticuleSize = 3,
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 60,
-                    ShaderName = 'Insect',
-                },
-                {
-                    AlbedoName = 'dra0202_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Insect',
-                    SpecularName = 'dra0202_lod1_specteam.dds',
-                },
+                { LODCutoff = 60, ShaderName = 'Insect' },
+                { AlbedoName = 'dra0202_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Insect', SpecularName = 'dra0202_lod1_specteam.dds' },
             },
         },
 
@@ -147,7 +129,8 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 50,
+        
+        RadarRadius = 48,
         VisionRadius = 32,
     },
 	
@@ -202,11 +185,7 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'URAWeapon',
-                    Cue = 'URA_Cannon_Electron',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URAWeapon', Cue = 'URA_Cannon_Electron', LodCutoff = 'Weapon_LodCutoff'},
             },
 			
             AutoInitiateAttackCommand = true,
@@ -243,10 +222,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile',
-                        'Projectile01',
-                    },
+                    MuzzleBones = {'Projectile','Projectile01'},
                     RackBone = 'Projectile_Aim',
                 },
             },
@@ -284,12 +260,9 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'URAWeapon',
-                    Cue = 'URA0203_Rock_Pack',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URAWeapon', Cue = 'URA0203_Rock_Pack', LodCutoff = 'Weapon_LodCutoff'},
             },
             
             AutoInitiateAttackCommand = false,

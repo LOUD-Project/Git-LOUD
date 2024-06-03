@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL_Destroy_Land_Sml',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0103_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Sml', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0103_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {},
@@ -57,33 +45,12 @@ UnitBlueprint {
         IdleEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'XSL0103',
-                        },
-                        Offset = {
-                            0.2,
-                            -0.15,
-                            -0.1,
-                        },
-                        Scale = 0.6,
-                        Type = 'SeraphimGroundFX01',
-                    },
-                    {
-                        Bones = {
-                            'XSL0103',
-                        },
-                        Offset = {
-                            0.2,
-                            -0.15,
-                            -0.1,
-                        },
-                        Scale = 1.2,
-                        Type = 'SeaIdle02',
-                    },
+                    { Bones = {'XSL0103'}, Offset = {0.2,-0.15,-0.1}, Scale = 0.6, Type = 'SeraphimGroundFX01' },
+                    { Bones = {'XSL0103'}, Offset = {0.2,-0.15,-0.1}, Scale = 1.2, Type = 'SeaIdle02' },
                 },
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -102,6 +69,7 @@ UnitBlueprint {
                 },
             },
         },
+
         UniformScale = 0.075,
     },
 	
@@ -127,7 +95,8 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 18,
+        VisionRadius = 16,
+        WaterVisionRadius = 8,
     },
 	
     Interface = {
@@ -195,11 +164,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0103_Thuntho',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0103_Thuntho', LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,

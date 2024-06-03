@@ -1,28 +1,12 @@
 UnitBlueprint {
 
     Audio = {
-        Construct = Sound {
-            Bank = 'XSB',
-            Cue = 'XSB0302_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Factory',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Construct       = Sound { Bank = 'XSB', Cue = 'XSB0101_Construct_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        DeathExplosion  = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Factory', LodCutoff = 'UnitMove_LodCutoff'},
     },
-    
+
     BuildIconSortPriority = 22,
     
     Categories = {
@@ -64,7 +48,9 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+
         BuildAttachBone = 'Attachpoint',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -82,6 +68,7 @@ UnitBlueprint {
                 },
             },
         },
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_seraphim_01_albedo',
@@ -89,12 +76,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar12x_seraphim_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
@@ -116,9 +98,7 @@ UnitBlueprint {
             'TRANSPORTBUILTBYTIER3FACTORY SERAPHIM MOBILE AIR',
         },
         
-        RebuildBonusIds = {
-            'xsb0302',
-        },
+        RebuildBonusIds = {'xsb0302'},
         
         StorageEnergy = 2650,
         StorageMass = 265,
@@ -150,7 +130,7 @@ UnitBlueprint {
     },
 
     Intel = {
-        VisionRadius = 10,
+        VisionRadius = 20,
     },
 
     Interface = {
@@ -211,9 +191,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.6,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

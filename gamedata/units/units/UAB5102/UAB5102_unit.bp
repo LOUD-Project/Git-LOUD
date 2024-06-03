@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Categories = {
         'AEON',
         'UNTARGETABLE',
@@ -84,16 +85,6 @@ UnitBlueprint {
     SizeY = 0.75,
 
     SizeZ = 0.5,
-    StrategicIconName = 'icon_strategic_ferrypoint',
 
-    Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.6,
-        ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Land = true,
-        },
-    },
+    StrategicIconName = 'icon_strategic_ferrypoint',
 }

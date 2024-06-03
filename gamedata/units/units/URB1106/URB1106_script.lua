@@ -1,5 +1,3 @@
-
-
 local CMassStorageUnit = import('/lua/defaultunits.lua').StructureUnit
 
 URB1106 = Class(CMassStorageUnit) {

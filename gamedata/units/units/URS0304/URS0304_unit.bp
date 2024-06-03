@@ -5,40 +5,13 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'URSDestroy',
-            Cue = 'URS0304_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        NuclearLaunchDetected = Sound {
-            Bank = 'XGG',
-            Cue = 'Computer_Computer_MissileLaunch_01351',
-        },
-        StartMove = Sound {
-            Bank = 'URS',
-            Cue = 'URS0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMoveSub = Sound {
-            Bank = 'URS',
-            Cue = 'URS0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        SubmergeStart = Sound {
-            Bank = 'URS',
-            Cue = 'URS_Sub_Submerge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        SurfaceStart = Sound {
-            Bank = 'URS',
-            Cue = 'URS_Sub_Surface',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Sub',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        NuclearLaunchDetected   = Sound { Bank = 'XGG', Cue = 'Computer_Computer_MissileLaunch_01351' },
+        StartMove               = Sound { Bank = 'URS', Cue = 'URS0304_Move_Start',  LodCutoff = 'UnitMove_LodCutoff' },
+        StartMoveSub            = Sound { Bank = 'URS', Cue = 'URS0304_Move_Start',  LodCutoff = 'UnitMove_LodCutoff' },
+        SubmergeStart           = Sound { Bank = 'URS', Cue = 'URS_Sub_Submerge',    LodCutoff = 'UnitMove_LodCutoff' },
+        SurfaceStart            = Sound { Bank = 'URS', Cue = 'URS_Sub_Surface',     LodCutoff = 'UnitMove_LodCutoff' },
+        Killed                  = Sound { Bank = 'URSDestroy', Cue = 'URS0304_Destroy', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection             = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Sub', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -76,12 +49,13 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
+
         Health = 3750,
         MaxHealth = 3750,
-        RegenRate = 10,
-		SubThreatLevel = 12,
+        RegenRate = 6,
+        
+		SubThreatLevel = 20,
         SurfaceThreatLevel = 30,
-		
     },
 	
     Description = '<LOC urs0304_desc>Strategic Missile Submarine',
@@ -91,102 +65,31 @@ UnitBlueprint {
         Abilities = {
             'EMP Weapon',
             'Manual Launch',
-            'Sonar',
-            'Torpedoes',
+            '<LOC ability_sonar>Sonar',
+            "<LOC ability_torpedo>Torpedoes",
+            '<LOC ability_personalstealth>Personal Stealth',
         },
-		
 
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    ShaderName = 'Insect',
-                },
-                {
-                    AlbedoName = 'urs0304_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Insect',
-                    SpecularName = 'urs0304_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, ShaderName = 'Insect' },
+                { AlbedoName = 'urs0304_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Insect', SpecularName = 'urs0304_lod1_specteam.dds' },
             },
         },
-		
-        MotionChangeEffects = {
-            SubBottomUp = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Projectile_Front_Right',
-                            'Projectile_Front_Left',
-                            'URS0304',
-                            'Exhaust_Right',
-                            'Exhaust_Left',
-                        },
-                        Type = 'Surface01',
-                    },
-                },
-            },
-            WaterTopDown = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Projectile_Front_Right',
-                            'Projectile_Front_Left',
-                            'URS0304',
-                            'Exhaust_Right',
-                            'Exhaust_Left',
-                        },
-                        Type = 'Submerge01',
-                    },
-                },
-            },
-        },
+
         MovementEffects = {
             Sub = {
                 Effects = {
-                    {
-                        Bones = {
-                            'URS0304',
-                            'Exhaust_Right',
-                            'Exhaust_Left',
-                        },
-                        Scale = 2.5,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'URS0304','Exhaust_Right','Exhaust_Left'}, Scale = 2.5, Type = 'BackWake' },
                 },
             },
+
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'Projectile_Front_Right',
-                            'Projectile_Front_Left',
-                        },
-                        Scale = 0.6,
-                        Type = 'LeftFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'Projectile_Front_Right',
-                            'Projectile_Front_Left',
-                        },
-                        Scale = 0.6,
-                        Type = 'RightFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'Exhaust_Right',
-                            'Exhaust_Left',
-                        },
-                        Offset = {
-                            0,
-                            0,
-                            -0.8,
-                        },
-                        Scale = 0.4,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'Projectile_Front_Right','Projectile_Front_Left'}, Scale = 0.6, Type = 'LeftFrontWake' },
+                    { Bones = {'Projectile_Front_Right','Projectile_Front_Left'}, Scale = 0.6, Type = 'RightFrontWake' },
+                    { Bones = {'Exhaust_Right','Exhaust_Left'}, Offset = {0,0,-0.8}, Scale = 0.4, Type = 'BackWake' },
                 },
             },
         },
@@ -221,9 +124,11 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
+        
 		RadarStealth = true,
 		SonarStealth = true,
-        SonarRadius = 75,
+        
+        SonarRadius = 72,
         VisionRadius = 36,
         WaterVisionRadius = 36,
     },
@@ -285,12 +190,9 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0304_Missile_Cruise',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0304_Missile_Cruise', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
 			
             CollideFriendly = false,
@@ -356,9 +258,22 @@ UnitBlueprint {
             advancedTracking = true,
             
             BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.3,
+                    Radius = 2,
+                    TargetAllow = 'LAND TECH1,NAVAL TECH1,SUBMARINE TECH2',
+                    TargetDisallow = 'WALL,COMMAND,EXPERIMENTAL',
+                },
+            },
+
             CollideFriendly = false,
 			
-            Damage = 30,
+            Damage = 200,
             DamageType = 'Normal',
 			
             DisplayName = 'Nanite Torpedo',
@@ -372,28 +287,27 @@ UnitBlueprint {
 			
             Label = 'Torpedo',
 			
-            MaxRadius = 45,
+            MaxRadius = 48,
 			
-            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoDelay = 0.6,
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 3,
 			
-            ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
+            ProjectileId = '/projectiles/CANTorpedoNanite02/CANTorpedoNanite02_proj.bp',
             ProjectileLifetime = 8,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile_Front_Left',
-                        'Projectile_Front_Right',
-                    },
+                    MuzzleBones = {'Projectile_Front_Left','Projectile_Front_Right'},
                     RackBone = 'Projectile_Front_Left',
                 },
             },
+            
+            RackSalvoReloadTime = 1.6,  -- cycle of 4 seconds = 200 DPS
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 1.0,		-- 4 *  30 = 120 DPS Sub
+            RateOfFire = 1.0,
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 45,
@@ -402,12 +316,13 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SUBMERSIBLE',
                 'MOBILE',
                 'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
         },
 		
         {
@@ -416,11 +331,7 @@ UnitBlueprint {
             AttackGroundTries = 1,
 
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0304_Missile_Emp',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0304_Missile_Emp', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',

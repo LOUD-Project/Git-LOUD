@@ -9,12 +9,6 @@ UEB1102 = Class(TEnergyCreationUnit) {
     DestructionPartsHighToss = {'Exhaust01',},
     DestructionPartsLowToss = {'Exhaust01','Exhaust02','Exhaust03','Exhaust04','Exhaust05',},
     DestructionPartsChassisToss = {'UEB1102'},
-	
-    AirEffects = {'/effects/emitters/hydrocarbon_smoke_01_emit.bp',},
-    AirEffectsBones = {'Exhaust01'},
-	
-    WaterEffects = {'/effects/emitters/underwater_idle_bubbles_01_emit.bp',},
-    WaterEffectsBones = {'Exhaust01'},
 
     OnStopBeingBuilt = function(self,builder,layer)
 	
@@ -42,19 +36,13 @@ UEB1102 = Class(TEnergyCreationUnit) {
 
             WaitFor(self.AnimManip)
 
-            local effects = {}
-            local bones = {}
+            local effects = {'/effects/emitters/hydrocarbon_smoke_01_emit.bp'}
+            local bones = {'Exhaust01'}
             local scale = 1
 			
-            if self:GetCurrentLayer() == 'Land' then
+            if self:GetCurrentLayer() == 'Seabed' then
 			
-                effects = self.AirEffects
-                bones = self.AirEffectsBones
-				
-            elseif self:GetCurrentLayer() == 'Seabed' then
-			
-                effects = self.WaterEffects
-                bones = self.WaterEffectsBones
+                effects = {'/effects/emitters/underwater_idle_bubbles_01_emit.bp'}
                 scale = 3
 				
             end

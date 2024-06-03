@@ -1,28 +1,12 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'Turret',
-        },
+        TargetBones = {'Turret'},
     },
 	
     Audio = {
-	
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Unpack = Sound {
-            Bank = 'URB',
-            Cue = 'URB2104_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -63,7 +47,7 @@ UnitBlueprint {
     Display = {
 	
         Abilities = {
-            'Aquatic',
+            '<LOC ability_aquatic>Aquatic',
         },
 		
         AnimationOpen = '/units/urb2104/URB2104_aagro.sca',
@@ -109,7 +93,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 29,
+        VisionRadius = 24,
     },
 	
     Interface = {
@@ -160,11 +144,7 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2104_Cannon_Electron',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0201_Cannon_Electron', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -186,7 +166,7 @@ UnitBlueprint {
 			
 			LeadTarget = true,
 			
-            MaxRadius = 44,
+            MaxRadius = 40,
 			
             MuzzleVelocity = 60,
 			
@@ -237,9 +217,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.5,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

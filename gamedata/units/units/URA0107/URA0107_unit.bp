@@ -34,25 +34,11 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0104_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'URADestroy', Cue = 'URA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'URA', Cue = 'URA0104_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     
 	},
-	
-    AverageDensity = 1,
 	
     BuildIconSortPriority = 50,
 	
@@ -89,10 +75,11 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_transport>Transport',
         },
+
         AnimationIdle = '/units/URA0107/ura0107_Aidle.sca',
         AnimationLand = '/units/URA0107/ura0107_Aland.sca',
         AnimationTakeOff = '/units/URA0107/ura0107_Atakeoff.sca',
-        ForcedBuildSpin = 90,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {

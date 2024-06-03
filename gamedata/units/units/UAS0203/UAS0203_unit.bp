@@ -5,31 +5,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UASDestroy',
-            Cue = 'UAS0203_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAS',
-            Cue = 'UAS0203_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        SubmergeStart = Sound {
-            Bank = 'UAS',
-            Cue = 'UAS_Sub_Submerge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        SurfaceStart = Sound {
-            Bank = 'UAS',
-            Cue = 'UAS_Sub_Surface',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Sub',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'UASDestroy', Cue = 'UAS0203_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UAS', Cue = 'UAS0203_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Sub', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -144,7 +122,7 @@ UnitBlueprint {
 
 		RadarStealth = true,
 
-        SonarRadius = 44,
+        SonarRadius = 40,
         VisionRadius = 24,
         WaterVisionRadius = 28,
     },
@@ -203,7 +181,6 @@ UnitBlueprint {
         {
             Audio = {
                 Fire            = Sound {Bank = 'UASWeapon',Cue = 'UAS0203_Torpedo',LodCutoff = 'Weapon_LodCutoff'},
-                FireUnderWater  = Sound {Bank = 'UASWeapon',Cue = 'UAS0203_Torpedo',LodCutoff = 'Weapon_LodCutoff'},
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -219,7 +196,7 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 20,
+            FiringTolerance = 15,
 			
             Label = 'Torpedo',
 			
@@ -227,10 +204,10 @@ UnitBlueprint {
             
             MuzzleSalvoDelay = 0.8,     -- 1.6 second firing cycle
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 3.5,
+            MuzzleVelocity = 5,
 			
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
-            ProjectileLifetime = 5,
+            ProjectileLifetime = 6,
 			
             RackBones = {
                 {
@@ -239,11 +216,11 @@ UnitBlueprint {
                 },
             },
             
-            RackSalvoReloadTime = 2.4,    -- 2.1 second reload
+            RackSalvoReloadTime = 3.4,    -- 3.4 second reload
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 1,     -- 2 x 200 = 400 every 4 seconds = 100 DPS Sub/Surface
+            RateOfFire = 1,     -- 2 x 300 = 600 every 5 seconds = 120 DPS Sub/Surface
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 15,

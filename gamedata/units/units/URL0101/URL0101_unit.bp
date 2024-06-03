@@ -1,21 +1,9 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0101_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'URL', Cue = 'URL0101_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 20,
@@ -49,8 +37,9 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Cloaking',
-            'Radar',
+           '<LOC ability_personalstealth>Personal Stealth',
+            '<LOC ability_cloak>Cloaking',
+            '<LOC ability_radar>Radar',
         },
 
         AnimationWalk = '/units/URL0101/URL0101_awalk.sca',
@@ -103,8 +92,8 @@ UnitBlueprint {
     Intel = {
         Cloak = true,
 		RadarStealth = true,
-        RadarRadius = 50,
-        VisionRadius = 29,
+        RadarRadius = 48,
+        VisionRadius = 28,
     },
 	
     Interface = {

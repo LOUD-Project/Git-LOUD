@@ -3,18 +3,10 @@ UnitBlueprint {
     Adjacency = 'HydrocarbonAdjacencyBuffs',
     
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
-    
+
     BuildIconSortPriority = 80,
     
     Categories = {
@@ -92,11 +84,7 @@ UnitBlueprint {
         
 		BuildableCategory = { 'brb1202', },
         
-        RebuildBonusIds = {
-            'urb1102',
-			'brb1202',
-			'brb1302',
-        },
+        RebuildBonusIds = {'urb1102','brb1202','brb1302'},
         
 		StorageEnergy = 250,
     },

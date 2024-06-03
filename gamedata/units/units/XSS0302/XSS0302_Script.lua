@@ -7,9 +7,12 @@ local SAMElectrumMissileDefense = SeraphimWeapons.SAMElectrumMissileDefense
 local SAAOlarisCannonWeapon = SeraphimWeapons.SAAOlarisCannonWeapon
 local SIFInainoWeapon = import('/lua/seraphimweapons.lua').SIFInainoWeapon
 
+SeraphimWeapons = nil
+
 XSS0302 = Class(SSeaUnit) {
-    FxDamageScale = 2,
-    DestructionTicks = 400,
+
+    FxDamageScale = 1.6,
+    DestructionTicks = 250,
 
     Weapons = {
 	
@@ -24,7 +27,9 @@ XSS0302 = Class(SSeaUnit) {
     },
 	
 	OnCreate = function(self)
+
         SSeaUnit.OnCreate(self)
+
         if type(ScenarioInfo.Options.RestrictedCategories) == 'table' and table.find(ScenarioInfo.Options.RestrictedCategories, 'NUKE') then
             self:SetWeaponEnabledByLabel('InainoMissiles', false)
         end

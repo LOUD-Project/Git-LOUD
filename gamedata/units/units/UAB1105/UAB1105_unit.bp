@@ -1,20 +1,12 @@
 UnitBlueprint {
 
     Adjacency = 'T1EnergyStorageAdjacencyBuffs',
-    
+
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
-    
+
     BuildIconSortPriority = 80,
     
     Categories = {
@@ -46,10 +38,13 @@ UnitBlueprint {
     Description = '<LOC uab1105_desc>Basic Energy Storage',
     
     Display = {
+
         Abilities = {
+            '<LOC ability_aquatic>Aquatic: can be built underwater',
 			'Adjacency bonuses to Energy Production & Shields',
-            'Volatile',
+            '<LOC ability_deathaoe>Volatile',
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -80,20 +75,15 @@ UnitBlueprint {
 
 		BuildableCategory = {'uab2105' },
 
-        RebuildBonusIds = {
-            'uab1105',
-			'uab2105',
-			'uab3105',
-        },
+        RebuildBonusIds = {'uab1105','uab2105','uab3105'},
 
         StorageEnergy = 3000,
     },
     
     General = {
 
-        CommandCaps = {
-			RULEUCC_Pause = true,
-        },
+        CommandCaps = {RULEUCC_Pause = true},
+
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 5,

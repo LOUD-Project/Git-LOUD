@@ -1,16 +1,8 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy',   Cue = 'URB_Destroy_Huge',       LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',    Cue = 'Cybran_Select_Radar',    LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     BuildIconSortPriority = 180,
@@ -38,7 +30,7 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 18,
+        EconomyThreatLevel = 19,
         Health = 65,
         MaxHealth = 65,
         RegenRate = 1,
@@ -48,24 +40,19 @@ UnitBlueprint {
 
     Display = {
         Abilities = {
-            'Upgradeable',
+            '<LOC ability_upgradable>Upgradeable',
         },
+        
         AnimationUpgrade = '/units/urb3201/urb3201_aupgrade.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    ShaderName = 'Insect',
-                },
-                {
-                    AlbedoName = 'urb3201_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Insect',
-                    SpecularName = 'urb3201_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, ShaderName = 'Insect' },
+                { AlbedoName = 'urb3201_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Insect', SpecularName = 'urb3201_lod1_specteam.dds' },
             },
         },
+
         UniformScale = 0.15,
     },
 
@@ -79,10 +66,7 @@ UnitBlueprint {
 
         MaintenanceConsumptionPerSecondEnergy = 250,
 
-        RebuildBonusIds = {
-            'urb3201',
-            'urb3104',
-        },
+        RebuildBonusIds = {'urb3201','urb3104'},
     },
 
     Footprint = {
@@ -91,30 +75,29 @@ UnitBlueprint {
     },
 
     General = {
-        CommandCaps = {
-            RULEUCC_Pause = true,
-        },
+        CommandCaps = { RULEUCC_Pause = true },
+        
         FactionName = 'Cybran',
         Icon = 'land',
+        
         OrderOverrides = {
-            RULEUTC_IntelToggle = {
-                bitmapId = 'radar',
-                helpText = 'toggle_radar',
-            },
+            RULEUTC_IntelToggle = { bitmapId = 'radar', helpText = 'toggle_radar' },
         },
+        
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_IntelToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_IntelToggle = true },
 
         UpgradesFrom = 'urb3101',
         UpgradesTo = 'urb3104',
     },
 
     Intel = {
-        RadarRadius = 180,
+        ReactivateTime = 5,    
         ShowIntelOnSelect = true,
-        VisionRadius = 36,
+
+        RadarRadius = 192,
+        VisionRadius = 32,
     },
 
     Interface = {

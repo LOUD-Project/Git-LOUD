@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0202_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UAL', Cue = 'UAL0202_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Tank', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {
@@ -51,9 +39,11 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 800,
-        MaxHealth = 800,
+
+        Health = 850,
+        MaxHealth = 850,
         RegenRate = 1,
+
         Shield = {
             ImpactEffects = 'AeonShieldHit01',
             OwnerShieldMesh = '/units/ual0202/ual0202_personalshield_mesh',
@@ -68,6 +58,7 @@ UnitBlueprint {
             ShieldVerticalOffset = 0,
             StartOn = true,
         },
+
         SurfaceThreatLevel = 12.2,
     },
 
@@ -75,8 +66,9 @@ UnitBlueprint {
 
     Display = {
         Abilities = {
-            'Personal Shield',
+            '<LOC ability_personalshield>Personal Shield',
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -106,6 +98,7 @@ UnitBlueprint {
     },
 	
     General = {
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -115,23 +108,21 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+
         FactionName = 'Aeon',
         Icon = 'land',
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-personal',
-                helpText = 'toggle_shield_personal',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-personal', helpText = 'toggle_shield_personal' },
         },
 
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+        ToggleCaps = { RULEUTC_ShieldToggle = true },
+
         UnitName = '<LOC ual0202_name>Obsidian',
     },
 
     Intel = {
-        VisionRadius = 25,
+        VisionRadius = 28,
     },
 
     Interface = {
@@ -191,11 +182,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                MuzzleChargeStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0202_Cannon_Quantum',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                MuzzleChargeStart = Sound { Bank = 'UALWeapon', Cue = 'UAL0202_Cannon_Quantum', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -269,7 +256,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.6,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

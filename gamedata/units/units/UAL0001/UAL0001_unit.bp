@@ -109,16 +109,7 @@ UnitBlueprint {
         AnimationWalk = '/units/ual0001/ual0001_awalk.sca',
         AnimationWalkRate = 2.5,
 
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 175,
-                    Scrolling = true,
-                    ShaderName = 'Aeon',
-                },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 175, Scrolling = true, ShaderName = 'Aeon' } } },
 
         MovementEffects = {
             Land = {
@@ -132,11 +123,7 @@ UnitBlueprint {
                                 TreadMarks = 'CommanderPrint_albedo',
                                 TreadMarksSizeX = 0.5,
                                 TreadMarksSizeZ = 0.5,
-                                TreadOffset = {
-                                    0.15,
-                                    0,
-                                    0.5,
-                                },
+                                TreadOffset = {0.15,0,0.5},
                             },
                             Type = 'FootFall02',
                         },
@@ -148,11 +135,7 @@ UnitBlueprint {
                                 TreadMarks = 'CommanderPrint_albedo',
                                 TreadMarksSizeX = 0.5,
                                 TreadMarksSizeZ = 0.5,
-                                TreadOffset = {
-                                    -0.15,
-                                    0,
-                                    0.5,
-                                },
+                                TreadOffset = {-0.15,0,0.5},
                             },
                             Type = 'FootFall02',
                         },

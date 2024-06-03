@@ -1,26 +1,10 @@
 UnitBlueprint {
 
     Audio = {
-        DoneBeingBuilt = Sound {
-            Bank = 'URB',
-            Cue = 'URB3202_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URS',
-            Cue = 'URS0305_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Sonar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DoneBeingBuilt  = Sound { Bank = 'URB', Cue = 'URB3202_Activate', LodCutoff = 'UnitMove_LodCutoff' },
+        Killed          = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove       = Sound { Bank = 'URS', Cue = 'URS0305_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Sonar', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     BuildIconSortPriority = 190,
@@ -47,20 +31,24 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        EconomyThreatLevel = 50,
-        Health = 950,
-        MaxHealth = 950,
-        RegenRate = 6,
+
+        Health = 1140,
+        MaxHealth = 1140,
+        RegenRate = 4,
+
+        EconomyThreatLevel = 40,        
     },
 	
     Description = '<LOC urs0305_desc>Mobile Sonar Platform',
 	
     Display = {
         Abilities = {
-			'Cloaking',
-			'Sonar & Radar',
-            'Sonar & Radar Stealth',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_cloak>Personal Cloak',
+            '<LOC ability_personalstealth>Personal Stealth',
         },
+        
         AnimationDeath = {
             {
                 Animation = '/units/urs0305/urs0305_Asink01.sca',
@@ -69,56 +57,40 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+        
         IdleEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'URS0305',
-                        },
-                        Scale = 0.8,
-                        Type = 'SeaIdle02',
-                    },
+                    { Bones = {'URS0305'}, Scale = 0.5, Type = 'SeaIdle02' },
                 },
             },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    ShaderName = 'Insect',
-                },
-                {
-                    AlbedoName = 'urs0305_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Insect',
-                    SpecularName = 'urs0305_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, ShaderName = 'Insect' },
+                { AlbedoName = 'urs0305_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Insect', SpecularName = 'urs0305_lod1_specteam.dds' },
             },
         },
+        
         MovementEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'URS0305',
-                        },
-                        Scale = 0.3,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'URS0305'}, Scale = 0.4, Type = 'BackWake' },
                 },
             },
         },
+        
         UniformScale = 0.125,
     },
 	
     Economy = {
-        BuildCostEnergy = 12000,
-        BuildCostMass = 400,
+        BuildCostEnergy = 16500,
+        BuildCostMass = 3200,
         BuildTime = 2000,
 		
-        MaintenanceConsumptionPerSecondEnergy = 750,
+        MaintenanceConsumptionPerSecondEnergy = 650,
     },
 
     General = {
@@ -127,19 +99,16 @@ UnitBlueprint {
             RULEUCC_Patrol = true,
             RULEUCC_Stop = true,
         },
+        
         FactionName = 'Cybran',
         Icon = 'sea',
+        
         OrderOverrides = {
-            RULEUTC_IntelToggle = {
-                bitmapId = 'sonar',
-                helpText = 'toggle_sonar',
-            },
+            RULEUTC_IntelToggle = { bitmapId = 'sonar', helpText = 'toggle_sonar' },
         },
 
-        ToggleCaps = {
-			RULEUTC_CloakToggle = true,
-            RULEUTC_IntelToggle = true,
-        },
+        ToggleCaps = { RULEUTC_CloakToggle = true, RULEUTC_IntelToggle = true },
+        
         UnitName = '<LOC urs0305_name>Flood XR',
 
         UpgradesFrom = 'urb3202',
@@ -147,12 +116,15 @@ UnitBlueprint {
 	
     Intel = {
 		Cloak = true,
-		RadarRadius = 128,
+
         RadarStealth = true,
-        SonarRadius = 175,
         SonarStealth = true,
+
+		RadarRadius = 80,
+        SonarRadius = 244,
+
         VisionRadius = 32,
-        WaterVisionRadius = 40,
+        WaterVisionRadius = 36,
     },
 	
     Interface = {
@@ -171,9 +143,9 @@ UnitBlueprint {
         },
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
-        MaxAcceleration = 1,
+        MaxAcceleration = 1.2,
         MaxBrake = 2,
-        MaxSpeed = 4,
+        MaxSpeed = 3.5,
         MaxSpeedReverse = 0,
         MaxSteerForce = 5,
         MinSpeedPercent = 0,
@@ -184,9 +156,11 @@ UnitBlueprint {
     SelectionSizeX = 0.5,
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.78,
+    
     SizeX = 0.8,
     SizeY = 1.2,
     SizeZ = 0.8,
+    
     StrategicIconName = 'icon_structure3_intel',
     StrategicIconSortPriority = 230,
 }

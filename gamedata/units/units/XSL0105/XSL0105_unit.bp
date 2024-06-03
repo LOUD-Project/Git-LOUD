@@ -4,16 +4,8 @@ UnitBlueprint {
     },
     
     Audio = {
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0105_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0105_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 10,
@@ -117,7 +109,7 @@ UnitBlueprint {
     Intel = {
 		FreeIntel = true,
         VisionRadius = 18,
-		OmniRadius = 3,
+		OmniRadius = 4,
     },
 	
     Interface = {

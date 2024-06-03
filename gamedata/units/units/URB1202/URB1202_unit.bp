@@ -3,11 +3,7 @@ UnitBlueprint {
     Adjacency = 'T2MassExtractorAdjacencyBuffs',
 
     Audio = {
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     BuildIconSortPriority = 40,
@@ -45,7 +41,7 @@ UnitBlueprint {
 
     Display = {
         Abilities = {
-            'Upgradeable',
+            '<LOC ability_upgradable>Upgradeable',
         },
 
         AnimationOpen = '/units/urb1202/urb1202_Apump.sca',
@@ -81,10 +77,7 @@ UnitBlueprint {
         
         ProductionPerSecondMass = 6,
         
-        RebuildBonusIds = {
-            'urb1202',
-            'urb1302',
-        },
+        RebuildBonusIds = {'urb1202','urb1302'},
 
         StorageEnergy = 120,
         StorageMass = 12,        
@@ -97,9 +90,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_ProductionToggle = true,
-        },
+        ToggleCaps = {RULEUTC_ProductionToggle = true},
 
         UpgradesFrom = 'urb1103',
         UpgradesTo = 'urb1302',

@@ -1,7 +1,7 @@
 local AWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local ADFLaserHighIntensityWeapon = import('/lua/aeonweapons.lua').ADFLaserHighIntensityWeapon
-local CreateAeonCommanderBuildingEffects = import('/lua/EffectUtilities.lua').CreateAeonCommanderBuildingEffects
+local ADFLaserHighIntensityWeapon           = import('/lua/aeonweapons.lua').ADFLaserHighIntensityWeapon
+local CreateAeonCommanderBuildingEffects    = import('/lua/EffectUtilities.lua').CreateAeonCommanderBuildingEffects
 
 UAL0303 = Class(AWalkingLandUnit) { 
    

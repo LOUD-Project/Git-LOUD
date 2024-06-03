@@ -1,21 +1,9 @@
 UnitBlueprint {
 
     Audio = {
-        Killed = Sound {
-            Bank = 'XES_Destroy',
-            Cue = 'XES0205_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XES',
-            Cue = 'XES0205_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'XES_Destroy', Cue = 'XES0205_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XES', Cue = 'XES0205_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 60,
@@ -41,6 +29,7 @@ UnitBlueprint {
         Health = 550,
         MaxHealth = 550,
         RegenRate = 3,
+
         Shield = {
             ImpactEffects = 'UEFShieldHit01',
             ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
@@ -55,6 +44,7 @@ UnitBlueprint {
             ShieldSize = 62,
             ShieldVerticalOffset = -12,
         },
+
         SubThreatLevel = 145,
     },
 	
@@ -62,8 +52,9 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Shield Dome',
+            '<LOC ability_shielddome>Shield Dome',
         },
+
         AnimationDeath = {
             {
                 Animation = '/units/xes0205/xes0205_ADeath01.sca',
@@ -86,17 +77,7 @@ UnitBlueprint {
         },
 		
         IdleEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'XES0205',
-                        },
-                        Scale = 0.35,
-                        Type = 'SeaIdle01',
-                    },
-                },
-            },
+            Water = { Effects = { { Bones = {'XES0205'}, Scale = 0.35, Type = 'SeaIdle01' } } },
         },
 		
         Mesh = {
@@ -115,19 +96,9 @@ UnitBlueprint {
                 },
             },
         },
+
         MovementEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Exhaust01',
-                            'Exhaust02',
-                        },
-                        Scale = 0.5,
-                        Type = 'BackWake',
-                    },
-                },
-            },
+            Water = { Effects = { { Bones = {'Exhaust01','Exhaust02'}, Scale = 0.5, Type = 'BackWake' } } },
         },
 
         UniformScale = 0.09,
@@ -151,21 +122,18 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'sea',
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'toggle_shield_dome',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-dome', helpText = 'toggle_shield_dome' },
         },
 
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+        ToggleCaps = { RULEUTC_ShieldToggle = true },
+
         UnitName = '<LOC xes0205_name>Bulwark',
     },
 	
     Intel = {
-        VisionRadius = 25,
+        VisionRadius = 24,
     },
 	
     Interface = {

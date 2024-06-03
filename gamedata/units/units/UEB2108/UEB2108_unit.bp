@@ -4,26 +4,10 @@ UnitBlueprint {
     },
 
     Audio = {
-        Close = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2108_Doors',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Open = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2108_Doors',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Close       = Sound { Bank = 'UEB', Cue = 'UEB2108_Doors', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        Open        = Sound { Bank = 'UEB', Cue = 'UEB2108_Doors', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Gun', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     Buffs = {},
@@ -64,6 +48,7 @@ UnitBlueprint {
         Abilities = {
             'Manual Launch required',
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -106,7 +91,7 @@ UnitBlueprint {
     },
 
     Intel = {
-        VisionRadius = 15,
+        VisionRadius = 16,
     },
 
     Interface = {
@@ -157,11 +142,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2108_Missile_Cruise',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2108_Missile_Cruise', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,

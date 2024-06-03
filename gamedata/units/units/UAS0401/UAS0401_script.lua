@@ -2,23 +2,23 @@ local ASubUnit =  import('/lua/defaultunits.lua').SubUnit
 
 local WeaponsFile = import('/lua/aeonweapons.lua')
 
-local ADFCannonOblivionWeapon = WeaponsFile.ADFCannonOblivionWeapon02
-local AANChronoTorpedoWeapon = WeaponsFile.AANChronoTorpedoWeapon
-local AIFQuasarAntiTorpedoWeapon = WeaponsFile.AIFQuasarAntiTorpedoWeapon
+local ADFCannonOblivionWeapon       = WeaponsFile.ADFCannonOblivionWeapon02
+local AANChronoTorpedoWeapon        = WeaponsFile.AANChronoTorpedoWeapon
+local AIFQuasarAntiTorpedoWeapon    = WeaponsFile.AIFQuasarAntiTorpedoWeapon
 
-local utilities = import('/lua/utilities.lua')
-local RandomFloat = utilities.GetRandomFloat
-local EffectTemplate = import('/lua/EffectTemplates.lua')
-local explosion = import('/lua/defaultexplosions.lua')
+WeaponsFile = nil
+
+local MissileRedirect = import('/lua/defaultantiprojectile.lua').MissileTorpDestroy
+
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
 
 UAS0401 = Class(ASubUnit) {
 
     Weapons = {
-	
-        MainGun = Class(ADFCannonOblivionWeapon) {},
-        Torpedo = Class(AANChronoTorpedoWeapon) {},
+        MainGun     = Class(ADFCannonOblivionWeapon) {},
+        Torpedo     = Class(AANChronoTorpedoWeapon) {},
         AntiTorpedo = Class(AIFQuasarAntiTorpedoWeapon) {},
-		
     },
 
     BuildAttachBone = 'Attachpoint01',
@@ -55,6 +55,17 @@ UAS0401 = Class(ASubUnit) {
 		--Drone setup (load globals/tables & create drones)
 		self:DroneSetup()
 
+        -- create Torp Defense emitter
+        local bp = __blueprints[self.BlueprintID].Defense.MissileTorpDestroy
+        
+        for _,v in bp.AttachBone do
+
+            local antiMissile1 = MissileRedirect { Owner = self, Radius = bp.Radius, AttachBone = v, RedirectRateOfFire = bp.RedirectRateOfFire }
+
+            TrashAdd( self.Trash, antiMissile1)
+            
+        end
+
     end,
 
     OnFailedToBuild = function(self)
@@ -73,13 +84,25 @@ UAS0401 = Class(ASubUnit) {
 		
             self:RestoreBuildRestrictions()
             self:RequestRefreshUI()
-            self:SetWeaponEnabledByLabel('MainGun', true)
+            
+            local Gun = self:GetWeaponByLabel('MainGun')
+            
+            Gun:SetEnabled(true)
+
+            --self:SetWeaponEnabledByLabel('MainGun', true)
+
             self:PlayUnitSound('Open')
             self.DroneAssist = true
 			
         elseif new == 'Down' then
 		
-            self:SetWeaponEnabledByLabel('MainGun', false)
+            
+            local Gun = self:GetWeaponByLabel('MainGun')
+            
+            Gun:SetEnabled(false)
+
+            --self:SetWeaponEnabledByLabel('MainGun', false)
+
             self:AddBuildRestriction(categories.ALLUNITS)
             self:RequestRefreshUI()
             self:PlayUnitSound('Close')
@@ -298,19 +321,23 @@ UAS0401 = Class(ASubUnit) {
 
 	--Initial drone setup - loads globals, DroneData table, and creates drones
 	DroneSetup = function(self)
+    
+        LOG("*AI DEBUG Tempest Drone Setup")
 	
 		--Drone handle table, used to issue orders to all drones at once
 		self.DroneTable = {}
 		
 		--Drone construction globals
 		self.BuildingDrone = false	--Holds the name (string) of the drone currently being repaired or rebuilt
+        
+        local AI = self:GetBlueprint().AI
 		
 		--Drone control parameters (inherited by drones in SetParent)
-		self.ControlRange = self:GetBlueprint().AI.DroneControlRange or 70   --Range at which drones will be recalled
-		self.ReturnRange = self:GetBlueprint().AI.DroneReturnRange or (ControlRange / 2)	--Range at which returning drones will be released
-		self.AssistRange = self.ControlRange + 10	--Max target distance for retaliation - drones can engage targets just beyond recall range
-		self.AirMonitorRange = self:GetBlueprint().AI.AirMonitorRange or (self.AssistRange / 2)	--Air target search distance
-		self.HeartBeatInterval = self:GetBlueprint().AI.AssistHeartbeatInterval or 1 # Heartbeat wait time, in seconds
+		self.ControlRange       = AI.DroneControlRange or 70                    --Range at which drones will be recalled
+		self.ReturnRange        = AI.DroneReturnRange or (ControlRange / 2)	    --Range at which returning drones will be released
+		self.AssistRange        = self.ControlRange + 10	                    --Max target distance for retaliation - drones can engage targets just beyond recall range
+		self.AirMonitorRange    = AI.AirMonitorRange or (self.AssistRange / 2)	--Air target search distance
+		self.HeartBeatInterval  = AI.AssistHeartbeatInterval or 1               -- Heartbeat wait time, in seconds
 
 		--Load DroneData table from BP (name, attachpoint, unitid)
 		--Only drones with entries in this table (including unique key names and the other two required values) will be spawned!

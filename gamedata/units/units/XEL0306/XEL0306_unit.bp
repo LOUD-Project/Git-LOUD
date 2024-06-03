@@ -6,31 +6,11 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Pack = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0111_Close',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XEL',
-            Cue = 'XEL0306_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Unpack = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0111_Open',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XEL', Cue = 'XEL0306_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',Cue = 'UEF_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
+        Pack        = Sound { Bank = 'UEL', Cue = 'UEL0111_Close', LodCutoff = 'UnitMove_LodCutoff' },
+        Unpack      = Sound { Bank = 'UEL', Cue = 'UEL0111_Open', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -208,11 +188,7 @@ UnitBlueprint {
             RackBones = {
                 {
                     HideMuzzle = true,
-                    MuzzleBones = {
-                        'Projectile_01',
-                        'Projectile_02',
-                        'Projectile_03',
-                    },
+                    MuzzleBones = {'Projectile_01','Projectile_02','Projectile_03'},
                     RackBone = 'B05_Launcher',
                 },
             },
@@ -251,7 +227,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -1,15 +1,8 @@
 UnitBlueprint {
+
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Radar', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     BuildIconSortPriority = 200,
@@ -35,10 +28,12 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 32 + 42,   -- Radar *.1 + Omni *.3
-        Health = 95,
-        MaxHealth = 95,
+
+        Health = 160,
+        MaxHealth = 160,
         RegenRate = 2,
+
+        EconomyThreatLevel = 32 + 41,   -- Radar *.1 + Omni *.3
     },
 
     Description = '<LOC uab3104_desc>Omni Sensor Array',
@@ -47,16 +42,8 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    ShaderName = 'Aeon',
-                },
-                {
-                    AlbedoName = 'uab3104_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Aeon',
-                    SpecularName = 'uab3104_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, ShaderName = 'Aeon' },
+                { AlbedoName = 'uab3104_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Aeon', SpecularName = 'uab3104_lod1_specteam.dds' },
             },
         },
 
@@ -64,9 +51,9 @@ UnitBlueprint {
     },
 
     Economy = {
-        BuildCostEnergy = 30000,
-        BuildCostMass = 2400,
-        BuildTime = 1800,
+        BuildCostEnergy = 28500,
+        BuildCostMass = 2100,
+        BuildTime = 2400,
 		
         MaintenanceConsumptionPerSecondEnergy = 2000,
 		
@@ -94,11 +81,13 @@ UnitBlueprint {
     },
 
     Intel = {
-        OmniRadius = 140,
-        RadarRadius = 325,
+        OmniRadius = 136,
+        RadarRadius = 320,
+        
         ReactivateTime = 12,
         ShowIntelOnSelect = true,
-        VisionRadius = 46,
+
+        VisionRadius = 44,
     },
 
     LifeBarHeight = 0.075,

@@ -5,22 +5,11 @@ UnitBlueprint {
     },
 
     Audio = {
-        Killed = Sound {
-            Bank = 'URLWeapon',
-            Cue = 'URL0303_Death_EMP',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0303_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'URLWeapon', Cue = 'URL0303_Death_EMP', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'URL', Cue = 'URL0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Bot', LodCutoff = 'UnitMove_LodCutoff'},
     },
+
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -29,11 +18,9 @@ UnitBlueprint {
             Level4 = 12,
             Level5 = 15,
         },
+
         Stun = {
-            Add = {
-                OnDeath = true,
-                OnImpact = true,
-            },
+            Add = { OnDeath = true, OnImpact = true },
             AppliedToTarget = true,
             BuffType = 'STUN',
             Duration = 3,
@@ -58,12 +45,8 @@ UnitBlueprint {
     },
 	
     Defense = {
-        AntiMissile = {
-            AttachBone = 'Turret_Muzzle',
-            Radius = 6,
-            RedirectRateOfFire = 1,
-            ProjectileCategories = {'TACTICAL MISSILE'},
-        },
+        AntiMissile = { AttachBone = 'Turret_Muzzle', Radius = 6, RedirectRateOfFire = 1, ProjectileCategories = {'TACTICAL MISSILE'} },
+        
         ArmorType = 'Normal',
         Health = 3000,
         MaxHealth = 3000,
@@ -75,8 +58,10 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Tactical Missile Deflection',
+            '<LOC ability_amphibious>Amphibious',
+            "<LOC ability_tacticalmissledeflect>Tactical Missile Deflection",
         },
+
         AnimationDeath = {
             {
                 Animation = '/units/URL0303/URL0303_Adeath01.sca',
@@ -110,12 +95,9 @@ UnitBlueprint {
                 },
             },
         },
-        TransportAnimation = {
-            {
-                Animation = '/units/URL0303/URL0303_Afold01.sca',
-                Weight = 100,
-            },
-        },
+
+        TransportAnimation = { { Animation = '/units/URL0303/URL0303_Afold01.sca', Weight = 100 } },
+
         UniformScale = 0.15,
     },
 	
@@ -137,6 +119,7 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'land',
+
         UnitName = '<LOC url0303_name>Loyalist',
     },
 
@@ -203,16 +186,8 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0303_Disintegrator',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0303_Disintegrator_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0303_Disintegrator', LodCutoff = 'Weapon_LodCutoff' },
+                MuzzleChargeStart = Sound { Bank = 'URLWeapon', Cue = 'URL0303_Disintegrator_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -286,11 +261,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0303_Bolter',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0303_Bolter', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -370,9 +341,9 @@ UnitBlueprint {
     
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.1,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -1,27 +1,12 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Turret',
-            'XAB2307',
-        },
+        TargetBones = {'Turret','XAB2307'},
     },
 	
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -94,6 +79,7 @@ UnitBlueprint {
                 Width = 10,
             },
         },
+
         UniformScale = 1.2,
     },
 	
@@ -112,6 +98,7 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 7,
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -120,6 +107,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
+
         UnitName = '<LOC xab2307_name>Salvation',
     },
 	
@@ -211,8 +199,8 @@ UnitBlueprint {
 
             EnergyChargeForFirstShot = false,
 			
-            EnergyDrainPerSecond = 1772,
-            EnergyRequired = 7975,		---- a 4.5 second charge cycle
+            EnergyDrainPerSecond = 1955,
+            EnergyRequired = 8800,		---- a 4.5 second charge cycle
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',

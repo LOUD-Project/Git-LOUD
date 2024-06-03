@@ -4,40 +4,13 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Close = Sound {
-            Bank = 'XSB',
-            Cue = 'XSB2305_Close',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        NuclearLaunchDetected = Sound {
-            Bank = 'XGG',
-            Cue = 'Computer_Computer_MissileLaunch_01351',
-        },
-        NukeCharge = Sound {
-            Bank = 'XSB',
-            Cue = 'XSB2305_Nuke_Charge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Open = Sound {
-            Bank = 'XSB',
-            Cue = 'XSB2305_Open',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Close                   = Sound { Bank = 'XSB', Cue = 'XSB2305_Close', LodCutoff = 'UnitMove_LodCutoff'},
+        DeathExplosion          = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed               = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        NuclearLaunchDetected   = Sound { Bank = 'XGG',Cue = 'Computer_Computer_MissileLaunch_01351'},
+        NukeCharge              = Sound { Bank = 'XSB', Cue = 'XSB2305_Nuke_Charge', LodCutoff = 'UnitMove_LodCutoff'},
+        Open                    = Sound { Bank = 'XSB', Cue = 'XSB2305_Open', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection             = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -76,6 +49,7 @@ UnitBlueprint {
         Abilities = {
             'Manual Launch',
         },
+
         DamageEffects = {
             {
                 Bone = 0,
@@ -96,6 +70,7 @@ UnitBlueprint {
                 OffsetZ = 0.7,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -112,6 +87,7 @@ UnitBlueprint {
                 },
             },
         },
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_seraphim_01_albedo',
@@ -119,16 +95,12 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar8x_seraphim_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
         },
+
         UniformScale = 0.035,
     },
 	
@@ -155,11 +127,12 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         SelectionPriority = 5,
+
         UnitName = '<LOC xsb2305_name>Hastue',
     },
 	
     Intel = {
-        VisionRadius = 10,
+        VisionRadius = 12,
     },
 	
     Interface = {
@@ -235,8 +208,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Sub = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 2,

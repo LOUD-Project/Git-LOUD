@@ -1,15 +1,8 @@
 UnitBlueprint {
+
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {},
@@ -48,7 +41,7 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Aquatic',
+            '<LOC ability_aquatic>Aquatic: can be built on water',
         },
 
         AnimationPermOpen = '/units/UAB2204/UAB2204_Aactivate.sca',
@@ -97,7 +90,7 @@ UnitBlueprint {
     },
     
     Intel = {
-        VisionRadius = 30,
+        VisionRadius = 32,
     },
     
     Interface = {
@@ -153,7 +146,6 @@ UnitBlueprint {
             AlwaysRecheckTarget = true,
             Audio = {
                 ChargeStart = Sound { Bank = 'UALWeapon', Cue = 'UAB2204_AA_Fizz', LodCutoff = 'Weapon_LodCutoff' },
-                Open = Sound { Bank = 'UAB', Cue = 'UAB2204_Activate', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
 
@@ -180,7 +172,7 @@ UnitBlueprint {
             Label = 'AAFizz',
 			LeadTarget = true,
 			
-            MaxRadius = 44,
+            MaxRadius = 40,
 
             MuzzleVelocity = 54,
 			
@@ -231,9 +223,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.6,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.6,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

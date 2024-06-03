@@ -4,16 +4,8 @@ UnitBlueprint {
     },
     
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
     
     Buffs = {
@@ -61,7 +53,7 @@ UnitBlueprint {
     
     Display = {
         Abilities = {
-            'Aquatic',
+            '<LOC ability_aquatic>Aquatic',
         },
 
         Mesh = {
@@ -107,7 +99,7 @@ UnitBlueprint {
     },
     
     Intel = {
-        VisionRadius = 30,
+        VisionRadius = 32,
     },
     
     Interface = {
@@ -159,11 +151,7 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2204_Cannon_Cloud',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URB2204_Cannon_Cloud', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -189,7 +177,7 @@ UnitBlueprint {
             Label = 'AAGun',
 			LeadTarget = true,
 			
-            MaxRadius = 44,
+            MaxRadius = 40,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
@@ -200,17 +188,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Recoil01_Muzzle01',
-                        'Turret_Recoil01_Muzzle02',
-                    },
+                    MuzzleBones = {'Turret_Recoil01_Muzzle01','Turret_Recoil01_Muzzle02'},
                     RackBone = 'Turret_Recoil01',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Recoil02_Muzzle01',
-                        'Turret_Recoil02_Muzzle02',
-                    },
+                    MuzzleBones = {'Turret_Recoil02_Muzzle01','Turret_Recoil02_Muzzle02'},
                     RackBone = 'Turret_Recoil02',
                 },
             },
@@ -250,9 +232,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.9,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -1,6 +1,4 @@
-
 local TConstructionUnit = import('/lua/terranunits.lua').TConstructionUnit
-
 
 XEA3204 = Class(TConstructionUnit) {
 

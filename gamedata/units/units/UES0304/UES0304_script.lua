@@ -1,9 +1,7 @@
 local TSubUnit =  import('/lua/defaultunits.lua').SubUnit
 
-local WeaponFile = import('/lua/terranweapons.lua')
-
-local TIFCruiseMissileLauncherSub = WeaponFile.TIFCruiseMissileLauncherSub
-local TIFStrategicMissileWeapon = WeaponFile.TIFStrategicMissileWeapon
+local TIFCruiseMissileLauncherSub   = import('/lua/terranweapons.lua').TIFCruiseMissileLauncherSub
+local TIFStrategicMissileWeapon     = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
 
 UES0304 = Class(TSubUnit) {
 	

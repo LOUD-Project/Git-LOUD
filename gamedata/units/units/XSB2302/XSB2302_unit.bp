@@ -1,35 +1,19 @@
 UnitBlueprint {
 
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed       = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        Killed          = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_gun', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     Buffs = {
         Regen = {
-            Level1 = 3,
-            Level2 = 6,
-            Level3 = 9,
-            Level4 = 12,
-            Level5 = 15,
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
         },
     },
 
@@ -59,10 +43,12 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 1171,
+
         Health = 14500,
         MaxHealth = 14500,
         RegenRate = 2,
+
+        EconomyThreatLevel = 1171,
     },
 
     Description = '<LOC xsb2302_desc>Heavy Artillery Installation',
@@ -76,6 +62,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -93,6 +80,7 @@ UnitBlueprint {
                 },
             },
         },
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_seraphim_01_albedo',
@@ -100,16 +88,12 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar12x_seraphim_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
         },
+        
         UniformScale = 0.045,
     },
 
@@ -136,6 +120,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         SelectionPriority = 5,
+
         UnitName = '<LOC xsb2302_name>Hovatham',
     },
 
@@ -195,27 +180,12 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2302_Suthanus_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BarrelStart =  Sound {
-                    Bank = 'XSB',
-                    Cue = 'XSB2302_Turret_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            	BarrelLoop = Sound {
-                    Bank = 'XSB',
-                    Cue = 'XSB2302_Turret_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            	MuzzleChargeStart = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2302_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire                = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2302_Suthanus_Cannon', LodCutoff = 'Weapon_LodCutoff'},
+                BarrelStart         = Sound { Bank = 'XSB', Cue = 'XSB2302_Turret_Start', LodCutoff = 'Weapon_LodCutoff'},
+            	BarrelLoop          = Sound { Bank = 'XSB', Cue = 'XSB2302_Turret_Loop', LodCutoff = 'Weapon_LodCutoff'},
+            	MuzzleChargeStart   = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2302_Charge', LodCutoff = 'Weapon_LodCutoff'}
             },
 
             BallisticArc = 'RULEUBA_HighArc',
@@ -235,15 +205,15 @@ UnitBlueprint {
 
             DisplayName = 'Suthanus Heavy Artillery Cannon',
 
-            EnergyDrainPerSecond = 2847,        -- 9.5 second charge --
-            EnergyRequired = 27050,
+            EnergyDrainPerSecond = 3284,        -- 9.5 second charge --
+            EnergyRequired = 31200,
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
 
-            FiringRandomness = 0.35,
+            FiringRandomness = 0.18,
             FiringTolerance = 1.5,
 
             Label = 'MainGun',
@@ -274,17 +244,18 @@ UnitBlueprint {
 
             ShieldDamage = 6000,    -- this doesn't really do anything --
 
-            TargetCheckInterval = 8,
+            TargetCheckInterval = 3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'ECONOMIC',
                 'STRUCTURE',
                 'ALLUNITS',
             },
+            
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_B01',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 
             TurretPitch = 30,
             TurretPitchRange = 55,
@@ -292,7 +263,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 6,
+            TurretYawSpeed = 7,
 
             Turreted = true,
 			UseFiringSolutionInsteadOfAimBone = true,
@@ -301,9 +272,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.9,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        EnergyMult = 0.4,
+        HealthMult = 0.5,
+        MassMult = 0.4,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

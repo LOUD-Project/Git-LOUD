@@ -1,20 +1,24 @@
 local TSeaUnit =  import('/lua/defaultunits.lua').SeaUnit
 
 local WeaponFile = import('/lua/terranweapons.lua')
-local TSAMLauncher = WeaponFile.TSAMLauncher
-local TDFGaussCannonWeapon = WeaponFile.TDFGaussCannonWeapon
-local TAMPhalanxWeapon = WeaponFile.TAMPhalanxWeapon
-local TIFCruiseMissileLauncher = WeaponFile.TIFCruiseMissileLauncher
+
+local TSAMLauncher              = WeaponFile.TSAMLauncher
+local TDFGaussCannonWeapon      = WeaponFile.TDFGaussCannonWeapon
+local TAMPhalanxWeapon          = WeaponFile.TAMPhalanxWeapon
+local TIFCruiseMissileLauncher  = WeaponFile.TIFCruiseMissileLauncher
+
+WeaponFile = nil
 
 local TAAMissileLaunchNoBackSmoke = import('/lua/EffectTemplates.lua').TAAMissileLaunchNoBackSmoke
 
 UES0202 = Class(TSeaUnit) {
+
     DestructionTicks = 200,
 
     Weapons = {
         FrontTurret01 = Class(TDFGaussCannonWeapon) {},
         
-        BackTurret02 = Class(TSAMLauncher) { FxMuzzleFlash = TAAMissileLaunchNoBackSmoke, },
+        RearAATurret = Class(TSAMLauncher) { FxMuzzleFlash = TAAMissileLaunchNoBackSmoke, },
         
         PhalanxGun01 = Class(TAMPhalanxWeapon) {
             PlayFxWeaponUnpackSequence = function(self)

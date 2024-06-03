@@ -2,7 +2,7 @@ UnitBlueprint {
 
     AI = {
         GuardReturnRadius = 50,
-        GuardScanRadius = 38,
+        GuardScanRadius = 36,
         TargetBones = {'Front_Turret','Back_Turret'},
     },
 	
@@ -57,10 +57,13 @@ UnitBlueprint {
 	
     Defense = {
         AirThreatLevel = 7.2,
+
         ArmorType = 'Normal',
+
         Health = 1900,
         MaxHealth = 1900,
         RegenRate = 4,
+
 		SurfaceThreatLevel = 6.5,
     },
 	
@@ -69,8 +72,9 @@ UnitBlueprint {
     Display = {
 	
         Abilities = {
-            'Anti-Air',
-            'Radar & Sonar',
+            '<LOC ability_aa>Anti-Air',
+            '<LOC ability_sonar>Sonar',                        
+            '<LOC ability_radar>Radar',
         },
 		
         AnimationDeath = {
@@ -111,19 +115,7 @@ UnitBlueprint {
         },
 		
         MovementEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Back_Wake',
-                            'Front_Left_Wake',
-                            'Front_Right_Wake',
-                        },
-                        Scale = 0.3,
-                        Type = 'BackWake',
-                    },
-                },
-            },
+            Water = { Effects = { { Bones = {'Back_Wake','Front_Left_Wake','Front_Right_Wake'}, Scale = 0.3, Type = 'BackWake' } } },
         },
 
         UniformScale = 0.055,
@@ -146,15 +138,18 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'sea',
+
         UnitName = '<LOC urs0103_name>Trident Class',
     },
 	
     Intel = {
 		FreeIntel = true,
+
         RadarRadius = 60,
-        SonarRadius = 45,
+        SonarRadius = 44,
+
         VisionRadius = 32,
-        WaterVisionRadius = 18,
+        WaterVisionRadius = 16,
     },
 	
     Interface = {
@@ -166,7 +161,7 @@ UnitBlueprint {
     LifeBarSize = 1.25,
 	
     Physics = {
-        BackUpDistance = 5,
+        BackUpDistance = 8,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Water = true,
@@ -174,9 +169,9 @@ UnitBlueprint {
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
         MaxAcceleration = 2,
-        MaxBrake = 4.4,
-        MaxSpeed = 4.4,
-        MaxSpeedReverse = 5,
+        MaxBrake = 4.2,
+        MaxSpeed = 4.2,
+        MaxSpeedReverse = 4,
         MaxSteerForce = 5,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
@@ -207,26 +202,15 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Sml_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Sml_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0103_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'URS', Cue = 'URS_Turret_Sml_Loop', LodCutoff = 'Weapon_LodCutoff'},
+                BarrelStart = Sound { Bank = 'URS', Cue = 'URS_Turret_Sml_Start', LodCutoff = 'Weapon_LodCutoff'},
+                Fire        = Sound { Bank = 'URSWeapon', Cue = 'URS0103_Cannon', LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 120,
+            Damage = 170,
+            DamageRadius = 1,
             DamageType = 'Normal',
 			
             DisplayName = 'Proton Cannon',
@@ -236,11 +220,10 @@ UnitBlueprint {
             },
 			
             FiringRandomness = 0.1,
-            FiringTolerance = 0.1,
 			
             Label = 'ProtonCannon',
 			
-            MaxRadius = 38,
+            MaxRadius = 36,
 
             MuzzleVelocity = 40,
 			
@@ -258,7 +241,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.5,		-- 60 DPS Surface
+            RateOfFire = 0.5,		-- 85 DPS Surface
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 155,
@@ -282,19 +265,17 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 160,
-            TurretYawSpeed = 65,
+            TurretYawSpeed = 50,
 			
             Turreted = true,
         },
         {
             AlwaysRecheckTarget = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URB2104_Cannon_Electron',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0201_Cannon_Electron', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,

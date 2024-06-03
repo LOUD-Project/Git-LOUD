@@ -4,16 +4,8 @@ UnitBlueprint {
     },
     
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
     
     Buffs = {
@@ -74,30 +66,10 @@ UnitBlueprint {
         },
 
         DamageEffects = {
-            {
-                Bone = 0,
-                OffsetX = 0.3,
-                OffsetY = 0.25,
-                OffsetZ = 0.3,
-            },
-            {
-                Bone = 0,
-                OffsetX = -0.3,
-                OffsetY = 0.25,
-                OffsetZ = 0.3,
-            },
-            {
-                Bone = 0,
-                OffsetX = 0.3,
-                OffsetY = 0.25,
-                OffsetZ = -0.3,
-            },
-            {
-                Bone = 0,
-                OffsetX = -0.3,
-                OffsetY = 0.25,
-                OffsetZ = -0.3,
-            },
+            { Bone = 0, OffsetX = 0.3, OffsetY = 0.25, OffsetZ = 0.3 },
+            { Bone = 0, OffsetX = -0.3, OffsetY = 0.25, OffsetZ = 0.3 },
+            { Bone = 0, OffsetX = 0.3, OffsetY = 0.25, OffsetZ = -0.3 },
+            { Bone = 0, OffsetX = -0.3, OffsetY = 0.25, OffsetZ = -0.3 },
         },
 
         Mesh = {
@@ -203,7 +175,8 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                FireUnderWater = Sound { Bank = 'UELWeapon', Cue = 'UEB2205_Torpedo_Water', LodCutoff = 'Weapon_LodCutoff' },
+                Fire            = Sound { Bank = 'UELWeapon',    Cue = 'UEB2109_Torpedo',    LodCutoff = 'Weapon_LodCutoff' },
+                BarrelStart     = Sound { Bank = 'UEB',          Cue = 'UEB2205_Activate',   LodCutoff = 'UnitMove_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -239,19 +212,14 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.6,
             MuzzleSalvoSize = 4,
-            MuzzleVelocity = 8,
+            MuzzleVelocity = 6,
 			
-            ProjectileId = '/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp',
-            ProjectileLifetime = 8,
+            ProjectileId = '/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_proj.bp',
+            ProjectileLifetime = 7.5,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle01',
-                        'Turret_Muzzle03',
-                        'Turret_Muzzle02',
-                        'Turret_Muzzle04',
-                    },
+                    MuzzleBones = {'Turret_Muzzle01','Turret_Muzzle03','Turret_Muzzle02','Turret_Muzzle04'},
                     RackBone = 'Turret_Muzzle01',
                 },
             },

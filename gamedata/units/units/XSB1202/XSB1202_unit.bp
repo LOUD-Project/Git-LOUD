@@ -1,22 +1,10 @@
 UnitBlueprint {
     Adjacency = 'T2MassExtractorAdjacencyBuffs',
-
+    
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed      = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     BuildIconSortPriority = 40,
@@ -52,7 +40,7 @@ UnitBlueprint {
 
     Display = {
         Abilities = {
-            'Upgradeable',
+            '<LOC ability_upgradable>Upgradeable',
         },
 
         AnimationActivate = '/units/XSB1202/XSB1202_apump.sca',
@@ -64,6 +52,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -81,6 +70,7 @@ UnitBlueprint {
                 },
             },
         },
+
         UniformScale = 0.05,
     },
 
@@ -96,11 +86,8 @@ UnitBlueprint {
         
         ProductionPerSecondMass = 6,
         
-        RebuildBonusIds = {
-            'xsb1202',
-            'xsb1302',
-            
-        },
+        RebuildBonusIds = {'xsb1202','xsb1302'},
+
         StorageEnergy = 120,
         StorageMass = 12,        
     },
@@ -112,9 +99,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_ProductionToggle = true,
-        },
+        ToggleCaps = {RULEUTC_ProductionToggle = true},
 
         UpgradesFrom = 'xsb1103',
         UpgradesTo = 'xsb1302',

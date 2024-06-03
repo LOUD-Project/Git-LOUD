@@ -6,26 +6,10 @@ UnitBlueprint {
     },
     
     Audio = {
-        Construct = Sound {
-            Bank = 'URL',
-            Cue = 'URL0208_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0107_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Construct   = Sound { Bank = 'URL', Cue = 'URL0208_Construct_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'URL', Cue = 'URL0107_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Bot', LodCutoff = 'UnitMove_LodCutoff'},
     },
     
     Buffs = {},
@@ -84,12 +68,9 @@ UnitBlueprint {
                 },
             },
         },
-        TransportAnimation = {
-            {
-                Animation = '/units/URL0107/URL0107_Afold01.sca',
-                Weight = 100,
-            },
-        },
+
+        TransportAnimation = { { Animation = '/units/URL0107/URL0107_Afold01.sca', Weight = 100 } },
+
         UniformScale = 0.13,
     },
 	
@@ -184,11 +165,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0107_Laser_Auto',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0107_Laser_Auto', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
@@ -259,7 +236,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.6,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

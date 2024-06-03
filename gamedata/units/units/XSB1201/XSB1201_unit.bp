@@ -3,26 +3,9 @@ UnitBlueprint {
     Adjacency = 'T2PowerGeneratorAdjacencyBuffs',
     
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed      = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
     
     BuildIconSortPriority = 70,
@@ -57,8 +40,10 @@ UnitBlueprint {
     
     Display = {
         Abilities = {
-            'Volatile',
+            '<LOC ability_aquatic>Aquatic: can be built underwater',
+            '<LOC ability_deathaoe>Volatile',
         },
+
         AnimationDeath = {
             {
                 Animation = '/units/xsb1201/xsb1201_ADeath.sca',
@@ -67,6 +52,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+
         DamageEffects = {
             {
                 Bone = 0,

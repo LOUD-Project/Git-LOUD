@@ -6,16 +6,8 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Sml_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Sml_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Bot', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -49,6 +41,7 @@ UnitBlueprint {
     Display = {
         AnimationWalk = '/units/uel0106/UEL0106_Awalk01.sca',
         AnimationWalkRate = 5,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -64,12 +57,9 @@ UnitBlueprint {
                 },
             },
         },
-        TransportAnimation = {
-            {
-                Animation = '/units/UEL0106/UEL0106_afold.sca',
-                Weight = 100,
-            },
-        },
+
+        TransportAnimation = { { Animation = '/units/UEL0106/UEL0106_afold.sca', Weight = 100 } },
+
         UniformScale = 0.0625,
     },
 	
@@ -95,7 +85,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 18,
+        VisionRadius = 16,
     },
 	
     Interface = {
@@ -156,11 +146,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0106_MachineGun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0106_MachineGun', LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,

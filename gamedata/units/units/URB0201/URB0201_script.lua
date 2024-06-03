@@ -1,4 +1,3 @@
-
 local CLandFactoryUnit = import('/lua/cybranunits.lua').CLandFactoryUnit
 
 URB0201 = Class(CLandFactoryUnit) {

@@ -1,12 +1,14 @@
 local CSeaUnit =  import('/lua/defaultunits.lua').SeaUnit
 
 local CybranWeaponsFile = import('/lua/cybranweapons.lua')
-local CAAAutocannon = CybranWeaponsFile.CAAAutocannon
+local CAAAutocannon = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
 local CDFProtonCannonWeapon = CybranWeaponsFile.CDFProtonCannonWeapon
+
+CybranWeaponsFile = nil
 
 URS0103 = Class(CSeaUnit) {
 
-    DestructionTicks = 200,
+    DestructionTicks = 120,
 
     Weapons = {
         ProtonCannon = Class(CDFProtonCannonWeapon) {},

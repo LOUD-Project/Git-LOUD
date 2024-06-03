@@ -6,42 +6,21 @@ UnitBlueprint {
     },
 	
     Audio = {
-		EnemyUnitDetectedAeon = Sound {
-			Bank = 'XGG',
-			Cue = 'XGG_HQ_GD1_04188',
-		},
-		EnemyUnitDetectedUEF = Sound {
-			Bank = 'XGG',
-			Cue = 'XGG_HQ_GD1_04188',
-		},
-		EnemyUnitDetectedCybran = Sound {
-			Bank = 'XGG',
-			Cue = 'XGG_HQ_GD1_04188',
-		},
-        Killed = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0401_Death',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0401_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+		EnemyUnitDetectedAeon   = Sound { Bank = 'XGG',Cue = 'XGG_HQ_GD1_04188'},
+		EnemyUnitDetectedUEF    = Sound { Bank = 'XGG',Cue = 'XGG_HQ_GD1_04188'},
+		EnemyUnitDetectedCybran = Sound { Bank = 'XGG',Cue = 'XGG_HQ_GD1_04188'},
+        Killed                  = Sound { Bank = 'XSL', Cue = 'XSL0401_Death', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove               = Sound { Bank = 'XSL', Cue = 'XSL0401_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection             = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Bot', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 20,
-            Level2 = 35,
-            Level3 = 50,
-            Level4 = 65,
-            Level5 = 80,
+            Level1 = 15,
+            Level2 = 30,
+            Level3 = 45,
+            Level4 = 60,
+            Level5 = 75,
         },
     },
 	
@@ -73,7 +52,7 @@ UnitBlueprint {
         ArmorType = 'Experimental',
         Health = 67000,
         MaxHealth = 67000,
-        RegenRate = 22,
+        RegenRate = 20,
         SurfaceThreatLevel = 618.9,
     },
 	
@@ -81,11 +60,13 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-			'AntiAir',
-            'Amphibious',
-            'Volatile',
+            "<LOC ability_aa>Anti-Air",
+            '<LOC ability_amphibious>Amphibious',
+            '<LOC ability_deathaoe>Volatile',
         },
+
         AnimationActivate = '/units/XSL0401/XSL0401_activate.sca',
+
         AnimationDeath = {
             {
                 Animation = '/units/XSL0401/XSL0401_Adeath01.sca',
@@ -125,20 +106,14 @@ UnitBlueprint {
                             HipBone = 'Right_Leg_B01',
                             KneeBone = 'Right_Leg_B02',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Tread = {
                                 TreadLifeTime = 135,
                                 TreadMarks = 'CommanderPrint_albedo',
                                 TreadMarksSizeX = 1.7,
                                 TreadMarksSizeZ = 1.7,
-                                TreadOffset = {
-                                    -1,
-                                    0,
-                                    2,
-                                },
+                                TreadOffset = {-1,0,2},
                             },
                             Type = 'FootFall01',
                         },
@@ -147,20 +122,14 @@ UnitBlueprint {
                             HipBone = 'Left_Leg_B17',
                             KneeBone = 'Left_Leg_B14',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Tread = {
                                 TreadLifeTime = 135,
                                 TreadMarks = 'CommanderPrint_albedo',
                                 TreadMarksSizeX = 1.7,
                                 TreadMarksSizeZ = 1.7,
-                                TreadOffset = {
-                                    1,
-                                    0,
-                                    2,
-                                },
+                                TreadOffset = {1,0,2},
                             },
                             Type = 'FootFall01',
                         },
@@ -199,7 +168,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 46,
+        VisionRadius = 48,
         WaterVisionradius = 24,
     },
 	
@@ -218,6 +187,9 @@ UnitBlueprint {
             LAYER_Seabed = true,
         },
         DragCoefficient = 0.2,
+        
+        LayerChangeOffsetHeight = -7.25,
+
         MaxAcceleration = 2.6,
         MaxBrake = 2.6,
         MaxSpeed = 2.6,
@@ -266,16 +238,8 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Exp_Phason_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Exp_Phason_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire                = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_Exp_Phason_Fire', LodCutoff = 'Weapon_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_Exp_Phason_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -290,14 +254,13 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 0.5,
 			
             Label = 'EyeWeapon',
 			
-            MaxRadius = 45,
+            MaxRadius = 46,
             MinRadius = 4,
 			
             MuzzleChargeDelay = 2.5,
@@ -352,11 +315,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = false,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Gatling_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_Gatling_Cannon', LodCutoff = 'Weapon_LodCutoff'},
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -370,7 +329,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
             FiringRandomness = 0.3,
@@ -383,7 +341,7 @@ UnitBlueprint {
 			
             Label = 'LeftArm',
 			
-            MaxRadius = 45,
+            MaxRadius = 46,
 
             MuzzleVelocity = 40,
 			
@@ -437,16 +395,8 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_SinnUnthe_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_SinnUnthe_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire                = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_SinnUnthe_Fire', LodCutoff = 'Weapon_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_SinnUnthe_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -462,7 +412,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
 			FiringRandomness = 0.4,
@@ -530,11 +479,7 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Aire_Autocannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_Aire_Autocannon', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -552,7 +497,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Seabed = 'Air',
-                Water = 'Air',
             },
 			
             FiringRandomness = 0.1,
@@ -564,9 +508,9 @@ UnitBlueprint {
             Label = 'AA',
 			LeadTarget = true,
 			
-            MaxRadius = 45,
+            MaxRadius = 40,
 
-            MuzzleVelocity = 55,
+            MuzzleVelocity = 60,
 
             NotExclusive = true,
 			
@@ -614,11 +558,7 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Aire_Autocannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_Aire_Autocannon', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -636,7 +576,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Seabed = 'Air',
-                Water = 'Air',
             },
 			
             FiringRandomness = 0.1,
@@ -648,9 +587,9 @@ UnitBlueprint {
             Label = 'AA',
 			
 			LeadTarget = true,
-            MaxRadius = 45,
+            MaxRadius = 40,
 
-            MuzzleVelocity = 55,
+            MuzzleVelocity = 60,
 
             NotExclusive = true,
 
@@ -710,9 +649,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.1,
+        EnergyMult = 0.2,
         HealthMult = 0.35,
-        MassMult = 0.75,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -1,26 +1,10 @@
 UnitBlueprint {
 
     Audio = {
-        Construct = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB0303_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Factory',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Construct       = Sound { Bank = 'UEB', Cue = 'UEB0101_Construct_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        DeathExplosion  = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed       = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Factory', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 32,
@@ -56,6 +40,11 @@ UnitBlueprint {
     Description = '<LOC ueb0303_desc>Advanced Naval Factory',
 	
     Display = {
+
+        Abilities = {
+            '<LOC ability_torpedodef>Torpedo Defense',
+        },
+
         BuildAttachBone = 'Attachpoint01',
 
         Mesh = {
@@ -124,8 +113,8 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 15,
-		WaterVisionRadius = 15,
+        VisionRadius = 24,
+		WaterVisionRadius = 30,
     },
 	
     Interface = {
@@ -186,33 +175,34 @@ UnitBlueprint {
     Weapon = {
 
         {
+            advancedTracking = true,
+            
             BallisticArc = 'RULEUBA_None',
 			CannotAttackGround = true,
             CollideFriendly = false,
 			
             Damage = 2,
+			DamageFriendly = false,
             DamageType = 'Normal',
 			
-            DepthCharge = { Radius = 5.5 },
-			
-            DisplayName = 'Smart Charge AntiTorpedo',
+            DisplayName = 'Anti Torpedo',
 			
             FireTargetLayerCapsTable = {
-                Water = 'Sub|Water|Seabed',
+                Sub = 'Seabed|Sub|Water',
+                Water = 'Seabed|Sub|Water',
             },
 			
             FiringTolerance = 360,
 			
             Label = 'AntiTorpedo',
+
+            MaxRadius = 24,
+			MinRadius = 8,
+
+            MuzzleVelocity = 8.5,
 			
-            MaxRadius = 30,
-			
-            MuzzleSalvoDelay = 0.8,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 4,
-			
-            ProjectileId = '/projectiles/TIMAntiTorpedo01/TIMAntiTorpedo01_proj.bp',
-            ProjectileLifetime = 3,
+            ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
+            ProjectileLifetime = 4,
 			
             RackBones = {
                 {
@@ -231,35 +221,35 @@ UnitBlueprint {
             TargetType = 'RULEWTT_Projectile',
             TrackingRadius = 1.1,
         },
-
         {
+            advancedTracking = true,
+            
             BallisticArc = 'RULEUBA_None',
 			CannotAttackGround = true,
             CollideFriendly = false,
 			
             Damage = 2,
+			DamageFriendly = false,
             DamageType = 'Normal',
 			
-            DepthCharge = { Radius = 5.5 },
-			
-            DisplayName = 'Smart Charge AntiTorpedo',
+            DisplayName = 'Anti Torpedo',
 			
             FireTargetLayerCapsTable = {
-                Water = 'Sub|Water|Seabed',
+                Sub = 'Seabed|Sub|Water',
+                Water = 'Seabed|Sub|Water',
             },
 			
             FiringTolerance = 360,
 			
             Label = 'AntiTorpedo',
+
+            MaxRadius = 24,
+			MinRadius = 8,
+
+            MuzzleVelocity = 8.5,
 			
-            MaxRadius = 30,
-			
-            MuzzleSalvoDelay = 0.8,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 4,
-			
-            ProjectileId = '/projectiles/TIMAntiTorpedo01/TIMAntiTorpedo01_proj.bp',
-            ProjectileLifetime = 3,
+            ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
+            ProjectileLifetime = 4,
 			
             RackBones = {
                 {
@@ -275,14 +265,15 @@ UnitBlueprint {
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
             TrackingRadius = 1.1,
-        },		
+        },
+
     },
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.6,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Water = true,

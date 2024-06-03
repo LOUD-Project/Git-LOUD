@@ -1,13 +1,11 @@
 local AAirUnit = import('/lua/defaultunits.lua').AirUnit
 
-local AANTorpedoCluster = import('/lua/aeonweapons.lua').AANTorpedoCluster
+local AANTorpedoCluster = import('/lua/aeonweapons.lua').AANChronoTorpedoWeapon
 
 XAA0306 = Class(AAirUnit) {
 
     Weapons = {
-	
-        Bomb = Class(AANTorpedoCluster) {},
-		
+        ClusterTorpedo = Class(AANTorpedoCluster) { FxMuzzleFlash = false },
     },
 	
 }

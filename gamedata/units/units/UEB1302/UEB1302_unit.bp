@@ -2,16 +2,8 @@ UnitBlueprint {
     Adjacency = 'T3MassExtractorAdjacencyBuffs',
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Resource', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     BuildIconSortPriority = 40,
@@ -45,6 +37,7 @@ UnitBlueprint {
     Display = {
         AnimationOpen = '/units/ueb1302/ueb1302_Apump.sca',
         AnimationUpgrade = '/units/ueb1302/ueb1302_Aupgrade.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -84,9 +77,7 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
 
-        ToggleCaps = {
-            RULEUTC_ProductionToggle = true,
-        },
+        ToggleCaps = { RULEUTC_ProductionToggle = true },
 
         UpgradesFrom = 'ueb1202',
     },
