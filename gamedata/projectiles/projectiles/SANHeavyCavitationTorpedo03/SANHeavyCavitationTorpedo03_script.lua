@@ -1,5 +1,5 @@
 local SHeavyCavitationTorpedo = import('/lua/seraphimprojectiles.lua').SHeavyCavitationTorpedo
-local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
+
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 local ForkThread = ForkThread
@@ -10,11 +10,15 @@ local VDist2 = VDist2
 local CreateEmitterOnEntity = CreateEmitterOnEntity
 
 -- this torpedo is the split projectile created by the Heavy Cavitation Torpedo 1 & 2 ( from T2 & T3 Torpedo launcher )
+-- the essential difference is that this torp doesn't start tracking for several ticks depending on how far it is
+-- from the target
 SANHeavyCavitationTorpedo03 = Class(SHeavyCavitationTorpedo) {
 
-    OnCreate = function(self)
+    OnCreate = function(self, inWater)
 	
-        SHeavyCavitationTorpedo.OnCreate( self )
+        SHeavyCavitationTorpedo.OnCreate( self, inWater )
+        
+        self:TrackTarget(false)
 		
         self:ForkThread( self.PauseUntilTrack )
 		

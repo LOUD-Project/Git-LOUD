@@ -19,20 +19,9 @@ ProjectileBlueprint {
 		
         ImpactEffects = { Type = 'Medium02' },
 		
-        Mesh = {
-            LODs = {
-                {
-                    LODCutoff = 150,
-                    ShaderName = 'TMeshNoLighting',
-                },
-            },
-        },
+        Mesh = { LODs = { { LODCutoff = 150, ShaderName = 'TMeshNoLighting' } } },
         StrategicIconSize = 2,
         UniformScale = 0.1,
-    },
-	
-    Interface = {
-        HelpText = 0,
     },
 	
     Physics = {

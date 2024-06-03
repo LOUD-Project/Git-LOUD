@@ -1,4 +1,5 @@
 local SHeavyCavitationTorpedo = import('/lua/seraphimprojectiles.lua').SHeavyCavitationTorpedo
+
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
@@ -56,10 +57,8 @@ SANHeavyCavitationTorpedo02 = Class(SHeavyCavitationTorpedo) {
 
     ProjectileSplit = function(self)
 		
-		local LOUDPI = math.pi
 		local LOUDSIN = math.sin
 		local LOUDCOS = math.cos
-		
 		local CreateEmitterAtEntity = CreateEmitterAtEntity
 		
         WaitTicks(1)
@@ -68,23 +67,30 @@ SANHeavyCavitationTorpedo02 = Class(SHeavyCavitationTorpedo) {
 		
 		-- this is the projectile it will split into --
         local ChildProjectileBP = '/projectiles/SANHeavyCavitationTorpedo03/SANHeavyCavitationTorpedo03_proj.bp'  
-		
+        local numProjectiles = 3		
+
         local vx, vy, vz = self:GetVelocity()
-        
         local velocity = 5
 
         -- Create projectiles in a dispersal pattern
-        local numProjectiles = 3
-        local angle = ( 2 * LOUDPI) / numProjectiles
-        local angleInitial = RandomFloat( 0, angle )
-        
-        -- Randomization of the spread
-        local angleVariation = angle * 0.35 -- Adjusts angle variance spread
-        local spreadMul = .35 -- Adjusts the width of the dispersal        
+        local angle             = 6.28 / numProjectiles
+        local angleInitial      = RandomFloat( 0, angle )
+        local angleVariation    = angle * 0.32  -- Adjusts angle variance spread
+        local spreadMul         = .38           -- Adjusts the width of the dispersal        
 
         local xVec = 0 
-        local yVec = vy * .25
+        local yVec = vy * .2
         local zVec = 0
+        
+		-- disabled the split effects for now
+		local FxFragEffect = EffectTemplate.SHeavyCavitationTorpedoSplit
+
+        -- Split effects
+        for k, v in FxFragEffect do
+            CreateEmitterAtEntity( self, self:GetArmy(), v )
+        end
+        
+        self:SetVelocity(0)
         
         -- Divide the damage between each projectile.  The damage in the BP is used as the initial projectile's 
         -- damage, in case the torpedo hits something before it splits.
@@ -92,29 +98,21 @@ SANHeavyCavitationTorpedo02 = Class(SHeavyCavitationTorpedo) {
 		
         DividedDamageData.DamageAmount = DividedDamageData.DamageAmount / numProjectiles
         
-		-- disabled the split effects for now
-		local FxFragEffect = EffectTemplate.SHeavyCavitationTorpedoSplit
-        
-        self:SetVelocity(0)
-
-        -- Split effects
-        for k, v in FxFragEffect do
-            CreateEmitterAtEntity( self, self:GetArmy(), v )
-        end
+        local xVec, zVec, proj
         
         -- Launch projectiles at semi-random angles away from split location
-        for i = 0, (numProjectiles -1) do
+        for i = 1, numProjectiles do
 		
             xVec = vx + (LOUDSIN(angleInitial + (i*angle) + RandomFloat(-angleVariation, angleVariation))) * spreadMul
             zVec = vz + (LOUDCOS(angleInitial + (i*angle) + RandomFloat(-angleVariation, angleVariation))) * spreadMul 
 			
-            local proj = self:CreateChildProjectile(ChildProjectileBP)
+            proj = self:CreateChildProjectile(ChildProjectileBP)
+
+            proj:SetVelocity(xVec, vy/5, zVec)
 			
             proj:PassDamageData(DividedDamageData)
 			
             proj:PassData(self:GetTrackingTarget())
-			
-            proj:SetVelocity(xVec,yVec,zVec)
 			
             proj:SetVelocity(velocity)
 			

@@ -1,21 +1,9 @@
 ProjectileBlueprint {
 
     Audio = {
-        Impact = Sound {
-            Bank = 'Explosions',
-            Cue = 'Explosion_Bomb',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        ImpactTerrain = Sound {
-            Bank = 'Explosions',
-            Cue = 'Explosion_Bomb',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        ImpactWater = Sound {
-            Bank = 'Impacts',
-            Cue = 'Impact_Water_Splash_UEF',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
+        Impact          = Sound { Bank = 'Explosions', Cue = 'Explosion_Bomb', LodCutoff = 'Weapon_LodCutoff' },
+        ImpactTerrain   = Sound { Bank = 'Explosions', Cue = 'Explosion_Bomb', LodCutoff = 'Weapon_LodCutoff' },
+        ImpactWater     = Sound { Bank = 'Impacts', Cue = 'Impact_Water_Splash_UEF', LodCutoff = 'Weapon_LodCutoff' },
     },
 
     Categories = {
@@ -23,26 +11,19 @@ ProjectileBlueprint {
     },
 
     Display = {
-        CameraFollowTimeout = 2,
-        CameraFollowsProjectile = true,
         ImpactEffects = { Scale = 1.1 },
+
         Mesh = {
             LODs = {
-                {
-                    ShaderName = 'TMeshGlow',
-                },
+                { ShaderName = 'TMeshGlow' },
             },
         },
         StrategicIconSize = 2,
-        UniformScale = 0.125,
-    },
-
-    Interface = {
-        HelpText = 0,
+        UniformScale = 0.12,
     },
 
     Physics = {
-		Acceleration = 14,
+		Acceleration = 6,
         DestroyOnWater = true,
 		OnLostTargetLifetime = 10,
         RealisticOrdinance = false,

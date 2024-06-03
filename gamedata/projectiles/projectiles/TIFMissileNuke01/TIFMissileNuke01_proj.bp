@@ -1,26 +1,9 @@
 ProjectileBlueprint {
 
     Audio = {
-        ExistLoop = Sound {
-            Bank = 'UELWeapon',
-            Cue = 'UEF_Nuke_Flight',
-            LodCutoff = 'DefaultLodCutoff',
-        },
-        ImpactTerrain = Sound {
-            Bank = 'Explosions',
-            Cue = 'UEF_Nuke_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        ImpactWater = Sound {
-            Bank = 'Explosions',
-            Cue = 'UEF_Nuke_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        NukeExplosion = Sound {
-            Bank = 'Explosions',
-            Cue = 'UEF_Nuke_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
+        ExistLoop       = Sound { Bank = 'UELWeapon', Cue = 'UEF_Nuke_Flight', LodCutoff = 'DefaultLodCutoff'},
+        Impact          = Sound { Bank = 'Explosions', Cue = 'UEF_Nuke_Impact', LodCutoff = 'Weapon_LodCutoff'},
+        NukeExplosion   = Sound { Bank = 'Explosions', Cue = 'UEF_Nuke_Impact', LodCutoff = 'Weapon_LodCutoff'},
     },
 
     Categories = {
@@ -34,21 +17,12 @@ ProjectileBlueprint {
         MaxHealth = 25,
     },
 
-    Description = 'UEF Nuclear Missile',
-
     DesiredShooterCap = 1,
 
     Display = {
         CameraFollowTimeout = 5,
         CameraFollowsProjectile = true,
-        Mesh = {
-            IconFadeInZoom = 200,
-            LODs = {
-                {
-                    ShaderName = 'TMeshGlow',
-                },
-            },
-        },
+        Mesh = { IconFadeInZoom = 200, LODs = { {ShaderName = 'TMeshGlow'} } },
         UniformScale = 0.035,
     },
 
@@ -58,10 +32,6 @@ ProjectileBlueprint {
         BuildCostEnergy = 1350000,
         BuildCostMass = 16000,
         BuildTime = 324000,
-    },
-
-    Interface = {
-        HelpText = 'UEF Nuclear Missile',
     },
 
     Physics = {

@@ -2,15 +2,20 @@ local AQuarkBombProjectile = import('/lua/aeonprojectiles.lua').AQuarkBombProjec
 
 AIFBombQuark01 = Class(AQuarkBombProjectile) {
 
-    OnCreate = function(self) # added whole script               
+    OnCreate = function(self)
+
         AQuarkBombProjectile.OnCreate(self)
+
         self:ForkThread( self.MovementThread )
     end,
 
     MovementThread = function(self)        
+
         self.WaitTime = 0
         self:SetTurnRate(200)
+
         WaitSeconds(0)        
+
         while not self:BeenDestroyed() do
             self:SetTurnRateByDist()
             WaitSeconds(self.WaitTime)
@@ -18,12 +23,19 @@ AIFBombQuark01 = Class(AQuarkBombProjectile) {
     end,
 
     SetTurnRateByDist = function(self)
+
         local dist = self:GetDistanceToTarget()
+
         if dist > 40 then        
+
             WaitSeconds(0)
+
             self:SetTurnRate(50)
-				elseif dist > 0 and dist <= 15 then  
+
+		elseif dist > 0 and dist <= 15 then  
+
             self:SetTurnRate(0)   
+
             KillThread(self.MoveThread)         
         end
     end,        

@@ -48,18 +48,26 @@ AIFQuantumWarhead01 = Class(AQuantumWarheadProjectile) {
     MovementThread = function(self)
         local army = self:GetArmy()
         local launcher = self:GetLauncher()
+
         self:TrackTarget(false)
-        WaitSeconds(2.5)		# Height
+
+        WaitSeconds(2.5)
+
         self:SetCollision(true)
-        WaitSeconds(2.5)
-        WaitSeconds(2.5)
-        self:TrackTarget(true) # Turn ~90 degrees towards target
+
+        WaitSeconds(5)
+
+        self:TrackTarget(true)
         self:SetDestroyOnWater(true)        
+
         self:SetTurnRate(47.36)
-        WaitSeconds(2) 					# Now set turn rate to zero so nuke flies straight
+
+        WaitSeconds(2)
+
         self:SetTurnRate(0)
         self:SetAcceleration(0.001)
         self.WaitTime = 0.5
+
         while not self:BeenDestroyed() do
             self:SetTurnRateByDist()
             WaitSeconds(self.WaitTime)
@@ -67,21 +75,22 @@ AIFQuantumWarhead01 = Class(AQuantumWarheadProjectile) {
     end,
 
     SetTurnRateByDist = function(self)
+
         local dist = self:GetDistanceToTarget()
-        #Get the nuke as close to 90 deg as possible
+
         if dist > 150 then        
-            #Freeze the turn rate as to prevent steep angles at long distance targets
             self:SetTurnRate(0)
+
         elseif dist > 75 and dist <= 150 then
-						# Increase check intervals
             self.WaitTime = 0.3
+
         elseif dist > 32 and dist <= 75 then
-						# Further increase check intervals
             self.WaitTime = 0.1
+
         elseif dist < 32 then
-						# Turn the missile down
             self:SetTurnRate(50)
         end
+
     end,
 
     GetDistanceToTarget = function(self)

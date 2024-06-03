@@ -1,8 +1,5 @@
 local CDFProtonCannonProjectile = import('/lua/cybranprojectiles.lua').CDFProtonCannonProjectile
 
-local WaitSeconds = WaitSeconds
-local ForkThread = ForkThread
-
 CDFProtonCannon01 = Class(CDFProtonCannonProjectile) {
     
     OnCreate = function(self)

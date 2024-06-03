@@ -15,20 +15,23 @@ TIFTacticalBomb01 = Class(EmitterProjectile) {
     FxImpactUnit = EffectTemplate.TAntiMatterShellHit01,
     FxImpactProp = EffectTemplate.TAntiMatterShellHit01,
     FxImpactLand = EffectTemplate.TAntiMatterShellHit01,
-    FxImpactUnderWater = {},
 
     OnImpact = function(self, TargetType, targetEntity)
+
         local army = self:GetArmy()
         local pos = self:GetPosition()
-		local rf = GetRandomFloat(0,2*math.pi)
+		local rf = GetRandomFloat(0,6.28)
 
         CreateLightParticle( self, -1, army, 1.4, 2, 'sparkle_03', 'ramp_fire_03' )
+
         if TargetType == 'Terrain' then
             CreateDecal( pos, rf, 'nuke_scorch_001_normals', '', 'Alpha Normals', self.FxSplatScale, self.FxSplatScale, 150, 50, army )
             CreateDecal( pos, rf, 'nuke_scorch_002_albedo', '', 'Albedo', self.FxSplatScale * 2, self.FxSplatScale * 2, 150, 50, army )
         end
+
         DamageArea(self, pos, self.DamageData.DamageRadius, 1, 'Force', true)
         DamageArea(self, pos, self.DamageData.DamageRadius, 1, 'Force', true)
+
 		EmitterProjectile.OnImpact( self, TargetType, targetEntity )
     end,
 }

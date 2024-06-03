@@ -38,12 +38,10 @@ CIFEMPFluxWarhead02 = Class(NullShell) {
     end,
 
     CreateNuclearExplosion = function(self)
-	
-        # Light and Camera Shake
+
         CreateLightParticle(self, -1, self:GetArmy(), 200, 200, 'beam_white_01', 'ramp_red_09')
         self:ShakeCamera( 75, 3, 0, 20 )
 
-        # Mesh effects
         self.Plumeproj = self:CreateProjectile('/effects/EMPFluxWarhead/EMPFluxWarheadEffect01_proj.bp')
         self:ForkThread(self.PlumeThread, self.Plumeproj, self.Plumeproj:GetBlueprint().Display.UniformScale)
         self:ForkThread(self.PlumeVelocityThread, self.Plumeproj )
@@ -56,10 +54,8 @@ CIFEMPFluxWarhead02 = Class(NullShell) {
         self:ForkThread(self.PlumeThread, self.Plumeproj3, self.Plumeproj3:GetBlueprint().Display.UniformScale)
         self:ForkThread(self.PlumeVelocityThread, self.Plumeproj3 )
 
-        # Emitter Effects
         self:ForkThread(self.EmitterEffectsThread, self.Plumeproj)
-        
-        # Do Damage
+
         self:ForkThread(self.InnerRingDamage)
         self:ForkThread(self.OuterRingDamage)
         self:ForkThread(self.ForceThread)
@@ -131,7 +127,7 @@ CIFEMPFluxWarhead02 = Class(NullShell) {
         DamageArea(self, pos, 5, 1, 'Force', true)
         WaitSeconds(0.5)
         local army = self:GetArmy()
-        CreateDecal(self:GetPosition(), RandomFloat(0,2*math.pi), 'nuke_scorch_001_albedo', '', 'Albedo', 28, 28, 300, 0, army)
+        CreateDecal(self:GetPosition(), RandomFloat(0,6.28), 'nuke_scorch_001_albedo', '', 'Albedo', 28, 28, 300, 0, army)
         DamageRing(self, pos, 4, 15, 1, 'Force', true)
         WaitSeconds(0.5)
         DamageArea(self, pos, 15, 1, 'Force', true)
@@ -164,7 +160,7 @@ CIFEMPFluxWarhead02 = Class(NullShell) {
 
     StarCloudDispersal = function(self)
         local numProjectiles = 5
-        local angle = (2*math.pi) / numProjectiles
+        local angle = 6.28 / numProjectiles
         local angleInitial = RandomFloat( 0, angle )
         local angleVariation = angle * 0.5
         local projectiles = {}

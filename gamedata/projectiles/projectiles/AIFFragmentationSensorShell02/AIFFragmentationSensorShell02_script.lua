@@ -17,7 +17,6 @@ AIFFragmentationSensorShell02 = Class(AArtilleryFragmentationSensorShellProjecti
 	        local FxFragEffect = EffectTemplate.Aeon_QuanticClusterFrag02 
 	        local ChildProjectileBP = '/projectiles/AIFFragmentationSensorShell03/AIFFragmentationSensorShell03_proj.bp' 
 
-			local LOUDPI = math.pi
 			local LOUDCOS = math.cos
 			local LOUDSIN = math.sin
 			local CreateEmitterAtBone = CreateEmitterAtBone
@@ -36,12 +35,12 @@ AIFFragmentationSensorShell02 = Class(AArtilleryFragmentationSensorShellProjecti
 	   		
 			-- and 5 other projectiles in a dispersal pattern
 	        local numProjectiles = 5
-	        local angle = (2*LOUDPI) / numProjectiles
+	        local angle = 6.28 / numProjectiles
 	        local angleInitial = RandomFloat( 0, angle )
 
 	        -- Randomization of the spread
-	        local angleVariation = angle * 13 	--# Adjusts angle variance spread
-	        local spreadMul = 0.4 				--# Adjusts the width of the dispersal        
+	        local angleVariation = angle * 13 	-- Adjusts angle variance spread
+	        local spreadMul = 0.4 				-- Adjusts width of dispersal        
 
 	        local xVec = 0 
 	        local yVec = vy*0.8

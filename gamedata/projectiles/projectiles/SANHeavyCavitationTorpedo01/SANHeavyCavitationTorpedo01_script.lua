@@ -9,17 +9,28 @@ local WaitSeconds = WaitSeconds
 local CreateEmitterAtEntity = CreateEmitterAtEntity
 local CreateEmitterOnEntity = CreateEmitterOnEntity
 
--- This torpedo is dropped by the T2 Torpedo bomber --
--- but splits into 3 torpedoes ( see Cavitation Torpedo 4 )
+-- This torpedo is air dropped and splits into 3
 SANHeavyCavitationTorpedo01 = Class(SHeavyCavitationTorpedo) {
 
-	FxSplashScale = .4,
+	FxSplashScale = .5,
 	
-	FxEnterWaterEmitter = {'/effects/emitters/destruction_water_splash_wash_01_emit.bp'},	--'/effects/emitters/destruction_water_splash_ripples_01_emit.bp',
+	FxEnterWaterEmitter = {'/effects/emitters/destruction_water_splash_wash_01_emit.bp'},
 
-	OnEnterWater = function(self)
+    OnCreate = function( self, inWater )
 	
-		SHeavyCavitationTorpedo.OnEnterWater(self)
+        SHeavyCavitationTorpedo.OnCreate( self, inWater )
+        
+        if not inWater then
+	
+            self.AirTrails = CreateEmitterOnEntity(self,self:GetArmy(),EffectTemplate.SHeavyCavitationTorpedoFxTrails02)
+            
+        else
+            self.OnEnterWater(self)
+        end
+		
+    end,
+   
+	OnEnterWater = function(self)
 		
 		local army = self:GetArmy()
 
@@ -29,70 +40,57 @@ SANHeavyCavitationTorpedo01 = Class(SHeavyCavitationTorpedo) {
 			
 		end
 		
-		self.AirTrails:Destroy()
+        if self.AirTrails then
+            self.AirTrails:Destroy()
+        end
 		
 		CreateEmitterOnEntity(self,army,EffectTemplate.SHeavyCavitationTorpedoFxTrails)
-
-		self:TrackTarget(true):StayUnderwater(true)
 		
     	self:SetCollideSurface(false)
-		
-		self:SetTurnRate(540)
 		
 		self:ForkThread(self.ProjectileSplit)
 		
 	end,
-
-    OnCreate = function( self, inWater )
-	
-        SHeavyCavitationTorpedo.OnCreate( self, inWater )
-		
-        -- if we are starting in the water then immediately switch to tracking in water
-        self:TrackTarget(false)
-		
-        self.AirTrails = CreateEmitterOnEntity(self,self:GetArmy(),EffectTemplate.SHeavyCavitationTorpedoFxTrails02)
-		
-    end,
-    
+ 
 	ProjectileSplit = function(self)
 	
-		local LOUDPI = math.pi
 		local LOUDSIN = math.sin
 		local LOUDCOS = math.cos
 		local CreateEmitterAtEntity = CreateEmitterAtEntity
 		
-		WaitTicks(10)
+		WaitTicks(3)
 		
 		-- this is the projectile it will split into --
 		local ChildProjectileBP = '/projectiles/SANHeavyCavitationTorpedo03/SANHeavyCavitationTorpedo03_proj.bp'  
+		local numProjectiles = 3
+
 		local vx, vy, vz = self:GetVelocity()
-		local velocity = 7
+
+		--local velocity = 7
 		
 		-- Create projectiles in a dispersal pattern
-		local numProjectiles = 3
-		local angle = (2*LOUDPI) / numProjectiles
-		local angleInitial = RandomFloat( 0, angle )
+		local angle             = 6.28 / numProjectiles
+		local angleInitial      = RandomFloat( 0, angle )
+		local angleVariation    = angle * 0.65      -- Adjusts angle variance spread
+		local spreadMul         = .70               -- Adjusts the width of the dispersal        
 	    
-		-- Randomization of the spread
-		local angleVariation = angle * 0.3 -- Adjusts angle variance spread
-		local spreadMul = .4 	-- Adjusts the width of the dispersal        
-		local xVec = 0 
-		local yVec = vy
-		local zVec = 0
+		-- disabled the split effect
+	    local FxFragEffect = EffectTemplate.SHeavyCavitationTorpedoSplit
+
+        -- Split effects
+        for k, v in FxFragEffect do
+            CreateEmitterAtEntity( self, self:GetArmy(), v )
+        end
+        
+        self:SetVelocity(0)
 	    
 		-- Divide the damage between each projectile.  The damage in the BP is used as the initial projectile's 
 		-- damage, in case the torpedo hits something before it splits.
 		local DividedDamageData = self.DamageData
 		
 		DividedDamageData.DamageAmount = DividedDamageData.DamageAmount / numProjectiles
-	    
-		-- disabled the split effect
-	    local FxFragEffect = {}	--EffectTemplate.SHeavyCavitationTorpedoSplit
-
-        -- Split effects
-        for k, v in FxFragEffect do
-            CreateEmitterAtEntity( self, self:GetArmy(), v )
-        end
+        
+        local xVec, zVec, proj
 	    
 		-- Launch projectiles at semi-random angles away from split location
 		for i = 0, (numProjectiles -1) do
@@ -100,18 +98,19 @@ SANHeavyCavitationTorpedo01 = Class(SHeavyCavitationTorpedo) {
 			xVec = vx + (LOUDSIN(angleInitial + (i*angle) + RandomFloat(-angleVariation, angleVariation))) * spreadMul
 			zVec = vz + (LOUDCOS(angleInitial + (i*angle) + RandomFloat(-angleVariation, angleVariation))) * spreadMul 
 			
-			local proj = self:CreateChildProjectile(ChildProjectileBP)
+			proj = self:CreateChildProjectile(ChildProjectileBP)
+			
+			proj:SetVelocity(xVec, vy/3 ,zVec)
 			
 			proj:PassDamageData(DividedDamageData)
 			
 			proj:PassData(self:GetTrackingTarget())  
 			
-			proj:SetVelocity(xVec,yVec,zVec)
-			
-			proj:SetVelocity(velocity)
+			--proj:SetVelocity(velocity)
 			
 		end
 		
+        -- destroy the original projectile
 		self:Destroy()
 		
 	end,	

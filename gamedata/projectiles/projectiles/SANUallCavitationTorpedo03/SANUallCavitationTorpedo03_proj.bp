@@ -30,10 +30,6 @@ ProjectileBlueprint {
         StrategicIconSize = 1,
     },
 
-    Interface = {
-        HelpText = 0,
-    },
-
     Physics = {
         Acceleration = 5,
         DestroyOnWater = false,

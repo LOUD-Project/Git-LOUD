@@ -1,9 +1,8 @@
---
--- AA Missile for Cybrans
---
 local CAAMissileNaniteProjectile = import('/lua/cybranprojectiles.lua').CAAMissileNaniteProjectile
+
 local ForkThread = ForkThread
 local WaitSeconds = WaitSeconds
+
 CAAMissileNanite02 = Class(CAAMissileNaniteProjectile) {
 
     OnCreate = function(self)

@@ -1,4 +1,5 @@
 local TMissileCruiseProjectile = import('/lua/terranprojectiles.lua').TMissileCruiseProjectile02
+
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 TPM_Lancer_AGM = Class(TMissileCruiseProjectile) {
@@ -18,7 +19,9 @@ TPM_Lancer_AGM = Class(TMissileCruiseProjectile) {
     FxTrails = EffectTemplate.TMissileExhaust01,
 
     OnCreate = function(self)
+
         TMissileCruiseProjectile.OnCreate(self)
+
         self:SetCollisionShape('Sphere', 0, 0, 0, 2.0)
     end,
 }

@@ -28,10 +28,6 @@ ProjectileBlueprint {
         UniformScale = 0.6,
     },
 
-    Interface = {
-        HelpText = 0,
-    },
-
     Physics = {
         Acceleration = 0,
         InitialSpeed = 28,

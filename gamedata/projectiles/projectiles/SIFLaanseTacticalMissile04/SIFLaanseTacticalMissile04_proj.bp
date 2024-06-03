@@ -1,21 +1,8 @@
 ProjectileBlueprint {
 
     Audio = {
-        Impact = Sound {
-            Bank = 'Impacts',
-            Cue = 'XSS_Missile_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        ImpactTerrain = Sound {
-            Bank = 'Impacts',
-            Cue = 'XSS_Missile_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        ImpactWater = Sound {
-            Bank = 'Impacts',
-            Cue = 'Impact_Water_Splash_AEON',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
+        Impact      = Sound { Bank = 'Impacts', Cue = 'XSS_Missile_Impact', LodCutoff = 'Weapon_LodCutoff'},
+        ImpactWater = Sound { Bank = 'Impacts', Cue = 'Impact_Water_Splash_AEON', LodCutoff = 'Weapon_LodCutoff'},
     },
 
     Categories = {
@@ -44,10 +31,6 @@ ProjectileBlueprint {
         BuildCostEnergy = 3600,
         BuildCostMass = 180,
         BuildTime = 2400,
-    },
-
-    Interface = {
-        HelpText = 0,
     },
 
     Physics = {

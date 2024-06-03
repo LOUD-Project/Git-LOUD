@@ -1,14 +1,5 @@
---****************************************************************************
---**
---**  File     :  /data/projectiles/SIFExperimentalStrategicMissile01/SIFExperimentalStrategicMissile01_script.lua
---**  Author(s):  Gordon Duclos
---**
---**  Summary  :  Experimental Strategic Missile Projectile script, XSB2401
---**
---**  Copyright � 2007 Gas Powered Games, Inc.  All rights reserved.
---****************************************************************************
-
 local SExperimentalStrategicMissile = import('/lua/seraphimprojectiles.lua').SExperimentalStrategicMissile
+
 local ForkThread = ForkThread
 local WaitSeconds = WaitSeconds
 local CreateAttachedEmitter = CreateAttachedEmitter
@@ -36,43 +27,56 @@ SIFExperimentalStrategicMissile01 = Class(SExperimentalStrategicMissile) {
 
     
     OnCreate = function(self)
+
         SExperimentalStrategicMissile.OnCreate(self)
+
         local launcher = self:GetLauncher()
+
         if launcher and not launcher:IsDead() and launcher.EventCallbacks.ProjectileDamaged then
+
             self.ProjectileDamaged = {}
+
             for k,v in launcher.EventCallbacks.ProjectileDamaged do
                 table.insert( self.ProjectileDamaged, v )
             end
         end 
+
         self:SetCollisionShape('Sphere', 0, 0, 0, 2.0)
         self.MovementTurnLevel = 1
         self:ForkThread( self.MovementThread )
     end,    
 
     OnImpact = function(self, TargetType, TargetEntity)
+
         if not TargetEntity or not EntityCategoryContains(categories.PROJECTILE, TargetEntity) then
-            # Play the explosion sound
+
             local myBlueprint = self:GetBlueprint()
+
             if myBlueprint.Audio.Explosion then
                 self:PlaySound(myBlueprint.Audio.Explosion)
             end
     
             nukeProjectile = self:CreateProjectile('/effects/entities/SeraphimNukeEffectController01/SeraphimNukeEffectController01_proj.bp', 0, 0, 0, nil, nil, nil):SetCollision(false)
+
             local pos = self:GetPosition()
+
             pos[2] = pos[2] + 20
             Warp( nukeProjectile, pos)
             nukeProjectile:PassDamageData(self.DamageData)
             nukeProjectile:PassData(self.Data)
         end
+
         SExperimentalStrategicMissile.OnImpact(self, TargetType, TargetEntity)
     end,
 
     DoTakeDamage = function(self, instigator, amount, vector, damageType)
+
         if self.ProjectileDamaged then
             for k,v in self.ProjectileDamaged do
                 v(self)
             end
         end
+
         SExperimentalStrategicMissile.DoTakeDamage(self, instigator, amount, vector, damageType)
     end,
 
@@ -93,20 +97,26 @@ SIFExperimentalStrategicMissile01 = Class(SExperimentalStrategicMissile) {
         local launcher = self:GetLauncher()
 		
         self.CreateEffects( self, self.InitialEffects, army, 3 )
+
         self:TrackTarget(false)
-        WaitSeconds(2.5)		# Height
+
+        WaitSeconds(2.5)
+
         self:SetCollision(true)
-        ###self.CreateEffects( self, self.LaunchEffects, army, 1 )
-        WaitSeconds(2.5)
-        ###self.CreateEffects( self, self.ThrustEffects, army, 3 )
-        WaitSeconds(2.5)
+
+        WaitSeconds(5)
+
         self:TrackTarget(true) # Turn ~90 degrees towards target
         self:SetDestroyOnWater(true)
         self:SetTurnRate(47.36)
+
         WaitSeconds(2) 					# Now set turn rate to zero so nuke flies straight
+
         self:SetTurnRate(0)
         self:SetAcceleration(0.001)
+
         self.WaitTime = 0.5
+
         while not self:BeenDestroyed() do
             self:SetTurnRateByDist()
             WaitSeconds(self.WaitTime)
@@ -114,20 +124,21 @@ SIFExperimentalStrategicMissile01 = Class(SExperimentalStrategicMissile) {
     end,
 
     SetTurnRateByDist = function(self)
+
         local dist = self:GetDistanceToTarget()
-        #Get the nuke as close to 90 deg as possible
+
         if dist > 150 then        
-            #Freeze the turn rate as to prevent steep angles at long distance targets
             self:SetTurnRate(0)
+
         elseif dist > 75 and dist <= 150 then
-						# Increase check intervals
             self.WaitTime = 0.3
+
         elseif dist > 32 and dist <= 75 then
-						# Further increase check intervals
             self.WaitTime = 0.1
+
         elseif dist < 32 then
-						# Turn the missile down
             self:SetTurnRate(50)
+
         end
     end,
 

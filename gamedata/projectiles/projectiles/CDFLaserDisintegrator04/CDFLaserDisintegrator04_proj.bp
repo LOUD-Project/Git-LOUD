@@ -1,16 +1,8 @@
 ProjectileBlueprint {
 
     Audio = {
-        Impact = Sound {
-            Bank = 'Impacts',
-            Cue = 'CYB_Expl_Med_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        ImpactTerrain = Sound {
-            Bank = 'Impacts',
-            Cue = 'Impact_Land_Gen_CYBRAN',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
+        Impact          = Sound { Bank = 'Impacts', Cue = 'CYB_Expl_Med_Impact', LodCutoff = 'Weapon_LodCutoff'},
+        ImpactTerrain   = Sound { Bank = 'Impacts', Cue = 'Impact_Land_Gen_CYBRAN', LodCutoff = 'Weapon_LodCutoff'},
     },
 
     Categories = {
@@ -20,10 +12,6 @@ ProjectileBlueprint {
     Display = {
         ImpactEffects = { Type = 'Medium02' },
         StrategicIconSize = 2,
-    },
-
-    Interface = {
-        HelpText = 0,
     },
 
     Physics = {

@@ -14,19 +14,9 @@ ProjectileBlueprint {
     },
 
     Display = {
-        Mesh = {
-            LODs = {
-                {
-                    ShaderName = 'NormalMappedAlpha',
-                },
-            },
-        },
+        Mesh = { LODs = { {ShaderName = 'NormalMappedAlpha'} } },
         StrategicIconSize = 2,
         UniformScale = 0.03,
-    },
-
-    Interface = {
-        HelpText = 0,
     },
 
     Physics = {

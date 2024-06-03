@@ -16,6 +16,7 @@ AIFMissileSerpentine01 = Class(AMissileSerpentineProjectile) {
         self.Distance = self:GetDistanceToTarget()
         self:SetTurnRate(8)
         WaitSeconds(0.3)        
+
         while not self:BeenDestroyed() do
             self:SetTurnRateByDist()
             WaitSeconds(self.WaitTime)
@@ -23,25 +24,31 @@ AIFMissileSerpentine01 = Class(AMissileSerpentineProjectile) {
     end,
 
     SetTurnRateByDist = function(self)
+
         local dist = self:GetDistanceToTarget()
+
         if dist > self.Distance then
         	self:SetTurnRate(75)
         	WaitSeconds(3)
         	self:SetTurnRate(8)
         	self.Distance = self:GetDistanceToTarget()
         end
+
         if dist > 50 then        
-            #Freeze the turn rate as to prevent steep angles at long distance targets
+            -- Freeze the turn rate as to prevent steep angles at long distance targets
             WaitSeconds(2)
             self:SetTurnRate(10)
+
         elseif dist > 30 and dist <= 50 then
-						self:SetTurnRate(12)
-						WaitSeconds(1.5)
+			self:SetTurnRate(12)
+			WaitSeconds(1.5)
             self:SetTurnRate(12)
+
         elseif dist > 10 and dist <= 25 then
             WaitSeconds(0.3)
             self:SetTurnRate(50)
-				elseif dist > 0 and dist <= 10 then         
+
+		elseif dist > 0 and dist <= 10 then         
             self:SetTurnRate(100)   
             KillThread(self.MoveThread)         
         end

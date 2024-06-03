@@ -1,21 +1,7 @@
 ProjectileBlueprint {
 
     Audio = {
-        Impact = Sound {
-            Bank = 'Impacts',
-            Cue = 'UEF_Expl_Med_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        ImpactTerrain = Sound {
-            Bank = 'Impacts',
-            Cue = 'Impact_Land_Gen_UEF',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        ImpactWater = Sound {
-            Bank = 'Impacts',
-            Cue = 'Impact_Water_Splash_UEF',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
+        ImpactUnitUnderwater = Sound { Bank = 'Impacts', Cue = 'UEF_Expl_Med_Impact', LodCutoff = 'Weapon_LodCutoff' },
     },
 	
     Categories = {
@@ -30,18 +16,19 @@ ProjectileBlueprint {
         StrategicIconSize = 1,
     },
 	
-    Interface = {
-        HelpText = 0,
-    },
-	
     Physics = {
-        Acceleration = 3,
+        Acceleration = 2.6,
+
         DestroyOnWater = false,
-        InitialSpeed = 3,
-        MaxSpeed = 10,
+        
+        Lifetime = 8,
+        MaxSpeed = 12,
+
         StayUnderwater = true,
         TrackTarget = true,
-        TurnRate = 360,
+
+        TurnRate = 90,
+
         UseGravity = false,
         VelocityAlign = true,
     },

@@ -1,5 +1,5 @@
-local ATorpedoSubProjectile = import('/lua/aeonprojectiles.lua').ATorpedoSubProjectile
+local ATorpedoShipProjectile = import('/lua/aeonprojectiles.lua').ATorpedoShipProjectile
 
-AANTorpedo01 = Class(ATorpedoSubProjectile) {}
+AANTorpedo01 = Class(ATorpedoShipProjectile) {}
 
 TypeClass = AANTorpedo01

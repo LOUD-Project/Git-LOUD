@@ -1,7 +1,5 @@
---
--- Cybran Dumbfire Rocket "The tadpole"
---
 local CRocketProjectile = import('/lua/cybranprojectiles.lua').CRocketProjectile
+
 local ForkThread = ForkThread
 local WaitSeconds = WaitSeconds
 local CreateTrail = CreateTrail
@@ -23,7 +21,6 @@ CDFRocketMeson01 = Class(CRocketProjectile) {
         local army = self:GetArmy()
 		local CreateTrail = CreateTrail
 
-        # Polytrails offset to wing tips
         CreateTrail(self, -1, army, self.PolyTrail ):OffsetEmitter(0.075, -0.05, 0.25)
         CreateTrail(self, -1, army, self.PolyTrail ):OffsetEmitter(-0.085, -0.055, 0.25)
         CreateTrail(self, -1, army, self.PolyTrail ):OffsetEmitter(0, 0.09, 0.25)

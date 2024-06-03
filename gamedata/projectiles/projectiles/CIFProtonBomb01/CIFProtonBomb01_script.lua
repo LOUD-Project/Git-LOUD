@@ -1,6 +1,3 @@
---
--- UEF Small Yield Nuclear Bomb
---
 local CIFProtonBombProjectile = import('/lua/cybranprojectiles.lua').CIFProtonBombProjectile
 
 CIFProtonBomb01 = Class(CIFProtonBombProjectile) {
@@ -22,10 +19,11 @@ CIFProtonBomb01 = Class(CIFProtonBombProjectile) {
 
     SetTurnRateByDist = function(self)
         local dist = self:GetDistanceToTarget()
+
         if dist > 50 then        
             WaitSeconds(0)
             self:SetTurnRate(30)
-				elseif dist > 0 and dist <= 24 then  # 15 for aeon
+		elseif dist > 0 and dist <= 24 then  # 15 for aeon
             self:SetTurnRate(0)   
             KillThread(self.MoveThread)         
         end

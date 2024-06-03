@@ -13,23 +13,10 @@ ProjectileBlueprint {
         'ANTIMISSILE',
     },
 
-    Description = 'AEON Anti Nuclear Missile',
-
     Display = {
-        Mesh = {
-            LODs = {
-                {
-                    LODCutoff = 150,
-                    ShaderName = 'TMeshAlpha',
-                },
-            },
-        },
+        Mesh = { LODs = { { LODCutoff = 150, ShaderName = 'TMeshAlpha' } } },
         StrategicIconSize = 1,
         UniformScale = 0.05,
-    },
-
-    Interface = {
-        HelpText = 'AEON Anti Nuclear Missile',
     },
 
     Physics = {

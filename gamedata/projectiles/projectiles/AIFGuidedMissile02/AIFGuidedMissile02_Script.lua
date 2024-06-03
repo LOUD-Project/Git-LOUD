@@ -4,7 +4,6 @@ local ForkThread = ForkThread
 local WaitSeconds = WaitSeconds
 
 AIFGuidedMissile02 = Class(AGuidedMissileProjectile) {
-	#FxTrailScale = 0.5,
 
     OnCreate = function(self)
 		AGuidedMissileProjectile.OnCreate(self)

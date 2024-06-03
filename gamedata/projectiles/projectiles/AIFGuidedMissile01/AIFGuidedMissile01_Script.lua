@@ -23,23 +23,22 @@ AIFGuidedMissile = Class(AGuidedMissileProjectile) {
 
     SplitThread = function(self)
 	
-		local LOUDPI = math.pi
 		local LOUDCOS = math.cos
 		local LOUDSIN = math.sin
 		local CreateEmitterOnEntity = CreateEmitterOnEntity
 		
-        ###Create/play the split effects.
 		for k,v in EffectTemplate.AMercyGuidedMissileSplit do
             CreateEmitterOnEntity(self,self:GetArmy(),v)
         end
         
         
 		WaitSeconds( 0.1 )
-		# Create several other projectiles in a dispersal pattern
+
+		-- Create several other projectiles in a dispersal pattern
         local vx, vy, vz = self:GetVelocity()
         local velocity = 16		
         local numProjectiles = 8
-        local angle = (2*LOUDPI) / numProjectiles
+        local angle = 6.28 / numProjectiles
         local angleInitial = RandF( 0, angle )
         local ChildProjectileBP = '/projectiles/AIFGuidedMissile02/AIFGuidedMissile02_proj.bp'          
         local spreadMul = 0.4 # Adjusts the width of the dispersal        
@@ -48,21 +47,21 @@ AIFGuidedMissile = Class(AGuidedMissileProjectile) {
         local yVec = vy*0.8
         local zVec = 0
         
-        
-       
-        
-        # Adjust damage by number of split projectiles
+        -- Adjust damage by number of split projectiles
         self.DamageData.DamageAmount = self.DamageData.DamageAmount / numProjectiles
 
-        # Launch projectiles at semi-random angles away from split location
+        -- Launch projectiles at semi-random angles away from split location
         for i = 0, (numProjectiles -1) do
             xVec = vx + LOUDSIN(angleInitial + (i*angle) ) * spreadMul * RandF( 0.6, 1.3 )
             zVec = vz + LOUDCOS(angleInitial + (i*angle) ) * spreadMul * RandF( 0.6, 1.3 )
+
             local proj = self:CreateChildProjectile(ChildProjectileBP)
+
             proj:SetVelocity( xVec, yVec, zVec )
             proj:SetVelocity( velocity * RandF( 0.8, 1.2 ) )
             proj:PassDamageData(self.DamageData)                        
         end        
+
         self:Destroy()    
     end,  
 }

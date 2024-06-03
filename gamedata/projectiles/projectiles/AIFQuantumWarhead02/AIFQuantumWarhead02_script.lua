@@ -127,14 +127,18 @@ AIFQuantumWarhead02 = Class(NullShell) {
 		
     end,   
 
-    #Knocks down trees
     ForceThread = function(self)
         local pos = self:GetPosition()
         pos[2] = GetSurfaceHeight(pos[1], pos[3]) + 1
+
         DamageArea(self, pos, 5, 1, 'Force', true)
+
         WaitSeconds(0.5)
+
         DamageRing(self, pos, 4, 15, 1, 'Force', true)
+
         WaitSeconds(0.5)
+
         DamageArea(self, pos, 15, 1, 'Force', true)
     end,
 
@@ -144,9 +148,7 @@ AIFQuantumWarhead02 = Class(NullShell) {
 		
         WaitSeconds( 0.5 )
 		
-        --CreateDecal(position, heading, textureName, type, sizeX, sizeZ, lodParam, duration, army)");
-		
-        local orientation = RandomFloat(0,2*math.pi)
+        local orientation = RandomFloat(0,6.28)
 		
         CreateDecal(self:GetPosition(), orientation, 'Crater01_albedo', '', 'Albedo', 50, 50, 360, 0, army)
         CreateDecal(self:GetPosition(), orientation, 'Crater01_normals', '', 'Normals', 50, 50, 360, 0, army)
@@ -161,16 +163,16 @@ AIFQuantumWarhead02 = Class(NullShell) {
 
     InnerCloudFlares = function(self, army)
 	
-		local LOUDPI = math.pi
 		local LOUDCOS = math.cos
 		local LOUDSIN = math.sin
 		local LOUDMOD = math.mod
+
 		local CreateEmitterAtEntity = CreateEmitterAtEntity
 		
         local numFlares = 50
-        local angle = (2*LOUDPI) / numFlares
-        local angleInitial = 0.0 #RandomFloat( 0, angle )
-        local angleVariation = (2*LOUDPI) #0.0 #angle * 0.5
+        local angle = 6.28 / numFlares
+        local angleInitial = 0.0 
+        local angleVariation = 6.28
 
         local emit, x, y, z = nil
         local DirectionMul = 0.02

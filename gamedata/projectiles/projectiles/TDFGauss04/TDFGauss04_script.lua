@@ -1,14 +1,14 @@
---
--- Terran Gauss Cannon Projectile
---
 local TDFGaussCannonProjectile = import('/lua/terranprojectiles.lua').TDFLandGaussCannonProjectile
+
 local ForkThread = ForkThread
 local WaitSeconds = WaitSeconds
 
 TDFGauss04 = Class(TDFGaussCannonProjectile) {
     
     OnCreate = function(self, inWater)
+
         TDFGaussCannonProjectile.OnCreate(self, inWater)
+
         if not inWater then
             self:SetDestroyOnWater(true)
         else
@@ -21,5 +21,6 @@ TDFGauss04 = Class(TDFGaussCannonProjectile) {
         self:SetDestroyOnWater(true)
     end,
 }
+
 TypeClass = TDFGauss04
 

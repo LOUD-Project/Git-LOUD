@@ -1,21 +1,8 @@
 ProjectileBlueprint {
 
     Audio = {
-        ImpactTerrain = Sound {
-            Bank = 'Explosions',
-            Cue = 'UEF_Nuke_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        ImpactWater = Sound {
-            Bank = 'Explosions',
-            Cue = 'UEF_Nuke_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        NukeExplosion = Sound {
-            Bank = 'Explosions',
-            Cue = 'UEF_Nuke_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
+        Impact          = Sound { Bank = 'Explosions', Cue = 'UEF_Nuke_Impact', LodCutoff = 'Weapon_LodCutoff' },
+        NukeExplosion   = Sound { Bank = 'Explosions', Cue = 'UEF_Nuke_Impact', LodCutoff = 'Weapon_LodCutoff'},
     },
 
     Categories = {
@@ -51,10 +38,6 @@ ProjectileBlueprint {
         BuildCostEnergy = 451800,
         BuildCostMass = 3780,
         BuildTime = 3200,
-    },
-
-    Interface = {
-        HelpText = 0,
     },
 
     Physics = {

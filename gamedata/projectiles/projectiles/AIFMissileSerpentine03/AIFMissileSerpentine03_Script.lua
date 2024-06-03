@@ -24,7 +24,7 @@ AIFMissileTactical03 = Class(AMissileSerpentineProjectile) {
 		
             self:SetTurnRateByDist()
 			
-            WaitTicks(3)	-- check every 2 ticks --
+            WaitTicks(3)
 			
         end
 		
@@ -51,20 +51,15 @@ AIFMissileTactical03 = Class(AMissileSerpentineProjectile) {
             self:SetTurnRate(30)
 			
         elseif dist > 64 and dist <= 107 then
-		
-			-- Increase check intervals
 			self:SetTurnRate(60)
 			WaitSeconds(1)
 			
         elseif dist > 21 and dist <= 53 then
-		
-			-- Further increase check intervals
             WaitSeconds(0.3)
             self:SetTurnRate(90)
 			
 		elseif dist > 0 and dist <= 21 then
-		
-			-- final step --
+
             self:SetTurnRate(180)
 			
             KillThread(self.MoveThread)
@@ -72,16 +67,6 @@ AIFMissileTactical03 = Class(AMissileSerpentineProjectile) {
         end
 		
     end,
-	
---[[
-    GetDistanceToTarget = function(self)
-	
-        local tpos = self:GetCurrentTargetPosition()
-        local mpos = self:GetPosition()
-        local dist = VDist2(mpos[1], mpos[3], tpos[1], tpos[3])
-        return dist
-    end,
---]]
 
 }
 

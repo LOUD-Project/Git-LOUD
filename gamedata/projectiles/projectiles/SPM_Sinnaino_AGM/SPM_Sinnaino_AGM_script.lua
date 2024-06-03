@@ -39,25 +39,22 @@ SPM_Sinnaino_AGM = Class(SLaanseTacticalMissile) {
         end
 		
         if dist > 50 then        
-
             WaitSeconds(2)
             self:SetTurnRate(10)
 			
         elseif dist > 30 and dist <= 50 then
-		
 			self:SetTurnRate(12)
 			WaitSeconds(1.5)
             self:SetTurnRate(12)
 			
         elseif dist > 10 and dist <= 25 then
-		
             WaitSeconds(0.3)
             self:SetTurnRate(50)
 			
 		elseif dist > 0 and dist <= 10 then
-		
             self:SetTurnRate(100)   
             KillThread(self.MoveThread)         
+
         end
     end,        
 

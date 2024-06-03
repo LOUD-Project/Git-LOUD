@@ -1,14 +1,10 @@
------------------------------------------------------------------------------
---  File     : /projectiles/UCannonShell03/UCannonShell03_script.lua
---  Author(s): Gordon Duclos
---  Summary  : SC2 UEF Fatboy Cannon Shell: UCannonShell03
---  Copyright © 2009 Gas Powered Games, Inc.  All rights reserved.
------------------------------------------------------------------------------
 UCannonShell03 = Class(import('/lua/sim/defaultprojectiles.lua').MultiPolyTrailProjectile) {
+
 	PolyTrails = {
 		'/effects/emitters/weapons/uef/gauss03/projectile/w_u_gau03_p_01_polytrails_emit.bp',
 		'/effects/emitters/weapons/uef/gauss03/projectile/w_u_gau03_p_02_polytrails_emit.bp',
 	},
+
 	PolyTrailOffset = {0,0},
 	
 	FxTrails = {

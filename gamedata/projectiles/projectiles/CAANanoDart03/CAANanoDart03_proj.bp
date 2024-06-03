@@ -37,10 +37,6 @@ ProjectileBlueprint {
         UniformScale = 0.13,
     },
 
-    Interface = {
-        HelpText = 0,
-    },
-
     Physics = {
         Acceleration = 10,
         DestroyOnWater = true,

@@ -1,13 +1,5 @@
---****************************************************************************
---**
---**  File     :  /data/projectiles/SIFInainoStrategicMissile02/SIFInainoStrategicMissile02_script.lua
---**  Author(s):  Gordon Duclos, Matt Vainio
---**
---**  Summary  :  Inaino Strategic Missile Projectile script, XSS0302
---**
---**  Copyright � 2007 Gas Powered Games, Inc.  All rights reserved.
---****************************************************************************
 local SIFInainoStrategicMissile = import('/lua/seraphimprojectiles.lua').SIFInainoStrategicMissile
+
 local ForkThread = ForkThread
 local WaitSeconds = WaitSeconds
 local VDist2 = VDist2
@@ -36,23 +28,30 @@ SIFInainoStrategicMissile02 = Class(SIFInainoStrategicMissile) {
 	},
     
     OnCreate = function(self)
+
         SIFInainoStrategicMissile.OnCreate(self)
+
         local launcher = self:GetLauncher()
+
         if launcher and not launcher:IsDead() and launcher.EventCallbacks.ProjectileDamaged then
+
             self.ProjectileDamaged = {}
             for k,v in launcher.EventCallbacks.ProjectileDamaged do
                 table.insert( self.ProjectileDamaged, v )
             end
         end 
+
         self:SetCollisionShape('Sphere', 0, 0, 0, 2.0)
         self.MovementTurnLevel = 1
         self:ForkThread( self.MovementThread )
     end,    
 
     OnImpact = function(self, TargetType, TargetEntity)
+
         if not TargetEntity or not EntityCategoryContains(categories.PROJECTILE, TargetEntity) then
-            # Play the explosion sound
+
             local myBlueprint = self:GetBlueprint()
+
             if myBlueprint.Audio.Explosion then
                 self:PlaySound(myBlueprint.Audio.Explosion)
             end
@@ -61,6 +60,7 @@ SIFInainoStrategicMissile02 = Class(SIFInainoStrategicMissile) {
             nukeProjectile:PassDamageData(self.DamageData)
             nukeProjectile:PassData(self.Data)
         end
+
         SIFInainoStrategicMissile.OnImpact(self, TargetType, TargetEntity)
     end,
 
@@ -70,6 +70,7 @@ SIFInainoStrategicMissile02 = Class(SIFInainoStrategicMissile) {
                 v(self)
             end
         end
+
         SIFInainoStrategicMissile.DoTakeDamage(self, instigator, amount, vector, damageType)
     end,
 
@@ -89,19 +90,31 @@ SIFInainoStrategicMissile02 = Class(SIFInainoStrategicMissile) {
 		local WaitSeconds = WaitSeconds
 		
         self.CreateEffects( self, self.InitialEffects, army, 1 )
+
         self:TrackTarget(false)
+
         WaitSeconds(2.5)
+
         self:SetCollision(true)
+
         self.CreateEffects( self, self.LaunchEffects, army, 1 )
+
         WaitSeconds(2.5)
+
         self:SetTurnRate(5)
+
         self.CreateEffects( self, self.ThrustEffects, army, 3 )
+
         WaitSeconds(2.5)
+
         self:TrackTarget(true)
         self:SetDestroyOnWater(true)
         self:SetTurnRate(50)
+
         WaitSeconds(2)
+
         self:SetBallisticAcceleration(10)
+
         while not self:BeenDestroyed() do
             self:SetTurnRateByDist()
             WaitSeconds(0.5)
@@ -109,21 +122,22 @@ SIFInainoStrategicMissile02 = Class(SIFInainoStrategicMissile) {
     end,
 
     SetTurnRateByDist = function(self) 
+
         local dist = self:GetDistanceToTarget()
-        #Get the nuke as close to 90 deg as possible
+
         if dist > 150 then        
-            #Freeze the turn rate as to prevent steep angles at long distance targets
             self:SetTurnRate(0)
+
         elseif dist > 75 and dist <= 150 then
-						# Increase check intervals
             self.WaitTime = 0.3
+
         elseif dist > 32 and dist <= 75 then
-						# Further increase check intervals
             self.WaitTime = 0.1
+
         elseif dist < 32 then
-						# Turn the missile down
             self:SetTurnRate(80)
         end
+
     end,
 
     GetDistanceToTarget = function(self)

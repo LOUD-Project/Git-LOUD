@@ -1,0 +1,17 @@
+ProjectileBlueprint {
+    Audio = {},
+    
+    Categories = {
+        'PROJECTILE',
+    },
+    
+    Display = {},
+
+    Physics = {
+        DestroyOnWater = true,
+        InitialSpeed = 50,
+        LeadTarget = false,
+        TurnRate = 100,
+        VelocityAlign = true,
+    },
+}

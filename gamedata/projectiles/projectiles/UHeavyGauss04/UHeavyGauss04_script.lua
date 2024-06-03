@@ -1,12 +1,7 @@
------------------------------------------------------------------------------
---  File     :  /projectiles/uheavygauss04/uheavygauss04_script.lua
---  Author(s):
---  Summary  :  SC2 UEF Heavy Gauss: UHeavyGauss04
---  Copyright © 2009 Gas Powered Games, Inc.  All rights reserved.
------------------------------------------------------------------------------
 UHeavyGauss04 = Class(import('/lua/sim/defaultprojectiles.lua').MultiPolyTrailProjectile)  {
 
 	FxImpactTrajectoryAligned = true,
+
 	FxTrails={
 		'/effects/emitters/weapons/uef/heavygauss04/projectile/w_u_hvg04_p_01_glow_emit.bp',
 		'/effects/emitters/weapons/uef/heavygauss04/projectile/w_u_hvg04_p_04_wisps_emit.bp',

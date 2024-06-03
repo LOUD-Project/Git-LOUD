@@ -1,12 +1,7 @@
------------------------------------------------------------------------------
---  File     :  /projectiles/cybran/cantiair02/cantiair02_script.lua
---  Author(s):
---  Summary  :  SC2 Cybran AntiAir: CAntiAir02
---  Copyright © 2009 Gas Powered Games, Inc.  All rights reserved.
------------------------------------------------------------------------------
-
 CAntiAir02 = Class(import('/lua/sim/defaultprojectiles.lua').SinglePolyTrailProjectile) {
+
 	FxImpactTrajectoryAligned =true,
+
 	FxImpactAirUnit = {
 		'/mods/TEX Enhancement Pack/effects/emitters/weapons/cybran/laser01/impact/unit/w_c_las01_i_u_02_flash_emit.bp',
 		'/mods/TEX Enhancement Pack/effects/emitters/weapons/cybran/laser01/impact/unit/w_c_las01_i_u_03_sparks_emit.bp',

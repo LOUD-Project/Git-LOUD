@@ -53,10 +53,6 @@ ProjectileBlueprint {
         BuildTime = 518400,
     },
 
-    Interface = {
-        HelpText = 'AEON Nuclear Missile',
-    },
-
     Physics = {
         Acceleration = 3,
         CollideEntity = false,

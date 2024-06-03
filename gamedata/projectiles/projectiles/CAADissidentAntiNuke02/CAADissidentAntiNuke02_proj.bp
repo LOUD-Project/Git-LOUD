@@ -13,23 +13,10 @@ ProjectileBlueprint {
         'ANTIMISSILE',
     },
 
-    Description = 'CYBRAN Anti Nuclear Missile',
-
     Display = {
-        Mesh = {
-            LODs = {
-                {
-                    LODCutoff = 150,
-                    ShaderName = 'TMeshAlpha',
-                },
-            },
-        },
+        Mesh = { LODs = { { LODCutoff = 150, ShaderName = 'TMeshAlpha' } } },
         StrategicIconSize = 1,
         UniformScale = 1,
-    },
-
-    Interface = {
-        HelpText = 'CYBRAN Anti Nuclear Missile',
     },
 
     Physics = {

@@ -13,15 +13,9 @@ ProjectileBlueprint {
         'ANTIMISSILE',
     },
 
-    Description = 'Seraphim Anti Nuclear Missile',
-
     Display = {
         StrategicIconSize = 1,
         UniformScale = 0.05,
-    },
-
-    Interface = {
-        HelpText = 'Seraphim Anti Nuclear Missile',
     },
 
     Physics = {

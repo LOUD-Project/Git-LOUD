@@ -1,11 +1,7 @@
 ProjectileBlueprint {
 
     Audio = {
-        Impact = Sound {
-            Bank = 'Impacts',
-            Cue = 'AEON_Expl_Med_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
+        Impact = Sound { Bank = 'Impacts', Cue = 'AEON_Expl_Med_Impact', LodCutoff = 'Weapon_LodCutoff'},
     },
 
     Categories = {
@@ -16,19 +12,9 @@ ProjectileBlueprint {
     DesiredShooterCap = 1,
     
     Display = {
-        Mesh = {
-            LODs = {
-                {
-                    ShaderName = 'TMeshAlpha',
-                },
-            },
-        },
+        Mesh = { LODs = { { ShaderName = 'TMeshAlpha' } } },
         StrategicIconSize = 2,
         UniformScale = 0.025,
-    },
-
-    Interface = {
-        HelpText = 0,
     },
 
     Physics = {

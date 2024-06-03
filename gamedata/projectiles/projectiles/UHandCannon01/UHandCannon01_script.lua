@@ -1,20 +1,19 @@
------------------------------------------------------------------------------
---  File     :  /projectiles/uhandcannon01/uhandcannon01_script.lua
---  Author(s):	Gordon Duclos, Aaron Lundquist
---  Summary  :  SC2 UEF Hand Cannon: UHandCannon01
---  Copyright © 2009 Gas Powered Games, Inc.  All rights reserved.
------------------------------------------------------------------------------
-local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 local Projectile = import('/lua/sim/DefaultProjectiles.lua').EmitterProjectile
 
+local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
+
 UHandCannon01 = Class(Projectile) { 
+
 	FxImpactTrajectoryAligned = true,
 	
     OnImpact = function(self, TargetType, targetEntity)
+
 		if TargetType != 'Water' then 
-			local scale = RandomFloat(13,18)
-			CreateDecal(self:GetPosition(), RandomFloat(0,2*math.pi), '/textures/Terrain/Decals/scorch_001_diffuse.dds', '', 'Albedo', scale, scale, 150, 15, self:GetArmy(), 5)
+        
+			local scale = RandomFloat(6,14)
+			CreateDecal(self:GetPosition(), RandomFloat(0,6.28), '/textures/Terrain/Decals/scorch_001_diffuse.dds','', 'Albedo', scale, scale, 100, 15, self:GetArmy(), 5)
 		end	 
+
 		Projectile.OnImpact( self, TargetType, targetEntity )
     end,
 	
@@ -118,12 +117,14 @@ UHandCannon01 = Class(Projectile) {
 		'/effects/emitters/weapons/generic/water01/large01/impact/w_g_wat01_l_i_07_mist_emit.bp',
 		'/effects/emitters/weapons/generic/water01/large01/impact/w_g_wat01_l_i_08_leftover_emit.bp',
 	},
-    FxTrailsScale = 0.6,
-    FxPropHitScale = 0.6,
+    
+    FxTrailsScale = 0.35,
+    
+    FxPropHitScale = 0.4,
     FxShieldHitScale = 0.6,
-    FxLandHitScale = 0.6,
+    FxLandHitScale = 0.4,
     FxUnitHitScale = 0.6,
-    FxWaterHitScale = 0.6,
+    FxWaterHitScale = 0.2,
 
 }
 TypeClass = UHandCannon01

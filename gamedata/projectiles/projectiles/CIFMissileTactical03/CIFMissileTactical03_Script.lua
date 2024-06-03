@@ -42,7 +42,6 @@ CIFMissileTactical03 = Class(CLOATacticalMissileProjectile) {
     
         if not self.Split and (amount >= self:GetHealth()) then
 		
-			local LOUDPI = math.pi
 			local LOUDCOS = math.cos
 			local LOUDSIN = math.sin
 			
@@ -52,9 +51,9 @@ CIFMissileTactical03 = Class(CLOATacticalMissileProjectile) {
             
             local ChildProjectileBP = '/projectiles/CIFMissileTacticalSplit01/CIFMissileTacticalSplit01_proj.bp'
             
-            local angle = (2*LOUDPI) / self.NumChildMissiles
+            local angle = 6.28 / self.NumChildMissiles
             
-            local spreadMul = 0.5  # Adjusts the width of the dispersal        
+            local spreadMul = 0.5  -- Adjusts the width of the dispersal        
 		
             local launcherbp = self:GetLauncher():GetBlueprint()  
 		
@@ -63,7 +62,6 @@ CIFMissileTactical03 = Class(CLOATacticalMissileProjectile) {
             self.ChildDamageData.DamageAmount = launcherbp.SplitDamage.DamageAmount or 0
             self.ChildDamageData.DamageRadius = launcherbp.SplitDamage.DamageRadius or 1   
 
-            -- Launch projectiles at semi-random angles away from split location
             for i = 0, (self.NumChildMissiles - 1) do
                 local xVec = vx + LOUDSIN(i*angle) * spreadMul
                 local yVec = vy + LOUDCOS(i*angle) * spreadMul
@@ -85,6 +83,7 @@ CIFMissileTactical03 = Class(CLOATacticalMissileProjectile) {
         self.WaitTime = 0.1
         self:SetTurnRate(8)
         WaitSeconds(0.3)        
+
         while not self:BeenDestroyed() do
             self:SetTurnRateByDist()
             WaitSeconds(self.WaitTime)
@@ -92,26 +91,27 @@ CIFMissileTactical03 = Class(CLOATacticalMissileProjectile) {
     end,
 
     SetTurnRateByDist = function(self)
+
         local dist = self:GetDistanceToTarget()
-        #Get the nuke as close to 90 deg as possible
+
         if dist > 50 then        
-            #Freeze the turn rate as to prevent steep angles at long distance targets
             WaitSeconds(2)
             self:SetTurnRate(20)
+
         elseif dist > 128 and dist <= 213 then
-						# Increase check intervals
-						self:SetTurnRate(30)
-						WaitSeconds(1.5)
+			self:SetTurnRate(30)
+			WaitSeconds(1.5)
             self:SetTurnRate(30)
+
         elseif dist > 43 and dist <= 107 then
-						# Further increase check intervals
             WaitSeconds(0.3)
             self:SetTurnRate(50)
-				elseif dist > 0 and dist <= 43 then
-						# Further increase check intervals            
+
+		elseif dist > 0 and dist <= 43 then
             self:SetTurnRate(100)   
             KillThread(self.MoveThread)         
         end
+
     end,        
 
     GetDistanceToTarget = function(self)

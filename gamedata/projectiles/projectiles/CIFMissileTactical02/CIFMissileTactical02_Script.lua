@@ -3,7 +3,6 @@
 -- with a higher arc and distance based adjusting trajectory. Splits into child projectile 
 -- if it takes enough damage.
 --
-
 local CLOATacticalMissileProjectile = import('/lua/cybranprojectiles.lua').CLOATacticalMissileProjectile
 
 local ForkThread = ForkThread
@@ -59,7 +58,7 @@ CIFMissileTactical02 = Class(CLOATacticalMissileProjectile) {
 		
         --Get the missile as close to 90 deg as possible
         if dist > 107 then
-        
+       
             WaitSeconds(2)
 			
             self:SetTurnRate(15)
@@ -100,8 +99,7 @@ CIFMissileTactical02 = Class(CLOATacticalMissileProjectile) {
         local army = self:GetArmy()
 		
         CreateLightParticle( self, -1, army, 3, 7, 'glow_03', 'ramp_fire_11' ) 
-		
-        -- if I collide with anything BUT a Projectile -- dont split
+
         if targetType != 'Projectile' then
             self.Split = true
         end
@@ -115,7 +113,6 @@ CIFMissileTactical02 = Class(CLOATacticalMissileProjectile) {
 	
         if not self.Split and (amount >= self:GetHealth()) then
 		
-			local LOUDPI = math.pi
 			local LOUDCOS = math.cos
 			local LOUDSIN = math.sin
 			
@@ -126,7 +123,7 @@ CIFMissileTactical02 = Class(CLOATacticalMissileProjectile) {
 			
             local ChildProjectileBP = '/projectiles/CIFMissileTacticalSplit01/CIFMissileTacticalSplit01_proj.bp'
 			
-            local angle = (2*LOUDPI) / self.NumChildMissiles
+            local angle = 6.28 / self.NumChildMissiles
             local spreadMul = 0.5  -- Adjusts the width of the dispersal        
 
 		
@@ -137,7 +134,6 @@ CIFMissileTactical02 = Class(CLOATacticalMissileProjectile) {
             self.ChildDamageData.DamageAmount = launcherbp.SplitDamage.DamageAmount or 0
             self.ChildDamageData.DamageRadius = launcherbp.SplitDamage.DamageRadius or 1   
 	
-            -- Launch projectiles at semi-random angles away from split location
             for i = 0, (self.NumChildMissiles - 1) do
 			
                 local xVec = vx + LOUDSIN(i*angle) * spreadMul

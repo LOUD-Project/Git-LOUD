@@ -1,8 +1,5 @@
---
--- Cybran Anti Air Projectile
---
-
 local CAANanoDartProjectile = import('/lua/cybranprojectiles.lua').CAANanoDartProjectile03
+
 local CreateEmitterOnEntity = CreateEmitterOnEntity
 
 CAANanoDart02 = Class(CAANanoDartProjectile) {

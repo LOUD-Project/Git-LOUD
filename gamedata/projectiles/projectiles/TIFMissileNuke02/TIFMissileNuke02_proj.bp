@@ -1,26 +1,9 @@
 ProjectileBlueprint {
 
     Audio = {
-        ExistLoop = Sound {
-            Bank = 'UELWeapon',
-            Cue = 'UEF_Nuke_Flight',
-            LodCutoff = 'DefaultLodCutoff',
-        },
-        ImpactTerrain = Sound {
-            Bank = 'Explosions',
-            Cue = 'UEF_Nuke_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        ImpactWater = Sound {
-            Bank = 'Explosions',
-            Cue = 'UEF_Nuke_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        NukeExplosion = Sound {
-            Bank = 'Explosions',
-            Cue = 'UEF_Nuke_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
+        ExistLoop       = Sound { Bank = 'UELWeapon', Cue = 'UEF_Nuke_Flight', LodCutoff = 'DefaultLodCutoff'},
+        Impact          = Sound { Bank = 'Explosions', Cue = 'UEF_Nuke_Impact', LodCutoff = 'Weapon_LodCutoff'},
+        NukeExplosion   = Sound { Bank = 'Explosions', Cue = 'UEF_Nuke_Impact', LodCutoff = 'Weapon_LodCutoff'},
     },
 
     Categories = {
@@ -33,8 +16,6 @@ ProjectileBlueprint {
         Health = 25,
         MaxHealth = 25,
     },
-
-    Description = 'UEF Nuclear Missile',
 
     DesiredShooterCap = 1,
 
@@ -51,10 +32,6 @@ ProjectileBlueprint {
         BuildCostEnergy = 1920000,
         BuildCostMass = 19200,
         BuildTime = 518400,
-    },
-
-    Interface = {
-        HelpText = 'UEF Nuclear Missile',
     },
 
     Physics = {

@@ -16,7 +16,7 @@ AIFSonanceShell02 = Class(AArtilleryProjectile) {
     OnImpact = function(self, TargetType, targetEntity)
 	
 		if TargetType != 'Shield' and TargetType != 'Water' and TargetType != 'UnitAir' then
-			local rotation = RandomFloat(0,2*math.pi)
+			local rotation = RandomFloat(0,6.28)
         
 			CreateDecal(self:GetPosition(), rotation, 'crater_radial01_normals', '', 'Alpha Normals', 5, 5, 100, 0, self:GetArmy())
 			CreateDecal(self:GetPosition(), rotation, 'crater_radial01_albedo', '', 'Albedo', 6, 6, 100, 0, self:GetArmy())

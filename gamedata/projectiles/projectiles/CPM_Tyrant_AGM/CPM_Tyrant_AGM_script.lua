@@ -1,4 +1,5 @@
 local CIridiumRocketProjectile = import('/lua/cybranprojectiles.lua').CIridiumRocketProjectile
+
 local FxScale = 2.5
 
 CPM_Tyrant_AGM = Class(CIridiumRocketProjectile) {

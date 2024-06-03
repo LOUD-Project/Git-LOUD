@@ -1,11 +1,7 @@
 ProjectileBlueprint {
 
     Audio = {
-        Impact = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Anti_Nuke',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
+        Impact = Sound { Bank = 'Explosions', Cue = 'Expl_Anti_Nuke', LodCutoff = 'Weapon_LodCutoff'},
     },
 
     Categories = {
@@ -13,23 +9,10 @@ ProjectileBlueprint {
         'ANTIMISSILE',
     },
 
-    Description = 'UEF Anti Nuclear Missile',
-
     Display = {
-        Mesh = {
-            LODs = {
-                {
-                    LODCutoff = 150,
-                    ShaderName = 'TMeshAlpha',
-                },
-            },
-        },
+        Mesh = { LODs = { { LODCutoff = 150, ShaderName = 'TMeshAlpha' } } },
         StrategicIconSize = 1,
         UniformScale = 1.2,
-    },
-
-    Interface = {
-        HelpText = 'UEF Anti Nuclear Missile',
     },
 
     Physics = {

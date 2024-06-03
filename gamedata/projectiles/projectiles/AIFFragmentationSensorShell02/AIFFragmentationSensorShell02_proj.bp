@@ -29,10 +29,6 @@ ProjectileBlueprint {
         UniformScale = 0.1,
     },
 
-    Interface = {
-        HelpText = 0,
-    },
-
     Physics = {
         DestroyOnWater = true,
         DetonateBelowHeight = 34,

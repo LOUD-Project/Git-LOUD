@@ -1,7 +1,5 @@
---
--- Terran Land-Based Cruise Missile
---
 local TMissileCruiseProjectile = import('/lua/terranprojectiles.lua').TMissileCruiseProjectile
+
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local SingleBeamProjectile = import('/lua/sim/defaultprojectiles.lua').SingleBeamProjectile
 local ForkThread = ForkThread

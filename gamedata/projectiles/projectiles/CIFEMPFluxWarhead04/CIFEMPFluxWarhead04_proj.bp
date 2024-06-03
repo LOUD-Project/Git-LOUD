@@ -1,21 +1,8 @@
 ProjectileBlueprint {
 
     Audio = {
-        ImpactTerrain = Sound {
-            Bank = 'Explosions',
-            Cue = 'Cybran_Nuke_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        ImpactWater = Sound {
-            Bank = 'Explosions',
-            Cue = 'Cybran_Nuke_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        NukeExplosion = Sound {
-            Bank = 'Explosions',
-            Cue = 'Cybran_Nuke_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
+        Impact          = Sound { Bank = 'Explosions', Cue = 'Cybran_Nuke_Impact', LodCutoff = 'Weapon_LodCutoff'},
+        NukeExplosion   = Sound { Bank = 'Explosions', Cue = 'Cybran_Nuke_Impact', LodCutoff = 'Weapon_LodCutoff'},
     },
 
     Categories = {
@@ -28,8 +15,6 @@ ProjectileBlueprint {
         Health = 25,
         MaxHealth = 25,
     },
-
-    Description = 'CYBRAN Nuclear Missile',
 
     DesiredShooterCap = 1,
 
@@ -46,10 +31,6 @@ ProjectileBlueprint {
         BuildCostEnergy = 1920000,
         BuildCostMass = 19200,
         BuildTime = 518400,
-    },
-
-    Interface = {
-        HelpText = 'CYBRAN Nuclear Missile',
     },
 
     Physics = {

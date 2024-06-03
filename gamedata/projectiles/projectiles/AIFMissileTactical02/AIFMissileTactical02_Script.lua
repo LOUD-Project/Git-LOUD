@@ -13,15 +13,22 @@ AIFMissileTactical02 = Class(AMissileSerpentineProjectile) {
 
     MovementThread = function(self)
         local army = self:GetArmy()
+
         self:TrackTarget(false)
         self:SetCollision(true)
+
         WaitSeconds(2)
+
         self:SetTurnRate(5)
+
         WaitSeconds(0.5)
+
         self:TrackTarget(true)
         self:TrackTarget(true)
         self:SetTurnRate(10)
+
         WaitSeconds(0.5)
+
         while not self:BeenDestroyed() do
             self:SetTurnRateByDist()
             WaitSeconds(0.5)
@@ -29,16 +36,21 @@ AIFMissileTactical02 = Class(AMissileSerpentineProjectile) {
     end,
 
     SetTurnRateByDist = function(self)
+
         local dist = self:GetDistanceToTarget()
+
         if dist > 125 and self.MovementTurnLevel < 2 then
             self:SetTurnRate(30)
             self.MovementTurnLevel = 1
+
         elseif dist > 85 and dist <= 125 and self.MovementTurnLevel < 3 then
             self:SetTurnRate(40)
             self.MovementTurnLevel = 2
+
         elseif dist > 40 and dist <= 85 and self.MovementTurnLevel < 4 then
             self:SetTurnRate(50)
             self.MovementTurnLevel = 3
+
         elseif dist < 40 then
             self:SetTurnRate(85)
             self.MovementTurnLevel = 4

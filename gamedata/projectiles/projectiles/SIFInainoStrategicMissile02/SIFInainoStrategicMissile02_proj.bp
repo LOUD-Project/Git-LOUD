@@ -1,26 +1,9 @@
 ProjectileBlueprint {
 
     Audio = {
-        ExistLoop = Sound {
-            Bank = 'UELWeapon',
-            Cue = 'UEF_Nuke_Flight',
-            LodCutoff = 'DefaultLodCutoff',
-        },
-        ImpactTerrain = Sound {
-            Bank = 'Impacts',
-            Cue = 'XSB2305_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        ImpactWater = Sound {
-            Bank = 'Impacts',
-            Cue = 'XSB2305_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        NukeExplosion = Sound {
-            Bank = 'Impacts',
-            Cue = 'XSB2305_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
+        ExistLoop       = Sound { Bank = 'UELWeapon', Cue = 'UEF_Nuke_Flight', LodCutoff = 'DefaultLodCutoff'},
+        Impact          = Sound { Bank = 'Impacts', Cue = 'XSB2305_Impact', LodCutoff = 'Weapon_LodCutoff'},
+        NukeExplosion   = Sound { Bank = 'Impacts', Cue = 'XSB2305_Impact', LodCutoff = 'Weapon_LodCutoff'},
     },
 
     Categories = {
@@ -33,8 +16,6 @@ ProjectileBlueprint {
         Health = 25,
         MaxHealth = 25,
     },
-
-    Description = 'Seraphim Inferno Strategic Missile',
 
     DesiredShooterCap = 1,
 
@@ -60,10 +41,6 @@ ProjectileBlueprint {
         BuildCostEnergy = 2160000,
         BuildCostMass = 21600,
         BuildTime = 583200,
-    },
-
-    Interface = {
-        HelpText = 'Seraphim Inferno Strategic Missile',
     },
 
     Physics = {

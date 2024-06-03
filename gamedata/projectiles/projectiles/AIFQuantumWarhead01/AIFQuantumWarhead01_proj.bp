@@ -1,26 +1,9 @@
 ProjectileBlueprint {
 
     Audio = {
-        ExistLoop = Sound {
-            Bank = 'UELWeapon',
-            Cue = 'UEF_Nuke_Flight',
-            LodCutoff = 'DefaultLodCutoff',
-        },
-        ImpactTerrain = Sound {
-            Bank = 'Explosions',
-            Cue = 'Aeon_Nuke_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        ImpactWater = Sound {
-            Bank = 'Explosions',
-            Cue = 'Aeon_Nuke_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        NukeExplosion = Sound {
-            Bank = 'Explosions',
-            Cue = 'Aeon_Nuke_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
+        ExistLoop       = Sound { Bank = 'UELWeapon', Cue = 'UEF_Nuke_Flight', LodCutoff = 'DefaultLodCutoff'},
+        Impact          = Sound { Bank = 'Explosions', Cue = 'Aeon_Nuke_Impact', LodCutoff = 'Weapon_LodCutoff' },
+        NukeExplosion   = Sound { Bank = 'Explosions', Cue = 'Aeon_Nuke_Impact', LodCutoff = 'Weapon_LodCutoff'},
     },
 
     Categories = {
@@ -41,14 +24,7 @@ ProjectileBlueprint {
     Display = {
         CameraFollowTimeout = 5,
         CameraFollowsProjectile = true,
-        Mesh = {
-            IconFadeInZoom = 200,
-            LODs = {
-                {
-                    ShaderName = 'TMeshAlpha',
-                },
-            },
-        },
+        Mesh = { IconFadeInZoom = 200, LODs = { { ShaderName = 'TMeshAlpha' } } },
         UniformScale = 0.2,
     },
 
