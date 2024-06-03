@@ -5,35 +5,19 @@ UnitBlueprint {
     },
 	
     Audio = {
-        ActiveLoop = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0402_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'URB',
-            Cue = 'URB2301_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        ActiveLoop      = Sound { Bank = 'XSL', Cue = 'XSL0402_Move_Loop', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'URB', Cue = 'URB2301_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 3,
-            Level2 = 6,
-            Level3 = 9,
-            Level4 = 12,
-            Level5 = 15,
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
         },
     },
 	
@@ -60,11 +44,12 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
+
+        Health = 2400,
+        MaxHealth = 2400,
+        RegenRate = 2,
+
         EconomyThreatLevel = 2,
-        Health = 18910,
-        MaxHealth = 18910,
-        RegenRate = 0,
-        SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
 	
@@ -121,21 +106,20 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'land',
+        
         OrderOverrides = {
-            RULEUTC_ProductionToggle = {
-                bitmapId = 'activate-weapon',
-                helpText = 'activate_weapon',
-            },
+            RULEUTC_ProductionToggle = { bitmapId = 'activate-weapon', helpText = 'activate_weapon' },
         },
+        
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_ProductionToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_ProductionToggle = true},
+        
         UnitName = '<LOC srb2391_name>Tesla Coil',
     },
 	
     Intel = {
-        VisionRadius = 25,
+        VisionRadius = 28,
         RadarStealth = true,
         SonarStealth = true,
     },
@@ -187,13 +171,11 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0402_Attack_Zap',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0402_Attack_Zap', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0.0,
@@ -207,7 +189,7 @@ UnitBlueprint {
                     Duration = 0.6,
                     Radius = 0,
                     TargetAllow = 'ALLUNITS',
-                    TargetDisallow = 'EXPERIMENTAL,COMMAND,SUBCOMMANDER',
+                    TargetDisallow = 'AIR,COMMAND,SUBCOMMANDER',
                 },
             },
 			
@@ -234,17 +216,14 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 2,
 			
             Label = 'MainGun',
 			
-            MaxRadius = 25,
+            MaxRadius = 32,
 
-            ProjectileLifetimeUsesMultiplier = 1.15,
-			
             RackBones = {
                 {
                     MuzzleBones = {'Muzzle'},
@@ -286,13 +265,11 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = false,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0402_Attack_Zap',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0402_Attack_Zap', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = true,
 			
@@ -313,6 +290,7 @@ UnitBlueprint {
             IgnoreIfDisabled = true,
 			
             Label = 'DeathWeapon',
+
             FireOnDeath = true,
 			
             MaxRadius = 3,
@@ -333,15 +311,14 @@ UnitBlueprint {
 
             TargetCheckInterval = 1,
             TargetRestrictDisallow = 'UNTARGETABLE',
-            WeaponCategory = 'Direct Fire',
         },
     },
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

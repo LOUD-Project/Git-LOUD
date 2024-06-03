@@ -6,25 +6,21 @@ UnitBlueprint {
     },
     
     Audio = {
-        AmbientMove = Sound { Bank = 'UES', Cue = 'UES0304_Move_Loop',  LodCutoff = 'UnitMove_LodCutoff' },
-     AmbientMoveSub = Sound { Bank = 'UES', Cue = 'UES0304_Move_Loop',  LodCutoff = 'UnitMove_LodCutoff' },
           StartMove = Sound { Bank = 'UES', Cue = 'UES0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
        StartMoveSub = Sound { Bank = 'UES', Cue = 'UES0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
            StopMove = Sound { Bank = 'UES', Cue = 'UES0304_Move_Stop',  LodCutoff = 'UnitMove_LodCutoff' },
         SubStopMove = Sound { Bank = 'UES', Cue = 'UES0304_Move_Stop',  LodCutoff = 'UnitMove_LodCutoff' },
-      SubmergeStart = Sound { Bank = 'UES', Cue = 'UES_Sub_Submerge',   LodCutoff = 'UnitMove_LodCutoff' },
-       SurfaceStart = Sound { Bank = 'UES', Cue = 'UES_Sub_Surface',    LodCutoff = 'UnitMove_LodCutoff' },
         UISelection = Sound { Bank = 'Interface',  Cue = 'UEF_Select_Naval', LodCutoff = 'UnitMove_LodCutoff' },
              Killed = Sound { Bank = 'UESDestroy', Cue = 'UES0304_Destroy',  LodCutoff = 'UnitMove_LodCutoff' },
     },
     
     Buffs = {
         Regen = {
-            Level1 = 4,
-            Level2 = 8,
-            Level3 = 12,
-            Level4 = 16,
-            Level5 = 20,
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
         },
     },
     
@@ -48,16 +44,19 @@ UnitBlueprint {
     CollisionOffsetY = -0.3,
     
     Defense = {
-        AirThreatLevel = 15,
+
+        MissileTorpDestroy = { AttachBone = {'Niode_M'}, Radius = 3.2, RedirectRateOfFire = 9, ProjectileCategories = {'TORPEDO'} },
+    
+        AirThreatLevel = 10,
         
         ArmorType = 'Normal',
         
-        Health = 1950,
-        MaxHealth = 1950,
+        Health = 1850,
+        MaxHealth = 1850,
         
-        RegenRate = 4,        
+        RegenRate = 3,        
         
-        SubThreatLevel = 11,
+        SubThreatLevel = 23,
     },
     
     Description = '<LOC ses0204_desc>Attack Submarine',
@@ -70,25 +69,12 @@ UnitBlueprint {
             '<LOC ability_torpedo>Torpedoes',
             '<LOC ability_torpedodef>Torpedo Defense',
         },
+        
         IdleEffects = {
-            Sub = {
-                Effects = {
-                    {
-                        Bones = { 'Rear', 'Tip_L', 'Tip_R', 'Niode_M' },
-                        Type = 'UnderWater01',
-                    },
-                },
-            },
-            Water = {
-                Effects = {
-                    {
-                        Bones = {0},
-                        Scale = 0.5,
-                        Type = 'SeaIdle01',
-                    },
-                },
-            },
+            Sub     = { Effects = { { Bones = { 'Tip_L', 'Tip_R' }, Type = 'UnderWater01' } } },
+            Water   = { Effects = { { Bones = {0}, Scale = 0.5, Type = 'SeaIdle01' } } },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -98,28 +84,17 @@ UnitBlueprint {
                 { LODCutoff = 256, ShaderName = 'Unit' },
             },
         },
-        MotionChangeEffects = {
-            SubBottomUp = {
-                Effects = { { Bones = {0}, Type = 'Surface01' } },
-            },
-            WaterTopDown = {
-                Effects = { { Bones = {0}, Type = 'Submerge01' } },
-            },
-        },
+        
         MovementEffects = {
             Sub = {
                 Effects = {
-                    {
-                        Bones = {'Rear'},
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'Rear'}, Type = 'BackWake' },
                 },
             },
             Water = {
                 Effects = {
-                    { Bones = { 'Tip_L' }, Scale = 0.5, Type = 'LeftFrontWake' },
-                    { Bones = { 'Tip_R' }, Scale = 0.5, Type = 'RightFrontWake' },
-                    { Bones = { 'Rear'  }, Scale = 0.5, Type = 'BackWake' },
+                    { Bones = { 'Tip_L' }, Scale = 0.4, Type = 'LeftFrontWake' },
+                    { Bones = { 'Tip_R' }, Scale = 0.4, Type = 'RightFrontWake' },
                 },
             },
         },
@@ -154,7 +129,10 @@ UnitBlueprint {
     
     Intel = {
         FreeIntel = true,
-        SonarRadius = 50,
+
+        RadarStealth = true,
+        
+        SonarRadius = 52,
         VisionRadius = 28,
         WaterVisionRadius = 36,
     },
@@ -164,7 +142,7 @@ UnitBlueprint {
     LifeBarSize = 1.1,
     
     Physics = {
-        BackUpDistance = 5,
+        BackUpDistance = 8,
         CatchUpAcc = 10,
         Elevation = -2.8,
         MaxAcceleration = 1.4,
@@ -203,12 +181,13 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound { Bank = 'XES_Weapons', Cue = 'XES0102_Angler_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
+                Fire            = Sound { Bank = 'UESWeapon', Cue = 'UES0203_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
+                FireUnderWater  = Sound { Bank = 'UESWeapon', Cue = 'UES0203_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
             
-            Damage = 110,
+            Damage = 260,           -- most potent T2 torpedo
             DamageType = 'Normal',
             
             DisplayName = 'Angler Torpedo',
@@ -225,21 +204,24 @@ UnitBlueprint {
             MaxRadius = 48,
             
             MuzzleSalvoDelay = 0.6,
-            MuzzleSalvoSize = 4,
-            MuzzleVelocity = 3.8,
+            MuzzleSalvoSize = 2,
             
-            ProjectileId = '/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp',
-            ProjectileLifetime = 9,
+            MuzzleVelocity = 3,
+            
+            ProjectileId = '/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_proj.bp',
+            ProjectileLifetime = 7,
             
             RackBones = {
-                { MuzzleBones = { 'Niode_M', }, RackBone = 'Niode_M' },
+                { MuzzleBones = { 'Niode_L', 'Niode_R' }, RackBone = 'Niode_M' },
             },
+            
+            RackSalvoReloadTime = 0.6,
             
             RangeCategory = 'UWRC_AntiNavy',
             
-            RateOfFire = 0.25,      -- 4 torps of 110 = 440 * .25 = 110 DPS
+            RateOfFire = 1,      -- 2 torps of 260 = 520 every 1.8 seconds = 277 DPS
             
-            TargetCheckInterval = 2,
+            TargetCheckInterval = 0.5,
             
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -253,11 +235,14 @@ UnitBlueprint {
         },
         
         {
+            AboveWaterFireOnly = true,
             AlwaysRecheckTarget = true,
+
             Audio = {
                 Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2204_Artillery_Flak', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
             
@@ -274,7 +259,7 @@ UnitBlueprint {
                 Water = 'Air',
             },
             FiringRandomness = 0.5,
-            FiringTolerance = 0.4,
+            FiringTolerance = 0.3,
             
             Label = 'AAGun',
             LeadTarget = true,
@@ -320,54 +305,10 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 100,
+            TurretYawSpeed = 65,
             
             Turreted = true,
         },
-        
-        {
-            BallisticArc = 'RULEUBA_None',
-            CollideFriendly = false,
-            
-            Damage = 2,
-            DamageType = 'Normal',
-            
-            DepthCharge = { Radius = 4 },
-            
-            DisplayName = 'Smart Charge AntiTorpedo',
-            
-            FireTargetLayerCapsTable = {
-                Sub = 'Sub|Water|Seabed|Land',
-                Water = 'Sub|Water|Seabed|Land',
-            },
-            
-            FiringRandomness = 0,
-            FiringTolerance = 15,
-            
-            Label = 'AntiTorpedo',
-            
-            MaxRadius = 25,
-            MinRadius = 0,
 
-            MuzzleVelocity = 3,
-            
-            ProjectileId = '/projectiles/TIMAntiTorpedo01/TIMAntiTorpedo01_proj.bp',
-            ProjectileLifetime = 1.7,
-            
-            RackBones = {
-                { MuzzleBones = {'Niode_L'}, RackBone = 0 },
-                { MuzzleBones = {'Niode_R'}, RackBone = 0 },
-            },
-            
-            RangeCategory = 'UWRC_Countermeasure',
-            
-            RateOfFire = 0.4,
-            
-            TargetCheckInterval = 0.5,
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            TargetRestrictOnlyAllow = 'TORPEDO',
-            TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.2,
-        },
     },
 }

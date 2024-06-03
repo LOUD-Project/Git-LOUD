@@ -28,7 +28,7 @@ UnitBlueprint {
 		
         LiftFactor = 9,
 		
-        MaxAirspeed = 22,
+        MaxAirspeed = 21,
         MinAirspeed = 8,
 		
         StartTurnDistance = 5,
@@ -39,21 +39,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UAADestroy',
-            Cue = 'UAA_Destroy_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAA',
-            Cue = 'UAA0302_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'UAADestroy', Cue = 'UAA_Destroy_Air', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove = Sound { Bank = 'UAA', Cue = 'UAA0302_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Air', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     BuildIconSortPriority = 12,
@@ -76,11 +64,13 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Light',
-		AirThreatLevel = 1,
-		EconomyThreatLevel = 200,
+
         Health = 1050,
         MaxHealth = 1050,
 		Regen = 1,
+
+		AirThreatLevel = 1,
+		EconomyThreatLevel = 100,
     },
 	
     Description = '<LOC saa0201>Decoy Plane',
@@ -89,24 +79,12 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_jamming>Jamming',
         },
+
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    {
-                        Bones = {0},
-                        Type = 'Landing01',
-                    },
-                },
-            },
-            LandAir = {
-                Effects = {
-                    {
-                        Bones = {0},
-                        Type = 'TakeOff01',
-                    },
-                },
-            },
+            AirLand = { Effects = { { Bones = {0}, Type = 'Landing01' } } },
+            LandAir = { Effects = { { Bones = {0}, Type = 'TakeOff01' } } },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -127,16 +105,11 @@ UnitBlueprint {
                 },
             },
         },
+        
         MovementEffects = {
-            Air = {
-                Effects = {
-                    {
-                        Bones = {0},
-                        Type = 'AirMoveExhaust01',
-                    },
-                },
-            },
+            Air = { Effects = { { Bones = {0}, Type = 'AirMoveExhaust01' } } },
         },
+        
         UniformScale = 0.39,
     },
 	
@@ -165,24 +138,18 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'air',
-        ToggleCaps = {
-            RULEUTC_JammingToggle = true,
-            RULEUTC_WeaponToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_JammingToggle = true, RULEUTC_WeaponToggle = true },
+        
         OrderOverrides = {
-            RULEUTC_WeaponToggle= {
-                bitmapId = 'airsf',
-                helpText = 'aeonairdecoy',
-            },
+            RULEUTC_WeaponToggle= { bitmapId = 'airsf', helpText = 'aeonairdecoy' },
         },
+        
         UnitName = '<LOC saa0201_name>Beguiler',
     },
 	
     Intel = {
-        JamRadius = {
-            Max = 50,
-            Min = 8,
-        },
+        JamRadius = { Max = 50, Min = 8 },
         JammerBlips = 10,
         VisionRadius = 44,
     },
@@ -201,7 +168,7 @@ UnitBlueprint {
         },
         Elevation = 28,
         FuelRechargeRate = 15,
-        FuelUseTime = 700,
+        FuelUseTime = 350,
         GroundCollisionOffset = 2.2,
         MaxSpeed = 10,
         MeshExtentsX = 1.5 * 0.5,

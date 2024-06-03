@@ -3,15 +3,7 @@ UnitBlueprint {
     AI = {
         GuardReturnRadius = 80,
         GuardScanRadius = 58,
-        TargetBones = {
-            'GGun_Barrel001',
-			'Engine_Body004',
-			'Engine_Body003',
-			'Engine_Body002',
-			'Engine_Body001',
-			'SEA0401',
-			'HatPoint',
-        },
+        TargetBones = {'GGun_Barrel001','Engine_Body004','Engine_Body003','Engine_Body002','Engine_Body001','SEA0401','HatPoint'},
     },
 
     Air = {
@@ -53,46 +45,12 @@ UnitBlueprint {
     },
 
     Audio = {
-        AirUnitWaterImpact = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        AmbientMove = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0304_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UEADestroy',
-            Cue = 'UEA_Destroy_Med',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'UEADestroy',
-            Cue = 'UEA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Landing = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0304_Move_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Thruster = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0304_Move_Thruster',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UEADestroy', Cue = 'UEA_Destroy_Med', LodCutoff = 'UnitMove_LodCutoff' },
+        Killed      = Sound { Bank = 'UEADestroy', Cue = 'UEA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        Landing     = Sound { Bank = 'UEA', Cue = 'UEA0304_Move_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UEA', Cue = 'UEA0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        Thruster    = Sound { Bank = 'UEA', Cue = 'UEA0304_Move_Thruster', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {
@@ -153,12 +111,7 @@ UnitBlueprint {
             AirLand = {
                 Effects = {
                     {
-                        Bones = {
-                            'Engine_Exhaust001',
-                            'Engine_Exhaust002',
-                            'Engine_Exhaust003',
-                            'Engine_Exhaust004',
-                        },
+                        Bones = {'Engine_Exhaust001','Engine_Exhaust002','Engine_Exhaust003','Engine_Exhaust004'},
                         Type = 'Landing01',
                     },
                 },
@@ -166,12 +119,7 @@ UnitBlueprint {
             LandAir = {
                 Effects = {
                     {
-                        Bones = {
-                            'Engine_Exhaust001',
-                            'Engine_Exhaust002',
-                            'Engine_Exhaust003',
-                            'Engine_Exhaust004',
-                        },
+                        Bones = {'Engine_Exhaust001','Engine_Exhaust002','Engine_Exhaust003','Engine_Exhaust004'},
                         Type = 'TakeOff01',
                     },
                 },
@@ -181,52 +129,21 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 260,
-                    ShaderName = 'Unit',
-                },
-                {
-                    LODCutoff = 520,
-                    ShaderName = 'Unit',
-                },
-                {
-                    LODCutoff = 1040,
-                    ShaderName = 'Unit',
-                    AlbedoName = 'sea0401_lod2_albedo.dds',
-                    SpecularName = 'sea0401_lod2_specteam.dds',
-                    NormalsName = 'sea0401_lod2_normalsts.dds',
-                },
+                { LODCutoff = 260, ShaderName = 'Unit' },
+                { LODCutoff = 520, ShaderName = 'Unit' },
+                { LODCutoff = 1040, ShaderName = 'Unit', AlbedoName = 'sea0401_lod2_albedo.dds', SpecularName = 'sea0401_lod2_specteam.dds', NormalsName = 'sea0401_lod2_normalsts.dds' },
             },
         },
 
         MovementEffects = {
             Air = {
-                Contrails = {
-                    Bones = {
-                        'Contrail001',
-                        'Contrail002',
-                    },
-                    ZOffset = 0,
-                },
+                Contrails = { Bones = {'Contrail001','Contrail002'}, ZOffset = 0 },
                 Effects = {
-                    {
-                        Bones = {
-                            'Engine_Exhaust001',
-                            'Engine_Exhaust002',
-                            'Engine_Exhaust003',
-                            'Engine_Exhaust004',
-                        },
-                        Type = 'AirExhaust01',
-                    },
+                    { Bones = {'Engine_Exhaust001','Engine_Exhaust002','Engine_Exhaust003','Engine_Exhaust004'}, Type = 'AirExhaust01' },
                 },
             },
             BeamExhaust = {
-                Bones = {
-                    'Engine_Exhaust001',
-                    'Engine_Exhaust002',
-                    'Engine_Exhaust003',
-                    'Engine_Exhaust004',
-                },
+                Bones = {'Engine_Exhaust001','Engine_Exhaust002','Engine_Exhaust003','Engine_Exhaust004'},
                 Cruise = true,
                 Idle = true,
             },
@@ -263,7 +180,7 @@ UnitBlueprint {
     },
 
     Intel = {
-        RadarRadius = 75,
+        RadarRadius = 64,
         VisionRadius = 44,
     },
 
@@ -327,11 +244,7 @@ UnitBlueprint {
             AlwaysRecheckTarget = true,
 
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2204_Artillery_Flak',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2204_Artillery_Flak', LodCutoff = 'Weapon_LodCutoff'},
             },
 
 			AutoInitiateAttackCommand = false,
@@ -435,13 +348,11 @@ UnitBlueprint {
 
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2204_Artillery_Flak',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2204_Artillery_Flak', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -531,13 +442,11 @@ UnitBlueprint {
 		-- 2 X Flayer SAMs on top --
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEA_Weapon',
-                    Cue = 'XEA0306_Flayer_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEA_Weapon', Cue = 'XEA0306_Flayer_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 
@@ -571,14 +480,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'SAM_Muzzle001',
-                        'SAM_Muzzle002',
-                        'SAM_Muzzle003',
-                        'SAM_Muzzle004',
-                        'SAM_Muzzle005',
-                        'SAM_Muzzle006',
-                    },
+                    MuzzleBones = {'SAM_Muzzle001','SAM_Muzzle002','SAM_Muzzle003','SAM_Muzzle004','SAM_Muzzle005','SAM_Muzzle006'},
                     RackBone = 'SAM_Barrel',
                 },
             },
@@ -614,13 +516,11 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEA_Weapon',
-                    Cue = 'XEA0306_Flayer_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEA_Weapon', Cue = 'XEA0306_Flayer_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 
@@ -654,14 +554,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'SAM_Muzzle007',
-                        'SAM_Muzzle008',
-                        'SAM_Muzzle009',
-                        'SAM_Muzzle010',
-                        'SAM_Muzzle011',
-                        'SAM_Muzzle012',
-                    },
+                    MuzzleBones = {'SAM_Muzzle007','SAM_Muzzle008','SAM_Muzzle009','SAM_Muzzle010','SAM_Muzzle011','SAM_Muzzle012'},
                     RackBone = 'SAM_Barrel001',
                 },
             },
@@ -698,13 +591,11 @@ UnitBlueprint {
         {
 
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XES_Weapons',
-                    Cue = 'XES0307_Plasma_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XES_Weapons', Cue = 'XES0307_Plasma_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
 
@@ -718,10 +609,7 @@ UnitBlueprint {
             DamageRadius = 0,
             DamageType = 'Normal',
 
-            --HeadingArcCenter = 180,
-            --HeadingArcRange = 90,
-
-            DisplayName = 'Hiro Plasma Cannon',
+            DisplayName = 'AA Laser',
 
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land',
@@ -778,11 +666,7 @@ UnitBlueprint {
             AimsStraightOnDisable = false,
 
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEL_Weapons',
-                    Cue = 'XEB2306_Gatling_Gun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEL_Weapons', Cue = 'XEB2306_Gatling_Gun', LodCutoff = 'Weapon_LodCutoff'},
             },
 
             BallisticArc = 'RULEUBA_None',

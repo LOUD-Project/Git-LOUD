@@ -6,16 +6,8 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     BuildIconSortPriority = 150,
@@ -105,20 +97,14 @@ UnitBlueprint {
         InstantDeathOnSelfDestruct = true,
 
         OrderOverrides = {
-            RULEUTC_WeaponToggle = {
-                bitmapId = 'Nuke',
-                helpText = 'detonate',
-            },
+            RULEUTC_WeaponToggle = { bitmapId = 'Nuke', helpText = 'detonate' },
         },
 
         SelectionPriority = 5,
 
-        ToggleCaps = {
-            RULEUTC_WeaponToggle = true,
-        },
+        ToggleCaps = { RULEUTC_WeaponToggle = true },
 
         UnitName = '<LOC seb2222_name>AM-36 Trinity',
-        UnitWeight = 1,
     },
 
     Intel = {

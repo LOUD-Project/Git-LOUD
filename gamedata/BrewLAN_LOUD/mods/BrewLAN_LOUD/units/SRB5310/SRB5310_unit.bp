@@ -1,30 +1,13 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {  
-            'AttackTarget001',
-            'AttackTarget002',
-            'AttackTarget003', 
-            'AttackTarget004',
-        },
+        TargetBones = {'AttackTarget001','AttackTarget002','AttackTarget003','AttackTarget004'},
     },
 	
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 150,
@@ -183,25 +166,24 @@ UnitBlueprint {
     },
 	
     General = {     
-        BuildBones = {
-            BuildEffectBones = {0},
-        },          
+        BuildBones = { BuildEffectBones = {0} },
+
         CapCost = 1,
+
         CommandCaps = {
             RULEUCC_Pause = true,
             RULEUCC_Stop = true,
-        },      
+        },
+
         ConstructionBar = true,
         FactionName = 'Cybran',      
-        ToggleCaps = {
-            RULEUTC_SpecialToggle= true,
-        },
+
+        ToggleCaps = { RULEUTC_SpecialToggle= true },
+
         OrderOverrides = {
-            RULEUTC_SpecialToggle= {
-                bitmapId = 'Nuke',
-                helpText = 'removestorage',
-            },
+            RULEUTC_SpecialToggle= { bitmapId = 'Nuke', helpText = 'removestorage' },
         },
+
         SelectionPriority = 5,
         UnitName = '<LOC srb5310_name>Procyon Defiance',
     },
@@ -257,7 +239,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

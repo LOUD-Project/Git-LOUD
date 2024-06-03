@@ -6,26 +6,10 @@ UnitBlueprint {
     },
 	
     Audio = {
-        ActiveLoop = Sound {
-            Bank = 'URB',
-            Cue = 'URB4203_Active',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'URB',
-            Cue = 'URB4203_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        ActiveLoop      = Sound { Bank = 'URB', Cue = 'URB4203_Active', LodCutoff = 'UnitMove_LodCutoff' },
+        DoneBeingBuilt  = Sound { Bank = 'URB', Cue = 'URB4203_Activate', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed       = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Radar', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     BuildIconSortPriority = 200,
@@ -50,16 +34,19 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 7500,
-        Health = 15000,
-        MaxHealth = 15000,
-        RegenRate = 8,
+
+        Health = 8500,
+        MaxHealth = 8500,
+        RegenRate = 6,
+
+        EconomyThreatLevel = 5000,
     },
 	
-    Description = '<LOC srb4402_desc>Experimental Omni Disrupting Facility',
+    Description = '<LOC srb4402_desc>Sensor Disruption Facility',
 	
     Display = {
         Abilities = {
+            'Sensor Disruption Wave',
             '<LOC ability_stealthfield>Stealth Field',
         },
 		
@@ -73,41 +60,29 @@ UnitBlueprint {
         },
 		
         DamageEffects = {
-            {
-                Bone = 0,
-                OffsetX = 1,
-                OffsetY = 2.5,
-                OffsetZ = 0.25,
-            },
-            {
-                Bone = 0,
-                OffsetX = -1,
-                OffsetY = 2.5,
-                OffsetZ = 0.25,
-            },
+            { Bone = 0,  OffsetX = 1,    OffsetY = 2.5,  OffsetZ = 0.25 },
+            { Bone = 0,  OffsetX = -1,   OffsetY = 2.5,  OffsetZ = 0.25 },
         },
 		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    LODCutoff = 250,
-                    ShaderName = 'Insect',
+                    LODCutoff = 250, ShaderName = 'Insect',
                     MeshName = '/units/xrc2201/xrc2201_lod0.scm',
                     AlbedoName = '/units/xrc2201/xrc2201_albedo.dds',
                     SpecularName = '/units/xrc2201/xrc2201_specteam.dds',
                     NormalsName = '/units/xrc2201/xrc2201_normalsTS.dds',
                 },
                 {
-                    LODCutoff = 500,
-                    ShaderName = 'Insect',
-                    --MeshName = '/units/xrc2201/xrc2201_lod1.scm',
+                    LODCutoff = 500, ShaderName = 'Insect',
                     AlbedoName = '/units/xrc2201/xrc2201_albedo.dds',
                     SpecularName = '/units/xrc2201/xrc2201_specteam.dds',
                     NormalsName = '/units/xrc2201/xrc2201_lod1_normalsTS.dds',
                 },
             },
         },
+        
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_cybran_01_albedo',
@@ -129,7 +104,7 @@ UnitBlueprint {
         BuildCostMass = 79000,
         BuildTime = 27000,
 		
-        MaintenanceConsumptionPerSecondEnergy = 10000,
+        MaintenanceConsumptionPerSecondEnergy = 12500,
 		
         RebuildBonusIds = {'srb4402'},
 		
@@ -145,28 +120,27 @@ UnitBlueprint {
 		CapCost = 10,
         FactionName = 'Cybran',
         Icon = 'land',
+
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-field',
-                helpText = 'toggle_omni_distruption',
-            },
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-field', helpText = 'toggle_omni_distruption' },
         },
+        
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+        
         UnitName = '<LOC srb4402_name>Darkness',
     },
 	
     Intel = {
-        VisionRadius = 20,
+        VisionRadius = 16,
+        
         RadarStealthField = true,
-        RadarStealthFieldRadius = 75,
-        --OmniRadius = 20,
+        RadarStealthFieldRadius = 68,
     },
 	
     Interface = {
-        HelpText = '<LOC srb4402_desc>Experimental Omni Disrupting Facility',
+        HelpText = '<LOC srb4402_desc>Sensor Disruption Facility',
     },
 	
     LifeBarHeight = 0.075,
@@ -206,17 +180,45 @@ UnitBlueprint {
     StrategicIconSortPriority = 200,
 	
     Weapon = {
+        { -- Dummy weapon for visualising area of effect
+		
+            CollideFriendly = false,
+			
+            Damage = 0,
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Land|Water',
+                Land = 'Land|Water',
+                Water = 'Land|Water',
+            },
+            FiringTolerance = 1,
+			
+            Label = 'DummyWeapon',
+			
+            MaxRadius = 68,
+			
+            RateOfFire = 0.1,
+            RangeCategory = 'UWRC_Countermeasure',
+			
+            TargetCheckInterval = 6,
+            TargetPriorities = {
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            WeaponCategory = 'Direct Fire',
+		},
+	    
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Destroy',
-                    Cue = 'XSL0402_Death',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Destroy', Cue = 'XSL0402_Death', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             DisplayName = 'Omni Disrupter Pulse',
+            
             Label = 'PulseWeapon',
+            
             MaxRadius = 2000,
+            
             WeaponCategory = 'Defense',
         },
     },
@@ -224,15 +226,11 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        HealthMult = 0.3,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

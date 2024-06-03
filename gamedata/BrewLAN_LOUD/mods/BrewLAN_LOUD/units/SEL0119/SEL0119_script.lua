@@ -1,6 +1,8 @@
-local EffectTemplate = import('/lua/EffectTemplates.lua')
 local TConstructionUnit = import('/lua/terranunits.lua').TConstructionUnit
+
 local TDFRiotWeapon = import('/lua/terranweapons.lua').TDFRiotWeapon
+
+local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 SEL0319 = Class(TConstructionUnit) {
     Weapons = {

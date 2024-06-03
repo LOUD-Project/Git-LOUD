@@ -41,40 +41,13 @@ UnitBlueprint {
     },
 	
     Audio = {
-        AirUnitWaterImpact = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'UAADestroy',
-            Cue = 'UAA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UAADestroy',
-            Cue = 'UAA_Destroy_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'UAADestroy',
-            Cue = 'UAA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Landing = Sound {
-            Bank = 'UAA',
-            Cue = 'UAA0104_Move_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAA',
-            Cue = 'UAA0104_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
+        AirUnitWaterImpact  = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff' },
+        DeathExplosion      = Sound { Bank = 'UAADestroy', Cue = 'UAA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed           = Sound { Bank = 'UAADestroy', Cue = 'UAA_Destroy_Air', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed              = Sound { Bank = 'UAADestroy', Cue = 'UAA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        Landing             = Sound { Bank = 'UAA', Cue = 'UAA0104_Move_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove           = Sound { Bank = 'UAA', Cue = 'UAA0104_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection         = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Air', LodCutoff = 'UnitMove_LodCutoff',
         },
     },
 	
@@ -157,27 +130,10 @@ UnitBlueprint {
         ForcedBuildSpin = 90,
         
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    {
-                        Bones = {
-                            'BAA0306',
-                        },
-                        Type = 'Landing01',
-                    },
-                },
-            },
-            LandAir = {
-                Effects = {
-                    {
-                        Bones = {
-                            'BAA0306',
-                        },
-                        Type = 'TakeOff01',
-                    },
-                },
-            },
+            AirLand = { Effects = { { Bones = {'BAA0306'}, Type = 'Landing01' } } },
+            LandAir = { Effects = { { Bones = {'BAA0306'}, Type = 'TakeOff01' } } },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -220,21 +176,20 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'air',
+        
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'toggle_shield_dome',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-dome', helpText = 'toggle_shield_dome' },
         },
+        
         SelectionPriority = 2,
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_ShieldToggle = true },
+        
         UnitName = '<LOC saa0306_name>Solaris',
     },
 	
     Intel = {
-        VisionRadius = 38,
+        VisionRadius = 40,
     },
 	
     Interface = {
@@ -294,13 +249,11 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0310_AA_Fizz',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0310_AA_Fizz', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -336,10 +289,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Turret001_Muzzle01',
-                        'Right_Turret001_Muzzle02',
-                    },
+                    MuzzleBones = {'Right_Turret001_Muzzle01','Right_Turret001_Muzzle02'},
                     RackBone = 'Right_Turret02_Barrel',
                 },
             },
@@ -377,13 +327,11 @@ UnitBlueprint {
         },	
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0310_AA_Fizz',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0310_AA_Fizz', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -418,10 +366,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Turret02_Muzzle003',
-                        'Right_Turret02_Muzzle004',
-                    },
+                    MuzzleBones = {'Right_Turret02_Muzzle003','Right_Turret02_Muzzle004'},
                     RackBone = 'Right_Turret02_Barrel001',
                 },
             },
@@ -457,13 +402,11 @@ UnitBlueprint {
         },		
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0310_AA_Fizz',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0310_AA_Fizz', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -498,10 +441,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Turret02_Muzzle005',
-                        'Right_Turret02_Muzzle006',
-                    },
+                    MuzzleBones = {'Right_Turret02_Muzzle005','Right_Turret02_Muzzle006'},
                     RackBone = 'Right_Turret02_Barrel002',
                 },
             },
@@ -537,12 +477,9 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0310_AA_Fizz',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0310_AA_Fizz', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -579,10 +516,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Turret02_Muzzle007',
-                        'Right_Turret02_Muzzle008',
-                    },
+                    MuzzleBones = {'Right_Turret02_Muzzle007','Right_Turret02_Muzzle008'},
                     RackBone = 'Right_Turret02_Barrel003',
                 },
             },
@@ -618,12 +552,9 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0310_AA_Fizz',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0310_AA_Fizz', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -659,10 +590,7 @@ UnitBlueprint {
             ProjectileLifetimeUsesMultiplier = 1,
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Turret02_Muzzle01',
-                        'Right_Turret02_Muzzle02',
-                    },
+                    MuzzleBones = {'Right_Turret02_Muzzle01','Right_Turret02_Muzzle02'},
                     RackBone = 'Right_Turret02_Barrel',
                 },
             },
@@ -698,12 +626,9 @@ UnitBlueprint {
         },		
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0310_AA_Fizz',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0310_AA_Fizz', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -740,10 +665,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Turret02_Muzzle009',
-                        'Right_Turret02_Muzzle010',
-                    },
+                    MuzzleBones = {'Right_Turret02_Muzzle009','Right_Turret02_Muzzle010'},
                     RackBone = 'Right_Turret02_Barrel004',
                 },
             },
@@ -798,10 +720,7 @@ UnitBlueprint {
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
             Water = true,
         },
     },

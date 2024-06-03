@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'XEB',
-            Cue = 'XEB2306_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed       = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'XEB', Cue = 'XEB2306_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {
@@ -61,10 +49,11 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 98,
+
         Health = 7750,
         MaxHealth = 7750,
         RegenRate = 2,
+
         SurfaceThreatLevel = 130.5,
     },
 
@@ -94,6 +83,7 @@ UnitBlueprint {
                 },
             },
         },
+        
         Tarmacs = {
             {
                 Albedo = '/mods/BrewLAN_LOUD/env/Common/decals/Tarmacs/Tar7x_01_albedo.dds',
@@ -106,6 +96,7 @@ UnitBlueprint {
                 Width = 6.4,
             },
         },
+
         UniformScale = 0.13,
     },
 
@@ -113,6 +104,7 @@ UnitBlueprint {
         BuildCostEnergy = 60000,
         BuildCostMass = 4250,
         BuildTime = 4250,
+
         RebuildBonusIds = {'seb2311'},
     },
 
@@ -123,6 +115,7 @@ UnitBlueprint {
 
     General = {
 		CapCost = 2,
+        
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -131,11 +124,12 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         SelectionPriority = 5,
+
         UnitName = '<LOC seb2311_name>Guardian',
     },
 
     Intel = {
-        VisionRadius = 30,
+        VisionRadius = 32,
     },
 
     LifeBarHeight = 0.075,
@@ -187,10 +181,10 @@ UnitBlueprint {
             ArtilleryShieldBlocks = true,
 
             Audio = {
-                BarrelLoop = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelLoop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
                 BarrelStart = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Start', LodCutoff = 'WeaponBig_LodCutoff' },
-                BarrelStop = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Stop', LodCutoff = 'WeaponBig_LodCutoff' },
-                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0302_Cannon_Tri', LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStop  = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Stop', LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire        = Sound { Bank = 'UESWeapon', Cue = 'UES0302_Cannon_Tri', LodCutoff = 'WeaponBig_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_LowArc',
@@ -245,7 +239,7 @@ UnitBlueprint {
                 },
             },
             RackRecoilDistance = -0.25,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RangeCategory = 'UWRC_IndirectFire',
@@ -281,9 +275,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.1,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.5,
+        MassMult = 0.4,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

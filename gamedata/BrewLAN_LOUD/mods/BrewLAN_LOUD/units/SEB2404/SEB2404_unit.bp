@@ -1,42 +1,18 @@
 UnitBlueprint {
 
     Abilities = {
-        TargetLocation = {
-            bitmapId = 'activate-weapon',
-            helpText = 'reapeat_attack_target',
-        },
+        TargetLocation = { bitmapId = 'activate-weapon', helpText = 'reapeat_attack_target' },
     },
 	
     AI = {
-        TargetBones = {
-            'Target01',
-            'Target02',
-            'Target03',
-            'Target04',
-        },
+        TargetBones = {'Target01','Target02','Target03','Target04'},
     },
 	
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2302_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'UEB', Cue = 'UEB2302_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -103,9 +79,9 @@ UnitBlueprint {
         },
 		
         BlinkingLightsFx = {
-            Green = '/effects/emitters/light_green_03_emit.bp',
-            Red = '/effects/emitters/light_red_03_emit.bp',
-            Yellow = '/effects/emitters/light_yellow_02_emit.bp',
+            Green   = '/effects/emitters/light_green_03_emit.bp',
+            Red     = '/effects/emitters/light_red_03_emit.bp',
+            Yellow  = '/effects/emitters/light_yellow_02_emit.bp',
         },
 		
         BuildAttachBone = 'DropPod',
@@ -113,14 +89,8 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 300,
-                    ShaderName = 'Unit',
-                },
-                {
-                    LODCutoff = 500,
-                    ShaderName = 'Unit',
-                },
+                { LODCutoff = 300, ShaderName = 'Unit' },
+                { LODCutoff = 500, ShaderName = 'Unit' },
             },
         },
 		
@@ -166,12 +136,15 @@ UnitBlueprint {
         BuildBones = {
             BuildEffectBones = {'BuildBone1','BuildBone2','BuildBone3'},
         },
+        
 		CapCost = 8,
+        
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+        
         FactionName = 'UEF',
         Icon = 'land',
         OrderOverrides = {
@@ -181,9 +154,9 @@ UnitBlueprint {
             },
         },
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_WeaponToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_WeaponToggle = true },
+        
         UnitName = '<LOC seb2404_name>Ivan',
     },
 	
@@ -244,23 +217,13 @@ UnitBlueprint {
         {
             AimsStraightOnDisable = true,
             ArtilleryShieldBlocks = true,
+
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UEB',
-                    Cue = 'UEB2302_Turret_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UEB',
-                    Cue = 'UEB2302_Turret_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2302_Artillery_AM',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'UEB', Cue = 'UEB2302_Turret_Loop', LodCutoff = 'WeaponBig_LodCutoff'},
+                BarrelStart = Sound { Bank = 'UEB', Cue = 'UEB2302_Turret_Start', LodCutoff = 'WeaponBig_LodCutoff'},
+                Fire        = Sound { Bank = 'UELWeapon', Cue = 'UEB2302_Artillery_AM', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_HighArc',
 			
             CameraShakeDuration = 0.5,
@@ -338,9 +301,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

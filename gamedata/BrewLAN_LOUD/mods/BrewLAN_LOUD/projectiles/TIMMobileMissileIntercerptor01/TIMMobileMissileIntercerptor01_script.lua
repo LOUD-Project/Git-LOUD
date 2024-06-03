@@ -3,4 +3,3 @@ local TAntiNukeInterceptorProjectile = import('/lua/terranprojectiles.lua').TAnt
 TIMMobileMissileIntercerptor01 = Class(TAntiNukeInterceptorProjectile) {}
 
 TypeClass = TIMMobileMissileIntercerptor01
-

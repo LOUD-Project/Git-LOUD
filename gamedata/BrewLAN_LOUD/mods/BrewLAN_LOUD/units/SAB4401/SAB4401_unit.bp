@@ -2,40 +2,16 @@ UnitBlueprint {
     AI = {
         GuardScanRadius = 40,
         StagingPlatformScanRadius = 40,
-		TargetBones = {
-            'Base',
-			'Ring_1',
-			'Ring_2',
-			'Ring_3',
-        },
+
+		TargetBones = {'Base','Ring_1','Ring_2','Ring_3'},
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ShieldOff = Sound {
-            Bank = 'UAB',
-            Cue = 'UAB4202_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ShieldOn = Sound {
-            Bank = 'UAB',
-            Cue = 'UAB4202_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed      = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        ShieldOff   = Sound { Bank = 'UAB', Cue = 'UAB4202_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        ShieldOn    = Sound { Bank = 'UAB', Cue = 'UAB4202_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 16,
@@ -120,9 +96,11 @@ UnitBlueprint {
             'Shield Tower',
             'Bubble Tea',
         },
+
         Abilities = {
             '<LOC ability_shielddome>Shield Dome',
         },
+
         AnimationDeath = {
             {
                 Animation = '/mods/BrewLAN_LOUD/units/sab4401/sab4401_Adeath01.sca',
@@ -173,17 +151,12 @@ UnitBlueprint {
                 Weight = 10,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 200,
-                    ShaderName = 'Aeon',
-                },
-                {
-                    LODCutoff = 400,
-                    ShaderName = 'Aeon',
-                },
+                { LODCutoff = 200, ShaderName = 'Aeon' },
+                { LODCutoff = 400, ShaderName = 'Aeon' },
             },
         },
 
@@ -219,21 +192,22 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 5,
+
         CommandCaps = {
             RULEUCC_Pause = true,
         },
+
         FactionName = 'Aeon',
         Icon = 'land',
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'toggle_shield_dome',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-dome', helpText = 'toggle_shield_dome' },
         },
+
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+
+        ToggleCaps = { RULEUTC_ShieldToggle = true },
+
         UnitName = '<LOC sab4401_name>Pillar of Prominence',
     },
 
@@ -275,9 +249,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

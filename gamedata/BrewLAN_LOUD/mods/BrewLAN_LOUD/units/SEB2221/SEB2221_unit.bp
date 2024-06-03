@@ -1,16 +1,8 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     BuildIconSortPriority = 130,
@@ -52,12 +44,7 @@ UnitBlueprint {
             '<LOC ability_suicideweapon>Suicide Weapon',
         },
 
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 130, ShaderName = 'Unit' },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 130, ShaderName = 'Unit' } } },
 
         UniformScale = 0.03,
     },
@@ -80,9 +67,7 @@ UnitBlueprint {
     General = {
         CapCost = 0.3,
 
-        CommandCaps = {
-            RULEUCC_RetaliateToggle = true,
-        },
+        CommandCaps = { RULEUCC_RetaliateToggle = true },
 
         FactionName = 'UEF',
         Icon = 'amph',

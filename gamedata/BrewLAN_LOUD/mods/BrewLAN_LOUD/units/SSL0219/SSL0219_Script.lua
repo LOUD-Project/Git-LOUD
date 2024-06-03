@@ -1,5 +1,5 @@
-
 local SConstructionUnit = import('/lua/seraphimunits.lua').SConstructionUnit
+
 local SDFOhCannon = import('/lua/seraphimweapons.lua').SDFOhCannon
 
 SSL0219 = Class(SConstructionUnit) {

@@ -73,10 +73,7 @@ UnitBlueprint {
         MovementEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = { 'Exhaust_Left', 'Exhaust_Right' },
-                        Type = 'GroundKickup01',
-                    },
+                    { Bones = { 'Exhaust_Left', 'Exhaust_Right' }, Type = 'GroundKickup01' },
                 },
                 Treads = {
                     ScrollTreads = true,
@@ -99,11 +96,12 @@ UnitBlueprint {
                 },
             },
         },
+        
         UniformScale = 0.045,
     },
     
     Economy = {
-        BuildCostEnergy = 20000,
+        BuildCostEnergy = 20500,
         BuildCostMass = 950,
         BuildTime = 475,
     },
@@ -121,20 +119,20 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'amph',
+        
         OrderOverrides = {
-            RULEUTC_WeaponToggle = {
-                bitmapId = 'toggle-weapon-air',
-            },
+            RULEUTC_WeaponToggle = { bitmapId = 'toggle-weapon-air' },
         },
-        ToggleCaps = {
-            RULEUTC_WeaponToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_WeaponToggle = true },
+        
         UnitName = '<LOC srl0312_name>Toxotai',
     },
     
     Intel = {
         VisionRadius = 28,
-        WaterVisionRadiud = 16,
+        WaterVisionRadius = 16,
+
         RadarStealth = true,
         SonarStealth = true,
     },
@@ -191,14 +189,16 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             AboveWaterFireOnly = true,
+            
             Audio = {
                 Fire = Sound { Bank = 'URLWeapon', Cue = 'URB2304_Missile_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
             CountedProjectile = false,
             
-            Damage = 1100, --157 DSP
+            Damage = 1100,
             DamageRadius = 0.5,
             
             DamageType = 'Normal',
@@ -251,8 +251,6 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.1,
             Turreted = false,
-            WeaponCategory = 'Missile',
-            WeaponUnpacks = false,
         },
         
         {
@@ -317,6 +315,7 @@ UnitBlueprint {
             TurretBoneDualMuzzle = 'Turret_Muzzle_R',
             TurretBoneDualPitch = 'Turret_Barrel_R',
             TurretBoneYaw = 'Turret_Body',
+
             TurretDualManipulators = true,
             
             TurretPitch = 0,
@@ -384,62 +383,57 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.2,
         },
+		
         {
-            Audio = {
-                Fire = Sound { Bank = 'XRS_Weapon', Cue = 'XRL0305_Anti_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
-            },
+            advancedTracking = true,
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
             
+            CountedProjectile = true,
+			
             Damage = 2,
+			DamageFriendly = false,
             DamageType = 'Normal',
-            
-            DepthCharge = { Radius = 5 },
-            
-            DisplayName = 'Anti-Torpedo Flare',
-            
+			
+            DisplayName = 'AntiTorpedo',
+			
             FireTargetLayerCapsTable = {
-                Seabed = 'Seabed|Sub|Water',
+                Water = 'Seabed|Sub|Water',
             },
-            FiringRandomness = 35,
-            FiringTolerance = 360,
-            
+			
+            FiringTolerance = 30,
+			
             Label = 'AntiTorpedo',
+			
+            MaxRadius = 28,
             
-            MaxRadius = 22,
-            MinRadius = 0,
-            
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 2,
-            MuzzleVelocityRandom = 0.5,
-            
-            ProjectileId = '/projectiles/CIMAntiTorpedo01/CIMAntiTorpedo01_proj.bp',
-            ProjectileLifetime = 1.8,
+            MuzzleSalvoDelay = 0.5,
+            MuzzleVelocity = 6,
+			
+            ProjectileId = '/projectiles/SANAjelluAntiTorpedo01/SANAjelluAntiTorpedo01_proj.bp',
+            ProjectileLifetime = 3,
             
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Node_001',
-                        'Node_002',
-                        'Node_003',
-                    },
+                    MuzzleBones = {'Node_001' },
                     RackBone = 'Node_001'
                 },
             },
-            
+
             RangeCategory = 'UWRC_Countermeasure',
-            
-            RateOfFire = 0.5,
-            
-            TargetCheckInterval = 0.3,
-            
+			
+            RateOfFire = 1,
+			
+            TargetCheckInterval = 0.5,
+			
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
-            
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.2,
+            
+            WeaponRackTimeout = 1,
         },
+
     },
 
     Wreckage = {

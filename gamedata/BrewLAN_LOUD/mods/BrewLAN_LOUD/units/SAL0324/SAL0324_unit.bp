@@ -5,36 +5,12 @@ UnitBlueprint {
     },
 
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0205_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        HoverKilledOnWater = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0205_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0205_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        AmbientMove         = Sound { Bank = 'UAL', Cue = 'UAL0205_Move_Loop', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed           = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        HoverKilledOnWater  = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove           = Sound { Bank = 'UAL', Cue = 'UAL0205_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove            = Sound { Bank = 'UAL', Cue = 'UAL0205_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection         = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Radar', LodCutoff = 'UnitMove_LodCutoff' },
     },
     
     Buffs = {},
@@ -61,12 +37,14 @@ UnitBlueprint {
     
     Defense = {
         ArmorType = 'Normal',
-        EconomyThreatLevel = 65,
+
         Health = 250,
         MaxHealth = 250,
+
+        EconomyThreatLevel = 26,
     },
     
-    Description = '<LOC srl0324_desc>Mobile Sensor Array',
+    Description = '<LOC sal0324_desc>Mobile Sensor Array',
     
     Display = {
     
@@ -74,8 +52,9 @@ UnitBlueprint {
         
         Abilities = {
             '<LOC ability_hover>Hover',
-            '<LOC ability_omni>Omni Sensor',
             '<LOC ability_radar>Radar',
+            '<LOC ability_omni>Omni Sensor',
+
         },
         
         BlinkingLights = {
@@ -83,23 +62,15 @@ UnitBlueprint {
         },
         
         BlinkingLightsFx = {
-            Green = '/effects/emitters/light_green_03_emit.bp',
-            Red = '/effects/emitters/light_red_blinking_02_emit.bp',
+            Green   = '/effects/emitters/light_green_03_emit.bp',
+            Red     = '/effects/emitters/light_red_blinking_02_emit.bp',
         },
         
         IdleEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {0},
-                        Offset = {0, -0.15, 0},
-                        Scale = 1.15,
-                        Type = 'AeonGroundFX01',
-                    },
-                    {
-                        Bones = {'Antenna'},
-                        Type = 'Radar01',
-                    },
+                    { Bones = {0}, Offset = {0, -0.15, 0}, Scale = 1.15, Type = 'AeonGroundFX01' },
+                    { Bones = {'Antenna'}, Type = 'Radar01' },
                 },
             },
         },
@@ -116,25 +87,13 @@ UnitBlueprint {
         MovementEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {0},
-                        Type = 'GroundKickup01',
-                    },
-                    {
-                        Bones = {0},
-                        Offset = {0, -0.15, 0},
-                        Scale = 1.15,
-                        Type = 'AeonGroundFX01',
-                    },
+                    { Bones = {0}, Type = 'GroundKickup01' },
+                    { Bones = {0}, Offset = {0, -0.15, 0}, Scale = 1.15, Type = 'AeonGroundFX01' },
                 },
             },
             Water = {
                 Effects = {
-                    {
-                        Bones = {0},
-                        Scale = 0.5,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {0}, Scale = 0.5, Type = 'BackWake' },
                 },
             },
         },
@@ -147,12 +106,11 @@ UnitBlueprint {
     },
     
     Economy = {
-        BuildCostEnergy = 30000,
-        BuildCostMass = 2400*0.5,
-        BuildTime = 5000,
+        BuildCostEnergy = 26500,
+        BuildCostMass = 1750,
+        BuildTime = 2250,
         
-        MaintenanceConsumptionPerSecondEnergy = 2500,
-
+        MaintenanceConsumptionPerSecondEnergy = 850,
     },
     
     General = {
@@ -163,26 +121,27 @@ UnitBlueprint {
             RULEUCC_Patrol = true,
             RULEUCC_Stop = true,
         },
+        
         OrderOverrides = {
-            RULEUTC_IntelToggle = {
-                bitmapId = 'omni',
-                helpText = 'toggle_omni',
-            },
+            RULEUTC_IntelToggle = { bitmapId = 'omni', helpText = 'toggle_omni' },
         },
+        
         FactionName = 'Aeon',
         Icon = 'amph',
-        ToggleCaps = {
-            RULEUTC_IntelToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_IntelToggle = true },
+
         UnitName = '<LOC sal0324_name>Metatron',
     },
     
     Intel = {
-        OmniRadius = 125,
-        RadarRadius = 290,
         ShowIntelOnSelect = true,
+
+        OmniRadius = 56,
+        RadarRadius = 248,
+        
         VisionRadius = 40,
-        WaterVisionRadius = 15,
+        WaterVisionRadius = 24,
     },
     
     Interface = {

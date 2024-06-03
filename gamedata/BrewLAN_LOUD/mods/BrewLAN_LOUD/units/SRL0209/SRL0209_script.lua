@@ -1,10 +1,5 @@
---****************************************************************************
---**
---**  Summary  :  Cybran T2 Combat Engineer Script
---**
---****************************************************************************
-
 local CConstructionUnit = import('/lua/cybranunits.lua').CConstructionUnit
+
 local CDFElectronBolterWeapon = import('/lua/cybranweapons.lua').CDFElectronBolterWeapon
 
 SRL0209 = Class(CConstructionUnit) {

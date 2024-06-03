@@ -3,8 +3,11 @@ local CAirUnit = import('/lua/defaultunits.lua').AirUnit
 local MissileFlare = import('/lua/defaultunits.lua').BaseDirectionalAntiMissileFlare
 
 local CybranWeapons = import('/lua/cybranweapons.lua')
-local CDFParticleCannonWeapon = CybranWeapons.CDFParticleCannonWeapon
-local CDFHeavyMicrowaveLaserGeneratorCom = CybranWeapons.CDFHeavyMicrowaveLaserGeneratorCom
+
+local CDFParticleCannonWeapon               = CybranWeapons.CDFParticleCannonWeapon
+local CDFHeavyMicrowaveLaserGeneratorCom    = CybranWeapons.CDFHeavyMicrowaveLaserGeneratorCom
+
+CybranWeapons = nil
 
 SRA0315 = Class(CAirUnit, MissileFlare) {
 

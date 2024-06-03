@@ -37,20 +37,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSA_Destroy',
-            Cue = 'XSA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0302_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
+        Destroyed   = Sound { Bank = 'XSA_Destroy', Cue = 'XSA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'XSA', Cue = 'XSA0302_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Air', LodCutoff = 'UnitMove_LodCutoff',
         },
     },
 	
@@ -84,29 +73,17 @@ UnitBlueprint {
     Description = '<LOC sea0201_desc>Recon Plane',
 	
     Display = {
+
         Abilities = {
             '<LOC ability_radar>Radar',
             '<LOC ability_sonar>Sonar',
         },
-		
+
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    {
-                        Bones = {0},
-                        Type = 'Landing01',
-                    },
-                },
-            },
-            LandAir = {
-                Effects = {
-                    {
-                        Bones = {0},
-                        Type = 'TakeOff01',
-                    },
-                },
-            },
+            AirLand = { Effects = { { Bones = {0}, Type = 'Landing01' } } },
+            LandAir = { Effects = { { Bones = {0}, Type = 'TakeOff01' } } },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -128,16 +105,11 @@ UnitBlueprint {
                 },
             },
         },
+
         MovementEffects = {
-            Air = {
-                Contrails = {
-                    Bones = {
-                        'Exhaust_Right',
-                        'Exhaust_Left',
-                    },
-                },
-            },
+            Air = { Contrails = { Bones = {'Exhaust_Right','Exhaust_Left'} } },
         },
+
         UniformScale = 0.05*0.7,
     },
 	
@@ -170,8 +142,9 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        SonarRadius = 30,
-        RadarRadius = 64,
+        
+        SonarRadius = 48,
+        RadarRadius = 60,
         VisionRadius = 44,
     },
 	

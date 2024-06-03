@@ -1,24 +1,15 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Blinking_001',
-            'Blinking_002',
-            'Blinking_003',
-            'Blinking_004',
-            'Blinking_005',
-            'Blinking_006',
-            'Blinking_007',
-            'Blinking_008',
-        },
+        TargetBones = {'Blinking_001','Blinking_002','Blinking_003','Blinking_004','Blinking_005','Blinking_006','Blinking_007','Blinking_008'},
+        
         --This list is populated on game launch
         Experimentals = {
-            Requirements = {
-                SkirtSizeX = 19,
-            },
+            Requirements = { SkirtSizeX = 19 },
             BuildableCategory = 'BUILTBYIENGINE',
             Air = {},
             Other = {},
         },
+
         BuildOrder = {
             'ual0309',
             'sal0319',
@@ -33,52 +24,21 @@ UnitBlueprint {
             'sal0319',
             'ual0309',
         },
+
         BuildBackups = {
             EarlyNoRush = 'xaa0305',
-            LastResorts = {
-                'xaa0305',
-                'uaa0303',
-                'uaa0304',
-                'saa0211',
-                'xaa0202',
-                'uaa0203',
-                'uaa0103',
-                'uaa0102',
-            },
+            LastResorts = {'xaa0305','uaa0304','saa0211','xaa0202','uaa0203','uaa0103','uaa0102'},
         },
+        
     },
 
     Audio = {
-        Construct = Sound {
-            Bank = 'UAB',
-            Cue = 'UAB0301_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ConstructLoop = Sound {
-            Bank = 'UAB',
-            Cue = 'UAB0301_Construct_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UAB',
-            Cue = 'UAB0301_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Factory',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Construct       = Sound { Bank = 'UAB', Cue = 'UAB0301_Construct_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        ConstructLoop   = Sound { Bank = 'UAB', Cue = 'UAB0301_Construct_Loop', LodCutoff = 'UnitMove_LodCutoff' },
+        DeathExplosion  = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed       = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        DoneBeingBuilt  = Sound { Bank = 'UAB', Cue = 'UAB0301_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Factory', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     BuildIconSortPriority = 70,
@@ -106,10 +66,12 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 2000,      -- 4x buildpower (840) + 4% of HP (1160)
+
         Health = 29000,
         MaxHealth = 29000,
         RegenRate = 12,
+
+        EconomyThreatLevel = 2000,      -- 4x buildpower (840) + 4% of HP (1160)
     },
 
     Description = '<LOC sab0401>Experimental Air Factory',
@@ -122,44 +84,20 @@ UnitBlueprint {
         AnimationPermOpen = '/mods/BrewLAN_LOUD/units/sab0401/SAB0401_aopen.sca',
 
         BlinkingLights = {
-            {
-                BLBone = 'Blinking_001',
-                BLScale = 6,
-            },
-            {
-                BLBone = 'Blinking_002',
-                BLScale = 6,
-            },
-            {
-                BLBone = 'Blinking_003',
-                BLScale = 6,
-            },
-            {
-                BLBone = 'Blinking_004',
-                BLScale = 6,
-            },
-            {
-                BLBone = 'Blinking_005',
-                BLScale = 6,
-            },
-            {
-                BLBone = 'Blinking_006',
-                BLScale = 6,
-            },
-            {
-                BLBone = 'Blinking_007',
-                BLScale = 6,
-            },
-            {
-                BLBone = 'Blinking_008',
-                BLScale = 6,
-            },
+            { BLBone = 'Blinking_001', BLScale = 6 },
+            { BLBone = 'Blinking_002', BLScale = 6 },
+            { BLBone = 'Blinking_003', BLScale = 6 },
+            { BLBone = 'Blinking_004', BLScale = 6 },
+            { BLBone = 'Blinking_005', BLScale = 6 },
+            { BLBone = 'Blinking_006', BLScale = 6 },
+            { BLBone = 'Blinking_007', BLScale = 6 },
+            { BLBone = 'Blinking_008', BLScale = 6 },
         },
 
         BlinkingLightsFx = {
-            Green = '/effects/emitters/light_green_03_emit.bp',
-            Red = '/effects/emitters/light_red_03_emit.bp',
-            Yellow = '/effects/emitters/light_yellow_02_emit.bp',
+            Green   = '/effects/emitters/light_green_03_emit.bp',
+            Red     = '/effects/emitters/light_red_03_emit.bp',
+            Yellow  = '/effects/emitters/light_yellow_02_emit.bp',
         },
 
         BuildAttachBone = 'Attachpoint',
@@ -167,20 +105,7 @@ UnitBlueprint {
         IdleEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'Blinking_001',
-                            'Blinking_002',
-                            'Blinking_003',
-                            'Blinking_004',
-                            'Blinking_005',
-                            'Blinking_006',
-                            'Blinking_007',
-                            'Blinking_008',
-                        },
-                        Scale = 12,
-                        Type = 'SeaIdle02',
-                    },
+                    { Bones = {'Blinking_001','Blinking_002','Blinking_003','Blinking_004','Blinking_005','Blinking_006','Blinking_007','Blinking_008'}, Scale = 12 },
                 },
             },
         },
@@ -216,8 +141,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
-
         UniformScale = .195,		--0.14*2.1,
     },
 
@@ -233,8 +156,6 @@ UnitBlueprint {
             'BUILTBYIENGINE'
         },
 
-        --RebuildBonusIds = { 'sab0401' },
-
         StorageEnergy = 8000,
         StorageMass = 1000,
         InitialRallyZ = 28,
@@ -248,18 +169,11 @@ UnitBlueprint {
 
     General = {
         BuildBones = {
-            BuildEffectBones = {
-                'BuilderM_001',
-                'BuilderM_002',
-                'BuilderM_003',
-                'BuilderM_004',
-                'BuilderM_005',
-                'BuilderM_006',
-                'BuilderM_007',
-                'BuilderM_008',
-            },
+            BuildEffectBones = {'BuilderM_001','BuilderM_002','BuilderM_003','BuilderM_004','BuilderM_005','BuilderM_006','BuilderM_007','BuilderM_008'},
         },
+        
 		CapCost = 16,
+        
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -268,15 +182,17 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+        
         ConstructionBar = true,
         FactionName = 'Aeon',
         Icon = 'air',
         SelectionPriority = 5,
+        
         UnitName = '<LOC sab0401_name>Independence Engine',
     },
 
     Intel = {
-        VisionRadius = 14,
+        VisionRadius = 16,
     },
 
     Interface = {
@@ -356,9 +272,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.3,
+        EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.3,
+        MassMult = 0.2,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

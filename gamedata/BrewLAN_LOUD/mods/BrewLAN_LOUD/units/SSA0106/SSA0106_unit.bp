@@ -1,28 +1,28 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 80,
-        GuardScanRadius = 60,
+        GuardReturnRadius = 72,
+        GuardScanRadius = 48,
         TargetBones = {'XSA0204'},
     },
 	
     Air = {
         AutoLandTime = 1,
 		
-        BankFactor = 4,
+        BankFactor = 3,
         BankForward = false,
 		
-        BreakOffDistance = 34,
+        BreakOffDistance = 18,
         BreakOffIfNearNewTarget = true,
-        BreakOffTrigger = 20,
+        BreakOffTrigger = 10,
 		
         CanFly = true,
 		
         CombatTurnSpeed = 0.5,
 		
-        EngageDistance = 75,
+        EngageDistance = 45,
 		
-        KLift = 3,
-        KLiftDamping = 2.5,
+        KLift = 6,
+        KLiftDamping = 5.5,
 		
         KRoll = 2,
         KRollDamping = 4,
@@ -30,7 +30,7 @@ UnitBlueprint {
         KTurn = 1,
         KTurnDamping = 1,
 		
-        LiftFactor = 7,
+        LiftFactor = 10,
 		
         MaxAirspeed = 12,
         MinAirspeed = 11,
@@ -44,21 +44,9 @@ UnitBlueprint {
 	
     Audio = {
 
-        Killed = Sound {
-            Bank = 'XSA_Destroy',
-            Cue = 'XSA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-		StartMove = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0204_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'XSA_Destroy',    Cue = 'XSA_Destroy_Air_Killed',   LodCutoff = 'UnitMove_LodCutoff' },
+		StartMove   = Sound { Bank = 'XSA',            Cue = 'XSA0204_Move_Start',       LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Air',      LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {},
@@ -84,45 +72,29 @@ UnitBlueprint {
     },
 	
     Defense = {
-
         ArmorType = 'Light',
 
         Health = 240,
         MaxHealth = 240,
-        RegenRate = 1,
-        SubThreatLevel = 5,
-
+        RegenRate = 0,
+        
+        SubThreatLevel = 6,
     },
 	
     Description = '<LOC sair0106>Light Torpedo Bomber',
 	
     Display = {
+
         Abilities = {
             '<LOC ability_sonar>Sonar',
             '<LOC ability_torpedo>Torpedoes',
         },
+
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Type = 'Landing01',
-                    },
-                },
-            },
-            LandAir = {
-                Effects = {
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Type = 'TakeOff01',
-                    },
-                },
-            },
+            AirLand = { Effects = { { Bones = {0}, Type = 'Landing01' } } },
+            LandAir = { Effects = { { Bones = {0}, Type = 'TakeOff01' } } },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -146,25 +118,14 @@ UnitBlueprint {
                 },
             },
         },
+        
         MovementEffects = {
             Air = {
-                Contrails = {
-                    Bones = {
-                        'Contrail_L',
-                        'Contrail_R',
-                    },
-                },
-                Effects = {
-                    {
-                        Bones = {
-                            'Exhaust_Right',
-                        },
-                        Scale = 0.5,
-                        Type = 'AirMoveExhaust03',
-                    },
-                },
+                Contrails = { Bones = {'Contrail_L','Contrail_R'} },
+                Effects = { { Bones = {'Exhaust_Right'}, Scale = 0.5, Type = 'AirMoveExhaust03'} },
             },
         },
+        
         UniformScale = 0.08,
     },
 	
@@ -198,9 +159,10 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        SonarRadius = 50,
-        VisionRadius = 28,
-		WaterVisionRadius = 10,
+
+        SonarRadius = 56,
+        VisionRadius = 32,
+		WaterVisionRadius = 16,
     },
 	
     Interface = {
@@ -212,7 +174,7 @@ UnitBlueprint {
     LifeBarSize = 0.8*.85,
 	
     Physics = {
-        AttackElevation = 2,
+        AttackElevation = 3.5,
         BuildOnLayerCaps = {
             LAYER_Air = true,
             LAYER_Sub = true,
@@ -257,11 +219,7 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0204_Heavy_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0204_Heavy_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             AutoInitiateAttackCommand = true,
@@ -269,12 +227,12 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 200,
+            Damage = 300,
             DamageType = 'Normal',
 			
             DisplayName = 'Torpedo Launcher',
-			
-            EffectiveRadius = 24,
+            
+            EffectiveRadius = 40,
 			
             FireTargetLayerCapsTable = {
                 Air = 'Seabed|Sub|Water',
@@ -287,31 +245,36 @@ UnitBlueprint {
             HeadingArcCenter = 0,
             HeadingArcRange = 30,
 			
-            Label = 'Bomb',
+            Label = 'Torpedo',
 			
-            MaxRadius = 28,
-            MinRadius = 4,
+            MaxRadius = 32,
+            MinRadius = 6,
 			
             MuzzleSalvoDelay = 0.3,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 6,
+            MuzzleSalvoSize = 1,
+            
+            MuzzleVelocity = 8,
 			
             ProjectileId = '/projectiles/SANHeavyCavitationTorpedo01/SANHeavyCavitationTorpedo01_proj.bp',
             ProjectileLifetime = 15,
 
             RackBones = {
                 {
-                    MuzzleBones = {'Torpedo'},
-                    RackBone = 'Torpedo',
+                    MuzzleBones = {'XSA0204'},
+                    RackBone = 'XSA0204',
                 },
             },
+            
+            RackSalvoReloadTime = 4.7,  -- 5 seconds cycle = 300/5 = 60 DPS
 			
-            RateOfFire = 0.1,	-- 200 x 2 = 400 = 40 DPS
+            RateOfFire = 1,
 			
-            TargetCheckInterval = 2.5,
+            TargetCheckInterval = 2,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'CRUISER',
+                'SUBMARINE',
                 'MOBILE',
                 'ALLUNITS',
             },

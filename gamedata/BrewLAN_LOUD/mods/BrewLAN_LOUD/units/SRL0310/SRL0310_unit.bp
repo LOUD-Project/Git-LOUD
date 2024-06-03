@@ -1,6 +1,5 @@
 UnitBlueprint {
     Audio = {
-        AmbientMove = Sound { Bank = 'URL',        Cue = 'URL0107_Move_Loop',  LodCutoff = 'UnitMove_LodCutoff' },
         Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land',   LodCutoff = 'UnitMove_LodCutoff' },
         StartMove   = Sound { Bank = 'URL',        Cue = 'URL0107_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
         StopMove    = Sound { Bank = 'URL',        Cue = 'URL0107_Move_Stop',  LodCutoff = 'UnitMove_LodCutoff' },
@@ -9,11 +8,11 @@ UnitBlueprint {
 
     Buffs = {
         Regen = {
-            Level1 = 3,
-            Level2 = 6,
-            Level3 = 9,
-            Level4 = 12,
-            Level5 = 15,
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
         },
     },
 
@@ -62,6 +61,7 @@ UnitBlueprint {
                 { LODCutoff = 1024, Scrolling = true, ShaderName = 'Insect' },
             },
         },
+
         AnimationDeath = {
             {
                 Animation = '/mods/BrewLAN_LOUD/units/SRL0310/SRL0310_ADeath01.sca',
@@ -101,61 +101,28 @@ UnitBlueprint {
         AnimationWalkRate = 0.75,
 
         IdleEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {0},
-                        Type = 'SeaIdle02',
-                    },
-                },
-            },
+            Water = { Effects = { { Bones = {0}, Type = 'SeaIdle02' } } },
         },
 
         MovementEffects = {
-            Land = {
-                Effects = {
-                    {
-                        Bones = { 0 },
-                        Type = 'GroundKickup01',
-                    },
-                },
-            },
+            Land = { Effects = { { Bones = {0}, Type = 'GroundKickup01' } } },
             Water = {
                 Effects = {
-                    {
-                        Bones = {'Small_Leg_Foot_002'},
-                        --Offset = {0, 0, 0},
-                        Scale = 0.5,
-                        Type = 'LeftFrontWake',
-                    },
-                    {
-                        Bones = {'Small_Leg_Foot_001'},
-                        --Offset = {0, 0, 0},
-                        Scale = 0.5,
-                        Type = 'RightFrontWake',
-                    },
-                    {
-                        Bones = {'Large_Leg_Foot'},
-                        --Offset = {0, 0, 0},
-                        Scale = 0.5,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'Small_Leg_Foot_002'}, Scale = 0.5, Type = 'LeftFrontWake' },
+                    { Bones = {'Small_Leg_Foot_001'}, Scale = 0.5, Type = 'RightFrontWake' },
+                    { Bones = {'Large_Leg_Foot'}, Scale = 0.5, Type = 'BackWake' },
                 },
             },
         },
 
-        TransportAnimation = {
-            {
-                Animation = '/mods/BrewLAN_LOUD/units/SRL0310/SRL0310_AFold.sca',
-                Weight = 100,
-            },
-        },
+        TransportAnimation = { { Animation = '/mods/BrewLAN_LOUD/units/SRL0310/SRL0310_AFold.sca', Weight = 100 } },
+        
         UniformScale = 0.03,
     },
     
     Economy = {
-        BuildCostEnergy = 8800,
-        BuildCostMass = 775,
+        BuildCostEnergy = 12500,
+        BuildCostMass = 740,
         BuildTime = 385,
     },
     
@@ -176,7 +143,8 @@ UnitBlueprint {
     },
     
     Intel = {
-        VisionRadius = 30,
+        VisionRadius = 28,
+        WaterVisionRadius = 20,
     },
 
     LifeBarHeight = 0.075,
@@ -186,8 +154,10 @@ UnitBlueprint {
     Physics = {
         BackUpDistance = 6,
         BankingSlope = 0,
-        LayerChangeOffsetHeight = -0.6,
+        
+        LayerChangeOffsetHeight = -1,
         LayerTransitionDuration = 2,
+        
         MaxAcceleration = 1.1,
         MaxBrake = 3.3,
         MaxSpeed = 3.3,
@@ -226,16 +196,14 @@ UnitBlueprint {
 
     Weapon = {
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
 
             Audio = {
-                Fire = Sound {
-                    Bank = 'URAWeapon',
-                    Cue = 'URA0401_Rock_Pack',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URAWeapon', Cue = 'URA0401_Rock_Pack', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
 
             Buffs = {
@@ -252,7 +220,7 @@ UnitBlueprint {
 
             CollideFriendly = false,
 
-            Damage = 3,
+            Damage = 30,
             
             DamageToShields = 325,
             
@@ -266,8 +234,9 @@ UnitBlueprint {
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
+            
             FiringRandomness = 0.7,
             FiringTolerance = 4,
 
@@ -277,8 +246,7 @@ UnitBlueprint {
             MinRadius = 18,
 
             MuzzleChargeDelay = 0.1,
-
-            MuzzleSalvoDelay = 0,
+            MuzzleSalvoDelay = 0.6,
             MuzzleSalvoSize = 4,
 
             MuzzleVelocity = 18,
@@ -291,19 +259,12 @@ UnitBlueprint {
             RackBones = {
                 {
                     HideMuzzle = true,
-                    MuzzleBones = {
-                        'Muzzle_001',
-                        'Muzzle_002',
-                        'Muzzle_003',
-                        'Muzzle_004',
-                    },
+                    MuzzleBones = {'Muzzle_001','Muzzle_002','Muzzle_003','Muzzle_004'},
                     RackBone = 'Turret_Pitch',
                 },
             },
-            RackRecoilDistance = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
+            RackSalvoReloadTime = 2.6,  -- 5 second cycle = 1300/5 = 260 DPS to Shields = 24 DPS other
             RangeCategory = 'UWRC_IndirectFire',
 
             RateOfFire = 0.5,
@@ -344,9 +305,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

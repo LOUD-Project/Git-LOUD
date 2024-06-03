@@ -16,11 +16,11 @@ UnitBlueprint {
     
     Buffs = {
         Regen = {
-            Level1 = 3,
-            Level2 = 6,
-            Level3 = 9,
-            Level4 = 12,
-            Level5 = 15,
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
         },
     },
     
@@ -61,6 +61,7 @@ UnitBlueprint {
         },
         AnimationWalk = '/mods/brewlan_loud/units/srl0311/srl0311_awalk.sca',
         AnimationWalkRate = 11,
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -69,14 +70,10 @@ UnitBlueprint {
                 {LODCutoff = 512, Scrolling = true, ShaderName = 'Insect' },
             },
         },
+        
         MovementEffects = {
             Land = {
-                Effects = {
-                    {
-                        Bones = {'Tracks'},
-                        Type = 'GroundKickup01',
-                    },
-                },
+                Effects = { { Bones = {'Tracks'}, Type = 'GroundKickup01' } },
                 Treads = {
                     ScrollTreads = true,
                     TreadMarks = {
@@ -91,6 +88,7 @@ UnitBlueprint {
                 },
             },
         },
+        
         UniformScale = 0.045,
     },
     
@@ -122,7 +120,7 @@ UnitBlueprint {
     },
     
     Intel = {
-        VisionRadius = 26,
+        VisionRadius = 28,
     },
     
     Interface = {
@@ -173,13 +171,11 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'URAWeapon',
-                    Cue = 'URA0401_Rock_Pack',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URAWeapon', Cue = 'URA0401_Rock_Pack', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
             
@@ -197,9 +193,9 @@ UnitBlueprint {
             
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
-            FiringRandomness = 2,
+            
+            FiringRandomness = 1.8,
             FiringTolerance = 4,
             
             Label = 'MainGun',
@@ -209,9 +205,9 @@ UnitBlueprint {
             
             MuzzleChargeDelay = .5,
 
-            MuzzleVelocity = 20,
+            MuzzleVelocity = 19.75,
             MuzzleVelocityRandom = 0.5,
-            MuzzleVelocityReduceDistance = 50,
+            MuzzleVelocityReduceDistance = 55,
             
             ProjectileId = '/projectiles/CDFRocketIridium03/CDFRocketIridium03_proj.bp',
             ProjectileLifetimeUsesMultiplier = 3,
@@ -244,8 +240,9 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-            RackRecoilDistance = 0,
             
+            RackSalvoReloadTime = 9,    -- cycle is 10.5 + 9 = 19.5
+
             RangeCategory = 'UWRC_IndirectFire',
             
             RateOfFire = 1,     -- RoF controlled by charge cycle - 20 seconds
@@ -286,9 +283,9 @@ UnitBlueprint {
     
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

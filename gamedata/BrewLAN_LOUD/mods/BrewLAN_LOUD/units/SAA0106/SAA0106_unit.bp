@@ -8,12 +8,12 @@ UnitBlueprint {
     Air = {
         AutoLandTime = 1,
 		
-        BankFactor = 4,
+        BankFactor = 3,
         BankForward = false,
 		
-        BreakOffDistance = 34,
+        BreakOffDistance = 18,
         BreakOffIfNearNewTarget = true,
-        BreakOffTrigger = 20,
+        BreakOffTrigger = 10,
 		
         CanFly = true,
 		
@@ -33,7 +33,7 @@ UnitBlueprint {
         KTurn = 1,
         KTurnDamping = 1,
 		
-        LiftFactor = 8,
+        LiftFactor = 10,
 		
         MaxAirspeed = 12,
         MinAirspeed = 10,
@@ -46,21 +46,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UAADestroy',
-            Cue = 'UAA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAA',
-            Cue = 'UAA0204_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'UAADestroy', Cue = 'UAA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'UAA', Cue = 'UAA0204_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Air', LodCutoff = 'UnitMove_LodCutoff', },
     },
 	
     Buffs = {},
@@ -86,9 +74,11 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Light',
+
         Health = 240,
         MaxHealth = 240,
-        SubThreatLevel = 5,
+
+        SubThreatLevel = 6,
 		RegenRate = 1,
     },
 	
@@ -96,21 +86,15 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            '<LOC ability_depthcharge>Depth Charges',
             '<LOC ability_sonar>Sonar',
+            "<LOC ability_torpedo>Torpedoes",
         },
+
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    {Bones = {0}, Type = 'Landing01'},
-                },
-            },
-            LandAir = {
-                Effects = {
-                    {Bones = {0}, Type = 'TakeOff01'},
-                },
-            },
+            AirLand = { Effects = { {Bones = {0}, Type = 'Landing01'} } },
+            LandAir = { Effects = { {Bones = {0}, Type = 'TakeOff01'} } },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -119,23 +103,23 @@ UnitBlueprint {
                 {LODCutoff = 260, ShaderName = 'Aeon'},
             },
         },
+
         MovementEffects = {
             Air = {
-                Contrails = {
-                    Bones = {'Contrail_L', 'Contrail_R'},
-                },
-                Effects = {
-                    {Bones = {'Exhaust'}, Type = 'AirMoveExhaust01'},
-                },
+
+                Contrails = { Bones = {'Contrail_L', 'Contrail_R'} },
+
+                Effects = { { Bones = {'Exhaust'}, Type = 'AirMoveExhaust01'} },
             },
         },
+
         UniformScale = 0.04,
     },
 	
     Economy = {
         BuildCostEnergy = 3500,
         BuildCostMass = 55,
-        BuildTime = 400,
+        BuildTime = 235,
     },
 	
     Footprint = {
@@ -162,9 +146,10 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        SonarRadius = 50,
-        VisionRadius = 26,
-		WaterVisonRadius = 10,
+
+        SonarRadius = 56,
+        VisionRadius = 32,
+		WaterVisonRadius = 16,
     },
 	
     Interface = {
@@ -177,7 +162,7 @@ UnitBlueprint {
 	
     Physics = {
 	
-        AttackElevation = 2,
+        AttackElevation = 3.5,
 		
         BuildOnLayerCaps = {
             LAYER_Air = true,
@@ -227,23 +212,21 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0204_Depth_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0204_Depth_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 200,
-			DamageRadius = 1,
+            Damage = 300,
+
             DamageType = 'Normal',
 			
-            DisplayName = 'Harmonic Depth Charge',
-			
-            EffectiveRadius = 25,
+            DisplayName = 'Chrono Torpedo',
+            
+            EffectiveRadius = 40,
 			
             FireTargetLayerCapsTable = {
                 Air = 'Seabed|Sub|Water',
@@ -251,45 +234,41 @@ UnitBlueprint {
             },
 			
             FiringRandomness = 1.5,
-            FiringTolerance = 2,
+            FiringTolerance = 3,
 			
             HeadingArcCenter = 0,
             HeadingArcRange = 30,
 			
-            Label = 'Bomb',
+            Label = 'Torpedo',
 			
-            MaxRadius = 24,
-            MinRadius = 4,
+            MaxRadius = 32,
+            MinRadius = 6,
 			
             MuzzleSalvoDelay = 0.3,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 9,
-			
-            ProjectileId = '/projectiles/AANDepthCharge03/AANDepthCharge03_proj.bp',
-            ProjectileLifetime = 10,
+            MuzzleSalvoSize = 1,
+            
+            MuzzleVelocity = 8,
+
+            ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
+            ProjectileLifetime = 7.5,
 
             RackBones = {
                 {
-					MuzzleBones = {
-						'Torpedo',
-					},
-					RackBone = 'Torpedo',
+					MuzzleBones = {'Hat'},
+					RackBone = 'Hat',
 				},
             },
-            RackFireTogether = false,
+            
+            RackSalvoReloadTime = 4.7,
 			
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+            RateOfFire = 1,	-- 300 every 5 = 60 DPS
 			
-            RateOfFire = 0.1,	-- 400 every 10 = 40 DPS
-			
-            TargetCheckInterval = 4,
+            TargetCheckInterval = 2,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'CRUISER',
+                'SUBMARINE',
                 'MOBILE',
                 'ALLUNITS',
             },

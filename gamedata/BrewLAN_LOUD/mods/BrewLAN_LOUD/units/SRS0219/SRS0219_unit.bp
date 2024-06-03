@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'URSDestroy',
-            Cue = 'URS0103_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URS',
-            Cue = 'URS0103_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'URSDestroy', Cue = 'URS0103_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'URS', Cue = 'URS0103_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Naval', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -61,12 +49,14 @@ UnitBlueprint {
     CollisionOffsetY = -0.3,
 	
     Defense = {
-        AirThreatLevel = 7,
         ArmorType = 'Normal',
-        EconomyThreatLevel = 112,
+
         Health = 1900,
         MaxHealth = 1900,
         RegenRate = 4,
+
+        AirThreatLevel = 7,
+        EconomyThreatLevel = 112,
     },
 	
     Description = '<LOC ss0319_desc>Field Engineering Ship',
@@ -101,18 +91,7 @@ UnitBlueprint {
             },
         },
 		
-        IdleEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'URS0103',
-                        },
-                        Type = 'SeaIdle01',
-                    },
-                },
-            },
-        },
+        IdleEffects = { Water = { Effects = { { Bones = {'URS0103'}, Type = 'SeaIdle01' } } } },
 		
         Mesh = {
             IconFadeInZoom = 130,
@@ -133,19 +112,7 @@ UnitBlueprint {
         },
 		
         MovementEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Back_Wake',
-                            'Front_Left_Wake',
-                            'Front_Right_Wake',
-                        },
-                        Scale = 0.3,
-                        Type = 'BackWake',
-                    },
-                },
-            },
+            Water = { Effects = { { Bones = {'Back_Wake','Front_Left_Wake','Front_Right_Wake'}, Scale = 0.3, Type = 'BackWake' } } },
         },
 
         UniformScale = 0.055,
@@ -181,11 +148,8 @@ UnitBlueprint {
     },
 
     General = {
-        BuildBones = {
-            BuildEffectBones = {'Buildpoint_Left','Buildpoint_Right'},
-            PitchBone = 'Buildpoint_Left',
-            YawBone = 'Buildpoint_Right',
-        },
+        BuildBones = { BuildEffectBones = {'Buildpoint_Left','Buildpoint_Right'}, PitchBone = 'Buildpoint_Left', YawBone = 'Buildpoint_Right' },
+        
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Capture = true,
@@ -197,6 +161,7 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+        
         FactionName = 'Cybran',
         Icon = 'sea',
         SelectionPriority = 2,
@@ -205,11 +170,12 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-		OmniRadius = 5,
+        
+		OmniRadius = 8,
         RadarRadius = 60,
-        SonarRadius = 45,
+        SonarRadius = 48,
         VisionRadius = 32,
-        WaterVisionRadius = 18,
+        WaterVisionRadius = 16,
     },
 	
     Interface = {
@@ -261,14 +227,13 @@ UnitBlueprint {
     Weapon = {
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0103_Cannon_Electron',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0103_Cannon_Electron', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -282,6 +247,7 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Water = 'Air',
             },
+            
             FiringRandomness = 1,
             FiringTolerance = 0.3,
 			
@@ -299,12 +265,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Turret_Muzzle01',
-                        'Back_Turret_Muzzle02',
-                        'Back_Turret_Muzzle03',
-                        'Back_Turret_Muzzle04',
-                    },
+                    MuzzleBones = {'Back_Turret_Muzzle01','Back_Turret_Muzzle02','Back_Turret_Muzzle03','Back_Turret_Muzzle04'},
                     RackBone = 'Back_Turret_Barrel',
                 },
             },
@@ -328,7 +289,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Turret_Barrel',
             TurretBonePitch = 'Back_Turret_Barrel',
             TurretBoneYaw = 'Back_Turret_AA',
-            TurretDualManipulators = false,
 			
             TurretPitch = 45,
             TurretPitchRange = 60,

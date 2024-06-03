@@ -2,8 +2,10 @@ local TAirUnit = import('/lua/defaultunits.lua').AirUnit
 
 local TWeapons = import('/lua/terranweapons.lua')
 
-local TAAGinsuRapidPulseWeapon = TWeapons.TAAGinsuRapidPulseWeapon
+local TAAGinsuRapidPulseWeapon = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
 local TIFCruiseMissileLauncher = TWeapons.TIFCruiseMissileLauncher
+
+TWeapons = nil
 
 SEA0212 = Class(TAirUnit) {
     Weapons = {

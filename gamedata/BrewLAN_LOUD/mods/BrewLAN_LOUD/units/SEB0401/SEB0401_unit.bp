@@ -1,15 +1,7 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Base_001',
-            'Base_002',
-            'Base_003',
-            'Base_004',
-            'Base_005',
-            'Base_006',
-            'Base_007',
-            'Base_008',
-        },
+        TargetBones = {'Base_001','Base_002','Base_003','Base_004','Base_005','Base_006','Base_007','Base_008'},
+        
         --This list is populated on game launch
         Experimentals = {
             Requirements = { SkirtSizeX = 13 },
@@ -17,6 +9,7 @@ UnitBlueprint {
             Air = {},
             Other = {},
         },
+        
         BuildOrder = {
             'uel0309',
             'sel0319',
@@ -33,18 +26,10 @@ UnitBlueprint {
         },
         BuildBackups = {
             EarlyNoRush = 'uea0304',
-            LastResorts = {
-                'ues0302',
-                'uea0303',
-                'uea0304',
-                'xel0305',
-                'del0204',
-                'ues0202',
-                'uel0106',
-                'ues0103',
-            },
+            LastResorts = {'ues0302','uea0303','uea0304','xel0305','del0204','ues0202','uel0106','ues0103'},
         },
     },
+    
     Audio = {
              Construct = Sound {Bank = 'UEB',        Cue = 'UEB0301_Construct_Start',    LodCutoff = 'UnitMove_LodCutoff'},
          ConstructLoop = Sound {Bank = 'UEB',        Cue = 'UEB0301_Construct_Loop',     LodCutoff = 'UnitMove_LodCutoff'},
@@ -92,7 +77,9 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_aquatic>Aquatic',
         },
+
         AnimationBuild = '/mods/BrewLAN_LOUD/units/seb0401/SEB0401_abuild.sca',
+    
         BlinkingLights = {
             {BLBone = 'Base_001', BLScale = 3},
             {BLBone = 'Base_002', BLScale = 3},
@@ -103,12 +90,15 @@ UnitBlueprint {
             {BLBone = 'Base_007', BLScale = 3},
             {BLBone = 'Base_008', BLScale = 3},
         },
+        
         BlinkingLightsFx = {
-            Green = '/effects/emitters/light_green_03_emit.bp',
-            Red = '/effects/emitters/light_red_03_emit.bp',
-            Yellow = '/effects/emitters/light_yellow_02_emit.bp',
+            Green   = '/effects/emitters/light_green_03_emit.bp',
+            Red     = '/effects/emitters/light_red_03_emit.bp',
+            Yellow  = '/effects/emitters/light_yellow_02_emit.bp',
         },
+        
         BuildAttachBone = 'Attachpoint',
+        
         IdleEffects = {
             Water = {
                 Effects = {
@@ -133,6 +123,7 @@ UnitBlueprint {
                 },
             },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -166,6 +157,7 @@ UnitBlueprint {
         BuildCostMass = 31440,
         BuildRate = 210,
         BuildTime = 9000,
+        
         BuildableCategory = {
             'BUILTBYEXPERIMENTALFACTORY UEF',
             'BUILTBYGANTRY',
@@ -205,15 +197,13 @@ UnitBlueprint {
         ConstructionBar = true,
         FactionName = 'UEF',
         Icon = 'amph',
-        ToggleCaps = {
-            RULEUTC_WeaponToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_WeaponToggle = true },
+        
         OrderOverrides = {
-            RULEUTC_WeaponToggle = {
-                bitmapId = 'airsf',
-                helpText = 'buildair',
-            },
+            RULEUTC_WeaponToggle = { bitmapId = 'airsf', helpText = 'buildair' },
         },
+        
         SelectionPriority = 5,
         UnitName = '<LOC seb0401_name>Gantry',
     },

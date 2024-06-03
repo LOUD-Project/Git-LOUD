@@ -71,7 +71,7 @@ SRB4402 = Class(CRadarJammerUnit) {
 					-- apply the effect to all units execept ACU, SACU, GC or sab2306(Aeon), and Walls
                     if not EntityCategoryContains(categories.COMMAND + categories.SUBCOMMANDER + categories.ual0401 + categories.sab2306 + categories.WALL, v) then
 					
-                        Buff.ApplyBuff(v, 'DarknessOmniNerf')
+                        Buff.ApplyBuff(v, 'DarknessEffect')
 						
                     end
 					
@@ -125,19 +125,19 @@ SRB4402 = Class(CRadarJammerUnit) {
 		
     end,
 
-    OnIntelEnabled = function(self)
+    OnIntelEnabled = function(self,intel)
 	
         self.Intel = true
 
-        CRadarJammerUnit.OnIntelEnabled(self)
+        CRadarJammerUnit.OnIntelEnabled(self,intel)
 		
     end,
 
-    OnIntelDisabled = function(self)
+    OnIntelDisabled = function(self,intel)
 	
         self.Intel = false
 		
-        CRadarJammerUnit.OnIntelDisabled(self)
+        CRadarJammerUnit.OnIntelDisabled(self,intel)
 		
     end,
 
@@ -154,8 +154,9 @@ SRB4402 = Class(CRadarJammerUnit) {
             if self.Intel then
 			
                 WaitSeconds(2.5)
-                --if aiBrain:GetEconomyIncome('ENERGY')
+
                 self:GetWeaponByLabel('PulseWeapon'):FireWeapon()
+
                 WaitSeconds(2.5)
 				
             else

@@ -4,41 +4,13 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'XSB',
-            Cue = 'XSB3104_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        AmbientMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0307_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0307_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0307_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        AmbientMove     = Sound { Bank = 'XSL', Cue = 'XSL0307_Move_Loop',   LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove       = Sound { Bank = 'XSL', Cue = 'XSL0307_Move_Start',  LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove        = Sound { Bank = 'XSL', Cue = 'XSL0307_Move_Stop',   LodCutoff = 'UnitMove_LodCutoff' },
+        DoneBeingBuilt  = Sound { Bank = 'XSB', Cue = 'XSB3104_Activate',    LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed       = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge',            LodCutoff = 'UnitMove_LodCutoff' },
+        Killed          = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy',  LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Radar',    LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     BuildIconSortPriority = 12,
@@ -64,10 +36,12 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 35,
-        Health = 260,
-        MaxHealth = 260,
+
+        Health = 220,
+        MaxHealth = 220,
         RegenRate = 1,
+
+        EconomyThreatLevel = 65,
     },
 	
     Description = '<LOC srl0324_desc>Mobile Sensor Array',
@@ -92,36 +66,15 @@ UnitBlueprint {
         IdleEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {'Orb'},
-                        Scale = 0.75,
-                        Type = 'Radar01',
-                    },
-                    {
-                        Bones = {0},
-                        Offset = {0, -0.25, 0},
-                        Type = 'SeraphimGroundFX01',
-                    },
+                    { Bones = {'Orb'}, Scale = 0.75,         Type = 'Radar01' },
+                    { Bones = {0}, Offset = {0, -0.25, 0},   Type = 'SeraphimGroundFX01' },
                 },
             },
             Water = {
                 Effects = {
-                    {
-                        Bones = {'Orb'},
-                        Scale = 0.75,
-                        Type = 'Radar01',
-                    },
-                    {
-                        Bones = {0},
-                        Offset = {0, -0.25, 0},
-                        Type = 'SeraphimGroundFX01',
-                    },
-                    {
-                        Bones = {0},
-                        Offset = {0, -0.25, 0},
-                        Scale = 1.2,
-                        Type = 'SeaIdle02',
-                    },
+                    { Bones = {'Orb'}, Scale = 0.75,                    Type = 'Radar01' },
+                    { Bones = {0}, Offset = {0, -0.25, 0},              Type = 'SeraphimGroundFX01' },
+                    { Bones = {0}, Offset = {0, -0.25, 0}, Scale = 1.2, Type = 'SeaIdle02' },
                 },
             },
         },
@@ -145,52 +98,29 @@ UnitBlueprint {
         MovementEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {'Orb'},
-                        Scale = 0.75,
-                        Type = 'Radar01',
-                    },
-                    {
-                        Bones = {0},
-                        Scale = 0.5,
-                        Type = 'GroundKickup01',
-                    },
-                    {
-                        Bones = {0},
-                        Offset = {0, -0.25, 0},
-                        Type = 'SeraphimGroundFX01',
-                    },
+                    { Bones = {'Orb'}, Scale = 0.75,         Type = 'Radar01' },
+                    { Bones = {0}, Scale = 0.5,              Type = 'GroundKickup01' },
+                    { Bones = {0}, Offset = {0, -0.25, 0},   Type = 'SeraphimGroundFX01' },
                 },
             },
             Water = {
                 Effects = {
-                    {
-                        Bones = {'Orb'},
-                        Scale = 0.75,
-                        Type = 'Radar01',
-                    },
-                    {
-                        Bones = {0},
-                        Offset = {0, -0.25, 0},
-                        Type = 'SeraphimGroundFX01',
-                    },
-                    {
-                        Bones = {0},
-                        Scale = 0.5,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'Orb'}, Scale = 0.75,         Type = 'Radar01' },
+                    { Bones = {0}, Offset = {0, -0.25, 0},   Type = 'SeraphimGroundFX01' },
+                    { Bones = {0}, Scale = 0.5,              Type = 'BackWake' },
                 },
             },
         },
+        
         UniformScale = 0.045,
     },
 	
     Economy = {
         BuildCostEnergy = 30000,
-        BuildCostMass = 2400 * 0.5,
-        BuildTime = 5000,
+        BuildCostMass = 1650,
+        BuildTime = 2500,
 		
-        MaintenanceConsumptionPerSecondEnergy = 2500,
+        MaintenanceConsumptionPerSecondEnergy = 765,
     },
 	
     General = {
@@ -201,27 +131,27 @@ UnitBlueprint {
             RULEUCC_Patrol = true,
             RULEUCC_Stop = true,
         },
+
         FactionName = 'Seraphim',
         Icon = 'land',
+
         OrderOverrides = {
-            RULEUTC_IntelToggle = {
-                bitmapId = 'omni',
-                helpText = 'toggle_omni',
-            },
+            RULEUTC_IntelToggle = { bitmapId = 'omni', helpText = 'toggle_omni' },
         },
-        ToggleCaps = {
-            RULEUTC_IntelToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_IntelToggle = true },
+        
         UnitName = '<LOC ssl0324_name>Yenesel',
     },
 	
     Intel = {
-        OmniRadius = 125,
-        RadarRadius = 290,
         ReactivateTime = 5,
         ShowIntelOnSelect = true,
+        
+        OmniRadius = 56,
+        RadarRadius = 248,
         VisionRadius = 40,
-		WaterVisionRadius = 15,
+		WaterVisionRadius = 24,
     },
 	
     Interface = {
@@ -239,10 +169,10 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.25,
-        MaxAcceleration = 1.2,
-        MaxBrake = 3.5,
-        MaxSpeed = 3.5,
-        MaxSpeedReverse = 0,
+        MaxAcceleration = 1.5,
+        MaxBrake = 3,
+        MaxSpeed = 3,
+        MaxSpeedReverse = 3,
         MaxSteerForce = 1000,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',

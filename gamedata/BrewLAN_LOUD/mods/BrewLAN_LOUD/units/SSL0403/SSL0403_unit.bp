@@ -4,61 +4,17 @@ UnitBlueprint {
     },
 
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0309_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        CaptureLoop = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0309_Capture_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Construct = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0309_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ConstructLoop = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0309_Construct_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0401_Death',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ReclaimLoop = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0309_Reclaim_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartCapture = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0309_Capture_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0401_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartReclaim = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0309_Reclaim_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0401_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        AmbientMove     = Sound { Bank = 'XSL', Cue = 'XSL0309_Move_Loop',       LodCutoff = 'UnitMove_LodCutoff'},
+        CaptureLoop     = Sound { Bank = 'XSL', Cue = 'XSL0309_Capture_Loop',    LodCutoff = 'UnitMove_LodCutoff'},
+        Construct       = Sound { Bank = 'XSL', Cue = 'XSL0309_Construct_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        ConstructLoop   = Sound { Bank = 'XSL', Cue = 'XSL0309_Construct_Loop',  LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'XSL', Cue = 'XSL0401_Death',           LodCutoff = 'UnitMove_LodCutoff'},
+        ReclaimLoop     = Sound { Bank = 'XSL', Cue = 'XSL0309_Reclaim_Loop',    LodCutoff = 'UnitMove_LodCutoff'},
+        StartCapture    = Sound { Bank = 'XSL', Cue = 'XSL0309_Capture_Start',   LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove       = Sound { Bank = 'XSL', Cue = 'XSL0401_Move_Start',      LodCutoff = 'UnitMove_LodCutoff'},
+        StartReclaim    = Sound { Bank = 'XSL', Cue = 'XSL0309_Reclaim_Start',   LodCutoff = 'UnitMove_LodCutoff'},
+        StopMove        = Sound { Bank = 'XSL', Cue = 'XSL0401_Move_Stop',       LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -103,10 +59,12 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Experimental',
-        EconomyThreatLevel = 618,
+
         Health = 18450,
         MaxHealth = 18450,
         RegenRate = 10,
+
+        EconomyThreatLevel = 618,
         SurfaceThreatLevel = 100,
     },
 	
@@ -129,27 +87,14 @@ UnitBlueprint {
         },
         AnimationWalk = '/mods/BrewLAN_LOUD/units/ssl0403/ssl0403_awalk01.sca',
         AnimationWalkRate = 1.7,
+
         IdleEffects = {
             Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Exhaust_Neck_001',
-                            'Exhaust_Neck_002',
-                        },
-                        Type = 'SerOHWAirMoveExhaust01',
-                        Scale = 0.5,
-                    },
-                    {
-                        Bones = {
-                            'Exhaust_Ring',
-                        },
-                        Type = 'SerOHWAirMoveExhaust02',
-                        Scale = 0.5,
-                    },
-                },
+                Effects = { { Bones = {'Exhaust_Neck_001','Exhaust_Neck_002'}, Type = 'SerOHWAirMoveExhaust01', Scale = 0.5 },
+                            { Bones = {'Exhaust_Ring'}, Type = 'SerOHWAirMoveExhaust02', Scale = 0.5 } },
             },
         },
+
         LayerChangeEffects = {
             SeabedLand = {
                 Effects = {
@@ -171,6 +116,7 @@ UnitBlueprint {
                     },
                 },
             },
+
             LandSeabed = {
                 Effects = {
                     {
@@ -192,6 +138,7 @@ UnitBlueprint {
                 },
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -214,6 +161,7 @@ UnitBlueprint {
                 },
             },
         },
+
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -226,20 +174,14 @@ UnitBlueprint {
                             HipBone = 'Upper_Arm_001',
                             KneeBone = 'Blade_001',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = { z = -1 },
                             StraightLegs = false,
                             Tread = {
                                 TreadLifeTime = 135,
                                 TreadMarks = 'CommanderPrint_albedo',
                                 TreadMarksSizeX = .2,
                                 TreadMarksSizeZ = .3,
-                                TreadOffset = {
-                                    -1.25,
-                                    0,
-                                    2.5,
-                                },
+                                TreadOffset = {-1.25,0,2.5},
                             },
                             Type = 'FootFall01',
                         },
@@ -248,20 +190,14 @@ UnitBlueprint {
                             HipBone = 'Upper_Arm_002',
                             KneeBone = 'Blade_002',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = { z = -1 },
                             StraightLegs = false,
                             Tread = {
                                 TreadLifeTime = 135,
                                 TreadMarks = 'CommanderPrint_albedo',
                                 TreadMarksSizeX = .2,
                                 TreadMarksSizeZ = .3,
-                                TreadOffset = {
-                                    -1,
-                                    0,
-                                    3.2,
-                                },
+                                TreadOffset = {-1,0,3.2},
                             },
                             Type = 'FootFall01',
                         },
@@ -270,20 +206,14 @@ UnitBlueprint {
                             HipBone = 'Upper_Arm_003',
                             KneeBone = 'Blade_003',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = { z = -1 },
                             StraightLegs = false,
                             Tread = {
                                 TreadLifeTime = 135,
                                 TreadMarks = 'CommanderPrint_albedo',
                                 TreadMarksSizeX = .2,
                                 TreadMarksSizeZ = .3,
-                                TreadOffset = {
-                                    1.25,
-                                    0,
-                                    2.5,
-                                },
+                                TreadOffset = {1.25,0,2.5},
                             },
                             Type = 'FootFall01',
                         },
@@ -292,30 +222,26 @@ UnitBlueprint {
                             HipBone = 'Upper_Arm_004',
                             KneeBone = 'Blade_004',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = { z = -1 },
                             StraightLegs = false,
                             Tread = {
                                 TreadLifeTime = 135,
                                 TreadMarks = 'CommanderPrint_albedo',
                                 TreadMarksSizeX = .2,
                                 TreadMarksSizeZ = .3,
-                                TreadOffset = {
-                                    1,
-                                    0,
-                                    3.2,
-                                },
+                                TreadOffset = {1,0,3.2},
                             },
                             Type = 'FootFall01',
                         },
                     },
+
                     CameraShake = {
                         Interval = 0.05,
                         MaxShakeEpicenter = 0.1,
                         MinShakeAtRadius = 0,
                         Radius = 4,
                     },
+
                     Damage = {
                         Amount = 500,
                         DamageFriendly = false,
@@ -323,20 +249,11 @@ UnitBlueprint {
                         Type = 'ExperimentalFootfall',
                     },
                 },
+
                 Effects = {
-                    {
-                        Bones = {
-                            'Kickup001',
-                            'Kickup002',
-                        },
-                        Offset = {
-                            0,
-                            0,
-                            0,
-                        },
-                        Type = 'GroundKickup01',
-                    },
+                    { Bones = {'Kickup001','Kickup002'}, Offset = {0,0,0}, Type = 'GroundKickup01' },
                 },
+
                 Treads = {
                     ScrollTreads = true,
                     TreadMarks = {
@@ -345,26 +262,19 @@ UnitBlueprint {
                             TreadMarksInterval = 0.09,
                             TreadMarksSizeX = 1.1,
                             TreadMarksSizeZ = 2.8,
-                            TreadOffset = {
-                                2,
-                                -1.1,
-                                -1.1,
-                            },
+                            TreadOffset = {2,-1.1,-1.1},
                         },
                         {
                             TreadMarks = 'tank_treads03_albedo',
                             TreadMarksInterval = 0.09,
                             TreadMarksSizeX = 1.1,
                             TreadMarksSizeZ = 2.8,
-                            TreadOffset = {
-                                -2,
-                                -1.1,
-                                -1.1,
-                            },
+                            TreadOffset = {-2,-1.1,-1.1},
                         },
                     },
                 },
             },
+
             Seabed = {
                 Effects = {
                     {
@@ -384,11 +294,10 @@ UnitBlueprint {
                         Type = 'UnderWater01',
                     },
                 },
-                Treads = {
-                    ScrollTreads = true,
-                },
+                Treads = { ScrollTreads = true },
             },
         },
+
         UniformScale = 0.1,
     },
 	
@@ -431,7 +340,9 @@ UnitBlueprint {
                 'Mandible_006',
             },
         },
+
 		CapCost = 8,
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Capture = true,
@@ -447,22 +358,22 @@ UnitBlueprint {
         ConstructionBar = true,
         FactionName = 'Seraphim',
         Icon = 'amph',
+
         OrderOverrides = {
-            RULEUCC_Reclaim = {
-                bitmapId = 'rez',
-                helpText = 'rez_reclaim',
-            },
+            RULEUCC_Reclaim = { bitmapId = 'rez', helpText = 'rez_reclaim' },
         },
+
         SelectionPriority = 3,
+
         UnitName = '<LOC ssl0403_name>Iyadesu',
     },
 	
     Intel = {
 		FreeIntel = true,
-		OmniRadius = 5,
-        RadarRadius = 45,
-        VisionRadius = 30,
-        WaterVisionRadius = 20,
+		OmniRadius = 8,
+        RadarRadius = 48,
+        VisionRadius = 36,
+        WaterVisionRadius = 28,
     },
 	
     Interface = {
@@ -482,7 +393,9 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 1,
-        LayerChangeOffsetHeight = -0.75,
+
+        LayerChangeOffsetHeight = -3,
+
         MaxAcceleration = 1.0,
         MaxBrake = 1.75,
         MaxSpeed = 3,
@@ -714,6 +627,7 @@ UnitBlueprint {
             WeaponRepackTimeout = 0,
             WeaponUnpacks = false,
         },]]
+
         {
             Damage = 1500,
             DamageFriendly = true,
@@ -728,9 +642,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

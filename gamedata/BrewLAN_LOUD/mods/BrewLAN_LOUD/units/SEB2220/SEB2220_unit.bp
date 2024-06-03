@@ -1,21 +1,9 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB5101_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed       = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'UEB', Cue = 'UEB5101_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     BuildIconSortPriority = 110,
@@ -58,12 +46,7 @@ UnitBlueprint {
             '<LOC ability_suicideweapon>Suicide Weapon',
         },
 
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {LODCutoff = 130, ShaderName = 'Aeon'},
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { {LODCutoff = 130, ShaderName = 'Aeon'} } },
 
         UniformScale = 0.02,
     },
@@ -86,9 +69,7 @@ UnitBlueprint {
     General = {
         CapCost = 0.2,
 
-        CommandCaps = {
-            RULEUCC_RetaliateToggle = true,
-        },
+        CommandCaps = { RULEUCC_RetaliateToggle = true },
 
         FactionName = 'UEF',
         Icon = 'amph',
@@ -96,20 +77,14 @@ UnitBlueprint {
         InstantDeathOnSelfDestruct = true,
 
         OrderOverrides = {
-            RULEUTC_WeaponToggle = {
-                bitmapId = 'Nuke',
-                helpText = 'detonate',
-            },
+            RULEUTC_WeaponToggle = { bitmapId = 'Nuke', helpText = 'detonate' },
         },
 
         SelectionPriority = 5,
 
-        ToggleCaps = {
-            RULEUTC_CloakToggle = true,        
-            RULEUTC_WeaponToggle = true,
-        },
+        ToggleCaps = { RULEUTC_CloakToggle = true, RULEUTC_WeaponToggle = true },
+        
         UnitName = '<LOC seb2220_name>AP-12 Trapper',
-        UnitWeight = 1,
     },
 
     Intel = {

@@ -6,36 +6,11 @@ UnitBlueprint {
     },
 	
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0205_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        HoverKilledOnWater = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0205_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0205_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed           = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        HoverKilledOnWater  = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove           = Sound { Bank = 'UAL', Cue = 'UAL0205_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        StopMove            = Sound { Bank = 'UAL', Cue = 'UAL0205_Move_Stop', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection         = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -84,56 +59,26 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    ShaderName = 'Aeon',
-                },
-                {
-                    LODCutoff = 200,
-                    ShaderName = 'Aeon',
-                },
-                {
-                    LODCutoff = 400,
-                    ShaderName = 'Aeon',
-                },
+                { LODCutoff = 100, ShaderName = 'Aeon' },
+                { LODCutoff = 200, ShaderName = 'Aeon' },
+                { LODCutoff = 400, ShaderName = 'Aeon' },
             },
         },
 		
         MovementEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Type = 'GroundKickup01',
-                    },
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Offset = {
-                            0,
-                            -0.15,
-                            0,
-                        },
-                        Scale = 1.15,
-                        Type = 'AeonGroundFX01',
-                    },
+                    { Bones = {0}, Type = 'GroundKickup01' },
+                    { Bones = {0}, Offset = {0,-0.15,0}, Scale = 1.15, Type = 'AeonGroundFX01' },
                 },
             },
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Scale = 0.5,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {0}, Scale = 0.5, Type = 'BackWake' },
                 },
             },
         },
+        
         UniformScale = 0.07,
     },
 	
@@ -161,6 +106,7 @@ UnitBlueprint {
 	
     Intel = {
         VisionRadius = 32,
+        WaterVisionRadius = 12,
     },
 	
     Interface = {
@@ -236,27 +182,12 @@ UnitBlueprint {
             AlwaysRecheckTarget = true,
 			
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Unpack = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop    = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Loop', LodCutoff = 'Weapon_LodCutoff'},
+                BeamStart   = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Fire', LodCutoff = 'Weapon_LodCutoff'},
+                BeamStop    = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Stop', LodCutoff = 'Weapon_LodCutoff'},
+                Unpack      = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Charge', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
@@ -266,7 +197,7 @@ UnitBlueprint {
             CollideFriendly = false,
             ContinuousBeam = true,
 			
-            Damage = 90,       -- 360 DPS AIr
+            Damage = 85,       -- 340 DPS AIr
             DamageFriendly = false,
             DamageRadius = 0,
             DamageType = 'Normal',
@@ -285,7 +216,7 @@ UnitBlueprint {
 			
             Label = 'AAGun',
 			
-            MaxRadius = 38,
+            MaxRadius = 36,
 			
             NeedPrep = true,
 			
@@ -315,7 +246,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle_001',
             TurretBonePitch = 'Lens_001',
             TurretBoneYaw = 'Lens_001',
-            TurretDualManipulators = false,
 			
             TurretPitch = 10,
             TurretPitchRange = 80,

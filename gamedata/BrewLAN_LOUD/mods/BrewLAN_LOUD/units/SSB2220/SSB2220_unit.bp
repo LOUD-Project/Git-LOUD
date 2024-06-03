@@ -1,16 +1,8 @@
 UnitBlueprint {
 
     Audio = {
-        Killed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 110,
@@ -96,9 +88,7 @@ UnitBlueprint {
     General = {
         CapCost = 0.2,
 
-        CommandCaps = {
-            RULEUCC_RetaliateToggle = true,
-        },
+        CommandCaps = { RULEUCC_RetaliateToggle = true },
 
         FactionName = 'Seraphim',
         Icon = 'amph',
@@ -111,10 +101,7 @@ UnitBlueprint {
 
         SelectionPriority = 5,
 
-        ToggleCaps = {
-            RULEUTC_CloakToggle = true,
-            RULEUTC_WeaponToggle = true,
-        },
+        ToggleCaps = { RULEUTC_CloakToggle = true, RULEUTC_WeaponToggle = true },
 
         UnitName = '<LOC ssb2220_name>Othe',
     },

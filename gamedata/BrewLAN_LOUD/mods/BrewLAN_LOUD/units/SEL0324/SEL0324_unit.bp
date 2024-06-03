@@ -5,40 +5,20 @@ UnitBlueprint {
     },
 	
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'XEL',
-            Cue = 'XEL0306_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XEL',
-            Cue = 'XEL0306_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XEL',
-            Cue = 'XEL0306_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        AmbientMove = Sound { Bank = 'XEL', Cue = 'XEL0306_Move_Loop',   LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'XEL', Cue = 'XEL0306_Move_Start',  LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'XEL', Cue = 'XEL0306_Move_Stop',   LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed   = Sound { Bank = 'UELDestroy',  Cue = 'UEL_Destroy_Med_Land',    LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',   Cue = 'UEF_Select_Vehicle',      LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 3,
-            Level2 = 6,
-            Level3 = 9,
-            Level4 = 12,
-            Level5 = 15,
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
         },
     },
 	
@@ -61,12 +41,14 @@ UnitBlueprint {
     },
 	
     Defense = {
-        AirThreatLevel = 36,
         ArmorType = 'Normal',
-        EconomyThreatLevel = 150,
+
         Health = 1800,
         MaxHealth = 1800,
         RegenRate = 2,
+
+        AirThreatLevel = 36,
+        EconomyThreatLevel = 150,
     },
 	
     Description = '<LOC sal0320_desc>Mobile Anti-Air Defense',
@@ -88,26 +70,16 @@ UnitBlueprint {
                 },
             },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 130,
-                    Scrolling = true,
-                    ShaderName = 'Unit',
-                },
-                {
-                    LODCutoff = 260,
-                    Scrolling = true,
-                    ShaderName = 'Unit',
-                },
-                {
-                    LODCutoff = 390,
-                    Scrolling = true,
-                    ShaderName = 'Unit',
-                },
+                { LODCutoff = 130, Scrolling = true, ShaderName = 'Unit' },
+                { LODCutoff = 260, Scrolling = true, ShaderName = 'Unit' },
+                { LODCutoff = 390, Scrolling = true, ShaderName = 'Unit' },
             },
         },
+        
         MovementEffects = {
             Effects = {
                 {
@@ -131,15 +103,16 @@ UnitBlueprint {
                 },
             },
         },
+
         UniformScale = 0.032*.7,
     },
 	
     Economy = {
         BuildCostEnergy = 30000,
-        BuildCostMass = 1000,
-        BuildTime = 3000,
+        BuildCostMass = 2200,
+        BuildTime = 1100,
 		
-        MaintenanceConsumptionPerSecondEnergy = 2500,
+        MaintenanceConsumptionPerSecondEnergy = 850,
     },
 	
     General = {
@@ -154,22 +127,22 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'land',
+
         OrderOverrides = {
-            RULEUTC_IntelToggle = {
-                bitmapId = 'omni',
-                helpText = 'toggle_omni',
-            },
+            RULEUTC_IntelToggle = { bitmapId = 'omni', helpText = 'toggle_omni' },
         },
-        ToggleCaps = {
-            RULEUTC_IntelToggle = true,
-        },
+
+        ToggleCaps = { RULEUTC_IntelToggle = true },
+
         UnitName = '<LOC sel0324_name>NG3 Longbow',
     },
 	
     Intel = {
-        OmniRadius = 125,
-        RadarRadius = 290,
+        OmniRadius = 56,
+        RadarRadius = 248,
         VisionRadius = 40,
+        WaterVisionRadius = 12,
+
         ShowIntelOnSelect = true,		
     },
 	
@@ -182,7 +155,7 @@ UnitBlueprint {
     LifeBarSize = 1.2,
 	
     Physics = {
-        BackUpDistance = 4,
+        BackUpDistance = 8,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
@@ -191,7 +164,7 @@ UnitBlueprint {
         MaxAcceleration = 1,
         MaxBrake = 1,
         MaxSpeed = 3,
-        MaxSpeedReverse = 2.5,
+        MaxSpeedReverse = 3,
         MaxSteerForce = 5*.5,
         MeshExtentsX = 1,
         MeshExtentsY = 1.5,
@@ -231,19 +204,17 @@ UnitBlueprint {
     Weapon = {
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2304_Missile_Flayer',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2304_Missile_Flayer', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 120,
-            DamageRadius = 0,
+            Damage = 200,
             DamageType = 'Normal',
 			
             DisplayName = 'SAM Launcher',
@@ -251,13 +222,13 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Air',
             },
-            FiringTolerance = 45,
+            FiringTolerance = 40,
 			
             Label = 'MissileRack01',
 			
-            MaxRadius = 55,
+            MaxRadius = 48,
 			
-            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 36,
 			
@@ -277,12 +248,14 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
+            
+            RackSalvoReloadTime = 1.5,  -- firing cycle 3.3 seconds
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 0.5,
+            RateOfFire = 1,             -- controlled by salvo times = 6 x 200 = 1200/3.3 = 363 DPS Air
 			
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1,
             TargetPriorities = {
                 'HIGHPRIAIR',
                 'BOMBER',
@@ -291,12 +264,11 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Pitch',
             TurretBonePitch = 'Turret_Pitch',
             TurretBoneYaw = 'Turret_Yaw',
-            TurretDualManipulators = false,
 			
             TurretPitch = 25,
             TurretPitchRange = 90,
@@ -304,7 +276,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 35,
+            TurretYawSpeed = 65,
 			
             Turreted = true,
         },
@@ -312,9 +284,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

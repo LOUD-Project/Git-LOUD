@@ -41,21 +41,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'XSA_Destroy',
-            Cue = 'XSA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0104_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'XSA_Destroy', Cue = 'XSA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSA', Cue = 'XSA0104_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 60,
@@ -94,6 +82,7 @@ UnitBlueprint {
         Health = 4100,
         MaxHealth = 4100,
         RegenRate = 15,
+
         Shield = {
             ImpactEffects = 'SeraphimShieldHit01',
             ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
@@ -124,32 +113,11 @@ UnitBlueprint {
             'Ground Attack',
         },
 		
-        ForcedBuildSpin = 90,
-		
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    {
-                        Bones = {
-                            'BSA0306',
-                        },
-                        Scale = 4,
-                        Type = 'Landing01',
-                    },
-                },
-            },
-            LandAir = {
-                Effects = {
-                    {
-                        Bones = {
-                            'BSA0306',
-                        },
-                        Scale = 4,
-                        Type = 'TakeOff01',
-                    },
-                },
-            },
+            AirLand = { Effects = { { Bones = {'BSA0306'}, Scale = 4, Type = 'Landing01' } } },
+            LandAir = { Effects = { { Bones = {'BSA0306'}, Scale = 4, Type = 'TakeOff01' } } },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -172,18 +140,9 @@ UnitBlueprint {
                 },
             },
         },
+
         MovementEffects = {
-            Air = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Exhaust',
-                        },
-                        Scale = 2.5,
-                        Type = 'AirMoveExhaust03',
-                    },
-                },
-            },
+            Air = { Effects = { { Bones = {'Exhaust'}, Scale = 2.5, Type = 'AirMoveExhaust03' } } },
         },
 
         UniformScale = 0.0505,
@@ -220,21 +179,19 @@ UnitBlueprint {
         Icon = 'air',
 		
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'toggle_shield_dome',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-dome', helpText = 'toggle_shield_dome' },
         },
 		
         SelectionPriority = 2,
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+
+        ToggleCaps = { RULEUTC_ShieldToggle = true },
+
         UnitName = '<LOC ssa0306_name>Vishuum',
     },
 	
     Intel = {
-        VisionRadius = 40,
+        VisionRadius = 36,
+        WaterVisionRadius = 16,
     },
 	
     Interface = {
@@ -294,11 +251,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0104_Phasic_Autogun_01',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0104_Phasic_Autogun_01', LodCutoff = 'Weapon_LodCutoff'},
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -364,11 +317,7 @@ UnitBlueprint {
         },	
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0303_AA_AutoCanLosaare',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0303_AA_AutoCanLosaare', LodCutoff = 'Weapon_LodCutoff'},
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -400,10 +349,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Turret_Barrel_Muzzle01',
-                        'Left_Turret_Barrel_Muzzle02',
-                    },
+                    MuzzleBones = {'Left_Turret_Barrel_Muzzle01','Left_Turret_Barrel_Muzzle02'},
                     RackBone = 'Left_Turret_Barrel',
                 },
             },
@@ -439,11 +385,7 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0303_AA_AutoCanLosaare',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0303_AA_AutoCanLosaare', LodCutoff = 'Weapon_LodCutoff'},
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -473,10 +415,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Turret_Barrel_Muzzle01',
-                        'Right_Turret_Barrel_Muzzle02',
-                    },
+                    MuzzleBones = {'Right_Turret_Barrel_Muzzle01','Right_Turret_Barrel_Muzzle02'},
                     RackBone = 'Right_Turret_Barrel',
                 },
             },
@@ -522,11 +461,12 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

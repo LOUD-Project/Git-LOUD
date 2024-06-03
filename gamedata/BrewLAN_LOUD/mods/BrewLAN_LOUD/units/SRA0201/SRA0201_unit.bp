@@ -36,21 +36,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0302_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'URADestroy', Cue = 'URA_Destroy_Air', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove = Sound { Bank = 'URA', Cue = 'URA0302_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 14,
@@ -84,62 +72,27 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            --'<LOC ability_personalstealth>Personal Stealth',
             '<LOC ability_radar>Radar',
             '<LOC ability_sonar>Sonar',
         },
+
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    {
-                        Bones = {0},
-                        Type = 'Landing01',
-                    },
-                },
-            },
-            LandAir = {
-                Effects = {
-                    {
-                        Bones = {0},
-                        Type = 'TakeOff01',
-                    },
-                },
-            },
+            AirLand = { Effects = { { Bones = {0}, Type = 'Landing01' } } },
+            LandAir = { Effects = { { Bones = {0}, Type = 'TakeOff01' } } },
         },
 		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 130,
-                    ShaderName = 'Insect',
-                },
-                {
-                    LODCutoff = 260,
-                    ShaderName = 'Insect',
-                },
+                { LODCutoff = 130, ShaderName = 'Insect' },
+                { LODCutoff = 260, ShaderName = 'Insect' },
             },
         },
 		
         MovementEffects = {
             Air = {
-                Contrails = {
-                    Bones = {
-                        'Contrail_Left',
-                        'Contrail_Right',
-                    },
-                    ZOffset = 0,
-                },
-                Effects = {
-                    {
-                        Bones = {
-                            'Exhaust_Left',
-                            'Exhaust_Middle',
-                            'Exhaust_Right',
-                        },
-                        Type = 'AirMoveExhaust01',
-                    },
-                },
+                Contrails = { Bones = {'Contrail_Left','Contrail_Right'}, ZOffset = 0 },
+                Effects = { { Bones = {'Exhaust_Left','Exhaust_Middle','Exhaust_Right'}, Type = 'AirMoveExhaust01' } },
             },
         },
 
@@ -170,23 +123,23 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'air',
+        
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-field',
-                helpText = 'toggle_stealth_field',
-            },
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-field', helpText = 'toggle_stealth_field' },
         },
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+        
         UnitName = '<LOC sra0201_name>Blade Raven',
     },
 	
     Intel = {
 		FreeIntel = true,
+        
         RadarRadius = 64,
+        
         RadarStealth = true,
-        SonarRadius = 30,
+        SonarRadius = 48,
         VisionRadius = 44,
     },
 	

@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0201_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0201_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        AmbientMove = Sound { Bank = 'XSL', Cue = 'XSL0201_Move_Loop', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0201_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Tank', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     BuildIconSortPriority = 11,
@@ -65,6 +53,7 @@ UnitBlueprint {
             '<LOC ability_personalstealth>Personal Stealth',
             '<LOC ability_radar>Radar',
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -86,17 +75,10 @@ UnitBlueprint {
                 },
             },
         },
+
         MovementEffects = {
             Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Exhaust_Right',
-                            'Exhaust_Left',
-                        },
-                        Type = 'GroundKickup03',
-                    },
-                },
+                Effects = { { Bones = {'Exhaust_Right','Exhaust_Left'}, Type = 'GroundKickup03' } },
                 Treads = {
                     ScrollTreads = true,
                     TreadMarks = {
@@ -105,11 +87,7 @@ UnitBlueprint {
                             TreadMarksInterval = 0.09,
                             TreadMarksSizeX = 0.8,
                             TreadMarksSizeZ = 0.7,
-                            TreadOffset = {
-                                0,
-                                0,
-                                -0.2,
-                            },
+                            TreadOffset = {0,0,-0.2},
                         },
                     },
                 },
@@ -141,9 +119,7 @@ UnitBlueprint {
     },
 	
     General = {
-        BuildBones = {
-            AimBone = 'Turret_Muzzle',
-            BuildEffectBones = {'Turret_Muzzle','Turret_Muzzle001','Turret_Muzzle002'},
+        BuildBones = { AimBone = 'Turret_Muzzle', BuildEffectBones = {'Turret_Muzzle','Turret_Muzzle001','Turret_Muzzle002'},
             PitchBone = 'Arm_Pitch',
             YawBone = 'Arm_Yaw',
         },
@@ -172,9 +148,7 @@ UnitBlueprint {
 
         SelectionPriority = 3,
 
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+        ToggleCaps = { RULEUTC_StealthToggle = true },
 
         UnitName = '<LOC ssl0319_name>Iyazyne',
     },
@@ -186,10 +160,10 @@ UnitBlueprint {
         RadarStealth = true,
         SonarStealth = true,
         
-		OmniRadius = 6,
+		OmniRadius = 8,
         RadarRadius = 48,
-        VisionRadius = 26,
-		WaterVisionRadius = 26,
+        VisionRadius = 28,
+		WaterVisionRadius = 28,
     },
 	
     LifeBarHeight = 0.075,
@@ -248,12 +222,9 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0201_Cannon_Spectra',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0201_Cannon_Spectra', LodCutoff = 'Weapon_LodCutoff'},
             },
+
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -323,14 +294,14 @@ UnitBlueprint {
             TurretYawSpeed = 100,
 			
             Turreted = true,
-
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

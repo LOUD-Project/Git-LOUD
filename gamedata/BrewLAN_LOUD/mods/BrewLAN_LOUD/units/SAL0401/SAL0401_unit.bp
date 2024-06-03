@@ -6,31 +6,10 @@ UnitBlueprint {
     },
 
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0304_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0304_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UAL', Cue = 'UAL0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'UAL', Cue = 'UAL0304_Move_Stop', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Tank', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -232,6 +211,7 @@ UnitBlueprint {
 	
     Intel = {
         VisionRadius = 36,
+        WaterVisionRadius = 8,
     },
 	
     Interface = {
@@ -311,26 +291,10 @@ UnitBlueprint {
 			ArtilleryShieldBlocks = true,
             
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Lrg_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UAS',
-                    Cue = 'UAS_Turret_Lrg_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UASWeapon',
-                    Cue = 'UAS0401_Cannon_Oblivion',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'UASWeapon',
-                    Cue = 'UAS0401_Cannon_Oblv_Charge',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                BarrelLoop          = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Loop', LodCutoff = 'WeaponBig_LodCutoff'},
+                BarrelStart         = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Lrg_Start', LodCutoff = 'WeaponBig_LodCutoff'},
+                Fire                = Sound { Bank = 'UASWeapon', Cue = 'UAS0401_Cannon_Oblivion', LodCutoff = 'WeaponBig_LodCutoff'},
+                MuzzleChargeStart   = Sound { Bank = 'UASWeapon', Cue = 'UAS0401_Cannon_Oblv_Charge', LodCutoff = 'WeaponBig_LodCutoff'},
             },
             
             AutoInititeAttackCommand = true,			
@@ -377,7 +341,7 @@ UnitBlueprint {
             
 			LeadTarget = true,
 			
-            MaxRadius = 115,
+            MaxRadius = 112,
 			MinRadius = 18,
 			
             MuzzleChargeDelay = 0.5,        -- 0.5 seconds delay
@@ -432,12 +396,9 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB4201_Eleathrun_TMD',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSB_Weapon', Cue = 'XSB4201_Eleathrun_TMD', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			

@@ -2,9 +2,12 @@ local TSeaUnit =  import('/lua/defaultunits.lua').SeaUnit
 
 local WeaponFile = import('/lua/terranweapons.lua')
 
-local TAALinkedRailgun = WeaponFile.TAALinkedRailgun
-local TANTorpedoAngler = WeaponFile.TANTorpedoAngler
-local TIFSmartCharge = WeaponFile.TIFSmartCharge
+local TAALinkedRailgun  = WeaponFile.TAALinkedRailgun
+local TANTorpedoAngler  = WeaponFile.TANTorpedoAngler
+
+local TorpedoDecoy = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
+
+WeaponFile = nil
 
 local BrewLANLOUDPath = import( '/lua/game.lua' ).BrewLANLOUDPath()
 local AssistThread = import(BrewLANLOUDPath .. '/lua/fieldengineers.lua').AssistThread
@@ -12,9 +15,9 @@ local AssistThread = import(BrewLANLOUDPath .. '/lua/fieldengineers.lua').Assist
 SES0319 = Class(TSeaUnit) {
     DestructionTicks = 200,
     Weapons = {
-        FrontTurret02 = Class(TAALinkedRailgun) {},
-        Torpedo01 = Class(TANTorpedoAngler) {},
-        AntiTorpedo = Class(TIFSmartCharge) {},
+        FrontTurret02   = Class(TAALinkedRailgun) {},
+        Torpedo01       = Class(TANTorpedoAngler) {},
+        AntiTorpedo     = Class(TorpedoDecoy) {},
     },
 
     RadarThread = function(self)

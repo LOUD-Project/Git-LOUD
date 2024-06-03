@@ -2,9 +2,13 @@ local SAirUnit = import('/lua/defaultunits.lua').AirUnit
 
 local explosion = import('/lua/defaultexplosions.lua')
 local util = import('/lua/utilities.lua')
+
 local SeraphimWeapons = import('/lua/seraphimweapons.lua')
+
 local SAALosaareAutoCannonWeaponAirUnit = SeraphimWeapons.SAALosaareAutoCannonWeaponAirUnit
-local SDFHeavyPhasicAutoGunWeapon = SeraphimWeapons.SDFHeavyPhasicAutoGunWeapon
+local SDFHeavyPhasicAutoGunWeapon       = SeraphimWeapons.SDFHeavyPhasicAutoGunWeapon
+
+SeraphimWeapons = nil
 
 SSA0306 = Class(SAirUnit) {
 

@@ -1,18 +1,19 @@
 local CLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
-local cWeapons = import('/lua/cybranweapons.lua')
-
-local CDFElectronBolterWeapon = cWeapons.CDFElectronBolterWeapon
-local CANTorpedoLauncherWeapon = cWeapons.CANTorpedoLauncherWeapon
+local CDFElectronBolterWeapon   = import('/lua/cybranweapons.lua').CDFElectronBolterWeapon
+local CANTorpedoLauncherWeapon  = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
 
 SRL0401 = Class(CLandUnit) {
+
     Weapons = {
-        Turret = Class(CDFElectronBolterWeapon) {},
-        Torpedo = Class(CANTorpedoLauncherWeapon) {},
+        Turret              = Class(CDFElectronBolterWeapon) {},
+        TorpedoLauncher     = Class(CANTorpedoLauncherWeapon) {},
     },
 
 	OnLayerChange = function(self, new, old)
+    
 		CLandUnit.OnLayerChange(self, new, old)
+        
 		if new == 'Land' then
             self:SetSpeedMult(1)
 		elseif new == 'Seabed' then
@@ -21,18 +22,23 @@ SRL0401 = Class(CLandUnit) {
 	end,
 
     OnStopBeingBuilt = function(self,builder,layer)
+    
         CLandUnit.OnStopBeingBuilt(self,builder,layer)
+        
         self:SetMaintenanceConsumptionActive()
+        
         self:EnableUnitIntel('RadarStealthField')
         self:EnableUnitIntel('SonarStealthField')
+        
         self:RequestRefreshUI()
         self.AnimationManipulator = CreateAnimator(self)
         self.Trash:Add(self.AnimationManipulator)
         self.AnimationManipulator:PlayAnim(self:GetBlueprint().Display.AnimationOpen, false):SetRate(1)
+        
         local beams = {
             --Front
             {'CablePointB_021', 'CablePointA_026', 'CablePointB_023', 'CablePointB_022'},
-            {'CablePointB_024','CablePointA_025'},
+            {'CablePointB_024', 'CablePointA_025'},
             {'CablePointA_021', 'CablePointB_025', 'CablePointA_024', 'CablePointA_022'},
             {'CablePointB_026', 'CablePointA_023'},
             --Middle
@@ -46,7 +52,9 @@ SRL0401 = Class(CLandUnit) {
             {'CablePointA_033', 'CablePointB_036', 'CablePointA_037', 'CablePointA_036'},
             {'CablePointB_033', 'CablePointA_038'},
         }
+        
         local army = self:GetArmy()
+        
         for i, set in beams do
             for j = 1, table.getn(set) -1 do
                 if not self.BeamEffectsBag then self.BeamEffectsBag = {} end
@@ -66,11 +74,15 @@ SRL0401 = Class(CLandUnit) {
     end,
 
     OnTransportDetach = function(self, attachBone, unit)
+    
         local pos
+        
         if not self.Dying then
             pos = unit:GetPosition()
         end
+        
         CLandUnit.OnTransportDetach(self, attachBone, unit)
+        
         if not self.Dying then
             self:ForkThread( --This prevents units getting dumped into the earth.
                 function()
@@ -85,7 +97,9 @@ SRL0401 = Class(CLandUnit) {
     end,
 
     OnMotionHorzEventChange = function(self, new, old)
+    
         CLandUnit.OnMotionHorzEventChange(self, new, old)
+        
         if new == 'Stopping' then
             self.AnimationManipulator:SetRate(4)
             self.Closed = nil
@@ -96,19 +110,26 @@ SRL0401 = Class(CLandUnit) {
     end,
 
     PlayAnimationThread = function(self, anim, rate)
+    
         if anim == 'AnimationDeath' then
+        
             self.AnimationManipulator:Destroy()
+
             for i, v in self.BeamEffectsBag do
                 v:Destroy()
             end
+
             self.DeathAnimManip = CreateAnimator(self)
+
             local bp = self:GetBlueprint().Display[anim]
+
             if self.Closed then
                 --These should probably check bp[n].State, but meh.
                 self.DeathAnimManip:PlayAnim(bp[2].Animation):SetRate(2)
             else
                 self.DeathAnimManip:PlayAnim(bp[1].Animation):SetRate(2)
             end
+
             self.Trash:Add(self.DeathAnimManip)
             WaitFor(self.DeathAnimManip)
         else

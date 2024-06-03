@@ -103,6 +103,10 @@ T4LandExperimental3 = {
     Seraphim = {'ssl0405', 70},     -- Suedath
 },
 
+T4LandExperimental4 = {
+    Seraphim = {'ssl0405', 100},     -- Suedath
+},
+
 T4SeaExperimental1 = {
     Aeon = {'sas0401', 80},
 },

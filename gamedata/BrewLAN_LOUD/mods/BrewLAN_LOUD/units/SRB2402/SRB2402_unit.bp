@@ -5,16 +5,8 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XRL_Destroy',
-            Cue = 'XRL0403_Death',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XRL_Destroy', Cue = 'XRL0403_Death', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -49,12 +41,15 @@ UnitBlueprint {
 	
     Defense = {
 
+        AntiMissile = { AttachBone = 'Left_Turret', Radius = 5.5, RedirectRateOfFire = 1, ProjectileCategories = {'TACTICAL MISSILE'} },
+
         ArmorType = 'Structure',
-        EconomyThreatLevel = 269,
+
         Health = 23000,
         MaxHealth = 23000,
-        RegenRate = 40,
+        RegenRate = 30,
 
+        EconomyThreatLevel = 269,
         SurfaceThreatLevel = 354,
     },
 	
@@ -62,8 +57,9 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Customizable',
-            'Radar',
+            '<LOC ability_customizable>Customizable',
+            "<LOC ability_tacticalmissledeflect>Tactical Missile Deflection",            
+            '<LOC ability_radar>Radar',
         },
 		
         Mesh = {
@@ -129,7 +125,7 @@ UnitBlueprint {
             
             MaintenanceConsumptionPerSecondEnergy = 200,
 			
-            Name = 'Shield Dome',
+            Name = '<LOC ability_shielddome>Shield Dome',
 			
             RegenAssistMult = 60,            
 			
@@ -192,8 +188,9 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-		RadarRadius = 100,
-        VisionRadius = 42,
+        
+		RadarRadius = 96,
+        VisionRadius = 44,
     },
 	
     Interface = {
@@ -248,22 +245,11 @@ UnitBlueprint {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Sml_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Sml_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'XRL_Weapon',
-                    Cue = 'XRL0403_Proton_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'URS', Cue = 'URS_Turret_Sml_Loop', LodCutoff = 'Weapon_LodCutoff'},
+                BarrelStart = Sound { Bank = 'URS', Cue = 'URS_Turret_Sml_Start', LodCutoff = 'Weapon_LodCutoff'},
+                Fire        = Sound { Bank = 'XRL_Weapon', Cue = 'XRL0403_Proton_Cannon', LodCutoff = 'Weapon_LodCutoff'},
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -273,8 +259,8 @@ UnitBlueprint {
                     Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 1.4,
-                    Radius = 1,
+                    Duration = 0.8,
+                    Radius = 2,
                     TargetAllow = 'LAND,NAVAL',
                     TargetDisallow = 'EXPERIMENTAL,COMMAND,AIR',
                 },
@@ -282,7 +268,7 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 750,
+            Damage = 825,
             DamageRadius = 2,
             DamageType = 'ShieldMult1.3',            
 			
@@ -293,15 +279,14 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
+
             FiringRandomness = 0.3,
             FiringTolerance = 1,
 			
             Label = 'ParticleGun',
 			
-            MaxRadius = 90,
+            MaxRadius = 92,
             MinRadius = 7,
 
             MuzzleVelocity = 70,
@@ -312,10 +297,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Turret_Muzzle01',
-                        'Left_Turret_Muzzle02',
-                    },
+                    MuzzleBones = {'Left_Turret_Muzzle01','Left_Turret_Muzzle02'},
                     RackBone = 'Left_Turret_Barrel',
                 },
             },
@@ -324,7 +306,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,     -- 1500 DPS - controlled by energy -- 2 x 750 every second 
+            RateOfFire = 1,     -- 1650 DPS - controlled by energy -- 2 x 750 every second 
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -357,7 +339,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.6,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

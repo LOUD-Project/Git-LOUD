@@ -45,21 +45,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UEADestroy',
-            Cue = 'UEA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'UEADestroy', Cue = 'UEA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UEA', Cue = 'UEA0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -109,63 +97,25 @@ UnitBlueprint {
             '<LOC ability_aa>Anti-Air',
             '<LOC ability_radar>Radar',
         },
+        
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    {
-                        Bones = {0},
-                        Type = 'Landing01',
-                    },
-                },
-            },
-            LandAir = {
-                Effects = {
-                    {
-                        Bones = {0},
-                        Type = 'TakeOff01',
-                    },
-                },
-            },
+            AirLand = { Effects = { { Bones = {0}, Type = 'Landing01' } } },
+            LandAir = { Effects = { { Bones = {0}, Type = 'TakeOff01' } } },
         },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 130,
-                    ShaderName = 'Unit',
-                },
-            },
-        },
+        
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 130, ShaderName = 'Unit' } } },
+        
         MovementEffects = {
             Air = {
-                Contrails = {
-                    Bones = {
-                        'Contrail_L',
-                        'Contrail_R',
-                    },
-                    ZOffset = 0,
-                },
+                Contrails = { Bones = {'Contrail_L','Contrail_R'}, ZOffset = 0 },
                 Effects = {
-                    {
-                        Bones = {
-                            'Exhaust_L',
-                            'Exhaust_R',
-                        },
-                        Type = 'AirExhaust01',
-                    },
+                    { Bones = {'Exhaust_L','Exhaust_R'}, Type = 'AirExhaust01' },
                 },
             },
-            BeamExhaust = {
-                Bones = {
-                    'Exhaust_L',
-                    'Exhaust_R',
-                },
-                Cruise = true,
-                Idle = false,
-            },
+            
+            BeamExhaust = { Bones = {'Exhaust_L','Exhaust_R'}, Cruise = true, Idle = false },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.054,
     },
 	
@@ -200,8 +150,9 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 50,
-        VisionRadius = 32,
+
+        RadarRadius = 48,
+        VisionRadius = 36,
     },
 	
     Interface = {
@@ -256,12 +207,9 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UEAWeapon',
-                    Cue = 'UEA0304_Nuke_Bomb',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UEAWeapon', Cue = 'UEA0304_Nuke_Bomb', LodCutoff = 'Weapon_LodCutoff'},
             },
 
             AutoInitiateAttackCommand = true,
@@ -321,11 +269,7 @@ UnitBlueprint {
 		
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UEAWeapon',
-                    Cue = 'UEA0304_Railgun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UEAWeapon', Cue = 'UEA0304_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
 			
@@ -401,11 +345,12 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
         HealthMult = 0.5,
-        MassMult = 0.5,
+        MassMult = 0.3,
 		Lifetime = 600,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {

@@ -1,30 +1,13 @@
 UnitBlueprint {
 
     AI = {
-        TargetBones = {
-            'AttackTarget001',
-            'AttackTarget002',
-            'AttackTarget003',
-            'AttackTarget004',
-        },
+        TargetBones = {'AttackTarget001','AttackTarget002','AttackTarget003','AttackTarget004'},
     },
 	
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 151,
@@ -151,26 +134,16 @@ UnitBlueprint {
 	
     General = {
         CapCost = 1,
-        CommandCaps = {
-            --RULEUCC_Dive = true,
-        },
+
         FactionName = 'UEF',
         SelectionPriority = 5,
+
         OrderOverrides = {
-            RULEUTC_WeaponToggle = {
-                bitmapId = 'dive',
-                helpText = 'toggle_gate',
-            },
-            --[[
-            RULEUCC_Dive = {
-                bitmapId = 'dive',
-                helpText = 'toggle_gate',
-            },
-            --]]
+            RULEUTC_WeaponToggle = { bitmapId = 'dive', helpText = 'toggle_gate' },
         },
-        ToggleCaps = {
-            RULEUTC_WeaponToggle = true,
-        },
+
+        ToggleCaps = { RULEUTC_WeaponToggle = true },
+        
         UnitName = '<LOC seb5311_name>Harrow',
     },
 	
@@ -237,7 +210,6 @@ UnitBlueprint {
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,
-            Water = true,
         },
     },
 }

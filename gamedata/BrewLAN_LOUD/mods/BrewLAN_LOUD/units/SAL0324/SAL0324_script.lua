@@ -12,14 +12,14 @@ SAL0324 = Class(ALandUnit) {
         self:SetMaintenanceConsumptionActive()
     end,
 
-    OnIntelEnabled = function(self)
-        ALandUnit.OnIntelEnabled(self)
+    OnIntelEnabled = function(self,intel)
+        ALandUnit.OnIntelEnabled(self,intel)
         self:CreateActiveAnimation(true)
         self.Intel = true
     end,
 
-    OnIntelDisabled = function(self)
-        ALandUnit.OnIntelDisabled(self)
+    OnIntelDisabled = function(self,intel)
+        ALandUnit.OnIntelDisabled(self,intel)
         self:CreateActiveAnimation(false)
         self.Intel = nil
     end,

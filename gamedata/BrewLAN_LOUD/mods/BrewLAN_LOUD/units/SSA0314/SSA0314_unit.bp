@@ -2,6 +2,7 @@ UnitBlueprint {
     AI = {
         GuardReturnRadius = 120,
         GuardScanRadius = 75,
+        
         TargetBones = {'Body'},
     },
 
@@ -10,11 +11,9 @@ UnitBlueprint {
         BankFactor = 2.5,
         BankForward = false,
 		
-        BreakOffDistance = 80,
-		
+        BreakOffDistance = 60,
         BreakOffIfNearNewTarget = true,
-		
-        BreakOffTrigger = 35,
+        BreakOffTrigger = 25,
 		
         CanFly = true,
 		
@@ -34,7 +33,7 @@ UnitBlueprint {
         KTurn = 0.85,
         KTurnDamping = 1.2,
 		
-        LiftFactor = 6.5,
+        LiftFactor = 7.5,
 		
         MaxAirspeed = 19,
         MinAirspeed = 15,
@@ -50,56 +49,16 @@ UnitBlueprint {
     },
 	
     Audio = {
-        AirUnitWaterImpact = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        AmbientMove = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0402_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSA_Destroy',
-            Cue = 'XSA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSA_Destroy',
-            Cue = 'XSA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Landing = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0402_Move_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Refueling = Sound {
-            Bank = 'XSB',
-            Cue = 'XSB5202_Repair_Refuel',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0402_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0402_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Thruster = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0402_Move_Thruster',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        AmbientMove         = Sound { Bank = 'XSA', Cue = 'XSA0402_Move_Loop',       LodCutoff = 'UnitMove_LodCutoff' },
+        Landing             = Sound { Bank = 'XSA', Cue = 'XSA0402_Move_Land',       LodCutoff = 'UnitMove_LodCutoff' },
+        Refueling           = Sound { Bank = 'XSB', Cue = 'XSB5202_Repair_Refuel',   LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove           = Sound { Bank = 'XSA', Cue = 'XSA0402_Move_Start',      LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove            = Sound { Bank = 'XSA', Cue = 'XSA0402_Move_Stop',       LodCutoff = 'UnitMove_LodCutoff' },
+        Thruster            = Sound { Bank = 'XSA', Cue = 'XSA0402_Move_Thruster',   LodCutoff = 'UnitMove_LodCutoff' },
+        AirUnitWaterImpact  = Sound { Bank = 'Explosions',   Cue = 'Expl_Water_Lrg_01',      LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed           = Sound { Bank = 'XSA_Destroy',  Cue = 'XSA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        Killed              = Sound { Bank = 'XSA_Destroy',  Cue = 'XSA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection         = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Air',  LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -136,12 +95,12 @@ UnitBlueprint {
         MissileDetector = { AttachBone = 'Missile_Defence' },
 		
         ArmorType = 'Light',
-        EconomyThreatLevel = 10,
-        Health = 6500,
-        MaxHealth = 6500,
+
+        Health = 6250,
+        MaxHealth = 6250,
         RegenRate = 10,
-        SubThreatLevel = 30,
-        SurfaceThreatLevel = 152,
+        SubThreatLevel = 15,
+        SurfaceThreatLevel = 110,
     },
 	
     Description = '<LOC sa0314_desc>Penetrator Bomber',
@@ -154,26 +113,12 @@ UnitBlueprint {
             '<LOC ability_tactical>Tactical Missiles',
             '<LOC ability_torpedo>Torpedoes',
         },
+        
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    {
-                        Bones = {0},
-                        Scale = 3,
-                        Type = 'Landing01',
-                    },
-                },
-            },
-            LandAir = {
-                Effects = {
-                    {
-                        Bones = {0},
-                        Scale = 3,
-                        Type = 'TakeOff01',
-                    },
-                },
-            },
+            AirLand = { Effects = { { Bones = {0}, Scale = 3, Type = 'Landing01' } } },
+            LandAir = { Effects = { { Bones = {0}, Scale = 3, Type = 'TakeOff01' } } },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -194,46 +139,25 @@ UnitBlueprint {
                 },
             },
         },
+        
         MovementEffects = {
             Air = {
-                Contrails = {
-                    Bones = {
-                        'Contrail_001',
-                        'Contrail_002',
-                    },
-                },
+                Contrails = { Bones = {'Contrail_001','Contrail_002'} },
+
                 Effects = {
-                    --[[{
-                        Bones = {
-                            'Ring_A',
-                        },
-                        Scale = 0.35,
-                        Type = 'SerOHWAirMoveExhaust02',
-                    },]]
-                    {
-                        Bones = {
-                            'Ring_B',
-                        },
-                        Scale = 0.2,
-                        Type = 'SerOHWAirMoveExhaust02',
-                    },
-                    {
-                        Bones = {
-                            'Ring_C',
-                        },
-                        Scale = 0.1,
-                        Type = 'SerOHWAirMoveExhaust02',
-                    },
+                    { Bones = {'Ring_B'}, Scale = 0.2, Type = 'SerOHWAirMoveExhaust02' },
+                    { Bones = {'Ring_C'}, Scale = 0.1, Type = 'SerOHWAirMoveExhaust02' },
                 },
             },
         },
+        
         UniformScale = 0.044,
     },
 	
     Economy = {
-        BuildCostEnergy = 205000,
-        BuildCostMass = 5250,
-        BuildTime = 18900,
+        BuildCostEnergy = 180000,
+        BuildCostMass = 4750,
+        BuildTime = 3000,
 		
         ResearchMultEnergy = 0.2,
         MaintenanceConsumptionPerSecondEnergy = 100,
@@ -247,6 +171,7 @@ UnitBlueprint {
 	
     General = {
         CapCost = 2,
+        
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -257,24 +182,24 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+        
         FactionName = 'Seraphim',
         Icon = 'air',
+        
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-personal',
-                helpText = 'toggle_stealth_personal',
-            },
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-personal', helpText = 'toggle_stealth_personal' },
         },
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+        
         UnitName = '<LOC ssa0314_name>Sinnaino',
     },
 	
     Intel = {
-        RadarRadius = 70,
+        RadarRadius = 64,
         RadarStealth = true,
-        VisionRadius = 38,
+        
+        VisionRadius = 44,
     },
 	
     Interface = {
@@ -286,15 +211,15 @@ UnitBlueprint {
     LifeBarSize = 3,
 	
     Physics = {
-        BuildOnLayerCaps = {
-            LAYER_Air = true,
-        },
+        BuildOnLayerCaps = { LAYER_Air = true },
+        
         Elevation = 24,
 		
         FuelRechargeRate = 20,
         FuelUseTime = 800,
 		
         GroundCollisionOffset = 2,
+        
         MaxSpeed = 0.5,
         MeshExtentsX = 1.2,
         MeshExtentsY = 0.8,
@@ -332,12 +257,9 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0304_Zhanasse_Bomb',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0304_Zhanasse_Bomb', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             AutoInitiateAttackCommand = true,
@@ -360,15 +282,12 @@ UnitBlueprint {
 
             CollideFriendly = false,
 			
-            Damage = 2875,
+            Damage = 3200,
             DamageFriendly = true,
             DamageRadius = 2.8,
             DamageType = 'Normal',
 			
-            Display = 'Zhanasee Strategic Bomb',
-            DisplayName = 'Zhanasee Strategic Bomb',
-			
-            EffectiveRadius = 25,
+            EffectiveRadius = 48,
 			
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
@@ -379,12 +298,14 @@ UnitBlueprint {
             FiringTolerance = 3,
 			
             Label = 'Bomb',
+
             NotExclusive = true,
 			
             MaxRadius = 75,
 			
-            MuzzleSalvoDelay = 0.6,
-            MuzzleSalvoSize = 2,
+            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoSize = 3,
+
             MuzzleVelocity = 0,
 			
             NeedToComputeBombDrop = true,
@@ -398,10 +319,12 @@ UnitBlueprint {
                     RackBone = 'Body',
                 },
             },
+            
+            RackSalvoReloadTime = 8.8,    -- 10 second cycle = 9600/10 = 960 DPS
 
-            RateOfFire = 0.2,       -- 5750 * .2 = 1150 DPS
+            RateOfFire = 1,
 			
-            TargetCheckInterval = 5,
+            TargetCheckInterval = 3,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -412,18 +335,17 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            
+            TrackingRadius = 1.1,
         },
 		
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2108_Laanse_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2108_Laanse_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -459,18 +381,19 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {'Body','Body'},
+                    MuzzleBones = {'Body'},
                     RackBone = 'Body',
                 },
             },
+            
+            RackSalvoReloadTime = 11.9,     -- 12.5 second cycle = 1200/12.5 = 96 DPS
+            RackReloadTimeout = 11.5,
 
-            RackReloadTimeout = 37.5,
-
-            RateOfFire = 1/12.5,        -- 96 DPS
+            RateOfFire = 1,
 			
             SlavedToBody = true,
 			
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'EXPERIMENTAL',
@@ -497,25 +420,22 @@ UnitBlueprint {
             Turreted = true,
         },
         {
+            advancedTracking = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0204_Heavy_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0204_Depth_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
 
-            AutoInitiateAttackCommand = true,
-
             BallisticArc = 'RULEUBA_None',
+
             CollideFriendly = false,
 			
-            Damage = 750,
+            Damage = 900,       -- this gets split into 3 projectiles of 300 each
             DamageType = 'Normal',
 			
-            DisplayName = 'Heavy Cavitation Cluster Torpedo Launcher',
-			
-            EffectiveRadius = 25,
+            DisplayName = 'Cluster Torpedo',
+            
+            EffectiveRadius = 64,
 			
             FireTargetLayerCapsTable = {
                 Air = 'Seabed|Sub|Water',
@@ -528,43 +448,49 @@ UnitBlueprint {
             HeadingArcCenter = 0,
             HeadingArcRange = 30,
 			
-            Label = 'Torpedo',
+            Label = 'ClusterTorpedo',
 			
             NotExclusive = true,
 			
-            MaxRadius = 42,
-            MinRadius = 4,
+            MaxRadius = 56,
+            MinRadius = 8,
 			
-            MuzzleSalvoDelay = 1.8,
-            MuzzleSalvoSize = 4,
-            MuzzleVelocity = 14,
+            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoSize = 2,
+            
+            MuzzleVelocity = 11,
 			
             ProjectileId = '/projectiles/SANHeavyCavitationTorpedo01/SANHeavyCavitationTorpedo01_proj.bp',
-            ProjectileLifetime = 20,
+            ProjectileLifetime = 10,
 			
             RackBones = {
                 {
-                    MuzzleBones = {'Torpedo'},
-                    RackBone = 'Torpedo',
+                    MuzzleBones = {'Body'},
+                    RackBone = 'Body',
                 },
             },
+            
+            RackSalvoReloadTime = 9.4,  -- 10 second cycle = 1800 = 180 DPS
 
-            RateOfFire = 0.1,
+            RateOfFire = 1,
 			
             TargetCheckInterval = 2.5,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'CRUISER',
+                'SUBMERSIBLE',
                 'NAVAL',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.15,
-            Turreted = false,
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER, WALL',
+            
+            TrackingRadius = 1.1,
         },
+
         {
             AboveWaterTargetsOnly = true,
-            Damage = 400,
+            Damage = 500,
             DamageFriendly = true,
             DamageRadius = 2.5,
             DamageType = 'Normal',
@@ -574,10 +500,11 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
-        HealthMult = 0.9,
+        HealthMult = 0.6,
         MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {

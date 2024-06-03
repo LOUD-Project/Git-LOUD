@@ -5,31 +5,11 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Close = Sound {
-            Bank = 'UAB',
-            Cue = 'UAB4201_Doors',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UAB',
-            Cue = 'UAB4201_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Open = Sound {
-            Bank = 'UAB',
-            Cue = 'UAB4201_Doors',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Close           = Sound { Bank = 'UAB', Cue = 'UAB4201_Doors', LodCutoff = 'UnitMove_LodCutoff' },
+        Open            = Sound { Bank = 'UAB', Cue = 'UAB4201_Doors', LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'UAB', Cue = 'UAB4201_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 60,
@@ -60,28 +40,20 @@ UnitBlueprint {
     Description = '<LOC sal0323_desc>Mobile Tactical Missile Defense',
 	
     Display = {
+    
         Abilities = {
             '<LOC ability_hover>Hover',
             '<LOC ability_tacmissiledef>Tactical Missile Defense',
         },
+        
         IdleEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Offset = {
-                            0,
-                            -0.15,
-                            0,
-                        },
-                        Scale = 1.15,
-                        Type = 'AeonGroundFX01',
-                    },
+                    { Bones = {0}, Offset = {0,-0.15,0}, Scale = 1.15, Type = 'AeonGroundFX01' },
                 },
             },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -90,41 +62,21 @@ UnitBlueprint {
                 { LODCutoff = 300, ShaderName = 'Aeon' },
             },
         },
+        
         MovementEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Type = 'GroundKickup01',
-                    },
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Offset = {
-                            0,
-                            -0.15,
-                            0,
-                        },
-                        Scale = 1.15,
-                        Type = 'AeonGroundFX01',
-                    },
+                    { Bones = {0}, Type = 'GroundKickup01' },
+                    { Bones = {0}, Offset = {0,-0.15,0}, Scale = 1.15, Type = 'AeonGroundFX01' },
                 },
             },
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Scale = 0.5,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {0}, Scale = 0.5, Type = 'BackWake' },
                 },
             },
         },
+        
         UniformScale = 0.05,
     },
 	
@@ -154,7 +106,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 20,
+        VisionRadius = 24,
     },
 	
     Interface = {
@@ -207,11 +159,7 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB4201_Anti_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB4201_Anti_Missile', LodCutoff = 'Weapon_LodCutoff'},
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -220,9 +168,7 @@ UnitBlueprint {
 			
             Damage = 10,
             DamageType = 'Normal',
-			
-            DisplayName = 'Will O Wisp Anti Missile',
-			
+
             EffectiveRadius = 24,
 			
             FireTargetLayerCapsTable = {
@@ -233,10 +179,7 @@ UnitBlueprint {
 			FiringRandomness = 16,
             FiringTolerance = 360,
 			
-            Flare = {
-                Category = 'MISSILE',
-                Radius = 18,
-            },
+            Flare = { Category = 'MISSILE', Radius = 18 },
 			
             Label = 'AntiMissile',
 			

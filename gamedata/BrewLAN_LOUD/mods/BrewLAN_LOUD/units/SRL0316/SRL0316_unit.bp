@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0306_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'URL', Cue = 'URL0306_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     BuildIconSortPriority = 62,
@@ -41,10 +29,12 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        EconomyThreatLevel = 15,
-        Health = 700,
-        MaxHealth = 700,
+
+        Health = 750,
+        MaxHealth = 750,
         RegenRate = 3,
+
+        EconomyThreatLevel = 11,
     },
 	
     Description = '<LOC url0306_desc>Mobile Stealth Field System',
@@ -79,15 +69,16 @@ UnitBlueprint {
                 },
             },
         },
+        
         UniformScale = 0.12,
     },
 	
     Economy = {
-        BuildCostEnergy = 1960,
-        BuildCostMass = 210,
-        BuildTime = 780,
+        BuildCostEnergy = 3500,
+        BuildCostMass = 540,
+        BuildTime = 800,
 		
-        MaintenanceConsumptionPerSecondEnergy = 100,
+        MaintenanceConsumptionPerSecondEnergy = 150,
     },
 	
     General = {
@@ -98,18 +89,16 @@ UnitBlueprint {
             RULEUCC_Patrol = true,
             RULEUCC_Stop = true,
         },
+        
         FactionName = 'Cybran',
         Icon = 'amph',
 		
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-field',
-                helpText = 'toggle_stealth_field',
-            },
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-field', helpText = 'toggle_stealth_field' },
         },
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+        
         UnitName = '<LOC srl0316_name>Operative',
     },
 	
@@ -125,8 +114,8 @@ UnitBlueprint {
         RadarStealthFieldRadius = 28,
         SonarStealthFieldRadius = 28,
 		
-        VisionRadius = 28,
-		WaterVisionRadius = 12,
+        VisionRadius = 24,
+		WaterVisionRadius = 24,
     },
 	
     Interface = {
@@ -177,8 +166,8 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        HealthMult = 0.6,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

@@ -1,7 +1,6 @@
---  Summary:  Field engineer boat
-
 local CSeaUnit = import('/lua/defaultunits.lua').SeaUnit
-local CAAAutocannon = import('/lua/cybranweapons.lua').CAAAutocannon
+
+local CAAAutocannon = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
 
 local BrewLANLOUDPath = import( '/lua/game.lua' ).BrewLANLOUDPath()
 

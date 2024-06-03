@@ -15,7 +15,7 @@ SRB2221 = Class(MineStructureUnit) {
                 CreateLightParticle( self.unit, -1, army, 12, 28, 'glow_03', 'ramp_proton_flash_02' )
                 CreateLightParticle( self.unit, -1, army, 8, 22, 'glow_03', 'ramp_antimatter_02' )
                 local blanketSides = 12
-                local blanketAngle = (2*math.pi) / blanketSides
+                local blanketAngle = 6.28 / blanketSides
                 local blanketStrength = 1
                 local blanketVelocity = 6.25
                 for i = 0, (blanketSides-1) do

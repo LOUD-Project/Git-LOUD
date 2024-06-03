@@ -1,25 +1,10 @@
 UnitBlueprint {
+
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ShieldOff = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB4301_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ShieldOn = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB4301_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed    = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        ShieldOff    = Sound { Bank = 'UEB', Cue = 'UEB4301_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        ShieldOn     = Sound { Bank = 'UEB', Cue = 'UEB4301_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection  = Sound { Bank = 'Interface', Cue = 'UEF_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 61,
@@ -81,6 +66,7 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_artillerydef>Artillery Defense',
         },
+        
         AnimationDeath = {
             {
                 Animation = '/mods/BrewLAN_LOUD/units/seb4303/seb4303_Adeath01.sca',
@@ -89,6 +75,7 @@ UnitBlueprint {
                 Weight = 10,
             },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -135,15 +122,13 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'toggle_shield_dome',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-dome', helpText = 'toggle_shield_dome' },
         },
+        
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_ShieldToggle = true },
+        
         UnitName = '<LOC seb4303_name>Recoil',
     },
 

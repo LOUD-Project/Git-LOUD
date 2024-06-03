@@ -59,11 +59,11 @@ UnitBlueprint {
     
     Buffs = {
         Regen = {
-            Level1 = 6,
-            Level2 = 12,
-            Level3 = 18,
-            Level4 = 24,
-            Level5 = 30,
+            Level1 = 5,
+            Level2 = 10,
+            Level3 = 15,
+            Level4 = 20,
+            Level5 = 25,
         },
     },
     
@@ -103,18 +103,12 @@ UnitBlueprint {
             '<LOC ability_missiledef>Missile Defense',
             '<LOC ability_personalstealth>Personal Stealth',
         },
+        
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    { Bones = {0}, Type = 'Landing01' },
-                },
-            },
-            LandAir = {
-                Effects = {
-                    { Bones = {0}, Type = 'TakeOff01' },
-                },
-            },
+            AirLand = { Effects = { { Bones = {0}, Type = 'Landing01' } } },
+            LandAir = { Effects = { { Bones = {0}, Type = 'TakeOff01' } } },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -122,16 +116,11 @@ UnitBlueprint {
                 { LODCutoff = 215, ShaderName = 'Aeon' },
             },
         },
+        
         MovementEffects = {
-            Air = {
-                Effects = {
-                    {
-                        Bones = { 'Engine_001' },
-                        Type = 'AirMoveExhaust01',
-                    },
-                },
-            },
+            Air = { Effects = { { Bones = { 'Engine_001' }, Type = 'AirMoveExhaust01' } } },
         },
+        
         UniformScale = 0.012,
     },
     
@@ -164,21 +153,22 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'air',
+        
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-personal',
-                helpText = 'toggle_stealth_personal',
-            },
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-personal', helpText = 'toggle_stealth_personal' },
         },
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+        
         UnitName = '<LOC saa0313_name>Helios',
     },
     
     Intel = {
+        RadarRadius = 56,    
         RadarStealth = true,
+        
         Cloak = true,
+        
         VisionRadius = 40,
     },
     
@@ -376,6 +366,7 @@ UnitBlueprint {
             
             Turreted = true,
         },
+
         {
             AboveWaterTargetsOnly = true,
             Damage = 500,
@@ -389,9 +380,10 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.1,
         HealthMult = 0.3,
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,

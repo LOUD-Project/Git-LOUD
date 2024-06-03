@@ -20,22 +20,29 @@ SEL0324 = Class(TLandUnit) {
         self.RadarEnabled = false
     end,
 
-    OnIntelEnabled = function(self)
-        TLandUnit.OnIntelEnabled(self)
+    OnIntelEnabled = function(self,intel)
+
+        TLandUnit.OnIntelEnabled(self,intel)
+
         self.RadarEnabled = true
         self:CreateIdleEffects()
     end,
 
-    OnIntelDisabled = function(self)
-        TLandUnit.OnIntelDisabled(self)
+    OnIntelDisabled = function(self,intel)
+
+        TLandUnit.OnIntelDisabled(self,intel)
+
         self.RadarEnabled = false
         self:DestroyIdleEffects()
     end,
 
     RadarAnimation = function(self)
+
         local manipulator = CreateRotator(self, 'Satellite', 'x')
+
         manipulator:SetSpeed(10)
         manipulator:SetGoal(30)
+
         while IsUnit(self) do
             if self.RadarEnabled then
                 WaitFor(manipulator)

@@ -4,16 +4,6 @@ UnitBlueprint {
     },
 	
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0208_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        CaptureLoop = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0208_Capture_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         Construct = Sound {
             Bank = 'UAL',
             Cue = 'UAL0208_Construct_Start',
@@ -32,11 +22,6 @@ UnitBlueprint {
         HoverKilledOnWater = Sound {
             Bank = 'Explosions',
             Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ReclaimLoop = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0208_Reclaim_Loop',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartCapture = Sound {
@@ -138,19 +123,8 @@ UnitBlueprint {
         IdleEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Type = 'AeonGroundFXT2Engineer',
-                    },
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Scale = 1.2,
-                        Type = 'SeaIdle02',
-                    },
+                    { Bones = {0}, Type = 'AeonGroundFXT2Engineer' },
+                    { Bones = {0}, Scale = 1.2, Type = 'SeaIdle02' },
                 },
             },
         },
@@ -180,37 +154,15 @@ UnitBlueprint {
 		
         MovementEffects = {
             Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Type = 'GroundKickup01',
-                    },
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Type = 'AeonGroundFXT2Engineer',
-                    },
+                Effects = { 
+                    { Bones = {0}, Type = 'GroundKickup01' },
+                    { Bones = {0}, Type = 'AeonGroundFXT2Engineer' },
                 },
             },
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            0,
-                            0,
-                        },
-                        Scale = 0.5,
-                        Type = 'BackWake',
-                    },
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Type = 'AeonGroundFXT2Engineer',
-                    },
+                    { Bones = {0}, Scale = 0.5, Type = 'BackWake' },
+                    { Bones = {0}, Type = 'AeonGroundFXT2Engineer' },
                 },
             },
         },
@@ -259,9 +211,9 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 3,
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_ShieldToggle = true },
+        
         UnitName = '<LOC sal0209_name>Butler',
     },
 	
@@ -272,8 +224,8 @@ UnitBlueprint {
 
         OmniRadius = 5,
         RadarRadius = 48,
-        VisionRadius = 22,
-		WaterVisionRadius = 22,        
+        VisionRadius = 24,
+		WaterVisionRadius = 24,        
     },
 	
     LifeBarHeight = 0.075,

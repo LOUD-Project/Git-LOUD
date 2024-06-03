@@ -1,10 +1,10 @@
 UnitBlueprint {
     Audio = {
-        DeathExplosion = Sound {Bank = 'UELDestroy', Cue = 'UEB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
-        Destroyed = Sound {Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
-        LaunchSat = Sound {Bank = 'XEL_Weapons', Cue = 'XEB2402_Launch', LodCutoff = 'UnitMove_LodCutoff'},
-        MoveArms = Sound {Bank = 'XEB', Cue = 'XEB2402_Activate', LodCutoff = 'UnitMove_LodCutoff'},
-        UISelection = Sound {Bank = 'Interface', Cue = 'UEF_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
+        DeathExplosion  = Sound {Bank = 'UELDestroy', Cue = 'UEB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound {Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        LaunchSat       = Sound {Bank = 'XEL_Weapons', Cue = 'XEB2402_Launch', LodCutoff = 'UnitMove_LodCutoff'},
+        MoveArms        = Sound {Bank = 'XEB', Cue = 'XEB2402_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound {Bank = 'Interface', Cue = 'UEF_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Categories = {
@@ -63,11 +63,13 @@ UnitBlueprint {
                 BLScale = 3,
             },
         },
+        
         BlinkingLightsFx = {
-            Green = '/effects/emitters/light_green_03_emit.bp',
-            Red = '/effects/emitters/light_red_03_emit.bp',
-            Yellow = '/effects/emitters/light_yellow_02_emit.bp',
+            Green   = '/effects/emitters/light_green_03_emit.bp',
+            Red     = '/effects/emitters/light_red_03_emit.bp',
+            Yellow  = '/effects/emitters/light_yellow_02_emit.bp',
         },
+        
         BuildAttachBone = 'Attachpoint01',
         DamageEffects = {
             {
@@ -89,20 +91,17 @@ UnitBlueprint {
                 OffsetZ = 0.25,
             },
         },
+        
         IconName = 'XEB2402',
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 200,
-                    ShaderName = 'Unit',
-                },
-                {
-                    LODCutoff = 400,
-                    ShaderName = 'Unit',
-                },
+                { LODCutoff = 200, ShaderName = 'Unit' },
+                { LODCutoff = 400, ShaderName = 'Unit' },
             },
         },
+        
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_01_albedo',
@@ -139,15 +138,18 @@ UnitBlueprint {
         BuildBones = {
             BuildEffectBones = {'ConstuctBeam01','ConstuctBeam02'},
         },
+        
         CommandCaps = {
             RULEUCC_Move = true,
             RULEUCC_Stop = true,
         },
+        
         ConstructionBar = true,
         FactionName = 'UEF',
         Icon = 'land',
         SatelliteCapacity = 2,
         SelectionPriority = 5,
+        
         UnitName = '<LOC xeb2402_name>Recon Sat Center',
     },
 	

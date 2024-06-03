@@ -46,21 +46,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UAADestroy',
-            Cue = 'UAA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAA',
-            Cue = 'UAA0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'UAADestroy', Cue = 'UAA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UAA', Cue = 'UAA0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -120,35 +108,18 @@ UnitBlueprint {
 		
         MovementEffects = {
             Air = {
-
                 Effects = {
-                    {
-                        Bones = {
-                            'Exhaust',
-                        },
-                        Type = 'AirMoveExhaust01',
-                    },
-                    {
-                        Bones = {
-                            'BAA0211',
-                        },
-                        Type = 'TakeOff01',
-                    },
+                    { Bones = {'Exhaust'}, Type = 'AirMoveExhaust01' },
+                    { Bones = {'BAA0211'}, Type = 'TakeOff01' },
                 },
             },
             Land = {
                 Effects = {
-                    {
-                        Bones = {
-                            'BAA0211',
-                        },
-                        Type = 'Landing01',
-                    },
+                    { Bones = {'BAA0211'}, Type = 'Landing01' },
                 },
             },
         },
-		
-        SpawnRandomRotation = true,
+
         UniformScale = 0.1,
     },
 	
@@ -182,8 +153,9 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel =true,
-        RadarRadius = 50,
-        VisionRadius = 32,
+
+        RadarRadius = 48,
+        VisionRadius = 36,
     },
 	
     Interface = {
@@ -241,21 +213,16 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UAAWeapon',
-                    Cue = 'UAA0304_Bomb_Quark',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0304_Bomb_Quark', LodCutoff = 'Weapon_LodCutoff'},
             },
 			
             AutoInitiateAttackCommand = true,
+            
             BallisticArc = 'RULEUBA_None',
 
             Buffs = {
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 1,

@@ -7,50 +7,22 @@ UnitBlueprint {
 
 
     Audio = {
-        Activate = Sound {
-            Bank = 'URL',
-            Cue = 'URL0304_Move_Extend',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0304_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Cloak = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL0402_Death',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        Decloak = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0402_Spawn',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
+        Activate    = Sound { Bank = 'URL', Cue = 'URL0304_Move_Extend', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'URL', Cue = 'URL0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        StopMove    = Sound { Bank = 'URL', Cue = 'URL0304_Move_Stop', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Tank', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        Cloak       = Sound { Bank = 'XSL_Destroy', Cue = 'XSL0402_Death', LodCutoff = 'Weapon_LodCutoff'},
+        Decloak     = Sound { Bank = 'XSL', Cue = 'XSL0402_Spawn', LodCutoff = 'Weapon_LodCutoff'},
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 3,
-            Level2 = 6,
-            Level3 = 9,
-            Level4 = 12,
-            Level5 = 15,
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
         },
     },
 	
@@ -84,7 +56,7 @@ UnitBlueprint {
     Display = {
 	
         Abilities = {
-			'Amphibious',
+			'<LOC ability_amphibious>Amphibious',
             '<LOC ability_aa>Anti-Air',
             '<LOC ability_cloak>Cloaking',
             '<LOC ability_personalstealth>Personal Stealth',
@@ -165,7 +137,7 @@ UnitBlueprint {
         SonarStealth = true,
         Cloak = true,
         VisionRadius = 32,
-		WaterVisionRadius = 12,
+		WaterVisionRadius = 8,
     },
 	
     Interface = {

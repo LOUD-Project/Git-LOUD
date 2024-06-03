@@ -3,15 +3,21 @@ local CStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 local CDFParticleCannonWeapon = import('/lua/cybranweapons.lua').CDFParticleCannonWeapon
 
 local Weapon = import('/lua/sim/Weapon.lua').Weapon
-local EffectUtil = import('/lua/EffectUtilities.lua')
+local CleanupEffectBag = import('/lua/EffectUtilities.lua').CleanupEffectBag
 
 SRB2391 = Class(CStructureUnit) {
+
     Weapons = {
+
         MainGun = Class(CDFParticleCannonWeapon) {
+
             BeamType = import('/lua/defaultcollisionbeams.lua').UnstablePhasonLaserCollisionBeam,
-            FxMuzzleFlash = {},--'/effects/emitters/particle_cannon_muzzle_02_emit.bp'},
+
+            --FxMuzzleFlash = {},--'/effects/emitters/particle_cannon_muzzle_02_emit.bp'},
+            
             FxUpackingChargeEffects = import('/lua/EffectTemplates.lua').CMicrowaveLaserCharge01,
             FxUpackingChargeEffectScale = 1,
+
             DamageTickMultiplier = 2,
 
             OnCreate = function(self, ...)
@@ -21,19 +27,27 @@ SRB2391 = Class(CStructureUnit) {
             end,
 
             CreateProjectileAtMuzzle = function(self, ...)
+
                 local Gametick = GetGameTick()
+
                 if not self.DamageModifiers then
                     self.DamageModifiers = {}
                 end
+
                 self.DamageModifiers.TeslaCharge = (Gametick - self.unit.LastFiredTime) * self.DamageTickMultiplier * (self.unit.EnergyMaintAdjMod or 1)
+
                 local proj = CDFParticleCannonWeapon.CreateProjectileAtMuzzle(self, unpack(arg))
+
                 self.unit.LastFiredTime = Gametick
-                EffectUtil.CleanupEffectBag(self.unit,'TeslaEffectsBag')
+
+                CleanupEffectBag(self.unit,'TeslaEffectsBag')
+
                 return proj
             end,
         },
         
         DeathWeapon = Class(Weapon) {
+
             Effects = {
                 '/effects/emitters/seraphim_othuy_hit_01_emit.bp',
                 '/effects/emitters/seraphim_othuy_hit_02_emit.bp',
@@ -50,10 +64,14 @@ SRB2391 = Class(CStructureUnit) {
                 if not self.unit.WeaponsActive then
                     return
                 end
+
                 local bp = self:GetBlueprint()
                 local army = self.unit:GetArmy()
+
                 self:PlaySound(bp.Audio.Fire)
+
                 DamageArea(self.unit, self.unit:GetPosition(), bp.DamageRadius, bp.Damage * (GetGameTick() - self.unit.LastFiredTime), bp.DamageType, bp.DamageFriendly)
+
                 for i, v in self.Effects do
                     CreateAttachedEmitter( self.unit, 0, army, v )
                 end
@@ -63,7 +81,9 @@ SRB2391 = Class(CStructureUnit) {
     },
 
     OnStopBeingBuilt = function(self, ...)
+
         CStructureUnit.OnStopBeingBuilt(self, unpack(arg))
+
         self:SetMaintenanceConsumptionActive()
         self:CreateOrbEntity()
         self.WeaponsActive = true
@@ -71,8 +91,11 @@ SRB2391 = Class(CStructureUnit) {
     end,
 
     OnAdjacentTo = function(self, adjacentUnit, triggerUnit)
+
         if self:IsBeingBuilt() then return end
+
         if adjacentUnit:IsBeingBuilt() then return end
+
         for buffname, buff in self.Buffs.Affects.EnergyMaintenance or {} do
             if buff.Add < 0 then
                 buff.Add = math.abs(buff.Add)
@@ -81,7 +104,7 @@ SRB2391 = Class(CStructureUnit) {
     end,
 
     CreateOrbEntity = function(self)
-        --SphereEffectIdleMesh = '/effects/entities/cybranphalanxsphere01/cybranphalanxsphere01_mesh',
+
         self.SphereEffectEntity = import('/lua/sim/Entity.lua').Entity()
         self.SphereEffectEntity:AttachBoneTo( -1, self,'Orb' )
         self.SphereEffectEntity:SetMesh('/effects/entities/cybranphalanxsphere01/cybranphalanxsphere02_mesh')
@@ -89,6 +112,7 @@ SRB2391 = Class(CStructureUnit) {
         self.SphereEffectEntity:SetVizToAllies('Intel')
         self.SphereEffectEntity:SetVizToNeutrals('Intel')
         self.SphereEffectEntity:SetVizToEnemies('Intel')
+        
         self.Trash:Add(self.SphereEffectEntity, CreateAttachedEmitter( self.SphereEffectEntity, 0, self:GetArmy(), '/effects/emitters/zapper_electricity_01_emit.bp' ):ScaleEmitter(0.5))
     end,
 
@@ -99,10 +123,13 @@ SRB2391 = Class(CStructureUnit) {
     end,
 
     CreateTeslaChargeEffects = function(self)
+
         self.TeslaEffectsBag = {}
+
         self:ForkThread(function()
             local gun = self:GetWeaponByLabel('MainGun')
             local gunbp = gun:GetBlueprint()
+
             while true do
                 if self.WeaponsActive and self.LastFiredTime + (gunbp.Effects.ParticalStackIntervalTicks or 30) * (gunbp.Effects.ParticalStacksMax or 30) > GetGameTick() then
                     self.Trash:Add(table.insert(self.TeslaEffectsBag, CreateAttachedEmitter( self, 'Effect_00' .. math.random(1.5), self:GetArmy(), '/effects/emitters/cybran_t2power_ambient_01_emit.bp' ):OffsetEmitter(0,0.75,-.5):ScaleEmitter(math.random(10,15)*0.1 ) ) )
@@ -113,7 +140,9 @@ SRB2391 = Class(CStructureUnit) {
     end,
 
     OnScriptBitSet = function(self, bit)
+    
         CStructureUnit.OnScriptBitSet(self, bit)
+        
         if bit == 4 then
             --DEACTIVATE
             self:SetWeaponEnabledByLabel('MainGun', false)
@@ -121,12 +150,15 @@ SRB2391 = Class(CStructureUnit) {
             self:SetMaintenanceConsumptionInactive()
             self:StopUnitAmbientSound( 'ActiveLoop' )
             self.WeaponsActive = false
-            EffectUtil.CleanupEffectBag(self,'TeslaEffectsBag')
+
+            CleanupEffectBag(self,'TeslaEffectsBag')
         end
     end,
 
     OnScriptBitClear = function(self, bit)
+    
         CStructureUnit.OnScriptBitClear(self, bit)
+        
         if bit == 4 then
             --ACTIVATE
             self:SetWeaponEnabledByLabel('MainGun', true)

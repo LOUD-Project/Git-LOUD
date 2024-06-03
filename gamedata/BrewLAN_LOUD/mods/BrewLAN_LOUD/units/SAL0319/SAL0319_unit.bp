@@ -4,21 +4,8 @@ UnitBlueprint {
     },
 
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0309_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0309_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        StartMove   = Sound { Bank = 'UAL', Cue = 'UAL0309_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     BuildIconSortPriority = 11,
@@ -89,19 +76,8 @@ UnitBlueprint {
         IdleEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Type = 'AeonGroundFXT1Engineer',
-                    },
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Scale = 1.4,
-                        Type = 'SeaIdle02',
-                    },
+                    { Bones = {0}, Type = 'AeonGroundFXT1Engineer' },
+                    { Bones = {0}, Scale = 1.4, Type = 'SeaIdle02' },
                 },
             },
         },
@@ -110,50 +86,23 @@ UnitBlueprint {
             IconFadeInZoom = 130,
 			
             LODs = {
-                {
-                    LODCutoff = 100,
-                    ShaderName = 'Aeon',
-                },
-                {
-                    LODCutoff = 250,
-                    ShaderName = 'Aeon',
-                },
+                { LODCutoff = 100, ShaderName = 'Aeon' },
+                { LODCutoff = 250, ShaderName = 'Aeon' },
             },
-			
         },
 		
         MovementEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Type = 'GroundKickup01',
-                    },
-                    {
-                        Bones = {
-                            'Dummy001',
-                        },
-                        Type = 'AeonGroundFXT1Engineer',
-                    },
+                    { Bones = {0}, Type = 'GroundKickup01' },
+                    { Bones = {'Dummy001'}, Type = 'AeonGroundFXT1Engineer' },
                 },
             },
+            
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Scale = 0.6,
-                        Type = 'BackWake',
-                    },
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Type = 'AeonGroundFXT1Engineer',
-                    },
+                    { Bones = {0}, Scale = 0.6, Type = 'BackWake' },
+                    { Bones = {0}, Type = 'AeonGroundFXT1Engineer' },
                 },
             },
         },
@@ -201,9 +150,9 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         SelectionPriority = 3,
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_ShieldToggle = true},
+        
         UnitName = '<LOC sal0319_name>Bilmon',
     },
 	
@@ -214,7 +163,7 @@ UnitBlueprint {
 
         OmniRadius = 6,
         RadarRadius = 48,
-        VisionRadius = 26,
+        VisionRadius = 24,
         WaterVisionRadius = 20,
     },
 	
@@ -274,7 +223,7 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.3,
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,

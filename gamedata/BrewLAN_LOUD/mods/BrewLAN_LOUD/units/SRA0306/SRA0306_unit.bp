@@ -40,26 +40,10 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0104_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Thruster = Sound {
-            Bank = 'URA',
-            Cue = 'URA0104_Move_Thruster',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'URADestroy', Cue = 'URA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'URA', Cue = 'URA0104_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        Thruster    = Sound { Bank = 'URA', Cue = 'URA0104_Move_Thruster', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Air', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     AverageDensity = 1,
@@ -95,12 +79,13 @@ UnitBlueprint {
     CollisionOffsetY = 0,
 	
     Defense = {
-        AirThreatLevel = 24,
         ArmorType = 'Light',
-        EconomyThreatLevel = 0,
+
         Health = 6250,
         MaxHealth = 6250,
         RegenRate = 15,
+
+        AirThreatLevel = 24,
         SurfaceThreatLevel = 6,
     },
 	
@@ -122,39 +107,10 @@ UnitBlueprint {
         ForcedBuildSpin = 90,
 		
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Char01',
-                        },
-                        Offset = {
-                            0,
-                            -1.5,
-                            -1,
-                        },
-                        Scale = 2,
-                        Type = 'Landing01',
-                    },
-                },
-            },
-            LandAir = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Char01',
-                        },
-                        Offset = {
-                            0,
-                            -1.5,
-                            -1,
-                        },
-                        Scale = 2,
-                        Type = 'TakeOff01',
-                    },
-                },
-            },
+            AirLand = { Effects = { { Bones = {'Char01'}, Offset = {0,-1.5,-1}, Scale = 2, Type = 'Landing01' } } },
+            LandAir = { Effects = { { Bones = {'Char01'}, Offset = {0,-1.5,-1}, Scale = 2, Type = 'TakeOff01' } } },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -173,16 +129,9 @@ UnitBlueprint {
                 },
             },
         },
+        
         MovementEffects = {
-            BeamExhaust = {
-                Bones = {
-                    'Left_Exhaust',
-                    'Right_Exhaust',
-                },
-                Cruise = true,
-                Idle = true,
-                Landed = true,
-            },
+            BeamExhaust = { Bones = {'Left_Exhaust','Right_Exhaust'}, Cruise = true, Idle = true, Landed = true },
         },
 
         UniformScale = 0.07,
@@ -219,9 +168,9 @@ UnitBlueprint {
         Icon = 'air',
 
         SelectionPriority = 2,
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+        
         UnitName = '<LOC sra0306_name>Night Skimmer',
     },
 	
@@ -232,8 +181,8 @@ UnitBlueprint {
 		SonarStealth = true,
         SonarStealthFieldRadius = 12,
 		
-        VisionRadius = 38,
-		WaterVisionRadius = 10,
+        VisionRadius = 36,
+		WaterVisionRadius = 16,
     },
 	
     Interface = {
@@ -290,12 +239,9 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'URAWeapon',
-                    Cue = 'URA_Cannon_EMP',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URAWeapon', Cue = 'URA_Cannon_EMP', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -382,12 +328,9 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'URAWeapon',
-                    Cue = 'URA_Cannon_Electron',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URAWeapon', Cue = 'URA_Cannon_Electron', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -454,12 +397,9 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'URAWeapon',
-                    Cue = 'URA_Cannon_Electron',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URAWeapon', Cue = 'URA_Cannon_Electron', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,

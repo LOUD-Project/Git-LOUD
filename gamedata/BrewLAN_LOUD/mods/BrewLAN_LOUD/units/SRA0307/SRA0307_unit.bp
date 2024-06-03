@@ -1,20 +1,24 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 75,
-        GuardScanRadius = 50,
+        GuardReturnRadius = 64,
+        GuardScanRadius = 64,
         TargetBones = {'Body'},
     },
 	
     Air = {
         AutoLandTime = 1,
-        BankFactor = 3,
+
+        BankFactor = 2.5,
         BankForward = false,
+
         BreakOffDistance = 40,
-        BreakOffIfNearNewTarget = true,
-        BreakOffTrigger = 15,
+        BreakOffTrigger = 64,
+        
         CanFly = true,
+        
         CombatTurnSpeed = 0.8,
-        EngageDistance = 50,
+
+        EngageDistance = 75,
 		
         KLift = 3,
         KLiftDamping = 2.5,
@@ -28,52 +32,33 @@ UnitBlueprint {
         KTurn = 1,
         KTurnDamping = 1,
 		
-        LiftFactor = 7,
+        LiftFactor = 9,
 		
         MaxAirspeed = 17,
         MinAirspeed = 13,
 		
-        StartTurnDistance = 5,
+        StartTurnDistance = 8,
+        
         TurnSpeed = 0.8,
 		
         Winged = true,
     },
 	
     Audio = {
-        AirUnitWaterImpact = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0204_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        AirUnitWaterImpact  = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed           = Sound { Bank = 'URADestroy', Cue = 'URA_Destroy_Air', LodCutoff = 'UnitMove_LodCutoff' },
+        Killed              = Sound { Bank = 'URADestroy', Cue = 'URA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove           = Sound { Bank = 'URA', Cue = 'URA0204_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection         = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Air', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 6,
-            Level2 = 12,
-            Level3 = 18,
-            Level4 = 24,
-            Level5 = 30,
+            Level1 = 4,
+            Level2 = 8,
+            Level3 = 12,
+            Level4 = 16,
+            Level5 = 20,
         },
     },
 	
@@ -95,11 +80,14 @@ UnitBlueprint {
     },
 	
     CollisionOffsetY = -0.2,
+    
     Defense = {
         ArmorType = 'Light',
-        Health = 3250,
-        MaxHealth = 3250,
-        RegenRate = 10,
+        
+        Health = 3200,
+        MaxHealth = 3200,
+        RegenRate = 8,
+
         SubThreatLevel = 38,
     },
 	
@@ -113,16 +101,8 @@ UnitBlueprint {
         },
         
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    {Bones = {0}, Type = 'Landing01'},
-                },
-            },
-            LandAir = {
-                Effects = {
-                    {Bones = {0}, Type = 'TakeOff01'},
-                },
-            },
+            AirLand = { Effects = { {Bones = {0}, Type = 'Landing01'} } },
+            LandAir = { Effects = { {Bones = {0}, Type = 'TakeOff01'} } },
         },
         
         Mesh = {
@@ -136,24 +116,13 @@ UnitBlueprint {
         
         MovementEffects = {
             Air = {
-                Contrails = {
-                    Bones = {'Contrail_GunL', 'Contrail_GunR'},
-                },
+                Contrails = { Bones = {'Contrail_GunL','Contrail_GunR'} },
                 Effects = {
-                    {
-                        Bones = {'Exhaust_L', 'Exhaust_R'},
-                        Type = 'AirMoveExhaust01',
-                    },
+                    { Bones = {'Exhaust_L', 'Exhaust_R'}, Type = 'AirMoveExhaust01' },
                 },
             },
-            BeamExhaust = {
-                Bones = {
-                    'Exhaust_L',
-                    'Exhaust_R',
-                },
-                Cruise = true,
-                Idle = true,
-            },
+            
+            BeamExhaust = { Bones = {'Exhaust_L','Exhaust_R'}, Cruise = true, Idle = true },
         },
 
         UniformScale = 0.033,
@@ -161,8 +130,8 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 72000,
-        BuildCostMass = 1650,
-        BuildTime = 1000,
+        BuildCostMass = 1750,
+        BuildTime = 1200,
 		
         MaintenanceConsumptionPerSecondEnergy = 30,
     },
@@ -186,24 +155,24 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'air',
+        
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-personal',
-                helpText = 'toggle_stealth_personal',
-            },
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-personal', helpText = 'toggle_stealth_personal' },
         },
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+        
         UnitName = '<LOC sra0307_name>Zenith',
     },
 	
     Intel = {
 		FreeIntel = true,
+
         RadarStealth = true,
-        SonarRadius = 75,
-        VisionRadius = 32,
-		WaterVisionRadius = 32,
+
+        SonarRadius = 60,
+        VisionRadius = 40,
+		WaterVisionRadius = 28,
     },
 	
     Interface = {
@@ -215,15 +184,19 @@ UnitBlueprint {
     LifeBarSize = 2,
 	
     Physics = {
-        AttackElevation = 3,
+        AttackElevation = 4,
+        
         BuildOnLayerCaps = {
             LAYER_Air = true,
             LAYER_Sub = true,
         },
         Elevation = 20,
+        
         FuelRechargeRate = 25,
         FuelUseTime = 750,
+        
         GroundCollisionOffset = 2,
+        
         MaxSpeed = 0.5,
         MotionType = 'RULEUMT_Air',
     },
@@ -256,24 +229,36 @@ UnitBlueprint {
 	
     Weapon = {
         {
+            advancedTracking = true,
+            
             Audio = {
-                Fire = Sound {Bank = 'URAWeapon', Cue = 'URA0204_Torpedo_Nanite', LodCutoff = 'Weapon_LodCutoff' },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0204_Depth_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
             
             AutoInitiateAttackCommand = true,
             
             BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.3,
+                    Radius = 2,
+                    TargetAllow = 'TECH1,TECH2',
+                    TargetDisallow = 'WALL,COMMAND,EXPERIMENTAL',
+                },
+            },
             
             CollideFriendly = false,
 			
-            Damage = 150,
-            DamageRadius = 0,
+            Damage = 400,
             DamageType = 'Normal',
 			
             DisplayName = 'Nanite Torpedo',
-			
-            DoTPulses = 5,	-- 170 * 5 = 850 damage
-            DoTTime = 2,	-- over 2 seconds
+            
+            EffectiveRadius = 64,
 			
             FireTargetLayerCapsTable = {
                 Air = 'Seabed|Sub|Water',
@@ -285,41 +270,42 @@ UnitBlueprint {
             HeadingArcCenter = 0,
             HeadingArcRange = 40,
 			
-            Label = 'Bomb',
+            Label = 'Torpedo',
 			
-            MaxRadius = 38,
+            MaxRadius = 56,
             MinRadius = 8,
 			
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 4,
-            MuzzleVelocity = 6,
+            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoSize = 6,
+            
+            MuzzleVelocity = 8,
 			
-            ProjectileId = '/projectiles/CANTorpedoNanite03/CANTorpedoNanite03_proj.bp',
+            ProjectileId = '/projectiles/CANTorpedoNanite02/CANTorpedoNanite02_proj.bp',
             ProjectileLifetime = 10,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'TorpedoL',
-                        'TorpedoR',
-                    },
+                    MuzzleBones = {'Muzzle_GunL','Muzzle_GunR','Body'},
                     RackBone = 'TorpedoL',
                 },
             },
 			
-            RackReloadTimeout = 7,
+            RackSalvoReloadTime = 4.2,  -- 6 second cycle = 2400/6 = 400 DPS
 			
-            RateOfFire = 0.1,	-- 850 * 4 = 3400/10 = 340 DPS Sub
-			
+            RateOfFire = 1,
+		
             TargetCheckInterval = 3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'CRUISER',
+                'SUBMERSIBLE',
                 'MOBILE',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.15,
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER, WALL',
+            TrackingRadius = 1.1,
         },
+
         {
             Damage = 150,
             DamageFriendly = true,
@@ -332,14 +318,5 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
-    Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
-        ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Land = true,
-        },
-    },
+
 }

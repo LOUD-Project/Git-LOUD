@@ -5,31 +5,10 @@ UnitBlueprint {
     },
 	
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0111_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL_Destroy_Land_Med',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0111_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0111_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Med', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0111_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        StopMove    = Sound { Bank = 'XSL', Cue = 'XSL0111_Move_Stop', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Tank', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     BuildIconSortPriority = 65,
@@ -63,6 +42,7 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_stratmissiledef>Strategic Missile Defense',
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -85,17 +65,10 @@ UnitBlueprint {
                 },
             },
         },
+        
         MovementEffects = {
             Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Scale = 0.5,
-                        Type = 'GroundKickup01',
-                    },
-                },
+                Effects = { { Bones = {0}, Scale = 0.5, Type = 'GroundKickup01' } },
                 Treads = {
                     ScrollTreads = true,
                     TreadMarks = {
@@ -104,38 +77,27 @@ UnitBlueprint {
                             TreadMarksInterval = 0.09,
                             TreadMarksSizeX = .3,
                             TreadMarksSizeZ = 2,
-                            TreadOffset = {
-                                0,
-                                -.2,
-                                -.2,
-                            },
+                            TreadOffset = {0,-.2,-.2},
                         },
                         {
                             TreadMarks = 'tank_treads03_albedo',
                             TreadMarksInterval = 0.09,
                             TreadMarksSizeX = .3,
                             TreadMarksSizeZ = 2,
-                            TreadOffset = {
-                                .65,
-                                -1.1,
-                                -1.1,
-                            },
+                            TreadOffset = {.65,-1.1,-1.1},
                         },
                         {
                             TreadMarks = 'tank_treads03_albedo',
                             TreadMarksInterval = 0.09,
                             TreadMarksSizeX = .3,
                             TreadMarksSizeZ = 2,
-                            TreadOffset = {
-                                -.65,
-                                -1.1,
-                                -1.1,
-                            },
+                            TreadOffset = {-.65,-1.1,-1.1},
                         },
                     },
                 },
             },
         },
+        
         MissileBone = 'missile',
 
         UniformScale = 0.06,
@@ -231,9 +193,11 @@ UnitBlueprint {
         {
             AnimationReload = '/units/xsl0111/xsl0111_areload.sca',
             AlwaysRecheckTarget = false,
+
             Audio = {
                 Fire = Sound { Bank = 'XSB_Weapon', Cue = 'XSB4302_Strat_Missile_Def', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -291,9 +255,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

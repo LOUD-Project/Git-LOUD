@@ -28,20 +28,18 @@ SRL0316 = Class(CLandUnit) {
     end,
 
     IntelEffects = {
-	
-		{ Bones = { 'AttachPoint' }, Offset = { 0, 0.3, 0 }, Scale = 0.2, Type = 'Jammer01'	},
-		
+		{ Bones = {'AttachPoint'}, Scale = 0.4, Type = 'Jammer01'	},
     },
 
-    OnIntelEnabled = function(self)
+    OnIntelEnabled = function(self,intel)
 	
-        CLandUnit.OnIntelEnabled(self)
+        CLandUnit.OnIntelEnabled(self,intel)
 
-        if self.IntelEffects and not self.IntelFxOn then
+        if intel == 'RadarStealthField' and self.IntelEffects and not self.IntelFxOn then
 		
 			self.IntelEffectsBag = {}
 
-			self.CreateTerrainTypeEffects( self, self.IntelEffects, 'FXIdle',  self:GetCurrentLayer(), nil, self.IntelEffectsBag )
+			self.CreateTerrainTypeEffects( self, self.IntelEffects, 'FXIdle', 'Land', nil, self.IntelEffectsBag )
 			
 			self.IntelFxOn = true
 
@@ -49,21 +47,32 @@ SRL0316 = Class(CLandUnit) {
 
     end,
 
-    OnIntelDisabled = function(self)
+    OnIntelDisabled = function(self,intel)
 	
-        CLandUnit.OnIntelDisabled(self)
+        CLandUnit.OnIntelDisabled(self,intel)
+        
+        if intel == 'RadarStealthField' then
 
-		EffectUtil.CleanupEffectBag(self,'IntelEffectsBag')
+            -- this will purge the IntelEffectsBag
+            EffectUtil.CleanupEffectBag(self,'IntelEffectsBag')
+            
+            self.IntelEffectsBag = nil
 		
-		self.IntelFxOn = false
+            self.IntelFxOn = false
+            
+        end
 		
     end,
 	
     
     InvisState = State() {
+    
         Main = function(self)
+        
             self.Cloaked = false
+            
             local bp = self:GetBlueprint()
+            
             if bp.Intel.StealthWaitTime then
                 WaitSeconds( bp.Intel.StealthWaitTime )
             end
@@ -73,24 +82,30 @@ SRL0316 = Class(CLandUnit) {
         end,
         
         OnMotionHorzEventChange = function(self, new, old)
+        
             if new != 'Stopped' then
                 ChangeState( self, self.VisibleState )
             end
+            
             CLandUnit.OnMotionHorzEventChange(self, new, old)
         end,
     },
     
     VisibleState = State() {
+    
         Main = function(self)
+        
             if self.Cloaked then
 			    self:DisableUnitIntel('Cloak')
 			end
         end,
         
         OnMotionHorzEventChange = function(self, new, old)
+        
             if new == 'Stopped' then
                 ChangeState( self, self.InvisState )
             end
+            
             CLandUnit.OnMotionHorzEventChange(self, new, old)
         end,
     },	

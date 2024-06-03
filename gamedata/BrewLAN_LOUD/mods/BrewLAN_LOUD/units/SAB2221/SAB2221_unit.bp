@@ -1,7 +1,7 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound {Bank = 'UALDestroy',Cue = 'UAB_Destroy_Huge',LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed   = Sound {Bank = 'UALDestroy',Cue = 'UAB_Destroy_Huge',LodCutoff = 'UnitMove_LodCutoff'},
         UISelection = Sound {Bank = 'Interface',Cue = 'Aeon_Select_Structure',LodCutoff = 'UnitMove_LodCutoff'},
     },
 
@@ -42,12 +42,7 @@ UnitBlueprint {
             '<LOC ability_suicideweapon>Suicide Weapon',
         },
 
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 130, ShaderName = 'Aeon' }
-            }
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 130, ShaderName = 'Aeon' } } },
 
         UniformScale = 0.035,
     },

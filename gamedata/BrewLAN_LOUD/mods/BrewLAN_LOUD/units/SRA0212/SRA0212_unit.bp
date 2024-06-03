@@ -30,64 +30,22 @@ UnitBlueprint {
     },
 
     Audio = {
-        AirUnitWaterImpact = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        AmbientMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0102_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Landing = Sound {
-            Bank = 'URA',
-            Cue = 'URA0102_Move_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Refueling = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA_Repair_Refuel',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0102_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0102_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Thruster = Sound {
-            Bank = 'URA',
-            Cue = 'URA0102_Move_Thruster',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        StartMove           = Sound { Bank = 'URA', Cue = 'URA0102_Move_Start',      LodCutoff = 'UnitMove_LodCutoff'},
+        StopMove            = Sound { Bank = 'URA', Cue = 'URA0102_Move_Stop',       LodCutoff = 'UnitMove_LodCutoff'},
+        Thruster            = Sound { Bank = 'URA', Cue = 'URA0102_Move_Thruster',   LodCutoff = 'UnitMove_LodCutoff'},
+        AirUnitWaterImpact  = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01',        LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed           = Sound { Bank = 'URADestroy', Cue = 'URA_Destroy_Air',          LodCutoff = 'UnitMove_LodCutoff'},
+        Killed              = Sound { Bank = 'URADestroy', Cue = 'URA_Destroy_Air_Killed',   LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection         = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Air',         LodCutoff = 'UnitMove_LodCutoff'},
     },
+
     Buffs = {
         Regen = {
-            Level1 = 2,
-            Level2 = 4,
-            Level3 = 6,
-            Level4 = 8,
-            Level5 = 10,
+            Level1 = 3,
+            Level2 = 6,
+            Level3 = 9,
+            Level4 = 12,
+            Level5 = 15,
         },
     },
 
@@ -104,15 +62,17 @@ UnitBlueprint {
         'TECH2',
         'ANTIAIR',
         'VISIBLETORECON',
-        'RECLAIMABLE',
-        'RESEARCHLOCKED',
+        'RECLAIMABLE',        'RESEARCHLOCKED',
     },
 
     Defense = {
         AirThreatLevel = 33,
+
         ArmorType = 'Light',
+
         Health = 750,
         MaxHealth = 750,
+        RegenRate = 6,
     },
 
     Description = '<LOC sra0212_desc>Combat Fighter',
@@ -121,38 +81,18 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
         },
+
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    {
-                        Bones = {0},
-                        Type = 'Landing01',
-                    },
-                },
-            },
-            LandAir = {
-                Effects = {
-                    {
-                        Bones = {0},
-                        Type = 'TakeOff01',
-                    },
-                },
-            },
+            AirLand = { Effects = { { Bones = {0}, Type = 'Landing01' } } },
+            LandAir = { Effects = { { Bones = {0}, Type = 'TakeOff01' } } },
         },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 130, ShaderName = 'Insect', },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 130, ShaderName = 'Insect', } } },
+
         MovementEffects = {
-            Air = {
-                Contrails = {
-                    Bones = {'Engine'},
-                    ZOffset = 0,
-                },
-            },
+            Air = { Contrails = { Bones = {'Engine'}, ZOffset = 0 } },
         },
+
         UniformScale = 0.035,
     },
 
@@ -185,7 +125,9 @@ UnitBlueprint {
     },
 
     Intel = {
-        VisionRadius = 28,
+        RadarStealth = true,
+
+        VisionRadius = 36,
     },
 
     LifeBarHeight = 0.075,
@@ -230,11 +172,7 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'URAWeapon',
-                    Cue = 'URA_Cannon_Electron',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URAWeapon', Cue = 'URA_Cannon_Electron', LodCutoff = 'Weapon_LodCutoff'},
             },
 
             AutoInitiateAttackCommand = true,
@@ -256,7 +194,7 @@ UnitBlueprint {
 
             Label = 'AutoCannon',
 
-            MaxRadius = 30,
+            MaxRadius = 32,
 
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 6,
@@ -271,9 +209,6 @@ UnitBlueprint {
                     RackBone = 'Gap',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_AntiAir',
 
@@ -292,7 +227,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 
             TurretBoneMuzzle = 'Gap',
             TurretBonePitch = 'Gap',
@@ -322,11 +257,12 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

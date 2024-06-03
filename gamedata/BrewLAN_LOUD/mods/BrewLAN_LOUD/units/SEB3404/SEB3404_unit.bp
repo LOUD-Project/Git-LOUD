@@ -1,8 +1,9 @@
 UnitBlueprint {
+
     Audio = {
-        DeathExplosion = Sound {Bank = 'UELDestroy', Cue = 'UEB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
-        Destroyed = Sound {Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
-        UISelection = Sound {Bank = 'Interface', Cue = 'UEF_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
+        DeathExplosion  = Sound {Bank = 'UELDestroy',    Cue = 'UEB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound {Bank = 'UELDestroy',    Cue = 'UEB_Destroy_Huge',           LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound {Bank = 'Interface',     Cue = 'UEF_Select_Structure',       LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Categories = {
@@ -28,10 +29,12 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
+
+        Health = 5600,
+        MaxHealth = 5600,
+        RegenRate = 4,
+
         EconomyThreatLevel = 7500,
-        Health = 9500,
-        MaxHealth = 9500,
-        RegenRate = 5,
     },
 	
     Description = '<LOC seb3404_desc>Experimental Sensor Array',
@@ -112,7 +115,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 80495,
         BuildCostMass = 8050,
-        BuildTime = 2533,
+        BuildTime = 4500,
 		
         BuildRate = 60,
 		
@@ -393,32 +396,33 @@ UnitBlueprint {
         CapCost = 25,
         FactionName = 'UEF',
         Icon = 'land',
+
         SatelliteCapacity = 9001,
+
         SelectionPriority = 5,
+
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
             RULEUTC_WeaponToggle = false,
         },
         OrderOverrides = {
-            RULEUTC_WeaponToggle = {
-                bitmapId = 'Vision',
-                helpText = 'toggle_economy_watch',
-            },
+            RULEUTC_WeaponToggle = { bitmapId = 'Vision', helpText = 'toggle_economy_watch' },
         },
+
         UnitName = '<LOC seb3404_name>Panopticon',
     },
 	
     Intel = {
         ShowIntelOnSelect = true,
-        VisionRadius = 2,
 		
 		-- these starting OMNI and RADAR ranges are related to the standard T3 value
 		-- according to formulas describing power consumption and radar range
 		-- see BuffDefinitions.lua for a more detailed description
 		
-        OmniRadius = 215,
-        RadarRadius = 575,
-		
+        OmniRadius = 212,
+        RadarRadius = 560,
+        VisionRadius = 16,		
+
         SpyBlipRadius = 2,
         ReactivateTime = 0,
     },
@@ -466,7 +470,6 @@ UnitBlueprint {
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,
-            Water = true,
         },
     },
 }

@@ -6,31 +6,10 @@ UnitBlueprint {
     },
 
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0202_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0202_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0202_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UAL', Cue = 'UAL0202_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        StopMove    = Sound { Bank = 'UAL', Cue = 'UAL0202_Move_Stop', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Tank', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -76,34 +55,22 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_amphibious>Amphibious',
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
 			
             LODs = {
-                {
-                    LODCutoff = 100,
-                    Scrolling = true,
-                    ShaderName = 'Aeon',
-                },
-                {
-                    LODCutoff = 215,
-                    Scrolling = true,
-                    ShaderName = 'Aeon',
-                },
+                { LODCutoff = 100, Scrolling = true, ShaderName = 'Aeon' },
+                { LODCutoff = 215, Scrolling = true, ShaderName = 'Aeon' },
             },
         },
 
         MovementEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {
-                            'Emmitter02',
-                            'Emmitter03',
-                        },
-                        Type = 'GroundKickup03',
-                    },
+                    { Bones = {'Emmitter02','Emmitter03'}, Type = 'GroundKickup03' },
                 },
+                
                 Treads = {
                     ScrollTreads = true,
                     TreadMarks = {
@@ -112,56 +79,35 @@ UnitBlueprint {
                             TreadMarksInterval = 0.09,
                             TreadMarksSizeX = 0.2,
                             TreadMarksSizeZ = 2,
-                            TreadOffset = {
-                                -.45,
-                                0,
-                                -.8,
-                            },
+                            TreadOffset = {-.45,0,-.8},
                         },
                         {
                             TreadMarks = 'tank_treads03_albedo',
                             TreadMarksInterval = 0.09,
                             TreadMarksSizeX = 0.2,
                             TreadMarksSizeZ = 2,
-                            TreadOffset = {
-                                -0.25,
-                                0,
-                                -.8,
-                            },
+                            TreadOffset = {-0.25,0,-.8},
                         },
                         {
                             TreadMarks = 'tank_treads03_albedo',
                             TreadMarksInterval = 0.09,
                             TreadMarksSizeX = 0.2,
                             TreadMarksSizeZ = 2,
-                            TreadOffset = {
-                                .45,
-                                0,
-                                -.8,
-                            },
+                            TreadOffset = {.45,0,-.8},
                         },
                         {
                             TreadMarks = 'tank_treads03_albedo',
                             TreadMarksInterval = 0.09,
                             TreadMarksSizeX = 0.2,
                             TreadMarksSizeZ = 2,
-                            TreadOffset = {
-                                0.25,
-                                0,
-                                -.8,
-                            },
+                            TreadOffset = {0.25,0,-.8},
                         },
                     },
                 },
             },
         },
 
-        TransportAnimation = {
-            {
-                Animation = '/mods/BrewLAN_LOUD/units/SAL0311/SAL0311_Afold.sca',
-                Weight = 100,
-            },
-        },
+        TransportAnimation = { { Animation = '/mods/BrewLAN_LOUD/units/SAL0311/SAL0311_Afold.sca',Weight = 100 } },
 		
         UniformScale = 0.035,
     },
@@ -185,12 +131,13 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
+        
         UnitName = '<LOC sal0311_name>Moldavite',
     },
 	
     Intel = {
         VisionRadius = 32,
-        WaterVisionRadius = 21,
+        WaterVisionRadius = 20,
     },
 	
     Interface = {
@@ -208,9 +155,12 @@ UnitBlueprint {
             LAYER_Seabed = true,
         },
         DragCoefficient = 0.2,
+        
+        LayerChangeOffsetHeight = -0.4,
+        
         MaxAcceleration = 2,
-        MaxBrake = 2.5,
-        MaxSpeed = 2.5,
+        MaxBrake = 2.65,
+        MaxSpeed = 2.65,
         MaxSpeedReverse = 2,
 		
         MaxSteerForce = 5,
@@ -255,19 +205,14 @@ UnitBlueprint {
 	
     Weapon = {
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                MuzzleChargeStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2301_Cannon_Oblivion_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2301_Cannon_Oblivion_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire                = Sound { Bank = 'UALWeapon', Cue = 'UAB2301_Cannon_Oblivion_Fire', LodCutoff = 'Weapon_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'UALWeapon', Cue = 'UAB2301_Cannon_Oblivion_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -279,7 +224,9 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
             },
+            
 			FiringRandomness = 0.1,
 			FiringRandomnessWhileMoving = 0.3,
             FiringTolerance = 1,
@@ -345,11 +292,12 @@ UnitBlueprint {
             UseFiringSolutionInsteadOfAimBone = true,
         },
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.2,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

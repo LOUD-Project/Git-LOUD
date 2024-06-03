@@ -6,21 +6,8 @@ UnitBlueprint {
     },
 
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'XEL',
-            Cue = 'XEL0209_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XEL',
-            Cue = 'XEL0209_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        StartMove   = Sound { Bank = 'XEL', Cue = 'XEL0209_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     BuildIconSortPriority = 11,
@@ -73,16 +60,9 @@ UnitBlueprint {
         AnimationWater = '/units/XEL0209/xel0209_afold.sca',
 
         IdleEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {'XEL0209'},
-                        Scale = 0.7,
-                        Type = 'SeaIdle02',
-                    },
-                },
-            },
+            Water = { Effects = { { Bones = {'XEL0209'}, Scale = 0.7, Type = 'SeaIdle02' } } },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -107,10 +87,7 @@ UnitBlueprint {
         MovementEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {'Dust01','Dust02'},
-                        Type = 'GroundKickup01',
-                    },
+                    { Bones = {'Dust01','Dust02'}, Type = 'GroundKickup01' },
                 },
                 Treads = {
                     ScrollTreads = true,
@@ -128,11 +105,7 @@ UnitBlueprint {
             },
             Water = {
                 Effects = {
-                    {
-                        Bones = {'Dust01','Dust02'},
-                        Scale = 0.4,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'Dust01','Dust02'}, Scale = 0.4, Type = 'BackWake' },
                 },
             },
         },
@@ -192,9 +165,7 @@ UnitBlueprint {
 
         SelectionPriority = 3,
 
-        ToggleCaps = {
-            RULEUTC_JammingToggle = true,
-        },
+        ToggleCaps = { RULEUTC_JammingToggle = true },
 
         UnitName = '<LOC sel0319_name>Custodian',
     },
@@ -206,10 +177,10 @@ UnitBlueprint {
         },
         JammerBlips = 5,
 
-		OmniRadius = 6,
+		OmniRadius = 8,
         RadarRadius = 48,
-        VisionRadius = 26,
-		WaterVisionRadius = 26,
+        VisionRadius = 28,
+		WaterVisionRadius = 28,
     },
 	
     Interface = {
@@ -271,13 +242,11 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEL_Weapons',
-                    Cue = 'XEL0209_Riot_Gun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEL_Weapons', Cue = 'XEL0209_Riot_Gun', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -343,9 +312,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

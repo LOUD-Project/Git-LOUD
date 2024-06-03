@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'UESDestroy',
-            Cue = 'UES0201_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UES',
-            Cue = 'UES0201_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed = Sound { Bank = 'UESDestroy', Cue = 'UES0201_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove = Sound { Bank = 'UES', Cue = 'UES0201_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Naval', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -85,37 +73,13 @@ UnitBlueprint {
         },
 		
         AnimationDeath = {
-            {
-                Animation = '/units/ues0201/ues0201_a001.sca',
-                Weight = 100,
-            },
-            {
-                Animation = '/units/ues0201/ues0201_ADeath01.sca',
-                Weight = 100,
-            },
-            {
-                Animation = '/units/ues0201/ues0201_ADeath02.sca',
-                Weight = 100,
-            },
+            { Animation = '/units/ues0201/ues0201_a001.sca', Weight = 100 },
+            { Animation = '/units/ues0201/ues0201_ADeath01.sca', Weight = 100 },
+            { Animation = '/units/ues0201/ues0201_ADeath02.sca', Weight = 100 },
         },
 		
         IdleEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'UES0201',
-                        },
-                        Offset = {
-                            0,
-                            0,
-                            -0.25,
-                        },
-                        Scale = 1.35,
-                        Type = 'SeaIdle01',
-                    },
-                },
-            },
+            Water = { Effects = { { Bones = {'UES0201'}, Offset = {0,0,-0.25}, Scale = 1.35, Type = 'SeaIdle01' } } },
         },
 		
         Mesh = {
@@ -139,27 +103,9 @@ UnitBlueprint {
         MovementEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'Front_Left_Wake',
-                        },
-                        Scale = 1.25,
-                        Type = 'LeftFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'Front_Right_Wake',
-                        },
-                        Scale = 1.25,
-                        Type = 'RightFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'Back_Wake',
-                        },
-                        Scale = 1.25,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'Front_Left_Wake'},   Scale = 1.25, Type = 'LeftFrontWake' },
+                    { Bones = {'Front_Right_Wake'},  Scale = 1.25, Type = 'RightFrontWake' },
+                    { Bones = {'Back_Wake'},         Scale = 1.25, Type = 'BackWake' },
                 },
             },
         },
@@ -202,14 +148,7 @@ UnitBlueprint {
     General = {
         BuildBones = {
             AimBone = 'Turret_Muzzle02',
-            BuildEffectBones = {
-                'Turret_Muzzle01',
-                'Turret_Muzzle02',
-                'Turret_Muzzle03',
-                'Turret_Muzzle004',
-                'Turret_Muzzle005',
-                'Turret_Muzzle006',
-            },
+            BuildEffectBones = {'Turret_Muzzle01','Turret_Muzzle02','Turret_Muzzle03','Turret_Muzzle004','Turret_Muzzle005','Turret_Muzzle006'},
             PitchBone = 'Turret_Barrel',
             YawBone = 'Turret',
         },
@@ -236,10 +175,10 @@ UnitBlueprint {
     },
 	
     Intel = {
-        RadarRadius = 90,
-        SonarRadius = 45,
+        RadarRadius = 64,
+        SonarRadius = 48,
         VisionRadius = 40,
-        WaterVisionRadius = 25,
+        WaterVisionRadius = 24,
     },
 	
     Interface = {
@@ -297,13 +236,11 @@ UnitBlueprint {
     Weapon = {
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0103_Railgun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0103_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -378,16 +315,13 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0203_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0203_Torpedo', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 110,
+            Damage = 200,
             DamageType = 'Normal',
 			
             DisplayName = 'Angler Torpedo',
@@ -411,17 +345,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Projectile01',
-                        'Right_Projectile01',
-                    },
+                    MuzzleBones = {'Left_Projectile01','Right_Projectile01'},
                     RackBone = 'Left_Projectile01',
                 },
                 {
-                    MuzzleBones = {
-                        'Left_Projectile02',
-                        'Right_Projectile02',
-                    },
+                    MuzzleBones = {'Left_Projectile02','Right_Projectile02'},
                     RackBone = 'Left_Projectile02',
                 },
             },
@@ -430,7 +358,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.4,		-- 2 * 110 * .4 = 88 DPS Sub/Surface
+            RateOfFire = 0.4,		-- 2 * 200 * .4 = 160 DPS Sub/Surface
 			
             TargetCheckInterval = 2,
 			
@@ -443,53 +371,50 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
             TrackingRadius = 1.2,
         },
+		
         {
             BallisticArc = 'RULEUBA_None',
 			
+			CannotAttackGround = true,
             CollideFriendly = false,
 			
             Damage = 2,
             DamageType = 'Normal',
 			
-            DepthCharge = { Radius = 6 },
+            Flare = { Category = 'TORPEDO', Radius = 4.5, RadiusGrowth = .2, RadiusStart = 0.3 },
 			
-            DisplayName = 'Smart Charge AntiTorpedo',
+            DisplayName = 'AntiTorpedo Flare',
 			
             FireTargetLayerCapsTable = {
-                Water = 'Sub|Water|Seabed',
+                Water = 'Sub|Water|Seabed|Land',
             },
-			
-            FiringTolerance = 360,
 			
             Label = 'AntiTorpedo',
 			
-            MaxRadius = 25,
+            MaxRadius = 18,
+            MinRadius = 6,
 
             MuzzleVelocity = 3,
 			
-            ProjectileId = '/projectiles/TIMAntiTorpedo01/TIMAntiTorpedo01_proj.bp',
+            ProjectileId = '/projectiles/TTorpedoDecoy/TTorpedoDecoy_proj.bp',
             ProjectileLifetime = 1.8,
 			
             RackBones = {
                 {
-                    MuzzleBones = {'Left_Projectile03'},
-                    RackBone = 'Left_Projectile03',
-                },
-                {
-                    MuzzleBones = {'Right_Projectile03'},
+                    MuzzleBones = {'Left_Projectile03','Right_Projectile03'},
                     RackBone = 'Right_Projectile03',
                 },
             },
 
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 0.8,
+            RateOfFire = 0.6,
 			
             TargetCheckInterval = 0.5,
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
         },
     },
 }

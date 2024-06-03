@@ -1,21 +1,19 @@
 local CLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
-local CAAMissileNaniteWeapon = import('/lua/cybranweapons.lua').CAAMissileNaniteWeapon
+local CAAMissileNaniteWeapon = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
+
 local EffectUtil = import('/lua/EffectUtilities.lua')
 
 SRL0320 = Class(CLandUnit) {
 
-    IntelEffects = {
-        {
-            Bones = {0},
-            Offset = {0, 1, 0},
-            Type = 'Jammer01',
-        },
-    },
+    IntelEffects = { { Bones = {0}, Offset = {0, 1, 0}, Type = 'Jammer01' } },
 
     Weapons = {
+    
         MainGun = Class(CAAMissileNaniteWeapon) {
+
             CreateProjectileAtMuzzle = function(self, muzzle)
+
                 if self.unit.IntelOn then
                     self.unit.IntelOn = nil
                     self.unit:SetMaintenanceConsumptionInactive()
@@ -24,9 +22,12 @@ SRL0320 = Class(CLandUnit) {
                     self.unit:RequestRefreshUI()
                     self.unit.IntelWasOn = true
                 end
+
                 CAAMissileNaniteWeapon.CreateProjectileAtMuzzle(self, muzzle)
             end,
+
             OnWeaponFired = function(self)
+
                 if self.unit.IntelWasOn then
                     self.unit.IntelOn = true
                     self.unit:SetMaintenanceConsumptionActive()
@@ -35,13 +36,17 @@ SRL0320 = Class(CLandUnit) {
                     self.unit:RequestRefreshUI()
                     self.unit.IntelWasOn = nil
                 end
+
                 CAAMissileNaniteWeapon.OnWeaponFired(self)
+
             end,
         },
     },
 
     OnStopBeingBuilt = function(self,builder,layer)
+
         CLandUnit.OnStopBeingBuilt(self,builder,layer)
+
         if self:GetAIBrain().BrainType == 'Human' then
             self:SetMaintenanceConsumptionInactive()
             self:SetScriptBit('RULEUTC_CloakToggle', true)
@@ -53,10 +58,13 @@ SRL0320 = Class(CLandUnit) {
             self:EnableUnitIntel('Cloak')
             self:RequestRefreshUI()
         end
+
     end,
 
     OnIntelEnabled = function(self)
+
         CLandUnit.OnIntelEnabled(self)
+
         if self.IntelEffects and not self.IntelFxOn and self.IntelOn then
             self:PlaySound(self:GetBlueprint().Audio.Cloak)
             self.IntelEffectsBag = {}
@@ -66,7 +74,9 @@ SRL0320 = Class(CLandUnit) {
     end,
 
     OnIntelDisabled = function(self)
+
         CLandUnit.OnIntelDisabled(self)
+
         if self.IntelFxOn == true then
             self:PlaySound(self:GetBlueprint().Audio.Decloak)
             EffectUtil.CleanupEffectBag(self,'IntelEffectsBag')
@@ -75,16 +85,20 @@ SRL0320 = Class(CLandUnit) {
     end,
 
     OnScriptBitSet = function(self, bit)
+
         if bit == 8 then -- cloak toggle
             self.IntelOn = nil
         end
+
         CLandUnit.OnScriptBitSet(self, bit)
     end,
 
     OnScriptBitClear = function(self, bit)
+
         if bit == 8 then -- cloak toggle
             self.IntelOn = true
         end
+
         CLandUnit.OnScriptBitClear(self, bit)
     end,
 }

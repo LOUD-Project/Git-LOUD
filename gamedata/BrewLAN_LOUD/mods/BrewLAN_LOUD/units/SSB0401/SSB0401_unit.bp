@@ -20,47 +20,17 @@ UnitBlueprint {
         },
         BuildBackups = {
             EarlyNoRush = 'xss0302',
-            LastResorts = {
-                'xss0302',
-                'xss0202',
-                'xss0304',
-                'xss0201',
-                'xss0103',
-            },
+            LastResorts = {'xss0302','xss0202','xss0304','xss0201','xss0103'},
         },
     },
 
     Audio = {
-        Construct = Sound {
-            Bank = 'XSB',
-            Cue = 'XSB0303_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ConstructLoop = Sound {
-            Bank = 'XSB',
-            Cue = 'XSB0303_Construct_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'XSB',
-            Cue = 'XSB0303_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Factory',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Construct       = Sound { Bank = 'XSB', Cue = 'XSB0303_Construct_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        ConstructLoop   = Sound { Bank = 'XSB', Cue = 'XSB0303_Construct_Loop', LodCutoff = 'UnitMove_LodCutoff'},
+        DeathExplosion  = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'XSB', Cue = 'XSB0303_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Factory', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     BuildIconSortPriority = 40,
@@ -126,25 +96,15 @@ UnitBlueprint {
         },
 
         BlinkingLightsFx = {
-            Green = '/effects/emitters/light_green_03_emit.bp',
-            Red = '/effects/emitters/light_red_03_emit.bp',
-            Yellow = '/effects/emitters/light_yellow_02_emit.bp',
+            Green   = '/effects/emitters/light_green_03_emit.bp',
+            Red     = '/effects/emitters/light_red_03_emit.bp',
+            Yellow  = '/effects/emitters/light_yellow_02_emit.bp',
         },
 
         BuildAttachBone = 'Attachpoint',
 
         IdleEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            0,
-                        },
-                        Scale = 3,
-                        Type = 'SeaIdle01',
-                    },
-                },
-            },
+            Water = { Effects = { { Bones = {0}, Scale = 3, Type = 'SeaIdle01' } } },
         },
 
         Mesh = {
@@ -170,6 +130,7 @@ UnitBlueprint {
                 },
             },
         },
+
         UniformScale = 0.15,
     },
 
@@ -198,17 +159,10 @@ UnitBlueprint {
     },
 
     General = {
-        BuildBones = {
-            BuildEffectBones = {
-                'Muzzle001',
-                'Muzzle002',
-                'Muzzle003',
-                'Muzzle004',
-                'Muzzle005',
-                'Muzzle006',
-            },
-        },
+        BuildBones = { BuildEffectBones = {'Muzzle001','Muzzle002','Muzzle003','Muzzle004','Muzzle005','Muzzle006'} },
+
 		CapCost = 15,
+
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -221,12 +175,13 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'sea',
         SelectionPriority = 5,
+
         UnitName = '<LOC ssb0401_name>Souiya',
     },
 
     Intel = {
-        VisionRadius = 26,
-		WaterVisionRadius = 26,
+        VisionRadius = 28,
+		WaterVisionRadius = 28,
     },
 
     Interface = {

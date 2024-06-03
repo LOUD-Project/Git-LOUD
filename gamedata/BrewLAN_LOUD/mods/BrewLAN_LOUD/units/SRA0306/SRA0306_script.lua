@@ -5,8 +5,11 @@ local explosion = import('/lua/defaultexplosions.lua')
 local util = import('/lua/utilities.lua')
 
 local cWeapons = import('/lua/cybranweapons.lua')
-local CAAAutocannon = cWeapons.CAAAutocannon
-local CEMPAutoCannon = cWeapons.CEMPAutoCannon
+
+local CAAAutocannon     = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
+local CEMPAutoCannon    = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
+
+cWeapons = nil
 
 SRA0306 = Class(CAirUnit) {
 

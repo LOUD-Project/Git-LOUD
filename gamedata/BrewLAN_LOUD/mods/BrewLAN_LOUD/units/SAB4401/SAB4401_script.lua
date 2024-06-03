@@ -1,13 +1,13 @@
 --------------------------------------------------------------------------------
 -- Description: Shield bubble projection unit
 -- Author: Sean 'Balthazar' Wheeldon
---------------------------------------------------------------------------------
+
 local AShieldStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 local Shield = import('/lua/shield.lua').Shield
---------------------------------------------------------------------------------
-local explosion = import('/lua/defaultexplosions.lua')
+
+local CreateFlash = import('/lua/defaultexplosions.lua').CreateFlash
 local EffectTemplate = import('/lua/EffectTemplates.lua')
---------------------------------------------------------------------------------
+
 SAB4401 = Class(AShieldStructureUnit) {
 
     ShieldEffects = {
@@ -22,15 +22,16 @@ SAB4401 = Class(AShieldStructureUnit) {
         AShieldStructureUnit.OnStopBeingBuilt(self,builder,layer)
 		
         self:ForkThread(self.ShieldProjectionThread)
-		
-        self.ShieldEffectsBag = {}
+
         self.Manipulators = {
             {'Ring_1', 'z', 45},
             {'Ring_3', 'z', 45},
             {'Gem', 'z', 45},
             {'Orb', 'x', 45},
             {'Orb', 'z', 45},
-        }
+        }		
+
+        self.ShieldEffectsBag = {}
     end,
 
     OnShieldEnabled = function(self)
@@ -140,12 +141,16 @@ SAB4401 = Class(AShieldStructureUnit) {
         end
 
         --Stop the animations
-        for i, v in self.Manipulators do
+        if self.Manipulators then
 
-			if v[4] then
-				v[4]:SetTargetSpeed(0)
-			end
+            for i, v in self.Manipulators do
+
+                if v[4] then
+                    v[4]:SetTargetSpeed(0)
+                end
 			
+            end
+            
         end
 		
         --Kill the effects.
@@ -166,7 +171,7 @@ SAB4401 = Class(AShieldStructureUnit) {
 		
         self:PlayUnitSound('Destroyed')
 		
-        explosion.CreateFlash( self, 'Ring_1', 4.5, army )
+        CreateFlash( self, 'Ring_1', 4.5, army )
 		
         for i = 1, 3 do
             DamageArea(self, pos, 10, 1, 'Force', true)
@@ -193,7 +198,7 @@ SAB4401 = Class(AShieldStructureUnit) {
 		
         self:PlayUnitSound('Destroyed')
 		
-        explosion.CreateFlash( self, 'Ring_1', 4.5, army )
+        CreateFlash( self, 'Ring_1', 4.5, army )
 		
         self:CreateWreckage(overkillRatio)
         self:Destroy()

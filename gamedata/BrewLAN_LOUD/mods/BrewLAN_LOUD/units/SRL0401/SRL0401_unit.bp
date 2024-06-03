@@ -18,10 +18,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        AmbientMove = Sound {Bank = 'URL', Cue = 'URL0401_Move_Loop', LodCutoff = 'UnitMove_LodCutoff'},
-        Killed = Sound {Bank = 'URSDestroy', Cue = 'URS0302_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
-        StartMove = Sound {Bank = 'URL', Cue = 'URL0401_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
-        StopMove = Sound {Bank = 'URL', Cue = 'URL0401_Move_Stop', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed      = Sound {Bank = 'URSDestroy', Cue = 'URS0302_Destroy', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound {Bank = 'URL', Cue = 'URL0401_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        StopMove    = Sound {Bank = 'URL', Cue = 'URL0401_Move_Stop', LodCutoff = 'UnitMove_LodCutoff'},
         UISelection = Sound {Bank = 'Interface', Cue = 'Cybran_Select_Spider', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
@@ -29,11 +28,11 @@ UnitBlueprint {
 	
     Buffs = {
         Regen = {
-            Level1 = 15,
-            Level2 = 30,
-            Level3 = 45,
-            Level4 = 60,
-            Level5 = 75,
+            Level1 = 6,
+            Level2 = 12,
+            Level3 = 18,
+            Level4 = 24,
+            Level5 = 30,
         },
     },
 	
@@ -66,14 +65,16 @@ UnitBlueprint {
     },
 	
     Defense = {
-        AirThreatLevel = 43,
         ArmorType = 'Experimental',
+
+        Health = 51500,
+        MaxHealth = 51500,
+        RegenRate = 22,
+        
+        AirThreatLevel = 40,
         EconomyThreatLevel = 350,
-        Health = 75000,
-        MaxHealth = 75000,
-        RegenRate = 6,
-        SubThreatLevel = 3,
-        SurfaceThreatLevel = 43,
+        SubThreatLevel = 30,
+        SurfaceThreatLevel = 90,
     },
 	
     Description = '<LOC srs0402_desc>Experimental Transport (Transport)',
@@ -81,12 +82,11 @@ UnitBlueprint {
     Display = {
 	
         Abilities = {
-            '<LOC ability_aa>Anti-Air',
+            '<LOC ability_aa>Low Altitude Anti-Air',
             '<LOC ability_amphibious>Amphibious',
             '<LOC ability_stealthfield>Stealth Field',
             '<LOC ability_torpedo>Torpedoes',
             '<LOC ability_transport>Transport',
-            'Ground Attack',
         },
 		
         AnimationDeath = {
@@ -99,8 +99,7 @@ UnitBlueprint {
         LayerChangeEffects = {
             SeabedLand = {
                 Effects = {
-                    {
-                        Bones = {
+                    { Bones = {
                             'Kickup_001',
                             'Kickup_002',
                             'Kickup_003',
@@ -117,8 +116,7 @@ UnitBlueprint {
             },
             LandSeabed = {
                 Effects = {
-                    {
-                        Bones = {
+                    { Bones = {
                             'Kickup_001',
                             'Kickup_002',
                             'Kickup_003',
@@ -226,9 +224,7 @@ UnitBlueprint {
                         Type = 'UnderWater01',
                     },
                 },
-                Treads = {
-                    ScrollTreads = true,
-                },
+                Treads = { ScrollTreads = true },
             },
         },
         UniformScale = 0.09,
@@ -239,8 +235,7 @@ UnitBlueprint {
         BuildCostMass = 25000,
         BuildTime = 15000,
 		
-        MaintenanceConsumptionPerSecondEnergy = 500,
-		
+        MaintenanceConsumptionPerSecondEnergy = 250,
     },
 	
     Footprint = {
@@ -264,29 +259,30 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'amph',
+
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-field',
-                helpText = 'toggle_stealth_field',
-            },
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-field', helpText = 'toggle_stealth_field' },
         },
+        
         SelectionPriority = 2,
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+        
         UnitName = '<LOC srs0402_name>Abyss Crawler',
     },
 	
     Intel = {
-        RadarStealthFieldRadius = 12,
         ReactivateTime = 4,
-        SonarStealthFieldRadius = 12,
-        VisionRadius = 34,
-		WaterVisionRadius = 30,
+
+        RadarStealthFieldRadius = 20,
+        SonarStealthFieldRadius = 20,
+
+        VisionRadius = 40,
+		WaterVisionRadius = 36,
     },
 	
     Interface = {
-        HelpText = '<LOC srs0402_desc>Experimental Transport',
+        HelpText = '<LOC srs0402_desc>Experimental Amphibious Transport',
     },
 	
     LifeBarHeight = 0.075,
@@ -355,6 +351,7 @@ UnitBlueprint {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
                 Fire = Sound {Bank = 'URLWeapon', Cue = 'URL0402_Bolter', LodCutoff = 'Weapon_LodCutoff'},
             },
@@ -386,7 +383,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1.5,
+            RateOfFire = 1.5,       -- 225 DPS 
 			
             TargetCheckInterval = 0.5,
 			
@@ -412,9 +409,11 @@ UnitBlueprint {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
                 Fire = Sound {Bank = 'URLWeapon', Cue = 'URL0402_Bolter', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_None',
 			
             Damage = 150,
@@ -441,7 +440,7 @@ UnitBlueprint {
                 {MuzzleBones = {'Turret_Muzzle_002'}, RackBone = 'Turret_Barrel_002'},
             },
 
-            RateOfFire = 1.5,
+            RateOfFire = 1.5,       -- another 225 DPS
 			
             TargetCheckInterval = 0.5,
 			
@@ -498,7 +497,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 1.5,
+            RateOfFire = 1.5,       -- another 225
 			
             TargetCheckInterval = 0.5,
 			
@@ -553,7 +552,7 @@ UnitBlueprint {
                 {MuzzleBones = {'Turret_Muzzle_004'}, RackBone = 'Turret_Barrel_004'},
             },
 
-            RateOfFire = 1.5,
+            RateOfFire = 1.5,       -- another 225
 			
             TargetCheckInterval = 0.5,
 			
@@ -578,47 +577,60 @@ UnitBlueprint {
 		
         {
             Audio = {
-                Fire = Sound {Bank = 'URLWeapon', Cue = 'URL0402_Torpedo', LodCutoff = 'Weapon_LodCutoff'},
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URB2205_Torpedo_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
 			
-            Damage = 50,
-            DamageType = 'Normal',
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.3,
+                    Radius = 2,
+                    TargetAllow = 'LAND TECH1,NAVAL TECH1,LAND TECH2',
+                    TargetDisallow = 'WALL,COMMAND,EXPERIMENTAL',
+                },
+            },
 			
-            DisplayName = 'Meson Torpedo',
+            Damage = 300,
+            DamageType = 'Normal',
 			
             FireTargetLayerCapsTable = {
                 Seabed = 'Seabed|Sub|Water',
             },
-            FiringTolerance = 2,
+            FiringTolerance = 20,
 			
-            Label = 'Torpedo',
+            Label = 'TorpedoLauncher',
 			
-            MaxRadius = 47,
-
-            MuzzleVelocity = 5,
+            MaxRadius = 56,
 			
-            ProjectileId = '/projectiles/CANTorpedoMeson02/CANTorpedoMeson02_proj.bp',
-            ProjectileLifetime = 7,
+            MuzzleSalvoDelay = 0.6,
+            MuzzleSalvoSize = 4,
+            MuzzleVelocity = 7.5,
+			
+            ProjectileId = '/projectiles/CANTorpedoNanite02/CANTorpedoNanite02_proj.bp',
+            ProjectileLifetime = 8,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Torp_001',
-                        'Torp_002',
-                    },
+                    MuzzleBones = {'Torp_001','Torp_002'},
                     RackBone = 'Torp_001',
                 },
             },
+            
+            RackSalvoReloadTime = 1.6,  -- cycle is 4 seconds = 1200/4 = 300 DPS
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.25,
+            RateOfFire = 1,     -- controlled by salvo delay & reload
 			
-            TargetCheckInterval = 2.5,
+            TargetCheckInterval = 2,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SUBMERSIBLE',
                 'MOBILE',
                 'DEFENSE',
                 'ALLUNITS',
@@ -633,7 +645,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

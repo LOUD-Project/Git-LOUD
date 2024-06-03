@@ -7,31 +7,11 @@ UnitBlueprint {
     },
 	
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0202_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL_Destroy_Land_Med',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0202_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0202_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        AmbientMove = Sound { Bank = 'XSL', Cue = 'XSL0202_Move_Loop', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Med', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0202_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'XSL', Cue = 'XSL0202_Move_Stop', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Bot', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -62,9 +42,11 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
+
         Health = 1150,
         MaxHealth = 1150,
         RegenRate = 3,
+
         Shield = {
             ImpactEffects = 'SeraphimShieldHit01',
             OwnerShieldMesh = '/mods/BrewLAN_LOUD/units/ssl0311/ssl0311_PersonalShield_mesh',
@@ -79,15 +61,18 @@ UnitBlueprint {
             ShieldVerticalOffset = 0,
             StartsOff = true,
         },
+
         SurfaceThreatLevel = 27.9,
     },
 	
     Description = '<LOC ual0303_desc>Heavy Assault Bot',
 	
     Display = {
+
         Abilities = {
             '<LOC ability_personalshield>Personal Shield',
         },
+
         AnimationDeath = {
             {
                 Animation = '/units/XSL0202/XSL0202_ADeath.sca',
@@ -136,16 +121,7 @@ UnitBlueprint {
 		
         MovementEffects = {
             Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Left_Exhaust',
-                            'Right_Exhaust',
-                        },
-                        Scale = 0.5,
-                        Type = 'GroundKickup01',
-                    },
-                },
+                Effects = { { Bones = {'Left_Exhaust','Right_Exhaust'}, Scale = 0.5, Type = 'GroundKickup01' } },
                 Footfall = {
                     Bones = {
                         {
@@ -164,18 +140,9 @@ UnitBlueprint {
                 },
             },
         },
-        TransportAnimation = {
-            {
-                Animation = '/units/XSL0202/XSL0202_afold.sca',
-                Weight = 100,
-            },
-        },
-        TransportDropAnimation = {
-            {
-                Animation = '/units/XSL0202/XSL0202_aunfold.sca',
-                Weight = 100,
-            },
-        },
+
+        TransportAnimation = { { Animation = '/units/XSL0202/XSL0202_afold.sca', Weight = 100 } },
+        TransportDropAnimation = { { Animation = '/units/XSL0202/XSL0202_aunfold.sca', Weight = 100 } },
 		
         UniformScale = 0.055,
     },
@@ -198,17 +165,16 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+
         FactionName = 'Seraphim',
         Icon = 'land',
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-personal',
-                helpText = 'toggle_shield_personal',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-personal', helpText = 'toggle_shield_personal' },
         },
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+
+        ToggleCaps = { RULEUTC_ShieldToggle = true },
+
         UnitName = '<LOC ssl0311_name>Ilshatha',
     },
 	
@@ -271,13 +237,11 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0202_AireAuBolter',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0202_AireAuBolter', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -289,13 +253,12 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 1,
 			
             Label = 'MainGun',
 			
-            MaxRadius = 25,
+            MaxRadius = 26,
 
             MuzzleVelocity = 30,
 			
@@ -350,9 +313,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

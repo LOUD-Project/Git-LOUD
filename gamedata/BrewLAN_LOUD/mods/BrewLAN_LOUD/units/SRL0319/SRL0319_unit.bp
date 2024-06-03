@@ -6,30 +6,17 @@ UnitBlueprint {
     },
 
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0208_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0208_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        StartMove = Sound { Bank = 'URL', Cue = 'URL0208_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 2*1.5,
-            Level2 = 4*1.5,
-            Level3 = 6*1.5,
-            Level4 = 8*1.5,
-            Level5 = 10*1.5,
+            Level1 = 3,
+            Level2 = 6,
+            Level3 = 9,
+            Level4 = 12,
+            Level5 = 15,
         },
     },
 	
@@ -63,10 +50,12 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        EconomyThreatLevel = 93,
+
         Health = 1380,
         MaxHealth = 1380,
         RegenRate = 3,
+
+        EconomyThreatLevel = 93,
         SurfaceThreatLevel = 5,
     },
 	
@@ -83,17 +72,7 @@ UnitBlueprint {
         AnimationWater = '/units/URL0208/URL0208_Awheels.sca',
 		
         IdleEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'BRL0209',
-                        },
-                        Scale = 0.7,
-                        Type = 'SeaIdle02',
-                    },
-                },
-            },
+            Water = { Effects = { { Bones = {'BRL0209'}, Scale = 0.7, Type = 'SeaIdle02' } } },
         },
 		
         Mesh = {
@@ -120,28 +99,8 @@ UnitBlueprint {
         },
 		
         MovementEffects = {
-            Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Exhaust_Left',
-                            'Exhaust_Right',
-                        },
-                        Type = 'GroundKickup01',
-                    },
-                },
-            },
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'BRL0209',
-                        },
-                        Scale = 0.5,
-                        Type = 'BackWake',
-                    },
-                },
-            },
+            Land = { Effects = { { Bones = {'Exhaust_Left','Exhaust_Right'}, Type = 'GroundKickup01' } } },
+            Water = { Effects = { { Bones = {'BRL0209'}, Scale = 0.5, Type = 'BackWake' } } },
         },
 
         UniformScale = 0.1175*1.15,
@@ -168,15 +127,7 @@ UnitBlueprint {
     },
 	
     General = {
-        BuildBones = {
-            BuildEffectBones = {
-                'Buildpoint_Left',
-                'Buildpoint_Right',
-                'Buildpoint_Middle',
-            },
-            PitchBone = 'Buildpoint_Left',
-            YawBone = 'Buildpoint_Left',
-        },
+        BuildBones = { BuildEffectBones = {'Buildpoint_Left','Buildpoint_Right','Buildpoint_Middle'}, PitchBone = 'Buildpoint_Left', YawBone = 'Buildpoint_Left' },
 
         CommandCaps = {
             RULEUCC_Attack = true,
@@ -202,9 +153,7 @@ UnitBlueprint {
 
         SelectionPriority = 3,
 
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+        ToggleCaps = { RULEUTC_StealthToggle = true },
 
         UnitName = '<LOC srl0319_name>House',
     },
@@ -215,10 +164,10 @@ UnitBlueprint {
         RadarStealth = true,
         SonarStealth = true,
 
-		OmniRadius = 6,
+		OmniRadius = 8,
         RadarRadius = 48,
-        VisionRadius = 26,
-		WaterVisionRadius = 26,
+        VisionRadius = 24,
+		WaterVisionRadius = 24,
     },
 	
     LifeBarHeight = 0.075,
@@ -271,12 +220,9 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0203_Bolter',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0203_Bolter', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -306,10 +252,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret01_Muzzle',
-                        'Turret02_Muzzle',
-                    },
+                    MuzzleBones = {'Turret01_Muzzle','Turret02_Muzzle'},
                     RackBone = 'Turret01_Barrel',
                 },
             },
@@ -348,9 +291,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

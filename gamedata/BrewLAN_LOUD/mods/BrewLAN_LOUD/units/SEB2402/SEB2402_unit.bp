@@ -4,35 +4,19 @@ UnitBlueprint {
     },
 	
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2302_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'UEB', Cue = 'UEB2302_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 6,
-            Level2 = 12,
-            Level3 = 18,
-            Level4 = 24,
-            Level5 = 30,
+            Level1 = 5,
+            Level2 = 10,
+            Level3 = 15,
+            Level4 = 20,
+            Level5 = 25,
         },
         VisionRadius = {
             Level1 = 2,
@@ -64,34 +48,27 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 450,
         ArmorType = 'Structure',
+
+        Health = 9250,
+        MaxHealth = 9250,
         
-        EconomyThreatLevel = 306,
-        
-        Health = 10500,
-        MaxHealth = 10500,
-        
-        RegenRate = 6,
+        RegenRate = 5,
     },
 	
     Description = '<LOC seb2402_desc>Experimental Anti-Air Defence',
 	
     Display = {
         Abilities = {
-            '<LOC ability_aa>Anti-Air',
+            '<LOC ability_aa>Beam based Anti-Air',
             '<LOC ability_aquatic>Aquatic',
             '<LOC ability_deathaoe>Volatile',
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 300,
-                    ShaderName = 'Unit',
-                },
-                {
-                    LODCutoff = 500,
-                    ShaderName = 'Unit',
-                },
+                { LODCutoff = 300, ShaderName = 'Unit' },
+                { LODCutoff = 500, ShaderName = 'Unit' },
             },
         },
 
@@ -136,7 +113,7 @@ UnitBlueprint {
 			
             MaintenanceConsumptionPerSecondEnergy = 200,
 			
-            Name = 'Shield Dome',
+            Name = '<LOC ability_shielddome>Shield Dome',
 			
             RegenAssistMult = 60,            
 			
@@ -203,6 +180,7 @@ UnitBlueprint {
 
     General = {
 		CapCost = 5,
+        
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -211,6 +189,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'amph',
         SelectionPriority = 5,
+
         UnitName = '<LOC seb2402_name>Mummy',
     },
 	
@@ -273,28 +252,25 @@ UnitBlueprint {
     Weapon = {
         {
             AimsStraightOnDisable = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEA_Weapon',
-                    Cue = 'XEA0002_Orbital_Death_Ray',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEA_Weapon', Cue = 'XEA0002_Orbital_Death_Ray', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
 
             BeamCollisionDelay = 0,
-            BeamLifetime = 0.3,
+            BeamLifetime = 0.4,
 
             CollideFriendly = false,
-            Damage = 1000,
+            Damage = 750,
             DamageRadius = 0,
             DamageType = 'Railgun',
 
             DisplayName = 'Maelstrom Cannon',
             
-            EnergyDrainPerSecond = 4000,
-            EnergyRequired = 1000,
+            EnergyDrainPerSecond = 1500,
+            EnergyRequired = 3000,
             
             FireTargetLayerCapsTable = {
                 Land = 'Air',
@@ -323,9 +299,9 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiAir',
             
-            RateOfFire = 0.375,     -- 3000 per Onfire
-            
+            RateOfFire = 2,     -- 3000 per Onfire controlled by charge cycle = 1500 DPS Air
             TargetCheckInterval = 1,
+            
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'EXPERIMENTAL',
@@ -334,12 +310,13 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.15,
+            
+            TrackingRadius = 1.1,
             
             TurretBoneMuzzle = 'TurretA_Muzzle',
             TurretBonePitch = 'TurretA',
             TurretBoneYaw = 'TurretA',
-            TurretDualManipulators = false,
+
             
             TurretPitch = 30,
             TurretPitchRange = 45,  --45 Is the graphical limit before clipping occurs
@@ -353,28 +330,25 @@ UnitBlueprint {
         },
         {
             AimsStraightOnDisable = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEA_Weapon',
-                    Cue = 'XEA0002_Orbital_Death_Ray',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEA_Weapon', Cue = 'XEA0002_Orbital_Death_Ray', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
 
             BeamCollisionDelay = 0,
-            BeamLifetime = 0.3,
+            BeamLifetime = 0.4,
 
             CollideFriendly = false,
-            Damage = 1000,
+            Damage = 750,
             DamageRadius = 0,
             DamageType = 'Railgun',
 
             DisplayName = 'Maelstrom Cannon',
             
-            EnergyDrainPerSecond = 4000,
-            EnergyRequired = 1000,
+            EnergyDrainPerSecond = 1500,
+            EnergyRequired = 3000,
             
             FireTargetLayerCapsTable = {
                 Land = 'Air',
@@ -398,9 +372,9 @@ UnitBlueprint {
                 },
             },
 
-            RateOfFire = 0.375,
-            
+            RateOfFire = 2,
             TargetCheckInterval = 1,
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'EXPERIMENTAL',
@@ -428,29 +402,26 @@ UnitBlueprint {
         },
         {
             AimsStraightOnDisable = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEA_Weapon',
-                    Cue = 'XEA0002_Orbital_Death_Ray',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEA_Weapon', Cue = 'XEA0002_Orbital_Death_Ray', LodCutoff = 'Weapon_LodCutoff'},
             },
 
             BallisticArc = 'RULEUBA_None',
 
             BeamCollisionDelay = 0,
-            BeamLifetime = 0.3,
+            BeamLifetime = 0.4,
 
             CollideFriendly = false,
             
-            Damage = 1000,
+            Damage = 750,
             DamageRadius = 0,
             DamageType = 'Railgun',
 
             DisplayName = 'Maelstrom Cannon',
             
-            EnergyDrainPerSecond = 4000,
-            EnergyRequired = 1000,
+            EnergyDrainPerSecond = 1500,
+            EnergyRequired = 3000,
             
             FireTargetLayerCapsTable = {
                 Land = 'Air',
@@ -476,9 +447,9 @@ UnitBlueprint {
                 },
             },
 
-            RateOfFire = 0.375,
-            
+            RateOfFire = 2,
             TargetCheckInterval = 1,
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'EXPERIMENTAL',
@@ -492,7 +463,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'TurretC_Muzzle',
             TurretBonePitch = 'TurretC',
             TurretBoneYaw = 'TurretC',
-            TurretDualManipulators = false,
             
             TurretPitch = 30,
             TurretPitchRange = 45,
@@ -506,29 +476,26 @@ UnitBlueprint {
         },
         {
             AimsStraightOnDisable = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XEA_Weapon',
-                    Cue = 'XEA0002_Orbital_Death_Ray',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XEA_Weapon', Cue = 'XEA0002_Orbital_Death_Ray', LodCutoff = 'Weapon_LodCutoff'},
             },
 
             BallisticArc = 'RULEUBA_None',
 
             BeamCollisionDelay = 0,
-            BeamLifetime = 0.3,
+            BeamLifetime = 0.4,
 
             CollideFriendly = false,
             
-            Damage = 1000,
+            Damage = 750,
             DamageRadius = 0,
             DamageType = 'Railgun',
 
             DisplayName = 'Maelstrom Cannon',
             
-            EnergyDrainPerSecond = 5000,
-            EnergyRequired = 1000,
+            EnergyDrainPerSecond = 1500,
+            EnergyRequired = 3000,
             
             FireTargetLayerCapsTable = {
                 Land = 'Air',
@@ -553,9 +520,9 @@ UnitBlueprint {
                 },
             },
 
-            RateOfFire = 0.375,
-            
+            RateOfFire = 2,
             TargetCheckInterval = 1,
+            
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'EXPERIMENTAL',
@@ -584,7 +551,7 @@ UnitBlueprint {
         {
             Damage = 4000,
             DamageFriendly = true,
-            DamageRadius = 6.5,
+            DamageRadius = 8,
             DamageType = 'Normal',
             DisplayName = 'Death Weapon',
             DummyWeapon = true,
@@ -595,9 +562,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.0,
+        EnergyMult = 0.2,
         HealthMult = 0.6,
-        MassMult = 0.6,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

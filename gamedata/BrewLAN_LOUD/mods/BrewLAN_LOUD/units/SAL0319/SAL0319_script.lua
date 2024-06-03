@@ -1,17 +1,11 @@
---
--- AEON TECH 3 ENGINEER
---
-
 local AConstructionUnit = import('/lua/aeonunits.lua').AConstructionUnit
 
 SAL0319 = Class(AConstructionUnit) {
 
     ShieldEffects = {
-        --'/effects/emitters/aeon_shield_generator_t2_01_emit.bp',
-        --'/effects/emitters/aeon_shield_generator_t2_02_emit.bp',
         '/effects/emitters/aeon_shield_generator_t3_03_emit.bp',
-        --'/effects/emitters/aeon_shield_generator_t3_04_emit.bp',
     },
+
     OnCreate = function( self ) 
         AConstructionUnit.OnCreate(self)
     end,

@@ -49,9 +49,9 @@ SRL0324 = Class(CLandUnit) {
         ChangeState( self, self.InvisState )
     end,
 
-    OnIntelDisabled = function(self)
+    OnIntelDisabled = function(self,intel)
 
-        CRadarUnit.OnIntelDisabled(self)
+        CRadarUnit.OnIntelDisabled(self,intel)
 		
         if self.Threads and self.Threads[4][1] then
 		
@@ -83,9 +83,9 @@ SRL0324 = Class(CLandUnit) {
         end
     end,
 
-    OnIntelEnabled = function(self)
+    OnIntelEnabled = function(self,intel)
 
-        CRadarUnit.OnIntelEnabled(self)
+        CRadarUnit.OnIntelEnabled(self,intel)
 		
         if self.Threads and not self.Threads[4][1] then
 		

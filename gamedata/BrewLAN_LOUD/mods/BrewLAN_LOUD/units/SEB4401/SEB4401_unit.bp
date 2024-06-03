@@ -1,31 +1,11 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        PanelDestroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Sml_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ShieldOff = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB4202_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ShieldOn = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB4202_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed       = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        PanelDestroyed  = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Sml_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        ShieldOff       = Sound { Bank = 'UEB', Cue = 'UEB4202_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        ShieldOn        = Sound { Bank = 'UEB', Cue = 'UEB4202_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 16,
@@ -155,21 +135,21 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 3,
+        
         CommandCaps = {
             RULEUCC_Pause = true,
         },
         FactionName = 'UEF',
         Icon = 'land',
+        
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'toggle_shield_dome',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-dome', helpText = 'toggle_shield_dome' },
         },
+        
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_ShieldToggle = true },
+        
         UnitName = '<LOC seb4401_name>BFS - Nullifier',
     },
 

@@ -6,66 +6,14 @@ UnitBlueprint {
     },
 
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0208_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        CaptureLoop = Sound {
-            Bank = 'URL',
-            Cue = 'URL0208_Capture_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Construct = Sound {
-            Bank = 'URL',
-            Cue = 'URL0208_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ConstructLoop = Sound {
-            Bank = 'URL',
-            Cue = 'URL0208_Construct_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        HoverKilledOnWater = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ReclaimLoop = Sound {
-            Bank = 'URL',
-            Cue = 'URL0208_Reclaim_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartCapture = Sound {
-            Bank = 'URL',
-            Cue = 'URL0208_Capture_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0208_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartReclaim = Sound {
-            Bank = 'URL',
-            Cue = 'URL0208_Reclaim_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0208_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Construct           = Sound { Bank = 'URL', Cue = 'URL0208_Construct_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        StartCapture        = Sound { Bank = 'URL', Cue = 'URL0208_Capture_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove           = Sound { Bank = 'URL', Cue = 'URL0208_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        StartReclaim        = Sound { Bank = 'URL', Cue = 'URL0208_Reclaim_Start',LodCutoff = 'UnitMove_LodCutoff'},
+        StopMove            = Sound { Bank = 'URL', Cue = 'URL0208_Move_Stop', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed           = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        HoverKilledOnWater  = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection         = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -108,6 +56,7 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
+
         EconomyThreatLevel = 41,
 		
         Health = 620,
@@ -128,17 +77,7 @@ UnitBlueprint {
         AnimationWater = '/units/URL0208/URL0208_Awheels.sca',
 		
         IdleEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'BRL0209',
-                        },
-                        Scale = 0.7,
-                        Type = 'SeaIdle02',
-                    },
-                },
-            },
+            Water = { Effects = { { Bones = {'BRL0209'}, Scale = 0.7, Type = 'SeaIdle02' } } },
         },
 		
         Mesh = {
@@ -162,28 +101,8 @@ UnitBlueprint {
         },
 		
         MovementEffects = {
-            Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Exhaust_Left',
-                            'Exhaust_Right',
-                        },
-                        Type = 'GroundKickup01',
-                    },
-                },
-            },
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'BRL0209',
-                        },
-                        Scale = 0.5,
-                        Type = 'BackWake',
-                    },
-                },
-            },
+            Land = { Effects = { { Bones = {'Exhaust_Left','Exhaust_Right'}, Type = 'GroundKickup01' } } },
+            Water = { Effects = { { Bones = {'BRL0209'}, Scale = 0.5, Type = 'BackWake' } } },
         },
 
         UniformScale = 0.1175,
@@ -210,14 +129,8 @@ UnitBlueprint {
     },
 	
     General = {
-        BuildBones = {
-            BuildEffectBones = {
-                'Buildpoint_Left',
-                'Buildpoint_Right',
-            },
-            PitchBone = 'Buildpoint_Left',
-            YawBone = 'Buildpoint_Left',
-        },
+        BuildBones = { BuildEffectBones = {'Buildpoint_Left','Buildpoint_Right'}, PitchBone = 'Buildpoint_Left', YawBone = 'Buildpoint_Left'},
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -231,16 +144,19 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+
         ConstructionBar = true,
         FactionName = 'Cybran',
         Icon = 'amph',
+
         OrderOverrides = {
             RULEUTC_StealthToggle = { bitmapId = 'stealth-personal', helpText = 'toggle_stealth_personal' },
         },
+
         SelectionPriority = 3,
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+
         UnitName = '<LOC srl0209_name>Wilson',
     },
 	
@@ -252,8 +168,8 @@ UnitBlueprint {
 
 		OmniRadius = 5,
         RadarRadius = 48,
-        VisionRadius = 22,
-		WaterVisionRadius = 22,
+        VisionRadius = 24,
+		WaterVisionRadius = 24,
     },
 	
     Interface = {
@@ -313,13 +229,11 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0203_Bolter',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0203_Bolter', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -349,10 +263,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret01_Muzzle',
-                        'Turret02_Muzzle',
-                    },
+                    MuzzleBones = {'Turret01_Muzzle','Turret02_Muzzle'},
                     RackBone = 'Turret01_Barrel',
                 },
             },
@@ -390,9 +301,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

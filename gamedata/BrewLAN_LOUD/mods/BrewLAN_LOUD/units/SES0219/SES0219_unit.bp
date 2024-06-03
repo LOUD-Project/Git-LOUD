@@ -5,26 +5,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'UES',
-            Cue = 'UES0103_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'UESDestroy',
-            Cue = 'UES0103_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UES',
-            Cue = 'UES0103_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'UESDestroy', Cue = 'UES0103_Destroy', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'UES', Cue = 'UES0103_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Naval', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -101,14 +84,7 @@ UnitBlueprint {
         },
 		
         IdleEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {'UES0103'},
-                        Type = 'SeaIdle01',
-                    },
-                },
-            },
+            Water = { Effects = { { Bones = {'UES0103'}, Type = 'SeaIdle01' } } },
         },
 		
         Mesh = {
@@ -128,24 +104,13 @@ UnitBlueprint {
                 },
             },
         },
+        
         MovementEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {'Front_Left_Wake'},
-                        Scale = 1.25,
-                        Type = 'LeftFrontWake',
-                    },
-                    {
-                        Bones = {'Front_Right_Wake'},
-                        Scale = 1.25,
-                        Type = 'RightFrontWake',
-                    },
-                    {
-                        Bones = {'Back_Wake'},
-                        Scale = 1.25,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'Front_Left_Wake'}, Scale = 1.25, Type = 'LeftFrontWake' },
+                    { Bones = {'Front_Right_Wake'}, Scale = 1.25, Type = 'RightFrontWake' },
+                    { Bones = {'Back_Wake'}, Scale = 1.25, Type = 'BackWake' },
                 },
             },
         },
@@ -205,23 +170,25 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'sea',
         SelectionPriority = 2,
-        ToggleCaps = {
-            RULEUTC_JammingToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_JammingToggle = true },
+        
         UnitName = '<LOC ses0219_name>Fixxie Class',
     },
 	
     Intel = {
 		FreeIntel = true,
+        
         JamRadius = {
             Max = 55,
             Min = 35,
         },
         JammerBlips = 4,
+        
         RadarRadius = 90,
-        SonarRadius = 45,
+        SonarRadius = 48,
         VisionRadius = 36,
-        WaterVisionRadius = 18,
+        WaterVisionRadius = 16,
 		ShowIntelOnSelect = true,
     },
 	
@@ -278,13 +245,11 @@ UnitBlueprint {
 
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UEB2104_Railgun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UESWeapon', Cue = 'UEB2104_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
 			
             CannotAttackGround = true,
@@ -346,7 +311,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Turret_Muzzle01',
             TurretBonePitch = 'Back_Turret_Barrel01',
             TurretBoneYaw = 'Back_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 45,
             TurretPitchRange = 40,

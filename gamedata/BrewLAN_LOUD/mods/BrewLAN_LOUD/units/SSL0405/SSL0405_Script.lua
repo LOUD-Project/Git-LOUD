@@ -2,16 +2,19 @@ local SLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
 local WeaponsFile = import('/lua/seraphimweapons.lua')
 
-local SDFSinnuntheWeapon = WeaponsFile.SDFSinnuntheWeapon
-local SAAOlarisCannonWeapon = WeaponsFile.SAAOlarisCannonWeapon
-local SDFAireauBolterWeapon = WeaponsFile.SDFAireauBolterWeapon02
-local SDFThauCannon = WeaponsFile.SDFThauCannon
-local SANUallCavitationTorpedo = WeaponsFile.SANUallCavitationTorpedo
-local SDFAjelluAntiTorpedoDefense = WeaponsFile.SDFAjelluAntiTorpedoDefense
-local SDFGapingMaw = WeaponsFile.SDFGapingMaw
-local SMeleeBladeBeamWeapon = WeaponsFile.SMeleeBladeBeamWeapon
+local SDFSinnuntheWeapon            = WeaponsFile.SDFSinnuntheWeapon
+local SAAOlarisCannonWeapon         = WeaponsFile.SAAOlarisCannonWeapon
+local SDFAireauBolterWeapon         = WeaponsFile.SDFAireauBolterWeapon
+local SDFThauCannon                 = WeaponsFile.SDFThauCannon
+local SANUallCavitationTorpedo      = WeaponsFile.SANUallCavitationTorpedo
+local SDFAjelluAntiTorpedoDefense   = WeaponsFile.SDFAjelluAntiTorpedoDefense
+local SDFGapingMaw                  = WeaponsFile.SDFGapingMaw
+local SMeleeBladeBeamWeapon         = WeaponsFile.SMeleeBladeBeamWeapon
+
+WeaponsFile = nil
 
 local EffectUtil = import('/lua/EffectUtilities.lua')
+local CleanupEffectBag = EffectUtil.CleanupEffectBag
 
 SSL0405 = Class(SLandUnit) {
 
@@ -19,23 +22,29 @@ SSL0405 = Class(SLandUnit) {
 
     Weapons = {
         BigGun = Class(SDFSinnuntheWeapon) {
+
             PlayFxMuzzleChargeSequence = function(self, muzzle)
+
                 if not self.WeaponFXBag then
                     self.WeaponFXBag = {}
                 end
-                EffectUtil.CleanupEffectBag(self,'WeaponFXBag')
+                
+                CleanupEffectBag(self,'WeaponFXBag')
+                
                 for k, v in self.FxChargeMuzzleFlash do
                     table.insert(self.WeaponFXBag, CreateAttachedEmitter(self.unit, string.sub(muzzle, 1, 9), self.unit:GetArmy(), v):ScaleEmitter(self.FxChargeMuzzleFlashScale) )
                 end
             end,
         },
-        TailGun = Class(SAAOlarisCannonWeapon) {},
-        SmallGun = Class(SDFAireauBolterWeapon) { FxMuzzleFlashScale = 2.4 },
-        FaceGuns = Class(SDFThauCannon) {},
-        Torpedo = Class(SANUallCavitationTorpedo) {},
+
+        TailGun     = Class(SAAOlarisCannonWeapon) {},
+        SmallGun    = Class(SDFAireauBolterWeapon) { FxMuzzleFlashScale = 2.4 },
+        FaceGuns    = Class(SDFThauCannon) {},
+        Torpedo     = Class(SANUallCavitationTorpedo) {},
         AntiTorpedo = Class(SDFAjelluAntiTorpedoDefense) {},
-        GapingMaw = Class(SDFGapingMaw) {},
-        ClawMelee = Class(SMeleeBladeBeamWeapon) {
+        GapingMaw   = Class(SDFGapingMaw) {},
+        ClawMelee   = Class(SMeleeBladeBeamWeapon) {
+
             OnFire = function(self)
                 if not self.unit.TallStance and not self.unit.AnimationManipulator then
                     SMeleeBladeBeamWeapon.OnFire(self)
@@ -373,15 +382,19 @@ SSL0405 = Class(SLandUnit) {
     end,
 
     LayerTransform = function(self, land)
+
         if not self.TransformAnimator then
             self.TransformAnimator = CreateAnimator(self)
         end
 
         if land then
+
             self:AddToggleCap('RULEUTC_WeaponToggle')
             self:SetSpeedMult(1)
             self:SetImmobile(true)
+
             local dur = __blueprints[self.BpId].Physics.LayerTransitionDuration
+
             self.TransformAnimator:PlayAnim(__blueprints[self.BpId].Display.AnimationTransformWaterLand):SetRate(-self.TransformAnimator:GetAnimationDuration() / dur):SetAnimationFraction(1)
             coroutine.yield(dur * 10)
             self:SetImmobile(false)
@@ -390,17 +403,22 @@ SSL0405 = Class(SLandUnit) {
             if self.TallStance then
                 self:SetScriptBit('RULEUTC_WeaponToggle', false)
             end
+
             self:RemoveToggleCap('RULEUTC_WeaponToggle')
             self:SetSpeedMult(__blueprints[self.BpId].Physics.WaterSpeedMultiplier)
             self:SetImmobile(true)
+
             local dur = __blueprints[self.BpId].Physics.LayerTransitionDuration
+
             self.TransformAnimator:PlayAnim(__blueprints[self.BpId].Display.AnimationTransformLandWater):SetRate(self.TransformAnimator:GetAnimationDuration() / dur):SetAnimationFraction(0)
             coroutine.yield(dur * 10)
             self:SetImmobile(false)
+
             ---Collision box partially in the water
             local bp = __blueprints[self.BpId]
             self:SetCollisionShape( 'Box', bp.CollisionOffsetX or 0, bp.CollisionOffsetYSwim or 1, bp.CollisionOffsetZ or 0, bp.SizeX * 0.5, bp.SizeY * 0.5, bp.SizeZ * 0.5)
         end
+
         KillThread(self.TransformThread)
         self.TransformThread = nil
     end,
@@ -409,13 +427,9 @@ SSL0405 = Class(SLandUnit) {
     -- Ability handlers
     ----------------------------------------------------------------------------
     SetExoskeleton = function(self, active)
-        local bones = {
-            'Carapace',
-            'Tergum_001',
-            'Tergum_002',
-            'Tergum_003',
-            'Telson',
-        }
+
+        local bones = {'Carapace','Tergum_001','Tergum_002','Tergum_003','Telson'}
+
         for i, bone in bones do
             if active then
                 self:ShowBone(bone, true)
@@ -423,7 +437,9 @@ SSL0405 = Class(SLandUnit) {
                 self:HideBone(bone, true)
             end
         end
+
         local wep
+
         for i = 1, self:GetWeaponCount() do
             wep = self:GetWeapon(i)
             if (wep:GetBlueprint().Label == 'SmallGun') then
@@ -431,6 +447,7 @@ SSL0405 = Class(SLandUnit) {
                 wep:AimManipulatorSetEnabled(active)
             end
         end
+
         if active then
             self:AlterArmor('Normal', 1)
         else
@@ -479,6 +496,7 @@ SSL0405 = Class(SLandUnit) {
                 ----------------------------------------------------------------
                 -- Effects thread, also resource monitor
                 if not self.TallEffectThread then
+                
                     self.TallEffectThread = self:ForkThread(function()
 
                         if not self.TallSteamEffectBag then
@@ -487,11 +505,15 @@ SSL0405 = Class(SLandUnit) {
 
                         local bones = {'Leg_Upper_001', 'Leg_Upper_002', 'Leg_Upper_003', 'Leg_Upper_004', 'Leg_Upper_005',
                                            'Leg_Upper_006', 'Leg_Upper_007', 'Leg_Upper_008', 'Leg_Upper_009', 'Leg_Upper_010'}
+
                         while not self.Dead do
-                            EffectUtil.CleanupEffectBag(self, 'TallSteamEffectBag')
+
+                            CleanupEffectBag(self, 'TallSteamEffectBag')
+
                             for i, b in bones do
                                 table.insert(self.TallSteamEffectBag, CreateAttachedEmitter(self, b, self:GetArmy(), '/effects/emitters/dirty_exhaust_smoke_01_emit.bp'))
                             end
+
                             --Check everything is being paid for while we wait for the next effect time.
                             for i = 1, 4 do
                                 coroutine.yield(10)

@@ -1,11 +1,7 @@
 ProjectileBlueprint {
 
     Audio = {
-        Impact = Sound {
-            Bank = 'Impacts',
-            Cue = 'XSB_SMD_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
+        Impact = Sound { Bank = 'Impacts', Cue = 'XSB_SMD_Impact', LodCutoff = 'Weapon_LodCutoff'},
     },
 
     Categories = {
@@ -13,7 +9,7 @@ ProjectileBlueprint {
         'ANTIMISSILE',
     },
 
-    Description = 'Seraphim Anti Nuclear Missile',
+    Description = 'Anti Nuclear Missile',
 
     Display = {
         StrategicIconSize = 1,

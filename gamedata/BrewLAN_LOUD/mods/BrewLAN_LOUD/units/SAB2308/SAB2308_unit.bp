@@ -5,31 +5,26 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UAB',
-            Cue = 'UAB2205_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed       = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'UAB', Cue = 'UAB2205_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 4,
-            Level2 = 8,
-            Level3 = 12,
-            Level4 = 16,
-            Level5 = 20,
+            Level1 = 3,
+            Level2 = 6,
+            Level3 = 9,
+            Level4 = 12,
+            Level5 = 15,
         },
+        WaterVisionRadius = {
+            Level1 = 4,
+            Level2 = 6,
+            Level3 = 8,
+            Level4 = 10,
+            Level5 = 12,        
+        },        
     },
 	
     BuildIconSortPriority = 130,
@@ -54,22 +49,27 @@ UnitBlueprint {
     CollisionOffsetY = -1.0,
 	
     Defense = {
+
+        MissileTorpDestroy = { AttachBone = {'Turret'}, Radius = 3.5, RedirectRateOfFire = 9, ProjectileCategories = {'TORPEDO'} },
+    
         ArmorType = 'Structure',
+
         Health = 10000,
         MaxHealth = 10000,
         RegenRate = 6,
-        SubThreatLevel = 5,
-        SurfaceThreatLevel = 0,
+
+        SubThreatLevel = 40,
+        SurfaceThreatLevel = 40,
     },
 	
-    Description = '<LOC uab2205_desc>Torpedo Launcher',
+    Description = '<LOC uab2205_desc>Advanced Torpedo Launcher',
 	
     Display = {
 	
         Abilities = {
             '<LOC ability_sonar>Sonar',
-            '<LOC ability_torpedo>Torpedoes',
-			'Sonar & Radar Stealth',
+            '<LOC ability_torpedodef>Personal Torpedo Defense',
+            '<LOC ability_personalstealth>Personal Stealth',        
         },
 		
         AnimationOpen = '/units/UAB2205/UAB2205_Aopen.sca',
@@ -96,12 +96,14 @@ UnitBlueprint {
 	
     Footprint = {
         MinWaterDepth = 3.5,
+
         SizeX = 2,
         SizeZ = 2,
     },
 	
     General = {
 		CapCost = 2,
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -115,10 +117,13 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
+
         RadarStealth = true,
-        SonarRadius = 65,
         SonarStealth = true,
-        VisionRadius = 36,
+
+        SonarRadius = 68,
+
+        VisionRadius = 40,
         WaterVisionRadius = 48,
     },
 	
@@ -171,22 +176,32 @@ UnitBlueprint {
 	
     Weapon = {
         {
+            advancedTracking = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2205_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Open = Sound {
-                    Bank = 'UAB',
-                    Cue = 'UAB2205_Activate',
-                    LodCutoff = 'Weapon_LodCutoff',
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB2205_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
+                Open = Sound { Bank = 'UAB', Cue = 'UAB2205_Activate', LodCutoff = 'Weapon_LodCutoff' },
+            },
+            
+            BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.3,
+                    Radius = 2,
+                    TargetAllow = 'LAND TECH1,NAVAL TECH1,LAND TECH2,NAVAL TECH2',
+                    TargetDisallow = 'WALL,COMMAND,EXPERIMENTAL',
                 },
             },
-            BallisticArc = 'RULEUBA_None',
+
+            CannotAttackGround = true,
+
             CollideFriendly = false,
 			
-            Damage = 250,
+            Damage = 300,
             DamageType = 'Normal',
 			
             DisplayName = 'Chrono Torpedo',
@@ -197,16 +212,16 @@ UnitBlueprint {
 			
             FiringTolerance = 20,
 			
-            Label = 'Turret01',
+            Label = 'TorpedoLauncher',
 			
-            MaxRadius = 75,
+            MaxRadius = 80,
 			
-            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 8,
             MuzzleVelocity = 5,
 			
-            ProjectileId = '/projectiles/AANTorpedoChronoPack01/AANTorpedoChronoPack01_proj.bp',
-            ProjectileLifetime = 12,
+            ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',			
+            ProjectileLifetime = 10,
 
             RackBones = {
                 {
@@ -223,11 +238,14 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
+            
+            RackSalvoReloadTime = 3.6,  -- firing cycle = 6 seconds
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.25,		-- 8 torps * 250  = 4000 every 5 seconds = 360 DPS
-            TargetCheckInterval = 0.5,
+            RateOfFire = 1,		-- ROF controlled by salvo delay and reload = 8 x 300 = 2400 over 6 seconds = 400 DPS
+
+            TargetCheckInterval = 2,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -249,7 +267,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 30,
+            TurretYawSpeed = 28,
 			
             Turreted = true,
         },
@@ -258,14 +276,11 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.1,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Land = true,
-            Seabed = true,
-            Sub = true,
             Water = true,
         },
     },

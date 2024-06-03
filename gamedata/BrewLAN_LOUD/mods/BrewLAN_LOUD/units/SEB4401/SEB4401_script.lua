@@ -117,7 +117,7 @@ SEB4401 = Class(TShieldStructureUnit) {
             local radius = 2
             if pos then
                 --If we already have pos, then we just hit ground.
-                CreateSplat(pos,GetRandomFloat(0,2*math.pi),ScorchSplatTextures[math.random(1,table.getn(ScorchSplatTextures))], radius, radius, GetRandomFloat(200,350), GetRandomFloat(300,600), self:GetArmy() )
+                CreateSplat(pos,GetRandomFloat(0,6.28),ScorchSplatTextures[math.random(1,table.getn(ScorchSplatTextures))], radius, radius, GetRandomFloat(200,350), GetRandomFloat(300,600), self:GetArmy() )
             end
             if not pos then
                 pos = self:GetPosition(bone)

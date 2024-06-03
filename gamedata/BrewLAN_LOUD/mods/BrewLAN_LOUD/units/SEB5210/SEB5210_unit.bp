@@ -1,19 +1,10 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'AttackTarget001',
-            'AttackTarget002',
-            'AttackTarget003',
-            'AttackTarget004',
-        },
+        TargetBones = {'AttackTarget001','AttackTarget002','AttackTarget003','AttackTarget004'},
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 261,

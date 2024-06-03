@@ -1,7 +1,7 @@
 UnitBlueprint {
 
 	AI = {
-        GuardScanRadius = 45,
+        GuardScanRadius = 34,
         GuardReturnRadius = 75,
         TargetBones = {'XSA0203'},
     },
@@ -38,30 +38,18 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'XSA_Destroy',
-            Cue = 'XSA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0203_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'XSA_Destroy', Cue = 'XSA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'XSA', Cue = 'XSA0203_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Air', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
         Regen = {
             Level1 = 5,
-            Level2 = 10,
-            Level3 = 15,
-            Level4 = 20,
-            Level5 = 25,
+            Level2 = 11,
+            Level3 = 16,
+            Level4 = 22,
+            Level5 = 27,
         },
     },
 	
@@ -84,11 +72,12 @@ UnitBlueprint {
     CollisionOffsetY = -0.075,
 	
     Defense = {
-        AirThreatLevel = 10.5,
         ArmorType = 'Light',
-        Health = 5980,
-        MaxHealth = 5980,
+        Health = 5600,
+        MaxHealth = 5600,
         RegenRate = 11,
+
+        AirThreatLevel = 10.5,
         SurfaceThreatLevel = 32,
     },
 	
@@ -103,18 +92,12 @@ UnitBlueprint {
         LayerChangeEffects = {
             AirLand = {
                 Effects = {
-                    {
-                        Bones = {'XSA0203'},
-                        Type = 'Landing01',
-                    },
+                    { Bones = {'XSA0203'}, Type = 'Landing01' },
                 },
             },
             LandAir = {
                 Effects = {
-                    {
-                        Bones = {'XSA0203'},
-                        Type = 'TakeOff01',
-                    },
+                    { Bones = {'XSA0203'}, Type = 'TakeOff01' },
                 },
             },
         },
@@ -139,19 +122,17 @@ UnitBlueprint {
         MovementEffects = {
             Air = {
                 Effects = {
-                    {
-                        Bones = {'Left_Exhaust','Exhaust_03'},
-                        Type = 'AirMoveExhaust03',
-                    },
+                    { Bones = {'Left_Exhaust','Exhaust_03'}, Type = 'AirMoveExhaust03' },
                 },
             },
         },
+        
         UniformScale = 0.05,
     },
 	
     Economy = {
         BuildCostEnergy = 95000,
-        BuildCostMass = 3100,
+        BuildCostMass = 3000,
         BuildTime = 1315,
     },
 	
@@ -178,7 +159,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 34,
+        VisionRadius = 40,
     },
 	
     Interface = {
@@ -195,7 +176,7 @@ UnitBlueprint {
         },
         Elevation = 14,
         FuelRechargeRate = 12,
-        FuelUseTime = 420,
+        FuelUseTime = 440,
 		
         GroundCollisionOffset = 1.6,
 
@@ -238,15 +219,147 @@ UnitBlueprint {
     },
 	
     Weapon = {
+
         {
+            AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0303_AA_AutoCanLosaare',
-                    LodCutoff = 'Weapon_LodCutoff',
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0203_Phasic_Autogun_Hvy', LodCutoff = 'Weapon_LodCutoff' },
+            },
+            
+            AutoInitiateAttackCommand = true,
+            
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 35,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Heavy Phasic Autogun',
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Air|Land|Water|Seabed',
+                Land = 'Air|Land|Water|Seabed',
+            },
+            FiringTolerance = 0.5,
+			
+            Label = 'TurretLeft',
+			
+            MaxRadius = 34,
+			
+            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 40,
+			
+            ProjectileId = '/projectiles/SDFHeavyPhasicAutogun02/SDFHeavyPhasicAutogun02_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 1,
+
+            RackBones = {
+                {
+                    MuzzleBones = {'Left_Muzzle01','Left_Muzzle02'},
+                    RackBone = 'Left_Turret_Barrel',
                 },
             },
+
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1,		-- 140 DPS
+			
+            TargetCheckInterval = 0.4,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'HIGHALTAIR, UNTARGETABLE, SATELLITE',
+			
+            TurretBoneMuzzle = 'Left_Muzzle01',
+            TurretBonePitch = 'Left_Turret_Barrel',
+            TurretBoneYaw = 'Left_Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = -20,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 360,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 60,
+			
+            Turreted = true,
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            
+            Audio = {
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0203_Phasic_Autogun_Hvy', LodCutoff = 'Weapon_LodCutoff' },
+            },
+
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 35,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Heavy Phasic Autogun',
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Air|Land|Water|Seabed',
+                Land = 'Air|Land|Water|Seabed',
+            },
+            FiringTolerance = 0.5,
+			
+            Label = 'TurretRight',
+			
+            MaxRadius = 34,
+			
+            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 40,
+
+            ProjectileId = '/projectiles/SDFHeavyPhasicAutogun02/SDFHeavyPhasicAutogun02_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 1,
+
+            RackBones = {
+                {
+                    MuzzleBones = {'Right_Muzzle01','Right_Muzzle02'},
+                    RackBone = 'Right_Turret_Barrel',
+                },
+            },
+
+            RateOfFire = 1,		-- 140 DPS
+			
+            TargetCheckInterval = 0.4,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'HIGHALTAIR, UNTARGETABLE, SATELLITE, WALL',
+			
+            TurretBoneMuzzle = 'Right_Muzzle01',
+            TurretBonePitch = 'Right_Turret_Barrel',
+            TurretBoneYaw = 'Right_Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = -20,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 360,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 90,
+			
+            Turreted = true,
+        },
+        
+        -- AA Weapon --
+        
+        {
+            Audio = {
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0303_AA_AutoCanLosaare', LodCutoff = 'Weapon_LodCutoff' },
+            },
+            
             AutoInitiateAttackCommand = false,
+            
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -265,7 +378,7 @@ UnitBlueprint {
 			
             Label = 'AutoCannon1',
 			
-            MaxRadius = 30,
+            MaxRadius = 32,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 3,
@@ -315,149 +428,9 @@ UnitBlueprint {
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
         },
-		
+        
         {
-            AboveWaterTargetsOnly = true,
-            Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0203_Phasic_Autogun_Hvy',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-            AutoInitiateAttackCommand = true,
-            BallisticArc = 'RULEUBA_None',
-            CollideFriendly = false,
-			
-            Damage = 35,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Heavy Phasic Autogun',
-			
-            FireTargetLayerCapsTable = {
-                Air = 'Air|Land|Water|Seabed',
-                Land = 'Air|Land|Water|Seabed',
-            },
-            FiringTolerance = 0.5,
-			
-            Label = 'TurretLeft',
-			
-            MaxRadius = 28,
-			
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 40,
-			
-            ProjectileId = '/projectiles/SDFHeavyPhasicAutogun02/SDFHeavyPhasicAutogun02_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1,
-
-            RackBones = {
-                {
-                    MuzzleBones = {
-                        'Left_Muzzle01',
-                        'Left_Muzzle02',
-                    },
-                    RackBone = 'Left_Turret_Barrel',
-                },
-            },
-
-            RangeCategory = 'UWRC_DirectFire',
-			
-            RateOfFire = 1,		-- 140 DPS
-			
-            TargetCheckInterval = 0.4,
-            TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'ALLUNITS',
-            },
-            TargetRestrictDisallow = 'HIGHALTAIR, UNTARGETABLE, SATELLITE',
-			
-            TurretBoneMuzzle = 'Left_Muzzle01',
-            TurretBonePitch = 'Left_Turret_Barrel',
-            TurretBoneYaw = 'Left_Turret',
-            TurretDualManipulators = false,
-			
-            TurretPitch = -20,
-            TurretPitchRange = 60,
-            TurretPitchSpeed = 360,
-			
-            TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 60,
-			
-            Turreted = true,
-        },
-        {
-            AboveWaterTargetsOnly = true,
-            Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0203_Phasic_Autogun_Hvy',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-            AutoInitiateAttackCommand = true,
-            BallisticArc = 'RULEUBA_None',
-            CollideFriendly = false,
-			
-            Damage = 35,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Heavy Phasic Autogun',
-			
-            FireTargetLayerCapsTable = {
-                Air = 'Air|Land|Water|Seabed',
-                Land = 'Air|Land|Water|Seabed',
-            },
-            FiringTolerance = 0.5,
-			
-            Label = 'TurretRight',
-			
-            MaxRadius = 28,
-			
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 40,
-
-            ProjectileId = '/projectiles/SDFHeavyPhasicAutogun02/SDFHeavyPhasicAutogun02_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1,
-
-            RackBones = {
-                {
-                    MuzzleBones = {
-                        'Right_Muzzle01',
-                        'Right_Muzzle02',
-                    },
-                    RackBone = 'Right_Turret_Barrel',
-                },
-            },
-
-            RateOfFire = 1,		-- 140 DPS
-			
-            TargetCheckInterval = 0.4,
-            TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'ALLUNITS',
-            },
-            TargetRestrictDisallow = 'HIGHALTAIR, UNTARGETABLE, SATELLITE, WALL',
-			
-            TurretBoneMuzzle = 'Right_Muzzle01',
-            TurretBonePitch = 'Right_Turret_Barrel',
-            TurretBoneYaw = 'Right_Turret',
-            TurretDualManipulators = false,
-			
-            TurretPitch = -20,
-            TurretPitchRange = 60,
-            TurretPitchSpeed = 360,
-			
-            TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 90,
-			
-            Turreted = true,
-        },
-        {
-            Damage = 100,
+            Damage = 250,
             DamageFriendly = true,
             DamageRadius = 1,
             DamageType = 'Normal',
@@ -471,9 +444,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

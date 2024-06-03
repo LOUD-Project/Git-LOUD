@@ -21,8 +21,7 @@ SRL0311 = Class(CLandUnit) {
                 CDFRocketIridiumWeapon.CreateProjectileAtMuzzle(self, muzzle)
                 
                 if not self.RecoilManipulators then self.RecoilManipulators = {} end
-                
-                --LOG(self.CurrentRackSalvoNumber)
+
                 if muzzle == 'Missile_001' then
                 
                     self.MissileNo = 0
@@ -35,14 +34,14 @@ SRL0311 = Class(CLandUnit) {
                     end
                     
                     self.RecoilManipulatorThreads = {}
-                    --Pretty sure this results in thread accumulation still, but at this point a million iterations and STRESS.
+
                 else
                 
                     self.MissileNo = self.MissileNo + 1
                     
                 end
                 
-                local missile = muzzle--'Missile_Slider' .. string.sub(muzzle, -4, -1)
+                local missile = muzzle
                 
                 if not self.RecoilManipulators[missile] then
                     self.RecoilManipulators[missile] = CreateSlider(self.unit, missile )
@@ -53,10 +52,13 @@ SRL0311 = Class(CLandUnit) {
                 LOUDINSERT( self.RecoilManipulatorThreads,
                     self:ForkThread(
                         function(self, no)
-                            coroutine.yield((8*no)+1)
+                        
+                            coroutine.yield( 1 + (5) )
+                            
                             if self.RecoilManipulators[missile] then
-                                self.RecoilManipulators[missile]:SetSpeed(12):SetGoal(0, 0, 0)
+                                self.RecoilManipulators[missile]:SetSpeed(math.log(no+8)):SetGoal(0, 0, 0)
                             end
+                            
                         end,
                         self.MissileNo
                     )

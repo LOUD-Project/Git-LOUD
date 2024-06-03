@@ -4,16 +4,8 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 150,
@@ -66,29 +58,27 @@ UnitBlueprint {
             Bones = {
                 North = {
                     visibility = 'show',
-                    --bonetype = 'North',
                     conflict = 'North',
                 },
                 South = {
                     visibility = 'show',
-                    --bonetype = 'South',
                     conflict = 'South',
                 },
                 East = {
                     visibility = 'show',
-                    --bonetype = 'East',
                     conflict = 'East',
                 },
                 West = {
                     visibility = 'show',
-                    --bonetype = 'West',
                     conflict = 'West',
                 },
             },
         },
+        
         Abilities = {
             '<LOC ability_personalshield>Personal Shield',
         },
+        
         DamageEffects = {
             {
                 Bone = 0,

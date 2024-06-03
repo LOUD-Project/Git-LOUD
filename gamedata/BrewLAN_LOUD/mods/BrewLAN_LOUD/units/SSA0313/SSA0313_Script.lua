@@ -3,8 +3,11 @@ local SAirUnit = import('/lua/defaultunits.lua').AirUnit
 local MissileFlare = import('/lua/defaultunits.lua').BaseDirectionalAntiMissileFlare
 
 local SeraphimWeapons = import('/lua/seraphimweapons.lua')
-local SAALosaareAutoCannonWeapon = SeraphimWeapons.SAALosaareAutoCannonWeaponAirUnit
-local SDFUnstablePhasonBeam = SeraphimWeapons.SDFUltraChromaticBeamGenerator02
+
+local SAALosaareAutoCannonWeapon    = SeraphimWeapons.SAALosaareAutoCannonWeaponAirUnit
+local SDFUnstablePhasonBeam         = SeraphimWeapons.SDFUltraChromaticBeamGenerator02
+
+SeraphimWeapons = nil
 
 SSA0313 = Class(SAirUnit, MissileFlare) {
     Weapons = {

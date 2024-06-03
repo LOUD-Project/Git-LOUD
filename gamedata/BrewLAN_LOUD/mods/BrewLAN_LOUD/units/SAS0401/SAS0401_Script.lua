@@ -1,11 +1,14 @@
 local ASeaUnit = import('/lua/defaultunits.lua').SeaUnit
 
 local WeaponsFile = import('/lua/aeonweapons.lua')
-local ADFCannonOblivionWeapon = WeaponsFile.ADFCannonOblivionWeapon
-local AIFQuanticArtillery = WeaponsFile.AIFQuanticArtillery
-local AAAZealotMissileWeapon = WeaponsFile.AAAZealotMissileWeapon
-local ADFDisruptorCannonWeapon = WeaponsFile.ADFDisruptorWeapon
-local AIFQuasarAntiTorpedoWeapon = WeaponsFile.AIFQuasarAntiTorpedoWeapon
+
+local ADFCannonOblivionWeapon       = WeaponsFile.ADFCannonOblivionWeapon
+local AIFQuanticArtillery           = WeaponsFile.AIFQuanticArtillery
+local AAAZealotMissileWeapon        = WeaponsFile.AAAZealotMissileWeapon
+local ADFDisruptorCannonWeapon      = WeaponsFile.ADFDisruptorWeapon
+local AIFQuasarAntiTorpedoWeapon    = WeaponsFile.AIFQuasarAntiTorpedoWeapon
+
+WeaponsFile = nil
 
 local CleanShieldBag = function(self) if self.ShieldEffect then self.ShieldEffect:Destroy() self.ShieldEffect = nil end end
 local NegPos = function(b) if math.random(0, 1) then return b else return -b end end --return b * (1 - 2 * math.random(0, 1))
@@ -17,59 +20,50 @@ SAS0401 = Class(ASeaUnit) {
     DestructionTicks = 400,
 
     Weapons = {
-        Oblivion = Class(ADFCannonOblivionWeapon) {
+        Oblivion        = Class(ADFCannonOblivionWeapon) {
             FxChargeMuzzleFlash = {
                 '/effects/emitters/oblivion_cannon_flash_01_emit.bp',
                 '/effects/emitters/oblivion_cannon_flash_02_emit.bp',
-                --'/effects/emitters/oblivion_cannon_flash_03_emit.bp',
             },
         },
-        Salvation = Class(AIFQuanticArtillery) {},
-        Zealot = Class(AAAZealotMissileWeapon) {},
-        Disruptor = Class(ADFDisruptorCannonWeapon) {
+        Salvation       = Class(AIFQuanticArtillery) {},
+        Zealot          = Class(AAAZealotMissileWeapon) {},
+        Disruptor       = Class(ADFDisruptorCannonWeapon) {
             CreateProjectileAtMuzzle = function(self, muzzle)
+
                 local proj = ADFDisruptorCannonWeapon.CreateProjectileAtMuzzle(self, muzzle)
+
                 if not self.data then self.data = self:GetBlueprint().DamageToShields end
+
                 if proj and not proj:BeenDestroyed() then
                     proj:PassData(self.data)
                 end
             end,
         },
-        AntiTorpedo = Class(AIFQuasarAntiTorpedoWeapon) {},
+        AntiTorpedo     = Class(AIFQuasarAntiTorpedoWeapon) {},
     },
 
     HidePanels = function(self)
         for i = 1, 9 do self:HideBone('Panel_00'..i, false) end
         for i = 0, 2 do self:HideBone('Panel_01'..i, false) end
-        --[[for i, bone in {
-            'Panel_001',
-            'Panel_002',
-            'Panel_003',
-            'Panel_004',
-            'Panel_005',
-            'Panel_006',
-            'Panel_007',
-            'Panel_008',
-            'Panel_009',
-            'Panel_010',
-            'Panel_011',
-            'Panel_012',
-        } do
-            self:HideBone(bone, false)
-        end]]
+
         self:SetCustomName('Indulge Class')
     end,
 
     OnCreate = function(self)
+
         ASeaUnit.OnCreate(self)
+
         --Yes, this means it's shared between all players.
         ShipNumber = ShipNumber + 1
+
         --First two ever get a cool pair of names.
         local UniqueShips = {
             [1] = 'Scylla',
             [2] = 'Charybdis',
             [69] = self.HidePanels,
         }
+
         if UniqueShips[ShipNumber] then
             if type(UniqueShips[ShipNumber]) == 'string' then
                 self:SetCustomName(UniqueShips[ShipNumber])
@@ -77,6 +71,7 @@ SAS0401 = Class(ASeaUnit) {
                 UniqueShips[ShipNumber](self)
             end
         end
+
         if math.mod(ShipNumber, 2) == 1 then
             --Flip directional turrets every other one built
             CreateRotator(self, 'Front_Turrets_Switch', 'y', 180, 999999999)
@@ -89,6 +84,7 @@ SAS0401 = Class(ASeaUnit) {
             CreateRotator(self, 'MB2_Turret', 'y', 22.5, 999999999)
             CreateRotator(self, 'AS1_Turret', 'y', -22.5, 999999999)
         end
+
         --Position the rear turrets in the correct place for their arcs centres
         CreateRotator(self, 'AS2_Turret', 'y', 90, 999999999)
         CreateRotator(self, 'MB3_Turret', 'y', -90, 999999999)
@@ -234,8 +230,10 @@ SAS0401 = Class(ASeaUnit) {
 
     ----------------------------------------------------------------------------
     -- Intel effects. Here just in case it's set to be toggle-able in the future.
-    OnIntelEnabled = function(self)
-        ASeaUnit.OnIntelEnabled(self)
+    OnIntelEnabled = function(self,intel)
+    
+        ASeaUnit.OnIntelEnabled(self,intel)
+        
         if not self.IntelMast then
             self.IntelMast = CreateRotator(self, 'Mast', 'z', nil, 0, 20, NegPos(20) )
         else
@@ -243,8 +241,10 @@ SAS0401 = Class(ASeaUnit) {
         end
     end,
 
-    OnIntelDisabled = function(self)
-        ASeaUnit.OnIntelDisabled(self)
+    OnIntelDisabled = function(self,intel)
+    
+        ASeaUnit.OnIntelDisabled(self,intel)
+        
         if self.IntelMast then self.IntelMast:SetTargetSpeed(0) end
     end,
 

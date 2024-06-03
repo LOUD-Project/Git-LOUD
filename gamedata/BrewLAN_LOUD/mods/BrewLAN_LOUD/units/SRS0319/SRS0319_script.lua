@@ -3,9 +3,12 @@
 local CSeaUnit = import('/lua/defaultunits.lua').SeaUnit
 
 local CybranWeapons = import('/lua/cybranweapons.lua')
-local CAAAutocannon = CybranWeapons.CAAAutocannon
-local CANNaniteTorpedoWeapon = import('/lua/cybranweapons.lua').CANNaniteTorpedoWeapon
-local CIFSmartCharge = import('/lua/cybranweapons.lua').CIFSmartCharge
+
+local CAAAutocannon             = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
+local CANNaniteTorpedoWeapon    = CybranWeapons.CANNaniteTorpedoWeapon
+local CIFSmartCharge            = CybranWeapons.CIFSmartCharge
+
+CybranWeapons = nil
 
 local BrewLANLOUDPath = import( '/lua/game.lua' ).BrewLANLOUDPath()
 local AssistThread = import(BrewLANLOUDPath .. '/lua/fieldengineers.lua').AssistThread

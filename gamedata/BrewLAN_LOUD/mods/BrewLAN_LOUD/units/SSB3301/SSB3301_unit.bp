@@ -1,39 +1,15 @@
 UnitBlueprint {
 
     Abilities = {
-        TargetLocation = {
-            bitmapId = 'skry-target',
-            helpText = 'scry_spy_target',
-            preferredSlot = 11,
-        },
+        TargetLocation = { bitmapId = 'skry-target', helpText = 'scry_spy_target', preferredSlot = 11 },
     },
 	
     Audio = {
-        ActiveLoop = Sound {
-            Bank = 'XAB',
-            Cue = 'XAB3301_Active',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'XAB',
-            Cue = 'XAB3301_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        ActiveLoop      = Sound { Bank = 'XAB', Cue = 'XAB3301_Active',      LodCutoff = 'UnitMove_LodCutoff' },
+        DoneBeingBuilt  = Sound { Bank = 'XAB', Cue = 'XAB3301_Activate',    LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Radar',             LodCutoff = 'UnitMove_LodCutoff' },
+        DeathExplosion  = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Lrg_PreDestroy',   LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed       = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge',             LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     BuildIconSortPriority = 200,
@@ -59,47 +35,18 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 400,
+
         Health = 1250,
         MaxHealth = 1250,
         RegenRate = 2,
+
+        EconomyThreatLevel = 400,
     },
 	
     Description = '<LOC ssb3301_desc>Optics Tracking Facility',
 	
     Display = {
-        DamageEffects = {
-            {
-                Bone = 0,
-                OffsetX = 0,
-                OffsetY = 2.75,
-                OffsetZ = 0,
-            },
-            {
-                Bone = 0,
-                OffsetX = 0.5,
-                OffsetY = 0.25,
-                OffsetZ = 0,
-            },
-            {
-                Bone = 0,
-                OffsetX = -0.5,
-                OffsetY = 0.25,
-                OffsetZ = 0,
-            },
-            {
-                Bone = 0,
-                OffsetX = 0,
-                OffsetY = 0.25,
-                OffsetZ = 0.5,
-            },
-            {
-                Bone = 0,
-                OffsetX = 0,
-                OffsetY = 0.25,
-                OffsetZ = -0.5,
-            },
-        },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -137,6 +84,7 @@ UnitBlueprint {
                 Width = 10,
             },
         },
+
         UniformScale = 0.05,
     },
 	
@@ -169,22 +117,20 @@ UnitBlueprint {
 
         SelectionPriority = 5,
 
-        ToggleCaps = {
-            RULEUTC_IntelToggle = true,
-        },
+        ToggleCaps = { RULEUTC_IntelToggle = true },
 
         UnitName = '<LOC ssb3301_name>Aezselen',
     },
 	
     Intel = {
 
-        Cooldown = 20,
-        ReactivateTime = 20,
+        Cooldown = 24,
+        ReactivateTime = 24,
 
         RemoteViewingRadius = 28,
-        RemoteViewingLifetime = 96,
+        RemoteViewingLifetime = 80,
 
-        VisionRadius = 10,
+        VisionRadius = 12,
     },
 	
     LifeBarHeight = 0.075,

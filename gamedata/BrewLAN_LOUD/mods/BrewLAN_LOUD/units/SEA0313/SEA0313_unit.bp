@@ -62,11 +62,11 @@ UnitBlueprint {
     
     Buffs = {
         Regen = {
-            Level1 = 8,
-            Level2 = 16,
-            Level3 = 24,
-            Level4 = 32,
-            Level5 = 40,
+            Level1 = 5,
+            Level2 = 10,
+            Level3 = 15,
+            Level4 = 20,
+            Level5 = 25,
         },
     },
     
@@ -107,18 +107,12 @@ UnitBlueprint {
             '<LOC ability_missiledef>Missile Defense',
             '<LOC ability_personalstealth>Personal Stealth',
         },
+        
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    {Bones = {0}, Type = 'Landing01'},
-                },
-            },
-            LandAir = {
-                Effects = {
-                    {Bones = {0}, Type = 'TakeOff01'},
-                },
-            },
+            AirLand = { Effects = { {Bones = {0}, Type = 'Landing01'} } },
+            LandAir = { Effects = { {Bones = {0}, Type = 'TakeOff01'} } },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -127,24 +121,16 @@ UnitBlueprint {
                 {LODCutoff = 520, ShaderName = 'Unit'},
             },
         },
+        
         MovementEffects = {
             Air = {
-                Contrails = {
-                    Bones = {'Contrail_001', 'Contrail_002', 'Contrail_003', 'Contrail_004'},
-                },
-                Effects = {
-                    {
-                        Bones = {'Engine_001', 'Engine_002'},
-                        Type = 'AirMoveExhaust',
-                    },
-                },
+                Contrails = { Bones = {'Contrail_001', 'Contrail_002', 'Contrail_003', 'Contrail_004'} },
+                Effects = { { Bones = {'Engine_001', 'Engine_002'}, Type = 'AirMoveExhaust' } }
             },
-            BeamExhaust = {
-                Bones = {'Engine_001', 'Engine_002'},
-                Cruise = true,
-                Idle = false,
-            },
+            
+            BeamExhaust = { Bones = {'Engine_001', 'Engine_002'}, Cruise = true, Idle = false },
         },
+        
         UniformScale = 0.009,
     },
     
@@ -177,22 +163,21 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'air',
+        
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-personal',
-                helpText = 'toggle_stealth_personal',
-            },
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-personal', helpText = 'toggle_stealth_personal' },
         },
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+        
         UnitName = '<LOC sea0313_name>Tomcat',
     },
     
     Intel = {
         FreeIntel = true,
+        
         RadarStealth = true,
-        RadarRadius = 60,
+        RadarRadius = 56,
         VisionRadius = 40,
     },
     
@@ -475,7 +460,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

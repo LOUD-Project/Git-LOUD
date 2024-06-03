@@ -53,12 +53,14 @@ SSB4401 = Class(SShieldStructureUnit) {
 				
                 --dude.MyShield:SetHealth(self, dude.MyShield:GetHealth() * self.MyShield:GetHealth() / self:GetBlueprint().Defense.Shield.ShieldMaxHealth)
 				
-                IssueMove({dude}, {pos[1] + (radius * (math.sin((math.pi * 2/drones)*i))), pos[2], pos[3] + (radius * (math.cos((math.pi * 2/drones)*i)))})
+                IssueMove({dude}, {pos[1] + (radius * (math.sin((6.28/drones)*i))), pos[2], pos[3] + (radius * (math.cos((math.pi * 2/drones)*i)))})
 				
                 for i2 = 1, patrolnodes do
-                    local xpos = pos[1] + (radius * (math.sin((math.pi * 2/drones)*(i) + ((math.pi * 2/patrolnodes)*i2))))
-                    local zpos = pos[3] + (radius * (math.cos((math.pi * 2/drones)*(i) + ((math.pi * 2/patrolnodes)*i2))))
+                    local xpos = pos[1] + (radius * (math.sin((6.28/drones)*(i) + ((6.28/patrolnodes)*i2))))
+                    local zpos = pos[3] + (radius * (math.cos((6.28/drones)*(i) + ((6.28/patrolnodes)*i2))))
+
                     local ypos = pos[2]--GetTerrainHeight(xpos, zpos) -- Terrain height checks actually make deviations worse.
+
                     IssuePatrol({dude}, {xpos, ypos, zpos})
                 end
             end

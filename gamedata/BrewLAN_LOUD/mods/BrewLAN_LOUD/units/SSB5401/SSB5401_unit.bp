@@ -1,10 +1,8 @@
 UnitBlueprint {
     Abilities = {
-        TargetLocation = {
-            bitmapId = 'teleport',
-            helpText = 'stargate_dial',
-        },
+        TargetLocation = { bitmapId = 'teleport', helpText = 'stargate_dial'},
     },
+
     Audio = {
         ActiveLoop = Sound {
             Bank = 'XSB',
@@ -139,12 +137,15 @@ UnitBlueprint {
                 BLScale = 1,
             },
         },
+
         BlinkingLightsFx = {
-            Green = '/effects/emitters/light_green_03_emit.bp',
-            Red = '/effects/emitters/light_red_03_emit.bp',
-            Yellow = '/effects/emitters/light_yellow_02_emit.bp',
+            Green   = '/effects/emitters/light_green_03_emit.bp',
+            Red     = '/effects/emitters/light_red_03_emit.bp',
+            Yellow  = '/effects/emitters/light_yellow_02_emit.bp',
         },
+
         BuildAttachBone = 'Attachpoint',
+
         DamageEffects = {
             {
                 Bone = 0,
@@ -183,6 +184,7 @@ UnitBlueprint {
                 OffsetZ = 0,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -203,16 +205,9 @@ UnitBlueprint {
                     NormalsName = 'ssb5401_normalsTS.dds',
                     SpecularName = 'ssb5401_specteam.dds',
                 },
-                --[[{
-                    LODCutoff = 500,
-                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
-                    ShaderName = 'Seraphim',
-                    AlbedoName = '/units/xsc2201/xsc2201_lod1_albedo.dds',
-                    NormalsName = '/units/xsc2201/xsc2201_lod1_normalsTS.dds',
-                    SpecularName = '/units/xsc2201/xsc2201_lod1_specteam.dds',
-                },]]--
             },
         },
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_seraphim_01_albedo',
@@ -225,6 +220,7 @@ UnitBlueprint {
                 Width = 12.8,
             },
         },
+
         UniformScale = 0.12,
     },
 
@@ -235,9 +231,8 @@ UnitBlueprint {
         BuildTime = 3000*5,
         MaintenanceConsumptionPerSecondEnergy = 500,
         StorageEnergy = 5000,
-        RebuildBonusIds = {
-            'ssb5401',
-        },
+
+        RebuildBonusIds = {'ssb5401'},
     },
 
     Footprint = {
@@ -249,20 +244,16 @@ UnitBlueprint {
         ConstructionBar = true,
         FactionName = 'Seraphim',
         Icon = 'land',
+
         OrderOverrides = {
-            RULEUTC_GenericToggle = {
-                bitmapId = 'stop',
-                helpText = 'stargate_stop',
-            },
-            RULEUTC_ShieldToggle = {
-                helpText = 'stargate_iris_shield',
-            },
+            RULEUTC_GenericToggle = { bitmapId = 'stop', helpText = 'stargate_stop' },
+            RULEUTC_ShieldToggle = { helpText = 'stargate_iris_shield' },
         },
+
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-            RULEUTC_GenericToggle = true,
-        },
+
+        ToggleCaps = { RULEUTC_ShieldToggle = true, RULEUTC_GenericToggle = true },
+
         UnitName = "<LOC ssb5401_name>Chappa'ko",
     },
 
@@ -428,9 +419,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

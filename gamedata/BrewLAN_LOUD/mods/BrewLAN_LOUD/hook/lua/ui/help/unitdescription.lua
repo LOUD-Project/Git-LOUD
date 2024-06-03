@@ -97,8 +97,8 @@ Description['sal0319'] = "<LOC Unit_Description_BrewLAN_T3L007>Tech 3 amphibious
 Description['sel0321'] = "<LOC Unit_Description_BrewLAN_T3L008>Mobile strategic missile defense. Fires a salvo of three missiles at its targets. Build costs include first missile salvo."
 Description['sel0322'] = "<LOC Unit_Description_0034>Mobile shield generator."
 Description['sal0322'] = "<LOC Unit_Description_0231>Mobile shield generator."
-Description['srl0320'] = "<LOC Unit_Description_BrewLAN_T3L009>Mobile cloaking anti-air missile launcher. Must decloak to fire."
-Description['srl0316'] = "<LOC Unit_Description_BrewLAN_T3L010>Mobile cloaking stealth generator. Hides nearby units from radar and sonar. Visible only to omni."
+Description['srl0320'] = "<LOC Unit_Description_BrewLAN_T3L009>Mobile Cloaking AA SAM Missile launcher. Must decloak to fire."
+Description['srl0316'] = "<LOC Unit_Description_BrewLAN_T3L010>Mobile Cloaking Amphibious Stealth Generator. Hides nearby units from radar and sonar. Visible only to omni."
 Description['srl0310'] = "<LOC Unit_Description_BrewLAN_T3L026>Mobile support unit. Designed to attack and destroy enemy shields. Weapon system only very briefly stuns enemy units."
 Description['srl0311'] = "<LOC Unit_Description_BrewLAN_T3L011>Mobile multiple missile launcher. Long reload time. Designed to overwhelm enemy shields and tactical missile defenses with large salvos."
 Description['sal0320'] = "<LOC Unit_Description_BrewLAN_T3L012>Hovering mobile anti-air defence system. Consumes power with each shot."
@@ -107,8 +107,8 @@ Description['sal0323'] = "<LOC Unit_Description_BrewLAN_T3L014>Mobile tactical m
 Description['ssl0323'] = "<LOC Unit_Description_BrewLAN_T3L014>Mobile tactical missile defense. Protection is limited to unit's operational area."
 Description['sel0323'] = "<LOC Unit_Description_BrewLAN_T3L014>Mobile tactical missile defense. Protection is limited to unit's operational area."
 Description['srl0323'] = "<LOC Unit_Description_BrewLAN_T3L014>Mobile tactical missile defense. Protection is limited to unit's operational area."
-Description['sel0324'] = "<LOC Unit_Description_BrewLAN_T3L015>Mobile anti-air missile launcher. Equipped with advanced scanning equipment."
-Description['srl0324'] = "<LOC Unit_Description_BrewLAN_T3L016>High-end mobile intelligense system. While stationary it is visible only to omni, and provides extensive radar and omni coverage."
+Description['sel0324'] = "<LOC Unit_Description_BrewLAN_T3L015>Mobile anti-air missile launcher. Equipped with T2+ level radar equipment. Limited Omni ability"
+Description['srl0324'] = "<LOC Unit_Description_BrewLAN_T3L016>Mobile intelligence unit. While stationary it is visible only to omni, and provides extensive radar and omni coverage."
 Description['sel0325'] = "<LOC Unit_Description_BrewLAN_T3L017>Mobile anti-naval vehicle."
 Description['sal0325'] = "<LOC Unit_Description_BrewLAN_T3L018>Mobile hovering anti-naval vehicle."
 Description['sal0324'] = "<LOC Unit_Description_BrewLAN_T3L019>Hovering sensor array. Consumes large quantities of power to function."
@@ -133,16 +133,16 @@ Description['srb5312'] = "<LOC Unit_Description_BrewLAN_T3B0019>Restricts moveme
 Description['srb5311'] = "<LOC Unit_Description_BrewLAN_T3B0020>Manually controlled gate; can allow passage through its area and sustain extreme amounts of damage."
 Description['seb5311'] = "<LOC Unit_Description_BrewLAN_T3B0020>Manually controlled gate; can allow passage through its area and sustain extreme amounts of damage."
 
-Description['seb2308'] = "<LOC Unit_Description_BrewLAN_T3B0025>Heavy torpedo launching tower. Can be built on land and on the seabed."
+Description['seb2308'] = "<LOC Unit_Description_BrewLAN_T3B0025>Long-range torpedo launching tower. Can be built on land and on the seabed. In the water, equipped with personal torpedo defense."
 Description['ssb3301'] = "<LOC Unit_Description_BrewLAN_T3B0026>Offers line-of-sight of a targetted friendly or enemy unit. Can target radar blips."
-Description['sab2308'] = "<LOC Unit_Description_BrewLAN_T3B0027>Very heavy long-range anti-naval defense system. Designed to engage the most powerful of naval units."
+Description['sab2308'] = "<LOC Unit_Description_BrewLAN_T3B0027>Long-range torpedo launching tower.  Personal Stealth and Personal torpedo defense."
 Description['seb4303'] = "<LOC Unit_Description_BrewLAN_T3B0028>Stationary artillery defense grid. Equipped with an integrated threat identification and tracking system."
 
 --Tech 3 Naval units
 Description['sss0305'] = "<LOC Unit_Description_BrewLAN_T3S001>Sonar system with exceptional range. Detects and tracks naval units. Equipped with a personal teleporter."
 Description['ses0319'] = "<LOC Unit_Description_BrewLAN_T3S002>Tech 3 naval construction, repair, capture and reclaimation unit. Equipped with a torpedo bay, anti-torpedo defense, and a single AA weapon."
 Description['srs0319'] = "<LOC Unit_Description_BrewLAN_T3S003>Tech 3 naval construction, repair, capture, reclaimation, and mine layer unit."
-Description['sss0306'] = "<LOC Unit_Description_BrewLAN_T3S004>Hovering torpedo system. Capable of destroying the largest of enemy vessels."
+Description['sss0306'] = "<LOC Unit_Description_BrewLAN_T3S004>Static Hover torpedo system. Capable of destroying the largest of enemy vessels. Can be built on land.  Personal Anti-Torpedo and Tactical Missile Defense."
 
 --Experimentals
 Description['sab4401'] = "<LOC Unit_Description__BubbleTea_A4_01>Experimental shield projection facility. Generates protective bubbles around each individual structure within its opperational radius."
@@ -160,7 +160,7 @@ Description['ssl0403'] = "<LOC Unit_Description_BrewLAN_T4L001>Experimental amph
 Description['sea0401'] = "<LOC Unit_Description_BrewLAN_T4A001>Experimental gunship with extensive anti-air capabilities. Most effective against other gunships."
 
 Description['sal0401'] = "<LOC Unit_Description_BrewLAN_T4L002>Experimental hovering siege assault tank. Equipped with a powerful oblivion cannon and tactical missile defenses."
-Description['srb4402'] = "<LOC Unit_Description_BrewLAN_T4B006>Experimental counterintelligence facility. Generates a pulse that reduces the maximun penetration depth of most active Omni sensors."
+Description['srb4402'] = "<LOC Unit_Description_BrewLAN_T4B006>Counterintelligence facility. Generates pulse waves every 5 seconds that reduce ALL above ground sendor ranges (Radar, Sonar, OMNI & Vision)./nEach pulse lasts 20 seconds./nEffect stacks (upto 4 times)"
 Description['ssb5401'] = "<LOC Unit_Description_BrewLAN_T4B007>Experimental quantum gateway device. Capable of instantly transporting units across the map to other gates."
 Description['seb3404'] = "<LOC Unit_Description_BrewLAN_T4B008>Experimental sensor array. Displays the location of enemy units. Upkeep costs per-unit being watched. Sensors can't penetrate areas of heavy sensor-distruption."
 Description['sab0401'] = "<LOC Unit_Description_BrewLAN_T4B009>Constructs air units."

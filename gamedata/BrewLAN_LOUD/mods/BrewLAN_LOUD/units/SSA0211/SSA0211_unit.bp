@@ -45,30 +45,18 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'XSA_Destroy',
-            Cue = 'XSA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'XSA_Destroy', Cue = 'XSA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSA', Cue = 'XSA0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
         Regen = {
             Level1 = 2,
-            Level2 = 4,
-            Level3 = 6,
-            Level4 = 8,
-            Level5 = 10,
+            Level2 = 5,
+            Level3 = 7,
+            Level4 = 10,
+            Level5 = 12,
         },
     },
 	
@@ -109,25 +97,10 @@ UnitBlueprint {
             '<LOC ability_radar>Radar',
         },
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    {
-                        Bones = {0},
-                        Scale = 2.15,
-                        Type = 'Landing01',
-                    },
-                },
-            },
-            LandAir = {
-                Effects = {
-                    {
-                        Bones = {0},
-                        Scale = 2.15,
-                        Type = 'TakeOff01',
-                    },
-                },
-            },
+            AirLand = { Effects = { { Bones = {0}, Scale = 2.15, Type = 'Landing01' } } },
+            LandAir = { Effects = { { Bones = {0}, Scale = 2.15, Type = 'TakeOff01' } } },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -149,33 +122,17 @@ UnitBlueprint {
                 },
             },
         },
+        
         MovementEffects = {
             Air = {
-                Contrails = {
-                    Bones = {
-                        'Left_Exhaust',
-                        'Right_Exhaust',
-                    },
-                },
-                Effects = {
-                    {
-                        Bones = {
-                            'Left_Projectile',
-                            'Right_Projectile',
-                        },
-                        Type = 'AirMoveExhaust03',
-                    },
-                },
+                Contrails = { Bones = {'Left_Exhaust','Right_Exhaust'} },
+                Effects = { { Bones = {'Left_Projectile','Right_Projectile'}, Type = 'AirMoveExhaust03' } },
             },
             Land = {
-                Effects = {
-                    {
-                        Bones = {0},
-                        Type = 'Landing01',
-                    },
-                },
+                Effects = { { Bones = {0}, Type = 'Landing01' } },
             },
         },
+
         UniformScale = 0.08*0.9,
     },
 	
@@ -210,8 +167,9 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 50,
-        VisionRadius = 32,
+        
+        RadarRadius = 48,
+        VisionRadius = 36,
     },
 	
     Interface = {
@@ -268,15 +226,13 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0304_Zhanasse_Bomb',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0304_Zhanasse_Bomb', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
 			
             BombDropThreshold = 3,
@@ -314,10 +270,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Projectile',
-                        'Right_Projectile',
-                    },
+                    MuzzleBones = {'Left_Projectile','Right_Projectile'},
                     RackBone = 'Left_Projectile',
                 },
             },
@@ -345,6 +298,7 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,

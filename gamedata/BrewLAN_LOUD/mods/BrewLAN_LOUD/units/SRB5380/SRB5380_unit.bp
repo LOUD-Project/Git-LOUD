@@ -3,26 +3,10 @@ UnitBlueprint {
     Adjacency = 'T3WeaponBoosterAccuracyAdjacencyBuffs',
 	
     Audio = {
-        ActiveLoop = Sound {
-            Bank = 'URB',
-            Cue = 'URB1105_Active',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'URB',
-            Cue = 'URB1105_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        ActiveLoop      = Sound { Bank = 'URB', Cue = 'URB1105_Active', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'URB', Cue = 'URB1105_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 380,
@@ -45,12 +29,15 @@ UnitBlueprint {
     CollisionOffsetZ = 0.1,
 	
     Defense = {
-        AirThreatLevel = 0,
+
         ArmorType = 'Structure',
-        EconomyThreatLevel = 2,
+
         Health = 5000,
         MaxHealth = 5000,
         RegenRate = 0,
+
+        AirThreatLevel = 0,
+        
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
@@ -59,19 +46,10 @@ UnitBlueprint {
 	
     Display = {
         DamageEffects = {
-            {
-                Bone = 0,
-                OffsetX = 0.25,
-                OffsetY = 1,
-                OffsetZ = 0,
-            },
-            {
-                Bone = 0,
-                OffsetX = -0.25,
-                OffsetY = 1,
-                OffsetZ = 0,
-            },
+            { Bone = 0, OffsetX = 0.25, OffsetY = 1, OffsetZ = 0 },
+            { Bone = 0, OffsetX = -0.25, OffsetY = 1, OffsetZ = 0 },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -94,6 +72,7 @@ UnitBlueprint {
                 },
             },
         },
+        
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar6x_cybran_01_albedo',
@@ -106,6 +85,7 @@ UnitBlueprint {
                 Width = 6.4,
             },
         },
+        
         UniformScale = 0.035,
     },
 	
@@ -163,9 +143,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

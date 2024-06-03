@@ -15,60 +15,19 @@ local BrewLANLOUDPath = import('/lua/game.lua').BrewLANLOUDPath()
 local VersionIsFAF = import(BrewLANLOUDPath .. "/lua/legacy/versioncheck.lua").VersionIsFAF()
 
 SSL0403 = Class(SConstructionUnit) {
+
     Weapons = {
         MainTurret = Class(SDFUltraChromaticBeamGenerator) {},
-        --[[
-        BladeWeapon = Class(SDFUltraChromaticBeamGenerator) {
-            CreateProjectileAtMuzzle = function(self, muzzle)
-                --LOG("AASDKBASD")
-                SDFUltraChromaticBeamGenerator.CreateProjectileAtMuzzle(self, muzzle)
-            end,
-
-            --OnFire = function(self)
-            --    SDFUltraChromaticBeamGenerator.OnFire(self)
-            --    LOG("OnFire")
-            --end,
-
-            IdleState = State {
-
-                OnFire = function(self)
-                    SDFUltraChromaticBeamGenerator.IdleState.OnFire(self)
-
-                    LOG("idle")
-                        --SDFUltraChromaticBeamGenerator.IdleState.OnFire(self)
-                    if not self.AttackAnim then
-                        self.AttackAnim = CreateAnimator(self.unit)
-                    end
-                    self.AttackAnim:PlayAnim( self:GetBlueprint().WeaponAttackAnimation[1].Animation )
-                    self.unit.Trash:Add( self.AttackAnim )
-                end,
-                    --Main = function(self)
-                    --    LOG("main")
-                    --    SDFUltraChromaticBeamGenerator.IdleState.Main(self)
-                    --end,
-            },
-
-            RackSalvoFireReadyState = State {
-
-                OnFire = function(self)
-                    SDFUltraChromaticBeamGenerator.RackSalvoFireReadyState.OnFire(self)
-                    LOG("FIRE READ")
-                        --SDFUltraChromaticBeamGenerator.IdleState.OnFire(self)
-                    if not self.AttackAnim then
-                        self.AttackAnim = CreateAnimator(self.unit)
-                    end
-                    self.AttackAnim:PlayAnim( self:GetBlueprint().WeaponAttackAnimation[1].Animation )
-                    self.unit.Trash:Add( self.AttackAnim )
-                end,
-            },
-        },]]
     },
 
     OnCreate = function(self)
+
         SConstructionUnit.OnCreate(self)
+
         self:CreateIdleEffects()
         self:AddBuildRestriction(categories.SELECTABLE)
         self.Pods = { }
+
         local pod = {
             PodAttachpoint = 'AttachSpecial0',
             PodName = 'Pod',
@@ -76,6 +35,7 @@ SSL0403 = Class(SConstructionUnit) {
             Entity = {},
             Active = false,
         }
+
         for i = 1, 8 do
             self.Pods[i] = {}
             for k, v in pod do

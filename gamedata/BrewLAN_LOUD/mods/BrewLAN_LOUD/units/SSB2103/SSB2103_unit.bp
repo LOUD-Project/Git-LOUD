@@ -5,21 +5,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed      = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -66,6 +54,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -89,6 +78,7 @@ UnitBlueprint {
                 },
             },
         },
+
         UniformScale = 0.015,
     },
 	
@@ -109,6 +99,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'land',
         SelectionPriority = 5,
+
         UnitName = '<LOC ssb2303_name>Thaam-atha',
     },
 	
@@ -167,34 +158,14 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2303_Zthuthaam_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire                = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2303_Zthuthaam_Cannon', LodCutoff = 'Weapon_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'XSB', Cue = 'XSB2303_Turret_Artillery_Start', LodCutoff = 'Weapon_LodCutoff' },
+                BarrelLoop          = Sound { Bank = 'XSB', Cue = 'XSB2303_Turret_Artillery_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2303_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
-            BarrelStart = {
-                Fire = Sound {
-                    Bank = 'XSB',
-                    Cue = 'XSB2303_Turret_Artillery_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-            BarrelLoop = {
-                Fire = Sound {
-                    Bank = 'XSB',
-                    Cue = 'XSB2303_Turret_Artillery_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-            MuzzleChargeStart = {
-                Fire = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2303_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
+
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -272,9 +243,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.6,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

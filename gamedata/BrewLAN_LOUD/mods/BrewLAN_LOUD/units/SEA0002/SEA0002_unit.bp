@@ -9,41 +9,12 @@ UnitBlueprint {
     },
 	
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'XEA',
-            Cue = 'XEA0002_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UEADestroy',
-            Cue = 'UEA_Destroy_Med',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'UEADestroy',
-            Cue = 'UEA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XEA',
-            Cue = 'XEA0002_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XEA',
-            Cue = 'XEA0002_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Thruster = Sound {
-            Bank = 'XEA',
-            Cue = 'XEA0002_Move_Thruster',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        StartMove   = Sound { Bank = 'XEA', Cue = 'XEA0002_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        StopMove    = Sound { Bank = 'XEA', Cue = 'XEA0002_Move_Stop', LodCutoff = 'UnitMove_LodCutoff'},
+        Thruster    = Sound { Bank = 'XEA', Cue = 'XEA0002_Move_Thruster', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed   = Sound { Bank = 'UEADestroy', Cue = 'UEA_Destroy_Med', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed      = Sound { Bank = 'UEADestroy', Cue = 'UEA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 10,
@@ -151,19 +122,17 @@ UnitBlueprint {
         SelectionPriority = 4,
         Icon = 'air',
         OrderOverrides = {
-            RULEUTC_IntelToggle = {
-                bitmapId = 'vision',
-                helpText = 'vision_toggle',
-            },
+            RULEUTC_IntelToggle = { bitmapId = 'vision', helpText = 'vision_toggle' },
         },
-        ToggleCaps = {
-            RULEUTC_IntelToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_IntelToggle = true },
+        
         UnitName = '<LOC sea0002_name>Burning Star',
     },
 	
     Intel = {
         RadarStealth = true,
+        
         VisionRadius = 0,
         OrbitIntelRadius = 40,
         OrbitVision = true,

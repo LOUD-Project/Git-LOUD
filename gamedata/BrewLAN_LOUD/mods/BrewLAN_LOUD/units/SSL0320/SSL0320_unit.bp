@@ -4,36 +4,12 @@ UnitBlueprint {
     },
 
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0205_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL_Destroy_Land_Med',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        HoverKilledOnWater = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0205_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0205_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        AmbientMove         = Sound { Bank = 'XSL', Cue = 'XSL0205_Move_Loop', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed           = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Med', LodCutoff = 'UnitMove_LodCutoff'},
+        HoverKilledOnWater  = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove           = Sound { Bank = 'XSL', Cue = 'XSL0205_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        StopMove            = Sound { Bank = 'XSL', Cue = 'XSL0205_Move_Stop', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection         = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -92,30 +68,9 @@ UnitBlueprint {
         },
 		
         IdleEffects = {
-            Land = {
-                Effects = {
-                    {
-                        Bones = {0},
-                        Offset = {0, -0.15, 0.1},
-                        Scale = 1,
-                        Type = 'SeraphimGroundFX01',
-                    },
-                },
-            },
-            Water = {
-                Effects = {
-                    {
-                        Bones = {0},
-                        Offset = {0, -0.15, 0.1},
-                        Scale = 1,
-                        Type = 'SeraphimGroundFX01',
-                    },
-                    {
-                        Bones = {0},
-                        Offset = {0, -0.15, 0.1},
-                        Scale = 1.2,
-                        Type = 'SeaIdle02',
-                    },
+            Land    = { Effects = { { Bones = {0}, Offset = {0, -0.15, 0.1}, Scale = 1, Type = 'SeraphimGroundFX01' } } },
+            Water   = { Effects = { { Bones = {0}, Offset = {0, -0.15, 0.1}, Scale = 1, Type = 'SeraphimGroundFX01' },
+                    { Bones = {0}, Offset = {0, -0.15, 0.1}, Scale = 1.2, Type = 'SeaIdle02' },
                 },
             },
         },
@@ -142,34 +97,18 @@ UnitBlueprint {
         MovementEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {0},
-                        Type = 'GroundKickup01',
-                    },
-                    {
-                        Bones = {0},
-                        Offset = {0, -0.15, 0.1},
-                        Scale = 1,
-                        Type = 'SeraphimGroundFX01',
-                    },
+                    { Bones = {0}, Type = 'GroundKickup01', },
+                    { Bones = {0}, Offset = {0, -0.15, 0.1}, Scale = 1, Type = 'SeraphimGroundFX01' },
                 },
             },
             Water = {
                 Effects = {
-                    {
-                        Bones = {0},
-                        Scale = 0.5,
-                        Type = 'BackWake',
-                    },
-                    {
-                        Bones = {0},
-                        Offset = {0, -0.15, 0.1},
-                        Scale = 1,
-                        Type = 'SeraphimGroundFX01',
-                    },
+                    { Bones = {0}, Scale = 0.5, Type = 'BackWake' },
+                    { Bones = {0}, Offset = {0, -0.15, 0.1}, Scale = 1, Type = 'SeraphimGroundFX01' },
                 },
             },
         },
+
         UniformScale = 0.032,
     },
 	
@@ -191,11 +130,13 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'amph',
+
         UnitName = '<LOC ssl0320_name>Atha-Ythia',
     },
 	
     Intel = {
         VisionRadius = 32,
+        WaterVisionRadius = 12,
     },
 	
     Interface = {
@@ -261,12 +202,9 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB4201_Eleathrun_TMD',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSB_Weapon', Cue = 'XSB4201_Eleathrun_TMD', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -331,12 +269,9 @@ UnitBlueprint {
             AlwaysRecheckTarget = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2304_Losaare_Autocannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2304_Losaare_Autocannon', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -355,7 +290,7 @@ UnitBlueprint {
 			FiringRandomnessWhileMoving = 0.3,
             FiringTolerance = 0.01,
 			
-            Label = 'AntiAirMissiles',
+            Label = 'AAMissiles',
 			
             MaxRadius = 50,
 			
@@ -410,9 +345,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

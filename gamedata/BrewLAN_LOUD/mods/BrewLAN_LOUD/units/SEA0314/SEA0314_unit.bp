@@ -10,11 +10,9 @@ UnitBlueprint {
         BankFactor = 2.5,
         BankForward = false,
 		
-        BreakOffDistance = 80,
-		
+        BreakOffDistance = 60,
         BreakOffIfNearNewTarget = true,
-		
-        BreakOffTrigger = 35,
+        BreakOffTrigger = 25,
 		
         CanFly = true,
 		
@@ -34,7 +32,7 @@ UnitBlueprint {
         KTurn = 0.8,
         KTurnDamping = 1,
 		
-        LiftFactor = 6.5,
+        LiftFactor = 7.5,
 		
         MaxAirspeed = 19,
         MinAirspeed = 15,
@@ -50,65 +48,25 @@ UnitBlueprint {
     },
 	
     Audio = {
-        AirUnitWaterImpact = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        AmbientMove = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0304_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UEADestroy',
-            Cue = 'UEA_Destroy_Med',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'UEADestroy',
-            Cue = 'UEA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Landing = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0304_Move_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Refueling = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA_Repair_Refuel',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0304_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Thruster = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0304_Move_Thruster',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        AirUnitWaterImpact  = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff' },
+        AmbientMove         = Sound { Bank = 'UEA', Cue = 'UEA0304_Move_Loop', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed           = Sound { Bank = 'UEADestroy', Cue = 'UEA_Destroy_Med', LodCutoff = 'UnitMove_LodCutoff' },
+        Killed              = Sound { Bank = 'UEADestroy', Cue = 'UEA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        Landing             = Sound { Bank = 'UEA', Cue = 'UEA0304_Move_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        Refueling           = Sound { Bank = 'UEA', Cue = 'UEA_Repair_Refuel', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove           = Sound { Bank = 'UEA', Cue = 'UEA0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove            = Sound { Bank = 'UEA', Cue = 'UEA0304_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
+        Thruster            = Sound { Bank = 'UEA', Cue = 'UEA0304_Move_Thruster', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection         = Sound { Bank = 'Interface', Cue = 'UEF_Select_Air', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
         Regen = {
-            Level1 = 10,
-            Level2 = 15,
-            Level3 = 20,
-            Level4 = 25,
-            Level5 = 30,
+            Level1 = 5,
+            Level2 = 10,
+            Level3 = 15,
+            Level4 = 20,
+            Level5 = 25,
         },
     },
 	
@@ -136,12 +94,13 @@ UnitBlueprint {
         MissileDetector = { AttachBone = 'MissileDetector' },
 		
         ArmorType = 'Light',
-        EconomyThreatLevel = 10,
+
         Health = 6800,
         MaxHealth = 6800,
-        RegenRate = 8,
-        SubThreatLevel = 30,
-        SurfaceThreatLevel = 152,
+        RegenRate = 10,
+        
+        SubThreatLevel = 18,
+        SurfaceThreatLevel = 120,
     },
 	
     Description = '<LOC sa0314_desc>Penetrator Bomber',
@@ -154,19 +113,12 @@ UnitBlueprint {
             '<LOC ability_tactical>Tactical Missiles',
             '<LOC ability_torpedo>Torpedoes',
         },
-        ForcedBuildSpin = 90,
+
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    {Bones = {0}, Type = 'Landing01'},
-                },
-            },
-            LandAir = {
-                Effects = {
-                    {Bones = {0}, Type = 'TakeOff01'},
-                },
-            },
+            AirLand = { Effects = { {Bones = {0}, Type = 'Landing01'} } },
+            LandAir = { Effects = { {Bones = {0}, Type = 'TakeOff01'} } },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -178,43 +130,22 @@ UnitBlueprint {
         },
         MovementEffects = {
             Air = {
-                Contrails = {
-                    Bones = {
-                        'Contrail_Left',
-                        'Contrail_Right',
-                    },
-                    ZOffset = 0,
-                },
+                Contrails = { Bones = {'Contrail_Left','Contrail_Right'} },
                 Effects = {
-                    {
-                        Bones = {
-                            'Engine_Left',
-                            'Engine_Right',
-                        },
-                        Type = 'AirExhaust01',
-                    },
+                    { Bones = {'Engine_Left_001','Engine_Right_001'},Type = 'AirExhaust01' },
                 },
             },
-            BeamExhaust = {
-                Bones = {
-                    'Engine_Left_002',
-                    'Engine_Right_002',
-                    'Engine_Left_001',
-                    'Engine_Right_001',
-                },
-                Cruise = true,
-                Idle = false,
-            },
+            
+            BeamExhaust = { Bones = {'Engine_Left_002','Engine_Right_002','Engine_Left_001','Engine_Right_001'}, Cruise = true, Idle = false },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.06,
     },
 	
     Economy = {
         BuildCostEnergy = 180000,
-        BuildCostMass = 5250,
-        BuildTime = 18900,
+        BuildCostMass = 4750,
+        BuildTime = 3000,
 		
         ResearchMultEnergy = 0.2,
         MaintenanceConsumptionPerSecondEnergy = 100,
@@ -228,6 +159,7 @@ UnitBlueprint {
 	
     General = {
         CapCost = 2,
+        
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -238,24 +170,23 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+        
         FactionName = 'UEF',
         Icon = 'air',
+        
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-personal',
-                helpText = 'toggle_stealth_personal',
-            },
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-personal', helpText = 'toggle_stealth_personal' },
         },
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+        
         UnitName = '<LOC sea0314_name>Lancer',
     },
 
     Intel = {
-        RadarRadius = 65,
+        RadarRadius = 64,
         RadarStealth = true,
-        VisionRadius = 38,
+        VisionRadius = 44,
     },
 	
     Interface = {
@@ -267,9 +198,7 @@ UnitBlueprint {
     LifeBarSize = 1.5,
 	
     Physics = {
-        BuildOnLayerCaps = {
-            LAYER_Air = true,
-        },
+        BuildOnLayerCaps = { LAYER_Air = true },
         Elevation = 24,
 		
         FuelRechargeRate = 20,
@@ -313,6 +242,7 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
                 Fire = Sound { Bank = 'UEAWeapon', Cue = 'UEA0304_Nuke_Bomb', LodCutoff = 'Weapon_LodCutoff' },
             },
@@ -337,19 +267,20 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 2800,
+            Damage = 1900,
             DamageFriendly = true,
             DamageRadius = 3,
             DamageType = 'Normal',
 			
             DisplayName = 'Small Yield Nuclear Bomb',
 			
-            EffectiveRadius = 45,
+            EffectiveRadius = 48,
 			
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
                 Land = 'Land|Water|Seabed',
             },
+            
             FiringRandomness = 0.2,
             FiringTolerance = 6,
 			
@@ -357,8 +288,8 @@ UnitBlueprint {
 			
             MaxRadius = 75,
 			
-            MuzzleSalvoDelay = 0.6,
-            MuzzleSalvoSize = 2,
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 4,
             MuzzleVelocity = 0,
 			
             NeedToComputeBombDrop = true,
@@ -368,22 +299,15 @@ UnitBlueprint {
             ProjectileId = '/projectiles/TIFSmallYieldNuclearBomb01/TIFSmallYieldNuclearBomb01_proj.bp',
 			
             RackBones = {
-                {
-                    MuzzleBones = {
-                        'Bomb_001',
-                        'Bomb_003',
-                        'Bomb_005',
-                        'Bomb_002',
-                        'Bomb_004',
-                        'Bomb_006',
-                    },
-                    RackBone = 'Bomb_001',
-                },
+                {  RackBone = 'Bomb_001', MuzzleBones = {'Bomb_001','Bomb_002','Bomb_003','Bomb_004'} },
             },
+            
+            RackSalvoReloadTime = 9.6,  -- firing cycle 10 = 7600/10 = 760 DPS
 
-            RateOfFire = 0.2,       -- 5600 * .2 = 1200 DPS
+            RateOfFire = 1,
 			
-            TargetCheckInterval = 2.5,
+            TargetCheckInterval = 3,
+            
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'EXPERIMENTAL',
@@ -393,15 +317,15 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
 
-            Turreted = false,
+            TrackingRadius = 1.1,
         },
 		
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2304_Missile_Flayer', LodCutoff = 'Weapon_LodCutoff' },
+                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0202_Fire_Cruise', LodCutoff = 'Weapon_LodCutoff' },            
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -427,9 +351,9 @@ UnitBlueprint {
             MaxRadius = 150,
             MinRadius = 50,
 			
-            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 25,
+            MuzzleVelocity = 20,
 			
             PrefersPrimaryWeaponTarget = true,
 			
@@ -438,30 +362,20 @@ UnitBlueprint {
             ProjectileLifetimeUsesMultiplier = 1.15,
 			
             RackBones = {
-                {
-                    HideMuzzle = true,
-                    MuzzleBones = {'Bomb_001', 'Bomb_002'},
-                    RackBone = 'Bomb_001',
-                },
-                {
-                    HideMuzzle = true,
-                    MuzzleBones = {'Bomb_003', 'Bomb_004'},
-                    RackBone = 'Bomb_003',
-                },
-                {
-                    HideMuzzle = true,
-                    MuzzleBones = {'Bomb_005', 'Bomb_006'},
-                    RackBone = 'Bomb_005',
-                },
+                { RackBone = 'Bomb_001', HideMuzzle = true, MuzzleBones = {'Bomb_001', 'Bomb_002'} },
+                { RackBone = 'Bomb_003', HideMuzzle = true, MuzzleBones = {'Bomb_003', 'Bomb_004'} },
+                { RackBone = 'Bomb_005', HideMuzzle = true, MuzzleBones = {'Bomb_005', 'Bomb_006'} },
             },
+            
+            RackSalvoChargeTime = 0.1,      -- delay between each rackbone
+            RackSalvoReloadTime = 11.3,     -- 6 missiles every 12.8 = 3600/12.8 = 281 DPS
+            RackReloadTimeout = 11.5,
 
-            RackReloadTimeout = 37.5,
-
-            RateOfFire = 1/12.5,        -- 96 DPS
+            RateOfFire = 1,
 			
             SlavedToBody = true,
 			
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'EXPERIMENTAL',
@@ -470,7 +384,7 @@ UnitBlueprint {
                 'MASSFABRICATION',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE, WALL',
             TrackingRadius = 0.6,
 			
             TurretBoneMuzzle = 'Bomb_001',
@@ -490,18 +404,23 @@ UnitBlueprint {
         },
 		
         {   --Torpedoes
+
+            advancedTracking = true,
+            
             Audio = {
-                Fire = Sound { Bank = 'UEAWeapon', Cue = 'UEA0204_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0204_Depth_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
+
             CollideFriendly = false,
 
-            Damage = 750,
-            DamageRadius = 0,
+            Damage = 400,
             DamageType = 'Normal',
 
             DisplayName = 'Angler Torpedo',
+            
+            EffectiveRadius = 64,
 
             FireTargetLayerCapsTable = {
                 Air = 'Seabed|Sub|Water',
@@ -517,40 +436,36 @@ UnitBlueprint {
             
             NotExclusive = true,
             
-            MaxRadius = 42,
-            MinRadius = 4,
+            MaxRadius = 56,
+            MinRadius = 8,
             
-            MuzzleSalvoDelay = 1.8,
+            MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 4,
-            MuzzleVelocity = 14,
             
-            ProjectileId = '/projectiles/TANAnglerTorpedo06/TANAnglerTorpedo06_proj.bp',
-            ProjectileLifetime = 20,
+            MuzzleVelocity = 10,
+            
+            ProjectileId = '/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_proj.bp',
+            ProjectileLifetime = 10,
             
             RackBones = {
-                {
-                    MuzzleBones = {
-                        'Bomb_001',
-                        'Bomb_003',
-                        'Bomb_005',
-                        'Bomb_002',
-                        'Bomb_004',
-                        'Bomb_006',
-                    },
-                    RackBone = 'Bomb_001',
-                },
+                { RackBone = 'Bomb_001', MuzzleBones = {'Bomb_001','Bomb_002','Bomb_005','Bomb_006' } },
             },
-
-            RateOfFire = 0.08,
             
-            TargetCheckInterval = 2.5,
+            RackSalvoReloadTime = 9.2,  -- 10 second cycle = 1600/10 = 160 DPS
+
+            RateOfFire = 1,
+            
+            TargetCheckInterval = 3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'CRUISER',
+                'SUBMARINE',
                 'NAVAL',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.15,
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER, WALL',
+            TrackingRadius = 1.1,
+            
             Turreted = false,
         },
 		
@@ -570,9 +485,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        EnergyMult = 0.1,
+        HealthMult = 0.6,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

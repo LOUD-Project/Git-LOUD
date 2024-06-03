@@ -49,16 +49,16 @@ UnitBlueprint {
     },
     
     Audio = {
-        AirUnitWaterImpact = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff' },
-        AmbientMove = Sound { Bank = 'XSA', Cue = 'XSA0303_Move_Loop', LodCutoff = 'UnitMove_LodCutoff' },
-        Destroyed = Sound { Bank = 'XSA_Destroy', Cue = 'XSA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
-        Killed = Sound { Bank = 'XSA_Destroy', Cue = 'XSA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
-        Landing = Sound { Bank = 'XSA', Cue = 'XSA0303_Move_Land', LodCutoff = 'UnitMove_LodCutoff' },
-        Refueling = Sound { Bank = 'XSB', Cue = 'XSB5202_Repair_Refuel', LodCutoff = 'UnitMove_LodCutoff' },
-        StartMove = Sound { Bank = 'XSA', Cue = 'XSA0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
-        StopMove = Sound { Bank = 'XSA', Cue = 'XSA0303_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
-        Thruster = Sound { Bank = 'XSA', Cue = 'XSA0303_Move_Thruster', LodCutoff = 'UnitMove_LodCutoff' },
-        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Air', LodCutoff = 'UnitMove_LodCutoff' },
+        AmbientMove         = Sound { Bank = 'XSA', Cue = 'XSA0303_Move_Loop',     LodCutoff = 'UnitMove_LodCutoff' },
+        Landing             = Sound { Bank = 'XSA', Cue = 'XSA0303_Move_Land',     LodCutoff = 'UnitMove_LodCutoff' },
+        Refueling           = Sound { Bank = 'XSB', Cue = 'XSB5202_Repair_Refuel', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove           = Sound { Bank = 'XSA', Cue = 'XSA0303_Move_Start',    LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove            = Sound { Bank = 'XSA', Cue = 'XSA0303_Move_Stop',     LodCutoff = 'UnitMove_LodCutoff' },
+        Thruster            = Sound { Bank = 'XSA', Cue = 'XSA0303_Move_Thruster', LodCutoff = 'UnitMove_LodCutoff' },
+        AirUnitWaterImpact  = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed           = Sound { Bank = 'XSA_Destroy', Cue = 'XSA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        Killed              = Sound { Bank = 'XSA_Destroy', Cue = 'XSA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection         = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Air', LodCutoff = 'UnitMove_LodCutoff' },
     },
     
     Buffs = {
@@ -91,9 +91,7 @@ UnitBlueprint {
     },
     
     Defense = {
-        MissileDetector = {
-            AttachBone = 'MissileDetector',
-        },
+        MissileDetector = { AttachBone = 'MissileDetector' },
         
         AirThreatLevel = 96,
         ArmorType = 'Light',
@@ -106,64 +104,35 @@ UnitBlueprint {
     Description = '<LOC ssa0313_desc>Penetration Fighter',
     
     Display = {
+    
         Abilities = {
             '<LOC ability_aa>Anti-Air',
             '<LOC ability_missiledef>Missile Defense',
             '<LOC ability_personalstealth>Personal Stealth',
         },
+        
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    {
-                        Bones = {0},
-                        Scale = 2.05,
-                        Type = 'Landing01',
-                    },
-                },
-            },
-            LandAir = {
-                Effects = {
-                    {
-                        Bones = {0},
-                        Scale = 2.05,
-                        Type = 'TakeOff01',
-                    },
-                },
-            },
+            AirLand = { Effects = { { Bones = {0}, Scale = 2.05, Type = 'Landing01' } } },
+            LandAir = { Effects = { { Bones = {0}, Scale = 2.05, Type = 'TakeOff01' } } },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 64,
-                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
-                    ShaderName = 'Seraphim',
-                },
-                {
-                    LODCutoff = 128,
-                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
-                    ShaderName = 'Seraphim'
-                },
+                {LODCutoff = 64, LookupName = '/textures/environment/Falloff_seraphim_lookup.dds', ShaderName = 'Seraphim' },
+                {LODCutoff = 128, LookupName = '/textures/environment/Falloff_seraphim_lookup.dds', ShaderName = 'Seraphim' },
                 {LODCutoff = 256, ShaderName = 'Seraphim'},
                 {LODCutoff = 512, ShaderName = 'Seraphim'},
             },
         },
+        
         MovementEffects = {
             Air = {
-                Contrails = {
-                    Bones = {
-                        'Tip_1',
-                        'Tip_Big',
-                    },
-                },
-                Effects = {
-                    {
-                        Bones = {'Rear'},
-                        Type = 'AirMoveExhaust03',
-                    },
-                },
+                Contrails = { Bones = {'Tip_1','Tip_Big'} },
+                Effects = { { Bones = {'Rear'}, Type = 'AirMoveExhaust03' } },
             },
         },
+        
         UniformScale = 0.009,
     },
     
@@ -196,21 +165,20 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'air',
+        
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-personal',
-                helpText = 'toggle_stealth_personal',
-            },
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-personal', helpText = 'toggle_stealth_personal' },
         },
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+        
         UnitName = '<LOC ssa0313_name>Ialosaare',
     },
     
     Intel = {
         FreeIntel = true,
-        RadarRadius = 60,
+        
+        RadarRadius = 56,
         RadarStealth = true,
         VisionRadius = 40,
     },
@@ -417,9 +385,9 @@ UnitBlueprint {
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

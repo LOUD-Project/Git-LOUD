@@ -3,26 +3,16 @@ local SRadarUnit = import('/lua/seraphimunits.lua').SRadarUnit
 local SHoverLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
 SSL0324 = Class(SHoverLandUnit) {
+
     OnCreate = function(self)
         self.FxBlinkingLightsBag = {}
         SHoverLandUnit.OnCreate(self)
     end,
 
-    OnIntelDisabled = function(self)
-        SRadarUnit.OnIntelDisabled(self)
-    end,
-
-    OnStopBeingBuilt = function(self,builder,layer)
-        SRadarUnit.OnStopBeingBuilt(self,builder,layer)
-        --self:SetMaintenanceConsumptionActive()
-    end,
-
-    CreateTarmac = function(self)
-        --WTFFAF
-    end,
-
     OnIntelEnabled = function(self)
+
         SRadarUnit.OnIntelEnabled(self)
+
         if not self.Rotator then
             self.Rotator = CreateRotator(self, 'Array', 'y')
             self.Trash:Add(self.Rotator1)

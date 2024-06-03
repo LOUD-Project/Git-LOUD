@@ -1,19 +1,19 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 80,
-        GuardScanRadius = 60,
+        GuardReturnRadius = 72,
+        GuardScanRadius = 48,
 		TargetBones = {'Body'},
     },
 	
     Air = {
         AutoLandTime = 1,
 		
-        BankFactor = 4,
+        BankFactor = 3,
         BankForward = false,
 		
-        BreakOffDistance = 34,
+        BreakOffDistance = 18,
         BreakOffIfNearNewTarget = true,
-        BreakOffTrigger = 20,
+        BreakOffTrigger = 10,
 		
         CanFly = true,
 		
@@ -21,8 +21,8 @@ UnitBlueprint {
 		
         EngageDistance = 45,
 		
-        KLift = 3,
-        KLiftDamping = 2.5,
+        KLift = 6,
+        KLiftDamping = 5.5,
 		
         KMove = 1,
         KMoveDamping = 2,
@@ -33,7 +33,7 @@ UnitBlueprint {
         KTurn = 1,
         KTurnDamping = 1,
 		
-        LiftFactor = 7,
+        LiftFactor = 10,
 		
         MaxAirspeed = 12,
         MinAirspeed = 11,
@@ -48,21 +48,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0101_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'URADestroy',   Cue = 'URA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'URA',          Cue = 'URA0101_Move_Start',     LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',    Cue = 'Cybran_Select_Air',      LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     BuildIconSortPriority = 41,
@@ -92,7 +80,8 @@ UnitBlueprint {
         Health = 240,
         MaxHealth = 240,
         RegenRate = 2,
-        SubThreatLevel = 5,
+
+        SubThreatLevel = 6,
     },
 	
     Description = '<LOC sair0106>Light Torpedo Bomber',
@@ -103,16 +92,8 @@ UnitBlueprint {
             '<LOC ability_torpedo>Torpedoes',
         },
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    {Bones = {0}, Type = 'Landing01'},
-                },
-            },
-            LandAir = {
-                Effects = {
-                    {Bones = {0}, Type = 'TakeOff01'},
-                },
-            },
+            AirLand = { Effects = { {Bones = {0}, Type = 'Landing01'} } },
+            LandAir = { Effects = { {Bones = {0}, Type = 'TakeOff01'} } },
         },
         
         Mesh = {
@@ -126,22 +107,11 @@ UnitBlueprint {
         
         MovementEffects = {
             Air = {
-                Contrails = {
-                    Bones = {'Contrail_001', 'Contrail_002'},
-                    ZOffset = 0,
-                },
-                Effects = {
-                    {
-                        Bones = {'Engine_001', 'Engine_002'},
-                        Type = 'AirMoveExhaust01',
-                    },
-                },
+                Contrails = { Bones = {'Contrail_001', 'Contrail_002'}, ZOffset = 0 },
+                Effects = { { Bones = {'Engine_001', 'Engine_002'}, Type = 'AirMoveExhaust01' } },
             },
-            BeamExhaust = {
-                Bones = {'Engine_001', 'Engine_002'},
-                Cruise = true,
-                Idle = true,
-            },
+            
+            BeamExhaust = { Bones = {'Engine_001', 'Engine_002'}, Cruise = true, Idle = true },
         },
         
         UniformScale = 0.018,
@@ -177,9 +147,10 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        SonarRadius = 50,
-        VisionRadius = 26,
-		WaterVisionRadius = 10,
+        
+        SonarRadius = 56,
+        VisionRadius = 32,
+		WaterVisionRadius = 16,
     },
 	
     Interface = {
@@ -191,15 +162,20 @@ UnitBlueprint {
     LifeBarSize = 0.5,
 	
     Physics = {
-        AttackElevation = 2,
+        AttackElevation = 3.5,
+        
         BankingSlope = 0.5,
         BuildOnLayerCaps = {
             LAYER_Air = true,
         },
-        Elevation = 18,
+        
+        Elevation = 15,
+        
         FuelRechargeRate = 12,
         FuelUseTime = 240,
+        
         GroundCollisionOffset = 1.425,
+        
         MaxSpeed = 0.5,
         MotionType = 'RULEUMT_Air',
     },
@@ -242,37 +218,36 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 40,
-            DamageRadius = 0,
+            Damage = 300,
             DamageType = 'Normal',
 			
             DisplayName = 'Nanite Torpedo',
-			
-            DoTPulses = 5,
-            DoTTime = 1,
+            
+            EffectiveRadius = 40,
 			
             FireTargetLayerCapsTable = {
                 Air = 'Seabed|Sub|Water',
                 Land = 'Seabed|Sub|Water',
             },
 			
-            FiringRandomness = 3,
-            FiringTolerance = 2,
+            FiringRandomness = 2,
+            FiringTolerance = 3,
 			
             HeadingArcCenter = 0,
             HeadingArcRange = 30,
 			
-            Label = 'Bomb',
+            Label = 'Torpedo',
 			
-            MaxRadius = 26,
-            MinRadius = 4,
+            MaxRadius = 32,
+            MinRadius = 6,
 			
             MuzzleSalvoDelay = 0.3,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 6,
+            MuzzleSalvoSize = 1,
+            
+            MuzzleVelocity = 8,
 			
-            ProjectileId = '/projectiles/CANTorpedoNanite03/CANTorpedoNanite03_proj.bp',
-            ProjectileLifetime = 10,
+            ProjectileId = '/projectiles/CANTorpedoNanite02/CANTorpedoNanite02_proj.bp',
+            ProjectileLifetime = 7.5,
             
             RackBones = {
                 {
@@ -280,17 +255,23 @@ UnitBlueprint {
                     RackBone = 'Bomb',
                 },
             },
+            
+            RackSalvoReloadTime = 4.7,  -- 300 damage every 5 = 60 DPS
 			
-            RateOfFire = 0.1,	-- 40x5 x 2 = 40 DPS
+            RateOfFire = 1,
 			
-            TargetCheckInterval = 2.5,
+            TargetCheckInterval = 2,
+            
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'CRUISER',
+                'SUBMARINE',
                 'MOBILE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER, WALL',
-            TrackingRadius = 1.15,
+            
+            TrackingRadius = 1.1,
         },
 		
         {

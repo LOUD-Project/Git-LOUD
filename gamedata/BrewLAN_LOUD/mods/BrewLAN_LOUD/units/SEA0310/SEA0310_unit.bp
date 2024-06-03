@@ -38,21 +38,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UEADestroy',
-            Cue = 'UEA_Destroy_Med',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0302_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UEADestroy', Cue = 'UEA_Destroy_Med', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UEA', Cue = 'UEA0302_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 15,
@@ -89,28 +77,12 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_jamming>Jamming',
         },
+        
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    {
-                        Bones = {
-                            'UEA0302',
-                        },
-                        Type = 'Landing01',
-                    },
-                },
-            },
-            LandAir = {
-                Effects = {
-                    {
-                        Bones = {
-                            'UEA0302',
-                        },
-                        Type = 'TakeOff01',
-                    },
-                },
-            },
+            AirLand = { Effects = { { Bones = {'UEA0302'}, Type = 'Landing01'} } },
+            LandAir = { Effects = { { Bones = {'UEA0302'}, Type = 'TakeOff01'} } },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -132,24 +104,11 @@ UnitBlueprint {
                 },
             },
         },
+        
         MovementEffects = {
             Air = {
-                Contrails = {
-                    Bones = {
-                        'Contrail_Left',
-                        'Contrail_Right',
-                    },
-                    ZOffset = 0,
-                },
-                Effects = {
-                    {
-                        Bones = {
-                            'Exhaust_Left',
-                            'Exhaust_Right',
-                        },
-                        Type = 'AirExhaust01',
-                    },
-                },
+                Contrails = { Bones = {'Contrail_Left','Contrail_Right'}, ZOffset = 0 },
+                Effects = { { Bones = {'Exhaust_Left','Exhaust_Right'}, Type = 'AirExhaust01' } },
             },
         },
 
@@ -181,15 +140,15 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'air',
-        ToggleCaps = {
-            RULEUTC_JammingToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_JammingToggle = true },
+        
         UnitName = '<LOC sea0310_name>Wild Weasel',
     },
 	
     Intel = {
         JamRadius = {
-            Max = 50,
+            Max = 44,
             Min = 8,
         },
         JammerBlips = 10,

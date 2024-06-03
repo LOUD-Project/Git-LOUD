@@ -7,45 +7,21 @@ UnitBlueprint {
     },
     
     Audio = {
-        FootFallGeneric = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0401_Move_Step',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        FootFallGenericSeabed = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0401_Move_UW_Step',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0401_Death',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0401_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0401_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        FootFallGeneric         = Sound { Bank = 'XSL', Cue = 'XSL0401_Move_Step', LodCutoff = 'UnitMove_LodCutoff'},
+        FootFallGenericSeabed   = Sound { Bank = 'XSL', Cue = 'XSL0401_Move_UW_Step', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed                  = Sound { Bank = 'XSL', Cue = 'XSL0401_Death', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove               = Sound { Bank = 'XSL', Cue = 'XSL0401_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        StopMove                = Sound { Bank = 'XSL', Cue = 'XSL0401_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection             = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Bot', LodCutoff = 'UnitMove_LodCutoff'},
     },
     
     Buffs = {
         Regen = {
-            Level1 = 15,
-            Level2 = 30,
-            Level3 = 45,
-            Level4 = 60,
-            Level5 = 75,
+            Level1 = 10,
+            Level2 = 20,
+            Level3 = 30,
+            Level4 = 40,
+            Level5 = 50,
         },
     },
     
@@ -131,18 +107,7 @@ UnitBlueprint {
         MovementEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {
-                            'E_001',
-                            'E_002',
-                            'E_003',
-                            'E_004',
-                            'E_005',
-                            'E_006',
-                        },
-                        Scale = 1,
-                        Type = 'GroundKickup01',
-                    },
+                    { Bones = {'E_001','E_002','E_003','E_004','E_005','E_006'}, Scale = 1, Type = 'GroundKickup01' },
                 },
                 Footfall = {
                     Bones = {
@@ -151,9 +116,7 @@ UnitBlueprint {
                             HipBone = 'B_001',
                             KneeBone = 'C_001',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = 0,
-                            },
+                            Offset = {z = 0},
                             Scale = 1.5,
                             StraightLegs = false,
                             Type = 'FootFall01',
@@ -163,9 +126,7 @@ UnitBlueprint {
                             HipBone = 'B_002',
                             KneeBone = 'C_002',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = 0,
-                            },
+                            Offset = {z = 0},
                             Scale = 1.5,
                             StraightLegs = false,
                             Type = 'FootFall01',
@@ -175,9 +136,7 @@ UnitBlueprint {
                             HipBone = 'B_003',
                             KneeBone = 'C_003',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = 0,
-                            },
+                            Offset = {z = 0},
                             Scale = 1.5,
                             StraightLegs = false,
                             Type = 'FootFall01',
@@ -187,9 +146,7 @@ UnitBlueprint {
                             HipBone = 'B_004',
                             KneeBone = 'C_004',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = 0,
-                            },
+                            Offset = {z = 0},
                             Scale = 1.5,
                             StraightLegs = false,
                             Type = 'FootFall01',
@@ -199,9 +156,7 @@ UnitBlueprint {
                             HipBone = 'B_005',
                             KneeBone = 'C_005',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = 0,
-                            },
+                            Offset = {z = 0},
                             Scale = 1.5,
                             StraightLegs = false,
                             Type = 'FootFall01',
@@ -211,20 +166,20 @@ UnitBlueprint {
                             HipBone = 'B_006',
                             KneeBone = 'C_006',
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = 0,
-                            },
+                            Offset = {z = 0},
                             Scale = 1.5,
                             StraightLegs = false,
                             Type = 'FootFall01',
                         },
                     },
+                    
                     CameraShake = {
                         Interval = 1,
                         MaxShakeEpicenter = 0.05125,
                         MinShakeAtRadius = 0,
                         Radius = 3,
                     },
+                    
                     Damage = {
                         Amount = 500,
                         DamageFriendly = false,

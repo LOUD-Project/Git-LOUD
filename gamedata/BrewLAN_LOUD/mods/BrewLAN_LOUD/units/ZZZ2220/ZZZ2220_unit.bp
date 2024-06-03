@@ -17,13 +17,9 @@ UnitBlueprint {
     Display = {
         Mesh = {
             IconFadeInZoom = 9999999,
-            LODs = {
-                {
-                    LODCutoff = 1,
-                    ShaderName = 'Seraphim',
-                },
-            },
+            LODs = { { LODCutoff = 1, ShaderName = 'Seraphim' } },
         },
+
         UniformScale = 0,
         HideLifebars = true,
     },
@@ -35,7 +31,6 @@ UnitBlueprint {
 
     General = {
         CapCost = 0,
-        Category = 'Defense',
         FactionName = 'None',      --Because ofcourse it is the responsibility of the data set to make sure you sanitise your inputs.
     },
 

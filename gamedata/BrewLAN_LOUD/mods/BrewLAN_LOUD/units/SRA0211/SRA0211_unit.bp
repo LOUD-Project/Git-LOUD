@@ -45,21 +45,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'URADestroy',
-            Cue = 'URA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'URADestroy', Cue = 'URA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'URA', Cue = 'URA0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Air', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
@@ -110,24 +98,12 @@ UnitBlueprint {
             '<LOC ability_personalstealth>Personal Stealth',
             '<LOC ability_radar>Radar',
         },
+        
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    {
-                        Bones = {0},
-                        Type = 'Landing01',
-                    },
-                },
-            },
-            LandAir = {
-                Effects = {
-                    {
-                        Bones = {0},
-                        Type = 'TakeOff01',
-                    },
-                },
-            },
+            AirLand = { Effects = { { Bones = {0}, Type = 'Landing01' } } },
+            LandAir = { Effects = { { Bones = {0}, Type = 'TakeOff01' } } },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -135,26 +111,10 @@ UnitBlueprint {
                 {LODCutoff = 260, ShaderName = 'Insect'},
             },
         },
+        
         MovementEffects = {
-            Air = {
-                Effects = {
-                    {
-                        Bones = {
-                        'Exhaust_Middle',
-                        },
-                        Type = 'AirMoveExhaust',
-                    },
-                },
-            },
-            BeamExhaust = {
-                Bones = {
-                    'Exhaust_Left',
-                    'Exhaust_Middle',
-                    'Exhaust_Right',
-                },
-                Cruise = true,
-                Idle = true,
-            },
+            Air         = { Effects = { { Bones = {'Exhaust_Middle'}, Type = 'AirMoveExhaust' } } },
+            BeamExhaust = { Bones = {'Exhaust_Left','Exhaust_Middle','Exhaust_Right'}, Cruise = true, Idle = true },
         },
 
         UniformScale = 0.015,
@@ -189,22 +149,21 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'air',
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-personal',
-                helpText = 'toggle_stealth_personal',
-            },
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-personal', helpText = 'toggle_stealth_personal' },
         },
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+        
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+        
         UnitName = '<LOC sra0211_name>Reaper',
     },
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 50,
+        
+        RadarRadius = 48,
         RadarStealth = true,
-        VisionRadius = 32,
+
+        VisionRadius = 36,
     },
 	
     Interface = {
@@ -258,14 +217,13 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'URAWeapon',
-                    Cue = 'URA0304_Strategic_Bomb',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URAWeapon', Cue = 'URA0304_Strategic_Bomb', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             AutoInitiateAttackCommand = true,
+            
             BallisticArc = 'RULEUBA_None',
 			
             BombDropThreshold = 3,
@@ -327,6 +285,7 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,

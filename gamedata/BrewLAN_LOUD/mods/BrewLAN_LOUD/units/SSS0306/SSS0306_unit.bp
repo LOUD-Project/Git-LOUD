@@ -4,26 +4,10 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'XSB',
-            Cue = 'XSB2205_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed       = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'XSB', Cue = 'XSB2205_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed          = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -34,6 +18,13 @@ UnitBlueprint {
             Level4 = 12,
             Level5 = 15,
         },
+        WaterVisionRadius = {
+            Level1 = 4,
+            Level2 = 6,
+            Level3 = 8,
+            Level4 = 10,
+            Level5 = 12,        
+        },        
     },
 	
     BuildIconSortPriority = 310,
@@ -47,7 +38,7 @@ UnitBlueprint {
 		'DEFENSE',
 		'STRUCTURE',
         'ANTINAVY',
-		'HOVER',
+		--'HOVER',
         'DRAGBUILD',
         'NEEDMOBILEBUILD',
         'VISIBLETORECON',
@@ -58,23 +49,25 @@ UnitBlueprint {
     },
 
     Defense = {
+
+        MissileTorpDestroy = { AttachBone = {'Muzzle04'}, Radius = 3.8, RedirectRateOfFire = 9, ProjectileCategories = {'TORPEDO','TACTICAL'} },
+
         ArmorType = 'Structure',
-        Health = 10000,
-        MaxHealth = 10000,
+        Health = 8500,
+        MaxHealth = 8500,
         RegenRate = 6,
         SubThreatLevel = 26,
     },
 	
-    Description = '<LOC xsb2205_desc>Torpedo Launcher',
+    Description = '<LOC xsb2205_desc>Advanced Torpedo Launcher',
 	
     Display = {
 	
         Abilities = {
-            'Non-mobile Hover',
 			'Can be built on Land',
             '<LOC ability_sonar>Sonar',
-            '<LOC ability_torpedo>Torpedoes',
-			'Torpedo Defense',
+            '<LOC ability_personalstealth>Personal Stealth',
+            '<LOC ability_torpedodef>Personal Torpedo Defense',
         },
 		
         AnimationDeath = {
@@ -87,85 +80,12 @@ UnitBlueprint {
         },
 
         DamageEffects = {
-            {
-                Bone = 0,
-                OffsetX = 0.3,
-                OffsetY = 0.25,
-                OffsetZ = 0.3,
-            },
-            {
-                Bone = 0,
-                OffsetX = -0.3,
-                OffsetY = 0.25,
-                OffsetZ = 0.3,
-            },
-            {
-                Bone = 0,
-                OffsetX = 0.3,
-                OffsetY = 0.25,
-                OffsetZ = -0.3,
-            },
-            {
-                Bone = 0,
-                OffsetX = -0.3,
-                OffsetY = 0.25,
-                OffsetZ = -0.3,
-            },
+            { Bone = 0, OffsetX = 0.3, OffsetY = 0.25, OffsetZ = 0.3 },
+            { Bone = 0, OffsetX = -0.3, OffsetY = 0.25, OffsetZ = 0.3 },
+            { Bone = 0, OffsetX = 0.3, OffsetY = 0.25, OffsetZ = -0.3 },
+            { Bone = 0, OffsetX = -0.3, OffsetY = 0.25, OffsetZ = -0.3 },
         },
-		
-        IdleEffects = {
-            Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Foot_001',
-                            'Foot_002',
-                            'Foot_003',
-                            'Foot_004',
-                        },
-                        Offset = {
-                            0,
-                            -0.25,
-                            0,
-                        },
-                        Type = 'SeraphimGroundFX01',
-                    },
-                },
-            },
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Foot_001',
-                            'Foot_002',
-                            'Foot_003',
-                            'Foot_004',
-                        },
-                        Offset = {
-                            0,
-                            -0.25,
-                            0,
-                        },
-                        Type = 'SeraphimGroundFX01',
-                    },
-                    {
-                        Bones = {
-                            'Foot_001',
-                            'Foot_002',
-                            'Foot_003',
-                            'Foot_004',
-                        },
-                        Offset = {
-                            0,
-                            -0.25,
-                            0,
-                        },
-                        Scale = 1.2,
-                        Type = 'SeaIdle02',
-                    },
-                },
-            },
-        },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -188,103 +108,46 @@ UnitBlueprint {
                 },
             },
         },
-        MovementEffects = {
-            Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Foot_001',
-                            'Foot_002',
-                            'Foot_003',
-                            'Foot_004',
-                        },
-                        Scale = 0.5,
-                        Type = 'GroundKickup01',
-                    },
-                    {
-                        Bones = {
-                            'Foot_001',
-                            'Foot_002',
-                            'Foot_003',
-                            'Foot_004',
-                        },
-                        Offset = {
-                            0,
-                            -0.25,
-                            0,
-                        },
-                        Type = 'SeraphimGroundFX01',
-                    },
-                },
-            },
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Foot_001',
-                            'Foot_002',
-                            'Foot_003',
-                            'Foot_004',
-                        },
-                        Offset = {
-                            0,
-                            -0.25,
-                            0,
-                        },
-                        Type = 'SeraphimGroundFX01',
-                    },
-                    {
-                        Bones = {
-                            'Foot_001',
-                            'Foot_002',
-                            'Foot_003',
-                            'Foot_004',
-                        },
-                        Scale = 0.5,
-                        Type = 'BackWake',
-                    },
-                },
-            },
-        },
+
         UniformScale = 0.05,
     },
 	
     Economy = {
-        BuildCostEnergy = 25000,
-        BuildCostMass = 3000,
-        BuildTime = 3000,
+        BuildCostEnergy = 34500,
+        BuildCostMass = 2850,
+        BuildTime = 3500,
     },
 	
     Footprint = {
-        --MinWaterDepth = 1.5,
+
         SizeX = 2,
         SizeZ = 2,
     },
 	
     General = {
 		CapCost = 2,
+
         CommandCaps = {
             RULEUCC_Attack = true,
-            RULEUCC_CallTransport = true,
-            RULEUCC_Guard = true,
-            RULEUCC_Move = true,
-            RULEUCC_Patrol = true,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
+
         UnitName = '<LOC sss0306_name>Uosthuum',
     },
 	
     Intel = {
 		FreeIntel = true,
+
         RadarStealth = true,
-        SonarRadius = 60,
         SonarStealth = true,
-        VisionRadius = 36,
-        WaterVisionRadius = 48,
+
+        SonarRadius = 64,
+        VisionRadius = 44,
+        WaterVisionRadius = 44,
     },
 	
     Interface = {
@@ -344,59 +207,65 @@ UnitBlueprint {
         Level5 = 75,
     },
 	
-    Transport = {
-        TransportClass = 3,
-    },
-	
     Weapon = {
         {
+            advancedTracking = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2205_Cavitation_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
+                Fire = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2205_Cavitation_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
+            },
+
+            BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.4,
+                    Radius = 2,
+                    TargetAllow = 'LAND TECH1,NAVAL TECH1,LAND TECH2,NAVAL TECH2',
+                    TargetDisallow = 'WALL,COMMAND,EXPERIMENTAL',
                 },
             },
-            BallisticArc = 'RULEUBA_None',
+
             CollideFriendly = false,
 			
-            Damage = 400,
-			DamageRadius = 2,
+            Damage = 600,
             DamageType = 'Normal',
 			
-            DisplayName = 'Cavitation Torpedo Cluster',
+            DisplayName = 'Torpedo Cluster',
 			
             FireTargetLayerCapsTable = {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 90,
+            FiringTolerance = 20,
 			
             Label = 'TorpedoTurrets',
 			
             MaxRadius = 80,
 			
-            MuzzleSalvoDelay = 0.7,
+            MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 3,
-            MuzzleVelocity = 3,
+            MuzzleVelocity = 6,
 			
-            ProjectileId = '/projectiles/SANHeavyCavitationTorpedo02/SANHeavyCavitationTorpedo02_proj.bp',
-            ProjectileLifetime = 13,
+            -- this is a cluster munition that splits into 3 when it enters the water
+            ProjectileId = '/projectiles/SANHeavyCavitationTorpedo01/SANHeavyCavitationTorpedo01_proj.bp',
+            ProjectileLifetime = 10,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle01',
-                        'Muzzle02',
-                        'Muzzle03',
-                    },
+                    MuzzleBones = {'Muzzle01','Muzzle02','Muzzle03'},
                     RackBone = 'Muzzle01',
                 },
             },
+            
+            RackSalvoReloadTime = 2.4,
 			
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.4,
+            RateOfFire = 1,     -- controlled by MuzzleSalvo and RackSalvoReloadTime = 3.6 seconds
 			
             TargetCheckInterval = 1,
 			
@@ -407,14 +276,14 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+            TargetRestrictOnlyAllow = 'NAVAL, SUBMERSIBLE',
             TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Muzzle01',
-            TurretBonePitch = 'XSB2205',
+            TurretBonePitch = 'Turret',
             TurretBoneYaw = 'XSB2205',
-            TurretDualManipulators = false,
 			
-            TurretPitch = -20,
+            TurretPitch = 0,
             TurretPitchRange = 0,
             TurretPitchSpeed = 0,
 			
@@ -422,72 +291,6 @@ UnitBlueprint {
             TurretYawRange = 180,
             TurretYawSpeed = 30,
 			
-            Turreted = true,
-        },
-        {
-            Audio = {
-                Fire = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2205_Ajellu_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-            BallisticArc = 'RULEUBA_None',
-            CollideFriendly = false,
-
-            Damage = 2,
-			DamageFriendly = false,
-			DamageRadius = 2,
-            DamageType = 'Normal',
-
-            DisplayName = 'Anti Torpedo',
-
-            FireTargetLayerCapsTable = {
-                Water = 'Seabed|Sub|Water',
-            },
-
-            FiringTolerance = 50,
-
-            Label = 'AjelluTorpedoDefense',
-
-            MaxRadius = 28,
-
-            MuzzleVelocity = 12,
-
-            ProjectileId = '/projectiles/SANAjelluAntiTorpedo01/SANAjelluAntiTorpedo01_proj.bp',
-            ProjectileLifetime = 4,
-
-            RackBones = {
-                {
-                    MuzzleBones = {'Muzzle04'},
-                    RackBone = 'Muzzle04',
-                },
-            },
-
-            RangeCategory = 'UWRC_Countermeasure',
-
-            RateOfFire = 0.9,
-
-            TargetCheckInterval = 0.2,
-
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            TargetRestrictOnlyAllow = 'TORPEDO',
-            TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.2,
-
-            TurretBoneMuzzle = 'Muzzle04',
-            TurretBonePitch = 'Anti_Torpedo_Turret',
-            TurretBoneYaw = 'Anti_Torpedo_Turret',
-            TurretDualManipulators = false,
-
-            TurretPitch = -10,
-            TurretPitchRange = 30,
-            TurretPitchSpeed = 30,
-
-            TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 72,
-
             Turreted = true,
         },
 		

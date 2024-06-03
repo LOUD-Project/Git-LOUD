@@ -5,30 +5,11 @@ UnitBlueprint {
     },
 	
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0111_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0111_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0111_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
+        AmbientMove = Sound { Bank = 'URL', Cue = 'URL0111_Move_Loop', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'URL', Cue = 'URL0111_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'URL', Cue = 'URL0111_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff',
         },
     },
 
@@ -51,10 +32,12 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        EconomyThreatLevel = 150,
+
         Health = 1275,
         MaxHealth = 1275,
         RegenRate = 2,
+
+        EconomyThreatLevel = 150,
     },
 	
     Description = '<LOC sel0321_desc>Mobile Strategic Missile Defense',
@@ -66,28 +49,14 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 130,
-                    Scrolling = true,
-                    ShaderName = 'Insect',
-                },
-                {
-                    LODCutoff = 260,
-                    Scrolling = true,
-                    ShaderName = 'Insect',
-                },
+                { LODCutoff = 130, Scrolling = true, ShaderName = 'Insect' },
+                { LODCutoff = 260, Scrolling = true, ShaderName = 'Insect' },
             },
         },
         MovementEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {
-                            'Exhaust_Left',
-                            'Exhaust_Right',
-                        },
-                        Type = 'GroundKickup01',
-                    },
+                    { Bones = {'Exhaust_Left','Exhaust_Right'}, Type = 'GroundKickup01' },
                 },
                 Treads = {
                     ScrollTreads = true,
@@ -97,23 +66,15 @@ UnitBlueprint {
                             TreadMarksInterval = 0.09,
                             TreadMarksSizeX = 1.43,
                             TreadMarksSizeZ = 0.9,
-                            TreadOffset = {
-                                0,
-                                0,
-                                -0.7,
-                            },
+                            TreadOffset = {0,0,-0.7},
                         },
                     },
                 },
             },
         },
 
-        TransportAnimation = {
-            {
-                Animation = '/mods/BrewLAN_LOUD/units/srl0321/srl0321_afold.sca',
-                Weight = 100,
-            },
-        },
+        TransportAnimation = { {Animation = '/mods/BrewLAN_LOUD/units/srl0321/srl0321_afold.sca',Weight = 100} },
+        
         UniformScale = 0.030,--0.18*1.3,
     },
 	
@@ -141,7 +102,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 18,
+        VisionRadius = 20,
     },
 	
     Interface = {
@@ -249,7 +210,7 @@ UnitBlueprint {
             
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 0.5,
+            RateOfFire = 0.5,   -- true rate of fire controlled by racksalvoreloadtime
 			
             TargetCheckInterval = 0.2,
 			
@@ -263,9 +224,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

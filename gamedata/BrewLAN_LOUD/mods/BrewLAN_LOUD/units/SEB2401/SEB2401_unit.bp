@@ -5,35 +5,19 @@ UnitBlueprint {
     },
 
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2302_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'UEB', Cue = 'UEB2302_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     Buffs = {
         Regen = {
-            Level1 = 15,
-            Level2 = 30,
-            Level3 = 45,
-            Level4 = 60,
-            Level5 = 75,
+            Level1 = 12,
+            Level2 = 24,
+            Level3 = 36,
+            Level4 = 48,
+            Level5 = 60,
         },
 		VisionRadius = {
             Level1 = 2,
@@ -65,10 +49,11 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 817,
+
         Health = 16500,
         MaxHealth = 16500,
         RegenRate = 15,
+
         SurfaceThreatLevel = 314.8,
     },
 
@@ -83,16 +68,11 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 300,
-                    ShaderName = 'Unit',
-                },
-                {
-                    LODCutoff = 500,
-                    ShaderName = 'Unit',
-                },
+                { LODCutoff = 300, ShaderName = 'Unit' },
+                { LODCutoff = 500, ShaderName = 'Unit' },
             },
         },
+        
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_01_albedo',
@@ -100,12 +80,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar12x_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0,90,180,270},
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
@@ -116,7 +91,7 @@ UnitBlueprint {
 
     Economy = {
         BuildCostEnergy = 175000,
-        BuildCostMass = 15000,
+        BuildCostMass = 14250,
         BuildTime = 15000,
 
         RebuildBonusIds = {'seb2401'},
@@ -131,6 +106,7 @@ UnitBlueprint {
 
     General = {
 		CapCost = 6,
+        
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -139,11 +115,12 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         SelectionPriority = 5,
+
         UnitName = '<LOC seb2401_name>Excalibur',
     },
 
     Intel = {
-        VisionRadius = 30,
+        VisionRadius = 36,
     },
 
     Interface = {
@@ -202,6 +179,7 @@ UnitBlueprint {
     Weapon = {
         {
             AimsStraightOnDisable = true,
+
             Audio = {
                 Fire = Sound { Bank = 'XES_Weapons', Cue = 'XES0307_Plasma_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
@@ -217,7 +195,7 @@ UnitBlueprint {
 
             Damage = 5000,
             DamageRadius = 0,
-            DamageType = 'Railgun',
+            DamageType = 'Railgun',     -- this is a unique DamageType
 
             DisplayName = 'Maelstrom Cannon',
 
@@ -226,8 +204,6 @@ UnitBlueprint {
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
-                Seabed = 'Land|Water|Seabed',
             },
 
             FiringTolerance = 0,
@@ -300,7 +276,7 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.2,
         HealthMult = 0.9,
         MassMult = 0.2,
         ReclaimTimeMultiplier = 1,

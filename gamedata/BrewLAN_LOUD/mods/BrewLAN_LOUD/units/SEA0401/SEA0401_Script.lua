@@ -7,6 +7,8 @@ local           TSAMLauncher = TWeapons.TSAMLauncher
 local    TDFHiroPlasmaCannon = TWeapons.TDFHiroPlasmaCannon
 local  TDFPlasmaCannonWeapon = TWeapons.TDFPlasmaCannonWeapon
 
+TWeapons = nil
+
 local             EffectUtil = import('/lua/EffectUtilities.lua')
 local                Effects = import('/lua/effecttemplates.lua')
 local  CreateBuildCubeThread = EffectUtil.CreateBuildCubeThread
@@ -71,9 +73,6 @@ SEA0401 = Class(TAirUnit) {
 		
     },
 
-    OnCreate = function(self)
-        TAirUnit.OnCreate(self)
-    end,
 
     StartBeingBuiltEffects = function(self, builder, layer)
 	

@@ -6,41 +6,13 @@ UnitBlueprint {
     },
 	
     Audio = {
-        AmphibiousFloatingKilledOnLand = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URS0201_DEATH_ON_LAND',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'URSDestroy',
-            Cue = 'URS0201_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMoveLand = Sound {
-            Bank = 'URS',
-            Cue = 'URS0201_Move_Land_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMoveWater = Sound {
-            Bank = 'URS',
-            Cue = 'URS0201_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        TransitionLand = Sound {
-            Bank = 'URSStream',
-            Cue = 'URS0201_Land_Extend',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        TransitionWater = Sound {
-            Bank = 'URSStream',
-            Cue = 'URS0201_Land_Retract',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },		
+        AmphibiousFloatingKilledOnLand  = Sound { Bank = 'URLDestroy', Cue = 'URS0201_DEATH_ON_LAND', LodCutoff = 'UnitMove_LodCutoff' },
+        Killed                          = Sound { Bank = 'URSDestroy', Cue = 'URS0201_Destroy', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMoveLand                   = Sound { Bank = 'URS', Cue = 'URS0201_Move_Land_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMoveWater                  = Sound { Bank = 'URS', Cue = 'URS0201_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        TransitionLand                  = Sound { Bank = 'URSStream', Cue = 'URS0201_Land_Extend', LodCutoff = 'UnitMove_LodCutoff' },
+        TransitionWater                 = Sound { Bank = 'URSStream', Cue = 'URS0201_Land_Retract', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection                     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Naval', LodCutoff = 'UnitMove_LodCutoff' },		
     },
 	
     Buffs = {
@@ -80,12 +52,14 @@ UnitBlueprint {
     CollisionOffsetY = -0.29,
 	
     Defense = {
-        AirThreatLevel = 7.2,
         ArmorType = 'Normal',
-        EconomyThreatLevel = 227,
+
         Health = 6050,
         MaxHealth = 6050,
         RegenRate = 9,
+        
+        AirThreatLevel = 7.2,
+        EconomyThreatLevel = 227,
         SubThreatLevel = 6,
     },
 	
@@ -126,117 +100,48 @@ UnitBlueprint {
         AnimationTransform = '/units/urs0201/urs0201_Atransform02.sca',
         AnimationWalk = '/units/urs0201/urs0201_Awalk.sca',
         AnimationWalkRate = 3.2,
-        IdleEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'URS0201',
-                        },
-                        Scale = 1.16,
-                        Type = 'SeaIdle01',
-                    },
-                },
-            },
-        },
-        LandAnimationDeath = {
-            {
-                Animation = '/units/urs0201/urs0201_adeath.sca',
-                Weight = 100,
-            },
-        },
-        LayerChangeEffects = {
-            WaterLand = {
-                Effects = {
-                    {
-                        Bones = {
-                            'URS0201',
-                        },
-                        Type = 'Surface01',
-                    },
-                },
-            },
-        },
+        
+        IdleEffects = { Water = { Effects = { { Bones = {'URS0201'}, Scale = 1.16, Type = 'SeaIdle01' } } } },
+        
+        LandAnimationDeath = { { Animation = '/units/urs0201/urs0201_adeath.sca', Weight = 100 } },
+        
+        LayerChangeEffects = { WaterLand = { Effects = { { Bones = {'URS0201'}, Type = 'Surface01' } } } },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 140,
-                    ShaderName = 'Insect',
-                },
-                {
-                    LODCutoff = 300,
-                    ShaderName = 'Insect',
-                    MeshName = '/units/urs0201/urs0201_lod1.scm',
+                { LODCutoff = 140, ShaderName = 'Insect' },
+                { LODCutoff = 300, ShaderName = 'Insect', MeshName = '/units/urs0201/urs0201_lod1.scm',
                     AlbedoName = '/units/urs0201/urs0201_lod1_albedo.dds',
                     SpecularName = '/units/urs0201/urs0201_lod1_specteam.dds',
                 },
             },
         },
+        
         MovementEffects = {
             Land = {
-                Effects = {
-                },
                 Footfall = {
                     Bones = {
-                        {
-                            FootBone = 'Exhaust_Leg_L01',
-                            Scale = 0.58,
-                            Type = 'FootFall01',
-                        },
-                        {
-                            FootBone = 'Exhaust_Leg_L02',
-                            Scale = 0.58,
-                            Type = 'FootFall01',
-                        },
-                        {
-                            FootBone = 'Exhaust_Leg_L03',
-                            Scale = 0.58,
-                            Type = 'FootFall01',
-                        },
-                        {
-                            FootBone = 'Exhaust_Leg_R01',
-                            Scale = 0.58,
-                            Type = 'FootFall01',
-                        },
-                        {
-                            FootBone = 'Exhaust_Leg_R02',
-                            Scale = 0.58,
-                            Type = 'FootFall01',
-                        },
-                        {
-                            FootBone = 'Exhaust_Leg_R03',
-                            Scale = 0.58,
-                            Type = 'FootFall01',
-                        },
+                        { FootBone = 'Exhaust_Leg_L01', Scale = 0.58, Type = 'FootFall01' },
+                        { FootBone = 'Exhaust_Leg_L02', Scale = 0.58, Type = 'FootFall01' },
+                        { FootBone = 'Exhaust_Leg_L03', Scale = 0.58, Type = 'FootFall01' },
+                        { FootBone = 'Exhaust_Leg_R01', Scale = 0.58, Type = 'FootFall01' },
+                        { FootBone = 'Exhaust_Leg_R02', Scale = 0.58, Type = 'FootFall01' },
+                        { FootBone = 'Exhaust_Leg_R03', Scale = 0.58, Type = 'FootFall01' },
                     },
                 },
             },
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'WakeFront_L',
-                        },
-                        Type = 'LeftFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'WakeFront_R',
-                        },
-                        Type = 'RightFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'WakeBack',
-                        },
-                        Scale = 0.93,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'WakeFront_L'}, Type = 'LeftFrontWake' },
+                    { Bones = {'WakeFront_R'}, Type = 'RightFrontWake' },
+                    { Bones = {'WakeBack'}, Scale = 0.93, Type = 'BackWake' },
                 },
             },
         },
+        
         UniformScale = 0.37,
+        
         WaterAnimationDeath = {
             {
                 Animation = '/units/urs0201/urs0201_asink03.sca',
@@ -283,11 +188,9 @@ UnitBlueprint {
     },
 
     General = {
-        BuildBones = {
-            BuildEffectBones = {'Buildpoint_Left','Buildpoint_Center','Buildpoint_Right'},
-            PitchBone = 'Buildpoint_Center',
-            YawBone = 'Buildpoint_Center',
-        },
+    
+        BuildBones = { BuildEffectBones = {'Buildpoint_Left','Buildpoint_Center','Buildpoint_Right'}, PitchBone = 'Buildpoint_Center', YawBone = 'Buildpoint_Center'},
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Capture = true,
@@ -299,6 +202,7 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+        
         FactionName = 'Cybran',
         Icon = 'amph',
         SelectionPriority = 2,
@@ -307,11 +211,12 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-		OmniRadius = 6,
-        RadarRadius = 72,
-        SonarRadius = 54,
+        
+		OmniRadius = 8,
+        RadarRadius = 64,
+        SonarRadius = 56,
         VisionRadius = 36,
-        WaterVisionRadius = 24,
+        WaterVisionRadius = 20,
     },
 	
     Interface = {
@@ -324,6 +229,7 @@ UnitBlueprint {
 	
     Physics = {
         AltMotionType = 'RULEUMT_Water',
+        
         BackUpDistance = 8,
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -371,14 +277,13 @@ UnitBlueprint {
 		
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0201_Cannon_Electron',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0201_Cannon_Electron', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -413,12 +318,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'AA_Barrel_R01',
-                        'AA_Barrel_R02',
-                        'AA_Barrel_L01',
-                        'AA_Barrel_L02',
-                    },
+                    MuzzleBones = {'AA_Barrel_R01','AA_Barrel_R02','AA_Barrel_L01','AA_Barrel_L02'},
                     RackBone = 'Barrel_AA',
                 },
             },
@@ -440,7 +340,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'AA_Barrel_R01',
             TurretBonePitch = 'Barrel_AA',
             TurretBoneYaw = 'Turret_AA',
-            TurretDualManipulators = false,
 			
             TurretPitch = 45,
             TurretPitchRange = 60,
@@ -455,19 +354,14 @@ UnitBlueprint {
 		
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0201_Torpedo_Rocket',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0201_Torpedo_Rocket', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 60,
+            Damage = 250,
             DamageType = 'Normal',
-			
-            DisplayName = 'Nanite Torpedo',
 			
             FireTargetLayerCapsTable = {
                 Water = 'Seabed|Sub|Water',
@@ -477,28 +371,28 @@ UnitBlueprint {
 			
             Label = 'Torpedo',
 			
-            MaxRadius = 40,
+            MaxRadius = 44,
 			
-            MuzzleSalvoDelay = 0.5,
+            MuzzleSalvoDelay = 0.8,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 3,
+            
+            MuzzleVelocity = 5,
 			
-            ProjectileId = '/projectiles/CANTorpedoNanite01/CANTorpedoNanite01_proj.bp',
-            ProjectileLifetime = 8,
+            ProjectileId = '/projectiles/CANTorpedoNanite02/CANTorpedoNanite02_proj.bp',
+            ProjectileLifetime = 7,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Torpedo_L',
-                        'Torpedo_R',
-                    },
+                    MuzzleBones = {'Torpedo_L','Torpedo_R'},
                     RackBone = 'Torp_Launcher_L',
                 },
             },
+            
+            RackSalvoReloadTime = 1.7,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.5,		-- 2 torpedoes * .5 = 60 DPS Sub
+            RateOfFire = 1,		-- 2 torpedoes * 300/3.3 = 181 DPS Sub
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 10,
@@ -523,7 +417,7 @@ UnitBlueprint {
             Damage = 2,
             DamageType = 'Normal',
 			
-            DepthCharge = { Radius = 6 },
+            DepthCharge = { Radius = 5.5 },
 			
             DisplayName = 'Anti Torpedo Flare',
 			
@@ -585,7 +479,7 @@ UnitBlueprint {
             Damage = 2,
             DamageType = 'Normal',
 			
-            DepthCharge = { Radius = 6 },
+            DepthCharge = { Radius = 5.5 },
 			
             DisplayName = 'Anti Torpedo Flare',
 			
@@ -642,9 +536,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,
