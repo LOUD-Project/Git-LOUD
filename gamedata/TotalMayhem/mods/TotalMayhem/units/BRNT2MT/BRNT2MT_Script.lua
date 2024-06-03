@@ -2,8 +2,10 @@ local TLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
 local WeaponsFile = import('/lua/terranweapons.lua')
 
-local TDFGaussCannonWeapon = WeaponsFile.TDFLandGaussCannonWeapon
-local TDFMachineGunWeapon = WeaponsFile.TDFMachineGunWeapon
+local TDFGaussCannonWeapon  = WeaponsFile.TDFLandGaussCannonWeapon
+local TDFMachineGunWeapon   = WeaponsFile.TDFMachineGunWeapon
+
+WeaponsFile = nil
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
@@ -12,8 +14,11 @@ local CreateAttachedEmitter = CreateAttachedEmitter
 BRNT2MT = Class(TLandUnit) {
 
     Weapons = {
+
         MainGun = Class(TDFGaussCannonWeapon) {
+
             FxMuzzleFlashScale = 1.0,
+
             FxMuzzleFlash = { 
             	'/effects/emitters/proton_artillery_muzzle_01_emit.bp',
             	'/effects/emitters/proton_artillery_muzzle_03_emit.bp',

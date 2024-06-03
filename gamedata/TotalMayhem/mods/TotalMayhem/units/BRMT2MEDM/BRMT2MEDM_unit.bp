@@ -51,7 +51,7 @@ UnitBlueprint {
     
     Display = {
         Abilities = {
-            'Amphibious',
+            '<LOC ability_amphibious>Amphibious',
         },
         
         AnimationDeath = { {Animation = '/mods/TotalMayhem/units/BRMT2MEDM/BRMT2MEDM_Death.sca',Weight = 100} },

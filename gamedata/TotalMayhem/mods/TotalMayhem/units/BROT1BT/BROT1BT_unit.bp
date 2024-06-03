@@ -44,7 +44,7 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Hover',
+            '<LOC ability_hover>Hover',
 			'No Turret',
         },
         
@@ -76,6 +76,7 @@ UnitBlueprint {
 	
     Intel = {
         VisionRadius = 20,
+        WaterVisionRadius = 8,
     },
 	
     Interface = {

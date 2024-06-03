@@ -140,7 +140,7 @@ UnitBlueprint {
 
     Intel = {
         VisionRadius = 36,
-		WaterVisionRadius = 24,
+		WaterVisionRadius = 20,
     },
 
     Interface = {
@@ -367,7 +367,7 @@ UnitBlueprint {
             
             NotExclusive = true,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/MadCatMolecular/MadCatMolecular_proj.bp',
+            ProjectileId = '/projectiles/CDFLaserHeavy01/CDFLaserHeavy01_proj.bp',
 
             RackBones = {
                 {
@@ -442,7 +442,7 @@ UnitBlueprint {
             
             NotExclusive = true,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/MadCatMolecular/MadCatMolecular_proj.bp',
+            ProjectileId = '/projectiles/CDFLaserHeavy01/CDFLaserHeavy01_proj.bp',
 
             RackBones = {
                 {
@@ -680,7 +680,7 @@ UnitBlueprint {
 			
 			PrefersPrimaryWeaponTarget = true,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/NULLWEAPON/NULLWEAPON_proj.bp',
+            ProjectileId = '/projectiles/NullShell/NullShell_proj.bp',
 
             RackBones = {
                 {

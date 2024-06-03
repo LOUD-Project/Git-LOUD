@@ -4,7 +4,6 @@ local WeaponsFile = import('/lua/terranweapons.lua')
 
 local TDFGaussCannonWeapon = WeaponsFile.TDFLandGaussCannonWeapon
 
-local EffectUtils = import('/lua/effectutilities.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 local CreateAttachedEmitter = CreateAttachedEmitter
@@ -12,8 +11,11 @@ local CreateAttachedEmitter = CreateAttachedEmitter
 BRMT2PD = Class(TStructureUnit) {
 
     Weapons = {
+
         MainGun = Class(TDFGaussCannonWeapon) {
+
             FxMuzzleFlashScale = 1,
+
             FxMuzzleFlash = { 
             	'/effects/emitters/aeon_quanticcluster_muzzle_flash_03_emit.bp',
             	'/effects/emitters/aeon_quanticcluster_muzzle_flash_06_emit.bp',

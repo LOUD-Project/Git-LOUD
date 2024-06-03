@@ -3,7 +3,6 @@ local TStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 local TDFGaussCannonWeapon = import('/lua/terranweapons.lua').TDFLandGaussCannonWeapon
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
-local EffectUtils = import('/lua/effectutilities.lua')
 
 local CreateAttachedEmitter = CreateAttachedEmitter
 

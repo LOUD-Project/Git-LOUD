@@ -49,46 +49,13 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSA_Destroy',
-            Cue = 'XSA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSA_Destroy',
-            Cue = 'XSA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Landing = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0103_Move_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Refueling = Sound {
-            Bank = 'XSB',
-            Cue = 'XSB5202_Repair_Refuel',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0103_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0103_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Thruster = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0103_Move_Thruster',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Landing     = Sound { Bank = 'XSA', Cue = 'XSA0103_Move_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'XSA', Cue = 'XSA0103_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        StopMove    = Sound { Bank = 'XSA', Cue = 'XSA0103_Move_Stop', LodCutoff = 'UnitMove_LodCutoff'},
+        Thruster    = Sound { Bank = 'XSA', Cue = 'XSA0103_Move_Thruster', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed   = Sound { Bank = 'XSA_Destroy', Cue = 'XSA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed      = Sound { Bank = 'XSA_Destroy', Cue = 'XSA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {},
@@ -123,8 +90,9 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Radar',
+            '<LOC ability_radar>Radar',
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -166,8 +134,9 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 55,
-        VisionRadius = 32,
+        
+        RadarRadius = 48,
+        VisionRadius = 36,
     },
 	
     Interface = {
@@ -221,12 +190,9 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0103_Othe_Tactical_Bomb',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0103_Othe_Tactical_Bomb', LodCutoff = 'Weapon_LodCutoff'},
             },
 
             AutoInitiateAttackCommand = true,

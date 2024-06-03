@@ -2,9 +2,11 @@ local SWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local SeraphimWeapons = import('/lua/seraphimweapons.lua')
 
-local SDFUltraChromaticBeamGenerator = SeraphimWeapons.SDFUltraChromaticBeamGenerator02
-local SDFChronotronCannonWeapon = SeraphimWeapons.SDFChronotronCannonWeapon
-local SDFAireauBolterWeapon = SeraphimWeapons.SDFAireauBolterWeapon02
+local SDFUltraChromaticBeamGenerator    = SeraphimWeapons.SDFUltraChromaticBeamGenerator02
+local SDFChronotronCannonWeapon         = SeraphimWeapons.SDFChronotronCannonWeapon
+local SDFAireauBolterWeapon             = SeraphimWeapons.SDFAireauBolterWeapon
+
+SeraphimWeapons = nil
 
 local SeraLambdaFieldDestroyer = import('/lua/defaultantiprojectile.lua').SeraLambdaFieldDestroyer
 
@@ -14,11 +16,11 @@ BRPT2HVBOT = Class( SWalkingLandUnit ) {
 
 	Weapons = {
 	
-		Beam = Class(SDFUltraChromaticBeamGenerator) { FxMuzzleFlashScale = 2 },
-	
-		ChronoCannon = Class(SDFChronotronCannonWeapon) {},
-		
-		Bolter = Class(SDFAireauBolterWeapon) { FxMuzzleFlashScale = 0.9 },
+		Beam            = Class(SDFUltraChromaticBeamGenerator) { FxMuzzleFlashScale = 2 },
+
+		ChronoCannon    = Class(SDFChronotronCannonWeapon) {},
+
+		Bolter          = Class(SDFAireauBolterWeapon) { FxMuzzleFlashScale = 0.9 },
 	},
 
 	OnStopBeingBuilt = function(self,builder,layer)
@@ -46,10 +48,6 @@ BRPT2HVBOT = Class( SWalkingLandUnit ) {
 		local army =  self:GetArmy()
 		
 		for k, v in EffectTemplate['SDFSinnutheWeaponFXTrails01'] do
-			--self.Trash:Add(CreateAttachedEmitter(self, 'aa01', army, v):ScaleEmitter(0.1))
-			--self.Trash:Add(CreateAttachedEmitter(self, 'aa02', army, v):ScaleEmitter(0.1))
-			--self.Trash:Add(CreateAttachedEmitter(self, 'aa03', army, v):ScaleEmitter(0.1))
-			--self.Trash:Add(CreateAttachedEmitter(self, 'aa04', army, v):ScaleEmitter(0.1))
 			self.Trash:Add(CreateAttachedEmitter(self, 'eff01', army, v):ScaleEmitter(0.3))
 			self.Trash:Add(CreateAttachedEmitter(self, 'eff02', army, v):ScaleEmitter(0.3))
 		end
@@ -65,7 +63,7 @@ BRPT2HVBOT = Class( SWalkingLandUnit ) {
 		local army =  self:GetArmy()
 		
 		for k, v in EffectTemplate['SDFExperimentalPhasonProjHit01'] do
-			self.Trash:Add(CreateAttachedEmitter(self, 'BRPT2HVBOT', army, v):ScaleEmitter(2.3))
+			self.Trash:Add(CreateAttachedEmitter(self, 'BRPT2HVBOT', army, v):ScaleEmitter(2.1))
 		end
 	end,
 }

@@ -3,7 +3,7 @@ local TWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 local WeaponsFile = import('/lua/terranweapons.lua')
 
 local TDFGaussCannonWeapon              = WeaponsFile.TDFLandGaussCannonWeapon
-local TIFCruiseMissileUnpackingLauncher = WeaponsFile.TIFCruiseMissileUnpackingLauncher
+local TIFCruiseMissileUnpackingLauncher = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
 local TANTorpedoLandWeapon              = WeaponsFile.TANTorpedoAngler
 local TIFCommanderDeathWeapon           = WeaponsFile.TIFCommanderDeathWeapon
 local TDFRiotWeapon                     = WeaponsFile.TDFRiotWeapon

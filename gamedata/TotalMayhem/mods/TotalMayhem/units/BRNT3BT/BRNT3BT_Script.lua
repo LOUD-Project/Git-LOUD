@@ -2,8 +2,10 @@ local TLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
 local WeaponsFile = import('/lua/terranweapons.lua')
 
-local TDFGaussCannonWeapon = WeaponsFile.TDFLandGaussCannonWeapon
-local TDFMachineGunWeapon = WeaponsFile.TDFMachineGunWeapon
+local TDFGaussCannonWeapon  = WeaponsFile.TDFLandGaussCannonWeapon
+local TDFMachineGunWeapon   = WeaponsFile.TDFMachineGunWeapon
+
+WeaponsFile = nil
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local CreateAttachedEmitter = CreateAttachedEmitter

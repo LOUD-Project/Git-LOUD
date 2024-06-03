@@ -189,7 +189,7 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-            MaxRadius = 34,
+            MaxRadius = 36,
 
             MuzzleVelocity = 35,
 			

@@ -6,10 +6,10 @@ UnitBlueprint {
     }, 
 	
     Audio = {
-        Destroyed = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Sml', LodCutoff = 'UnitMove_LodCutoff' },
-        StartMove = Sound { Bank = 'XSL', Cue = 'XSL0104_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
-        StopMove = Sound { Bank = 'XSL', Cue = 'XSL0104_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
-        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Bot', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'XSL', Cue = 'XSL0104_Move_Start',  LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'XSL', Cue = 'XSL0104_Move_Stop',   LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed   = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Sml',    LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Bot',  LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {},
@@ -70,19 +70,14 @@ UnitBlueprint {
                     { Bones = {'BRPT1HT'}, Offset = {0.2,-0.15,-0.1}, Scale = 0.3, Type = 'SeraphimGroundFX01' },
                 },
             },
-            Water = {
-                Effects = {
-                    { Bones = {'BRPT1HT'}, Offset = {0.2,-0.15,-0.1}, Scale = 0.2, Type = 'BackWake' },
-                },
-            },
         },
 
         UniformScale = 0.075,
     },
 	
     Economy = {
-        BuildCostEnergy = 610,
-        BuildCostMass = 72,
+        BuildCostEnergy = 600,
+        BuildCostMass = 75,
         BuildTime = 90,
     },
 	
@@ -103,6 +98,7 @@ UnitBlueprint {
 	
     Intel = {
         VisionRadius = 20,
+        WaterVisionRadius = 8,
     },
 	
     Interface = {
@@ -168,11 +164,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSA_Weapon',
-                    Cue = 'XSA0203_Phasic_Autogun_Hvy',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0203_Phasic_Autogun_Hvy', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,

@@ -1,8 +1,11 @@
 local TWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local WeaponsFile = import('/lua/terranweapons.lua')
-local TDFGaussCannonWeapon = WeaponsFile.TDFLandGaussCannonWeapon
-local TAMPhalanxWeapon = WeaponsFile.TAMPhalanxWeapon
+
+local TDFGaussCannonWeapon  = WeaponsFile.TDFLandGaussCannonWeapon
+local TAMPhalanxWeapon      = WeaponsFile.TAMPhalanxWeapon
+
+WeaponsFile = nil
 
 BRNT2BM = Class(TWalkingLandUnit) {
 

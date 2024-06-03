@@ -45,7 +45,7 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-			'Aquatic',
+			'<LOC ability_aquatic>Aquatic',
 			'Long Range',
 			'Slow Rate of Fire',
 			'Stuns Units briefly',

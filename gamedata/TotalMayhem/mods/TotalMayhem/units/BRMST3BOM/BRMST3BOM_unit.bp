@@ -130,8 +130,8 @@ UnitBlueprint {
     Intel = {
 		FreeIntel = true,
 
-        RadarRadius = 92,
-		SonarRadius = 44,
+        RadarRadius = 88,
+		SonarRadius = 52,
 
         VisionRadius = 36,
         WaterVisionRadius = 20,
@@ -369,8 +369,8 @@ UnitBlueprint {
 			
             DisplayName = 'Proton Cannon',
             
-            EnergyRequired = 11800,
-            EnergyDrainPerSecond = 5900,
+            EnergyRequired = 15000,
+            EnergyDrainPerSecond = 7500,
 			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',

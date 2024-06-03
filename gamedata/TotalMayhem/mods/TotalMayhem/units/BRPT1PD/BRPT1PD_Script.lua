@@ -1,9 +1,11 @@
 local SStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
-local SDFAireauBolterWeapon = import('/lua/seraphimweapons.lua').SDFAireauBolterWeapon02
+local SDFAireauBolterWeapon = import('/lua/seraphimweapons.lua').SDFAireauBolterWeapon
+
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 BRPT1PD = Class(SStructureUnit) {
+
 	Weapons = {
 		MainGun = Class(SDFAireauBolterWeapon) {
 			FxMuzzleFlashScale = 2.4, 

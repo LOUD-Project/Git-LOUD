@@ -19,11 +19,11 @@ UnitBlueprint {
             Level5 = 0.85,
         },    
         Regen = {
-            Level1 = 15,
-            Level2 = 30,
-            Level3 = 45,
-            Level4 = 60,
-            Level5 = 75,
+            Level1 = 16,
+            Level2 = 32,
+            Level3 = 48,
+            Level4 = 64,
+            Level5 = 80,
         },
         VisionRadius = {
             Level1 = 2,
@@ -56,9 +56,9 @@ UnitBlueprint {
        
         ArmorType = 'Structure',
 
-        Health = 39900,
-        MaxHealth = 39900,
-        RegenRate = 25,
+        Health = 36500,
+        MaxHealth = 36500,
+        RegenRate = 24,
 
         AirThreatLevel = 44,        
         SurfaceThreatLevel = 787.2,
@@ -95,9 +95,9 @@ UnitBlueprint {
 
     Economy = {
         BuildCostEnergy = 295000,
-        BuildCostMass = 35000,
+        BuildCostMass = 12500,
 		BuildRate = 20,
-        BuildTime = 21500,
+        BuildTime = 11500,
 		
         RebuildBonusIds = {'BRNT3SHPD'},
     },
@@ -198,7 +198,7 @@ UnitBlueprint {
 			
             MaintenanceConsumptionPerSecondEnergy = 200,
 			
-            Name = 'Shield Dome',
+            Name = '<LOC ability_shielddome>Shield Dome',
 			
             RegenAssistMult = 60,            
 			
@@ -265,7 +265,7 @@ UnitBlueprint {
 		FreeIntel = true,
         
 		OmniRadius = 0,
-		RadarRadius = 108,
+		RadarRadius = 96,
         VisionRadius = 44,
     },
 	

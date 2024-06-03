@@ -5,8 +5,10 @@ local WeaponsFile = import('/lua/terranweapons.lua')
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
-local TSAMLauncher = WeaponsFile.TSAMLauncher
-local TDFLightPlasmaCannonWeapon = WeaponsFile.TDFLightPlasmaCannonWeapon
+local TSAMLauncher                  = WeaponsFile.TSAMLauncher
+local TDFLightPlasmaCannonWeapon    = WeaponsFile.TDFLightPlasmaCannonWeapon
+
+WeaponsFile = nil
 
 BRNT3SHPD = Class(TStructureUnit) {
 

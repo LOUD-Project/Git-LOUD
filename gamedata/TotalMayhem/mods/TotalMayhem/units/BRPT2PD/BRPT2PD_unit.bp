@@ -65,7 +65,7 @@ UnitBlueprint {
     Display = {
         Abilities = {
             'Multirole PD and Anti-Air',
-			'Aquatic',
+			'<LOC ability_aquatic>Aquatic',
         },
 		
         Mesh = {

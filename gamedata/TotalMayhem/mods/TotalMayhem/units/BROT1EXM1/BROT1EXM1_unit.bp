@@ -39,6 +39,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYDIRECTFIRE',
+        'OVERLAYINDIRECTFIRE',
     },
 	
     Defense = {
@@ -162,7 +163,6 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 1,
@@ -174,7 +174,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 36,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/BROT1EXM1proj/BROT1EXM1proj_proj.bp',
+            ProjectileId = '/projectiles/ADFDisruptor01/ADFDisruptor01_proj.bp',
 
             RackBones = {
                 {
@@ -217,7 +217,8 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             
             Audio = {
-                Fire = Sound { Bank = 'TM_AEONWEAPONS', Cue = 'AEONGUNAUTOPULSEFX', LodCutoff = 'Weapon_LodCutoff' },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAL0104_Pulse_Battery', LodCutoff = 'Weapon_LodCutoff'},
+                --Fire = Sound { Bank = 'TM_AEONWEAPONS', Cue = 'AEONGUNAUTOPULSEFX', LodCutoff = 'Weapon_LodCutoff' },
             },
             
             BallisticArc = 'RULEUBA_LowArc',
@@ -231,7 +232,6 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 0.1,
 			
@@ -244,7 +244,7 @@ UnitBlueprint {
 			
 			PrefersPrimaryWeaponTarget = true,
 			
-            ProjectileId = '/projectiles/TDFRiot02/TDFRiot02_proj.bp',
+            ProjectileId = '/projectiles/AAASonicPulse01/AAASonicPulse01_proj.bp',  --'/projectiles/TDFRiot02/TDFRiot02_proj.bp',
 
             RackBones = {
                 {
@@ -310,7 +310,6 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 1,
@@ -318,9 +317,9 @@ UnitBlueprint {
 			
             Label = 'rocket',
 			
-            MaxRadius = 28,
+            MaxRadius = 33,
 			
-            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 17,
 			
@@ -335,9 +334,12 @@ UnitBlueprint {
                     RackBone = 'arm',
                 },
             },
-			
-            RateOfFire = 0.1,	-- 15dps
-			RenderFireClock = true,
+
+            RackSalvoReloadTime = 7.5,      -- 10 second cycle 
+
+            RangeCategory = 'UWRC_IndirectFire',
+
+            RateOfFire = 1,	-- 15dps
 			
             TargetCheckInterval = 2.5,
             TargetPriorities = {

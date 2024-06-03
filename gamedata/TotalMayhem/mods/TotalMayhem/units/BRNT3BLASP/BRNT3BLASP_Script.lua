@@ -3,10 +3,11 @@ local TWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 local WeaponsFile = import('/lua/terranweapons.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
-local TDFGaussCannonWeapon = WeaponsFile.TDFLandGaussCannonWeapon
-local TDFHiroPlasmaCannon = WeaponsFile.TDFHiroPlasmaCannon
-local TDFRiotWeapon = WeaponsFile.TDFRiotWeapon
+local TDFGaussCannonWeapon  = WeaponsFile.TDFLandGaussCannonWeapon
+local TDFHiroPlasmaCannon   = WeaponsFile.TDFHiroPlasmaCannon
+local TDFRiotWeapon         = WeaponsFile.TDFRiotWeapon
 
+WeaponsFile = nil
 
 BRNT3BLASP = Class(TWalkingLandUnit) {
 

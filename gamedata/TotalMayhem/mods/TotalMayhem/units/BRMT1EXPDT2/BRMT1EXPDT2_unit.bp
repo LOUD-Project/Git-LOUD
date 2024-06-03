@@ -62,7 +62,7 @@ UnitBlueprint {
     Display = {
         Abilities = {
             'Dual Barrel PD Beam Weapon',
-			'Aquatic',
+			'<LOC ability_aquatic>Aquatic',
         },
         Mesh = {
             IconFadeInZoom = 130,

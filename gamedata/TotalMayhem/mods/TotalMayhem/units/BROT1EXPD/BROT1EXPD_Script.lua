@@ -1,8 +1,6 @@
 local TStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
-local TMWeaponsFile = import('/mods/TotalMayhem/lua/TMAeonWeapons.lua')
-local TMAmizurabluelaserweapon = TMWeaponsFile.TMAmizurabluelaserweapon
-
+local TMAmizurabluelaserweapon = import('/mods/TotalMayhem/lua/TMAeonWeapons.lua').TMAmizurabluelaserweapon
 
 BROT1EXPD = Class(TStructureUnit) {
     Weapons = {

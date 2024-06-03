@@ -1,13 +1,14 @@
 UnitBlueprint {
+
     AI = {
         GuardScanRadius = 40,
 		TargetBones = {'ArmureUpgrade03_02','AvantGauche01','Torso01','Left_Leg_B07','Left_Leg_B09'},	
     },
  
     Audio = { 
-        StartMove = Sound { Bank = 'XSL', Cue = 'XSL0001_Move_Start', LodCutoff = 'UnitMove_LodCutoff' }, 
-        StopMove = Sound { Bank = 'XSL', Cue = 'XSL0001_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' }, 
-        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Commander', LodCutoff = 'UnitMove_LodCutoff' }, 
+        StartMove    = Sound { Bank = 'XSL',             Cue = 'XSL0001_Move_Start',        LodCutoff = 'UnitMove_LodCutoff'}, 
+        StopMove     = Sound { Bank = 'XSL',             Cue = 'XSL0001_Move_Stop',         LodCutoff = 'UnitMove_LodCutoff'}, 
+        UISelection  = Sound { Bank = 'SeraphimSelect',  Cue = 'Seraphim_Select_Commander', LodCutoff = 'UnitMove_LodCutoff'}, 
     }, 
 
     Buffs = {
@@ -90,11 +91,11 @@ UnitBlueprint {
                 },
             },
         },
-        
+
         MovementEffects = {
             Land = {
                 Footfall = {
-                    Bones = {
+                    Bones = { 
                         {
                             FootBone = 'footfall01',
                             HipBone = 'footfall01',
@@ -111,12 +112,13 @@ UnitBlueprint {
                             },
                             Type = 'FootFall01',
                         },
+                        
                         {
                             FootBone = 'footfall02',
                             HipBone = 'footfall02',
                             KneeBone = 'footfall02',
                             MaxFootFall = -0.25,
-                            Offset = {z = -1,
+                            Offset = {z = -1},
                             StraightLegs = false,
                             Tread = {
                                 TreadLifeTime = 1,
@@ -127,6 +129,7 @@ UnitBlueprint {
                             },
                             Type = 'FootFall01',
                         },
+                        
                     },
                     
                     CameraShake = {
@@ -162,6 +165,7 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 6,
+        
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Move = true,
@@ -169,13 +173,15 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+        
         FactionName = 'Seraphim',
         Icon = 'amph',
+        
         UnitName = '<LOC brpexhvbot_name>Athusil',
     },
 	
     Intel = {
-		RadarRadius = 72,
+		RadarRadius = 64,
         
 		RadarStealth = true,
 		SonarStealth = true,
@@ -242,7 +248,7 @@ UnitBlueprint {
     Transport = {
         TransportClass = 5,
     },
-	
+
     Weapon = {
 
         {
@@ -462,7 +468,7 @@ UnitBlueprint {
             Audio = {
                 BeamLoop    = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_Ultrachromatic_Beam', LodCutoff = 'Weapon_LodCutoff'},
                 BeamStart   = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Fire', LodCutoff = 'Weapon_LodCutoff'},
-                BeamStop    = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Stop', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop    = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Stop', LodCutoff = 'Weapon_LodCutoff'},
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -691,7 +697,7 @@ UnitBlueprint {
         },
 
     },
-    
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,

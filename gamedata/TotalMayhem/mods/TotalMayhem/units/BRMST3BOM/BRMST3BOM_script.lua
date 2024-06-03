@@ -2,7 +2,7 @@ local CSeaUnit =  import('/lua/defaultunits.lua').SeaUnit
 
 local CybranWeaponsFile = import('/lua/cybranweapons.lua')
 
-local CAAAutocannon             = CybranWeaponsFile.CAAAutocannon
+local CAAAutocannon             = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
 local CDFProtonCannonWeapon     = CybranWeaponsFile.CDFProtonCannonWeapon
 local CANNaniteTorpedoWeapon    = CybranWeaponsFile.CANNaniteTorpedoWeapon
 local CAMZapperWeapon           = CybranWeaponsFile.CAMZapperWeapon

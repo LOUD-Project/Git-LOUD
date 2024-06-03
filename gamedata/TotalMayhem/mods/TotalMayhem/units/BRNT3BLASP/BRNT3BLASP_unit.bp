@@ -16,11 +16,11 @@ UnitBlueprint {
 	
     Buffs = {
         Regen = {
-            Level1 = 9,
-            Level2 = 18,
-            Level3 = 27,
-            Level4 = 36,
-            Level5 = 45,
+            Level1 = 7,
+            Level2 = 14,
+            Level3 = 21,
+            Level4 = 28,
+            Level5 = 35,
         },
     },
 	
@@ -50,7 +50,7 @@ UnitBlueprint {
         ArmorType = 'Experimental',
         Health = 59500,
         MaxHealth = 59500,
-        RegenRate = 18,
+        RegenRate = 14,
         SurfaceThreatLevel = 530.2,
     },
 	
@@ -58,7 +58,7 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Amphibious',
+            '<LOC ability_amphibious>Amphibious',
 			'Shoulder Rifles, Arm Lasers',
 			'Rocket Barrage',
 			'Dual Role Riot Guns',
@@ -131,7 +131,7 @@ UnitBlueprint {
 	
     Intel = {
         VisionRadius = 36,
-		WaterVisionRadius = 20,
+		WaterVisionRadius = 16,
     },
 	
     Interface = {

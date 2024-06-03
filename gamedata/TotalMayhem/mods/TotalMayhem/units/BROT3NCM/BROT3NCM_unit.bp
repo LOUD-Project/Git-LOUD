@@ -643,7 +643,7 @@ UnitBlueprint {
 
             MuzzleVelocity = 40,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/NULLWEAPON/NULLWEAPON_proj.bp',
+            ProjectileId = '/projectiles/NullShell/NullShell_proj.bp',
 			
             ProjectileLifetimeUsesMultiplier = 1,
 

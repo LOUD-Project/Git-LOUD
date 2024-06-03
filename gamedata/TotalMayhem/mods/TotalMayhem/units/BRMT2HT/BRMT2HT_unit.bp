@@ -49,12 +49,8 @@ UnitBlueprint {
     Description = '<LOC brmt2ht_desc>Medium Assault Tank',
 	
     Display = {
-        Mesh = {
-            IconFadeInZoom = 140,
-            LODs = {
-                {LODCutoff = 180,Scrolling = true,ShaderName = 'Insect'},
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 140, LODs = { {LODCutoff = 180,Scrolling = true,ShaderName = 'Insect'} } },
 
         UniformScale = 0.11,
     },
@@ -214,7 +210,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 
             Audio = {
-                Fire = Sound { Bank = 'TM_CYBRANWEAPONS', Cue = 'CYBRANMADCATROCKETFX', LodCutoff = 'Weapon_LodCutoff' },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Missile_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_LowArc',

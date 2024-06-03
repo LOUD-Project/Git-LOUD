@@ -22,15 +22,10 @@ BRMT3MCM2 = Class(CWalkingLandUnit) {
     Weapons = {
         
         rockets     = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0.5 },
-
         ArmCannon   = Class(CCannonMolecularWeapon) { FxMuzzleFlashScale = 1.2, FxMuzzleFlash = EffectTemplate.CHvyProtonCannonMuzzleflash },
-
         mgweapon    = Class(TDFRiotWeapon) { FxMuzzleFlashScale = 0.75, FxMuzzleFlash = EffectTemplate.TRiotGunMuzzleFxTank },
-
         lasers      = Class(MicrowaveLaser) {},
-		
         robottalk   = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0},        
-
         DeathWeapon = Class(TIFCommanderDeathWeapon) {},
     },
 
@@ -40,12 +35,7 @@ BRMT3MCM2 = Class(CWalkingLandUnit) {
 		
         local bp = self:GetBlueprint().Defense.AntiMissile
 		
-        local antiMissile = MissileRedirect {
-            Owner = self,
-            Radius = bp.Radius,
-            AttachBone = bp.AttachBone,
-            RedirectRateOfFire = bp.RedirectRateOfFire
-        }
+        local antiMissile = MissileRedirect { Owner = self, Radius = bp.Radius, AttachBone = bp.AttachBone, RedirectRateOfFire = bp.RedirectRateOfFire }
 		
         self.Trash:Add(antiMissile)
         self.UnitComplete = true

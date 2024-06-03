@@ -155,10 +155,10 @@ UnitBlueprint {
 		FreeIntel = true,
         
 		OmniRadius = 48,
-        RadarRadius = 120,
+        RadarRadius = 96,
         SonarRadius = 60,
         VisionRadius = 44,
-		WaterVisionRadius = 20,
+		WaterVisionRadius = 24,
     },
 	
     Interface = {
@@ -358,8 +358,6 @@ UnitBlueprint {
 
             RackSalvoChargeTime = 1,
             RackSalvoReloadTime = 1,
-
-            RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.12,	---- 4 times 1000 = 4000 Damage every 8 seconds = 500 DPS
 			
@@ -590,8 +588,6 @@ UnitBlueprint {
                     RackBone = 'rl01',
                 },
             },
-
-            RangeCategory = 'UWRC_IndirectFire',
             
             RateOfFire = 0.1,	-- 800 damage every 10 seconds = 80 dps
 			
@@ -1021,7 +1017,7 @@ UnitBlueprint {
 			
 			PrefersPrimaryWeaponTarget = true,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/NULLWEAPON/NULLWEAPON_proj.bp',
+            ProjectileId = '/projectiles/NullShell/NullShell_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1,
 
             RackBones = {

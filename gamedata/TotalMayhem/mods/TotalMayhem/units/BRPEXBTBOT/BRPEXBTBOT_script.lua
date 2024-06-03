@@ -1,17 +1,19 @@
 local SWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local SeraphimWeapons = import('/lua/seraphimweapons.lua')
-local SAAOlarisCannonWeapon = SeraphimWeapons.SAAOlarisCannonWeapon
-local SDFThauCannon = SeraphimWeapons.SDFThauCannon
+local SeraphimWeapons       = import('/lua/seraphimweapons.lua')
 
-local EffectTemplate = import('/lua/EffectTemplates.lua')
-local SAAOlarisCannonWeapon = import('/lua/seraphimweapons.lua').SAAOlarisCannonWeapon
+local SAAOlarisCannonWeapon     = SeraphimWeapons.SAAOlarisCannonWeapon
 local SDFChronotronCannonWeapon = SeraphimWeapons.SDFChronotronCannonWeapon
 
+SeraphimWeapons = nil
+
+local EffectTemplate = import('/lua/EffectTemplates.lua')
+
 BRPEXBTBOT = Class( SWalkingLandUnit ) {
+
 	Weapons = {
-		AAGun = Class(SAAOlarisCannonWeapon) {},
-		ArmWeapons = Class(SDFChronotronCannonWeapon) {},
+		AAGun       = Class(SAAOlarisCannonWeapon) {},
+		ArmWeapons  = Class(SDFChronotronCannonWeapon) {},
 	},
 
 	OnStopBeingBuilt = function(self,builder,layer)

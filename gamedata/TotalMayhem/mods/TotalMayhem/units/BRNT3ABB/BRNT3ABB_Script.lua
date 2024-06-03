@@ -17,7 +17,7 @@ BRNT3ABB = Class(TWalkingLandUnit) {
 	
 	OnStopBeingBuilt = function(self,builder,layer)
 		
-		CWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
+		TWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
 
         -- create Torp Defense emitter
         local bp = __blueprints[self.BlueprintID].Defense.MissileTorpDestroy

@@ -251,16 +251,15 @@ UnitBlueprint {
     },
 	
     Intel = {
-        OmniRadius = 32,
-		RadarRadius = 112,
-		
 		RadarStealth = true,
 		RadarStealthFieldRadius = 32,
 		SonarStealth = true,
 		SonarStealthFieldRadius = 32,
 
+        OmniRadius = 48,
+		RadarRadius = 96,
         VisionRadius = 40,
-		WaterVisionRadius = 28,
+		WaterVisionRadius = 24,
     },
 	
     Interface = {

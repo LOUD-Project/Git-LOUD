@@ -7,6 +7,7 @@ local CreateAttachedEmitter = CreateAttachedEmitter
 
 BRNT2EPD = Class(TStructureUnit) {
     Weapons = {
+
         Gauss01 = Class(TDFGaussCannonWeapon) {
 
             FxMuzzleFlashScale = 0.9,

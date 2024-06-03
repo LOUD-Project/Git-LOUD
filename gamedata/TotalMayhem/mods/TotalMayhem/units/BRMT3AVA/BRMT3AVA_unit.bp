@@ -180,14 +180,7 @@ UnitBlueprint {
                             Type = 'FootFall01',
                         },
                     },
---[[                   
-                    CameraShake = {
-                        Interval = 0.25,
-                        MaxShakeEpicenter = 0.3,
-                        MinShakeAtRadius = 0,
-                        Radius = 20,
-                    },
---]]                    
+
                     Damage = {
                         Amount = 3600,
                         DamageFriendly = false,
@@ -237,8 +230,8 @@ UnitBlueprint {
     },
     
     Intel = {
-        RadarRadius = 100,
-        OmniRadius = 44,
+        RadarRadius = 96,
+        OmniRadius = 48,
         VisionRadius = 44,
         WaterVisionRadius = 28,
     },
@@ -1139,7 +1132,7 @@ UnitBlueprint {
             MuzzleVelocity = 40,
 			PrefersPrimaryWeaponTarget = true,
 
-            ProjectileId = '/mods/TotalMayhem/projectiles/NULLWEAPON/NULLWEAPON_proj.bp',
+            ProjectileId = '/projectiles/NullShell/NullShell_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1,
 
             RackBones = {

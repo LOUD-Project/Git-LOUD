@@ -66,8 +66,8 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Anti-Air',
-			'Aquatic',
+            "<LOC ability_aa>Anti-Air",
+			'<LOC ability_aquatic>Aquatic',
         },
         
         Mesh = { IconFadeInZoom = 130, LODs = { {LODCutoff = 210,ShaderName = 'Unit'} } },

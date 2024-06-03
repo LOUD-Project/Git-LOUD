@@ -2,8 +2,8 @@ local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local WeaponsFile = import('/lua/cybranweapons.lua')
 
-local CDFElectronBolterWeapon = WeaponsFile.CDFElectronBolterWeapon
-local CCannonMolecularWeapon = WeaponsFile.CCannonMolecularWeapon
+local CDFElectronBolterWeapon   = WeaponsFile.CDFElectronBolterWeapon
+local CCannonMolecularWeapon    = WeaponsFile.CCannonMolecularWeapon
 
 local TDFGaussCannonWeapon = import('/lua/terranweapons.lua').TDFLandGaussCannonWeapon
 
@@ -16,11 +16,8 @@ BRMT3VUL = Class(CWalkingLandUnit) {
     Weapons = {
 
         rockets     = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0.4 },
-
         armweapon   = Class(CCannonMolecularWeapon) { FxMuzzleFlashScale = 0.8 },
-
         HeavyBolter = Class(CDFElectronBolterWeapon) {},
-		
         robottalk   = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0},
     },
 
@@ -30,12 +27,7 @@ BRMT3VUL = Class(CWalkingLandUnit) {
 		
         local bp = self:GetBlueprint().Defense.AntiMissile
 		
-        local antiMissile = MissileRedirect {
-            Owner = self,
-            Radius = bp.Radius,
-            AttachBone = bp.AttachBone,
-            RedirectRateOfFire = bp.RedirectRateOfFire
-        }
+        local antiMissile = MissileRedirect { Owner = self, Radius = bp.Radius, AttachBone = bp.AttachBone, RedirectRateOfFire = bp.RedirectRateOfFire }
 		
         self.Trash:Add(antiMissile)
         self.UnitComplete = true

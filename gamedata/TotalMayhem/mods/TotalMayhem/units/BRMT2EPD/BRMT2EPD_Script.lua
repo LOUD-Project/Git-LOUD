@@ -1,18 +1,18 @@
 local TStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
-local WeaponsFile = import('/lua/terranweapons.lua')
-
-local TDFGaussCannonWeapon = WeaponsFile.TDFLandGaussCannonWeapon
+local TDFGaussCannonWeapon = import('/lua/terranweapons.lua').TDFLandGaussCannonWeapon
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
-local EffectUtils = import('/lua/effectutilities.lua')
 
 local CreateAttachedEmitter = CreateAttachedEmitter
 
 BRMT2EPD = Class(TStructureUnit) {
+
     Weapons = {
         MainGun = Class(TDFGaussCannonWeapon) {
+
             FxMuzzleFlashScale = 1.5,
+
             FxMuzzleFlash = { 
             	'/effects/emitters/proton_artillery_muzzle_01_emit.bp',
             	'/effects/emitters/proton_artillery_muzzle_03_emit.bp',

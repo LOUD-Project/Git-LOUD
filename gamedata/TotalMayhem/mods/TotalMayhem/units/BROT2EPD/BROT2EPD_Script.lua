@@ -1,8 +1,8 @@
 local TStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
-local TDFGaussCannonWeapon = import('/lua/terranweapons.lua').TDFGaussCannonWeapon
-local TIFCommanderDeathWeapon = import('/lua/terranweapons.lua').TIFCommanderDeathWeapon
-local AAAZealotMissileWeapon = import('/lua/aeonweapons.lua').AAAZealotMissileWeapon
+local TDFGaussCannonWeapon      = import('/lua/terranweapons.lua').TDFGaussCannonWeapon
+local TIFCommanderDeathWeapon   = import('/lua/terranweapons.lua').TIFCommanderDeathWeapon
+local AAAZealotMissileWeapon    = import('/lua/aeonweapons.lua').AAAZealotMissileWeapon
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 

@@ -5,10 +5,10 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed       = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
-        DoneBeingBuilt  = Sound { Bank = 'XSB', Cue = 'XSB2204_Activate', LodCutoff = 'UnitMove_LodCutoff' },
-        Killed          = Sound { Bank = 'TM_EXPLOSIONS', Cue = 'TMBIGROBOTDEATHFX', LodCutoff = 'UnitMove_LodCutoff' },
-        UISelection     = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_gun', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed       = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'XSB', Cue = 'XSB2204_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed          = Sound { Bank = 'TM_EXPLOSIONS', Cue = 'TMBIGROBOTDEATHFX', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -68,7 +68,7 @@ UnitBlueprint {
         Abilities = {
             'Ground Defense & Anti-Air',
 			'Slow Rate of Fire',
-			'Volatile',
+			'<LOC ability_deathaoe>Volatile',
         },
 		
         Mesh = {
@@ -124,7 +124,7 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 42,
+        VisionRadius = 44,
     },
 	
     Interface = {
@@ -206,7 +206,6 @@ UnitBlueprint {
             EnergyRequired = 2100,
 			
             FireTargetLayerCapsTable = {
-                Water = 'Land|Water|Seabed|Air',
                 Land = 'Land|Water|Seabed|Air',
             },
 			

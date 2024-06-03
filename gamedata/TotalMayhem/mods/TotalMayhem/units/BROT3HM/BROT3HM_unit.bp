@@ -63,10 +63,10 @@ UnitBlueprint {
         
         AnimationDeath = { {Animation = '/mods/TotalMayhem/units/BROT3HM/BROT3HM_Death.sca',Weight = 100} },
         AnimationWalk = '/mods/TotalMayhem/units/BROT3HM/BROT3HM_Walk.sca',
-        AnimationWalkRate = 3.8,
+        AnimationWalkRate = 4,
 
         Mesh = { IconFadeInZoom = 160, LODs = { {LODCutoff = 250,ShaderName = 'Aeon'} } },
-        
+--[[        
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -93,7 +93,7 @@ UnitBlueprint {
                 },
             },
         },
-
+--]]
         UniformScale = 0.07,
     },
 	
@@ -222,7 +222,7 @@ UnitBlueprint {
 
             MuzzleVelocity = 45,
 
-            ProjectileId = '/mods/TotalMayhem/projectiles/BROT1EXM1proj/BROT1EXM1proj_proj.bp',
+            ProjectileId = '/projectiles/ADFDisruptor01/ADFDisruptor01_proj.bp',
 
             RackBones = {
                 {

@@ -1,8 +1,11 @@
 local SWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local SeraphimWeapons = import('/lua/seraphimweapons.lua')
+
 local SAAOlarisCannonWeapon = SeraphimWeapons.SAAOlarisCannonWeapon
-local SDFThauCannon = SeraphimWeapons.SDFThauCannon
+local SDFThauCannon         = SeraphimWeapons.SDFThauCannon
+
+SeraphimWeapons = nil
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
@@ -10,8 +13,8 @@ BRPT3BOT = Class( SWalkingLandUnit ) {
 
 	Weapons = {
 
-		RightGun = Class(SAAOlarisCannonWeapon) {},
-		MainTurret = Class(SDFThauCannon) {},
+		RightGun    = Class(SAAOlarisCannonWeapon) {},
+		MainTurret  = Class(SDFThauCannon) {},
 	},
 
 

@@ -1,7 +1,6 @@
 local SWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local SeraphimWeapons = import('/lua/seraphimweapons.lua')
-local SDFHeavyQuarnonCannon = SeraphimWeapons.SDFHeavyQuarnonCannon
+local SDFHeavyQuarnonCannon = import('/lua/seraphimweapons.lua').SDFHeavyQuarnonCannon
 
 local SeraLambdaFieldDestroyer = import('/lua/defaultantiprojectile.lua').SeraLambdaFieldDestroyer
 
@@ -21,12 +20,7 @@ BRPEXTANK = Class(SWalkingLandUnit) {
 
         local bp = self:GetBlueprint().Defense.LambdaDestroy01
 
-        self.Lambda1 = SeraLambdaFieldDestroyer {
-            Owner = self,
-            Radius = bp.Radius,
-            AttachBone = bp.AttachBone,
-            RedirectRateOfFire = bp.RedirectRateOfFire
-        }
+        self.Lambda1 = SeraLambdaFieldDestroyer { Owner = self, Radius = bp.Radius, AttachBone = bp.AttachBone, RedirectRateOfFire = bp.RedirectRateOfFire }
 
         self.Trash:Add(self.Lambda1)   
 

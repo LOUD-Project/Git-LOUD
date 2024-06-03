@@ -201,7 +201,7 @@ UnitBlueprint {
 			
             MaintenanceConsumptionPerSecondEnergy = 200,
 			
-            Name = 'Shield Dome',
+            Name = '<LOC ability_shielddome>Shield Dome',
 			
             RegenAssistMult = 60,            
 			

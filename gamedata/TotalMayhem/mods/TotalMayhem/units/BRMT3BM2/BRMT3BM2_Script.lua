@@ -3,11 +3,14 @@ local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 local CWeapons = import('/lua/cybranweapons.lua')
 local WeaponsFile = import('/lua/terranweapons.lua')
 
-local TDFGaussCannonWeapon = WeaponsFile.TDFLandGaussCannonWeapon
-local TIFCommanderDeathWeapon = WeaponsFile.TIFCommanderDeathWeapon
-local CDFParticleCannonWeapon = CWeapons.CDFParticleCannonWeapon
+local TDFGaussCannonWeapon      = WeaponsFile.TDFLandGaussCannonWeapon
+local TIFCommanderDeathWeapon   = WeaponsFile.TIFCommanderDeathWeapon
+local CDFParticleCannonWeapon   = CWeapons.CDFParticleCannonWeapon
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
+
+CWeapons = nil
+WeaponsFile = nil
 
 local MissileRedirect = import('/lua/defaultantiprojectile.lua').MissileRedirect
 
@@ -23,20 +26,15 @@ BRMT3BM2 = Class(CWalkingLandUnit) {
 		
         local bp = self:GetBlueprint().Defense.AntiMissile
 		
-        local antiMissile = MissileRedirect {
-            Owner = self,
-            Radius = bp.Radius,
-            AttachBone = bp.AttachBone,
-            RedirectRateOfFire = bp.RedirectRateOfFire
-        }
+        local antiMissile = MissileRedirect { Owner = self, Radius = bp.Radius, AttachBone = bp.AttachBone, RedirectRateOfFire = bp.RedirectRateOfFire }
 		
         self.Trash:Add(antiMissile)
         self.UnitComplete = true
     end,
 
     Weapons = {
+
         Rockets = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0.3},
-		
         robottalk = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0},
 		
         maingun1 = Class(TDFGaussCannonWeapon) {
@@ -85,19 +83,9 @@ BRMT3BM2 = Class(CWalkingLandUnit) {
         gatling1 = Class(CDFParticleCannonWeapon) { FxMuzzleFlashScale = 0.1 },
     },
 	
-    AmbientExhaustBones = {
-		'Exhaust01',
-		'Exhaust02',
-    },	
-    
-    AmbientLandExhaustEffects = {
-		'/effects/emitters/dirty_exhaust_smoke_02_emit.bp',
-		'/effects/emitters/dirty_exhaust_sparks_02_emit.bp',			
-	},
-	
-    AmbientSeabedExhaustEffects = {
-		'/effects/emitters/underwater_vent_bubbles_02_emit.bp',			
-	},
+    AmbientExhaustBones = {'Exhaust01','Exhaust02'},	
+    AmbientLandExhaustEffects = {'/effects/emitters/dirty_exhaust_smoke_02_emit.bp','/effects/emitters/dirty_exhaust_sparks_02_emit.bp'},
+    AmbientSeabedExhaustEffects = {'/effects/emitters/underwater_vent_bubbles_02_emit.bp'},
 	
 	CreateUnitAmbientEffect = function(self, layer)
 	
@@ -130,11 +118,11 @@ BRMT3BM2 = Class(CWalkingLandUnit) {
 	end, 
 	
 	UnitLandAmbientEffectThread = function(self)
+    
+        local army = self:GetArmy()
 
 		while not self:IsDead() do
 
-            local army = self:GetArmy()			
-			
 			for kE, vE in self.AmbientLandExhaustEffects do
 				for kB, vB in self.AmbientExhaustBones do
 					table.insert( self.AmbientExhaustEffectsBag, CreateAttachedEmitter(self, vB, army, vE ))

@@ -51,7 +51,7 @@ UnitBlueprint {
     Display = {
         Abilities = {
             'Dual Role PD/Anti-Air',
-            'Aquatic',
+            '<LOC ability_aquatic>Aquatic',
         },
 
         Mesh = { IconFadeInZoom = 130, LODs = { {LODCutoff = 210,ShaderName = 'Unit'} } },
@@ -161,7 +161,7 @@ UnitBlueprint {
 			
             Label = 'gatling1',
 			
-            MaxRadius = 34,
+            MaxRadius = 32,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 8,
@@ -236,7 +236,7 @@ UnitBlueprint {
 			
             Label = 'gatling2',
 			
-            MaxRadius = 34,
+            MaxRadius = 32,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 8,

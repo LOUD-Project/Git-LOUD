@@ -80,14 +80,10 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Dual Role PD/Anti-Air',
+            "<LOC ability_aa>Dual Role Anti-Air",
         },
-        Mesh = {
-            IconFadeInZoom = 160,
-            LODs = {
-                {LODCutoff = 240,ShaderName = 'Unit'},
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 160, LODs = { {LODCutoff = 240,ShaderName = 'Unit'} } },
 
         Tarmacs = {
             {
@@ -125,6 +121,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 6,
 		ToggleCaps = { RULEUTC_ShieldToggle = true },
+
         UnitName = '<LOC brmt2epd_name>Anode',
     },
 	
@@ -280,9 +277,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.7,
+        EnergyMult = 0.6,
         HealthMult = 0.9,
-        MassMult = 1.0,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,
