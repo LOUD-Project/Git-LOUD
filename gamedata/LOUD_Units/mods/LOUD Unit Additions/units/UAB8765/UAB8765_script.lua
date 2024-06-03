@@ -1,8 +1,6 @@
 local AEnergyStorageUnit = import('/lua/defaultunits.lua').StructureUnit
 
-local AWeapons = import('/lua/aeonweapons.lua')
-
-local AIFCommanderDeathWeapon = AWeapons.AIFCommanderDeathWeapon
+local AIFCommanderDeathWeapon = import('/lua/aeonweapons.lua').AIFCommanderDeathWeapon
 
 UAB8765 = Class(AEnergyStorageUnit) {
 

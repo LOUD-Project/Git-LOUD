@@ -3,26 +3,10 @@ UnitBlueprint {
     Adjacency = 'ExperimentalStorageAdjacencyBuff',
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'Explosions',
-            Cue = 'UEF_Nuke_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'XSB',
-            Cue = 'XSB1106_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed          = Sound { Bank = 'Explosions', Cue = 'UEF_Nuke_Impact', LodCutoff = 'Weapon_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'XSB', Cue = 'XSB1106_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        Killed          = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 110,
@@ -81,6 +65,7 @@ UnitBlueprint {
                 },
             },
         },
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_seraphim_01_albedo',
@@ -93,6 +78,7 @@ UnitBlueprint {
                 Width = 12,
             },
         },
+
         UniformScale = 0.21,
     },
 	
@@ -115,6 +101,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
+
         UnitName = '<LOC xsb8765_name>Hala-Vishual',
     },
 	

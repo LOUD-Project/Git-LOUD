@@ -1,37 +1,16 @@
 UnitBlueprint {
+
     AI = {
         ShowAssistRangeOnSelect = true,
         StagingPlatformScanRadius = 20,
-        TargetBones = {
-            'UEB0304',
-            'Left_Gate_FX',
-            'Right_Gate_FX',
-            'Attachpoint02',
-            'Attachpoint03',
-        },
+        TargetBones = {'UEB0304','Left_Gate_FX','Right_Gate_FX','Attachpoint02','Attachpoint03'},
     },
-	
+
     Audio = {
-        Construct = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB0304_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Construct       = Sound { Bank = 'UEB', Cue = 'UEB0101_Construct_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        DeathExplosion  = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed       = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Factory', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 42,
@@ -100,6 +79,7 @@ UnitBlueprint {
                 Width = 18,
             },
         },
+
         UniformScale = 0.081,
     },
 	
@@ -130,16 +110,14 @@ UnitBlueprint {
         ConstructionBar = true,
         FactionName = 'UEF',
         Icon = 'land',
+
 		OrderOverrides = {
-			RULEUTC_WeaponToggle = {
-				bitmapId = 'teleport',
-				helpText = 'gateway_teleport',
-			},
+			RULEUTC_WeaponToggle = {bitmapId = 'teleport',helpText = 'gateway_teleport'},
 		},
+
         SelectionPriority = 5,
-		ToggleCaps = {
-			RULEUTC_WeaponToggle = true,
-		},
+
+		ToggleCaps = {RULEUTC_WeaponToggle = true},
     },
 	
     Intel = {
@@ -340,9 +318,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.1,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

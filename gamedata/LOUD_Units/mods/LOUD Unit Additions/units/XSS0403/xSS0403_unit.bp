@@ -5,35 +5,22 @@ UnitBlueprint {
     },
 	
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'XSS',
-            Cue = 'XSS0202_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSS_Destroy',
-            Cue = 'XSS0202_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSS',
-            Cue = 'XSS0202_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XSS',
-            Cue = 'XSS0202_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Naval',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-    
+        AmbientMove = Sound { Bank = 'XSS', Cue = 'XSS0202_Move_Loop', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'XSS', Cue = 'XSS0202_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'XSS', Cue = 'XSS0202_Move_Stop', LodCutoff = 'UnitMove_LodCutoff' },
+        Killed      = Sound { Bank = 'XSS_Destroy', Cue = 'XSS0202_Destroy', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Naval', LodCutoff = 'UnitMove_LodCutoff' },
 	},
 	
-    Buffs = {},
+    Buffs = {
+        Regen = {
+            Level1 = 8,
+            Level2 = 16,
+            Level3 = 24,
+            Level4 = 32,
+            Level5 = 40,
+        },
+    },
 	
     BuildIconSortPriority = 380,
 	
@@ -57,12 +44,14 @@ UnitBlueprint {
     CollisionOffsetY = 0,
 	
     Defense = {
-        AirThreatLevel = 176,
         ArmorType = 'Experimental',
+
         Health = 41500,
         MaxHealth = 41500,
-        RegenRate = 20,
-        SurfaceThreatLevel = 55,
+        RegenRate = 16,
+
+        AirThreatLevel = 176,
+        SurfaceThreatLevel = 60,
     },
 	
     Description = '<LOC xss0403_desc>Experimental AA Cruiser (Cruiser/Support)',
@@ -70,42 +59,21 @@ UnitBlueprint {
     Display = {
 	
         Abilities = {
-            'Anti-Air',
-            'Omni Radar & Sonar',
+            '<LOC ability_aa>Anti-Air',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_omni>Omni',            
+            '<LOC ability_tacmissiledef>Tactical Missile Defense',
         },
 		
         AnimationDeath = {
-            {
-                Animation = '/units/XSS0403/XSS0403_adeath01.sca',
-                Weight = 100,
-            },
-            {
-                Animation = '/units/XSS0403/XSS0403_adeath02.sca',
-                Weight = 100,
-            },
-            {
-                Animation = '/units/XSS0403/XSS0403_adeath03.sca',
-                Weight = 100,
-            },
+            { Animation = '/units/XSS0403/XSS0403_adeath01.sca', Weight = 100 },
+            { Animation = '/units/XSS0403/XSS0403_adeath02.sca', Weight = 100 },
+            { Animation = '/units/XSS0403/XSS0403_adeath03.sca', Weight = 100 },
         },
-        IdleEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'XSS0202',
-                        },
-                        Offset = {
-                            0,
-                            0,
-                            0,
-                        },
-                        Scale = 2,
-                        Type = 'SeaIdle01',
-                    },
-                },
-            },
-        },
+
+        IdleEffects = { Water = { Effects = { { Bones = {'XSS0202'},Offset = {0,0,0},Scale = 2,Type = 'SeaIdle01'} } } },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -116,31 +84,18 @@ UnitBlueprint {
                 },
             },
         },
-        MovementEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'XSS0202',
-                            'Exhaust01',
-                            'Exhaust02',
-                        },
-                        Scale = 1,
-                        Type = 'BackWake',
-                    },
-                },
-            },
-        },
+        
+        MovementEffects = { Water = { Effects = { { Bones = {'XSS0202','Exhaust01','Exhaust02'},Scale = 1,Type = 'BackWake'} } } },
 
         UniformScale = 0.06,
     },
 	
     Economy = {
-        BuildCostEnergy = 395000,
+        BuildCostEnergy = 475000,
         BuildCostMass = 24000,
-        BuildTime = 43500,
+        BuildTime = 20000,
 		
-        MaintenanceConsumptionPerSecondEnergy = 750,
+        MaintenanceConsumptionPerSecondEnergy = 585,
     },
 	
 	CollisionOffsetY = -1,
@@ -152,6 +107,7 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 6,
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -161,16 +117,18 @@ UnitBlueprint {
             RULEUCC_Stop = true,
         },
         FactionName = 'Seraphim',
+
         Icon = 'sea',
         UnitName = '<LOC xss0403_name>Vergra',
     },
 	
     Intel = {
-		OmniRadius = 45,
-        RadarRadius = 165,
-        SonarRadius = 75,
+		OmniRadius = 32,
+        RadarRadius = 144,
+        SonarRadius = 96,
+
         VisionRadius = 44,
-        WaterVisionRadius = 18,
+        WaterVisionRadius = 16,
     },
 	
     Interface = {
@@ -232,18 +190,16 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Exp_Phason_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_Exp_Phason_Fire', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
             Damage = 400,
-            DamageRadius = 2.25,
+            DamageRadius = 2.2,
             DamageType = 'Normal',
 			
             DisplayName = 'Suthanus Artillery',
@@ -257,7 +213,7 @@ UnitBlueprint {
 			
             Label = 'GroundGun',
 			
-            MaxRadius = 95,
+            MaxRadius = 90,
 
             MuzzleVelocity = 39,
 			
@@ -306,13 +262,11 @@ UnitBlueprint {
         },
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_SinnUnthe_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_SinnUnthe_Fire', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
 			
             CannotAttackGround = true,
@@ -396,13 +350,11 @@ UnitBlueprint {
         },
         {
             AlwaysRecheckTarget = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0202_Olaris_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0202_Olaris_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,

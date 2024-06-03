@@ -5,36 +5,19 @@ UnitBlueprint {
     },
 	
     Audio = {
-	
-        DeathExplosion = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'URB',
-            Cue = 'URB2302_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'URB', Cue = 'URB2302_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
         Regen = {
             Level1 = 5,
-            Level2 = 10,
-            Level3 = 15,
-            Level4 = 20,
-            Level5 = 25,
+            Level2 = 8,
+            Level3 = 11,
+            Level4 = 14,
+            Level5 = 17,
         },
     },
 	
@@ -59,28 +42,21 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 400,
         ArmorType = 'Structure',
-        Health = 8800,
-        MaxHealth = 8800,
-        RegenRate = 6,
+        Health = 6500,
+        MaxHealth = 6500,
+        RegenRate = 5,
     },
 	
     Description = '<LOC vrb2302_desc>T4 AA Gun',
 	
     Display = {
         Abilities = {
-            'Anti-Air',
+            "<LOC ability_aa>Anti-Air",
 			'Low Rate of Fire',
 			'Engages only T2 and up',
 		},
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-				{
-                    LODCutoff = 500,
-                    ShaderName = 'Insect',
-                },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = {	{ LODCutoff = 500, ShaderName = 'Insect' } } },
 
         Tarmacs = {
             {
@@ -94,12 +70,13 @@ UnitBlueprint {
                 Width = 5,
             },
         },
+
         UniformScale = 0.045,
     },
 	
     Economy = {
-        BuildCostEnergy = 145000,
-        BuildCostMass = 13000,
+        BuildCostEnergy = 155000,
+        BuildCostMass = 9400,
         BuildTime = 13000,
         
         RebuildBonusIds = {'vrb2302'},
@@ -107,6 +84,7 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 4,
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -115,6 +93,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
+
         UnitName = '<LOC vrb2302_name>Sky Bloom',
     },
 	
@@ -172,11 +151,7 @@ UnitBlueprint {
             AlwaysRecheckTarget = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2304_Missile_Nanite',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URB2304_Missile_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -200,12 +175,12 @@ UnitBlueprint {
 			
             Label = 'Missile01',
 			
-            MaxRadius = 89,
+            MaxRadius = 76,
 
-            MuzzleVelocity = 60,
+            MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/CAAMissileNanite02/CAAMissileNanite02_proj.bp',
-            ProjectileLifetime = 4,
+            ProjectileLifetime = 3,
 
             RackBones = {
                 {
@@ -253,7 +228,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.6,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

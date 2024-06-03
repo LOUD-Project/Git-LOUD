@@ -1,36 +1,12 @@
 UnitBlueprint {
 
     Audio = {
-        DeathExplosion = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-	    Killed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ShieldOff = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB4301_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ShieldOn = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB4301_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+	    Killed          = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        ShieldOff       = Sound { Bank = 'UEB', Cue = 'UEB4301_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        ShieldOn        = Sound { Bank = 'UEB', Cue = 'UEB4301_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 60,
@@ -78,36 +54,19 @@ UnitBlueprint {
     Description = '<LOC uebssg01_desc>Experimental Squareshield',
 	
     Display = {
+
         Abilities = {
 			'Square Shield',
 			'Size not affected by storage',
         },
+
         DamageEffects = {
-            {
-                Bone = 0,
-                OffsetX = 1.25,
-                OffsetY = 0.75,
-                OffsetZ = 1,
-            },
-            {
-                Bone = 0,
-                OffsetX = -1.25,
-                OffsetY = 0.75,
-                OffsetZ = 1,
-            },
-            {
-                Bone = 0,
-                OffsetX = -1.25,
-                OffsetY = 0.75,
-                OffsetZ = -1,
-            },
-            {
-                Bone = 0,
-                OffsetX = 1.25,
-                OffsetY = 0.75,
-                OffsetZ = -1,
-            },
+            { Bone = 0, OffsetX = 1.25, OffsetY = 0.75, OffsetZ = 1 },
+            { Bone = 0, OffsetX = -1.25, OffsetY = 0.75, OffsetZ = 1 },
+            { Bone = 0, OffsetX = -1.25, OffsetY = 0.75, OffsetZ = -1 },
+            { Bone = 0, OffsetX = 1.25, OffsetY = 0.75, OffsetZ = -1 },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -136,6 +95,7 @@ UnitBlueprint {
                 Width = 16,
             },
         },
+
         UniformScale = 0.14,
     },
 	
@@ -160,22 +120,23 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 10,
+
         CommandCaps = {
             RULEUCC_Pause = true,
             RULEUCC_Stop = true,
         },
+
         FactionName = 'UEF',
         Icon = 'land',
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'toggle_shield_dome',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-dome', helpText = 'toggle_shield_dome' },
         },
+
         SelectionPriority = 5,
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+
+        ToggleCaps = {RULEUTC_ShieldToggle = true},
+
         UnitName = '<LOC uebssg01_name>SSD Hope',
 
         UpgradesTo = 'uebssg02',

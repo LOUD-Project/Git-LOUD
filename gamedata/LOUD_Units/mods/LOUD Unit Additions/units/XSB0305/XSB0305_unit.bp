@@ -5,26 +5,10 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Construct = Sound {
-            Bank = 'XSB',
-            Cue = 'XSB0304_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Construct       = Sound { Bank = 'XSB', Cue = 'XSB0304_Construct_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        DeathExplosion  = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Structure', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 42,
@@ -105,6 +89,7 @@ UnitBlueprint {
                 OffsetZ = 0,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -128,6 +113,7 @@ UnitBlueprint {
                 },
             },
         },
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_seraphim_01_albedo',
@@ -140,6 +126,7 @@ UnitBlueprint {
                 Width = 12.8,
             },
         },
+
         UniformScale = 0.058,
     },
 	
@@ -167,23 +154,22 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+
         ConstructionBar = true,
         FactionName = 'Seraphim',
         Icon = 'land',
+
 		OrderOverrides = {
-			RULEUTC_WeaponToggle = {
-				bitmapId = 'teleport',
-				helpText = 'gateway_teleport',
-			},
+			RULEUTC_WeaponToggle = {bitmapId = 'teleport',helpText = 'gateway_teleport'},
 		},
+
         SelectionPriority = 5,
-		ToggleCaps = {
-			RULEUTC_WeaponToggle = true,
-		},
+
+		ToggleCaps = {RULEUTC_WeaponToggle = true},
     },
 	
     Intel = {
-        VisionRadius = 10,
+        VisionRadius = 12,
     },
 	
     Interface = {
@@ -340,9 +326,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

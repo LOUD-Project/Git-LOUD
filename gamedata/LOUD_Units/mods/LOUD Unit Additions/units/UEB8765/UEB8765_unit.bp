@@ -3,21 +3,9 @@ UnitBlueprint {
     Adjacency = 'ExperimentalStorageAdjacencyBuff',
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'Explosions',
-            Cue = 'UEF_Nuke_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB1105_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed          = Sound { Bank = 'Explosions', Cue = 'UEF_Nuke_Impact', LodCutoff = 'Weapon_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'UEB', Cue = 'UEB1105_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 110,
@@ -49,7 +37,7 @@ UnitBlueprint {
 	
     Display = {
 	
-        Abilities = { 'Volatile' },
+        Abilities = { '<LOC ability_deathaoe>Volatile' },
 		
         Mesh = {
             IconFadeInZoom = 130,

@@ -42,7 +42,7 @@ Description['wab0201'] = "An Tech 3-level engineering assist station that aids c
 Description['wsb0104'] = "An Tech 3-level engineering assist station that aids construction and repair within a limited range."
 
 -- Abomination Experimentals
-Description['wel0405'] = 'King Kraptor, sporting his "Crown of Thorns", embodies all the religious overtones of the pure Aeon sect. Unique Wave Cannons, Maelstrom field, AA and an Omni sensor; Kraptor is bringing the word.'
+Description['wel0405'] = 'King Kraptor, with a "Crown of Thorns", embodies the religious overtones of the pure Aeon sect. Unique Wave Cannons, Maelstrom field, Torpedo & Tactical Missile defense, AA and an Omni sensor; Kraptor is bringing THE WORD.'
 Description['wrl0404'] = "The Megaroach is a typical Cybran insect megabot. Dangerous, quick and hard to stomp out."
 
 -- Experimental Cruiser

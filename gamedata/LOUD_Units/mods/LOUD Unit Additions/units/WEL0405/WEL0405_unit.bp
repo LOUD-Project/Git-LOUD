@@ -5,36 +5,12 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XRL_Destroy',
-            Cue = 'XRL0403_Death',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        FootFallGeneric = Sound {
-            Bank = 'URL',
-            Cue = 'URL0402_Move_Footfall',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        FootFallGenericSeabed = Sound {
-            Bank = 'URL',
-            Cue = 'URL0402_Move_UW_Step',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0402_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0402_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed               = Sound { Bank = 'XRL_Destroy', Cue = 'XRL0403_Death', LodCutoff = 'UnitMove_LodCutoff'},
+        FootFallGeneric         = Sound { Bank = 'URL', Cue = 'URL0402_Move_Footfall', LodCutoff = 'UnitMove_LodCutoff'},
+        FootFallGenericSeabed   = Sound { Bank = 'URL', Cue = 'URL0402_Move_UW_Step', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove               = Sound { Bank = 'URL', Cue = 'URL0402_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        StopMove                = Sound { Bank = 'URL', Cue = 'URL0402_Move_Stop', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection             = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
@@ -72,11 +48,17 @@ UnitBlueprint {
     },
 	
     Defense = {
+
+        MissileTorpDestroy = { AttachBone = {'UUX0111_LeftShoulder','UUX0111_RightShoulder'}, Radius = 4.3, RedirectRateOfFire = 9, ProjectileCategories = {'TACTICAL MISSILE','TORPEDO'} },
+
 		AirThreatLevel = 80,
+
         ArmorType = 'Experimental',
+
         Health = 139000,
         MaxHealth = 139000,
         RegenRate = 30,
+
         SurfaceThreatLevel = 1604.4,
     },
 	
@@ -84,12 +66,15 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Wave Cannons (++ Shield Damage)',
-			'Maelstrom Field (Stealth & Damage)',
 			'Missile Barrage',
-			'Anti Air',
-			'Omni Radar',
+            'Wave Cannons (++ Shield Damage)',
+            '<LOC ability_stealthfield>Maelstrom Field (Stealth & Damage)',
+            "<LOC ability_aa>Anti-Air",
+            "<LOC ability_tacmissiledef>Personal Tactical Missile Defense",
+            '<LOC ability_torpedodef>Personal Torpedo Defense',
+            '<LOC ability_omni>Omni Sensor',
 		},	
+
         AnimationDeath = {
             {
                 Animation = '/mods/LOUD Unit Additions/units/WEL0405/WEL0405_Adeath01.sca',
@@ -100,7 +85,6 @@ UnitBlueprint {
         },
 		
         AnimationIdle = '/mods/LOUD Unit Additions/units/WEL0405/WEL0405_AIdle01.sca',
-		
         AnimationWalk = '/mods/LOUD Unit Additions/units/WEL0405/WEL0405_AWalk01.sca',
 		
 		AnimationWalkRate = 0.88,
@@ -140,18 +124,14 @@ UnitBlueprint {
 							StraightLegs = false,
                         },
                     },
-                    Damage = {
-                        Amount = 2500,
-                        DamageFriendly = false,
-                        Radius = 1,
-                        Type = 'ExperimentalFootfall',
-                    },					
+
                     CameraShake = {
                         Interval = 1,
                         MaxShakeEpicenter = 0.125,
                         MinShakeAtRadius = 0,
                         Radius = 10,
                     },
+
                     Damage = {
                         Amount = 3000,
                         DamageFriendly = false,
@@ -160,18 +140,14 @@ UnitBlueprint {
                     },
                 },
             },
+
             Seabed = {
                 Footfall = {
                     Bones = {
-                        {
-                            FootBone = 'UUX0111_RightToe',
-                            Type = 'FootFall01',
-                        },
-                        {
-                            FootBone = 'UUX0111_LeftToe',
-                            Type = 'FootFall01',
-                        },
+                        { FootBone = 'UUX0111_RightToe', Type = 'FootFall01' },
+                        { FootBone = 'UUX0111_LeftToe', Type = 'FootFall01' },
                     },
+                    
                     Damage = {
                         Amount = 3000,
                         DamageFriendly = false,
@@ -181,6 +157,7 @@ UnitBlueprint {
                 },
             },
         },
+        
         UniformScale = 0.042,
     },
 	
@@ -224,7 +201,7 @@ UnitBlueprint {
         SonarStealthFieldRadius = 1,        -- as above
 
 		OmniRadius = 48,
-		RadarRadius = 112,
+		RadarRadius = 96,
         VisionRadius = 44,
         WaterVisionRadius = 36,
     },
@@ -296,16 +273,8 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             AlwaysRecheckTarget = false,
 			Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2302_Artillery_Sonance',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },			
-                MuzzleChargeStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2302_Artillery_Son_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire                = Sound { Bank = 'UALWeapon', Cue = 'UAB2302_Artillery_Sonance', LodCutoff = 'Weapon_LodCutoff'},			
+                MuzzleChargeStart   = Sound { Bank = 'UALWeapon', Cue = 'UAB2302_Artillery_Son_Charge', LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -388,16 +357,8 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             AlwaysRecheckTarget = false,
 			Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2302_Artillery_Sonance',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },			
-                MuzzleChargeStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2302_Artillery_Son_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire                = Sound { Bank = 'UALWeapon', Cue = 'UAB2302_Artillery_Sonance', LodCutoff = 'Weapon_LodCutoff' },			
+                MuzzleChargeStart   = Sound { Bank = 'UALWeapon', Cue = 'UAB2302_Artillery_Son_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -477,11 +438,7 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0401_Cannon_Exp_Lrg',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0401_Cannon_Exp_Lrg', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
 			AutoInitiateAttackCommand = true,
@@ -519,11 +476,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'UUX0111_T02_B01_Muzzle02',
-                        'UUX0111_T02_B01_Muzzle01',
-                        'UUX0111_T02_B01_Muzzle03',
-                    },
+                    MuzzleBones = {'UUX0111_T02_B01_Muzzle02','UUX0111_T02_B01_Muzzle01','UUX0111_T02_B01_Muzzle03'},
                     RackBone = 'UUX0111_T02_Barrel01',
                 },
             },
@@ -564,11 +517,7 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0401_Cannon_Exp_Lrg',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0401_Cannon_Exp_Lrg', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -599,11 +548,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'UUX0111_T03_B01_Muzzle02',
-                        'UUX0111_T03_B01_Muzzle01',
-                        'UUX0111_T03_B01_Muzzle03',
-                    },
+                    MuzzleBones = {'UUX0111_T03_B01_Muzzle02','UUX0111_T03_B01_Muzzle01','UUX0111_T03_B01_Muzzle03'},
                     RackBone = 'UUX0111_T03_Barrel01',
                 },
             },
@@ -644,11 +589,7 @@ UnitBlueprint {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0401_Cannon_Exp_Lrg',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0401_Cannon_Exp_Lrg', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -680,11 +621,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'UUX0111_T04_B01_Muzzle02',
-                        'UUX0111_T04_B01_Muzzle01',
-                        'UUX0111_T04_B01_Muzzle03',
-                    },
+                    MuzzleBones = {'UUX0111_T04_B01_Muzzle02','UUX0111_T04_B01_Muzzle01','UUX0111_T04_B01_Muzzle03'},
                     RackBone = 'UUX0111_T04_Barrel01',
                 },
             },
@@ -725,11 +662,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0111_Missile_Serpent',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAL0111_Missile_Serpent', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
@@ -816,11 +749,7 @@ UnitBlueprint {
             AboveWaterFireOnly = true,		
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2304_SAM',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB2304_SAM', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -841,7 +770,7 @@ UnitBlueprint {
 			
             Label = 'AntiAirMissiles',
 			
-            MaxRadius = 50,
+            MaxRadius = 48,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 8,
@@ -898,7 +827,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
         HealthMult = 0.9,
-        MassMult = 0.6,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

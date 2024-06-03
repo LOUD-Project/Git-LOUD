@@ -1,12 +1,18 @@
 local ExperimentalMobileUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local DefaultProjectileWeapon = import('/lua/sim/defaultweapons.lua').DefaultProjectileWeapon
-
 local AIFMissileTacticalSerpentineWeapon = import('/lua/aeonweapons.lua').AIFMissileTacticalSerpentineWeapon
 local AAAZealotMissileWeapon = import('/lua/aeonweapons.lua').AAAZealotMissileWeapon
 
-local Buff = import('/lua/sim/Buff.lua')
+local DefaultProjectileWeapon = import('/lua/sim/defaultweapons.lua').DefaultProjectileWeapon
+
+local MissileRedirect = import('/lua/defaultantiprojectile.lua').MissileTorpDestroy
+
 local AeonBuffField = import('/lua/aeonweapons.lua').AeonBuffField
+local Buff = import('/lua/sim/Buff.lua')
+
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
 
 WEL0405 = Class(ExperimentalMobileUnit) {
 
@@ -98,11 +104,6 @@ WEL0405 = Class(ExperimentalMobileUnit) {
 		
         AntiAirMissiles = Class(AAAZealotMissileWeapon) {},		
 		
-        --CrownArtillery01 = Class(MainGun) {},
-        --CrownArtillery02 = Class(MainGun) {},
-        --CrownArtillery03 = Class(MainGun) {},
-        --CrownArtillery04 = Class(MainGun) {},
-		
     },
 
     OnCreate = function(self, createArgs)
@@ -129,6 +130,18 @@ WEL0405 = Class(ExperimentalMobileUnit) {
 		
 		-- turn on Maelstrom field --
 		self:SetScriptBit('RULEUTC_SpecialToggle',true)
+
+        -- create Torp Defense emitter
+        local bp = __blueprints[self.BlueprintID].Defense.MissileTorpDestroy
+        
+        for _,v in bp.AttachBone do
+
+            local antiMissile1 = MissileRedirect { Owner = self, Radius = bp.Radius, AttachBone = v, RedirectRateOfFire = bp.RedirectRateOfFire }
+
+            TrashAdd( self.Trash, antiMissile1)
+            
+        end
+
 	end,	
 	
 	OnScriptBitSet = function(self, bit)

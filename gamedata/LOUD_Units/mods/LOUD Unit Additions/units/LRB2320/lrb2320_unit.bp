@@ -4,21 +4,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URB_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'URB',
-            Cue = 'URB2303_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed       = Sound { Bank = 'URLDestroy', Cue = 'URB_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'URB', Cue = 'URB2303_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
 	Buffs = {},
@@ -57,15 +45,8 @@ UnitBlueprint {
     Description = '<LOC lrb2320_desc>Barrage Artillery',
 	
     Display = {
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 220,
-                    ShaderName = 'Insect',
-                },
-            },
-        },
+    
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 220, ShaderName = 'Insect' } } },
 
         Tarmacs = {
             {
@@ -79,6 +60,7 @@ UnitBlueprint {
                 Width = 12,
             },
         },
+
         UniformScale = 0.018,
     },
 	
@@ -87,9 +69,7 @@ UnitBlueprint {
         BuildCostMass = 9500,
         BuildTime = 10500,
         
-        RebuildBonusIds = {
-            'lrb2320',
-        },
+        RebuildBonusIds = {'lrb2320'},
     },
 	
 	Footprint = {
@@ -107,6 +87,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
 		Icon = 'amph',
 		SelectionPriority = 5,
+
         UnitName = '<LOC lrb2320_name>Trigger',
     },
 	
@@ -163,13 +144,11 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2303_Cannon_Mol',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URB2303_Cannon_Mol', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
 			
             Buffs = {
@@ -260,14 +239,12 @@ UnitBlueprint {
 
         {
             AboveWaterTargetsOnly = true,
-            ArtilleryShieldBlocks = true,		
+            ArtilleryShieldBlocks = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2303_Cannon_Mol',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URB2303_Cannon_Mol', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
 			
             Buffs = {
@@ -357,12 +334,9 @@ UnitBlueprint {
 		
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2303_Cannon_Mol',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URB2303_Cannon_Mol', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
 			
             Buffs = {
@@ -453,9 +427,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.3,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

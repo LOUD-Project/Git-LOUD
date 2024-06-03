@@ -5,37 +5,19 @@ UnitBlueprint {
     },
 
     Audio = {
-	
-        DeathExplosion = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-		
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2302_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        DeathExplosion  = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed       = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'UEB', Cue = 'UEB2302_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     Buffs = {
         Regen = {
             Level1 = 3,
-            Level2 = 6,
-            Level3 = 9,
-            Level4 = 12,
-            Level5 = 15,
+            Level2 = 5,
+            Level3 = 7,
+            Level4 = 9,
+            Level5 = 11,
         },
     },
 	
@@ -60,16 +42,16 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 400,
         ArmorType = 'Structure',
-        Health = 9600,
-        MaxHealth = 9600,
-        RegenRate = 4,
+        Health = 7200,
+        MaxHealth = 7200,
+        RegenRate = 3,
     },
 	
     Description = '<LOC veb2302_desc>T4 SAM Launcher',
 	
     Display = {
         Abilities = {
-            'Anti-Air',
+            "<LOC ability_aa>Anti-Air",
 			'Low Rate of Fire',
 			'Engages only T2 and up',
 		},
@@ -102,12 +84,13 @@ UnitBlueprint {
                 Width = 6,
             },
         },
+
         UniformScale = 0.02,
     },
 	
     Economy = {	
-        BuildCostEnergy = 145000,
-        BuildCostMass = 13000,
+        BuildCostEnergy = 155000,
+        BuildCostMass = 9400,
         BuildTime = 13000,
         
         RebuildBonusIds = {'veb2302'},
@@ -115,6 +98,7 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 4,
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -123,6 +107,7 @@ UnitBlueprint {
         FactionName = 'UEF',
         Icon = 'land',
         SelectionPriority = 5,
+
         UnitName = '<LOC veb2302_name>Flayer II',
     },
 	
@@ -183,11 +168,7 @@ UnitBlueprint {
             AlwaysRecheckTarget = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2304_Missile_Flayer',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2304_Missile_Flayer', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
@@ -213,12 +194,12 @@ UnitBlueprint {
 			
             Label = 'MissileRack01',
 			
-            MaxRadius = 89,
+            MaxRadius = 76,
 			
-            MuzzleVelocity = 60,
+            MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
-            ProjectileLifetime = 4,
+            ProjectileLifetime = 3,
 
             RackBones = {
                 {
@@ -271,7 +252,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.6,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

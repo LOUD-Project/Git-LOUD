@@ -1,7 +1,6 @@
 local CEnergyStorageUnit= import('/lua/defaultunits.lua').StructureUnit
 
-local CWeapons = import('/lua/cybranweapons.lua')
-local CIFCommanderDeathWeapon = CWeapons.CIFCommanderDeathWeapon
+local CIFCommanderDeathWeapon = import('/lua/cybranweapons.lua').CIFCommanderDeathWeapon
 
 URB8765 = Class(CEnergyStorageUnit) {
     DestructionPartsChassisToss = {'URB8765'},

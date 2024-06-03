@@ -3,26 +3,9 @@ UnitBlueprint {
     Adjacency = 'ExperimentalStorageAdjacencyBuff',
 	
     Audio = {
-        ActiveLoop = Sound {
-            Bank = 'URB',
-            Cue = 'URB1105_Active',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'Explosions',
-            Cue = 'Cybran_Nuke_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'URB',
-            Cue = 'URB1105_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed          = Sound { Bank = 'Explosions', Cue = 'Cybran_Nuke_Impact', LodCutoff = 'Weapon_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'URB', Cue = 'URB1105_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 110,
@@ -56,7 +39,7 @@ UnitBlueprint {
 	
     Display = {
 	
-        Abilities = { 'Volatile' },
+        Abilities = { '<LOC ability_deathaoe>Volatile' },
 		
         DamageEffects = {
             {
@@ -72,6 +55,7 @@ UnitBlueprint {
                 OffsetZ = 0,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 200,
             LODs = {
@@ -107,6 +91,7 @@ UnitBlueprint {
                 Width = 12,
             },
         },
+
         UniformScale = 0.7,
     },
 	

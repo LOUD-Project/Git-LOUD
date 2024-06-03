@@ -4,21 +4,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2303_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed       = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'UEB', Cue = 'UEB2303_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'UEF_Select_Gun', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
 	Buffs = {},
@@ -56,15 +44,7 @@ UnitBlueprint {
     Description = '<LOC mgubu31_desc>Barrage Artillery',
 	
     Display = {
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 220,
-                    ShaderName = 'Unit',
-                },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { {LODCutoff = 220,ShaderName = 'Unit'} } },
 
         Tarmacs = {
             {
@@ -78,6 +58,7 @@ UnitBlueprint {
                 Width = 12,
             },
         },
+        
         UniformScale = 0.018,
     },
 	
@@ -104,11 +85,12 @@ UnitBlueprint {
         FactionName = 'UEF',
 		Icon = 'amph',
 		SelectionPriority = 5,
+
         UnitName = '<LOC mgubu31_name>Jackhammer',
     },
 	
     Intel = {
-        VisionRadius = 30,
+        VisionRadius = 28,
     },
 	
     Interface = {
@@ -164,13 +146,11 @@ UnitBlueprint {
         {
 			AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2303_Artillery_APDS',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2303_Artillery_APDS', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -249,13 +229,11 @@ UnitBlueprint {
 		{
 			AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2303_Artillery_APDS',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2303_Artillery_APDS', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -331,13 +309,11 @@ UnitBlueprint {
 		{
 			AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2303_Artillery_APDS',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2303_Artillery_APDS', LodCutoff = 'Weapon_LodCutoff'},
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -417,7 +393,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

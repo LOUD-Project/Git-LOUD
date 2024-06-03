@@ -3,21 +3,9 @@ UnitBlueprint {
     Adjacency = 'ExperimentalStorageAdjacencyBuff',
 	
     Audio = {
-        Killed = Sound {
-            Bank = 'Explosions',
-            Cue = 'Aeon_Nuke_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UAB',
-            Cue = 'UAB1106_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed          = Sound { Bank = 'Explosions', Cue = 'Aeon_Nuke_Impact', LodCutoff = 'Weapon_LodCutoff'},
+        DoneBeingBuilt  = Sound { Bank = 'UAB', Cue = 'UAB1106_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection     = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Resource', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 110,
@@ -51,7 +39,10 @@ UnitBlueprint {
 	
     Display = {
 	
-        Abilities = { '<LOC ability_deathaoe>Volatile'	},
+        Abilities = {
+            '<LOC ability_deathaoe>Volatile',
+            '<LOC ability_aquatic>Aquatic: can be built underwater',
+            },
 		
 	    AnimationDeath = {
             {
@@ -142,7 +133,7 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 12.8,
                 Normal = 'Tarmacs/Tar12x_aeon_01_normals',
-                Orientations = {0,90,180,270},
+                Orientations = {0},
                 RemoveWhenDead = true,
                 Width = 12.8,
             },
@@ -253,7 +244,6 @@ UnitBlueprint {
             RateOfFire = 1,
             TargetCheckInterval = 9999999,
             TargetRestrictDisallow = 'UNTARGETABLE',
-            Turreted = false,
         },
     },
 

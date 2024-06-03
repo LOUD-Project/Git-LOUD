@@ -50,6 +50,7 @@ UnitBlueprint {
         Abilities = {
             'Engineering Suite',
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {

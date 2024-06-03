@@ -1,6 +1,6 @@
 local SMassStorageUnit = import('/lua/seraphimunits.lua').SMassStorageUnit
-local SWeapons = import('/lua/seraphimweapons.lua')
-local SIFCommanderDeathWeapon = SWeapons.SIFCommanderDeathWeapon
+
+local SIFCommanderDeathWeapon = import('/lua/seraphimweapons.lua').SIFCommanderDeathWeapon
 
 XSB8765 = Class(SMassStorageUnit) {
 

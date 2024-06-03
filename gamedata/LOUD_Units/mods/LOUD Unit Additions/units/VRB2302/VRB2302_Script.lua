@@ -1,6 +1,6 @@
 local CStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
-local CAAMissileNaniteWeapon = import('/lua/cybranweapons.lua').CAAMissileNaniteWeapon
+local CAAMissileNaniteWeapon = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
 
 VRB2302 = Class(CStructureUnit) {
 

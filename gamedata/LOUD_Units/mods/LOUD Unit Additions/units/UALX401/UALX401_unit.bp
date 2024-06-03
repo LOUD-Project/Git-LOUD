@@ -5,31 +5,11 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ShieldOff = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0307_Shield_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ShieldOn = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0307_Shield_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0307_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        ShieldOff   = Sound { Bank = 'UAL', Cue = 'UAL0307_Shield_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        ShieldOn    = Sound { Bank = 'UAL', Cue = 'UAL0307_Shield_Activate', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UAL', Cue = 'UAL0307_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'Aeon_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 195,
@@ -78,6 +58,7 @@ UnitBlueprint {
             ShieldSize = 45,
             ShieldVerticalOffset = -5,
         },
+
         EconomyThreatLevel = 1500,
 		SurfaceThreatLevel = 184.7,
     },
@@ -86,11 +67,11 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Hover',
-            'Shield Dome',
-            'Omni Radar',
+            '<LOC ability_hover>Hover',
+            '<LOC ability_shielddome>Shield Dome',
+            '<LOC ability_omni>Omni Sensor',
             'Anti-Teleport field',
-            'Strategic Missile Defense',
+            '<LOC ability_stratmissiledef>Strategic Missile Defense',
         },
 		
         IdleEffects = { Land = {}  },
@@ -133,6 +114,7 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 10,
+
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -141,25 +123,24 @@ UnitBlueprint {
             RULEUCC_SiloBuildTactical = true,
             RULEUCC_Stop = true,
         },
+
         FactionName = 'Aeon',
         Icon = 'amph',
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'toggle_shield_dome',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-dome', helpText = 'toggle_shield_dome' },
         },
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+
+        ToggleCaps = { RULEUTC_ShieldToggle = true },
+
         UnitName = '<LOC ualx401_name>Angel',
     },
 	
     Intel = {
-        VisionRadius = 50,
-        OmniRadius = 60,
-        RadarRadius = 165,
-        WaterVisionRadius = 20,
+        VisionRadius = 48,
+        OmniRadius = 56,
+        RadarRadius = 128,
+        WaterVisionRadius = 16,
     },
 	
     Interface = {
@@ -225,11 +206,7 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = false,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB4302_Anti_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB4302_Anti_Missile', LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
@@ -292,7 +269,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
         HealthMult = 0.5,
-        MassMult = 0.6,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,
