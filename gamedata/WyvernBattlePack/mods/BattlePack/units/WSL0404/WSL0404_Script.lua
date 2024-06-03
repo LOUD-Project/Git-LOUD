@@ -2,9 +2,11 @@ local SLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
 local WeaponsFile = import('/lua/seraphimweapons.lua')
 
-local SDFExperimentalPhasonProj = WeaponsFile.SDFExperimentalPhasonProj
-local SDFUltraChromaticBeamGenerator = WeaponsFile.SDFUltraChromaticBeamGenerator
-local SAAShleoCannonWeapon = WeaponsFile.SAAShleoCannonWeapon
+local SDFExperimentalPhasonProj         = WeaponsFile.SDFExperimentalPhasonProj
+local SDFUltraChromaticBeamGenerator    = WeaponsFile.SDFUltraChromaticBeamGenerator
+local SAAShleoCannonWeapon              = WeaponsFile.SAAShleoCannonWeapon
+
+WeaponsFile = nil
 
 local EffectUtil = import('/lua/EffectUtilities.lua')
 

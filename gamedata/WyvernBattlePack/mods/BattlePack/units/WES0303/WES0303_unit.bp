@@ -1,26 +1,31 @@
 UnitBlueprint{
     Description = "Heavy Support Cruiser",
+
     AI = {
         AttackAngle = 60,
         GuardReturnRadius = 80,
         GuardScanRadius = 65,
     },
+
     Audio = {
         Killed      = Sound { Bank = 'UESDestroy', Cue = 'UES0302_Destroy',    LodCutoff = 'UnitMove_LodCutoff' },
         StartMove   = Sound { Bank = 'UES',        Cue = 'UES0302_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
         StopMove    = Sound { Bank = 'UES',        Cue = 'UES0302_Move_Stop',  LodCutoff = 'UnitMove_LodCutoff' },
         UISelection = Sound { Bank = 'Interface',  Cue = 'UEF_Select_Naval',   LodCutoff = 'UnitMove_LodCutoff' },
     },
+
     Buffs = {
         Regen = {
-            Level1 = 3,
-            Level2 = 6,
-            Level3 = 9,
-            Level4 = 12,
-            Level5 = 15,
+            Level1 = 4,
+            Level2 = 8,
+            Level3 = 12,
+            Level4 = 16,
+            Level5 = 20,
         },
     },
+
     BuildIconSortPriority = 19,
+
     Categories = {
         "BUILTBYTIER3FACTORY",
         "CRUISER",
@@ -35,15 +40,19 @@ UnitBlueprint{
         "UEF",
         "VISIBLETORECON",
     },
+
     Defense = {
-        AirThreatLevel = 36,
         ArmorType = "Normal",
+
         Health = 22500,
         MaxHealth = 22500,
-        RegenRate = 12,
+        RegenRate = 8,
+
+        AirThreatLevel = 36,
         SubThreatLevel = 26,
         SurfaceThreatLevel = 27,
     },
+
     Display = {
         Abilities = {
             "<LOC ability_aa>Anti-Air",
@@ -52,6 +61,7 @@ UnitBlueprint{
             "<LOC ability_tacmissiledef>Tactical Missile Defense",
             "<LOC ability_torpedo>Torpedoes",
         },
+
         AnimationDeath = {
             {
                 Animation = "/mods/BattlePack/units/WES0303/WES0303_ADeath01.sca",
@@ -66,6 +76,7 @@ UnitBlueprint{
                 Weight = 100,
             },
         },
+
         IdleEffects = {
             Water = {
                 Effects = {
@@ -77,6 +88,7 @@ UnitBlueprint{
                 },
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -86,6 +98,7 @@ UnitBlueprint{
                 },
             },
         },
+
         MovementEffects = {
             Water = {
                 Effects = {
@@ -99,21 +112,18 @@ UnitBlueprint{
                         Scale = 1.5,
                         Type = "RightFrontWake",
                     },
-                    {
-                        Bones = { "Back_Wake" },
-                        Scale = 1.5,
-                        Type = "BackWake",
-                    },
                 },
             },
         },
         UniformScale = 0.055,
     },
+
     Economy = {
         BuildCostEnergy = 60000,
         BuildCostMass = 5600,
         BuildTime = 12000,
     },
+
     General = {
         CapCost = 2,
         CommandCaps = {
@@ -128,16 +138,20 @@ UnitBlueprint{
         Icon = "sea",
         UnitName = "Poseidon Class",
     },
+
     Intel = {
         FreeIntel = true,
-        RadarRadius = 90,
-        SonarRadius = 50,
+
+        RadarRadius = 88,
+        SonarRadius = 52,
         VisionRadius = 40,
-        WaterVisionRadius = 30,
+        WaterVisionRadius = 28,
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 5.2,
     LifeBarSize = 3.5,
+
     Physics = {
         BackUpDistance = 12,
         BankingSlope = 0,
@@ -156,16 +170,21 @@ UnitBlueprint{
         TurnRadius = 22,
         TurnRate = 36,
     },
+
     SelectionSizeX = 1.35,
     SelectionSizeZ = 4.5,
     SelectionThickness = 0.15,
+
     CollisionOffsetY = -0.375,
     CollisionOffsetZ = 0.2,
+
     SizeX = 1.3,
     SizeY = 1.4,
     SizeZ = 5.6,
+
     StrategicIconName = "icon_ship3_antiair",
     StrategicIconSortPriority = 145,
+
     Veteran = {
         Level1 = 25,
         Level2 = 50,
@@ -173,6 +192,7 @@ UnitBlueprint{
         Level4 = 100,
         Level5 = 125,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -184,22 +204,32 @@ UnitBlueprint{
             },
             BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
+
             Damage = 180,
             DamageRadius = 2,
             DamageType = "Normal",
+
             DisplayName = "Gauss Cannon",
+
             FireTargetLayerCapsTable = { Water = "Land|Water|Seabed" },
             FiringRandomness = 0.3,
             FiringTolerance = 2,
+
             Label = "DeckGun",
+
             LeadTarget = true,
+
             MaxRadius = 65,
+
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 32,
+
             NotExclusive = true,
+
             ProjectileId = "/projectiles/TDFIonizedPlasmaGatlingCannon01/TDFIonizedPlasmaGatlingCannon01_proj.bp",
             ProjectileLifetimeUsesMultiplier = 2.4,
+
             RackBones = {
                 {
                     MuzzleBones = {
@@ -211,10 +241,14 @@ UnitBlueprint{
             },
 
             RangeCategory = "UWRC_DirectFire",
+
             RateOfFire = 0.25,
+
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,
+
             TargetCheckInterval = 3,
+
             TargetPriorities = {
                 "SPECIALHIGHPRI",
                 "MOBILE",
@@ -222,43 +256,58 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.15,
+
             TurretBoneMuzzle = "PlasmaTurret_Recoil_BottomFront",
             TurretBonePitch = "PlasmaTurret_Pitch_BottomFront",
             TurretBoneYaw = "PlasmaTurret_Yaw_BottomFront",
             TurretDualManipulators = false,
+
             TurretPitch = 10,
             TurretPitchRange = 30,
             TurretPitchSpeed = 10,
+
             TurretYaw = 0,
             TurretYawRange = 140,
             TurretYawSpeed = 26,
+
             Turreted = true,
         },
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 BarrelLoop  = Sound { Bank = 'UES',         Cue = 'UES0302_Cannon_Loop',   LodCutoff = 'WeaponBig_LodCutoff' },
                 BarrelStart = Sound { Bank = 'UES',         Cue = 'UES0302_Cannon_Start',  LodCutoff = 'WeaponBig_LodCutoff' },
                 BarrelStop  = Sound { Bank = 'UES',         Cue = 'UES0302_Cannon_Stop',   LodCutoff = 'WeaponBig_LodCutoff' },
                 Fire        = Sound { Bank = 'XEL_Weapons', Cue = 'XEL0305_Plasma_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
+
             Damage = 180,
             DamageRadius = 2,
             DamageType = "Normal",
+
             DisplayName = "Gauss Cannon",
+
             FireTargetLayerCapsTable = { Water = "Land|Water|Seabed" },
             FiringRandomness = 0.3,
             FiringTolerance = 2,
+
             Label = "DeckGun",
+
             MaxRadius = 65,
+
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 32,
+
             NotExclusive = true,
+
             ProjectileId = "/projectiles/TDFIonizedPlasmaGatlingCannon01/TDFIonizedPlasmaGatlingCannon01_proj.bp",
             ProjectileLifetimeUsesMultiplier = 2.4,
+
             RackBones = {
                 {
                     MuzzleBones = {
@@ -270,8 +319,10 @@ UnitBlueprint{
             },
 
             RateOfFire = 0.25,
+
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,
+
             TargetCheckInterval = 3,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
@@ -280,16 +331,20 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.15,
+
             TurretBoneMuzzle = "PlasmaTurret_Recoil_TopFront",
             TurretBonePitch = "PlasmaTurret_Pitch_TopFront",
             TurretBoneYaw = "PlasmaTurret_Yaw_TopFront",
             TurretDualManipulators = false,
+
             TurretPitch = 10,
             TurretPitchRange = 20,
             TurretPitchSpeed = 20,
+
             TurretYaw = 0,
             TurretYawRange = 140,
             TurretYawSpeed = 26,
+
             Turreted = true,
         },
         {
@@ -364,12 +419,12 @@ UnitBlueprint{
             HeadingArcCenter = 90,
             HeadingArcRange = 100,
             Label = "TMD",
-            MaxRadius = 36,
+            MaxRadius = 28,
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 5,
             MuzzleVelocity = 75,
             ProjectileId = "/projectiles/TDPhalanx01/TDPhalanx01_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 0.6,
+            ProjectileLifetimeUsesMultiplier = 0.5,
             RackBones = {
                 {
                     MuzzleBones = { "TMD_Turret_Muzzle" },
@@ -396,6 +451,9 @@ UnitBlueprint{
             TurretYawSpeed = 180,
             Turreted = true,
         },
+
+        -- 4 x SAM AA --
+        
         {
             AlwaysRecheckTarget = true,
             Audio = {
@@ -629,31 +687,39 @@ UnitBlueprint{
             TurretYawSpeed = 65,
             Turreted = true,
         },
+
         {
             Audio = {
                 Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0203_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = "RULEUBA_None",
             CollideFriendly = false,
-            Damage = 110,
+            
+            Damage = 300,
             DamageType = "Normal",
+
             DisplayName = "Angler Torpedo",
-            EffectiveRadius = 29,
+
             FireTargetLayerCapsTable = {
                 Sub = "Seabed|Sub|Water",
                 Water = "Seabed|Sub|Water",
             },
+
             FiringTolerance = 60,
+
             Label = "Torpedo",
 
-            MaxRadius = 45,
+            MaxRadius = 44,
 
-            MuzzleSalvoDelay = 0.7,
-            MuzzleSalvoSize = 4,
+            MuzzleSalvoDelay = 0.8,
+            MuzzleSalvoSize = 2,
             MuzzleVelocity = 3,
+
             NotExclusive = true,
-            ProjectileId = "/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp",
-            ProjectileLifetime = 8,
+
+            ProjectileId = "/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_proj.bp",
+            ProjectileLifetime = 6,
+
             RackBones = {
                 {
                     MuzzleBones = { "TorpMuzzle001" },
@@ -661,9 +727,13 @@ UnitBlueprint{
                 },
             },
 
+            RackSalvoReloadTime = 1.7,  -- fires every 3.3 seconds
+
             RangeCategory = "UWRC_AntiNavy",
-            RateOfFire = 0.3,
+
+            RateOfFire = 1,             -- 600 every 3.3 = 181 DPS Sub
             TargetCheckInterval = 2,
+
             TargetPriorities = {
                 "SPECIALHIGHPRI",
                 "MOBILE",
@@ -678,39 +748,51 @@ UnitBlueprint{
             },
             BallisticArc = "RULEUBA_None",
             CollideFriendly = false,
-            Damage = 110,
+
+            Damage = 300,
             DamageType = "Normal",
+
             DisplayName = "Angler Torpedo",
-            EffectiveRadius = 29,
+
             FireTargetLayerCapsTable = {
                 Sub = "Seabed|Sub|Water",
                 Water = "Seabed|Sub|Water",
             },
+
             FiringTolerance = 60,
+
             Label = "Torpedo",
-            MaxRadius = 45,
-            MuzzleSalvoDelay = 0.7,
-            MuzzleSalvoSize = 4,
+
+            MaxRadius = 44,
+            
+            MuzzleSalvoDelay = 0.8,
+            MuzzleSalvoSize = 2,
             MuzzleVelocity = 3,
+
             NotExclusive = true,
-            ProjectileId = "/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp",
-            ProjectileLifetime = 8,
+
+            ProjectileId = "/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_proj.bp",
+            ProjectileLifetime = 6,
+
             RackBones = {
                 {
                     MuzzleBones = { "TorpMuzzle002" },
                     RackBone = "TorpMuzzle002",
                 },
             },
+            
+            RackSalvoReloadTime = 1.7,      -- fires every 3.3 seconds
 
-            RateOfFire = 0.3,
+            RateOfFire = 1,                 -- so another 181 DPS Sub
             TargetCheckInterval = 2,
+
             TargetPriorities = {
                 "SPECIALHIGHPRI",
                 "MOBILE",
                 "ALLUNITS -WALL",
             },
             TargetRestrictDisallow = "UNTARGETABLE, HOVER",
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
         },
     },
 }

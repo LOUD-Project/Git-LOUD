@@ -1,15 +1,21 @@
 UnitBlueprint{
+
     Description = "Mobile Tac-Missile Defense",
+
     AI = {
         TargetBones = { "MainTurret" },
     },
+
     Audio = {
         Killed      = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Huge',   LodCutoff = 'UnitMove_LodCutoff' },
         StartMove   = Sound { Bank = 'UEL',        Cue = 'UEL0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
         UISelection = Sound { Bank = 'Interface',  Cue = 'UEF_Select_Tank',    LodCutoff = 'UnitMove_LodCutoff' },
     },
+
     Buffs = {},
+
     BuildIconSortPriority = 20,
+
     Categories = {
         "ANTIMISSILE",
         "BUILTBYTIER2FACTORY",
@@ -22,6 +28,7 @@ UnitBlueprint{
         "UEF",
         "VISIBLETORECON",
     },
+
     Defense = {
         ArmorType = "Normal",
         Health = 900,
@@ -29,8 +36,10 @@ UnitBlueprint{
         RegenRate = 0.5,
         SurfaceThreatLevel = 0.1,
     },
+
     Display = {
         Abilities = { "<LOC ability_tacmissiledef>Tactical Missile Defense" },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -47,27 +56,20 @@ UnitBlueprint{
                 },
             },
         },
+
         MovementEffects = {
-            Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            "Dust01",
-                            "Dust02",
-                        },
-                        Type = "GroundKickup01",
-                    },
-                },
-                Treads = { ScrollTreads = true },
-            },
+            Land = { Effects = { { Bones = {"Dust01","Dust02"}, Type = "GroundKickup01" } }, Treads = { ScrollTreads = true } },
         },
+
         UniformScale = 0.07,
     },
+
     Economy = {
         BuildCostEnergy = 3600,
         BuildCostMass = 280,
         BuildTime = 400,
     },
+
     General = {
         CommandCaps = {
             RULEUCC_Attack = true,
@@ -82,10 +84,13 @@ UnitBlueprint{
         Icon = "land",
         UnitName = "Sharp Shooter",
     },
+
     Intel = { VisionRadius = 24 },
+
     LifeBarHeight = 0.1,
     LifeBarOffset = 0.5,
     LifeBarSize = 1,
+
     Physics = {
         BankingSlope = 0,
         DragCoefficient = 0.2,
@@ -102,17 +107,22 @@ UnitBlueprint{
         TurnRadius = 0,
         TurnRate = 90,
     },
+
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0,
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.75,
     SelectionThickness = 0.7,
+
     SizeX = 0.85,
     SizeY = 0.78,
     SizeZ = 1.0,
+
     StrategicIconName = "icon_land2_antimissile",
     StrategicIconSortPriority = 125,
+
     Transport = { TransportClass = 2 },
+
     Veteran = {
         Level1 = 6,
         Level2 = 12,
@@ -120,6 +130,7 @@ UnitBlueprint{
         Level4 = 24,
         Level5 = 30,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -182,11 +193,12 @@ UnitBlueprint{
             UseFiringSolutionInsteadOfAimBone = true,
         },
     },
+
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = { Land = true },
     },

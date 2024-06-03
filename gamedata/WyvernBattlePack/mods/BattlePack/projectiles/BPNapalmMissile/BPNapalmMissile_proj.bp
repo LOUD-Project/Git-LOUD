@@ -16,34 +16,19 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'CYBRAN',
         'PROJECTILE',
         'DIRECTFIRE',
     },
+
     Display = {
-        CameraFollowTimeout = 2,
-        CameraFollowsProjectile = true,
-        ImpactEffects = {
-            Type = 'Medium02',
-        },
+        ImpactEffects = {Type = 'Medium02'},
         MeshBlueprint = '/projectiles/CIFMissileTactical01/CIFMissileTactical01_mesh.bp',
         StrategicIconSize = 2,
         UniformScale = 0.1,
     },
-    General = {
-        Category = 'Direct Fire',
-        EntityCategory = {
-        'CYBRAN',
-        'PROJECTILE',
-        'DIRECTFIRE',
-        },
-        Faction = 'Cybran',
-        Weapon = 'Iridium Rocket Pack',
-    },
-    Interface = {
-        HelpText = 0,
-    },
+
     Physics = {
         Acceleration = 0,
         DestroyOnWater = true,

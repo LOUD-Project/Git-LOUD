@@ -1,9 +1,12 @@
 UnitBlueprint{
+
     Description = "<LOC wel4404_desc>Experimental Medium Assault Mech (Raider)",
+
     AI = {
         GuardScanRadius = 48,
         TargetBones = {"head","legb4","legb05"},
     },
+
     Audio = {
         AmbientMove           = Sound { Bank = 'URL',          Cue = 'URL0303_Move_Loop',         LodCutoff = 'UnitMove_LodCutoff' },
         DeathExplosion        = Sound { Bank = 'Explosions',   Cue = 'UEF_Nuke_Impact',           LodCutoff = 'UnitMove_LodCutoff' },
@@ -16,16 +19,19 @@ UnitBlueprint{
         StopMove              = Sound { Bank = 'URL',          Cue = 'URL0303_Move_Stop',         LodCutoff = 'UnitMove_LodCutoff' },
         UISelection           = Sound { Bank = 'Interface',    Cue = 'Cybran_Select_Bot',         LodCutoff = 'UnitMove_LodCutoff' },
     },
+
     Buffs = {
         Regen = {
-            Level1 = 15,
-            Level2 = 30,
-            Level3 = 45,
-            Level4 = 60,
-            Level5 = 75,
+            Level1 = 12,
+            Level2 = 24,
+            Level3 = 36,
+            Level4 = 48,
+            Level5 = 60,
         },
     },
+
     BuildIconSortPriority = 9.1,
+
     Categories = {
         "AMPHIBIOUS",
         "BUILTBYTIER4COMMANDER",
@@ -41,19 +47,22 @@ UnitBlueprint{
         "UEF",
         "VISIBLETORECON",
     },
+
     Defense = {
         ArmorType = "Experimental",
         Health = 55000,
         MaxHealth = 55000,
-        RegenRate = 15,
+        RegenRate = 12,
         SurfaceThreatLevel = 587,
     },
+
     Display = {
         Abilities = {
             "<LOC ability_amphibious>Amphibious",
             "<LOC ability_personalstealth>Personal Stealth",
             "<LOC ability_radar>Radar",
         },
+
         AnimationDeath = {
             {
                 Animation = "/Mods/BattlePack/units/WEL4404/WEL4404_Death.sca",
@@ -62,23 +71,19 @@ UnitBlueprint{
         },
         AnimationWalk = "/Mods/BattlePack/units/WEL4404/WEL4404_Walk2.sca",
         AnimationWalkRate = 1.4,
-        Mesh = {
-            IconFadeInZoom = 200,
-            LODs = {
-                {
-                    LODCutoff = 550,
-                    ShaderName = "Unit",
-                },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 200, LODs = { { LODCutoff = 550, ShaderName = "Unit" } } },
+
         UniformScale = 0.0425,
     },
+
     Economy = {
         BuildCostEnergy = 411000,
         BuildCostMass = 23500,
         BuildTime = 6850,
         MaintenanceConsumptionPerSecondEnergy = 80,
     },
+
     General = {
         CapCost = 4,
         CommandCaps = {
@@ -92,29 +97,36 @@ UnitBlueprint{
         },
         FactionName = "UEF",
         Icon = "amph",
+
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = "stealth-personal",
-                helpText = "toggle_stealth_personal",
-            },
+            RULEUTC_StealthToggle = { bitmapId = "stealth-personal", helpText = "toggle_stealth_personal" },
         },
+
         ToggleCaps = { RULEUTC_StealthToggle = true },
+
         UnitName = "<LOC wel4404_name>Star Adder",
     },
+
     Intel = {
-        RadarRadius = 75,
+        RadarRadius = 64,
         RadarStealth = true,
         VisionRadius = 36,
-        WaterVisionRadius = 24,
+        WaterVisionRadius = 20,
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.5,
     LifeBarSize = 3,
+
     ModIconName = "wbp",
+
     Physics = {
         BackupDistance = 5,
         BankingSlope = 0,
         DragCoefficient = 0.2,
+
+        LayerChangeOffsetHeight = -3.2,
+        
         MaxAcceleration = 1.2,
         MaxBrake = 3.4,
         MaxSpeed = 3.4,
@@ -129,17 +141,22 @@ UnitBlueprint{
         TurnRadius = 5,
         TurnRate = 45,
     },
+
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0,
     SelectionSizeX = 2.3,
     SelectionSizeZ = 1.9,
     SelectionThickness = 0.35,
+
     SizeX = 2.6,
     SizeY = 3.8,
     SizeZ = 2.6,
+
     StrategicIconName = "icon_seabed4_directfire",
     StrategicIconSortPriority = 115,
+
     Transport = { TransportClass = 4 },
+
     Veteran = {
         Level1 = 25,
         Level2 = 50,
@@ -147,6 +164,7 @@ UnitBlueprint{
         Level4 = 100,
         Level5 = 125,
     },
+
     Weapon = {
         {
             AboveWaterFireOnly = true,
@@ -168,7 +186,7 @@ UnitBlueprint{
 
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
-                Water = "Land|Water|Seabed",
+                Seabed = "Land|Water|Seabed",
             },
 
             FiringRandomness = 0.8,
@@ -248,7 +266,7 @@ UnitBlueprint{
 
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
-                Water = "Land|Water|Seabed",
+                Seabed = "Land|Water|Seabed",
             },
 
             FiringRandomnessWhileMoving = 0.3,
@@ -336,7 +354,6 @@ UnitBlueprint{
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
-                Water = "Land|Water|Seabed",
             },
             FiringRandomness = 0.6,
             FiringTolerance = 2,
@@ -379,6 +396,7 @@ UnitBlueprint{
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.3,

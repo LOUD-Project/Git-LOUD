@@ -2,26 +2,17 @@ local AWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local WeaponsFile = import ('/lua/aeonweapons.lua')
 
-local BattleWeapons = import('/mods/BattlePack/lua/BattlePackweapons.lua')
-
 local ADFPhasonLaser = WeaponsFile.ADFPhasonLaser
-
-local SC2PhasonLaser = BattleWeapons.SC2PhasonLaser
-
 local ADFTractorClaw = WeaponsFile.ADFTractorClaw
 
-local utilities = import('/lua/utilities.lua')
+WeaponsFile = nil
+
 local explosion = import('/lua/defaultexplosions.lua')
-local Entity = import('/lua/sim/Entity.lua').Entity
-local AIUtils = import('/lua/AI/aiutilities.lua')
-local Buff = import('/lua/sim/Buff.lua')
 
 WAL0401 = Class(AWalkingLandUnit) {
 
     Weapons = {
-    
-        EyeWeapon = Class(SC2PhasonLaser) {},
-        
+        EyeWeapon = Class(ADFPhasonLaser) {},
         RightArmTractor = Class(ADFTractorClaw) {},
         LeftArmTractor = Class(ADFTractorClaw) {},
     },

@@ -16,23 +16,18 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'UEF',
         'PROJECTILE',
         'DIRECTFIRE',
     },
+
     Display = {
         MeshBlueprint = '/projectiles/TDFGauss01/TDFGauss01_mesh.bp',
         StrategicIconSize = 3,
         UniformScale = 1.6,
     },
-    General = {
-        Category = 'Direct Fire',
-        Weapon = 'Gauss Cannon',
-    },
-    Interface = {
-        HelpText = 0,
-    },
+
     Physics = {
         DestroyOnWater = true,
         Acceleration = 0,

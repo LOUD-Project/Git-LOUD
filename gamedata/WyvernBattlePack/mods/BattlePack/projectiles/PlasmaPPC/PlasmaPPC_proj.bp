@@ -16,30 +16,17 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'MECHASSAULT',
         'PROJECTILE',
         'INDIRECTFIRE',
     },
+
     Display = {
-        ImpactEffects = {
-            Type = 'Medium03',
-        },
+        ImpactEffects = {Type = 'Medium03'},
         StrategicIconSize = 2,
     },
-    General = {
-        Category = 'Direct Fire',
-        EntityCategory = {
-            'MECHASSAULT',
-            'PROJECTILE',
-            'ARTILLERY',
-        },
-        Faction = 'UEF',
-        Weapon = 'Heavy Plasma Cannon',
-    },
-    Interface = {
-        HelpText = 0,
-    },
+
     Physics = {
         DestroyOnWater = true,
         InitialSpeed = 12,

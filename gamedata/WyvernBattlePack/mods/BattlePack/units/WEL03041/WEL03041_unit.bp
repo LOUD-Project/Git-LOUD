@@ -1,16 +1,20 @@
 UnitBlueprint{
+
     Description = "Amphibious Heavy Artillery",
+
     AI = {
         GuardScanRadius = 90,
         NeedUnpack = true,
         TargetBones = { "MainTurret_Yaw" },
     },
+
     Audio = {
         Activate    = Sound { Bank = 'UEL',        Cue = 'UEL0304_Activate',   LodCutoff = 'UnitMove_LodCutoff' },
         Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Huge',   LodCutoff = 'UnitMove_LodCutoff' },
         StartMove   = Sound { Bank = 'UEL',        Cue = 'UEL0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
         UISelection = Sound { Bank = 'Interface',  Cue = 'UEF_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff' },
     },
+
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -20,7 +24,9 @@ UnitBlueprint{
             Level5 = 15,
         },
     },
+
     BuildIconSortPriority = 31,
+
     Categories = {
         "AMPHIBIOUS",
         "ARTILLERY",
@@ -36,6 +42,7 @@ UnitBlueprint{
         "UEF",
         "VISIBLETORECON",
     },
+
     Defense = {
         ArmorType = "Normal",
         Health = 1100,
@@ -43,32 +50,30 @@ UnitBlueprint{
         RegenRate = 1,
         SurfaceThreatLevel = 27,
     },
+
     Display = {
         Abilities = {
             "<LOC ability_amphibious>Amphibious",
             "<LOC ability_deploys>Deploys",
             "Huge AOE",
         },
+
         AnimationOpen = "/units/UEL0304/uel0304_aactivate.sca",
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 215,
-                    Scrolling = true,
-                    ShaderName = "Unit",
-                },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, Scrolling = true, ShaderName = "Unit" } } },
+
         UniformScale = 0.045,
     },
+
     Economy = {
         BuildCostEnergy = 12500,
         BuildCostMass = 800,
         BuildTime = 400,
     },
+
     General = {
         CapCost = 2,
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -80,15 +85,19 @@ UnitBlueprint{
         },
         FactionName = "UEF",
         Icon = "amph",
+
         UnitName = "Walrus",
     },
+
     Intel = {
         VisionRadius = 28,
-        WaterVisionRadius = 10,
+        WaterVisionRadius = 16,
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.7,
     LifeBarSize = 1.25,
+
     Physics = {
         BankingSlope = 0,
         DragCoefficient = 0.2,
@@ -105,17 +114,22 @@ UnitBlueprint{
         TurnRadius = 0,
         TurnRate = 75,
     },
+
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.05,
     SelectionSizeX = 0.6,
     SelectionSizeZ = 0.95,
     SelectionThickness = 0.45,
+
     SizeX = 1.0,
     SizeY = 0.75,
     SizeZ = 1.5,
+
     StrategicIconName = "icon_seabed3_artillery",
     StrategicIconSortPriority = 115,
+
     Transport = { TransportClass = 3 },
+
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -123,14 +137,18 @@ UnitBlueprint{
         Level4 = 40,
         Level5 = 50,
     },
+
     Weapon = {
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
             ArtilleryShieldBlocks = true,
+
             Audio = {
                 Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0304_Artillery_AM', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_HighArc",
             CollideFriendly = false,
 
@@ -147,7 +165,10 @@ UnitBlueprint{
             EnergyRequired = 3150,
             EnergyDrainPerSecond = 450,     -- 7 seconds to charge
 
-            FireTargetLayerCapsTable = { Land = "Land|Water|Seabed" },
+            FireTargetLayerCapsTable = {
+                Land = "Land|Water|Seabed",
+                Seabed = "Land|Water|Seabed",                
+            },
             FiringRandomness = 0.95,
             FiringTolerance = 2,
 
@@ -194,10 +215,10 @@ UnitBlueprint{
                 "ALLUNITS -WALL",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
+
             TurretBoneMuzzle = "Turret_Pitch",
             TurretBonePitch = "Turret_Pitch",
             TurretBoneYaw = "MainTurret_Yaw",
-            TurretDualManipulators = false,
 
             TurretPitch = 30,
             TurretPitchRange = 45,
@@ -216,11 +237,12 @@ UnitBlueprint{
             WeaponUnpacks = true,
         },
     },
+
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.5,
+        MassMult = 0.4,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = { Land = true },
     },

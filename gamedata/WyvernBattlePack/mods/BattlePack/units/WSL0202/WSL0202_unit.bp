@@ -1,15 +1,18 @@
 UnitBlueprint{
+
     Description = "Heavy Tank",
+
     AI = {
         GuardScanRadius = 25,
     },
+
     Audio = {
-        AmbientMove = Sound { Bank = 'XSL',            Cue = 'XSL0303_Move_Loop',    LodCutoff = 'UnitMove_LodCutoff' },
         Destroyed   = Sound { Bank = 'XSL_Destroy',    Cue = 'XSL_Destroy_Land_Lrg', LodCutoff = 'UnitMove_LodCutoff' },
         StartMove   = Sound { Bank = 'XSL',            Cue = 'XSL0303_Move_Start',   LodCutoff = 'UnitMove_LodCutoff' },
         StopMove    = Sound { Bank = 'XSL',            Cue = 'XSL0303_Move_Stop',    LodCutoff = 'UnitMove_LodCutoff' },
         UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Tank', LodCutoff = 'UnitMove_LodCutoff' },
     },
+
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -19,7 +22,9 @@ UnitBlueprint{
             Level5 = 10,
         },
     },
+
     BuildIconSortPriority = 21,
+
     Categories = {
         "BUILTBYTIER2FACTORY",
         "BUILTBYTIER3FACTORY",
@@ -33,6 +38,7 @@ UnitBlueprint{
         "TECH2",
         "VISIBLETORECON",
     },
+
     Defense = {
         ArmorType = "Normal",
         Health = 1250,
@@ -40,6 +46,7 @@ UnitBlueprint{
         RegenRate = 2,
         SurfaceThreatLevel = 10.6,
     },
+
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -52,16 +59,11 @@ UnitBlueprint{
                 },
             },
         },
+
         MovementEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {
-                            "Exhaust_Left",
-                            "Exhaust_Right",
-                        },
-                        Type = "GroundKickup03",
-                    },
+                    { Bones = {"Exhaust_Left","Exhaust_Right"}, Type = "GroundKickup03" },
                 },
                 Treads = {
                     ScrollTreads = true,
@@ -77,13 +79,16 @@ UnitBlueprint{
                 },
             },
         },
+
         UniformScale = 0.065,
     },
+
     Economy = {
         BuildCostEnergy = 1950,
         BuildCostMass = 290,
         BuildTime = 205,
     },
+
     General = {
         CommandCaps = {
             RULEUCC_Attack = true,
@@ -96,12 +101,18 @@ UnitBlueprint{
         },
         FactionName = "Seraphim",
         Icon = "land",
+
         UnitName = "Onyzum",
     },
-    Intel = { VisionRadius = 25 },
+
+    Intel = {
+        VisionRadius = 28
+    },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 0.95,
+
     Physics = {
         BankingSlope = 0,
         DragCoefficient = 0.2,
@@ -118,16 +129,20 @@ UnitBlueprint{
         TurnRadius = 0,
         TurnRate = 100,
     },
+
     SelectionSizeX = 0.6,
     SelectionSizeZ = 0.75,
     SelectionThickness = 0.53,
-    CollisionOffsetY = 0,
+
     SizeX = 1.1,
     SizeY = 0.5,
     SizeZ = 0.8,
+
     StrategicIconName = "icon_land2_directfire",
     StrategicIconSortPriority = 115,
+
     Transport = { TransportClass = 2 },
+
     Veteran = {
         Level1 = 4,
         Level2 = 8,
@@ -135,6 +150,7 @@ UnitBlueprint{
         Level4 = 16,
         Level5 = 20,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -143,16 +159,23 @@ UnitBlueprint{
             },
             BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
+
             Damage = 36,
             DamageType = "Normal",
+
             DisplayName = "Thau Cannon",
+
             FireTargetLayerCapsTable = { Land = "Land|Water|Seabed" },
             FiringTolerance = 0.3,
+
             Label = "MainTurret",
+
             MaxRadius = 25,
 
             MuzzleVelocity = 33,
+
             ProjectileId = "/projectiles/SDFTauCannon01/SDFTauCannon01_proj.bp",
+
             RackBones = {
                 {
                     MuzzleBones = { "Turret_Barrel_Recoil_Muzzle" },
@@ -172,24 +195,28 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.1,
+
             TurretBoneMuzzle = "Turret_Barrel_Recoil_Muzzle",
             TurretBonePitch = "Turret_Barrel",
             TurretBoneYaw = "Turret",
-            TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 30,
             TurretPitchSpeed = 45,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 75,
+
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = { Land = true },
     },

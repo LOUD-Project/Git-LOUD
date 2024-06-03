@@ -1,5 +1,7 @@
 UnitBlueprint{
+
     Description = "AA Support Cruiser",
+
     AI = {
         AttackAngle = 60,
         GuardReturnRadius = 95,
@@ -16,11 +18,11 @@ UnitBlueprint{
 
     Buffs = {
         Regen = {
-            Level1 = 4,
-            Level2 = 8,
-            Level3 = 12,
-            Level4 = 16,
-            Level5 = 20,
+            Level1 = 3,
+            Level2 = 6,
+            Level3 = 9,
+            Level4 = 12,
+            Level5 = 15,
         },
     },
 
@@ -41,11 +43,12 @@ UnitBlueprint{
     },
 
     Defense = {
-        AirThreatLevel = 88,
         ArmorType = "Normal",
+
         Health = 20000,
         MaxHealth = 20000,
-        RegenRate = 12,
+        RegenRate = 6,
+
         Shield = {
             ImpactEffects = "AeonShieldHit01",
             ImpactMesh = "/effects/entities/ShieldSection01/ShieldSection01_mesh",
@@ -60,6 +63,8 @@ UnitBlueprint{
             ShieldSize = 19,
             ShieldVerticalOffset = -3,
         },
+        
+        AirThreatLevel = 88,
         SurfaceThreatLevel = 60,
     },
 
@@ -69,6 +74,7 @@ UnitBlueprint{
             "<LOC ability_radar>Radar",
             "<LOC ability_shielddome>Shield Dome",
         },
+
         AnimationDeath = {
             {
                 Animation = "/mods/BattlePack/units/was0332/was0332_adeath01.sca",
@@ -83,33 +89,19 @@ UnitBlueprint{
                 Weight = 100,
             },
         },
+
         IdleEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = { "UAS0202" },
-                        Offset = { 0, 0, -0.25 },
-                        Scale = 1.35,
-                        Type = "SeaIdle01",
-                    },
-                },
-            },
+            Water = { Effects = { { Bones = { "UAS0202" }, Offset = { 0, 0, -0.25 }, Scale = 1.35, Type = "SeaIdle01" } } },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 140,
-                    ShaderName = "Aeon",
-                },
-                {
-                    LODCutoff = 300,
-                    ShaderName = "Aeon",
-                    AlbedoName = "was0332_lod1_albedo.dds",
-                    SpecularName = "was0332_lod1_specteam.dds",
-                },
+                { LODCutoff = 140, ShaderName = "Aeon" },
+                { LODCutoff = 300, ShaderName = "Aeon", AlbedoName = "was0332_lod1_albedo.dds", SpecularName = "was0332_lod1_specteam.dds" },
             },
         },
+
         UniformScale = 0.055,
     },
 
@@ -117,11 +109,13 @@ UnitBlueprint{
         BuildCostEnergy = 43750,
         BuildCostMass = 6562,
         BuildTime = 32250,
+
         MaintenanceConsumptionPerSecondEnergy = 250,
     },
 
     General = {
         CapCost = 3,
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -130,23 +124,26 @@ UnitBlueprint{
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+
         FactionName = "Aeon",
         Icon = "sea",
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = "shield-dome",
-                helpText = "toggle_shield_dome",
-            },
+            RULEUTC_ShieldToggle = { bitmapId = "shield-dome", helpText = "toggle_shield_dome" },
         },
+
         ToggleCaps = { RULEUTC_ShieldToggle = true },
+
         UnitName = "Shadow of Intent",
     },
 
     Intel = {
         FreeIntel = true,
-        RadarRadius = 90,
+
+        RadarRadius = 88,
+
         VisionRadius = 36,
-        WaterVisionRadius = 18,
+        WaterVisionRadius = 16,
     },
 
     LifeBarHeight = 0.075,
@@ -154,7 +151,7 @@ UnitBlueprint{
     LifeBarSize = 2.5,
 
     Physics = {
-        BackUpDistance = 7,
+        BackUpDistance = 8,
         BankingSlope = 0,
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
@@ -192,14 +189,17 @@ UnitBlueprint{
         Level4 = 64,
         Level5 = 80,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 BarrelLoop        = Sound { Bank = 'UAS',       Cue = 'UAS_Turret_Sml_Loop',    LodCutoff = 'Weapon_LodCutoff' },
                 BarrelStart       = Sound { Bank = 'UAS',       Cue = 'UAS_Turret_Sml_Start',   LodCutoff = 'Weapon_LodCutoff' },
                 MuzzleChargeStart = Sound { Bank = 'UASWeapon', Cue = 'UAS0202_Cannon_Quantum', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_LowArc",
 
             CollideFriendly = false,
@@ -216,7 +216,7 @@ UnitBlueprint{
 
             Label = "MainGun",
 
-            MaxRadius = 70,
+            MaxRadius = 68,
 
             MuzzleChargeDelay = 0.4,
 
@@ -273,6 +273,7 @@ UnitBlueprint{
         },
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 BarrelLoop        = Sound { Bank = 'UAS',       Cue = 'UAS_Turret_Sml_Loop',    LodCutoff = 'Weapon_LodCutoff' },
                 BarrelStart       = Sound { Bank = 'UAS',       Cue = 'UAS_Turret_Sml_Start',   LodCutoff = 'Weapon_LodCutoff' },
@@ -293,7 +294,7 @@ UnitBlueprint{
 
             Label = "MainGun",
 
-            MaxRadius = 70,
+            MaxRadius = 68,
 
             MuzzleChargeDelay = 0.4,
 
@@ -347,6 +348,7 @@ UnitBlueprint{
         },
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 BarrelLoop        = Sound { Bank = 'UAS',       Cue = 'UAS_Turret_Sml_Loop',    LodCutoff = 'Weapon_LodCutoff' },
                 BarrelStart       = Sound { Bank = 'UAS',       Cue = 'UAS_Turret_Sml_Start',   LodCutoff = 'Weapon_LodCutoff' },
@@ -367,7 +369,7 @@ UnitBlueprint{
 
             Label = "MainGun",
 
-            MaxRadius = 70,
+            MaxRadius = 68,
 
             MuzzleChargeDelay = 0.4,
 
@@ -422,6 +424,7 @@ UnitBlueprint{
         },
         {
             AlwaysRecheckTarget = true,
+
             Audio = {
                 Fire = Sound { Bank = 'UASWeapon', Cue = 'UAS0202_SAM', LodCutoff = 'Weapon_LodCutoff' },
             },
@@ -447,6 +450,7 @@ UnitBlueprint{
             MuzzleVelocity = 33,
             ProjectileId = "/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp",
             ProjectileLifetime = 5,
+
             RackBones = {
                 {
                     MuzzleBones = { "Muzzle_Right" },
@@ -472,12 +476,15 @@ UnitBlueprint{
             TurretBonePitch = "Turret_Right_Barrel",
             TurretBoneYaw = "Turret_Right",
             TurretDualManipulators = false,
+
             TurretPitch = 25,
             TurretPitchRange = 80,
             TurretPitchSpeed = 120,
+
             TurretYaw = 0,
             TurretYawRange = 100,
             TurretYawSpeed = 90,
+
             Turreted = true,
         },
         {

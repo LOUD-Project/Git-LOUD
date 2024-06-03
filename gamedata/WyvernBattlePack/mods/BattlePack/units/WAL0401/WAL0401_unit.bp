@@ -1,5 +1,7 @@
 UnitBlueprint{
+
     Description = "<LOC wal0401_desc>Experimental Heavy Assault Bot (Brawler)",
+
     AI = {
         GuardScanRadius = 40,
         TargetBones = {"NewHead","Torso","Left_Footfall","Right_Leg_B02"},
@@ -69,16 +71,7 @@ UnitBlueprint{
         AnimationWalk = "/mods/BattlePack/units/WAL0401/WAL0401_Awalk.sca",
         AnimationWalkRate = 2,
 
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 500,
-                    Scrolling = true,
-                    ShaderName = "Aeon",
-                },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 500, Scrolling = true, ShaderName = "Aeon" } } },
 
         MovementEffects = {
             Land = {
@@ -117,8 +110,9 @@ UnitBlueprint{
                             Type = "FootFall01",
                         },
                     },
+
                     Damage = {
-                        Amount = 2900,
+                        Amount = 2500,
                         DamageFriendly = false,
                         Radius = 1,
                         Type = "ExperimentalFootfall",
@@ -126,6 +120,7 @@ UnitBlueprint{
                 },
             },
         },
+
         UniformScale = 0.095,
     },
 
@@ -152,10 +147,12 @@ UnitBlueprint{
 
     Intel = {
         FreeIntel = true,
-        OmniRadius = 60,
-        RadarRadius = 100,
-        VisionRadius = 42,
-        WaterVisionRadius = 21,
+
+        OmniRadius = 48,
+        RadarRadius = 96,
+
+        VisionRadius = 40,
+        WaterVisionRadius = 20,
     },
 
     LifeBarHeight = 0.075,
@@ -165,7 +162,9 @@ UnitBlueprint{
     Physics = {
         BankingSlope = 0,
         DragCoefficient = 0.2,
-        LayerChangeOffsetHeight = -3.25,
+
+        LayerChangeOffsetHeight = -5.5,
+
         MaxAcceleration = 0.8,
         MaxBrake = 2.4,
         MaxSpeed = 2.4,
@@ -217,7 +216,6 @@ UnitBlueprint{
                 BeamLoop  = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Loop',   LodCutoff = 'Weapon_LodCutoff' },
                 BeamStart = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Fire',   LodCutoff = 'Weapon_LodCutoff' },
                 BeamStop  = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Stop',   LodCutoff = 'Weapon_LodCutoff' },
-                Unpack    = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             AutoInitiateAttackCommand = true,
@@ -239,7 +237,6 @@ UnitBlueprint{
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
-                Water = "Land|Water|Seabed",
             },
             FiringTolerance = 2,
 
@@ -307,7 +304,6 @@ UnitBlueprint{
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
-                Water = "Land|Water|Seabed",
             },
             FiringTolerance = 5,
 
@@ -359,7 +355,6 @@ UnitBlueprint{
                 BeamLoop  = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Loop',   LodCutoff = 'Weapon_LodCutoff' },
                 BeamStart = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Fire',   LodCutoff = 'Weapon_LodCutoff' },
                 Fire      = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Tractor_Beam',        LodCutoff = 'Weapon_LodCutoff' },
-                Unpack    = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = "RULEUBA_None",
 
@@ -375,7 +370,6 @@ UnitBlueprint{
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
-                Water = "Land|Water|Seabed",
             },
             FiringTolerance = 5,
 
@@ -432,11 +426,12 @@ UnitBlueprint{
             Label = "CollossusDeath",
         },
     },
+
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
-        EnergyMult = 0,
+        EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

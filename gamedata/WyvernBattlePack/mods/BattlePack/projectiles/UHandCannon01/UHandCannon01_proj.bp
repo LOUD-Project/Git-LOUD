@@ -16,20 +16,18 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'UEF',
         'PROJECTILE',
         'DIRECTFIRE',
     },
+
     Display = {
         StrategicIconSize = 4,
     },
-    General = {
-        Category = 'Direct Fire',
-        Weapon = 'Hand Cannon',
-    },
+
     Physics = {
-	DestroyOnWater = true,
+        DestroyOnWater = true,
         Acceleration = 0,
 		TrackTarget = true,
         MaxSpeed = 100,

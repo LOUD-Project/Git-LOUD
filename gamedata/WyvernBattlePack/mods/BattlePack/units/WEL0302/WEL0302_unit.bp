@@ -1,13 +1,17 @@
 UnitBlueprint{
+
     Description = "Heavy Gatling Bot",
+
     AI = {
         TargetBones = { "Body" },
     },
+
     Audio = {
         Killed      = Sound { Bank = 'URLWeapon', Cue = 'URL0303_Death_EMP',  LodCutoff = 'UnitMove_LodCutoff' },
         StartMove   = Sound { Bank = 'UEL',       Cue = 'UEL0107_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
         UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Bot',     LodCutoff = 'UnitMove_LodCutoff' },
     },
+
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -17,7 +21,9 @@ UnitBlueprint{
             Level5 = 15,
         },
     },
+
     BuildIconSortPriority = 18,
+
     Categories = {
         "BOT",
         "BUILTBYTIER3FACTORY",
@@ -30,11 +36,13 @@ UnitBlueprint{
         "UEF",
         "VISIBLETORECON",
     },
+
     Defense = {
         ArmorType = "Normal",
         Health = 1450,
         MaxHealth = 1450,
         RegenRate = 1,
+
         Shield = {
             ImpactEffects = "UEFShieldHit01",
             OwnerShieldMesh = "/Mods/BattlePack/units/WEL0302/WEL0302_PersonalShield_mesh",
@@ -49,10 +57,13 @@ UnitBlueprint{
             ShieldVerticalOffset = 0,
             StartsOff = true,
         },
+
         SurfaceThreatLevel = 24,
     },
+
     Display = {
         Abilities = { "<LOC ability_personalshield>Personal Shield" },
+
         AnimationDeath = {
             {
                 Animation = "/Mods/BattlePack/units/WEL0302/WEL0302_ADeath.sca",
@@ -73,8 +84,10 @@ UnitBlueprint{
                 Weight = 100,
             },
         },
+
         AnimationWalk = "/Mods/BattlePack/units/WEL0302/WEL0302_awalk.sca",
         AnimationWalkRate = 5,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -90,33 +103,23 @@ UnitBlueprint{
                 },
             },
         },
+
         MovementEffects = {
-            Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            "Left_Leg_B04",
-                            "Right_Leg_B04",
-                        },
-                        Type = "GroundKickup01",
-                    },
-                },
-            },
+            Land = { Effects = { { Bones = {"Left_Leg_B04","Right_Leg_B04"}, Type = "GroundKickup01" } } },
         },
-        TransportAnimation = {
-            {
-                Animation = "/Mods/BattlePack/units/WEL0302/WEL0302_afold1.sca",
-                Weight = 100,
-            },
-        },
+
+        TransportAnimation = { { Animation = "/Mods/BattlePack/units/WEL0302/WEL0302_afold1.sca", Weight = 100 } },
+
         UniformScale = 0.05,
     },
+
     Economy = {
         BuildCostEnergy = 8000,
         BuildCostMass = 475,
         BuildTime = 2375,
         MaintenanceConsumptionPerSecondEnergy = 20,
     },
+
     General = {
         CommandCaps = {
             RULEUCC_Attack = true,
@@ -129,19 +132,22 @@ UnitBlueprint{
         },
         FactionName = "UEF",
         Icon = "land",
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = "shield-personal",
-                helpText = "toggle_shield_personal",
-            },
+            RULEUTC_ShieldToggle = { bitmapId = "shield-personal", helpText = "toggle_shield_personal" },
         },
+
         ToggleCaps = { RULEUTC_ShieldToggle = true },
+
         UnitName = "Wrecker",
     },
+
     Intel = { VisionRadius = 32 },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.45,
     LifeBarSize = 1,
+
     Physics = {
         BackUpDistance = 3,
         BankingSlope = 0,
@@ -157,20 +163,25 @@ UnitBlueprint{
         TurnRadius = 5,
         TurnRate = 120,
     },
+
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.25,
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.7,
+
     SizeX = 0.9,
     SizeY = 1.2,
     SizeZ = 0.75,
+
     StrategicIconName = "icon_land3_directfire",
     StrategicIconSortPriority = 116,
+
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 3,
     },
+
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -178,6 +189,7 @@ UnitBlueprint{
         Level4 = 40,
         Level5 = 50,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -187,28 +199,34 @@ UnitBlueprint{
             },
             BallisticArc = "RULEUBA_None",
             CollideFriendly = false,
+
             Damage = 25,
             DamageRadius = 0,
             DamageType = "Normal",
+
             DisplayName = "Gatling Cannon",
+
             FireTargetLayerCapsTable = { Land = "Air|Land|Water|Seabed" },
             FiringRandomness = 0.4,
             FiringRandomnessWhileMoving = 0.9,
             FiringTolerance = 0.1,
+
             Label = "GatlingCannon",
+
             MaxRadius = 30,
+
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 15,
             MuzzleVelocity = 48,
+
             NoPause = true,
+
             ProjectileId = "/projectiles/TDPhalanx01/TDPhalanx01_proj.bp",
             ProjectileLifetimeUsesMultiplier = 1,
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        "Right_Arm_Barrel_Muzzle",
-                        "Left_Arm_Barrel_Muzzle",
-                    },
+                    MuzzleBones = {"Right_Arm_Barrel_Muzzle","Left_Arm_Barrel_Muzzle"},
                     RackBone = "RightArmBarrel",
                 },
             },
@@ -218,7 +236,9 @@ UnitBlueprint{
             RackSalvoReloadTime = 1,
 
             RangeCategory = "UWRC_DirectFire",
+
             RateOfFire = 1,
+
             TargetCheckInterval = 0.1,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
@@ -229,28 +249,34 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE,HIGHALTAIR,SATELLITE",
             TrackingRadius = 1.2,
+
             TurretBoneDualMuzzle = "Right_Arm_Barrel_Muzzle",
             TurretBoneDualPitch = "RightArmB01",
             TurretBoneMuzzle = "Left_Arm_Barrel_Muzzle",
             TurretBonePitch = "LeftArmB01",
             TurretBoneYaw = "MainTorso",
             TurretDualManipulators = true,
+
             TurretPitch = 10,
             TurretPitchRange = 90,
             TurretPitchSpeed = 30,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 50,
+
             Turreted = true,
+
             WeaponRepackTimeout = 1.5,
             WeaponUnpacks = true,
         },
     },
+
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
-        EnergyMult = 0.2,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = { Land = true },
     },

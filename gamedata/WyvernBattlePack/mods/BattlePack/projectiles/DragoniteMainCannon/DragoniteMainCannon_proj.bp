@@ -16,14 +16,16 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'UEF',
         'PROJECTILE',
         'DIRECTFIRE',
     },
+
     Display = {
         StrategicIconSize = 2,
     },
+
     Physics = {
         DestroyOnWater = true,
         InitialSpeed = 17,

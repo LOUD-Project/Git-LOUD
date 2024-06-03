@@ -1,34 +1,20 @@
 ProjectileBlueprint {
+
     Audio = {
-        Impact = Sound {
-            Bank = 'Impacts',
-            Cue = 'UEF_Expl_Med_Impact',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        ImpactTerrain = Sound {
-            Bank = 'Impacts',
-            Cue = 'Impact_Land_Gen_UEF',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
-        ImpactWater = Sound {
-            Bank = 'Impacts',
-            Cue = 'Impact_Water_Splash_UEF',
-            LodCutoff = 'Weapon_LodCutoff',
-        },
+        Impact          = Sound { Bank = 'Impacts', Cue = 'UEF_Expl_Med_Impact', LodCutoff = 'Weapon_LodCutoff' },
+        ImpactTerrain   = Sound { Bank = 'Impacts', Cue = 'Impact_Land_Gen_UEF', LodCutoff = 'Weapon_LodCutoff' },
+        ImpactWater     = Sound { Bank = 'Impacts', Cue = 'Impact_Water_Splash_UEF', LodCutoff = 'Weapon_LodCutoff' },
     },
+    
     Categories = {
-        'CYBRAN',
         'PROJECTILE',
-        'INDIRECTFIRE',
         'TACTICAL',
         'MISSILE',
         'NOSPLASHDAMAGE',
     },
+    
     Display = {
-        ImpactEffects = {
-            Scale = 0.5,
-            Type = 'Large01',
-        },
+        ImpactEffects = { Scale = 0.5, Type = 'Large01' },
         Mesh = {
             LODs = {
                 {
@@ -40,29 +26,14 @@ ProjectileBlueprint {
             },
         },
         StrategicIconSize = 1,
-        UniformScale = 0.80,
+        UniformScale = 0.72,
     },
-    General = {
-        Category = 'Direct Fire',
-        EntityCategory = {
-            'CYBRAN',
-            'PROJECTILE',
-            'INDIRECTFIRE',
-            'TACTICAL',
-            'MISSILE',
-            'NOSPLASHDAMAGE',
-        },
-        Faction = 'Cybran',
-        Weapon = 'Iridium Rocket Pack',
-    },
-    Interface = {
-        HelpText = 0,
-    },
+
     Physics = {
-        Acceleration = 20,
+        Acceleration = 8,
         DestroyOnWater = true,
-        InitialSpeed = 0.5,
-        LifeTime = 30,
+        InitialSpeed = 12,
+        LifeTime = 18,
         MaxSpeed = 20,
         MaxZigZag = 10,
         RotationalVelocity = 10,
@@ -72,6 +43,6 @@ ProjectileBlueprint {
         TurnRate = 180,
         UseGravity = true,
         VelocityAlign = true,
-	ZigZagFrequency = 16,
+        ZigZagFrequency = 16,
     },
 }

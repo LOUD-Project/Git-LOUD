@@ -1,9 +1,12 @@
 UnitBlueprint{
+
     Description = "Mobile Shield Generator",
+
     AI = {
         GuardRadius = 10,
         GuardScanRadius = 20,
     },
+
     Audio = {
         Destroyed             = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land',        LodCutoff = 'UnitMove_LodCutoff' },
         FootFallGeneric       = Sound { Bank = 'URL',        Cue = 'URL0301_Move_Step',       LodCutoff = 'UnitMove_LodCutoff' },
@@ -11,8 +14,11 @@ UnitBlueprint{
         StartMove             = Sound { Bank = 'URL',        Cue = 'URL0301_Move_Start',      LodCutoff = 'UnitMove_LodCutoff' },
         UISelection           = Sound { Bank = 'Interface',  Cue = 'Cybran_Select_Commander', LodCutoff = 'UnitMove_LodCutoff' },
     },
+
     Buffs = {},
+
     BuildIconSortPriority = 10,
+
     Categories = {
         "BUILTBYTIER2FACTORY",
         "BUILTBYTIER3FACTORY",
@@ -25,11 +31,13 @@ UnitBlueprint{
         "TECH2",
         "VISIBLETORECON",
     },
+
     Defense = {
         ArmorType = "Normal",
         Health = 125,
         MaxHealth = 125,
         RegenRate = 2,
+
         Shield = {
             ImpactEffects = "CybranShieldHit01",
             ImpactMesh = "/effects/entities/ShieldSection01/ShieldSection01b_mesh",
@@ -45,19 +53,15 @@ UnitBlueprint{
             ShieldVerticalOffset = -2,
         },
     },
+
     Display = {
         Abilities = { "<LOC ability_shielddome>Shield Dome" },
+
         AnimationWalk = "/mods/BattlePack/units/WRL0207/WRL0207_awalk01.sca",
-        AnimationWalkRate = 6,
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 215,
-                    ShaderName = "Insect",
-                },
-            },
-        },
+        AnimationWalkRate = 10,
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, ShaderName = "Insect" } } },
+--[[
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -106,14 +110,18 @@ UnitBlueprint{
                 },
             },
         },
+--]]
         UniformScale = 0.08,
     },
+
     Economy = {
         BuildCostEnergy = 1950,
         BuildCostMass = 225,
         BuildTime = 675,
+
         MaintenanceConsumptionPerSecondEnergy = 101,
     },
+
     General = {
         CommandCaps = {
             RULEUCC_CallTransport = true,
@@ -124,19 +132,22 @@ UnitBlueprint{
         },
         FactionName = "Cybran",
         Icon = "land",
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = "shield-dome",
-                helpText = "toggle_shield_dome",
-            },
+            RULEUTC_ShieldToggle = { bitmapId = "shield-dome", helpText = "toggle_shield_dome" },
         },
+
         ToggleCaps = { RULEUTC_ShieldToggle = true },
+
         UnitName = "Cocoon",
     },
+
     Intel = { VisionRadius = 20 },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.6,
     LifeBarSize = 0.9,
+
     Physics = {
         BankingSlope = 0,
         DragCoefficient = 0.2,
@@ -151,22 +162,27 @@ UnitBlueprint{
         TurnRadius = 25,
         TurnRate = 75,
     },
+
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0,
     SelectionSizeX = 0.8,
     SelectionSizeZ = 1.2,
     SelectionThickness = 0.4,
+
     SizeX = 0.75,
     SizeY = 1.0,
     SizeZ = 1.2,
+
     StrategicIconName = "icon_land2_shield",
     StrategicIconSortPriority = 125,
+
     Transport = { TransportClass = 2 },
+
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = { Land = true },
     },

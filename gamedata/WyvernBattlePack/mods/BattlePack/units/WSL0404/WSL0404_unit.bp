@@ -1,4 +1,5 @@
 UnitBlueprint{
+
     Description = "<LOC wsl0404_desc>Experimental Mobile Artillery (Artillery)",
 
     AI = {
@@ -16,11 +17,11 @@ UnitBlueprint{
 
     Buffs = {
         Regen = {
-            Level1 = 15,
-            Level2 = 30,
-            Level3 = 45,
-            Level4 = 60,
-            Level5 = 75,
+            Level1 = 12,
+            Level2 = 24,
+            Level3 = 36,
+            Level4 = 48,
+            Level5 = 60,
         },
     },
 
@@ -56,6 +57,7 @@ UnitBlueprint{
             "<LOC ability_aa>Anti-Air",
             "<LOC ability_radar>Radar",
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -67,21 +69,14 @@ UnitBlueprint{
                 },
             },
         },
+
         MovementEffects = {
             Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            "Exhaust_Right",
-                            "Exhaust_Left",
-                            "Exhaust_Center",
-                        },
-                        Type = "GroundKickup03",
-                    },
-                },
+                Effects = { { Bones = {"Exhaust_Right","Exhaust_Left","Exhaust_Center"}, Type = "GroundKickup03" } },
                 Treads = { ScrollTreads = true },
             },
         },
+
         UniformScale = 0.04,
     },
 
@@ -93,6 +88,7 @@ UnitBlueprint{
 
     General = {
         CapCost = 4,
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -104,12 +100,13 @@ UnitBlueprint{
         },
         FactionName = "Seraphim",
         Icon = "amph",
+
         UnitName = "<LOC wsl0404_name>Yath-Yen",
     },
 
     Intel = {
-        VisionRadius = 37,
-        WaterVisionRadius = 24,
+        VisionRadius = 36,
+        WaterVisionRadius = 16,
     },
 
     LifeBarHeight = 0.15,
@@ -193,7 +190,6 @@ UnitBlueprint{
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
-                Water = "Land|Water|Seabed",
             },
             FiringRandomness = 1.1,
             FiringTolerance = 1.2,
@@ -249,6 +245,7 @@ UnitBlueprint{
             Turreted = true,
         },
         {
+            AbpveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
                 BeamLoop  = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2301_Ultrachromatic_Beam',       LodCutoff = 'Weapon_LodCutoff' },
@@ -269,7 +266,7 @@ UnitBlueprint{
             DisplayName = "Ultrachromatic Beam Generator",
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
-                Water = "Land|Water|Seabed",
+                Seabed = "Land|Water|Seabed",
             },
             FiringRandomness = 0,
             FiringTolerance = 0,
@@ -312,6 +309,7 @@ UnitBlueprint{
             Turreted = true,
         },
         {
+            AboveWaterFireOnly = true,
             AlwaysRecheckTarget = true,
             Audio = {
                 Fire = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2104_Shleo_AA_Autogun', LodCutoff = 'Weapon_LodCutoff' },
@@ -328,7 +326,7 @@ UnitBlueprint{
             FireTargetLayerCapsTable = {
                 Air = "Air",
                 Land = "Air",
-                Water = "Air",
+                Seabed = "Air",
             },
 
             FiringTolerance = 0.5,
@@ -338,17 +336,14 @@ UnitBlueprint{
             MaxRadius = 40,
 
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 45,
+            MuzzleVelocity = 48,
 
             ProjectileId = "/projectiles/SAAShleoAAGatlingGun02/SAAShleoAAGatlingGun02_proj.bp",
             ProjectileLifetimeUsesMultiplier = 1.25,
             ProjectilesPerOnFire = 2,
             RackBones = {
                 {
-                    MuzzleBones = {
-                        "AATurret_Muzzle01",
-                        "AATurret_Muzzle02",
-                    },
+                    MuzzleBones = {"AATurret_Muzzle01","AATurret_Muzzle02"},
                     RackBone = "AATurret_Barrel",
                 },
             },
@@ -381,9 +376,10 @@ UnitBlueprint{
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
-        EnergyMult = 0,
+        EnergyMult = 0.2,
         HealthMult = 0.9,
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,

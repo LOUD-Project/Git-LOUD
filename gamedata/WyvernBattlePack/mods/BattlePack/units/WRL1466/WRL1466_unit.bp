@@ -1,27 +1,32 @@
 UnitBlueprint{
-    Description = "<LOC wrl1466_desc>Experimental Heavy Assault Roachbot (Raider)",
+
     AI = {
-        GuardScanRadius = 30,
+        GuardScanRadius = 52,
+        
         TargetBones = {"RocketPods","MainTurret_Yaw","XRL0403","Right_Leg01_B02","NewLeg"},
     },
+    
     Audio = {
-        Destroyed             = Sound { Bank = 'XRL_Destroy', Cue = 'XRL0403_Death',        LodCutoff = 'UnitMove_LodCutoff' },
         FootFallGeneric       = Sound { Bank = 'URL',         Cue = 'URL0001_Move_Step',    LodCutoff = 'UnitMove_LodCutoff' },
         FootFallGenericSeabed = Sound { Bank = 'XRL',         Cue = 'XRL0403_Move_UW_Step', LodCutoff = 'UnitMove_LodCutoff' },
         StartMove             = Sound { Bank = 'XRL',         Cue = 'XRL0403_Move_Start',   LodCutoff = 'UnitMove_LodCutoff' },
         StopMove              = Sound { Bank = 'XRL',         Cue = 'XRL0403_Move_Stop',    LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed             = Sound { Bank = 'XRL_Destroy', Cue = 'XRL0403_Death',        LodCutoff = 'UnitMove_LodCutoff' },
         UISelection           = Sound { Bank = 'Interface',   Cue = 'Cybran_Select_Spider', LodCutoff = 'UnitMove_LodCutoff' },
     },
+    
     Buffs = {
         Regen = {
-            Level1 = 10,
-            Level2 = 20,
-            Level3 = 30,
-            Level4 = 40,
-            Level5 = 50,
+            Level1 = 11,
+            Level2 = 22,
+            Level3 = 33,
+            Level4 = 44,
+            Level5 = 55,
         },
     },
+    
     BuildIconSortPriority = 20,
+    
     Categories = {
         "AMPHIBIOUS",
         "BUILTBYTIER4COMMANDER",
@@ -32,54 +37,48 @@ UnitBlueprint{
         "LAND",
         "MOBILE",
         "NEEDMOBILEBUILD",
-        "OVERLAYOMNI",
         "OVERLAYRADAR",
         "RECLAIMABLE",
         "SELECTABLE",
         "VISIBLETORECON",
     },
+
     Defense = {
-        AirThreatLevel = 60,
-        AntiMissile = {
-            AttachBone = "MainTurret_Yaw",
-            ProjectileCategories = { "TACTICAL MISSILE" },
-            Radius = 6,
-            RedirectRateOfFire = 1,
-        },
+
+        AntiMissile = { AttachBone = "MainTurret_Yaw", Radius = 6, RedirectRateOfFire = 9, ProjectileCategories = { "TACTICAL MISSILE" } },
+
         ArmorType = "Experimental",
-        Health = 75000,
-        MaxHealth = 75000,
-        RegenRate = 100,
-        SurfaceThreatLevel = 961.2,
+        Health = 74500,
+        MaxHealth = 74500,
+        RegenRate = 33,
+
+        AirThreatLevel = 48,
+        SurfaceThreatLevel = 290,
     },
+
+    Description = "<LOC wrl1466_desc>Experimental Heavy Assault Roachbot (Raider)",
+
     Display = {
         Abilities = {
             "<LOC ability_aa>Anti-Air",
             "<LOC ability_amphibious>Amphibious",
+            '<LOC ability_personalstealth>Personal Stealth',
             "<LOC ability_deathaoe>Volatile",
-            "<LOC ability_massive>Massive",
-            "<LOC ability_sonar>Omni Sensor",
             "<LOC ability_tacticalmissledeflect>Tactical Missile Deflection",
         },
+        
         AnimationActivate = "/mods/BattlePack/units/WRL1466/WRL1466_awake.sca",
-        AnimationDeath = {
-            {
-                Animation = "/mods/BattlePack/units/WRL1466/WRL1466_adeath.sca",
-                Weight = 100,
-            },
-        },
-        AnimationWalk = "/mods/BattlePack/units/WRL1466/WRL1466_AWalk.sca",
+        AnimationDeath   = { { Animation = "/mods/BattlePack/units/WRL1466/WRL1466_adeath.sca", Weight = 100 } },
+        AnimationWalk    = "/mods/BattlePack/units/WRL1466/WRL1466_AWalk.sca",
         AnimationWalkRate = 3,
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 400,
-                    SecondaryName = "/mods/BattlePack/units/WRL1466/WRL1466_secondary.dds",
-                    ShaderName = "Insect",
-                },
+                { LODCutoff = 400, SecondaryName = "/mods/BattlePack/units/WRL1466/WRL1466_secondary.dds", ShaderName = "Insect" },
             },
         },
+        
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -145,8 +144,9 @@ UnitBlueprint{
                             Type = "FootFall01",
                         },
                     },
+
                     Damage = {
-                        Amount = 2500,
+                        Amount = 2100,
                         DamageFriendly = false,
                         Radius = 1,
                         Type = "ExperimentalFootfall",
@@ -154,13 +154,16 @@ UnitBlueprint{
                 },
             },
         },
+        
         UniformScale = 0.0325,
     },
+
     Economy = {
-        BuildCostEnergy = 1000000,
-        BuildCostMass = 78500,
-        BuildTime = 16800,
+        BuildCostEnergy = 825000,
+        BuildCostMass = 56500,
+        BuildTime = 13750,
     },
+
     General = {
         CapCost = 8,
         CommandCaps = {
@@ -175,16 +178,22 @@ UnitBlueprint{
         Icon = "amph",
         UnitName = "<LOC wrl1466_name>Storm Strider",
     },
+
     Intel = {
         FreeIntel = true,
-        OmniRadius = 50,
-        RadarRadius = 90,
-        VisionRadius = 42,
+
+        RadarStealth = true,
+        SonarStealth = true,
+        
+        RadarRadius = 96,
+        VisionRadius = 40,
         WaterVisionRadius = 24,
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 3.25,
     LifeBarSize = 6,
+
     Physics = {
         BackupDistance = 10,
         BankingSlope = 0,
@@ -205,17 +214,23 @@ UnitBlueprint{
         TurnRadius = 5,
         TurnRate = 15,
     },
+
     SelectionCenterOffsetZ = -0.5,
     SelectionSizeX = 3.75,
     SelectionSizeZ = 3.75,
     SelectionThickness = 0.28,
+
     CollisionOffsetY = 0,
+
     SizeX = 4,
     SizeY = 4,
     SizeZ = 4,
+
     StrategicIconName = "icon_seabed4_directfire",
     StrategicIconSortPriority = 45,
+
     Transport = { TransportClass = 10 },
+
     Veteran = {
         Level1 = 75,
         Level2 = 150,
@@ -223,22 +238,27 @@ UnitBlueprint{
         Level4 = 300,
         Level5 = 375,
     },
+
     Weapon = {
+
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 Fire = Sound { Bank = 'BattlePackSB', Cue = 'Cybran_Heavy_QuantumCannon', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             AutoInitiateAttackCommand = true,
+
             BallisticArc = "RULEUBA_None",
             Buffs = {
                 {
                     Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = "STUN",
-                    Duration = 3,
-                    Radius = 4,
+                    Duration = 2.5,
+                    Radius = 3,
                     TargetAllow = "ALLUNITS",
                     TargetDisallow = "COMMAND,EXPERIMENTAL",
                 },
@@ -247,14 +267,14 @@ UnitBlueprint{
 
             Damage = 3000,
             DamageFriendly = true,
-            DamageRadius = 3,
+            DamageRadius = 2.8,
             DamageType = "Normal",
 
             DisplayName = "Killer Cannon",
+
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
-                Water = "Land|Water|Seabed",
             },
 
             FiringRandomness = 0.3,
@@ -270,6 +290,7 @@ UnitBlueprint{
 
             NotExclusive = true,
             ProjectileId = "/mods/BattlePack/projectiles/WBPShadowCannon/WBPShadowCannon_proj.bp",
+
             RackBones = {
                 {
                     MuzzleBones = { "Killa_CannonMuzzle" },
@@ -278,12 +299,14 @@ UnitBlueprint{
             },
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
+            
+            RackSalvoReloadTime = 1.7,  -- cycle is 1.7 = 3000/1.7 = 1764 DPS
 
             RangeCategory = "UWRC_DirectFire",
-            RateOfFire = 0.6,
-            RenderFireClock = false,
 
-            TargetCheckInterval = 1,
+            RateOfFire = 1,
+            TargetCheckInterval = 0.5,
+
             TargetPriorities = {
                 "SPECIALHIGHPRI",
                 "EXPERIMENTAL",
@@ -297,21 +320,24 @@ UnitBlueprint{
             TurretBoneMuzzle = "Killa_CannonMuzzle",
             TurretBonePitch = "Killa_Cannon",
             TurretBoneYaw = "MainTurret_Yaw",
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 80,
             TurretPitchSpeed = 40,
+            
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 36,
+            TurretYawSpeed = 34,
             Turreted = true,
         },
         {
             AboveWaterTargetsOnly = true,
+            AboveWaterFireOnly = true,
+            
             Audio = {
                 Fire = Sound { Bank = 'URLWeapon', Cue = 'URB4302_Anti_Missile_EMP', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = "RULEUBA_None",
             CollideFriendly = false,
 
@@ -325,41 +351,37 @@ UnitBlueprint{
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
-                Water = "Land|Water|Seabed",
             },
+            
             FiringTolerance = 360,
 
             Label = "Rockets",
 
-            MaxRadius = 82,
-            MinRadius = 10,
+            MaxRadius = 80,
+            MinRadius = 12,
 
-            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 8,
-            MuzzleVelocity = 30,
+            MuzzleVelocity = 10,
 
             NotExclusive = true,
+
             ProjectileId = "/mods/BattlePack/projectiles/StarAdderMissiles/StarAdderMissiles_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 14.85,
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        "Missile_Muzzle001",
-                        "Missile_Muzzle002",
-                        "Missile_Muzzle003",
-                        "Missile_Muzzle004",
-                    },
+                    MuzzleBones = {"Missile_Muzzle001","Missile_Muzzle002","Missile_Muzzle003","Missile_Muzzle004"},
                     RackBone = "RocketPods",
                 },
             },
-            RackReloadTimeout = 10,
+            
+            RackSalvoReloadTime = 7.1,    -- firing cycle 9.5 = 3200/9.5 = 336 DPS
 
             RangeCategory = "UWRC_IndirectFire",
 
-            RateOfFire = 0.15,
-            RenderFireClock = true,
-
-            TargetCheckInterval = 2,
+            RateOfFire = 1,
+            TargetCheckInterval = 3,
+            
             TargetPriorities = {
                 "SPECIALHIGHPRI",
                 "MOBILE",
@@ -370,32 +392,33 @@ UnitBlueprint{
             TrackingRadius = 1.05,
             Turreted = false,
         },
+
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 Fire = Sound { Bank = 'BattlePackSB', Cue = 'CybranRevampBot_MainCannon_Fire', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
 
-            Damage = 300,
-            DamageRadius = 0,
+            Damage = 120,
             DamageType = "Normal",
 
             DisplayName = "Gauss Cannon",
 
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
-                Water = "Land|Water|Seabed",
+                Seabed = "Land|Water|Seabed",
             },
             FiringTolerance = 1,
 
-            Label = "Bolter",
+            Label = "BolterLeft",
 
-            MaxRadius = 58,
+            MaxRadius = 56,
 
-            MuzzleVelocity = 48,
+            MuzzleVelocity = 44,
 
             NotExclusive = true,
 
@@ -412,11 +435,14 @@ UnitBlueprint{
                     RackBone = "Left_Turret_Recoil02",
                 },
             },
+
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
+            
+            RackSalvoReloadTime = 0.2,  -- firing cycle is .6 = 120 x 2 = 240/.6 = 400 DPS
 
             RackSlavedToTurret = true,
-            RateOfFire = 3,
+
+            RateOfFire = 5,
 
             ReTargetOnMiss = true,
 
@@ -428,7 +454,6 @@ UnitBlueprint{
                 "ALLUNITS",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
-            TrackingRadius = 1.05,
 
             TurretBoneDualMuzzle = "Left_Turret_Muzzle01",
             TurretBoneDualPitch = "Left_Turret001",
@@ -446,6 +471,7 @@ UnitBlueprint{
             TurretYawSpeed = 20,
             Turreted = true,
         },
+       
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
@@ -455,28 +481,28 @@ UnitBlueprint{
             BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
 
-            Damage = 300,
-            DamageRadius = 0,
+            Damage = 120,
             DamageType = "Normal",
 
             DisplayName = "Gauss Cannon",
 
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
-                Water = "Land|Water|Seabed",
+                Seabed = "Land|Water|Seabed",
             },
             FiringTolerance = 1,
 
-            Label = "Bolter",
+            Label = "BolterRight",
 
-            MaxRadius = 58,
+            MaxRadius = 56,
 
-            MuzzleVelocity = 48,
+            MuzzleVelocity = 44,
 
             NotExclusive = true,
 
             ProjectileId = "/mods/BattlePack/projectiles/CLaser06/CLaser06_proj.bp",
             ProjectileLifetimeUsesMultiplier = 1.5,
+            
             RackBones = {
                 {
                     MuzzleBones = { "Right_Turret_Muzzle01" },
@@ -487,12 +513,14 @@ UnitBlueprint{
                     RackBone = "Right_Turret_Recoil02",
                 },
             },
+            
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
+            
+            RackSalvoReloadTime = 0.2,  -- after both racks fire = 6 ticks = 240/.6 = 400 DPS
 
             RackSlavedToTurret = true,
 
-            RateOfFire = 3,
+            RateOfFire = 5,     -- rack will fire every 2 ticks
             ReTargetOnMiss = true,
 
             TargetCheckInterval = 0.5,
@@ -505,51 +533,54 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE",
 
-            TrackingRadius = 1.05,
             TurretBoneDualMuzzle = "Right_Turret_Muzzle01",
             TurretBoneDualPitch = "Right_Turret001",
             TurretBoneMuzzle = "Right_Turret_Muzzle02",
             TurretBonePitch = "Right_Turret001",
             TurretBoneYaw = "Right_Turret001",
             TurretDualManipulators = true,
+
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 35,
+
             TurretYaw = -60,
             TurretYawRange = 70,
             TurretYawSpeed = 20,
+
             Turreted = true,
         },
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
+
             Audio = {
                 BeamLoop  = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop',   LodCutoff = 'Weapon_LodCutoff' },
                 BeamStart = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Start',  LodCutoff = 'Weapon_LodCutoff' },
                 BeamStop  = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop',   LodCutoff = 'Weapon_LodCutoff' },
-                Unpack    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_None",
+            
             BeamCollisionDelay = 0,
             BeamLifetime = 0.5,
+
             CollideFriendly = false,
 
-            Damage = 60,
+            Damage = 48,
             DamageType = "Normal",
 
             DisplayName = "AA Micro Laser",
 
-            DoNotCollideList = {
-                "TORPEDO",
-                "MISSILE",
-            },
+            DoNotCollideList = {"MISSILE"},
+            
             FireTargetLayerCapsTable = {
                 Land = "Air",
                 Seabed = "Air",
-                Water = "Air",
             },
             FiringTolerance = 2,
+
             Label = "AALaser",
 
             MaxRadius = 48,
@@ -564,7 +595,8 @@ UnitBlueprint{
             RackReloadTimeout = 1,
 
             RangeCategory = "UWRC_AntiAir",
-            RateOfFire = 1,
+            
+            RateOfFire = 1,     --  48 x 5 = 240 DPS AIR
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -581,42 +613,48 @@ UnitBlueprint{
             TurretBoneMuzzle = "FrontMini_TurretMuzzle001",
             TurretBonePitch = "FrontMini_TurretBarrel001",
             TurretBoneYaw = "FrontMini_Turret001",
-            TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 180,
             TurretPitchSpeed = 80,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 80,
+
             Turreted = true,
         },
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
+            
             Audio = {
                 BeamLoop  = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop',   LodCutoff = 'Weapon_LodCutoff' },
                 BeamStart = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Start',  LodCutoff = 'Weapon_LodCutoff' },
                 BeamStop  = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop',   LodCutoff = 'Weapon_LodCutoff' },
-                Unpack    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = "RULEUBA_None",
+            
             BeamCollisionDelay = 0,
             BeamLifetime = 0.5,
+            
             CollideFriendly = false,
-            Damage = 60,
+            
+            Damage = 48,
             DamageType = "Normal",
+            
             DisplayName = "AA Micro Laser",
-            DoNotCollideList = {
-                "TORPEDO",
-                "MISSILE",
-            },
+            
+            DoNotCollideList = {"MISSILE"},
+            
             FireTargetLayerCapsTable = {
                 Land = "Air",
                 Seabed = "Air",
-                Water = "Air",
             },
             FiringTolerance = 2,
+            
             Label = "AALaser",
 
             MaxRadius = 48,
@@ -646,19 +684,20 @@ UnitBlueprint{
             TurretBoneMuzzle = "FrontMini_TurretMuzzle002",
             TurretBonePitch = "FrontMini_TurretBarrel002",
             TurretBoneYaw = "FrontMini_Turret002",
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 180,
             TurretPitchSpeed = 80,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 80,
+
             Turreted = true,
         },
         {
             AboveWaterTargetsOnly = true,
-            Damage = 7500,
+            Damage = 7200,
             DamageFriendly = true,
             DamageRadius = 6,
             DamageType = "Normal",
@@ -668,11 +707,12 @@ UnitBlueprint{
             WeaponCategory = "Death",
         },
     },
+    
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
-        EnergyMult = 0.05,
+        EnergyMult = 0.1,
         HealthMult = 0.6,
-        MassMult = 0.6,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

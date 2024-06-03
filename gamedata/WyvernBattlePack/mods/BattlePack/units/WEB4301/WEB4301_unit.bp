@@ -1,14 +1,18 @@
 UnitBlueprint{
     Description = "Beam-based Tac Missile Defense",
+    
     AI = {
         TargetBones = { "Turret" },
     },
+    
     Audio = {
         Destroyed      = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
         DoneBeingBuilt = Sound { Bank = 'UEB',        Cue = 'UEB4201_Activate', LodCutoff = 'UnitMove_LodCutoff' },
         UISelection    = Sound { Bank = 'Interface',  Cue = 'UEF_Select_Gun',   LodCutoff = 'UnitMove_LodCutoff' },
     },
+    
     BuildIconSortPriority = 155,
+    
     Categories = {
         "ANTIMISSILE",
         "BUILTBYTIER3COMMANDER",
@@ -24,36 +28,37 @@ UnitBlueprint{
         "UEF",
         "VISIBLETORECON",
     },
+    
     Defense = {
         ArmorType = "Structure",
+        
         EconomyThreatLevel = 12,
         Health = 1800,
         MaxHealth = 1800,
         RegenRate = 2,
     },
+    
     Display = {
         Abilities = {
-            "<LOC ability_aquatic>Aquatic",
+            "<LOC ability_aquatic>Aquatic: can be built on water",
             "<LOC ability_tacmissiledef>Tactical Missile Defense",
         },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 230,
-                    ShaderName = "Unit",
-                },
-            },
-        },
+        
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 230, ShaderName = "Unit" } } },
+        
         UniformScale = 0.16,
     },
+    
     Economy = {
         BuildCostEnergy = 12800,
         BuildCostMass = 950,
         BuildTime = 950,
+
         RebuildBonusIds = { "web4301" },
     },
+    
     Footprint = { MinWaterDepth = 2 },
+    
     General = {
         CapCost = 2,
         CommandCaps = { RULEUCC_RetaliateToggle = true },
@@ -62,10 +67,13 @@ UnitBlueprint{
         SelectionPriority = 5,
         UnitName = "Protector",
     },
+    
     Intel = { VisionRadius = 28 },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.6,
     LifeBarSize = 1.25,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -86,18 +94,24 @@ UnitBlueprint{
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 0.9,
     SelectionSizeZ = 0.9,
     SelectionThickness = 0.3,
+    
     CollisionOffsetY = -0.25,
+    
     SizeX = 1,
     SizeY = 1.2,
     SizeZ = 1,
+    
     StrategicIconName = "icon_structure3_antimissile",
     StrategicIconSortPriority = 200,
+    
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
                 Fire = Sound { Bank = 'BattlePackSB', Cue = 'UEFRevampTank_AntiMissile_Fire', LodCutoff = 'Weapon_LodCutoff' },
             },
@@ -108,11 +122,9 @@ UnitBlueprint{
 
             CollideFriendly = false,
 
-            Damage = 3,
+            Damage = 2,
 
             DamageType = "Normal",
-
-            DisplayName = "Zapper Anti Missile",
 
             FireTargetLayerCapsTable = {
                 Land = "Air",
@@ -142,6 +154,7 @@ UnitBlueprint{
             TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
             TargetRestrictOnlyAllow = "TACTICAL MISSILE",
             TargetType = "RULEWTT_Projectile",
+
             TrackingRadius = 1.05,
 
             TurretBoneMuzzle = "Turret_Muzzle",
@@ -151,22 +164,23 @@ UnitBlueprint{
 
             TurretPitch = 45,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 60,
+            TurretPitchSpeed = 56,
 
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 56,
 
             Turreted = true,
 
             UseFiringSolutionInsteadOfAimBone = true,
         },
     },
+    
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.5,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.4,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

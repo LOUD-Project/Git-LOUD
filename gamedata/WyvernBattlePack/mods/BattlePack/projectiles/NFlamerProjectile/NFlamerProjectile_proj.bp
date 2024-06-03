@@ -16,30 +16,17 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'NOMAD',
         'PROJECTILE',
         'DIRECTFIRE',
     },
+
     Display = {
-        ImpactEffects = {
-            Type = 'Medium02',
-        },
+        ImpactEffects = {Type = 'Medium02'},
         StrategicIconSize = 1,
     },
-    General = {
-        Category = 'Direct Fire',
-        EntityCategory = {
-            'NOMAD',
-            'PROJECTILE',
-            'DIRECTFIRE',
-        },
-        Faction = 'NOMAD',
-        Weapon = 'FlamerProjectile',
-    },
-    Interface = {
-        HelpText = 0,
-    },
+
     Physics = {
         DestroyOnWater = true,
         InitialSpeed = 50,

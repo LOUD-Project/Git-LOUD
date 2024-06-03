@@ -1,15 +1,18 @@
 UnitBlueprint{
     Description = "Sniper Bot",
-    AI = {
+
+   AI = {
         GuardScanRadius = 75,
         TargetBones = { "Torso" },
     },
+
     Audio = {
         Killed      = Sound { Bank = 'URLWeapon', Cue = 'URL0303_Death_EMP',  LodCutoff = 'UnitMove_LodCutoff' },
         StartMove   = Sound { Bank = 'URL',       Cue = 'URL0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
         StopMove    = Sound { Bank = 'URL',       Cue = 'URL0303_Move_Stop',  LodCutoff = 'UnitMove_LodCutoff' },
         UISelection = Sound { Bank = 'Interface', Cue = 'Cybran_Select_Bot',  LodCutoff = 'UnitMove_LodCutoff' },
     },
+
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -19,7 +22,9 @@ UnitBlueprint{
             Level5 = 10,
         },
     },
+
     BuildIconSortPriority = 20,
+
     Categories = {
         "BOT",
         "BUILTBYTIER3FACTORY",
@@ -33,6 +38,7 @@ UnitBlueprint{
         "TECH3",
         "VISIBLETORECON",
     },
+
     Defense = {
         ArmorType = "Normal",
         Health = 460,
@@ -40,6 +46,7 @@ UnitBlueprint{
         RegenRate = 3,
         SurfaceThreatLevel = 35.5,
     },
+
     Display = {
         AnimationDeath = {
             {
@@ -55,8 +62,10 @@ UnitBlueprint{
                 Weight = 1,
             },
         },
+
         AnimationWalk = "/Mods/BattlePack/units/WRL0305/WRL0305_awalk.sca",
         AnimationWalkRate = 4.5,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -72,35 +81,31 @@ UnitBlueprint{
                 },
             },
         },
+
         MovementEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {
-                            "LegL_B04",
-                            "LegR_B04",
-                        },
-                        Type = "GroundKickup01",
-                    },
+                    { Bones = {"LegL_B04","LegR_B04"}, Type = "GroundKickup01" },
                 },
             },
         },
-        TransportAnimation = {
-            {
-                Animation = "/Mods/BattlePack/units/WRL0305/WRL0305_Afold01.sca",
-                Weight = 100,
-            },
-        },
+
+        TransportAnimation = { { Animation = "/Mods/BattlePack/units/WRL0305/WRL0305_Afold01.sca", Weight = 100 } },
+
         UniformScale = 0.1,
     },
+
     Economy = {
         BuildCostEnergy = 19500,
         BuildCostMass = 850,
         BuildTime = 500,
+
         MaintenanceConsumptionPerSecondEnergy = 25,
     },
+
     General = {
         CapCost = 3,
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -112,22 +117,25 @@ UnitBlueprint{
         },
         FactionName = "Cybran",
         Icon = "land",
+
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = "stealth-personal",
-                helpText = "toggle_stealth_personal",
-            },
+            RULEUTC_StealthToggle = { bitmapId = "stealth-personal", helpText = "toggle_stealth_personal" },
         },
+
         ToggleCaps = { RULEUTC_StealthToggle = true },
+
         UnitName = "Echidna",
     },
+
     Intel = {
         RadarStealth = true,
         VisionRadius = 32,
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.55,
     LifeBarSize = 1,
+
     Physics = {
         BankingSlope = 0,
         DragCoefficient = 0.2,
@@ -145,16 +153,20 @@ UnitBlueprint{
         TurnRadius = 5,
         TurnRate = 120,
     },
+
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0,
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.4,
+
     SizeX = 0.6,
     SizeY = 0.85,
     SizeZ = 0.6,
+
     StrategicIconName = "icon_land3_sniper",
     StrategicIconSortPriority = 115,
+
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 3,
@@ -186,7 +198,6 @@ UnitBlueprint{
 
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
-                Water = "Land|Water|Seabed",
             },
             FiringRandomnessWhileMoving = 1.5,
             FiringTolerance = 1,
@@ -199,8 +210,10 @@ UnitBlueprint{
             MuzzleVelocity = 60,
 
             NotExclusive = false,
+
             ProjectileId = "/projectiles/CDFLaserDisintegrator02/CDFLaserDisintegrator02_proj.bp",
             ProjectileLifetimeUsesMultiplier = 1.4,
+
             RackBones = {
                 {
                     MuzzleBones = { "Main_Muzzle" },
@@ -229,19 +242,22 @@ UnitBlueprint{
             TurretBoneMuzzle = "Main_Muzzle",
             TurretBonePitch = "Sniper_Pitch",
             TurretBoneYaw = "Torso",
-            TurretDualManipulators = false,
+
             TurretPitch = 10,
             TurretPitchRange = 60,
             TurretPitchSpeed = 30,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 45,
+
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
-        EnergyMult = 0,
+        EnergyMult = 0.1,
         HealthMult = 0.9,
         MassMult = 0.1,
         ReclaimTimeMultiplier = 1,

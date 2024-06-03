@@ -1,26 +1,25 @@
 local AWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local WeaponsFile = import('/lua/terranweapons.lua')
 local AWeapons = import('/lua/aeonweapons.lua')
 
-local ADFCannonOblivionWeapon = AWeapons.ADFCannonOblivionWeapon
-local ADFQuantumAutogunWeapon = AWeapons.ADFQuantumAutogunWeapon
-local AAAZealotMissileWeapon = AWeapons.AAAZealotMissileWeapon
+local ADFLaserHighIntensityWeapon   = AWeapons.ADFLaserHighIntensityWeapon
+local ADFCannonOblivionWeapon       = AWeapons.ADFCannonOblivionWeapon
+local ADFQuantumAutogunWeapon       = AWeapons.ADFQuantumAutogunWeapon
+local AAAZealotMissileWeapon        = AWeapons.AAAZealotMissileWeapon
 
-local ADFLaserHighIntensityWeapon = import('/lua/aeonweapons.lua').ADFLaserHighIntensityWeapon
+AWeapons = nil
 
 WAL4404 = Class(AWalkingLandUnit) {
 
     Weapons = {
     
-        ChinGun = Class(ADFLaserHighIntensityWeapon) {},
+        ChinGun     = Class(ADFLaserHighIntensityWeapon) {},
         
-		Arm = Class(ADFCannonOblivionWeapon) {},  
+		Arm         = Class(ADFCannonOblivionWeapon) {},  
 
-		TopCannon = Class(ADFQuantumAutogunWeapon) {},
+		TopCannon   = Class(ADFQuantumAutogunWeapon) {},
         
-		AntiAirMissiles01 = Class(AAAZealotMissileWeapon) {},
-
+		AAMissile   = Class(AAAZealotMissileWeapon) {},
     }, 
 }
 

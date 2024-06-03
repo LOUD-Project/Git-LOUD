@@ -1,27 +1,25 @@
 local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local WeaponsFile = import('/lua/terranweapons.lua')
-local WeaponsFile2 = import('/lua/cybranweapons.lua')
-local WeaponsFile3 = import('/mods/BattlePack/lua/BattlePackweapons.lua')
+local WeaponsFile3   = import('/mods/BattlePack/lua/BattlePackweapons.lua')
 
-local CDFHvyProtonCannonWeapon = WeaponsFile2.CDFHvyProtonCannonWeapon
-local CDFElectronBolterWeapon = WeaponsFile2.CDFElectronBolterWeapon
+local CDFHvyProtonCannonWeapon   = import('/lua/cybranweapons.lua').CDFHvyProtonCannonWeapon
+local CDFElectronBolterWeapon    = import('/lua/cybranweapons.lua').CDFElectronBolterWeapon
+local TDFGaussCannonWeapon       = import('/lua/terranweapons.lua').TDFLandGaussCannonWeapon
+local AAMicrowaveLaserGenerator  = WeaponsFile3.AAMicrowaveLaserGenerator 
 
-local MissileRedirect = import('/lua/defaultantiprojectile.lua').MissileRedirect
-
-local TDFGaussCannonWeapon = WeaponsFile.TDFLandGaussCannonWeapon
-local AAMicrowaveLaserGenerator = import('/mods/BattlePack/lua/BattlePackweapons.lua').AAMicrowaveLaserGenerator 
-
-local MobileUnit = import('/lua/defaultunits.lua').MobileUnit
+WeaponsFile3 = nil
 
 local explosion = import('/lua/defaultexplosions.lua')
+
 local CreateDeathExplosion = explosion.CreateDefaultHitExplosionAtBone
+local CreateFlash = explosion.CreateFlash
+
+explosion = nil
+
 local EffectTemplate = import('/lua/EffectTemplates.lua')
-
 local utilities = import('/lua/Utilities.lua')
-local EffectUtil = import('/lua/EffectUtilities.lua')
 
-local Entity = import('/lua/sim/Entity.lua').Entity
+local MissileRedirect = import('/lua/defaultantiprojectile.lua').MissileRedirect
 
 WRL1466 = Class(CWalkingLandUnit) {
 
@@ -29,11 +27,12 @@ WRL1466 = Class(CWalkingLandUnit) {
 
 		KillerCannon = Class(CDFHvyProtonCannonWeapon) {},
         
-		Bolter = Class(CDFElectronBolterWeapon) {},
+		BolterLeft   = Class(CDFElectronBolterWeapon) {},
+		BolterRight  = Class(CDFElectronBolterWeapon) {},
+        
+		AALaser      = Class(AAMicrowaveLaserGenerator) {},
 
-		AALaser = Class(AAMicrowaveLaserGenerator) {},
-
-		Rockets = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0.7 },	
+		Rockets      = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0.5 },	
     },
 	
 	OnStartBeingBuilt = function(self, builder, layer)
@@ -54,13 +53,10 @@ WRL1466 = Class(CWalkingLandUnit) {
         
         local bp = self:GetBlueprint().Defense.AntiMissile
         
-        local antiMissile = MissileRedirect {
-            Owner = self,
-            Radius = bp.Radius,
-            AttachBone = bp.AttachBone,
-            RedirectRateOfFire = bp.RedirectRateOfFire
-        }
+        local antiMissile = MissileRedirect { Owner = self, Radius = bp.Radius, AttachBone = bp.AttachBone, RedirectRateOfFire = bp.RedirectRateOfFire }
+
         self.Trash:Add(antiMissile)
+
         self.UnitComplete = true
 		
 		if self.AnimationManipulator then
@@ -74,11 +70,10 @@ WRL1466 = Class(CWalkingLandUnit) {
             end)
         end
     end,
-
 	
 	CreateDamageEffects = function(self, bone, army )
         for k, v in EffectTemplate.DamageFireSmoke01 do
-            CreateAttachedEmitter( self, bone, army, v ):ScaleEmitter(1.5)
+            CreateAttachedEmitter( self, bone, army, v ):ScaleEmitter(1.2)
         end
     end,	
 
@@ -137,7 +132,7 @@ WRL1466 = Class(CWalkingLandUnit) {
         local army = self.Army
 
         -- Create Initial explosion effects
-        explosion.CreateFlash( self, 'Left_Leg01_B01', 3.5, army )
+        CreateFlash( self, 'Left_Leg01_B01', 3.5, army )
         
         CreateAttachedEmitter(self, 'XRL0403', army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):OffsetEmitter( 0, 5, 0 )
         CreateAttachedEmitter(self,'XRL0403', army, '/effects/emitters/explosion_fire_sparks_02_emit.bp'):OffsetEmitter( 0, 5, 0 )
@@ -213,7 +208,7 @@ WRL1466 = Class(CWalkingLandUnit) {
         
         self:CreateDamageEffects( 'NewLeg', army )
         
-        explosion.CreateFlash( self, 'Right_Leg01_B04', 2.2, army )        
+        CreateFlash( self, 'Right_Leg01_B04', 2.2, army )        
 
         self:CreateWreckage(0.1)
 
@@ -222,10 +217,13 @@ WRL1466 = Class(CWalkingLandUnit) {
     
     
     OnMotionHorzEventChange = function( self, new, old )
+
         CWalkingLandUnit.OnMotionHorzEventChange(self, new, old)
         
         if ( old == 'Stopped' ) then
+
             local bpDisplay = self:GetBlueprint().Display
+
             if bpDisplay.AnimationWalk and self.Animator then
                 self.Animator:SetDirectionalAnim(true)
                 self.Animator:SetRate(bpDisplay.AnimationWalkRate)

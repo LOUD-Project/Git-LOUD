@@ -16,16 +16,15 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'UEF',
         'PROJECTILE',
         'ANTIAIR',
         'MISSILE',
     },
+
     Display = {
-        ImpactEffects = {
-            Type = 'Medium01',
-        },
+        ImpactEffects = { Type = 'Medium01' },
         Mesh = {
             LODs = {
                 {
@@ -38,15 +37,11 @@ ProjectileBlueprint {
         StrategicIconSize = 2,
         UniformScale = 0.2,
     },
-    General = {
-        Category = 'Anti Air',
-        Faction = 'UEF',
-        TechLevel = 3,
-        Weapon = 'Flayer SAM Launcher',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         Acceleration = 6,
         InitialSpeed = 30,

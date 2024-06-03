@@ -1,14 +1,18 @@
 UnitBlueprint{
+
     Description = "Rapid Assault Tank",
+
     AI = {
-        GuardScanRadius = 25,
+        GuardScanRadius = 30,
         TargetBones = { "Turret" },
     },
+
     Audio = {
         Destroyed   = Sound { Bank = 'XSL_Destroy',    Cue = 'XSL_Destroy_Land_Lrg', LodCutoff = 'UnitMove_LodCutoff' },
         StartMove   = Sound { Bank = 'XSL',            Cue = 'XSL0303_Move_Start',   LodCutoff = 'UnitMove_LodCutoff' },
         UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Tank', LodCutoff = 'UnitMove_LodCutoff' },
     },
+
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -18,7 +22,9 @@ UnitBlueprint{
             Level5 = 15,
         },
     },
+
     BuildIconSortPriority = 21,
+
     Categories = {
         "BUILTBYTIER3FACTORY",
         "DIRECTFIRE",
@@ -31,6 +37,7 @@ UnitBlueprint{
         "TECH3",
         "VISIBLETORECON",
     },
+
     Defense = {
         ArmorType = "Normal",
         Health = 3200,
@@ -38,22 +45,14 @@ UnitBlueprint{
         RegenRate = 3,
         SurfaceThreatLevel = 37.8,
     },
+
     Display = {
         Abilities = { "<LOC ability_stun>EMP Weapon" },
+
         IdleEffects = {
-            Seabed = {
-                Effects = {
-                    {
-                        Bones = {
-                            "Exhaust_Center",
-                            "WSL0309",
-                        },
-                        Scale = 1,
-                        Type = "UnderWater01",
-                    },
-                },
-            },
+            Seabed = { Effects = { { Bones = {"Exhaust_Center","WSL0309"}, Scale = 1, Type = "UnderWater01" } } },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -72,18 +71,11 @@ UnitBlueprint{
                 },
             },
         },
+
         MovementEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {
-                            "Exhaust_Left",
-                            "Exhaust_Center",
-                            "Exhaust_Right",
-                        },
-                        Offset = { 0, -0.4, 0 },
-                        Type = "GroundKickup01",
-                    },
+                    { Bones = {"Exhaust_Left","Exhaust_Center","Exhaust_Right"}, Offset = { 0, -0.4, 0 }, Type = "GroundKickup01" },
                 },
                 Treads = {
                     ScrollTreads = true,
@@ -113,13 +105,16 @@ UnitBlueprint{
                 },
             },
         },
+
         UniformScale = 0.05,
     },
+
     Economy = {
         BuildCostEnergy = 6850,
         BuildCostMass = 650,
         BuildTime = 330,
     },
+
     General = {
         CommandCaps = {
             RULEUCC_Attack = true,
@@ -134,10 +129,15 @@ UnitBlueprint{
         Icon = "land",
         UnitName = "Otheeka",
     },
-    Intel = { VisionRadius = 30 },
+
+    Intel = {
+        VisionRadius = 32
+    },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.95,
     LifeBarSize = 1.2,
+
     Physics = {
         BankingSlope = 0,
         DragCoefficient = 0.2,
@@ -157,19 +157,23 @@ UnitBlueprint{
         TurnRadius = 0,
         TurnRate = 75,
     },
+
     SelectionSizeX = 0.9,
     SelectionSizeZ = 1.3,
     SelectionThickness = 0.3,
-    CollisionOffsetY = 0,
+
     SizeX = 0.8,
     SizeY = 0.6,
     SizeZ = 1.6,
+
     StrategicIconName = "icon_land3_directfire",
     StrategicIconSortPriority = 115,
+
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 3,
     },
+
     Veteran = {
         Level1 = 9,
         Level2 = 18,
@@ -177,6 +181,7 @@ UnitBlueprint{
         Level4 = 36,
         Level5 = 45,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -196,6 +201,7 @@ UnitBlueprint{
                 },
             },
             CollideFriendly = false,
+
             Damage = 200,
             DamageRadius = 1,
             DamageType = "Normal",
@@ -203,6 +209,7 @@ UnitBlueprint{
             DisplayName = "Thau Cannon",
 
             FireTargetLayerCapsTable = { Land = "Land|Water|Seabed" },
+
             FiringRandomness = 0.2,
             FiringRandomnessWhileMoving = 0.5,
             FiringTolerance = 1,
@@ -216,6 +223,7 @@ UnitBlueprint{
 
             ProjectileId = "/projectiles/SDFTauCannon01/SDFTauCannon01_proj.bp",
             ProjectileLifetimeUsesMultiplier = 1,
+
             RackBones = {
                 {
                     MuzzleBones = { "TahuMuzzle01" },
@@ -227,10 +235,11 @@ UnitBlueprint{
                 },
             },
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
 
             RangeCategory = "UWRC_DirectFire",
+
             RateOfFire = 1.5,
+
             TargetCheckInterval = 0.25,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
@@ -247,20 +256,24 @@ UnitBlueprint{
             TurretBonePitch = "TurretPitch",
             TurretBoneYaw = "Turret",
             TurretDualManipulators = true,
+
             TurretPitch = 10,
             TurretPitchRange = 60,
             TurretPitchSpeed = 30,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 54,
+
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
-        EnergyMult = 0,
+        EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = { Land = true },
     },

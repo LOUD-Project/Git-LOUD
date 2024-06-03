@@ -1,6 +1,6 @@
 local TLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
-local TDFHeavyPlasmaCannonWeapon = import('/lua/terranweapons.lua').TDFHeavyPlasmaGatlingCannonWeapon
+local TDFHeavyPlasmaCannonWeapon = import('/lua/terranweapons.lua').TDFHeavyPlasmaCannonWeapon
 local TDFGaussCannonWeapon = import('/lua/terranweapons.lua').TDFGaussCannonWeapon
 
 local utilities = import('/lua/Utilities.lua')

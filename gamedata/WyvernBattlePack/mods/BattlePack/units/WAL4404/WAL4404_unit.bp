@@ -1,14 +1,11 @@
 UnitBlueprint{
+
     Description = "<LOC wal4404_desc>Experimental Light Assault Bot (Assault)",
 
     AI = {
         GuardScanRadius = 40,
-        TargetBones = {
-            "TopGun",
-            "ChinGun",
-            "Leg06",
-            "Leg02",
-        },
+        
+        TargetBones = {"TopGun","ChinGun","Leg06","Leg02"},
     },
 
     Audio = {
@@ -19,11 +16,11 @@ UnitBlueprint{
 
     Buffs = {
         Regen = {
-            Level1 = 12,
-            Level2 = 24,
-            Level3 = 36,
-            Level4 = 48,
-            Level5 = 60,
+            Level1 = 8,
+            Level2 = 16,
+            Level3 = 24,
+            Level4 = 32,
+            Level5 = 40,
         },
     },
 
@@ -45,11 +42,13 @@ UnitBlueprint{
     },
 
     Defense = {
-        AirThreatLevel = 22,
         ArmorType = "Experimental",
-        Health = 34000,
-        MaxHealth = 34000,
-        RegenRate = 12,
+
+        Health = 32000,
+        MaxHealth = 32000,
+        RegenRate = 8,
+
+        AirThreatLevel = 22,
         SurfaceThreatLevel = 186.4,
     },
 
@@ -59,28 +58,16 @@ UnitBlueprint{
             "<LOC ability_amphibious>Amphibious",
         },
 
-        AnimationDeath = {
-            {
-                Animation = "/mods/BattlePack/units/WAL4404/WAL4404_Death.sca",
-                Weight = 100,
-            },
-        },
+        AnimationDeath = { { Animation = "/mods/BattlePack/units/WAL4404/WAL4404_Death.sca", Weight = 100 } },
         AnimationWalk = "/mods/BattlePack/units/WAL4404/WAL4404_Walk.sca",
         AnimationWalkRate = 2.15,
 
-        Mesh = {
-            IconFadeInZoom = 230,
-            LODs = {
-                {
-                    LODCutoff = 450,
-                    ShaderName = "Aeon",
-                },
-            },
-        },
+        Mesh = { IconFadeInZoom = 230, LODs = { { LODCutoff = 450, ShaderName = "Aeon" } } },
 
         MovementEffects = {
             Land = {
                 Footfall = {
+                
                     Bones = {
                         {
                             FootBone = "Exhaust_Right",
@@ -101,6 +88,7 @@ UnitBlueprint{
                             Type = "FootFall01",
                         },
                     },
+                    
                     Damage = {
                         Amount = 650,
                         DamageFriendly = false,
@@ -110,6 +98,7 @@ UnitBlueprint{
                 },
             },
         },
+        
         UniformScale = 0.12,
     },
 
@@ -135,8 +124,8 @@ UnitBlueprint{
     },
 
     Intel = {
-        VisionRadius = 35,
-        WaterVisionRadius = 21,
+        VisionRadius = 36,
+        WaterVisionRadius = 16,
     },
 
     LifeBarHeight = 0.075,
@@ -149,7 +138,7 @@ UnitBlueprint{
         MaxAcceleration = 1.1,
         MaxBrake = 3.3,
         MaxSpeed = 3.3,
-        MaxSpeedReverse = 2.2,
+        MaxSpeedReverse = 3.3,
         MaxSteerForce = 10,
         MinSpeedPercent = 0,
         MotionType = "RULEUMT_Amphibious",
@@ -184,10 +173,13 @@ UnitBlueprint{
 
     Weapon = {
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
                 Fire = Sound { Bank = 'BattlePackSB', Cue = 'AeonRevampBot_MainCannon_Fire', LodCutoff = 'Weapon_LodCutoff' },
             },
+            
             BallisticArc = "RULEUBA_LowArc",
 
             CollideFriendly = false,
@@ -195,13 +187,11 @@ UnitBlueprint{
             Damage = 75,
             DamageType = "Normal",
 
-            DisplayName = "Chrono Cannon",
-
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
-                Water = "Land|Water|Seabed",
             },
+            
             FiringRandomness = 0.3,
             FiringRandomnessWhileMoving = 0.6,
             FiringTolerance = 2,
@@ -215,7 +205,7 @@ UnitBlueprint{
             NotExclusive = true,
 
             ProjectileId = "/mods/BattlePack/projectiles/IChronCannon02/IChronCannon02_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 1.8,
+            ProjectileLifetimeUsesMultiplier = 1.5,
 
             RackBones = {
                 {
@@ -238,7 +228,6 @@ UnitBlueprint{
             TurretBoneMuzzle = "ChinGun_Muzzle",
             TurretBonePitch = "ChinGun",
             TurretBoneYaw = "MainTorso",
-            TurretDualManipulators = false,
 
             TurretPitch = 10,
             TurretPitchRange = 55,
@@ -253,11 +242,14 @@ UnitBlueprint{
             UseFiringSolutionInsteadOfAimBone = true,
         },
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 Fire              = Sound { Bank = 'UALWeapon', Cue = 'UAB2301_Cannon_Oblivion_Fire',   LodCutoff = 'Weapon_LodCutoff' },
                 MuzzleChargeStart = Sound { Bank = 'UALWeapon', Cue = 'UAB2301_Cannon_Oblivion_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
 
@@ -270,8 +262,9 @@ UnitBlueprint{
 
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
-                Water = "Land|Water|Seabed",
+                Seabed = "Land|Water|Seabed",
             },
+            
             FiringRandomness = 0.3,
             FiringRandomnessWhileMoving = 0.6,
             FiringTolerance = 0.5,
@@ -335,7 +328,9 @@ UnitBlueprint{
             Turreted = true,
         },
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 Fire              = Sound { Bank = 'UALWeapon', Cue = 'UAB2301_Cannon_Oblivion_Fire',   LodCutoff = 'Weapon_LodCutoff' },
                 MuzzleChargeStart = Sound { Bank = 'UALWeapon', Cue = 'UAB2301_Cannon_Oblivion_Charge', LodCutoff = 'Weapon_LodCutoff' },
@@ -353,8 +348,9 @@ UnitBlueprint{
 
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
-                Water = "Land|Water|Seabed",
+                Seabed = "Land|Water|Seabed",
             },
+            
             FiringRandomness = 0.3,
             FiringRandomnessWhileMoving = 0.6,
             FiringTolerance = 0.5,
@@ -414,7 +410,9 @@ UnitBlueprint{
             Turreted = true,
         },
         {
+            AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            
             Audio = {
                 Fire = Sound { Bank = 'XAL_Weapon', Cue = 'XAL0203_QuantumAutogun', LodCutoff = 'Weapon_LodCutoff' },
             },
@@ -431,7 +429,6 @@ UnitBlueprint{
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
-                Water = "Land|Water|Seabed",
             },
             FiringTolerance = 2,
 
@@ -472,7 +469,6 @@ UnitBlueprint{
             TurretBoneMuzzle = "TopGun_TopMuzzle001",
             TurretBonePitch = "TopGun",
             TurretBoneYaw = "TopGun",
-            TurretDualManipulators = false,
 
             TurretPitch = 40,
             TurretPitchRange = 60,
@@ -497,30 +493,26 @@ UnitBlueprint{
             Damage = 110,
             DamageType = "Normal",
 
-            DisplayName = "Zealot AA Missile",
-
             FireTargetLayerCapsTable = { Land = "Air" },
+            
             FiringTolerance = 1,
 
-            Label = "AntiAirMissiles01",
+            Label = "AAMissile",
 
-            MaxRadius = 60,
+            MaxRadius = 48,
 
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 40,
+            MuzzleVelocity = 36,
 
             NotExclusive = true,
 
             ProjectileId = "/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp",
-            ProjectileLifetime = 5,
+            ProjectileLifetime = 4,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        "AA_Muzzle001",
-                        "AA_Muzzle002",
-                    },
+                    MuzzleBones = {"AA_Muzzle001","AA_Muzzle002"},
                     RackBone = "AA_Rack",
                 },
             },
@@ -539,7 +531,7 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
 
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 
             Turreted = false,
         },
@@ -549,7 +541,7 @@ UnitBlueprint{
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

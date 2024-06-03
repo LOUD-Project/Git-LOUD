@@ -1,14 +1,18 @@
 UnitBlueprint{
+
     Description = "Shielded Protector Bot",
+
     AI = {
         GuardScanRadius = 25,
         TargetBones = { "Body" },
     },
+
     Audio = {
         Destroyed   = Sound { Bank = 'XSL_Destroy',    Cue = 'XSL_Destroy_Land_Sml', LodCutoff = 'UnitMove_LodCutoff' },
         StartMove   = Sound { Bank = 'XSL',            Cue = 'XSL0104_Move_Start',   LodCutoff = 'UnitMove_LodCutoff' },
         UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Bot',  LodCutoff = 'UnitMove_LodCutoff' },
     },
+
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -18,7 +22,9 @@ UnitBlueprint{
             Level5 = 10,
         },
     },
+
     BuildIconSortPriority = 51,
+
     Categories = {
         "BUILTBYTIER2FACTORY",
         "BUILTBYTIER3FACTORY",
@@ -32,11 +38,13 @@ UnitBlueprint{
         "TECH2",
         "VISIBLETORECON",
     },
+
     Defense = {
         ArmorType = "Normal",
         Health = 1150,
         MaxHealth = 1150,
         RegenRate = 3,
+
         Shield = {
             ImpactEffects = "SeraphimShieldHit01",
             ImpactMesh = "/effects/entities/ShieldSection01/ShieldSection01_mesh",
@@ -51,13 +59,16 @@ UnitBlueprint{
             ShieldSize = 3,
             ShieldVerticalOffset = -0.75,
         },
+
         SurfaceThreatLevel = 10.6,
     },
+
     Display = {
         Abilities = {
             "<LOC ability_aa>Anti-Air",
             "<LOC ability_shielddome>Shield Dome",
         },
+
         AnimationDeath = {
             {
                 Animation = "/mods/BattlePack/units/WSL0205/WSL0205_ADeath01.sca",
@@ -72,8 +83,10 @@ UnitBlueprint{
                 Weight = 100,
             },
         },
+
         AnimationWalk = "/mods/BattlePack/units/WSL0205/WSL0205_AWalk01.sca",
         AnimationWalkRate = 3,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -91,18 +104,11 @@ UnitBlueprint{
                 },
             },
         },
+
         MovementEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {
-                            "Leg_Foot_01",
-                            "Leg_Foot_02",
-                            "Leg_Foot_03",
-                            "Leg_Foot_04",
-                            "Leg_Foot_05",
-                            "Leg_Foot_06",
-                        },
+                    { Bones = {"Leg_Foot_01","Leg_Foot_02","Leg_Foot_03","Leg_Foot_04","Leg_Foot_05","Leg_Foot_06"},
                         Scale = 0.75,
                         Type = "GroundKickup01",
                     },
@@ -111,12 +117,15 @@ UnitBlueprint{
         },
         UniformScale = 0.05,
     },
+
     Economy = {
         BuildCostEnergy = 2000,
         BuildCostMass = 315,
         BuildTime = 225,
+
         MaintenanceConsumptionPerSecondEnergy = 10,
     },
+
     General = {
         CommandCaps = {
             RULEUCC_Attack = true,
@@ -129,19 +138,24 @@ UnitBlueprint{
         },
         FactionName = "Seraphim",
         Icon = "land",
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = "shield-dome",
-                helpText = "toggle_shield_dome",
-            },
+            RULEUTC_ShieldToggle = { bitmapId = "shield-dome", helpText = "toggle_shield_dome" },
         },
+
         ToggleCaps = { RULEUTC_ShieldToggle = true },
+
         UnitName = "Beshlas",
     },
-    Intel = { VisionRadius = 22 },
+
+    Intel = {
+        VisionRadius = 28
+    },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.25,
     LifeBarSize = 0.7,
+
     Physics = {
         BankingSlope = 0,
         DragCoefficient = 0.2,
@@ -160,15 +174,20 @@ UnitBlueprint{
         TurnRadius = 5,
         TurnRate = 90,
     },
+
     SelectionSizeX = 0.35,
     SelectionSizeZ = 0.45,
     SelectionThickness = 0.6,
+
     SizeX = 1.0,
     SizeY = 0.8,
     SizeZ = 1.0,
+
     StrategicIconName = "icon_land2_shield",
     StrategicIconSortPriority = 135,
+
     Transport = { TransportClass = 2 },
+
     Veteran = {
         Level1 = 4,
         Level2 = 8,
@@ -176,6 +195,7 @@ UnitBlueprint{
         Level4 = 16,
         Level5 = 20,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -184,28 +204,38 @@ UnitBlueprint{
             },
             BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
+
             Damage = 35,
             DamageType = "Normal",
+
             DisplayName = "Phasic Autogun",
-            FireTargetLayerCapsTable = { Land = "Land|Water|Seabed|Air" },
+
+            FireTargetLayerCapsTable = { Land = "Land|Water|Seabed" },
+
             FiringTolerance = 2,
+
             Label = "MainGun",
+
             MaxRadius = 26,
+
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 25,
+
             ProjectileId = "/projectiles/SDFPhasicAutogun01/SDFPhasicAutogun01_proj.bp",
             ProjectileLifetime = 1.2,
+
             RackBones = {
                 {
                     MuzzleBones = { "Turret_Barrel_Muzzle" },
                     RackBone = "TurretBarrel01",
                 },
             },
-            RackReloadTimeout = 10,
 
             RangeCategory = "UWRC_DirectFire",
+
             RateOfFire = 1.1,
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
@@ -215,24 +245,28 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.15,
+
             TurretBoneMuzzle = "Turret_Barrel_Muzzle",
             TurretBonePitch = "TurretBarrel01",
             TurretBoneYaw = "Turret01",
-            TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 80,
             TurretPitchSpeed = 85,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 50,
+
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
-        EnergyMult = 0,
+        EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = { Land = true },
     },

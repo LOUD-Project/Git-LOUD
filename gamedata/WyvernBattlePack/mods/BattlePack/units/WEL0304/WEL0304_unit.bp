@@ -1,14 +1,18 @@
 UnitBlueprint{
+
     Description = "Amphibious Assault Tank",
+
     AI = {
         GuardScanRadius = 26,
         TargetBones = { "WEL0304" },
     },
+
     Audio = {
         Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
         StartMove   = Sound { Bank = 'UEL',        Cue = 'UEL0202_Move_Start',   LodCutoff = 'UnitMove_LodCutoff' },
         UISelection = Sound { Bank = 'Interface',  Cue = 'UEF_Select_Tank',      LodCutoff = 'UnitMove_LodCutoff' },
     },
+
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -18,7 +22,9 @@ UnitBlueprint{
             Level5 = 15,
         },
     },
+
     BuildIconSortPriority = 40,
+
     Categories = {
         "AMPHIBIOUS",
         "BUILTBYTIER3FACTORY",
@@ -33,6 +39,7 @@ UnitBlueprint{
         "UEF",
         "VISIBLETORECON",
     },
+
     Defense = {
         ArmorType = "Normal",
         Health = 3200,
@@ -40,33 +47,18 @@ UnitBlueprint{
         RegenRate = 2,
         SurfaceThreatLevel = 37.3,
     },
+
     Display = {
-        Abilities = { "<LOC ability_amphibious>Amphibious" },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 215,
-                    Scrolling = true,
-                    ShaderName = "Unit",
-                },
-            },
+        Abilities = {
+            "<LOC ability_amphibious>Amphibious"
         },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { {LODCutoff = 215,Scrolling = true,ShaderName = "Unit"} } },
+        
         MovementEffects = {
             Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            "Right_Exhaust",
-                            "Left_Exhaust",
-                        },
-                        Type = "GroundKickup01",
-                    },
-                },
-                Treads = {
-                    ScrollTreads = true,
-                    TreadMarks = {
-                        {
+                Effects = { { Bones = {"Right_Exhaust","Left_Exhaust"}, Type = "GroundKickup01" } },
+                Treads = { ScrollTreads = true, TreadMarks = { {
                             BoneName = "WEL0304",
                             TreadMarks = "tank_treads_albedo",
                             TreadMarksInterval = 0.2,
@@ -78,13 +70,16 @@ UnitBlueprint{
                 },
             },
         },
+        
         UniformScale = 0.06,
     },
+    
     Economy = {
         BuildCostEnergy = 10000,
         BuildCostMass = 900,
         BuildTime = 450,
     },
+
     General = {
         CommandCaps = {
             RULEUCC_Attack = true,
@@ -99,13 +94,16 @@ UnitBlueprint{
         Icon = "amph",
         UnitName = "Rommel",
     },
+
     Intel = {
-        VisionRadius = 30,
+        VisionRadius = 32,
         WaterVisionRadius = 20,
     },
+
     LifeBarHeight = 0.08,
     LifeBarOffset = 0.9,
     LifeBarSize = 1.3,
+
     Physics = {
         BackUpDistance = 5,
         BankingSlope = 0,
@@ -124,15 +122,20 @@ UnitBlueprint{
         TurnRadius = 0,
         TurnRate = 35,
     },
+
     SelectionSizeX = 0.8,
     SelectionSizeZ = 1.1,
     SelectionThickness = 0.3,
+
     SizeX = 1.2,
     SizeY = 0.6,
     SizeZ = 1.8,
+
     StrategicIconName = "icon_seabed3_directfire",
     StrategicIconSortPriority = 125,
+
     Transport = { TransportClass = 3 },
+
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -140,13 +143,16 @@ UnitBlueprint{
         Level4 = 40,
         Level5 = 50,
     },
+
     Weapon = {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0401_Cannon_Exp_Lrg', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
 
@@ -206,6 +212,7 @@ UnitBlueprint{
             TurretBoneMuzzle = "Right_Barrel_Muzzle",
             TurretBonePitch = "Turret_Barrel01",
             TurretBoneYaw = "Turret",
+
             TurretDualManipulators = true,
 
             TurretPitch = 0,
@@ -222,22 +229,29 @@ UnitBlueprint{
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = false,
+
             Audio = {
                 Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB4201_Phalanx_01', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_None",
             CollideFriendly = false,
+
             Damage = 15,
             DamageRadius = 0,
             DamageType = "Normal",
+
             DisplayName = "Gatling Plasma Cannon",
+
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
             },
             FiringRandomness = 0.3,
             FiringRandomnessWhileMoving = 0.6,
+
             FiringTolerance = 2,
+
             Label = "MiniGun",
 
             MaxRadius = 26,
@@ -272,26 +286,32 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.1,
+
             TurretBoneMuzzle = "Machine_Gun_Muzzle01",
             TurretBonePitch = "minigun",
             TurretBoneYaw = "minigun",
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 45,
             TurretPitchSpeed = 45,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 45,
+
             Turreted = true,
+
             WeaponRepackTimeout = 1.5,
             WeaponUnpacks = true,
         },
     },
+
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
-        EnergyMult = 0,
+        EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = { Land = true },
     },

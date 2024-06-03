@@ -1,10 +1,13 @@
 UnitBlueprint{
+
     Description = "<LOC wel0401_desc>Experimental Assault Artillery Platform (Artillery)",
+
     AI = {
         AttackAngle = 30,
         GuardScanRadius = 88,
         TargetBones = {"WEL0401","Center_Turret","Napalm_Missile_Yaw"},
     },
+
     Audio = {
         Destroyed               = Sound { Bank = 'UELDestroy', Cue = 'UEL0401_Destroy',    LodCutoff = 'UnitMove_LodCutoff' },
         EnemyUnitDetectedAeon   = Sound { Bank = 'XGG',        Cue = 'XGG_HQ_GD1_04179',    },
@@ -13,6 +16,7 @@ UnitBlueprint{
         StartMove               = Sound { Bank = 'UEL',        Cue = 'UEL0401_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
         UISelection             = Sound { Bank = 'Interface',  Cue = 'UEF_Select_Tank',    LodCutoff = 'UnitMove_LodCutoff' },
     },
+
     Buffs = {
         Regen = {
             Level1 = 10,
@@ -22,7 +26,9 @@ UnitBlueprint{
             Level5 = 50,
         },
     },
+
     BuildIconSortPriority = 10.1,
+
     Categories = {
         "AMPHIBIOUS",
         "BUILTBYTIER4COMMANDER",
@@ -37,12 +43,14 @@ UnitBlueprint{
         "UEF",
         "VISIBLETORECON",
     },
+
     Defense = {
         AirThreatLevel = 29,
         ArmorType = "Experimental",
         Health = 22000,
         MaxHealth = 22000,
         RegenRate = 10,
+
         Shield = {
             ImpactEffects = "UEFShieldHit01",
             ImpactMesh = "/effects/entities/ShieldSection01/ShieldSection01_mesh",
@@ -57,69 +65,35 @@ UnitBlueprint{
             ShieldSize = 16,
             ShieldVerticalOffset = -3,
         },
+
         SurfaceThreatLevel = 995.2,
     },
+
     Display = {
         Abilities = {
             "<LOC ability_aa>Anti-Air",
             "<LOC ability_amphibious>Amphibious",
             "<LOC ability_shielddome>Shield Dome",
         },
-        IdleEffects = {
-            Land = {
-                Effects = {
-                    {
-                        Bones = { "WEL0401" },
-                        Type = "SeaIdle02",
-                    },
-                },
-            },
-        },
+
+        IdleEffects = { Land = { Effects = { { Bones = { "WEL0401" }, Type = "SeaIdle02" } } } },
+
         LayerChangeEffects = {
-            SeabedLand = {
-                Effects = {
-                    {
-                        Bones = { "WEL0401" },
-                        Type = "Surface01",
-                    },
-                    {
-                        Bones = { "WEL0401" },
-                        Type = "Surface02",
-                    },
+            SeabedLand = { Effects = {
+                    { Bones = { "WEL0401" }, Type = "Surface01" },
+                    { Bones = { "WEL0401" }, Type = "Surface02" },
                 },
             },
         },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 600,
-                    Scrolling = true,
-                    ShaderName = "Unit",
-                },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 600, Scrolling = true, ShaderName = "Unit" } } },
+
         MovementEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {
-                            "Exhaust_Left01",
-                            "Exhaust_Right01",
-                        },
-                        Type = "GroundKickup02",
-                    },
-                    {
-                        Bones = {
-                            "Exhaust_Left01",
-                            "Exhaust_Right01",
-                        },
-                        Type = "GroundKickup04",
-                    },
-                    {
-                        Bones = { "UEL0401" },
-                        Type = "Shoreline01",
-                    },
+                    { Bones = {"Exhaust_Left01","Exhaust_Right01"}, Type = "GroundKickup02" },
+                    { Bones = {"Exhaust_Left01","Exhaust_Right01"}, Type = "GroundKickup04" },
+                    { Bones = { "UEL0401" }, Type = "Shoreline01" },
                 },
                 Treads = {
                     ScrollTreads = true,
@@ -141,26 +115,23 @@ UnitBlueprint{
                     },
                 },
             },
-            Seabed = {
-                Effects = {
-                    {
-                        Bones = { "WEL0401" },
-                        Type = "Shoreline01",
-                    },
-                },
-                Treads = { ScrollTreads = true },
-            },
+            Seabed = { Effects = { { Bones = { "WEL0401" }, Type = "Shoreline01" } }, Treads = { ScrollTreads = true } },
         },
+
         UniformScale = 0.2,
     },
+
     Economy = {
         BuildCostEnergy = 745000,
         BuildCostMass = 27500,
         BuildTime = 12400,
+
         MaintenanceConsumptionPerSecondEnergy = 500,
     },
+
     General = {
         CapCost = 10,
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -172,22 +143,25 @@ UnitBlueprint{
         },
         FactionName = "UEF",
         Icon = "amph",
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = "shield-dome",
-                helpText = "toggle_shield_dome",
-            },
+            RULEUTC_ShieldToggle = { bitmapId = "shield-dome", helpText = "toggle_shield_dome" },
         },
+
         ToggleCaps = { RULEUTC_ShieldToggle = true },
+
         UnitName = "<LOC wel0401_name>Wyvern",
     },
+
     Intel = {
-        VisionRadius = 35,
+        VisionRadius = 36,
         WaterVisionRadius = 24,
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 4.35,
     LifeBarSize = 5.75,
+
     Physics = {
         BackUpDistance = 15,
         BankingSlope = 3,
@@ -214,18 +188,22 @@ UnitBlueprint{
         TurnRadius = 0,
         TurnRate = 30,
     },
+
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.3,
     SelectionSizeX = 4,
     SelectionSizeZ = 5.25,
     SelectionThickness = 0.34,
-    CollisionOffsetZ = 0,
+
     SizeX = 5.4,
     SizeY = 2.5,
     SizeZ = 7.75,
+
     StrategicIconName = "icon_seabed4_artillery",
     StrategicIconSortPriority = 45,
+
     Transport = { TransportClass = 10 },
+
     Veteran = {
         Level1 = 35,
         Level2 = 70,
@@ -233,50 +211,55 @@ UnitBlueprint{
         Level4 = 140,
         Level5 = 175,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
             ArtilleryShieldBlocks = true,
+
             Audio = {
                 Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2303_Artillery_APDS', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_HighArc",
             CollideFriendly = false,
+
             Damage = 2000,
             DamageFriendly = true,
             DamageRadius = 2.8,
             DamageType = "Normal",
+
             DisplayName = "APDS Artillery",
+
             EnergyDrainPerSecond = 1000,
             EnergyRequired = 5000,
+
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
-                Water = "Land|Water|Seabed",
+                Seabed = "Land|Water|Seabed",
             },
             FiringRandomness = 0.9,
             FiringTolerance = 2,
+
             Label = "MainGun",
+
             MaxRadius = 115,
             MinRadius = 18,
 
             MuzzleVelocity = 22,
 
             NotExclusive = true,
+
             ProjectileId = "/projectiles/TIFArtillery01/TIFArtillery01_proj.bp",
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        "MainCannon_MuzzleRight01",
-                        "MainCannon_MuzzleRight02",
-                    },
+                    MuzzleBones = {"MainCannon_MuzzleRight01","MainCannon_MuzzleRight02"},
                     RackBone = "Main_Cannon_RightRecoil",
                 },
                 {
-                    MuzzleBones = {
-                        "MainCannon_MuzzleLeft01",
-                        "MainCannon_MuzzleLeft02",
-                    },
+                    MuzzleBones = {"MainCannon_MuzzleLeft01","MainCannon_MuzzleLeft02"},
                     RackBone = "Main_Cannon_LeftRecoil",
                 },
             },
@@ -285,7 +268,9 @@ UnitBlueprint{
             RackReloadTimeout = 10,
 
             RangeCategory = "UWRC_IndirectFire",
+
             RateOfFire = 0.2,
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
@@ -293,16 +278,19 @@ UnitBlueprint{
                 "ALLUNITS",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
+
             TurretBoneMuzzle = "Main_CannonRack",
             TurretBonePitch = "Main_CannonPitch",
             TurretBoneYaw = "Main_CannonYaw",
-            TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 90,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 90,
+
             Turreted = true,
         },
         {
@@ -311,31 +299,42 @@ UnitBlueprint{
             Audio = {
                 Fire = Sound { Bank = 'URLWeapon', Cue = 'URB4302_Anti_Missile_EMP', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_HighArc",
             CollideFriendly = true,
+
             Damage = 40,
             DamageFriendly = true,
             DamageRadius = 2.5,
             DamageType = "fire",
+
             DisplayName = "Napalm Missiles",
+
             DoTPulses = 5,
             DoTTime = 4,
+
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
             },
             FiringRandomness = 1.8,
             FiringTolerance = 2,
+
             Label = "Rockets",
+
             MaxRadius = 115,
             MinRadius = 18,
+
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 16,
             MuzzleVelocity = 25,
             MuzzleVelocityRandom = 1,
+
             NotExclusive = true,
+
             ProjectileId = "/mods/BattlePack/projectiles/BPNapalmMissile/BPNapalmMissile_proj.bp",
             ProjectileLifetime = 9,
+
             RackBones = {
                 {
                     MuzzleBones = {
@@ -363,16 +362,19 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.15,
+
             TurretBoneMuzzle = "Napalm_MissileRack",
             TurretBonePitch = "Napalm_MissileRack",
             TurretBoneYaw = "Napalm_Missile_Yaw",
-            TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 75,
             TurretPitchSpeed = 28,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 22,
+
             Turreted = true,
         },
         {
@@ -383,19 +385,25 @@ UnitBlueprint{
             },
             BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
+
             Damage = 200,
             DamageRadius = 1.5,
             DamageType = "Normal",
+
             DisplayName = "Gauss Cannon",
+
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
             },
             FiringRandomness = 0.6,
             FiringTolerance = 2,
+
             HeadingArcCenter = 75,
             HeadingArcRange = 120,
+
             Label = "Turret",
+
             MaxRadius = 88,
 
             MuzzleVelocity = 25,
@@ -403,8 +411,10 @@ UnitBlueprint{
             MuzzleVelocityReduceDistance = 90,
 
             NotExclusive = true,
+
             ProjectileId = "/projectiles/TDFGauss04/TDFGauss04_proj.bp",
             ProjectileLifetimeUsesMultiplier = 4.5,
+
             RackBones = {
                 {
                     MuzzleBones = { "Right_Turret_Recoil001" },
@@ -425,6 +435,7 @@ UnitBlueprint{
 
             RangeCategory = "UWRC_DirectFire",
             RateOfFire = 0.7,
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
@@ -434,16 +445,19 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.1,
+
             TurretBoneMuzzle = "Right_Turret_Pitch001",
             TurretBonePitch = "Right_Turret_Pitch001",
             TurretBoneYaw = "Right_Turret",
-            TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 60,
             TurretPitchSpeed = 50,
+
             TurretYaw = -20,
             TurretYawRange = 100,
             TurretYawSpeed = 50,
+
             Turreted = true,
         },
         {
@@ -452,29 +466,39 @@ UnitBlueprint{
             Audio = {
                 Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0401_Cannon_Exp_Lrg', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
+
             Damage = 200,
             DamageRadius = 1.5,
             DamageType = "Normal",
+
             DisplayName = "Gauss Cannon",
+
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
             },
             FiringRandomness = 0.6,
             FiringTolerance = 2,
+
             HeadingArcCenter = -75,
             HeadingArcRange = 125,
+
             Label = "Turret",
+
             MaxRadius = 88,
 
             MuzzleVelocity = 25,
             MuzzleVelocityRandom = 2,
             MuzzleVelocityReduceDistance = 90,
+
             NotExclusive = true,
+
             ProjectileId = "/projectiles/TDFGauss04/TDFGauss04_proj.bp",
             ProjectileLifetimeUsesMultiplier = 4.5,
+
             RackBones = {
                 {
                     MuzzleBones = { "Left_Turret_Recoil001" },
@@ -503,16 +527,19 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.1,
+
             TurretBoneMuzzle = "Left_Turret_Pitch001",
             TurretBonePitch = "Left_Turret_Pitch001",
             TurretBoneYaw = "Left_Turret",
-            TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 60,
             TurretPitchSpeed = 50,
+
             TurretYaw = 20,
             TurretYawRange = 100,
             TurretYawSpeed = 50,
+
             Turreted = true,
         },
         {
@@ -523,25 +550,33 @@ UnitBlueprint{
             },
             BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
+
             Damage = 200,
             DamageRadius = 1.5,
             DamageType = "Normal",
+
             DisplayName = "Gauss Cannon",
+
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
             },
             FiringRandomness = 0.6,
             FiringTolerance = 2,
+
             Label = "Turret",
+
             MaxRadius = 88,
 
             MuzzleVelocity = 25,
             MuzzleVelocityRandom = 2,
             MuzzleVelocityReduceDistance = 90,
+
             NotExclusive = true,
+
             ProjectileId = "/projectiles/TDFGauss04/TDFGauss04_proj.bp",
             ProjectileLifetimeUsesMultiplier = 4.5,
+
             RackBones = {
                 {
                     MuzzleBones = { "Center_Turret_Recoil001" },
@@ -570,16 +605,19 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.1,
+
             TurretBoneMuzzle = "Center_Turret_Pitch003",
             TurretBonePitch = "Center_Turret_Pitch003",
             TurretBoneYaw = "Center_Turret",
-            TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 60,
             TurretPitchSpeed = 50,
+
             TurretYaw = 20,
             TurretYawRange = 100,
             TurretYawSpeed = 50,
+
             Turreted = true,
         },
         {
@@ -589,19 +627,26 @@ UnitBlueprint{
                 Fire = Sound { Bank = 'BattlePackSB', Cue = 'UEFRevampTank_AntiMissile_Fire', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = "RULEUBA_None",
+
             BeamCollisionDelay = 0.1,
             BeamLifetime = 0.1,
+
             CollideFriendly = false,
-            Damage = 1,
+
+            Damage = 2,
             DamageType = "Normal",
+
             DisplayName = "Zapper Anti Missile",
+
             FireTargetLayerCapsTable = {
                 Land = "Air",
                 Water = "Air",
             },
             FiringTolerance = 0,
+
             Label = "TMD",
-            MaxRadius = 30,
+
+            MaxRadius = 28,
             MaximumBeamLength = 3,
 
             NeedPrep = true,
@@ -614,22 +659,27 @@ UnitBlueprint{
             },
 
             RangeCategory = "UWRC_Countermeasure",
+
             RateOfFire = 0.5,
+
             TargetCheckInterval = 0.5,
             TargetRestrictDisallow = "UNTARGETABLE",
             TargetRestrictOnlyAllow = "TACTICAL MISSILE",
             TargetType = "RULEWTT_Projectile",
             TrackingRadius = 1.2,
+
             TurretBoneMuzzle = "TMD_Muzzle001",
             TurretBonePitch = "TMD_Muzzle001",
             TurretBoneYaw = "TMD_Muzzle001",
-            TurretDualManipulators = false,
+
             TurretPitch = 45,
             TurretPitchRange = 90,
             TurretPitchSpeed = 180,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 150,
+
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
         },
@@ -640,19 +690,26 @@ UnitBlueprint{
                 Fire = Sound { Bank = 'BattlePackSB', Cue = 'UEFRevampTank_AntiMissile_Fire', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = "RULEUBA_None",
+
             BeamCollisionDelay = 0.1,
             BeamLifetime = 0.1,
+
             CollideFriendly = false,
+
             Damage = 1,
             DamageType = "Normal",
+
             DisplayName = "Zapper Anti Missile",
+
             FireTargetLayerCapsTable = {
                 Land = "Air",
                 Water = "Air",
             },
             FiringTolerance = 0,
+
             Label = "TMD",
-            MaxRadius = 30,
+
+            MaxRadius = 28,
             MaximumBeamLength = 30,
 
             NeedPrep = true,
@@ -665,22 +722,27 @@ UnitBlueprint{
             },
 
             RateOfFire = 0.5,
+
             TargetCheckInterval = 0.5,
             TargetRestrictDisallow = "UNTARGETABLE",
             TargetRestrictOnlyAllow = "TACTICAL MISSILE",
             TargetType = "RULEWTT_Projectile",
             TrackingRadius = 1.2,
+
             TurretBoneMuzzle = "TMD_Muzzle002",
             TurretBonePitch = "TMD_Muzzle002",
             TurretBoneYaw = "TMD_Muzzle002",
-            TurretDualManipulators = false,
+
             TurretPitch = 45,
             TurretPitchRange = 45,
             TurretPitchSpeed = 180,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 150,
+
             Turreted = true,
+
             UseFiringSolutionInsteadOfAimBone = true,
         },
         {
@@ -689,15 +751,21 @@ UnitBlueprint{
             Audio = {
                 Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0205_Artillery_Frag', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_None",
+
             CannotAttackGround = true,
             CollideFriendly = false,
+
             Damage = 36,
             DamageFriendly = false,
             DamageRadius = 2,
             DamageType = "Normal",
+
             DetonatesAtTargetHeight = true,
+
             DisplayName = "Fragmentation Flak",
+
             FireTargetLayerCapsTable = {
                 Land = "Air",
                 Seabed = "Air",
@@ -705,14 +773,19 @@ UnitBlueprint{
             },
             FiringRandomness = 0.8,
             FiringTolerance = 0.5,
+
             Label = "AAGun",
-            MaxRadius = 44,
+
+            MaxRadius = 40,
 
             MuzzleVelocity = 50,
             MuzzleVelocityRandom = 5,
+
             NotExclusive = true,
+
             ProjectileId = "/projectiles/TAALightFragmentationShell01/TAALightFragmentationShell01_proj.bp",
             ProjectileLifetimeUsesMultiplier = 1,
+
             RackBones = {
                 {
                     MuzzleBones = { "LeftFlak_Muzzle_Right" },
@@ -737,16 +810,19 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
             TrackingRadius = 1.2,
+
             TurretBoneMuzzle = "LeftFlak_Barrel",
             TurretBonePitch = "LeftFlak_Barrel",
             TurretBoneYaw = "LeftFlak_Turret",
-            TurretDualManipulators = false,
+
             TurretPitch = 45,
             TurretPitchRange = 45,
             TurretPitchSpeed = 180,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 180,
+
             Turreted = true,
         },
         {
@@ -758,12 +834,16 @@ UnitBlueprint{
             BallisticArc = "RULEUBA_None",
             CannotAttackGround = true,
             CollideFriendly = false,
+
             Damage = 36,
             DamageFriendly = false,
             DamageRadius = 2,
             DamageType = "Normal",
+
             DetonatesAtTargetHeight = true,
+
             DisplayName = "Fragmentation Flak",
+
             FireTargetLayerCapsTable = {
                 Land = "Air",
                 Seabed = "Air",
@@ -771,14 +851,19 @@ UnitBlueprint{
             },
             FiringRandomness = 0.8,
             FiringTolerance = 0.5,
+
             Label = "AAGun",
+
             MaxRadius = 32,
 
             MuzzleVelocity = 50,
             MuzzleVelocityRandom = 5,
+
             NotExclusive = true,
+
             ProjectileId = "/projectiles/TAALightFragmentationShell01/TAALightFragmentationShell01_proj.bp",
             ProjectileLifetimeUsesMultiplier = 1,
+
             RackBones = {
                 {
                     MuzzleBones = { "RightFlak_Muzzle_Right" },
@@ -802,16 +887,19 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
             TrackingRadius = 1.4,
+
             TurretBoneMuzzle = "RightFlak_Barrel",
             TurretBonePitch = "RightFlak_Barrel",
             TurretBoneYaw = "RightFlak_Turret",
-            TurretDualManipulators = false,
+
             TurretPitch = 45,
             TurretPitchRange = 45,
             TurretPitchSpeed = 180,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 180,
+
             Turreted = true,
         },
         {
@@ -935,7 +1023,7 @@ UnitBlueprint{
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.5,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

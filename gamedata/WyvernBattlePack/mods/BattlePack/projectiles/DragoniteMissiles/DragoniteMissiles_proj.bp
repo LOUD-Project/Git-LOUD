@@ -16,20 +16,16 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'UEF',
         'PROJECTILE',
-        'INDIRECTFIRE',
         'TACTICAL',
         'MISSILE',
         'NOSPLASHDAMAGE',
     },
+
     Display = {
-        CameraFollowTimeout = 2,
-        CameraFollowsProjectile = true,
-        ImpactEffects = {
-            Type = 'Medium01',
-        },
+        ImpactEffects = {Type = 'Medium01'},
         Mesh = {
             LODs = {
                 {
@@ -42,22 +38,7 @@ ProjectileBlueprint {
         StrategicIconSize = 2,
         UniformScale = 0.2,
     },
-    General = {
-        Category = 'Direct Fire',
-        EntityCategory = {
-            'UEF',
-            'PROJECTILE',
-            'INDIRECTFIRE',
-            'TACTICAL',
-            'MISSILE',
-            'NOSPLASHDAMAGE',
-        },
-        Faction = 'UEF',
-        Weapon = 'Iridium Rocket Pack',
-    },
-    Interface = {
-        HelpText = 0,
-    },
+
     Physics = {
         Acceleration = 20,
         DestroyOnWater = true,
@@ -72,6 +53,6 @@ ProjectileBlueprint {
         TurnRate = 180,
         UseGravity = true,
         VelocityAlign = true,
-	ZigZagFrequency = 16,
+        ZigZagFrequency = 16,
     },
 }

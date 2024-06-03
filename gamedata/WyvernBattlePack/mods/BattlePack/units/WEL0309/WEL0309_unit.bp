@@ -1,9 +1,12 @@
 UnitBlueprint{
+
     Description = "Heavy AA Tank",
+
     AI = {
         GuardScanRadius = 40,
         TargetBones = { "Turret_Yaw" },
     },
+
     Audio = {
         AmbientMove = Sound { Bank = 'UEL',        Cue = 'UEL0202_Move_Loop',    LodCutoff = 'UnitMove_LodCutoff' },
         Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
@@ -11,6 +14,7 @@ UnitBlueprint{
         StopMove    = Sound { Bank = 'UEL',        Cue = 'UEL0202_Move_Stop',    LodCutoff = 'UnitMove_LodCutoff' },
         UISelection = Sound { Bank = 'Interface',  Cue = 'UEF_Select_Tank',      LodCutoff = 'UnitMove_LodCutoff' },
     },
+
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -20,7 +24,9 @@ UnitBlueprint{
             Level5 = 15,
         },
     },
+
     BuildIconSortPriority = 20,
+
     Categories = {
         "ANTIAIR",
         "BUILTBYTIER3FACTORY",
@@ -33,6 +39,7 @@ UnitBlueprint{
         "UEF",
         "VISIBLETORECON",
     },
+
     Defense = {
         AirThreatLevel = 40,
         ArmorType = "Normal",
@@ -40,29 +47,15 @@ UnitBlueprint{
         MaxHealth = 3400,
         RegenRate = 3,
     },
+
     Display = {
         Abilities = { "<LOC ability_aa>Anti-Air", },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 215,
-                    Scrolling = true,
-                    ShaderName = "Unit",
-                },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, Scrolling = true, ShaderName = "Unit" } } },
+
         MovementEffects = {
             Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            "Exhaust_Right",
-                            "Exhaust_Left",
-                        },
-                        Type = "GroundKickup01",
-                    },
-                },
+                Effects = { { Bones = {"Exhaust_Right","Exhaust_Left"}, Type = "GroundKickup01" } },
                 Treads = {
                     ScrollTreads = true,
                     TreadMarks = {
@@ -78,13 +71,16 @@ UnitBlueprint{
                 },
             },
         },
+
         UniformScale = 0.12,
     },
+
     Economy = {
         BuildCostEnergy = 11000,
         BuildCostMass = 950,
         BuildTime = 600,
     },
+
     General = {
         CommandCaps = {
             RULEUCC_Attack = true,
@@ -97,12 +93,16 @@ UnitBlueprint{
         },
         FactionName = "UEF",
         Icon = "land",
+
         UnitName = "Banisher",
     },
+
     Intel = { VisionRadius = 32 },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 0.95,
+
     Physics = {
         BankingSlope = 0,
         DragCoefficient = 0.2,
@@ -121,15 +121,20 @@ UnitBlueprint{
         TurnRadius = 0,
         TurnRate = 90,
     },
+
     SelectionSizeX = 0.6,
     SelectionSizeZ = 0.8,
     SelectionThickness = 0.3,
+
     SizeX = 0.9,
     SizeY = 0.9,
     SizeZ = 1.2,
+
     StrategicIconName = "icon_land3_antiair",
     StrategicIconSortPriority = 125,
+
     Transport = { TransportClass = 3 },
+
     Veteran = {
         Level1 = 9,
         Level2 = 18,
@@ -137,6 +142,7 @@ UnitBlueprint{
         Level4 = 36,
         Level5 = 45,
     },
+
     Weapon = {
         {
             AlwaysRecheckTarget = true,
@@ -146,16 +152,22 @@ UnitBlueprint{
             BallisticArc = "RULEUBA_None",
             CannotAttackGround = true,
             CollideFriendly = false,
+
             Damage = 200,
             DamageFriendly = false,
             DamageRadius = 2.5,
             DamageType = "Normal",
+
             DetonatesAtTargetHeight = true,
+
             DisplayName = "Short Range SAM",
+
             FireTargetLayerCapsTable = { Land = "Air" },
             FiringRandomness = 2,
             FiringTolerance = 2,
+
             Label = "AA",
+
             MaxRadius = 40,
 
             MuzzleVelocity = 28,
@@ -201,26 +213,31 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
             TrackingRadius = 1.4,
+
             TurretBoneDualMuzzle = "Turret_Left",
             TurretBoneDualPitch = "Turret_Left",
             TurretBoneMuzzle = "Turret_Right",
             TurretBonePitch = "Turret_Right",
             TurretBoneYaw = "Turret_Yaw",
             TurretDualManipulators = true,
+
             TurretPitch = 45,
             TurretPitchRange = 90,
             TurretPitchSpeed = 80,
+
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 70,
+
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
-        EnergyMult = 0,
+        EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = { Land = true },
     },

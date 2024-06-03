@@ -35,7 +35,7 @@ UnitList = {
     -- Amphibious Units --
     T3Amphibious = {
         UEF = {'wel0304', 40},      -- Rommel
-        Cybran = {'wrl0301', 50},   -- Sealion
+        Cybran = {'wrl0301', 65},   -- Sealion
     },
     
     T3AmphibiousArtillery = {
