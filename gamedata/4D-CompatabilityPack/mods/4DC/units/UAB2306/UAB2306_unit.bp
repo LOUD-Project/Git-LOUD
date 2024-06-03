@@ -50,10 +50,11 @@ UnitBlueprint{
 
     Display = {
         Abilities = {
-            "<LOC ability_aquatic>Aquatic",
+            "<LOC ability_aquatic>Aquatic: can be built on water",
             "Shield Piercing Weapon",
             "Requires Energy to fire",
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -67,6 +68,7 @@ UnitBlueprint{
                 },
             },
         },
+
         UniformScale = 0.0018,
     },
 
@@ -92,6 +94,7 @@ UnitBlueprint{
         FactionName = "Aeon",
         Icon = "amph",
         SelectionPriority = 5,
+
         UnitName = "<LOC uab2306_name>Anachronon",
     },
 
@@ -238,7 +241,7 @@ UnitBlueprint{
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

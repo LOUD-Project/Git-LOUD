@@ -1,13 +1,5 @@
------------------------------------------------------------------------------
---  File     : /mods/4DC/projectiles/Sniper_Piercing/Sniper_Piercing_proj.bp
---
---  Author(s): EbolaSoup, Resin Smoker, Optimus Prime, Vissroid 
---
---  Summary  : Aeon Shield Piercing projectile
---
---  Copyright © 2010 4DC  All rights reserved.
------------------------------------------------------------------------------
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Impacts',
@@ -25,28 +17,17 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'AEON',
-        'PROJECTILE', -- required for "Shield Piercing"
-        'DIRECTFIRE',
-        'SHIELDPIERCING', -- required for "Shield Piercing"
+        'PROJECTILE',        -- required for "Shield Piercing"
+        'SHIELDPIERCING',    -- required for "Shield Piercing"
     },
+
     Display = {
-        ImpactEffects = {
-            Scale = 0.4,
-            Type = 'Medium01',
-        },
+        ImpactEffects = {Scale = 0.4,Type = 'Medium01'},
         StrategicIconSize = 2,
     },
-    General = {
-        Category = 'Direct Fire',
-        Faction = 'Aeon',
-        TechLevel = 1,
-        Weapon = 'Shield Piercing',
-    },
-    Interface = {
-        HelpText = 0,
-    },
+
     Physics = {
         DestroyOnWater = true,
         InitialSpeed = 14.6,

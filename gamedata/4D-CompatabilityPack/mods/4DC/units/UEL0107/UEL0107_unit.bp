@@ -38,6 +38,7 @@ UnitBlueprint{
         Health = 195,
         MaxHealth = 195,
         RegenRate = 0,
+        SubThreatLevel = 1.2,
         SurfaceThreatLevel = 3,
     },
 
@@ -45,43 +46,20 @@ UnitBlueprint{
         Abilities = {
             "<LOC ability_hover>Hover",
             "Rapid Fire Mortar",
+            '<LOC ability_depthcharge>Depth Charge',
         },
-        Mesh = {
-            IconFadeInZoom = 180,
-            LODs = {
-                {
-                    LODCutoff = 180,
-                    ShaderName = "Unit",
-                },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 180, LODs = { { LODCutoff = 180, ShaderName = "Unit" } } },
+
         MovementEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = { "Wake_Left" },
-                        Scale = 0.5,
-                        Type = "LeftFrontWake",
-                    },
-                    {
-                        Bones = { "Wake_Right" },
-                        Scale = 0.5,
-                        Type = "RightFrontWake",
-                    },
-                    {
-                        Bones = { "uel0107" },
-                        Scale = 0.5,
-                        Type = "BackWake",
-                    },
-                    {
-                        Bones = { "uel0107" },
-                        Offset = { 0, -0.01, 0 },
-                        Scale = 0.5,
-                        Type = "Hover01",
-                    },
+                    { Bones = { "Wake_Left" }, Scale = 0.2, Type = "LeftFrontWake" },
+                    { Bones = { "Wake_Right" }, Scale = 0.2, Type = "RightFrontWake" },
                 },
             },
         },
+
         UniformScale = 0.08,
     },
 
@@ -106,7 +84,10 @@ UnitBlueprint{
         UnitName = "<LOC uel0107_name>Caiman",
     },
 
-    Intel = { VisionRadius = 20 },
+    Intel = { 
+        VisionRadius = 20,
+        WaterVisionRadius = 8,
+    },
 
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,
@@ -235,7 +216,73 @@ UnitBlueprint{
 
             Turreted = true,
         },
+		
+		--- Depth Charge ---
+        {
+            
+            Audio = {
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0204_Depth_Charge', LodCutoff = 'Weapon_LodCutoff' },
+            },
+
+            BallisticArc = 'RULEUBA_None',
+            BelowWaterTargetsOnly = true,
+            
+            CollideFriendly = false,
+			
+            Damage = 120,
+            DamageRadius = 2,
+            DamageType = 'Normal',
+            
+            DetonatesAtTargetHeight = true,
+			
+            DisplayName = 'Harmonic Depth Charge',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Seabed|Sub|Water',
+            },
+			
+            FiringRandomness = 5,
+            FiringTolerance = 20,
+			
+            Label = 'DepthCharge',
+			
+            MaxRadius = 6,
+
+            MuzzleSalvoDelay = 0.5,
+            MuzzleSalvoSize = 1,
+
+            MuzzleVelocity = 2,
+            
+            NotExclusive = true,
+			
+            ProjectileId = '/projectiles/AANDepthCharge01/AANDepthCharge01_proj.bp',
+			ProjectileLifetime = 4.8,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {'uel0107'},
+                    RackBone = 'uel0107',
+                },
+            },
+
+            RackSalvoReloadTime = 5.5,
+            
+            RangeCategory = 'UWRC_AntiNavy',
+			
+            RateOfFire = 1,   -- controlled by MuzzleSalvoDelay and RackReload = 6 seconds = 20 DPS
+			
+            TargetCheckInterval = 2,
+            
+            TargetPriorities = {
+                'SUBMARINE',
+                'SUBMERSIBLE',
+                'MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,HOVER',
+        },		
+        
     },
+
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.35,

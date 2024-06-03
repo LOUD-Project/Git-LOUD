@@ -2,7 +2,7 @@ UnitBlueprint{
     Description = "<LOC ual0310_desc>Mobile Defense Unit",
 
     AI = {
-        GuardScanRadius = 55,
+        GuardScanRadius = 48,
         TargetBones = { "Center_hatch_01" },
     },
 
@@ -46,12 +46,14 @@ UnitBlueprint{
     },
 
     Display = {
+
         Abilities = {
             "<LOC ability_aa>Anti-Air",
             "<LOC ability_amphibious>Amphibious",
             "<LOC ability_customizable>Customizable",
             "<LOC ability_tacmissiledef>Tactical Missile Defense",
         },
+
         AnimationDeath = {
             {
                 Animation = "/mods/4DC/units/ual0310/ual0310_Adeath01.sca",
@@ -80,6 +82,7 @@ UnitBlueprint{
         },
         AnimationWalk = "/mods/4DC/units/ual0310/ual0310_walk.sca",
         AnimationWalkRate = 2.4,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -100,6 +103,7 @@ UnitBlueprint{
                 },
             },
         },
+
         UniformScale = 0.022,
     },
 
@@ -141,18 +145,11 @@ UnitBlueprint{
             Icon = "ptsg",
             Name = "Remove Shield Dome",
             Prerequisite = "ShieldDomeAdd",
-            RemoveEnhancements = {
-                "ShieldDome",
-                "ShieldDomeRemove",
-            },
+            RemoveEnhancements = {"ShieldDome","ShieldDomeRemove"},
             Slot = "Back",
         },
         Slots = {
-            Back = {
-                name = "<LOC _Back>",
-                x = -2,
-                y = -5,
-            },
+            Back = { name = "<LOC _Back>", x = -2, y = -5 },
             Command = {},
             LCH = {},
             RCH = {},
@@ -161,6 +158,7 @@ UnitBlueprint{
 
     General = {
         CapCost = 1,
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -172,6 +170,7 @@ UnitBlueprint{
         },
         FactionName = "Aeon",
         Icon = "amph",
+
         UnitName = "<LOC ual0310_name>Vindicator",
     },
 
@@ -187,7 +186,9 @@ UnitBlueprint{
     Physics = {
         BankingSlope = 0,
         DragCoefficient = 0.2,
-        LayerChangeOffsetHeight = -0.9,
+
+        LayerChangeOffsetHeight = -0.75,
+
         MaxAcceleration = 2.6,
         MaxBrake = 2.6,
         MaxSpeed = 2.6,
@@ -254,7 +255,7 @@ UnitBlueprint{
 
             Label = "MissileSideLeft",
 
-            MaxRadius = 55,
+            MaxRadius = 52,
 
             MuzzleVelocity = 10,
 
@@ -308,7 +309,7 @@ UnitBlueprint{
 
             Label = "MissileSideRight",
 
-            MaxRadius = 55,
+            MaxRadius = 52,
 
             MuzzleVelocity = 10,
 
@@ -356,7 +357,6 @@ UnitBlueprint{
             FireTargetLayerCapsTable = {
                 Land = "Air",
                 Seabed = "Air",
-                Water = "Air",
             },
 
             FiringTolerance = 5,
@@ -413,7 +413,7 @@ UnitBlueprint{
 
             CollideFriendly = false,
 
-            Damage = 1,
+            Damage = 2,
             DamageType = "Normal",
 
             DisplayName = "Phalanx Cannon",
@@ -429,12 +429,13 @@ UnitBlueprint{
 
             LeadTarget = true,
 
-            MaxRadius = 25,
+            MaxRadius = 28,
 
             MuzzleVelocity = 75,
 
             ProjectileId = "/mods/4DC/projectiles/LaserPhalanx/LaserPhalanx_proj.bp",
             ProjectileLifetime = 1,
+
             RackBones = {
                 {
                     MuzzleBones = { "topCannonMuzzle" },
@@ -451,7 +452,7 @@ UnitBlueprint{
             TargetRestrictOnlyAllow = "TACTICAL MISSILE",
             TargetType = "RULEWTT_Projectile",
 
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 
             TurretBoneMuzzle = "topCannonMuzzle",
             TurretBonePitch = "topCannonPitch",
@@ -485,11 +486,12 @@ UnitBlueprint{
             Label = "DeathWeapon",
         },
     },
+
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

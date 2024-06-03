@@ -1,12 +1,12 @@
 local AWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local EffectUtils = import('/lua/EffectUtilities.lua')
-local Effects = import('/lua/effecttemplates.lua')
-
 local AAAZealotMissileWeapon = import('/lua/aeonweapons.lua').AAAZealotMissileWeapon
-local CustomAeonWeapons = import('/mods/4DC/lua/4D_weapons.lua')
-local ArrowMissileWeapon = CustomAeonWeapons.ArrowMissileWeapon
-local LaserPhalanxWeapon = CustomAeonWeapons.LaserPhalanxWeapon
+
+local ArrowMissileWeapon = import('/mods/4DC/lua/4D_weapons.lua').ArrowMissileWeapon
+local LaserPhalanxWeapon = import('/mods/4DC/lua/4D_weapons.lua').LaserPhalanxWeapon
+
+local CreateBoneEffects = import('/lua/EffectUtilities.lua').CreateBoneEffects
+local WeaponSteam       = import('/lua/effecttemplates.lua').WeaponSteam01
 
 ual0310 = Class(AWalkingLandUnit) { 
 
@@ -24,18 +24,20 @@ ual0310 = Class(AWalkingLandUnit) {
             end, 
 
             PlayFxRackSalvoReloadSequence = function(self)
+            
+                local unit = self.unit
 			
-                self.ExhaustEffects = EffectUtils.CreateBoneEffects( self.unit, 'LargeSAM', self.unit:GetArmy(), Effects.WeaponSteam01 )
+                self.ExhaustEffects = CreateBoneEffects( unit, 'LargeSAM', unit:GetArmy(), WeaponSteam )
+
                 -- Unhides the missile bones so the player can see the missile reload 
-                self.unit:ShowBone('LargeSAM', false)  
+                unit:ShowBone('LargeSAM', false)  
                 ArrowMissileWeapon.PlayFxRackSalvoChargeSequence(self)
-				
             end,
 		},
 		
-		MissileSideLeft = Class(AAAZealotMissileWeapon) {},
-		MissileSideRight = Class(AAAZealotMissileWeapon) {},
-		LaserPhalanx = Class(LaserPhalanxWeapon) {},
+		MissileSideLeft     = Class(AAAZealotMissileWeapon) {},
+		MissileSideRight    = Class(AAAZealotMissileWeapon) {},
+		LaserPhalanx        = Class(LaserPhalanxWeapon) {},
 	},
 
     CreateEnhancement = function(self, enh)

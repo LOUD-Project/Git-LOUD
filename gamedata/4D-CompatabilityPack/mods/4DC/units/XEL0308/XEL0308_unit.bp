@@ -1,4 +1,5 @@
 UnitBlueprint{
+
     Description = "<LOC xel0308_desc>Amphibious SAM Launcher",
 
     AI = {
@@ -56,6 +57,7 @@ UnitBlueprint{
             "<LOC ability_radar>Radar",
             "Ground Defense",
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -76,6 +78,7 @@ UnitBlueprint{
                 },
             },
         },
+
         UniformScale = 0.01,
     },
 
@@ -98,13 +101,17 @@ UnitBlueprint{
         },
         FactionName = "UEF",
         Icon = "amph",
+
         UnitName = "<LOC xel0308_name>Hermes",
     },
 
     Intel = {
         FreeIntel = true,
-        RadarRadius = 75,
+        
+        RadarRadius = 64,
+        
         VisionRadius = 32,
+        WaterVisionRadius = 16,
     },
 
     LifeBarHeight = 0.075,
@@ -174,7 +181,7 @@ UnitBlueprint{
 
             LeadTarget = false,
 
-            MaxRadius = 55,
+            MaxRadius = 52,
             
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 6,
@@ -268,7 +275,7 @@ UnitBlueprint{
 
             Label = "MainGun",
 
-            MaxRadius = 25,
+            MaxRadius = 26,
 
             MuzzleVelocity = 46,
 
@@ -312,11 +319,12 @@ UnitBlueprint{
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = { Land = true },
     },

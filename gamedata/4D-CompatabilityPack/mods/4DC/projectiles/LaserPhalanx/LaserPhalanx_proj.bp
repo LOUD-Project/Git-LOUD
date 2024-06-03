@@ -7,16 +7,13 @@ ProjectileBlueprint {
         },
     },
     Categories = {
-        'AEON',
         'PROJECTILE',
         'ANTIMISSILE',
     },
     Display = {
         StrategicIconSize = 1,
     },
-    Interface = {
-        HelpText = 0,
-    },
+
     Physics = {
         DestroyOnWater = true,
         InitialSpeed = 100,

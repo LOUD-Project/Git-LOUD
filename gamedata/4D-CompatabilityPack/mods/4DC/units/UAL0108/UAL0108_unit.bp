@@ -8,11 +8,9 @@ UnitBlueprint{
     },
 
     Audio = {
-        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land',   LodCutoff = 'UnitMove_LodCutoff' },
-        ShieldOff   = Sound { Bank = 'UAL',        Cue = 'UAL0202_Shield_Off', LodCutoff = 'UnitMove_LodCutoff' },
-        ShieldOn    = Sound { Bank = 'UAL',        Cue = 'UAL0202_Shield_On',  LodCutoff = 'UnitMove_LodCutoff' },
         StartMove   = Sound { Bank = 'UAL',        Cue = 'UAL0106_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
         StopMove    = Sound { Bank = 'UAL',        Cue = 'UAL0106_Move_Stop',  LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land',   LodCutoff = 'UnitMove_LodCutoff' },
         UISelection = Sound { Bank = 'Interface',  Cue = 'Aeon_Select_Bot',    LodCutoff = 'UnitMove_LodCutoff' },
     },
 
@@ -82,23 +80,14 @@ UnitBlueprint{
         AnimationWalk = "/mods/4DC/units/ual0108/ual0108_awalk01.sca",
         AnimationWalkRate = 1.6,
 
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 215,
-                    Scrolling = false,
-                    ShaderName = "Aeon",
-                },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, Scrolling = false, ShaderName = "Aeon" } } },
 
         UniformScale = 0.05,
     },
 
     Economy = {
         BuildCostEnergy = 550,
-        BuildCostMass = 75,
+        BuildCostMass = 72,
         BuildRate = 5,
         BuildTime = 94,
     },
@@ -130,18 +119,11 @@ UnitBlueprint{
             Icon = "ptsg",
             Name = "Remove Personal Shield",
             Prerequisite = "PersonalShield",
-            RemoveEnhancements = {
-                "PersonalShield",
-                "PersonalShieldRemove",
-            },
+            RemoveEnhancements = {"PersonalShield","PersonalShieldRemove"},
             Slot = "Back",
         },
         Slots = {
-            Back = {
-                name = "<LOC _Back>",
-                x = -2,
-                y = -5,
-            },
+            Back = { name = "<LOC _Back>", x = -2, y = -5 },
             Command = {},
             LCH = {},
             RCH = {},
@@ -160,6 +142,7 @@ UnitBlueprint{
         },
         FactionName = "Aeon",
         Icon = "land",
+
         UnitName = "<LOC ual0108_name>Artos",
     },
 
@@ -303,7 +286,7 @@ UnitBlueprint{
             FireTargetLayerCapsTable = { Land = "Land|Water" },
             FiringTolerance = 10,
 
-            Label = "RocketBackpack",
+            Label = "Rocketpack",
 
             MaxRadius = 32,
             MinRadius = 5,
@@ -344,11 +327,12 @@ UnitBlueprint{
             Turreted = false,
         },
     },
+
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
-        EnergyMult = 0.1,
+        EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = { Land = true },
     },

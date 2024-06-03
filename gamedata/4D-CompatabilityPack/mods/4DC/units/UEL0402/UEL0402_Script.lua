@@ -15,13 +15,14 @@ local explosion = import('/lua/defaultexplosions.lua')
 local CreateDeathExplosion = explosion.CreateDefaultHitExplosionAtBone
 
 --Weapon local files
-local TDFPlasmaCannonWeapon = WeaponsFile.TDFPlasmaCannonWeapon
-local TDFHeavyPlasmaCannonWeapon = WeaponsFile.TDFHeavyPlasmaGatlingCannonWeapon
-local TIFFragLauncherWeapon = import('/lua/terranweapons.lua').TDFFragmentationGrenadeLauncherWeapon
+local TDFPlasmaCannonWeapon         = WeaponsFile.TDFPlasmaCannonWeapon
+local TDFHeavyPlasmaCannonWeapon    = WeaponsFile.TDFHeavyPlasmaCannonWeapon
+local TDFHeavyPlasmaCannonWeapon    = WeaponsFile.TDFFragmentationGrenadeLauncherWeapon
+local TANTorpedoAngler              = WeaponsFile.TANTorpedoAngler
 
-local Over_Charge = import('/mods/4DC/lua/4D_weapons.lua').Over_ChargeProjectile
+local Over_Charge = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
 
-local TANTorpedoAngler = WeaponsFile.TANTorpedoAngler
+WeaponsFile = nil
 
 local LOUDINSERT = table.insert
 local WaitTicks = coroutine.yield
@@ -36,7 +37,7 @@ uel0402 = Class(TWalkingLandUnit) {
 
     Weapons = {
 	
-        Grenade = Class(TIFFragLauncherWeapon) {},	
+        Grenade = Class(TDFHeavyPlasmaCannonWeapon) {},	
 	
         plasma_repeater = Class(TDFPlasmaCannonWeapon) {},    
 		

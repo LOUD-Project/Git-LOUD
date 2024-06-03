@@ -1,4 +1,5 @@
 UnitBlueprint{
+
     Description = "<LOC url0305_desc>Amphibious Attack Bot",
 
     AI = {
@@ -50,6 +51,7 @@ UnitBlueprint{
 
     Display = {
         Abilities = { "<LOC ability_amphibious>Amphibious", },
+
         AnimationDeath = {
             {
                 Animation = "/mods/4DC/units/URL0305/url0305_death1.sca",
@@ -64,8 +66,10 @@ UnitBlueprint{
                 Weight = 100,
             },
         },
+
         AnimationWalk = "/mods/4DC/units/URL0305/URL0305_awalk.sca",
         AnimationWalkRate = 2.5,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -82,6 +86,7 @@ UnitBlueprint{
                 },
             },
         },
+
         UniformScale = 0.01,
     },
 
@@ -103,12 +108,13 @@ UnitBlueprint{
         },
         FactionName = "Cybran",
         Icon = "amph",
+
         UnitName = "<LOC url0305_name>Crawfish",
     },
 
     Intel = {
         VisionRadius = 28,
-        WaterVisionRadius = 23,
+        WaterVisionRadius = 20,
     },
 
     LifeBarHeight = 0.09,
@@ -238,11 +244,12 @@ UnitBlueprint{
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

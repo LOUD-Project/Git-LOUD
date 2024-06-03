@@ -1,12 +1,13 @@
 local AWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local ADFLaserLightWeapon = import('/lua/aeonweapons.lua').ADFLaserLightWeapon
-local AAAZealotMissileWeapon = import('/lua/aeonweapons.lua').AAAZealotMissileWeapon 
+local ADFLaserLightWeapon       = import('/lua/aeonweapons.lua').ADFLaserLightWeapon
+local AAAZealotMissileWeapon    = import('/lua/aeonweapons.lua').AAAZealotMissileWeapon 
 
 UAL0108 = Class(AWalkingLandUnit) { 
+
     Weapons = { 
-        MainGun = Class(ADFLaserLightWeapon) {}, 
-        RocketBackpack = Class(AAAZealotMissileWeapon) {},
+        MainGun     = Class(ADFLaserLightWeapon) {}, 
+        Rocketpack  = Class(AAAZealotMissileWeapon) {},
     }, 
     
     CreateEnhancement = function(self, enh)

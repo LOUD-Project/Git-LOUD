@@ -1,4 +1,5 @@
 UnitBlueprint{
+
     Description = "<LOC ual0402_desc>Experimental Medium Assault Bot (Assault)",
 
     AI = {
@@ -67,16 +68,9 @@ UnitBlueprint{
         },
         AnimationWalk = "/mods/4DC/units/ual0402/UAL0402_awalk5.sca",
         AnimationWalkRate = 1.9,
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 500,
-                    Scrolling = false,
-                    ShaderName = "Aeon",
-                },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 500, Scrolling = false, ShaderName = "Aeon" } } },
+
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -110,8 +104,9 @@ UnitBlueprint{
                             Type = "FootFall01",
                         },
                     },
+
                     Damage = {
-                        Amount = 4500,
+                        Amount = 4000,
                         DamageFriendly = false,
                         Radius = 1.5,
                         Type = "ExperimentalFootfall",
@@ -119,6 +114,7 @@ UnitBlueprint{
                 },
             },
         },
+
         UniformScale = 0.12,
     },
 
@@ -138,11 +134,7 @@ UnitBlueprint{
             Name = "Chrono Dampener",
             ShowBones = { "Back_Upgrade" },
             Slot = "Back",
-            UpgradeEffectBones = {
-                "Back_Upgrade",
-                "Left_Arm_B01",
-                "Right_Arm_B01",
-            },
+            UpgradeEffectBones = {"Back_Upgrade","Left_Arm_B01","Right_Arm_B01"},
             UpgradeUnitAmbientBones = { "UAL0402" },
         },
         ChronoDampenerRemove = {
@@ -153,18 +145,11 @@ UnitBlueprint{
             Icon = "cd",
             Name = "Remove Chrono Dampener",
             Prerequisite = "ChronoDampener",
-            RemoveEnhancements = {
-                "ChronoDampener",
-                "ChronoDampenerRemove",
-            },
+            RemoveEnhancements = {"ChronoDampener","ChronoDampenerRemove"},
             Slot = "Back",
         },
         Slots = {
-            Back = {
-                name = "<LOC _Back>",
-                x = -2,
-                y = -5,
-            },
+            Back = { name = "<LOC _Back>", x = -2, y = -5 },
             Command = {},
             LCH = {},
             RCH = {},
@@ -187,8 +172,8 @@ UnitBlueprint{
     },
 
     Intel = {
-        VisionRadius = 38,
-        WaterVisionRadius = 21,
+        VisionRadius = 36,
+        WaterVisionRadius = 20,
     },
 
     LifeBarHeight = 0.15,
@@ -198,7 +183,9 @@ UnitBlueprint{
     Physics = {
         BankingSlope = 0,
         DragCoefficient = 0.2,
-        LayerChangeOffsetHeight = -3.25,
+
+        LayerChangeOffsetHeight = -3.6,
+
         MaxAcceleration = 1.4,
         MaxBrake = 2.8,
         MaxSpeed = 2.8,
@@ -245,6 +232,7 @@ UnitBlueprint{
 
     Weapon = {
         {
+            AboveWaterFireOnly = true,
             Audio = {
                 Fire = Sound { Bank = 'UALWeapon', Cue = 'UAL0303_Laser_Intense', LodCutoff = 'Weapon_LodCutoff' },
             },
@@ -258,8 +246,8 @@ UnitBlueprint{
             DamageType = "Normal",
 
             FireTargetLayerCapsTable = {
-                Land = "Land|Water",
-                Water = "Land|Water",
+                Land = "Land|Water|Seabed",
+                Seabed = "Land|Water|Seabed",
             },
             FiringRandomness = 0.4,
             FiringRandomnessWhileMoving = 0.8,
@@ -329,7 +317,6 @@ UnitBlueprint{
                 BeamLoop  = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Loop',   LodCutoff = 'Weapon_LodCutoff' },
                 BeamStart = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Fire',   LodCutoff = 'Weapon_LodCutoff' },
                 BeamStop  = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Stop',   LodCutoff = 'Weapon_LodCutoff' },
-                Unpack    = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = "RULEUBA_None",
@@ -348,8 +335,8 @@ UnitBlueprint{
             DisplayName = "Phason Laser",
 
             FireTargetLayerCapsTable = {
-                Land = "Land|Water",
-                Water = "Land|Water",
+                Land = "Land|Water|Seabed",
+                Seabed = "Land|Water|Seabed",
             },
             FiringTolerance = 2,
 
@@ -415,8 +402,8 @@ UnitBlueprint{
             DisplayName = "Graviton Projector",
 
             FireTargetLayerCapsTable = {
-                Land = "Land|Water",
-                Water = "Land|Water",
+                Land = "Land|Water|Seabed",
+                Seabed = "Land|Water|Seabed",
             },
             FiringRandomnessWhileMoving = 0.6,
             FiringTolerance = 2,
@@ -470,6 +457,7 @@ UnitBlueprint{
             Turreted = true,
         },
         {
+            AboveWaterFireOnly = true,
             AlwaysRecheckTarget = true,
             Audio = {
                 Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB2304_SAM',      LodCutoff = 'Weapon_LodCutoff' },
@@ -489,13 +477,12 @@ UnitBlueprint{
             FireTargetLayerCapsTable = {
                 Land = "Air",
                 Seabed = "Air",
-                Water = "Air",
             },
             FiringTolerance = 60,
 
             Label = "AA",
 
-            MaxRadius = 55,
+            MaxRadius = 48,
 
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0.2,
@@ -509,11 +496,7 @@ UnitBlueprint{
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        "Missile1",
-                        "Missile2",
-                        "Missile3",
-                    },
+                    MuzzleBones = {"Missile1","Missile2","Missile3"},
                 },
             },
 
@@ -539,6 +522,7 @@ UnitBlueprint{
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             BallisticArc = "RULEUBA_None",
+
             Buffs = {
                 {
                     Add = { OnFire = true },
@@ -565,7 +549,6 @@ UnitBlueprint{
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
-                Water = "Land|Water|Seabed",
             },
             FiringTolerance = 360,
             Label = "ChronoDampener",
@@ -598,11 +581,12 @@ UnitBlueprint{
             WeaponCategory = "Death",
         },
     },
+
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.6,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

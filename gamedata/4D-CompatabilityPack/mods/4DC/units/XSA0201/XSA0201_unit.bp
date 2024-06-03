@@ -1,4 +1,5 @@
 UnitBlueprint{
+
     Description = "<LOC xsa0201_desc>Shield Drone",
 
     Air = {
@@ -65,45 +66,21 @@ UnitBlueprint{
             "One-Shot Projected Shield Generator",
             "Merges with other units",
         },
+
         LayerChangeEffects = {
-            AirLand = {
-                Effects = {
-                    {
-                        Bones = { 0 },
-                        Offset = { 0, 0, 0 },
-                        Type = "Landing01",
-                    },
-                },
-            },
-            LandAir = {
-                Effects = {
-                    {
-                        Bones = { 0 },
-                        Type = "TakeOff01",
-                    },
-                },
-            },
+            AirLand = { Effects = { { Bones = { 0 }, Offset = { 0, 0, 0 }, Type = "Landing01" } } },
+            LandAir = { Effects = { { Bones = { 0 }, Type = "TakeOff01" } } },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    ShaderName = "Seraphim",
-                    MeshName = "xsa0201_lod0.scm",
-                },
-                {
-                    LODCutoff = 150,
-                    ShaderName = "Seraphim",
-                    MeshName = "xsa0201_lod1.scm",
-                },
-                {
-                    LODCutoff = 200,
-                    ShaderName = "Seraphim",
-                    MeshName = "xsa0201_lod2.scm",
-                },
+                { LODCutoff = 100, ShaderName = "Seraphim", MeshName = "xsa0201_lod0.scm" },
+                { LODCutoff = 150, ShaderName = "Seraphim", MeshName = "xsa0201_lod1.scm" },
+                { LODCutoff = 200, ShaderName = "Seraphim", MeshName = "xsa0201_lod2.scm" },
             },
         },
+
         UniformScale = 0.06,
     },
 
@@ -129,6 +106,7 @@ UnitBlueprint{
         FactionName = "Seraphim",
         Icon = "air",
         SelectionPriority = 2,
+
         UnitName = "<LOC xsa0201_name>Shyeld",
     },
 

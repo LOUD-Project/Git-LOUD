@@ -1,4 +1,5 @@
 UnitBlueprint{
+
     Description = "<LOC ues0206_desc>UEF Naval Mine",
 
     AI = {
@@ -44,17 +45,15 @@ UnitBlueprint{
             "<LOC ability_personalstealth>Personal Stealth",
             "High Explosive Mine",
         },
+
         IdleEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = { "ues0206" },
-                        Scale = 2,
-                        Type = "SeaIdle02",
-                    },
+                    { Bones = { "ues0206" }, Scale = 2, Type = "SeaIdle02" },
                 },
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -70,6 +69,7 @@ UnitBlueprint{
                 },
             },
         },
+
         UniformScale = 0.02,
     },
 
@@ -86,13 +86,16 @@ UnitBlueprint{
         CommandCaps = { RULEUCC_RetaliateToggle = true },
         FactionName = "UEF",
         Icon = "sea",
+
         UnitName = "<LOC ues0206_name>Barnacle",
     },
 
     Intel = {
         Cloak = true,
+
         RadarStealth = true,
         SonarStealth = true,
+
         VisionRadius = 4,
         WaterVisionRadius = 4,
     },

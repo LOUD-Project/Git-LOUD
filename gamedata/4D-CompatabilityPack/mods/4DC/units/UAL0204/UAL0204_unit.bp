@@ -53,8 +53,10 @@ UnitBlueprint{
             "<LOC ability_customizable>Customizable",
             "<LOC ability_personalstealth>Personal Stealth",
         },
+
         AnimationWalk = "/mods/4DC/units/UAL0204/ual0204_awalk.sca",
         AnimationWalkRate = 3.92,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -68,22 +70,11 @@ UnitBlueprint{
                 },
             },
         },
+
         MovementEffects = {
-            Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            "Foot1",
-                            "Foot2",
-                            "Foot3",
-                            "Foot4",
-                        },
-                        Offset = { 0, 0, 0 },
-                        Type = "GroundKickup01",
-                    },
-                },
-            },
+            Land = { Effects = { { Bones = {"Foot1","Foot2","Foot3","Foot4"}, Offset = { 0, 0, 0 }, Type = "GroundKickup01"} } }
         },
+
         UniformScale = 0.007,
     },
 
@@ -112,10 +103,7 @@ UnitBlueprint{
             Icon = "ess",
             Name = "Remove Enhanced Sensor System",
             Prerequisite = "EnhancedSensors",
-            RemoveEnhancements = {
-                "EnhancedSensors",
-                "EnhancedSensorsRemove",
-            },
+            RemoveEnhancements = {"EnhancedSensors","EnhancedSensorsRemove"},
             Slot = "RCH",
         },
         EnhancedWeapon = {
@@ -135,25 +123,14 @@ UnitBlueprint{
             Icon = "cba",
             Name = "Remove Enhanced Weapon",
             Prerequisite = "EnhancedWeapon",
-            RemoveEnhancements = {
-                "EnhancedWeapon",
-                "EnhancedWeaponRemove",
-            },
+            RemoveEnhancements = {"EnhancedWeapon","EnhancedWeaponRemove"},
             Slot = "LCH",
         },
         Slots = {
             Back = {},
             Command = {},
-            LCH = {
-                name = "<LOC _LCH>",
-                x = 50,
-                y = -10,
-            },
-            RCH = {
-                name = "<LOC _RCH>",
-                x = -12,
-                y = -10,
-            },
+            LCH = { name = "<LOC _LCH>", x = 50, y = -10 },
+            RCH = { name = "<LOC _RCH>", x = -12, y = -10 },
         },
     },
 
@@ -168,14 +145,17 @@ UnitBlueprint{
             RULEUCC_Stop = true,
         },
         FactionName = "Aeon",
+
         UnitName = "<LOC ual0204_name>Predator",
     },
 
     Intel = {
         FreeIntel = true,
+
         RadarStealth = true,
         StealthStartsOn = true,
-        VisionRadius = 26,
+
+        VisionRadius = 28,
     },
 
     LifeBarHeight = 0.05,

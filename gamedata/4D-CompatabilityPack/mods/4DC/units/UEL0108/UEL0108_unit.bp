@@ -33,9 +33,9 @@ UnitBlueprint{
 
     Defense = {
         ArmorType = "Normal",
-        Health = 450,
-        MaxHealth = 450,
-        RegenRate = 0.2,
+        Health = 465,
+        MaxHealth = 465,
+        RegenRate = 1,
         SurfaceThreatLevel = 3.9,
     },
 
@@ -56,16 +56,11 @@ UnitBlueprint{
                 },
             },
         },
+
         MovementEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {
-                            "Exhaust1",
-                            "Exhaust2",
-                        },
-                        Type = "GroundKickup01",
-                    },
+                    { Bones = {"Exhaust1","Exhaust2"}, Type = "GroundKickup01" },
                 },
                 Treads = {
                     ScrollMultiplier = 0.6,
@@ -83,6 +78,7 @@ UnitBlueprint{
                 },
             },
         },
+
         UniformScale = 0.016,
     },
 
@@ -103,10 +99,11 @@ UnitBlueprint{
             RULEUCC_Stop = true,
         },
         FactionName = "UEF",
+
         UnitName = "<LOC uel0108_name>Crusher",
     },
 
-    Intel = { VisionRadius = 23 },
+    Intel = { VisionRadius = 24 },
 
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
@@ -168,7 +165,6 @@ UnitBlueprint{
 
             Damage = 88,
             DamageFriendly = false,
-            DamageRadius = 1.0,
             DamageType = "Normal",
 
             DisplayName = "Gauss Cannon",
@@ -225,11 +221,12 @@ UnitBlueprint{
             Turreted = true,
         },
     },
+
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = { Land = true },
     },

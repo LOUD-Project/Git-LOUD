@@ -86,6 +86,7 @@ UnitBlueprint{
                 },
             },
         },
+
         UniformScale = 0.003,
     },
 
@@ -117,7 +118,7 @@ UnitBlueprint{
         UnitName = "<LOC uaa0206_name>Abolisher",
     },
 
-    Intel = { VisionRadius = 26 },
+    Intel = { VisionRadius = 32 },
 
     LifeBarHeight = 0.07,
     LifeBarOffset = 1.0,

@@ -1,4 +1,5 @@
 UnitBlueprint{
+
     Description = "<LOC urb2306_desc>Heavy Microwave Tower",
 
     AI = {
@@ -64,6 +65,7 @@ UnitBlueprint{
             "Slow Rate of Fire",
             "Needs Energy",
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -79,6 +81,7 @@ UnitBlueprint{
                 },
             },
         },
+
         UniformScale = 0.08,
     },
 
@@ -105,6 +108,7 @@ UnitBlueprint{
         FactionName = "Cybran",
         Icon = "amph",
         SelectionPriority = 5,
+
         UnitName = "<LOC urb2306_name>Beholder",
     },
 
@@ -313,6 +317,7 @@ UnitBlueprint{
             Label = "DeathWeapon",
         },
     },
+
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.5,

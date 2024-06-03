@@ -66,35 +66,23 @@ UnitBlueprint{
             "Mortar Barrage",
             "Ravager AutoCannons",
         },
+
         AnimationPermOpen = "/mods/4DC/units/uel0402/uel0402_Astartup.sca",
         AnimationWalk = "/mods/4DC/units/uel0402/uel0402_Awalk.sca",
+
         AnimationWalkRate = 1.52,
+
         Mesh = {
             IconFadeInZoom = 140,
             LODs = {
-                {
-                    LODCutoff = 160,
-                    ShaderName = "Unit",
-                    MeshName = "UEL0402_lod0.scm",
-                },
-                {
-                    LODCutoff = 300,
-                    ShaderName = "Unit",
-                    MeshName = "UEL0402_lod1.scm",
-                },
+                { LODCutoff = 160, ShaderName = "Unit", MeshName = "UEL0402_lod0.scm" },
+                { LODCutoff = 300, ShaderName = "Unit", MeshName = "UEL0402_lod1.scm" },
             },
         },
+
         MovementEffects = {
             Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            "foot_right",
-                            "foot_left",
-                        },
-                        Type = "GroundKickup01",
-                    },
-                },
+                Effects = { { Bones = {"foot_right","foot_left"}, Type = "GroundKickup01" } },
                 Footfall = {
                     Bones = {
                         {
@@ -130,6 +118,7 @@ UnitBlueprint{
                             Type = "FootFall01",
                         },
                     },
+
                     Damage = {
                         Amount = 2000,
                         DamageFriendly = false,
@@ -166,9 +155,9 @@ UnitBlueprint{
     },
 
     Intel = {
-        SonarRadius = 45,
-        VisionRadius = 34,
-        WaterVisionRadius = 26,
+        SonarRadius = 48,
+        VisionRadius = 32,
+        WaterVisionRadius = 24,
     },
 
     LifeBarHeight = 0.075,
@@ -742,7 +731,7 @@ UnitBlueprint{
 
             CollideFriendly = false,
 
-            Damage = 110,
+            Damage = 200,
             DamageType = "Normal",
 
             DisplayName = "Angler Torpedo",
@@ -759,36 +748,32 @@ UnitBlueprint{
             MaxRadius = 40,
 
             MuzzleSalvoDelay = 0.5,
-            MuzzleSalvoSize = 12,
+            MuzzleSalvoSize = 6,
             MuzzleVelocity = 3,
 
-            ProjectileId = "/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp",
-            ProjectileLifetime = 8,
+            ProjectileId = "/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_proj.bp",
+            ProjectileLifetime = 7,
 
             RackBones = {
                 {
                     HideMuzzle = true,
                     MuzzleBones = {
                         "torp_r1",
-                        "torp_r2",
                         "torp_r3",
-                        "torp_r4",
                         "torp_r5",
-                        "torp_r6",
                         "torp_l1",
-                        "torp_l2",
                         "torp_l3",
-                        "torp_l4",
                         "torp_l5",
-                        "torp_l6",
                     },
                     RackBone = "torso",
                 },
             },
 
             RangeCategory = "UWRC_AntiNavy",
+            
+            RackSalvoReloadTime = 6,    -- firing cycle is 9 seconds = 9 x 200 = 1800/10 = 180 DPS
 
-            RateOfFire = 0.1,
+            RateOfFire = 1,     -- controlled by MuzzleSalvoDelay and RackReload
 
             SlavedToBody = true,
 
