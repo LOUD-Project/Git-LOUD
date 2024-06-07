@@ -100,10 +100,13 @@ UnitBlueprint {
 	
     Intel = {
         Cloak = true,
+
 		FreeIntel = true,
+
         RadarRadius = 48,
         RadarStealth = true,
         StealthWaitTime = 2,
+
         VisionRadius = 28,
     },
 	
@@ -182,7 +185,7 @@ UnitBlueprint {
 			
             Label = 'LaserTurret',
 			
-            MaxRadius = 16,
+            MaxRadius = 14,
             
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,

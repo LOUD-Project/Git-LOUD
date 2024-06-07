@@ -48,6 +48,7 @@ UnitBlueprint {
     Display = {
         Abilities = {
             '<LOC ability_radar>Radar',
+            '<LOC ability_personalstealth>Personal Stealth',
         },
 
         Mesh = {
@@ -93,6 +94,9 @@ UnitBlueprint {
     
     Intel = {
 		FreeIntel = true,
+        
+        RadarStealth = true,
+        
         RadarRadius = 48,
         VisionRadius = 28,
     },
@@ -180,7 +184,7 @@ UnitBlueprint {
 
             Label = 'LaserTurret',
 			
-            MaxRadius = 16,
+            MaxRadius = 12,
 
             MuzzleVelocity = 30,
 			

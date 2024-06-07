@@ -44,6 +44,7 @@ UnitBlueprint {
     Display = {
         Abilities = {
             '<LOC ability_radar>Radar',
+            '<LOC ability_personalstealth>Personal Stealth',
         },
 
         Mesh = {
@@ -90,6 +91,9 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
+        
+        RadarStealth = true,
+        
         RadarRadius = 48,
         VisionRadius = 28,
         WaterVisionRadius = 8,
@@ -150,13 +154,11 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             AimControlPrecedence = 10,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0101_MachineGun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0101_MachineGun', LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -174,7 +176,7 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-            MaxRadius = 16,
+            MaxRadius = 12,
             
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 3,
