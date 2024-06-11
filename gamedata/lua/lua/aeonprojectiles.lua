@@ -135,45 +135,49 @@ ACannonTankProjectile = Class(SingleBeamProjectile) {
 }
 
 ADepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
-
-    --FxInitial = {},
-    FxTrails = {'/effects/emitters/torpedo_munition_trail_01_emit.bp',},
-    TrailDelay = 0,
-    TrackTime = 0,
+	
+    FxEnterWater= { '/effects/emitters/water_splash_plume_01_emit.bp','/effects/emitters/water_splash_ripples_ring_01_emit.bp' },
 
     FxImpactUnit = EffectTemplate.ADepthChargeHitUnit01,
-    FxImpactProp = EffectTemplate.ADepthChargeHitUnit01,
-    FxImpactUnderWater = EffectTemplate.ADepthChargeHitUnderWaterUnit01,
 
     OnCreate = function(self, inWater)
+    
         OnWaterEntryEmitterProjectileOnCreate(self)
+        
+        if not inWater then
+        
+            self:SetMaxSpeed(10)    -- while not in the water
+            
+            TrackTarget( self, false)
+        
+        else
+        
+            self.OnEnterWater(self)
+            
+        end
+
     end,
 
     OnEnterWater = function(self)
     
         OnWaterEntryEmitterProjectileOnEnterWater(self)
         
-        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0 )
-		
-        for _, v in self.FxEnterWater do 
-            CreateEmitterAtEntity(self, self.Army, v)
-        end
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 0.8 )
+        
+        local bp = __blueprints[self.BlueprintID].Physics
+        
+        self:SetVelocity( 0, -0.3, 0 )                -- stop and descend in the water
+
+        TrackTarget(self, bp.TrackTarget)           -- restore Target tracking
+
+        self:SetAcceleration( bp.Acceleration )     -- restore blueprint accel
+        
+        self:SetMaxSpeed( bp.MaxSpeed )             -- set maximum speed
+
+        StayUnderwater(self, bp.StayUnderwater)     -- restore
 
     end,
 
-    AddDepthCharge = function(self, tbl)
-	
-        if not tbl then return end
-        if not tbl.Radius then return end
-		
-        self.MyDepthCharge = DepthCharge { Owner = self, Radius = tbl.Radius or 10 }
-		
-		if not self.Trash then
-			self.Trash = TrashBag()
-		end
-
-        TrashAdd( self.Trash, self.MyDepthCharge )
-    end,
 }
 
 AGravitonProjectile = Class(EmitterProjectile) {
@@ -268,9 +272,7 @@ ALightLaserProjectile = Class(MultiPolyTrailProjectile) {
 
 }
 
-ASonicPulsarProjectile = Class(EmitterProjectile){
-    FxTrails = EffectTemplate.ASonicPulsarMunition01,
-}
+ASonicPulsarProjectile = Class(EmitterProjectile){ FxTrails = EffectTemplate.ASonicPulsarMunition01 }
 
 AMiasmaProjectile = Class(EmitterProjectile) {
 
@@ -604,7 +606,6 @@ AShieldDisruptorProjectile = Class(SinglePolyTrailProjectile) {
 
 ARocketProjectile = Class(EmitterProjectile) {
 
-    --FxInitial = {},
     FxTrails = {'/effects/emitters/missile_sam_munition_trail_cybran_01_emit.bp',},
     FxTrailOffset = 0.5,
 
@@ -704,10 +705,74 @@ ATorpedoShipProjectile = Class(OnWaterEntryEmitterProjectile) {
     end,    
 }
 
---ATorpedoCluster = Class(ATorpedoShipProjectile) {}
---ATorpedoSubProjectile = Class(ATorpedoShipProjectile) {}
+ATorpedoSplitProjectile = Class(ATorpedoShipProjectile) {
 
-QuasarAntiTorpedoChargeSubProjectile = Class(SinglePolyTrailProjectile) {
+    OnCreate = function(self,InWater)
+	
+        ATorpedoShipProjectile.OnCreate(self,InWater)
+        
+        if InWater then
+            self.OnEnterWater(self)
+        end
+        
+    end,
+
+    OnEnterWater = function(self) 
+		
+		local LOUDCOS = math.cos
+		local LOUDSIN = math.sin
+        local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
+
+        -- we'll use the standard torpedo but apply ZigZag to it on creation
+        -- just a note here - the standard torp immediately starts tracking
+        local ChildProjectileBP = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp'
+        local NumberOfChildProjectiles = 2        
+
+        local Velx, Vely, Velz = self:GetVelocity()
+
+        -- we develop a rather large range of angles, which is ok due to tracking of child
+        local angle             = 6.28 / NumberOfChildProjectiles
+        local angleInitial      = RandomFloat(0, angle)
+        local angleVariation    = angle * 0.7   -- adjusts the angle between torps
+        local spreadMul         = .75           -- Adjusts the width of the dispersal        
+
+        local x, z, proj
+        
+        self:SetVelocity(0)
+		
+        for i = 1, NumberOfChildProjectiles  do
+		
+            x = Velx + (LOUDSIN(angleInitial + (i*angle) + RandomFloat(-angleVariation, angleVariation))) * spreadMul
+            z = Velz + (LOUDCOS(angleInitial + (i*angle) + RandomFloat(-angleVariation, angleVariation))) * spreadMul 
+			
+            proj = self:CreateChildProjectile(ChildProjectileBP)
+            
+            proj:SetVelocity(x, Vely/5, z)
+			
+            proj:PassDamageData(self.DamageData)
+            
+            proj:ChangeMaxZigZag( RandomFloat(5,10) )
+            proj:ChangeZigZagFrequency( RandomFloat(0.1,0.4) )
+
+        end            
+
+        self:Destroy()
+		
+    end,
+    
+    OnImpact = function(self, TargetType, TargetEntity)
+	
+        if (TargetEntity == nil) and (TargetType == "Air") then
+            return
+        end
+		
+        ATorpedoShipProjectile.OnImpact(self, TargetType, TargetEntity)
+		
+    end,    
+
+}
+
+AAntiTorpedoProjectile = Class(SinglePolyTrailProjectile) {
 
     FxTrails = false,
     
@@ -783,24 +848,6 @@ AHeavyDisruptorCannonShell = Class(MultiPolyTrailProjectile) {
 
     FxTrails = EffectTemplate.Aeon_HeavyDisruptorCannonProjectileFxTrails,
     PolyTrails = EffectTemplate.Aeon_HeavyDisruptorCannonProjectileTrails, 
-}
-
-ATorpedoCluster = Class(ATorpedoShipProjectile) {
-
-    --FxInitial = {},
-
-    FxTrailScale = 1,
-    TrailDelay = 0,
-    TrackTime = 0,
-
-    FxUnitHitScale = 1.25,
-
-    FxImpactUnit = ATorpedoUnitHit01,
-    FxImpactProp = ATorpedoUnitHit01,
-    FxImpactUnderWater = EffectTemplate.ATorpedoUnitHitUnderWater01,
-    FxImpactProjectile = ATorpedoUnitHit01,
-    FxImpactProjectileUnderWater = EffectTemplate.ATorpedoUnitHitUnderWater01,
-    FxKilled = ATorpedoUnitHit01,
 }
 
 AQuantumCluster = Class(ABaseTempProjectile) {}

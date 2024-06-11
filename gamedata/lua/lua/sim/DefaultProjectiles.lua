@@ -25,7 +25,7 @@ NullShell = Class(Projectile) {}
 EmitterProjectile = Class(Projectile) {
 
     FxTrails = {'/effects/emitters/missile_munition_trail_01_emit.bp',},
-    FxTrailScale = 1,
+    FxTrailScale = 0.7,
 
     OnCreate = function(self)
 
@@ -88,13 +88,13 @@ MultiBeamProjectile = Class(EmitterProjectile) {
 
 SinglePolyTrailProjectile = Class(EmitterProjectile) {
 
-    PolyTrails = '/effects/emitters/test_missile_trail_emit.bp',
+    PolyTrail = '/effects/emitters/test_missile_trail_emit.bp',
 
     OnCreate = function(self)
     
         EmitterProjectileOnCreate(self)
 	
-        if self.PolyTrails then
+        if self.PolyTrail then
         
             if self.PolytrailOffset then
                 LOUDTRAIL(self, -1, self.Army, self.PolyTrail):OffsetEmitter(0, 0, self.PolyTrailOffset)
@@ -114,7 +114,7 @@ MultiPolyTrailProjectile = Class(EmitterProjectile) {
     OnCreate = function(self)
     
         EmitterProjectileOnCreate(self)
-		
+
         if self.PolyTrails then
 		
 			local army = self.Army
@@ -184,70 +184,26 @@ MultiCompositeEmitterProjectile = Class(MultiPolyTrailProjectile) {
 
 OnWaterEntryEmitterProjectile = Class(Projectile) {
 
-    FxTrails = {'/effects/emitters/torpedo_munition_trail_01_emit.bp','/effects/emitters/anti_torpedo_flare_01_emit.bp','/effects/emitters/anti_torpedo_flare_02_emit.bp' },
-    FxTrailScale = 1,
+    FxTrails = {'/effects/emitters/anti_torpedo_flare_01_emit.bp' },
+    FxTrailScale = 0.4,
 
     PolyTrail = false,
 
     TrailDelay = 3,
-	
-    EnterWaterSound = 'Torpedo_Enter_Water_01',
 
     OnCreate = function(self, inWater)
 	
         ProjectileOnCreate(self, inWater)
 		
         if inWater then
-        
-            local Army      = self.Army
-            local FxTrails  = self.FxTrails or false
-            local PolyTrail = self.PolyTrail or false
-		
-            if FxTrails then
-                
-                LOUDEMITONENTITY = LOUDEMITONENTITY
-            
-                for i in FxTrails do
-                
-                    if self.FxTrailOffset then
-                        LOUDEMITONENTITY(self, Army, FxTrails[i]):ScaleEmitter(self.FxTrailScale):OffsetEmitter(0, 0, self.FxTrailOffset)
-                    else
-                        if self.FxTrailScale != 1 then
-                            LOUDEMITONENTITY(self, Army, FxTrails[i]):ScaleEmitter(self.FxTrailScale)
-                        else
-                            LOUDEMITONENTITY(self, Army, FxTrails[i])
-                        end
-                    end
-                end
-            end
-			
-			if PolyTrail then
-            
-                if self.PolyTrailOffset then
-                    LOUDTRAIL(self, -1, Army, PolyTrail):OffsetEmitter(0, 0, self.PolyTrailOffset)
-                else
-                    LOUDTRAIL(self, -1, Army, PolyTrail)
-                end
-			end
+       
+            self:ForkThread( self.InWaterEffects )
 			
 		end
         
     end,
 
-    EnterWaterThread = function(self)
-
-        local Army = self.Army
-        
-        local FxEnterWater  = self.FxEnterWater or false
-        local FxTrails      = self.FxTrails or false
-        local PolyTrail     = self.PolyTrail or false
-		
-        if FxEnterWater then
-
-            for k, v in FxEnterWater do
-                CreateEmitterAtEntity(self, Army, v):ScaleEmitter(self.FxSplashScale or 1)
-			end
-        end
+    InWaterEffects = function(self, Army, FxTrails, PolyTrail)
 	
         WaitTicks(self.TrailDelay)
 
@@ -258,9 +214,9 @@ OnWaterEntryEmitterProjectile = Class(Projectile) {
             for i in FxTrails do
             
                 if self.FxTrailOffset then
-                    LOUDEMITONENTITY(self, Army, FxTrails[i]):ScaleEmitter(self.FxTrailScale):OffsetEmitter(0, 0, self.FxTrailOffset)
+                    TrashAdd( self.Trash, LOUDEMITONENTITY(self, Army, FxTrails[i]):ScaleEmitter(self.FxTrailScale):OffsetEmitter(0, 0, self.FxTrailOffset))
                 else
-                    LOUDEMITONENTITY(self, Army, FxTrails[i]):ScaleEmitter(self.FxTrailScale)
+                    TrashAdd( self.Trash, LOUDEMITONENTITY(self, Army, FxTrails[i]):ScaleEmitter(self.FxTrailScale))
                 end
             end
         end
@@ -268,9 +224,9 @@ OnWaterEntryEmitterProjectile = Class(Projectile) {
         if PolyTrail then
         
             if self.PolyTrailOffset != 0 then
-                LOUDTRAIL(self, -1, Army, PolyTrail):OffsetEmitter(0, 0, self.PolyTrailOffset)
+                TrashAdd( self.Trash, LOUDTRAIL(self, -1, Army, PolyTrail):OffsetEmitter(0, 0, self.PolyTrailOffset))
             else
-                LOUDTRAIL(self, -1, Army, PolyTrail)
+                TrashAdd( self.Trash, LOUDTRAIL(self, -1, Army, PolyTrail))
             end
         end
 		
@@ -283,16 +239,52 @@ OnWaterEntryEmitterProjectile = Class(Projectile) {
 		
         self:TrackTarget(true)
         self:StayUnderwater(true)
+
+        local Army = self.Army
+        
+        local FxEnterWater  = self.FxEnterWater or false
+        local FxTrails      = self.FxTrails or false
+        local PolyTrail     = self.PolyTrail or false
 		
-        self.TTT1 = self:ForkThread( self.EnterWaterThread )
+        if FxEnterWater then
+        
+            for k, v in FxEnterWater do
+                CreateEmitterAtEntity(self, Army, v):ScaleEmitter(self.FxSplashScale or 1)
+			end
+        end
+
+        -- this should create inwater effects
+        self:ForkThread( self.InWaterEffects, Army, FxTrails, PolyTrail )
 		
+    end,
+    
+    OnExitWater = function(self)
+
+        -- this should create the audio event
+        Projectile.OnExitWater(self)
+
+        local Army = self.Army
+        
+        local FxEnterWater  = self.FxEnterWater or false
+		
+        if FxEnterWater then
+        
+            for k, v in FxEnterWater do
+                CreateEmitterAtEntity(self, Army, v):ScaleEmitter(self.FxSplashScale or 1)
+			end
+        end
+	    
+        -- this should kill any inwater effects
+        TrashDestroy( self.Trash )
+	    
     end,
 
     OnImpact = function(self, TargetType, TargetEntity)
 	
         ProjectileOnImpact(self, TargetType, TargetEntity)
-		
-        KillThread(self.TTT1)
+        
+        TrashDestroy( self.Trash )
+
     end,
 	
 }

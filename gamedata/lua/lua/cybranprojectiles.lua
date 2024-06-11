@@ -158,10 +158,7 @@ CAANanoDartProjectile = Class(SinglePolyTrailProjectile) {
     FxImpactLand = EffectTemplate.CNanoDartLandHit01,
 }
 
-CAANanoDartProjectile02 = Class(CAANanoDartProjectile) {
-
-    PolyTrail= EffectTemplate.CNanoDartPolyTrail02,
-}
+CAANanoDartProjectile02 = Class(CAANanoDartProjectile) { PolyTrail= EffectTemplate.CNanoDartPolyTrail02 }
 
 CAANanoDartProjectile03 = Class(CAANanoDartProjectile) {
 
@@ -518,7 +515,8 @@ CRocketProjectile = Class(SingleBeamProjectile) {
 CLOATacticalMissileProjectile = Class(SingleBeamProjectile) {
 
     BeamName = '/effects/emitters/missile_loa_munition_exhaust_beam_01_emit.bp',
-    FxTrails = {'/effects/emitters/missile_cruise_munition_trail_01_emit.bp',},
+    FxTrails = {'/effects/emitters/missile_cruise_munition_trail_01_emit.bp'},
+    
     FxTrailOffset = -0.5,
     FxExitWaterEmitter = EffectTemplate.TIFCruiseMissileLaunchExitWater,
     
@@ -541,6 +539,7 @@ CLOATacticalChildMissileProjectile = Class(SingleBeamProjectile) {
 
     BeamName = '/effects/emitters/missile_loa_munition_exhaust_beam_02_emit.bp',
     FxTrails = {'/effects/emitters/missile_cruise_munition_trail_03_emit.bp',},
+
     FxTrailOffset = -0.5,
     FxExitWaterEmitter = EffectTemplate.TIFCruiseMissileLaunchExitWater,
     
@@ -607,28 +606,38 @@ CShellRiotProjectile = Class(SingleBeamProjectile) {
 
 CTorpedoShipProjectile = Class(OnWaterEntryEmitterProjectile) {
 
-    FxSplashScale = 0.5,
-    FxTrails = {'/effects/emitters/torpedo_munition_trail_01_emit.bp',},
-    FxTrailScale = 1.25,
-    FxTrailOffset = 0.2,    
-    FxEnterWater= { '/effects/emitters/water_splash_ripples_ring_01_emit.bp','/effects/emitters/water_splash_plume_01_emit.bp'},
+    FxTrails        = {'/effects/emitters/torpedo_munition_trail_01_emit.bp',},
+    FxTrailScale    = 1,
+    FxTrailOffset   = 0.2,
+    TrailDelay      = 2,
+    
+    FxEnterWater= { '/effects/emitters/water_splash_ripples_ring_01_emit.bp'},
+    FxSplashScale = 0.55,
 
-    FxUnitHitScale = 1.25,
-    FxImpactUnit = EffectTemplate.CTorpedoUnitHit01,
-    FxImpactProp = EffectTemplate.CTorpedoUnitHit01,
-    FxImpactUnderWater = EffectTemplate.CTorpedoUnderWaterImpactHit,
+    FxUnitHitScale          = 1,
+    FxUnderWaterHitScale    = 1.2,
+    
+    FxImpactUnit                    = EffectTemplate.CTorpedoUnitHit01,
+    FxImpactUnitUnderWater          = EffectTemplate.CTorpedoUnitHit01,
+    FxImpactProjectileUnderWater    = EffectTemplate.SUallTorpedoHit,
 
     OnCreate = function(self, inWater)
     
         OnWaterEntryEmitterProjectileOnCreate(self, inWater)
-        
+		
         -- if we are starting in the water then immediately switch to tracking in water
-        if inWater == true then
-            TrackTarget(self,true)
-            StayUnderwater(self,true)
+        if not inWater then
 
-            self:OnEnterWater(self)
+            TrackTarget(self,false)             -- dont track target while in the air
+
+            self:SetAcceleration( -1 )           -- start slowing down while in the air
+
+        else
+        
+            SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0 )
+            
         end
+
     end,
     
     OnEnterWater = function(self)
@@ -636,40 +645,136 @@ CTorpedoShipProjectile = Class(OnWaterEntryEmitterProjectile) {
         OnWaterEntryEmitterProjectileOnEnterWater(self)
         
         SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
+        
+        local bp = __blueprints[self.BlueprintID].Physics
+        
+        self:SetVelocity( 0, -1, 0 )                -- stop and descend in the water
+
+        TrackTarget(self, bp.TrackTarget)           -- restore Target tracking
+
+        self:SetAcceleration( bp.Acceleration )     -- restore blueprint accel
+        
+        self:SetMaxSpeed( bp.MaxSpeed )             -- set maximum speed
+
+        StayUnderwater(self, bp.StayUnderwater)     -- restore
+        
     end,     
 }
 
-CTorpedoSubProjectile = Class(EmitterProjectile) {
+CKrilTorpedo = Class(OnWaterEntryEmitterProjectile) {
 
-    FxTrails = {'/effects/emitters/torpedo_underwater_wake_02_emit.bp' },
+    FxTrails        = {'/effects/emitters/torpedo_munition_trail_01_emit.bp',},
+    FxTrailScale    = 0.8,
+    TrailDelay      = 2,
 
-    FxUnitHitScale = 1,
-    FxImpactUnit = EffectTemplate.CTorpedoUnitHit01,
-    FxImpactProp = EffectTemplate.CTorpedoUnitHit01,
-    FxImpactUnderWater = EffectTemplate.CTorpedoUnderWaterImpactHit,
-    FxImpactLand = EffectTemplate.CTorpedoUnderWaterImpactHit,
-    FxLandHitScale = 0.25,
+    FxEnterWater= { '/effects/emitters/water_splash_ripples_ring_01_emit.bp'},
+    FxSplashScale = 0.5,
+
+    FxUnitHitScale          = 0.7,
+    FxUnderWaterHitScale    = 1.1,
+    
+    FxImpactUnit                    = EffectTemplate.CMolecularRipperHit01,
+    FxImpactUnitUnderWater          = EffectTemplate.CTorpedoUnitHit01,
+    FxImpactProjectileUnderWater    = EffectTemplate.SUallTorpedoHit,
 
     OnCreate = function(self, inWater)
-    
-        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
+	
+        OnWaterEntryEmitterProjectileOnCreate(self, inWater)
+		
+        self.TurnThread = self:ForkThread(self.IncreaseTurnRate)
+
+        if inWater then
         
-        EmitterProjectileOnCreate(self, inWater)
+            SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.5)
+            
+        else
+        
+            self.OnExitWater(self)
+        end
+		
+    end,	
+   
+    OnEnterWater = function(self)
+    
+        OnWaterEntryEmitterProjectileOnEnterWater(self)
+        
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.5)
+        
+        local bp = __blueprints[self.BlueprintID].Physics
+
+        self:SetAcceleration( bp.Acceleration )                 -- restore blueprint accel
+        
+        self:ChangeZigZagFrequency( bp.ZigZagFrequency or 0 )   -- restore ZigZag
+
+        StayUnderwater(self, bp.StayUnderwater)                 -- restore
+
+		self:ForkThread(self.EnableTargetTrack)
+		
     end,
+
+	OnExitWater = function(self)
+    
+        OnWaterEntryEmitterProjectile.OnExitWater(self)
+        
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 0.5)
+	
+		TrackTarget(self,false)         -- stop tracking 
+        
+        self:SetAcceleration(-2)        -- slow down while in mid-air
+        
+        self:ChangeZigZagFrequency(0)   -- stop any zigzag action
+		
+	end,
+
+	EnableTargetTrack = function(self)
+	
+		WaitTicks( 1 )
+		
+		TrackTarget(self,true)
+	
+	end,
+	
+	IncreaseTurnRate = function(self)
+        
+        local bp = __blueprints[self.BlueprintID].Physics
+	
+		WaitTicks(10)
+		
+		self:SetTurnRate(72)
+		
+		WaitTicks(10)
+        
+        self:ChangeMaxZigZag(2)
+        
+		self:SetTurnRate(180)
+		
+		WaitTicks(11)
+        
+        self:ChangeMaxZigZag(1)
+        
+        self:SetMaxSpeed( bp.MaxSpeed - 1 )             -- set maximum speed
+        
+		self:SetTurnRate(270)
+        
+        WaitTicks(11)
+        
+        self:ChangeZigZagFrequency(0)   -- stop any zigzag action
+        
+        self:SetMaxSpeed( bp.MaxSpeed - 2 )             -- set maximum speed
+        
+        self:SetTurnRate(360)
+        
+		
+	end,
+	
 }
 
 CDepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
-
-    --FxInitial = {},
 	
     FxTrails = {'/effects/emitters/anti_torpedo_flare_01_emit.bp','/effects/emitters/anti_torpedo_flare_02_emit.bp'},
 
-    FxImpactUnit = EffectTemplate.CAntiTorpedoHit01,
-    FxImpactProp = EffectTemplate.CAntiTorpedoHit01,
-    FxImpactUnderWater = EffectTemplate.CAntiTorpedoHit01,    
     FxImpactProjectile = EffectTemplate.CAntiTorpedoHit01,
-    FxImpactNone = EffectTemplate.CAntiTorpedoHit01,
-    FxOnKilled = EffectTemplate.CAntiTorpedoHit01,
+
     FxEnterWater= EffectTemplate.WaterSplash01,
 
     OnCreate = function(self, inWater)
@@ -689,8 +794,9 @@ CDepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
         
         SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
         
-        self:TrackTarget(false)
-        self:StayUnderwater(true)
+        TrackTarget(self,false)
+        StayUnderwater(self,true)
+
         self:SetTurnRate(0)
         self:SetMaxSpeed(1)
         self:SetVelocity(0, -0.25, 0)
@@ -698,22 +804,6 @@ CDepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
 		
     end,
 
-    AddDepthCharge = function(self, tbl)
-	
-        if not tbl then return end
-		
-        if not tbl.Radius then return end
-		
-        self.MyDepthCharge = DepthCharge { Owner = self, Radius = tbl.Radius or 10,}
-		
-		if not self.Trash then
-		
-			self.Trash = TrashBag()
-			
-		end
-		
-        self.Trash:Add(self.MyDepthCharge)
-    end,
 }
 
 CHeavyDisintegratorPulseLaser = Class(MultiPolyTrailProjectile) {
@@ -728,5 +818,3 @@ CHeavyDisintegratorPulseLaser = Class(MultiPolyTrailProjectile) {
     FxImpactProp = EffectTemplate.CHvyDisintegratorHitUnit01,
     FxImpactLand = EffectTemplate.CHvyDisintegratorHitLand01,
 }
-
-CKrilTorpedo = Class(OnWaterEntryEmitterProjectile) {}

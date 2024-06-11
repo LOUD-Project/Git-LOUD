@@ -158,59 +158,35 @@ TCannonSeaProjectile = Class(SingleBeamProjectile) { BeamName = '/effects/emitte
 
 TCannonTankProjectile = Class(SingleBeamProjectile) { BeamName = '/effects/emitters/cannon_munition_tank_beam_01_emit.bp' }
 
-TDepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
+TTorpedoDecoyProjectile = Class(OnWaterEntryEmitterProjectile) {
+    
+    TrailDelay = 3,
 
-    --FxInitial = {},
-    FxTrails = {'/effects/emitters/torpedo_underwater_wake_01_emit.bp',},
-    TrailDelay = 0,
+    FxUnitHitScale = 1,
 
-    FxUnitHitScale = 1.25,
     FxImpactUnit = EffectTemplate.TTorpedoHitUnit01,
     FxImpactProp = EffectTemplate.TTorpedoHitUnit01,
     FxImpactUnderWater = EffectTemplate.TTorpedoHitUnitUnderwater01,
     FxImpactProjectile = EffectTemplate.TTorpedoHitUnit01,
 
-    FxEnterWater= EffectTemplate.WaterSplash01,
-
     OnCreate = function(self, inWater)
 	
-        OnWaterEntryEmitterProjectile.OnCreate(self)
+        OnWaterEntryEmitterProjectileOnCreate(self)
 		
-        self:TrackTarget(false)
-		
+        TrackTarget(self,false)
     end,
 
     OnEnterWater = function(self)
-	
-        OnWaterEntryEmitterProjectile.OnEnterWater(self)
-		
-        local army = self.Army
 
-        for k, v in self.FxEnterWater do
-            CreateEmitterAtEntity(self,army,v)
-        end
+        CreateEmitterAtEntity( self, self.Army, '/effects/emitters/water_splash_ripples_ring_01_emit.bp'):ScaleEmitter(0.3)	
 
-        self:TrackTarget(false)
-        self:StayUnderwater(true)
-		
+        OnWaterEntryEmitterProjectileOnEnterWater(self)
+
+        TrackTarget(self,false)
+
+        StayUnderwater(self,true)
     end,
 
-    AddDepthCharge = function(self, tbl)
-	
-        if not tbl then return end
-		
-        if not tbl.Radius then return end
-		
-        self.MyDepthCharge = DepthCharge { Owner = self, Radius = tbl.Radius or 10,}
-		
-		if not self.Trash then
-		
-			self.Trash = TrashBag()
-			
-		end
-
-        TrashAdd( self.Trash, self.MyDepthCharge )
-    end,
 }
 
 TDFGaussCannonProjectile = Class(MultiPolyTrailProjectile) {
@@ -373,6 +349,7 @@ TMissileCruiseProjectile02 = Class(SingleBeamProjectile) {
     FxImpactUnit = EffectTemplate.TShipGaussCannonHitUnit02,
     FxImpactProp = EffectTemplate.TShipGaussCannonHit02,
     FxImpactLand = EffectTemplate.TShipGaussCannonHit02,
+    FxImpactWater = EffectTemplate.DefaultProjectileWaterImpact,
 
     OnImpact = function(self, targetType, targetEntity)
 
@@ -508,56 +485,66 @@ TShellRiotProjectileLand02 = Class(TShellRiotProjectileLand) { PolyTrails = Effe
 
 TTorpedoShipProjectile = Class(OnWaterEntryEmitterProjectile) {
 
-    --FxInitial = {},
     FxTrails = {'/effects/emitters/torpedo_underwater_wake_01_emit.bp',},
-    TrailDelay = 0,
 
-    FxUnitHitScale = 1.25,
-    FxImpactUnit = EffectTemplate.TTorpedoHitUnit01,
-    FxImpactProp = EffectTemplate.TTorpedoHitUnit01,
-    FxImpactUnderWater = EffectTemplate.TTorpedoHitUnitUnderwater01,
-    FxEnterWater= EffectTemplate.WaterSplash01,
+    FxUnitHitScale = 1.1,
+    
+    FxEnterWater= { '/effects/emitters/water_splash_ripples_ring_01_emit.bp'},
+    FxSplashScale = 0.65,
 
-    OnCreate = function(self, inWater)
+    FxImpactProp                = EffectTemplate.TTorpedoHitUnit01,
+    FxImpactUnit                = EffectTemplate.TTorpedoHitUnit01,
+    FxImpactUnitUnderWater      = EffectTemplate.TTorpedoHitUnitUnderwater01,
 
-        OnWaterEntryEmitterProjectileOnCreate(self)
+    FxImpactProjectileUnderWater    = EffectTemplate.SUallTorpedoHit,
 
-        if inWater == true then
-            TrackTarget(self,true)
-            StayUnderwater(self,true)
-            self:OnEnterWater(self)
-        end
-    end,
+    OnCreate = function(self,inWater)
 
-    OnEnterWater = function(self)
+        OnWaterEntryEmitterProjectileOnCreate(self,inWater)
+		
+        -- if we are starting in the water then immediately switch to tracking in water
+        if not inWater then
 
-        OnWaterEntryEmitterProjectileOnEnterWater(self)
+            TrackTarget(self,false)             -- dont track target while in the air
+
+            self:SetAcceleration( -1 )           -- start slowing down while in the air
+
+        else
         
-        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
-
-        for k, v in self.FxEnterWater do
-            CreateEmitterAtEntity(self, self.Army, v):ScaleEmitter(0.4)
+            SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0 )
+            
         end
-        
-        TrackTarget(self,true)
-        StayUnderwater(self,true)
 
-        self:SetTurnRate(120)
-        self:SetMaxSpeed(18)
-        self:ForkThread(self.MovementThread)
     end,
     
-    MovementThread = function(self)
-        WaitTicks(1)
-        self:SetVelocity(3)
-    end,
+    OnEnterWater = function(self)
+    
+        OnWaterEntryEmitterProjectileOnEnterWater(self)
+        
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0 )
+        
+        local bp = __blueprints[self.BlueprintID].Physics
+        
+        self:SetVelocity( 0, -1, 0 )                -- stop and descend in the water
+
+        TrackTarget(self, bp.TrackTarget)           -- restore Target tracking
+
+        self:SetAcceleration( bp.Acceleration )     -- restore blueprint accel
+        
+        self:SetMaxSpeed( bp.MaxSpeed )             -- set maximum speed
+
+        StayUnderwater(self, bp.StayUnderwater)     -- restore
+
+    end,  
 }
 
+--[[
 TTorpedoSubProjectile = Class(EmitterProjectile) {
 
-    FxTrails = {'/effects/emitters/torpedo_munition_trail_01_emit.bp',},
+    FxTrails = {'/effects/emitters/torpedo_munition_trail_01_emit.bp'},
 
-    FxUnitHitScale = 1.25,
+    FxUnitHitScale = 1.1,
+
     FxImpactUnit = EffectTemplate.TTorpedoHitUnit01,
     FxImpactProp = EffectTemplate.TTorpedoHitUnit01,
     FxImpactUnderWater = EffectTemplate.TTorpedoHitUnitUnderwater01,
@@ -569,6 +556,7 @@ TTorpedoSubProjectile = Class(EmitterProjectile) {
         EmitterProjectileOnCreate(self, inWater)
     end,
 }
+--]]
 
 TBaseTempProjectile = Class(SinglePolyTrailProjectile) {
 

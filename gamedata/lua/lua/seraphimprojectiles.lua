@@ -258,7 +258,6 @@ SThunthoArtilleryShell = Class(MultiPolyTrailProjectile) {
     PolyTrails = EffectTemplate.SThunderStormCannonProjectilePolyTrails,
 }
 
-
 SThunthoArtilleryShell2 = Class(MultiPolyTrailProjectile) {
 
 	FxImpactLand = EffectTemplate.SThunderStormCannonLandHit,
@@ -330,58 +329,102 @@ SOtheTacticalBomb= Class(SinglePolyTrailProjectile) {
     PolyTrail =				EffectTemplate.SOtheBombPolyTrail,
 }
 
-SAnaitTorpedo = Class(MultiPolyTrailProjectile) {
-    FxImpactUnderWater =	EffectTemplate.SAnaitTorpedoHit,
-    FxUnderWaterHitScale =	1,
-    FxImpactUnit =			EffectTemplate.SAnaitTorpedoHit,    
-    FxImpactNone =			EffectTemplate.SAnaitTorpedoHit,
-    FxTrails =				EffectTemplate.SAnaitTorpedoFxTrails,
-    PolyTrails =			EffectTemplate.SAnaitTorpedoPolyTrails,
+
+STorpedoShipProjectile = Class(MultiPolyTrailProjectile) {
+
+    FxTrails            = EffectTemplate.SAnaitTorpedoFxTrails,
+    FxTrailScale        = 1.5,
     
+    PolyTrails          = EffectTemplate.SAnaitTorpedoPolyTrails,
+    
+    FxEnterWater= { '/effects/emitters/water_splash_ripples_ring_01_emit.bp'},
+    FxSplashScale = 0.65,
+
+    FxNoneHitScale = 0.2,    
+    FxUnitHitScale = 0.9,
+
+    FxImpactUnitUnderWater          = EffectTemplate.SAnaitTorpedoHit,
+
+    OnCreate = function(self,inWater)
+
+        MultiPolyTrailProjectile.OnCreate(self,inWater)
+
+        if not inWater then
+
+            TrackTarget(self,false)         -- dont track target while in the air
+
+            self:SetAcceleration( -0.3 )    -- slow down while in the air
+
+        else
+        
+            SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0 )
+            
+        end
+        
+    end,
+    
+    OnEnterWater = function(self)
+        
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0 )
+        
+        local bp = __blueprints[self.BlueprintID].Physics
+        
+        local x,y,z = self:GetVelocity()
+        
+        self:SetVelocity( x, y-0.3, z )                -- descend in the water
+
+        self:ForkThread(self.EngageTracking)
+
+        self:SetAcceleration( bp.Acceleration )     -- restore blueprint accel
+        
+        self:SetMaxSpeed( bp.MaxSpeed )             -- set maximum speed
+
+        StayUnderwater(self, bp.StayUnderwater)     -- restore
+
+    end,
+    
+    EngageTracking = function(self)
+    
+        WaitTicks(4)
+        
+        self:TrackTarget(true)
+    end,
+    
+}
+
+SHeavyCavitationTorpedo = Class(STorpedoShipProjectile) {
+
+    FxTrails            = EffectTemplate.SUallTorpedoFxTrails,
+    FxTrailScale        = 1.5,
+
+    PolyTrails          = EffectTemplate.SHeavyCavitationTorpedoPolyTrails,
+
+    FxImpactUnit        = EffectTemplate.SHeavyCavitationTorpedoHit,    
+
+}
+
+SUallCavitationTorpedo = Class(STorpedoShipProjectile) {
+
+    FxTrails            = EffectTemplate.SUallTorpedoFxTrails,
+    FxTrailScale        = 1.5,
+    
+    PolyTrails          = EffectTemplate.SUallTorpedoPolyTrail,
+    
+    FxImpactUnit        = EffectTemplate.SUallTorpedoHit,
+
     OnCreate = function(self, inWater)
+
+        SinglePolyTrailProjectileOnCreate(self, inWater)
     
         SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
         
-        MultiPolyTrailProjectileOnCreate(self, inWater)
-    end,
-}
-
-SHeavyCavitationTorpedo = Class(MultiPolyTrailProjectile) {
-
-	FxImpactLand =			EffectTemplate.SHeavyCavitationTorpedoHit,
-    FxImpactUnit =			EffectTemplate.SHeavyCavitationTorpedoHit,    
-
-    FxTrails =				EffectTemplate.SUallTorpedoFxTrails,
-    PolyTrails =			EffectTemplate.SHeavyCavitationTorpedoPolyTrails,
-
-    OnCreate = function(self, inWater)
-    
-        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
-        
-        MultiPolyTrailProjectileOnCreate(self, inWater)
-    end,
-}
-
-SUallCavitationTorpedo = Class(SinglePolyTrailProjectile) {
-
-    FxImpactUnderWater =	EffectTemplate.SUallTorpedoHit,
-
-    FxUnderWaterHitScale =	1,
-
-    FxTrails =				EffectTemplate.SUallTorpedoFxTrails,
-    PolyTrail =				EffectTemplate.SUallTorpedoPolyTrail,
-    
-    OnCreate = function(self, inWater)
-    
         if not inWater then
         
             self:TrackTarget(false)
         
         end
-    
-        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
         
-        SinglePolyTrailProjectileOnCreate(self, inWater)
+
     end,
     
     OnEnterWater = function(self)

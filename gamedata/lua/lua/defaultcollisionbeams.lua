@@ -31,10 +31,28 @@ ParticleCannonCollisionBeam = Class(SCCollisionBeam) {
     FxBeamEndPointScale = 1,
 }
 
-ZapperCollisionBeam = Class(SCCollisionBeam) {
+ZapperCollisionBeam = Class(CollisionBeam) {
 
     FxBeam = {'/effects/emitters/zapper_beam_01_emit.bp'},
     FxBeamEndPoint = {'/effects/emitters/cannon_muzzle_flash_01_emit.bp','/effects/emitters/sparks_07_emit.bp'},
+
+
+    OnCollisionCheck = function( self, other )
+    
+        if LOUDENTITY( categories.TACTICAL, other ) and not (self.Army == other.Army) then
+        
+            SetCollisionShape( other, 'none' )
+            other:SetVelocity( 0 )
+            other:SetDrawScale( 0.1 )
+
+            other:Destroy()            
+            
+            return true
+        else
+            return false
+        end
+
+    end,   
 }
 
 --   QUANTUM BEAM GENERATOR COLLISION BEAM
@@ -104,8 +122,10 @@ PhasonLaserCollisionBeam = Class(SCCollisionBeam) {
     FxBeam = {'/effects/emitters/phason_laser_beam_01_emit.bp'},
     FxBeamEndPoint = EffectTemplate.APhasonLaserImpact01,
 
+    FxLandHitScale  = 0.1625,
+
     SplatTexture = 'czar_mark01_albedo',
-    ScorchSize = 1.2,
+    ScorchSize = 1.1,
 
 }
 
