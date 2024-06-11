@@ -17,8 +17,6 @@ ProjectileBlueprint {
         MaxHealth = 25,
     },
 
-    Description = 'AEON Nuclear Missile',
-
     DesiredShooterCap = 1,
 
     Display = {
@@ -34,10 +32,6 @@ ProjectileBlueprint {
         BuildCostEnergy = 1350000,
         BuildCostMass = 16000,
         BuildTime = 324000,
-    },
-
-    Interface = {
-        HelpText = 'AEON Nuclear Missile',
     },
 
     Physics = {
