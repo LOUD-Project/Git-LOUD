@@ -245,6 +245,7 @@ function CreateAeonBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
     slider:SetWorldUnits(true)
     slider:SetGoal(0, -sy, 0)
     slider:SetSpeed(-2)
+    
     WaitFor(slider)
 	
     slider:SetSpeed(0.25)
@@ -278,15 +279,15 @@ function CreateAeonConstructionUnitBuildingEffects( builder, unitBeingBuilt, Bui
     local army = builder.Army
     local projectile
 
-    local LOUDATTACHBEAMENTITY = LOUDATTACHBEAMENTITY        
-    local LOUDINSERT = LOUDINSERT
-    local LOUDWARP = LOUDWARP
-    local ScaleEmitter = ScaleEmitter
-    local TrashAdd = TrashAdd
+    local LOUDWARP              = LOUDWARP
+    local ScaleEmitter          = ScaleEmitter
 
     -- create perm projectile 
     if not builder.BuildProjectile then
 
+        local LOUDATTACHBEAMENTITY  = LOUDATTACHBEAMENTITY
+        local TrashAdd = TrashAdd        
+        
         builder.BuildProjectile = Entity()
         
         projectile = builder.BuildProjectile
@@ -300,19 +301,24 @@ function CreateAeonConstructionUnitBuildingEffects( builder, unitBeingBuilt, Bui
         builder.BuildEmitters = {}
         
         local beamEffect
+        local counter = 0
 
         for _, v in AeonBuildBeams01 do
     
             beamEffect = LOUDATTACHBEAMENTITY(builder, 0, projectile, -1, army, v )
+            
+            counter = counter + 1
 
-            LOUDINSERT( builder.BuildEmitters, beamEffect )
+            builder.BuildEmitters[counter] = beamEffect
         
             TrashAdd( builder.Trash, beamEffect )
         end
         
         beamEffect = LOUDEMITONENTITY(builder, army,'/effects/emitters/aeon_build_01_emit.bp')
+        
+        counter = counter + 1
 
-        LOUDINSERT( builder.BuildEmitters, beamEffect )
+        builder.BuildEmitters[counter] = beamEffect
         
         TrashAdd( builder.Trash, beamEffect )
         
@@ -336,13 +342,15 @@ function CreateAeonCommanderBuildingEffects( builder, unitBeingBuilt, BuildBones
     local army = builder.Army
     local projectile
 
-    local LOUDATTACHBEAMENTITY = LOUDATTACHBEAMENTITY    
-    local LOUDINSERT = LOUDINSERT
-    local LOUDWARP = LOUDWARP
+    local LOUDWARP              = LOUDWARP
+    
     local ScaleEmitter = ScaleEmitter
-    local TrashAdd = TrashAdd
+
     
     if not builder.BuildProjectile then
+        
+        local LOUDATTACHBEAMENTITY  = LOUDATTACHBEAMENTITY    
+        local TrashAdd = TrashAdd
     
         builder.BuildProjectile = Entity()
         
@@ -358,21 +366,26 @@ function CreateAeonCommanderBuildingEffects( builder, unitBeingBuilt, BuildBones
         builder.BuildEmitters = {}
     
         local beamEffect
-
+        local counter = 0
+        
         for _, vBone in BuildBones do
 
             for _, v in AeonBuildBeams01 do
         
                 beamEffect = LOUDATTACHBEAMENTITY( builder, vBone, projectile, -1, army, v )
                 
-                LOUDINSERT( builder.BuildEmitters, beamEffect )
+                counter = counter + 1
+                
+                builder.BuildEmitters[counter] = beamEffect
             
                 TrashAdd( builder.Trash, beamEffect )
             end
         
             beamEffect = LOUDATTACHEMITTER( builder, vBone, army, '/effects/emitters/aeon_build_02_emit.bp' )
             
-            LOUDINSERT( builder.BuildEmitters, beamEffect )
+            counter = counter + 1
+            
+            builder.BuildEmitters[counter] = beamEffect
     
             TrashAdd( builder.Trash, beamEffect )
             
@@ -857,7 +870,9 @@ function CreateDefaultBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Bui
                 if not builder.BuildProjectile then
                     builder.BuildProjectile = {}
                 end
-
+                
+                local BuilderTrash = builder.Trash
+                
                 -- create the projectile
                 builder.BuildProjectile[BuildBone] = Entity()
                 
@@ -867,19 +882,19 @@ function CreateDefaultBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Bui
                 
                 LOUDWARP( projectile, builder.CachePosition )
                 
-                projectile.Trash = TrashBag()
-                projectile.BulidEffectsBag = TrashBag()
+                projectile.Trash             = TrashBag()
+                projectile.BulidEffectsBag   = TrashBag()
                 
-                TrashAdd( builder.Trash, projectile )
+                TrashAdd( BuilderTrash, projectile )
                 
                 -- create the spark emitter on the projectile
                 projectile.Emitter = LOUDEMITONENTITY( projectile, army, '/effects/emitters/sparks_08_emit.bp')
                
-                TrashAdd( builder.Trash, projectile.Emitter )
+                TrashAdd( BuilderTrash, projectile.Emitter )
                 
                 projectile.Sparker = CreateAttachedEmitter( builder, BuildBone, army, '/effects/emitters/flashing_blue_glow_01_emit.bp' )
                 
-                TrashAdd( builder.Trash, projectile.Sparker )
+                TrashAdd( BuilderTrash, projectile.Sparker )
             end
 
             projectile = builder.BuildProjectile[BuildBone]
@@ -895,7 +910,6 @@ function CreateDefaultBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Bui
             
         end
     end    
-
     
 end
 
@@ -1066,18 +1080,20 @@ end
 function CreateCybranEngineerBuildEffects( builder, unitBeingBuilt, BuildBones, BuildBots, BuildEffectsBag )
 
     if builder.Dead then return end
-    
-    local LOUDATTACHEMITTER = LOUDATTACHEMITTER
-    local ScaleEmitter = ScaleEmitter
-    local TrashAdd = TrashAdd
 
     -- Create constant build effect for each build bone defined
     if BuildBones then
-
+    
+        local ScaleEmitter = ScaleEmitter
+        
         -- create permanent blinkers and control beams
         if not builder.BuildEmitter then
-
+        
+            local LOUDATTACHEMITTER = LOUDATTACHEMITTER
+            local TrashAdd = TrashAdd
+            
             local army = builder.Army
+            local Trash = builder.Trash
         
             builder.BuildEmitter = {}
 		
@@ -1088,14 +1104,14 @@ function CreateCybranEngineerBuildEffects( builder, unitBeingBuilt, BuildBones, 
                 
                     builder.BuildEmitter[vBone] = LOUDATTACHEMITTER( builder, vBone, army, vEffect)
                     
-                    TrashAdd( builder.Trash, builder.BuildEmitter[vBone] )
+                    TrashAdd( Trash, builder.BuildEmitter[vBone] )
                     
                     -- create a permanent control beam for each bot
                     for _, vBot in BuildBots do
-
-                        TrashAdd( builder.Trash, LOUDATTACHBEAMENTITY(builder, vBone, vBot, -1, army, '/effects/emitters/build_beam_03_emit.bp'))
+                        TrashAdd( Trash, LOUDATTACHBEAMENTITY(builder, vBone, vBot, -1, army, '/effects/emitters/build_beam_03_emit.bp'))
                     end
                 end
+                
             end
         end
         
@@ -1121,11 +1137,12 @@ end
 function CreateCybranFactoryBuildEffects( builder, unitBeingBuilt, BuildBones, BuildEffectsBag )
 
     local GetFractionComplete = GetFractionComplete
-    local LOUDATTACHEMITTER = LOUDATTACHEMITTER
-    local LOUDEMITONENTITY = LOUDEMITONENTITY
-    local Random = Random
-    local RandomOffset = unitBeingBuilt.GetRandomOffset
-    local ScaleEmitter = ScaleEmitter
+    
+    local LOUDEMITONENTITY  = LOUDEMITONENTITY
+    local Random            = Random
+    local RandomOffset      = unitBeingBuilt.GetRandomOffset
+    local ScaleEmitter      = ScaleEmitter
+    
     local TrashAdd = TrashAdd
 	local WaitTicks = WaitTicks	
 
@@ -1134,6 +1151,8 @@ function CreateCybranFactoryBuildEffects( builder, unitBeingBuilt, BuildBones, B
     -- this process will create the permanent emitters on the factory
     -- attach sparks and flashes emitters to each BuildBone in the BuildEffectBones list
     if not builder.BuildProjectile then
+    
+        local LOUDATTACHEMITTER = LOUDATTACHEMITTER
 
         local BuildEffects = { '/effects/emitters/sparks_03_emit.bp', '/effects/emitters/flashes_01_emit.bp', }
     
@@ -1188,28 +1207,32 @@ end
 
 function CreateSeraphimUnitEngineerBuildingEffects( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
 
-    local LOUDATTACHBEAMENTITY = LOUDATTACHBEAMENTITY
-    local LOUDATTACHEMITTER = LOUDATTACHEMITTER
-    local LOUDINSERT = LOUDINSERT
-    local TrashAdd = TrashAdd
-    
+    local LOUDATTACHBEAMENTITY  = LOUDATTACHBEAMENTITY
+    local TrashAdd              = TrashAdd
+   
 	local army = builder.Army
     
     if not builder.BuildEmitters then
     
+        local LOUDATTACHEMITTER = LOUDATTACHEMITTER
+    
         builder.BuildEmitters = {}
         
         local beamEffect
+        local counter = 0 
 
         for _, vBone in BuildEffectBones do
         
-            beamEffect = LOUDATTACHEMITTER( builder, vBone, army, '/effects/emitters/seraphim_build_01_emit.bp' ) 
+            beamEffect = LOUDATTACHEMITTER( builder, vBone, army, '/effects/emitters/seraphim_build_01_emit.bp' )
+            
+            counter = counter + 1
 
-            LOUDINSERT( builder.BuildEmitters, beamEffect )
+            builder.BuildEmitters[counter] = beamEffect
             
             TrashAdd( builder.Trash, beamEffect )
 
 		end
+        
 	end
     
     for _, emit in builder.BuildEmitters do

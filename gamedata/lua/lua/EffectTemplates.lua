@@ -7,37 +7,37 @@ local EmtBpPath = '/effects/emitters/'
 local EmitterTempEmtBpPath = '/effects/emitters/temp/'
 
 
-WeaponSteam01 = { '/effects/emitters/weapon_mist_01_emit.bp', }
+WeaponSteam01 = {'/effects/emitters/weapon_mist_01_emit.bp'}
 
 -- Concussion Ring Effects
-ConcussionRingSml01 = { '/effects/emitters/destruction_explosion_concussion_ring_02_emit.bp',}
-ConcussionRingMed01 = { '/effects/emitters/destruction_explosion_concussion_ring_01_emit.bp',}
-ConcussionRingLrg01 = { '/effects/emitters/destruction_explosion_concussion_ring_01_emit.bp',}
+--ConcussionRingSml01 = { '/effects/emitters/destruction_explosion_concussion_ring_02_emit.bp'}
+ConcussionRingMed01     = { '/effects/emitters/destruction_explosion_concussion_ring_01_emit.bp'}
+ConcussionRingLrg01     = { '/effects/emitters/destruction_explosion_concussion_ring_01_emit.bp'}
 
 -- Fire Cloud Effects
-FireCloudSml01 = { '/effects/emitters/fire_cloud_05_emit.bp', '/effects/emitters/fire_cloud_04_emit.bp',}
-FireCloudMed01 = { '/effects/emitters/fire_cloud_06_emit.bp', '/effects/emitters/explosion_fire_sparks_01_emit.bp',}
+FireCloudSml01          = {'/effects/emitters/fire_cloud_05_emit.bp', '/effects/emitters/fire_cloud_04_emit.bp'}
+FireCloudMed01          = {'/effects/emitters/fire_cloud_06_emit.bp', '/effects/emitters/explosion_fire_sparks_01_emit.bp'}
 
 -- FireShadow Faked Flat Particle Effects
-FireShadowSml01 = { '/effects/emitters/destruction_explosion_fire_shadow_02_emit.bp',}
-FireShadowMed01 = { '/effects/emitters/destruction_explosion_fire_shadow_01_emit.bp',}
-FireShadowLrg01 = { '/effects/emitters/destruction_explosion_fire_shadow_01_emit.bp',}
+FireShadowSml01         = {'/effects/emitters/destruction_explosion_fire_shadow_02_emit.bp'}
+FireShadowMed01         = {'/effects/emitters/destruction_explosion_fire_shadow_01_emit.bp'}
+FireShadowLrg01         = {'/effects/emitters/destruction_explosion_fire_shadow_01_emit.bp'}
 
 -- Flash Effects
-FlashSml01 = { '/effects/emitters/flash_01_emit.bp',}
+FlashSml01              = {'/effects/emitters/flash_01_emit.bp'}
 
 -- Flare Effects
-FlareSml01 = { '/effects/emitters/flare_01_emit.bp',}
+FlareSml01              = {'/effects/emitters/flare_01_emit.bp'}
 
 -- Smoke Effects
-SmokeSml01 = { '/effects/emitters/destruction_explosion_smoke_02_emit.bp',}
-SmokeMed01 = { '/effects/emitters/destruction_explosion_smoke_04_emit.bp',}
-SmokeLrg01 = { '/effects/emitters/destruction_explosion_smoke_07_emit.bp',}
+SmokeSml01              = {'/effects/emitters/destruction_explosion_smoke_02_emit.bp'}
+SmokeMed01              = {'/effects/emitters/destruction_explosion_smoke_04_emit.bp'}
+SmokeLrg01              = {'/effects/emitters/destruction_explosion_smoke_07_emit.bp'}
 
-SmokePlumeLightDensityMed01 = { '/effects/emitters/destruction_explosion_smoke_08_emit.bp',}
-SmokePlumeMedDensitySml01 = { '/effects/emitters/destruction_explosion_smoke_06_emit.bp',}
-SmokePlumeMedDensitySml02 = { '/effects/emitters/destruction_explosion_smoke_05_emit.bp',}
-SmokePlumeMedDensitySml03 = { '/effects/emitters/destruction_explosion_smoke_11_emit.bp',}
+SmokePlumeLightDensityMed01     = {'/effects/emitters/destruction_explosion_smoke_08_emit.bp'}
+SmokePlumeMedDensitySml01       = {'/effects/emitters/destruction_explosion_smoke_06_emit.bp'}
+SmokePlumeMedDensitySml02       = {'/effects/emitters/destruction_explosion_smoke_05_emit.bp'}
+SmokePlumeMedDensitySml03       = {'/effects/emitters/destruction_explosion_smoke_11_emit.bp'}
 
 -- Wreckage Smoke Effects
 DefaultWreckageEffectsSml01 = TableCat( SmokePlumeMedDensitySml01, SmokePlumeMedDensitySml02, SmokePlumeMedDensitySml03 ) 
@@ -45,9 +45,9 @@ DefaultWreckageEffectsMed01 = TableCat( SmokePlumeLightDensityMed01, SmokePlumeM
 DefaultWreckageEffectsLrg01 = TableCat( SmokePlumeLightDensityMed01, SmokePlumeMedDensitySml02, SmokePlumeMedDensitySml01, SmokePlumeMedDensitySml02, SmokePlumeMedDensitySml03 )
 
 -- Explosion Debris Effects
-ExplosionDebrisSml01 = { '/effects/emitters/destruction_explosion_debris_07_emit.bp', '/effects/emitters/destruction_explosion_debris_08_emit.bp',}
-ExplosionDebrisMed01 = { '/effects/emitters/destruction_explosion_debris_11_emit.bp', '/effects/emitters/destruction_explosion_debris_12_emit.bp',}
-ExplosionDebrisLrg01 = { '/effects/emitters/destruction_explosion_debris_02_emit.bp', '/effects/emitters/destruction_explosion_debris_03_emit.bp',}
+ExplosionDebrisSml01    = {'/effects/emitters/destruction_explosion_debris_07_emit.bp', '/effects/emitters/destruction_explosion_debris_08_emit.bp'}
+ExplosionDebrisMed01    = {'/effects/emitters/destruction_explosion_debris_11_emit.bp', '/effects/emitters/destruction_explosion_debris_12_emit.bp'}
+ExplosionDebrisLrg01    = {'/effects/emitters/destruction_explosion_debris_02_emit.bp', '/effects/emitters/destruction_explosion_debris_03_emit.bp'}
 
 -- Explosion Effects
 ExplosionEffectsSml01 = TableCat( FireShadowSml01, FlareSml01, FireCloudSml01, ExplosionDebrisSml01 )
@@ -70,6 +70,7 @@ WeatherTwister = {
 }
 
 -- Operation Effects
+--[[
 op_cratersmoke_01 = { '/effects/emitters/op_cratersmoke_01_emit.bp',}
 op_waterbubbles_01 = { '/effects/emitters/quarry_water_bubbles_emit.bp',}
 op_fire_01 = {
@@ -78,6 +79,7 @@ op_fire_01 = {
     '/effects/emitters/op_ambient_fire_03_emit.bp',
     '/effects/emitters/op_ambient_fire_04_emit.bp',
 }
+--]]
 
 -- Default Projectile Impact Effects
 DefaultMissileHit01 = TableCat( FireCloudSml01, FlashSml01, FlareSml01 )
@@ -113,9 +115,9 @@ GenericDebrisLandImpact01 = {
     '/effects/emitters/dirtchunks_01_emit.bp',
     '/effects/emitters/dust_cloud_05_emit.bp',
 }
-GenericDebrisTrails01 = { '/effects/emitters/destruction_explosion_debris_trail_01_emit.bp',}
+GenericDebrisTrails01 = {'/effects/emitters/destruction_explosion_debris_trail_01_emit.bp'}
 
-UnitHitShrapnel01 = { '/effects/emitters/destruction_unit_hit_shrapnel_01_emit.bp',}
+UnitHitShrapnel01 = {'/effects/emitters/destruction_unit_hit_shrapnel_01_emit.bp'}
 
 WaterSplash01 = { 
     '/effects/emitters/water_splash_ripples_ring_01_emit.bp',
@@ -354,8 +356,6 @@ AQuasarAntiTorpedoFlash= {
 AQuasarAntiTorpedoHit= {
     '/effects/emitters/aeon_quasar_antitorpedo_hit_01_emit.bp',
     '/effects/emitters/aeon_quasar_antitorpedo_hit_02_emit.bp',
---    '/effects/emitters/aeon_quasar_antitorpedo_hit_03_emit.bp',
---    '/effects/emitters/aeon_quasar_antitorpedo_hit_04_emit.bp',
 }
 
 AQuasarAntiTorpedoLandHit= {}
@@ -764,9 +764,7 @@ ASonicPulseHitUnit01 = TableCat( ASonicPulse01, UnitHitShrapnel01 )
 ASonicPulseHitAirUnit01 = ASonicPulseHitUnit01
 ASonicPulseHitLand01 = TableCat( ASonicPulse01 )
 
-ASonicPulsarMunition01 = {
-	'/effects/emitters/sonic_pulsar_01_emit.bp', 
-}
+ASonicPulsarMunition01 = {'/effects/emitters/sonic_pulsar_01_emit.bp'}
 
 ATemporalFizzHit01 = {
 	'/effects/emitters/temporal_fizz_02_emit.bp',
@@ -781,7 +779,7 @@ ATorpedoUnitHit01 = {
 
 ATorpedoHit_Bubbles = {
 	'/effects/emitters/aeon_torpedocluster_hit_03_emit.bp',
-	'/effects/emitters/destruction_underwater_explosion_splash_01_emit.bp',
+	'/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp',
 }
 
 ATorpedoUnitHitUnderWater01 = TableCat( ATorpedoUnitHit01, ATorpedoHit_Bubbles )
@@ -1026,9 +1024,8 @@ CHvyDisintegratorHit02 = {
 CHvyDisintegratorHitUnit01 = TableCat( CHvyDisintegratorHit01, CHvyDisintegratorHit02 )
 CHvyDisintegratorHitLand01 = CHvyDisintegratorHit01
 
-CDisruptorGroundEffect = {
-	'/effects/emitters/cybran_lra_ground_effect_01_emit.bp'
-}
+CDisruptorGroundEffect = {'/effects/emitters/cybran_lra_ground_effect_01_emit.bp'}
+
 CDisruptorVentEffect = {
 	'/effects/emitters/cybran_lra_vent_effect_01_emit.bp'
 }
@@ -1147,9 +1144,7 @@ CMissileHit02a = {
     '/effects/emitters/cybran_iridium_hit_ring_01_emit.bp',
 }
 
-CMissileHit02b = {
-    '/effects/emitters/cybran_corsair_missile_glow_hit_unit_01_emit.bp',
-}
+CMissileHit02b = {'/effects/emitters/cybran_corsair_missile_glow_hit_unit_01_emit.bp'}
 
 CMissileHit02 = TableCat( FireCloudSml01, FlashSml01, FlareSml01, CMissileHit02a )
 
@@ -1179,6 +1174,7 @@ CMolecularRipperFlash01 = {
 	'/effects/emitters/molecular_cannon_muzzle_flash_01_emit.bp',
 	'/effects/emitters/molecular_cannon_muzzle_flash_02_emit.bp',	
 }
+
 CMolecularRipperOverChargeFlash01 = {
 	'/effects/emitters/molecular_ripper_flash_01_emit.bp',
 	'/effects/emitters/molecular_ripper_oc_charge_01_emit.bp',
@@ -1188,11 +1184,13 @@ CMolecularRipperOverChargeFlash01 = {
 	'/effects/emitters/default_muzzle_flash_01_emit.bp',		
 	'/effects/emitters/default_muzzle_flash_02_emit.bp'				
 }
+
 CMolecularCannon01 = {
 	'/effects/emitters/molecular_ripper_01_emit.bp',
 	'/effects/emitters/molecular_ripper_02_emit.bp',
 	'/effects/emitters/molecular_ripper_03_emit.bp',	
 }
+
 CMolecularRipperHit01 = {   
     '/effects/emitters/molecular_ripper_hit_01_emit.bp', 
     '/effects/emitters/molecular_ripper_hit_02_emit.bp',
@@ -1279,7 +1277,7 @@ CProtonArtilleryHit01 = {
     '/effects/emitters/shockwave_01_emit.bp',    
 }
 
-CTorpedoUnitHit01 = TableCat( DefaultProjectileWaterImpact, DefaultProjectileUnderWaterImpact )
+CTorpedoUnitHit01 = TableCat( ATorpedoUnitHit01, ATorpedoHit_Bubbles )
 
 CTorpedoUnderWaterImpactHit = DefaultProjectileUnderWaterImpact
 
@@ -1443,8 +1441,9 @@ TGaussCannonHitUnit01 = TableCat( TGaussCannonHit01, UnitHitShrapnel01 )
 TGaussCannonHitLand01 = TGaussCannonHit01
 TGaussCannonHitUnit02 = TableCat( TGaussCannonHit02, UnitHitShrapnel01 )
 TGaussCannonHitLand02 = TGaussCannonHit02
+
 TGaussCannonPolyTrail =  {
-    '/effects/emitters/gauss_cannon_polytrail_01_emit.bp',
+    --'/effects/emitters/gauss_cannon_polytrail_01_emit.bp',
     '/effects/emitters/gauss_cannon_polytrail_02_emit.bp',    
 }
 
@@ -1453,7 +1452,6 @@ TShipGaussCannonFlash = {
     '/effects/emitters/cannon_muzzle_fire_01_emit.bp',
     '/effects/emitters/cannon_muzzle_smoke_03_emit.bp',
     '/effects/emitters/cannon_muzzle_smoke_04_emit.bp', 
-    --'/effects/emitters/cannon_muzzle_smoke_05_emit.bp',     
     '/effects/emitters/cannon_muzzle_water_shock_01_emit.bp',
     '/effects/emitters/cannon_muzzle_flash_06_emit.bp',    
     '/effects/emitters/cannon_muzzle_flash_07_emit.bp',  
@@ -1463,8 +1461,6 @@ TLandGaussCannonFlash = {
     '/effects/emitters/cannon_muzzle_fire_01_emit.bp',
     '/effects/emitters/cannon_muzzle_smoke_03_emit.bp',
     '/effects/emitters/cannon_muzzle_smoke_04_emit.bp', 
-    --'/effects/emitters/cannon_muzzle_smoke_05_emit.bp',     
-    --'/effects/emitters/cannon_muzzle_water_shock_01_emit.bp',
     '/effects/emitters/cannon_muzzle_flash_09_emit.bp',    
     '/effects/emitters/cannon_muzzle_flash_08_emit.bp',  
 }
@@ -1477,7 +1473,6 @@ TShipGaussCannonHit01 = {
 	'/effects/emitters/shipgauss_cannon_hit_05_emit.bp',
 	'/effects/emitters/shipgauss_cannon_hit_06_emit.bp',
 	'/effects/emitters/shipgauss_cannon_hit_07_emit.bp',
-	--'/effects/emitters/shipgauss_cannon_hit_08_emit.bp',
 	'/effects/emitters/shipgauss_cannon_hit_09_emit.bp',
 }
 
@@ -1732,9 +1727,8 @@ TMobileMortarMuzzleEffect01 = {
     '/effects/emitters/cannon_artillery_flash_01_emit.bp',      
 }
 
-TNapalmCarpetBombHitUnit01 = { 
-	'/effects/emitters/flash_01_emit.bp',
-}
+TNapalmCarpetBombHitUnit01 = {'/effects/emitters/flash_01_emit.bp'}
+
 TNapalmCarpetBombHitLand01 = {
     '/effects/emitters/napalm_flash_emit.bp',
     '/effects/emitters/napalm_thick_smoke_emit.bp',
@@ -1766,10 +1760,12 @@ TNukeHeadEffects02 = {
 	'/effects/emitters/nuke_head_smoke_03_emit.bp',
 	'/effects/emitters/nuke_head_smoke_04_emit.bp',
 }
+
 TNukeHeadEffects03 = { '/effects/emitters/nuke_head_fire_01_emit.bp', }
 
 TRailGunMuzzleFlash01 = { '/effects/emitters/railgun_flash_02_emit.bp', }
 TRailGunMuzzleFlash02 = { '/effects/emitters/muzzle_flash_01_emit.bp', }
+
 TRailGunHitAir01 = {
 	'/effects/emitters/destruction_unit_hit_shrapnel_01_emit.bp',
 	'/effects/emitters/terran_railgun_hit_air_01_emit.bp',
@@ -1784,30 +1780,31 @@ TRailGunHitGround01 = {
 }
 
 TRiotGunHit01 = {
-     '/effects/emitters/riot_gun_hit_01_emit.bp',
-     '/effects/emitters/riot_gun_hit_02_emit.bp',
-     '/effects/emitters/riot_gun_hit_03_emit.bp',
+    '/effects/emitters/riot_gun_hit_01_emit.bp',
+    '/effects/emitters/riot_gun_hit_02_emit.bp',
+    '/effects/emitters/riot_gun_hit_03_emit.bp',
 }
+
 TRiotGunHitUnit01 = TableCat( TRiotGunHit01, UnitHitShrapnel01 )
+
 TRiotGunHit02 = {
-     '/effects/emitters/riot_gun_hit_04_emit.bp',
-     '/effects/emitters/riot_gun_hit_05_emit.bp',
-     '/effects/emitters/riot_gun_hit_06_emit.bp',
+    '/effects/emitters/riot_gun_hit_04_emit.bp',
+    '/effects/emitters/riot_gun_hit_05_emit.bp',
+    '/effects/emitters/riot_gun_hit_06_emit.bp',
 }
+
 TRiotGunHitUnit02 = TableCat( TRiotGunHit02, UnitHitShrapnel01 )
+
 TRiotGunMuzzleFx = {
 	'/effects/emitters/riotgun_muzzle_fire_01_emit.bp',
 	'/effects/emitters/riotgun_muzzle_flash_01_emit.bp',
-	--'/effects/emitters/riotgun_muzzle_smoke_01_emit.bp',
 	'/effects/emitters/riotgun_muzzle_sparks_01_emit.bp',
     '/effects/emitters/cannon_muzzle_flash_01_emit.bp',
 }
 TRiotGunMuzzleFxTank = {
 	'/effects/emitters/riotgun_muzzle_fire_01_emit.bp',
 	'/effects/emitters/riotgun_muzzle_flash_03_emit.bp',
-	--'/effects/emitters/riotgun_muzzle_smoke_01_emit.bp',
 	'/effects/emitters/riotgun_muzzle_sparks_02_emit.bp',
-    --'/effects/emitters/cannon_muzzle_flash_01_emit.bp',
 }
 TRiotGunPolyTrails = {
     '/effects/emitters/riot_gun_polytrail_01_emit.bp',
@@ -1910,9 +1907,9 @@ TIFCruiseMissileLaunchBuilding = {
     '/effects/emitters/terran_cruise_missile_launch_04_emit.bp',
     '/effects/emitters/terran_cruise_missile_launch_05_emit.bp',
 }
-TIFCruiseMissileLaunchUnderWater = {
-    '/effects/emitters/terran_cruise_missile_sublaunch_01_emit.bp',
-}
+
+TIFCruiseMissileLaunchUnderWater = {'/effects/emitters/terran_cruise_missile_sublaunch_01_emit.bp'}
+
 TIFCruiseMissileLaunchExitWater = {
     '/effects/emitters/water_splash_ripples_ring_01_emit.bp',
     '/effects/emitters/water_splash_plume_01_emit.bp',
@@ -2122,25 +2119,15 @@ SDFExperimentalPhasonProjFXTrails01 = {
 }
 
 
-SDFAjelluAntiTorpedoLaunch01 = {
-    '/effects/emitters/seraphim_ajellu_muzzle_flash_01_emit.bp', 
-}
-SDFAjelluAntiTorpedoPolyTrail01 = {
-	'/effects/emitters/seraphim_ajellu_polytrail_01_emit.bp',
-	--'/effects/emitters/seraphim_ajellu_polytrail_02_emit.bp',
-}
-SDFAjelluAntiTorpedoHit01 = {
-    '/effects/emitters/seraphim_ajellu_hit_01_emit.bp',
-    --'/effects/emitters/seraphim_ajellu_hit_02_emit.bp',
-    --'/effects/emitters/seraphim_ajellu_hit_03_emit.bp',
-    --'/effects/emitters/seraphim_ajellu_hit_04_emit.bp',
-}
+SDFAjelluAntiTorpedoLaunch01    = {'/effects/emitters/seraphim_ajellu_muzzle_flash_01_emit.bp'}
+
+SDFAjelluAntiTorpedoPolyTrail01 = {'/effects/emitters/seraphim_ajellu_polytrail_01_emit.bp'}
+
+SDFAjelluAntiTorpedoHit01       = {'/effects/emitters/seraphim_ajellu_hit_01_emit.bp'}
 
 SIFHuHit01 = DefaultMissileHit01
 SIFHuImpact01 = DefaultProjectileAirUnitImpact
-SIFHuLaunch01 = {
-    '/effects/emitters/saint_launch_01_emit.bp', 
-}
+SIFHuLaunch01 = {'/effects/emitters/saint_launch_01_emit.bp'}
 
 SIFInainoPreLaunch01 = {
 	'/effects/emitters/seraphim_inaino_prelaunch_01_emit.bp',
@@ -2393,8 +2380,8 @@ HeavyPhasicAutoGunHit = {
     '/effects/emitters/seraphim_heavy_phasic_autogun_projectile_hit_02_emit.bp',
     '/effects/emitters/seraphim_heavy_phasic_autogun_projectile_hit_03_emit.bp',
     '/effects/emitters/seraphim_heavy_phasic_autogun_projectile_hit_04_emit.bp',
-    '/effects/emitters/seraphim_heavy_phasic_autogun_projectile_hit_05_emit.bp',
-    '/effects/emitters/seraphim_heavy_phasic_autogun_projectile_hit_06_emit.bp',    
+    --'/effects/emitters/seraphim_heavy_phasic_autogun_projectile_hit_05_emit.bp',
+    --'/effects/emitters/seraphim_heavy_phasic_autogun_projectile_hit_06_emit.bp',    
 }
 HeavyPhasicAutoGunHitUnit = {
     '/effects/emitters/seraphim_heavy_phasic_autogun_projectile_hit_01_emit.bp',
@@ -2402,8 +2389,8 @@ HeavyPhasicAutoGunHitUnit = {
     '/effects/emitters/seraphim_heavy_phasic_autogun_projectile_hitunit_02_emit.bp',
     '/effects/emitters/seraphim_heavy_phasic_autogun_projectile_hitunit_03_emit.bp',
     '/effects/emitters/seraphim_heavy_phasic_autogun_projectile_hitunit_04_emit.bp',
-    '/effects/emitters/seraphim_heavy_phasic_autogun_projectile_hitunit_05_emit.bp',
-    '/effects/emitters/seraphim_heavy_phasic_autogun_projectile_hit_06_emit.bp',
+    --'/effects/emitters/seraphim_heavy_phasic_autogun_projectile_hitunit_05_emit.bp',
+    --'/effects/emitters/seraphim_heavy_phasic_autogun_projectile_hit_06_emit.bp',
     '/effects/emitters/destruction_unit_hit_shrapnel_01_emit.bp',
 }
 
@@ -2658,7 +2645,7 @@ SShleoCannonUnitHit = {
     '/effects/emitters/seraphim_cleo_cannon_projectile_hit_02_emit.bp',
     '/effects/emitters/seraphim_cleo_cannon_projectile_hit_03_emit.bp',
     '/effects/emitters/seraphim_cleo_cannon_projectile_hit_06_emit.bp',
-    '/effects/emitters/seraphim_cleo_cannon_projectile_hit_08_emit.bp',    
+    --'/effects/emitters/seraphim_cleo_cannon_projectile_hit_08_emit.bp',    
     '/effects/emitters/destruction_unit_hit_shrapnel_01_emit.bp',
 }
 SShleoCannonLandHit = {
@@ -2674,17 +2661,18 @@ SThunderStormCannonMuzzleFlash= {
 	'/effects/emitters/seraphim_thunderstorm_artillery_muzzle_flash_02_emit.bp',
 	'/effects/emitters/seraphim_thunderstorm_artillery_muzzle_flash_03_emit.bp',
 }
-SThunderStormCannonProjectileTrails = {
-	'/effects/emitters/seraphim_thunderstorm_artillery_projectile_02_emit.bp',
-}
-SThunderStormCannonProjectileSplitFx = {
-	'/effects/emitters/seraphim_thunderstorm_artillery_projectile_split_01_emit.bp',
-}
+
+SThunderStormCannonProjectileTrails = {'/effects/emitters/seraphim_thunderstorm_artillery_projectile_02_emit.bp'}
+
+SThunderStormCannonProjectileSplitFx = {'/effects/emitters/seraphim_thunderstorm_artillery_projectile_split_01_emit.bp'}
+
 SThunderStormCannonProjectilePolyTrails = {
 	'/effects/emitters/seraphim_thunderstorm_artillery_projectile_trail_01_emit.bp',
 	'/effects/emitters/default_polytrail_01_emit.bp',
 }	
+
 SThunderStormCannonLightningProjectilePolyTrail = '/effects/emitters/seraphim_thunderstorm_artillery_projectile_trail_02_emit.bp'
+
 SThunderStormCannonHit = {
     '/effects/emitters/seraphim_thunderstorm_artillery_projectile_hit_01_emit.bp',
     '/effects/emitters/seraphim_thunderstorm_artillery_projectile_hit_02_emit.bp',
@@ -2708,9 +2696,11 @@ SRifterArtilleryProjectileFxTrails= {
     '/effects/emitters/seraphim_rifter_artillery_projectile_fxtrails_03_emit.bp',
     '/effects/emitters/seraphim_rifter_artillery_projectile_fxtrails_04_emit.bp',
     '/effects/emitters/seraphim_rifter_artillery_projectile_fxtrails_05_emit.bp',
-    '/effects/emitters/seraphim_rifter_artillery_projectile_fxtrails_06_emit.bp',
+    --'/effects/emitters/seraphim_rifter_artillery_projectile_fxtrails_06_emit.bp',
 }
+
 SRifterArtilleryProjectilePolyTrail= '/effects/emitters/seraphim_rifter_mobileartillery_polytrail_01_emit.bp'
+
 SRifterArtilleryHit= {
 	'/effects/emitters/seraphim_rifter_artillery_hit_01_emit.bp',
     '/effects/emitters/seraphim_rifter_artillery_hit_02_emit.bp',
@@ -2760,8 +2750,8 @@ SRifterMobileArtilleryHit= {
     '/effects/emitters/seraphim_rifter_mobileartillery_hit_04_emit.bp',
     '/effects/emitters/seraphim_rifter_mobileartillery_hit_05_emit.bp',
     '/effects/emitters/seraphim_rifter_mobileartillery_hit_06_emit.bp',
-    '/effects/emitters/seraphim_rifter_mobileartillery_hit_07_emit.bp',
-    '/effects/emitters/seraphim_rifter_mobileartillery_hit_08_emit.bp',
+    --'/effects/emitters/seraphim_rifter_mobileartillery_hit_07_emit.bp',
+    --'/effects/emitters/seraphim_rifter_mobileartillery_hit_08_emit.bp',
 }
 SRifterMobileArtilleryWaterHit= {
 	'/effects/emitters/seraphim_rifter_mobileartillery_hit_01w_emit.bp',
@@ -2770,8 +2760,8 @@ SRifterMobileArtilleryWaterHit= {
     '/effects/emitters/seraphim_rifter_mobileartillery_hit_04_emit.bp',
     '/effects/emitters/seraphim_rifter_mobileartillery_hit_05w_emit.bp',
     '/effects/emitters/seraphim_rifter_mobileartillery_hit_06w_emit.bp',
-    '/effects/emitters/seraphim_rifter_mobileartillery_hit_07_emit.bp',
-    '/effects/emitters/seraphim_rifter_mobileartillery_hit_08w_emit.bp',
+    --'/effects/emitters/seraphim_rifter_mobileartillery_hit_07_emit.bp',
+    --'/effects/emitters/seraphim_rifter_mobileartillery_hit_08w_emit.bp',
 }
 SRifterMobileArtilleryChargeMuzzleFlash= {
 	'/effects/emitters/seraphim_rifter_mobileartillery_muzzle_01_emit.bp',
@@ -2797,7 +2787,7 @@ SZthuthaamArtilleryHit= {
     '/effects/emitters/seraphim_reviler_artillery_hit_05_emit.bp',
     '/effects/emitters/seraphim_reviler_artillery_hit_07_emit.bp',
     '/effects/emitters/seraphim_reviler_artillery_hit_08_emit.bp',
-    '/effects/emitters/seraphim_reviler_artillery_hit_09_emit.bp',
+    --'/effects/emitters/seraphim_reviler_artillery_hit_09_emit.bp',
 }
 SZthuthaamArtilleryHit02= {
 	'/effects/emitters/seraphim_reviler_artillery_hit_06_emit.bp',
@@ -2966,10 +2956,10 @@ SExperimentalUnstablePhasonLaserFxTrails = {
     '/effects/emitters/seraphim_expirimental_unstable_laser_fxtrail_01_emit.bp',
     '/effects/emitters/seraphim_expirimental_unstable_laser_fxtrail_02_emit.bp',
 }
-SExperimentalUnstablePhasonLaserPolyTrail = '/effects/emitters/seraphim_expirimental_unstable_laser_trail_emit.bp'
-SExperimentalUnstablePhasonLaserBeam = {
-	'/effects/emitters/seraphim_expirimental_unstable_laser_beam_emit.bp',
-}
+
+SExperimentalUnstablePhasonLaserPolyTrail = {'/effects/emitters/seraphim_expirimental_unstable_laser_trail_emit.bp'}
+
+SExperimentalUnstablePhasonLaserBeam = {'/effects/emitters/seraphim_expirimental_unstable_laser_beam_emit.bp'}
 
 SExperimentalPhasonLaserMuzzle01 = {
 	'/effects/emitters/seraphim_expirimental_laser_muzzle_01_emit.bp',
@@ -2998,7 +2988,8 @@ SExperimentalPhasonLaserFxTrails = {
     '/effects/emitters/seraphim_expirimental_laser_fxtrail_01_emit.bp',
     '/effects/emitters/seraphim_expirimental_laser_fxtrail_02_emit.bp',
 }
-SExperimentalPhasonLaserPolyTrail = '/effects/emitters/seraphim_expirimental_laser_trail_emit.bp'
+SExperimentalPhasonLaserPolyTrail = {'/effects/emitters/seraphim_expirimental_laser_trail_emit.bp'}
+
 SExperimentalPhasonLaserBeam = {
 	'/effects/emitters/seraphim_expirimental_laser_beam_emit.bp',
 	--'/effects/emitters/seraphim_expirimental_laser_beam_02_emit.bp',
@@ -3087,79 +3078,55 @@ SElectrumMissleDefenseHit = {
     '/effects/emitters/seraphim_electrum_missile_hit_04_emit.bp',
 }
 
-SUallTorpedoMuzzleFlash= {
-	'/effects/emitters/seraphim_uall_torpedo_muzzle_flash_01_emit.bp',
+SUallTorpedoMuzzleFlash= {'/effects/emitters/seraphim_uall_torpedo_muzzle_flash_01_emit.bp',
 	'/effects/emitters/seraphim_uall_torpedo_muzzle_flash_02_emit.bp',
 	'/effects/emitters/seraphim_uall_torpedo_muzzle_flash_03_emit.bp',
 }
-SUallTorpedoFxTrails = {
-	'/effects/emitters/seraphim_uall_torpedo_projectile_fxtrail_01_emit.bp',
-    --'/effects/emitters/seraphim_uall_torpedo_projectile_fxtrail_02_emit.bp',
-    --'/effects/emitters/seraphim_uall_torpedo_projectile_fxtrail_03_emit.bp',
-}
+
+SUallTorpedoFxTrails = {'/effects/emitters/seraphim_uall_torpedo_projectile_fxtrail_01_emit.bp'}
+
 SUallTorpedoPolyTrail = '/effects/emitters/seraphim_uall_torpedo_projectile_polytrail_01_emit.bp'
 
-SUallTorpedoHit = {
-    '/effects/emitters/seraphim_uall_torpedo_projectile_hit_01_emit.bp',
+SUallTorpedoHit = {'/effects/emitters/seraphim_uall_torpedo_projectile_hit_01_emit.bp',
 	'/effects/emitters/seraphim_uall_torpedo_projectile_hit_02_emit.bp',
 	'/effects/emitters/seraphim_uall_torpedo_projectile_hit_03_emit.bp',
-	--'/effects/emitters/seraphim_uall_torpedo_projectile_hit_04_emit.bp',
-	--'/effects/emitters/seraphim_uall_torpedo_projectile_hit_05_emit.bp',
 }
 
-SAnaitTorpedoMuzzleFlash= {
-	'/effects/emitters/seraphim_ammit_torpedo_muzzle_flash_01_emit.bp',
-	--'/effects/emitters/seraphim_ammit_torpedo_muzzle_flash_02_emit.bp',
-	--'/effects/emitters/seraphim_ammit_torpedo_muzzle_flash_03_emit.bp',
-}
-SAnaitTorpedoFxTrails = {
-	'/effects/emitters/seraphim_ammit_torpedo_projectile_fxtrail_01_emit.bp',
-}
-SAnaitTorpedoPolyTrails = {
-	'/effects/emitters/seraphim_ammit_torpedo_projectile_polytrail_01_emit.bp',
+SAnaitTorpedoMuzzleFlash= {'/effects/emitters/seraphim_ammit_torpedo_muzzle_flash_01_emit.bp'}
+
+SAnaitTorpedoFxTrails = {'/effects/emitters/seraphim_ammit_torpedo_projectile_fxtrail_01_emit.bp'}
+
+SAnaitTorpedoPolyTrails = {'/effects/emitters/seraphim_ammit_torpedo_projectile_polytrail_01_emit.bp',
 	'/effects/emitters/seraphim_ammit_torpedo_projectile_polytrail_02_emit.bp',
 }
-SAnaitTorpedoHit = {
-    '/effects/emitters/seraphim_ammit_torpedo_projectile_hit_01_emit.bp',
+SAnaitTorpedoHit = {'/effects/emitters/seraphim_ammit_torpedo_projectile_hit_01_emit.bp',
 	'/effects/emitters/seraphim_ammit_torpedo_projectile_hit_02_emit.bp',
-	--'/effects/emitters/seraphim_ammit_torpedo_projectile_hit_03_emit.bp',
 }
 
-SHeavyCavitationTorpedoMuzzleFlash = {
-	'/effects/emitters/seraphim_heayvcavitation_torpedo_muzzle_flash_01_emit.bp',
+SHeavyCavitationTorpedoMuzzleFlash = {'/effects/emitters/seraphim_heayvcavitation_torpedo_muzzle_flash_01_emit.bp',
 	'/effects/emitters/seraphim_heayvcavitation_torpedo_muzzle_flash_02_emit.bp',
-	--'/effects/emitters/seraphim_heayvcavitation_torpedo_muzzle_flash_03_emit.bp',
 }
 
-SHeavyCavitationTorpedoMuzzleFlash02 = {
-	'/effects/emitters/seraphim_heayvcavitation_torpedo_muzzle_flash_04_emit.bp',
-}
+SHeavyCavitationTorpedoMuzzleFlash02 = {'/effects/emitters/seraphim_heayvcavitation_torpedo_muzzle_flash_04_emit.bp'}
 
 SHeavyCavitationTorpedoFxTrails = '/effects/emitters/seraphim_heayvcavitation_torpedo_projectile_fxtrail_01_emit.bp'
 
 SHeavyCavitationTorpedoFxTrails02 = '/effects/emitters/seraphim_heayvcavitation_torpedo_projectile_fxtrail_02_emit.bp'
 
-SHeavyCavitationTorpedoPolyTrails = {
-	'/effects/emitters/seraphim_heayvcavitation_torpedo_projectile_polytrail_01_emit.bp',
+SHeavyCavitationTorpedoPolyTrails = {'/effects/emitters/seraphim_heayvcavitation_torpedo_projectile_polytrail_01_emit.bp',
 	'/effects/emitters/seraphim_heayvcavitation_torpedo_projectile_polytrail_02_emit.bp',
 }
 
-SHeavyCavitationTorpedoHit = {
-    '/effects/emitters/seraphim_heayvcavitation_torpedo_projectile_hit_01_emit.bp',
+SHeavyCavitationTorpedoHit = {'/effects/emitters/seraphim_heayvcavitation_torpedo_projectile_hit_01_emit.bp',
 	'/effects/emitters/seraphim_heayvcavitation_torpedo_projectile_hit_02_emit.bp',
 	'/effects/emitters/seraphim_heayvcavitation_torpedo_projectile_hit_03_emit.bp',
-	--'/effects/emitters/seraphim_heayvcavitation_torpedo_projectile_hit_04_emit.bp',
-	--'/effects/emitters/seraphim_heayvcavitation_torpedo_projectile_hit_05_emit.bp',
 }
 
-SHeavyCavitationTorpedoSplit = {
-	'/effects/emitters/seraphim_ajellu_hit_03_emit.bp',
+SHeavyCavitationTorpedoSplit = {'/effects/emitters/seraphim_ajellu_hit_03_emit.bp',
 	'/effects/emitters/seraphim_ajellu_hit_04_emit.bp',
 }
 
-SOtheBombMuzzleFlash= {
-	'/effects/emitters/seraphim_othe_bomb_muzzle_flash_01_emit.bp',
-}
+SOtheBombMuzzleFlash= {'/effects/emitters/seraphim_othe_bomb_muzzle_flash_01_emit.bp'}
 
 SOtheBombFxTrails = {
 	'/effects/emitters/seraphim_othe_bomb_projectile_fxtrail_01_emit.bp',
@@ -3183,9 +3150,7 @@ SOtheBombHitUnit = {
 	'/effects/emitters/seraphim_othe_bomb_projectile_hit_04_emit.bp',
 }
 
-SOhwalliBombMuzzleFlash01 = {
-	'/effects/emitters/seraphim_ohwalli_strategic_bomb_muzzle_flash_01_emit.bp',
-}
+SOhwalliBombMuzzleFlash01 = {'/effects/emitters/seraphim_ohwalli_strategic_bomb_muzzle_flash_01_emit.bp'}
 
 SOhwalliBombFxTrails01 = {
     '/effects/emitters/seraphim_ohwalli_strategic_bomb_fxtrails_01_emit.bp',
@@ -3317,9 +3282,7 @@ SDFSniperShotHitUnit = {
     '/effects/emitters/seraphim_sih_projectile_unit_05_emit.bp'
 }
 
-SDFSniperShotTrails = {
-    '/effects/emitters/seraphim_sih_fxtrail_01_emit.bp',
-}
+SDFSniperShotTrails = {'/effects/emitters/seraphim_sih_fxtrail_01_emit.bp'}
 
 SDFSniperShotNormalPolytrail = {
 	'/effects/emitters/seraphim_sih_polytrail_03_emit.bp',
@@ -3359,6 +3322,7 @@ Aeon_QuadLightLaserCannonHit = {
     '/effects/emitters/aeon_dualquantum_cannon_projectile_hit_emit4.bp',
 --    '/effects/emitters/aeon_dualquantum_cannon_projectile_hit_emit5.bp',
 }
+
 Aeon_QuadLightLaserCannonUnitHit = TableCat (Aeon_QuadLightLaserCannonHit, UnitHitShrapnel01)
 
 Aeon_DualQuantumAutoGunMuzzleFlash= {
@@ -3367,13 +3331,16 @@ Aeon_DualQuantumAutoGunMuzzleFlash= {
 	'/effects/emitters/aeon_dualquantum_cannon_muzzle_flash_03_emit.bp',
 }
 Aeon_DualQuantumAutoGunProjectileTrail = '/effects/emitters/aeon_dualquantum_cannon_projectile_trail_emit.bp'
+
 Aeon_DualQuantumAutoGunProjectile = {
 	'/effects/emitters/aeon_dualquantum_cannon_projectile_01_emit.bp',
 	'/effects/emitters/aeon_dualquantum_cannon_projectile_02_emit.bp',
 }
+
 Aeon_DualQuantumAutoGunFxTrail = {
 	'/effects/emitters/aeon_dualquantum_cannon_projectile_fxtrail_emit.bp',
 }
+
 Aeon_DualQuantumAutoGunHitLand = {
     '/effects/emitters/aeon_dualquantum_cannon_projectile_hit_emit.bp',
     '/effects/emitters/aeon_dualquantum_cannon_projectile_hit_02_emit.bp',
@@ -3383,6 +3350,7 @@ Aeon_DualQuantumAutoGunHitLand = {
     '/effects/emitters/aeon_dualquantum_cannon_projectile_hit_06_emit.bp',
 --    '/effects/emitters/aeon_dualquantum_cannon_projectile_hit_07_emit.bp',
 }
+
 Aeon_DualQuantumAutoGunHit = {
     '/effects/emitters/aeon_dualquantum_cannon_projectile_hit_emit.bp',
     '/effects/emitters/aeon_dualquantum_cannon_projectile_hit_02_emit.bp',
@@ -3392,12 +3360,14 @@ Aeon_DualQuantumAutoGunHit = {
     '/effects/emitters/aeon_dualquantum_cannon_projectile_hitunit_06_emit.bp',
 --    '/effects/emitters/aeon_dualquantum_cannon_projectile_hitunit_07_emit.bp',
 }
+
 Aeon_DualQuantumAutoGunHit_Unit = TableCat (Aeon_DualQuantumAutoGunHit, UnitHitShrapnel01)
 
 Aeon_HeavyDisruptorCannonMuzzleCharge= {
 	'/effects/emitters/aeon_heavydisruptor_cannon_muzzle_charge_01_emit.bp',
 	'/effects/emitters/aeon_heavydisruptor_cannon_muzzle_charge_02_emit.bp',
 }
+
 Aeon_HeavyDisruptorCannonMuzzleFlash= {
 	'/effects/emitters/aeon_heavydisruptor_cannon_muzzle_flash_emit.bp',
 	'/effects/emitters/aeon_heavydisruptor_cannon_muzzle_flash_02_emit.bp',
@@ -3406,16 +3376,20 @@ Aeon_HeavyDisruptorCannonMuzzleFlash= {
 	'/effects/emitters/aeon_heavydisruptor_cannon_muzzle_flash_05_emit.bp',
 --	'/effects/emitters/aeon_heavydisruptor_cannon_muzzle_flash_06_emit.bp',
 }
+
 Aeon_HeavyDisruptorCannonProjectileTrails = {
 	'/effects/emitters/aeon_heavydisruptor_cannon_projectile_trail_emit.bp',
 }
+
 Aeon_HeavyDisruptorCannonProjectile = {
 	--'/effects/emitters/aeon_heavydisruptor_cannon_projectile_01_emit.bp',
 	--'/effects/emitters/aeon_heavydisruptor_cannon_projectile_02_emit.bp',
 }
+
 Aeon_HeavyDisruptorCannonProjectileFxTrails  = {
 	'/effects/emitters/aeon_heavydisruptor_cannon_projectile_01_emit.bp',
 }
+
 Aeon_HeavyDisruptorCannonLandHit = {
     '/effects/emitters/aeon_heavydisruptor_cannon_projectile_hit_01_emit.bp',
     '/effects/emitters/aeon_heavydisruptor_cannon_projectile_hit_02_emit.bp',
@@ -3426,6 +3400,7 @@ Aeon_HeavyDisruptorCannonLandHit = {
     '/effects/emitters/aeon_heavydisruptor_cannon_projectile_hit_07_emit.bp',
 --    '/effects/emitters/aeon_heavydisruptor_cannon_projectile_hit_08_emit.bp',
 }
+
 Aeon_HeavyDisruptorCannonHit01 = {
     '/effects/emitters/aeon_heavydisruptor_cannon_projectile_hit_unit_02_emit.bp',
     '/effects/emitters/destruction_unit_hit_shrapnel_01_emit.bp',
@@ -3436,6 +3411,7 @@ Aeon_QuanticClusterChargeMuzzleFlash= {
 	'/effects/emitters/aeon_quanticcluster_muzzle_flash_01_emit.bp',
     '/effects/emitters/aeon_quanticcluster_muzzle_flash_02_emit.bp',
 }
+
 Aeon_QuanticClusterMuzzleFlash= {
     '/effects/emitters/aeon_quanticcluster_muzzle_flash_03_emit.bp',	-- flat flash glow
     '/effects/emitters/aeon_quanticcluster_muzzle_flash_04_emit.bp',	-- expanding ring
@@ -3444,25 +3420,29 @@ Aeon_QuanticClusterMuzzleFlash= {
 --    '/effects/emitters/aeon_quanticcluster_muzzle_flash_07_emit.bp',	-- dust
 --    '/effects/emitters/aeon_quanticcluster_muzzle_flash_08_emit.bp',	-- little dot glows
 }
+
 Aeon_QuanticClusterFrag01 = {
     '/effects/emitters/aeon_quanticcluster_split_01_emit.bp',
     '/effects/emitters/aeon_quanticcluster_split_02_emit.bp',
     '/effects/emitters/aeon_quanticcluster_split_03_emit.bp',
 }
+
 Aeon_QuanticClusterFrag02 = {
     '/effects/emitters/aeon_quanticcluster_split_04_emit.bp',
     '/effects/emitters/aeon_quanticcluster_split_05_emit.bp',
     '/effects/emitters/aeon_quanticcluster_split_06_emit.bp',
 }
-Aeon_QuanticClusterProjectileTrails = {
-	 '/effects/emitters/aeon_quanticcluster_fxtrail_01_emit.bp',
-}
-Aeon_QuanticClusterProjectileTrails02 = {
-	 '/effects/emitters/aeon_quanticcluster_fxtrail_02_emit.bp',
-}
+
+Aeon_QuanticClusterProjectileTrails = {'/effects/emitters/aeon_quanticcluster_fxtrail_01_emit.bp'}
+
+Aeon_QuanticClusterProjectileTrails02 = {'/effects/emitters/aeon_quanticcluster_fxtrail_02_emit.bp'}
+
 Aeon_QuanticClusterProjectilePolyTrail = '/effects/emitters/aeon_quantic_cluster_polytrail_01_emit.bp'
+
 Aeon_QuanticClusterProjectilePolyTrail02 = '/effects/emitters/aeon_quantic_cluster_polytrail_02_emit.bp'
+
 Aeon_QuanticClusterProjectilePolyTrail03 = '/effects/emitters/aeon_quantic_cluster_polytrail_03_emit.bp'
+
 Aeon_QuanticClusterHit = {
 	'/effects/emitters/aeon_quanticcluster_hit_01_emit.bp',	-- initial flash
 	'/effects/emitters/aeon_quanticcluster_hit_02_emit.bp',	-- glow
@@ -3476,37 +3456,26 @@ Aeon_QuanticClusterHit = {
 	'/effects/emitters/aeon_quanticcluster_hit_10_emit.bp',	-- radial rays
 }
 
-ALightDisplacementAutocannonMissileMuzzleFlash = { 
-	'/effects/emitters/aeon_light_displacement_missile_muzzleflash_01.bp',
-}
+ALightDisplacementAutocannonMissileMuzzleFlash = {'/effects/emitters/aeon_light_displacement_missile_muzzleflash_01.bp'}
+
 ALightDisplacementAutocannonMissileExhaust01 = '/effects/emitters/seraphim_lancer_missile_exhaust_polytrail_01.bp'
-ALightDisplacementAutocannonMissileExhaust02 = { 
-	'/effects/emitters/seraphim_lancer_missile_exhaust_fxtrail_01_emit.bp', 
-}
+
+ALightDisplacementAutocannonMissileExhaust02 = {'/effects/emitters/seraphim_lancer_missile_exhaust_fxtrail_01_emit.bp'}
+
 ALightDisplacementAutocannonMissileHit = {
-    --'/effects/emitters/seraphim_lancer_missile_hit_01_emit.bp',
-    --'/effects/emitters/seraphim_lancer_missile_hit_02_emit.bp',
-    --'/effects/emitters/seraphim_lancer_missile_hit_03_emit.bp',
-    --'/effects/emitters/seraphim_lancer_missile_hit_04_emit.bp',
-    --'/effects/emitters/seraphim_lancer_missile_hit_05_emit.bp',
-     
     '/effects/emitters/aeon_light_displacement_missile_hit_01_emit.bp',
     '/effects/emitters/aeon_light_displacement_missile_hit_02_emit.bp',
     '/effects/emitters/aeon_light_displacement_missile_hit_03_emit.bp',
     '/effects/emitters/aeon_light_displacement_missile_hit_04_emit.bp',
 }
+
 ALightDisplacementAutocannonMissileHitUnit = {
-    --'/effects/emitters/seraphim_lancer_missile_hit_01_unit.bp',
-    --'/effects/emitters/seraphim_lancer_missile_hit_02_unit.bp',
-    --'/effects/emitters/seraphim_lancer_missile_hit_02_flat_unit.bp',
-    --'/effects/emitters/seraphim_lancer_missile_hit_04_unit.bp',
-    --'/effects/emitters/seraphim_lancer_missile_hit_05_unit.bp',
-    
     '/effects/emitters/aeon_light_displacement_missile_hit_01_emit.bp',
     '/effects/emitters/aeon_light_displacement_missile_hit_03_emit.bp',
     '/effects/emitters/aeon_light_displacement_missile_hit_02_emit.bp',
     '/effects/emitters/aeon_light_displacement_missile_hit_04_emit.bp',
 }
+
 ALightDisplacementAutocannonMissilePolyTrails = {
     '/effects/emitters/aeon_light_displacement_missile_polytrail_01_emit.bp',
     '/effects/emitters/aeon_light_displacement_missile_polytrail_02_emit.bp',
@@ -3514,23 +3483,21 @@ ALightDisplacementAutocannonMissilePolyTrails = {
 
 --  OLD UN-REFEFENCED EFFECT MAPPINGS
 -- FIXME: These don't seem to be used anymore. Double check, and remove references and associated assets. ~gd 6.21.07
+
 TBombHit01 = {
     '/effects/emitters/bomb_hit_flash_01_emit.bp',
     '/effects/emitters/bomb_hit_fire_01_emit.bp',
     '/effects/emitters/bomb_hit_fire_shadow_01_emit.bp',
 }
-CSGTestAeonGroundFX = {
-    '/effects/emitters/_test_aeon_groundfx_emit.bp',
-}
-CSGTestAeonGroundFXSmall = {
-    '/effects/emitters/_test_aeon_groundfx_small_emit.bp',
-}
-CSGTestAeonGroundFXMedium = {
-    '/effects/emitters/_test_aeon_groundfx_medium_emit.bp',
-}
-CSGTestAeonGroundFXLow = {
-    '/effects/emitters/_test_aeon_groundfx_low_emit.bp',
-}
+
+CSGTestAeonGroundFX = {'/effects/emitters/_test_aeon_groundfx_emit.bp'}
+
+CSGTestAeonGroundFXSmall = {'/effects/emitters/_test_aeon_groundfx_small_emit.bp'}
+
+CSGTestAeonGroundFXMedium = {'/effects/emitters/_test_aeon_groundfx_medium_emit.bp'}
+
+CSGTestAeonGroundFXLow = {'/effects/emitters/_test_aeon_groundfx_low_emit.bp'}
+
 CSGTestAeonT2EngineerGroundFX = {
     '/effects/emitters/_test_aeon_t2eng_groundfx01_emit.bp',
     '/effects/emitters/_test_aeon_t2eng_groundfx02_emit.bp',
@@ -3541,9 +3508,9 @@ TLaserPolytrail01 = {
     '/effects/emitters/terran_commander_cannon_polytrail_02_emit.bp',
     '/effects/emitters/default_polytrail_01_emit.bp',
 }
-TLaserFxtrail01 = {
-	 '/effects/emitters/terran_commander_cannon_fxtrail_01_emit.bp',
-}
+
+TLaserFxtrail01 = {'/effects/emitters/terran_commander_cannon_fxtrail_01_emit.bp'}
+
 TLaserMuzzleFlash = { 
     '/effects/emitters/terran_commander_cannon_flash_01_emit.bp',
     '/effects/emitters/terran_commander_cannon_flash_02_emit.bp', 
@@ -3551,7 +3518,9 @@ TLaserMuzzleFlash = {
     '/effects/emitters/terran_commander_cannon_flash_04_emit.bp',
     '/effects/emitters/terran_commander_cannon_flash_05_emit.bp',
 }
-TLaserHit01 = { '/effects/emitters/laserturret_hit_flash_02_emit.bp',}
+
+TLaserHit01 = { '/effects/emitters/laserturret_hit_flash_02_emit.bp'}
+
 TLaserHit02 = { 
     '/effects/emitters/terran_commander_cannon_hit_01_emit.bp',	-- outward lines, non facing
     '/effects/emitters/terran_commander_cannon_hit_02_emit.bp',	-- fast flash
@@ -3561,6 +3530,7 @@ TLaserHit02 = {
     '/effects/emitters/terran_commander_cannon_hit_06_emit.bp',	-- darkening dot particles
     '/effects/emitters/terran_commander_cannon_hit_07_emit.bp',	-- ring
 }
+
 TLaserHit03 = { 
     '/effects/emitters/terran_commander_cannon_hitunit_01_emit.bp',	-- outward lines, non facing
     '/effects/emitters/terran_commander_cannon_hitunit_02_emit.bp',	-- fast flash
@@ -3570,11 +3540,14 @@ TLaserHit03 = {
     '/effects/emitters/terran_commander_cannon_hitunit_06_emit.bp',	-- darkening dot particles
     '/effects/emitters/terran_commander_cannon_hitunit_07_emit.bp',	-- ring
 }
-TLaserHitUnit01 = TableCat( TLaserHit01, UnitHitShrapnel01 )
-TLaserHitLand01 = TableCat( TLaserHit01 )
-TLaserHitUnit02 = TableCat( TLaserHit03, UnitHitShrapnel01 )
-TLaserHitLand02 = TableCat( TLaserHit02 )
 
+TLaserHitUnit01 = TableCat( TLaserHit01, UnitHitShrapnel01 )
+
+TLaserHitLand01 = TableCat( TLaserHit01 )
+
+TLaserHitUnit02 = TableCat( TLaserHit03, UnitHitShrapnel01 )
+
+TLaserHitLand02 = TableCat( TLaserHit02 )
 
 TestExplosion01 = {
     '/effects/emitters/_test_explosion_b1_emit.bp', --lowest layer orange   
