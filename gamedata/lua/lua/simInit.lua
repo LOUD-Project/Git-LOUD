@@ -276,7 +276,10 @@ function BeginSession()
     ForkThread(import('/lua/aibrain.lua').CollectCurrentScores)
 
     -- victory conditions
-    ForkThread(import('/lua/victory.lua').CheckVictory, ScenarioInfo)	
+    ForkThread(import('/lua/victory.lua').CheckVictory, ScenarioInfo)
+
+    -- Performance log --
+    --ForkThread(import('/lua/loudutilities.lua').LogGamePerformanceData)
 end
 
 function OnPostLoad()
