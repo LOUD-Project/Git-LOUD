@@ -628,10 +628,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Turret_Muzzle02',
-                        'Left_Turret_Muzzle03',
-                    },
+                    MuzzleBones = {'Left_Turret_Muzzle02','Left_Turret_Muzzle03'},
                     RackBone = 'Left_Turret_Barrel02',
                 },
             },
@@ -712,10 +709,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Turret_Muzzle01',
-                        'Right_Turret_Muzzle02',
-                    },
+                    MuzzleBones = {'Right_Turret_Muzzle01','Right_Turret_Muzzle02'},
                     RackBone = 'Right_Turret_Barrel01',
                 },
             },
@@ -811,7 +805,7 @@ UnitBlueprint {
 			
             NukeWeapon = true,
 			
-            ProjectileId = '/projectiles/SIFInainoStrategicMissile02/SIFInainoStrategicMissile02_proj.bp',
+            ProjectileId = '/projectiles/SIFInainoStrategicMissile02/SIFInainoStrategicMissile01_proj.bp',
 
             RackBones = {
                 {

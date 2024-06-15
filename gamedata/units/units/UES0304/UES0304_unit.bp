@@ -312,7 +312,7 @@ UnitBlueprint {
 
             NukeWeapon = true,
 
-            ProjectileId = '/projectiles/TIFMissileNuke02/TIFMissileNuke02_proj.bp',
+            ProjectileId = '/projectiles/TIFMissileNuke02/TIFMissileNuke01_proj.bp',
             RackBones = {
                 {
                     MuzzleBones = {'Center_Projectile01'},

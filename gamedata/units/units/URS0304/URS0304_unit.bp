@@ -387,7 +387,7 @@ UnitBlueprint {
 			
             NukeWeapon = true,
 			
-            ProjectileId = '/projectiles/CIFEMPFluxWarhead04/CIFEMPFluxWarhead04_proj.bp',
+            ProjectileId = '/projectiles/CIFEMPFluxWarhead04/CIFEMPFluxWarhead01_proj.bp',
 
             RackBones = {
                 {
