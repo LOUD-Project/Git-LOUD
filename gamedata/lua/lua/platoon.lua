@@ -2,39 +2,46 @@
 
 local import = import
 
-local AIAddMustScoutArea = import('ai/aiutilities.lua').AIAddMustScoutArea
-local AIGetClosestMarkerLocation = import('ai/aiutilities.lua').AIGetClosestMarkerLocation
-local AIGetMarkersAroundLocation = import('ai/aiutilities.lua').AIGetMarkersAroundLocation
-local AIGetReclaimablesAroundLocation = import('ai/aiutilities.lua').AIGetReclaimablesAroundLocation
-local CheckUnitPathingEx = import('ai/aiutilities.lua').CheckUnitPathingEx
-local GetNumberOfOwnUnitsAroundPoint = import('ai/aiutilities.lua').GetNumberOfOwnUnitsAroundPoint
-local GetOwnUnitsAroundPoint = import('ai/aiutilities.lua').GetOwnUnitsAroundPoint
-local GetOwnUnitsAroundPointWithThreatCheck = import('ai/aiutilities.lua').GetOwnUnitsAroundPointWithThreatCheck
-local RandomLocation = import('ai/aiutilities.lua').RandomLocation
+local AIUtilities = import('ai/aiutilities.lua')
 
+local AIAddMustScoutArea                    = AIUtilities.AIAddMustScoutArea
+local AIGetClosestMarkerLocation            = AIUtilities.AIGetClosestMarkerLocation
+local AIGetMarkersAroundLocation            = AIUtilities.AIGetMarkersAroundLocation
+local AIGetReclaimablesAroundLocation       = AIUtilities.AIGetReclaimablesAroundLocation
+local CheckUnitPathingEx                    = AIUtilities.CheckUnitPathingEx
+local GetNumberOfOwnUnitsAroundPoint        = AIUtilities.GetNumberOfOwnUnitsAroundPoint
+local GetOwnUnitsAroundPoint                = AIUtilities.GetOwnUnitsAroundPoint
+local GetOwnUnitsAroundPointWithThreatCheck = AIUtilities.GetOwnUnitsAroundPointWithThreatCheck
+local RandomLocation                        = AIUtilities.RandomLocation
 
+AIUtilities = nil
 
-local AIFindDefensivePointNeedsStructure = import('/lua/ai/altaiutilities.lua').AIFindDefensivePointNeedsStructure
-local AIFindDefensivePointForDP = import('/lua/ai/altaiutilities.lua').AIFindDefensivePointForDP
-local AIFindBaseAreaForDP = import('/lua/ai/altaiutilities.lua').AIFindBaseAreaForDP
-local AIFindBaseAreaForExpansion = import('/lua/ai/altaiutilities.lua').AIFindBaseAreaForExpansion
-local AIFindBasePointNeedsStructure = import('/lua/ai/altaiutilities.lua').AIFindBasePointNeedsStructure
-local AIFindNavalAreaForExpansion = import('/lua/ai/altaiutilities.lua').AIFindNavalAreaForExpansion
-local AIFindNavalDefensivePointNeedsStructure = import('/lua/ai/altaiutilities.lua').AIFindNavalDefensivePointNeedsStructure
-local AIFindStartPointNeedsStructure = import('/lua/ai/altaiutilities.lua').AIFindStartPointNeedsStructure
-local AISendPing = import('/lua/ai/altaiutilities.lua').AISendPing
-local AssistBody = import('/lua/ai/altaiutilities.lua').AssistBody
-local GetTemplateReplacement = import('/lua/ai/altaiutilities.lua').GetTemplateReplacement
-local GetTransports = import('/lua/ai/transportutilities.lua').GetTransports
-local SendPlatoonWithTransportsLOUD = import('/lua/ai/transportutilities.lua').SendPlatoonWithTransportsLOUD
-local UnfinishedBody = import('/lua/ai/altaiutilities.lua').UnfinishedBody
-local UseTransports = import('/lua/ai/transportutilities.lua').UseTransports
+local AltAIUtilities = import('/lua/ai/altaiutilities.lua')
 
-local AIBuildAdjacency = import('/lua/ai/aibuildstructures.lua').AIBuildAdjacency
-local AIBuildBaseTemplateFromLocation = import('/lua/ai/aibuildstructures.lua').AIBuildBaseTemplateFromLocation
-local AIBuildBaseTemplateOrdered = import('/lua/ai/aibuildstructures.lua').AIBuildBaseTemplateOrdered
-local AIExecuteBuildStructure = import('/lua/ai/aibuildstructures.lua').AIExecuteBuildStructure
-local AINewExpansionBase = import('/lua/ai/aibuildstructures.lua').AINewExpansionBase
+local AIFindDefensivePointNeedsStructure        = AltAIUtilities.AIFindDefensivePointNeedsStructure
+local AIFindDefensivePointForDP                 = AltAIUtilities.AIFindDefensivePointForDP
+local AIFindBaseAreaForDP                       = AltAIUtilities.AIFindBaseAreaForDP
+local AIFindBaseAreaForExpansion                = AltAIUtilities.AIFindBaseAreaForExpansion
+local AIFindBasePointNeedsStructure             = AltAIUtilities.AIFindBasePointNeedsStructure
+local AIFindNavalAreaForExpansion               = AltAIUtilities.AIFindNavalAreaForExpansion
+local AIFindNavalDefensivePointNeedsStructure   = AltAIUtilities.AIFindNavalDefensivePointNeedsStructure
+local AIFindStartPointNeedsStructure            = AltAIUtilities.AIFindStartPointNeedsStructure
+local AISendPing                                = AltAIUtilities.AISendPing
+local AssistBody                                = AltAIUtilities.AssistBody
+local GetTemplateReplacement                    = AltAIUtilities.GetTemplateReplacement
+local UnfinishedBody                            = AltAIUtilities.UnfinishedBody
+
+AltAIUtilities = nil
+
+local GetTransports                         = import('/lua/ai/transportutilities.lua').GetTransports
+local SendPlatoonWithTransportsLOUD         = import('/lua/ai/transportutilities.lua').SendPlatoonWithTransportsLOUD
+local UseTransports                         = import('/lua/ai/transportutilities.lua').UseTransports
+
+local AIBuildAdjacency                  = import('/lua/ai/aibuildstructures.lua').AIBuildAdjacency
+local AIBuildBaseTemplateFromLocation   = import('/lua/ai/aibuildstructures.lua').AIBuildBaseTemplateFromLocation
+local AIBuildBaseTemplateOrdered        = import('/lua/ai/aibuildstructures.lua').AIBuildBaseTemplateOrdered
+local AIExecuteBuildStructure           = import('/lua/ai/aibuildstructures.lua').AIExecuteBuildStructure
+local AINewExpansionBase                = import('/lua/ai/aibuildstructures.lua').AINewExpansionBase
 
 local Behaviors = import('/lua/ai/aibehaviors.lua')
 
@@ -42,45 +49,52 @@ local CreatePlatoonToPositionDistanceTrigger = import('/lua/scenariotriggers.lua
 
 local GetDirection = import('/lua/utilities.lua').GetDirectionInDegrees
 
-local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
-local FindPointMeetsConditions = import('/lua/ai/aiattackutilities.lua').FindPointMeetsConditions
-local FindTargetInRange = import('/lua/ai/aiattackutilities.lua').FindTargetInRange
-local GetMostRestrictiveLayer = import('/lua/ai/aiattackutilities.lua').GetMostRestrictiveLayer
-local InWaterCheck = import('/lua/ai/aiattackutilities.lua').InWaterCheck
+local AIFindTargetInRangeInCategoryWithThreatFromPosition   = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
+local FindPointMeetsConditions                              = import('/lua/ai/aiattackutilities.lua').FindPointMeetsConditions
+local FindTargetInRange                                     = import('/lua/ai/aiattackutilities.lua').FindTargetInRange
+local GetMostRestrictiveLayer                               = import('/lua/ai/aiattackutilities.lua').GetMostRestrictiveLayer
+local InWaterCheck                                          = import('/lua/ai/aiattackutilities.lua').InWaterCheck
 
-local AIFindUndefendedBrainTargetInRangeSorian = import('/lua/ai/sorianutilities.lua').AIFindUndefendedBrainTargetInRangeSorian
-local FindDamagedShield = import('/lua/ai/sorianutilities.lua').FindDamagedShield
-local AISendChat = import('/lua/ai/sorianutilities.lua').AISendChat
+local AIFindUndefendedBrainTargetInRangeSorian  = import('/lua/ai/sorianutilities.lua').AIFindUndefendedBrainTargetInRangeSorian
+local FindDamagedShield                         = import('/lua/ai/sorianutilities.lua').FindDamagedShield
+local AISendChat                                = import('/lua/ai/sorianutilities.lua').AISendChat
 
-local BaseInPlayableArea = import('loudutilities.lua').BaseInPlayableArea
-local DisperseUnitsToRallyPoints = import('/lua/loudutilities.lua').DisperseUnitsToRallyPoints
-local FindClosestBaseName = import('loudutilities.lua').FindClosestBaseName
-local GetBasePerimeterPoints = import('/lua/loudutilities.lua').GetBasePerimeterPoints
-local GetBaseWithGreatestThreatAtDistance = import('/lua/loudutilities.lua').GetBaseWithGreatestThreatAtDistance
-local GetHiPriTargetList = import('loudutilities.lua').GetHiPriTargetList
-local GetPrimaryLandAttackBase = import('/lua/loudutilities.lua').GetPrimaryLandAttackBase
-local GetPrimarySeaAttackBase = import('/lua/loudutilities.lua').GetPrimarySeaAttackBase
-local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
-local RecheckHiPriTarget = import('/lua/loudutilities.lua').RecheckHiPriTarget
+local BaseInPlayableArea                        = import('loudutilities.lua').BaseInPlayableArea
+local DisperseUnitsToRallyPoints                = import('loudutilities.lua').DisperseUnitsToRallyPoints
+local FindClosestBaseName                       = import('loudutilities.lua').FindClosestBaseName
+local GetBasePerimeterPoints                    = import('loudutilities.lua').GetBasePerimeterPoints
+local GetBaseWithGreatestThreatAtDistance       = import('loudutilities.lua').GetBaseWithGreatestThreatAtDistance
+local GetHiPriTargetList                        = import('loudutilities.lua').GetHiPriTargetList
+local GetPrimaryLandAttackBase                  = import('loudutilities.lua').GetPrimaryLandAttackBase
+local GetPrimarySeaAttackBase                   = import('loudutilities.lua').GetPrimarySeaAttackBase
+local ProcessAirUnits                           = import('loudutilities.lua').ProcessAirUnits
+local RecheckHiPriTarget                        = import('loudutilities.lua').RecheckHiPriTarget
 
-local UnitCapCheckGreater = import('/lua/editor/UnitCountBuildConditions.lua').UnitCapCheckGreater
+local UnitCapCheckGreater   = import('/lua/editor/UnitCountBuildConditions.lua').UnitCapCheckGreater
 
-local AIBrainMethods = moho.aibrain_methods
-local EntityMethods = moho.entity_methods
-local PlatoonMethods = moho.platoon_methods
+local AIBrainMethods    = moho.aibrain_methods
+local EntityMethods     = moho.entity_methods
+local PlatoonMethods    = moho.platoon_methods
 
 local AssignUnitsToPlatoon              = AIBrainMethods.AssignUnitsToPlatoon
 local BuildStructure                    = AIBrainMethods.BuildStructure
 local CanBuildStructureAt               = AIBrainMethods.CanBuildStructureAt
+local GetEconomyStored                  = AIBrainMethods.GetEconomyStored
+local GetEconomyStoredRatio             = AIBrainMethods.GetEconomyStoredRatio
+local GetPlatoonsList                   = AIBrainMethods.GetPlatoonsList
 local GetThreatAtPosition               = AIBrainMethods.GetThreatAtPosition
 local GetThreatBetweenPositions         = AIBrainMethods.GetThreatBetweenPositions
 local GetUnitsAroundPoint               = AIBrainMethods.GetUnitsAroundPoint
 local PlatoonExists                     = AIBrainMethods.PlatoonExists
 
+AIBrainMethods = nil
+
 local BeenDestroyed             = EntityMethods.BeenDestroyed
 local GetBlueprint              = EntityMethods.GetBlueprint
 local GetFractionComplete       = EntityMethods.GetFractionComplete
 local GetPosition               = EntityMethods.GetPosition
+
+EntityMethods = nil
 
 local CalculatePlatoonThreat                = PlatoonMethods.CalculatePlatoonThreat
 local CanAttackTarget                       = PlatoonMethods.CanAttackTarget
@@ -91,47 +105,45 @@ local GetSquadUnits                         = PlatoonMethods.GetSquadUnits
 local PlatoonCategoryCount                  = PlatoonMethods.PlatoonCategoryCount
 local PlatoonCategoryCountAroundPosition    = PlatoonMethods.PlatoonCategoryCountAroundPosition
 
-local GetAIBrain = moho.unit_methods.GetAIBrain
-local IsIdleState = moho.unit_methods.IsIdleState
-local IsUnitState = moho.unit_methods.IsUnitState
+local GetAIBrain    = moho.unit_methods.GetAIBrain
+local IsIdleState   = moho.unit_methods.IsIdleState
+local IsUnitState   = moho.unit_methods.IsUnitState
 
-EntityMethods = nil
+local LOUDABS       = math.abs
+local LOUDCAT       = table.cat
+local LOUDCEIL      = math.ceil
+local LOUDCOPY      = table.copy
+local LOUDDEEPCOPY  = table.deepcopy
+local LOUDENTITY    = EntityCategoryContains
+local LOUDEQUAL     = table.equal
+local LOUDFIND      = string.find
+local LOUDFLOOR     = math.floor
+local LOUDGETN      = table.getn
+local LOUDINSERT    = table.insert
+local LOUDLOG10     = math.log10
+local LOUDMAX       = math.max
+local LOUDMIN       = math.min
+local LOUDMOD       = math.mod
+local LOUDPARSE     = ParseEntityCategory
+local LOUDREMOVE    = table.remove
+local LOUDSORT      = table.sort
+local LOUDSQRT      = math.sqrt
+local LOUDTIME      = GetGameTimeSeconds
+local VDist2Sq      = VDist2Sq
+local VDist3        = VDist3
 
-local LOUDABS = math.abs
-local LOUDCAT = table.cat
-local LOUDCEIL = math.ceil
-local LOUDCOPY = table.copy
-local LOUDDEEPCOPY = table.deepcopy
-local LOUDENTITY = EntityCategoryContains
-local LOUDEQUAL = table.equal
-local LOUDFIND = string.find
-local LOUDFLOOR = math.floor
-local LOUDGETN = table.getn
-local LOUDINSERT = table.insert
-local LOUDLOG10 = math.log10
-local LOUDMAX = math.max
-local LOUDMIN = math.min
-local LOUDMOD = math.mod
-local LOUDPARSE = ParseEntityCategory
-local LOUDREMOVE = table.remove
-local LOUDSORT = table.sort
-local LOUDSQRT = math.sqrt
-local LOUDTIME = GetGameTimeSeconds
+local ForkThread    = ForkThread
+local ForkTo        = ForkThread
+local KillThread    = KillThread
+local TrashBag      = TrashBag
+local TrashAdd      = TrashBag.Add
+local TrashDestroy  = TrashBag.Destroy
+local WaitTicks     = coroutine.yield
 
-local VDist2Sq = VDist2Sq
-local VDist3 = VDist3
-
-local ForkThread = ForkThread
-local ForkTo = ForkThread
-local KillThread = KillThread
-local TrashBag = TrashBag
-local TrashAdd = TrashBag.Add
-local TrashDestroy = TrashBag.Destroy
-local WaitTicks = coroutine.yield
-
-local ALLUNITS = categories.ALLUNITS
-local AIRUNITS = categories.AIR * categories.MOBILE - categories.EXPERIMENTAL
-local ENGINEERS = categories.ENGINEER
+local ALLUNITS      = categories.ALLUNITS
+local AIRUNITS      = categories.AIR * categories.MOBILE - categories.EXPERIMENTAL
+local COMMANDER     = categories.COMMAND
+local ENGINEERS     = categories.ENGINEER
 local EXPERIMENTALS = categories.EXPERIMENTAL
 
 -- types of threat to look at based on composition of platoon
@@ -154,7 +166,7 @@ Platoon = Class(PlatoonMethods) {
         
 			local aiBrain = GetBrain(self)
             
-            self:ForkThread( function(self) WaitTicks(1) LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." platoon created ") end)
+            self:ForkThread( function(self) WaitTicks(1) LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..self.BuilderName.." "..repr(self.BuilderInstance).." created") end)
 		end
         
     end,
@@ -189,7 +201,7 @@ Platoon = Class(PlatoonMethods) {
 		if self[plan] then
 
 			if ScenarioInfo.PlatoonDialog then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." SetAIPlan to "..repr(plan))
+				LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..self.BuilderName.." "..repr(self.BuilderInstance).." SetAIPlan to "..repr(plan))
 			end
 
 			self:ForkAIThread(self[plan], aiBrain)
@@ -268,7 +280,7 @@ Platoon = Class(PlatoonMethods) {
         local Callbacks = self.EventCallbacks.OnDestroyed
 
 		if ScenarioInfo.PlatoonDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." platoon destroyed "..repr(self) )
+            LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..self.BuilderName.." "..repr(self.BuilderInstance).." destroyed " )
 		end
 
         if Callbacks then
@@ -282,7 +294,7 @@ Platoon = Class(PlatoonMethods) {
             end		
         end
 
-        TrashDestroy(self.Trash)
+        TrashBag.Destroy(self.Trash)
     end,
 
     WatchPlatoonSize = function(self, startsize, triggervalue)
@@ -481,7 +493,7 @@ Platoon = Class(PlatoonMethods) {
                 prevpoint[3] = waypointPath[3]
 			end
 		else
-			WARN("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." has no path ! Position is "..repr(prevpoint))
+			WARN("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." has no path ! Position is "..repr(prevpoint))
 		end
         
         self:KillMoveThread()        
@@ -526,10 +538,6 @@ Platoon = Class(PlatoonMethods) {
         
             targetposition = LOUDCOPY(targetposition)
  
-            --if GuardpointDialog then
-              --  LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." has target "..target.EntityID.." at "..repr(targetposition) )
-            --end
- 
             local PlatoonFormation = self.PlatoonData.UseFormation or 'None'
 
 			-- issue attack moves toward the target --
@@ -546,8 +554,6 @@ Platoon = Class(PlatoonMethods) {
                     local ATTACKS = GetSquadUnits(self,'Attack')
 
                     if ATTACKS[1] then
-
-                        --IssueClearCommands( ATTACKS )
 				
                         IssueFormAggressiveMove( ATTACKS, targetposition, 'AttackFormation', direction)
                         
@@ -556,8 +562,6 @@ Platoon = Class(PlatoonMethods) {
                     local ARTILLERY = GetSquadUnits(self,'Artillery')
 					
                     if ARTILLERY[1] then
-
-                        --IssueClearCommands( ARTILLERY )
                        
                         IssueFormAggressiveMove( ARTILLERY, targetposition, PlatoonFormation, direction)
 
@@ -567,8 +571,6 @@ Platoon = Class(PlatoonMethods) {
 
                     if GUARDS[1] then
 
-                        --IssueClearCommands( GUARDS )
-                     
                         if not ARTILLERY[1] and not ATTACKS[1] then
 
                             IssueFormMove( GUARDS, targetposition, 'BlockFormation', direction)
@@ -588,8 +590,6 @@ Platoon = Class(PlatoonMethods) {
                     local SUPPORTS = GetSquadUnits(self,'Support')
 					
                     if SUPPORTS[1] then
-
-                        --IssueClearCommands( SUPPORTS )
 
                         if not ATTACKS[1] and not ARTILLERY[1] then
                             
@@ -616,8 +616,6 @@ Platoon = Class(PlatoonMethods) {
 			while target and (not target.Dead) and PlatoonExists(aiBrain, self) do 
 
 				WaitTicks(21)
-
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." continues prosecuting target "..repr(target.EntityID).." "..repr(target.Dead))
 
 				if PlatoonExists(aiBrain,self) then
                 
@@ -657,7 +655,7 @@ Platoon = Class(PlatoonMethods) {
             local LOUDFIND      = LOUDFIND
 
 			if PlatoonDialog then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." Platoon beginning Disband")
+				LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..self.BuilderName.." "..repr(self.BuilderInstance).." beginning Disband")
 			end
 
 			if self.MoveThread then
@@ -665,6 +663,7 @@ Platoon = Class(PlatoonMethods) {
 			end
 
 			local units = GetPlatoonUnits(self)
+            local ArmyPool = aiBrain.ArmyPool
 
 			for _,v in units do
 
@@ -701,7 +700,7 @@ Platoon = Class(PlatoonMethods) {
                     
 						if NameEngineers then
 						
-							if v.BuilderName and not LOUDENTITY( categories.COMMAND, v ) then
+							if v.BuilderName and not LOUDENTITY( COMMANDER, v ) then
 							
 								v:SetCustomName("Eng "..v.EntityID.." Last: "..v.BuilderName)
 							else
@@ -736,7 +735,7 @@ Platoon = Class(PlatoonMethods) {
 					
 					-- everyone else goes to Army Pool -- 
 					if not v.PlatoonHandle then
-						AssignUnitsToPlatoon( aiBrain, aiBrain.ArmyPool, {v}, 'Unassigned','none' )
+						AssignUnitsToPlatoon( aiBrain, ArmyPool, {v}, 'Unassigned','none' )
 					end
 				end
 			end
@@ -1412,7 +1411,7 @@ Platoon = Class(PlatoonMethods) {
 					-- Engineer naming
                     if BuilderName and NameEngineers then
 					
-						if not LOUDENTITY( categories.COMMAND, v ) then
+						if not LOUDENTITY( COMMANDER, v ) then
 							v:SetCustomName("Eng "..v.EntityID.." RTB from "..BuilderName.." to "..LocationType )
 						end
                     end
@@ -1420,7 +1419,7 @@ Platoon = Class(PlatoonMethods) {
                     v.lastbuild = nil
 					
 					-- force CDR to disband - he never leaves home
-	                if LOUDENTITY( categories.COMMAND, v ) then
+	                if LOUDENTITY( COMMANDER, v ) then
 						self:PlatoonDisband( aiBrain )
 						return
 					end
@@ -1483,7 +1482,7 @@ Platoon = Class(PlatoonMethods) {
 		end
 		
 		if PlatoonDialog then
-			LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." begins RTB to "..repr(RTBLocation) )
+			LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..self.BuilderName.." "..repr(self.BuilderInstance).." begins RTB to "..repr(RTBLocation) )
 		end
 
        	self:Stop()
@@ -1788,7 +1787,7 @@ Platoon = Class(PlatoonMethods) {
 
 								else
 								
-									WARN("*AI DEBUG "..aiBrain.Nickname.." RTB "..self.BuilderName.." Unit at "..repr(unitpos).." from platoon at "..repr(platPos).." Killed in RTB")
+									--WARN("*AI DEBUG "..aiBrain.Nickname.." RTB "..self.BuilderName.." Unit at "..repr(unitpos).." from platoon at "..repr(platPos).." Killed in RTB")
 									
 									v:Kill()
 								end
@@ -2116,8 +2115,6 @@ Platoon = Class(PlatoonMethods) {
         end
 
         local DistressResponseDialog = ScenarioInfo.DistressResponseDialog 
-	
-		LOG("*AI DEBUG "..aiBrain.Nickname.." ArtilleryAI launched")
 
         local threatThreshold = 125     -- this determines which distress calls we'll look at
         local distressRange = 1000      -- controls how far afield we'll look
@@ -2182,7 +2179,7 @@ Platoon = Class(PlatoonMethods) {
 					-- we wont look at other distress calls
 					if brain.CDRDistress then
 					
-						if GetUnitsAroundPoint( brain, categories.COMMAND, brain.CDRDistress, 100, 'Ally')[1] then
+						if GetUnitsAroundPoint( brain, COMMANDER, brain.CDRDistress, 100, 'Ally')[1] then
 					
 							if VDist3( platoonPos, brain.CDRDistress ) < distressRange then
 
@@ -2301,8 +2298,7 @@ Platoon = Class(PlatoonMethods) {
 
         AssignArtilleryPriorities( SurfacePriorities )
         
-        -- So, for now, this process is relatively simple
-        -- Under normal conditions the Artillery will pick it's own targets
+        -- So, for now, this process is relatively simple -- Under normal conditions the Artillery will pick it's own targets
         -- However, when a distress call is acknowledged, the artillery will
         -- get a new set of priority targets, and will look for those targets with a radius of the distress call
         -- as long as the distress call lasts, it will pick targets, from that list, in that area
@@ -2395,8 +2391,6 @@ Platoon = Class(PlatoonMethods) {
 	end,
 
 	NukeAIHub = function ( self, aiBrain )
-	
-		LOG("*AI DEBUG "..aiBrain.Nickname.." starts NukeAIHub") -- NukeAI Platoon is "..repr(aiBrain.NukePlatoon).." Platoon Exists is "..repr( aiBrain:PlatoonExists( aiBrain.NukePlatoon )) )
 	
 		for _, unit in self:GetPlatoonUnits() do
 		
@@ -5600,6 +5594,7 @@ Platoon = Class(PlatoonMethods) {
 	-- radius based threat look ups every 10 seconds - so if a unit in the 
 	-- platoon takes damage - only then will we look for local threat
 	-- and then if the threat is there - and high enough - trigger an alert 
+
     PlatoonCallForHelpAI = function( self, aiBrain, threatcheck )
 
 		self.CallForHelpAI = true
@@ -5681,9 +5676,9 @@ Platoon = Class(PlatoonMethods) {
 						
 							mythreat = CalculatePlatoonThreat( self, 'Surface', ALLUNITS )
 						
-							airunits = GetUnitsAroundPoint ( aiBrain, AIRUNITS, pos, 80, 'Enemy')
-							landunits = GetUnitsAroundPoint( aiBrain, LANDUNITS,  pos, 65, 'Enemy')						
-							seaunits = GetUnitsAroundPoint( aiBrain, SEAUNITS, pos, 75, 'Enemy')
+							airunits    = GetUnitsAroundPoint( aiBrain, AIRUNITS, pos, 80, 'Enemy')
+							landunits   = GetUnitsAroundPoint( aiBrain, LANDUNITS, pos, 65, 'Enemy')						
+							seaunits    = GetUnitsAroundPoint( aiBrain, SEAUNITS, pos, 75, 'Enemy')
                             
 							if LOUDGETN(landunits) > LOUDGETN(airunits) and LOUDGETN(landunits) > LOUDGETN(seaunits) then
 							
@@ -5707,9 +5702,9 @@ Platoon = Class(PlatoonMethods) {
 							mythreat = CalculatePlatoonThreat( self, 'Air', ALLUNITS)
 						
 							-- get enemy air threat units within 65
-							airunits = GetUnitsAroundPoint ( aiBrain, AIRFIGHTERS, pos, 65, 'Enemy')
-							landunits = GetUnitsAroundPoint( aiBrain, LANDAA, pos, 65, 'Enemy')
- 							seaunits = GetUnitsAroundPoint( aiBrain, SEAUNITS, pos, 65, 'Enemy')                           
+							airunits    = GetUnitsAroundPoint( aiBrain, AIRFIGHTERS, pos, 60, 'Enemy')
+							landunits   = GetUnitsAroundPoint( aiBrain, LANDAA, pos, 60, 'Enemy')
+ 							seaunits    = GetUnitsAroundPoint( aiBrain, SEAUNITS, pos, 60, 'Enemy')                           
 						
 							if LOUDGETN(landunits) > LOUDGETN(airunits) and LOUDGETN(landunits) > LOUDGETN(seaunits) then
 							
@@ -5749,7 +5744,7 @@ Platoon = Class(PlatoonMethods) {
 							if PlatoonExists(aiBrain, self) then
             
                                 if ScenarioInfo.DistressResponseDialog then
-                                    LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." calls for "..distresscalltype.." help at "..repr(pos).." MovementLayer is "..repr(MovementLayer).." threat is "..threat.." threshold is "..threatcheckthreshold.." mythreat is "..mythreat)
+                                    LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." calls for "..distresscalltype.." help at "..repr(pos).." threat is "..threat.." threshold is "..threatcheckthreshold.." mythreat is "..mythreat )
                                 end
 								
 								LOUDINSERT(aiBrain.PlatoonDistress.Platoons, { Platoon = self, DistressType = distresscalltype, Position = LOUDCOPY(pos), Threat = threat, CreationTime = LOUDTIME() } )
@@ -5788,37 +5783,36 @@ Platoon = Class(PlatoonMethods) {
 	-- own for 10 seconds
     DistressResponseAI = function( self, aiBrain )
         
-        local DistressResponseDialog = ScenarioInfo.DistressResponseDialog 
+        local DistressResponseDialog = ScenarioInfo.DistressResponseDialog or false
 
 		local oldPlan = self.PlanName -- we do this here to maintain the original plan, some platoons change the plan name
 
-        local CalculatePlatoonThreat = CalculatePlatoonThreat
-        local GetPlatoonPosition = GetPlatoonPosition
-        local GetPlatoonUnits = GetPlatoonUnits
-        local GetSquadUnits = GetSquadUnits
-        local GetThreatAtPosition = GetThreatAtPosition
-        local GetUnitsAroundPoint = GetUnitsAroundPoint
-        local PlatoonExists = PlatoonExists
+        local CalculatePlatoonThreat    = CalculatePlatoonThreat
+        local GetPlatoonPosition        = GetPlatoonPosition
+        local GetPlatoonUnits           = GetPlatoonUnits
+        local GetSquadUnits             = GetSquadUnits
+        local GetThreatAtPosition       = GetThreatAtPosition
+        local GetUnitsAroundPoint       = GetUnitsAroundPoint
+        local PlatoonExists             = PlatoonExists
         
-        local LOUDABS = LOUDABS
-        local LOUDCOPY = LOUDCOPY
-        local LOUDEQUAL = LOUDEQUAL
-        local LOUDFLOOR = LOUDFLOOR
-		local LOUDGETN = LOUDGETN        
-        local LOUDINSERT = LOUDINSERT
-        local LOUDREMOVE = LOUDREMOVE
-        
-        local type = type
-        local VDist2 = VDist2
-        local WaitTicks = WaitTicks
+        local LOUDABS       = LOUDABS
+        local LOUDCOPY      = LOUDCOPY
+        local LOUDEQUAL     = LOUDEQUAL
+        local LOUDFLOOR     = LOUDFLOOR
+		local LOUDGETN      = LOUDGETN        
+        local LOUDINSERT    = LOUDINSERT
+        local LOUDREMOVE    = LOUDREMOVE
+        local type          = type
+        local VDist2        = VDist2
+        local WaitTicks     = WaitTicks
 
         local PlatoonFindTarget = self.PlatoonFindTarget
 
-        local distressRange = self.PlatoonData.DistressRange or 100
-		local distressTypes = self.PlatoonData.DistressTypes or 'Land'
-        local PlatoonFormation = self.PlatoonData.UseFormation or 'None'
-        local reactionTime = self.PlatoonData.DistressReactionTime or 12   
-        local threatThreshold = self.PlatoonData.DistressThreshold or 10
+        local distressRange     = self.PlatoonData.DistressRange or 100
+		local distressTypes     = self.PlatoonData.DistressTypes or 'Land'
+        local PlatoonFormation  = self.PlatoonData.UseFormation or 'None'
+        local reactionTime      = self.PlatoonData.DistressReactionTime or 12   
+        local threatThreshold   = self.PlatoonData.DistressThreshold or 10
         
         local categoryList = {}
 		
@@ -5928,7 +5922,7 @@ Platoon = Class(PlatoonMethods) {
 					-- First check CDR Distress -- respond at twice the normal distress range
 					if position then
 					
-						if GetUnitsAroundPoint( brain, categories.COMMAND, position, 100, 'Ally')[1] then
+						if GetUnitsAroundPoint( brain, COMMANDER, position, 100, 'Ally')[1] then
                         
                             rangetoalert = VDist3( platoonposition, position )
 					
@@ -6093,16 +6087,18 @@ Platoon = Class(PlatoonMethods) {
 		
 		while PlatoonExists(aiBrain,self) and self.DistressResponseAIRunning do
         
-            if DistressResponseDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." cycles " )
-            end
+            DistressResponseDialog = ScenarioInfo.DistressResponseDialog or false
+        
+            --if DistressResponseDialog then
+              --  LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." cycles " )
+            --end
 
 			platoonPos = GetPlatoonPosition(self) or false
 			
 			-- Find a distress location within the platoons range
             if self.DistressResponseAIRunning and (platoonPos and (not self.DistressCall) and (not self.UsingTransport)) and (aiBrain.CDRDistress or aiBrain.PlatoonDistress.AlertSounded or aiBrain.BaseAlertSounded) and (not self.RespondingToDistress)  then
 
-				-- 3 global triggers make this process quick -- aibrain.CDRDistress -- aibrainPlatoonDistressTable.AlertSounded -- aibrain.BaseAlertSounded
+				-- 3 central triggers make this process quick -- aibrain.CDRDistress -- aibrainPlatoonDistressTable.AlertSounded -- aibrain.BaseAlertSounded
 				-- since they are quick to look up we run this thread pretty hot to make the platoon responsive
 				-- the only drawback is that it is local only to the brain using it -- the only time allied checks will be looked at is when this brain has one of its own
                 distressLocation, distressType, distressplatoon = PlatoonMonitorDistressLocations( self, aiBrain, platoonPos, distressRange, distressTypes, threatThreshold )
@@ -6122,8 +6118,7 @@ Platoon = Class(PlatoonMethods) {
                     end
 					
 					if unit and unit:CanPathTo(distressLocation) and (not CheckBlockingTerrain( platoonPos, distressLocation )) then
-					
-                        -- kill any existing behavior
+
 						if self.AIThread then
 							self:StopAI()
 						end
@@ -6132,8 +6127,7 @@ Platoon = Class(PlatoonMethods) {
 						if MovementLayer == 'Air' then 
 							oldPlan = 'ReturnToBaseAI'
 						end
-				
-                        -- if the platoon has a movement thread --
+
 						if self.MoveThread then
                             self:KillMoveThread()
 						end
@@ -6348,7 +6342,7 @@ Platoon = Class(PlatoonMethods) {
     
                                     -- delay between threat checks
                                     if moveLocation then
-                                        WaitTicks( 1 + (reactionTime * 10))
+                                        WaitTicks( 1 + (reactionTime * 5))
                                     end
                                     
                                     self.RespondingToDistress = nil	-- allow platoon to issue it's own distress calls after the first pass
@@ -6806,8 +6800,8 @@ Platoon = Class(PlatoonMethods) {
 		
 		if eng then
 		
-			local GetEconomyStored = AIBrainMethods.GetEconomyStored
-			local IsIdleState = IsIdleState
+			local GetEconomyStored  = GetEconomyStored
+			local IsIdleState       = IsIdleState
             
             local WaitTicks = WaitTicks
 			
@@ -6823,14 +6817,14 @@ Platoon = Class(PlatoonMethods) {
             -- this allows the assist operation to start at one level, and continue
             -- until we reach these levels, thus giving a little extra assist 'oomph' to this task
             -- I currently use it in the Assist Energy builders, and in the ACU assist builders for M & E
-            local assistenergy = self.PlatoonData.Assist.AssistEnergy or 1250
-            local assistmass = self.PlatoonData.Assist.AssistMass or 250
+            local assistenergy  = self.PlatoonData.Assist.AssistEnergy or 1250
+            local assistmass    = self.PlatoonData.Assist.AssistMass or 250
 		
             -- continue to guard until eco runs short, eng death, timer runs out, or eng loses guard
 			repeat
 		
                 -- break-off if either mass or energy storage drops below the trigger point
-				if (GetEconomyStored(aiBrain,'MASS') < assistenergy or GetEconomyStored(aiBrain,'ENERGY') < assistmass ) then
+				if (GetEconomyStored(aiBrain,'MASS') < assistmass or GetEconomyStored(aiBrain,'ENERGY') < assistenergy ) then
 					break
 				end
 
@@ -7465,7 +7459,7 @@ Platoon = Class(PlatoonMethods) {
             -- no valid locations or dead
             if not referencefound or eng.Dead then
 			
-				LOG("*AI DEBUG MassAdjacencyDefenseAI finds no reference")
+				--LOG("*AI DEBUG MassAdjacencyDefenseAI finds no reference")
                 return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 				
             end
@@ -7679,23 +7673,25 @@ Platoon = Class(PlatoonMethods) {
 	-- Processes the first entry in the queue and the runs this again using the removeLastBuild flag
 	-- which will remove the previous item from the queue
 	-- when the queue is empty the engy will either RTB or repeat his plan (loopbuilders)
+
     ProcessBuildCommand = function( self, eng, removeLastBuild )
 	
 		if eng.Dead or not self then return end
 
 		local aiBrain = GetAIBrain(eng)
-        local EngineerDialog = ScenarioInfo.EngineerDialog
+
+        local EngineerDialog = ScenarioInfo.EngineerDialog or false
 
         if EngineerDialog then
             LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.EntityID.." "..repr(self.BuilderName).." enters ProcessBuildCommand" )
         end
         
-        local LOUDCOPY = LOUDCOPY
-        local LOUDEQUAL = LOUDEQUAL
-        local LOUDREMOVE = LOUDREMOVE
+        local LOUDCOPY      = LOUDCOPY
+        local LOUDEQUAL     = LOUDEQUAL
+        local LOUDREMOVE    = LOUDREMOVE
         
-        local GetEconomyStored = AIBrainMethods.GetEconomyStored
-        local GetEconomyStoredRatio = AIBrainMethods.GetEconomyStoredRatio
+        local GetEconomyStored      = GetEconomyStored
+        local GetEconomyStoredRatio = GetEconomyStoredRatio
 
 		-- remove first item from the build queue
         if removeLastBuild and eng.EngineerBuildQueue[1] then
@@ -7708,7 +7704,7 @@ Platoon = Class(PlatoonMethods) {
             
             if eng.lastbuild and ( FOG[1] == eng.lastbuild[1] and LOUDEQUAL(FOG[2],eng.lastbuild[2]) ) then
 
-                WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.EntityID.." trying to build same thing "..repr(FOG) )
+                --WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.EntityID.." trying to build same thing "..repr(FOG) )
 
                 if self.PlatoonData.Construction.LoopBuild then
                 
@@ -7743,7 +7739,7 @@ Platoon = Class(PlatoonMethods) {
 		
         IssueClearCommands({eng})
         
-        local ENGINEERS = ENGINEERS - categories.COMMAND
+        --local ENGINEERS = ENGINEERS - COMMANDER
         local STRUCTURES = categories.STRUCTURE
         local OTHERSTUFF = categories.STRUCTURE + ( categories.MOBILE * categories.LAND ) - ENGINEERS
 
@@ -7776,8 +7772,8 @@ Platoon = Class(PlatoonMethods) {
             
             local LocationType = eng.LocationType
  
-            local ProcessBuildCommand = self.ProcessBuildCommand
-            local SetupPlatoonAtWaypointCallbacks = self.SetupPlatoonAtWaypointCallbacks
+            local ProcessBuildCommand               = self.ProcessBuildCommand
+            local SetupPlatoonAtWaypointCallbacks   = self.SetupPlatoonAtWaypointCallbacks
             
             local basetaken, count, distance, enemythreat, EnergyReclaim, engPos, engLastPos, MassReclaim, path, prevpoint, reason, reclaims
 
@@ -8035,8 +8031,6 @@ Platoon = Class(PlatoonMethods) {
 				if eng:HasEnhancement( 'Teleporter' ) then
 
                     if VDist2( engPos[1],engPos[3], buildPosition[1],buildPosition[3] ) > 50 then
-				
-                        local RandomLocation = import('/lua/ai/aiutilities.lua').RandomLocation
 
                         IssueTeleport( {eng}, RandomLocation( buildPosition[1],buildPosition[3], 12 ) )
 					
@@ -8209,7 +8203,7 @@ Platoon = Class(PlatoonMethods) {
 						
 								distance = VDist2( engPos[1],engPos[3], buildPosition[1],buildPosition[3] )
 							
-								if (distance > 160 or eng.failedmoves > 0) and not LOUDENTITY( categories.COMMAND, eng ) then
+								if (distance > 160 or eng.failedmoves > 0) and not LOUDENTITY( COMMANDER, eng ) then
 
                                     if EngineerDialog then
                                         LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.EntityID.." calls for transport - count is "..count.." failed moves is "..eng.failedmoves )
@@ -8445,7 +8439,8 @@ Platoon = Class(PlatoonMethods) {
 						ProcessBuildCommand( self, eng, true )
 						return
 					else
-						self.CreationTime = LOUDTIME()	-- forces the task to appear like an instant disband - forcing a task period
+                    
+						self.CreationTime = GetGameTimeSeconds  ---LOUDTIME()
 
 						if self.PlatoonData.Construction then
 							-- cancel looping builders --
@@ -8511,6 +8506,7 @@ Platoon = Class(PlatoonMethods) {
         end
     end,
 
+
     -- intended to be used to have one platoon guard another
 	-- each guard will guard every unit in 
     GuardPlatoonAI = function( self, aiBrain )
@@ -8535,10 +8531,7 @@ Platoon = Class(PlatoonMethods) {
             return self:SetAIPlan('ReturnToBaseAI',aiBrain)
         end
     end,
---[[
-    DummyAI = function( self )
-    end,
---]]
+
 	PoolAI = function( self )
 	end,
 
@@ -8549,33 +8542,31 @@ Platoon = Class(PlatoonMethods) {
     
         local LandForceAIDialog = ScenarioInfo.LandForceDialog
 
-        local CalculatePlatoonThreat = CalculatePlatoonThreat
-        local GetPlatoonPosition = GetPlatoonPosition
-        local GetPlatoonUnits = GetPlatoonUnits
-        local GetPosition = GetPosition
-        local GetUnitsAroundPoint = GetUnitsAroundPoint
-        local PlatoonExists = PlatoonExists
+        local CalculatePlatoonThreat    = CalculatePlatoonThreat
+        local GetPlatoonPosition        = GetPlatoonPosition
+        local GetPlatoonUnits           = GetPlatoonUnits
+        local GetPosition               = GetPosition
+        local GetUnitsAroundPoint       = GetUnitsAroundPoint
+        local PlatoonExists             = PlatoonExists
         
-        local LOUDCOPY = LOUDCOPY
-        local LOUDENTITY = LOUDENTITY
-		local LOUDGETN = LOUDGETN
-        local LOUDLOG10 = LOUDLOG10
-        local LOUDMAX = LOUDMAX
-        local LOUDMOD = LOUDMOD
-        local LOUDSORT = LOUDSORT
+        local LOUDCOPY      = LOUDCOPY
+        local LOUDENTITY    = LOUDENTITY
+		local LOUDGETN      = LOUDGETN
+        local LOUDLOG10     = LOUDLOG10
+        local LOUDMAX       = LOUDMAX
+        local LOUDMOD       = LOUDMOD
+        local LOUDSORT      = LOUDSORT
+		local VDist2Sq      = VDist2Sq        
+		local VDist3        = VDist3
+        local WaitTicks     = WaitTicks
         
-		local VDist2Sq = VDist2Sq        
-		local VDist3 = VDist3
-        
-        local WaitTicks = WaitTicks
-        
-        local dataList = GetPlatoonUnits(self)
-        local numberOfUnitsInPlatoon = LOUDGETN(dataList)
+        local dataList                  = GetPlatoonUnits(self)
+        local numberOfUnitsInPlatoon    = LOUDGETN(dataList)
         local oldNumberOfUnitsInPlatoon = numberOfUnitsInPlatoon
-		local OriginalSurfaceThreat = CalculatePlatoonThreat( self,'Surface', ALLUNITS)
+		local OriginalSurfaceThreat     = CalculatePlatoonThreat( self,'Surface', ALLUNITS)
 
-		local bAggroMove = self.PlatoonData.AggressiveMove or false		
-		local MergeLimit = self.PlatoonData.MergeLimit or numberOfUnitsInPlatoon
+		local bAggroMove    = self.PlatoonData.AggressiveMove or false		
+		local MergeLimit    = self.PlatoonData.MergeLimit or numberOfUnitsInPlatoon
         local Slackdistance = self.PlatoonData.WaypointSlackDistance or 25
 		
         self.PlatoonAttackForce = true
@@ -8588,11 +8579,11 @@ Platoon = Class(PlatoonMethods) {
 		local MaximumAttackRange = self.PlatoonData.MaxAttackRange or 1024        
 		local PlatoonFormation = self.PlatoonData.UseFormation or 'AttackFormation'
  
-        local CheckForStuckPlatoon = self.CheckForStuckPlatoon
-        local MergeWithNearbyPlatoons = self.MergeWithNearbyPlatoons
+        local CheckForStuckPlatoon          = self.CheckForStuckPlatoon
+        local MergeWithNearbyPlatoons       = self.MergeWithNearbyPlatoons
         local PlatoonGenerateSafePathToLOUD = self.PlatoonGenerateSafePathToLOUD
-        local ProcessStuckPlatoon = self.ProcessStuckPlatoon
-        local RecheckHiPriTarget = RecheckHiPriTarget
+        local ProcessStuckPlatoon           = self.ProcessStuckPlatoon
+        local RecheckHiPriTarget            = RecheckHiPriTarget
 
         local TARGETSTUFF = {categories.ECONOMIC, categories.LAND + categories.MOBILE, categories.STRUCTURE - categories.WALL}
 
@@ -8721,30 +8712,28 @@ Platoon = Class(PlatoonMethods) {
 						ethreat = 1
 					end
 
-                    ecovalue = LOUDMAX(.1, ethreat/mythreat)
-
+                    ecovalue = LOUDMAX(.5, ethreat/mythreat)
                     
-					if ecovalue > 2.0 then
-						ecovalue = LOUDMIN( 8, math.sqrt(ecovalue))
+					if ecovalue > 1.5 then
+						ecovalue = LOUDMIN( 3, LOUDSQRT(ecovalue))
 					end
 
 					milvalue =  (mythreat/sthreat) 
                     
-                    if milvalue > 2.0 then 
+                    if milvalue > 1.5 then 
                         
-                        milvalue = LOUDMIN( 6, math.sqrt(milvalue))
+                        milvalue = LOUDMIN( 4, LOUDSQRT(milvalue) )
 
                         -- inflate eco value by ratio of our mil superiority
-                        ecovalue = ecovalue * milvalue
+                        ecovalue = LOUDMIN( 3, ecovalue * milvalue )
 						
-                    elseif milvalue < 2 then			-- REPLACE VALUE WITH PLATOON DATA - MILITARY BREAKPOINT
-					
-						milvalue = milvalue * .8		-- brings value to under 1
+                    elseif milvalue < 1.5 then
 
-                        if milvalue > 1 then
-                            milvalue = LOUDMAX( .01, milvalue * milvalue)	-- square of value
+                        if milvalue >= 1 then
+                            milvalue = LOUDMAX( 1, LOUDSQRT(milvalue) )
                         else
-                            ecovalue = ecovalue * .66
+                            milvalue = milvalue * milvalue
+                            ecovalue = ecovalue * .8
                         end
                     end
                     
@@ -8789,6 +8778,8 @@ Platoon = Class(PlatoonMethods) {
                         distancefactor = pathlength/(ScenarioInfo.IMAPSize*.5)
 
                         distancefactor = 1 / ( LOUDLOG10(distancefactor))
+                        
+                        distancefactor = distancefactor * (MaximumAttackRange / pathlength)    --- factor in the maximum allowed attack distance
                     
                         -- now use distance to modify the value and go after the most valuable
                         if (value * distancefactor) > targetvalue then
@@ -9025,33 +9016,31 @@ Platoon = Class(PlatoonMethods) {
 
         local AmphibForceAIDialog = ScenarioInfo.AmphibForceDialog or false
         
-        local CalculatePlatoonThreat = CalculatePlatoonThreat
-        local GetPlatoonPosition = GetPlatoonPosition
-        local GetPlatoonUnits = GetPlatoonUnits
-   		local GetPosition = GetPosition
-        local GetUnitsAroundPoint = GetUnitsAroundPoint
-        local PlatoonExists = PlatoonExists
+        local CalculatePlatoonThreat    = CalculatePlatoonThreat
+        local GetPlatoonPosition        = GetPlatoonPosition
+        local GetPlatoonUnits           = GetPlatoonUnits
+   		local GetPosition               = GetPosition
+        local GetUnitsAroundPoint       = GetUnitsAroundPoint
+        local PlatoonExists             = PlatoonExists
     
-        local LOUDCOPY = LOUDCOPY
-        local LOUDENTITY = LOUDENTITY
-		local LOUDGETN = LOUDGETN
-        local LOUDLOG10 = LOUDLOG10
-        local LOUDMAX = LOUDMAX
-        local LOUDMOD = LOUDMOD
-        local LOUDSORT = LOUDSORT
-
-		local VDist2Sq = VDist2Sq        
-		local VDist3 = VDist3
-        
-        local WaitTicks = WaitTicks
+        local LOUDCOPY      = LOUDCOPY
+        local LOUDENTITY    = LOUDENTITY
+		local LOUDGETN      = LOUDGETN
+        local LOUDLOG10     = LOUDLOG10
+        local LOUDMAX       = LOUDMAX
+        local LOUDMOD       = LOUDMOD
+        local LOUDSORT      = LOUDSORT
+		local VDist2Sq      = VDist2Sq        
+		local VDist3        = VDist3
+        local WaitTicks     = WaitTicks
 		
-        local platoonUnits = GetPlatoonUnits(self)
-        local numberOfUnitsInPlatoon = LOUDGETN(platoonUnits)
+        local platoonUnits              = GetPlatoonUnits(self)
+        local numberOfUnitsInPlatoon    = LOUDGETN(platoonUnits)
         local oldNumberOfUnitsInPlatoon = numberOfUnitsInPlatoon
-		local OriginalSurfaceThreat = CalculatePlatoonThreat( self, 'Surface', ALLUNITS )
+		local OriginalSurfaceThreat     = CalculatePlatoonThreat( self, 'Surface', ALLUNITS )
 		
-		local bAggroMove = self.PlatoonData.AggressiveMove or false
-        local MergeLimit = self.PlatoonData.MergeLimit or false
+		local bAggroMove    = self.PlatoonData.AggressiveMove or false
+        local MergeLimit    = self.PlatoonData.MergeLimit or false
         local Slackdistance = self.PlatoonData.WaypointSlackDistance or 25
 
         self.PlatoonAttackForce = true
@@ -9060,17 +9049,17 @@ Platoon = Class(PlatoonMethods) {
 
         self:SetPlatoonFormationOverride('LOUDClusterFormation')
 
-		local GetPrimaryLandAttackBase = GetPrimaryLandAttackBase
-		local MaximumAttackRange = self.PlatoonData.MaxAttackRange or 1024
-		local PlatoonFormation = self.PlatoonData.UseFormation or 'None'
+		local GetPrimaryLandAttackBase  = GetPrimaryLandAttackBase
+		local MaximumAttackRange        = self.PlatoonData.MaxAttackRange or 1024
+		local PlatoonFormation          = self.PlatoonData.UseFormation or 'None'
 
-        local CheckForStuckPlatoon = self.CheckForStuckPlatoon
-        local MergeWithNearbyPlatoons = self.MergeWithNearbyPlatoons
+        local CheckForStuckPlatoon          = self.CheckForStuckPlatoon
+        local MergeWithNearbyPlatoons       = self.MergeWithNearbyPlatoons
         local PlatoonGenerateSafePathToLOUD = self.PlatoonGenerateSafePathToLOUD
-        local ProcessStuckPlatoon = self.ProcessStuckPlatoon
-        local RecheckHiPriTarget = RecheckHiPriTarget
+        local ProcessStuckPlatoon           = self.ProcessStuckPlatoon
+        local RecheckHiPriTarget            = RecheckHiPriTarget
 
-        local TARGETSTUFF = { categories.ECONOMIC, categories.LAND + categories.MOBILE, categories.STRUCTURE - categories.WALL }
+        local TARGETSTUFF = { categories.ECONOMIC, categories.LAND + categories.MOBILE, categories.NAVAL + categories.MOBILE, categories.STRUCTURE - categories.WALL }
 
         local MovementLayer = self.MovementLayer
         local notargetcount = 0
@@ -9083,15 +9072,18 @@ Platoon = Class(PlatoonMethods) {
 		local distancefactor, ecovalue, enemyindex, ethreat, experimentalunit, landattackposition, milvalue, mythreat, newposition, path, pathlength, platPos, travelcount
 		local reason, sthreat, stuckcount, target, targetclass, targetcount, targetlist, targetLocation, targettype, targetmilvalue, targetvalue, usedTransports, value
 
-        local targettypes = {}
+        local targettypes = {}      -- this table marks the kind of targets that are to be considered during the HiPri selection process
         
-        targettypes["AntiAir"] = true
-        targettypes["Economy"] = true
-        targettypes["Commander"] = true
-        targettypes["Land"] = true
+        targettypes["AntiAir"]          = true
+        targettypes["Commander"]        = true
+        targettypes["Economy"]          = true
+        targettypes["Land"]             = true
+        targettypes["Naval"]            = true
         targettypes["StructuresNotMex"] = true
 
         while PlatoonExists(aiBrain,self) do
+        
+            AmphibForceAIDialog = ScenarioInfo.AmphibForceDialog or false
 
 			if self.MoveThread then
 				self:KillMoveThread()
@@ -9204,10 +9196,10 @@ Platoon = Class(PlatoonMethods) {
 						ethreat = 1
                     end
 
-                    ecovalue = LOUDMAX(.1, ethreat/mythreat)
+                    ecovalue = LOUDMAX(.5, ethreat/mythreat)
                     
-					if ecovalue > 2.0 then
-						ecovalue = LOUDMIN( 8, math.sqrt(ecovalue))
+					if ecovalue > 1.5 then
+						ecovalue = LOUDMIN( 3, LOUDSQRT(ecovalue))
 					end
                     
 					-- target value is relative to the platoons surface strength vs. the targets surface strength
@@ -9215,22 +9207,21 @@ Platoon = Class(PlatoonMethods) {
                     -- and retard the gain from being more than twice as strong
 					milvalue =  (mythreat/sthreat) 
                     
-                    if milvalue > 2.0 then 
+                    if milvalue >= 2 then 
                     
-                        milvalue = LOUDMIN( 6, math.sqrt(milvalue) )
-                    
-                        -- if we're strong increase the ecovalue
-                        ecovalue = ecovalue * milvalue
+                        milvalue = LOUDMIN( 4, LOUDSQRT(milvalue) )
+                        -- increase the ecovalue to as much as 3
+                        ecovalue = LOUDMIN( 3, ecovalue * milvalue )
 						
                     elseif milvalue < 2 then
-					
-						milvalue = milvalue * .8
-                        
-                        if milvalue > 1 then
-                            milvalue = LOUDMAX( .01, math.sqrt(milvalue))
+
+                        if milvalue >= 1 then
+                            milvalue = LOUDMAX( 1, LOUDSQRT(milvalue))
+
                         else
-                            -- if we're very weak decrease the eco value
-                            ecovalue = ecovalue * .66
+                            -- devalue the values more when below 1
+                            milvalue = milvalue * milvalue
+                            ecovalue = ecovalue * .8
                         end
                     end
                     
@@ -9290,9 +9281,11 @@ Platoon = Class(PlatoonMethods) {
 						distancefactor = pathlength/(ScenarioInfo.IMAPSize*.5)
                         
                         distancefactor = 1 / (LOUDLOG10(distancefactor))
+                        
+                        distancefactor = distancefactor * (MaximumAttackRange / pathlength)    --- factor in the maximum allowed attack distance
 
                         if AmphibForceAIDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." AmphibForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." evaluates "..repr(Target.Type).." distance ("..math.floor(pathlength)..") - factor "..distancefactor.." - mil "..milvalue.." - eco "..ecovalue.." result value "..value * distancefactor )
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." AmphibForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." evaluates "..repr(Target.Type).." pathdistance ("..math.floor(pathlength)..") - factor "..distancefactor.." - mil "..milvalue.." - eco "..ecovalue.." result value "..value * distancefactor )
                         end
                       
 						-- the targetvalue is essentially (value * distancefactor)
@@ -9574,7 +9567,7 @@ Platoon = Class(PlatoonMethods) {
 		local platPos = LOUDCOPY(GetPlatoonPosition(self))
 
 		-- get a list of all the platoons for this brain
-		local GetPlatoonsList = AIBrainMethods.GetPlatoonsList
+		local GetPlatoonsList = GetPlatoonsList
         local AlliedPlatoons = LOUDCOPY(GetPlatoonsList(aiBrain))
 		
 		LOUDSORT(AlliedPlatoons, function(a,b) local GetPlatoonPosition = GetPlatoonPosition local VDist3Sq = VDist3Sq return VDist3Sq( GetPlatoonPosition(a), platPos ) < VDist3Sq( GetPlatoonPosition(b), platPos ) end)
@@ -9730,7 +9723,7 @@ Platoon = Class(PlatoonMethods) {
         end
 		
         -- get all the platoons
-		local GetPlatoonsList = AIBrainMethods.GetPlatoonsList
+		local GetPlatoonsList = GetPlatoonsList
         local AlliedPlatoons = GetPlatoonsList(aiBrain)
         
         local count = 0     -- number of allied platoons reviewed
@@ -10272,3 +10265,8 @@ Platoon = Class(PlatoonMethods) {
     end,
 
 }
+    
+--[[
+    DummyAI = function( self )
+    end,
+--]]
