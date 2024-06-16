@@ -1,16 +1,35 @@
 -- Loud_AI_Factory_Air_Builders.lua
 -- factory production of all air units
 
-local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
-local LUTL = '/lua/loudutilities.lua'
-local TBC = '/lua/editor/ThreatBuildConditions.lua'
-local TUTL = '/lua/ai/transportutilities.lua'
+local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
+local LUTL  = '/lua/loudutilities.lua'
+local TBC   = '/lua/editor/ThreatBuildConditions.lua'
+local TUTL  = '/lua/ai/transportutilities.lua'
 
 local LOUDGETN = table.getn
 local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
 
+local GetArmyUnitCap        = GetArmyUnitCap
+local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
 
--- imbedded into the Builder
+local AboveUnitCap75 = function( self,aiBrain )
+	
+	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
+		return 10, true
+	end
+	
+	return (self.OldPriority or self.Priority), true
+end
+
+local AboveUnitCap90 = function( self,aiBrain )
+	
+	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .90 then
+		return 10, true
+	end
+	
+	return (self.OldPriority or self.Priority), true
+end
+
 local First45Minutes = function( self, aiBrain )
 	
 	if aiBrain.CycleTime > 2700 then
@@ -24,7 +43,6 @@ local First45Minutes = function( self, aiBrain )
     end
 end
 
--- this function will turn a builder off if the enemy is not active in the water
 local IsEnemyNavalActive = function( self, aiBrain, manager )
 
 	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .011 and aiBrain.NavalRatio < 10) then
@@ -37,7 +55,6 @@ local IsEnemyNavalActive = function( self, aiBrain, manager )
 	
 end
 
--- this function will turn a builder off if the enemy is not active in the air
 local IsEnemyAirActive = function(self,aiBrain,manager)
 
 	if aiBrain.AirRatio and (aiBrain.AirRatio > .011 and aiBrain.AirRatio < 10) then
@@ -147,11 +164,11 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         PlatoonTemplate = 'T2AirScout',
 
         Priority = 600,
+        
+        PriorityFunction = AboveUnitCap75,
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-
-            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 60, [2048] = 78, [4096] = 78}, categories.AIR * categories.SCOUT}},
 
@@ -169,10 +186,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         
         Priority = 600,
 
+        PriorityFunction = AboveUnitCap90,
+        
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-
-            { LUTL, 'UnitCapCheckLess', { .95 } },
 
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 60, [2048] = 78, [4096] = 78}, categories.AIR * categories.SCOUT}},
 
@@ -245,7 +262,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 		PriorityFunction = HaveLessThanThreeT3AirFactory,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 8 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 6 } },
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.HIGHALTAIR * categories.ANTIAIR, categories.AIR * categories.TECH3 }},			
         },
@@ -465,11 +482,11 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         PlatoonAddFunctions = { {TUTL, 'ResetBrainNeedsTransport'}, },
 		
         Priority = 610,
+        
+        PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
-
-            { LUTL, 'UnitCapCheckLess', { .75 } },
             
             { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
 			
@@ -491,11 +508,11 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 		FactionIndex = 1,
 		
         Priority = 600,
+        
+        PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
-
-            { LUTL, 'UnitCapCheckLess', { .75 } },
 
             { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
 
@@ -516,11 +533,11 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         PlatoonAddFunctions = { {TUTL, 'ResetBrainNeedsTransport'}, },
 
         Priority = 610,
+        
+        PriorityFunction = AboveUnitCap90,
 
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
-
-            { LUTL, 'UnitCapCheckLess', { .80 } },
 
             { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
 

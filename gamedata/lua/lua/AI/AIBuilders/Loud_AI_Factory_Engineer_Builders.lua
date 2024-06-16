@@ -1,9 +1,40 @@
 --  /lua/ai/Loud_AI_Engineer_Builders.lua
 --- constructs engineers at all types of bases
 
-local EBC = '/lua/editor/EconomyBuildConditions.lua'
-local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
-local LUTL = '/lua/loudutilities.lua'
+local EBC   = '/lua/editor/EconomyBuildConditions.lua'
+local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
+local LUTL  = '/lua/loudutilities.lua'
+
+local GetArmyUnitCap        = GetArmyUnitCap
+local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
+
+-- imbedded into the Builder
+local AboveUnitCap50 = function( self,aiBrain )
+
+	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .5 then
+		return 10, true
+	end
+	
+	return (self.OldPriority or self.Priority), true
+end
+
+local AboveUnitCap60 = function( self,aiBrain )
+	
+	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .6 then
+		return 10, true
+	end
+	
+	return (self.OldPriority or self.Priority), true
+end
+
+local AboveUnitCap70 = function( self,aiBrain )
+	
+	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .7 then
+		return 10, true
+	end
+	
+	return (self.OldPriority or self.Priority), true
+end
 
 BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
     BuildersType = 'FactoryBuilder',
@@ -25,7 +56,6 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
-            { LUTL, 'UnitCapCheckLess', { .5 } },
             
             { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'Tech1' } },
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
@@ -42,10 +72,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
         PlatoonAddFunctions = { { LUTL, 'UseBuilderOnce' }, },
 		
         Priority = 900,
-		
+ 		
         BuilderConditions = {
 
-            { LUTL, 'UnitCapCheckLess', { .65 } },
+            { LUTL, 'UnitCapCheckLess', { .6 } },
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, (categories.MOBILE * categories.ENGINEER) - categories.TECH1 - categories.COMMAND }},
             { UCBC, 'EngineerLessAtLocation', { 'LocationType', 2, categories.MOBILE * categories.ENGINEER * categories.TECH2 }},
@@ -64,10 +94,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
         
         BuilderConditions = {
 
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .7 } },
             
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, (categories.MOBILE * categories.ENGINEER * categories.TECH3) - categories.COMMAND }},
-            { UCBC,'EngineerLessAtLocation', { 'LocationType', 2, (categories.MOBILE * categories.ENGINEER * categories.TECH3) - categories.SUBCOMMANDER }},
+            { UCBC, 'EngineerLessAtLocation', { 'LocationType', 2, (categories.MOBILE * categories.ENGINEER * categories.TECH3) - categories.SUBCOMMANDER }},
         },
         
         BuilderType =  {'AirT3','LandT3','SeaT3','Gate'},
@@ -99,10 +129,11 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
         PlatoonTemplate = 'T1BuildEngineer',
 		
         Priority = 600, 
+        
+        PriorityFunction = AboveUnitCap50,
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .5 } },
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
             
@@ -122,9 +153,11 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
         
         Priority = 600,
         
+        PriorityFunction = AboveUnitCap60,
+        
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},        
-            { LUTL, 'UnitCapCheckLess', { .65 } },
+            { LUTL, 'UnitCapCheckLess', { .6 } },
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER - categories.TECH1 }},
             
@@ -144,9 +177,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
         
         Priority = 650,
         
+        PriorityFunction = AboveUnitCap70,
+
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},        
-            { LUTL, 'UnitCapCheckLess', { .75 } },
             
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER * categories.TECH3 }},
             
@@ -169,9 +203,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
         
         Priority = 650,
         
+        PriorityFunction = AboveUnitCap70,
+
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},        
-            { LUTL, 'UnitCapCheckLess', { .75 } },
             
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER * categories.TECH3 }},
             
@@ -207,148 +242,3 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
     },
 
 }
-
---[[
-
-BuilderGroup {BuilderGroupName = 'Factory Production - Engineers - Expansions',
-    BuildersType = 'FactoryBuilder',
-
-    Builder {BuilderName = 'Engineer T1 - Expansion',
-        PlatoonTemplate = 'T1BuildEngineer',
-        Priority = 600, 
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			
-            { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'Tech1' } },
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
-			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 10, 1.02, 1.02 }},
-
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
-        },
-        BuilderType = {'AirT1','LandT1','AirT2','LandT2'},
-    },
-
-    Builder {BuilderName = 'Engineer T2 - Expansion',
-        PlatoonTemplate = 'T2BuildEngineer',
-        Priority = 601,
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			
-            { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'Tech2' } },
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
-			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 10, 1.02, 1.02 }},
-
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
-        },
-        BuilderType = {'AirT2','LandT2','AirT3','LandT3'},
-    },
-
-    Builder {BuilderName = 'Engineer T3 - Expansion',
-        PlatoonTemplate = 'T3BuildEngineer',
-        Priority = 650,
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			
-            { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'Tech3' } },
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER * categories.TECH3 }},
-			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 10, 1.02, 1.02 }},
-
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER * categories.TECH3 }},
-        },
-        BuilderType = {'AirT3','LandT3'},
-    },
-	
-    Builder {BuilderName = 'Engineer T3 - Extra - Expansion',
-        PlatoonTemplate = 'T3BuildEngineer',
-        Priority = 650,
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER * categories.TECH3 }},
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 8, 120, 1.05, 1.05 }},
-            { UCBC, 'AboveEngineerCapCheck', { 'LocationType', 'Tech3' } },
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
-        },
-        BuilderType = {'LandT3','AirT3'},
-    },
-}
-
-
-BuilderGroup {BuilderGroupName = 'Factory Production - Engineers - Naval',
-    BuildersType = 'FactoryBuilder',
-
-    Builder {BuilderName = 'Engineer T1 - Naval',
-        PlatoonTemplate = 'T1BuildEngineer',
-        Priority = 600, 
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			
-            { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'Tech1' } },
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
-			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 10, 1.02, 1.02 }},
-
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
-        },
-        BuilderType = {'SeaT1','SeaT2'},
-    },
-
-    Builder {BuilderName = 'Engineer T2 - Naval',
-        PlatoonTemplate = 'T2BuildEngineer',
-        Priority = 601,
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			
-            { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'Tech2' } },
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
-			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 10, 1.02, 1.02 }},
-
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
-        },
-        BuilderType = {'SeaT2','SeaT3'},
-    },
-
-    Builder {BuilderName = 'Engineer T3 - Naval',
-        PlatoonTemplate = 'T3BuildEngineer',
-        Priority = 650,
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			
-            { UCBC, 'BelowEngineerCapCheck', { 'LocationType', 'Tech3' } },
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER * categories.TECH3 }},
-			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 10, 1.02, 1.02 }},
-
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER * categories.TECH3 }},
-        },
-        BuilderType = {'SeaT3'},
-    },
-	
-    Builder {BuilderName = 'Engineer T3 - Extra - Naval',
-        PlatoonTemplate = 'T3BuildEngineer',
-        Priority = 600,
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 8, 120, 1.05, 1.05 }},
-            { UCBC, 'AboveEngineerCapCheck', { 'LocationType', 'Tech3' } },
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
-        },
-        BuilderType = {'SeaT3'},
-    },
-
-}
-
---]]
-

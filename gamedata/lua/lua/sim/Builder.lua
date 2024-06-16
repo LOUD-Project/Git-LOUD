@@ -92,13 +92,17 @@ Builder = Class {
     end,
 	
     SetPriority = function( builder, val, temporary)
+    
+        if ScenarioInfo.PriorityDialog then
+            LOG("*AI DEBUG "..builder.BuilderName.." Set to "..val.." from "..builder.Priority.." temporary is "..repr(temporary))
+        end
 	
         -- Priority changes are either temporary or permanent --
         if temporary then
 			
             -- if there is an OLD Priority - then this builder is currently altered
             -- otherwise - store the current priority as the OLD priority
-			if not builder.OldPriority then                                     --builder.Priority != 0 and builder.OldPriority != val then
+			if not builder.OldPriority then
 			
 				builder.OldPriority = builder.Priority
                
@@ -109,16 +113,13 @@ Builder = Class {
 
 		else
             
-            -- this is a permanent change - so removed any OLD priority
+            -- this is a permanent change - so remove any OLD priority
             -- and change the current priority to the new value
 			builder.OldPriority = nil
 			builder.Priority = val
 
         end
-		
-		--if ScenarioInfo.PriorityDialog then
-			--LOG("*AI DEBUG "..repr(builder.BuilderName).." set to "..val.." Temporary is "..repr(temporary))
-		--end
+
     end,
     
     ResetPriority = function(self, manager)
@@ -344,7 +345,6 @@ end
 
 -------------------------
 --- ENGINEER BUILDERS ---
--------------------------
 -- this is the spec to have engineers perform specific tasks
 EngineerBuilder = Class(PlatoonBuilder) {
 

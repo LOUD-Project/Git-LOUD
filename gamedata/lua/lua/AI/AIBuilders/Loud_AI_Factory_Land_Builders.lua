@@ -1,11 +1,31 @@
 -- Loud_AI_Factory_Land_Builders.lua
 -- factory production of all land units
 
-local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
-local MIBC = '/lua/editor/MiscBuildConditions.lua'
-local EBC = '/lua/editor/EconomyBuildConditions.lua'
-local LUTL = '/lua/loudutilities.lua'
+local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
+local MIBC  = '/lua/editor/MiscBuildConditions.lua'
+local EBC   = '/lua/editor/EconomyBuildConditions.lua'
+local LUTL  = '/lua/loudutilities.lua'
 
+local GetArmyUnitCap        = GetArmyUnitCap
+local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
+
+local AboveUnitCap70 = function( self,aiBrain )
+	
+	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .70 then
+		return 10, true
+	end
+	
+	return (self.OldPriority or self.Priority), true
+end
+
+local AboveUnitCap85 = function( self,aiBrain )
+	
+	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
+		return 10, true
+	end
+	
+	return (self.OldPriority or self.Priority), true
+end
 
 local First30Minutes = function( self,aiBrain )
 	
@@ -44,11 +64,11 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
         PlatoonTemplate = 'T1LandScout',
 
         Priority = 600,
+        
+        PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-
-            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
 
@@ -90,7 +110,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		PriorityFunction = First45Minutes,
 
         BuilderConditions = {
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 75, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS }},
+            { LUTL, 'HaveLessThanUnitsWithCategory', { 72, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS }},
         },
 		
         BuilderType = {'LandT1','LandT2'},
@@ -126,7 +146,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-            { LUTL, 'AirStrengthRatioLessThan', { 6 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } },
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
  
@@ -181,10 +201,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		FactionIndex = 1,
 
         Priority = 550,
+        
+        PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-			
 			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
 
 			{ LUTL, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
@@ -209,10 +229,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		FactionIndex = 2,
 
         Priority = 550,
+        
+        PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-			
 			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
 
 			{ LUTL, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
@@ -239,10 +259,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		FactionIndex = 3,
 
         Priority = 550,
+        
+        PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-			
 			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
 
 			{ LUTL, 'PoolLess', { 7, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
@@ -272,10 +292,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		FactionIndex = 1,
 
         Priority = 600,
+        
+        PriorityFunction = AboveUnitCap85,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
 
 			{ LUTL, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
@@ -300,10 +320,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		FactionIndex = 2,
 
         Priority = 600,
+        
+        PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
 
 			{ LUTL, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
@@ -328,10 +348,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		FactionIndex = 3,
 
         Priority = 600,
+        
+        PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
 
 			{ LUTL, 'PoolLess', { 7, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
@@ -356,10 +376,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		FactionIndex = 4,
 
         Priority = 600,
+        
+        PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
 
 			{ LUTL, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
@@ -419,15 +439,15 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
         PlatoonTemplate = 'T2LandAA',
 
         Priority = 550,
+        
+        PriorityFunction = AboveUnitCap85,
 		
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
  
-            { LUTL, 'AirStrengthRatioLessThan', { 6 } }, 
+            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } }, 
 
             -- must have some Directfire in the Pool at this Location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
@@ -445,11 +465,11 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
         PlatoonTemplate = 'T2LandAA',
 
         Priority = 550,
+        
+        PriorityFunction = AboveUnitCap85,
 		
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
-
-            { LUTL, 'UnitCapCheckLess', { .85 } },
  
             { LUTL, 'AirStrengthRatioLessThan', { 4.5 } }, 
 
@@ -470,11 +490,11 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
         PlatoonTemplate = 'T2LandDFTank',
 
         Priority = 550,
+        
+        PriorityFunction = AboveUnitCap85,
 		
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
-            
-            { LUTL, 'UnitCapCheckLess', { .95 } },
 
 			{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },
 
@@ -492,11 +512,11 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
         PlatoonTemplate = 'T2AttackTank',
 
         Priority = 550,
+        
+        PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
-            
-            { LUTL, 'UnitCapCheckLess', { .95 } },
 
 			{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },
 
@@ -512,7 +532,10 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
     Builder {BuilderName = 'T2 Artillery',
 	
         PlatoonTemplate = 'T2LandArtillery',
+
         Priority = 550,
+        
+        PriorityFunction = AboveUnitCap85,
 		
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
@@ -559,15 +582,15 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
         PlatoonTemplate = 'T3LandAA',
 
         Priority = 600, 
+        
+        PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
  
-			{ LUTL, 'AirStrengthRatioLessThan', { 6 } }, 
+			{ LUTL, 'AirStrengthRatioLessThan', { 4.5 } }, 
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.LAND * categories.TECH3 }},
 
@@ -587,11 +610,11 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
         PlatoonTemplate = 'T3LandAA',
 
         Priority = 600, 
+        
+        PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
-
-            { LUTL, 'UnitCapCheckLess', { .85 } },
  
 			{ LUTL, 'AirStrengthRatioLessThan', { 4 } }, 
 
@@ -666,11 +689,11 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
 		FactionIndex = 1,
 
         Priority = 600,
+        
+        PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
-
-            { LUTL, 'UnitCapCheckLess', { .95 } },
 
 			{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },
 
@@ -701,11 +724,11 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
         PlatoonTemplate = 'T1LandAmphibious',
 
         Priority = 550,
+        
+        PriorityFunction = AboveUnitCap70,
 
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
-
-            { LUTL, 'UnitCapCheckLess', { .85 } },
 
             { LUTL, 'PoolLess', { 60, categories.AMPHIBIOUS }},
 
@@ -723,11 +746,11 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
         PlatoonTemplate = 'T2LandAmphibTank',
 
         Priority = 550,
+        
+        PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
-
-            { LUTL, 'UnitCapCheckLess', { .85 } },
 
             { LUTL, 'PoolLess', { 60, categories.DIRECTFIRE * categories.AMPHIBIOUS * categories.LAND }},
 
@@ -743,11 +766,11 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
         PlatoonTemplate = 'T2LandAmphibAA',
 
         Priority = 550,
+        
+        PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
-
-            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
 
@@ -767,11 +790,11 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
 		FactionIndex = 2,
 
         Priority = 550,
+        
+        PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
-
-            { LUTL, 'UnitCapCheckLess', { .95 } },
 
 			{ LUTL, 'PoolLess', { 15, categories.LAND * categories.MOBILE * categories.SHIELD }},
 
@@ -793,11 +816,11 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
         PlatoonTemplate = 'T2LandDFTank',
 
         Priority = 550,
+        
+        PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
-
-            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND - categories.TECH1 }},
 
@@ -815,11 +838,11 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
         PlatoonTemplate = 'T2LandArtilleryWaterMap',
 
         Priority = 550,
+        
+        PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
-
-            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND - categories.TECH1 }},
 
@@ -862,11 +885,11 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
         PlatoonTemplate = 'T3AmphibiousAA',
 
         Priority = 600, 
+        
+        PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
-
-            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
 
@@ -907,11 +930,11 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
         PlatoonTemplate = 'T3LandBot',
 
         Priority = 600,
+        
+        PriorityFunction = AboveUnitCap85,
 		
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
-
-            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },
 
@@ -934,11 +957,11 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
         PlatoonTemplate = 'T3LandArtillery',
 
         Priority = 600,
+        
+        PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
-
-            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },			
 
@@ -960,11 +983,11 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
 		FactionIndex = 1,
 
         Priority = 600,
+        
+        PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
-
-            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },
 

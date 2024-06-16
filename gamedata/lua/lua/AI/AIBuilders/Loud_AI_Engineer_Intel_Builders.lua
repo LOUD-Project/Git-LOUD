@@ -2,9 +2,21 @@
 --- Builds all intelligence gathering units such
 --- as air and land scouts, radar, sonar & optics 
 
-local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
-local EBC = '/lua/editor/EconomyBuildConditions.lua'
-local LUTL = '/lua/loudutilities.lua'
+local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
+local EBC   = '/lua/editor/EconomyBuildConditions.lua'
+local LUTL  = '/lua/loudutilities.lua'
+
+local GetArmyUnitCap        = GetArmyUnitCap
+local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
+
+local AboveUnitCap80 = function( self,aiBrain )
+	
+	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 then
+		return 10, true
+	end
+	
+	return (self.OldPriority or self.Priority), true
+end
 
 BuilderGroup {BuilderGroupName = 'Engineer Radar Construction - Expansions',
     BuildersType = 'EngineerBuilder',
@@ -16,11 +28,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Radar Construction - Expansions',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 760,
+        
+        PriorityFunction = AboveUnitCap80,
 		
         BuilderType = { 'T2' },
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
             { LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE * categories.OVERLAYRADAR * categories.INTELLIGENCE }},
 			
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
@@ -51,13 +64,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Sonar Builders',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
-		
+
+        PriorityFunction = AboveUnitCap80,
+
         BuilderType = { 'T2' },
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE * categories.OVERLAYSONAR * categories.INTELLIGENCE }},
 			{ LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, categories.MOBILESONAR * categories.INTELLIGENCE * categories.TECH3 }},
+
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
         },
 		
@@ -74,15 +89,43 @@ BuilderGroup {BuilderGroupName = 'Engineer Sonar Builders',
     },
 }
 
-BuilderGroup {BuilderGroupName = 'Counter Intel Builders',
-    BuildersType = 'EngineerBuilder',
-
-}
-
-
 BuilderGroup {BuilderGroupName = 'Engineer Optics Construction',
     BuildersType = 'EngineerBuilder',
-	
+    
+    Builder {BuilderName = 'Optics Aeon',
+
+        PlatoonTemplate = 'EngineerBuilder',
+
+		FactionIndex = 2,
+
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+
+        Priority = 760,
+        
+        PriorityFunction = AboveUnitCap80,
+
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
+
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 2, categories.OPTICS }},
+        },
+		
+        BuilderType = { 'T3','SubCommander' },
+
+        BuilderData = {
+            Construction = {
+                NearBasePerimeterPoints = true,
+
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'SupportLayout',
+
+                BuildStructures = { 'T3Optics' },
+            }
+        }
+    },	
+
     Builder {BuilderName = 'Optics Cybran',
     
         PlatoonTemplate = 'EngineerBuilder',
@@ -91,14 +134,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Optics Construction',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
-        Priority = 650,
+        Priority = 760,
+
+        PriorityFunction = AboveUnitCap80,
         
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
-            { LUTL, 'UnitCapCheckLess', { .75 } },
 			
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
 			
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.OPTICS }},
         },
@@ -107,43 +151,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Optics Construction',
 
         BuilderData = {
             Construction = {
-				Radius = 1,
                 NearBasePerimeterPoints = true,
-				BasePerimeterOrientation = 'FRONT',
+
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'SupportLayout',
-				Iterations = 1,
+
                 BuildStructures = { 'T3Optics' },
             }
         }
     },
-    
-    Builder {BuilderName = 'Optics Aeon',
-        PlatoonTemplate = 'EngineerBuilder',
-		FactionIndex = 2,
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-        Priority = 700,
-        BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
-            { LUTL, 'UnitCapCheckLess', { .75 } },
 
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 2, categories.OPTICS }},
-        },
-		
-        BuilderType = { 'T3','SubCommander' },
-
-        BuilderData = {
-            Construction = {
-				Radius = 1,
-                NearBasePerimeterPoints = true,
-				BasePerimeterOrientation = 'FRONT',
-				Iterations = 1,
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'SupportLayout',
-                BuildStructures = { 'T3Optics' },
-            }
-        }
-    },
 }
+

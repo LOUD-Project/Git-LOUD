@@ -1,10 +1,30 @@
 -- Loud_AI_Engineer_Mass_Builders.lua
 
-local EBC = '/lua/editor/EconomyBuildConditions.lua'
-local MIBC = '/lua/editor/MiscBuildConditions.lua'
-local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
+local EBC   = '/lua/editor/EconomyBuildConditions.lua'
+local MIBC  = '/lua/editor/MiscBuildConditions.lua'
+local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
+local LUTL  = '/lua/loudutilities.lua'
 
-local LUTL = '/lua/loudutilities.lua'
+local GetArmyUnitCap        = GetArmyUnitCap
+local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
+
+local AboveUnitCap75 = function( self,aiBrain )
+	
+	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
+		return 10, true
+	end
+	
+	return (self.OldPriority or self.Priority), true
+end
+
+local AboveUnitCap85 = function( self,aiBrain )
+	
+	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
+		return 10, true
+	end
+	
+	return (self.OldPriority or self.Priority), true
+end
 
 
 BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
@@ -21,14 +41,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 		
         Priority = 850,
         
+        PriorityFunction = AboveUnitCap85,
+        
         InstanceCount = 2,
 		
 		BuilderType = { 'T1','T2','T3' },
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-            { LUTL, 'UnitCapCheckLess', { .85 } },
             
             { EBC, 'LessThanEconMassStorageRatio', { 60 }},
 
@@ -73,14 +93,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 		
         Priority = 846,
         
+        PriorityFunction = AboveUnitCap85,
+        
         InstanceCount = 1,
 		
         BuilderType = { 'T1','T2' },
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-            { LUTL, 'UnitCapCheckLess', { .85 } },
             
             { EBC, 'LessThanEconMassStorageRatio', { 60 }},
 
@@ -121,14 +141,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 		
         Priority = 845,
         
+        PriorityFunction = AboveUnitCap75,
+        
         InstanceCount = 1,
 		
         BuilderType = { 'T1' },
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-            { LUTL, 'UnitCapCheckLess', { .85 } },
             
             { EBC, 'LessThanEconMassStorageRatio', { 60 }},
 
@@ -169,14 +189,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 		
         Priority = 760,
         
+        PriorityFunction = AboveUnitCap75,
+        
         InstanceCount = 1,
 		
         BuilderType = { 'T1' },
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-            { LUTL, 'UnitCapCheckLess', { .85 } },
             
             { EBC, 'LessThanEconMassStorageRatio', { 50 }},
 
@@ -219,14 +239,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 		
         Priority = 755,
         
+        PriorityFunction = AboveUnitCap85,
+        
         InstanceCount = 1,
 		
         BuilderType = { 'T1','T2','T3' },
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-            
+
             -- at this point we'll use a low multiplier - this will keep the builder active until we
             -- reach that portion of the mass share -
             -- this is likely the only place where I might use this
@@ -272,14 +293,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 		
         Priority = 840,
         
+        PriorityFunction = AboveUnitCap85,
+        
         InstanceCount = 1,
 		
 		BuilderType = { 'T2','T3' },
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-            { LUTL, 'UnitCapCheckLess', { .85 } },
             
             { EBC, 'LessThanEconMassStorageRatio', { 50 }},
 
@@ -319,12 +340,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 800,
+        
+        PriorityFunction = AboveUnitCap85,
 
 		BuilderType = { 'T2','T3' },
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .85 } },
             
 			-- check base massfabs 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.MASSFABRICATION, 10, 42 }},
@@ -359,13 +381,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 850,
+        
+        PriorityFunction = AboveUnitCap85,
 
 		BuilderType = { 'T3','SubCommander' },
 
         BuilderConditions = {
-        
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ EBC, 'LessThanEconMassStorageRatio', { 60 }},
 
@@ -416,13 +438,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Defensive Point',
 		
         Priority = 745,
         
+        PriorityFunction = AboveUnitCap85,
+        
         InstanceCount = 1,
 		
 		BuilderType = { 'T2','T3','SubCommander' },
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .85 } },
 
             { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1000 }},
             
@@ -463,13 +486,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Expansions',
 		
         Priority = 850,
         
+        PriorityFunction = AboveUnitCap85,
+        
         InstanceCount = 1,
 		
 		BuilderType = { 'T1','T2','T3' },
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .85 } },	
             
             { EBC, 'GreaterThanEconEnergyStorageCurrent', { 500 }},
             
@@ -505,13 +529,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Expansions',
 		
         Priority = 840,
         
+        PriorityFunction = AboveUnitCap75,
+        
         InstanceCount = 1,
 		
 		BuilderType = { 'T2','T3' },
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .85 } },
             
             { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
             
@@ -554,13 +579,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Naval',
         
         Priority = 800,
         
+        PriorityFunction = AboveUnitCap85,
+        
         InstanceCount = 1,
 		
 		BuilderType = { 'T2','T3' },
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
-            { LUTL, 'UnitCapCheckLess', { .85 } },
             
             { EBC, 'LessThanEconMassStorageRatio', { 60 }},
             
@@ -596,12 +622,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Naval',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+        
+        PriorityFunction = AboveUnitCap75,
 		
 		BuilderType = { 'T3','SubCommander' },
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ EBC, 'LessThanEconMassStorageRatio', { 60 }},
             { EBC, 'GreaterThanEconEnergyStorageCurrent', { 3000 }},
@@ -644,13 +671,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Fab Construction - Expansions',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 800,
+        
+        PriorityFunction = AboveUnitCap75,
 		
 		BuilderType = { 'T3','SubCommander' },
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-
-            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
             
@@ -703,13 +730,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Fab Construction - Expansions - 
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 800,
+        
+        PriorityFunction = AboveUnitCap85,
 		
 		BuilderType = { 'T3','SubCommander' },
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
             
@@ -760,6 +787,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Storage Construction',
         PlatoonAIPlan = 'EngineerBuildMassAdjacencyAI',
 		
         Priority = 750,
+        
+        PriorityFunction = AboveUnitCap85,
 		
 		InstanceCount = 2,
 		
@@ -767,7 +796,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Storage Construction',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ UCBC, 'MassExtractorInRangeHasLessThanStorage', {'LocationType', 20, 600, 4 }},
             
@@ -791,12 +819,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Storage Construction',
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'MassAdjacency',
 				
-                BuildStructures = {
-                    'MassStorage',
-                    'MassStorage',
-					'MassStorage',
-					'MassStorage',
-                }
+                BuildStructures = {'MassStorage','MassStorage','MassStorage','MassStorage'}
             }
         }
     },
@@ -812,6 +835,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Storage Construction',
         PlatoonAIPlan = 'EngineerBuildMassAdjacencyAI',
 		
         Priority = 740,
+        
+        PriorityFunction = AboveUnitCap75,
 		
 		InstanceCount = 2,
 		
@@ -819,7 +844,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Storage Construction',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .75 } },
             
             { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
             
@@ -844,12 +868,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Storage Construction',
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'MassAdjacency',
 				
-                BuildStructures = {
-                    'MassStorage',
-                    'MassStorage',
-					'MassStorage',
-					'MassStorage',
-                }
+                BuildStructures = {'MassStorage','MassStorage','MassStorage','MassStorage'}
             }
         }
     },
@@ -870,10 +889,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Storage Construction - Active DP
         PlatoonAIPlan = 'EngineerBuildMassAdjacencyAI',
 		
         Priority = 600,
+        
+        PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .85 } },
             
             { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
             
@@ -896,12 +916,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Storage Construction - Active DP
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'MassAdjacency',
 
-                BuildStructures = {
-                    'MassStorage',
-                    'MassStorage',
-					'MassStorage',
-					'MassStorage',
-                }
+                BuildStructures = {'MassStorage','MassStorage','MassStorage','MassStorage'}
             }
         }
     },
@@ -918,13 +933,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Eng Station Construction',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 700,
+        
+        PriorityFunction = AboveUnitCap85,
 		
         BuilderConditions = {
  			{ MIBC, 'FactionIndex', { 1, 3 } },
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-
-            { LUTL, 'UnitCapCheckLess', { .75 } },
 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, categories.ENGINEERSTATION}},
 
@@ -956,13 +971,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Eng Station Construction',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 700,
+        
+        PriorityFunction = AboveUnitCap85,
 		
         BuilderConditions = {
  			{ MIBC, 'FactionIndex', { 2, 4 } },
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-
-            { LUTL, 'UnitCapCheckLess', { .75 } },
 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, categories.ENGINEERSTATION}},
 

@@ -1106,7 +1106,7 @@ function AIFindNumberOfUnitsBetweenPoints( aiBrain, start, finish, unitCat, step
             
                 if u:GetNukeSiloAmmoCount() > 0 or u:GetTacticalSiloAmmoCount() > 0 then
                 
-                    LOG("*AI DEBUG Silo has "..u:GetNukeSiloAmmoCount().." Tac "..u:GetTacticalSiloAmmoCount() )
+                    --LOG("*AI DEBUG Silo has "..u:GetNukeSiloAmmoCount().." Tac "..u:GetTacticalSiloAmmoCount() )
                 
                     returnNum = returnNum + 1
                     

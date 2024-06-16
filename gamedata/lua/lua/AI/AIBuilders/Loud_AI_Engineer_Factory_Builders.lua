@@ -1,13 +1,33 @@
 --  Loud_AI_Engineer_Factory_Builders.lua
 --- tasks for building additional factories and gates
 
-local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
-local MIBC = '/lua/editor/MiscBuildConditions.lua'
-local EBC = '/lua/editor/EconomyBuildConditions.lua'
-local LUTL = '/lua/loudutilities.lua'
+local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
+local MIBC  = '/lua/editor/MiscBuildConditions.lua'
+local EBC   = '/lua/editor/EconomyBuildConditions.lua'
+local LUTL  = '/lua/loudutilities.lua'
 
-local LOUDGETN = table.getn
-local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
+local LOUDGETN              = table.getn
+local GetArmyUnitCap        = GetArmyUnitCap
+local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
+local GetListOfUnits        = moho.aibrain_methods.GetListOfUnits
+
+local AboveUnitCap65 = function( self,aiBrain )
+	
+	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .65 then
+		return 10, true
+	end
+	
+	return (self.OldPriority or self.Priority), true
+end
+
+local AboveUnitCap75 = function( self,aiBrain )
+	
+	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
+		return 10, true
+	end
+	
+	return (self.OldPriority or self.Priority), true
+end
 
 -- this function will turn a builder off if the enemy is not active in the water
 local IsEnemyNavalActive = function( self, aiBrain, manager )
@@ -151,10 +171,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 800,
+        
+        PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
-            
 			{ LUTL, 'LandStrengthRatioLessThan', { 5 } },
 
             { UCBC, 'FactoryCapCheck', { 'LocationType', 'LAND' }},
@@ -194,10 +214,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 801,
+        
+        PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
-
 			{ UCBC, 'FactoryCapCheck', { 'LocationType', 'AIR' }},
             
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.AIR * categories.TECH1 }},
@@ -237,10 +257,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 801,
+        
+        PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
-            
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 4 } },
             
 			{ UCBC, 'FactoryCapCheck', { 'LocationType', 'AIR' }},
@@ -313,9 +333,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions',
 		
         Priority = 755,
         
+        PriorityFunction = AboveUnitCap65,
+        
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .65 } },
-
             { UCBC, 'FactoryCapCheck', { 'LocationType', 'LAND' }},
             
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.LAND * categories.TECH1 }},
@@ -349,10 +369,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 760,
+        
+        PriorityFunction = AboveUnitCap65,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .65 } },
-
 			{ UCBC, 'FactoryCapCheck', { 'LocationType', 'AIR' }},
             
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.AIR * categories.TECH1 }},
@@ -388,12 +408,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 800,
+        
+        PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-            { LUTL, 'UnitCapCheckLess', { .75 } },
-			
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 			
             { UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.TECH3 * categories.GATE }},
@@ -515,11 +535,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 900,
+        
+        PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-
-            { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
@@ -566,11 +586,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction - Small Bas
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 900,
+        
+        PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-
-            { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 

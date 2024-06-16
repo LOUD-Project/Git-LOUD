@@ -1,9 +1,21 @@
 --  Loud_AI_Engineer_Experimental_Builders.lua
 
-local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
-local EBC = '/lua/editor/EconomyBuildConditions.lua'
-local LUTL = '/lua/loudutilities.lua'
-local BHVR = '/lua/ai/aibehaviors.lua'
+local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
+local EBC   = '/lua/editor/EconomyBuildConditions.lua'
+local LUTL  = '/lua/loudutilities.lua'
+local BHVR  = '/lua/ai/aibehaviors.lua'
+
+local GetArmyUnitCap        = GetArmyUnitCap
+local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
+
+local AboveUnitCap80 = function( self,aiBrain )
+	
+	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 then
+		return 10, true
+	end
+	
+	return (self.OldPriority or self.Priority), true
+end
 
 local LessThan20MinutesRemain = function(self, aiBrain)
 
@@ -17,7 +29,7 @@ local LessThan20MinutesRemain = function(self, aiBrain)
 
 	end
 
-	return self.Priority, true
+	return (self.OldPriority or self.Priority), true
 end
 
 local LessThan30MinutesRemain = function(self, aiBrain)
@@ -32,7 +44,7 @@ local LessThan30MinutesRemain = function(self, aiBrain)
 
 	end
 
-	return self.Priority, true
+	return (self.OldPriority or self.Priority), true
 end
 
 -- the key distinction here is that we don't want to be building Experimentals unless we have the army to back it up
@@ -1055,12 +1067,10 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 845,
-		
-		PriorityFunction = LessThan30MinutesRemain,		
-		
+        
+        PriorityFunction = AboveUnitCap80,
+
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-            
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
@@ -1092,8 +1102,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction',
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ResourceFacility',
 				
-                BuildStructures = {
-                    'T4EconExperimental',
+                BuildStructures = {'T4EconExperimental',
 					
 					'T3ShieldDefense',
 					'T3ShieldDefense',
@@ -1161,8 +1170,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Small Base'
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ResourceFacility',
 				
-                BuildStructures = {
-                    'T4EconExperimental',
+                BuildStructures = {'T4EconExperimental',
 					
 					'T3ShieldDefense',
 					'T3ShieldDefense',
@@ -1193,12 +1201,10 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 840,
-		
-		PriorityFunction = LessThan30MinutesRemain,		
+        
+        PriorityFunction = AboveUnitCap80,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-            
 			{ UCBC, 'BuildingGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.ECONOMIC}},
             
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, (categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY) }},
@@ -1228,8 +1234,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction',
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ResourceFacility',
 				
-                BuildStructures = {
-					'EnergyStorage',
+                BuildStructures = {'EnergyStorage',
 					'EnergyStorage',
 					'EnergyStorage',
 					'EnergyStorage',
@@ -1279,8 +1284,6 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction',
 					'EnergyStorage',
 					'EnergyStorage',
 					'EnergyStorage',
-
---					'T3TeleportJammer',
                 },
             }
         }
@@ -1297,12 +1300,10 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - LOU
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 840,
-
-		PriorityFunction = LessThan30MinutesRemain,		
+        
+        PriorityFunction = AboveUnitCap80,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-            
 			{ UCBC, 'BuildingGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.ECONOMIC}},
             
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, (categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY) }},
@@ -1330,8 +1331,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - LOU
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ResourceFacility',
 				
-                BuildStructures = {
-					'T3ShieldDefense',
+                BuildStructures = {'T3ShieldDefense',
 					'T3ShieldDefense',
 					'T4AADefense',
 					'T4AADefense',
@@ -1358,12 +1358,10 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - Sma
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 850,
-		
-		PriorityFunction = LessThan30MinutesRemain,		
-		
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
+        
+        PriorityFunction = AboveUnitCap80,
 
+        BuilderConditions = {
 			{ UCBC, 'BuildingGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.ECONOMIC}},
 
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, (categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY) }},
@@ -1393,8 +1391,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - Sma
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ResourceFacility',
 				
-                BuildStructures = {
-					'EnergyStorage',
+                BuildStructures = {'EnergyStorage',
 					'EnergyStorage',
 					'EnergyStorage',
 					'EnergyStorage',
@@ -1444,8 +1441,6 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - Sma
 					'EnergyStorage',
 					'EnergyStorage',
 					'EnergyStorage',
-
---					'T3TeleportJammer',
                 },
             }
         }
@@ -1462,12 +1457,10 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - LOU
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 850,
-
-		PriorityFunction = LessThan30MinutesRemain,		
+        
+        PriorityFunction = AboveUnitCap80,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-
 			{ UCBC, 'BuildingGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.ECONOMIC}},
 
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, (categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY) }},
@@ -1495,8 +1488,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - LOU
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ResourceFacility',
 				
-                BuildStructures = {
-					'T3ShieldDefense',
+                BuildStructures = {'T3ShieldDefense',
 					'T3ShieldDefense',
 					'T4AADefense',
 					'T4AADefense',
@@ -1524,12 +1516,10 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Expansions'
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 740,
-		
-		PriorityFunction = LessThan30MinutesRemain,
+        
+        PriorityFunction = AboveUnitCap80,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
@@ -1574,12 +1564,10 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Naval',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 740,
-
-		PriorityFunction = LessThan30MinutesRemain,
+        
+        PriorityFunction = AboveUnitCap80,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},

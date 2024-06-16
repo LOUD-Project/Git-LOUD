@@ -1,8 +1,38 @@
 -- Loud_AI_Engineer_Energy_Builders.lua
 
-local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
-local EBC = '/lua/editor/EconomyBuildConditions.lua'
-local LUTL = '/lua/loudutilities.lua'
+local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
+local EBC   = '/lua/editor/EconomyBuildConditions.lua'
+local LUTL  = '/lua/loudutilities.lua'
+
+local GetArmyUnitCap        = GetArmyUnitCap
+local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
+
+local AboveUnitCap65 = function( self,aiBrain )
+	
+	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .65 then
+		return 10, true
+	end
+	
+	return self.Priority, true
+end
+
+local AboveUnitCap75 = function( self,aiBrain )
+	
+	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
+		return 10, true
+	end
+	
+	return (self.OldPriority or self.Priority), true
+end
+
+local AboveUnitCap98 = function( self,aiBrain )
+	
+	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .98 then
+		return 10, true
+	end
+	
+	return (self.OldPriority or self.Priority), true
+end
 
 -- imbedded into the Builder
 local First30Minutes = function( self,aiBrain )
@@ -72,7 +102,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'PowerLayout',
 				
-                BuildStructures = {	'T1EnergyProduction' },
+                BuildStructures = {'T1EnergyProduction'},
             }
         }
     },
@@ -85,7 +115,18 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
         
         Priority = 900,
         
-		PriorityFunction = First60Minutes,
+		PriorityFunction = function( self,aiBrain )
+	
+            if aiBrain.CycleTime > 3600 then
+                return 0, false
+            end
+            
+            if import(UCBC).HaveGreaterThanUnitsWithCategory( aiBrain, 1, categories.ENERGYPRODUCTION * categories.TECH3 - categories.HYDROCARBON ) then
+                return 10, true
+            end
+	
+            return (self.OldPriority or self.Priority), true
+        end,
         
         BuilderConditions = {
         
@@ -93,7 +134,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 			{ EBC, 'LessThanEnergyTrendOverTime', { 40 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
             
-			{ UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.ENERGYPRODUCTION * categories.TECH3 - categories.HYDROCARBON }},
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},            
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 9, categories.ENERGYPRODUCTION - categories.TECH1 }},
         },
@@ -123,11 +163,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 900,
+        
+        PriorityFunction = AboveUnitCap98,
 
         BuilderConditions = {
-        
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-            
+
 			{ EBC, 'LessThanEnergyTrend', { 300 }},        
 			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},            
@@ -161,6 +201,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 750,
+        
+        PriorityFunction = AboveUnitCap65,
         
         BuilderConditions = {
         
@@ -200,7 +242,19 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 840,
-		
+        
+        PriorityFunction = function(self, aiBrain)
+        
+            if import(LUTL).GreaterThanEnergyIncome( aiBrain, 33600) then
+
+                return self.Priority, true
+
+            else
+                return 10, true
+            end
+        
+        end,
+
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
@@ -259,6 +313,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions',
         
         Priority = 700,
         
+        PriorityFunction = AboveUnitCap65,
+        
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .65 } },
@@ -290,12 +346,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 750,
+        
+        PriorityFunction = AboveUnitCap75,
 		
         BuilderType = { 'T3','SubCommander' },
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .75 } },
             
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 
@@ -386,12 +443,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 800,
+        
+        PriorityFunction = AboveUnitCap75,
 		
         BuilderType = { 'T3','SubCommander' },
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .75 } },
             
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 			
@@ -445,7 +503,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .85 } },
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 0 }},
             
@@ -470,12 +527,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction',
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'EnergyAdjacency',
 				
-                BuildStructures = {
-                    'T1EnergyProduction',
-                    'T1EnergyProduction',
-                    'T1EnergyProduction',
-                    'T1EnergyProduction',
-                }
+                BuildStructures = {'T1EnergyProduction','T1EnergyProduction','T1EnergyProduction','T1EnergyProduction'}
             }
         }
     },
@@ -493,10 +545,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Storage Construction',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 700,
+        
+        PriorityFunction = AboveUnitCap65,
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 0, categories.HYDROCARBON }},
             { UCBC, 'AdjacencyCheck', { 'LocationType', 'HYDROCARBON', 450, 'ueb1105' }},
         },
@@ -509,10 +563,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Storage Construction',
 				AdjacencyCategory = categories.HYDROCARBON,
                 AdjacencyDistance = 450,
                 
-                BuildStructures = {
-                    'EnergyStorage',
-					'EnergyStorage',
-                },
+                BuildStructures = {'EnergyStorage','EnergyStorage'},
             }
         }
     },
@@ -520,6 +571,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Storage Construction',
 
 
 --[[
+
 BuilderGroup {BuilderGroupName = 'Energy Facility',
     BuildersType = 'EngineerBuilder',
 	

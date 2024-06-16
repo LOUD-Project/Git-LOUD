@@ -1,11 +1,32 @@
 --   /lua/AI/AIBuilders/Loud_AI_Engineer_Expansion_Builders.lua
 ---  Summary: All tasks for building additional bases
 
-local EBC = '/lua/editor/EconomyBuildConditions.lua'
-local TBC = '/lua/editor/ThreatBuildConditions.lua'
-local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
-local MIBC = '/lua/editor/MiscBuildConditions.lua'
-local LUTL = '/lua/loudutilities.lua'
+local EBC   = '/lua/editor/EconomyBuildConditions.lua'
+local TBC   = '/lua/editor/ThreatBuildConditions.lua'
+local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
+local MIBC  = '/lua/editor/MiscBuildConditions.lua'
+local LUTL  = '/lua/loudutilities.lua'
+
+local GetArmyUnitCap        = GetArmyUnitCap
+local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
+
+local AboveUnitCap65 = function( self,aiBrain )
+	
+	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .65 then
+		return 10, true
+	end
+	
+	return (self.OldPriority or self.Priority), true
+end
+
+local AboveUnitCap80 = function( self,aiBrain )
+	
+	if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 then
+		return 10, true
+	end
+	
+	return (self.OldPriority or self.Priority), true
+end
 
 local OutNumbered_First15Minutes_Land = function( self,aiBrain )
 	
@@ -63,10 +84,6 @@ local First15Minutes_Naval = function( self,aiBrain )
 	return self.OldPriority or self.Priority, true
 end
 
-    
-
-
-
 local MapHasNavalAreas = function( self, aiBrain )
 
     if ScenarioInfo['Naval Area'][1] then
@@ -107,10 +124,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+        
+        PriorityFunction = AboveUnitCap65,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .65 } },
-            
 			-- is there an expansion already underway (we use the Instant Version here for accuracy)
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
@@ -163,10 +180,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
                 ThreatType = 'AntiSurface',
 				
 				-- what we'll build
-                BuildStructures = {  
-					'T2AirStagingPlatform',
-                    'T1LandFactory',
-					'T1Radar',
+                BuildStructures = {'T2AirStagingPlatform','T1LandFactory','T2Radar',
 					'T1GroundDefense',
 					'T1GroundDefense',
 					'T1GroundDefense',
@@ -185,23 +199,18 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 751,
+        
+        PriorityFunction = AboveUnitCap65,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .65 } },
-            
-			-- is there an expansion already underway (we use the Instant Version here for accuracy)
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
-			-- this base must have 3+ T2/T3 factories
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE - categories.TECH1}},
-            
-			-- all other 'counted' land bases must have at least 3 factories
+
 			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'Land', categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
-            
-			-- must have enough mass input to sustain existing factories and surplus
+
 			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.05, 1.05 } },
 
-			-- there must be an start/expansion area
             { UCBC, 'BaseAreaForExpansion', { 'LocationType', 2000, 115, -9999, 75, 0, 'AntiSurface' } },
         },
 		
@@ -241,11 +250,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
                 ThreatType = 'AntiSurface',
 				
 				-- what we'll build
-                BuildStructures = {  
-					'T2AirStagingPlatform',
-					'T1LandFactory',
-                    'T1AirFactory',
-					'T1Radar',
+                BuildStructures = {'T2AirStagingPlatform','T1LandFactory','T1AirFactory','T2Radar',
                     'T2GroundDefense',
                     'T2GroundDefense',
                     'T3MissileDefense',
@@ -319,14 +324,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
                 ThreatRings = 0,
                 ThreatType = 'AntiSurface',
 				
-				-- what we'll build
-                BuildStructures = {  
-					'T1LandFactory',
-					'T1GroundDefense',
-					'T1GroundDefense',
-					'T1GroundDefense',
-					'T1GroundDefense',
-                }               
+                BuildStructures = {'T1LandFactory','T1GroundDefense','T1GroundDefense','T1GroundDefense','T1GroundDefense'}               
             },
         }
     }, 
@@ -345,10 +343,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
 		Priority = 750,
+        
+        PriorityFunction = AboveUnitCap80,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-            
+
 			{ LUTL, 'GreaterThanEnergyIncome', { 480 }},
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
@@ -381,8 +380,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
 				
-                BuildStructures = {
-					'T2GroundDefense',
+                BuildStructures = {'T2GroundDefense',
                     'T2Wall',
                     'Wall',
                     'Wall',
@@ -411,10 +409,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
 		Priority = 750,
+        
+        PriorityFunction = AboveUnitCap80,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-            
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
@@ -446,8 +444,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
 				
-                BuildStructures = {
-					'T2GroundDefense',
+                BuildStructures = {'T2GroundDefense',
 					'T2AADefense',
                     'T2Wall',
                     'Wall',
@@ -521,8 +518,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
 				
-                BuildStructures = {
-					'T1GroundDefense',
+                BuildStructures = {'T1GroundDefense',
                     'Wall',
                     'Wall',
                     'Wall',
@@ -548,9 +544,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 		
         Priority = 745,
 
+        PriorityFunction = AboveUnitCap80,
+        
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-            
 			{ LUTL, 'GreaterThanEnergyIncome', { 480 }},
 			
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
@@ -582,9 +578,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
 				
-                BuildStructures = {
-					'T2AirStagingPlatform',
-					'T2Radar',
+                BuildStructures = {'T2AirStagingPlatform','T2Radar',
 					'T2GroundDefense',
 					'T2AADefense',
                     'T2GroundDefense',
@@ -607,9 +601,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 		
         Priority = 750,
 
+        PriorityFunction = AboveUnitCap80,
+
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-            
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
 			
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
@@ -641,9 +635,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
 				
-                BuildStructures = {
-					'T2AirStagingPlatform',
-					'T2Radar',
+                BuildStructures = {'T2AirStagingPlatform','T2Radar',
 					'T2GroundDefense',
 					'T2AADefense',
                     'T3GroundDefense',
@@ -657,94 +649,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
         }
     },
 }
-
---[[
-BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Small',
-
-    BuildersType = 'EngineerBuilder',
-
-	-- This builder will start an active DP 
-	Builder {BuilderName = 'DP - Expansion Small',
-	
-		PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-        
-		Priority = 745,
-		
-        BuilderConditions = {
-        
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-            
-			{ LUTL, 'GreaterThanEnergyIncome', { 480 }},
-
-			{ UCBC, 'IsBaseExpansionUnderway', {false} },
-            
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
-            
-            -- allow expansions if there are ANY upgraded factories --
-			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
-
-            -- find a suitable DP within 2000
-            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1250, -999999, 60, 0, 'AntiSurface' }},
-        },
-		
-		BuilderType = { 'T2','T3' },
-		
-		BuilderData = {
-			Construction = {
-				CountedBase = false,
-				
-				ExpansionBase = true,
-				ExpansionRadius = 100,
-				RallyPointRadius = 23,
-				
-				NearMarkerType = 'Defensive Point',
-				
-				LocationRadius = 1250,
-				
-                ThreatMax = 60,
-                ThreatRings = 0,
-                ThreatType = 'AntiSurface',
-				
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
-				BaseTemplate = 'DefensivePointSmall',
-				
-                BuildStructures = {
-					'T2GroundDefense',
-					'T2AADefense',
-                    'T2Wall',
-                    'Wall',
-                    'Wall',
-                    'T2Wall',
-                    'Wall',
-                    'Wall',
-                    'T2Wall',
-                    'T2MissileDefense',
-                    'T2Wall',
-                    'Wall',
-                    'Wall',
-                    'T2Wall',
-                    'Wall',
-                    'Wall',
-                    'T2Wall',
-                    'T2GroundDefense',
-                    'T2AADefense',
-                    'T2RadarJammer',
-                    'T2EnergyProduction',
-					'T2Radar',
-                    'T2Wall',
-                    'Wall',
-                    'T2Wall',
-                    'T2Wall',
-                    'Wall',
-                    'T2Wall',
-				}
-			}
-		}
-	},
-}
---]]
 
 BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 
@@ -808,12 +712,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'NavalExpansionBase',
 
-                BuildStructures = {
-					'T1SeaFactory',
-					'T2AirStagingPlatform',
-					'T1SeaFactory',
-					'T2Sonar',
-                }
+                BuildStructures = {'T1SeaFactory','T2AirStagingPlatform','T1SeaFactory','T1Sonar'}
             }
         }
     },
@@ -871,9 +770,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'NavalExpansionBase',
 
-                BuildStructures = {
-					'T1SeaFactory',
-                }
+                BuildStructures = {'T1SeaFactory'}
             }
         }
     },    
@@ -924,9 +821,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'NavalExpansionBase',
 
-                BuildStructures = {
-					'T1SeaFactory',
-                }
+                BuildStructures = {'T1SeaFactory'}
             }
         }
     },        
@@ -972,9 +867,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'NavalExpansionBase',
 
-                BuildStructures = {
-					'T1SeaFactory',
-                }
+                BuildStructures = {'T1SeaFactory'}
             }
         }
     },      
@@ -1000,7 +893,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction - Expans
             { LUTL, 'UnitCapCheckLess', { .65 } },
 			
 			{ LUTL, 'NavalStrengthRatioLessThan', { 1 } },
-			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
+			{ LUTL, 'NavalStrengthRatioGreaterThan', { .25 } },
 			
 			{ UCBC, 'NavalBaseCount', { 0, '>' } },
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
@@ -1012,8 +905,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction - Expans
             
             { UCBC, 'NavalAreaForExpansion', { 'LocationType', 1250, -250, 50, 2, 'AntiSurface' } },
 			
-			-- all other 'counted' Sea bases must have at least 4 T3 factories
-			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'Sea', categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
+			-- all other 'counted' Sea bases must have at least 5 T3 factories
+			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 4, 'Sea', categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
         },
 		
         BuilderType = { 'T2','T3' },
@@ -1035,10 +928,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction - Expans
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'NavalExpansionBase',
 
-                BuildStructures = {
-					'T1SeaFactory',
-					'T2AirStagingPlatform',
-                }
+                BuildStructures = {'T1SeaFactory','T2AirStagingPlatform'}
             }
         }
     },
@@ -1060,9 +950,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Naval'
 		
         Priority = 750,
 
+        PriorityFunction = AboveUnitCap80,
+        
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-			
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
             
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
@@ -1094,11 +984,95 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Naval'
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'NavalDefensivePoint',
 				
-                BuildStructures = {
-					'T2Sonar',
-                }
+                BuildStructures = {'T1Sonar'}
             }
         }
     },
 	
 }
+
+--[[
+BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Small',
+
+    BuildersType = 'EngineerBuilder',
+
+	-- This builder will start an active DP 
+	Builder {BuilderName = 'DP - Expansion Small',
+	
+		PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+		Priority = 745,
+		
+        BuilderConditions = {
+        
+            { LUTL, 'UnitCapCheckLess', { .95 } },
+            
+			{ LUTL, 'GreaterThanEnergyIncome', { 480 }},
+
+			{ UCBC, 'IsBaseExpansionUnderway', {false} },
+            
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
+            
+            -- allow expansions if there are ANY upgraded factories --
+			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
+
+            -- find a suitable DP within 2000
+            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1250, -999999, 60, 0, 'AntiSurface' }},
+        },
+		
+		BuilderType = { 'T2','T3' },
+		
+		BuilderData = {
+			Construction = {
+				CountedBase = false,
+				
+				ExpansionBase = true,
+				ExpansionRadius = 100,
+				RallyPointRadius = 23,
+				
+				NearMarkerType = 'Defensive Point',
+				
+				LocationRadius = 1250,
+				
+                ThreatMax = 60,
+                ThreatRings = 0,
+                ThreatType = 'AntiSurface',
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
+				BaseTemplate = 'DefensivePointSmall',
+				
+                BuildStructures = {'T2GroundDefense','T2AADefense',
+                    'T2Wall',
+                    'Wall',
+                    'Wall',
+                    'T2Wall',
+                    'Wall',
+                    'Wall',
+                    'T2Wall',
+                    'T2MissileDefense',
+                    'T2Wall',
+                    'Wall',
+                    'Wall',
+                    'T2Wall',
+                    'Wall',
+                    'Wall',
+                    'T2Wall',
+                    'T2GroundDefense',
+                    'T2AADefense',
+                    'T2RadarJammer',
+                    'T2EnergyProduction',
+					'T2Radar',
+                    'T2Wall',
+                    'Wall',
+                    'T2Wall',
+                    'T2Wall',
+                    'Wall',
+                    'T2Wall',
+				}
+			}
+		}
+	},
+}
+--]]
