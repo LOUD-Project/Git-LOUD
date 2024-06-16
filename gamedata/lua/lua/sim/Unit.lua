@@ -444,6 +444,12 @@ Unit = Class(UnitMethods) {
 		
     end,
 
+    GiveInitialResources = function(self)
+        WaitTicks(2)
+        self:GetAIBrain():GiveResource('Energy', __blueprints[self.BlueprintID].Economy.StorageEnergy)
+        self:GetAIBrain():GiveResource('Mass', __blueprints[self.BlueprintID].Economy.StorageMass)
+    end,
+
 	-- set the current layer whenever it changes
 	OnLayerChange = function (self, new, old)
 
@@ -1019,9 +1025,10 @@ Unit = Class(UnitMethods) {
     OnPaused = function(self)
 	
         self:SetActiveConsumptionInactive()
-        --self:StopUnitAmbientSound( 'ConstructLoop' )
-        -- self:DoUnitCallbacks('OnPaused')
-		
+        
+        self:StopUnitAmbientSound( 'ConstructLoop' )
+        
+        self:DoUnitCallbacks('OnPaused')
     end,
 
     OnUnpaused = function(self)
@@ -1029,11 +1036,12 @@ Unit = Class(UnitMethods) {
         if IsUnitState( self, 'Building') or IsUnitState( self, 'Upgrading') or IsUnitState( self, 'Repairing') then
 		
             self:SetActiveConsumptionActive()
-            --self:PlayUnitAmbientSound( 'ConstructLoop' )
+
+            self:PlayUnitAmbientSound( 'ConstructLoop' )
 			
         end
 		
-        -- self:DoUnitCallbacks('OnUnpaused')
+        self:DoUnitCallbacks('OnUnpaused')
     end,
 	
     TimedEventThread = function(self, interval, passData)
@@ -1083,15 +1091,15 @@ Unit = Class(UnitMethods) {
 	-- when you start being captured
     OnStartBeingCaptured = function(self, captor)
 	
-        self:DoUnitCallbacks( 'OnStartBeingCaptured', captor )
-        --self:PlayUnitSound('StartBeingCaptured')
+        self:DoUnitCallbacks('OnStartBeingCaptured', captor )
+        self:PlayUnitSound('StartBeingCaptured')
     end,
 
 	-- when you finish being captured by something else
     OnStopBeingCaptured = function(self, captor)
 	
-        self:DoUnitCallbacks( 'OnStopBeingCaptured', captor )
-        --self:PlayUnitSound('StopBeingCaptured')
+        self:DoUnitCallbacks('OnStopBeingCaptured', captor )
+        self:PlayUnitSound('StopBeingCaptured')
     end,
 
 	-- when you are captured
@@ -1180,7 +1188,7 @@ Unit = Class(UnitMethods) {
 	-- when you fail to get captured by something else
     OnFailedBeingCaptured = function(self, captor)
 	
-        self:DoUnitCallbacks( 'OnFailedBeingCaptured', captor )
+        self:DoUnitCallbacks('OnFailedBeingCaptured', captor )
         --self:PlayUnitSound('FailedBeingCaptured')
 		
     end,
@@ -1259,11 +1267,9 @@ Unit = Class(UnitMethods) {
 			end
 		end		
 		
-		--self:SetActiveConsumptionInactive()
-		
         SetProductionActive( self, false )
 		
-        --self:DoUnitCallbacks('OnProductionPaused')
+        self:DoUnitCallbacks('OnProductionPaused')
     end,
 
     OnProductionUnpaused = function(self)
@@ -1294,12 +1300,10 @@ Unit = Class(UnitMethods) {
 				RequestRefreshUI( unit )				
 			end
 		end		
-
-		--self:SetActiveConsumptionActive()
 		
         SetProductionActive( self, true )
 		
-        --self:DoUnitCallbacks('OnProductionUnpaused')
+        self:DoUnitCallbacks('OnProductionUnpaused')
     end,
 
     SetBuildTimeMultiplier = function(self, time_mult)
@@ -1690,7 +1694,7 @@ Unit = Class(UnitMethods) {
     -- On killed: this function plays when the unit takes a mortal hit.  It plays all the default death effect
     OnKilled = function(self, instigator, deathtype, overkillRatio)
 
-        --LOG("*AI DEBUG UNIT "..self.EntityID.." OnKilled "..self.BlueprintID)
+        --LOG("*AI DEBUG UNIT "..self.EntityID.." OnKilled "..self.BlueprintID.." on tick "..GetGameTick())
 
         if self.UnitBeingBuilt and LOUDENTITY(FACTORY, self) then
 		
@@ -1703,7 +1707,7 @@ Unit = Class(UnitMethods) {
 			
             local wep = GetWeapon(self,i) or false
 
-            if wep then
+            if wep and not wep.Dead then
                 wep:SetWeaponEnabled(false)
 			end
         end
@@ -1722,7 +1726,7 @@ Unit = Class(UnitMethods) {
         
 		self.PlayUnitSound( self, 'Killed')
 		
-		self:DoUnitCallbacks( 'OnKilled' )
+		self:DoUnitCallbacks('OnKilled')
 		
 		if self.TopSpeedEffectsBag then
 			self:DestroyTopSpeedEffects()
@@ -1789,8 +1793,6 @@ Unit = Class(UnitMethods) {
                         Buff.TargetDisallow = LOUDPARSE(Buff.TargetDisallow)
                     end
                     
-                    --LOG("*AI DEBUG DeathWeapon Buff is "..repr(Buff))
-                    
 					self:AddBuff( Buff, self:GetCachePosition() )
                 end
             end
@@ -1825,22 +1827,14 @@ Unit = Class(UnitMethods) {
 				
                     rate = Random(animBlock.AnimationRateMin * 10, animBlock.AnimationRateMax * 10) / 10
                 end
-        
-                --LOG("*AI DEBUG UNIT "..self.EntityID.." Play Animation "..repr(anim).." for "..repr(self.BlueprintID).." rate is "..rate )
 				
                 self.DeathAnimManip = CreateAnimator(self)
-
-                --local elapsedtime = GetGameTick()                
 
                 PlayAnim( self.DeathAnimManip, animBlock.Animation):SetRate(rate)
 
                 TrashAdd( self.Trash, self.DeathAnimManip)
-				
-                --LOG("*AI DEBUG UNIT "..self.EntityID.." Play Animation Waitfor for "..self.BlueprintID)
 
                 WaitFor( self.DeathAnimManip )
-
-                --LOG("*AI DEBUG UNIT "..self.EntityID.." Play Animation Waitfor ends "..self.BlueprintID.." after ".. GetGameTick()-elapsedtime .." ticks")				
 
 				self.DeathAnimManip = nil
 
@@ -2037,8 +2031,9 @@ Unit = Class(UnitMethods) {
 
     CreateWreckageProp = function( self, overkillRatio, overridetime, bypasswreckageeffects )
 
-		local bp = ALLBPS[self.BlueprintID]
-		local wreck = bp.Wreckage.Blueprint
+		local bp        = ALLBPS[self.BlueprintID]
+        local Wreckage  = bp.Wreckage
+		local wreck     = Wreckage.Blueprint
         
         --LOG("*AI DEBUG UNIT "..self.EntityID.." CreateWreckageProp for "..self.BlueprintID)
 
@@ -2053,9 +2048,9 @@ Unit = Class(UnitMethods) {
 			
 			local pos = table.copy(self:GetPosition())
 			
-			local mass = bp.Economy.BuildCostMass * (bp.Wreckage.MassMult or 0)
-			local energy = bp.Economy.BuildCostEnergy * (bp.Wreckage.EnergyMult or 0)
-			local time = (bp.Wreckage.ReclaimTimeMultiplier or 1)
+			local mass = bp.Economy.BuildCostMass * (Wreckage.MassMult or 0)
+			local energy = bp.Economy.BuildCostEnergy * (Wreckage.EnergyMult or 0)
+			local time = (Wreckage.ReclaimTimeMultiplier or 1)
             
 			local prop = CreateProp( pos, wreck )
 
@@ -2073,17 +2068,17 @@ Unit = Class(UnitMethods) {
 			
 			prop:SetReclaimValues(time, time, mass, energy)
 			
-			prop:SetMaxHealth( bp.Defense.Health * (bp.Wreckage.HealthMult or .1) )
+			prop:SetMaxHealth( bp.Defense.Health * (Wreckage.HealthMult or .1) )
             
-			SetHealth( prop, self, bp.Defense.Health * (bp.Wreckage.HealthMult or .1))
+			SetHealth( prop, self, bp.Defense.Health * (Wreckage.HealthMult or .1))
 
-            if not bp.Wreckage.UseCustomMesh then
+            if not Wreckage.UseCustomMesh then
     	        SetMesh( prop, bp.Display.MeshBlueprintWrecked )
             end
 
 			-- all wreckage now has a lifetime max of 900 seconds --
             -- except starting props or those with an override value
-			prop:ForkThread( LifetimeThread, overridetime or bp.Wreckage.LifeTime or 900 )
+			prop:ForkThread( LifetimeThread, overridetime or Wreckage.LifeTime or 900 )
 
             if not bypasswreckageeffects then
                 TryCopyPose(self,prop,false)
@@ -2424,8 +2419,6 @@ Unit = Class(UnitMethods) {
 		self.PlatoonHandle = nil
 
 		--LOG("*AI DEBUG UNIT "..self.EntityID.." OnDestroy for "..repr(ALLBPS[self.BlueprintID].Description))
-		
-		--local ID = GetEntityId(self)
 
 		Sync.ReleaseIds[self.EntityID] = true
 
@@ -2751,9 +2744,7 @@ Unit = Class(UnitMethods) {
     end,
 
     GetRebuildBonus = function(self, rebuildUnitBP)
-    
-        --LOG("*AI DEBUG GetRebuildBonus "..repr(rebuildUnitBP))
-	
+
         -- here 'self' is the engineer building the structure
         self.InitialFractionComplete = CBFP_oldUnit.GetRebuildBonus(self, rebuildUnitBP)
         self.VerifyRebuildBonus = true
@@ -2805,8 +2796,6 @@ Unit = Class(UnitMethods) {
     end,
 
     OnRebuildBonusIsLegal = function(self)
-    
-        --LOG("*AI DEBUG RebuildBonusIsLegal for "..repr(self))
 	
         -- rebuild bonus check 2 [159]
         -- this doesn't always run. In fact, in most of the time it doesn't.
@@ -2819,8 +2808,6 @@ Unit = Class(UnitMethods) {
     end,
 
     OnRebuildBonusIsIllegal = function(self)
-    
-        --LOG("*AI DEBUG RebuildBonus ILLEGAL for "..repr(self))
         
         -- rebuild bonus check 1 and 2 [159]
         -- this doesn't always run. In fact, in most of the time it doesn't.
@@ -3303,13 +3290,14 @@ Unit = Class(UnitMethods) {
 
 		if not self.Dead then
 		
-			local EnableIntel = EntityMethods.EnableIntel
+			local EnableIntel   = EntityMethods.EnableIntel
+            local CacheLayer    = self.CacheLayer
 			
-			if self.CacheLayer == 'Seabed' or self.CacheLayer == 'Sub' or self.CacheLayer == 'Water' then
+			if CacheLayer == 'Seabed' or CacheLayer == 'Sub' or CacheLayer == 'Water' then
 			
 				EnableIntel(self,'WaterVision')
 				
-				if self.CacheLayer == 'Seabed' then
+				if CacheLayer == 'Seabed' then
 				
 					self:DisableIntel('Vision')
 					
@@ -3777,8 +3765,8 @@ Unit = Class(UnitMethods) {
         local GetTerrainTypeEffects = self.GetTerrainTypeEffects
         local LOUDINSERT = LOUDINSERT
         
-        local Army = self.Army
-        local Position = self:GetPosition()
+        local Army      = self.Army
+        local Position  = self:GetPosition()
 
         for _, vTypeGroup in effectTypeGroups do
 		
@@ -3792,6 +3780,8 @@ Unit = Class(UnitMethods) {
 			
                 effects = GetTerrainTypeEffects( FxBlockType, FxBlockKey, Position, vTypeGroup.Type, TypeSuffix )
             end
+            
+            --LOG("*AI DEBUG CreateTerrainEffects for "..repr(FxBlockType).." "..repr(FxBlockKey).." "..repr(vTypeGroup).." Effects are "..repr(effects) )
 
 			if effects then
             
@@ -4490,7 +4480,7 @@ Unit = Class(UnitMethods) {
             end
         end
 		
-        --self:DoUnitCallbacks('OnVeteran')
+        self:DoUnitCallbacks('OnVeteran')
 		
     end,
     
@@ -4964,7 +4954,7 @@ Unit = Class(UnitMethods) {
 		
         unit:OnAttachedToTransport(self)
 		
-        self:DoUnitCallbacks( 'OnTransportAttach', unit )
+        self:DoUnitCallbacks('OnTransportAttach', unit )
 		
     end,
 
@@ -4989,7 +4979,7 @@ Unit = Class(UnitMethods) {
 		
         unit:OnDetachedToTransport(self)
 		
-        self:DoUnitCallbacks( 'OnTransportDetach', unit )
+        self:DoUnitCallbacks('OnTransportDetach', unit )
 		
     end,
 
@@ -5394,13 +5384,11 @@ Unit = Class(UnitMethods) {
     end,
 	
     OnTeleportCharging = function(self, location)
-	
-        --self:DoUnitCallbacks('OnTeleportCharging', location)
+        self:DoUnitCallbacks('OnTeleportCharging', location)
     end,
 
     OnTeleported = function(self, location)
-	
-        --self:DoUnitCallbacks('OnTeleported', self, location)
+        self:DoUnitCallbacks('OnTeleported', self, location)
     end,
 	
 	--  Summary  :  SHIELD Scripts required for drone spawned bubble shields.
