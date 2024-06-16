@@ -194,14 +194,14 @@ PlatoonFormManager = Class(BuilderManager) {
 				if not builder:StoreHandle( hndl, self, 'Any' ) then
 				
 					if PlatoonDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..LocationType.." fails StoreHandle for "..repr(template[1]))
+						LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon PFM "..LocationType.." fails StoreHandle for "..repr(template[1]))
 					end
 					
 					return aiBrain:DisbandPlatoon(hndl)
 				end
 
 				if PlatoonDialog then
-					LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..LocationType.." forms "..repr(BuilderName).." "..repr(hndl.BuilderInstance).." using "..repr(template[1]))
+					LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..BuilderName.." "..repr(hndl.BuilderInstance).." forms at PFM "..LocationType )
 				end
 
 				hndl.LocationType = LocationType
@@ -225,7 +225,7 @@ PlatoonFormManager = Class(BuilderManager) {
 					for _, papv in PlatoonAddPlans do
 
 						if PlatoonDialog then
-							LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(BuilderName).." "..repr(hndl.BuilderInstance).." adds plan "..repr(papv))
+							LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..BuilderName.." "..repr(hndl.BuilderInstance).." adds plan "..repr(papv))
 						end
 
 						hndl:ForkThread( hndl[papv], aiBrain )
@@ -245,7 +245,7 @@ PlatoonFormManager = Class(BuilderManager) {
                         -- so Czar Attack could turn OFF Czar Attack and turn ON Czar Attack 2 - which could, in turn, reverse that
                         
 						if PlatoonDialog then
-							LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(BuilderName).." "..repr(hndl.BuilderInstance).." adds function "..repr(papv[2]))
+							LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..BuilderName.." "..repr(hndl.BuilderInstance).." adds function "..repr(papv[2]))
 						end
 						
 						ForkThread( import(papv[1])[papv[2]], hndl, aiBrain )
@@ -257,7 +257,7 @@ PlatoonFormManager = Class(BuilderManager) {
 					for _, papv in PlatoonAddBehaviors do
 
 						if PlatoonDialog then
-							LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(BuilderName).." "..repr(hndl.BuilderInstance).." adds behavior "..repr(papv))
+							LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..BuilderName.." "..repr(hndl.BuilderInstance).." adds behavior "..repr(papv))
 						end
 					
 						hndl:ForkThread( Behaviors[papv], aiBrain )
@@ -266,7 +266,7 @@ PlatoonFormManager = Class(BuilderManager) {
 
 			else
                 if PlatoonDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..LocationType.." unable to form "..repr(BuilderName).." template "..repr(template[1]).." location "..repr(Location).." radius "..repr(Radius) )
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..BuilderName.." unable to form at PFM "..LocationType.." location "..repr(Location))
                 end
 			end
         end

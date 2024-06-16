@@ -5,14 +5,18 @@
 
 local import = import
 
-local FactorySelfEnhanceThread      = import('/lua/ai/aibehaviors.lua').FactorySelfEnhanceThread
+local AIBehaviors                   = import('/lua/ai/aibehaviors.lua')
+local FactorySelfEnhanceThread      = AIBehaviors.FactorySelfEnhanceThread
 
 local AIGetClosestMarkerLocation    = import('/lua/ai/aiutilities.lua').AIGetClosestMarkerLocation
+local GetOwnUnitsAroundPoint        = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
 local RandomLocation                = import('/lua/ai/aiutilities.lua').RandomLocation
 
 local CreateFactoryBuilder          = import('/lua/sim/Builder.lua').CreateFactoryBuilder
 
 local BuilderManager                = import('/lua/sim/BuilderManager.lua').BuilderManager
+
+local Direction                     = import('/lua/utilities.lua').GetDirectionInDegrees
 
 local BuildPlatoon              = moho.aibrain_methods.BuildPlatoon
 local GetEconomyStored          = moho.aibrain_methods.GetEconomyStored
@@ -216,7 +220,12 @@ FactoryBuilderManager = Class(BuilderManager) {
 				ForkThread( self.DelayBuildOrder, self, factory )
 
 			end
+
+            -- sort the factory tasks any time we add a new factory
+			self.BuilderData[factory.BuilderType].NeedSort = true
+
 		end
+        
 	end,
     
     FactoryDestroyed = function(self, factory)
@@ -315,6 +324,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 
 							ForkThread( import( pafv[1])[ pafv[2] ], aiBrain, factory, builder )
 						end
+                        
 					end
 					
 				else
@@ -329,10 +339,8 @@ FactoryBuilderManager = Class(BuilderManager) {
                     -- if there was a build platoon but we failed anyway - assign a timeout
                     -- otherwise set the job priority to zero so it doesn't come up again
                     if buildplatoon then
-                    
                         self:ForkThread( self.AssignTimeout, BuilderName, 450 )
                     else
-                    
                         builder:SetPriority( 0, false)
                     end
 			
@@ -472,24 +480,20 @@ FactoryBuilderManager = Class(BuilderManager) {
 		for _,v in EntityCategoryFilterDown( facCategory, self.FactoryList ) do
 		
 			if v.Dead then
-			
 				continue
 			end
             
 			if not IsUnitState( v, 'Upgrading' ) and not IsUnitState( v, 'Building' ) then
-			
 				continue
 			end
             
 			local beingBuiltUnit = v.UnitBeingBuilt	
 			
 			if not beingBuiltUnit or beingBuiltUnit.Dead then
-			
 				continue
 			end
             
 			if not LOUDENTITY( category, beingBuiltUnit ) then
-			
 				continue
 			end
 
@@ -509,18 +513,15 @@ FactoryBuilderManager = Class(BuilderManager) {
 		for _,v in self.GetFactoriesBuildingCategory( self, category, facCatgory ) do
 		
 			if v.DesiresAssist == false then
-			
                continue
 			end
             
 			if v.NumAssistees and LOUDGETN( v:GetGuards() ) >= v.NumAssistees then
-			
 				continue
 			end 
             
 			counter = counter + 1            
 			units[counter] = v
-
 		end
         
        return units, counter
@@ -551,11 +552,11 @@ FactoryBuilderManager = Class(BuilderManager) {
         local addbehavior       = factory.addbehavior
 
 		if addplan then
-			finishedUnit:ForkThread( import('/lua/ai/aibehaviors.lua')[addplan], aiBrain )
+			finishedUnit:ForkThread( AIBehaviors[addplan], aiBrain )
 		end
 		
 		if addbehavior then
-			finishedUnit:ForkThread( import('/lua/ai/aibehaviors.lua')[addbehavior], aiBrain )
+			finishedUnit:ForkThread( AIBehaviors[addbehavior], aiBrain )
 		end
         
         local Enhancements = __blueprints[finishedUnit.BlueprintID].Enhancements.Sequence or false
@@ -739,7 +740,6 @@ FactoryBuilderManager = Class(BuilderManager) {
 		end
 		
         if not template then
-        
             WARN("*AI DEBUG Template "..repr(templateName).." for "..repr(faction).." is empty "..repr(FactionSquads[faction]))
         end
         
@@ -799,67 +799,64 @@ FactoryBuilderManager = Class(BuilderManager) {
 	TrafficControlThread = function(factory, factoryposition, rally)
         
         local IsIdleState = IsIdleState
-        local LOUDINSERT = LOUDINSERT
         local LOUDGETN = LOUDGETN
         local WaitTicks = WaitTicks
         
 		WaitTicks(30)
-	
-		local GetOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
 		
 		local category = TRAFFICUNITS
 		
 		local rallypoint = { rally[1],rally[2],rally[3] }
-		local factorypoint = { factoryposition[1], factoryposition[2], factoryposition[3] }
-		
-		local Direction = import('/lua/utilities.lua').GetDirectionInDegrees( rallypoint, factorypoint )
 
 		if Direction < 45 then
-		
+
 			Direction = 0		-- South
-			
+
 		elseif Direction < 135 then
-		
+
 			Direction = 90		-- East
-			
+
 		elseif Direction < 225 then
-		
+
 			Direction = 180		-- North
-			
+
 		else
-		
 			Direction = 270		-- West
 		end
 
 		local aiBrain = GetAIBrain(factory)
         local ArmyPool = aiBrain.ArmyPool
-        
-        local unitlist, units
+
+        local counter, unitlist, units
 		
 		while true do
 
 			WaitTicks(480)
-			
+
 			units = GetOwnUnitsAroundPoint( aiBrain, category, rallypoint, 16)
 			
 			if LOUDGETN(units) > 8 then
 			
 				unitlist = {}
+                counter = 0
 				
 				for _,unit in units do
 				
 					if (unit.PlatoonHandle == ArmyPool) and IsIdleState(unit) then
+                    
+                        counter = counter + 1
 
-						LOUDINSERT( unitlist, unit )
+						unitlist[counter] = unit
 					end
 				end
 				
-				if LOUDGETN(unitlist) > 8 then
+				if counter > 7 then
 
 					IssueClearCommands( unitlist )
 
 					IssueFormMove( unitlist, rallypoint, 'BlockFormation', Direction )
 				end
+                
 			end
 		end
 	end,
