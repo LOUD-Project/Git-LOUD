@@ -1,4 +1,4 @@
 AI = {
 	Name = "Env.scd",
-	Version = "LOUD 2.0",
+	Version = "LOUD 3.0",
 }
