@@ -11,7 +11,7 @@ BuildingTemplates = {
     {
     -- Power Structures
         { 'T1EnergyProduction', 'ueb1101' },
-        { 'T1HydroCarbon', 'ueb1102'      },
+        { 'T1HydroCarbon',      'ueb1102' },
         { 'T2EnergyProduction', 'ueb1201' },
         { 'T3EnergyProduction', 'ueb1301' },
 	-- Mass Structures
@@ -181,8 +181,8 @@ BuildingTemplates = {
         { 'T3Optics', 'xab3301'   },
 	-- Jammers 
         { 'T2RadarJammer', 'uab4203'     },
-        { 'T2TeleportJammer', },
-		{ 'T3TeleportJammer', },
+        { 'T2TeleportJammer', 'bab4209'  },
+		{ 'T3TeleportJammer', 'bab4209'  },
 	-- Sonars
         { 'T1Sonar', 'uab3102'      },
         { 'T2Sonar', 'uab3202'      },
@@ -286,8 +286,8 @@ BuildingTemplates = {
         { 'T3Optics', 'xrb3301'	},
 	-- Jammers
         { 'T2RadarJammer', 'urb4203'	},
-        { 'T2TeleportJammer',},
-		{ 'T3TeleportJammer',},
+        { 'T2TeleportJammer', 'brb4209' },
+		{ 'T3TeleportJammer', 'brb4209' },
 	-- Sonars
         { 'T1Sonar', 'urb3102'	},
         { 'T2Sonar', 'urb3202'	},
@@ -325,7 +325,7 @@ BuildingTemplates = {
 
 -- Seraphim Building List
     {
-	--# Power Structures
+	-- Power Structures
         {'T1EnergyProduction', 'xsb1101'	},
         {'T1HydroCarbon','xsb1102'			},
         {'T2EnergyProduction','xsb1201'		},
@@ -387,8 +387,8 @@ BuildingTemplates = {
         { 'T3Radar', 'xsb3104'	},
 	-- Jammers
 		{ 'T2RadarJammer', 'xsb4203'	},
-        { 'T2TeleportJammer', },
-		{ 'T3TeleportJammer', },
+        { 'T2TeleportJammer', 'bsb4209' },
+		{ 'T3TeleportJammer', 'bsb4209' },
 	-- Sonars
         { 'T1Sonar', 'xsb3102'	},
         { 'T2Sonar', 'xsb3202'	},

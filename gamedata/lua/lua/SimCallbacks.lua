@@ -16,32 +16,38 @@ function DoCallback(name, data, units)
     end
 end
 
-Callbacks.BreakAlliance = import('/lua/simutils.lua').BreakAlliance
-Callbacks.GiveOrders = import('/lua/spreadattack.lua').GiveOrders
-Callbacks.GiveUnitsToPlayer = import('/lua/simutils.lua').GiveUnitsToPlayer
-Callbacks.GiveResourcesToPlayer = import('/lua/simutils.lua').GiveResourcesToPlayer
-Callbacks.SetResourceSharing = import('/lua/simutils.lua').SetResourceSharing
-Callbacks.RequestAlliedVictory = import('/lua/simutils.lua').RequestAlliedVictory
-Callbacks.SetOfferDraw = import('/lua/simutils.lua').SetOfferDraw
+Callbacks.FactionSelection      = import('/lua/scenarioframework.lua').OnFactionSelect
 
-Callbacks.SpawnPing = import('/lua/simping.lua').SpawnPing
-Callbacks.UpdateMarker = import('/lua/simping.lua').UpdateMarker
-Callbacks.FactionSelection = import('/lua/scenarioframework.lua').OnFactionSelect
-Callbacks.ToggleSelfDestruct = import('/lua/selfdestruct.lua').ToggleSelfDestruct
-Callbacks.MarkerOnScreen = import('/lua/simcameramarkers.lua').MarkerOnScreen
+Callbacks.ToggleSelfDestruct    = import('/lua/selfdestruct.lua').ToggleSelfDestruct
+
+Callbacks.OnCameraFinish        = import('/lua/simcamera.lua').OnCameraFinish
+Callbacks.MarkerOnScreen        = import('/lua/simcameramarkers.lua').MarkerOnScreen
+
 Callbacks.SimDialogueButtonPress = import('/lua/simdialogue.lua').OnButtonPress
-Callbacks.AreaReclaim = import('/lua/simutils.lua').AreaReclaim
 
-Callbacks.AIChat = import('/lua/ai/sorianutilities.lua').FinishAIChat
+Callbacks.DiplomacyHandler      = import('/lua/simdiplomacy.lua').DiplomacyHandler
 
-Callbacks.DiplomacyHandler = import('/lua/simdiplomacy.lua').DiplomacyHandler
+Callbacks.SpawnPing             = import('/lua/simping.lua').SpawnPing
+Callbacks.UpdateMarker          = import('/lua/simping.lua').UpdateMarker
+Callbacks.PingGroupClick        = import('/lua/simpinggroup.lua').OnClickCallback
 
-Callbacks.OnCameraFinish = import('/lua/simcamera.lua').OnCameraFinish
-Callbacks.OnPlayerQuery = import('/lua/simplayerquery.lua').OnPlayerQuery
-Callbacks.OnPlayerQueryResult = import('/lua/simplayerquery.lua').OnPlayerQueryResult
-Callbacks.PingGroupClick = import('/lua/simpinggroup.lua').OnClickCallback
+Callbacks.OnPlayerQuery         = import('/lua/simplayerquery.lua').OnPlayerQuery
+Callbacks.OnPlayerQueryResult   = import('/lua/simplayerquery.lua').OnPlayerQueryResult
 
-Callbacks.SetAIDebug = import('/lua/aibrain.lua').SetAIDebug
+Callbacks.AreaReclaim           = import('/lua/simutils.lua').AreaReclaim
+Callbacks.BreakAlliance         = import('/lua/simutils.lua').BreakAlliance
+Callbacks.GiveUnitsToPlayer     = import('/lua/simutils.lua').GiveUnitsToPlayer
+Callbacks.GiveResourcesToPlayer = import('/lua/simutils.lua').GiveResourcesToPlayer
+Callbacks.SetResourceSharing    = import('/lua/simutils.lua').SetResourceSharing
+Callbacks.RequestAlliedVictory  = import('/lua/simutils.lua').RequestAlliedVictory
+Callbacks.SetOfferDraw          = import('/lua/simutils.lua').SetOfferDraw
+
+Callbacks.AIChat                = import('/lua/ai/sorianutilities.lua').FinishAIChat
+
+Callbacks.GiveOrders            = import('/lua/spreadattack.lua').GiveOrders
+
+Callbacks.SetAIDebug            = import('/lua/aibrain.lua').SetAIDebug
+
 
 Callbacks.ReplayAIDebug = function(data)
     SetSimData(data)

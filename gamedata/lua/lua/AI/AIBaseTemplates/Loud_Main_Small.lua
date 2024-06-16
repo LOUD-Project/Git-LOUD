@@ -42,7 +42,6 @@ BaseBuilderTemplate {
         'Engineer Misc Construction - Small',
    		'Engineer Mass Point Defense Construction',
 		'Engineer Artillery Construction',
-        'Engineer Optics Construction',
 		'Engineer Nuke Construction',
         
         # ==== LAND UNIT BUILDERS ==== #

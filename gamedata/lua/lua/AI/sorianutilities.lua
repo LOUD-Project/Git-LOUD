@@ -220,24 +220,21 @@ function FinishAIChat(data)
 		for _, cat in cats do
 			-- get idle engineers 
 			local engies = aiBrain:GetListOfUnits(categories.ENGINEER * cat - categories.COMMAND - categories.SUBCOMMANDER - categories.ENGINEERSTATION, true)
-			
+
+            LOG("*AI DEBUG List of Engineer units is "..repr(engies) )
+            
 			for k,v in engies do
 			
 				if not v:IsDead() and v:GetParent() == v then
-				
-					if v.PlatoonHandle and aiBrain:PlatoonExists(v.PlatoonHandle) then
-					
-						continue
-						
-					end
 					
 					if v.NotBuildingThread then
-					
 						continue
-						
 					end
-					
-					aiBrain.BuilderManagers[v.LocationType].EngineerManager:RemoveEngineerUnit(v)
+                    
+                    -- if the engineer actually belongs to a location
+                    if v.LocationType then
+                        aiBrain.BuilderManagers[v.LocationType].EngineerManager:RemoveEngineerUnit(v)
+                    end
 					
 					IssueStop({v})
 					IssueClearCommands({v})
@@ -266,7 +263,7 @@ function FinishAIChat(data)
 		
 		if not given then
 		
-			LOG("*AI DEBUG No engineer to send")
+			LOG("*AI DEBUG No stinky engineer to send")
 			
 			AISendChat(data.ToArmy, aiBrain.Nickname, 'noengineer')
 			

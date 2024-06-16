@@ -10,73 +10,59 @@ PerimeterDefenseTemplates = {
 -- transforms on these numbers
 -- UEF Perimeter Defense Template
     {
-        {
-            {'T1AADefense'},
+        {{'T1AADefense'},
             {-2, 2 },
         },
-        {
-            {'T1GroundDefense'},
+        {{'T1GroundDefense'},
             { 2, 2 },
             { 0, 2 },
         },
-		{
-			{'T1Artillery'},
+		{{'T1Artillery'},
 			{ 0, -2},
 		},
-        {
-            {'T1MassCreation'},
+        {{'T1MassCreation'},
             { 5, 3 },
             {-5, 3 },
         },
-        {
-            {'T3EnergyProduction'},
+        {{'T3EnergyProduction'},
             { 0, 0 },
         },
-        {
-            {'T2GroundDefense','T3GroundDefense'},
+        {{'T2GroundDefense','T3GroundDefense'},
             { 0, 8 },
             { 5, 8 },
             {-5, 8 },
             { 10, 8 },
 			{-10, 8 },
         },
-        {
-            {'T2AADefense','T3AADefense'},
+        {{'T2AADefense','T3AADefense'},
             { 3, -8 },
             {-3, -8 },
             { 9, -5 },
 			{-9, -5 },
         },
-        {
-            {'T2Artillery','T2StrategicMissile'},
+        {{'T2Artillery','T2StrategicMissile'},
 			{ 3, -5 },
 			{-3, -5 },
             { 0, -5 },
         },
-        {
-            {'T2MissileDefense','T3MissileDefense'},
+        {{'T2MissileDefense','T3MissileDefense'},
             {-11,-5 },
             { 11,-5 },
         },
-        {
-            {'T2ShieldDefense','T3ShieldDefense'},
+        {{'T2ShieldDefense','T3ShieldDefense'},
             { 9, 1 },
 			{-9, 1 },
 		},
-		{
-			{'T3StrategicMissileDefense'},
+		{{'T3StrategicMissileDefense'},
 			{ 12,-10 },
 		},
-		{
-			{'T4AADefense'},
+		{{'T4AADefense'},
 			{ 8,-10 },
 		},
-		{
-			{'T4GroundDefense'},
+		{{'T4GroundDefense'},
 			{-8,-10 },
 		},
-		{
-			{'T3Storage'},
+		{{'T3Storage'},
 			{ 5,-1 },
 			{ 5, 1 },
 			{ 5, 3 },
@@ -90,8 +76,7 @@ PerimeterDefenseTemplates = {
 			{-9,-3 },
 			{-7,-3 },
 		},
-		{
-			{'Wall','T2Wall'},
+		{{'Wall','T2Wall'},
 			{ 5, -3 },
 			{ 5, -2 },
 			{ 5, -1 },
@@ -183,73 +168,59 @@ PerimeterDefenseTemplates = {
     },
 -- Aeon Perimeter Defense Template
    {
-        {
-            {'T1AADefense'},
+        {{'T1AADefense'},
             {-2, 2 },
         },
-        {
-            {'T1GroundDefense'},
+        {{'T1GroundDefense'},
             { 2, 2 },
             { 0, 2 },            
         },
-		{
-			{'T1Artillery'},
+		{{'T1Artillery'},
 			{ 0, -2},
 		},		
-        {
-            {'T1MassCreation'},
+        {{'T1MassCreation'},
             { 5, 3 },
             {-5, 3 },
         },
-        {
-            {'T3EnergyProduction'},
+        {{'T3EnergyProduction'},
             { 0, 0 },
         },
-        {
-            {'T2GroundDefense','T3GroundDefense'},
+        {{'T2GroundDefense','T3GroundDefense'},
             { 0, 8 },
             { 5, 8 },
             {-5, 8 },
             { 10, 8 },
 			{-10, 8 },
         },
-        {
-            {'T2AADefense','T3AADefense'},
+        {{'T2AADefense','T3AADefense'},
             { 3, -8 },
             {-3, -8 },
             { 9, -5 },
 			{-9, -5 },
         },
-        {
-            {'T2Artillery','T2StrategicMissile'},
+        {{'T2Artillery','T2StrategicMissile'},
 			{ 3, -5 },
 			{-3, -5 },
             { 0, -5 },
         },
-        {
-            {'T2MissileDefense','T3MissileDefense'},
+        {{'T2MissileDefense','T3MissileDefense'},
             {-11,-5 },
             { 11,-5 },
         },
-        {
-            {'T2ShieldDefense','T3ShieldDefense'},
+        {{'T2ShieldDefense','T3ShieldDefense'},
             { 9, 1 },
 			{-9, 1 },
 		},
-		{
-			{'T3StrategicMissileDefense'},
+		{{'T3StrategicMissileDefense'},
 			{ 12,-10 },
 		},
-		{
-			{'T4AADefense'},
+		{{'T4AADefense'},
 			{ 8,-10 },
 		},
-		{
-			{'T4GroundDefense'},
+		{{'T4GroundDefense'},
 			{-8,-10 },
 		},
-		{
-			{'T3Storage'},
+		{{'T3Storage'},
 			{ 5,-1 },
 			{ 5, 1 },
 			{ 5, 3 },
@@ -263,8 +234,7 @@ PerimeterDefenseTemplates = {
 			{-9,-3 },
 			{-7,-3 },
 		},
-		{
-			{'Wall','T2Wall'},
+		{{'Wall','T2Wall'},
 			{ 5, -3 },
 			{ 5, -2 },
 			{ 5, -1 },
@@ -356,73 +326,59 @@ PerimeterDefenseTemplates = {
     },
 -- Cybran Perimeter Defense Template
    {
-        {
-            {'T1AADefense'},
+        {{'T1AADefense'},
             {-2, 2 },
         },
-        {
-            {'T1GroundDefense'},
+        {{'T1GroundDefense'},
             { 2, 2 },
             { 0, 2 },            
         },
-		{
-			{'T1Artillery'},
+		{{'T1Artillery'},
 			{ 0, -2},
 		},		
-        {
-            {'T1MassCreation'},
+        {{'T1MassCreation'},
             { 5, 3 },
             {-5, 3 },
         },
-        {
-            {'T3EnergyProduction'},
+        {{'T3EnergyProduction'},
             { 0, 0 },
         },
-        {
-            {'T2GroundDefense','T3GroundDefense'},
+        {{'T2GroundDefense','T3GroundDefense'},
             { 0, 8 },
             { 5, 8 },
             {-5, 8 },
             { 10, 8 },
 			{-10, 8 },
         },
-        {
-            {'T2AADefense','T3AADefense'},
+        {{'T2AADefense','T3AADefense'},
             { 3, -8 },
             {-3, -8 },
             { 9, -5 },
 			{-9, -5 },
         },
-        {
-            {'T2Artillery','T2StrategicMissile'},
+        {{'T2Artillery','T2StrategicMissile'},
 			{ 3, -5 },
 			{-3, -5 },
             { 0, -5 },
         },
-        {
-            {'T2MissileDefense','T3MissileDefense'},
+        {{'T2MissileDefense','T3MissileDefense'},
             {-11,-5 },
             { 11,-5 },
         },
-        {
-            {'T2ShieldDefense','T3ShieldDefense'},
+        {{'T2ShieldDefense','T3ShieldDefense'},
             { 9, 1 },
 			{-9, 1 },
 		},
-		{
-			{'T3StrategicMissileDefense'},
+		{{'T3StrategicMissileDefense'},
 			{ 12,-10 },
 		},
-		{
-			{'T4AADefense'},
+		{{'T4AADefense'},
 			{ 8,-10 },
 		},
-		{
-			{'T4GroundDefense'},
+		{{'T4GroundDefense'},
 			{-8,-10 },
 		},
-		{
-			{'T3Storage'},
+		{{'T3Storage'},
 			{ 5,-1 },
 			{ 5, 1 },
 			{ 5, 3 },
@@ -436,8 +392,7 @@ PerimeterDefenseTemplates = {
 			{-9,-3 },
 			{-7,-3 },
 		},
-		{
-			{'Wall','T2Wall'},
+		{{'Wall','T2Wall'},
 			{ 5, -3 },
 			{ 5, -2 },
 			{ 5, -1 },
@@ -529,77 +484,62 @@ PerimeterDefenseTemplates = {
     },
 -- Seraphim Perimeter Defense Template
    {
-        {
-            {'T1AADefense'},
+        {{'T1AADefense'},
             {-2, 2 },
         },
-        {
-            {'T1GroundDefense'},
+        {{'T1GroundDefense'},
             { 2, 2 },
             { 0, 2 },            
         },
-		{
-			{'T1Artillery'},
+		{{'T1Artillery'},
 			{ 0, -2},
 		},		
-        {
-            {'T1MassCreation'},
+        {{'T1MassCreation'},
             { 5, 3 },
             {-5, 3 },
         },
-        {
-            {'T3EnergyProduction'},
+        {{'T3EnergyProduction'},
             { 0, 0 },
         },
-		{
-			{'RestorationField'},
+		{{'RestorationField'},
 			{ 0, -13 },
 		},
-        {
-            {'T2GroundDefense','T3GroundDefense'},
+        {{'T2GroundDefense','T3GroundDefense'},
             { 0, 8 },
             { 5, 8 },
             {-5, 8 },
             { 10, 8 },
 			{-10, 8 },
         },
-        {
-            {'T2AADefense','T3AADefense'},
+        {{'T2AADefense','T3AADefense'},
             { 3, -8 },
             {-3, -8 },
             { 9, -5 },
 			{-9, -5 },
         },
-        {
-            {'T2Artillery','T2StrategicMissile'},
+        {{'T2Artillery','T2StrategicMissile'},
 			{ 3, -5 },
 			{-3, -5 },
             { 0, -5 },
         },
-        {
-            {'T2MissileDefense','T3MissileDefense'},
+        {{'T2MissileDefense','T3MissileDefense'},
             {-11,-5 },
             { 11,-5 },
         },
-        {
-            {'T2ShieldDefense','T3ShieldDefense'},
+        {{'T2ShieldDefense','T3ShieldDefense'},
             { 9, 1 },
 			{-9, 1 },
 		},
-		{
-			{'T3StrategicMissileDefense'},
+		{{'T3StrategicMissileDefense'},
 			{ 12,-10 },
 		},
-		{
-			{'T4AADefense'},
+		{{'T4AADefense'},
 			{ 8,-10 },
 		},
-		{
-			{'T4GroundDefense'},
+		{{'T4GroundDefense'},
 			{-8,-10 },
 		},
-		{
-			{'T3Storage'},
+		{{'T3Storage'},
 			{ 5,-1 },
 			{ 5, 1 },
 			{ 5, 3 },
@@ -613,8 +553,7 @@ PerimeterDefenseTemplates = {
 			{-9,-3 },
 			{-7,-3 },
 		},
-		{
-			{'Wall','T2Wall'},
+		{{'Wall','T2Wall'},
 			{ 5, -3 },
 			{ 5, -2 },
 			{ 5, -1 },
@@ -812,201 +751,113 @@ NavalPerimeterDefenseTemplate = {
 PerimeterDefenseExpansionTemplates = {
 -- UEF Perimeter Defense Expansion
     {
-        {
-            {
-            'T2ShieldDefense', 
-			'T3ShieldDefense',
-            },
+        {{'T2ShieldDefense','T3ShieldDefense'},
             { 0, 0, 0 },
         },
-        {
-            {
-            'T2AADefense', 
-            },
-            { 6, -6, 0 },
-            { -6, 6, 0 },
+        {{'T2AADefense'},
+            { 6,-6, 0 },
+            {-6, 6, 0 },
         },
-        {
-            {
-            'T3AADefense', 
-            },
-            { -6, -6, 0 },
+        {{'T3AADefense'},
+            {-6,-6, 0 },
             { 6, 6, 0 },
         },
-        {
-            {
-            'T2GroundDefense', 
-            },
-            { 6, -2, 0 },
-            { -6, 2, 0 },
+        {{'T2GroundDefense'},
+            { 6,-2, 0 },
+            {-6, 2, 0 },
         },
-        {
-            {
-            'T3GroundDefense', 
-            },
+        {{'T3GroundDefense'},
             { 6, 2, 0 },
-            { -6, -2, 0 },
+            {-6,-2, 0 },
         },
-        {
-            {
-            'T2StrategicMissile', 
-            },
-            { 0, -6, 0 },
+        {{'T2StrategicMissile'},
+            { 0,-6, 0 },
         },
-        {
-            {
-            'T2MissileDefense','T3MissileDefense', 
-            },
+        {{'T2MissileDefense','T3MissileDefense'},
             { 0, 6, 0 },
         },
     },
 -- Aeon Perimeter Defense Expansion
     {
-        {
-            {
-            'T2ShieldDefense', 
-			'T3ShieldDefense',
-            },
+        {{'T2ShieldDefense','T3ShieldDefense'},
             { 0, 0, 0 },
         },
-        {
-            {
-            'T2AADefense', 
-            },
+        {{'T2AADefense'},
             { 6, -6, 0 },
             { -6, 6, 0 },
         },
-        {
-            {
-            'T3AADefense', 
-            },
+        {{'T3AADefense'},
             { -6, -6, 0 },
             { 6, 6, 0 },
         },
-        {
-            {
-            'T2GroundDefense', 
-            },
+        {{'T2GroundDefense'},
             { 6, -2, 0 },
             { -6, 2, 0 },
         },
-        {
-            {
-            'T3GroundDefense', 
-            },
+        {{'T3GroundDefense'},
             { 6, 2, 0 },
             { -6, -2, 0 },
         },
-        {
-            {
-            'T2StrategicMissile', 
-            },
+        {{'T2StrategicMissile'},
             { 0, -6, 0 },
         },
-        {
-            {
-            'T2MissileDefense','T3MissileDefense', 
-            },
+        {{'T2MissileDefense','T3MissileDefense'},
             { 0, 6, 0 },
         },
     },
 -- Cybran Perimeter Defense Expansion
     {
-        {
-            {
-            'T2ShieldDefense', 
-			'T3ShieldDefense',
-            },
+        {{'T2ShieldDefense','T3ShieldDefense'},
             { 0, 0, 0 },
         },
-        {
-            {
-            'T2AADefense', 
-            },
+        {{'T2AADefense'},
             { 6, -6, 0 },
             { -6, 6, 0 },
         },
-        {
-            {
-            'T3AADefense', 
-            },
+        {{'T3AADefense'},
             { -6, -6, 0 },
             { 6, 6, 0 },
         },
-        {
-            {
-            'T2GroundDefense', 
-            },
+        {{'T2GroundDefense'},
             { 6, -2, 0 },
             { -6, 2, 0 },
         },
-        {
-            {
-            'T3GroundDefense', 
-            },
+        {{'T3GroundDefense'},
             { 6, 2, 0 },
             { -6, -2, 0 },
         },
-        {
-            {
-            'T2StrategicMissile', 
-            },
+        {{'T2StrategicMissile'},
             { 0, -6, 0 },
         },
-        {
-            {
-            'T2MissileDefense','T3MissileDefense', 
-            },
+        {{'T2MissileDefense','T3MissileDefense'},
             { 0, 6, 0 },
         },
     },
 -- Seraphim Perimeter Defense Expansion
     {
-        {
-            {
-            'T2ShieldDefense', 
-			'T3ShieldDefense',
-            },
+        {{'T2ShieldDefense','T3ShieldDefense'},
             { 0, 0, 0 },
         },
-        {
-            {
-            'T2AADefense', 
-            },
+        {{'T2AADefense'},
             { 6, -6, 0 },
             { -6, 6, 0 },
         },
-        {
-            {
-            'T3AADefense', 
-            },
+        {{'T3AADefense'},
             { -6, -6, 0 },
             { 6, 6, 0 },
         },
-        {
-            {
-            'T2GroundDefense', 
-            },
+        {{'T2GroundDefense'},
             { 6, -2, 0 },
             { -6, 2, 0 },
         },
-        {
-            {
-            'T3GroundDefense', 
-            },
+        {{'T3GroundDefense'},
             { 6, 2, 0 },
             { -6, -2, 0 },
         },
-        {
-            {
-            'T2StrategicMissile', 
-            },
+        {{'T2StrategicMissile'},
             { 0, -6, 0 },
         },
-        {
-            {
-            'T2MissileDefense','T3MissileDefense', 
-            },
+        {{'T2MissileDefense','T3MissileDefense'},
             { 0, 6, 0 },
         },
     },

@@ -39,31 +39,31 @@ local IsUnitState = moho.unit_methods.IsUnitState
 local PlatoonCategoryCount = moho.platoon_methods.PlatoonCategoryCount
 local PlatoonCategoryCountAroundPosition = moho.platoon_methods.PlatoonCategoryCountAroundPosition
 
-local LOUDCOPY = table.copy
-local LOUDENTITY = EntityCategoryContains
-local EntityCategoryCount = EntityCategoryCount
-local EntityCategoryFilterDown = EntityCategoryFilterDown
-local LOUDFLOOR = math.floor
-local LOUDGETN = table.getn
-local LOUDMIN = math.min
-
-local LOUDPARSE = ParseEntityCategory
-local LOUDSORT = table.sort
-local LOUDTYPE = type
-
-local MATHMAX = math.max
+local LOUDCOPY                  = table.copy
+local LOUDENTITY                = EntityCategoryContains
+local EntityCategoryCount       = EntityCategoryCount
+local EntityCategoryFilterDown  = EntityCategoryFilterDown
+local GetArmyUnitCap            = GetArmyUnitCap
+local GetArmyUnitCostTotal      = GetArmyUnitCostTotal
+local LOUDFLOOR                 = math.floor
+local LOUDGETN                  = table.getn
+local LOUDMIN                   = math.min
+local LOUDPARSE                 = ParseEntityCategory
+local LOUDSORT                  = table.sort
+local LOUDTYPE                  = type
+local MATHMAX                   = math.max
 
 local VectorCached = { 0, 0, 0 }
 
 local DEFENSESTRUCTURES = categories.STRUCTURE * categories.DEFENSE
-local EXTRACTORS = categories.MASSEXTRACTION - categories.TECH1
-local SHIELDSTRUCTURES = categories.STRUCTURE * categories.SHIELD - categories.TECH2
+local EXTRACTORS        = categories.MASSEXTRACTION - categories.TECH1
+local SHIELDSTRUCTURES  = categories.STRUCTURE * categories.SHIELD - categories.TECH2
 
-local factory = categories.FACTORY * categories.STRUCTURE
-local landfactory = categories.LAND * factory
-local airfactory = categories.AIR * factory
-local seafactory = categories.NAVAL * factory
-local allunits = categories.ALLUNITS
+local factory           = categories.FACTORY * categories.STRUCTURE
+local landfactory       = categories.LAND * factory
+local airfactory        = categories.AIR * factory
+local seafactory        = categories.NAVAL * factory
+local allunits          = categories.ALLUNITS
     
 local function GetNumCategoryBeingBuiltByEngineers( EM, category, engCategory )
 

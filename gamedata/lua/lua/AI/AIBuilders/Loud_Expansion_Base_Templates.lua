@@ -7,28 +7,21 @@
 ExpansionLayout = {
 -- UEF Expansion Base Layout
     {
-        {
-            {
-			'T1LandFactory',
-            'T1AirFactory', 
-			},
-			{ 0, 20 }, # inner ring 12
+        {{'T1LandFactory','T1AirFactory'},
+			{  0, 20 },
 			{ 10, 20 },
-			{ -10, 20 },
-			{ -18, 12 },
-			{ -18,  2},
-			{ -18, -8 },
-			{ 18, 12},
-			{ 18,  2},
+			{-10, 20 },
+			{-18, 12 },
+			{-18,  2 },
+			{-18, -8 },
+			{ 18, 12 },
+			{ 18,  2 },
 			{ 18, -8 },
-			{ 10, -16 },
-			{  0, -16 },
-			{ -10, -16 },
+			{ 10,-16 },
+			{  0,-16 },
+			{-10,-16 },
         },
-		{
-			{
-			'T1EnergyProduction',
-			},
+		{{'T1EnergyProduction'},
 			{ -5, 17 },
 			{ -5, 19 },
 			{ -5, 21 },
@@ -94,10 +87,7 @@ ExpansionLayout = {
 			{ 11 , -21 },
 			{ 13 , -21 },
 		},
-		{
-			{
-			'T2EnergyProduction',
-			},
+		{{'T2EnergyProduction'},
 			{ -11, 1 },
 			{  11, 1 },
 			{ -11, 13 },
@@ -109,10 +99,7 @@ ExpansionLayout = {
 			{ -17,-15 },
 			{  17,-15 },
 		},
-		{
-			{
-			'T3EnergyProduction',
-			},
+		{{'T3EnergyProduction'},
 			{ -10,12  }, # inner 4
 			{  10,12  },
 			{ -10, -8 },
@@ -142,10 +129,7 @@ ExpansionLayout = {
 			{ 40, -8 },
 			{ 40, 12 },
 		},
-		{
-			{
-			'T3MassCreation',
-			},
+		{{'T3MassCreation'},
 			{ -11, 35 }, # outer ring 8
 			{ 11, 35 },
 			{ -11, -31 },
@@ -155,11 +139,7 @@ ExpansionLayout = {
 			{ -33,13  },
 			{ -33, -9 },
 		},
-		{
-			{
-			'T2ShieldDefense',
-			'T3ShieldDefense',
-			},
+		{{'T2ShieldDefense','T3ShieldDefense'},
 			{ 0, 13  }, # inner 4
 			{ 0, -9  },
 			{ -11, 2 },
@@ -173,26 +153,20 @@ ExpansionLayout = {
 			{ -26, -31 },		
 			{ 26, -31 },
 		},
-		{
-			{
-			'T4ShieldDefense',
-			},
+		{{'T4ShieldDefense'},
 			{ 0, 0 },
 		},
-		{
-			{
-			'T3Storage',
-			},
+		{{'T3Storage'},
 			{ 0, 9 },	# inner 4 shields with 3 each
 			{-2, 9 },
 			{ 2, 9 },
-			{ 0,-5 },	#
+			{ 0,-5 },
 			{-2,-5 },
 			{ 2,-5 },
-			{-7, 0 },	#
+			{-7, 0 },
 			{-7, 2 },
 			{-7, 4 },
-			{ 7, 0 },	#
+			{ 7, 0 },
 			{ 7, 2 },
 			{ 7, 4 },
 			{ 24, 39 },	# outer 4 corners w 6 each
@@ -201,46 +175,36 @@ ExpansionLayout = {
 			{ 30, 37 },
 			{ 30, 35 },
 			{ 30, 33 },
-			{-30, 33 },	#
+			{-30, 33 },
 			{-30, 35 },
 			{-30, 37 },
 			{-24, 39 },
 			{-26, 39 },
 			{-28, 39 },
-			{-30,-29 },	#
+			{-30,-29 },
 			{-30,-31 },
 			{-30,-33 },
 			{-28,-35 },
 			{-26,-35 },
 			{-24,-35 },
-			{ 30,-33 },	#
+			{ 30,-33 },
 			{ 30,-31 },
 			{ 30,-29 },
 			{ 24,-35 },
 			{ 26,-35 },
 			{ 28,-35 },
 		},
-		{
-			{
-			'T3TeleportJammer',
-			},
+		{{'T3TeleportJammer'},
 			{ 0, -2 },
 		},
-		{
-			{
-			'T2RadarJammer',
-			},
+		{{'T2RadarJammer'},
 			{ 0, 3 },
 			{-41,-15},
 			{-41, 19},
 			{ 41,-15},
 			{ 41, 19},
 		},
-		{
-			{
-			'T2EngineerSupport',
-			'T3EngineerSupport',
-			},
+		{{'T2EngineerSupport','T3EngineerSupport'},
 			{ -5, 15 },
 			{ 5, 15 },
 			{ -5, -11 },
@@ -254,53 +218,31 @@ ExpansionLayout = {
 			{ -29, 19 },
 			{ 29, 19 },
 		},
-		{
-			{
-			'T3QuantumGate',
-			},
+		{{'T3QuantumGate'},
 			{ 0, 29 },
 			{ 0, -25},
 			{ 27, 2 },
 			{-27, 2  },
 		},
-        {
-            {
-			'T2AirStagingPlatform',
-            },
+        {{'T2AirStagingPlatform'},
             { 0, 28 },
             { 0, -24 },
             { 26, 2 },
             {-26, 2 },
         },
-		{
-			{
-			'T3StrategicMissileDefense',
-			},
+		{{'T3StrategicMissileDefense'},
 			{ 23.5, 18 },
 			{ -24, -13.5 },
 			{ -24, 18 },
 			{ 23.5, -13.5 },
 		},
-		{
-			{
-			'T3StrategicMissile',
-			},
+		{{'T3StrategicMissile'},
 			{ 25, 19 },
 			{ -25, -15 },
 			{ -25, 19 },
 			{ 25, -15 },
 		},
-        {
-            {
-            'T1Radar',
-            },
-            { 0, 2 },
-        },
-        {
-            {
-            'T1GroundDefense',
-            'T1AADefense',
-            },
+        {{'T1GroundDefense','T1AADefense'},
             { 6, -4 },
             { 6, 8 },
             { 0, -4 },
@@ -310,12 +252,7 @@ ExpansionLayout = {
             { 6, 2 },
             { -6, 2 },
         },
-		{
-			{
-			'T2Artillery',
-			'T2GroundDefense',
-			'T2AADefense',
-			},
+		{{'T2Artillery','T2GroundDefense','T2AADefense'},
 			{-29,17 },
 			{-17,29 },
 			{ 17,29 },
@@ -342,10 +279,7 @@ ExpansionLayout = {
 			{-19,-25},
 			{-29,-17},
 		},
-		{
-			{
-			'T3GroundDefense',
-			},
+		{{'T3GroundDefense'},
 			{ -5, 17},
 			{  5, 17},
 			{  5,-13},
@@ -359,10 +293,7 @@ ExpansionLayout = {
 			{ 29,-17},
 			{-29,-17},
 		},
-		{
-			{
-			'T3AADefense',
-			},
+		{{'T3AADefense'},
 			{ -5, 23},
 			{  5, 23},
 			{  5,-19},
@@ -376,10 +307,7 @@ ExpansionLayout = {
 			{ 29,-15},
 			{-29,-15},
 		},
-		{
-			{
-			'T2MissileDefense','T3MissileDefense',
-			},
+		{{'T2MissileDefense','T3MissileDefense'},
 			{-31, 21},
 			{ 31, 21},
 			{ 31,-17},
@@ -389,10 +317,7 @@ ExpansionLayout = {
 			{ 29,-27},
 			{-29,-27},
 		},
-		{
-			{
-			'T2StrategicMissile',
-			},
+		{{'T2StrategicMissile'},
 			{-11,-3 },
 			{-9 ,-3 },
 			{ 11,-3 },
@@ -403,28 +328,21 @@ ExpansionLayout = {
     },
 -- Aeon Expansion Base Layout
     {
-        {
-            {
-			'T1LandFactory',
-            'T1AirFactory', 
-			},
-			{ 0, 20 }, # inner ring 12
+        {{'T1LandFactory','T1AirFactory'},
+			{  0, 20 },
 			{ 10, 20 },
-			{ -10, 20 },
-			{ -18, 12 },
-			{ -18,  2},
-			{ -18, -8 },
-			{ 18, 12},
-			{ 18,  2},
+			{-10, 20 },
+			{-18, 12 },
+			{-18,  2 },
+			{-18, -8 },
+			{ 18, 12 },
+			{ 18,  2 },
 			{ 18, -8 },
-			{ 10, -16 },
-			{  0, -16 },
-			{ -10, -16 },
+			{ 10,-16 },
+			{  0,-16 },
+			{-10,-16 },
         },
-		{
-			{
-			'T1EnergyProduction',
-			},
+		{{'T1EnergyProduction'},
 			{ -5, 17 },
 			{ -5, 19 },
 			{ -5, 21 },
@@ -490,10 +408,7 @@ ExpansionLayout = {
 			{ 11 , -21 },
 			{ 13 , -21 },
 		},
-		{
-			{
-			'T2EnergyProduction',
-			},
+		{{'T2EnergyProduction'},
 			{ -11, 1 },
 			{  11, 1 },
 			{ -11, 13 },
@@ -505,23 +420,20 @@ ExpansionLayout = {
 			{ -17,-15 },
 			{  17,-15 },
 		},
-		{
-			{
-			'T3EnergyProduction',
-			},
-			{ -10,12  }, # inner 4
+		{{'T3EnergyProduction'},
+			{ -10,12  },
 			{  10,12  },
 			{ -10, -8 },
 			{  10, -8 },
-			{ -18, 20 }, # outer corners 4
+			{ -18, 20 },
 			{  18, 20 },
 			{ -18, -16 },
 			{  18, -16 },
-			{ -32, 26 }, # additional corner 4
+			{ -32, 26 },
 			{  32, 26 },
 			{ -32, -22 },
 			{  32, -22 },
-			{ -10, 28 }, # outer ring 8 same as factory locations
+			{ -10, 28 },
 			{ 10, 28 },
 			{ -10, -24 },
 			{ 10, -24 },
@@ -529,7 +441,7 @@ ExpansionLayout = {
 			{ 26, -8 },
 			{ -26,12  },
 			{ -26, -8 },
-			{ -10, 42 }, # extra ring 8 beyond Mass Fabs
+			{ -10, 42 },
 			{ 10, 42 },
 			{ -10, -38 },
 			{ 10, -38 },
@@ -538,11 +450,8 @@ ExpansionLayout = {
 			{ 40, -8 },
 			{ 40, 12 },
 		},
-		{
-			{
-			'T3MassCreation',
-			},
-			{ -11, 35 }, # outer ring 8
+		{{'T3MassCreation'},
+			{ -11, 35 },
 			{ 11, 35 },
 			{ -11, -31 },
 			{ 11, -31 },
@@ -551,152 +460,110 @@ ExpansionLayout = {
 			{ -33,13  },
 			{ -33, -9 },
 		},
-		{
-			{
-			'T2ShieldDefense',
-			'T3ShieldDefense',
-			},
-			{ 0, 13  }, # inner 4
+		{{'T2ShieldDefense','T3ShieldDefense'},
+			{ 0, 13  },
 			{ 0, -9  },
 			{ -11, 2 },
 			{ 11, 2 },
-			{ -33, 2 }, # outer 4 cardinal points
+			{ -33, 2 },
 			{ 33,  2 },
 			{  0, -31 },
 			{  0, 35 },
-			{ -26, 35 }, # additional corners 4
+			{ -26, 35 },
 			{ 26, 35 },
 			{ -26, -31 },		
 			{ 26, -31 },
 		},
-		{
-			{
-			'T4ShieldDefense',
-			},
+		{{'T4ShieldDefense'},
 			{ 0, 0 },
 		},
-		{
-			{
-			'T3Storage',
-			},
-			{ 0, 9 },	# inner 4 shields with 3 each
+		{{'T3Storage'},
+			{ 0, 9 },
 			{-2, 9 },
 			{ 2, 9 },
-			{ 0,-5 },	#
+			{ 0,-5 },
 			{-2,-5 },
 			{ 2,-5 },
-			{-7, 0 },	#
+			{-7, 0 },
 			{-7, 2 },
 			{-7, 4 },
-			{ 7, 0 },	#
+			{ 7, 0 },
 			{ 7, 2 },
 			{ 7, 4 },
-			{ 24, 39 },	# outer 4 corners w 6 each
+			{ 24, 39 },
 			{ 26, 39 },
 			{ 28, 39 },
 			{ 30, 37 },
 			{ 30, 35 },
 			{ 30, 33 },
-			{-30, 33 },	#
+			{-30, 33 },
 			{-30, 35 },
 			{-30, 37 },
 			{-24, 39 },
 			{-26, 39 },
 			{-28, 39 },
-			{-30,-29 },	#
+			{-30,-29 },
 			{-30,-31 },
 			{-30,-33 },
 			{-28,-35 },
 			{-26,-35 },
 			{-24,-35 },
-			{ 30,-33 },	#
+			{ 30,-33 },
 			{ 30,-31 },
 			{ 30,-29 },
 			{ 24,-35 },
 			{ 26,-35 },
 			{ 28,-35 },
 		},
-		{
-			{
-			'T3TeleportJammer',
-			},
+		{{'T3TeleportJammer'},
 			{ 0, -2 },
 		},
-		{
-			{
-			'T2RadarJammer',
-			},
+		{{'T2RadarJammer'},
 			{ 0, 3 },
 			{-41,-15},
 			{-41, 19},
 			{ 41,-15},
 			{ 41, 19},
 		},
-		{
-			{
-			'T2EngineerSupport',
-			'T3EngineerSupport',
-			},
+		{{'T2EngineerSupport','T3EngineerSupport'},
 			{ -5, 15 },
-			{ 5, 15 },
-			{ -5, -11 },
-			{ 5 , -11 },
-			{ -13, -3 },
-			{ -13, 7 },
-			{ 13, -3  },
+			{  5, 15 },
+			{ -5,-11 },
+			{  5,-11 },
+			{-13, -3 },
+			{-13, 7 },
+			{ 13, -3 },
 			{ 13, 7 },
-			{ -29, -15 },
-			{ 29, -15 },
-			{ -29, 19 },
+			{-29,-15 },
+			{ 29,-15 },
+			{-29, 19 },
 			{ 29, 19 },
 		},
-		{
-			{
-			'T3QuantumGate',
-			},
+		{{'T3QuantumGate'},
 			{ 0, 29 },
 			{ 0, -25},
 			{ 27, 2 },
 			{-27, 2  },
 		},
-        {
-            {
-			'T2AirStagingPlatform',
-            },
+        {{'T2AirStagingPlatform'},
             { 0, 28 },
             { 0, -24 },
             { 26, 2 },
             {-26, 2 },
         },
-		{
-			{
-			'T3StrategicMissileDefense',
-			},
+		{{'T3StrategicMissileDefense'},
 			{ 23.5, 18 },
-			{ -24, -13.5 },
-			{ -24, 18 },
+			{-24,  -13.5 },
+			{-24, 18 },
 			{ 23.5, -13.5 },
 		},
-		{
-			{
-			'T3StrategicMissile',
-			},
+		{{'T3StrategicMissile'},
 			{ 25, 19 },
 			{ -25, -15 },
 			{ -25, 19 },
 			{ 25, -15 },
 		},
-        {
-            {
-            'T1Radar',
-            },
-            { 0, 2 },
-        },
-        {
-            {
-            'T1GroundDefense',
-            'T1AADefense',
-            },
+        {{'T1GroundDefense','T1AADefense'},
             { 6, -4 },
             { 6, 8 },
             { 0, -4 },
@@ -706,12 +573,7 @@ ExpansionLayout = {
             { 6, 2 },
             { -6, 2 },
         },
-		{
-			{
-			'T2Artillery',
-			'T2GroundDefense',
-			'T2AADefense',
-			},
+		{{'T2Artillery','T2GroundDefense','T2AADefense'},
 			{-29,17 },
 			{-17,29 },
 			{ 17,29 },
@@ -738,10 +600,7 @@ ExpansionLayout = {
 			{-19,-25},
 			{-29,-17},
 		},
-		{
-			{
-			'T3GroundDefense',
-			},
+		{{'T3GroundDefense'},
 			{ -5, 17},
 			{  5, 17},
 			{  5,-13},
@@ -755,10 +614,7 @@ ExpansionLayout = {
 			{ 29,-17},
 			{-29,-17},
 		},
-		{
-			{
-			'T3AADefense',
-			},
+		{{'T3AADefense'},
 			{ -5, 23},
 			{  5, 23},
 			{  5,-19},
@@ -772,10 +628,7 @@ ExpansionLayout = {
 			{ 29,-15},
 			{-29,-15},
 		},
-		{
-			{
-			'T2MissileDefense','T3MissileDefense',
-			},
+		{{'T2MissileDefense','T3MissileDefense'},
 			{-31, 21},
 			{ 31, 21},
 			{ 31,-17},
@@ -785,10 +638,7 @@ ExpansionLayout = {
 			{ 29,-27},
 			{-29,-27},
 		},
-		{
-			{
-			'T2StrategicMissile',
-			},
+		{{'T2StrategicMissile'},
 			{-11,-3 },
 			{-9 ,-3 },
 			{ 11,-3 },
@@ -799,28 +649,21 @@ ExpansionLayout = {
     },
 -- Cybran Expansion Base Layout
     {
-        {
-            {
-			'T1LandFactory',
-            'T1AirFactory', 
-			},
-			{ 0, 20 }, # inner ring 12
+        {{'T1LandFactory','T1AirFactory'},
+			{  0, 20 },  --- inner ring 12
 			{ 10, 20 },
-			{ -10, 20 },
-			{ -18, 12 },
-			{ -18,  2},
-			{ -18, -8 },
+			{-10, 20 },
+			{-18, 12 },
+			{-18,  2},
+			{-18, -8 },
 			{ 18, 12},
 			{ 18,  2},
 			{ 18, -8 },
 			{ 10, -16 },
 			{  0, -16 },
-			{ -10, -16 },
+			{-10, -16 },
         },
-		{
-			{
-			'T1EnergyProduction',
-			},
+		{{'T1EnergyProduction'},
 			{ -5, 17 },
 			{ -5, 19 },
 			{ -5, 21 },
@@ -829,46 +672,46 @@ ExpansionLayout = {
 			{  5, 19 },
 			{  5, 21 },
 			{  5, 23 },
-			{ -13, 25 },
-			{ -11, 25 },
-			{ -9 , 25 },
-			{ -7 , 25 },
+			{-13, 25 },
+			{-11, 25 },
+			{ -9, 25 },
+			{ -7, 25 },
 			{  7, 25 },
 			{  9, 25 },
 			{ 11, 25 },
 			{ 13, 25 },
-			{ -21, 7 },
-			{ -19, 7 },
-			{ -17, 7 },
-			{ -15, 7 },
-			{  15, 7 },
-			{  17, 7 },
-			{  19, 7 },
-			{  21, 7 },			
-			{ -21, -3 },
-			{ -19, -3 },
-			{ -17, -3 },
-			{ -15, -3 },
-			{  15, -3 },
-			{  17, -3 },
-			{  19, -3 },
-			{  21, -3 },
-			{ -23, 15 },
-			{ -23, 13 },
-			{ -23, 11 },
-			{ -23, 9 },
-			{ -23, -5 },
-			{ -23, -7 },
-			{ -23, -9 },
-			{ -23, -11 },
-			{  23, 15 },
-			{  23, 13 },
-			{  23, 11 },
-			{  23,  9  },
-			{  23, -5  },
-			{  23, -7  },
-			{  23, -9  },
-			{  23, -11 },
+			{-21, 7 },
+			{-19, 7 },
+			{-17, 7 },
+			{-15, 7 },
+			{ 15, 7 },
+			{ 17, 7 },
+			{ 19, 7 },
+			{ 21, 7 },			
+			{-21, -3 },
+			{-19, -3 },
+			{-17, -3 },
+			{-15, -3 },
+			{ 15, -3 },
+			{ 17, -3 },
+			{ 19, -3 },
+			{ 21, -3 },
+			{-23, 15 },
+			{-23, 13 },
+			{-23, 11 },
+			{-23, 9 },
+			{-23, -5 },
+			{-23, -7 },
+			{-23, -9 },
+			{-23, -11 },
+			{ 23, 15 },
+			{ 23, 13 },
+			{ 23, 11 },
+			{ 23,  9  },
+			{ 23, -5  },
+			{ 23, -7  },
+			{ 23, -9  },
+			{ 23, -11 },
 			{  5 , -13 },
 			{  5 , -15 },
 			{  5 , -17 },
@@ -877,8 +720,8 @@ ExpansionLayout = {
 			{ -5 , -15 },
 			{ -5 , -17 },
 			{ -5 , -19 },
-			{ -13, -21 },
-			{ -11, -21 },
+			{-13, -21 },
+			{-11, -21 },
 			{ -9 , -21 },
 			{ -7 , -21 },
 			{  7 , -21 },
@@ -886,10 +729,7 @@ ExpansionLayout = {
 			{ 11 , -21 },
 			{ 13 , -21 },
 		},
-		{
-			{
-			'T2EnergyProduction',
-			},
+		{{'T2EnergyProduction'},
 			{ -11, 1 },
 			{  11, 1 },
 			{ -11, 13 },
@@ -901,44 +741,38 @@ ExpansionLayout = {
 			{ -17,-15 },
 			{  17,-15 },
 		},
-		{
-			{
-			'T3EnergyProduction',
-			},
-			{ -10,12  }, # inner 4
-			{  10,12  },
+		{{'T3EnergyProduction'},
+			{ -10, 12  },   --- inner 4
+			{  10, 12  },
 			{ -10, -8 },
 			{  10, -8 },
-			{ -18, 20 }, # outer corners 4
+			{ -18, 20 },    --- outer corners 4
 			{  18, 20 },
 			{ -18, -16 },
 			{  18, -16 },
-			{ -32, 26 }, # additional corner 4
+			{ -32, 26 },    --- additional corner 4
 			{  32, 26 },
 			{ -32, -22 },
 			{  32, -22 },
-			{ -10, 28 }, # outer ring 8 same as factory locations
-			{ 10, 28 },
+			{ -10, 28 },    --- outer ring 8 same as factory locations
+			{  10, 28 },
 			{ -10, -24 },
-			{ 10, -24 },
-			{ 26, 12 },
-			{ 26, -8 },
+			{  10, -24 },
+			{  26, 12 },
+			{  26, -8 },
 			{ -26,12  },
 			{ -26, -8 },
-			{ -10, 42 }, # extra ring 8 beyond Mass Fabs
-			{ 10, 42 },
+			{ -10, 42 },    --- extra ring 8 beyond Mass Fabs
+			{  10, 42 },
 			{ -10, -38 },
-			{ 10, -38 },
+			{  10, -38 },
 			{ -40, 12 },
 			{ -40, -8 },
-			{ 40, -8 },
-			{ 40, 12 },
+			{  40, -8 },
+			{  40, 12 },
 		},
-		{
-			{
-			'T3MassCreation',
-			},
-			{ -11, 35 }, # outer ring 8
+		{{'T3MassCreation'},
+			{ -11, 35 },    --- outer ring 8
 			{ 11, 35 },
 			{ -11, -31 },
 			{ 11, -31 },
@@ -947,152 +781,110 @@ ExpansionLayout = {
 			{ -33,13  },
 			{ -33, -9 },
 		},
-		{
-			{
-			'T2ShieldDefense',
-			'T3ShieldDefense',
-			},
-			{ 0, 13  }, # inner 4
+		{{'T2ShieldDefense','T3ShieldDefense'},
+			{ 0, 13  },     --- inner 4
 			{ 0, -9  },
 			{ -11, 2 },
 			{ 11, 2 },
-			{ -33, 2 }, # outer 4 cardinal points
+			{ -33, 2 },     --- outer 4 cardinal points
 			{ 33,  2 },
 			{  0, -31 },
 			{  0, 35 },
-			{ -26, 35 }, # additional corners 4
+			{ -26, 35 },    --- additional corners 4
 			{ 26, 35 },
 			{ -26, -31 },		
 			{ 26, -31 },
 		},
-		{
-			{
-			'T4ShieldDefense',
-			},
+		{{'T4ShieldDefense'},
 			{ 0, 0 },
 		},
-		{
-			{
-			'T3Storage',
-			},
-			{ 0, 9 },	# inner 4 shields with 3 each
+		{{'T3Storage'},
+			{ 0, 9 },	--- inner 4 shields with 3 each
 			{-2, 9 },
 			{ 2, 9 },
-			{ 0,-5 },	#
+			{ 0,-5 },
 			{-2,-5 },
 			{ 2,-5 },
-			{-7, 0 },	#
+			{-7, 0 },
 			{-7, 2 },
 			{-7, 4 },
-			{ 7, 0 },	#
+			{ 7, 0 },
 			{ 7, 2 },
 			{ 7, 4 },
-			{ 24, 39 },	# outer 4 corners w 6 each
+			{ 24, 39 },	    --- outer 4 corners w 6 each
 			{ 26, 39 },
 			{ 28, 39 },
 			{ 30, 37 },
 			{ 30, 35 },
 			{ 30, 33 },
-			{-30, 33 },	#
+			{-30, 33 },
 			{-30, 35 },
 			{-30, 37 },
 			{-24, 39 },
 			{-26, 39 },
 			{-28, 39 },
-			{-30,-29 },	#
+			{-30,-29 },
 			{-30,-31 },
 			{-30,-33 },
 			{-28,-35 },
 			{-26,-35 },
 			{-24,-35 },
-			{ 30,-33 },	#
+			{ 30,-33 },
 			{ 30,-31 },
 			{ 30,-29 },
 			{ 24,-35 },
 			{ 26,-35 },
 			{ 28,-35 },
 		},
-		{
-			{
-			'T3TeleportJammer',
-			},
+		{{'T3TeleportJammer'},
 			{ 0, -2 },
 		},
-		{
-			{
-			'T2RadarJammer',
-			},
+		{{'T2RadarJammer'},
 			{ 0, 3 },
 			{-41,-15},
 			{-41, 19},
 			{ 41,-15},
 			{ 41, 19},
 		},
-		{
-			{
-			'T2EngineerSupport',
-			'T3EngineerSupport',
-			},
+		{{'T2EngineerSupport','T3EngineerSupport'},
 			{ -5, 15 },
-			{ 5, 15 },
-			{ -5, -11 },
-			{ 5 , -11 },
-			{ -13, -3 },
-			{ -13, 7 },
-			{ 13, -3  },
-			{ 13, 7 },
-			{ -29, -15 },
-			{ 29, -15 },
-			{ -29, 19 },
+			{  5, 15 },
+			{ -5,-11 },
+			{  5,-11 },
+			{-13, -3 },
+			{-13,  7 },
+			{ 13, -3 },
+			{ 13,  7},
+			{-29,-15 },
+			{ 29,-15 },
+			{-29, 19 },
 			{ 29, 19 },
 		},
-		{
-			{
-			'T3QuantumGate',
-			},
+		{{'T3QuantumGate'},
 			{ 0, 29 },
 			{ 0, -25},
 			{ 27, 2 },
 			{-27, 2  },
 		},
-        {
-            {
-			'T2AirStagingPlatform',
-            },
+        {{'T2AirStagingPlatform'},
             { 0, 28 },
             { 0, -24 },
             { 26, 2 },
             {-26, 2 },
         },
-		{
-			{
-			'T3StrategicMissileDefense',
-			},
+		{{'T3StrategicMissileDefense'},
 			{ 23.5, 18 },
 			{ -24, -13.5 },
 			{ -24, 18 },
 			{ 23.5, -13.5 },
 		},
-		{
-			{
-			'T3StrategicMissile',
-			},
+		{{'T3StrategicMissile'},
 			{ 25, 19 },
 			{ -25, -15 },
 			{ -25, 19 },
 			{ 25, -15 },
 		},
-        {
-            {
-            'T1Radar',
-            },
-            { 0, 2 },
-        },
-        {
-            {
-            'T1GroundDefense',
-            'T1AADefense',
-            },
+        {{'T1GroundDefense','T1AADefense'},
             { 6, -4 },
             { 6, 8 },
             { 0, -4 },
@@ -1102,12 +894,7 @@ ExpansionLayout = {
             { 6, 2 },
             { -6, 2 },
         },
-		{
-			{
-			'T2Artillery',
-			'T2GroundDefense',
-			'T2AADefense',
-			},
+		{{'T2Artillery','T2GroundDefense','T2AADefense'},
 			{-29,17 },
 			{-17,29 },
 			{ 17,29 },
@@ -1134,10 +921,7 @@ ExpansionLayout = {
 			{-19,-25},
 			{-29,-17},
 		},
-		{
-			{
-			'T3GroundDefense',
-			},
+		{{'T3GroundDefense'},
 			{ -5, 17},
 			{  5, 17},
 			{  5,-13},
@@ -1151,10 +935,7 @@ ExpansionLayout = {
 			{ 29,-17},
 			{-29,-17},
 		},
-		{
-			{
-			'T3AADefense',
-			},
+		{{'T3AADefense'},
 			{ -5, 23},
 			{  5, 23},
 			{  5,-19},
@@ -1168,10 +949,7 @@ ExpansionLayout = {
 			{ 29,-15},
 			{-29,-15},
 		},
-		{
-			{
-			'T2MissileDefense','T3MissileDefense',
-			},
+		{{'T2MissileDefense','T3MissileDefense'},
 			{-31, 21},
 			{ 31, 21},
 			{ 31,-17},
@@ -1181,10 +959,7 @@ ExpansionLayout = {
 			{ 29,-27},
 			{-29,-27},
 		},
-		{
-			{
-			'T2StrategicMissile',
-			},
+		{{'T2StrategicMissile'},
 			{-11,-3 },
 			{-9 ,-3 },
 			{ 11,-3 },
@@ -1195,12 +970,8 @@ ExpansionLayout = {
     },
 -- Seraphim Expansion Base Layout
     {
-        {
-            {
-			'T1LandFactory',
-            'T1AirFactory', 
-			},
-			{ 0, 20 }, # inner ring 12
+        {{'T1LandFactory','T1AirFactory'},
+			{ 0, 20 },
 			{ 10, 20 },
 			{ -10, 20 },
 			{ -18, 12 },
@@ -1213,10 +984,7 @@ ExpansionLayout = {
 			{  0, -16 },
 			{ -10, -16 },
         },
-		{
-			{
-			'T1EnergyProduction',
-			},
+		{{'T1EnergyProduction'},
 			{ -5, 17 },
 			{ -5, 19 },
 			{ -5, 21 },
@@ -1282,10 +1050,7 @@ ExpansionLayout = {
 			{ 11 , -21 },
 			{ 13 , -21 },
 		},
-		{
-			{
-			'T2EnergyProduction',
-			},
+		{{'T2EnergyProduction'},
 			{ -11, 1 },
 			{  11, 1 },
 			{ -11, 13 },
@@ -1297,23 +1062,20 @@ ExpansionLayout = {
 			{ -17,-15 },
 			{  17,-15 },
 		},
-		{
-			{
-			'T3EnergyProduction',
-			},
-			{ -10,12  }, # inner 4
+		{{'T3EnergyProduction'},
+			{ -10,12  },
 			{  10,12  },
 			{ -10, -8 },
 			{  10, -8 },
-			{ -18, 20 }, # outer corners 4
+			{ -18, 20 },
 			{  18, 20 },
 			{ -18, -16 },
 			{  18, -16 },
-			{ -32, 26 }, # additional corner 4
+			{ -32, 26 },
 			{  32, 26 },
 			{ -32, -22 },
 			{  32, -22 },
-			{ -10, 28 }, # outer ring 8 same as factory locations
+			{ -10, 28 },
 			{ 10, 28 },
 			{ -10, -24 },
 			{ 10, -24 },
@@ -1321,7 +1083,7 @@ ExpansionLayout = {
 			{ 26, -8 },
 			{ -26,12  },
 			{ -26, -8 },
-			{ -10, 42 }, # extra ring 8 beyond Mass Fabs
+			{ -10, 42 },
 			{ 10, 42 },
 			{ -10, -38 },
 			{ 10, -38 },
@@ -1330,11 +1092,8 @@ ExpansionLayout = {
 			{ 40, -8 },
 			{ 40, 12 },
 		},
-		{
-			{
-			'T3MassCreation',
-			},
-			{ -11, 35 }, # outer ring 8
+		{{'T3MassCreation'},
+			{ -11, 35 },
 			{ 11, 35 },
 			{ -11, -31 },
 			{ 11, -31 },
@@ -1343,92 +1102,72 @@ ExpansionLayout = {
 			{ -33,13  },
 			{ -33, -9 },
 		},
-		{
-			{
-			'T2ShieldDefense',
-			'T3ShieldDefense',
-			},
-			{ 0, 13  }, # inner 4
+		{{'T2ShieldDefense','T3ShieldDefense'},
+			{ 0, 13  },
 			{ 0, -9  },
 			{ -11, 2 },
 			{ 11, 2 },
-			{ -33, 2 }, # outer 4 cardinal points
+			{ -33, 2 },
 			{ 33,  2 },
 			{  0, -31 },
 			{  0, 35 },
-			{ -26, 35 }, # additional corners 4
+			{ -26, 35 },
 			{ 26, 35 },
 			{ -26, -31 },		
 			{ 26, -31 },
 		},
-		{
-			{
-			'T4ShieldDefense',
-			},
+		{{'T4ShieldDefense'},
 			{ 0, 0 },
 		},
-		{
-			{
-			'T3Storage',
-			},
-			{ 0, 9 },	# inner 4 shields with 3 each
+		{{'T3Storage'},
+			{ 0, 9 },
 			{-2, 9 },
 			{ 2, 9 },
-			{ 0,-5 },	#
+			{ 0,-5 },
 			{-2,-5 },
 			{ 2,-5 },
-			{-7, 0 },	#
+			{-7, 0 },
 			{-7, 2 },
 			{-7, 4 },
-			{ 7, 0 },	#
+			{ 7, 0 },
 			{ 7, 2 },
 			{ 7, 4 },
-			{ 24, 39 },	# outer 4 corners w 6 each
+			{ 24, 39 },
 			{ 26, 39 },
 			{ 28, 39 },
 			{ 30, 37 },
 			{ 30, 35 },
 			{ 30, 33 },
-			{-30, 33 },	#
+			{-30, 33 },
 			{-30, 35 },
 			{-30, 37 },
 			{-24, 39 },
 			{-26, 39 },
 			{-28, 39 },
-			{-30,-29 },	#
+			{-30,-29 },
 			{-30,-31 },
 			{-30,-33 },
 			{-28,-35 },
 			{-26,-35 },
 			{-24,-35 },
-			{ 30,-33 },	#
+			{ 30,-33 },
 			{ 30,-31 },
 			{ 30,-29 },
 			{ 24,-35 },
 			{ 26,-35 },
 			{ 28,-35 },
 		},
-		{
-			{
-			'T3TeleportJammer',
-			},
+		{{'T3TeleportJammer'},
 			{ 0, -2 },
 		},
-		{
-			{
-			'T2RadarJammer',
-			},
+		{{'T2RadarJammer'},
 			{ 0, 3 },
 			{-41,-15},
 			{-41, 19},
 			{ 41,-15},
 			{ 41, 19},
 		},
-		{
-			{
-			'T2EngineerSupport',
-			'T3EngineerSupport',
-			},
+		{{'T2EngineerSupport','T3EngineerSupport'},
 			{ -5, 15 },
 			{ 5, 15 },
 			{ -5, -11 },
@@ -1442,53 +1181,31 @@ ExpansionLayout = {
 			{ -29, 19 },
 			{ 29, 19 },
 		},
-		{
-			{
-			'T3QuantumGate',
-			},
+		{{'T3QuantumGate'},
 			{ 0, 29 },
 			{ 0, -25},
 			{ 27, 2 },
 			{-27, 2  },
 		},
-        {
-            {
-			'T2AirStagingPlatform',
-            },
+        {{'T2AirStagingPlatform'},
             { 0, 28 },
             { 0, -24 },
             { 26, 2 },
             {-26, 2 },
         },
-		{
-			{
-			'T3StrategicMissileDefense',
-			},
+		{{'T3StrategicMissileDefense'},
 			{ 23.5, 18 },
 			{ -24, -13.5 },
 			{ -24, 18 },
 			{ 23.5, -13.5 },
 		},
-		{
-			{
-			'T3StrategicMissile',
-			},
+		{{'T3StrategicMissile'},
 			{ 25, 19 },
-			{ -25, -15 },
-			{ -25, 19 },
+			{-25, -15 },
+			{-25, 19 },
 			{ 25, -15 },
 		},
-        {
-            {
-            'T1Radar',
-            },
-            { 0, 2 },
-        },
-        {
-            {
-            'T1GroundDefense',
-            'T1AADefense',
-            },
+        {{'T1GroundDefense','T1AADefense'},
             { 6, -4 },
             { 6, 8 },
             { 0, -4 },
@@ -1498,12 +1215,7 @@ ExpansionLayout = {
             { 6, 2 },
             { -6, 2 },
         },
-		{
-			{
-			'T2Artillery',
-			'T2GroundDefense',
-			'T2AADefense',
-			},
+		{{'T2Artillery','T2GroundDefense','T2AADefense'},
 			{-29,17 },
 			{-17,29 },
 			{ 17,29 },
@@ -1530,10 +1242,7 @@ ExpansionLayout = {
 			{-19,-25},
 			{-29,-17},
 		},
-		{
-			{
-			'T3GroundDefense',
-			},
+		{{'T3GroundDefense'},
 			{ -5, 17},
 			{  5, 17},
 			{  5,-13},
@@ -1547,10 +1256,7 @@ ExpansionLayout = {
 			{ 29,-17},
 			{-29,-17},
 		},
-		{
-			{
-			'T3AADefense',
-			},
+		{{'T3AADefense'},
 			{ -5, 23},
 			{  5, 23},
 			{  5,-19},
@@ -1564,10 +1270,7 @@ ExpansionLayout = {
 			{ 29,-15},
 			{-29,-15},
 		},
-		{
-			{
-			'T2MissileDefense','T3MissileDefense',
-			},
+		{{'T2MissileDefense','T3MissileDefense'},
 			{-31, 21},
 			{ 31, 21},
 			{ 31,-17},
@@ -1577,10 +1280,7 @@ ExpansionLayout = {
 			{ 29,-27},
 			{-29,-27},
 		},
-		{
-			{
-			'T2StrategicMissile',
-			},
+		{{'T2StrategicMissile'},
 			{-11,-3 },
 			{-9 ,-3 },
 			{ 11,-3 },
@@ -1677,7 +1377,7 @@ ExpansionLayout_II = {
 		{{'T3StrategicMissile'},
 			{ 0, 9 },
 		},
-        {{'T1Radar','T2Radar','T3Radar'},
+        {{'T2Radar'},
             { 1, 4 },
         },
 		{{'T2GroundDefense','T2AADefense','T3GroundDefense','T3AADefense'},
@@ -1879,7 +1579,7 @@ ExpansionLayout_II = {
 		{{'T3StrategicMissile'},
 			{ 0, 9 },
 		},
-        {{'T1Radar','T2Radar','T3Radar'},
+        {{'T2Radar'},
             { 1, 4 },
         },
 		{{'T2GroundDefense','T2AADefense','T3GroundDefense','T3AADefense'},
@@ -2082,7 +1782,7 @@ ExpansionLayout_II = {
 		{{'T3StrategicMissile'},
 			{ 0, 9 },
 		},
-        {{'T1Radar','T2Radar','T3Radar'},
+        {{'T2Radar'},
             { 1, 4 },
         },
 		{{'T2GroundDefense','T2AADefense','T3GroundDefense','T3AADefense'},
@@ -2285,7 +1985,7 @@ ExpansionLayout_II = {
 		{{'T3StrategicMissile'},
 			{ 0, 9 },
 		},
-        {{'T1Radar','T2Radar','T3Radar'},
+        {{'T2Radar'},
             { 1, 4 },
         },
 		{{'T2GroundDefense','T2AADefense','T3GroundDefense','T3AADefense'},
@@ -2407,7 +2107,7 @@ ExpansionLayout_II = {
 NavalExpansionBase = {
 -- UEF Naval Yard
     {
-        {{'T1SeaFactory','T2SeaFactory','T3SeaFactory'},
+        {{'T1SeaFactory'},
 			{  0,-22 },
 			{ 22,-22 },
 			{-22,-22 },
@@ -2457,7 +2157,7 @@ NavalExpansionBase = {
 			{ 0,-8 },
         },
 		
-		{{'T1Sonar','T2Sonar','T3Sonar'},
+		{{'T1Sonar','T2Sonar'},
 			{ 30, 50 },
 			{-30, 50 },
 		},
@@ -2484,7 +2184,7 @@ NavalExpansionBase = {
     },
 -- Aeon Naval Yard
     {
-        {{'T1SeaFactory','T2SeaFactory','T3SeaFactory'},
+        {{'T1SeaFactory'},
 			{  0,-22 },
 			{ 22,-22 },
 			{-22,-22 },
@@ -2534,7 +2234,7 @@ NavalExpansionBase = {
 			{ 0,-8 },
         },
 		
-		{{'T1Sonar','T2Sonar','T3Sonar'},
+		{{'T1Sonar','T2Sonar'},
 			{ 30, 50 },
 			{-30, 50 },
 		},
@@ -2561,7 +2261,7 @@ NavalExpansionBase = {
     },
 -- Cybran Naval Yard
     {
-        {{'T1SeaFactory','T2SeaFactory','T3SeaFactory'},
+        {{'T1SeaFactory'},
 			{  0,-22 },
 			{ 22,-22 },
 			{-22,-22 },
@@ -2611,7 +2311,7 @@ NavalExpansionBase = {
 			{ 0,-8 },
         },
 		
-		{{'T1Sonar','T2Sonar','T3Sonar'},
+		{{'T1Sonar','T2Sonar'},
 			{ 30, 50 },
 			{-30, 50 },
 		},
@@ -2638,7 +2338,7 @@ NavalExpansionBase = {
     },
 -- Seraphim Naval Yard
     {
-        {{'T1SeaFactory','T2SeaFactory','T3SeaFactory'},
+        {{'T1SeaFactory'},
 			{  0,-22 },
 			{ 22,-22 },
 			{-22,-22 },
@@ -2688,7 +2388,7 @@ NavalExpansionBase = {
 			{ 0,-8 },
         },
 		
-		{{'T1Sonar','T2Sonar','T3Sonar'},
+		{{'T1Sonar','T2Sonar'},
 			{ 30, 50 },
 			{-30, 50 },
 		},

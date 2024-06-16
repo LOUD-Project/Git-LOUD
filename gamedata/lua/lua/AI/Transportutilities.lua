@@ -156,12 +156,12 @@ function CheckTransportPool( aiBrain )
     
     local TransportDialog = ScenarioInfo.TransportDialog or false
     
-	local IsIdleState = IsIdleState
+	local IsIdleState   = IsIdleState
     local PlatoonExists = PlatoonExists
 
     local ArmyPool = aiBrain.ArmyPool
 
-    local RefuelPool = aiBrain.RefuelPool or false
+    local RefuelPool    = aiBrain.RefuelPool or false
     local StructurePool = aiBrain.StructurePool or false
 	local TransportPool = aiBrain.TransportPool
     
@@ -171,6 +171,10 @@ function CheckTransportPool( aiBrain )
 	local unitlist = GetListOfUnits( aiBrain, AIRTRANSPORTS - categories.uea0203, true, true)
 	
 	for k,v in unitlist do
+    
+        if v and v.PlatoonHandle == TransportPool then
+            loudUtils.ProcessAirUnits( v, aiBrain )
+        end
         
 		if v and v.PlatoonHandle != TransportPool and v.PlatoonHandle != RefuelPool and GetFractionComplete(v) == 1 then
 		
@@ -2197,7 +2201,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 		end
 	else
     
-        LOG("*AI DEBUG NO TRANSPORTS TO MONITOR")
+        --LOG("*AI DEBUG NO TRANSPORTS TO MONITOR")
     
     end
 	
@@ -2442,7 +2446,7 @@ function WatchUnitLoading( transport, units, aiBrain, UnitPlatoon)
 					
 						if reissue > 1 then
                         
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport"..transport.EntityID.." Warping unit "..u.EntityID.." to transport ")
+                            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport"..transport.EntityID.." Warping unit "..u.EntityID.." to transport ")
 						
 							Warp( u, GetPosition(transport) )
 							reissue = 0
@@ -2475,7 +2479,7 @@ function WatchUnitLoading( transport, units, aiBrain, UnitPlatoon)
 			
 			if newunits and counter > 0 then
 			
-				if reloads > 1 then
+				if reloads > 2 then
 					LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport "..transport.EntityID.." Reloading "..counter.." units - reload "..reloads)
 				end
 			

@@ -1461,13 +1461,6 @@ SupportLayout = {
 			{ 41,-17 },
 			{-41, 17 },
 		},
-        
-		{{'T2TeleportJammer','T3TeleportJammer'},
-			{-29,-15 },
-			{ 30, 14 },
-			{ 29,-15 },
-			{-30, 14 },
-		},
 
 		{{'T2EngineerSupport','T3EngineerSupport'},
 			{ -5, -5 },
@@ -1491,7 +1484,7 @@ SupportLayout = {
 			{ 19, 25 },
 		},
         
-        {{'T1Radar','T2Radar','T3Radar'},
+        {{'T2Radar'},
             { 15, 23 },
 			{-15, 23 },
         },
@@ -1535,11 +1528,9 @@ SupportLayout = {
 			{-41, 17 },
 		},
         
-		{{'T2TeleportJammer','T3TeleportJammer'},
-			{-29,-15 },
-			{ 30, 14 },
-			{ 29,-15 },
-			{-30, 14 },
+		{{'T3Optics'},      -- at the back flanks
+			{ 32,-32 },
+			{-32,-32 },
 		},
 
 		{{'T2EngineerSupport','T3EngineerSupport'},
@@ -1571,7 +1562,7 @@ SupportLayout = {
 			{ 19,-25 },
 		},
         
-        {{'T1Radar','T2Radar','T3Radar'},
+        {{'T2Radar'},
             { 15, 23 },
 			{-15, 23 },
         },
@@ -1615,11 +1606,9 @@ SupportLayout = {
 			{-41, 17 },
 		},
         
-		{{'T2TeleportJammer','T3TeleportJammer'},
-			{-29,-15 },
-			{ 30, 14 },
-			{ 29,-15 },
-			{-30, 14 },
+		{{'T3Optics'},      -- at front flanks
+			{ 33, 33 },
+			{-33, 33 },
 		},
 
 		{{'T2EngineerSupport','T3EngineerSupport'},
@@ -1651,7 +1640,7 @@ SupportLayout = {
 			{ 19,-25 },
 		},
         
-        {{'T1Radar','T2Radar','T3Radar'},
+        {{'T2Radar'},
             { 15, 23 },
 			{-15, 23 },
         },
@@ -1694,13 +1683,6 @@ SupportLayout = {
 			{ 41,-17 },
 			{-41, 17 },
 		},
-        
-		{{'T2TeleportJammer','T3TeleportJammer'},
-			{-29,-15 },
-			{ 30, 14 },
-			{ 29,-15 },
-			{-30, 14 },
-		},
 
 		{{'T2EngineerSupport','T3EngineerSupport'},
 			{ -5, -5 },
@@ -1731,7 +1713,7 @@ SupportLayout = {
 			{ 19,-25 },
 		},
         
-        {{'T1Radar','T2Radar','T3Radar'},
+        {{'T2Radar'},
             { 15, 23 },
 			{-15, 23 },
         },
@@ -2427,46 +2409,26 @@ BaseDefenseLayout = {
 T3AirStagingComplex = {
 -- UEF T3 Air Staging Facility
     {
-        {
-            {
-            'T1AirStagingPlatform', 
-            'T2AirStagingPlatform',
-			'T3AirStagingPlatform',
-            },
-            { 0, 0 }, # T3 AirStage
+        {{'T2AirStagingPlatform'},
+            { 0, 0 },
         },
     },
 -- Aeon T3 Air Staging Facility
     {
-        {
-            {
-            'T1AirStagingPlatform', 
-            'T2AirStagingPlatform', 
-			'T3AirStagingPlatform',
-            },
-            { 0, 0 }, # T3 AirStage
+        {{'T2AirStagingPlatform'},
+            { 0, 0 },
         },
     },
 -- Cybran T3 Air Staging Facility
     {
-        {
-            {
-            'T1AirStagingPlatform', 
-            'T2AirStagingPlatform', 
-			'T3AirStagingPlatform',
-            },
-            { 0, 0 }, # T3 AirStage
+        {{'T2AirStagingPlatform'},
+            { 0, 0 },
         },
     },
 -- Seraphim T3 Air Staging Facility
     {
-        {
-            {
-            'T1AirStagingPlatform', 
-            'T2AirStagingPlatform', 
-			'T3AirStagingPlatform',
-            },
-            { 0, 0 }, # T3 AirStage
+        {{'T2AirStagingPlatform'},
+            { 0, 0 },
         },
     },
 }
@@ -2843,49 +2805,37 @@ ResourceFacility = {
 EnergyAdjacency = {
 -- UEF
     {
-        {
-            {
-            'T1EnergyProduction', 
-            },
-			{ -2, 0 },
+        {{'T1EnergyProduction'},
+			{-2, 0 },
 			{ 2, 0 },
-			{ 0, -2 },
+			{ 0,-2 },
 			{ 0, 2 },
         },
     },
 -- Aeon
     {
-        {
-            {
-            'T1EnergyProduction', 
-            },
-			{ -2, 0 },
+        {{'T1EnergyProduction'},
+			{-2, 0 },
 			{ 2, 0 },
-			{ 0, -2 },
+			{ 0,-2 },
 			{ 0, 2 },
         },
     },
 -- Cybran
     {
-        {
-            {
-            'T1EnergyProduction', 
-            },
-			{ -2, 0 },
+        {{'T1EnergyProduction'},
+			{-2, 0 },
 			{ 2, 0 },
-			{ 0, -2 },
+			{ 0,-2 },
 			{ 0, 2 },
         },
     },
 -- Seraphim
     {
-        {
-            {
-            'T1EnergyProduction', 
-            },
-			{ -2, 0 },
+        {{'T1EnergyProduction'},
 			{ 2, 0 },
-			{ 0, -2 },
+			{ 2, 0 },
+			{ 0,-2 },
 			{ 0, 2 },
         },
     },
@@ -2894,49 +2844,37 @@ EnergyAdjacency = {
 MassAdjacency = {
 -- UEF MassAdjacency
     {
-        {
-            {
-            'MassStorage', 
-            },
-			{ -2, 0 },
+        {{'MassStorage'},
+			{-2, 0 },
 			{ 2, 0 },
-			{ 0, -2 },
+			{ 0,-2 },
 			{ 0, 2 },
         },
     },
 -- Aeon MassAdjacency
     {
-        {
-            {
-            'MassStorage', 
-            },
-			{ -2, 0 },
+        {{'MassStorage'},
+			{-2, 0 },
 			{ 2, 0 },
-			{ 0, -2 },
+			{ 0,-2 },
 			{ 0, 2 },
         },
     },
 -- Cybran MassAdjacency
     {
-        {
-            {
-            'MassStorage', 
-            },
-			{ -2, 0 },
+        {{'MassStorage'},
+			{-2, 0 },
 			{ 2, 0 },
-			{ 0, -2 },
+			{ 0,-2 },
 			{ 0, 2 },
         },
     },
 -- Seraphim MassAdjacency
     {
-        {
-            {
-            'MassStorage', 
-            },
-			{ -2, 0 },
+        {{'MassStorage'},
+			{-2, 0 },
 			{ 2, 0 },
-			{ 0, -2 },
+			{ 0,-2 },
 			{ 0, 2 },
         },
     },
@@ -2945,7 +2883,7 @@ MassAdjacency = {
 MassAdjacencyDefense = {
 -- UEF Mass Adjacency Defense
     {
-		{{ 'Wall', 'T2Wall'	},
+		{{'Wall', 'T2Wall'},
 			{ 9, 9 },
             
 			{ 8, 9 },
@@ -2994,49 +2932,28 @@ MassAdjacencyDefense = {
 			{ -9, 6 },
 			{ -9, 5 },
 		},
-        {
-            {
-			'T1GroundDefense', 			
-            },
+        {{'T1GroundDefense'},
 			{ 4, 4 },
 			{-4,-4 },
         },    
-        {
-            {
-            'T2AADefense',
-			'T2GroundDefense', 			
-            },
+        {{'T2AADefense','T2GroundDefense'},
 			{ 6, 6 },
 			{-6,-6 },
 			{ 6,-6 },
 			{-6, 6 },
         },
-        {
-            {
-            'T3GroundDefense', 
-            },
+        {{'T3GroundDefense'},
 			{ 6, 0 },
         },
-        {
-            {
-            'T3AADefense', 
-            'T2MissileDefense','T3MissileDefense', 
-            },
+        {{'T3AADefense','T2MissileDefense','T3MissileDefense'},
 			{-4, 4 },
 			{ 4,-4 },
         },
-		{
-			{
-			'T2ShieldDefense',
-			'T3ShieldDefense',
-			},
+		{{'T2ShieldDefense','T3ShieldDefense'},
 			{-6, 0 },
 			{ 0, 6 },
 		},
-		{
-			{
-			'T1MassCreation',
-			},
+		{{'T1MassCreation'},
 			{ 0,-6 },
 		},
     },
@@ -3091,48 +3008,28 @@ MassAdjacencyDefense = {
 			{ -9, 6 },
 			{ -9, 5 },
 		},
-        {
-            {
-			'T1GroundDefense', 			
-            },
+        {{'T1GroundDefense'},
 			{ 4, 4 },
 			{-4,-4 },
-        },            {
-            {
-            'T2AADefense',
-			'T2GroundDefense', 			
-            },
+        },
+        {{'T2AADefense','T2GroundDefense'},
 			{ 6, 6 },
 			{-6,-6 },
 			{ 6,-6 },
 			{-6, 6 },
         },
-        {
-            {
-            'T3GroundDefense', 
-            },
+        {{'T3GroundDefense'},
 			{ 6, 0 },
         },
-        {
-            {
-            'T3AADefense', 
-            'T2MissileDefense','T3MissileDefense', 
-            },
+        {{'T3AADefense','T2MissileDefense','T3MissileDefense'},
 			{-4, 4 },
 			{ 4,-4 },
         },
-		{
-			{
-			'T2ShieldDefense',
-			'T3ShieldDefense',
-			},
+		{{'T2ShieldDefense','T3ShieldDefense'},
 			{-6, 0 },
 			{ 0, 6 },
 		},
-		{
-			{
-			'T1MassCreation',
-			},
+		{{'T1MassCreation'},
 			{ 0,-6 },
 		},
     },
@@ -3187,48 +3084,28 @@ MassAdjacencyDefense = {
 			{ -9, 6 },
 			{ -9, 5 },
 		},
-        {
-            {
-			'T1GroundDefense', 			
-            },
+        {{'T1GroundDefense'},
 			{ 4, 4 },
 			{-4,-4 },
-        },            {
-            {
-            'T2AADefense',
-			'T2GroundDefense', 			
-            },
+        },
+        {{'T2AADefense','T2GroundDefense'},
 			{ 6, 6 },
 			{-6,-6 },
 			{ 6,-6 },
 			{-6, 6 },
         },
-        {
-            {
-            'T3GroundDefense', 
-            },
+        {{'T3GroundDefense'},
 			{ 6, 0 },
         },
-        {
-            {
-            'T3AADefense', 
-            'T2MissileDefense','T3MissileDefense', 
-            },
+        {{'T3AADefense','T2MissileDefense','T3MissileDefense'},
 			{-4, 4 },
 			{ 4,-4 },
         },
-		{
-			{
-			'T2ShieldDefense',
-			'T3ShieldDefense',
-			},
+		{{'T2ShieldDefense','T3ShieldDefense'},
 			{-6, 0 },
 			{ 0, 6 },
 		},
-		{
-			{
-			'T1MassCreation',
-			},
+		{{'T1MassCreation'},
 			{ 0,-6 },
 		},
     },
@@ -3283,300 +3160,35 @@ MassAdjacencyDefense = {
 			{ -9, 6 },
 			{ -9, 5 },
 		},
-        {
-            {
-			'T1GroundDefense', 			
-            },
+        {{'T1GroundDefense'},
 			{ 4, 4 },
 			{-4,-4 },
-        },            {
-            {
-            'T2AADefense',
-			'T2GroundDefense', 			
-            },
+        },
+        {{'T2AADefense','T2GroundDefense'},
 			{ 6, 6 },
 			{-6,-6 },
 			{ 6,-6 },
 			{-6, 6 },
         },
-        {
-            {
-            'T3GroundDefense', 
-            },
+        {{'T3GroundDefense'},
 			{ 6, 0 },
         },
-        {
-            {
-            'T3AADefense', 
-            'T2MissileDefense','T3MissileDefense', 
-            },
+        {{'T3AADefense','T2MissileDefense','T3MissileDefense'},
 			{-4, 4 },
 			{ 4,-4 },
         },
-		{
-			{
-			'T2ShieldDefense',
-			'T3ShieldDefense',
-			},
+		{{'T2ShieldDefense','T3ShieldDefense'},
 			{-6, 0 },
 			{ 0, 6 },
 		},
-		{
-			{
-			'T1MassCreation',
-			},
+		{{'T1MassCreation'},
 			{ 0,-6 },
 		},
     },
 
 }
 
--- not sure what this gets used by - its original code
-Adjacency2x2 = {
--- UEF Adjacency Building List
-    {
-        {
-        'T1EnergyProduction', 
-        'MassStorage', 
-        'EnergyStorage', 
-        'T1MassCreation', 
-        'T1Resource', 
-        'T1Radar', 
-        'T2Radar', 
-        'T2Resource', 
-        'T3Resource', 
-        'T2StrategicMissile', 
-        'T2ShieldDefense', 
-        'T3StrategicMissileDefense', 
-        'T3Optics', 
-        'T2Artillery', 
-        'T2AADefense', 
-        'T2GroundDefense', 
-        'T3GroundDefense', 
-        'T3AADefense', 
-        'T2MissileDefense','T3MissileDefense', 
-        'T2EnergyProduction', 
-        'T1HydroCarbon', 
-        'T2RadarJammer', 
-        'T3ShieldDefense', 
-        'T3StrategicMissile', 
-        'T1LandFactory', 
-        'T2LandFactory', 
-        'T3LandFactory', 
-        'T3QuantumGate', 
-        'T1AirFactory', 
-        'T2AirFactory', 
-        'T3AirFactory', 
-        'T1SeaFactory', 
-        'T2SeaFactory', 
-        'T3SeaFactory', 
-        'T3EnergyProduction', 
-        'T3MassCreation', 
-        'T3Radar', 
-        'T2EngineerSupport', 
-        'T2AirStagingPlatform', 
-        'T3Artillery', 
-        'T4Artillery', 
-        'T3RapidArtillery', 
-        'T1GroundDefense', 
-        'Wall', 
-        'T1AADefense', 
-        'T1NavalDefense', 
-        'T2NavalDefense', 
-        'T3NavalDefense', 
-        'T1Sonar', 
-        'T2Sonar', 
-        'T3Sonar', 
-        },
-        { 2,  0, 0 },
-        { -2, 0, 0 },
-        { 0,  2, 0 },
-        { 0, -2, 0 },
-    },
--- Aeon Adjacency Building List
-    {
-        {
-        'T1EnergyProduction', 
-        'MassStorage', 
-        'EnergyStorage', 
-        'T1MassCreation', 
-        'T1Resource', 
-        'T1Radar', 
-        'T2Radar', 
-        'T2Resource', 
-        'T3Resource', 
-        'T2StrategicMissile', 
-        'T2ShieldDefense', 
-        'T3StrategicMissileDefense', 
-        'T3Optics', 
-        'T2Artillery', 
-        'T2AADefense', 
-        'T2GroundDefense', 
-        'T3GroundDefense', 
-        'T3AADefense', 
-        'T2MissileDefense','T3MissileDefense', 
-        'T2EnergyProduction', 
-        'T1HydroCarbon', 
-        'T2RadarJammer', 
-        'T3ShieldDefense', 
-        'T3StrategicMissile', 
-        'T1LandFactory', 
-        'T2LandFactory', 
-        'T3LandFactory', 
-        'T3QuantumGate', 
-        'T1AirFactory', 
-        'T2AirFactory', 
-        'T3AirFactory', 
-        'T1SeaFactory', 
-        'T2SeaFactory', 
-        'T3SeaFactory', 
-        'T3EnergyProduction', 
-        'T3MassCreation', 
-        'T3Radar', 
-        'T2EngineerSupport', 
-        'T2AirStagingPlatform', 
-        'T3Artillery', 
-        'T4Artillery', 
-        'T3RapidArtillery', 
-        'T1GroundDefense', 
-        'Wall', 
-        'T1AADefense', 
-        'T1NavalDefense', 
-        'T2NavalDefense', 
-        'T3NavalDefense', 
-        'T1Sonar', 
-        'T2Sonar', 
-        'T3Sonar', 
-        },
-        { 2,  0, 0 },
-        { -2, 0, 0 },
-        { 0,  2, 0 },
-        { 0, -2, 0 },
-    },
--- Cybran Adjacency Building List
-    {
-        {
-        'T1EnergyProduction', 
-        'MassStorage', 
-        'EnergyStorage', 
-        'T1MassCreation', 
-        'T1Resource', 
-        'T1Radar', 
-        'T2Radar', 
-        'T2Resource', 
-        'T3Resource', 
-        'T2StrategicMissile', 
-        'T2ShieldDefense', 
-        'T3StrategicMissileDefense', 
-        'T3Optics', 
-        'T2Artillery', 
-        'T2AADefense', 
-        'T2GroundDefense', 
-        'T3GroundDefense', 
-        'T3AADefense', 
-        'T2MissileDefense','T3MissileDefense', 
-        'T2EnergyProduction', 
-        'T1HydroCarbon', 
-        'T2RadarJammer', 
-        'T3ShieldDefense', 
-        'T3StrategicMissile', 
-        'T1LandFactory', 
-        'T2LandFactory', 
-        'T3LandFactory', 
-        'T3QuantumGate', 
-        'T1AirFactory', 
-        'T2AirFactory', 
-        'T3AirFactory', 
-        'T1SeaFactory', 
-        'T2SeaFactory', 
-        'T3SeaFactory', 
-        'T3EnergyProduction', 
-        'T3MassCreation', 
-        'T3Radar', 
-        'T2EngineerSupport', 
-        'T2AirStagingPlatform', 
-        'T3Artillery', 
-        'T4Artillery', 
-        'T3RapidArtillery', 
-        'T1GroundDefense', 
-        'Wall', 
-        'T1AADefense', 
-        'T1NavalDefense', 
-        'T2NavalDefense', 
-        'T3NavalDefense', 
-        'T1Sonar', 
-        'T2Sonar', 
-        'T3Sonar', 
-        },
-        { 2,  0, 0 },
-        { -2, 0, 0 },
-        { 0,  2, 0 },
-        { 0, -2, 0 },
-    },
--- Seraphim Adjacency Building List
-    {
-        {
-        'T1EnergyProduction', 
-        'MassStorage', 
-        'EnergyStorage', 
-        'T1MassCreation', 
-        'T1Resource', 
-        'T1Radar', 
-        'T2Radar', 
-        'T2Resource', 
-        'T3Resource', 
-        'T2StrategicMissile', 
-        'T2ShieldDefense', 
-        'T3StrategicMissileDefense', 
-        'T3Optics', 
-        'T2Artillery', 
-        'T2AADefense', 
-        'T2GroundDefense', 
-        'T3GroundDefense', 
-        'T3AADefense', 
-        'T2MissileDefense','T3MissileDefense', 
-        'T2EnergyProduction', 
-        'T1HydroCarbon', 
-        'T2RadarJammer', 
-        'T3ShieldDefense', 
-        'T3StrategicMissile', 
-        'T1LandFactory', 
-        'T2LandFactory', 
-        'T3LandFactory', 
-        'T3QuantumGate', 
-        'T1AirFactory', 
-        'T2AirFactory', 
-        'T3AirFactory', 
-        'T1SeaFactory', 
-        'T2SeaFactory', 
-        'T3SeaFactory', 
-        'T3EnergyProduction', 
-        'T3MassCreation', 
-        'T3Radar', 
-        'T2EngineerSupport', 
-        'T2AirStagingPlatform', 
-        'T3Artillery', 
-        'T4Artillery', 
-        'T3RapidArtillery', 
-        'T1GroundDefense', 
-        'Wall', 
-        'T1AADefense', 
-        'T1NavalDefense', 
-        'T2NavalDefense', 
-        'T3NavalDefense', 
-        'T1Sonar', 
-        'T2Sonar', 
-        'T3Sonar', 
-        },
-        { 2,  0, 0 },
-        { -2, 0, 0 },
-        { 0,  2, 0 },
-        { 0, -2, 0 },
-    },
-}
-
 --[[
-
 T3PowerFacility = {
 -- UEF T3 Power Facility
     {

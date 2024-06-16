@@ -6,12 +6,17 @@ local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 local ChangeState = ChangeState
 
-local LOUDENTITY = EntityCategoryContains
-local LOUDMAX = math.max
-local LOUDMIN = math.min
-local LOUDPARSE = ParseEntityCategory	
-local LOUDPOW = math.pow
-local LOUDSQRT = math.sqrt
+local LOUDENTITY    = EntityCategoryContains
+local LOUDMAX       = math.max
+local LOUDMIN       = math.min
+local LOUDPARSE     = ParseEntityCategory	
+local LOUDPOW       = math.pow
+local LOUDSQRT      = math.sqrt
+
+local TrashBag      = TrashBag
+local TrashAdd      = TrashBag.Add
+local WaitTicks     = coroutine.yield
+local Warp          = Warp
 
 local ForkThread = ForkThread
 local ForkTo = ForkThread
@@ -23,26 +28,17 @@ local CreateEmitterAtBone = CreateEmitterAtBone
 
 local VectorCached = { 0, 0, 0 }
 	
-local AdjustHealth = moho.entity_methods.AdjustHealth
+local AdjustHealth      = moho.entity_methods.AdjustHealth
+local GetArmy           = moho.entity_methods.GetArmy        
+local GetBlueprint      = moho.entity_methods.GetBlueprint
+local GetHealth         = moho.entity_methods.GetHealth
+local GetMaxHealth      = moho.entity_methods.GetMaxHealth
+local SetMesh           = moho.entity_methods.SetMesh
 
-local GetArmorMult = moho.unit_methods.GetArmorMult
-local GetArmy = moho.entity_methods.GetArmy        
-local GetBlueprint = moho.entity_methods.GetBlueprint
-local GetHealth = moho.entity_methods.GetHealth
-local GetMaxHealth = moho.entity_methods.GetMaxHealth
-
-local GetStat = moho.unit_methods.GetStat
-local SetStat = moho.unit_methods.SetStat
-
-local SetMesh = moho.entity_methods.SetMesh
-local SetShieldRatio = moho.unit_methods.SetShieldRatio
-
-local TrashBag = TrashBag
-local TrashAdd = TrashBag.Add
-
-local WaitTicks = coroutine.yield
-
-local Warp = Warp
+local GetArmorMult      = moho.unit_methods.GetArmorMult
+local GetStat           = moho.unit_methods.GetStat
+local SetStat           = moho.unit_methods.SetStat
+local SetShieldRatio    = moho.unit_methods.SetShieldRatio
 
 Shield = Class(moho.shield_methods,Entity) {
 
@@ -331,6 +327,8 @@ Shield = Class(moho.shield_methods,Entity) {
 
 		if not self.Dead then
 		
+            local ImpactEffects = self.ImpactEffects
+            
 			local ImpactMesh = Entity( self.ImpactEntitySpecs )
 
 			Warp( ImpactMesh, self:GetPosition())		
@@ -350,12 +348,13 @@ Shield = Class(moho.shield_methods,Entity) {
 
 			end
 
-			if self.ImpactEffects and not self.Dead then
+			if ImpactEffects and not self.Dead then
             
+                local Army = self.Army
                 local CreateEmitterAtBone = CreateEmitterAtBone
                 
-				for k, v in self.ImpactEffects do
-					CreateEmitterAtBone( ImpactMesh, -1, self.Army, v ):OffsetEmitter(0, 0, LOUDSQRT( LOUDPOW( vector[1], 2 ) + LOUDPOW( vector[2], 2 ) + LOUDPOW(vector[3], 2 ) )  )
+				for k, v in ImpactEffects do
+					CreateEmitterAtBone( ImpactMesh, -1, Army, v ):OffsetEmitter(0, 0, LOUDSQRT( LOUDPOW( vector[1], 2 ) + LOUDPOW( vector[2], 2 ) + LOUDPOW(vector[3], 2 ) )  )
 				end
                 
 			end
@@ -885,7 +884,7 @@ ProjectedShield = Class(Shield){
 	
         local pCount = self:CheckProjectors()
 		
-        if pCount == 0 then
+        if pCount == 0 and not self.Owner.Dead then
             self.Owner:OnDamage(instigator,amount,vector,type)
         end
 		

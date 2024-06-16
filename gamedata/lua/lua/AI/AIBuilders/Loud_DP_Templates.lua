@@ -5,7 +5,7 @@
 DefensivePointStandard = {
 	-- UEF DP Template Standard
     {
-        {{ 'T1Radar','T2Radar','T3Radar'},
+        {{ 'T2Radar' },
             { 0, -4 },
         },
         
@@ -228,7 +228,7 @@ DefensivePointStandard = {
 
 	-- Aeon DP Template Standard
     {
-        {{ 'T1Radar', 'T2Radar', 'T3Radar' },
+        {{ 'T2Radar' },
             {  0, -4 },
         },
         
@@ -449,7 +449,7 @@ DefensivePointStandard = {
 
 	-- Cybran DP Template Standard
     {
-        {{ 'T1Radar', 'T2Radar', 'T3Radar'	},
+        {{ 'T2Radar' },
             { 0, -4 },
         },
         
@@ -670,7 +670,7 @@ DefensivePointStandard = {
 
 	-- Seraphim DP Template Standard
     {
-        {{ 'T1Radar', 'T2Radar', 'T3Radar'	},
+        {{ 'T2Radar' },
             { 0, -4 },
         },
         
@@ -893,7 +893,7 @@ DefensivePointStandard = {
 DefensivePointSmall = {
 	-- UEF DP Template Small
     {
-        {{ 'T1Radar', 'T2Radar', 'T3Radar'	},
+        {{ 'T2Radar' },
             { 0, -4 },
         },
         
@@ -1063,7 +1063,7 @@ DefensivePointSmall = {
     
     -- AEON DP Template Small
     {
-        {{ 'T1Radar', 'T2Radar', 'T3Radar'	},
+        {{ 'T2Radar' },
             { 0, -4 },
         },
         
@@ -1233,11 +1233,11 @@ DefensivePointSmall = {
     
     -- CYBRAN DP Template Small
     {
-        {{ 'T1Radar', 'T2Radar', 'T3Radar'	},
+        {{ 'T2Radar' },
             { 0, -4 },
         },
         
-        {{ 'T2ShieldDefense', 'T3ShieldDefense'	},
+        {{ 'T2ShieldDefense','T3ShieldDefense'	},
             { 0, 6 },
             { 0, -13 },
         },
@@ -1246,12 +1246,12 @@ DefensivePointSmall = {
             { 0, 0 },
         },
        
-        {{ 'T1GroundDefense'    },
+        {{ 'T1GroundDefense'},
             { 9,-6 },
             {-9,-6 },
         },
         
-        {{ 'T2Artillery'		},
+        {{ 'T2Artillery'},
             { 0,-6 },
             { 0,-2 },
             { 0, 6 },
@@ -1262,21 +1262,21 @@ DefensivePointSmall = {
 			{ 6, 6 },
         },
         
-        {{ 'T2GroundDefense'	},
+        {{ 'T2GroundDefense'},
             { 9,-9 },
             {-9,-9 },
             {-9, 9 },
             { 9, 9 },
         },
         
-        {{ 'T2AADefense'		},
+        {{ 'T2AADefense'},
             { 9,-4 },
             {-9,-4 },
             {-9, 4 },
             { 9, 4 },
         },
         
-		{{ 'Wall', 'T2Wall'	},
+		{{ 'Wall', 'T2Wall'},
 			{ 11, -11 },
 			{ 10, -11 },
 			{  9, -11 },
@@ -1335,15 +1335,15 @@ DefensivePointSmall = {
 
 		},
         
-        {{ 'T2AirStagingPlatform'	},
+        {{ 'T2AirStagingPlatform'},
             { 6, 0 },
         },
         
-        {{ 'T2RadarJammer'	},
+        {{ 'T2RadarJammer'},
             {-6, 0 },
         },
         
-        {{ 'T2MissileDefense','T3MissileDefense'	},
+        {{ 'T2MissileDefense','T3MissileDefense'},
             { 0, -9 },
             { 0, 11 },
             {-12, 0 },
@@ -1404,7 +1404,7 @@ DefensivePointSmall = {
     
     -- SERA DP Template Small
     {
-        {{ 'T1Radar', 'T2Radar', 'T3Radar'	},
+        {{ 'T2Radar' },
             { 0, -4 },
         },
         
