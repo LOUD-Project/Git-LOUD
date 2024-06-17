@@ -3,14 +3,14 @@
 
 local CreateBuilder = import('/lua/sim/Builder.lua').CreateBuilder
 
-local LOUDCOPY = table.copy
-local LOUDGETN = table.getn
-local LOUDINSERT = table.insert
-local LOUDREMOVE = table.remove
-local LOUDSORT = table.sort
+local LOUDCOPY      = table.copy
+local LOUDGETN      = table.getn
+local LOUDINSERT    = table.insert
+local LOUDREMOVE    = table.remove
+local LOUDSORT      = table.sort
 
-local ForkThread = ForkThread
-local ForkTo = ForkThread
+local ForkThread    = ForkThread
+local ForkTo        = ForkThread
 
 local Random = Random
 
@@ -204,9 +204,10 @@ BuilderManager = Class {
 
 		local continuesearching = true
         
-        local BuilderType = unit.BuilderType
-        local ManagerType = self.ManagerType
-        local PriorityDialog = ScenarioInfo.PriorityDialog
+        local BuilderType       = unit.BuilderType
+        local ManagerType       = self.ManagerType
+
+        local PriorityDialog    = ScenarioInfo.PriorityDialog
         
         local LOUDSORT = LOUDSORT
 
@@ -275,7 +276,7 @@ BuilderManager = Class {
                     
                     for k,v in self.BuilderData[BuilderType].Builders do
                     
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." "..self.LocationType.." "..v.Priority.." "..v.BuilderName)
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." "..self.LocationType.." "..repr(v.Priority).." "..v.BuilderName)
                     end
                     
                     self.BuilderData[BuilderType].displayed = true
@@ -286,30 +287,36 @@ BuilderManager = Class {
         end
 
 		local TaskList = self.BuilderData[unit.BuilderType].Builders or {}        
+
         local Priority, newPri, temporary
 
         for k,task in TaskList do
         
             conditionschecked = 0
             
+            TaskName = task.BuilderName
             Priority = task.Priority
 			
             -- first step, process any PriorityFunction for this task
 
             -- if there is a new priority and it's not 0 then act on this task with it's new priority
             -- if the new priority is 0 - process it normally but this task will be removed on the next cycle
-			if Builders[task.BuilderName].PriorityFunction  and Priority > 0 then
+			if Builders[TaskName].PriorityFunction and Priority > 0 then
+            
+                --if PriorityDialog then
+                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." "..self.LocationType.." PriorityFunction review for "..Priority.." "..TaskName )
+                --end
 
 				newPri = false
 				temporary = true
 
-				newPri,temporary = Builders[task.BuilderName]:PriorityFunction( aiBrain, unit )
+				newPri,temporary = Builders[TaskName]:PriorityFunction( aiBrain, unit, self )
 
 				-- if the priority function reports a different priority than current priority
 				if newPri and newPri != Priority and (task.InstanceAvailable > 0 or ManagerType == 'FBM') then
 				
 					if PriorityDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." "..self.LocationType.." PriorityFunction for "..repr(self.BuilderData[BuilderType].Builders[k].BuilderName).." changes to "..newPri.." from "..Priority )
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." "..self.LocationType.." PriorityFunction change for "..Priority.." "..TaskName.." to "..newPri )
 					end
 
 					self.BuilderData[BuilderType].Builders[k]:SetPriority( newPri, temporary )
@@ -324,7 +331,9 @@ BuilderManager = Class {
                 end
 			end
 
-		
+            -- the continuesearching flag allows jobs to have their status checked and added to the list of possibles
+            -- if we are not searching, we'll just process the remaining tasks and any PriorityFunctions
+            -- and removing any tasks that may have been set to 0
 			if Priority > 100 and (task.InstanceAvailable > 0 or ManagerType == 'FBM') and continuesearching then
 			
 				-- if no task found yet or priority is the same as one we have already added - examine the task
@@ -351,7 +360,7 @@ BuilderManager = Class {
 				if Priority == 0 and not task.OldPriority then
 
 					if PriorityDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." "..self.LocationType.." Removing "..repr(task.BuilderName) )
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." "..self.LocationType.." Removing "..repr(TaskName) )
 					end
 					
                     self.BuilderData[BuilderType].Builders[k] = nil
@@ -421,8 +430,8 @@ BuilderManager = Class {
 
         local LOUDEQUAL = table.equal
 		local LOUDFLOOR = math.floor
-        local LOUDGETN = LOUDGETN
-        local LOUDSORT = LOUDSORT
+        local LOUDGETN  = LOUDGETN
+        local LOUDSORT  = LOUDSORT
         local WaitTicks = WaitTicks
        
         local ManagerLoopBody = self.ManagerLoopBody
@@ -437,9 +446,9 @@ BuilderManager = Class {
 		
 		local numTicks, numTested, numPassed
 		
-		local PoolGreaterAtLocation = import ('/lua/editor/UnitCountBuildConditions.lua').PoolGreaterAtLocation
+		local PoolGreaterAtLocation         = import('/lua/editor/UnitCountBuildConditions.lua').PoolGreaterAtLocation
         local PlatoonGenerateSafePathToLOUD = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD
-        local ResetPFMTasks = import('/lua/loudutilities.lua').ResetPFMTasks
+        local ResetPFMTasks                 = import('/lua/loudutilities.lua').ResetPFMTasks
         
         local FREEUNITS = categories.ALLUNITS - categories.ENGINEER
 
@@ -474,13 +483,17 @@ BuilderManager = Class {
 			return true
 		end		
 
-        local LocationType = self.LocationType
-        local BuilderManager = brain.BuilderManagers[LocationType]
-        local PriorityDialog = ScenarioInfo.PriorityDialog
+
+        local BuilderData       = self.BuilderData
+        local BuilderManager    = brain.BuilderManagers[self.LocationType]
+        local LocationType      = self.LocationType
+        local PriorityDialog    = ScenarioInfo.PriorityDialog
 
         local AttackPlan, landpathlength, path, pathcost, reason, ThreadWaitDuration
         
         while self.Active do
+        
+            PriorityDialog = ScenarioInfo.PriorityDialog or false
         
             AttackPlan = brain.AttackPlan
      
@@ -513,7 +526,6 @@ BuilderManager = Class {
             
             ThreadWaitDuration = brain.ConditionsMonitor.ThreadWaitDuration
 
-
 			-- The PFM is the only manager truly affected by this since factories and engineers seek their own jobs
 			-- Simply, the PFM at a Primary Base (or MAIN) runs at twice the speed of the Conditions Monitor
             -- other bases run at one/half the speed
@@ -529,9 +541,9 @@ BuilderManager = Class {
             -- and we set the delay between task checks accordingly
 			if tasks != self.NumBuilders or ( self.BuilderCheckInterval != duration ) then
             
-				duration = self.BuilderCheckInterval
-				tasks = self.NumBuilders
-				ticksize = LOUDFLOOR( duration / tasks )
+				duration    = self.BuilderCheckInterval
+				tasks       = self.NumBuilders
+				ticksize    = LOUDFLOOR( duration / tasks )
 			end
 
             numTicks = 1
@@ -548,25 +560,28 @@ BuilderManager = Class {
             -- there must be units in the Pool or there will be nothing to form
 			if PoolGreaterAtLocation( brain, LocationType, 0, FREEUNITS ) and brain:GetNoRushTicks() < 75 then
 		
-                if self.BuilderData['Any'].NeedSort then
+                if BuilderData['Any'].NeedSort then
 
                     if PriorityDialog then
                         LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." sorts PFM tasks")
                     end
 
-                    LOUDSORT( self.BuilderData['Any'].Builders, function(a,b) return a.Priority > b.Priority end )
+                    LOUDSORT( BuilderData['Any'].Builders, function(a,b) return a.Priority > b.Priority end )
 
-                    self.BuilderData['Any'].NeedSort = false
+                    BuilderData['Any'].NeedSort = false
                 end
 			
                 -- loop thru all the platoon builders
-				for bType,bTypeData in self.BuilderData do
+				for bType,bTypeData in BuilderData do
                 
-                    if self.BuilderData['Any'].NeedSort then
+                    if BuilderData['Any'].NeedSort then
                         break
                     end
+                    
+                    local Builders          = bTypeData.Builders
+                    local ConditionResults  = brain.ConditionsMonitor.ResultTable
 
-					for key,bData in bTypeData.Builders do
+					for key,bData in Builders do
 
 						if bData.Priority >= 100 and bData.InstanceAvailable > 0 then
                     
@@ -576,7 +591,7 @@ BuilderManager = Class {
 
 							numTested = numTested + 1
 						
-							if GetBuilderStatus( bData.BuilderConditions, brain.ConditionsMonitor.ResultTable ) then
+							if GetBuilderStatus( bData.BuilderConditions, ConditionResults ) then
 
 								ForkTo ( ManagerLoopBody, self, bData, bType, brain )
 							

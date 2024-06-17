@@ -5,71 +5,80 @@
 
 local import = import
 
-local BuilderManager = import('/lua/sim/BuilderManager.lua').BuilderManager
+local BuilderManager    = import('/lua/sim/BuilderManager.lua').BuilderManager
 local BuildingTemplates = import('/lua/buildingtemplates.lua').BuildingTemplates
 
-local CreateEngineerBuilder = import('/lua/sim/Builder.lua').CreateEngineerBuilder
-local CzarCarrierThread = import('/lua/ai/aibehaviors.lua').CzarCarrierThread
-local DisperseUnitsToRallyPoints = import('/lua/loudutilities.lua').DisperseUnitsToRallyPoints
-local EyeBehavior = import('/lua/ai/aibehaviors.lua').EyeBehavior
-local FatBoyAI = import('/lua/ai/aibehaviors.lua').FatBoyAI
-local GetFreeUnitsAroundPoint = import('/lua/loudutilities.lua').GetFreeUnitsAroundPoint
-local RandomLocation = import('/lua/ai/aiutilities.lua').RandomLocation
-local RiftGateBehavior = import('/lua/ai/aibehaviors.lua').RiftGateBehavior
-local TMLThread = import('/lua/ai/aibehaviors.lua').TMLThread
+local CreateEngineerBuilder         = import('/lua/sim/Builder.lua').CreateEngineerBuilder
+
+local AIBehaviors = import('/lua/ai/aibehaviors.lua')
+
+local CzarCarrierThread             = AIBehaviors.CzarCarrierThread
+local EyeBehavior                   = AIBehaviors.EyeBehavior
+local FatBoyAI                      = AIBehaviors.FatBoyAI
+local RiftGateBehavior              = AIBehaviors.RiftGateBehavior
+local SCUSelfEnhanceThread          = AIBehaviors.SCUSelfEnhanceThread
+local TMLThread                     = AIBehaviors.TMLThread
+
+local RandomLocation                = import('/lua/ai/aiutilities.lua').RandomLocation
+
+local AISendPing                    = import('/lua/ai/altaiutilities.lua').AISendPing
+
+local DisperseUnitsToRallyPoints    = import('/lua/loudutilities.lua').DisperseUnitsToRallyPoints
+local GetFreeUnitsAroundPoint       = import('/lua/loudutilities.lua').GetFreeUnitsAroundPoint
+local RemoveBaseMarker              = import('/lua/loudutilities.lua').RemoveBaseMarker
 
 local AIBrainMethods = moho.aibrain_methods
 
 local AssignUnitsToPlatoon      = AIBrainMethods.AssignUnitsToPlatoon
 local DecideWhatToBuild         = AIBrainMethods.DecideWhatToBuild
 local GetThreatAtPosition       = AIBrainMethods.GetThreatAtPosition
+local GetUnitsAroundPoint       = AIBrainMethods.GetUnitsAroundPoint
 local MakePlatoon               = AIBrainMethods.MakePlatoon
 local PlatoonExists             = AIBrainMethods.PlatoonExists	
 
 
-local BeenDestroyed = moho.entity_methods.BeenDestroyed
-local GetFractionComplete = moho.entity_methods.GetFractionComplete
-local GetPosition = moho.entity_methods.GetPosition
+local BeenDestroyed         = moho.entity_methods.BeenDestroyed
+local GetFractionComplete   = moho.entity_methods.GetFractionComplete
+local GetPosition           = moho.entity_methods.GetPosition
 
-local GetAIBrain = moho.unit_methods.GetAIBrain
-local GetGuards = moho.unit_methods.GetGuards
-local IsUnitState = moho.unit_methods.IsUnitState
+local GetAIBrain        = moho.unit_methods.GetAIBrain
+local GetGuards         = moho.unit_methods.GetGuards
+local IsUnitState       = moho.unit_methods.IsUnitState
 
-local LOUDABS = math.abs
-local LOUDCOPY = table.copy
-local LOUDENTITY = EntityCategoryContains
-local LOUDFIND = table.find
-local LOUDFLOOR = math.floor
-local LOUDGETN = table.getn
-local LOUDINSERT = table.insert
-local LOUDMAX = math.max
-local LOUDMIN = math.min
-local LOUDREMOVE = table.remove
-local LOUDSORT = table.sort
-
-local VDist2Sq = VDist2Sq
-local ForkThread = ForkThread
-local WaitTicks = coroutine.yield
+local ForkThread    = ForkThread
+local LOUDABS       = math.abs
+local LOUDCOPY      = table.copy
+local LOUDENTITY    = EntityCategoryContains
+local LOUDFIND      = table.find
+local LOUDFLOOR     = math.floor
+local LOUDGETN      = table.getn
+local LOUDINSERT    = table.insert
+local LOUDMAX       = math.max
+local LOUDMIN       = math.min
+local LOUDREMOVE    = table.remove
+local LOUDSORT      = table.sort
+local VDist2Sq      = VDist2Sq
+local WaitTicks     = coroutine.yield
 
 -- add support for builderType (ie. Any, Commander)	-- so now we can specify as follows;
 local builderTypes = { 'Any','T1','T2','T3','SubCommander','Commander' }
 
-local COMMAND = categories.COMMAND
-local FACTORY = categories.FACTORY * categories.STRUCTURE - categories.EXPERIMENTAL
-local T4FACTORIES = categories.FACTORY * categories.STRUCTURE * categories.EXPERIMENTAL
-local GENERALSTRUCTURE = categories.STRUCTURE - categories.NUKE - (categories.ARTILLERY * categories.STRATEGIC)
-local RHIANNE = categories.STRUCTURE * categories.AEON * categories.OPTICS
-local SUBCOMMANDER = categories.SUBCOMMANDER
+local COMMAND           = categories.COMMAND
+local FACTORY           = categories.FACTORY * categories.STRUCTURE - categories.EXPERIMENTAL
+local T4FACTORIES       = categories.FACTORY * categories.STRUCTURE * categories.EXPERIMENTAL
+local GENERALSTRUCTURE  = categories.STRUCTURE - categories.NUKE - (categories.ARTILLERY * categories.STRATEGIC)
+local RHIANNE           = categories.STRUCTURE * categories.AEON * categories.OPTICS
+local SUBCOMMANDER      = categories.SUBCOMMANDER
 
-local LANDUNITS = categories.LAND * categories.MOBILE
-local AIRUNITS = categories.AIR * categories.MOBILE
-local FIGHTERS = categories.AIR * categories.ANTIAIR
-local SEAUNITS = categories.MOBILE - categories.AIR
+local LANDUNITS     = categories.LAND * categories.MOBILE
+local AIRUNITS      = categories.AIR * categories.MOBILE
+local FIGHTERS      = categories.AIR * categories.ANTIAIR
+local SEAUNITS      = categories.MOBILE - categories.AIR
 
-local LANDRESPONSE = (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.COUNTERINTELLIGENCE - categories.ENGINEER - categories.COMMAND
-local SEARESPONSE = (categories.NAVAL * categories.MOBILE) - categories.STRUCTURE - categories.ENGINEER - categories.CARRIER
-local GROUNDATTACK = categories.BOMBER + categories.GROUNDATTACK - categories.ANTINAVY
-local NAVALATTACK = categories.TORPEDOBOMBER + categories.GROUNDATTACK
+local LANDRESPONSE  = (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.COUNTERINTELLIGENCE - categories.ENGINEER - categories.COMMAND
+local SEARESPONSE   = (categories.NAVAL * categories.MOBILE) - categories.STRUCTURE - categories.ENGINEER - categories.CARRIER
+local GROUNDATTACK  = categories.BOMBER + categories.GROUNDATTACK - categories.ANTINAVY
+local NAVALATTACK   = categories.TORPEDOBOMBER + categories.GROUNDATTACK
 
 local PlatoonTemplates = PlatoonTemplates
 
@@ -139,7 +148,6 @@ EngineerManager = Class(BuilderManager) {
         
         if ScenarioInfo.EngineerDialog then
             LOG("*AI DEBUG "..GetAIBrain(unit).Nickname.." Eng "..unit.EntityID.." "..__blueprints[unit.BlueprintID].Description.." added to "..self.ManagerType.." "..self.LocationType)
-            --LOG("*AI DEBUG "..GetAIBrain(unit).Nickname.." Engineer Count is "..self.EngineerList.Count + 1)
         end
 		
         self.EngineerList.Count = self.EngineerList.Count + 1
@@ -214,7 +222,7 @@ EngineerManager = Class(BuilderManager) {
 			local aiBrain = GetAIBrain(unit)
 			
 			if not unit.EnhancementsComplete then
-				unit.EnhanceThread = unit:ForkThread( import('/lua/ai/aibehaviors.lua').SCUSelfEnhanceThread, aiBrain.FactionIndex, aiBrain )
+				unit.EnhanceThread = unit:ForkThread( SCUSelfEnhanceThread, aiBrain.FactionIndex, aiBrain )
 			end
 		end
 
@@ -257,7 +265,7 @@ EngineerManager = Class(BuilderManager) {
             local PlanName      = PlatoonTemplates[Builder.PlatoonTemplate].Plan
 
 			if PlatoonDialog then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." EM "..LocationType.." forms "..repr(BuilderName) )
+				LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..repr(BuilderName).." forms at EM "..LocationType )
 			end
 
             if EngineerDialog then
@@ -321,7 +329,7 @@ EngineerManager = Class(BuilderManager) {
                     ForkThread( import(pafv[1])[pafv[2]], hndl, aiBrain)
 
 					if PlatoonDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..BuilderName.." adds function "..repr(pafv[2]))
+						LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..BuilderName.." adds function "..repr(pafv[2]))
 					end
                 end
             end
@@ -339,7 +347,7 @@ EngineerManager = Class(BuilderManager) {
                 for papk, papv in PlatoonAddPlans do
 
 					if PlatoonDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..BuilderName.." adds plan "..repr(papv))
+						LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..BuilderName.." adds plan "..repr(papv))
 					end
 
                     hndl:ForkThread( hndl[papv], aiBrain )
@@ -352,10 +360,10 @@ EngineerManager = Class(BuilderManager) {
                 for pafk, pafv in PlatoonAddBehaviors do
 
 					if PlatoonDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..BuilderName.." adds behavior "..repr(pafv))
+						LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..BuilderName.." adds behavior "..repr(pafv))
 					end
 
-                    hndl:ForkThread( import('/lua/ai/aibehaviors.lua')[pafv], aiBrain )
+                    hndl:ForkThread( AIBehaviors[pafv], aiBrain )
                 end
             end
             
@@ -369,7 +377,7 @@ EngineerManager = Class(BuilderManager) {
 			
             else
             
-                if PlatoonDialog or ScenarioInfo.EngineerDialog then
+                if ScenarioInfo.EngineerDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..unit.EntityID.." finds NO TASK at EM "..self.LocationType)
                 end
                 
@@ -757,15 +765,15 @@ EngineerManager = Class(BuilderManager) {
 
 		local DrawC = DrawCircle
 
-        local LOUDCOPY = LOUDCOPY
-        local LOUDFIND = LOUDFIND
+        local LOUDCOPY  = LOUDCOPY
+        local LOUDFIND  = LOUDFIND
         local LOUDFLOOR = LOUDFLOOR
         local LOUDLOG10 = math.log10
-        local LOUDMAX = LOUDMAX
-		local LOUDMIN = LOUDMIN
-		local LOUDSORT = LOUDSORT
+        local LOUDMAX   = LOUDMAX
+		local LOUDMIN   = LOUDMIN
+		local LOUDSORT  = LOUDSORT
 		
-		local GetUnitsAroundPoint = AIBrainMethods.GetUnitsAroundPoint
+		local GetUnitsAroundPoint = GetUnitsAroundPoint
         
         local BaseMonitorDialog = ScenarioInfo.BaseMonitorDialog or false
 		
@@ -823,7 +831,7 @@ EngineerManager = Class(BuilderManager) {
 			end
 	
 			if aiBrain.BuilderManagers[LocationType] then
-				aiBrain.BuilderManagers[LocationType].MarkerID = import('/lua/ai/altaiutilities.lua').AISendPing( Location, 'marker', ArmyIndex, aiBrain.Nickname.." "..LocationType )
+				aiBrain.BuilderManagers[LocationType].MarkerID = AISendPing( Location, 'marker', ArmyIndex, aiBrain.Nickname.." "..LocationType )
 			end
 		end
 		
@@ -1080,7 +1088,7 @@ EngineerManager = Class(BuilderManager) {
 				else
                 
                     if aiBrain.BuilderManagers[LocationType].MarkerID then
-   						ForkThread( import('/lua/loudutilities.lua').RemoveBaseMarker, aiBrain, LocationType, aiBrain.BuilderManagers[LocationType].MarkerID)
+   						ForkThread( RemoveBaseMarker, aiBrain, LocationType, aiBrain.BuilderManagers[LocationType].MarkerID)
                     end
                     
                 end
@@ -1118,20 +1126,18 @@ EngineerManager = Class(BuilderManager) {
     
         local BaseMonitorDialog = ScenarioInfo.BaseMonitorDialog
         
-        local BaseMonitor = self.BaseMonitor
-		local threshold = BaseMonitor.AlertLevel
+        local BaseMonitor   = self.BaseMonitor
+		local threshold     = BaseMonitor.AlertLevel
         
         local LocationType = self.LocationType
         
-        local GetPosition = GetPosition
-        
-        local LOUDCOPY = LOUDCOPY
-		local LOUDFLOOR = LOUDFLOOR
-
-		local VDist2Sq = VDist2Sq
-		local WaitTicks = WaitTicks
+        local GetPosition   = GetPosition
+        local LOUDCOPY      = LOUDCOPY
+		local LOUDFLOOR     = LOUDFLOOR
+		local VDist2Sq      = VDist2Sq
+		local WaitTicks     = WaitTicks
 	
-		local GetUnitsAroundPoint = AIBrainMethods.GetUnitsAroundPoint
+		local GetUnitsAroundPoint = GetUnitsAroundPoint
 		
 		local threat = 0
 		
@@ -1145,7 +1151,9 @@ EngineerManager = Class(BuilderManager) {
 
 		-- loop until the alert falls below the trigger or moves outside the alert radius
 		repeat
-        
+
+            BaseMonitorDialog = ScenarioInfo.BaseMonitorDialog or false
+            
 			-- look for units of the threattype
 			if threattype == 'Land' then
             
@@ -1218,7 +1226,7 @@ EngineerManager = Class(BuilderManager) {
 			-- if there are units and the threat is above the threshold
 			-- update the alerts table, time of last alert, ping interface
 			-- and launch the response thread if not already underway --
-			if count > 0 and threat >= BaseMonitor.AlertLevel then
+			if count > 0 and threat >= threshold then
 
 				if BaseMonitorDialog then
 					LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR ALERT "..threattype.." - "..count.." units found with threat of "..threat.." - ALERT !")
@@ -1249,7 +1257,7 @@ EngineerManager = Class(BuilderManager) {
 						LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR ALERT "..threattype.." ALERT ")
 					
 						-- send the visible ping to the interface --
-						import('/lua/ai/altaiutilities.lua').AISendPing(newpos, 'attack', aiBrain.ArmyIndex)
+						AISendPing(newpos, 'attack', aiBrain.ArmyIndex)
 					end
 				end
 			
@@ -1265,7 +1273,7 @@ EngineerManager = Class(BuilderManager) {
 				end
 			end
 
-		until (threat < BaseMonitor.AlertLevel) or VDist2Sq(pos[1],pos[3], baseposition[1],baseposition[3]) > distressrange
+		until (threat < threshold) or VDist2Sq(pos[1],pos[3], baseposition[1],baseposition[3]) > distressrange
 
 		BaseMonitor.AlertsTable[threattype] = nil
 		BaseMonitor.ActiveAlerts = BaseMonitor.ActiveAlerts - 1
@@ -1305,14 +1313,15 @@ EngineerManager = Class(BuilderManager) {
 	-- be between responses from the AI - I grow it by 10 seconds per cycle
 	BaseMonitorDistressResponseThread = function( self, aiBrain )
 	
-        local GetPosition = GetPosition
-        local LOUDABS = LOUDABS
-        local LOUDFLOOR = LOUDFLOOR
-        local VDist2 = VDist2
-        local VDist2Sq = VDist2Sq
-		local WaitTicks = WaitTicks
+        local GetPosition   = GetPosition
+        local LOUDABS       = LOUDABS
+        local LOUDFLOOR     = LOUDFLOOR
+        local VDist2        = VDist2
+        local VDist2Sq      = VDist2Sq
+		local WaitTicks     = WaitTicks
         
         local GetThreatAtPosition = GetThreatAtPosition
+
         local Defense
 
 		local GetThreatOfGroup = function( group, distressType )
@@ -1448,9 +1457,9 @@ EngineerManager = Class(BuilderManager) {
 			LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR DISTRESS RESPONSE underway for "..self.BaseMonitor.ActiveAlerts.." alerts")
 		end
         
-        local BaseMonitor = self.BaseMonitor
+        local BaseMonitor       = self.BaseMonitor
         local AlertResponseTime = BaseMonitor.AlertResponseTime
-        local AlertRings = math.floor( 120/ScenarioInfo.IMAPSize)
+        local AlertRings        = math.floor( 120/ScenarioInfo.IMAPSize)
 
         local GetDistressDistance
         local counter, totalthreatsent, threatlimit
@@ -1891,9 +1900,9 @@ EngineerManager = Class(BuilderManager) {
 	-- function returns a position, a threattype and a threat amount -- false if no distress 
 	BaseMonitorGetDistressLocation = function( self, aiBrain, baseposition, radius, threshold, threattype )
     
-        local LOUDCOPY = LOUDCOPY
+        local LOUDCOPY      = LOUDCOPY
         local PlatoonExists = PlatoonExists
-        local VDist3 = VDist3
+        local VDist3        = VDist3
 	
 		-- Commander Distress is 1st priority --
 		if aiBrain.CDRDistress then
