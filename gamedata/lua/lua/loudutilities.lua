@@ -2,22 +2,23 @@
 --  LOUD specific things
 
 -- You will find lots of useful notes in here 
-local Game = import('game.lua')
+local Game      = import('game.lua')
 
 local AIGetMarkersAroundLocation    = import('ai/aiutilities.lua').AIGetMarkersAroundLocation
-local AIPickEnemyLogic              = import('ai/aiutilities.lua').AIPickEnemyLogic
 local GetOwnUnitsAroundPoint        = import('ai/aiutilities.lua').GetOwnUnitsAroundPoint
 local RandomLocation                = import('ai/aiutilities.lua').RandomLocation
 local SetArmyPoolBuff               = import('ai/aiutilities.lua').SetArmyPoolBuff
-
-local AISendChat                = import('/lua/ai/sorianutilities.lua').AISendChat
-
-local AssignTransportToPool     = import('/lua/ai/transportutilities.lua').AssignTransportToPool
-local ReturnTransportsToPool    = import('/lua/ai/transportutilities.lua').ReturnTransportsToPool
+local AISendChat                    = import('/lua/ai/sorianutilities.lua').AISendChat
+local AssignTransportToPool         = import('/lua/ai/transportutilities.lua').AssignTransportToPool
+local ReturnTransportsToPool        = import('/lua/ai/transportutilities.lua').ReturnTransportsToPool
 
 
 local EntityCategoryCount   = EntityCategoryCount
 local ForkThread            = ForkThread
+local GetArmyUnitCap        = GetArmyUnitCap
+local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
+local GetTerrainHeight      = GetTerrainHeight
+local GetUnitsInRect        = GetUnitsInRect
 local LOUDCOPY              = table.copy
 local LOUDEQUAL             = table.equal
 local LOUDENTITY            = EntityCategoryContains
@@ -26,13 +27,13 @@ local LOUDINSERT            = table.insert
 local LOUDREMOVE            = table.remove
 local LOUDSORT              = table.sort
 local LOUDFLOOR             = math.floor
+local LOUDMAX               = math.max
+local LOUDMOD               = math.mod
 local LOUDSQRT              = math.sqrt
-
-local tostring          = tostring
-local VDist2Sq          = VDist2Sq
-local VDist3            = VDist3
-local WaitSeconds       = WaitSeconds
-local WaitTicks         = coroutine.yield
+local tostring              = tostring
+local VDist2Sq              = VDist2Sq
+local VDist3                = VDist3
+local WaitTicks             = coroutine.yield
 
 local AIBrainMethods = moho.aibrain_methods
 
@@ -64,9 +65,6 @@ local IsBeingBuilt          = moho.unit_methods.IsBeingBuilt
 local IsIdleState           = moho.unit_methods.IsIdleState
 local IsUnitState           = moho.unit_methods.IsUnitState
 
-local GetTerrainHeight  = GetTerrainHeight
-local GetUnitsInRect    = GetUnitsInRect
-
 local VectorCached = { 0, 0, 0 }
 
 local AIRPADS       = categories.AIRSTAGINGPLATFORM - categories.MOBILE
@@ -76,6 +74,39 @@ local PARAGONS      = categories.MASSFABRICATION * categories.EXPERIMENTAL
 
 local timeACTBrains = {}
 local ratioACTBrains = {}
+
+--  I didn't much like doing this but it made sense in the end as
+--  it was going to be a chaotic job to allow Black Ops Adv Command Units
+--  to work otherwise - since they had code which stomps all over the std
+--  AIEconomicBuilders file.  That's kind of rude - so I bypassed all
+--  those issues and got a more streamlined adaptation in the process - yes indeed.
+--  Now we dont need all those engineer platoons to use the unique upgrades
+function BOACU_Installed( aiBrain )
+
+	if not ScenarioInfo.BOACU_Checked then
+		return false
+	else
+		return ScenarioInfo.BOACU_Installed
+	end
+end
+
+function BOU_Installed( aiBrain )
+
+	if not ScenarioInfo.BOU_Checked then
+		return false
+	else
+		return ScenarioInfo.BOU_Installed
+	end
+end
+
+function LOUD_IS_Installed( aiBrain )
+	
+	if not ScenarioInfo.LOUD_IS_Checked then
+		return false
+	else
+		return ScenarioInfo.LOUD_IS_Installed
+	end
+end
 
 -- static version of function from EBC
 function GreaterThanEnergyIncome(aiBrain, eIncome)
@@ -158,8 +189,12 @@ function UnitCapCheckLess(aiBrain, percent)
 	if aiBrain.IgnoreArmyCaps then
 		return true
 	end
+    
+    local ArmyIndex = aiBrain.ArmyIndex
+    local result    = GetArmyUnitCostTotal(ArmyIndex) / GetArmyUnitCap(ArmyIndex)
+    
+    return result < percent
 
-	return ( GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) ) < percent 	
 end
 
 -- static version of function with specific location
@@ -508,13 +543,11 @@ end
 -- gets units that are NOT in a platoon around a point
 function GetFreeUnitsAroundPoint( aiBrain, category, location, radius, useRefuelPool, tmin, tmax, rings, tType )
 
-    local ArmyIndex = aiBrain.ArmyIndex
-    local ArmyPool = aiBrain.ArmyPool
-    local RefuelPool = aiBrain.RefuelPool or false
+    local ArmyIndex     = aiBrain.ArmyIndex
+    local ArmyPool      = aiBrain.ArmyPool
+    local RefuelPool    = aiBrain.RefuelPool or false
     
-    local units = aiBrain:GetUnitsAroundPoint( category, location, radius, 'Ally' )
-    
-    local GetThreatAtPosition = GetThreatAtPosition
+    local units = GetUnitsAroundPoint( aiBrain, category, location, radius, 'Ally' )
 	
     local retUnits = {}
 	local counter = 1
@@ -630,7 +663,7 @@ function SpawnWaveThread( aiBrain )
 	-- spawnwave will begin once the first T3 Air Factory is online - check every 60 seconds until it does
 	while initialdelay do
 	
-		WaitSeconds(60)
+		WaitTicks(601)
 	
 		local T3AirFacs = GetListOfUnits( aiBrain, T3AIRFACS, false, true )
 		
@@ -657,14 +690,15 @@ function SpawnWaveThread( aiBrain )
         -- the spawnwave cannot happen unless a T3 Air Factory is present
 		if LOUDGETN(T3AirFacs) == 0 then
             LOG("*AI DEBUG "..aiBrain.Nickname.." spawnwave disabled - no factory")
-            WaitSeconds(120)
+
+            WaitTicks(1201)
 			continue
 		end    
 		
 		-- increase the size of the wave each time and vary it with the build cheat level
-		local units = math.floor((wave * 1.5) * aiBrain:TotalCheat() )
+		local units = LOUDFLOOR((wave * 1.5) * aiBrain:TotalCheat() )
         -- insure that there is always at least 1 unit (in case of negative multipliers)
-        local units = math.max( units, 1 )
+        local units = LOUDMAX( units, 1 )
 		
 		-- increase the unit cap by the number of units * 5 - accounting for the multiple types
 		SetArmyUnitCap( aiBrain.ArmyIndex, GetArmyUnitCap( aiBrain.ArmyIndex) + (units * 5) )
@@ -739,7 +773,7 @@ function SpawnWaveThread( aiBrain )
         --LOG("*AI DEBUG "..aiBrain.Nickname.." next spawnwave in "..spawndelay.." seconds")
 
 		-- wait for the next spawn wave
-		WaitTicks(math.floor(spawndelay * 10))
+		WaitTicks(LOUDFLOOR(spawndelay * 10))
 	end
 	
 	LOG("*AI DEBUG "..aiBrain.Nickname.." Spawnwave disabled")
@@ -790,76 +824,6 @@ function StartAdaptiveCheatThreads()
 		ForkThread(TimeAdaptiveCheatThread)
 	end
     
-end
-
-function StartSpeedProfile()
-
-    --ForkThread (SpeedProfile)
-
-end
-
-function SpeedProfile()
-
-    -- account for time expended prior to game time starting
-    --local startvalue = GetSystemTimeSecondsOnlyForProfileUse()
-    
-    local GSO = GetSystemTimeSecondsOnlyForProfileUse
-    --local GTS = GetGameTimeSeconds
-    
---[[
-    while true do
-    
-        local gamesecondsperactualseconds = ( GSO() - startvalue ) / GTS()
-        local ax = GTS() / (GSO() - startvalue)
-    
-        LOG("*AI DEBUG Speed Profile at Gametime "..repr(GTS()).." is "..gamesecondsperactualseconds.." -- "..ax )
-    
-        -- this will actually be precisely 5 seconds -- at least according to GetGameTimeSeconds
-        -- not quite sure where the extra tick is being lost
-        WaitTicks(51)
-        
-    end
---]]
-
-    local a
-    
-    local b = {}
-    
-    local total = 0
-    
-    local count = 1
-    
-    local avg = 0
-    
-    local period = 30
-    
-    while true do
-    
-        a = GSO()
-       
-        WaitTicks(11)
-       
-        a = GSO() - a
-       
-        total = total - ( b[count] or 0 )
-       
-        b[count] = a
-       
-        total = total + a
-       
-        avg = total/period
-       
-        count = count + 1
-       
-        if count > period then
-       
-            count = 1
-            
-        end
-
-        LOG("*AI DEBUG Time per game second "..a.."  Avg over "..period.." seconds "..avg)
-    
-    end
 end
 
 -- The following 2 functions are courtesy of:
@@ -1016,7 +980,7 @@ function TimeAdaptiveCheatThread()
                 
 					LOG("*AI DEBUG "..aiBrain.Nickname.." ACT TIMED unsubbed: lower limit met")
                     
-					SetArmyPoolBuff(aiBrain, math.max(cheatLimit, aiBrain:TotalCheat()))
+					SetArmyPoolBuff(aiBrain, LOUDMAX(cheatLimit, aiBrain:TotalCheat()))
                     
 					LOUDREMOVE(timeACTBrains, i)
                     
@@ -1134,14 +1098,17 @@ function PlatoonDistressMonitor( aiBrain )
 	-- create the data structure
     aiBrain.PlatoonDistress = { ['AlertSounded'] = false, ['Platoons'] = {} }
 
-	local LOUDGETN = LOUDGETN
+	local LOUDGETN      = LOUDGETN
     local PlatoonExists = PlatoonExists
-    local RebuildTable = aiBrain.RebuildTable
-    local WaitTicks = WaitTicks
+    local RebuildTable  = aiBrain.RebuildTable
+    local WaitTicks     = WaitTicks
 
     local change = false
     
-    local PlatoonDistress = aiBrain.PlatoonDistress
+    local PlatoonDistress   = aiBrain.PlatoonDistress
+
+    local AlertSounded      = PlatoonDistress.AlertSounded
+    local Platoons          = PlatoonDistress.Platoons
 
 	while true do
 
@@ -1283,6 +1250,12 @@ end
 -- attack planner goal and sets the flag on that base
 function SetPrimaryLandAttackBase( aiBrain )
 
+    while aiBrain.AttackPlan.Pending do
+        WaitTicks(21)
+    end
+    
+    local AttackPlanDialog = ScenarioInfo.AttackPlanDialog or false
+
     -- clear existing base reference if it's no longer active
     if not aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].EngineerManager.Active then
         aiBrain.PrimaryLandAttackBase = false
@@ -1345,13 +1318,13 @@ function SetPrimaryLandAttackBase( aiBrain )
             return
         end
     
-        if ScenarioInfo.AttackPlanDialog then
+        if AttackPlanDialog then
         
-            LOG("*AI DEBUG "..aiBrain.Nickname.." setting Primary Land Attack Base for goal at "..repr(goal))
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Current Primary Land Attack Base is "..repr(aiBrain.PrimaryLandAttackBase).." - LAND mode "..repr(aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode))
+            LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan reviews Primary Land Attack Base for goal at "..repr(goal))
+            LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan Current Primary Land Attack Base is "..repr(aiBrain.PrimaryLandAttackBase).." - LAND mode "..repr(aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode))
 
-            if aiBrain.LastPrimaryLandAttackBase then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Previous Primary Land Attack Base is "..repr(aiBrain.LastPrimaryLandAttackBase))
+            if aiBrain.LastPrimaryLandAttackBase and aiBrain.LastPrimaryLandAttackBase != aiBrain.PrimaryLandAttackBase then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan Previous Primary Land Attack Base is "..repr(aiBrain.LastPrimaryLandAttackBase))
             end
         end
         
@@ -1364,11 +1337,11 @@ function SetPrimaryLandAttackBase( aiBrain )
             -- make this base the Primary
             Primary = Bases[1].BaseName
             
-            if ScenarioInfo.AttackPlanDialog then
+            if AttackPlanDialog then
             
                 if aiBrain.PrimaryLandAttackBase != Primary then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(Primary).." is now the Primary Land Attack Base - mode LAND is "..repr(currentlandbasemode))
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." setting Previous Land Attack Base to "..repr(aiBrain.PrimaryLandAttackBase))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan setting "..repr(Primary).." as Primary Land Attack Base - mode LAND is "..repr(currentlandbasemode))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan records "..repr(aiBrain.PrimaryLandAttackBase).." as previous" )
                 end
                 
             end
@@ -1423,11 +1396,7 @@ function SetPrimaryLandAttackBase( aiBrain )
                 -- this should enable LOUD to switch over to a pure LAND based attack when
                 -- his primary base is connected, by land, to the current goal
                 -- and revert to amphibious building otherwise
-
-                --if aiBrain.BuilderManagers[v.BaseName].LandMode != currentlandbasemode then
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." switching Land mode to "..repr(currentlandbasemode) )
-                --end
-                
+ 
                 aiBrain.BuilderManagers[v.BaseName].LandMode = currentlandbasemode
             end
             
@@ -1436,7 +1405,7 @@ function SetPrimaryLandAttackBase( aiBrain )
             if aiBrain.PrimaryLandAttackBase then
             
                 if aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode != currentlandbasemode then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(aiBrain.PrimaryLandAttackBase).." PRIMARY - switching Land mode to "..repr(currentlandbasemode) )
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan "..repr(aiBrain.PrimaryLandAttackBase).." PRIMARY - switching Land mode to "..repr(currentlandbasemode) )
                 end
             
                 aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode = currentlandbasemode
@@ -1469,7 +1438,11 @@ end
 -- attack planner goal and sets the flag on that base
 function SetPrimarySeaAttackBase( aiBrain )
 
-    --LOG("*AI DEBUG "..aiBrain.Nickname.." attempting to set PrimarySeaAttackBase")
+    while aiBrain.AttackPlan.Pending do
+        WaitTicks(21)
+    end
+    
+    local AttackPlanDialog = ScenarioInfo.AttackPlanDialog or false
 
     -- clear existing base reference if it's no longer active
     if not aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].EngineerManager.Active then
@@ -1526,14 +1499,14 @@ function SetPrimarySeaAttackBase( aiBrain )
             return
         end
     
-        if ScenarioInfo.AttackPlanDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." setting Primary Sea Attack Base for goal at "..repr(goal))
+        if AttackPlanDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan reviews Primary Sea Attack Base for goal at "..repr(goal))
 
             if aiBrain.PrimarySeaAttackBase then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Current Primary Sea Attack Base is "..repr(aiBrain.PrimarySeaAttackBase))
+                LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan Current Primary Sea Attack Base is "..repr(aiBrain.PrimarySeaAttackBase))
             end
             if aiBrain.LastPrimarySeaAttackBase then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Previous Primary Sea Attack Base is "..repr(aiBrain.LastPrimarySeaAttackBase))
+                LOG("*AI DEBUG "..aiBrain.Nickname.." AttackPlan Previous Primary Sea Attack Base is "..repr(aiBrain.LastPrimarySeaAttackBase))
             end
         end
 
@@ -1545,8 +1518,6 @@ function SetPrimarySeaAttackBase( aiBrain )
         
             -- make the closest one the Primary
             Primary = Bases[1].BaseName
-            
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(Primary).." is now the Primary Sea Attack Base")
             
             -- set the distance trigger
             currentgoaldistance = Bases[1].Distance
@@ -1581,16 +1552,13 @@ function SetPrimarySeaAttackBase( aiBrain )
                         if aiBrain.DeliverStatus then
                             ForkThread( AISendChat, 'allies', ArmyBrains[aiBrain:GetArmyIndex()].Nickname, 'My Primary SEA Base is now '..aiBrain.PrimarySeaAttackBase )
                         end
-                        
                     end
 
-                -- if the location is not the primary
-                -- check for any units that need to be moved up 
+                -- if the location is not the primary -- check for any units that need to be moved up 
                 else
             
                     aiBrain.BuilderManagers[v.BaseName].PrimarySeaAttackBase = false
                     builderManager:ForkThread( ClearOutBase, aiBrain )
-
                 end
             end
            
@@ -1610,14 +1578,10 @@ function SetPrimarySeaAttackBase( aiBrain )
 
                 aiBrain.PrimarySeaAttackBase = v.BaseName
                 aiBrain.PrimarySeaAttackBaseDistance = 99999
-            
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." is now the Primary Sea Attack Base")
                 
                 break
-
 			end
         end
-        
     end
     
 end
@@ -1664,7 +1628,7 @@ function ClearOutBase( manager, aiBrain )
             local ident = Random(1,999999)
             
             if PlatoonDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..basename.." Creates ClearOutLand"..tostring(ident) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon Creates ClearOutLand"..tostring(ident).." at "..basename )
             end
 
             local plat = MakePlatoon( aiBrain,'ClearOutLand'..tostring(ident),'none')
@@ -1698,7 +1662,7 @@ function ClearOutBase( manager, aiBrain )
             local ident = Random(1,999999)
             
             if PlatoonDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..basename.." Creates ClearOutAmphib"..tostring(ident) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon Creates ClearOutAmphib"..tostring(ident).." at "..basename )
             end
 
             local plat = MakePlatoon( aiBrain,'ClearOutAmphib'..tostring(ident),'none')
@@ -1732,7 +1696,7 @@ function ClearOutBase( manager, aiBrain )
             local ident = Random(1,999999)
             
             if PlatoonDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..basename.." Creates ClearOutSea"..tostring(ident) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon Creates ClearOutSea"..tostring(ident).." at "..basename )
             end
 
             local plat = MakePlatoon( aiBrain,'ClearOutSea'..tostring(ident),'none')
@@ -1766,7 +1730,7 @@ function ClearOutBase( manager, aiBrain )
             local ident = Random(1,999999)
             
             if PlatoonDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..basename.." Creates ClearOutFighters"..tostring(ident) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon Creates ClearOutFighters"..tostring(ident).." at "..basename )
             end
 
             local plat = MakePlatoon( aiBrain,'ClearOutFighters'..tostring(ident),'none')
@@ -1823,7 +1787,7 @@ function ClearOutBase( manager, aiBrain )
             local ident = Random(1,999999)
             
             if PlatoonDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..basename.." Creates ClearOutBombers"..tostring(ident) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon Creates ClearOutBombers"..tostring(ident).." at "..basename )
             end
 
             local plat = MakePlatoon( aiBrain,'ClearOutBombers'..tostring(ident),'none')
@@ -1851,7 +1815,7 @@ function ClearOutBase( manager, aiBrain )
             local ident = Random(1,999999)
             
             if PlatoonDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..basename.." Creates ClearOutTorpedoBombers"..tostring(ident) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon Creates ClearOutTorpedoBombers"..tostring(ident).." at "..basename )
             end
 
             local plat = MakePlatoon( aiBrain,'ClearOutTorpedoBombers'..tostring(ident),'none')
@@ -1881,12 +1845,14 @@ function ClearOutBase( manager, aiBrain )
 end
 
 function ResetPFMTasks (PFM, aiBrain)
+
+    local PriorityDialog = ScenarioInfo.PriorityDialog
 	
 	-- Review ALL the PFM Builders for PriorityFunction task changes
     local NewPriority, temporary
 	local newtasks = 0
     
-    if ScenarioInfo.PriorityDialog then
+    if PriorityDialog then
         LOG("*AI DEBUG "..aiBrain.Nickname.." "..PFM.ManagerType.." "..PFM.LocationType.." Resets Any PFM Tasks")
     end
 
@@ -1898,7 +1864,7 @@ function ResetPFMTasks (PFM, aiBrain)
 
             if NewPriority and NewPriority != BuilderTask.Priority then
 
-                if ScenarioInfo.PriorityDialog then
+                if PriorityDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..PFM.ManagerType.." "..PFM.LocationType.." resets "..BuilderTask.BuilderName.." to "..repr(NewPriority).." Temporary is "..repr(temporary))
                 end
 
@@ -1906,9 +1872,7 @@ function ResetPFMTasks (PFM, aiBrain)
 
                 -- signal a resort of the PFM Builders
                 PFM.BuilderData['Any'].NeedSort = true
-
             end
-
         end
 
 		if (not NewPriority and BuilderTask.Priority > 99) or (NewPriority and NewPriority > 99) then
@@ -1963,7 +1927,7 @@ function AirUnitRefitThread( unit, aiBrain )
         local ident = Random(100000,999999)
 
         if PlatoonDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Creates AirRefit"..tostring(ident) )
+            LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon Creates AirRefit"..tostring(ident) )
         end
 
         local returnpool = MakePlatoon( aiBrain,'AirRefit'..tostring(ident), 'none')
@@ -1978,39 +1942,38 @@ function AirUnitRefitThread( unit, aiBrain )
             unit.PlatoonHandle = returnpool
         end
 
-		local fuellimit = .75
-		local healthlimit = .80
+        -- these values set the point at which a unit can leave the refit thread
+		local fuellimit     = .80
+		local healthlimit   = .80
 
 		local fuel, health, unitPos, plats, closestairpad, distance
 		local platpos, tempDist
 
 		local rtbissued = false
 
-        local GetFuelRatio = GetFuelRatio
-        local GetCurrentUnits = GetCurrentUnits
+        local GetFuelRatio      = GetFuelRatio
+        local GetHealthPercent  = unit.GetHealthPercent
+        local GetCurrentUnits   = GetCurrentUnits
         
-        local LOUDCOPY = table.copy
+        local LOUDCOPY = LOUDCOPY
         local LOUDSORT = LOUDSORT
-        
         local VDist3Sq = VDist3Sq
         local WaitTicks = WaitTicks
-        
-        
 
 		while (not unit.Dead) do
 		
-			fuel = GetFuelRatio(unit)
-			health = unit:GetHealthPercent()
+			fuel    = GetFuelRatio(unit)
+			health  = GetHealthPercent(unit)
 			
 			if ( fuel > -1 and fuel < fuellimit ) or health < healthlimit then
-
-				-- check for any airpads -- ignore mobile ones 
-				if GetCurrentUnits( aiBrain, categories.AIRSTAGINGPLATFORM - categories.MOBILE) > 0 then
 				
-					unitPos = LOUDCOPY(GetPosition(unit))
-					
+                unitPos = LOUDCOPY(GetPosition(unit))
+	
+				-- check for any airpads -- ignore mobile ones 
+				if GetCurrentUnits( aiBrain, AIRPADS ) > 0 then
+				
 					-- now limit to airpads within 30k
-					plats = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint( aiBrain, categories.AIRSTAGINGPLATFORM - categories.MOBILE, unitPos, 1536 )
+					plats = GetOwnUnitsAroundPoint( aiBrain, AIRPADS, unitPos, 1536 )
 					
 					-- Locate closest airpad
 					if plats[1] then
@@ -2032,14 +1995,16 @@ function AirUnitRefitThread( unit, aiBrain )
 					rtbissued = true
 
 					-- find closest base
-					local baseposition = FindClosestBaseName( aiBrain, GetPosition(unit), true, false)
+					local baseposition = FindClosestBaseName( aiBrain, unitPos, true, false)
 
 					if baseposition then
+                    
+                        baseposition = aiBrain.BuilderManagers[baseposition].Position
 
 						IssueStop ( {unit} )
 						IssueClearCommands( {unit} )
 
-                        local safePath, reason = returnpool.PlatoonGenerateSafePathToLOUD(aiBrain, returnpool, 'Air', GetPosition(unit), aiBrain.BuilderManagers[baseposition].Position, 16, 256)
+                        local safePath, reason = returnpool.PlatoonGenerateSafePathToLOUD(aiBrain, returnpool, 'Air', unitPos, baseposition, 16, 256)
 			
                         if safePath then
 
@@ -2049,7 +2014,7 @@ function AirUnitRefitThread( unit, aiBrain )
                             end
                         else
                             -- go direct -- possibly bad
-                            IssueMove( {unit}, aiBrain.BuilderManagers[baseposition].Position )
+                            IssueMove( {unit}, baseposition )
                         end
 					end
 				end
@@ -2108,11 +2073,11 @@ function AirStagingThread( unit, airstage, aiBrain )
 
 	local loadstatus = 0
 
-    local EntityCategoryContains = EntityCategoryContains
-    local GetFuelRatio = GetFuelRatio
-    local GetHealthPercent = unit.GetHealthPercent
-    local IsUnitState = moho.unit_methods.IsUnitState
-    local WaitTicks = WaitTicks
+    local EntityCategoryContains    = EntityCategoryContains
+    local GetFuelRatio              = GetFuelRatio
+    local GetHealthPercent          = unit.GetHealthPercent
+    local IsUnitState               = IsUnitState
+    local WaitTicks                 = WaitTicks
 	
 	if not airstage.Dead then
 		
@@ -2121,15 +2086,11 @@ function AirStagingThread( unit, airstage, aiBrain )
 			IssueStop( {unit} )
 			IssueClearCommands( {unit} )
 
-            local safePath, reason = aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD(aiBrain, unit.PlatoonHandle, 'Air', unit:GetPosition(), GetPosition(airstage), 20, 256)
+            local safePath, reason = aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD(aiBrain, unit.PlatoonHandle, 'Air', GetPosition(unit), GetPosition(airstage), 20, 256)
             
             if not unit.Dead then
 			
                 if safePath then
-                
-                    --if ScenarioInfo.TransportDialog then
-                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.EntityID.." gets RTB path of "..repr(safePath).." to airstaging - unit is "..repr(unit.Dead) )
-                    --end
 
                     -- use path
                     for _,p in safePath do
@@ -2137,10 +2098,6 @@ function AirStagingThread( unit, airstage, aiBrain )
                     end
                 
                 else
-            
-                    --if ScenarioInfo.TransportDialog then
-                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.EntityID.." no safe path for RTB -- airstaging -- after drop")
-                    --end
 
                     -- go direct -- possibly bad
                     IssueMove( {unit}, GetPosition(airstage))
@@ -2163,7 +2120,7 @@ function AirStagingThread( unit, airstage, aiBrain )
 	-- loop until unit attached, idle, dead or it's fixed itself
 	while (not unit.Dead) and (not airstage.Dead) do
 		
-		if (( GetFuelRatio(unit) < .75 and GetFuelRatio(unit) != -1) or GetHealthPercent(unit) < .80) and (not airstage.Dead) then
+		if (( GetFuelRatio(unit) < .80 and GetFuelRatio(unit) != -1) or GetHealthPercent(unit) < .80) and (not airstage.Dead) then
 		
 			WaitTicks(11)
             waitcount = waitcount + 1
@@ -2221,8 +2178,6 @@ function AirStagingThread( unit, airstage, aiBrain )
 	end
 	
 	if not unit.Dead then
-        
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." Unit "..unit.EntityID.." leaving AirStagingThread")
 	
 		unit:MarkWeaponsOnTransport(unit, false)
 	end	
@@ -2246,7 +2201,7 @@ function TeleportLocationBlocked( self, location )
 			for i, unit in unitList do
 			
 				local noTeleDistance = __blueprints[unit.BlueprintID].Defense.NoTeleDistance
-				local atposition = unit:GetPosition()
+				local atposition = GetPosition(unit)
 				local targetdestdistance = VDist2(location[1], location[3], atposition[1], atposition[3])
 				
 				-- if the antiteleport range covers the targetlocation
@@ -2270,51 +2225,18 @@ function TeleportLocationBlocked( self, location )
 	return false
 end
 
---  I didn't much like doing this but it made sense in the end as
---  it was going to be a chaotic job to allow Black Ops Adv Command Units
---  to work otherwise - since they had code which stomps all over the std
---  AIEconomicBuilders file.  That's kind of rude - so I bypassed all
---  those issues and got a more streamlined adaptation in the process - yes indeed.
---  Now we dont need all those engineer platoons to use the unique upgrades
-function BOACU_Installed( aiBrain )
-
-	if not ScenarioInfo.BOACU_Checked then
-		return false
-	else
-		return ScenarioInfo.BOACU_Installed
-	end
-end
-
-function BOU_Installed( aiBrain )
-
-	if not ScenarioInfo.BOU_Checked then
-		return false
-	else
-		return ScenarioInfo.BOU_Installed
-	end
-end
-
-function LOUD_IS_Installed( aiBrain )
-	
-	if not ScenarioInfo.LOUD_IS_Checked then
-		return false
-	else
-		return ScenarioInfo.LOUD_IS_Installed
-	end
-end
-
 -- Ok - a rather significant change here - I've moved all the custom units into global memory - Why ?
 -- Simple - carrying it around on each brain is a waste -  and loading factions that aren't used is also wasteful
 function AddCustomUnitSupport( aiBrain )
-
-    --LOG("*AI DEBUG AddCustomUnitSupport " )
 
 	local interExcludes = {}
 
 	-- First check for inter-mod exclusions
 	for i, m in __active_mods do
+    
 		local env = {}
 		local eOk, eResult = pcall(doscript, m.location..'/excludes.lua', env)
+        
 		if eOk then
 			for _, e in env do
 				if e.mod then
@@ -2485,14 +2407,13 @@ function EconomyMonitor( aiBrain )
         --aiBrain.EcoData['MassStorage'][point] = 0        
 	end    
 
-    local GetEconomyIncome = GetEconomyIncome
-    local GetEconomyRequested = AIBrainMethods.GetEconomyRequested
-	local GetEconomyTrend = AIBrainMethods.GetEconomyTrend
-    --local GetEconomyStoredRatio = AIBrainMethods.GetEconomyStoredRatio
+    local GetEconomyIncome      = GetEconomyIncome
+    local GetEconomyRequested   = GetEconomyRequested
+	local GetEconomyTrend       = GetEconomyTrend
 
 	local LOUDMIN = math.min
 
-	local WaitTicks = coroutine.yield
+	local WaitTicks = WaitTicks
 
 	-- array totals
     local eIncome = 0
@@ -2957,7 +2878,7 @@ function SetBaseRallyPoints( aiBrain, basename, basetype, rallypointradius, orie
         end
 	
 		-- This gives us the number of approx. 8 ogrid steps in the distance
-		local steps = math.floor( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 8 ) + 1
+		local steps = LOUDFLOOR( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 8 ) + 1
 	
 		local xstep = (pos[1] - targetPos[1]) / steps
 		local ystep = (pos[3] - targetPos[3]) / steps
@@ -3040,12 +2961,12 @@ end
 -- no longer valid means no engineers AND no factories 
 -- This only applies to CountedBases -- non-counted bases are destroyed when all structures within 60 are dead
 function DeadBaseMonitor( aiBrain )
+    
+	WaitTicks(1801)     -- dont start for three minutes
 
     if ScenarioInfo.DeadBaseMonitorDialog then
         LOG("*AI DEBUG "..aiBrain.Nickname.." DBM (Dead Base Monitor) begins")
     end
-    
-	WaitTicks(1800)	#-- dont start for 3 minutes
 
     local EntityCategoryCount = EntityCategoryCount
     
@@ -3060,10 +2981,12 @@ function DeadBaseMonitor( aiBrain )
 	local groupair, groupaircount
 	local groupsea, groupseacount
     
-    local STRUCTURES = categories.STRUCTURE - categories.WALL
-    local ALLUNITS = categories.ALLUNITS - categories.WALL
+    local FACTORIES     = categories.FACTORY
+    local STRUCTURES    = categories.STRUCTURE - categories.WALL
+    local ALLUNITS      = categories.ALLUNITS - categories.WALL
     
     local BM, EM, FM, PFM
+    local CountedBase
     local DeadBaseMonitorDialog
 
 	while true do
@@ -3079,20 +3002,22 @@ function DeadBaseMonitor( aiBrain )
 			changed = false
 			structurecount = 0
 
-			platland = false
-			platair = false
-			platsea = false
+			platland    = false
+			platair     = false
+			platsea     = false
             
             if DeadBaseMonitorDialog then
                 LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM processing - PrimaryLand "..repr(v.PrimaryLandAttackBase).." - PrimarySea "..repr(v.PrimarySeaAttackBase))
             end
+            
+            CountedBase = v.CountedBase
 
-			if not v.CountedBase then
+			if not CountedBase then
 				structurecount = LOUDGETN( GetOwnUnitsAroundPoint( aiBrain, STRUCTURES, v.Position, 60) )
 			end
             
-            EM = v.EngineerManager
-            FM = v.FactoryManager
+            EM  = v.EngineerManager
+            FM  = v.FactoryManager
             PFM = v.PlatoonFormManager
             
             if DeadBaseMonitorDialog then
@@ -3104,8 +3029,8 @@ function DeadBaseMonitor( aiBrain )
             end
 
 			-- if a base has no factories
-			if (v.CountedBase and EntityCategoryCount( categories.FACTORY, FM.FactoryList ) <= 0) or
-				(not v.CountedBase and structurecount < 1) then
+			if (CountedBase and EntityCategoryCount( FACTORIES, FM.FactoryList ) <= 0) or
+				(not CountedBase and structurecount < 1) then
                 
                 -- if the base has no engineers - increase the no factory count
                 if EntityCategoryCount( ALLUNITS, EM.EngineerList ) <= 0 then 
@@ -3117,8 +3042,8 @@ function DeadBaseMonitor( aiBrain )
                     aiBrain.BuilderManagers[k].nofactorycount = BM[k].nofactorycount + 1
                 end
 
-				-- if base has no engineers AND has had no factories for about 250 seconds
-				if EntityCategoryCount( ALLUNITS, EM.EngineerList ) <= 0 and BM[k].nofactorycount >= 10 then
+				-- if base has no engineers AND has had no factories for about 120 seconds
+				if EntityCategoryCount( ALLUNITS, EM.EngineerList ) <= 0 and BM[k].nofactorycount >= 6 then
 				
                     if DeadBaseMonitorDialog then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - removing base" )
@@ -3178,7 +3103,7 @@ function DeadBaseMonitor( aiBrain )
 					end
 
 					-- update the base counter
-					if v.CountedBase then
+					if CountedBase then
 					
 						if v.BaseType == 'Sea' then
 							aiBrain.NumBasesNaval = aiBrain.NumBasesNaval - 1
@@ -3237,7 +3162,7 @@ function PathGeneratorThread( aiBrain )
 		aiBrain.dist_comp = LOUDSQRT( math.pow(ScenarioInfo.size[1],2) + math.pow(ScenarioInfo.size[2],2) )
 	end
 
-	WaitSeconds(20)
+	WaitTicks(201)
 
 	aiBrain:ForkThread1( PathGeneratorAir )
 	aiBrain:ForkThread1( PathGeneratorAmphibious )
@@ -3254,16 +3179,13 @@ end
 -- which makes path selections sensitive to threat that might prevent them from getting to a goal
 function PathGeneratorAir( aiBrain )
 	
-	local GetThreatBetweenPositions = AIBrainMethods.GetThreatBetweenPositions
-    local PlatoonExists = PlatoonExists
+	local GetThreatBetweenPositions = GetThreatBetweenPositions
+    local PlatoonExists             = PlatoonExists
 
 	local LOUDCOPY = LOUDCOPY
     local LOUDEQUAL = LOUDEQUAL
-	local LOUDFLOOR = math.floor
     local LOUDLOG10 = math.log10
-    local MATHMAX = math.max
 
-	local LOUDINSERT = table.insert
 	local LOUDREMOVE = table.remove
 	local LOUDSORT = LOUDSORT
 	local ForkThread = ForkThread
@@ -3314,14 +3236,14 @@ function PathGeneratorAir( aiBrain )
 
 	local function AStarLoopBody()
 
-        local GetThreatBetweenPositions = AIBrainMethods.GetThreatBetweenPositions
-        local GetThreatAtPosition = GetThreatAtPosition
+        local GetThreatBetweenPositions = GetThreatBetweenPositions
+        local GetThreatAtPosition       = GetThreatAtPosition
+        
         local LOUDCOPY = LOUDCOPY
         local LOUDEQUAL = LOUDEQUAL
         local LOUDINSERT = LOUDINSERT
         local LOUDLOG10 = LOUDLOG10
         local LOUDSORT = LOUDSORT
-        local MATHMAX = MATHMAX
         local VDist3 = VDist3
 
         local Cost, newnode, Node, Pathcount, position, queueitem, testposition, testpositionlength, Threat		
@@ -3421,8 +3343,6 @@ function PathGeneratorAir( aiBrain )
 	--	Testpath = testPath,
 	--	ThreatLayer = threattype,
 	--	ThreatWeight = threatallowed,	-- this is the maximum total threat this platoon is allowed to encounter
-    
-
 
 	-- i've come to a conclusion about how pathing can take casualties into account along the way -- in our case this
 	-- would be represented by the platoon having a declining threat as it encounters enemy threat along its chosen path
@@ -3437,17 +3357,17 @@ function PathGeneratorAir( aiBrain )
 
             closed = {}
             
-            destination = data.Dest
-            EndPosition = data.EndNode.position
-            StartLength = data.Startlength or 0
-            StartNode = data.StartNode
-            StartPosition = StartNode.position
-            stepsize = data.Stepsize
-            
-            checkrange = stepsize*stepsize
+            destination     = data.Dest
+            EndPosition     = data.EndNode.position
+            StartLength     = data.Startlength or 0
+            StartNode       = data.StartNode
+            StartPosition   = StartNode.position
+            stepsize        = data.Stepsize
+           
+            checkrange      = stepsize*stepsize
 
-            ThreatLayer = data.ThreatLayer
-            ThreatWeight = data.ThreatWeight
+            ThreatLayer     = data.ThreatLayer
+            ThreatWeight    = data.ThreatWeight
             
             if PathFindingDialog then
                 LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind AIR starts find from "..repr(StartNode[1]).." "..repr(StartPosition).." to "..repr(data.EndNode[1]).." "..repr(EndPosition) )
@@ -3459,7 +3379,7 @@ function PathGeneratorAir( aiBrain )
             EndThreat = 0
             
             if ThreatWeight < 99999 then
-                EndThreat = GetThreatBetweenPositions( aiBrain, EndPosition, destination, nil, ThreatLayer ) / MATHMAX(1,(VDist3( EndPosition, destination )/IMAPRadius ))
+                EndThreat = GetThreatBetweenPositions( aiBrain, EndPosition, destination, nil, ThreatLayer ) / LOUDMAX(1,(VDist3( EndPosition, destination )/IMAPRadius ))
             end
             
             -- NOTE: We insert the ThreatWeight into the data we carry in the queue now - which will allow us to decrease it with each step we take that has threat
@@ -3496,16 +3416,13 @@ end
 
 function PathGeneratorAmphibious(aiBrain)
 
-	local GetThreatBetweenPositions = AIBrainMethods.GetThreatBetweenPositions
-    local PlatoonExists = PlatoonExists
+	local GetThreatBetweenPositions = GetThreatBetweenPositions
+    local PlatoonExists             = PlatoonExists
 
 	local LOUDCOPY = LOUDCOPY
     local LOUDEQUAL = LOUDEQUAL
-	local LOUDFLOOR = math.floor
-    local MATHMAX = math.max
     local LOUDLOG10 = math.log10
 
-	local LOUDINSERT = table.insert
 	local LOUDREMOVE = table.remove
 	local LOUDSORT = LOUDSORT
 	local ForkThread = ForkThread
@@ -3561,14 +3478,14 @@ function PathGeneratorAmphibious(aiBrain)
     
 	local function AStarLoopBody()
 
-        local GetThreatBetweenPositions = AIBrainMethods.GetThreatBetweenPositions
-        local GetThreatAtPosition = GetThreatAtPosition
+        local GetThreatBetweenPositions = GetThreatBetweenPositions
+        local GetThreatAtPosition       = GetThreatAtPosition
+        
         local LOUDCOPY = LOUDCOPY
         local LOUDEQUAL = LOUDEQUAL
         local LOUDINSERT = LOUDINSERT
         local LOUDLOG10 = LOUDLOG10
         local LOUDSORT = LOUDSORT
-        local MATHMAX = MATHMAX
         local VDist3 = VDist3
 
         local Cost, newnode, Node, Pathcount, position, queueitem, testposition, testpositionlength, Threat	
@@ -3701,7 +3618,7 @@ function PathGeneratorAmphibious(aiBrain)
             EndThreat = 0
             
             if ThreatWeight < 99999 then
-                EndThreat = GetThreatBetweenPositions( aiBrain, EndPosition, destination, nil, ThreatLayer ) / MATHMAX(1,(VDist3( EndPosition, destination )/IMAPRadius ))
+                EndThreat = GetThreatBetweenPositions( aiBrain, EndPosition, destination, nil, ThreatLayer ) / LOUDMAX(1,(VDist3( EndPosition, destination )/IMAPRadius ))
             end
 			
 			-- NOTE: We insert the ThreatWeight into the data we carry in the queue now - which will allow us to decrease it with each step we take that has threat
@@ -3738,15 +3655,12 @@ end
 
 function PathGeneratorLand(aiBrain)
 
-    local PlatoonExists = PlatoonExists
-
-    local GetThreatBetweenPositions = AIBrainMethods.GetThreatBetweenPositions
+    local GetThreatBetweenPositions = GetThreatBetweenPositions
+    local PlatoonExists             = PlatoonExists
+    
 	local LOUDCOPY = LOUDCOPY
     local LOUDEQUAL = LOUDEQUAL
-	local LOUDFLOOR = math.floor
-    local MATHMAX = math.max
 
-	local LOUDINSERT = table.insert
 	local LOUDREMOVE = table.remove
 	local LOUDSORT = LOUDSORT
 	local ForkThread = ForkThread
@@ -3801,7 +3715,6 @@ function PathGeneratorLand(aiBrain)
         local LOUDEQUAL = LOUDEQUAL
         local LOUDINSERT = LOUDINSERT
         local LOUDSORT = LOUDSORT
-        local MATHMAX = MATHMAX
         local VDist3 = VDist3
 
         local Cost, newnode, Node, Pathcount, position, queueitem, testposition, Threat	
@@ -3848,7 +3761,7 @@ function PathGeneratorLand(aiBrain)
             
             if Threat < 99999 then
 			
-                threat = MATHMAX(0, GetThreatAtPosition( aiBrain, testposition, Rings, true, ThreatLayer ))
+                threat = LOUDMAX(0, GetThreatAtPosition( aiBrain, testposition, Rings, true, ThreatLayer ))
 			
                 if threat > Threat then
                     continue
@@ -3967,12 +3880,9 @@ function PathGeneratorWater(aiBrain)
 
 	local LOUDCOPY = LOUDCOPY
     local LOUDEQUAL = LOUDEQUAL
-	local LOUDFLOOR = math.floor
 
-	local LOUDINSERT = table.insert
 	local LOUDREMOVE = table.remove
 	local LOUDSORT = LOUDSORT
-    local MATHMAX = math.max
 	local ForkThread = ForkThread
 
 	local WaitTicks = coroutine.yield
@@ -4018,12 +3928,12 @@ function PathGeneratorWater(aiBrain)
     
 	local AStarLoopBody = function()
 
-        local GetThreatBetweenPositions = AIBrainMethods.GetThreatBetweenPositions
+        local GetThreatBetweenPositions = GetThreatBetweenPositions
+        
         local LOUDCOPY = LOUDCOPY
         local LOUDEQUAL = LOUDEQUAL
         local LOUDINSERT = LOUDINSERT
         local LOUDSORT = LOUDSORT
-        local MATHMAX = MATHMAX
         local VDist2 = VDist2
         local VDist3 = VDist3
 
@@ -4063,7 +3973,7 @@ function PathGeneratorWater(aiBrain)
 				return queueitem.path, queueitem.length, true, queueitem.cost
 			end
 
-			threat = GetThreatBetweenPositions( aiBrain, position, testposition, nil, ThreatLayer) / MATHMAX( 1, queueitem.length/IMAPRadius )
+			threat = GetThreatBetweenPositions( aiBrain, position, testposition, nil, ThreatLayer) / LOUDMAX( 1, queueitem.length/IMAPRadius )
 			
 			if threat > queueitem.threat then
 				continue
@@ -4174,27 +4084,25 @@ function ParseIntelThread( aiBrain )
 
 	local IsEnemy = IsEnemy
 
-	local LOUDFLOOR = LOUDFLOOR
-	local LOUDGETN = LOUDGETN
-	local LOUDINSERT = LOUDINSERT
+	local LOUDFLOOR     = LOUDFLOOR
+	local LOUDGETN      = LOUDGETN
+	local LOUDINSERT    = LOUDINSERT
+	local LOUDMIN       = math.min
+	local LOUDMOD       = LOUDMOD
+	local LOUDSORT      = LOUDSORT
+	local LOUDV2        = VDist2
+	local VD2           = VDist2Sq
+	local WaitTicks     = WaitTicks
 
-	local LOUDMAX = math.max
-	local LOUDMIN = math.min
-	local LOUDMOD = math.mod
+    local ASSIGN                    = AssignThreatAtPosition
+	local EntityCategoryFilterDown  = EntityCategoryFilterDown
+	local GetListOfUnits            = GetListOfUnits
+	local GetPosition               = GetPosition
+	local GetThreatsAroundPosition  = GetThreatsAroundPosition
+	local GETTHREATATPOSITION       = GetThreatAtPosition
+	local GetUnitsAroundPoint       = GetUnitsAroundPoint
     
-	local LOUDSORT = LOUDSORT
-	local LOUDV2 = VDist2
-	local VD2 = VDist2Sq
-	local WaitTicks = WaitTicks
-
-    local ASSIGN = AIBrainMethods.AssignThreatAtPosition
-	local EntityCategoryFilterDown = EntityCategoryFilterDown
-	local GETTHREATATPOSITION = GetThreatAtPosition
-	local GetListOfUnits = GetListOfUnits
-	local GetPosition = moho.entity_methods.GetPosition
-	local GetUnitsAroundPoint = GetUnitsAroundPoint
-	local GetThreatsAroundPosition = GetThreatsAroundPosition
-    local IsIdleState = moho.unit_methods.IsIdleState
+    local IsIdleState = IsIdleState
   
 	ScenarioInfo.MaxMapDimension = LOUDMAX(ScenarioInfo.size[1],ScenarioInfo.size[2])
     
@@ -4298,7 +4206,7 @@ function ParseIntelThread( aiBrain )
         
             for x = 1,22 do
             
-                for y = 4, math.floor(IMAPRadius/ThresholdMult), 8 do
+                for y = 4, LOUDFLOOR(IMAPRadius/ThresholdMult), 8 do
                 
                     DrawCircle( {position[1],surface,position[3]}, y, color)
                     
@@ -4660,7 +4568,6 @@ function ParseIntelThread( aiBrain )
                                 
                             end
 
-
 							newtime = LOUDFLOOR(gametime)
 
                             -- traverse the existing list until you find an entry within merge distance
@@ -4925,10 +4832,6 @@ function ParseIntelThread( aiBrain )
                     if IsEnemy( aiBrain.ArmyIndex, v ) then
 
                         units = GetListOfUnits( brain, AIRUNITS, false, true)
-
-                        --if table.getn(units) > 0 and ReportRatios then
-                          --  LOG("*AI DEBUG Enemy "..brain.Nickname.." has "..table.getn(units).." air units")
-                        --end
                         
                         for _,v in units do
                     
@@ -4936,8 +4839,6 @@ function ParseIntelThread( aiBrain )
                             
                             totalThreatAir = totalThreatAir + bp.AirThreatLevel
                             totalThreatSurface = totalThreatSurface + bp.SurfaceThreatLevel
-                            
-                            --LOG("*AI DEBUG Enemy "..v.BlueprintID.." Threats are "..repr(bp))
 
                             oldthreat = oldthreat + bp.AirThreatLevel + bp.SurfaceThreatLevel
 
@@ -4946,10 +4847,6 @@ function ParseIntelThread( aiBrain )
                     else
                     
                         units = GetListOfUnits( brain, AIRUNITS, false, true)
-
-                        --if table.getn(units) > 0 and ReportRatios then
-                          --  LOG("*AI DEBUG Ally "..brain.Nickname.." has "..table.getn(units).." air units")
-                        --end
 
                         for _,v in units do
                     
@@ -4966,10 +4863,6 @@ function ParseIntelThread( aiBrain )
                 if oldthreat > 0 then
 
                     aiBrain.AirBias = LOUDMIN( 2, LOUDMAX( 0.66, (totalThreatSurface/totalThreatAir) ) )
-
-                    --if ReportRatios then
-                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy Air Threat is "..oldthreat.." AIR BIAS IS "..aiBrain.AirBias.."  Sur "..totalThreatSurface.."  Air "..totalThreatAir )
-                    --end
 
                     aiBrain.AirRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
                     
@@ -5176,10 +5069,6 @@ function ParseIntelThread( aiBrain )
                     
                     grandairtot = grandairtot + airtot
 
-                    --if airtot > 0 and ReportRatios then
-                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy "..brain.Nickname.." AIR  Fac Count "..aircount.."  IDLE "..airidle.." Value "..airtot)
-                    --end
-
                     landcount = 0
                     landidle = 0
                     landtot = 0
@@ -5207,10 +5096,6 @@ function ParseIntelThread( aiBrain )
                     end
                     
                     grandlandtot = grandlandtot + landtot
-                    
-                    --if landtot > 0 and ReportRatios then
-                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy "..brain.Nickname.." LAND Fac Count "..landcount.."  IDLE "..landidle.." Value "..landtot)
-                    --end
             
                     navcount = 0
                     navidle = 0
@@ -5239,11 +5124,6 @@ function ParseIntelThread( aiBrain )
                     end
                     
                     grandnavaltot = grandnavaltot + navaltot
-                    
-                    --if navaltot > 0 and ReportRatios then
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy "..brain.Nickname.." NAVAL Fac Count "..navcount.."  IDLE "..navidle.." Value "..navaltot)
-                    --end
-
                 end
 
             end
@@ -5327,18 +5207,14 @@ function ParseIntelThread( aiBrain )
             end
             
             if grandnavaltot > 0 and aiBrain.NavalRatio < 0.02 then
-            
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." detects naval activity")
                 aiBrain.NavalRatio = 0.2
             end
-
 
             --if ReportRatios then
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." I have "..aiBrain.NumOpponents.." Opponents")
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." My factory TOTALS AIR "..myairtot.." -- LAND "..mylandtot.." -- NAVAL "..mynavaltot)
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." Grand Factory Totals AIR "..grandairtot/aiBrain.NumOpponents.." -- LAND "..grandlandtot/aiBrain.NumOpponents.." -- NAVAL "..grandnavaltot/aiBrain.NumOpponents)
             --end
-        
         end
         
     end
@@ -5352,8 +5228,8 @@ end
 -- added dynamic ratio between Hi and Low scouting based upon number of points
 function BuildScoutLocations( self )
 	
-	local GetMarker = import('/lua/sim/scenarioutilities.lua').GetMarker
-	local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
+	local GetMarker             = import('/lua/sim/scenarioutilities.lua').GetMarker
+	local AIGetMarkerLocations  = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
 	
     local opponentStarts = {}
     local allyStarts = {}
@@ -5536,7 +5412,7 @@ function BuildScoutLocations( self )
     -- use the ratio between low and hi priority scout positions to determine how many
     -- low priority missions must be taken before another hi priority
     -- this value can range from 1 to 8
-    self.AILowHiScoutRatio =  math.max( 1, math.min( math.floor(LOUDGETN(self.IL.LowPri) / LOUDGETN(self.IL.HiPri)), 8) )
+    self.AILowHiScoutRatio =  LOUDMAX( 1, math.min( LOUDFLOOR(LOUDGETN(self.IL.LowPri) / LOUDGETN(self.IL.HiPri)), 8) )
 
 end
 
@@ -5546,8 +5422,10 @@ function RemoveBaseMarker( self, baseName, markerid )
 	import('/lua/simping.lua').UpdateMarker({Action = 'delete', ID = markerid, Owner = self.ArmyIndex - 1})
 end
 
--- This continually running thread has the AI pick an enemy every 8 minutes
--- the index of the current enemy is kept on the brain
+
+-- This thread has the AI pick an enemy every 8 minutes
+-- if an AttackPlan is aborted it will be terminated and restarted
+-- to plan another
 function PickEnemy( self )
 	
 	self.targetoveride = nil
@@ -5556,61 +5434,285 @@ function PickEnemy( self )
 
         AIPickEnemyLogic( self, true)
 
-        WaitTicks(4801)	-- every 8 minutes
+        WaitTicks(4801 + (self.ArmyIndex * 60) )	-- every 8 minutes
         
     end
+end
+
+-- In this function we build a table of enemies and allies and insert their 'strength' value.
+-- The aim is to identify the enemy with the most 'value'
+function AIPickEnemyLogic( self, brainbool )
+    
+	-- Just a note here - the position used when finding an enemy should likely
+    -- be based on his CURRENT PRIMARY position - and not always the starting position
+    -- this will help keep him focused upon what he's already achieved
+    -- rather than just switching to a stronger opponent
+    
+    local AttackPlanDialog = ScenarioInfo.AttackPlanDialog or false
+
+    local testposition = self.BuilderManagers['MAIN'].Position or self:GetStartVector3f()
+
+  	local GetThreatsAroundPosition  = GetThreatsAroundPosition
+    local GetPosition               = GetPosition	
+    local IsAlly                    = IsAlly
+	local IsEnemy                   = IsEnemy
+   
+    local LOUDSORT  = LOUDSORT
+    local MATHEXP   = math.exp
+    local VDist3    = VDist3
+
+	local allyEnemy         = false
+    local armyStrengthTable = {}
+    local Brains            = ArmyBrains
+    local findEnemy         = false
+    local IMAPRadius        = ScenarioInfo.IMAPRadius
+    local selfIndex         = self.ArmyIndex
+
+    local threattypes = {'StructuresNotMex','Land'}
+    
+    if self.IsNavalMap then
+        threattypes = {'StructuresNotMex','Land','Naval'}
+    end
+    
+    local armyindex, counter, currenemy, distance, insertTable, key, threats, threatWeight, unitPos, units, x1, x2, x3
+
+    -- this table will hold the summed threat for specific positions
+    insertTable = {}
+
+    if AttackPlanDialog then
+        LOG("*AI DEBUG "..self.Nickname.." AttackPlan selecting enemies at "..GetGameTick() )
+    end
+
+    -- loop thru all the brains and insert positional values for each enemy
+    -- we'll end up with two tables, one with discrete positions
+    -- the second with the total strength of each enemy
+    for k,v in Brains do
+	
+        armyindex = v.ArmyIndex
+		
+        if not v:IsDefeated() and selfIndex != armyindex and not IsAlly( selfIndex, armyindex) then
+		
+			if IsEnemy(selfIndex, armyindex) then
+
+                for _,threattype in threattypes do
+
+                    threats = GetThreatsAroundPosition( self, testposition, 32, true, threattype, armyindex)
+                
+                    -- sort the threats for closest
+                    LOUDSORT( threats, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a[1],a[2],testposition[1],testposition[3]) < VDist2Sq(b[1],b[2],testposition[1],testposition[3]) end )
+
+                    for _,data in threats do
+
+                        if data[3] > 20 then
+                        
+                            -- closer targets are worth more
+                            distance = VDist3( testposition, {data[1],0,data[2]} )
+                
+                            -- adjust result against maximum possible distance on this map
+                            threatWeight = (self.dist_comp / distance ) - 1
+
+                            threatWeight = LOUDFLOOR(threatWeight * data[3])
+
+                            key = tostring(data[1])..","..tostring(data[2].."-"..tostring(k))
+
+                            if not insertTable[key] then
+                                insertTable[key] = { Brain = k, Position = { data[1],0,data[2] }, Strength = 0 }
+                            end
+
+                            insertTable[key].Strength = insertTable[key].Strength + threatWeight
+                            
+                            if not armyStrengthTable[armyindex] then
+                                armyStrengthTable[armyindex] = { Alias = v.Nickname, Brain = armyindex, Enemy = true, Position = false, TotalStrength = 0 }
+                            end
+                            
+                            armyStrengthTable[armyindex].TotalStrength = armyStrengthTable[armyindex].TotalStrength + threatWeight
+                        end
+                    end
+                end
+			end
+        end
+    end
+
+    -- we'll now use the two tables to arrive at a third table
+    -- where we identify the highest concentration for each enemy
+    local maxthreat = {}
+    
+    for k,v in insertTable do
+        
+        if not maxthreat[v.Brain] then
+            maxthreat[v.Brain] = 0
+        end
+    
+        if v.Strength >= maxthreat[v.Brain] then
+        
+            armyStrengthTable[v.Brain].Position = v.Position
+            
+            maxthreat[v.Brain] = v.Strength
+        end
+    end
+
+    if AttackPlanDialog then
+        LOG("*AI DEBUG "..self.Nickname.." AttackPlan armyStrengthTable is "..repr(armyStrengthTable) )
+    end
+	
+    -- if targetoveride is true then allow target switching
+    -- the only place I see that happening is with the Sorian
+    -- AI Chat functions - otherwise default is false and 
+    -- allied targets don't override this one
+    if allyEnemy then
+		
+        self:SetCurrentEnemy( allyEnemy )
+		
+		self.CurrentEnemyIndex = self:GetCurrentEnemy().ArmyIndex
+		
+    else
+
+        currenemy = self:GetCurrentEnemy()
+		
+        -- if there is no current enemy - or the current enemy is not generating any threat - and we are not target overridden --
+        if (not currenemy or brainbool) or (currenemy and not armyStrengthTable[currenemy:GetArmyIndex()]) and not self.targetoveride then
+		
+            findEnemy = true
+			
+        elseif currenemy then
+			
+            -- If our current enemy has been defeated or has less than 35 strength, we need a new enemy
+            if currenemy:IsDefeated() or armyStrengthTable[currenemy:GetArmyIndex()].Strength < 35 then
+			
+                findEnemy = true
+            end
+        end
+		
+		if self.DrawPlanThread then 
+		
+			KillThread(self.DrawPlanThread)
+            self.DrawPlanThread = nil
+		end	
+
+        if findEnemy then
+		
+            local enemyPosition = false
+            local enemyStrength = 0
+            local enemy = false
+            local newPosition = false
+			
+            for k,v in armyStrengthTable do
+			
+                -- Ignore allies 
+                if not v.Enemy then
+                    continue
+                end
+
+                -- store the highest value so far -- we'll pick this as the
+                -- enemy once we've checked all the enemies
+                if not enemy or v.TotalStrength > enemyStrength then
+                    
+                    enemyPosition = v.Position
+					enemyStrength = v.TotalStrength
+                    
+                    enemy = ArmyBrains[v.Brain]
+                end
+            end
+
+            -- if we've picked an enemy and have a position for them
+            if enemy and enemyPosition then
+                
+                -- collect all the enemy units within that IMAP grid -- NOTE - this will report all units - even those you don't see
+				units, counter = GetEnemyUnitsInRect( self, enemyPosition[1] - IMAPRadius, enemyPosition[3] - IMAPRadius, enemyPosition[1] + IMAPRadius, enemyPosition[3] + IMAPRadius)
+
+                if units then
+
+                    -- these accumulate the position values
+                    x1 = 0
+                    x3 = 0
+
+                    for _,v in units do
+
+                        if not v.Dead then
+
+                            unitPos = GetPosition(v) or false
+                    
+                            if unitPos then
+                                x1 = x1 + unitPos[1]
+                                x3 = x3 + unitPos[3]
+                            end
+                        end
+                    end
+
+                    x1 = LOUDFLOOR(x1/counter)
+                    x3 = LOUDFLOOR(x3/counter)
+
+                    -- the averaged centre
+                    newPosition = { x1,0,x3 }
+
+                    if AttackPlanDialog then
+                        LOG("*AI DEBUG "..self.Nickname.." AttackPlan armyStrengthTable Position "..repr(enemyPosition).." averaged "..repr(newPosition) )                
+                    end
+
+                    -- If we don't have an enemy or it's different than the one we already have
+                    if not self:GetCurrentEnemy() or self:GetCurrentEnemy() != enemy then
+				
+                        -- set this as our current enemy
+                        self:SetCurrentEnemy( enemy )
+					
+                        -- remember this enemy index on the brain
+                        self.CurrentEnemyIndex = self:GetCurrentEnemy().ArmyIndex
+					
+                        -- AI will announce the current target to allies
+                        AISendChat('allies', ArmyBrains[self:GetArmyIndex()].Nickname, 'targetchat', ArmyBrains[enemy:GetArmyIndex()].Nickname)
+                    end
+                    
+                    -- if we have an enemy and we dont have an attack goal or the goal is quite different from the one we already have
+                    if self.CurrentEnemyIndex and ( (not self.AttackPlanGoal) or VDist3(self.AttackPlan.Goal, newPosition) > 100 ) then
+
+                        -- create a new attack plan
+                        self:ForkThread( CreateAttackPlan, newPosition)
+                    end
+                end
+			end
+        end
+    end
+	
+end
+
+function GetAlliedBases(self)
+
+    -- make a list of all existing ALLIED bases
+    local usedmarkerlist = {}
+    local usedmarkercounter = 0
+    
+    for _,brain in ArmyBrains do
+        
+        if brain.ArmyIndex != self.ArmyIndex and IsAlly( self.ArmyIndex, brain.ArmyIndex) then
+        
+            for _,base in brain.BuilderManagers do
+            
+                if base.EngineerManager.Active then
+                    usedmarkercounter = usedmarkercounter + 1
+                    usedmarkerlist[base.BaseName] = { Position = { base.Position[1], base.Position[3] } }
+                end
+            end
+        end
+    end
+    
+    return usedmarkerlist, usedmarkercounter
 end
 
 -- The ATTACK PLANNER - oh boy here we go
 -- The purpose of this is to create a series of points (Stagepoints) that the AI will attempt
 -- to seize control of - on his way to GOAL
-function AttackPlanner(self, enemyPosition)
-
-    if not self.AttackPlan then
-	
-        self.AttackPlan = {}
-        self.AttackPlan.GoCheckInterval = 120   -- every 2 minutes
-        self.AttackPlan.GoCheckRatio = 3        -- ratio for 100% Go signal
-    end
-
-    self.AttackPlan.Goal = nil
-    self.AttackPlan.CurrentGoal = nil
-    self.AttackPlan.StagePoints = { [0] = { Name = 'StartPoint'} }
-    self.AttackPlan.GoSignal = false
-
-    CreateAttackPlan( self, enemyPosition )
-
-    if self.AttackPlan.Goal then
-	
-        -- if monitoring an existing attack plan, kill it and start a new one
-        if self.AttackPlanMonitorThread then
-            
-            if self.DrawPlanThread then
-                KillThread(self.DrawPlanThread)
-                self.DrawPlanThread = nil
-            end
-            
-            KillThread(self.AttackPlanMonitorThread)
-            self.AttackPlanMonitorThread = nil
-		end
-
-        self.AttackPlanMonitorThread = self:ForkThread( AttackPlanMonitor )
-    end
-	
-end
-
 function CreateAttackPlan( self, enemyPosition )
 
     local GetSurfaceHeight = GetSurfaceHeight
     local GetTerrainHeight = GetTerrainHeight
 
-    local LOUDCOPY = LOUDCOPY
+    local LOUDCOPY  = LOUDCOPY
     local LOUDFLOOR = LOUDFLOOR
-    local VDist2 = VDist2
-    local VDist2Sq = VDist2Sq
+    local VDist2    = VDist2
+    local VDist2Sq  = VDist2Sq
     local WaitTicks = WaitTicks
     
-    local AttackPlanDialog = ScenarioInfo.AttackPlanDialog
+    local AttackPlanDialog = ScenarioInfo.AttackPlanDialog or false
     
     local PlatoonGenerateSafePathToLOUD = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD
     
@@ -5618,35 +5720,25 @@ function CreateAttackPlan( self, enemyPosition )
 		ForkThread( AISendChat, 'allies', self.Nickname, 'Creating Attack Plan for '..ArmyBrains[self:GetCurrentEnemy().ArmyIndex].Nickname )
 	end
 
-	local stagesize = 300
-	local minstagesize = 125 * 125
-	local maxstagesize = 350 * 350
+	local stagesize     = 300
+	local minstagesize  = 125 * 125
+	local maxstagesize  = 350 * 350
 
     local startx, startz = self:GetCurrentEnemy():GetArmyStartPos()
     
     startx = enemyPosition[1]
     startz = enemyPosition[3]
   
-    local starty = GetSurfaceHeight( startx, startz )
-    local Goal = {startx, starty, startz}
-    local GoalReached = false
+    local starty        = GetSurfaceHeight( startx, startz )
+    local Goal          = {startx, starty, startz}
+    local GoalReached   = false
 
-	-- this should probably get set to the current PrimaryLandAttackBase
-	-- but we use the MAIN base for now 
+	-- this should probably get set to the current PrimaryLandAttackBase -- but we use the MAIN base for now 
     local StartPosition = self.BuilderManagers.MAIN.Position
     
     if AttackPlanDialog then
-        LOG("*AI DEBUG "..self.Nickname.." Creating attack plan FROM "..repr(StartPosition).." TO "..repr(enemyPosition) )
+        LOG("*AI DEBUG "..self.Nickname.." AttackPlan Create FROM "..repr(StartPosition).." TO "..repr(enemyPosition).." at tick "..GetGameTick() )
     end
-  
-    local markertypes = { 'Defensive Point','Naval Area','Naval Defensive Point','Blank Marker','Expansion Area','Large Expansion Area','Small Expansion Area' }
-
-    local markerlist = {}
-
-    local CDistance,GDistance,SDistance
-    local counter = 0
-
-    local markers = ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers
 
 	-- checks if destination is somewhere between two points
 	local DestinationBetweenPoints = function( Goal, start, finish )
@@ -5675,15 +5767,36 @@ function CreateAttackPlan( self, enemyPosition )
         return GetTerrainHeight(position[1], position[3]) < GetSurfaceHeight(position[1], position[3])
     end    
 
+    -- build a list of all current allied positions
+    local usedmarkerlist, usedmarkercounter = GetAlliedBases(self)
+
+    local CDistance,GDistance,SDistance
+    local counter = 0
+    local throttle = 0
+
+    -- distance from start to goal
     CDistance = VDist2Sq(StartPosition[1],StartPosition[3], Goal[1],Goal[3])
+  
+    local markerlist    = {}
+    local markers       = ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers
+    local markertypes   = {'Defensive Point','Naval Area','Naval Defensive Point','Blank Marker','Expansion Area','Large Expansion Area','Small Expansion Area'}
 	
-    -- first lets build a masterlist of ALL valid staging points between start and goal
+    -- build masterlist of ALL valid staging points between start and goal
     for k,v in markers do
 
+        -- ignore any marker already in use by an ALLIED AI
+        if usedmarkercounter > 0 and usedmarkerlist[k] then
+            continue
+        end
+
+        -- distance from this marker to the goal
         GDistance = VDist2Sq(v.position[1],v.position[3], Goal[1],Goal[3])
+        -- distance from this marker to the start
         SDistance = VDist2Sq(v.position[1],v.position[3], StartPosition[1],StartPosition[3])
 
         for _,t in markertypes do
+        
+            throttle = throttle + 1
 		
             if v.type == t then
 
@@ -5693,43 +5806,66 @@ function CreateAttackPlan( self, enemyPosition )
 					-- and at least minstagesize from the final goal
 					and GDistance > minstagesize
 					
-					-- and 20% closer to the goal than the startposition
-					and GDistance <= (CDistance * .8)
+					-- and 1/2 of the minstagesize closer, to the goal, than the startposition
+					and GDistance <= (CDistance - (minstagesize/2) )
 					
 					then
 	
                     counter = counter + 1
-                    markerlist[counter] = { Position = {v.position[1],v.position[2],v.position[3]}, Name = t } 
+                    markerlist[counter] = { Position = {v.position[1],v.position[2],v.position[3]}, Name = k } 
                     break
                 end
             end
+
+            if LOUDMOD(throttle, 15) == 1 then
+                WaitTicks(1)
+            end
+
         end
     end
 
 	if counter < 1 then
     
         if AttackPlanDialog then
-            WARN("*AI DEBUG "..self.Nickname.." No Markers meet AttackPlan requirements - Cannot solve tactical challenge")
+            WARN("*AI DEBUG "..self.Nickname.." AttackPlan - No Markers meet AttackPlan requirements - Cannot solve tactical challenge")
         end
         
 		GoalReached = true
+
+    else
+
+        if AttackPlanDialog then
+            LOG("*AI DEBUG "..self.Nickname.." AttackPlan collected "..throttle.." markers at tick "..GetGameTick() )
+        end
     end
 
-    -- we always start checking from here --
-    local CurrentPoint = LOUDCOPY(StartPosition)
-    
-    local CurrentPointDistance = VDist2(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3])
+    if not self.AttackPlan then
+	
+        self.AttackPlan = {}
+        self.AttackPlan.GoCheckInterval = 120   -- every 2 minutes
+        self.AttackPlan.GoCheckRatio = 3        -- ratio for 100% Go signal
+    end
+
+    self.AttackPlan.Goal = nil
+    self.AttackPlan.CurrentGoal = nil
+    self.AttackPlan.GoSignal = false
+    self.AttackPlan.Pending = true
     
     local StagePoints = {}
 
     local StageCount = 0
     local looptest = 0
     
-	local position, positions, path, reason, pathlength, pathtype, CurrentBestPathLength
+	local CurrentBestPathLength, CurrentPoint, CurrentPointDistance, cyclecount, goaldistance, holdpathlength
+    local position, positions, path, pathlength, pathtype, reasontestdistance
     
     path = false
     pathlength = 0
-    
+
+    -- we always start checking from here --
+    CurrentPoint = LOUDCOPY(StartPosition)
+    CurrentPointDistance = VDist2(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3])
+
     -- FIRST - see if we can path from start to the goal using LAND --
     pathtype = 'Land'
     path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand', 'Land', CurrentPoint, Goal, 99999, 160)
@@ -5737,9 +5873,9 @@ function CreateAttackPlan( self, enemyPosition )
     -- if not - try AMPHIB --
     if not path then
         
-        if AttackPlanDialog then
-            LOG("*AI DEBUG "..self.Nickname.." Attack Planner finds no LAND path to Goal "..repr(Goal).." from StartPosition of "..repr(CurrentPoint).." reason is "..repr(reason) )
-        end
+        --if AttackPlanDialog then
+          --  LOG("*AI DEBUG "..self.Nickname.." AttackPlan finds no LAND path to Goal "..repr(Goal).." from StartPosition of "..repr(CurrentPoint).." reason is "..repr(reason) )
+        --end
 
         pathtype = 'Amphibious'
         path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib', 'Amphibious', CurrentPoint, Goal, 99999, 250)
@@ -5750,7 +5886,7 @@ function CreateAttackPlan( self, enemyPosition )
         pathtype = 'Unknown'
         
         if AttackPlanDialog then
-            LOG("*AI DEBUG "..self.Nickname.." Attack Planner finds no AMPHIB path to Goal "..repr(Goal).." from StartPosition of "..repr(CurrentPoint).." reason is "..repr(reason) )
+            LOG("*AI DEBUG "..self.Nickname.." AttackPlan finds no viable LAND or AMPHIB path to Goal "..repr(Goal).." from StartPosition of "..repr(CurrentPoint) )
         end
         
         GoalReached = true
@@ -5758,13 +5894,13 @@ function CreateAttackPlan( self, enemyPosition )
     else
     
         if AttackPlanDialog then
-            LOG("*AI DEBUG "..self.Nickname.." finds "..pathtype.." path from "..repr(CurrentPoint).." to "..repr(Goal).." pathlength is "..pathlength.." path is "..repr(path) )
+            LOG("*AI DEBUG "..self.Nickname.." AttackPlan finds "..pathtype.." path from Start to goal - pathlength is "..pathlength )
         end
         
         CurrentBestPathLength = pathlength
 
         if AttackPlanDialog then
-            LOG("*AI DEBUG "..self.Nickname.." sets Attack Plan Method to "..repr(pathtype) )
+            LOG("*AI DEBUG "..self.Nickname.." AttackPlan Method set to "..repr(pathtype) )
         end
 
         -- record if attack plan can be land based or not - start with land - but fail over to amphibious if no path --
@@ -5772,9 +5908,7 @@ function CreateAttackPlan( self, enemyPosition )
         
     end
 
-
-    -- performance throttle
-    local cyclecount = 0
+    cyclecount = 0
 
     while not GoalReached do
  
@@ -5786,8 +5920,8 @@ function CreateAttackPlan( self, enemyPosition )
         else
 
             if AttackPlanDialog then
-                LOG("*AI DEBUG "..self.Nickname.." START STAGECOUNT ".. StageCount+1 .." Current distance to goal is "..VDist2(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3]).." stagesize is "..stagesize)
-                LOG("*AI DEBUG "..self.Nickname.." This stage needs to be less than "..(CurrentPointDistance * .75).." from the goal and have a path length of less than "..CurrentBestPathLength )
+                LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagecount ".. StageCount+1 .." BEGINS Current distance to goal is "..VDist2(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3]).." stagesize is "..stagesize)
+                LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagecount ".. StageCount+1 .." needs to be less than "..(CurrentPointDistance - 100).." from the goal and have a path length of less than "..CurrentBestPathLength )
             end
           
             -- sort the markerlist for closest to the current point --
@@ -5799,50 +5933,54 @@ function CreateAttackPlan( self, enemyPosition )
             -- Now we'll test each valid position and assign a value to it
             -- seek the position which has the lowest path value between our minimum(100) and maximum(300) stage size distance
             -- note that the path value might exceed these limits - but the crow flies distance cannot
-            
-            local goaldistance, testdistance, holdpathlength
 
 			-- Filter the list of markers
             for _,v in markerlist do
             
                 position = v.Position
 
-                -- distance from the Current Point
+                -- load balancing --
+                if cyclecount > 2 then
+                    WaitTicks(1)
+                    cyclecount = 0
+                end
+
+                -- distance from CurrentPoint
                 testdistance = VDist2Sq( position[1],position[3], CurrentPoint[1],CurrentPoint[3])
 
                 if testdistance > maxstagesize then
                     break -- the remainder will fail --
                 end
 
-                -- distance to the Goal
-                goaldistance = VDist2( position[1],position[3], Goal[1],Goal[3])
+                if AttackPlanDialog then
+                    LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagecount ".. StageCount+1 .." reviewing "..repr(v.Name).." distance is "..LOUDSQRT(testdistance).." to goal" )
+                end
                 
                 if testdistance < minstagesize then
-                    --if AttackPlanDialog then
-                        --LOG("*AI DEBUG "..self.Nickname.." point too close to current point "..testdistance.." < "..minstagesize )
-                    --end
+                    if AttackPlanDialog then
+                        LOG("*AI DEBUG "..self.Nickname.." point too close to current point "..testdistance.." < "..minstagesize )
+                    end
 
                     continue
                 end
+
+                -- distance to the Goal
+                goaldistance = VDist2( position[1],position[3], Goal[1],Goal[3])
                 
-                if goaldistance >= (CurrentPointDistance * .75) then
-                    --if AttackPlanDialog then
-                        --LOG("*AI DEBUG "..self.Nickname.." point is not 25% closer to goal "..goaldistance.." >= "..(CurrentPointDistance * .75) )
-                    --end
+                if goaldistance >= (CurrentPointDistance - 125) then
+                    if AttackPlanDialog then
+                        LOG("*AI DEBUG "..self.Nickname.." point is not 125 closer to goal "..goaldistance.." >= "..(CurrentPointDistance -125) )
+                    end
 
                     continue
                 end
                 
                 if goaldistance < LOUDSQRT(minstagesize) then
-                    --if AttackPlanDialog then
-                        --LOG("*AI DEBUG "..self.Nickname.." point too close to goal "..goaldistance.." < "..LOUDSQRT(minstagesize) )
-                    --end
+                    if AttackPlanDialog then
+                        LOG("*AI DEBUG "..self.Nickname.." point too close to goal "..goaldistance.." < "..LOUDSQRT(minstagesize) )
+                    end
 
                     continue
-                end
-
-                if AttackPlanDialog then
-                    LOG("*AI DEBUG "..self.Nickname.." Stagecount ".. StageCount+1 .." reviewing "..repr(v.Name).." at "..repr(position).." distance from Current Point is "..LOUDSQRT(testdistance).." to goal is "..goaldistance)
                 end
 
                 cyclecount = cyclecount + 1
@@ -5858,6 +5996,9 @@ function CreateAttackPlan( self, enemyPosition )
                 
                 -- then try AMPHIB --
                 if not path then
+
+                    WaitTicks(1)
+                    
                     pathtype = "Amphibious"
                     path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountAttackPlannerToGoalAmphib', 'Amphibious', position, Goal, 99999, 250)
                 end
@@ -5884,32 +6025,25 @@ function CreateAttackPlan( self, enemyPosition )
                     if path then
 
                         if AttackPlanDialog then
-                            LOG("*AI DEBUG "..self.Nickname.." Stagecount ".. StageCount+1 .." adding "..repr(v.Name).." at "..repr(position).." w "..pathtype.." path length of "..repr(holdpathlength).." to goal")
+                            LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagecount ".. StageCount+1 .." adding "..repr(v.Name).." at "..repr(position).." - "..pathtype.." path length "..repr(holdpathlength) )
                         end
 
                         counter = counter + 1
                         positions[counter] = {Name = v.Name, Position = position, Pathvalue = holdpathlength, PathvalueCurrent = pathlength, Type = pathtype, Path = path}
 
                         CurrentBestPathLength = holdpathlength
-
                     end
 
                 else
-                    
+--[[                    
                     if AttackPlanDialog then
                     
                         if path and pathlength >= CurrentBestPathLength then
-                            LOG("*AI DEBUG "..self.Nickname.." "..pathtype.." path from "..repr(v.Name).." at "..repr(position).." to goal was "..pathlength)
+                            LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagecount ".. StageCount+1 .." "..pathtype.." path from "..repr(v.Name).." at "..repr(position).." to goal was "..pathlength)
                         end
 
                     end
-
-                end
-
-                -- load balancing --
-                if cyclecount > 2 then
-                    WaitTicks(1)
-                    cyclecount = 0
+--]]
                 end
 
             end
@@ -5928,7 +6062,7 @@ function CreateAttackPlan( self, enemyPosition )
                 if not positions[1] then
 				
                     if AttackPlanDialog then
-                        LOG("*AI DEBUG "..self.Nickname.." Stagecount ".. StageCount+1 .." could find no marker positions from "..repr(CurrentPoint))
+                        LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagecount ".. StageCount+1 .." finds no positions from "..repr(CurrentPoint))
 					end
                     
                     a = Goal[1] + CurrentPoint[1]
@@ -5937,7 +6071,7 @@ function CreateAttackPlan( self, enemyPosition )
                 else
 				
                     if AttackPlanDialog then
-                        LOG("*AI DEBUG "..self.Nickname.." Stagecount ".. StageCount+1 .." could only find a marker at " .. VDist3(positions[1].Position, CurrentPoint) .. " from "..repr(CurrentPoint).." Max Distance is "..stagesize)
+                        LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagecount ".. StageCount+1 .." could only find a marker at " .. VDist3(positions[1].Position, CurrentPoint) .. " from "..repr(CurrentPoint).." Max Distance is "..stagesize)
                     end
 					
                     a = CurrentPoint[1] + positions[1].Position[1]
@@ -5955,7 +6089,7 @@ function CreateAttackPlan( self, enemyPosition )
                 if not landposition[1] then
 				
                     if AttackPlanDialog then
-                        LOG("*AI DEBUG "..self.Nickname.." Stagecount ".. StageCount+1 .." Could not find a Land Node with 200 of resultposition "..repr(result).." using Water at 300")
+                        LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagecount ".. StageCount+1 .." Could not find a Land Node with 200 of resultposition "..repr(result).." using Water at 300")
                     end
 					
                     fakeposition = AIGetMarkersAroundLocation( self, 'Water Path Node', result, 300)
@@ -5965,6 +6099,8 @@ function CreateAttackPlan( self, enemyPosition )
                     path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountFindFakeLand', 'Land', CurrentPoint, landposition[1].Position, 99999, 160)
                     
                     if not path then
+                    
+                        WaitTicks(1)
                     
                         pathtype = "Amphibious"
                         path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountFindFakeAmphib', 'Amphibious', CurrentPoint, landposition[1].Position, 99999, 250)
@@ -5977,13 +6113,15 @@ function CreateAttackPlan( self, enemyPosition )
                 if fakeposition[1].Position then
 				
                     if AttackPlanDialog then
-                        LOG("*AI DEBUG "..self.Nickname.." Stagecount ".. StageCount+1 .." using Fakeposition assign - working from CurrentPoint of "..repr(CurrentPoint).." Fake Position is "..repr(fakeposition) )
+                        LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagecount ".. StageCount+1 .." using Fakeposition assign - working from CurrentPoint of "..repr(CurrentPoint).." Fake Position is "..repr(fakeposition) )
                     end
                     
                     pathtype = "Land"
                     path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountFindFakeNavalLand', 'Land', CurrentPoint, fakeposition[1].Position, 99999, 160)
                     
                     if not path then
+                    
+                        WaitTicks(1)
                     
                         pathtype = "Amphibious"
                         path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'StageCountFindFakeNavalAmphib', 'Amphibious', CurrentPoint, fakeposition[1].Position, 99999, 250)
@@ -6018,19 +6156,20 @@ function CreateAttackPlan( self, enemyPosition )
                     CurrentPointDistance = pathlength
             
                     if AttackPlanDialog then
-                        LOG("*AI DEBUG "..self.Nickname.." END STAGECOUNT ".. StageCount .." selects "..positions[1].Name.." at "..repr(positions[1].Position).." type is "..repr(positions[1].Type) )
+                        LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagecount ".. StageCount .." selects "..positions[1].Name.." at "..repr(positions[1].Position).." type is "..repr(positions[1].Type) )
+                        LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagecount ".. StageCount .." ENDS ")
                     end
                     
                 else
                     if AttackPlanDialog then
-                        LOG("*AI DEBUG "..self.Nickname.." END STAGECOUNT ".. StageCount .." finds no path from "..repr(CurrentPoint).." to goal position "..repr(Goal))
+                        LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagecount ".. StageCount .." finds no path from "..repr(CurrentPoint).." to goal position "..repr(Goal))
                     end
                 end
 
                 if self.AttackPlan.Method != "Amphibious" then
                     
-                    if AttackPlanDialog then
-                        LOG("*AI DEBUG "..self.Nickname.." changing Attack Plan Method from "..self.AttackPlan.Method.." to "..repr(pathtype) )                    
+                    if AttackPlanDialog and pathtype != self.AttackPlan.Method then
+                        LOG("*AI DEBUG "..self.Nickname.." AttackPlan Method changes from "..self.AttackPlan.Method.." to "..repr(pathtype) )                    
                     end
 
                     self.AttackPlan.Method = pathtype
@@ -6045,10 +6184,23 @@ function CreateAttackPlan( self, enemyPosition )
 
 	
     if StageCount >= 0 then
-
+	
+        -- if monitoring an existing attack plan, kill it and start a new one
+        if self.AttackPlanMonitorThread then
+            
+            if self.DrawPlanThread then
+                KillThread(self.DrawPlanThread)
+                self.DrawPlanThread = nil
+            end
+            
+            KillThread(self.AttackPlanMonitorThread)
+            self.AttackPlanMonitorThread = nil
+        end
+	
         self.AttackPlan.CurrentGoal = 1
         self.AttackPlan.Goal = Goal
         self.AttackPlan.GoSignal = false
+        self.AttackPlan.Pending = false
 		self.AttackPlan.StageCount = StageCount
         
         self.AttackPlan.StagePoints = table.copy(StagePoints)
@@ -6057,8 +6209,10 @@ function CreateAttackPlan( self, enemyPosition )
 
         self.AttackPlan.StagePoints[StageCount + 1] = { Name = "Goal", Path = path, Position = Goal, Type = pathtype }
 
+        self.AttackPlanMonitorThread = self:ForkThread( AttackPlanMonitor )
+
     else
-		LOG("*AI DEBUG "..self.Nickname.." fails Attack Planning for "..repr(Goal) )
+		LOG("*AI DEBUG "..self.Nickname.." AttackPlan fails for "..repr(Goal) )
 	end
     
 end
@@ -6070,7 +6224,7 @@ function DrawPlanNodes(self)
 	
 	while self.AttackPlan.Goal do
 	
-		if ( self.ArmyIndex == GetFocusArmy() or ( GetFocusArmy() != -1 and self.ArmyIndex and IsAlly(GetFocusArmy(), self.ArmyIndex)) ) and self.AttackPlan.StagePoints[0] then
+		if (not self.AttackPlan.Pending) and ( self.ArmyIndex == GetFocusArmy() or ( GetFocusArmy() != -1 and self.ArmyIndex and IsAlly(GetFocusArmy(), self.ArmyIndex)) ) and self.AttackPlan.StagePoints[0] then
 		
 			DC(self.AttackPlan.StagePoints[0].Position, 1, '00ff00')
 			DC(self.AttackPlan.StagePoints[0].Position, 3, '00ff00')
@@ -6129,6 +6283,8 @@ function AttackPlanMonitor(self)
 
     while self.AttackPlan.Goal do
     
+        local AttackPlanDialog = ScenarioInfo.AttackPlanDialog or false
+
 		-- Draw Attack Plans onscreen (set in InitializeSkirmishSystems or by chat to the AI)
 		if self.AttackPlan and (ScenarioInfo.DisplayAttackPlans or self.DisplayAttackPlans) then
         
@@ -6137,14 +6293,11 @@ function AttackPlanMonitor(self)
             end
 		end         
 
-		if self.AttackPlan.Goal then
+		if self.AttackPlan.Goal and (not self.AttackPlan.Pending) then
         
-		    if ScenarioInfo.AttackPlanDialog then   
-            
-                LOG("*AI DEBUG " ..self.Nickname.." Assessing Attack Plan to " ..repr(self.AttackPlan.Goal))
-
-                LOG("*AI DEBUG "..self.Nickname.." Starting Point "..repr(self.AttackPlan.StagePoints[0]))
-            
+		    if AttackPlanDialog then   
+                LOG("*AI DEBUG "..self.Nickname.." AttackPlan assessing goal " ..repr(self.AttackPlan).." at Tick "..GetGameTick() )
+                LOG("*AI DEBUG "..self.Nickname.." AttackPlan Start Point is "..repr(self.AttackPlan.StagePoints[0]))
             end
 
             -- what I want to do is loop thru the stages - and evaluate if its complete (we own that stage)
@@ -6155,28 +6308,76 @@ function AttackPlanMonitor(self)
             -- and if threat at THAT position is higher than the GOAL threat
             -- ABORT -- MAKE NEW PLAN
             
+            self.AttackPlan.CurrentGoal = 1
             self.AttackPlan.Method = "Land"     -- default to Land
-            
-            for k = 0, self.AttackPlan.StageCount + 1 do
 
-                if ScenarioInfo.AttackPlanDialog then
-                    LOG("*AI DEBUG "..self.Nickname.." Stagepoint "..repr(k).." "..repr(self.AttackPlan.StagePoints[k] ) )
+            local usedmarkerlist, usedmarkercounter = GetAlliedBases(self)
+            
+            for k = 1, self.AttackPlan.StageCount + 1 do
+            
+                local markername = self.AttackPlan.StagePoints[k].Name
+ 
+                -- if there are usedmarkers and one of our markers is in use by an ally
+                -- then we must abort the current plan and build a new one
+                if usedmarkercounter > 0 and usedmarkerlist[markername] then
+
+                    self.AttackPlan = false
+                    self.AttackPlanMonitorThread = nil
+                    
+                    if self.EnemyPickerThread then
+
+                        if AttackPlanDialog then
+                            LOG("*AI DEBUG "..self.Nickname.." AttackPlan ABORTED at "..GetGameTick() )
+                        end
+
+                        KillThread(self.EnemyPickerThread)
+                    end
+            
+                    if self.DrawPlanThread then
+                        KillThread(self.DrawPlanThread)
+                        self.DrawPlanThread = nil
+                    end
+
+                    self.EnemyPickerThread = self:ForkThread1( PickEnemy )
+                    
+                    return
+                end
+
+                if AttackPlanDialog then
+                    LOG("*AI DEBUG "..self.Nickname.." AttackPlan Stagepoint "..repr(k).." "..markername.." at "..repr(self.AttackPlan.StagePoints[k].Position ) )
                 end
 
                 -- if any stage is Amphibious - the overall Method will be set to Amphibious
                 if self.AttackPlan.StagePoints[k].Type and self.AttackPlan.StagePoints[k].Type != "Land" then
                     self.AttackPlan.Method = "Amphibious"
                 end
+                
+                if k>0 then 
+                
+                    local testname = self.AttackPlan.StagePoints[k].Name
+                
+                    if not self.BuilderManagers[testname] and self.AttackPlan.CurrentGoal == 0  then 
+                        self.AttackPlan.CurrentGoal = k
+                    end
+                    
+                end
 
             end
             
-            -- otherwise just check primary bases 
+            -- set primary bases 
 			SetPrimaryLandAttackBase(self)
 			SetPrimarySeaAttackBase(self)
             
             -- and wait for next cycle (GoCheckInterval)            
             WaitTicks(self.AttackPlan.GoCheckInterval * 10)
-		end
+		else
+            if AttackPlanDialog then
+                LOG("*AI DEBUG "..self.Nickname.." AttackPlan pending")
+            end
+            
+            WaitTicks(21)
+        end
+
     end
     
     self.AttackPlanMonitorThread = nil
@@ -6211,11 +6412,11 @@ function GetHiPriTargetList(aiBrain, location, threattypes, maxrange, EntityCont
 		Commander 	    	= categories.COMMAND,
 	}
 
-	local EntityCategoryFilterDown = EntityCategoryFilterDown
-	local LOUDCOPY = LOUDCOPY
-    local LOUDFLOOR = LOUDFLOOR
-    local VDist3 = VDist3
-	local WaitTicks = WaitTicks
+	local EntityCategoryFilterDown  = EntityCategoryFilterDown
+	local LOUDCOPY                  = LOUDCOPY
+    local LOUDFLOOR                 = LOUDFLOOR
+    local VDist3                    = VDist3
+	local WaitTicks                 = WaitTicks
 
     local threatlist = LOUDCOPY(aiBrain.IL.HiPri)
 	
@@ -6229,17 +6430,19 @@ function GetHiPriTargetList(aiBrain, location, threattypes, maxrange, EntityCont
 	local targetlist = {}	
 
 	local allthreat, airthreat, bp, ecothreat, newPos, subthreat, surthreat, targets, targetcount, unitcount, unitPos, x1, x2, x3
-    local EntityCheck, TPosition
+    local EntityCheck, TPosition, TType
 
 	LOUDSORT( threatlist, function(a,b) local VDist3 = VDist3 return VDist3(a.Position,location) < VDist3(b.Position,location) end )
 
     for _,threat in threatlist do
+    
+        TType = threat.Type
 
-        if not threat.Type then
+        if not TType then
             continue
         end
         
-        if threattypes and not threattypes[threat.Type] then
+        if threattypes and not threattypes[TType] then
             continue
         end
         
@@ -6252,7 +6455,7 @@ function GetHiPriTargetList(aiBrain, location, threattypes, maxrange, EntityCont
         if EntityControl then
             EntityCheck = false
         else
-            EntityCheck = intelChecks[threat.Type] or false
+            EntityCheck = intelChecks[TType] or false
         end
    
         -- ok - this result is going to differ from the one in PARSEINTEL because of the position - at this point it's already offset from the IMAP block
@@ -6319,7 +6522,7 @@ function GetHiPriTargetList(aiBrain, location, threattypes, maxrange, EntityCont
                 end
 			
                 counter = counter + 1		
-                targetlist[counter] = { Distance = LOUDFLOOR(VDist3(location, newPos)), LastScouted = threat.LastScouted, Position = newPos, Threats = { Air = airthreat, Eco = ecothreat, Sub = subthreat, Sur = surthreat, All = allthreat}, Type = threat.Type, }
+                targetlist[counter] = { Distance = LOUDFLOOR(VDist3(location, newPos)), LastScouted = threat.LastScouted, Position = newPos, Threats = { Air = airthreat, Eco = ecothreat, Sub = subthreat, Sur = surthreat, All = allthreat}, Type = TType, }
 
             end
 
@@ -6347,12 +6550,8 @@ function RecheckHiPriTarget( aiBrain, targetlocation, targetclass, nulrange, Ent
     local testtypes = {}
     
     testtypes[targetclass] = true
-    
-    --LOG("*AI DEBUG Rechecking HiPri targetclass is "..targetclass.." MaxDistance is "..ScenarioInfo.IntelResolution.." from "..repr(targetlocation) )
 
 	local targetlist, targetlistcount = GetHiPriTargetList( aiBrain, targetlocation, testtypes, ScenarioInfo.IntelResolution, EntityControl or false )
-    
-    --LOG("*AI DEBUG reported targetlist is "..repr(targetlist))
 
     if targetlistcount > 0 then
     
@@ -6463,50 +6662,47 @@ function DrawIntel( aiBrain, parseinterval)
 end
 
 function LogGamePerformanceData()
-    --Call via forkthread at start of game (duplicate of performance check condition to be extra sure we only run this when intended)
-    --if M27Config.M27RunGamePerformanceCheck and not(GamePerformanceTrackerIsActive) then
 
-        GamePerformanceTrackerIsActive = true
+    local iTimeAtMainTickStart = 0
+    local iIntervalInTicks = 100 --Every 10s
+    local iCurUnitCount = 0
 
-        local iTimeAtMainTickStart = 0
-        local iIntervalInTicks = 100 --Every 10s
-        local iCurUnitCount = 0
+    local iCurTickCycle = iIntervalInTicks
 
-        local iCurTickCycle = iIntervalInTicks
+    local iFreeze1Count = 0
+    local iFreeze1Threshold = 0.1
+    local iTimeAtSingleTickStart = 0
 
-        local iFreeze1Count = 0
-        local iFreeze1Threshold = 0.1
-        local iTimeAtSingleTickStart = 0
+    while ArmyBrains do
 
-        while ArmyBrains do
+        iTimeAtSingleTickStart = GetSystemTimeSecondsOnlyForProfileUse()
 
-            iTimeAtSingleTickStart = GetSystemTimeSecondsOnlyForProfileUse()
+        WaitTicks(1)
 
-            WaitTicks(1)
+        iCurTickCycle = iCurTickCycle - 1
 
-            iCurTickCycle = iCurTickCycle - 1
-
-            if GetSystemTimeSecondsOnlyForProfileUse() - iTimeAtSingleTickStart > iFreeze1Threshold then
-                iFreeze1Count = iFreeze1Count + 1
-            end
-
-            if iCurTickCycle <= 0 then
-
-                iCurUnitCount = 0
-
-                for iBrain, oBrain in ArmyBrains do
-                    iCurUnitCount = iCurUnitCount + oBrain:GetCurrentUnits(categories.ALLUNITS - categories.BENIGN)
-                end
-
-                LOG('LogGamePerformanceData: GameTime='..math.floor(GetGameTimeSeconds())..' Time taken='..GetSystemTimeSecondsOnlyForProfileUse() - iTimeAtMainTickStart..'; Unit Count='..iCurUnitCount..'; iFreeze1Count='..iFreeze1Count)
-
-                iCurTickCycle = iIntervalInTicks
-                iTimeAtMainTickStart = GetSystemTimeSecondsOnlyForProfileUse()
-                iFreeze1Count = 0
-            end
+        if GetSystemTimeSecondsOnlyForProfileUse() - iTimeAtSingleTickStart > iFreeze1Threshold then
+            iFreeze1Count = iFreeze1Count + 1
         end
-    --end
+
+        if iCurTickCycle <= 0 then
+
+            iCurUnitCount = 0
+
+            for iBrain, oBrain in ArmyBrains do
+                iCurUnitCount = iCurUnitCount + oBrain:GetCurrentUnits(categories.ALLUNITS - categories.BENIGN)
+            end
+
+            LOG('LogGamePerformanceData: GameTime='..LOUDFLOOR(GetGameTimeSeconds())..' Time taken='..GetSystemTimeSecondsOnlyForProfileUse() - iTimeAtMainTickStart..'; Unit Count='..iCurUnitCount..'; iFreeze1Count='..iFreeze1Count)
+
+            iCurTickCycle = iIntervalInTicks
+            iTimeAtMainTickStart = GetSystemTimeSecondsOnlyForProfileUse()
+            iFreeze1Count = 0
+        end
+    end
 end
+
+
 --[[
 
 -- this code is here to insure the base area is flat enough to allow 
@@ -6520,7 +6716,7 @@ function LevelStartBaseArea(position, rallypointradius)
 
 	local ht = GetTerrainHeight(posX, posY)
 
-	local radius = math.floor(rallypointradius * .4)
+	local radius = LOUDFLOOR(rallypointradius * .4)
 
 	FlattenMapRect(posX-radius, posY-radius, radius*2, radius*2, ht)
 
@@ -6587,6 +6783,74 @@ function LevelStartBaseArea(position, rallypointradius)
 		end
 	end
 	
+end
+
+function StartSpeedProfile()
+
+    --ForkThread (SpeedProfile)
+
+end
+
+function SpeedProfile()
+
+    -- account for time expended prior to game time starting
+    --local startvalue = GetSystemTimeSecondsOnlyForProfileUse()
+    
+    local GSO = GetSystemTimeSecondsOnlyForProfileUse
+    --local GTS = GetGameTimeSeconds
+    
+    while true do
+    
+        local gamesecondsperactualseconds = ( GSO() - startvalue ) / GTS()
+        local ax = GTS() / (GSO() - startvalue)
+    
+        LOG("*AI DEBUG Speed Profile at Gametime "..repr(GTS()).." is "..gamesecondsperactualseconds.." -- "..ax )
+    
+        -- this will actually be precisely 5 seconds -- at least according to GetGameTimeSeconds
+        -- not quite sure where the extra tick is being lost
+        WaitTicks(51)
+        
+    end
+
+    local a
+    
+    local b = {}
+    
+    local total = 0
+    
+    local count = 1
+    
+    local avg = 0
+    
+    local period = 30
+    
+    while true do
+    
+        a = GSO()
+       
+        WaitTicks(11)
+       
+        a = GSO() - a
+       
+        total = total - ( b[count] or 0 )
+       
+        b[count] = a
+       
+        total = total + a
+       
+        avg = total/period
+       
+        count = count + 1
+       
+        if count > period then
+       
+            count = 1
+            
+        end
+
+        LOG("*AI DEBUG Time per game second "..a.."  Avg over "..period.." seconds "..avg)
+    
+    end
 end
 
 --]]
