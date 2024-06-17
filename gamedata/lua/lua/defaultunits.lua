@@ -163,7 +163,9 @@ StructureUnit = Class(Unit) {
         Main = function(self)
 
             self:DestroyTarmac()
+
             PlayUnitSound(self,'UpgradeStart')
+
             self:DisableDefaultToggleCaps()
 
             local bp = __blueprints[self.BlueprintID].Display
@@ -969,16 +971,17 @@ StructureUnit = Class(Unit) {
     end,
 
     OnTransportAttach = function(self, attachBone, unit)
-		Unit.OnTransportAttach(self, attachBone, unit)
+		UnitOnTransportAttach(self, attachBone, unit)
     end,
 
     OnTransportDetach = function(self, attachBone, unit)
-		Unit.OnTransportDetach(self, attachBone, unit)
+		UnitOnTransportDetach(self, attachBone, unit)
     end,
     
     OnUpgradeComplete = function( self, unitbeingbuilt )
         --LOG("*AI DEBUG Upgrade Complete to "..unitbeingbuilt.EntityID.." "..unitbeingbuilt:GetBlueprint().Description.." UPGRADE COMPLETE at game second "..GetGameTimeSeconds() )
     end,
+    
 }
 
 local StructureUnitOnCreate             = StructureUnit.OnCreate
@@ -995,7 +998,6 @@ MobileUnit = Class(Unit) {
 
 		self.TransportClass = __blueprints[self.BlueprintID].Transport.TransportClass or false
 	end,
-
 
     OnKilled = function(self, instigator, type, overkillRatio)
 
@@ -1083,7 +1085,7 @@ MobileUnit = Class(Unit) {
     end,
 
     CreateCaptureEffects = function( self, target )
-        EffectUtilities.PlayCaptureEffects( self, target, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones or {0,}, self.CaptureEffectsBag )
+        PlayCaptureEffects( self, target, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones or {0,}, self.CaptureEffectsBag )
     end,
 
     StopCaptureEffects = function( self, target )
@@ -1176,14 +1178,14 @@ MobileUnit = Class(Unit) {
     SetReclaimTimeMultiplier = function(self, time_mult)
         self.ReclaimTimeMultiplier = time_mult
     end,
-
 	
     OnStartSacrifice = function(self, target_unit)
-		EffectUtilities.PlaySacrificingEffects(self,target_unit)
+		PlaySacrificingEffects(self,target_unit)
     end,
 
     OnStopSacrifice = function(self, target_unit)
-		EffectUtilities.PlaySacrificeEffects(self,target_unit)
+		PlaySacrificeEffects(self,target_unit)
+        
         self:SetDeathWeaponEnabled(false)
         self:Destroy()
     end,
@@ -1663,7 +1665,9 @@ MobileUnit = Class(Unit) {
 
     OnLayerChange = function(self, new, old)
 
-		Unit.OnLayerChange( self, new, old) 
+        --LOG("*AI DEBUG Layer change from "..repr(old).." to "..repr(new) )
+        
+		UnitOnLayerChange( self, new, old) 
 
         for i = 1, GetWeaponCount(self) do
         
@@ -1677,8 +1681,6 @@ MobileUnit = Class(Unit) {
         if new == 'Land' then
 
 			local vis = self:GetStat('VISION', 0).Value
-            
-            LOG("*AI DEBUG Vis is "..repr(vis))
 			
 			-- return vision radius to current value
 			if old == 'Seabed' then
@@ -1698,8 +1700,6 @@ MobileUnit = Class(Unit) {
             
 			local vis       = self:GetStat('VISION', 0).Value
             local watervis  = self:GetStat('WATERVISION', 0).Value
-            
-            LOG("*AI DEBUG Vis and Watervis are "..repr(vis).." "..repr(watervis) )
 			
 			self:SetIntelRadius('Vision', watervis)
 
@@ -2736,7 +2736,7 @@ QuantumGateUnit = Class(FactoryUnit) {
 	-- Teleport GUI button
 	OnScriptBitSet = function(self,	bit)
 
-		Unit.OnScriptBitSet(self, bit)
+		UnitOnScriptBitSet(self, bit)
 
 		if bit == 1 then
 			ForkThread(self.WarpNearbyUnits, self, 12)
@@ -2805,7 +2805,7 @@ WallStructureUnit = Class(StructureUnit) {
 
     OnCreate = function(self)
 
-        Entity.OnCreate(self)
+        EntityOnCreate(self)
 
 		self.CacheLayer = moho.unit_methods.GetCurrentLayer(self)
 		self.CachePosition = LOUDCOPY(moho.entity_methods.GetPosition(self))
@@ -2842,7 +2842,8 @@ WallStructureUnit = Class(StructureUnit) {
 	-- all Wall sections follow this -- so it bypasses unit kills
 	-- and a bunch of other not-needed work
     OnKilled = function(self, instigator, type, overkillRatio)
-		
+
+--[[		
 		-- remove the kill before the instigator has a chance to test veterancy
 		if instigator and IsUnit(instigator) then
 			
@@ -2850,7 +2851,7 @@ WallStructureUnit = Class(StructureUnit) {
 
 			instigator:SetStat('KILLS', kills - 1)
 		end    
-
+--]]
 		self:DestroyAllDamageEffects()
 
         CreateScalableUnitExplosion( self, overkillRatio )
@@ -3099,6 +3100,7 @@ RadarUnit = Class(StructureUnit) {
 
         self:CreateIdleEffects()
     end,
+    
 }
 
 RadarJammerUnit = Class(StructureUnit) {
@@ -3147,24 +3149,31 @@ RadarJammerUnit = Class(StructureUnit) {
 
         StructureUnit.OnIntelEnabled(self,intel)
 
-        if self.IntelEffects and not self.IntelFxOn then
+        if (intel == 'Jammer' or intel == 'RadarStealthField') and self.IntelEffects and not self.IntelFxOn then
 
 			self.IntelEffectsBag = {}
 
 			self.CreateTerrainTypeEffects( self, self.IntelEffects, 'FXIdle',  self.CacheLayer, nil, self.IntelEffectsBag )
+            
 			self.IntelFxOn = true
 
 		end
+        
     end,
 
     OnIntelDisabled = function(self,intel)
 
         StructureUnit.OnIntelDisabled(self,intel)
+        
+        if (intel == 'Jammer' or intel == 'RadarStealthField') and self.IntelEffectsBag then
 
-        CleanupEffectBag(self,'IntelEffectsBag')
+            CleanupEffectBag(self,'IntelEffectsBag')
 
-		self.IntelEffectsBag = nil
-        self.IntelFxOn = nil
+            self.IntelEffectsBag = nil
+
+            self.IntelFxOn = nil
+            
+        end
 
     end,
 
@@ -3190,20 +3199,12 @@ SonarUnit = Class(StructureUnit) {
         StructureUnit.DestroyIdleEffects(self)
     end,
 
-    OnIntelDisabled = function(self,intel)
-
-        StructureUnit.OnIntelDisabled(self,intel)
-    end,
-
-    OnIntelEnabled = function(self,intel)
-
-        StructureUnit.OnIntelEnabled(self,intel)
-    end,
 }
 
 ShieldStructureUnit = Class(StructureUnit) {
 
 	UpgradingState = State(StructureUnit.UpgradingState) {
+
         Main = function(self)
             StructureUnit.UpgradingState.Main(self)
         end,
@@ -3233,9 +3234,10 @@ TransportBeaconUnit = Class(StructureUnit) {
 
 WalkingLandUnit = Class(MobileUnit) {
 
-    WalkingAnimRate = 1,
-    IdleAnimRate = 1,
-    DisabledBones = {},
+    --WalkingAnimRate = 1,
+    --IdleAnimRate = 1,
+    
+    --DisabledBones = {},
     
     IdleAnim = false,
     DeathAnim = false,
@@ -3244,12 +3246,21 @@ WalkingLandUnit = Class(MobileUnit) {
 		MobileUnitOnPreCreate(self)
 	end,
 
+    PlayCommanderWarpInEffect = function(self)
+    
+        self:HideBone(0, true)
+        self:SetUnSelectable(true)
+        self:SetBusy(true)
+        self:SetBlockCommandQueue(true)
+        self:ForkThread(self.WarpInEffectThread)
+    end,
+
     OnCmdrUpgradeFinished = function(self)
-        --self:DoUnitCallbacks('OnCmdrUpgradeFinished')
+        self:DoUnitCallbacks('OnCmdrUpgradeFinished')
     end,
 
     OnCmdrUpgradeStart = function(self)
-        --self:DoUnitCallbacks('OnCmdrUpgradeStart')
+        self:DoUnitCallbacks('OnCmdrUpgradeStart')
     end,
 
     OnMotionHorzEventChange = function( self, new, old )
@@ -3949,6 +3960,8 @@ AirUnit = Class(MobileUnit) {
     OnHealthChanged = function(self, new, old)
 
 		if not self.Dead and new > 0 then
+        
+            local Fuel = self.HasFuel
 		
 			-- Health values come in at fixed 25% intervals
 			if new < old then
@@ -3956,7 +3969,7 @@ AirUnit = Class(MobileUnit) {
 				-- so at 50% damage air performance drops
 				if old == 0.75 then
 				
-					if self.HasFuel then
+					if Fuel then
 				
 						self:SetSpeedMult(0.82)
 						self:SetAccMult(0.82)
@@ -3966,7 +3979,7 @@ AirUnit = Class(MobileUnit) {
 				-- and below 25% it drops even more
 				elseif old <= 0.5 then
 				
-					if self.HasFuel then
+					if Fuel then
 					
 						self:SetSpeedMult(0.6)
 						self:SetAccMult(0.6)
@@ -3980,7 +3993,7 @@ AirUnit = Class(MobileUnit) {
 				-- at 25% move performance back up 
 				if new == 0.25 then
 				
-					if self.HasFuel then
+					if Fuel then
 				
 						self:SetSpeedMult(0.82)
 						self:SetAccMult(0.82)
@@ -3990,7 +4003,7 @@ AirUnit = Class(MobileUnit) {
 				-- at 50% restore full performance
 				elseif new >= 0.5 then
 				
-					if self.HasFuel then
+					if Fuel then
 					
 						self:SetSpeedMult(1)
 						self:SetAccMult(1)
@@ -4000,7 +4013,7 @@ AirUnit = Class(MobileUnit) {
 			end
 		end
 		
-		Unit.OnHealthChanged(self, new, old)
+		UnitOnHealthChanged(self, new, old)
     end,	
 	
     OnImpact = function(self, with, other)

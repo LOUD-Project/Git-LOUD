@@ -1,7 +1,7 @@
 --**  File     :  /lua/MiscBuildConditions.lua
 
-local AIGetClosestMarkerLocation = import('/lua/ai/aiutilities.lua').AIGetClosestMarkerLocation
-local AIGetReclaimablesAroundLocation = import('/lua/ai/aiutilities.lua').AIGetReclaimablesAroundLocation
+local AIGetClosestMarkerLocation        = import('/lua/ai/aiutilities.lua').AIGetClosestMarkerLocation
+local AIGetReclaimablesAroundLocation   = import('/lua/ai/aiutilities.lua').AIGetReclaimablesAroundLocation
 
 function RandomNumber(aiBrain, higherThan, lowerThan, minNumber, maxNumber)
 

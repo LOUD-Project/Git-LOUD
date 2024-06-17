@@ -975,8 +975,8 @@ function InitializeArmies()
 		-- Start the Dead Base Monitor
 		self:ForkThread1( loudUtils.DeadBaseMonitor )
 		
-        -- Start the Enemy Picker
-        self:ForkThread1( loudUtils.PickEnemy )
+        -- Start the Enemy Picker (AttackPlanner, etc)
+        self.EnemyPickerThread = self:ForkThread( loudUtils.PickEnemy )
 		
 		-- Start the Path Generator
 		self:ForkThread1( loudUtils.PathGeneratorThread )

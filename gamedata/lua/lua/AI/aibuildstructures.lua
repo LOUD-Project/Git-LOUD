@@ -434,7 +434,7 @@ function AINewExpansionBase( aiBrain, baseName, position, engineer, construction
 
 		-- determines if this base is counted against total allowed bases -- defaults to false
 		local countedbase = constructionData.CountedBase or false
-		local expansionradius = constructionData.ExpansionRadius or 150
+		local expansionradius = constructionData.ExpansionRadius or 115
 		local rallypointradius = constructionData.RallyPointRadius or 50
 
 		if not expansionradius then

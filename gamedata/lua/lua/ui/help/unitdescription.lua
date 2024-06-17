@@ -128,10 +128,10 @@ Description = {
 	['ueb3101'] = "Radar system with minimal range. Detects and tracks surface and air units.",
 	['ueb3102'] = "Sonar system with minimal range. Detects and tracks naval units.",
 	['ueb3201'] = "Radar system with moderate range. Detects and tracks surface and air units.",
-	['ueb3202'] = "Sonar system with moderate range. Detects and tracks naval units.",
+	['ueb3202'] = "Sonar system with moderate range. Detects and tracks naval units. Personal Stealth.",
 	['ueb4203'] = "Generates stealth field. Hides units and structures from radar detection within its operational range. Countered by optical and Omni sensors.",
-	['ues0305'] = "Sonar system with exceptional range. Detects and tracks naval units. Armed with a bottom-mounted torpedo turret.",
-	['ueb3104'] = "High-end intelligence system. Provides maximum radar and sonar coverage. Counters enemy intelligence systems.",
+	['ues0305'] = "Mobile Sonar with exceptional range. Detects and tracks naval units. Radar & limited Omni ability. Armed with T1 level torpedos. Personal Stealth",
+	['ueb3104'] = "High-end intelligence system. Provides maximum radar and Omni coverage. Omni defeats all cloaking and stealth systems.",
 
 --CYBRAN UNITS
 	--Commanders
@@ -168,7 +168,8 @@ Description = {
 	['url0203'] = "Submersible, amphibious tank. Armed with a heavy bolter and torpedo launcher.",
 	['url0111'] = "Mobile missile launcher. Designed to attack at long range.",
 	['url0205'] = "Mobile AA unit. Armed with flak artillery.",
-	['url0306'] = "Mobile stealth generator.",
+	['url0306'] = "Mobile Stealth Generator.  Suppresses radar detection within a narrow range",
+    ['url0307'] = "Mobile Sensor Disruptor and Stealth Field.  Disrupts enemy sensors (radar,sonar,Omni & Vision) upto 40%",
 	['url0303'] = "Siege assault bot. Armed with a Disintegrator Pulse laser and heavy bolter.",
 	['url0304'] = "Slow-moving heavy artillery. Must be stationary to fire.",
 	['url0402'] = "Experimental bot. Consumes massive amounts of Energy. Its main laser sweeps across any enemy to its front. Also armed with AA defenses.",
@@ -208,7 +209,7 @@ Description = {
 	['urs0303'] = "Aircraft carrier. Can build, repair and carry aircraft. Armed with light AA auto-cannons and an anti-missile turret. Carries up to 50 aircraft of any hook size.",
 	['urs0304'] = "Strategic missile submarine. Armed with a strategic missile launcher, tactical missile launcher and torpedo tubes.",
 	['xrs0204'] = "Mid-level anti-naval unit. Equipped with mobile sonar stealth. Effective against surface vessels and submerged units.",
-	['xrs0205'] = "Unarmed counter-intelligence vessel. Equipped with stealth field that counters enemy sonar and radar.",
+	['xrs0205'] = "Unarmed counter-intelligence vessel. Equipped with stealth field that counters enemy sonar and radar, and both an active and passive torpedo defense.",
 	['urb2101'] = "Low-end defensive tower that attacks land- and sea-based units. Does not engage aircraft or submerged units.",
 	['urb2104'] = "Anti-air tower. Designed to engage low-end aircraft.",
 	['urb2109'] = "Anti-naval defense system.",

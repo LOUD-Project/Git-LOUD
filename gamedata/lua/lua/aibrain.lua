@@ -239,6 +239,7 @@ local factions = {'UEF', 'Aeon', 'Cybran', 'Seraphim'}
 -- List of AI cheat multipliers to map against per-AI lobby setting
 -- Only for backwards compatibility
 
+--[[
 local aiMults = {
     0.8,
     0.9,
@@ -265,6 +266,7 @@ local aiMults = {
     2.0,
     2.5
 }
+--]]
 
 -- VO Timeout and Replay Durations
 
@@ -914,11 +916,11 @@ AIBrain = Class(moho.aibrain_methods) {
 		local s = ScenarioInfo.ArmySetup[self.Name].Mult
 		local m
         
-		if type(s) == "string" then
+--		if type(s) == "string" then
 			m = tonumber(ScenarioInfo.ArmySetup[self.Name].Mult)
-		else
-			m = aiMults[ScenarioInfo.ArmySetup[self.Name].Mult]
-		end
+--		else
+	--		m = aiMults[ScenarioInfo.ArmySetup[self.Name].Mult]
+--		end
         
         if m then 
             m = math.max(0.1, m)
@@ -1099,6 +1101,7 @@ AIBrain = Class(moho.aibrain_methods) {
 		
     end,
     
+    -- this version does NOT return the handle
     ForkThread1 = function(self, fn)
 	
         TrashAdd( self.Trash, ForkThread(fn, self))
@@ -1660,9 +1663,9 @@ AIBrain = Class(moho.aibrain_methods) {
 			Radius = radius,
 		
 			-- setup the 3 builders
-            EngineerManager = CreateEngineerManager(self, baseName, position, radius),
-            FactoryManager = CreateFactoryBuilderManager(self, baseName, position, basetype),
-            PlatoonFormManager = CreatePlatoonFormManager(self, baseName, position, radius),
+            EngineerManager     = CreateEngineerManager(self, baseName, position, radius),
+            FactoryManager      = CreateFactoryBuilderManager(self, baseName, position, basetype),
+            PlatoonFormManager  = CreatePlatoonFormManager(self, baseName, position, radius),
 			
         }
 

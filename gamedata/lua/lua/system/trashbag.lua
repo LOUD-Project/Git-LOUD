@@ -9,15 +9,15 @@ TrashBag = Class {
 
     __mode = 'v',
     
-    Count = 1,
+    Counter = 1,
 
     -- Add an object to the TrashBag.
     Add = function(self, obj)
 	
         if obj != nil then
 
-			self[self.Count] = obj
-            self.Count = self.Count + 1
+			self[self.Counter] = obj
+            self.Counter = self.Counter + 1
 			
 		end
 		
@@ -26,16 +26,17 @@ TrashBag = Class {
     -- Call Destroy() for all objects in this bag.
     Destroy = function(self)
     
-        if self.Count then
+        if self.Counter then
 
-            for i = 1, self.Count - 1 do
+            for i = 1, self.Counter - 1 do
 
                 if self[i] then
                     self[i]:Destroy()
+                    self[i] = nil
                 end
             end
             
-            self.Count = 1
+            self.Counter = 1
         end
 
     end
