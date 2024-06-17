@@ -1,5 +1,7 @@
 --  scenarioutilities.lua
 
+local loudUtils = import('/lua/loudutilities.lua')
+
 
 function GetMarkers()
     return ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers
@@ -729,8 +731,6 @@ function CreateResources()
 end
 
 function InitializeArmies()
-
-    local loudUtils = import('/lua/loudutilities.lua')
 	
 	--Loop through active mods
 	for i, m in __active_mods do
@@ -754,259 +754,6 @@ function InitializeArmies()
     import('/lua/sim/scenarioutilities.lua').CreateProps() 
 
     ScenarioInfo.biggestTeamSize = 0
-    
-    local function InitializeSkirmishSystems(self)
-	
-		-- store which team we're on
-        if ScenarioInfo.ArmySetup[self.Name].Team == 1 then
-            self.Team = -1 * self.ArmyIndex  -- no team specified
-        else
-            self.Team = ScenarioInfo.ArmySetup[self.Name].Team  -- specified team number
-        end
-        
-        local Opponents = 0
-        local TeamSize = 1
-
-        -- calculate team sizes
-        for index, playerInfo in ArmyBrains do
-    
-            if ArmyIsCivilian(playerInfo.ArmyIndex) or index == self.ArmyIndex then continue end
-
-            if IsAlly( index, self.ArmyIndex) then 
-                TeamSize = TeamSize + 1
-            else
-                Opponents = Opponents + 1
-            end
-            
-		end
-		
-		local color = ScenarioInfo.ArmySetup[self.Name].WheelColor
-        
-		SetArmyColor(self.ArmyIndex, color[1], color[2], color[3])
-        
-		-- Don't need WheelColor anymore, so delete it
-		ScenarioInfo.ArmySetup[self.Name].WheelColor = nil
-
-        if ScenarioInfo.Options.AIFactionColor == 'on' and self.BrainType ~= 'Human' then
-            -- These colours are based on the lobby faction dropdown icons
-            if self.FactionIndex == 1 then
-                SetArmyColor(self.ArmyIndex, 44, 159, 200)
-            elseif self.FactionIndex == 2 then
-                SetArmyColor(self.ArmyIndex, 104, 171, 77)
-            elseif self.FactionIndex == 3 then
-                SetArmyColor(self.ArmyIndex, 255, 0, 0)
-            elseif self.FactionIndex == 4 then
-                SetArmyColor(self.ArmyIndex, 254, 189, 44)
-            end
-        end
-		
-        -- number of Opponents in the game
-        self.NumOpponents = Opponents
-        
-        -- default outnumbered ratio
-        self.OutnumberedRatio = 1
-        
-        -- number of players in the game 
-        self.Players = ScenarioInfo.Options.PlayerCount
-        
-        LOG("*AI DEBUG "..self.Nickname.." Team "..self.Team.." Teamsize is "..TeamSize.." Opponents is "..Opponents)
-        
-        self.TeamSize = TeamSize
-		
-		if self.TeamSize > ScenarioInfo.biggestTeamSize then
-			ScenarioInfo.biggestTeamSize = TeamSize		
-		end
-    
-        -- don't do anything else for a human player
-        if self.BrainType == 'Human' then
-            return
-        end
-
-		self.OutnumberedRatio = math.max( 1, ScenarioInfo.biggestTeamSize/self.TeamSize )
-    
-        if self.OutnumberedRatio > 1 then 
-            LOG("*AI DEBUG "..self.Nickname.." OutnumberedRatio is "..self.OutnumberedRatio)
-        end
-
-        -- put some initial threat at all enemy positions
-        for k,brain in ArmyBrains do
-    
-            --LOG("*AI DEBUG Reviewing Brain "..repr(brain.Nickname).." "..repr(brain) )
-        
-            if self.ArmyIndex != brain.ArmyIndex and brain.Nickname != 'civilian' and (not brain:IsDefeated()) and (not IsAlly(self.ArmyIndex, brain.ArmyIndex)) then
-        
-                local place = brain:GetStartVector3f()
-                local threatlayer = 'AntiAir'
-            
-                --LOG("*AI DEBUG "..brain.Nickname.." "..brain.BrainType.." enemy found at "..repr(place).." posting Economy threat")
-            
-                -- assign 500 ecothreat for 10 minutes
-                self:AssignThreatAtPosition( place, 5000, 0.005, 'Economy' )
-            end
-        end
-
-        if ScenarioInfo.Options.AIResourceSharing == 'off' then
-        
-            self:SetResourceSharing(false)
-            
-        elseif ScenarioInfo.Options.AIResourceSharing == 'aiOnly' then
-        
-            local allPlayersAI = true
-            
-            for i, playerInfo in ArmyBrains do
-            
-                -- If this AI is allied to a human, disable resource sharing
-                if IsAlly(i, self.ArmyIndex) and playerInfo.BrainType == 'Human' then
-                
-                    self:SetResourceSharing(false)
-                    break
-                    
-                end
-                
-            end
-            
-        else
-            self:SetResourceSharing(true)
-        end
-
-        -- Create the Condition monitor
-        self.ConditionsMonitor = import('/lua/sim/BrainConditionsMonitor.lua').CreateConditionsMonitor(self)
-
-        -- Create the Economy Data structures and start Economy monitor thread
-        self:ForkThread1(loudUtils.EconomyMonitor)
-		
-        -- Base counters
-        self.NumBases = 0
-		self.NumBasesLand = 0
-		self.NumBasesNaval = 0
-		
-		-- Veterancy multiplier
-		self.VeterancyMult = 1.0
-		
-		-- Create the SelfUpgradeIssued counter
-		-- holds the number of units that have recently issued a self-upgrade
-		-- is used to limit the # of self-upgrades that can be issued in a given time
-		-- to avoid having more than X units trying to upgrade at once
-		self.UpgradeIssued = 0
-
-		self.UpgradeIssuedLimit = 1
-		self.UpgradeIssuedPeriod = 225
-
-		-- if outnumbered increase the number of simultaneous upgrades allowed
-		-- and reduce the waiting period by 2 seconds ( about 10% )
-		if self.OutnumberedRatio > 1.0 then
-	
-			self.UpgradeIssuedLimit = self.UpgradeIssuedLimit + 1
-			self.UpgradeIssuedPeriod = self.UpgradeIssuedPeriod - 20
-            
-            -- if really outnumbered do this a second time
-            if self.OutnumberedRatio > 1.5 then
-            
-                self.UpgradeIssuedLimit = self.UpgradeIssuedLimit + 1
-                self.UpgradeIssuedPeriod = self.UpgradeIssuedPeriod - 20
-                
-                -- if really badly outnumbered then we do it a 3rd time
-                if self.OutnumberedRatio > 2.0 then
-                
-                    self.UpgradeIssuedLimit = self.UpgradeIssuedLimit + 1
-                    self.UpgradeIssuedPeriod = self.UpgradeIssuedPeriod - 20
-                    
-                end
-            end
-		end
-        
-        LOG("*AI DEBUG "..self.Nickname.." Upgrade Issued Limit is "..self.UpgradeIssuedLimit.." Standard Upgraded Issued Delay Period is "..self.UpgradeIssuedPeriod )
-
-		-- set the base radius according to map size -- affects platoon formation radius and base alert radius
-		local mapSizex = ScenarioInfo.size[1]
-        
-		local BuilderRadius = math.max(90, (mapSizex/16)) -- should give a range between 90 and 256+
-		local BuilderRadius = math.min(BuilderRadius, 140) -- and then limit it to no more than 140
-		
-		local RallyPointRadius = 49	-- create automatic rally points at 49 from centre
-		
-		-- Set the flag that notes if an expansion base is being setup -- when an engineer takes on an expansion task, he'll set this flag to true
-		-- when he dies or starts building the new base, he'll set it back to false
-		-- we use this to keep the AI from doing more than one expansion at a time
-		self.BaseExpansionUnderway = false
-		
-		-- level AI starting locations
-		--loudUtils.LevelStartBaseArea(self:GetStartVector3f(), RallyPointRadius )
-		
-        -- Create the Builder Managers for the MAIN base
-        self:AddBuilderManagers(self:GetStartVector3f(), BuilderRadius, 'MAIN', false, RallyPointRadius, true, 'FRONT')
-		
-		-- turn on the PrimaryLandAttackBase flag for MAIN
-		self.BuilderManagers.MAIN.PrimaryLandAttackBase = true
-		self.PrimaryLandAttackBase = 'MAIN'
-        
-        -- Create the Strategy Manager (disabled) from the Sorian AI
-        --self.BuilderManagers.MAIN.StrategyManager = StratManager.CreateStrategyManager(self, 'MAIN', self:GetStartVector3f(), 100)
-		
-        -- create Persistent Pool platoons
-
-        -- for isolating structures (used by LOUD AI)
-        local structurepool = self:MakePlatoon('StructurePool','none')
-		
-        structurepool:UniquelyNamePlatoon('StructurePool')
-		structurepool.BuilderName = 'Struc'
-        structurepool.UsingTransport = true     -- insures that it never gets reviewed in a merge operation
-		
-		self.StructurePool = structurepool
-        
-        -- for isolating aircraft low on fuel (used by LOUD AI)
-        local refuelpool = self:MakePlatoon('RefuelPool','none')
-		
-        refuelpool:UniquelyNamePlatoon('RefuelPool')
-		refuelpool.BuilderName = 'Refuel'
-        refuelpool.UsingTransport = true        -- never gets reviewed in a merge --
-		
-		self.RefuelPool = refuelpool
-		
-		-- the standard Army Pool
-		local armypool = self:GetPlatoonUniquelyNamed('ArmyPool')
-		
-		armypool:UniquelyNamePlatoon('ArmyPool')
-		armypool.BuilderName = 'Army'
-		
-		self.ArmyPool = armypool
-		
-
-		-- Start the Dead Base Monitor
-		self:ForkThread1( loudUtils.DeadBaseMonitor )
-		
-        -- Start the Enemy Picker (AttackPlanner, etc)
-        self.EnemyPickerThread = self:ForkThread( loudUtils.PickEnemy )
-		
-		-- Start the Path Generator
-		self:ForkThread1( loudUtils.PathGeneratorThread )
-		
-        -- start PlatoonDistressMonitor
-        self:ForkThread1( loudUtils.PlatoonDistressMonitor )
-
-		-- start watching the intel data
-		self:ForkThread1( loudUtils.ParseIntelThread )
-
-		-- record the starting unit cap	
-		-- caps of 1000+ trigger some conditions
-		self.StartingUnitCap = GetArmyUnitCap(self.ArmyIndex)
-  
-		if self.CheatingAI then
-			import('/lua/ai/aiutilities.lua').SetupAICheat( self )
-		end
-        
-        if self.OutnumberedRatio > 1.5 and (self.VeterancyMult < self.OutnumberedRatio) then
-        
-            local AISendChat = import('/lua/ai/sorianutilities.lua').AISendChat
-        
-            ForkThread( AISendChat, 'enemies', self.Nickname, "WOW - Why dont you just beat me with a stick?" )
-            ForkThread( AISendChat, 'enemies', self.Nickname, "You Outnumber me "..tostring(self.OutnumberedRatio).." to 1 !")
-            ForkThread( AISendChat, 'enemies', self.Nickname, "And all you give me is a "..tostring(self.VeterancyMult).." bonus?")
-        
-        end
-
-    end
-
 
     local tblGroups = {}
     local tblArmy = ListArmies()
@@ -1109,14 +856,10 @@ function InitializeArmies()
         end
         
     end
-
-
    
     if ScenarioInfo.Env.Scenario.Areas.AREA_1 then
     
         LOG("*AI DEBUG ScenarioInfo Map is "..repr(ScenarioInfo.Env.Scenario.Areas) )
-        
-        
     
         import('/lua/scenarioframework.lua').SetPlayableArea( 'AREA_1', false )
         
@@ -1214,8 +957,6 @@ function InitializeArmies()
     end
 
     loudUtils.StartAdaptiveCheatThreads()
-    
-    --loudUtils.StartSpeedProfile()     -- this was a crude benchmarking tool
    
     ScenarioInfo.StartingMassPointList = nil
     ScenarioInfo.TeamMassPointList = nil
@@ -1225,6 +966,230 @@ function InitializeArmies()
     
     return tblGroups
 	
+end
+
+function InitializeSkirmishSystems(self)
+
+	-- store which team we're on
+    if ScenarioInfo.ArmySetup[self.Name].Team == 1 then
+        self.Team = -1 * self.ArmyIndex  -- no team specified
+    else
+        self.Team = ScenarioInfo.ArmySetup[self.Name].Team  -- specified team number
+    end
+
+    local Opponents = 0
+    local TeamSize = 1
+
+    -- calculate team sizes
+    for index, playerInfo in ArmyBrains do
+    
+        if ArmyIsCivilian(playerInfo.ArmyIndex) or index == self.ArmyIndex then continue end
+
+        if IsAlly( index, self.ArmyIndex) then 
+            TeamSize = TeamSize + 1
+        else
+            Opponents = Opponents + 1
+        end
+    end
+	
+    -- number of Opponents in the game
+    self.NumOpponents = Opponents
+
+    -- default outnumbered ratio
+    self.OutnumberedRatio = 1
+
+    -- number of players in the game 
+    self.Players = ScenarioInfo.Options.PlayerCount
+
+    LOG("*AI DEBUG "..self.Nickname.." Team "..self.Team.." Teamsize is "..TeamSize.." Opponents is "..Opponents)
+
+    self.TeamSize = TeamSize
+
+    if self.TeamSize > ScenarioInfo.biggestTeamSize then
+		ScenarioInfo.biggestTeamSize = TeamSize		
+	end
+
+    -- don't do anything else for a human player
+    if self.BrainType == 'Human' then
+        return
+    end
+
+	self.OutnumberedRatio = math.max( 1, ScenarioInfo.biggestTeamSize/self.TeamSize )
+    
+    if self.OutnumberedRatio > 1 then 
+        LOG("*AI DEBUG "..self.Nickname.." OutnumberedRatio is "..self.OutnumberedRatio)
+    end
+
+    -- put some initial threat at all enemy positions
+    for k,brain in ArmyBrains do
+        
+        if self.ArmyIndex != brain.ArmyIndex and brain.Nickname != 'civilian' and (not brain:IsDefeated()) and (not IsAlly(self.ArmyIndex, brain.ArmyIndex)) then
+        
+            local place = brain:GetStartVector3f()
+            local threatlayer = 'AntiAir'
+            
+            --LOG("*AI DEBUG "..brain.Nickname.." "..brain.BrainType.." enemy found at "..repr(place).." posting Economy threat")
+            
+            -- assign 500 ecothreat for 10 minutes
+            self:AssignThreatAtPosition( place, 5000, 0.005, 'Economy' )
+        end
+    end
+
+    if ScenarioInfo.Options.AIResourceSharing == 'off' then
+        
+        self:SetResourceSharing(false)
+
+    elseif ScenarioInfo.Options.AIResourceSharing == 'aiOnly' then
+
+        for i, playerInfo in ArmyBrains do
+            
+            -- If this AI is allied to a human, disable resource sharing
+            if IsAlly(i, self.ArmyIndex) and playerInfo.BrainType == 'Human' then
+                
+                self:SetResourceSharing(false)
+                break
+            end
+        end
+
+    else
+        self:SetResourceSharing(true)
+    end
+
+    -- Create the Condition monitor
+    self.ConditionsMonitor = import('/lua/sim/BrainConditionsMonitor.lua').CreateConditionsMonitor(self)
+
+    -- Create the Economy Data structures and start Economy monitor thread
+    self:ForkThread1(loudUtils.EconomyMonitor)
+
+    -- Base counters
+    self.NumBases = 0
+    self.NumBasesLand = 0
+	self.NumBasesNaval = 0
+
+	-- Veterancy multiplier
+	self.VeterancyMult = 1.0
+
+	-- Create the SelfUpgradeIssued counter
+	-- holds the number of units that have recently issued a self-upgrade
+	-- is used to limit the # of self-upgrades that can be issued in a given time
+	-- to avoid having more than X units trying to upgrade at once
+	self.UpgradeIssued = 0
+
+	self.UpgradeIssuedLimit = 1
+	self.UpgradeIssuedPeriod = 225
+
+	-- if outnumbered increase the number of simultaneous upgrades allowed
+	-- and reduce the waiting period by 2 seconds ( about 10% )
+	if self.OutnumberedRatio > 1.0 then
+	
+		self.UpgradeIssuedLimit = self.UpgradeIssuedLimit + 1
+		self.UpgradeIssuedPeriod = self.UpgradeIssuedPeriod - 20
+
+        -- if really outnumbered do this a second time
+        if self.OutnumberedRatio > 1.5 then
+
+            self.UpgradeIssuedLimit = self.UpgradeIssuedLimit + 1
+            self.UpgradeIssuedPeriod = self.UpgradeIssuedPeriod - 20
+
+            -- if really badly outnumbered then we do it a 3rd time
+            if self.OutnumberedRatio > 2.0 then
+
+                self.UpgradeIssuedLimit = self.UpgradeIssuedLimit + 1
+                self.UpgradeIssuedPeriod = self.UpgradeIssuedPeriod - 20
+
+            end
+        end
+	end
+
+    LOG("*AI DEBUG "..self.Nickname.." Upgrade Issued Limit is "..self.UpgradeIssuedLimit.." Standard Upgraded Issued Delay Period is "..self.UpgradeIssuedPeriod )
+
+	-- set the base radius according to map size -- affects platoon formation radius and base alert radius
+	local mapSizex = ScenarioInfo.size[1]
+
+	local BuilderRadius = math.max(90, (mapSizex/16)) -- should give a range between 90 and 256+
+	local BuilderRadius = math.min(BuilderRadius, 140) -- and then limit it to no more than 140
+
+	local RallyPointRadius = 49	-- create automatic rally points at 49 from centre
+
+	-- Set the flag that notes if an expansion base is being setup -- when an engineer takes on an expansion task, he'll set this flag to true
+	-- when he dies or starts building the new base, he'll set it back to false
+	-- we use this to keep the AI from doing more than one expansion at a time
+	self.BaseExpansionUnderway = false
+
+	-- level AI starting locations
+	--loudUtils.LevelStartBaseArea(self:GetStartVector3f(), RallyPointRadius )
+
+    -- Create the Builder Managers for the MAIN base
+    self:AddBuilderManagers(self:GetStartVector3f(), BuilderRadius, 'MAIN', false, RallyPointRadius, true, 'FRONT')
+
+    -- turn on the PrimaryLandAttackBase flag for MAIN
+	self.BuilderManagers.MAIN.PrimaryLandAttackBase = true
+	self.PrimaryLandAttackBase = 'MAIN'
+
+    -- Create the Strategy Manager (disabled) from the Sorian AI
+    --self.BuilderManagers.MAIN.StrategyManager = StratManager.CreateStrategyManager(self, 'MAIN', self:GetStartVector3f(), 100)
+		
+    -- create Persistent Pool platoons
+
+    -- for isolating structures (used by LOUD AI)
+    local structurepool = self:MakePlatoon('StructurePool','none')
+
+    structurepool:UniquelyNamePlatoon('StructurePool')
+    structurepool.BuilderName = 'Struc'
+    structurepool.UsingTransport = true     -- insures that it never gets reviewed in a merge operation
+
+	self.StructurePool = structurepool
+
+    -- for isolating aircraft low on fuel (used by LOUD AI)
+    local refuelpool = self:MakePlatoon('RefuelPool','none')
+		
+    refuelpool:UniquelyNamePlatoon('RefuelPool')
+    refuelpool.BuilderName = 'Refuel'
+    refuelpool.UsingTransport = true        -- never gets reviewed in a merge --
+
+	self.RefuelPool = refuelpool
+
+	-- the standard Army Pool
+	local armypool = self:GetPlatoonUniquelyNamed('ArmyPool')
+
+	armypool:UniquelyNamePlatoon('ArmyPool')
+	armypool.BuilderName = 'Army'
+
+	self.ArmyPool = armypool
+
+	-- Start the Dead Base Monitor
+	self:ForkThread1( loudUtils.DeadBaseMonitor )
+
+    -- Start the Enemy Picker (AttackPlanner, etc)
+    self.EnemyPickerThread = self:ForkThread( loudUtils.PickEnemy )
+
+	-- Start the Path Generator
+	self:ForkThread1( loudUtils.PathGeneratorThread )
+
+    -- start PlatoonDistressMonitor
+    self:ForkThread1( loudUtils.PlatoonDistressMonitor )
+
+	-- start watching the intel data
+	self:ForkThread1( loudUtils.ParseIntelThread )
+
+	-- record the starting unit cap	
+	-- caps of 1000+ trigger some conditions
+	self.StartingUnitCap = GetArmyUnitCap(self.ArmyIndex)
+  
+	if self.CheatingAI then
+		import('/lua/ai/aiutilities.lua').SetupAICheat( self )
+	end
+
+    if self.OutnumberedRatio > 1.5 and (self.VeterancyMult < self.OutnumberedRatio) then
+        
+        local AISendChat = import('/lua/ai/sorianutilities.lua').AISendChat
+        
+        ForkThread( AISendChat, 'enemies', self.Nickname, "WOW - Why dont you just beat me with a stick?" )
+        ForkThread( AISendChat, 'enemies', self.Nickname, "You Outnumber me "..tostring(self.OutnumberedRatio).." to 1 !")
+        ForkThread( AISendChat, 'enemies', self.Nickname, "And all you give me is a "..tostring(self.VeterancyMult).." bonus?")
+        
+    end
+
 end
 
 function CreatePlatoons( strArmy, tblNode, tblResult, platoonList, currPlatoon, treeResult, balance )
