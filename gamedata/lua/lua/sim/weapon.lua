@@ -234,12 +234,17 @@ Weapon = Class(moho.weapon_methods) {
 			end
 		
 			-- calc tracking radius if not provided
-
-			if bp.TrackingRadius then
+            -- if not set, the default is one - that's no good
+            -- we'll force it to the MaxRadius
+			if bp.TrackingRadius > 1 then
 				self.TrackingRadius = bp.TrackingRadius
 			else
-				self.TrackingRadius = bp.MaxRadius * 1.1
+				self.TrackingRadius = bp.MaxRadius
 			end
+            
+            if bp.TargetRestrictOnlyAllow then
+                self.TargetRestrictOnlyAllow = bp.TargetRestrictOnlyAllow
+            end
 		
 		end
 		
@@ -384,12 +389,12 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     OnGotTarget = function(self)
+	
+        if ScenarioInfo.WeaponDialog then
+            LOG("*AI DEBUG Weapon OnGotTarget for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
+        end
 
         if self.DisabledFiringBones and self.unit.Animator then
-	
-            if ScenarioInfo.WeaponDialog then
-                LOG("*AI DEBUG Weapon OnGotTarget for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
-            end
 		
             for _, value in self.DisabledFiringBones do
                 SetBoneEnabled( self.unit.Animator, value, false )
@@ -400,9 +405,9 @@ Weapon = Class(moho.weapon_methods) {
 
     OnLostTarget = function(self)
 	
-        if ScenarioInfo.WeaponDialog then
-            LOG("*AI DEBUG Weapon OnLostTarget for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
-        end
+        --if ScenarioInfo.WeaponDialog then
+          --  LOG("*AI DEBUG Weapon OnLostTarget for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
+        --end
 
         if self.DisabledFiringBones and self.unit.Animator then
 		
@@ -417,9 +422,9 @@ Weapon = Class(moho.weapon_methods) {
     
         if self.WeaponIsEnabled then
 	
-            if ScenarioInfo.WeaponDialog then
-                LOG("*AI DEBUG Weapon OnStartTracking for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
-            end
+            --if ScenarioInfo.WeaponDialog then
+              --  LOG("*AI DEBUG Weapon OnStartTracking for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
+            --end
 
             self:PlayWeaponSound('BarrelStart')
         end
@@ -429,14 +434,16 @@ Weapon = Class(moho.weapon_methods) {
 	
         if self.WeaponIsEnabled then
         
-            if ScenarioInfo.WeaponDialog then
-                LOG("*AI DEBUG Weapon OnStopTracking for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
-            end
+            --if ScenarioInfo.WeaponDialog then
+              --  LOG("*AI DEBUG Weapon OnStopTracking for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
+            --end
 
             self:PlayWeaponSound('BarrelStop')
 		
             if LOUDENTITY(STRUCTURE, self.unit) then
                 SetResetPoseTime( self.AimControl, 9999999 )
+            else
+                SetResetPoseTime( self.AimControl, 3 )
             end
         end
     end,
@@ -487,13 +494,13 @@ Weapon = Class(moho.weapon_methods) {
 		end
 		
 		if weaponBlueprint.advancedTracking then
+
 			self.damageTable.advancedTracking = weaponBlueprint.advancedTracking
 			self.damageTable.ProjectileLifetime = self.ProjectileLifetime
-			self.damageTable.TrackingRadius = self.TrackingRadius
+			self.damageTable.TargetRestrictOnlyAllow = self.TargetRestrictOnlyAllow
+            self.damageTable.TrackingRadius = self.TrackingRadius
             
-            --if weaponBlueprint.TargetType == 'RULEWTT_Projectile' then
-                self.damageTable.TrackingWeapon = self
-            --end
+            self.damageTable.TrackingWeapon = self
 		end
 		
 		if weaponBlueprint.ArtilleryShieldBlocks then
@@ -562,20 +569,43 @@ Weapon = Class(moho.weapon_methods) {
 
 	-- this event is triggered at the moment that a weapon fires a shell
     CreateProjectileForWeapon = function(self, bone)
-	
-		if ScenarioInfo.WeaponDialog then
-			LOG("*AI DEBUG Weapon CreateProjectileForWeapon "..repr(self.bp.Label).." for "..repr(__blueprints[self.unit.BlueprintID].Description).." using "..repr(self.bp.ProjectileId) )
-		end
 
         local proj = LOUDCREATEPROJECTILE( self, bone )
+        
+        if not proj.BlueprintID then
+        
+            local target
+        
+            while self and proj and not proj.BlueprintID do
+            
+                target = self:GetCurrentTarget()
+
+                if target and not target.Dead then
+            
+                    WaitTicks(1)
+
+                    proj = LOUDCREATEPROJECTILE( self, bone )
+                else
+
+                    -- the weapon has lost its target during firing
+                    --LOG("*AI DEBUG Projectile for Weapon "..repr(self.bp.Label).." "..repr(bone).." failed at "..GetGameTick().." Weapon has target is "..repr(self:WeaponHasTarget()).." Current target is "..repr(target.BlueprintID).." Dead "..repr(target.Dead) )                                
+
+                    break
+                end
+            end
+        end
 		
         if proj and not BeenDestroyed(proj) then
 
+            if ScenarioInfo.ProjectileDialog then
+                LOG("*AI DEBUG Weapon CreateProjectileForWeapon "..repr(self.bp.Label).." at bone "..repr(bone).." at "..GetGameTick() )
+            end
+            
             PassDamageData( proj, self.damageTable )
 			
-			if self.NukeWeapon then
+            if self.NukeWeapon then
 			
-				local bp = self.bp
+                local bp = self.bp
 
                 proj.Data = {
 				
@@ -592,6 +622,7 @@ Weapon = Class(moho.weapon_methods) {
                 }
 
             end
+
         end
 		
         return proj

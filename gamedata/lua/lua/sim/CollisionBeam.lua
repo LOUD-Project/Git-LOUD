@@ -122,10 +122,12 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
 
     CreateBeamEffects = function(self)
 
+        if (not self.FxBeamStartPoint and not self.FxBeamEndPoint and not self.FxBeam) then return end
+        
         local army = self.Army
 		
 		local LOUDATTACHEMITTER = CreateAttachedEmitter
-		local LOUDGETN = LOUDGETN
+		local LOUDGETN          = LOUDGETN
         
         local fx
     
@@ -137,26 +139,34 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
             self.BeamEffectsBag = {}
             self.BeamEffectsBagCounter = 1
         end
-
-        for k, y in self.FxBeamStartPoint do
         
-            fx = LOUDATTACHEMITTER(self, 0, army, y ):ScaleEmitter(self.FxBeamStartPointScale)
+        if self.FxBeamStartPoint then
+
+            for k, y in self.FxBeamStartPoint do
+        
+                fx = LOUDATTACHEMITTER(self, 0, army, y ):ScaleEmitter(self.FxBeamStartPointScale)
             
-            self.BeamEffectsBag[self.BeamEffectsBagCounter] = fx
-            self.BeamEffectsBagCounter = self.BeamEffectsBagCounter + 1
+                self.BeamEffectsBag[self.BeamEffectsBagCounter] = fx
+                self.BeamEffectsBagCounter = self.BeamEffectsBagCounter + 1
+                
+            end
 
         end
 		
-        for k, y in self.FxBeamEndPoint do
+        if self.FxBeamEndPoint then
         
-            fx = LOUDATTACHEMITTER(self, 1, army, y ):ScaleEmitter(self.FxBeamEndPointScale)
+            for k, y in self.FxBeamEndPoint do
+        
+                fx = LOUDATTACHEMITTER(self, 1, army, y ):ScaleEmitter(self.FxBeamEndPointScale)
             
-            self.BeamEffectsBag[self.BeamEffectsBagCounter] = fx
-            self.BeamEffectsBagCounter = self.BeamEffectsBagCounter + 1
+                self.BeamEffectsBag[self.BeamEffectsBagCounter] = fx
+                self.BeamEffectsBagCounter = self.BeamEffectsBagCounter + 1
 
+            end
+            
         end
 		
-        if LOUDGETN(self.FxBeam) != 0 then
+        if self.FxBeam and LOUDGETN(self.FxBeam) != 0 then
 
             fx = CreateBeamEmitter(self.FxBeam[Random(1, LOUDGETN(self.FxBeam))], army)
 
@@ -164,6 +174,7 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
 
             -- when this value is 'true' - a free immediate collision occurs
             -- this was originally triggered if the beam delay was <= 0
+            -- I can see how this may have had some value for beam based TMD
             self:SetBeamFx(fx, false )
             
             self.BeamEffectsBag[self.BeamEffectsBagCounter] = fx
@@ -174,6 +185,8 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
     end,
 
     DestroyBeamEffects = function(self)
+    
+        if not self.BeamEffectsBag then return end
     
         for k, v in self.BeamEffectsBag do
             v:Destroy()
@@ -310,17 +323,12 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
     OnImpact = function(self, impactType, targetEntity)
 
         local damageTable = self.DamageTable
-
-        if ScenarioInfo.ProjectileDialog then
         
-            LOG("*AI DEBUG CollisionBeam OnImpact targetType is "..repr(impactType).." data is "..repr(damageTable).." at "..GetGameTick() )
-			
-            if targetEntity then
-                LOG("*AI DEBUG CollisionBeam Target entity is "..repr(targetEntity.BlueprintID))
-            end
-        end
+        local DamageAmount      = damageTable.DamageAmount
 
-        if damageTable.DamageAmount then
+        local ProjectileDialog  = ScenarioInfo.ProjectileDialog
+
+        if DamageAmount then
 
             if damageTable.Buffs then
                 self:DoUnitImpactBuffs( targetEntity, damageTable )
@@ -347,11 +355,13 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
                 end
             end
 
-			self:DoDamage( self:GetLauncher() or self, damageTable, targetEntity)
+			self:DoDamage( GetLauncher(self) or self, damageTable, targetEntity)
 		end
 
         local ImpactEffects = false
         local ImpactEffectScale = 1
+        
+        local army = self.Army
 
         if impactType == 'Unit' then
             ImpactEffects = self.FxImpactUnit
@@ -377,18 +387,24 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
             ImpactEffects = self.FxImpactLand
             ImpactEffectScale = self.FxLandHitScale
             
-        elseif impactType == 'Air' or impactType == 'Projectile' then
-            ImpactEffects = self.FxImpactNone
-            ImpactEffectScale = self.FxNoneHitScale
-            
         elseif impactType == 'Prop' then
             ImpactEffects = self.FxImpactProp
             ImpactEffectScale = self.FxPropHitScale
             
         end
-		
-        if ImpactEffects[1] then
-            self:CreateImpactEffects( self.Army, ImpactEffects, ImpactEffectScale )
+        
+        if ImpactEffects then
+
+            if ProjectileDialog then
+        
+                LOG("*AI DEBUG CollisionBeam OnImpact targetType is "..repr(impactType).." data is "..repr(damageTable).." at "..GetGameTick() )
+			
+                if targetEntity then
+                    LOG("*AI DEBUG CollisionBeam Target entity is "..repr(targetEntity.BlueprintID))
+                end
+            end
+        
+            self:CreateImpactEffects( army, ImpactEffects, ImpactEffectScale )
         end
         
         self:UpdateTerrainCollisionEffects( impactType )

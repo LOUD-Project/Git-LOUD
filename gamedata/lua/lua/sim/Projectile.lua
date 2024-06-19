@@ -136,8 +136,10 @@ Projectile = Class( ProjectileMethods ) {
 	Tracking = function(self)
     
         if self.AdvancedTrackinglock then return end
+        
+        if self:BeenDestroyed() then return end
 
-  	    local launcher = GetLauncher(self)
+  	    local launcher = GetLauncher(self) or false
         
         if not launcher then return end
         
@@ -149,10 +151,9 @@ Projectile = Class( ProjectileMethods ) {
         
         local targetlauncher = false
         
-        if ScenarioInfo.ProjectileDialog then
-            LOG("*AI DEBUG Projectile Advanced Tracking engaged for "..repr(self.BlueprintID) )
-            LOG("*AI DEBUG Current target is "..repr(target.BlueprintID) )
-        end
+        --if ScenarioInfo.ProjectileTrackingDialog then
+          --  LOG("*AI DEBUG "..aiBrain.Nickname.." Tracking Projectile "..repr(self.BlueprintID).." starts - target is "..repr(target.BlueprintID) )
+        --end
 
         local BeenDestroyed = BeenDestroyed
         local GetHealth = GetHealth
@@ -176,13 +177,28 @@ Projectile = Class( ProjectileMethods ) {
                 weapon = self.DamageData.TrackingWeapon
             end
         
-            self.advancedTrackinglock = nil
+            self.AdvancedTrackinglock = nil
 		
             if not weapon then
                 targetlist = GetUnitsAroundPoint( aiBrain, categories.AIR - categories.SATELLITE, position, self.range ,'ENEMY') 
             else
+            
                 if not weapon:BeenDestroyed() then
-                    targetlist = { weapon:GetCurrentTarget() or nil }
+                
+                    targetlist = { weapon:GetCurrentTarget() or target }
+                    
+                    if not targetlist[1] then
+                    
+                        if ScenarioInfo.ProjectileTrackingDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." Tracking Projectile Weapon has no current target")
+                        end
+                        
+                    else
+                        if ScenarioInfo.ProjectileTrackingDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." Tracking Weapon target "..repr(target.BlueprintID).." Incomming Damage is "..repr(target.IncommingDamage))
+                        end
+                    end
+                    
                 else
                     return
                 end
@@ -190,8 +206,8 @@ Projectile = Class( ProjectileMethods ) {
             
             if targetlist[1] then
 
-                if ScenarioInfo.ProjectileDialog and weapon then
-                    LOG("*AI DEBUG Projectile "..repr(self.BlueprintID).." Tracking activates retargeting "..repr(targetlist[1]) )
+                if ScenarioInfo.ProjectileTrackingDialog and weapon then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." Tracking Projectile "..repr(self.BlueprintID).." activates retargeting "..repr(targetlist[1].BlueprintID) )
                 end
                 
                
@@ -207,57 +223,83 @@ Projectile = Class( ProjectileMethods ) {
                     
                     targetlist = GetEntitiesInRect( x-trackradius,y-trackradius, x+trackradius, y+trackradius )
                     
-                    targetlist = EntityCategoryFilterDown( trackcategory, targetlist)
+                    if targetlist then
                     
-                    table.sort( targetlist, function(a,b) return VDist3( position, GetPosition(a)) < VDist3( position, GetPosition(b)) end )
-                    
-                    LOG("*AI DEBUG Projectile "..repr(self.BlueprintID).." Found "..table.getn(targetlist).." "..repr(self.DamageData.TargetRestrictOnlyAllow).." targets")
-
-                end
-			
-                for k, v in targetlist do
-                
-                    if IsEnemy( v.Army, self.Army ) then
-			
-                        if not v.IncommingDamage or v.IncommingDamage < GetHealth(v) then
-				
-                            SetNewTarget( self, v )
+                        targetlist = EntityCategoryFilterDown( trackcategory, targetlist)
                         
-                            LOG("*AI DEBUG Projectile "..repr(self.BlueprintID).." Retargeted to "..repr(v.BlueprintID).." total "..repr(v.IncommingDamage) )
-                            
-                            if v.IncommingDamage then
-                    
-                                v.IncommingDamage = v.IncommingDamage + self.DamageData.DamageAmount
-                                
-                            else
-                            
-                                v.IncommingDamage = self.DamageData.DamageAmount
-                                
-                            end
-                    
-                            self.AdvancedTrackinglock = true
-                            
-                            target = v      --GetTrackingTarget(self)
-                            
-                            targetlauncher = false
-                            
-                            if not BeenDestroyed(target) then
-                                targetlauncher = GetLauncher(target)
-                            end
-                            
-                            break
-
+                        if targetlist[2] then
+                            table.sort( targetlist, function(a,b) return VDist3( position, GetPosition(a)) < VDist3( position, GetPosition(b)) end )
                         end
 
+                        if targetlist[1] then
+                            
+                            if ScenarioInfo.ProjectileTrackingDialog then
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." Tracking Projectile "..repr(self.BlueprintID).." Found "..table.getn(targetlist).." "..repr(self.DamageData.TargetRestrictOnlyAllow).." targets")
+                            end
+
+                        else
+                            
+                            if ScenarioInfo.ProjectileTrackingDialog then
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." Tracking Projectile "..repr(self.BlueprintID).." Found NO "..repr(self.DamageData.TargetRestrictOnlyAllow).." targets - weapon is "..repr(weapon.bp.Label) )
+                            end                        
+
+                            targetlist = false
+                        end
+                    end
+
+                end
+                
+                if targetlist then
+			
+                    for k, v in targetlist do
+                
+                        if IsEnemy( v.Army, self.Army ) then
+			
+                            if not v.IncommingDamage or v.IncommingDamage < GetHealth(v) then
+				
+                                SetNewTarget( self, v )
+
+                                if ScenarioInfo.ProjectileTrackingDialog then
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." Tracking Projectile "..repr(self.BlueprintID).." Retargeted to "..repr(v.BlueprintID).." total "..repr(v.IncommingDamage) )
+                                end
+                            
+                                if v.IncommingDamage then
+                                    v.IncommingDamage = v.IncommingDamage + self.DamageData.DamageAmount
+                                else
+                                    v.IncommingDamage = self.DamageData.DamageAmount
+                                end
+                    
+                                self.AdvancedTrackinglock = true
+                            
+                                target = v
+                            
+                                targetlauncher = false
+                            
+                                if not BeenDestroyed(target) then
+                                
+                                    if not IsUnit(target) then
+                                        targetlauncher = GetLauncher(target)
+                                    end
+
+                                end
+                            
+                                break
+
+                            end
+
+                        end
+                        
                     end
 
                 end
                 
                 if not self.AdvancedTrackinglock then
                 
-                    if targetlauncher then
+                    if targetlauncher and not targetlauncher:BeenDestroyed() then
                 
-                        LOG("*AI DEBUG Projectile "..repr(self.BlueprintID).." No target found - targeting launcher")
+                        if ScenarioInfo.ProjectileTrackingDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." Tracking Projectile "..repr(self.BlueprintID).." No target found - targeting launcher")
+                        end
                     
                         SetNewTarget( self, targetlauncher )
                     
@@ -273,8 +315,8 @@ Projectile = Class( ProjectileMethods ) {
                 
             else
 
-                if ScenarioInfo.ProjectileDialog then
-                    LOG("*AI DEBUG Projectile "..repr(self.BlueprintID).." Advanced Tracking fails" )
+                if ScenarioInfo.ProjectileTrackingDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." Tracking Projectile "..repr(self.BlueprintID).." Advanced Tracking fails" )
                 end
 
                 return
@@ -296,16 +338,12 @@ Projectile = Class( ProjectileMethods ) {
                 
         		self.AdvancedTrackinglock = true
                 
-                LOG("*AI DEBUG Projectile "..repr(self.BlueprintID).." Added to target "..repr(target.BlueprintID).." total "..repr(target.IncommingDamage) )
-                
         	else
         		Retarget()
         	end
 			
         else 
         	target.IncommingDamage = self.DamageData.DamageAmount
-            
-            LOG("*AI DEBUG Projectile "..repr(self.BlueprintID).." Initial targeting for  "..repr(target.BlueprintID).." total "..repr(target.IncommingDamage) )
             
         	self.AdvancedTrackinglock = true
         end
@@ -417,16 +455,16 @@ Projectile = Class( ProjectileMethods ) {
 			ForkThread( function() LOG("*AI DEBUG Projectile OnDestroy "..repr(self.BlueprintID) ) end )
 		end
 
-        local DD = self.DamageData	
+        local DD = self.DamageData or false	
 		
-        if DD and not LOUDEMPTY(DD) then
+        if DD then
         
-            if DD.advancedTracking then
+            if self.AdvancedTrackinglock then
 		
                 -- from adv missile track and retarget
                 local target = GetTrackingTarget(self)
 		
-                if target and not target.Dead and self.advancedTrackinglock and target.IncommingDamage then
+                if target and not target.Dead and target.IncommingDamage then
 		
                     -- reduce the amount of damage incoming to this target
                     target.IncommingDamage = target.IncommingDamage - DD.DamageAmount
@@ -514,7 +552,7 @@ Projectile = Class( ProjectileMethods ) {
             elseif damageData.DamageAmount and targetEntity then
 		
                 if ScenarioInfo.ProjectileDialog then
-                    ForkThread( function() LOG("*AI DEBUG Projectile OnDamage to "..repr(targetEntity.BlueprintID).." for "..damage.." - damageData is "..repr(damageData) ) end )
+                    ForkThread( function() LOG("*AI DEBUG Projectile OnDamage to "..repr(targetEntity.BlueprintID).." for "..damage ) end )
                 end
 			
                 if not damageData.DoTTime then
@@ -544,17 +582,20 @@ Projectile = Class( ProjectileMethods ) {
         for _,v in EffectTable do
 		
 			if self.FxImpactTrajectoryAligned then
-			
-				LOUDEMITATBONE( self, -2, army, v ):ScaleEmitter(EffectScale or 1)
-				
+            
+                if EffectScale then
+                    LOUDEMITATBONE( self, -2, army, v ):ScaleEmitter(EffectScale)
+                else
+                    LOUDEMITATBONE( self, -2, army, v )
+                end
 			else
-			
-				LOUDEMITATENTITY( self, army, v ):ScaleEmitter(EffectScale or 1)
-				
+                if EffectScale then
+                    LOUDEMITATENTITY( self, army, v ):ScaleEmitter(EffectScale)
+                else
+                    LOUDEMITATENTITY( self, army, v )
+                end
 			end 
-			
         end
-		
     end,
     
     CreateTerrainEffects = function( self, army, EffectTable, EffectScale )
@@ -600,15 +641,15 @@ Projectile = Class( ProjectileMethods ) {
     end,
 
     OnCollisionCheckWeapon = function(self, firingWeapon)
-
-		if ScenarioInfo.ProjectileDialog then
-			LOG("*AI DEBUG Projectile OnCollisionCheckWeapon")
-		end
 		
 		-- if this unit category is on the weapon's do-not-collide list, skip!
 		local DNC = firingWeapon.bp.DoNotCollideList
 
 		if DNC then
+
+            if ScenarioInfo.ProjectileDialog then
+                LOG("*AI DEBUG Projectile OnCollisionCheckWeapon")
+            end
 		
 			local LOUDENTITY = LOUDENTITY
 			local LOUDPARSE = LOUDPARSE
@@ -619,6 +660,7 @@ Projectile = Class( ProjectileMethods ) {
 				end
 			end
 		end    
+
         return true
     end,
 
@@ -683,13 +725,9 @@ Projectile = Class( ProjectileMethods ) {
 		end
 
         local bp = ALLBPS[self.BlueprintID]
-		
-        if bp.Audio['Impact'..targetType] then
-            PlaySound( self, bp.Audio['Impact'..targetType] )
-        elseif bp.Audio.Impact then
-            PlaySound( self, bp.Audio.Impact)
-        end
-		
+        
+
+	
 		-- when simspeed drops too low turn off visual impact effects
 		if Sync.SimData.SimSpeed > -1 then
 
@@ -735,9 +773,14 @@ Projectile = Class( ProjectileMethods ) {
 				ImpactEffects = self.FxImpactWater
 				ImpactEffectScale = self.FxWaterHitScale
 
-			elseif targetType == 'Underwater' or targetType == 'UnitUnderwater' then
+			elseif targetType == 'Underwater' then
 		
 				ImpactEffects = self.FxImpactUnderWater
+				ImpactEffectScale = self.FxUnderWaterHitScale
+
+			elseif  targetType == 'UnitUnderwater' then
+		
+				ImpactEffects = self.FxImpactUnitUnderWater or self.FxImpactUnderWater
 				ImpactEffectScale = self.FxUnderWaterHitScale
 
 			elseif targetType == 'Air' then
@@ -752,8 +795,8 @@ Projectile = Class( ProjectileMethods ) {
 			
 			elseif targetType == 'ProjectileUnderwater' then
 		
-				ImpactEffects = self.FxImpactProjectileUnderWater
-				ImpactEffectScale = self.FxProjectileUnderWaterHitScale			
+				ImpactEffects = self.FxImpactProjectileUnderWater or self.FxImpactProjectile
+				ImpactEffectScale = self.FxUnderWaterHitScale			
 			
 			end
 
@@ -764,21 +807,23 @@ Projectile = Class( ProjectileMethods ) {
                     self:CreateImpactEffects( army, ImpactEffects, ImpactEffectScale )
                 end
 			end
+            
+            local ImpactEffectsType = bp.Display.ImpactEffects.Type
 
-			if bp.Display.ImpactEffects.Type then
+			if ImpactEffectsType then
 
 				local TerrainType = DefaultTerrainType
 			
-				if TerrainType.FXImpact[targetType][bp.Display.ImpactEffects.Type] == nil then
+				if TerrainType.FXImpact[targetType][ImpactEffectsType] == nil then
 					TerrainType = DefaultTerrainType
 				end
 			
-				local TerrainEffect = TerrainType.FXImpact[targetType][bp.Display.ImpactEffects.Type] or false
+				local TerrainEffect = TerrainType.FXImpact[targetType][ImpactEffectsType] or false
 			
 				if TerrainEffect[1] then
 
-                    if ScenarioInfo.ProjectileDialog then
-                        LOG("*AI DEBUG CollisionBeam UpdateTerrainCollisionEffects is "..repr(TerrainType.Description).." impact type "..repr(self.TerrainImpactType).." table data is "..repr(TerrainType.FXImpact[targetType][bp.Display.ImpactEffects.Type]).." "..repr(TerrainEffect) )
+                    if ProjectileDialog then
+                        LOG("*AI DEBUG CollisionBeam UpdateTerrainCollisionEffects is "..repr(TerrainType.Description).." impact type "..repr(self.TerrainImpactType).." table data is "..repr(TerrainType.FXImpact[targetType][ImpactEffectsType]).." "..repr(TerrainEffect) )
                     end
 			
 					if not BeenDestroyed(self) then
@@ -789,22 +834,34 @@ Projectile = Class( ProjectileMethods ) {
         end
 
         -- Railgun damage drops by 20% per target it collides with
-		if DD.DamageType == 'Railgun' then
+		if DamageType == 'Railgun' then
             
-            local DD = table.copy(self.DamageData)
+            local DD = LOUDCOPY(self.DamageData)
 
 			DD.DamageAmount = DD.DamageAmount * 0.8
 			
 			bp.Physics.ImpactTimeout = 0.1
-		end
+		else
+        
+            self:SetCollisionShape( 'none' )
 
-        if bp.Physics.ImpactTimeout and (targetType == 'Terrain' or targetType == 'Air' or targetType == 'Underwater') then
+        end
+        
+        local Audio = bp.Audio['Impact'..targetType] or bp.Audio.Impact or false
 		
-            ForkTo( self.ImpactTimeoutThread, self, bp.Physics.ImpactTimeout )
+        if Audio then
+            PlaySound( self, Audio )
+        end
+        
+        local ImpactTimeout = bp.Physics.ImpactTimeout
+	
+        if ImpactTimeout and (targetType == 'Terrain' or targetType == 'Air' or targetType == 'Underwater') then
+		
+            ForkTo( self.ImpactTimeoutThread, self, ImpactTimeout )
 			
         else
 
-			if DD.DamageType != 'Railgun' then
+			if DamageType != 'Railgun' then
 				self:OnImpactDestroy( targetType, targetEntity)
 			end 
         end
@@ -813,9 +870,10 @@ Projectile = Class( ProjectileMethods ) {
     
     OnImpactDestroy = function( self, targetType, targetEntity )
 
-        if self.DestroyOnImpact or not targetEntity or 		
-            (not self.DestroyOnImpact and targetEntity and not LOUDENTITY(categories.ANTIMISSILE * categories.ALLPROJECTILES, targetEntity)) then
+        if self.DestroyOnImpact or not targetEntity or
 
+            (not self.DestroyOnImpact and targetEntity and not LOUDENTITY(categories.ANTIMISSILE * categories.ALLPROJECTILES, targetEntity)) then
+            
             Destroy(self)
         end 
     end,
@@ -866,16 +924,28 @@ Projectile = Class( ProjectileMethods ) {
         self.DamageData.DamageAmount = damageData.DamageAmount
         self.DamageData.DamageType = damageData.DamageType or 'Normal'
 
+		if damageData.advancedTracking then
+			self.DamageData.AdvancedTracking = damageData.advancedTracking
+        end
+		
+		if damageData.ArtilleryShieldBlocks then
+			self.DamageData.ArtilleryShieldBlocks = damageData.ArtilleryShieldBlocks
+		end
+		
+		if damageData.Buffs then
+			self.DamageData.Buffs = damageData.Buffs
+		end
+		
+		if damageData.CollideFriendly then
+			self.DamageData.CollideFriendly = damageData.CollideFriendly
+		end
+
 		if damageData.DamageRadius then
 			self.DamageData.DamageRadius = damageData.DamageRadius
 		end
 	
 		if damageData.DamageFriendly then
 			self.DamageData.DamageFriendly = damageData.DamageFriendly
-		end
-		
-		if damageData.CollideFriendly then
-			self.DamageData.CollideFriendly = damageData.CollideFriendly
 		end
 		
 		if damageData.DoTTime then
@@ -886,27 +956,15 @@ Projectile = Class( ProjectileMethods ) {
 			self.DamageData.DoTPulses = damageData.DoTPulses
 		end
 
-		if damageData.advancedTracking then
-			self.DamageData.advancedTracking = damageData.advancedTracking
-        end
-
         if damageData.TrackingWeapon then
-            self.DamageData.TrackingWeapon = damageData.TrackingWeapon
+            self.DamageData.TrackingRadius          = damageData.TrackingRadius
+            self.DamageData.TargetRestrictOnlyAllow = damageData.TargetRestrictOnlyAllow
+            self.DamageData.TrackingWeapon          = damageData.TrackingWeapon
+
+			ForkTo( self.Tracking, self )
         end            
 		
-		if damageData.Buffs then
-			self.DamageData.Buffs = damageData.Buffs
-		end
-		
-		if damageData.ArtilleryShieldBlocks then
-			self.DamageData.ArtilleryShieldBlocks = damageData.ArtilleryShieldBlocks
-		end
-		
-		-- for adv missile track and retarget
-		if self.DamageData.advancedTracking then
-			ForkTo( self.Tracking, self )
-		end
-		
+        --LOG("*AI DEBUG PassDamageData result for "..repr(self.BlueprintID).." is "..repr(self.DamageData) )
     end,
     
     OnExitWater = function(self)
@@ -928,22 +986,33 @@ Projectile = Class( ProjectileMethods ) {
         end
 		
     end,
+
+    AddDepthCharge = function(self, tbl)
+	
+        if not tbl then return end
+        if not tbl.Radius then return end
+		
+        self.MyDepthCharge = DepthCharge { Owner = self, Radius = tbl.Radius or 10 }
+		
+		if not self.Trash then
+			self.Trash = TrashBag()
+		end
+
+        TrashAdd( self.Trash, self.MyDepthCharge )
+    end,
     
     AddFlare = function(self, tbl)
 	
         if not tbl then return end
         if not tbl.Radius then return end
 		
-        self.MyFlare = Flare { Owner = self, Radius = tbl.Radius or 5, Category = tbl.Category or false }
+        self.MyFlare = Flare {  Category = tbl.Category or '', Owner = self, Radius = tbl.Radius,  RadiusGrowth = tbl.RadiusGrowth or .4,  RadiusStart = tbl.RadiusStart or 3 }
 		
 		if not self.Trash then
-		
 			self.Trash = TrashBag()
-			
 		end
 		
         TrashAdd( self.Trash, self.MyFlare )
-		
     end,
 
     OnLostTarget = function(self)
