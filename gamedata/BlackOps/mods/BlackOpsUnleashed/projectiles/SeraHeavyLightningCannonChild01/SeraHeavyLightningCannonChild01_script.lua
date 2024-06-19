@@ -11,7 +11,7 @@ SeraHeavyLightningCannonChild01 = Class(SeraLightningCannonChild) {
 	FxBeamScale = 0.01,
 	
     OnCreate = function(self)
-		SeraLightningCannonChildProjectile.OnCreate(self)
+		SeraLightningCannonChild.OnCreate(self)
 		self:ForkThread(self.BFG)
     end,
 
