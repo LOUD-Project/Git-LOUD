@@ -10,7 +10,7 @@ local SDFChronotronOverChargeCannonWeapon   = SWeapons.SDFChronotronCannonOverCh
 local SIFCommanderDeathWeapon               = SWeapons.SIFCommanderDeathWeapon
 local SIFLaanseTacticalMissileLauncher      = SWeapons.SIFLaanseTacticalMissileLauncher
 
-SWeapons = nil,
+SWeapons = nil
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local EffectUtil = import('/lua/EffectUtilities.lua')
