@@ -179,7 +179,7 @@ function OnFirstUpdate()
 
         end
     )
-    
+
     if Prefs.GetOption('skin_change_on_start') != 'no' then
 	
         local focusarmy = GetFocusArmy()

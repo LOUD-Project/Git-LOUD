@@ -253,7 +253,6 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, expradius, t
 		local positions = {}
 
 		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Blank Marker', Position, radius, tMin, tMax, tRings, tType))
-	
 		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Large Expansion Area', Position, radius, tMin, tMax, tRings, tType))
 	
 		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )
@@ -292,7 +291,7 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, expradius, t
 		
 			if not removed then
 
-				-- check if position is within range of other 'counted' bases
+				-- check if position is within range of my other bases
 				for basename,base in aiBrain.BuilderManagers do
 				
 					-- ignore position if too close to existing counted bases (non-Sea)
@@ -342,7 +341,6 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
 		local positions = {}
 	
 		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Blank Marker', Position, radius, tMin, tMax, tRings, tType))	
-	
 		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Large Expansion Area', Position, radius, tMin, tMax, tRings, tType))
 
 		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )
@@ -364,19 +362,18 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
 				if brain.BuilderManagers[marker.Name] or ( position[1] == brain.BuilderManagers['MAIN'].Position[1] and position[3] == brain.BuilderManagers['MAIN'].Position[3] ) then
 			
 					removed = true
-				
 					break
 				end
 			end
 		
 			if not removed then
 			
+                -- check it against my own existing bases
 				for basename, base in aiBrain.BuilderManagers do
 			
-					if (base.CountedBase and base.BaseType != 'Sea') and VDist3( base.Position, position ) < minimum_baserange then
+					if VDist3( base.Position, position ) < minimum_baserange then
 				
 						removed = true
-						
 						break
 					end
 				end
@@ -415,10 +412,8 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 		local positions = {}
 	
 		positions = LOUDCONCAT( positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Defensive Point', test_position, radius, tMin, tMax, tRings, tType))
-	
 		positions = LOUDCONCAT( positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Expansion Area', test_position, radius, tMin, tMax, tRings, tType))
 
-		-- sort the positions by distance from Position --
 		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], test_position[1],test_position[3]) < VDist2Sq(b.Position[1],b.Position[3], test_position[1],test_position[3] ) end )
 
 		local Brains = ArmyBrains
@@ -489,13 +484,12 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
 	
 		local positions = LOUDCONCAT(positions,AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Defensive Point', test_position, radius, tMin, tMax, tRings, tType))
 
-		-- sort the possible positions by distance from the test_position -- 
 		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], test_position[1],test_position[3]) < VDist2Sq(b.Position[1],b.Position[3], test_position[1],test_position[3] ) end )
 	
 		local Brains = ArmyBrains
 	
 		-- minimum range that a DP can be from an existing base -- Naval
-		local minimum_baserange = 200
+		local minimum_baserange = 180
         
         local removed = false
 	
@@ -512,20 +506,14 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
 		
 				-- if in use by another brain --
 				if (not removed) and brain.BuilderManagers[marker.Name] then
-				
-					-- are they allied ?
-					local ally = IsAlly(aiBrain.ArmyIndex, brain.ArmyIndex) or false
-				
-					-- if not allied then remove
-					if not ally then
 
-						removed = true
-						break
-					end
+					removed = true
+					break
 				end
 			end
 		
-			-- if valid then range check it to OUR other SEA bases
+			-- if valid then range check it to OUR other bases
+            -- with naval bases hosting amphibious units, we must be careful of overlap with ALL types of bases
 			if (not removed) then
 
 				for basename, base in aiBrain.BuilderManagers do
@@ -549,7 +537,7 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
 	return false, false
 end
 
--- finds Naval Areas - minimum range to ANY sea base is 200 - NO ALLIED sharing --
+-- finds Naval Areas - minimum range to ANY sea base is 200
 function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax, tRings, tType, eng)
 
     local Position = aiBrain.BuilderManagers[locationType].Position or false
@@ -567,12 +555,11 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
 	
 		local positions = LOUDCONCAT(positions,AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Area', Position, radius, tMin, tMax, tRings, tType))
 
-		-- sort the possible positions by distance from base position -- 
 		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )
 	
 		local Brains = ArmyBrains
 	
-		-- minimum range that a Naval Base can be from any existing base
+		-- minimum range that a Naval Base can be from ANY existing base
 		local minimum_baserange = 200
         
         local distance_from_base = false
@@ -582,11 +569,7 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
         
         local choices = {}
 
-        --LOG("*AI DEBUG Positions for Naval Area are "..repr(positions) )
-        
 		-- so we now have a list of ALL the Naval Area positions on the map
-		-- loop thru the list and eliminate any that are already in use by enemy AI 
-		-- note how I have to exclude my own brain as an ally to avoid sharing existing bases with myself
 		for m,marker in positions do
 	
             position = marker.Position
@@ -609,27 +592,25 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
 
                     distance_from_base = VDist3( base.Position, position )
                     threat_distance = 0
-                   
-                    
-					-- if too close to one of our other existing 'Sea' bases
-					if distance_from_base < minimum_baserange and base.BuilderType == 'Sea' then
+
+					-- too close to one of our other bases
+					if distance_from_base < minimum_baserange then
 
 						removed = true
 						break
 					end
                 end
             end
-            
+
+            -- if still valid now we'll check threat and threat distance
             if not removed then
 
                 -- distance from origin of engineer -- valued - closer is best - lower
-                distance_from_base = math.floor(VDist3( Position, position )) / minimum_baserange
+                distance_from_base = LOUDFLOOR(VDist3( Position, position )) / minimum_baserange
 
                 local threatTable = aiBrain:GetThreatsAroundPosition( position, 4, true, tType)
                 
                 LOUDSORT( threatTable, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a[1],a[2], position[1],position[3]) < VDist2Sq(b[1],b[2], position[1],position[3] ) end )
-
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..tMax.." threatTable is "..repr(threatTable))
                 
                 threatresult = distance_from_base
 
@@ -637,11 +618,9 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
  
                     -- ignore any cells below tMax --
                     if v[3] > tMax then
-                    
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." Threat is "..v[3].." mult "..math.max(1, v[3]/tMax).." distance factor is "..minimum_baserange / math.floor(VDist2( v[1],v[2], position[1],position[3] )) )
 
                         -- the further threat is away - the better - lower
-                        threatdistance = minimum_baserange / math.floor( VDist2( v[1],v[2], position[1], position[3] ))
+                        threatdistance = minimum_baserange / LOUDFLOOR( VDist2( v[1],v[2], position[1], position[3] ))
 
                         -- multiplied by relation to max threat allowed -- 
                         threatdistance = math.max( 1, v[3]/tMax ) * threatdistance * distance_from_base
@@ -666,8 +645,6 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
         if choices[1] then
         
             LOUDSORT( choices, function(a,b) return a.DistThreatFactor < b.DistThreatFactor end )
-        
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." Naval Area choices from "..repr(Position).." are "..repr(choices) )
             
             return choices[1].Position, choices[1].Name
         end
@@ -694,10 +671,8 @@ function AIFindBasePointNeedsStructure( aiBrain, locationType, radius, category,
 	
 		-- both Start and Large Expansion Areas --
 		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Blank Marker', Position, radius, tMin, tMax, tRings, tType))
-		
 		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Large Expansion Area', Position, radius, tMin, tMax, tRings, tType))	
 
-		-- sort by distance from Position
 		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], Position[1], Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1], Position[3] ) end )
     
 		-- loop and check unit counts - exit on first good --
@@ -729,7 +704,6 @@ function AIFindDefensivePointNeedsStructure( aiBrain, locationType, radius, cate
 	
 		-- both DPs and 'small' Expansion Areas --
 		positions = LOUDCONCAT( positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Defensive Point', Position, radius, tMin, tMax, tRings, tType))
-		
 		positions = LOUDCONCAT( positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Expansion Area', Position, radius, tMin, tMax, tRings, tType))
     
 		LOUDSORT( positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq( a.Position[1],a.Position[3], Position[1],Position[3] ) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3]) end )

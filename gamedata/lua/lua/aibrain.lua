@@ -1,7 +1,7 @@
 --
 -- AIBrain Lua Module
 --
-
+    
     --LOG("*AI DEBUG ScenarioInfo is "..repr(ScenarioInfo.Options) )
     
 	-- Enable LOUD debugging options

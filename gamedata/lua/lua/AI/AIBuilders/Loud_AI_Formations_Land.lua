@@ -1317,6 +1317,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
     Builder {BuilderName = 'Amphib Attk - Unit Forced',
 	
         PlatoonTemplate = 'AmphibAttackHuge',
+
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
@@ -1337,9 +1338,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
         BuilderData = {
         
-            PrioritizedCategories = { 'ECONOMY','LAND MOBILE','ENGINEER','SHIELD','STRUCTURE -WALL'},		-- controls target selection
+            PrioritizedCategories = { 'ENGINEER','ECONOMY','LAND MOBILE','SHIELD','NAVAL MOBILE','STRUCTURE -WALL'},		-- controls target selection
 			
-			MaxAttackRange = 3000,
+			MaxAttackRange = 2000,
 			
 			MergeLimit = 100,
 			
@@ -1349,7 +1350,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
         },
     },
 	
-	-- large attack at 17.5 km
+	-- large attack at 30 km
     Builder {BuilderName = 'Amphib Attk Large',
 	
         PlatoonTemplate = 'T3AmphibAttack',
@@ -1388,7 +1389,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
         },
     },
     
-	-- general attack at 15km 
+	-- general attack at 24km 
     Builder {BuilderName = 'Amphib Attk',
 	
         PlatoonTemplate = 'T2AmphibAttack',
@@ -1417,7 +1418,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
             PrioritizedCategories = { 'FACTORY','STRUCTURE -WALL','ECONOMIC','DEFENSE','SHIELD','ENGINEER'},		-- controls target selection
 			
-			MaxAttackRange = 1000,
+			MaxAttackRange = 1200,
 			
 			MergeLimit = 65,
 			
@@ -1427,7 +1428,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
         },
     },
 
-	-- attack extractors within 15km 
+	-- attack extractors within 20km 
     Builder {BuilderName = 'Amphib MEX Attack',
 	
         PlatoonTemplate = 'T1AmphibAttack',
@@ -1442,14 +1443,14 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 
 		RTBLocation = 'Any',
 		
-        InstanceCount = 2,
+        InstanceCount = 4,
 		
         BuilderType = 'Any',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
         },
@@ -1485,7 +1486,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			GuardRadius = 80,
 			GuardTimer = 25,
 			
-			MergeLimit = 38,
+			MergeLimit = 48,
 			
 			AggressiveMove = true,
 			
@@ -1511,7 +1512,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
 		RTBLocation = 'Any',
 		
-        InstanceCount = 4,
+        InstanceCount = 3,
 		
         BuilderType = 'Any',
 		

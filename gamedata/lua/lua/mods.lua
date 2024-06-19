@@ -389,16 +389,6 @@ function GetSimConfigs(selected)
     return GetActiveConfigsFiltered(function(m) return not m.ui_only end, selected)
 end
 
-function GetCampaignMods(scenario)
-    local r
-    if scenario.type == 'campaign' then
-        r = GetGameMods { ['6AAFE20A-E851-11DB-B8BE-ECC755D89593']=true }
-    else
-        r = GetGameMods()
-    end
-    return r
-end
-
 -- given a uid of a mod, returns a tabe containing:
 --  requires: list of installed uids that this mod requires
 --  missing: list of uids that this mod requires but aren't installed

@@ -1,12 +1,12 @@
 --  /lua/ai/Loud_AI_Engineer_Task_Builders.lua
 --- tasks for all engineers - reclaim, repair, assist
 
-local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
-local MIBC = '/lua/editor/MiscBuildConditions.lua'
-local EBC = '/lua/editor/EconomyBuildConditions.lua'
+local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
+local MIBC  = '/lua/editor/MiscBuildConditions.lua'
+local EBC   = '/lua/editor/EconomyBuildConditions.lua'
 
-local LUTL = '/lua/loudutilities.lua'
-local BHVR = '/lua/ai/aibehaviors.lua'
+local LUTL  = '/lua/loudutilities.lua'
+local BHVR  = '/lua/ai/aibehaviors.lua'
 
 
 -- These are the basic tasks that cover non-specifc things 
@@ -156,7 +156,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         Priority = 750,
 		
-        InstanceCount = 3,
+        InstanceCount = 2,
 		
         BuilderType = { 'SubCommander' },
 		
@@ -571,11 +571,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         BuilderType = { 'T1' },
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},		
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},		
 
             { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.STRUCTURE + categories.EXPERIMENTAL, categories.ENGINEER + categories.FACTORY, 90 }},
-            
-            --{ UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE + categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER, 125 }},
         },
 		
         BuilderData = {
@@ -795,7 +793,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Transfers',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
 			-- we do an eco check just to make sure we're not transferring just because we're in a eco lock
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
             
 			{ UCBC, 'BaseCount', { 1, '>' } }
         },
@@ -857,7 +855,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 		
         InstanceCount = 2,
 		
-		BuilderType = { 'T1','T2','T3','SubCommander' },
+		BuilderType = { 'T2','T3','SubCommander' },
 
         BuilderConditions = {
 			--{ LUTL, 'NoBaseAlert', { 'LocationType' }},
@@ -918,7 +916,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 		
         Priority = 650,
 
-		BuilderType = { 'T1','T2','T3','SubCommander' },
+		BuilderType = { 'T2','T3','SubCommander' },
 
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 1000 }},
@@ -948,7 +946,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE + categories.EXPERIMENTAL, categories.ENGINEER, 125 }},
         },
 		
-		BuilderType = { 'T1','T2','T3','SubCommander' },
+		BuilderType = { 'T2','T3','SubCommander' },
 
         BuilderData = {
             Assist = {
@@ -1030,7 +1028,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 			
 			-- we do an eco check just to make sure we're not transferring just because we're in a eco lock
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.025 }},
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
             
 			-- check that all the major components are in place
             { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.ANTIMISSILE * categories.SILO * categories.TECH3, 1, 24 }},
@@ -1046,14 +1044,3 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
     },
 	
 }
-
-
-
---[[
-BuilderGroup {BuilderGroupName = 'Mass Fab Builders Naval Expansions',
-    BuildersType = 'EngineerBuilder',	
-
-
-	
-}
---]]

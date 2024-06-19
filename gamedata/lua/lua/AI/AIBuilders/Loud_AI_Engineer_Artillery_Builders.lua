@@ -1,9 +1,9 @@
 --   /lua/ai/Loud_AI_Artillery_Builders.lua
 
-local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
-local EBC = '/lua/editor/EconomyBuildConditions.lua'
-local LUTL = '/lua/loudutilities.lua'
-local MIBC = '/lua/editor/MiscBuildConditions.lua'
+local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
+local EBC   = '/lua/editor/EconomyBuildConditions.lua'
+local LUTL  = '/lua/loudutilities.lua'
+local MIBC  = '/lua/editor/MiscBuildConditions.lua'
 
 local LessThan20MinutesRemain = function(self, aiBrain)
 
@@ -54,11 +54,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.015, 1.025 }},
 
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, (categories.STRATEGIC * categories.ARTILLERY * categories.STRUCTURE) - categories.TECH2 }},
 
@@ -150,13 +150,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction - Expansions',
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
             
 			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.015, 1.025 }},
 
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, (categories.STRATEGIC * categories.ARTILLERY * categories.STRUCTURE) - categories.TECH2 }},
 
@@ -320,9 +320,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Nuke Construction - Expansions',
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
 				
-                BuildStructures = {
-                    'T3StrategicMissile',
-                },
+                BuildStructures = {'T3StrategicMissile'},
             }
         }
     },

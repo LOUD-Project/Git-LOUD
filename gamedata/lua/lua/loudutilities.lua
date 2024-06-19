@@ -598,7 +598,7 @@ function UseBuilderOnce( aiBrain, factory, builder)
 
 end
 
---	The SpawnWave is a bonus given only to the AIx
+--	The SpawnWave
 -- 	Essentially every spawndelay period, the AI will receive a few 'free' air units (based upon AIx cheat bonus.
 --  The number gradually grows with each iteration over the course of the game and the period between
 --  iterations gradually shrinks making the AIx an ever increasing threat.  Growth is capped at 10 iterations

@@ -43,10 +43,10 @@ local MapSizeLargerThan20K = function(self,aiBrain)
 
 end
 
-local AIRSCOUT = categories.AIR * categories.SCOUT
-local AIRBOMBER = categories.HIGHALTAIR * categories.BOMBER
-local AIRFIGHTER = categories.HIGHALTAIR * categories.ANTIAIR
-local AIRGUNSHIP = categories.AIR * categories.GROUNDATTACK
+local AIRSCOUT      = categories.AIR * categories.SCOUT
+local AIRBOMBER     = categories.HIGHALTAIR * categories.BOMBER
+local AIRFIGHTER    = categories.HIGHALTAIR * categories.ANTIAIR
+local AIRGUNSHIP    = categories.AIR * categories.GROUNDATTACK
 
 -- These are the standard air scout patrols around a base
 BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
@@ -2348,7 +2348,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
 		
         BuilderConditions = {
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.uaa0310 } },
-            { LUTL, 'AirStrengthRatioLessThan', { 5 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } },
 		},
 		
         BuilderData = {
@@ -2396,7 +2396,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
 		
         BuilderConditions = {
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.uaa0310 } },
-            { LUTL, 'AirStrengthRatioLessThan', { 5 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } },
 		},
 		
         BuilderData = {

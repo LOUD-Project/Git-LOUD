@@ -922,11 +922,11 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-            { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
+            { LUTL, 'PoolGreater', { 3, categories.SUBMARINE + categories.xes0102 }},
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 35, 'Naval' }},
 
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.SUBMARINE + categories.xes0102 }},
         },
 		
         BuilderData = {
@@ -1007,7 +1007,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.FRIGATE }},
         },
 		
         BuilderData = {
