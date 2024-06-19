@@ -2,13 +2,14 @@
 -- Brief: Creates the LOUD AI Debug Menu.
 
 do
+    LOG("*AI DEBUG LOADING AI DEBUG")
     
 	local Group = import('/lua/maui/group.lua').Group
 	local Prefs = import('/lua/user/prefs.lua')
     
     __debugprefs = Prefs.GetFromCurrentProfile('loud_ai_debug') or {}
     
-	local DebugPrefs = __debugprefs  
+	local DebugPrefs = __debugprefs
     
 	if not DebugPrefs.intel then DebugPrefs.intel = {} end
 
