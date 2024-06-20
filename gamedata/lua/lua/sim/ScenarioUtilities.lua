@@ -746,6 +746,11 @@ function InitializeArmies()
             LOG("*AI DEBUG Mass Point RNG Installed")
             ScenarioInfo.MassPointRNG = true
         end
+        
+        if m.name == 'LOUD Debug Tools' then
+            LOG("*AI DEBUG LOUD AI Debug Tools Installed")
+            
+        end
 
     end
 

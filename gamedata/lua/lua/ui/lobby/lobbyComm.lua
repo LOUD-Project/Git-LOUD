@@ -95,16 +95,6 @@ function CreateSteamDiscoveryService()
 
     local service = InternalCreateSteamDiscoveryService(SteamDiscoveryService)
 
-	--LOG("*AI DEBUG Methods = "..repr(moho.steam_discovery_service_methods) )
-    --LOG("*AI DEBUG Lobby Methods = "..repr(moho.lobby_methods) )
-
---[[
-    for k,v in moho do
-        LOG("*AI DEBUG Method moho "..repr(k).." "..repr(v))
-    end
-
-	LOG("*AI DEBUG All methods "..repr(moho))
---]]
     return service
 	
 end

@@ -1,3 +1,48 @@
+### Release 20-06-2024
+
+4DC for LOUD 7.0
+Black Ops for LOUD 7.0
+BrewLAN for LOUD 0.8.8.9.100
+CIV_UNITS 7.0
+Effects 7.0
+ENV 3.0
+Extra_ENV 3.0
+LOC_US 7.0
+LOUD_MISC 7.0
+LOUD_UNITS 7.0
+LUA 7.0
+Projectiles 7.0
+Textures 7.0
+Total Mayhem for LOUD 7.0
+UNITS 7.0
+Wyvern for LOUD 7.0
+
+Setons Clutch 40k
+
+
+
+-- AI - the 'Ask for Engineer' feature should respond more reliably now
+-- AI - Attack Planner will now ignore any markers in use by an allied AI - results in more varied attack plans
+-- AI - Dead Base Monitor will now retire a base after a shorter delay (about 2 minutes instead of 4+)
+-- many weapons move off of Rate of Fire cycling, over to actual time based cycles built on salvo and reloading timers
+-- deep refactoring of all weapon states to remove dead code, clarify weapon processes, timings and performance
+-- many additions to AI Debug tools, for tracking weapons, weapon states and projectile activitiy - ideal for testing 
+-- complete revision of ALL torpedo and torpdeo defense weapons and projectiles
+-- addition of advanced tracking features to high-end torpedo units
+-- fixed numerious amphibious units weapons which could not fire unless they were entirely on dry land
+-- shifted the operational E costs of long range T3 and T4 artillery (about 15% more E consumption per shot)
+-- Nuke submarines (& Sera BB) were using more expensive nukes than static - now using same missile cost as static launchers
+-- restored some previously disabled audio and visual effects
+-- restored many <LOC> tags for language compatability 
+-- revamped all unit blueprints, weapons and projectiles to remove unused assets (all unit mods)
+-- added additional environment data as provided by Binary to support some new map artwork (Extra_ENV)
+-- revised ALL radar, sonar, OMNI, vision and watervision stats to comply with range calculations and intel range mechanics
+-- all land scouts now have radar stealth, weapon ranges reduced 
+-- incorporated many minor bug fixes as reported from the community (AI reclaiming, wall kills, bad targeting, various others)
+-- complete revamp of the Unit Spreadsheet, added more data, better layouts and additional formula data (see DOC folder)
+-- Setons Clutch 40k updated
+
+
 ### Release 17-02-2024
 
 LUA 6.4.02

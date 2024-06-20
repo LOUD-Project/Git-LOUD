@@ -1,4 +1,4 @@
-LOG("*AI DEBUG UserSync begins" )
+LOG("*AI DEBUG UserSync begins ")
 
 -- The global sync table is copied from the sim layer every time the main and sim threads are
 -- synchronized on the sim beat (which is like a tick but happens even when the game is paused)
@@ -56,15 +56,11 @@ function OnSync()
     end
 
 	if Sync.SimData then
-    
-        --LOG("*AI DEBUG USERSYNC SimData is "..repr(Sync.SimData))
-	
-		-- if the sim rate has changed 
+
 		if GetSimRate() != CurrentSimSpeed then
 		
 			local newspeed = GetSimRate()
-			
-			-- this creates a callback to the SIM
+
 			SendSimSpeed(newspeed)
 			
 			CurrentSimSpeed = newspeed
@@ -88,18 +84,17 @@ function OnSync()
 		for _, v in Sync.AIChat do
 			import('/lua/aichatsorian.lua').AIChat(v.group, v.text, v.sender)
 		end
+
 		Sync.AiChat = nil
 	end
     
     if Sync.AIDebug then
-    
-        LOG("*AI DEBUG USERSYNC AIDEBUG data "..repr(Sync.AIDebug) )
         
         UpdateAIDebugData(Sync.AIDebug)
         
         Sync.AIDebug = nil
     end
-	
+
     if Sync.UserConRequests then
         for _, v in Sync.UserConRequests do
             ConExecute( v )
@@ -108,6 +103,7 @@ function OnSync()
 	
 	if Sync.UnitData then
 		UnitData = tmerge( UnitData, Sync.UnitData )
+
 		Sync.UnitData = nil
 	end
     
@@ -118,13 +114,11 @@ function OnSync()
 	Sync.ReleaseIds = {}
 
     if Sync.FocusArmyChanged then
-	
         import('/lua/ui/game/avatars.lua').FocusArmyChanged()
         import('/lua/ui/game/multifunction.lua').FocusArmyChanged()
     end
 
     if Sync.UserUnitEnhancements then
-	
         import('/lua/enhancementcommon.lua').SetEnhancementTable(Sync.UserUnitEnhancements)
     end
 
@@ -282,27 +276,6 @@ function OnSync()
         import('/lua/ui/game/tutorial.lua').HighlightPanels(Sync.HighlightUIPanel)
     end
 
---[[	
-    if Sync.SetButtonDisabled then
-        Dialogue.SetButtonDisabled(Sync.SetButtonDisabled)
-    end
-    
-    if Sync.UpdatePosition then
-        Dialogue.UpdatePosition(Sync.UpdatePosition)
-    end
-    
-    if Sync.UpdateButtonText then
-        Dialogue.UpdateButtonText(Sync.UpdateButtonText)
-    end
-    
-    if Sync.SetDialogueText then
-        Dialogue.SetDialogueText(Sync.SetDialogueText)
-    end
-    
-    if Sync.DestroyDialogue then
-        Dialogue.DestroyDialogue(Sync.DestroyDialogue)
-    end
---]]
     if Sync.IsSavedGame == true then
         GameMain.IsSavedGame = true
     end
@@ -310,37 +283,7 @@ function OnSync()
     if Sync.ChangeCameraZoom != nil then
         GameMain.SimChangeCameraZoom(Sync.ChangeCameraZoom)
     end
-    
---[[
-    
-    if Sync.RequestPlayerFaction then
-		LOG("*AI DEBUG Request player faction")
-        import('/lua/ui/game/factionselect.lua').RequestPlayerFaction()
-    end
 
-    -- from DMS --
-	if Sync.PlayMFDMovieMP then
-        --import('/lua/ui/game/missiontext.lua').PlayMFDMovieMP(Sync.PlayMFDMovieMP.Params, Sync.VideoText)
-		--import('/mods/Domino_Mod_Support/lua/mfd_video/play_video.lua').PlayMFDMovieMP(Sync.PlayMFDMovieMP.Params, Sync.VideoText)
-
-		--if Sync.PlayMFDMovieMP.Lengh and Sync.PlayMFDMovieMP.Lengh > 0 then
-			--import('/lua/ui/game/missiontext.lua').CloseMFDMovie(Sync.PlayMFDMovieMP.Params, Sync.PlayMFDMovieMP.Lengh)
-			--import('/mods/Domino_Mod_Support/lua/mfd_video/play_video.lua').CloseMFDMovie(Sync.PlayMFDMovieMP.Params, Sync.PlayMFDMovieMP.Lengh)
-		--end
-	end
-    
-	-- this is only for voice overs not unit sounds
-	
-	if Sync.Sounds then
-		for _,v in Sync.Sounds do
-			LOG("*AI DEBUG Sync Sound "..repr(v.Cue))
-			PlaySound(Sound{ Bank=v.Bank, Cue=v.Cue })
-		end
-		Sync.Sounds = nil
-	end
-    
---]]
-    
 end
 
 function UpdateAIDebugData(data)
@@ -356,7 +299,6 @@ function UpdateAIDebugData(data)
     Prefs.SetToCurrentProfile('loud_ai_debug', AIDebugData )
     
 end
-
 
 function UpdateSimSpeed(data)
 
@@ -384,4 +326,4 @@ function SetSimSpeed(name, param)
 	end
 end
 
-LOG("*AI DEBUG UserSync Complete " )
+LOG("*AI DEBUG UserSync Complete ")

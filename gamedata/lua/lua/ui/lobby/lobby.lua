@@ -6,28 +6,28 @@
 --* Copyright � 2005 Gas Powered Games, Inc.  All rights reserved.
 --*****************************************************************************
 
-local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
-local Button = import('/lua/maui/button.lua').Button
-local Edit = import('/lua/maui/edit.lua').Edit
-local Group = import('/lua/maui/group.lua').Group
-local EnhancedLobby = import('/lua/enhancedlobby.lua')
-local FactionData = import('/lua/factions.lua')
-local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
-local LobbyComm = import('/lua/ui/lobby/lobbyComm.lua')
-local MapUtil = import('/lua/ui/maputil.lua')
-local MenuCommon = import('/lua/ui/menus/menucommon.lua')
-local ModManager = import('/lua/ui/dialogs/modmanager.lua')
-local Mods = import('/lua/mods.lua')
-local Prefs = import('/lua/user/prefs.lua')
-local Slider = import('/lua/maui/slider.lua').Slider
-local StatusBar = import('/lua/maui/statusbar.lua').StatusBar
-local Text = import('/lua/maui/text.lua').Text
-local Tooltip = import('/lua/ui/game/tooltip.lua')
-local UIUtil = import('/lua/ui/uiutil.lua')
+local Bitmap            = import('/lua/maui/bitmap.lua').Bitmap
+local Button            = import('/lua/maui/button.lua').Button
+local Edit              = import('/lua/maui/edit.lua').Edit
+local Group             = import('/lua/maui/group.lua').Group
+local EnhancedLobby     = import('/lua/enhancedlobby.lua')
+local FactionData       = import('/lua/factions.lua')
+local LayoutHelpers     = import('/lua/maui/layouthelpers.lua')
+local LobbyComm         = import('/lua/ui/lobby/lobbyComm.lua')
+local MapUtil           = import('/lua/ui/maputil.lua')
+local MenuCommon        = import('/lua/ui/menus/menucommon.lua')
+local ModManager        = import('/lua/ui/dialogs/modmanager.lua')
+local Mods              = import('/lua/mods.lua')
+local Prefs             = import('/lua/user/prefs.lua')
+local Slider            = import('/lua/maui/slider.lua').Slider
+local StatusBar         = import('/lua/maui/statusbar.lua').StatusBar
+local Text              = import('/lua/maui/text.lua').Text
+local Tooltip           = import('/lua/ui/game/tooltip.lua')
+local UIUtil            = import('/lua/ui/uiutil.lua')
 
-local gameColors = import('/lua/gamecolors.lua').GameColors
-local numOpenSlots = LobbyComm.maxPlayerSlots
-local formattedOptions = {}
+local gameColors        = import('/lua/gamecolors.lua').GameColors
+local numOpenSlots      = LobbyComm.maxPlayerSlots
+local formattedOptions  = {}
 
 local teamIcons = {
     '/lobby/team_icons/team_no_icon.dds',
@@ -1299,8 +1299,11 @@ local function AssignDefaultMapOptions(gameInfo)
     end
     
     local scenarioInfo = MapUtil.LoadScenario(gameInfo.GameOptions.ScenarioFile)
+    
     if scenarioInfo.options then 
+
         for _, option in scenarioInfo.options do 
+
             if not gameInfo.GameOptions[option.key] then
 
                 -- ensure the default is sane
@@ -1920,6 +1923,7 @@ local function UpdateGame()
         if scenarioInfo and scenarioInfo.map and scenarioInfo.map ~= '' then
 		
             local mods = Mods.GetGameMods(gameInfo.GameMods)
+
             PrefetchSession(scenarioInfo.map, mods, true)
 			
         else
