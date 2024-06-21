@@ -923,7 +923,7 @@ function SetCybranAllyColor( number )
 end
 
 function SetCybranNeutralColor( number )
-    SetArmyColor( number, 165, 9, 1 ) # 84, 13, 13
+    SetArmyColor( number, 165, 9, 1 )
 end
 
 function SetUEFColor( number )
@@ -939,7 +939,7 @@ function SetUEFNeutralColor( number )
 end
 
 function SetCoalitionColor(number)
-    SetArmyColor(number, 80, 80, 240)
+    SetArmyColor( number, 80, 80, 240)
 end
 
 function SetNeutralColor( number )
@@ -980,11 +980,11 @@ function SetUEFPlayerColor( number )
 end
 
 function SetUEFAlly1Color( number )
-    SetArmyColor(number, 81, 82, 241)
+    SetArmyColor( number, 81, 82, 241)
 end
 
 function SetUEFAlly2Color( number )
-    SetArmyColor(number, 133, 148, 255)
+    SetArmyColor( number, 133, 148, 255)
 end
 
 function SetSeraphimColor( number )

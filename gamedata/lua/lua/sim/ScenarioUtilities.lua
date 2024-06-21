@@ -823,11 +823,13 @@ function InitializeArmies()
             end
 
             SetArmyEconomy( strArmy, tblData.Economy.mass, tblData.Economy.energy)
-            
+
             if not armyIsCiv then
-                -- this insures proper setting of teammate counts and
-                -- calculation of the largest team size for ALL players (human and AI)
+
+                InitializeTeams( GetArmyBrain(strArmy) )
+                
                 InitializeSkirmishSystems( GetArmyBrain(strArmy) )
+
             end
 
             if (not armyIsCiv and bCreateInitial) or (armyIsCiv and civOpt != 'removed') then
@@ -973,8 +975,8 @@ function InitializeArmies()
 	
 end
 
-function InitializeSkirmishSystems(self)
-
+function InitializeTeams(self)
+	
 	-- store which team we're on
     if ScenarioInfo.ArmySetup[self.Name].Team == 1 then
         self.Team = -1 * self.ArmyIndex  -- no team specified
@@ -995,8 +997,29 @@ function InitializeSkirmishSystems(self)
         else
             Opponents = Opponents + 1
         end
+
     end
-	
+
+	local color = ScenarioInfo.ArmySetup[self.Name].WheelColor
+
+	SetArmyColor(self.ArmyIndex, color[1], color[2], color[3])
+
+	-- Don't need WheelColor anymore, so delete it
+	ScenarioInfo.ArmySetup[self.Name].WheelColor = nil
+
+    if ScenarioInfo.Options.AIFactionColor == 'on' and self.BrainType ~= 'Human' then
+        -- These colours are based on the lobby faction dropdown icons
+        if self.FactionIndex == 1 then
+            SetArmyColor(self.ArmyIndex, 44, 159, 200)
+        elseif self.FactionIndex == 2 then
+            SetArmyColor(self.ArmyIndex, 104, 171, 77)
+        elseif self.FactionIndex == 3 then
+            SetArmyColor(self.ArmyIndex, 255, 0, 0)
+        elseif self.FactionIndex == 4 then
+            SetArmyColor(self.ArmyIndex, 254, 189, 44)
+        end
+    end
+
     -- number of Opponents in the game
     self.NumOpponents = Opponents
 
@@ -1020,9 +1043,18 @@ function InitializeSkirmishSystems(self)
     end
 
 	self.OutnumberedRatio = math.max( 1, ScenarioInfo.biggestTeamSize/self.TeamSize )
-    
+
     if self.OutnumberedRatio > 1 then 
         LOG("*AI DEBUG "..self.Nickname.." OutnumberedRatio is "..self.OutnumberedRatio)
+    end
+
+end
+
+function InitializeSkirmishSystems(self)
+    
+    -- don't do anything else for a human player
+    if self.BrainType == 'Human' then
+        return
     end
 
     -- put some initial threat at all enemy positions

@@ -866,12 +866,12 @@ function ColorToArray(color)
     end
 end
 
--- RGB array, each in range from 0 to 255
+-- RGB array, each in range from 3 to 252
 local function RandomColor()
     return { 
-        math.random(0, 255), 
-        math.random(0, 255), 
-        math.random(0, 255) 
+        math.random(3, 252), 
+        math.random(3, 252), 
+        math.random(3, 252) 
     }
 end
 
@@ -1617,20 +1617,27 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
     
     -- Sanitize colours here so Sim::Create() doesn't fail
     for slot, player in gameInfo.PlayerOptions do
+
         if player then
+
             player.PlayerColor = slot
             player.ArmyColor = slot
+
             totalPlayers = totalPlayers + 1
+
             if player.Human then
                 totalHumanPlayers = totalHumanPlayers + 1
             end
+
             if not moreThanOneTeam and lastTeam and lastTeam ~= player.Team then
                 moreThanOneTeam = true
                 LOG('team = ', player.Team, ' last = ',lastTeam)
             end
+
             if player.Team ~= 1 then
                 allFFA = false
             end
+
             lastTeam = player.Team
         end
     end
@@ -1661,10 +1668,13 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
     
     -- Validate edit-based options
     for k, v in gameInfo.GameOptions do
+
         local optionValid = false
+
         if not lobbyOptMap[k].valid then
             continue
         end
+
         if type(lobbyOptMap[k].valid) == 'table' then
             for _, pat in lobbyOptMap[k].valid do
                 if string.find(v, pat) then
@@ -2131,8 +2141,6 @@ local function UpdateGame()
 	else
 	
 	end
-    
-    --LOG("*AI DEBUG Gameinfo "..repr(gameInfo))
 
 end
 
@@ -2374,7 +2382,7 @@ function HostConvertPlayerToObserver(senderID, name, playerSlot)
 
     UpdateGame()
     
-    LOG("*AI DEBUG Moved Player "..repr(playerSlot).." to Observer with index "..index.." gameInfo is "..repr(gameInfo) )
+    --LOG("*AI DEBUG Moved Player "..repr(playerSlot).." to Observer with index "..index.." gameInfo is "..repr(gameInfo) )
     
     
 end
@@ -4813,8 +4821,8 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
             elseif data.Type == 'SetColor' then
 			
                 gameInfo.PlayerOptions[data.Slot].WheelColor = data.Color
-                -- gameInfo.PlayerOptions[data.Slot].ArmyColor = data.Color
-                gameInfo.PlayerOptions[data.Slot].ArmyColor = 1
+                gameInfo.PlayerOptions[data.Slot].ArmyColor = data.Color
+                ---gameInfo.PlayerOptions[data.Slot].ArmyColor = 1
 
                 UpdateGame()
 				
@@ -4947,11 +4955,13 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
         gameInfo.PlayerOptions[1].OwnerID = localPlayerID
         gameInfo.PlayerOptions[1].Human = true
         gameInfo.PlayerOptions[1].WheelColor = Prefs.GetFromCurrentProfile('LastColor')
+
         -- Backwards compatibility
         if type(gameInfo.PlayerOptions[1].WheelColor) ~= 'table' then
             gameInfo.PlayerOptions[1].WheelColor = { 255, 0, 0 }
         end
-        -- gameInfo.PlayerOptions[1].ArmyColor = Prefs.GetFromCurrentProfile('LastColor') or 1
+
+        gameInfo.PlayerOptions[1].ArmyColor = Prefs.GetFromCurrentProfile('LastColor') or 1
         gameInfo.PlayerOptions[1].ArmyColor = 1
 		gameInfo.PlayerOptions[1].LEM = EnhancedLobby.GetLEMData() or {}
 

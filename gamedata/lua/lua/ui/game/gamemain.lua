@@ -168,6 +168,10 @@ function OnFirstUpdate()
 			--ConExecute('ren_BloomGlowCopyScale 2.5')
 			--ConExecute('ren_BloomBlurKernelScale 1.1')
 			--ConExecute('ren_BloomBlurCount 0')
+            
+            ConExecute('ren_ViewError 0.004')
+            ConExecute('ren_ClipDecalLevel 4')
+            ConExecute('ren_DecalFadeFraction 0.25')
 			
 			ConExecute('fog_DistanceFog')
             

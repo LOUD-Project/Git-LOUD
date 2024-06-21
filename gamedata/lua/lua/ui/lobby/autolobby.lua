@@ -48,12 +48,15 @@ local lobbyComm = false
 
 
 local function MakeLocalPlayerInfo(name)
+
     local result = LobbyComm.GetDefaultPlayerOptions(name)
+
     result.Human = true
     
     local factionData = import('/lua/factions.lua')
     
     for index, tbl in factionData.Factions do
+
         if HasCommandLineArg("/" .. tbl.Key) then
             result.Faction = index
             break
@@ -61,14 +64,21 @@ local function MakeLocalPlayerInfo(name)
     end
     
     result.Team = tonumber(GetCommandLineArg("/team", 1)[1])
+
     LOG('Local player info: ' .. repr(result))
+
     return result
 end
 
 
 local function IsColorFree(colorIndex)
+
     for id,player in gameInfo.PlayerOptions do
+
         if player.PlayerColor == colorIndex then
+        
+            --LOG("*AI DEBUG Color "..colorIndex.." is NOT free PlayerColor is "..repr(player.PlayerColor) )
+            
             return false
         end
     end
@@ -77,17 +87,20 @@ local function IsColorFree(colorIndex)
 end
 
 local function HostAddPlayer(senderId, playerInfo)
+
     playerInfo.OwnerID = senderId
 
     local slot = 1
+
     while gameInfo.PlayerOptions[slot] do
         slot = slot + 1
     end
 
     playerInfo.PlayerName = lobbyComm:MakeValidPlayerName(playerInfo.OwnerID,playerInfo.PlayerName)
 
-    # figure out a reasonable default color
+    -- figure out a reasonable default color
     for colorIndex,colorVal in gameColors.PlayerColors do
+    
         if IsColorFree(colorIndex) then
             playerInfo.PlayerColor = colorIndex
             break
@@ -101,24 +114,32 @@ end
 local function CheckForLaunch()
 
     local important = {}
+
     for slot,player in gameInfo.PlayerOptions do
+
         if not table.find(important, player.OwnerID) then
             table.insert(important, player.OwnerID)
         end
     end
 
-    #counts the number of players in the game.  Include yourself by default.
+    -- counts the number of players in the game.  Include yourself by default.
     local playercount = 1
+
     for k,id in important do
         if id != localPlayerID then
+
             local peer = lobbyComm:GetPeer(id)
+
             if peer.status != 'Established' then
                 return
             end
+
             if not table.find(peer.establishedPeers, localPlayerID) then
                 return
             end
+
             playercount = playercount + 1
+
             for k2,other in important do
                 if id != other and not table.find(peer.establishedPeers, other) then
                     return

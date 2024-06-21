@@ -92,7 +92,7 @@ function SetupSession()
 
     --LOG("*AI DEBUG Preference is "..repr(_G) )
 
-    LOG("*AI DEBUG SetupSession " ) --..repr(ScenarioInfo.Options) )
+    LOG("*AI DEBUG SetupSession " )
    
     ArmyBrains = {}
 
@@ -156,6 +156,11 @@ function BeginSession()
     local teams = {}
 	
     for name,army in ScenarioInfo.ArmySetup do
+        if army.WheelColor != nil then
+            army.PlayerColor = army.WheelColor
+            army.ArmyColor = army.WheelColor
+        end
+        
         if army.Team > 1 then
             if not teams[army.Team] then
                 teams[army.Team] = {}
