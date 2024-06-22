@@ -1,3 +1,27 @@
+### Release 22-06-2024
+
+LUA 7.02
+Effects 7.01
+Projectiles 7.01
+UNITS 7.01
+
+- death animation process for Sudeth 
+- fix for sonar range growth on mobile sonars
+- fix for Cybran T1 naval factory animation error
+- brought Ahwassa bomb projectile in-house
+- minor tweaks to Ahwassa flight values
+- reduced size of Ahwassa bomb effects to match actual AOE of the weapon
+- fixed build emitter on Standard Cybran ACU
+
+
+### Release 21-06-2024
+
+LUA 7.01
+
+- hotfix for player color issue
+
+
+
 ### Release 20-06-2024
 
 4DC for LOUD 7.0

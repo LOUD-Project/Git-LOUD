@@ -855,7 +855,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             local unit = self.unit
 
             if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon Idle State OnGotTarget "..repr(bp.Label).." Target is "..repr(self:GetCurrentTarget().BlueprintID).." at "..GetGameTick() )
+                LOG("*AI DEBUG DefaultWeapon Idle State OnGotTarget "..repr(bp.Label).." Target is "..repr(self:GetCurrentTargetPos()).." at "..GetGameTick() )
             end
 	
             if (bp.WeaponUnpackLocksMotion != true or (bp.WeaponUnpackLocksMotion == true and not unit:IsUnitState('Moving'))) then

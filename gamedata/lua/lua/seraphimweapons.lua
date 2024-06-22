@@ -653,6 +653,9 @@ SMeleeBladeBeamWeapon = Class(Weapon) {
         BareBonesWeapon.OnCreate(self)
     end,
 
+    SetWeaponEnabled = function(self)
+    end,
+    
     OnFire = function(self)
     
         local LOUDGETN = table.getn

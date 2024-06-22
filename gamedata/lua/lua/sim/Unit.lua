@@ -1708,7 +1708,10 @@ Unit = Class(UnitMethods) {
             local wep = GetWeapon(self,i) or false
 
             if wep and not wep.Dead then
-                wep:SetWeaponEnabled(false)
+
+                if wep.SetWeaponEnabled then
+                    wep:SetWeaponEnabled(false)
+                end
 			end
         end
 
@@ -5761,7 +5764,7 @@ Unit = Class(UnitMethods) {
 		
 	end,
 
-
+--[[
     OnDetectedBy = function(self, index)
 
         local GetBlip = UnitMethods.GetBlip
@@ -5771,16 +5774,25 @@ Unit = Class(UnitMethods) {
 
         local function TestAgain(self, index, blip)
             WaitTicks(31)
-            LOG("*AI DEBUG "..ArmyBrains[index].Nickname.." After 3 seconds detected "..GetAIBrain(self).Nickname.." "..repr(ALLBPS[self.BlueprintID].Description).." Seen Now is "..repr( IsSeenNow( blip,index) ) )
+            if IsSeenNow( blip, index ) then
+                LOG("*AI DEBUG "..ArmyBrains[index].Nickname.." After 3 seconds detected "..GetAIBrain(self).Nickname.." "..repr(ALLBPS[self.BlueprintID].Description).." is Seen Now" )
+            end
         end
         
-		--LOG("*AI DEBUG "..ArmyBrains[index].Nickname.." detected "..GetAIBrain(self).Nickname.." "..repr(ALLBPS[self.BlueprintID].Description) )
-	
-		--LOG("*AI DEBUG "..ArmyBrains[index].Nickname.." detected "..GetAIBrain(self).Nickname.."  Seen Ever is "..repr( moho.blip_methods.IsSeenEver( blip, index)))
-		
-		--LOG("*AI DEBUG "..ArmyBrains[index].Nickname.." detected "..GetAIBrain(self).Nickname.."  Seen Now is "..repr( IsSeenNow( blip,index)))
+        if GetGameTick() > 31.5*600 and (not IsAlly( index, GetAIBrain(self).ArmyIndex)) and ArmyBrains[index].BrainType != 'AI' and not moho.blip_methods.IsSeenEver( blip, index) then
         
-        --self:ForkThread( TestAgain, index, blip )
+            local badbrain = GetAIBrain(self)
+        
+            LOG("*AI DEBUG "..ArmyBrains[index].Nickname.." detected "..badbrain.Nickname.." at "..GetGameTick().." "..repr(ALLBPS[self.BlueprintID].Description) )
+	
+            LOG("*AI DEBUG "..ArmyBrains[index].Nickname.." detected "..badbrain.Nickname.."  Seen Ever is "..repr( moho.blip_methods.IsSeenEver( blip, index)))
+		
+            LOG("*AI DEBUG "..ArmyBrains[index].Nickname.." detected "..badbrain.Nickname.."  Seen Now is "..repr( IsSeenNow( blip,index)))
+
+            self:ForkThread( TestAgain, index, blip )        
+        end
+
+
         
         
 
@@ -5823,7 +5835,7 @@ Unit = Class(UnitMethods) {
         end
 --]]
     end,
-
+--]]
     -- this allows you to execute a function when the unit (self) has been detected 
     AddDetectedByHook = function(self,hook)
 	
