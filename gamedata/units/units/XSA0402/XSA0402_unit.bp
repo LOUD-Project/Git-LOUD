@@ -30,21 +30,21 @@ UnitBlueprint {
         
         CombatTurnSpeed = 0.8,
         
-        EngageDistance = 50,
+        EngageDistance = 60,
 		
-        KLift = 3,
-        KLiftDamping = 2.5,
+        KLift = 3.6,
+        KLiftDamping = 2.8,
 		
         KMove = 1,
         KMoveDamping = 2,
 		
         KRoll = 2,
-        KRollDamping = 2,
+        KRollDamping = 2.5,
 		
         KTurn = 0.8,
-        KTurnDamping = 1.2,
+        KTurnDamping = 1.6,
 		
-        LiftFactor = 7,
+        LiftFactor = 10.5,
 		
         MaxAirspeed = 20,
         MinAirspeed = 18,
@@ -199,10 +199,12 @@ UnitBlueprint {
     LifeBarSize = 10,
 	
     Physics = {
+        AttackElevation = 22,
+        BackUpDistance = 10,
         BuildOnLayerCaps = {
             LAYER_Air = true,
         },
-        Elevation = 25,
+        Elevation = 26.5,
         MaxSpeed = 0.5,
         MeshExtentsX = 4,
         MeshExtentsY = 2,
@@ -245,13 +247,13 @@ UnitBlueprint {
                 Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0402_Strategic_Bomb', LodCutoff = 'Weapon_LodCutoff' },
             },
             
-            AttackGroundTries = 1,
+            AttackGroundTries = 2,
 			
             AutoInitiateAttackCommand = true,
 			
             BallisticArc = 'RULEUBA_None',
 			
-            BombDropThreshold = 4,
+            BombDropThreshold = 4.6,
 			
             CollideFriendly = false,
 			
@@ -261,6 +263,8 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Ohwalli Strategic Bomb',
+            
+            EffectiveRadius = 38,
             
             EnergyDrainPerSecond = 1950,    -- this would be in addition to the 1000 it already drains - u might think this is excessive - but not even close.
                                             -- According to formula, this weapon should require close to 30k drain to recharge in 10 seconds
@@ -272,14 +276,14 @@ UnitBlueprint {
             },
 			
             FiringRandomness = 3,
-            FiringTolerance = 0.295,
+            FiringTolerance = 0.36,
 			
 			HeadingArcCenter = 0,
-			HeadingArcRange = 28,
+			HeadingArcRange = 14,
 			
             Label = 'Bomb',
 			
-            MaxRadius = 70,
+            MaxRadius = 60,
             
             EffectiveRadius = 45,
 
@@ -299,6 +303,8 @@ UnitBlueprint {
             },
 
             RateOfFire = 1,         -- controlled entirely by charge cycle --
+            
+            SlavedToBodyArcRange = 14,
 			
             TargetCheckInterval = 2,
 			
@@ -311,7 +317,7 @@ UnitBlueprint {
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1,
         },
 		
 		-- Right Left AA

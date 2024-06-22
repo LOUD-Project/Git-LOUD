@@ -78,7 +78,7 @@ UAS0305 = Class(ASeaUnit) {
         local sonar = Intel.SonarRadius or 2
         local Omni  = Intel.OmniRadius or 2
         
-        if ( old == 'Stopped' or (old == 'Stopping' and (new == 'Cruise' or new == 'TopSpeed'))) then
+        if old == 'Stopped' then
         
             -- intel ranges are halved while moving
             self:SetIntelRadius('Radar', self:GetIntelRadius('Radar') * 0.5)
@@ -87,7 +87,7 @@ UAS0305 = Class(ASeaUnit) {
 
         end
 
-        if (new == 'Stopped' or new == 'Stopping') then
+        if new == 'Stopped' then
         
             -- intel ranges are normalized
             self:SetIntelRadius('Radar', self:GetIntelRadius('Radar') * 2)

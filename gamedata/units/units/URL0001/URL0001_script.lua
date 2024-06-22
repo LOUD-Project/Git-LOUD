@@ -18,6 +18,7 @@ local Entity = import('/lua/sim/Entity.lua').Entity
 
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
 
 URL0001 = Class(CWalkingLandUnit) {
     DeathThreadDestructionWaitTime = 2,
