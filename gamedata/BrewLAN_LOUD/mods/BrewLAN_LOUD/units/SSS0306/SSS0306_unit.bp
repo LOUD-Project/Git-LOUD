@@ -1,6 +1,6 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {'UAB2205','Turret'},
+        TargetBones = {'SSS0306','Turret'},
     },
 	
     Audio = {
@@ -60,7 +60,7 @@ UnitBlueprint {
     },
 	
     Description = '<LOC xsb2205_desc>Advanced Torpedo Launcher',
-	
+
     Display = {
 	
         Abilities = {
@@ -69,7 +69,7 @@ UnitBlueprint {
             '<LOC ability_personalstealth>Personal Stealth',
             '<LOC ability_torpedodef>Personal Torpedo Defense',
         },
-		
+
         AnimationDeath = {
             {
                 Animation = '/units/xsb2205/xsb2205_Adeath.sca',
@@ -109,26 +109,36 @@ UnitBlueprint {
             },
         },
 
+        TransportAnimation = {
+            {
+                Animation = '/mods/brewlan/units/sss0306/sss0306_afold.sca',
+                Weight = 100,
+            },
+        },
+
         UniformScale = 0.05,
     },
-	
+
     Economy = {
         BuildCostEnergy = 34500,
         BuildCostMass = 2850,
         BuildTime = 3500,
     },
-	
-    Footprint = {
 
+    Footprint = {
         SizeX = 2,
         SizeZ = 2,
     },
-	
-    General = {
-		CapCost = 2,
 
+    General = {
+        CapCost = 2,
+        
         CommandCaps = {
             RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Patrol = true,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
@@ -153,52 +163,41 @@ UnitBlueprint {
     Interface = {
         HelpText = '<LOC xsb2205_help>Torpedo Launcher',
     },
-	
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.1,
     LifeBarSize = 1.6,
-	
-    Physics = {
-        BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Land = true,
-            LAYER_Water = true,
-        },
-        CatchUpAcc = 0,
-        DragCoefficient = 0.2,
+    Physics = {
+        CatchUpAcc = 10,
         Elevation = 0.25,
-        MaxAcceleration = 0,
-        MaxBrake = 2,
-        MaxSpeed = 0,
+        MaxAcceleration = 4.5,
+        MaxBrake = 4.5,
+        MaxSpeed = 4.5,
         MaxSpeedReverse = 0,
         MaxSteerForce = 5,
         MeshExtentsX = 1.75,
         MeshExtentsY = 1,
-        MeshExtentsZ = 1.75,
-        MinSpeedPercent = 0,
+        MeshExtentsZ = 1.75,
         MotionType = 'RULEUMT_Hover',
-		
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -0.5,
-		
         SkirtSizeX = 3,
         SkirtSizeZ = 3,
-		
         TurnRadius = 5,
         TurnRate = 100,
     },
-	
+
     SelectionSizeX = 1.1,
     SelectionSizeZ = 1.3,
     SelectionThickness = 0.34,
-	
+
     SizeX = 1.5,
     SizeY = 1.6,
     SizeZ = 1.5,
-	
+
     StrategicIconName = 'icon_structure3_antinavy',
     StrategicIconSortPriority = 200,
-	
+
     Veteran = {
         Level1 = 15,
         Level2 = 30,
@@ -206,53 +205,44 @@ UnitBlueprint {
         Level4 = 60,
         Level5 = 75,
     },
-	
+
+    Transport = {
+        TransportClass = 3,
+    },
     Weapon = {
         {
-            advancedTracking = true,
+        
+            advTracking = true,
             
             Audio = {
                 Fire = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2205_Cavitation_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
             },
-
             BallisticArc = 'RULEUBA_None',
-			
-            Buffs = {
-            	{
-                    Add = { OnImpact = true },
-                    AppliedToTarget = true,
-                    BuffType = 'STUN',
-                    Duration = 0.4,
-                    Radius = 2,
-                    TargetAllow = 'LAND TECH1,NAVAL TECH1,LAND TECH2,NAVAL TECH2',
-                    TargetDisallow = 'WALL,COMMAND,EXPERIMENTAL',
-                },
-            },
-
             CollideFriendly = false,
-			
-            Damage = 600,
+
+            Damage = 400,
             DamageType = 'Normal',
-			
-            DisplayName = 'Torpedo Cluster',
-			
+
+            DisplayName = 'Torpedo Wave',
+
             FireTargetLayerCapsTable = {
                 Water = 'Seabed|Sub|Water',
             },
-			
             FiringTolerance = 20,
-			
+
             Label = 'TorpedoTurrets',
-			
+
             MaxRadius = 80,
-			
-            MuzzleSalvoDelay = 0.4,
+
+            MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 3,
-            MuzzleVelocity = 6,
-			
-            -- this is a cluster munition that splits into 3 when it enters the water
-            ProjectileId = '/projectiles/SANHeavyCavitationTorpedo01/SANHeavyCavitationTorpedo01_proj.bp',
-            ProjectileLifetime = 10,
+            MuzzleVelocity = 7,
+
+            ProjectileId = '/projectiles/SANAnaitTorpedo01/SANAnaitTorpedo01_proj.bp',
+            ProjectileLifetime = 9,
+
+            --ProjectileId = '/projectiles/SANHeavyCavitationTorpedo01/SANHeavyCavitationTorpedo01_proj.bp',
+            --ProjectileLifetime = 10,
 
             RackBones = {
                 {
@@ -260,40 +250,47 @@ UnitBlueprint {
                     RackBone = 'Muzzle01',
                 },
             },
-            
-            RackSalvoReloadTime = 2.4,
-			
+
+            RackSalvoReloadTime = 1.5,  -- 1200 damage every 2.4 = 500 DPS
+
             RangeCategory = 'UWRC_AntiNavy',
-			
-            RateOfFire = 1,     -- controlled by MuzzleSalvo and RackSalvoReloadTime = 3.6 seconds
-			
+
+            RateOfFire = 3,
+
             TargetCheckInterval = 1,
-			
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
                 'ALLUNITS',
             },
+
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TargetRestrictOnlyAllow = 'NAVAL, SUBMERSIBLE',
             TrackingRadius = 1.1,
-			
+
             TurretBoneMuzzle = 'Muzzle01',
-            TurretBonePitch = 'Turret',
-            TurretBoneYaw = 'XSB2205',
-			
-            TurretPitch = 0,
+            TurretBonePitch = 0,
+            TurretBoneYaw = 0,
+            TurretDualManipulators = false,
+            TurretPitch = -20,
             TurretPitchRange = 0,
             TurretPitchSpeed = 0,
-			
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 30,
-			
             Turreted = true,
         },
-		
     },
 
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.2,
+        HealthMult = 0.9,
+        MassMult = 0.6,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Land = true,
+        },
+    },
 }

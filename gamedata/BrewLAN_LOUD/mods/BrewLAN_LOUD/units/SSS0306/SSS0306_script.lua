@@ -13,7 +13,7 @@ SSS0306 = Class(MobileUnit) {
 	OnStopBeingBuilt = function(self,builder,layer)
 		
 		MobileUnit.OnStopBeingBuilt(self,builder,layer)
-        
+--[[        
         -- create Torp Defense/TMD emitter
         local bp = __blueprints[self.BlueprintID].Defense.MissileTorpDestroy
         
@@ -24,7 +24,7 @@ SSS0306 = Class(MobileUnit) {
             TrashAdd( self.Trash, antiMissile1)
             
         end
-
+--]]
 	end,	
 }
 

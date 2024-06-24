@@ -21,6 +21,7 @@ SSL0405 = Class(SLandUnit) {
     BpId = 'ssl0405',
 
     Weapons = {
+
         BigGun = Class(SDFSinnuntheWeapon) {
 
             PlayFxMuzzleChargeSequence = function(self, muzzle)
@@ -54,8 +55,11 @@ SSL0405 = Class(SLandUnit) {
     },
 
     OnStartBeingBuilt = function(self, builder, layer)
+
         SLandUnit.OnStartBeingBuilt(self, builder, layer)
+
         local layer = self:GetCurrentLayer()
+
         if layer == 'Land' then
             --This animator is trashed after finishing building once it's animated
             self.AnimationManipulator = CreateAnimator(self)
@@ -66,8 +70,10 @@ SSL0405 = Class(SLandUnit) {
             self.TransformAnimator = CreateAnimator(self)
             self.TransformAnimator:PlayAnim(__blueprints[self.BpId].Display.AnimationTransformLandWater):SetRate(0):SetAnimationFraction(1)
         end
+
         ---Collision box partially in the water/land
         local bp = __blueprints[self.BpId]
+
         self:SetCollisionShape( 'Box', bp.CollisionOffsetX or 0, bp.CollisionOffsetYSwim or 1, bp.CollisionOffsetZ or 0, bp.SizeX * 0.5, bp.SizeY * 0.5, bp.SizeZ * 0.5)
     end,
 
@@ -77,12 +83,15 @@ SSL0405 = Class(SLandUnit) {
     end,
 
     OnStopBeingBuilt = function(self, builder, layer)
+
         SLandUnit.OnStopBeingBuilt(self, builder, layer)
+
         if self.AnimationManipulator then
             self:SetUnSelectable(true)
             self:SetImmobile(true)
             self.AnimationManipulator:SetRate(1)
             self:RevertCollisionShape()
+
             self:ForkThread(function()
                 coroutine.yield(self.AnimationManipulator:GetAnimationDuration()/self.AnimationManipulator:GetRate() * 10)
                 self:SetUnSelectable(false)
@@ -90,7 +99,9 @@ SSL0405 = Class(SLandUnit) {
                 self.AnimationManipulator:Destroy()
                 self.AnimationManipulator = nil
             end)
+
         elseif self:GetCurrentLayer() == 'Water' then
+
             if not self.TransformAnimator then
                 --Copy pasted from 'OnStartBeingBuilt' because it still needs to happen
                 self.TransformAnimator = CreateAnimator(self)
@@ -100,17 +111,13 @@ SSL0405 = Class(SLandUnit) {
                 local bp = __blueprints[self.BpId]
                 self:SetCollisionShape( 'Box', bp.CollisionOffsetX or 0, bp.CollisionOffsetYSwim or 1, bp.CollisionOffsetZ or 0, bp.SizeX * 0.5, bp.SizeY * 0.5, bp.SizeZ * 0.5)
             end
+
             self:SetSpeedMult(__blueprints[self.BpId].Physics.WaterSpeedMultiplier)
             self:RemoveToggleCap('RULEUTC_WeaponToggle')
         end
+
         self.LastActive = GetGameTimeSeconds()
-        --[[for i = 1, self:GetWeaponCount() do
-            local wep = self:GetWeapon(i)
-            local bp = wep:GetBlueprint()
-            if bp.Label ~= 'GapingMaw' then
-                wep:SetWeaponEnabled(false)
-            end
-        end]]
+
     end,
 
     OnAnimCollision = function(self, bone, x, y, z)
@@ -118,92 +125,123 @@ SSL0405 = Class(SLandUnit) {
     end,
 
     OnScriptBitSet = function(self, bit)
+
         SLandUnit.OnScriptBitSet(self, bit)
+
         if bit == 1 and self:GetCurrentLayer() == 'Land' then
             self:SetWeaponStance(true)
         elseif bit == 1 and self:GetCurrentLayer() ~= 'Land' then
             self:SetScriptBit('RULEUTC_WeaponToggle', false)
         end
+
     end,
 
     OnScriptBitClear = function(self, bit)
+
         SLandUnit.OnScriptBitClear(self, bit)
+
         if bit == 1 then
             self:SetWeaponStance(nil)
         end
     end,
 
     GetBlueprint = function(self)
+
         if self.Dead then
+
             local layer = moho.unit_methods.GetCurrentLayer(self)
+
             if layer == 'Water' or layer == 'Land' then
-                local bp = __blueprints[self.BpId] -- moho.entity_methods.GetBlueprint(self)
+                local bp = __blueprints[self.BpId]
+
                 bp.Display.AnimationDeath = bp.Display[layer..'AnimationDeath']
+
                 return bp
             else
-                return __blueprints[self.BpId] -- moho.entity_methods.GetBlueprint(self)
+                return __blueprints[self.BpId]
             end
         else
-            return __blueprints[self.BpId] -- moho.entity_methods.GetBlueprint(self)
+            return __blueprints[self.BpId]
         end
     end,
 
     OnKilled = function(self, instigator, type, overkillRatio)
+
         if self.ShallSink then self.ShallSink = function() return true end end
+
         for i, v in {'Animator', 'TransformAnimator'} do
+
             if self[v] then
                 self[v]:Destroy()
                 self[v] = nil
             end
         end
+
         SLandUnit.OnKilled(self, instigator, type, overkillRatio)
+
         if self.TallStance then
             self:SetScriptBit('RULEUTC_WeaponToggle', false)
             self.TallStanceAnimator:SetRate(-3)
         end
+
     end,
 
     DeathThread = function(self, overkillRatio, instigator)
+
         if self.DestructionExplosionWaitDelayMax and self.DestructionExplosionWaitDelayMin then
             coroutine.yield((math.random() * (self.DestructionExplosionWaitDelayMax - self.DestructionExplosionWaitDelayMin) + self.DestructionExplosionWaitDelayMin + 1 ) * 10)
         end
+
         self:DestroyAllDamageEffects()
         self:CreateDestructionEffects(overkillRatio)
         self.CreateUnitDestructionDebris(self, true, true, overkillRatio > 2)
 
         if not self.BagsDestroyed then
+
             local TrashEffectBag = function( self, EffectBag )
+
                 for k, v in self[EffectBag] do
                     v:Destroy()
                 end
             end
+
             for i, v in {'OnBeingBuiltEffectsBag', 'TallSteamEffectBag'} do
                 if self[v] then
                     TrashEffectBag(self, v)
                 end
             end
+
             local wep
+
             for i = 1, self:GetWeaponCount() do
+
                 wep = self:GetWeapon(i)
+
                 if wep.WeaponFXBag then
                     TrashEffectBag(wep, 'WeaponFXBag')
                 end
             end
+
             for i, v in {'IdleAnimator'} do
                 self:GracefullyKillSpecAnim(v)
             end
+
             self.BagsDestroyed = true
         end
 
         local layer = self:GetCurrentLayer()
+
         if layer == 'Water' then
+
             self:StopUnitAmbientSound('AmbientMoveWater')
 
             self.DisallowCollisions = true
             self.overkillRatio = overkillRatio
 
             if self.SinkDestructionEffects and self.SeabedWatcher then
+
                 self:ForkThread(self.SinkDestructionEffects)
+
                 if self:GetFractionComplete() > 0.5 then
                     self:SeabedWatcher()
                 else
@@ -211,7 +249,9 @@ SSL0405 = Class(SLandUnit) {
                 end
             end
         end
+
         if layer == 'Land' or not self.SeabedWatcher then
+
             if self.DeathAnimManip then
                 WaitFor(self.DeathAnimManip)
             end
@@ -219,7 +259,9 @@ SSL0405 = Class(SLandUnit) {
 
         self:CreateDestructionEffects(overkillRatio)
         self:CreateWreckage( overkillRatio )
+
         coroutine.yield(1)
+
         self:Destroy()
     end,
 
@@ -227,12 +269,14 @@ SSL0405 = Class(SLandUnit) {
     -- Transition handlers
     ----------------------------------------------------------------------------
     OnMotionHorzEventChange = function(self, new, old)
-        --LOG(new)
+
         SLandUnit.OnMotionHorzEventChange(self, new, old)
+
         if new == 'Stopped' then
             self.LastActive = GetGameTimeSeconds()
             self:UpdateMovementAnimation(new, old, true)
             self:UpdateMovementAnimation(new, old)
+
             if (not self.DeathAnim or not self.Dead) and not self.FinishMovementLoop then
                 if self.Animator then
                     self.Animator:Destroy()
@@ -248,6 +292,7 @@ SSL0405 = Class(SLandUnit) {
             self.Trash:Add(self.AnimationManipulator)
             self.AnimationManipulator:PlayAnim(__blueprints[self.BpId].Display.AnimationsIdle.Stretch, false):SetRate(1+(math.random() * 0.5))
             self:SetImmobile(true)
+
             self:ForkThread(function()
                 coroutine.yield(self.AnimationManipulator:GetAnimationDuration() / self.AnimationManipulator:GetRate() * 10)
                 self:SetImmobile(false)
@@ -255,28 +300,35 @@ SSL0405 = Class(SLandUnit) {
                 self.AnimationManipulator = nil
                 self:UpdateMovementAnimation(new, old)
             end)
+
         elseif new ~= 'Stopped' then
             self:UpdateMovementAnimation(new, old)
         end
     end,
 
     OnLayerChange = function(self, new, old)
+
         SLandUnit.OnLayerChange(self, new, old)
+
         if old ~= 'None' then --Prevent this from triggering imediately
+
             if self.TransformThread and (new == 'Land' or new == 'Water') then
                 KillThread(self.TransformThread)
                 self.TransformThread = nil
             end
+
             if new == 'Water' and old == 'Land' then
                 self.TransformThread = self:ForkThread(self.LayerTransform, false)
             elseif new == 'Land' and old == 'Water' then
                 self.TransformThread = self:ForkThread(self.LayerTransform, true)
             end
+
             if self:GetFractionComplete() ~= 1 or not self:IsMoving() then
                 self:UpdateMovementAnimation('Stopped')
             else
                 self:UpdateMovementAnimation()
             end
+
         end
     end,
 
