@@ -2463,27 +2463,28 @@ end
 
 function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthreat, mythreat, threatseek, threatavoid )
 
-    local GetSquadUnits = GetSquadUnits
-    local GetThreatsAroundPosition = GetThreatsAroundPosition
-    local GetThreatAtPosition = GetThreatAtPosition
-	local PlatoonExists = PlatoonExists	    
+    local ShowLoiterDialog = false
 
-    local LOUDCOPY = LOUDCOPY
+    local GetSquadUnits             = GetSquadUnits
+    local GetThreatsAroundPosition  = GetThreatsAroundPosition
+    local GetThreatAtPosition       = GetThreatAtPosition
+	local PlatoonExists             = PlatoonExists	    
+
+    local LOUDCOPY  = LOUDCOPY
     local LOUDFLOOR = LOUDFLOOR
-    local LOUDMAX = LOUDMAX
-    local LOUDMIN = LOUDMIN
-    local LOUDSORT = LOUDSORT
-    local LOUDLERP = MATH_Lerp
-
-    local VDist3 = VDist3
+    local LOUDMAX   = LOUDMAX
+    local LOUDMIN   = LOUDMIN
+    local LOUDSORT  = LOUDSORT
+    local LOUDLERP  = MATH_Lerp
+    local VDist3    = VDist3
     
     local VectorCached = { 0, 0, 0 }
 
-    local AirRatiofactor = aiBrain.AirRatio/3
-    local IMAPBlocksize = ScenarioInfo.IMAPSize
-    local loiterposition = startposition
-    local ringrange = searchradius * 12
-    local threatrings = ScenarioInfo.IMAPBlocks
+    local AirRatiofactor    = aiBrain.AirRatio/3
+    local IMAPBlocksize     = ScenarioInfo.IMAPSize
+    local loiterposition    = startposition
+    local ringrange         = searchradius * 12
+    local threatrings       = ScenarioInfo.IMAPBlocks
 
     -- first - get all the threatseek threats within 12 times the searchradius (ringrange) - why 12 times ?
     -- because that will let us react to air threats within reasonable range of the startposition
@@ -2491,7 +2492,7 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
     -- the AirRatio will keep us closer to home if it's not above 3
     -- ScenarioInfo.IMAPSize comes in handy as it tells us how big each block will be so we can adjust the blocks value to line up with the searchradius
 
-    local currentthreat, lerpresult, positionthreat, result, test
+    local currentthreat, currentvalue, lerpresult, positionthreat, result, test
     
     local threats = GetThreatsAroundPosition( aiBrain, startposition, LOUDFLOOR( ringrange/IMAPBlocksize ), true, threatseek )
 
@@ -2505,10 +2506,13 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
     -- filter them down to those above min threat and capture the threatavoid threat at that position
     if threats[1] then
 
-        currentthreat = 0
+        currentthreat = mythreat    --- filter out threats bigger than me
+        currentvalue = minthreat    --- must have value
         result = false
 
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." gets "..threatseek.." threats from "..repr(startposition) )
+        if ShowLoiterDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." gets "..threatseek.." threats from "..repr(startposition).." threats are "..repr(threats) )
+        end
         
         for _,v in threats do
             
@@ -2519,15 +2523,34 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
             -- get the avoid threat at that position
             positionthreat = LOUDMAX( 0, GetThreatAtPosition( aiBrain, test, threatrings, true, threatavoid ))
 
-            if positionthreat <= mythreat and positionthreat > currentthreat then
+            -- we are seeking the most valuable target with the lowest, but acceptable threat
+            if  positionthreat < currentthreat and v[3] > currentvalue then
+                
+                if ShowLoiterDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." selecting position "..repr(test).." with value "..v[3].." but with current avoidthreat "..positionthreat.." less than my "..mythreat )
+                end
+
                 result = LOUDCOPY(test)
-                currentthreat = positionthreat
+
+                if positionthreat < mythreat then
+                    currentthreat = positionthreat
+                end
+
+                currentvalue = v[3]
+            else
+                if ShowLoiterDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." ignores position "..repr(test).." with value "..v[3].." avoidthreat is "..positionthreat.." mine is "..mythreat )
+                end
             end
 
         end
 
         -- take the highest threat position
         if result then
+        
+            if ShowLoiterDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." Set Loiter using result position "..repr(result) )
+            end
             
             lerpresult = LOUDMIN( 1, LOUDMIN( 1, ( ringrange / VDist3(startposition, result) ) ) )
 
@@ -2542,14 +2565,14 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
         end
 
     else
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Set Loiter reports no threats within ringrange "..LOUDFLOOR(ringrange/IMAPBlocksize) )
+        if ShowLoiterDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Set Loiter reports no threats within ringrange "..LOUDFLOOR(ringrange/IMAPBlocksize) )
+        end
     end
-
-    IssueClearCommands(self)
-
-    IssueGuard( GetSquadUnits( self,'Attack'), loiterposition)
-    
-    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." Set Loiter position to "..repr(loiterposition).." using lerpresult "..repr(lerpresult) )
+   
+    if ShowLoiterDialog then
+        LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." Set Loiter position to "..repr(loiterposition).." using lerpresult "..repr(lerpresult) )
+    end
 
     return loiterposition
 end
@@ -2828,7 +2851,13 @@ function AirForceAILOUD( self, aiBrain )
 			if platPos then
 			
 				if not loiter then
+                
                     loiterposition = SetLoiterPosition( self, aiBrain, anchorposition, searchrange, 3, mythreat, 'AIR', 'ANTIAIR' )
+
+                    IssueClearCommands( GetSquadUnits( self,'Attack') )
+
+                    IssueGuard( GetSquadUnits( self,'Attack'), loiterposition)
+
                     loiter = true
 				end
                 
@@ -3343,6 +3372,11 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 				if not loiter then
                 
                     loiterposition = SetLoiterPosition( self, aiBrain, anchorposition, searchradius, 3, mythreat, 'LAND', 'ANTIAIR' )
+
+                    IssueClearCommands( GetSquadUnits( self,'Attack') )
+
+                    IssueGuard( GetSquadUnits( self,'Attack'), loiterposition)
+
                     loiter = true
 				end
                 
@@ -3835,6 +3869,10 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 				if not loiter then
                 
                     loiterposition = SetLoiterPosition( self, aiBrain, anchorposition, searchradius, 3, mythreat, 'LAND', 'ANTIAIR' )
+
+                    IssueClearCommands( GetSquadUnits( self,'Attack') )
+
+                    IssueGuard( GetSquadUnits( self,'Attack'), loiterposition)
                     
                     loiter = true
 
@@ -4339,6 +4377,10 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
 				if not loiter then
                 
                     loiterposition = SetLoiterPosition( self, aiBrain, anchorposition, searchradius, 3, mythreat, 'NAVAL', 'ANTIAIR' )
+
+                    IssueClearCommands( GetSquadUnits( self,'Attack') )
+
+                    IssueGuard( GetSquadUnits( self,'Attack'), loiterposition)
                     
                     loiter = true
 
