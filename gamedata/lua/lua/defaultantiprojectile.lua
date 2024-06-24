@@ -791,7 +791,7 @@ SeraLambdaFieldRedirector = Class(Entity) {
                 EnemyProj.MoveThread = nil
             end
 
-            if self.Enemy and not BeenDestroyed(EnemyProj) then
+            if self.Enemy and not BeenDestroyed(self.Enemy) and not BeenDestroyed(EnemyProj) then
 
 				EnemyProj:SetVelocity( 2.5 )
             
