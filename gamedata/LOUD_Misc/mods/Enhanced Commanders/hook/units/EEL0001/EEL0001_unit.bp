@@ -3,6 +3,8 @@ UnitBlueprint {
     BlueprintId = "eel0001", --UEF BO ACU
 
     Defense = {
+		
+        EconomyThreatLevel = 870,
 
         Health = 35400,
         MaxHealth = 35400,
@@ -13,9 +15,9 @@ UnitBlueprint {
     
         EXImprovedEngineering = {
         
-            BuildCostEnergy = 34200,
-            BuildCostMass = 3150,
-            BuildTime = 3420,
+            BuildCostEnergy = 36100,
+            BuildCostMass = 3325,
+            BuildTime = 3610,
 
         },
         
@@ -37,9 +39,9 @@ UnitBlueprint {
         
         EXCombatEngineering = {
         
-            BuildCostEnergy = 34200,
-            BuildCostMass = 3375,
-            BuildTime = 3420,
+            BuildCostEnergy = 36100,
+            BuildCostMass = 3565,
+            BuildTime = 3610,
 
         },
         

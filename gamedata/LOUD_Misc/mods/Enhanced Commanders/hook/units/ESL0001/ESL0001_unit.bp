@@ -3,6 +3,8 @@ UnitBlueprint {
     BlueprintId = "esl0001", --Seraphim BO ACU
 
     Defense = {
+		
+        EconomyThreatLevel = 830,   -- +30%
 
         Health = 33000,     -- +20%
         MaxHealth = 33000,
@@ -12,9 +14,9 @@ UnitBlueprint {
     
         EXImprovedEngineering = {
         
-            BuildCostEnergy = 34200,
-            BuildCostMass = 3150,
-            BuildTime = 3420,
+            BuildCostEnergy = 36100,
+            BuildCostMass = 3325,
+            BuildTime = 3610,
         },
         
         EXAdvancedEngineering = {
@@ -33,9 +35,9 @@ UnitBlueprint {
         
         EXCombatEngineering = {
         
-            BuildCostEnergy = 34200,
-            BuildCostMass = 3375,
-            BuildTime = 3420,
+            BuildCostEnergy = 36100,
+            BuildCostMass = 3565,
+            BuildTime = 3610,
         },
         
         EXAssaultEngineering = {

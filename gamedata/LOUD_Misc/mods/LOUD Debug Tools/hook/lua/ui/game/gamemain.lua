@@ -2,7 +2,7 @@
 -- Brief: Creates the LOUD AI Debug Menu.
 
 do
-    LOG("*AI DEBUG LOADING AI DEBUG")
+    --LOG("*AI DEBUG LOADING AI DEBUG")
     
 	local Group = import('/lua/maui/group.lua').Group
 	local Prefs = import('/lua/user/prefs.lua')

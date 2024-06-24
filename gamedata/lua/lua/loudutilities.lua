@@ -4780,7 +4780,7 @@ function ParseIntelThread( aiBrain )
         
 		
 		if IntelDialog then
-			LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL resorts HiPri list is "..repr(aiBrain.IL.HiPri))	
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL resorts HiPri list is "..repr(aiBrain.IL.HiPri))	
 		end
 
 		if parseinterval - usedticks >= 10 then
@@ -5023,7 +5023,7 @@ function ParseIntelThread( aiBrain )
             end
 
             if ReportRatios then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Air Ratio is "..repr(aiBrain.AirRatio).." Land Ratio is "..repr(aiBrain.LandRatio).." Naval Ratio is "..repr(aiBrain.NavalRatio))
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Air Ratio is "..repr(aiBrain.AirRatio).." Land Ratio is "..repr(aiBrain.LandRatio).." Naval Ratio is "..repr(aiBrain.NavalRatio).." at tick "..GetGameTick() )
             end
             
             grandairtot = 0
@@ -5468,10 +5468,11 @@ function AIPickEnemyLogic( self, brainbool )
     local IMAPRadius        = ScenarioInfo.IMAPRadius
     local selfIndex         = self.ArmyIndex
 
-    local threattypes = {'StructuresNotMex','Land'}
+    --- we now watch for Commander threat
+    local threattypes = {'StructuresNotMex','Land','Commander'}
     
     if self.IsNavalMap then
-        threattypes = {'StructuresNotMex','Land','Naval'}
+        threattypes = {'StructuresNotMex','Land','Naval','Commander'}
     end
     
     local armyindex, counter, currenemy, distance, insertTable, key, threats, threatWeight, unitPos, units, x1, x2, x3
@@ -5536,6 +5537,10 @@ function AIPickEnemyLogic( self, brainbool )
     -- we'll now use the two tables to arrive at a third table
     -- where we identify the highest concentration for each enemy
     local maxthreat = {}
+
+    --if AttackPlanDialog then
+      --  LOG("*AI DEBUG "..self.Nickname.." AttackPlan insertTable is "..repr(insertTable) )
+    --end
     
     for k,v in insertTable do
         
