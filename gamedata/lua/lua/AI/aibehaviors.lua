@@ -2582,6 +2582,12 @@ end
 -- Now includes code for escorting fighters --
 function AirForceAILOUD( self, aiBrain )
 
+    local AirForceDialog = ScenarioInfo.AirForceDialog or false
+
+    if AirForceDialog then
+        LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderIntance.." starts")
+    end
+
     local CalculatePlatoonThreat    = CalculatePlatoonThreat
 	local GetUnitsAroundPoint       = GetUnitsAroundPoint
     local GetPlatoonPosition        = GetPlatoonPosition
@@ -2909,7 +2915,9 @@ function AirForceAILOUD( self, aiBrain )
                 TertiaryCount = 0
                 TertiaryTargets = false
                 
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." seeking secondaries within "..threatcheckradius.." of "..repr(targetposition))
+                if AirForceDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." seeking secondaries within "..threatcheckradius.." of "..repr(targetposition))
+                end
 
                 -- enemy fighters 
                 SecondaryAATargets = GetUnitsAroundPoint( aiBrain, HIGHALTAIR, targetposition, threatcheckradius, 'Enemy')
@@ -2930,7 +2938,9 @@ function AirForceAILOUD( self, aiBrain )
                     TertiaryCount = LOUDGETN(TertiaryTargets)
                 end
                 
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." gets target "..repr(target:GetBlueprint().Description).." at "..repr(targetposition) )
+                if AirForceDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." gets target "..repr(target:GetBlueprint().Description).." at "..repr(targetposition).." from loiter "..repr(loiterposition) )
+                end
 
                 -- Have a target - plot path to target - Use airthreat vs. mythreat for path
                 -- use strikerange to determine point from which to switch into attack mode
@@ -2942,7 +2952,7 @@ function AirForceAILOUD( self, aiBrain )
 
                 if path then
 
-                    IssueClearCommands( self )
+                    IssueClearCommands( GetPlatoonUnits(self) )
 
                     count = 0
                     newpath = {}
@@ -2984,7 +2994,9 @@ function AirForceAILOUD( self, aiBrain )
                         -- move the platoon to within 100 in formation
                         self.MoveThread = self:ForkThread( MovePlatoon, newpath, 'AttackFormation', false, 100)
                         
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." issues move using path "..repr(newpath) )
+                        if AirForceDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." issues move using path "..repr(newpath) )
+                        end
 
                         loiter = false
 
@@ -3038,7 +3050,9 @@ function AirForceAILOUD( self, aiBrain )
                     
                         local Direction = GetDirectionInDegrees( squad, targetposition )
                         
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." issues form move to "..repr({midpointx, midpointy, midpointz}) )
+                        if AirForceDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." issues form move to "..repr({midpointx, midpointy, midpointz}) )
+                        end
 
                         -- this gets them moving to a point halfway to the targetposition - hopefully
                         IssueFormMove( GetPlatoonUnits(self), { midpointx, midpointy, midpointz }, 'AttackFormation', Direction )
@@ -3137,10 +3151,17 @@ function AirForceAILOUD( self, aiBrain )
             platPos = GetPlatoonPosition(self) or false
 
             if platPos then
-            
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." still attacking target "..repr(target:GetBlueprint().Description) )
-            
+
+                if AirForceDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." still attacking target "..repr(target:GetBlueprint().Description) )
+                end
+
                 if VDist3( platPos, loiterposition ) > searchrange then
+
+                    if AirForceDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." now beyond searchrange "..searchrange.." loiterposition "..repr(loiterposition) )
+                    end
+
                     loiter = false
                     break
                 end
@@ -3148,10 +3169,12 @@ function AirForceAILOUD( self, aiBrain )
                 usethreat = AIGetThreatLevelsAroundPoint( platPos, threatavoid )
                 
                 if usethreat > mythreat * 1.1 then
-                
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." ABORT - threat "..usethreat.." - mine is "..mythreat.." at "..repr(platPos).." -  target is "..repr(target:GetPosition()) )
 
-                    IssueClearCommands(self)
+                    if AirForceDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." ABORT - threat "..usethreat.." - mine is "..mythreat.." at "..repr(platPos).." -  target is "..repr(target:GetPosition()) )
+                    end
+
+                    IssueClearCommands(GetPlatoonUnits(self))
 
                     target = false
                     loiter = false
@@ -3163,16 +3186,20 @@ function AirForceAILOUD( self, aiBrain )
                     break
                 end
                 
+                --- rebuild loiterposition but note that we don't force it on the squad
+                --- it's used to simply keep this current attack active - if the loiterposition is drifting towards it
+                loiterposition = SetLoiterPosition( self, aiBrain, anchorposition, searchrange, 3, mythreat, 'AIR', 'ANTIAIR' )
+                
                 WaitTicks(3)
 
             else
-                break
+                return  --- platoon dead
             end
 		end
 
 		if target and PlatoonExists(aiBrain, self) then
         
-            IssueClearCommands(self)
+            IssueClearCommands(GetPlatoonUnits(self))
 
 			target = false
             loiter = true
