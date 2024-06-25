@@ -751,14 +751,12 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSS_Weapon',
-                    Cue = 'XSS0302_Inaino_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0302_Inaino_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
+
             CollideFriendly = false,
+
             CountedProjectile = true,
 			
             Damage = 0,
@@ -771,7 +769,6 @@ UnitBlueprint {
 			
             FireTargetLayerCapsTable = {
                 Seabed = 'Land|Water|Seabed',
-                Sub = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
 			
@@ -805,7 +802,7 @@ UnitBlueprint {
 			
             NukeWeapon = true,
 			
-            ProjectileId = '/projectiles/SIFInainoStrategicMissile02/SIFInainoStrategicMissile01_proj.bp',
+            ProjectileId = '/projectiles/SIFInainoStrategicMissile01/SIFInainoStrategicMissile01_proj.bp',
 
             RackBones = {
                 {

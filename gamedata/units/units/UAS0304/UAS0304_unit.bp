@@ -333,7 +333,7 @@ UnitBlueprint {
 			
             NukeWeapon = true,
 			
-            ProjectileId = '/projectiles/AIFQuantumWarhead03/AIFQuantumWarhead01_proj.bp',
+            ProjectileId = '/projectiles/AIFQuantumWarhead01/AIFQuantumWarhead01_proj.bp',
 			
             RackBones = {
                 {

@@ -2,10 +2,10 @@ local SSeaUnit =  import('/lua/defaultunits.lua').SeaUnit
 
 local SeraphimWeapons = import('/lua/seraphimweapons.lua')
 
-local SDFHeavyQuarnonCannon = SeraphimWeapons.SDFHeavyQuarnonCannon
+local SDFHeavyQuarnonCannon     = SeraphimWeapons.SDFHeavyQuarnonCannon
 local SAMElectrumMissileDefense = SeraphimWeapons.SAMElectrumMissileDefense
-local SAAOlarisCannonWeapon = SeraphimWeapons.SAAOlarisCannonWeapon
-local SIFInainoWeapon = import('/lua/seraphimweapons.lua').SIFInainoWeapon
+local SAAOlarisCannonWeapon     = SeraphimWeapons.SAAOlarisCannonWeapon
+local SIFInainoWeapon           = SeraphimWeapons.SIFInainoWeapon
 
 SeraphimWeapons = nil
 
