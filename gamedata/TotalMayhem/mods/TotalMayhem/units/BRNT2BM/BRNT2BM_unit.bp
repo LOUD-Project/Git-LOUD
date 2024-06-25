@@ -192,7 +192,7 @@ UnitBlueprint {
 			
             Label = 'rocket',
 			
-            MaxRadius = 39,
+            MaxRadius = 40,
 			MinRadius = 8,
 			
             MuzzleSalvoDelay = 0.6,
@@ -275,8 +275,8 @@ UnitBlueprint {
                 Seabed = 'Land|Water|Seabed|Air',
             },
 			
-			FiringRandomness = 0.3,
-			FiringRandomnessWhileMoving = 1.1,
+			FiringRandomness = 0.25,
+			FiringRandomnessWhileMoving = 0.9,
             FiringTolerance = 1,
 			
             Label = 'gatling',
@@ -362,8 +362,8 @@ UnitBlueprint {
                 Seabed = 'Land|Water|Seabed|Air',
             },
 			
-			FiringRandomness = 0.3,
-			FiringRandomnessWhileMoving = 1.1,
+			FiringRandomness = 0.25,
+			FiringRandomnessWhileMoving = 0.9,
             FiringTolerance = 1,
 			
             Label = 'gatling',

@@ -41,8 +41,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 1850,
-        MaxHealth = 1850,
+        Health = 1825,
+        MaxHealth = 1825,
         RegenRate = 3,
         SurfaceThreatLevel = 15.9,
     },
@@ -52,6 +52,7 @@ UnitBlueprint {
     Display = {
         Abilities = {
             '<LOC ability_amphibious>Amphibious',
+            '<LOC ability_personalstealth>Personal Stealth',            
         },
         
         AnimationDeath = { {Animation = '/mods/TotalMayhem/units/BRMT2MEDM/BRMT2MEDM_Death.sca',Weight = 100} },
@@ -86,10 +87,14 @@ UnitBlueprint {
         },
         FactionName = 'Cybran',
         Icon = 'amph',
+
         UnitName = '<LOC brmt2medm_name>Immortal',
     },
 	
     Intel = {
+        RadarStealth = true,
+        SonarStealth = true,
+        
         VisionRadius = 28,
 		WaterVisionRadius = 20,
     },
@@ -104,6 +109,7 @@ UnitBlueprint {
 	
     Physics = {
         BankingSlope = 0,
+
         BuildOnLayerCaps = {
             LAYER_Land = true,
             LAYER_Seabed = true,
