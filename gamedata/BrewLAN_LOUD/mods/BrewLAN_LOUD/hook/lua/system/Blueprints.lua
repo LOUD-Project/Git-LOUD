@@ -6,6 +6,7 @@
 do
 
 local OldModBlueprints = ModBlueprints
+
 local BrewLANLOUDPath = function()
     for i, mod in __active_mods do
         --UID also hard referenced in /hook/lua/game.lua and mod_info.lua and in paragongame blueprints
@@ -46,6 +47,8 @@ function ModBlueprints(all_blueprints)
     BrewLANSatelliteUplinkForVanillaUnits(all_blueprints.Unit)
 
     --ExtractFrozenMeshBlueprint(all_blueprints.Unit)
+    
+    BrewLANGenerateFootprintDummyUnits(all_blueprints.Unit)
 end
 
 --------------------------------------------------------------------------------
@@ -727,7 +730,104 @@ function ExtractFrozenMeshBlueprint(all_bps)
 end
 
 --------------------------------------------------------------------------------
---
+-- Generate footprint dummies for dealing with path blocking.
 --------------------------------------------------------------------------------
 
+function BrewLANGenerateFootprintDummyUnits(all_units)
+
+    --These are used by the Aeon teleporter.
+    --But also by the mines and any unit that wants to clear it's path blocking.
+    local NewDummies = {}
+
+    for id, bp in all_units do
+    
+        if (bp.Physics.MotionType or 'RULEUMT_None') == 'RULEUMT_None' and ( table.find(bp.Categories, 'MINE') or table.find(bp.Categories, 'HEAVYWALLGATE') )  then
+        
+            local X = math.ceil(bp.Footprint.SizeX or bp.SizeX or 1)
+            local Z = math.ceil(bp.Footprint.SizeZ or bp.SizeZ or 1)
+            local SOX = bp.Physics.SkirtOffsetX or 0
+            local SOZ = bp.Physics.SkirtOffsetZ or 0
+            local SSX = math.max(bp.Physics.SkirtSizeX or 1, X)
+            local SSZ = math.max(bp.Physics.SkirtSizeZ or 1, Z)
+            local OR = bp.Physics.OccupyRects
+
+            local dummyID = 'zzzfd'..X..Z..SOX..SOZ..SSX..SSZ
+
+            if OR then
+                for i, v in OR do
+                    dummyID = dummyID..v
+                end
+            end
+
+            if not NewDummies[dummyID] then
+
+                SPEW( "Creating footprint dummy off of unit "..bp.BlueprintId )
+                
+                NewDummies[dummyID] = {
+                    BlueprintId = dummyID,
+                    BuildIconSortPriority = 5,
+                    Categories = {
+                        'INVULNERABLE',
+                        'STRUCTURE',
+                        'BENIGN',
+                        'UNSELECTABLE',
+                        'UNTARGETABLE',
+                        'UNSPAWNABLE',
+                    },
+                    Defense = {Health = 0, MaxHealth = 0},
+                    Description = 'Footprint Dummy Unit',
+                    Display = {
+                        BuildMeshBlueprint = BrewLANLOUDPath() .. '/meshes/nil_mesh',
+                        MeshBlueprint = BrewLANLOUDPath() .. '/meshes/nil_mesh',
+                        UniformScale = 0,
+                        HideLifebars = true,
+                    },
+                    Footprint = {SizeX = X, SizeZ = Z},
+                    Economy = {
+                        BuildCostEnergy = 1,
+                        BuildCostMass = 1,
+                        BuildTime = 1,
+                    },
+                    General = {CapCost = 0},
+                    Intel = {
+                        VisionRadius = 0,
+                        WaterVisionRadius = 0,
+                    },
+                    Physics = {
+                        BuildOnLayerCaps = {
+                            LAYER_Land = true,
+                            LAYER_Seabed = true,
+                            LAYER_Water = true,
+                        },
+                        SkirtOffsetX = SOX,
+                        SkirtOffsetZ = SOZ,
+                        SkirtSizeX = SSX,
+                        SkirtSizeZ = SSZ,
+                        MotionType = 'RULEUMT_None',
+                        OccupyRects = OR,
+                    },
+                    ScriptClass = 'FootprintDummyUnit',
+                    ScriptModule = '/lua/defaultunits.lua',
+                    SizeX = X,
+                    SizeY = 1,
+                    SizeZ = Z,
+                    Source = all_units.uab0101.Source,
+                }
+
+                SPEW("Creating footprint dummy unit: " .. dummyID)
+            end
+            
+            bp.FootprintDummyId = dummyID
+        end
+    end
+
+    -- Separate loop to prevent iterator issues.
+    for id, bp in NewDummies do
+        all_units[id] = bp
+    end
+end
+
+--------------------------------------------------------------------------------
+--
+--------------------------------------------------------------------------------
 end

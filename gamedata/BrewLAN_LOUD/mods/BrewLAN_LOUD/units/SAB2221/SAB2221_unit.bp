@@ -58,8 +58,8 @@ UnitBlueprint {
     },
 
     Footprint = {
-        SizeX = 0,
-        SizeZ = 0,
+        SizeX = 1,
+        SizeZ = 1,
     },
 
     General = {
@@ -171,6 +171,13 @@ UnitBlueprint {
             Label = 'Suicide',
 
             MaxRadius = 3.5,
+			
+            ProjectileId = '/projectiles/NullShell/NullShell_proj.bp',
+            ProjectileLifetime = 1,
+
+            RackBones = {
+                { MuzzleBones = { 0 }, RackBone = 0 },
+            },
 
             RangeCategory = 'UWRC_DirectFire',
 

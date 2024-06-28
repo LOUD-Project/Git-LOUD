@@ -1,6 +1,4 @@
---------------------------------------------------------------------------------
---  Summary  :  Cybran Stationary Explosive Script
---------------------------------------------------------------------------------
-local NukeMineStructureUnit = import(import( '/lua/game.lua' ).BrewLANLOUDPath() .. '/lua/defaultunits.lua').NukeMineStructureUnit
-SRB2222 = Class(NukeMineStructureUnit) {}
+local MineStructureUnit = import('/lua/defaultunits.lua').NukeMineStructureUnit
+
+SRB2222 = Class(MineStructureUnit) {}
 TypeClass = SRB2222

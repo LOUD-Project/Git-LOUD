@@ -149,6 +149,7 @@ end
 
 function GateWallUnit(SuperClass)
     return Class(SuperClass) {
+
         OnCreate = function(self)
             SuperClass.OnCreate(self)
             self.Slider = CreateSlider(self, self:GetBlueprint().Display.GateEffects.GateSliderBone or 0)
@@ -164,13 +165,21 @@ function GateWallUnit(SuperClass)
             local bp = self:GetBlueprint()
             local scale = 1 / bp.Display.UniformScale or 1
             local depth = bp.SizeY * scale * 0.95
+
             if order == 'open' then
+
                 self.Slider:SetGoal(0, -depth, 0)
                 self.Slider:SetSpeed(200)
+
                 if self.blocker then
                    self.blocker:Destroy()
                    self.blocker = nil
+                else
+                    self.blocker = CreateUnitHPR(__blueprints[bp.BlueprintId].FootprintDummyId, self:GetArmy(), self.CachePosition[1],self.CachePosition[2],self.CachePosition[3],0,0,0)
+                    self.blocker:Destroy()
+                    self.blocker = nil                
                 end
+                
                 if bp.AI.TargetBones then
                     for i, bone in bp.AI.TargetBones do
                         if not self.TerrainSlope[bone] then
@@ -178,16 +187,21 @@ function GateWallUnit(SuperClass)
                         end
                     end
                 end
+
                 self:SetCollisionShape( 'Box', bp.CollisionOffsetX or 0, bp.CollisionOffsetY or 0, bp.CollisionOffsetZ or 0, bp.SizeX * 0.5, bp.SizeY * 0.1, bp.SizeZ * 0.5)
+
             end
+
             if order == 'close' then
+
                 self.Slider:SetGoal(0, 0, 0)
                 self.Slider:SetSpeed(200)
+
                 if not self.blocker then
-                   local pos = self:GetPosition()
-                   self.blocker = CreateUnitHPR('ZZZ5301',self:GetArmy(),pos[1],pos[2],pos[3],0,0,0)
+                   self.blocker = CreateUnitHPR(__blueprints[bp.BlueprintId].FootprintDummyId, self:GetArmy(), self.CachePosition[1],self.CachePosition[2],self.CachePosition[3],0,0,0)
                    self.Trash:Add(self.blocker)
                 end
+
                 if bp.AI.TargetBones then
                     for i, bone in bp.AI.TargetBones do
                         if self.TerrainSlope[bone] then
@@ -196,15 +210,21 @@ function GateWallUnit(SuperClass)
                         end
                     end
                 end
+
                 self:SetCollisionShape( 'Box', bp.CollisionOffsetX or 0, bp.CollisionOffsetY or 0, bp.CollisionOffsetZ or 0, bp.SizeX * 0.5, bp.SizeY, bp.SizeZ * 0.5)
+
             end
+
         end,
 
         OnScriptBitSet = function(self, bit)
+
             if bit == 1 then
                 self:ToggleGate('close')
             end
+
             SuperClass.OnScriptBitSet(self, bit)
+
             if bit == 1 then
                 for k, v in self.Info.ents do
                     if v.val[1] then
@@ -215,10 +235,13 @@ function GateWallUnit(SuperClass)
         end,
 
         OnScriptBitClear = function(self, bit)
+
             if bit == 1 then
                 self:ToggleGate('open')
             end
+
             SuperClass.OnScriptBitClear(self, bit)
+
             if bit == 1 then
                 for k, v in self.Info.ents do
                     if v.val[1] then
@@ -229,16 +252,20 @@ function GateWallUnit(SuperClass)
         end,
 
         OnKilled = function(self, instigator, type, overkillRatio)
+
             SuperClass.OnKilled(self, instigator, type, overkillRatio)
+
             if self.blocker then
                self.blocker:Destroy()
             end
         end,
 
         OnDestroy = function(self)
+
             if self.blocker then
                self.blocker:Destroy()
             end
+
             SuperClass.OnDestroy(self)
         end,
     }
