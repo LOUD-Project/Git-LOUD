@@ -1765,6 +1765,7 @@ Unit = Class(UnitMethods) {
         if not self.Impact then
             self:ForkThread(self.DeathThread, overkillRatio, instigator)
         end
+
     end,
 
     DoDeathWeapon = function(self)
