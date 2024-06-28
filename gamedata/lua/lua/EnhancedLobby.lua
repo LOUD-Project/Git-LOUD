@@ -217,73 +217,71 @@ end
 
 function GetAIList()
 
-	local aitypes = {}
+    local aitypes = {}
 
-	local AIFiles = DiskFindFiles('/lua/AI/CustomAIs_v2', '*.lua')
-	local AIFilesold = DiskFindFiles('/lua/AI/CustomAIs', '*.lua')
-	
-	--Load Custom AIs - old style
-	for i, v in AIFilesold do
-	
-        local tempfile = import(v).AIList
-		
-		for s, t in tempfile do	
-		
-			table.insert(aitypes, { key = t.key, name = t.name })
-			
-		end
-		
-	end
-	
-	--Load Custom AIs
-	for i, v in AIFiles do
-	
-        local tempfile = import(v).AI
-		
-		if tempfile.AIList then
-		
-			for s, t in tempfile.AIList do	
-			
-				table.insert(aitypes, { key = t.key, name = t.name })
-				
-			end
-			
-		end
-		
-	end
-	
-    --Load Custom Cheating AIs - old style
-	for i, v in AIFilesold do
-	
-        local tempfile = import(v).CheatAIList
-		
-		for s, t in tempfile do	
-		
-			table.insert(aitypes, { key = t.key, name = t.name })
-			
-		end
-		
-	end
-	
-	--Load Custom Cheating AIs
+    local AIFiles = DiskFindFiles('/lua/AI/CustomAIs_v2', '*.lua')
+    local AIFilesold = DiskFindFiles('/lua/AI/CustomAIs', '*.lua')
+
+    function AddAIData(tempfile)
+        if tempfile then
+            for s, tAIData in tempfile do
+
+                LOG('*AI DEBUG Custom Mod AI with name '..(tAIData.Name or 'nil'))
+
+                table.insert(aitypes, { key = tAIData.key, name = tAIData.name })
+
+            end
+        end
+    end
+
+    --Load Custom AIs - old style
+    for i, v in AIFilesold do
+
+        AddAIData(import(v).AIList)
+
+    end
+
+    --Load Custom AIs
     for i, v in AIFiles do
-	
-        local tempfile = import(v).AI
-		
-		if tempfile.CheatAIList then
-		
-			for s, t in tempfile.CheatAIList do	
-			
-				table.insert(aitypes, { key = t.key, name = t.name })
-				
-			end
-			
-		end
-		
-	end
-	
-	return aitypes
-	
+
+        AddAIData(import(v).AI.AIList)
+
+    end
+
+    --Load Custom Cheating AIs - old style
+    for i, v in AIFilesold do
+
+        AddAIData(import(v).CheatAIList)
+
+    end
+
+    --Load Custom Cheating AIs
+    for i, v in AIFiles do
+
+        AddAIData(import(v).AI.CheatAIList)
+
+    end
+    --Support for custom AIs via mods
+    local activeMods = GetActiveMods()
+    if activeMods then
+
+        for k, mod in activeMods do
+
+            local AIFiles = DiskFindFiles(mod.location..'/lua/AI/CustomAIs_v2', '*.lua')
+
+            if AIFiles then
+
+                for i, v in AIFiles do
+                    AddAIData(import(v).AI.AIList)
+                    AddAIData(import(v).AI.CheatAIList)
+                end
+            end
+
+        end
+    end
+
+    return aitypes
+
 end
 
 function GetCustomTooltips()
