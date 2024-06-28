@@ -253,19 +253,19 @@ function _CreateScalableUnitExplosion( obj )
 	
 
     -- Create Light particle flash
-	LOUDPARTICLE( obj, -1, army, 6 + (Random() * (4)) * scale, 8.5 + (Random() * (4) ), 'glow_03', 'ramp_flare_02' )
+	LOUDPARTICLE( obj, -1, army, 5 + (Random() * 3 ) * scale, 6 + (Random() * 3 ), 'glow_03', 'ramp_flare_02' )
 
     -- Create scorch mark on land
     if layer == 'Land' then
 	
         if scale > 6.0 then
-            CreateScorchMarkDecal( obj, scale * 0.8, army )
+            CreateScorchMarkDecal( obj, scale * 0.65, army )
         else
             CreateScorchMarkSplat( obj, scale * 0.8, army )
         end
 		
 		-- Camera Shake  (.radius .maxshake .minshake .lifetime)
-		obj:ShakeCamera( 30 * scale, scale * ShakeMaxMul, 0, 0.5 + ShakeTimeModifier )
+		obj:ShakeCamera( 24 * scale, scale * ShakeMaxMul, 0, 0.5 + ShakeTimeModifier )
     end
 
     -- Create GenericDebris chunks
@@ -290,19 +290,19 @@ function GetUnitEnvironmentalExplosionEffects( layer, scale )
 end
 
 function CreateFlash( obj, bone, scale, army )
-    LOUDPARTICLE( obj, bone, army, 6 + (Random() * (4) ) * scale, 8.5 + (Random() * (4) ), 'glow_03', 'ramp_flare_02' )
+    LOUDPARTICLE( obj, bone, army, 5 + (Random() * 3 ) * scale, 6 + (Random() * 3 ), 'glow_03', 'ramp_flare_02' )
 end
 
 function CreateScorchMarkSplat( obj, scale, army )
-    LOUDSPLAT( GetPosition(obj), (Random() * (6.28) ), ScorchSplatTextures[ LOUDFLOOR(Random() * (10) + 1) ], scale * 4, scale * 4, 110, 45 + (Random() * (105) ), army )
+    LOUDSPLAT( GetPosition(obj), (Random() * 6.28 ), ScorchSplatTextures[ LOUDFLOOR(Random() * (10) + 1) ], scale * 3, scale * 3, 110, 40 + (Random() * (60) ), army )
 end
 
 function CreateScorchMarkDecal( obj, scale, army )
-    LOUDDECAL( GetPosition(obj), (Random() * (6.28) ), ScorchDecalTextures[ LOUDFLOOR(Random() * (10) + 1) ], '', 'Albedo', scale * 3, scale * 3, 110, 45 + (Random() * (105) ), army)
+    LOUDDECAL( GetPosition(obj), (Random() * 6.28 ), ScorchDecalTextures[ LOUDFLOOR(Random() * (10) + 1) ], '', 'Albedo', scale * 3, scale * 3, 110, 40 + (Random() * (60) ), army)
 end
 
 function CreateRandomScorchSplatAtObject( obj, scale, LOD, lifetime, army )
-    LOUDSPLAT( GetPosition(obj), (Random() * (6.28) ), ScorchSplatTextures[ LOUDFLOOR(Random() * (10) + 1) ], scale, scale, LOD, lifetime, army )
+    LOUDSPLAT( GetPosition(obj), (Random() * 6.28 ), ScorchSplatTextures[ LOUDFLOOR(Random() * (10) + 1) ], scale, scale, LOD, lifetime, army )
 end
 
 function CreateWreckageEffects( obj, prop )
