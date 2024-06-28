@@ -21,9 +21,7 @@ SANHeavyCavitationTorpedo01 = Class(SHeavyCavitationTorpedo) {
         SHeavyCavitationTorpedo.OnCreate( self, inWater )
         
         if not inWater then
-	
             self.AirTrails = CreateEmitterOnEntity(self,self:GetArmy(),EffectTemplate.SHeavyCavitationTorpedoFxTrails02)
-            
         else
             self.OnEnterWater(self)
         end
@@ -93,14 +91,14 @@ SANHeavyCavitationTorpedo01 = Class(SHeavyCavitationTorpedo) {
         local xVec, zVec, proj
 	    
 		-- Launch projectiles at semi-random angles away from split location
-		for i = 0, (numProjectiles -1) do
+		for i = 1, numProjectiles do
 		
 			xVec = vx + (LOUDSIN(angleInitial + (i*angle) + RandomFloat(-angleVariation, angleVariation))) * spreadMul
 			zVec = vz + (LOUDCOS(angleInitial + (i*angle) + RandomFloat(-angleVariation, angleVariation))) * spreadMul 
 			
 			proj = self:CreateChildProjectile(ChildProjectileBP)
 			
-			proj:SetVelocity(xVec, vy/3 ,zVec)
+			proj:SetVelocity(xVec, vy/3 , zVec)
 			
 			proj:PassDamageData(DividedDamageData)
 			

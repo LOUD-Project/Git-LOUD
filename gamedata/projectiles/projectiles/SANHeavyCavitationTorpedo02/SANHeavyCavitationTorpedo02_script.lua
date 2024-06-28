@@ -24,20 +24,6 @@ SANHeavyCavitationTorpedo02 = Class(SHeavyCavitationTorpedo) {
 		'/effects/emitters/seraphim_heayvcavitation_torpedo_projectile_hit_04_emit.bp',
 		'/effects/emitters/seraphim_heayvcavitation_torpedo_projectile_hit_05_emit.bp',
     },
-    
-    OnEnterWater = function(self)
-		
-        local army = self:GetArmy()
-
-        for i in self.FxEnterWaterEmitter do --splash
-            CreateEmitterAtEntity(self,army,self.FxEnterWaterEmitter[i]):ScaleEmitter(self.FxSplashScale)
-        end	
-	
-        SHeavyCavitationTorpedo.OnEnterWater(self)
-		
-        self:ForkThread(self.ProjectileSplit)
-		
-    end,
 
     OnCreate = function(self, inwater)
 	
@@ -52,6 +38,20 @@ SANHeavyCavitationTorpedo02 = Class(SHeavyCavitationTorpedo) {
             self:SetAcceleration(0)             -- dont accelerate in the air
 
         end
+		
+    end,
+    
+    OnEnterWater = function(self)
+		
+        local army = self:GetArmy()
+
+        for i in self.FxEnterWaterEmitter do --splash
+            CreateEmitterAtEntity(self,army,self.FxEnterWaterEmitter[i]):ScaleEmitter(self.FxSplashScale)
+        end	
+	
+        SHeavyCavitationTorpedo.OnEnterWater(self)
+		
+        self:ForkThread(self.ProjectileSplit)
 		
     end,
 
