@@ -11,7 +11,7 @@ do
 		oldModBlueprints(all_bps)
 
         local econScale = 1.15
-		local buildScale = .85
+		local buildScale = .9
         
         --loop through the blueprints and adjust resource production.
         for id,bp in all_bps.Unit do
