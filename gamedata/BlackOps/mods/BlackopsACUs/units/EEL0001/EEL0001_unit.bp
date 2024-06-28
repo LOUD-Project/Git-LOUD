@@ -2397,8 +2397,8 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed|Air',
             },
 
-            FiringRandomness = 0.6,
-            FiringRandomnessWhileMoving = 1.1,
+            FiringRandomness = 0.3,
+            FiringRandomnessWhileMoving = 0.9,
             FiringTolerance = 1,
 
             Label = 'EXGattlingEnergyCannon01',
@@ -2481,6 +2481,7 @@ UnitBlueprint {
             },
 
             FiringRandomness = 0.2,
+            FiringRandomnessWhileMoving = 0.6,
             FiringTolerance = 0.5,
 
             Label = 'EXGattlingEnergyCannon02',
@@ -2565,8 +2566,9 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 
-            FiringRandomness = 0.2,
-            FiringTolerance = 2,
+            FiringRandomness = 0.25,
+            FiringRandomnessWhileMoving = 0.75,
+            FiringTolerance = 1.2,
 
             Label = 'EXGattlingEnergyCannon03',
 
