@@ -1,3 +1,32 @@
+### Release
+
+LUA 7.03
+BrewLAN for LOUD 0.8.8.9.101
+Bkack Ops for LOUD 7.01
+loc_US 
+LOUD_MISC 7.01
+LOUD_UNITS 7.01
+Projectiles 7.02
+UNITS 7.02
+Total Mayhem for LOUD 7.01
+
+- added guard for retargeted projectiles chasing a dead target
+- improved AttackPlanner logic to include COMMANDER values as part of target selection
+- improved SetLoiterPosition logic to properly value air threats, seeking the most valuable, instead of the safest
+- improved AirForceAILOUD logic to reasses loiter positions during attacks, thus allowing the attack to drift towards, or away, based on threat
+- revised the Sera T3 Torpedo launcher, to use the non-splitting torpedo of the T2 launcher
+- fixed Nuke subs and Sera Nuke Battleship - used wrong directory for projectile
+- minor revisions to T2 Amphib Bot class
+- fixed issues with all BrewLAN mines, for detonations, manual detonations, and movement thru (all credit Balthazar)
+- this also covers BrewLAN wall gates, to utilize proper code for allowing movement thru (all credit Balthazar)
+- utilizing a similar mechanic, the Cybran Mobile bomb will now detonate when in proximity to enemy units (unless on Hold Fire)
+- added an 'immediate destruct' button to the mobile bomb
+- added additional LOC entries for personal tac & torp defense, and stealthmiasma fields
+- Adjusted Kraptor displayed abilities reflecting new LOC additions
+- Enhanced Resources sub-mod now 15% more resources and 10% reduced costs/time
+
+
+
 ### Release 22-06-2024
 
 LUA 7.02
