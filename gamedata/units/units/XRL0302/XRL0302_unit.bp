@@ -31,7 +31,7 @@ UnitBlueprint {
     CollisionOffsetZ = 0.05,
 	
     Defense = {
-        ArmorType = 'Bettle',
+        ArmorType = 'Normal',
         Health = 375,
         MaxHealth = 375,
         RegenRate = 0,
@@ -42,7 +42,8 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Suicide Weapon',
+            '<LOC ability_amphibious>Amphibious',            
+            '<LOC ability_suicideweapon>Suicide Weapon',
         },
 
         AnimationWalk = '/units/XRL0302/XRL0302_Awalk.sca',
@@ -75,13 +76,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 1800,
+        BuildCostEnergy = 4600,     -- as per artillery/mine calculations
         BuildCostMass = 300,
         BuildTime = 1500,
-		
-        TeleportEnergyMod = 0.15,
-        TeleportMassMod = 1,
-        TeleportTimeMod = 0.01,
     },
 	
     General = {
@@ -172,7 +169,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
 				Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 
             FiringTolerance = 360,
