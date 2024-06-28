@@ -203,7 +203,7 @@ UnitBlueprint {
             },
             
             RackReloadTimeout = 10,
-             
+
             RackSalvoReloadTime = 10,
 
             RateOfFire = 10,
