@@ -818,27 +818,31 @@ DefaultProjectileWeapon = Class(Weapon) {
                 end
 
             end
+            
+            if bp.RackBones then
 			
-            for _, v in bp.RackBones do
+                for _, v in bp.RackBones do
 			
-                if v.HideMuzzle == true then
+                    if v.HideMuzzle == true then
 				
-                    for _, mv in v.MuzzleBones do
-                        unit:ShowBone( mv, true )
+                        for _, mv in v.MuzzleBones do
+                            unit:ShowBone( mv, true )
+                        end
                     end
                 end
-            end
             
-			-- NOTE: This is setup so that it only works if there is more than 1 rack to be fired
-            -- but the rack wasn't reset (weapon didn't fire all the rackbones)
-            -- we force the reload rack process
-            -- this seems to happen when a multi-rackboned unit loses it's target during the fire sequence
-            if LOUDGETN(bp.RackBones) > 1 and self.CurrentRackNumber > 1 then
+                -- NOTE: This is setup so that it only works if there is more than 1 rack to be fired
+                -- but the rack wasn't reset (weapon didn't fire all the rackbones)
+                -- we force the reload rack process
+                -- this seems to happen when a multi-rackboned unit loses it's target during the fire sequence
+                if LOUDGETN(bp.RackBones) > 1 and self.CurrentRackNumber > 1 then
 
-                self.CurrentRackNumber = 1 
+                    self.CurrentRackNumber = 1 
 
-                LOUDSTATE(self, self.RackSalvoReloadState)
+                    LOUDSTATE(self, self.RackSalvoReloadState)
 
+                end
+                
             end
 			
             if bp.CountedProjectile == true and bp.MaxProjectileStorage > 0 and not self.bp.NukeWeapon then
@@ -1696,12 +1700,17 @@ local DefaultProjectileWeaponOnCreate = DefaultProjectileWeapon.OnCreate
 
 KamikazeWeapon = Class(DefaultProjectileWeapon) {
 
-    OnFire = function(self)
+    OnWeaponFired = function(self)
 
-        DamageArea(self.unit, self.unit:GetPosition(), self.bp.DamageRadius, self.bp.Damage, self.bp.DamageType or 'Normal', self.bp.DamageFriendly or false)
+        local unit = self.unit
+
+        DamageArea( unit, unit:GetPosition(), self.bp.DamageRadius, self.bp.Damage, self.bp.DamageType or 'Normal', self.bp.DamageFriendly or false)
         
-        self.unit:Kill()
+        LOUDSTATE( self, self.DeadState)
+        
+        unit:Kill()
     end,
+ 
 }
 
 BareBonesWeapon = Class(DefaultProjectileWeapon) {

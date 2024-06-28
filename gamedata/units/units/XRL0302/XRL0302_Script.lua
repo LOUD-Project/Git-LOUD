@@ -2,21 +2,28 @@ local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local CMobileKamikazeBombWeapon = import('/lua/cybranweapons.lua').CMobileKamikazeBombWeapon
 
-local CMobileKamikazeBombDeathWeapon = import('/lua/cybranweapons.lua').CMobileKamikazeBombDeathWeapon
-
-
 XRL0302 = Class(CWalkingLandUnit) {
+
     Weapons = {
 
-        DeathWeapon = Class(CMobileKamikazeBombDeathWeapon) {},
+        Suicide = Class(CMobileKamikazeBombWeapon) {
         
-        Suicide = Class(CMobileKamikazeBombWeapon) {        
-			OnFire = function(self)			
-				#disable death weapon
-				self.unit:SetDeathWeaponEnabled(false)
-				CMobileKamikazeBombWeapon.OnFire(self)
+			OnWeaponFired = function(self)	
+				CMobileKamikazeBombWeapon.OnWeaponFired(self)
 			end,
         },
+
     },
+
+    OnScriptBitSet = function(self, bit)
+
+        CWalkingLandUnit.OnScriptBitSet(self, bit)
+
+        if bit == 1 then
+            self:GetWeaponByLabel'Suicide':OnWeaponFired()
+        end
+    end,
+
 }
+
 TypeClass = XRL0302

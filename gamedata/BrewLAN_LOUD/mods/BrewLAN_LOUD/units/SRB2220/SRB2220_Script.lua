@@ -1,7 +1,5 @@
---------------------------------------------------------------------------------
---  Summary  :  Cybran Stationary Explosive Script
---------------------------------------------------------------------------------
-local MineStructureUnit = import(import( '/lua/game.lua' ).BrewLANLOUDPath() .. '/lua/defaultunits.lua').MineStructureUnit
+local MineStructureUnit = import('/lua/defaultunits.lua').MineStructureUnit
+
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 SRB2220 = Class(MineStructureUnit) {

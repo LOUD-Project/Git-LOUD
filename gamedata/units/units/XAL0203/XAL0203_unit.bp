@@ -49,6 +49,7 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
+            '<LOC ability_amphib>Amphbious',
             '<LOC ability_hover>Hover',
         },
 

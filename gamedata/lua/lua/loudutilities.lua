@@ -5021,20 +5021,14 @@ function ParseIntelThread( aiBrain )
                 end            
 
             end
-
-            if ReportRatios then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Air Ratio is "..repr(aiBrain.AirRatio).." Land Ratio is "..repr(aiBrain.LandRatio).." Naval Ratio is "..repr(aiBrain.NavalRatio).." at tick "..GetGameTick() )
-            end
             
             grandairtot = 0
             grandlandtot = 0
             grandnavaltot = 0
             
             -- ENEMY PRODUCTION FOCUS --
-            -- accumulate the value of all enemy owned factories
-            -- divide by number of opponents
-            -- compare against my factory values to determine need for more factories
-            -- and of what type may be required
+            -- accumulate the value of all enemy owned factories -- divide by number of opponents
+            -- compare against my factory values to determine need for more factories and of what type
             for v, brain in BRAINS do
             
                 if IsEnemy( aiBrain.ArmyIndex, v ) and not ArmyIsCivilian( v ) then
@@ -5205,16 +5199,27 @@ function ParseIntelThread( aiBrain )
                     end
                 end
             end
-            
+
+            -- the enemy is in the water and building
             if grandnavaltot > 0 and aiBrain.NavalRatio < 0.02 then
                 aiBrain.NavalRatio = 0.2
             end
+            
+            -- the enemy is in the air and building
+            if grandairtot > 0 and aiBrain.AirRatio < 0.02 then
+                aiBrain.AirRatio = 0.2
+            end
 
-            --if ReportRatios then
+            if ReportRatios then
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." I have "..aiBrain.NumOpponents.." Opponents")
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." My factory TOTALS AIR "..myairtot.." -- LAND "..mylandtot.." -- NAVAL "..mynavaltot)
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." Grand Factory Totals AIR "..grandairtot/aiBrain.NumOpponents.." -- LAND "..grandlandtot/aiBrain.NumOpponents.." -- NAVAL "..grandnavaltot/aiBrain.NumOpponents)
-            --end
+                LOG("*AI DEBUG "..aiBrain.Nickname.." My factory TOTALS AIR "..myairtot.." -- LAND "..mylandtot.." -- NAVAL "..mynavaltot)
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy Factory Ratios  AIR "..grandairtot/aiBrain.NumOpponents.." -- LAND "..grandlandtot/aiBrain.NumOpponents.." -- NAVAL "..grandnavaltot/aiBrain.NumOpponents)
+            end
+
+            if ReportRatios then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Air Ratio is "..repr(aiBrain.AirRatio).." Land Ratio is "..repr(aiBrain.LandRatio).." Naval Ratio is "..repr(aiBrain.NavalRatio).." at tick "..GetGameTick() )
+            end
+
         end
         
     end

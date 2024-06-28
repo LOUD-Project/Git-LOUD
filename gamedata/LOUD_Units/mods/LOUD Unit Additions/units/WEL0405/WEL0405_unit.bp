@@ -68,10 +68,10 @@ UnitBlueprint {
         Abilities = {
 			'Missile Barrage',
             'Wave Cannons (++ Shield Damage)',
-            '<LOC ability_stealthfield>Maelstrom Field (Stealth & Damage)',
+            '<LOC ability_stealthmiasma>Maelstrom Field (Stealth & Damage)',
             "<LOC ability_aa>Anti-Air",
-            "<LOC ability_tacmissiledef>Personal Tactical Missile Defense",
-            '<LOC ability_torpedodef>Personal Torpedo Defense',
+            "<LOC ability_personaltacdef>Personal Tactical Missile Defense",
+            '<LOC ability_personaltordef>Personal Torpedo Defense',
             '<LOC ability_omni>Omni Sensor',
 		},	
 

@@ -43,6 +43,11 @@ UnitBlueprint {
     Description = '<LOC ual0201_desc>Light HoverTank',
 	
     Display = {
+        Abilities = {
+            '<LOC ability_amphib>Amphbious',        
+            '<LOC ability_hover>Hover',
+        },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {

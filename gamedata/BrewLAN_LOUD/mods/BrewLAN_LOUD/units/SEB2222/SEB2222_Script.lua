@@ -1,6 +1,5 @@
---------------------------------------------------------------------------------
---  Summary  :  UEF Stationary Explosive Script
---------------------------------------------------------------------------------
-local NukeMineStructureUnit = import(import( '/lua/game.lua' ).BrewLANLOUDPath() .. '/lua/defaultunits.lua').NukeMineStructureUnit
-SEB2222 = Class(NukeMineStructureUnit) {}
+local MineStructureUnit = import('/lua/defaultunits.lua').NukeMineStructureUnit
+
+SEB2222 = Class(MineStructureUnit) {}
+
 TypeClass = SEB2222
