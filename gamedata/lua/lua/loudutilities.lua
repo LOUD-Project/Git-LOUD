@@ -6807,7 +6807,7 @@ function SpeedProfile()
     --local startvalue = GetSystemTimeSecondsOnlyForProfileUse()
     
     local GSO = GetSystemTimeSecondsOnlyForProfileUse
-    --local GTS = GetGameTimeSeconds
+    --local GTS = GetGameTimeSeconds()
     
     while true do
     

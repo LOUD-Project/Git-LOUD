@@ -8440,7 +8440,7 @@ Platoon = Class(PlatoonMethods) {
 						return
 					else
                     
-						self.CreationTime = GetGameTimeSeconds  ---LOUDTIME()
+						self.CreationTime = GetGameTimeSeconds()
 
 						if self.PlatoonData.Construction then
 							-- cancel looping builders --
