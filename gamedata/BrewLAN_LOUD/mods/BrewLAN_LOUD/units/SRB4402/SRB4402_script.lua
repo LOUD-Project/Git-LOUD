@@ -15,7 +15,9 @@ SRB4402 = Class(CRadarJammerUnit) {
 	
         PulseWeapon = Class(BareBonesWeapon) {
 		
-            OnFire = function(self)
+            OnWeaponFired = function(self)
+            
+                BareBonesWeapon.OnWeaponFired(self)
 			
                 local aiBrain = self.unit:GetAIBrain()
                 local Mypos = self.unit:GetPosition()
@@ -99,6 +101,7 @@ SRB4402 = Class(CRadarJammerUnit) {
                 end
             end,
         },
+        
     },
 
     OnStopBeingBuilt = function(self,builder,layer)

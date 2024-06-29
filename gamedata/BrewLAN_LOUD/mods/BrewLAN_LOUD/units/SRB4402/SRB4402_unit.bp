@@ -104,7 +104,7 @@ UnitBlueprint {
         BuildCostMass = 79000,
         BuildTime = 27000,
 		
-        MaintenanceConsumptionPerSecondEnergy = 12500,
+        --MaintenanceConsumptionPerSecondEnergy = 12500,
 		
         RebuildBonusIds = {'srb4402'},
 		
@@ -117,12 +117,12 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 10,
+		CapCost = 18,
         FactionName = 'Cybran',
         Icon = 'land',
 
         OrderOverrides = {
-            RULEUTC_StealthToggle = { bitmapId = 'stealth-field', helpText = 'toggle_omni_distruption' },
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-field', helpText = 'Stealth/Intel Disruption' },
         },
         
         SelectionPriority = 5,
@@ -180,34 +180,7 @@ UnitBlueprint {
     StrategicIconSortPriority = 200,
 	
     Weapon = {
-        { -- Dummy weapon for visualising area of effect
-		
-            CollideFriendly = false,
-			
-            Damage = 0,
-			
-            FireTargetLayerCapsTable = {
-                Air = 'Land|Water',
-                Land = 'Land|Water',
-                Water = 'Land|Water',
-            },
-            FiringTolerance = 1,
-			
-            Label = 'DummyWeapon',
-			
-            MaxRadius = 68,
-			
-            RateOfFire = 0.1,
-            RangeCategory = 'UWRC_Countermeasure',
-			
-            TargetCheckInterval = 6,
-            TargetPriorities = {
-                'ALLUNITS',
-            },
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            WeaponCategory = 'Direct Fire',
-		},
-	    
+
         {
             Audio = {
                 Fire = Sound { Bank = 'XSL_Destroy', Cue = 'XSL0402_Death', LodCutoff = 'Weapon_LodCutoff' },
@@ -215,11 +188,21 @@ UnitBlueprint {
             
             DisplayName = 'Omni Disrupter Pulse',
             
+            EnergyRequired = 140000,
+            EnergyDrainPerSecond = 14000,
+            
             Label = 'PulseWeapon',
             
             MaxRadius = 2000,
-            
-            WeaponCategory = 'Defense',
+			
+            ProjectileId = '/projectiles/NullShell/NullShell_proj.bp',
+            ProjectileLifetime = 1,
+
+            RackBones = {
+                { MuzzleBones = { 0 }, RackBone = 0 },
+            },
+
+            RackSalvoReloadTime = 8,    -- this is a minimum time - the E drain is really the limiter
         },
     },
 	
