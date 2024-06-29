@@ -816,8 +816,6 @@ SeraLambdaFieldRedirector = Class(Entity) {
                     EnemyProj:SetTurnRate( 720/math.random(1,6) )
                 
                     EnemyProj:SetVelocity( 3.5 )
-                
-                    EnemyProj:SetLifetime( 80 )
                     
                 end
 
