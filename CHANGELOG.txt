@@ -1,3 +1,15 @@
+### Release 29-06-2024
+
+LUA 7.04
+BrewLAN for LOUD 0.8.8.9.102
+
+- beam weapon firing process - beamlifetime thread was executing on entire weapon - not on specific beam
+- creation time of some platoons was being corrupted
+- lambda redirect was resetting projectile lifetime to full
+- a weapon class issue was preventing the Darkness from firing, added charge indication
+
+
+
 ### Release 28-06-2024
 
 LUA 7.03
