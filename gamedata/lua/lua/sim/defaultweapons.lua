@@ -1315,7 +1315,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 
                     projectilefired = self:CreateProjectileAtMuzzle(muzzle)
                     
-                    if ScenarioInfo.ProjectileDialog then
+                    if ScenarioInfo.ProjectileDialog and projectilefired then
                         LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State "..repr(bp.Label).." - FIRED rack "..self.CurrentRackNumber.." projectile is "..repr(projectilefired.BlueprintID).." at "..GetGameTick() )
                     end
 
@@ -1523,11 +1523,6 @@ DefaultProjectileWeapon = Class(Weapon) {
         OnGotTarget = function(self)
         
         end,
---[[        
-        OnLostTarget = function(self)
-        
-        end,
---]]
     },
 
     WeaponPackingState = State {
@@ -1658,15 +1653,6 @@ DefaultProjectileWeapon = Class(Weapon) {
 			
         end,
 
---[[        
-        OnLostTarget = function(self)
-        
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon WeaponPacking Stte "..repr(self.bp.Label).." OnLostTarget" )
-            end
-            
-        end,
---]]
     },
 
     DeadState = State {
@@ -1714,16 +1700,60 @@ KamikazeWeapon = Class(DefaultProjectileWeapon) {
 }
 
 BareBonesWeapon = Class(DefaultProjectileWeapon) {
-    Data = {},
+    
+    RackSalvoFireReadyState = State {
+
+        WeaponWantEnabled = true,
+        WeaponAimWantEnabled = true,
+
+        Main = function(self)
+            
+            local bp = self.bp
+            local unit = self.unit
+            
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG BareBonesWeapon RackSalvo Fire Ready State "..repr(bp.Label).." at "..GetGameTick() )
+            end
+
+            self.WeaponCanFire = false
+			
+            if self.EconDrain then
+
+                WaitFor(self.EconDrain)
+                
+                self.WeaponCharged = true
+				
+                RemoveEconomyEvent( unit, self.EconDrain )
+				
+                self.EconDrain = nil
+
+                if ScenarioInfo.WeaponStateDialog then
+                    LOG("*AI DEBUG BareBonesWeapon RackSalvo Fire Ready State "..repr(self.bp.Label).." Economy Event Ends at "..GetGameTick() )
+                end
+
+            end
+			
+            self.WeaponCanFire = true
+
+            LOUDSTATE(self, self.RackSalvoFiringState)
+
+        end,
+
+    },
 
     OnFire = function(self)
 
-        local myProjectile = CreateProjectile( self.unit, self.bp.ProjectileId, 0, 0, 0, nil, nil, nil):SetCollision(false)
+        if ScenarioInfo.WeaponStateDialog then
+            LOG("*AI DEBUG BareBonesWeapon RackSalvo Fire Ready State "..repr(self.bp.Label).." OnFire at "..GetGameTick() )
+        end
+
+        local myProjectile = CreateProjectile( self.unit, projectilebp, 0, 0, 0, nil, nil, nil):SetCollision(false)
         
         if self.Data then
             myProjectile:PassData(self.Data)
         end
     end,
+
 }
 
 DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
@@ -1816,15 +1846,11 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
         end
 		
         if beam:IsEnabled() then return end
-
-        --if ScenarioInfo.WeaponStateDialog then
-          --  LOG("*AI DEBUG DefaultWeapon BEAM PlayFxBeamStart "..repr(beam.Label).." Muzzle "..repr(beam.Muzzle).." at "..GetGameTick() )
-        --end
 	
         local bp = self.bp
 		
         if bp.BeamLifetime > 0 then
-            self.BeamLifetimeWatch = self:ForkThread( self.BeamLifetimeThread, beam, bp.BeamLifetime or 1)
+            beam.BeamLifetimeWatch = self:ForkThread( self.BeamLifetimeThread, beam, bp.BeamLifetime or 1)
         end
 		
         if bp.BeamLifetime == 0 then
@@ -1904,13 +1930,17 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
                 self.Beams[1].Beam:SetAmbientSound(nil, nil)
             end
 
-            --if ScenarioInfo.WeaponStateDialog then
-              --  LOG("*AI DEBUG DefaultWeapon BEAM PlayFxBeamEnd "..repr(self.bp.Label).." at "..GetGameTick() )
-			--end
-
             if self.Beams then
+            
                 for _, v in self.Beams do
-                    v.Beam:Disable()
+
+                    if beam then
+                        if beam.Muzzle == v.Beam.Muzzle then
+                            v.Beam:Disable()
+                        end
+                    else
+                        v.Beam:Disable()
+                    end
                 end
             end
 			
@@ -1932,18 +1962,19 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
     BeamLifetimeThread = function(self, beam, lifeTime)
     
         if ScenarioInfo.WeaponStateDialog then
-            LOG("*AI DEBUG DefaultWeapon BEAM Lifetime Thread starts "..repr(self.bp.Label).." at "..GetGameTick().." for "..lifeTime.." seconds" )        
+            LOG("*AI DEBUG DefaultWeapon BEAM Lifetime Thread starts "..repr(self.bp.Label).." for beam on muzzle "..repr(beam.Muzzle).." at "..GetGameTick().." for "..lifeTime.." seconds" )        
         end
 
         WaitTicks( math.floor(lifeTime * 10.001) + 1 )
     
         if ScenarioInfo.WeaponStateDialog then
-            LOG("*AI DEBUG DefaultWeapon BEAM Lifetime Thread ends "..repr(self.bp.Label).." at "..GetGameTick() )
+            LOG("*AI DEBUG DefaultWeapon BEAM Lifetime Thread ends "..repr(self.bp.Label).." for beam on muzzle "..repr(beam.Muzzle).." at "..GetGameTick() )
         end
-
-        self.BeamLifetimeWatch = nil
         
-        self:PlayFxBeamEnd(beam)
+        self.PlayFxBeamEnd( self, beam)
+
+        beam.BeamLifetimeWatch = nil
+
     end,
     
     WatchForHoldFire = function(self, beam)
