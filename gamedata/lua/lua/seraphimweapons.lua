@@ -613,8 +613,7 @@ InvisibleCollisionBeam = Class(moho.CollisionBeamEntity) {
 local Weapon = import('/lua/sim/Weapon.lua').Weapon
 
 SMeleeBladeBeamWeapon = Class(Weapon) {
-    --Test beam. Doesn't have the custom collision stuff, so just for visual checking.
-    --BeamType = Class(import('/lua/sim/CollisionBeam.lua').CollisionBeam){FxBeam = import('/lua/EffectTemplates.lua').TDFHiroGeneratorBeam},
+
     BeamType = InvisibleCollisionBeam,
 
     OnCreate = function(self)

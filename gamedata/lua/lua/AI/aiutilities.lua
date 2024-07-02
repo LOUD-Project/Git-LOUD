@@ -703,7 +703,7 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
 		
 		SetArmyUnitCap( aiBrain.ArmyIndex, 99999)
 
-        LOG("*AI DEBUG "..aiBrain.Nickname.." Unit cap set to Unlimited")
+        LOG("     "..aiBrain.Nickname.." Unit cap set to Unlimited")
 		
 	elseif ScenarioInfo.Options.CapCheat == "cheatlevel" then
 
@@ -713,7 +713,7 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
         
         SetArmyUnitCap( aiBrain.ArmyIndex, math.floor(cheatCap) )
         
-        LOG("*AI DEBUG "..aiBrain.Nickname.." Unit cap set to "..cheatCap.." from base of "..initialCap.." based on cheat and outnumbered ratio")
+        LOG("     "..aiBrain.Nickname.." Unit cap set to "..cheatCap.." from base of "..initialCap.." based on cheat and outnumbered ratio")
         
     else
 
@@ -726,7 +726,7 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
         
             SetArmyUnitCap( aiBrain.ArmyIndex, math.floor(cheatCap) )
         
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Unit cap set to "..cheatCap.." from base of "..initialCap.." based on outnumbered ratio only")
+            LOG("     "..aiBrain.Nickname.." Unit cap set to "..cheatCap.." from base of "..initialCap.." based on outnumbered ratio only")
             
         end
        
@@ -746,7 +746,7 @@ end
 -- more recent adaptive cheat multipliers which require this to work properly
 function SetupAICheat(aiBrain)
 
-    LOG("*AI DEBUG "..aiBrain.Nickname.." StandardCheat is "..aiBrain.CheatValue)
+    LOG("     "..aiBrain.Nickname.." StandardCheat is "..aiBrain.CheatValue)
 
     -- Veterancy mult is always 1 or higher
     -- and represents the 'base' Cheat value for this AI --
@@ -773,23 +773,23 @@ function SetupAICheat(aiBrain)
 
         newbuff.Affects.BuildRate.Mult = aiBrain.CheatValue * math.min( aiBrain.OutnumberedRatio, aiBrain.MajorCheatModifier )
         
-        LOG("*AI DEBUG "..aiBrain.Nickname.." Cheats modified due to Outnumbered condition greater than Cheat")
+        LOG("     "..aiBrain.Nickname.." Cheats modified due to Outnumbered condition greater than Cheat")
         
         aiBrain.MajorCheatModifier = (aiBrain.MajorCheatModifier * aiBrain.MinorCheatModifier)
         
         aiBrain.MinorCheatModifier = (aiBrain.MinorCheatModifier * aiBrain.MinorCheatModifier)
     end
 
-    LOG("*AI DEBUG "..aiBrain.Nickname.." MinorCheatModifier is "..aiBrain.MinorCheatModifier.."  Major is "..aiBrain.MajorCheatModifier)
+    LOG("     "..aiBrain.Nickname.." MinorCheatModifier is "..aiBrain.MinorCheatModifier.."  Major is "..aiBrain.MajorCheatModifier)
 
-    LOG("*AI DEBUG "..aiBrain.Nickname.." BuildRate mult is "..newbuff.Affects.BuildRate.Mult)
+    LOG("     "..aiBrain.Nickname.." BuildRate mult is "..newbuff.Affects.BuildRate.Mult)
 	
 	-- reduce mass/energy used when maintaining
     modifier = 1.0 - aiBrain.MajorCheatModifier
     
     modifier = LOUDMAX( -0.50, modifier )               -- this will cap the reduction at 50%
 
-    LOG("*AI DEBUG "..aiBrain.Nickname.." Maintenance mult is "..modifier)
+    LOG("     "..aiBrain.Nickname.." Maintenance mult is "..modifier)
     
 	newbuff.Affects.EnergyMaintenance.Add = modifier
 	newbuff.Affects.EnergyActive.Add = modifier
@@ -812,7 +812,7 @@ function SetupAICheat(aiBrain)
     
     newbuff.Name = 'CheatIncome'..aiBrain.ArmyIndex
     
-    LOG("*AI DEBUG "..aiBrain.Nickname.." Resource mult is "..aiBrain.CheatValue)
+    LOG("     "..aiBrain.Nickname.." Resource mult is "..aiBrain.CheatValue)
     
 	newbuff.Affects.EnergyProduction.Mult = aiBrain.CheatValue
 	newbuff.Affects.MassProduction.Mult = aiBrain.CheatValue
@@ -930,7 +930,7 @@ function SetupAICheat(aiBrain)
 	
 	modifier = aiBrain.MinorCheatModifier
 
-    LOG("*AI DEBUG "..aiBrain.Nickname.." Intel mult is "..modifier)    
+    LOG("     "..aiBrain.Nickname.." Intel mult is "..modifier)    
 
 	newbuff.Affects.VisionRadius.Mult = modifier
     newbuff.Affects.WaterVisionRadius.Mult = modifier
@@ -957,7 +957,7 @@ function SetupAICheat(aiBrain)
 	
 	modifier = aiBrain.MinorCheatModifier
 
-    LOG("*AI DEBUG "..aiBrain.Nickname.." HP/Regen mult is "..modifier)    
+    LOG("     "..aiBrain.Nickname.." HP/Regen mult is "..modifier)    
    
 	newbuff.Affects.MaxHealth.Mult = modifier
     newbuff.Affects.MaxHealth.DoNoFill = true   -- prevents health from being added upon creation
@@ -981,7 +981,7 @@ function SetupAICheat(aiBrain)
 
 	aiBrain.UpgradeIssuedPeriod = LOUDFLOOR(aiBrain.UpgradeIssuedPeriod * ( 1 / modifier ))
  
-    LOG("*AI DEBUG "..aiBrain.Nickname.." Modified Upgrade Issue Delay Period is "..aiBrain.UpgradeIssuedPeriod)
+    LOG("     "..aiBrain.Nickname.." Upgrade Issue Delay is "..aiBrain.UpgradeIssuedPeriod.." ticks")
     
 end
 
@@ -1067,7 +1067,7 @@ function SetArmyPoolBuff(aiBrain, AIMult)
 	-- reduce the waiting period between upgrades
 	aiBrain.UpgradeIssuedPeriod = math.floor(aiBrain.OriginalUpgradeIssuedPeriod * ( 1 / modifier ))
     
-    --LOG("*AI DEBUG "..aiBrain.Nickname.." Upgrade Issue Period is "..aiBrain.UpgradeIssuedPeriod)
+    LOG("*AI DEBUG "..aiBrain.Nickname.." Upgrade Issue Delay is "..aiBrain.UpgradeIssuedPeriod.." ticks - due to Cheat")
 
     local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
     local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff

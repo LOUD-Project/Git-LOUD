@@ -752,6 +752,23 @@ function InitializeArmies()
             
         end
 
+        -- Some custom Scenario variables to support certain mods
+	
+		if m.name == 'BlackOps Adv Command Units for LOUD' then
+			LOG("*AI DEBUG BOACU installed")
+			ScenarioInfo.BOACU_Installed = true
+		end
+
+		if m.name == 'BlackOps Unleashed Units for LOUD' then
+			LOG("*AI DEBUG BOU installed")
+			ScenarioInfo.BOU_Installed = true
+		end
+		
+		if m.name == 'LOUD Integrated Storage' then
+			LOG("*AI DEBUG LOUD Integrated Storage installed")
+			ScenarioInfo.LOUD_IS_Installed = true
+		end
+    
     end
 
     import('/lua/sim/scenarioutilities.lua').CreateResources() 
@@ -765,6 +782,8 @@ function InitializeArmies()
 
     local civOpt = ScenarioInfo.Options.CivilianAlliance
     local bCreateInitial = ShouldCreateInitialArmyUnits()
+    
+    LOG("ARMYSETUP START")
 
     -- setup teams and civilians, add custom units, wrecks
     -- call out to Initialize SkirimishSystems (a great deal of AI setup)
@@ -863,6 +882,8 @@ function InitializeArmies()
         end
         
     end
+    
+    LOG("ARMYSETUP END")
    
     if ScenarioInfo.Env.Scenario.Areas.AREA_1 then
     
@@ -875,6 +896,9 @@ function InitializeArmies()
     ScenarioInfo.Configurations = nil
    
     ScenarioInfo.TeamMassPointList = {}
+
+    
+    LOG("TEAMSETUP START")
     
 	--3+ Teams Unit Cap Fix, setting up the Unit Cap part of SetupAICheat,
     -- get each AI to build it's scouting locations
@@ -884,16 +908,31 @@ function InitializeArmies()
         local armyIsCiv = ScenarioInfo.ArmySetup[strArmy].Civilian
         
         local aiBrain = GetArmyBrain(strArmy)
-
+        
+        if not armyIsCiv then
+            LOG("     "..aiBrain.Nickname.." Team "..aiBrain.Team.." Teamsize is "..aiBrain.TeamSize )
+        end
+        
         if aiBrain.BrainType == 'AI' and not armyIsCiv then
+
+            aiBrain.OutnumberedRatio = math.max( 1, ScenarioInfo.biggestTeamSize/aiBrain.TeamSize )
+
+            -- each brain can store a different amount of points, based upon team size, player count and OutnumberedRatio
+            aiBrain.MassPointShare = math.min( 12 + ScenarioInfo.Options.PlayerCount, math.floor(ScenarioInfo.NumMassPoints/ScenarioInfo.Options.PlayerCount) - 1)
+
+            if aiBrain.OutnumberedRatio >= aiBrain.CheatValue then
+                aiBrain.MassPointShare = math.min( math.floor(ScenarioInfo.NumMassPoints/ScenarioInfo.Options.PlayerCount) + 1, math.floor(aiBrain.MassPointShare * (aiBrain.OutnumberedRatio/aiBrain.CheatValue)))
+            end
+
+            if aiBrain.OutnumberedRatio > 1 then 
+                LOG("     "..aiBrain.Nickname.." OutnumberedRatio is "..aiBrain.OutnumberedRatio)
+            end
         
             loudUtils.BuildScoutLocations(aiBrain)
 			
             import('/lua/ai/aiutilities.lua').SetupAICheatUnitCap( aiBrain, ScenarioInfo.biggestTeamSize )
             
             if not ScenarioInfo.TeamMassPointList[aiBrain.Team] then
-            
-                LOG("*AI DEBUG Creating Starting Mass Point List for Team "..aiBrain.Team)
                 
                 ScenarioInfo.TeamMassPointList[aiBrain.Team] = {}
 
@@ -906,15 +945,11 @@ function InitializeArmies()
             
             aiBrain.StartingMassPointList = {}  -- initialize starting mass point list for this brain
 
-            -- each brain can store a different amount of points, based upon team size, player count and OutnumberedRatio
-            aiBrain.MassPointShare = math.min( 12 + ScenarioInfo.Options.PlayerCount, math.floor(ScenarioInfo.NumMassPoints/ScenarioInfo.Options.PlayerCount) - 1)
-
-            if aiBrain.OutnumberedRatio >= aiBrain.CheatValue then
-                aiBrain.MassPointShare = math.min( math.floor(ScenarioInfo.NumMassPoints/ScenarioInfo.Options.PlayerCount), math.floor(aiBrain.MassPointShare * (aiBrain.OutnumberedRatio/aiBrain.CheatValue)))
-            end
 		end
         
     end
+    
+    LOG("TEAMSETUP END")
     
     for k, v in ScenarioInfo.TeamMassPointList do
     
@@ -986,6 +1021,7 @@ function InitializeTeams(self)
 
     local Opponents = 0
     local TeamSize = 1
+    local BiggestTeamSize = 1
 
     -- calculate team sizes
     for index, playerInfo in ArmyBrains do
@@ -996,6 +1032,10 @@ function InitializeTeams(self)
             TeamSize = TeamSize + 1
         else
             Opponents = Opponents + 1
+        end
+        
+        if TeamSize > BiggestTeamSize then
+            BiggestTeamSize = TeamSize
         end
 
     end
@@ -1029,24 +1069,11 @@ function InitializeTeams(self)
     -- number of players in the game 
     self.Players = ScenarioInfo.Options.PlayerCount
 
-    LOG("*AI DEBUG "..self.Nickname.." Team "..self.Team.." Teamsize is "..TeamSize.." Opponents is "..Opponents)
-
     self.TeamSize = TeamSize
 
-    if self.TeamSize > ScenarioInfo.biggestTeamSize then
+    if self.TeamSize >= ScenarioInfo.biggestTeamSize then
 		ScenarioInfo.biggestTeamSize = TeamSize		
 	end
-
-    -- don't do anything else for a human player
-    if self.BrainType == 'Human' then
-        return
-    end
-
-	self.OutnumberedRatio = math.max( 1, ScenarioInfo.biggestTeamSize/self.TeamSize )
-
-    if self.OutnumberedRatio > 1 then 
-        LOG("*AI DEBUG "..self.Nickname.." OutnumberedRatio is "..self.OutnumberedRatio)
-    end
 
 end
 
@@ -1138,7 +1165,7 @@ function InitializeSkirmishSystems(self)
         end
 	end
 
-    LOG("*AI DEBUG "..self.Nickname.." Upgrade Issued Limit is "..self.UpgradeIssuedLimit.." Standard Upgraded Issued Delay Period is "..self.UpgradeIssuedPeriod )
+    LOG("     "..self.Nickname.." Upgrade Issued Limit is "..self.UpgradeIssuedLimit.." Standard Upgraded Issued Delay Period is "..self.UpgradeIssuedPeriod )
 
 	-- set the base radius according to map size -- affects platoon formation radius and base alert radius
 	local mapSizex = ScenarioInfo.size[1]
@@ -1153,9 +1180,6 @@ function InitializeSkirmishSystems(self)
 	-- we use this to keep the AI from doing more than one expansion at a time
 	self.BaseExpansionUnderway = false
 
-	-- level AI starting locations
-	--loudUtils.LevelStartBaseArea(self:GetStartVector3f(), RallyPointRadius )
-
     -- Create the Builder Managers for the MAIN base
     self:AddBuilderManagers(self:GetStartVector3f(), BuilderRadius, 'MAIN', false, RallyPointRadius, true, 'FRONT')
 
@@ -1163,10 +1187,7 @@ function InitializeSkirmishSystems(self)
 	self.BuilderManagers.MAIN.PrimaryLandAttackBase = true
 	self.PrimaryLandAttackBase = 'MAIN'
 
-    -- Create the Strategy Manager (disabled) from the Sorian AI
-    --self.BuilderManagers.MAIN.StrategyManager = StratManager.CreateStrategyManager(self, 'MAIN', self:GetStartVector3f(), 100)
-		
-    -- create Persistent Pool platoons
+    --- create Persistent Pool platoons
 
     -- for isolating structures (used by LOUD AI)
     local structurepool = self:MakePlatoon('StructurePool','none')
@@ -1177,16 +1198,16 @@ function InitializeSkirmishSystems(self)
 
 	self.StructurePool = structurepool
 
-    -- for isolating aircraft low on fuel (used by LOUD AI)
+    --- for isolating aircraft low on fuel (used by LOUD AI)
     local refuelpool = self:MakePlatoon('RefuelPool','none')
-		
+
     refuelpool:UniquelyNamePlatoon('RefuelPool')
     refuelpool.BuilderName = 'Refuel'
     refuelpool.UsingTransport = true        -- never gets reviewed in a merge --
 
 	self.RefuelPool = refuelpool
 
-	-- the standard Army Pool
+	--- the standard Army Pool
 	local armypool = self:GetPlatoonUniquelyNamed('ArmyPool')
 
 	armypool:UniquelyNamePlatoon('ArmyPool')

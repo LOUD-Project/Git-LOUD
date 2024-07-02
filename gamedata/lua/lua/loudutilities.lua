@@ -2277,33 +2277,17 @@ function AddCustomUnitSupport( aiBrain )
         -- Some custom Scenario variables to support certain mods
 	
 		if m.name == 'BlackOps Adv Command Units for LOUD' then
-			--LOG("*AI DEBUG BOACU installed")
 			ScenarioInfo.BOACU_Checked = true
-			ScenarioInfo.BOACU_Installed = true
 		end
 
 		if m.name == 'BlackOps Unleashed Units for LOUD' then
-			--LOG("*AI DEBUG BOU installed")
 			ScenarioInfo.BOU_Checked = true
-			ScenarioInfo.BOU_Installed = true
 		end
 		
 		if m.name == 'LOUD Integrated Storage' then
-			--LOG("*AI DEBUG LOUD Integrated Storage installed")
 			ScenarioInfo.LOUD_IS_Checked = true
-			ScenarioInfo.LOUD_IS_Installed = true
 		end
-        
-        if m.name == 'Metal World' then
-            --LOG("*AI DEBUG METAL WORLD Installed")
-            ScenarioInfo.MetalWorld = true
-        end
-        
-        if m.name == 'Mass Point RNG' then
-            --LOG("*AI DEBUG Mass Point RNG Installed")
-            ScenarioInfo.MassPointRNG = true
-        end
-        
+      
         if aiBrain.BrainType != 'AI' then
             continue
         end
