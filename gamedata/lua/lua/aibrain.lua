@@ -992,44 +992,56 @@ AIBrain = Class(moho.aibrain_methods) {
 	OnSpawnPreBuiltUnits = function(self)
 	
         local factionIndex = self.FactionIndex
-        local resourceStructures = nil
+
+        local resourceStructure
+        local resourceStructures = {}
+
+        local initialUnit
         local initialUnits = {}
+
         local posX, posY = self:GetArmyStartPos()
 
         if factionIndex == 1 then
 		
-			resourceStructures = { 'UEB1103', 'UEB1103' }
-            
-			initialUnits = table.merged(initialUnits,{ 'UEB1101','UEB1101' })
+			resourceStructure = 'UEB1103'
+			initialUnit = 'UEB1101'
 			
         elseif factionIndex == 2 then
 		
-			resourceStructures = { 'UAB1103', 'UAB1103' }
-            
-			initialUnits = table.merged(initialUnits,{ 'UAB1101','UAB1101' })
-            
+			resourceStructure = 'UAB1103'
+			initialUnit = 'UAB1101'
 			
         elseif factionIndex == 3 then
 		
-			resourceStructures = { 'URB1103', 'URB1103' }
-            
-			initialUnits = table.merged(initialUnits,{ 'URB1101','URB1101' })
-            
+			resourceStructure = 'URB1103'
+			initialUnit = 'URB1101'
 			
 		elseif factionIndex == 4 then
 		
-			resourceStructures = { 'XSB1103', 'XSB1103' }
-            
-			initialUnits = table.merged(initialUnits,{ 'XSB1101','XSB1101' })
+			resourceStructure = 'XSB1103'
+			initialUnit = 'XSB1101'
 			
         end
+        
+        local mult = 2
+        
+        if self.OutnumberedRatio >= 2 then
+            mult = 4
+        end
 
-        LOG("*AI DEBUG Spawn PreBuilt Units is "..repr(initialUnits))
+        for index = 1, mult do
+            table.insert( resourceStructures, resourceStructure )
+            table.insert( initialUnits, initialUnit )
+        end
+
+        LOG("*AI DEBUG "..self.Nickname.." Spawn PreBuilt Units is "..repr(initialUnits))
 
         if resourceStructures then
+        
+            mult = 0
 		
     		-- place resource structures down
-    		for k, v in resourceStructures do
+    		for _, v in resourceStructures do
 			
                 local unit = self:CreateResourceBuildingNearest(v, posX, posY)
 				
@@ -1039,11 +1051,11 @@ AIBrain = Class(moho.aibrain_methods) {
 					
                 end
 				
-				-- AI may have upgrade threads to run
+				-- AI may have upgrade threads to run - delay them so they dont all happen on same tick
 				if self.BrainType != 'Human' then
 				
-					unit:LaunchUpgradeThread(self)
-					
+					unit:ForkThread( function(unit) mult = mult + 1 WaitTicks( 1 + (mult*75)) unit:LaunchUpgradeThread(self) end )
+
 				end
 				
     		end
@@ -1066,7 +1078,8 @@ AIBrain = Class(moho.aibrain_methods) {
     		end
 			
     	end
-		
+
+        --- record that brain had prebuilt units
 		self.PreBuilt = true
 
     end,
