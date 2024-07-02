@@ -783,18 +783,26 @@ function InitializeArmies()
     local civOpt = ScenarioInfo.Options.CivilianAlliance
     local bCreateInitial = ShouldCreateInitialArmyUnits()
     
+    for _,army in tblArmy do
+    
+        -- release some data we don't need anymore
+        ScenarioInfo.ArmySetup[army].BadMap = nil
+        ScenarioInfo.ArmySetup[army].LEM = nil
+        ScenarioInfo.ArmySetup[army].MapVersion = nil
+        ScenarioInfo.ArmySetup[army].Ready = nil
+        ScenarioInfo.ArmySetup[army].StartSpot = nil
+    
+        if GetArmyBrain(army).BrainType == 'AI' and not ScenarioInfo.ArmySetup[army].Civilian then
+            loudUtils.AddCustomUnitSupport( GetArmyBrain(army) )
+        end
+    
+    end
+    
     LOG("ARMYSETUP START")
 
     -- setup teams and civilians, add custom units, wrecks
     -- call out to Initialize SkirimishSystems (a great deal of AI setup)
     for iArmy, strArmy in pairs(tblArmy) do
-    
-        -- release some data we don't need anymore
-        ScenarioInfo.ArmySetup[strArmy].BadMap = nil
-        ScenarioInfo.ArmySetup[strArmy].LEM = nil
-        ScenarioInfo.ArmySetup[strArmy].MapVersion = nil
-        ScenarioInfo.ArmySetup[strArmy].Ready = nil
-        ScenarioInfo.ArmySetup[strArmy].StartSpot = nil
 
         local tblData = ScenarioInfo.Env.Scenario.Armies[strArmy]
         local armyIsCiv = ScenarioInfo.ArmySetup[strArmy].Civilian
@@ -834,12 +842,6 @@ function InitializeArmies()
                 end
                 
             end
-			
-			-- if this is not civilian - mark the use of certain mods
-            -- and add custom unit tables to each AI
-            if not armyIsCiv then
-                loudUtils.AddCustomUnitSupport(GetArmyBrain(strArmy))
-            end
 
             SetArmyEconomy( strArmy, tblData.Economy.mass, tblData.Economy.energy)
 
@@ -850,13 +852,28 @@ function InitializeArmies()
                 InitializeSkirmishSystems( GetArmyBrain(strArmy) )
 
             end
+   
+        end
+        
+    end
+    
+    LOG("ARMYSETUP END")
+    
+    LOG("MAP SETUP START")
+    
+    for iArmy, army in tblArmy do
+    
+        local armyIsCiv = ScenarioInfo.ArmySetup[army].Civilian  
+        local tblData = ScenarioInfo.Env.Scenario.Armies[army]
+        
+        if tblData then
 
             if (not armyIsCiv and bCreateInitial) or (armyIsCiv and civOpt != 'removed') then
 			
-                local commander = (not ScenarioInfo.ArmySetup[strArmy].Civilian)
+                local commander = (not ScenarioInfo.ArmySetup[army].Civilian)
                 local cdrUnit
 				
-                tblGroups[strArmy], cdrUnit = CreateInitialArmyGroup( strArmy, commander)
+                tblGroups[army], cdrUnit = CreateInitialArmyGroup( army, commander)
 				
                 if commander and cdrUnit and ArmyBrains[iArmy].Nickname then
                     cdrUnit:SetCustomName( ArmyBrains[iArmy].Nickname )
@@ -864,12 +881,12 @@ function InitializeArmies()
                 
             end
 
-            local wreckageGroup = FindUnitGroup('WRECKAGE', ScenarioInfo.Env.Scenario.Armies[strArmy].Units)
+            local wreckageGroup = FindUnitGroup('WRECKAGE', ScenarioInfo.Env.Scenario.Armies[army].Units)
             
             -- if there is wreckage to be created --
             if wreckageGroup then
 			
-                local platoonList, tblResult, treeResult = CreatePlatoons(strArmy, wreckageGroup )
+                local platoonList, tblResult, treeResult = CreatePlatoons( army, wreckageGroup )
 				
                 for num,unit in tblResult do
                     -- all wrecks created here get 1800 second lifetime (30 minutes)
@@ -878,12 +895,10 @@ function InitializeArmies()
                 end
                 
             end
-            
-        end
         
-    end
+        end
     
-    LOG("ARMYSETUP END")
+    end
    
     if ScenarioInfo.Env.Scenario.Areas.AREA_1 then
     
@@ -893,14 +908,15 @@ function InitializeArmies()
         
     end
     
+    LOG("MAP SETUP END")
+    
     ScenarioInfo.Configurations = nil
+    
+    LOG("TEAM SETUP START")
    
     ScenarioInfo.TeamMassPointList = {}
-
     
-    LOG("TEAMSETUP START")
-    
-	--3+ Teams Unit Cap Fix, setting up the Unit Cap part of SetupAICheat,
+	-- 3+ Teams Unit Cap Fix, setting up the Unit Cap part of SetupAICheat,
     -- get each AI to build it's scouting locations
 	-- now that we know what is the number of armies in the biggest team.                 
 	for _, strArmy in tblArmy do
@@ -949,11 +965,13 @@ function InitializeArmies()
         
     end
     
-    LOG("TEAMSETUP END")
+    LOG("TEAM SETUP END")
+    
+    LOG("TEAM MASSPOINT SELECT START")
     
     for k, v in ScenarioInfo.TeamMassPointList do
     
-        LOG("*AI DEBUG Processing TeamMassPoints for team "..repr(k))
+        LOG("     Process Mass Points for team "..repr(k))
         
         local count = 0
         local apply = true
@@ -969,7 +987,7 @@ function InitializeArmies()
                     if brain.BrainType == 'AI' and brain.Team == k then
             
                         if count == 0 then
-                            LOG("*AI DEBUG "..brain.Nickname.." storing "..brain.MassPointShare.." Mass Points")
+                            LOG("        "..brain.Nickname.." storing "..brain.MassPointShare.." Mass Points")
                         end
                 
                         local Position = { brain.StartPosX, 0, brain.StartPosZ }
@@ -997,6 +1015,8 @@ function InitializeArmies()
         end
 
     end
+    
+    LOG("TEAM MASSPOINT SELECT END")
 
     loudUtils.StartAdaptiveCheatThreads()
    
