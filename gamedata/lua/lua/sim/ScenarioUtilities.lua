@@ -943,7 +943,43 @@ function InitializeArmies()
             if aiBrain.OutnumberedRatio > 1 then 
                 LOG("     "..aiBrain.Nickname.." OutnumberedRatio is "..aiBrain.OutnumberedRatio)
             end
-        
+
+            --- Create the SelfUpgradeIssued counter
+            --- holds the number of units that have recently issued a self-upgrade
+            --- is used to limit the # of self-upgrades that can be issued in a given time
+            --- to avoid having more than X units trying to upgrade at once
+            aiBrain.UpgradeIssued = 0
+
+            aiBrain.UpgradeIssuedLimit = 1
+            aiBrain.UpgradeIssuedPeriod = 225
+
+            --- if outnumbered increase the number of simultaneous upgrades allowed
+            --- and/or reduce the waiting period by 1.5 seconds ( about 10% )
+            if aiBrain.OutnumberedRatio > 1.0 then
+	
+                aiBrain.UpgradeIssuedLimit = aiBrain.UpgradeIssuedLimit + 1
+
+                --- if really outnumbered
+                if aiBrain.OutnumberedRatio >= 1.5 then
+
+                    aiBrain.UpgradeIssuedPeriod = aiBrain.UpgradeIssuedPeriod - 15
+
+                    --- if really badly outnumbered
+                    if aiBrain.OutnumberedRatio >= 2.0 then
+
+                        aiBrain.UpgradeIssuedLimit = aiBrain.UpgradeIssuedLimit + 1
+                        aiBrain.UpgradeIssuedPeriod = aiBrain.UpgradeIssuedPeriod - 15
+
+                    end
+                end
+            end
+
+            LOG("     "..aiBrain.Nickname.." Upgrade Issue Limit is "..aiBrain.UpgradeIssuedLimit.." std Upgrade Issue Delay is "..aiBrain.UpgradeIssuedPeriod )
+
+            aiBrain.UpgradeIssuedPeriod = math.floor(aiBrain.UpgradeIssuedPeriod * ( 1 / aiBrain.MajorCheatModifier ))
+ 
+            LOG("     "..aiBrain.Nickname.." Upgrade Issue Delay is "..aiBrain.UpgradeIssuedPeriod.." ticks")
+            
             loudUtils.BuildScoutLocations(aiBrain)
 			
             import('/lua/ai/aiutilities.lua').SetupAICheatUnitCap( aiBrain, ScenarioInfo.biggestTeamSize )
@@ -1152,40 +1188,6 @@ function InitializeSkirmishSystems(self)
 
 	-- Veterancy multiplier
 	self.VeterancyMult = 1.0
-
-	-- Create the SelfUpgradeIssued counter
-	-- holds the number of units that have recently issued a self-upgrade
-	-- is used to limit the # of self-upgrades that can be issued in a given time
-	-- to avoid having more than X units trying to upgrade at once
-	self.UpgradeIssued = 0
-
-	self.UpgradeIssuedLimit = 1
-	self.UpgradeIssuedPeriod = 225
-
-	-- if outnumbered increase the number of simultaneous upgrades allowed
-	-- and reduce the waiting period by 2 seconds ( about 10% )
-	if self.OutnumberedRatio > 1.0 then
-	
-		self.UpgradeIssuedLimit = self.UpgradeIssuedLimit + 1
-		self.UpgradeIssuedPeriod = self.UpgradeIssuedPeriod - 20
-
-        -- if really outnumbered do this a second time
-        if self.OutnumberedRatio > 1.5 then
-
-            self.UpgradeIssuedLimit = self.UpgradeIssuedLimit + 1
-            self.UpgradeIssuedPeriod = self.UpgradeIssuedPeriod - 20
-
-            -- if really badly outnumbered then we do it a 3rd time
-            if self.OutnumberedRatio > 2.0 then
-
-                self.UpgradeIssuedLimit = self.UpgradeIssuedLimit + 1
-                self.UpgradeIssuedPeriod = self.UpgradeIssuedPeriod - 20
-
-            end
-        end
-	end
-
-    LOG("     "..self.Nickname.." Upgrade Issued Limit is "..self.UpgradeIssuedLimit.." Standard Upgraded Issued Delay Period is "..self.UpgradeIssuedPeriod )
 
 	-- set the base radius according to map size -- affects platoon formation radius and base alert radius
 	local mapSizex = ScenarioInfo.size[1]

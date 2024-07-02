@@ -713,7 +713,7 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
         
         SetArmyUnitCap( aiBrain.ArmyIndex, math.floor(cheatCap) )
         
-        LOG("     "..aiBrain.Nickname.." Unit cap set to "..cheatCap.." from base of "..initialCap.." based on cheat and outnumbered ratio")
+        LOG("     "..aiBrain.Nickname.." Unit cap set to "..cheatCap.." from base of "..initialCap.." based on cheat ("..aiBrain.CheatValue..") and outnumbered ratio" )
         
     else
 
@@ -976,13 +976,6 @@ function SetupAICheat(aiBrain)
         }
     end
 
-    -- alter the AI's delay between upgrades
-    modifier = aiBrain.MajorCheatModifier
-
-	aiBrain.UpgradeIssuedPeriod = LOUDFLOOR(aiBrain.UpgradeIssuedPeriod * ( 1 / modifier ))
- 
-    LOG("     "..aiBrain.Nickname.." Upgrade Issue Delay is "..aiBrain.UpgradeIssuedPeriod.." ticks")
-    
 end
 
 -- and this function will apply them to units as they are created
