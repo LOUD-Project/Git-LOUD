@@ -741,7 +741,7 @@ function BrewLANGenerateFootprintDummyUnits(all_units)
 
     for id, bp in all_units do
     
-        if (bp.Physics.MotionType or 'RULEUMT_None') == 'RULEUMT_None' and ( table.find(bp.Categories, 'MINE') or table.find(bp.Categories, 'HEAVYWALLGATE') )  then
+        if bp.Categories and (bp.Physics.MotionType or 'RULEUMT_None') == 'RULEUMT_None' and ( table.find(bp.Categories, 'MINE') or table.find(bp.Categories, 'HEAVYWALLGATE') )  then
         
             local X = math.ceil(bp.Footprint.SizeX or bp.SizeX or 1)
             local Z = math.ceil(bp.Footprint.SizeZ or bp.SizeZ or 1)
