@@ -1,5 +1,6 @@
 local Control = import('control.lua').Control
 local Group = import('group.lua').Group
+local ScaleNumber = import("/lua/maui/layouthelpers.lua").ScaleNumber
 local LazyVar = import('/lua/lazyvar.lua')
 
 Grid = Class(Group) {
@@ -9,9 +10,8 @@ Grid = Class(Group) {
     __init = function(self, parent, itemWidth, itemHeight)
 
         Group.__init(self, parent, "Grid")
-
-        self._itemWidth = itemWidth
-        self._itemHeight = itemHeight
+        self._itemWidth = ScaleNumber(itemWidth)
+        self._itemHeight = ScaleNumber(itemHeight)
         self._items = {}
         self._top = {}
         self._top["Horz"] = 1
@@ -25,8 +25,8 @@ Grid = Class(Group) {
         self._visible["Horz"] = LazyVar.Create()
         self._visible["Vert"] = LazyVar.Create()
         
-        self._visible["Horz"]:Set(function() return math.floor(self.Width() / itemWidth) end)
-        self._visible["Vert"]:Set(function() return math.floor(self.Height() / itemHeight) end)
+        self._visible["Horz"]:Set(function() return math.floor(self.Width() / self._itemWidth) end)
+        self._visible["Vert"]:Set(function() return math.floor(self.Height() / self._itemHeight) end)
     
         -- get frame update to check visibility
         self:SetNeedsFrameUpdate(true)

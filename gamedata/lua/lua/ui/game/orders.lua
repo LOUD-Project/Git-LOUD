@@ -871,8 +871,7 @@ local function CreateFirestatePopup(parent, selected)
     -- all credit to Domino Mod Support
 	-- resize the popup icons
 	for _, btn in bg.buttons do
-		btn.Width:Set(Grid_Params.Order_Slots.iconsize.width)
-		btn.Height:Set(Grid_Params.Order_Slots.iconsize.height)
+		LayoutHelpers.SetDimensions(btn, Grid_Params.Order_Slots.iconsize.width, Grid_Params.Order_Slots.iconsize.height)
 	end
 
     return bg
@@ -1310,8 +1309,7 @@ local function AddOrder(orderInfo, slot, batchMode)
     controls.orderButtonGrid:SetItem(checkbox, col, row, batchMode)    
 	
     -- all credit to Domino Mod Support	-- resize our icons
-	checkbox.Width:Set(Grid_Params.Order_Slots.iconsize.width)
-	checkbox.Height:Set(Grid_Params.Order_Slots.iconsize.height)
+	LayoutHelpers.SetDimensions(checkbox, Grid_Params.Order_Slots.iconsize.width, Grid_Params.Order_Slots.iconsize.height)
 
     -- Handle Hotbuild labels
     if orderKeys[orderInfo.helpText] then
@@ -2154,12 +2152,11 @@ function SetGridParams(NumOrders, update)
 		--Lets resize the buttons and order panel.
 		
 		--buttons
-		controls.orderButtonGrid._itemWidth = params.iconsize.width
-		controls.orderButtonGrid._itemHeight = params.iconsize.height
+		controls.orderButtonGrid._itemWidth = LayoutHelpers.ScaleNumber(params.iconsize.width)
+		controls.orderButtonGrid._itemHeight = LayoutHelpers.ScaleNumber(params.iconsize.height)
 		
 		--panel
-		controls.bg.Width:Set(params.panelsize.width)
-		controls.bg.Height:Set(params.panelsize.height)
+		LayoutHelpers.SetDimensions(controls.bg, params.panelsize.width, params.panelsize.height)
 		
 		controls.orderButtonGrid:_CalculateVisible()
 	end

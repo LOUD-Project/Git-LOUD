@@ -47,16 +47,14 @@ function SetLayout()
         controls.bracketRightMid = nil
     end
     
-    controls.orderButtonGrid.Width:Set(GameCommon.iconWidth * horzCols)
-    controls.orderButtonGrid.Height:Set(GameCommon.iconHeight * horzRows)
+    LayoutHelpers.SetDimensions(controls.orderButtonGrid, GameCommon.iconWidth * horzCols, GameCommon.iconHeight * horzRows)
     LayoutHelpers.AtCenterIn(controls.orderButtonGrid, controls.bg, 0, -1)
     controls.orderButtonGrid:AppendRows(horzRows)
     controls.orderButtonGrid:AppendCols(horzCols)
 
 	controls.bg.Width:Set(Grid_Params.Order_Slots.panelsize.width)
 	controls.bg.Height:Set(Grid_Params.Order_Slots.panelsize.height)
-	controls.orderButtonGrid.Width:Set(Grid_Params.Order_Slots.iconsize.width * Grid_Params.Grid.horzCols)
-	controls.orderButtonGrid.Height:Set(Grid_Params.Order_Slots.iconsize.height * Grid_Params.Grid.horzRows)
+	LayoutHelpers.SetDimensions(controls.orderButtonGrid, Grid_Params.Order_Slots.iconsize.width * Grid_Params.Grid.horzCols, Grid_Params.Order_Slots.iconsize.height * Grid_Params.Grid.horzRows)
 	LayoutHelpers.AtLeftTopIn(controls.orderButtonGrid, controls.bg, 10, 12)    
 
     controls.bg.Mini = function(state)

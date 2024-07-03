@@ -159,16 +159,14 @@ function CreateToolTip(parent, text)
     tooltip.bg.Depth:Set(function() return tooltip.Depth() - 1 end)
     tooltip.bg.Top:Set(tooltip.Top)
     tooltip.bg.Bottom:Set(tooltip.Bottom)
-    tooltip.bg.Left:Set(function() return tooltip.Left() - 2 end)
-    tooltip.bg.Right:Set(function() return tooltip.Right() + 2 end)
+    LayoutHelpers.AtLeftIn(tooltip.bg, tooltip, -2)
+    LayoutHelpers.AtRightIn(tooltip.bg, tooltip, -2)
     
     tooltip.border = Bitmap(tooltip)
     tooltip.border:SetSolidColor(UIUtil.tooltipBorderColor)
     tooltip.border.Depth:Set(function() return tooltip.bg.Depth() - 1 end)
-    tooltip.border.Left:Set(function() return tooltip.bg.Left() - 1 end)
-    tooltip.border.Top:Set(function() return tooltip.bg.Top() - 1 end)
-    tooltip.border.Right:Set(function() return tooltip.bg.Right() + 1 end)
-    tooltip.border.Bottom:Set(function() return tooltip.bg.Bottom() + 1 end)
+    LayoutHelpers.AtLeftTopIn(tooltip.border, tooltip, -1, -1)
+    LayoutHelpers.AtRightBottomIn(tooltip.border, tooltip, -1, -1)
     
     tooltip:DisableHitTest(true)
     
@@ -183,7 +181,7 @@ function CreateExtendedToolTip(parent, text, desc)
 		
         tooltip.Depth:Set(function() return parent.Depth() + 10000 end)
 		
-        tooltip.Width:Set(150)
+        LayoutHelpers.SetWidth(tooltip, 150)
         
         if text != "" and text != nil then
 		
@@ -199,8 +197,8 @@ function CreateExtendedToolTip(parent, text, desc)
             tooltip.bg.Depth:Set(function() return tooltip.title.Depth() - 1 end)
             tooltip.bg.Top:Set(tooltip.title.Top)
             tooltip.bg.Bottom:Set(tooltip.title.Bottom)
-            tooltip.bg.Left:Set(function() return tooltip.Left() - 2 end)
-            tooltip.bg.Right:Set(function() return tooltip.Right() + 2 end)
+			LayoutHelpers.AtLeftIn(tooltip.bg, tooltip, -2)
+            LayoutHelpers.AtRightIn(tooltip.bg, tooltip, -2)
 			
         end
         
@@ -243,9 +241,9 @@ function CreateExtendedToolTip(parent, text, desc)
             tooltip.extbg:SetSolidColor('FF000202')
             tooltip.extbg.Depth:Set(function() return tooltip.desc[1].Depth() - 1 end)
             tooltip.extbg.Top:Set(tooltip.desc[1].Top)
-            tooltip.extbg.Left:Set(function() return tooltip.Left() - 2 end)
-            tooltip.extbg.Right:Set(function() return tooltip.Right() + 2 end)
-            tooltip.extbg.Bottom:Set(tooltip.desc[table.getn(tempTable)].Bottom)
+            LayoutHelpers.AtLeftIn(tooltip.extbg, tooltip, -2)
+            LayoutHelpers.AtRightIn(tooltip.extbg, tooltip, -2)
+             tooltip.extbg.Bottom:Set(tooltip.desc[table.getn(tempTable)].Bottom)
 			
         end
         
@@ -254,27 +252,25 @@ function CreateExtendedToolTip(parent, text, desc)
         tooltip.extborder:SetSolidColor(UIUtil.tooltipBorderColor)
         if text != "" and text != nil then
             tooltip.extborder.Depth:Set(function() return tooltip.bg.Depth() - 1 end)
-            tooltip.extborder.Top:Set(function() return tooltip.bg.Top() - 1 end)
-            tooltip.extborder.Left:Set(function() return tooltip.bg.Left() - 1 end)
-            tooltip.extborder.Right:Set(function() return tooltip.bg.Right() + 1 end)
+			LayoutHelpers.AtLeftTopIn(tooltip.extborder, tooltip.bg, -1, -1)
+            LayoutHelpers.AtRightIn(tooltip.extborder, tooltip.bg, -1)
         else
             tooltip.extborder.Depth:Set(function() return tooltip.extbg.Depth() - 1 end)
-            tooltip.extborder.Top:Set(function() return tooltip.extbg.Top() - 1 end)
-            tooltip.extborder.Left:Set(function() return tooltip.extbg.Left() - 1 end)
-            tooltip.extborder.Right:Set(function() return tooltip.extbg.Right() + 1 end)
+			LayoutHelpers.AtLeftTopIn(tooltip.extborder, tooltip.extbg, -1, -1)
+			LayoutHelpers.AtRightIn(tooltip.extborder, tooltip.extbg, -1)
         end
         if desc != "" and desc != nil then
-            tooltip.extborder.Bottom:Set(function() return tooltip.extbg.Bottom() + 1 end)
+			LayoutHelpers.AtBottomIn(tooltip.extborder, tooltip.extbg, -1)
         else
-            tooltip.extborder.Bottom:Set(function() return tooltip.bg.Bottom() + 1 end)
+			LayoutHelpers.AtBottomIn(tooltip.extborder, tooltip.bg, -1)
         end
         
         tooltip:DisableHitTest(true)
         
         if text != "" and text != nil then
-            tooltip.Width:Set(function() return math.max(tooltip.title.Width(), 150) end)
+            tooltip.Width:Set(function() return math.max(tooltip.title.Width(), LayoutHelpers.ScaleNumber(150)) end)
         else
-            tooltip.Width:Set(function() return 150 end)
+            tooltip.Width:Set(function() return LayoutHelpers.ScaleNumber(150) end)
         end
         
         if text == "" and text != nil then

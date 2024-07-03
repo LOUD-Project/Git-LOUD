@@ -9,6 +9,7 @@
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
 local Group = import('/lua/maui/group.lua').Group
 local UIUtil = import('/lua/ui/uiutil.lua')
+local Prefs = import("/lua/user/prefs.lua")
 
 --* Percentage versus offset
 --* Percentages are specified as a float, with 0.00 to 1.00 the normal ranges
@@ -23,7 +24,7 @@ local UIUtil = import('/lua/ui/uiutil.lua')
 --* to scale the offset with this factor or your layout may get funky when the
 --* art is changed
 
-local pixelScaleFactor = 1.0
+local pixelScaleFactor = Prefs.GetFromCurrentProfile('options').ui_scale or 1
 local effectGroup = false
 local gameView = UIUtil.CreateScreenGroup(GetFrame(0), "Effect Helper ScreenGroup")
 
@@ -454,34 +455,34 @@ function FadeOut(control, time, initialValue, finalValue)
 end
 
 function Pulse(control, time, alphaBtm, alphaTop)
--- fades a control in (alphaTop) and out (alphaBtm) over time (time, in seconds)
--- default is 0 to 1 alpha over 1 second
+	-- fades a control in (alphaTop) and out (alphaBtm) over time (time, in seconds)
+	-- default is 0 to 1 alpha over 1 second
 
-    local duration = (time or 1) / 2
-    local minAlpha = alphaBtm or 0
-    local maxAlpha = alphaTop or 1
-    
-    local alphaNorm = maxAlpha - minAlpha
-    local direction = 1
-    local elapsedTime = 0
-    local newAlpha = minAlpha
-    
-    control:SetAlpha(newAlpha)
+	    local duration = (time or 1) / 2
+	    local minAlpha = alphaBtm or 0
+	    local maxAlpha = alphaTop or 1
+	    
+	    local alphaNorm = maxAlpha - minAlpha
+	    local direction = 1
+	    local elapsedTime = 0
+	    local newAlpha = minAlpha
+	    
+	    control:SetAlpha(newAlpha)
 
-    control.OnFrame = function(self, frameTime)
-        elapsedTime = elapsedTime + frameTime
-        if elapsedTime >= duration then
-            direction = direction * -1 # reverse direction
-            elapsedTime = 0
-        end
-        local timeSlice = frameTime / duration
-        newAlpha = newAlpha + (timeSlice * alphaNorm * direction)
-        if newAlpha > 1 then
-            newAlpha = 1
-        elseif newAlpha < 0 then
-            newAlpha = 0
-        end
-        control:SetAlpha(newAlpha)
-    end
-    control:SetNeedsFrameUpdate(true)
-end
+	    control.OnFrame = function(self, frameTime)
+	        elapsedTime = elapsedTime + frameTime
+	        if elapsedTime >= duration then
+	            direction = direction * -1 # reverse direction
+	            elapsedTime = 0
+	        end
+	        local timeSlice = frameTime / duration
+	        newAlpha = newAlpha + (timeSlice * alphaNorm * direction)
+	        if newAlpha > 1 then
+	            newAlpha = 1
+	        elseif newAlpha < 0 then
+	            newAlpha = 0
+	        end
+	        control:SetAlpha(newAlpha)
+	    end
+	    control:SetNeedsFrameUpdate(true)
+	end

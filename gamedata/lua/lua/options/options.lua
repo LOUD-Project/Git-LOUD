@@ -284,6 +284,27 @@ options = {
         title = "Interface",
         key = 'ui',
         items = {
+			{
+			    title = "UI Scale",
+			    key = 'ui_scale',
+			    restart = true,
+			    type = 'toggle',
+			    default = 1.0,
+			    custom = {
+			        states = {
+			            { text = "80%", key = 0.8, },
+			            { text = "100%", key = 1.0, },
+			            { text = "125%", key = 1.25, },
+			            { text = "150%", key = 1.5, },
+			            { text = "175%", key = 1.75, },
+			            { text = "200%", key = 2.0, },
+						{ text = "225%", key = 2.25, },
+						{ text = "250%", key = 2.5, },
+						{ text = "275%", key = 2.75, },
+						{ text = "300%", key = 3.0, },
+			        },
+			    },
+			},
             {
                 title = "Auto-Rename of Replays",
                 key = 'gui_auto_rename_replays',
