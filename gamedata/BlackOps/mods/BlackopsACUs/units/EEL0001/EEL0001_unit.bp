@@ -1797,13 +1797,13 @@ UnitBlueprint {
 			
             MuzzleVelocity = 0,
 			
-            NukeInnerRingDamage = 14500,	--3500
-            NukeInnerRingRadius = 15,		--30
+            NukeInnerRingDamage = 14500,
+            NukeInnerRingRadius = 15,
             NukeInnerRingTicks = 5,
             NukeInnerRingTotalTime = 1,
 			
-            NukeOuterRingDamage = 4500,		--500
-            NukeOuterRingRadius = 25,		--40
+            NukeOuterRingDamage = 4500,
+            NukeOuterRingRadius = 25,
             NukeOuterRingTicks = 5,
             NukeOuterRingTotalTime = 4,
 			
@@ -2630,6 +2630,8 @@ UnitBlueprint {
 		
         {
             AboveWaterTargetsOnly = true,
+            
+            AttackGroundTries = 1,
 
             Audio = {
                 Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0111_Missile_Cruise', LodCutoff = 'Weapon_LodCutoff' },
@@ -2655,9 +2657,8 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Sub = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
+
             FiringTolerance = 30,
 
             Label = 'TacMissile',
@@ -2695,7 +2696,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 
-            --WeaponRepackTimeout = 4,
+            WeaponRepackTimeout = 4,
             --WeaponUnpacks = true,
         },
 		
@@ -2703,7 +2704,8 @@ UnitBlueprint {
 
         {
             AboveWaterTargetsOnly = true,
-
+            
+            AttackGroundTries = 1,
 
             Audio = {
                 Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0111_Missile_Cruise', LodCutoff = 'Weapon_LodCutoff' },
@@ -2725,8 +2727,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Sub = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 360,
 			
@@ -2768,7 +2768,7 @@ UnitBlueprint {
             TargetCheckInterval = 1,
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 
-            --WeaponRepackTimeout = 5,
+            WeaponRepackTimeout = 5,
             --WeaponUnpacks = true,
         },
 		
