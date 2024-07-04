@@ -83,7 +83,8 @@ Combo = Class(Group) {
 
         -- text control is height of text/font, and from left to button
         self.Height:Set(function() return math.max(self._text.Height(), self._btnMid.Height()) end)
-        self._text.Top:Set(self._btnMid.Top)
+		LayoutHelpers.AtVerticalCenterIn(self._text, self._btnMid, 1)
+        --self._text.Top:Set(self._btnMid.Top)
         LayoutHelpers.AtLeftIn(self._text, self._btnLeft, 5)
         LayoutHelpers.AtRightIn(self._text, self._btnMid, -5)
         self._text:SetClipToWidth(true)
@@ -394,7 +395,6 @@ BitmapCombo = Class(Group) {
         LayoutHelpers.AtLeftTopIn(self._btnLeft, self)
         LayoutHelpers.AtRightTopIn(self._btnRight, self)
         LayoutHelpers.AtTopIn(self._btnMid, self)
-
         LayoutHelpers.AnchorToRight(self._btnMid, self._btnLeft, -1)
         self._btnMid.Right:Set(self._btnRight.Left)
 

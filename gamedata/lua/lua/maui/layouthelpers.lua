@@ -55,7 +55,11 @@ end
 ---@param number number
 ---@return number scaledNumber
 function ScaleNumber(number)
-    return MathFloor(number * pixelScaleFactor)
+    if type(number) == 'number' then
+        return MathFloor(number * pixelScaleFactor)
+    else
+        return MathFloor(number() * pixelScaleFactor)
+    end
 end
 
 --- Unscales a number by the pixel scale factor

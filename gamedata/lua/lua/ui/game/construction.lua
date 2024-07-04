@@ -692,7 +692,9 @@ function CommonLogic()
 
 					-- Exavier Possible Later Adjustment
                     control.StratIcon:SetTexture('/textures/ui/common/game/strategicicons/'..iconName..'_rest.dds')
-					LayoutHelpers.SetDimensions(control.StratIcon, control.StratIcon.BitmapWidth, control.StratIcon.BitmapHeight)
+					LayoutHelpers.SetDimensions(control.StratIcon, control.StratIcon.BitmapWidth(), control.StratIcon.BitmapHeight())
+					--control.StratIcon.Height:Set(control.StratIcon.BitmapHeight)
+					--control.StratIcon.Width:Set(control.StratIcon.BitmapWidth)
 
                 else
 
@@ -713,15 +715,18 @@ function CommonLogic()
 
                 control.Icon:SetTexture(UIUtil.UIFile('/game/c-q-e-panel/divider_horizontal_bmp.dds'))
                 LayoutHelpers.SetDimensions(control, 48, 20)
-
+                --control.Width:Set(48)
+                --control.Height:Set(20)
             else
 
                 control.Icon:SetTexture(UIUtil.UIFile('/game/c-q-e-panel/divider_bmp.dds'))
                 LayoutHelpers.SetDimensions(control, 20, 48)
-
+                --control.Width:Set(20)
+                --control.Height:Set(48)
             end
-
-            LayoutHelpers.SetDimensions(control.Icon, control.Icon.BitmapWidth, control.Icon.BitmapHeight)
+            LayoutHelpers.SetDimensions(control.Icon, control.Icon.BitmapWidth(), control.Icon.BitmapHeight())
+            --control.Icon.Width:Set(control.Icon.BitmapWidth)
+            --control.Icon.Height:Set(control.Icon.BitmapHeight)
             control.Count:SetText('')
             control:Disable()
             control.StratIcon:SetSolidColor('00000000')
@@ -740,7 +745,11 @@ function CommonLogic()
             control.tooltipID = LOC(__blueprints[control.Data.id].Description) or 'no description'
             control.mAltToggledFlag = false
 			LayoutHelpers.SetDimensions(control, 48, 48)
+			--control.Height:Set(48)
+			--control.Width:Set(48)
 			LayoutHelpers.SetDimensions(control.Icon, 48, 48)
+			--control.Icon.Height:Set(48)
+			--control.Icon.Width:Set(48)
 
 --            if __blueprints[control.Data.id].General.ConstructionBar then
 --                control.ConsBar:SetAlpha(1, true)
@@ -971,8 +980,9 @@ function CommonLogic()
 
 					-- Exavier Possible Future Adjustment
                     control.StratIcon:SetTexture('/textures/ui/common/game/strategicicons/'..iconName..'_rest.dds')
-					LayoutHelpers.SetDimensions(control.StratIcon, control.StratIcon.BitmapWidth, control.StratIcon.BitmapHeight)
-
+					LayoutHelpers.SetDimensions(control.StratIcon, control.StratIcon.BitmapWidth(), control.StratIcon.BitmapHeight())
+					--control.StratIcon.Height:Set(control.StratIcon.BitmapHeight)
+					--control.StratIcon.Width:Set(control.StratIcon.BitmapWidth)
                 else
 
                     control.StratIcon:SetSolidColor('ff00ff00')
@@ -996,13 +1006,19 @@ function CommonLogic()
             if controls.choices._vertical then
                 control.Icon:SetTexture(UIUtil.UIFile('/game/c-q-e-panel/arrow_vert_bmp.dds'))
                 LayoutHelpers.SetDimensions(control, 48, 20)
+                --control.Width:Set(48)
+                --control.Height:Set(20)
             else
                 control.Icon:SetTexture(UIUtil.UIFile('/game/c-q-e-panel/arrow_bmp.dds'))
                 LayoutHelpers.SetDimensions(control, 20, 48)
+                --control.Width:Set(20)
+                --control.Height:Set(48)
             end
 
             control.Icon.Depth:Set(function() return control.Depth() + 5 end)
-			LayoutHelpers.SetDimensions(control.Icon, 30, control.Icon.BitmapHeight)
+			LayoutHelpers.SetDimensions(control.Icon, 30, control.Icon.BitmapHeight())
+			--control.Icon.Height:Set(control.Icon.BitmapHeight)
+			--control.Icon.Width:Set(30)
             control.StratIcon:SetSolidColor('00000000')
             control.LowFuel:SetAlpha(0, true)
 --            control.ConsBar:SetAlpha(0, true)
@@ -1014,12 +1030,17 @@ function CommonLogic()
             if controls.choices._vertical then
                 control.Icon:SetTexture(UIUtil.UIFile('/game/c-q-e-panel/divider_horizontal_bmp.dds'))
                 LayoutHelpers.SetDimensions(control, 48, 20)
+                --control.Width:Set(48)
+                --control.Height:Set(20)
             else
                 control.Icon:SetTexture(UIUtil.UIFile('/game/c-q-e-panel/divider_bmp.dds'))
                 LayoutHelpers.SetDimensions(control, 20, 48)
+                --control.Width:Set(20)
+                --control.Height:Set(48)
             end
-
-            LayoutHelpers.SetDimensions(control.Icon, control.Icon.BitmapWidth, control.Icon.BitmapHeight)
+            LayoutHelpers.SetDimensions(control.Icon, control.Icon.BitmapWidth(), control.Icon.BitmapHeight())
+            --control.Icon.Width:Set(control.Icon.BitmapWidth)
+            --control.Icon.Height:Set(control.Icon.BitmapHeight)
             control.Count:SetText('')
             control:Disable()
             control.StratIcon:SetSolidColor('00000000')
@@ -1038,7 +1059,11 @@ function CommonLogic()
             control.tooltipID = LOC(control.Data.enhTable.Name) or 'no description'
             control.mAltToggledFlag = control.Data.Selected
 			LayoutHelpers.SetDimensions(control, 48, 48)
+			--control.Height:Set(48)
+			--control.Width:Set(48)
 			LayoutHelpers.SetDimensions(control.Icon, 48, 48)
+			--control.Icon.Height:Set(48)
+			--control.Icon.Width:Set(48)
             control.Icon.Depth:Set(function() return control.Depth() + 1 end)
             control.Count:SetText('')
             control.StratIcon:SetSolidColor('00000000')
@@ -1067,11 +1092,15 @@ function CommonLogic()
             SetIconTextures(control, control.Data.template.icon)
             control:SetNewTextures(GetBackgroundTextures(control.Data.template.icon))
 			LayoutHelpers.SetDimensions(control, 48, 48)
+			--control.Height:Set(48)
+			--control.Width:Set(48)
 
             local path = GameCommon.GetUnitIconPath(nil, control.Data.template.icon)
             control.Icon:SetTexture(path)
 
 			LayoutHelpers.SetDimensions(control.Icon, 48, 48)
+			--control.Icon.Height:Set(48)
+			--control.Icon.Width:Set(48)
             control.Icon.Depth:Set(function() return control.Depth() + 1 end)
             control.StratIcon:SetSolidColor('00000000')
             control.tooltipID = control.Data.template.name or 'no description'
@@ -1107,7 +1136,11 @@ function CommonLogic()
             control:SetUpAltButtons(down,down,down,down)
             control.mAltToggledFlag = false
 			LayoutHelpers.SetDimensions(control, 48, 48)
+			--control.Height:Set(48)
+			--control.Width:Set(48)
 			LayoutHelpers.SetDimensions(control.Icon, 48, 48)
+			--control.Icon.Height:Set(48)
+			--control.Icon.Width:Set(48)
             control.Icon.Depth:Set(function() return control.Depth() + 1 end)
             control.BuildKey = nil
 
@@ -1137,6 +1170,8 @@ function CommonLogic()
 
                 control.NewInd = Bitmap(control, UIUtil.UIFile('/game/selection/selection_brackets_player_highlighted.dds'))
 				LayoutHelpers.SetDimensions(control.NewInd, 80, 80)
+                --control.NewInd.Height:Set(80)
+                --control.NewInd.Width:Set(80)
 
                 LayoutHelpers.AtCenterIn(control.NewInd, control)
 
@@ -1194,7 +1229,11 @@ function CommonLogic()
             control.tooltipID = LOC(__blueprints[control.Data.id].Description) or 'no description'
             control.mAltToggledFlag = false
 			LayoutHelpers.SetDimensions(control, 48, 48)
+			--control.Height:Set(48)
+			--control.Width:Set(48)
 			LayoutHelpers.SetDimensions(control.Icon, 48, 48)
+			--control.Icon.Height:Set(48)
+			--control.Icon.Width:Set(48)
             control.LowFuel:SetAlpha(0, true)
 
 --            if __blueprints[control.Data.id].General.ConstructionBar then
@@ -1888,6 +1927,8 @@ function CreateFacTemplateOptionsMenu(button)
                     local path = GameCommon.GetUnitIconPath(nil, iconType)
                     local bmp = Bitmap(group, path)
 					LayoutHelpers.SetDimensions(bmp, 30, 30)
+					--bmp.Height:Set(30)
+					--bmp.Width:Set(30)
                     bmp.ID = iconType
                     table.insert(controls, bmp)
                 end
@@ -2065,6 +2106,8 @@ function CreateTemplateOptionsMenu(button)
                 local path = GameCommon.GetUnitIconPath(nil, iconType)
                 local bmp = Bitmap(group, path)
 				LayoutHelpers.SetDimensions(bmp, 30, 30)
+                --bmp.Height:Set(30)
+                --bmp.Width:Set(30)
                 bmp.ID = iconType
                 LOUDINSERT(controls, bmp)
             end

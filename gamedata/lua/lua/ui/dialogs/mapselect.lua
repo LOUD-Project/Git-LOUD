@@ -125,7 +125,7 @@ end
 function CreateFilter(parent, filterData)
     local group = Group(parent)
     group.Depth:Set(function() return parent.Depth() + 10 end)
-    group.Width:Set(286)
+    LayoutHelpers.SetWidth(group, 286)
     
     local tempname = filterData.FilterName
     group.title = UIUtil.CreateText(group, tempname, 16, UIUtil.bodyFont)
@@ -135,7 +135,7 @@ function CreateFilter(parent, filterData)
     group.combo = Combo(group, 14, 10, nil, nil, "UI_Tab_Click_01", "UI_Tab_Rollover_01")
     LayoutHelpers.AtVerticalCenterIn(group.combo, group.title)
     group.combo.Right:Set(group.Right)
-    group.combo.Width:Set(80)
+    LayoutHelpers.SetWidth(group.combo, 80)
     
     local itemArray = {}
     group.combo.keyMap = {}
@@ -153,8 +153,8 @@ function CreateFilter(parent, filterData)
 	if not filterData.NoDelimiter then    
 		group.comboFilter = Combo(group, 14, 10, nil, nil, "UI_Tab_Click_01", "UI_Tab_Rollover_01")
 		LayoutHelpers.AtVerticalCenterIn(group.comboFilter, group.title)
-		group.comboFilter.Right:Set(function() return group.combo.Left() - 5 end)
-		group.comboFilter.Width:Set(60)
+		LayoutHelpers.AnchorToLeft(group.comboFilter, group.combo, 5)
+		LayoutHelpers.SetWidth(group.comboFilter, 60)
 		
 		local filterArray = {
 			{text = "=", key = "equal"},
@@ -176,7 +176,7 @@ function CreateFilter(parent, filterData)
 		end
 	end
     
-    group.Height:Set(group.title.Height())
+    group.Height:Set(group.title.Height)
     
     return group
 end
@@ -223,8 +223,8 @@ local function ShowMapPositions(mapCtrl, scenario)
         LayoutHelpers.AtLeftTopIn(
             marker, 
             posGroup, 
-            ((xOffset + pos[1] / largest) * cWidth) - (marker.Width() / 2), 
-            ((yOffset + pos[2] / largest) * cHeight) - (marker.Height() / 2)
+            ((xOffset + pos[1] / LayoutHelpers.ScaleNumber(largest)) * cWidth) - (marker.Width() / 2), 
+            ((yOffset + pos[2] / LayoutHelpers.ScaleNumber(largest)) * cHeight) - (marker.Height() / 2)
         )
     end
 end
@@ -358,8 +358,7 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
     mapList:SetFont(UIUtil.bodyFont, 14)
     mapList:SetColors(UIUtil.fontColor, "00000000", "FF000000",  UIUtil.highlightColor, "ffbcfffe")
     mapList:ShowMouseoverItem(true)
-    mapList.Width:Set(258)
-    mapList.Height:Set(438)
+    LayoutHelpers.SetDimensions(mapList, 258, 438)
     LayoutHelpers.AtLeftTopIn(mapList, panel, 360, 202)
     mapList.Depth:Set(function() return panel.Depth() + 10 end) --TODO what is this getting under when it's in over state?
     mapList:AcquireKeyboardFocus(true)
@@ -385,8 +384,7 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
     UIUtil.CreateVertScrollbarFor(mapList)
 
     local preview = MapPreview(panel)
-    preview.Width:Set(290)
-    preview.Height:Set(288)
+    LayoutHelpers.SetDimensions(preview, 290, 288)
     LayoutHelpers.AtLeftTopIn(preview, panel, 37, 102)
     
     local previewOverlay = Bitmap(preview, UIUtil.UIFile('/dialogs/mapselect03/map-panel-glow_bmp.dds'))
@@ -402,8 +400,7 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
     description = ItemList(panel, "mapselect:description")
     description:SetFont(UIUtil.bodyFont, 14)
     description:SetColors(UIUtil.fontColor, "00000000", UIUtil.fontColor, "00000000")
-    description.Width:Set(273)
-    description.Height:Set(180)
+    LayoutHelpers.SetDimensions(description, 273, 180)
     LayoutHelpers.AtLeftTopIn(description, panel, 33, 450)
     UIUtil.CreateVertScrollbarFor(description)
     
@@ -623,8 +620,7 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
     LayoutHelpers.AtLeftTopIn(title, parent, 660, 60)
     
     OptionContainer = Group(parent)
-    OptionContainer.Height:Set(556)
-    OptionContainer.Width:Set(260)
+    LayoutHelpers.SetDimensions(OptionContainer, 260, 556)
     OptionContainer.top = 0
     LayoutHelpers.AtLeftTopIn(OptionContainer, parent, 670, 84)
     
@@ -633,7 +629,7 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
     
     local function CreateOptionCombo(parent, optionData, width)
         local combo = Combo(parent, nil, nil, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
-        combo.Width:Set(240)
+        LayoutHelpers.SetWidth(combo, 240)
         combo.Depth:Set(function() return parent.Depth() + 10 end)
         local itemArray = {}
         combo.keyMap = {}
@@ -648,8 +644,8 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
     
     local function CreateOptionEdit(parent, optionData, width)
         local edit = Edit(parent)
-        edit.Width:Set(240)
-        edit.Height:Set(18)
+        LayoutHelpers.SetDimensions(edit, 240, 18)
+		edit:SetFont(UIUtil.fixedFont, 13, 3)
         edit:SetMaxChars(5)
         edit.default = UIUtil.CreateText(edit, '', 13, 'Arial')
         edit.default:SetNewColor('888888')
@@ -677,13 +673,13 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
     local function CreateOptionElements()
         local function CreateElement(index)
             OptionDisplay[index] = Group(OptionContainer)
-            OptionDisplay[index].Height:Set(46)
+            LayoutHelpers.SetHeight(OptionDisplay[index], 46)
             OptionDisplay[index].Width:Set(OptionContainer.Width)
         
             OptionDisplay[index].bg = Bitmap(OptionDisplay[index])
             OptionDisplay[index].bg.Depth:Set(OptionDisplay[index].Depth)
             LayoutHelpers.FillParent(OptionDisplay[index].bg, OptionDisplay[index])
-            OptionDisplay[index].bg.Right:Set(function() return OptionDisplay[index].Right() - 10 end)
+            LayoutHelpers.AtRightIn(OptionDisplay[index].bg, OptionDisplay[index], 10)
         
             OptionDisplay[index].text = UIUtil.CreateText(OptionContainer, '', 14, "Arial")
             OptionDisplay[index].text:DisableHitTest()

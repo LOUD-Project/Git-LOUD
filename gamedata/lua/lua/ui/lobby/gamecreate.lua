@@ -1,7 +1,7 @@
 --* File: lua/modules/ui/lobby/gamecreate.lua
 --* Author: Chris Blackwell
 --* Summary: game creation UI
---* Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+--* Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
 
 local UIUtil = import('/lua/ui/uiutil.lua')
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
@@ -23,7 +23,7 @@ function CreateEditField(parent)
     control:SetHighlightForegroundColor(UIUtil.highlightColor)
     control:SetHighlightBackgroundColor("880085EF")
     control.Height:Set(function() return control:GetFontHeight() end)
-    control.Width:Set(250)
+    LayoutHelpers.SetWidth(control, 250)
     control:SetFont(UIUtil.bodyFont, 16)
     return control
 end
@@ -53,13 +53,13 @@ function CreateUI(playerName, over, exitBehavior, useSteam)
 	end
 	
     LayoutHelpers.AtHorizontalCenterIn(panelTitle, panel)
-    panelTitle.Top:Set(function() return panel.Top() + 50 end)
+	LayoutHelpers.AtTopIn(panelTitle, panel, 50)
 
     local gameNameEdit = CreateEditField(panel)
-	
+
     gameNameEdit:SetText(Prefs.GetFromCurrentProfile('last_game_name') or "")
-    gameNameEdit.Width:Set(340)
-	
+    LayoutHelpers.SetWidth(gameNameEdit, 340)
+
     LayoutHelpers.AtHorizontalCenterIn(gameNameEdit, panel)
     LayoutHelpers.AtTopIn(gameNameEdit, panel, 120)
 	
@@ -87,7 +87,7 @@ function CreateUI(playerName, over, exitBehavior, useSteam)
 
 		autoPort = UIUtil.CreateCheckboxStd(panel, '/dialogs/check-box_btn/radio')
 		autoPort.Right:Set(portEdit.Right)
-		autoPort.Bottom:Set(function() return portEdit.Top() - 5 end)
+		LayoutHelpers.AnchorAtTop(autoPort, portEdit.Top, 5)
 		
 		autoPort.OnCheck = function(self, checked)
 			if checked then
@@ -125,7 +125,7 @@ function CreateUI(playerName, over, exitBehavior, useSteam)
 		local friendsOnlyLabel = UIUtil.CreateText(panel, "<LOC STEAM_FRIENDS_ONLY>Friends Only", 14, UIUtil.bodyFont)
 		
 		friendsOnlyLabel.Left:Set(friendsOnlyCheck.Right)
-		friendsOnlyLabel.Bottom:Set(function() return friendsOnlyCheck.Bottom() - 5 end)
+		LayoutHelpers.AtBottomIn(friendsOnlyLabel, friendsOnlyCheck, 5)
 		
 	end
 

@@ -61,7 +61,9 @@ function SetLayout()
     LayoutHelpers.AtLeftIn(controls.minBG, controls.constructionGroup, 67)
     LayoutHelpers.ResetRight(controls.minBG)
     LayoutHelpers.ResetTop(controls.minBG)
-    LayoutHelpers.SetDimensions(controls.minBG, controls.minBG.BitmapWidth, controls.minBG.BitmapHeight) -- TODO: This is now set value instead of a function to get Bitmap dimension. When when the texture changes, it wont properly resize anymore
+    LayoutHelpers.SetDimensions(controls.minBG, controls.minBG.BitmapWidth(), controls.minBG.BitmapHeight()) -- TODO: This is now set value instead of a function to get Bitmap dimension. When when the texture changes, it wont properly resize anymore
+    --controls.minBG.Width:Set(controls.minBG.BitmapWidth)
+    --controls.minBG.Height:Set(controls.minBG.BitmapHeight)
     
     controls.leftBracketMin:SetTexture(UIUtil.UIFile('/game/bracket-left-energy/bracket_bmp_t.dds'))
     LayoutHelpers.AtLeftIn(controls.leftBracketMin, controls.constructionGroup, 4)
@@ -101,7 +103,9 @@ function SetLayout()
     controls.midBG1:SetTexture(UIUtil.UIFile('/game/construct-panel/construct-panel_bmp_m1.dds'))
     controls.midBG1.Left:Set(controls.minBG.Right)
     controls.midBG1.Bottom:Set(controls.minBG.Bottom)
-    LayoutHelpers.SetDimensions(controls.midBG1, controls.midBG1.BitmapWidth, controls.midBG1.BitmapHeight)
+    LayoutHelpers.SetDimensions(controls.midBG1, controls.midBG1.BitmapWidth(), controls.midBG1.BitmapHeight())-- TODO: Same scaling issue as the first one
+    --controls.midBG1.Height:Set(controls.midBG1.BitmapHeight)
+    --controls.midBG1.Width:Set(controls.midBG1.BitmapWidth)
     LayoutHelpers.ResetTop(controls.midBG1)
     
     if not controls.midBG2 then
@@ -110,18 +114,22 @@ function SetLayout()
     controls.midBG2:SetTexture(UIUtil.UIFile('/game/construct-panel/construct-panel_bmp_m2.dds'))
     controls.midBG2.Left:Set(controls.midBG1.Right)
     controls.midBG2.Bottom:Set(controls.minBG.Bottom)
-    LayoutHelpers.SetDimensions(controls.midBG2, controls.midBG2.BitmapWidth, controls.midBG2.BitmapHeight)
+    LayoutHelpers.SetDimensions(controls.midBG2, controls.midBG2.BitmapWidth(), controls.midBG2.BitmapHeight())-- TODO: Same scaling issue as the first one
+    --controls.midBG2.Height:Set(controls.midBG2.BitmapHeight)
+    --controls.midBG2.Width:Set(controls.midBG2.BitmapWidth)
     LayoutHelpers.ResetTop(controls.midBG2)
     
     controls.midBG3:SetTexture(UIUtil.UIFile('/game/construct-panel/construct-panel_bmp_m3.dds'))
     controls.midBG3.Left:Set(controls.midBG2.Right)
     controls.midBG3.Right:Set(controls.maxBG.Left)
     controls.midBG3.Bottom:Set(controls.maxBG.Bottom)
-	controls.midBG3:SetTiled(true)
-    LayoutHelpers.SetHeight(controls.midBG3, controls.midBG3.BitmapHeight)
+    --controls.midBG3:SetTiled(true) -- TODO: Find out what this does, with true the line isnt set properly
+    LayoutHelpers.SetHeight(controls.midBG3, controls.midBG3.BitmapHeight())-- TODO: Same scaling issue as the first one
+    --controls.midBG3.Height:Set(controls.midBG3.BitmapHeight)
     LayoutHelpers.ResetWidth(controls.midBG3)
     LayoutHelpers.ResetTop(controls.midBG3)
-    LayoutHelpers.SetHeight(controls.midBG3, controls.midBG3.BitmapHeight)
+    LayoutHelpers.SetHeight(controls.midBG3, controls.midBG3.BitmapHeight())-- TODO: Same scaling issue as the first one
+    --controls.midBG3.Height:Set(controls.midBG3.BitmapHeight)
     
     LayoutHelpers.AtTopIn(controls.choices, controls.minBG, 5)
     LayoutHelpers.SetHeight(controls.choices, 50)
@@ -153,7 +161,9 @@ function SetLayout()
     LayoutHelpers.AtVerticalCenterIn(controls.scrollMin, controls.choices)
     LayoutHelpers.ResetLeft(controls.scrollMin)
     LayoutHelpers.ResetBottom(controls.scrollMin)
-    LayoutHelpers.SetDimensions(controls.scrollMin, controls.scrollMin.BitmapWidth, controls.scrollMin.BitmapHeight)
+    LayoutHelpers.SetDimensions(controls.scrollMin, controls.scrollMin.BitmapWidth(), controls.scrollMin.BitmapHeight())-- TODO: Same scaling issue as the first one
+    --controls.scrollMin.Height:Set(controls.scrollMin.BitmapHeight)
+    --controls.scrollMin.Width:Set(controls.scrollMin.BitmapWidth)
     
     controls.scrollMinIcon:SetTexture(textures.minIcon.on)
     LayoutHelpers.AtCenterIn(controls.scrollMinIcon, controls.scrollMin)
@@ -408,6 +418,10 @@ function LayoutTabs(controls)
         controls.midBG2:SetTexture(UIUtil.UIFile('/game/construct-panel/construct-panel_bmp_m2.dds'))
         controls.midBG3:SetTexture(UIUtil.UIFile('/game/construct-panel/construct-panel_bmp_m3.dds'))
         controls.minBG:SetTexture(UIUtil.UIFile('/game/construct-panel/construct-panel_bmp_l.dds'))
+        LayoutHelpers.SetDimensions(controls.minBG, controls.minBG.BitmapWidth(), controls.minBG.BitmapHeight()) -- TODO: This is an ugly hack for the problem described above
+        LayoutHelpers.SetDimensions(controls.midBG1, controls.midBG1.BitmapWidth(), controls.midBG1.BitmapHeight()) -- TODO
+        LayoutHelpers.SetDimensions(controls.midBG2, controls.midBG2.BitmapWidth(), controls.midBG2.BitmapHeight()) -- TODO
+        LayoutHelpers.SetDimensions(controls.midBG3, controls.midBG3.BitmapWidth(), controls.midBG3.BitmapHeight()) -- TODO
         LayoutHelpers.AtLeftIn(controls.minBG, controls.constructionGroup, 67)
         LayoutHelpers.AtBottomIn(controls.maxBG, controls.minBG, 1)
         LayoutHelpers.AtBottomIn(controls.minBG, controls.constructionGroup, 4)
@@ -416,6 +430,10 @@ function LayoutTabs(controls)
         controls.midBG2:SetTexture(UIUtil.UIFile('/game/construct-panel/construct-panel_s_bmp_m.dds'))
         controls.midBG3:SetTexture(UIUtil.UIFile('/game/construct-panel/construct-panel_s_bmp_m.dds'))
         controls.minBG:SetTexture(UIUtil.UIFile('/game/construct-panel/construct-panel_s_bmp_l.dds'))
+        LayoutHelpers.SetDimensions(controls.minBG, controls.minBG.BitmapWidth(), controls.minBG.BitmapHeight()) -- TODO
+        LayoutHelpers.SetDimensions(controls.midBG1, controls.midBG1.BitmapWidth(), controls.midBG1.BitmapHeight()) -- TODO
+        LayoutHelpers.SetDimensions(controls.midBG2, controls.midBG2.BitmapWidth(), controls.midBG2.BitmapHeight()) -- TODO
+        LayoutHelpers.SetDimensions(controls.midBG3, controls.midBG3.BitmapWidth(), controls.midBG3.BitmapHeight()) -- TODO
         LayoutHelpers.AtLeftIn(controls.minBG, controls.constructionGroup, 69)
         LayoutHelpers.AtBottomIn(controls.maxBG, controls.minBG, 0)
         LayoutHelpers.AtBottomIn(controls.minBG, controls.constructionGroup, 5)
