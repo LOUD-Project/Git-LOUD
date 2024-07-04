@@ -188,10 +188,12 @@ function CacheRestrictedUnitLists()
     SpecialWepRestricted = {}
     UnitCatRestricted = {}
 	
-	LOG("*AI DEBUG CacheRestrictedUnitLists")
-	
     local restrictedUnits = import('/lua/ui/lobby/restrictedUnitsData.lua').restrictedUnits
     local c
+	
+    if ScenarioInfo.Options.RestrictedCategories[1] then
+        LOG("RESTRICTED UNIT START")
+    end
 
     -- loop through enabled restrictions
     for k, restriction in ScenarioInfo.Options.RestrictedCategories do 
@@ -200,7 +202,7 @@ function CacheRestrictedUnitLists()
         -- So, for example:   { categories.TECH1, categories.TECH2, categories.MASSFAB }
         if restrictedUnits[restriction].categories then
         
-            LOG("*AI DEBUG CacheRestrictedUnits - "..repr(restrictedUnits[restriction].categories) )
+            LOG("     Restricted Units - "..repr(restrictedUnits[restriction].categories) )
 		
             for l, cat in restrictedUnits[restriction].categories do
 			
@@ -215,9 +217,9 @@ function CacheRestrictedUnitLists()
         end
 
         -- create a list of restricted special weapons (nukes, tactical missiles)
-        if restrictedUnits[restriction].specialweapons then
+        if restrictedUnits[restriction].specialweapons[1] then
         
-            LOG("*AI DEBUG CacheRestrictedWeapons ")
+            LOG("     Restricted Weapons ")
         
             for l, cat in restrictedUnits[restriction].specialweapons do
 
@@ -235,6 +237,10 @@ function CacheRestrictedUnitLists()
                 end
             end
         end
+    end
+	
+    if ScenarioInfo.Options.RestrictedCategories[1] then
+        LOG("RESTRICTED UNIT END")
     end
 	
 	_UnitRestricted_checked = true

@@ -3233,18 +3233,13 @@ TransportBeaconUnit = Class(StructureUnit) {
 
 
 WalkingLandUnit = Class(MobileUnit) {
-
-    --WalkingAnimRate = 1,
-    --IdleAnimRate = 1,
-    
-    --DisabledBones = {},
-    
+   
     IdleAnim = false,
     DeathAnim = false,
 
-	OnPreCreate = function(self)
-		MobileUnitOnPreCreate(self)
-	end,
+	--OnPreCreate = function(self)
+		--MobileUnitOnPreCreate(self)
+	--end,
 
     PlayCommanderWarpInEffect = function(self)
     
@@ -3312,9 +3307,9 @@ WalkingLandUnit = Class(MobileUnit) {
 		ConstructionUnit.SetupEngineerCallbacks( eng, EM )
 	end,
     
-    OnKilled = function(self, instigator, type, overkillRatio)
-        MobileUnitOnKilled(self, instigator, type, overkillRatio) 
-    end,
+    --OnKilled = function(self, instigator, type, overkillRatio)
+      --  MobileUnitOnKilled(self, instigator, type, overkillRatio) 
+    --end,
 }
 
 DirectionalWalkingLandUnit = Class(WalkingLandUnit) {

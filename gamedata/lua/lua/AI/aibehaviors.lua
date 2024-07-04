@@ -7631,7 +7631,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
     local StructureUpgradeDialog = ScenarioInfo.StructureUpgradeDialog
 	
 	if StructureUpgradeDialog then
-   		LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." starts thread to upgrade to "..repr(upgradeID).." initial delay is "..initialdelay)
+   		LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." starts thread to upgrade to "..repr(upgradeID).." initial delay is "..initialdelay.." on tick "..GetGameTick() )
 	end
 
 	-- wait the initial delay before upgrading - accounts for unit not finished being built and basic storage requirements
