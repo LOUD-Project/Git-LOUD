@@ -74,6 +74,7 @@ DefaultProjectileWeapon = Class(Weapon) {
         WeaponOnCreate(self)
 
         self.WeaponCanFire = true
+        self.WeaponIsEnabled = false
         self.CurrentRackNumber = 1
         
         local bp = self.bp
@@ -542,10 +543,6 @@ DefaultProjectileWeapon = Class(Weapon) {
         
         local unitBP = __blueprints[unit.BlueprintID].Audio
 
-        if ScenarioInfo.WeaponStateDialog then
-            LOG("*AI DEBUG DefaultWeapon Pack Sequence "..repr(bp.Label).." at "..GetGameTick() )
-        end
-
         self.ElapsedRepackTime = GetGameTick()
   		
         if unitBP.Close then
@@ -554,12 +551,20 @@ DefaultProjectileWeapon = Class(Weapon) {
         
         if bp.WeaponUnpackAnimation and self.UnpackAnimator then
 
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon Pack Sequence "..repr(bp.Label).." begins at "..GetGameTick() )
+            end
+
             self.UnpackAnimator:SetRate(-bp.WeaponUnpackAnimationRate)
         end
         
         if self.UnpackAnimator then
 
             WaitFor(self.UnpackAnimator)
+
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon Pack Sequence "..repr(bp.Label).." ends at "..GetGameTick() )
+            end
 
         end
         
@@ -655,10 +660,6 @@ DefaultProjectileWeapon = Class(Weapon) {
             local bp = self.bp
             
             local target = WeaponHasTarget(self)
-
-            --if ScenarioInfo.WeaponStateDialog then
-              --  LOG("*AI DEBUG DefaultWeapon OnLostTarget for "..repr(bp.Label).." target is "..repr(target).." at "..GetGameTick() )
-            --end
             
             if not target then
         
@@ -696,12 +697,12 @@ DefaultProjectileWeapon = Class(Weapon) {
                 self:SetWeaponEnabled(self.WeaponWantEnabled)
 
             end
-        
-            if self.AimControl then
-		
-                if self.WeaponAimWantEnabled != self.WeaponAimIsEnabled then
 
-                    self:AimManipulatorSetEnabled(self.WeaponAimEnabled)
+            if self.AimControl then -- only turreted weapons have AimControl
+		
+                if self.WeaponAimEnabled != self.WeaponAimWantEnabled then
+
+                    self:AimManipulatorSetEnabled(self.WeaponAimWantEnabled)
 
                 end
 
@@ -1457,7 +1458,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                 LOG("*AI DEBUG DefaultWeapon RackReloadTime - is either not existant or less than the RackSalvoReloadSequnce - "..self.ElapsedRackReloadTicks.." ticks. "..repr(self.unit.BlueprintID))
             end
             
-            if bp.RackSalvoReloadTime and (math.ceil(bp.RackSalvoReloadTime * 10) - self.ElapsedRackReloadTicks) >= 0 then
+            if bp.RackSalvoReloadTime and (math.ceil(bp.RackSalvoReloadTime * 10) - self.ElapsedRackReloadTicks) > 0 then
             
                 if WeaponStateDialog then
                     LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State "..repr(bp.Label).." RackSalvoReloadTime waits "..math.ceil(bp.RackSalvoReloadTime * 10) - self.ElapsedRackReloadTicks.." ticks" )
@@ -1495,12 +1496,13 @@ DefaultProjectileWeapon = Class(Weapon) {
                     LOUDSTATE(self, self.WeaponPackingState)
                     
                 else
-
-                    if WeaponStateDialog then
-                        LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State "..repr(bp.Label).." - Rack Reload Timeout Waits "..repr(bp.RackReloadTimeout).." ticks" )		
-                    end
            
                     if bp.RackReloadTimeout and (bp.RackReloadTimeout) > 1 then
+
+                        if WeaponStateDialog then
+                            LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State "..repr(bp.Label).." - Rack Reload Timeout Waits "..repr(bp.RackReloadTimeout).." ticks" )		
+                        end
+
                         WaitTicks( bp.RackReloadTimeout )
                     end
                     
@@ -1554,14 +1556,6 @@ DefaultProjectileWeapon = Class(Weapon) {
             
             self.ElapsedRepackTime = GetGameTick() - self.ElapsedRepackTime
 
-            if WeaponStateDialog then
-                if self.EconDrain then
-                    LOG("*AI DEBUG DefaultWeapon Pack Sequence ends "..repr(bp.Label).." at "..GetGameTick() )
-                else
-                    LOG("*AI DEBUG DefaultWeapon Pack Sequence ends "..repr(bp.Label).." after "..self.ElapsedRepackTime.." ticks" )
-                end
-            end
-            
             if self.ElapsedRepackTime > 0 and ( not WeaponRepackTimeout or (math.floor(WeaponRepackTimeout * 10) - self.ElapsedRepackTime < 0 ) ) then
                 LOG("*AI DEBUG DefaultWeapon WeaponRepackTimeout (".. (WeaponRepackTimeout or 0) ..") - during pack - is either not existant or less than the WeaponUnpackAnimation - "..self.ElapsedRepackTime.." ticks. "..repr(unit.BlueprintID))
             end
@@ -1605,10 +1599,12 @@ DefaultProjectileWeapon = Class(Weapon) {
                     
                         LOUDSTATE( self, self.RackSalvoChargeState)
                         
+                    else
+                        LOUDSTATE( self, self.IdleState )
                     end
 
                 else
-                    LOUDSTATE(self, self.WeaponEmptyState)
+                    LOUDSTATE(self, self.WeaponEmptyState )
                 end
             
             else

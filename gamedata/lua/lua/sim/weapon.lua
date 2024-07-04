@@ -297,18 +297,18 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     AimManipulatorSetEnabled = function(self, enabled)
-	
+ 	
         if self.AimControl then
-        
-            if self.WeaponAimIsEnabled != enabled then
    
-                if ScenarioInfo.WeaponDialog or ScenarioInfo.WeaponStateDialog then
-                    LOG("*AI DEBUG Weapon "..repr(self.bp.Label).." Aim Control "..repr(enabled).." at "..GetGameTick().." Enabled is "..repr(self.WeaponAimIsEnabled) )
-                end
+            if ScenarioInfo.WeaponDialog or ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG Weapon "..repr(self.bp.Label).." Aim Control is "..repr(self.WeaponAimEnabled).." at "..GetGameTick().." setting to "..repr(enabled) )
+            end
+       
+            if self.WeaponAimEnabled != enabled then
 
                 SetEnabled( self.AimControl, enabled )
 
-                self.WeaponAimIsEnabled = enabled
+                self.WeaponAimEnabled = enabled
                 
             end
         end
@@ -377,15 +377,9 @@ Weapon = Class(moho.weapon_methods) {
 	end,
     
     OnDisableWeapon = function(self)
-        --if ScenarioInfo.WeaponDialog then
-          --  LOG("*AI DEBUG Weapon OnDisableWeapon "..repr(self.bp.Label) )
-        --end
     end,
     
     OnEnableWeapon = function(self)
-        --if ScenarioInfo.WeaponDialog then
-          --  LOG("*AI DEBUG Weapon OnEnableWeapon "..repr(self.bp.Label) )
-        --end
     end,
 
     OnGotTarget = function(self)
@@ -813,7 +807,7 @@ Weapon = Class(moho.weapon_methods) {
         
         local GetEntityId = moho.entity_methods.GetEntityId
 
-        if self.bp.EnabledByEnhancement then
+        if enable and self.bp.EnabledByEnhancement then
 		
             local id = GetEntityId(self.unit)
 			
