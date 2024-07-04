@@ -666,23 +666,31 @@ UnitBlueprint {
                     LimbBones = {'Leg_Upper_006'},
                 },
             },
-            --BeamCollisionDelay = 0,
+
             Damage = 5000,
             DamageType = 'SlashingClaw',
+
             DisplayName = 'Claw Blades',
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed|Sub',
             },
             FiringTolerance = 360,
+
             HeadingArcCenter = 0,
             HeadingArcRange = 70,
+
             Label = 'ClawMelee',
+            
             MaxRadius = 10,
             MaxRadiusTall = 1,
             MinRadius = 4,
-            MaxRadiusTall = 1,
+            MinRadiusTall = 1,
+
             MaximumBeamLength = 3,
+
             RateOfFire = 0.625, -- This determines how often it will *try* to attack.
+
             -- The odds of actually attacking is 25% if it's just attacked, and this increases as the other attack goes on.
             -- Only two attacks can be concurrently going on. 0.625 RoF and 5000 damage results in around 1400 DPS.
             -- It's safe to add an extra "wait value" read by DPS calculators, because the weapon ignores most of them.

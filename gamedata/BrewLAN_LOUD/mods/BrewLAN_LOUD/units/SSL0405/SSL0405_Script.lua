@@ -516,37 +516,48 @@ SSL0405 = Class(SLandUnit) {
             if not self.TallStanceAnimator then
                 self.TallStanceAnimator = CreateAnimator(self):PlayAnim(__blueprints[self.BpId].Display.AnimationTallStance):SetRate(0)
             end
+            
             self.TallStance = tall
-            --Psudo buff function
+            
+            ---Psudo buff function
             local ChangeWeaponRadii = function(self, Key)
+            
+                local GetBlueprint = moho.weapon_methods.GetBlueprint
+                local ChangeMaxRadius = moho.weapon_methods.ChangeMaxRadius
+            
                 for i = 1, self:GetWeaponCount() do
+
                     local wep = self:GetWeapon(i)
-                    wep:ChangeMaxRadius(wep:GetBlueprint()[Key or 'MaxRadius'])
+                    
+                    ChangeMaxRadius( wep, GetBlueprint(wep)[Key or 'MaxRadius'] )
                 end
             end
+
             --------------------------------------------------------------------
             -- Getting taller stuff
             --------------------------------------------------------------------
             if self.TallStance then
+
                 self.TallStanceAnimator:SetRate(1)
                 self:GracefullyKillSpecAnim('IdleAnimator', 'FinishIdleLoop')
-                ----------------------------------------------------------------
-                -- Kill anything waiting to happen from shrinking
+
+                --- Kill anything waiting to happen from shrinking
                 if self.ShortBuffWaitThread then
                     KillThread(self.ShortBuffWaitThread)
                 end
 
-                ----------------------------------------------------------------
-                -- Do stuff we want to happen at the start of the animation
+                --- Do stuff we want to happen at the start of the animation
                 local bp = __blueprints[self.BpId]
+
                 self:SetSpeedMult(bp.Physics.TallSpeedMultiplier)
+
                 -- Large box that coveres top and bottom positions
                 self:SetCollisionShape( 'Box', bp.CollisionOffsetX or 0, (bp.CollisionOffsetY or 0) + bp.SizeY, bp.CollisionOffsetZ or 0,
                 bp.SizeX * 0.5, (bp.SizeY + (bp.CollisionOffsetYTall or 0) - (bp.CollisionOffsetY or 0) ) * 0.5, bp.SizeZ * 0.5)
 
                 self:SetMaintenanceConsumptionActive()
-                ----------------------------------------------------------------
-                -- Effects thread, also resource monitor
+
+                --- Effects thread, also resource monitor
                 if not self.TallEffectThread then
                 
                     self.TallEffectThread = self:ForkThread(function()
@@ -576,8 +587,8 @@ SSL0405 = Class(SLandUnit) {
                         end
                     end)
                 end
-                ----------------------------------------------------------------
-                -- Set up the when-tall effects
+
+                --- Set up the when-tall effects
                 self.TallBuffWaitThread = self:ForkThread(function()
                     coroutine.yield(
                         self.TallStanceAnimator:GetAnimationDuration()
@@ -585,9 +596,12 @@ SSL0405 = Class(SLandUnit) {
                         * (1 - self.TallStanceAnimator:GetAnimationFraction())
                         * 10
                      )
+
                     ChangeWeaponRadii(self, 'MaxRadiusTall')
+
                     local bp = __blueprints[self.BpId]
-                    --High up box that covers the body and all target bones at the top position
+
+                    ---High up box that covers the body and all target bones at the top position
                     self:SetCollisionShape( 'Box', bp.CollisionOffsetX or 0, (bp.CollisionOffsetYTall or 0) + bp.SizeY * 0.5, bp.CollisionOffsetZ or 0, bp.SizeX * 0.5, bp.SizeY * 0.5, bp.SizeZ * 0.5)
                 end)
             --------------------------------------------------------------------
@@ -595,26 +609,27 @@ SSL0405 = Class(SLandUnit) {
             --------------------------------------------------------------------
             else
                 self.TallStanceAnimator:SetRate(-1)
-                ----------------------------------------------------------------
-                -- Kill anything waiting to happen from growing
+
+                --- Kill anything waiting to happen from growing
                 if self.TallBuffWaitThread then
                     KillThread(self.TallBuffWaitThread)
                 end
 
-                ----------------------------------------------------------------
-                -- Do stuff we want to happen at the start of the animation
+                --- Do stuff we want to happen at the start of the animation
                 ChangeWeaponRadii(self, 'MaxRadius')
+
                 if self:GetCurrentLayer() ~= 'Water' then
                     --Water layer change will set it to the water mult, so don't touch here.
                     self:SetSpeedMult(1)
                 end
-               local bp = __blueprints[self.BpId]
-                -- Large box that coveres top and bottom positions
+
+                local bp = __blueprints[self.BpId]
+
+                --- Large box that coveres top and bottom positions
                 self:SetCollisionShape( 'Box', bp.CollisionOffsetX or 0, (bp.CollisionOffsetY or 0) + bp.SizeY, bp.CollisionOffsetZ or 0,
                 bp.SizeX * 0.5, (bp.SizeY + (bp.CollisionOffsetYTall or 0) - (bp.CollisionOffsetY or 0) ) * 0.5, bp.SizeZ * 0.5)
 
-                ----------------------------------------------------------------
-                -- Set up the when-short again effects
+                --- Set up the when-short again effects
                 self.ShortBuffWaitThread = self:ForkThread(function()
                     coroutine.yield(math.max(1,
                         self.TallStanceAnimator:GetAnimationDuration()

@@ -222,7 +222,7 @@ UnitBlueprint {
 			
             MaxProjectileStorage = 2,
 			
-            MaxRadius = 78,
+            MaxRadius = 72,
 
             MuzzleVelocity = 25,
 			
