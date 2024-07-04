@@ -54,7 +54,15 @@ UnitBlueprint {
             BuildTime = 33750,
         },
     },
-    
+	
+    Veteran = {
+        Level1 = 41,
+        Level2 = 82,
+        Level3 = 123,
+        Level4 = 164,
+        Level5 = 205,
+    },
+      
     Weapon = {            -- all damage increased 10%
         --Target Designator
         {},
@@ -65,7 +73,17 @@ UnitBlueprint {
 		--Overcharge Cannon
         {},
         --Death Nuke
-        {},
+        {
+            NukeInnerRingDamage = 16000,
+            NukeInnerRingRadius = 20,
+            NukeInnerRingTicks = 5,
+            NukeInnerRingTotalTime = 1,
+			
+            NukeOuterRingDamage = 5000,
+            NukeOuterRingRadius = 36,
+            NukeOuterRingTicks = 5,
+            NukeOuterRingTotalTime = 4,
+        },
         --Torpedo 1
         {
             Damage = 418,
