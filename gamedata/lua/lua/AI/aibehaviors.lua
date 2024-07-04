@@ -2227,7 +2227,7 @@ function NukeAI( self, aiBrain )
                 LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI searching for targets with "..LOUDGETN(GetPlatoonUnits(self)).." launchers and "..nukesavailable.." missiles")
             end
 			
-			local minimumvalue = 500
+			local minimumvalue = 750
 			
 			local lasttarget = false
 			local lasttargettime = nil
@@ -2272,7 +2272,7 @@ function NukeAI( self, aiBrain )
 				end
 				
 				-- get any anti-nuke systems in flightpath (-- one weakness here -- because launchers could be anywhere - we use platoon position which could be well off)
-				antinukes = AIFindNumberOfUnitsBetweenPoints( aiBrain, GetPlatoonPosition(self), target.Position, categories.ANTIMISSILE * categories.SILO, 90, 'Enemy' )
+				antinukes = AIFindNumberOfUnitsBetweenPoints( aiBrain, GetPlatoonPosition(self), target.Position, categories.ANTIMISSILE * categories.SILO, 96, 'Enemy' )
 				
                 if ScenarioInfo.NukeDialog and antinukes > 0 then
 					LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI says there are "..antinukes.." antinukes along path to this target")
