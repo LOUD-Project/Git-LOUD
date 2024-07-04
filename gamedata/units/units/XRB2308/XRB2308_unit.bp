@@ -66,8 +66,9 @@ UnitBlueprint {
     Display = {
         Abilities = {
             '<LOC ability_sonar>Sonar',
+            '<LOC ability_submersible>Submerged',
             '<LOC ability_personalstealth>Personal Stealth', 
-            '<LOC ability_torpedodef>Personal Torpedo Defense',            
+            '<LOC ability_personaltordef>Personal Torpedo Defense',            
             'Torpedo Barrage',
         },
 
@@ -114,7 +115,7 @@ UnitBlueprint {
         SonarRadius = 72,
         VisionRadius = 20,
 
-        WaterVisionRadius = 48,
+        WaterVisionRadius = 52,
     },
 	
     Interface = {

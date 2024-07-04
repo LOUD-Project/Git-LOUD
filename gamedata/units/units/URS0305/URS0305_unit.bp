@@ -22,6 +22,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'MOBILESONAR',
+        'OVERLAYOMNI',
 		'OVERLAYRADAR',
 		'OVERLAYSONAR',
         'SORTINTEL',
@@ -86,11 +87,11 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 16500,
+        BuildCostEnergy = 18500,
         BuildCostMass = 3200,
         BuildTime = 2000,
 		
-        MaintenanceConsumptionPerSecondEnergy = 650,
+        MaintenanceConsumptionPerSecondEnergy = 740,
     },
 
     General = {
@@ -121,10 +122,11 @@ UnitBlueprint {
         SonarStealth = true,
 
 		RadarRadius = 80,
-        SonarRadius = 244,
+        SonarRadius = 232,
 
+        OmniRadius = 20,
         VisionRadius = 32,
-        WaterVisionRadius = 36,
+        WaterVisionRadius = 40,
     },
 	
     Interface = {

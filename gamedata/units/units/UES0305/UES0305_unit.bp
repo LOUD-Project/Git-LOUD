@@ -98,11 +98,11 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 16500,
+        BuildCostEnergy = 18500,
         BuildCostMass = 3200,
         BuildTime = 2000,
 		
-        MaintenanceConsumptionPerSecondEnergy = 650,
+        MaintenanceConsumptionPerSecondEnergy = 740,
     },
 
     General = {
@@ -133,8 +133,9 @@ UnitBlueprint {
 		RadarRadius = 80,       -- T3 Naval unit standard
         SonarRadius = 232,
 
+        OmniRadius = 20,
         VisionRadius = 32,
-        WaterVisionRadius = 36,
+        WaterVisionRadius = 40,
     },
 	
     Interface = {
