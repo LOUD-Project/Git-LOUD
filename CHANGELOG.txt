@@ -1,3 +1,28 @@
+### Release 04-07-2024
+
+LUA 7.05
+BrewLAN for LOUD 0.8.8.9.103
+Black Ops for LOUD 7.02
+LOUD_MISC 7.02
+UNITS 7.03
+
+- mistakenly left Sera T3 torp launcher as fully mobile 
+- fixed an issue with the 'stand tall' feature of Sudeth
+- fixed the Outnumbered process which had been disabled
+- Outnumbered now impacts pre-built units when equal to, or greater than, 2 to 1
+- pre-built AI units, with self-upgrades, will randomly delay the start of the upgrade thread
+- Outnumbered effects tuned with respect to the AI's upgrade counter and delay period
+- changes to sequencing and logging of various pre-game procedures
+- Sera T3 sub had much quicker anti-torp system - normalized delay 7 >> 10 (has 2 emitters)
+- repaired Tanksys Reelism mod, was hanging trying to change weapons that had no muzzlevelocity
+- enabled by Enhancement weapons, when disabled, were being re-enabled, causing firing sequence issues (UEF ACU)
+- added WeaponRepackTimeout to BO UEF ACU Tactical/Nuke missile launchers
+- T3 mobile sonars - Water Vision Radius - 36 >> 40 - as per radar/sonar calc - 20 OMNI
+- AI Nuke is looking for increased value on targets (750 from 500)
+- the antinuke search process will use a longer step - which should make a more accurate antinuke count
+
+
+
 ### Release 29-06-2024
 
 LUA 7.04
@@ -14,7 +39,7 @@ BrewLAN for LOUD 0.8.8.9.102
 
 LUA 7.03
 BrewLAN for LOUD 0.8.8.9.101
-Bkack Ops for LOUD 7.01
+Black Ops for LOUD 7.01
 loc_US 
 LOUD_MISC 7.01
 LOUD_UNITS 7.01
@@ -35,7 +60,7 @@ Total Mayhem for LOUD 7.01
 - added an 'immediate destruct' button to the mobile bomb
 - added additional LOC entries for personal tac & torp defense, and stealthmiasma fields
 - Adjusted Kraptor displayed abilities reflecting new LOC additions
-- Enhanced Resources sub-mod now 15% more resources and 10% reduced costs/time
+- Enhanced Resources sub-mod now 15% resources and 10% reduced costs/time
 
 
 
