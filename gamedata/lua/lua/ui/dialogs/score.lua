@@ -448,7 +448,7 @@ function CreateSkirmishScreen(victory, showCampaign, operationVictoryTable)
                 sortButtons[index].label[1]:DisableHitTest()
                 
                 local wrappedText = import('/lua/maui/text.lua').WrapText(LOC(colName.title), 
-                    80,
+                    LayoutHelpers.ScaleNumber(80),
                     function(text)
                         return sortButtons[Index].label[1]:GetStringAdvance(text)
                     end)
