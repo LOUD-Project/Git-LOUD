@@ -36,13 +36,13 @@ local invalidCharSet = {
 
 local columConfigurations = {
     {
-        {title = '<LOC _Name>', width = 435, sortby = 'name', key = 'name'},
-        {title = '<LOC Date>', width = 130, sortby = 'TimeStamp', key = 'date'},
+        {title = '<LOC _Name>', width = 433, sortby = 'name', key = 'name'},
+        {title = '<LOC Date>', width = 132, sortby = 'TimeStamp', key = 'date'},
     },
     {
-        {title = '<LOC _Name>', width = 267, sortby = 'name', key = 'name'},
+        {title = '<LOC _Name>', width = 265, sortby = 'name', key = 'name'},
         {title = '<LOC tooltipui0147>', width = 150, sortby = 'profile', key = 'owner'},
-        {title = '<LOC Date>', width = 130, sortby = 'TimeStamp', key = 'date'},
+        {title = '<LOC Date>', width = 132, sortby = 'TimeStamp', key = 'date'},
     },
 }
 
@@ -160,7 +160,7 @@ FilePicker = Class(Group) {
         self._filenameEdit:SetHighlightBackgroundColor(UIUtil.fontColor)
         self._filenameEdit:ShowBackground(true)
         self._filenameEdit.Width:Set(self.Width)
-        self._filenameEdit.Height:Set(function() return self._filenameEdit:GetFontHeight() end)
+        LayoutHelpers.SetHeight(self._filenameEdit, self._filenameEdit:GetFontHeight())
         LayoutHelpers.AtBottomIn(self._filenameEdit, self)
         LayoutHelpers.AtLeftIn(self._filenameEdit, self)
         self._filenameEdit:AcquireFocus()
@@ -183,7 +183,7 @@ FilePicker = Class(Group) {
         self._filelist = Group(self)
         LayoutHelpers.AtLeftTopIn(self._filelist, self, 0, 20)
         LayoutHelpers.AnchorToTop(self._filelist, self._filenameLabel, 5)
-        self._filelist.Width:Set(function() return self.Width() - 2 end)
+        self._filelist.Width:Set(function() return self.Width() - LayoutHelpers.ScaleNumber(2) end)
         self._filelist.top = 0
         
         self._tabs = {}
@@ -206,8 +206,8 @@ FilePicker = Class(Group) {
                         self._filelistObjects[index].baseColor = 'ff000000'
                     end
                     self._filelistObjects[index]:SetSolidColor(self._filelistObjects[index].baseColor)
-                    self._filelistObjects[index].Height:Set(20)
-                    self._filelistObjects[index].Width:Set(function() return self._filelist.Width() - 5 end)
+                    LayoutHelpers.SetHeight(self._filelistObjects[index], 20)
+                    self._filelistObjects[index].Width:Set(function() return self._filelist.Width() - LayoutHelpers.ScaleNumber(5) end)
                     self._filelistObjects[index].Depth:Set(function() return self._filelist.Depth() + 10 end)
                     self._filelistObjects[index].selected = false
                     
@@ -529,7 +529,7 @@ FilePicker = Class(Group) {
                     self._tabs[i].arrow:SetTexture(UIUtil.UIFile('/dialogs/sort_btn/sort-arrow-up_bmp.dds'))
                 end
             end
-            self._tabs[i].Width:Set(tabData.width)
+            LayoutHelpers.SetWidth(self._tabs[i], tabData.width)
             self._tabs[i].Uncheck = function(control)
                 control._checked = false
                 control:SetTexture(UIUtil.UIFile('/dialogs/sort_btn/sort_btn_up_m.dds'))
