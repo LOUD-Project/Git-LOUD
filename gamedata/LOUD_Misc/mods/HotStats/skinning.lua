@@ -748,12 +748,12 @@ function SetStatusBar(name, parent, modifiers)
 	local bar = false
 		
 	if current.width then
-	    bar = StatusBar(parent, current.range[1] or 0, current.range[2] or 100, false, current.inverse, imgpath.. current.background, imgpath.. current.foreground, true)	
+	    bar = StatusBar(parent, current.range[1] or 0, current.range[2] or LayoutHelpers.ScaleNumber(100), false, current.inverse, imgpath.. current.background, imgpath.. current.foreground, true)	
 		LayoutHelpers.AtLeftTopIn(bar, parent, current.x, current.y)
-	    bar.Right:Set(function() return bar.Left() + 184 end)
+	    bar.Right:Set(function() return bar.Left() + LayoutHelpers.ScaleNumber(184) end)
 		bar.Width:Set(function() return bar.Right() - bar.Left() end)
 	else
-	    bar = StatusBar(parent, current.range[1] or 0, current.range[2] or 100, current.vertical, current.inverse, imgpath.. current.background, imgpath.. current.foreground, false)	
+	    bar = StatusBar(parent, current.range[1] or 0, current.range[2] or LayoutHelpers.ScaleNumber(100), current.vertical, current.inverse, imgpath.. current.background, imgpath.. current.foreground, false)	
 		LayoutHelpers.AtLeftTopIn(bar, parent, current.x, current.y)
 	end
 	if current.slidepercentage then

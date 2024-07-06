@@ -195,8 +195,7 @@ function CreateSkirmishScreen(victory, showCampaign, operationVictoryTable)
             -- no layout info for these sub pages, so position manually
             LayoutHelpers.AtLeftTopIn(gridGroup, currentPage, 43, 102)
 
-            gridGroup.Width:Set(743)
-            gridGroup.Height:Set(257)
+            LayoutHelpers.SetDimensions(gridGroup, 743, 257)
 
             local gridBG = Bitmap(gridGroup, UIUtil.SkinnableFile('/scx_menu/score-victory-defeat/totals-back_bmp.dds'))
 
@@ -218,8 +217,7 @@ function CreateSkirmishScreen(victory, showCampaign, operationVictoryTable)
             
             local playerText = MultiLineText(gridBG, UIUtil.bodyFont, 16, UIUtil.fontColor)
 
-            playerText.Width:Set(250)
-            playerText.Height:Set(35)
+            LayoutHelpers.SetDimensions(playerText, 250, 35)
 
             LayoutHelpers.AtLeftTopIn(playerText, gridBG, labelXPos.icon + 5, 12)   -- note this is at icon as there is none in the label
 
@@ -256,7 +254,7 @@ function CreateSkirmishScreen(victory, showCampaign, operationVictoryTable)
                 sortButtons[index].label[1] = UIUtil.CreateText(sortButtons[index].checkbox, '', 11, UIUtil.bodyFont)
                 sortButtons[index].label[1]:DisableHitTest()
                 
-                local wrappedText = import('/lua/maui/text.lua').WrapText( LOC(colName.title), 80, function(text) return sortButtons[Index].label[1]:GetStringAdvance(text) end)
+                local wrappedText = import('/lua/maui/text.lua').WrapText( LOC(colName.title), LayoutHelpers.ScaleNumber(80), function(text) return sortButtons[Index].label[1]:GetStringAdvance(text) end)
 
                 if table.getn(wrappedText) > 1 then
 
@@ -332,8 +330,7 @@ function CreateSkirmishScreen(victory, showCampaign, operationVictoryTable)
                     curGrid[index] = {}
                     
                     curGrid[index].color = Bitmap(armyBg)
-                    curGrid[index].color.Width:Set(21)
-                    curGrid[index].color.Height:Set(20)
+                    LayoutHelpers.SetDimensions(curGrid[index].color, 21, 20)
                     LayoutHelpers.AtLeftTopIn(curGrid[index].color, armyBg, labelXPos.icon, 6)
     
                     curGrid[index].factionIcon = Bitmap(curGrid[index].color)
@@ -342,7 +339,7 @@ function CreateSkirmishScreen(victory, showCampaign, operationVictoryTable)
                     local INDEX = index
                     curGrid[index].playerName = UIUtil.CreateText(armyBg, "", 16, UIUtil.bodyFont)
                     LayoutHelpers.AtLeftTopIn(curGrid[index].playerName, armyBg, labelXPos.player, 6)
-                    curGrid[index].playerName.Right:Set(function() return curGrid[INDEX].playerName.Left() + 220 end)
+                    LayoutHelpers.AnchorToLeft(curGrid[index].playerName, curGrid[INDEX].playerName, -220)
                     curGrid[index].playerName:SetClipToWidth(true)
                     
                     --curGrid[index].teamName = UIUtil.CreateText(armyBg, "", 16, UIUtil.bodyFont)
@@ -410,7 +407,7 @@ function CreateSkirmishScreen(victory, showCampaign, operationVictoryTable)
             end
 
             typeGroup.Width:Set(width)
-            typeGroup.Height:Set(1)
+            LayoutHelpers.SetHeight(typeGroup, 1)
 
             LayoutHelpers.AtTopIn(typeGroup, gridGroup, 316)
             LayoutHelpers.AtHorizontalCenterIn(typeGroup, bg)
@@ -484,8 +481,7 @@ function CreateSkirmishScreen(victory, showCampaign, operationVictoryTable)
             #LayoutHelpers.RelativeTo(curButton, bg, 
             #    UIUtil.SkinnableFile('/dialogs/score-victory-defeat/score-victory-defeat_layout.lua'), 
             #    'l_general_btn', 'panel_bmp', -10)
-            curButton.Left:Set(function() return bg.Left() + 17 end)
-            curButton.Top:Set(function() return bg.Top() + 57 end)
+            LayoutHelpers.AtLeftTopIn(curButton, bg, 17, 57)
             defaultTab = curButton
         end
 
