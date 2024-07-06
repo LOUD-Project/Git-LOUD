@@ -54,7 +54,6 @@ function SetLayout()
     controls.rightBracketMid.Top:Set(controls.rightBracketMin.Bottom)
     controls.rightBracketMid.Bottom:Set(controls.rightBracketMax.Top)
 	LayoutHelpers.AtRightIn(controls.rightBracketMid, controls.rightBracketMin, 7)
-    controls.rightBracketMid.Right:Set(function() return controls.rightBracketMin.Right() - 7 end)
     
     --LOG('>>>> HUSSAR: score_mini texture panel... ')
     --controls.bgTop:SetTexture(UIUtil.UIFile('/game/score-panel/panel-score_bmp_t.dds'))
