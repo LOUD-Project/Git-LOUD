@@ -1,3 +1,12 @@
+### Release 05-07-2024
+
+LUA 7.06
+
+- numerous refinements to all 4 pathfinding modules to improve threat sensitivity
+- a mumber of 'skirmish' platoons had LandRatio caps installed that turn them off when LandRatio is 2 to 1 or better
+- some threat based conditions have been tapered to shorter distance
+
+
 ### Release 04-07-2024
 
 LUA 7.05
