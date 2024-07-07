@@ -254,8 +254,8 @@ function create_graph_bar(parent,name,x1,y1,x2,y2,data_previous)
 	space_bg_height=math.max((y2-y1)*(row_nbr-1)*.1,35*(row_nbr-1))
 	bg_height=(y2-y1-space_bg_height)/row_nbr
 	
-	space_between_columns=math.floor(30/player_nbr_by_row)
-	space_bg_width=space_between_columns*7
+	space_between_columns=math.floor(LayoutHelpers.ScaleNumber(30)/player_nbr_by_row)
+	space_bg_width=space_between_columns*LayoutHelpers.ScaleNumber(7)
 
 	local bg_width=math.min((x2-x1-space_bg_width*(player_nbr_by_row-1))/player_nbr_by_row,LayoutHelpers.ScaleNumber(400))
 	local x_center=math.floor((x2-x1-player_nbr_by_row*bg_width - (player_nbr_by_row-1)*space_bg_width)/2)
@@ -269,10 +269,10 @@ function create_graph_bar(parent,name,x1,y1,x2,y2,data_previous)
 		p=p+1
 		if row==0 and row_nbr>1 and p>(player_nbr/row_nbr) then p=1 row=row+1 end
 		graphic[play.index].bg=Bitmap(grp)
-		graphic[play.index].bg.Left:Set(parent.Left() +x1+x_center +(p-1)*(space_bg_width+bg_width))
-		graphic[play.index].bg.Top:Set(parent.Top() +y1 +(bg_height+space_bg_height)*row)
-		graphic[play.index].bg.Right:Set( graphic[play.index].bg.Left() +bg_width)
-		graphic[play.index].bg.Bottom:Set(graphic[play.index].bg.Top()+bg_height)
+		graphic[play.index].bg.Left:Set(parent.Left() + x1 + x_center +(p-1)*(space_bg_width+bg_width))
+		graphic[play.index].bg.Top:Set(parent.Top() + y1 + (bg_height+space_bg_height)*row)
+		graphic[play.index].bg.Right:Set( graphic[play.index].bg.Left() + bg_width)
+		graphic[play.index].bg.Bottom:Set(graphic[play.index].bg.Top() + bg_height)
 		graphic[play.index].bg:SetSolidColor(play.color)
 --TEST		graphic[play.index].bg:SetAlpha(.65)
 		graphic[play.index].bg:SetAlpha(.08)
@@ -390,12 +390,12 @@ function create_graph_bar(parent,name,x1,y1,x2,y2,data_previous)
 			end
 	--[[		if columns.label1 !="" and columns.label1!=nil then
 				graphic[play.index][columns_num].label1=UIUtil.CreateText(graphic[tmp_index][columns_num].grp,columns.label1, 12-player_nbr/2, UIUtil.titleFont)
-				graphic[play.index][columns_num].label1.Top:Set(value[columns_num].bottom+20)
+				graphic[play.index][columns_num].label1.Top:Set(value[columns_num].bottom+LayoutHelpers.ScaleNumber(20))
 				graphic[play.index][columns_num].label1.Left:Set(value[columns_num].left+columns_width/2-graphic[play.index][columns_num].label1.Width()/2)
 			end
 			if columns.label2!="" and columns.label2!=nil then
 					graphic[play.index][columns_num].label2=UIUtil.CreateText(graphic[tmp_index][columns_num].grp,columns.label2, 12-player_nbr/2, UIUtil.titleFont)
-					graphic[play.index][columns_num].label2.Top:Set(value[columns_num].bottom+32)
+					graphic[play.index][columns_num].label2.Top:Set(value[columns_num].bottom+LayoutHelpers.ScaleNumber(32))
 					graphic[play.index][columns_num].label2.Left:Set(value[columns_num].left+columns_width/2-graphic[play.index][columns_num].label2.Width()/2)
 			end--]]
 			for k,part in columns.data do
@@ -426,14 +426,14 @@ function create_graph_bar(parent,name,x1,y1,x2,y2,data_previous)
 					graphic[play.index][columns_num][part_num].bmp.HandleEvent = function(self, event)--OnClick = function(self, modifiers)
 						--show value under mouse
 						local posX = function() return event.MouseX end -- - bg.Left() end
-						local posY = function() return event.MouseY  end-- - bg.Top() end
+						local posY = function() return event.MouseY end -- - bg.Top() end
 						if chartInfoText != false then
 							chartInfoText:Destroy()
 							chartInfoText = false
 						end
 					
 						local  value = math.floor(return_value(0,player,path) + 0.5)
-						chartInfoText = UIUtil.CreateText(self,value, 14, UIUtil.titleFont)		
+						chartInfoText = UIUtil.CreateText(self, value, 14, UIUtil.titleFont)		
 						chartInfoText.Left:Set(function() return posX()-(chartInfoText.Width()/2) end)
 						chartInfoText.Bottom:Set(function() return posY()-LayoutHelpers.ScaleNumber(7) end)
 						chartInfoText.Depth:Set(GetFrame(0):GetTopmostDepth() + 1)
@@ -448,12 +448,12 @@ function create_graph_bar(parent,name,x1,y1,x2,y2,data_previous)
 						infoPopup:SetSolidColor('black')
 						infoPopup:SetAlpha(.6)	
 						infoPopupbg.Depth:Set(function() return chartInfoText.Depth()-1 end)
-				
-						infoPopup.Width:Set(function() return chartInfoText.Width() +LayoutHelpers.ScaleNumber(8) end)
-						infoPopup.Height:Set(function() return chartInfoText.Height()+LayoutHelpers.ScaleNumber(8) end)
+
+						infoPopup.Width:Set(function() return chartInfoText.Width() + LayoutHelpers.ScaleNumber(8) end)
+						infoPopup.Height:Set(function() return chartInfoText.Height() + LayoutHelpers.ScaleNumber(8) end)
 						LayoutHelpers.AtLeftBottomIn(infoPopup, chartInfoText, -4, -4)
-						infoPopupbg.Width:Set(function() return infoPopup.Width()+LayoutHelpers.ScaleNumber(2) end)
-						infoPopupbg.Height:Set(function() return infoPopup.Height()+LayoutHelpers.ScaleNumber(2) end)
+						infoPopupbg.Width:Set(function() return infoPopup.Width() + LayoutHelpers.ScaleNumber(2) end)
+						infoPopupbg.Height:Set(function() return infoPopup.Height() + LayoutHelpers.ScaleNumber(2) end)
 						LayoutHelpers.AtLeftBottomIn(infoPopupbg, infoPopup, -1, -1)
 
 						if event.Type == 'ButtonPress' then
@@ -962,7 +962,7 @@ if true then
 		--displays the value when the mouse is over a graph
 		bg.HandleEvent = function(self, event)
 			local posX = function() return event.MouseX end -- - bg.Left() end
-			local posY = function() return event.MouseY  end-- - bg.Top() end
+			local posY = function() return event.MouseY end -- - bg.Top() end
 			if infoText != false then
 				infoText:Destroy()
 				infoText = false

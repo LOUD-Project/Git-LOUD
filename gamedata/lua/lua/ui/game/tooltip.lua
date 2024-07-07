@@ -89,7 +89,7 @@ function CreateMouseoverDisplay(parent, ID, delay, extendedBool, hotkeyID)
     if extendedBool then
         local Frame = GetFrame(0)
         if parent.Top() - mouseoverDisplay.Height() < 0 then
-            mouseoverDisplay.Top:Set(function() return parent.Bottom() + 10 end)
+			LayoutHelpers.AnchorToBottom(mouseoverDisplay, parent, 10)
         else
             mouseoverDisplay.Bottom:Set(parent.Top)
         end
@@ -104,9 +104,9 @@ function CreateMouseoverDisplay(parent, ID, delay, extendedBool, hotkeyID)
         local Frame = GetFrame(0)
         mouseoverDisplay.Bottom:Set(parent.Top)
         if (parent.Left() + (parent.Width() / 2)) - (mouseoverDisplay.Width() / 2) < 0 then
-            mouseoverDisplay.Left:Set(4)
+            mouseoverDisplay.Left:Set(LayoutHelpers.ScaleNumber(4))
         elseif (parent.Right() - (parent.Width() / 2)) + (mouseoverDisplay.Width() / 2) > Frame.Right() then
-            mouseoverDisplay.Right:Set(function() return Frame.Right() - 4 end)
+			LayoutHelpers.AtRightIn(mouseoverDisplay, Frame, 4)
         else
             LayoutHelpers.AtHorizontalCenterIn(mouseoverDisplay, parent)
         end

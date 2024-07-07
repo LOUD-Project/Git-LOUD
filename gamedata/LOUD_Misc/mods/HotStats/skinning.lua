@@ -240,35 +240,35 @@ function Set_Group_Texture(list,object,parent,path, grouptype, offsetTable, cent
 		LayoutHelpers.AtBottomIn(object.bottomright,object, offsetTable.Bottom)
 		
 		--borders
-		object.left.Top:Set(function() return object.topleft.Bottom() end)
-		object.left.Bottom:Set(function() return object.bottomleft.Top() end)
-		object.left.Left:Set(function() return object.Left() end)
-		object.left.Right:Set(function() return object.Left() + object.left.BitmapWidth() end)
+		object.left.Top:Set(object.topleft.Bottom)
+		object.left.Bottom:Set(object.bottomleft.Top)
+		object.left.Left:Set(object.Left)
+		LayoutHelpers.AnchorToLeft(object.left, object, -object.left.BitmapWidth())
 		if list.Tiled != nil and list.Tiled then object.left:SetTiled(true) end
 		
-		object.bottom.Top:Set(function() return object.Bottom() - object.bottom.BitmapHeight() end)
-		object.bottom.Bottom:Set(function() return object.Bottom() end)
-		object.bottom.Left:Set(function() return object.bottomleft.Right() end)
-		object.bottom.Right:Set(function() return object.bottomright.Left() end)
+        LayoutHelpers.AnchorToBottom(object.bottom, object, -object.bottom.BitmapHeight())
+		object.bottom.Bottom:Set(object.Bottom)
+		object.bottom.Left:Set(object.bottomleft.Right)
+		object.bottom.Right:Set(object.bottomright.Left)
 		if list.Tiled != nil and list.Tiled then object.bottom:SetTiled(true) end
 		
-		object.top.Top:Set(function() return object.Top() end)
-		object.top.Bottom:Set(function() return object.Top() + object.top.BitmapHeight() end)
-		object.top.Left:Set(function() return object.topleft.Right() end)
-		object.top.Right:Set(function() return object.topright.Left() end)
+		object.top.Top:Set(object.Top)
+		LayoutHelpers.AnchorToTop(object.top, object, -object.top.BitmapHeight())
+		object.top.Left:Set(object.topleft.Right)
+		object.top.Right:Set(object.topright.Left)
 		if list.Tiled != nil and list.Tiled then object.top:SetTiled(true) end
 		
-		object.right.Top:Set(function() return object.topright.Bottom() end)
-		object.right.Bottom:Set(function() return object.bottomright.Top() end)
-		object.right.Left:Set(function() return object.Right() - object.right.BitmapWidth() end)
-		object.right.Right:Set(function() return object.Right() end)
+		object.right.Top:Set(object.topright.Bottom)
+		object.right.Bottom:Set(object.bottomright.Top)
+		LayoutHelpers.AnchorToRight(object.right, object, -object.right.BitmapWidth())
+		object.right.Right:Set(object.Right)
 		if list.Tiled != nil and list.Tiled then object.right:SetTiled(true) end
 		
 		--center
-		object.middle.Left:Set(function() return object.left.Right() end)
-		object.middle.Right:Set(function() return object.right.Left() end)
-		object.middle.Top:Set(function() return object.top.Bottom() end)
-		object.middle.Bottom:Set(function() return object.bottom.Top() end)
+		object.middle.Left:Set(object.left.Right)
+		object.middle.Right:Set(object.right.Left)
+		object.middle.Top:Set(object.top.Bottom)
+		object.middle.Bottom:Set(object.bottom.Top)
 		if list.Tiled != nil and list.Tiled then object.middle:SetTiled(true) end
 		
 		object.Width:Set(function() return object.right.Right()-object.left.Left() end)
