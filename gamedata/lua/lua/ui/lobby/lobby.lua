@@ -302,8 +302,8 @@ local function GetSlotMenuTables(stateKey, hostKey, noais)
     for index, key in slotMenuData[stateKey][hostKey] do
 	
         if key == 'ailist' and not noais then
-		
-            local aitypes = import('/lua/ui/lobby/aitypes.lua').aitypes
+
+            local aitypes = import('/lua/enhancedlobby.lua').GetAIList()
 			
             for aiindex, aidata in aitypes do
                 table.insert(keys, aidata.key)
