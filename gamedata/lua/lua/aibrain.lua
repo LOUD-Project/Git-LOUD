@@ -973,7 +973,6 @@ AIBrain = Class(moho.aibrain_methods) {
 			-- go get and set a plan for MAIN
 			if self:IsOpponentAIRunning() then
 
-				-- start the plan
 				ForkThread( import('/lua/ai/aiarchetype-managerloader.lua').ExecutePlan, self )
 
                 -- Subscribe to ACT if .Adaptive dictates such
