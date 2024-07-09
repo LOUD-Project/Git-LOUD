@@ -73,8 +73,10 @@ DefaultProjectileWeapon = Class(Weapon) {
 	
         WeaponOnCreate(self)
 
+        self.HadTarget = false
         self.WeaponCanFire = true
         self.WeaponIsEnabled = false
+
         self.CurrentRackNumber = 1
         
         local bp = self.bp
@@ -103,17 +105,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 			
             self.RackRecoilReturnSpeed = bp.RackRecoilReturnSpeed or LOUDABS( dist / (( 1 / bp.RateOfFire ) - (bp.MuzzleChargeDelay or 0))) * 1.25
         end
---[[		
-        local NumMuzzles = 0
-        local RackBones = 0
-		
-        for _, rv in bp.RackBones do
-            NumMuzzles = NumMuzzles + LOUDGETN(rv.MuzzleBones or 0)
-            RackBones = RackBones + 1
-        end
-		
-        NumMuzzles = NumMuzzles / RackBones) or 1
---]]
+
         if bp.EnergyChargeForFirstShot == false then
             self.WeaponCharged = true
         end
@@ -657,25 +649,26 @@ DefaultProjectileWeapon = Class(Weapon) {
     -- General State-less event handling
     OnLostTarget = function(self)
         
-            local bp = self.bp
-            
+        if self.WeaponIsEnabled then
+
             local target = WeaponHasTarget(self)
-            
+
             if not target then
         
                 Weapon.OnLostTarget(self)
 
             end
-            
-            if bp.WeaponUnpacks then
-            
-                LOUDSTATE(self, self.WeaponPackingState)
-                
-            else
 
+            if bp.WeaponUnpacks then
+
+                LOUDSTATE(self, self.WeaponPackingState)
+
+            else
                 LOUDSTATE(self, self.IdleState)
-                
+
             end
+
+        end
 
     end,
 
@@ -768,8 +761,7 @@ DefaultProjectileWeapon = Class(Weapon) {
         end
         
         Weapon.OnEnableWeapon(self)
-        
-        LOUDSTATE(self, self.IdleState)
+
     end,
 
 
@@ -1896,6 +1888,29 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
         end,
     },
 
+    -- beam weapons will return to Idle State if not marked as 'charged'
+    RackSalvoFireReadyState = State (DefaultProjectileWeapon.RackSalvoFireReadyState) {
+
+        Main = function(self)
+
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon BEAM Fire Ready State "..repr(self.bp.Label).." at "..GetGameTick() )
+			end
+
+            -- this had to have FirstShot included for backwards compatability
+            if not self.WeaponCharged and not self.FirstShot then
+
+                self:PlayFxBeamEnd()
+
+                LOUDSTATE(self, self.IdleState)
+
+                return
+            end
+
+            DefaultProjectileWeapon.RackSalvoFireReadyState.Main(self)
+        end,
+    },
+
     WeaponPackingState = State (DefaultProjectileWeapon.WeaponPackingState) {
 	
         Main = function(self)
@@ -1993,7 +2008,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
         if ScenarioInfo.WeaponStateDialog then
             LOG("*AI DEBUG DefaultWeapon BEAM OnHaltFire "..repr(self.bp.Label).." at "..GetGameTick() )
         end
-			    
+
         for _,v in self.Beams do
 
             if not v.Beam:IsEnabled() then
@@ -2004,27 +2019,6 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
         end
     end,
 
-    -- beam weapons will return to Idle State if not marked as 'charged'
-    RackSalvoFireReadyState = State (DefaultProjectileWeapon.RackSalvoFireReadyState) {
 
-        Main = function(self)
-
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon BEAM Fire Ready State "..repr(self.bp.Label).." at "..GetGameTick() )
-			end
-
-            -- this had to have FirstShot included for backwards compatability
-            if not self.WeaponCharged and not self.FirstShot then
-
-                self:PlayFxBeamEnd()
-
-                LOUDSTATE(self, self.IdleState)
-
-                return
-            end
-
-            DefaultProjectileWeapon.RackSalvoFireReadyState.Main(self)
-        end,
-    },
 }
 
