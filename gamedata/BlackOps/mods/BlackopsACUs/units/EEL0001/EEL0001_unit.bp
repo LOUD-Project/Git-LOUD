@@ -2007,7 +2007,7 @@ UnitBlueprint {
 
             MuzzleVelocity = 6,
 			
-            ProjectileId = '/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp',
+            ProjectileId = '/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_proj.bp',
             ProjectileLifetime = 7.5,
 
             RackBones = {
@@ -2055,7 +2055,7 @@ UnitBlueprint {
 
             MuzzleVelocity = 6,
 			
-            ProjectileId = '/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp',
+            ProjectileId = '/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_proj.bp',
             ProjectileLifetime = 9,
 
             RackBones = {
@@ -2103,7 +2103,7 @@ UnitBlueprint {
 
             MuzzleVelocity = 7,
 			
-            ProjectileId = '/projectiles/TANAnglerTorpedo02/TANAnglerTorpedo02_proj.bp',
+            ProjectileId = '/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_proj.bp',
             ProjectileLifetime = 9,
 
             RackBones = {
