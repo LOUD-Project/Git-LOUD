@@ -1007,9 +1007,9 @@ AIBrain = Class(moho.aibrain_methods) {
                     -- start the plan
                     ForkThread( import('/lua/ai/aiarchetype-managerloader.lua').ExecutePlan, self )
 
-                    -- Subscribe to ACT if .Adaptive dictates such
-                    import('/lua/loudutilities.lua').SubscribeToACT(self)
                 end
+                -- Subscribe to ACT if .Adaptive dictates such
+                import('/lua/loudutilities.lua').SubscribeToACT(self)
 
             else
 
