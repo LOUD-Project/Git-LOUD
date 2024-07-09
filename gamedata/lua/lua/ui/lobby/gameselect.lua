@@ -33,7 +33,7 @@ local MapUtil = import('/lua/ui/maputil.lua')
 local scenarios = MapUtil.EnumerateSkirmishScenarios()
 local gameOptions = {}
 
-local lobbyOptions = import('/lua/ui/lobby/lobbyoptions.lua')
+local lobbyOptions = import('/lua/ui/lobby/lobbyOptions.lua')
 
 gameOptions[1] = lobbyOptions.teamOptions
 gameOptions[2] = lobbyOptions.globalOpts
@@ -166,8 +166,7 @@ function CreateEditField(parent, width, maxChars)
     control:SetForegroundColor(UIUtil.fontColor)
     control:SetHighlightForegroundColor(UIUtil.highlightColor)
     control:SetHighlightBackgroundColor("880085EF")
-    LayoutHelpers.SetHeight(control, 19)
-    control.Width:Set(width)
+    LayoutHelpers.SetDimensions(control, width, 19)
     control:SetFont(UIUtil.bodyFont, 16)
 	
     if maxChars then
@@ -542,7 +541,7 @@ function CreateUI(over, exitBehavior, useSteam)
 		
         btn.arrow:Hide()
         
-        btn.Width:Set(data.width)
+		LayoutHelpers.SetWidth(btn, data.width)
         
         btn._checked = false
         

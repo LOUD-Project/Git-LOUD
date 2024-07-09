@@ -3844,7 +3844,7 @@ function CreateUI(maxPlayers, useSteam)
 		
 		GUI.fillOpenCombo = Combo(GUI.observerPanel, 14, 10, false, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
 		LayoutHelpers.CenteredRightOf(GUI.fillOpenCombo, GUI.fillOpenLabel, 2)
-		GUI.fillOpenCombo.Width:Set(90)
+		LayoutHelpers.SetWidth(GUI.fillOpenCombo, 90)
 		Tooltip.AddControlTooltip(GUI.fillOpenCombo, 'lob_fill_combo')
 		
         GUI.fillOpenBtn = UIUtil.CreateButtonStd(GUI.observerPanel, '/lobby/lan-game-lobby/smalltoggle', "Add AIs", 10, 0)

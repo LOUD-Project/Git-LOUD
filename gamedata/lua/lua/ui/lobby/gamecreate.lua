@@ -87,7 +87,7 @@ function CreateUI(playerName, over, exitBehavior, useSteam)
 
 		autoPort = UIUtil.CreateCheckboxStd(panel, '/dialogs/check-box_btn/radio')
 		autoPort.Right:Set(portEdit.Right)
-		LayoutHelpers.AnchorAtTop(autoPort, portEdit.Top, 5)
+		LayoutHelpers.AnchorToTop(autoPort, portEdit, 5)
 		
 		autoPort.OnCheck = function(self, checked)
 			if checked then
