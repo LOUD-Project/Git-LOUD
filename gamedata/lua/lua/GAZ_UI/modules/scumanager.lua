@@ -72,8 +72,7 @@ function Init()
 	--create the button container
 	buttonGroup = Group(GetFrame(0))
 	LayoutHelpers.AtRightTopIn(buttonGroup, GetFrame(0))
-	buttonGroup.Height:Set(10)
-	buttonGroup.Width:Set(10)
+	LayoutHelpers.SetDimensions(buttonGroup, 10, 10)
 	buttonGroup.Depth:Set(500)
 	buttonGroup:DisableHitTest()
     
@@ -151,8 +150,7 @@ function ConfigureUpgrades()
     
 	LayoutHelpers.AtLeftTopIn(buttonGrid, window, 10, 30)
     
-	buttonGrid.Right:Set(function() return window.Right() - 10 end)
-	buttonGrid.Bottom:Set(function() return window.Bottom() - 32 end)
+	LayoutHelpers.AtRightBottomIn(buttonGrid, window, 10, 32)
 	buttonGrid.Depth:Set(window.Depth() + 10)
 
 	local factionChooser = Combo(window, 14, 4, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
@@ -165,7 +163,7 @@ function ConfigureUpgrades()
 	
 	LayoutHelpers.AtLeftTopIn(factionChooser, window, 6, 6)
     
-	factionChooser.Width:Set(100)
+	LayoutHelpers.SetWidth(factionChooser, 100)
 	factionChooser:AddItems({'Aeon', 'Cybran', 'UEF', 'Seraphim'})
     
 	factionChooser.OnClick = function(self, index, text)
@@ -411,11 +409,10 @@ function CreateEnhancementButton(parent, enhancementName, enhancement, bpid, siz
             "UI_Enhancements_Click", "UI_Enhancements_Rollover")
     end
     
-    button.Width:Set(size)
-    button.Height:Set(size)
+	LayoutHelpers.SetDimensions(button, size, size)
 
     button.OnClick = function(self, modifiers)
-		if size == 46 then
+		if size == LayoutHelpers.ScaleNumber(46) then
 			--if it's a main button, find the last free queue space and add the enhancement to the queue
 			local nextfree = false
 			for i, space in	parent.QueuedUpgrades do
@@ -629,8 +626,7 @@ function PlaceMarker(upgradeType, position)
 	markerTable[index] = Bitmap(GetFrame(0))
 	markerTable[index]:SetTexture('/lua/gaz_ui/textures/scumanager/'..upgradeType..'_up.dds')
 	markerTable[index].Depth:Set(100)
-	markerTable[index].Left:Set(100)
-	markerTable[index].Top:Set(100)
+	LayoutHelpers.AtLeftTopIn(markerTable[index], 100, 100)
 	markerTable[index].Index = index
 	markerTable[index].position = position
 	markerTable[index].upgradeType = upgradeType
