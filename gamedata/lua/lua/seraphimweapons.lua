@@ -650,6 +650,8 @@ SMeleeBladeBeamWeapon = Class(Weapon) {
         end
 
         BareBonesWeapon.OnCreate(self)
+        
+        --DefaultProjectileWeapon.OnCreate(self)
     end,
 
     SetWeaponEnabled = function(self)

@@ -650,7 +650,7 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
         end
 	end
     
-    LOG("*AI DEBUG "..aiBrain.Nickname.." finds no NAVALAREA ")
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." finds no NAVALAREA ")
 
 	return false, false
 end
@@ -785,7 +785,7 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
         local catcheck = LOUDPARSE(category)
         
         local PlatoonGenerateSafePathToLOUD = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD
-        local PrimarySeaAttackBasePosition = aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position 
+        --local PrimarySeaAttackBasePosition = aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position 
         
         local position
 		local positions = {}
@@ -802,9 +802,9 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
 
             position = v.Position
             
-			-- must be able to path from current Sea Primary to new position
+			-- must be able to path from current Primary to new position
             -- this prevents the AI from trying to locate naval DPs on another body of water
-			path, reason = PlatoonGenerateSafePathToLOUD( aiBrain, 'AttackPlannerWater', 'Water', PrimarySeaAttackBasePosition, position, 99999, 250 )
+			path, reason = PlatoonGenerateSafePathToLOUD( aiBrain, 'AttackPlanner', 'Water', test_position, position, 99999, 250 )
 
 			if not path then
 				continue

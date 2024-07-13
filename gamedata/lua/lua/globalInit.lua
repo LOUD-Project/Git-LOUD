@@ -35,12 +35,6 @@ doscript '/lua/system/trashbag.lua'
 LOG("*AI DEBUG     Localization begins")
 doscript '/lua/system/Localization.lua'
 
---LOG("*AI DEBUG     Creating MULTIEVENT Class")
---doscript '/lua/system/MultiEvent.lua'
-
---LOG("*AI DEBUG     Loading COLLAPSE functions")
---doscript '/lua/system/collapse.lua'
-
 
 -- Classes exported from the engine are in the 'moho' table. But they aren't full
 -- classes yet, just lists of exported methods and base classes. Turn them into

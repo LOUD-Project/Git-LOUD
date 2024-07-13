@@ -3694,7 +3694,8 @@ function PathGeneratorLand(aiBrain)
 	local IMAPRadius    = ScenarioInfo.IMAPSize * .5
     local IMAPSize      = ScenarioInfo.IMAPSize
 
-	local data      = false	
+	local data      = false
+    local calctable = {}
 	local queue     = {}
 	local closed    = {}
     
@@ -3737,7 +3738,7 @@ function PathGeneratorLand(aiBrain)
         local LOUDSORT      = LOUDSORT
         local VDist3        = VDist3
 
-        local Cost, newnode, Node, Pathcount, position, queueitem, testposition, Threat	
+        local Cost, newnode, Node, Pathcount, position, queueitem, testposition, testpositionlength, Threat	
 
 		queueitem = LOUDREMOVE(queue, 1)
 
@@ -3774,6 +3775,8 @@ function PathGeneratorLand(aiBrain)
 				return queueitem.path, queueitem.length, true, queueitem.cost
 			end
             
+            testpositionlength = LOUDFLOOR(VDist3( position, testposition ))
+            
             threat = 0
             
             if Threat < 99999 then
@@ -3792,12 +3795,31 @@ function PathGeneratorLand(aiBrain)
                 elseif threat > maxthreat then
                     threat = (threat/maxthreat)
                 end
+
+                -- adjust threat for the length of the step compared to size of the IMAP block
+                if not calctable[testpositionlength] then 
+                    calctable[testpositionlength] = LOUDSQRT(testpositionlength/IMAPSize)
+                end
+
+                stepcostadjust = calctable[testpositionlength]
+                
+                threat = threat * stepcostadjust
                 
             end
 
 			fork = { cost = 0, goaldist = 0, length = 0, Node = graph[newnode], path = LOUDCOPY(queueitem.path), pathcount = 0 }
+            
+            stepcostadjust = 5
+            
+            if threat > 0 then 
+                stepcostadjust = stepcostadjust + 10
+                
+                if threat > (Threat*.5) then
+                    stepcostadjust = stepcostadjust + 10
+                end
+            end
 
-			fork.cost = Cost + threat + 10
+			fork.cost = Cost + threat + stepcostadjust
 			
 			fork.goaldist = VDist3( destination, testposition )
 
