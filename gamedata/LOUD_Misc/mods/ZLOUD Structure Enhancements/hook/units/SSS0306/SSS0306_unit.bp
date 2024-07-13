@@ -1,0 +1,13 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "SSS0306",
+
+	Physics = {
+    
+        BuildOnLayerCaps = {
+            LAYER_Land = true,
+            LAYER_Water = true,
+        },
+
+	},
+}

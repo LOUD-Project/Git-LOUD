@@ -73,10 +73,7 @@ UnitBlueprint {
 
         AnimationDeath = {
             {
-                Animation = '/units/xsb2205/xsb2205_Adeath.sca',
-                AnimationRateMax = 1,
-                AnimationRateMin = 1,
-                Weight = 1,
+                Animation = '/units/xsb2205/xsb2205_Adeath.sca', AnimationRateMax = 1, AnimationRateMin = 1, Weight = 1,
             },
         },
 
@@ -168,7 +165,14 @@ UnitBlueprint {
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.1,
     LifeBarSize = 1.6,
-    Physics = {        Elevation = 0.25,
+
+    Physics = {
+    
+        BuildOnLayerCaps = {
+            LAYER_Land = true,
+            LAYER_Water = true,
+        },
+                Elevation = 0.25,
 
         MaxAcceleration = 0,
         MaxBrake = 2,
