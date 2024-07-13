@@ -4539,9 +4539,9 @@ MineStructureUnit = Class(StructureUnit) {
                     end
                 end
                     
-                --if ScenarioInfo.ProjectileDialog then
+                if ScenarioInfo.ProjectileDialog then
                     LOG("*AI DEBUG SuicideWeapon OnWeaponFired "..repr(bp.Label).." at "..GetGameTick() )
-                --end
+                end
 
                 -- Do decal splats
                 if not self.SplatTexture then
