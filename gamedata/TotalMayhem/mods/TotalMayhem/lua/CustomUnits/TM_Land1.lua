@@ -4,7 +4,7 @@ UnitList = {
         UEF = {'BRNT3ABB', 12},		    -- Ironfist
         Aeon = {'BROT3HM', 12},		    -- Mogul 
         Cybran = {'BRMT3BM2', 12},	    -- Dervish
-		Seraphim = {'BRPT3BOT', 12},    -- Thaam-Thuum
+		Seraphim = {'BRPT3BT', 35},     -- Hethaamah
     },
    
     T3LandArtillery = {
@@ -15,7 +15,7 @@ UnitList = {
         UEF = {'BRNT3ABB', 12},       	-- Ironfist
         Aeon = {'BROT3HM', 12},		    -- Mogul	
         Cybran = {'BRMT3BM2', 12},  	-- Dervish
-		Seraphim = {'BRPT3BOT', 18},	-- Thaam-Thuum
+		Seraphim = {'BRPT3BOT', 12},	-- Thamm-Thuum
     },
 	
 	T3Amphibious = {
