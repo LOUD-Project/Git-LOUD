@@ -159,54 +159,40 @@ local fillSlotsSet = false
 local teamSetting = false
 
 local slotMenuStrings = {
-    open = "<LOC lobui_0219>Open",
-    close = "<LOC lobui_0220>Close",
-    closed = "<LOC lobui_0221>Closed",
-    occupy = "<LOC lobui_0222>Occupy",
-    pm = "<LOC lobui_0223>Private Message",
-    remove = "<LOC lobui_0224>Remove",
+    open    = "<LOC lobui_0219>Open",
+    close   = "<LOC lobui_0220>Close",
+    closed  = "<LOC lobui_0221>Closed",
+    occupy  = "<LOC lobui_0222>Occupy",
+    pm      = "<LOC lobui_0223>Private Message",
+    remove  = "<LOC lobui_0224>Remove",
 }
 
 local slotMenuData = {
 
     open = {
-        host = {
-            'ailist',
-            'occupy',
-            'close',
-        },
-        client = {
-            'occupy',
-        },
+        host    = { 'ailist','occupy','close' },
+        client  = { 'occupy' },
     },
 	
     closed = {
-        host = {
-            'open',
-        },
-        client = {
-        },
+        host    = { 'open' },
+        client  = {},
     },
 	
     player = {
-        host = {
-            'pm',
-            'remove',
-        },
-        client = {
-            'pm',
-        },
+        host    = { 'pm','remove' },
+        client  = { 'pm' },
     },
 	
     ai = {
-        host = {
-            'ailist',
-            'remove',
-        },
-        client = {
-        },
+        host    = { 'ailist','remove' },
+        client  = {},
     },
 }
+
+--local aitypes = import('/lua/ui/lobby/aitypes.lua').aitypes 
+
+local aitypes = import('/lua/enhancedlobby.lua').GetAIList()    
 
 local function DisplayLEMData()
 
@@ -244,27 +230,13 @@ local function DisplayLEMData()
 end
 
 local commands = {
-
-    {
-        key = 'w',
-        action = ParseWhisper,
-    },
-	
-    {
-        key = 'whisper',
-        action = ParseWhisper,
-    },
-	
-    {
-        key = 'lem',
-        action = DisplayLEMData,
-    },
-	
+    { key = 'w',        action = ParseWhisper    },
+    { key = 'whisper',  action = ParseWhisper    },
+    { key = 'lem',      action = DisplayLEMData  },
 }
 
 local function GetAITooltipList()
 
-    local aitypes = import('/lua/ui/lobby/aitypes.lua').aitypes
     local retTable = {}
 	
     for i, v in aitypes do
@@ -303,8 +275,6 @@ local function GetSlotMenuTables(stateKey, hostKey, noais)
 	
         if key == 'ailist' and not noais then
 
-            local aitypes = import('/lua/enhancedlobby.lua').GetAIList()
-			
             for aiindex, aidata in aitypes do
                 table.insert(keys, aidata.key)
                 table.insert(strings, aidata.name)
@@ -2187,6 +2157,8 @@ function OnModsChanged(modlist)
             selectedMods = table.map(function (m) return m.uid end, Mods.GetGameMods())
             HostUpdateMods()
         end
+        
+        aitypes = import('/lua/enhancedlobby.lua').GetAIList()
 
         UpdateGame()
     end
