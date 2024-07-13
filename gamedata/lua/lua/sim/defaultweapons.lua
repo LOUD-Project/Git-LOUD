@@ -659,7 +659,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 
             end
 
-            if bp.WeaponUnpacks then
+            if self.bp.WeaponUnpacks then
 
                 LOUDSTATE(self, self.WeaponPackingState)
 
@@ -1151,7 +1151,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             local MuzzleSalvoDelay      = bp.MuzzleSalvoDelay
             local MuzzleSalvoSize       = bp.MuzzleSalvoSize
             local NotExclusive          = bp.NotExclusive
-            local RackBones             = bp.RackBones
+            local RackBones             = bp.RackBones or {}
             local unit                  = self.unit
             
             local WeaponStateDialog     = ScenarioInfo.WeaponStateDialog
@@ -1172,7 +1172,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 			
             local numRackFiring = self.CurrentRackNumber
 		
-			local TotalRacksOnWeapon = LOUDGETN(RackBones)
+			local TotalRacksOnWeapon = LOUDGETN(RackBones) or 1
 			
             if bp.RackFireTogether == true then
                 numRackFiring = TotalRacksOnWeapon
@@ -1202,9 +1202,13 @@ DefaultProjectileWeapon = Class(Weapon) {
             -- Most of the time this will only run once per rack, the only time it doesn't is when racks fire together.
             while self.CurrentRackNumber <= numRackFiring and not self.HaltFireOrdered and not unit.Dead do
  			
-                CurrentRackInfo = RackBones[self.CurrentRackNumber]
+                CurrentRackInfo = RackBones[self.CurrentRackNumber] or {}
 
-				MuzzlesToBeFired = LOUDGETN( CurrentRackInfo.MuzzleBones )
+                if CurrentRackInfo.MuzzleBones then
+                    MuzzlesToBeFired = LOUDGETN( CurrentRackInfo.MuzzleBones )
+                else
+                    MuzzlesToBeFired = 1
+                end
 
                 NumMuzzlesFiring = MuzzleSalvoSize or 1
 
@@ -1756,39 +1760,42 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
         
         local counter = 1
 		local beam
-        local bp = self.bp
 
-        for rk, rv in bp.RackBones do
+        local bp                    = self.bp
+        local beamcollisiondelay    = bp.BeamCollisionDelay or 0
+        local label                 = bp.Label
+        
+        if bp.RackBones then
 
-            for mk, mv in rv.MuzzleBones do
+            for rk, rv in bp.RackBones do
 
-                -- create the beam -- initially disabled
-                -- this will start the OnCreate in CollisionBeam
-                beam = self.BeamType{ BeamBone = 0, CollisionCheckInterval = bp.BeamCollisionDelay * 10, OtherBone = mv, Weapon = self }
+                for mk, mv in rv.MuzzleBones do
 
-                beam.CollsionDelay = bp.BeamCollisionDelay >= 0 
-                beam.DamageTable = self.damageTable
-                beam.Label = bp.Label
-                beam.Muzzle = mv
+                    --- create the beam -- initially disabled -- this will start the OnCreate in CollisionBeam
+                    beam = self.BeamType{ BeamBone = 0, CollisionCheckInterval = beamcollisiondelay * 10, OtherBone = mv, Weapon = self }
 
-                beam:Disable()
+                    beam.CollsionDelay  = beamcollisiondelay >= 0 
+                    beam.DamageTable    = self.damageTable
+                    beam.Label          = label
+                    beam.Muzzle         = mv
 
-                if ScenarioInfo.WeaponDialog then
-                    LOG("*AI DEBUG DefaultWeapon BEAM OnCreate for weapon "..repr(bp.Label).." on muzzle "..repr(mv).." for unit "..repr( self.unit.BlueprintID))
+                    beam:Disable()
+
+                    if ScenarioInfo.WeaponDialog then
+                        LOG("*AI DEBUG DefaultWeapon BEAM OnCreate for weapon "..repr(label).." on muzzle "..repr(mv).." for unit "..repr( self.unit.BlueprintID))
+                    end
+
+                    TrashAdd( self.Trash, beam)
+
+                    self.Beams[counter] = { Beam = beam }
+                    counter = counter + 1
                 end
 
-                -- add beam to the weapons trash table
-                TrashAdd( self.Trash, beam)
-
-                -- add a reference to the beam in the weapons Beams table
-                self.Beams[counter] = { Beam = beam }   --, BeamMuzzle = mv }
-                counter = counter + 1
             end
-
-        end
         
-        if ScenarioInfo.WeaponDialog then
-            LOG("*AI DEBUG DefaultWeapon BEAM OnCreate beams table is "..repr(self.Beams) )
+            if ScenarioInfo.WeaponDialog then
+                LOG("*AI DEBUG DefaultWeapon BEAM OnCreate beams table is "..repr(self.Beams) )
+            end
         end
 
     end,
@@ -1833,7 +1840,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
             end
         end
 		
-        if beam:IsEnabled() then return end
+        if not beam or beam:IsEnabled() then return end
 	
         local bp = self.bp
 		
