@@ -55,7 +55,7 @@ UnitBlueprint {
 		
         TightTurnMultiplier = 0,
 		
-        TurnSpeed = 0.65,
+        TurnSpeed = 0.9,
 		
         Winged = true,
     },
@@ -253,7 +253,7 @@ UnitBlueprint {
 			
             BallisticArc = 'RULEUBA_None',
 			
-            BombDropThreshold = 4.6,
+            BombDropThreshold = 20,
 			
             CollideFriendly = false,
 			
@@ -276,7 +276,7 @@ UnitBlueprint {
             },
 			
             FiringRandomness = 3,
-            FiringTolerance = 0.36,
+            FiringTolerance = 6,
 			
 			HeadingArcCenter = 0,
 			HeadingArcRange = 14,
