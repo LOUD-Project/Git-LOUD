@@ -51,7 +51,7 @@ function BottomToTopOpening(group, bottomAnchor, leftAnchor, rightAnchor, topAnc
     group.OnFrame = function(self, elapsedTime)
         if curtop > topAnchor then
             group.Top:Set(curtop)
-            curtop = curtop - 10
+            curtop = curtop - LayoutHelpers.ScaleNumber(10)
         else
             group:SetNeedsFrameUpdate(false)
         end
