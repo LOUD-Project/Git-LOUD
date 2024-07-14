@@ -22,6 +22,7 @@ local consTrue = false
 local focusBool = false
 
 controls = {}
+local unitViewLayout = nil -- Holds the current layout, updated by SetLayout().
 
 function Contract()
     controls.bg:SetNeedsFrameUpdate(false)
@@ -84,144 +85,157 @@ local function FormatTime(seconds)
 end
 
 local statFuncs = {
+	-- combined stats showing mass trend for own units or army icon + nickname for others' units
+	function(info)
+	    local massUsed = math.max(info.massRequested, info.massConsumed)
+	    if info.massProduced > 0 or massUsed > 0 then
+	        local netMass = info.massProduced - massUsed
+	        local absNetMass = math.abs(netMass)
+	        local str
+	        -- Thanks to an engine patch, `GetRolloverInfo` returns floats for economy values:
+	        -- - https://github.com/FAForever/FA-Binary-Patches/pull/75
+	        -- This allows us to show adjacency-affected values better.
+	        if absNetMass < 5 then
+	            str = string.format('%+.3g', netMass)
+	        elseif absNetMass < 10 then
+	            str = string.format('%+.2g', netMass)
+	        elseif absNetMass < 100 then
+	            str = string.format('%+.3g', netMass)
+	        else
+	            str = string.format('%+d', math.round(netMass))
+	        end
 
-    -- for massproduced
-    function(info)
-	
-        if info.massProduced > 0 or info.massRequested > 0 then
-		
-            return string.format('%+d', math.ceil(info.massProduced - info.massRequested)), UIUtil.UIFile('/game/unit_view_icons/mass.dds'), '00000000'
-			
-        elseif info.armyIndex + 1 != GetFocusArmy() and info.kills == 0 and info.shieldRatio <= 0 then
-		
-            local armyData = GetArmiesTable().armiesTable[info.armyIndex+1]
-            local icon = Factions.Factions[armyData.faction+1].Icon
-			
-            if armyData.showScore and icon then
-                return armyData.nickname, UIUtil.UIFile(icon), armyData.color
-            else
-                return false
-            end
-			
-        else
-            return false
-        end
-    end,
-	
-    -- for energyproduced
-    function(info)
-	
-        if info.energyProduced > 0 or info.energyRequested > 0 then
-            return string.format('%+d', math.ceil(info.energyProduced - info.energyRequested))
-        else
-            return false
-        end
-    end,
-	
-    function(info)
-	
-        if info.kills > 0 then
-            return string.format('%d', info.kills)
-        else
-            return false
-        end
-    end,
-	
-    -- for tactical missiles
-    function(info)
-	
-        if info.tacticalSiloMaxStorageCount > 0 or info.nukeSiloMaxStorageCount > 0 then
-		
-            if info.userUnit:IsInCategory('VERIFYMISSILEUI') then
-			
-                local curEnh = EnhancementCommon.GetEnhancements(info.userUnit:GetEntityId())
-				
-                if curEnh then
-				
-                    if curEnh.Back == 'TacticalMissile' then
-					
-                        return string.format('%d / %d', info.tacticalSiloStorageCount, info.tacticalSiloMaxStorageCount), 'tactical'
-						
-                    elseif curEnh.Back == 'TacticalNukeMissile' then
-					
-                        return string.format('%d / %d', info.nukeSiloStorageCount, info.nukeSiloMaxStorageCount), 'strategic'
-						
-                    else
-					
-                        return false
-						
-                    end
-					
-                else
-                    return false
-                end
-				
-            end
-			
-            if info.nukeSiloMaxStorageCount > 0 then
-			
-                return string.format('%d / %d', info.nukeSiloStorageCount, info.nukeSiloMaxStorageCount), 'strategic'
-				
-            else
-			
-                return string.format('%d / %d', info.tacticalSiloStorageCount, info.tacticalSiloMaxStorageCount), 'tactical'
-				
-            end
-			
-        elseif info.userUnit and table.getn(GetAttachedUnitsList({info.userUnit})) > 0 then
-		
-            return string.format('%d', table.getn(GetAttachedUnitsList({info.userUnit}))), 'attached'
-			
-        else
-		
-            return false
-			
-        end
-		
-    end,
-	
-    -- for shields
-    function(info, bp)
-	
-        if info.shieldRatio > 0 then
-		
-            return string.format('%d%%', math.floor(info.shieldRatio*100))
-			
-        else
-		
-            return false
-			
-        end
-		
-    end,
-	
-    -- for fuel 
-    function(info, bp)
-	
-        if info.fuelRatio > -1 then
-		
-            return FormatTime(bp.Physics.FuelUseTime * info.fuelRatio)
-			
-        else
-		
-            return false
-			
-        end
-		
-    end,
+	        return str
+	            , UIUtil.UIFile('/game/unit_view_icons/mass.dds')
+	            , '00000000'
+
+	    elseif info.armyIndex + 1 ~= GetFocusArmy() and info.kills == 0 and info.shieldRatio <= 0 then
+	        local armyData = GetArmiesTable().armiesTable[info.armyIndex + 1]
+	        local icon = Factions.Factions[armyData.faction + 1].Icon
+	        if armyData.showScore and icon then
+	            return string.sub(armyData.nickname, 1, 12), UIUtil.UIFile(icon), armyData.color
+	        else
+	            return false
+	        end
+	    else
+	        return false
+	    end
+	end,
+	-- energy trend
+	function(info)
+	    local energyUsed = math.max(info.energyRequested, info.energyConsumed)
+	    if info.energyProduced > 0 or energyUsed > 0 then
+	        local netEnergy = info.energyProduced - energyUsed
+	        local absNetEnergy = math.abs(netEnergy)
+	        -- Thanks to an engine patch, `GetRolloverInfo` returns floats for economy values:
+	        -- - https://github.com/FAForever/FA-Binary-Patches/pull/75
+	        -- This allows us to show adjacency-affected values better.
+	        if absNetEnergy < 10 then
+	            return string.format('%+.2g', netEnergy)
+	        elseif absNetEnergy < 100 then
+	            return string.format('%+.3g', netEnergy)
+	        else
+	            return string.format('%+d', math.round(netEnergy))
+	        end
+	    else
+	        return false
+	    end
+	end,
+	-- vet xp
+	function(info)
+	    if UnitData[info.entityId].xp ~= nil then
+	        local nextLevel = 0
+	        local veterancyLevels = __blueprints[info.blueprintId].Veteran or veterancyDefaults
+	        for index = 1, 5 do
+	            local i = index
+	            local vet = veterancyLevels[string.format('Level%d', i)]
+
+	            if UnitData[info.entityId].xp < vet then
+	                return string.format('%d / %d', UnitData[info.entityId].xp, vet)
+	            end
+	        end
+
+	        return false
+	    else
+	        return false
+	    end
+
+
+	end,
+	-- kill count
+	function(info)
+	    if info.kills > 0 then
+	        return string.format('%d', info.kills)
+	    else
+	        return false
+	    end
+	end,
+	-- tactical/strategic missile count
+	function(info)
+	    if info.tacticalSiloMaxStorageCount > 0 or info.nukeSiloMaxStorageCount > 0 then
+	        if info.userUnit:IsInCategory('VERIFYMISSILEUI') then
+	            local curEnh = EnhancementCommon.GetEnhancements(info.userUnit:GetEntityId())
+	            if curEnh then
+	                if curEnh.Back == 'TacticalMissile' or curEnh.Back == 'Missile' then
+	                    return string.format('%d / %d', info.tacticalSiloStorageCount, info.tacticalSiloMaxStorageCount)
+	                        , 'tactical'
+	                elseif curEnh.Back == 'TacticalNukeMissile' then
+	                    return string.format('%d / %d', info.nukeSiloStorageCount, info.nukeSiloMaxStorageCount),
+	                        'strategic'
+	                else
+	                    return false
+	                end
+	            else
+	                return false
+	            end
+	        end
+	        if info.nukeSiloMaxStorageCount > 0 then
+	            return string.format('%d / %d', info.nukeSiloStorageCount, info.nukeSiloMaxStorageCount), 'strategic'
+	        else
+	            return string.format('%d / %d', info.tacticalSiloStorageCount, info.tacticalSiloMaxStorageCount),
+	                'tactical'
+	        end
+	    elseif info.userUnit and not table.empty(GetAttachedUnitsList({ info.userUnit })) then
+	        return string.format('%d', table.getn(GetAttachedUnitsList({ info.userUnit }))), 'attached'
+	    else
+	        return false
+	    end
+	end,
+	-- shield % HP
+	function(info, bp)
+	    if info.shieldRatio > 0 then
+	        return string.format('%d%%', math.floor(info.shieldRatio * 100))
+	    else
+	        return false
+	    end
+	end,
+	-- fuel remaining time
+	function(info, bp)
+	    if info.fuelRatio > -1 then
+	        return FormatTime(bp.Physics.FuelUseTime * info.fuelRatio)
+	    else
+	        return false
+	    end
+	end,
+	-- buildrate
+	function(info, bp)
+	    if options.gui_detailed_unitview == 0 then
+	        return false
+	    end
+	    if info.userUnit ~= nil and info.userUnit:GetBuildRate() >= 1 then
+	        return string.format("%.6g", info.userUnit:GetBuildRate())
+	    end
+	    return false
+	end,
 }
 
 -- this is from BOGIS (all credit to Black Ops authors)
 function UpdateWindow(info)
-
     if info.blueprintId == 'unknown' then
-
         controls.name:SetText(LOC('<LOC rollover_0000>Unknown Unit'))
         controls.icon:SetTexture('/textures/ui/common/game/unit_view_icons/unidentified.dds')
         controls.stratIcon:SetTexture('/textures/ui/common/game/strategicicons/icon_structure_generic_selected.dds')
-		
-        for index = 1, 6 do
-		
+        for index = 1, table.getn(controls.statGroups) do
             local i = index
 			
             controls.statGroups[i].icon:Hide()
@@ -239,69 +253,50 @@ function UpdateWindow(info)
         controls.healthBar:Hide()
         controls.shieldBar:Hide()
         controls.fuelBar:Hide()
+        controls.vetBar:Hide()
         controls.actionIcon:Hide()
         controls.actionText:Hide()
         controls.abilities:Hide()
-		
+        controls.ReclaimGroup:Hide()
     else
-	
         local bp = __blueprints[info.blueprintId]
         local path = GameCommon.GetUnitIconPath(bp)
-        
         controls.icon:SetTexture(path)
-
         if DiskGetFileInfo('/textures/ui/common/game/strategicicons/'..bp.StrategicIconName..'_selected.dds') then
-		
             controls.stratIcon:SetTexture('/textures/ui/common/game/strategicicons/'..bp.StrategicIconName..'_selected.dds')
-			
         else
-		
             controls.stratIcon:SetSolidColor('00000000')
-			
         end
-		
         local techLevel = false
         local levels = {TECH1 = 1,TECH2 = 2,TECH3 = 3}
-		
         for i, v in bp.Categories do
-		
             if levels[v] then
                 techLevel = levels[v]
                 break
             end
-			
         end
-		
         local description = LOC(bp.Description)
-		
         if techLevel then
             description = LOCF("Tech %d %s", techLevel, bp.Description)
         end
-		
         LayoutHelpers.AtTopIn(controls.name, controls.bg, 10)
         controls.name:SetFont(UIUtil.bodyFont, 14)
-		
+        local name = ''
         if info.customName then
-		
-            controls.name:SetText(LOCF('%s: %s', info.customName, description))
-			
+            name = LOC(info.customName)
         elseif bp.General.UnitName then
-		
-            controls.name:SetText(LOCF('%s: %s', bp.General.UnitName, description))
-			
-        else
-		
-            controls.name:SetText(LOCF('%s', description))
-			
+            name = LOC(bp.General.UnitName)
         end
-		
-        if controls.name:GetStringAdvance(controls.name:GetText()) > controls.name.Width() then
-            LayoutHelpers.AtTopIn(controls.name, controls.bg, 14)
-            controls.name:SetFont(UIUtil.bodyFont, 10)
+        if name ~= '' then
+            name = name .. ': '
         end
-		
-        for index = 1, 6 do
-		
+        controls.name:SetText(name .. description)
+        local scale = controls.name.Width() / controls.name.TextAdvance()
+        if scale < 1 then
+            LayoutHelpers.AtTopIn(controls.name, controls.bg, 10 / scale)
+            controls.name:SetFont(UIUtil.bodyFont, 14 * scale)
+        end
+        for index = 1, table.getn(statFuncs) do
             local i = index
 			
             if statFuncs[i](info, bp) then
@@ -312,9 +307,12 @@ function UpdateWindow(info)
                     controls.statGroups[i].color:SetSolidColor(color)
                     controls.statGroups[i].icon:SetTexture(iconType)
                     controls.statGroups[i].value:SetText(value)
-					
-                elseif i == 4 then
-				
+                elseif i == 3 then
+                    local value, iconType, color = statFuncs[i](info, bp)
+                    controls.statGroups[i].value:SetText(value)
+                    controls.statGroups[i].icon:SetTexture(UIUtil.UIFile(Factions.Factions[
+                        Factions.FactionIndexMap[string.lower(bp.General.FactionName)] ].VeteranIcon))
+                elseif i == 5 then
                     local text, iconType = statFuncs[i](info, bp)
                     controls.statGroups[i].value:SetText(text)
 					
@@ -344,12 +342,15 @@ function UpdateWindow(info)
 			
         end
         
-        controls.shieldBar:Hide()
         controls.fuelBar:Hide()
+        controls.vetBar:Hide()
+        controls.ReclaimGroup:Hide()
 
         if info.shieldRatio > 0 then
             controls.shieldBar:Show()
             controls.shieldBar:SetValue(info.shieldRatio)
+        else
+            controls.shieldBar:Hide()
         end
         
         if info.fuelRatio > 0 then
@@ -357,75 +358,127 @@ function UpdateWindow(info)
             controls.fuelBar:SetValue(info.fuelRatio)
         end
 
-        if info.health then
+        if info.shieldRatio > 0 and info.fuelRatio > 0 then
+            controls.store = 1
+        else
+            controls.store = 0
+        end
 		
+        if info.health then
             controls.healthBar:Show()
             controls.healthBar:SetValue(info.health/info.maxHealth)
-			
             if info.health/info.maxHealth > .75 then
-			
                 controls.healthBar._bar:SetTexture(UIUtil.UIFile('/game/unit-build-over-panel/healthbar_green.dds'))
-				
             elseif info.health/info.maxHealth > .25 then
-			
                 controls.healthBar._bar:SetTexture(UIUtil.UIFile('/game/unit-build-over-panel/healthbar_yellow.dds'))
-				
             else
-			
                 controls.healthBar._bar:SetTexture(UIUtil.UIFile('/game/unit-build-over-panel/healthbar_red.dds'))
-				
             end
 
             controls.health:SetText(string.format("%d / %d", info.health, info.maxHealth ))
-			
         else
-		
             controls.healthBar:Hide()
-			
         end
 		
-        local veterancyLevels = bp.Veteran or veterancyDefaults
-		
-        for index = 1, 5 do
-		
-            local i = index
-			
-            if info.kills >= veterancyLevels[string.format('Level%d', i)] then
-			
+        -- always hide veterancy stars initially
+        for i = 1, 5 do
+            controls.vetIcons[i]:Hide()
+        end
+
+        -- Control the veterancy stars
+        if info.entityId then
+            local unit = GetUnitById(info.entityId)
+            if unit then
+                local blueprint = unit:GetBlueprint()
+
+                if blueprint.VetEnabled then
+                    local level = unit:GetStat('VetLevel', 0).Value
+                    local experience = unit:GetStat('VetExperience', 0).Value
+
+                    local progress, title
+                    local lowerThreshold, upperThreshold
+                    if level < 5 then
+                        lowerThreshold = blueprint.VetThresholds[level] or 0
+                        upperThreshold = blueprint.VetThresholds[level + 1]
+                    end
+
+                    -- show stars
+                    for i = 1, 5 do
+                        if level >= i then
                 controls.vetIcons[i]:Show()
                 controls.vetIcons[i]:SetTexture(UIUtil.UIFile(Factions.Factions[Factions.FactionIndexMap[string.lower(bp.General.FactionName)]].VeteranIcon))
-				
-            else
-			
-                controls.vetIcons[i]:Hide()
-				
             end
-			
         end
 		
-        local unitQueue = false
+                    -- show veterancy to gain
+                    if lowerThreshold then
+                        title = 'Veterancy'
+                        progress = (experience - lowerThreshold) / (upperThreshold - lowerThreshold)
 		
-        if info.userUnit then
+                        local text = ''
+                        if upperThreshold >= 1000000 then
+                            text = string.format('%.2fM/%.2fM', experience / 1000000, upperThreshold / 1000000)
+                        elseif upperThreshold >= 100000 then
+                            text = string.format('%.0fK/%.0fK', experience / 1000, upperThreshold / 1000)
+                        elseif upperThreshold >= 10000 then
+                            text = string.format('%.1fK/%.1fK', experience / 1000, upperThreshold / 1000)
+                        else
+                            text = experience .. '/' .. string.format('%d', upperThreshold)
+                        end
+                        controls.nextVet:SetText(text)
 		
-            unitQueue = info.userUnit:GetCommandQueue()
+                    -- show total experience
+                    else
+                        title = 'Mass killed'
+                        progress = 1
 			
+                        local text
+                        if experience >= 1000000 then
+                            text = string.format('%.2fM', experience / 1000000)
+                        elseif experience >= 100000 then
+                            text = string.format('%.0fK', experience / 1000)
+                        elseif experience >= 10000 then
+                            text = string.format('%.1fK', experience / 1000)
+                        else
+                            text = experience
         end
+                        controls.nextVet:SetText(text)
+                    end
 		
-        if info.focus then
+                    -- always show it, regardless
+                    controls.vetBar:Show()
+                    controls.vetBar:SetValue(progress)
+                    controls.vetTitle:SetText(title)
 		
-            local path, valid = GameCommon.GetUnitIconPath(__blueprints[info.focus.blueprintId])
-			
+                -- show reclaim statistics
+                else
+                    local reclaimedMass, reclaimedEnergy
+                    if unit then
+                        reclaimedMass = unit:GetStat('ReclaimedMass').Value
+                        reclaimedEnergy = unit:GetStat('ReclaimedEnergy').Value
+                    end
+                    if reclaimedMass or reclaimedEnergy then
+                        controls.ReclaimGroup:Show()
+                        controls.ReclaimGroup.MassText:SetText(tostring(reclaimedMass or 0))
+                        controls.ReclaimGroup.EnergyText:SetText(tostring(reclaimedEnergy or 0))
+                    end
+                end
+            end
+        end
+
+		local unitQueue = false
+		if info.userUnit then
+		    unitQueue = info.userUnit:GetCommandQueue()
+		end
+
+		if info.focus then
+		    local path, valid = GameCommon.GetUnitIconPath(__blueprints[info.focus.blueprintId])
             if valid then
-            
                 controls.actionIcon:SetTexture(path)
-
             else
-
                 -- Sets placeholder because no other icon was found
                 controls.actionIcon:SetTexture('/textures/ui/common/game/unit_view_icons/unidentified.dds')
-                
             end
-            
 
             if info.focus.health and info.focus.maxHealth then
 			
@@ -518,28 +571,20 @@ function UpdateWindow(info)
             end
 			
             controls.abilities.Width:Set(maxWidth)
-            
             if controls.abilityText[1] then
                 controls.abilities.Height:Set(function() return controls.abilityText[1].Height() * table.getsize(controls.abilityText) end)
             end    
-			
             if controls.abilities:IsHidden() then
-			
                 controls.abilities:Show()
-				
             end
-			
         elseif not controls.abilities:IsHidden() then
-		
             controls.abilities:Hide()
-			
         end
         
         -- code taken from below --
         
         -- first replaces fuel bar with progress bar when when upgrading
         controls.fuelBar:Hide()
-
         if info.workProgress > 0 then
             controls.fuelBar:Show()
             controls.fuelBar:SetValue(info.workProgress)
@@ -549,8 +594,6 @@ function UpdateWindow(info)
         -- such as Regen Rate due to enhancements or veterancy buffs
         -- shield max health and regen rate due to enhancements or other buffs
         
-        controls.Buildrate:Hide()
-        controls.BuildrateIcon:Hide()
         controls.shieldText:Hide()
 
 		-- works properly but i've yet to find a good spot to put that data in
@@ -571,70 +614,42 @@ function UpdateWindow(info)
             info.regenrate = info.userUnit:GetStat( 'REGEN' ).Value
             info.shieldHP = info.userUnit:GetStat('SHIELDHP').Value
             info.shieldRegen = info.userUnit:GetStat('SHIELDREGEN').Value
-
             if info.health and info.regenrate > 0 then
-
                 controls.health:SetText(string.format("%d / %d +%d/s", info.health, info.maxHealth, LOUDFLOOR(info.regenrate) ))
-
             end
-
         end
 
         -- now do all the same for the Shield - showing health, max health and shield regen rate
         -- and display it all on the SHIELD bar
         if info.shieldRatio > 0 and info.shieldHP > 0 then
-
             controls.shieldText:Show()
-
             if info.shieldRegen then
-
                 controls.shieldText:SetText(string.format("%d / %d +%d/s", LOUDFLOOR( info.shieldHP * info.shieldRatio), info.shieldHP , info.shieldRegen ))
-
             else
-              
                 controls.shieldText:SetText(string.format("%d / %d", LOUDFLOOR( info.shieldHP * info.shieldRatio), info.shieldHP))
-            
             end
         end
 
-
-        -- if the unit has BuildRate >= 2 then show it below mass & energy stats
-        if info.userUnit != nil and info.userUnit:GetBuildRate() >= 2 then
-
-            controls.Buildrate:SetText(string.format("%d",LOUDFLOOR(info.userUnit:GetBuildRate())))
-            controls.Buildrate:Show()
-            controls.BuildrateIcon:Show()
-
-        else
-
-            controls.Buildrate:Hide()
-            controls.BuildrateIcon:Hide()
-
-        end   
-
         controls.SCUType:Hide()
-
         if info.userUnit.SCUType then
-
             controls.SCUType:SetTexture('/lua/gaz_ui/textures/scumanager/'..info.userUnit.SCUType..'_icon.dds')
             controls.SCUType:Show()
-
         end
-        
     end
-
 end
 
 function ShowROBox()
 end
 
 function SetLayout(layout)
-    import(UIUtil.GetLayoutFilename('unitview')).SetLayout()
+    unitViewLayout = import(UIUtil.GetLayoutFilename('unitview'))
+    unitViewLayout.SetLayout()
 end
 
 function SetupUnitViewLayout(mapGroup, orderControl)
     controls.parent = mapGroup
     controls.orderPanel = orderControl
+    unitViewLayout = import(UIUtil.GetLayoutFilename('unitview')) -- SetLayout() will set this too but let's make sure CreateUI() does not use nil, even though it only sets up an OnFrame function.
     CreateUI()
     SetLayout(UIUtil.currentLayout)
 end
@@ -654,8 +669,23 @@ function CreateUI()
     controls.shieldBar = StatusBar(controls.bg, 0, 1, false, false, nil, nil, true)
     controls.fuelBar = StatusBar(controls.bg, 0, 1, false, false, nil, nil, true)
     controls.health = UIUtil.CreateText(controls.healthBar, '', 14, UIUtil.bodyFont)
+    controls.vetBar = StatusBar(controls.bg, 0, 1, false, false, nil, nil, true)
+    controls.nextVet = UIUtil.CreateText(controls.vetBar, '', 10, UIUtil.bodyFont)
+    controls.vetTitle = UIUtil.CreateText(controls.vetBar, 'Veterancy', 10, UIUtil.bodyFont)
+
+    controls.ReclaimGroup = Group(controls.bg)
+    -- controls.ReclaimGroup.Title = UIUtil.CreateText(controls.ReclaimGroup, 'Reclaimed', 10, UIUtil.bodyFont)
+    controls.ReclaimGroup.Debug = Bitmap(controls.ReclaimGroup)
+    controls.ReclaimGroup.MassIcon = Bitmap(controls.ReclaimGroup)
+    controls.ReclaimGroup.EnergyIcon = Bitmap(controls.ReclaimGroup)
+    controls.ReclaimGroup.MassText = UIUtil.CreateText(controls.ReclaimGroup, '0', 10, UIUtil.bodyFont)
+    controls.ReclaimGroup.EnergyText = UIUtil.CreateText(controls.ReclaimGroup, '0', 10, UIUtil.bodyFont)
+    -- controls.ReclaimGroup.MassReclaimed = UIUtil.CreateText(controls.ReclaimGroup, '0', 10, UIUtil.bodyFont)
+    -- controls.ReclaimGroup.MassIcon = Bitmap(controls.ReclaimGroup)
+    -- controls.ReclaimGroup.MassReclaimed = UIUtil.CreateText(controls.ReclaimGroup, '0', 10, UIUtil.bodyFont)
+
     controls.statGroups = {}
-    for i = 1, 6 do
+    for i = 1, table.getn(statFuncs) do
         controls.statGroups[i] = {}
         controls.statGroups[i].icon = Bitmap(controls.bg)
         controls.statGroups[i].value = UIUtil.CreateText(controls.statGroups[i].icon, '', 12, UIUtil.bodyFont)
@@ -684,37 +714,25 @@ function CreateUI()
     controls.bg:DisableHitTest(true)
     
     controls.bg:SetNeedsFrameUpdate(true)
-    
+
     controls.bg.OnFrame = function(self, delta)
-    
         local info = GetRolloverInfo()
-        
         if not info and import("/lua/gaz_ui/modules/selectedinfo.lua").SelectedInfoOn then
-
             local selUnits = GetSelectedUnits()
-
             if selUnits and table.getn(selUnits) == 1 and import('/lua/ui/game/unitviewDetail.lua').View.Hiding then
-
                 info = import("/lua/gaz_ui/modules/selectedinfo.lua").GetUnitRolloverInfo(selUnits[1])
-
-            end
-            
+            end 
         end
         
         if info then
-
             UpdateWindow(info)
-
             if self:GetAlpha() < 1 then
                 self:SetAlpha(math.min(self:GetAlpha() + (delta*3), 1), true)
             end
-            
-            import(UIUtil.GetLayoutFilename('unitview')).PositionWindow()
-            
+			unitViewLayout.PositionWindow()
+			unitViewLayout.UpdateStatusBars(controls)
         elseif self:GetAlpha() > 0 then
-
             self:SetAlpha(math.max(self:GetAlpha() - (delta*3), 0), true)
-            
         end
     end
 
@@ -725,12 +743,8 @@ function CreateUI()
 
     -- expanded unit stats also from GAZ
     controls.shieldText = UIUtil.CreateText(controls.bg, '', 13, UIUtil.bodyFont)
-    controls.Buildrate = UIUtil.CreateText(controls.bg, '', 12, UIUtil.bodyFont)
-    controls.Buildrate:SetDropShadow(true)
-    controls.BuildrateIcon = Bitmap(controls.bg, UIUtil.UIFile('/game/unit_view_icons/build.dds'))
 
     -- these are available but not implemented - showing storage values --
 	--controls.StorageMass = UIUtil.CreateText(controls.bg, '', 12, UIUtil.bodyFont)
 	--controls.StorageEnergy = UIUtil.CreateText(controls.bg, '', 12, UIUtil.bodyFont)
-
 end
