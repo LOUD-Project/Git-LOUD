@@ -830,11 +830,8 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
                     line.combo.keyMap[val.key] = index
 
                     -- tooltip of the combo
-                    if officialOption then 
-                        comboTooltip[index] = 'lob_'..element.data.key..'_'..val.key
-                    else
-                        comboTooltip[index] = { text = val.text, body = val.help }
-                    end
+                    comboTooltip[index] = { text = val.text, body = val.help }
+                    
                 end
 
                 -- we assume the default value of the option is correct here
