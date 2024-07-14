@@ -46,8 +46,8 @@ UnitBlueprint {
 		
         LiftFactor = 10.5,
 		
-        MaxAirspeed = 20,
-        MinAirspeed = 18,
+        MaxAirspeed = 18,
+        MinAirspeed = 16,
 		
         PredictAheadForBombDrop = 2.5,
 		
@@ -55,7 +55,7 @@ UnitBlueprint {
 		
         TightTurnMultiplier = 0,
 		
-        TurnSpeed = 0.9,
+        TurnSpeed = 0.7,
 		
         Winged = true,
     },
@@ -247,7 +247,7 @@ UnitBlueprint {
                 Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0402_Strategic_Bomb', LodCutoff = 'Weapon_LodCutoff' },
             },
             
-            AttackGroundTries = 2,
+            AttackGroundTries = 2, --at 2, it often hasnt reloaded before circling around, meaning it ends up aborting the attack and moves on; however at 1 it ends up never firing, so 2 is the 'least worse' option
 			
             AutoInitiateAttackCommand = true,
 			
@@ -276,7 +276,7 @@ UnitBlueprint {
             },
 			
             FiringRandomness = 3,
-            FiringTolerance = 6,
+            FiringTolerance = 2.5,
 			
 			HeadingArcCenter = 0,
 			HeadingArcRange = 14,
