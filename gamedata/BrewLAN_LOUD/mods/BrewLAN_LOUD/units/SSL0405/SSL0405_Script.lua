@@ -46,9 +46,9 @@ SSL0405 = Class(SLandUnit) {
         GapingMaw   = Class(SDFGapingMaw) {},
         ClawMelee   = Class(SMeleeBladeBeamWeapon) {
 
-            OnFire = function(self)
+            OnWeaponFired = function(self)
                 if not self.unit.TallStance and not self.unit.AnimationManipulator then
-                    SMeleeBladeBeamWeapon.OnFire(self)
+                    SMeleeBladeBeamWeapon.OnWeaponFired(self)
                 end
             end,
         },
