@@ -450,11 +450,17 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
         end
         selectedScenario = scen
         local mapfile = scen.map
+
         if DiskGetFileInfo(mapfile) then
+
             advOptions = scen.options
+
             RefreshOptions(false, singlePlayer)
+
             PrefetchSession(mapfile, Mods.GetGameMods(), false)
+
             preview:Show()
+
             if not preview:SetTexture(scen.preview) then
                 preview:SetTextureFromMap(mapfile)
             end
@@ -578,6 +584,7 @@ function RefreshOptions(skipRefresh, singlePlayer)
     -- a little weird, but the "skip refresh" is set to prevent calc visible from being called before the control is properly setup
     -- it also means it's a flag that tells you this is the first time the dialog has been opened
     -- so we'll used this flag to reset the options sources so they can set up for multiplayer
+
     if skipRefresh then
         OptionSource[2] = {title = "<LOC uilobby_0002>Game Options", options = import('/lua/ui/lobby/lobbyoptions.lua').globalOpts}
         OptionSource[1] = {title = "<LOC uilobby_0001>Team Options", options = import('/lua/ui/lobby/lobbyoptions.lua').teamOptions}
@@ -589,15 +596,20 @@ function RefreshOptions(skipRefresh, singlePlayer)
         -- table.sort(OptionSource[2].options, function(a, b) return LOC(a.label) < LOC(b.label) end)
         table.sort(OptionSource[1].options, function(a, b) return LOC(a.label) < LOC(b.label) end)
     end
+
     OptionSource[3] = {}
     OptionSource[3] = {title = "<LOC lobui_0164>Map Options", options = advOptions or {}}
     
     Options = {}
     
     for _, OptionTable in OptionSource do
+
         if table.getsize(OptionTable.options) > 0 then
+
             table.insert(Options, {type = 'title', text = OptionTable.title})
+
             for optionIndex, optionData in OptionTable.options do
+
                 if optionData.key == 'GameSpeed' then
                     continue
                 end
@@ -607,9 +619,13 @@ function RefreshOptions(skipRefresh, singlePlayer)
                 elseif not(singlePlayer and optionData.mponly == true) then
                     table.insert(Options, {type = 'opt_combo', text = optionData.label, data = optionData})
                 end
+
             end
+
         end
+
     end
+
     if not skipRefresh then
         OptionContainer:CalcVisible()
     end
@@ -629,6 +645,7 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
     LayoutHelpers.AtLeftTopIn(OptionContainer, parent, 670, 84)
     
     local OptionDisplay = {}
+    
     RefreshOptions(true, singlePlayer)
     
     local function CreateOptionCombo(parent, optionData, width)

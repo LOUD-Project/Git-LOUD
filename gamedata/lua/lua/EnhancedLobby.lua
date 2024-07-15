@@ -2,11 +2,13 @@
 ---  Author(s): Michael Robbins aka Sorian
 ---  Summary  : Functions to support the Lobby Enhancement Mod.
 
-local MapUtil = import('/lua/ui/maputil.lua')
-local Mods = import('/lua/mods.lua')
-local GPGrestrictedUnits = import('/lua/lemlobbyoptions.lua').GPGrestrictedUnits
-local GPGsortOrder = import('/lua/lemlobbyoptions.lua').GPGsortOrder
-local GPGOptions = import('/lua/lemlobbyoptions.lua').GPGOptions
+local MapUtil       = import('/lua/ui/maputil.lua')
+local Mods          = import('/lua/mods.lua')
+
+local GPGrestrictedUnits    = import('/lua/lemlobbyoptions.lua').GPGrestrictedUnits
+local GPGsortOrder          = import('/lua/lemlobbyoptions.lua').GPGsortOrder
+local GPGOptions            = import('/lua/lemlobbyoptions.lua').GPGOptions
+
 local versionstrings = import('/lua/lemlobbyoptions.lua').versionstrings
 
 function GetLEMVersion(short)
@@ -223,12 +225,18 @@ function GetAIList()
     local AIFilesold = DiskFindFiles('/lua/AI/CustomAIs', '*.lua')
 
     function AddAIData(tempfile)
+
         if tempfile then
+
             for s, tAIData in tempfile do
+            
+                if not aitypes[tAIData.key] then
 
-                LOG('*AI DEBUG Custom Mod AI with name '..(tAIData.Name or 'nil'))
+                    --LOG('*AI DEBUG Adding AI with name '..repr(tAIData))    ---..(tAIData.Name or 'nil'))
 
-                table.insert(aitypes, { key = tAIData.key, name = tAIData.name })
+                    table.insert(aitypes, { key = tAIData.key, name = tAIData.name })
+                    
+                end
 
             end
         end
@@ -236,33 +244,51 @@ function GetAIList()
 
     --Load Custom AIs - old style
     for i, v in AIFilesold do
+    
+        if import(v).AILIST then
 
-        AddAIData(import(v).AIList)
+            AddAIData(import(v).AIList)
+        
+        end
 
     end
 
     --Load Custom AIs
     for i, v in AIFiles do
+    
+        if import(v).AI.AIList then
 
-        AddAIData(import(v).AI.AIList)
+            AddAIData(import(v).AI.AIList)
+            
+        end
 
     end
 
     --Load Custom Cheating AIs - old style
     for i, v in AIFilesold do
+    
+        if import(v).CheatAIList then
 
-        AddAIData(import(v).CheatAIList)
+            AddAIData(import(v).CheatAIList)
+            
+        end
 
     end
 
     --Load Custom Cheating AIs
     for i, v in AIFiles do
+    
+        if import(v).AI.CheatAIList then
 
-        AddAIData(import(v).AI.CheatAIList)
+            AddAIData(import(v).AI.CheatAIList)
+        
+        end
 
     end
+
     --Support for custom AIs via mods
     local activeMods = GetActiveMods()
+
     if activeMods then
 
         for k, mod in activeMods do
@@ -272,6 +298,9 @@ function GetAIList()
             if AIFiles then
 
                 for i, v in AIFiles do
+                
+                    LOG("*AI DEBUG Active Mod AI "..repr(v))
+                    
                     AddAIData(import(v).AI.AIList)
                     AddAIData(import(v).AI.CheatAIList)
                 end
@@ -279,7 +308,7 @@ function GetAIList()
 
         end
     end
-
+    
     return aitypes
 
 end
@@ -300,6 +329,7 @@ function GetCustomTooltips()
 			end
 		end
 	end
+
 	for k, mod in activeMods do
 		local OptionFiles = DiskFindFiles(mod.location..'/lua/AI/CustomAITooltips', '*.lua')
 		for i, v in OptionFiles do

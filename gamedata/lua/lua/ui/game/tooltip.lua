@@ -2,14 +2,15 @@
 --* Author: Ted Snook
 --* Summary: Tool Tips
 
-local UIUtil = import('/lua/ui/uiutil.lua')
-local Group = import('/lua/maui/group.lua').Group
-local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
+local UIUtil        = import('/lua/ui/uiutil.lua')
+local Group         = import('/lua/maui/group.lua').Group
+local Bitmap        = import('/lua/maui/bitmap.lua').Bitmap
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
-local TooltipInfo = import('/lua/ui/help/tooltips.lua')
-local Prefs = import('/lua/user/prefs.lua')
-local Button = import('/lua/maui/button.lua').Button
-local Keymapping = import('/lua/keymap/defaultKeyMap.lua').defaultKeyMap
+local TooltipInfo   = import('/lua/ui/help/tooltips.lua')
+local Prefs         = import('/lua/user/prefs.lua')
+local Button        = import('/lua/maui/button.lua').Button
+local Keymapping    = import('/lua/keymap/defaultKeyMap.lua').defaultKeyMap
+
 local AITooltipInfo = import('/lua/ui/aitooltips.lua')
 
 local mouseoverDisplay = false

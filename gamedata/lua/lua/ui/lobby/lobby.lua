@@ -93,18 +93,22 @@ local globalOpts = import('/lua/ui/lobby/lobbyoptions.lua').globalOpts
 for _, v in import('/lua/EnhancedLobby.lua').GetLobbyOptions() do
     table.insert(globalOpts, v)
 end
+
 for _, v in globalOpts do
     table.insert(lobbyOptOrder, v.key)
     lobbyOptMap[v.key] = v
 end
+
 for _, v in import('/lua/ui/lobby/lobbyoptions.lua').teamOptions do
     table.insert(lobbyOptOrder, v.key)
     lobbyOptMap[v.key] = v
 end
+
 for _, v in import('/lua/ui/lobby/lobbyoptions.lua').advAIOptions do
     table.insert(lobbyOptOrder, v.key)
     lobbyOptMap[v.key] = v
 end
+
 for _, v in import('/lua/ui/lobby/lobbyoptions.lua').advGameOptions do
     table.insert(lobbyOptOrder, v.key)
     lobbyOptMap[v.key] = v
@@ -189,8 +193,6 @@ local slotMenuData = {
         client  = {},
     },
 }
-
---local aitypes = import('/lua/ui/lobby/aitypes.lua').aitypes 
 
 local aitypes = import('/lua/enhancedlobby.lua').GetAIList()    
 
@@ -1959,10 +1961,6 @@ local function UpdateGame()
         -- clear every update and repopulate
         GUI.observerList:DeleteAllItems()
 
-        -- for index, observer in gameInfo.Observers do
-            -- observer.ObserverListIndex = GUI.observerList:GetItemCount() # Pin-head William made this zero-based
-            -- GUI.observerList:AddItem(observer.PlayerName)
-        -- end
     end
     
     local numPlayers = GetPlayerCount()
@@ -2159,7 +2157,7 @@ function OnModsChanged(modlist)
         end
         
         aitypes = import('/lua/enhancedlobby.lua').GetAIList()
-
+        
         UpdateGame()
     end
 end
@@ -3772,6 +3770,7 @@ function CreateUI(maxPlayers, useSteam)
     for slot = 1, maxPlayers do
         ClearSlotInfo(slot)
     end
+
     ---------------------------------------------------------------------------
     -- set up observer and limbo grid
     ---------------------------------------------------------------------------
@@ -3796,8 +3795,11 @@ function CreateUI(maxPlayers, useSteam)
         Tooltip.AddControlTooltip(GUI.allowObserversLabel, 'lob_observers_allowed')
 
         GUI.allowObservers:SetCheck(true)
+
         if lobbyComm:IsHost() then
+
             SetGameOption("AllowObservers",true)
+
             GUI.allowObservers.OnCheck = function(self, checked)
                 SetGameOption("AllowObservers",checked)
             end
