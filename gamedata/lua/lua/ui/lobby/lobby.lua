@@ -27,7 +27,27 @@ local UIUtil            = import('/lua/ui/uiutil.lua')
 
 local gameColors        = import('/lua/gamecolors.lua').GameColors
 local numOpenSlots      = LobbyComm.maxPlayerSlots
+local Strings           = LobbyComm.Strings
+
+local availableMods     = {} -- map from peer ID to set of available mods; each set is a map from "mod id"->true
+local colorPicker       = false
+local fillSlotsSet      = false
 local formattedOptions  = {}
+local gameInfo          = false
+local gameName          = ""
+local GUI               = false
+local hasSupcom         = true
+local hostID            = false
+local lobbyComm         = false
+local localPlayerID     = false
+local localPlayerName   = ""
+local missingModDialog  = false
+local selectedMods      = nil
+local singlePlayer      = false
+local teamSetting       = false
+local wantToBeObserver  = false
+
+--local pmDialog = false
 
 local teamIcons = {
     '/lobby/team_icons/team_no_icon.dds',
@@ -41,52 +61,32 @@ local teamIcons = {
     '/lobby/team_icons/team_8_icon.dds'
 }
 
-local availableMods = {} -- map from peer ID to set of available mods; each set is a map from "mod id"->true
-local selectedMods = nil
-
-local commandQueueIndex = 0
-local commandQueue = {}
-
-local launchThread = false
+local teamTooltips = {'lob_team_none','lob_team_one','lob_team_two','lob_team_three','lob_team_four','lob_team_five','lob_team_six','lob_team_seven','lob_team_eight'}
+local teamNumbers = {"<LOC _No>","1","2","3","4","5","6","7","8"}
 
 -- builds the faction tables, and then adds random faction icon to the end
 local factionBmps = {}
 local factionTooltips = {}
 
 for index, tbl in FactionData.Factions do
-    factionBmps[index] = tbl.SmallIcon
-    factionTooltips[index] = tbl.TooltipID
+    factionBmps[index]      = tbl.SmallIcon
+    factionTooltips[index]  = tbl.TooltipID
 end
-
-local teamTooltips = {
-    'lob_team_none',
-    'lob_team_one',
-    'lob_team_two',
-    'lob_team_three',
-    'lob_team_four',
-    'lob_team_five',
-    'lob_team_six',
-    'lob_team_seven',
-    'lob_team_eight',
-}
 
 table.insert(factionBmps, "/faction_icon-sm/random_ico.dds")
 table.insert(factionTooltips, 'lob_random')
 
-local teamNumbers = {
-    "<LOC _No>",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-}
+
+local commandQueueIndex = 0
+local commandQueue = {}
+
+local launchThread = false
+
 
 local lobbyOptMap = {}
 local lobbyOptOrder = {}
+
+LOG("*AI DEBUG LOADING LOBBY OPTIONS")
 
 local globalOpts = import('/lua/ui/lobby/lobbyoptions.lua').globalOpts
 
@@ -113,54 +113,6 @@ for _, v in import('/lua/ui/lobby/lobbyoptions.lua').advGameOptions do
     table.insert(lobbyOptOrder, v.key)
     lobbyOptMap[v.key] = v
 end
-
-local function ParseWhisper(params)
-
-    local delimStart = string.find(params, ":")
-	
-    if delimStart then
-	
-        local name = string.sub(params, 1, delimStart-1)
-        local targID = FindIDForName(name)
-		
-        if targID then
-		
-            PrivateChat(targID, string.sub(params, delimStart+1))
-			
-        else
-		
-            AddChatText(LOC("<LOC lobby_0007>Invalid whisper target."))
-			
-        end
-		
-    else
-	
-        AddChatText(LOC("<LOC lobby_0008>You must have a colon (:) after the whisper target's name."))
-		
-    end
-	
-end
-
-local Strings = LobbyComm.Strings
-
-local lobbyComm = false
-local wantToBeObserver = false
-local localPlayerName = ""
-local gameName = ""
-local hostID = false
-local singlePlayer = false
-local GUI = false
-local localPlayerID = false
-local gameInfo = false
-local pmDialog = false
-local missingModDialog = false
-local colorPicker = false
-
-local hasSupcom = true
-local hasFA = true
-
-local fillSlotsSet = false
-local teamSetting = false
 
 local slotMenuStrings = {
     open    = "<LOC lobui_0219>Open",
@@ -228,6 +180,33 @@ local function DisplayLEMData()
 		end
 		
 	end
+	
+end
+
+local function ParseWhisper(params)
+
+    local delimStart = string.find(params, ":")
+	
+    if delimStart then
+	
+        local name = string.sub(params, 1, delimStart-1)
+        local targID = FindIDForName(name)
+		
+        if targID then
+		
+            PrivateChat(targID, string.sub(params, delimStart+1))
+			
+        else
+		
+            AddChatText(LOC("<LOC lobby_0007>Invalid whisper target."))
+			
+        end
+		
+    else
+	
+        AddChatText(LOC("<LOC lobby_0008>You must have a colon (:) after the whisper target's name."))
+		
+    end
 	
 end
 
