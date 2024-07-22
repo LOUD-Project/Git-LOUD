@@ -776,7 +776,7 @@ BuffBlueprint { Name = 'VeterancyWaterVisionRadius5',
     },
 }
 
--- Cheat Buffs for the AI
+--- Cheat Buffs for the AI
 
 -- these values get overridden by the buffs created in AIutilities
 -- so they can take variable settings from the lobby
@@ -1015,7 +1015,9 @@ BuffBlueprint { Name = 'CheatALL',
     },
 }
 
--- STD ACU Buffs
+
+--- STD ACU Buffs
+
 BuffBlueprint { Name = 'ACU_T2_Engineering',
     BuffType = 'ACUBUILDRATE',
 	ParsedEntityCategory = categories.COMMAND,
@@ -1084,9 +1086,9 @@ BuffBlueprint { Name = 'ACU_T4_Engineering',
     },
 }
 
--------------------------
--- Black Ops ACU Buffs --
--------------------------
+
+--- Black Ops ACU Buffs --
+
 BuffBlueprint { Name = 'ACU_T2_Imp_Eng',
     BuffType = 'ACUBUILDRATE',
 	ParsedEntityCategory = categories.COMMAND,
@@ -1254,7 +1256,7 @@ BuffBlueprint { Name = 'ACU_T3_Combat_Eng',
 
 BuffBlueprint { Name = 'ACU_T4_Combat_Eng',
     BuffType = 'ACUBUILDRATE',
-	ParsedParsedEntityCategory = categories.COMMAND,
+	ParsedEntityCategory = categories.COMMAND,
     Stacks = 'REPLACE',
     Duration = -1,
     Affects = {
@@ -1404,17 +1406,19 @@ do
         Xband_Dish = {RadarRadius = 1, OmniRadius = 1, EnergyMaintenance = 1}
     }
 
-    for name, data in array do
-        BuffBlueprint {
-            Name = name .. '_Buff', DisplayName = name .. '_Buff',
-            BuffType = 'PANOPTICONUPGRADE', Stacks = 'ALWAYS', Duration = -1,
-            Affects = {
-                RadarRadius = {Add = 0, Mult = data.RadarRadius},
-                OmniRadius = {Add = 0, Mult = data.OmniRadius},
-                EnergyMaintenance = {Add = 0, Mult = data.EnergyMaintenance},
-            }
+    for name, data in pairs(array) do
+
+        BuffBlueprint { Name = name .. '_Buff', DisplayName = name .. '_Buff',
+                    BuffType = 'PANOPTICONUPGRADE', Stacks = 'ALWAYS', Duration = -1,
+                    Affects = {
+                        RadarRadius = {Add = 0, Mult = data.RadarRadius},
+                        OmniRadius = {Add = 0, Mult = data.OmniRadius},
+                        EnergyMaintenance = {Add = 0, Mult = data.EnergyMaintenance},
+                    }
         }
     end
 end
 
-__moduleinfo.auto_reload = true
+if __moduleinfo then
+    __moduleinfo.auto_reload = true
+end
