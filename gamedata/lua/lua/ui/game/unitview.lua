@@ -6,6 +6,7 @@ local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
 local EnhancementCommon = import('/lua/enhancementcommon.lua')
 local Factions = import('/lua/factions.lua')
 local GameCommon = import('/lua/ui/game/gamecommon.lua')
+local GetEnhancementPrefix = import("/lua/ui/game/construction.lua").GetEnhancementPrefix
 local Group = import('/lua/maui/group.lua').Group
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 local StatusBar = import('/lua/maui/statusbar.lua').StatusBar
@@ -66,7 +67,6 @@ local queueTextures = {
     Upgrade = {texture = UIUtil.UIFile('/game/orders/repair_btn_up.dds'), text = '<LOC order_0003>Upgrading'},
     Guard = {texture = UIUtil.UIFile('/game/orders/guard_btn_up.dds'), text = '<LOC order_0011>'},
     Repair = {texture = UIUtil.UIFile('/game/orders/repair_btn_up.dds'), text = '<LOC order_0005>Repairing'},
-    Reclaim = {texture = UIUtil.UIFile('/game/orders/reclaim_btn_up.dds'), text = '<LOC order_0006>Reclaiming'},
     Capture = {texture = UIUtil.UIFile('/game/orders/convert_btn_up.dds'), text = '<LOC order_0007>Capturing'},
     Ferry = {texture = UIUtil.UIFile('/game/orders/ferry_btn_up.dds'), text = '<LOC order_0016>Ferry'},
     Patrol = {texture = UIUtil.UIFile('/game/orders/patrol_btn_up.dds'), text = '<LOC order_0017>Patrol'},
@@ -143,22 +143,22 @@ local statFuncs = {
 	end,
 	-- vet xp
 	function(info)
-	    if UnitData[info.entityId].xp ~= nil then
-	        local nextLevel = 0
-	        local veterancyLevels = __blueprints[info.blueprintId].Veteran or veterancyDefaults
-	        for index = 1, 5 do
-	            local i = index
-	            local vet = veterancyLevels[string.format('Level%d', i)]
+        if info.kills then
+            local nextLevel = 0
+            local veterancyLevels = __blueprints[info.blueprintId].Veteran or veterancyDefaults
+            for index = 1, 5 do
+                local i = index
+				local vet = veterancyLevels[string.format('Level%d', i)]
 
-	            if UnitData[info.entityId].xp < vet then
-	                return string.format('%d / %d', UnitData[info.entityId].xp, vet)
-	            end
-	        end
+				if info.kills < vet then
+				    return string.format('%d / %d', info.kills, vet)
+				end
+			end
 
-	        return false
-	    else
-	        return false
-	    end
+			return false
+        else
+            return false
+        end
 
 
 	end,
@@ -237,19 +237,14 @@ function UpdateWindow(info)
         controls.stratIcon:SetTexture('/textures/ui/common/game/strategicicons/icon_structure_generic_selected.dds')
         for index = 1, table.getn(controls.statGroups) do
             local i = index
-			
             controls.statGroups[i].icon:Hide()
-			
             if controls.statGroups[i].color then
                 controls.statGroups[i].color:SetSolidColor('00000000')
             end
-			
             if controls.vetIcons[i] then
                 controls.vetIcons[i]:Hide()
             end
-			
         end
-		
         controls.healthBar:Hide()
         controls.shieldBar:Hide()
         controls.fuelBar:Hide()
@@ -379,93 +374,49 @@ function UpdateWindow(info)
         else
             controls.healthBar:Hide()
         end
-		
-        -- always hide veterancy stars initially
-        for i = 1, 5 do
-            controls.vetIcons[i]:Hide()
-        end
 
-        -- Control the veterancy stars
-        if info.entityId then
-            local unit = GetUnitById(info.entityId)
-            if unit then
-                local blueprint = unit:GetBlueprint()
+		-- always hide veterancy stars initially
+		for i = 1, 5 do
+		    controls.vetIcons[i]:Hide()
+		end
 
-                if blueprint.VetEnabled then
-                    local level = unit:GetStat('VetLevel', 0).Value
-                    local experience = unit:GetStat('VetExperience', 0).Value
-
-                    local progress, title
-                    local lowerThreshold, upperThreshold
-                    if level < 5 then
-                        lowerThreshold = blueprint.VetThresholds[level] or 0
-                        upperThreshold = blueprint.VetThresholds[level + 1]
-                    end
-
-                    -- show stars
-                    for i = 1, 5 do
-                        if level >= i then
-                controls.vetIcons[i]:Show()
-                controls.vetIcons[i]:SetTexture(UIUtil.UIFile(Factions.Factions[Factions.FactionIndexMap[string.lower(bp.General.FactionName)]].VeteranIcon))
-            end
-        end
-		
-                    -- show veterancy to gain
-                    if lowerThreshold then
-                        title = 'Veterancy'
-                        progress = (experience - lowerThreshold) / (upperThreshold - lowerThreshold)
-		
-                        local text = ''
-                        if upperThreshold >= 1000000 then
-                            text = string.format('%.2fM/%.2fM', experience / 1000000, upperThreshold / 1000000)
-                        elseif upperThreshold >= 100000 then
-                            text = string.format('%.0fK/%.0fK', experience / 1000, upperThreshold / 1000)
-                        elseif upperThreshold >= 10000 then
-                            text = string.format('%.1fK/%.1fK', experience / 1000, upperThreshold / 1000)
-                        else
-                            text = experience .. '/' .. string.format('%d', upperThreshold)
-                        end
-                        controls.nextVet:SetText(text)
-		
-                    -- show total experience
-                    else
-                        title = 'Mass killed'
-                        progress = 1
+		-- Control the veterancy stars
+		if bp.Veteran and info.kills then
+	        -- show stars
+			local experience = info.kills
+			local lowerThreshold = 0
+			local upperThreshold
+	        for i = 1, 5 do
+				local threshold = bp.Veteran[string.format('Level%d', i)]
+				if experience >= threshold then
+	                controls.vetIcons[i]:Show()
+	                controls.vetIcons[i]:SetTexture(UIUtil.UIFile(Factions.Factions[Factions.FactionIndexMap[string.lower(bp.General.FactionName)]].VeteranIcon))
+					lowerThreshold = threshold
+				elseif not upperThreshold then
+					upperThreshold = threshold
+	            end
+	        end
 			
-                        local text
-                        if experience >= 1000000 then
-                            text = string.format('%.2fM', experience / 1000000)
-                        elseif experience >= 100000 then
-                            text = string.format('%.0fK', experience / 1000)
-                        elseif experience >= 10000 then
-                            text = string.format('%.1fK', experience / 1000)
-                        else
-                            text = experience
-        end
-                        controls.nextVet:SetText(text)
-                    end
+	        -- show veterancy to gain
+			local progress, title
+	        if upperThreshold then
+	            title = 'Veterancy'
+	            progress = (experience - lowerThreshold) / (upperThreshold - lowerThreshold)
+	            controls.nextVet:SetText(experience .. '/' .. string.format('%d', upperThreshold))
+	
+	        -- show total experience
+	        else
+	            title = 'Killed'
+	            progress = 1
+	            controls.nextVet:SetText(experience)
+	        end
+			
+	        -- always show it, regardless
+	        controls.vetBar:Show()
+	        controls.vetBar:SetValue(progress)
+	        controls.vetTitle:SetText(title)
+		end
 		
-                    -- always show it, regardless
-                    controls.vetBar:Show()
-                    controls.vetBar:SetValue(progress)
-                    controls.vetTitle:SetText(title)
-		
-                -- show reclaim statistics
-                else
-                    local reclaimedMass, reclaimedEnergy
-                    if unit then
-                        reclaimedMass = unit:GetStat('ReclaimedMass').Value
-                        reclaimedEnergy = unit:GetStat('ReclaimedEnergy').Value
-                    end
-                    if reclaimedMass or reclaimedEnergy then
-                        controls.ReclaimGroup:Show()
-                        controls.ReclaimGroup.MassText:SetText(tostring(reclaimedMass or 0))
-                        controls.ReclaimGroup.EnergyText:SetText(tostring(reclaimedEnergy or 0))
-                    end
-                end
-            end
-        end
-
 		local unitQueue = false
 		if info.userUnit then
 		    unitQueue = info.userUnit:GetCommandQueue()
@@ -636,6 +587,33 @@ function UpdateWindow(info)
             controls.SCUType:Show()
         end
     end
+	UpdateEnhancementIcons(info)
+end
+
+function UpdateEnhancementIcons(info)
+    local unit = info.userUnit
+    local existingEnhancements
+    if unit then
+        existingEnhancements = EnhancementCommon.GetEnhancements(unit:GetEntityId())
+    end
+
+    for slot, enhancement in controls.enhancements do
+        if unit == nil or
+            (not unit:IsInCategory('COMMAND') and not unit:IsInCategory('SUBCOMMANDER')) or
+            existingEnhancements == nil or existingEnhancements[slot] == nil then
+            enhancement:Hide()
+            continue
+        end
+
+        local bp = unit:GetBlueprint()
+        local bpId = bp.BlueprintId
+        local enhancementBp = bp.Enhancements[ existingEnhancements[slot] ]
+        local texture = GetEnhancementPrefix(bpId, enhancementBp.Icon) .. '_btn_up.dds'
+
+        enhancement:Show()
+        enhancement:SetTexture(UIUtil.UIFile(texture, true))
+        LayoutHelpers.SetDimensions(enhancement, 30, 30)
+    end
 end
 
 function ShowROBox()
@@ -735,6 +713,16 @@ function CreateUI()
             self:SetAlpha(math.max(self:GetAlpha() - (delta*3), 0), true)
         end
     end
+
+	-- This section is for the small icons showing what active enhancements an ACU has
+	controls.enhancements = {}
+	controls.enhancements['RCH'] = Bitmap(controls.bg)
+	controls.enhancements['Back'] = Bitmap(controls.bg)
+	controls.enhancements['LCH'] = Bitmap(controls.bg)
+
+	LayoutHelpers.AtLeftTopIn(controls.enhancements['RCH'], controls.bg, 10, -30)
+	LayoutHelpers.AtLeftTopIn(controls.enhancements['Back'], controls.bg, 42, -30)
+	LayoutHelpers.AtLeftTopIn(controls.enhancements['LCH'], controls.bg, 74, -30)
 
     -- from GAZ UI - SCU Manager
     controls.SCUType = Bitmap(controls.bg)
