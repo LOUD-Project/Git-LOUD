@@ -79,7 +79,7 @@ function SetLayout()
     LayoutHelpers.SetDimensions(controls.unitIcon, controls.unitIcon.BitmapWidth() * .9, controls.unitIcon.BitmapHeight() * .9)
 
     local avatarGroup = import('/lua/ui/game/avatars.lua').controls.avatarGroup
-    LayoutHelpers.AncharAtBottom(avatarGroup, controls.bgBottom, 4)
+    LayoutHelpers.AnchorToBottom(avatarGroup, controls.bgBottom, 4)
     
     LayoutArmyLines()
 end
