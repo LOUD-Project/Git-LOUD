@@ -1044,7 +1044,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             LOUDSTATE(self, self.RackSalvoFireReadyState)
 
         end,
-
+--[[
         OnFire = function(self)
 
             if ScenarioInfo.WeaponStateDialog then
@@ -1053,7 +1053,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             
             LOUDSTATE(self, self.RackSalvoFireReadyState)
         end,
-        
+--]]        
         OnGotTarget = function(self)
 
             if ScenarioInfo.WeaponStateDialog then
