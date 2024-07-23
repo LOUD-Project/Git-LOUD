@@ -844,8 +844,7 @@ function CreateUI(over, exitBehavior, useSteam)
 		LayoutHelpers.AtRightBottomIn(gameListObjects[index].mapglow, gameListObjects[index].preview, -3, -3)
         gameListObjects[index].mapglow:DisableHitTest()
         
-		-- Reduced fontsize from 60 to 16 as with high UI scaling the game engine may crash
-        gameListObjects[index].nopreview = UIUtil.CreateText(gameListObjects[index], '?', 16, UIUtil.bodyFont)
+        gameListObjects[index].nopreview = UIUtil.CreateText(gameListObjects[index], '?', 60, UIUtil.bodyFont)
 		
         LayoutHelpers.AtCenterIn(gameListObjects[index].nopreview, gameListObjects[index].preview)
 		

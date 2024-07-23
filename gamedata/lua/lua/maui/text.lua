@@ -16,7 +16,7 @@ local LOUDFIND = string.find
 local LOUDFLOOR = math.floor
 local LOUDINSERT = table.insert
 local LOUDSUB = string.sub
-
+local LOUDMIN = math.min
 
 Text = Class(moho.text_methods, Control) {
 
@@ -61,7 +61,8 @@ Text = Class(moho.text_methods, Control) {
     SetFont = function(self, family, pointsize)
         if self._font then
             self._lockFontChanges = true
-            self._font._pointsize:Set(ScaleNumber(pointsize))
+			-- Limit the maximum font size to avoid a crash of the game engine (for me)
+            self._font._pointsize:Set(LOUDMIN(ScaleNumber(pointsize), 109))
             self._font._family:Set(family)
             self._lockFontChanges = false
             self:_internalSetFont()
