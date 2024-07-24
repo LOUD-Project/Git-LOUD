@@ -136,7 +136,7 @@ function BrewLANBuildCatChanges(all_bps)
 
                 if CheckBuildCatConsistsOfRealCats(real_categories, buildcat[i]) then
                 
-                    LOG("*AI DEBUG Inserting "..repr(buildcat[i]).." to unit "..unitid )
+                    --LOG("*AI DEBUG Inserting "..repr(buildcat[i]).." to unit "..unitid )
                     
                     table.insert(all_bps[unitid].Economy.BuildableCategory, buildcat[i])
                 end
@@ -261,7 +261,7 @@ function BrewLANCategoryChanges(all_bps)
                     if i == 'r' then
                         if type(v.r) == 'string' then
 
-                            LOG("*AI DEBUG Removing "..repr(v.r).." from unit "..repr(k))
+                            --LOG("*AI DEBUG Removing "..repr(v.r).." from unit "..repr(k))
 
                             table.removeByValue(all_bps[k].Categories, v.r)
 
@@ -269,7 +269,7 @@ function BrewLANCategoryChanges(all_bps)
 
                             for i in v.r do
                             
-                                LOG("*AI DEBUG Removing "..repr(v.r[i]).." from unit "..repr(k))
+                                --LOG("*AI DEBUG Removing "..repr(v.r[i]).." from unit "..repr(k))
 
                                 table.removeByValue(all_bps[k].Categories, v.r[i])
                             end
@@ -278,7 +278,7 @@ function BrewLANCategoryChanges(all_bps)
 
                     if i ~= 'r' then
                     
-                        LOG("*AI DEBUG Inserting "..repr(v[i]).." in unit "..repr(k))
+                        --LOG("*AI DEBUG Inserting "..repr(v[i]).." in unit "..repr(k))
 
                         table.insert(all_bps[k].Categories, v[i])
                     end
@@ -289,7 +289,7 @@ function BrewLANCategoryChanges(all_bps)
 
                 for i in buildcats do
 
-                    LOG("*AI DEBUG Removing "..repr(buildcats[i]).." from unit "..repr(k))                
+                    --LOG("*AI DEBUG Removing "..repr(buildcats[i]).." from unit "..repr(k))                
 
                     table.removeByValue(all_bps[k].Categories, buildcats[i])
                 end
@@ -761,7 +761,7 @@ function BrewLANGenerateFootprintDummyUnits(all_units)
 
             if not NewDummies[dummyID] then
 
-                SPEW( "Creating footprint dummy off of unit "..bp.BlueprintId )
+                --SPEW( "Creating footprint dummy off of unit "..bp.BlueprintId )
                 
                 NewDummies[dummyID] = {
                     BlueprintId = dummyID,
@@ -814,7 +814,7 @@ function BrewLANGenerateFootprintDummyUnits(all_units)
                     Source = all_units.uab0101.Source,
                 }
 
-                SPEW("Creating footprint dummy unit: " .. dummyID)
+                --SPEW("Creating footprint dummy unit: " .. dummyID)
             end
             
             bp.FootprintDummyId = dummyID
