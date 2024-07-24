@@ -91,7 +91,7 @@ UnitBlueprint{
     },
 
     Economy = {
-        BuildCostEnergy = 17250,
+        BuildCostEnergy = 18115,
         BuildCostMass = 370,
         BuildTime = 600,
     },
@@ -126,8 +126,10 @@ UnitBlueprint{
 
     Physics = {
         Elevation = 10,
+
         FuelRechargeRate = 6,
-        FuelUseTime = 215,
+        FuelUseTime = 200,
+
         GroundCollisionOffset = 1.6,
         MaxSpeed = 0.5,
         MeshExtentsX = 2,
@@ -176,7 +178,6 @@ UnitBlueprint{
                 BeamLoop  = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Loop',   LodCutoff = 'Weapon_LodCutoff' },
                 BeamStart = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Fire',   LodCutoff = 'Weapon_LodCutoff' },
                 BeamStop  = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Stop',   LodCutoff = 'Weapon_LodCutoff' },
-                Unpack    = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             AutoInitiateAttackCommand = true,

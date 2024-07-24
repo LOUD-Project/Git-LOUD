@@ -129,7 +129,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 16950,
+        BuildCostEnergy = 17500,
         BuildCostMass = 355,
         BuildTime = 600,
     },
@@ -177,7 +177,7 @@ UnitBlueprint {
         Elevation = 8.5,
 		
         FuelRechargeRate = 6,
-        FuelUseTime = 245,	-- 15% more than standard 
+        FuelUseTime = 230,	-- 15% more than standard 
 		
         GroundCollisionOffset = 1.6,
         MaxSpeed = 0.5,
