@@ -2079,7 +2079,7 @@ function AirStagingThread( unit, airstage, aiBrain )
     local IsUnitState               = IsUnitState
     local WaitTicks                 = WaitTicks
 	
-	if not airstage.Dead then
+	if not airstage.Dead and aiBrain.PathRequests then
 		
 		if not unit.Dead then
 

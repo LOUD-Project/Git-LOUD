@@ -212,8 +212,10 @@ function Create()
     GUI.logContainer.IsScrollable = function(self, axis)
         return true
     end
+
     -- determines what controls should be visible or not
     GUI.logContainer.CalcVisible = function(self)
+
         local function SetTextLine(line, data, lineID)
             line.bg:Show()
             if data.isChecked then
