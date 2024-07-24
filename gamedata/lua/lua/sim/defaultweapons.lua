@@ -115,7 +115,12 @@ DefaultProjectileWeapon = Class(Weapon) {
         end
 		
         if bp.FixBombTrajectory then
-            self.CBFP_CalcBallAcc = { Do = true, ProjectilesPerOnFire = (bp.ProjectilesPerOnFire or 1), }
+        
+            if bp.ProjectilesPerOnFire then
+                self.CBFP_CalcBallAcc = { Do = true, ProjectilesPerOnFire = bp.ProjectilesPerOnFire }
+            else
+                self.CBFP_CalcBallAcc = { Do = true, ProjectilesPerOnFire = 1 }
+            end
         end
 
         if not bp.EnabledByEnhancement then
@@ -125,11 +130,11 @@ DefaultProjectileWeapon = Class(Weapon) {
         end
 	end,
 	
-    CheckBallisticAcceleration = function(self, proj)
+    CheckBallisticAcceleration = function(self, proj, Projectiles )
 	
-        local acc = CalculateBallisticAcceleration( self, proj, self.CBFP_CalcBallAcc.ProjectilesPerOnFire )
+        local acc = CalculateBallisticAcceleration( self, proj, Projectiles )
 
-        proj:SetBallisticAcceleration( -acc) #-- change projectile trajectory so it hits the target, cure for engine bug
+        proj:SetBallisticAcceleration( -acc)    --- change projectile trajectory so it hits the target, cure for engine bug
 
     end,
 
@@ -203,7 +208,7 @@ DefaultProjectileWeapon = Class(Weapon) {
         end
 
 		if self.CBFP_CalcBallAcc then
-			self:CheckBallisticAcceleration(proj)
+			self:CheckBallisticAcceleration(proj, self.CBFP_CalcBallAcc.ProjectilesPerOnFire )
 		end
 		
 		if bp.CountedProjectile then
