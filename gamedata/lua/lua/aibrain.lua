@@ -1163,7 +1163,7 @@ AIBrain = Class(moho.aibrain_methods) {
 	
         if self.BuilderManagers then
 		
-            self.ConditionsMonitor:Destroy()
+            if self.ConditionsMonitor then self.ConditionsMonitor:Destroy() end
 			
             for k,v in self.BuilderManagers do
 			
@@ -1242,11 +1242,15 @@ AIBrain = Class(moho.aibrain_methods) {
                 
                 self.CurrentPlan = nil
 				
-				self.ConditionsMonitor.Trash:Destroy()
+				if self.ConditionsMonitor then
+
+					self.ConditionsMonitor.Trash:Destroy()
 				
-				self.ConditionsMonitor:Destroy()
+					self.ConditionsMonitor:Destroy()
 				
-				self.ConditionsMonitor = nil
+					self.ConditionsMonitor = nil
+
+				end
 			
 				for k,v in self.BuilderManagers do
 				
@@ -1349,8 +1353,8 @@ AIBrain = Class(moho.aibrain_methods) {
                 if self.RefuelPool then
                     self:DisbandPlatoon(self.RefuelPool)
                 end
-                
-				self:DisbandPlatoon(self.StructurePool)
+                		
+				if self.StructurePool then self:DisbandPlatoon(self.StructurePool) end
                 
                 if self.TransportPool then
                     self:DisbandPlatoon(self.TransportPool)
