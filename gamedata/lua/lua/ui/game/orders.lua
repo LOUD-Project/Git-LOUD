@@ -2,18 +2,18 @@
 -- Author: Chris Blackwell
 -- Summary: Unit orders UI
 
-local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
-local Checkbox = import('/lua/maui/checkbox.lua').Checkbox
-local CM = import('/lua/ui/game/commandmode.lua')
-local GameCommon = import('/lua/ui/game/gamecommon.lua')
-local Grid = import('/lua/maui/grid.lua').Grid
-local Keymapping = import('/lua/keymap/defaultKeyMap.lua').defaultKeyMap
+local Bitmap        = import('/lua/maui/bitmap.lua').Bitmap
+local Checkbox      = import('/lua/maui/checkbox.lua').Checkbox
+local CM            = import('/lua/ui/game/commandmode.lua')
+local GameCommon    = import('/lua/ui/game/gamecommon.lua')
+local Grid          = import('/lua/maui/grid.lua').Grid
+local Keymapping    = import('/lua/keymap/defaultKeyMap.lua').defaultKeyMap
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
-local Prefs = import('/lua/user/prefs.lua')
-local Tooltip = import('/lua/ui/game/tooltip.lua')
-local TooltipInfo = import('/lua/ui/help/tooltips.lua')
-local UIMain = import('/lua/ui/uimain.lua')
-local UIUtil = import('/lua/ui/uiutil.lua')
+local Prefs         = import('/lua/user/prefs.lua')
+local Tooltip       = import('/lua/ui/game/tooltip.lua')
+local TooltipInfo   = import('/lua/ui/help/tooltips.lua')
+local UIMain        = import('/lua/ui/uimain.lua')
+local UIUtil        = import('/lua/ui/uiutil.lua')
 
 controls = {
     mouseoverDisplay = false,

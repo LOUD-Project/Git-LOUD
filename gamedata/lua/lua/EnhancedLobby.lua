@@ -70,50 +70,6 @@ function CheckMapHasMarkers(scenario)
 end
 
 
-function GetLobbyOptions()
-
-	local activeMods = GetActiveMods()
-	local options = GPGOptions
-	
-	local OptionFiles = DiskFindFiles('/lua/CustomOptions', '*.lua')
-	
-	for i, v in OptionFiles do
-
-        local tempfile = import(v).LobbyGlobalOptions
-		
-		for s, t in tempfile do
-		
-			table.insert(options, t)
-			
-		end
-		
-	end
-	
-	for k, mod in activeMods do
-	
-		local OptionFiles = DiskFindFiles(mod.location..'/lua/CustomOptions', '*.lua')
-		
-		for i, v in OptionFiles do
-
-			local tempfile = import(v).LobbyGlobalOptions
-			
-			for s, t in tempfile do
-			
-                LOG("*AI DEBUG Custom Lobby Option from mod "..repr(mod.name).." "..repr(t.label))
-
-				table.insert(options, t)
-				
-			end
-			
-		end
-		
-	end
-	
-	return options
-	
-end
-
-
 function IsSim()
 	
 	if not rawget(_G, 'GetCurrentUIState') then
@@ -222,7 +178,8 @@ function GetAIList()
     local aitypes = {}
 
     local AIFiles = DiskFindFiles('/lua/AI/CustomAIs_v2', '*.lua')
-    local AIFilesold = DiskFindFiles('/lua/AI/CustomAIs', '*.lua')
+
+    local AIFilesold = {}       ---DiskFindFiles('/lua/AI/CustomAIs', '*.lua')
 
     function AddAIData(tempfile)
 
@@ -232,7 +189,7 @@ function GetAIList()
             
                 if not aitypes[tAIData.key] then
 
-                    --LOG('*AI DEBUG Adding AI with name '..repr(tAIData))    ---..(tAIData.Name or 'nil'))
+                    LOG('*AI DEBUG Adding AI '..repr(tAIData.name))
 
                     table.insert(aitypes, { key = tAIData.key, name = tAIData.name })
                     
@@ -295,18 +252,27 @@ function GetAIList()
 
             local AIFiles = DiskFindFiles(mod.location..'/lua/AI/CustomAIs_v2', '*.lua')
 
-            if AIFiles then
+            if AIFiles[1] then
+            
+                LOG("*AI DEBUG Processing AI Mod "..repr(mod.location))
 
                 for i, v in AIFiles do
-                
-                    LOG("*AI DEBUG Active Mod AI "..repr(v))
-                    
                     AddAIData(import(v).AI.AIList)
                     AddAIData(import(v).AI.CheatAIList)
+                end
+                
+                AIFiles = DiskFindFiles(mod.location..'/lua/AI/CustomAITooltips', '*.lua')
+                
+                if AIFiles then
+                
+                    LOG("*AI DEBUG AI Tooltips are "..repr(AIFiles) )
+                    
+                    GetCustomTooltips()
                 end
             end
 
         end
+
     end
     
     return aitypes
@@ -331,9 +297,12 @@ function GetCustomTooltips()
 	end
 
 	for k, mod in activeMods do
+    
 		local OptionFiles = DiskFindFiles(mod.location..'/lua/AI/CustomAITooltips', '*.lua')
 		for i, v in OptionFiles do
+        
 			local tempfile = import(v)
+            
 			if tempfile.Tooltips then
 				for s, t in tempfile.Tooltips do	
 					tooltips[s] = t

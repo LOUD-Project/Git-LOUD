@@ -1,17 +1,13 @@
---*****************************************************************************
 --* File: lua/modules/ui/menus/common.lua
 --* Author: Chris Blackwell
 --* Summary: common menu functions
---*
 --* Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
---*****************************************************************************
 
-local UIUtil = import('/lua/ui/uiutil.lua')
+local Bitmap        = import('/lua/maui/bitmap.lua').Bitmap
+local Button        = import('/lua/maui/button.lua').Button
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
-local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
-local Tooltip = import('/lua/ui/game/tooltip.lua')
-local Button = import('/lua/maui/button.lua').Button
-local Tooltip = import('/lua/ui/game/tooltip.lua')
+local Tooltip       = import('/lua/ui/game/tooltip.lua')
+local UIUtil        = import('/lua/ui/uiutil.lua')
 
 -- Menu background
 local background = false

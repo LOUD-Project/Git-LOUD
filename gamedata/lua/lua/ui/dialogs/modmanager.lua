@@ -1,22 +1,19 @@
---*****************************************************************************
---* File: lua/modules/ui/dialogs/modmanager.lua
 --* Author: Chris Blackwell
 --* Summary: Allows you to choose mods
 --*
 --* Copyright � 2005 Gas Powered Games, Inc.  All rights reserved.
---*****************************************************************************
 
-local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
-local Combo = import('/lua/ui/controls/combo.lua').Combo
-local Edit = import('/lua/maui/edit.lua').Edit
-local Group = import('/lua/maui/group.lua').Group
-local ItemList = import('/lua/maui/itemlist.lua').ItemList
+local Bitmap        = import('/lua/maui/bitmap.lua').Bitmap
+local Combo         = import('/lua/ui/controls/combo.lua').Combo
+local Edit          = import('/lua/maui/edit.lua').Edit
+local Group         = import('/lua/maui/group.lua').Group
+local ItemList      = import('/lua/maui/itemlist.lua').ItemList
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
-local Mods = import('/lua/mods.lua')
+local Mods          = import('/lua/mods.lua')
 local MultiLineText = import('/lua/maui/multilinetext.lua').MultiLineText
-local Prefs = import('/lua/user/prefs.lua')
-local Tooltip = import('/lua/ui/game/tooltip.lua')
-local UIUtil = import('/lua/ui/uiutil.lua')
+local Prefs         = import('/lua/user/prefs.lua')
+local Tooltip       = import('/lua/ui/game/tooltip.lua')
+local UIUtil        = import('/lua/ui/uiutil.lua')
 
 local _InternalUpdateStatus
 
@@ -65,6 +62,7 @@ end
 
 function HostModStatus(availableMods)
     Mods.ClearCache() -- force reload of mod info to pick up changes on disk
+
     local my_all = Mods.AllSelectableMods()
     local my_sel = Mods.GetSelectedMods()
     local r = {}
@@ -121,8 +119,10 @@ local function IsModExclusive(uid)
 end
 
 local function CreateDependsDialog(parent, text, yesFunc)
+
     local dialog = Group(parent)
     local background = Bitmap(dialog, UIUtil.SkinnableFile('/dialogs/dialog/panel_bmp_m.dds'))
+
     background:SetTiled(true)
     LayoutHelpers.FillParent(background, dialog)
 

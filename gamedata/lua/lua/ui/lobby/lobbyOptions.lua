@@ -1,15 +1,10 @@
---*****************************************************************************
---* File: lua/modules/ui/lobby/lobbyOptions.lua
---* Summary: Lobby options
---*
---* Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
---*****************************************************************************
+--- File: lua/modules/ui/lobby/lobbyOptions.lua
+--- Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 
 teamOptions = {
 
-    {
+    {   label = "<LOC lobui_0088>Spawn",
         default = 2,
-        label = "<LOC lobui_0088>Spawn",
         help = "<LOC lobui_0089>Determine what positions players spawn on the map",
         key = 'TeamSpawn',
         pref = 'Lobby_Team_Spawn',
@@ -27,9 +22,8 @@ teamOptions = {
         },
     },
 
-    {
+    {   label = "<LOC lobui_0096>Team",
         default = 1,
-        label = "<LOC lobui_0096>Team",
         help = "<LOC lobui_0097>Determines if players may switch teams while in game",
         key = 'TeamLock',
         pref = 'Lobby_Team_Lock',
@@ -47,9 +41,8 @@ teamOptions = {
         },
     },
 
-    {
+    {   label = "Evenly Distributed Random Factions",
         default = 1,
-        label = "Evenly Distributed Random Factions",
         help = 'Promote a more even spread of factions among players which choose to receive theirs randomly.',
         key = 'EvenFactions',
         pref = 'Lobby_Even_Factions',
@@ -71,9 +64,8 @@ teamOptions = {
 
 globalOpts = {
 
-    {
+    {   label = "<LOC lobui_0258>Game Speed",
         default = 3,
-        label = "<LOC lobui_0258>Game Speed",
         help = "<LOC lobui_0259>Set the game speed",
         key = 'GameSpeed',
         pref = 'Lobby_Gen_GameSpeed',
@@ -96,9 +88,8 @@ globalOpts = {
         },
     },
 
-    {
+    {   label = "<LOC lobui_0316>No Rush Option",
         default = 1,
-        label = "<LOC lobui_0316>No Rush Option",
         help = "<LOC lobui_0317>Enforce No Rush rules for a certain period of time",
         key = 'NoRushOption',
         pref = 'Lobby_NoRushOption',
@@ -126,9 +117,8 @@ globalOpts = {
         },
     },
 
-    {
+    {   label = "<LOC lobui_0310>Prebuilt Units",
         default = 1,
-        label = "<LOC lobui_0310>Prebuilt Units",
         help = "<LOC lobui_0311>Set whether the game starts with prebuilt units or not",
         key = 'PrebuiltUnits',
         pref = 'Lobby_Prebuilt_Units',
@@ -146,9 +136,8 @@ globalOpts = {
         },
     },
 
-    {
+    {   label = "Unit Cap",
         default = '800',
-        label = "Unit Cap",
         help = "Set the maximum number of units that can be in play by one player",
         key = 'UnitCap',
         pref = 'Lobby_Gen_Cap',
@@ -156,9 +145,8 @@ globalOpts = {
         valid = '^%d+$',
     },
 
-    {
+    {   label = "User Spawn/Cheat Menu",
         default = 1,
-        label = "User Spawn/Cheat Menu",
         help = "Enable spawn/cheat menu",
         key = 'CheatsEnabled',
         pref = 'Lobby_Gen_CheatsEnabled',
@@ -176,9 +164,8 @@ globalOpts = {
         },
     },
 
-    {
+    {   label = "User Timeouts",
         default = 2,
-        label = "User Timeouts",
         help = "The number of timeouts each player can request",
         key = 'Timeouts',
         pref = 'Lobby_Gen_Timeouts',
@@ -202,9 +189,8 @@ globalOpts = {
         },
     },
 
-    {
+    {   label = "<LOC lobui_0120>Victory Condition",
         default = 1,
-        label = "<LOC lobui_0120>Victory Condition",
         help = "<LOC lobui_0121>Determines how a victory can be achieved",
         key = 'Victory',
         pref = 'Lobby_Gen_Victory',
@@ -237,9 +223,8 @@ globalOpts = {
         },
     },
 
-    {
+    {   label = "Victory Time Limit Setting",
         default = 1,
-        label = "Victory Time Limit Setting",
         help = "How long a game will continue",
         key = 'TimeLimitSetting',
         pref = 'Lobby_Gen_TimeLimitSetting',
@@ -286,9 +271,8 @@ globalOpts = {
 
 advGameOptions = {
 
-    {
+    {   label = "<LOC lobui_0291>Civilians",
         default = 1,
-        label = "<LOC lobui_0291>Civilians",
         help = "<LOC lobui_0292>Set how civilian units are used",
         key = 'CivilianAlliance',
         pref = 'Lobby_Gen_Civilians',
@@ -310,9 +294,9 @@ advGameOptions = {
             },
         },
     },
-    {
+
+    {   label = "<LOC lobui_0112>Fog of War",
         default = 1,
-        label = "<LOC lobui_0112>Fog of War",
         help = "<LOC lobui_0113>Set up how fog of war will be visualized",
         key = 'FogOfWar',
         pref = 'Lobby_Gen_Fog',
@@ -329,9 +313,9 @@ advGameOptions = {
             },
         },
     },
-    {
+
+    {   label = "PreBuilt Missile Option",
         default = 1,
-        label = "PreBuilt Missile Option",
         help = "Options for Missiles (TAC, Nukes & AntiNukes)",
         key = 'MissileOption',
         pref = 'Lobby_MissileOption',
@@ -353,9 +337,9 @@ advGameOptions = {
             },
         },
     },
-    {
+
+    {   label = "Relocate Starting Resources",
         default = 1,
-        label = "Relocate Starting Resources",
         help = "Initial mass & hydrocarbon points are relocated to suit AI needs.",
         key = 'RelocateResources',
         pref = 'Lobby_RelocateResources',
@@ -373,9 +357,8 @@ advGameOptions = {
         }
     },
 
-	{
+	{   label = "Unused Start Resources",
 		default = 1,
-		label = "Unused Start Resources",
 		help = "Remove Resources near unused Start Positions",
 		key = 'UnusedResources',
 		pref = 'Lobby_UnusedResources',
@@ -417,13 +400,13 @@ advGameOptions = {
 			},
 		},
     },
+
 }
 
 advAIOptions = {
 
-    {
+    {   label = "ACT Feedback Cheat Interval",
         default = '30',
-        label = "ACT Feedback Cheat Interval",
         help = "If an AI is affected by ACT Feedback, this is the time period in seconds between possible changes to its cheat multiplier. Increase for better performance.",
         key = "ACTRatioInterval",
         pref = 'Lobby_ACT_Ratio_Interval',
@@ -431,22 +414,17 @@ advAIOptions = {
         valid = '^%d+$',
     },
 
-    {
+    {   label = "ACT Feedback Cheat Scale",
         default = '1',
-        label = "ACT Feedback Cheat Scale",
         help = "If an AI is affected by ACT Feedback, this is the scale which affects the multiplier increase. At 1, the cheat will increase by a max of 0.5.",
         key = "ACTRatioScale",
         pref = 'Lobby_ACT_Ratio_Scale',
         type = 'edit',
-        valid = {
-            '^%d+$',
-            '^%d+%.%d+$',
-        },
+        valid = {'^%d+$','^%d+%.%d+$'},
     },
 
-    {
+    {   label = "ACT Timed Cheat Start Delay",
         default = '5',
-        label = "ACT Timed Cheat Start Delay",
         help = "If an AI is affected by ACT Timed cheats, this is the delay in minutes before any changes start happening.",
         key = "ACTStartDelay",
         pref = 'Lobby_ACT_Start_Delay',
@@ -454,9 +432,8 @@ advAIOptions = {
         valid = '^%d+$',
     },
 
-    {
+    {   label = "ACT Timed Cheat Delay",
         default = '5',
-        label = "ACT Timed Cheat Delay",
         help = "If an AI is affected by ACT Timed cheats, this is the delay in minutes between each cheat rate adjustment.",
         key = "ACTTimeDelay",
         pref = 'Lobby_ACT_Time_Delay',
@@ -464,38 +441,27 @@ advAIOptions = {
         valid = '^%d+$',
     },
 
-    {
+    {   label = "ACT Timed Cheat Amount",
         default = '0.02',
-        label = "ACT Timed Cheat Amount",
         help = "If an AI is affected by ACT Timed cheats, this is how much the cheat will change at each interval. Can be negative.",
         key = "ACTTimeAmount",
         pref = 'Lobby_ACT_Time_Amount',
         type = 'edit',
-        valid = {
-            '^%d+$',
-            '^%d+%.%d+$',
-            '^%-%d+$',
-            '^%-%d+%.%d+$',
-        },
+        valid = {'^%d+$','^%d+%.%d+$','^%-%d+$','^%-%d+%.%d+$'},
     },
 
-    {
+    {   label = "ACT Timed Cheat Limit",
         default = '2',
-        label = "ACT Timed Cheat Limit",
         help = "If an AI is affected by ACT Timed cheats, the cheat multiplier cannot exceed this value.",
         key = "ACTTimeCap",
         pref = 'Lobby_ACT_Time_Cap',
         type = 'edit',
-        valid = {
-            '^%d+$',
-            '^%d+%.%d+$',
-        },
+        valid = {'^%d+$','^%d+%.%d+$'},
 
     },
 
-    {
+    {   label = "AI Shares Resources",
         default = 1,
-        label = "AI Shares Resources",
         help = "Set if AI players share resources with their allies.",
         key = 'AIResourceSharing',
         pref = 'Lobby_AI_Resource_Sharing',
@@ -518,8 +484,8 @@ advAIOptions = {
         },
     },
 
-    {   default = 2,
-        label = "AI Unit Cap",
+    {   label = "AI Unit Cap",
+        default = 2,
         help = "Set the Unit Cap limit for the AIs.",
         key = 'CapCheat',
         pref = 'Lobby_Cap_Cheat',
@@ -542,9 +508,8 @@ advAIOptions = {
         },
     },
 
-    {
+    {   label = "AI Uses Faction Color",
         default = 1,
-        label = "AI Uses Faction Color",
         help = "Set whether AI players get assigned the color of their faction after the game starts.",
         key = 'AIFactionColor',
         pref = 'Lobby_AI_Faction_Color',

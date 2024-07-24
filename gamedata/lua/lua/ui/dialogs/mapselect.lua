@@ -1,24 +1,25 @@
---*****************************************************************************
 --* File: lua/modules/ui/dialogs/mapselect.lua
 --* Author: Chris Blackwell
 --* Summary: Dialog to facilitate map selection
 --*
 --* Copyright � 2005 Gas Powered Games, Inc.  All rights reserved.
---*****************************************************************************
 
-local UIUtil = import('/lua/ui/uiutil.lua')
+LOG("*AI DEBUG LOADING MAP SELECT/OPTIONS PANEL")
+
+local Bitmap        = import('/lua/maui/bitmap.lua').Bitmap
+local Combo         = import('/lua/ui/controls/combo.lua').Combo
+local Edit          = import('/lua/maui/edit.lua').Edit
+local ItemList      = import('/lua/maui/itemlist.lua').ItemList
+local Group         = import('/lua/maui/group.lua').Group
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
-local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
-local Edit = import('/lua/maui/edit.lua').Edit
-local ItemList = import('/lua/maui/itemlist.lua').ItemList
-local Group = import('/lua/maui/group.lua').Group
-local MenuCommon = import('/lua/ui/menus/menucommon.lua')
-local MapPreview = import('/lua/ui/controls/mappreview.lua').MapPreview
-local MapUtil = import('/lua/ui/maputil.lua')
-local Mods = import('/lua/mods.lua')
-local Combo = import('/lua/ui/controls/combo.lua').Combo
-local Tooltip = import('/lua/ui/game/tooltip.lua')
-local ModManager = import('/lua/ui/dialogs/modmanager.lua')
+local MenuCommon    = import('/lua/ui/menus/menucommon.lua')
+local MapPreview    = import('/lua/ui/controls/mappreview.lua').MapPreview
+local MapUtil       = import('/lua/ui/maputil.lua')
+local ModManager    = import('/lua/ui/dialogs/modmanager.lua')
+local Mods          = import('/lua/mods.lua')
+local Tooltip       = import('/lua/ui/game/tooltip.lua')
+local UIUtil        = import('/lua/ui/uiutil.lua')
+
 local EnhancedLobby = import('/lua/enhancedlobby.lua')
 
 -- In folderMap, key corresponds to an ItemList row,
@@ -27,17 +28,16 @@ local EnhancedLobby = import('/lua/enhancedlobby.lua')
 local folders = MapUtil.EnumerateSkirmishFolders()
 local folderMap = { {} }
 
-local selectedScenario = false
-local description = false
-local descText = false
-local posGroup = false
-local mapList = false
-local filters = {}
-local filterTitle = false
-local mapsize = false
-local mapplayers = false
-local mapInfo = false
-local selectButton = false
+
+local description       = false
+local filters           = {}
+local filterTitle       = false
+local mapList           = false
+local mapsize           = false
+local mapplayers        = false
+local posGroup          = false
+local selectButton      = false
+local selectedScenario  = false
 
 local currentFilters = { 
     ['map_select_supportedplayers'] = 0, 
@@ -46,16 +46,16 @@ local currentFilters = {
     ['map_select_size_limiter'] = "equal", 
 }
 
-local Options = {}
-local OptionSource = {}
-local OptionContainer = false
-local advOptions = false
-local changedOptions = {}
+local advOptions        = false
+local changedOptions    = {}
+local Options           = {}
+
+local OptionContainer   = false
+
 local restrictedCategories = nil
 
 mapFilters = {
-    {
-        FilterName = "<LOC MAPSEL_0009>Supported Players",
+    {   FilterName = "<LOC MAPSEL_0009>Supported Players",
         FilterKey = 'map_select_supportedplayers',
         Options = {
             {text = "<LOC MAPSEL_0010>All", key = 0},
@@ -71,8 +71,7 @@ mapFilters = {
             {text = "16", key = 16},
         }
     },
-    {
-        FilterName = "<LOC MAPSEL_0024>Map Size",
+    {   FilterName = "<LOC MAPSEL_0024>Map Size",
         FilterKey = 'map_select_size',
         Options = {
             {text = "<LOC MAPSEL_0025>All", key = 0},
@@ -83,8 +82,7 @@ mapFilters = {
             {text = "<LOC MAPSEL_0030>81km", key = 4096},
         }
     },
-    {
-        FilterName = "AI Markers",
+    {   FilterName = "AI Markers",
         FilterKey = 'map_ai_markers',
 		NoDelimiter = true,
         Options = {
@@ -123,6 +121,7 @@ end
 
 -- Create a filter dropdown and title from the table above
 function CreateFilter(parent, filterData)
+
     local group = Group(parent)
     group.Depth:Set(function() return parent.Depth() + 10 end)
     group.Width:Set(286)
@@ -182,6 +181,7 @@ function CreateFilter(parent, filterData)
 end
 
 local function ResetFilters()
+
     currentFilters = { 
         ['map_select_supportedplayers'] = 0, 
         ['map_select_size'] = 0, 
@@ -194,6 +194,7 @@ local function ResetFilters()
 end
 
 local function ShowMapPositions(mapCtrl, scenario)
+
     if posGroup then
         posGroup:Destroy()
         posGroup = false
@@ -230,7 +231,8 @@ local function ShowMapPositions(mapCtrl, scenario)
 end
 
 function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultScenarioName, curOptions, availableMods, OnModsChanged)
--- Control layout
+
+    -- Control layout
     local parent = nil
     local background = nil
 	
@@ -271,7 +273,8 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
     selectButton.Depth:Set(function() return panel.Depth() + 10 end) --TODO what is this getting under when it's in over state?
     
     local modButton = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "<LOC tooltipui0145>", 16, 2)
-	
+
+    --- this is the Map Select Screen Mod Manager button
     LayoutHelpers.AtLeftIn(modButton, panel, 15)
     LayoutHelpers.AtVerticalCenterIn(modButton, selectButton)
     selectButton.Depth:Set(function() return panel.Depth() + 10 end)
@@ -290,6 +293,7 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
     Tooltip.AddButtonTooltip(restrictedUnitsButton, "lob_RestrictedUnits")
    
     if not restrictedCategories then restrictedCategories = curOptions.RestrictedCategories end
+
     restrictedUnitsButton.OnClick = function(self, modifiers)
         mapList:AbandonKeyboardFocus()
         import('/lua/ui/lobby/restrictedunitsdlg.lua').CreateDialog(parent, 
@@ -363,6 +367,7 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
     LayoutHelpers.AtLeftTopIn(mapList, panel, 360, 202)
     mapList.Depth:Set(function() return panel.Depth() + 10 end) --TODO what is this getting under when it's in over state?
     mapList:AcquireKeyboardFocus(true)
+
     mapList.OnDestroy = function(control)
         mapList:AbandonKeyboardFocus()
         ItemList.OnDestroy(control)
@@ -420,11 +425,12 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
         end
     end
 
--- Initialize controls
+    -- Initialize controls
     PopulateMapList()
+
     SetupOptionsPanel(panel, singlePlayer, curOptions)
     
--- Control behvaior
+    -- Control behvaior
     if exitButton then
         exitButton.OnClick = function(self)
             exitBehavior()
@@ -443,27 +449,32 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
     end
     
     function PreloadMap(row)
+
         local fold = folders[folderMap[row + 1].folder]
         local scen = fold.maps[folderMap[row + 1].map]
+
         if scen == selectedScenario then
             return
         end
+
         selectedScenario = scen
+
         local mapfile = scen.map
 
         if DiskGetFileInfo(mapfile) then
 
+            PrefetchSession(mapfile, Mods.GetGameMods(), false)
+
             advOptions = scen.options
 
             RefreshOptions(false, singlePlayer)
-
-            PrefetchSession(mapfile, Mods.GetGameMods(), false)
 
             preview:Show()
 
             if not preview:SetTexture(scen.preview) then
                 preview:SetTextureFromMap(mapfile)
             end
+
             nopreviewtext:Hide()
 
             ShowMapPositions(preview,scen)
@@ -529,6 +540,7 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
     end
 
     local function SetDefaultScenario()
+
         if not defaultScenarioName then
             -- If no true folder at folders[1], call up its scenario
             -- Otherwise call up its first scenario
@@ -561,8 +573,10 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
                 end
             end
         end
+
         -- Fallback in case of map deletion
         LOG("MAPSELECT: Intended default scenario missing; going to first map in list")
+
         if folderMap[1].map then
             return 0
         else
@@ -580,27 +594,27 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
     return parent
 end
 
-function RefreshOptions(skipRefresh, singlePlayer)
+function RefreshOptions( skipRefresh, singlePlayer )
+
     -- a little weird, but the "skip refresh" is set to prevent calc visible from being called before the control is properly setup
     -- it also means it's a flag that tells you this is the first time the dialog has been opened
-    -- so we'll used this flag to reset the options sources so they can set up for multiplayer
+    -- so we'll use this flag to reset the options sources so they can set up for multiplayer
 
-    if skipRefresh then
-        OptionSource[2] = {title = "<LOC uilobby_0002>Game Options", options = import('/lua/ui/lobby/lobbyoptions.lua').globalOpts}
-        OptionSource[1] = {title = "<LOC uilobby_0001>Team Options", options = import('/lua/ui/lobby/lobbyoptions.lua').teamOptions}
-        OptionSource[4] = {title = "Advanced AI Options", options = import('/lua/ui/lobby/lobbyoptions.lua').advAIOptions}
-        OptionSource[5] = {title = "Advanced Game Options", options = import('/lua/ui/lobby/lobbyoptions.lua').advGameOptions}
-        
-        table.sort(OptionSource[5].options, function(a, b) return LOC(a.label) < LOC(b.label) end)
-        table.sort(OptionSource[4].options, function(a, b) return LOC(a.label) < LOC(b.label) end)
-        -- table.sort(OptionSource[2].options, function(a, b) return LOC(a.label) < LOC(b.label) end)
-        table.sort(OptionSource[1].options, function(a, b) return LOC(a.label) < LOC(b.label) end)
-    end
+    local OptionSource      = {}
 
-    OptionSource[3] = {}
-    OptionSource[3] = {title = "<LOC lobui_0164>Map Options", options = advOptions or {}}
+    Options           = {}
     
-    Options = {}
+    local lobbyoptions, teamlobbyoptions, advAIlobbyoptions, gamelobbyoptions = import('/lua/ui/lobby/lobby.lua').GetGlobalOptions()
+
+    OptionSource[1] = {title = "<LOC uilobby_0001>Team Options", options = teamlobbyoptions }
+    OptionSource[2] = {title = "<LOC uilobby_0002>Game Options", options = lobbyoptions     }
+    OptionSource[3] = {title = "<LOC lobui_0164>Map Options",    options = advOptions or {} }
+    OptionSource[4] = {title = "Advanced AI Options",            options = advAIlobbyoptions}
+    OptionSource[5] = {title = "Advanced Game Options",          options = gamelobbyoptions }
+
+    table.sort(OptionSource[1].options, function(a, b) return LOC(a.label) < LOC(b.label) end)        
+    table.sort(OptionSource[4].options, function(a, b) return LOC(a.label) < LOC(b.label) end)
+    table.sort(OptionSource[5].options, function(a, b) return LOC(a.label) < LOC(b.label) end)
     
     for _, OptionTable in OptionSource do
 
@@ -632,9 +646,10 @@ function RefreshOptions(skipRefresh, singlePlayer)
 end
 
 function SetupOptionsPanel(parent, singlePlayer, curOptions)
-    ---------------------------------------------
+    
+    ------------------------
     --Set Up Debriefing Area
-    ---------------------------------------------
+    ------------------------
     local title = UIUtil.CreateText(parent, '<LOC PROFILE_0012>', 18)
     LayoutHelpers.AtLeftTopIn(title, parent, 660, 60)
     
@@ -646,16 +661,22 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
     
     local OptionDisplay = {}
     
-    RefreshOptions(true, singlePlayer)
+    RefreshOptions( true, singlePlayer )
     
     local function CreateOptionCombo(parent, optionData, width)
+
         local combo = Combo(parent, nil, nil, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
         combo.Width:Set(240)
         combo.Depth:Set(function() return parent.Depth() + 10 end)
+
         local itemArray = {}
+
         combo.keyMap = {}
+
         local tooltipTable = {}
+
         Tooltip.AddComboTooltip(combo, tooltipTable, combo._list)
+
         combo.UpdateValue = function(key)
             combo:SetItem(combo.keyMap[key])
         end
@@ -664,24 +685,31 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
     end
     
     local function CreateOptionEdit(parent, optionData, width)
+
         local edit = Edit(parent)
+
         edit.Width:Set(240)
         edit.Height:Set(18)
         edit:SetMaxChars(5)
         edit.default = UIUtil.CreateText(edit, '', 13, 'Arial')
         edit.default:SetNewColor('888888')
+
         LayoutHelpers.AtRightIn(edit.default, edit, 16)
         LayoutHelpers.AtVerticalCenterIn(edit.default, edit)
 
         edit.OnCharPressed = function(self, charcode)
+
             if charcode == UIUtil.VK_TAB then
                 return true
             end
+
             -- Forbid all characters except digits, ., and -
             if charcode == 47 or charcode >= 58 or charcode <= 44 then
                 return true
             end
+
             local charLim = self:GetMaxChars()
+
             if STR_Utf8Len(self:GetText()) >= charLim then
                 local sound = Sound({Cue = 'UI_Menu_Error_01', Bank = 'Interface',})
                 PlaySound(sound)
@@ -692,7 +720,9 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
     end
 
     local function CreateOptionElements()
+    
         local function CreateElement(index)
+
             OptionDisplay[index] = Group(OptionContainer)
             OptionDisplay[index].Height:Set(46)
             OptionDisplay[index].Width:Set(OptionContainer.Width)
@@ -717,6 +747,7 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
         LayoutHelpers.AtLeftTopIn(OptionDisplay[1], OptionContainer)
         
         local index = 2
+        
         while OptionDisplay[table.getsize(OptionDisplay)].Bottom() + OptionDisplay[1].Height() < OptionContainer.Bottom() do
             CreateElement(index)
             LayoutHelpers.Below(OptionDisplay[index], OptionDisplay[index-1])
@@ -765,9 +796,12 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
     OptionContainer.IsScrollable = function(self, axis)
         return true
     end
+
     -- determines what controls should be visible or not
     OptionContainer.CalcVisible = function(self)
+
         local function SetTextLine(line, element, lineID)
+
             if element.type == 'title' then
                 -- header logic
                 line.text:SetText(LOC(element.text))
@@ -782,6 +816,7 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
                 -- Options logic
                 line.combo:Hide()
                 line.edit:Hide()
+
             elseif element.type == 'spacer' then
                 -- header logic
                 line.text:SetText('')
@@ -789,6 +824,7 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
                 -- Options logic
                 line.combo:Hide()
                 line.edit:Hide()
+
             elseif element.type == 'opt_edit' then
                 line.text:SetText(LOC(element.text))
                 line.text:SetFont(UIUtil.bodyFont, 14)
@@ -796,8 +832,10 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
                 line.bg:SetTexture(UIUtil.UIFile('/dialogs/mapselect03/options-panel-bar_bmp.dds'))
                 LayoutHelpers.AtLeftTopIn(line.text, line, 10, 5)
                 line.combo:Hide()
+
                 line.edit:Show()
                 line.edit.default:SetText("Default: "..element.data.default)
+
                 line.edit.OnTextChanged = function(_, newText, oldText)
                     changedOptions[element.data.key] = {
                         value = newText, 
@@ -807,6 +845,7 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
                 end
                 Tooltip.AddControlTooltip(line, element.data.pref)
                 line.edit:SetText(tostring(changedOptions[element.data.key].value or curOptions[element.data.key]))
+
             else
                 line.text:SetText(LOC(element.text))
                 line.text:SetFont(UIUtil.bodyFont, 14)
@@ -877,7 +916,9 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
                 end
             end
         end
+        
         for i, v in OptionDisplay do
+
             if Options[i + self.top] then
                 SetTextLine(v, Options[i + self.top], i + self.top)
             else
@@ -885,7 +926,9 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
                 v.combo:Hide()
                 v.bg:SetSolidColor('00000000')
             end
+
         end
+
     end
     
     OptionContainer:CalcVisible()

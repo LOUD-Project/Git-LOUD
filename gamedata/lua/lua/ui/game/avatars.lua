@@ -4,20 +4,20 @@
 --*
 --* Copyright � 2005 Gas Powered Games, Inc.  All rights reserved.
 
-local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
-local BlackopsIcons = import('/lua/BlackopsIconSearch.lua')
-local Button = import('/lua/maui/button.lua').Button
-local Checkbox = import('/lua/maui/checkbox.lua').Checkbox
-local Factions = import('/lua/factions.lua').Factions
-local GameCommon = import('/lua/ui/game/gamecommon.lua')
-local GameMain = import('/lua/ui/game/gamemain.lua')
-local Group = import('/lua/maui/group.lua').Group
-local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
-local Prefs = import('/lua/user/prefs.lua')
-local StatusBar = import('/lua/maui/statusbar.lua').StatusBar
-local ToolTip = import('/lua/ui/game/tooltip.lua')
-local TooltipInfo = import('/lua/ui/help/tooltips.lua').Tooltips
-local UIUtil = import('/lua/ui/uiutil.lua')
+local Bitmap            = import('/lua/maui/bitmap.lua').Bitmap
+local BlackopsIcons     = import('/lua/BlackopsIconSearch.lua')
+local Button            = import('/lua/maui/button.lua').Button
+local Checkbox          = import('/lua/maui/checkbox.lua').Checkbox
+local Factions          = import('/lua/factions.lua').Factions
+local GameCommon        = import('/lua/ui/game/gamecommon.lua')
+local GameMain          = import('/lua/ui/game/gamemain.lua')
+local Group             = import('/lua/maui/group.lua').Group
+local LayoutHelpers     = import('/lua/maui/layouthelpers.lua')
+local Prefs             = import('/lua/user/prefs.lua')
+local StatusBar         = import('/lua/maui/statusbar.lua').StatusBar
+local ToolTip           = import('/lua/ui/game/tooltip.lua')
+local TooltipInfo       = import('/lua/ui/help/tooltips.lua').Tooltips
+local UIUtil            = import('/lua/ui/uiutil.lua')
 
 local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
