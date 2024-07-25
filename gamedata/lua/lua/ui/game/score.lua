@@ -237,9 +237,8 @@ function SetupPlayerLines()
             UIUtil.SkinnableFile('/slider02/slider_btn_down.dds'), 
             UIUtil.SkinnableFile('/dialogs/options/slider-back_bmp.dds'))
 
-		LayoutHelpers.AtLeftIn(observerLine.speedSlider, observerLine.Left, 5)
-		LayoutHelpers.AtRightIn(observerLine.speedSlider, observerLine, 20)
-		LayoutHelpers.AtBottomIn(observerLine.speedSlider, observerLine, 5)
+		LayoutHelpers.AtLeftIn(observerLine.speedSlider, observerLine, 5)
+		LayoutHelpers.AtRightBottomIn(observerLine.speedSlider, observerLine, 20, 5)
         observerLine.speedSlider._background.Left:Set(observerLine.speedSlider.Left)
         observerLine.speedSlider._background.Right:Set(observerLine.speedSlider.Right)
         observerLine.speedSlider._background.Top:Set(observerLine.speedSlider.Top)

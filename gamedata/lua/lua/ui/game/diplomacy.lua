@@ -436,7 +436,7 @@ function BuildPlayerLines()
     end
     
     parent.enemyBG = Bitmap(parent, UIUtil.UIFile('/game/options-diplomacy-panel/panel-enemy_bmp_t.dds'))
-    LayoutHelpers.AtTopIn(parent.enemyBG, enemyTitle.Top, -8)
+    LayoutHelpers.AtTopIn(parent.enemyBG, enemyTitle, -8)
     parent.enemyBG.Left:Set(parent.Left)
     parent.enemyBG.bottomBG = Bitmap(parent.enemyBG, UIUtil.UIFile('/game/options-diplomacy-panel/panel-enemy_bmp_b.dds'))
     parent.enemyBG.bottomBG.Depth:Set(parent.enemyBG.Depth)
