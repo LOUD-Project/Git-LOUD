@@ -25,7 +25,7 @@ function SetLayout()
     controls.bg.Width:Set(controls.bgTop.Width)
     
     LayoutHelpers.AtRightTopIn(controls.bgTop, controls.bg, 3)
-    LayoutHelpers.AtLeftTopIn(controls.armyGroup, controls.bgTop, 10, 25)
+    LayoutHelpers.AtLeftTopIn(controls.armyGroup, controls.bgTop, 10, 10)
     controls.armyGroup.Width:Set(controls.armyLines[1].Width)
     
     --LOG('>>>> HUSSAR: score_mini texture Bracket... ')
@@ -64,7 +64,7 @@ function SetLayout()
     controls.bgBottom:SetTexture(modTextures..'score_bottom.dds')
     controls.bgStretch:SetTexture(modTextures..'score_strech.dds')
 
-    controls.bgBottom.Top:Set(function() return math.max(controls.armyGroup.Bottom() - 14, controls.bgTop.Bottom()) end)
+    controls.bgBottom.Top:Set(function() return math.max(controls.armyGroup.Bottom() - LayoutHelpers.ScaleNumber(14), controls.bgTop.Bottom()) end)
     controls.bgBottom.Right:Set(controls.bgTop.Right)
     controls.bgStretch.Top:Set(controls.bgTop.Bottom)
     controls.bgStretch.Bottom:Set(controls.bgBottom.Top)
@@ -82,23 +82,24 @@ function SetLayout()
     -- NOTE HUSSAR moved loading icons for timer and unit counter to score.LUA
     
     --LOG('>>>> HUSSAR: score_mini texture time/tank... ')
-    local x = 10
-    LayoutHelpers.AtLeftTopIn(controls.timeIcon, controls.bgTop, x, 8)
-    x = x + 16
-    LayoutHelpers.AtLeftTopIn(controls.time, controls.bgTop, x, 7)
+    LayoutHelpers.AtLeftTopIn(controls.timeIcon, controls.bgTop, 10, 8)
+	LayoutHelpers.AnchorToRight(controls.time, controls.timeIcon, 2)
+	LayoutHelpers.AtVerticalCenterIn(controls.time, controls.timeIcon)
     
-    x = x + 80
-    LayoutHelpers.AtLeftTopIn(controls.speedIcon, controls.bgTop, x, 8)
-    x = x + 16
-    LayoutHelpers.AtLeftTopIn(controls.speed, controls.bgTop, x, 7)
+    LayoutHelpers.AtLeftIn(controls.speedIcon, controls.bgTop, 106)
+	controls.speedIcon.Top:Set(controls.timeIcon.Top)
+	LayoutHelpers.AnchorToRight(controls.speed, controls.speedIcon, 2)
+	LayoutHelpers.AtVerticalCenterIn(controls.speed, controls.speedIcon)
     
-    x = x + 60
-    LayoutHelpers.AtLeftTopIn(controls.qualityIcon, controls.bgTop, x, 8)
-    x = x + 16
-    LayoutHelpers.AtLeftTopIn(controls.quality, controls.bgTop, x, 7)
+    LayoutHelpers.AtLeftIn(controls.qualityIcon, controls.bgTop, 182)
+	controls.qualityIcon.Top:Set(controls.speedIcon.Top)
+	LayoutHelpers.AnchorToRight(controls.quality, controls.qualityIcon, 2)
+	LayoutHelpers.AtVerticalCenterIn(controls.quality, controls.qualityIcon)
     
-    LayoutHelpers.AtRightTopIn(controls.unitIcon, controls.bgTop, 10, 7)
-    LayoutHelpers.LeftOf(controls.units, controls.unitIcon)
+    LayoutHelpers.AtRightIn(controls.unitIcon, controls.bgTop, 10)
+	controls.unitIcon.Top:Set(controls.qualityIcon.Top)
+    LayoutHelpers.AnchorToLeft(controls.units, controls.unitIcon)
+	LayoutHelpers.AtVerticalCenterIn(controls.units, controls.unitIcon)
     
     -- offset Avatars UI by height of the score board
     local avatarGroup = import('/lua/ui/game/avatars.lua').controls.avatarGroup
