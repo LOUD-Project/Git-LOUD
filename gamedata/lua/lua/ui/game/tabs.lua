@@ -495,6 +495,10 @@ function CommonLogic()
     end
 end
 
+local alphaFadeTime = 0.25
+local heightResizeTime = 0.25
+local widthResizeTime = 0.075
+
 function BuildContent(contentID)
     ToggleTabDisplay(true)
     controls.collapseArrow:SetCheck(false, true)
@@ -507,19 +511,15 @@ function BuildContent(contentID)
     import('/lua/ui/game/chat.lua').CloseChatConfig()
 	
     activeTab = contentID
-	
     for _, tab in controls.tabs do
         if tab.Data.content == contentID then
             tab:SetCheck(true, true)
         end
     end
-	
     local contentGroup = false
-	
     if menus[contentID] then
-	
         contentGroup = Group(controls.parent)
-        
+
         local function BuildButton(button)
             local btn = UIUtil.CreateButtonStd(contentGroup, '/game/medium-btn/medium', button.label, UIUtil.menuFontSize)
             btn.label:SetFont(UIUtil.factionFont, UIUtil.menuFontSize)
@@ -529,101 +529,84 @@ function BuildContent(contentID)
             LayoutHelpers.AtVerticalCenterIn(btn.label, btn, 4)
             return btn
         end
-        
+
         local tableID = 'singlePlayer'
-		
         if HasCommandLineArg('/gpgnet') then
-		
             tableID = 'gpgnet'
-			
         elseif SessionIsMultiplayer() then
-		
             tableID = 'lan'
-			
         elseif GameMain.GetReplayState() then
-		
             tableID = 'replay'
         end
-        
+
         contentGroup.Buttons = {}
-        
+
         for index, buttonData in menus[contentID][tableID] do
-		
             local i = index
-			
             contentGroup.Buttons[i] = BuildButton(buttonData)
-			
             if gameOver and buttonData.disableOnGameOver then
                 contentGroup.Buttons[i]:Disable()
             end
-			
             if i == 1 then
-			
                 LayoutHelpers.AtTopIn(contentGroup.Buttons[i], contentGroup)
                 LayoutHelpers.AtHorizontalCenterIn(contentGroup.Buttons[i], contentGroup)
-				
             else
-			
                 LayoutHelpers.Below(contentGroup.Buttons[i], contentGroup.Buttons[i-1])
-				
             end
-			
         end
-        
+
         controls.bgTop.widthOffset = 4
         contentGroup.Width:Set(contentGroup.Buttons[1].Width)
         contentGroup.Height:Set(function() return contentGroup.Buttons[1].Height() * table.getsize(contentGroup.Buttons) end)
-		
     else
         controls.bgTop.widthOffset = 30
         contentGroup = import('/lua/ui/game/'..contentID..'.lua').CreateContent(controls.parent)
     end
-    
+
     animationLock = true
-    
+
     LayoutHelpers.AnchorToBottom(contentGroup, controls.bgTop, 20)
     LayoutHelpers.AtHorizontalCenterIn(contentGroup, controls.bgTop)
+    contentGroup.Time = 0
     contentGroup:SetAlpha(0, true)
-	
     contentGroup.OnFrame = function(self, delta)
-        local newAlpha = self:GetAlpha() + (4 * delta)
-        if newAlpha > 1 then
-            newAlpha = 1
+        self.Time = self.Time + delta
+        local animationProgress = math.min(self.Time / alphaFadeTime, 1)
+        if animationProgress == 1 then
             self:SetNeedsFrameUpdate(false)
         end
-        self:SetAlpha(newAlpha, true)
+        self:SetAlpha(animationProgress, true)
     end
-    
+
     controls.contentGroup = contentGroup
-    
+
     CreateStretchBG()
-	
     controls.bgTop:SetNeedsFrameUpdate(true)
     controls.bgTop.Time = 0
-	
     controls.bgTop.OnFrame = function(self, delta)
         self.Time = self.Time + delta
-        local newWidth = self.Width() + (delta * 500)
-        if newWidth > math.max(contentGroup.Width() + self.widthOffset, self.defWidth) or self.Time > .1 then
-            newWidth = math.max(contentGroup.Width() + self.widthOffset, self.defWidth)
+        local animationProgress = math.min(self.Time / widthResizeTime, 1)
+
+        if (animationProgress == 1) then
             self:SetNeedsFrameUpdate(false)
             controls.bgBottom:SetNeedsFrameUpdate(true)
         end
-        self.Width:Set(newWidth)
+
+        self.Width:Set(MATH_Lerp(animationProgress, self.defWidth, math.max(controls.contentGroup.Width() + self.widthOffset, self.defWidth)))
     end
-	
     controls.bgBottom.Time = 0
-	
     controls.bgBottom.OnFrame = function(self, delta)
         self.Time = self.Time + delta
-        local newTop = self.Top() + (delta * 1200)
-        if newTop > controls.contentGroup.Bottom() or self.Time > .2 then
-            newTop = controls.contentGroup.Bottom
+        local animationProgress = math.min(self.Time / heightResizeTime, 1)
+
+        if (animationProgress < 1) then
+            self.Top:Set(MATH_Lerp(animationProgress, controls.bgTop.Bottom(), controls.contentGroup.Bottom()))
+        else
             controls.contentGroup:SetNeedsFrameUpdate(true)
             self:SetNeedsFrameUpdate(false)
             animationLock = false
+            self.Top:Set(controls.contentGroup.Bottom)
         end
-        self.Top:Set(newTop)
     end
 end
 
@@ -636,35 +619,40 @@ function CollapseWindow(callback)
             end
         end
         activeTab = false
+        local origWidth = controls.contentGroup.Width()
+        local origHeight = controls.contentGroup.Bottom()
         controls.bgBottom:SetNeedsFrameUpdate(false)
+        controls.contentGroup.Time = 0
         controls.contentGroup:SetNeedsFrameUpdate(true)
         controls.contentGroup.OnFrame = function(self, delta)
-            local newAlpha = self:GetAlpha() - (4 * delta)
-            if newAlpha < 0 then
-                newAlpha = 0
+            self.Time = self.Time + delta
+            local animationProgress = math.min(self.Time / alphaFadeTime, 1)
+            if animationProgress == 1 then
                 controls.bgBottom:SetNeedsFrameUpdate(true)
                 controls.contentGroup:Destroy()
                 controls.contentGroup = false
             end
-            self:SetAlpha(newAlpha, true)
+            self:SetAlpha(1 - animationProgress, true)
         end
         controls.bgBottom.Time = 0
         controls.bgBottom.OnFrame = function(self, delta)
             self.Time = self.Time + delta
-            local newTop = self.Top() - (delta * 1200)
-            if newTop < controls.bgTop.Bottom() then
-                newTop = controls.bgTop.Bottom
+            local animationProgress = math.min(self.Time / heightResizeTime, 1)
+
+            if (animationProgress < 1) then
+                self.Top:Set(MATH_Lerp(animationProgress, origHeight, controls.bgTop.Bottom()))
+            else
                 self:SetNeedsFrameUpdate(false)
                 controls.bgTop:SetNeedsFrameUpdate(true)
+                self.Top:Set(controls.bgTop.Bottom)
             end
-            self.Top:Set(newTop)
         end
         controls.bgTop.Time = 0
         controls.bgTop.OnFrame = function(self, delta)
             self.Time = self.Time + delta
-            local newWidth = self.Width() - (delta * 500)
-            if newWidth < self.defWidth or self.Time > .1 then
-                newWidth = self.defWidth
+            local animationProgress = math.min(self.Time / widthResizeTime, 1)
+
+            if (animationProgress == 1) then
                 self:SetNeedsFrameUpdate(false)
                 DestroyStretchBG()
                 animationLock = false
@@ -672,7 +660,7 @@ function CollapseWindow(callback)
                     callback()
                 end
             end
-            self.Width:Set(newWidth)
+            self.Width:Set(MATH_Lerp(animationProgress, math.max(origWidth + self.widthOffset, self.defWidth), self.defWidth))
         end
     end
 end
