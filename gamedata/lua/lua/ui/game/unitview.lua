@@ -143,7 +143,11 @@ local statFuncs = {
 	end,
 	-- vet xp
 	function(info)
-        if info.kills then
+		-- No idea why this works in FAF, but here it draws some text over the already shown veteran stats.
+		-- As there is hard-coded indexing elsewhere, this element must not be removed, but simply marked as deactivated
+        return false
+--[[
+		if info.kills then
             local nextLevel = 0
             local veterancyLevels = __blueprints[info.blueprintId].Veteran or veterancyDefaults
             for index = 1, 5 do
@@ -159,8 +163,7 @@ local statFuncs = {
         else
             return false
         end
-
-
+--]]
 	end,
 	-- kill count
 	function(info)
@@ -304,7 +307,7 @@ function UpdateWindow(info)
                     controls.statGroups[i].value:SetText(value)
                 elseif i == 3 then
                     local value, iconType, color = statFuncs[i](info, bp)
-                    controls.statGroups[i].value:SetText(value)
+					controls.statGroups[i].value:SetText(value)
                     controls.statGroups[i].icon:SetTexture(UIUtil.UIFile(Factions.Factions[
                         Factions.FactionIndexMap[string.lower(bp.General.FactionName)] ].VeteranIcon))
                 elseif i == 5 then
