@@ -273,7 +273,7 @@ Window = Class(Group) {
         self.TitleGroup.Top:Set(self.tm.Top)
         self.TitleGroup.Left:Set(self.tl.Left)
         self.TitleGroup.Right:Set(self.tr.Right)
-        self.TitleGroup.Height:Set(30)
+        LayoutHelpers.SetHeight(self.TitleGroup, 30)
         self.TitleGroup.Depth:Set(function() return self._windowGroup.Depth() + 2 end)
         
         if icon then
@@ -288,7 +288,7 @@ Window = Class(Group) {
             self._title:SetText(LOC(title))
         end
         if icon then
-            self._title.Left:Set(function() return self._titleIcon.Right() + 5 end)
+			LayoutHelpers.AnchorToRight(self._title, self._titleIcon, 5)
             LayoutHelpers.AtVerticalCenterIn(self._title, self._titleIcon)
         else
             LayoutHelpers.AtLeftTopIn(self._title, self.TitleGroup, 20, 7)
@@ -524,10 +524,10 @@ Window = Class(Group) {
                 self.Left:Set(math.max(math.min(location.right, parent.Right()) - oldWidth), parent.Left())
             end
         elseif defaultPosition then
-            self.Left:Set(defaultPosition.Left)
-            self.Top:Set(defaultPosition.Top)
-            self.Bottom:Set(defaultPosition.Bottom)
-            self.Right:Set(defaultPosition.Right)
+            self.Left:Set(LayoutHelpers.ScaleNumber(defaultPosition.Left))
+            self.Top:Set(LayoutHelpers.ScaleNumber(defaultPosition.Top))
+            self.Bottom:Set(LayoutHelpers.ScaleNumber(defaultPosition.Bottom))
+            self.Right:Set(LayoutHelpers.ScaleNumber(defaultPosition.Right))
         end
     end,
     
