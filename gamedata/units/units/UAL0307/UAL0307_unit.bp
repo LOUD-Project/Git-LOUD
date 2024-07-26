@@ -35,11 +35,11 @@ UnitBlueprint {
             Mesh = '/effects/entities/AeonShield01/AeonShield01_mesh',
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
             RegenAssistMult = 60,
-            ShieldEnergyDrainRechargeTime = 5,
+            ShieldEnergyDrainRechargeTime = 6.9,
             ShieldMaxHealth = 4000,
             ShieldRechargeTime = 22,
             ShieldRegenRate = 45,
-            ShieldRegenStartTime = 1,
+            ShieldRegenStartTime = 2,
             ShieldSize = 16,
             ShieldVerticalOffset = -3,
         },
@@ -78,8 +78,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 2360,
-        BuildCostMass = 240,
+        BuildCostEnergy = 2600,
+        BuildCostMass = 271,
         BuildTime = 1200,
 		
         MaintenanceConsumptionPerSecondEnergy = 145,
@@ -145,9 +145,9 @@ UnitBlueprint {
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.1,
         
-        TurnFacingRate = 60,
+        TurnFacingRate = 45,
         TurnRadius = 0,
-        TurnRate = 60,
+        TurnRate = 45,
         
         WobbleFactor = 0.02,
         WobbleSpeed = 0.01,

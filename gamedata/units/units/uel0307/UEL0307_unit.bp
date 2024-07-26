@@ -36,11 +36,11 @@ UnitBlueprint {
             Mesh = '/effects/entities/Shield01/Shield01_mesh',
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
             RegenAssistMult = 60,
-            ShieldEnergyDrainRechargeTime = 5,
+            ShieldEnergyDrainRechargeTime = 6.4,
             ShieldMaxHealth = 3600,
-            ShieldRechargeTime = 21,
+            ShieldRechargeTime = 23,
             ShieldRegenRate = 43,
-            ShieldRegenStartTime = 1,
+            ShieldRegenStartTime = 2,
             ShieldSize = 16,
             ShieldVerticalOffset = -3,
         },
@@ -78,11 +78,11 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 1800,
-        BuildCostMass = 202,
+        BuildCostEnergy = 1980,
+        BuildCostMass = 207,
         BuildTime = 1010,
 		
-        MaintenanceConsumptionPerSecondEnergy = 150,
+        MaintenanceConsumptionPerSecondEnergy = 145,
     },
 	
     General = {
@@ -123,7 +123,7 @@ UnitBlueprint {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 3,
+        MaxAcceleration = 1.5,
         MaxBrake = 3,
         MaxSpeed = 3,
         MaxSpeedReverse = 3,
@@ -136,7 +136,7 @@ UnitBlueprint {
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.1,
         TurnRadius = 0,
-        TurnRate = 120,
+        TurnRate = 45,
     },
 	
     SelectionCenterOffsetX = 0,

@@ -46,11 +46,11 @@ UnitBlueprint {
             Mesh = '/effects/entities/AeonShield01/AeonShield01_mesh',
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
             RegenAssistMult = 60,
-            ShieldEnergyDrainRechargeTime = 5,
+            ShieldEnergyDrainRechargeTime = 7.2,
             ShieldMaxHealth = 7250,
             ShieldRechargeTime = 24,
             ShieldRegenRate = 76,
-            ShieldRegenStartTime = 1,
+            ShieldRegenStartTime = 2,
             ShieldSize = 19,
             ShieldVerticalOffset = -3,
         },
@@ -88,8 +88,8 @@ UnitBlueprint {
     },
 
     Economy = {
-        BuildCostEnergy = 4800,
-        BuildCostMass = 728,
+        BuildCostEnergy = 5250,
+        BuildCostMass = 968,
         BuildTime = 3641,
 		
         MaintenanceConsumptionPerSecondEnergy = 250,
@@ -105,20 +105,18 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'amph',
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'toggle_shield_dome',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-dome', helpText = 'toggle_shield_dome' },
         },
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+
+        ToggleCaps = { RULEUTC_ShieldToggle = true },
+
         UnitName = '<LOC ual0308_name>Refuge',
     },
 	
     Intel = {
-        VisionRadius = 21,
+        VisionRadius = 20,
     },
 	
     Interface = {

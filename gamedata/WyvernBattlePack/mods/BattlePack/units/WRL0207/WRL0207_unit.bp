@@ -44,11 +44,11 @@ UnitBlueprint{
             Mesh = "/effects/entities/CybranShield01/CybranShield01_mesh",
             MeshZ = "/effects/entities/Shield01/Shield01z_mesh",
             RegenAssistMult = 60,
-            ShieldEnergyDrainRechargeTime = 5,
+            ShieldEnergyDrainRechargeTime = 7.2,
             ShieldMaxHealth = 2900,
             ShieldRechargeTime = 20,
-            ShieldRegenRate = 37.5,
-            ShieldRegenStartTime = 1,
+            ShieldRegenRate = 36,
+            ShieldRegenStartTime = 2,
             ShieldSize = 14,
             ShieldVerticalOffset = -2,
         },
@@ -61,56 +61,7 @@ UnitBlueprint{
         AnimationWalkRate = 10,
 
         Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, ShaderName = "Insect" } } },
---[[
-        MovementEffects = {
-            Land = {
-                Footfall = {
-                    Bones = {
-                        {
-                            FootBone = "Left_Footfall_01",
-                            HipBone = "Left_Leg01_B01",
-                            KneeBone = "Left_Leg01_B02",
-                            MaxFootFall = -0.25,
-                            Offset = { z = 0 },
-                            Scale = 0.25,
-                            StraightLegs = false,
-                            Type = "FootFall01",
-                        },
-                        {
-                            FootBone = "Left_Footfall_02",
-                            HipBone = "Left_Leg02_B01",
-                            KneeBone = "Left_Leg02_B02",
-                            MaxFootFall = -0.25,
-                            Offset = { z = 0 },
-                            Scale = 0.25,
-                            StraightLegs = false,
-                            Type = "FootFall01",
-                        },
-                        {
-                            FootBone = "Right_Footfall_01",
-                            HipBone = "Right_Leg01_B01",
-                            KneeBone = "Right_Leg01_B02",
-                            MaxFootFall = -0.25,
-                            Offset = { z = 0 },
-                            Scale = 0.25,
-                            StraightLegs = false,
-                            Type = "FootFall01",
-                        },
-                        {
-                            FootBone = "Right_Footfall_02",
-                            HipBone = "Right_Leg02_B01",
-                            KneeBone = "Right_Leg02_B02",
-                            MaxFootFall = -0.25,
-                            Offset = { z = 0 },
-                            Scale = 0.25,
-                            StraightLegs = false,
-                            Type = "FootFall01",
-                        },
-                    },
-                },
-            },
-        },
---]]
+
         UniformScale = 0.08,
     },
 
