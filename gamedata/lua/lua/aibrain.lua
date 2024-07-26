@@ -56,7 +56,7 @@
     LOG("*AI DEBUG      Attack Plan Dialog to log is "..repr(ScenarioInfo.AttackPlanDialog))
 
     -- the Intel thread will dialog calculated LAND,AIR and NAVAL ratios to the LOG file on each Intel Thread cycle
-	ScenarioInfo.ReportRatios = false
+	ScenarioInfo.ReportRatios = true
 	LOG("*AI DEBUG      Report Layer Ratios to Log is "..repr(ScenarioInfo.ReportRatios))
 
 
@@ -916,11 +916,7 @@ AIBrain = Class(moho.aibrain_methods) {
 		local s = ScenarioInfo.ArmySetup[self.Name].Mult
 		local m
         
---		if type(s) == "string" then
-			m = tonumber(ScenarioInfo.ArmySetup[self.Name].Mult)
---		else
-	--		m = aiMults[ScenarioInfo.ArmySetup[self.Name].Mult]
---		end
+        m = tonumber(ScenarioInfo.ArmySetup[self.Name].Mult)
         
         if m then 
             m = math.max(0.1, m)
@@ -1201,7 +1197,15 @@ AIBrain = Class(moho.aibrain_methods) {
 					
 					import('/lua/SimUtils.lua').TransferUnitsOwnership( units, v:GetArmyIndex())
 					
-				end
+				else
+                
+                    if v.BrainType == 'AI' and ( not IsAlly(self.ArmyIndex, v:GetArmyIndex() ) and v.NumOpponents and self.ArmyIndex != v:GetArmyIndex() and not v:IsDefeated()) then
+
+                        v.NumOpponents = v.NumOpponents - 1
+                    
+                    end
+                    
+                end
 				
 			end
 			

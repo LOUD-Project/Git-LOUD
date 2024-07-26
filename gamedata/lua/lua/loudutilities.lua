@@ -5269,8 +5269,8 @@ function ParseIntelThread( aiBrain )
             end
 
             if ReportRatios then
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." I have "..aiBrain.NumOpponents.." Opponents")
-                LOG("*AI DEBUG "..aiBrain.Nickname.." My factory TOTALS AIR "..myairtot.." -- LAND "..mylandtot.." -- NAVAL "..mynavaltot)
+                LOG("*AI DEBUG "..aiBrain.Nickname.." I have "..aiBrain.NumOpponents.." Opponents")
+                LOG("*AI DEBUG "..aiBrain.Nickname.." My factory    TOTALS  AIR "..myairtot.." -- LAND "..mylandtot.." -- NAVAL "..mynavaltot)
                 LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy Factory Ratios  AIR "..grandairtot/aiBrain.NumOpponents.." -- LAND "..grandlandtot/aiBrain.NumOpponents.." -- NAVAL "..grandnavaltot/aiBrain.NumOpponents)
             end
 
