@@ -145,11 +145,13 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
             { LUTL, 'UnitCapCheckLess', { .65 } },
+            
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.3 } },
 
             -- don't build T1 air scouts if we can build better ones
             { UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.AIR - categories.TECH1 }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 8, [512] = 12, [1024] = 18, [2048] = 20, [4096] = 20}, categories.AIR * categories.SCOUT}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 8, [512] = 10, [1024] = 14, [2048] = 20, [4096] = 20}, categories.AIR * categories.SCOUT}},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 2, categories.AIR * categories.SCOUT } },
 
@@ -357,7 +359,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
         BuilderConditions = {
             { LUTL, 'NavalStrengthRatioLessThan', { 1.2 } },        
 
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
             
 			-- dont start production until you have at least 2+ T2/T3 factories at location
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY * categories.AIR - categories.TECH1 }},
@@ -380,7 +382,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
         BuilderConditions = {
             { LUTL, 'NavalStrengthRatioLessThan', { 1.2 } },
             
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 
 			-- dont produce unless you have 3+ T3 Air factories overall
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
@@ -403,7 +405,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
         BuilderConditions = {
             { LUTL, 'NavalStrengthRatioLessThan', { 3 } },
 
-			{ LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } }, 
+			{ LUTL, 'AirStrengthRatioGreaterThan', { 1 } }, 
 
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
 
@@ -428,7 +430,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
         BuilderConditions = {
             { LUTL, 'NavalStrengthRatioLessThan', { 3 } },
 
-			{ LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
+			{ LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
 
@@ -463,13 +465,15 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 
             { LUTL, 'UnitCapCheckLess', { .75 } },
+            
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.3 } },
 
             { UCBC, 'ArmyNeedsTransports', { true } },
 			
 			-- stop making them if we have more than 2 T2/T3 air plants - anywhere
             { UCBC, 'HaveLessThanUnitsWithCategory', { 3, categories.FACTORY * categories.AIR - categories.TECH1 }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 2, [512] = 2, [1024] = 4, [2048] = 5, [4096] = 5}, categories.TRANSPORTFOCUS * categories.TECH1}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 2, [1024] = 3, [2048] = 5, [4096] = 5}, categories.TRANSPORTFOCUS * categories.TECH1}},
         },
 
         BuilderType =  {'AirT1','AirT2'},
@@ -488,7 +492,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			
             { UCBC, 'ArmyNeedsTransports', { true } },
 
@@ -539,7 +543,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 
             { UCBC, 'ArmyNeedsTransports', { true } },
 

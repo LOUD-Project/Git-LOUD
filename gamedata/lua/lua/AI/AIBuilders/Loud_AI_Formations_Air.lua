@@ -1116,7 +1116,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         InstanceCount = 3,
 
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, AIRGUNSHIP }},
         },
 		
@@ -1163,7 +1163,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         InstanceCount = 4,
 
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, AIRGUNSHIP }},
         },
 		
@@ -1433,7 +1433,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Point Guards',
 		
         BuilderConditions = {
 		
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, AIRFIGHTER - categories.EXPERIMENTAL }},
 			
         },
@@ -1575,7 +1575,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Point Guards',
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},		
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			
 			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 750, -9999, 150, 1, 'AntiAir', 1 }},
 
@@ -1854,7 +1854,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.NUKE + categories.ANTIMISSILE - categories.TECH2, 'Enemy' }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, categories.HIGHALTAIR * categories.ANTINAVY } },			
         },
@@ -1895,7 +1895,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.ECONOMIC * categories.EXPERIMENTAL, 'Enemy' }},			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, categories.HIGHALTAIR * categories.ANTINAVY } },
         },

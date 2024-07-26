@@ -148,7 +148,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 
             { LUTL, 'AirStrengthRatioLessThan', { 4.5 } },
 
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
  
             { UCBC, 'PoolLess', { 4, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
 
@@ -176,7 +176,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 
             { LUTL, 'AirStrengthRatioLessThan', { 4.5 } },            
 
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
  
 			-- only on 5k-20k maps
 			{ MIBC, 'MapLessThan', { 1028 } },
@@ -445,7 +445,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
  
             { LUTL, 'AirStrengthRatioLessThan', { 4.5 } }, 
 
@@ -588,7 +588,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
  
 			{ LUTL, 'AirStrengthRatioLessThan', { 4.5 } }, 
 
