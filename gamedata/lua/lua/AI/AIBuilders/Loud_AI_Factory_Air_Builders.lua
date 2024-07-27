@@ -219,9 +219,31 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},
         },
 		
-        BuilderType =  {'AirT1','AirT2'},
+        BuilderType =  {'AirT1'},
+    },
+
+    --- fighters with a air scout supplement
+    Builder {BuilderName = 'Fighters T1 Plus',
+	
+        PlatoonTemplate = 'T1FighterPlus',
+
+        Priority = 600,
+		
+		PriorityFunction = HaveLessThanThreeT2AirFactory,
+		
+        BuilderConditions = {
+            { LUTL, 'AirStrengthRatioLessThan', { 3 } },
+            
+			--- stop if enemy has T2 AA of any kind
+			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},
+        },
+		
+        BuilderType =  {'AirT1'},
     },
 	
+    --- fighters with no scout supplement made if T2 ANTIAIR is present
+    --- most useful early when new air factories come online and T2 is present
+    --- previously we ceased all T1 fighter production and T1 air factories would sit idle
     Builder {BuilderName = 'Fighters T1',
 	
         PlatoonTemplate = 'T1Fighter',
@@ -231,13 +253,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 		PriorityFunction = HaveLessThanThreeT2AirFactory,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } },
-            
-			-- stop making them if enemy has T2 AA of any kind
-			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},
+            { LUTL, 'AirStrengthRatioLessThan', { 1.5 } },
         },
 		
-        BuilderType =  {'AirT1','AirT2'},
+        BuilderType =  {'AirT1'},
     },
 	
     Builder {BuilderName = 'Bomber T2',
