@@ -568,7 +568,7 @@ function CreateDialog(x, y)
     armiesGroup.Height:Set(function() return lowestControl.Bottom() - armiesGroup.armySlots[1].Top() end)
 
     local filterSetCombo = Combo(dialog, 14, 10, nil, nil, "UI_Tab_Click_01", "UI_Tab_Rollover_01")
-    filterSetCombo.Width:Set(250)
+    LayoutHelpers.SetWidth(filterSetCombo, 250)
     LayoutHelpers.Below(filterSetCombo, armiesGroup, 5)
     filterSetCombo.OnClick = function(self, index, text, skipUpdate)
         SetFilters(self.keyMap[index])

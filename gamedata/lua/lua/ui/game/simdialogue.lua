@@ -32,17 +32,13 @@ function CreateSimDialogue(newDialogues)
         local rightOff = 25
         local bottomOff = 10
         
-        bg.tlWidget.Left:Set(function() return bg.tl.Left() + leftOff end)
-        bg.tlWidget.Top:Set(function() return bg.tl.Top() + topOff end)
+        LayoutHelpers.AtLeftTopIn(bg.tlWidget, bg.tl, leftOff, topOff)
         
-        bg.trWidget.Right:Set(function() return bg.tr.Right() + rightOff end)
-        bg.trWidget.Top:Set(function() return bg.tr.Top() + topOff end)
+        LayoutHelpers.AtRightTopIn(bg.trWidget, bg.tr, -rightOff, topOff)
         
-        bg.blWidget.Left:Set(function() return bg.bl.Left() + leftOff end)
-        bg.blWidget.Bottom:Set(function() return bg.bl.Bottom() + bottomOff end)
+        LayoutHelpers.AtLeftBottomIn(bg.blWidget, bg.bl, leftOff, -bottomOff)
         
-        bg.brWidget.Right:Set(function() return bg.br.Right() + rightOff end)
-        bg.brWidget.Bottom:Set(function() return bg.br.Bottom() + bottomOff end)
+        LayoutHelpers.AtRightBottomIn(bg.brWidget, bg.br, -rightOff, -bottomOff)
         
         bg.tl.Depth:Set(bg.Depth)
         bg.t.Depth:Set(bg.Depth)
@@ -101,7 +97,7 @@ function CreateSimDialogue(newDialogues)
         dlg.ID = info.ID
         dlg.background = CreateBackground(dlg)
         dlg.text = MultiLineText(dlg, UIUtil.bodyFont, 18, 'ffffffff')
-        dlg.text.Width:Set(300)
+        LayoutHelpers.SetWidth(dlg.text, 300)
         LayoutHelpers.AtTopIn(dlg.text, dlg)
         LayoutHelpers.AtHorizontalCenterIn(dlg.text, dlg)
         dlg.text:SetText(info.text or '')
@@ -137,13 +133,13 @@ function CreateSimDialogue(newDialogues)
         end
         dlg.buttonHeight = 0
         if dlg.btns[1] then
-            dlg.buttonHeight = math.ceil(table.getsize(dlg.btns) / 2) * (dlg.btns[1].Height() + 5)
+            dlg.buttonHeight = math.ceil(table.getsize(dlg.btns) / 2) * (dlg.btns[1].Height() + LayoutHelpers.ScaleNumber(5))
         end
         dlg.CalcHeight = function(self)
             if dlg.text._text[1] then
-                self.Height:Set(function() return math.max(dlg.buttonHeight + (dlg.text:GetLineHeight() * table.getsize(dlg.text._text)), 90) end)
+                self.Height:Set(function() return math.max(dlg.buttonHeight + (dlg.text:GetLineHeight() * table.getsize(dlg.text._text)), LayoutHelpers.ScaleNumber(90)) end)
             else
-                self.Height:Set(function() return math.max(dlg.buttonHeight, 90) end)
+                self.Height:Set(function() return math.max(dlg.buttonHeight, LayoutHelpers.ScaleNumber(90)) end)
             end
         end
         dlg:CalcHeight()

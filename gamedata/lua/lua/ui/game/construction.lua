@@ -1088,7 +1088,7 @@ function CommonLogic()
             
 			-- the GAZ UI template name
             if 'templates' then
-                control.Tmplnm.Width:Set(48)
+                LayoutHelpers.SetWidth(control.Tmplnm, 48)
                 control.Tmplnm:SetText(string.sub(LOC(control.Data.template.name), cutA, cutB))
             end            
 

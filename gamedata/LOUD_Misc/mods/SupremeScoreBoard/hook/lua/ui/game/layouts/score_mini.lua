@@ -25,7 +25,8 @@ function SetLayout()
     controls.bg.Width:Set(controls.bgTop.Width)
     
     LayoutHelpers.AtRightTopIn(controls.bgTop, controls.bg, 3)
-    LayoutHelpers.AtLeftTopIn(controls.armyGroup, controls.bgTop, 10, 10)
+	
+    LayoutHelpers.AtLeftTopIn(controls.armyGroup, controls.bgTop, 10, 25)
     controls.armyGroup.Width:Set(controls.armyLines[1].Width)
     
     --LOG('>>>> HUSSAR: score_mini texture Bracket... ')

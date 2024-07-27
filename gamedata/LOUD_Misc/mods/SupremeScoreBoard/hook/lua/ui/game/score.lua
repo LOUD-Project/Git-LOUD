@@ -507,7 +507,7 @@ function SetupPlayerLines()
         observerLine = CreateArmyLine(observer.armyID, observer)
         observerLine.isObsLine = true
         observerLine.nameColumn.Top:Set(observerLine.Top)
-        LayoutHellpers.SetHeight(observerLine, iconSize * 3)
+        LayoutHelpers.SetHeight(observerLine, iconSize * 3)
         observerLine.speedText = UIUtil.CreateText(controls.bgStretch, '', 15, UIUtil.bodyFont)
         observerLine.speedText:SetColor('ff00dbff')
         LayoutHelpers.AtRightIn(observerLine.speedText, observerLine, 5)
@@ -908,7 +908,7 @@ function CreateArmyLine(armyID, army)
         LayoutHelpers.AtVerticalCenterIn(group.unitIcon, group)
 		LayoutHelpers.SetDimensions(group.unitIcon, iconSize, iconSize)
         -- show player's units total value 
-        position = (sw * 0) + LayoutHelpers.ScaleNumber(iconSize + 1)
+        position = (sw * 0) + iconSize + 1
         group.unitColumn = UIUtil.CreateText(group, '0', fontSize, fontName)
         group.unitColumn:DisableHitTest()
         group.unitColumn:SetColor(textColorUnits)
