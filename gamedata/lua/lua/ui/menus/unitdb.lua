@@ -203,12 +203,16 @@ function CreateUnitDB(over, callback)
 	unitDisplay.shortDesc2:DisableHitTest()
 	LayoutHelpers.Below(unitDisplay.shortDesc2, unitDisplay.shortDesc1)
 
+	unitDisplay.factionIcon = Bitmap(unitDisplay.icon)
+	unitDisplay.factionIcon:SetSolidColor(UIUtil.panelColor)
+	LayoutHelpers.Below(unitDisplay.factionIcon, unitDisplay.backIcon, 4)
+
 	-- Origin mod and ID
 	unitDisplay.technicals = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
-	LayoutHelpers.Below(unitDisplay.technicals, unitDisplay.backIcon, 4)
+	LayoutHelpers.RightOf(unitDisplay.technicals, unitDisplay.factionIcon, 4)
 
 	unitDisplay.longDesc = UIUtil.CreateTextBox(unitDisplay)
-	LayoutHelpers.Below(unitDisplay.longDesc, unitDisplay.technicals, 4)
+	LayoutHelpers.Below(unitDisplay.longDesc, unitDisplay.factionIcon, 4)
 	unitDisplay.longDesc.Width:Set(unitDisplay.Width)
 	LayoutHelpers.SetHeight(unitDisplay.longDesc, 120)
 	unitDisplay.longDesc.OnClick = function(self, row, event)
@@ -782,7 +786,7 @@ function FillLine(line, index)
 	line:Show()
 	local n = LOC(bp.General.UnitName) or LOC(bp.Description) or 'Unnamed Unit'
 	line.name:SetText(n)
-	local wrappedText = Text.FitText(LOC(bp.Description) or 'Unnamed Unit', 224,
+	local wrappedText = Text.FitText(LOC(bp.Description) or 'Unnamed Unit', LayoutHelpers.ScaleNumber(224),
 		function(nt) return line.desc:GetStringAdvance(nt) end)
 		if table.getn(wrappedText) > 1 then
 			line.desc:SetText(wrappedText[1]..'...')
@@ -831,6 +835,7 @@ function DisplayUnit(index)
 
 	unitDisplay.icon:Show()
 	unitDisplay.stratIcon:Show()
+	unitDisplay.factionIcon:Show()
 	unitDisplay.backIcon:Show()
 	local validIcons = {land = true, air = true, sea = true, amph = true}
 	if validIcons[bp.General.Icon] then
@@ -846,6 +851,17 @@ function DisplayUnit(index)
 	end
 	unitDisplay.stratIcon:SetTexture(UIUtil.UIFile('/game/strategicicons/'..bp.StrategicIconName..'_rest.dds'))
 
+	local factionKey = string.lower(bp.General.FactionName)
+	if factionKey then
+		local factionIndex = FactionData.FactionIndexMap[factionKey]
+		if factionIndex then
+			local factionIcon = FactionData.Factions[factionIndex].SmallIcon
+			if factionIcon then
+				unitDisplay.factionIcon:SetTexture(UIUtil.UIFile(factionIcon))
+			end
+		end
+	end
+
 	unitDisplay.technicals:SetText('Mod: '..originMap[origin[index]]..' ('..id..')')
 
 	unitDisplay.longDesc:Show()
@@ -853,7 +869,7 @@ function DisplayUnit(index)
 	UIUtil.SetTextBoxText(unitDisplay.longDesc, ld)
 	if bp.Display.Abilities then
 		unitDisplay.abilities:DeleteAllItems()
-		unitDisplay.abilities.Height:Set(unitDispAbilHeight)
+		LayoutHelpers.SetHeight(unitDisplay.abilities, unitDispAbilHeight)
 		unitDisplay.abilities:Show()
 		for _, a in bp.Display.Abilities do
 			unitDisplay.abilities:AddItem(LOC(a))
@@ -1261,6 +1277,7 @@ function ClearUnitDisplay()
 	unitDisplay.backIcon:Hide()
 	unitDisplay.icon:Hide()
 	unitDisplay.stratIcon:Hide()
+	unitDisplay.factionIcon:Hide()
 	unitDisplay.name:SetText('')
 	unitDisplay.shortDesc1:SetText('')
 	unitDisplay.shortDesc2:SetText('')
