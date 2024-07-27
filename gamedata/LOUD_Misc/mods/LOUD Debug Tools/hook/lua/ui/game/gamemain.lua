@@ -111,8 +111,7 @@ do
 		local bg = Bitmap(GetFrame(0))
 		bg.Depth:Set(GetFrame(0):GetTopmostDepth() + 1)
 		LayoutHelpers.AtCenterIn(bg, GetFrame(0))
-		bg.Width:Set(830)
-		bg.Height:Set(560)
+		LayoutHelpers.SetDimensions(bg, 830, 560)
 		bg:SetSolidColor('FF111111')
 
 		local title = UIUtil.CreateText(bg, "LOUD AI Debug Menu", 16, UIUtil.titleFont)
@@ -133,8 +132,7 @@ do
 		local function CreateSwitchToggleGroup(index, SWITCHES)
         
 			local grp = Group(container)
-			grp.Width:Set(255)
-			grp.Height:Set(18)
+			LayoutHelpers.SetDimensions(grp, 255, 18)
 			
 			local label = UIUtil.CreateText(grp, SWITCHES[index], 12, UIUtil.bodyFont)
             
@@ -144,7 +142,7 @@ do
 			
 			-- Just a header
 			if string.find(SWITCHES[index], "*") then
-				grp.Height:Set(28)
+				LayoutHelpers.SetHeight(grp, 28)
 				return grp
 			end
 			
@@ -200,8 +198,7 @@ do
         -- Create intel header next to first header of right-side switches
         -- while it's easy to do so
 		listIntel[1] = Group(container)
-		listIntel[1].Width:Set(220)
-		listIntel[1].Height:Set(18)
+		LayoutHelpers.SetDimensions(listIntel[1], 220, 18)
 
 		local intelHeaderLabel1 = UIUtil.CreateText(listIntel[1], "* TOGGLE INTEL THREAT COLORS *", 12, UIUtil.bodyFont)
         
@@ -228,12 +225,10 @@ do
 		for idx, key in __INTEL_CHECKS do
         
 			listIntel[k] = Group(container)
-			listIntel[k].Width:Set(220)
-			listIntel[k].Height:Set(18)
+			LayoutHelpers.SetDimensions(listIntel[k], 220, 18)
 
 			listIntel[k].color = Bitmap(listIntel[k])
-			listIntel[k].color.Width:Set(12)
-			listIntel[k].color.Height:Set(12)
+			LayoutHelpers.SetDimensions(listIntel[k].color, 12, 12)
 
 			LayoutHelpers.Below(listIntel[k], listIntel[k - 1])
 
@@ -290,7 +285,8 @@ do
 
 		local globalToggle = UIUtil.CreateButtonStd( GetFrame(0), '/widgets/toggle', "AI Debug Menu", 12, 2, 0, "UI_Menu_MouseDown", "UI_Menu_Rollover")
 
-		LayoutHelpers.AtLeftTopIn(globalToggle, GetFrame(0), 680, 8)
+		LayoutHelpers.AtHorizontalCenterIn(globalToggle, GetFrame(0), 160)
+		LayoutHelpers.AtTopIn(globalToggle, GetFrame(0), 8)
 
 		globalToggle.Depth:Set(GetFrame(0):GetTopmostDepth() + 1)
 
