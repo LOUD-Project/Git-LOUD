@@ -133,16 +133,16 @@ PlatoonTemplate { Name = 'T1AirScout',
 PlatoonTemplate { Name = 'T2AirScout',
     FactionSquads = {
         UEF = {
-            { 'uea0101', 1, 3, 'scout', 'none' }
+            { 'uea0101', 1, 2, 'scout', 'none' }
         },
         Aeon = {
-            { 'uaa0101', 1, 3, 'scout', 'none' }
+            { 'uaa0101', 1, 2, 'scout', 'none' }
         },
         Cybran = {
-            { 'ura0101', 1, 3, 'scout', 'none' }
+            { 'ura0101', 1, 2, 'scout', 'none' }
         },
         Seraphim = {
-            { 'xsa0101', 1, 3, 'scout', 'none' }
+            { 'xsa0101', 1, 2, 'scout', 'none' }
         },
     }
 }
@@ -150,16 +150,16 @@ PlatoonTemplate { Name = 'T2AirScout',
 PlatoonTemplate { Name = 'T3AirScout',
     FactionSquads = {
         UEF = {
-            { 'uea0302', 1, 3, 'scout', 'none' }
+            { 'uea0302', 1, 2, 'scout', 'none' }
         },
         Aeon = {
-            { 'uaa0302', 1, 3, 'scout', 'none' }
+            { 'uaa0302', 1, 2, 'scout', 'none' }
         },
         Cybran = {
-            { 'ura0302', 1, 3, 'scout', 'none' }
+            { 'ura0302', 1, 2, 'scout', 'none' }
         },
         Seraphim = {
-            { 'xsa0302', 1, 3, 'scout', 'none' }
+            { 'xsa0302', 1, 2, 'scout', 'none' }
         },
     }
 }
@@ -211,19 +211,41 @@ PlatoonTemplate { Name = 'T3Bomber',
     }
 }
 
+
 PlatoonTemplate { Name = 'T1Fighter',
     FactionSquads = {
         UEF = {
-            { 'uea0102', 1, 3, 'Attack', 'none' },
+            { 'uea0102', 1, 2, 'Attack', 'none' },
         },
         Aeon = {
-            { 'uaa0102', 1, 3, 'Attack', 'none' },
+            { 'uaa0102', 1, 2, 'Attack', 'none' },
         },
         Cybran = {
-            { 'ura0102', 1, 3, 'Attack', 'none' },
+            { 'ura0102', 1, 2, 'Attack', 'none' },
         },
         Seraphim = {
-            { 'xsa0102', 1, 3, 'Attack', 'none' },
+            { 'xsa0102', 1, 2, 'Attack', 'none' },
+        },
+    }
+}
+
+PlatoonTemplate { Name = 'T1FighterPlus',
+    FactionSquads = {
+        UEF = {
+            { 'uea0102', 1, 2, 'Attack', 'none' },
+            { 'uea0101', 1, 1, 'scout', 'none' }
+        },
+        Aeon = {
+            { 'uaa0102', 1, 2, 'Attack', 'none' },
+            { 'uaa0101', 1, 1, 'scout', 'none' } 
+        },
+        Cybran = {
+            { 'ura0102', 1, 2, 'Attack', 'none' },
+            { 'ura0101', 1, 1, 'scout', 'none' }
+        },
+        Seraphim = {
+            { 'xsa0102', 1, 2, 'Attack', 'none' },
+            { 'xsa0101', 1, 1, 'scout', 'none' }
         },
     }
 }
@@ -438,20 +460,24 @@ PlatoonTemplate { Name = 'T1LandDFBot',
 PlatoonTemplate { Name = 'T1LandDFTank',
     FactionSquads = {
         UEF = {
-            { 'uel0201', 1, 5, 'Attack', 'none' },		-- Striker Medium Tank
+            { 'uel0201', 1, 4, 'Attack', 'none' },		-- Striker Medium Tank
 			{ 'uel0103', 1, 1, 'Artillery', 'none' },	-- artillery
+            { 'uel0104', 1, 1, 'Attack', 'none' }       -- AA
          },
         Aeon = {
-            { 'ual0201', 1, 5, 'Attack', 'none' },		-- Light Hover tank
+            { 'ual0201', 1, 4, 'Attack', 'none' },		-- Light Hover tank
 			{ 'ual0103', 1, 1, 'Artillery', 'none' },	-- artillery
+            { 'ual0104', 1, 1, 'Attack', 'none' }       -- AA
         },
         Cybran = {
-            { 'url0107', 1, 5, 'Attack', 'none' },		-- Mantis
+            { 'url0107', 1, 4, 'Attack', 'none' },		-- Mantis
 			{ 'url0103', 1, 1, 'Artillery', 'none' },	-- artillery
+            { 'url0104', 1, 1, 'Attack', 'none' }       -- AA
         },
         Seraphim = {
-            { 'xsl0201', 1, 5, 'Attack', 'none' },		-- Medium Tank
+            { 'xsl0201', 1, 4, 'Attack', 'none' },		-- Medium Tank
 			{ 'xsl0103', 1, 1, 'Artillery', 'none' },	-- artillery
+            { 'xsl0104', 1, 1, 'Attack', 'none' }       -- AA
         },
     }
 }
@@ -460,11 +486,11 @@ PlatoonTemplate { Name = 'T1LandAmphibious',
     FactionSquads = {
         UEF = {},
         Aeon = {
-            { 'ual0201', 1, 3, 'Attack', 'none' }	#-- Light Hover tank
+            { 'ual0201', 1, 3, 'Attack', 'none' }	    -- Light Hover tank
         },
         Cybran = {},
         Seraphim = {
-            { 'xsl0103', 1, 2, 'Attack', 'none' }	#-- Hover Artillery
+            { 'xsl0103', 1, 2, 'Attack', 'none' }	    -- Hover Artillery
         },
     }
 }

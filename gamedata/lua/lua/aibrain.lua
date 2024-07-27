@@ -916,11 +916,7 @@ AIBrain = Class(moho.aibrain_methods) {
 		local s = ScenarioInfo.ArmySetup[self.Name].Mult
 		local m
         
---		if type(s) == "string" then
-			m = tonumber(ScenarioInfo.ArmySetup[self.Name].Mult)
---		else
-	--		m = aiMults[ScenarioInfo.ArmySetup[self.Name].Mult]
---		end
+        m = tonumber(ScenarioInfo.ArmySetup[self.Name].Mult)
         
         if m then 
             m = math.max(0.1, m)
@@ -951,7 +947,12 @@ AIBrain = Class(moho.aibrain_methods) {
             end
         end
 
-		if not civilian then
+		if civilian then
+
+            -- Civilians are NOT Cheating AI
+            self.CheatingAI = false
+            
+        else
 
 			if planName and planName != '' then
                 
@@ -967,26 +968,59 @@ AIBrain = Class(moho.aibrain_methods) {
                     self.CurrentPlan = self.AIPlansList[self.FactionIndex][1]
                     
                 end
-				
 			end
 
-			-- go get and set a plan for MAIN
-			if self:IsOpponentAIRunning() then
 
-				-- start the plan
-				ForkThread( import('/lua/ai/aiarchetype-managerloader.lua').ExecutePlan, self )
+            -- go get and set a plan for MAIN
+            if self:IsOpponentAIRunning() then
+
+                --If we have active mods that contain custom AIs, then only apply LOUD logic if the name contains LOUD
+                local bCheckForLoud = false
+                local tsLOUDNicknames = {[1] = 'AI: LOUD'}
+                local tExtrasAI = import('/lua/AI/CustomAIs_v2/ExtrasAI.lua').AI.AIList
+
+                if tExtrasAI then
+                    for iEntry, tAIInfo in tExtrasAI do
+                        if tAIInfo.name and not(tsLOUDNicknames[1] == tAIInfo.name) then table.insert(tsLOUDNicknames, tAIInfo.name) end
+                    end
+                end
+
+                function IsNicknameALoudNickname(sNickname)
+
+                    for iEntry, sName in tsLOUDNicknames do
+                        if string.find(self.Nickname, sName) then
+                            return true
+                        end
+                    end
+
+                    return false
+                end
+
+                local EnhancedLobby = import('/lua/enhancedlobby.lua')
+                local activeMods = EnhancedLobby.GetActiveMods()
+
+                if activeMods then
+
+                    for k, mod in activeMods do
+                        local AIFiles = DiskFindFiles(mod.location..'/lua/AI/CustomAIs_v2', '*.lua')
+                        if AIFiles then
+                            bCheckForLoud = true
+                            break
+                        end
+                    end
+                end
+
+                if not(bCheckForLoud) or not(self.Nickname) or IsNicknameALoudNickname(self.Nickname) then
+                    -- start the plan
+                    ForkThread( import('/lua/ai/aiarchetype-managerloader.lua').ExecutePlan, self )
+
+                end
 
                 -- Subscribe to ACT if .Adaptive dictates such
                 import('/lua/loudutilities.lua').SubscribeToACT(self)
-			end
-            
-		else
-        
-            -- Civilians are NOT Cheating AI
-            self.CheatingAI = false
-            
+
+            end
         end
-        
     end,
 
 	OnSpawnPreBuiltUnits = function(self)
@@ -1125,7 +1159,7 @@ AIBrain = Class(moho.aibrain_methods) {
 	
         if self.BuilderManagers then
 		
-            self.ConditionsMonitor:Destroy()
+            if self.ConditionsMonitor then self.ConditionsMonitor:Destroy() end
 			
             for k,v in self.BuilderManagers do
 			
@@ -1163,7 +1197,15 @@ AIBrain = Class(moho.aibrain_methods) {
 					
 					import('/lua/SimUtils.lua').TransferUnitsOwnership( units, v:GetArmyIndex())
 					
-				end
+				else
+                
+                    if v.BrainType == 'AI' and ( not IsAlly(self.ArmyIndex, v:GetArmyIndex() ) and v.NumOpponents and self.ArmyIndex != v:GetArmyIndex() and not v:IsDefeated()) then
+
+                        v.NumOpponents = v.NumOpponents - 1
+                    
+                    end
+                    
+                end
 				
 			end
 			
@@ -1204,11 +1246,15 @@ AIBrain = Class(moho.aibrain_methods) {
                 
                 self.CurrentPlan = nil
 				
-				self.ConditionsMonitor.Trash:Destroy()
+				if self.ConditionsMonitor then
+
+					self.ConditionsMonitor.Trash:Destroy()
 				
-				self.ConditionsMonitor:Destroy()
+					self.ConditionsMonitor:Destroy()
 				
-				self.ConditionsMonitor = nil
+					self.ConditionsMonitor = nil
+
+				end
 			
 				for k,v in self.BuilderManagers do
 				
@@ -1311,8 +1357,8 @@ AIBrain = Class(moho.aibrain_methods) {
                 if self.RefuelPool then
                     self:DisbandPlatoon(self.RefuelPool)
                 end
-                
-				self:DisbandPlatoon(self.StructurePool)
+                		
+				if self.StructurePool then self:DisbandPlatoon(self.StructurePool) end
                 
                 if self.TransportPool then
                     self:DisbandPlatoon(self.TransportPool)

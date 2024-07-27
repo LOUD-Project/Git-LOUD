@@ -2079,7 +2079,7 @@ function AirStagingThread( unit, airstage, aiBrain )
     local IsUnitState               = IsUnitState
     local WaitTicks                 = WaitTicks
 	
-	if not airstage.Dead then
+	if not airstage.Dead and aiBrain.PathRequests then
 		
 		if not unit.Dead then
 
@@ -3166,31 +3166,28 @@ function PathGeneratorAir( aiBrain )
 	local GetThreatBetweenPositions = GetThreatBetweenPositions
     local PlatoonExists             = PlatoonExists
 
-	local LOUDCOPY = LOUDCOPY
-    local LOUDEQUAL = LOUDEQUAL
-    local LOUDLOG10 = math.log10
-
-	local LOUDREMOVE = table.remove
-	local LOUDSORT = LOUDSORT
-	local ForkThread = ForkThread
-    local type = type
-
-    local VDist2 = VDist2
-	local VDist2Sq = VDist2Sq
-    local VDist3 = VDist3
-
-	local WaitTicks = WaitTicks
+	local LOUDCOPY      = LOUDCOPY
+    local LOUDEQUAL     = LOUDEQUAL
+    local LOUDLOG10     = math.log10
+	local LOUDREMOVE    = table.remove
+	local LOUDSORT      = LOUDSORT
+	local ForkThread    = ForkThread
+    local type          = type
+    local VDist2        = VDist2
+	local VDist2Sq      = VDist2Sq
+    local VDist3        = VDist3
+	local WaitTicks     = WaitTicks
 	
 	-- get the table with all the nodes for this layer
-	local graph = ScenarioInfo.PathGraphs['Air']
-    local Rings = ScenarioInfo.RingSize or 0
+	local graph         = ScenarioInfo.PathGraphs['Air']
+    local Rings         = ScenarioInfo.RingSize or 0
+	local IMAPRadius    = ScenarioInfo.IMAPSize * .5
+    local IMAPSize      = ScenarioInfo.IMAPSize
 
-	local IMAPRadius = ScenarioInfo.IMAPSize * .5
-    local IMAPSize = ScenarioInfo.IMAPSize
-
-	local data = false	
-	local queue = {}
-	local closed = {}
+	local data      = false
+    local calctable = {}    -- this table memoizes the distance modifier result 
+	local queue     = {}
+	local closed    = {}
     
     local checkrange, destination, fork, platoon, shortcut, stepcostadjust, stepsize, threat, ThreatLayer
     local EndPosition, EndThreat, pathcost, pathlength, pathlist, StartLength, StartNode, StartPosition, ThreatWeight  
@@ -3234,11 +3231,11 @@ function PathGeneratorAir( aiBrain )
 
 		queueitem = LOUDREMOVE(queue, 1)
         
-        Cost = queueitem.cost
-        Node = queueitem.Node
-        Pathcount = queueitem.pathcount
-		position = Node.position
-        Threat = queueitem.threat
+        Cost        = queueitem.cost
+        Node        = queueitem.Node
+        Pathcount   = queueitem.pathcount
+		position    = Node.position
+        Threat      = queueitem.threat
 
 		if closed[Node[1]] then
 			return false, 0, false, 0
@@ -3269,16 +3266,31 @@ function PathGeneratorAir( aiBrain )
 				return queueitem.path, queueitem.length, true, Cost
 			end
 
-            testpositionlength = VDist3( position, testposition )
+            testpositionlength = LOUDFLOOR(VDist3( position, testposition ))
             
             threat = 0
             
+            -- Threat is how much threat this test is allowed to absorb
+            -- each time we accept a step in the path, it's value may be reduced by what we already absorbed
             if Threat < 99999 then
 			
-                threat = GetThreatBetweenPositions( aiBrain, position, testposition, true, ThreatLayer) * LOUDSQRT( testpositionlength/IMAPRadius )
+                threat = LOUDMAX( 0, GetThreatBetweenPositions( aiBrain, position, testposition, true, ThreatLayer))
 
+                -- the the perceived threat is greater than we allow - ignore this step
                 if threat > Threat then
                     continue
+                    
+                -- otherwise, value it according to how long this step is - compared to the size of the IMAP block
+                -- if we're going to travel the full length of the block - threat is valued at full - shorter or longer is adjusted
+                else
+
+                    if not calctable[testpositionlength] then 
+                        calctable[testpositionlength] = LOUDSQRT(testpositionlength/IMAPSize)
+                    end
+                    
+                    stepcostadjust = calctable[testpositionlength]
+                    
+                    threat = threat * stepcostadjust
                 end
 
             end
@@ -3289,7 +3301,12 @@ function PathGeneratorAir( aiBrain )
             
             -- a step with ANY threat costs more than one without
             if threat > 0 then 
-                stepcostadjust = stepsize
+                stepcostadjust = 20
+                
+                -- if it's more then half our allowed then do this again
+                if threat > (Threat*.5) then
+                    stepcostadjust = stepcostadjust + 40
+                end
             end
 
 			fork.cost = Cost + threat + stepcostadjust
@@ -3303,7 +3320,7 @@ function PathGeneratorAir( aiBrain )
 	
 			fork.path[fork.pathcount] = testposition
 		
-			fork.threat = Threat - threat
+			fork.threat = Threat - threat   --- we capture the declining amount of threat we can absorb
 
 			LOUDINSERT(queue,fork)
 		end
@@ -3347,7 +3364,7 @@ function PathGeneratorAir( aiBrain )
             StartNode       = data.StartNode
             StartPosition   = StartNode.position
             stepsize        = data.Stepsize
-           
+          
             checkrange      = stepsize*stepsize
 
             ThreatLayer     = data.ThreatLayer
@@ -3363,7 +3380,7 @@ function PathGeneratorAir( aiBrain )
             EndThreat = 0
             
             if ThreatWeight < 99999 then
-                EndThreat = GetThreatBetweenPositions( aiBrain, EndPosition, destination, nil, ThreatLayer ) / LOUDMAX(1,(VDist3( EndPosition, destination )/IMAPRadius ))
+                EndThreat = LOUDMAX( 0, GetThreatBetweenPositions( aiBrain, EndPosition, destination, nil, ThreatLayer )) / LOUDMAX(1,(VDist3( EndPosition, destination )/IMAPRadius ))
             end
             
             -- NOTE: We insert the ThreatWeight into the data we carry in the queue now - which will allow us to decrease it with each step we take that has threat
@@ -3418,19 +3435,18 @@ function PathGeneratorAmphibious(aiBrain)
 	local WaitTicks = WaitTicks
 	
 	-- get the table with all the nodes for this layer
-	local graph = ScenarioInfo.PathGraphs['Amphibious']
-    local Rings = ScenarioInfo.RingSize or 0
+	local graph         = ScenarioInfo.PathGraphs['Amphibious']
+    local Rings         = ScenarioInfo.RingSize or 0
+	local IMAPRadius    = ScenarioInfo.IMAPSize * .5
+    local IMAPSize      = ScenarioInfo.IMAPSize
 
-	local IMAPRadius = ScenarioInfo.IMAPSize * .5
-    local IMAPSize = ScenarioInfo.IMAPSize
-
-	local data = false	
-	local queue = {}
-	local closed = {}
+	local data      = false
+    local calctable = {}
+	local queue     = {}
+	local closed    = {}
     
-    local destination, fork, stepcostadjust, stepsize, Testpath, threat, ThreatLayer, ThreatLayerCheck
+    local checkrange, destination, fork, stepcostadjust, stepsize, Testpath, threat, ThreatLayer, ThreatLayerCheck
     local EndPosition, EndThreat,  pathcost, pathlength, pathlist, platoon,shortcut, StartLength, StartNode, StartPosition, ThreatWeight 
-
 
 	local function DestinationBetweenPoints( position, testposition )
 
@@ -3447,7 +3463,7 @@ function PathGeneratorAmphibious(aiBrain)
 
 		for i = 1, steps do
 
-            if VDist2( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3]) <= (stepsize*.6) then
+            if VDist2( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3]) <= (checkrange*.6) then
             
                 if ScenarioInfo.PathFindingDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." found destination "..repr(destination).." on step "..i.." within stepsize "..(stepsize*.6).." range of "..repr({position[1] - (xstep * i), position[3] - (ystep * i)}).." while examining "..repr(testposition) )
@@ -3511,7 +3527,7 @@ function PathGeneratorAmphibious(aiBrain)
 				return queueitem.path, queueitem.length, true, Cost
 			end
 
-            testpositionlength = VDist3( position, testposition )
+            testpositionlength = LOUDFLOOR(VDist3( position, testposition ))
 
             -- in the case of amphibious units - we'd like to discount movements thru the water - so either at the point of transition or 
             -- with each water-based point - we'd discount the cost just a bit - AND - we'd change the ThreatLayer.
@@ -3528,24 +3544,41 @@ function PathGeneratorAmphibious(aiBrain)
             
             if Threat < 99999 then
 
-                -- So - we take the threat value - and modify it according to the % of an IMPARadius that this step is
-                -- testpositionlength less than the IMAPRadius decrease the threat - greater than increases it --
-                -- the idea is the more distance you're covering in an IMAP block - the more dangerous that block can be
-                threat = GetThreatBetweenPositions( aiBrain, position, testposition, true, ThreatLayerCheck ) * LOUDSQRT( testpositionlength/IMAPRadius )
+                threat = LOUDMAX( 0, GetThreatBetweenPositions( aiBrain, position, testposition, true, ThreatLayerCheck ))
 
                 if threat > Threat then
                     continue
+
+                else
+
+                    -- testpositionlength less than the IMAPSize decreases the cost - greater increases it
+                    -- the more distance you're covering in an IMAP block - the more dangerous that block can be
+                    if not calctable[testpositionlength] then
+                        calctable[testpositionlength] = LOUDSQRT( testpositionlength/IMAPSize )
+                    end
+                    
+                    stepcostadjust = calctable[testpositionlength]
+                    
+                    threat = threat * stepcostadjust
                 end
 
             end
 			
 			fork = { cost = 0, goaldist = 0, length = 0, Node = graph[newnode], path = LOUDCOPY(queueitem.path) }
             
-            stepcostadjust = 20
+            stepcostadjust = 25     --- land nodes per step cost
             
             -- make water based movement cheaper
             if Node.InWater then
                 stepcostadjust = 1
+            end
+            
+            if threat > 0 then
+                stepcostadjust = stepcostadjust + 10
+                
+                if threat > (Threat*.5) then
+                    stepcostadjust = stepcostadjust + 20
+                end
             end
 
             -- each step adds the stepcost
@@ -3580,15 +3613,18 @@ function PathGeneratorAmphibious(aiBrain)
 
 			data = LOUDREMOVE(PathRequests, 1)
 
-            destination = data.Dest
-            EndPosition = data.EndNode.position
-            StartLength = data.Startlength or 0
-            StartNode = data.StartNode
-            StartPosition = StartNode.position
-            stepsize = data.Stepsize
-            Testpath = data.Testpath
-            ThreatLayer = data.ThreatLayer
-            ThreatWeight = data.ThreatWeight
+            destination     = data.Dest
+            EndPosition     = data.EndNode.position
+            StartLength     = data.Startlength or 0
+            StartNode       = data.StartNode
+            StartPosition   = StartNode.position
+            stepsize        = data.Stepsize
+
+            checkrange      = stepsize * stepsize
+
+            Testpath        = data.Testpath
+            ThreatLayer     = data.ThreatLayer
+            ThreatWeight    = data.ThreatWeight
             
             if PathFindingDialog then
                 LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." starts AMPHIB pathfind from "..repr(StartPosition).." to "..repr(EndPosition).." maxthreat is "..repr(ThreatWeight) )
@@ -3642,27 +3678,26 @@ function PathGeneratorLand(aiBrain)
     local GetThreatBetweenPositions = GetThreatBetweenPositions
     local PlatoonExists             = PlatoonExists
     
-	local LOUDCOPY = LOUDCOPY
-    local LOUDEQUAL = LOUDEQUAL
-
-	local LOUDREMOVE = table.remove
-	local LOUDSORT = LOUDSORT
-	local ForkThread = ForkThread
-    local type = type
-
-    local VDist2 = VDist2
-	local WaitTicks = WaitTicks
+	local LOUDCOPY      = LOUDCOPY
+    local LOUDEQUAL     = LOUDEQUAL
+	local LOUDREMOVE    = table.remove
+	local LOUDSORT      = LOUDSORT
+	local ForkThread    = ForkThread
+    local type          = type
+    local VDist2        = VDist2
+	local WaitTicks     = WaitTicks
 	
 	local dist_comp = aiBrain.dist_comp
     
-	local graph = ScenarioInfo.PathGraphs['Land']
-    local Rings = ScenarioInfo.RingSize or 0
+	local graph         = ScenarioInfo.PathGraphs['Land']
+    local Rings         = ScenarioInfo.RingSize or 0
+	local IMAPRadius    = ScenarioInfo.IMAPSize * .5
+    local IMAPSize      = ScenarioInfo.IMAPSize
 
-	local IMAPRadius = ScenarioInfo.IMAPSize * .5
-
-	local data = false	
-	local queue = {}
-	local closed = {}
+	local data      = false
+    local calctable = {}
+	local queue     = {}
+	local closed    = {}
     
     local maxthreat, minthreat
     
@@ -3694,22 +3729,24 @@ function PathGeneratorLand(aiBrain)
     
 	local function AStarLoopBody()
 
+        local GetThreatAtPosition       = GetThreatAtPosition
         local GetThreatBetweenPositions = GetThreatBetweenPositions
-        local LOUDCOPY = LOUDCOPY
-        local LOUDEQUAL = LOUDEQUAL
-        local LOUDINSERT = LOUDINSERT
-        local LOUDSORT = LOUDSORT
-        local VDist3 = VDist3
 
-        local Cost, newnode, Node, Pathcount, position, queueitem, testposition, Threat	
+        local LOUDCOPY      = LOUDCOPY
+        local LOUDEQUAL     = LOUDEQUAL
+        local LOUDINSERT    = LOUDINSERT
+        local LOUDSORT      = LOUDSORT
+        local VDist3        = VDist3
+
+        local Cost, newnode, Node, Pathcount, position, queueitem, testposition, testpositionlength, Threat	
 
 		queueitem = LOUDREMOVE(queue, 1)
 
-        Cost = queueitem.cost
-        Node = queueitem.Node
-        Pathcount = queueitem.pathcount
-		position = Node.position
-        Threat = queueitem.threat
+        Cost        = queueitem.cost
+        Node        = queueitem.Node
+        Pathcount   = queueitem.pathcount
+		position    = Node.position
+        Threat      = queueitem.threat
 
 		if closed[Node[1]] then
 			return false, 0, false, 0
@@ -3718,9 +3755,6 @@ function PathGeneratorLand(aiBrain)
 		if LOUDEQUAL( position, EndPosition ) or VDist3( destination, position ) <= stepsize then
 			return queueitem.path, queueitem.length, false, queueitem.cost
 		end
-
-
-        local GetThreatAtPosition = GetThreatAtPosition
 	
 		closed[Node[1]] = true
 
@@ -3741,6 +3775,8 @@ function PathGeneratorLand(aiBrain)
 				return queueitem.path, queueitem.length, true, queueitem.cost
 			end
             
+            testpositionlength = LOUDFLOOR(VDist3( position, testposition ))
+            
             threat = 0
             
             if Threat < 99999 then
@@ -3751,20 +3787,39 @@ function PathGeneratorLand(aiBrain)
                     continue
                 end
 			
-                -- if below min threat - devalue it even further - tiny threats should not impair pathing
-                if threat <= ThreatWeight * minthreat then
-                    threat = threat * 0.5
+                -- if below min threat - devalue it - tiny threats should not impair pathing
+                if threat <= minthreat then
+                    threat = threat * 0.7
                 
                 -- if above max threat - inflate by ratio - really stay away from big threats
-                elseif threat > ThreatWeight then
-                    threat = (threat/maxthreat) * threat
+                elseif threat > maxthreat then
+                    threat = (threat/maxthreat)
                 end
+
+                -- adjust threat for the length of the step compared to size of the IMAP block
+                if not calctable[testpositionlength] then 
+                    calctable[testpositionlength] = LOUDSQRT(testpositionlength/IMAPSize)
+                end
+
+                stepcostadjust = calctable[testpositionlength]
+                
+                threat = threat * stepcostadjust
                 
             end
 
 			fork = { cost = 0, goaldist = 0, length = 0, Node = graph[newnode], path = LOUDCOPY(queueitem.path), pathcount = 0 }
+            
+            stepcostadjust = 5
+            
+            if threat > 0 then 
+                stepcostadjust = stepcostadjust + 10
+                
+                if threat > (Threat*.5) then
+                    stepcostadjust = stepcostadjust + 10
+                end
+            end
 
-			fork.cost = Cost + threat + 10
+			fork.cost = Cost + threat + stepcostadjust
 			
 			fork.goaldist = VDist3( destination, testposition )
 
@@ -3784,7 +3839,6 @@ function PathGeneratorLand(aiBrain)
 		return false, 0, false, 0
 	end		
 
-
 	local PathRequests = aiBrain.PathRequests.Land
     local PathReplies = aiBrain.PathRequests['Replies']
     local PathFindingDialog = ScenarioInfo.PathFindingDialog or false
@@ -3794,23 +3848,24 @@ function PathGeneratorLand(aiBrain)
 		if PathRequests[1] then
 	
 			data = LOUDREMOVE(PathRequests, 1)
+
+			closed = {}
             
-            destination = data.Dest
-            EndPosition = data.EndNode.position
-            StartNode = data.StartNode
-            StartPosition = StartNode.position
-            stepsize = data.Stepsize
-            Testpath = data.Testpath
-            ThreatLayer = data.ThreatLayer
-            ThreatWeight = data.ThreatWeight
+            destination     = data.Dest
+            EndPosition     = data.EndNode.position
+            StartNode       = data.StartNode
+            StartPosition   = StartNode.position
+            stepsize        = data.Stepsize
+
+            checkrange      = stepsize*stepsize
+
+            Testpath        = data.Testpath
+            ThreatLayer     = data.ThreatLayer
+            ThreatWeight    = data.ThreatWeight
             
             if PathFindingDialog then
                 LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." starts LAND pathfind from "..repr(StartPosition).." to "..repr(EndPosition) )
             end
-            
-            checkrange = stepsize*stepsize
-
-			closed = {}
             
             -- we must take into account the threat between the EndNode and the destination - they are rarely the same point
             -- we add this threat to the cost value to start with since the final step is just added to the path after the
@@ -3818,7 +3873,7 @@ function PathGeneratorLand(aiBrain)
             EndThreat = 0
             
             if ThreatWeight < 99999 then
-                EndThreat = GetThreatBetweenPositions( aiBrain, EndPosition, destination, nil, ThreatLayer )
+                EndThreat = LOUDMAX(0, GetThreatBetweenPositions( aiBrain, EndPosition, destination, nil, ThreatLayer ))
             end
           
 			queue = { { cost = EndThreat, goaldist = 0, length = data.Startlength or 0, Node = StartNode, path = { StartPosition, }, pathcount = 1, threat = ThreatWeight - EndThreat } }
@@ -3859,37 +3914,33 @@ end
 -- this pathgenerator also takes into account casualties along the route
 function PathGeneratorWater(aiBrain)
 
-    local GetThreatAtPosition = GetThreatAtPosition	
-    local PlatoonExists = PlatoonExists
+    local GetThreatAtPosition   = GetThreatAtPosition	
+    local PlatoonExists         = PlatoonExists
 
-	local LOUDCOPY = LOUDCOPY
-    local LOUDEQUAL = LOUDEQUAL
-
-	local LOUDREMOVE = table.remove
-	local LOUDSORT = LOUDSORT
-	local ForkThread = ForkThread
-
-	local WaitTicks = coroutine.yield
+	local LOUDCOPY      = LOUDCOPY
+    local LOUDEQUAL     = LOUDEQUAL
+	local LOUDREMOVE    = table.remove
+	local LOUDSORT      = LOUDSORT
+	local ForkThread    = ForkThread
+	local WaitTicks     = coroutine.yield
 
 	local dist_comp = aiBrain.dist_comp
 	
-	local graph = ScenarioInfo.PathGraphs['Water']
-    local Rings = ScenarioInfo.RingSize or 0
+	local graph         = ScenarioInfo.PathGraphs['Water']
+    local Rings         = ScenarioInfo.RingSize or 0
+	local IMAPRadius    = ScenarioInfo.IMAPSize * .5
+    local IMAPSize      = ScenarioInfo.IMAPSize
 
+	local data      = false	
+	local queue     = {}
+	local closed    = {}
 
-	local IMAPRadius = ScenarioInfo.IMAPSize * .5
+    local adjacentnodes, checkrange, destination, fork, Node, position, queueitem, stepsize, TestPath, threat, ThreatLayer
+    local EndPosition, EndThreat, platoon, pathcost, pathlist, pathlength, StartNode, StartPosition, ThreatWeight, shortcut
 
-	local data = false	
-	local queue = {}
-	local closed = {}
-
-    local adjacentnodes, destination, fork, Node, position, queueitem, stepsize, TestPath, testposition, threat, ThreatLayer
-
-	local function DestinationBetweenPoints()
+	local function DestinationBetweenPoints(position,testposition)
 
         local VDist2Sq = VDist2Sq
-
-        local checkrange = (stepsize * stepsize)
 
 		local steps = LOUDFLOOR( VDist2( position[1], position[3], testposition[1], testposition[3]) / stepsize )
         
@@ -3920,6 +3971,8 @@ function PathGeneratorWater(aiBrain)
         local LOUDSORT = LOUDSORT
         local VDist2 = VDist2
         local VDist3 = VDist3
+        
+        local Cost, newnode, queueitem, position, stepcostadjust, testposition 
 
 		queueitem = LOUDREMOVE(queue, 1)
 
@@ -3929,8 +3982,8 @@ function PathGeneratorWater(aiBrain)
 
         Node = queueitem.Node
 	
-		position = Node.position
-		adjacentnodes = Node.adjacent
+		position        = Node.position
+		adjacentnodes   = Node.adjacent
 
 		if LOUDEQUAL(position, data.EndNode.position) or VDist3( destination, position) <= stepsize then
 			return queueitem.path, queueitem.length, false, queueitem.cost
@@ -3950,18 +4003,25 @@ function PathGeneratorWater(aiBrain)
 
 			testposition = LOUDCOPY(graph[newnode].position)
 
-			if Testpath and DestinationBetweenPoints() then
+			if Testpath and DestinationBetweenPoints( position, testposition ) then
             
-                queueitem.length = queueitem.length + VDist3(destination, position)
+                queueitem.length = queueitem.length + VDist3( destination, position)
 
 				return queueitem.path, queueitem.length, true, queueitem.cost
 			end
 
-			threat = GetThreatBetweenPositions( aiBrain, position, testposition, nil, ThreatLayer) / LOUDMAX( 1, queueitem.length/IMAPRadius )
+			threat = LOUDMAX( 0, GetThreatBetweenPositions( aiBrain, position, testposition, nil, ThreatLayer))
 			
 			if threat > queueitem.threat then
 				continue
-			end
+			else
+            
+                stepcostadjust = queueitem.length/IMAPSize
+                
+                threat = threat * stepcostadjust
+                
+            end
+            
 
 			fork = { cost = 0, goaldist = 0, length = 0, Node = graph[newnode], path = LOUDCOPY(queueitem.path) }
 
@@ -3985,12 +4045,9 @@ function PathGeneratorWater(aiBrain)
 		return false, 0, false, 0
 	end
 
-
     local PathRequests = aiBrain.PathRequests.Water
 	local PathReplies = aiBrain.PathRequests['Replies']
     local PathFindingDialog = ScenarioInfo.PathFindingDialog or false
-    
-    local platoon, pathlist, pathlength, shortcut, pathcost
 
 	while true do
 		
@@ -4000,16 +4057,33 @@ function PathGeneratorWater(aiBrain)
             
 			closed = {}
             
-            destination = data.Dest
-            stepsize = data.Stepsize
-            Testpath = data.Testpath
-            ThreatLayer = data.ThreatLayer     
+            destination     = data.Dest
+            EndPosition     = data.EndNode.position
+            
+            StartNode       = data.StartNode
+            StartPosition   = StartNode.position
+            stepsize        = data.Stepsize
+
+            checkrange      = stepsize*stepsize
+
+            Testpath        = data.Testpath
+            ThreatLayer     = data.ThreatLayer
+            ThreatWeight    = data.ThreatWeight
             
             if PathFindingDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind AIR starts find from "..repr(data.StartNode.position).." to "..repr(data.EndNode.position) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind WATER starts find from "..repr(StartNode[1]).." to "..repr(EndPosition) )
             end
-
-			queue = { {cost = 0, goaldist = 0, length = data.Startlength or 0, Node = data.StartNode, path = {data.StartNode.position, }, pathcount = 1, threat = data.ThreatWeight } }
+            
+            -- we must take into account the threat between the EndNode and the destination - they are rarely the same point
+            -- we add this threat to the cost value to start with since the final step is just added to the path after the
+            -- path has been decided
+            EndThreat = 0
+            
+            if ThreatWeight < 99999 then
+                EndThreat = LOUDMAX( 0, GetThreatBetweenPositions( aiBrain, EndPosition, destination, nil, ThreatLayer )) / LOUDMAX(1,(VDist3( EndPosition, destination )/IMAPRadius ))
+            end
+  
+			queue = { {cost = EndThreat, goaldist = 0, length = data.Startlength or 0, Node = StartNode, path = { StartPosition, }, pathcount = 1, threat = ThreatWeight } }
             
             platoon = data.Platoon
 
@@ -5195,8 +5269,8 @@ function ParseIntelThread( aiBrain )
             end
 
             if ReportRatios then
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." I have "..aiBrain.NumOpponents.." Opponents")
-                LOG("*AI DEBUG "..aiBrain.Nickname.." My factory TOTALS AIR "..myairtot.." -- LAND "..mylandtot.." -- NAVAL "..mynavaltot)
+                LOG("*AI DEBUG "..aiBrain.Nickname.." I have "..aiBrain.NumOpponents.." Opponents")
+                LOG("*AI DEBUG "..aiBrain.Nickname.." My factory    TOTALS  AIR "..myairtot.." -- LAND "..mylandtot.." -- NAVAL "..mynavaltot)
                 LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy Factory Ratios  AIR "..grandairtot/aiBrain.NumOpponents.." -- LAND "..grandlandtot/aiBrain.NumOpponents.." -- NAVAL "..grandnavaltot/aiBrain.NumOpponents)
             end
 

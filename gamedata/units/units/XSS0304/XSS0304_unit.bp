@@ -47,12 +47,12 @@ UnitBlueprint {
 	
     Defense = {
 
-        MissileTorpDestroy = { AttachBone = {'Projectile01','Exhaust01'}, Radius = 3.3, RedirectRateOfFire = 7, ProjectileCategories = {'TORPEDO'} },
+        MissileTorpDestroy = { AttachBone = {'Projectile01','Exhaust01'}, Radius = 3.3, RedirectRateOfFire = 10, ProjectileCategories = {'TORPEDO'} },
     
         ArmorType = 'Normal',
         Health = 4000,
         MaxHealth = 4000,
-        RegenRate = 8,
+        RegenRate = 6,
 
         SubThreatLevel = 49,
     },
@@ -100,9 +100,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 40000,
-        BuildCostMass = 3900,
-        BuildTime = 15000,
+        BuildCostEnergy = 42000,
+        BuildCostMass = 3950,
+        BuildTime = 8000,
     },
 
     General = {
@@ -130,7 +130,7 @@ UnitBlueprint {
 
         SonarRadius = 68,
         VisionRadius = 36,
-        WaterVisionRadius = 44,
+        WaterVisionRadius = 40,
     },
 	
     Interface = {

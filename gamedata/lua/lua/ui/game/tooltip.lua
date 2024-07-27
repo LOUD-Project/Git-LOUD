@@ -2,20 +2,20 @@
 --* Author: Ted Snook
 --* Summary: Tool Tips
 
-local UIUtil = import('/lua/ui/uiutil.lua')
-local Group = import('/lua/maui/group.lua').Group
-local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
+local Bitmap        = import('/lua/maui/bitmap.lua').Bitmap
+local Button        = import('/lua/maui/button.lua').Button
+local Group         = import('/lua/maui/group.lua').Group
+local Keymapping    = import('/lua/keymap/defaultKeyMap.lua').defaultKeyMap
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
-local TooltipInfo = import('/lua/ui/help/tooltips.lua')
-local Prefs = import('/lua/user/prefs.lua')
-local Button = import('/lua/maui/button.lua').Button
-local Keymapping = import('/lua/keymap/defaultKeyMap.lua').defaultKeyMap
-local AITooltipInfo = import('/lua/ui/aitooltips.lua')
+local Prefs         = import('/lua/user/prefs.lua')
+local TooltipInfo   = import('/lua/ui/help/tooltips.lua')
+local UIUtil        = import('/lua/ui/uiutil.lua')
 
 local mouseoverDisplay = false
 local createThread = false
 
 function CreateMouseoverDisplay(parent, ID, delay, extendedBool, hotkeyID)
+
     if mouseoverDisplay then
         mouseoverDisplay:Destroy()
         mouseoverDisplay = false
@@ -24,7 +24,10 @@ function CreateMouseoverDisplay(parent, ID, delay, extendedBool, hotkeyID)
     if not Prefs.GetOption('tooltips') then
 		return
 	end
-	
+    
+    -- this will add any custom tooltips to the master TooltipInfo
+    local AITooltipInfo, TooltipInfo = import('/lua/enhancedlobby.lua').GetCustomTooltips(TooltipInfo)	
+
     local createDelay = 0
 	
     if delay and Prefs.GetOption('tooltip_delay') then
@@ -39,11 +42,16 @@ function CreateMouseoverDisplay(parent, ID, delay, extendedBool, hotkeyID)
     local body = ""
 	
     if type(ID) == 'string' then
+
         if TooltipInfo['Tooltips'][ID] then
+
             text = LOC(TooltipInfo['Tooltips'][ID]['title'])
             body = LOC(TooltipInfo['Tooltips'][ID]['description'])
+
             if TooltipInfo['Tooltips'][ID]['keyID'] and TooltipInfo['Tooltips'][ID]['keyID'] != "" then
+
                 for i, v in Keymapping do
+
                     if v == TooltipInfo['Tooltips'][ID]['keyID'] then
                         local properkeyname = import('/lua/ui/dialogs/keybindings.lua').FormatKeyName(i)
                         text = LOCF("%s (%s)", text, properkeyname)
@@ -53,10 +61,14 @@ function CreateMouseoverDisplay(parent, ID, delay, extendedBool, hotkeyID)
             end
 			
 		elseif AITooltipInfo['Tooltips'][ID] then
+
             text = LOC(AITooltipInfo['Tooltips'][ID]['title'])
             body = LOC(AITooltipInfo['Tooltips'][ID]['description'])
+
             if AITooltipInfo['Tooltips'][ID]['keyID'] and AITooltipInfo['Tooltips'][ID]['keyID'] != "" then
+
                 for i, v in Keymapping do
+
                     if v == AITooltipInfo['Tooltips'][ID]['keyID'] then
                         local properkeyname = import('/lua/ui/dialogs/keybindings.lua').FormatKeyName(i)
                         text = LOCF("%s (%s)", text, properkeyname)
@@ -66,16 +78,20 @@ function CreateMouseoverDisplay(parent, ID, delay, extendedBool, hotkeyID)
             end
 			
         else
+
             if extendedBool then
                 WARN("No tooltip in table for key: "..ID)
             end
+
             text = ID
             body = "No Description"
         end
 		
     elseif type(ID) == 'table' then
+
         text = LOC(ID.text)
         body = LOC(ID.body)
+
     else
         WARN('UNRECOGNIZED TOOLTIP ENTRY - Not a string or table! ', repr(ID))
     end
@@ -122,6 +138,7 @@ function CreateMouseoverDisplay(parent, ID, delay, extendedBool, hotkeyID)
 	
     mouseoverDisplay:SetAlpha(alpha, true)
     mouseoverDisplay:SetNeedsFrameUpdate(true)
+
     mouseoverDisplay.OnFrame = function(self, deltaTime)
         if totalTime > createDelay then
             if parent then
@@ -151,12 +168,16 @@ function DestroyMouseoverDisplay()
 end
 
 function CreateToolTip(parent, text)
+
     local tooltip = UIUtil.CreateText(parent, text, 12, UIUtil.bodyFont)
+
     tooltip.Depth:Set(function() return parent.Depth() + 10000 end)
 
     tooltip.bg = Bitmap(tooltip)
     tooltip.bg:SetSolidColor(UIUtil.tooltipTitleColor)
+
     tooltip.bg.Depth:Set(function() return tooltip.Depth() - 1 end)
+
     tooltip.bg.Top:Set(tooltip.Top)
     tooltip.bg.Bottom:Set(tooltip.Bottom)
     LayoutHelpers.AtLeftIn(tooltip.bg, tooltip, -2)
@@ -164,6 +185,7 @@ function CreateToolTip(parent, text)
     
     tooltip.border = Bitmap(tooltip)
     tooltip.border:SetSolidColor(UIUtil.tooltipBorderColor)
+
     tooltip.border.Depth:Set(function() return tooltip.bg.Depth() - 1 end)
     LayoutHelpers.AtLeftTopIn(tooltip.border, tooltip, -1, -1)
     LayoutHelpers.AtRightBottomIn(tooltip.border, tooltip, -1, -1)
@@ -195,6 +217,7 @@ function CreateExtendedToolTip(parent, text, desc)
             tooltip.bg:SetSolidColor(UIUtil.tooltipTitleColor)
 			
             tooltip.bg.Depth:Set(function() return tooltip.title.Depth() - 1 end)
+
             tooltip.bg.Top:Set(tooltip.title.Top)
             tooltip.bg.Bottom:Set(tooltip.title.Bottom)
 			LayoutHelpers.AtLeftIn(tooltip.bg, tooltip, -2)
@@ -203,6 +226,7 @@ function CreateExtendedToolTip(parent, text, desc)
         end
         
         tooltip.desc = {}
+
         local tempTable = false
         
         if desc != "" and desc != nil then
@@ -250,6 +274,7 @@ function CreateExtendedToolTip(parent, text, desc)
         
         tooltip.extborder = Bitmap(tooltip)
         tooltip.extborder:SetSolidColor(UIUtil.tooltipBorderColor)
+
         if text != "" and text != nil then
             tooltip.extborder.Depth:Set(function() return tooltip.bg.Depth() - 1 end)
 			LayoutHelpers.AtLeftTopIn(tooltip.extborder, tooltip.bg, -1, -1)
@@ -259,6 +284,7 @@ function CreateExtendedToolTip(parent, text, desc)
 			LayoutHelpers.AtLeftTopIn(tooltip.extborder, tooltip.extbg, -1, -1)
 			LayoutHelpers.AtRightIn(tooltip.extborder, tooltip.extbg, -1)
         end
+
         if desc != "" and desc != nil then
 			LayoutHelpers.AtBottomIn(tooltip.extborder, tooltip.extbg, -1)
         else
@@ -282,8 +308,8 @@ function CreateExtendedToolTip(parent, text, desc)
             tooltip.Height:Set(function() return tooltip.title.Height() + (tooltip.desc[1].Height() * table.getn(tempTable)) end)
         end
         
-        
         return tooltip
+
     else
         WARN("Tooltip error! Text and description are both empty!  This should not happen.")
     end
@@ -291,49 +317,63 @@ end
 
 -- helpers functions to make is simple to add tooltips
 function AddButtonTooltip(control, tooltipID, delay)
+
     control.HandleEvent = function(self, event)
+
         if event.Type == 'MouseEnter' then
             CreateMouseoverDisplay(self, tooltipID, delay, true)
         elseif event.Type == 'MouseExit' then
             DestroyMouseoverDisplay()
         end
+
         return Button.HandleEvent(self, event)
     end
 end 
 
 function AddControlTooltip(control, tooltipID, delay)
+
     if not control.oldHandleEvent then
         control.oldHandleEvent = control.HandleEvent
     end
+
     control.HandleEvent = function(self, event)
+
         if event.Type == 'MouseEnter' then
             CreateMouseoverDisplay(self, tooltipID, delay, true)
         elseif event.Type == 'MouseExit' then
             DestroyMouseoverDisplay()
         end
+
         return self.oldHandleEvent(self, event)
     end
 end
 
 function AddCheckboxTooltip(control, tooltipID, delay)
+
     if not control.oldHandleEvent then
         control.oldHandleEvent = control.HandleEvent
     end
+
     control.HandleEvent = function(self, event)
+
         if event.Type == 'MouseEnter' then
             CreateMouseoverDisplay(self, tooltipID, delay, true)
         elseif event.Type == 'MouseExit' then
             DestroyMouseoverDisplay()
         end
+
         return self.oldHandleEvent(self, event)
     end
 end
 
 function AddComboTooltip(control, tooltipTable, optPosition)
+
     local locParent = optPosition or control
+
     control.OnMouseExit = function(self)
         DestroyMouseoverDisplay()
     end
+
     control.OnOverItem = function(self, index, text)
         --tooltip popup here, note, -1 is possible index (which means not over an item)
         if index != -1 and tooltipTable[index] then
@@ -345,14 +385,18 @@ function AddComboTooltip(control, tooltipTable, optPosition)
 end
 
 function RemoveComboTooltip(control)
+
     control.OnMouseExit = function(self)
     end
+
     control.OnOverItem = function(self, index, text)
     end
 end
 
 function SetTooltipText(control, id)
+
     if not mouseoverDisplay or control != mouseoverDisplay:GetParent() then return end
+
     if mouseoverDisplay.title then
         mouseoverDisplay.title:SetText(id)
     else

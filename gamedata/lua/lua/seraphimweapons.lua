@@ -610,15 +610,11 @@ InvisibleCollisionBeam = Class(moho.CollisionBeamEntity) {
     end,
 }
 
-local Weapon = import('/lua/sim/Weapon.lua').Weapon
-
-SMeleeBladeBeamWeapon = Class(Weapon) {
-
-    BeamType = InvisibleCollisionBeam,
+SMeleeBladeBeamWeapon = Class(DefaultBeamWeapon) { BeamType = InvisibleCollisionBeam,
 
     OnCreate = function(self)
-    
-        self.Beams = {}
+
+        DefaultBeamWeapon.OnCreate(self)
         
         local bp = self:GetBlueprint()
         
@@ -630,32 +626,31 @@ SMeleeBladeBeamWeapon = Class(Weapon) {
             
                 local beam
                 
-                beam = self.BeamType{
-                    Weapon = self,
-                    BeamBone = 0,
-                    OtherBone = muzzle,
-                    CollisionCheckInterval = 1,
-                }
-                
-                self.Beams[counter] = { Beam = beam, BeamMuzzle = muzzle }
-                counter = counter + 1
-                
-                self.unit.Trash:Add(beam)
-                
-                beam.DamageTracker = 'DamageTracker'..i
+                beam = self.BeamType{ BeamBone = 0, CollisionCheckInterval = 1, OtherBone = muzzle, Weapon = self }
+
+                beam.CollsionDelay  = bp.BeamCollisionDelay >= 0 
+                beam.DamageTable    = self.damageTable
+                beam.DamageTracker  = 'DamageTracker'..i
+                beam.Label          = bp.Label
+                beam.Muzzle         = muzzle
                 
                 beam:SetParentWeapon(self)
-                beam:Disable()
+                beam:Disable()                
+                
+                self.Trash:Add(beam)
+
+                self.Beams[counter] = { Beam = beam }
+                counter = counter + 1
             end
         end
+        
+        if ScenarioInfo.WeaponDialog then
+            LOG("*AI DEBUG SMeleeBladeBeamWeapon BEAM OnCreate beams table is "..repr(self.Beams) )
+        end        
 
-        BareBonesWeapon.OnCreate(self)
     end,
-
-    SetWeaponEnabled = function(self)
-    end,
-    
-    OnFire = function(self)
+   
+    OnWeaponFired = function(self)
     
         local LOUDGETN = table.getn
 
@@ -735,81 +730,6 @@ SMeleeBladeBeamWeapon = Class(Weapon) {
         end)
     end,
 
-    PlayFxBeamStart = function(self, muzzle)
-
-        local army = self.unit.Army
-        local bp = self.bp
-        
-        local beam
-        local beamTable
-        
-        for k, v in self.Beams do
-            if v.BeamMuzzle == muzzle then
-                beam = v.Beam
-                beamTable = v
-            end
-        end
-        
-        if not beam then
-            error('*ERROR: We have a beam created that does not coincide with a muzzle bone.  Internal Error, aborting beam weapon.', 2)
-            return
-        end
-        
-        if beam:IsEnabled() then return end
-        
-        beam:Enable()
-        
-        self.HoldFireThread = self:ForkThread(self.WatchForHoldFire, beam)
-        self.BeamStarted = true
-    end,
-
-    PlayFxBeamEnd = function(self, beam)
-    
-        if not self.unit.Dead then
-        
-            local bp = self.bp
-            
-            if beam then
-                beam:Disable()
-            else
-                for k, v in self.Beams do
-                    v.Beam:Disable()
-                end
-            end
-            
-            self.BeamStarted = false
-        end
-        
-        if self.HoldFireThread then
-            KillThread(self.HoldFireThread)
-        end
-    end,
-
-    ContinuousBeamFlagThread = function(self)
-        coroutine.yield(1)
-        self.ContBeamOn = nil   --false
-    end,
-
-    WatchForHoldFire = function(self, beam)
-        while true do
-            coroutine.yield(11)
-            --if we're at hold fire, stop beam
-            if self.unit and self.unit:GetFireState() == 1 then
-                self.BeamStarted = false
-                self:PlayFxBeamEnd(beam)
-            end
-        end
-    end,
-
-    OnHaltFire = function(self)
-        for k, v in self.Beams do
-            -- Only halt fire on the beams that are currently enabled
-            if not v.Beam:IsEnabled() then
-                continue
-            end
-            self:PlayFxBeamEnd( v.Beam )
-        end
-    end,
 }
 
 --[[

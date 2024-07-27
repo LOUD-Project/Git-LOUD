@@ -1546,7 +1546,7 @@ Platoon = Class(PlatoonMethods) {
 					end
 				end
             
-				if not bestBase then
+				if (not bestBase) and aiBrain.BuilderManagers['MAIN'] then
 			
 					LOG("*AI DEBUG "..aiBrain.Nickname.." RTB "..repr(self.BuilderName).." Couldn't find base "..repr(RTBLocation).." - using MAIN")
 				
@@ -1562,7 +1562,7 @@ Platoon = Class(PlatoonMethods) {
 				transportLocation = LOUDCOPY(bestBase.Position)
 			else
 				
-				LOG("*AI DEBUG "..aiBrain.Nickname.." RTB cant locate a bestBase")
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." RTB cant locate a bestBase")
 				
 				return self:PlatoonDisband(aiBrain)
 			end

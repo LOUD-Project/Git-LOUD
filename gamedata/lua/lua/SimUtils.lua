@@ -162,7 +162,7 @@ function TransferUnitsOwnership(units, ToArmyIndex)
 end
 
 function GiveUnitsToPlayer( data, units )
-    if units then
+    if units[1]:GetArmy() then
         if OkayToMessWithArmy(units[1]:GetArmy()) then
             TransferUnitsOwnership( units, data.To )
         end

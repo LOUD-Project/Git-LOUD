@@ -1,26 +1,19 @@
---*****************************************************************************
 --* File: lua/modules/ui/menus/main.lua
 --* Author: Chris Blackwell, Evan Pongress | Modified By Tanksy
 --* Summary: Create's the main menu screen, minus animations, music, video and with LOUD buttons.
---*****************************************************************************
 
-local UIUtil            = import('/lua/ui/uiutil.lua')
-local LayoutHelpers     = import('/lua/maui/layouthelpers.lua')
-local EffectHelpers     = import('/lua/maui/effecthelpers.lua')
 local Bitmap            = import('/lua/maui/bitmap.lua').Bitmap
-local MenuCommon        = import('/lua/ui/menus/menucommon.lua')
-local MultiLineText     = import('/lua/maui/multilinetext.lua').MultiLineText
 local Button            = import('/lua/maui/button.lua').Button
+local EffectHelpers     = import('/lua/maui/effecthelpers.lua')
 local Group             = import('/lua/maui/group.lua').Group
+local LayoutHelpers     = import('/lua/maui/layouthelpers.lua')
+local Mods              = import('/lua/mods.lua')
 local Prefs             = import('/lua/user/prefs.lua')
 local Tooltip           = import('/lua/ui/game/tooltip.lua')
-local MapUtil           = import('/lua/ui/maputil.lua')
-local TooltipInfo       = import('/lua/ui/help/tooltips.lua')
-local Mods              = import('/lua/mods.lua')
-
-local mapErrorDialog = false
+local UIUtil            = import('/lua/ui/uiutil.lua')
 
 local TOOLTIP_DELAY = 1
+
 local menuFontColor = 'feff77' 
 local menuFontColorTitle = 'EEEEEE'
 local menuFontColorAlt = 'feff77'
@@ -31,7 +24,9 @@ local animation_active = false
 function CreateUI()
 
     UIUtil.SetCurrentSkin('uef')
+
     import('/lua/ui/game/gamemain.lua').supressExitDialog = false
+
     local mainMenu = {}
 
     -- this should be shown if there are no profiles
@@ -293,6 +288,7 @@ function CreateUI()
 
     -- TODO: don't destroy the whole menu. just destroy the buttons, then you only have to set the top once.
     function MenuBuild(menuTable, center)
+
         if menuTable == 'home' then
             menuTable = menuTop
         end
@@ -420,6 +416,7 @@ function CreateUI()
 
             end
         end
+
         mainMenu.profile.FadeOut = function(control)
             control:DisableHitTest(true)
             control:SetNeedsFrameUpdate(true)
@@ -484,7 +481,9 @@ function CreateUI()
 
         -- menu buttons
         local buttonHeight = nil
+
         for k, v in menuTable do
+
             if k != 'title' then
                 mainMenu[k] = {}
                 if v.name then

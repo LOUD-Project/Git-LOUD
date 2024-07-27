@@ -1,8 +1,6 @@
---***************************************************************************
 --**  File     :  /lua/ai/AIBaseTemplates/LoudExpansion.lua
 --**  Summary  : Manage engineers for a location
 --**  Copyright � 2005 Gas Powered Games, Inc.  All rights reserved.
---****************************************************************************
 
 BaseBuilderTemplate {
     BaseTemplateName = 'Loud_Expansion_Island',

@@ -28,6 +28,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'MOBILESONAR',
         'DRAGBUILD',
+        'OVERLAYOMNI',
         'OVERLAYSONAR',
         'OVERLAYDEFENSE',
         'SORTINTEL',
@@ -56,7 +57,7 @@ UnitBlueprint {
             '<LOC ability_radar>Radar',
             '<LOC ability_omni>Omni',
             '<LOC ability_personalstealth>Personal Stealth',
-            '<LOC ability_torpedodef>Personal Torpedo Defense',            
+            '<LOC ability_personaltordef>Personal Torpedo Defense',            
         },
         
         IdleEffects = { Water = { Effects = { { Bones = {0}, Type = 'SeaIdle02' } } } },
@@ -92,11 +93,11 @@ UnitBlueprint {
     },
     
     Economy = {
-        BuildCostEnergy = 16500,
+        BuildCostEnergy = 18500,
         BuildCostMass = 3200,
         BuildTime = 2000,
         
-        MaintenanceConsumptionPerSecondEnergy = 585,
+        MaintenanceConsumptionPerSecondEnergy = 740,
     },
     
     Footprint = {
@@ -131,10 +132,11 @@ UnitBlueprint {
 		SonarStealth = true,
 
         RadarRadius = 80,
-        SonarRadius = 244,
+        SonarRadius = 232,
 
+        OmniRadius = 20,
         VisionRadius = 32,
-        WaterVisionRadius = 36,
+        WaterVisionRadius = 40,
     },
     
     Interface = {
@@ -152,7 +154,7 @@ UnitBlueprint {
         },
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
-        MaxAcceleration = 1.8,
+        MaxAcceleration = 1.2,
         MaxBrake = 2,
         MaxSpeed = 3.5,
         MaxSpeedReverse = 3.5,

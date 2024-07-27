@@ -25,6 +25,7 @@ UnitList = {
     
     T3LandBot = {
         UEF = {'wel0302', 25},      -- Wrecker
+    	Seraphim = {'wsl0308', 80}, -- Otheeka        
     },
 
     

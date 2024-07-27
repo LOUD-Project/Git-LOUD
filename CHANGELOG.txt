@@ -1,3 +1,78 @@
+### Release 27-07-2024
+
+LUA 7.07
+4DC for LOUD 7.01
+BrewLAN for LOUD 0.8.8.9.104
+LOUD_MISC 7.03
+LOUD_UNITS 7.01
+UNITS 7.04
+Wyvern for LOUD 7.01
+
+- some refinement to early air production to better interleave transport/scout/interceptor production
+- some refinement to T1/T2 mobile AA production
+- 7% E increase to T2 Air factories cost
+- playable map area functions fixed to acknowledge revealed areas
+- data guards installed for a number of functions that M28 may try to use
+- fixed bomb ballistic acceleration formula to utilize default projectile value of 1, ProjectilsPerOnFire has long been deprecated
+- installed unit hook in LOUD_MISC to allow new Ahwassa values to be tested
+    -- Ahwassa Firing Tolerance increased to 0.9 from 0.36, addresses bombing issues
+    -- gentled the bank factor so it's less likely to stand on it's side in a turn
+    -- KRoll reduced from 2 to 1.9 to soften roll on hard turns
+    -- LiftFactor increased from 10.5 >> 11
+    -- RandomBreakOffDistanceMult 1.5 >> 1.2 - should normalize the breakoff distance
+    -- StartTurnDistance 17 >> 19
+    -- SustainedTurnThreshold 10 >> 16 -- value controls how long a turn can take before being aborted
+    -- TurnSpeed 0.65 >> 0.69
+- 5% E increase to T2 Gunships - 7% decrease to fuel time
+- another fix to Sudeth, addresses melee weapon not firing
+- mobile bombs now have self destruct, other suicide weapons now fire & self-destruct properly
+- OnFire() event in RackSalvoChargeState was bypassing remaining charge cycle, prefire animations, etc
+- additional refinements to defaultweapons firing cycles to better filter logging
+- Sera T3 Torp defense was left for land building only - finally fixed
+- refactored and revised a number of lobby functions so that lobby-based ModManager can actually load AIs without need of restart
+    -- still some outlying tooltip issues with lobby and activated mods
+- refactored some blueprint.lua processes to ascribe to Balthazars wiki-generation
+- some changes to the shield formula for mobile shields
+    -- mass used for shield regen is reduced by HP *.02 - results in small increase in mass cost
+    -- recharge time when drained is now calculated - (Shield HP / E consumption rate) / 4 - results in slightly increased drained recharge time
+    -- shield regen start time is now 2 seconds >> 1 second
+
+
+
+### Release 05-07-2024
+
+LUA 7.06
+
+- numerous refinements to all 4 pathfinding modules to improve threat sensitivity
+- a mumber of 'skirmish' platoons had LandRatio caps installed that turn them off when LandRatio is 2 to 1 or better
+- some threat based conditions have been tapered to shorter distances
+
+
+### Release 04-07-2024
+
+LUA 7.05
+BrewLAN for LOUD 0.8.8.9.103
+Black Ops for LOUD 7.02
+LOUD_MISC 7.02
+UNITS 7.03
+
+- mistakenly left Sera T3 torp launcher as fully mobile 
+- fixed an issue with the 'stand tall' feature of Sudeth
+- fixed the Outnumbered process which had been disabled
+- Outnumbered now impacts pre-built units when equal to, or greater than, 2 to 1
+- pre-built AI units, with self-upgrades, will randomly delay the start of the upgrade thread
+- Outnumbered effects tuned with respect to the AI's upgrade counter and delay period
+- changes to sequencing and logging of various pre-game procedures
+- Sera T3 sub had much quicker anti-torp system - normalized delay 7 >> 10 (has 2 emitters)
+- repaired Tanksys Reelism mod, was hanging trying to change weapons that had no muzzlevelocity
+- enabled by Enhancement weapons, when disabled, were being re-enabled, causing firing sequence issues (UEF ACU)
+- added WeaponRepackTimeout to BO UEF ACU Tactical/Nuke missile launchers
+- T3 mobile sonars - Water Vision Radius - 36 >> 40 - as per radar/sonar calc - 20 OMNI
+- AI Nuke is looking for increased value on targets (750 from 500)
+- the antinuke search process will use a longer step - which should make a more accurate antinuke count
+
+
+
 ### Release 29-06-2024
 
 LUA 7.04
@@ -14,7 +89,7 @@ BrewLAN for LOUD 0.8.8.9.102
 
 LUA 7.03
 BrewLAN for LOUD 0.8.8.9.101
-Bkack Ops for LOUD 7.01
+Black Ops for LOUD 7.01
 loc_US 
 LOUD_MISC 7.01
 LOUD_UNITS 7.01
@@ -35,7 +110,7 @@ Total Mayhem for LOUD 7.01
 - added an 'immediate destruct' button to the mobile bomb
 - added additional LOC entries for personal tac & torp defense, and stealthmiasma fields
 - Adjusted Kraptor displayed abilities reflecting new LOC additions
-- Enhanced Resources sub-mod now 15% more resources and 10% reduced costs/time
+- Enhanced Resources sub-mod now 15% resources and 10% reduced costs/time
 
 
 

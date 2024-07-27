@@ -413,7 +413,9 @@ UnitBlueprint {
     },
     
     Weapon = {
+
         --Face Guns
+
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
@@ -507,7 +509,10 @@ UnitBlueprint {
             Turreted = true,
             WeaponCategory = 'Direct Fire',
         },
-        { -- mouth weapon
+        
+        ---- mouth weapon
+
+        {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AnimationAttack = '/mods/BrewLAN_LOUD/units/SSL0405/SSL0405_AAttackPincers.sca',
@@ -593,9 +598,10 @@ UnitBlueprint {
 
             Turreted = true,
         },
+        
+        ---- Claws weapon
 
-        ------------------------------------------------------------------------
-        { -- Claws weapon
+        {
             Blades = {
                 {
                     Animations = {
@@ -666,23 +672,35 @@ UnitBlueprint {
                     LimbBones = {'Leg_Upper_006'},
                 },
             },
-            --BeamCollisionDelay = 0,
+
             Damage = 5000,
             DamageType = 'SlashingClaw',
+
             DisplayName = 'Claw Blades',
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed|Sub',
             },
             FiringTolerance = 360,
+
             HeadingArcCenter = 0,
             HeadingArcRange = 70,
+
             Label = 'ClawMelee',
+            
             MaxRadius = 10,
             MaxRadiusTall = 1,
             MinRadius = 4,
-            MaxRadiusTall = 1,
+            MinRadiusTall = 1,
+
             MaximumBeamLength = 3,
+
+            RackBones = {
+                { MuzzleBones = { 0 }, RackBone = 0 },
+            },
+
             RateOfFire = 0.625, -- This determines how often it will *try* to attack.
+
             -- The odds of actually attacking is 25% if it's just attacked, and this increases as the other attack goes on.
             -- Only two attacks can be concurrently going on. 0.625 RoF and 5000 damage results in around 1400 DPS.
             -- It's safe to add an extra "wait value" read by DPS calculators, because the weapon ignores most of them.
@@ -693,8 +711,8 @@ UnitBlueprint {
             WeaponCategory = 'Experimental',
         },
 
-        ------------------------------------------------------------------------
-        --Big Cannons
+        ----Big Cannons
+
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
@@ -880,7 +898,9 @@ UnitBlueprint {
             Turreted = true,
         },
 
-        { --Tail Gun -- strictly AA --
+        ----Tail Gun -- strictly AA --
+
+        {
         
             AboveWaterFireOnly = true, --this one can end up below the water level during swim cycles.
             AlwaysRecheckTarget = true,
@@ -980,7 +1000,9 @@ UnitBlueprint {
             UseFiringSolutionInsteadOfAimBone = true,
         },
         
-        {--Right Gun - multirole -
+        ----Right Gun - multirole -
+
+        {
         
             AboveWaterFireOnly = true,
             AlwaysRecheckTarget = true,
@@ -1071,8 +1093,10 @@ UnitBlueprint {
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,            
         },
-        
-        {--Left Gun
+
+        ----Left Gun
+
+        {
         
             AboveWaterFireOnly = true,
             AlwaysRecheckTarget = true,
@@ -1165,7 +1189,9 @@ UnitBlueprint {
             UseFiringSolutionInsteadOfAimBone = true,
         },
 
-        {--Torpedo
+        ----Torpedo
+
+        {
             Audio = {
                 Fire = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0304_Uall_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
             },
@@ -1221,7 +1247,9 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
         },
         
-        {--Torpedo defense
+        ----Torpedo defense
+        
+        {
             Audio = {
                 Fire = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0304_Ajellu_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
             },
@@ -1268,6 +1296,7 @@ UnitBlueprint {
             TargetType = 'RULEWTT_Projectile',
             TrackingRadius = 1.1,
         },
+
         {
             AboveWaterTargetsOnly = true,
             Damage = 10000,
@@ -1283,9 +1312,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.6,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

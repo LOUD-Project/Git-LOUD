@@ -150,6 +150,10 @@ end
 -- and a perfunctory cleanup on the path requests reply table for dead platoons
 function CheckTransportPool( aiBrain )
 
+    if not aiBrain.PathRequests then
+        return
+    end
+
     if not aiBrain.TransportPool then
         CreateTransportPool( aiBrain)
     end

@@ -37,8 +37,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Experimental',
-        Health = 44000,
-        MaxHealth = 44000,
+        Health = 42500,
+        MaxHealth = 42500,
         RegenRate = 15,
 		NoTeleDistance = 55,
 		
@@ -54,7 +54,7 @@ UnitBlueprint {
             ShieldMaxHealth = 27500,
             ShieldRechargeTime = 24,
             ShieldRegenRate = 286,
-            ShieldRegenStartTime = 1,
+            ShieldRegenStartTime = 2,
             ShieldSize = 45,
             ShieldVerticalOffset = -5,
         },

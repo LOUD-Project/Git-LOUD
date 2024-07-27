@@ -20,6 +20,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'MOBILESONAR',
+        'OVERLAYOMNI',
 		'OVERLAYRADAR',
 		'OVERLAYSONAR',
         'SORTINTEL',
@@ -48,16 +49,12 @@ UnitBlueprint {
         },
 		
         AnimationDeath = {
-            {
-                Animation = '/units/uas0305/uas0305_ADeath01.sca',
-            },
+            { Animation = '/units/uas0305/uas0305_ADeath01.sca' },
         },
 
         IdleEffects = {
             Water = {
-                Effects = {
-                    { Bones = {0}, Scale = 0.5, Type = 'SeaIdle02' },
-                },
+                Effects = {{ Bones = {0}, Scale = 0.5, Type = 'SeaIdle02' }},
             },
         },
 		
@@ -71,9 +68,7 @@ UnitBlueprint {
 		
         MovementEffects = {
             Water = {
-                Effects = {
-                    { Bones = {0}, Scale = 0.5, Type = 'BackWake' },
-                },
+                Effects = {{ Bones = {0}, Scale = 0.5, Type = 'BackWake' }},
             },
         },
 
@@ -81,11 +76,11 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 15250,
+        BuildCostEnergy = 16750,
         BuildCostMass = 3050,
         BuildTime = 2000,
 		
-        MaintenanceConsumptionPerSecondEnergy = 750,
+        MaintenanceConsumptionPerSecondEnergy = 740,
     },
 
     General = {
@@ -113,11 +108,11 @@ UnitBlueprint {
 		SonarStealth = true,
 
 		RadarRadius = 80,
-        OmniRadius = 32,
-        SonarRadius = 244,
-        
+        SonarRadius = 232,
+
+        OmniRadius = 20,        
         VisionRadius = 32,
-        WaterVisionRadius = 36,
+        WaterVisionRadius = 40,
     },
 	
     Interface = {

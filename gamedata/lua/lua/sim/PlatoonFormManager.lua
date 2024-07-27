@@ -5,24 +5,22 @@
 --  Engineers form their own platoons, see the Engineer Manager for that
 
 local import = import
-local Behaviors = import('/lua/ai/aibehaviors.lua')
 
-local BuilderManager = import('/lua/sim/BuilderManager.lua').BuilderManager
-
-local GetMostRestrictiveLayer = import('/lua/ai/aiattackutilities.lua').GetMostRestrictiveLayer 
-local GetOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
-local CreatePlatoonBuilder = import('/lua/sim/Builder.lua').CreatePlatoonBuilder
+local Behaviors                 = import('/lua/ai/aibehaviors.lua')
+local BuilderManager            = import('/lua/sim/BuilderManager.lua').BuilderManager
+local GetMostRestrictiveLayer   = import('/lua/ai/aiattackutilities.lua').GetMostRestrictiveLayer 
+local GetOwnUnitsAroundPoint    = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
+local CreatePlatoonBuilder      = import('/lua/sim/Builder.lua').CreatePlatoonBuilder
 
 local factionnames = { 'UEF','Aeon','Cybran','Seraphim' }
 
-local CanFormPlatoon = moho.platoon_methods.CanFormPlatoon
-local FormPlatoon = moho.platoon_methods.FormPlatoon
-        
-local LOUDCOPY = table.copy
-local LOUDFLOOR = math.floor
-local LOUDGETN = table.getn
-local LOUDMAX = math.max
-local LOUDMIN = math.min
+local CanFormPlatoon    = moho.platoon_methods.CanFormPlatoon
+local FormPlatoon       = moho.platoon_methods.FormPlatoon
+local LOUDCOPY          = table.copy
+local LOUDFLOOR         = math.floor
+local LOUDGETN          = table.getn
+local LOUDMAX           = math.max
+local LOUDMIN           = math.min
 
 function CreatePlatoonFormManager(brain, lType, position, radius)
 
@@ -165,8 +163,8 @@ PlatoonFormManager = Class(BuilderManager) {
     -- either way - the loop that runs this function can be found in BUILDERMANAGER
     ManagerLoopBody = function( self, builder, bType, aiBrain)
 		
-		local CanFormPlatoon = CanFormPlatoon
-		local FormPlatoon = FormPlatoon
+		local CanFormPlatoon    = CanFormPlatoon
+		local FormPlatoon       = FormPlatoon
         
         local PlatoonDialog = ScenarioInfo.PlatoonDialog or false
         

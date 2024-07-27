@@ -3233,18 +3233,13 @@ TransportBeaconUnit = Class(StructureUnit) {
 
 
 WalkingLandUnit = Class(MobileUnit) {
-
-    --WalkingAnimRate = 1,
-    --IdleAnimRate = 1,
-    
-    --DisabledBones = {},
-    
+   
     IdleAnim = false,
     DeathAnim = false,
 
-	OnPreCreate = function(self)
-		MobileUnitOnPreCreate(self)
-	end,
+	--OnPreCreate = function(self)
+		--MobileUnitOnPreCreate(self)
+	--end,
 
     PlayCommanderWarpInEffect = function(self)
     
@@ -3312,9 +3307,9 @@ WalkingLandUnit = Class(MobileUnit) {
 		ConstructionUnit.SetupEngineerCallbacks( eng, EM )
 	end,
     
-    OnKilled = function(self, instigator, type, overkillRatio)
-        MobileUnitOnKilled(self, instigator, type, overkillRatio) 
-    end,
+    --OnKilled = function(self, instigator, type, overkillRatio)
+      --  MobileUnitOnKilled(self, instigator, type, overkillRatio) 
+    --end,
 }
 
 DirectionalWalkingLandUnit = Class(WalkingLandUnit) {
@@ -4511,8 +4506,9 @@ MineStructureUnit = Class(StructureUnit) {
 
         Suicide = Class(import('/lua/sim/DefaultWeapons.lua').BareBonesWeapon) {
 
-            FxDeathLand = EffectTemplate.DefaultHitExplosion01,
-            FxDeathWater = {
+            FxDeathLand     = EffectTemplate.DefaultHitExplosion01,
+            FxDeathSeabed   = EffectTemplate.DefaultProjectileWaterImpact,
+            FxDeathWater    = {
                 '/effects/emitters/seraphim_rifter_artillery_hit_01w_emit.bp',
                 '/effects/emitters/seraphim_rifter_artillery_hit_02w_emit.bp',
                 '/effects/emitters/seraphim_rifter_artillery_hit_03w_emit.bp',
@@ -4520,7 +4516,6 @@ MineStructureUnit = Class(StructureUnit) {
                 '/effects/emitters/seraphim_rifter_artillery_hit_06w_emit.bp',
                 '/effects/emitters/seraphim_rifter_artillery_hit_08w_emit.bp',
             },
-            FxDeathSeabed = EffectTemplate.DefaultProjectileWaterImpact,
 
             OnWeaponFired = function(self)
 
@@ -4542,6 +4537,10 @@ MineStructureUnit = Class(StructureUnit) {
                         end
                         break
                     end
+                end
+                    
+                if ScenarioInfo.ProjectileDialog then
+                    LOG("*AI DEBUG SuicideWeapon OnWeaponFired "..repr(bp.Label).." at "..GetGameTick() )
                 end
 
                 -- Do decal splats
@@ -4565,6 +4564,9 @@ MineStructureUnit = Class(StructureUnit) {
                 self.unit:PlayUnitSound('Destroyed')
                 
                 self.unit:Destroy()
+                
+                ChangeState( self, self.DeadState)
+
             end,
         },
     },

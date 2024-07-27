@@ -2490,6 +2490,8 @@ Unit = Class(UnitMethods) {
 		RemoveAllUnitEnhancements(self)
         
 		TrashDestroy(self.Trash)
+        
+        self:SetDead()
 		
 		LOUDSTATE(self, self.DeadState)
 		

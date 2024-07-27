@@ -38,14 +38,18 @@ do
 		
 		-- Itterate through all units.
 		for id, bp in all_bps.Unit do
+
 			-- Check for weapons.
 			if bp.Weapon then
+
 				-- Itterate through all weapons on the unit.
 				for i, weapon in bp.Weapon do
+
 					local sourceRadius = weapon.MaxRadius
 
 					-- Low Arc, Indirect-Fire weapons can function as High Arc weapons.
 					if weapon.BallisticArc and weapon.BallisticArc == 'RULEUBA_LowArc' then
+
 						if weapon.RangeCategory and weapon.RangeCategory == 'UWRC_IndirectFire' then
 							weapon.BallisticArc = 'RULEUBA_HighArc'
 							weapon.TurretPitchRange = 90
@@ -54,16 +58,20 @@ do
 					
 					-- We need to diffirentiate between the various weapon types that all have no ballistic arc.
 					if weapon.BallisticArc and weapon.BallisticArc == 'RULEUBA_None' then
+
 						-- Check if this is a Beam weapon or not.
 						if weapon.BeamLifetime then
+
 							-- Give beam weapons a small range bump.
 							local newValue = math.floor(sourceRadius * 1.75)
 							weapon.MaxRadius = newValue
 							
 						-- Weapons must have BeamLifetime defined, or else they aren't beams.
 						else
+
 							-- We only care about weapons with defined range categories. (This should skip Bombs/Torpedos, which don't)
 							if weapon.RangeCategory then
+
 								-- Check if this weapon is likely a Missile. (No Arc, No Beam, Indirect Fire)
 								if weapon.RangeCategory == 'UWRC_IndirectFire' then
 									-- Missile weapons are given a large range bump.
@@ -136,10 +144,12 @@ do
 					-- Projectile Lifetime is measured in seconds, and the ProjectileLifetimeUsesMultiplier field on a weapon will use the calculation Multiplier * (Max Radius/Muzzle Velocity).
 					-- A Lifetime of 0 (on the weapon) reverts the projectile to using the lifetime specified in the Projectile blueprint.
 					if weapon.ProjectileLifetime and weapon.ProjectileLifetime ~= 0 then
+
 						local newValue = math.floor(weapon.ProjectileLifetime * 3)
 						weapon.ProjectileLifetime = newValue
+
 						-- If the ProjectileLifetime isn't high enough to cover MaxRadius/MuzzleVelocity, then we set ProjectileLifetimeUsesMultiplier.
-						if weapon.ProjectileLifetime < (weapon.MaxRadius / weapon.MuzzleVelocity) then
+						if weapon.MuzzleVelocity and weapon.ProjectileLifetime < (weapon.MaxRadius / weapon.MuzzleVelocity) then
 							-- Using ProjectileLifetimeUsesMultiplier causes ProjectileLifetime to be ignored in favor of the calculation.
 							weapon.ProjectileLifetimeUsesMultiplier = 1
 						end

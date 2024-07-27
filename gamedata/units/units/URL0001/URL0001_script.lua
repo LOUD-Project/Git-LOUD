@@ -21,6 +21,7 @@ local TrashAdd = TrashBag.Add
 local TrashDestroy = TrashBag.Destroy
 
 URL0001 = Class(CWalkingLandUnit) {
+
     DeathThreadDestructionWaitTime = 2,
 
     Weapons = {
@@ -28,9 +29,10 @@ URL0001 = Class(CWalkingLandUnit) {
 		
         RightRipper = Class(CCannonMolecularWeapon) {},
 		
-        Torpedo = Class(CANTorpedoLauncherWeapon) {},
+        Torpedo     = Class(CANTorpedoLauncherWeapon) {},
 		
-        MLG = Class(CDFHeavyMicrowaveLaserGeneratorCom) {
+        MLG         = Class(CDFHeavyMicrowaveLaserGeneratorCom) {
+
             DisabledFiringBones = {'Turret_Muzzle_03'},
             
             SetOnTransport = function(self, transportstate)
@@ -47,7 +49,8 @@ URL0001 = Class(CWalkingLandUnit) {
             end,          
         },
 
-        OverCharge = Class(CDFOverchargeWeapon) {
+        OverCharge  = Class(CDFOverchargeWeapon) {
+
             OnCreate = function(self)
                 CDFOverchargeWeapon.OnCreate(self)
                 self:SetWeaponEnabled(false)
@@ -112,19 +115,24 @@ URL0001 = Class(CWalkingLandUnit) {
                     CDFOverchargeWeapon.OnFire(self)
                 end
             end,
+
             IdleState = State(CDFOverchargeWeapon.IdleState) {
+
                 OnGotTarget = function(self)
                     if not self.unit:IsOverchargePaused() then
                         CDFOverchargeWeapon.IdleState.OnGotTarget(self)
                     end
                 end,            
+
                 OnFire = function(self)
                     if not self.unit:IsOverchargePaused() then
                         ChangeState(self, self.RackSalvoFiringState)
                     end
                 end,
             },
+
             RackSalvoFireReadyState = State(CDFOverchargeWeapon.RackSalvoFireReadyState) {
+
                 OnFire = function(self)
                     if not self.unit:IsOverchargePaused() then
                         CDFOverchargeWeapon.RackSalvoFireReadyState.OnFire(self)
@@ -219,6 +227,7 @@ URL0001 = Class(CWalkingLandUnit) {
         self:DisableUnitIntel('Sonar')
         self:HideBone('Back_Upgrade', true)
         self:HideBone('Right_Upgrade', true)
+
         self:ForkThread(self.GiveInitialResources)
     end,
 
@@ -366,10 +375,12 @@ URL0001 = Class(CWalkingLandUnit) {
             if not bp then return end
             self:SetProductionPerSecondEnergy(bp.ProductionPerSecondEnergy + bpEcon.ProductionPerSecondEnergy or 0)
             self:SetProductionPerSecondMass(bp.ProductionPerSecondMass + bpEcon.ProductionPerSecondMass or 0)
+
         elseif enh == 'ResourceAllocationRemove' then
             local bpEcon = self:GetBlueprint().Economy
             self:SetProductionPerSecondEnergy(bpEcon.ProductionPerSecondEnergy or 0)
             self:SetProductionPerSecondMass(bpEcon.ProductionPerSecondMass or 0)
+
         elseif enh == 'CloakingGenerator' then
             local bp = self:GetBlueprint().Enhancements[enh]
             if not bp then return end
@@ -395,6 +406,7 @@ URL0001 = Class(CWalkingLandUnit) {
                 Buff.RemoveBuff( self, 'CybranACUCloakBonus' )
             end  
             Buff.ApplyBuff(self, 'CybranACUCloakBonus')                		
+
         elseif enh == 'CloakingGeneratorRemove' then
             self:RemoveToggleCap('RULEUTC_CloakToggle')
             self:DisableUnitIntel('Cloak')
@@ -493,6 +505,7 @@ URL0001 = Class(CWalkingLandUnit) {
             microwave:ChangeMaxRadius(bp.NewMaxRadius or 44)
             local oc = self:GetWeaponByLabel('OverCharge')
             oc:ChangeMaxRadius(bp.NewMaxRadius or 44)
+
         elseif enh == 'CoolingUpgradeRemove' then
             local wep = self:GetWeaponByLabel('RightRipper')
             local bpDisrupt = self:GetBlueprint().Weapon[1].RateOfFire
@@ -503,13 +516,17 @@ URL0001 = Class(CWalkingLandUnit) {
             microwave:ChangeMaxRadius(bpDisrupt or 22)
             local oc = self:GetWeaponByLabel('OverCharge')
             oc:ChangeMaxRadius(bpDisrupt or 22)            
+
         elseif enh == 'MicrowaveLaserGenerator' then
             self:SetWeaponEnabledByLabel('MLG', true)
+
         elseif enh == 'MicrowaveLaserGeneratorRemove' then
             self:SetWeaponEnabledByLabel('MLG', false)
+
         elseif enh == 'NaniteTorpedoTube' then
             self:SetWeaponEnabledByLabel('Torpedo', true)
             self:EnableUnitIntel('Sonar')
+
         elseif enh == 'NaniteTorpedoTubeRemove' then
             self:SetWeaponEnabledByLabel('Torpedo', false)
 			self:DisableUnitIntel('Sonar')

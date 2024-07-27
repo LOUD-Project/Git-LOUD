@@ -50,7 +50,7 @@ UnitBlueprint {
 	
     Defense = {
 
-        MissileTorpDestroy = { AttachBone = {'Turret'}, Radius = 3.5, RedirectRateOfFire = 9, ProjectileCategories = {'TORPEDO'} },
+        MissileTorpDestroy = { AttachBone = {'Turret'}, Radius = 3.5, RedirectRateOfFire = 8, ProjectileCategories = {'TORPEDO'} },
     
         ArmorType = 'Structure',
 
@@ -68,7 +68,7 @@ UnitBlueprint {
 	
         Abilities = {
             '<LOC ability_sonar>Sonar',
-            '<LOC ability_torpedodef>Personal Torpedo Defense',
+            '<LOC ability_personaltordef>Personal Torpedo Defense',
             '<LOC ability_personalstealth>Personal Stealth',        
         },
 		
@@ -123,7 +123,7 @@ UnitBlueprint {
 
         SonarRadius = 68,
 
-        VisionRadius = 40,
+        VisionRadius = 36,
         WaterVisionRadius = 48,
     },
 	
@@ -214,7 +214,7 @@ UnitBlueprint {
 			
             Label = 'TorpedoLauncher',
 			
-            MaxRadius = 80,
+            MaxRadius = 76,
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 8,

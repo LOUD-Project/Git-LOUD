@@ -1253,7 +1253,7 @@ function LoadBlueprints()
 			end
 		end
 
-		LOG("Loading resources from mod at "..m.location)
+		--LOG("Loading resources from mod at "..m.location)
 		count = 0
 		
 		for k, file in DiskFindFiles(m.location, '*.bp') do

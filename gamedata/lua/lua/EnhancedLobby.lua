@@ -2,11 +2,13 @@
 ---  Author(s): Michael Robbins aka Sorian
 ---  Summary  : Functions to support the Lobby Enhancement Mod.
 
-local MapUtil = import('/lua/ui/maputil.lua')
-local Mods = import('/lua/mods.lua')
-local GPGrestrictedUnits = import('/lua/lemlobbyoptions.lua').GPGrestrictedUnits
-local GPGsortOrder = import('/lua/lemlobbyoptions.lua').GPGsortOrder
-local GPGOptions = import('/lua/lemlobbyoptions.lua').GPGOptions
+local MapUtil       = import('/lua/ui/maputil.lua')
+local Mods          = import('/lua/mods.lua')
+
+local GPGrestrictedUnits    = import('/lua/lemlobbyoptions.lua').GPGrestrictedUnits
+local GPGsortOrder          = import('/lua/lemlobbyoptions.lua').GPGsortOrder
+local GPGOptions            = import('/lua/lemlobbyoptions.lua').GPGOptions
+
 local versionstrings = import('/lua/lemlobbyoptions.lua').versionstrings
 
 function GetLEMVersion(short)
@@ -41,7 +43,6 @@ function GetActiveModLocation( mod_Id )
 	return false
 end
 
-
 function CheckMapHasMarkers(scenario)
 
 	if not DiskGetFileInfo(scenario.save) then
@@ -67,51 +68,6 @@ function CheckMapHasMarkers(scenario)
 	return false
 end
 
-
-function GetLobbyOptions()
-
-	local activeMods = GetActiveMods()
-	local options = GPGOptions
-	
-	local OptionFiles = DiskFindFiles('/lua/CustomOptions', '*.lua')
-	
-	for i, v in OptionFiles do
-
-        local tempfile = import(v).LobbyGlobalOptions
-		
-		for s, t in tempfile do
-		
-			table.insert(options, t)
-			
-		end
-		
-	end
-	
-	for k, mod in activeMods do
-	
-		local OptionFiles = DiskFindFiles(mod.location..'/lua/CustomOptions', '*.lua')
-		
-		for i, v in OptionFiles do
-
-			local tempfile = import(v).LobbyGlobalOptions
-			
-			for s, t in tempfile do
-			
-                LOG("*AI DEBUG Custom Lobby Option from mod "..repr(mod.name).." "..repr(t.label))
-
-				table.insert(options, t)
-				
-			end
-			
-		end
-		
-	end
-	
-	return options
-	
-end
-
-
 function IsSim()
 	
 	if not rawget(_G, 'GetCurrentUIState') then
@@ -121,7 +77,6 @@ function IsSim()
 	return false
 end
 
-
 function GetActiveMods()
 
 	if IsSim() then
@@ -130,7 +85,6 @@ function GetActiveMods()
 	
 	return Mods.GetGameMods()
 end
-
 
 function GetRestrictedUnits()
 
@@ -220,15 +174,22 @@ function GetAIList()
     local aitypes = {}
 
     local AIFiles = DiskFindFiles('/lua/AI/CustomAIs_v2', '*.lua')
-    local AIFilesold = DiskFindFiles('/lua/AI/CustomAIs', '*.lua')
+
+    local AIFilesold = {}
 
     function AddAIData(tempfile)
+
         if tempfile then
+
             for s, tAIData in tempfile do
+            
+                if not aitypes[tAIData.key] then
 
-                LOG('*AI DEBUG Custom Mod AI with name '..(tAIData.Name or 'nil'))
+                    --LOG('*AI DEBUG Adding AI '..repr(tAIData.name))
 
-                table.insert(aitypes, { key = tAIData.key, name = tAIData.name })
+                    table.insert(aitypes, { key = tAIData.key, name = tAIData.name })
+                    
+                end
 
             end
         end
@@ -236,55 +197,77 @@ function GetAIList()
 
     --Load Custom AIs - old style
     for i, v in AIFilesold do
+    
+        if import(v).AILIST then
 
-        AddAIData(import(v).AIList)
+            AddAIData(import(v).AIList)
+        
+        end
 
     end
 
     --Load Custom AIs
     for i, v in AIFiles do
+    
+        if import(v).AI.AIList then
 
-        AddAIData(import(v).AI.AIList)
+            AddAIData(import(v).AI.AIList)
+            
+        end
 
     end
 
     --Load Custom Cheating AIs - old style
     for i, v in AIFilesold do
+    
+        if import(v).CheatAIList then
 
-        AddAIData(import(v).CheatAIList)
+            AddAIData(import(v).CheatAIList)
+            
+        end
 
     end
 
     --Load Custom Cheating AIs
     for i, v in AIFiles do
+    
+        if import(v).AI.CheatAIList then
 
-        AddAIData(import(v).AI.CheatAIList)
+            AddAIData(import(v).AI.CheatAIList)
+        
+        end
 
     end
+
     --Support for custom AIs via mods
     local activeMods = GetActiveMods()
+
     if activeMods then
 
         for k, mod in activeMods do
 
             local AIFiles = DiskFindFiles(mod.location..'/lua/AI/CustomAIs_v2', '*.lua')
 
-            if AIFiles then
+            if AIFiles[1] then
+            
+                LOG("*AI DEBUG Processing AI Mod "..repr(mod.location))
 
                 for i, v in AIFiles do
                     AddAIData(import(v).AI.AIList)
                     AddAIData(import(v).AI.CheatAIList)
                 end
+
             end
 
         end
-    end
 
+    end
+    
     return aitypes
 
 end
 
-function GetCustomTooltips()
+function GetCustomTooltips(Tooltip)
 
 	local activeMods = GetActiveMods()
 	local tooltips = {}
@@ -300,10 +283,14 @@ function GetCustomTooltips()
 			end
 		end
 	end
+
 	for k, mod in activeMods do
+    
 		local OptionFiles = DiskFindFiles(mod.location..'/lua/AI/CustomAITooltips', '*.lua')
 		for i, v in OptionFiles do
+        
 			local tempfile = import(v)
+            
 			if tempfile.Tooltips then
 				for s, t in tempfile.Tooltips do	
 					tooltips[s] = t
@@ -311,8 +298,15 @@ function GetCustomTooltips()
 			end
 		end
 	end
+    
+    if Tooltip then
+    
+        for i,v in tooltips do
+            Tooltip.Tooltips[i] = v
+        end
+    end
 	
-	return tooltips
+	return tooltips, Tooltip
 end
 
 function BroadcastAIInfo(ishost)

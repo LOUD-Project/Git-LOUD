@@ -792,7 +792,7 @@ end
 function SetPlayableArea( rect, voFlag )
 
     if ScenarioInfo.Playablearea then
-        return
+        LOG("*AI DEBUG reported current playable area is "..repr(ScenarioInfo.Playablearea).." processing area "..repr(rect) )
     end
 
 	local function GenerateOffMapAreas()
@@ -822,13 +822,15 @@ function SetPlayableArea( rect, voFlag )
     if (voFlag == nil) then
         voFlag = true
     end
-    
+
+    -- if this is a name - and not a table - convert it into a table using the name
     if type(rect) == 'string' then
 
         local area = ScenarioInfo.Env.Scenario.Areas[rect]
     
         if not area then
-            error('ERROR: Invalid area name')
+            error('ERROR: Invalid area name '..repr(rect) )
+            return
         end
     
         local rectangle = area.rectangle

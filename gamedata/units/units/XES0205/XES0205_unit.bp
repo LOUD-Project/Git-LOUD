@@ -36,11 +36,11 @@ UnitBlueprint {
             Mesh = '/effects/entities/Shield01/Shield01_mesh',
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
             RegenAssistMult = 60,
-            ShieldEnergyDrainRechargeTime = 8,
+            ShieldEnergyDrainRechargeTime = 6.8,
             ShieldMaxHealth = 8500,
             ShieldRechargeTime = 28,
-            ShieldRegenRate = 68,
-            ShieldRegenStartTime = 1,
+            ShieldRegenRate = 67,
+            ShieldRegenStartTime = 2,
             ShieldSize = 62,
             ShieldVerticalOffset = -12,
         },
@@ -105,11 +105,11 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 16500,
-        BuildCostMass = 950,
+        BuildCostEnergy = 17750,
+        BuildCostMass = 1131,
         BuildTime = 4240,
 		
-        MaintenanceConsumptionPerSecondEnergy = 625,
+        MaintenanceConsumptionPerSecondEnergy = 627,
     },
 
     General = {
@@ -163,7 +163,7 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
         TurnRadius = 10,
-        TurnRate = 60,
+        TurnRate = 45,
     },
 	
     SelectionSizeX = 0.6,

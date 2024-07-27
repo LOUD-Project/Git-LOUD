@@ -70,7 +70,7 @@ BaseBuilderTemplate {
             T3Value = 20,
         },
 		
-		RallyPointRadius = 25,
+		RallyPointRadius = 24,
     },
 	
     ExpansionFunction = function(aiBrain, location, markerType)

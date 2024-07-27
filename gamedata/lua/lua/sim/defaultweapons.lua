@@ -73,7 +73,10 @@ DefaultProjectileWeapon = Class(Weapon) {
 	
         WeaponOnCreate(self)
 
+        self.HadTarget = false
         self.WeaponCanFire = true
+        self.WeaponIsEnabled = false
+
         self.CurrentRackNumber = 1
         
         local bp = self.bp
@@ -102,17 +105,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 			
             self.RackRecoilReturnSpeed = bp.RackRecoilReturnSpeed or LOUDABS( dist / (( 1 / bp.RateOfFire ) - (bp.MuzzleChargeDelay or 0))) * 1.25
         end
---[[		
-        local NumMuzzles = 0
-        local RackBones = 0
-		
-        for _, rv in bp.RackBones do
-            NumMuzzles = NumMuzzles + LOUDGETN(rv.MuzzleBones or 0)
-            RackBones = RackBones + 1
-        end
-		
-        NumMuzzles = NumMuzzles / RackBones) or 1
---]]
+
         if bp.EnergyChargeForFirstShot == false then
             self.WeaponCharged = true
         end
@@ -122,7 +115,12 @@ DefaultProjectileWeapon = Class(Weapon) {
         end
 		
         if bp.FixBombTrajectory then
-            self.CBFP_CalcBallAcc = { Do = true, ProjectilesPerOnFire = (bp.ProjectilesPerOnFire or 1), }
+        
+            if bp.ProjectilesPerOnFire then
+                self.CBFP_CalcBallAcc = { Do = true, ProjectilesPerOnFire = bp.ProjectilesPerOnFire }
+            else
+                self.CBFP_CalcBallAcc = { Do = true, ProjectilesPerOnFire = 1 }
+            end
         end
 
         if not bp.EnabledByEnhancement then
@@ -132,11 +130,11 @@ DefaultProjectileWeapon = Class(Weapon) {
         end
 	end,
 	
-    CheckBallisticAcceleration = function(self, proj)
+    CheckBallisticAcceleration = function(self, proj, Projectiles )
 	
-        local acc = CalculateBallisticAcceleration( self, proj, self.CBFP_CalcBallAcc.ProjectilesPerOnFire )
+        local acc = CalculateBallisticAcceleration( self, proj, Projectiles )
 
-        proj:SetBallisticAcceleration( -acc) #-- change projectile trajectory so it hits the target, cure for engine bug
+        proj:SetBallisticAcceleration( -acc)    --- change projectile trajectory so it hits the target, cure for engine bug
 
     end,
 
@@ -210,7 +208,7 @@ DefaultProjectileWeapon = Class(Weapon) {
         end
 
 		if self.CBFP_CalcBallAcc then
-			self:CheckBallisticAcceleration(proj)
+			self:CheckBallisticAcceleration(proj, self.CBFP_CalcBallAcc.ProjectilesPerOnFire )
 		end
 		
 		if bp.CountedProjectile then
@@ -542,10 +540,6 @@ DefaultProjectileWeapon = Class(Weapon) {
         
         local unitBP = __blueprints[unit.BlueprintID].Audio
 
-        if ScenarioInfo.WeaponStateDialog then
-            LOG("*AI DEBUG DefaultWeapon Pack Sequence "..repr(bp.Label).." at "..GetGameTick() )
-        end
-
         self.ElapsedRepackTime = GetGameTick()
   		
         if unitBP.Close then
@@ -554,12 +548,20 @@ DefaultProjectileWeapon = Class(Weapon) {
         
         if bp.WeaponUnpackAnimation and self.UnpackAnimator then
 
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon Pack Sequence "..repr(bp.Label).." begins at "..GetGameTick() )
+            end
+
             self.UnpackAnimator:SetRate(-bp.WeaponUnpackAnimationRate)
         end
         
         if self.UnpackAnimator then
 
             WaitFor(self.UnpackAnimator)
+
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon Pack Sequence "..repr(bp.Label).." ends at "..GetGameTick() )
+            end
 
         end
         
@@ -652,29 +654,26 @@ DefaultProjectileWeapon = Class(Weapon) {
     -- General State-less event handling
     OnLostTarget = function(self)
         
-            local bp = self.bp
-            
+        if self.WeaponIsEnabled then
+
             local target = WeaponHasTarget(self)
 
-            --if ScenarioInfo.WeaponStateDialog then
-              --  LOG("*AI DEBUG DefaultWeapon OnLostTarget for "..repr(bp.Label).." target is "..repr(target).." at "..GetGameTick() )
-            --end
-            
             if not target then
         
                 Weapon.OnLostTarget(self)
 
             end
-            
-            if bp.WeaponUnpacks then
-            
-                LOUDSTATE(self, self.WeaponPackingState)
-                
-            else
 
+            if self.bp.WeaponUnpacks then
+
+                LOUDSTATE(self, self.WeaponPackingState)
+
+            else
                 LOUDSTATE(self, self.IdleState)
-                
+
             end
+
+        end
 
     end,
 
@@ -696,12 +695,12 @@ DefaultProjectileWeapon = Class(Weapon) {
                 self:SetWeaponEnabled(self.WeaponWantEnabled)
 
             end
-        
-            if self.AimControl then
-		
-                if self.WeaponAimWantEnabled != self.WeaponAimIsEnabled then
 
-                    self:AimManipulatorSetEnabled(self.WeaponAimEnabled)
+            if self.AimControl then -- only turreted weapons have AimControl
+		
+                if self.WeaponAimEnabled != self.WeaponAimWantEnabled then
+
+                    self:AimManipulatorSetEnabled(self.WeaponAimWantEnabled)
 
                 end
 
@@ -767,8 +766,7 @@ DefaultProjectileWeapon = Class(Weapon) {
         end
         
         Weapon.OnEnableWeapon(self)
-        
-        LOUDSTATE(self, self.IdleState)
+
     end,
 
 
@@ -1051,7 +1049,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             LOUDSTATE(self, self.RackSalvoFireReadyState)
 
         end,
-
+--[[
         OnFire = function(self)
 
             if ScenarioInfo.WeaponStateDialog then
@@ -1060,7 +1058,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             
             LOUDSTATE(self, self.RackSalvoFireReadyState)
         end,
-        
+--]]        
         OnGotTarget = function(self)
 
             if ScenarioInfo.WeaponStateDialog then
@@ -1158,7 +1156,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             local MuzzleSalvoDelay      = bp.MuzzleSalvoDelay
             local MuzzleSalvoSize       = bp.MuzzleSalvoSize
             local NotExclusive          = bp.NotExclusive
-            local RackBones             = bp.RackBones
+            local RackBones             = bp.RackBones or {}
             local unit                  = self.unit
             
             local WeaponStateDialog     = ScenarioInfo.WeaponStateDialog
@@ -1179,7 +1177,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 			
             local numRackFiring = self.CurrentRackNumber
 		
-			local TotalRacksOnWeapon = LOUDGETN(RackBones)
+			local TotalRacksOnWeapon = LOUDGETN(RackBones) or 1
 			
             if bp.RackFireTogether == true then
                 numRackFiring = TotalRacksOnWeapon
@@ -1209,9 +1207,13 @@ DefaultProjectileWeapon = Class(Weapon) {
             -- Most of the time this will only run once per rack, the only time it doesn't is when racks fire together.
             while self.CurrentRackNumber <= numRackFiring and not self.HaltFireOrdered and not unit.Dead do
  			
-                CurrentRackInfo = RackBones[self.CurrentRackNumber]
+                CurrentRackInfo = RackBones[self.CurrentRackNumber] or {}
 
-				MuzzlesToBeFired = LOUDGETN( CurrentRackInfo.MuzzleBones )
+                if CurrentRackInfo.MuzzleBones then
+                    MuzzlesToBeFired = LOUDGETN( CurrentRackInfo.MuzzleBones )
+                else
+                    MuzzlesToBeFired = 1
+                end
 
                 NumMuzzlesFiring = MuzzleSalvoSize or 1
 
@@ -1457,7 +1459,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                 LOG("*AI DEBUG DefaultWeapon RackReloadTime - is either not existant or less than the RackSalvoReloadSequnce - "..self.ElapsedRackReloadTicks.." ticks. "..repr(self.unit.BlueprintID))
             end
             
-            if bp.RackSalvoReloadTime and (math.ceil(bp.RackSalvoReloadTime * 10) - self.ElapsedRackReloadTicks) >= 0 then
+            if bp.RackSalvoReloadTime and (math.ceil(bp.RackSalvoReloadTime * 10) - self.ElapsedRackReloadTicks) > 0 then
             
                 if WeaponStateDialog then
                     LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State "..repr(bp.Label).." RackSalvoReloadTime waits "..math.ceil(bp.RackSalvoReloadTime * 10) - self.ElapsedRackReloadTicks.." ticks" )
@@ -1495,12 +1497,13 @@ DefaultProjectileWeapon = Class(Weapon) {
                     LOUDSTATE(self, self.WeaponPackingState)
                     
                 else
-
-                    if WeaponStateDialog then
-                        LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State "..repr(bp.Label).." - Rack Reload Timeout Waits "..repr(bp.RackReloadTimeout).." ticks" )		
-                    end
            
                     if bp.RackReloadTimeout and (bp.RackReloadTimeout) > 1 then
+
+                        if WeaponStateDialog then
+                            LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State "..repr(bp.Label).." - Rack Reload Timeout Waits "..repr(bp.RackReloadTimeout).." ticks" )		
+                        end
+
                         WaitTicks( bp.RackReloadTimeout )
                     end
                     
@@ -1554,14 +1557,6 @@ DefaultProjectileWeapon = Class(Weapon) {
             
             self.ElapsedRepackTime = GetGameTick() - self.ElapsedRepackTime
 
-            if WeaponStateDialog then
-                if self.EconDrain then
-                    LOG("*AI DEBUG DefaultWeapon Pack Sequence ends "..repr(bp.Label).." at "..GetGameTick() )
-                else
-                    LOG("*AI DEBUG DefaultWeapon Pack Sequence ends "..repr(bp.Label).." after "..self.ElapsedRepackTime.." ticks" )
-                end
-            end
-            
             if self.ElapsedRepackTime > 0 and ( not WeaponRepackTimeout or (math.floor(WeaponRepackTimeout * 10) - self.ElapsedRepackTime < 0 ) ) then
                 LOG("*AI DEBUG DefaultWeapon WeaponRepackTimeout (".. (WeaponRepackTimeout or 0) ..") - during pack - is either not existant or less than the WeaponUnpackAnimation - "..self.ElapsedRepackTime.." ticks. "..repr(unit.BlueprintID))
             end
@@ -1605,10 +1600,12 @@ DefaultProjectileWeapon = Class(Weapon) {
                     
                         LOUDSTATE( self, self.RackSalvoChargeState)
                         
+                    else
+                        LOUDSTATE( self, self.IdleState )
                     end
 
                 else
-                    LOUDSTATE(self, self.WeaponEmptyState)
+                    LOUDSTATE(self, self.WeaponEmptyState )
                 end
             
             else
@@ -1768,39 +1765,42 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
         
         local counter = 1
 		local beam
-        local bp = self.bp
 
-        for rk, rv in bp.RackBones do
+        local bp                    = self.bp
+        local beamcollisiondelay    = bp.BeamCollisionDelay or 0
+        local label                 = bp.Label
+        
+        if bp.RackBones then
 
-            for mk, mv in rv.MuzzleBones do
+            for rk, rv in bp.RackBones do
 
-                -- create the beam -- initially disabled
-                -- this will start the OnCreate in CollisionBeam
-                beam = self.BeamType{ BeamBone = 0, CollisionCheckInterval = bp.BeamCollisionDelay * 10, OtherBone = mv, Weapon = self }
+                for mk, mv in rv.MuzzleBones do
 
-                beam.CollsionDelay = bp.BeamCollisionDelay >= 0 
-                beam.DamageTable = self.damageTable
-                beam.Label = bp.Label
-                beam.Muzzle = mv
+                    --- create the beam -- initially disabled -- this will start the OnCreate in CollisionBeam
+                    beam = self.BeamType{ BeamBone = 0, CollisionCheckInterval = beamcollisiondelay * 10, OtherBone = mv, Weapon = self }
 
-                beam:Disable()
+                    beam.CollsionDelay  = beamcollisiondelay >= 0 
+                    beam.DamageTable    = self.damageTable
+                    beam.Label          = label
+                    beam.Muzzle         = mv
 
-                if ScenarioInfo.WeaponDialog then
-                    LOG("*AI DEBUG DefaultWeapon BEAM OnCreate for weapon "..repr(bp.Label).." on muzzle "..repr(mv).." for unit "..repr( self.unit.BlueprintID))
+                    beam:Disable()
+
+                    if ScenarioInfo.WeaponDialog then
+                        LOG("*AI DEBUG DefaultWeapon BEAM OnCreate for weapon "..repr(label).." on muzzle "..repr(mv).." for unit "..repr( self.unit.BlueprintID))
+                    end
+
+                    TrashAdd( self.Trash, beam)
+
+                    self.Beams[counter] = { Beam = beam }
+                    counter = counter + 1
                 end
 
-                -- add beam to the weapons trash table
-                TrashAdd( self.Trash, beam)
-
-                -- add a reference to the beam in the weapons Beams table
-                self.Beams[counter] = { Beam = beam }   --, BeamMuzzle = mv }
-                counter = counter + 1
             end
-
-        end
         
-        if ScenarioInfo.WeaponDialog then
-            LOG("*AI DEBUG DefaultWeapon BEAM OnCreate beams table is "..repr(self.Beams) )
+            if ScenarioInfo.WeaponDialog then
+                LOG("*AI DEBUG DefaultWeapon BEAM OnCreate beams table is "..repr(self.Beams) )
+            end
         end
 
     end,
@@ -1845,7 +1845,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
             end
         end
 		
-        if beam:IsEnabled() then return end
+        if not beam or beam:IsEnabled() then return end
 	
         local bp = self.bp
 		
@@ -1897,6 +1897,29 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
             self:PlayFxBeamEnd()
             
             self:ForkThread(self.ContinuousBeamFlagThread)
+        end,
+    },
+
+    -- beam weapons will return to Idle State if not marked as 'charged'
+    RackSalvoFireReadyState = State (DefaultProjectileWeapon.RackSalvoFireReadyState) {
+
+        Main = function(self)
+
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon BEAM Fire Ready State "..repr(self.bp.Label).." at "..GetGameTick() )
+			end
+
+            -- this had to have FirstShot included for backwards compatability
+            if not self.WeaponCharged and not self.FirstShot then
+
+                self:PlayFxBeamEnd()
+
+                LOUDSTATE(self, self.IdleState)
+
+                return
+            end
+
+            DefaultProjectileWeapon.RackSalvoFireReadyState.Main(self)
         end,
     },
 
@@ -1997,7 +2020,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
         if ScenarioInfo.WeaponStateDialog then
             LOG("*AI DEBUG DefaultWeapon BEAM OnHaltFire "..repr(self.bp.Label).." at "..GetGameTick() )
         end
-			    
+
         for _,v in self.Beams do
 
             if not v.Beam:IsEnabled() then
@@ -2008,27 +2031,6 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
         end
     end,
 
-    -- beam weapons will return to Idle State if not marked as 'charged'
-    RackSalvoFireReadyState = State (DefaultProjectileWeapon.RackSalvoFireReadyState) {
 
-        Main = function(self)
-
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon BEAM Fire Ready State "..repr(self.bp.Label).." at "..GetGameTick() )
-			end
-
-            -- this had to have FirstShot included for backwards compatability
-            if not self.WeaponCharged and not self.FirstShot then
-
-                self:PlayFxBeamEnd()
-
-                LOUDSTATE(self, self.IdleState)
-
-                return
-            end
-
-            DefaultProjectileWeapon.RackSalvoFireReadyState.Main(self)
-        end,
-    },
 }
 

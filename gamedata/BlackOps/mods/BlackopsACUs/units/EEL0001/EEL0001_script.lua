@@ -228,8 +228,6 @@ EEL0001 = Class(TWalkingLandUnit) {
    
                 self:SetWeaponEnabled(true)
 
-                --self.unit:SetWeaponEnabledByLabel('RightZephyr', false)
-
                 self.unit:ResetWeaponByLabel('RightZephyr')
 
                 self.unit:BuildManipulatorSetEnabled(false)
@@ -256,8 +254,6 @@ EEL0001 = Class(TWalkingLandUnit) {
                 if self.unit:BeenDestroyed() then return end
    
                 self:SetWeaponEnabled(false)
-
-                --self.unit:SetWeaponEnabledByLabel('RightZephyr', true)
 
                 self.unit:BuildManipulatorSetEnabled(false)
                 self.AimControl:SetEnabled(false)
@@ -436,6 +432,9 @@ EEL0001 = Class(TWalkingLandUnit) {
 
 		self.wcTMissiles01 = false
 		self.wcNMissiles01 = false
+        
+        self.wcLance01 = false
+        self.wcLance02 = false
 		
 		self.IntelPackage = false
         self.IntelPackageOn = false
@@ -557,6 +556,8 @@ EEL0001 = Class(TWalkingLandUnit) {
     OnFailedCapture = function(self, target)
     
         TWalkingLandUnit.OnFailedCapture(self, target)
+        
+        if self.Dead then return end
         
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
@@ -841,6 +842,53 @@ EEL0001 = Class(TWalkingLandUnit) {
 
 				wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[15].MaxRadius)
 			end
+            
+            if self.wcTMissiles01 then
+
+                self:SetWeaponEnabledByLabel('TacMissile', true)
+
+                wep = self:GetWeaponByLabel('TacMissile')
+                wep:ChangeMaxRadius(self:GetBlueprint().Weapon[16].MaxRadius)
+            
+            end
+            
+            if self.wcNMissiles01 then
+
+                wep = self:GetWeaponByLabel('TacMissile')
+                wep:ChangeMaxRadius( 1 )
+
+                self:SetWeaponEnabledByLabel('TacMissile', false)
+
+                self:SetWeaponEnabledByLabel('TacNukeMissile', true)
+
+                wep = self:GetWeaponByLabel('TacNukeMissile')
+                wep:ChangeMaxRadius(self:GetBlueprint().Weapon[17].MaxRadius)
+            
+            end
+
+			if self.wcLance01 then
+
+				self:SetWeaponEnabledByLabel('EXEnergyLance01', true)
+                self:ShowBone('Right_Lance_Turret', true)
+
+				wep = self:GetWeaponByLabel('EXEnergyLance01')
+				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[18].MaxRadius)
+			else
+				self:SetWeaponEnabledByLabel('EXEnergyLance01', false)
+                self:HideBone('Right_Lance_Turret', true)
+			end
+
+			if self.wcLance02 then
+
+				self:SetWeaponEnabledByLabel('EXEnergyLance02', true)
+                self:ShowBone('Left_Lance_Turret', true)
+
+				wep = self:GetWeaponByLabel('EXEnergyLance02')
+				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[19].MaxRadius)
+			else
+				self:SetWeaponEnabledByLabel('EXEnergyLance02', false)
+                self:HideBone('Left_Lance_Turret', true)
+			end
 			
 			if self.wcCMissiles01 then
 
@@ -866,36 +914,14 @@ EEL0001 = Class(TWalkingLandUnit) {
 				wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[22].MaxRadius)
 			end
 
-			if self.wcLance01 then
-
-				self:SetWeaponEnabledByLabel('EXEnergyLance01', true)
-                self:ShowBone('Right_Lance_Turret', true)
-
-				wep = self:GetWeaponByLabel('EXEnergyLance01')
-				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[18].MaxRadius)
-			else
-				self:SetWeaponEnabledByLabel('EXEnergyLance01', false)
-                self:HideBone('Right_Lance_Turret', true)
-			end
-
-			if self.wcLance02 then
-
-				self:SetWeaponEnabledByLabel('EXEnergyLance02', true)
-                self:ShowBone('Left_Lance_Turret', true)
-
-				wep = self:GetWeaponByLabel('EXEnergyLance02')
-				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[19].MaxRadius)
-			else
-				self:SetWeaponEnabledByLabel('EXEnergyLance02', false)
-                self:HideBone('Left_Lance_Turret', true)
-			end
-
 		end
     end,
 
     OnTransportDetach = function(self, attachBone, unit)
 
         TWalkingLandUnit.OnTransportDetach(self, attachBone, unit)
+        
+        if self.Dead then return end
 
 		self:StopSiloBuild()
         self:ForkThread(self.WeaponConfigCheck)
@@ -1827,6 +1853,8 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self.wcNMissiles01 = false
 
         end
+        
+        if self.Dead then return end
 
 		self:ForkThread(self.WeaponRangeReset)
 		self:ForkThread(self.WeaponConfigCheck)
@@ -1888,6 +1916,7 @@ EEL0001 = Class(TWalkingLandUnit) {
             self.Satellite:Kill()
 			self.Satellite = nil
         end
+
         TWalkingLandUnit.OnKilled(self, instigator, type, overkillRatio)
     end,
     
@@ -1897,6 +1926,7 @@ EEL0001 = Class(TWalkingLandUnit) {
             self.Satellite:Destroy()
 			self.Satellite = nil
         end
+
         TWalkingLandUnit.OnDestroy(self)
     end,
 
@@ -1913,6 +1943,7 @@ EEL0001 = Class(TWalkingLandUnit) {
         if self.BuildingUnit then
             TWalkingLandUnit.StartBuildingEffects(self, self.UnitBeingBuilt, self.UnitBuildOrder)
         end
+        
         TWalkingLandUnit.OnUnpaused(self)
     end,      
 

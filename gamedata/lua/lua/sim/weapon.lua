@@ -297,18 +297,18 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     AimManipulatorSetEnabled = function(self, enabled)
-	
+ 	
         if self.AimControl then
-        
-            if self.WeaponAimIsEnabled != enabled then
+       
+            if self.WeaponAimEnabled != enabled then
    
                 if ScenarioInfo.WeaponDialog or ScenarioInfo.WeaponStateDialog then
-                    LOG("*AI DEBUG Weapon "..repr(self.bp.Label).." Aim Control "..repr(enabled).." at "..GetGameTick().." Enabled is "..repr(self.WeaponAimIsEnabled) )
+                    LOG("*AI DEBUG Weapon "..repr(self.bp.Label).." Aim Control is "..repr(self.WeaponAimEnabled).." at "..GetGameTick().." setting to "..repr(enabled) )
                 end
 
                 SetEnabled( self.AimControl, enabled )
 
-                self.WeaponAimIsEnabled = enabled
+                self.WeaponAimEnabled = enabled
                 
             end
         end
@@ -377,44 +377,55 @@ Weapon = Class(moho.weapon_methods) {
 	end,
     
     OnDisableWeapon = function(self)
-        --if ScenarioInfo.WeaponDialog then
-          --  LOG("*AI DEBUG Weapon OnDisableWeapon "..repr(self.bp.Label) )
-        --end
+        ChangeState( self, self.DeadState )
     end,
     
     OnEnableWeapon = function(self)
-        --if ScenarioInfo.WeaponDialog then
-          --  LOG("*AI DEBUG Weapon OnEnableWeapon "..repr(self.bp.Label) )
-        --end
+    
+        self:SetValidTargetsForCurrentLayer(self.unit.CacheLayer, self.bp)
+        
+        ChangeState( self, self.IdleState )
     end,
 
     OnGotTarget = function(self)
-	
-        if ScenarioInfo.WeaponDialog then
-            LOG("*AI DEBUG Weapon OnGotTarget for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
-        end
 
-        if self.DisabledFiringBones and self.unit.Animator then
-		
-            for _, value in self.DisabledFiringBones do
-                SetBoneEnabled( self.unit.Animator, value, false )
+        if self.WeaponIsEnabled then
+	
+            if ScenarioInfo.WeaponDialog then
+                LOG("*AI DEBUG Weapon OnGotTarget for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
             end
+    
+            if self.DisabledFiringBones and self.unit.Animator then
+		
+                for _, value in self.DisabledFiringBones do
+                    SetBoneEnabled( self.unit.Animator, value, false )
+                end
+            end
+
+            self.HadTarget = true
+        
         end
 		
     end,
 
     OnLostTarget = function(self)
+   
+        if self.HadTarget then
 	
-        --if ScenarioInfo.WeaponDialog then
-          --  LOG("*AI DEBUG Weapon OnLostTarget for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
-        --end
-
-        if self.DisabledFiringBones and self.unit.Animator then
-		
-            for _, value in self.DisabledFiringBones do
-                SetBoneEnabled( self.unit.Animator, value, true )
+            if ScenarioInfo.WeaponDialog then
+                LOG("*AI DEBUG Weapon OnLostTarget for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
             end
+ 
+            if self.DisabledFiringBones and self.unit.Animator then
+		
+                for _, value in self.DisabledFiringBones do
+                    SetBoneEnabled( self.unit.Animator, value, true )
+                end
+            end
+
         end
+        
+        self.HadTarget = false
 
     end,
 
@@ -792,17 +803,17 @@ Weapon = Class(moho.weapon_methods) {
 
         -- standard disable path
         if not enable then
-        
+ 
             if self.WeaponIsEnabled != enable then
     
                 if ScenarioInfo.WeaponDialog or ScenarioInfo.WeaponStateDialog then
                     LOG("*AI DEBUG Weapon "..repr(self.bp.Label).." SetWeaponEnabled to "..repr(enable).." at "..GetGameTick().." Enabled currently "..repr(self.WeaponIsEnabled) )
                 end
+            
+                self.WeaponIsEnabled = false
     
                 self:SetEnabled(enable)
-                
-                self.WeaponIsEnabled = false
-                
+               
                 self:OnDisableWeapon()
 
             end
@@ -813,7 +824,7 @@ Weapon = Class(moho.weapon_methods) {
         
         local GetEntityId = moho.entity_methods.GetEntityId
 
-        if self.bp.EnabledByEnhancement then
+        if enable and self.bp.EnabledByEnhancement then
 		
             local id = GetEntityId(self.unit)
 			
