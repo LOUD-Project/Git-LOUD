@@ -3,7 +3,7 @@
 --* Author: Chris Blackwell
 --* Summary: manages user profiles
 --*
---* Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+--* Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
 --*****************************************************************************
 
 
@@ -68,19 +68,18 @@ function CreateDialog(exitBehavior)
 
     local cancelButton = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "<LOC PROFILE_0005>Cancel", 16, 2)
     LayoutHelpers.AtTopIn(cancelButton, panel, 365)
-    cancelButton.Left:Set(function() return ((panel.Width() / 2) + 10) + panel.Left() end)
+    cancelButton.Left:Set(function() return ((panel.Width() / 2) + LayoutHelpers.ScaleNumber(10)) + panel.Left() end)
     Tooltip.AddButtonTooltip(cancelButton, "Profile_cancel")
 
     local okButton = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "<LOC PROFILE_0007>OK", 16, 2)
     LayoutHelpers.AtTopIn(okButton, panel, 365)
-    okButton.Right:Set(function() return ((panel.Width() / 2) - 10) + panel.Left() end)
+    okButton.Right:Set(function() return ((panel.Width() / 2) - LayoutHelpers.ScaleNumber(10)) + panel.Left() end)
     Tooltip.AddButtonTooltip(okButton, "Profile_ok")
 
     local profileListBG = Bitmap(panel)
     profileListBG:SetSolidColor("00569FFF")
     LayoutHelpers.AtLeftTopIn(profileListBG, panel, 26, 72)
-    profileListBG.Width:Set(500)
-    profileListBG.Height:Set(234)
+    LayoutHelpers.SetDimensions(profileListBG, 500, 234)
 
     local profileList = ItemList(profileListBG)
     LayoutHelpers.FillParent(profileList, profileListBG)
@@ -235,9 +234,9 @@ function CreationDialog(parent, callback)
     bg.brackets = UIUtil.CreateDialogBrackets(bg, 30, 36, 32, 36, true)
     
     local nameEdit = Edit(bg)
-    nameEdit.Top:Set(function() return bg.Top() + 50 end)
+	LayoutHelpers.AtTopIn(nameEdit, bg, 50)
     LayoutHelpers.AtHorizontalCenterIn(nameEdit, bg)
-    nameEdit.Width:Set(350)
+    LayoutHelpers.SetWidth(nameEdit, 350)
     nameEdit.Height:Set(function() return nameEdit:GetFontHeight() end)
     UIUtil.SetupEditStd(nameEdit, UIUtil.fontColor, "00569FFF", UIUtil.highlightColor, "880085EF", UIUtil.bodyFont, 20, 20)
     nameEdit:AcquireFocus()    
