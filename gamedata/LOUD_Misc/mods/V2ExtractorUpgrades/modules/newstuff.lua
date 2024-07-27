@@ -8,8 +8,7 @@ local UIUtil = import('/lua/ui/uiutil.lua')
 function CreateButton(parent)
    -- create the button
    local myButton = Button(parent, UIUtil.UIFile('/game/resources/mass_btn_up.dds'), UIUtil.UIFile('/game/resources/mass_btn_down.dds'), UIUtil.UIFile('/game/resources/mass_btn_over.dds'), UIUtil.UIFile('/game/resources/mass_btn_dis.dds'))
-   LayoutHelpers.AtTopIn(myButton, parent, -6)
-   LayoutHelpers.AnchorToRight(myButton, parent, 8)
+   LayoutHelpers.AtLeftTopIn(myButton, parent, 340)
    myButton.Depth:Set(4)
    Tooltip.AddButtonTooltip(myButton, 'seq_mex_upgrade')
    
