@@ -648,7 +648,8 @@ function CreateUnitDB(over, callback)
 
 	local anyYesNo = { "Any", "Yes", "No" }
 	filterGroups.directFire = MakeFilterCombo("Direct Fire", 60, 'directfire', anyYesNo, nil)
-	LayoutHelpers.Below(filterGroups.directFire, weaponsRow, 2 + weaponsBlockLabel.Height())
+	filterGroups.directFire.Left:Set(filterGroups.origin.Left)
+	LayoutHelpers.AnchorToBottom(filterGroups.directFire, weaponsBlockLabel, 4)
 	filterGroups.indirectFire = MakeFilterCombo("Indirect Fire", 60, 'indirectfire', anyYesNo, filterGroups.directFire)
 	filterGroups.antiAir = MakeFilterCombo("Anti-Air", 60, 'antiair', anyYesNo, filterGroups.indirectFire)
 	filterGroups.torps = MakeFilterCombo("Torpedoes", 60, 'torpedoes', anyYesNo, filterGroups.antiAir)
@@ -731,7 +732,8 @@ function CreateUnitDB(over, callback)
 
 	local r = tostring(count).." results found."
 	resultText = UIUtil.CreateText(panel, r, 16, UIUtil.bodyFont)
-	LayoutHelpers.AtLeftTopIn(resultText, panel, exitBtn.Width() + 40, 670)
+	LayoutHelpers.AnchorToRight(resultText, exitBtn, 40)
+	LayoutHelpers.AtTopIn(resultText, panel, 670)
 
 	panel.HandleEvent = function(self, event)
 		if event.Type ~= 'KeyDown' then
