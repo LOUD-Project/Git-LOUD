@@ -2,8 +2,6 @@
 --* Author: Ted Snook
 --* Summary: Tool Tips
 
-LOG("*AI DEBUG TOOL TIPS LOADING")
-
 local Bitmap        = import('/lua/maui/bitmap.lua').Bitmap
 local Button        = import('/lua/maui/button.lua').Button
 local Group         = import('/lua/maui/group.lua').Group
@@ -12,11 +10,6 @@ local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 local Prefs         = import('/lua/user/prefs.lua')
 local TooltipInfo   = import('/lua/ui/help/tooltips.lua')
 local UIUtil        = import('/lua/ui/uiutil.lua')
-
-
-local AITooltipInfo = import('/lua/enhancedlobby.lua').GetCustomTooltips()
-
-LOG("*AI DEBUG AITooltipInfo is "..repr(AITooltipInfo))
 
 local mouseoverDisplay = false
 local createThread = false
@@ -31,7 +24,10 @@ function CreateMouseoverDisplay(parent, ID, delay, extendedBool, hotkeyID)
     if not Prefs.GetOption('tooltips') then
 		return
 	end
-	
+    
+    -- this will add any custom tooltips to the master TooltipInfo
+    local AITooltipInfo, TooltipInfo = import('/lua/enhancedlobby.lua').GetCustomTooltips(TooltipInfo)	
+
     local createDelay = 0
 	
     if delay and Prefs.GetOption('tooltip_delay') then

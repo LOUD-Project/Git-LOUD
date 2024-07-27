@@ -116,7 +116,7 @@ function GetGlobalOptions()
     
     end
     
-    LOG("*AI DEBUG LOBBY Option Files are "..repr(OptionFiles))
+    --LOG("*AI DEBUG LOBBY Option Files are "..repr(OptionFiles))
     
     local lobbyoptions      = {}
     local teamlobbyoptions  = {}
@@ -4272,7 +4272,7 @@ end
 
 function RefreshOptionDisplayData(scenarioInfo)
 
-    LOG("*AI DEBUG LOBBY Refreshing Option Display Data with Scenario "..repr(scenarioInfo != nil) )
+    --LOG("*AI DEBUG LOBBY Refreshing Option Display Data with Scenario "..repr(scenarioInfo != nil) )
     
     formattedOptions = {}
     

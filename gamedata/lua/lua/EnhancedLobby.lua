@@ -43,7 +43,6 @@ function GetActiveModLocation( mod_Id )
 	return false
 end
 
-
 function CheckMapHasMarkers(scenario)
 
 	if not DiskGetFileInfo(scenario.save) then
@@ -69,7 +68,6 @@ function CheckMapHasMarkers(scenario)
 	return false
 end
 
-
 function IsSim()
 	
 	if not rawget(_G, 'GetCurrentUIState') then
@@ -79,7 +77,6 @@ function IsSim()
 	return false
 end
 
-
 function GetActiveMods()
 
 	if IsSim() then
@@ -88,7 +85,6 @@ function GetActiveMods()
 	
 	return Mods.GetGameMods()
 end
-
 
 function GetRestrictedUnits()
 
@@ -179,7 +175,7 @@ function GetAIList()
 
     local AIFiles = DiskFindFiles('/lua/AI/CustomAIs_v2', '*.lua')
 
-    local AIFilesold = {}       ---DiskFindFiles('/lua/AI/CustomAIs', '*.lua')
+    local AIFilesold = {}
 
     function AddAIData(tempfile)
 
@@ -189,7 +185,7 @@ function GetAIList()
             
                 if not aitypes[tAIData.key] then
 
-                    LOG('*AI DEBUG Adding AI '..repr(tAIData.name))
+                    --LOG('*AI DEBUG Adding AI '..repr(tAIData.name))
 
                     table.insert(aitypes, { key = tAIData.key, name = tAIData.name })
                     
@@ -260,15 +256,7 @@ function GetAIList()
                     AddAIData(import(v).AI.AIList)
                     AddAIData(import(v).AI.CheatAIList)
                 end
-                
-                AIFiles = DiskFindFiles(mod.location..'/lua/AI/CustomAITooltips', '*.lua')
-                
-                if AIFiles then
-                
-                    LOG("*AI DEBUG AI Tooltips are "..repr(AIFiles) )
-                    
-                    GetCustomTooltips()
-                end
+
             end
 
         end
@@ -279,7 +267,7 @@ function GetAIList()
 
 end
 
-function GetCustomTooltips()
+function GetCustomTooltips(Tooltip)
 
 	local activeMods = GetActiveMods()
 	local tooltips = {}
@@ -310,8 +298,15 @@ function GetCustomTooltips()
 			end
 		end
 	end
+    
+    if Tooltip then
+    
+        for i,v in tooltips do
+            Tooltip.Tooltips[i] = v
+        end
+    end
 	
-	return tooltips
+	return tooltips, Tooltip
 end
 
 function BroadcastAIInfo(ishost)

@@ -1092,6 +1092,11 @@ function CreateUI(over, exitBehavior, useSteam)
             for i, v in gameOptions do
 			
                 for index, option in v do
+                    
+                    if not option.values then
+                        --LOG("*AI DEBUG option is "..repr(option))
+                        continue
+                    end
 				
                     for valIndex, value in option.values do
 					
@@ -1107,6 +1112,7 @@ function CreateUI(over, exitBehavior, useSteam)
             end
 			
             if not gameList._sortby.customFieldIsOption then
+            
                 if type(gameData.Options[gameList._sortby.customField]) == 'string' then
                     custom = gameData.Options[gameList._sortby.customField]
                 else
