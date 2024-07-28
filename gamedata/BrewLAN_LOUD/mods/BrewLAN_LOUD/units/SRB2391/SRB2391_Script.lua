@@ -1,8 +1,8 @@
 local CStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
 local CDFParticleCannonWeapon = import('/lua/cybranweapons.lua').CDFParticleCannonWeapon
+local DefaultWeapon = import('/lua/sim/defaultweapons.lua').DefaultProjectileWeapon
 
-local Weapon = import('/lua/sim/Weapon.lua').Weapon
 local CleanupEffectBag = import('/lua/EffectUtilities.lua').CleanupEffectBag
 
 SRB2391 = Class(CStructureUnit) {
@@ -46,7 +46,7 @@ SRB2391 = Class(CStructureUnit) {
             end,
         },
         
-        DeathWeapon = Class(Weapon) {
+        DeathWeapon = Class(DefaultWeapon) {
 
             Effects = {
                 '/effects/emitters/seraphim_othuy_hit_01_emit.bp',
@@ -55,12 +55,8 @@ SRB2391 = Class(CStructureUnit) {
                 '/effects/emitters/seraphim_othuy_hit_04_emit.bp',
             },
 
-            OnCreate = function(self)
-                Weapon.OnCreate(self)
-                self:SetWeaponEnabled(false)
-            end,
-
             Fire = function(self)
+
                 if not self.unit.WeaponsActive then
                     return
                 end

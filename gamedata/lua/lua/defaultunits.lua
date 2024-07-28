@@ -4642,7 +4642,7 @@ MineStructureUnit = Class(StructureUnit) {
         StructureUnit.OnScriptBitSet(self, bit)
 
         if bit == 1 then
-            self:GetWeaponByLabel'Suicide':OnWeaponFired()
+            self:GetWeaponByLabel('Suicide'):OnWeaponFired()
         end
     end,
 

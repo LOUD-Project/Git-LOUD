@@ -5,27 +5,27 @@
 
 --LOG("*AI DEBUG Loading Construction.lua")
 
-local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
-local BuildMode = import('/lua/ui/game/buildmode.lua')
-local Button = import('/lua/maui/button.lua').Button
-local Checkbox = import('/lua/maui/checkbox.lua').Checkbox
-local Edit = import('/lua/maui/edit.lua').Edit
-local Effect = import('/lua/maui/effecthelpers.lua')
-local EnhanceCommon = import('/lua/enhancementcommon.lua')
-local GameCommon = import('/lua/ui/game/gamecommon.lua')
-local Group = import('/lua/maui/group.lua').Group
-local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
-local Prefs = import('/lua/user/prefs.lua')
-local SpecialGrid = import('/lua/ui/controls/specialgrid.lua').SpecialGrid
-local StatusBar = import('/lua/maui/statusbar.lua').StatusBar
-local Tooltip = import('/lua/ui/game/tooltip.lua')
-local Templates = import('/lua/ui/game/build_templates.lua')
-local UIUtil = import('/lua/ui/uiutil.lua')
-local UnitViewDetail = import('/lua/ui/game/unitviewdetail.lua')
+local Bitmap            = import('/lua/maui/bitmap.lua').Bitmap
+local BuildMode         = import('/lua/ui/game/buildmode.lua')
+local Button            = import('/lua/maui/button.lua').Button
+local Checkbox          = import('/lua/maui/checkbox.lua').Checkbox
+local Edit              = import('/lua/maui/edit.lua').Edit
+local Effect            = import('/lua/maui/effecthelpers.lua')
+local EnhanceCommon     = import('/lua/enhancementcommon.lua')
+local GameCommon        = import('/lua/ui/game/gamecommon.lua')
+local Group             = import('/lua/maui/group.lua').Group
+local LayoutHelpers     = import('/lua/maui/layouthelpers.lua')
+local Prefs             = import('/lua/user/prefs.lua')
+local SpecialGrid       = import('/lua/ui/controls/specialgrid.lua').SpecialGrid
+local StatusBar         = import('/lua/maui/statusbar.lua').StatusBar
+local Tooltip           = import('/lua/ui/game/tooltip.lua')
+local Templates         = import('/lua/ui/game/build_templates.lua')
+local UIUtil            = import('/lua/ui/uiutil.lua')
+local UnitViewDetail    = import('/lua/ui/game/unitviewdetail.lua')
 
-local LOUDGETN = table.getn
-local LOUDINSERT = table.insert
-local LOUDSORT = table.sort
+local LOUDGETN      = table.getn
+local LOUDINSERT    = table.insert
+local LOUDSORT      = table.sort
 
 -- these are all from GAZ_UI
 local options = Prefs.GetFromCurrentProfile('options')
@@ -109,16 +109,11 @@ local nestedTabKey = {
 }
 
 local enhancementTooltips = {
-    Back = 'construction_tab_enhancement_back',
+    Back    = 'construction_tab_enhancement_back',
 	Command = 'construction_tab_enhancement_command',
-    LCH = 'construction_tab_enhancement_left',
-    RCH = 'construction_tab_enhancement_right',
+    LCH     = 'construction_tab_enhancement_left',
+    RCH     = 'construction_tab_enhancement_right',
 }
-
---local whatIfBuilder = nil
---local whatIfBlueprintID = nil
---local selectedwhatIfBuilder = nil
---local selectedwhatIfBlueprintID = nil
 
 function CreateTab(parent, id, onCheckFunc)
 

@@ -2248,6 +2248,8 @@ function OnModsChanged(modlist)
         
         aitypes = import('/lua/enhancedlobby.lua').GetAIList()
         
+        Tooltip.ReloadTooltips()
+        
         GetGlobalOptions()
         
         UpdateGame()
