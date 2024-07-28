@@ -18,11 +18,11 @@ local GetConstructEconomyModel      = Game.GetConstructEconomyModel
 local GetEnemyUnitsInSphere         = import('/lua/utilities.lua').GetEnemyUnitsInSphere
 
 local Shield                        = import('/lua/shield.lua').Shield
-local UnitShield                    = Shield.UnitShield
-local AntiArtilleryShield           = Shield.AntiArtilleryShield
-local DomeHunkerShield              = Shield.DomeHunkerShield
-local PersonalHunkerShield          = Shield.PersonalHunkerShield
-local ProjectedShield               = Shield.ProjectedShield
+local UnitShield                    = import('/lua/shield.lua').UnitShield
+local AntiArtilleryShield           = import('/lua/shield.lua').AntiArtilleryShield
+local DomeHunkerShield              = import('/lua/shield.lua').DomeHunkerShield
+local PersonalHunkerShield          = import('/lua/shield.lua').PersonalHunkerShield
+local ProjectedShield               = import('/lua/shield.lua').ProjectedShield
 
 local ApplyBuff                     = import('/lua/sim/buff.lua').ApplyBuff
 local HasBuff                       = import('/lua/sim/buff.lua').HasBuff
