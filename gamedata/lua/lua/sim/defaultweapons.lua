@@ -656,6 +656,10 @@ DefaultProjectileWeapon = Class(Weapon) {
         
         if self.WeaponIsEnabled then
 
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon OnLostTarget for "..repr(self.bp.Label) )		
+            end
+
             local target = WeaponHasTarget(self)
 
             if not target then
@@ -1530,7 +1534,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 
     WeaponPackingState = State {
 	
-        WeaponWantEnabled = false,
+        WeaponWantEnabled = true,
         WeaponAimWantEnabled = false,
 
         Main = function(self)

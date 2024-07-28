@@ -305,6 +305,8 @@ Weapon = Class(moho.weapon_methods) {
                 if ScenarioInfo.WeaponDialog or ScenarioInfo.WeaponStateDialog then
                     LOG("*AI DEBUG Weapon "..repr(self.bp.Label).." Aim Control is "..repr(self.WeaponAimEnabled).." at "..GetGameTick().." setting to "..repr(enabled) )
                 end
+                
+                if self.unit.Dead then return end
 
                 SetEnabled( self.AimControl, enabled )
 
@@ -357,6 +359,10 @@ Weapon = Class(moho.weapon_methods) {
         return self.bp.TurretPitchSpeed
     end,
 
+    Fire = function(self)
+    
+    end,
+    
     OnFire = function(self)
 	
 		if ScenarioInfo.WeaponDialog then

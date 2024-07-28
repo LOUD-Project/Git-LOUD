@@ -1,36 +1,38 @@
 --**  File     :  /lua/unit.lua
 
-local Entity = import('/lua/sim/Entity.lua').Entity
-local EntityOnCreate = Entity.OnCreate
+local Entity                        = import('/lua/sim/Entity.lua').Entity
+local EntityOnCreate                = Entity.OnCreate
 
-local CreateWreckageEffects = import('/lua/defaultexplosions.lua').CreateWreckageEffects
-local CreateScalableUnitExplosion = import('/lua/defaultexplosions.lua').CreateScalableUnitExplosion
+local CreateWreckageEffects         = import('/lua/defaultexplosions.lua').CreateWreckageEffects
+local CreateScalableUnitExplosion   = import('/lua/defaultexplosions.lua').CreateScalableUnitExplosion
 
-local EffectTemplate = import('/lua/EffectTemplates.lua')
+local EffectTemplate                = import('/lua/EffectTemplates.lua')
 
-local EffectUtilities = import('/lua/EffectUtilities.lua')
-local CleanupEffectBag = import('/lua/EffectUtilities.lua').CleanupEffectBag
-local CreateUnitDestructionDebris = import('/lua/EffectUtilities.lua').CreateUnitDestructionDebris
+local EffectUtilities               = import('/lua/EffectUtilities.lua')
+local CleanupEffectBag              = EffectUtilities.CleanupEffectBag
+local CreateUnitDestructionDebris   = EffectUtilities.CreateUnitDestructionDebris
 
-local Game = import('/lua/game.lua')
-local GetConstructEconomyModel = Game.GetConstructEconomyModel
+local Game                          = import('/lua/game.lua')
+local GetConstructEconomyModel      = Game.GetConstructEconomyModel
 
-local GetEnemyUnitsInSphere = import('/lua/utilities.lua').GetEnemyUnitsInSphere
+local GetEnemyUnitsInSphere         = import('/lua/utilities.lua').GetEnemyUnitsInSphere
 
-local Shield = import('/lua/shield.lua').Shield
-local UnitShield = import('/lua/shield.lua').UnitShield
-local AntiArtilleryShield = import('/lua/shield.lua').AntiArtilleryShield
-local DomeHunkerShield = import('/lua/shield.lua').DomeHunkerShield
-local PersonalHunkerShield = import('/lua/shield.lua').PersonalHunkerShield
-local ProjectedShield = import('/lua/shield.lua').ProjectedShield
+local Shield                        = import('/lua/shield.lua').Shield
+local UnitShield                    = Shield.UnitShield
+local AntiArtilleryShield           = Shield.AntiArtilleryShield
+local DomeHunkerShield              = Shield.DomeHunkerShield
+local PersonalHunkerShield          = Shield.PersonalHunkerShield
+local ProjectedShield               = Shield.ProjectedShield
 
-local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
-local ApplyCheatBuffs = import('/lua/ai/aiutilities.lua').ApplyCheatBuffs
-local HasBuff = import('/lua/sim/buff.lua').HasBuff
-local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff			
-local BuffFieldBlueprints = import('/lua/sim/BuffField.lua').BuffFieldBlueprints
+local ApplyBuff                     = import('/lua/sim/buff.lua').ApplyBuff
+local HasBuff                       = import('/lua/sim/buff.lua').HasBuff
+local RemoveBuff                    = import('/lua/sim/buff.lua').RemoveBuff			
 
-local RRBC = import('/lua/sim/RebuildBonusCallback.lua').RegisterRebuildBonusCheck
+local ApplyCheatBuffs               = import('/lua/ai/aiutilities.lua').ApplyCheatBuffs
+local BuffFieldBlueprints           = import('/lua/sim/BuffField.lua').BuffFieldBlueprints
+
+local RRBC                          = import('/lua/sim/RebuildBonusCallback.lua').RegisterRebuildBonusCheck
+
 
 -- from Domino Mod Support
 local __DMSI = false    --import('/mods/Domino_Mod_Support/lua/initialize.lua') or false
@@ -49,14 +51,14 @@ local LOUDMIN = math.min
 local LOUDSIN = math.sin
 local LOUDCOS = math.cos
 
-local LOUDEMITATENTITY = CreateEmitterAtEntity
-local LOUDEMITATBONE = CreateEmitterAtBone
-local LOUDATTACHEMITTER = CreateAttachedEmitter
-local LOUDATTACHBEAMENTITY = AttachBeamEntityToEntity
+local LOUDEMITATENTITY      = CreateEmitterAtEntity
+local LOUDEMITATBONE        = CreateEmitterAtBone
+local LOUDATTACHEMITTER     = CreateAttachedEmitter
+local LOUDATTACHBEAMENTITY  = AttachBeamEntityToEntity
 
-local DamageArea = DamageArea
+local DamageArea            = DamageArea
 
-local GetTerrainType = GetTerrainType
+local GetTerrainType        = GetTerrainType
 
 local EntityMethods = moho.entity_methods
 
@@ -1702,18 +1704,6 @@ Unit = Class(UnitMethods) {
                 Kill( self.UnitBeingBuilt)
             end
         end
-		
-        for i = 1, GetWeaponCount(self) do
-			
-            local wep = GetWeapon(self,i) or false
-
-            if wep and not wep.Dead then
-
-                if wep.SetWeaponEnabled then
-                    wep:SetWeaponEnabled(false)
-                end
-			end
-        end
 
         if not self:IsBeingBuilt() then
 
@@ -1726,7 +1716,19 @@ Unit = Class(UnitMethods) {
                 self:SetCollisionShape('None')
             end
         end
-        
+    		
+        for i = 1, GetWeaponCount(self) do
+			
+            local wep = GetWeapon(self,i) or false
+
+            if wep and not wep.Dead then
+
+                if wep.SetWeaponEnabled then
+                    wep:SetWeaponEnabled(false)
+                end
+			end
+        end
+    
 		self.PlayUnitSound( self, 'Killed')
 		
 		self:DoUnitCallbacks('OnKilled')
@@ -1778,8 +1780,11 @@ Unit = Class(UnitMethods) {
 
                 if v.FireOnDeath == true then
 				
-                    self:SetWeaponEnabledByLabel('DeathWeapon', true)
-                    self:GetWeaponByLabel('DeathWeapon'):Fire()
+                    local wep = self:GetWeaponByLabel('DeathWeapon')
+                    
+                    wep:SetWeaponEnabled(true )
+                    
+                    wep:Fire()
 
                 else
 
@@ -2655,6 +2660,8 @@ Unit = Class(UnitMethods) {
             wep:OnLostTarget()
         end
 
+        if self.Dead then return wep end
+        
         wep:SetWeaponEnabled(enable)
 
         wep:AimManipulatorSetEnabled(enable)

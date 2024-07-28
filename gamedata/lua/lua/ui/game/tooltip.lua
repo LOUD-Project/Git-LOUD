@@ -11,8 +11,14 @@ local Prefs         = import('/lua/user/prefs.lua')
 local TooltipInfo   = import('/lua/ui/help/tooltips.lua')
 local UIUtil        = import('/lua/ui/uiutil.lua')
 
+local AITooltipInfo, TooltipInfo = import('/lua/enhancedlobby.lua').GetCustomTooltips(TooltipInfo)	
+
 local mouseoverDisplay = false
 local createThread = false
+
+function ReloadTooltips()
+    AITooltipInfo, TooltipInfo = import('/lua/enhancedlobby.lua').GetCustomTooltips(TooltipInfo)	
+end
 
 function CreateMouseoverDisplay(parent, ID, delay, extendedBool, hotkeyID)
 
@@ -26,7 +32,6 @@ function CreateMouseoverDisplay(parent, ID, delay, extendedBool, hotkeyID)
 	end
     
     -- this will add any custom tooltips to the master TooltipInfo
-    local AITooltipInfo, TooltipInfo = import('/lua/enhancedlobby.lua').GetCustomTooltips(TooltipInfo)	
 
     local createDelay = 0
 	
