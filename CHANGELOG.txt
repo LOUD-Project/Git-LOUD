@@ -1,3 +1,13 @@
+### Release 28-07-2024
+
+LUA 7.08
+BrewLAN for LOUD 0.8.8.9.105
+
+- several hotfixs for tooltip rollovers, misfiring suicide weapons, data guards for death events
+- weapon logging events, WeaponPackingState no longer 'disables' weapons
+- BrewLAN Tesla Coil deathweapon now points to DefaultProjectileWeapon to fix Fire on Death
+
+
 ### Release 27-07-2024
 
 LUA 7.07
