@@ -81,8 +81,7 @@ function OnSelectionSetChanged(name, units, applied)
         local bg = Bitmap(controls.container, UIUtil.SkinnableFile('/game/avatar/avatar-control-group_bmp.dds'))
         
         bg.icon = Bitmap(bg)
-        bg.icon.Width:Set(28)
-        bg.icon.Height:Set(20)
+        LayoutHelpers.SetDimensions(bg.icon, 28, 20)
         LayoutHelpers.AtCenterIn(bg.icon, bg, 0, -4)
         
         bg.label = UIUtil.CreateText(bg.icon, label, 18, UIUtil.bodyFont)

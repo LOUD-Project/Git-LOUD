@@ -3,7 +3,7 @@
 --* Author: Chris Blackwell
 --* Summary: Load and save game UI
 --*
---* Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+--* Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
 --*****************************************************************************
 
 local UIUtil = import('/lua/ui/uiutil.lua')
@@ -110,8 +110,7 @@ local function CreateDialog(over, isLoad, callback, exitBehavior, fileType)
         end)
     end)
     LayoutHelpers.AtLeftTopIn(filePicker, panel, 43, 118)
-    filePicker.Width:Set(595)
-    filePicker.Height:Set(362)
+    LayoutHelpers.SetDimensions(filePicker, 595, 362)
     
     local lastStr = Prefs.GetFromCurrentProfile(fileType)
     if lastStr then

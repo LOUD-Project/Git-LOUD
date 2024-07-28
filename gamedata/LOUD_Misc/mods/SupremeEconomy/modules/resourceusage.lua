@@ -215,7 +215,7 @@ function UpdateResourceUsage()
 
 				if maxWorkProgress != 0 then
 					button.progress:SetValue(maxWorkProgress)
-					button.progress.Height:Set(3)
+					LayoutHelpers.SetHeight(button.progress, 3)
 				else
 					button.progress.Height:Set(0)
 				end
@@ -263,8 +263,7 @@ function CreateModUI(isReplay, parent)
 
 	local img = Bitmap(parent)
 
-	img.Width:Set(resourceIconHeight/58 * 70)
-	img.Height:Set(resourceIconHeight)
+	LayoutHelpers.SetDimensions(img, resourceIconHeight/58 * 70, resourceIconHeight)
 	img:SetTexture(UIUtil.UIFile('/game/resources/mass_btn_up.dds'))
 
 	LayoutHelpers.CenteredAbove(img, grid[1][1], 0)
@@ -283,8 +282,7 @@ function CreateModUI(isReplay, parent)
 
 	local img = Bitmap(parent)
 
-	img.Width:Set(resourceIconHeight)
-	img.Height:Set(resourceIconHeight)
+	LayoutHelpers.SetDimensions(img, resourceIconHeight, resourceIconHeight)
 	img:SetTexture(UIUtil.UIFile('/game/resources/energy_btn_up.dds'))
 
 	LayoutHelpers.CenteredAbove(img, grid[2][1], 0)

@@ -498,7 +498,7 @@ function CreateButton(parent, up, down, over, disabled, label, pointSize, textOf
 
     local button = Button(parent, up, down, over, disabled, clickCue, rolloverCue)
 	
-    button:UseAlphaHitTest(true)
+    button:UseAlphaHitTest(false)
 
     if label and pointSize then
 	
@@ -573,7 +573,7 @@ function CreateCheckbox(parent, up, upsel, over, oversel, dis, dissel, clickCue,
     local clickSound = clickCue or 'UI_Mini_MouseDown'
     local rollSound = rollCue or 'UI_Mini_Rollover'
     local checkbox = Checkbox( parent, up, upsel, over, oversel, dis, dissel, clickSound, rollSound)
-    checkbox:UseAlphaHitTest(true)
+    checkbox:UseAlphaHitTest(false)
     return checkbox
 end
 
@@ -638,7 +638,7 @@ function CreateVertScrollbarFor(attachto, offset, filename)
                                     , SkinnableFile(textureName..'arrow-down_scr_dis.dds')
                                     , "UI_Arrow_Click")
 
-    scrollbar.Left:Set(function() return attachto.Right() + offset end)
+    LayoutHelpers.AnchorToRight(scrollbar, attachto, offset)
     scrollbar.Top:Set(scrollUpButton.Bottom)
     scrollbar.Bottom:Set(scrollDownButton.Top)
 
@@ -770,7 +770,7 @@ function QuickDialog(parent, dialogText, button1Text, button1Callback, button2Te
 	
     LayoutHelpers.AtHorizontalCenterIn(textLine[1], dialog)
     
-    local textBoxWidth = (dialog.Width() - 80) 
+    local textBoxWidth = dialog.Width() - LayoutHelpers.ScaleNumber(80) 
     local tempTable = import('/lua/maui/text.lua').WrapText(LOC(dialogText), textBoxWidth,
 	
     function(text)
@@ -794,7 +794,7 @@ function QuickDialog(parent, dialogText, button1Text, button1Callback, button2Te
         end
     end
     
-    background:SetTiled(true)
+    background:SetTiled(false)
     background.Bottom:Set(textLine[tempLines].Bottom)
     
     local backgroundTop = Bitmap(dialog, SkinnableFile('/dialogs/dialog/panel_bmp_T.dds'))
@@ -1106,18 +1106,11 @@ function CreateDialogBrackets(parent, leftOffset, topOffset, rightOffset, bottom
     LayoutHelpers.AtCenterIn(ret.bottomleftglow, ret.bottomleft)
     LayoutHelpers.AtCenterIn(ret.bottomrightglow, ret.bottomright)
     
-    ret.topleft.Left:Set(function() return parent.Left() - leftOffset end)
-    ret.topleft.Top:Set(function() return parent.Top() - topOffset end)
-    
-    ret.topright.Right:Set(function() return parent.Right() + rightOffset end)
-    ret.topright.Top:Set(function() return parent.Top() - topOffset end)
-    
-    ret.bottomleft.Left:Set(function() return parent.Left() - leftOffset end)
-    ret.bottomleft.Bottom:Set(function() return parent.Bottom() + bottomOffset end)
-    
-    ret.bottomright.Right:Set(function() return parent.Right() + rightOffset end)
-    ret.bottomright.Bottom:Set(function() return parent.Bottom() + bottomOffset end)
-    
+	LayoutHelpers.AtLeftTopIn(ret.topleft, parent, -leftOffset, -topOffset)
+	LayoutHelpers.AtRightTopIn(ret.topright, parent, -rightOffset, -topOffset)
+	LayoutHelpers.AtLeftBottomIn(ret.bottomleft, parent, -leftOffset, -bottomOffset)
+	LayoutHelpers.AtRightBottomIn(ret.bottomright, parent, -rightOffset, -bottomOffset)
+
     ret:DisableHitTest(true)
     LayoutHelpers.FillParent(ret, parent)
     

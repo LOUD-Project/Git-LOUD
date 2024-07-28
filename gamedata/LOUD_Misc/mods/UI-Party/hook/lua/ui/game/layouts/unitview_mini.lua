@@ -10,8 +10,8 @@ function PositionWindow()
 
 		local controls = import('/lua/ui/game/unitview.lua').controls
 		LayoutHelpers.AtBottomIn(controls.bg, controls.parent)
-		controls.abilities.Left:Set(function() return 30 end)
-		controls.abilities.Bottom:Set(function() return controls.bg.Bottom() - 134 end)
+		controls.abilities.Left:Set(function() return LayoutHelpers.ScaleNumber(30) end)
+		LayoutHelpers.AnchorToBottom(controls.abilities, controls.bg, 134)
 		LayoutHelpers.AtLeftIn(controls.bg, controls.parent, 17)
 
 	end

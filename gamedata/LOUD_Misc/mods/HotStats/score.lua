@@ -15,14 +15,17 @@ local Group = import('/lua/maui/group.lua').Group
 local scoreAccum = import('/mods/hotstats/scoreaccum.lua')
 local scoreData = scoreAccum.scoreData
 local scoreInterval = import('/mods/hotstats/scoreaccum.lua').scoreInterval
+
+--LayoutHelpers.SetPixelScaleFactor(1.0)
+
 page_active=false
 page_active_graph = false
 page_active_graph2 = false
 create_anime_graph=false
 create_anime_graph2=false
-graph_pos={Left=function() return 110 end, Top=function() return 120 end, Right=function() return GetFrame(0).Right()-100 end, Bottom=function() return GetFrame(0).Bottom()-160 end}
-bar_pos={Left=function() return 90 end, Top=function() return 140 end, Right=function() return GetFrame(0).Right()-60 end, Bottom=function() return GetFrame(0).Bottom()-150 end}
-bt_pos_top=160
+graph_pos={Left=function() return LayoutHelpers.ScaleNumber(110) end, Top=function() return LayoutHelpers.ScaleNumber(120) end, Right=function() return GetFrame(0).Right()-LayoutHelpers.ScaleNumber(100) end, Bottom=function() return GetFrame(0).Bottom()-LayoutHelpers.ScaleNumber(160) end}
+bar_pos={Left=function() return LayoutHelpers.ScaleNumber(90) end, Top=function() return LayoutHelpers.ScaleNumber(140) end, Right=function() return GetFrame(0).Right()-LayoutHelpers.ScaleNumber(60) end, Bottom=function() return GetFrame(0).Bottom()-LayoutHelpers.ScaleNumber(150) end}
+bt_pos_top=LayoutHelpers.ScaleNumber(160)
 
 local pathui = '/mods/hotstats/hook'
 local pathTex='/mods/hotstats/textures'
@@ -251,12 +254,12 @@ function create_graph_bar(parent,name,x1,y1,x2,y2,data_previous)
 	space_bg_height=math.max((y2-y1)*(row_nbr-1)*.1,35*(row_nbr-1))
 	bg_height=(y2-y1-space_bg_height)/row_nbr
 	
-	space_between_columns=math.floor(30/player_nbr_by_row)
-	space_bg_width=space_between_columns*7
+	space_between_columns=math.floor(LayoutHelpers.ScaleNumber(30)/player_nbr_by_row)
+	space_bg_width=space_between_columns*LayoutHelpers.ScaleNumber(7)
 
-	local bg_width=math.min((x2-x1-space_bg_width*(player_nbr_by_row-1))/player_nbr_by_row,400)
+	local bg_width=math.min((x2-x1-space_bg_width*(player_nbr_by_row-1))/player_nbr_by_row,LayoutHelpers.ScaleNumber(400))
 	local x_center=math.floor((x2-x1-player_nbr_by_row*bg_width - (player_nbr_by_row-1)*space_bg_width)/2)
-	dec={left=math.floor(bg_height*.1),top=50/row_nbr,right=80/player_nbr_by_row,bottom=math.max(math.floor(bg_height*.15),30)}
+	dec={left=math.floor(bg_height*.1),top=LayoutHelpers.ScaleNumber(50)/row_nbr,right=LayoutHelpers.ScaleNumber(80)/player_nbr_by_row,bottom=math.max(math.floor(bg_height*.15),LayoutHelpers.ScaleNumber(30))}
 	
 	
 	local columns_width=(bg_width-dec.left-dec.right-(columns_nbr-1)*space_between_columns)/columns_nbr    
@@ -266,10 +269,10 @@ function create_graph_bar(parent,name,x1,y1,x2,y2,data_previous)
 		p=p+1
 		if row==0 and row_nbr>1 and p>(player_nbr/row_nbr) then p=1 row=row+1 end
 		graphic[play.index].bg=Bitmap(grp)
-		graphic[play.index].bg.Left:Set(parent.Left() +x1+x_center +(p-1)*(space_bg_width+bg_width))
-		graphic[play.index].bg.Top:Set(parent.Top() +y1 +(bg_height+space_bg_height)*row)
-		graphic[play.index].bg.Right:Set( graphic[play.index].bg.Left() +bg_width)
-		graphic[play.index].bg.Bottom:Set(graphic[play.index].bg.Top()+bg_height)
+		graphic[play.index].bg.Left:Set(parent.Left() + x1 + x_center +(p-1)*(space_bg_width+bg_width))
+		graphic[play.index].bg.Top:Set(parent.Top() + y1 + (bg_height+space_bg_height)*row)
+		graphic[play.index].bg.Right:Set( graphic[play.index].bg.Left() + bg_width)
+		graphic[play.index].bg.Bottom:Set(graphic[play.index].bg.Top() + bg_height)
 		graphic[play.index].bg:SetSolidColor(play.color)
 --TEST		graphic[play.index].bg:SetAlpha(.65)
 		graphic[play.index].bg:SetAlpha(.08)
@@ -281,15 +284,15 @@ function create_graph_bar(parent,name,x1,y1,x2,y2,data_previous)
 		graphic[play.index].bg2:SetAlpha(.05)		
 		
 		graphic[play.index].title_label=UIUtil.CreateText(grp, string.sub(play.name,1,math.floor(bg_width/10)),math.floor(16-player_nbr_by_row/2), UIUtil.titleFont)
-		graphic[play.index].title_label.Left:Set(graphic[play.index].bg.Left()+5)
+		LayoutHelpers.AtLeftIn(graphic[play.index].title_label, graphic[play.index].bg, 5)
 		graphic[play.index].title_label:SetColor("white") --play.color)
 		graphic[play.index].title_label:SetDropShadow(true)
-		graphic[play.index].title_label.Bottom:Set(graphic[play.index].bg.Top()-5)
+		LayoutHelpers.AnchorToTop(graphic[play.index].title_label, graphic[play.index].bg, 5)
 		
 		graphic[play.index].faction= Bitmap(grp) 
 		graphic[play.index].faction:SetTexture(UIUtil.UIFile(UIUtil.GetFactionIcon(play.faction)))
-		graphic[play.index].title_label.Left:Set(graphic[play.index].bg.Left()+5+graphic[play.index].faction.Width()+9)
-		graphic[play.index].faction.Right:Set(graphic[play.index].title_label.Left()-5)
+		graphic[play.index].title_label.Left:Set(graphic[play.index].bg.Left()+LayoutHelpers.ScaleNumber(5)+graphic[play.index].faction.Width()+LayoutHelpers.ScaleNumber(9))
+		LayoutHelpers.AnchorToLeft(graphic[play.index].faction, graphic[play.index].title_label, 5)
 		graphic[play.index].factionbg= Bitmap(grp)
 		LayoutHelpers.FillParent(graphic[play.index].factionbg,graphic[play.index].faction)
 		graphic[play.index].factionbg:SetSolidColor(play.color)
@@ -358,10 +361,8 @@ function create_graph_bar(parent,name,x1,y1,x2,y2,data_previous)
 			graphic[play.index][columns_num]={}
 			graphic[play.index][columns_num].grp=Group(grp)	
 			local tmp_index=play.index
-			graphic[play.index][columns_num].grp.Left:Set(function() return graphic[tmp_index].bg.Left()+dec.left end)	
-			graphic[play.index][columns_num].grp.Top:Set(function() return graphic[tmp_index].bg.Top()+dec.top end)	
-			graphic[play.index][columns_num].grp.Right:Set(function() return graphic[tmp_index].bg.Right()-dec.right end) 
-			graphic[play.index][columns_num].grp.Bottom:Set(function() return graphic[tmp_index].bg.Bottom()-dec.bottom end)
+            LayoutHelpers.AtLeftTopIn(graphic[play.index][columns_num].grp, graphic[tmp_index].bg, dec.left, dec.top)	
+			LayoutHelpers.AtRightBottomIn(graphic[play.index][columns_num].grp, graphic[tmp_index].bg, dec.right, dec.bottom)
 
 			local part_num=0
 			local y=graphic[play.index].bg.Bottom()-dec.bottom
@@ -389,12 +390,12 @@ function create_graph_bar(parent,name,x1,y1,x2,y2,data_previous)
 			end
 	--[[		if columns.label1 !="" and columns.label1!=nil then
 				graphic[play.index][columns_num].label1=UIUtil.CreateText(graphic[tmp_index][columns_num].grp,columns.label1, 12-player_nbr/2, UIUtil.titleFont)
-				graphic[play.index][columns_num].label1.Top:Set(value[columns_num].bottom+20)
+				graphic[play.index][columns_num].label1.Top:Set(value[columns_num].bottom+LayoutHelpers.ScaleNumber(20))
 				graphic[play.index][columns_num].label1.Left:Set(value[columns_num].left+columns_width/2-graphic[play.index][columns_num].label1.Width()/2)
 			end
 			if columns.label2!="" and columns.label2!=nil then
 					graphic[play.index][columns_num].label2=UIUtil.CreateText(graphic[tmp_index][columns_num].grp,columns.label2, 12-player_nbr/2, UIUtil.titleFont)
-					graphic[play.index][columns_num].label2.Top:Set(value[columns_num].bottom+32)
+					graphic[play.index][columns_num].label2.Top:Set(value[columns_num].bottom+LayoutHelpers.ScaleNumber(32))
 					graphic[play.index][columns_num].label2.Left:Set(value[columns_num].left+columns_width/2-graphic[play.index][columns_num].label2.Width()/2)
 			end--]]
 			for k,part in columns.data do
@@ -425,16 +426,16 @@ function create_graph_bar(parent,name,x1,y1,x2,y2,data_previous)
 					graphic[play.index][columns_num][part_num].bmp.HandleEvent = function(self, event)--OnClick = function(self, modifiers)
 						--show value under mouse
 						local posX = function() return event.MouseX end -- - bg.Left() end
-						local posY = function() return event.MouseY  end-- - bg.Top() end
+						local posY = function() return event.MouseY end -- - bg.Top() end
 						if chartInfoText != false then
 							chartInfoText:Destroy()
 							chartInfoText = false
 						end
 					
 						local  value = math.floor(return_value(0,player,path) + 0.5)
-						chartInfoText = UIUtil.CreateText(self,value, 14, UIUtil.titleFont)		
+						chartInfoText = UIUtil.CreateText(self, value, 14, UIUtil.titleFont)		
 						chartInfoText.Left:Set(function() return posX()-(chartInfoText.Width()/2) end)
-						chartInfoText.Bottom:Set(function() return posY()-7 end)
+						chartInfoText.Bottom:Set(function() return posY()-LayoutHelpers.ScaleNumber(7) end)
 						chartInfoText.Depth:Set(GetFrame(0):GetTopmostDepth() + 1)
 						chartInfoText:SetColor("white")
 						chartInfoText:DisableHitTest()
@@ -447,15 +448,13 @@ function create_graph_bar(parent,name,x1,y1,x2,y2,data_previous)
 						infoPopup:SetSolidColor('black')
 						infoPopup:SetAlpha(.6)	
 						infoPopupbg.Depth:Set(function() return chartInfoText.Depth()-1 end)
-				
-						infoPopup.Width:Set(function() return chartInfoText.Width() +8 end)
-						infoPopup.Height:Set(function() return chartInfoText.Height()+8 end)
-						infoPopup.Left:Set(function() return chartInfoText.Left()-4 end)
-						infoPopup.Bottom:Set(function() return chartInfoText.Bottom()+4 end)	
-						infoPopupbg.Width:Set(function() return infoPopup.Width()+2 end)
-						infoPopupbg.Height:Set(function() return infoPopup.Height()+2 end)
-						infoPopupbg.Left:Set(function() return infoPopup.Left()-1 end)
-						infoPopupbg.Bottom:Set(function() return infoPopup.Bottom() +1 end)
+
+						infoPopup.Width:Set(function() return chartInfoText.Width() + LayoutHelpers.ScaleNumber(8) end)
+						infoPopup.Height:Set(function() return chartInfoText.Height() + LayoutHelpers.ScaleNumber(8) end)
+						LayoutHelpers.AtLeftBottomIn(infoPopup, chartInfoText, -4, -4)
+						infoPopupbg.Width:Set(function() return infoPopup.Width() + LayoutHelpers.ScaleNumber(2) end)
+						infoPopupbg.Height:Set(function() return infoPopup.Height() + LayoutHelpers.ScaleNumber(2) end)
+						LayoutHelpers.AtLeftBottomIn(infoPopupbg, infoPopup, -1, -1)
 
 						if event.Type == 'ButtonPress' then
 							create_graph_bar(parent,tmp,x1,y1,x2,y2,data_histo)
@@ -478,7 +477,7 @@ function create_graph_bar(parent,name,x1,y1,x2,y2,data_previous)
 				
 			end
 			graphic[play.index][columns_num].label_value=UIUtil.CreateText(graphic[play.index][columns_num].grp,makeKMG(value[columns_num][play.index].columns_value), math.floor(13-player_nbr_by_row/2), UIUtil.titleFont)
-			graphic[play.index][columns_num].label_value.Top:Set(math.floor(y-15))
+			graphic[play.index][columns_num].label_value.Top:Set(math.floor(y-LayoutHelpers.ScaleNumber(15)))
 			graphic[play.index][columns_num].label_value.Left:Set(math.floor(value[columns_num].left+columns_width/2-graphic[play.index][columns_num].label_value.Width()/2))
 			graphic[play.index][columns_num].label_value:SetDropShadow(true)
 
@@ -584,9 +583,9 @@ function page_graph(parent)
 	local Combo = import('/lua/ui/controls/combo.lua').Combo
 	local BitmapCombo = import('/lua/ui/controls/combo.lua').BitmapCombo
 	combo_graph=Combo(page_active, 17, 10, nil, nil, "UI_Tab_Click_01", "UI_Tab_Rollover_01")
-	combo_graph.Right:Set(function() return graph_pos.Right() end) --function() return 300 end)
-	combo_graph.Top:Set(function() return graph_pos.Top()-25 end) --function() return 300 end)
-	combo_graph.Width:Set(250)
+	combo_graph.Right:Set(graph_pos.Right) --function() return 300 end)
+    LayoutHelpers.AtTopIn(combo_graph, graph_pos, -25) --function() return 300 end)
+	LayoutHelpers.SetWidth(combo_graph, 250)
 	combo_graph.keyMap={}
 	combo_graph.Key=1
 	local i=0
@@ -619,8 +618,8 @@ function page_graph(parent)
 		local index = data.index
 		
 		--btn.Left:Set((math.min((x2-2*x1)/table.getsize(histo),200) )*i+x1)
-		btn.Left:Set((((graph_pos.Right()-100)-btn.Width()*.5*(table.getsize(main_graph)))/(table.getsize(main_graph)+1)+btn.Width()*.5)*i+100)
-		btn.Top:Set(graph_pos.Bottom()+25)
+		btn.Left:Set((((graph_pos.Right()-LayoutHelpers.ScaleNumber(100))-btn.Width()*.5*(table.getsize(main_graph)))/(table.getsize(main_graph)+1)+btn.Width()*.5)*i+LayoutHelpers.ScaleNumber(100))
+		LayoutHelpers.AnchorToBottom(btn, graph_pos, 25)
 		EffectHelpers.ScaleTo(btn, .5, 0)
 		btn:UseAlphaHitTest(false)
 		local tmp=data.path
@@ -658,8 +657,8 @@ function page_bar(parent)
 	for name,data in histo do
 		local btn = UIUtil.CreateButtonStd(page_active, '/menus/main03/large', modcontrols_trad(name.."_btn"), 14, 0, 0, "UI_Menu_MouseDown", "UI_Opt_Affirm_Over")
 		
-		btn.Left:Set((((bar_pos.Right()-100)-btn.Width()*.5*(table.getsize(main_graph)))/(table.getsize(main_graph)+1)+btn.Width()*.5)*i+100)
-		btn.Top:Set(bar_pos.Bottom()+15)
+		btn.Left:Set((((bar_pos.Right()-LayoutHelpers.ScaleNumber(100))-btn.Width()*.5*(table.getsize(main_graph)))/(table.getsize(main_graph)+1)+btn.Width()*.5)*i+LayoutHelpers.ScaleNumber(100))
+		LayoutHelpers.AnchorToBottom(btn, bar_pos, 15)
 		EffectHelpers.ScaleTo(btn, .5, 0)
 		btn:UseAlphaHitTest(false)
 		local tmp=name
@@ -680,8 +679,8 @@ function page_dual(parent)
 	local data_nbr=table.getsize(scoreData.historical) -- data_nbr is the number of group of data saved
 	LOG("Number of data found:",data_nbr)
 	if data_nbr<=0 then nodata() return nil end
-	page_active_graph=create_graph(parent,info_dialog[5].path,110,120,GetFrame(0).Right()-100,GetFrame(0).Bottom()/2-15)
-	page_active_graph2=create_graph_bar(parent,"main_histo",90,GetFrame(0).Bottom()/2+40,GetFrame(0).Right()-100,GetFrame(0).Bottom()-110)
+	page_active_graph=create_graph(parent,info_dialog[5].path,LayoutHelpers.ScaleNumber(110),LayoutHelpers.ScaleNumber(120),GetFrame(0).Right()-LayoutHelpers.ScaleNumber(100),GetFrame(0).Bottom()/2-LayoutHelpers.ScaleNumber(15))
+	page_active_graph2=create_graph_bar(parent,"main_histo",LayoutHelpers.ScaleNumber(90),GetFrame(0).Bottom()/2+LayoutHelpers.ScaleNumber(40),GetFrame(0).Right()-LayoutHelpers.ScaleNumber(100),GetFrame(0).Bottom()-LayoutHelpers.ScaleNumber(110))
 
 end
 
@@ -710,9 +709,9 @@ function create_graph(parent,path,x1,y1,x2,y2)
 	-- gray background that receive all
 	bg=Bitmap(grp)
 	bg.Left:Set(function() return parent.Left() + x1 end)
-	bg.Top:Set(function() return parent.Top()+y1 -2 end)
-	bg.Right:Set(function() return parent.Left()+x2 +2 end)
-	bg.Bottom:Set(function() return parent.Top()+y2 +1  end)
+	bg.Top:Set(function() return parent.Top() + y1 - LayoutHelpers.ScaleNumber(2) end)
+	bg.Right:Set(function() return parent.Left() + x2 + LayoutHelpers.ScaleNumber(2) end)
+	bg.Bottom:Set(function() return parent.Top() + y2 + LayoutHelpers.ScaleNumber(1)  end)
 	bg:SetSolidColor("black")
 	bg:SetAlpha(0.98)
 --ZZZ	bg:SetAlpha(0.65)
@@ -735,12 +734,12 @@ function create_graph(parent,path,x1,y1,x2,y2)
 			player[i].index=m
 			
 			player[i].title_label=UIUtil.CreateText(grp,v.nickname, 14, UIUtil.titleFont)
-			player[i].title_label.Left:Set(x1+5)
-			player[i].title_label.Top:Set(y1 +23*(i-1)+5)
+			player[i].title_label.Left:Set(x1 + LayoutHelpers.ScaleNumber(5))
+			player[i].title_label.Top:Set(y1 + LayoutHelpers.ScaleNumber(23) * (i-1) + LayoutHelpers.ScaleNumber(5))
 			player[i].title_label:SetColor("black")
 			player[i].title_label2=UIUtil.CreateText(grp,v.nickname, 14, UIUtil.titleFont)
-			player[i].title_label2.Left:Set(x1+4)
-			player[i].title_label2.Top:Set(y1 +23*(i-1)+4)
+			player[i].title_label2.Left:Set(x1 + LayoutHelpers.ScaleNumber(4))
+			player[i].title_label2.Top:Set(y1 + LayoutHelpers.ScaleNumber(23) * (i-1) + LayoutHelpers.ScaleNumber(4))
 			player[i].title_label2:SetColor(v.color)
 			local acuKills = return_value(0,player[i].index,{"units","cdr","kills"})
 			if acuKills > 0 then
@@ -788,16 +787,16 @@ function create_graph(parent,path,x1,y1,x2,y2)
 	while j<nbr_quadrillage_horiz do
 		local tmp=j
 		quadrillage_horiz[j]=Bitmap(grp)
-		quadrillage_horiz[j].Left:Set(function() return parent.Left() + x1 +1 end)
-		quadrillage_horiz[j].Top:Set(function() return parent.Top() +y2 - (y2-y1)*((tmp-1)/(nbr_quadrillage_horiz-2)) -1 end)
-		quadrillage_horiz[j].Right:Set(function() return parent.Left()+x2 +2 end)
-		quadrillage_horiz[j].Bottom:Set(function() return quadrillage_horiz[tmp].Top() +1  end)
+		quadrillage_horiz[j].Left:Set(function() return parent.Left() + x1 + LayoutHelpers.ScaleNumber(1) end)
+		quadrillage_horiz[j].Top:Set(function() return parent.Top() + y2 - (y2-y1) * ((tmp-1) / (nbr_quadrillage_horiz-2)) - LayoutHelpers.ScaleNumber(1) end)
+		quadrillage_horiz[j].Right:Set(function() return parent.Left() + x2 + LayoutHelpers.ScaleNumber(2) end)
+        LayoutHelpers.AnchorToTop(quadrillage_horiz[j], quadrillage_horiz[tmp], -1)
 		quadrillage_horiz[j]:SetSolidColor("white")
 		quadrillage_horiz[j].Depth:Set(grp.Depth)
 		
 		quadrillage_horiz[j].title_label=UIUtil.CreateText(grp,math.floor((j-1)/(nbr_quadrillage_horiz-2)*maxvalue), 14, UIUtil.titleFont)
-		quadrillage_horiz[j].title_label.Right:Set(parent.Left() + x1 -8)
-		quadrillage_horiz[j].title_label.Bottom:Set(parent.Top() +y2 - (y2-y1)*((tmp-1)/(nbr_quadrillage_horiz-2))+1)
+		quadrillage_horiz[j].title_label.Right:Set(parent.Left() + x1 - LayoutHelpers.ScaleNumber(8))
+		quadrillage_horiz[j].title_label.Bottom:Set(parent.Top() + y2 - (y2-y1) * ((tmp-1) / (nbr_quadrillage_horiz-2)) + LayoutHelpers.ScaleNumber(1))
 		quadrillage_horiz[j].title_label:SetColor("white")
 		j=j+1
 	end
@@ -806,16 +805,16 @@ function create_graph(parent,path,x1,y1,x2,y2)
 	while j<nbr_quadrillage_vertical do
 		local tmp=j
 		quadrillage_vertical[j]=Bitmap(grp)
-		quadrillage_vertical[j].Left:Set(function() return parent.Left()+x1 + ((x2-x1))*((tmp-1)/(nbr_quadrillage_vertical-2))+1  end)
-		quadrillage_vertical[j].Top:Set(function() return parent.Left()+y1 -1  end) 
-		quadrillage_vertical[j].Right:Set(function() return quadrillage_vertical[tmp].Left() +1 end)
-		quadrillage_vertical[j].Bottom:Set(function() return parent.Top()+y2  end)
+		quadrillage_vertical[j].Left:Set(function() return parent.Left() + x1 + ((x2-x1)) * ((tmp-1) / (nbr_quadrillage_vertical-2)) + LayoutHelpers.ScaleNumber(1)  end)
+		quadrillage_vertical[j].Top:Set(function() return parent.Left() + y1 - LayoutHelpers.ScaleNumber(1)  end) 
+		LayoutHelpers.AnchorToLeft(quadrillage_vertical[j], quadrillage_vertical[tmp], -1)
+		quadrillage_vertical[j].Bottom:Set(function() return parent.Top() + y2 end)
 		quadrillage_vertical[j]:SetSolidColor("white")
 		quadrillage_vertical[j].Depth:Set(grp.Depth)
 		
 		quadrillage_vertical[j].title_label=UIUtil.CreateText(grp,tps_format((j-1)/(nbr_quadrillage_vertical-2)*data_nbr*scoreInterval), 14, UIUtil.titleFont)
-		quadrillage_vertical[j].title_label.Left:Set(parent.Left()+x1 + ((x2-x1))*((tmp-1)/(nbr_quadrillage_vertical-2))+1)
-		quadrillage_vertical[j].title_label.Top:Set(parent.Top()+y2 +10)
+		quadrillage_vertical[j].title_label.Left:Set(parent.Left() + x1 + ((x2-x1))*((tmp-1)/(nbr_quadrillage_vertical-2))+LayoutHelpers.ScaleNumber(1))
+		quadrillage_vertical[j].title_label.Top:Set(parent.Top() + y2 + LayoutHelpers.ScaleNumber(10))
 		quadrillage_vertical[j].title_label:SetColor("white")
 		j=j+1
 	end
@@ -945,8 +944,8 @@ if true then
 			value_graph_label[dat.index]={}
 			val=math.floor(return_value(periode,dat.index,path))
 			value_graph_label[dat.index].title_label=UIUtil.CreateText(grp,val, 14, UIUtil.titleFont)
-			value_graph_label[dat.index].title_label.Right:Set(x-1)
-			value_graph_label[dat.index].title_label.Bottom:Set(line[dat.index].y-1)
+			value_graph_label[dat.index].title_label.Right:Set(x-LayoutHelpers.ScaleNumber(1))
+			value_graph_label[dat.index].title_label.Bottom:Set(line[dat.index].y - LayoutHelpers.ScaleNumber(1))
 			value_graph_label[dat.index].title_label:SetColor(dat.color)
 			value_graph_label[dat.index].title_label:SetDropShadow(true)
 		end
@@ -963,7 +962,7 @@ if true then
 		--displays the value when the mouse is over a graph
 		bg.HandleEvent = function(self, event)
 			local posX = function() return event.MouseX end -- - bg.Left() end
-			local posY = function() return event.MouseY  end-- - bg.Top() end
+			local posY = function() return event.MouseY end -- - bg.Top() end
 			if infoText != false then
 				infoText:Destroy()
 				infoText = false
@@ -973,7 +972,7 @@ if true then
 				local  value = tps_format((posX()-x1)/(x2-x1)*scoreInterval*data_nbr) .. " / " .. math.floor(((y2-posY())/factor))
 				infoText = UIUtil.CreateText(grp,value, 14, UIUtil.titleFont)		
 				infoText.Left:Set(function() return posX()-(infoText.Width()/2) end)
-				infoText.Bottom:Set(function() return posY()-7 end)
+				infoText.Bottom:Set(function() return posY()-LayoutHelpers.ScaleNumber(7) end)
 				infoText:SetColor("white")
 				infoText:DisableHitTest()
 		
@@ -986,14 +985,12 @@ if true then
 				infoPopup:SetAlpha(.6)	
 				infoPopupbg.Depth:Set(function() return infoText.Depth()-1 end)
 		
-				infoPopup.Width:Set(function() return infoText.Width() +8 end)
-				infoPopup.Height:Set(function() return infoText.Height()+8 end)
-				infoPopup.Left:Set(function() return infoText.Left()-4 end)
-				infoPopup.Bottom:Set(function() return infoText.Bottom()+4 end)	
-				infoPopupbg.Width:Set(function() return infoPopup.Width()+2 end)
-				infoPopupbg.Height:Set(function() return infoPopup.Height()+2 end)
-				infoPopupbg.Left:Set(function() return infoPopup.Left()-1 end)
-				infoPopupbg.Bottom:Set(function() return infoPopup.Bottom() +1 end)
+				infoPopup.Width:Set(function() return infoText.Width() + LayoutHelpers.ScaleNumber(8) end)
+				infoPopup.Height:Set(function() return infoText.Height() + LayoutHelpers.ScaleNumber(8) end)
+				LayoutHelpers.AtLeftBottomIn(infoPopup, infoText, -4, -4)
+				infoPopupbg.Width:Set(function() return infoPopup.Width() + LayoutHelpers.ScaleNumber(2) end)
+				infoPopupbg.Height:Set(function() return infoPopup.Height() + LayoutHelpers.ScaleNumber(2) end)
+				LayoutHelpers.AtLeftBottomIn(infoPopupbg, infoPopup, -1, -1)
 			end
 		end
 	end)
@@ -1106,9 +1103,9 @@ end
 	while j<nbr_quadrillage_horiz2 do
 		local tmp=j
 		quadrillage_horiz2[j]={}
-		quadrillage_horiz2[j].title_label=UIUtil.CreateText(grp,(math.floor((j-1)/(nbr_quadrillage_horiz2-2)*100)).." %", 14, UIUtil.titleFont)
-		quadrillage_horiz2[j].title_label.Left:Set(parent.Left() + x2 +10)
-		quadrillage_horiz2[j].title_label.Bottom:Set(parent.Top() +y2 - (y2-y1-15)*((tmp-1)/(nbr_quadrillage_horiz2-2))+1)
+		quadrillage_horiz2[j].title_label=UIUtil.CreateText(grp,(math.floor((j-1)/(nbr_quadrillage_horiz2-2)*LayoutHelpers.ScaleNumber(100))).." %", 14, UIUtil.titleFont)
+		quadrillage_horiz2[j].title_label.Left:Set(parent.Left() + x2 + LayoutHelpers.ScaleNumber(10))
+		quadrillage_horiz2[j].title_label.Bottom:Set(parent.Top() + y2 - (y2-y1-LayoutHelpers.ScaleNumber(15))*((tmp-1)/(nbr_quadrillage_horiz2-2))+LayoutHelpers.ScaleNumber(1))
 		quadrillage_horiz2[j].title_label:SetColor("gray")
 		j=j+1
 	end
@@ -1164,7 +1161,7 @@ function Set_graph(victory, showCampaign, operationVictoryTable, dialog, standar
 	
     standardBtn = CreateDialogTabs(dialog, modcontrols_trad("Standard"), "l")
 	LayoutHelpers.AtLeftIn(standardBtn, dialog, 44)
-	standardBtn.Bottom:Set(dialog.Bottom() - 73)
+	LayoutHelpers.AtBottomIn(standardBtn, dialog, 73)
 	standardBtn.Depth:Set(dialog.Depth() + 100)
 	standardBtn.OnClick = function(self)
 		if self:IsChecked() then
@@ -1187,7 +1184,7 @@ function Set_graph(victory, showCampaign, operationVictoryTable, dialog, standar
 
 	bar_btn = CreateDialogTabs(dialog, modcontrols_trad("Chart"), "m")
 	LayoutHelpers.AtLeftIn(bar_btn, dialog, 185)
-	bar_btn.Bottom:Set(dialog.Bottom() - 73)
+	LayoutHelpers.AtBottomIn(bar_btn, dialog, 73)
 	bar_btn:UseAlphaHitTest(false)
 	bar_btn.Depth:Set(dialog.Depth() + 100)
 	bar_btn.OnClick = function(self)
@@ -1206,7 +1203,7 @@ function Set_graph(victory, showCampaign, operationVictoryTable, dialog, standar
 
 	graph_btn = CreateDialogTabs(dialog, modcontrols_trad("Graph"), "m")
 	LayoutHelpers.AtLeftIn(graph_btn, dialog, 326)
-	graph_btn.Bottom:Set(dialog.Bottom() - 73)
+	LayoutHelpers.AtBottomIn(graph_btn, dialog, 73)
 	graph_btn:UseAlphaHitTest(false)
 	graph_btn.Depth:Set(dialog.Depth() + 100)
 	graph_btn.OnClick = function(self)
@@ -1225,7 +1222,7 @@ function Set_graph(victory, showCampaign, operationVictoryTable, dialog, standar
 	
 	dual_btn = CreateDialogTabs(dialog, "Dual", "r")
 	LayoutHelpers.AtLeftIn(dual_btn, dialog, 467)
-	dual_btn.Bottom:Set(dialog.Bottom() - 73)
+	LayoutHelpers.AtBottomIn(dual_btn, dialog, 73)
 	dual_btn:UseAlphaHitTest(false)
 	dual_btn.Depth:Set(dialog.Depth() + 100)
 	dual_btn.OnClick = function(self)

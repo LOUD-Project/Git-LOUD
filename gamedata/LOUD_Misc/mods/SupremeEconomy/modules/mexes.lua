@@ -148,7 +148,7 @@ function updateButton(mexTable, button, enableMarker, tooltipText, countBeingBui
 				end
 			end
 
-			button.progress.Height:Set(3)
+			LayoutHelpers.SetHeight(button.progress, 3)
 			button.progress:SetValue(maxWorkProgress)
 
 		else

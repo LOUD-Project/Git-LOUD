@@ -58,7 +58,7 @@ function SetLayout()
         if tab.Glow then
             tab.Glow:SetTexture(UIUtil.UIFile('/game/pause_btn/glow_bmp.dds'))
         end
-        containerWidth = containerWidth + tab.Width() - 4
+        containerWidth = containerWidth + tab.Width() - LayoutHelpers.ScaleNumber(4)
         containerHeight = math.max(containerHeight, tab.Height())
     end
     
@@ -71,7 +71,7 @@ function SetLayout()
     controls.parent.Height:Set(function() return controls.bgTop.Height() + controls.bgBottom.Height() end)
     LayoutHelpers.AtHorizontalCenterIn(controls.parent, GetFrame(0))
     LayoutHelpers.AtTopIn(controls.parent, GetFrame(0))
-    controls.bgTop.defWidth = 180
+    controls.bgTop.defWidth = LayoutHelpers.ScaleNumber(180)
     controls.bgTop.Width:Set(controls.bgTop.defWidth)
 end
 
@@ -90,7 +90,7 @@ function LayoutStretchBG()
     
     controls.bgLeftStretch:SetTexture(UIUtil.UIFile('/game/options-panel/options_brd_vert_l.dds'))
     controls.bgLeftStretch.Bottom:Set(controls.bgBottomLeftGlow.Top)
-    controls.bgLeftStretch.Left:Set(function() return controls.bgTopLeftGlow.Left() + 4 end)
+    LayoutHelpers.AtLeftIn(controls.bgLeftStretch, controls.bgTopLeftGlow, 4)
     controls.bgLeftStretch.Top:Set(controls.bgTopLeftGlow.Bottom)
     
     controls.bgBottomRightGlow:SetTexture(UIUtil.UIFile('/game/options-panel/options_brd_vert_lr.dds'))
@@ -105,7 +105,7 @@ function LayoutStretchBG()
     
     controls.bgRightStretch:SetTexture(UIUtil.UIFile('/game/options-panel/options_brd_vert_r.dds'))
     controls.bgRightStretch.Bottom:Set(controls.bgBottomRightGlow.Top)
-    controls.bgRightStretch.Right:Set(function() return controls.bgTopRightGlow.Right() - 4 end)
+    LayoutHelpers.AtRightIn(controls.bgRightStretch, controls.bgTopRightGlow, 4)
     controls.bgRightStretch.Top:Set(controls.bgTopRightGlow.Bottom)
     
     controls.bgMidStretch:SetTexture(UIUtil.UIFile('/game/options-panel/options_brd_m.dds'))

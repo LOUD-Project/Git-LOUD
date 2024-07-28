@@ -72,12 +72,10 @@ Combo = Class(Group) {
         self._btnRight:DisableHitTest()
         self._btnMid:DisableHitTest()
         
-        LayoutHelpers.AtLeftIn(self._btnLeft, self)
-        LayoutHelpers.AtTopIn(self._btnLeft, self)
-        LayoutHelpers.AtRightIn(self._btnRight, self)
-        LayoutHelpers.AtTopIn(self._btnRight, self)
+        LayoutHelpers.AtLeftTopIn(self._btnLeft, self)
+        LayoutHelpers.AtRightTopIn(self._btnRight, self)
         LayoutHelpers.AtTopIn(self._btnMid, self)
-        self._btnMid.Left:Set(function() return self._btnLeft.Right() - 1 end)
+        LayoutHelpers.AnchorToRight(self._btnMid, self._btnLeft, -1)
         self._btnMid.Right:Set(self._btnRight.Left)
 
         self._text = UIUtil.CreateText(self._btnMid, "", pointSize, UIUtil.bodyFont)
@@ -85,15 +83,16 @@ Combo = Class(Group) {
 
         -- text control is height of text/font, and from left to button
         self.Height:Set(function() return math.max(self._text.Height(), self._btnMid.Height()) end)
-        self._text.Top:Set(self._btnMid.Top)
-        self._text.Left:Set(function() return self._btnLeft.Left() + 5 end)
-        self._text.Right:Set(function() return self._btnMid.Right() + 5 end)
+		LayoutHelpers.AtVerticalCenterIn(self._text, self._btnMid, 1)
+        --self._text.Top:Set(self._btnMid.Top)
+        LayoutHelpers.AtLeftIn(self._text, self._btnLeft, 5)
+        LayoutHelpers.AtRightIn(self._text, self._btnMid, -5)
         self._text:SetClipToWidth(true)
 
         self._dropdown = Group(self._text)
         self._dropdown.Top:Set(self.Bottom)
-        self._dropdown.Right:Set(function() return self.Right() end)
-        self._dropdown.Width:Set(function() return self.Width() - 5 end)
+        self._dropdown.Right:Set(self.Right)
+        self._dropdown.Width:Set(function() return self.Width() - LayoutHelpers.ScaleNumber(5) end)
     
         local ddul = Bitmap(self._dropdown, bitmaps.list.ul)
         local ddum = Bitmap(self._dropdown, bitmaps.list.um)
@@ -106,10 +105,8 @@ Combo = Class(Group) {
         local ddlr = Bitmap(self._dropdown, bitmaps.list.lr)
 
         -- top part is fixed under self        
-        LayoutHelpers.AtLeftIn(ddul, self._dropdown)
-        LayoutHelpers.AtTopIn(ddul, self._dropdown)
-        LayoutHelpers.AtRightIn(ddur, self._dropdown)
-        LayoutHelpers.AtTopIn(ddur, self._dropdown)
+        LayoutHelpers.AtLeftTopIn(ddul, self._dropdown)
+        LayoutHelpers.AtRightTopIn(ddur, self._dropdown)
         LayoutHelpers.AtTopIn(ddum, self._dropdown)
         ddum.Left:Set(ddul.Right)
         ddum.Right:Set(ddur.Left)
@@ -395,17 +392,15 @@ BitmapCombo = Class(Group) {
         
         self.Height:Set(self._btnMid.Height)
 
-        LayoutHelpers.AtLeftIn(self._btnLeft, self)
-        LayoutHelpers.AtTopIn(self._btnLeft, self)
-        LayoutHelpers.AtRightIn(self._btnRight, self)
-        LayoutHelpers.AtTopIn(self._btnRight, self)
+        LayoutHelpers.AtLeftTopIn(self._btnLeft, self)
+        LayoutHelpers.AtRightTopIn(self._btnRight, self)
         LayoutHelpers.AtTopIn(self._btnMid, self)
-        self._btnMid.Left:Set(function() return self._btnLeft.Right() - 1 end)
+        LayoutHelpers.AnchorToRight(self._btnMid, self._btnLeft, -1)
         self._btnMid.Right:Set(self._btnRight.Left)
 
         self._bitmap = Bitmap(self._btnMid)
         LayoutHelpers.AtTopIn(self._bitmap, self._btnMid, 2)
-        self._bitmap.Left:Set(function() return self._btnLeft.Left() + 5 end)
+        LayoutHelpers.AtLeftIn(self._bitmap, self._btnLeft, 5)
         self._bitmap:DisableHitTest()
 
         self._dropdown = Group(self)

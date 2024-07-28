@@ -31,6 +31,8 @@
 -- AcquireFocus()
 
 local Control = import('control.lua').Control
+local ScaleNumber = import("/lua/maui/layouthelpers.lua").ScaleNumber
+local UIUtil = import('/lua/ui/uiutil.lua')
 
 Edit = Class(moho.edit_methods, Control) {
 
@@ -43,6 +45,8 @@ Edit = Class(moho.edit_methods, Control) {
         local LazyVar = import('/lua/lazyvar.lua')
         self._lockFontChanges = false
         self._font = {_family = LazyVar.Create(), _pointsize = LazyVar.Create()}
+		self._font._family:Set(UIUtil.fixedFont)
+        self._font._pointsize:Set(ScaleNumber(8))
         self._font._family.OnDirty = function(var)
             self:_internalSetFont()
         end
@@ -81,7 +85,7 @@ Edit = Class(moho.edit_methods, Control) {
     SetFont = function(self, family, pointsize)
         if self._font then
             self._lockFontChanges = true
-            self._font._pointsize:Set(pointsize)
+			self._font._pointsize:Set(ScaleNumber(pointsize))
             self._font._family:Set(family)
             self._lockFontChanges = false
             self:_internalSetFont()

@@ -8,7 +8,7 @@ do
       originalCreateUI(isReplay)
       
       -- get the map group control to attach my new panel to
-      local parent = import('/lua/ui/game/borders.lua').GetMapGroup()
+      local parent = import('/lua/ui/game/economy.lua').GUI.bg
       
       -- create the button, note that imports are not hooked, so we need to specify the location of our file in the mod 
       import('/Mods/V2ExtractorUpgrades/modules/newstuff.lua').CreateButton(parent)

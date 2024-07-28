@@ -174,8 +174,7 @@ function CreateUnitDB(over, callback)
 -- Unit display
 
 	unitDisplay = Group(panel)
-	unitDisplay.Height:Set(576)
-	unitDisplay.Width:Set(280)
+	LayoutHelpers.SetDimensions(unitDisplay, 280, 576)
 	LayoutHelpers.AtLeftTopIn(unitDisplay, panel, 20, 60)
 	unitDisplay.bg = Bitmap(unitDisplay)
 	unitDisplay.bg.Depth:Set(unitDisplay.Depth)
@@ -204,14 +203,18 @@ function CreateUnitDB(over, callback)
 	unitDisplay.shortDesc2:DisableHitTest()
 	LayoutHelpers.Below(unitDisplay.shortDesc2, unitDisplay.shortDesc1)
 
+	unitDisplay.factionIcon = Bitmap(unitDisplay.icon)
+	unitDisplay.factionIcon:SetSolidColor(UIUtil.panelColor)
+	LayoutHelpers.Below(unitDisplay.factionIcon, unitDisplay.backIcon, 4)
+
 	-- Origin mod and ID
 	unitDisplay.technicals = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
-	LayoutHelpers.Below(unitDisplay.technicals, unitDisplay.backIcon, 4)
+	LayoutHelpers.RightOf(unitDisplay.technicals, unitDisplay.factionIcon, 4)
 
 	unitDisplay.longDesc = UIUtil.CreateTextBox(unitDisplay)
-	LayoutHelpers.Below(unitDisplay.longDesc, unitDisplay.technicals, 4)
+	LayoutHelpers.Below(unitDisplay.longDesc, unitDisplay.factionIcon, 4)
 	unitDisplay.longDesc.Width:Set(unitDisplay.Width)
-	unitDisplay.longDesc.Height:Set(120)
+	LayoutHelpers.SetHeight(unitDisplay.longDesc, 120)
 	unitDisplay.longDesc.OnClick = function(self, row, event)
 		-- Prevent highlighting lines on click
 	end
@@ -310,8 +313,7 @@ function CreateUnitDB(over, callback)
 -- List of filtered units
 
 	listContainer = Group(panel)
-	listContainer.Height:Set(576)
-	listContainer.Width:Set(328)
+	LayoutHelpers.SetDimensions(listContainer, 328, 576)
 	listContainer.top = 0
 	LayoutHelpers.RightOf(listContainer, unitDisplay, 40)
 
@@ -319,7 +321,7 @@ function CreateUnitDB(over, callback)
 
 	local function CreateElement(i)
 		unitList[i] = Group(listContainer)
-		unitList[i].Height:Set(64)
+		LayoutHelpers.SetHeight(unitList[i], 64)
 		unitList[i].Width:Set(listContainer.Width)
 		unitList[i].bg = Bitmap(unitList[i])
 		unitList[i].bg.Depth:Set(unitList[i].Depth)
@@ -330,7 +332,7 @@ function CreateUnitDB(over, callback)
 		else
 			unitList[i].bg:SetSolidColor('445258')
 		end
-		unitList[i].bg.Right:Set(function() return unitList[i].Right() - 10 end)
+		LayoutHelpers.AtRightIn(unitList[i].bg, unitList[i], 10)
 		unitList[i].backIcon = Bitmap(unitList[i])
 		LayoutHelpers.AtLeftTopIn(unitList[i].backIcon, unitList[i], 4, 1)
 		unitList[i].icon = Bitmap(unitList[i])
@@ -450,8 +452,7 @@ function CreateUnitDB(over, callback)
 -- Settings
 
 	local settingsContainer = Group(panel)
-	settingsContainer.Height:Set(120)
-	settingsContainer.Width:Set(262)
+	LayoutHelpers.SetDimensions(settingsContainer, 262, 120)
 	LayoutHelpers.RightOf(settingsContainer, listContainer, 28)
 
 	local settingsContainerTitle = UIUtil.CreateText(settingsContainer, 'Settings', 24, UIUtil.titleFont)
@@ -459,7 +460,7 @@ function CreateUnitDB(over, callback)
 	LayoutHelpers.AtHorizontalCenterIn(settingsContainerTitle, settingsContainer)
 
 	local settingGroupEvenflow = Group(settingsContainer)
-	settingGroupEvenflow.Height:Set(20)
+	LayoutHelpers.SetHeight(settingGroupEvenflow, 20)
 	settingGroupEvenflow.Width:Set(settingsContainer.Width)
 	LayoutHelpers.AtLeftTopIn(settingGroupEvenflow, settingsContainer, 0, 32)
 	local settingEvenflowLabel = UIUtil.CreateText(settingGroupEvenflow, 'LOUD EvenFlow', 14, UIUtil.bodyFont)
@@ -476,7 +477,7 @@ function CreateUnitDB(over, callback)
 	Tooltip.AddControlTooltip(settingGroupEvenflow, 'unitdb_evenflow')
 
 	local settingGroupArtillery = Group(settingsContainer)
-	settingGroupArtillery.Height:Set(20)
+	LayoutHelpers.SetHeight(settingGroupArtillery, 20)
 	settingGroupArtillery.Width:Set(settingsContainer.Width)
 	LayoutHelpers.Below(settingGroupArtillery, settingGroupEvenflow, 4)
 	local settingArtyLabel = UIUtil.CreateText(settingGroupArtillery, 'Enhanced T4 Artillery', 14, UIUtil.bodyFont)
@@ -493,7 +494,7 @@ function CreateUnitDB(over, callback)
 	Tooltip.AddControlTooltip(settingGroupArtillery, 'unitdb_artillery')
 
 	local settingGroupCommanders = Group(settingsContainer)
-	settingGroupCommanders.Height:Set(20)
+	LayoutHelpers.SetHeight(settingGroupCommanders, 20)
 	settingGroupCommanders.Width:Set(settingsContainer.Width)
 	LayoutHelpers.Below(settingGroupCommanders, settingGroupArtillery, 4)
 	local settingComLabel = UIUtil.CreateText(settingGroupCommanders, 'Enhanced Commanders', 14, UIUtil.bodyFont)
@@ -510,7 +511,7 @@ function CreateUnitDB(over, callback)
 	Tooltip.AddControlTooltip(settingGroupCommanders, 'unitdb_commanders')
 
 	local settingGroupNukes = Group(settingsContainer)
-	settingGroupNukes.Height:Set(20)
+	LayoutHelpers.SetHeight(settingGroupNukes, 20)
 	settingGroupNukes.Width:Set(settingsContainer.Width)
 	LayoutHelpers.Below(settingGroupNukes, settingGroupCommanders, 4)
 	local settingNukesLabel = UIUtil.CreateText(settingGroupNukes, 'Realistic Nukes', 14, UIUtil.bodyFont)
@@ -529,8 +530,7 @@ function CreateUnitDB(over, callback)
 -- FILTERS: Basics
 
 	local filterContainer = Group(panel)
-	filterContainer.Height:Set(384)
-	filterContainer.Width:Set(262)
+	LayoutHelpers.SetDimensions(filterContainer, 262, 384)
 	LayoutHelpers.Below(filterContainer, settingsContainer, 4)
 
 	local filterContainerTitle = UIUtil.CreateText(filterContainer, 'Filters', 24, UIUtil.titleFont)
@@ -540,7 +540,7 @@ function CreateUnitDB(over, callback)
 	-- Used for everything except name and faction; returns a Group
 	local function MakeFilterCombo(labelText, width, filterKey, items, elementAbove)
 		local filterGroup = Group(filterContainer)
-		filterGroup.Height:Set(20)
+		LayoutHelpers.SetHeight(filterGroup, 20)
 		filterGroup.Width:Set(filterContainer.Width)
 		if elementAbove then
 			LayoutHelpers.Below(filterGroup, elementAbove, 2)
@@ -553,7 +553,7 @@ function CreateUnitDB(over, callback)
 		filterGroup.combo:AddItems(items, 1)
 		LayoutHelpers.AtRightIn(filterGroup.combo, filterGroup, 2)
 		LayoutHelpers.AtVerticalCenterIn(filterGroup.combo, filterGroup)
-		filterGroup.combo.Width:Set(width)
+		LayoutHelpers.SetWidth(filterGroup.combo, width)
 		filterGroup.combo.OnClick = function(self, index)
 			filters[filterKey] = index
 			Tooltip.DestroyMouseoverDisplay()
@@ -564,7 +564,7 @@ function CreateUnitDB(over, callback)
 	-- Name
 
 	local filterGroupName = Group(filterContainer)
-	filterGroupName.Height:Set(20)
+	LayoutHelpers.SetHeight(filterGroupName, 20)
 	filterGroupName.Width:Set(filterContainer.Width)
 	LayoutHelpers.AtLeftTopIn(filterGroupName, filterContainer, 0, 32)
 	local filterNameLabel = UIUtil.CreateText(filterGroupName, 'Name', 14, UIUtil.bodyFont)
@@ -574,7 +574,7 @@ function CreateUnitDB(over, callback)
 	local filterNameEdit = Edit(filterGroupName)
 	LayoutHelpers.AtRightIn(filterNameEdit, filterGroupName, 4)
 	LayoutHelpers.AtVerticalCenterIn(filterNameEdit, filterGroupName)
-	filterNameEdit.Width:Set(160)
+	LayoutHelpers.SetWidth(filterNameEdit, 160)
 	filterNameEdit.Height:Set(filterGroupName.Height)
 	filterNameEdit:SetFont(UIUtil.bodyFont, 12)
 	filterNameEdit:SetForegroundColor(UIUtil.fontColor)
@@ -595,7 +595,7 @@ function CreateUnitDB(over, callback)
 	-- Faction
 
 	local filterGroupFaction = Group(filterContainer)
-	filterGroupFaction.Height:Set(20)
+	LayoutHelpers.SetHeight(filterGroupFaction, 20)
 	filterGroupFaction.Width:Set(filterContainer.Width)
 	LayoutHelpers.Below(filterGroupFaction, filterGroupName, 2)
 	local filterFactionLabel = UIUtil.CreateText(filterGroupFaction, 'Faction', 14, UIUtil.bodyFont)
@@ -605,7 +605,7 @@ function CreateUnitDB(over, callback)
 	local filterFactionCombo = BitmapCombo(filterGroupFaction, factionBmps, table.getn(factionBmps), nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
 	LayoutHelpers.AtRightIn(filterFactionCombo, filterGroupFaction, 2)
 	LayoutHelpers.AtVerticalCenterIn(filterFactionCombo, filterGroupFaction)
-	filterFactionCombo.Width:Set(60)
+	LayoutHelpers.SetWidth(filterFactionCombo, 60)
 	filterFactionCombo.OnClick = function(self, index)
 		-- 1 = All ; 2 = UEF ; 3 = Cybran ; 4 = Aeon ; 5 -> Sera
 		filters['faction'] = index
@@ -638,8 +638,8 @@ function CreateUnitDB(over, callback)
 
 	local weaponsRow = Bitmap(filterContainer)
 	LayoutHelpers.Below(weaponsRow, filterGroups.origin, 4)
-	weaponsRow.Height:Set(2)
-	weaponsRow.Width:Set(filterContainer.Width() - 8)
+	LayoutHelpers.SetHeight(weaponsRow, 2)
+	weaponsRow.Width:Set(filterContainer.Width() - LayoutHelpers.ScaleNumber(8))
 	weaponsRow:SetSolidColor('ADCFCE') -- Same colour as light lines in background
 
 	local weaponsBlockLabel = UIUtil.CreateText(filterContainer, 'Weapons', 18, UIUtil.buttonFont)
@@ -648,7 +648,8 @@ function CreateUnitDB(over, callback)
 
 	local anyYesNo = { "Any", "Yes", "No" }
 	filterGroups.directFire = MakeFilterCombo("Direct Fire", 60, 'directfire', anyYesNo, nil)
-	LayoutHelpers.Below(filterGroups.directFire, weaponsRow, 2 + weaponsBlockLabel.Height())
+	filterGroups.directFire.Left:Set(filterGroups.origin.Left)
+	LayoutHelpers.AnchorToBottom(filterGroups.directFire, weaponsBlockLabel, 4)
 	filterGroups.indirectFire = MakeFilterCombo("Indirect Fire", 60, 'indirectfire', anyYesNo, filterGroups.directFire)
 	filterGroups.antiAir = MakeFilterCombo("Anti-Air", 60, 'antiair', anyYesNo, filterGroups.indirectFire)
 	filterGroups.torps = MakeFilterCombo("Torpedoes", 60, 'torpedoes', anyYesNo, filterGroups.antiAir)
@@ -664,8 +665,8 @@ function CreateUnitDB(over, callback)
 
 	local miscRow = Bitmap(filterContainer)
 	LayoutHelpers.Below(miscRow, filterGroups.EMP, 4)
-	miscRow.Height:Set(2)
-	miscRow.Width:Set(filterContainer.Width() - 8)
+	LayoutHelpers.SetHeight(miscRow, 2)
+	miscRow.Width:Set(filterContainer.Width() - LayoutHelpers.ScaleNumber(8))
 	miscRow:SetSolidColor('ADCFCE') -- Same colour as light lines in background
 
 	filterGroups.amphib = MakeFilterCombo("Amphibious", 60, 'amphib', anyYesNo, nil)
@@ -731,7 +732,8 @@ function CreateUnitDB(over, callback)
 
 	local r = tostring(count).." results found."
 	resultText = UIUtil.CreateText(panel, r, 16, UIUtil.bodyFont)
-	LayoutHelpers.AtLeftTopIn(resultText, panel, exitBtn.Width() + 40, 670)
+	LayoutHelpers.AnchorToRight(resultText, exitBtn, 40)
+	LayoutHelpers.AtTopIn(resultText, panel, 670)
 
 	panel.HandleEvent = function(self, event)
 		if event.Type ~= 'KeyDown' then
@@ -786,7 +788,7 @@ function FillLine(line, index)
 	line:Show()
 	local n = LOC(bp.General.UnitName) or LOC(bp.Description) or 'Unnamed Unit'
 	line.name:SetText(n)
-	local wrappedText = Text.FitText(LOC(bp.Description) or 'Unnamed Unit', 224,
+	local wrappedText = Text.FitText(LOC(bp.Description) or 'Unnamed Unit', LayoutHelpers.ScaleNumber(224),
 		function(nt) return line.desc:GetStringAdvance(nt) end)
 		if table.getn(wrappedText) > 1 then
 			line.desc:SetText(wrappedText[1]..'...')
@@ -835,6 +837,7 @@ function DisplayUnit(index)
 
 	unitDisplay.icon:Show()
 	unitDisplay.stratIcon:Show()
+	unitDisplay.factionIcon:Show()
 	unitDisplay.backIcon:Show()
 	local validIcons = {land = true, air = true, sea = true, amph = true}
 	if validIcons[bp.General.Icon] then
@@ -850,6 +853,17 @@ function DisplayUnit(index)
 	end
 	unitDisplay.stratIcon:SetTexture(UIUtil.UIFile('/game/strategicicons/'..bp.StrategicIconName..'_rest.dds'))
 
+	local factionKey = string.lower(bp.General.FactionName)
+	if factionKey then
+		local factionIndex = FactionData.FactionIndexMap[factionKey]
+		if factionIndex then
+			local factionIcon = FactionData.Factions[factionIndex].SmallIcon
+			if factionIcon then
+				unitDisplay.factionIcon:SetTexture(UIUtil.UIFile(factionIcon))
+			end
+		end
+	end
+
 	unitDisplay.technicals:SetText('Mod: '..originMap[origin[index]]..' ('..id..')')
 
 	unitDisplay.longDesc:Show()
@@ -857,7 +871,7 @@ function DisplayUnit(index)
 	UIUtil.SetTextBoxText(unitDisplay.longDesc, ld)
 	if bp.Display.Abilities then
 		unitDisplay.abilities:DeleteAllItems()
-		unitDisplay.abilities.Height:Set(unitDispAbilHeight)
+		LayoutHelpers.SetHeight(unitDisplay.abilities, unitDispAbilHeight)
 		unitDisplay.abilities:Show()
 		for _, a in bp.Display.Abilities do
 			unitDisplay.abilities:AddItem(LOC(a))
@@ -943,7 +957,7 @@ function DisplayUnit(index)
 		unitDisplay.weaponsLabel:Show()
 		unitDisplay.weapons:Show()
 		unitDisplay.weapons:DeleteAllItems()
-		unitDisplay.weapons.Height:Set(120)
+		LayoutHelpers.SetHeight(unitDisplay.weapons, 120)
 
 		local textLines = {}
 		-- Import PhoenixMT's DPS Calculator script.
@@ -1265,6 +1279,7 @@ function ClearUnitDisplay()
 	unitDisplay.backIcon:Hide()
 	unitDisplay.icon:Hide()
 	unitDisplay.stratIcon:Hide()
+	unitDisplay.factionIcon:Hide()
 	unitDisplay.name:SetText('')
 	unitDisplay.shortDesc1:SetText('')
 	unitDisplay.shortDesc2:SetText('')

@@ -3,7 +3,7 @@
 --* Author: Chris Blackwell
 --* Summary: handles multiplayer desyncs
 --*
---* Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+--* Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
 --*****************************************************************************
 
 local UIUtil = import('/lua/ui/uiutil.lua')
@@ -23,8 +23,7 @@ function UpdateDialog(beatNumber, strings)
             
 			LOG("Desynch at beat " .. beatNumber .. " tick " .. GetGameTimeSeconds())
             
-			dialog.Width:Set(300)
-			dialog.Height:Set(250)
+			LayoutHelpers.SetDimensions(dialog, 300, 250)
 			dialog.Depth:Set(GetFrame(0):GetTopmostDepth() + 10)
             
 			LayoutHelpers.AtCenterIn(dialog, GetFrame(0))
@@ -48,7 +47,7 @@ function UpdateDialog(beatNumber, strings)
 					LayoutHelpers.Below(dialog.textControls[i], prev, 5)
 				else
 					LayoutHelpers.AtLeftIn(dialog.textControls[i], bg, 5)
-					dialog.textControls[i].Top:Set(function() return title.Bottom() + 5 end)
+					LayoutHelpers.AnchorToBottom(dialog.textControls[i], title, 5)
 				end
                 
 				prev = dialog.textControls[i]

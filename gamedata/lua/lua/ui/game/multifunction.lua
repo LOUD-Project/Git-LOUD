@@ -219,7 +219,7 @@ function Create(parent)
             Tooltip.AddCheckboxTooltip(btn, buttonData.tooltip)
         end
         btn.ID = buttonData.id
-        btn:UseAlphaHitTest(true)
+        btn:UseAlphaHitTest(false)
         
         if buttonData.dropout then
             btn.dropout = Checkbox(btn,
@@ -244,7 +244,7 @@ function Create(parent)
             UIUtil.SkinnableFile('/game/mfd_btn/'..buttonData.bitmap..'_btn_dis.dds'),
             'UI_Tab_Click_01', 'UI_Tab_Rollover_01')
         Tooltip.AddButtonTooltip(btn, buttonData.tooltip)
-        btn:UseAlphaHitTest(true)
+        btn:UseAlphaHitTest(false)
         btn.ID = buttonData.pingType
         btn.cursor = buttonData.cursor
         if SessionIsReplay() or GetFocusArmy() == -1 then
@@ -372,8 +372,7 @@ function CreateMapDropout(parent)
             
             bg.treehorz = Bitmap(bg)
             bg.treehorz:SetSolidColor(UIUtil.fontColor)
-            bg.treehorz.Height:Set(1)
-            bg.treehorz.Width:Set(6)
+            LayoutHelpers.SetDimensions(bg.treehorz, 6, 1)
             LayoutHelpers.AtLeftIn(bg.treehorz, bg)
             LayoutHelpers.AtVerticalCenterIn(bg.treehorz, bg)
             
@@ -467,12 +466,12 @@ function CreateMapDropout(parent)
         
         group.treeVert = Bitmap(group)
         group.treeVert:SetSolidColor(UIUtil.fontColor)
-        group.treeVert.Width:Set(1)
+        LayoutHelpers.SetWidth(group.treeVert, 1)
         LayoutHelpers.AtLeftIn(group.treeVert, bg)
         group.treeVert.Top:Set(group.title.Bottom)
         group.treeVert.Bottom:Set(function() return group.toggles[table.getsize(group.toggles)].Top() + (group.toggles[1].Height()/2) end)
         
-        group.Width:Set(170)
+        LayoutHelpers.SetWidth(group, 170)
         group.Height:Set(function() return group.title.Height() + (table.getsize(group.toggles) * group.toggles[1].Height()) end)
         return group
     end
@@ -498,8 +497,8 @@ function CreateMapDropout(parent)
             LayoutHelpers.AtLeftTopIn(bg.mapControls[index], bg, 0, 0)
         end
         prevControl = bg.mapControls[index]
-        maxWidth = math.max(prevControl.Width()+5, maxWidth)
-        totHeight = totHeight + prevControl.Height() + 5
+        maxWidth = math.max(prevControl.Width() + LayoutHelpers.ScaleNumber(5), maxWidth)
+        totHeight = totHeight + prevControl.Height() + LayoutHelpers.ScaleNumber(5)
     end
     
     local function SetItemAlpha(alpha)
@@ -509,7 +508,7 @@ function CreateMapDropout(parent)
     end
     
     bg.Height:Set(totHeight + 0)
-    bg.Width:Set(maxWidth + 30)
+    bg.Width:Set(maxWidth + LayoutHelpers.ScaleNumber(30))
     LayoutHelpers.AtCenterIn(bg, GetFrame(0))
     bg.Depth:Set(GetFrame(0):GetTopmostDepth() + 1)
     
@@ -758,28 +757,28 @@ function CreateFilterDropout(parent)
             bg.checkBorder.t.Bottom:Set(bg.check.Top)
             bg.checkBorder.t.Left:Set(bg.check.Left)
             bg.checkBorder.t.Right:Set(bg.check.Right)
-            bg.checkBorder.t.Height:Set(1)
+            LayoutHelpers.SetHeight(bg.checkBorder.t, 1)
             
             bg.checkBorder.b = Bitmap(bg)
             bg.checkBorder.b:SetSolidColor(UIUtil.fontColor)
             bg.checkBorder.b.Top:Set(bg.check.Bottom)
             bg.checkBorder.b.Left:Set(bg.check.Left)
             bg.checkBorder.b.Right:Set(bg.check.Right)
-            bg.checkBorder.b.Height:Set(1)
+            LayoutHelpers.SetHeight(bg.checkBorder.b, 1)
             
             bg.checkBorder.l = Bitmap(bg)
             bg.checkBorder.l:SetSolidColor(UIUtil.fontColor)
             bg.checkBorder.l.Right:Set(bg.check.Left)
             bg.checkBorder.l.Top:Set(bg.checkBorder.t.Top)
             bg.checkBorder.l.Bottom:Set(bg.checkBorder.b.Bottom)
-            bg.checkBorder.l.Width:Set(1)
+            LayoutHelpers.SetWidth(bg.checkBorder.l, 1)
             
             bg.checkBorder.r = Bitmap(bg)
             bg.checkBorder.r:SetSolidColor(UIUtil.fontColor)
             bg.checkBorder.r.Left:Set(bg.check.Right)
             bg.checkBorder.r.Top:Set(bg.checkBorder.t.Top)
             bg.checkBorder.r.Bottom:Set(bg.checkBorder.b.Bottom)
-            bg.checkBorder.r.Width:Set(1)
+            LayoutHelpers.SetWidth(bg.checkBorder.r, 1)
             
             bg.checkBGColor = Bitmap(bg)
             LayoutHelpers.FillParent(bg.checkBGColor, bg.check)
@@ -809,14 +808,13 @@ function CreateFilterDropout(parent)
         else
             bg.treeVert = Bitmap(bg)
             bg.treeVert:SetSolidColor(UIUtil.fontColor)
-            bg.treeVert.Width:Set(1)
+            LayoutHelpers.SetWidth(bg.treeVert, 1)
             bg.treeVert.Height:Set(bg.Height)
             LayoutHelpers.AtLeftTopIn(bg.treeVert, bg, 5)
             
             bg.treeHorz = Bitmap(bg)
             bg.treeHorz:SetSolidColor(UIUtil.fontColor)
-            bg.treeHorz.Width:Set(6)
-            bg.treeHorz.Height:Set(1)
+            LayoutHelpers.SetDimensions(bg.treeHorz, 6, 1)
             
             LayoutHelpers.AtLeftIn(bg.treeHorz, bg, 5)
             LayoutHelpers.AtVerticalCenterIn(bg.treeHorz, bg)
@@ -826,7 +824,7 @@ function CreateFilterDropout(parent)
             LayoutHelpers.AtVerticalCenterIn(bg.check, bg)
         end
         
-        bg.Height:Set(function() return bg.text.Height() + 4 end)
+        bg.Height:Set(function() return bg.text.Height() + LayoutHelpers.ScaleNumber(4) end)
         
         return bg
     end
@@ -854,14 +852,14 @@ function CreateFilterDropout(parent)
             if bg.items[index].treeVert and firstVert then
                 local I = index
                 LayoutHelpers.AtLeftTopIn(bg.items[index].treeVert, bg.items[index], 5, -3)
-                bg.items[index].treeVert.Height:Set(function() return bg.items[I].Height() + 3 end)
+                bg.items[index].treeVert.Height:Set(function() return bg.items[I].Height() + LayoutHelpers.ScaleNumber(3) end)
                 firstVert = false
             end
-            maxWidth = math.max(maxWidth, bg.items[index].text.Width() + bg.items[index].check.Width() + 20)
+            maxWidth = math.max(maxWidth, bg.items[index].text.Width() + bg.items[index].check.Width() + LayoutHelpers.ScaleNumber(20))
             index = index + 1
         end
         if bg.items[index-1].Data.Combo then
-            bg.items[index-2].treeVert.Height:Set(function() return bg.items[index-2].Height() + 1 end)
+            bg.items[index-2].treeVert.Height:Set(function() return bg.items[index-2].Height() + LayoutHelpers.ScaleNumber(1) end)
         else
             bg.items[index-1].treeVert.Height:Set(function() return bg.items[index-1].Height() / 2 end)
         end
@@ -891,12 +889,11 @@ function CreateFilterDropout(parent)
         end
     end
         
-    bg.Height:Set(30)
-    bg.Width:Set(5)
-    bg.Left:Set(function() return controls.bg.Right() + 36 end)
-    bg.Top:Set(function() return controls.bg.Top() + 23 end)
+    LayoutHelpers.SetDimensions(bg, 5, 30)
+    LayoutHelpers.AnchorToRight(bg, controls.bg, 36)
+    LayoutHelpers.AtTopIn(bg, controls.bg, 23)
     bg.TargetWidth = maxWidth
-    bg.TargetHeight = totalHeight + 10
+    bg.TargetHeight = totalHeight + LayoutHelpers.ScaleNumber(10)
     bg:SetNeedsFrameUpdate(true)
     local curAlpha = 0
     SetItemAlpha(curAlpha)
@@ -982,7 +979,7 @@ function CreateDropoutBG(createConnector)
     if createConnector != false then
         bg.connector = Bitmap(bg, UIUtil.SkinnableFile('/game/filter-ping-list-panel/energy-bar_bmp.dds'))
         LayoutHelpers.AtVerticalCenterIn(bg.connector, controls.bg)
-        bg.connector.Left:Set(function() return controls.bg.Right() - 2 end)
+        LayoutHelpers.AnchorToRight(bg.connector, controls.bg, -2)
         bg.connector.Depth:Set(function() return bg.Depth() - 5 end)
     end
     
@@ -1038,8 +1035,8 @@ function ToggleMFDPanel(state)
             controls.bg:SetNeedsFrameUpdate(true)
             controls.bg.OnFrame = function(self, delta)
                 local newLeft = self.Left() + (1000*delta)
-                if newLeft > savedParent.Left()+15 then
-                    newLeft = savedParent.Left()+15
+                if newLeft > savedParent.Left()+LayoutHelpers.ScaleNumber(15) then
+                    newLeft = savedParent.Left()+LayoutHelpers.ScaleNumber(15)
                     self:SetNeedsFrameUpdate(false)
                 end
                 self.Left:Set(newLeft)
@@ -1050,8 +1047,8 @@ function ToggleMFDPanel(state)
             controls.bg:SetNeedsFrameUpdate(true)
             controls.bg.OnFrame = function(self, delta)
                 local newLeft = self.Left() - (1000*delta)
-                if newLeft < savedParent.Left()-self.Width() - 10 then
-                    newLeft = savedParent.Left()-self.Width() - 10
+                if newLeft < savedParent.Left()-self.Width() - LayoutHelpers.ScaleNumber(10) then
+                    newLeft = savedParent.Left()-self.Width() - LayoutHelpers.ScaleNumber(10)
                     self:SetNeedsFrameUpdate(false)
                     self:Hide()
                 end
@@ -1082,8 +1079,8 @@ function InitialAnimation()
     controls.bg:SetNeedsFrameUpdate(true)
     controls.bg.OnFrame = function(self, delta)
         local newLeft = self.Left() + (1000*delta)
-        if newLeft > savedParent.Left()+15 then
-            newLeft = savedParent.Left()+15
+        if newLeft > savedParent.Left()+LayoutHelpers.ScaleNumber(15) then
+            newLeft = savedParent.Left()+LayoutHelpers.ScaleNumber(15)
             self:SetNeedsFrameUpdate(false)
         end
         self.Left:Set(newLeft)

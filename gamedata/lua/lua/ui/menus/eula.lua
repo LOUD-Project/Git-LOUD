@@ -3,7 +3,7 @@
 --* Author: Ted Snook
 --* Summary: Front end display of the EULA
 --*
---* Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+--* Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
 --*****************************************************************************
 
 local UIUtil = import('/lua/ui/uiutil.lua')
@@ -46,8 +46,7 @@ function CreateEULA(inParent, callback)
     
     local eulaBody = ItemList(bg)
     LayoutHelpers.AtLeftTopIn(eulaBody, bg, 30, 84)
-    eulaBody.Height:Set(402)
-    eulaBody.Width:Set(630)
+	LayoutHelpers.SetDimensions(eulaBody, 630, 402)
     eulaBody:SetColors(UIUtil.consoleFGColor(), UIUtil.consoleTextBGColor(), UIUtil.consoleFGColor(), UIUtil.consoleTextBGColor()) -- we don't really want selection here so don't differentiate colors
     eulaBody:SetFont(UIUtil.bodyFont, 12)
     UIUtil.CreateVertScrollbarFor(eulaBody)

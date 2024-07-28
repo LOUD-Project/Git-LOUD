@@ -2705,14 +2705,13 @@ function ShowColorPicker(row, x, y)
         y = colorPicker.wheel.Top() + (colorPicker.wheel.Height() / 2),
     }
     colorPicker.preview = Bitmap(colorPicker)
-    colorPicker.preview.Width:Set(60)
-    colorPicker.preview.Height:Set(20)
+	LayoutHelpers.SetDimensions(colorPicker.preview, 60, 20)
     colorPicker.preview:SetSolidColor(colorPicker.color)
     colorPicker.wheel.HandleEvent = function(self, event)
         if event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
             local cX = event.MouseX - colorPicker.wheelCentre.x 
             local cY = event.MouseY - colorPicker.wheelCentre.y
-            local dist = math.sqrt(math.pow(cX, 2) + math.pow(cY, 2))
+            local dist = LayoutHelpers.InvScaleNumber(math.sqrt(math.pow(cX, 2) + math.pow(cY, 2)))
             if dist > 120 then return end -- User has clicked outside wheel
             local vUp = {
                 x = 0,
@@ -2737,9 +2736,9 @@ function ShowColorPicker(row, x, y)
 
     colorPicker.valSlider = import('/lua/maui/slider.lua').Slider(colorPicker, false, 0, 255, UIUtil.UIFile('/slider/slider_btn_up.dds'), UIUtil.UIFile('/slider/slider_btn_over.dds'), UIUtil.UIFile('/slider/slider_btn_down.dds'))
 
-    colorPicker.valSlider.Top:Set(function() return colorPicker.wheel.Bottom() + 18 end)
-    colorPicker.valSlider.Left:Set(function() return colorPicker.Left() + 16 end)
-    colorPicker.valSlider.Right:Set(function() return colorPicker.Right() - 16 end)
+    LayoutHelpers.AnchorToBottom(colorPicker.valSlider, colorPicker.wheel, 18)
+	LayoutHelpers.AtLeftIn(colorPicker.valSlider, colorPicker, 16)
+	LayoutHelpers.AtRightIn(colorPicker.valSlider, colorPicker, 16)
     colorPicker.valSlider:SetValue(colorPicker.val)
 
     colorPicker.valSlider.OnValueChanged = function(self, newValue)
@@ -2750,10 +2749,9 @@ function ShowColorPicker(row, x, y)
         colorPicker.preview:SetSolidColor(colorPicker.color)
         colorPicker.readout:SetText(RGBStr())
     end
-
-    colorPicker.valStatus.Top:Set(function() return colorPicker.valSlider.Top() - 10 end)
-    colorPicker.valStatus.Left:Set(function() return colorPicker.valSlider.Left() end)
-    colorPicker.valStatus.Right:Set(function() return colorPicker.valSlider.Right() end)
+	LayoutHelpers.AtTopIn(colorPicker.valStatus, colorPicker.valSlider, -10)
+    colorPicker.valStatus.Left:Set(colorPicker.valSlider.Left)
+    colorPicker.valStatus.Right:Set(colorPicker.valSlider.Right)
     colorPicker.valStatus.Depth:Set(function() return colorPicker.valSlider.Depth() - 1 end)
     colorPicker.valStatus:SetRange(0, 255)
     colorPicker.valStatus:SetValue(colorPicker.val)
@@ -2817,8 +2815,7 @@ function ShowColorPicker(row, x, y)
     -- Text I/O
     colorPicker.edit = Edit(colorPicker)
     LayoutHelpers.RightOf(colorPicker.edit, colorPicker.preview, 4)
-    colorPicker.edit.Width:Set(80)
-    colorPicker.edit.Height:Set(14)
+	LayoutHelpers.SetDimensions(colorPicker.edit, 80, 14)
     colorPicker.edit:SetFont(UIUtil.bodyFont, 12)
     colorPicker.edit:SetForegroundColor(UIUtil.fontColor)
     colorPicker.edit:SetHighlightBackgroundColor('00000000')
@@ -2925,33 +2922,27 @@ function CreateUI(maxPlayers, useSteam)
 
     GUI.playerPanel = Group(GUI.panel, "playerPanel")
     LayoutHelpers.AtLeftTopIn(GUI.playerPanel, GUI.panel, 40, 66)
-    GUI.playerPanel.Width:Set(706)
-    GUI.playerPanel.Height:Set(387)
+	LayoutHelpers.SetDimensions(GUI.playerPanel, 706, 387)
 
     GUI.observerPanel = Group(GUI.panel, "observerPanel")
     LayoutHelpers.AtLeftTopIn(GUI.observerPanel, GUI.panel, 40, 458)
-    GUI.observerPanel.Width:Set(706)
-    GUI.observerPanel.Height:Set(34)
+	LayoutHelpers.SetDimensions(GUI.observerPanel, 706, 34)
 
     GUI.chatPanel = Group(GUI.panel, "chatPanel")
     LayoutHelpers.AtLeftTopIn(GUI.chatPanel, GUI.panel, 40, 646)
-    GUI.chatPanel.Width:Set(705)
-    GUI.chatPanel.Height:Set(25)
+	LayoutHelpers.SetDimensions(GUI.chatPanel, 705, 25)
 
     GUI.mapPanel = Group(GUI.panel, "mapPanel")
     LayoutHelpers.AtLeftTopIn(GUI.mapPanel, GUI.panel, 750, 68)
-    GUI.mapPanel.Width:Set(238)
-    GUI.mapPanel.Height:Set(600)
+	LayoutHelpers.SetDimensions(GUI.mapPanel, 238, 600)
 
     GUI.optionsPanel = Group(GUI.panel, "optionsPanel")
     LayoutHelpers.AtLeftTopIn(GUI.optionsPanel, GUI.panel, 746, 600)
-    GUI.optionsPanel.Width:Set(238)
-    GUI.optionsPanel.Height:Set(260)
+	LayoutHelpers.SetDimensions(GUI.optionsPanel, 238, 260)
 
     GUI.launchPanel = Group(GUI.panel, "controlGroup")
     LayoutHelpers.AtLeftTopIn(GUI.launchPanel, GUI.panel, 735, 668)
-    GUI.launchPanel.Width:Set(238)
-    GUI.launchPanel.Height:Set(66)
+	LayoutHelpers.SetDimensions(GUI.launchPanel, 238, 66)
 
     ---------------------------------------------------------------------------
     -- set up map panel
@@ -2966,8 +2957,7 @@ function CreateUI(maxPlayers, useSteam)
 	
     LayoutHelpers.AtCenterIn(GUI.mapView, mapOverlay)
 	
-    GUI.mapView.Width:Set(195)
-    GUI.mapView.Height:Set(195)
+	LayoutHelpers.SetDimensions(GUI.mapView, 195, 195)
 
     mapOverlay.Depth:Set(function() return GUI.mapView.Depth() + 10 end)
 
@@ -3098,8 +3088,7 @@ function CreateUI(maxPlayers, useSteam)
     ---------------
     GUI.chatEdit = Edit(GUI.chatPanel)
     LayoutHelpers.AtLeftTopIn(GUI.chatEdit, GUI.panel, 84, 634)
-    GUI.chatEdit.Width:Set(640)
-    GUI.chatEdit.Height:Set(14)
+	LayoutHelpers.SetDimensions(GUI.chatEdit, 640, 14)
     GUI.chatEdit:SetFont(UIUtil.bodyFont, 12)
     GUI.chatEdit:SetForegroundColor(UIUtil.fontColor)
     GUI.chatEdit:SetHighlightBackgroundColor('00000000')
@@ -3111,8 +3100,9 @@ function CreateUI(maxPlayers, useSteam)
     GUI.chatDisplay:SetFont(UIUtil.bodyFont, 12)
     GUI.chatDisplay:SetColors(UIUtil.fontColor(), "00000000", UIUtil.fontColor(), "00000000")
     LayoutHelpers.AtLeftTopIn(GUI.chatDisplay, GUI.panel, 50, 504)
-    GUI.chatDisplay.Bottom:Set(function() return GUI.chatEdit.Top() - 15 end)
-    GUI.chatDisplay.Right:Set(function() return GUI.chatPanel.Right() - 40 end)
+
+    LayoutHelpers.AnchorToTop(GUI.chatDisplay, GUI.chatEdit, 15)
+	LayoutHelpers.AtRightIn(GUI.chatDisplay, GUI.chatPanel, 40)
     GUI.chatDisplay.Height:Set(function() return GUI.chatDisplay.Bottom() - GUI.chatDisplay.Top() end)
     GUI.chatDisplay.Width:Set(function() return GUI.chatDisplay.Right() - GUI.chatDisplay.Left() end)
 
@@ -3197,7 +3187,7 @@ function CreateUI(maxPlayers, useSteam)
 	
 	GUI.teamsCombo = Combo(GUI.optionsPanel, 14, 10, false, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
 	LayoutHelpers.CenteredRightOf(GUI.teamsCombo, GUI.teamsLabel, 5)
-	GUI.teamsCombo.Width:Set(60)
+	LayoutHelpers.SetWidth(GUI.teamsCombo, 60)
 	Tooltip.AddControlTooltip(GUI.teamsCombo, 'lob_teams_combo')
 	
 	GUI.teamsBtn = UIUtil.CreateButtonStd(GUI.optionsPanel, '/lobby/lan-game-lobby/toggle', "Setup Teams", 10, 0)
@@ -3285,8 +3275,7 @@ function CreateUI(maxPlayers, useSteam)
     -- Option display
     ---------------------------------------------------------------------------        
     GUI.OptionContainer = Group(GUI.optionsPanel)
-    GUI.OptionContainer.Height:Set(254)
-    GUI.OptionContainer.Width:Set(182)
+	LayoutHelpers.SetDimensions(GUI.OptionContainer, 182, 254)
     GUI.OptionContainer.top = 0
     LayoutHelpers.AtLeftTopIn(GUI.OptionContainer, GUI.mapPanel, 15, 280)
     
@@ -3298,7 +3287,7 @@ function CreateUI(maxPlayers, useSteam)
 
         local function CreateElement(index)
             GUI.OptionDisplay[index] = Group(GUI.OptionContainer)
-            GUI.OptionDisplay[index].Height:Set(36)
+			LayoutHelpers.SetHeight(GUI.OptionDisplay[index], 36)
             GUI.OptionDisplay[index].Width:Set(GUI.OptionContainer.Width)
             GUI.OptionDisplay[index].Depth:Set(function() return GUI.OptionContainer.Depth() + 10 end)
             GUI.OptionDisplay[index]:DisableHitTest()
@@ -3317,16 +3306,16 @@ function CreateUI(maxPlayers, useSteam)
             GUI.OptionDisplay[index].value.bg:SetSolidColor('ff333333')
             GUI.OptionDisplay[index].value.bg.Left:Set(GUI.OptionDisplay[index].Left)
             GUI.OptionDisplay[index].value.bg.Right:Set(GUI.OptionDisplay[index].Right)
-            GUI.OptionDisplay[index].value.bg.Bottom:Set(function() return GUI.OptionDisplay[index].value.Bottom() + 2 end)
+			LayoutHelpers.AtBottomIn(GUI.OptionDisplay[index].value.bg, GUI.OptionDisplay[index].value, -2)
             GUI.OptionDisplay[index].value.bg.Top:Set(GUI.OptionDisplay[index].Top)
             GUI.OptionDisplay[index].value.bg.Depth:Set(function() return GUI.OptionDisplay[index].Depth() - 2 end)
             
             GUI.OptionDisplay[index].value.bg2 = Bitmap(GUI.OptionDisplay[index])
             GUI.OptionDisplay[index].value.bg2:SetSolidColor('ff000000')
-            GUI.OptionDisplay[index].value.bg2.Left:Set(function() return GUI.OptionDisplay[index].value.bg.Left() + 1 end)
-            GUI.OptionDisplay[index].value.bg2.Right:Set(function() return GUI.OptionDisplay[index].value.bg.Right() - 1 end)
-            GUI.OptionDisplay[index].value.bg2.Bottom:Set(function() return GUI.OptionDisplay[index].value.bg.Bottom() - 1 end)
-            GUI.OptionDisplay[index].value.bg2.Top:Set(function() return GUI.OptionDisplay[index].value.Top() + 0 end)
+			LayoutHelpers.AtLeftIn(GUI.OptionDisplay[index].value.bg2, GUI.OptionDisplay[index].value.bg, 1)
+			LayoutHelpers.AtRightIn(GUI.OptionDisplay[index].value.bg2, GUI.OptionDisplay[index].value.bg, 1)
+			LayoutHelpers.AtBottomIn(GUI.OptionDisplay[index].value.bg2, GUI.OptionDisplay[index].value.bg, 1)
+            GUI.OptionDisplay[index].value.bg2.Top:Set(GUI.OptionDisplay[index].value.Top)
             GUI.OptionDisplay[index].value.bg2.Depth:Set(function() return GUI.OptionDisplay[index].value.bg.Depth() + 1 end)
         end
         
@@ -3408,7 +3397,7 @@ function CreateUI(maxPlayers, useSteam)
             end
 
             local wrappedText = import('/lua/maui/text.lua').FitText(LOC(data.text), 
-                170, -- Can't use line.text.Width() here or lobby crashes
+                LayoutHelpers.ScaleNumber(170), -- Can't use line.text.Width() here or lobby crashes
                 function(text)
                     return line.text:GetStringAdvance(text)
                 end)
@@ -3496,8 +3485,7 @@ function CreateUI(maxPlayers, useSteam)
     }
 	
     GUI.labelGroup = Group(GUI.playerPanel)
-    GUI.labelGroup.Width:Set(690)
-    GUI.labelGroup.Height:Set(20)
+	LayoutHelpers.SetDimensions(GUI.labelGroup, 690, 20)
 
     LayoutHelpers.AtLeftTopIn(GUI.labelGroup, GUI.playerPanel, 5, 5)
 
@@ -3577,7 +3565,7 @@ function CreateUI(maxPlayers, useSteam)
         GUI.slots[i].name = Combo(bg, 16, 10, true, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
         LayoutHelpers.AtVerticalCenterIn(GUI.slots[i].name, GUI.slots[i])
         LayoutHelpers.AtLeftIn(GUI.slots[i].name, GUI.panel, slotColumnSizes.player.x)
-        GUI.slots[i].name.Width:Set(slotColumnSizes.player.width)
+		LayoutHelpers.SetWidth(GUI.slots[i].name, slotColumnSizes.player.width)
         GUI.slots[i].name.row = i
 
         -- left deal with name clicks
@@ -3608,8 +3596,7 @@ function CreateUI(maxPlayers, useSteam)
 		GUI.slots[i].Popup:ShowMouseoverItem(true)
 		LayoutHelpers.AtRightTopIn(GUI.slots[i].Popup, GUI.slots[i].name, 45, 15)
 		LayoutHelpers.DepthOverParent(GUI.slots[i].Popup, GUI.slots[i].name, 5)
-		GUI.slots[i].Popup.Height:Set(50)
-		GUI.slots[i].Popup.Width:Set(75)
+		LayoutHelpers.SetDimensions(GUI.slots[i].Popup, 75, 50)
 		GUI.slots[i].Popup.row = i
 		GUI.slots[i].Popup:Hide()
 
@@ -3639,15 +3626,15 @@ function CreateUI(maxPlayers, useSteam)
         GUI.slots[i].color = Bitmap(bg)
         LayoutHelpers.AtLeftIn(GUI.slots[i].color, GUI.panel, slotColumnSizes.color.x)
         LayoutHelpers.AtVerticalCenterIn(GUI.slots[i].color, GUI.slots[i])
-        GUI.slots[i].color.Width:Set(slotColumnSizes.color.width)
-        GUI.slots[i].color.Height:Set(14)
+		LayoutHelpers.SetWidth(GUI.slots[i].color, slotColumnSizes.color.width)
+		LayoutHelpers.SetHeight(GUI.slots[i].color, 14)
         GUI.slots[i].color.row = i
 
         GUI.slots[i].color.glow = Bitmap(bg)
-        GUI.slots[i].color.glow.Width:Set(function() return GUI.slots[i].color.Width() + 4 end)
-        GUI.slots[i].color.glow.Height:Set(function() return GUI.slots[i].color.Height() + 4 end)
+        GUI.slots[i].color.glow.Width:Set(function() return GUI.slots[i].color.Width() + LayoutHelpers.ScaleNumber(4) end)
+        GUI.slots[i].color.glow.Height:Set(function() return GUI.slots[i].color.Height() + LayoutHelpers.ScaleNumber(4) end)
         LayoutHelpers.AtCenterIn(GUI.slots[i].color.glow, GUI.slots[i].color)
-        GUI.slots[i].color.glow.Depth:Set(function() return GUI.slots[i].color.Depth() - 1 end)
+        GUI.slots[i].color.glow.Depth:Set(function() return GUI.slots[i].color.Depth() - LayoutHelpers.ScaleNumber(1) end)
         GUI.slots[i].color.glow:SetSolidColor('FFFFFFFF')
         GUI.slots[i].color.glow:Hide()
         EffectHelpers.Pulse(GUI.slots[i].color.glow)
@@ -3672,7 +3659,7 @@ function CreateUI(maxPlayers, useSteam)
         LayoutHelpers.AtLeftIn(GUI.slots[i].faction, GUI.panel, slotColumnSizes.faction.x)
         LayoutHelpers.AtVerticalCenterIn(GUI.slots[i].faction, GUI.slots[i])
 		
-        GUI.slots[i].faction.Width:Set(slotColumnSizes.faction.width)
+		LayoutHelpers.SetWidth(GUI.slots[i].faction, slotColumnSizes.faction.width)
 
         GUI.slots[i].faction.OnClick = function(self, index)
             SetPlayerOption(self.row,'Faction',index)
@@ -3694,7 +3681,7 @@ function CreateUI(maxPlayers, useSteam)
         LayoutHelpers.AtLeftIn(GUI.slots[i].team, GUI.panel, slotColumnSizes.team.x)
         LayoutHelpers.AtVerticalCenterIn(GUI.slots[i].team, GUI.slots[i])
 		
-        GUI.slots[i].team.Width:Set(slotColumnSizes.team.width)
+		LayoutHelpers.SetWidth(GUI.slots[i].team, slotColumnSizes.team.width)
         GUI.slots[i].team.row = i
 		
         GUI.slots[i].team.OnClick = function(self, index, text)
@@ -3712,8 +3699,7 @@ function CreateUI(maxPlayers, useSteam)
         GUI.slots[i].mult = Edit(bg)
         LayoutHelpers.AtLeftIn(GUI.slots[i].mult, GUI.panel, slotColumnSizes.mult.x)
         LayoutHelpers.AtVerticalCenterIn(GUI.slots[i].mult, GUI.slots[i])
-        GUI.slots[i].mult.Width:Set(40)
-        GUI.slots[i].mult.Height:Set(14)
+        LayoutHelpers.SetDimensions(GUI.slots[i].mult, 40, 14)
         GUI.slots[i].mult:SetFont(UIUtil.bodyFont, 12)
         GUI.slots[i].mult:SetForegroundColor(UIUtil.fontColor)
         GUI.slots[i].mult:SetHighlightBackgroundColor('00000000')
@@ -3775,7 +3761,7 @@ function CreateUI(maxPlayers, useSteam)
         GUI.slots[i].act = Combo(bg, 14, 23, false, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
         LayoutHelpers.AtLeftIn(GUI.slots[i].act, GUI.panel, slotColumnSizes.act.x)
         LayoutHelpers.AtVerticalCenterIn(GUI.slots[i].act, GUI.slots[i])
-        GUI.slots[i].act.Width:Set(90)
+        LayoutHelpers.SetWidth(GUI.slots[i].act, 90)
         GUI.slots[i].act.row = i
         GUI.slots[i].act:AddItems({ "Fixed", "Feedback", "Time", "Both" })
 
@@ -3794,7 +3780,7 @@ function CreateUI(maxPlayers, useSteam)
 
         if not singlePlayer then
             GUI.slots[i].pingGroup = Group(bg)
-            GUI.slots[i].pingGroup.Width:Set(slotColumnSizes.ping.width)
+			LayoutHelpers.SetWidth(GUI.slots[i].pingGroup, slotColumnSizes.ping.width)
             GUI.slots[i].pingGroup.Height:Set(GUI.slots[curRow].Height)
             LayoutHelpers.AtLeftIn(GUI.slots[i].pingGroup, GUI.panel, slotColumnSizes.ping.x)
             LayoutHelpers.AtVerticalCenterIn(GUI.slots[i].pingGroup, GUI.slots[i])
@@ -3815,7 +3801,7 @@ function CreateUI(maxPlayers, useSteam)
 
         -- depending on if this is single player or multiplayer this displays different info
         GUI.slots[i].multiSpace = Group(bg, "multiSpace " .. tonumber(i))
-        GUI.slots[i].multiSpace.Width:Set(slotColumnSizes.ready.width)
+		LayoutHelpers.SetWidth(GUI.slots[i].multiSpace, slotColumnSizes.ready.width)
         GUI.slots[i].multiSpace.Height:Set(GUI.slots[curRow].Height)
         LayoutHelpers.AtLeftIn(GUI.slots[i].multiSpace, GUI.panel, slotColumnSizes.ready.x)
         GUI.slots[i].multiSpace.Top:Set(GUI.slots[curRow].Top)
@@ -3961,7 +3947,7 @@ function CreateUI(maxPlayers, useSteam)
 		
 		GUI.fillOpenCombo = Combo(GUI.observerPanel, 14, 10, false, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
 		LayoutHelpers.CenteredRightOf(GUI.fillOpenCombo, GUI.fillOpenLabel, 2)
-		GUI.fillOpenCombo.Width:Set(90)
+		LayoutHelpers.SetWidth(GUI.fillOpenCombo, 90)
 		Tooltip.AddControlTooltip(GUI.fillOpenCombo, 'lob_fill_combo')
 		
         GUI.fillOpenBtn = UIUtil.CreateButtonStd(GUI.observerPanel, '/lobby/lan-game-lobby/smalltoggle', "Add AIs", 10, 0)
@@ -4000,8 +3986,7 @@ function CreateUI(maxPlayers, useSteam)
 
         GUI.fillAIMult = Edit(GUI.observerPanel)
         LayoutHelpers.CenteredRightOf(GUI.fillAIMult, GUI.clearAIBtn)
-        GUI.fillAIMult.Width:Set(40)
-        GUI.fillAIMult.Height:Set(14)
+        LayoutHelpers.SetDimensions(GUI.fillAIMult, 40, 14)
         GUI.fillAIMult:SetFont(UIUtil.bodyFont, 12)
         GUI.fillAIMult:SetForegroundColor(UIUtil.fontColor)
         GUI.fillAIMult:SetHighlightBackgroundColor('00000000')
@@ -4070,9 +4055,8 @@ function CreateUI(maxPlayers, useSteam)
         GUI.observerList:SetFont(UIUtil.bodyFont, 14)
         GUI.observerList:SetColors(UIUtil.fontColor, "00000000", UIUtil.fontOverColor, UIUtil.highlightColor, "ffbcfffe")
         LayoutHelpers.Below(GUI.observerList, GUI.observerLabel, 8)
-        GUI.observerList.Left:Set(function() return GUI.observerLabel.Left() + 5 end)
-        GUI.observerList.Bottom:Set(function() return GUI.observerPanel.Bottom() - 12 end)
-        GUI.observerList.Right:Set(function() return GUI.observerPanel.Right() - 40 end)
+		LayoutHelpers.AtLeftIn(GUI.observerList, GUI.observerLabel, 5)
+		LayoutHelpers.AtRightBottomIn(GUI.observerList, GUI.observerPanel, 40, 12)
         
         GUI.observerList.OnClick = function(self, row, event)
             if lobbyComm:IsHost() and event.Modifiers.Right then
@@ -4094,7 +4078,7 @@ function CreateUI(maxPlayers, useSteam)
 		
 		GUI.fillOpenCombo = Combo(GUI.observerPanel, 14, 10, false, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
 		LayoutHelpers.CenteredRightOf(GUI.fillOpenCombo, GUI.fillOpenLabel, 5)
-		GUI.fillOpenCombo.Width:Set(90)
+		LayoutHelpers.SetWidth(GUI.fillOpenCombo, 90)
 		Tooltip.AddControlTooltip(GUI.fillOpenCombo, 'lob_fill_combo')
 		
         GUI.fillOpenBtn = UIUtil.CreateButtonStd(GUI.observerPanel, '/lobby/lan-game-lobby/smalltoggle', "Add AIs", 10, 0)
@@ -4133,8 +4117,7 @@ function CreateUI(maxPlayers, useSteam)
 
         GUI.fillAIMult = Edit(GUI.observerPanel)
         LayoutHelpers.CenteredRightOf(GUI.fillAIMult, GUI.clearAIBtn)
-        GUI.fillAIMult.Width:Set(40)
-        GUI.fillAIMult.Height:Set(14)
+		LayoutHelpers.SetDimensions(GUI.fillAIMult, 40, 14)
         GUI.fillAIMult:SetFont(UIUtil.bodyFont, 12)
         GUI.fillAIMult:SetForegroundColor(UIUtil.fontColor)
         GUI.fillAIMult:SetHighlightBackgroundColor('00000000')
@@ -4503,8 +4486,7 @@ function ShowMapPositions(mapCtrl, scenario, numPlayers)
         
         GUI.markers[slot] = {}
         GUI.markers[slot].marker = Bitmap(GUI.posGroup)
-        GUI.markers[slot].marker.Height:Set(10)
-        GUI.markers[slot].marker.Width:Set(8)
+		LayoutHelpers.SetDimensions(GUI.markers[slot].marker, 8, 10)
         GUI.markers[slot].marker.Depth:Set(function() return GUI.posGroup.Depth() + 10 end)
         GUI.markers[slot].marker:SetSolidColor('ff777777')
         
@@ -4590,8 +4572,8 @@ function ShowMapPositions(mapCtrl, scenario, numPlayers)
         LayoutHelpers.AtLeftTopIn(
             GUI.markers[slot].marker, 
             GUI.posGroup, 
-            ((xOffset + pos[1] / largest) * cWidth) - (GUI.markers[slot].marker.Width() / 2), 
-            ((yOffset + pos[2] / largest) * cHeight) - (GUI.markers[slot].marker.Height() / 2)
+            ((xOffset + pos[1] / LayoutHelpers.ScaleNumber(largest)) * cWidth) - (GUI.markers[slot].marker.Width() / 2), 
+            ((yOffset + pos[2] / LayoutHelpers.ScaleNumber(largest)) * cHeight) - (GUI.markers[slot].marker.Height() / 2)
         )
         
         local index = slot
@@ -4599,8 +4581,8 @@ function ShowMapPositions(mapCtrl, scenario, numPlayers)
         GUI.markers[slot].Indicator = Bitmap(GUI.markers[slot].marker, UIUtil.UIFile('/game/beacons/beacon-quantum-gate_btn_up.dds'))
         LayoutHelpers.AtCenterIn(GUI.markers[slot].Indicator, GUI.markers[slot].marker)
         
-        GUI.markers[slot].Indicator.Height:Set(function() return GUI.markers[index].Indicator.BitmapHeight() * .3 end)
-        GUI.markers[slot].Indicator.Width:Set(function() return GUI.markers[index].Indicator.BitmapWidth() * .3 end)
+        GUI.markers[slot].Indicator.Height:Set(function() return LayoutHelpers.ScaleNumber(GUI.markers[index].Indicator.BitmapHeight() * .3) end)
+        GUI.markers[slot].Indicator.Width:Set(function() return LayoutHelpers.ScaleNumber(GUI.markers[index].Indicator.BitmapWidth() * .3) end)
         GUI.markers[slot].Indicator.Depth:Set(function() return GUI.markers[index].marker.Depth() - 1 end)
         GUI.markers[slot].Indicator:Hide()
         GUI.markers[slot].Indicator:DisableHitTest()
@@ -5343,8 +5325,7 @@ function CreateBigPreview(parent)
 
 	bMP.Width:Set(bMP.Overlay.Width()-(bMP.Overlay.Width()*0.01))
 	bMP.Height:Set(bMP.Overlay.Height()-(bMP.Overlay.Height()*0.01))
-	bMP.Left:Set(bMP.Overlay.Left()+5)
-	bMP.Top:Set(bMP.Overlay.Top()+5)
+    LayoutHelpers.AtLeftTopIn(bMP, bMP.Overlay, 5, 5)
 	bMP.Depth:Set(997)
 	
 	bMP.CloseBtn = UIUtil.CreateButtonStd(bMP.Overlay, '/scx_menu/popup_btn/popup', "Close", 12, 0, 0, "UI_Tab_Click_01", "UI_Tab_Rollover_01")
@@ -5402,8 +5383,7 @@ function CreateBigPreview(parent)
     for i = 1, table.getn(massmarkers) do
  
         bMP.massmarkers[i] = Bitmap(bMP, UIUtil.SkinnableFile("/game/build-ui/icon-mass_bmp.dds"))
-        bMP.massmarkers[i].Width:Set(10)
-        bMP.massmarkers[i].Height:Set(10)
+		LayoutHelpers.SetDimensions(bMP.massmarkers[i], 10, 10)
         bMP.massmarkers[i].Left:Set(
             bMP.Left() + 
             (xOffset + massmarkers[i].position[1] / largest) * bMP.Width() - 
@@ -5421,8 +5401,7 @@ function CreateBigPreview(parent)
     for i = 1, table.getn(hydromarkers) do
  
         bMP.hydros[i] = Bitmap(bMP, UIUtil.SkinnableFile("/game/build-ui/icon-energy_bmp.dds"))
-        bMP.hydros[i].Width:Set(10)
-        bMP.hydros[i].Height:Set(10)
+		LayoutHelpers.SetDimensions(bMP.hydros[i], 10, 10)
         bMP.hydros[i].Left:Set(
             bMP.Left() + 
             (xOffset + hydromarkers[i].position[1] / largest) * bMP.Width() - 
@@ -5515,8 +5494,7 @@ function NewShowMapPositions(mapCtrl, scenario, numPlayers)
 		
 		bMP.markers[slot] = {}
 		bMP.markers[slot].marker = Bitmap(posGroup)
-		bMP.markers[slot].marker.Height:Set(10)
-		bMP.markers[slot].marker.Width:Set(8)
+		LayoutHelpers.SetDimensions(bMP.markers[slot].marker, 8, 10)
 		bMP.markers[slot].marker.Depth:Set(function() return posGroup.Depth() + 10 end)
 		bMP.markers[slot].marker:SetSolidColor('ff777777')
 		
@@ -5619,8 +5597,8 @@ function NewShowMapPositions(mapCtrl, scenario, numPlayers)
         local xOffset, yOffset, largest = ComputeNonSquareOffset(width, height)
 
 		LayoutHelpers.AtLeftTopIn(bMP.markers[slot].marker, posGroup, 
-			((xOffset + pos[1] / largest) * cWidth) - (bMP.markers[slot].marker.Width() / 2), 
-			((yOffset + pos[2] / largest) * cHeight) - (bMP.markers[slot].marker.Height() / 2))
+			((xOffset + pos[1] / LayoutHelpers.ScaleNumber(largest)) * cWidth) - (bMP.markers[slot].marker.Width() / 2), 
+			((yOffset + pos[2] / LayoutHelpers.ScaleNumber(largest)) * cHeight) - (bMP.markers[slot].marker.Height() / 2))
         
 		local index = slot
 		

@@ -354,9 +354,9 @@ function CreateScoreUI(parent)
     else 
         boardWidth = boardWidth + 40
     end    
-    controls.bgTop.Width:Set(boardWidth + boardMargin)
-    controls.bgBottom.Width:Set(boardWidth + boardMargin)
-	controls.bgStretch.Width:Set(boardWidth + boardMargin)
+    LayoutHelpers.SetWidth(controls.bgTop, boardWidth + boardMargin)
+    LayoutHelpers.SetWidth(controls.bgBottom, boardWidth + boardMargin)
+	LayoutHelpers.SetWidth(controls.bgStretch, boardWidth + boardMargin)
 	
     controls.leftBracketMin = Bitmap(controls.bg)
     controls.leftBracketMax = Bitmap(controls.bg)
@@ -411,17 +411,13 @@ function CreateScoreUI(parent)
 
     SetLayout()
     
-    controls.timeIcon.Height:Set(iconSize)
-    controls.timeIcon.Width:Set(iconSize)
+    LayoutHelpers.SetDimensions(controls.timeIcon, iconSize, iconSize)
     
-    controls.speedIcon.Height:Set(iconSize)
-    controls.speedIcon.Width:Set(iconSize)
+    LayoutHelpers.SetDimensions(controls.speedIcon, iconSize, iconSize)
 
-	controls.qualityIcon.Height:Set(iconSize)
-	controls.qualityIcon.Width:Set(iconSize)
+	LayoutHelpers.SetDimensions(controls.qualityIcon, iconSize, iconSize)
     
-    controls.unitIcon.Height:Set(iconSize-3)
-    controls.unitIcon.Width:Set(iconSize)
+    LayoutHelpers.SetDimensions(controls.unitIcon, iconSize, iconSize - 3)
 
     GameMain.AddBeatFunction(_OnBeat)
     
@@ -511,7 +507,7 @@ function SetupPlayerLines()
         observerLine = CreateArmyLine(observer.armyID, observer)
         observerLine.isObsLine = true
         observerLine.nameColumn.Top:Set(observerLine.Top)
-        observerLine.Height:Set(iconSize * 3)
+        LayoutHelpers.SetHeight(observerLine, iconSize * 3)
         observerLine.speedText = UIUtil.CreateText(controls.bgStretch, '', 15, UIUtil.bodyFont)
         observerLine.speedText:SetColor('ff00dbff')
         LayoutHelpers.AtRightIn(observerLine.speedText, observerLine, 5)
@@ -520,9 +516,8 @@ function SetupPlayerLines()
             UIUtil.SkinnableFile('/slider02/slider_btn_over.dds'), 
             UIUtil.SkinnableFile('/slider02/slider_btn_down.dds'), 
             UIUtil.SkinnableFile('/dialogs/options/slider-back_bmp.dds'))
-        observerLine.speedSlider.Left:Set(function() return observerLine.Left() + 10 end)
-        observerLine.speedSlider.Right:Set(function() return observerLine.Right() - 25 end)
-        observerLine.speedSlider.Bottom:Set(function() return observerLine.Bottom() - 5 end)
+		LayoutHelpers.AtLeftIn(observerLine.speedSlider, observerLine, 10)
+        LayoutHelpers.AtRightBottomIn(observerLine.speedSlider, observerLine, 25, 5)
         observerLine.speedSlider._background.Left:Set(observerLine.speedSlider.Left)
         observerLine.speedSlider._background.Right:Set(observerLine.speedSlider.Right)
         observerLine.speedSlider._background.Top:Set(observerLine.speedSlider.Top)
@@ -699,8 +694,7 @@ function CreateArmyLine(armyID, army)
 
     group.faction = Bitmap(group)
     group.faction:SetTexture(GetArmyIcon(army.faction))
-    group.faction.Height:Set(iconSize)
-    group.faction.Width:Set(iconSize)
+    LayoutHelpers.SetDimensions(group.faction, iconSize, iconSize)
     group.faction:DisableHitTest()
     LayoutHelpers.AtLeftTopIn(group.faction, group, position)
     
@@ -710,7 +704,7 @@ function CreateArmyLine(armyID, army)
     group.color:DisableHitTest()
     LayoutHelpers.FillParent(group.color, group.faction)
 
-    position = position + iconSize + 1
+    position = position + LayoutHelpers.ScaleNumber(iconSize + 1)
     
 -- Commented out by Tanksy. We don't need this. 
  -- create rating data column
@@ -746,8 +740,7 @@ function CreateArmyLine(armyID, army)
         group.shareUnitsIcon:SetTexture(modTextures..'units.total.dds')
         LayoutHelpers.AtRightIn(group.shareUnitsIcon, group, position)
         LayoutHelpers.AtVerticalCenterIn(group.shareUnitsIcon, group)
-        group.shareUnitsIcon.Height:Set(iconSize)
-        group.shareUnitsIcon.Width:Set(iconSize)
+        LayoutHelpers.SetDimensions(group.shareUnitsIcon, iconSize, iconSize)
         group.shareUnitsIcon.armyID = armyID
         group.shareUnitsIcon.HandleEvent = function(self, event)
              --  LOG('shareUnitsIcon ' )
@@ -775,8 +768,7 @@ function CreateArmyLine(armyID, army)
         group.shareEngyIcon:SetTexture(modTextures..'eco.engyIncome.dds')
         LayoutHelpers.AtRightIn(group.shareEngyIcon, group, position)
         LayoutHelpers.AtVerticalCenterIn(group.shareEngyIcon, group)
-        group.shareEngyIcon.Height:Set(iconSize)
-        group.shareEngyIcon.Width:Set(iconSize)
+		LayoutHelpers.SetDimensions(group.shareEngyIcon, iconSize, iconSize)
         group.shareEngyIcon.armyID = armyID
         group.shareEngyIcon.HandleEvent = function(self, event)
             -- and GetFocusArmy() ~= self.armyID then
@@ -805,8 +797,7 @@ function CreateArmyLine(armyID, army)
         group.shareMassIcon:SetTexture(modTextures..'eco.massIncome.dds')
         LayoutHelpers.AtRightIn(group.shareMassIcon, group, position)
         LayoutHelpers.AtVerticalCenterIn(group.shareMassIcon, group)
-        group.shareMassIcon.Height:Set(iconSize)
-        group.shareMassIcon.Width:Set(iconSize)
+		LayoutHelpers.SetDimensions(group.shareMassIcon, iconSize, iconSize)
         group.shareMassIcon.armyID = armyID
         group.shareMassIcon.HandleEvent = function(self, event)
             if event.Type == 'ButtonPress' then -- and GetFocusArmy() ~= self.armyID then
@@ -863,8 +854,7 @@ function CreateArmyLine(armyID, army)
         group.massIcon:SetTexture(modTextures..'eco.massIncome.dds')
         LayoutHelpers.AtRightIn(group.massIcon, group, position)
         LayoutHelpers.AtVerticalCenterIn(group.massIcon, group)
-        group.massIcon.Height:Set(iconSize)
-        group.massIcon.Width:Set(iconSize)
+		LayoutHelpers.SetDimensions(group.massIcon, iconSize, iconSize)
         -- show player's mass column
         position = (sw * 3) + iconSize + 1
         group.massColumn = UIUtil.CreateText(group, '0', fontSize, fontName)
@@ -879,8 +869,7 @@ function CreateArmyLine(armyID, army)
         group.engyIcon:SetTexture(modTextures..'eco.engyIncome.dds')
         LayoutHelpers.AtRightIn(group.engyIcon, group, position)
         LayoutHelpers.AtVerticalCenterIn(group.engyIcon, group)
-        group.engyIcon.Height:Set(iconSize)
-        group.engyIcon.Width:Set(iconSize)
+		LayoutHelpers.SetDimensions(group.engyIcon, iconSize, iconSize)
         -- show player's energy column
         position = (sw * 2) + iconSize + 1
         group.engyColumn = UIUtil.CreateText(group, '0', fontSize, fontName)
@@ -899,8 +888,7 @@ function CreateArmyLine(armyID, army)
         group.totalIcon:SetTexture(modTextures..'eco.massTotal.dds')
         LayoutHelpers.AtRightIn(group.totalIcon, group, position)
         LayoutHelpers.AtVerticalCenterIn(group.totalIcon, group)
-        group.totalIcon.Height:Set(iconSize)
-        group.totalIcon.Width:Set(iconSize)
+		LayoutHelpers.SetDimensions(group.totalIcon, iconSize, iconSize)
         -- show player's mass total value
         position = (sw * 1) + iconSize + 1
         group.totalColumn = UIUtil.CreateText(group, '0', fontSize, fontName)
@@ -918,8 +906,7 @@ function CreateArmyLine(armyID, army)
         group.unitIcon:SetTexture(modTextures..'units.total.dds')
         LayoutHelpers.AtRightIn(group.unitIcon, group, position)
         LayoutHelpers.AtVerticalCenterIn(group.unitIcon, group)
-        group.unitIcon.Height:Set(iconSize)
-        group.unitIcon.Width:Set(iconSize)
+		LayoutHelpers.SetDimensions(group.unitIcon, iconSize, iconSize)
         -- show player's units total value 
         position = (sw * 0) + iconSize + 1
         group.unitColumn = UIUtil.CreateText(group, '0', fontSize, fontName)
@@ -932,8 +919,7 @@ function CreateArmyLine(armyID, army)
     --local groupHeight = iconSize + 2
     --if (isObserver) then groupHeight = groupHeight + 10 end
     
-    group.Width:Set(boardWidth)
-    group.Height:Set(lineSize)
+    LayoutHelpers.SetDimensions(group, boardWidth, lineSize)
     
     -- enable switching view to players' armies or observer 
     if (isPlayerArmy or isObserver) and sessionReplay then
@@ -971,8 +957,7 @@ function CreateSortFilterForEco(group, ecoType)
           iconPath, --'_btn_dis.dds'),
           iconPath, --'_btn_dis.dds'),
           'UI_Tab_Click_01', 'UI_Tab_Rollover_01')
-    checkbox.Height:Set(iconSize)
-    checkbox.Width:Set(iconSize)
+    LayoutHelpers.SetDimensions(checkbox, iconSize, iconSize)
     checkbox.ecoType = ecoType
     checkbox.OnCheck = function(self, checked)
         local column = 'eco.'..ecoType
@@ -999,8 +984,7 @@ function CreateSortBoxForUnitsColumn(group, unitType)
           iconPath,     --'_dis.dds', 'dis 
           iconPath,     --'_dis.dds', 'dissel 
           'UI_Tab_Click_01', 'UI_Tab_Rollover_01')
-    checkbox.Height:Set(iconSize)
-    checkbox.Width:Set(iconSize)
+    LayoutHelpers.SetDimensions(checkbox, iconSize, iconSize)
     checkbox.unitType = unitType
     checkbox:SetCheck(true)
 	checkbox:UseAlphaHitTest(true)
@@ -1022,8 +1006,7 @@ function CreateSortBoxForScoreColumn(group, column, icon, size)
           iconPath, --'_btn_dis.dds'),
           iconPath, --'_btn_dis.dds'),
           'UI_Tab_Click_01', 'UI_Tab_Rollover_01')
-    checkbox.Height:Set(size)
-    checkbox.Width:Set(size) 
+    LayoutHelpers.SetDimensions(checkbox, size, size)
     checkbox.OnCheck = function(self, checked)
         Columns.Score.Active = column
         Columns.Score.Auto = false
@@ -1042,8 +1025,7 @@ function CreateSortBoxForRatingColumn(group, column, icon, size)
           iconPath, --'_btn_dis.dds'),
           iconPath, --'_btn_dis.dds'),
           'UI_Tab_Click_01', 'UI_Tab_Rollover_01')
-    checkbox.Height:Set(size)
-    checkbox.Width:Set(size) 
+    LayoutHelpers.SetDimensions(checkbox, size, size)
     checkbox.OnCheck = function(self, checked)
         Columns.Rating.Active = column
         SortArmyLinesBy(column) 
@@ -1061,8 +1043,7 @@ function CreateSortBoxForNameColumn(group, column, icon, size)
           iconPath, --'_btn_dis.dds'),
           iconPath, --'_btn_dis.dds'),
           'UI_Tab_Click_01', 'UI_Tab_Rollover_01')
-    checkbox.Height:Set(size)
-    checkbox.Width:Set(size) 
+    LayoutHelpers.SetDimensions(checkbox, size, size)
     checkbox.OnCheck = function(self, checked)
         Columns.Name.Active = column
         SortArmyLinesBy(column) 
@@ -1080,8 +1061,7 @@ function CreateSortBoxForTotalColumn(group, column, icon, size)
           iconPath, --'_btn_dis.dds'),
           iconPath, --'_btn_dis.dds'),
           'UI_Tab_Click_01', 'UI_Tab_Rollover_01')
-    checkbox.Height:Set(size)
-    checkbox.Width:Set(size) 
+    LayoutHelpers.SetDimensions(checkbox, size, size)
     checkbox.OnCheck = function(self, checked)
         Columns.Total.Active = column
         SortArmyLinesBy(column) 
@@ -1099,8 +1079,7 @@ function CreateSortBoxForGenericColumn(group, column, icon, size)
           iconPath, --'_btn_dis.dds'),
           iconPath, --'_btn_dis.dds'),
           'UI_Tab_Click_01', 'UI_Tab_Rollover_01')
-    checkbox.Height:Set(size)
-    checkbox.Width:Set(size) 
+    LayoutHelpers.SetDimensions(checkbox, size, size)
     checkbox.OnCheck = function(self, checked)
         SortArmyLinesBy(column) 
     end
@@ -1259,9 +1238,10 @@ function CreateSortLine(armyID)
 	 
         end 
      
-    sortby.Height:Set(iconSize + 5)
-    sortby.Width:Set(boardWidth)
-    
+    LayoutHelpers.SetDimensions(sortby, boardWidth, iconSize + 5)
+	--LayoutHelpers.SetHeight(sortby, iconSize + 5)
+	--sortby.Width:Set(boardWidth)
+
     return sortby
 end
 
@@ -1272,8 +1252,7 @@ function CreateSeparatorLine(armyID)
     line.isSortLine = true
     line.isArmyLine = false
     line.isTeamLine = false
-    line.Height:Set(iconSize)
-    line.Width:Set(boardWidth)
+	LayoutHelpers.SetDimensions(line, boardWidth, iconSize)
     --line.text = UIUtil.CreateText(line, '', 15, UIUtil.bodyFont)
     --line.text:SetText(' ------------------------------------------------------------ ')
     --line.text:SetColor('FF999A9B')
@@ -1285,8 +1264,9 @@ function CreateSeparatorLine(armyID)
     line.bmp:SetTexture(modTextures..'score_seperator.dds')
     
     line.bmp:DisableHitTest(true)
-    line.bmp.Height:Set(iconSize)
-    line.bmp.Width:Set(boardWidth)
+	LayoutHelpers.SetDimensions(line.bmp, boardWidth, iconSize)
+	--LayoutHelpers.SetHeight(line.bmp, iconSize)
+	--line.bmp.Width:Set(boardWidth)
     --LayoutHelpers.AtHorizontalCenterIn(line.bmp, line)
     LayoutHelpers.AtRightIn(line.bmp, line)
     LayoutHelpers.AtVerticalCenterIn(line.bmp, line)
@@ -1308,8 +1288,9 @@ function CreateMapLine(armyID)
     LayoutHelpers.AtVerticalCenterIn(group.name, group, 1)
     LayoutHelpers.AtHorizontalCenterIn(group.name, group)
       
-    group.Height:Set(lineSize+2)
-    group.Width:Set(boardWidth)        
+	LayoutHelpers.SetDimensions(group, boardWidth, lineSize + 2)
+	--LayoutHelpers.SetHeight(group, lineSize + 2)
+	--group.Width:Set(boardWidth)
     
     group:DisableHitTest()
     
@@ -1369,49 +1350,40 @@ function CreateInfoLine(armyID)
 --    if (not Game.HasFogOfWar) then
 --        log.Trace(logSource..'game is not ranked because Fog of War is off')
 --    end 
-    
-    local position = 0
-        
+
     group.vc = CreateInfoIconVictory(group)
     LayoutHelpers.AtVerticalCenterIn(group.vc, group)
-    LayoutHelpers.AtLeftIn(group.vc, group, position)
-          
-    position = position + iconSize + 5 --3
+    LayoutHelpers.AtLeftIn(group.vc, group)
+
     group.sc = CreateInfoIconSharing(group)
     LayoutHelpers.AtVerticalCenterIn(group.sc, group)
-    LayoutHelpers.AtLeftIn(group.sc, group, position)
-           
-    position = position + iconSize + 5 --3
+    LayoutHelpers.AnchorToRight(group.sc, group.vc, 5)
+
     group.ur = CreateInfoIconRestrictions(group)
     LayoutHelpers.AtVerticalCenterIn(group.ur, group)
-    LayoutHelpers.AtLeftIn(group.ur, group, position)
-      
-    position = position + iconSize + 5 --3
+	LayoutHelpers.AnchorToRight(group.ur, group.sc, 5)
+
     group.mods = CreateInfoIconMods(group)
     LayoutHelpers.AtVerticalCenterIn(group.mods, group)
-    LayoutHelpers.AtLeftIn(group.mods, group, position)
-         
-    position = position + iconSize + 5 --3
+	LayoutHelpers.AnchorToRight(group.mods, group.ur, 5)
+
     group.ai = CreateInfoIconAI(group)
     LayoutHelpers.AtVerticalCenterIn(group.ai, group)
-    LayoutHelpers.AtLeftIn(group.ai, group, position)
+	LayoutHelpers.AnchorToRight(group.ai, group.mods, 5)
 
 -- Commented out by Tanksy. We don't need this.	
---    position = position + iconSize + 3
 --    group.rank = CreateInfoIconRanked(group)
 --    LayoutHelpers.AtVerticalCenterIn(group.rank, group)
---    LayoutHelpers.AtLeftIn(group.rank, group, position)
+--    LayoutHelpers.AnchorToRight(group.rank, group.ai, 5)
          
-    position = position + iconSize + 3
-    group.Height:Set(lineSize)
-    --group.Width:Set(boardWidth)        
-    group.Width:Set(position)        
+	LayoutHelpers.SetDimensions(group, 5 * iconSize + 4 * 5, lineSize)
     group:DisableHitTest()
     
     local center = Group(controls.bgStretch)    
     center.armyID = armyID
-    center.Height:Set(lineSize+2)
-    center.Width:Set(boardWidth)        
+	LayoutHelpers.SetDimensions(center, boardWidth, lineSize + 2)
+	--LayoutHelpers.SetHeight(center, lineSize + 2)
+	--center.Width:Set(boardWidth)
     center:DisableHitTest()
    
     LayoutHelpers.AtVerticalCenterIn(group, center)
@@ -1443,8 +1415,7 @@ end
 function CreateInfoIcon(iconName, parent)
    local icon = Bitmap(parent)
    icon:SetTexture(modTextures..iconName)
-   icon.Height:Set(iconSize)
-   icon.Width:Set(iconSize)
+   LayoutHelpers.SetDimensions(icon, iconSize, iconSize)
    return icon
 end
 
@@ -2697,7 +2668,7 @@ function ToggleScoreControl(state)
             controls.bg.OnFrame = function(self, delta)
                 local newRight = self.Right() - (1000*delta)
                 if newRight < savedParent.Right() - 3 then
-                    self.Right:Set(function() return savedParent.Right() - 18 end)
+					LayoutHelpers.AtRightIn(self, savedParent, 18)
                     self:SetNeedsFrameUpdate(false)
                 else
                     self.Right:Set(newRight)
@@ -2773,7 +2744,7 @@ function InitialAnimation(state)
         controls.bg.OnFrame = function(self, delta)
             local newRight = self.Right() - (1000*delta)
             if newRight < savedParent.Right() - 3 then
-                self.Right:Set(function() return savedParent.Right() - 18 end)
+                LayoutHelpers.AtRightIn(self, savedParent, 18)
                 self:SetNeedsFrameUpdate(false)
             else
                 self.Right:Set(newRight)

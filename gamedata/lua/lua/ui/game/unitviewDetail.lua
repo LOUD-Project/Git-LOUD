@@ -643,8 +643,8 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, capCost, text
 			-- If control.Value (View.Description) has no value, we create the value.
 			control.Value[index] = UIUtil.CreateText( control, v, 12, UIUtil.bodyFont)
 			LayoutHelpers.Below(control.Value[index], control.Value[index-1])
-			control.Value[index].Right:Set(function() return control.Right() - 7 end)
-			control.Value[index].Width:Set(function() return control.Right() - control.Left() - 14 end)
+			LayoutHelpers.AtRightIn(control.Value[index], control, 7)
+			control.Value[index].Width:Set(function() return control.Right() - control.Left() - LayoutHelpers.ScaleNumber(14) end)
 			control.Value[index]:SetClipToWidth(true)
 			control.Value[index]:DisableHitTest(true)
 		end
@@ -696,7 +696,7 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, capCost, text
 			control.Value[index]:SetFont(UIUtil.bodyFont, 12)
 		end
 		
-		control.Height:Set(function() return (math.max(table.getsize(textLines), 4) * control.Value[1].Height()) + 30 end)
+		control.Height:Set(function() return (math.max(table.getsize(textLines), 4) * control.Value[1].Height()) + LayoutHelpers.ScaleNumber(30) end)
 	end
 	
 	for i, v in control.Value do
@@ -770,8 +770,7 @@ function Show(bp, buildingUnit, bpID)
 		local iconName = GameCommon.GetUnitIconPath(bp)
 		
 		View.UnitImg:SetTexture(iconName)
-		View.UnitImg.Height:Set(46)
-		View.UnitImg.Width:Set(48)
+		LayoutHelpers.SetDimensions(View.UnitImg, 48, 46)
 
 		ShowView(showUpKeep, false, showecon, showShield)
 	else

@@ -35,6 +35,7 @@ lua_utils/bluePrintExtractor/output*.csv
 .vs
 .vscode
 .atomignore
+.project
 
 # Maps are not tracked by Git
 Map Editor/
@@ -48,3 +49,4 @@ maps/World/World\.scmap
 maps/World/
 maps/New World/
 maps/New_World\.v0001/
+

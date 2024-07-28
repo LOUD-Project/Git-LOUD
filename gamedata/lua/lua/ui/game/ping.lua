@@ -179,12 +179,11 @@ function NamePing(callback, curName)
     
     local label = UIUtil.CreateText(dialog, "<LOC markers_0000>Enter Marker Name", 16, UIUtil.buttonFont)
 	
-    label.Top:Set(function() return dialog.Top() + 30 end)
-    label.Left:Set(function() return dialog.Left() + 35 end)
+    LayoutHelpers.AtLeftTopIn(label, dialog, 35, 30)
     
     local cancelButton = UIUtil.CreateButtonStd(dialog, '/scx_menu/small-btn/small', "<LOC _CANCEL>", 14, 2)
 	
-    cancelButton.Top:Set(function() return dialog.Top() + 80 end)
+    LayoutHelpers.AtTopIn(cancelButton, dialog, 90)
     cancelButton.Left:Set(function() return dialog.Left() + (((dialog.Width() / 4) * 3) - (cancelButton.Width() / 2)) end)
     cancelButton.OnClick = function(self, modifiers)
         dialog:Destroy()
@@ -194,7 +193,7 @@ function NamePing(callback, curName)
     --TODO this should be in layout
     local nameEdit = Edit(dialog)
     LayoutHelpers.AtLeftTopIn(nameEdit, dialog, 35, 60)
-    nameEdit.Width:Set(283)
+    LayoutHelpers.SetWidth(nameEdit, 283)
     nameEdit.Height:Set(nameEdit:GetFontHeight())
     nameEdit:ShowBackground(false)
     nameEdit:AcquireFocus()
@@ -216,7 +215,7 @@ function NamePing(callback, curName)
     end
 
     local okButton = UIUtil.CreateButtonStd(dialog, '/scx_menu/small-btn/small', "<LOC _OK>", 14, 2)
-    okButton.Top:Set(function() return dialog.Top() + 80 end)
+    okButton.Top:Set(cancelButton.Top)
     okButton.Left:Set(function() return dialog.Left() + (((dialog.Width() / 4) * 1) - (okButton.Width() / 2)) end)
     okButton.OnClick = function(self, modifiers)
         local newName = nameEdit:GetText()

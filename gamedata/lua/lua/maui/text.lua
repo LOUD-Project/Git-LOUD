@@ -9,13 +9,14 @@
 -- SetCenteredHorizontally(bool)
 
 local Control = import('control.lua').Control
+local ScaleNumber = import('/lua/maui/layouthelpers.lua').ScaleNumber
 
 local LOUDCEIL = math.ceil
 local LOUDFIND = string.find
 local LOUDFLOOR = math.floor
 local LOUDINSERT = table.insert
 local LOUDSUB = string.sub
-
+local LOUDMIN = math.min
 
 Text = Class(moho.text_methods, Control) {
 
@@ -60,7 +61,8 @@ Text = Class(moho.text_methods, Control) {
     SetFont = function(self, family, pointsize)
         if self._font then
             self._lockFontChanges = true
-            self._font._pointsize:Set(pointsize)
+			-- Limit the maximum font size to avoid a crash of the game engine (for me)
+            self._font._pointsize:Set(LOUDMIN(ScaleNumber(pointsize), 109))
             self._font._family:Set(family)
             self._lockFontChanges = false
             self:_internalSetFont()
@@ -219,9 +221,9 @@ function WrapText(text, lineWidth, advanceFunction)
             -- if the word is longer than the max width, break it up in to multiple lines
             if wordWidth > lineWidthFunc(table.getsize(result)) then
                 -- start long word on its own line (only if there is already a result)
-                if result[curLine] then
-                    curLine = curLine + 1
-                end
+			    if result[curLine] then
+			        curLine = curLine + 1
+			    end
 
                 -- determine how many lines are needed to display this word
                 local wordLines = LOUDCEIL(wordWidth / lineWidthFunc(curLine))
@@ -235,11 +237,11 @@ function WrapText(text, lineWidth, advanceFunction)
                     local endChar = curCharLineStart + charsPerLine - 1
                     if endChar > STR_Utf8Len(word) then endChar = STR_Utf8Len(word) end
                     result[curLine] = STR_Utf8SubString(word, curCharLineStart, endChar - (curCharLineStart - 1))
-                    curLine = curLine + 1
+			            curLine = curLine + 1
                     curCharLineStart = endChar + 1
-                end
+			        end
 
-                pos = 0
+			        pos = 0
             else
                 -- if the word will fit on this line, then add the word to the line
                 -- otherwise, start the word on the next line

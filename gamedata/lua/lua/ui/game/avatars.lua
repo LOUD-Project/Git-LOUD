@@ -146,16 +146,14 @@ function CreateAvatar(unit)
     local path = GameCommon.GetUnitIconPath(bg.Blueprint)
 	bg.icon:SetTexture(path)
 	
-    bg.icon.Height:Set(44)
-    bg.icon.Width:Set(44)
+	LayoutHelpers.SetDimensions(bg.icon, 44, 44)
     bg.icon:DisableHitTest()
     
     bg.healthbar = StatusBar(bg, 0, 1, false, false, UIUtil.SkinnableFile('/game/avatar/health-bar-back_bmp.dds'), UIUtil.SkinnableFile('/game/avatar/health-bar-green.dds'), true, "avatar RO Health Status Bar")
 
-    bg.healthbar.Left:Set(function() return bg.Left() + 8 end)
-    bg.healthbar.Right:Set(function() return bg.Right() - 14 end)
-    bg.healthbar.Bottom:Set(function() return bg.Bottom() - 5 end)
-    bg.healthbar.Top:Set(function() return bg.healthbar.Bottom() - 10 end)
+	LayoutHelpers.AtLeftIn(bg.healthbar, bg, 8)
+    LayoutHelpers.AtRightBottomIn(bg.healthbar, bg, 14, 5)
+	LayoutHelpers.AnchorToBottom(bg.healthbar, bg.healthbar, -10)
     bg.healthbar.Height:Set(function() return bg.healthbar.Bottom() - bg.healthbar.Top() end)
     bg.healthbar.Width:Set(function() return bg.healthbar.Right() - bg.healthbar.Left() end)
     bg.healthbar:DisableHitTest(true)
@@ -264,8 +262,7 @@ function CreateIdleTab(unitData, id, expandFunc)
     LayoutHelpers.AtLeftTopIn(bg.icon, bg, 7, 8)
 	
     bg.icon:SetSolidColor('00000000')
-    bg.icon.Height:Set(34)
-    bg.icon.Width:Set(34)
+    LayoutHelpers.SetDimensions(bg.icon, 34, 34)
     bg.icon:DisableHitTest()
     
     bg.count = UIUtil.CreateText(bg.icon, '', 18, UIUtil.bodyFont)
@@ -284,8 +281,8 @@ function CreateIdleTab(unitData, id, expandFunc)
         UIUtil.SkinnableFile('/game/avatar-arrow_btn/tab-close_btn_dis.dds')
 	)
 	
-    bg.expandCheck.Right:Set(function() return bg.Left() + 4 end)
-	
+    LayoutHelpers.AnchorToLeft(bg.expandCheck, bg, -4)
+
     LayoutHelpers.AtVerticalCenterIn(bg.expandCheck, bg)
 	
     bg.expandCheck.OnCheck = function(self, checked)
@@ -632,7 +629,7 @@ function CreateIdleEngineerList(parent, units)
     local bgStretch = Bitmap(group, UIUtil.SkinnableFile('/game/avatar-engineers-panel/panel-eng_bmp_m.dds'))
     
     group.Width:Set(bgTop.Width)
-    group.Height:Set(1)
+    LayoutHelpers.SetHeight(group, 1)
     
     bgTop.Bottom:Set(group.Top)
     bgBottom.Top:Set(group.Bottom)
@@ -644,7 +641,7 @@ function CreateIdleEngineerList(parent, units)
     LayoutHelpers.AtHorizontalCenterIn(bgStretch, group)
     
     group.connector = Bitmap(group, UIUtil.SkinnableFile('/game/avatar-engineers-panel/bracket_bmp.dds'))
-    group.connector.Right:Set(function() return parent.Left() + 8 end)
+    LayoutHelpers.AnchorToLeft(group.connector, parent, -8)
     LayoutHelpers.AtVerticalCenterIn(group.connector, parent)
     
     LayoutHelpers.LeftOf(group, parent, 10)
@@ -675,10 +672,9 @@ function CreateIdleEngineerList(parent, units)
                 entry.icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
 				
             end
-			
-            entry.icon.Height:Set(34)
-            entry.icon.Width:Set(34)
-			
+
+            LayoutHelpers.SetDimensions(entry.icon, 34, 34)
+
             LayoutHelpers.AtRightIn(entry.icon, entry, 22)
             LayoutHelpers.AtVerticalCenterIn(entry.icon, entry)
             
@@ -698,10 +694,8 @@ function CreateIdleEngineerList(parent, units)
             
             entry.countBG = Bitmap(entry)
             entry.countBG:SetSolidColor('77000000')
-            entry.countBG.Top:Set(function() return entry.count.Top() - 1 end)
-            entry.countBG.Left:Set(function() return entry.count.Left() - 1 end)
-            entry.countBG.Right:Set(function() return entry.count.Right() + 1 end)
-            entry.countBG.Bottom:Set(function() return entry.count.Bottom() + 1 end)
+			LayoutHelpers.AtLeftTopIn(entry.countBG, entry.count, -1, -1)
+			LayoutHelpers.AtRightBottomIn(entry.countBG, entry.count, -1, -1)
             
             entry.countBG.Depth:Set(function() return entry.Depth() + 1 end)
             entry.count.Depth:Set(function() return entry.countBG.Depth() + 1 end)
@@ -810,14 +804,14 @@ function CreateIdleFactoryList(parent, units)
     local bg = Bitmap(parent, UIUtil.SkinnableFile('/game/avatar-factory-panel/factory-panel_bmp.dds'))
     
 	-- original offset was -9 now -32 to allow for showing gateways
-    bg.Right:Set(function() return parent.Left() - 32 end)
-    bg.Top:Set(function() return math.max(controls.avatarGroup.Top()+10, (parent.Top() + (parent.Height() / 2)) - (bg.Height() / 2)) end)
+    LayoutHelpers.AnchorToLeft(bg, parent, 32)
+    bg.Top:Set(function() return math.max(controls.avatarGroup.Top() + LayoutHelpers.ScaleNumber(10), (parent.Top() + (parent.Height() / 2)) - (bg.Height() / 2)) end)
     
     local connector = Bitmap(bg, UIUtil.SkinnableFile('/game/avatar-factory-panel/bracket_bmp.dds'))
 	
     LayoutHelpers.AtVerticalCenterIn(connector, parent)
-	
-    connector.Right:Set(function() return parent.Left() + 7 end)
+
+	LayoutHelpers.AnchorToLeft(connector, parent, -7)
     
     bg:DisableHitTest(true)
     
@@ -844,10 +838,9 @@ function CreateIdleFactoryList(parent, units)
                 icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
 				
             end
+
+            LayoutHelpers.SetDimensions(icon, 40, 40)
 			
-            icon.Height:Set(40)
-            icon.Width:Set(40)
-            
             icon.count = UIUtil.CreateText(icon, '', 20, UIUtil.bodyFont)
             icon.count:SetColor('ffffffff')
 			
@@ -856,10 +849,8 @@ function CreateIdleFactoryList(parent, units)
             
             icon.countBG = Bitmap(icon)
             icon.countBG:SetSolidColor('77000000')
-            icon.countBG.Top:Set(function() return icon.count.Top() - 1 end)
-            icon.countBG.Left:Set(function() return icon.count.Left() - 1 end)
-            icon.countBG.Right:Set(function() return icon.count.Right() + 1 end)
-            icon.countBG.Bottom:Set(function() return icon.count.Bottom() + 1 end)
+			LayoutHelpers.AtLeftTopIn(icon.countBG, icon.count, -1, -1)
+			LayoutHelpers.AtRightBottomIn(icon.countBG, icon.count, -1, -1)
             
             icon.countBG.Depth:Set(function() return icon.Depth() + 1 end)
             icon.count.Depth:Set(function() return icon.countBG.Depth() + 1 end)
