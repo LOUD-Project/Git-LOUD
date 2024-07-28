@@ -26,8 +26,7 @@ function ShowRenameDialog(currentName)
     local nameEdit = Edit(dialog)
     
     local label = UIUtil.CreateText(dialog, "<LOC RENAME_0000>Enter New Name", 16, UIUtil.buttonFont)
-    label.Top:Set(function() return dialog.Top() + 30 end)
-    label.Left:Set(function() return dialog.Left() + 35 end)
+    LayoutHelpers.AtLeftTopIn(label, dialog, 35, 30)
     
     local function NameUnit()
         local newName = nameEdit:GetText()
@@ -65,7 +64,7 @@ function ShowRenameDialog(currentName)
     LayoutHelpers.RightOf(cancelButton, okButton)
     
     LayoutHelpers.AtLeftTopIn(nameEdit, dialog, 35, 60)
-    nameEdit.Width:Set(283)
+    LayoutHelpers.SetWidth(nameEdit, 283)
     nameEdit.Height:Set(nameEdit:GetFontHeight())
     nameEdit:ShowBackground(false)
     nameEdit:AcquireFocus()
@@ -89,7 +88,4 @@ function ShowRenameDialog(currentName)
             firstTime = false
         end
     end
-
-
-
 end

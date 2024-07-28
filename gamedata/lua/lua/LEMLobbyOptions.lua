@@ -197,9 +197,9 @@ GPGsortOrder = {
 GPGOptions = {}
 
 versionstrings = {
-	us = 'Version :',
-	es = 'Versi\195\179n :',
-	fr = 'Version :',
-	it = 'Versione :',
-	gr = 'Version :',
+	us = 'Version: ',
+	es = 'Versi\195\179n: ',
+	fr = 'Version: ',
+	it = 'Versione: ',
+	gr = 'Version: ',
 }

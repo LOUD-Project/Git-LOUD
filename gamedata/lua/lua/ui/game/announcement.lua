@@ -55,7 +55,7 @@ function CreateAnnouncement(text, goalControl, secondaryText, onFinished)
     
     local text = UIUtil.CreateText(textGroup, text, 22, UIUtil.titleFont)
 	
-    LayoutHelpers.AtCenterIn(text, GetFrame(0), -400)
+    LayoutHelpers.AtCenterIn(text, GetFrame(0), -200)
 	
     text:SetDropShadow(true)
     text:SetColor(UIUtil.fontColor)

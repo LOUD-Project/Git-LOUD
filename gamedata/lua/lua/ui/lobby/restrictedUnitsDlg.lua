@@ -4,7 +4,7 @@
 --* Summary: Dialog to allow user to select what units they would like to disable
 --* in a skirmish game
 --*
---* Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
+--* Copyright ï¿½ 2007 Gas Powered Games, Inc.  All rights reserved.
 --*****************************************************************************
 
 local UIUtil = import('/lua/ui/uiutil.lua')
@@ -36,8 +36,7 @@ function CreateDialog(parent, initialRestrictions, OnOk, OnCancel, isHost)
     LayoutHelpers.AtCenterIn(dialog, parent)
     LayoutHelpers.DepthOverParent(dialog, parent, 100)
 	
-    dialog.Width:Set(300)
-    dialog.Height:Set(450)
+	LayoutHelpers.SetDimensions(dialog, 300, 450)
     
     dialog.border = CreateBorder(dialog)
     dialog.brackets = UIUtil.CreateDialogBrackets(dialog, 118, 106, 118, 104)
@@ -60,7 +59,7 @@ function CreateDialog(parent, initialRestrictions, OnOk, OnCancel, isHost)
 	
     LayoutHelpers.AtLeftTopIn(scrollGroup, dialog, -50, -3)
 	
-    scrollGroup.Width:Set(function() return dialog.Width() + 70 end)
+    scrollGroup.Width:Set(function() return dialog.Width() + LayoutHelpers.ScaleNumber(70) end)
     
     if isHost == true then
 	
@@ -77,11 +76,11 @@ function CreateDialog(parent, initialRestrictions, OnOk, OnCancel, isHost)
         Tooltip.AddButtonTooltip(resetBtn, 'options_reset_all')
         
         numElementsPerPage = 13
-        scrollGroup.Height:Set(function() return dialog.Height() - 60 end)
+        scrollGroup.Height:Set(function() return dialog.Height() - LayoutHelpers.ScaleNumber(60) end)
 		
     else
 	
-        scrollGroup.Height:Set(function() return dialog.Height() - 2 end)
+        scrollGroup.Height:Set(function() return dialog.Height() - LayoutHelpers.ScaleNumber(2) end)
 		
     end
 
@@ -135,7 +134,7 @@ function CreateDialog(parent, initialRestrictions, OnOk, OnCancel, isHost)
             if index < top or index >= bottom then
 			
                 control:Hide()
-                control.Top:Set(function() return self.Top() end)
+                control.Top:Set(self.Top)
 				
             else
 			

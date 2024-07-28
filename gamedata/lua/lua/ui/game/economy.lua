@@ -1,47 +1,51 @@
+--*****************************************************************************
 --* File: lua/modules/ui/game/economy.lua
 --* Author: Chris Blackwell
 --* Summary: Economy bar UI
+--*
+--* Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+--*****************************************************************************
 
-local UIUtil         = import('/lua/ui/uiutil.lua')
-local LayoutHelpers  = import('/lua/maui/layouthelpers.lua')
-local Group          = import('/lua/maui/group.lua').Group
-local Bitmap         = import('/lua/maui/bitmap.lua').Bitmap
-local Checkbox       = import('/lua/maui/checkbox.lua').Checkbox
-local StatusBar      = import('/lua/maui/statusbar.lua').StatusBar
-local GameMain       = import('/lua/ui/game/gamemain.lua')
 
-local Prefs = import('/lua/user/prefs.lua')
+---@class EconomyResourceValues
+---@field MASS   number
+---@field ENERGY number
 
+---@class EconomyTotals
+---@field income           EconomyResourceValues
+---@field lastUseActual    EconomyResourceValues
+---@field lastUseRequested EconomyResourceValues
+---@field maxStorage       EconomyResourceValues
+---@field reclaimed        EconomyResourceValues
+---@field stored           EconomyResourceValues
+
+local UIUtil = import("/lua/ui/uiutil.lua")
+local LayoutHelpers = import("/lua/maui/layouthelpers.lua")
+local Group = import("/lua/maui/group.lua").Group
+local Bitmap = import("/lua/maui/bitmap.lua").Bitmap
+local Button = import("/lua/maui/button.lua").Button
+local Checkbox = import("/lua/maui/checkbox.lua").Checkbox
+local StatusBar = import("/lua/maui/statusbar.lua").StatusBar
+local GameMain = import("/lua/ui/game/gamemain.lua")
+local Tooltip = import("/lua/ui/game/tooltip.lua")
+local Prefs = import("/lua/user/prefs.lua")
+local Tooltip = import("/lua/ui/game/tooltip.lua")
 local options = Prefs.GetFromCurrentProfile('options')
-
-local TextLine02 = false
-local TextLine03 = false
-
-local Tooltip = import('/lua/ui/game/tooltip.lua')
 
 local UIState = true
 
-group = false
-savedParent = false
+local _BeatFunction = nil
 
 GUI = { bg = false }
+group = GUI.group or false
+savedParent = GUI.savedParent or false
 
 States = {
-    energyDetail    = Prefs.GetFromCurrentProfile("energyDetailedView"),
     energyViewState = Prefs.GetFromCurrentProfile("energyRateView") or 1,
-    massDetail      = Prefs.GetFromCurrentProfile("massDetailedView"),
-    massViewState   = Prefs.GetFromCurrentProfile("massRateView") or 1,
+    massViewState = Prefs.GetFromCurrentProfile("massRateView") or 1,
 }
 
-if States.energyDetail == nil then
-    States.energyDetail = true
-end
-
-if States.massDetail == nil then
-    States.massDetail = true
-end
-
-function Contract() 
+function Contract()
     UIState = false
 end
 
@@ -50,13 +54,17 @@ function Expand()
 end
 
 function SetLayout(layout)
-    GameMain.RemoveBeatFunction(_BeatFunction)
-    import(UIUtil.GetLayoutFilename('economy')).SetLayout()
+	import(UIUtil.GetLayoutFilename('economy')).SetLayout()
+	GameMain.RemoveBeatFunction(_BeatFunction)
+	ConfigureBeatFunction()
+	GameMain.AddBeatFunction(_BeatFunction, true)
+
     return CommonLogic()
 end
 
 function CreateEconomyBar(parent)
     savedParent = parent
+    GUI.savedParent = savedParent
     CreateUI()
     return SetLayout()
 end
@@ -66,17 +74,18 @@ function CreateUI()
     GUI.bg.panel = Bitmap(GUI.bg)
     GUI.bg.leftBracket = Bitmap(GUI.bg)
     GUI.bg.leftBracketGlow = Bitmap(GUI.bg)
-    
+
     GUI.bg.rightGlowTop = Bitmap(GUI.bg)
     GUI.bg.rightGlowMiddle = Bitmap(GUI.bg)
     GUI.bg.rightGlowBottom = Bitmap(GUI.bg)
-    
+
     GUI.collapseArrow = Checkbox(savedParent)
     Tooltip.AddCheckboxTooltip(GUI.collapseArrow, 'econ_collapse')
-    
+
     local function CreateResourceGroup(warningBitmap)
         local group = Group(GUI.bg)
-        
+        GUI.group = group
+
         group.warningBG = Bitmap(group)
         group.warningBG.Depth:Set(group.Depth)
         group.warningBG.State = ''
@@ -84,47 +93,32 @@ function CreateUI()
         group.warningBG.cycles = 0
         group.warningBG.flashMod = 1
         group.warningBG.warningBitmap = warningBitmap
-		
         group.warningBG.SetToState = function(self, state)
-		
-            if self.State != state then
-			
+            if self.State ~= state then
                 if state == 'red' then
-				
                     self:SetTexture(UIUtil.UIFile('/game/resource-panel/alert-'..self.warningBitmap..'-panel_bmp.dds'))
                     self.flashMod = 1.6
-					
                 elseif state == 'yellow' then
-				
                     self:SetTexture(UIUtil.UIFile('/game/resource-panel/caution-'..self.warningBitmap..'-panel_bmp.dds'))
                     self.flashMod = 1.25
-					
                 end
-				
                 self.cycles = 0
                 self.State = state
-				
                 self:SetNeedsFrameUpdate(true)
             end
         end
-        
+
         group.warningBG.OnFrame = function(self, deltaTime)
-		
             if self.State == 'hide' then
-			
                 local newAlpha = self:GetAlpha() - deltaTime
-				
                 if newAlpha < 0 then
                     self:SetAlpha(0)
                     self:SetNeedsFrameUpdate(false)
                 else
                     self:SetAlpha(newAlpha)
                 end
-				
             else
-			
                 local newAlpha = self:GetAlpha() + ((deltaTime * self.flashMod) * self.ascending)
-				
                 if newAlpha > .5 then
                     newAlpha = .5
                     self.cycles = self.cycles + 1
@@ -133,344 +127,349 @@ function CreateUI()
                     newAlpha = 0
                     self.ascending = 1
                 end
-				
                 self:SetAlpha(newAlpha)
-				
                 if self.cycles == 5 then
                     self:SetNeedsFrameUpdate(false)
                 end
             end
         end
-        
+
         group.icon = Bitmap(group)
         group.rate = UIUtil.CreateText(group, '', 18, UIUtil.bodyFont)
         group.rate:SetDropShadow(true)
-		
-        group.storageBar = StatusBar(group, 0, 100, false, false, UIUtil.UIFile('/game/resource-mini-bars/mini-energy-bar-back_bmp.dds'), UIUtil.UIFile('/game/resource-mini-bars/mini-energy-bar_bmp.dds'), false)
+        group.storageBar = StatusBar(group, 0, 100, false, false,
+            UIUtil.UIFile('/game/resource-mini-bars/mini-energy-bar-back_bmp.dds'),
+            UIUtil.UIFile('/game/resource-mini-bars/mini-energy-bar_bmp.dds'), false)
 
         group.curStorage = UIUtil.CreateText(group, '', 10, UIUtil.bodyFont)
         group.curStorage:SetDropShadow(true)
-		
         group.maxStorage = UIUtil.CreateText(group, '', 10, UIUtil.bodyFont)
         group.maxStorage:SetDropShadow(true)
-        
+
         group.storageTooltipGroup = Group(group.storageBar)
         group.storageTooltipGroup.Depth:Set(function() return group.storageBar.Depth() + 10 end)
-        
+
         group.income = UIUtil.CreateText(group.warningBG, '', 10, UIUtil.bodyFont)
         group.income:SetDropShadow(true)
-		
         group.expense = UIUtil.CreateText(group.warningBG, '', 10, UIUtil.bodyFont)
         group.expense:SetDropShadow(true)
-        
-        group.hideTarget = Group(group)
-        group.hideTarget.Depth:Set(function() return group.income.Depth() + 1 end)
-        
+
+        group.reclaimDelta = UIUtil.CreateText(group.warningBG, '', 10, UIUtil.bodyFont)
+        group.reclaimDelta:SetDropShadow(true)
+
+        group.reclaimTotal = UIUtil.CreateText(group.warningBG, '', 10, UIUtil.bodyFont)
+        group.reclaimTotal:SetDropShadow(true)
+
         group.warningBG:DisableHitTest()
         group.curStorage:DisableHitTest()
         group.maxStorage:DisableHitTest()
         group.storageBar:DisableHitTest()
-        group.income:DisableHitTest()
-        group.expense:DisableHitTest()
-        
+
         return group
     end
-    
+
     GUI.mass = CreateResourceGroup('mass')
     GUI.energy = CreateResourceGroup('energy')
-    
-    if options.gui_display_reclaim_totals == 1 then
-    
-        ecostats = Bitmap(GetFrame(0))
-        ecostats:SetTexture('/textures/ui/common/game/economic-overlay/econ_bmp_m.dds')
-        ecostats.Depth:Set(99)
-
-        LayoutHelpers.AtLeftTopIn(ecostats, GetFrame(0), 340, 8)
-
-        ecostats.Height:Set(36)
-        ecostats.Width:Set(80)
-        ecostats:DisableHitTest(true)
-
-        local TextLine01 = UIUtil.CreateText(ecostats, 'Reclaimed', 10, UIUtil.bodyFont)
-        
-        LayoutHelpers.CenteredAbove(TextLine01, ecostats, -12)
-
-        TextLine02 = UIUtil.CreateText(ecostats, '', 10, UIUtil.bodyFont)
-        TextLine02:SetColor('FFB8F400')
-
-        LayoutHelpers.AtRightTopIn(TextLine02, ecostats, 4, 10)
-
-        TextLine03 = UIUtil.CreateText(ecostats, '', 10, UIUtil.bodyFont)
-        TextLine03:SetColor('FFF8C000')
-
-        TextLine01:DisableHitTest(true)
-        TextLine02:DisableHitTest(true)
-        TextLine03:DisableHitTest(true)
-
-        LayoutHelpers.AtRightTopIn(TextLine03, ecostats, 4, 20)
-    end
 end
 
 function CommonLogic()
-
     local function AddGroupLogic(group, prefix)
-	
         group.warningBG.OnHide = function(self, hidden)
-		
-            if hidden then
-                group.income:SetHidden(true)
-                group.expense:SetHidden(true)
-            else
-                group.income:SetHidden(not States[prefix.."Detail"])
-                group.expense:SetHidden(not States[prefix.."Detail"])
-            end
-			
-            return true
+            -- This prevents the text controls appearing at game-start before the scroll-in
+            -- animation has taken place.
+            group.income:SetHidden(hidden)
+            group.expense:SetHidden(hidden)
+            group.reclaimDelta:SetHidden(hidden)
+            group.reclaimTotal:SetHidden(hidden)
+
+            return false
         end
-        
-        group.hideTarget.HandleEvent = function(self, event)
-		
-            if event.Type == 'MouseEnter' then
-			
-                if States[prefix.."Detail"] == false then
-                    group.income:Show()
-                    group.expense:Show()
-                end
-				
-                Tooltip.CreateMouseoverDisplay(self, prefix .. "_extended_display", nil, true)
-				
-                local sound = Sound({Bank = 'Interface', Cue = 'UI_Economy_Rollover'})
-				
-                PlaySound(sound)
-				
-            elseif event.Type == 'MouseExit' then
-			
-                Tooltip.DestroyMouseoverDisplay()
-				
-                if States[prefix.."Detail"] == false then
-                    group.income:Hide()
-                    group.expense:Hide()
-                end
-				
-            elseif event.Type == 'ButtonPress' then
-			
-                local sound = Sound({Bank = 'Interface', Cue = 'UI_Economy_Click'})
-				
-                PlaySound(sound)
-				
-                States[prefix.."Detail"] = not States[prefix.."Detail"]
-                group.income:SetHidden(not States[prefix.."Detail"])
-                group.expense:SetHidden(not States[prefix.."Detail"])
-                Prefs.SetToCurrentProfile(prefix.."DetailedView", States[prefix.."Detail"])
-            end
-			
-            return true
-        end
-        
--- this causes errors, need to investigate why
---        Tooltip.AddControlTooltip(group.icon, prefix..'_button')
-        
+
+        Tooltip.AddControlTooltip(group.reclaimDelta, prefix..'_reclaim_display')
+        Tooltip.AddControlTooltip(group.reclaimTotal, prefix..'_reclaim_display')
+        Tooltip.AddControlTooltip(group.income, prefix..'_income_display')
+        Tooltip.AddControlTooltip(group.expense, prefix..'_income_display')
+
         group.storageTooltipGroup.HandleEvent = function(self, event)
-		
             if event.Type == 'MouseEnter' then
-			
                 Tooltip.CreateMouseoverDisplay(self, prefix .. "_storage", nil, true)
-				
             elseif event.Type == 'MouseExit' then
-			
                 Tooltip.DestroyMouseoverDisplay()
-				
             end
-			
             return true
         end
-        
+
         group.rate.HandleEvent = function(self, event)
-		
             if event.Type == 'MouseEnter' then
-			
                 Tooltip.CreateMouseoverDisplay(self, prefix .. "_rate", nil, true)
-				
             elseif event.Type == 'MouseExit' then
-			
                 Tooltip.DestroyMouseoverDisplay()
-				
             elseif event.Type == 'ButtonPress' then
-			
                 States[prefix..'ViewState'] = States[prefix..'ViewState'] + 1
-				
                 if States[prefix..'ViewState'] > 2 then
                     States[prefix..'ViewState'] = 1
                 end
-				
                 Prefs.SetToCurrentProfile(prefix..'RateView', States[prefix..'ViewState'])
-				
                 local sound = Sound({Bank = 'Interface', Cue = 'UI_Economy_Click'})
-				
                 PlaySound(sound)
             end
-			
             return true
         end
     end
-    
+
     AddGroupLogic(GUI.mass, 'mass')
     AddGroupLogic(GUI.energy, 'energy')
 
-    GameMain.AddBeatFunction(_BeatFunction)
-	
     GUI.bg.OnDestroy = function(self)
         GameMain.RemoveBeatFunction(_BeatFunction)
     end
-    
+
     GUI.collapseArrow.OnCheck = function(self, checked)
         ToggleEconPanel()
     end
-    
+
     return GUI.mass, GUI.energy
 end
 
-function _BeatFunction()
+--- Build a beat function for updating the UI suitable for the current options.
+--
+-- The UI must be constructed first.
+function ConfigureBeatFunction()
+    -- Create an update function for each resource type...
 
-    local econData = GetEconomyTotals()
-
-    -- this is here to trap the -1.@IND events 
-    -- we'll trigger on the income values which return to normal after
-    -- the event causing it, expires
-    if not (econData.income.MASS >= 0) then
-
-        LOG("*AI DEBUG Economy Totals are "..repr(econData))
-
-        econData.reclaimed.MASS = 0
-        econData.reclaimed.ENERGY = 0
+    --- Get a `getRateColour` function.
+    --
+    -- @param warnFull Should the returned getRateColour function use warning colours for fullness?
+    local function fmtnum(n)
+        return math.round(math.clamp(n, 0, 99999999))
     end
 
-	local LOUDMAX = math.max
-	local LOUDCEIL = math.ceil
-    
-    -- fetch & format reclaim values
-    local reclaimedTotalsMass = LOUDMAX( 0, LOUDCEIL(econData.reclaimed.MASS))
-    local reclaimedTotalsEnergy = LOUDMAX( 0, LOUDCEIL(econData.reclaimed.ENERGY))
-    
-    local function DisplayEconData(controls, tableID, viewPref)
+    local function getGetRateColour(warnFull, blink)
+        local getRateColour
+        -- Flags to make things blink.
+        local blinkyFlag = true
+        local blink = blink
 
-        local LOUDFORMAT = string.format
-        local LOUDMIN = math.min
-        local simFrequency = GetSimTicksPerSecond()	
+        -- Counter to give up if the user stopped caring.
+        local blinkyCounter = 0
 
-        local function FormatRateString(RateVal, StoredVal, IncomeAvg, ActualAvg, RequestedAvg)
-		
-            local retRateStr = LOUDFORMAT('%+d', LOUDMIN( LOUDMAX(RateVal, -999999), 99999999) )
-            local retEffVal = 0
-			
-            if RequestedAvg == 0 then
-                retEffVal = LOUDCEIL(IncomeAvg) * 100
-            else
-                if StoredVal > 0.5 then
-                    retEffVal = LOUDCEIL( (IncomeAvg / ActualAvg) * 100 )
+        if warnFull then
+            return function(rateVal, storedVal, maxStorageVal)
+                local fractionFull = storedVal / maxStorageVal
+
+                if rateVal < 0 then
+                    if storedVal > 0 then
+                        return 'yellow'
+                    else
+                        return 'red'
+                    end
+                end
+
+                -- Positive rate, check if we're wasting money (and flash irritatingly if so)
+                if fractionFull >= 1 and blink then
+                    blinkyCounter = blinkyCounter + 1
+                    if blinkyCounter > 100 then
+                        return 'ffffffff'
+                    end
+
+                    -- Display flashing gray-white if high on resource.
+                    blinkyFlag = not blinkyFlag
+                    if blinkyFlag then
+                        return 'ff404040'
+                    else
+                        return 'ffffffff'
+                    end
                 else
-                    retEffVal = LOUDCEIL( (IncomeAvg / RequestedAvg) * 100 )
-                end    
-            end
-			
-            return retRateStr, retEffVal
-        end
-        
-        local maxStorageVal = econData["maxStorage"][tableID]
-        local storedVal = econData["stored"][tableID]
-        local incomeVal = econData["income"][tableID]
+                    blinkyCounter = 0
+                end
 
-        local lastRequestedVal = econData["lastUseRequested"][tableID]
-        local lastActualVal = econData["lastUseActual"][tableID]
-    
-        local requestedAvg = LOUDMIN( lastRequestedVal * simFrequency, 99999999 )
-        local actualAvg = LOUDMIN( lastActualVal * simFrequency, 99999999 )
-        local incomeAvg = LOUDMIN( incomeVal * simFrequency, 99999999 )
-        
-        if controls.storageBar then
-            controls.storageBar:SetRange(0, maxStorageVal)
-            controls.storageBar:SetValue(storedVal)
-        end
-        
-        if controls.maxStorage then
-            controls.maxStorage:SetText(LOUDCEIL(maxStorageVal))
-        end
-        
-        if controls.curStorage then
-            controls.curStorage:SetText(LOUDCEIL(storedVal))
-        end
-
-        controls.income:SetText(LOUDFORMAT("+%d", LOUDMAX( 0,LOUDCEIL(incomeAvg) ) ))
-		
-        if storedVal > 0.5 then
-            controls.expense:SetText(LOUDFORMAT("-%d", LOUDCEIL(actualAvg)))
-        else
-            controls.expense:SetText(LOUDFORMAT("-%d", LOUDCEIL(requestedAvg)))
-        end
-    
-        local rateVal = 0
-		
-        if storedVal > 0.5 then
-            rateVal = LOUDCEIL(incomeAvg - actualAvg)
-        else
-            rateVal = LOUDCEIL(incomeAvg - requestedAvg)
-        end
-        
-        local rateStr, effVal = FormatRateString(rateVal, storedVal, incomeAvg, actualAvg, requestedAvg)
-		
-		-- CHOOSE RATE or EFFICIENCY STRING
-        if States[viewPref] == 2 then
-            controls.rate:SetText(LOUDFORMAT("%d%%", LOUDMIN(effVal, 200)))   
-        else
-            controls.rate:SetText(LOUDFORMAT("%+s", rateStr))
-        end
-		
-		-- SET RATE/EFFICIENCY COLOR
-        local rateColor
-		
-        if rateVal < 0 then
-            if storedVal > 0 then
-                rateColor = 'yellow'
-            else
-                rateColor = 'red'
+                return 'ffb7e75f'
             end
         else
-            rateColor = 'ffb7e75f'
+            return function(rateVal, storedVal, maxStorageVal)
+                local fractionFull = storedVal / maxStorageVal
+
+                if rateVal < 0 then
+                    if storedVal <= 0 then
+                        return 'red'
+                    end
+
+                    if fractionFull < 0.2 and blink then
+                        -- Display flashing gray-white if low on resource.
+                        blinkyFlag = not blinkyFlag
+                        if blinkyFlag then
+                            return 'ff404040'
+                        else
+                            return 'ffffffff'
+                        end
+                    end
+
+                    return 'yellow'
+                end
+
+                return 'ffb7e75f'
+            end
         end
-		
-        controls.rate:SetColor(rateColor)
-        
-		-- ECONOMY WARNINGS        
-        if Prefs.GetOption('econ_warnings') and UIState then
-            if storedVal / maxStorageVal < .2 then
-                if effVal < 25 then
-                    controls.warningBG:SetToState('red')
-                elseif effVal < 75 then
-                    controls.warningBG:SetToState('yellow')
-                elseif effVal > 100 then
-                    controls.warningBG:SetToState('hide')
+    end
+
+    local function getResourceUpdateFunction(rType, vState, GUI)
+        -- Closure copy
+        local resourceType = rType
+        local viewState = vState
+
+        local storageBar = GUI.storageBar
+        local curStorage = GUI.curStorage
+        local maxStorage = GUI.maxStorage
+        local incomeTxt = GUI.income
+        local expenseTxt = GUI.expense
+        local rateTxt = GUI.rate
+        local warningBG = GUI.warningBG
+
+        local reclaimDelta = GUI.reclaimDelta
+        local reclaimTotal = GUI.reclaimTotal
+
+        local econ_warnings = Prefs.GetOption('econ_warnings')
+        local warnOnResourceFull = resourceType == "MASS" and econ_warnings
+        local getRateColour = getGetRateColour(warnOnResourceFull, econ_warnings)
+
+        local ShowUIWarnings
+        if not econ_warnings then
+            ShowUIWarnings = function() end
+        else
+            if warnOnResourceFull then
+                ShowUIWarnings = function(effVal, storedVal, maxStorageVal)
+                    if storedVal / maxStorageVal > 0.8 then
+                        if effVal > 2.0 then
+                            warningBG:SetToState('red')
+                        elseif effVal > 1.0 then
+                            warningBG:SetToState('yellow')
+                        elseif effVal < 1.0 then
+                            warningBG:SetToState('hide')
+                        end
+                    else
+                        warningBG:SetToState('hide')
+                    end
                 end
             else
-                controls.warningBG:SetToState('hide')
+                ShowUIWarnings = function(effVal, storedVal, maxStorageVal)
+                    if storedVal / maxStorageVal < 0.2 then
+                        if effVal < 0.25 then
+                            warningBG:SetToState('red')
+                        elseif effVal < 0.75 then
+                            warningBG:SetToState('yellow')
+                        elseif effVal > 1.0 then
+                            warningBG:SetToState('hide')
+                        end
+                    else
+                        warningBG:SetToState('hide')
+                    end
+                end
             end
-        else
-            controls.warningBG:SetToState('hide')
         end
-    end
-    
-    DisplayEconData(GUI.mass, 'MASS', 'massViewState')
-    DisplayEconData(GUI.energy, 'ENERGY', 'energyViewState')
-    
-    if options.gui_display_reclaim_totals == 1 then
-        -- display reclaim values
-        TextLine02:SetText(reclaimedTotalsMass)
-        TextLine03:SetText(reclaimedTotalsEnergy)
+
+        -- The quantity of the appropriate resource that had been reclaimed at the end of the last
+        -- tick (captured into the returned closure).
+        local lastReclaimTotal = 0
+        local lastReclaimRate = 0
+
+        -- Finally, glue all the bits together into a a resource-update function.
+            local econData = GetEconomyTotals()
+            local simFrequency = GetSimTicksPerSecond()
+
+            -- Deal with the reclaim column
+            -------------------------------
+            local totalReclaimed = econData.reclaimed[resourceType]
+
+            -- Reclaimed this tick
+            local thisTick = totalReclaimed - lastReclaimTotal
+
+            -- Set a new lastReclaimTotal to carry over
+            lastReclaimTotal = totalReclaimed
+
+            -- The quantity we'd gain if we reclaimed at this rate for a full second.
+            local reclaimRate = thisTick * simFrequency
+
+            -- Set the text
+            reclaimDelta:SetText('+' .. fmtnum(reclaimRate))
+            reclaimTotal:SetText(fmtnum(totalReclaimed))
+
+            -- Deal with the Storage
+            ------------------------
+            local maxStorageVal = econData.maxStorage[resourceType]
+            local storedVal = econData.stored[resourceType]
+
+            -- Set the bar fill
+            storageBar:SetRange(0, maxStorageVal)
+            storageBar:SetValue(storedVal)
+
+            -- Set the text displays
+            curStorage:SetText(math.round(storedVal))
+            maxStorage:SetText(math.round(maxStorageVal))
+
+            -- Deal with the income/expense column
+            --------------------------------------
+            local incomeVal = econData.income[resourceType]
+
+            -- Should always be positive integer
+            local incomeSec = math.max(0, incomeVal * simFrequency)
+            local generatedIncome = incomeSec - lastReclaimRate
+
+            -- How much are we wanting to drain?
+            local expense
+            if storedVal > 0.5 then
+                expense = econData.lastUseActual[resourceType] * simFrequency
+            else
+                expense = econData.lastUseRequested[resourceType] * simFrequency
+            end
+
+            -- Set the text displays. incomeTxt should be only from non-reclaim.
+            -- incomeVal is delayed by 1 tick when it comes to accounting for reclaim.
+            -- This necessitates the use of the lastReclaimRate stored value.
+            incomeTxt:SetText(string.format("+%d", fmtnum(generatedIncome)))
+            expenseTxt:SetText(string.format("-%d", fmtnum(expense)))
+
+            -- Store this tick's reclaimRate for next tick
+            lastReclaimRate = reclaimRate
+
+            -- Deal with the primary income/expense display
+            -----------------------------------------------
+
+            -- incomeSec and expense are already limit-checked and integers
+            local rateVal = incomeSec - expense
+
+            -- Calculate resource usage efficiency for % display mode
+            local effVal
+            if expense == 0 then
+                effVal = incomeSec * 100
+            else
+                effVal = math.round((incomeSec / expense) * 100)
+            end
+
+            -- Choose to display efficiency or rate
+            if States[viewState] == 2 then
+                rateTxt:SetText(string.format("%d%%", math.min(effVal, 100)))
+            else
+                rateTxt:SetText(string.format("%+d", rateVal))
+            end
+
+            rateTxt:SetColor(getRateColour(rateVal, storedVal, maxStorageVal))
+
+            if not UIState then
+                return
+            end
+
+            ShowUIWarnings(effVal, storedVal, maxStorageVal)
     end
 
+
+    function _BeatFunction()
+	    getResourceUpdateFunction('MASS', 'massViewState', GUI.mass)
+	    getResourceUpdateFunction('ENERGY', 'energyViewState', GUI.energy)
+    end
 end
 
 function ToggleEconPanel(state)
-    if import('/lua/ui/game/gamemain.lua').gameUIHidden and state != nil then
+    if import("/lua/ui/game/gamemain.lua").gameUIHidden and state ~= nil then
         return
     end
     import(UIUtil.GetLayoutFilename('economy')).TogglePanelAnimation(state)

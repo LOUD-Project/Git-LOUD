@@ -144,8 +144,7 @@ function SetupPlayerLines()
             group.faction:SetTexture(UIUtil.UIFile('/widgets/faction-icons-alpha_bmp/observer_ico.dds'))
         end
 		
-        group.faction.Height:Set(14)
-        group.faction.Width:Set(14)
+        LayoutHelpers.SetDimensions(group.faction, 14, 14)
         group.faction:DisableHitTest()
 		
         LayoutHelpers.AtLeftTopIn(group.faction, group)
@@ -177,7 +176,7 @@ function SetupPlayerLines()
         group.name:SetClipToWidth(true)
         
         group.Height:Set(group.faction.Height)
-        group.Width:Set(210)
+		LayoutHelpers.SetWidth(group, 210)
         
         group.armyID = armyIndex
         
@@ -226,7 +225,7 @@ function SetupPlayerLines()
         observerLine = CreateArmyLine({color = 'ffffffff', nickname = LOC("<LOC score_0003>Observer")}, 0)
 		
         observerLine.name.Top:Set(observerLine.Top)
-        observerLine.Height:Set(40)
+		LayoutHelpers.SetHeight(observerLine, 40)
         observerLine.speedText = UIUtil.CreateText(controls.bgStretch, '', 14, UIUtil.bodyFont)
         observerLine.speedText:SetColor('ff00dbff')
 		
@@ -238,9 +237,8 @@ function SetupPlayerLines()
             UIUtil.SkinnableFile('/slider02/slider_btn_down.dds'), 
             UIUtil.SkinnableFile('/dialogs/options/slider-back_bmp.dds'))
 
-        observerLine.speedSlider.Left:Set(function() return observerLine.Left() + 5 end)
-        observerLine.speedSlider.Right:Set(function() return observerLine.Right() - 20 end)
-        observerLine.speedSlider.Bottom:Set(function() return observerLine.Bottom() - 5 end)
+		LayoutHelpers.AtLeftIn(observerLine.speedSlider, observerLine, 5)
+		LayoutHelpers.AtRightBottomIn(observerLine.speedSlider, observerLine, 20, 5)
         observerLine.speedSlider._background.Left:Set(observerLine.speedSlider.Left)
         observerLine.speedSlider._background.Right:Set(observerLine.speedSlider.Right)
         observerLine.speedSlider._background.Top:Set(observerLine.speedSlider.Top)

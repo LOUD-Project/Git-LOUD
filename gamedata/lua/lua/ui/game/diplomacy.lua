@@ -105,7 +105,7 @@ function CreateContent(inParent)
     
     BuildPlayerLines()
     
-    parent.Width:Set(266)
+    LayoutHelpers.SetWidth(parent, 266)
     parent.OnDestroy = function(self)
         parent = false
     end
@@ -250,12 +250,12 @@ function BuildPlayerLines()
         
         entry.Height:Set(function()
                 if (isAlly or data.human) and not data.outOfGame then
-                    return 40
+                    return LayoutHelpers.ScaleNumber(40)
                 else
-                    return entry.factionIcon.Height() + 4
+                    return entry.factionIcon.Height() + LayoutHelpers.ScaleNumber(4)
                 end
             end)
-        entry.Width:Set(function() return parent.Width() - 20 end)
+        entry.Width:Set(function() return parent.Width() - LayoutHelpers.ScaleNumber(20) end)
         
         return entry
     end
@@ -352,13 +352,13 @@ function BuildPlayerLines()
         end
         
         parent.alliedBG = Bitmap(parent, UIUtil.UIFile('/game/options-diplomacy-panel/panel-allies_bmp_t.dds'))
-        parent.alliedBG.Top:Set(function() return parent.Top() + 2 end)
+        LayoutHelpers.AtTopIn(parent.alliedBG, parent, 2)
         parent.alliedBG.Left:Set(parent.Left)
         
         parent.alliedBG.bottomBG = Bitmap(parent.alliedBG, UIUtil.UIFile('/game/options-diplomacy-panel/panel-allies_bmp_b.dds'))
         parent.alliedBG.bottomBG.Depth:Set(parent.alliedBG.Depth)
         parent.alliedBG.bottomBG.Left:Set(parent.alliedBG.Left)
-        parent.alliedBG.bottomBG.Top:Set(function() return lastAllyControl.Bottom() + 5 end)
+        LayoutHelpers.AnchorToBottom(parent.alliedBG.bottomBG, lastAllyControl, 5)
         
         parent.alliedBG.middleBG = Bitmap(parent.alliedBG, UIUtil.UIFile('/game/options-diplomacy-panel/panel-allies_bmp_m.dds'))
         parent.alliedBG.middleBG.Depth:Set(parent.alliedBG.Depth)
@@ -436,7 +436,7 @@ function BuildPlayerLines()
     end
     
     parent.enemyBG = Bitmap(parent, UIUtil.UIFile('/game/options-diplomacy-panel/panel-enemy_bmp_t.dds'))
-    parent.enemyBG.Top:Set(function() return enemyTitle.Top() - 8 end)
+    LayoutHelpers.AtTopIn(parent.enemyBG, enemyTitle, -8)
     parent.enemyBG.Left:Set(parent.Left)
     parent.enemyBG.bottomBG = Bitmap(parent.enemyBG, UIUtil.UIFile('/game/options-diplomacy-panel/panel-enemy_bmp_b.dds'))
     parent.enemyBG.bottomBG.Depth:Set(parent.enemyBG.Depth)
@@ -463,7 +463,7 @@ function BuildPlayerLines()
                     height = height + (item.Bottom() - parent.Items[index-1].Bottom())
                 end
             end
-            return height + 10
+            return height + LayoutHelpers.ScaleNumber(10)
         end)
 end
 
@@ -477,8 +477,7 @@ function CreateShareResourcesDialog(control)
         control.OrigHeight = control.Height()
         
         control.giveResourcesGroup = Group(control)
-        control.giveResourcesGroup.Height:Set(90)
-        control.giveResourcesGroup.Width:Set(control.Width)
+        LayoutHelpers.SetDimensions(control.giveResourcesGroup, control.Width, 90)
         LayoutHelpers.AtBottomIn(control.giveResourcesGroup, control)
         LayoutHelpers.AtLeftIn(control.giveResourcesGroup, control)
         

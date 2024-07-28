@@ -304,3 +304,20 @@ function StringSplit(str, sep)
     str:gsub(pattern, function(c) fields[LOUDGETN(fields)+1] = c end)
     return fields
 end
+
+--- Rounds a number to specified double precision
+function math.round(num,idp)
+    if not idp then
+        return math.floor(num+.5)
+    end
+
+    idp = math.pow(10,idp)
+    return math.floor(num*idp+.5)/idp
+end
+
+--- Clamps numeric value to specified Min and Max range
+function math.clamp(v, min, max)
+    if v <= min then return min end
+    if v >= max then return max end
+    return v
+end

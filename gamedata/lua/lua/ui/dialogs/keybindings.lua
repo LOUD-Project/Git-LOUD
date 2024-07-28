@@ -94,10 +94,10 @@ local function EditActionKey(parent, action, currentKey)
     local dialog = Group(parent, "editActionKeyDialog")
     LayoutHelpers.AtCenterIn(dialog, parent)
     LayoutHelpers.DepthOverParent(dialog, parent, 100)
-    dialog.Height:Set(100)
+    LayoutHelpers.SetHeight(dialog, 100)
 
     local background = Bitmap(dialog, UIUtil.SkinnableFile('/dialogs/dialog_02/panel_bmp_m.dds'))
-    background:SetTiled(true)
+    background:SetTiled(false)
     dialog.Width:Set(background.Width)
     LayoutHelpers.FillParent(background, dialog)
 
@@ -269,8 +269,7 @@ function CreateUI()
 
     panel = Bitmap(GetFrame(0), UIUtil.UIFile('/scx_menu/panel-brd/panel_brd_m.dds'))
     panel.Depth:Set(GetFrame(0):GetTopmostDepth() + 1)
-    panel.Height:Set(390)
-    panel.Width:Set(530)
+    LayoutHelpers.SetDimensions(panel, 530, 390)
     LayoutHelpers.AtCenterIn(panel, GetFrame(0))
     panel.OnDestroy = function(self)
         RemoveInputCapture(panel)
@@ -322,8 +321,7 @@ function CreateUI()
 
     local searchEdit = Edit(panel)
     LayoutHelpers.RightOf(searchEdit, searchLabel, 2)
-    searchEdit.Width:Set(154)
-    searchEdit.Height:Set(16)
+    LayoutHelpers.SetDimensions(searchEdit, 154, 16)
     searchEdit:SetFont(UIUtil.bodyFont, 14)
     searchEdit:SetForegroundColor(UIUtil.fontColor)
     searchEdit:SetHighlightBackgroundColor('00000000')
@@ -351,8 +349,7 @@ function CreateUI()
     AddInputCapture(panel)
 
     keyContainer = Group(panel)
-    keyContainer.Height:Set(370)
-    keyContainer.Width:Set(593)
+    LayoutHelpers.SetDimensions(keyContainer, 593, 370)
     keyContainer.top = 0
 
     LayoutHelpers.AtLeftTopIn(keyContainer, panel, -46)
@@ -371,11 +368,11 @@ function CreateUI()
         keyEntries[index].description = UIUtil.CreateText(keyEntries[1].bg, '', 16, "Arial")
         keyEntries[index].description:DisableHitTest()
         keyEntries[index].description:SetClipToWidth(true)
-        keyEntries[index].description.Width:Set(keyEntries[index].bg.Right() - keyEntries[index].bg.Left() - 150) -- this is not meant to be a lazy var function since the layout is static
+        keyEntries[index].description.Width:Set(keyEntries[index].bg.Right() - keyEntries[index].bg.Left() - LayoutHelpers.ScaleNumber(150)) -- this is not meant to be a lazy var function since the layout is static
 
         keyEntries[index].folded = UIUtil.CreateText(keyEntries[1].bg, '', 16, "Arial Bold")
 
-        keyEntries[index].bg.Height:Set(function() return keyEntries[index].key.Height() + 4 end)
+        keyEntries[index].bg.Height:Set(function() return keyEntries[index].key.Height() + LayoutHelpers.ScaleNumber(4) end)
 
         LayoutHelpers.AtVerticalCenterIn(keyEntries[index].key, keyEntries[index].bg)
         LayoutHelpers.AtLeftIn(keyEntries[index].description, keyEntries[index].bg, 150)
@@ -523,7 +520,7 @@ function CreateUI()
                 line.bg.dataIndex = lineID
             else
                 --LayoutHelpers.AtLeftIn(line.key, line.bg)
-                line.key.Left:Set(function() return math.floor((line.bg.Left() + 70) - (line.key.Width() / 2)) end)
+                line.key.Left:Set(function() return math.floor((line.bg.Left() + LayoutHelpers.ScaleNumber(70)) - (line.key.Width() / 2)) end)
                 line.bg:SetSolidColor(GetEntryColor(lineID, data._selected))
                 line.key:SetText(LOC(data.keyDisp))
                 line.key:SetColor('ffffffff')

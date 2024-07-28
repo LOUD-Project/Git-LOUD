@@ -53,10 +53,10 @@ function SetLayout()
 end
 
 function CreateChatBackground()
-    local location = {Top = function() return GetFrame(0).Bottom() - 393 end,
-        Left = function() return GetFrame(0).Left() + 8 end,
-        Right = function() return GetFrame(0).Left() + 430 end,
-        Bottom = function() return GetFrame(0).Bottom() - 238 end}
+    local location = {Top = function() return GetFrame(0).Bottom() - LayoutHelpers.ScaleNumber(393) end,
+        Left = function() return GetFrame(0).Left() + LayoutHelpers.ScaleNumber(8) end,
+        Right = function() return GetFrame(0).Left() + LayoutHelpers.ScaleNumber(430) end,
+        Bottom = function() return GetFrame(0).Bottom() - LayoutHelpers.ScaleNumber(238) end}
     local bg = Window(GetFrame(0), '', nil, true, true, nil, nil, 'chat_window', location)
     bg.Depth:Set(200)
     
@@ -113,23 +113,19 @@ function CreateChatBackground()
         bg.DragBR:SetTexture(bg.DragBR.textures.up)
     end
     
-    bg.DragTL.Left:Set(function() return bg.Left() - 26 end)
-    bg.DragTL.Top:Set(function() return bg.Top() - 6 end)
+    LayoutHelpers.AtLeftTopIn(bg.DragTL, bg, -26, -6)
     bg.DragTL.Depth:Set(220)
     bg.DragTL:DisableHitTest()
     
-    bg.DragTR.Right:Set(function() return bg.Right() + 22 end)
-    bg.DragTR.Top:Set(function() return bg.Top() - 8 end)
+    LayoutHelpers.AtRightTopIn(bg.DragTR, bg, -22, -8)
     bg.DragTR.Depth:Set(bg.DragTL.Depth)
     bg.DragTR:DisableHitTest()
     
-    bg.DragBL.Left:Set(function() return bg.Left() - 26 end)
-    bg.DragBL.Bottom:Set(function() return bg.Bottom() + 8 end)
+    LayoutHelpers.AtLeftBottomIn(bg.DragBL, bg, -26, -8)
     bg.DragBL.Depth:Set(bg.DragTL.Depth)
     bg.DragBL:DisableHitTest()
     
-    bg.DragBR.Right:Set(function() return bg.Right() + 22 end)
-    bg.DragBR.Bottom:Set(function() return bg.Bottom() + 8 end)
+    LayoutHelpers.AtRightBottomIn(bg.DragBR, bg, -22, -8)
     bg.DragBR.Depth:Set(bg.DragTL.Depth)
     bg.DragBR:DisableHitTest()
     
@@ -155,7 +151,7 @@ function CreateChatBackground()
     
     Tooltip.AddButtonTooltip(bg.ResetPositionBtn, 'chat_reset')    
     
-    bg:SetMinimumResize(400, 160)
+    bg:SetMinimumResize(LayoutHelpers.ScaleNumber(400), LayoutHelpers.ScaleNumber(160))
     return bg
 end
 
@@ -172,21 +168,21 @@ function CreateChatLines()
         
         line.topBG = Bitmap(line)
         line.topBG:SetSolidColor('00000000')
-        line.topBG.Height:Set(2)
+        LayoutHelpers.SetHeight(line.topBG, 2)
         line.topBG.Left:Set(line.Left)
         line.topBG.Right:Set(line.Right)
         line.topBG.Bottom:Set(line.Top)
         
         line.leftBG = Bitmap(line)
         line.leftBG:SetSolidColor('00000000')
-        line.leftBG.Width:Set(1)
+        LayoutHelpers.SetWidth(line.leftBG, 1)
         line.leftBG.Right:Set(line.Left)
         line.leftBG.Top:Set(line.topBG.Top)
         line.leftBG.Bottom:Set(line.Bottom)
         
         line.rightBG = Bitmap(line)
         line.rightBG:SetSolidColor('00000000')
-        line.rightBG.Width:Set(1)
+        LayoutHelpers.SetWidth(line.rightBG, 1)
         line.rightBG.Left:Set(line.Right)
         line.rightBG.Top:Set(line.topBG.Top)
         line.rightBG.Bottom:Set(line.Bottom)
@@ -196,7 +192,7 @@ function CreateChatLines()
         LayoutHelpers.FillParent(line.factionIcon, line.teamColor)
         
         line.name = UIUtil.CreateText(line, '', ChatOptions.font_size, "Arial Bold")
-        line.name.Left:Set(function() return line.teamColor.Right() + 4 end)
+        LayoutHelpers.AnchorToRight(line.name, line.teamColor, 4)
         LayoutHelpers.AtVerticalCenterIn(line.name, line.teamColor)
         line.name.Depth:Set(function() return line.Depth() + 10 end)
         line.name:SetColor('ffffffff')
@@ -206,7 +202,7 @@ function CreateChatLines()
         line.nameBG:SetSolidColor('00000000')
         line.nameBG.Depth:Set(function() return line.name.Depth() - 1 end)
         line.nameBG.Left:Set(line.teamColor.Right)
-        line.nameBG.Right:Set(function() return line.name.Right() + 4 end)
+        LayoutHelpers.AtRightIn(line.nameBG, line.name, -4)
         line.nameBG.Top:Set(line.teamColor.Top)
         line.nameBG.Bottom:Set(line.teamColor.Bottom)
 		
@@ -231,7 +227,7 @@ function CreateChatLines()
         
         line.text = UIUtil.CreateText(line, '', ChatOptions.font_size, "Arial")
         line.text.Depth:Set(function() return line.Depth() + 10 end)
-        line.text.Left:Set(function() return line.nameBG.Right() + 2 end)
+        LayoutHelpers.AnchorToRight(line.text, line.nameBG, 2)
         line.text.Right:Set(line.Right)
         line.text:SetClipToWidth(true)
         line.text:DisableHitTest()
@@ -276,7 +272,7 @@ function CreateChatLines()
     end
     if GUI.chatContainer then
         local curEntries = table.getsize(GUI.chatLines)
-        local neededEntries = math.floor(GUI.chatContainer.Height() / (GUI.chatLines[1].Height() + 2))
+        local neededEntries = math.floor(GUI.chatContainer.Height() / (GUI.chatLines[1].Height() + LayoutHelpers.ScaleNumber(2)))
         if curEntries - neededEntries == 0 then
             return
         elseif curEntries - neededEntries < 0 then
@@ -284,7 +280,7 @@ function CreateChatLines()
                 local index = i
                 GUI.chatLines[index] = CreateChatLine()
                 LayoutHelpers.Below(GUI.chatLines[index], GUI.chatLines[index-1], 2)
-                GUI.chatLines[index].Height:Set(function() return GUI.chatLines[index].name.Height() + 4 end)
+                GUI.chatLines[index].Height:Set(function() return GUI.chatLines[index].name.Height() + LayoutHelpers.ScaleNumber(4) end)
                 GUI.chatLines[index].Right:Set(GUI.chatContainer.Right)
             end
         elseif curEntries - neededEntries > 0 then
@@ -298,17 +294,16 @@ function CreateChatLines()
     else
         local clientArea = GUI.bg:GetClientGroup()
         GUI.chatContainer = Group(clientArea)
-        GUI.chatContainer.Left:Set(function() return clientArea.Left() + 10 end)
-        GUI.chatContainer.Top:Set(function() return clientArea.Top() + 2 end)
-        GUI.chatContainer.Right:Set(function() return clientArea.Right() - 38 end)
-        GUI.chatContainer.Bottom:Set(function() return GUI.chatEdit.Top() - 10 end)
+        LayoutHelpers.AtLeftTopIn(GUI.chatContainer, clientArea, 10, 2)
+		LayoutHelpers.AtRightIn(GUI.chatContainer, clientArea, 38)
+		LayoutHelpers.AnchorToTop(GUI.chatContainer, GUI.chatEdit, 10)
         
         SetupChatScroll()
         
         if not GUI.chatLines[1] then
             GUI.chatLines[1] = CreateChatLine()
             LayoutHelpers.AtLeftTopIn(GUI.chatLines[1], GUI.chatContainer, 0, 0)
-            GUI.chatLines[1].Height:Set(function() return GUI.chatLines[1].name.Height() + 4 end)
+            GUI.chatLines[1].Height:Set(function() return GUI.chatLines[1].name.Height() + LayoutHelpers.ScaleNumber(4) end)
             GUI.chatLines[1].Right:Set(GUI.chatContainer.Right)
         end
         local index = 1
@@ -317,7 +312,7 @@ function CreateChatLines()
             if not GUI.chatLines[index] then
                 GUI.chatLines[index] = CreateChatLine()
                 LayoutHelpers.Below(GUI.chatLines[index], GUI.chatLines[index-1], 2)
-                GUI.chatLines[index].Height:Set(function() return GUI.chatLines[index].name.Height() + 4 end)
+                GUI.chatLines[index].Height:Set(function() return GUI.chatLines[index].name.Height() + LayoutHelpers.ScaleNumber(4) end)
                 GUI.chatLines[index].Right:Set(GUI.chatContainer.Right)
             end
         end
@@ -460,15 +455,14 @@ function SetupChatScroll()
                     GUI.chatLines[index].chatID = chatHistory[curEntry].armyID
                     if chatHistory[curEntry].camera and not GUI.chatLines[index].camIcon then
                         GUI.chatLines[index].camIcon = Bitmap(GUI.chatLines[index].textBG, UIUtil.UIFile('/game/camera-btn/pinned_btn_up.dds'))
-                        GUI.chatLines[index].camIcon.Height:Set(16)
-                        GUI.chatLines[index].camIcon.Width:Set(20)
+                        LayoutHelpers.SetDimensions(GUI.chatLines[index].camIcon, 20, 16)
                         LayoutHelpers.AtVerticalCenterIn(GUI.chatLines[index].camIcon, GUI.chatLines[index].teamColor)
-                        GUI.chatLines[index].camIcon.Left:Set(function() return GUI.chatLines[Index].name.Right() + 4 end)
-                        GUI.chatLines[index].text.Left:Set(function() return GUI.chatLines[Index].camIcon.Right() + 4 end)
+                        LayoutHelpers.AnchorToRight(GUI.chatLines[index].camIcon, GUI.chatLines[Index].name, 4)
+						LayoutHelpers.AnchorToRight(GUI.chatLines[index].text, GUI.chatLines[Index].camIcon, 4)
                     elseif not chatHistory[curEntry].camera and GUI.chatLines[index].camIcon then
                         GUI.chatLines[index].camIcon:Destroy()
                         GUI.chatLines[index].camIcon = false
-                        GUI.chatLines[index].text.Left:Set(function() return GUI.chatLines[Index].nameBG.Right() + 2 end)
+                        LayoutHelpers.AnchorToRight(GUI.chatLines[index].text, GUI.chatLines[Index].nameBG, 2)
                     end
                 else
                     GUI.chatLines[index].topBG.Right:Set(GUI.chatLines[index].teamColor.Right)
@@ -481,7 +475,7 @@ function SetupChatScroll()
                     if GUI.chatLines[index].camIcon then
                         GUI.chatLines[index].camIcon:Destroy()
                         GUI.chatLines[index].camIcon = false
-                        GUI.chatLines[index].text.Left:Set(function() return GUI.chatLines[Index].nameBG.Right() + 2 end)
+                        LayoutHelpers.AnchorToRight(GUI.chatLines[index].text, GUI.chatLines[Index].nameBG, 2)
                     end
                 end
                 if chatHistory[curEntry].camera then
@@ -589,8 +583,7 @@ function CreateChatEdit()
     group.Top:Set(function() return group.Bottom() - group.Height() end)
     
     local toText = UIUtil.CreateText(group, '', 14, 'Arial')
-    toText.Bottom:Set(function() return group.Bottom() - 1 end)
-    toText.Left:Set(function() return group.Left() + 35 end)
+    LayoutHelpers.AtLeftBottomIn(toText, group, 35, 1)
     
     ChatTo.OnDirty = function(self)
         if ToStrings[self()] then
@@ -601,10 +594,10 @@ function CreateChatEdit()
     end
     
     group.edit = Edit(group)
-    group.edit.Left:Set(function() return toText.Right() + 5 end)
-    group.edit.Right:Set(function() return group.Right() - 38 end)
+    LayoutHelpers.AnchorToRight(group.edit, toText, 5)
+    LayoutHelpers.AtRightIn(group.edit, group, 38)
     group.edit.Depth:Set(function() return GUI.bg:GetClientGroup().Depth() + 200 end)
-    group.edit.Bottom:Set(function() return group.Bottom() - 1 end)
+    LayoutHelpers.AtBottomIn(group.edit, group, 1)
     group.edit.Height:Set(function() return group.edit:GetFontHeight() end)
     UIUtil.SetupEditStd(group.edit, "ff00ff00", nil, "ffffffff", UIUtil.highlightColor, UIUtil.bodyFont, 14, 200)
     group.edit:SetDropShadow(true)
@@ -841,10 +834,9 @@ function CreateChatList(parent)
         text.BG = Bitmap(text)
         text.BG:SetSolidColor('ff000000')
         text.BG.Depth:Set(function() return text.Depth() - 1 end)
-        text.BG.Left:Set(function() return text.Left() - 6 end)
-        text.BG.Top:Set(function() return text.Top() - 1 end)
-        text.BG.Width:Set(function() return container.Width() + 8 end)
-        text.BG.Bottom:Set(function() return text.Bottom() + 1 end)
+        LayoutHelpers.AtLeftTopIn(text.BG, text, -6, -1)
+        text.BG.Width:Set(function() return container.Width() + LayoutHelpers.ScaleNumber(8) end)
+        LayoutHelpers.AtBottomIn(text.BG, text, -1)
         
         text.BG.HandleEvent = function(self, event)
             if event.Type == 'MouseEnter' then
@@ -880,7 +872,7 @@ function CreateChatList(parent)
         local i = index
         table.insert(container.entries, CreatePlayerEntry(data))
         if container.entries[i].Width() > maxWidth then
-            maxWidth = container.entries[i].Width() + 8
+            maxWidth = container.entries[i].Width() + LayoutHelpers.ScaleNumber(8)
         end
         height = height + container.entries[i].Height()
         if i > 1 then
@@ -1098,9 +1090,9 @@ function WrapText(data)
     return import('/lua/maui/text.lua').WrapText(data.text, 
         function(line)
             if line == 1 then
-                return GUI.chatLines[1].Right() - (GUI.chatLines[1].teamColor.Right() + GUI.chatLines[1].name:GetStringAdvance(data.name) + 4)
+                return GUI.chatLines[1].Right() - (GUI.chatLines[1].teamColor.Right() + GUI.chatLines[1].name:GetStringAdvance(data.name) + LayoutHelpers.ScaleNumber(4))
             else
-                return GUI.chatLines[1].Right() - GUI.chatContainer.scroll.Width() - 24
+                return GUI.chatLines[1].Right() - GUI.chatContainer.scroll.Width() - LayoutHelpers.ScaleNumber(24)
             end
         end, 
         function(text) 
@@ -1281,8 +1273,8 @@ function CreateConfigWindow()
     GUI.config = Window(GetFrame(0), '<LOC chat_0008>Chat Options', nil, nil, nil, true, true, 'chat_config', nil, windowTextures)
     GUI.config.Depth:Set(GetFrame(0):GetTopmostDepth() + 1)
     Tooltip.AddButtonTooltip(GUI.config._closeBtn, 'chat_close')
-    GUI.config.Top:Set(function() return GetFrame(0).Bottom() - 700 end)
-    GUI.config.Width:Set(300)
+    LayoutHelpers.AnchorToBottom(GUI.config, GetFrame(0), -700)
+    LayoutHelpers.SetWidth(GUI.config, 300)
     LayoutHelpers.AtHorizontalCenterIn(GUI.config, GetFrame(0))
     LayoutHelpers.ResetRight(GUI.config)
     
@@ -1347,7 +1339,7 @@ function CreateConfigWindow()
         splitter:SetSolidColor('ff000000')
         splitter.Left:Set(optionGroup.Left)
         splitter.Right:Set(optionGroup.Right)
-        splitter.Height:Set(2)
+        LayoutHelpers.SetHeight(splitter, 2)
         return splitter
     end
     
@@ -1375,7 +1367,7 @@ function CreateConfigWindow()
             LayoutHelpers.AtLeftTopIn(group.color, group)
             LayoutHelpers.RightOf(group.name, group.color, 5)
             LayoutHelpers.AtVerticalCenterIn(group.name, group.color)
-            group.color.Width:Set(55)
+            LayoutHelpers.SetWidth(group.color, 55)
             group.color.key = data.key
             group.Height:Set(group.color.Height)
             group.Width:Set(group.color.Width)
@@ -1406,7 +1398,7 @@ function CreateConfigWindow()
                 defValue = defValue * 100
             end
             group.slider:SetValue(defValue)
-            group.Width:Set(200)
+            LayoutHelpers.SetWidth(group, 200)
         elseif data.type == 'splitter' then
             group.split = CreateSplitter()
             LayoutHelpers.AtTopIn(group.split, group)
@@ -1521,7 +1513,7 @@ function CreateConfigWindow()
     end
     
     
-    GUI.config.Bottom:Set(function() return okBtn.Bottom() + 5 end)
+    LayoutHelpers.AtBottomIn(GUI.config, okBtn, -5)
 end
 
 function CloseChatConfig()

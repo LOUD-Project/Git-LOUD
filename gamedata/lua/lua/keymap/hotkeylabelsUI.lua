@@ -8,9 +8,8 @@ local modpath = "/mods/hotkeyLabels/"
 function addLabel(control, parent, key)
     control.hotbuildKeyBg = Bitmap(parent)
     control.hotbuildKeyBg.Depth:Set(99)
-    control.hotbuildKeyBg.Height:Set(20)
-    control.hotbuildKeyBg.Width:Set(20)
-    LayoutHelpers.AtRightTopIn(control.hotbuildKeyBg, parent, 0, parent.Height() - 20)
+    LayoutHelpers.SetDimensions(control.hotbuildKeyBg, 20, 20)
+    LayoutHelpers.AtRightTopIn(control.hotbuildKeyBg, parent, 0, parent.Height() - LayoutHelpers.ScaleNumber(20))
     control.hotbuildKeyBg:SetTexture(modpath..'textures/bg.png')
     control.hotbuildKeyBg:DisableHitTest()
 

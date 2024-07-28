@@ -25,26 +25,25 @@ function SetLayout()
     controls.bg.Width:Set(controls.bgTop.Width)
     
     LayoutHelpers.AtRightTopIn(controls.bgTop, controls.bg, 3)
+	
     LayoutHelpers.AtLeftTopIn(controls.armyGroup, controls.bgTop, 10, 25)
     controls.armyGroup.Width:Set(controls.armyLines[1].Width)
     
     --LOG('>>>> HUSSAR: score_mini texture Bracket... ')
     controls.leftBracketMin:SetTexture(UIUtil.UIFile('/game/bracket-left-energy/bracket_bmp_t.dds'))
-    controls.leftBracketMin.Top:Set(function() return controls.bg.Top() - 1 end)
-    controls.leftBracketMin.Left:Set(function() return controls.bg.Left() - 10 end)
+	LayoutHelpers.AtLeftTopIn(controls.leftBracketMin, controls.bg, -10, -1)
     
     controls.leftBracketMax:SetTexture(UIUtil.UIFile('/game/bracket-left-energy/bracket_bmp_b.dds'))
-    controls.leftBracketMax.Bottom:Set(function() return controls.bg.Bottom() + 1 end)
+	LayoutHelpers.AtBottomIn(controls.leftBracketMax, controls.bg, -1)
     controls.leftBracketMax.Left:Set(controls.leftBracketMin.Left)
     
     controls.leftBracketMid:SetTexture(UIUtil.UIFile('/game/bracket-left-energy/bracket_bmp_m.dds'))
     controls.leftBracketMid.Top:Set(controls.leftBracketMin.Bottom)
     controls.leftBracketMid.Bottom:Set(controls.leftBracketMax.Top)
-    controls.leftBracketMid.Left:Set(function() return controls.leftBracketMin.Left() end)
+    controls.leftBracketMid.Left:Set(controls.leftBracketMin.Left)
     
     controls.rightBracketMin:SetTexture(UIUtil.UIFile('/game/bracket-right/bracket_bmp_t.dds'))
-    controls.rightBracketMin.Top:Set(function() return controls.bg.Top() - 5 end)
-    controls.rightBracketMin.Right:Set(function() return controls.bg.Right() + 18 end)
+	LayoutHelpers.AtRightTopIn(controls.rightBracketMin, controls.bg, -18, -5)
     
     controls.rightBracketMax:SetTexture(UIUtil.UIFile('/game/bracket-right/bracket_bmp_b.dds'))
     controls.rightBracketMax.Bottom:Set(function() 
@@ -55,7 +54,7 @@ function SetLayout()
     controls.rightBracketMid:SetTexture(UIUtil.UIFile('/game/bracket-right/bracket_bmp_m.dds'))
     controls.rightBracketMid.Top:Set(controls.rightBracketMin.Bottom)
     controls.rightBracketMid.Bottom:Set(controls.rightBracketMax.Top)
-    controls.rightBracketMid.Right:Set(function() return controls.rightBracketMin.Right() - 7 end)
+	LayoutHelpers.AtRightIn(controls.rightBracketMid, controls.rightBracketMin, 7)
     
     --LOG('>>>> HUSSAR: score_mini texture panel... ')
     --controls.bgTop:SetTexture(UIUtil.UIFile('/game/score-panel/panel-score_bmp_t.dds'))
@@ -66,11 +65,11 @@ function SetLayout()
     controls.bgBottom:SetTexture(modTextures..'score_bottom.dds')
     controls.bgStretch:SetTexture(modTextures..'score_strech.dds')
 
-    controls.bgBottom.Top:Set(function() return math.max(controls.armyGroup.Bottom() - 14, controls.bgTop.Bottom()) end)
+    controls.bgBottom.Top:Set(function() return math.max(controls.armyGroup.Bottom() - LayoutHelpers.ScaleNumber(14), controls.bgTop.Bottom()) end)
     controls.bgBottom.Right:Set(controls.bgTop.Right)
     controls.bgStretch.Top:Set(controls.bgTop.Bottom)
     controls.bgStretch.Bottom:Set(controls.bgBottom.Top)
-    controls.bgStretch.Right:Set(function() return controls.bgTop.Right() - 0 end)
+    controls.bgStretch.Right:Set(controls.bgTop.Right)
     
     controls.bg.Height:Set(function() return controls.bgBottom.Bottom() - controls.bgTop.Top() end)
     controls.armyGroup.Height:Set(function() 
@@ -78,35 +77,34 @@ function SetLayout()
         for _, line in controls.armyLines do
             totHeight = totHeight + line.Height()
         end
-        return math.max(totHeight, 50)
+        return math.max(totHeight, LayoutHelpers.ScaleNumber(50))
     end)
     
     -- NOTE HUSSAR moved loading icons for timer and unit counter to score.LUA
     
     --LOG('>>>> HUSSAR: score_mini texture time/tank... ')
-    local x = 10
-    LayoutHelpers.AtLeftTopIn(controls.timeIcon, controls.bgTop, x, 8)
-    x = x + 16
-    LayoutHelpers.AtLeftTopIn(controls.time, controls.bgTop, x, 7)
+    LayoutHelpers.AtLeftTopIn(controls.timeIcon, controls.bgTop, 10, 8)
+	LayoutHelpers.AnchorToRight(controls.time, controls.timeIcon, 2)
+	LayoutHelpers.AtVerticalCenterIn(controls.time, controls.timeIcon)
     
-    x = x + 80
-    LayoutHelpers.AtLeftTopIn(controls.speedIcon, controls.bgTop, x, 8)
-    x = x + 16
-    LayoutHelpers.AtLeftTopIn(controls.speed, controls.bgTop, x, 7)
+    LayoutHelpers.AtLeftIn(controls.speedIcon, controls.bgTop, 106)
+	controls.speedIcon.Top:Set(controls.timeIcon.Top)
+	LayoutHelpers.AnchorToRight(controls.speed, controls.speedIcon, 2)
+	LayoutHelpers.AtVerticalCenterIn(controls.speed, controls.speedIcon)
     
-    x = x + 60
-    LayoutHelpers.AtLeftTopIn(controls.qualityIcon, controls.bgTop, x, 8)
-    x = x + 16
-    LayoutHelpers.AtLeftTopIn(controls.quality, controls.bgTop, x, 7)
+    LayoutHelpers.AtLeftIn(controls.qualityIcon, controls.bgTop, 182)
+	controls.qualityIcon.Top:Set(controls.speedIcon.Top)
+	LayoutHelpers.AnchorToRight(controls.quality, controls.qualityIcon, 2)
+	LayoutHelpers.AtVerticalCenterIn(controls.quality, controls.qualityIcon)
     
-    LayoutHelpers.AtRightTopIn(controls.unitIcon, controls.bgTop, 10, 7)
-    LayoutHelpers.LeftOf(controls.units, controls.unitIcon)
+    LayoutHelpers.AtRightIn(controls.unitIcon, controls.bgTop, 10)
+	controls.unitIcon.Top:Set(controls.qualityIcon.Top)
+    LayoutHelpers.AnchorToLeft(controls.units, controls.unitIcon)
+	LayoutHelpers.AtVerticalCenterIn(controls.units, controls.unitIcon)
     
     -- offset Avatars UI by height of the score board
     local avatarGroup = import('/lua/ui/game/avatars.lua').controls.avatarGroup
-    avatarGroup.Top:Set(function() return controls.bgBottom.Bottom() + 4 end)
-	 
-    
+	LayoutHelpers.AnchorToBottom(avatarGroup, controls.bgBottom, 4)
     
     --LOG('>>>> HUSSAR: score_mini layout lines... ')
     LayoutArmyLines()

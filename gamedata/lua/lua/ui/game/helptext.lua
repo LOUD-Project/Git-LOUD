@@ -70,8 +70,7 @@ function CreateControls()
     if not controls.mainWindowTitle then
         controls.mainWindowTitle = UIUtil.CreateText(controls.mainWindowBG, "<LOC HELPTEXT_0000>Archiva Videographa", 18)
     end
-    controls.mainWindowTitle.Left:Set(function() return controls.mainWindowBG.Left() + 64 end)
-    controls.mainWindowTitle.Top:Set(function() return controls.mainWindowBG.Top() + 32 end)
+    LayoutHelpers.AtLeftTopIn(controls.mainWindowTitle, controls.mainWindowBG, 64, 32)
     
     if not controls.mainWindowIcon then
         controls.mainWindowIcon = Bitmap(controls.mainWindowBG, UIUtil.UIFile('/dialogs/help/help-sm_btn.dds'))
@@ -81,17 +80,16 @@ function CreateControls()
     if not controls.mainWindowDescriptionBG then
         controls.mainWindowDescriptionBG = Group(controls.mainWindowBG)
     end
-    controls.mainWindowDescriptionBG.Top:Set(function() return controls.mainWindowBG.Top() + 153 end)
-    controls.mainWindowDescriptionBG.Left:Set(function() return controls.mainWindowBG.Left() + 460 end)
-    controls.mainWindowDescriptionBG.Right:Set(function() return controls.mainWindowDescription.Left() + 330 end)
-    controls.mainWindowDescriptionBG.Bottom:Set(function() return controls.mainWindowBG.Bottom() - 112 end)
+    LayoutHelpers.AtLeftTopIn(controls.mainWindowDescriptionBG, controls.mainWindowBG, 460, 153)
+    LayoutHelpers.AnchorToLeft(controls.mainWindowDescriptionBG, controls.mainWindowDescription, -330)
+    LayoutHelpers.AtBottomIn(controls.mainWindowDescriptionBG, controls.mainWindowBG, 112)
 
     if not controls.mainWindowDescription then
         controls.mainWindowDescription = ItemList(controls.mainWindowDescriptionBG)
     end
     controls.mainWindowDescription.Top:Set(controls.mainWindowDescriptionBG.Top)
-    controls.mainWindowDescription.Left:Set(function() return controls.mainWindowDescriptionBG.Left() + 0 end)
-    controls.mainWindowDescription.Right:Set(function() return controls.mainWindowDescriptionBG.Right() - 0 end)
+    controls.mainWindowDescription.Left:Set(controls.mainWindowDescriptionBG.Left)
+    controls.mainWindowDescription.Right:Set(controls.mainWindowDescriptionBG.Right)
     controls.mainWindowDescription.Bottom:Set(controls.mainWindowDescriptionBG.Bottom)
     controls.mainWindowDescription:SetColors(UIUtil.consoleFGColor(), UIUtil.consoleTextBGColor(), UIUtil.consoleFGColor(), UIUtil.consoleTextBGColor()) -- we don't really want selection here so don't differentiate colors
     controls.mainWindowDescription:SetFont(UIUtil.bodyFont, 14)
@@ -108,8 +106,7 @@ function CreateControls()
     if not controls.closeButton then
         controls.closeButton = UIUtil.CreateButtonStd(controls.mainWindowBG, '/widgets/small', LOC("<LOC _Close>Close"), 14)
     end
-    controls.closeButton.Right:Set(function() return controls.mainWindowBG.Right() - 45 end)
-    controls.closeButton.Bottom:Set(function() return controls.mainWindowBG.Bottom() - 27 end)
+    LayoutHelpers.AtRightBottomIn(controls.closeButton, controls.mainWindowBG, 45, 27)
     controls.closeButton.OnClick = function(self, modifiers)
         controls.mainWindowBG:Hide()
     end
@@ -117,8 +114,7 @@ function CreateControls()
     controls.categoryDropDown = Combo(controls.mainWindowBG, 14, 20, nil, nil, "UI_Tab_Click_01", "UI_Tab_Rollover_01")
     LayoutHelpers.AtLeftTopIn(controls.categoryDropDown, controls.mainWindowBG, 60, 125)
     controls.categoryDropDown.Depth:Set(function() return controls.mainWindowBG.Depth() + 30 end)
-    controls.categoryDropDown.Width:Set(382)
-    controls.categoryDropDown.Height:Set(20)
+    LayoutHelpers.SetDimensions(controls.categoryDropDown, 382, 20)
 
     categoryTable = GetCategories()
 
@@ -138,8 +134,7 @@ function CreateControls()
     controls.helpList = ItemList(controls.mainWindowBG)
     controls.helpList:SetFont(UIUtil.bodyFont, 16)
     controls.helpList:SetColors(UIUtil.fontColor, "00000000", "FF000000",  UIUtil.highlightColor, "ffbcfffe")
-    controls.helpList.Width:Set(352)
-    controls.helpList.Height:Set(280)
+    LayoutHelpers.SetDimensions(controls.helpList, 352, 280)
     LayoutHelpers.AtLeftTopIn(controls.helpList, controls.mainWindowBG, 60, 150)
     #controls.helpList.Depth:Set(200)
 
@@ -165,7 +160,7 @@ function CreateControls()
     if not controls.playButton then
         controls.playButton = UIUtil.CreateButtonStd(controls.mainWindowBG, '/widgets/small', LOC("<LOC _Play_Video>Play Video"), 14)
     end
-    controls.playButton.Right:Set(function() return controls.closeButton.Left() - 30 end)
+    LayoutHelpers.AnchorToLeft(controls.playButton, controls.closeButton, 30)
     controls.playButton.Bottom:Set(controls.closeButton.Bottom)
 
     controls.mainWindowBG:Hide()

@@ -97,22 +97,19 @@ function CreateGenericButton(parent)
 
 	local bg = Bitmap(parent, buttonBackgroundName)
 
-    bg.Height:Set(44)
-    bg.Width:Set(44)
+	LayoutHelpers.SetDimensions(bg, 44, 44)
 
 	bg.units = {}
 	bg.HandleEvent = AvatarsClickFunc
 
 	bg.marker = Bitmap(bg)
 	bg.marker:SetTexture(UIUtil.UIFile('/game/avatar/pulse-bars_bmp.dds'))
-	bg.marker.Height:Set(54)
-	bg.marker.Width:Set(54)
+	LayoutHelpers.SetDimensions(bg.marker, 54, 54)
 
 	LayoutHelpers.AtLeftTopIn(bg.marker, bg, -5, -5)
 
 	bg.icon = Bitmap(bg)
-    bg.icon.Height:Set(34)
-    bg.icon.Width:Set(34)
+	LayoutHelpers.SetDimensions(bg.icon, 34, 34)
 
 	LayoutHelpers.AtLeftTopIn(bg.icon, bg, 5, 5)
 
@@ -120,8 +117,7 @@ function CreateGenericButton(parent)
 							UIUtil.UIFile('/game/unit-over/health-bars-back-1_bmp.dds'),
 							UIUtil.UIFile('/game/unit-over/bar01_bmp.dds'), true, "Unit RO Health Status Bar")
 
-	bg.progress.Width:Set(32)
-    bg.progress.Height:Set(0)
+	LayoutHelpers.SetDimensions(bg.progress, 32, 0)
 
     LayoutHelpers.AtLeftTopIn(bg.progress, bg, 6, 2)
 

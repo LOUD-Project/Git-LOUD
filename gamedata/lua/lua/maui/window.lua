@@ -273,7 +273,7 @@ Window = Class(Group) {
         self.TitleGroup.Top:Set(self.tm.Top)
         self.TitleGroup.Left:Set(self.tl.Left)
         self.TitleGroup.Right:Set(self.tr.Right)
-        self.TitleGroup.Height:Set(30)
+        LayoutHelpers.SetHeight(self.TitleGroup, 30)
         self.TitleGroup.Depth:Set(function() return self._windowGroup.Depth() + 2 end)
         
         if icon then
@@ -288,7 +288,7 @@ Window = Class(Group) {
             self._title:SetText(LOC(title))
         end
         if icon then
-            self._title.Left:Set(function() return self._titleIcon.Right() + 5 end)
+			LayoutHelpers.AnchorToRight(self._title, self._titleIcon, 5)
             LayoutHelpers.AtVerticalCenterIn(self._title, self._titleIcon)
         else
             LayoutHelpers.AtLeftTopIn(self._title, self.TitleGroup, 20, 7)
@@ -509,8 +509,12 @@ Window = Class(Group) {
             self:SaveWindowLocation()
         end
         
+        -- attempt to retrieve location of window in preference file
         local location = Prefs.GetFromCurrentProfile(prefID)
         if location then
+
+            -- old version in preference file that doesn't support UI scaling
+            if not (location.width and location.height) then 
             local oldHeight = location.bottom - location.top
             local oldWidth = location.right - location.left
             self.Top:Set(math.max(location.top, parent.Top()))
@@ -523,17 +527,53 @@ Window = Class(Group) {
             if self.Right() - self.Left() != oldWidth then
                 self.Left:Set(math.max(math.min(location.right, parent.Right()) - oldWidth), parent.Left())
             end
+            -- new version in preference file that does support UI scaling
+            else 
+                local top = location.top 
+                local left = location.left 
+                local width = location.width 
+                local height = location.height 
+
+                self.Left:Set(left)
+                self.Top:Set(top)
+
+                -- we can scale these accordingly as we applied the inverse on saving
+                self.Right:Set(LayoutHelpers.ScaleNumber(width) + left)
+                self.Bottom:Set(LayoutHelpers.ScaleNumber(height) + top)
+            end
         elseif defaultPosition then
-            self.Left:Set(defaultPosition.Left)
-            self.Top:Set(defaultPosition.Top)
-            self.Bottom:Set(defaultPosition.Bottom)
-            self.Right:Set(defaultPosition.Right)
+            -- Scale only if it's a number, else it's already scaled lazyvar
+            if type(defaultPosition.Left) == 'number' then
+            self.Left:Set(LayoutHelpers.ScaleNumber(defaultPosition.Left))
+            self.Top:Set(LayoutHelpers.ScaleNumber(defaultPosition.Top))
+            self.Bottom:Set(LayoutHelpers.ScaleNumber(defaultPosition.Bottom))
+            self.Right:Set(LayoutHelpers.ScaleNumber(defaultPosition.Right))
+            else
+                self.Left:Set(defaultPosition.Left)
+                self.Top:Set(defaultPosition.Top)
+                self.Bottom:Set(defaultPosition.Bottom)
+                self.Right:Set(defaultPosition.Right)
+            end
         end
     end,
     
     SaveWindowLocation = function(self)
         if self._pref then
-            Prefs.SetToCurrentProfile(self._pref, {top = self.Top(), left = self.Left(), right = self.Right(), bottom = self.Bottom()})
+            Prefs.SetToCurrentProfile(
+                self._pref, 
+                {
+                    top = self.Top(), 
+                    left = self.Left(), 
+
+                    -- backwards compatibility
+                    right = self.Right(),
+                    bottom = self.Bottom(),
+
+                    -- invert the scale on these numbers, that allows us to apply the scale again when we read it from the preference file
+                    width = LayoutHelpers.InvScaleNumber(self.Width()), 
+                    height = LayoutHelpers.InvScaleNumber(self.Height())
+                }
+            )
         end
     end,
     
@@ -562,8 +602,8 @@ Window = Class(Group) {
     end,
     
     SetMinimumResize = function(control, xDimension, yDimension)
-        control._xMin = xDimension or 0
-        control._yMin = yDimension or 0
+        control._xMin = LayoutHelpers.ScaleNumber(xDimension) or 0
+        control._yMin = LayoutHelpers.ScaleNumber(yDimension) or 0
     end,
     
     SetWindowAlpha = function(control, alpha)

@@ -1,10 +1,30 @@
-
 local UIUtil = import('/lua/ui/uiutil.lua')
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
+local controls = import('/lua/ui/game/unitview.lua').controls
+local consControl = import("/lua/ui/game/construction.lua").controls.constructionGroup
+
+local iconPositions = {
+    [1] = {Left = 70, Top = 55},
+    [2] = {Left = 70, Top = 70},
+    [3] = {Left = 190, Top = 60},
+    [4] = {Left = 130, Top = 55},
+    [5] = {Left = 130, Top = 85},
+    [6] = {Left = 130, Top = 70},
+    [7] = {Left = 190, Top = 85},
+    [8] = {Left = 70, Top = 85},
+}
+local iconTextures = {
+    UIUtil.UIFile('/game/unit_view_icons/mass.dds'),
+    UIUtil.UIFile('/game/unit_view_icons/energy.dds'),
+    UIUtil.UIFile('/game/unit_view_icons/kills.dds'),
+    UIUtil.UIFile('/game/unit_view_icons/kills.dds'),
+    UIUtil.UIFile('/game/unit_view_icons/missiles.dds'),
+    UIUtil.UIFile('/game/unit_view_icons/shield.dds'),
+    UIUtil.UIFile('/game/unit_view_icons/fuel.dds'),
+    UIUtil.UIFile('/game/unit_view_icons/build.dds'),
+}
 
 function SetLayout()
-
-    local controls = import('/lua/ui/game/unitview.lua').controls
     controls.bg:SetTexture(UIUtil.UIFile('/game/unit-build-over-panel/build-over-back_bmp.dds'))
     LayoutHelpers.AtLeftIn(controls.bg, controls.parent)
     LayoutHelpers.AtBottomIn(controls.bg, controls.parent)
@@ -27,8 +47,7 @@ function SetLayout()
     controls.name:SetDropShadow(true)
     
     LayoutHelpers.AtLeftTopIn(controls.icon, controls.bg, 12, 34)
-    controls.icon.Height:Set(48)
-    controls.icon.Width:Set(48)
+	LayoutHelpers.SetDimensions(controls.icon, 48, 48)
     LayoutHelpers.AtLeftTopIn(controls.stratIcon, controls.icon)
     LayoutHelpers.Below(controls.vetIcons[1], controls.icon, 5)
     LayoutHelpers.AtLeftIn(controls.vetIcons[1], controls.icon, -5)
@@ -37,38 +56,33 @@ function SetLayout()
         LayoutHelpers.RightOf(controls.vetIcons[i], controls.vetIcons[i-1], -3)
     end
     LayoutHelpers.AtLeftTopIn(controls.healthBar, controls.bg, 66, 35)
-    controls.healthBar.Width:Set(188)
-    controls.healthBar.Height:Set(16)
+	LayoutHelpers.SetDimensions(controls.healthBar, 188, 16)
     controls.healthBar:SetTexture(UIUtil.UIFile('/game/unit-build-over-panel/healthbar_bg.dds'))
     controls.healthBar._bar:SetTexture(UIUtil.UIFile('/game/unit-build-over-panel/healthbar_green.dds'))
     LayoutHelpers.AtBottomIn(controls.shieldBar, controls.healthBar)
     LayoutHelpers.AtLeftIn(controls.shieldBar, controls.healthBar)
-    controls.shieldBar.Width:Set(188)
-    controls.shieldBar.Height:Set(2)
+	LayoutHelpers.SetDimensions(controls.shieldBar, 188, 2)
     controls.shieldBar:SetTexture(UIUtil.UIFile('/game/unit-build-over-panel/healthbar_bg.dds'))
     controls.shieldBar._bar:SetTexture(UIUtil.UIFile('/game/unit-build-over-panel/shieldbar.dds'))
     LayoutHelpers.Below(controls.fuelBar, controls.shieldBar)
-    controls.fuelBar.Width:Set(188)
-    controls.fuelBar.Height:Set(2)
+	LayoutHelpers.SetDimensions(controls.fuelBar, 188, 2)
     controls.fuelBar:SetTexture(UIUtil.UIFile('/game/unit-build-over-panel/healthbar_bg.dds'))
     controls.fuelBar._bar:SetTexture(UIUtil.UIFile('/game/unit-build-over-panel/fuelbar.dds'))
+
+    LayoutHelpers.AtLeftTopIn(controls.vetBar, controls.bg, 192, 68)
+    LayoutHelpers.SetDimensions(controls.vetBar, 56, 3)
+    controls.vetBar:SetTexture(UIUtil.UIFile('/game/unit-build-over-panel/healthbar_bg.dds'))
+    controls.vetBar._bar:SetTexture(UIUtil.UIFile('/game/unit-build-over-panel/fuelbar.dds'))
+
+    LayoutHelpers.Below(controls.nextVet, controls.vetBar)
+    controls.nextVet:SetDropShadow(true)
+    LayoutHelpers.Above(controls.vetTitle, controls.vetBar)
+    controls.vetTitle:SetDropShadow(true)
+
     LayoutHelpers.AtCenterIn(controls.health, controls.healthBar)
     controls.health:SetDropShadow(true)
     
-    local iconPositions = {
-        [1] = {Left = 70, Top = 60},
-        [3] = {Left = 140, Top = 60},
-        [5] = {Left = 190, Top = 60},
-    }
-    local iconTextures = {
-        UIUtil.UIFile('/game/unit_view_icons/mass.dds'),
-        UIUtil.UIFile('/game/unit_view_icons/energy.dds'),
-        UIUtil.UIFile('/game/unit_view_icons/kills.dds'),
-        UIUtil.UIFile('/game/unit_view_icons/missiles.dds'),
-        UIUtil.UIFile('/game/unit_view_icons/shield.dds'),
-        UIUtil.UIFile('/game/unit_view_icons/fuel.dds'),
-    }
-    for index = 1, 6 do
+    for index = 1, table.getn(iconPositions) do
         local i = index
         if iconPositions[i] then
             LayoutHelpers.AtLeftTopIn(controls.statGroups[i].icon, controls.bg, iconPositions[i].Left, iconPositions[i].Top)
@@ -81,15 +95,13 @@ function SetLayout()
         controls.statGroups[i].value:SetDropShadow(true)
     end
     LayoutHelpers.AtLeftTopIn(controls.actionIcon, controls.bg, 261, 34)
-    controls.actionIcon.Height:Set(48)
-    controls.actionIcon.Width:Set(48)
+	LayoutHelpers.SetDimensions(controls.actionIcon, 48, 48)
     LayoutHelpers.Below(controls.actionText, controls.actionIcon)
     LayoutHelpers.AtHorizontalCenterIn(controls.actionText, controls.actionIcon)
     
-    controls.abilities.Left:Set(function() return controls.bg.Right() + 19 end)
-    controls.abilities.Bottom:Set(function() return controls.bg.Bottom() - 50 end)
-    controls.abilities.Height:Set(50)
-    controls.abilities.Width:Set(200)
+    LayoutHelpers.AnchorToRight(controls.abilities, controls.bg, 19)
+    LayoutHelpers.AtBottomIn(controls.abilities, controls.bg, 50)
+	LayoutHelpers.SetDimensions(controls.abilities, 200, 50)
     
     controls.abilityBG.TL:SetTexture(UIUtil.UIFile('/game/filter-ping-list-panel/panel_brd_ul.dds'))
     controls.abilityBG.TL.Right:Set(controls.abilities.Left)
@@ -97,7 +109,7 @@ function SetLayout()
     
     controls.abilityBG.TM:SetTexture(UIUtil.UIFile('/game/filter-ping-list-panel/panel_brd_horz_um.dds'))
     controls.abilityBG.TM.Right:Set(controls.abilityBG.TL.Right)
-    controls.abilityBG.TM.Bottom:Set(function() return controls.abilities.Top() end)
+    controls.abilityBG.TM.Bottom:Set(controls.abilities.Top)
     controls.abilityBG.TM.Left:Set(controls.abilityBG.TR.Left)
     
     controls.abilityBG.TR:SetTexture(UIUtil.UIFile('/game/filter-ping-list-panel/panel_brd_ur.dds'))
@@ -126,7 +138,7 @@ function SetLayout()
     
     controls.abilityBG.BM:SetTexture(UIUtil.UIFile('/game/filter-ping-list-panel/panel_brd_lm.dds'))
     controls.abilityBG.BM.Right:Set(controls.abilityBG.BL.Right)
-    controls.abilityBG.BM.Top:Set(function() return controls.abilities.Bottom() end)
+    controls.abilityBG.BM.Top:Set(controls.abilities.Bottom)
     controls.abilityBG.BM.Left:Set(controls.abilityBG.BR.Left)
     
     controls.abilityBG.BR:SetTexture(UIUtil.UIFile('/game/filter-ping-list-panel/panel_brd_lr.dds'))
@@ -136,31 +148,28 @@ function SetLayout()
     -- all this from GAZ UI --
     LayoutHelpers.AtLeftTopIn(controls.healthBar, controls.bg, 66, 25)
     LayoutHelpers.Below(controls.shieldBar, controls.healthBar)
-    controls.shieldBar.Height:Set(14)
-    LayoutHelpers.CenteredBelow(controls.shieldText, controls.shieldBar,0)
-    controls.shieldBar.Height:Set(2)
-    LayoutHelpers.AtLeftTopIn(controls.statGroups[1].icon, controls.bg, 70, 55)
-    LayoutHelpers.RightOf(controls.statGroups[1].value, controls.statGroups[1].icon, 5)
-    LayoutHelpers.Below(controls.statGroups[2].icon, controls.statGroups[1].icon,0)
--- LayoutHelpers.AtRightTopIn(controls.StorageMass, controls.bg, 145, 55)
-    LayoutHelpers.RightOf(controls.statGroups[2].value, controls.statGroups[2].icon, 5)
--- LayoutHelpers.AtRightTopIn(controls.StorageEnergy, controls.bg, 145, 73)
-    LayoutHelpers.Below(controls.Buildrate, controls.statGroups[2].value,1)
-    LayoutHelpers.LeftOf(controls.BuildrateIcon, controls.Buildrate, 1)
+    LayoutHelpers.SetHeight(controls.shieldBar, 14)
+    LayoutHelpers.CenteredBelow(controls.shieldText, controls.shieldBar, 0)
+	LayoutHelpers.SetHeight(controls.shieldBar, 2)
 end
 
 function PositionWindow()
-
-    local controls = import('/lua/ui/game/unitview.lua').controls
-    local consControl = import('/lua/ui/game/construction.lua').controls.constructionGroup
-    
     if consControl:IsHidden() then
         LayoutHelpers.AtBottomIn(controls.bg, controls.parent)
-        controls.abilities.Bottom:Set(function() return controls.bg.Bottom() - 24 end)
+		LayoutHelpers.AtBottomIn(controls.abilities, controls.bg, 24)
     else
         LayoutHelpers.AtBottomIn(controls.bg, controls.parent, 120)
-        controls.abilities.Bottom:Set(function() return controls.bg.Bottom() - 42 end)
+		LayoutHelpers.AtBottomIn(controls.abilities, controls.bg, 42)
     end
-    
-    LayoutHelpers.AtLeftIn(controls.bg, controls.parent, 17)
+	LayoutHelpers.AtLeftIn(controls.bg, controls.parent, 17)
+end
+
+function UpdateStatusBars(controls)
+    if controls.store == 1 then
+        LayoutHelpers.CenteredBelow(controls.fuelBar, controls.shieldBar, 3)
+        LayoutHelpers.CenteredBelow(controls.shieldText, controls.fuelBar, -2.5)
+    else
+        LayoutHelpers.CenteredBelow(controls.fuelBar, controls.shieldBar, 0)
+        LayoutHelpers.CenteredBelow(controls.shieldText, controls.shieldBar, 0)
+    end
 end

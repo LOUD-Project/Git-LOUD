@@ -445,8 +445,7 @@ WorldView = Class(moho.UIWorldView, Control) {
                 LayoutHelpers.AtCenterIn(PingGroup.Marker, PingGroup)
                 PingGroup.Marker.TeamColor = Bitmap(PingGroup.Marker)
                 PingGroup.Marker.TeamColor:SetSolidColor(PingGroup.data.Color)
-                PingGroup.Marker.TeamColor.Height:Set(12)
-                PingGroup.Marker.TeamColor.Width:Set(12)
+				LayoutHelpers.SetDimensions(PingGroup.Marker.TeamColor, 12, 12)
                 PingGroup.Marker.TeamColor.Depth:Set(function() return PingGroup.Marker.Depth() - 1 end)
                 LayoutHelpers.AtCenterIn(PingGroup.Marker.TeamColor, PingGroup.Marker)
                 
@@ -533,8 +532,7 @@ WorldView = Class(moho.UIWorldView, Control) {
                     PingGroup.StretchRight.Depth:Set(function() return PingGroup.BGMid.Depth() - 1 end)
                 end
                 
-                PingGroup.Height:Set(5)
-                PingGroup.Width:Set(5)
+                LayoutHelpers.SetDimensions(PingGroup, 5, 5)
                 PingGroup.Left:Set(function() return PingGroup.coords.x - PingGroup.Height() / 2 end)
                 PingGroup.Top:Set(function() return PingGroup.coords.y - PingGroup.Width() / 2 end)
                 PingGroup:SetNeedsFrameUpdate(true)
@@ -684,8 +682,7 @@ WorldView = Class(moho.UIWorldView, Control) {
 				
                 PingGroup.Marker.TeamColor = Bitmap(PingGroup.Marker)
                 PingGroup.Marker.TeamColor:SetSolidColor(PingGroup.data.Color)
-                PingGroup.Marker.TeamColor.Height:Set(12)
-                PingGroup.Marker.TeamColor.Width:Set(12)
+                LayoutHelpers.SetDimensions(PingGroup.Marker.TeamColor, 12, 12)
                 PingGroup.Marker.TeamColor.Depth:Set(function() return PingGroup.Marker.Depth() - 1 end)
 				
                 LayoutHelpers.AtCenterIn(PingGroup.Marker.TeamColor, PingGroup.Marker)
@@ -816,8 +813,7 @@ WorldView = Class(moho.UIWorldView, Control) {
 					
                 end
                 
-                PingGroup.Height:Set(5)
-                PingGroup.Width:Set(5)
+                LayoutHelpers.SetDimensions(PingGroup, 5, 5)
 				
                 PingGroup.Left:Set(function() return PingGroup.coords.x - PingGroup.Height() / 2 end)
                 PingGroup.Top:Set(function() return PingGroup.coords.y - PingGroup.Width() / 2 end)
