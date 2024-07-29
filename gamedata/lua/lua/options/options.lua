@@ -526,18 +526,6 @@ options = {
                 },
             },
             {
-                title = "GUI: Display Reclaim Window",
-                key = 'gui_display_reclaim_totals',
-                type = 'toggle',
-                default = 0,
-                custom = {
-                    states = {
-                        {text = "<LOC _Off>", key = 0 },
-                        {text = "<LOC _On>", key = 1 },
-                    },
-                },
-            },
-            {
                 title = "GUI: Render Custom Names",
                 key = 'gui_render_custom_names',
                 type = 'toggle',
