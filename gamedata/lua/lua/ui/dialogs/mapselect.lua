@@ -277,9 +277,7 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
     --- this is the Map Select Screen Mod Manager button
     LayoutHelpers.AtLeftIn(modButton, panel, 15)
     LayoutHelpers.AtVerticalCenterIn(modButton, selectButton)
-
     selectButton.Depth:Set(function() return panel.Depth() + 10 end)
-
     Tooltip.AddButtonTooltip(modButton, "Lobby_Mods")
 	
     modButton.OnClick = function(self, modifiers)
@@ -312,7 +310,6 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
 	
 	local doNotRepeatMap
 	local randomMapButton = UIUtil.CreateButtonStd(modButton, '/scx_menu/small-btn/small', "Random Map", 16, 2)
-
 	LayoutHelpers.RightOf(randomMapButton, restrictedUnitsButton, -20)
 	Tooltip.AddButtonTooltip(randomMapButton, 'lob_random_map')
 	
@@ -365,10 +362,8 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
     mapList:SetFont(UIUtil.bodyFont, 14)
     mapList:SetColors(UIUtil.fontColor, "00000000", "FF000000",  UIUtil.highlightColor, "ffbcfffe")
     mapList:ShowMouseoverItem(true)
-
     LayoutHelpers.SetDimensions(mapList, 258, 438)
     LayoutHelpers.AtLeftTopIn(mapList, panel, 360, 202)
-
     mapList.Depth:Set(function() return panel.Depth() + 10 end) --TODO what is this getting under when it's in over state?
     mapList:AcquireKeyboardFocus(true)
 
@@ -394,7 +389,6 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
     UIUtil.CreateVertScrollbarFor(mapList)
 
     local preview = MapPreview(panel)
-
     LayoutHelpers.SetDimensions(preview, 290, 288)
     LayoutHelpers.AtLeftTopIn(preview, panel, 37, 102)
     
@@ -411,10 +405,8 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
     description = ItemList(panel, "mapselect:description")
     description:SetFont(UIUtil.bodyFont, 14)
     description:SetColors(UIUtil.fontColor, "00000000", UIUtil.fontColor, "00000000")
-
     LayoutHelpers.SetDimensions(description, 273, 180)
     LayoutHelpers.AtLeftTopIn(description, panel, 33, 450)
-
     UIUtil.CreateVertScrollbarFor(description)
     
     filterTitle = UIUtil.CreateText(panel, "<LOC sel_map_0003>Filters", 18)
@@ -1019,9 +1011,7 @@ function SetDescription(scen)
 end
 
 function PopulateMapList()
-
     mapList:DeleteAllItems()
-
     local count = 1 -- Corresponds to row in mapList
     
     for j, folder in folders do
