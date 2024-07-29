@@ -3023,6 +3023,7 @@ function CreateUI(maxPlayers, useSteam)
 			mapSelectDialog = import('/lua/ui/dialogs/mapselect.lua').CreateDialog(	selectBehavior,	exitBehavior, GUI, singlePlayer, gameInfo.GameOptions.ScenarioFile,	gameInfo.GameOptions, availableMods, OnModsChanged )
 			
 		end
+
     end
 
     ---------------------------------------------------------------------------
@@ -5282,6 +5283,8 @@ function SetGameOption( key, val, ignoreNilValue, bypassrefresh )
         end
 
     end
+    
+    UpdateGame()
     
 end
 
