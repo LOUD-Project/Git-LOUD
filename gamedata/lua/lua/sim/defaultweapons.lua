@@ -993,13 +993,14 @@ DefaultProjectileWeapon = Class(Weapon) {
                 LOUDSTATE(self, self.RackSalvoFireReadyState)
             end
         end,
-
+--[[
         OnFire = function(self)
             
             if ScenarioInfo.WeaponStateDialog then
                 LOG("*AI DEBUG DefaultWeapon Unpacking State OnFire "..repr(self.bp.Label) )
             end
         end,
+--]]        
     },
 	
     RackSalvoChargeState = State {
@@ -1641,19 +1642,15 @@ DefaultProjectileWeapon = Class(Weapon) {
             end
 			
         end,
-
+--[[
         OnGotTarget = function(self)
 
             if ScenarioInfo.WeaponStateDialog then
                 LOG("*AI DEBUG DefaultWeapon WeaponPacking State "..repr(self.bp.Label).." OnGotTarget" )		
             end
-            
-            if not self.bp.ForceSingleFire then
-                LOUDSTATE(self, self.WeaponUnpackingState)
-            end
 			
         end,
-
+--]]
     },
 
     DeadState = State {
