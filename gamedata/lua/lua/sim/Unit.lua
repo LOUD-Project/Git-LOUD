@@ -4581,19 +4581,19 @@ Unit = Class(UnitMethods) {
             self:DestroyShield()
 			
             self.MyShield = Shield {
-                Owner = self,
-				Mesh = bpShield.Mesh or '',
-				MeshZ = bpShield.MeshZ or '',
-				ImpactMesh = bpShield.ImpactMesh or '',
-				ImpactEffects = bpShield.ImpactEffects or '',    
-                Size = bpShield.ShieldSize or 10,
-                ShieldMaxHealth = bpShield.ShieldMaxHealth or 250,
-                ShieldRechargeTime = bpShield.ShieldRechargeTime or 10,
-                ShieldEnergyDrainRechargeTime = bpShield.ShieldEnergyDrainRechargeTime or 10,
-                ShieldVerticalOffset = bpShield.ShieldVerticalOffset or -1,
-                ShieldRegenRate = bpShield.ShieldRegenRate or 1,
-                ShieldRegenStartTime = bpShield.ShieldRegenStartTime or 5,
-                PassOverkillDamage = bpShield.PassOverkillDamage or false,
+                Owner                               = self,
+				Mesh                                = bpShield.Mesh or '',
+				MeshZ                               = bpShield.MeshZ or '',
+				ImpactMesh                          = bpShield.ImpactMesh or '',
+				ImpactEffects                       = bpShield.ImpactEffects or '',    
+                Size                                = bpShield.ShieldSize or 10,
+                ShieldMaxHealth                     = bpShield.ShieldMaxHealth or 250,
+                ShieldRechargeTime                  = bpShield.ShieldRechargeTime or 10,
+                ShieldEnergyDrainRechargeTime       = bpShield.ShieldEnergyDrainRechargeTime or 10,
+                ShieldVerticalOffset                = bpShield.ShieldVerticalOffset or -1,
+                ShieldRegenRate                     = bpShield.ShieldRegenRate or 1,
+                ShieldRegenStartTime                = bpShield.ShieldRegenStartTime or 5,
+                PassOverkillDamage                  = bpShield.PassOverkillDamage or false,
             }
 			
 			self.MyShieldType = 'Shield'
@@ -4622,20 +4622,20 @@ Unit = Class(UnitMethods) {
 			
                 self.MyShield = UnitShield {
                     Owner = self,
-					ImpactEffects = bpShield.ImpactEffects or '',                     
-                    CollisionSizeX = bp.SizeX * 0.55 or 1,
-                    CollisionSizeY = bp.SizeY * 0.55 or 1,
-                    CollisionSizeZ = bp.SizeZ * 0.55 or 1,
-                    CollisionCenterX = bp.CollisionOffsetX or 0,
-                    CollisionCenterY = bp.CollisionOffsetY or 0,
-                    CollisionCenterZ = bp.CollisionOffsetZ or 0,
-                    OwnerShieldMesh = bpShield.OwnerShieldMesh,
-                    ShieldMaxHealth = bpShield.ShieldMaxHealth or 250,
-                    ShieldRechargeTime = bpShield.ShieldRechargeTime or 10,
-                    ShieldEnergyDrainRechargeTime = bpShield.ShieldEnergyDrainRechargeTime or 10,
-                    ShieldRegenRate = bpShield.ShieldRegenRate or 1,
-                    ShieldRegenStartTime = bpShield.ShieldRegenStartTime or 5,
-                    PassOverkillDamage = bpShield.PassOverkillDamage != false, -- default to true
+					ImpactEffects                   = bpShield.ImpactEffects or '',                     
+                    CollisionSizeX                  = bp.SizeX * 0.55 or 1,
+                    CollisionSizeY                  = bp.SizeY * 0.55 or 1,
+                    CollisionSizeZ                  = bp.SizeZ * 0.55 or 1,
+                    CollisionCenterX                = bp.CollisionOffsetX or 0,
+                    CollisionCenterY                = bp.CollisionOffsetY or 0,
+                    CollisionCenterZ                = bp.CollisionOffsetZ or 0,
+                    OwnerShieldMesh                 = bpShield.OwnerShieldMesh,
+                    ShieldMaxHealth                 = bpShield.ShieldMaxHealth or 250,
+                    ShieldRechargeTime              = bpShield.ShieldRechargeTime or 10,
+                    ShieldEnergyDrainRechargeTime   = bpShield.ShieldEnergyDrainRechargeTime or 10,
+                    ShieldRegenRate                 = bpShield.ShieldRegenRate or 1,
+                    ShieldRegenStartTime            = bpShield.ShieldRegenStartTime or 5,
+                    PassOverkillDamage              = bpShield.PassOverkillDamage != false, -- force to true
                 }
 				
 				self.MyShieldType = 'Personal'
@@ -4667,19 +4667,19 @@ Unit = Class(UnitMethods) {
             self:DestroyShield()
 			
             self.MyShield = AntiArtilleryShield {
-                Owner = self,
-				Mesh = bpShield.Mesh or '',
-				MeshZ = bpShield.MeshZ or '',
-				ImpactMesh = bpShield.ImpactMesh or '',
-				ImpactEffects = bpShield.ImpactEffects or '',                
-                Size = bpShield.ShieldSize or 10,
-                ShieldMaxHealth = bpShield.ShieldMaxHealth or 250,
-                ShieldRechargeTime = bpShield.ShieldRechargeTime or 10,
-                ShieldEnergyDrainRechargeTime = bpShield.ShieldEnergyDrainRechargeTime or 10,
-                ShieldVerticalOffset = bpShield.ShieldVerticalOffset or -1,
-                ShieldRegenRate = bpShield.ShieldRegenRate or 1,
-                ShieldRegenStartTime = bpShield.ShieldRegenStartTime or 5,
-                PassOverkillDamage = bpShield.PassOverkillDamage or false,
+                Owner                               = self,
+				Mesh                                = bpShield.Mesh or '',
+				MeshZ                               = bpShield.MeshZ or '',
+				ImpactMesh                          = bpShield.ImpactMesh or '',
+				ImpactEffects                       = bpShield.ImpactEffects or '',                
+                Size                                = bpShield.ShieldSize or 10,
+                ShieldMaxHealth                     = bpShield.ShieldMaxHealth or 250,
+                ShieldRechargeTime                  = bpShield.ShieldRechargeTime or 10,
+                ShieldEnergyDrainRechargeTime       = bpShield.ShieldEnergyDrainRechargeTime or 10,
+                ShieldVerticalOffset                = bpShield.ShieldVerticalOffset or -1,
+                ShieldRegenRate                     = bpShield.ShieldRegenRate or 1,
+                ShieldRegenStartTime                = bpShield.ShieldRegenStartTime or 5,
+                PassOverkillDamage                  = bpShield.PassOverkillDamage or false,
             }
 			
 			self.MyShieldType = 'AntiArtilleryShield'
@@ -4705,19 +4705,19 @@ Unit = Class(UnitMethods) {
             self:DestroyHunkerShield()
 			
             self.MyHunkerShield = DomeHunkerShield {
-                Owner = self,
-				Mesh = bpShield.Mesh,
-				MeshZ = bpShield.MeshZ,
-				ImpactMesh = bpShield.ImpactMesh,
-				ImpactEffects = bpShield.ImpactEffects,				
-                Size = bpShield.ShieldSize or 10,
-                ShieldMaxHealth = bpShield.ShieldMaxHealth or 250,
-                ShieldRechargeTime = bpShield.ShieldRechargeTime or 10,
-                ShieldEnergyDrainRechargeTime = bpShield.ShieldEnergyDrainRechargeTime or 20,
-                ShieldVerticalOffset = bpShield.ShieldVerticalOffset or -1,
-                ShieldRegenRate = bpShield.ShieldRegenRate or 1,
-                ShieldRegenStartTime = bpShield.ShieldRegenStartTime or 5,
-				PassOverkillDamage = bpShield.PassOverkillDamage or false
+                Owner                               = self,
+				Mesh                                = bpShield.Mesh,
+				MeshZ                               = bpShield.MeshZ,
+				ImpactMesh                          = bpShield.ImpactMesh,
+				ImpactEffects                       = bpShield.ImpactEffects,				
+                Size                                = bpShield.ShieldSize or 10,
+                ShieldMaxHealth                     = bpShield.ShieldMaxHealth or 250,
+                ShieldRechargeTime                  = bpShield.ShieldRechargeTime or 10,
+                ShieldEnergyDrainRechargeTime       = bpShield.ShieldEnergyDrainRechargeTime or 20,
+                ShieldVerticalOffset                = bpShield.ShieldVerticalOffset or -1,
+                ShieldRegenRate                     = bpShield.ShieldRegenRate or 1,
+                ShieldRegenStartTime                = bpShield.ShieldRegenStartTime or 5,
+				PassOverkillDamage                  = bpShield.PassOverkillDamage or false,
             }
 			
 			self.MyShieldType = 'HunkerShield'
@@ -4745,21 +4745,21 @@ Unit = Class(UnitMethods) {
             if bpShield.OwnerShieldMesh then
 			
                 self.MyHunkerShield = PersonalHunkerShield {
-                    Owner = self,
-                    CollisionSizeX = bp.SizeX * 0.75 or 1,
-                    CollisionSizeY = bp.SizeY * 0.75 or 1,
-                    CollisionSizeZ = bp.SizeZ * 0.75 or 1,
-                    CollisionCenterX = bp.CollisionOffsetX or 0,
-                    CollisionCenterY = bp.CollisionOffsetY or 0,
-                    CollisionCenterZ = bp.CollisionOffsetZ or 0,
-                    OwnerShieldMesh = bpShield.OwnerShieldMesh,
-					ImpactEffects = 'UEFShieldHit01',
-                    ShieldMaxHealth = bpShield.ShieldMaxHealth or 250,
-                    ShieldRechargeTime = bpShield.ShieldRechargeTime or 10,
-                    ShieldEnergyDrainRechargeTime = bpShield.ShieldEnergyDrainRechargeTime or 20,
-                    ShieldRegenRate = bpShield.ShieldRegenRate or 1,
-                    ShieldRegenStartTime = bpShield.ShieldRegenStartTime or 5,
-					PassOverkillDamage = bpShield.PassOverkillDamage or false
+                    Owner                           = self,
+                    CollisionSizeX                  = bp.SizeX * 0.75 or 1,
+                    CollisionSizeY                  = bp.SizeY * 0.75 or 1,
+                    CollisionSizeZ                  = bp.SizeZ * 0.75 or 1,
+                    CollisionCenterX                = bp.CollisionOffsetX or 0,
+                    CollisionCenterY                = bp.CollisionOffsetY or 0,
+                    CollisionCenterZ                = bp.CollisionOffsetZ or 0,
+                    OwnerShieldMesh                 = bpShield.OwnerShieldMesh,
+					ImpactEffects                   = 'UEFShieldHit01',
+                    ShieldMaxHealth                 = bpShield.ShieldMaxHealth or 250,
+                    ShieldRechargeTime              = bpShield.ShieldRechargeTime or 10,
+                    ShieldEnergyDrainRechargeTime   = bpShield.ShieldEnergyDrainRechargeTime or 20,
+                    ShieldRegenRate                 = bpShield.ShieldRegenRate or 1,
+                    ShieldRegenStartTime            = bpShield.ShieldRegenStartTime or 5,
+					PassOverkillDamage              = bpShield.PassOverkillDamage != false,     --- force to true
                 }
 				
 				self.MyShieldType = 'HunkerPersonal'				
@@ -4800,20 +4800,20 @@ Unit = Class(UnitMethods) {
             self:DestroyShield()
             
             self.MyShield = ProjectedShield ({
-                Owner = self,
-                Mesh = shieldSpec.Mesh or '',
-                MeshZ = shieldSpec.MeshZ or '',
-                ImpactMesh = shieldSpec.ImpactMesh or '',
-                ImpactEffects = shieldSpec.ImpactEffects or '',
-                Size = size,
-                ShieldSize = size,
-                ShieldMaxHealth = shieldSpec.ShieldMaxHealth or 250,
-                ShieldRechargeTime = shieldSpec.ShieldRechargeTime or 10,
-                ShieldEnergyDrainRechargeTime = shieldSpec.ShieldEnergyDrainRechargeTime or 10,
-                ShieldVerticalOffset = bp.CollisionOffsetY or 0,
-                ShieldRegenRate = shieldSpec.ShieldRegenRate or 1,
-                ShieldRegenStartTime = shieldSpec.ShieldRegenStartTime or 5,
-                PassOverkillDamage = shieldSpec.PassOverkillDamage or false,
+                Owner                           = self,
+                Mesh                            = shieldSpec.Mesh or '',
+                MeshZ                           = shieldSpec.MeshZ or '',
+                ImpactMesh                      = shieldSpec.ImpactMesh or '',
+                ImpactEffects                   = shieldSpec.ImpactEffects or '',
+                Size                            = size,
+                ShieldSize                      = size,
+                ShieldMaxHealth                 = shieldSpec.ShieldMaxHealth or 250,
+                ShieldRechargeTime              = shieldSpec.ShieldRechargeTime or 10,
+                ShieldEnergyDrainRechargeTime   = shieldSpec.ShieldEnergyDrainRechargeTime or 10,
+                ShieldVerticalOffset            = bp.CollisionOffsetY or 0,
+                ShieldRegenRate                 = shieldSpec.ShieldRegenRate or 1,
+                ShieldRegenStartTime            = shieldSpec.ShieldRegenStartTime or 5,
+                PassOverkillDamage              = shieldSpec.PassOverkillDamage != false,   --- force to true
             }, self)
             
             if not EntityCategoryContains( categories.FACTORY, self ) then

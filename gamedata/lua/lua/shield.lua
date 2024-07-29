@@ -185,16 +185,7 @@ Shield = Class(moho.shield_methods,Entity) {
 		end
 	
 		local weaponBP = firingWeapon.bp
---[[
-        if not weaponBP.CollideFriendly then
-		
-			local GetArmy = moho.entity_methods.GetArmy
-		
-            if not ( IsEnemy( GetArmy(self), GetArmy(firingWeapon.unit) ) ) then
-                return false
-            end
-        end
---]]	
+	
         -- Check DNC list
         if weaponBP.DoNotCollideList then
 			--LOG("*AI DEBUG Processing Shield DNC List "..repr(weaponBP.DoNotCollideList))
