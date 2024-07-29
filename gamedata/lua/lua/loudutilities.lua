@@ -1150,7 +1150,7 @@ function DisperseUnitsToRallyPoints( aiBrain, units, position, rallypointtable, 
 
     local RandomLocation = RandomLocation
 
-	if not rallypointtable then
+	if position and not rallypointtable then
 
 		local rallypoints = AIGetMarkersAroundLocation(aiBrain, 'Rally Point', position, 65)
 	
