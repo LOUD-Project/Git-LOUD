@@ -575,10 +575,6 @@ Tooltips = {
         title = 'Display more Unit Stats',
         description = 'Replaces fuel bar with progress bar, and causes the unitview to always be shown for a 1 unit selection.',
     },
-    options_gui_display_reclaim_totals = {
-        title = 'Display Reclaim Window',
-        description = 'Displays total resources reclaimed all game.',
-    },
     options_gui_render_custom_names = {
         title = 'Render Custom Names',
         description = 'Toggle display of custom names. Enabled by default.',
