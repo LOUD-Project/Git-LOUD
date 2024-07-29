@@ -72,8 +72,6 @@ local gameoptions   = import('/lua/ui/lobby/lobbyoptions.lua').advGameOptions
 local lobbyOptMap   = {}
 local lobbyOptOrder = {}
 
---local pmDialog = false
-
 local teamIcons = {
     '/lobby/team_icons/team_no_icon.dds',
     '/lobby/team_icons/team_1_icon.dds',
@@ -3023,6 +3021,8 @@ function CreateUI(maxPlayers, useSteam)
 			mapSelectDialog = import('/lua/ui/dialogs/mapselect.lua').CreateDialog(	selectBehavior,	exitBehavior, GUI, singlePlayer, gameInfo.GameOptions.ScenarioFile,	gameInfo.GameOptions, availableMods, OnModsChanged )
 			
 		end
+        
+        UpdateGame()
     end
 
     ---------------------------------------------------------------------------
@@ -5279,9 +5279,12 @@ function SetGameOption( key, val, ignoreNilValue, bypassrefresh )
             LOG("*AI DEBUG LOBBY Changing Game Option key "..repr(key).." value "..repr(val) )
 
             RefreshOptionDisplayData(scenarioinfo)
+
         end
 
     end
+    
+    UpdateGame()
     
 end
 
