@@ -281,7 +281,7 @@ UnitBlueprint {
 
             RackSalvoSize = 3,
 
-            RangeCategory = 'UWRC_DirectFire',
+            RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.2,		---- 240 DPS every 5.5 seconds = 43 DPS
 			

@@ -27,7 +27,7 @@ DEL0204 = Class(TWalkingLandUnit)
                     self.unit.Trash:Add(self.SpinManip)
                 end
    
-   if self.SpinManip then
+                if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(500)
                 end
                 TDFPlasmaCannonWeapon.PlayFxRackSalvoChargeSequence(self)
