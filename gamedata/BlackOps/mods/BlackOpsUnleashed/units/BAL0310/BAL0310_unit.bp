@@ -189,6 +189,9 @@ UnitBlueprint {
             FiringRandomness = 0.2,
             FiringTolerance = 1,
 			
+            HeadingArcCenter = 0,
+            HeadingArcRange = 18,
+            
             Label = 'MainGun',
 			
             MaxRadius = 50,
@@ -215,7 +218,10 @@ UnitBlueprint {
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 1,	-- 240dps   -- controlled by charge
-			
+
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 30,
+            
             TargetCheckInterval = 2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -263,6 +269,9 @@ UnitBlueprint {
             FiringRandomness = 0.1,
             FiringTolerance = 1,
 			
+            HeadingArcCenter = 0,
+            HeadingArcRange = 20,
+            
             Label = 'SideGuns',
 			
             MaxRadius = 37,
@@ -287,9 +296,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.5,
-
-            SlavedToBody = true,
-            SlavedToBodyArcRange = 18,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -320,15 +326,14 @@ UnitBlueprint {
             TurretPitchSpeed = 25,
 			
             TurretYaw = 0,
-            TurretYawRange = 18,
+            TurretYawRange = 20,
             TurretYawSpeed = 10,
 			
             Turreted = true,
 
-            WeaponRepackTimeout = 2.2,
+            WeaponRepackTimeout = 1.5,
             WeaponUnpackAnimation = '/mods/BlackOpsUnleashed/units/BAL0310/BAL0310_Aopen.sca',
             WeaponUnpackAnimationRate = 1,
-            WeaponUnpackLocksMotion = false,
             WeaponUnpacks = true,
         },
     },
