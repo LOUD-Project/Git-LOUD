@@ -380,13 +380,21 @@ Tooltips = {
     -- *** Economy
     -- **********************
 
-    mass_rate = {
+    mass_income_display = {
         title = "Economic Mass Rate",
         description = "Toggle between income-per-second and efficiency rating values",
     },
-    energy_rate = {
+    energy_income_display = {
         title = "Economic Energy Rate",
         description = "Toggle between income per second and efficiency rating values",
+    },
+    mass_reclaim_display = {
+        title = "Mass Reclaimed",
+        description = "Total Mass Reclaimed",
+    },
+    energy_reclaim_display = {
+        title = "Energy Reclaimed",
+        description = "Total Energy Reclaimed",
     },
     mass_storage = {
         title = "Mass Storage",

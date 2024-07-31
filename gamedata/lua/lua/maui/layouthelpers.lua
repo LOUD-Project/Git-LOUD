@@ -20,11 +20,9 @@ local GetTextureDimensions = GetTextureDimensions
 local MathFloor = math.floor
 local MathCeil = math.ceil
 
-
-
-------------------------------
+-------------
 -- UI Scaling
-------------------------------
+-------------
 
 -- Store and set the current pixel scale multiplier. This will be used when the
 -- artwork is scaled up or down so that offsets scale up and down appropriately.
@@ -769,9 +767,9 @@ end
 
 
 
-------------------------------
+------------------
 -- Axial Functions
-------------------------------
+------------------
 
 -- These functions set two of the three axial properties a control has
 -- (the third can be reset or left alone)
@@ -794,9 +792,9 @@ end
 
 
 
-------------------------------
+----------------------
 -- Composite Functions
-------------------------------
+----------------------
 
 --- Reset all edges and dimensions to the default layout functions.  
 --- You should call `control:ResetLayout()` instead unless you cannot rely on overriden behavior.  
@@ -1048,9 +1046,9 @@ end
 
 
 
-------------------------------
+---------------------
 -- Compound Functions
-------------------------------
+---------------------
 
 -- These functions layout multiple controls at once
 
@@ -1099,9 +1097,9 @@ end
 
 
 
---------------------------------------------------------------------------------
+------------
 -- Layouters
---------------------------------------------------------------------------------
+------------
 
 -- An extremely helpful design pattern for laying out components, it is intended to make
 -- UI code readable, maintainable, robust, and easily diagnosable
@@ -1200,9 +1198,9 @@ function GetLayoutControl(layout)
     return layout.layoutControl or layout
 end
 
---------------------------------------------------
+--------------------
 -- Control Attribute
---------------------------------------------------
+--------------------
 
 ---@class LayouterAttributeControl
 local LayouterAttributeControl = Class {
@@ -1281,9 +1279,7 @@ local LayouterAttributeControl = Class {
     -- Property Setters
     ------------------------------
 
-    ----------
     -- Positional setters
-    ----------
 
     --- Sets the left edge of the control
     ---@generic T : LayouterAttributeControl
@@ -1326,9 +1322,7 @@ local LayouterAttributeControl = Class {
     end;
 
 
-    ----------
-    -- Dimensional setters
-    ----------
+    --- Dimensional setters
 
     --- Sets the width of the control
     ---@generic T : LayouterAttributeControl
@@ -1394,9 +1388,7 @@ local LayouterAttributeControl = Class {
     end;
 
 
-    ----------
-    -- Depth setters
-    ----------
+    --- Depth setters
 
     --- Sets depth of the control to be above a parent
     ---@generic T : LayouterAttributeControl
@@ -1423,9 +1415,7 @@ local LayouterAttributeControl = Class {
 
 
 
-    ------------------------------
-    -- Single positioning methods
-    ------------------------------
+    --- Single positioning methods
 
     ----------
     -- Reset methods
@@ -1492,9 +1482,7 @@ local LayouterAttributeControl = Class {
     end;
 
 
-    ----------
-    -- Anchor methods
-    ----------
+    --- Anchor methods
 
     --- Anchors the control's right edge to the left edge of a parent, with optional padding
     ---@generic T : LayouterAttributeControl
@@ -1541,9 +1529,7 @@ local LayouterAttributeControl = Class {
     end;
 
 
-    ----------
-    -- Inside offset methods
-    ----------
+    --- Inside offset methods
 
     --- Centers the control horizontally on a parent, with optional rightward offset.
     --- This sets the control's left edge.
@@ -2080,9 +2066,9 @@ local LayouterAttributeFont = Class {
     end;
 }
 
-------------------------------
+-------------------
 -- Editor Attribute
-------------------------------
+-------------------
 
 ---@class LayouterAttributeEditor : LayouterAttributeFont
 local LayouterAttributeEditor = Class(LayouterAttributeFont) {
@@ -2104,9 +2090,9 @@ local LayouterAttributeEditor = Class(LayouterAttributeFont) {
     end;
 }
 
-------------------------------
+------------------
 -- Color Attribute
-------------------------------
+------------------
 
 ---@class LayouterAttributeColor
 local LayouterAttributeColor = Class {
@@ -2127,9 +2113,9 @@ local LayouterAttributeColor = Class {
     end;
 }
 
-------------------------------
+--------------------
 -- Texture Attribute
-------------------------------
+--------------------
 
 ---@class LayouterAttributeTexture : LayouterAttributeColor
 local LayouterAttributeTexture = Class(LayouterAttributeColor) {
@@ -2151,9 +2137,9 @@ local LayouterAttributeTexture = Class(LayouterAttributeColor) {
     end;
 }
 
-------------------------------
+----------------------------
 -- Selection Color Attribute
-------------------------------
+----------------------------
 
 ---@class LayouterAttributeSelection
 local LayouterAttributeSelection = Class {
@@ -2197,9 +2183,9 @@ local LayouterAttributeSelection = Class {
 
 
 
---------------------------------------------------------------------------------
+----------------
 -- Base Layouter
---------------------------------------------------------------------------------
+----------------
 
 -- While it can be useful to build specific layouters for individual controls, this monolithic
 -- class is the most versatile

@@ -2679,6 +2679,7 @@ function ShowColorPicker(row, x, y)
     local function RGBStr()
         return string.sub(colorPicker.color, 3, 8)
     end
+
 -- Core
     colorPicker = Bitmap(GUI, UIUtil.UIFile('/dialogs/exit-dialog/panel02_bmp.dds'))
     colorPicker.Left:Set(x)
@@ -2874,8 +2875,8 @@ function CreateUI(maxPlayers, useSteam)
     local MapPreview    = import('/lua/ui/controls/mappreview.lua').MapPreview
     local MultiLineText = import('/lua/maui/multilinetext.lua').MultiLineText
     local Prefs         = import('/lua/user/prefs.lua')
-    local StatusBar     = import('/lua/maui/statusbar.lua').StatusBar
-    local Text          = import('/lua/maui/text.lua').Text	
+    --local StatusBar     = import('/lua/maui/statusbar.lua').StatusBar
+    --local Text          = import('/lua/maui/text.lua').Text	
 
 	local ELobbyVersion = import('/lua/enhancedlobby.lua').GetLEMVersion()
     
@@ -2901,9 +2902,9 @@ function CreateUI(maxPlayers, useSteam)
         title = "<LOC _LAN_Game_Lobby>"
     end
 
-    ---------------------------------------------------------------------------
+    -----------------------------
     -- Set up main control panels
-    ---------------------------------------------------------------------------
+    -----------------------------
     if singlePlayer then
         GUI.panel = Bitmap(GUI, UIUtil.SkinnableFile("/scx_menu/lan-game-lobby/panel-skirmish_bmp.dds"))
     else
@@ -2944,9 +2945,9 @@ function CreateUI(maxPlayers, useSteam)
     LayoutHelpers.AtLeftTopIn(GUI.launchPanel, GUI.panel, 735, 668)
 	LayoutHelpers.SetDimensions(GUI.launchPanel, 238, 66)
 
-    ---------------------------------------------------------------------------
+    -------------------
     -- set up map panel
-    ---------------------------------------------------------------------------
+    -------------------
     local mapOverlay = Bitmap(GUI.mapPanel, UIUtil.SkinnableFile("/lobby/lan-game-lobby/map-pane-border_bmp.dds"))
 	
     LayoutHelpers.AtLeftTopIn(mapOverlay, GUI.panel, 750, 69) -- 74
@@ -3026,15 +3027,14 @@ function CreateUI(maxPlayers, useSteam)
 
     end
 
-    ---------------------------------------------------------------------------
+    ----------------------
     -- set up launch panel
-    ---------------------------------------------------------------------------
+    ----------------------
     GUI.launchGameButton = UIUtil.CreateButtonStd(GUI.launchPanel, '/scx_menu/large-no-bracket-btn/large', "<LOC lobui_0212>Launch", 18, 4)
     GUI.exitButton = UIUtil.CreateButtonStd(GUI.launchPanel, '/scx_menu/small-btn/small', "", 18, 4)
 
 
     GUI.exitButton.label:SetText(LOC("<LOC _Back>"))
-
     
     import('/lua/ui/uimain.lua').SetEscapeHandler(function() GUI.exitButton.OnClick(GUI.exitButton) end)
 
@@ -3056,6 +3056,7 @@ function CreateUI(maxPlayers, useSteam)
     LayoutHelpers.AtCenterIn(GUI.launchGameButton.glow, GUI.launchGameButton)
     GUI.launchGameButton.glow:SetAlpha(0)
     GUI.launchGameButton.glow:DisableHitTest()
+
     GUI.launchGameButton.OnRolloverEvent = function(self, event) 
            if event == 'enter' then
             EffectHelpers.FadeIn(self.glow, .25, 0, 1)
@@ -3076,8 +3077,7 @@ function CreateUI(maxPlayers, useSteam)
     
     Tooltip.AddButtonTooltip(GUI.launchGameButton, 'Lobby_Launch')
 
-
-    -- hide unless we're the game host
+    --- hide unless we're the game host
     GUI.launchGameButton:Hide()
 
     GUI.launchGameButton.OnClick = function(self)
@@ -3088,8 +3088,10 @@ function CreateUI(maxPlayers, useSteam)
     -- chat display
     ---------------
     GUI.chatEdit = Edit(GUI.chatPanel)
+
     LayoutHelpers.AtLeftTopIn(GUI.chatEdit, GUI.panel, 84, 634)
 	LayoutHelpers.SetDimensions(GUI.chatEdit, 640, 14)
+
     GUI.chatEdit:SetFont(UIUtil.bodyFont, 12)
     GUI.chatEdit:SetForegroundColor(UIUtil.fontColor)
     GUI.chatEdit:SetHighlightBackgroundColor('00000000')
@@ -3100,16 +3102,15 @@ function CreateUI(maxPlayers, useSteam)
     GUI.chatDisplay = ItemList(GUI.chatPanel)
     GUI.chatDisplay:SetFont(UIUtil.bodyFont, 12)
     GUI.chatDisplay:SetColors(UIUtil.fontColor(), "00000000", UIUtil.fontColor(), "00000000")
-    LayoutHelpers.AtLeftTopIn(GUI.chatDisplay, GUI.panel, 50, 504)
 
+    LayoutHelpers.AtLeftTopIn(GUI.chatDisplay, GUI.panel, 50, 504)
     LayoutHelpers.AnchorToTop(GUI.chatDisplay, GUI.chatEdit, 15)
 	LayoutHelpers.AtRightIn(GUI.chatDisplay, GUI.chatPanel, 40)
+
     GUI.chatDisplay.Height:Set(function() return GUI.chatDisplay.Bottom() - GUI.chatDisplay.Top() end)
     GUI.chatDisplay.Width:Set(function() return GUI.chatDisplay.Right() - GUI.chatDisplay.Left() end)
 
     GUI.chatDisplayScroll = UIUtil.CreateVertScrollbarFor(GUI.chatDisplay)
-
-    -- OnlineProvider.RegisterChatDisplay(GUI.chatDisplay)
     
     GUI.chatEdit:SetMaxChars(200)
 
@@ -3184,15 +3185,20 @@ function CreateUI(maxPlayers, useSteam)
     -- team Options
     ---------------
 	GUI.teamsLabel = UIUtil.CreateText(GUI.optionsPanel, "Teams", 14, UIUtil.bodyFont)
+
 	LayoutHelpers.AtLeftTopIn(GUI.teamsLabel, GUI.mapPanel, 5, 235)
 	
 	GUI.teamsCombo = Combo(GUI.optionsPanel, 14, 10, false, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+
 	LayoutHelpers.CenteredRightOf(GUI.teamsCombo, GUI.teamsLabel, 5)
 	LayoutHelpers.SetWidth(GUI.teamsCombo, 60)
+
 	Tooltip.AddControlTooltip(GUI.teamsCombo, 'lob_teams_combo')
 	
 	GUI.teamsBtn = UIUtil.CreateButtonStd(GUI.optionsPanel, '/lobby/lan-game-lobby/toggle', "Setup Teams", 10, 0)
+
 	LayoutHelpers.CenteredRightOf(GUI.teamsBtn, GUI.teamsCombo, 5)
+
 	Tooltip.AddButtonTooltip(GUI.teamsBtn, 'lob_random_teams')
 	
 	GUI.teamsBtn.OnClick = function(self, modifiers)
@@ -3272,17 +3278,20 @@ function CreateUI(maxPlayers, useSteam)
 		end
 	end 
 
-    ---------------------------------------------------------------------------
+    -----------------
     -- Option display
-    ---------------------------------------------------------------------------        
+    -----------------
     GUI.OptionContainer = Group(GUI.optionsPanel)
+
 	LayoutHelpers.SetDimensions(GUI.OptionContainer, 182, 254)
+
     GUI.OptionContainer.top = 0
+
     LayoutHelpers.AtLeftTopIn(GUI.OptionContainer, GUI.mapPanel, 15, 280)
     
     GUI.OptionDisplay = {}
 
-    --RefreshOptionDisplayData()
+    RefreshOptionDisplayData()
     
     local function CreateOptionElements()
 
@@ -3444,6 +3453,7 @@ function CreateUI(maxPlayers, useSteam)
     if singlePlayer then
 
         GUI.loadButton = UIUtil.CreateButtonStd(GUI.optionsPanel, '/scx_menu/small-btn/small', "<LOC lobui_0176>Load", 18, 2)
+
         LayoutHelpers.LeftOf(GUI.loadButton, GUI.launchGameButton, 10)
         LayoutHelpers.AtVerticalCenterIn(GUI.loadButton, GUI.launchGameButton)
 
@@ -3456,6 +3466,7 @@ function CreateUI(maxPlayers, useSteam)
     elseif not lobbyComm:IsHost() then
 
         GUI.restrictedUnitsButton = UIUtil.CreateButtonStd(GUI.optionsPanel, '/scx_menu/small-btn/small', "<LOC lobui_0376>Unit Manager", 14, 2)
+
         LayoutHelpers.LeftOf(GUI.restrictedUnitsButton, GUI.launchGameButton, 10)
         LayoutHelpers.AtVerticalCenterIn(GUI.restrictedUnitsButton, GUI.launchGameButton)
 
@@ -3486,31 +3497,39 @@ function CreateUI(maxPlayers, useSteam)
     }
 	
     GUI.labelGroup = Group(GUI.playerPanel)
-	LayoutHelpers.SetDimensions(GUI.labelGroup, 690, 20)
 
+	LayoutHelpers.SetDimensions(GUI.labelGroup, 690, 20)
     LayoutHelpers.AtLeftTopIn(GUI.labelGroup, GUI.playerPanel, 5, 5)
 
     GUI.nameLabel = UIUtil.CreateText(GUI.labelGroup, "<LOC lobui_0213>Player Name", 14, UIUtil.titleFont)
+
     LayoutHelpers.AtLeftIn(GUI.nameLabel, GUI.panel, slotColumnSizes.player.x)
     LayoutHelpers.AtVerticalCenterIn(GUI.nameLabel, GUI.labelGroup)
+
     GUI.nameLabel:SetDropShadow(true)
     Tooltip.AddControlTooltip(GUI.nameLabel, 'lob_slot')
 
     GUI.colorLabel = UIUtil.CreateText(GUI.labelGroup, "<LOC lobui_0214>Color", 14, UIUtil.titleFont)
+
     LayoutHelpers.AtLeftIn(GUI.colorLabel, GUI.panel, slotColumnSizes.color.x)
     LayoutHelpers.AtVerticalCenterIn(GUI.colorLabel, GUI.labelGroup)
+
     GUI.colorLabel:SetDropShadow(true)
     Tooltip.AddControlTooltip(GUI.colorLabel, 'lob_color')
 
     GUI.factionLabel = UIUtil.CreateText(GUI.labelGroup, "<LOC lobui_0215>Faction", 14, UIUtil.titleFont)
+
     LayoutHelpers.AtLeftIn(GUI.factionLabel, GUI.panel, slotColumnSizes.faction.x)
     LayoutHelpers.AtVerticalCenterIn(GUI.factionLabel, GUI.labelGroup)
+
     GUI.factionLabel:SetDropShadow(true)
     Tooltip.AddControlTooltip(GUI.factionLabel, 'lob_faction')
 
     GUI.teamLabel = UIUtil.CreateText(GUI.labelGroup, "<LOC lobui_0216>Team", 14, UIUtil.titleFont)
+
     LayoutHelpers.AtLeftIn(GUI.teamLabel, GUI.panel, slotColumnSizes.team.x)
     LayoutHelpers.AtVerticalCenterIn(GUI.teamLabel, GUI.labelGroup)
+
     GUI.teamLabel:SetDropShadow(true)
     Tooltip.AddControlTooltip(GUI.teamLabel, 'lob_team')
 
@@ -3900,14 +3919,17 @@ function CreateUI(maxPlayers, useSteam)
     if not singlePlayer then
 
         GUI.observerLabel = UIUtil.CreateText(GUI.observerPanel, "<LOC lobui_0275>Observers", 14, UIUtil.bodyFont)
+
         LayoutHelpers.AtLeftTopIn(GUI.observerLabel, GUI.observerPanel, 5, 5)
 
         Tooltip.AddControlTooltip(GUI.observerLabel, 'lob_describe_observers')
 
         GUI.allowObservers = UIUtil.CreateCheckboxStd(GUI.observerPanel, '/dialogs/check-box_btn/radio')
+
         LayoutHelpers.CenteredRightOf(GUI.allowObservers, GUI.observerLabel, 6)
 
         GUI.allowObserversLabel = UIUtil.CreateText(GUI.observerPanel, "<LOC lobui_0276>Allow", 14, UIUtil.bodyFont)
+
         LayoutHelpers.CenteredRightOf(GUI.allowObserversLabel, GUI.allowObservers)
 
         Tooltip.AddControlTooltip(GUI.allowObservers, 'lob_observers_allowed')
@@ -3929,6 +3951,7 @@ function CreateUI(maxPlayers, useSteam)
         GUI.allowObservers:Hide()
 
         GUI.becomeObserver = UIUtil.CreateButtonStd(GUI.observerPanel, '/lobby/lan-game-lobby/smalltoggle', "<LOC lobui_0228>Observe", 10, 0)
+
         LayoutHelpers.CenteredRightOf(GUI.becomeObserver, GUI.allowObserversLabel, 6)
         
         Tooltip.AddButtonTooltip(GUI.becomeObserver, 'lob_become_observer')
@@ -3944,15 +3967,20 @@ function CreateUI(maxPlayers, useSteam)
         end
 
         GUI.fillOpenLabel = UIUtil.CreateText(GUI.observerPanel, "Fill slots:", 14, UIUtil.bodyFont)
+
         LayoutHelpers.CenteredRightOf(GUI.fillOpenLabel, GUI.becomeObserver, 6)
 		
 		GUI.fillOpenCombo = Combo(GUI.observerPanel, 14, 10, false, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+
 		LayoutHelpers.CenteredRightOf(GUI.fillOpenCombo, GUI.fillOpenLabel, 2)
 		LayoutHelpers.SetWidth(GUI.fillOpenCombo, 90)
+
 		Tooltip.AddControlTooltip(GUI.fillOpenCombo, 'lob_fill_combo')
 		
         GUI.fillOpenBtn = UIUtil.CreateButtonStd(GUI.observerPanel, '/lobby/lan-game-lobby/smalltoggle', "Add AIs", 10, 0)
+
         LayoutHelpers.CenteredRightOf(GUI.fillOpenBtn, GUI.fillOpenCombo, 2)
+
 		Tooltip.AddButtonTooltip(GUI.fillOpenBtn, 'lob_fill_open')
 		
         GUI.fillOpenBtn.OnClick = function(self, modifiers)			
@@ -3972,7 +4000,9 @@ function CreateUI(maxPlayers, useSteam)
         end
 		
         GUI.clearAIBtn = UIUtil.CreateButtonStd(GUI.observerPanel, '/lobby/lan-game-lobby/smalltoggle', "Clear AIs", 10, 0)
+
         LayoutHelpers.CenteredRightOf(GUI.clearAIBtn, GUI.fillOpenBtn, 2)
+
 		Tooltip.AddButtonTooltip(GUI.clearAIBtn, 'lob_clear_ai')
 		
 		GUI.clearAIBtn.OnClick = function(self, modifiers)
@@ -3986,8 +4016,10 @@ function CreateUI(maxPlayers, useSteam)
         end
 
         GUI.fillAIMult = Edit(GUI.observerPanel)
+
         LayoutHelpers.CenteredRightOf(GUI.fillAIMult, GUI.clearAIBtn)
         LayoutHelpers.SetDimensions(GUI.fillAIMult, 40, 14)
+
         GUI.fillAIMult:SetFont(UIUtil.bodyFont, 12)
         GUI.fillAIMult:SetForegroundColor(UIUtil.fontColor)
         GUI.fillAIMult:SetHighlightBackgroundColor('00000000')
@@ -4038,7 +4070,9 @@ function CreateUI(maxPlayers, useSteam)
         end
 
         GUI.setAllAIMultBtn = UIUtil.CreateButtonStd(GUI.observerPanel, '/lobby/lan-game-lobby/toggle', "Set All AI Cheat", 10, 0)
+
         LayoutHelpers.CenteredRightOf(GUI.setAllAIMultBtn, GUI.fillAIMult)
+
         Tooltip.AddButtonTooltip(GUI.setAllAIMultBtn, 'lob_set_all_ai_multi')
 
         GUI.setAllAIMultBtn.OnClick = function(self, modifiers)
@@ -4055,6 +4089,7 @@ function CreateUI(maxPlayers, useSteam)
         GUI.observerList = ItemList(GUI.observerPanel, "observer list")
         GUI.observerList:SetFont(UIUtil.bodyFont, 14)
         GUI.observerList:SetColors(UIUtil.fontColor, "00000000", UIUtil.fontOverColor, UIUtil.highlightColor, "ffbcfffe")
+
         LayoutHelpers.Below(GUI.observerList, GUI.observerLabel, 8)
 		LayoutHelpers.AtLeftIn(GUI.observerList, GUI.observerLabel, 5)
 		LayoutHelpers.AtRightBottomIn(GUI.observerList, GUI.observerPanel, 40, 12)
@@ -4075,15 +4110,20 @@ function CreateUI(maxPlayers, useSteam)
     else
 	
         GUI.fillOpenLabel = UIUtil.CreateText(GUI.observerPanel, "Fill open slots with", 14, UIUtil.bodyFont)
+
 		LayoutHelpers.AtLeftTopIn(GUI.fillOpenLabel, GUI.observerPanel, 5, 5)
 		
 		GUI.fillOpenCombo = Combo(GUI.observerPanel, 14, 10, false, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+
 		LayoutHelpers.CenteredRightOf(GUI.fillOpenCombo, GUI.fillOpenLabel, 5)
 		LayoutHelpers.SetWidth(GUI.fillOpenCombo, 90)
+
 		Tooltip.AddControlTooltip(GUI.fillOpenCombo, 'lob_fill_combo')
 		
         GUI.fillOpenBtn = UIUtil.CreateButtonStd(GUI.observerPanel, '/lobby/lan-game-lobby/smalltoggle', "Add AIs", 10, 0)
+
         LayoutHelpers.CenteredRightOf(GUI.fillOpenBtn, GUI.fillOpenCombo, 5)
+
 		Tooltip.AddButtonTooltip(GUI.fillOpenBtn, 'lob_fill_open')
 		
         GUI.fillOpenBtn.OnClick = function(self, modifiers)			
@@ -4103,7 +4143,9 @@ function CreateUI(maxPlayers, useSteam)
         end
 		
         GUI.clearAIBtn = UIUtil.CreateButtonStd(GUI.observerPanel, '/lobby/lan-game-lobby/smalltoggle', "Clear AIs", 10, 0)
+
         LayoutHelpers.CenteredRightOf(GUI.clearAIBtn, GUI.fillOpenBtn, 5)
+
 		Tooltip.AddButtonTooltip(GUI.clearAIBtn, 'lob_clear_ai')
 		
 		GUI.clearAIBtn.OnClick = function(self, modifiers)
@@ -4117,8 +4159,10 @@ function CreateUI(maxPlayers, useSteam)
         end
 
         GUI.fillAIMult = Edit(GUI.observerPanel)
+
         LayoutHelpers.CenteredRightOf(GUI.fillAIMult, GUI.clearAIBtn)
 		LayoutHelpers.SetDimensions(GUI.fillAIMult, 40, 14)
+
         GUI.fillAIMult:SetFont(UIUtil.bodyFont, 12)
         GUI.fillAIMult:SetForegroundColor(UIUtil.fontColor)
         GUI.fillAIMult:SetHighlightBackgroundColor('00000000')
@@ -4169,7 +4213,9 @@ function CreateUI(maxPlayers, useSteam)
         end
 
         GUI.setAllAIMultBtn = UIUtil.CreateButtonStd(GUI.observerPanel, '/lobby/lan-game-lobby/toggle', "Set All AI Cheat", 10, 0)
+
         LayoutHelpers.CenteredRightOf(GUI.setAllAIMultBtn, GUI.fillAIMult)
+
         Tooltip.AddButtonTooltip(GUI.setAllAIMultBtn, 'lob_set_all_ai_multi')
 
         GUI.setAllAIMultBtn.OnClick = function(self, modifiers)
