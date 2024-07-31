@@ -340,7 +340,7 @@ function BuildPlayerLines()
 				
                 local curI = i
 				
-                parent.Items[i].Seperator.Top:Set(function() return parent.Items[curI].Bottom() + 12 end)
+                LayoutHelpers.AnchorToBottom(parent.Items[i].Seperator, parent.Items[curI], 12)
 				
                 LayoutHelpers.AtHorizontalCenterIn(parent.Items[i].Seperator, parent.Items[i], 2)
 				
@@ -448,9 +448,9 @@ function BuildPlayerLines()
     parent.enemyBG.middleBG.Bottom:Set(parent.enemyBG.bottomBG.Top)
 	
     if lastEnemyControl then
-        parent.enemyBG.bottomBG.Top:Set(function() return lastEnemyControl.Bottom() end)
+        parent.enemyBG.bottomBG.Top:Set(lastEnemyControl.Bottom)
     else
-        parent.enemyBG.bottomBG.Top:Set(function() return enemyTitle.Bottom() end)
+        parent.enemyBG.bottomBG.Top:Set(enemyTitle.Bottom)
     end
 
     parent.Height:Set(function() 
@@ -477,7 +477,8 @@ function CreateShareResourcesDialog(control)
         control.OrigHeight = control.Height()
         
         control.giveResourcesGroup = Group(control)
-        LayoutHelpers.SetDimensions(control.giveResourcesGroup, control.Width, 90)
+        LayoutHelpers.SetHeight(control.giveResourcesGroup, 90)
+        control.giveResourcesGroup.Width:Set(control.Width)
         LayoutHelpers.AtBottomIn(control.giveResourcesGroup, control)
         LayoutHelpers.AtLeftIn(control.giveResourcesGroup, control)
         
@@ -502,9 +503,8 @@ function CreateShareResourcesDialog(control)
         local massStatus = StatusBar(control.giveResourcesGroup, 0, 100, false, false,
             UIUtil.UIFile('/game/resource-bars/mini-mass-bar-back_bmp.dds'),
             UIUtil.UIFile('/game/resource-bars/mini-mass-bar_bmp.dds'), false)
-        massStatus.Top:Set(function() return control.giveResourcesGroup.Top() + 10 end)
         massStatus.Left:Set(control.giveResourcesGroup.Left)
-        massStatus.Right:Set(function() return control.giveResourcesGroup.Right() - 50 end)
+        LayoutHelpers.AtRightTopIn(massStatus, control.giveResourcesGroup, 50, 10)
     
         local massSlider = Slider(control.giveResourcesGroup, false, 0, 100,
             UIUtil.UIFile('/game/slider-btn/slider-mass_btn_up.dds'), 
@@ -512,7 +512,7 @@ function CreateShareResourcesDialog(control)
             UIUtil.UIFile('/game/slider-btn/slider-mass_btn_up.dds'))
         LayoutHelpers.AtVerticalCenterIn(massSlider, massStatus)
         massSlider.Left:Set(control.giveResourcesGroup.Left)
-        massSlider.Right:Set(function() return control.giveResourcesGroup.Right() - 50 end)
+        LayoutHelpers.AtRightIn(massSlider, control.giveResourcesGroup, 50)
         massSlider:SetValue( 0 )
         
         massInput = UIUtil.CreateText(control.giveResourcesGroup, '0%', 16, UIUtil.bodyFont)
@@ -531,7 +531,7 @@ function CreateShareResourcesDialog(control)
             UIUtil.UIFile('/game/resource-bars/mini-energy-bar_bmp.dds'), false)
         LayoutHelpers.Below(energyStatus, massStatus, 20)
         energyStatus.Left:Set(control.giveResourcesGroup.Left)
-        energyStatus.Right:Set(function() return control.giveResourcesGroup.Right() - 50 end)
+        LayoutHelpers.AtRightIn(energyStatus, control.giveResourcesGroup, 50)
     
         local energySlider = Slider(control.giveResourcesGroup, false, 0, 100,
             UIUtil.UIFile('/game/slider-btn/slider-energy_btn_up.dds'), 
@@ -539,7 +539,7 @@ function CreateShareResourcesDialog(control)
             UIUtil.UIFile('/game/slider-btn/slider-energy_btn_up.dds'))
         LayoutHelpers.AtVerticalCenterIn(energySlider, energyStatus)
         energySlider.Left:Set(control.giveResourcesGroup.Left)
-        energySlider.Right:Set(function() return control.giveResourcesGroup.Right() - 50 end)
+        LayoutHelpers.AtRightIn(energySlider, control.giveResourcesGroup, 50)
         energySlider:SetValue( 0 )
         
         energyInput = UIUtil.CreateText(control.giveResourcesGroup, '0%', 16, UIUtil.bodyFont)

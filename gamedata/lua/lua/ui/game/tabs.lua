@@ -555,11 +555,11 @@ function BuildContent(contentID)
             end
         end
 
-        controls.bgTop.widthOffset = 4
+        controls.bgTop.widthOffset = LayoutHelpers.ScaleNumber(4)
         contentGroup.Width:Set(contentGroup.Buttons[1].Width)
         contentGroup.Height:Set(function() return contentGroup.Buttons[1].Height() * table.getsize(contentGroup.Buttons) end)
     else
-        controls.bgTop.widthOffset = 30
+        controls.bgTop.widthOffset = LayoutHelpers.ScaleNumber(30)
         contentGroup = import('/lua/ui/game/'..contentID..'.lua').CreateContent(controls.parent)
     end
 
@@ -958,7 +958,7 @@ function UpdateModeDisplay()
         LayoutHelpers.AtHorizontalCenterIn(controls.modeDisplay, controls.bgBottom)
         
         controls.modeDisplay.modes = Group(controls.modeDisplay)
-        controls.modeDisplay.modes.Height:Set(1)
+        LayoutHelpers.SetHeight(controls.modeDisplay.modes, 1)
         local prevControl = false
         local width = 0
         for i, v in modes do
@@ -997,7 +997,7 @@ function UpdateModeDisplay()
         controls.modeDisplay.minCap = Bitmap(controls.modeDisplay.modes, UIUtil.SkinnableFile('/dialogs/time-units-tabs/panel-tracking_bmp_l.dds'))
         controls.modeDisplay.maxCap = Bitmap(controls.modeDisplay.modes, UIUtil.SkinnableFile('/dialogs/time-units-tabs/panel-tracking_bmp_r.dds'))
         controls.modeDisplay.minCap.Right:Set(controls.modeDisplay.modes.Left)
-        controls.modeDisplay.minCap.Top:Set(function() return controls.modeDisplay.modes.Top() - 3 end)
+        LayoutHelpers.AtTopIn(controls.modeDisplay.minCap, controls.modeDisplay.modes, -3)
         controls.modeDisplay.maxCap.Left:Set(controls.modeDisplay.modes.Right)
         controls.modeDisplay.maxCap.Top:Set(controls.modeDisplay.minCap.Top)
         
