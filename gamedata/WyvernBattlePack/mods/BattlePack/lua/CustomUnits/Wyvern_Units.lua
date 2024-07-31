@@ -58,7 +58,7 @@ UnitList = {
     },
     
     T4LandExperimental2 = {
-        UEF = {'wel0401', 75 },     -- Wyvern Fatboy    -- Star Adder also appears here in other file
+        UEF = {'wel0401', 75 },     -- Littleman    -- Star Adder also appears here in other file
     },
     
     T4LandExperimental3 = {
