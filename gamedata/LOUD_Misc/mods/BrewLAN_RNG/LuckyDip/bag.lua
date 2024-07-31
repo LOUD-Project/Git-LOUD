@@ -71,7 +71,7 @@ LuckyDipUnitBag = {
     -- FATBOY
     {
         'uel0401', -- Fatboy
-        'wel0401', -- Wyvern
+        'wel0401', -- Littleman
         'wel1409', -- Fatboy II
     },
     -- UEF T4 heavy
