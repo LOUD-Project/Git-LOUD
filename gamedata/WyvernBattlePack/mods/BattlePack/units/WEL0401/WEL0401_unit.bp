@@ -150,7 +150,7 @@ UnitBlueprint{
 
         ToggleCaps = { RULEUTC_ShieldToggle = true },
 
-        UnitName = "<LOC wel0401_name>Littleboy",
+        UnitName = "<LOC wel0401_name>Littleman",
     },
 
     Intel = {
