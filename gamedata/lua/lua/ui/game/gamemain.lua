@@ -181,6 +181,7 @@ function OnFirstUpdate()
 
             OriginalFocusArmy = GetFocusArmy()
 
+            InitAutoSaveGame()
         end
     )
 
@@ -1092,27 +1093,65 @@ function ReceiveChat(sender, data)
     end
 end
 
+autoSaveGameThread = false
+autoSaveGameIntervalInMinutes = import('/lua/user/prefs.lua').GetFromCurrentProfile("options").auto_save_game_interval_in_minutes or 0
+
+function SetAutoSaveGameIntervalInMinutes(value)
+    if autoSaveGameIntervalInMinutes != value then
+        LOG ("AutoSaveGame set to new interval of " .. value .. " minute(s)")
+        autoSaveGameIntervalInMinutes = value
+        InitAutoSaveGame()
+    end
+end
+
+function InitAutoSaveGame()
+    if autoSaveGameThread then
+        LOG ("AutoSaveGame stopped")
+        KillThread(autoSaveGameThread)
+    end
+
+    if IsQuickSaveAvailable() and autoSaveGameIntervalInMinutes > 0 then
+        autoSaveGameThread = ForkThread(
+            function()
+                LOG ("AutoSaveGame started with interval of " .. autoSaveGameIntervalInMinutes .. " minute(s)")
+
+                local intervalInSeconds = autoSaveGameIntervalInMinutes * 60
+                local saveSlotIndex = 0
+                while IsQuickSaveAvailable() do
+                    WaitSeconds(intervalInSeconds)
+                    QuickSave("AutoSave" .. (saveSlotIndex + 1))
+                    saveSlotIndex = math.mod(saveSlotIndex + 1, 3)
+                end
+
+                LOG ("AutoSaveGame finished")
+            end
+        )
+    end
+end
+
+function IsQuickSaveAvailable()
+    return SessionIsActive() and WorldIsPlaying() and not SessionIsGameOver() and 
+            not SessionIsMultiplayer() and not SessionIsReplay() and not IsNISMode()
+end
+
 function QuickSave(filename)
 
-    if SessionIsActive() and WorldIsPlaying() and not SessionIsGameOver() and 
-		not SessionIsMultiplayer() and 
-		not SessionIsReplay() and
-		not IsNISMode() then
-       
+    if IsQuickSaveAvailable() then
+
         local saveType = "SaveGame"
-		local path = GetSpecialFilePath(Prefs.GetCurrentProfile().Name, filename, saveType)
-		local statusStr = "Quick Save in progress..."
-		local status = UIUtil.ShowInfoDialog(GetFrame(0), statusStr)
-		
-		InternalSaveGame(path, filename, function(worked, errmsg)
-			status:Destroy()
-			
-			if not worked then
-				infoStr = "Save failed! " .. errmsg
-				UIUtil.ShowInfoDialog(GetFrame(0), infoStr, "Ok")
-			end
-		end)
-	end
+        local path = GetSpecialFilePath(Prefs.GetCurrentProfile().Name, filename, saveType)
+        local statusStr = "Quick Save in progress..."
+        local status = UIUtil.ShowInfoDialog(GetFrame(0), statusStr)
+
+        InternalSaveGame(path, filename, function(worked, errmsg)
+            status:Destroy()
+
+            if not worked then
+                infoStr = "Save failed! " .. errmsg
+                UIUtil.ShowInfoDialog(GetFrame(0), infoStr, "Ok")
+            end
+        end)
+    end
 end
 
 defaultZoom = 1.4

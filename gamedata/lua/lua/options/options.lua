@@ -284,27 +284,51 @@ options = {
         title = "Interface",
         key = 'ui',
         items = {
-			{
-			    title = "UI Scale",
-			    key = 'ui_scale',
-			    restart = true,
-			    type = 'toggle',
-			    default = 1.0,
-			    custom = {
-			        states = {
-			            { text = "80%", key = 0.8, },
-			            { text = "100%", key = 1.0, },
-			            { text = "125%", key = 1.25, },
-			            { text = "150%", key = 1.5, },
-			            { text = "175%", key = 1.75, },
-			            { text = "200%", key = 2.0, },
-						{ text = "225%", key = 2.25, },
-						{ text = "250%", key = 2.5, },
-						{ text = "275%", key = 2.75, },
-						{ text = "300%", key = 3.0, },
-			        },
-			    },
-			},
+            {
+                title = "UI Scale",
+                key = 'ui_scale',
+                restart = true,
+                type = 'toggle',
+                default = 1.0,
+                custom = {
+                    states = {
+                        { text =  "80%", key = 0.8, },
+                        { text = "100%", key = 1.0, },
+                        { text = "125%", key = 1.25, },
+                        { text = "150%", key = 1.5, },
+                        { text = "175%", key = 1.75, },
+                        { text = "200%", key = 2.0, },
+                        { text = "225%", key = 2.25, },
+                        { text = "250%", key = 2.5, },
+                        { text = "275%", key = 2.75, },
+                        { text = "300%", key = 3.0, },
+                    },
+                },
+            },
+            {
+                title = "Auto Save Game",
+                key = 'auto_save_game_interval_in_minutes',
+                type = 'toggle',
+                default = 0,
+                set = function(key, value, startup)
+                    import('/lua/ui/game/gamemain.lua').SetAutoSaveGameIntervalInMinutes(value)
+                end,
+                custom = {
+                    states = {
+                        { text = "Off",              key =  0, },
+                        { text = "Every minute",     key =  1, },
+                        { text = "Every 2 minutes",  key =  2, },
+                        { text = "Every 3 minutes",  key =  3, },
+                        { text = "Every 5 minutes",  key =  5, },
+                        { text = "Every 10 minutes", key = 10, },
+                        { text = "Every 15 minutes", key = 15, },
+                        { text = "Every 20 minutes", key = 20, },
+                        { text = "Every 30 minutes", key = 30, },
+                        { text = "Every 45 minutes", key = 45, },
+                        { text = "Every 60 minutes", key = 60, },
+                    },
+                },
+            },
             {
                 title = "Auto-Rename of Replays",
                 key = 'gui_auto_rename_replays',

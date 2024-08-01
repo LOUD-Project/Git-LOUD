@@ -511,10 +511,14 @@ Tooltips = {
     -- *** Options: Interface
     -- **********************
 
-	options_ui_scale = {
-	    title = "UI Scale",
-	    description = "Changes the size of all UI elements. (requires game restart)",
-	},
+    options_ui_scale = {
+        title = "UI Scale",
+        description = "Changes the size of all UI elements. (requires game restart)",
+    },
+    options_auto_save_game_interval_in_minutes = {
+        title = "Auto Save Game",
+        description = "Automatically saves the game at the given interval. Rotates through three save slots. For non-multiplayer games only.",
+    },
     options_gui_auto_rename_replays = {
         title = "Automatic Rename of Replays",
         description = "When a game ends, a copy of the replay file is saved with the map name and a timestamp",
