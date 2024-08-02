@@ -222,7 +222,7 @@ local statFuncs = {
 	    if options.gui_detailed_unitview == 0 then
 	        return false
 	    end
-	    if info.userUnit ~= nil and info.userUnit:GetBuildRate() >= 1 then
+	    if info.userUnit ~= nil and info.userUnit:GetBuildRate() > 1 then
 	        return string.format("%.6g", info.userUnit:GetBuildRate())
 	    end
 	    return false
