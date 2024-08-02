@@ -941,7 +941,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
     -- get a count of all shields within the list
 	local shieldcount = EntityCategoryCount( SHIELDS, enemyunits )
     
-	local retUnit, bestthreat, targetUnits
+	local retDistance, retUnit, bestthreat, targetUnits
 
 	-- loop thru each of our attack categories
 	for _,category in attackcategories do
@@ -956,21 +956,22 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 			-- sort them by distance -- 
 			LOUDSORT( targetUnits, function(a,b) local GetPosition = GetPosition local VDist3Sq = VDist3Sq return VDist3Sq(GetPosition(a), position) < VDist3Sq(GetPosition(b), position) end)
 		
-			local checkspertick, enemyshields, enemythreat, unitchecks, unitposition
+			local checkspertick, enemyshields, enemythreat, unitchecks, unitdistance, unitposition
             
-            local lastget = 0    -- debug value to monitor threat checks --
-            local gets = 0       -- how many times the threatcheck was the same
+            local lastget   = 0     -- debug value to monitor threat checks --
+            local gets      = 0     -- how many times the threatcheck was the same
 			
-			unitchecks = 0
-			checkspertick = 6   -- this is the performance critical value -- 
+			unitchecks      = 0
+			checkspertick   = 6     -- this is the performance critical value -- 
 		
 			-- loop thru the targets
 			for _,u in targetUnits do
 				
 				unitposition = GetPosition(u)
+                unitdistance = VDist3Sq( unitposition, position)
 			
 				-- if target is not dead and it's outside the minimum range
-				if (not u.Dead) and VDist3Sq( unitposition, position ) >= minimumrange then
+				if (not u.Dead) and unitdistance >= minimumrange then
 
                     -- only count it as a unit being checked if we actually have to process it
                     unitchecks = unitchecks + 1
@@ -1016,16 +1017,17 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 						
                                 if (not retUnit) then
 
-                                    retUnit = u
-                                    bestthreat = enemythreat
-                                    unitchecks = 0
+                                    retUnit     = u
+                                    retDistance = unitdistance
+                                    bestthreat  = enemythreat
+                                    unitchecks  = 0
                                     break
                                 end
                             end
                         
                         else    -- otherwise select the first target
                         
-                            return u, u:GetPosition()
+                            return u, unitposition, unitdistance    ---u:GetPosition()
 
                         end
 					end
@@ -1045,14 +1047,14 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
                 --LOG("*AI DEBUG "..threattype.." Threats around selected position "..repr(aiBrain:GetThreatsAroundPosition( retUnit:GetPosition(), threatringrange, true, threattype )) )
                 --LOG("*AI DEBUG "..threatavoid.." Threats around selected position "..repr(aiBrain:GetThreatsAroundPosition( retUnit:GetPosition(), threatringrange, true, threatavoid )) )
 
-				return retUnit, retUnit:GetPosition()
+				return retUnit, retUnit:GetPosition(), retDistance
 			else
 				retUnit = false
 			end
 		end
 	end
 	
-	return false,false
+	return false,false,false
 end
 	
 -- this simply tells you if a point is in the water
