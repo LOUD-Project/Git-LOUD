@@ -2409,24 +2409,36 @@ BaseDefenseLayout = {
 T3AirStagingComplex = {
 -- UEF T3 Air Staging Facility
     {
+        {{'T1AirStagingPlatform'},
+            { 0, -6 },
+        },    
         {{'T2AirStagingPlatform'},
             { 0, 0 },
         },
     },
 -- Aeon T3 Air Staging Facility
     {
+        {{'T1AirStagingPlatform'},
+            { 0, -6 },
+        },        
         {{'T2AirStagingPlatform'},
             { 0, 0 },
         },
     },
 -- Cybran T3 Air Staging Facility
     {
+        {{'T1AirStagingPlatform'},
+            { 0, -6 },
+        },    
         {{'T2AirStagingPlatform'},
             { 0, 0 },
         },
     },
 -- Seraphim T3 Air Staging Facility
     {
+        {{'T1AirStagingPlatform'},
+            { 0, -6 },
+        },    
         {{'T2AirStagingPlatform'},
             { 0, 0 },
         },

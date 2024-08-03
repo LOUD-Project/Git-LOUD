@@ -1919,7 +1919,55 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction',
 BuilderGroup {BuilderGroupName = 'Engineer Misc Construction',
     BuildersType = 'EngineerBuilder',
 	
-    Builder {BuilderName = 'Air Staging',
+    Builder {BuilderName = 'Air Staging T1',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 850,
+        
+        PriorityFunction = function( self, aiBrain, unit, manager)
+        
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
+                return 10, true
+            end
+
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM ) then
+            
+                return 10, true
+             
+            end
+    
+            return (self.OldPriority or self.Priority), true
+        end,
+
+        BuilderConditions = {
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+        },
+		
+        BuilderType = {'T1' },
+		
+        BuilderData = {
+			DesiresAssist = false,
+			
+			Construction = {
+				Radius = 50,			
+                NearBasePerimeterPoints = true,
+				
+				ThreatMax = 50,
+				
+				BasePerimeterOrientation = 'REAR',
+				BasePerimeterSelection = 2,
+
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'T3AirStagingComplex',
+				
+                BuildStructures = {'T1AirStagingPlatform'},
+            }
+        }
+    },		
+
+    Builder {BuilderName = 'Air Staging T2',
 	
         PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
@@ -1972,7 +2020,55 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction',
 BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
     BuildersType = 'EngineerBuilder',
 	
-    Builder {BuilderName = 'Air Staging - Small Base',
+    Builder {BuilderName = 'Air Staging T1 - Small Base',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 850,
+        
+        PriorityFunction = function( self, aiBrain, unit, manager)
+        
+            if GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .85 then
+                return 10, true
+            end
+
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM ) then
+            
+                return 10, true
+             
+            end
+    
+            return (self.OldPriority or self.Priority), true
+        end,
+
+        BuilderConditions = {
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+        },
+		
+        BuilderType = {'T1'},
+		
+        BuilderData = {
+			DesiresAssist = false,
+			
+			Construction = {
+				Radius = 26,			
+                NearBasePerimeterPoints = true,
+                
+                ThreatMax = 50,
+				
+				BasePerimeterOrientation = 'REAR',
+				BasePerimeterSelection = 2,
+
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'T3AirStagingComplex',
+				
+                BuildStructures = {'T1AirStagingPlatform'},
+            }
+        }
+    },	
+	
+    Builder {BuilderName = 'Air Staging T2 - Small Base',
 	
         PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },

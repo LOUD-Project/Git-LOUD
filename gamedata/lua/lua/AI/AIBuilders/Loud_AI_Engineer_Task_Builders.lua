@@ -657,6 +657,30 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures',
         },
     },
 	
+	Builder {BuilderName = 'Reclaim T1 Airpad',
+	
+        PlatoonTemplate = 'EngineerGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        PlatoonAIPlan = 'EngineerReclaimStructureAI',
+		
+        Priority = 855,
+        
+        InstanceCount = 1,
+		
+        BuilderType = { 'T2','T3' },
+		
+        BuilderConditions = {
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, (categories.TECH1 * categories.AIRSTAGINGPLATFORM), 5, false }},
+        },
+		
+        BuilderData = {
+			Reclaim = { (categories.TECH1 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD) + (categories.TECH1 * categories.WALL)},
+            ReclaimRange = 65,
+        },
+    },
+		
     -- start reclaiming T2 PD defenses when T3 defenses are already built
 	Builder {BuilderName = 'Reclaim T2 Defenses',
 	
