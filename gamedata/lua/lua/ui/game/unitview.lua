@@ -113,7 +113,7 @@ local statFuncs = {
 	        local armyData = GetArmiesTable().armiesTable[info.armyIndex + 1]
 	        local icon = Factions.Factions[armyData.faction + 1].Icon
 	        if armyData.showScore and icon then
-	            return string.sub(armyData.nickname, 1, 12), UIUtil.UIFile(icon), armyData.color
+	            return string.sub(armyData.nickname, 1, 24), UIUtil.UIFile(icon), armyData.color
 	        else
 	            return false
 	        end
@@ -372,57 +372,45 @@ function UpdateWindow(info)
             controls.healthBar:Hide()
         end
 
-		-- always hide veterancy stars initially
-		for i = 1, 5 do
-		    controls.vetIcons[i]:Hide()
-		end
+        -- always hide veterancy stars initially
+        for i = 1, 5 do
+            controls.vetIcons[i]:Hide()
+        end
 
-		-- Control the veterancy stars
-		if bp.Veteran and info.kills then
-	        -- show stars
-			local experience = info.kills
-			local lowerThreshold = 0
-			local upperThreshold
-	        for i = 1, 5 do
-				local threshold = bp.Veteran[string.format('Level%d', i)]
-				if experience >= threshold then
-	                controls.vetIcons[i]:Show()
-	                controls.vetIcons[i]:SetTexture(UIUtil.UIFile(Factions.Factions[Factions.FactionIndexMap[string.lower(bp.General.FactionName)]].VeteranIcon))
-					lowerThreshold = threshold
-				elseif not upperThreshold then
-					upperThreshold = threshold
-	            end
-	        end
-			
-	        -- show veterancy to gain
-			local progress, title
-	        if upperThreshold then
-	            title = 'Veterancy'
-	            progress = (experience - lowerThreshold) / (upperThreshold - lowerThreshold)
-	            controls.nextVet:SetText(experience .. '/' .. string.format('%d', upperThreshold))
-	
-	        -- show total experience
-	        else
-	            title = 'Killed'
-	            progress = 1
-	            controls.nextVet:SetText(experience)
-	        end
-			
-	        -- always show it, regardless
-	        controls.vetBar:Show()
-	        controls.vetBar:SetValue(progress)
-	        controls.vetTitle:SetText(title)
-		else
-			controls.vetBar:Hide()
-		end
-		
-		local unitQueue = false
-		if info.userUnit then
-		    unitQueue = info.userUnit:GetCommandQueue()
-		end
+        -- Control the veterancy stars
+        controls.vetBar:Hide()
+        if info.entityId and bp.Veteran and info.kills then
+            -- show stars
+            local experience = info.kills
+            local lowerThreshold = 0
+            local upperThreshold
+            for i = 1, 5 do
+                local threshold = bp.Veteran[string.format('Level%d', i)]
+                if experience >= threshold then
+                    controls.vetIcons[i]:Show()
+                    controls.vetIcons[i]:SetTexture(UIUtil.UIFile(Factions.Factions[Factions.FactionIndexMap[string.lower(bp.General.FactionName)]].VeteranIcon))
+                    lowerThreshold = threshold
+                elseif not upperThreshold then
+                    upperThreshold = threshold
+                end
+            end
 
-		if info.focus then
-		    local path, valid = GameCommon.GetUnitIconPath(__blueprints[info.focus.blueprintId])
+            -- show veterancy to gain
+            if upperThreshold then
+                controls.vetTitle:SetText('Veterancy')
+                controls.vetBar:SetValue((experience - lowerThreshold) / (upperThreshold - lowerThreshold))
+                controls.nextVet:SetText(experience .. '/' .. string.format('%d', upperThreshold))
+                controls.vetBar:Show()
+            end
+        end
+
+        local unitQueue = false
+        if info.userUnit then
+            unitQueue = info.userUnit:GetCommandQueue()
+        end
+
+        if info.focus then
+            local path, valid = GameCommon.GetUnitIconPath(__blueprints[info.focus.blueprintId])
             if valid then
                 controls.actionIcon:SetTexture(path)
             else
@@ -431,108 +419,108 @@ function UpdateWindow(info)
             end
 
             if info.focus.health and info.focus.maxHealth then
-			
+
                 controls.actionText:SetFont(UIUtil.bodyFont, 14)
                 controls.actionText:SetText(string.format('%d%%', (info.focus.health / info.focus.maxHealth) * 100))
-				
+
             elseif queueTextures[unitQueue[1].type] then
-			
+
                 controls.actionText:SetFont(UIUtil.bodyFont, 10)
                 controls.actionText:SetText(LOC(queueTextures[unitQueue[1].type].text))
-				
+
             else
-			
+
                 controls.actionText:SetText('')
-				
+
             end
-			
+
             controls.actionIcon:Show()
             controls.actionText:Show()
-			
+
         elseif info.focusUpgrade then
-		
+
             controls.actionIcon:SetTexture(queueTextures.Upgrade.texture)
             controls.actionText:SetFont(UIUtil.bodyFont, 14)
             controls.actionText:SetText(string.format('%d%%', info.workProgress * 100))
             controls.actionIcon:Show()
             controls.actionText:Show()
-			
+
         elseif info.userUnit and queueTextures[unitQueue[1].type] and not info.userUnit:IsInCategory('FACTORY') then
-		
+
             controls.actionText:SetFont(UIUtil.bodyFont, 10)
             controls.actionText:SetText(LOC(queueTextures[unitQueue[1].type].text))
             controls.actionIcon:SetTexture(queueTextures[unitQueue[1].type].texture)
             controls.actionIcon:Show()
             controls.actionText:Show()
-			
+
         elseif info.userUnit and info.userUnit:IsIdle() then
-		
+
             controls.actionIcon:SetTexture(UIUtil.UIFile('/game/unit_view_icons/idle.dds'))
             controls.actionText:SetFont(UIUtil.bodyFont, 10)
             controls.actionText:SetText(LOC('<LOC _Idle>'))
             controls.actionIcon:Show()
             controls.actionText:Show()
-			
+
         else
-		
+
             controls.actionIcon:Hide()
             controls.actionText:Hide()
-			
+
         end
-        
+
         if Prefs.GetOption('uvd_format') == 'full' and bp.Display.Abilities then
-		
+
             local i = 1
             local maxWidth = 0
             local index = table.getn(bp.Display.Abilities)
-			
+
             while bp.Display.Abilities[index] do
-			
+
                 if not controls.abilityText[i] then
-				
+
                     controls.abilityText[i] = UIUtil.CreateText(controls.abilities, LOC(bp.Display.Abilities[index]), 12, UIUtil.bodyFont)
                     controls.abilityText[i]:DisableHitTest()
-					
+
                     if i == 1 then
                         LayoutHelpers.AtLeftIn(controls.abilityText[i], controls.abilities)
                         LayoutHelpers.AtBottomIn(controls.abilityText[i], controls.abilities)
                     else
                         LayoutHelpers.Above(controls.abilityText[i], controls.abilityText[i-1])
                     end
-					
+
                 else
-				
+
                     controls.abilityText[i]:SetText(LOC(bp.Display.Abilities[index]))
-					
+
                 end
-				
+
                 maxWidth = math.max(maxWidth, controls.abilityText[i].Width())
                 index = index - 1
                 i = i + 1
-				
+
             end
-			
+
             while controls.abilityText[i] do
-			
+
                 controls.abilityText[i]:Destroy()
                 controls.abilityText[i] = nil
                 i = i + 1
-				
+
             end
-			
+
             controls.abilities.Width:Set(maxWidth)
             if controls.abilityText[1] then
                 controls.abilities.Height:Set(function() return controls.abilityText[1].Height() * table.getsize(controls.abilityText) end)
-            end    
+            end
             if controls.abilities:IsHidden() then
                 controls.abilities:Show()
             end
         elseif not controls.abilities:IsHidden() then
             controls.abilities:Hide()
         end
-        
+
         -- code taken from below --
-        
+
         -- first replaces fuel bar with progress bar when when upgrading
         controls.fuelBar:Hide()
         if info.workProgress > 0 then
@@ -543,24 +531,23 @@ function UpdateWindow(info)
         -- second adds additional info to the display
         -- such as Regen Rate due to enhancements or veterancy buffs
         -- shield max health and regen rate due to enhancements or other buffs
-        
+
         controls.shieldText:Hide()
 
 		-- works properly but i've yet to find a good spot to put that data in
---[[        
-		    if info.userUnit != nil and info.userUnit:GetBlueprint().Economy.StorageMass > 0 and info.userUnit:GetBlueprint().Economy.StorageEnergy > 0 then
-		       controls.StorageMass:SetText(string.format("%d",LOUDFLOOR(info.userUnit:GetBlueprint().Economy.StorageMass)))
-		       controls.StorageEnergy:SetText(string.format("%d",LOUDFLOOR(info.userUnit:GetBlueprint().Economy.StorageEnergy)))
-		       controls.StorageMass:Show()
-		       controls.StorageEnergy:Show()
-		    else
-		       controls.StorageMass:Hide()
-		       controls.StorageEnergy:Hide()
-		    end
+--[[
+        if info.userUnit != nil and info.userUnit:GetBlueprint().Economy.StorageMass > 0 and info.userUnit:GetBlueprint().Economy.StorageEnergy > 0 then
+           controls.StorageMass:SetText(string.format("%d",LOUDFLOOR(info.userUnit:GetBlueprint().Economy.StorageMass)))
+           controls.StorageEnergy:SetText(string.format("%d",LOUDFLOOR(info.userUnit:GetBlueprint().Economy.StorageEnergy)))
+           controls.StorageMass:Show()
+           controls.StorageEnergy:Show()
+        else
+           controls.StorageMass:Hide()
+           controls.StorageEnergy:Hide()
+        end
 --]]
         -- show the unit health and regen
         if info.userUnit != nil then
-    
             info.regenrate = info.userUnit:GetStat( 'REGEN' ).Value
             info.shieldHP = info.userUnit:GetStat('SHIELDHP').Value
             info.shieldRegen = info.userUnit:GetStat('SHIELDREGEN').Value
