@@ -3460,10 +3460,10 @@ function PathGeneratorAmphibious(aiBrain)
 
         local xstep = ( position[1] - testposition[1]) / steps
 		local ystep = ( position[3] - testposition[3]) / steps
-
+ 
 		for i = 1, steps do
 
-            if VDist2( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3]) <= (checkrange*.6) then
+            if VDist2( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3]) <= (stepsize*.6) then
             
                 if ScenarioInfo.PathFindingDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." found destination "..repr(destination).." on step "..i.." within stepsize "..(stepsize*.6).." range of "..repr({position[1] - (xstep * i), position[3] - (ystep * i)}).." while examining "..repr(testposition) )
