@@ -66,7 +66,7 @@ UnitBlueprint{
     },
 
     Economy = {
-        BuildCostEnergy = 1950,
+        BuildCostEnergy = 2010,
         BuildCostMass = 225,
         BuildTime = 675,
 
@@ -74,6 +74,7 @@ UnitBlueprint{
     },
 
     General = {
+        CapCost = 2,
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Guard = true,
@@ -102,16 +103,16 @@ UnitBlueprint{
     Physics = {
         BankingSlope = 0,
         DragCoefficient = 0.2,
-        MaxAcceleration = 2.9,
-        MaxBrake = 2.9,
+        MaxAcceleration = 1.5,
+        MaxBrake = 1.5,
         MaxSpeed = 2.9,
         MaxSpeedReverse = 0,
         MaxSteerForce = 10,
         MinSpeedPercent = 0,
         MotionType = "RULEUMT_Land",
         StandUpright = false,
-        TurnRadius = 25,
-        TurnRate = 75,
+        TurnRadius = 20,
+        TurnRate = 45,
     },
 
     SelectionCenterOffsetX = 0,

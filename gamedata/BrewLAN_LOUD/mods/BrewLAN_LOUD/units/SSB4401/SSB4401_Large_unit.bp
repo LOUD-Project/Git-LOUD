@@ -67,11 +67,8 @@ UnitBlueprint {
     Defense = {
 
         ArmorType = 'Structure',
-		
-        EconomyThreatLevel = 35,
-		
-        Health = 1200,
-        MaxHealth = 1200,
+        Health = 800,
+        MaxHealth = 800,
 		
         RegenRate = 2,
 		
@@ -88,16 +85,17 @@ UnitBlueprint {
 			
             ShieldRechargeTime = 32,
 			
-            ShieldRegenRate = 136,
+            ShieldRegenRate = 137,
 			
-            ShieldRegenStartTime = 1,
+            ShieldRegenStartTime = 2.2,
 			
             ShieldSize = 35,
 			
             ShieldVerticalOffset = -7,
         },
-
-        SurfaceThreatLevel = 107.8,
+		
+        EconomyThreatLevel = 25,
+        SurfaceThreatLevel = 90,
 
         ParentID = 'ssb4401',
     },

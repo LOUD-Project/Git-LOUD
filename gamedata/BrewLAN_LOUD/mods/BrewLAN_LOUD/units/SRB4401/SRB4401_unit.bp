@@ -50,7 +50,7 @@ UnitBlueprint {
             ShieldVerticalOffset = -1,
         },
 
-        EconomyThreatLevel = 125,		
+        EconomyThreatLevel = 120,		
         SurfaceThreatLevel = 175.5,
     },
 	
@@ -120,7 +120,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 2,
+		CapCost = 4,
         CommandCaps = { RULEUCC_Pause = true },
         
         FactionName = 'Cybran',

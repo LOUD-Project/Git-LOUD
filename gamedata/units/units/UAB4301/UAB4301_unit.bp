@@ -107,6 +107,7 @@ UnitBlueprint {
     },
 	
     General = {
+        CapCost = 3,    
         FactionName = 'Aeon',
         Icon = 'land',
         OrderOverrides = {

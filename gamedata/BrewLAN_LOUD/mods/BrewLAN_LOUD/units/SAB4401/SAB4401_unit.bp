@@ -42,13 +42,12 @@ UnitBlueprint {
     Defense = {
 	
         ArmorType = 'Structure',
+        Health = 1250,
+        MaxHealth = 1250,
 		
-        EconomyThreatLevel = 200,
-		
-        Health = 1450,
-        MaxHealth = 1450,
-		
-        RegenRate = 5,
+        RegenRate = 4,
+
+        EconomyThreatLevel = 120,
         SurfaceThreatLevel = 170.5,
 		
         Shield = {
@@ -61,8 +60,8 @@ UnitBlueprint {
             ShieldEnergyDrainRechargeTime = 8,
             ShieldMaxHealth = 31000,
             ShieldRechargeTime = 33,
-            ShieldRegenRate = 235,
-            ShieldRegenStartTime = 1,
+            ShieldRegenRate = 234,
+            ShieldRegenStartTime = 2,
             ShieldSize = 7.9,
             ShieldVerticalOffset = 0,
             
@@ -78,11 +77,11 @@ UnitBlueprint {
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
             RegenAssistMult = 60,
 			
-            ShieldEnergyDrainRechargeTime = 8,
+            ShieldEnergyDrainRechargeTime = 9,
             ShieldMaxHealth = 31000,
             ShieldRechargeTime = 33,
-            ShieldRegenRate = 235,
-            ShieldRegenStartTime = 1,
+            ShieldRegenRate = 234,
+            ShieldRegenStartTime = 2,
             ShieldSize = 10,
             ShieldVerticalOffset = 0,
         },
@@ -180,7 +179,7 @@ UnitBlueprint {
         BuildCostMass = 18435,
         BuildTime = 1845,
 		
-        MaintenanceConsumptionPerSecondEnergy = 1135,
+        MaintenanceConsumptionPerSecondEnergy = 2634,
 		
         RebuildBonusIds = {'sab4401'},
     },
@@ -191,7 +190,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 5,
+		CapCost = 8,
 
         CommandCaps = {
             RULEUCC_Pause = true,

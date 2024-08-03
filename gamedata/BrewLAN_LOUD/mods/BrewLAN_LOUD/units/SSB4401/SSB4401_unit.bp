@@ -69,8 +69,6 @@ UnitBlueprint {
 
         ArmorType = 'Structure',
 		
-        EconomyThreatLevel = 150,
-		
         Health = 2300,
         MaxHealth = 2300,
 		
@@ -97,8 +95,9 @@ UnitBlueprint {
 			
             ShieldVerticalOffset = -7,
         },
-        
-		SurfaceThreatLevel = 150,
+		
+        EconomyThreatLevel = 140,
+		SurfaceThreatLevel = 300,
 
     },
 	
@@ -175,7 +174,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 200000,
+        BuildCostEnergy = 206000,
         BuildCostMass = 114000,	-- this shield is only 2931 but total accounts for all
         BuildTime = 20000,
 		
@@ -190,7 +189,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 12,
+		CapCost = 14,
         CommandCaps = {
             RULEUCC_Pause = true,
         },

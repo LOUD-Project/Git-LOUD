@@ -41,7 +41,7 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 57,
+
         Health = 660,
         MaxHealth = 660,
         RegenRate = 3,
@@ -54,11 +54,13 @@ UnitBlueprint {
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 22500,
             ShieldRechargeTime = 24,
-            ShieldRegenRate = 289,
+            ShieldRegenRate = 235,
             ShieldRegenStartTime = 1,
             ShieldSize = 49,
             ShieldVerticalOffset = -3,
         },
+
+        EconomyThreatLevel = 57,
         SurfaceThreatLevel = 167.3,
     },
 	
@@ -121,7 +123,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 0.5,
+		CapCost = 2,
         FactionName = 'Aeon',
         Icon = 'land',
         OrderOverrides = {

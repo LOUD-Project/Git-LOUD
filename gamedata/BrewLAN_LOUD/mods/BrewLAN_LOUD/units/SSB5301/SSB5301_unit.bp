@@ -28,7 +28,6 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 42,
         Health = 4000,
         MaxHealth = 4000,
         RegenRate = 3,
@@ -39,7 +38,7 @@ UnitBlueprint {
             Mesh = '/effects/entities/SeraphimShield01/SeraphimShield01_mesh',
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
             RegenAssistMult = 60,
-            ShieldEnergyDrainRechargeTime = 5,
+            ShieldEnergyDrainRechargeTime = 8,
             ShieldMaxHealth = 12000,
             ShieldRechargeTime = 20,
             ShieldRegenRate = 150,
@@ -47,7 +46,8 @@ UnitBlueprint {
             ShieldSize = 2.5,
             ShieldVerticalOffset = 0.65,
         },
-		
+
+        EconomyThreatLevel = 42,		
         SurfaceThreatLevel = 47.7,
     },
 	
@@ -109,7 +109,7 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 6500,
-        BuildCostMass = 1174,
+        BuildCostMass = 2700,
         BuildTime = 350,
 		
         MaintenanceConsumptionPerSecondEnergy = 180,
@@ -123,7 +123,7 @@ UnitBlueprint {
     },
 	
     General = {
-        CapCost = 0.5,
+        CapCost = 2,
         FactionName = 'Seraphim',
         Icon = 'land',
 

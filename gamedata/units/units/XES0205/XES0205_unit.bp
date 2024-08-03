@@ -38,14 +38,15 @@ UnitBlueprint {
             RegenAssistMult = 60,
             ShieldEnergyDrainRechargeTime = 6.8,
             ShieldMaxHealth = 8500,
-            ShieldRechargeTime = 28,
-            ShieldRegenRate = 67,
+            ShieldRechargeTime = 32,
+            ShieldRegenRate = 66,
             ShieldRegenStartTime = 2,
             ShieldSize = 62,
             ShieldVerticalOffset = -12,
         },
 
-        SubThreatLevel = 145,
+        SubThreatLevel = 115,
+        SurfaceThreatLevel = 115,
     },
 	
     Description = '<LOC xes0205_desc>Shield Boat',
@@ -105,7 +106,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 17750,
+        BuildCostEnergy = 18250,
         BuildCostMass = 1131,
         BuildTime = 4240,
 		
@@ -113,7 +114,7 @@ UnitBlueprint {
     },
 
     General = {
-        CapCost = 2,
+        CapCost = 3,
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -145,17 +146,17 @@ UnitBlueprint {
     LifeBarSize = 0.7,
 	
     Physics = {
-        BackUpDistance = 5,
+        BackUpDistance = 8,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Water = true,
         },
         CatchUpAcc = 8,
         DragCoefficient = 0.2,
-        MaxAcceleration = 1.5,
-        MaxBrake = 2.25,
+        MaxAcceleration = 1.4,
+        MaxBrake = 2,
         MaxSpeed = 4,
-        MaxSpeedReverse = 4,
+        MaxSpeedReverse = 2.8,
         MaxSteerForce = 5,
         MeshExtentsX = 2.25,
         MeshExtentsY = 2,
@@ -163,7 +164,7 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
         TurnRadius = 10,
-        TurnRate = 45,
+        TurnRate = 32,
     },
 	
     SelectionSizeX = 0.6,

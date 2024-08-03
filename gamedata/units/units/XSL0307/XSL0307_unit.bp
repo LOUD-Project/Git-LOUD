@@ -28,9 +28,9 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 720,
-        MaxHealth = 720,
-        RegenRate = 4,
+        Health = 600,
+        MaxHealth = 600,
+        RegenRate = 3,
 		
         Shield = {
             ImpactEffects = 'SeraphimShieldHit01',
@@ -76,14 +76,15 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 6050,
+        BuildCostEnergy = 6230,
         BuildCostMass = 886,
         BuildTime = 4430,
 		
-        MaintenanceConsumptionPerSecondEnergy = 220,
+        MaintenanceConsumptionPerSecondEnergy = 287,
     },
 	
     General = {
+        CapCost = 3,
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Guard = true,
@@ -140,9 +141,9 @@ UnitBlueprint {
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.1,
         
-        TurnFacingRate = 90,
+        TurnFacingRate = 36,
         TurnRadius = 0,
-        TurnRate = 90,
+        TurnRate = 36,
     },
     
     SelectionSizeX = 0.5,

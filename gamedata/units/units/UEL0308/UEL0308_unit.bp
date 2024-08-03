@@ -91,7 +91,7 @@ UnitBlueprint {
     },
 
     Economy = {
-        BuildCostEnergy = 5450,
+        BuildCostEnergy = 5610,
         BuildCostMass = 979,
         BuildTime = 3591,
 		
@@ -99,6 +99,7 @@ UnitBlueprint {
     },
 
     General = {
+        CapCost = 3,
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Guard = true,
@@ -141,10 +142,10 @@ UnitBlueprint {
             LAYER_Water = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 1.5,
-        MaxBrake = 3.1,
+        MaxAcceleration = 1,
+        MaxBrake = 1,
         MaxSpeed = 3.1,
-        MaxSpeedReverse = 3,
+        MaxSpeedReverse = 2,
         MaxSteerForce = 10,
         MeshExtentsX = 0.75,
         MeshExtentsY = 0.6,
@@ -154,7 +155,7 @@ UnitBlueprint {
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.1,
         TurnRadius = 0,
-        TurnRate = 120,
+        TurnRate = 36,
     },
 	
     SelectionCenterOffsetX = 0,

@@ -39,7 +39,7 @@ UnitBlueprint {
             ShieldEnergyDrainRechargeTime = 6.4,
             ShieldMaxHealth = 3600,
             ShieldRechargeTime = 23,
-            ShieldRegenRate = 43,
+            ShieldRegenRate = 39,
             ShieldRegenStartTime = 2,
             ShieldSize = 16,
             ShieldVerticalOffset = -3,
@@ -78,14 +78,15 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 1980,
+        BuildCostEnergy = 2040,
         BuildCostMass = 207,
         BuildTime = 1010,
 		
-        MaintenanceConsumptionPerSecondEnergy = 145,
+        MaintenanceConsumptionPerSecondEnergy = 139,
     },
 	
     General = {
+        CapCost = 2,
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Guard = true,
@@ -123,10 +124,10 @@ UnitBlueprint {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 1.5,
-        MaxBrake = 3,
+        MaxAcceleration = 1,
+        MaxBrake = 1,
         MaxSpeed = 3,
-        MaxSpeedReverse = 3,
+        MaxSpeedReverse = 2,
         MaxSteerForce = 10,
         MeshExtentsX = 0.75,
         MeshExtentsY = 0.6,
@@ -136,7 +137,7 @@ UnitBlueprint {
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.1,
         TurnRadius = 0,
-        TurnRate = 45,
+        TurnRate = 36,
     },
 	
     SelectionCenterOffsetX = 0,

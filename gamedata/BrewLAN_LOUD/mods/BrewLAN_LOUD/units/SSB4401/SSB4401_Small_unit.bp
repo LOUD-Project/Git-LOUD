@@ -68,9 +68,6 @@ UnitBlueprint {
     Defense = {
 
         ArmorType = 'Structure',
-		
-        EconomyThreatLevel = 25,
-		
         Health = 650,
         MaxHealth = 650,
 		
@@ -91,13 +88,14 @@ UnitBlueprint {
 			
             ShieldRegenRate = 109,
 			
-            ShieldRegenStartTime = 1,
+            ShieldRegenStartTime = 2,
 			
             ShieldSize = 26,
 			
             ShieldVerticalOffset = -7,
         },
 		
+        EconomyThreatLevel = 24,
         SurfaceThreatLevel = 76.4,
 
         ParentID = 'ssb4401',
@@ -150,8 +148,7 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 0,
-        Category = 'Defense',
-        Classification = 'RULEUC_CounterMeasure',
+
         CommandCaps = {
             RULEUCC_Move = true,
             RULEUCC_Patrol = true,
@@ -160,9 +157,8 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'air',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
+
         UnitName = '<LOC ssb4401_small_name>Iaathanahee',
-        UnitWeight = 1,
     },
 
     Interface = {
@@ -186,7 +182,7 @@ UnitBlueprint {
         MinSpeedPercent = 0.85,
         MotionType = 'RULEUMT_Air',
         TurnRadius = 100,
-        TurnRate = 100,
+        TurnRate = 36,
     },
 	
     SelectionSizeX = 1.5,

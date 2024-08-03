@@ -30,9 +30,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 60,
-        Health = 900,
-        MaxHealth = 900,
+        Health = 650,
+        MaxHealth = 650,
 		RegenRate = 3,
 		
         Shield = {
@@ -44,12 +43,13 @@ UnitBlueprint {
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 21000,
             ShieldRechargeTime = 25,
-            ShieldRegenRate = 219,
+            ShieldRegenRate = 210,
             ShieldRegenStartTime = 1,
             ShieldSize = 46,
             ShieldVerticalOffset = -5,
         },
 
+        EconomyThreatLevel = 50,
         SurfaceThreatLevel = 150,
     },
 	
@@ -111,6 +111,7 @@ UnitBlueprint {
     },
 	
     General = {
+        CapCost = 3,
         FactionName = 'Seraphim',
         Icon = 'land',
         OrderOverrides = {

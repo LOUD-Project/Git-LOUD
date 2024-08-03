@@ -28,7 +28,6 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 150,
         Health = 750,
         MaxHealth = 750,
         RegenRate = 2,
@@ -42,12 +41,13 @@ UnitBlueprint {
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 16000,
             ShieldRechargeTime = 20,
-            ShieldRegenRate = 181,
+            ShieldRegenRate = 200,
             ShieldRegenStartTime = 1,
             ShieldSize = 44,
             ShieldVerticalOffset = -4,
         },
 
+        EconomyThreatLevel = 42,
         SurfaceThreatLevel = 111.3,
     },
 	
@@ -102,6 +102,7 @@ UnitBlueprint {
     },
 	
     General = {
+        CapCost = 3,
         FactionName = 'UEF',
         Icon = 'land',
 

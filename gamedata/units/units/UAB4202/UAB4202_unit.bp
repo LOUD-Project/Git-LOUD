@@ -31,7 +31,6 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 7,
         Health = 225,
         MaxHealth = 225,
 		RegenRate = 1,
@@ -50,6 +49,8 @@ UnitBlueprint {
             ShieldSize = 20,
             ShieldVerticalOffset = -3,
         },
+
+        EconomyThreatLevel = 7,
         SurfaceThreatLevel = 55.4,
     },
 	
@@ -123,6 +124,7 @@ UnitBlueprint {
     },
 	
     General = {
+        CapCost = 2,
         CommandCaps = {
 			RULEUCC_Pause = true,
             RULEUCC_Stop = true,

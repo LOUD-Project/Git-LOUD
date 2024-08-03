@@ -121,7 +121,7 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 6500,
-        BuildCostMass = 1070,
+        BuildCostMass = 2700,
         BuildTime = 350,
 		
         MaintenanceConsumptionPerSecondEnergy = 165,
@@ -135,7 +135,7 @@ UnitBlueprint {
     },
 	
     General = {
-        CapCost = .5,
+        CapCost = 2,
         FactionName = 'Aeon',
         Icon = 'land',
         OrderOverrides = {
