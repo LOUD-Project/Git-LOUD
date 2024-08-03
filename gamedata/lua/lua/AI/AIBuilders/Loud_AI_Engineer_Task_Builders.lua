@@ -669,14 +669,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures',
         
         InstanceCount = 1,
 		
-        BuilderType = { 'T2','T3' },
+        BuilderType = { 'T1','T2','T3','Commander' },
 		
         BuilderConditions = {
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
 			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, (categories.TECH1 * categories.AIRSTAGINGPLATFORM), 5, false }},
         },
 		
         BuilderData = {
-			Reclaim = { (categories.TECH1 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD) + (categories.TECH1 * categories.WALL)},
+			Reclaim = { (categories.TECH1 * categories.AIRSTAGINGPLATFORM)},
             ReclaimRange = 65,
         },
     },

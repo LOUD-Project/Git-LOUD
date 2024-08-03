@@ -260,7 +260,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
                 end
  
                 -- if air ratio poor 
-                if aiBrain.AirRatio < 1 then
+                if aiBrain.AirRatio < 1.5 then
                     return (self.OldPriority or self.Priority) + 50, true
                 end
 				
@@ -1980,7 +1980,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction',
                 return 10, true
             end
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM * categories.TECH2 ) then
             
                 return 10, true
              
@@ -2081,7 +2081,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
                 return 10, true
             end
 
-            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM ) then
+            if UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, categories.AIRSTAGINGPLATFORM * categories.TECH2 ) then
             
                 return 10, true
              
