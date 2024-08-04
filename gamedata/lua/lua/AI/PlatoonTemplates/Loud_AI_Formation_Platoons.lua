@@ -243,9 +243,9 @@ PlatoonTemplate { Name = 'T1MassAttack',
     Plan = 'GuardPoint',    
     GlobalSquads = {
         { LANDDIRECTFIRE - categories.EXPERIMENTAL, 5, 18, 'Attack', 'AttackFormation' },
-		{ LANDARTILLERY - categories.EXPERIMENTAL, 0, 4, 'Artillery', 'AttackFormation' },
+		{ LANDARTILLERY - categories.EXPERIMENTAL, 0, 6, 'Artillery', 'AttackFormation' },
         { LANDANTIAIR, 0, 12, 'Guard', 'none' },
-		{ LANDSHIELD, 0, 1, 'Support', 'none' },
+		{ LANDSHIELD, 0, 2, 'Support', 'none' },
 		{ LANDCOUNTERINTEL, 0, 1, 'Guard', 'none' },
     },
 }
@@ -276,9 +276,9 @@ PlatoonTemplate { Name = 'T3MassAttack',
 PlatoonTemplate { Name = 'T1LandAttack',
     GlobalSquads = {
         { LANDDIRECTFIRE - categories.AMPHIBIOUS - categories.EXPERIMENTAL, 5, 18, 'Attack', 'AttackFormation' },
-		{ LANDARTILLERY - categories.EXPERIMENTAL, 0, 4, 'Artillery', 'AttackFormation' },
+		{ LANDARTILLERY - categories.EXPERIMENTAL, 0, 6, 'Artillery', 'AttackFormation' },
         { LANDANTIAIR, 0, 12, 'Guard', 'none' },
-		{ LANDSHIELD, 0, 1, 'Guard', 'none' },
+		{ LANDSHIELD, 0, 2, 'Guard', 'none' },
 		{ LANDCOUNTERINTEL, 0, 1, 'Guard', 'none' },
     },
 }
@@ -392,8 +392,8 @@ PlatoonTemplate { Name = 'BaseGuardMedium',
 
     GlobalSquads = {
         { LANDDIRECTFIRE - categories.EXPERIMENTAL,  5, 18, 'Attack', 'AttackFormation' },
-   		{ LANDARTILLERY - categories.EXPERIMENTAL, 0, 4, 'Artillery', 'none'},
-		{ LANDSHIELD, 0, 3, 'Guard', 'none' },
+   		{ LANDARTILLERY - categories.EXPERIMENTAL, 0, 6, 'Artillery', 'none'},
+		{ LANDSHIELD, 0, 4, 'Guard', 'none' },
 		{ LANDCOUNTERINTEL, 0, 1, 'Guard', 'none' },
     },
 }
@@ -414,7 +414,7 @@ PlatoonTemplate { Name = 'T1LandScoutForm',
             { 'uel0101', 2, 2, 'Scout', 'none' }
         },
         Aeon = {
-            { 'ual0101', 2, 4, 'Scout', 'none' },
+            { 'ual0101', 2, 3, 'Scout', 'none' },
             { LANDAMPHIB - categories.EXPERIMENTAL - categories.SCOUT, 0, 2, 'Attack', 'none' }
         },
         Cybran = {
@@ -433,6 +433,7 @@ PlatoonTemplate { Name = 'T1MassGuard',
         { (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL, 2, 5, 'Attack', 'AttackFormation' },
 		{ LANDARTILLERY - categories.EXPERIMENTAL, 0, 2, 'Artillery', 'AttackFormation' },
 		{ LANDANTIAIR, 0, 2, 'Support', 'AttackFormation' },		
+		{ LANDSHIELD, 0, 1, 'Support', 'none' },
 		{ LANDCOUNTERINTEL, 0, 1, 'Guard', 'none' },
         { LANDSCOUT, 0, 1, 'Scout', 'none' },        
     },
