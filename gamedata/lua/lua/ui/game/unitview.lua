@@ -332,7 +332,7 @@ function UpdateWindow(info)
                     local value, iconType, color = statFuncs[i](info, bp)
 					controls.statGroups[i].value:SetText(value)
                     controls.statGroups[i].icon:SetTexture(UIUtil.UIFile(Factions.Factions[
-                        Factions.FactionIndexMap[LOUDLOWERer(bp.General.FactionName)] ].VeteranIcon))
+                        Factions.FactionIndexMap[LOUDLOWER(bp.General.FactionName)] ].VeteranIcon))
 
                 elseif i == 5 then
                     local text, iconType = statFuncs[i](info, bp)
@@ -421,7 +421,7 @@ function UpdateWindow(info)
 
                 if experience >= threshold then
                     controls.vetIcons[i]:Show()
-                    controls.vetIcons[i]:SetTexture(UIUtil.UIFile(Factions.Factions[Factions.FactionIndexMap[LOUDLOWERer(bp.General.FactionName)]].VeteranIcon))
+                    controls.vetIcons[i]:SetTexture(UIUtil.UIFile(Factions.Factions[Factions.FactionIndexMap[LOUDLOWER(bp.General.FactionName)]].VeteranIcon))
                     lowerThreshold = threshold
                 elseif not upperThreshold then
                     upperThreshold = threshold

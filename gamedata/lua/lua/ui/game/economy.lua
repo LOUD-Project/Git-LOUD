@@ -350,16 +350,16 @@ function ConfigureBeatFunction()
         local resourceType = rType
         local viewState = vState
 
-        local storageBar = GUI.storageBar
-        local curStorage = GUI.curStorage
-        local maxStorage = GUI.maxStorage
-        local incomeTxt = GUI.income
-        local expenseTxt = GUI.expense
-        local rateTxt = GUI.rate
-        local warningBG = GUI.warningBG
+        local storageBar    = GUI.storageBar
+        local curStorage    = GUI.curStorage
+        local maxStorage    = GUI.maxStorage
+        local incomeTxt     = GUI.income
+        local expenseTxt    = GUI.expense
+        local rateTxt       = GUI.rate
+        local warningBG     = GUI.warningBG
 
-        local reclaimDelta = GUI.reclaimDelta
-        local reclaimTotal = GUI.reclaimTotal
+        local reclaimDelta  = GUI.reclaimDelta
+        local reclaimTotal  = GUI.reclaimTotal
 
         local econ_warnings = Prefs.GetOption('econ_warnings')
         local warnOnResourceFull = resourceType == "MASS" and econ_warnings
