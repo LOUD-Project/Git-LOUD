@@ -2691,7 +2691,7 @@ function AirForceAILOUD( self, aiBrain )
 	local loiterposition    = false
     local MissionStartTime  = LOUDFLOOR(LOUDTIME())    
     local missiontime       = self.PlatoonData.MissionTime or 600
-    local mergelimit        = self.PlatoonData.MergeLimit or false
+    local mergelimit        = self.PlatoonData.MergeLimit or 16
     local MovementLayer     = self.MovementLayer
     local PlatoonFormation  = self.PlatoonData.UseFormation or 'None'
     local Searchradius      = self.PlatoonData.SearchRadius or 200
@@ -2880,7 +2880,7 @@ function AirForceAILOUD( self, aiBrain )
                     
                     local count = 1
                     
-                    while PlatoonExists(aiBrain, self) and VDist3( loiterposition, platPos ) > 80 do
+                    while PlatoonExists(aiBrain, self) and platPos and VDist3( loiterposition, platPos ) > 80 do
                     
                         if count > 2 then
                             self.UsingTransport = false

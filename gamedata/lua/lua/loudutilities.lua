@@ -2085,8 +2085,14 @@ function AirStagingThread( unit, airstage, aiBrain )
 
 			IssueStop( {unit} )
 			IssueClearCommands( {unit} )
+            
+            local safePath, reason
+            
+            if aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD then
 
-            local safePath, reason = aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD(aiBrain, unit.PlatoonHandle, 'Air', GetPosition(unit), GetPosition(airstage), 20, 256)
+                safePath, reason = aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD(aiBrain, unit.PlatoonHandle, 'Air', GetPosition(unit), GetPosition(airstage), 20, 256)
+            
+            end
             
             if not unit.Dead then
 			
