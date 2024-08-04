@@ -45,7 +45,7 @@ end
 -- this function will turn a builder on if there are no factories
 local HaveZeroAirFactories = function( self, aiBrain )
 
-    if aiBrain.CycleTime > 120 then
+    if aiBrain.CycleTime > 60 then
 	
         if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * categories.AIR, false, true )) < 1 then
 	
@@ -61,7 +61,7 @@ end
 
 local HaveZeroLandFactories = function( self, aiBrain )
 
-    if aiBrain.CycleTime > 120 then
+    if aiBrain.CycleTime > 60 then
 	
         if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * categories.LAND, false, true )) < 1 then
 
@@ -77,7 +77,7 @@ end
 
 local HaveZeroNavalFactories = function( self, aiBrain )
 
-    if aiBrain.CycleTime > 120 then
+    if aiBrain.CycleTime > 90 then
 	
         if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * categories.NAVAL, false, true )) < 1 then
 	
@@ -183,7 +183,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
             
             { UCBC, 'FactoryRatioGreaterOrEqualAtLocation', { 'LocationType', categories.AIR, categories.LAND } },
 			
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
         },
@@ -224,7 +224,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
             
             { UCBC, 'FactoryRatioGreaterOrEqualAtLocation', { 'LocationType', categories.LAND, categories.AIR } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 25, 1.012, 1.025 }},
         },
@@ -267,7 +267,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
             
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.AIR * categories.TECH1 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 25, 1.012, 1.025 }},
         },

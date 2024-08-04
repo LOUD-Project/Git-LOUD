@@ -1943,6 +1943,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction',
 
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+            { LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 0, FACTORY * categories.AIR }},
         },
 		
         BuilderType = {'T1' },
@@ -2044,6 +2045,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
 
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+            { LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 0, FACTORY * categories.AIR }},
         },
 		
         BuilderType = {'T1'},
