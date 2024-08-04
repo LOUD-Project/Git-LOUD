@@ -209,16 +209,16 @@ local SetPrimarySeaAttackBase = import('/lua/loudutilities.lua').SetPrimarySeaAt
 
 --LOG('aibrain_methods.__index = ',moho.aibrain_methods.__index,' ',repr(moho.aibrain_methods))
 
-local CreateEngineerManager = import('/lua/sim/EngineerManager.lua').CreateEngineerManager
-local CreateFactoryBuilderManager = import('/lua/sim/FactoryBuilderManager.lua').CreateFactoryBuilderManager
-local CreatePlatoonFormManager = import('/lua/sim/PlatoonFormManager.lua').CreatePlatoonFormManager
+local CreateEngineerManager         = import('/lua/sim/EngineerManager.lua').CreateEngineerManager
+local CreateFactoryBuilderManager   = import('/lua/sim/FactoryBuilderManager.lua').CreateFactoryBuilderManager
+local CreatePlatoonFormManager      = import('/lua/sim/PlatoonFormManager.lua').CreatePlatoonFormManager
 
 --local SUtils = import('/lua/ai/sorianutilities.lua')
 --local StratManager = import('/lua/sim/StrategyManager.lua')
 
-local LOUDGETN = table.getn
-local LOUDINSERT = table.insert
-local LOUDSTRING = string.find
+local LOUDGETN      = table.getn
+local LOUDINSERT    = table.insert
+local LOUDSTRING    = string.find
 
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
@@ -227,9 +227,9 @@ local unpack = unpack
 local ForkThread = ForkThread
 local WaitTicks = coroutine.yield
 
-local GetBlueprint = moho.entity_methods.GetBlueprint
-local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
-local GetTerrainHeight = GetTerrainHeight
+local GetBlueprint      = moho.entity_methods.GetBlueprint
+local GetListOfUnits    = moho.aibrain_methods.GetListOfUnits
+local GetTerrainHeight  = GetTerrainHeight
 
 local IsPlaying = false
 local CurrentVOPlaying = false
@@ -1060,7 +1060,7 @@ AIBrain = Class(moho.aibrain_methods) {
         local mult = 2
         
         if self.OutnumberedRatio >= 2 then
-            mult = 4
+            mult = 4 + math.floor(self.OutnumberedRatio - 2)
         end
 
         for index = 1, mult do
