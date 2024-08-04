@@ -202,7 +202,7 @@ function CacheRestrictedUnitLists()
         -- So, for example:   { categories.TECH1, categories.TECH2, categories.MASSFAB }
         if restrictedUnits[restriction].categories then
         
-            LOG("     Restricted Units - "..repr(restrictedUnits[restriction].categories) )
+            LOG("     Restricted Units - "..repr(restriction))  --edUnits[restriction].categories) )
 		
             for l, cat in restrictedUnits[restriction].categories do
 			
@@ -219,7 +219,7 @@ function CacheRestrictedUnitLists()
         -- create a list of restricted special weapons (nukes, tactical missiles)
         if restrictedUnits[restriction].specialweapons[1] then
         
-            LOG("     Restricted Weapons ")
+            LOG("     Restricted Weapons "..repr(restrictedUnits[restriction].specialweapons) )
         
             for l, cat in restrictedUnits[restriction].specialweapons do
 

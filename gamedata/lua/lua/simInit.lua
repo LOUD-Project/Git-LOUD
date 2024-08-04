@@ -185,7 +185,7 @@ function BeginSession()
 		
             local restrictedCategories = nil
 			
-			LOG("*AI DEBUG Here is the restricted data "..repr(restrictedUnits[restriction].categories))
+			--LOG("*AI DEBUG Here is the restricted data "..repr(restrictedUnits[restriction].categories))
 			
             for index, cat in restrictedUnits[restriction].categories do
 			

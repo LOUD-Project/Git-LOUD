@@ -3135,15 +3135,12 @@ Unit = Class(UnitMethods) {
         self:UpdateConsumptionValues()
 
 		if order == 'Repair' and unitBeingBuilt.WorkItem != self.WorkItem then
-
 			self:InheritWork(unitBeingBuilt)
 		end
 		
         local bp = ALLBPS[self.BlueprintID]
-		
         
         if order != 'Upgrade' or bp.Display.ShowBuildEffectsDuringUpgrade then
-		
             self:StartBuildingEffects(unitBeingBuilt, order)
         end
 
@@ -3158,14 +3155,12 @@ Unit = Class(UnitMethods) {
         end
 		
         if order == 'Upgrade' and unitBeingBuilt.BlueprintID == bp.General.UpgradesTo then
-
             unitBeingBuilt.DisallowCollisions = true
         end
         
         if ALLBPS[unitBeingBuilt.BlueprintID].Physics.FlattenSkirt and unitBeingBuilt.CreateTarmac and not unitBeingBuilt.TarmacBag then
           
             if order != 'Repair' then
-                
                 unitBeingBuilt:CreateTarmac(true, true, true, false, false)
             end
         end

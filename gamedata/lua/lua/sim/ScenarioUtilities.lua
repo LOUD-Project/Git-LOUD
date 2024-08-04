@@ -797,8 +797,6 @@ function InitializeArmies()
         end
     
     end
-    
-    LOG("ARMYSETUP START")
 
     -- setup teams and civilians, add custom units, wrecks
     -- call out to Initialize SkirimishSystems (a great deal of AI setup)
@@ -856,8 +854,6 @@ function InitializeArmies()
         end
         
     end
-    
-    LOG("ARMYSETUP END")
     
     LOG("MAP SETUP START")
     
@@ -940,9 +936,7 @@ function InitializeArmies()
                 aiBrain.MassPointShare = math.min( math.floor(ScenarioInfo.NumMassPoints/ScenarioInfo.Options.PlayerCount) + 1, math.floor(aiBrain.MassPointShare * (aiBrain.OutnumberedRatio/aiBrain.CheatValue)))
             end
 
-            if aiBrain.OutnumberedRatio > 1 then 
-                LOG("     "..aiBrain.Nickname.." OutnumberedRatio is "..aiBrain.OutnumberedRatio)
-            end
+            import('/lua/ai/aiutilities.lua').SetupAICheat( aiBrain )
 
             --- Create the SelfUpgradeIssued counter
             --- holds the number of units that have recently issued a self-upgrade
@@ -969,21 +963,26 @@ function InitializeArmies()
 
                         aiBrain.UpgradeIssuedLimit = aiBrain.UpgradeIssuedLimit + 1
                         aiBrain.UpgradeIssuedPeriod = aiBrain.UpgradeIssuedPeriod - 15
+                        
+                        if aiBrain.OutnumberedRatio >= 4.0 then
 
+                            aiBrain.UpgradeIssuedLimit = aiBrain.UpgradeIssuedLimit + 1
+                            aiBrain.UpgradeIssuedPeriod = aiBrain.UpgradeIssuedPeriod - 15
+
+                        end
                     end
                 end
             end
 
-            LOG("     "..aiBrain.Nickname.." Upgrade Issue Limit is "..aiBrain.UpgradeIssuedLimit.." std Upgrade Issue Delay is "..aiBrain.UpgradeIssuedPeriod )
-
             aiBrain.UpgradeIssuedPeriod = math.floor(aiBrain.UpgradeIssuedPeriod * ( 1 / aiBrain.MajorCheatModifier ))
- 
-            LOG("     "..aiBrain.Nickname.." Upgrade Issue Delay is "..aiBrain.UpgradeIssuedPeriod.." ticks")
+
+            LOG("     "..aiBrain.Nickname.." Upgrade Issue Limit is "..aiBrain.UpgradeIssuedLimit.." simultaneous upgrades" ) 
+            LOG("     "..aiBrain.Nickname.." Upgrade Issue Delay is "..aiBrain.UpgradeIssuedPeriod.." ticks between upgrades")
             
             loudUtils.BuildScoutLocations(aiBrain)
 			
             import('/lua/ai/aiutilities.lua').SetupAICheatUnitCap( aiBrain, ScenarioInfo.biggestTeamSize )
-            
+
             if not ScenarioInfo.TeamMassPointList[aiBrain.Team] then
                 
                 ScenarioInfo.TeamMassPointList[aiBrain.Team] = {}
@@ -996,6 +995,16 @@ function InitializeArmies()
             end
             
             aiBrain.StartingMassPointList = {}  -- initialize starting mass point list for this brain
+
+            if aiBrain.OutnumberedRatio > 1.5 and (aiBrain.VeterancyMult < aiBrain.OutnumberedRatio) then
+        
+                local AISendChat = import('/lua/ai/sorianutilities.lua').AISendChat
+        
+                ForkThread( AISendChat, 'enemies', aiBrain.Nickname, "WOW - Why dont you just beat me with a stick?" )
+                ForkThread( AISendChat, 'enemies', aiBrain.Nickname, "You Outnumber me "..tostring(aiBrain.OutnumberedRatio).." to 1 !")
+                ForkThread( AISendChat, 'enemies', aiBrain.Nickname, "And all you give me is a "..tostring(aiBrain.VeterancyMult).." bonus?")
+        
+            end
 
 		end
         
@@ -1255,20 +1264,6 @@ function InitializeSkirmishSystems(self)
 	-- record the starting unit cap	
 	-- caps of 1000+ trigger some conditions
 	self.StartingUnitCap = GetArmyUnitCap(self.ArmyIndex)
-  
-	if self.CheatingAI then
-		import('/lua/ai/aiutilities.lua').SetupAICheat( self )
-	end
-
-    if self.OutnumberedRatio > 1.5 and (self.VeterancyMult < self.OutnumberedRatio) then
-        
-        local AISendChat = import('/lua/ai/sorianutilities.lua').AISendChat
-        
-        ForkThread( AISendChat, 'enemies', self.Nickname, "WOW - Why dont you just beat me with a stick?" )
-        ForkThread( AISendChat, 'enemies', self.Nickname, "You Outnumber me "..tostring(self.OutnumberedRatio).." to 1 !")
-        ForkThread( AISendChat, 'enemies', self.Nickname, "And all you give me is a "..tostring(self.VeterancyMult).." bonus?")
-        
-    end
 
 end
 
