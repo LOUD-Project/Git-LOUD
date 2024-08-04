@@ -418,32 +418,6 @@ SConstructionUnit = Class(ConstructionUnit) {
     
         CreateSeraphimUnitEngineerBuildingEffects( self, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
     end,    
-    
-    OnStartBuild = function(self, unitBeingBuilt, order)
-	
-        local bp = __blueprints[self.BlueprintID]
-		
-        if order != 'Upgrade' or bp.Display.ShowBuildEffectsDuringUpgrade then
-            self:StartBuildingEffects(unitBeingBuilt, order)
-        end
-		
-        self:DoOnStartBuildCallbacks(unitBeingBuilt)
-
-        self:SetActiveConsumptionActive()
-        
-        self:PlayUnitSound('Construct')
-        --self:PlayUnitAmbientSound('ConstructLoop')
-		
-        if bp.General.UpgradesTo and unitBeingBuilt.BlueprintID == bp.General.UpgradesTo and order == 'Upgrade' then
-            self.Upgrading = true
-            self.BuildingUnit = false        
-            unitBeingBuilt.DisallowCollisions = true
-        end
-		
-        self.UnitBeingBuilt = unitBeingBuilt
-        self.UnitBuildOrder = order
-        self.BuildingUnit = true
-    end,    
 
     OnStopBuild = function(self, unitBeingBuilt)
     
