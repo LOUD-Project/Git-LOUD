@@ -124,15 +124,20 @@ DefaultProjectileWeapon = Class(Weapon) {
         end
 
         if not bp.EnabledByEnhancement then
-            LOUDSTATE(self, self.IdleState)
-        else
-            LOUDSTATE(self, self.DeadState)
+
+            self:SetWeaponEnabled(true)
+            
+            ChangeState( self, self.IdleState)
+            
         end
+        
+
+
 	end,
 	
     CheckBallisticAcceleration = function(self, proj, Projectiles )
 	
-        local acc = CalculateBallisticAcceleration( self, proj, Projectiles )
+        local acc = CalculateBallisticAcceleration( self, proj, Projectiles or 1 )
 
         proj:SetBallisticAcceleration( -acc)    --- change projectile trajectory so it hits the target, cure for engine bug
 
@@ -208,7 +213,7 @@ DefaultProjectileWeapon = Class(Weapon) {
         end
 
 		if self.CBFP_CalcBallAcc then
-			self:CheckBallisticAcceleration(proj, self.CBFP_CalcBallAcc.ProjectilesPerOnFire )
+			self:CheckBallisticAcceleration(proj, self.CBFP_CalcBallAcc.ProjectilesPerOnFire or 1 )
 		end
 		
 		if bp.CountedProjectile then
@@ -755,19 +760,11 @@ DefaultProjectileWeapon = Class(Weapon) {
 
     OnDisableWeapon = function(self)
 
-        if ScenarioInfo.WeaponStateDialog then
-            LOG("*AI DEBUG DefaultWeapon OnDisableWeapon "..repr(self.bp.Label) )
-        end
-
         Weapon.OnDisableWeapon(self)
 
     end, 
     
     OnEnableWeapon = function(self)
-
-        if ScenarioInfo.WeaponStateDialog then
-            LOG("*AI DEBUG DefaultWeapon OnEnableWeapon "..repr(self.bp.Label) )
-        end
         
         Weapon.OnEnableWeapon(self)
 
@@ -928,7 +925,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             if ScenarioInfo.WeaponStateDialog then
                 LOG("*AI DEBUG DefaultWeapon Empty State "..repr(bp.Label).." at "..GetGameTick() )
             end
-
+            
             self:ChangeMaxRadius( 1 )
 
             resetradius = true
@@ -938,6 +935,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                 if not bp.NukeWeapon then
                 
                     while not unit.Dead and unit:GetTacticalSiloAmmoCount() <= 0 do
+
                         WaitTicks(16)
                     end
                 end
@@ -945,6 +943,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                 if bp.NukeWeapon then
             
                     while not unit.Dead and unit:GetNukeSiloAmmoCount() <= 0 do
+
                         WaitTicks(36)
                     end
 
@@ -1586,7 +1585,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 
 			end
 
-            -- this is a bit of kludge for projectile targeting weapons --
+            -- this is a bit of kludge for ammo based projectile targeting weapons --
             -- we get here because we want those weapons to go offline for a spell
             -- so that inbound projectiles can be targeted by others, if needed (DesiredShooterCap)
             if CountedProjectile then
@@ -1599,15 +1598,15 @@ DefaultProjectileWeapon = Class(Weapon) {
                 
                 if self.WeaponCanFire then
                 
-                    local target = WeaponHasTarget(self)
+                    --local target = WeaponHasTarget(self)
                 
-                    if target and not target.Dead then
+                    --if target and not target.Dead then
                     
-                        LOUDSTATE( self, self.RackSalvoChargeState)
+                      --  LOUDSTATE( self, self.WeaponEmptyState)
                         
-                    else
+                    --else
                         LOUDSTATE( self, self.IdleState )
-                    end
+                    --end
 
                 else
                     LOUDSTATE(self, self.WeaponEmptyState )
