@@ -964,7 +964,7 @@ function SetupAICheat(aiBrain)
     LOG("     "..aiBrain.Nickname.." HP/Regen mult (Minor) is "..modifier)    
    
 	newbuff.Affects.MaxHealth.Mult = modifier
-    newbuff.Affects.MaxHealth.DoNoFill = true   -- prevents health from being added upon creation
+    newbuff.Affects.MaxHealth.DoNoFill = false   --- prevents health from being added upon creation
 	newbuff.Affects.RegenPercent.Mult = modifier
 	newbuff.Affects.ShieldRegeneration.Mult = modifier
 	newbuff.Affects.ShieldHealth.Mult = modifier
@@ -998,52 +998,56 @@ function ApplyCheatBuffs(unit)
 
 		ApplyBuff(unit, 'CheatBuildRate'..ArmyIndex)		
 		ApplyBuff(unit, 'CheatIncome'..ArmyIndex)
-		ApplyBuff(unit, 'CheatIntel'..ArmyIndex)
-
-		ApplyBuff(unit, 'CheatALL'..ArmyIndex)
         
-        -- Engineers have additional buffs --
-		if LOUDENTITY( categories.ENGINEER, unit) then
+        if aiBrain.Personality == 'loud' then
 		
-			ApplyBuff(unit, 'CheatENG')
+            ApplyBuff(unit, 'CheatIntel'..ArmyIndex)
+
+            ApplyBuff(unit, 'CheatALL'..ArmyIndex)
+        
+            -- Engineers have additional buffs --
+            if LOUDENTITY( categories.ENGINEER, unit) then
 		
-			if LOUDENTITY( categories.COMMAND, unit ) then 
+                ApplyBuff(unit, 'CheatENG')
+		
+                if LOUDENTITY( categories.COMMAND, unit ) then 
             
-                -- if AI team is outnumbered, increase starting resources to match those of largest team
-                if aiBrain.OutnumberedRatio > 1 then
+                    -- if AI team is outnumbered, increase starting resources to match those of largest team
+                    if aiBrain.OutnumberedRatio > 1 then
 
-                    local outnumberratio = aiBrain.OutnumberedRatio
+                        local outnumberratio = aiBrain.OutnumberedRatio
 
-                    local buffDef = Buffs['CheatCDREnergyStorage'..ArmyIndex]
-                    local buffAffects = buffDef.Affects
+                        local buffDef = Buffs['CheatCDREnergyStorage'..ArmyIndex]
+                        local buffAffects = buffDef.Affects
                     
-                    -- this will add the difference of the outnumbered ratio to the MULT of of the cheat value
-                    -- so if outnumbered 2 to 1 -- with a 10% cheat - the mult will be set to 1.1 which will 
-                    -- result in a bonus equal to the starting value (ie. - 5000) plus another 10% (total 5500)
-                    buffAffects.EnergyStorage.Mult = LOUDMAX( aiBrain.CheatValue - 1, 0) + (outnumberratio - 1)
+                        -- this will add the difference of the outnumbered ratio to the MULT of of the cheat value
+                        -- so if outnumbered 2 to 1 -- with a 10% cheat - the mult will be set to 1.1 which will 
+                        -- result in a bonus equal to the starting value (ie. - 5000) plus another 10% (total 5500)
+                        buffAffects.EnergyStorage.Mult = LOUDMAX( aiBrain.CheatValue - 1, 0) + (outnumberratio - 1)
                     
-                    buffDef = Buffs['CheatCDRMassStorage'..ArmyIndex]
-                    buffAffects = buffDef.Affects
-                    buffAffects.MassStorage.Mult = LOUDMAX( aiBrain.CheatValue - 1, 0) + (outnumberratio - 1)
+                        buffDef = Buffs['CheatCDRMassStorage'..ArmyIndex]
+                        buffAffects = buffDef.Affects
+                        buffAffects.MassStorage.Mult = LOUDMAX( aiBrain.CheatValue - 1, 0) + (outnumberratio - 1)
 
-                    ApplyBuff(unit, 'CheatIncome'..ArmyIndex)  -- 2nd instance of resource cheat for ACU
+                        ApplyBuff(unit, 'CheatIncome'..ArmyIndex)  -- 2nd instance of resource cheat for ACU
 
-                    ApplyBuff(unit, 'CheatCDREnergyStorage'..ArmyIndex)
+                        ApplyBuff(unit, 'CheatCDREnergyStorage'..ArmyIndex)
                 
+                    end
+
+                    ApplyBuff(unit, 'CheatCDROmni'..ArmyIndex)
+                
+                    if aiBrain.OutnumberedRatio > 1 then
+
+                        -- because the 2nd Storage buff will remove the first we'll wait 45 seconds
+                        WaitTicks(450)
+                
+                        RemoveBuff( unit, 'CheatCDREnergyStorage'..ArmyIndex )
+                
+                        ApplyBuff(unit, 'CheatCDRMassStorage'..ArmyIndex)
+                    end
                 end
-
-				ApplyBuff(unit, 'CheatCDROmni'..ArmyIndex)
-                
-                if aiBrain.OutnumberedRatio > 1 then
-
-                    -- because the 2nd Storage buff will remove the first we'll wait 45 seconds
-                    WaitTicks(450)
-                
-                    RemoveBuff( unit, 'CheatCDREnergyStorage'..ArmyIndex )
-                
-                    ApplyBuff(unit, 'CheatCDRMassStorage'..ArmyIndex)
-                end
-			end
+            end
         end
 	end
 end
@@ -1091,7 +1095,6 @@ function SetArmyPoolBuff(aiBrain, AIMult)
 
     buffAffects.EnergyProduction.Mult = AIMult
     buffAffects.MassProduction.Mult = AIMult
-
     
     -- Modify CheatIntel buff
     buffDef = Buffs['CheatIntel'..aiBrain.ArmyIndex]
@@ -1102,7 +1105,6 @@ function SetArmyPoolBuff(aiBrain, AIMult)
 	buffAffects.RadarRadius.Mult = AIMult
 	buffAffects.OmniRadius.Mult = AIMult
 	buffAffects.SonarRadius.Mult = AIMult
-
     
     -- Modify CheatALL buff
     buffDef = Buffs['CheatALL'..aiBrain.ArmyIndex]
@@ -1113,11 +1115,10 @@ function SetArmyPoolBuff(aiBrain, AIMult)
     modifier = 1.0 + modifier
 
 	buffAffects.MaxHealth.Mult = modifier
-    buffAffects.MaxHealth.DoNoFill = true   -- prevents health from being added upon creation
+    buffAffects.MaxHealth.DoNoFill = false   -- prevents health from being added upon creation
 	buffAffects.RegenPercent.Mult = modifier
 	buffAffects.ShieldRegeneration.Mult = modifier
 	buffAffects.ShieldHealth.Mult = modifier
-
 
     -- loop thru all the units for this AI --
     if aiBrain.BrainType == 'AI' then
@@ -1287,135 +1288,3 @@ function AIFindBrainNukeTargetInRangeSorian( aiBrain, launcher, maxRange, atkPri
 	
     return false
 end
-
-
---[[
--- Returns the number of slots the transport has available
--- Originally, this function just counted the number of attachpoint bones of each size on the model
--- however, this does not seem to work correctly - ie. UEF T3 Transport
--- says it has 12 Large Attachpoints but will only carry 6 large units
--- so I replaced that with some hardcoded values to improve performance, as each new transport
--- unit comes into play, I'll cache those values on the brain so I never have to look them up again
-	-- setup global table to contain Transport values- in this way we always have a reference to them
-	-- without having to reread the bones or do all the EntityCategory checks from below
-function GetNumTransportSlots(unit, aiBrain)
-	
-	if not aiBrain.TransportSlotTable then
-	
-		aiBrain.TransportSlotTable = {}
-		
-	end
-	
-	local id = unit.BlueprintID
-	
-	if aiBrain.TransportSlotTable[id] then
-	
-		return aiBrain.TransportSlotTable[id]
-		
-	else
-	
-		local EntityCategoryContains = EntityCategoryContains
-	
-		local bones = { Large = 0, Medium = 0, Small = 0,}
-	
-		if EntityCategoryContains( categories.xea0306, unit) then
-			bones.Large = 6
-			bones.Medium = 10
-			bones.Small = 24
-
-		elseif EntityCategoryContains( categories.uea0203, unit) then
-			bones.Large = 0
-			bones.Medium = 1
-			bones.Small = 1
-			
-		elseif EntityCategoryContains( categories.uea0104, unit) then
-			bones.Large = 3
-			bones.Medium = 6
-			bones.Small = 14
-			
-		elseif EntityCategoryContains( categories.uea0107, unit) then
-			bones.Large = 1
-			bones.Medium = 2
-			bones.Small = 6
-			
-			
-		elseif EntityCategoryContains( categories.uaa0107, unit) then
-			bones.Large = 1
-			bones.Medium = 3
-			bones.Small = 6
-
-		elseif EntityCategoryContains( categories.uaa0104, unit) then
-			bones.Large = 3
-			bones.Medium = 6
-			bones.Small = 12
-
-			
-		elseif EntityCategoryContains( categories.ura0107, unit) then
-			bones.Large = 1
-			bones.Medium = 2
-			bones.Small = 6
-
-		elseif EntityCategoryContains( categories.ura0104, unit) then
-			bones.Large = 2
-			bones.Medium = 4
-			bones.Small = 10
-			
-			
-		elseif EntityCategoryContains( categories.xsa0107, unit) then
-			bones.Large = 1
-			bones.Medium = 4
-			bones.Small = 8
-
-		elseif EntityCategoryContains( categories.xsa0104, unit) then
-			bones.Large = 4
-			bones.Medium = 8
-			bones.Small = 16
-		
-		-- BO Aeon transport
-		elseif bones.Small == 0 and (categories.baa0309 and EntityCategoryContains( categories.baa0309, unit)) then
-			bones.Large = 6
-			bones.Medium = 10
-			bones.Small = 16
-		
-		-- BO Cybran transport
-		elseif bones.Small == 0 and (categories.bra0309 and EntityCategoryContains( categories.bra0309, unit)) then
-			bones.Large = 3
-			bones.Medium = 12
-			bones.Small = 14
-			
-		-- BrewLan Cybran transport
-		elseif bones.Small == 0 and (categories.sra0306 and EntityCategoryContains( categories.sra0306, unit)) then
-			bones.Large = 4
-			bones.Medium = 8
-			bones.Small = 16
-		
-		-- Gargantua
-		elseif bones.Small == 0 and (categories.bra0409 and EntityCategoryContains( categories.bra0409, unit)) then
-			bones.Large = 20
-			bones.Medium = 4
-			bones.Small = 4
-		
-		-- BO Sera transport
-		elseif bones.Small == 0 and (categories.bsa0309 and EntityCategoryContains( categories.bsa0309, unit)) then
-			bones.Large = 8
-			bones.Medium = 12
-			bones.Small = 28
-
-		-- BrewLAN Seraphim transport
-		elseif bones.Small == 0 and (categories.ssa0306 and EntityCategoryContains( categories.ssa0306, unit)) then
-			bones.Large = 7
-			bones.Medium = 15
-			bones.Small = 32
-			
-			
-			
-		end
-		
-		aiBrain.TransportSlotTable[id] = bones
-		
-		--LOG ("*AI DEBUG Global Transport Slot table is now "..repr(aiBrain.TransportSlotTable) )
-		return bones
-	end
-
-end
---]]

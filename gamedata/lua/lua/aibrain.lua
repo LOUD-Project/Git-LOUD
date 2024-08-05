@@ -911,12 +911,10 @@ AIBrain = Class(moho.aibrain_methods) {
 
         -- all AI are technically 'cheaters' now --
         self.CheatingAI = true
+        self.Personality = ScenarioInfo.ArmySetup[self.Name].AIPersonality
 
 		-- Store the cheat value (ie. 1.1 = 10% cheat)
-		local s = ScenarioInfo.ArmySetup[self.Name].Mult
-		local m
-        
-        m = tonumber(ScenarioInfo.ArmySetup[self.Name].Mult)
+		local m = tonumber(ScenarioInfo.ArmySetup[self.Name].Mult)
         
         if m then 
             m = math.max(0.1, m)

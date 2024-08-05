@@ -5599,7 +5599,7 @@ Platoon = Class(PlatoonMethods) {
 
 		self.CallForHelpAI = true
         
-        local DistressResponseDialog    = true  --ScenarioInfo.DistressResponseDialog or false
+        local DistressResponseDialog    = ScenarioInfo.DistressResponseDialog or false
 
         local CalculatePlatoonThreat    = CalculatePlatoonThreat
         local GetPlatoonPosition        = GetPlatoonPosition
@@ -5789,7 +5789,7 @@ Platoon = Class(PlatoonMethods) {
 	-- own for 10 seconds
     DistressResponseAI = function( self, aiBrain )
         
-        local DistressResponseDialog = true     --ScenarioInfo.DistressResponseDialog or false
+        local DistressResponseDialog = ScenarioInfo.DistressResponseDialog or false
 
 		local oldPlan = self.PlanName -- we do this here to maintain the original plan, some platoons change the plan name
         

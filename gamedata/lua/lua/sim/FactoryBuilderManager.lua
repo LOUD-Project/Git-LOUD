@@ -267,9 +267,9 @@ FactoryBuilderManager = Class(BuilderManager) {
                 local PlatoonAddBehaviors       = BuildersData.PlatoonAddBehaviors
                 local PlatoonAddFunctions       = BuildersData.PlatoonAddFunctions
             
-                if DisplayFactoryBuilds then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..factory.EntityID.." building "..repr(builder.BuilderName))
-                end
+                --if DisplayFactoryBuilds then
+                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..factory.EntityID.." building "..repr(builder.BuilderName))
+                --end
 			
 				local buildplatoon = self:GetFactoryTemplate( BuildersData.PlatoonTemplate, factory, aiBrain.FactionName )
 			
@@ -308,10 +308,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 					end
 				
 					if DisplayFactoryBuilds then
-				
 						factory:SetCustomName(repr(BuilderName))
-					
-						FloatingEntityText( factory.EntityID, "Building "..repr(BuilderName) )
 					end
 
 					aiBrain:BuildPlatoon( buildplatoon, {factory}, buildplatoonsqty )
@@ -357,7 +354,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 			
 				if DisplayFactoryBuilds then
 					ForkThread(FloatingEntityText, factory.EntityID, "No Job for "..factory.BuilderType )
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..repr(factory.EntityID).." finds no job ")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..repr(factory.EntityID).." finds no job ")
 				end
 				
 				factory.failedbuilds = factory.failedbuilds + 1
@@ -367,7 +364,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 		end
 	end,
     
-	-- this keeps the factory from trying to build if the basic resources are not available (200M 2500E - varies by factory level - requirements are lower for low tier - but higher tier check more frequently )
+	-- this keeps the factory from trying to build if the basic resources are not available (200M 2250E - varies by factory level - requirements are lower for low tier - but higher tier check more frequently )
 	-- also waits for factory to be NOT busy (some units cause factory to pause after building)
 	-- delays are dynamic - higher tier factories wait less while those enhancing wait more
     DelayBuildOrder = function( self, factory )
@@ -375,21 +372,21 @@ FactoryBuilderManager = Class(BuilderManager) {
 		if factory.Dead then
 			return
 		end
-
-		local GetEconomyStored = GetEconomyStored
-		local IsIdleState = IsIdleState
-		local IsUnitState = IsUnitState
-        local WaitTicks = WaitTicks
-		
-		local aiBrain = GetAIBrain(factory)
-        local DisplayFactoryBuilds = ScenarioInfo.DisplayFactoryBuilds
         
-        local BuildLevel = factory.BuildLevel
-        local Upgrading = factory.Upgrading
+        local DisplayFactoryBuilds = ScenarioInfo.DisplayFactoryBuilds
+
+		local GetEconomyStored  = GetEconomyStored
+		local IsIdleState       = IsIdleState
+		local IsUnitState       = IsUnitState
+        local WaitTicks         = WaitTicks
+		
+		local aiBrain       = GetAIBrain(factory)
+        local BuildLevel    = factory.BuildLevel
+        local Upgrading     = factory.Upgrading
 
         -- this is the dynamic delay controlled - minimum delay is ALWAYS 2 --
         -- basically higher tier factories have less delay periods
-		WaitTicks( (8 - (factory.BuildLevel * 2)) + (factory.failedbuilds * 10) )
+		WaitTicks( (8 - (BuildLevel * 2)) + (factory.failedbuilds * 10) )
 
 		if factory.EnhanceThread or Upgrading then
         
@@ -400,25 +397,39 @@ FactoryBuilderManager = Class(BuilderManager) {
 			WaitTicks(10)
 		end
         
-        -- the cheatvalue directly impacts the triggers --
+        -- the cheatvalue directly impacts the resource triggers --
         -- cheats above 1 lower the threshold making building more aggressive
-        local masstrig = 200 * (1/ LOUDMAX(1, aiBrain.CheatValue))
-        local enertrig = 2500 * (1/ LOUDMAX(1, aiBrain.CheatValue))
+        -- and less advanced factories require lower amounts
+        local masstrig = LOUDMAX(100, (225 * (1/ LOUDMAX(1, aiBrain.CheatValue))) - ((3 - BuildLevel) * 25))
+        local enertrig = LOUDMAX(1000,(2500 *(1/ LOUDMAX(1, aiBrain.CheatValue))) - ((3 - BuildLevel) *250))
+        
+        local trig = false
 
-		while (not factory.Dead) and (not Upgrading) and (( GetEconomyStored( aiBrain, 'MASS') < (masstrig - ((3 - BuildLevel) * 25))
-            or GetEconomyStored( aiBrain, 'ENERGY') < (enertrig - ((3 - BuildLevel) * 250)))
-            or (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing'))) do
+		while (not factory.Dead) and (not Upgrading)
+            and ( GetEconomyStored( aiBrain, 'MASS') < masstrig or GetEconomyStored( aiBrain, 'ENERGY') < enertrig )
+            or (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')) do
         
             if DisplayFactoryBuilds then
-                ForkThread(FloatingEntityText, factory.EntityID, "Insufficient Resource")
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..repr(factory.EntityID).." Insufficient resources -- delaying "..(23 - (factory.BuildLevel * 3)).." ticks")
+            
+                trig = not trig
+
+                --- this visual text will only happen every other pass
+                if trig then
+                    ForkThread(FloatingEntityText, factory.EntityID, "Insufficient Resource")
+                end
+                
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..repr(factory.EntityID).." Insufficient resources -- delaying "..(28 - (BuildLevel * 3)).." ticks")
             end
 	
             -- higher tier factories check more frequently
-			WaitTicks(23 - (BuildLevel * 3))
+			WaitTicks(28 - (BuildLevel * 3))
 		end
 		
 		if (not factory.Dead) and not (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')) then
+
+            if ScenarioInfo.DisplayFactoryBuilds then
+                factory:SetCustomName("")
+            end
 		
 			while (not factory.Dead) and (not IsIdleState(factory)) do
 			
@@ -535,11 +546,6 @@ FactoryBuilderManager = Class(BuilderManager) {
 		local aiBrain = GetAIBrain(factory)
 		
 		local LOUDENTITY = LOUDENTITY
-		
-		if ScenarioInfo.DisplayFactoryBuilds then
-		
-			factory:SetCustomName("")
-		end
 
         if LOUDENTITY( ENGINEER, finishedUnit ) then
 		
@@ -590,7 +596,11 @@ FactoryBuilderManager = Class(BuilderManager) {
 		if not factory.Dead then
 		
 			if LOUDGETN(factory:GetCommandQueue()) <= 1 then
-		
+
+                if ScenarioInfo.DisplayFactoryBuilds then
+                    factory:SetCustomName("")
+                end
+
 				factory.addplan = nil
 				factory.addbehavior = nil
 
