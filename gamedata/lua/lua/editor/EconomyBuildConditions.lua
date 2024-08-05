@@ -360,7 +360,7 @@ function MassToFactoryRatioBaseCheck( aiBrain, locationType, massefficiency, ene
     -- ALL Drain values are modified by the cheat level - ie. - cheaters need less to upgrade -
     local cheatmod = 1/CheatAdjust
     
-    local t1Drain = cheatmod * (aiBrain.BuilderManagers[locationType].BaseSettings.MassToFactoryValues.T1Value or 8)
+    local t1Drain = cheatmod * (aiBrain.BuilderManagers[locationType].BaseSettings.MassToFactoryValues.T1Value or 7.5)
     local t2Drain = cheatmod * (aiBrain.BuilderManagers[locationType].BaseSettings.MassToFactoryValues.T2Value or 14)
     local t3Drain = cheatmod * (aiBrain.BuilderManagers[locationType].BaseSettings.MassToFactoryValues.T3Value or 20)
 	

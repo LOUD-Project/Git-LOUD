@@ -48,7 +48,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
     -- SACU are made continously until cap is reached
     Builder {BuilderName = 'Engineer T1 - Initial',
 	
-        PlatoonTemplate = 'T1BuildEngineer',
+        PlatoonTemplate = 'T1BuildEngineerInitial',
         
         PlatoonAddFunctions = { { LUTL, 'UseBuilderOnce' }, },
 		

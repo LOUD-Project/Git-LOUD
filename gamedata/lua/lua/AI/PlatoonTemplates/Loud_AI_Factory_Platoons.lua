@@ -3,9 +3,9 @@
 -- Faction Based Factory Build Platoons
 -- Used when constructing units from factories
 
---------------------------
-------- ENGINEERS --------
---------------------------
+---------------
+-- ENGINEERS --
+---------------
 PlatoonTemplate { Name = 'T1BuildEngineer',
 
     FactionSquads = {
@@ -20,6 +20,24 @@ PlatoonTemplate { Name = 'T1BuildEngineer',
         },
         Seraphim = {
             { 'xsl0105', 1, 1, 'Support', 'none' }
+        },
+    }
+}
+
+PlatoonTemplate { Name = 'T1BuildEngineerInitial',
+
+    FactionSquads = {
+        UEF = {
+            { 'uel0105', 1, 3, 'Support', 'none' }
+        },
+        Aeon = {
+            { 'ual0105', 1, 3, 'Support', 'none' }
+        },
+        Cybran = {
+            { 'url0105', 1, 3, 'Support', 'none' }
+        },
+        Seraphim = {
+            { 'xsl0105', 1, 3, 'Support', 'none' }
         },
     }
 }
@@ -110,22 +128,22 @@ PlatoonTemplate { Name = 'T3LandSubCommander',
     }
 }
 
----------------------------------
---------- AIR UNITS -------------
----------------------------------
+-----------------
+---- AIR UNITS --
+-----------------
 PlatoonTemplate { Name = 'T1AirScout',
     FactionSquads = {
         UEF = {
-            { 'uea0101', 1, 3, 'scout', 'none' }
+            { 'uea0101', 1, 2, 'scout', 'none' }
         },
         Aeon = {
-            { 'uaa0101', 1, 3, 'scout', 'none' }
+            { 'uaa0101', 1, 2, 'scout', 'none' }
         },
         Cybran = {
-            { 'ura0101', 1, 3, 'scout', 'none' }
+            { 'ura0101', 1, 2, 'scout', 'none' }
         },
         Seraphim = {
-            { 'xsa0101', 1, 3, 'scout', 'none' }
+            { 'xsa0101', 1, 2, 'scout', 'none' }
         },
     }
 }
@@ -403,9 +421,9 @@ PlatoonTemplate { Name = 'T3AirTransport',
     }
 }
 
-------------------------------
-------- LAND UNITS -----------
-------------------------------
+-----------------
+-- LAND UNITS ---
+-----------------
 PlatoonTemplate { Name = 'T1LandAA',
     FactionSquads = {
         UEF = {
@@ -443,16 +461,16 @@ PlatoonTemplate { Name = 'T1LandArtillery',
 PlatoonTemplate { Name = 'T1LandDFBot',
     FactionSquads = {
         UEF = {
-            { 'uel0106', 1, 5, 'Attack', 'none' },	#-- LAB
+            { 'uel0106', 1, 5, 'Attack', 'none' },	-- LAB
         },
         Aeon = {
-            { 'ual0106', 1, 5, 'Attack', 'none' },	#-- LAB
+            { 'ual0106', 1, 5, 'Attack', 'none' },	-- LAB
         },
         Cybran = {
-            { 'url0106', 1, 5, 'Attack', 'none' },	#-- LAB
+            { 'url0106', 1, 5, 'Attack', 'none' },	-- LAB
         },
         Seraphim = {
-            { 'xsl0201', 1, 5, 'Attack', 'none' },	#-- Medium Tank
+            { 'xsl0201', 1, 5, 'Attack', 'none' },	-- Medium Tank
         },        
     }
 }
@@ -861,9 +879,9 @@ PlatoonTemplate { Name = 'T3LandSubCommander',
     }
 }
 
---------------------------------
--------- NAVAL UNITS -----------
---------------------------------
+-------------------
+--- NAVAL UNITS ---
+-------------------
 
 PlatoonTemplate { Name = 'T1SeaFrigate',
     FactionSquads = {
