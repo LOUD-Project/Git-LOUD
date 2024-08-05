@@ -1032,6 +1032,9 @@ AIBrain = Class(moho.aibrain_methods) {
 
         local initialUnit
         local initialUnits = {}
+        
+        local initialengineer
+        local initialengineers = {}
 
         local posX, posY = self:GetArmyStartPos()
 
@@ -1039,36 +1042,47 @@ AIBrain = Class(moho.aibrain_methods) {
 		
 			resourceStructure = 'UEB1103'
 			initialUnit = 'UEB1101'
+            initialengineer = 'UEL0105'
 			
         elseif factionIndex == 2 then
 		
 			resourceStructure = 'UAB1103'
 			initialUnit = 'UAB1101'
-			
+            initialengineer = 'UAL0105'			
+
         elseif factionIndex == 3 then
 		
 			resourceStructure = 'URB1103'
 			initialUnit = 'URB1101'
-			
+            initialengineer = 'URL0105'			
+
 		elseif factionIndex == 4 then
 		
 			resourceStructure = 'XSB1103'
 			initialUnit = 'XSB1101'
-			
+            initialengineer = 'XSL0105'			
+
         end
         
         local mult = 2
+        local engy = 0
         
         if self.OutnumberedRatio >= 2 then
-            mult = 4 + math.floor(self.OutnumberedRatio - 2)
+            mult = 4 + math.floor(self.OutnumberedRatio)
+            engy = math.floor(self.OutnumberedRatio) - 1
         end
 
         for index = 1, mult do
             table.insert( resourceStructures, resourceStructure )
             table.insert( initialUnits, initialUnit )
         end
-
-        LOG("*AI DEBUG "..self.Nickname.." Spawn PreBuilt Units is "..repr(initialUnits))
+        
+        if engy > 0 then
+            
+            for index = 1, engy do
+                table.insert( initialengineers, initialengineer )
+            end
+        end
 
         if resourceStructures then
         
@@ -1112,6 +1126,18 @@ AIBrain = Class(moho.aibrain_methods) {
     		end
 			
     	end
+        
+        if initialengineers then
+        
+            for k,v in initialengineers do
+            
+            	local unit = self:CreateUnitNearSpot(v, posX, posY)
+             
+            end
+            
+        end
+        
+        LOG("*AI DEBUG "..self.Nickname.." Spawned PreBuilt Units")
 
         --- record that brain had prebuilt units
 		self.PreBuilt = true
