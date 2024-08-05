@@ -1,22 +1,14 @@
---****************************************************************************
---**
 --**  File     :  /lua/sim/CalcBallisticAcceleration.lua
 --**  Author(s):  Kaskouy, Brute51
 --**
 --**  Summary  :  Calculates bomb drop ballistic acceleration values
---**
---****************************************************************************
---**
---** This script was done by Kaskouy and is based on my 'static' first bomb
---** bug fix. Kaskouy's code is more flexible and should work in (almost) any 
---** case wheras mine only does when the bomber flies at default height at 
---** default speed. The script below takes all that into account (speed, 
---** height, etc) and calculates the proper value to feed to the bomb adjust 
---** function. [152]
---** I (brute51) improved the original script to work with attack ground. Also
---** changed a few minor things here and there.
---**
---****************************************************************************
+
+-- This script was done by Kaskouy and is based on my 'static' first bomb
+-- bug fix. Kaskouy's code is more flexible and should work in (almost) any 
+-- case wheras mine only does when the bomber flies at default height at 
+-- default speed. The script below takes all that into account (speed, 
+-- height, etc) and calculates the proper value to feed to the bomb adjust 
+-- function. [152]
 
 -- This is a fraction between 0 and 1, indicating which part of the target we want to hit
 -- 0 : on feet ; 1 : on head
@@ -38,8 +30,11 @@ local default_value = 4.75
 
 
 
-CalculateBallisticAcceleration = function (weapon, proj, ProjectilesPerOnFire)
-   
+CalculateBallisticAcceleration = function (weapon, proj)
+
+
+    local Projectiles = weapon.CBFP_CalcBallAcc.ProjectilesPerOnFire
+    
 	local launcher = proj:GetLauncher()
    
 	if not launcher then return default_value end
@@ -78,7 +73,7 @@ CalculateBallisticAcceleration = function (weapon, proj, ProjectilesPerOnFire)
 
 			pos_target = target:GetPosition()
       
-			-- Get target speed
+			--- Get target speed
 			wx, wy, wz = target:GetVelocity()
 			wx = wx * 10
 			wy = wy * 10
@@ -88,7 +83,7 @@ CalculateBallisticAcceleration = function (weapon, proj, ProjectilesPerOnFire)
 
 			pos_target = weapon:GetCurrentTargetPos()
 
-			-- Set alpha to 0 so we don't overshoot because of this variable
+			--- Set alpha to 0 so we don't overshoot because of this variable
 			alpha = 0
 			
 		end
@@ -116,11 +111,11 @@ CalculateBallisticAcceleration = function (weapon, proj, ProjectilesPerOnFire)
       
 		if vhorz_launcher == 0 then return default_value end
       
-		-- calculate bomb speed; Don't ask me why, but it seems this is how it is calculated!
+		--- calculate bomb speed; Don't ask me why, but it seems this is how it is calculated!
 		local vx = ux * v_launcher / vhorz_launcher
 		local vz = uz * v_launcher / vhorz_launcher
 
-		-- calculate distance between projectile and target
+		--- calculate distance between projectile and target
 		local dist = LOUDSQRT( LOUDPOW(pos_target[1] -  pos_proj[1], 2) +  LOUDPOW(pos_target[3] -  pos_proj[3], 2) )
       
 		--- calculate the offset : this is for planes carrying several bombs. We are calculating
@@ -128,9 +123,9 @@ CalculateBallisticAcceleration = function (weapon, proj, ProjectilesPerOnFire)
 		--- the target in the center of the flames, so the first bomb must fall before the target
 		--- (0.1 is the delay between 2 drops)
 		
-		local offset = (ProjectilesPerOnFire - 1) * 0.1 * (vhorz_launcher * 0.5)
+		local offset = (Projectiles - 1) * 0.1 * (vhorz_launcher * 0.5)
       
-		dist = dist - offset  # this is not exact in some cases, but that should be good enough
+		dist = dist - offset  --- this is not exact in some cases, but that should be good enough
       
 		--- calculate height between projectile and target
 		local height = pos_proj[2] - pos_target[2]
@@ -160,10 +155,10 @@ CalculateBallisticAcceleration = function (weapon, proj, ProjectilesPerOnFire)
 		acc = 2 * LOUDPOW(1/t , 2) * (height - t * vvert)
       
 		--- fill bomber_table if several bombs must be dropped
-		if ProjectilesPerOnFire > 1 then
+		if Projectiles > 1 then
 			bomber_table[entityId] = {}
 			bomber_table[entityId].acc = acc
-			bomber_table[entityId].remaining_bombs = ProjectilesPerOnFire - 1
+			bomber_table[entityId].remaining_bombs = Projectiles - 1
 		end
 	end
    

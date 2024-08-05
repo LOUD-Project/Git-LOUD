@@ -135,9 +135,9 @@ DefaultProjectileWeapon = Class(Weapon) {
 
 	end,
 	
-    CheckBallisticAcceleration = function(self, proj, Projectiles )
+    CheckBallisticAcceleration = function(self, proj)
 	
-        local acc = CalculateBallisticAcceleration( self, proj, Projectiles or 1 )
+        local acc = CalculateBallisticAcceleration( self, proj )
 
         proj:SetBallisticAcceleration( -acc)    --- change projectile trajectory so it hits the target, cure for engine bug
 
@@ -213,7 +213,8 @@ DefaultProjectileWeapon = Class(Weapon) {
         end
 
 		if self.CBFP_CalcBallAcc then
-			self:CheckBallisticAcceleration(proj, self.CBFP_CalcBallAcc.ProjectilesPerOnFire or 1 )
+            --LOG("*AI DEBUG Projectile CheckBallisticAcceleration "..repr(bp.Label).." from "..repr(self.unit.BlueprintID).." value is "..self.CBFP_CalcBallAcc.ProjectilesPerOnFire )
+            self:CheckBallisticAcceleration( proj )
 		end
 		
 		if bp.CountedProjectile then

@@ -405,23 +405,18 @@ FactoryBuilderManager = Class(BuilderManager) {
         
         local trig = false
 
-		while (not factory.Dead) and (not Upgrading)
-            and ( GetEconomyStored( aiBrain, 'MASS') < masstrig or GetEconomyStored( aiBrain, 'ENERGY') < enertrig )
-            or (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')) do
+        --- while the factory is not dead or upgrading/enhancing --- loop here until the eco allows building again ---
+		while (not factory.Dead and not Upgrading) and ( GetEconomyStored( aiBrain, 'MASS') < masstrig or GetEconomyStored( aiBrain, 'ENERGY') < enertrig ) and not (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')) do
         
             if DisplayFactoryBuilds then
-            
                 trig = not trig
 
-                --- this visual text will only happen every other pass
                 if trig then
                     ForkThread(FloatingEntityText, factory.EntityID, "Insufficient Resource")
                 end
-                
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..repr(factory.EntityID).." Insufficient resources -- delaying "..(28 - (BuildLevel * 3)).." ticks")
             end
 	
-            -- higher tier factories check more frequently
+            -- higher tier factories have a lower delay and check more frequently
 			WaitTicks(28 - (BuildLevel * 3))
 		end
 		
@@ -433,18 +428,17 @@ FactoryBuilderManager = Class(BuilderManager) {
 		
 			while (not factory.Dead) and (not IsIdleState(factory)) do
 			
+                -- must be enhancing ?
 				if not IsUnitState(factory,'Upgrading') and not Upgrading then
-				
 					WaitTicks(10)
-					
 				else
-				
 					break
 				end
 			end
 		
 			if not factory.Dead and (not IsUnitState(factory,'Upgrading')) and (not Upgrading) then
-			
+
+                --- go and get a build task --
 				ForkThread( self.AssignBuildOrder, self, factory, aiBrain )
 			end
 		end

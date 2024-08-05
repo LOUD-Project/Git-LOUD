@@ -63,6 +63,7 @@ local GetAIBrain            = moho.unit_methods.GetAIBrain
 local GetFuelRatio          = moho.unit_methods.GetFuelRatio
 local IsBeingBuilt          = moho.unit_methods.IsBeingBuilt
 local IsIdleState           = moho.unit_methods.IsIdleState
+local IsPaused              = moho.unit_methods.IsPaused
 local IsUnitState           = moho.unit_methods.IsUnitState
 
 local VectorCached = { 0, 0, 0 }
@@ -5109,7 +5110,7 @@ function ParseIntelThread( aiBrain )
                     
                         if u:GetFractionComplete() == 1 then
 
-                            if IsIdleState(u) then 
+                            if IsIdleState(u) or IsPaused(u) then 
                                 airidle = airidle + 1
                                 airtot = airtot + .3
                             else
@@ -5137,7 +5138,7 @@ function ParseIntelThread( aiBrain )
                         
                         if u:GetFractionComplete() == 1 then
 
-                            if IsIdleState(u) then 
+                            if IsIdleState(u) or IsPaused(u) then 
                                 landidle = landidle + 1
                                 landtot = landtot + .3
                             else
@@ -5165,7 +5166,7 @@ function ParseIntelThread( aiBrain )
                         
                         if u:GetFractionComplete() == 1 then
 
-                            if IsIdleState(u) then 
+                            if IsIdleState(u) or IsPaused(u) then 
                                 navidle = navidle + 1
                                 navaltot = navaltot + .3
                             else
@@ -5275,13 +5276,10 @@ function ParseIntelThread( aiBrain )
             end
 
             if ReportRatios then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." I have "..aiBrain.NumOpponents.." Opponents")
-                LOG("*AI DEBUG "..aiBrain.Nickname.." My factory    TOTALS  AIR "..myairtot.." -- LAND "..mylandtot.." -- NAVAL "..mynavaltot)
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy Factory Ratios  AIR "..grandairtot/aiBrain.NumOpponents.." -- LAND "..grandlandtot/aiBrain.NumOpponents.." -- NAVAL "..grandnavaltot/aiBrain.NumOpponents)
-            end
-
-            if ReportRatios then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Air Ratio is "..repr(aiBrain.AirRatio).." Land Ratio is "..repr(aiBrain.LandRatio).." Naval Ratio is "..repr(aiBrain.NavalRatio).." at tick "..GetGameTick() )
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." I have "..aiBrain.NumOpponents.." Opponents")
+                LOG("*AI DEBUG "..aiBrain.Nickname.." My factories Totals -- AIR "..string.format("%.2f", myairtot).." -- LAND "..string.format("%.2f",mylandtot).." -- NAVAL "..string.format("%.2f",mynavaltot) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy factory Avg -- AIR "..string.format("%.2f", grandairtot/aiBrain.NumOpponents).." -- LAND "..string.format("%.2f", grandlandtot/aiBrain.NumOpponents).." -- NAVAL "..string.format("%.2f",grandnavaltot/aiBrain.NumOpponents) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." My Strength Ratios -- AIR "..string.format("%.2f", aiBrain.AirRatio).." -- LAND "..string.format("%.2f", aiBrain.LandRatio).." -- NAVAL "..string.format("%.2f", aiBrain.NavalRatio).."  at tick "..GetGameTick() )
             end
 
         end
