@@ -140,7 +140,7 @@ BaseBuilderTemplate {
         -- This is not so easy to understand but what it does is tell the AI that he needs X amount of mass for each factory
         -- this is used to tell the AI when he has enough excess mass to build new factories and start new bases
         MassToFactoryValues = {
-            T1Value = 8,
+            T1Value = 7.5,
             T2Value = 14,
             T3Value = 20,
         },
