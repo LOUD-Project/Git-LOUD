@@ -1,0 +1,54 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "urb3304",
+	
+	Economy = {
+		BuildRate = 15,
+	},
+
+	Enhancements = {
+	
+		Sequence = {'InstallArmorPackage1','InstallRegenPackage1'},
+		
+        Slots = {
+            Back = {},
+            LCH = {},
+            RCH = {},		
+			Command = {},
+        },
+		
+		InstallRegenPackage1 = {
+		
+            BuildCostEnergy = 5000,
+            BuildCostMass = 175,
+            BuildTime = 600,
+			
+            Icon = 'Regen',
+			
+            Name = 'Regen Package 1',
+			
+            Slot = 'LCH',
+			
+            UpgradeEffectBones = {'URB2204'},
+			UpgradeUnitAmbientBones = {'URB2204'},
+        },
+		
+		InstallArmorPackage1 = {
+		
+            BuildCostEnergy = 2200,
+            BuildCostMass = 350,
+            BuildTime = 600,
+			
+            Icon = 'Armor',
+			
+            Name = 'Armor Package 1',
+			
+            Slot = 'RCH',
+			
+            UpgradeEffectBones = {'URB2204'},
+			UpgradeUnitAmbientBones = {'URB2204'},
+        },
+
+    },
+
+}

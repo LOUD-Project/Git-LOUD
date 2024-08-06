@@ -89,8 +89,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 144000,
-        BuildCostMass = 8500,
+        BuildCostEnergy = 147250,
+        BuildCostMass = 8930,
         BuildTime = 13000,
         
         RebuildBonusIds = {'vab2302'},
@@ -165,18 +165,30 @@ UnitBlueprint {
 	
     Weapon = {
         {
+            advancedTracking = true,
             AlwaysRecheckTarget = true,
 			
             Audio = {
                 Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB2304_SAM', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    BuffType    = 'FUELRATIO',
+                    BuffValue   = 20,
+                    Radius      = 3.6,
+                    TargetAllow = 'AIR MOBILE',
+                },
+            },
+
             CannotAttackGround = true,
 			
             CollideFriendly = false,
 			
             Damage = 8000,
-            DamageRadius = 1.8,
+            DamageRadius = 2,
             DamageType = 'Normal',
 			
             DisplayName = 'AA Missile',
@@ -197,7 +209,7 @@ UnitBlueprint {
             MuzzleVelocity = 40,
 			
             ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
-            ProjectileLifetime = 3,
+            ProjectileLifetime = 3.6,
 
             RackBones = {
                 {

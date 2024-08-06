@@ -177,17 +177,32 @@ UnitBlueprint {
 	
     Weapon = {
         {
+            advancedTracking = true,
+            
             AlwaysRecheckTarget = true,
+
             Audio = {
                 Fire = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2304_Losaare_Autocannon', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    BuffType    = 'FUELRATIO',
+                    BuffValue   = 20,
+                    Radius      = 3.6,
+                    TargetAllow = 'AIR MOBILE',
+                },
+            },
+
             CannotAttackGround = true,
 			
             CollideFriendly = false,
 			
             Damage = 8000,
-            DamageRadius = 1.8,
+            DamageRadius = 2,
             DamageType = 'Normal',
 			
             DisplayName = 'AA Missile',
@@ -208,7 +223,7 @@ UnitBlueprint {
             MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
-            ProjectileLifetime = 3,
+            ProjectileLifetime = 3.6,
 
             RackBones = {
                 {

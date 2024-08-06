@@ -27,7 +27,7 @@ UnitBlueprint {
 
 	Enhancements = {
 	
-		Sequence = {},
+		Sequence = {'InstallArmorPackage1','InstallRegenPackage1'},
 		
         Slots = {
             Back = {},
@@ -46,10 +46,43 @@ UnitBlueprint {
 			Icon = 'Radar_T2',
 			Name = 'Install T2 Radar',
 			
-			Slot = 'LCH',
+			Slot = 'Command',
             UpgradeEffectBones = {'XSB2304'},
             UpgradeUnitAmbientBones = {'XSB2304'},
 		},
+		
+		InstallRegenPackage1 = {
+		
+            BuildCostEnergy = 5000,
+            BuildCostMass = 150,
+            BuildTime = 600,
+			
+            Icon = 'Regen',
+			
+            Name = 'Regen Package 1',
+			
+            Slot = 'LCH',
+			
+            UpgradeEffectBones = {'XSB2304'},
+			UpgradeUnitAmbientBones = {'XSB2304'},
+        },
+		
+		InstallArmorPackage1 = {
+		
+            BuildCostEnergy = 2000,
+            BuildCostMass = 300,
+            BuildTime = 600,
+			
+            Icon = 'Armor',
+			
+            Name = 'Armor Package 1',
+			
+            Slot = 'RCH',
+			
+            UpgradeEffectBones = {'XSB2304'},
+			UpgradeUnitAmbientBones = {'XSB2304'},
+        },
+
     },
 	
 	Intel = {
