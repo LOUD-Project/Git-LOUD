@@ -1975,8 +1975,59 @@ Unit = Class(UnitMethods) {
             self:SetFuelUseTime(buffTable.Value or 0)
 			
         elseif bt == 'FUELRATIO' then
+
+            local allow = categories.ALLUNITS
+
+            if buffTable.TargetAllow then
+                allow = buffTable.TargetAllow
+            end
 		
-            self:SetFuelRatio(buffTable.Value or 0)
+            local disallow = false
+		
+            if buffTable.TargetDisallow then
+                disallow = buffTable.TargetDisallow
+            end
+
+			if buffTable.Radius and buffTable.Radius > 0 then
+                --if the radius is bigger than 0 then we will either use the provided position as the center of the stun blast
+				--or if not provided, the self unit's position -- note -- self must be an entity if you want to 
+                --collect all enemy targets from that point -- we'd never want to STUN friendly units
+                local targets = false
+				
+                if PosEntity then
+				
+                    targets = GetEnemyUnitsInSphere(self, PosEntity, buffTable.Radius)
+					
+                else
+
+                    targets = GetEnemyUnitsInSphere(self, self:GetPosition(), buffTable.Radius)
+					
+                end
+				
+				if not targets then return end
+				
+                for k, v in EntityCategoryFilterDown( allow, targets ) do
+			
+                    if (not disallow) or (not LOUDENTITY( disallow, v)) then
+                    
+                        local now = v:GetFuelRatio()
+                        
+                        v:SetFuelRatio( now * ((100 - buffTable.BuffValue)/100) )
+
+                    end
+                end
+				
+            else
+			
+                --The buff will be applied to the unit
+                if LOUDENTITY( allow, self) and (not disallow or not LOUDENTITY( disallow, self)) then
+                    
+                    local now = self:GetFuelRatio()
+
+                    self:SetFuelRatio( now * ((100 - buffTable.BuffValue)/100) )
+
+                end
+            end
 			
         elseif bt == 'HEALTHREGENRATE' then
 		
