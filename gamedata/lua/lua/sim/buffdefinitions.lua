@@ -132,6 +132,24 @@ BuffBlueprint { Name = 'RegenPackage10',
     },
 }
 
+-- this is a 15% MaxHP buff (not HP)
+BuffBlueprint { Name = 'ArmorPackage1',
+    BuffType = 'ARMOR',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    Affects = {
+        MaxHealth = {
+            Add = 0,
+            Mult = 1.15,
+            DoNoFill = true,
+        },
+        Regen = {
+            Add = 1,
+            Mult = 1.0,
+        },
+    },
+}
+
 -- this is a 7k MaxHP buff (not HP)
 BuffBlueprint { Name = 'ArmorPackage7',
     BuffType = 'ARMOR',
@@ -141,22 +159,23 @@ BuffBlueprint { Name = 'ArmorPackage7',
         MaxHealth = {
             Add = 7000,
             Mult = 1.0,
+            DoNoFill = true,
         },
     },
 }
 
--- this is a 25 range addition to vision & water vision
+-- this is a 28 range addition to vision & water vision
 BuffBlueprint { Name = 'PerimeterOpticsPackage',
     BuffType = 'INTEL',
     Stacks = 'ALWAYS',
     Duration = -1,
     Affects = {
         VisionRadius = {
-            Add = 25,
+            Add = 28,
             Mult = 1.0,
         },
         WaterVisionRadius = {
-            Add = 25,
+            Add = 28,
             Mult = 1.0,
         },
     },
@@ -248,7 +267,7 @@ BuffBlueprint { Name = 'RegenPackage1',
             Add = 0,
             Mult = 4.0,
 			Ceil = 45,
-			Floor = 15,
+			Floor = 4,
         }
     },
 }
@@ -893,16 +912,16 @@ BuffBlueprint { Name = 'CheatCDROmni',
     Duration = -1,
     Affects = {
         OmniRadius = {
-            Add = 15,
+            Add = 16,
             Mult = 1,
         },
         VisionRadius = {
-            Add = 15,
+            Add = 16,
             Mult = 1,
         },
 		WaterVisionRadius = {
 		    BuffCheckFunction = AdjBuffFuncs.WaterVisionBuffCheck,
-			Add = 15,
+			Add = 16,
 			Mult = 1,
 		},    
     },        
@@ -951,18 +970,18 @@ BuffBlueprint { Name = 'CheatENG',
         },
         TurnMult = {
             Add = 0,
-            Mutl = 1.2,
+            Mult = 1.2,
         },
         VisionRadius = {
-            Add = 15,
+            Add = 12,
             Mult = 1,
         },
 		WaterVisionRadius = {
-			Add = 30,
+			Add = 28,
 			Mult = 1,
 		},
         OmniRadius = {
-            Add = 5,
+            Add = 4,
             Mult = 1,
         }
     },

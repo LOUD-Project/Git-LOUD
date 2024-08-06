@@ -465,6 +465,10 @@ StructureUnit = Class(Unit) {
 
 			ApplyBuff( self, 'RegenPackage2' )
 
+		elseif enh == 'InstallArmorPackage1' then
+
+			ApplyBuff( self, 'ArmorPackage1' )
+
 		end
 
 	end,
