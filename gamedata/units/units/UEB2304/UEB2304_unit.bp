@@ -38,8 +38,8 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 43.5,
         ArmorType = 'Structure',
-        Health = 4200,
-        MaxHealth = 4200,
+        Health = 4235,
+        MaxHealth = 4235,
         RegenRate = 1,
     },
 	
@@ -146,16 +146,28 @@ UnitBlueprint {
     Weapon = {
         {
 			advancedTracking = true,
+
             AlwaysRecheckTarget = true,
+
             Audio = {
                 Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2304_Missile_Flayer', LodCutoff = 'Weapon_LodCutoff'},
             },
+
             BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    BuffType = 'FUELRATIO',
+                    BuffValue = 2.5,
+                    TargetAllow = 'AIR MOBILE',
+                },
+            },
+	
             CannotAttackGround = true,
             CollideFriendly = false,
 			
             Damage = 145,
-            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'SAM Launcher',
@@ -164,7 +176,7 @@ UnitBlueprint {
                 Land = 'Air',
                 Water = 'Air',
             },
-            FiringTolerance = 10,
+            FiringTolerance = 12,
 			
             Label = 'AAMissileRack',
 			

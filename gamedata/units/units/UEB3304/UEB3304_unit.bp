@@ -160,6 +160,7 @@ UnitBlueprint {
     Weapon = {
         {
             AlwaysRecheckTarget = true,
+
             Audio = {
                 Fire = Sound {
                     Bank = 'UELWeapon',
@@ -167,7 +168,19 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+
             BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    BuffType = 'FUELRATIO',
+                    BuffValue = 3.5,
+                    Radius = 2.8,
+                    TargetAllow = 'AIR MOBILE',
+                },
+            },
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			

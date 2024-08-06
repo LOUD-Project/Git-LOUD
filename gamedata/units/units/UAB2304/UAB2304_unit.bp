@@ -76,8 +76,8 @@ UnitBlueprint {
     },
     
     Economy = {
-        BuildCostEnergy = 10500,
-        BuildCostMass = 860,
+        BuildCostEnergy = 9975,
+        BuildCostMass = 902,
         BuildTime = 950,
         
         RebuildBonusIds = {'uab2304'},
@@ -161,11 +161,20 @@ UnitBlueprint {
             },
 
             BallisticArc = 'RULEUBA_None',
-
+			
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    BuffType = 'FUELRATIO',
+                    BuffValue = 3.5,
+                    TargetAllow = 'AIR MOBILE',
+                },
+            },
+			
             CannotAttackGround = true,
             CollideFriendly = false,
             
-            Damage = 110,
+            Damage = 220,
             DamageRadius = 0,
             DamageType = 'Normal',
             
@@ -176,7 +185,7 @@ UnitBlueprint {
                 Water = 'Air',
             },
             
-            FiringTolerance = 15,
+            FiringTolerance = 12,
 
             Label = 'AAMissileRack',
             
@@ -200,7 +209,7 @@ UnitBlueprint {
             
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,
+            RateOfFire = 1,
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {

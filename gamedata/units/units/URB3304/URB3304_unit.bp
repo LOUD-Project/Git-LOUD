@@ -157,6 +157,7 @@ UnitBlueprint {
     Weapon = {
         {
             AlwaysRecheckTarget = true,
+
             Audio = {
                 Fire = Sound {
                     Bank = 'URLWeapon',
@@ -165,6 +166,17 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    BuffType = 'FUELRATIO',
+                    BuffValue = 3.5,
+                    Radius = 2.8,
+                    TargetAllow = 'AIR MOBILE',
+                },
+            },
+	
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -184,7 +196,7 @@ UnitBlueprint {
             },
 			
             FiringRandomness = 0.5,
-            FiringTolerance = 0.4,
+            FiringTolerance = 0.42,
 			
             Label = 'AAGun',
 			

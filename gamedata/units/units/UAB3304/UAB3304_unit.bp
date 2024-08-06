@@ -79,8 +79,8 @@ UnitBlueprint {
     },
 
     Economy = {
-        BuildCostEnergy = 10600,
-        BuildCostMass = 1000,
+        BuildCostEnergy = 10070,
+        BuildCostMass = 1045,
         BuildTime = 1100,
 
         RebuildBonusIds = {'uab3304'},
@@ -173,6 +173,16 @@ UnitBlueprint {
             },
 			
             BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    BuffType = 'FUELRATIO',
+                    BuffValue = 3.5,
+                    Radius = 2.8,
+                    TargetAllow = 'AIR MOBILE',
+                },
+            },
 			
             CannotAttackGround = true,
             CollideFriendly = false,

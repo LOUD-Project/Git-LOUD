@@ -148,15 +148,26 @@ UnitBlueprint {
         {
 			advancedTracking = true,
             AlwaysRecheckTarget = true,
+
             Audio = {
                 Fire = Sound { Bank = 'URLWeapon', Cue = 'URB2304_Missile_Nanite', LodCutoff = 'Weapon_LodCutoff'},
             },
+
             BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    BuffType = 'FUELRATIO',
+                    BuffValue = 3.5,
+                    TargetAllow = 'AIR MOBILE',
+                },
+            },
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 110,
-            DamageRadius = 0,
+            Damage = 220,
             DamageType = 'Normal',
 			
             DisplayName = 'Nanite Missile System',
@@ -166,7 +177,7 @@ UnitBlueprint {
                 Water = 'Air',
             },
 			
-            FiringTolerance = 15,
+            FiringTolerance = 12,
 			
             Label = 'AAMissileRack',
 			
@@ -202,7 +213,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 1,
+            RateOfFire = 0.5,
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {

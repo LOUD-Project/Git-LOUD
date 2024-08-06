@@ -160,6 +160,17 @@ UnitBlueprint {
             },
 			
             BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    BuffType    = 'FUELRATIO',
+                    BuffValue   = 1,
+                    Radius      = 2,
+                    TargetAllow = 'AIR MOBILE',
+                },
+            },
+	
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -173,7 +184,7 @@ UnitBlueprint {
                 Water = 'Air',
             },
 			FiringRandomness = 0.05,
-            FiringTolerance = 0.1,
+            FiringTolerance = 0.05,
 			
             Label = 'AutoCannon',
 			LeadTarget = true,
