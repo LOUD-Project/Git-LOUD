@@ -1522,7 +1522,8 @@ function LandScoutingAI( self, aiBrain )
 			if path then
 
 				-- if the distance is great try to get transports
-				if distance > 1024 then
+                -- notice how low air ratio makes this value
+				if distance > 1024 * math.min(1, (1/aiBrain.AirRatio)) then
 
 					usedTransports = SendPlatoonWithTransportsLOUD( self, aiBrain, targetArea, 2, false, path )
 				end

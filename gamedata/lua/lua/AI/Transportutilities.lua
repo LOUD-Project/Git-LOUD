@@ -14,39 +14,40 @@
 
 local import = import
 
-local LOUDCOPY = table.copy
-local LOUDENTITY = EntityCategoryContains
-local LOUDFLOOR = math.floor
-local LOUDGETN = table.getn
-local LOUDINSERT = table.insert
-local LOUDSORT = table.sort
-local ForkTo = ForkThread
-local tostring = tostring
-local type = type
-local VDist2 = VDist2
-local VDist3 = VDist3
-local WaitTicks = coroutine.yield
-
-local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
-local GetFuelRatio = moho.unit_methods.GetFuelRatio
-local GetFractionComplete = moho.entity_methods.GetFractionComplete
-local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
-local GetPosition = moho.entity_methods.GetPosition
-
-local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
-local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
-local GetSquadUnits = moho.platoon_methods.GetSquadUnits
-
-local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
-local IsIdleState = moho.unit_methods.IsIdleState
-local IsUnitState = moho.unit_methods.IsUnitState
-
-local PlatoonExists = moho.aibrain_methods.PlatoonExists
-
 local loudUtils = import('/lua/loudutilities.lua')
 
-local AIRTRANSPORTS = categories.AIR * categories.TRANSPORTFOCUS
-local ENGINEERS = categories.ENGINEER
+local LOUDCOPY      = table.copy
+local LOUDENTITY    = EntityCategoryContains
+local LOUDFLOOR     = math.floor
+local LOUDGETN      = table.getn
+local LOUDINSERT    = table.insert
+local LOUDSORT      = table.sort
+
+local ForkTo        = ForkThread
+local tostring      = tostring
+local type          = type
+local VDist2        = VDist2
+local VDist3        = VDist3
+local WaitTicks     = coroutine.yield
+
+local AssignUnitsToPlatoon  = moho.aibrain_methods.AssignUnitsToPlatoon
+local GetListOfUnits        = moho.aibrain_methods.GetListOfUnits
+local PlatoonExists         = moho.aibrain_methods.PlatoonExists
+
+local GetFractionComplete   = moho.entity_methods.GetFractionComplete
+local GetPosition           = moho.entity_methods.GetPosition
+
+local GetPlatoonPosition    = moho.platoon_methods.GetPlatoonPosition
+local GetPlatoonUnits       = moho.platoon_methods.GetPlatoonUnits
+local GetSquadUnits         = moho.platoon_methods.GetSquadUnits
+
+local GetFuelRatio      = moho.unit_methods.GetFuelRatio
+local IsBeingBuilt      = moho.unit_methods.IsBeingBuilt
+local IsIdleState       = moho.unit_methods.IsIdleState
+local IsUnitState       = moho.unit_methods.IsUnitState
+
+local AIRTRANSPORTS     = categories.AIR * categories.TRANSPORTFOCUS
+local ENGINEERS         = categories.ENGINEER
 
 -- this function will create the TransportPool platoon and put the reference to it in the brain
 function CreateTransportPool( aiBrain )
@@ -631,10 +632,10 @@ function GetTransports( platoon, aiBrain)
 	-- we'll accumulate the slots from transports as we assign them
 	-- this will allow us to save a bunch of effort if we simply dont have enough transport capacity
 
-	local GetFuelRatio = GetFuelRatio
-	local GetPosition = GetPosition
-	local IsBeingBuilt = IsBeingBuilt
-    local IsUnitState = IsUnitState	
+	local GetFuelRatio  = GetFuelRatio
+	local GetPosition   = GetPosition
+	local IsBeingBuilt  = IsBeingBuilt
+    local IsUnitState   = IsUnitState	
 
     -- this flag signifies the end of the assignment phase when we have enough transports to do the job
     -- if we cannot fulfill a request for transports then the brain is marked as needing to build transport
@@ -676,9 +677,9 @@ function GetTransports( platoon, aiBrain)
 						unitPos = GetPosition(transport)
 						range = VDist2( unitPos[1],unitPos[3], location[1], location[3] )
 
-						-- limit to 16 km range -- this insures that transport wont expire before loading takes place
-						-- as loading has a 120 second time limit --
-						if range < 800 + ( 200 * (math.min( 1, aiBrain.AirRatio ))) then
+						-- limit to 12 km range if air ratio is low - 16 km if normal
+                        -- this insures that transport wont expire before loading takes place as loading has a 120 second time limit --
+						if range < 600 + ( 200 * (math.min( 1, aiBrain.AirRatio ))) then
                             
                             -- mark the transport as being assigned 
                             -- to prevent it from being picked up in another transport collection
@@ -710,7 +711,7 @@ function GetTransports( platoon, aiBrain)
 						else
                         
                             if TransportDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." transport "..transport.EntityID.." rejected - out of range at "..range.." maximum range is "..repr(800 + ( 200 * (math.min( 1, aiBrain.AirRatio )))) )
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." transport "..transport.EntityID.." rejected - out of range at "..range.." maximum range is "..repr(600 + ( 200 * (math.min( 1, aiBrain.AirRatio )))) )
                             end
                             
 							out_of_range = true

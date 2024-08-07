@@ -1805,7 +1805,7 @@ Platoon = Class(PlatoonMethods) {
 				-- call for transports for those platoons that need it -- standard or if stuck
 				if (not experimental) and (MovementLayer == 'Land' or MovementLayer == 'Amphibious')  then
 				
-					if ( distance > 300 or StuckCount > 5 ) and PlatoonExists(aiBrain, self) then
+					if ( distance >  (300 * LOUDMAX( 1, (1/aiBrain.AirRatio) )) or StuckCount > 5 ) and PlatoonExists(aiBrain, self) then
 
 						usedTransports = SendPlatoonWithTransportsLOUD( self, aiBrain, transportLocation, 1, false, path )
 
@@ -3040,7 +3040,7 @@ Platoon = Class(PlatoonMethods) {
                     end
                     
                     -- check marker distance/call for transport
-					if PlatoonExists( aiBrain, self ) and distance > 300 then
+					if PlatoonExists( aiBrain, self ) and distance > ( 300 * math.max(1, (1/aiBrain.AirRatio)) ) then
                     
                         if marker then
                         
@@ -4367,7 +4367,7 @@ Platoon = Class(PlatoonMethods) {
                     end
                     
                     -- check marker distance/call for transport
-					if PlatoonExists( aiBrain, self ) and distance > 300 then
+					if PlatoonExists( aiBrain, self ) and distance > ( 300 * math.max( 1, (1/aiBrain.AirRatio) ) ) then
                     
                         if marker then
                         
@@ -8106,7 +8106,7 @@ Platoon = Class(PlatoonMethods) {
 
 					path, reason = self.PlatoonGenerateSafePathToLOUD( aiBrain, self, 'Amphibious', engPos, buildPosition, mythreat, 200 )
 
-					if PlatoonExists(aiBrain,self) and (path and distance < 2000) and not eng.Dead then
+					if PlatoonExists(aiBrain,self) and (path and distance < 1200) and not eng.Dead then
                 
                         if EngineerDialog then
                             LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.EntityID.." forks to MoveEngineer with path "..repr(path) )
