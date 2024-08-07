@@ -5276,10 +5276,12 @@ function ParseIntelThread( aiBrain )
             end
 
             if ReportRatios then
+                LOG("*AI DEBUG ===============================")
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." I have "..aiBrain.NumOpponents.." Opponents")
                 LOG("*AI DEBUG "..aiBrain.Nickname.." My factories Totals -- AIR "..string.format("%.2f", myairtot).." -- LAND "..string.format("%.2f",mylandtot).." -- NAVAL "..string.format("%.2f",mynavaltot) )
                 LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy factory Avg -- AIR "..string.format("%.2f", grandairtot/aiBrain.NumOpponents).." -- LAND "..string.format("%.2f", grandlandtot/aiBrain.NumOpponents).." -- NAVAL "..string.format("%.2f",grandnavaltot/aiBrain.NumOpponents) )
                 LOG("*AI DEBUG "..aiBrain.Nickname.." My Strength Ratios -- AIR "..string.format("%.2f", aiBrain.AirRatio).." -- LAND "..string.format("%.2f", aiBrain.LandRatio).." -- NAVAL "..string.format("%.2f", aiBrain.NavalRatio).."  at tick "..GetGameTick() )
+                LOG("*AI DEBUG ===============================")
             end
 
         end
