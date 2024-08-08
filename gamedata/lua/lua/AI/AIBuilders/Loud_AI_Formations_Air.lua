@@ -176,6 +176,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.6 } },        
+
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRSCOUT }},
 		},
 		
@@ -215,6 +217,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.6 } },
+
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, AIRSCOUT }},
 		},
 		
@@ -249,6 +253,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.6 } },
+
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, AIRSCOUT }},
 		},
 		
@@ -282,6 +288,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.6 } },
+
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 8, AIRSCOUT }},
 		},
 		
@@ -853,17 +861,18 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		PlatoonAIPlan = 'AttackForceAI',		
 		
         Priority = 700,
-        InstanceCount = 2,
+        InstanceCount = 1,
 		
         BuilderConditions = {
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.7 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRFIGHTER }},
         },
 		
         BuilderData = {
-			DistressRange = 120,
-            DistressReactionTime = 3,            
-			DistressTypes = 'Air',
-			DistressThreshold = 3,
+			DistressRange           = 150,
+            DistressReactionTime    = 3,            
+			DistressTypes           = 'Air',
+			DistressThreshold       = 3,
 			
 			LocationType = 'LocationType',
 			
@@ -871,7 +880,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MissionTime = 80,
 			
-            PrioritizedCategories = { categories.AIR - categories.INTELLIGENCE - categories.TRANSPORTFOCUS, categories.AIR * categories.INTELLIGENCE, categories.TRANSPORTFOCUS },
+            PrioritizedCategories = { categories.AIR - categories.INTELLIGENCE - categories.TRANSPORTFOCUS, categories.TRANSPORTFOCUS, categories.AIR * categories.INTELLIGENCE },
 			
 			SearchRadius = 60,	
 			
@@ -897,7 +906,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         InstanceCount = 1,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2.5 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRFIGHTER }},
             
@@ -938,7 +947,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         InstanceCount = 1,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2.5 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRFIGHTER }},
             

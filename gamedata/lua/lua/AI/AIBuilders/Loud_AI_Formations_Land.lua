@@ -310,6 +310,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
+
+			{ LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
             
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 150, 'Land', 125 }},            
 
@@ -560,8 +562,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 
 			{ LUTL, 'NeedTeamMassPointShare', {}},
 
-			-- enemy mass points within 20km
-			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.ECONOMIC, 1000 }},
+			-- enemy mass points within 16km
+			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.ECONOMIC, 800 }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
         },
@@ -576,7 +578,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			PointCategory = categories.ECONOMIC,
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
-			PointRadius = 1000,
+			PointRadius = 800,
 			PointSort = 'Closest',
 			PointMin = 100,
 			PointMax = 1000,
@@ -636,7 +638,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			{ LUTL, 'NeedTeamMassPointShare', {}},
 
 			-- enemy mass points within 12km
-			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSPRODUCTION, 600 }},
+			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSPRODUCTION, 650 }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
         },
@@ -1695,11 +1697,11 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
             PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},		-- target selection when at point --
 			
 			GuardRadius = 65,				-- range at which platoon will engage targets
-			GuardTimer = 240,				-- period that platoon will guard the point unless triggers are met
+			GuardTimer = 210,				-- period that platoon will guard the point unless triggers are met
 			
 			MissionTime = 960,				-- platoon will operate 16 minutes then RTB
 			
-			MergeLimit = 10,				-- level to which merging is allowed
+			MergeLimit = 12,				-- level to which merging is allowed
 			
 			AggressiveMove = true,
 			
@@ -1779,9 +1781,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			AssistRange = 3,
 			
 			GuardRadius = 72,				-- range at which platoon will engage targets
-			GuardTimer = 180,				-- platoon will guard 3 minutes
+			GuardTimer = 150,				-- platoon will guard 2.5 minutes
 			
-			MissionTime = 1200,				-- platoon will operate 20 minutes
+			MissionTime = 1080,				-- platoon will operate 18 minutes
 			
 			MergeLimit = 6,				-- unit count at which merging is denied
             MergePlanMatch = true,      -- only merge with other MEX Guard platoons
@@ -2347,7 +2349,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			PointFaction = 'Enemy',
 			PointRadius = 1000,
 			PointSort = 'Closest',
-			PointMin = 60,
+			PointMin = 25,
 			PointMax = 1000,
 			
 			StrCategory = categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE,
@@ -2364,10 +2366,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			UntMin = 0,
 			UntMax = 8,
 			
-            PrioritizedCategories = { 'MASSPRODUCTION','HYDROCARBON','ECONOMIC','ENGINEER'},
+            PrioritizedCategories = { 'MASSPRODUCTION','HYDROCARBON','ECONOMIC','ENGINEER -COMMAND'},
 			
-			GuardRadius = 72,
-			GuardTimer = 25,
+			GuardRadius = 30,
+			GuardTimer = 5,
 			
 			MergeLimit = 25,
             MergePlanMatch = false,     -- will take units from other Guardpoint behavior formations
