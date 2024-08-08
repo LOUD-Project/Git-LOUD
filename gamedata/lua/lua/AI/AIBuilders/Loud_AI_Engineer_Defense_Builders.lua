@@ -5269,6 +5269,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         Priority = 750,
 
         BuilderConditions = {
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 150, 'Land', 125 }},            
         
 			{ EBC, 'LessThanEnergyTrend', { 45 }},        
 			{ EBC, 'LessThanEnergyTrendOverTime', { 40 }},
@@ -5716,7 +5717,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
         

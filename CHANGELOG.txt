@@ -1,3 +1,54 @@
+### Release 08-08-2024
+
+LUA 7.09
+LOUD_MISC 7.04
+LOUD_UNITS 7.03
+BrewLAN for LOUD 0.8.8.9.106
+Black Ops for LOUD 7.03
+Textures 7.01
+Wyvern for LOUD 7.02
+UNITS 7.05
+
+
+- UI SCALING ! (thanks to Niriak for his hard work in bringing this feature to LOUD)
+    -- the scaling appears in the Interface tab of the Options panel
+    -- changing the scaling requires a restart of the application
+    -- brings the veteran status to the UI panel
+- AUTOSAVE ! (also from Niriak)
+    -- autosaving for single player games, options also appear in the Interface tab
+    -- will rotate thru 3 preset file names
+- Pre-built units now adapts to the Outnumbered ratio, providing extra MEX and T1 Pgen
+    -- at ratios of 2 or greater - additional T1 engineers are given, based on the ratio
+- fix to lobby UI so that map change refreshes properly
+    -- outstanding issue with lobby options not showing and updating for clients (host is fine)
+- realigned all shield structures and mobile shields on the unit spreadsheet
+- some changes to shields in general regarding unit cap
+    -- T2 level shields are 2 unit cap
+    -- T3 level shields are 3 unit cap
+    -- upgrade to T3+ shields reduce back to 2 unit cap
+    -- all higher level shields, and projectors have increased unit cap cost depending on complexity
+- re-sequenced the pre-game procedures and altered logging to better show the impact of cheats/outnumbered
+- implement T1 airpads for LOUD
+- fixed weapon state behavior for ammo-based weapons getting 'stuck'
+- some fine tuning for DistressResponseAI
+- improvement to 'loiter' positioning and general process for air units
+- renaming of 'Wyvern' to 'Littleman' (re: Balthazar)
+- reworked Wraith (BAL0310) to eliminate mis-aim of primary weapon, caused by secondaries
+- fixed a class issue affecting Seraphim engineers
+- AI Factory Builder Manager improved display and logging, slightly increased the delay between resource checks
+- a minor reduction in the base mass consumption of T1 factories when deciding upon a new factory
+- fix to amphbious pathfinding
+- some refactoring and optimization to UI modules
+- added new weapon buff 'FUELRATIO', causes loss of fuel to target
+- all T4 AA receive new FUELRATIO weapon buff @20%, advanced Tracking and ProjectileLifetime 3 >> 3.6
+- all T3 structural SAM/Flak receive new FUELRATIO weapon buff @ approx. 8% per salvo (not per missile)
+- all T2 structural Flak receive new FUELRATIO weapon buff @ approx 3% per salvo
+- added AOE range and abilities to unit spreadsheet
+- new enhancements for T3 SAM and T2/T3 Flak Structures
+- numerous AI changes to production, defensive tasks, factory building, unit formations
+- BrewLAN Cybran T3 beam gunship now has energy cost to fire
+
+
 ### Release 28-07-2024
 
 LUA 7.08
