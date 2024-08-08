@@ -117,12 +117,15 @@ BuilderManager = Class {
     
     GetBuilderPriority = function(self, builderName)
 
-        for _,bType in self.BuilderData do
+        if self.BuilderData then
+        
+            for _,bType in self.BuilderData do
 
-            for _,builder in bType.Builders do
+                for _,builder in bType.Builders do
 
-                if builder.BuilderName == builderName then
-                    return builder.Priority
+                    if builder.BuilderName == builderName then
+                        return builder.Priority
+                    end
                 end
             end
         end
@@ -131,25 +134,28 @@ BuilderManager = Class {
     end,
     
     SetBuilderPriority = function( manager, builderName, priority, temporary )
-	
-        for k1,bType in manager.BuilderData do
+
+        if manager.BuilderData then
+
+            for k1,bType in manager.BuilderData do
 		
-            for k2,builder in bType.Builders do
+                for k2,builder in bType.Builders do
 			
-                if builder.BuilderName == builderName then
+                    if builder.BuilderName == builderName then
 
-					if builder.Priority != priority then
+                        if builder.Priority != priority then
 					
-						builder:SetPriority(priority, temporary)
+                            builder:SetPriority(priority, temporary)
 
-						if priority == 0 and not temporary then
-							LOUDREMOVE( manager.BuilderData[k1].Builders, k2 )
-						end
+                            if priority == 0 and not temporary then
+                                LOUDREMOVE( manager.BuilderData[k1].Builders, k2 )
+                            end
 					
-						manager.BuilderData[k1].NeedSort = true
-					end
+                            manager.BuilderData[k1].NeedSort = true
+                        end
 					
-					return builder
+                        return builder
+                    end
                 end
             end
         end

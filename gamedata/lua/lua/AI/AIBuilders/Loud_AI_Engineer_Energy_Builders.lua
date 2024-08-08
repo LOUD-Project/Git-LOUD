@@ -493,7 +493,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction',
         
         PlatoonAIPlan = 'EngineerBuildMassAdjacencyAI',
 		
-        Priority = 750,
+        Priority = 762,
 		
 		PriorityFunction = First45Minutes,
 

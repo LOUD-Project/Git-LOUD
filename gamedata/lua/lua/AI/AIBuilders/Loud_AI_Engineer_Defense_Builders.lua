@@ -242,12 +242,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 					return 0, false
 				end
                 
-                -- ignore this for first 8 minutes
-                if aiBrain.CycleTime < 480 then
+                -- ignore this for first 7 minutes
+                if aiBrain.CycleTime < 420 then
                     return 10, true
                 end
         
-                if aiBrain.AirRatio >= 4 or not GreaterThanEnergyIncome( aiBrain, 550 ) then
+                if aiBrain.AirRatio >= 2.5 or not GreaterThanEnergyIncome( aiBrain, 400 ) then
                     return 10, true
                 end
 
@@ -307,7 +307,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
-            if aiBrain.LandRatio >= 2.5 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .65 then
+            if aiBrain.LandRatio >= 2 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .65 then
             
                 return 10, true
                
@@ -378,7 +378,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
-            if aiBrain.AirRatio >= 4.5 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .65 then
+            if aiBrain.AirRatio >= 3 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .65 then
             
                 return 10, true
                
@@ -549,7 +549,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
-            if aiBrain.AirRatio >= 3.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 then
+            if aiBrain.AirRatio >= 2.5 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .80 then
             
                 return 10, true
                
@@ -561,7 +561,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
                 
             end
 
-            if aiBrain.AirRatio <= 1.0  then
+            if aiBrain.AirRatio <= 1.2  then
 	
                 return (builder.OldPriority or builder.Priority) + 100, true	
 
@@ -1124,7 +1124,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
-            if aiBrain.AirRatio >= 3.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .95 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if aiBrain.AirRatio >= 2.5 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .95 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
             
                 return 10, true
                
@@ -1136,7 +1136,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
                 
             end
 
-            if aiBrain.LandRatio <= 1.0  then
+            if aiBrain.AirRatio <= 1.2  then
 	
                 return (builder.OldPriority or builder.Priority) + 100, true	
 
@@ -1160,7 +1160,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 100, 1.012, 1.02 }},			
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},			
         },
 		
         BuilderType = {'SubCommander'},
@@ -2131,7 +2131,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		
 		InstanceCount = 1,
 		
-        Priority = 795,
+        Priority = 745,
 	
 		PriorityFunction = function(self, aiBrain)
 			
@@ -2150,7 +2150,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 					return 0, false
 				end
                 
-                if aiBrain.LandRatio < 1.5 and aiBrain.CycleTime > 300 then
+                if aiBrain.LandRatio < 1 and aiBrain.CycleTime > 300 then
                     return (self.OldPriority or self.Priority) + 100, true
                 end
 				
@@ -2277,8 +2277,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 				return 0, false
 			end
 			
-			-- turn on after 8 minutes
-			if aiBrain.CycleTime > 480 then
+			-- turn on after 6 minutes
+			if aiBrain.CycleTime > 360 then
 				return 800, false
 			end
 
@@ -2287,7 +2287,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		end,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 4.5 }},
+            { LUTL, 'AirStrengthRatioLessThan', { 1.5 }},
 
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},            
 
@@ -3393,7 +3393,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
-            if aiBrain.AirRatio >= 3 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
+            if aiBrain.AirRatio >= 2.5 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .75 then
             
                 return 10, true
                
@@ -3405,7 +3405,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
                 
             end
 
-            if aiBrain.AirRatio <= 1.0 and aiBrain.CycleTime > 360 then
+            if aiBrain.AirRatio <= 1.2 and aiBrain.CycleTime > 360 then
 	
                 return (builder.OldPriority or builder.Priority) + 100, true	
 
@@ -3415,7 +3415,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }}, 
         },
@@ -3578,7 +3578,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
                 
             end
 
-            if aiBrain.AirRatio <= 1.0  then
+            if aiBrain.AirRatio <= 1.2  then
 	
                 return (builder.OldPriority or builder.Priority) + 100, true	
 
@@ -3588,7 +3588,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         end,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.85, 20, 1.012, 1.02 }},
         },
@@ -3922,7 +3922,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
-            if aiBrain.AirRatio >= 3.0 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .90 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
+            if aiBrain.AirRatio >= 2.5 or GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) > .90 or not GreaterThanEnergyIncome( aiBrain, 21000 ) then
             
                 return 10, true
                
@@ -3934,7 +3934,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
                 
             end
 
-            if aiBrain.LandRatio <= 1.0  then
+            if aiBrain.AirRatio <= 1.2  then
 	
                 return (builder.OldPriority or builder.Priority) + 100, true	
 
@@ -4993,7 +4993,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
             
-            { LUTL, 'AirStrengthRatioLessThan', { 3 }},
+            { LUTL, 'AirStrengthRatioLessThan', { 2 }},
             
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, FACTORY }},
             
@@ -5038,7 +5038,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-            { LUTL, 'NavalStrengthRatioLessThan', { 3 } },
+            { LUTL, 'NavalStrengthRatioLessThan', { 2 } },
             
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, FACTORY - categories.TECH1 }},
 
@@ -5087,7 +5087,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-            { LUTL, 'AirStrengthRatioLessThan', { 3 }},
+            { LUTL, 'AirStrengthRatioLessThan', { 2 }},
             
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, FACTORY - categories.TECH1 }},
 
@@ -5266,13 +5266,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 752,
+        Priority = 750,
 
         BuilderConditions = {
         
 			{ EBC, 'LessThanEnergyTrend', { 45 }},        
 			{ EBC, 'LessThanEnergyTrendOverTime', { 40 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGY }},
         },
@@ -5392,12 +5394,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         
         Priority = 751,
         
-        PriorityFunction = AboveUnitCap75,
+        PriorityFunction = IsEnemyCrushingAir,
 		
         BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
             { LUTL, 'AirStrengthRatioLessThan', { 3 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
@@ -5591,6 +5595,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+        
+        PriorityFunction = IsEnemyCrushingAir,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
@@ -5599,7 +5605,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1, 1.025 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, AA * categories.TECH3 }},
         },
@@ -5705,7 +5711,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
+        Priority = 751,
 
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
@@ -6059,7 +6065,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
+        Priority = 751,
         
         PriorityFunction = AboveUnitCap75,
 		

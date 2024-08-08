@@ -63,6 +63,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
             
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
+              
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE + categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER, 125 }},
         },
 		
@@ -260,7 +262,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         Priority = 740,
 		
-		InstanceCount = 3,
+		InstanceCount = 4,
 		
         BuilderConditions = {
             { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.MASSPRODUCTION - categories.TECH1, categories.ENGINEER + categories.MASSPRODUCTION, 120 }},
@@ -387,11 +389,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
 		PlatoonAIPlan = 'EngineerAssistAI',
 		
-        Priority = 745,
+        Priority = 740,
 		
 		InstanceCount = 4,
 		
-		BuilderType = { 'T1','T2','T3','SubCommander' },
+		BuilderType = { 'T2','T3','SubCommander' },
 		
         BuilderConditions = {
             
@@ -423,15 +425,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         Priority = 740,
 		
-		InstanceCount = 8,
+		InstanceCount = 6,
 		
-		BuilderType = { 'T3','SubCommander' },
+		BuilderType = { 'T2','T3','SubCommander' },
 		
         BuilderConditions = {
         
-            { LUTL, 'AirStrengthRatioLessThan', { 3 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 1.5 } },
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
             
@@ -460,14 +462,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         Priority = 740,
 		
-		InstanceCount = 8,
+		InstanceCount = 6,
 		
-		BuilderType = { 'T3','SubCommander' },
+		BuilderType = { 'T2','T3','SubCommander' },
 		
         BuilderConditions = {
-            { LUTL, 'LandStrengthRatioLessThan', { 3 } },
+            { LUTL, 'LandStrengthRatioLessThan', { 2 } },
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
             
@@ -496,7 +498,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         Priority = 740,
 		
-		InstanceCount = 8,
+		InstanceCount = 6,
 		
 		BuilderType = { 'T3','SubCommander' },
 		
@@ -520,7 +522,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
             },
         },
     },
-        
+
     -- when there is nothing else to do assist factories
     Builder {BuilderName = 'Assist Factory',
 	
@@ -530,7 +532,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
 		PlatoonAIPlan = 'EngineerAssistAI',
 		
-        Priority = 745,
+        Priority = 720,
 		
 		InstanceCount = 5,
 		
@@ -550,7 +552,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 				AssisteeType = 'Factory',
 				AssisteeCategory = categories.FACTORY,
 				BeingBuiltCategories = {categories.FACTORY + categories.MOBILE},
-                Time = 90,
+                Time = 60,
             },
         },
     },
@@ -564,7 +566,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
 		PlatoonAIPlan = 'EngineerAssistAI',
 		
-		InstanceCount = 6,
+		InstanceCount = 5,
 		
         Priority = 720,
 		
@@ -601,7 +603,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         Priority = 650,
 		
-        InstanceCount = 8,
+        InstanceCount = 7,
 		
 		BuilderType = { 'T2','T3' },
 
