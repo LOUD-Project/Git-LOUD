@@ -5812,10 +5812,6 @@ Platoon = Class(PlatoonMethods) {
         local DistressResponseDialog = ScenarioInfo.DistressResponseDialog or false
 
 		local oldPlan = self.PlanName -- we do this here to maintain the original plan, some platoons change the plan name
-        
-        if self.MovementLayer == 'Air' then
-            oldPlan = 'ReturnToBaseAI'
-        end
 
         local CalculatePlatoonThreat    = CalculatePlatoonThreat
         local GetPlatoonPosition        = GetPlatoonPosition
@@ -5843,6 +5839,9 @@ Platoon = Class(PlatoonMethods) {
         local PlatoonFormation  = self.PlatoonData.UseFormation or 'None'
         local reactionTime      = self.PlatoonData.DistressReactionTime or 12   
         local threatThreshold   = self.PlatoonData.DistressThreshold or 10
+
+        local MissionStartTime  = LOUDFLOOR(LOUDTIME())     
+        local missiontime       = self.PlatoonData.MissionTime or 600
         
         local categoryList = {}
 		
@@ -5864,7 +5863,7 @@ Platoon = Class(PlatoonMethods) {
             LOUDINSERT( categoryList, ALLUNITS )
 		end
 
-		local direction, distance, distressLocation, distressType, distressplatoon, inwater, moveLocation, myThreatatPos, platoonPos, prevpos, startPos
+		local direction, distance, distressLocation, distressType, distressplatoon, inwater, moveLocation, myThreatatPos, platoonPos, previousdistress, prevpos, startPos
         local threatatPos, target, targetingrange, units, unit
         
         local MovementLayer = self.MovementLayer
@@ -6155,6 +6154,10 @@ Platoon = Class(PlatoonMethods) {
 
                 if distressLocation then
                     
+                    --- store this distressLocation so that we can ignore it
+                    --- if it comes up after we've cleared the area
+                    previousdistress = LOUDCOPY(distressLocation)                    
+
                     if not unit or unit.Dead then
 					
                         -- find a unit in the platoon --
@@ -6363,7 +6366,8 @@ Platoon = Class(PlatoonMethods) {
                                                     if DistressResponseDialog then
                                                         LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." no target within "..targetingrange.." of distress position "..repr(moveLocation) )
                                                     end
-
+                                                    
+                                                    target = false
                                                     moveLocation = false
                                                     distressLocation = false
 
@@ -6390,7 +6394,7 @@ Platoon = Class(PlatoonMethods) {
                             end    
 
 							if PlatoonExists(aiBrain, self) and self.DistressResponseAIRunning then
-
+                            
                                 WaitTicks(6)
 							
 								platoonPos = GetPlatoonPosition(self) or false
@@ -6400,8 +6404,13 @@ Platoon = Class(PlatoonMethods) {
                                 distressPlatoon     = false
 
                                 --- see if there is another distress 
-                                if PlatoonExists(aiBrain, self) and platoonPos then
+                                if platoonPos then
+                                
 									distressLocation, distressType, distressplatoon = PlatoonMonitorDistressLocations( self, aiBrain, startPos, distressRange, distressTypes, threatThreshold)
+                                    
+                                    if distressLocation and LOUDEQUAL(distressLocation, previousdistress) then
+                                        distressLocation = false
+                                    end
 								end
 							end
 						end
@@ -6423,6 +6432,24 @@ Platoon = Class(PlatoonMethods) {
 							else
                             
 								self:Stop()
+                                
+                                if self.PlatoonData.MissionTime then
+
+                                    self.PlatoonData.MissionTime = LOUDMAX( 0, self.PlatoonData.MissionTime - (LOUDTIME() - MissionStartTime) )
+
+                                    if DistressResponseDialog then
+                                        LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." -- Mission Time set to "..self.PlatoonData.MissionTime )
+                                    end
+                                    
+                                    if self.PlatoonData.MissionTime <= 10 then
+                                        oldPlan = 'ReturnToBaseAI'
+                                    end
+                                end
+			
+                                if DistressResponseDialog then
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." -- plan is "..repr(oldPlan) )
+                                end
+
 								self:SetAIPlan(oldPlan, aiBrain)
 							end
 						end
