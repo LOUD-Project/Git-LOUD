@@ -225,34 +225,7 @@ UnitBlueprint {
     
     Weapon = { --  Firing cycles based on the golden ratio to keep them out of sync as much as possible
         {
-
-            AutoInitiateAttackCommand = true,
-            
-            Label = 'MainLaser',
-            DisplayName = 'Particle Cannon',
-            WeaponCategory = 'Direct Fire',
-            
-            BeamCollisionDelay = 0,
-            BeamLifetime = 0.3,
-            ContinuousBeam = true,
-            
-            Damage = 75,            
-            DamageType = 'Normal',
-
-            MaxRadius = 40,
-            
-            RateOfFire = 1,     -- 225 DPS Surface/Air(Gunship)
-
-            FiringRandomness = 0,
-            FiringTolerance = 5,
-            
             AboveWaterTargetsOnly = true,            
-            FireTargetLayerCapsTable = { Air = 'Air|Land|Water|Seabed', Land = 'Land|Water|Seabed'},   
-            
-            TargetCheckInterval = 0.3,
-            
-            TargetPriorities = { 'SPECIALHIGHPRI','ANTIAIR','STRUCTURE DEFENSE','MOBILE','SPECIALLOWPRI','ALLUNITS -WALL'},            
-            TargetRestrictDisallow = 'UNTARGETABLE, HIGHALTAIR, SATELLITE',            
 
             Audio = {
                  BeamLoop = Sound {Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop',   LodCutoff = 'Weapon_LodCutoff'},
@@ -261,21 +234,56 @@ UnitBlueprint {
                    Unpack = Sound {Bank = 'URLWeapon', Cue = 'URL0402_Beam_Charge', LodCutoff = 'Weapon_LodCutoff'},
             },
 
+            AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
             
-            RangeCategory = 'UWRC_DirectFire',
-
-            NotExclusive = true,
+            BeamCollisionDelay = 0,
+            BeamLifetime = 0.3,
 
             CollideFriendly = false,
             DamageFriendly = false,
 
-            RackSalvoSize = 1,
+            ContinuousBeam = true,
+            
+            Damage = 75,            
+            DamageType = 'Normal',
 
-            ReTargetOnMiss = true,
-            TrackingRadius = 1.15,
+            DisplayName = 'Particle Cannon',
+			
+            EnergyDrainPerSecond = 275,
+            EnergyRequired = 275,
+			
+            FiringRandomness = 0,
+            FiringTolerance = 5,
+
+            FireTargetLayerCapsTable = { Air = 'Air|Land|Water|Seabed', Land = 'Land|Water|Seabed'},   
+
+            HeadingArcCenter = 0,
+            HeadingArcRange = 30,
+
+            Label = 'MainLaser',
+
+            MaxRadius = 40,
+
+            NotExclusive = true,
 
             RackBones = { { MuzzleBones = {'Front'}, RackBone = 'Front' } },
+
+            RackSalvoSize = 1,
+            
+            RangeCategory = 'UWRC_DirectFire',
+            
+            RateOfFire = 1,     -- 225 DPS Surface/Air(Gunship)
+
+            ReTargetOnMiss = true,
+            
+            TargetCheckInterval = 0.3,
+            
+            TargetPriorities = { 'SPECIALHIGHPRI','ANTIAIR','STRUCTURE DEFENSE','MOBILE','SPECIALLOWPRI','ALLUNITS -WALL'},            
+            TargetRestrictDisallow = 'UNTARGETABLE, HIGHALTAIR, SATELLITE',            
+
+            TrackingRadius = 1.1,
             
             TurretBoneMuzzle = 'Front',
             TurretBonePitch = 'Front',
@@ -285,9 +293,6 @@ UnitBlueprint {
             TurretYaw = 0,     TurretYawRange = 20,   TurretYawSpeed = 60,
             
             Turreted = true,
-
-            HeadingArcCenter = 0,
-            HeadingArcRange = 30,
         },
 
         {
