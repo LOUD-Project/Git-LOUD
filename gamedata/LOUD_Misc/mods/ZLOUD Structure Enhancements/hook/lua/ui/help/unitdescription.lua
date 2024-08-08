@@ -1,22 +1,34 @@
 -- Unit Upgrades Descriptions --
+Description['uab2204-Armor']    = "Installs 15% additional armor - at 30% of the original mass cost.  Adds +1 regen."
+Description['ueb2204-Armor']    = "Installs 15% additional armor - at 30% of the original mass cost.  Adds +1 regen."
+Description['urb2204-Armor']    = "Installs 15% additional armor - at 30% of the original mass cost.  Adds +1 regen."
+Description['xsb2204-Armor']    = "Installs 15% additional armor - at 30% of the original mass cost.  Adds +1 regen."
+
 Description['uab2304-Radar_T2'] = "Installs a typical T2 radar on this structure."
 Description['uab2304-Regen']    = "Installs a regenerative repair boost, increasing regen by 4x."
 Description['uab2304-Armor']    = "Installs 15% additional armor - at 30% of the original mass cost.  Adds +1 regen."
+
 Description['uab3304-Regen']    = "Installs a regenerative repair boost, increasing regen by 4x."
 Description['uab3304-Armor']    = "Installs 15% additional armor - at 30% of the original mass cost.  Adds +1 regen."
+
 Description['ueb2304-Radar_T2'] = "Installs a typical T2 radar on this structure."
 Description['ueb2304-Regen']    = "Installs a regenerative repair boost, increasing regen by 4x."
 Description['ueb2304-Armor']    = "Installs 15% additional armor - at 30% of the original mass cost.  Adds +1 regen."
+
 Description['ueb3304-Regen']    = "Installs a regenerative repair boost, increasing regen by 4x."
 Description['ueb3304-Armor']    = "Installs 15% additional armor - at 30% of the original mass cost.  Adds +1 regen."
+
 Description['urb2304-Radar_T2'] = "Installs a typical T2 radar on this structure."
 Description['urb2304-Regen']    = "Installs a regenerative repair boost, increasing regen by 4x."
 Description['urb2304-Armor']    = "Installs 15% additional armor - at 30% of the original mass cost.  Adds +1 regen."
+
 Description['urb3304-Regen']    = "Installs a regenerative repair boost, increasing regen by 4x."
 Description['urb3304-Armor']    = "Installs 15% additional armor - at 30% of the original mass cost.  Adds +1 regen."
+
 Description['xsb2304-Radar_T2'] = "Installs a typical T2 radar on this structure."
 Description['xsb2304-Regen']    = "Installs a regenerative repair boost, increasing regen by 4x."
 Description['xsb2304-Armor']    = "Installs 15% additional armor - at 30% of the original mass cost.  Adds +1 regen."
+
 Description['xsb3304-Regen']    = "Installs a regenerative repair boost, increasing regen by 4x."
 Description['xsb3304-Armor']    = "Installs 15% additional armor - at 30% of the original mass cost.  Adds +1 regen."
 

@@ -1,0 +1,35 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "uab2204",
+	
+	Economy = {
+		BuildRate = 8,
+	},
+
+	Enhancements = {
+	
+		Sequence = {'InstallArmorPackage1'},
+		
+        Slots = {
+            RCH = {},		
+        },
+		
+		InstallArmorPackage1 = {
+		
+            BuildCostEnergy = 1600,
+            BuildCostMass = 160,
+            BuildTime = 240,
+			
+            Icon = 'Armor',
+			
+            Name = 'Armor Package 1',
+			
+            Slot = 'RCH',
+			
+            UpgradeEffectBones = {'UAB2204'},
+			UpgradeUnitAmbientBones = {'UAB2204'},
+        },
+
+    },
+
+}
