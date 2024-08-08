@@ -371,6 +371,51 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
     -- adjust allowed threat by size of IMAP blocks
     local threatmax = threatmax * ThreatMaxIMAPAdjustment
 
+    local TESTUNITS = categories.ALLUNITS - categories.FACTORY - categories.ECONOMIC - categories.SHIELD - categories.WALL
+
+	local function GetRealThreatAtPosition( position, threattype )
+
+		local sfake = GetThreatAtPosition( aiBrain, position, ThreatRingIMAPSize, true, threattype )
+
+        local threat = 0
+
+		local eunits = GetUnitsAroundPoint( aiBrain, TESTUNITS, position, ScenarioInfo.IMAPSize,  'Enemy')
+
+		if eunits then
+			
+			for _,u in eunits do
+				
+				if not u.Dead then
+
+                    Defense = __blueprints[u.BlueprintID].Defense
+
+                    if threattype == 'AntiAir' then
+                        threat = threat + Defense.AirThreatLevel
+                    elseif threattype == 'AntiSurface' then
+                        threat = threat + Defense.SurfaceThreatLevel
+                    elseif threattype == 'Sub' then
+                        threat = threat + Defense.SubThreatLevel
+                    end
+				end
+			end
+        end
+        
+        threat = threat * ThreatMaxIMAPAdjustment
+
+        --- if there is IMAP threat and it's greater than what we actually see
+		if sfake > threat then
+        
+            if sfake > threat * 2 then
+                threat = threat
+            else
+                threat = (threat + sfake) * .5
+            end
+
+		end
+
+        return threat
+	end
+
 	-- Checks radius around base to see if marker is sufficiently far away
 	-- this function is used to filter out positions that
 	-- might be within an Allied partners base (or his own)
@@ -407,19 +452,6 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 		-- position is ok (not within radius of an Allied base)
         return true
     end	
-
-	--- Assemble the basic list of points either for Units or Markers and then for Self or not Self within that
-	-- filter for distance now and filter for Allied bases if AvoidBases is true
-
-	-- I factor the platoons distance to the points as part of the distance sorting
-	-- this insures that when seeking points when it's out in the field, it will
-	-- select points closest or furthest from itself depending upon the Pointsort value
-	
-	local pointlist = {}
-	local positions = {}
-	local counter = 1
-
-	local pos, distance, platdistance
     
     local function PositionInPlayableArea(intelpoint)
     
@@ -438,6 +470,19 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
         
         return true
     end
+
+	--- Assemble the basic list of points either for Units or Markers and then for Self or not Self within that
+	-- filter for distance now and filter for Allied bases if AvoidBases is true
+
+	-- I factor the platoons distance to the points as part of the distance sorting
+	-- this insures that when seeking points when it's out in the field, it will
+	-- select points closest or furthest from itself depending upon the Pointsort value
+	
+	local pointlist = {}
+	local positions = {}
+	local counter = 1
+
+	local pos, distance, platdistance
 	
 	-- find positions -- 
 	if PointType == 'Unit' then
@@ -546,10 +591,10 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
         local GetSurfaceHeight = GetSurfaceHeight
 
 		--- Filter points for duplications, underwater and general threatlevels
-		-- The duplicate check removes the flaw that has items that are upgrading appear twice in the list
+		--- The duplicate check removes the flaw that has items that are upgrading appear twice in the list
 		for k,v in positions do
        
-			-- filter out targets in the water
+			--- filter out targets in the water
 			if allowinwater == "false" then
 			
 				if (GetTerrainHeight(v[1], v[3])) <= (GetSurfaceHeight(v[1], v[3]) - 1) then
@@ -560,7 +605,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 				end
 			end
 			
-			-- only allow targets that are in the water
+			--- only allow targets that are in the water
 			if allowinwater == "Only" then
 				if (GetTerrainHeight( v[1], v[3] )) > (GetSurfaceHeight( v[1], v[3] ) - 1) then
 
@@ -571,12 +616,14 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 				end
 			end
        
-			-- threat checks can be bypassed entirely with these values
+			--- threat checks can be bypassed entirely with these values
 			if threatmin != -999999 and threatmax != 999999 then
 			
-				local threatatpoint = GetThreatAtPosition( aiBrain, {v[1],v[2],v[3]}, ThreatRingIMAPSize, true, threattype )
+				local threatatpoint = GetRealThreatAtPosition( {v[1],v[2],v[3]}, threattype )
 	
 				if (threatatpoint < threatmin or threatatpoint > threatmax) then
+
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." FindPoint removes position "..repr({v[1],v[3]}).." for "..threattype.." threat "..threatatpoint.." - min is "..threatmin.." - max is "..threatmax )
 
                     -- remove this position from list
 					positions[k]=nil
@@ -591,11 +638,12 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
                 end
 			end
 
-			-- structure count check --
-	
+			--- structure count check --
 			if StrCategory then
 			
 				if self:GuardPointStructureCheck(  aiBrain, v, StrCategory, StrRadius, PointFaction, StrMin, StrMax) then
+                
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." FindPoint removes position "..repr({v[1],v[3]}).." for structure count at "..repr(StrRadius).." - max is "..StrMax )
   
 					positions[k] = nil
 					counter = counter - 1
@@ -603,7 +651,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 				end
 			end
 			
-			-- unit count check --
+			--- unit count check --
 			if UntCategory then
 			
 				if self:GuardPointUnitCheck( aiBrain, v, UntCategory, UntRadius, PointFaction, UntMin, UntMax) then
@@ -614,7 +662,8 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 					counter = counter - 1
 					continue
 				end
-			end	
+			end
+            
 		end
 
     else
