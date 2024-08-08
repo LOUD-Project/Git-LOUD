@@ -2676,6 +2676,7 @@ function AirForceAILOUD( self, aiBrain )
 	self.PlanName = 'AirForceAILOUD'
 
     local AIFindTargetInRangeInCategoryWithThreatFromPosition   = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
+    local GetEnemyUnitsInRect                                   = import('/lua/loudutilities.lua').GetEnemyUnitsInRect
     local MergeWithNearbyPlatoons                               = self.MergeWithNearbyPlatoons
     local MovePlatoon                                           = self.MovePlatoon
     local PlatoonGenerateSafePathToLOUD                         = self.PlatoonGenerateSafePathToLOUD
@@ -2700,13 +2701,14 @@ function AirForceAILOUD( self, aiBrain )
     local target            = false
     local targetdistance    = false
 	local targetposition    = false
-    local threatavoid       = 'AntiAir'   -- once engaged with targets use this for threat checks  
+    local threatavoid       = 'AntiAir'     --- once engaged with targets use this for threat checks  
     local threatcheckradius = 90  
-    local threatcompare     = 'Air'     -- used when looking for targets to go after
+    local threatcompare     = 'Air'         --- used when looking for targets to go after
+    local threatrangeadjust = ScenarioInfo.IMAPRadius
     local threatringrange   = LOUDFLOOR(IMAPblocks/2)
     
-    local mult          = { 1, 2, 3 }		-- this multiplies the range of the platoon when searching for targets
-	local difficulty    = { 1.25, 1, 0.8 }	-- this divides the base threat of the platoon, by deflating it and then increasing it, so that weaker targets are selected first
+    local mult          = { 1, 2, 3 }		--- this multiplies the range of the platoon when searching for targets
+	local difficulty    = { 1.25, 1, 0.8 }	--- this divides the base threat of the platoon, by deflating it and then increasing it, so that weaker targets are selected first
 
     local minrange, mythreat, platPos, Rangemult, searchrange, usethreat, Threatmult
     local AACount, SecondaryAATargets, SecondaryShieldTargets, ShieldCount, TertiaryCount, TertiaryTargets
@@ -2714,10 +2716,8 @@ function AirForceAILOUD( self, aiBrain )
     local attackcount, targethealth
 	
 	local AIGetThreatLevelsAroundPoint = function(unitposition,threattype)
-
-        local GetEnemyUnitsInRect = import('/lua/loudutilities.lua').GetEnemyUnitsInRect
         
-        local adjust = ScenarioInfo.IMAPRadius + ( threatringrange*ScenarioInfo.IMAPSize) 
+        local adjust = threatrangeadjust + ( threatringrange * threatrangeadjust ) 
 
         local units,counter = GetEnemyUnitsInRect( aiBrain, unitposition[1]-adjust, unitposition[3]-adjust, unitposition[1]+adjust, unitposition[3]+adjust )
 
@@ -2826,7 +2826,7 @@ function AirForceAILOUD( self, aiBrain )
 
     while PlatoonExists(aiBrain, self) and (LOUDFLOOR(LOUDTIME()) - MissionStartTime) <= missiontime do
 
-        -- merge with other AirForceAILOUD groups with same plan
+        --- merge with other AirForceAILOUD groups with same plan
         if mergelimit and oldNumberOfUnitsInPlatoon < mergelimit then
 
 			if MergeWithNearbyPlatoons( self, aiBrain, 'AirForceAILOUD', 96, false, mergelimit) then
@@ -2849,8 +2849,8 @@ function AirForceAILOUD( self, aiBrain )
 
             mythreat = LOUDMAX( 5, CalculatePlatoonThreat( self, 'Air', UNITCHECK))
 
-            -- the searchrange adapts to the current air ratio, the platoon size, and the mergelimit - and is based on the SearchRadius value
-            searchrange = LOUDMAX( Searchradius, (Searchradius *  LOUDMAX(1, (aiBrain.AirRatio/1.5) * LOUDMIN(1, LOUDGETN(platoonUnits)/(mergelimit/2) ))))
+            --- the searchrange adapts to the current air ratio, the platoon size, and the mergelimit - and is based on the SearchRadius value
+            searchrange = LOUDMAX( Searchradius, (Searchradius *  LOUDMAX(0.8, (aiBrain.AirRatio/1.5) * LOUDMIN(1, LOUDGETN(platoonUnits)/(mergelimit/2) ))))
 
             usethreat = 0
             minrange = 0
@@ -2867,9 +2867,9 @@ function AirForceAILOUD( self, aiBrain )
                 
                     loiterposition = SetLoiterPosition( self, aiBrain, anchorposition, searchrange, 3, mythreat, 'AIR', 'ANTIAIR', loiterposition )
 
-                    IssueClearCommands( GetSquadUnits( self,'Attack') )
+                    IssueClearCommands( platoonUnits )  --GetSquadUnits( self,'Attack') )
 
-                    IssueGuard( GetSquadUnits( self,'Attack'), loiterposition)
+                    IssueGuard( platoonUnits, loiterposition)   --GetSquadUnits( self,'Attack') )
                     
                     if AirForceDialog then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." moving to loiter "..repr(loiterposition))
@@ -2881,9 +2881,11 @@ function AirForceAILOUD( self, aiBrain )
                     
                     local count = 1
                     
-                    while PlatoonExists(aiBrain, self) and platPos and VDist3( loiterposition, platPos ) > 80 do
+                    --- while travelling to the loiter
+                    while PlatoonExists(aiBrain, self) and platPos and VDist3( loiterposition, platPos ) > strikerange do
                     
                         if count > 2 then
+                            --- this permits distressresponse and merging to take place
                             self.UsingTransport = false
                         end
 
@@ -2895,7 +2897,7 @@ function AirForceAILOUD( self, aiBrain )
 
                     end
                     
-                    self.UsingTransport = false     -- re-enable merge and DR
+                    self.UsingTransport = false     --- re-enable merge and DR
 				end
                 
 			else
@@ -2904,6 +2906,10 @@ function AirForceAILOUD( self, aiBrain )
             
             if not PlatoonExists(aiBrain, self) then
                 return
+            else
+                if AirForceDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." seeking targets at base searchrange "..searchrange)
+                end
             end
             
 			--- locate a target -- starting with the closest -- least dangerous ones 
@@ -3282,6 +3288,12 @@ function AirForceAILOUD( self, aiBrain )
         
         self.UsingTransport = false
         
+    end
+    
+    if (LOUDFLOOR(LOUDTIME()) - MissionStartTime) > missiontime then
+        if AirForceDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." Mission Time expired - RTB" )
+        end
     end
 
     if PlatoonExists(aiBrain, self) then
