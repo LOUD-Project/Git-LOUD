@@ -2120,7 +2120,7 @@ Platoon = Class(PlatoonMethods) {
         local distressRange = 1000      -- controls how far afield we'll look
         local distresstype = 'Land'     -- respond only to 'Land', at this time - would like to add 'Naval' as well at some point
         
-        local distressLocation, distressplatoon
+        local distressLocation, distressplatoon, previousdistress
         
         local platoonPos = GetPlatoonPosition(self)
         
@@ -2650,9 +2650,9 @@ Platoon = Class(PlatoonMethods) {
         local PlatoonData = self.PlatoonData
 
         -- Platoon Data
-		local PType = PlatoonData.PointType or 'Unit'				-- must be either Unit or Marker
-		local PCat = PlatoonData.PointCategory or 'MASSEXTRACTION'	-- unit/Structure or markertype to find
-		local PSourceSelf = PlatoonData.PointSourceSelf or true	-- true will use Main base to source distances, false will use Enemy Main Base location
+		local PType         = PlatoonData.PointType or 'Unit'				-- must be either Unit or Marker
+		local PCat          = PlatoonData.PointCategory or 'MASSEXTRACTION'	-- unit/Structure or markertype to find
+		local PSourceSelf   = PlatoonData.PointSourceSelf or true	        -- true will use Main base to source distances, false will use Enemy Main Base location
 
 		local PSource
 		local startx, startz
@@ -2670,29 +2670,29 @@ Platoon = Class(PlatoonMethods) {
 			PSource = {startx, 0, startz}
 		end
 		
-		local PFaction = PlatoonData.PointFaction or 'Ally'	 	-- must be Ally, Enemy or Self - determines which Structures and Units to check
-		local PRadius = PlatoonData.PointRadius or 999999			-- controls the finding of points based upon distance from PointSource
-		local PSort = PlatoonData.PointSort or 'Closest'			-- options are Closest or Furthest
-		local PMin = PlatoonData.PointMin or 1						-- allows you to filter found points by range from PointSource
-		local PMax = PlatoonData.PointMax or 999999				-- as above
+		local PFaction      = PlatoonData.PointFaction or 'Ally'	 	-- must be Ally, Enemy or Self - determines which Structures and Units to check
+		local PRadius       = PlatoonData.PointRadius or 999999			-- controls the finding of points based upon distance from PointSource
+		local PSort         = PlatoonData.PointSort or 'Closest'		-- options are Closest or Furthest
+		local PMin          = PlatoonData.PointMin or 1					-- allows you to filter found points by range from PointSource
+		local PMax          = PlatoonData.PointMax or 999999			-- as above
 		
-		local StrCat = PlatoonData.StrCategory or nil				-- allows you to filter out points based upon presence of units/structures at point
-		local StrRadius = PlatoonData.StrRadius or 20
-		local StrTrigger = PlatoonData.StrTrigger or nil			-- end guardtimer if parameters exceeded when true
-		local StrMin = PlatoonData.StrMin or 0
-		local StrMax = PlatoonData.StrMax or 99
+		local StrCat        = PlatoonData.StrCategory or nil			-- allows you to filter out points based upon presence of units/structures at point
+		local StrRadius     = PlatoonData.StrRadius or 20
+		local StrTrigger    = PlatoonData.StrTrigger or nil			    -- end guardtimer if parameters exceeded when true
+		local StrMin        = PlatoonData.StrMin or 0
+		local StrMax        = PlatoonData.StrMax or 99
         
-        local ThreatMin = PlatoonData.ThreatMin or -999            -- control minimum threat so we can go to points WITH threat if provided
-        local ThreatMaxRatio = PlatoonData.ThreatMaxRatio or 0.8   -- control maximum threat based on platoon value
-        local ThreatRings = PlatoonData.ThreatRings or nil           -- allow use of 'rings' value
+        local ThreatMin         = PlatoonData.ThreatMin or -999         -- control minimum threat so we can go to points WITH threat if provided
+        local ThreatMaxRatio    = PlatoonData.ThreatMaxRatio or 0.8     -- control maximum threat based on platoon value
+        local ThreatRings       = PlatoonData.ThreatRings or nil        -- allow use of 'rings' value
         
-        local UseMassPointList = PlatoonData.UseMassPointList or nil     -- use Starting Mass point list instead of FindPoint if present
+        local UseMassPointList = PlatoonData.UseMassPointList or nil    -- use Starting Mass point list instead of FindPoint if present
 		
-		local UntCat = PlatoonData.UntCategory or nil				-- a secondary filter on the presence of units/structures at point
-		local UntRadius = PlatoonData.UntRadius or 20
-		local UntTrigger = PlatoonData.UntTrigger or nil			-- end guardtimer if parameters exceeded when true
-		local UntMin = PlatoonData.UntMin or 0
-		local UntMax = PlatoonData.UntMax or 99
+		local UntCat        = PlatoonData.UntCategory or nil			-- a secondary filter on the presence of units/structures at point
+		local UntRadius     = PlatoonData.UntRadius or 20
+		local UntTrigger    = PlatoonData.UntTrigger or nil 			-- end guardtimer if parameters exceeded when true
+		local UntMin        = PlatoonData.UntMin or 0
+		local UntMax        = PlatoonData.UntMax or 99
 		
 		if PType == 'Unit' and type(PCat) == 'string' then
 			PCat = LOUDPARSE(PCat)
@@ -2706,18 +2706,18 @@ Platoon = Class(PlatoonMethods) {
 			UntCat = LOUDPARSE(UntCat)
 		end
 
-        local bAggroMove = PlatoonData.AggressiveMove or false
-		local allowinwater = PlatoonData.AllowInWater or 'false'		-- platoon will consider points on/under water
-		local AssistRange = PlatoonData.AssistRange or 0			-- range at which the platoon will set an assist marker
-		local AvoidBases = PlatoonData.AvoidBases or 'false'			-- Platoon will avoid points within PMin of allied base positions
-		local guardRadius = PlatoonData.GuardRadius or 75			-- range at which platoon will engage enemy targets around point
-        local guardTimer = PlatoonData.GuardTimer or 600	 		-- how long platoon will remain at point before moving on
-		local MergeLimit = PlatoonData.MergeLimit or false			-- unit count at which to prevent merging
-        local MergePlanMatch = PlatoonData.MergePlanMatch or false -- if merging, the behavior AND the plan name must match.
-		local MissionTimer = PlatoonData.MissionTime or 1200		-- how long platoon will operate before RTB
-		local PatrolRadius = PlatoonData.PatrolRadius or 60
-        local PlatoonFormation = PlatoonData.UseFormation or 'None'
-		local SetPatrol = PlatoonData.SetPatrol or false
+        local bAggroMove        = PlatoonData.AggressiveMove or false
+		local allowinwater      = PlatoonData.AllowInWater or 'false'	-- platoon will consider points on/under water
+		local AssistRange       = PlatoonData.AssistRange or 0			-- range at which the platoon will set an assist marker
+		local AvoidBases        = PlatoonData.AvoidBases or 'false'		-- Platoon will avoid points within PMin of allied base positions
+		local guardRadius       = PlatoonData.GuardRadius or 75			-- range at which platoon will engage enemy targets around point
+        local guardTimer        = PlatoonData.GuardTimer or 600	 		-- how long platoon will remain at point before moving on
+		local MergeLimit        = PlatoonData.MergeLimit or false		-- unit count at which to prevent merging
+        local MergePlanMatch    = PlatoonData.MergePlanMatch or false   -- if merging, the behavior AND the plan name must match.
+		local MissionTimer      = PlatoonData.MissionTime or 1200		-- how long platoon will operate before RTB
+		local PatrolRadius      = PlatoonData.PatrolRadius or 60
+        local PlatoonFormation  = PlatoonData.UseFormation or 'None'
+		local SetPatrol         = PlatoonData.SetPatrol or false
 
         local CategoryList = {}
 		local dataList = {}
@@ -2799,6 +2799,10 @@ Platoon = Class(PlatoonMethods) {
                 
                     -- Get a list of points that meet all of the required conditions 
                     dataList = FindPointMeetsConditions( self, aiBrain, PType, PCat, PSource, PRadius, PSort, PFaction, PMin, PMax, AvoidBases, StrCat, StrRadius, StrMin, StrMax, UntCat, UntRadius, UntMin, UntMax, allowinwater, ThreatMin, OriginalThreat * ThreatMaxRatio, 'AntiSurface')
+
+                    if GuardpointDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." datalist is "..repr(dataList) )
+                    end
 
                 end
                 
@@ -3050,11 +3054,22 @@ Platoon = Class(PlatoonMethods) {
 
                                 choice = SendPlatoonWithTransportsLOUD( self, aiBrain, marker, 1, false, path )
 
+                                --- we used transports - update position and distance
                                 if choice then
+                                
+                                    position    = GetPlatoonPosition(self) or false
+                                    distance    = VDist3( position, marker )
 
                                     if GuardpointDialog then
                                         LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." used transports for "..repr(PCat).." marker "..repr(marker))
+                                        
+                                        if path then
+                                            --for _,v in path do
+                                                --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." path is "..repr(v).." distance "..VDist3(GetPlatoonPosition(self),v) ) 
+                                            --end
+                                        end
                                     end
+
                                 else
                                     if GuardpointDialog then
                                         LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." failed transport call at "..repr(distance).." from marker "..repr(marker))
@@ -3068,13 +3083,16 @@ Platoon = Class(PlatoonMethods) {
 
                     if marker then
 
-                        delay = LOUDMAX(5, (distance - LOUDMAX(UntRadius,StrRadius)/LOUDMAX(UntRadius,StrRadius)* 31 ))
+                        delay = LOUDMAX(0, (distance - LOUDMAX(UntRadius,StrRadius)/LOUDMAX(UntRadius,StrRadius)* 31 ))
 
-                        if GuardpointDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." still "..repr(distance).." from "..repr(marker).." delay "..delay.." ticks")
-                        end                    
+                        if delay > 0 then
 
-                        WaitTicks(delay)
+                            if GuardpointDialog then
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." still "..repr(distance).." from "..repr(marker).." delay "..delay.." ticks")
+                            end                    
+
+                            WaitTicks(delay)
+                        end
 
                     end
                     
@@ -3375,8 +3393,10 @@ Platoon = Class(PlatoonMethods) {
 			end
         
             if GuardpointDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." guard complete - seeking new point")
+                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." guard complete - seeking new point - resetting PSource to my current location "..repr(position) )
             end
+            
+            PSource = table.copy(position)
  
 		end
 
