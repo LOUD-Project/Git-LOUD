@@ -146,7 +146,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 
             { LUTL, 'UnitCapCheckLess', { .65 } },
             
-            { LUTL, 'AirStrengthRatioGreaterThan', { 0.3 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.7 } },
 
             -- don't build T1 air scouts if we can build better ones
             { UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.AIR - categories.TECH1 }},
@@ -171,6 +171,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.7 } },
 
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 60, [2048] = 78, [4096] = 78}, categories.AIR * categories.SCOUT}},
 
@@ -192,6 +194,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.7 } },
 
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 60, [2048] = 78, [4096] = 78}, categories.AIR * categories.SCOUT}},
 
@@ -485,7 +489,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 
             { LUTL, 'UnitCapCheckLess', { .75 } },
             
-            { LUTL, 'AirStrengthRatioGreaterThan', { 0.3 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.7 } },
 
             { UCBC, 'ArmyNeedsTransports', { true } },
 			
