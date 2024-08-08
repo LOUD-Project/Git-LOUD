@@ -226,7 +226,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 25, 1.012, 1.025 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.012, 1.02 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -261,7 +261,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
         PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 4 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.5 } },
             
 			{ UCBC, 'FactoryCapCheck', { 'LocationType', 'AIR' }},
             
@@ -269,7 +269,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 25, 1.012, 1.025 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.012, 1.02 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
