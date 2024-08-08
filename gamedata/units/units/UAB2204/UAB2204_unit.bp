@@ -66,8 +66,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 5600,
-        BuildCostMass = 560,
+        BuildCostEnergy = 5320,
+        BuildCostMass = 532,
         BuildTime = 560,
 		
         RebuildBonusIds = {'uab2204'},
@@ -90,7 +90,7 @@ UnitBlueprint {
     },
     
     Intel = {
-        VisionRadius = 32,
+        VisionRadius = 36,
     },
     
     Interface = {
@@ -148,7 +148,17 @@ UnitBlueprint {
                 ChargeStart = Sound { Bank = 'UALWeapon', Cue = 'UAB2204_AA_Fizz', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
-
+			
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    BuffType = 'FUELRATIO',
+                    BuffValue = 3,
+                    Radius = 1.9,
+                    TargetAllow = 'AIR MOBILE',
+                },
+            },
+	
             CannotAttackGround = true,
             CollideFriendly = false,
 			
@@ -215,7 +225,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 75,
+            TurretYawSpeed = 72,
 			
             Turreted = true,
         },

@@ -160,6 +160,17 @@ UnitBlueprint {
                 Fire = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2204_Olaris_Artillery', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    BuffType = 'FUELRATIO',
+                    BuffValue = 1.6,
+                    Radius = 1.9,
+                    TargetAllow = 'AIR MOBILE',
+                },
+            },
+
             CannotAttackGround = true,
             CollideFriendly = false,
 

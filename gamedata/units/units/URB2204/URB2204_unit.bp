@@ -46,7 +46,7 @@ UnitBlueprint {
         ArmorType = 'Structure',
         Health = 2950,
         MaxHealth = 2950,
-        RegenRate = 3,
+        RegenRate = 2,
     },
     
     Description = '<LOC urb2204_desc>AA Flak Artillery',
@@ -150,10 +150,23 @@ UnitBlueprint {
     Weapon = {
         {
             AlwaysRecheckTarget = true,
+
             Audio = {
                 Fire = Sound { Bank = 'URLWeapon', Cue = 'URB2204_Cannon_Cloud', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    BuffType = 'FUELRATIO',
+                    BuffValue = 1.6,
+                    Radius = 1.9,
+                    TargetAllow = 'AIR MOBILE',
+                },
+            },
+
             CannotAttackGround = true,
             CollideFriendly = false,
 			
