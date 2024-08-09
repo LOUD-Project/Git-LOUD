@@ -115,24 +115,7 @@ end
 
 BuilderGroup {BuilderGroupName = 'Factory Production - Air',
     BuildersType = 'FactoryBuilder',
-	
-    Builder {BuilderName = 'Air Scout T1 - Initial',
-	
-        PlatoonTemplate = 'T1AirScout',
-        
-        PlatoonAddFunctions = { { LUTL, 'UseBuilderOnce' }, },
 
-        Priority = 610,
-        
-        PriorityFunction = First45Minutes, 
-
-        BuilderConditions = {
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.AIR * categories.SCOUT } },
-        },
-
-        BuilderType =  {'AirT1'},
-    },
-	
     Builder {BuilderName = 'Air Scout T1',
 	
         PlatoonTemplate = 'T1AirScout',
@@ -226,7 +209,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         BuilderType =  {'AirT1'},
     },
 
-    --- fighters with a air scout supplement
+    --- fighters with a air scout supplement - prior to T2
     Builder {BuilderName = 'Fighters T1 Plus',
 	
         PlatoonTemplate = 'T1FighterPlus',
@@ -277,6 +260,25 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 		
         BuilderType =  {'AirT2','AirT3'},
     },
+
+    Builder {BuilderName = 'Fighters T2 Crossover',
+	
+        PlatoonTemplate = 'T2FighterCrossover',
+
+        Priority = 600,
+		
+		PriorityFunction = HaveLessThanThreeT3AirFactory,
+		
+        BuilderConditions = {
+            { LUTL, 'AirStrengthRatioLessThan', { 6 } },
+
+            { UCBC, 'FactoryLessAtLocation', { 'LocationType', 3, categories.AIR - categories.TECH1 }},
+
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.HIGHALTAIR * categories.ANTIAIR, categories.AIR * categories.TECH3 }},			
+        },
+		
+        BuilderType =  {'AirT2','AirT3'},
+    },
 	
     Builder {BuilderName = 'Fighters T2',
 	
@@ -289,10 +291,12 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioLessThan', { 6 } },
 
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY * categories.AIR - categories.TECH1 }},
+
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.HIGHALTAIR * categories.ANTIAIR, categories.AIR * categories.TECH3 }},			
         },
 		
-        BuilderType =  {'AirT2','AirT3'},
+        BuilderType =  {'AirT2'},
     },
 
     Builder {BuilderName = 'Gunship T2',
@@ -338,7 +342,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         BuilderConditions = {
             { LUTL, 'HaveLessThanUnitsWithCategory', { 120, categories.HIGHALTAIR * categories.ANTIAIR }},
 
-			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
+			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 1, categories.FACTORY * categories.AIR * categories.TECH3 }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.HIGHALTAIR * categories.ANTIAIR, categories.AIR * categories.TECH3 }},			
         },

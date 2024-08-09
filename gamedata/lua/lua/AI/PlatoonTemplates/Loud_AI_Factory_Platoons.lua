@@ -268,6 +268,31 @@ PlatoonTemplate { Name = 'T1FighterPlus',
     }
 }
 
+PlatoonTemplate { Name = 'T2FighterCrossover',
+    FactionSquads = {
+        UEF = {
+            { 'dea0202', 1, 1, 'Attack', 'none' },	-- Ftr
+            { 'uea0102', 1, 1, 'Attack', 'none' },
+            { 'uea0101', 1, 1, 'scout', 'none' }            
+        },
+        Aeon = {
+            { 'xaa0202', 1, 1, 'Attack', 'none' },  -- Ftr
+            { 'uaa0102', 1, 1, 'Attack', 'none' },
+            { 'uaa0101', 1, 1, 'scout', 'none' } 
+        },
+        Cybran = {
+            { 'dra0202', 1, 1, 'Attack', 'none' },	-- Ftr/Bmbr
+            { 'ura0102', 1, 1, 'Attack', 'none' },
+            { 'ura0101', 1, 1, 'scout', 'none' }
+        },
+        Seraphim = {
+            { 'xsa0202', 1, 1, 'Attack', 'none' },	-- Ftr/Bmbr
+            { 'xsa0102', 1, 1, 'Attack', 'none' },
+            { 'xsa0101', 1, 1, 'scout', 'none' }
+        },
+    }
+}
+
 PlatoonTemplate { Name = 'T2Fighter',
     FactionSquads = {
         UEF = {
@@ -284,6 +309,7 @@ PlatoonTemplate { Name = 'T2Fighter',
         },
     }
 }
+
 
 PlatoonTemplate { Name = 'T3Fighter',
     FactionSquads = {
