@@ -440,13 +440,15 @@ function NoBaseAlert( aiBrain, locType )
 end
 
 function AirStrengthRatioGreaterThan( aiBrain, value )
-
 	return aiBrain.AirRatio >= value
 end
 
 function AirStrengthRatioLessThan ( aiBrain, value )
-
 	return aiBrain.AirRatio < value
+end
+
+function AirToGroundBiasGreaterThan( aiBrain, value )
+    return aiBrain.AirBias >= value
 end
 
 function LandStrengthRatioGreaterThan( aiBrain, value )
@@ -4917,7 +4919,7 @@ function ParseIntelThread( aiBrain )
 
                 if oldthreat > 0 then
 
-                    aiBrain.AirBias = LOUDMIN( 2, LOUDMAX( 0.66, (totalThreatSurface/totalThreatAir) ) )
+                    aiBrain.AirBias = LOUDMIN( 4, LOUDMAX( 0.25, (totalThreatSurface/totalThreatAir) ) )
 
                     aiBrain.AirRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
                     
@@ -5271,6 +5273,7 @@ function ParseIntelThread( aiBrain )
                 LOG("*AI DEBUG "..aiBrain.Nickname.." My factories Totals -- AIR "..string.format("%.2f", myairtot).." -- LAND "..string.format("%.2f",mylandtot).." -- NAVAL "..string.format("%.2f",mynavaltot) )
                 LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy factory Avg -- AIR "..string.format("%.2f", grandairtot/aiBrain.NumOpponents).." -- LAND "..string.format("%.2f", grandlandtot/aiBrain.NumOpponents).." -- NAVAL "..string.format("%.2f",grandnavaltot/aiBrain.NumOpponents) )
                 LOG("*AI DEBUG "..aiBrain.Nickname.." My Strength Ratios -- AIR "..string.format("%.2f", aiBrain.AirRatio).." -- LAND "..string.format("%.2f", aiBrain.LandRatio).." -- NAVAL "..string.format("%.2f", aiBrain.NavalRatio).."  at tick "..GetGameTick() )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy Air2Ground bias is "..aiBrain.AirBias  )
                 LOG("*AI DEBUG ===============================")
             end
 

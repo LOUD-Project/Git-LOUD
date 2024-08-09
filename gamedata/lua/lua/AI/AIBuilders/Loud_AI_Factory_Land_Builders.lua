@@ -111,6 +111,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 
         BuilderConditions = {
             { LUTL, 'HaveLessThanUnitsWithCategory', { 72, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS }},
+
+            { UCBC, 'HaveLessThanUnitsWithCategory', { 2, categories.FACTORY * categories.LAND - categories.TECH1 }},
         },
 		
         BuilderType = {'LandT1','LandT2'},
@@ -456,7 +458,10 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
   
-            { LUTL, 'AirStrengthRatioLessThan', { 1 } }, 
+            { LUTL, 'AirStrengthRatioLessThan', { 1 } },
+
+            --- enemy focused upon ground attack in his air force
+            { LUTL, 'AirToGroundBiasGreaterThan', { 1 } },
 
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.LAND * categories.TECH3 }},
 
@@ -600,6 +605,9 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
  
 			{ LUTL, 'AirStrengthRatioLessThan', { 1 } }, 
+
+            --- enemy focused upon ground attack in his air force
+            { LUTL, 'AirToGroundBiasGreaterThan', { 1 } },
 
 			{ LUTL, 'PoolLess', { 16, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
 
