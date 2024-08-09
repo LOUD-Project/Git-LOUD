@@ -5269,6 +5269,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         Priority = 750,
 
         BuilderConditions = {
+            { LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 0, AA }},
+
+            { LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGY }},
+
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 150, 'Land', 125 }},            
         
 			{ EBC, 'LessThanEnergyTrend', { 45 }},        
@@ -5276,8 +5280,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGY }},
         },
 		
 		BuilderType = { 'T2','T3','SubCommander' },
@@ -5288,7 +5290,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-                ThreatMax = 60,
+                ThreatMax = 50,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
@@ -5354,7 +5356,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         PriorityFunction = AboveUnitCap75,
 
         BuilderConditions = {
-            { LUTL, 'LandStrengthRatioLessThan', { 3 } },
+            { LUTL, 'LandStrengthRatioLessThan', { 2 } },
 
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
@@ -5452,6 +5454,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         Priority = 751,
 
         BuilderConditions = {
+            { LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 0, AA }},
+
             { LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE * categories.OVERLAYRADAR * categories.INTELLIGENCE }},
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
@@ -5489,6 +5493,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         PriorityFunction = AboveUnitCap75,
 
         BuilderConditions = {
+            { LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 0, AA }},
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM }},
@@ -5523,6 +5529,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
+            { LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 0, AA }},
+            
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
@@ -5530,7 +5538,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, SHIELD - categories.ANTIARTILLERY }},
         },
 		
-		BuilderType = { 'T2' },
+		BuilderType = { 'T2','T3' },
 
         BuilderData = {
 			DesiresAssist = true,
@@ -5683,7 +5691,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         BuilderConditions = {
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
@@ -5697,7 +5705,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-                ThreatMax = 150,
+                ThreatMax = 120,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
@@ -5861,6 +5869,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         PriorityFunction = AboveUnitCap75,
 
         BuilderConditions = {
+
+            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, ENERGY }},
+
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.04 }},

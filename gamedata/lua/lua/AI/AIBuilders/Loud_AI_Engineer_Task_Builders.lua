@@ -892,7 +892,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
         },
 		
         BuilderData = {
-			ReclaimTime = 75,
+			ReclaimTime = 45,
 			ReclaimType = 'Mass',
             ReclaimRange = 90,
         },
