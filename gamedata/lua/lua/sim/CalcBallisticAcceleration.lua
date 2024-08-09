@@ -26,12 +26,11 @@ local bomber_table = {}
 -- This is the default value returned by the function if a problem occured in the calculation...
 -- But normally that may never happen
 
-local default_value = 4.75
+local default_value = 4.9
 
 
 
 CalculateBallisticAcceleration = function (weapon, proj)
-
 
     local Projectiles = weapon.CBFP_CalcBallAcc.ProjectilesPerOnFire
     
