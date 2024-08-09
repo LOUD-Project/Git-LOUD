@@ -226,9 +226,6 @@ local statFuncs = {
 
 	--- buildrate
 	function(info, bp)
-	    if options.gui_detailed_unitview == 0 then
-	        return false
-	    end
 	    if info.userUnit ~= nil and info.userUnit:GetBuildRate() > 1 then
 	        return LOUDFORMAT("%.6g", info.userUnit:GetBuildRate())
 	    end
