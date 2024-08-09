@@ -19,6 +19,7 @@ local menuFontColorTitle = 'EEEEEE'
 local menuFontColorAlt = 'feff77'
 
 local initial = true
+local initialResetUIScalingDialog = true
 local animation_active = false
 
 function CreateUI()
@@ -702,8 +703,28 @@ function CreateUI()
         LayoutHelpers.AtHorizontalCenterIn(mainMenuGroup, border)
 
         mainMenuGroup.Top:Set(function()
-            return math.floor(logo.Bottom() - 18)
+            return math.floor(logo.Bottom() - LayoutHelpers.ScaleNumber(18))
         end)
+
+        -- Provide assistence with excessive UI scaling
+        if initialResetUIScalingDialog 
+            and LayoutHelpers.GetPixelScaleFactor() > 1
+            and mainMenuGroup.Bottom() >= GetFrame(0).Height() then
+
+            UIUtil.QuickDialog(GetFrame(0), "It looks like your scaling is set too large. Set this back to the default value of 100% ? (requires game restart)",
+                "Yes", function()
+                    LOG ("Reset UI scale to 100%")
+                    parent:Destroy()
+                    Prefs.SetOption("ui_scale", 1)
+                    SavePreferences()
+                    ExitApplication()
+                end,
+                "No", function()
+                    exitDlg = nil
+                end,
+                nil, nil, true, {worldCover = true, enterButton = 1, escapeButton = 2})
+            initialResetUIScalingDialog = false
+        end
     end
 
 
