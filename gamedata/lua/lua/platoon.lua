@@ -7813,8 +7813,6 @@ Platoon = Class(PlatoonMethods) {
         end
 		
 		if self.WaypointCallback then
-        
-            --LOG("*AI DEBUG "..self:GetBrain().Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." killing MoveThread in PBC")
 
 			KillThread(self.WaypointCallback)
 			self.WaypointCallback = false
@@ -7825,7 +7823,6 @@ Platoon = Class(PlatoonMethods) {
 		
         IssueClearCommands({eng})
         
-        --local ENGINEERS = ENGINEERS - COMMANDER
         local STRUCTURES = categories.STRUCTURE
         local OTHERSTUFF = categories.STRUCTURE + ( categories.MOBILE * categories.LAND ) - ENGINEERS
 

@@ -320,7 +320,7 @@ function AIBuildBaseTemplateFromLocation( baseTemplate, location )
     local baseT = {}
 	
     if location and baseTemplate then
-	
+
         for templateNum, template in baseTemplate do
 		
             baseT[templateNum] = {}

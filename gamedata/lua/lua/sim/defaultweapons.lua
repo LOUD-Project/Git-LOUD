@@ -213,7 +213,6 @@ DefaultProjectileWeapon = Class(Weapon) {
         end
 
 		if self.CBFP_CalcBallAcc then
-            --LOG("*AI DEBUG Projectile CheckBallisticAcceleration "..repr(bp.Label).." from "..repr(self.unit.BlueprintID).." value is "..self.CBFP_CalcBallAcc.ProjectilesPerOnFire )
             self:CheckBallisticAcceleration( proj )
 		end
 		

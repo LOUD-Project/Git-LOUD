@@ -441,20 +441,10 @@ end
 
 function AirStrengthRatioGreaterThan( aiBrain, value )
 
-    -- no AIR activity
-    if aiBrain.AirRatio <= .01 then
-        return true
-    end
-
 	return aiBrain.AirRatio >= value
 end
 
 function AirStrengthRatioLessThan ( aiBrain, value )
-
-    -- no AIR activity
-    if aiBrain.AirRatio <= .01 then
-        return false
-    end
 
 	return aiBrain.AirRatio < value
 end
@@ -1974,7 +1964,7 @@ function AirUnitRefitThread( unit, aiBrain )
 				if GetCurrentUnits( aiBrain, AIRPADS ) > 0 then
 				
 					-- now limit to airpads within 30k
-					plats = GetOwnUnitsAroundPoint( aiBrain, AIRPADS, unitPos, 1536 )
+					plats = GetUnitsAroundPoint( aiBrain, AIRPADS, unitPos, 1536, 'Ally' )
 					
 					-- Locate closest airpad
 					if plats[1] then
