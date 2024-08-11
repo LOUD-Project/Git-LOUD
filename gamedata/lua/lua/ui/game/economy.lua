@@ -408,96 +408,100 @@ function ConfigureBeatFunction()
         local lastReclaimRate = 0
 
         -- Finally, glue all the bits together into a a resource-update function.
-        local econData = GetEconomyTotals()
-        local simFrequency = GetSimTicksPerSecond()
+        return function()
+            local econData = GetEconomyTotals()
+            local simFrequency = GetSimTicksPerSecond()
 
-        -- Deal with the reclaim column
-        local totalReclaimed = econData.reclaimed[resourceType]
+            -- Deal with the reclaim column
+            local totalReclaimed = econData.reclaimed[resourceType]
 
-        -- Reclaimed this tick
-        local thisTick = totalReclaimed - lastReclaimTotal
+            -- Reclaimed this tick
+            local thisTick = totalReclaimed - lastReclaimTotal
 
-        -- Set a new lastReclaimTotal to carry over
-        lastReclaimTotal = totalReclaimed
+            -- Set a new lastReclaimTotal to carry over
+            lastReclaimTotal = totalReclaimed
 
-        -- The quantity we'd gain if we reclaimed at this rate for a full second.
-        local reclaimRate = thisTick * simFrequency
+            -- The quantity we'd gain if we reclaimed at this rate for a full second.
+            local reclaimRate = thisTick * simFrequency
 
-        -- Set the text
-        reclaimDelta:SetText('+' .. fmtnum(reclaimRate))
-        reclaimTotal:SetText(fmtnum(totalReclaimed))
+            -- Set the text
+            reclaimDelta:SetText('+' .. fmtnum(reclaimRate))
+            reclaimTotal:SetText(fmtnum(totalReclaimed))
 
-        -- Deal with the Storage
-        local maxStorageVal = econData.maxStorage[resourceType]
-        local storedVal = econData.stored[resourceType]
+            -- Deal with the Storage
+            local maxStorageVal = econData.maxStorage[resourceType]
+            local storedVal = econData.stored[resourceType]
 
-        -- Set the bar fill
-        storageBar:SetRange(0, maxStorageVal)
-        storageBar:SetValue(storedVal)
+            -- Set the bar fill
+            storageBar:SetRange(0, maxStorageVal)
+            storageBar:SetValue(storedVal)
 
-        -- Set the text displays
-        curStorage:SetText(math.round(storedVal))
-        maxStorage:SetText(math.round(maxStorageVal))
+            -- Set the text displays
+            curStorage:SetText(math.round(storedVal))
+            maxStorage:SetText(math.round(maxStorageVal))
 
-        -- Deal with the income/expense column
-        local incomeVal = econData.income[resourceType]
+            -- Deal with the income/expense column
+            local incomeVal = econData.income[resourceType]
 
-        -- Should always be positive integer
-        local incomeSec = math.max(0, incomeVal * simFrequency)
-        local generatedIncome = incomeSec - lastReclaimRate
+            -- Should always be positive integer
+            local incomeSec = math.max(0, incomeVal * simFrequency)
+            local generatedIncome = incomeSec - lastReclaimRate
 
-        -- How much are we wanting to drain?
-        local expense
+            -- How much are we wanting to drain?
+            local expense
 
-        if storedVal > 0.5 then
-            expense = econData.lastUseActual[resourceType] * simFrequency
-        else
-            expense = econData.lastUseRequested[resourceType] * simFrequency
+            if storedVal > 0.5 then
+                expense = econData.lastUseActual[resourceType] * simFrequency
+            else
+                expense = econData.lastUseRequested[resourceType] * simFrequency
+            end
+
+            -- Set the text displays. incomeTxt should be only from non-reclaim.
+            -- incomeVal is delayed by 1 tick when it comes to accounting for reclaim.
+            -- This necessitates the use of the lastReclaimRate stored value.
+            incomeTxt:SetText(string.format("+%d", fmtnum(generatedIncome)))
+            expenseTxt:SetText(string.format("-%d", fmtnum(expense)))
+
+            -- Store this tick's reclaimRate for next tick
+            lastReclaimRate = reclaimRate
+
+            -- Deal with the primary income/expense display
+
+            -- incomeSec and expense are already limit-checked and integers
+            local rateVal = incomeSec - expense
+
+            -- Calculate resource usage efficiency for % display mode
+            local effVal
+
+            if expense == 0 then
+                effVal = incomeSec * 100
+            else
+                effVal = math.round((incomeSec / expense) * 100)
+            end
+
+            -- Choose to display efficiency or rate
+            if States[viewState] == 2 then
+                rateTxt:SetText(string.format("%d%%", math.min(effVal, 100)))
+            else
+                rateTxt:SetText(string.format("%+d", rateVal))
+            end
+
+            rateTxt:SetColor(getRateColour(rateVal, storedVal, maxStorageVal))
+
+            if not UIState then
+                return
+            end
+
+            ShowUIWarnings(effVal, storedVal, maxStorageVal)
         end
-
-        -- Set the text displays. incomeTxt should be only from non-reclaim.
-        -- incomeVal is delayed by 1 tick when it comes to accounting for reclaim.
-        -- This necessitates the use of the lastReclaimRate stored value.
-        incomeTxt:SetText(string.format("+%d", fmtnum(generatedIncome)))
-        expenseTxt:SetText(string.format("-%d", fmtnum(expense)))
-
-        -- Store this tick's reclaimRate for next tick
-        lastReclaimRate = reclaimRate
-
-        -- Deal with the primary income/expense display
-
-        -- incomeSec and expense are already limit-checked and integers
-        local rateVal = incomeSec - expense
-
-        -- Calculate resource usage efficiency for % display mode
-        local effVal
-
-        if expense == 0 then
-            effVal = incomeSec * 100
-        else
-            effVal = math.round((incomeSec / expense) * 100)
-        end
-
-        -- Choose to display efficiency or rate
-        if States[viewState] == 2 then
-            rateTxt:SetText(string.format("%d%%", math.min(effVal, 100)))
-        else
-            rateTxt:SetText(string.format("%+d", rateVal))
-        end
-
-        rateTxt:SetColor(getRateColour(rateVal, storedVal, maxStorageVal))
-
-        if not UIState then
-            return
-        end
-
-        ShowUIWarnings(effVal, storedVal, maxStorageVal)
     end
 
+    local massUpdateFunction = getResourceUpdateFunction('MASS', 'massViewState', GUI.mass)
+    local energyUpdateFunction = getResourceUpdateFunction('ENERGY', 'energyViewState', GUI.energy)
 
     function _BeatFunction()
-	    getResourceUpdateFunction('MASS', 'massViewState', GUI.mass)
-	    getResourceUpdateFunction('ENERGY', 'energyViewState', GUI.energy)
+        massUpdateFunction()
+        energyUpdateFunction()
     end
 end
 
