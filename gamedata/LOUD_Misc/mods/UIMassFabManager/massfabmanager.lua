@@ -79,8 +79,8 @@ function CreateToolTip(control, data, togglebutton)
 	local text = data.Title
 	local body = data.Body
 	mouseover = ToolTip.CreateExtendedToolTip(control, text, body)
-	mouseover.Top:Set(function() return control.Top() + 2 end)
-	mouseover.Left:Set(function() return control.Right() - 1 end)
+	LayoutHelpers.AtTopIn(mouseover, control, 2)
+	LayoutHelpers.AnchorToRight(mouseover, control, -1)
 	mouseover:SetAlpha(0, true)
 	mouseover:SetNeedsFrameUpdate(true)
 	
