@@ -2371,15 +2371,14 @@ function NukeAI( self, aiBrain )
                         LOG("*AI DEBUG "..aiBrain.Nickname.." has "..launches.." launchers available for target with "..targetantis.." antinukes")
                     end
 					
-					-- store the target and time
-					lasttarget = nukePos
-					lasttargettime = LOUDFLOOR(LOUDTIME())
-
 					-- if nuking same location randomize the target
-					if LOUDEQUAL( nukePos, lasttarget ) then
+					if lasttarget and LOUDEQUAL( nukePos, lasttarget ) then
 						
 						nukePos = { nukePos[1] + Random( -20, 20), nukePos[2], nukePos[3] + Random( -20, 20) }
-						lasttarget = nukePos
+
+                        -- store the target and time
+                        lasttarget = nukePos
+                        lasttargettime = LOUDFLOOR(LOUDTIME())
 						
 					end						
 
@@ -2396,7 +2395,7 @@ function NukeAI( self, aiBrain )
 					-- fire them with appropriate delays and only as many as needed
 					for _,u in launchers do
 					
-						if firednukes <= targetantis then
+						if firednukes < targetantis then
 
 							if ( lastflighttime - u.flighttime ) > 0 then
 							
