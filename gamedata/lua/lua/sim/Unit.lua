@@ -2012,7 +2012,9 @@ Unit = Class(UnitMethods) {
                     
                         local now = v:GetFuelRatio()
                         
-                        v:SetFuelRatio( now * ((100 - buffTable.BuffValue)/100) )
+                        if now > .01 then
+                            v:SetFuelRatio( now * ((100 - buffTable.BuffValue)/100) )
+                        end
 
                     end
                 end
@@ -2024,7 +2026,9 @@ Unit = Class(UnitMethods) {
                     
                     local now = self:GetFuelRatio()
 
-                    self:SetFuelRatio( now * ((100 - buffTable.BuffValue)/100) )
+                    if now > 0.01 then
+                        self:SetFuelRatio( now * ((100 - buffTable.BuffValue)/100) )
+                    end
 
                 end
             end
