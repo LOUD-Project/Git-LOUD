@@ -1305,14 +1305,19 @@ function CreatePlatoons( strArmy, tblNode, tblResult, platoonList, currPlatoon, 
 
     local unit = nil
 
-    for strName, tblData in pairs(tblNode.Units) do        
+    for strName, tblData in pairs(tblNode.Units) do
+    
         if 'GROUP' == tblData.type then
             
             platoonList, tblResult, treeResult[strName] = CreatePlatoons(strArmy, tblData, tblResult, platoonList, currPlatoon, treeResult[strName], balance)  
 
-        else            
-            unit = safecall( "Cant load unit", CreateUnitHPR, tblData.type, strArmy, tblData.Position[1], tblData.Position[2], tblData.Position[3], tblData.Orientation[1], tblData.Orientation[2], tblData.Orientation[3] )
-			
+        else
+            if categories[tblData.type] then
+                unit = CreateUnitHPR( tblData.type, strArmy, tblData.Position[1], tblData.Position[2], tblData.Position[3], tblData.Orientation[1], tblData.Orientation[2], tblData.Orientation[3] )
+			else
+                unit = false
+            end
+            
 			if unit then
 				if unit:GetBlueprint().Physics.FlattenSkirt then
 					unit:CreateTarmac(true, true, true, false, false)
