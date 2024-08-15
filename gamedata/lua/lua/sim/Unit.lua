@@ -42,24 +42,28 @@ if __DMSI then
     AvailableToggles = __DMSI.Custom_Toggles()
 end
 
-local LOUDGETN = table.getn
-local LOUDINSERT = table.insert
-local LOUDENTITY = EntityCategoryContains
-local LOUDPARSE = ParseEntityCategory
-local LOUDMAX = math.max
-local LOUDMIN = math.min
-local LOUDSIN = math.sin
-local LOUDCOS = math.cos
-
-local LOUDEMITATENTITY      = CreateEmitterAtEntity
-local LOUDEMITATBONE        = CreateEmitterAtBone
 local LOUDATTACHEMITTER     = CreateAttachedEmitter
 local LOUDATTACHBEAMENTITY  = AttachBeamEntityToEntity
+local LOUDCOS               = math.cos
+local LOUDEMITATENTITY      = CreateEmitterAtEntity
+local LOUDEMITATBONE        = CreateEmitterAtBone
+local LOUDENTITY            = EntityCategoryContains
+local LOUDGETN              = table.getn
+local LOUDINSERT            = table.insert
+local LOUDMAX               = math.max
+local LOUDMIN               = math.min
+local LOUDPARSE             = ParseEntityCategory
+local LOUDSIN               = math.sin
+local LOUDSTATE             = ChangeState
 
-local DamageArea            = DamageArea
+local unpack            = unpack
+local setmetatable      = setmetatable
+local WaitFor           = WaitFor
+local WaitTicks         = coroutine.yield
 
-local GetTerrainType        = GetTerrainType
-
+local PlatoonExists = moho.aibrain_methods.PlatoonExists
+local PlayAnim      = moho.AnimationManipulator.PlayAnim
+	
 local EntityMethods = moho.entity_methods
 
 local AdjustHealth          = EntityMethods.AdjustHealth
@@ -98,24 +102,17 @@ local SetProductionPerSecondEnergy      = UnitMethods.SetProductionPerSecondEner
 local SetProductionPerSecondMass        = UnitMethods.SetProductionPerSecondMass
 local SetStat                           = UnitMethods.SetStat
 
-local PlatoonExists = moho.aibrain_methods.PlatoonExists
-local PlayAnim = moho.AnimationManipulator.PlayAnim
+local DamageArea            = DamageArea
+local GetTerrainType        = GetTerrainType
+local ForkThread            = ForkThread
+local ForkTo                = ForkThread
+local IsAllied              = IsAlly
 
-local ForkThread = ForkThread
-local ForkTo = ForkThread
-local IsAllied = IsAlly
-local LOUDSTATE = ChangeState
 
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
 local TrashDestroy = TrashBag.Destroy
 
-local unpack = unpack
-local setmetatable = setmetatable
-
-local WaitFor = WaitFor
-local WaitTicks = coroutine.yield
-	
 --LOG('entity_methods.__index = ',EntityMethods.__index,' ',repr(EntityMethods))
 --LOG(' URGH ',repr(moho))
 --LOG('scripttask_methods.__index = ',moho.ScriptTask_methods.__index,' ',repr(moho.ScriptTask_methods))
@@ -2482,7 +2479,7 @@ Unit = Class(UnitMethods) {
 	
 		self.PlatoonHandle = nil
 
-		--LOG("*AI DEBUG UNIT "..self.EntityID.." OnDestroy for "..repr(ALLBPS[self.BlueprintID].Description))
+		--LOG("*AI DEBUG UNIT "..self.EntityID.." OnDestroy for "..repr(ALLBPS[self.BlueprintID].Description).." on tick "..GetGameTick() )
 
 		Sync.ReleaseIds[self.EntityID] = true
 
@@ -2551,7 +2548,9 @@ Unit = Class(UnitMethods) {
         
 		TrashDestroy(self.Trash)
         
-        self:SetDead()
+        if not self.Dead then
+            self:SetDead()
+        end
 		
 		LOUDSTATE(self, self.DeadState)
 		
