@@ -44,7 +44,7 @@ local defaultBitmaps = {
        r = UIUtil.SkinnableFile('/widgets/drop-down/drop-box_brd_vert_r.dds'),
        ll = UIUtil.SkinnableFile('/widgets/drop-down/drop-box_brd_ll.dds'),
        lm = UIUtil.SkinnableFile('/widgets/drop-down/drop-box_brd_lm.dds'),
-       lr = UIUtil.SkinnableFile('/widgets/drop-down/drop-box_brd_lr.dds'), 
+       lr = UIUtil.SkinnableFile('/widgets/drop-down/drop-box_brd_lr.dds'),
     },
 }
 
@@ -71,11 +71,11 @@ Combo = Class(Group) {
         self._btnLeft:DisableHitTest()
         self._btnRight:DisableHitTest()
         self._btnMid:DisableHitTest()
-        
+
         LayoutHelpers.AtLeftTopIn(self._btnLeft, self)
         LayoutHelpers.AtRightTopIn(self._btnRight, self)
         LayoutHelpers.AtTopIn(self._btnMid, self)
-        LayoutHelpers.AnchorToRight(self._btnMid, self._btnLeft, -1)
+        self._btnMid.Left:Set(self._btnLeft.Right)
         self._btnMid.Right:Set(self._btnRight.Left)
 
         self._text = UIUtil.CreateText(self._btnMid, "", pointSize, UIUtil.bodyFont)
@@ -83,8 +83,7 @@ Combo = Class(Group) {
 
         -- text control is height of text/font, and from left to button
         self.Height:Set(function() return math.max(self._text.Height(), self._btnMid.Height()) end)
-		LayoutHelpers.AtVerticalCenterIn(self._text, self._btnMid, 1)
-        --self._text.Top:Set(self._btnMid.Top)
+        LayoutHelpers.AtVerticalCenterIn(self._text, self._btnMid, 1)
         LayoutHelpers.AtLeftIn(self._text, self._btnLeft, 5)
         LayoutHelpers.AtRightIn(self._text, self._btnMid, -5)
         self._text:SetClipToWidth(true)
@@ -93,7 +92,7 @@ Combo = Class(Group) {
         self._dropdown.Top:Set(self.Bottom)
         self._dropdown.Right:Set(self.Right)
         self._dropdown.Width:Set(function() return self.Width() - LayoutHelpers.ScaleNumber(5) end)
-    
+
         local ddul = Bitmap(self._dropdown, bitmaps.list.ul)
         local ddum = Bitmap(self._dropdown, bitmaps.list.um)
         local ddur = Bitmap(self._dropdown, bitmaps.list.ur)
@@ -104,7 +103,7 @@ Combo = Class(Group) {
         local ddlm = Bitmap(self._dropdown, bitmaps.list.lm)
         local ddlr = Bitmap(self._dropdown, bitmaps.list.lr)
 
-        -- top part is fixed under self        
+        -- top part is fixed under self
         LayoutHelpers.AtLeftTopIn(ddul, self._dropdown)
         LayoutHelpers.AtRightTopIn(ddur, self._dropdown)
         LayoutHelpers.AtTopIn(ddum, self._dropdown)
@@ -130,6 +129,8 @@ Combo = Class(Group) {
         ddm.Height:Set(self._list.Height)
         ddl.Height:Set(self._list.Height)
         ddr.Height:Set(self._list.Height)
+
+        -- bottom part
         ddll.Bottom:Set(self._dropdown.Bottom)
         ddll.Left:Set(self._dropdown.Left)
         ddlr.Bottom:Set(self._dropdown.Bottom)
@@ -395,7 +396,7 @@ BitmapCombo = Class(Group) {
         LayoutHelpers.AtLeftTopIn(self._btnLeft, self)
         LayoutHelpers.AtRightTopIn(self._btnRight, self)
         LayoutHelpers.AtTopIn(self._btnMid, self)
-        LayoutHelpers.AnchorToRight(self._btnMid, self._btnLeft, -1)
+        self._btnMid.Left:Set(self._btnLeft.Right)
         self._btnMid.Right:Set(self._btnRight.Left)
 
         self._bitmap = Bitmap(self._btnMid)
@@ -542,7 +543,7 @@ BitmapCombo = Class(Group) {
             LayoutHelpers.DepthOverParent(self._listbmp[index], self._list[index], 2)   -- make room for highlight underneath
             self._list[index].Width:Set(self._dropdown.Width)
             local listIndex = index
-            self._list[index].Height:Set(function() return self._listbmp[listIndex].Height() + 4 end)
+            self._list[index].Height:Set(function() return self._listbmp[listIndex].Height() + LayoutHelpers.ScaleNumber(4) end)
             self:SetBitmap(self._listbmp[index], bmp)
             LayoutHelpers.AtLeftTopIn(self._listbmp[index], self._list[index], 2, 2)
             local prevCtrl = prev   -- this gets the prev control into the closure of this iteration
@@ -593,7 +594,7 @@ BitmapCombo = Class(Group) {
         local ddlm = Bitmap(self._dropdown, self._bitmaps.list.lm)
         local ddlr = Bitmap(self._dropdown, self._bitmaps.list.lr)
 
-        -- top part is fixed under self        
+        -- top part is fixed under self
         LayoutHelpers.AnchorToBottom(ddul, self._btnMid)
         LayoutHelpers.AtLeftIn(ddul, self._btnLeft, 5)
         LayoutHelpers.AnchorToBottom(ddur, self._btnMid)
@@ -615,12 +616,11 @@ BitmapCombo = Class(Group) {
         ddl.Height:Set(ddm.Height)
         ddr.Height:Set(ddm.Height)
 
+        -- bottom part
         LayoutHelpers.AnchorToBottom(ddll, ddl)
         LayoutHelpers.AtLeftIn(ddll, ddl)
-        
         LayoutHelpers.AnchorToBottom(ddlr, ddr)
         LayoutHelpers.AtRightIn(ddlr, ddr)
-        
         LayoutHelpers.AnchorToBottom(ddlm, ddm)
         LayoutHelpers.AnchorToRight(ddlm, ddl)
         LayoutHelpers.AnchorToLeft(ddlm, ddr)
@@ -628,7 +628,6 @@ BitmapCombo = Class(Group) {
         LayoutHelpers.FillParent(self._dropdown, ddm)
         self._dropdown:Hide()
         self._ddhidden = true
-
     end,
 
     SetBitmap = function(self, bmp, name)
@@ -637,8 +636,8 @@ BitmapCombo = Class(Group) {
         else
             bmp:SetTexture(UIUtil.SkinnableFile(name))
         end
-        bmp.Width:Set(function() return self._btnMid.Width() + self._btnLeft.Width() - 5 end)
-        bmp.Height:Set(function() return self._btnMid.Height() - 4 end)
+        bmp.Width:Set(function() return self._btnMid.Width() + self._btnLeft.Width() - LayoutHelpers.ScaleNumber(5) end)
+        bmp.Height:Set(function() return self._btnMid.Height() - LayoutHelpers.ScaleNumber(4) end)
     end,
 
     -- set the index selected
