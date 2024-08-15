@@ -1229,24 +1229,27 @@ function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bS
 
 	if MovementLayer == 'Land' or MovementLayer == 'Amphibious' then
 		
-		local AIGetMarkersAroundLocation = import('/lua/ai/aiutilities.lua').AIGetMarkersAroundLocation
-        local CalculatePlatoonThreat = moho.platoon_methods.CalculatePlatoonThreat
-        local GetPlatoonPosition = GetPlatoonPosition
-        local GetPlatoonUnits = GetPlatoonUnits
-        local GetSurfaceHeight = GetSurfaceHeight
-        local GetTerrainHeight = GetTerrainHeight
-        local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
-		local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-        local PlatoonCategoryCount = moho.platoon_methods.PlatoonCategoryCount
+		local AIGetMarkersAroundLocation    = import('/lua/ai/aiutilities.lua').AIGetMarkersAroundLocation
+
+        local GetPlatoonPosition            = GetPlatoonPosition
+        local GetPlatoonUnits               = GetPlatoonUnits
+        local GetSurfaceHeight              = GetSurfaceHeight
+        local GetTerrainHeight              = GetTerrainHeight
+
+        local CalculatePlatoonThreat    = moho.platoon_methods.CalculatePlatoonThreat
+        local GetThreatAtPosition       = moho.aibrain_methods.GetThreatAtPosition
+		local GetUnitsAroundPoint       = moho.aibrain_methods.GetUnitsAroundPoint
+        local PlatoonCategoryCount      = moho.platoon_methods.PlatoonCategoryCount
+
         local PlatoonExists = PlatoonExists
 
-        local LOUDCAT = table.cat
-        local LOUDCOPY = LOUDCOPY
+        local LOUDCAT   = table.cat
+        local LOUDCOPY  = LOUDCOPY
         local LOUDEQUAL = table.equal
         local LOUDFLOOR = LOUDFLOOR
         local LOUDLOG10 = math.log10
-        local VDist2Sq = VDist2Sq
-        local VDist3 = VDist3
+        local VDist2Sq  = VDist2Sq
+        local VDist3    = VDist3
         local WaitTicks = WaitTicks
 
         local surthreat = 0
@@ -1259,16 +1262,17 @@ function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bS
 		local PlatoonGenerateSafePathToLOUD = self.PlatoonGenerateSafePathToLOUD            
 
 		local IsEngineer = PlatoonCategoryCount( self, ENGINEERS ) > 0
+        local HasExperimentals = PlatoonCategoryCount( self, categories.EXPERIMENTAL ) > 0
 
-        local ALLUNITS = categories.ALLUNITS
+        local ALLUNITS  = categories.ALLUNITS
         local TESTUNITS = ALLUNITS - categories.FACTORY - categories.ECONOMIC - categories.SHIELD - categories.WALL
 
 		local airthreat, airthreatMax, Defense, markerrange, mythreat, path, reason, pathlength, surthreat, transportcount,units, transportLocation
 
-		-- prohibit LAND platoons from traveling to water locations
+		-- prohibit LAND platoons from traveling to water locations or trying to transport T4 units
 		if MovementLayer == 'Land' then
 
-			if GetTerrainHeight(destination[1], destination[3]) < GetSurfaceHeight(destination[1], destination[3]) - 1 then 
+			if HasExperimentals or GetTerrainHeight(destination[1], destination[3]) < GetSurfaceHeight(destination[1], destination[3]) - 1 then 
 
                 if TransportDialog then	
                     LOG("*AI DEBUG "..aiBrain.Nickname.." SendPlatWTrans "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." trying to go to WATER destination "..repr(destination) )

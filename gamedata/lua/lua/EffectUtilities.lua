@@ -1252,14 +1252,14 @@ end
 
 function CreateSeraphimFactoryBuildingEffects( builder, unitBeingBuilt, BuildEffectBones, BuildBone, EffectsBag )
 
-    local BeenDestroyed = BeenDestroyed
-    local LOUDATTACHEMITTER = LOUDATTACHEMITTER
-    local LOUDATTACHBEAMENTITY = LOUDATTACHBEAMENTITY
-    local TrashAdd = TrashAdd
-    local WaitTicks = WaitTicks
+    local BeenDestroyed         = BeenDestroyed
+    local LOUDATTACHEMITTER     = LOUDATTACHEMITTER
+    local LOUDATTACHBEAMENTITY  = LOUDATTACHBEAMENTITY
+    local TrashAdd              = TrashAdd
+    local WaitTicks             = WaitTicks
 
-    local bp = ALLBPS[unitBeingBuilt.BlueprintID]
-    local army = builder.Army
+    local bp    = ALLBPS[unitBeingBuilt.BlueprintID]
+    local army  = builder.Army
     
 	local pos = builder:GetPosition(BuildBone)
     
@@ -1279,8 +1279,10 @@ function CreateSeraphimFactoryBuildingEffects( builder, unitBeingBuilt, BuildEff
     BuildBaseEffect:SetOrientation( unitBeingBuilt:GetOrientation(), true)
     
     LOUDWARP( BuildBaseEffect, pos )
-    
-    TrashAdd( unitBeingBuilt.Trash, BuildBaseEffect )
+
+    if unitBeingBuilt.Trash then
+        TrashAdd( unitBeingBuilt.Trash, BuildBaseEffect )
+    end
     
     TrashAdd( EffectsBag, BuildBaseEffect )
 
