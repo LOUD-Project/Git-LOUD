@@ -110,9 +110,6 @@ end
 -- ALL AIR BUILDERS SIT AT 600 PRIORITY except for highneed transports and torp bombers
 -- usually controlled by air ratio and number of factories producing that unit
 
--- T1 - T2 Bombers were not controlled by the Air Ratio. 
--- Fighters will now always be produced if we're below a 1.0 Air Ratio.
-
 BuilderGroup {BuilderGroupName = 'Factory Production - Air',
     BuildersType = 'FactoryBuilder',
 
@@ -270,7 +267,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 		PriorityFunction = HaveLessThanThreeT3AirFactory,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 6 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 2 } },
 
             { UCBC, 'FactoryLessAtLocation', { 'LocationType', 3, categories.AIR - categories.TECH1 }},
 
@@ -289,14 +286,14 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 		PriorityFunction = HaveLessThanThreeT3AirFactory,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 6 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 3 } },
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY * categories.AIR - categories.TECH1 }},
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.HIGHALTAIR * categories.ANTIAIR, categories.AIR * categories.TECH3 }},			
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, categories.HIGHALTAIR * categories.ANTIAIR, categories.AIR * categories.TECH3 }},			
         },
 		
-        BuilderType =  {'AirT2'},
+        BuilderType =  {'AirT2','AirT3'},
     },
 
     Builder {BuilderName = 'Gunship T2',
@@ -344,7 +341,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 1, categories.FACTORY * categories.AIR * categories.TECH3 }},
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.HIGHALTAIR * categories.ANTIAIR, categories.AIR * categories.TECH3 }},			
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, categories.HIGHALTAIR * categories.ANTIAIR, categories.AIR * categories.TECH3 }},			
         },
 
         BuilderType =  {'AirT3'},

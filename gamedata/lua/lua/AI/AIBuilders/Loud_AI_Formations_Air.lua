@@ -861,15 +861,15 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		PlatoonAIPlan = 'AttackForceAI',		
 		
         Priority = 700,
-        InstanceCount = 1,
+        InstanceCount = 2,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 0.7 } },
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRFIGHTER }},
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.6 } },
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, AIRFIGHTER }},
         },
 		
         BuilderData = {
-			DistressRange           = 150,
+			DistressRange           = 200,
             DistressReactionTime    = 3,            
 			DistressTypes           = 'Air',
 			DistressThreshold       = 3,
@@ -908,7 +908,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
             
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRFIGHTER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, AIRFIGHTER }},
             
 			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.AIR * categories.INTELLIGENCE, 'Enemy' }},
         },
@@ -949,7 +949,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
             
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRFIGHTER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, AIRFIGHTER }},
             
 			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.TRANSPORTFOCUS, 'Enemy' }},
         },
@@ -996,7 +996,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 140,
+			DistressRange = 240,
             DistressReactionTime = 3,
 			DistressTypes = 'Air',
 			DistressThreshold = 3,
@@ -1040,7 +1040,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 165,
+			DistressRange = 280,
             DistressReactionTime = 3,
 			DistressTypes = 'Air',
 			DistressThreshold = 3,
@@ -1945,7 +1945,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1.5 } },
             
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 17, AIRFIGHTER }},
 			{ UCBC, 'HaveGreaterThanUnitsWithCategory', { 0, categories.CRUISER + categories.DESTROYER + (categories.NAVAL * categories.CARRIER) }},            
