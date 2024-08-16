@@ -120,7 +120,7 @@
 	LOG("*AI DEBUG      Display Platoon Plans is "..repr(ScenarioInfo.DisplayPlatoonPlans))
 
     -- AI bases and platoons that respond to distress will dialog their data and decisions to the LOG
-	ScenarioInfo.DistressResponseDialog = false
+	ScenarioInfo.DistressResponseDialog = true
 	LOG("*AI DEBUG      Report Distress Response Dialogs to Log is "..repr(ScenarioInfo.DistressResponseDialog))
 
     -- AI platoons that MERGE_INTO or MERGE_WITH will dialog their data and decisions to the LOG

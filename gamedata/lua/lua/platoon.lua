@@ -403,7 +403,7 @@ Platoon = Class(PlatoonMethods) {
 							IssueFormMove( SCOUTS, waypointPath, 'BlockFormation', Direction)
 						end
                         
-                        ATTACKS = table.merged(GetSquadUnits( self,'Attack'),GetSquadUnits( self,'Unassigned'))
+                        ATTACKS = table.merged( GetSquadUnits( self,'Attack'), GetSquadUnits( self,'Unassigned') )
 					
 						if ATTACKS[1] then
                         

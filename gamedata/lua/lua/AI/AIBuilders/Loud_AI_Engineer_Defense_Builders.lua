@@ -5282,7 +5282,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
         },
 		
-		BuilderType = { 'T2','T3','SubCommander' },
+		BuilderType = { 'T3','SubCommander' },
 
         BuilderData = {
 			DesiresAssist = true,
@@ -5290,7 +5290,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-                ThreatMax = 50,
+                ThreatMax = 40,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
