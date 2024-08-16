@@ -35,17 +35,6 @@ do
 		'DeadBaseMonitorDialog',
 		'DisplayPingAlerts',
 
-		"* ATTACK PLANS, STRENGTH RATIOS *",
-		'DisplayAttackPlans',
-		'AttackPlanDialog',
-		'ReportRatios',
-	}
-
-	local SWITCHES_RIGHT = {
-		"* INTEL & THREAT DEBUGS *",
-		'IntelDialog',
-		'DisplayIntelPoints',
-
 		"* PLATOONS *",
 		'PlatoonDialog',
 		'DisplayPlatoonMembership',
@@ -54,8 +43,20 @@ do
 		'PlatoonMergeDialog',
 		'TransportDialog',
 		'PathFindingDialog',
+	}
+
+	local SWITCHES_RIGHT = {
+		"* INTEL & THREAT DEBUGS *",
+		'IntelDialog',
+		'DisplayIntelPoints',
+
+		"* ATTACK PLANS, STRENGTH RATIOS *",
+		'DisplayAttackPlans',
+		'AttackPlanDialog',
+		'ReportRatios',
 
 		"* BEHAVIOR DIALOG *",
+        'AirForceDialog',
         'AmphibForceDialog',
         'GuardPointDialog',
         'LandForceDialog',
@@ -63,7 +64,7 @@ do
         'NavalBombardDialog',
         'NukeDialog',
 
-        "* HARDCORD NERD DATA *",
+        "* HARDCORE NERD DATA *",
 		'BuffDialog',
 		'InstanceDialog',
 		'PriorityDialog',
