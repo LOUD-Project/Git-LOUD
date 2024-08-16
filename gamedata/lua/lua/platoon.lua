@@ -403,7 +403,7 @@ Platoon = Class(PlatoonMethods) {
 							IssueFormMove( SCOUTS, waypointPath, 'BlockFormation', Direction)
 						end
                         
-                        ATTACKS = GetSquadUnits( self,'Attack') or false
+                        ATTACKS = table.merged(GetSquadUnits( self,'Attack'),GetSquadUnits( self,'Unassigned'))
 					
 						if ATTACKS[1] then
                         
@@ -5636,7 +5636,7 @@ Platoon = Class(PlatoonMethods) {
 		if not self.MovementLayer then
 			GetMostRestrictiveLayer(self)
 		end
-        
+       
         local AIRUNITS      = categories.GROUNDATTACK + categories.BOMBER - categories.ANTINAVY
         local LANDUNITS     = categories.LAND * categories.MOBILE
         local SEAUNITS      = categories.MOBILE * categories.NAVAL

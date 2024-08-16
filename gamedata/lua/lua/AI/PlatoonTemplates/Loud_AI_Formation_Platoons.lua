@@ -12,24 +12,24 @@ local TORPBOMBER = categories.HIGHALTAIR * categories.ANTINAVY - categories.EXPE
 
 PlatoonTemplate { Name = 'FighterAttack Small',
     GlobalSquads = {
-        { AIRFIGHTER - categories.EXPERIMENTAL, 1, 12, 'Attack', 'AttackFormation' },
+        { AIRFIGHTER - categories.EXPERIMENTAL, 2, 12, 'Unassigned', 'AttackFormation' },
     }
 }
 PlatoonTemplate { Name = 'FighterAttack',
     GlobalSquads = {
-        { AIRFIGHTER - categories.EXPERIMENTAL, 18, 32, 'Attack', 'AttackFormation' },
+        { AIRFIGHTER - categories.EXPERIMENTAL, 18, 32, 'Unassigned', 'AttackFormation' },
     }
 }
 PlatoonTemplate { Name = 'FighterAttack Large',
     GlobalSquads = {
-        { AIRFIGHTER - categories.EXPERIMENTAL, 24, 48, 'Attack', 'AttackFormation' },
+        { AIRFIGHTER - categories.EXPERIMENTAL, 24, 48, 'Unassigned', 'AttackFormation' },
     }
 }
 
 PlatoonTemplate { Name = 'FighterReinforce',
     Plan = 'ReinforceAirAI',	-- to either land or sea bases
     GlobalSquads = {
-        { AIRFIGHTER, 3, 45, 'Attack', 'none' },
+        { AIRFIGHTER, 3, 45, 'Unassigned', 'none' },
 		{ AIRSCOUT, 0, 4, 'Support', 'none' }, 
     }
 }

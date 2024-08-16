@@ -126,7 +126,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 
             { LUTL, 'UnitCapCheckLess', { .65 } },
             
-            { LUTL, 'AirStrengthRatioGreaterThan', { 0.7 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.8 } },
 
             -- don't build T1 air scouts if we can build better ones
             { UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.AIR - categories.TECH1 }},
@@ -152,7 +152,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-            { LUTL, 'AirStrengthRatioGreaterThan', { 0.7 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.8 } },
 
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 60, [2048] = 78, [4096] = 78}, categories.AIR * categories.SCOUT}},
 
@@ -187,24 +187,6 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         BuilderType =  {'AirT3'},
     },
 
-	
-	Builder {BuilderName = 'Bomber T1',
-	
-        PlatoonTemplate = 'T1Bomber',
-
-        Priority = 600,
-		
-		PriorityFunction = HaveLessThanThreeT2AirFactory,
-		
-        BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
-            
-			-- stop making them if enemy has T2 AA of any kind
-			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},
-        },
-		
-        BuilderType =  {'AirT1'},
-    },
 
     --- fighters with a air scout supplement - prior to T2
     Builder {BuilderName = 'Fighters T1 Plus',
@@ -243,21 +225,24 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         BuilderType =  {'AirT1'},
     },
 	
-    Builder {BuilderName = 'Bomber T2',
+	Builder {BuilderName = 'Bomber T1',
 	
-        PlatoonTemplate = 'T2Bomber',
+        PlatoonTemplate = 'T1Bomber',
 
         Priority = 600,
 		
-		PriorityFunction = HaveLessThanThreeT3AirFactory,
+		PriorityFunction = HaveLessThanThreeT2AirFactory,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
+            
+			-- stop making them if enemy has T2 AA of any kind
+			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},
         },
 		
-        BuilderType =  {'AirT2','AirT3'},
+        BuilderType =  {'AirT1'},
     },
-
+	
     Builder {BuilderName = 'Fighters T2 Crossover',
 	
         PlatoonTemplate = 'T2FighterCrossover',
@@ -276,7 +261,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 		
         BuilderType =  {'AirT2','AirT3'},
     },
-	
+
     Builder {BuilderName = 'Fighters T2',
 	
         PlatoonTemplate = 'T2Fighter',
@@ -313,21 +298,21 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         BuilderType =  {'AirT2','AirT3'},
     },
 	
-    Builder {BuilderName = 'Bomber T3',
+    Builder {BuilderName = 'Bomber T2',
 	
-        PlatoonTemplate = 'T3Bomber',
+        PlatoonTemplate = 'T2Bomber',
 
         Priority = 600,
-        
+		
+		PriorityFunction = HaveLessThanThreeT3AirFactory,
+		
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
-
-			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 3, categories.FACTORY * categories.AIR * categories.TECH3 }},
         },
 		
-        BuilderType =  {'AirT3'},
+        BuilderType =  {'AirT2','AirT3'},
     },
-    
+
     Builder {BuilderName = 'Fighters T3',
 	
         PlatoonTemplate = 'T3Fighter',
@@ -361,6 +346,22 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 
         BuilderType =  {'AirT3'},
     },
+	
+    Builder {BuilderName = 'Bomber T3',
+	
+        PlatoonTemplate = 'T3Bomber',
+
+        Priority = 600,
+        
+        BuilderConditions = {
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
+
+			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 3, categories.FACTORY * categories.AIR * categories.TECH3 }},
+        },
+		
+        BuilderType =  {'AirT3'},
+    },
+    
 }
 
 -- Torpedo Bombers have been problematic
@@ -490,7 +491,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 
             { LUTL, 'UnitCapCheckLess', { .75 } },
             
-            { LUTL, 'AirStrengthRatioGreaterThan', { 0.7 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.8 } },
 
             { UCBC, 'ArmyNeedsTransports', { true } },
 			
@@ -516,7 +517,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.8 } },
 			
             { UCBC, 'ArmyNeedsTransports', { true } },
 
@@ -542,7 +543,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
 
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.8 } },
 
             { UCBC, 'ArmyNeedsTransports', { true } },
 
@@ -567,7 +568,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.8 } },
 
             { UCBC, 'ArmyNeedsTransports', { true } },
 
