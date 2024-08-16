@@ -6190,9 +6190,9 @@ Platoon = Class(PlatoonMethods) {
                                                         continue
                                                     end
 
-                                                    --if DistressResponseDialog then
-                                                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..repr(self.BuilderInstance).." "..repr(platoon.MovementLayer).." records alert at "..repr(position).." distance "..rangetoalert.." threat "..threat )
-                                                    --end
+                                                    if DistressResponseDialog then
+                                                        LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..repr(self.BuilderInstance).." "..repr(platoon.MovementLayer).." records alert at "..repr(position).." distance "..rangetoalert.." threat "..threat )
+                                                    end
 
                                                     alertposition = LOUDCOPY( position )
                                                     alertplatoon = distressplatoon
@@ -6208,7 +6208,7 @@ Platoon = Class(PlatoonMethods) {
 
                                         else
                                             --if DistressResponseDialog then
-                                                --LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..repr(self.BuilderInstance).." distress at "..rangetoalert.." response range is "..distressrange )
+                                              --  LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..repr(self.BuilderInstance).." distress at "..rangetoalert.." response range is "..distressrange )
                                             --end
                                         end
 
@@ -6227,9 +6227,9 @@ Platoon = Class(PlatoonMethods) {
 			end		-- next brain --
 	
 			if alertposition then
-                --if DistressResponseDialog then
-                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." selects "..repr(alertposition).." from "..( repr(alertplatoon.BuilderName) or repr(alertplatoon) ).." distance "..alertrange.." - time "..repr(GetGameTimeSeconds()))
-                --end
+                if DistressResponseDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." selects "..repr(alertposition).." from "..( repr(alertplatoon.BuilderName) or repr(alertplatoon) ).." distance "..alertrange.." - time "..repr(GetGameTimeSeconds()))
+                end
 
 				return alertposition, distresstype, alertplatoon
 			else
@@ -6307,15 +6307,19 @@ Platoon = Class(PlatoonMethods) {
                             end
 
                             if DistressResponseDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." continues response to "..distressType.." DISTRESS at "..repr(distressLocation).." distance "..VDist3(platoonPos,distressLocation) )
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." continues response to "..distressType.." DISTRESS at "..repr(distressLocation).." distance "..VDist3(platoonPos,distressLocation).." on tick "..GetGameTick() )
                             end
 
 							-- move directly to distressLocation
 							if not inWater then
 
                                 direction = GetDirection( GetPlatoonPosition(self), distressLocation )
+
+                                if DistressResponseDialog then
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." moving to "..repr(distressLocation).." distance "..VDist3(platoonPos,distressLocation).." on tick "..GetGameTick() )
+                                end
                                 
-                                ATTACKS = GetSquadUnits(self,'Attack')
+                                ATTACKS = table.merged(GetSquadUnits(self,'Attack'),GetSquadUnits(self,'Unassigned'))
                             
                                 if ATTACKS[1] then
                             
@@ -6409,6 +6413,11 @@ Platoon = Class(PlatoonMethods) {
                                             moveLocation = false
                                         else
                                             prevpos = LOUDCOPY(platoonPos)
+
+                                            if DistressResponseDialog then
+                                                LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." is moving - distance "..math.floor(VDist2(platoonPos[1],platoonPos[3], prevpos[1],prevpos[3])).." on tick "..GetGameTick() )
+                                            end
+                                            
                                         end
 
                                         -- if we have a distress location check the threat is still past threshold
@@ -6471,7 +6480,9 @@ Platoon = Class(PlatoonMethods) {
 
                                                 end
                                             end
+                                            
                                         end
+                                        
                                     else
                                         return
                                     end
@@ -6497,19 +6508,21 @@ Platoon = Class(PlatoonMethods) {
 							
 								platoonPos = GetPlatoonPosition(self) or false
                                 
-                                distressLocation    = false
-                                distressType        = false
-                                distressPlatoon     = false
-
-                                --- see if there is another distress 
                                 if platoonPos then
                                 
+                                    distressLocation    = false
+                                    distressType        = false
+                                    distressPlatoon     = false
+
 									distressLocation, distressType, distressplatoon = PlatoonMonitorDistressLocations( self, aiBrain, startPos, distressRange, distressTypes, threatThreshold)
                                     
                                     if distressLocation and LOUDEQUAL(distressLocation, previousdistress) then
                                         distressLocation = false
                                     end
-								end
+								else
+                                    return
+                                end
+                                
 							end
 						end
 
