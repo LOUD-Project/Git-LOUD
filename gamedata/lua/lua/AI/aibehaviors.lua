@@ -2126,7 +2126,7 @@ function RetreatAI( self, aiBrain )
         if self.UnderAttack then
 
             --if not messageflag then
-              --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." is under attack")    
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." is under attack on tick "..GetGameTick() )    
               --  messageflag = true
             --end
 
@@ -2159,7 +2159,7 @@ function RetreatAI( self, aiBrain )
 
         end
         
-        WaitTicks(2)
+        WaitTicks(3)
     end
 
 end
@@ -3304,6 +3304,12 @@ end
 -- THIS IS AN ALTERNATIVE AirForceAI specifically for bombers
 function AirForceAI_Bomber_LOUD( self, aiBrain )
 
+    local AirForceDialog = ScenarioInfo.AirForceDialog or false
+
+    if AirForceDialog then
+        LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." starts")
+    end
+
     local CalculatePlatoonThreat    = CalculatePlatoonThreat
 	local GetUnitsAroundPoint       = GetUnitsAroundPoint
     local GetPlatoonPosition        = GetPlatoonPosition
@@ -3323,11 +3329,11 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
     
     local SetLoiterPosition = import('/lua/ai/aibehaviors.lua').SetLoiterPosition
     
-    local Searchradius = self.PlatoonData.SearchRadius or 200
+    local Searchradius      = self.PlatoonData.SearchRadius or 200
     
-    local missiontime = self.PlatoonData.MissionTime or 600
-    local mergelimit = self.PlatoonData.MergeLimit or false
-    local PlatoonFormation = self.PlatoonData.UseFormation or 'None'
+    local missiontime       = self.PlatoonData.MissionTime or 600
+    local mergelimit        = self.PlatoonData.MergeLimit or false
+    local PlatoonFormation  = self.PlatoonData.UseFormation or 'None'
 
     local platoonUnits = LOUDCOPY(GetPlatoonUnits(self))
 
@@ -3419,8 +3425,8 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
     local threatcompare = 'AntiAir'
     local threatavoid = 'AntiAir'
     
-    local mult = { 1, 2, 3 }				-- this multiplies the searchradius of the platoon when searching for targets
-	local difficulty = { 1.25, 1, 0.72 }	-- this divides the base threat of the platoon, by deflating it and then increasing it, so that easier targets are selected first
+    local mult = { 1, 2, 2.5 }				-- this multiplies the searchradius of the platoon when searching for targets
+	local difficulty = { 1.2, 1, 0.8 }	-- this divides the base threat of the platoon, by deflating it and then increasing it, so that easier targets are selected first
     
     local minrange, maxrange, searchradius, usethreat
     local Rangemult, Threatmult
