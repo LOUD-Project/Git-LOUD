@@ -795,6 +795,12 @@ function SetupAICheat(aiBrain)
     
     newbuff.Affects.BuildRate.Mult = math.max( 1.0, aiBrain.CheatValue )
 
+    LOG("     "..aiBrain.Nickname.." BuildRate mult is "..newbuff.Affects.BuildRate.Mult)
+
+    if aiBrain.Personality != 'loud' then
+        return
+    end
+    
     -- the Outnumbered condition increases a cheating AI's build rate and affects the sub modifiers
     if aiBrain.OutnumberedRatio > aiBrain.CheatValue then
         

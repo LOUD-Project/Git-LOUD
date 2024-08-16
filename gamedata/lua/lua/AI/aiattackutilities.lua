@@ -1026,7 +1026,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
                     unitchecks = unitchecks + 1
                     
 					-- if can attack this type of target
-					if CanAttackTarget( platoon, squad, u ) then
+					if PlatoonExists(aiBrain, platoon) and CanAttackTarget( platoon, squad, u ) then
 
                         -- if threat values are provided, use them to filter the targets
                         if threatself then
@@ -1076,7 +1076,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
                         
                         else    -- otherwise select the first target
                         
-                            return u, unitposition, unitdistance    ---u:GetPosition()
+                            return u, unitposition, unitdistance
 
                         end
 					end

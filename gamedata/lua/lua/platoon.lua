@@ -33,9 +33,7 @@ local UnfinishedBody                            = AltAIUtilities.UnfinishedBody
 
 AltAIUtilities = nil
 
-local GetTransports                     = import('/lua/ai/transportutilities.lua').GetTransports
 local SendPlatoonWithTransportsLOUD     = import('/lua/ai/transportutilities.lua').SendPlatoonWithTransportsLOUD
-local UseTransports                     = import('/lua/ai/transportutilities.lua').UseTransports
 
 local AIBuildAdjacency                  = import('/lua/ai/aibuildstructures.lua').AIBuildAdjacency
 local AIBuildBaseTemplateFromLocation   = import('/lua/ai/aibuildstructures.lua').AIBuildBaseTemplateFromLocation
@@ -166,7 +164,7 @@ Platoon = Class(PlatoonMethods) {
         
 			local aiBrain = GetBrain(self)
             
-            self:ForkThread( function(self) WaitTicks(1) LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..self.BuilderName.." "..repr(self.BuilderInstance).." created") end)
+            self:ForkThread( function(self) WaitTicks(1) LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." created") end)
 		end
         
     end,
@@ -280,7 +278,7 @@ Platoon = Class(PlatoonMethods) {
         local Callbacks = self.EventCallbacks.OnDestroyed
 
 		if ScenarioInfo.PlatoonDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..self.BuilderName.." "..repr(self.BuilderInstance).." destroyed " )
+            LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..self.BuilderName.." "..repr(self.BuilderInstance).." destroyed on tick "..GetGameTick() )
 		end
 
         if Callbacks then
@@ -294,7 +292,7 @@ Platoon = Class(PlatoonMethods) {
             end		
         end
 
-        TrashBag.Destroy(self.Trash)
+        TrashDestroy(self.Trash)
     end,
 
     WatchPlatoonSize = function(self, startsize, triggervalue)
