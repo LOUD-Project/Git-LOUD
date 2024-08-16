@@ -5620,6 +5620,7 @@ Platoon = Class(PlatoonMethods) {
         local DistressResponseDialog    = ScenarioInfo.DistressResponseDialog or false
 
         local CalculatePlatoonThreat    = CalculatePlatoonThreat
+        local GetEnemyUnitsInRect       = import('/lua/loudutilities.lua').GetEnemyUnitsInRect
         local GetPlatoonPosition        = GetPlatoonPosition
         local GetThreatAtPosition       = GetThreatAtPosition
         local GetUnitsAroundPoint       = GetUnitsAroundPoint
@@ -5651,10 +5652,101 @@ Platoon = Class(PlatoonMethods) {
 		local MovementLayer         = self.MovementLayer
 		local threatcheckthreshold  = threatcheck or 6		
 
+        local IMAPblocks        = LOUDFLOOR( 128/ScenarioInfo.IMAPSize)
+        local threatrangeadjust = ScenarioInfo.IMAPRadius
+        local threatringrange   = LOUDFLOOR(IMAPblocks/2)
+
 		local distresscalltype, mythreat, threat
         local airunits, landunits, seaunits
 		
         local pos = GetPlatoonPosition(self) or false
+
+	
+        local AIGetThreatLevelsAroundPoint = function(unitposition,threattype)
+        
+            local adjust = threatrangeadjust + ( threatringrange * threatrangeadjust ) 
+
+            local units,counter = GetEnemyUnitsInRect( aiBrain, unitposition[1]-adjust, unitposition[3]-adjust, unitposition[1]+adjust, unitposition[3]+adjust )
+
+            if units then
+        
+                local bp, threat
+            
+                threat = 0
+                counter = 0
+        
+                if threattype == 'Air' or threattype == 'AntiAir' then
+            
+                    for _,v in units do
+                
+                        bp = __blueprints[v.BlueprintID].Defense.AirThreatLevel or 0
+                    
+                        if bp then
+                            threat = threat + bp
+                            counter = counter + 1
+                        end
+                    end
+            
+                elseif threattype == 'AntiSurface' then
+            
+                    for _,v in units do
+                
+                        bp = __blueprints[v.BlueprintID].Defense.SurfaceThreatLevel or 0
+                    
+                        if bp then
+                            threat = threat + bp
+                            counter = counter + 1
+                        end
+                    end
+            
+                elseif threattype == 'AntiSub' then
+            
+                    for _,v in units do
+                
+                        bp = __blueprints[v.BlueprintID].Defense.SubThreatLevel or 0
+                    
+                        if bp then
+                            threat = threat + bp
+                            counter = counter + 1
+                        end
+                    end
+
+                elseif threattype == 'Economy' then
+            
+                    for _,v in units do
+                
+                        bp = __blueprints[v.BlueprintID].Defense.EconomyThreatLevel or 0
+                    
+                        if bp then
+                            threat = threat + bp
+                            counter = counter + 1
+                        end
+                    end
+        
+                else
+            
+                    for _,v in units do
+                
+                        bp = __blueprints[v.BlueprintID].Defense
+                    
+                        bp = bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel + bp.EconomyThreatLevel
+                    
+                        if bp > 0 then
+                            threat = threat + bp
+                            counter = counter + 1
+                        end
+                    end
+                
+                end
+
+                if counter > 0 then
+                    return threat
+                end
+            end
+        
+            return 0
+        end
+
 
 		while PlatoonExists(aiBrain,self) do
 
@@ -5667,26 +5759,26 @@ Platoon = Class(PlatoonMethods) {
 					-- Based upon the platoons movement MovementLayer get the local threats
 					if MovementLayer == 'Land' then
 					
-						threat = GetThreatAtPosition( aiBrain, pos, 0, true, 'AntiSurface' )
+						threat = AIGetThreatLevelsAroundPoint( pos,'AntiSurface' )
 					
 					elseif MovementLayer == 'Air' then
 					
-						threat = GetThreatAtPosition( aiBrain, pos, 0, true, 'AntiAir' )
+						threat = AIGetThreatLevelsAroundPoint( pos,'AntiAir' )
 					
 					elseif MovementLayer == 'Water' then
 					
-						threat = GetThreatAtPosition( aiBrain, pos, 0, true, 'AntiSurface' )
-						threat = threat + GetThreatAtPosition( aiBrain, pos, 0, true, 'AntiSub')
+						threat = AIGetThreatLevelsAroundPoint( pos,'AntiSurface' )
+						threat = threat + AIGetThreatLevelsAroundPoint( pos,'AntiSub' )
 					
 					elseif MovementLayer == 'Amphibious' then
 					
-						threat = GetThreatAtPosition( aiBrain, pos, 0, true, 'AntiSurface' )
+						threat = AIGetThreatLevelsAroundPoint( pos,'AntiSurface' )
 						
 					end
             
-                    --if DistressResponseDialog then
-                      --  LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." "..repr(self.BuilderInstance).." is Under Attack at "..repr(pos).." threat is "..threat.." threshold is "..threatcheckthreshold )
-                    --end
+                    if DistressResponseDialog then
+                        LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." "..repr(self.BuilderInstance).." is Under Attack at "..repr(pos).." threat is "..threat.." threshold is "..threatcheckthreshold.." on tick "..GetGameTick() )
+                    end
 
 					if threat >= threatcheckthreshold then
 
@@ -5763,7 +5855,7 @@ Platoon = Class(PlatoonMethods) {
 						end
 
 						-- Store the Distress Call if threat is truly a danger to me
-						if distresscalltype and threat > (mythreat * 0.75) then
+						if distresscalltype and threat >= (mythreat * 0.8) then
 					
 							if PlatoonExists(aiBrain, self) then
             
@@ -5781,6 +5873,14 @@ Platoon = Class(PlatoonMethods) {
 									AISendPing( LOUDCOPY(pos), 'alert', aiBrain.ArmyIndex )
 								end
 							end
+                        else
+            
+                            if DistressResponseDialog then
+                                LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." is not threatened threat is "..threat.." mythreat is "..mythreat.." on tick "..GetGameTick() )
+                            end
+                            
+                            self.DistressCall = nil
+
                         end
                         
                         WaitTicks(6)
