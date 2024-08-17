@@ -505,7 +505,7 @@ function GetEnemyUnitsInRect( aiBrain, x1, z1, x2, z2 )
 		
         for _,v in units do
 		
-            if not v.Dead and v.ArmyIndex then
+            if (not v.Dead) and v.ArmyIndex then
 
                 if IsEnemy( v.ArmyIndex, ArmyIndex) then
                     counter = counter + 1
@@ -516,7 +516,7 @@ function GetEnemyUnitsInRect( aiBrain, x1, z1, x2, z2 )
 
         end 
 		
-        if counter > 1 then
+        if counter > 0 then
             return enemyunits, counter
         end
     end
