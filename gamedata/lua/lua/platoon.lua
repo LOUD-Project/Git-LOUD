@@ -9772,7 +9772,7 @@ Platoon = Class(PlatoonMethods) {
         local MovementLayer = self.MovementLayer
 
 		local mergedunits = false        
-        local Squads = { 'Attack','Artillery','Guard','Support','Scout' }
+        local Squads = { 'Unassigned','Attack','Artillery','Guard','Support','Scout' }
 		local aPlatUnits, allyPlatoonSize, validUnits
         local count = 0
         local counter = 0
@@ -9789,7 +9789,11 @@ Platoon = Class(PlatoonMethods) {
             if aPlat.PlanName != planName then
                 continue
             end
-		
+
+            if PlatoonMergeDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." sees "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance) )
+            end
+
 			-- not only the plan must match but the buildername as well
 			if planmatchrequired and aPlat.BuilderName != BuilderName then
 				continue
@@ -9814,6 +9818,10 @@ Platoon = Class(PlatoonMethods) {
 
 			-- mark the allied platoon as being busy
 			aPlat.UsingTransport = true
+
+            if PlatoonMergeDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." evaluating "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance) )
+            end
             
             -- the allied platoons size
 			allyPlatoonSize = 0
@@ -9854,7 +9862,7 @@ Platoon = Class(PlatoonMethods) {
 
                 -- otherwise we do the merge
                 if PlatoonMergeDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." MERGE_WITH takes "..counter.." "..repr(squad).." units from "..aPlat.BuilderName.." now has "..platooncount+counter)
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." MERGE_WITH takes "..counter.." "..repr(squad).." units from "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." now has "..platooncount+counter)
                 end
 
                 IssueClearCommands( validUnits )
