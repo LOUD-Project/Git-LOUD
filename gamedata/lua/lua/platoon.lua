@@ -5667,6 +5667,11 @@ Platoon = Class(PlatoonMethods) {
             local adjust = threatrangeadjust + ( threatringrange * threatrangeadjust ) 
 
             local units,counter = GetEnemyUnitsInRect( aiBrain, unitposition[1]-adjust, unitposition[3]-adjust, unitposition[1]+adjust, unitposition[3]+adjust )
+            
+            if DistressResponseDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI "..self.BuilderName.." "..repr(self.BuilderInstance).." finds "..counter.." enemy units around Point "..repr(unitposition) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI "..self.BuilderName.." "..repr(self.BuilderInstance).." using adjustment range "..adjust )
+            end
 
             if units then
         
@@ -9784,7 +9789,7 @@ Platoon = Class(PlatoonMethods) {
             if aPlat == self then
                 continue
             end
-		
+
 			-- otherwise it must a least have the same plan
             if aPlat.PlanName != planName then
                 continue
