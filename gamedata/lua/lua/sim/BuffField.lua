@@ -301,7 +301,7 @@ BuffField = Class(Entity) {
         local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint    -- only picks up units actually detected
        
         local LOUDCOPY = table.copy
-		local LOUDMERGE = table.merged
+
         local WaitTicks = coroutine.yield
 		
 		local aiBrain = Owner:GetAIBrain()

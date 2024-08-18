@@ -2656,7 +2656,7 @@ Platoon = Class(PlatoonMethods) {
         end
         
         if GuardpointDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." begins")
+            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..repr(self.BuilderInstance).." begins on tick "..GetGameTick() )
         end
 
         -- other platoon functions 
@@ -2915,7 +2915,7 @@ Platoon = Class(PlatoonMethods) {
 				if path then
 
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." "..MovementLayer.." path to "..repr(marker).." pathlength is "..pathlength.." reason is "..repr(reason).." Path is "..repr(path) )
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." "..MovementLayer.." path to "..repr(marker).." pathlength is "..string.format("%.1f",pathlength).." reason is "..repr(reason).." Path is "..repr(path) )
                     end
 
                     self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove)
@@ -2960,7 +2960,7 @@ Platoon = Class(PlatoonMethods) {
 			counter = 0
            
             if marker and GuardpointDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." moving to "..repr(PCat).." marker "..repr(marker).." distance "..VDist3( position, marker).." proximity trigger is "..UntRadius )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." moving to "..repr(PCat).." marker "..repr(marker).." proximity trigger is "..UntRadius )
             end
 
 			while PlatoonExists(aiBrain,self) and marker and guardtime < guardTimer do
@@ -2986,7 +2986,7 @@ Platoon = Class(PlatoonMethods) {
                     if not self.MoveThread then
 
                         if GuardpointDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." at "..distance.." but I don't see a MoveThread to "..repr(marker) )
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." at "..string.format("%.1f",distance).." but I don't see a MoveThread to "..repr(marker) )
                         end
                         
                         self.MoveThread = self:ForkThread( self.MovePlatoon, {marker}, PlatoonFormation, bAggroMove, 25 )
@@ -3123,10 +3123,10 @@ Platoon = Class(PlatoonMethods) {
                         if delay > 0 then
 
                             if GuardpointDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." still "..repr(distance).." from "..repr(marker).." delay "..delay.." ticks")
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." still "..repr(string.format("%.1f",distance)).." from "..repr(marker).." delay "..LOUDFLOOR(delay).." ticks")
                             end                    
 
-                            WaitTicks(delay)
+                            WaitTicks(LOUDFLOOR(delay))
                         end
 
                     end
@@ -6360,7 +6360,7 @@ Platoon = Class(PlatoonMethods) {
                                     LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." moving to "..repr(distressLocation).." distance "..VDist3(platoonPos,distressLocation).." on tick "..GetGameTick() )
                                 end
                                 
-                                ATTACKS = table.merged(GetSquadUnits(self,'Attack'),GetSquadUnits(self,'Unassigned'))
+                                ATTACKS = table.merged(GetSquadUnits(self,'Attack') or {}, GetSquadUnits(self,'Unassigned') or {})
                             
                                 if ATTACKS[1] then
                             
