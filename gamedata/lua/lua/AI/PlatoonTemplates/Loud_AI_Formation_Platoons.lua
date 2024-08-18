@@ -29,7 +29,7 @@ PlatoonTemplate { Name = 'FighterAttack Large',
 PlatoonTemplate { Name = 'FighterReinforce',
     Plan = 'ReinforceAirAI',	-- to either land or sea bases
     GlobalSquads = {
-        { AIRFIGHTER, 3, 45, 'Unassigned', 'none' },
+        { AIRFIGHTER, 3, 45, 'Attack', 'none' },
 		{ AIRSCOUT, 0, 4, 'Support', 'none' }, 
     }
 }
