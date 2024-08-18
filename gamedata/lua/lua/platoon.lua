@@ -335,15 +335,19 @@ Platoon = Class(PlatoonMethods) {
     -- it handles processing the path provided to it by the platoon
     -- moving it one segment at a time
 	MovePlatoon = function( self, path, PlatoonFormation, AggroMove, waypointslackdistance)
+    
+        local MovePlatoonDialog = false
         
         local aiBrain = self:GetBrain()
 
 		local prevpoint = GetPlatoonPosition(self) or false
 
 		if prevpoint and path[1] then
+        
+            if MovePlatoonDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." starts MovePlatoon with path "..repr(path))
+            end
             
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." starts MovePlatoon with path "..repr(path))
-
             local GetDirection          = GetDirection            
             local GetSquadUnits         = GetSquadUnits
             local GetPlatoonUnits       = GetPlatoonUnits
@@ -383,7 +387,9 @@ Platoon = Class(PlatoonMethods) {
                     
                     if type(waypointPath) != 'table' then
 
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." using path "..repr(path))
+                        if MovePlatoonDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." using path "..repr(path))
+                        end
 
                         continue
                     end
@@ -395,20 +401,30 @@ Platoon = Class(PlatoonMethods) {
                     self:Stop()
 
 					if AggroMove then
-
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." issuing orders using aggro to "..repr(waypointPath) )
+                    
+                        if MovePlatoonDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." issuing orders using aggro to "..repr(waypointPath) )
+                        end
 
                         SCOUTS = GetSquadUnits( self, 'Scout' ) or false
 
 						if SCOUTS[1] then
                         
+                            if MovePlatoonDialog then
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." issuing "..LOUDGETN(SCOUTS).." orders to SCOUTS" )
+                            end
+                        
 							IssueFormMove( SCOUTS, waypointPath, 'BlockFormation', Direction)
 						end
                         
-                        ATTACKS = table.merged( GetSquadUnits( self,'Attack'), GetSquadUnits( self,'Unassigned') )
+                        ATTACKS = table.merged( GetSquadUnits( self,'Attack') or {}, GetSquadUnits( self,'Unassigned') or {} )
 					
 						if ATTACKS[1] then
                         
+                            if MovePlatoonDialog then
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." issuing "..LOUDGETN(ATTACKS).." orders to ATTACKS" )
+                            end
+                            
 							IssueFormAggressiveMove( ATTACKS, waypointPath, 'AttackFormation', Direction)
                         end
                         
@@ -416,6 +432,10 @@ Platoon = Class(PlatoonMethods) {
                         
 						if ARTILLERY[1] then
                         
+                            if MovePlatoonDialog then
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." issuing "..LOUDGETN(ARTILLERY).." orders to ARTILLERY" )                        
+                            end
+                            
 							IssueFormAggressiveMove( ARTILLERY, waypointPath, PlatoonFormation, Direction)
 						end
                         
@@ -424,7 +444,11 @@ Platoon = Class(PlatoonMethods) {
                         SUPPORTS = GetSquadUnits(self,'Support') or false					
 
 						if GUARDS[1] then
-                     
+                        
+                            if MovePlatoonDialog then
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." issuing "..LOUDGETN(GUARDS).." orders to GUARDS" )                        
+                            end
+                            
                             if not ARTILLERY[1] and not ATTACKS[1] then
                             
                                 IssueFormMove( GUARDS, waypointPath, 'BlockFormation', Direction)
@@ -445,7 +469,11 @@ Platoon = Class(PlatoonMethods) {
 						end
 					
 						if SUPPORTS[1] then
-                        
+
+                            if MovePlatoonDialog then
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." issuing "..LOUDGETN(SUPPORTS).." orders to SUPPORTS" )                        
+                            end
+                            
                             if not ATTACKS[1] and not ARTILLERY[1] and not GUARDS[1] then
                             
                                 IssueFormAggressiveMove( SUPPORTS, waypointPath, 'BlockFormation', Direction)
@@ -466,8 +494,12 @@ Platoon = Class(PlatoonMethods) {
 						end
 					
 					else
-			
-						self:MoveToLocation( waypointPath, false )
+
+                        if MovePlatoonDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." issuing order MoveToLocation to "..repr(waypointPath) )			
+                        end
+                        
+						IssueFormMove( GetPlatoonUnits(self), waypointPath, 'BlockFormation', Direction)
                         
 					end
 
