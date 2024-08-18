@@ -396,6 +396,8 @@ Platoon = Class(PlatoonMethods) {
 
 					if AggroMove then
 
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." issuing orders using aggro to "..repr(waypointPath) )
+
                         SCOUTS = GetSquadUnits( self, 'Scout' ) or false
 
 						if SCOUTS[1] then
@@ -5671,9 +5673,8 @@ Platoon = Class(PlatoonMethods) {
 
             local units,counter = GetEnemyUnitsInRect( aiBrain, unitposition[1]-adjust, unitposition[3]-adjust, unitposition[1]+adjust, unitposition[3]+adjust )
             
-            if DistressResponseDialog then
+            if DistressResponseDialog and counter > 0 then
                 LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI "..self.BuilderName.." "..repr(self.BuilderInstance).." finds "..counter.." enemy units around Point "..repr(unitposition) )
-                LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI "..self.BuilderName.." "..repr(self.BuilderInstance).." using adjustment range "..adjust )
             end
 
             if units then
@@ -5785,7 +5786,7 @@ Platoon = Class(PlatoonMethods) {
 					end
             
                     if DistressResponseDialog then
-                        LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." "..repr(self.BuilderInstance).." is Under Attack at "..repr(pos).." threat is "..threat.." threshold is "..threatcheckthreshold.." on tick "..GetGameTick() )
+                        LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." "..repr(self.BuilderInstance).." is Under Attack at "..repr(pos).." threat is "..string.format("%2.1f",threat).." threshold is "..threatcheckthreshold.." on tick "..GetGameTick() )
                     end
 
 					if threat >= threatcheckthreshold then
@@ -9796,10 +9797,6 @@ Platoon = Class(PlatoonMethods) {
 			-- otherwise it must a least have the same plan
             if aPlat.PlanName != planName then
                 continue
-            end
-
-            if PlatoonMergeDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." sees "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance) )
             end
 
 			-- not only the plan must match but the buildername as well

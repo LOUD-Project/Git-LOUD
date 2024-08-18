@@ -3049,7 +3049,7 @@ function AirForceAILOUD( self, aiBrain )
                 
                 if AirForceDialog then
 
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." gets target "..repr(target:GetBlueprint().Description).." distance "..string.format("%.1f",LOUDSQUARE(targetdistance)).." at "..repr(targetposition) )
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." gets target "..repr(target.BlueprintID).." distance "..string.format("%.1f",LOUDSQUARE(targetdistance)).." at "..repr(targetposition) )
 
                     --if attackercount > 1 then
                       --  LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." secondaries AA "..AACount.."  Gunship "..ShieldCount.."  Bomb "..TertiaryCount )
