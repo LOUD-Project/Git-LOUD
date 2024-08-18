@@ -1479,8 +1479,8 @@ Platoon = Class(PlatoonMethods) {
             return 
 		end
 		
-		if PlatoonDialog then
-			LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..self.BuilderName.." "..repr(self.BuilderInstance).." begins RTB to "..repr(RTBLocation) )
+		if RTBDialog then
+			LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..self.BuilderName.." "..repr(self.BuilderInstance).." begins RTB to "..repr(RTBLocation).." at tick "..GetGameTick() )
 		end
 
        	self:Stop()
@@ -1587,9 +1587,12 @@ Platoon = Class(PlatoonMethods) {
 			
 			return self:PlatoonDisband(aiBrain)
         end
-
 		
 		distance = VDist3( platPos, RTBLocation )
+		
+		if RTBDialog then
+			LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..self.BuilderName.." "..repr(self.BuilderInstance).." RTB to "..repr(RTBLocation).." distance is "..string.format("%.1f",distance) )
+		end
 
         UseFormation = 'GrowthFormation'
         slackdistance = 21
@@ -1661,7 +1664,7 @@ Platoon = Class(PlatoonMethods) {
 			if path then
 
                 if RTBDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." RTB AI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." gets path "..repr(path))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." RTB AI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." executes path movement "..repr(path) )
                 end
 
 				if PlatoonExists(aiBrain, self) then
@@ -1727,7 +1730,7 @@ Platoon = Class(PlatoonMethods) {
         while (not count) and PlatoonExists(aiBrain, self) and distance > rtbdistance do
 
             if RTBDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." RTB AI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).."  cycle "..cyclecount.."  distance "..distance.."  RTBLocation is "..repr(RTBLocation ) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." RTB AI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).."  cycle "..cyclecount.."  distance "..string.format("%.1f",distance).."  RTBLocation is "..repr(RTBLocation ) )
             end
 
             merged = false
@@ -1971,7 +1974,7 @@ Platoon = Class(PlatoonMethods) {
 
 			end
             
-            WaitTicks(11)
+            WaitTicks(11 + LOUDFLOOR(distance/30) )
 
             if self.MoveThread then
                 WaitTicks(40)
