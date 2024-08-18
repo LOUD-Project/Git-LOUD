@@ -4,7 +4,8 @@
 
 local Bitmap        = import('/lua/maui/bitmap.lua').Bitmap
 local Checkbox      = import('/lua/maui/checkbox.lua').Checkbox
-local CM            = import('/lua/ui/game/commandmode.lua')
+local CommandMode   = import("/lua/ui/game/commandmode.lua")
+local Construction  = import("/lua/ui/game/construction.lua")
 local GameCommon    = import('/lua/ui/game/gamecommon.lua')
 local Grid          = import('/lua/maui/grid.lua').Grid
 local Keymapping    = import('/lua/keymap/defaultKeyMap.lua').defaultKeyMap
@@ -27,64 +28,68 @@ controls = {
 -- this sets up the basic grid
 function ResetGrid()
 
-	OrderNum = 0
+    OrderNum = 0
 
-	Grid_Params = {
-		Grid = { 
-			numSlots = 16,
-			firstAltSlot = 4,
-			vertRows = 8,
-			horzRows = 2,
-		
-			---------------------
-			--colums & rows
-			vertCols = 2,
-			horzCols = 8,
-		
-			---------------------
-			--icon size
-			iconsize = { 
-				height = 43,
-				width = 40,
-			},
-			
-			---------------------
-			--panel size
-			panelsize = { 
-				width = 346,
-				height = 120,
-			},
-		},
-	
-		Order_Slots = {
-			numSlots = 16,
-			firstAltSlot = 4,
-			vertRows = 8,
-			horzRows = 2,
-		
-			---------------------
-			--colums & rows
-			vertCols = 2,
-			horzCols = 8,
-		
-			---------------------
-			--icon size
-			iconsize = { 
-				height = 43,
-				width = 40,
-			},
-			
-			---------------------
-			--panel size
-			panelsize = { 
-				width = 346,
-				height = 120,
-			},
-		}
-	}
+    Grid_Params = {
+        Grid = { 
+            numSlots = 16,
+            firstAltSlot = 4,
+            vertRows = 8,
+            horzRows = 2,
+
+            ---------------------
+            --colums & rows
+            vertCols = 2,
+            horzCols = 8,
+
+            ---------------------
+            --icon size
+            iconsize = { 
+                height = 43,
+                width = 40,
+            },
+
+            ---------------------
+            --panel size
+            panelsize = { 
+                width = 346,
+                height = 120,
+            },
+        },
+
+        Order_Slots = {
+            numSlots = 16,
+            firstAltSlot = 4,
+            vertRows = 8,
+            horzRows = 2,
+
+            ---------------------
+            --colums & rows
+            vertCols = 2,
+            horzCols = 8,
+
+            ---------------------
+            --icon size
+            iconsize = { 
+                height = 43,
+                width = 40,
+            },
+
+            ---------------------
+            --panel size
+            panelsize = { 
+                width = 346,
+                height = 120,
+            },
+        }
+    }
 end
 
 ResetGrid()     -- this sets up the default grid and order slots
+
+-- positioning controls, don't belong to file
+local layoutVar = false
+local glowThread = false
 
 -- these variables control the number of slots available for orders
 -- from DMS -- 
@@ -96,9 +101,31 @@ local horzRows = Grid_Params.Grid.horzRows
 local vertCols = Grid_Params.Grid.vertCols
 local horzCols = Grid_Params.Grid.horzCols
 
--- positioning controls, don't belong to file
-local layoutVar = false
-local glowThread = false
+local function CreateOrderGlow(parent)
+    controls.orderGlow = Bitmap(parent, UIUtil.UIFile('/game/orders/glow-02_bmp.dds'))
+    LayoutHelpers.AtCenterIn(controls.orderGlow, parent)
+    controls.orderGlow:SetAlpha(0.0)
+    controls.orderGlow:DisableHitTest()
+    controls.orderGlow:SetNeedsFrameUpdate(true)
+    local alpha = 0.0
+    local incriment = true
+    controls.orderGlow.OnFrame = function(self, deltaTime)
+        if incriment then
+            alpha = alpha + (deltaTime * 0.5)
+        else
+            alpha = alpha - (deltaTime * 0.5)
+        end
+        if alpha < 0 then
+            alpha = 0.0
+            incriment = true
+        end
+        if alpha > .0600 then
+            alpha = .0600
+            incriment = false
+        end
+        controls.orderGlow:SetAlpha(alpha)
+    end
+end
 
 -- hotkey labels on orders
 local hotkeyLabel_addLabel = import('/lua/keymap/hotkeylabelsUI.lua').addLabel
@@ -108,54 +135,14 @@ function setOrderKeys(orderKeys_)
     orderKeys = orderKeys_
 end
 
-
-local function CreateOrderGlow(parent)
-
-    controls.orderGlow = Bitmap(parent, UIUtil.UIFile('/game/orders/glow-02_bmp.dds'))
-
-    LayoutHelpers.AtCenterIn(controls.orderGlow, parent)
-
-    controls.orderGlow:SetAlpha(0.0)
-    controls.orderGlow:DisableHitTest()
-    controls.orderGlow:SetNeedsFrameUpdate(true)
-
-    local alpha = 0.0
-    local incriment = true
-
-    controls.orderGlow.OnFrame = function(self, deltaTime)
-        if incriment then
-            alpha = alpha + (deltaTime * 0.5)
-        else
-            alpha = alpha - (deltaTime * 0.5)
-        end
-
-        if alpha < 0 then
-            alpha = 0.0
-            incriment = true
-        end
-
-        if alpha > .0600 then
-            alpha = .0600
-            incriment = false
-        end
-
-        controls.orderGlow:SetAlpha(alpha)
-    end     
-
-end
-
 local function CreateAutoBuildEffect(parent)
-
     local glow = Bitmap(parent, UIUtil.UIFile('/game/orders/glow-02_bmp.dds'))
-
     LayoutHelpers.AtCenterIn(glow, parent)
-
     glow:SetAlpha(0.0)
     glow:DisableHitTest()
     glow:SetNeedsFrameUpdate(true)
     glow.alpha = 0.0
     glow.incriment = true
-
     glow.OnFrame = function(self, deltaTime)
         if self.incriment then
             self.alpha = self.alpha + (deltaTime * .35)
@@ -171,95 +158,68 @@ local function CreateAutoBuildEffect(parent)
             self.incriment = false
         end
         self:SetAlpha(self.alpha)
-    end   
-    return glow  
+    end
+    return glow
 end
 
 function CreateMouseoverDisplay(parent, ID)
-
     if controls.mouseoverDisplay then
         controls.mouseoverDisplay:Destroy()
         controls.mouseoverDisplay = false
     end
-    
+
     if not Prefs.GetOption('tooltips') then return end
-    
+
     local createDelay = Prefs.GetOption('tooltip_delay') or 0
     local text = TooltipInfo['Tooltips'][ID]['title'] or ID
     local desc = TooltipInfo['Tooltips'][ID]['description'] or ID
-    
+
     if TooltipInfo['Tooltips'][ID]['keyID'] and TooltipInfo['Tooltips'][ID]['keyID'] != "" then
-	
         for i, v in Keymapping do
-		
             if v == TooltipInfo['Tooltips'][ID]['keyID'] then
-			
                 local properkeyname = import('/lua/ui/dialogs/keybindings.lua').FormatKeyName(i)
-				
                 text = LOCF("%s (%s)", text, properkeyname)
-				
                 break
-				
             end
-			
         end
-		
     end
-    
+
     if not text or not desc then
         return
     end
 
     controls.mouseoverDisplay = Tooltip.CreateExtendedToolTip(parent, text, desc)
-	
     local Frame = GetFrame(0)
-	
     controls.mouseoverDisplay.Bottom:Set(parent.Top)
-	
+
     if (parent.Left() + (parent.Width() / 2)) - (controls.mouseoverDisplay.Width() / 2) < 0 then
-	
         controls.mouseoverDisplay.Left:Set(4)
-		
     elseif (parent.Right() - (parent.Width() / 2)) + (controls.mouseoverDisplay.Width() / 2) > Frame.Right() then
-	
         controls.mouseoverDisplay.Right:Set(function() return Frame.Right() - 4 end)
-		
     else
-	
         LayoutHelpers.AtHorizontalCenterIn(controls.mouseoverDisplay, parent)
-		
     end
-    
+
     local alpha = 0.0
-	
     controls.mouseoverDisplay:SetAlpha(alpha, true)
-	
     local mdThread = ForkThread(function()
-	
         WaitSeconds(createDelay)
-		
         while alpha <= 1.0 do
-		
             controls.mouseoverDisplay:SetAlpha(alpha, true)
             alpha = alpha + 0.1
             WaitSeconds(0.01)
-			
         end
-		
     end)
 
     controls.mouseoverDisplay.OnDestroy = function(self)
         KillThread(mdThread)  
     end
-	
 end
 
 local function CreateOrderButtonGrid()
-
-	controls.orderButtonGrid = Grid(controls.bg, Grid_Params.Grid.iconsize.width, Grid_Params.Grid.iconsize.height)
-
+    controls.orderButtonGrid = Grid(controls.bg, Grid_Params.Grid.iconsize.width, Grid_Params.Grid.iconsize.height)
     controls.orderButtonGrid:SetName("Orders Grid")
-	controls.orderButtonGrid:DeleteAll()
+    controls.orderButtonGrid:DeleteAll()
 end
 
 -- local logic data
@@ -274,9 +234,8 @@ local function GetOrderBitmapNames(bitmapId)
         LOG("Error - nil bitmap passed to GetOrderBitmapNames")
         bitmapId = "basic-empty"    -- TODO do I really want to default it?
     end
-    
-    local button_prefix = "/game/orders/" .. bitmapId .. "_btn_"
 
+    local button_prefix = "/game/orders/" .. bitmapId .. "_btn_"
     return UIUtil.SkinnableFile(button_prefix .. "up.dds")
         ,  UIUtil.SkinnableFile(button_prefix .. "up_sel.dds")
         ,  UIUtil.SkinnableFile(button_prefix .. "over.dds")
@@ -289,15 +248,13 @@ end
 -- used by most orders, which start and stop a command mode, so they toggle on when pressed
 -- and toggle off when done
 local function StandardOrderBehavior(self, modifiers)
-
     -- if we're checked, end the current command mode, otherwise start it
     if self:IsChecked() then
-        import('/lua/ui/game/commandmode.lua').EndCommandMode(true)
+        CommandMode.EndCommandMode(true)
     else
-        import('/lua/ui/game/commandmode.lua').StartCommandMode("order", {name=self._order})
+        CommandMode.StartCommandMode("order", {name=self._order})
     end
 end
-
 
 --TODO: set up these functions so they are abstracted for all orders, so you can check them for anything like OC, diving, production, whatever.
 --returns 0 for no units found, 1 for only snipes on, 2 for only snipes off, 3 for mixed.
@@ -305,24 +262,20 @@ local function IsToggleMode(unitList, variable, value)
 
     local toggleStateTrue
     local toggleStateFalse
-
     -- we search the unit list for the either condition to determine the icon state.
+
     for k, unit in unitList do
-
         local toggleState = UnitData[unit:GetEntityId()][variable] == value
-
         if toggleState == true then
             toggleStateTrue = 1
         elseif toggleState == false then
             toggleStateFalse = 2
         end
-
         -- if we find out we have mixed states we dont need to continue, so we bail
         if toggleStateTrue and toggleStateFalse then
             break
         end
     end
-
     return ((toggleStateTrue or 0) + (toggleStateFalse or 0))
 end
 
@@ -334,27 +287,19 @@ local OrderTogglesTable = {
                                     'Snipe', false) end,
     },
 }
-
 -- we can add duplicate fields in like this:
 OrderTogglesTable.Attack.ToggleFromBoth = OrderTogglesTable.Attack.ToggleFromOff
-
 
 -- toggle mode: 1 - true; 2 - false; 3 - both; 0 - error
 -- call the functions from the OrderTogglesTable
 local function ToggleOrder(control, ordertype)
-
     if control._toggleMode == 1 then
-
         OrderTogglesTable[ordertype].ToggleFromOn()
         control._toggleMode = 2
-
     elseif control._toggleMode == 2 then
-
         OrderTogglesTable[ordertype].ToggleFromOff()
         control._toggleMode = 1
-
     elseif control._toggleMode == 3 then
-
         OrderTogglesTable[ordertype].ToggleFromBoth()
         control._toggleMode = 1
     end
@@ -362,15 +307,12 @@ end
 
 -- toggle mode: 1 - true; 2 - false; 3 - both; 0 - error
 local function UpdateToggleIcon(control)
-
     if control._toggleMode == 1 then
         control.toggleModeIcon:SetAlpha(1)
         control.mixedModeIcon:SetAlpha(0)
-
     elseif control._toggleMode == 2 then
         control.toggleModeIcon:SetAlpha(0)
         control.mixedModeIcon:SetAlpha(0)
-
     elseif control._toggleMode == 3 then
         control.toggleModeIcon:SetAlpha(0)
         control.mixedModeIcon:SetAlpha(1)
@@ -381,25 +323,22 @@ local function UpdateToggleIcon(control)
     end
 end
 
+--------------------------------
+--Weapon priority switching
+--------------------------------
 
 local function AttackOrderInit(control, unitList)
-
     if not unitList[1] then
         return true
     end
 
     --set up the icons that will be toggled on/off
     if not control.toggleModeIcon then
-
         control.toggleModeIcon = Bitmap(control, UIUtil.UIFile('/game/orders/toggle_red.dds'))
-
         LayoutHelpers.AtCenterIn(control.toggleModeIcon, control)
-
         control.toggleModeIcon:DisableHitTest()
         control.toggleModeIcon:SetAlpha(0)
-
         control.toggleModeIcon.OnHide = function(self, hidden)
-
             if not hidden and control:IsDisabled() then
                 return true
             end
@@ -407,16 +346,11 @@ local function AttackOrderInit(control, unitList)
     end
 
     if not control.mixedModeIcon then
-
         control.mixedModeIcon = Bitmap(control.toggleModeIcon, UIUtil.UIFile('/game/orders-panel/question-mark_bmp.dds'))
-
         LayoutHelpers.AtRightTopIn(control.mixedModeIcon, control)
-
         control.mixedModeIcon:DisableHitTest()
         control.mixedModeIcon:SetAlpha(0)
-
         control.mixedModeIcon.OnHide = function(self, hidden)
-
             if not hidden and control:IsDisabled() then
                 return true
             end
@@ -425,62 +359,43 @@ local function AttackOrderInit(control, unitList)
 
     control._curHelpText = control._data.helpText
     control._toggleMode = IsToggleMode(unitList, 'WepPriority', 'Snipe')
-
     UpdateToggleIcon(control)
 end
 
 -- Allow the right button on the attack order to change target priorities, while the left button stays as before.
 -- would be cool to implement overloading like this onto other orders too for epic things.
 local function AttackOrderBehavior(self, modifiers)
-
     if modifiers.Left then
         StandardOrderBehavior(self, modifiers)
-
     elseif modifiers.Right then
-
         ToggleOrder(self,'Attack')
         UpdateToggleIcon(self)
     end
-
 end
-
 
 -- used by orders that happen immediately and don't change the command mode (ie the stop button)
 local function DockOrderBehavior(self, modifiers)
-
     if modifiers.Shift then
-
         IssueDockCommand(false)
-
     else
-
         IssueDockCommand(true)
     end
-
     self:SetCheck(false)
 end
 
 -- used by orders that happen immediately and don't change the command mode (ie the stop button)
 local function MomentaryOrderBehavior(self, modifiers)
-
     IssueCommand(GetUnitCommandFromCommandCap(self._order))
-
     self:SetCheck(false)
 end
 
 
 -- used by things that build weapons, etc
-
 local function BuildOrderBehavior(self, modifiers)
-
     if modifiers.Left then
-
-	    IssueCommand(GetUnitCommandFromCommandCap(self._order))
-
+        IssueCommand(GetUnitCommandFromCommandCap(self._order))
     elseif modifiers.Right then
-
-	    self:ToggleCheck()
-
+        self:ToggleCheck()
         if self:IsChecked() then
             self._curHelpText = self._data.helpText .. "_auto"
             self.autoBuildEffect = CreateAutoBuildEffect(self)
@@ -488,103 +403,70 @@ local function BuildOrderBehavior(self, modifiers)
             self._curHelpText = self._data.helpText
             self.autoBuildEffect:Destroy()
         end
-
         if controls.mouseoverDisplay.text then
             controls.mouseoverDisplay.text:SetText(self._curHelpText)
         end
-
-	    SetAutoMode(currentSelection, self:IsChecked())
+        SetAutoMode(currentSelection, self:IsChecked())
     end
 end
 
 local function BuildInitFunction(control, unitList)
-
     local isAutoMode = GetIsAutoMode(unitList)
-
     control:SetCheck(isAutoMode)
-
     if isAutoMode then
         control._curHelpText = control._data.helpText .. "_auto"
         control.autoBuildEffect = CreateAutoBuildEffect(control)
-
     else
-
         control._curHelpText = control._data.helpText
     end
-
 end
 
-
 -- used by subs that can dive/surface
-
 local function DiveOrderBehavior(self, modifiers)
-
     if modifiers.Left then
-
-	    IssueCommand(GetUnitCommandFromCommandCap(self._order))
-
+        IssueCommand(GetUnitCommandFromCommandCap(self._order))
         self:ToggleCheck()
-
     elseif modifiers.Right then
-
         if self._isAutoMode then
-
             self._curHelpText = self._data.helpText
-
             if self.autoBuildEffect then
                 self.autoBuildEffect:Destroy()
             end
-
             self.autoModeIcon:SetAlpha(0)
             self._isAutoMode = false
-
         else
-
             self._curHelpText = self._data.helpText .. "_auto"
-
             if not self.autoBuildEffect then
                 self.autoBuildEffect = CreateAutoBuildEffect(self)
             end
-
             self.autoModeIcon:SetAlpha(1)
             self._isAutoMode = true
         end
-
         if controls.mouseoverDisplay.text then
             controls.mouseoverDisplay.text:SetText(self._curHelpText)
         end
-
-	    SetAutoSurfaceMode(currentSelection, self._isAutoMode)
+        SetAutoSurfaceMode(currentSelection, self._isAutoMode)
     end
 end
 
 local function DiveInitFunction(control, unitList)
-
     if not control.autoModeIcon then
-
         control.autoModeIcon = Bitmap(control, UIUtil.UIFile('/game/orders/autocast_bmp.dds'))
-
         LayoutHelpers.AtCenterIn(control.autoModeIcon, control)
-
         control.autoModeIcon:DisableHitTest()
         control.autoModeIcon:SetAlpha(0)
-
         control.autoModeIcon.OnHide = function(self, hidden)
             if not hidden and control:IsDisabled() then
                 return true
             end
         end
-    end 
+    end
 
     if not control.mixedModeIcon then
-
         control.mixedModeIcon = Bitmap(control.autoModeIcon, UIUtil.UIFile('/game/orders-panel/question-mark_bmp.dds'))
-
         LayoutHelpers.AtRightTopIn(control.mixedModeIcon, control)
-
         control.mixedModeIcon:DisableHitTest()
         control.mixedModeIcon:SetAlpha(0)
-
         control.mixedModeIcon.OnHide = function(self, hidden)
             if not hidden and control:IsDisabled() then
                 return true
@@ -605,35 +487,27 @@ local function DiveInitFunction(control, unitList)
     local submergedState = GetIsSubmerged(unitList)
 
     if submergedState == -1 then
-
         control:SetCheck(true)
-
     elseif submergedState == 1 then
-
         control:SetCheck(false)
-
     else
-
         control:SetCheck(false)
         control.mixedModeIcon:SetAlpha(1)
     end
 end
 
 function ToggleDiveOrder()
-
     local diveCB = orderCheckboxMap["RULEUCC_Dive"]
-
     if diveCB then
         DiveOrderBehavior(diveCB, {Left = true})
     end
 end
 
-
 -- pause button specific behvior
 -- TODO pause button will be moved to construction manager
 local function PauseOrderBehavior(self, modifiers)
-	Checkbox.OnClick(self)
-	SetPaused(currentSelection, self:IsChecked())
+    Checkbox.OnClick(self)
+    SetPaused(currentSelection, self:IsChecked())
 end
 
 local function PauseInitFunction(control, unitList)
@@ -650,73 +524,53 @@ local function CheckReverseSemantics(scriptBit)
     if scriptBit == 0 then -- shields
         return true
     end
-    
+
     return false
 end
 
 local function AttackMoveBehavior(self, modifiers)
-
     if self:IsChecked() then
-
-        CM.EndCommandMode(true)
-
+        CommandMode.EndCommandMode(true)
     else
-        
-        local modeData = { name="RULEUCC_Script", AbilityName='AttackMove', TaskName='AttackMove', cursor = 'ATTACK_MOVE' }
-        
-        CM.StartCommandMode("order", modeData)
+        local modeData = { name = "RULEUCC_Script", AbilityName = 'AttackMove', TaskName = 'AttackMove', cursor = 'ATTACK_MOVE' }
+        CommandMode.StartCommandMode("order", modeData)
     end
 end
 
 local function AbilityButtonBehavior(self, modifiers)
-
     if self:IsChecked() then
-
-        CM.EndCommandMode(true)
-
+        CommandMode.EndCommandMode(true)
     else
-
-        local modeData = { name="RULEUCC_Script", AbilityName=self._script, TaskName=self._script }
-
-        CM.StartCommandMode("order", modeData)
+        local modeData = { name = "RULEUCC_Script", AbilityName = self._script, TaskName = self._script }
+        CommandMode.StartCommandMode("order", modeData)
     end
 end
 
 -- generic script button specific behvior
 local function ScriptButtonOrderBehavior(self, modifiers)
-
     local state = self:IsChecked()
-
     if self._mixedIcon then
         self._mixedIcon:Destroy()
         self._mixedIcon = nil
-
     end
 
-	ToggleScriptBit(currentSelection, self._data.extraInfo, state)
+    ToggleScriptBit(currentSelection, self._data.extraInfo, state)
 
     if controls.mouseoverDisplay.text then
         controls.mouseoverDisplay.text:SetText(self._curHelpText)
     end
 
-	Checkbox.OnClick(self)
+    Checkbox.OnClick(self)
 end
 
 local function ScriptButtonInitFunction(control, unitList)
-
     local result = nil
     local mixed = false
-
     for i, v in unitList do
-
         local thisUnitStatus = GetScriptBit({v}, control._data.extraInfo)
-
         if result == nil then
-
             result = thisUnitStatus
-
         else
-
             if thisUnitStatus != result then
                 mixed = true
                 result = true
@@ -726,10 +580,8 @@ local function ScriptButtonInitFunction(control, unitList)
     end
 
     if mixed then
-
         control._mixedIcon = Bitmap(control, UIUtil.UIFile('/game/orders-panel/question-mark_bmp.dds'))
         LayoutHelpers.AtRightTopIn(control._mixedIcon, control, -2, 2)
-
     end
     control:SetCheck(result)    -- selected state
 end
@@ -764,7 +616,7 @@ local retaliateStateInfo = {
 
 local function CreateBorder(parent)
     local border = {}
-    
+
     border.tl = Bitmap(parent, UIUtil.UIFile('/game/ability_brd/chat_brd_ul.dds'))
     border.tm = Bitmap(parent, UIUtil.UIFile('/game/ability_brd/chat_brd_horz_um.dds'))
     border.tr = Bitmap(parent, UIUtil.UIFile('/game/ability_brd/chat_brd_ur.dds'))
@@ -773,79 +625,67 @@ local function CreateBorder(parent)
     border.bl = Bitmap(parent, UIUtil.UIFile('/game/ability_brd/chat_brd_ll.dds'))
     border.bm = Bitmap(parent, UIUtil.UIFile('/game/ability_brd/chat_brd_lm.dds'))
     border.br = Bitmap(parent, UIUtil.UIFile('/game/ability_brd/chat_brd_lr.dds'))
-    
+
     border.tl.Bottom:Set(parent.Top)
     border.tl.Right:Set(parent.Left)
-    
+
     border.bl.Top:Set(parent.Bottom)
     border.bl.Right:Set(parent.Left)
-    
+
     border.tr.Bottom:Set(parent.Top)
     border.tr.Left:Set(parent.Right)
-    
+
     border.br.Top:Set(parent.Bottom)
     border.br.Left:Set(parent.Right)
-    
+
     border.tm.Bottom:Set(parent.Top)
     border.tm.Left:Set(parent.Left)
     border.tm.Right:Set(parent.Right)
-    
+
     border.bm.Top:Set(parent.Bottom)
     border.bm.Left:Set(parent.Left)
     border.bm.Right:Set(parent.Right)
-    
+
     border.ml.Top:Set(parent.Top)
     border.ml.Bottom:Set(parent.Bottom)
     border.ml.Right:Set(parent.Left)
-    
+
     border.mr.Top:Set(parent.Top)
     border.mr.Bottom:Set(parent.Bottom)
     border.mr.Left:Set(parent.Right)
-    
+
     return border
 end
 
 local function CreateFirestatePopup(parent, selected)
-
     local bg = Bitmap(parent, UIUtil.UIFile('/game/ability_brd/chat_brd_m.dds'))
-    
+
     bg.border = CreateBorder(bg)
-    
     bg:DisableHitTest(true)
-    
+
     local function CreateButton(index, info)
-
         local btn = Checkbox(bg, GetOrderBitmapNames(info.bitmap))
-
         btn.info = info
         btn.index = index
-
         btn.HandleEvent = function(control, event)
             if event.Type == 'MouseEnter' then
-
                 CreateMouseoverDisplay(control, control.info.helpText, 1)
             elseif event.Type == 'MouseExit' then
-
                 if controls.mouseoverDisplay then
                     controls.mouseoverDisplay:Destroy()
                     controls.mouseoverDisplay = false
                 end
             end
-
             return Checkbox.HandleEvent(control, event)
         end
-
         btn.OnCheck = function(control, checked)
             parent:_OnFirestateSelection(control.index, control.info.id)
         end
-
         return btn
     end
-    
+
     local i = 1
-
     bg.buttons = {}
-
     for index, state in retaliateStateInfo do
         if index != -1 then
             bg.buttons[i] = CreateButton(index, state)
@@ -858,10 +698,10 @@ local function CreateFirestatePopup(parent, selected)
             i = i + 1
         end
     end
-    
+
     bg.Height:Set(function() return table.getsize(bg.buttons) * bg.buttons[1].Height() end)
     bg.Width:Set(bg.buttons[1].Width)
-    
+
     if UIUtil.currentLayout == 'left' then
         LayoutHelpers.RightOf(bg, parent, 40)
     else
@@ -869,10 +709,10 @@ local function CreateFirestatePopup(parent, selected)
     end
 
     -- all credit to Domino Mod Support
-	-- resize the popup icons
-	for _, btn in bg.buttons do
-		LayoutHelpers.SetDimensions(btn, Grid_Params.Order_Slots.iconsize.width, Grid_Params.Order_Slots.iconsize.height)
-	end
+    -- resize the popup icons
+    for _, btn in bg.buttons do
+        LayoutHelpers.SetDimensions(btn, Grid_Params.Order_Slots.iconsize.width, Grid_Params.Order_Slots.iconsize.height)
+    end
 
     return bg
 end
@@ -899,9 +739,9 @@ local function RetaliateOrderBehavior(self, modifiers)
                 self._popup = nil
             end
         end
-        
+
         UIMain.AddOnMouseClickedFunc(CollapsePopup)
-        
+
         self._popup.OnDestroy = function(self)
             UIMain.RemoveOnMouseClickedFunc(CollapsePopup)
             Checkbox.OnDestroy(self)
@@ -952,11 +792,11 @@ function CycleRetaliateStateUp()
 end
 
 local function pauseFunc()
-    import('/lua/ui/game/construction.lua').EnablePauseToggle()
+    Construction.EnablePauseToggle()
 end
 
 local function disPauseFunc()
-    import('/lua/ui/game/construction.lua').DisablePauseToggle()
+    Construction.DisablePauseToggle()
 end
 
 local function NukeBtnText(button)
@@ -992,7 +832,6 @@ local function TacticalBtnText(button)
 end
 
 function EnterOverchargeMode()
-
     local econData = GetEconomyTotals()
 
     if not currentSelection[1] or currentSelection[1]:IsDead() then return end
@@ -1019,63 +858,44 @@ function EnterOverchargeMode()
 end
 
 local function OverChargeFrame(self, deltaTime)
-
     if deltaTime and currentSelection[1] then
-
         if currentSelection[1]:IsDead() then return end
 
         local bp = currentSelection[1]:GetBlueprint()
-
         local overchargeLevel = false
 
         -- find the overcharge weapon --
         for index, weapon in bp.Weapon do
-
             if weapon.OverChargeWeapon then
-
                 overchargeLevel = weapon.EnergyRequired
-                
                 break
             end
         end
 
         -- now see if there's enough power to use the weapon --
         if overchargeLevel then
-
             --LOG("*AI DEBUG OverchargeFrame")
-            
             if not currentSelection[1]:IsOverchargePaused() then
-
                 local econData = GetEconomyTotals()
 
                 -- if we have the charge - enable the weapon & play the sound
                 if econData["stored"]["ENERGY"] > overchargeLevel then
-
                     if self:IsDisabled() then
-
                         self:Enable()
 
                         local armyTable = GetArmiesTable()
                         local facStr = import('/lua/factions.lua').Factions[armyTable.armiesTable[armyTable.focusArmy].faction + 1].SoundPrefix
                         local sound = Sound({Bank = 'XGG', Cue = 'Computer_Computer_Basic_Orders_01173'})
-
                         PlayVoice(sound)
                     end
-
                 else
-                
                     self:Disable()
-                    
                 end
-
             else
-            
                 if not self:IsDisabled() then
                     self:Disable()
                 end
-            
             end
-
         else
             self:SetNeedsFrameUpdate(false)
         end
@@ -1158,7 +978,7 @@ Returns checkbox if you need to add any data to the structure
 
 The orderInfo format is:
 {
-    helpText = <string>,    -- 
+    helpText = <string>,    --
     bitmapId = <string>,    -- the id used to construct the bitmap name (see GetOrderBitmapNames above)
     disabled = <bool>,      -- if true, button will start disabled
     behavior = <function>,  -- function(self, modifiers) this is the checkbox OnClick behavior
@@ -1168,20 +988,16 @@ Since this is a table, if you need any more information, for instance, the comma
 you can add it to the table and it will be ignored, so you're safe to put whatever info you need in to it. When the
 OnClick callback is called, self._data will contain this info.
 --]]
-
 local function AddOrder(orderInfo, slot, batchMode)
-
     if not slot then return end
-
     batchMode = batchMode or false
 
     --LOG("*AI DEBUG Adding Order "..repr(orderInfo.helpText).." to slot "..slot )
-    
     local checkbox = Checkbox(controls.orderButtonGrid, GetOrderBitmapNames(orderInfo.bitmapId))
 
     -- set the info in to the data member for retrieval
     checkbox._data = orderInfo
-    
+
     -- set up initial help text
     checkbox._curHelpText = orderInfo.helpText
 
@@ -1190,19 +1006,13 @@ local function AddOrder(orderInfo, slot, batchMode)
 
     -- if the order has an onframe value - do it
     if orderInfo.onframe then
-
         checkbox.EnableEffect = Bitmap(checkbox, UIUtil.UIFile('/game/orders/glow-02_bmp.dds'))
-
         LayoutHelpers.AtCenterIn(checkbox.EnableEffect, checkbox)
-
         checkbox.EnableEffect:DisableHitTest()
         checkbox.EnableEffect:SetAlpha(0)
         checkbox.EnableEffect.Incrimenting = false
-
         checkbox.EnableEffect.OnFrame = function(self, deltatime)
-
             local alpha
-
             if self.Incrimenting then
                 alpha = self.Alpha + (deltatime * 2)
                 if alpha > 1 then
@@ -1216,19 +1026,13 @@ local function AddOrder(orderInfo, slot, batchMode)
                     self.Incrimenting = true
                 end
             end
-
-            self.Height:Set(function() return checkbox.Height() + (checkbox.Height() * alpha*.5) end)
-            self.Width:Set(function() return checkbox.Height() + (checkbox.Height() * alpha*.5) end)
-
+            self.Height:Set(function() return checkbox.Height() + (checkbox.Height() * alpha * .5) end)
+            self.Width:Set(function() return checkbox.Height() + (checkbox.Height() * alpha * .5) end)
             self.Alpha = alpha
-
-            self:SetAlpha(alpha*.45)
+            self:SetAlpha(alpha * .45)
         end
-
         checkbox:SetNeedsFrameUpdate(true)
-
         checkbox.OnFrame = orderInfo.onframe
-
         checkbox.OnEnable = function(self)
             self.EnableEffect:SetNeedsFrameUpdate(true)
             self.EnableEffect.Incrimenting = false
@@ -1236,131 +1040,100 @@ local function AddOrder(orderInfo, slot, batchMode)
             self.EnableEffect.Alpha = 1
             Checkbox.OnEnable(self)
         end
-
         checkbox.OnDisable = function(self)
             self.EnableEffect:SetNeedsFrameUpdate(false)
             self.EnableEffect:SetAlpha(0)
             Checkbox.OnDisable(self)
         end
-
     end
 
     -- if the order has functions associated with the button text
     if orderInfo.ButtonTextFunc then
-
         checkbox.buttonText = UIUtil.CreateText(checkbox, '', 18, UIUtil.bodyFont)
-
         checkbox.buttonText:SetText(orderInfo.ButtonTextFunc(checkbox))
         checkbox.buttonText:SetColor('ffffffff')
         checkbox.buttonText:SetDropShadow(true)
 
         LayoutHelpers.AtBottomIn(checkbox.buttonText, checkbox)
         LayoutHelpers.AtHorizontalCenterIn(checkbox.buttonText, checkbox)
-
         checkbox.buttonText:DisableHitTest()
         checkbox.buttonText:SetNeedsFrameUpdate(true)
-
         checkbox.buttonText.OnFrame = function(self, delta)
             self:SetText(orderInfo.ButtonTextFunc(checkbox))
         end
-
     end
 
     -- set up tooltips
     checkbox.HandleEvent = function(self, event)
-
         if event.Type == 'MouseEnter' then
-
             if controls.orderGlow then
                 controls.orderGlow:Destroy()
                 controls.orderGlow = false
             end                
-
             CreateMouseoverDisplay(self, self._curHelpText, 1)
-
             glowThread = CreateOrderGlow(self)
-
         elseif event.Type == 'MouseExit' then
-
             if controls.mouseoverDisplay then
                 controls.mouseoverDisplay:Destroy()
                 controls.mouseoverDisplay = false
             end
-
             if controls.orderGlow then
                 controls.orderGlow:Destroy()
                 controls.orderGlow = false
                 KillThread(glowThread)
             end
-
         end
-
         Checkbox.HandleEvent(self, event)
     end
 
     -- calculate row and column, remove old item, add new checkbox
-    
     local cols, rows = controls.orderButtonGrid:GetDimensions()
-    
-    local row = math.ceil( slot / cols )
-    local col = math.mod( slot - 1, cols ) + 1
-
+    local row = math.ceil(slot / cols)
+    local col = math.mod(slot - 1, cols) + 1
     controls.orderButtonGrid:DestroyItem(col, row, batchMode)
-    controls.orderButtonGrid:SetItem(checkbox, col, row, batchMode)    
-	
+    controls.orderButtonGrid:SetItem(checkbox, col, row, batchMode)
+
     -- all credit to Domino Mod Support	-- resize our icons
-	LayoutHelpers.SetDimensions(checkbox, Grid_Params.Order_Slots.iconsize.width, Grid_Params.Order_Slots.iconsize.height)
+    LayoutHelpers.SetDimensions(checkbox, Grid_Params.Order_Slots.iconsize.width, Grid_Params.Order_Slots.iconsize.height)
 
     -- Handle Hotbuild labels
     if orderKeys[orderInfo.helpText] then
         hotkeyLabel_addLabel(checkbox, checkbox, orderKeys[orderInfo.helpText])
-    end	
+    end
 
     return checkbox
 end
 
 -- creates the buttons for the common orders, and then disables them if they aren't in the order set
 local function CreateCommonOrders(availableOrders, init)
-
     -- setup the common (always added) orders
     for key in commonOrders do
-
         local orderInfo = standardOrdersTable[key]
 
         local orderCheckbox = AddOrder(orderInfo, orderInfo.preferredSlot, true)
-
         orderCheckbox._order = key
         orderCheckbox._toggleState = 0
 
         if not init and orderInfo.initialStateFunc then
             orderInfo.initialStateFunc(orderCheckbox, currentSelection)
         end
-        
+
         orderCheckbox:Disable()
-      
+
         orderCheckboxMap[key] = orderCheckbox
     end
-    
+
     --LOG("*AI DEBUG Available Common Orders are "..repr(availableOrders))
-    
     -- loop thru ALL available orders and set them up if they are standard
     for index, availOrder in availableOrders do
-
         -- skip any orders not in the standard table --
         if not standardOrdersTable[availOrder] then
-
             --LOG("*AI DEBUG availOrder "..repr(availOrder).." not present in standardOrdersTable ")  --..repr(standardOrdersTable) )
-
             continue
-
         end
-
         if commonOrders[availOrder] then
-
             --LOG("*AI DEBUG Enabling common order "..repr(availOrder))
-
             local ck = orderCheckboxMap[availOrder]
-
             ck:Enable()
         end
     end
@@ -1368,7 +1141,6 @@ end
 
 -- creates the buttons for the alt orders, placing them as possible
 local function CreateAltOrders(availableOrders, availableToggles, units)
-
     --LOG("*AI DEBUG Creating ALT Orders")
 
     --TODO? it would indeed be easier if the alt orders slot was in the blueprint, but for now try
@@ -1377,33 +1149,23 @@ local function CreateAltOrders(availableOrders, availableToggles, units)
     --Look for units in the selection that have special ability buttons
     --If any are found, add the ability information to the standard order table
     if units and categories.ABILITYBUTTON and EntityCategoryFilterDown(categories.ABILITYBUTTON, units) then
-
         for index, unit in units do
-
             local tempBP = UnitData[unit:GetEntityId()]
-
             if tempBP.Abilities then
-
                 for abilityIndex, ability in tempBP.Abilities do
-
                     if ability.Active != false then
-                        
                         --LOG("*AI DEBUG Adding Ability order "..repr(ability).." for index "..repr(abilityIndex) )
-
                         table.insert(availableOrders, abilityIndex)
 
                         -- if the preferred slot and the script were defined in the ability (from the bp)
                         -- we'll use those, if not, lets see if there is an entry in the abilitydefinitions
                         if (not ability.perferredSlot) and (not ability.script) then
-
                             standardOrdersTable[abilityIndex] = table.merged(ability, import('/lua/abilitydefinition.lua').abilities[abilityIndex])
                         else
-                        
                             standardOrdersTable[abilityIndex] = ability
                         end
 
                         --LOG("*AI DEBUG Added Ability order data is "..repr(standardOrdersTable[abilityIndex]))
-
                         standardOrdersTable[abilityIndex].behavior = AbilityButtonBehavior
                     end
                 end
@@ -1417,19 +1179,15 @@ local function CreateAltOrders(availableOrders, availableToggles, units)
     if table.getn(units) > 0 and (EntityCategoryFilterDown(categories.PODSTAGINGPLATFORM, units) or EntityCategoryFilterDown(categories.POD, units)) then
 
         --LOG("*AI DEBUG Adding Drone abilities")
-        
         local PodStagingPlatforms = EntityCategoryFilterDown(categories.PODSTAGINGPLATFORM, units)
         local Pods = EntityCategoryFilterDown(categories.POD, units)
         local assistingUnits = {}
 
         if table.getn(PodStagingPlatforms) == 0 and table.getn(Pods) == 1 then
-
             assistingUnits[1] = Pods[1]:GetCreator()
             podUnits['DroneL'] = Pods[1]
             podUnits['DroneR'] = Pods[2]
-
         elseif table.getn(PodStagingPlatforms) == 1 then
-
             assistingUnits = GetAssistingUnitsList(PodStagingPlatforms)
             podUnits['DroneL'] = assistingUnits[1]
             podUnits['DroneR'] = assistingUnits[2]
@@ -1450,27 +1208,18 @@ local function CreateAltOrders(availableOrders, availableToggles, units)
     -- we first want a table of slots we want to fill, and what orders want to fill them
     local desiredSlot = {}
     local usedSpecials = {}
-
     if availableOrders[1] then
-
         --LOG("*AI DEBUG Examining Available Orders "..repr(availableOrders))
-
         for index, availOrder in availableOrders do
-
             if standardOrdersTable[availOrder] then 
-
                 local preferredSlot = standardOrdersTable[availOrder].preferredSlot
-
                 if not desiredSlot[preferredSlot] then
                     desiredSlot[preferredSlot] = {}
                 end
-
                 --LOG("*AI DEBUG Adding "..repr(availOrder).." to desired slot "..preferredSlot)
                 table.insert(desiredSlot[preferredSlot], availOrder)
             else
-
                 if specialOrdersTable[availOrder] != nil then
-            
                     --LOG("*AI DEBUG Adding "..repr(availOrder).." to SpecialOrdersTable")
                     specialOrdersTable[availOrder].behavior()
                     usedSpecials[availOrder] = true
@@ -1478,28 +1227,19 @@ local function CreateAltOrders(availableOrders, availableToggles, units)
             end
         end
     end
-    
+
     if availableToggles[1] then
-
         --LOG("*AI DEBUG Examining Available Toggles "..repr(availableToggles))
-    
         for index, availToggle in availableToggles do
-
             if standardOrdersTable[availToggle] then 
-
                 local preferredSlot = standardOrdersTable[availToggle].preferredSlot
-
                 if not desiredSlot[preferredSlot] then
                     desiredSlot[preferredSlot] = {}
                 end
-
                 --LOG("*AI DEBUG Adding "..repr(availToggle).." to desired slot "..preferredSlot)
                 table.insert(desiredSlot[preferredSlot], availToggle)
-
             else
-
                 if specialOrdersTable[availToggle] != nil then
-
                     --LOG("*AI DEBUG Adding "..repr(availToggle).." to SpecialOrdersTable")
                     specialOrdersTable[availToggle].behavior()
                     usedSpecials[availToggle] = true
@@ -1509,11 +1249,8 @@ local function CreateAltOrders(availableOrders, availableToggles, units)
     end
 
     if specialOrdersTable[1] then
-    
         --LOG("*AI DEBUG Examining SpecialOrders "..repr(specialOrdersTable) )
-    
         for i, specialOrder in specialOrdersTable do
-
             if not usedSpecials[i] and specialOrder.notAvailableBehavior then
                 specialOrder.notAvailableBehavior()
             end
@@ -1522,18 +1259,13 @@ local function CreateAltOrders(availableOrders, availableToggles, units)
 
     -- now go through that table and determine what doesn't fit and look for slots that are empty
     local orderInSlot = {}
-
     --LOG("*AI DEBUG Insert Orders into desired alt slots from "..Grid_Params.Grid.firstAltSlot.." to "..Grid_Params.Grid.numSlots)
 
     -- go through first time and add all the first entries to their preferred slot
     for slot = Grid_Params.Grid.firstAltSlot,Grid_Params.Grid.numSlots do
-
         --LOG("*AI DEBUG Examining Desired Slot "..repr(slot))
-        
         if desiredSlot[slot] then
-        
             --LOG("*AI DEBUG Slot "..repr(slot).." filled with order "..repr(desiredSlot[slot][1]))
-            
             orderInSlot[slot] = desiredSlot[slot][1]
         end
     end
@@ -1563,15 +1295,10 @@ local function CreateAltOrders(availableOrders, availableToggles, units)
 --]]
 
     for slot = Grid_Params.Grid.firstAltSlot,Grid_Params.Grid.numSlots do
-
         if desiredSlot[slot] and table.getn(desiredSlot[slot]) > 1 then
-
             for index, item in desiredSlot[slot] do
-
                 if index > 1 then
-
                     local foundFreeSlot = false
-
                     for newSlot = Grid_Params.Grid.firstAltSlot, Grid_Params.Grid.numSlots do
                         if not orderInSlot[newSlot] then
                             orderInSlot[newSlot] = item
@@ -1579,7 +1306,6 @@ local function CreateAltOrders(availableOrders, availableToggles, units)
                             break
                         end
                     end
-
                     if not foundFreeSlot then
                         WARN("No free slot for order: " .. item)
                         # could break here, but don't, then you'll know how many extra orders you have
@@ -1596,29 +1322,26 @@ local function CreateAltOrders(availableOrders, availableToggles, units)
     end
 
     --LOG(repr(availableOrders), repr(orderInSlot), repr(slotForOrder))
-    
+
     -- create the alt order buttons
     for index, availOrder in availableOrders do
-
         if not standardOrdersTable[availOrder] then continue end -- skip any orders we don't have in our table
-
         if not commonOrders[availOrder] then
 
             local orderInfo = standardOrdersTable[availOrder] or AbilityInformation[availOrder]
             local orderCheckbox = AddOrder(orderInfo, slotForOrder[availOrder], true)
 
             if not orderCheckbox then continue end
-
             orderCheckbox._order = availOrder
-            
+
             if standardOrdersTable[availOrder].script then
                 orderCheckbox._script = standardOrdersTable[availOrder].script
             end
-            
+
             if assitingUnitList[availOrder] then
                 orderCheckbox._unit = assitingUnitList[availOrder]
             end
-            
+
             if podUnits[availOrder] then
                 orderCheckbox._pod = podUnits[availOrder]
             end
@@ -1632,20 +1355,17 @@ local function CreateAltOrders(availableOrders, availableToggles, units)
     end
 
     for index, availToggle in availableToggles do
-
-        if not standardOrdersTable[availToggle] then continue end   -- skip any orders we don't have in our table
-
+        if not standardOrdersTable[availToggle] then continue end -- skip any orders we don't have in our table
         if not commonOrders[availToggle] then
-
             local orderInfo = standardOrdersTable[availToggle] or AbilityInformation[availToggle]
             local orderCheckbox = AddOrder(orderInfo, slotForOrder[availToggle], true)
 
             orderCheckbox._order = availToggle
-            
+
             if standardOrdersTable[availToggle].script then
                 orderCheckbox._script = standardOrdersTable[availToggle].script
             end
-            
+
             if assitingUnitList[availToggle] then
                 orderCheckbox._unit = assitingUnitList[availToggle]
             end
@@ -1659,42 +1379,33 @@ local function CreateAltOrders(availableOrders, availableToggles, units)
     end
 end
 
-
-
 -- called by gamemain when new orders are available, 
 function SetAvailableOrders(availableOrders, availableToggles, newSelection)
-
     -- adopted from Domino Mod Support 
     if table.getn(newSelection) == 0 then
-    
         if controls.bg.Mini then
             controls.bg.Mini(true)
         end
-        
         currentSelection = false
-
         return
     end
- 	
-	local AddedToggles = {}
 
+	local AddedToggles = {}
 	local SelectedUnits = newSelection
 
 --[[
-	-- this block removes stunned units from the selection block
-	-- so they cannot click build or order buttons.. 
-	for index, unit in SelectedUnits do
-
-		local IsStunned = GetUnitParam(unit, 'IsStunned')
-
-		if IsStunned then 
-			table.removeByValue(newSelection, unit)		
-		end
-	end
+    -- this block removes stunned units from the selection block
+    -- so they cannot click build or order buttons.. 
+    for index, unit in SelectedUnits do
+        local IsStunned = GetUnitParam(unit, 'IsStunned')
+        if IsStunned then 
+            table.removeByValue(newSelection, unit)		
+        end
+    end
 --]]
 
-	--reset our grid. important.
-	ResetGrid()
+    --reset our grid. important.
+    ResetGrid()
 
     -- save new selection    
     currentSelection = newSelection
@@ -1717,21 +1428,14 @@ function SetAvailableOrders(availableOrders, availableToggles, newSelection)
     --         prefferedslot = slotnumber
     --     },
     --  },
-    -- 
     local orderDiffs
-    
     for index, unit in newSelection do
-    
         local overrideTable = unit:GetBlueprint().General.OrderOverrides
-
         if overrideTable then
-
             for orderKey, override in overrideTable do
-
                 if orderDiffs == nil then
                     orderDiffs = {}
                 end
-
                 if orderDiffs[orderKey] != nil and (orderDiffs[orderKey].bitmapId != override.bitmapId or orderDiffs[orderKey].helpText != override.helpText) then
                     -- found order diff already, so mark it false so it gets ignored when applying to table
                     orderDiffs[orderKey] = false
@@ -1741,22 +1445,17 @@ function SetAvailableOrders(availableOrders, availableToggles, newSelection)
             end
         end
     end
-    
+
     -- apply overrides
     if orderDiffs != nil then
-
         for orderKey, override in orderDiffs do
-
             if override and override != false then
-
                 if override.bitmapId then
                     standardOrdersTable[orderKey].bitmapId = override.bitmapId
                 end
-
                 if override.helpText then
                     standardOrdersTable[orderKey].helpText = override.helpText
                 end
-                
                 if override.preferredSlot then
                     standardOrdersTable[orderKey].preferredSlot = override.preferredSlot
                 end
@@ -1775,79 +1474,64 @@ end
 
 
 function SetAvailableOrdersMod(availableOrders, availableToggles, newSelection)
-
     --LOG("*AI DEBUG availableOrders now is "..repr(availableOrders))
-	
-	currentSelection = newSelection
-	
-	local TotalSlotsNeeded = 0
-	local numValidOrders = 0
-	local HighestSlot = 16
+    currentSelection = newSelection
 
-	local AddedAbilities = {}
+    local TotalSlotsNeeded = 0
+    local numValidOrders = 0
+    local HighestSlot = 16
+    local AddedAbilities = {}
 
 --[[
     -- this block is here to support a DMS feature (not in use)
-	if currentSelection then
-
+    if currentSelection then
         for index, Unit in currentSelection do
-
-			local UnitId = Unit:GetEntityId()
-
-
+            local UnitId = Unit:GetEntityId()
             local UnitAbilities = GetUnitParamTable(Unit, 'Abilities')
+            local UnitRallyPoints = UnitRallyPoints[UnitId]
 
-			local UnitRallyPoints = UnitRallyPoints[UnitId]
-			
-			--Abilities....
+            --Abilities....
             if UnitAbilities and table.getsize(UnitAbilities) > 0 then
-
                 for AbilityName, Params in UnitAbilities do
-
-					if Params then 
-
-						local idenitfier = Params.identifier
-
-						if Params.active and not AddedAbilities[idenitfier] and Params.showtoggle then
-							AddedAbilities[idenitfier] = true
-							TotalSlotsNeeded = TotalSlotsNeeded + 1
-							
-							if Params.preferredSlot > HighestSlot then 
-								HighestSlot = Params.preferredSlot
-							end
-						end
-					end
+                    if Params then 
+                        local idenitfier = Params.identifier
+                        if Params.active and not AddedAbilities[idenitfier] and Params.showtoggle then
+                            AddedAbilities[idenitfier] = true
+                            TotalSlotsNeeded = TotalSlotsNeeded + 1
+                            if Params.preferredSlot > HighestSlot then 
+                                HighestSlot = Params.preferredSlot
+                            end
+                        end
+                    end
                 end
             end
-			
-			--RallyPoints
+
+            --RallyPoints
             if UnitRallyPoints and table.getsize(UnitRallyPoints) > 0 then
                 for RallyPointName, Params in UnitRallyPoints do
-					if Params then 
-						local idenitfier = Params.identifier
-						if Params.active and not AddedAbilities[idenitfier] and Params.showtoggle then
-							AddedAbilities[idenitfier] = true
-							TotalSlotsNeeded = TotalSlotsNeeded + 1
-							
-							if Params.preferredSlot > HighestSlot then 
-								HighestSlot = Params.preferredSlot
-							end
-						end
-					end
+                    if Params then 
+                        local idenitfier = Params.identifier
+                        if Params.active and not AddedAbilities[idenitfier] and Params.showtoggle then
+                            AddedAbilities[idenitfier] = true
+                            TotalSlotsNeeded = TotalSlotsNeeded + 1
+                            if Params.preferredSlot > HighestSlot then 
+                                HighestSlot = Params.preferredSlot
+                            end
+                        end
+                    end
                 end
             end
         end
-
     end
 --]]
 
-	--clear ALL existing orders
+    --clear ALL existing orders
     orderCheckboxMap = {}
     controls.orderButtonGrid:DestroyAllItems(true)
-	
+
     -- create our copy of orders table
     standardOrdersTable = table.deepcopy(defaultOrdersTable)
-    
+
     -- look in blueprints for any icon or tooltip overrides
     -- note that if multiple overrides are found for the same order, then the default is used
     -- the syntax of the override in the blueprint is as follows (the overrides use same naming as in the default table above):
@@ -1860,19 +1544,13 @@ function SetAvailableOrdersMod(availableOrders, availableToggles, newSelection)
     --  },
     -- 
     local orderDiffs
-    
     for index, unit in newSelection do
-
         local overrideTable = unit:GetBlueprint().General.OrderOverrides
-
         if overrideTable then
-
             for orderKey, override in overrideTable do
-
                 if orderDiffs == nil then
                     orderDiffs = {}
                 end
-
                 if orderDiffs[orderKey] != nil and (orderDiffs[orderKey].bitmapId != override.bitmapId or orderDiffs[orderKey].helpText != override.helpText) then
                     -- found order diff already, so mark it false so it gets ignored when applying to table
                     orderDiffs[orderKey] = false
@@ -1882,18 +1560,14 @@ function SetAvailableOrdersMod(availableOrders, availableToggles, newSelection)
             end
         end
     end
-    
+
     -- apply overrides
     if orderDiffs != nil then
-
         for orderKey, override in orderDiffs do
-
             if override and override != false then
-
                 if override.bitmapId then
                     standardOrdersTable[orderKey].bitmapId = override.bitmapId
                 end
-
                 if override.helpText then
                     standardOrdersTable[orderKey].helpText = override.helpText
                 end
@@ -1905,47 +1579,36 @@ function SetAvailableOrdersMod(availableOrders, availableToggles, newSelection)
         end
     end
 
-	--Lets see how many orders we have, and create our orders panel accordingly.	
-	local AddedOrders = {}
+    --Lets see how many orders we have, and create our orders panel accordingly.	
+    local AddedOrders = {}
+    for i, v in availableOrders do
+        if standardOrdersTable[v] and not AddedOrders[v] then
+            AddedOrders[v] = true
+            numValidOrders = numValidOrders + 1
+            if standardOrdersTable[v].preferredSlot and standardOrdersTable[v].preferredSlot > HighestSlot then 
+                HighestSlot = standardOrdersTable[v].preferredSlot
+            end
+        end
+    end
 
-	for i, v in availableOrders do
-
-		if standardOrdersTable[v] and not AddedOrders[v] then
-
-			AddedOrders[v] = true
-			numValidOrders = numValidOrders + 1
-			
-			if standardOrdersTable[v].preferredSlot and standardOrdersTable[v].preferredSlot > HighestSlot then 
-				HighestSlot = standardOrdersTable[v].preferredSlot
-			end
-		end
-	end
-	
-	local availableTogglesMod = {}
-
-	for i, v in availableToggles do
-
-		if standardOrdersTable[v] and not AddedOrders[v] then
-
-			AddedOrders[v] = true
-			table.insert(availableTogglesMod, v)
-			numValidOrders = numValidOrders + 1
-			
-			if standardOrdersTable[v].preferredSlot and standardOrdersTable[v].preferredSlot > HighestSlot then 
-				HighestSlot = standardOrdersTable[v].preferredSlot
-			end
-		end
-	end
+    local availableTogglesMod = {}
+    for i, v in availableToggles do
+        if standardOrdersTable[v] and not AddedOrders[v] then
+            AddedOrders[v] = true
+            table.insert(availableTogglesMod, v)
+            numValidOrders = numValidOrders + 1
+            if standardOrdersTable[v].preferredSlot and standardOrdersTable[v].preferredSlot > HighestSlot then 
+                HighestSlot = standardOrdersTable[v].preferredSlot
+            end
+        end
+    end
 
 	local assitingUnitList = {}
     local podUnits = {}
-
     if table.getn(currentSelection) > 0 and (EntityCategoryFilterDown(categories.PODSTAGINGPLATFORM, currentSelection) or EntityCategoryFilterDown(categories.POD, currentSelection)) then
-
         local PodStagingPlatforms = EntityCategoryFilterDown(categories.PODSTAGINGPLATFORM, currentSelection)
         local Pods = EntityCategoryFilterDown(categories.POD, currentSelection)
         local assistingUnits = {}
-
         if table.getn(PodStagingPlatforms) == 0 and table.getn(Pods) == 1 then
             assistingUnits[1] = Pods[1]:GetCreator()
             podUnits['DroneL'] = Pods[1]
@@ -1955,68 +1618,59 @@ function SetAvailableOrdersMod(availableOrders, availableToggles, newSelection)
             podUnits['DroneL'] = assistingUnits[1]
             podUnits['DroneR'] = assistingUnits[2]
         end
-
         if assistingUnits[1] then
             TotalSlotsNeeded = TotalSlotsNeeded + 1
         end
-
         if assistingUnits[2] then
             TotalSlotsNeeded = TotalSlotsNeeded + 1
         end
     end
-	
-	---------------------------------------------------------------------------------------
-	--count our disabled buttons.
+
+    ---------------------------------------------------------------------------------------
+    --count our disabled buttons.
     local common = table.getsize(commonOrders)
-	local sub = 0
-
+    local sub = 0
     for index, availOrder in availableOrders do
-
         if not standardOrdersTable[availOrder] then continue end   # skip any orders we don't have in our table
-
         if commonOrders[availOrder] then
             sub = sub + 1
         end
     end
 
-	local commonsub = common - sub
+    local commonsub = common - sub
 
-	---------------------------------------------------------------------------------------
-	TotalSlots = (numValidOrders + TotalSlotsNeeded + commonsub)
+    ---------------------------------------------------------------------------------------
+    TotalSlots = (numValidOrders + TotalSlotsNeeded + commonsub)
 
-	--LOG('numValidOrders ' .. repr(numValidOrders))
-	--LOG('commonsub ' .. repr(commonsub))
-	--LOG('total needed ' .. repr(TotalSlotsNeeded))
-	--LOG('TotalSlots ' .. repr(TotalSlots))
-	--LOG('HighestSlot ' .. repr(HighestSlot))
-	
-	if HighestSlot > TotalSlots then 
-		SetGridParams(HighestSlot, true)
-	else
-		SetGridParams(TotalSlots, true)
-	end
+    --LOG('numValidOrders ' .. repr(numValidOrders))
+    --LOG('commonsub ' .. repr(commonsub))
+    --LOG('total needed ' .. repr(TotalSlotsNeeded))
+    --LOG('TotalSlots ' .. repr(TotalSlots))
+    --LOG('HighestSlot ' .. repr(HighestSlot))
 
-	--Changed this, if there is enough slots for all orders show the orders else LOG a warning and just show an empty panel.
-	--Were only going to populate the orders panel IF there is enough slots.
-	if TotalSlots <= Grid_Params.Grid.numSlots then		
+    if HighestSlot > TotalSlots then 
+        SetGridParams(HighestSlot, true)
+    else
+        SetGridParams(TotalSlots, true)
+    end
 
-		CreateCommonOrders(availableOrders)
+    --Changed this, if there is enough slots for all orders show the orders else LOG a warning and just show an empty panel.
+    --Were only going to populate the orders panel IF there is enough slots.
+    if TotalSlots <= Grid_Params.Grid.numSlots then		
+        CreateCommonOrders(availableOrders)
+        CreateAltOrders(availableOrders, availableToggles, currentSelection)
+        controls.orderButtonGrid:EndBatch()
+    else
+        WARN('ORDERS --> NOT ENOUGH SLOTS, REQUESTED:> ' .. repr(TotalSlots) .. ' MAX:> ' .. repr(Grid_Params.Grid.numSlots))
+    end
 
-		CreateAltOrders(availableOrders, availableToggles, currentSelection)
-
-		controls.orderButtonGrid:EndBatch()
-	else
-		WARN('ORDERS --> NOT ENOUGH SLOTS, REQUESTED:> ' .. repr(TotalSlots) .. ' MAX:> ' .. repr(Grid_Params.Grid.numSlots))
-	end
-    
-	--not needed but kept in til the end. as i hide the panel in the SetAvailableOrders function if there is no selection
-	if table.getn(currentSelection) == 0 and controls.bg.Mini then
-		controls.bg.Mini(true)
-	elseif controls.bg.Mini then
-		controls.bg.Mini(false)
-	end
+    --not needed but kept in til the end. as i hide the panel in the SetAvailableOrders function if there is no selection
+    if table.getn(currentSelection) == 0 and controls.bg.Mini then
+        controls.bg.Mini(true)
+    elseif controls.bg.Mini then
+        controls.bg.Mini(false)
+    end
 end
-
 
 function CreateControls()
     if controls.mouseoverDisplay then
@@ -2053,12 +1707,10 @@ function CreateControls()
 end
 
 function SetLayout(layout)
-
     layoutVar = layout
 
     -- clear existing orders
     orderCheckboxMap = {}
-
     if controls and controls.orderButtonGrid then
         controls.orderButtonGrid:DeleteAndDestroyAll(true)
     end
@@ -2068,12 +1720,10 @@ function SetLayout(layout)
 
     -- created greyed out orders on setup
     CreateCommonOrders({}, true)
-
 end
 
 -- called from gamemain to create control
 function SetupOrdersControl(parent, mfd)
-
     controls.controlClusterGroup = parent
     controls.mfdControl = mfd
 
@@ -2083,7 +1733,7 @@ function SetupOrdersControl(parent, mfd)
     SetLayout(UIUtil.currentLayout)
 
     -- setup command mode behaviors
-    import('/lua/ui/game/commandmode.lua').AddStartBehavior(
+    CommandMode.AddStartBehavior(
         function(commandMode, data)
             local orderCheckbox = orderCheckboxMap[data]
             if orderCheckbox then
@@ -2091,7 +1741,7 @@ function SetupOrdersControl(parent, mfd)
             end
         end
     )
-    import('/lua/ui/game/commandmode.lua').AddEndBehavior(
+    CommandMode.AddEndBehavior(
         function(commandMode, data)
             local orderCheckbox = orderCheckboxMap[data]
             if orderCheckbox then
@@ -2099,7 +1749,7 @@ function SetupOrdersControl(parent, mfd)
             end
         end
     )
-    
+
     return controls.bg
 end
 
@@ -2120,48 +1770,46 @@ function Get_Grid_Params()
 	return Grid_Params
 end
 
-
 --important function, it sets the icons and panel to the correct size for the amount of orders on the panel.
 --ive added support for upto 24 order icons, i dont think we will ever need more than this.
 function SetGridParams(NumOrders, update)
-	OrderNum = NumOrders
+    OrderNum = NumOrders
 
-	local params = {}
+    local params = {}
 
-	if NumOrders <= 16 then 
-		--WARN('SETTING SLOTS TO 16 --> ' .. ' NumOrders ' .. repr(NumOrders) .. ' Layout ' .. repr(layoutVar))
-		Grid_Params.Order_Slots = SlotIconsTable[layoutVar]['16Slots'] or SlotIconsTable['bottom']['16Slots']
-		params = SlotIconsTable[layoutVar]['16Slots'] or SlotIconsTable['bottom']['16Slots']
+    if NumOrders <= 16 then 
+        --WARN('SETTING SLOTS TO 16 --> ' .. ' NumOrders ' .. repr(NumOrders) .. ' Layout ' .. repr(layoutVar))
+        Grid_Params.Order_Slots = SlotIconsTable[layoutVar]['16Slots'] or SlotIconsTable['bottom']['16Slots']
+        params = SlotIconsTable[layoutVar]['16Slots'] or SlotIconsTable['bottom']['16Slots']
 
-	elseif NumOrders > 18 and NumOrders <= 24 then 
-		--WARN('SETTING SLOTS TO 24 --> ' .. ' NumOrders ' .. repr(NumOrders) .. ' Layout ' .. repr(layoutVar))
-		Grid_Params.Order_Slots = SlotIconsTable[layoutVar]['24Slots'] or SlotIconsTable['bottom']['24Slots']
-		params = SlotIconsTable[layoutVar]['24Slots'] or SlotIconsTable['bottom']['24Slots']
+    elseif NumOrders > 18 and NumOrders <= 24 then 
+        --WARN('SETTING SLOTS TO 24 --> ' .. ' NumOrders ' .. repr(NumOrders) .. ' Layout ' .. repr(layoutVar))
+        Grid_Params.Order_Slots = SlotIconsTable[layoutVar]['24Slots'] or SlotIconsTable['bottom']['24Slots']
+        params = SlotIconsTable[layoutVar]['24Slots'] or SlotIconsTable['bottom']['24Slots']
 
-	else
-		--WARN('SETTING SLOTS TO 24 --> ' .. ' NumOrders ' .. repr(NumOrders) .. ' Layout ' .. repr(layoutVar))
-		Grid_Params.Order_Slots = SlotIconsTable[layoutVar]['24Slots'] or SlotIconsTable['bottom']['24Slots']
-		params = SlotIconsTable[layoutVar]['24Slots'] or SlotIconsTable['bottom']['24Slots']
-	end
-	
-	Grid_Params.Order_Slots.layout = layoutVar
-	Grid_Params.Order_Slots.NumOrders = NumOrders
+    else
+        --WARN('SETTING SLOTS TO 24 --> ' .. ' NumOrders ' .. repr(NumOrders) .. ' Layout ' .. repr(layoutVar))
+        Grid_Params.Order_Slots = SlotIconsTable[layoutVar]['24Slots'] or SlotIconsTable['bottom']['24Slots']
+        params = SlotIconsTable[layoutVar]['24Slots'] or SlotIconsTable['bottom']['24Slots']
+    end
 
-	if update then 
+    Grid_Params.Order_Slots.layout = layoutVar
+    Grid_Params.Order_Slots.NumOrders = NumOrders
 
-		--Lets resize the buttons and order panel.
-		
-		--buttons
-		controls.orderButtonGrid._itemWidth = LayoutHelpers.ScaleNumber(params.iconsize.width)
-		controls.orderButtonGrid._itemHeight = LayoutHelpers.ScaleNumber(params.iconsize.height)
-		
-		--panel
-		LayoutHelpers.SetDimensions(controls.bg, params.panelsize.width, params.panelsize.height)
-		
-		controls.orderButtonGrid:_CalculateVisible()
-	end
+    if update then 
+
+        --Lets resize the buttons and order panel.
+
+        --buttons
+        controls.orderButtonGrid._itemWidth = LayoutHelpers.ScaleNumber(params.iconsize.width)
+        controls.orderButtonGrid._itemHeight = LayoutHelpers.ScaleNumber(params.iconsize.height)
+
+        --panel
+        LayoutHelpers.SetDimensions(controls.bg, params.panelsize.width, params.panelsize.height)
+
+        controls.orderButtonGrid:_CalculateVisible()
+    end
 end
-
 
 --move this table to the initialize file and merge it.. with other mods icons tables.. 
 --so they can add there own layouts to this table to show the correct icon/panel sizes
@@ -2243,7 +1891,7 @@ SlotIconsTable = {
 			---------------------
 			--panel size
 			panelsize = { 
-				width = 185,
+				width = 240,
 				height = 70,
 			},
 		},
@@ -2269,7 +1917,7 @@ SlotIconsTable = {
 			---------------------
 			--panel size
 			panelsize = { 
-				width = 185,
+				width = 240,
 				height = 116, -- when this value is > 116 the construction bar doesnt close correctly in left layout.
 			},
 		},
@@ -2297,7 +1945,7 @@ SlotIconsTable = {
 			---------------------
 			--panel size
 			panelsize = { 
-				width = 315,
+				width = 346,
 				height = 120,
 			},
 		},
@@ -2323,7 +1971,7 @@ SlotIconsTable = {
 			---------------------
 			--panel size
 			panelsize = { 
-				width = 315,
+				width = 346,
 				height = 120,
 			},
 		},

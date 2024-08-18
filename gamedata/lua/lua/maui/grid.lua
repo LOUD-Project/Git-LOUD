@@ -13,41 +13,40 @@ Grid = Class(Group) {
         self._itemWidth = ScaleNumber(itemWidth)
         self._itemHeight = ScaleNumber(itemHeight)
         self._items = {}
-        self._top = {}
-        self._top["Horz"] = 1
-        self._top["Vert"] = 1
-        self._visible = {}
-        self._lines = {}
-        self._lines["Horz"] = 0
-        self._lines["Vert"] = 0
+        self._top = {
+            ["Horz"] = 1,
+            ["Vert"] = 1
+        }
+        self._lines = {
+            ["Horz"] = 0,
+            ["Vert"] = 0
+        }
         
         -- visible
-        self._visible["Horz"] = LazyVar.Create()
-        self._visible["Vert"] = LazyVar.Create()
-        
+        self._visible = {
+            ["Horz"] = LazyVar.Create(),
+            ["Vert"] = LazyVar.Create()
+        }
+
         self._visible["Horz"]:Set(function() return math.floor(self.Width() / self._itemWidth) end)
         self._visible["Vert"]:Set(function() return math.floor(self.Height() / self._itemHeight) end)
-    
-        -- get frame update to check visibility
-        self:SetNeedsFrameUpdate(true)
-        self._lastVisible = {}
-        self._lastVisible["Horz"] = 0
-        self._lastVisible["Vert"] = 0
-
-    end,
-
-    OnInit = function(self)
-        Control.OnInit(self)
-    end,
-
-    OnFrame = function(self, elapsedTime)
---TODO get rid of this frame function and use the OnDirty of the lazy vars
-        if (self._lastVisible["Horz"] != self._visible["Horz"]()) or
-           (self._lastVisible["Vert"] != self._visible["Vert"]()) then
-            self:_CalculateVisible()
-            self._lastVisible["Horz"] = self._visible["Horz"]()
-            self._lastVisible["Vert"] = self._visible["Vert"]()
+        self._visible["Horz"].OnDirty = function(var)
+            if self._lastVisible["Horz"] ~= var() then
+                self:_CalculateVisible()
+                self._lastVisible["Horz"] = var()
+            end
         end
+        self._visible["Vert"].OnDirty = function(var)
+            if self._lastVisible["Vert"] ~= var() then
+                self:_CalculateVisible()
+                self._lastVisible["Vert"] = var()
+            end
+        end
+
+        self._lastVisible = {
+            ["Horz"] = 0,
+            ["Vert"] = 0
+        }
     end,
 
     _CheckRow = function(self, row)
@@ -57,7 +56,7 @@ Grid = Class(Group) {
         end
         return true
     end,
-    
+
     _CheckCol = function(self, col)
         if (col > self._lines["Horz"]) or (col < 1) then
             error("Grid: Attempt to set column out of range (requested = " .. col .. " range = " .. self._lines["Horz"] .. ")")
@@ -74,6 +73,15 @@ Grid = Class(Group) {
         return self._lines["Horz"], self._lines["Vert"]
     end,
 
+    -- allow changing grid dimensions without need to re-create the whole grid
+    SetDimensions = function(self, itemWidth, itemHeight)
+        self:DeleteAndDestroyAll(true)
+        self._itemWidth = ScaleNumber(itemWidth)
+        self._itemHeight = ScaleNumber(itemHeight)
+        self._visible["Horz"]:Set(function() return math.floor(self.Width() / self._itemWidth) end)
+        self._visible["Vert"]:Set(function() return math.floor(self.Height() / self._itemHeight) end)
+    end,
+
     AppendRows = function(self, count, batch)
         if count < 1 then
             count = 1
@@ -84,7 +92,7 @@ Grid = Class(Group) {
         self._lines["Vert"] = self._lines["Vert"] + count
         if not batch then self:_CalculateVisible() end
     end,
-    
+
     AppendCols = function(self, count, batch)
         if count < 1 then
             count = 1
@@ -92,7 +100,7 @@ Grid = Class(Group) {
         self._lines["Horz"] = self._lines["Horz"] + count
         if not batch then self:_CalculateVisible() end
     end,
-    
+
     DeleteRow = function(self, row, batch)
         if not self:_CheckRow(row) then return end
         for col = 1, self._lines["Horz"] do
@@ -103,11 +111,11 @@ Grid = Class(Group) {
         self._lines["Vert"] = self._lines["Vert"] - 1
         if not batch then self:_CalculateVisible() end
     end,
-    
+
     DeleteCol = function(self, col, batch)
         if not self:_CheckCol(col) then return end
         for row = 1, self._lines["Vert"] do
-            if self._items[row][col] then 
+            if self._items[row][col] then
                 self._items[row][col]:Hide()
                 self._items[row][col] = nil
                 table.remove(self.items[row], col)
@@ -116,7 +124,7 @@ Grid = Class(Group) {
         self._lines["Horz"] = self._lines["Horz"] - 1
         if not batch then self:_CalculateVisible() end
     end,
-    
+
     DeleteAll = function(self, batch)
         for row = 1, self._lines["Vert"] do
             for col = 1, self._lines["Horz"] do
@@ -142,7 +150,7 @@ Grid = Class(Group) {
         self._items[row][col] = control
         if not batch then self:_CalculateVisible() end
     end,
-    
+
     GetItem = function(self, col, row)
         if not self:_CheckRow(row) then return end
         if not self:_CheckCol(col) then return end
@@ -159,7 +167,7 @@ Grid = Class(Group) {
         end
         if not batch then self:_CalculateVisible() end
     end,
-    
+
     RemoveAllItems = function(self, batch)
         for row = 1, self._lines["Vert"] do
             for col = 1, self._lines["Horz"] do
@@ -171,7 +179,7 @@ Grid = Class(Group) {
         self:ScrollSetTop("Vert", 1)
         if not batch then self:_CalculateVisible() end
     end,
-    
+
     -- destroy is useful when the grid has ownership of the items
     DestroyItem = function(self, col, row, batch)
         if not self:_CheckRow(row) then return end
@@ -186,7 +194,7 @@ Grid = Class(Group) {
     DestroyAllItems = function(self, batch)
         for row = 1, self._lines["Vert"] do
             for col = 1, self._lines["Horz"] do
-                if self._items[row][col] then 
+                if self._items[row][col] then
                     self._items[row][col]:Destroy()
                     self._items[row][col] = nil
                 end
@@ -219,7 +227,7 @@ Grid = Class(Group) {
     EndBatch = function(self)
         self:_CalculateVisible()
     end,
-    
+
     GetScrollValues = function(self, axis)
         local rangeMin = 0
         local rangeMax = math.max(self._lines[axis], self._visible[axis]())
@@ -227,22 +235,22 @@ Grid = Class(Group) {
         local visibleMax = (self._top[axis] - 1) + self._visible[axis]()
         return rangeMin, rangeMax, visibleMin, visibleMax
     end,
-    
+
     ScrollLines = function(self, axis, delta)
         self:ScrollSetTop(axis, self._top[axis] + delta)
     end,
-    
+
     ScrollPages = function(self, axis, delta)
         self:ScrollSetTop(axis, self._top[axis] + (delta * self._visible[axis]()))
     end,
-    
+
     ScrollSetTop = function(self, axis, top)
         top = math.floor(top)
         if top == self._top[axis] then return end
         self._top[axis] = math.max(math.min(self._lines[axis] - self._visible[axis]() + 1 , top), 1)
         self:_CalculateVisible()
     end,
-    
+
     IsScrollable = function(self, axis)
         if self._lines[axis] > self._visible[axis]() then
             return true
@@ -256,7 +264,7 @@ Grid = Class(Group) {
         for row = 1, self._lines["Vert"] do
             for col = 1, self._lines["Horz"] do
                 local control = self._items[row][col]
-                if control != nil then
+                if not IsDestroyed(control) then
                     if  (col >= self._top["Horz"]) and (col < self._top["Horz"] + self._visible["Horz"]()) and
                         (row >= self._top["Vert"]) and (row < self._top["Vert"] + self._visible["Vert"]()) then
                         control:SetHidden(false)
@@ -281,4 +289,11 @@ Grid = Class(Group) {
         -- possible to make them not so.
         return not hidden
     end,
+
+    OnDestroy = function(self)
+        self._visible["Horz"]:Destroy()
+        self._visible["Horz"] = nil
+        self._visible["Vert"]:Destroy()
+        self._visible["Vert"] = nil
+    end
 }
