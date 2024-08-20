@@ -80,7 +80,7 @@ function SetWidth(control, width)
         if type(width) == 'number' then
             control.Width:SetValue(MathFloor(width * pixelScaleFactor))
         else
-            control.Width:Set(width)
+            control.Width:Set(function() return MathFloor(width() * pixelScaleFactor) end)
         end
     end
 end
@@ -93,7 +93,7 @@ function SetHeight(control, height)
         if type(height) == 'number' then
             control.Height:SetValue(MathFloor(height * pixelScaleFactor))
         else
-            control.Height:Set(height)
+            control.Height:Set(function() return MathFloor(height() * pixelScaleFactor) end)
         end
     end
 end

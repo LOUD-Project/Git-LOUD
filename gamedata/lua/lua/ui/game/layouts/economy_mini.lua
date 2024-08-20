@@ -1,11 +1,11 @@
 
-local UIUtil = import('/lua/ui/uiutil.lua')
-local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
-local Group = import('/lua/maui/group.lua').Group
-local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
-local Button = import('/lua/maui/button.lua').Button
-local StatusBar = import('/lua/maui/statusbar.lua').StatusBar
-local parent = import('/lua/ui/game/economy.lua').savedParent
+local UIUtil = import("/lua/ui/uiutil.lua")
+local LayoutHelpers = import("/lua/maui/layouthelpers.lua")
+local Group = import("/lua/maui/group.lua").Group
+local Bitmap = import("/lua/maui/bitmap.lua").Bitmap
+local Button = import("/lua/maui/button.lua").Button
+local StatusBar = import("/lua/maui/statusbar.lua").StatusBar
+local parent = import("/lua/ui/game/economy.lua").savedParent
 
 local style = {
     mass = {
@@ -23,8 +23,8 @@ local style = {
 }
 
 function SetLayout()
-    local GUI = import('/lua/ui/game/economy.lua').GUI
-    local parent = import('/lua/ui/game/economy.lua').savedParent
+    local GUI = import("/lua/ui/game/economy.lua").GUI
+    local parent = import("/lua/ui/game/economy.lua").savedParent
 
     GUI.collapseArrow:SetTexture(UIUtil.UIFile('/game/tab-l-btn/tab-close_btn_up.dds'))
     GUI.collapseArrow:SetNewTextures(UIUtil.UIFile('/game/tab-l-btn/tab-close_btn_up.dds'),
@@ -51,7 +51,7 @@ function SetLayout()
     LayoutHelpers.AtLeftIn(GUI.bg.leftBracketGlow, GUI.bg.leftBracket, 12)
 
     GUI.bg.leftBracket.Depth:Set(GUI.bg.panel.Depth)
-    GUI.bg.leftBracketGlow.Depth:Set(function() return GUI.bg.leftBracket.Depth() - 1 end)
+    LayoutHelpers.DepthUnderParent(GUI.bg.leftBracketGlow, GUI.bg.leftBracket)
 
     LayoutHelpers.AtVerticalCenterIn(GUI.bg.leftBracket, GUI.bg.panel)
     LayoutHelpers.AtVerticalCenterIn(GUI.bg.leftBracketGlow, GUI.bg.panel)
@@ -66,7 +66,7 @@ function SetLayout()
     GUI.bg.rightGlowBottom.Left:Set(GUI.bg.rightGlowTop.Left)
     GUI.bg.rightGlowMiddle.Top:Set(GUI.bg.rightGlowTop.Bottom)
     GUI.bg.rightGlowMiddle.Bottom:Set(function() return math.max(GUI.bg.rightGlowTop.Bottom(), GUI.bg.rightGlowBottom.Top()) end)
-    GUI.bg.rightGlowMiddle.Right:Set(GUI.bg.rightGlowTop.Right)
+    GUI.bg.rightGlowMiddle.Right:Set(function() return GUI.bg.rightGlowTop.Right() end)
 
     LayoutResourceGroup(GUI.mass, 'mass')
     LayoutResourceGroup(GUI.energy, 'energy')
@@ -138,8 +138,8 @@ function LayoutResourceGroup(group, groupType)
 end
 
 function TogglePanelAnimation(state)
-    local GUI = import('/lua/ui/game/economy.lua').GUI
-    local savedParent = import('/lua/ui/game/economy.lua').savedParent
+    local GUI = import("/lua/ui/game/economy.lua").GUI
+    local savedParent = import("/lua/ui/game/economy.lua").savedParent
     if UIUtil.GetAnimationPrefs() then
         if state or GUI.bg:IsHidden() then
             PlaySound(Sound({Cue = "UI_Score_Window_Open", Bank = "Interface"}))
@@ -180,8 +180,8 @@ function TogglePanelAnimation(state)
 end
 
 function InitAnimation()
-    local GUI = import('/lua/ui/game/economy.lua').GUI
-    local savedParent = import('/lua/ui/game/economy.lua').savedParent
+    local GUI = import("/lua/ui/game/economy.lua").GUI
+    local savedParent = import("/lua/ui/game/economy.lua").savedParent
     GUI.bg:Show()
     GUI.bg.Left:Set(savedParent.Left()-GUI.bg.Width())
     GUI.bg:SetNeedsFrameUpdate(true)

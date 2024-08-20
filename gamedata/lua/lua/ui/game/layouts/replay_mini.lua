@@ -26,25 +26,25 @@ end
 
 function SetLayout()
     CreateControls(import('/lua/ui/game/replay.lua').controls)
-    
+
     local controls = import('/lua/ui/game/replay.lua').controls
-    
+
     controls.bg:SetTexture(UIUtil.SkinnableFile('/game/replay/panel_bmp.dds'))
     LayoutHelpers.AtLeftIn(controls.bg, controls.controlClusterGroup, 6)
     LayoutHelpers.AtBottomIn(controls.bg, controls.controlClusterGroup, -3)
     LayoutHelpers.ResetRight(controls.bg)
     LayoutHelpers.ResetTop(controls.bg)
-    
+
     LayoutHelpers.AtLeftTopIn(controls.armycombo, controls.bg, 10, 10)
     LayoutHelpers.SetDimensions(controls.armycombo, 140, 20)
-    
+
     LayoutHelpers.AtLeftTopIn(controls.speedSlider, controls.bg, 10)
     LayoutHelpers.AtRightIn(controls.speedSlider, controls.bg, 40)
-    LayoutHelpers.AnchorToBottom(controls.speedSlider, controls.bg, 40)
+    LayoutHelpers.AnchorToBottom(controls.speedSlider, controls.bg, -40)
     controls.speedSlider._background.Left:Set(controls.speedSlider.Left)
     controls.speedSlider._background.Right:Set(controls.speedSlider.Right)
     controls.speedSlider._background.Top:Set(controls.speedSlider.Top)
     controls.speedSlider._background.Bottom:Set(controls.speedSlider.Bottom)
-    
+
     LayoutHelpers.RightOf(controls.currentSpeed, controls.speedSlider)
 end
