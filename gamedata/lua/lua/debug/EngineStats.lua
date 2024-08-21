@@ -2,7 +2,7 @@
 --* File: lua/modules/debug/EngineStats.lua
 --* Author: Bob Berry
 --* Summary: Displays Engine Statistics
---* Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
+--* Copyright Â© 2006 Gas Powered Games, Inc.  All rights reserved.
 --***********************************************
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 local Group = import('/lua/maui/group.lua').Group
@@ -30,15 +30,15 @@ function Toggle(section)
     dialog.Depth:Set(1000)
     LayoutHelpers.Below( dialog, statusCluster, 1 )
     LayoutHelpers.Above( dialog, controlCluster, 1 )
-    dialog.Left:Set( function() return statusCluster.Left() + 30 end )
-    dialog.Right:Set( function() return statusCluster.Left() + 384 end )
+    LayoutHelpers.AtLeftIn(dialog, statusCluster, 30)
+    LayoutHelpers.AnchorToLeft(dialog, statusCluster, -384)
     dialog:SetNeedsFrameUpdate(true)
 
     statList = ItemList(dialog,"root stat list")
     LayoutHelpers.Below( statList, statusCluster, 1 )
     LayoutHelpers.Above( statList, controlCluster, 1 )
-    statList.Left:Set( function() return statusCluster.Left() + 30 end )
-    statList.Right:Set( function() return statusCluster.Left() + 384 end )
+    LayoutHelpers.AtLeftIn(statList, statusCluster, 30)
+    LayoutHelpers.AnchorToLeft(statList, statusCluster, -384)
     statList:SetFont('Andale Mono', 12)
     statList:SetColors('FFFFFFFF','00000000','FFFFFF00','FF0000FF')
     local sb = UIUtil.CreateVertScrollbarFor(statList)
