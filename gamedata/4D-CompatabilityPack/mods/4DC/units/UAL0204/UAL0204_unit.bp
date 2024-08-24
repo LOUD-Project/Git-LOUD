@@ -38,6 +38,7 @@ UnitBlueprint{
         "SNIPER",
         "TECH2",
         "VISIBLETORECON",
+        "OVERLAYOMNI",
     },
 
     Defense = {
@@ -79,43 +80,49 @@ UnitBlueprint{
     },
 
     Economy = {
-        BuildCostEnergy = 3850,
+        BuildCostEnergy = 4050,
         BuildCostMass = 320,
-        BuildRate = 10,
+        BuildRate = 8,
         BuildTime = 229,
+        
+        MaintenanceConsumptionPerSecondEnergy = 20,
     },
 
     Enhancements = {
+
         EnhancedSensors = {
-            BuildCostEnergy = 667,
-            BuildCostMass = 117,
+            BuildCostEnergy = 1450,
+            BuildCostMass = 130,
             BuildTime = 667,
             Icon = "ess",
-            Name = "Enhanced Sensor System",
+            Name = "Enhanced Optic Sensor",
             Slot = "RCH",
             UpgradeEffectBones = { "body" },
             UpgradeUnitAmbientBones = { "body" },
         },
+
         EnhancedSensorsRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
             Icon = "ess",
-            Name = "Remove Enhanced Sensor System",
+            Name = "Remove Enhanced Optic System",
             Prerequisite = "EnhancedSensors",
             RemoveEnhancements = {"EnhancedSensors","EnhancedSensorsRemove"},
             Slot = "RCH",
         },
+
         EnhancedWeapon = {
-            BuildCostEnergy = 850,
-            BuildCostMass = 160,
-            BuildTime = 667,
+            BuildCostEnergy = 2950,
+            BuildCostMass = 240,
+            BuildTime = 750,
             Icon = "cba",
-            Name = "Enhanced Weapon Range & Damage",
+            Name = "Enhanced Weapon Range",
             Slot = "LCH",
             UpgradeEffectBones = { "sniper_barrel" },
             UpgradeUnitAmbientBones = { "sniper_barrel" },
         },
+
         EnhancedWeaponRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -126,6 +133,7 @@ UnitBlueprint{
             RemoveEnhancements = {"EnhancedWeapon","EnhancedWeaponRemove"},
             Slot = "LCH",
         },
+
         Slots = {
             Back = {},
             Command = {},
@@ -144,17 +152,22 @@ UnitBlueprint{
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+
         FactionName = "Aeon",
+
+        OrderOverrides = {
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-personal', helpText = 'toggle_stealth_personal' },
+        },
+
+        ToggleCaps = { RULEUTC_StealthToggle = true },
 
         UnitName = "<LOC ual0204_name>Predator",
     },
 
     Intel = {
-        FreeIntel = true,
-
         RadarStealth = true,
-        StealthStartsOn = true,
-
+        
+        OmniRadius = 0,
         VisionRadius = 28,
     },
 
@@ -163,10 +176,11 @@ UnitBlueprint{
     LifeBarSize = 0.75,
 
     Physics = {
+        BackupDistance = 5,
         BankingSlope = 0,
         DragCoefficient = 0.2,
-        MaxAcceleration = 2,
-        MaxBrake = 4.0,
+        MaxAcceleration = .75,
+        MaxBrake = 1.5,
         MaxSpeed = 4.0,
         MaxSpeedReverse = 2,
         MaxSteerForce = 10,
@@ -175,8 +189,8 @@ UnitBlueprint{
         MeshExtentsZ = 1,
         MinSpeedPercent = 0,
         MotionType = "RULEUMT_Land",
-        TurnRadius = 2,
-        TurnRate = 66,
+        TurnRadius = 8,
+        TurnRate = 44,
     },
 
     SelectionSizeX = 0.7,
@@ -185,7 +199,7 @@ UnitBlueprint{
 
     SizeX = 0.6,
     SizeY = 0.8,
-    SizeZ = 0.4,
+    SizeZ = 0.55,
 
     StrategicIconName = "icon_land2_sniper",
     StrategicIconSortPriority = 115,
@@ -196,11 +210,11 @@ UnitBlueprint{
     },
 
     Veteran = {
-        Level1 = 5,
-        Level2 = 10,
-        Level3 = 15,
-        Level4 = 20,
-        Level5 = 25,
+        Level1 = 6,
+        Level2 = 12,
+        Level3 = 18,
+        Level4 = 24,
+        Level5 = 30,
     },
 
     Weapon = {
@@ -221,20 +235,20 @@ UnitBlueprint{
             CollideFriendly = false,
 
             Damage = 700,
-            DamageRadius = 1,
+            DamageRadius = 0,
             DamageType = "Normal",
 
             DisplayName = "Sniper Piercing",
 
             EnergyChargeForFirstShot = false,
-            EnergyDrainPerSecond = 250,
-            EnergyRequired = 1000,
+            EnergyDrainPerSecond = 220,
+            EnergyRequired = 1100,
 
             FireTargetLayerCapsTable = { Land = "Land|Water" },
-            FiringRandomnessWhileMoving = 0.6,
-            FiringTolerance = 1,
+            FiringRandomnessWhileMoving = 0.65,
+            FiringTolerance = 0.8,
 
-            Label = "Sniper_Piercing_Rifle",
+            Label = "Piercing_Rifle",
 
             MaxRadius = 42,
             MinRadius = 5,
@@ -255,9 +269,9 @@ UnitBlueprint{
 
             RangeCategory = "UWRC_DirectFire",
 
-            RateOfFire = 1,
+            RateOfFire = 1,     -- controlled by charge -- 5 seconds
 
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1,
             TargetPriorities = {
                 "EXPERIMENTAL",
                 "SHIELD",
@@ -273,14 +287,15 @@ UnitBlueprint{
             TurretDualManipulators = false,
 
             TurretPitch = 0,
-            TurretPitchRange = 50,
-            TurretPitchSpeed = 30,
+            TurretPitchRange = 48,
+            TurretPitchSpeed = 24,
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 35,
+            TurretYawSpeed = 22,
 
             Turreted = true,
         },
+
     },
 }

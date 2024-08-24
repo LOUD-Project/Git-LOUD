@@ -18,13 +18,18 @@ UnitBlueprint{
         CirclingRadiusChangeMinRatio = 0.6,
         CirclingRadiusVsAirMult = 0.66,
         CirclingTurnMult = 3,
+
         KLift = 3,
         KLiftDamping = 2.5,
+
         KMove = 0.6,
-        KMoveDamping = 2,
+        KMoveDamping = 0.6,
+
         KTurn = 0.8,
-        KTurnDamping = 1.5,
+        KTurnDamping = 0.9,
+
         LiftFactor = 5,
+
         MaxAirspeed = 10.5,
         MinAirspeed = 3,
         StartTurnDistance = 6,
@@ -91,7 +96,7 @@ UnitBlueprint{
     },
 
     Economy = {
-        BuildCostEnergy = 18115,
+        BuildCostEnergy = 18650,
         BuildCostMass = 370,
         BuildTime = 600,
     },
