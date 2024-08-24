@@ -45,8 +45,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
     -- While these all could have been housed as a single builder - I did this
     -- to insure that the SACU get spread around to multiple jobs
     
-	-- SACU assisting any STRUCTURE but energy 
-    Builder {BuilderName = 'SCU Assist Structure/Exp',
+    Builder {BuilderName = 'SCU Assist Engineer',
 	
         PlatoonTemplate = 'EngineerGeneral',
         
@@ -70,13 +69,46 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         BuilderData = {
             Assist = {
-				AssistRange = 125,
+				AssistRange = 120,
                 AssisteeType = 'Engineer',
 				AssisteeCategory = categories.ENGINEER,
                 BeingBuiltCategories = { (categories.STRUCTURE + categories.EXPERIMENTAL - categories.ENERGYPRODUCTION) },
-                Time = 150,
+                Time = 120,
             },
         }
+    },
+
+    Builder {BuilderName = 'SCU Assist Factory',
+	
+        PlatoonTemplate = 'EngineerGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		PlatoonAIPlan = 'EngineerAssistAI',
+		
+        Priority = 750,
+		
+		InstanceCount = 3,
+		
+		BuilderType = { 'SubCommander' },
+		
+        BuilderConditions = {
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
+            
+            { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, categories.MOBILE + categories.FACTORY}},
+        },
+		
+        BuilderData = {
+            Assist = {
+				AssistRange = 120,
+				AssisteeType = 'Factory',
+				AssisteeCategory = categories.FACTORY,
+				BeingBuiltCategories = {categories.FACTORY + categories.MOBILE},
+                Time = 75,
+            },
+        },
     },
 
 	-- SACU assisting any LAND EXP
@@ -324,32 +356,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
     },
 
 
-    -- repair damaged structures
-    Builder {BuilderName = 'Repair',
-	
-        PlatoonTemplate = 'EngineerGeneral',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-        
-        PlatoonAIPlan = 'EngineerRepairAI',
-		
-        Priority = 700,
-		
-        InstanceCount = 4,
-
-		BuilderType = { 'T1','T2','T3','SubCommander' },
-		
-        BuilderConditions = {
-            
-            { UCBC, 'DamagedStructuresInArea', { 'LocationType', }},
-            
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},		
-
-        },
-		
-        BuilderData = { },
-    },
-    
 	-- when there is nothing else to do and storage somewhat low
     -- this is a shorter ranged version of the 'High' builder
     Builder {BuilderName = 'Reclaim Mass Low',
@@ -523,40 +529,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         },
     },
 
-    -- when there is nothing else to do assist factories
-    Builder {BuilderName = 'Assist Factory',
-	
-        PlatoonTemplate = 'EngineerGeneral',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-		PlatoonAIPlan = 'EngineerAssistAI',
-		
-        Priority = 720,
-		
-		InstanceCount = 5,
-		
-		BuilderType = { 'T3','SubCommander' },
-		
-        BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
-            
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
-            
-            { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, categories.MOBILE + categories.FACTORY}},
-        },
-		
-        BuilderData = {
-            Assist = {
-				AssistRange = 120,
-				AssisteeType = 'Factory',
-				AssisteeCategory = categories.FACTORY,
-				BeingBuiltCategories = {categories.FACTORY + categories.MOBILE},
-                Time = 60,
-            },
-        },
-    },
-
     -- when there is nothing else to do - general assist for T1
     Builder {BuilderName = 'T1 Assist Structure/Exp',
 	
@@ -575,23 +547,23 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},		
 
-            { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.STRUCTURE + categories.EXPERIMENTAL, categories.ENGINEER + categories.FACTORY, 90 }},
+            { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.ALLUNITS - categories.EXPERIMENTAL, categories.ENGINEER + categories.FACTORY, 90 }},
         },
 		
         BuilderData = {
             Assist = {
-                AssistEnergy = 2500,
-                AssistMass = 250,
+                AssistEnergy = 2000,
+                AssistMass = 200,
                 
 				AssistRange = 90,
 				AssisteeType = 'Any',
 				AssisteeCategory = categories.ENGINEER + categories.FACTORY,
-                BeingBuiltCategories = {categories.ALLUNITS},
+                BeingBuiltCategories = {categories.ALLUNITS - categories.EXPERIMENTAL},
                 Time = 60,
             },
         },
     },
-
+    
     -- when there is nothing else to do - general assist for T2/T3
     Builder {BuilderName = 'Eng Assist Structure/Exp',
 	
@@ -601,30 +573,56 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
 		PlatoonAIPlan = 'EngineerAssistAI',
 		
-        Priority = 650,
+        Priority = 720,
 		
-        InstanceCount = 7,
+        InstanceCount = 6,
 		
 		BuilderType = { 'T2','T3' },
 
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
-            { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE + categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER, 125 }},
+            { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE + categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER + categories.FACTORY, 120 }},
         },
 		
         BuilderData = {
             Assist = {
-                AssistEnergy = 2500,
-                AssistMass = 250,
+                AssistEnergy = 2400,
+                AssistMass = 240,
                 
-				AssistRange = 125,
-				AssisteeType = 'Engineer',
-				AssisteeCategory = categories.ENGINEER,
+				AssistRange = 120,
+				AssisteeType = 'Any',
+				AssisteeCategory = categories.ENGINEER + categories.FACTORY,
                 BeingBuiltCategories = { (categories.STRUCTURE + categories.EXPERIMENTAL - categories.ENERGYPRODUCTION) },
-                Time = 120,
+                Time = 75,
             },
         },
+    },
+
+    -- repair damaged structures
+    Builder {BuilderName = 'Repair',
+	
+        PlatoonTemplate = 'EngineerGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        PlatoonAIPlan = 'EngineerRepairAI',
+		
+        Priority = 700,
+		
+        InstanceCount = 4,
+
+		BuilderType = { 'T1','T2','T3','SubCommander' },
+		
+        BuilderConditions = {
+            
+            { UCBC, 'DamagedStructuresInArea', { 'LocationType', }},
+            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},		
+
+        },
+		
+        BuilderData = { },
     },
 
 }
