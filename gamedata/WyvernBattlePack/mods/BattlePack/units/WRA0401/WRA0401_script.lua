@@ -1,34 +1,25 @@
 local CAirUnit = import('/lua/defaultunits.lua').AirUnit
 
-local CDFRocketIridiumWeapon = import('/lua/cybranweapons.lua').CDFRocketIridiumWeapon
-local CAAMissileNaniteWeapon = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
-local CDFHeavyElectronBolterWeapon = import('/lua/cybranweapons.lua').CDFHeavyElectronBolterWeapon
-local CDFLaserDisintegratorWeapon = import('/lua/cybranweapons.lua').CDFLaserDisintegratorWeapon01
+local CDFRocketIridiumWeapon                = import('/lua/cybranweapons.lua').CDFRocketIridiumWeapon
+local CDFLaserDisintegratorWeapon           = import('/lua/cybranweapons.lua').CDFLaserDisintegratorWeapon01
+local CDFHeavyMicrowaveLaserGeneratorCom    = import('/lua/cybranweapons.lua').CDFHeavyMicrowaveLaserGeneratorCom
+local CAAMissileNaniteWeapon                = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
 
-local util = import('/lua/utilities.lua')
-local fxutil = import('/lua/effectutilities.lua')
+local util      = import('/lua/utilities.lua')
+local fxutil    = import('/lua/effectutilities.lua')
 
-local CDFHeavyMicrowaveLaserGeneratorCom = import('/lua/cybranweapons.lua').CDFHeavyMicrowaveLaserGeneratorCom
+
 
 WRA0401 = Class(CAirUnit) {
+
     Weapons = {
-        Missile = Class(CDFRocketIridiumWeapon) {},
-
-		Laser = Class(CDFHeavyMicrowaveLaserGeneratorCom) {},
-
-        Disintegrator = Class(CDFLaserDisintegratorWeapon){},
-
-        AA = Class(CAAMissileNaniteWeapon) {},
+        Missile         = Class(CDFRocketIridiumWeapon) {},
+        Disintegrator   = Class(CDFLaserDisintegratorWeapon){},
+		Laser           = Class(CDFHeavyMicrowaveLaserGeneratorCom) {},
+        AA              = Class(CAAMissileNaniteWeapon) {},
     },
     
-    MovementAmbientExhaustBones = {
-		'Exhaust01',
-		'Exhaust02',
-		'Exhaust03',
-		'Exhaust04',
-		'Exhaust05',
-		'Exhaust06',
-    },
+    MovementAmbientExhaustBones = {'Exhaust01','Exhaust02','Exhaust03','Exhaust04','Exhaust05','Exhaust06'},
 
     DestructionPartsChassisToss = {'WRA0401',},
     DestroyNoFallRandomChance = 1.1,
@@ -54,22 +45,16 @@ WRA0401 = Class(CAirUnit) {
     end,
     
     MovementAmbientExhaustThread = function(self)
+
+        local army = self.Sync.army
+        local ExhaustEffects = {'/effects/emitters/dirty_exhaust_smoke_01_emit.bp','/effects/emitters/dirty_exhaust_sparks_01_emit.bp'}
+		local ExhaustBeam = '/effects/emitters/missile_exhaust_fire_beam_03_emit.bp'
     
 		while not self.Dead do
-        
-			local ExhaustEffects = {
-				'/effects/emitters/dirty_exhaust_smoke_01_emit.bp',
-				'/effects/emitters/dirty_exhaust_sparks_01_emit.bp',	
-			}
-            
-			local ExhaustBeam = '/effects/emitters/missile_exhaust_fire_beam_03_emit.bp'
-            
-			local army = self.Sync.army			
-			
+
 			for kE, vE in ExhaustEffects do
             
 				for kB, vB in self.MovementAmbientExhaustBones do
-                
 					table.insert( self.MovementAmbientExhaustEffectsBag, CreateAttachedEmitter(self, vB, army, vE ))
 					table.insert( self.MovementAmbientExhaustEffectsBag, CreateBeamEmitterOnEntity( self, vB, army, ExhaustBeam ))
 				end

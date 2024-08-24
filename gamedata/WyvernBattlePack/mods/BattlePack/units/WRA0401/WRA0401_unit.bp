@@ -8,24 +8,33 @@ UnitBlueprint{
 
     Air = {
         AutoLandTime = 6.9,
+
         BankFactor = 0.5,
         BankForward = false,
+
         CanFly = true,
+
         CirclingDirChangeFrequencySec = 5,
         CirclingElevationChangeRatio = 0.65,
         CirclingRadiusChangeMaxRatio = 0.85,
         CirclingRadiusChangeMinRatio = 0.6,
         CirclingRadiusVsAirMult = 0.66,
         CirclingTurnMult = 2.5,
+
         KLift = 1,
         KLiftDamping = 0.8,
+
         KMove = 0.7,
-        KMoveDamping = 2,
+        KMoveDamping = 0.7,
+
         KTurn = 0.7,
-        KTurnDamping = 1.5,
+        KTurnDamping = 0.7,
+
         LiftFactor = 7,
+
         MaxAirspeed = 9.5,
         MinAirspeed = 3,
+
         StartTurnDistance = 5,
         Winged = false,
     },
@@ -44,11 +53,11 @@ UnitBlueprint{
 
     Buffs = {
         Regen = {
-            Level1 = 24,
-            Level2 = 48,
-            Level3 = 72,
-            Level4 = 96,
-            Level5 = 120,
+            Level1 = 15,
+            Level2 = 30,
+            Level3 = 45,
+            Level4 = 60,
+            Level5 = 75,
         },
     },
 
@@ -71,12 +80,12 @@ UnitBlueprint{
     },
 
     Defense = {
-        AirThreatLevel = 40,
+        AirThreatLevel = 66,
         ArmorType = "Light",
         Health = 53500,
         MaxHealth = 53500,
         RegenRate = 30,
-        SurfaceThreatLevel = 179,
+        SurfaceThreatLevel = 209,
     },
 
     Display = {
@@ -98,9 +107,9 @@ UnitBlueprint{
     },
 
     Economy = {
-        BuildCostEnergy = 702500,
-        BuildCostMass = 38500,
-        BuildTime = 9750,
+        BuildCostEnergy = 805500,
+        BuildCostMass = 41000,
+        BuildTime = 13500,
     },
 
     Footprint = {
@@ -109,7 +118,7 @@ UnitBlueprint{
     },
 
     General = {
-        CapCost = 5,
+        CapCost = 6,
 
         CommandCaps = {
             RULEUCC_Attack = true,
@@ -188,10 +197,8 @@ UnitBlueprint{
 
             DisplayName = "Iridium Rocket Pack",
 
-            FireTargetLayerCapsTable = {
-                Air = "Land|Water|Seabed",
-                Land = "Land|Water|Seabed",
-            },
+            FireTargetLayerCapsTable = { Air = "Land|Water|Seabed", Land = "Land|Water|Seabed" },
+
             FiringRandomness = 0.5,
 
             Label = "Missile",
@@ -210,24 +217,15 @@ UnitBlueprint{
             ProjectileId = "/projectiles/CDFRocketIridium01/CDFRocketIridium01_proj.bp",
             ProjectileLifetimeUsesMultiplier = 2.5,
 
-            RackBones = {
-                {
-                    MuzzleBones = { "LeftMissileTurret_Muzzle001" },
-                    RackBone = "LeftMissileTurret_Barrel001",
-                },
-            },
+            RackBones = { { MuzzleBones = { "LeftMissileTurret_Muzzle001" }, RackBone = "LeftMissileTurret_Barrel001" } },
 
             RangeCategory = "UWRC_IndirectFire",
 
             RateOfFire = 0.5,
 
             TargetCheckInterval = 0.5,
-            TargetPriorities = {
-                "SPECIALHIGHPRI",
-                "MOBILE",
-                "ALLUNITS -WALL",
-            },
-            TargetRestrictDisallow = "HIGHALTAIR, UNTARGETABLE",
+            TargetPriorities = { "SPECIALHIGHPRI", "MOBILE", "ALLUNITS -WALL" },
+            TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.2,
 
             TurretBoneMuzzle = "LeftMissileTurret_Muzzle001",
@@ -235,17 +233,18 @@ UnitBlueprint{
             TurretBoneYaw = "LeftMissileTurret001",
 
             TurretPitch = -15,
-            TurretPitchRange = 90,
-            TurretPitchSpeed = 60,
+            TurretPitchRange = 75,
+            TurretPitchSpeed = 40,
 
             TurretYaw = 0,
-            TurretYawRange = 80,
-            TurretYawSpeed = 60,
+            TurretYawRange = 65,
+            TurretYawSpeed = 40,
 
             Turreted = true,
         },
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 Fire = Sound { Bank = 'URAWeapon', Cue = 'URA0401_Rock_Pack', LodCutoff = 'Weapon_LodCutoff' },
             },
@@ -281,23 +280,14 @@ UnitBlueprint{
             ProjectileId = "/projectiles/CDFRocketIridium01/CDFRocketIridium01_proj.bp",
             ProjectileLifetimeUsesMultiplier = 2.5,
 
-            RackBones = {
-                {
-                    MuzzleBones = { "RightMissileTurret_Muzzle001" },
-                    RackBone = "RightMissileTurret_Barrel001",
-                },
-            },
+            RackBones = { { MuzzleBones = { "RightMissileTurret_Muzzle001" }, RackBone = "RightMissileTurret_Barrel001" } },
 
             RackSlavedToTurret = true,
 
             RateOfFire = 0.5,
 
             TargetCheckInterval = 0.5,
-            TargetPriorities = {
-                "SPECIALHIGHPRI",
-                "MOBILE",
-                "ALLUNITS -WALL",
-            },
+            TargetPriorities = {"SPECIALHIGHPRI","MOBILE","ALLUNITS -WALL"},
             TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.2,
 
@@ -306,17 +296,18 @@ UnitBlueprint{
             TurretBoneYaw = "RightMissileTurret001",
 
             TurretPitch = -15,
-            TurretPitchRange = 90,
-            TurretPitchSpeed = 60,
+            TurretPitchRange = 75,
+            TurretPitchSpeed = 40,
 
             TurretYaw = 0,
-            TurretYawRange = 80,
-            TurretYawSpeed = 60,
+            TurretYawRange = 65,
+            TurretYawSpeed = 40,
 
             Turreted = true,
         },
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 Fire = Sound { Bank = 'BattlePackSB', Cue = 'CybranRevampEXP_Bolter_Fire', LodCutoff = 'Weapon_LodCutoff' },
             },
@@ -378,13 +369,7 @@ UnitBlueprint{
             RateOfFire = 2,
 
             TargetCheckInterval = 0.5,
-            TargetPriorities = {
-                "SPECIALHIGHPRI",
-                "GROUNDATTACK",
-                "ANTIAIR",
-                "MOBILE",
-                "ALLUNITS -WALL",
-            },
+            TargetPriorities = {"SPECIALHIGHPRI","GROUNDATTACK","ANTIAIR","MOBILE","ALLUNITS -WALL"},
             TargetRestrictDisallow = "UNTARGETABLE,HIGHALTAIR,SATELLITE,WALL",
             TrackingRadius = 1.3,
 
@@ -462,13 +447,7 @@ UnitBlueprint{
             RateOfFire = 2,
 
             TargetCheckInterval = 0.4,
-            TargetPriorities = {
-                "SPECIALHIGHPRI",
-                "GROUNDATTACK",
-                "ANTIAIR",
-                "MOBILE",
-                "ALLUNITS -WALL",
-            },
+            TargetPriorities = {"SPECIALHIGHPRI","GROUNDATTACK","ANTIAIR","MOBILE","ALLUNITS -WALL"},
             TargetRestrictDisallow = "UNTARGETABLE,HIGHALTAIR,SATELLITE,WALL",
             TrackingRadius = 1.3,
 
@@ -488,7 +467,6 @@ UnitBlueprint{
         },
         {
             AboveWaterTargetsOnly = true,
-            AimsStraightOnDisable = true,
 
             Audio = {
                 BeamLoop  = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Loop',   LodCutoff = 'Weapon_LodCutoff' },
@@ -496,10 +474,11 @@ UnitBlueprint{
                 BeamStop  = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Stop',   LodCutoff = 'Weapon_LodCutoff' },
                 Unpack    = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Beam_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_None",
 
-            BeamCollisionDelay = 0.2,
-            BeamLifetime = 2,
+            BeamCollisionDelay = 0,
+            BeamLifetime = 1,
 
             CollideFriendly = false,
 
@@ -510,59 +489,44 @@ UnitBlueprint{
             DamageType = "Normal",
 
             DisplayName = "Microwave Laser",
+			
+            EnergyDrainPerSecond = 650,
+            EnergyRequired = 1625,
+	
+            FireTargetLayerCapsTable = { Air = "Air|Land|Water|Seabed", Land = "Land|Water|Seabed" },
 
-            FireTargetLayerCapsTable = {
-                Air = "Land|Water|Seabed",
-                Land = "Land|Water|Seabed",
-            },
-            FiringTolerance = 2,
+            FiringTolerance = 3,
 
             Label = "Laser",
 
-            MaxRadius = 32,
-
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+            MaxRadius = 36,
 
             NotExclusive = true,
 
-            RackBones = {
-                {
-                    MuzzleBones = { "LeftMissileTurret_Muzzle" },
-                    RackBone = "LeftMissileTurret_Barrel",
-                },
-            },
-            RackSalvoChargeTime = 1,
-            RackSalvoFiresAfterCharge = true,
-            RackSalvoReloadTime = 5,
+            RackBones = { { MuzzleBones = { "LeftMissileTurret_Muzzle" }, RackBone = "LeftMissileTurret_Barrel" } },
 
-            RateOfFire = 1,
+            RackSalvoSize = 1,
 
-            TargetCheckInterval = 0.5,
-            TargetPriorities = {
-                "SPECIALHIGHPRI",
-                "MOBILE",
-                "DEFENSE",
-                "ALLUNITS -WALL",
-            },
-            TargetRestrictDisallow = "UNTARGETABLE",
+            RateOfFire = 1,     -- 750 Damage every 2.5 seconds - controlled by charge = 300
+
+            TargetCheckInterval = 1,
+
+            TargetPriorities = { "SPECIALHIGHPRI", "MOBILE", "DEFENSE", "ALLUNITS -WALL" },
+            TargetRestrictDisallow = "UNTARGETABLE, HIGHALTAIR, SATELLITE",
 
             TurretBoneMuzzle = "LeftMissileTurret_Muzzle",
             TurretBonePitch = "LeftMissileTurret_Barrel",
             TurretBoneYaw = "LeftMissileTurret",
 
             TurretPitch = -15,
-            TurretPitchRange = 360,
-            TurretPitchSpeed = 360,
+            TurretPitchRange = 75,
+            TurretPitchSpeed = 48,
 
             TurretYaw = 0,
-            TurretYawRange = 360,
-            TurretYawSpeed = 360,
+            TurretYawRange = 120,
+            TurretYawSpeed = 48,
 
             Turreted = true,
-
-            WeaponRepackTimeout = 0.6,
-            WeaponUnpacks = true,
         },
         {
 
@@ -577,8 +541,8 @@ UnitBlueprint{
             },
             BallisticArc = "RULEUBA_None",
 
-            BeamCollisionDelay = 0.2,
-            BeamLifetime = 2,
+            BeamCollisionDelay = 0,
+            BeamLifetime = 1,
 
             CollideFriendly = false,
 
@@ -589,55 +553,41 @@ UnitBlueprint{
             DamageType = "Normal",
 
             DisplayName = "Microwave Laser",
+			
+            EnergyDrainPerSecond = 650,
+            EnergyRequired = 1625,
 
-            FireTargetLayerCapsTable = {
-                Air = "Land|Water|Seabed",
-                Land = "Land|Water|Seabed",
-            },
-            FiringTolerance = 2,
+            FireTargetLayerCapsTable = { Air = "Air|Land|Water|Seabed", Land = "Land|Water|Seabed" },
+
+            FiringTolerance = 3,
 
             Label = "Laser",
 
-            MaxRadius = 32,
-
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+            MaxRadius = 36,
 
             NotExclusive = true,
 
-            RackBones = {
-                {
-                    MuzzleBones = { "RightMissileTurret_Muzzle" },
-                    RackBone = "RightMissileTurret_Barrel",
-                },
-            },
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 1,
-            RackSalvoFiresAfterCharge = true,
-            RackSalvoReloadTime = 5,
+            RackBones = { { MuzzleBones = { "RightMissileTurret_Muzzle" }, RackBone = "RightMissileTurret_Barrel" } },
 
-            RateOfFire = 1,
+            RackSalvoSize = 1,
 
-            TargetCheckInterval = 0.5,
-            TargetPriorities = {
-                "SPECIALHIGHPRI",
-                "MOBILE",
-                "DEFENSE",
-                "ALLUNITS -WALL",
-            },
-            TargetRestrictDisallow = "UNTARGETABLE",
+            RateOfFire = 1,     -- another 750 damage every 2.5 seconds = 300
+
+            TargetCheckInterval = 1,
+            TargetPriorities = {"SPECIALHIGHPRI","MOBILE","DEFENSE","ALLUNITS -WALL"},
+            TargetRestrictDisallow = "UNTARGETABLE, HIGHALTAIR, SATELLITE",
 
             TurretBoneMuzzle = "RightMissileTurret_Muzzle",
             TurretBonePitch = "RightMissileTurret_Barrel",
             TurretBoneYaw = "RightMissileTurret",
 
             TurretPitch = -15,
-            TurretPitchRange = 360,
-            TurretPitchSpeed = 360,
+            TurretPitchRange = 75,
+            TurretPitchSpeed = 48,
 
             TurretYaw = 0,
-            TurretYawRange = 360,
-            TurretYawSpeed = 360,
+            TurretYawRange = 120,
+            TurretYawSpeed = 48,
 
             Turreted = true,
 
@@ -645,116 +595,122 @@ UnitBlueprint{
             WeaponUnpacks = true,
         },
         {
+			advancedTracking = true,
             AlwaysRecheckTarget = true,
+
             Audio = {
                 Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Missile_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_None",
+			
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    BuffType = 'FUELRATIO',
+                    BuffValue = 3.5,
+                    TargetAllow = 'AIR MOBILE',
+                },
+            },
 
             CannotAttackGround = true,
 
             CollideFriendly = false,
 
-            Damage = 200,
+            Damage = 220,
             DamageRadius = 0,
             DamageType = "Normal",
 
             DisplayName = "Nanite Missile System",
 
-            FireTargetLayerCapsTable = {
-                Air = "Air|Land",
-                Land = "Air|Land",
-            },
-            FiringTolerance = 10,
+            FireTargetLayerCapsTable = { Air = "Air|Land" },
+
+            FiringTolerance = 60,
 
             Label = "AA",
 
-            MaxRadius = 55,
+            MaxRadius = 52,
 
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 32,
+            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoSize = 3,
+            MuzzleVelocity = 35,
 
             NotExclusive = true,
 
             ProjectileId = "/projectiles/CAAMissileNanite02/CAAMissileNanite02_proj.bp",
-            ProjectileLifetime = 7,
+            ProjectileLifetime = 6,
 
-            RackBones = {
-                {
-                    MuzzleBones = { "AATurret_Muzzle001" },
-                    RackBone = "AATurret_Muzzle001",
-                },
-            },
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+            RackBones = { { MuzzleBones = { "AATurret_Muzzle001" }, RackBone = "AATurret_Muzzle001" } },
 
             RangeCategory = "UWRC_AntiAir",
 
             RateOfFire = 0.5,
+            TargetCheckInterval = 0.5,
 
-            TargetCheckInterval = 1,
             TargetPriorities = { "AIR MOBILE" },
             TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
-            TargetRestrictOnlyAllow = "AIR",
+            TargetRestrictOnlyAllow = "AIR -SATELLITE",
 
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.2,
             Turreted = false,
         },
         {
+			advancedTracking = true,
             AlwaysRecheckTarget = true,
+
             Audio = {
                 Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Missile_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_None",
+			
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    BuffType = 'FUELRATIO',
+                    BuffValue = 3.5,
+                    TargetAllow = 'AIR MOBILE',
+                },
+            },
 
             CannotAttackGround = true,
 
             CollideFriendly = false,
 
-            Damage = 200,
+            Damage = 220,
             DamageRadius = 0,
             DamageType = "Normal",
 
             DisplayName = "Nanite Missile System",
 
-            FireTargetLayerCapsTable = {
-                Air = "Air|Land",
-                Land = "Air|Land",
-            },
-            FiringTolerance = 10,
+            FireTargetLayerCapsTable = { Air = "Air|Land" },
+
+            FiringTolerance = 60,
 
             Label = "AA",
 
-            MaxRadius = 55,
+            MaxRadius = 52,
 
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 32,
+            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoSize = 3,
+            MuzzleVelocity = 35,
 
             NotExclusive = true,
 
             ProjectileId = "/projectiles/CAAMissileNanite02/CAAMissileNanite02_proj.bp",
-            ProjectileLifetime = 7,
+            ProjectileLifetime = 6,
 
-            RackBones = {
-                {
-                    MuzzleBones = { "AATurret_Muzzle002" },
-                    RackBone = "AATurret_Muzzle002",
-                },
-            },
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+            RackBones = { { MuzzleBones = { "AATurret_Muzzle002" }, RackBone = "AATurret_Muzzle002" } },
 
             RateOfFire = 0.5,
 
-            TargetCheckInterval = 1,
+            TargetCheckInterval = 0.5,
+
             TargetPriorities = { "AIR MOBILE" },
             TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
-            TargetRestrictOnlyAllow = "AIR",
-            TrackingRadius = 1.15,
+            TargetRestrictOnlyAllow = "AIR -SATELLITE",
+
+            TrackingRadius = 1.2,
             Turreted = false,
         },
         {
@@ -773,7 +729,7 @@ UnitBlueprint{
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.2,
-        HealthMult = 0.6,
+        HealthMult = 0.5,
         MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
