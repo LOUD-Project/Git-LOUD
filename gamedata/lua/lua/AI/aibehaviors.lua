@@ -2062,26 +2062,27 @@ function RetreatAI( self, aiBrain )
 
     WaitTicks(51)  -- Wait 5 seconds before beginning
 
-    local GetPlatoonUnits = GetPlatoonUnits    
 	local PlatoonExists = PlatoonExists	
 
     if not PlatoonExists( aiBrain, self ) then
         return
     end
     
+    local DistressResponseDialog = ScenarioInfo.DistressResponseDialog
+    
     -- note that this platoon is using RetreatAI
     self.RetreatAI = true
 
-    local CalculatePlatoonThreat = CalculatePlatoonThreat
-    local UNITCHECK = categories.ALLUNITS - categories.WALL
-    local WaitTicks = WaitTicks
+    local CalculatePlatoonThreat    = CalculatePlatoonThreat
+    local GetPlatoonUnits           = GetPlatoonUnits    
+    local UNITCHECK                 = categories.ALLUNITS - categories.WALL
+    local WaitTicks                 = WaitTicks
     
     local ThreatCheck = 'Overall'
-    local OriginalStrength = CalculatePlatoonThreat( self, 'Overall', UNITCHECK)
-    
-    local SurfaceStrength = CalculatePlatoonThreat( self, 'Surface', UNITCHECK)
-    local AirStrength = CalculatePlatoonThreat( self, 'Air', UNITCHECK)
-    local SubStrength = CalculatePlatoonThreat( self, 'Sub', UNITCHECK)
+    local OriginalStrength  = CalculatePlatoonThreat( self, 'Overall', UNITCHECK)
+    local SurfaceStrength   = CalculatePlatoonThreat( self, 'Surface', UNITCHECK)
+    local AirStrength       = CalculatePlatoonThreat( self, 'Air', UNITCHECK)
+    local SubStrength       = CalculatePlatoonThreat( self, 'Sub', UNITCHECK)
     
     if SurfaceStrength > OriginalStrength * .5 then
         OriginalStrength = SurfaceStrength
@@ -2099,11 +2100,7 @@ function RetreatAI( self, aiBrain )
     local OriginalSize = 0
     local CurrentSize = 0
     
-    local messageflag = false
-    
     local function CountPlatoonUnits()
-    
-        local GetPlatoonUnits = GetPlatoonUnits
     
         CurrentSize = 0
     
@@ -2118,48 +2115,58 @@ function RetreatAI( self, aiBrain )
     end
     
     OriginalSize = CountPlatoonUnits()
-    
     OriginalPlan = self.PlanName
 
     while PlatoonExists( aiBrain, self) do
     
-        if self.UnderAttack then
-
-            --if not messageflag then
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." is under attack on tick "..GetGameTick() )    
-              --  messageflag = true
-            --end
-
-            if (OriginalStrength * .4) >= CalculatePlatoonThreat( self, ThreatCheck, UNITCHECK) or (OriginalSize * .4) >= CountPlatoonUnits() then
+        if self.UnderAttack or self.DistressCall then
+        
+            local mythreat  = CalculatePlatoonThreat( self, ThreatCheck, UNITCHECK)
+            local mysize    = CountPlatoonUnits()
             
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." triggers RETREAT AI")
+            OriginalStrength    = LOUDMAX( OriginalStrength, mythreat )
+            OriginalSize        = LOUDMAX( OriginalSize, mysize )
+
+            --- check platoon strength
+            if (OriginalStrength * .33) >= mythreat or (OriginalSize * .33) >= mysize then
 
                 if PlatoonExists( aiBrain, self) then
                     
                     if self.DistressResponseAIRunning then
-                        self.DistressResponseAIRunning = nil    -- kill Distress Response AI
+                        self.DistressResponseAIRunning = nil
                     end
-
-                    self:Stop()
-                
-                    self:MergeIntoNearbyPlatoons( aiBrain, OriginalPlan, 85, false)
+                  
+                    self.UsingTransport = false
+             
+                    self.MergeIntoNearbyPlatoons( self, aiBrain, OriginalPlan, 90, false)
                 
                     if PlatoonExists( aiBrain, self) then
 
+                        if DistressResponseDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." RETREATS on tick "..GetGameTick() )
+                        end
+  
                         return self:SetAIPlan('ReturnToBaseAI',aiBrain)
                     end
 
                 end
-            end
-            
-            WaitTicks(2)
 
-        --else
-          --  messageflag = false
+            else
+
+                --if DistressResponseDialog then
+                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." Org Str "..(OriginalStrength).." vs "..mythreat.."  Org Size "..(OriginalSize).." vs "..mysize )
+                --end
+
+            end
 
         end
         
-        WaitTicks(3)
+        WaitTicks(7)
+
+        --if DistressResponseDialog then
+          --  LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." RETREATAI cycles on tick "..GetGameTick() )
+        --end
+        
     end
 
 end
@@ -2498,8 +2505,14 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
     
     local threats = GetThreatsAroundPosition( aiBrain, startposition, LOUDFLOOR( ringrange/IMAPBlocksize ), true, threatseek )
 
+    --- if we get no threats -- respond to a map wide ECONOMY scan
+    if not threats[1] then
+        threats = GetThreatsAroundPosition( aiBrain, startposition, LOUDFLOOR( ringrange/IMAPBlocksize ) * 2, true, 'ECONOMY' )
+        threatseek = 'ECONOMY'
+    end
+
     if aiBrain.CurrentEnemyIndex then
-    
+   
         local x, z = aiBrain:GetCurrentEnemy():GetArmyStartPos()
 
         LOUDINSERT( threats, { x, z, 5 } )
@@ -2512,9 +2525,9 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
         currentvalue = minthreat    --- must have value
         result = false
 
-        --if ShowLoiterDialog then
-          --  LOG("*AI DEBUG "..aiBrain.Nickname.." LOIT "..self.BuilderName.." "..self.BuilderInstance.." gets "..threatseek.." threats from "..repr(startposition).." threats are "..repr(threats) )
-        --end
+        if ShowLoiterDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." LOIT "..self.BuilderName.." "..self.BuilderInstance.." gets "..threatseek.." threats from "..repr(startposition).." threats are "..repr(threats) )
+        end
         
         for _,v in threats do
             
@@ -2526,11 +2539,11 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
             positionthreat = LOUDMAX( 0, GetThreatAtPosition( aiBrain, test, threatrings, true, threatavoid ))
 
             -- we are seeking the most valuable target with the lowest, but acceptable threat
-            if  positionthreat < currentthreat and v[3] > currentvalue then
+            if  positionthreat < currentthreat and v[3] >= currentvalue then
                 
-                --if ShowLoiterDialog then
-                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." LOIT "..self.BuilderName.." "..self.BuilderInstance.." selects "..repr(test).." with value "..v[3].."   avoidthreat "..positionthreat.." less than my "..mythreat )
-                --end
+                if ShowLoiterDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." LOIT "..self.BuilderName.." "..self.BuilderInstance.." selects "..repr(test).." with value "..v[3].."   avoidthreat "..positionthreat.." less than my "..mythreat )
+                end
 
                 result = LOUDCOPY(test)
 
@@ -2540,9 +2553,9 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
 
                 currentvalue = v[3]
             else
-                --if ShowLoiterDialog then
-                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." LOIT "..self.BuilderName.." "..self.BuilderInstance.." ignores position "..repr(test).." with value "..v[3].." avoidthreat is "..positionthreat.." mine is "..mythreat )
-                --end
+                if ShowLoiterDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." LOIT "..self.BuilderName.." "..self.BuilderInstance.." ignores position "..repr(test).." with value "..v[3].." avoidthreat is "..positionthreat.." mine is "..mythreat )
+                end
             end
 
         end
@@ -2550,9 +2563,9 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
         -- take the highest threat position
         if result then
         
-            --if ShowLoiterDialog then
-              --  LOG("*AI DEBUG "..aiBrain.Nickname.." LOIT "..self.BuilderName.." "..self.BuilderInstance.." will use "..repr(result) )
-            --end
+            if ShowLoiterDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." LOIT "..self.BuilderName.." "..self.BuilderInstance.." will use "..repr(result) )
+            end
             
             lerpresult = LOUDMIN( 1, LOUDMIN( 1, ( ringrange / VDist3(startposition, result) ) ) )
 
@@ -2567,9 +2580,9 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
         end
 
     else
-        --if ShowLoiterDialog then
-          --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Set Loiter reports no threats within ringrange "..LOUDFLOOR(ringrange/IMAPBlocksize) )
-        --end
+        if ShowLoiterDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Set Loiter reports no threats within ringrange "..LOUDFLOOR(ringrange/IMAPBlocksize) )
+        end
     end
    
     if ShowLoiterDialog then
