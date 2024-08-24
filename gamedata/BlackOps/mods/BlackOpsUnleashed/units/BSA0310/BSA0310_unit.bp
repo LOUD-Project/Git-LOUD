@@ -8,7 +8,7 @@ UnitBlueprint {
     },
 	
     Air = {
-        AutoLandTime = 1.6,
+        AutoLandTime = 1.9,
         BankFactor = 0.1,
         BankForward = false,
 		
@@ -28,10 +28,10 @@ UnitBlueprint {
         KLiftDamping = 0.95,
 		
         KMove = 0.85,
-        KMoveDamping = 1,
+        KMoveDamping = 0.8,
 		
         KTurn = 0.75,
-        KTurnDamping = 1,
+        KTurnDamping = 0.71,
 		
         LiftFactor = 4.5,
 		
@@ -107,9 +107,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 80000,
-        BuildCostMass = 2500,
-        BuildTime = 1150,
+        BuildCostEnergy = 84000,
+        BuildCostMass = 2625,
+        BuildTime = 1475,
     },
 	
     Footprint = {
@@ -348,7 +348,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 45,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 35,
 			
             Turreted = true,
         },
@@ -416,7 +416,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 45,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 30,
             Turreted = true,
         },
 		

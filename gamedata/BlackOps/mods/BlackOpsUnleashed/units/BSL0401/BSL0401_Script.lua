@@ -478,16 +478,20 @@ BSL0401 = Class(SHoverLandUnit) {
 			
 				while self and not self.Dead and self.DroneData[self.BuildingDrone].BuildProgress < 1 do
                 
-					WaitTicks(1)
-                    
 					local tickprogress = (self:GetResourceConsumed() * 0.1) / buildTimeSeconds
                     
 					self.DroneData[self.BuildingDrone].BuildProgress = self.DroneData[self.BuildingDrone].BuildProgress + tickprogress
 
 					self:SetWorkProgress(self.DroneData[self.BuildingDrone].BuildProgress)
-				end
 
-                buildingDrone:SetSpeedMult(1)
+					WaitTicks(1)
+				end
+                
+                if not buildingDrone:BeenDestroyed() then
+
+                    buildingDrone:SetSpeedMult(1)
+                
+                end
 
 			elseif isRepair then
             
