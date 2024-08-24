@@ -1,43 +1,45 @@
 UnitBlueprint {
     AI = {
-		GuardRadius = 68,
-        GuardReturnRadius = 100,
-        GuardScanRadius = 68,
+        GuardReturnRadius = 96,
+        GuardScanRadius = 64,
     },
 	
     Air = {
         AutoLandTime = 1.6,
-        BankFactor = 2,
+        BankFactor = 1.6,
         BankForward = false,
         BreakOffDistance = 5,
         BreakOffIfNearNewTarget = true,
         BreakOffTrigger = 10,
         CanFly = true,
-        CombatTurnSpeed = 1.5,
+
+        CombatTurnSpeed = 1.3,
+
         EngageDistance = 50,
 		
-        KLift = 3,
+        KLift = 4,
         KLiftDamping = 2.5,
 		
-        KMove = 0.95,
+        KMove = 1.1,
         KMoveDamping = 1,
 		
-        KRoll = 2,
-        KRollDamping = 2,
+        KRoll = 1.6,
+        KRollDamping = 1.3,
 		
-        KTurn = 1,
-        KTurnDamping = 1.5,
+        KTurn = 1.15,
+        KTurnDamping = 1.2,
 		
         LiftFactor = 7,
 		
-        MaxAirspeed = 16,
+        MaxAirspeed = 18,
         MinAirspeed = 10,
 		
         PredictAheadForBombDrop = 3,  
 		
         StartTurnDistance = 6,
-        TightTurnMultiplier = 1.02,
-        TurnSpeed = 1.5,
+        TightTurnMultiplier = 1.03,
+        TurnSpeed = 1.3,
+
         Winged = true,
     },
 	
@@ -135,7 +137,6 @@ UnitBlueprint {
     },
 	
     Intel = {
-		FreeIntel = true,
         RadarRadius = 48,
         VisionRadius = 32,
     },
@@ -169,7 +170,7 @@ UnitBlueprint {
     SelectionSizeZ = 0.75,
     SelectionThickness = 0.53,
 	
-    SizeSphere = 1.3,
+    SizeSphere = 1.7,
 	
     SizeX = 0.8,
     SizeY = 0.3,
@@ -213,7 +214,7 @@ UnitBlueprint {
 			
             FiringTolerance = 0,
 			
-            Label = 'ShleoAAGun01',
+            Label = 'ShleoAAGun',
 			
             MaxRadius = 34,
 			
@@ -285,7 +286,7 @@ UnitBlueprint {
 			
             FiringTolerance = 0,
 
-            Label = 'ShleoAAGun02',
+            Label = 'ShleoAAGun',
 
             MaxRadius = 34,
 			

@@ -7,8 +7,8 @@ SeraphimWeapons = nil
 
 XSA0202 = Class(SAirUnit) {
     Weapons = {
-        ShleoAAGun01 = Class(SAAShleoCannonWeapon){},
-        ShleoAAGun02 = Class(SAAShleoCannonWeapon){},
+        ShleoAAGun = Class(SAAShleoCannonWeapon){},
+
         Bomb = Class(SDFBombOtheWeapon) {
 
             IdleState = State (SDFBombOtheWeapon.IdleState) {
@@ -19,9 +19,11 @@ XSA0202 = Class(SAirUnit) {
                 OnGotTarget = function(self)
                     self.unit:SetBreakOffTriggerMult(2.0)
                     self.unit:SetBreakOffDistanceMult(8.0)
-                    self.unit:SetSpeedMult(0.67)
+                    self.unit:SetSpeedMult(0.72)
+
                     SDFBombOtheWeapon.OnGotTarget(self)
-                    local speedMulti = 0.67 * self.unit:GetSpeedModifier()   # [168]
+
+                    local speedMulti = 0.72 * self.unit:GetSpeedModifier()   # [168]
                     self.unit:SetSpeedMult(speedMulti)
                 end,                
             },
@@ -29,9 +31,11 @@ XSA0202 = Class(SAirUnit) {
             OnGotTarget = function(self)
                 self.unit:SetBreakOffTriggerMult(2.0)
                 self.unit:SetBreakOffDistanceMult(8.0)
-                self.unit:SetSpeedMult(0.67)
+                self.unit:SetSpeedMult(0.72)
+
                 SDFBombOtheWeapon.OnGotTarget(self)
-                local speedMulti = 0.67 * self.unit:GetSpeedModifier()   # [168]
+
+                local speedMulti = 0.72 * self.unit:GetSpeedModifier()   # [168]
                 self.unit:SetSpeedMult(speedMulti)
             end,
         
@@ -39,7 +43,9 @@ XSA0202 = Class(SAirUnit) {
                 self.unit:SetBreakOffTriggerMult(1.0)
                 self.unit:SetBreakOffDistanceMult(1.0)
                 self.unit:SetSpeedMult(1.0)
+
                 SDFBombOtheWeapon.OnLostTarget(self)
+
                 local speedMulti = self.unit:GetSpeedModifier()   # [168]
                 self.unit:SetSpeedMult(speedMulti)
             end,  	

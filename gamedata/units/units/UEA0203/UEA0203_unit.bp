@@ -1,12 +1,12 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 66,
-        GuardScanRadius = 44,
+        GuardReturnRadius = 64,
+        GuardScanRadius = 40,
         BeaconName = 'UEB5102',
     },
 	
     Air = {
-        AutoLandTime = 1.2,
+        AutoLandTime = 1.35,
         BankFactor = 0.1,
         BankForward = false,
         CanFly = true,
@@ -22,10 +22,10 @@ UnitBlueprint {
         KLiftDamping = 3.5,
 		
         KMove = 0.9,
-        KMoveDamping = 1.3,
+        KMoveDamping = 0.9,
 		
         KTurn = 0.8,
-        KTurnDamping = 1.8,
+        KTurnDamping = 0.85,
 		
         LiftFactor = 6,
 		

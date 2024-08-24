@@ -1,16 +1,15 @@
 UnitBlueprint {
     AI = {
-		GuardRadius = 64,
-        GuardReturnRadius = 96,
-        GuardScanRadius = 64,
+        GuardReturnRadius = 72,
+        GuardScanRadius = 56,
     },
 	
 	-- this is a very heavy ponderous beast
 	-- slow in almost every way --
 	
     Air = {
-        AutoLandTime = 1.6,
-        BankFactor = 0.3,
+        AutoLandTime = 1.9,
+        BankFactor = 0.25,
         BankForward = false,
 		
         CanFly = true,
@@ -26,14 +25,14 @@ UnitBlueprint {
 		
         CirclingTurnMult = 3,
 		
-        KLift = 0.25,
+        KLift = 0.5,
         KLiftDamping = 0.4,
 		
         KMove = 0.4,
-        KMoveDamping = 0.6,
+        KMoveDamping = 0.36,
 		
         KTurn = 0.3,
-        KTurnDamping = 0.55,
+        KTurnDamping = 0.28,
 		
         LiftFactor = 1.5,
 		
@@ -116,9 +115,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 92500,
-        BuildCostMass = 2250,
-        BuildTime = 14606,
+        BuildCostEnergy = 97125,
+        BuildCostMass = 2362,
+        BuildTime = 1625,
     },
 
     General = {
@@ -268,7 +267,7 @@ UnitBlueprint {
             TurretPitchSpeed = 50,
             TurretYaw = 0,
             TurretYawRange = 90,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 40,
             Turreted = true,
         },
 		
@@ -335,7 +334,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 40,
 
             Turreted = true,
         },
@@ -398,7 +397,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 40,
 
             Turreted = true,
         },

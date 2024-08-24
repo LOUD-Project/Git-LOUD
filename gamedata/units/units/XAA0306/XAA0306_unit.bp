@@ -1,23 +1,22 @@
 UnitBlueprint {
     AI = {
-		GuardRadius = 64,
         GuardReturnRadius = 96,
         GuardScanRadius = 64,
         TargetBones = {'XAA0306'},
     },
 	
     Air = {
-        AutoLandTime = 1,
+        AutoLandTime = 1.9,
 
-        BankFactor = 2.5,
+        BankFactor = 2.2,
         BankForward = false,
 
-        BreakOffDistance = 40,
-        BreakOffTrigger = 64,
+        BreakOffDistance = 48,
+        BreakOffTrigger = 36,
         
         CanFly = true,
 
-        CombatTurnSpeed = 0.8,
+        CombatTurnSpeed = 1.1,
 
         EngageDistance = 50,
 		
@@ -25,22 +24,22 @@ UnitBlueprint {
         KLiftDamping = 2.5,
 		
         KMove = 1,
-        KMoveDamping = 2,
+        KMoveDamping = 0.92,
 		
-        KRoll = 2,
-        KRollDamping = 2,
+        KRoll = 1.5,
+        KRollDamping = 1.5,
 		
         KTurn = 0.8,
-        KTurnDamping = 1,
+        KTurnDamping = 0.85,
 		
-        LiftFactor = 9,
+        LiftFactor = 8,
 		
         MaxAirspeed = 18,
         MinAirspeed = 14,
 		
         StartTurnDistance = 8,
 
-        TurnSpeed = 0.8,
+        TurnSpeed = 1.1,
 		
         Winged = true,
     },

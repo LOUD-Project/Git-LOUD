@@ -1,6 +1,5 @@
 UnitBlueprint {
     AI = {
-		GuardRadius = 64,
         GuardReturnRadius = 96,
         GuardScanRadius = 64,
     },
@@ -13,7 +12,7 @@ UnitBlueprint {
         BreakOffTrigger = 15,
         CanFly = true,
 		
-        CombatTurnSpeed = 1.5,
+        CombatTurnSpeed = 1.4,
 		
         EngageDistance = 50,
 		
@@ -21,22 +20,23 @@ UnitBlueprint {
         KLiftDamping = 2.5,
 		
         KMove = 1.1,
-        KMoveDamping = 1.1,
+        KMoveDamping = 1,
 		
-        KRoll = 2,
-        KRollDamping = 1,
+        KRoll = 1.7,
+        KRollDamping = 1.5,
 		
-        KTurn = 1.5,
-        KTurnDamping = 2,
+        KTurn = 1.2,
+        KTurnDamping = 1.5,
 		
         LiftFactor = 7,
 		
         MaxAirspeed = 21,
-        MinAirspeed = 8,
+        MinAirspeed = 12,
 		
         StartTurnDistance = 5,
         TightTurnMultiplier = 1.03,
-        TurnSpeed = 1.5,
+        TurnSpeed = 1.4,
+
         Winged = true,
     },
 	
@@ -135,7 +135,6 @@ UnitBlueprint {
     },
 	
     Intel = {
-		FreeIntel = true,
 		RadarRadius = 48,
         VisionRadius = 36,
     },
@@ -169,7 +168,7 @@ UnitBlueprint {
     SelectionSizeZ = 1,
     SelectionThickness = 0.37,
 	
-    SizeSphere = 1.9,
+    SizeSphere = 2,
 	
     SizeX = 1,
     SizeY = 0.4,

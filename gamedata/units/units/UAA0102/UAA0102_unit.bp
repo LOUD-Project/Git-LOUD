@@ -1,6 +1,6 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 100,
+        GuardReturnRadius = 96,
         GuardScanRadius = 60,
     },
 
@@ -18,13 +18,13 @@ UnitBlueprint {
         KLiftDamping = 2.5,
 		
         KMove = 1.5,
-        KMoveDamping = 1.5,
+        KMoveDamping = 1,
 		
-        KRoll = 2,
-        KRollDamping = 1,
+        KRoll = 1.6,
+        KRollDamping = 1.6,
 		
         KTurn = 1,
-        KTurnDamping = 1.5,
+        KTurnDamping = 1,
 		
         LiftFactor = 7,
 		
@@ -32,7 +32,7 @@ UnitBlueprint {
         MinAirspeed = 10,
 		
         StartTurnDistance = 5,
-        TightTurnMultiplier = 1.02,
+        TightTurnMultiplier = 1.03,
         TurnSpeed = 1.5,
 		
         Winged = true,

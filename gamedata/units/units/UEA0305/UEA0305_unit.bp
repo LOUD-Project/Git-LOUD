@@ -1,13 +1,12 @@
 UnitBlueprint {
     AI = {
-		GuardRadius = 64,
-        GuardReturnRadius = 96,
-        GuardScanRadius = 64,
+        GuardReturnRadius = 72,
+        GuardScanRadius = 56,
     },
 	
     Air = {
-        AutoLandTime = 1.6,
-        BankFactor = 0.3,
+        AutoLandTime = 1.9,
+        BankFactor = 0.2,
         BankForward = false,
 		
         CanFly = true,
@@ -21,17 +20,17 @@ UnitBlueprint {
 		
         CirclingTurnMult = 3,
 		
-        KLift = 0.5,
-        KLiftDamping = 0.65,
+        KLift = 0.35,
+        KLiftDamping = 0.45,
 		
         KMove = 0.6,
-        KMoveDamping = 1,
+        KMoveDamping = 0.54,
 		
 		KRoll = 1.5,
-		KRollDamping = 2.5,
+		KRollDamping = 1.2,
 		
-        KTurn = 0.5,
-        KTurnDamping = 0.75,
+        KTurn = 0.4,
+        KTurnDamping = 0.36,
 		
         LiftFactor = 2,
 		
@@ -112,7 +111,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 85000,
         BuildCostMass = 2500,
-        BuildTime = 15000,
+        BuildTime = 1475,
     },
 
     General = {
@@ -267,7 +266,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
 			TurretYawRange = 90,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 40,
 			
             Turreted = true,
 			
