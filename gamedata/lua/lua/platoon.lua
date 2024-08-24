@@ -1514,7 +1514,7 @@ Platoon = Class(PlatoonMethods) {
 		end
 		
 		if RTBDialog then
-			LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..self.BuilderName.." "..repr(self.BuilderInstance).." begins RTB to "..repr(RTBLocation).." at tick "..GetGameTick() )
+			LOG("*AI DEBUG "..aiBrain.Nickname.." RTBAI "..self.BuilderName.." "..repr(self.BuilderInstance).." RTB to "..repr(RTBLocation).." at tick "..GetGameTick() )
 		end
 
        	self:Stop()
@@ -1526,9 +1526,9 @@ Platoon = Class(PlatoonMethods) {
         lastpos[3] = platPos[3]
         
 		local transportLocation = false	
-        local bestBase = false
-        local bestBaseName = ""
-        local bestDistance = 99999999
+        local bestBase          = false
+        local bestBaseName      = ""
+        local bestDistance      = 99999999
 
         local baseName, base, calltransport, count, cyclecount, distance, markerradius, merged, mythreat, path, platooncount, reason, rtbdistance, slackdistance, StuckCount, unitpos, units, usedTransports, UseFormation
 		
@@ -1580,7 +1580,7 @@ Platoon = Class(PlatoonMethods) {
             
 				if (not bestBase) and aiBrain.BuilderManagers['MAIN'] then
 			
-					LOG("*AI DEBUG "..aiBrain.Nickname.." RTB "..repr(self.BuilderName).." Couldn't find base "..repr(RTBLocation).." - using MAIN")
+					LOG("*AI DEBUG "..aiBrain.Nickname.." RTBAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." Couldn't find base "..repr(RTBLocation).." - using MAIN")
 				
 					bestBase = aiBrain.BuilderManagers['MAIN']
 					bestBaseName = 'MAIN'
@@ -1617,7 +1617,7 @@ Platoon = Class(PlatoonMethods) {
             RTBLocation[2] = GetTerrainHeight( RTBLocation[1], RTBLocation[3] )
 			transportLocation[2] = GetTerrainHeight(transportLocation[1],transportLocation[3])
 		else
-            LOG("*AI DEBUG "..aiBrain.Nickname.." RTB reports no platoon position or no bases")
+            LOG("*AI DEBUG "..aiBrain.Nickname.." RTBAI reports no platoon position or no bases")
 			
 			return self:PlatoonDisband(aiBrain)
         end
@@ -1625,7 +1625,7 @@ Platoon = Class(PlatoonMethods) {
 		distance = VDist3( platPos, RTBLocation )
 		
 		if RTBDialog then
-			LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..self.BuilderName.." "..repr(self.BuilderInstance).." RTB to "..repr(RTBLocation).." distance is "..string.format("%.1f",distance) )
+			LOG("*AI DEBUG "..aiBrain.Nickname.." RTBAI "..self.BuilderName.." "..repr(self.BuilderInstance).." RTB distance is "..string.format("%.1f",distance) )
 		end
 
         UseFormation = 'GrowthFormation'
@@ -1643,7 +1643,7 @@ Platoon = Class(PlatoonMethods) {
         
             mythreat = CalculatePlatoonThreat( self, 'Overall', ALLUNITS)
             
-            if mythreat < 10 then
+            if mythreat < 15 then
 				mythreat = 15
             end
 			
@@ -1660,8 +1660,19 @@ Platoon = Class(PlatoonMethods) {
                 
             end
 
-            -- we use normal threat first
-            path, reason = PlatoonGenerateSafePathToLOUD( aiBrain, self, MovementLayer, platPos, transportLocation, mythreat, markerradius )
+            if MovementLayer == 'Air' and GetThreatBetweenPositions( aiBrain, platPos, transportLocation, nil, 'AntiAir' ) < mythreat then
+
+                path = { transportLocation }
+                reason = 'Direct'
+
+                if RTBDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." RTBAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." gets direct path "..repr(path) )
+                end
+
+            else 
+                -- we use normal threat first
+                path, reason = PlatoonGenerateSafePathToLOUD( aiBrain, self, MovementLayer, platPos, transportLocation, mythreat, markerradius )
+            end
 			
 			-- then we'll try elevated threat
 			if not path then
@@ -1698,7 +1709,7 @@ Platoon = Class(PlatoonMethods) {
 			if path then
 
                 if RTBDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." RTB AI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." executes path movement "..repr(path) )
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." RTBAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." executes path movement "..repr(path) )
                 end
 
 				if PlatoonExists(aiBrain, self) then
@@ -1709,12 +1720,12 @@ Platoon = Class(PlatoonMethods) {
 			end
 
 			-- if there is no path try transport call
-			if (not path) and PlatoonExists(aiBrain, self) then
+			if MovementLayer != 'Air' and (not path) and PlatoonExists(aiBrain, self) then
             
 				usedTransports = false
 
                 if RTBDialog then				
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." RTB AI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." gets NO path "..repr(path))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." RTBAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." gets NO path "..repr(path))
                 end
 
 				-- try to use transports --
@@ -1764,7 +1775,7 @@ Platoon = Class(PlatoonMethods) {
         while (not count) and PlatoonExists(aiBrain, self) and distance > rtbdistance do
 
             if RTBDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." RTB AI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).."  cycle "..cyclecount.."  distance "..string.format("%.1f",distance).."  RTBLocation is "..repr(RTBLocation ) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." RTBAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).."  cycle "..cyclecount.."  distance "..string.format("%.1f",distance).."  RTBLocation is "..repr(RTBLocation ) )
             end
 
             merged = false
@@ -2020,7 +2031,7 @@ Platoon = Class(PlatoonMethods) {
 		if PlatoonExists(aiBrain, self) then
 
             if RTBDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." RTB AI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).."  cycle "..cyclecount.."  appears to have arrived" )		
+                LOG("*AI DEBUG "..aiBrain.Nickname.." RTBAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).."  cycle "..cyclecount.."  appears to have arrived" )		
             end
 
 			if self.MoveThread then
