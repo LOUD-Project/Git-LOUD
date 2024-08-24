@@ -2784,24 +2784,12 @@ Platoon = Class(PlatoonMethods) {
 		
         self:SetPlatoonFormationOverride(PlatoonFormation)
 
-        -- time platoon was created
-        local CreationTime = self.CreationTime        
-
-        -- are we currently in guard posture ( onsite at the marker )
-		local guarding = false
-        
-        -- the amount of elapsed time we've been on the way to, or at - the desired marker
-		local guardtime	= 0
-
-        -- we use lastmarker to identify completed or failed marker positions
-        -- whenever you see me set this value (structure/unit/base breaks) - you know that's what I'm doing
-		local lastmarker = false
-
-        -- record the layer this platoon works on
-        local MovementLayer = self.MovementLayer
-        
-        -- if we are to guard a specific unit
-		local UnitToGuard = false
+        local CreationTime = self.CreationTime      --- time platoon was created        
+		local guarding = false                      --- are we currently in guard posture ( onsite at the marker )
+		local guardtime	= 0                         --- the amount of elapsed time we've been on the way to, or at - the desired marker
+		local lastmarker = false                    --- lastmarker identifies completed or failed marker positions
+        local MovementLayer = self.MovementLayer    --- record the layer this platoon works on
+		local UnitToGuard = false                   --- if we are to guard a specific unit
 		
         -- other locals in use
 		local choice, counter, delay, distance, marker, NumberOfUnitsInPlatoon, OldNumberOfUnitsInPlatoon, oldplatpos, OriginalThreat, path, pathlength, position, randlist, reason, target
@@ -3134,7 +3122,9 @@ Platoon = Class(PlatoonMethods) {
                         if delay > 0 then
 
                             if GuardpointDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." still "..repr(string.format("%.1f",distance)).." from "..repr(marker).." delay "..LOUDFLOOR(delay).." ticks")
+
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." still "..repr(string.format("%.1f",distance)).." from "..repr(marker).." delay "..LOUDFLOOR(delay).." ticks" )
+
                             end                    
 
                             WaitTicks(LOUDFLOOR(delay))
@@ -3223,7 +3213,7 @@ Platoon = Class(PlatoonMethods) {
 
                         randlist = { AssistRange, AssistRange * -1 }
 
-                        ATTACKS = GetSquadUnits( self,'Attack' )
+                        ATTACKS = table.merged(GetSquadUnits( self,'Attack' ) or {}, GetSquadUnits( self, 'Unassigned' ) or {} )
                         
                         if ATTACKS[1] then
 
@@ -3376,9 +3366,9 @@ Platoon = Class(PlatoonMethods) {
                     -- MERGE with other GuardPoint Platoons	-- during regular guardtime	-- check randomly about 33%
                     if Random(1,3) == 1 and MergeLimit and (guardtime <= guardTimer) and PlatoonExists(aiBrain, self) then
 
-                        if GuardpointDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." checking to merge "..NumberOfUnitsInPlatoon )
-                        end
+                        --if GuardpointDialog then
+                          --  LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." checking to merge "..NumberOfUnitsInPlatoon )
+                        --end
                        
 						if MergeWithNearbyPlatoons( self, aiBrain, 'GuardPoint', 90, MergePlanMatch or false, MergeLimit) then
 
@@ -3430,9 +3420,9 @@ Platoon = Class(PlatoonMethods) {
                     WaitTicks(31)
                     guardtime = guardtime + 3
                     
-                    if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." cycles - guardtime is "..guardtime )
-                    end
+                    --if GuardpointDialog then
+                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." cycles - guardtime is "..guardtime )
+                    --end
                     
                 end
 
@@ -5244,7 +5234,7 @@ Platoon = Class(PlatoonMethods) {
 							-- if platoon is exhausted --
 							if CalculatePlatoonThreat( self, 'Surface', ALLUNITS) <= (OriginalThreat * .40) then
 						
-								self:MergeIntoNearbyPlatoons( aiBrain, 'GuardPointNaval', 100, false)
+								self.MergeIntoNearbyPlatoons( self, aiBrain, 'GuardPointNaval', 100, false)
 								
 								-- RTB any leftovers
 								return self:SetAIPlan('ReturnToBaseAI',aiBrain)
