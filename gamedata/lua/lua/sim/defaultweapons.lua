@@ -10,6 +10,7 @@ local CollisionBeam = import('/lua/sim/CollisionBeam.lua').CollisionBeam
 local CalculateBallisticAcceleration = import('/lua/sim/CalcBallisticAcceleration.lua').CalculateBallisticAcceleration 
 
 local LOUDABS       = math.abs
+local LOUDFLOOR     = math.floor
 local LOUDGETN      = table.getn
 local LOUDMAX       = math.max
 local LOUDINSERT    = table.insert
@@ -253,7 +254,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             
                 if nrgReq > 0 and nrgDrain > 0 then
 
-                    local chargetime = (nrgReq / nrgDrain) * 1.0001
+                    local chargetime = LOUDFLOOR(nrgReq / nrgDrain)
                 
                     if chargetime < 0.2 then
                         chargetime = 0.2
@@ -263,7 +264,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                         LOG("*AI DEBUG DefaultWeapon Start Economy Drain for "..repr(self.bp.Label).." -- Required "..nrgReq.." -- Rate "..nrgDrain.." -- Time "..repr(chargetime).." at "..GetGameTick() )
                     end
 
-                    self.EconDrain = CreateEconomyEvent( self.unit, nrgReq, 0, chargetime - 0.100, ChargeProgress )
+                    self.EconDrain = CreateEconomyEvent( self.unit, nrgReq, 0, chargetime, ChargeProgress )
 
                 end
             else
@@ -278,7 +279,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 	
         local weapNRG = (self.bp.EnergyRequired or 0) * (self.AdjEnergyMod or 1)
 
-        return LOUDMAX( 0, weapNRG )
+        return LOUDMAX( 0, LOUDFLOOR(weapNRG) )
     end,
 
     GetWeaponEnergyDrain = function(self, bp)
@@ -516,17 +517,17 @@ DefaultProjectileWeapon = Class(Weapon) {
                 end
             end
             
-            if self.ElapsedRepackTime > 0 and ( not bp.WeaponRepackTimeout or (math.floor(bp.WeaponRepackTimeout*10) - self.ElapsedRepackTime < 0 )) then
+            if self.ElapsedRepackTime > 0 and ( not bp.WeaponRepackTimeout or (LOUDFLOOR(bp.WeaponRepackTimeout*10) - self.ElapsedRepackTime < 0 )) then
                 LOG("*AI DEBUG DefaultWeapon WeaponRepackTimeout -(".. (bp.WeaponRepackTimeout or 0) ..") during unpack - is either not existant or less than the WeaponUnpackAnimation - "..self.ElapsedRepackTime.." ticks. "..repr(self.unit.BlueprintID) )
             end
             
-			if bp.WeaponRepackTimeout and ( math.floor(bp.WeaponRepackTimeout*10) - self.ElapsedRepackTime) >= 1 then
+			if bp.WeaponRepackTimeout and ( LOUDFLOOR(bp.WeaponRepackTimeout*10) - self.ElapsedRepackTime) >= 1 then
             
                 if ScenarioInfo.WeaponStateDialog then
                     if self.EconDrain then
                         LOG("*AI DEBUG DefaultWeapon WeaponRepackTimeout "..repr(bp.Label) )
                     else
-                        LOG("*AI DEBUG DefaultWeapon WeaponRepackTimeout"..repr(bp.Label).." waits "..math.floor(bp.WeaponRepackTimeout*10) - self.ElapsedRepackTime.." ticks" )
+                        LOG("*AI DEBUG DefaultWeapon WeaponRepackTimeout"..repr(bp.Label).." waits "..LOUDFLOOR(bp.WeaponRepackTimeout*10) - self.ElapsedRepackTime.." ticks" )
                     end
                 end
 
@@ -1041,13 +1042,13 @@ DefaultProjectileWeapon = Class(Weapon) {
 
             self:PlayFxRackSalvoChargeSequence(bp)
 
-            if RackSalvoChargeTime and (math.floor(RackSalvoChargeTime*10) - self.ElapsedRackChargeTime) >= 1 then
+            if RackSalvoChargeTime and (LOUDFLOOR(RackSalvoChargeTime*10) - self.ElapsedRackChargeTime) >= 1 then
             
                 if ScenarioInfo.WeaponStateDialog then
-                    LOG("*AI DEBUG DefaultWeapon RackSalvo Charge for "..repr(bp.Label).." waiting "..math.floor(RackSalvoChargeTime*10) - self.ElapsedRackChargeTime.." ticks at "..GetGameTick() )
+                    LOG("*AI DEBUG DefaultWeapon RackSalvo Charge for "..repr(bp.Label).." waiting "..LOUDFLOOR(RackSalvoChargeTime*10) - self.ElapsedRackChargeTime.." ticks at "..GetGameTick() )
                 end
             
-                WaitTicks( math.floor(RackSalvoChargeTime*10) - self.ElapsedRackChargeTime ) 
+                WaitTicks( LOUDFLOOR(RackSalvoChargeTime*10) - self.ElapsedRackChargeTime ) 
             end
 
             LOUDSTATE(self, self.RackSalvoFireReadyState)
@@ -1294,9 +1295,9 @@ DefaultProjectileWeapon = Class(Weapon) {
                         if WeaponStateDialog then
 
                             if self.EconDrain then
-                                LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State "..repr(bp.Label).." Muzzle Charge Delay "..math.floor(MuzzleChargeDelay * 10).." ticks (not firing cycle) at "..GetGameTick() )
+                                LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State "..repr(bp.Label).." Muzzle Charge Delay "..LOUDFLOOR(MuzzleChargeDelay * 10).." ticks (not firing cycle) at "..GetGameTick() )
                             else
-                                LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State "..repr(bp.Label).." Muzzle Charge Delay waiting "..math.floor(MuzzleChargeDelay * 10).." ticks at "..GetGameTick() )
+                                LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State "..repr(bp.Label).." Muzzle Charge Delay waiting "..LOUDFLOOR(MuzzleChargeDelay * 10).." ticks at "..GetGameTick() )
                             end
 
                         end
@@ -1352,9 +1353,9 @@ DefaultProjectileWeapon = Class(Weapon) {
                         if WeaponStateDialog then
 
                             if self.EconDrain then
-                                LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State "..repr(bp.Label).." Muzzle Salvo Delay "..math.floor(MuzzleSalvoDelay * 10).." ticks (not firing cycle) at "..GetGameTick() )
+                                LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State "..repr(bp.Label).." Muzzle Salvo Delay "..LOUDFLOOR(MuzzleSalvoDelay * 10).." ticks (not firing cycle) at "..GetGameTick() )
                             else
-                                LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State "..repr(bp.Label).." Muzzle Salvo Delay waiting "..math.floor(MuzzleSalvoDelay * 10).." ticks at "..GetGameTick() )
+                                LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State "..repr(bp.Label).." Muzzle Salvo Delay waiting "..LOUDFLOOR(MuzzleSalvoDelay * 10).." ticks at "..GetGameTick() )
                             end
                         end
 						
@@ -1561,25 +1562,25 @@ DefaultProjectileWeapon = Class(Weapon) {
             
             self.ElapsedRepackTime = GetGameTick() - self.ElapsedRepackTime
 
-            if self.ElapsedRepackTime > 0 and ( not WeaponRepackTimeout or (math.floor(WeaponRepackTimeout * 10) - self.ElapsedRepackTime < 0 ) ) then
+            if self.ElapsedRepackTime > 0 and ( not WeaponRepackTimeout or (LOUDFLOOR(WeaponRepackTimeout * 10) - self.ElapsedRepackTime < 0 ) ) then
                 LOG("*AI DEBUG DefaultWeapon WeaponRepackTimeout (".. (WeaponRepackTimeout or 0) ..") - during pack - is either not existant or less than the WeaponUnpackAnimation - "..self.ElapsedRepackTime.." ticks. "..repr(unit.BlueprintID))
             end
 
-			if WeaponRepackTimeout and (math.floor(WeaponRepackTimeout * 10) - self.ElapsedRepackTime) > 1 then
+			if WeaponRepackTimeout and (LOUDFLOOR(WeaponRepackTimeout * 10) - self.ElapsedRepackTime) > 1 then
             
                 if WeaponStateDialog then
                     if self.EconDrain then
                         LOG("*AI DEBUG DefaultWeapon WeaponRepackTimeout (EconDrain) "..repr(bp.Label).." at "..GetGameTick() )
                     else
-                        LOG("*AI DEBUG DefaultWeapon WeaponRepackTimeout "..repr(bp.Label).." waits "..math.floor(WeaponRepackTimeout * 10) - self.ElapsedRepackTime.." ticks at "..GetGameTick() )
+                        LOG("*AI DEBUG DefaultWeapon WeaponRepackTimeout "..repr(bp.Label).." waits "..LOUDFLOOR(WeaponRepackTimeout * 10) - self.ElapsedRepackTime.." ticks at "..GetGameTick() )
                     end
                 end
 
                 self:ChangeMaxRadius( 1 )
 
-                WaitTicks( math.floor(WeaponRepackTimeout * 10) - self.ElapsedRepackTime )
+                WaitTicks( LOUDFLOOR(WeaponRepackTimeout * 10) - self.ElapsedRepackTime )
 
-                self.ElapsedRepackTime = self.ElapsedRepackTime + (math.floor(WeaponRepackTimeout * 10) - self.ElapsedRepackTime)
+                self.ElapsedRepackTime = self.ElapsedRepackTime + (LOUDFLOOR(WeaponRepackTimeout * 10) - self.ElapsedRepackTime)
 
                 self:ChangeMaxRadius( bp.MaxRadius )
 
@@ -1988,7 +1989,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
             LOG("*AI DEBUG DefaultWeapon BEAM Lifetime Thread starts "..repr(self.bp.Label).." for beam on muzzle "..repr(beam.Muzzle).." at "..GetGameTick().." for "..lifeTime.." seconds" )        
         end
 
-        WaitTicks( math.floor(lifeTime * 10.001) + 1 )
+        WaitTicks( LOUDFLOOR(lifeTime * 10.001) + 1 )
     
         if ScenarioInfo.WeaponStateDialog then
             LOG("*AI DEBUG DefaultWeapon BEAM Lifetime Thread ends "..repr(self.bp.Label).." for beam on muzzle "..repr(beam.Muzzle).." at "..GetGameTick() )
