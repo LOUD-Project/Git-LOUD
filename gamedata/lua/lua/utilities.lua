@@ -62,7 +62,10 @@ function GetEnemyUnitsInSphere(unit, position, radius)
 end
 
 function GetDistanceBetweenTwoPoints(x1, y1, z1, x2, y2, z2)
-    return ( LOUDSQRT( (x1-x2)^2 + (y1-y2)^2 + (z1-z2)^2 ) )
+	local a = (x1-x2)
+	local b = (y1-y2)
+	local c = (z1-z2)
+	return ( LOUDSQRT( a*a + b*b + c*c ) )
 end
 
 function GetDistanceBetweenTwoVectors( v1, v2 )
