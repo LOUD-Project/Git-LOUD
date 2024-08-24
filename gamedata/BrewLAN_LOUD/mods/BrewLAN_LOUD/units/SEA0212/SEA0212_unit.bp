@@ -1,32 +1,42 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 72,
-        GuardScanRadius = 48,
+        GuardReturnRadius = 96,
+        GuardScanRadius = 64,
     },
 
     Air = {
-        AutoLandTime = 1,
+        AutoLandTime = 1.6,
         BankFactor = 2,
         BankForward = false,
         BreakOffDistance = 10,
         BreakOffTrigger = 15,
         CanFly = true,
-        CombatTurnSpeed = 1.5,
+
+        CombatTurnSpeed = 1.4,
+
         EngageDistance = 50,
-        KLift = 3,
+
+        KLift = 4.2,
         KLiftDamping = 2.5,
-        KMove = 1,
+
+        KMove = 1.1,
         KMoveDamping = 1,
-        KRoll = 2,
-        KRollDamping = 1,
-        KTurn = 1.5,
-        KTurnDamping = 2,
+
+        KRoll = 1.7,
+        KRollDamping = 1.5,
+
+        KTurn = 1.2,
+        KTurnDamping = 1.5,
+
         LiftFactor = 7,
-        MaxAirspeed = 19,
-        MinAirspeed = 8,
+
+        MaxAirspeed = 20,
+        MinAirspeed = 12,
+
         StartTurnDistance = 5,
-        TightTurnMultiplier = 1.03,
-        TurnSpeed = 1.5,
+        TightTurnMultiplier = 1.025,
+        TurnSpeed = 1.4,
+
         Winged = true,
     },
 
@@ -40,15 +50,7 @@ UnitBlueprint {
         UISelection         = Sound { Bank = 'Interface', Cue = 'UEF_Select_Air', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
-    Buffs = {
-        Regen = {
-            Level1 = 2,
-            Level2 = 4,
-            Level3 = 6,
-            Level4 = 8,
-            Level5 = 10,
-        },
-    },
+    Buffs = {},
 
     BuildIconSortPriority = 17,
 
@@ -141,8 +143,10 @@ UnitBlueprint {
 
     Physics = {
         Elevation = 20,
-        FuelRechargeRate = 6,
-        FuelUseTime = 210,
+
+        FuelRechargeRate = 10,
+        FuelUseTime = 250,
+
         GroundCollisionOffset = 1.6,
         MaxSpeed = 0.5,
         MeshExtentsX = 2,
@@ -155,7 +159,7 @@ UnitBlueprint {
     SelectionSizeZ = 1,
     SelectionThickness = 0.37,
 
-    SizeSphere = 1.6,
+    SizeSphere = 1.9,
 
     SizeX = 1.2,
     SizeY = 0.3,

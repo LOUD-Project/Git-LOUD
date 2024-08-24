@@ -1,12 +1,12 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 80,
-        GuardScanRadius = 60,
+        GuardReturnRadius = 72,
+        GuardScanRadius = 56,
     },
     
     Air = {
-        AutoLandTime = 1.8,
-        BankFactor = 0.1,
+        AutoLandTime = 1.9,
+        BankFactor = 0.15,
         BankForward = false,
         CanFly = true,
         CirclingDirChangeFrequencySec = 0.7,
@@ -18,13 +18,13 @@ UnitBlueprint {
         KLift = 3.5,
         KLiftDamping = 2.5,
         
-        KMove = 1.4,
-        KMoveDamping = 2,
+        KMove = 0.6,
+        KMoveDamping = 0.55,
         
         KTurn = 0.85,
-        KTurnDamping = 1.8,
+        KTurnDamping = 0.8,
         
-        LiftFactor = 7,
+        LiftFactor = 3,
         
         MaxAirspeed = 9.5,
         MinAirspeed = 6.5,
@@ -47,11 +47,11 @@ UnitBlueprint {
     
     Buffs = {
         Regen = {
-            Level1 = 14,
-            Level2 = 28,
-            Level3 = 42,
-            Level4 = 56,
-            Level5 = 70,
+            Level1 = 7,
+            Level2 = 14,
+            Level3 = 21,
+            Level4 = 28,
+            Level5 = 35,
         },
     },
     
@@ -124,9 +124,9 @@ UnitBlueprint {
     },
     
     Economy = {
-        BuildCostEnergy = 115000,
-        BuildCostMass = 4050,
-        BuildTime = 15120,
+        BuildCostEnergy = 120750,
+        BuildCostMass = 4250,
+        BuildTime = 2000,
         
         MaintenanceConsumptionPerSecondEnergy = 50,
     },
@@ -289,8 +289,8 @@ UnitBlueprint {
             TurretBonePitch = 'Front',
             TurretBoneYaw = 'Front',
             
-            TurretPitch = 0, TurretPitchRange = 45, TurretPitchSpeed = 60,
-            TurretYaw = 0,     TurretYawRange = 20,   TurretYawSpeed = 60,
+            TurretPitch = 0, TurretPitchRange = 45, TurretPitchSpeed = 45,
+            TurretYaw = 0,     TurretYawRange = 20,   TurretYawSpeed = 40,
             
             Turreted = true,
         },
@@ -342,8 +342,8 @@ UnitBlueprint {
             TurretBonePitch = 'Wing_Mid_L001',
             TurretBoneYaw = 'Wing_Mid_L001',
             
-            TurretPitch = 0, TurretPitchRange = 45, TurretPitchSpeed = 60,
-            TurretYaw = 0,     TurretYawRange = 30,   TurretYawSpeed = 60,
+            TurretPitch = 0, TurretPitchRange = 45, TurretPitchSpeed = 45,
+            TurretYaw = 0,     TurretYawRange = 30,   TurretYawSpeed = 40,
             
             Turreted = true,
 
@@ -398,8 +398,8 @@ UnitBlueprint {
             TurretBonePitch = 'Wing_Mid_L002',
             TurretBoneYaw = 'Wing_Mid_L002',
             
-            TurretPitch = 0, TurretPitchRange = 45, TurretPitchSpeed = 60,
-            TurretYaw = 0,     TurretYawRange = 30,   TurretYawSpeed = 60,
+            TurretPitch = 0, TurretPitchRange = 45, TurretPitchSpeed = 45,
+            TurretYaw = 0,     TurretYawRange = 30,   TurretYawSpeed = 40,
             
             Turreted = true,
 
@@ -454,8 +454,8 @@ UnitBlueprint {
             TurretBonePitch = 'Wing_Mid_R001',
             TurretBoneYaw = 'Wing_Mid_R001',
             
-            TurretPitch = 0, TurretPitchRange = 45, TurretPitchSpeed = 60,
-            TurretYaw = 0,     TurretYawRange = 30,   TurretYawSpeed = 60,
+            TurretPitch = 0, TurretPitchRange = 45, TurretPitchSpeed = 45,
+            TurretYaw = 0,     TurretYawRange = 30,   TurretYawSpeed = 40,
             Turreted = true,
 
             HeadingArcCenter = 0,
@@ -508,8 +508,8 @@ UnitBlueprint {
             TurretBonePitch = 'Wing_Mid_R002',
             TurretBoneYaw = 'Wing_Mid_R002',
             
-            TurretPitch = 0, TurretPitchRange = 45, TurretPitchSpeed = 60,
-            TurretYaw = 0,     TurretYawRange = 30,   TurretYawSpeed = 60,
+            TurretPitch = 0, TurretPitchRange = 45, TurretPitchSpeed = 45,
+            TurretYaw = 0,     TurretYawRange = 30,   TurretYawSpeed = 40,
             Turreted = true,
 
             HeadingArcCenter = 0,

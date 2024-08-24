@@ -1,48 +1,46 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 100,
-        GuardScanRadius = 60,
+        GuardReturnRadius = 96,
+        GuardScanRadius = 64,
 		TargetBones = {'Hat'},
     },
 	
     Air = {
-        AutoLandTime = 1.4,
-        BankFactor = 5.5,
+        AutoLandTime = 1.9,
+        BankFactor = 2.2,
         BankForward = false,
 		
-        BreakOffDistance = 32,
-		
-        BreakOffTrigger = 32,
+        BreakOffDistance = 28,
+        BreakOffTrigger = 24,
 		
         CanFly = true,
 		
-		CombatTurnMult = 2,
-        CombatTurnSpeed = 6,
+        CombatTurnSpeed = 1.3,
 		
-        EngageDistance = 40,
+        EngageDistance = 50,
 		
-        KLift = 3.5,
-        KLiftDamping = 3.5,
+        KLift = 4.5,
+        KLiftDamping = 2.5,
 		
-        KMove = 1.65,
-        KMoveDamping = 1.3,
+        KMove = 1.2,
+        KMoveDamping = 1.05,
 		
-        KRoll = 2.5,
-        KRollDamping = 1.5,
+        KRoll = 1.5,
+        KRollDamping = 1.4,
 		
-        KTurn = 3.9,
-        KTurnDamping = 4.3,
+        KTurn = 1.15,
+        KTurnDamping = 1.3,
 		
         LiftFactor = 8.5,
 		
         MaxAirspeed = 28,
-        MinAirspeed = 12,
+        MinAirspeed = 14,
 		
         StartTurnDistance = 15,
 		
-        TightTurnMultiplier = 1.35,
+        TightTurnMultiplier = 1.025,
 		
-        TurnSpeed = 1.6,
+        TurnSpeed = 1.3,
 		
         Winged = true,
     },
@@ -60,15 +58,7 @@ UnitBlueprint {
                UISelection = Sound {Bank = 'Interface', Cue = 'Cybran_Select_Air', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
-    Buffs = {
-        Regen = {
-            Level1 = 15,
-            Level2 = 20,
-            Level3 = 35,
-            Level4 = 45,
-            Level5 = 60,
-        },
-    },
+    Buffs = {},
 	
     BuildIconSortPriority = 32,
 	
@@ -205,9 +195,9 @@ UnitBlueprint {
         BuildOnLayerCaps = {
             LAYER_Air = true,
         },
-        Elevation = 28,
+        Elevation = 25,
 		
-        FuelRechargeRate = 12,
+        FuelRechargeRate = 5,
         FuelUseTime = 480,
         GroundCollisionOffset = 3,
         MaxSpeed = 0.5,

@@ -1,13 +1,13 @@
 UnitBlueprint {
 
 	AI = {
-        GuardScanRadius = 34,
-        GuardReturnRadius = 75,
+        GuardScanRadius = 56,
+        GuardReturnRadius = 72,
         TargetBones = {'XSA0203'},
     },
 	
     Air = {
-        AutoLandTime = 1.6,
+        AutoLandTime = 1.9,
         BankFactor = 0.3,
         BankForward = false,
 		
@@ -24,12 +24,12 @@ UnitBlueprint {
         KLiftDamping = 0.65,
 		
         KMove = 0.72,
-        KMoveDamping = 1,
+        KMoveDamping = 0.69,
 		
         KTurn = 0.7,
-        KTurnDamping = 0.8,
+        KTurnDamping = 0.68,
 		
-        LiftFactor = 4,
+        LiftFactor = 5,
 		
         MaxAirspeed = 10,
         MinAirspeed = 3,
@@ -131,9 +131,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 95000,
-        BuildCostMass = 3000,
-        BuildTime = 1315,
+        BuildCostEnergy = 99750,
+        BuildCostMass = 3150,
+        BuildTime = 1650,
     },
 	
     Footprint = {
@@ -283,7 +283,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 40,
 			
             Turreted = true,
         },
@@ -346,7 +346,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 40,
 			
             Turreted = true,
         },
