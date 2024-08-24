@@ -583,7 +583,7 @@ Platoon = Class(PlatoonMethods) {
 
 					local direction = GetDirection( position, targetposition )
 
-                    local ATTACKS = GetSquadUnits(self,'Attack')
+                    local ATTACKS = table.merged( GetSquadUnits(self,'Attack') or {}, GetSquadUnits(self,'Unassigned') or {} )
 
                     if ATTACKS[1] then
 				
@@ -654,7 +654,7 @@ Platoon = Class(PlatoonMethods) {
                     position = GetPlatoonPosition(self) or false
 
                     -- if target dies or moves out of range --
-                    if target.Dead or (not position) or VDist3( GetPosition(target), position) >= range then
+                    if target.Dead or (not position) or VDist3( GetPosition(target), scanposition) >= range then
 
 						target = false
                         
@@ -5902,7 +5902,7 @@ Platoon = Class(PlatoonMethods) {
 							if PlatoonExists(aiBrain, self) then
             
                                 if DistressResponseDialog then
-                                    LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." calls for "..distresscalltype.." help at "..repr(pos).." threat is "..threat.." threshold is "..threatcheckthreshold.." mythreat is "..mythreat )
+                                    LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." "..repr(self.BuilderInstance).." calls for "..distresscalltype.." help at -- threat is "..string.format("%2.1f",threat).." mythreat is "..string.format("%2.1f",mythreat) )
                                 end
 								
 								LOUDINSERT(aiBrain.PlatoonDistress.Platoons, { Platoon = self, DistressType = distresscalltype, Position = LOUDCOPY(pos), Threat = threat, CreationTime = LOUDTIME() } )
@@ -5917,9 +5917,9 @@ Platoon = Class(PlatoonMethods) {
 							end
                         else
             
-                            if DistressResponseDialog then
-                                LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." is not threatened threat is "..threat.." mythreat is "..mythreat.." on tick "..GetGameTick() )
-                            end
+                            --if DistressResponseDialog then
+                              --  LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." is not threatened threat is "..threat.." mythreat is "..mythreat.." on tick "..GetGameTick() )
+                            --end
                             
                             self.DistressCall = nil
 
@@ -5935,7 +5935,13 @@ Platoon = Class(PlatoonMethods) {
                    break    -- no position -- must be dead
                 end
 
-			end
+			else
+            
+                if self.UnderAttack and DistressResponseDialog then
+                    LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." "..repr(self.BuilderInstance).." is still Under Attack (in Distress "..repr(self.DistressCall)..") on tick "..GetGameTick() )
+                end
+            
+            end
 
 			WaitTicks(6)
  
@@ -6178,8 +6184,8 @@ Platoon = Class(PlatoonMethods) {
 
                                     position = v.Position
 
-									-- is calling platoon still alive and it's not ourselves
-									if PlatoonExists(brain, distressplatoon) and (not LOUDEQUAL( distressplatoon, platoon)) then
+									--- if calling platoon still alive, still in distress, and it's not ourselves
+									if PlatoonExists(brain, distressplatoon) and distressplatoon.UnderAttack and distressplatoon.DistressCall and (not LOUDEQUAL( distressplatoon, platoon)) then
 
 										rangetoalert = VDist3( platoonposition, position )
 
@@ -6187,7 +6193,7 @@ Platoon = Class(PlatoonMethods) {
                                           --  LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..repr(self.BuilderInstance).." sees "..v.DistressType.." alert from "..brain.Nickname.." "..distressplatoon.BuilderName.." "..repr(distressplatoon.BuilderInstance).." at "..rangetoalert.." response is "..distressrange )
                                         --end
 									
-										-- is it within my distress response range 
+										--- if within distress response range 
 										if rangetoalert > 20 and rangetoalert <= distressrange then
 
                                             if not CheckBlockingTerrain( platoonposition, position ) then
@@ -6453,13 +6459,9 @@ Platoon = Class(PlatoonMethods) {
                                             end
 
                                             moveLocation = false
+
                                         else
                                             prevpos = LOUDCOPY(platoonPos)
-
-                                            if DistressResponseDialog then
-                                                LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." is moving - distance "..math.floor(VDist2(platoonPos[1],platoonPos[3], prevpos[1],prevpos[3])).." on tick "..GetGameTick() )
-                                            end
-                                            
                                         end
 
                                         -- if we have a distress location check the threat is still past threshold
@@ -6484,8 +6486,16 @@ Platoon = Class(PlatoonMethods) {
                                                     end
                                             
                                                     moveLocation = false
+                                                else
+                                                    if not distressplatoon.DistressCall then
+
+                                                        if DistressResponseDialog then
+                                                            LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." distress platoon no longer in distress")
+                                                        end
+                                                        
+                                                        moveLocation = false
+                                                    end
                                                 end
-                                                
                                             end
 
                                             --- check for proximity and scan for (and prosecute) targets if so
@@ -6595,6 +6605,9 @@ Platoon = Class(PlatoonMethods) {
                                     end
                                     
                                     if self.PlatoonData.MissionTime <= 10 then
+                                    
+                                        self.MergeIntoNearbyPlatoons( self, aiBrain, oldPlan, distressRange*2, false)
+                                        
                                         oldPlan = 'ReturnToBaseAI'
                                     end
                                 end
@@ -9770,24 +9783,24 @@ Platoon = Class(PlatoonMethods) {
             return false
         end
 
-        local GetPlatoonPosition = GetPlatoonPosition
-        local GetPlatoonUnits = GetPlatoonUnits
-        local PlatoonExists = PlatoonExists
+        local PlatoonExists         = PlatoonExists
+        local PlatoonMergeDialog    = ScenarioInfo.PlatoonMergeDialog
 
 		if not PlatoonExists(aiBrain,self) then
 			return false
 		end
-        
+
+		local GetPlatoonsList       = GetPlatoonsList
+        local GetPlatoonPosition    = GetPlatoonPosition
+        local GetPlatoonUnits       = GetPlatoonUnits        
+
         local LOUDCOPY = LOUDCOPY
         local LOUDSORT = LOUDSORT
    		local VDist3Sq = VDist3Sq
 
-        local radiusSq = radius*radius	-- maximum range to check allied platoons --
-        
-        local PlatoonMergeDialog = ScenarioInfo.PlatoonMergeDialog
+        local radiusSq = radius * radius	-- maximum range to check allied platoons --
 
         local dataList = GetPlatoonUnits(self)
-
 		local platooncount = 0
 
 		for _,v in dataList do
@@ -9800,50 +9813,64 @@ Platoon = Class(PlatoonMethods) {
 			return false
 		end
 
-		local platPos = LOUDCOPY(GetPlatoonPosition(self))
-
-		-- get a list of all the platoons for this brain
-		local GetPlatoonsList = GetPlatoonsList
-        local AlliedPlatoons = LOUDCOPY(GetPlatoonsList(aiBrain))
+		--- get all the platoons for this brain
+        local AlliedPlatoons    = LOUDCOPY(GetPlatoonsList(aiBrain))
+		local platPos           = LOUDCOPY(GetPlatoonPosition(self))
 		
 		LOUDSORT(AlliedPlatoons, function(a,b) local GetPlatoonPosition = GetPlatoonPosition local VDist3Sq = VDist3Sq return VDist3Sq( GetPlatoonPosition(a), platPos ) < VDist3Sq( GetPlatoonPosition(b), platPos ) end)
 
         self.UsingTransport = true
-        
-        local BuilderName = self.BuilderName
-        local MovementLayer = self.MovementLayer
 
-		local mergedunits = false        
-        local Squads = { 'Unassigned','Attack','Artillery','Guard','Support','Scout' }
 		local aPlatUnits, allyPlatoonSize, validUnits
-        local count = 0
-        local counter = 0
+
+        local count         = 0
+        local counter       = 0
+        local BuilderName   = self.BuilderName
+		local mergedunits   = false
+        local MovementLayer = self.MovementLayer
+        local Squads        = { 'Unassigned','Attack','Artillery','Guard','Support','Scout' }
+
 		
-		-- loop thru all the platoons in the list
+		--- loop thru all the platoons
         for _,aPlat in AlliedPlatoons do
 	
 			-- ignore yourself
-            if aPlat == self then
+            if aPlat == self or aPlat == aiBrain.ArmyPool or aPlat == aiBrain.TransportPool or aPlat == aiBrain.RefuelPool then
                 continue
             end
-
-			-- otherwise it must a least have the same plan
+		
+			-- be on the same movement layer
+            if aPlat.MovementLayer != MovementLayer then
+                continue
+            end
+  
+			-- must a least have the same plan
             if aPlat.PlanName != planName then
+
+                if PlatoonMergeDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." rejects "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." different plan" )
+                end
+
                 continue
             end
 
 			-- not only the plan must match but the buildername as well
 			if planmatchrequired and aPlat.BuilderName != BuilderName then
+
+                if PlatoonMergeDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." rejects "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." buildername doesn't match" )
+                end
+
 				continue
 			end
 		
-			-- and be on the same movement layer
-            if aPlat.MovementLayer != MovementLayer then
-                continue
-            end
-		
 			-- if allied platoon is busy (not necessarily transports - this is really a general 'busy' flag --
             if aPlat.UsingTransport then
+
+                if PlatoonMergeDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." rejects "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." is busy" )
+                end
+
                 continue
             end
             
@@ -9945,14 +9972,14 @@ Platoon = Class(PlatoonMethods) {
 
         local PlatoonMergeDialog = ScenarioInfo.PlatoonMergeDialog
 
-        local GetPlatoonPosition = GetPlatoonPosition
-        local GetPlatoonUnits = GetPlatoonUnits
-        local GetSquadUnits = GetSquadUnits
-        local PlatoonExists = PlatoonExists
+        local GetPlatoonPosition    = GetPlatoonPosition
+        local GetPlatoonUnits       = GetPlatoonUnits
+        local GetSquadUnits         = GetSquadUnits
+        local PlatoonExists         = PlatoonExists
         
-        local LOUDCOPY = LOUDCOPY
-        local LOUDSORT = LOUDSORT
-        local VDist3 = VDist3
+        local LOUDCOPY  = LOUDCOPY
+        local LOUDSORT  = LOUDSORT
+        local VDist3    = VDist3
 
         -- dont merge when within radius of a base
         for _, base in aiBrain.BuilderManagers do
@@ -9963,13 +9990,13 @@ Platoon = Class(PlatoonMethods) {
         end
 		
         -- get all the platoons
-		local GetPlatoonsList = GetPlatoonsList
-        local AlliedPlatoons = GetPlatoonsList(aiBrain)
+		local GetPlatoonsList   = GetPlatoonsList
+        local AlliedPlatoons    = GetPlatoonsList(aiBrain)
         
-        local count = 0     -- number of allied platoons reviewed
-        local Squads = { 'Scout','Attack','Artillery','Guard','Support' }
+        local count     = 0
+        local Squads    = { 'Scout','Attack','Artillery','Guard','Support','Unassigned' }
         
-        local BuilderName = self.BuilderName
+        local BuilderName   = self.BuilderName
         local MovementLayer = self.MovementLayer
 
         local alliedcount, ourunitcount, unitlist
@@ -9987,36 +10014,51 @@ Platoon = Class(PlatoonMethods) {
 		
 		LOUDSORT(AlliedPlatoons, function(a,b) local GetPlatoonPosition = GetPlatoonPosition local VDist3 = VDist3 return VDist3(GetPlatoonPosition(a), platPos) < VDist3(GetPlatoonPosition(b), platPos) end)
 
-        for _,AlliedPlatoon in AlliedPlatoons do
+        for _,aPlat in AlliedPlatoons do
 
-            if AlliedPlatoon == self then
+            if aPlat == self or aPlat == aiBrain.ArmyPool or aPlat == aiBrain.TransportPool or aPlat == aiBrain.RefuelPool then
                 continue
             end
 			
-			if VDist3( platPos, GetPlatoonPosition(AlliedPlatoon) ) > radius then
-				break
-			end
-			
-            if AlliedPlatoon.UsingTransport then
+            if MovementLayer != aPlat.MovementLayer then
                 continue
             end
 			
-			if planmatchrequired and AlliedPlatoon.BuilderName != BuilderName then
+            if aPlat.UsingTransport then
+
+                if PlatoonMergeDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." rejects "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." is busy" )
+                end
+
+                continue
+            end
+			
+			if planmatchrequired and aPlat.BuilderName != BuilderName then
+
+                if PlatoonMergeDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." rejects "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." buildername doesn't match" )
+                end
+
 				continue
 			end
 			
-            if AlliedPlatoon.PlanName != planName then
+            if aPlat.PlanName != planName then
+
+                if PlatoonMergeDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." rejects "..aPlat.BuilderName.." "..repr(aPlat.BuilderInstance).." incompatible plan" )
+                end
+
                 continue
             end
-			
-            if MovementLayer != AlliedPlatoon.MovementLayer then
-                continue
-            end
-            
+
+			if VDist3( platPos, GetPlatoonPosition(aPlat) ) > radius then
+				break
+			end
+ 
             alliedcount = 0
             
             -- dont merge with platoons larger than mergelimit
-            unitlist = GetPlatoonUnits(AlliedPlatoon)
+            unitlist = GetPlatoonUnits(aPlat)
 
             for _,u in unitlist do
 
@@ -10031,7 +10073,7 @@ Platoon = Class(PlatoonMethods) {
             if (mergelimit and alliedcount > mergelimit) or (ourunitcount > alliedcount) then
 
                 if PlatoonMergeDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." with "..ourunitcount.." ignored  "..repr(AlliedPlatoon.BuilderName).." "..repr(AlliedPlatoon.BuilderInstance).." with "..alliedcount )
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." with "..ourunitcount.." ignored  "..repr(aPlat.BuilderName).." "..repr(aPlat.BuilderInstance).." with "..alliedcount )
                 end
 
                 continue
@@ -10058,14 +10100,14 @@ Platoon = Class(PlatoonMethods) {
 
                 local goalposition = false
 
-                if not AlliedPlatoon:GetPlatoonUnits()[1].Dead then
+                if not aPlat:GetPlatoonUnits()[1].Dead then
 
                     -- what I really need here is WHERE the Allied Platoon is going but this is close
-                    goalposition = AlliedPlatoon:GetPlatoonUnits()[1]:GetNavigator():GetGoalPos()
+                    goalposition = aPlat:GetPlatoonUnits()[1]:GetNavigator():GetGoalPos()
 
                 end
 
-                local gotoposition = GetPlatoonPosition( AlliedPlatoon )
+                local gotoposition = GetPlatoonPosition( aPlat )
 
                 for _, squad in Squads do
 
@@ -10074,7 +10116,7 @@ Platoon = Class(PlatoonMethods) {
                     if unitlist[1] then
 
                         if PlatoonMergeDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." assigns "..LOUDGETN(unitlist).." units to "..repr(squad).." squad in "..repr(AlliedPlatoon.BuilderName).." "..repr(AlliedPlatoon.BuilderInstance) )
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." assigns "..LOUDGETN(unitlist).." units to "..repr(squad).." squad in "..repr(aPlat.BuilderName).." "..repr(aPlat.BuilderInstance) )
                         end
 
                         IssueClearCommands( unitlist )
@@ -10093,14 +10135,14 @@ Platoon = Class(PlatoonMethods) {
 
                         end
                         
-                        AssignUnitsToPlatoon( aiBrain, AlliedPlatoon, unitlist, squad, 'none' )
+                        AssignUnitsToPlatoon( aiBrain, aPlat, unitlist, squad, 'none' )
 
                     end
                     
                 end
 			
 				if PlatoonMergeDialog then
-					LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." with "..ourunitcount.." units MERGED_INTO "..repr(AlliedPlatoon.BuilderName).." "..repr(AlliedPlatoon.BuilderInstance).." with "..alliedcount )
+					LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." with "..ourunitcount.." units MERGED_INTO "..repr(aPlat.BuilderName).." "..repr(aPlat.BuilderInstance).." with "..alliedcount )
 				end		
 
 				return true
