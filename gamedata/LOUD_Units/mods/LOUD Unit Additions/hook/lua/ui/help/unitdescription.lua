@@ -11,10 +11,10 @@ Description['urb0305'] = "Teleports units to other allied teleporters. Enormous 
 Description['xsb0305'] = "Teleports units to other allied teleporters. Enormous energy cost. To use, place rally point on another Quantum Teleporter, surround with units, and activate Teleport ability."
 
 -- T4 Storage
-Description['uab8765'] = "A massive storage facility."
-Description['ueb8765'] = "A massive storage facility."
-Description['urb8765'] = "A massive storage facility."
-Description['xsb8765'] = "A massive storage facility."
+Description['uab8765'] = "A massive storage facility. It blows up."
+Description['ueb8765'] = "A massive storage facility. It blows up."
+Description['urb8765'] = "A massive storage facility. It blows up."
+Description['xsb8765'] = "A massive storage facility. It blows up."
 
 -- Siege Shields
 Description['uabssg01'] = "A base-sized shield. Requires large amounts of energy. Designed to act as an umbrella over a base, but not as a replacement for a proper bubble shield matrix. Upgradeable."
@@ -32,10 +32,10 @@ Description['xsbssg02'] = "Augmented with additional heatsinks, reinforced condu
 Description['ualx401'] = "An amphibious mobile base, with strategic missile defense, Omni sensors, an anti-teleport field, and bubble shield."
 
 -- T4 AA Weapons
-Description['vab2302'] = "A Tech 4 level AA weapon that causes huge damage to Tech 3 and Tech 4 air units. Ignores Tech 1 and Tech 2 air units."
-Description['veb2302'] = "A Tech 4 level AA weapon that causes huge damage to Tech 3 and Tech 4 air units. Ignores Tech 1 and Tech 2 air units."
-Description['vrb2302'] = "A Tech 4 level AA weapon that causes huge damage to Tech 3 and Tech 4 sir units. Ignores Tech 1 and Tech 2 air units."
-Description['vsb2302'] = "A Tech 4 level AA weapon that causes huge damage to Tech 3 and Tech 4 air units. Ignores Tech 1 and Tech 2 air units."
+Description['vab2302'] = "A Tech 4 level AA missile weapon that causes huge damage. Ignores Tech 1 air units."
+Description['veb2302'] = "A Tech 4 level AA missile weapon that causes huge damage. Ignores Tech 1 air units."
+Description['vrb2302'] = "A Tech 4 level AA missile weapon that causes huge damage. Ignores Tech 1 air units."
+Description['vsb2302'] = "A Tech 4 level AA missile weapon that causes huge damage. Ignores Tech 1 air units."
 
 -- Engineering Stations
 Description['wab0201'] = "An Tech 3-level engineering assist station that aids construction and repair within a limited range."
