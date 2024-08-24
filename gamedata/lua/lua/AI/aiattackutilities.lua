@@ -718,11 +718,10 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
     end
     
 	if not position or not maxRange then
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." "..repr(squad).." has no position "..repr(position).." or maxRange")
 		return false,false
 	end
     
-    local LOUDABS = math.abs
+    local LOUDABS       = math.abs
     local MovementLayer = self.MovementLayer
 
     local enemyunits, unitPos
@@ -731,9 +730,7 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
 	
 		enemyunits = GetUnitsAroundPoint( aiBrain, ALLBUTWALLS, position, maxRange, 'Enemy')
 
-        -- are there any enemy units ?
         if not enemyunits[1] then
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." "..repr(squad).." finds no enemy units")
             return false, false
         end
 
@@ -799,17 +796,15 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
             return false, nil
         end
 	
-        local CanAttackTarget = CanAttackTarget
-        local EntityCategoryFilterDown = EntityCategoryFilterDown
-        local GetPosition = GetPosition        
+        local CanAttackTarget           = CanAttackTarget
+        local EntityCategoryFilterDown  = EntityCategoryFilterDown
+        local GetPosition               = GetPosition        
 
 		LOUDSORT(enemyunits, function(a,b) local GetPosition = GetPosition local VDist3Sq = VDist3Sq return VDist3Sq( GetPosition(a), position ) < VDist3Sq( GetPosition(b), position ) end)
         
         unitPos = false
 
 		for _,category in attackcategories do
-        
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." Seeking "..repr(category).." target in enemyunits "..repr(table.getn(enemyunits)) )
 
 			-- filter for the desired category
 			for _,unit in EntityCategoryFilterDown( category, enemyunits) do

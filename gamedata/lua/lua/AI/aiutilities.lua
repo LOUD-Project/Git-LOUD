@@ -749,16 +749,12 @@ function SetupAICheat(aiBrain)
     LOG("     "..aiBrain.Nickname.." Standard Cheat is "..aiBrain.CheatValue)
 
     if aiBrain.OutnumberedRatio > 1 then 
-    LOG("     "..aiBrain.Nickname.."  OutnumberedRatio "..aiBrain.OutnumberedRatio)
+        LOG("     "..aiBrain.Nickname.."  OutnumberedRatio "..aiBrain.OutnumberedRatio)
     end
-    
-    LOG("     "..aiBrain.Nickname.."  Resource mult is "..aiBrain.CheatValue)
   
-	-- resource rate cheat buff
-    newbuff = LOUDDEEPCOPY(Buffs['CheatIncome'])
-    
+	--- resource rate cheat buff
+    local newbuff = LOUDDEEPCOPY(Buffs['CheatIncome'])
     newbuff.Name = 'CheatIncome'..aiBrain.ArmyIndex
-  
 	newbuff.Affects.EnergyProduction.Mult = aiBrain.CheatValue
 	newbuff.Affects.MassProduction.Mult = aiBrain.CheatValue
     
@@ -773,33 +769,39 @@ function SetupAICheat(aiBrain)
         }
     end
 
-    -- Veterancy mult is always 1 or higher
-    -- and represents the 'base' Cheat value for this AI --
-    aiBrain.VeterancyMult = LOUDMAX( 1, aiBrain.CheatValue)
-    
-    -- store the minor cheat value
-    aiBrain.MinorCheatModifier = (LOUDMAX( 0, aiBrain.CheatValue - 1.0 ) * 0.34) + 1.0
- 
-    -- store the major cheat value
-    aiBrain.MajorCheatModifier = (LOUDMAX( -0.2, aiBrain.CheatValue - 1.0 ) * 0.65) + 1.0
-	
-    LOG("     "..aiBrain.Nickname.." Minor Cheat Modifier is "..aiBrain.MinorCheatModifier.."  Major is "..aiBrain.MajorCheatModifier)
-
-	-- CREATE THE BUFFS THAT WILL BE USED BY THE AI
-    local modifier = 1
-
-	-- build rate cheat
+	--- build rate cheat
     local newbuff = LOUDDEEPCOPY(Buffs['CheatBuildRate'])
-    
     newbuff.Name = 'CheatBuildRate'..aiBrain.ArmyIndex
-    
     newbuff.Affects.BuildRate.Mult = math.max( 1.0, aiBrain.CheatValue )
+    
+    LOG("     "..aiBrain.Nickname.."  Resource mult is "..aiBrain.CheatValue)
 
-    LOG("     "..aiBrain.Nickname.." BuildRate mult is "..newbuff.Affects.BuildRate.Mult)
 
     if aiBrain.Personality != 'loud' then
+
+        LOG("     "..aiBrain.Nickname.." BuildRate mult is "..newbuff.Affects.BuildRate.Mult)
+
+        if not Buffs[newbuff.Name] then
+		
+            BuffBlueprint {
+                Name = newbuff.Name,
+                BuffType = newbuff.BuffType,
+                Stacks = newbuff.Stacks,
+                Duration = newbuff.Duration,
+                Affects = newbuff.Affects,
+            }
+        end
+
         return
     end
+
+
+    --- Veterancy mult is always 1 or higher
+    aiBrain.VeterancyMult = LOUDMAX( 1, aiBrain.CheatValue)
+    --- Minor cheat value
+    aiBrain.MinorCheatModifier = (LOUDMAX( 0, aiBrain.CheatValue - 1.0 ) * 0.34) + 1.0
+    --- Major cheat value
+    aiBrain.MajorCheatModifier = (LOUDMAX( -0.2, aiBrain.CheatValue - 1.0 ) * 0.65) + 1.0
     
     -- the Outnumbered condition increases a cheating AI's build rate and affects the sub modifiers
     if aiBrain.OutnumberedRatio > aiBrain.CheatValue then
@@ -814,13 +816,12 @@ function SetupAICheat(aiBrain)
     end
 
     LOG("     "..aiBrain.Nickname.." BuildRate mult is "..newbuff.Affects.BuildRate.Mult)
-	
-    LOG("     "..aiBrain.Nickname.." Minor Cheat now "..aiBrain.MinorCheatModifier.."  Major is "..aiBrain.MajorCheatModifier)
+    LOG("     "..aiBrain.Nickname.." Minor Cheat "..aiBrain.MinorCheatModifier.."  Major Cheat is "..aiBrain.MajorCheatModifier)
 
-	-- reduce mass/energy used when maintaining
-    modifier = 1.0 - aiBrain.MajorCheatModifier
+	--- reduce mass/energy used when maintaining
+    local modifier = 1.0 - aiBrain.MajorCheatModifier
     
-    modifier = LOUDMAX( -0.50, modifier )               -- this will cap the reduction at 50%
+    modifier = LOUDMAX( -0.50, modifier )               -- cap the reduction at 50%
 
     LOG("     "..aiBrain.Nickname.." Maintenance mult (Major) is "..modifier)
     
@@ -839,11 +840,9 @@ function SetupAICheat(aiBrain)
         }
     end
 
-    -- ACU intel range buff - same as cheat bonus
+    --- ACU intel range buff - same as cheat bonus
     newbuff = LOUDDEEPCOPY(Buffs['CheatCDROmni'])
-    
     newbuff.Name = 'CheatCDROmni'..aiBrain.ArmyIndex
-    
 	newbuff.Affects.VisionRadius.Mult = aiBrain.CheatValue
     newbuff.Affects.WaterVisionRadius.Mult = aiBrain.CheatValue
 	newbuff.Affects.OmniRadius.Mult = aiBrain.CheatValue
@@ -858,89 +857,13 @@ function SetupAICheat(aiBrain)
             Affects = newbuff.Affects,
         }
     end
-    
-	-- storage cheat -- increases storage by the multiplier
-    newbuff = LOUDDEEPCOPY(Buffs['CheatCDREnergyStorage'])
-    
-    newbuff.Name = 'CheatCDREnergyStorage'..aiBrain.ArmyIndex
-    
-	newbuff.Affects.EnergyStorage.Mult = LOUDMAX( aiBrain.CheatValue - 1, 0.01)
-    
-    if not Buffs[newbuff.Name] then
-		
-        BuffBlueprint {
-            Name = newbuff.Name,
-            BuffType = newbuff.BuffType,
-            Stacks = newbuff.Stacks,
-            Duration = newbuff.Duration,
-            Affects = newbuff.Affects,
-        }
-    end
-
-    
-    newbuff = LOUDDEEPCOPY(Buffs['CheatCDRMassStorage'])
-    
-    newbuff.Name = 'CheatCDRMassStorage'..aiBrain.ArmyIndex
-    
-	newbuff.Affects.MassStorage.Mult = LOUDMAX( aiBrain.CheatValue - 1, 0.01)
-    
-    if not Buffs[newbuff.Name] then
-		
-        BuffBlueprint {
-            Name = newbuff.Name,
-            BuffType = newbuff.BuffType,
-            Stacks = newbuff.Stacks,
-            Duration = newbuff.Duration,
-            Affects = newbuff.Affects,
-        }
-    end
-
-    
-	-- storage cheat -- increases storage by the multiplier
-    newbuff = LOUDDEEPCOPY(Buffs['CheatEnergyStorage'])
-    
-    newbuff.Name = 'CheatEnergyStorage'..aiBrain.ArmyIndex
-    
-	newbuff.Affects.EnergyStorage.Mult = LOUDMAX( aiBrain.CheatValue, 1)
-    
-    if not Buffs[newbuff.Name] then
-		
-        BuffBlueprint {
-            Name = newbuff.Name,
-            BuffType = newbuff.BuffType,
-            Stacks = newbuff.Stacks,
-            Duration = newbuff.Duration,
-            Affects = newbuff.Affects,
-        }
-    end
-
-    
-    newbuff = LOUDDEEPCOPY(Buffs['CheatMassStorage'])
-    
-    newbuff.Name = 'CheatMassStorage'..aiBrain.ArmyIndex
-    
-	newbuff.Affects.MassStorage.Mult = LOUDMAX( aiBrain.CheatValue, 1)
-    
-    if not Buffs[newbuff.Name] then
-		
-        BuffBlueprint {
-            Name = newbuff.Name,
-            BuffType = newbuff.BuffType,
-            Stacks = newbuff.Stacks,
-            Duration = newbuff.Duration,
-            Affects = newbuff.Affects,
-        }
-    end
-
-
-    -- affects vision, radar, sonar, omni
-    newbuff = LOUDDEEPCOPY(Buffs['CheatIntel'])
-    
-    newbuff.Name = 'CheatIntel'..aiBrain.ArmyIndex
 	
 	modifier = aiBrain.MinorCheatModifier
-
     LOG("     "..aiBrain.Nickname.." Intel mult (Minor) is "..modifier)    
+
+    --- Intel buff - affects vision, radar, sonar, omni
+    newbuff = LOUDDEEPCOPY(Buffs['CheatIntel'])
+    newbuff.Name = 'CheatIntel'..aiBrain.ArmyIndex
 
 	newbuff.Affects.VisionRadius.Mult = modifier
     newbuff.Affects.WaterVisionRadius.Mult = modifier
@@ -958,16 +881,44 @@ function SetupAICheat(aiBrain)
             Affects = newbuff.Affects,
         }
     end
+	    
+	--- ACU storage cheat -- increases storage by the multiplier for the first few minutes of game
+    newbuff = LOUDDEEPCOPY(Buffs['CheatCDREnergyStorage'])
+    newbuff.Name = 'CheatCDREnergyStorage'..aiBrain.ArmyIndex
+	newbuff.Affects.EnergyStorage.Mult = LOUDMAX( aiBrain.CheatValue - 1, 0.01)
+    
+    if not Buffs[newbuff.Name] then
+		
+        BuffBlueprint {
+            Name = newbuff.Name,
+            BuffType = newbuff.BuffType,
+            Stacks = newbuff.Stacks,
+            Duration = newbuff.Duration,
+            Affects = newbuff.Affects,
+        }
+    end
 
+    newbuff = LOUDDEEPCOPY(Buffs['CheatCDRMassStorage'])
+    newbuff.Name = 'CheatCDRMassStorage'..aiBrain.ArmyIndex
+	newbuff.Affects.MassStorage.Mult = LOUDMAX( aiBrain.CheatValue - 1, 0.01)
     
-	-- alter unit health, shield health and regen rates
-    newbuff = LOUDDEEPCOPY(Buffs['CheatALL'])
-    
-    newbuff.Name = 'CheatALL'..aiBrain.ArmyIndex
-	
+    if not Buffs[newbuff.Name] then
+		
+        BuffBlueprint {
+            Name = newbuff.Name,
+            BuffType = newbuff.BuffType,
+            Stacks = newbuff.Stacks,
+            Duration = newbuff.Duration,
+            Affects = newbuff.Affects,
+        }
+    end
+
 	modifier = aiBrain.MinorCheatModifier
-
     LOG("     "..aiBrain.Nickname.." HP/Regen mult (Minor) is "..modifier)    
+    
+	--- HP buff - alter unit HP, shield HP and regen rates
+    newbuff = LOUDDEEPCOPY(Buffs['CheatALL'])
+    newbuff.Name = 'CheatALL'..aiBrain.ArmyIndex
    
 	newbuff.Affects.MaxHealth.Mult = modifier
     newbuff.Affects.MaxHealth.DoNoFill = false   --- prevents health from being added upon creation

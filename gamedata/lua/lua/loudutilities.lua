@@ -1981,10 +1981,10 @@ function AirUnitRefitThread( unit, aiBrain )
 
 				-- Locate closest airpad
 				if plats[1] then
-                    
-                        LOUDSORT( plats, function(a,b) local VDist3Sq = VDist3Sq return VDist3Sq(GetPosition(a),unitPos) < VDist3Sq(GetPosition(b),unitPos) end )
-                        
-                        closestairpad = plats[1]
+
+                    LOUDSORT( plats, function(a,b) local VDist3Sq = VDist3Sq return VDist3Sq(GetPosition(a),unitPos) < VDist3Sq(GetPosition(b),unitPos) end )
+
+                    closestairpad = plats[1]
 
                     -- Begin loading/refit sequence
 					if closestairpad then
@@ -4680,7 +4680,7 @@ function ParseIntelThread( aiBrain )
                             newthreat = newthreat/ThresholdMult
                             
                             -- if the IMAP threat is less than half of the reported threat at that position reduce IMAP by 50%
-							if newthreat < (threatreport/2) then
+							if newthreat < (threatreport/2) and GetGameTick() > 5400 then
                             
 								if IntelDialog then
 									LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..ThreatTypeName.." reports "..newthreat.." versus "..threatreport.." from IMAP - reducing by 50%")
@@ -4689,8 +4689,8 @@ function ParseIntelThread( aiBrain )
                                 -- reduce the existing threat by 50% with a 5% decay - IMAP refreshes every 3 seconds
                                 ASSIGN( aiBrain, {threat[1],0,threat[2]}, threatreport * -0.5, 0.05, ThreatTypeName)                                       
                                 
-								threatreport = threatreport * .5
-                                
+                                threatreport = threatreport * .5
+
 							end
                             
 
@@ -4698,7 +4698,7 @@ function ParseIntelThread( aiBrain )
                             units = GetUnitsAroundPoint( aiBrain, threatcategories, newPos, unitgetrange, 'Enemy')
 						
                             -- and if we don't see anything - reduce it by 20%
-                            if not units[1] then
+                            if not units[1] and GetGameTick() > 5400 then
                             
                                 if IntelDialog then
                                     LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..ThreatTypeName.." shows "..threatreport.." but I SEE no units - reducing by 20%")

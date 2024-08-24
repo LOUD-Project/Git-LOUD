@@ -194,7 +194,7 @@ Weapon = Class(moho.weapon_methods) {
             if numbersexist then
 		
                 SetFiringArc( self.AimControl, turretyawmin, turretyawmax, turretyawspeed, turretpitchmin, turretpitchmax, turretpitchspeed)
-			
+                
                 if self.AimRight then
                     SetFiringArc( self.AimRight, turretyawmin/12, turretyawmax/12, turretyawspeed, turretpitchmin, turretpitchmax, turretpitchspeed)
                 end
@@ -842,8 +842,14 @@ Weapon = Class(moho.weapon_methods) {
             local id = GetEntityId(self.unit)
 			
             if SimUnitEnhancements[id] then
-			
+ 
+                if ScenarioInfo.WeaponDialog or ScenarioInfo.WeaponStateDialog then
+                    LOG("*AI DEBUG Weapon SetWeaponEnabled by Enhancement - unit enhancements are "..repr(SimUnitEnhancements[id]) )
+                end
+ 			
                 for k, v in SimUnitEnhancements[id] do
+                
+                    LOG("*AI DEBUG Enhancement is "..repr(k).." "..repr(v) )
 				
                     if v == self.bp.EnabledByEnhancement then
                     
@@ -858,6 +864,10 @@ Weapon = Class(moho.weapon_methods) {
                             self.WeaponIsEnabled = true
                             
                             self:OnEnableWeapon()
+                            
+                            ChangeState( self, self.IdleState )
+                            
+                            
 
                         end
                     end

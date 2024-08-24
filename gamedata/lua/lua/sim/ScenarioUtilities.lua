@@ -937,74 +937,78 @@ function InitializeArmies()
             end
 
             import('/lua/ai/aiutilities.lua').SetupAICheat( aiBrain )
+            
+            if aiBrain.Personality == 'loud' then
 
-            --- Create the SelfUpgradeIssued counter
-            --- holds the number of units that have recently issued a self-upgrade
-            --- is used to limit the # of self-upgrades that can be issued in a given time
-            --- to avoid having more than X units trying to upgrade at once
-            aiBrain.UpgradeIssued = 0
+                --- Create the SelfUpgradeIssued counter
+                --- holds the number of units that have recently issued a self-upgrade
+                --- is used to limit the # of self-upgrades that can be issued in a given time
+                --- to avoid having more than X units trying to upgrade at once
+                aiBrain.UpgradeIssued = 0
 
-            aiBrain.UpgradeIssuedLimit = 1
-            aiBrain.UpgradeIssuedPeriod = 225
+                aiBrain.UpgradeIssuedLimit = 1
+                aiBrain.UpgradeIssuedPeriod = 225
 
-            --- if outnumbered increase the number of simultaneous upgrades allowed
-            --- and/or reduce the waiting period by 1.5 seconds ( about 10% )
-            if aiBrain.OutnumberedRatio > 1.0 then
+                --- if outnumbered increase the number of simultaneous upgrades allowed
+                --- and/or reduce the waiting period by 1.5 seconds ( about 10% )
+                if aiBrain.OutnumberedRatio > 1.0 then
 	
-                aiBrain.UpgradeIssuedLimit = aiBrain.UpgradeIssuedLimit + 1
+                    aiBrain.UpgradeIssuedLimit = aiBrain.UpgradeIssuedLimit + 1
 
-                --- if really outnumbered
-                if aiBrain.OutnumberedRatio >= 1.5 then
+                    --- if really outnumbered
+                    if aiBrain.OutnumberedRatio >= 1.5 then
 
-                    aiBrain.UpgradeIssuedPeriod = aiBrain.UpgradeIssuedPeriod - 15
-
-                    --- if really badly outnumbered
-                    if aiBrain.OutnumberedRatio >= 2.0 then
-
-                        aiBrain.UpgradeIssuedLimit = aiBrain.UpgradeIssuedLimit + 1
                         aiBrain.UpgradeIssuedPeriod = aiBrain.UpgradeIssuedPeriod - 15
-                        
-                        if aiBrain.OutnumberedRatio >= 4.0 then
+
+                        --- if really badly outnumbered
+                        if aiBrain.OutnumberedRatio >= 2.0 then
 
                             aiBrain.UpgradeIssuedLimit = aiBrain.UpgradeIssuedLimit + 1
                             aiBrain.UpgradeIssuedPeriod = aiBrain.UpgradeIssuedPeriod - 15
+                        
+                            if aiBrain.OutnumberedRatio >= 4.0 then
 
+                                aiBrain.UpgradeIssuedLimit = aiBrain.UpgradeIssuedLimit + 1
+                                aiBrain.UpgradeIssuedPeriod = aiBrain.UpgradeIssuedPeriod - 15
+
+                            end
                         end
                     end
                 end
-            end
 
-            aiBrain.UpgradeIssuedPeriod = math.floor(aiBrain.UpgradeIssuedPeriod * ( 1 / aiBrain.MajorCheatModifier ))
+                aiBrain.UpgradeIssuedPeriod = math.floor(aiBrain.UpgradeIssuedPeriod * ( 1 / aiBrain.MajorCheatModifier ))
 
-            LOG("     "..aiBrain.Nickname.." Upgrade Issue Limit is "..aiBrain.UpgradeIssuedLimit.." simultaneous upgrades" ) 
-            LOG("     "..aiBrain.Nickname.." Upgrade Issue Delay is "..aiBrain.UpgradeIssuedPeriod.." ticks between upgrades")
+                LOG("     "..aiBrain.Nickname.." Upgrade Issue Limit is "..aiBrain.UpgradeIssuedLimit.." simultaneous upgrades" ) 
+                LOG("     "..aiBrain.Nickname.." Upgrade Issue Delay is "..aiBrain.UpgradeIssuedPeriod.." ticks between upgrades")
             
-            loudUtils.BuildScoutLocations(aiBrain)
-			
-            import('/lua/ai/aiutilities.lua').SetupAICheatUnitCap( aiBrain, ScenarioInfo.biggestTeamSize )
+                loudUtils.BuildScoutLocations(aiBrain)
 
-            if not ScenarioInfo.TeamMassPointList[aiBrain.Team] then
+                if not ScenarioInfo.TeamMassPointList[aiBrain.Team] then
                 
-                ScenarioInfo.TeamMassPointList[aiBrain.Team] = {}
+                    ScenarioInfo.TeamMassPointList[aiBrain.Team] = {}
 
-                -- each team is intially allocated the entire mass point list
-                if ScenarioInfo.StartingMassPointList[1] then
-                    ScenarioInfo.TeamMassPointList[aiBrain.Team] = table.copy(ScenarioInfo.StartingMassPointList)
+                    -- each team is intially allocated the entire mass point list
+                    if ScenarioInfo.StartingMassPointList[1] then
+                        ScenarioInfo.TeamMassPointList[aiBrain.Team] = table.copy(ScenarioInfo.StartingMassPointList)
+                    end
+
                 end
+            
+                aiBrain.StartingMassPointList = {}  -- initialize starting mass point list for this brain
 
+                if aiBrain.OutnumberedRatio > 1.5 and (aiBrain.VeterancyMult < aiBrain.OutnumberedRatio) then
+        
+                    local AISendChat = import('/lua/ai/sorianutilities.lua').AISendChat
+        
+                    ForkThread( AISendChat, 'enemies', aiBrain.Nickname, "WOW - Why dont you just beat me with a stick?" )
+                    ForkThread( AISendChat, 'enemies', aiBrain.Nickname, "You Outnumber me "..tostring(aiBrain.OutnumberedRatio).." to 1 !")
+                    ForkThread( AISendChat, 'enemies', aiBrain.Nickname, "And all you give me is a "..tostring(aiBrain.VeterancyMult).." bonus?")
+        
+                end
+			
             end
             
-            aiBrain.StartingMassPointList = {}  -- initialize starting mass point list for this brain
-
-            if aiBrain.OutnumberedRatio > 1.5 and (aiBrain.VeterancyMult < aiBrain.OutnumberedRatio) then
-        
-                local AISendChat = import('/lua/ai/sorianutilities.lua').AISendChat
-        
-                ForkThread( AISendChat, 'enemies', aiBrain.Nickname, "WOW - Why dont you just beat me with a stick?" )
-                ForkThread( AISendChat, 'enemies', aiBrain.Nickname, "You Outnumber me "..tostring(aiBrain.OutnumberedRatio).." to 1 !")
-                ForkThread( AISendChat, 'enemies', aiBrain.Nickname, "And all you give me is a "..tostring(aiBrain.VeterancyMult).." bonus?")
-        
-            end
+            import('/lua/ai/aiutilities.lua').SetupAICheatUnitCap( aiBrain, ScenarioInfo.biggestTeamSize )
 
 		end
         
@@ -1027,7 +1031,7 @@ function InitializeArmies()
             
             for a, brain in ArmyBrains do
             
-                if count < brain.MassPointShare then
+                if ScenarioInfo.TeamMassPointList[brain.Team] and count < brain.MassPointShare then
 
                     if brain.BrainType == 'AI' and brain.Team == k then
             
@@ -1159,8 +1163,8 @@ function InitializeSkirmishSystems(self)
             
             --LOG("*AI DEBUG "..brain.Nickname.." "..brain.BrainType.." enemy found at "..repr(place).." posting Economy threat")
             
-            -- assign 500 ecothreat for 10 minutes
-            self:AssignThreatAtPosition( place, 5000, 0.005, 'Economy' )
+            -- assign 5000 ecothreat for 10 minutes
+            self:AssignThreatAtPosition( place, 5000, 0.002, 'Economy' )
         end
     end
 

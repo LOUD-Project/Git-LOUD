@@ -21,7 +21,7 @@ function UpdateDialog(beatNumber, strings)
         
 			dialog = Group(GetFrame(0), "updateDialogGroup")
             
-			LOG("Desynch at beat " .. beatNumber .. " tick " .. GetGameTimeSeconds())
+			LOG("Desynch at beat " .. beatNumber .. " tick " .. string.format("%.2f",GetGameTimeSeconds()) )
             
 			LayoutHelpers.SetDimensions(dialog, 300, 250)
 			dialog.Depth:Set(GetFrame(0):GetTopmostDepth() + 10)

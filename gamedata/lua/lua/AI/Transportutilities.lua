@@ -947,7 +947,7 @@ function GetTransports( platoon, aiBrain)
             end
 
         end
-        
+--[[        
         if aiBrain.ArmyPool:PlatoonCategoryCount( categories.HIGHALTAIR * categories.ANTIAIR ) > 0 then
         
             local count = 0
@@ -975,7 +975,7 @@ function GetTransports( platoon, aiBrain)
             end
 
         end
-
+--]]
         return counter, transportplatoon, transportplatoonairthreat
     end
 	
@@ -2584,15 +2584,16 @@ function WatchTransportTravel( transport, destination, aiBrain, UnitPlatoon )
 		-- major distress call -- 
 		if transport.PlatoonHandle.DistressCall then
 			
-			-- reassign destination and begin immediate drop --
+			-- reassign destination and exit
 			-- this really needs to be sensitive to the platoons layer
 			-- and find an appropriate marker to drop at -- 
-            
             if TransportDialog then
                 LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport "..transport.EntityID.." DISTRESS ends travelwatch after "..watchcount)
             end
 
             destination = GetPosition(transport)
+            
+            IssueStop( {transport} )
 
             break
 		end

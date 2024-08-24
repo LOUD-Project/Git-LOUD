@@ -13,12 +13,12 @@ SelectedInfoOn = false
 SelectedOverlayOn = false
 
 if options.gui_detailed_unitview == 1 then
-    LOG("*AI DEBUG turning on Enhanced Unitview")
+    --LOG("*AI DEBUG turning on Enhanced Unitview")
     SelectedInfoOn = true
 end
 
 if options.gui_enhanced_unitrings == 1 then 
-    LOG("*AI DEBUG turning on Enhanced Unit rings")
+    --LOG("*AI DEBUG turning on Enhanced Unit rings")
     SelectedOverlayOn = true
 end
 

@@ -697,9 +697,9 @@ function ModBlueprints(all_blueprints)
 		
 				if cat == 'NAVAL' then
 			
-					econScale = 0.0    # -- cost more
-					speedScale = -0.10  # -- move slower
-					viewScale = 0.05    # -- see further   
+					econScale = 0.0     
+					speedScale = -0.10  --- move slower
+					viewScale = 0.00
 			
 					for j, catj in bp.Categories do
 				
@@ -791,7 +791,7 @@ function ModBlueprints(all_blueprints)
 			
 					econScale = 0.075	-- cost more
 					speedScale = -0.0
-					viewScale = -0.05    -- see less
+					viewScale = -0.00
 		
 					for j, catj in bp.Categories do
 				
@@ -814,7 +814,26 @@ function ModBlueprints(all_blueprints)
                                 end
 
                             end
-				
+                            
+                            if bp.Air.KMove and bp.Air.KMoveDamping > 1 then
+                                --LOG("AI DEBUG KMoveDamping for "..repr(bp.Description).." reduced from "..bp.Air.KMoveDamping.." to 1 - KMove is "..bp.Air.KMove)
+                                bp.Air.KMoveDamping = 1.0
+                            end
+                            
+                            if bp.Air.KTurn then
+                                if bp.Air.KTurnDamping and bp.Air.KTurnDamping > (bp.Air.KTurn * 1.25) then
+                                    --LOG("AI DEBUG KTurnDamping for "..repr(bp.Description).." reduced from "..repr(bp.Air.KTurnDamping).." to "..bp.Air.KTurn * 1.25)
+                                    bp.Air.KTurnDamping = bp.Air.KTurn * 1.25
+                                end
+                            end
+							
+                            -- this is the one that controls air unit speed
+                            -- enforce a minimum airspeed
+							if bp.Air.MaxAirspeed then
+								bp.Air.MaxAirspeed = bp.Air.MaxAirspeed + (bp.Air.MaxAirspeed * speedScale)
+                                bp.Air.MinAirspeed = bp.Air.MaxAirspeed * 0.5
+							end
+					
 							if bp.Economy.BuildTime then
 								bp.Economy.BuildTime = bp.Economy.BuildTime + (bp.Economy.BuildTime * econScale)
 								bp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy + (bp.Economy.BuildCostEnergy * econScale)
@@ -824,11 +843,7 @@ function ModBlueprints(all_blueprints)
 							-- air units speed is not controlled by this
 							if bp.Physics.Maxspeed then
 								bp.Physics.MaxSpeed = bp.Physics.MaxSpeed + (bp.Physics.MaxSpeed * speedScale)
-							end
-							
-                            -- this is the one that controls air unit speed
-							if bp.Air.MaxAirspeed then
-								bp.Air.MaxAirspeed = bp.Air.MaxAirspeed + (bp.Air.MaxAirspeed * speedScale)
+                                bp.Physics.MinSpeed = bp.Physics.MaxSpeed * 0.5
 							end
 						
 							-- if the unit uses a SizeSphere for collisions, make sure it's big enough as related to it's max speed
@@ -859,10 +874,10 @@ function ModBlueprints(all_blueprints)
                             
                                 for w, weap in bp.Weapon do
                             
-                                    if weap.AutoInitiateAttackCommand and weap.RangeCategory == 'UWRC_AntiAir'then
+                                    --if weap.AutoInitiateAttackCommand and weap.RangeCategory == 'UWRC_AntiAir'then
                                         --LOG("*AI DEBUG Air Unit "..id.." "..bp.Description.." Weapon "..w.." - AA weapon has AutoInitiateAttack ")
-                                        bp.Weapon[w].AutoInitiateAttackCommand = false
-                                    end
+                                        --bp.Weapon[w].AutoInitiateAttackCommand = false
+                                    --end
                                 end
                             end
 
