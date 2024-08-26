@@ -89,7 +89,7 @@ do
        	-- 'AntiSub',
 		-- 'Experimental',
 	}
-
+    
 	__INTEL_CHECKS_COLORS = {
 		'ff76bdff',
 		'e0ff0000',
@@ -104,7 +104,7 @@ do
 		-- 'ffaf00ff',
 		-- 'ff0000ff'
 	}
-
+    
 	function CreateUI(isReplay)
 
 		OrigCreateUI(isReplay)

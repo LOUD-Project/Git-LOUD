@@ -458,7 +458,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
   
-            { LUTL, 'AirStrengthRatioLessThan', { 1 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 1.5 } },
 
             --- enemy focused upon ground attack in his air force
             { LUTL, 'AirToGroundBiasGreaterThan', { 1 } },
@@ -604,7 +604,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
  
-			{ LUTL, 'AirStrengthRatioLessThan', { 1 } }, 
+			{ LUTL, 'AirStrengthRatioLessThan', { 1.5 } }, 
 
             --- enemy focused upon ground attack in his air force
             { LUTL, 'AirToGroundBiasGreaterThan', { 1 } },

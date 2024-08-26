@@ -792,16 +792,16 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
                 local wep = unit:GetWeapon(i)
 
-                    if wep.bp.Label != 'DeathWeapon' and wep.bp.Label != 'DeathImpact' then
+                if wep.bp.Label != 'DeathWeapon' and wep.bp.Label != 'DeathImpact' then
 
-                        local wepbp = wep.bp
-                        local wepdam = wepbp.Damage
+                    local wepbp = wep.bp
+                    local wepdam = wepbp.Damage
 
-                        local val = BuffCalculate(unit, buffName, 'Damage', wepdam)
+                    local val = BuffCalculate(unit, buffName, 'Damage', wepdam)
 
-                        if val >= ( math.abs(val) + 0.5 ) then
-                            val = math.ceil(val)
-                        else
+                    if val >= ( math.abs(val) + 0.5 ) then
+                        val = math.ceil(val)
+                    else
                         val = math.floor(val)
                     end
 
@@ -816,7 +816,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
                 local wep = unit:GetWeapon(i)
                 local wepbp = wep.bp
-                    local weprad = wepbp.DamageRadius
+                local weprad = wepbp.DamageRadius
 
                 local val = BuffCalculate(unit, buffName, 'DamageRadius', weprad)
 
