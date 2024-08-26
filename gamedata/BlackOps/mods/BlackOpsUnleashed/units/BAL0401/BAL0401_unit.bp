@@ -173,6 +173,7 @@ UnitBlueprint {
     LifeBarSize = 4,
 	
     Physics = {
+        BackUpDistance = 8.5,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
@@ -181,7 +182,7 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
 
-        LayerChangeOffsetHeight = -3,
+        LayerChangeOffsetHeight = -4.5,
 		
         MaxAcceleration = 0.35,
         MaxSpeed = 2.6,
