@@ -1936,9 +1936,11 @@ function AirUnitRefitThread( unit, aiBrain )
                 LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." assigned to "..returnpool.BuilderName.." at tick "..GetGameTick() )
             end
 
-            AssignUnitsToPlatoon( aiBrain, returnpool, {unit}, 'Unassigned', '')
+            AssignUnitsToPlatoon( aiBrain, returnpool, {unit}, 'Support', '')
 
             unit.PlatoonHandle = returnpool
+            
+            unit:MarkWeaponsOnTransport(unit, true)     --- prevent targetlock, dr and merge
         end
 
         -- these values set the point at which a unit can leave the refit thread
@@ -2013,7 +2015,6 @@ function AirUnitRefitThread( unit, aiBrain )
                     
                         baseposition = aiBrain.BuilderManagers[baseposition].Position
 
-						IssueStop ( {unit} )
 						IssueClearCommands( {unit} )
                     
                         if GetThreatBetweenPositions( aiBrain, unitPos, baseposition, nil, 'AntiAir' ) < 16 then
@@ -4362,7 +4363,7 @@ function ParseIntelThread( aiBrain )
 
     --LOG("*AI DEBUG IMAP Size is " ..IMAPSize.. " and Parse will examine " ..ResolveBlocks.. " blocks per intel check")
 
-	--[[
+--[[
 	local IntelTypes = {
         Overall,				-- this one seems quite unreliable - not sure what it's doing
         OverallNotAssigned,		-- this one seems to report everything except threats that we directly assign....
@@ -4385,8 +4386,9 @@ function ParseIntelThread( aiBrain )
         Unknown,
 	}
 --]]	
+
 	local intelChecks = {
-		-- ThreatType	= { threat min, timeout (-1 = never) in seconds, category for exact pos, parse every x iterations, color, AI Debug flag }
+		-- ThreatType	= { threat min, timeout (-1 = never) in seconds, category for exact pos, parse every x iterations }
 		-- note that some categories dont have a dynamic threat threshold - just air,land,naval and structures - since you can only pack so many in a smaller IMAP block
         
 		Air 			    = { 15 * ThresholdMult, 4.5, categories.AIR - categories.SATELLITE - categories.SCOUT - categories.TRANSPORTFOCUS, 1 },
@@ -4411,9 +4413,36 @@ function ParseIntelThread( aiBrain )
 	-- create a record for each type of intel & initialize the running total element & the counter that tracks which element is current for this type
     for threatType, v in intelChecks do
         aiBrain.EnemyData[threatType] = { ['Count'] = 0, ['Total'] = 0}
-        
+
         if not ScenarioInfo.ThreatTypes[threatType] then
-            ScenarioInfo.ThreatTypes[threatType] = { Active = false, Color = 'ffffffff' }
+
+            local __INTEL_CHECKS = {
+                'Air',
+                'AntiAir',
+                'Commander',
+                'Economy',
+                'Land',
+                'Naval',
+                'StructuresNotMex',
+            }
+    
+            local __INTEL_CHECKS_COLORS = {
+                'ff76bdff',
+                'e0ff0000',
+                '90ffffff',
+                '90ff7000',
+                '9000ff00',
+                'ff0060ff',
+                '90ffff00',
+            }
+    
+            local counter = 1
+    
+            for _,v in __INTEL_CHECKS do
+                ScenarioInfo.ThreatTypes[v] = { Active = true, Color = __INTEL_CHECKS_COLORS[counter] }
+                counter = counter + 1
+            end
+            
         end
 	end
 
@@ -6802,7 +6831,7 @@ function DrawIntel( aiBrain, parseinterval)
                 -- for any active types in the threatColor table --
 				if ThreatTypes[Type].Active and Threat > 0 then
 
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." Intel Thread "..Type.." value is "..Threat.." at "..repr(v.Position) )
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." Intel Thread "..Type.." value is "..Threat.." at "..repr(v.Position) )
     
 					ForkThread( DrawIntelPoint, v.Position, ThreatTypes[Type].Color, Threat )
 				end

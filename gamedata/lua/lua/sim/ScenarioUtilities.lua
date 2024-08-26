@@ -946,7 +946,7 @@ function InitializeArmies()
             end
 
             import('/lua/ai/aiutilities.lua').SetupAICheat( aiBrain )
-            
+
             if aiBrain.Personality == 'loud' then
 
                 --- Create the SelfUpgradeIssued counter
