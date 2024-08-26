@@ -961,6 +961,8 @@ function ApplyCheatBuffs(unit)
             ApplyBuff(unit, 'CheatIntel'..ArmyIndex)
 
             ApplyBuff(unit, 'CheatALL'..ArmyIndex)
+            
+            ApplyBuff(unit, 'CheatMOBILE')
         
             -- Engineers have additional buffs --
             if LOUDENTITY( categories.ENGINEER, unit) then
@@ -1005,6 +1007,7 @@ function ApplyCheatBuffs(unit)
                     end
                 end
             end
+            
         end
 	end
 end

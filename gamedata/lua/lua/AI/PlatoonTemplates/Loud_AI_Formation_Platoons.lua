@@ -401,7 +401,7 @@ PlatoonTemplate { Name = 'BaseGuardMedium',
 PlatoonTemplate { Name = 'BaseGuardAAPatrol',
 
     GlobalSquads = {
-		{ LANDANTIAIR, 6, 12, 'Attack', 'GrowthFormation' },
+		{ LANDANTIAIR, 5, 8, 'Attack', 'GrowthFormation' },
 		{ LANDSHIELD, 0, 3, 'Guard', 'none' },
 		{ LANDCOUNTERINTEL, 0, 1, 'Guard', 'none' },
     },
@@ -415,7 +415,7 @@ PlatoonTemplate { Name = 'T1LandScoutForm',
         },
         Aeon = {
             { 'ual0101', 2, 3, 'Scout', 'none' },
-            { LANDAMPHIB - categories.EXPERIMENTAL - categories.SCOUT, 0, 2, 'Attack', 'none' }
+            { LANDAMPHIB * categories.DIRECTFIRE - categories.EXPERIMENTAL - categories.SCOUT, 0, 2, 'Attack', 'none' }
         },
         Cybran = {
             { 'url0101', 1, 1, 'Scout', 'none' }

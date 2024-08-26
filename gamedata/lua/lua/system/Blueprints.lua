@@ -612,7 +612,7 @@ function ModBlueprints(all_blueprints)
 					--LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." has no projectile lifetime for "..repr(wep.DisplayName).." Label "..repr(wep.Label))
 				end
 				
-				if wep.ProjectileLifetime == 0 then
+				if not wep.ProjectileLifetime or wep.ProjectileLifetime == 0 then
 				
 					if wep.MuzzleVelocity and wep.MuzzleVelocity > 0 then
 					

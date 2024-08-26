@@ -3924,7 +3924,7 @@ AirUnit = Class(MobileUnit) {
         self:DoUnitCallbacks('OnRunOutOfFuel')
 
         self:SetSpeedMult(0.4)
-        self:SetAccMult(0.5)
+        self:SetAccMult(0.45)
         self:SetTurnMult(0.2)
 
 		if self.TopSpeedEffectsBag then
@@ -3970,9 +3970,9 @@ AirUnit = Class(MobileUnit) {
 				
 					if Fuel then
 				
-						self:SetSpeedMult(0.82)
-						self:SetAccMult(0.82)
-						self:SetTurnMult(0.6)
+						self:SetSpeedMult(0.72)
+						self:SetAccMult(0.72)
+						self:SetTurnMult(0.5)
 					end
 
 				-- and below 25% it drops even more
@@ -3980,8 +3980,8 @@ AirUnit = Class(MobileUnit) {
 				
 					if Fuel then
 					
-						self:SetSpeedMult(0.6)
-						self:SetAccMult(0.6)
+						self:SetSpeedMult(0.55)
+						self:SetAccMult(0.55)
 						self:SetTurnMult(0.3)
 					end
 					
@@ -3994,9 +3994,9 @@ AirUnit = Class(MobileUnit) {
 				
 					if Fuel then
 				
-						self:SetSpeedMult(0.82)
-						self:SetAccMult(0.82)
-						self:SetTurnMult(0.6)
+						self:SetSpeedMult(0.72)
+						self:SetAccMult(0.72)
+						self:SetTurnMult(0.5)
 					end
 					
 				-- at 50% restore full performance

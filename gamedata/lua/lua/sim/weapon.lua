@@ -373,7 +373,7 @@ Weapon = Class(moho.weapon_methods) {
 			self:DoOnFireBuffs(self.Buffs)
 		end
     end,
-	
+
 	OnWeaponFired = function(self, target)
 	
 		if ScenarioInfo.WeaponDialog then
@@ -381,7 +381,7 @@ Weapon = Class(moho.weapon_methods) {
 		end
 
 	end,
-    
+
     OnDisableWeapon = function(self)
 	
         if ScenarioInfo.WeaponDialog then
@@ -848,8 +848,6 @@ Weapon = Class(moho.weapon_methods) {
                 end
  			
                 for k, v in SimUnitEnhancements[id] do
-                
-                    LOG("*AI DEBUG Enhancement is "..repr(k).." "..repr(v) )
 				
                     if v == self.bp.EnabledByEnhancement then
                     

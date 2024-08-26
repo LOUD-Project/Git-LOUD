@@ -920,11 +920,20 @@ function InitializeArmies()
         local armyIsCiv = ScenarioInfo.ArmySetup[strArmy].Civilian
         
         local aiBrain = GetArmyBrain(strArmy)
+
+        local place = aiBrain:GetStartVector3f()
+
+        ForkThread( function() WaitTicks(70) FlushIntelInRect(place[1]-200,place[3]-200,place[1]+200,place[3]+200) end )
         
         if not armyIsCiv then
+
+            -- assign 5000 ecothreat for 10 minutes
+            ForkThread( function() WaitTicks(101) aiBrain:AssignThreatAtPosition( place, 5000, 0.002, 'Economy' ) end )        
+
             LOG("     "..aiBrain.Nickname.." Team "..aiBrain.Team.." Teamsize is "..aiBrain.TeamSize )
         end
-        
+
+
         if aiBrain.BrainType == 'AI' and not armyIsCiv then
 
             aiBrain.OutnumberedRatio = math.max( 1, ScenarioInfo.biggestTeamSize/aiBrain.TeamSize )
@@ -1151,21 +1160,6 @@ function InitializeSkirmishSystems(self)
     -- don't do anything else for a human player
     if self.BrainType == 'Human' then
         return
-    end
-
-    -- put some initial threat at all enemy positions
-    for k,brain in ArmyBrains do
-        
-        if self.ArmyIndex != brain.ArmyIndex and brain.Nickname != 'civilian' and (not brain:IsDefeated()) and (not IsAlly(self.ArmyIndex, brain.ArmyIndex)) then
-        
-            local place = brain:GetStartVector3f()
-            local threatlayer = 'AntiAir'
-            
-            --LOG("*AI DEBUG "..brain.Nickname.." "..brain.BrainType.." enemy found at "..repr(place).." posting Economy threat")
-            
-            -- assign 5000 ecothreat for 10 minutes
-            self:AssignThreatAtPosition( place, 5000, 0.002, 'Economy' )
-        end
     end
 
     if ScenarioInfo.Options.AIResourceSharing == 'off' then
