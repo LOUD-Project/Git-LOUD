@@ -878,33 +878,6 @@ BuffBlueprint { Name = 'CheatIntel',
 	},
 }
 
-BuffBlueprint { Name = 'CheatEnergyStorage',
-	BuffType = 'STORAGE',
-	Stacks = 'STACKS',
-	Duration = -1,
-	Affects = {
-		EnergyStorage = {
-		    BuffCheckFunction = AdjBuffFuncs.EnergyStorageBuffCheck,
-			Add = 0,
-			Mult = 1,
-		},
-	},
-}
-
-BuffBlueprint { Name = 'CheatMassStorage',
-	BuffType = 'STORAGE',
-	Stacks = 'STACKS',
-	Duration = -1,
-	Affects = {
-		MassStorage = {
-		    BuffCheckFunction = AdjBuffFuncs.MassStorageBuffCheck,
-			Add = 0,
-			Mult = 1,
-		},
-	},
-}
-
-
 BuffBlueprint { Name = 'CheatCDROmni',
     BuffType = 'COMMANDERCHEAT',
 	ParsedEntityCategory = categories.COMMAND,
@@ -962,15 +935,15 @@ BuffBlueprint { Name = 'CheatENG',
     Affects = {
 		SpeedMult = {
 			Add = 0,
-			Mult = 1.2,
+			Mult = 1.1,
 		},
         AccelMult = {
             Add = 0,
-            Mult = 1.2,
+            Mult = 1.1,
         },
         TurnMult = {
             Add = 0,
-            Mult = 1.2,
+            Mult = 1.1,
         },
         VisionRadius = {
             Add = 12,
@@ -989,21 +962,21 @@ BuffBlueprint { Name = 'CheatENG',
 
 BuffBlueprint { Name = 'CheatMOBILE',
     BuffType = 'MOVEMENTCHEAT',
-	ParsedEntityCategory = categories.MOBILE,
+	ParsedEntityCategory = categories.MOBILE * categories.AIR,
     Stacks = 'ALWAYS',
     Duration = -1,
     Affects = {
 		SpeedMult = {
 			Add = 0,
-			Mult = 1,
+			Mult = 1.15,
 		},
         AccelMult = {
             Add = 0,
-            Mult = 1,
+            Mult = 1.15,
         },
         TurnMult = {
             Add = 0,
-            Mult = 1,
+            Mult = 1.15,
         }
 	},
 }

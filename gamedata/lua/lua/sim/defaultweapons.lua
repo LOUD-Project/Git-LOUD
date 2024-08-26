@@ -52,6 +52,7 @@ local WeaponMethods     = moho.weapon_methods
 
 local CreateProjectile          = WeaponMethods.CreateProjectile
 local GetBlueprint              = WeaponMethods.GetBlueprint
+local GetCurrentTarget          = WeaponMethods.GetCurrentTarget
 local GetCurrentTargetPos       = WeaponMethods.GetCurrentTargetPos
 local PlaySound                 = WeaponMethods.PlaySound
 local SetFiringRandomness       = WeaponMethods.SetFiringRandomness
@@ -220,6 +221,10 @@ DefaultProjectileWeapon = Class(Weapon) {
 		if bp.CountedProjectile then
 			self:CheckCountedMissileLaunch()
 		end
+        
+        if GetAIBrain(GetCurrentTarget(self)).Personality == "m28ai" then
+            proj:TrackTarget(true)
+        end
 
         return proj
     end,
@@ -749,6 +754,7 @@ DefaultProjectileWeapon = Class(Weapon) {
         end
 		
     end,
+
 
     OnWeaponFired = function(self)
      

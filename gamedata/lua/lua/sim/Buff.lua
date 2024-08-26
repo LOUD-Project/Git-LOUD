@@ -446,11 +446,6 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
             local val = BuffCalculate(unit, buffName, 'MoveMult', 1)
 
-            -- display new movement mult if it's not normal speed --
-            if unit.EntityID and val != 1 then
-                ForkThread(FloatingEntityText, unit.EntityID, 'Move Mult now '..math.floor((.001+val)*100).."%")
-			end
-
             SetSpeedMult( unit, val )
             SetAccMult( unit, val )
             SetTurnMult( unit, val )
@@ -459,32 +454,17 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
             local val = BuffCalculate(unit, buffName, 'SpeedMult', 1)
 
-            -- display new speed mult if it's not normal speed --
-            if unit.EntityID and val != 1 then
-                ForkThread(FloatingEntityText, unit.EntityID, 'Speed Mult now '..math.floor((.001+val)*100).."%")
-			end
-
             SetSpeedMult( unit, val )
 
         elseif atype == 'AccelMult' then
 
             local val = BuffCalculate(unit, buffName, 'AccelMult', 1)
 
-            -- display new movement mult if it's not normal speed --
-            --if unit.EntityID and val != 1 then
-              --  ForkThread(FloatingEntityText, unit.EntityID, 'Accel Mult now '..math.floor((.001+val)*100).."%")
-			--end
-
             SetAccMult( unit, val )
 
         elseif atype == 'TurnMult' then
 
             local val = BuffCalculate(unit, buffName, 'TurnMult', 1)
-
-            -- display new movement mult if it's not normal speed --
-            --if unit.EntityID and val != 1 then
-              --  ForkThread(FloatingEntityText, unit.EntityID, 'Turn Mult now '..math.floor((.001+val)*100).."%")
-			--end
 
             SetTurnMult( unit, val )
 
@@ -701,8 +681,6 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 				-- the value returned is always less than 1
 				-- for example the returned value is .9
                 local val = BuffCalculate(unit, buffName, 'RateOfFire', 1)
-                
-                --LOG("*AI DEBUG RoF value is "..repr(val))
 
 				-- Rate of Fire is basically firings per second
 				-- ie. 3 = 3 shots per second
@@ -800,30 +778,19 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
             for i = 1, unit:GetWeaponCount() do
 
-                --if vals.Weapon == i then
+                local wep = unit:GetWeapon(i)
 
-                    local wep = unit:GetWeapon(i)
+                local val, bool = BuffCalculate(unit, buffName, 'WeaponsEnable', 0, true)
 
-                    local val, bool = BuffCalculate(unit, buffName, 'WeaponsEnable', 0, true)
+                wep:SetWeaponEnabled(bool)
 
-                    wep:SetWeaponEnabled(bool)
-                --end
             end
 
         elseif atype == 'Damage' then
---[[        
-            if not vals.Weapon then
-            
-                LOG("*AI DEBUG You must specify a weapon number to buff Damage")
-                
-                continue
-            end
---]]
-            for i = 1, unit:GetWeaponCount() do
-            
-                --if vals.Weapon == i then
 
-                    local wep = unit:GetWeapon(i)
+            for i = 1, unit:GetWeaponCount() do
+
+                local wep = unit:GetWeapon(i)
 
                     if wep.bp.Label != 'DeathWeapon' and wep.bp.Label != 'DeathImpact' then
 
@@ -835,15 +802,11 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
                         if val >= ( math.abs(val) + 0.5 ) then
                             val = math.ceil(val)
                         else
-                            val = math.floor(val)
-                        end
-                    
-                        --LOG("*AI DEBUG BUFF Weapon "..i.." "..wep.bp.Label.." Damage is "..repr(val))
-
-                        wep:ChangeDamage(val)
+                        val = math.floor(val)
                     end
-                    
-                --end
+
+                    wep:ChangeDamage(val)
+                end
                 
             end
 
@@ -851,51 +814,38 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
             for i = 1, unit:GetWeaponCount() do
 
-                --if vals.Weapon == i then
-
-                    local wep = unit:GetWeapon(i)
-                    local wepbp = wep.bp
+                local wep = unit:GetWeapon(i)
+                local wepbp = wep.bp
                     local weprad = wepbp.DamageRadius
 
-                    local val = BuffCalculate(unit, buffName, 'DamageRadius', weprad)
+                local val = BuffCalculate(unit, buffName, 'DamageRadius', weprad)
 
-                    wep:SetDamageRadius(val)
-                --end
+                wep:SetDamageRadius(val)
             end
             
         elseif atype == 'FiringRandomness' then
         
             for i = 1, unit:GetWeaponCount() do
-            
-                --if vals.Weapon == i then
 
-                    local wep = unit:GetWeapon(i)
-                    local wepbp = wep.bp
-                    local wepfr = wepbp.FiringRandomness
+                local wep = unit:GetWeapon(i)
+                local wepbp = wep.bp
+                local wepfr = wepbp.FiringRandomness
 
-                    local val = BuffCalculate(unit, buffName, 'FiringRandomness', 1)
+                local val = BuffCalculate(unit, buffName, 'FiringRandomness', 1)
 
-                    --LOG("*AI DEBUG Weapon Randomness is "..repr(wepfr * val))
-                
-                    wep:SetFiringRandomness( wepfr * val )
-                --end
-
+                wep:SetFiringRandomness( wepfr * val )
             end
 
         elseif atype == 'MaxRadius' then
 
             for i = 1, unit:GetWeaponCount() do
 
-                --if vals.Weapon == i then
+                local wep = unit:GetWeapon(i)
+                local wepbp = wep.bp
+                local weprad = wepbp.MaxRadius
+                local val = BuffCalculate(unit, buffName, 'MaxRadius', weprad)
 
-                    local wep = unit:GetWeapon(i)
-                    local wepbp = wep.bp
-                    local weprad = wepbp.MaxRadius
-                    local val = BuffCalculate(unit, buffName, 'MaxRadius', weprad)
-
-                    wep:ChangeMaxRadius(val)
-                --end
-
+                wep:ChangeMaxRadius(val)
             end
 
 ----   CLOAKING is a can of worms.  Revisit later.

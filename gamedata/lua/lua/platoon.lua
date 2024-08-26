@@ -586,6 +586,8 @@ Platoon = Class(PlatoonMethods) {
                     local ATTACKS = table.merged( GetSquadUnits(self,'Attack') or {}, GetSquadUnits(self,'Unassigned') or {} )
 
                     if ATTACKS[1] then
+                    
+                        IssueClearCommands( ATTACKS )
 				
                         IssueFormAggressiveMove( ATTACKS, targetposition, 'AttackFormation', direction)
                         
@@ -594,6 +596,8 @@ Platoon = Class(PlatoonMethods) {
                     local ARTILLERY = GetSquadUnits(self,'Artillery')
 					
                     if ARTILLERY[1] then
+                    
+                        IssueClearCommands( ARTILLERY )
                        
                         IssueFormAggressiveMove( ARTILLERY, targetposition, PlatoonFormation, direction)
 
@@ -602,6 +606,8 @@ Platoon = Class(PlatoonMethods) {
                     local GUARDS = GetSquadUnits(self,'Guard')
 
                     if GUARDS[1] then
+                    
+                        IssueClearCommands( GUARDS )
 
                         if not ARTILLERY[1] and not ATTACKS[1] then
 
@@ -622,6 +628,8 @@ Platoon = Class(PlatoonMethods) {
                     local SUPPORTS = GetSquadUnits(self,'Support')
 					
                     if SUPPORTS[1] then
+                    
+                        IssueClearCommands( SUPPORTS )
 
                         if not ATTACKS[1] and not ARTILLERY[1] then
                             
@@ -1517,8 +1525,6 @@ Platoon = Class(PlatoonMethods) {
 			LOG("*AI DEBUG "..aiBrain.Nickname.." RTBAI "..self.BuilderName.." "..repr(self.BuilderInstance).." RTB to "..repr(RTBLocation).." at tick "..GetGameTick() )
 		end
 
-       	self:Stop()
-
 		local lastpos = { 0, 0, 0 }
 
         lastpos[1] = platPos[1]
@@ -1619,6 +1625,8 @@ Platoon = Class(PlatoonMethods) {
 		else
             LOG("*AI DEBUG "..aiBrain.Nickname.." RTBAI reports no platoon position or no bases")
 			
+            IssueClearCommands( GetPlatoonUnits(self) )
+
 			return self:PlatoonDisband(aiBrain)
         end
 		
@@ -1659,6 +1667,8 @@ Platoon = Class(PlatoonMethods) {
                 markerradius = 200
                 
             end
+
+            IssueClearCommands( GetPlatoonUnits(self) )
 
             if MovementLayer == 'Air' and GetThreatBetweenPositions( aiBrain, platPos, transportLocation, nil, 'AntiAir' ) < mythreat then
 
@@ -5818,11 +5828,11 @@ Platoon = Class(PlatoonMethods) {
 						
 					end
             
-                    if DistressResponseDialog then
-                        LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." "..repr(self.BuilderInstance).." is Under Attack at "..repr(pos).." threat is "..string.format("%2.1f",threat).." threshold is "..threatcheckthreshold.." on tick "..GetGameTick() )
-                    end
-
 					if threat >= threatcheckthreshold then
+
+                        if DistressResponseDialog then
+                            LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." "..repr(self.BuilderInstance).." is Under Attack at "..repr(pos).." threat is "..string.format("%2.1f",threat).." threshold is "..threatcheckthreshold.." on tick "..GetGameTick() )
+                        end
 
 						distresscalltype = false
 						airunits = 0
@@ -5897,7 +5907,7 @@ Platoon = Class(PlatoonMethods) {
 						end
 
 						-- Store the Distress Call if threat is truly a danger to me
-						if distresscalltype and threat >= (mythreat * 0.8) then
+						if distresscalltype and threat >= (mythreat * 0.66) then
 					
 							if PlatoonExists(aiBrain, self) then
             
@@ -6371,7 +6381,7 @@ Platoon = Class(PlatoonMethods) {
                             
                                 if ATTACKS[1] then
                             
-                                    IssueStop( ATTACKS )
+                                    IssueClearCommands( ATTACKS )
 				
                                     IssueFormAggressiveMove( ATTACKS, distressLocation, 'AttackFormation', direction)
                                 end
@@ -6380,7 +6390,7 @@ Platoon = Class(PlatoonMethods) {
 					
                                 if ARTILLERY[1] then
                             
-                                    IssueStop(ARTILLERY)
+                                    IssueClearCommands(ARTILLERY)
                         
                                     IssueFormAggressiveMove( ARTILLERY, distressLocation, PlatoonFormation, direction)
                                 end
@@ -6389,7 +6399,7 @@ Platoon = Class(PlatoonMethods) {
                             
                                 if GUARDS[1] then
                             
-                                    IssueStop(GUARDS)
+                                    IssueClearCommands(GUARDS)
                      
                                     if not ARTILLERY[1] and not ATTACKS[1] then
 
@@ -6409,7 +6419,7 @@ Platoon = Class(PlatoonMethods) {
 					
                                 if SUPPORTS[1] then
 
-                                    IssueStop(SUPPORTS)
+                                    IssueClearCommands(SUPPORTS)
                                 
                                     if not ATTACKS[1] and not ARTILLERY[1] then
                                 
@@ -6429,9 +6439,22 @@ Platoon = Class(PlatoonMethods) {
 
                                 if SCOUTS[1] then
                                     
-                                    IssueStop( SCOUTS )
+                                    IssueClearCommands( SCOUTS )
                                     
-                                    IssueFormMove( SCOUTS, distressLocation, 'BlockFormation', direction)
+                                    if ATTACKS[1] then
+                                    
+                                        IssueGuard( SCOUTS, ATTACKS[1])
+                                        
+                                    elseif ARTILLERY[1] then
+                                    
+                                        IssueGuard( SCOUTS, ARTILLERY[1])
+                                        
+                                    else
+                                    
+                                        IssueGuard( SCOUTS, distressLocation)
+                                        
+                                    end
+                                    
                                 end
 							else
 
@@ -6469,10 +6492,10 @@ Platoon = Class(PlatoonMethods) {
 
                                             threatatPos = threatThreshold
                                             
-                                            targetingrange = 65
-                                            
                                             if distressType == 'Air' then
                                                 targetingrange = 50
+                                            else
+                                                targetingrange = import('/lua/ai/aiattackutilities.lua').GetNavalPlatoonMaxRange(aiBrain, self)
                                             end
                                             
                                             --- see if distress platoon still exists
@@ -6503,27 +6526,30 @@ Platoon = Class(PlatoonMethods) {
                                         
                                                 distance = LOUDFLOOR(VDist3( platoonPos, moveLocation ))
 
-                                                --if DistressResponseDialog then
-                                                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." now at "..repr(distance).." to "..repr(moveLocation) )
-                                                --end
+                                                if DistressResponseDialog then
+                                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." now at "..repr(distance).." to "..repr(moveLocation) )
+                                                end
                                             
                                                 -- if within proximity to the distress -check for target
                                                 if distance <= targetingrange then
                                                 
                                                     target = true
                                                     
-                                                    while target do 
+                                                    while target do
+                                                    
+                                                        target = false
                                                     
                                                         -- find a target within range of the distress and prosecute it
                                                         target = PlatoonFindTarget( self, aiBrain, 'Attack', moveLocation, targetingrange, categoryList )
 
-                                                        if DistressResponseDialog then
-                                                            LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." engaged target within "..targetingrange.." of distress position "..repr(moveLocation) )
+                                                        if DistressResponseDialog and target then
+                                                            LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." engaged target within "..targetingrange.." of distress position "..repr(moveLocation).." on tick "..GetGameTick() )
                                                         end                                                        
+
                                                     end
 
                                                     if DistressResponseDialog then
-                                                        LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." no target within "..targetingrange.." of distress position "..repr(moveLocation) )
+                                                        LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." no target found within "..targetingrange.." of distress position "..repr(moveLocation).." on tick "..GetGameTick() )
                                                     end
                                                     
                                                     target = false
