@@ -2839,41 +2839,66 @@ function AirForceAILOUD( self, aiBrain )
     local ProsecuteTarget = function( unit, mytarget )
     
         local u = {unit}
-        local target = mytarget
-
-        IssueClearCommands( u )
 
         --- move unit to Attack Squad ---
         AssignUnitsToPlatoon( aiBrain, self, u, 'Attack','None' )
-        
-        IssueAttack( u, target )
 
+        local target = mytarget
         local navigator = unit:GetNavigator()
-
-        --if AirForceDialog then
-          --  LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." unit "..unit.Sync.id.. " assigned to target "..repr(target.Sync.id).." on tick "..GetGameTick() )
-        --end
+       
+        IssueClearCommands( u )
         
+        navigator:AbortMove()
+        navigator:SetGoal(target:GetPosition())
+
+        if AirForceDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." unit "..unit.Sync.id.. " assigned to target "..repr(target.Sync.id).." on tick "..GetGameTick() )
+        end
+
         while target and (not target:BeenDestroyed()) and (not unit:BeenDestroyed()) do
 
             local selfpos           = GetPosition(unit)
             local targethealth      = target:GetHealthPercent()
             local targetposition    = GetPosition(target) or false
             local targetdistance    = VDist3( selfpos, targetposition )
+            local searchdistance    = VDist3( loiterposition, targetposition)
 
             if targetposition then
-            
-                if targetdistance < 18 then
-                    navigator:SetGoal(navigator:GetCurrentTargetPos())
-                end
-            
-                if VDist3( targetposition, loiterposition ) > searchrange and targethealth > 0.3 then
+
+                -- break off if 10% beyond searchrange and still mostly healthy
+                if searchdistance > (searchrange*1.1) and targethealth > 0.3 then
+
+                    if AirForceDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." unit "..unit.Sync.id.. " breaks off target at "..VDist3( targetposition, loiterposition ).." on tick "..GetGameTick() )
+                    end
 
                     target = false
                     break
                 end
 
-                WaitTicks(3)
+                -- pursue badly damaged units further but this is a hard break off
+                if searchdistance > (searchrange*1.3) then
+
+                    if AirForceDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." unit "..unit.Sync.id.. " breaks off damaged target at "..VDist3( targetposition, loiterposition ).." on tick "..GetGameTick() )
+                    end
+
+                    navigator:SetGoal(loiterposition)
+
+                    target = false
+                    break
+                end
+
+                if not unit:BeenDestroyed() then
+
+                    IssueAttack( u, target )
+
+                    if navigator and targetdistance < 14 then
+                        navigator:SetGoal(navigator:GetCurrentTargetPos())
+                    end
+
+                    WaitTicks(3)
+                end
 
             else
                 break
@@ -2883,17 +2908,17 @@ function AirForceAILOUD( self, aiBrain )
       
         if (not unit:BeenDestroyed()) and PlatoonExists(aiBrain,self) then
 
-            --if AirForceDialog then
-              --  LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..repr(self.BuilderInstance).." unit "..unit.Sync.id.." attack complete on tick "..GetGameTick() )
-            --end
+            if AirForceDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..repr(self.BuilderInstance).." unit "..unit.Sync.id.." attack complete on tick "..GetGameTick() )
+            end
  
             if not unit.Dead then
 
                 AssignUnitsToPlatoon( aiBrain, self, {unit}, 'Unassigned','None' )
         
                 IssueClearCommands( u )
-        
-                IssueGuard( u, loiterposition )
+                
+                navigator:SetGoal(loiterposition)
 
             end
             
@@ -2968,7 +2993,7 @@ function AirForceAILOUD( self, aiBrain )
                 --- while travelling to the loiter
                 while PlatoonExists(aiBrain, self) and platPos and not self.UnderAttack and VDist3( loiterposition, platPos ) > searchrange do
                   
-                    if count > 2 then
+                    if count > 1 then
                         --- this permits distressresponse and merging to take place
                         self.UsingTransport = false
                     end
@@ -3010,7 +3035,7 @@ function AirForceAILOUD( self, aiBrain )
                 
                     usethreat = ( mythreat/threatmult ) / rangemult
 
-					target,targetposition,targetdistance = AIFindTargetInRangeInCategoryWithThreatFromPosition(aiBrain, loiterposition, self, 'Unassigned', minrange, searchrange * rangemult, categoryList, usethreat, threatcompare, threatcheckradius, threatavoid )
+					target, targetposition, targetdistance = AIFindTargetInRangeInCategoryWithThreatFromPosition(aiBrain, loiterposition, self, 'Unassigned', minrange, searchrange * rangemult, categoryList, usethreat, threatcompare, threatcheckradius, threatavoid )
 
 					if not PlatoonExists(aiBrain, self) then
 						return
@@ -3039,13 +3064,30 @@ function AirForceAILOUD( self, aiBrain )
             --- issue the attack orders 
             --- disable merge and distress response
 			if (target and not target.Dead) and PlatoonExists(aiBrain, self) then
+   
+                usethreat = AIGetThreatLevelsAroundPoint( platPos, threatavoid )
+                
+                --- when threat is greater than mine
+                if usethreat > mythreat * 0.85 then
+                
+                    if not self.UnderAttack then
+                        self:ForkThread( self.PlatoonUnderAttack, aiBrain)
+                    end
+                
+                    if AirForceDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." - threat check "..usethreat.." - mine is "..mythreat.." at "..repr(platPos).." on tick "..GetGameTick() )
+                    end
+
+                end
            
-                AACount = 0
-                SecondaryAATargets = false
-                ShieldCount = 0
-                SecondaryShieldTargets = false
-                TertiaryCount = 0
-                TertiaryTargets = false
+                AACount         = 0
+                SecondaryAATargets      = false
+
+                ShieldCount     = 0
+                SecondaryShieldTargets  = false
+
+                TertiaryCount   = 0
+                TertiaryTargets         = false
 
                 if attackercount > 2 then
 
@@ -3055,7 +3097,13 @@ function AirForceAILOUD( self, aiBrain )
                     TertiaryTargets         = GetUnitsAroundPoint( aiBrain, BOMBER, targetposition, threatcheckradius, 'Enemy')
                 
                     if SecondaryAATargets[1] then
-                        AACount         = LOUDGETN(SecondaryAATargets)
+                        if target != SecondaryAATargets[1] then
+                            AACount         = LOUDGETN(SecondaryAATargets)
+                        else
+                            if SecondaryAATargets[2] then
+                                AACount     = LOUDGETN(SecondaryAATargets) - 1
+                            end
+                        end
                     end
                 
                     if SecondaryShieldTargets[1] then
@@ -3063,7 +3111,14 @@ function AirForceAILOUD( self, aiBrain )
                     end
                 
                     if TertiaryTargets[1] then
-                        TertiaryCount   = LOUDGETN(TertiaryTargets)
+                        if target != TertiaryTargets[1] then
+                            TertiaryCount   = LOUDGETN(TertiaryTargets)
+                        else
+                            if TertiaryTargets[2] then
+                                TertiaryCount = LOUDGETN(TertiaryTargets) - 1
+                            end
+                        end
+                        
                     end
                     
                 end
@@ -3130,7 +3185,7 @@ function AirForceAILOUD( self, aiBrain )
                                 -- first 15% of attacks go for the gunships
                                 if key < attackercount * .15 and SecondaryShieldTargets[shield] then
                         
-                                    if not SecondaryShieldTargets[shield].Dead then
+                                    if not SecondaryShieldTargets[shield].Dead and SecondaryShieldTargets[shield] != target then
                                     
                                         u:ForkThread( ProsecuteTarget, SecondaryShieldTargets[shield] )
 
@@ -3148,7 +3203,7 @@ function AirForceAILOUD( self, aiBrain )
                                 -- next 35% go for fighters units
                                 if not attackissued and key <= attackercount * .5 and SecondaryAATargets[aa] then
 
-                                    if not SecondaryAATargets[aa].Dead then
+                                    if not SecondaryAATargets[aa].Dead and SecondaryAATargets[aa] != target then
                                     
                                         u:ForkThread( ProsecuteTarget, SecondaryAATargets[aa] )
 
@@ -3166,7 +3221,7 @@ function AirForceAILOUD( self, aiBrain )
                                 -- next 15% for bomber targets --
                                 if not attackissued and key <= attackercount * .65 and TertiaryTargets[tertiary] then
                             
-                                    if not TertiaryTargets[tertiary].Dead then
+                                    if not TertiaryTargets[tertiary].Dead and TertiaryTargets[tertiary] != target then
                                 
                                         u:ForkThread( ProsecuteTarget, TertiaryTargets[tertiary] )
 
@@ -3222,7 +3277,7 @@ function AirForceAILOUD( self, aiBrain )
                 usethreat = AIGetThreatLevelsAroundPoint( platPos, threatavoid )
                 
                 --- when threat is greater than mine
-                if usethreat > mythreat * 1.2 then
+                if usethreat > mythreat * 1.25 then
                 
                     if not self.UnderAttack then
                         self:ForkThread( self.PlatoonUnderAttack, aiBrain)
@@ -3236,15 +3291,16 @@ function AirForceAILOUD( self, aiBrain )
                     break
                 end
 
-                --- rebuild the loiterposition every 9th iteration
-                if LOUDMOD( attackcount, 9 ) == 0 then
-
-                    if AirForceDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." rebuilding loiterposition on tick "..GetGameTick() )
-                    end
+                --- rebuild the loiterposition every 11th iteration
+                if LOUDMOD( attackcount, 11 ) == 0 then
 
                     --- it's simply to keep this current attack active - if the loiterposition is drifting towards it
                     loiterposition = SetLoiterPosition( self, aiBrain, anchorposition, searchrange, 1, mythreat, 'AIR', 'ANTIAIR', loiterposition )
+
+                    
+                    if AirForceDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." rebuilding loiterposition on tick "..GetGameTick() )
+                    end
 
                     attackcount = 0
                 end
@@ -3268,15 +3324,25 @@ function AirForceAILOUD( self, aiBrain )
     end
     
     if (LOUDFLOOR(LOUDTIME()) - MissionStartTime) > missiontime then
+
+        if AirForceDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." Mission Time expired on tick "..GetGameTick() )
+        end
+
+    end
+
+    if PlatoonExists(aiBrain, self) then
+    
+        while PlatoonExists(aiBrain,self) and LOUDGETN(GetSquadUnits( self,'Attack' ) or {}) > 0 do
+            WaitTicks(3)
+        end
     
         IssueClearCommands( GetPlatoonUnits(self) )
 
         if AirForceDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." Mission Time expired - RTB" )
+            LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." exits to RTB on tick "..GetGameTick() )
         end
-    end
-
-    if PlatoonExists(aiBrain, self) then
+    
         return self:SetAIPlan('ReturnToBaseAI',aiBrain)
     end
 	
