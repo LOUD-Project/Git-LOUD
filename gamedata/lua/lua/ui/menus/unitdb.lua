@@ -167,7 +167,6 @@ function CreateUnitDB(over, callback)
 	LayoutHelpers.AtTopIn(title, panel, 24)
 	LayoutHelpers.AtHorizontalCenterIn(title, panel)
 	panel.Depth:Set(GetFrame(over:GetRootFrame():GetTargetHead()):GetTopmostDepth() + 1)
-	local worldCover = UIUtil.CreateWorldCover(panel)
 
 	ClearFilters()
 

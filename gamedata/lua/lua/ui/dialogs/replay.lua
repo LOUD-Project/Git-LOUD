@@ -32,8 +32,6 @@ function CreateDialog(over, isLoad, exitBehavior)
     
     panel.Depth:Set(GetFrame(over:GetRootFrame():GetTargetHead()):GetTopmostDepth() + 1)
 
-    local worldCover = UIUtil.CreateWorldCover(panel)
-    
     local titleString
     if isLoad then
         titleString = "<LOC uireplay_0001>Replay"

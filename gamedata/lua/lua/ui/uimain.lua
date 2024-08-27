@@ -16,13 +16,13 @@ local alreadySetup = false
 
 -- Initialize the UI states on startup
 function SetupUI()
-    
+
     -- SetCursor needs to happen anytime this function is called because we
     -- could be switching lua states.
     local c = UIUtil.CreateCursor()
     SetCursor( c )
 
-    -- the rest of this function only needs to run once to set up the globals, so 
+    -- the rest of this function only needs to run once to set up the globals, so
     -- don't do it again if not needed
     if alreadySetup then return end
     alreadySetup = true
@@ -39,18 +39,19 @@ end
 -- THEY ARE CALLED FROM THE ENGINE AND EXPECT A DIFFERENT LUA STATE
 function StartSplashScreen()
     console = false
-	EngineStartFrontEndUI()
+    -- keep the forking or the screen remains black and the main menu only appears after the first user interaction (e.g. a mouse movement)
+    ForkThread(function() EngineStartFrontEndUI() end)
 end
 
 function StartFrontEndUI()
     console = false
-    
+
     -- make sure cheat keys are disabled if needed
     if not DebugFacilitiesEnabled() then
         local keyMap = import('/lua/keymap/defaultKeyMap.lua')
-        IN_RemoveKeyMapTable(keyMap.debugKeyMap)                
-    end    
-    
+        IN_RemoveKeyMapTable(keyMap.debugKeyMap)
+    end
+
     -- if there is an auto continue state, then launch op immediately
 
     import('/lua/ui/menus/main.lua').CreateUI()
@@ -130,11 +131,11 @@ local prevDisconnectModule
 
 function UpdateDisconnectDialog()
     local module = import('/lua/ui/dialogs/disconnect.lua')
-	
+
     if prevDisconnectModule and prevDisconnectModule != module then
         pcall(prevDisconnectModule.DestroyDialog)
     end
-	
+
     prevDisconnectModule = module
     module.Update()
 end
@@ -142,7 +143,7 @@ end
 function NoteGameSpeedChanged(clientIndex, newSpeed)
     local clients = GetSessionClients()
     local client = clients[clientIndex]
-	
+
     # Note: this string has an Engine loc tag because it was
     # originally in the engine.  If we were not already past the loc
     # deadline, I'd change to to be some UI loc tag.  But we are, so
@@ -254,19 +255,19 @@ end
 function ChangeSimRate(rate)
     if not WorldIsLoading() and (import('/lua/ui/game/gamemain.lua').supressExitDialog != true) then
         ConExecute("WLD_GameSpeed " .. (GetSimRate() + rate))
-    end    
+    end
 end
 
 function DecreaseGameSpeed()
     if not WorldIsLoading() and (import('/lua/ui/game/gamemain.lua').supressExitDialog != true) then
         ConExecute('WLD_DecreaseSimRate')
-    end    
+    end
 end
 
 function IncreaseGameSpeed()
     if not WorldIsLoading() and (import('/lua/ui/game/gamemain.lua').supressExitDialog != true) then
         ConExecute('WLD_IncreaseSimRate')
-    end    
+    end
 end
 
 function OnApplicationResize(head, width, height)
