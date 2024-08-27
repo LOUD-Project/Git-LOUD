@@ -126,6 +126,22 @@ function GetAnimationPrefs()
     return true
 end
 
+function GetMainMenuAnimationDurationFactor()
+    -- No need to set an initial value as the Options Framework calls SetMainMenuAnimationDurationFactor()
+    -- once at startup before this function is called for the first time.
+    return mainMenuAnimationDurationFactor
+end
+
+function SetMainMenuAnimationDurationFactor(factor)
+    -- The higher the factor, the longer the animations last.
+    -- Actually, only the value zero means that the animations are deactivated.
+    -- However, due to the mathematical formulas used, the value must never be exactly zero, 
+    -- which is why a fairly small value is used so that the animation is played in less than
+    -- one frame and is therefore invisible. In this way, the original animation code can
+    -- be preserved as much as possible.
+    mainMenuAnimationDurationFactor = math.max(0.01, math.min(1, factor))
+end
+
 function GetLayoutFilename(key)
 
     if Layouts[currentLayout][key] then

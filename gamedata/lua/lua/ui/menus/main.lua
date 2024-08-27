@@ -1,6 +1,6 @@
 --* File: lua/modules/ui/menus/main.lua
 --* Author: Chris Blackwell, Evan Pongress | Modified By Tanksy
---* Summary: Create's the main menu screen, minus animations, music, video and with LOUD buttons.
+--* Summary: Create's the main menu screen, minus music, video and with LOUD buttons.
 
 local Bitmap            = import('/lua/maui/bitmap.lua').Bitmap
 local Button            = import('/lua/maui/button.lua').Button
@@ -253,7 +253,8 @@ function CreateUI()
             control.mod = -1
         end
         control.OnFrame = function(self, delta)
-            local newTop = self.Top() + (delta * 100000 * self.mod)
+            delta = delta / UIUtil.GetMainMenuAnimationDurationFactor()
+            local newTop = self.Top() + (delta * 1000 * self.mod)
             if animIn then
                 if newTop > topBorder.Bottom() then
                     newTop = topBorder.Bottom()
@@ -385,15 +386,16 @@ function CreateUI()
             control.wait = 0
             control.first = true
             control.OnFrame = function(self, delta)
-                self.time = 1.6
+                delta = delta / UIUtil.GetMainMenuAnimationDurationFactor()
+                self.time = self.time + delta
                 if self.first then
                     self.leftBracket:SetAlpha(1)
                     self.rightBracket:SetAlpha(1)
                     self.first = false
                 end
                 local change = (delta * 200)
-                local rightGoal = function() return self.Left() + LayoutHelpers.ScaleNumber(100) end
-                local leftGoal = function() return self.Right() - LayoutHelpers.ScaleNumber(100) end
+                local rightGoal = function() return self.Left() + LayoutHelpers.ScaleNumber(10) end
+                local leftGoal = function() return self.Right() - LayoutHelpers.ScaleNumber(10) end
                 if self.leftBracket.Right() < rightGoal() then
                     local newRight = self.leftBracket.Right() + change
                     if newRight > rightGoal() then
@@ -408,13 +410,19 @@ function CreateUI()
                     end
                     self.rightBracket.Left:Set(newLeft)
                 end
-
-            self.leftBracket.Right:Set(rightGoal)
-            self.rightBracket.Left:Set(leftGoal)
-            self:SetItemAlpha(1)
-            self:EnableHitTest()
-            self:SetNeedsFrameUpdate(false)
-
+                if self.time > .5 and self.time > self.wait then
+                    local num = math.random(20, 70)/100
+                    local waitRand = math.random(0, 3)/10
+                    self.wait = self.time + waitRand
+                    self:SetItemAlpha(num)
+                end
+                if self.time > 1.5 then
+                    self.leftBracket.Right:Set(rightGoal)
+                    self.rightBracket.Left:Set(leftGoal)
+                    self:SetItemAlpha(1)
+                    self:EnableHitTest()
+                    self:SetNeedsFrameUpdate(false)
+                end
             end
         end
 
@@ -427,11 +435,12 @@ function CreateUI()
             control.time = 0
             control.wait = 0
             control.OnFrame = function(self, delta)
-                self.time = 1.6  --self.time + delta
+                delta = delta / UIUtil.GetMainMenuAnimationDurationFactor()
+                self.time = self.time + delta
                 if self.time < 1 and self.time > self.wait then
                     local num = math.random(20, 80)/100
                     local waitRand = math.random(0, 3)/10
-                    self.wait = 0
+                    self.wait = self.time + waitRand
                     self:SetItemAlpha(num)
                 end
                 local rightGoal = function() return menuBracketLeft.Right() - LayoutHelpers.ScaleNumber(15) end
@@ -458,7 +467,7 @@ function CreateUI()
                         self.rightBracket.Left:Set(newLeft)
                     end
                 end
-                if self.time > .1 then
+                if self.time > 1.5 then
                     self.leftBracket.Right:Set(rightGoal)
                     self.rightBracket.Left:Set(leftGoal)
                     self:SetNeedsFrameUpdate(false)
@@ -521,7 +530,7 @@ function CreateUI()
                             return true
                         end
                         if event == 'enter' then
-                            EffectHelpers.FadeIn(self.glow, .025, 0, 1)
+                            EffectHelpers.FadeIn(self.glow, .25 * UIUtil.GetMainMenuAnimationDurationFactor(), 0, 1)
                             if self.label then
                                 self.label:SetColor('black')
                             end
@@ -530,7 +539,7 @@ function CreateUI()
                                 self.label:SetColor('black')
                             end
                         else
-                            EffectHelpers.FadeOut(self.glow, .04, 1, 0)
+                            EffectHelpers.FadeOut(self.glow, .4 * UIUtil.GetMainMenuAnimationDurationFactor(), 1, 0)
                             if self.label then
                                 self.label:SetColor(menuFontColor)
                             end
@@ -578,22 +587,22 @@ function CreateUI()
                     if control:IsDisabled() then
                         control:SetTexture(UIUtil.UIFile('/scx_menu/large-no-bracket-btn/large_btn_dis.dds'))
                     end
-                    control.time = 1
+                    control.time = 0
                     control.wait = 0
                     control.first = true
                     control.OnFrame = function(self, delta)
+                        delta = delta / UIUtil.GetMainMenuAnimationDurationFactor()
                         self.time = self.time + delta
                         if self.first then
                             self.leftBracket:SetAlpha(1)
                             self.rightBracket:SetAlpha(1)
                             self.first = false
                         end
-                        if self.time > .05 and self.time > self.wait then
+                        if self.time > .5 and self.time > self.wait then
                             self.OnClick = self.clickfunc
                             local num = math.random(20, 70)/100
                             local waitRand = math.random(0, 3)/10
-                            --self.wait = self.time + waitRand
-                            self.wait = 0
+                            self.wait = self.time + waitRand
                             self:SetItemAlpha(num)
                         end
                         local change = (delta * 200)
@@ -613,7 +622,7 @@ function CreateUI()
                             end
                             self.rightBracket.Left:Set(newLeft)
                         end
-                        if self.time > .1 then
+                        if self.time > 1.5 then
                             self.leftBracket.Right:Set(rightGoal)
                             self.rightBracket.Left:Set(leftGoal)
                             self:SetItemAlpha(1)
@@ -632,19 +641,20 @@ function CreateUI()
                     control:SetNeedsFrameUpdate(true)
                     control.OnRolloverEvent = function() end
                     control.OnClick = function() end
-                    control.time = 1
+                    control.time = 0
                     control.wait = 0
                     control.OnFrame = function(self, delta)
+                        delta = delta / UIUtil.GetMainMenuAnimationDurationFactor()
                         self.time = self.time + delta
-                        if self.time < .1 and self.time > self.wait then
+                        if self.time < 1 and self.time > self.wait then
                             local num = math.random(20, 80)/100
                             local waitRand = math.random(0, 3)/10
-                            self.wait = 0
+                            self.wait = self.time + waitRand
                             self:SetItemAlpha(num)
                         end
                         local rightGoal = function() return menuBracketLeft.Right() - LayoutHelpers.ScaleNumber(15) end
                         local leftGoal = function() return menuBracketRight.Left() + LayoutHelpers.ScaleNumber(15) end
-                        if self.time >= .1 then
+                        if self.time >= 1 then
                             if self:GetAlpha() > 0 then
                                 self:SetItemAlpha(0)
                             end
@@ -666,7 +676,7 @@ function CreateUI()
                                 self.rightBracket.Left:Set(newLeft)
                             end
                         end
-                        if self.time > .1 then
+                        if self.time > 1.5 then
                             self.leftBracket.Right:Set(rightGoal)
                             self.rightBracket.Left:Set(leftGoal)
                             self:SetItemAlpha(0)
@@ -683,6 +693,7 @@ function CreateUI()
 
         if initial then
             ForkThread(function()
+                WaitSeconds(.2 * UIUtil.GetMainMenuAnimationDurationFactor())
                 MenuAnimation(true)
             end)
             initial = false
@@ -731,10 +742,8 @@ function CreateUI()
     -- Animate the menu
 
     function MenuAnimation(fadeIn, callback, skipSlide)
-        skipSlide = true
         animation_active = true
         local function ButtonFade(menuSlide)
-            menuSlide = false
             ForkThread(function()
                 for i, v in mainMenu do
                     if not v.btn then
@@ -751,6 +760,7 @@ function CreateUI()
                 else
                     mainMenu.profile:FadeOut()
                 end
+                WaitSeconds(1.5 * UIUtil.GetMainMenuAnimationDurationFactor())
                 if menuSlide then
                     menuBracketMiddle:Animate(fadeIn, callback)
                 elseif callback then
@@ -774,7 +784,7 @@ function CreateUI()
 
     function MenuHide(callback)
         MenuAnimation(false, function()
-            EffectHelpers.FadeIn(darker, .1, 0, .4)
+            EffectHelpers.FadeIn(darker, UIUtil.GetMainMenuAnimationDurationFactor(), 0, .4)
             mainMenuGroup:Hide()
             logo:Hide()
             mainMenuGroup.Depth:Set(50)        -- setting depth below topLayerGroup (100) to avoid the button glow persisting when overlays are up
@@ -787,7 +797,7 @@ function CreateUI()
         mainMenuGroup:Show()
         logo:Show()
         legalText:Show()
-        EffectHelpers.FadeOut(darker, .1, .4, 0)
+        EffectHelpers.FadeOut(darker, UIUtil.GetMainMenuAnimationDurationFactor(), .4, 0)
         MenuAnimation(true)
     end
 
