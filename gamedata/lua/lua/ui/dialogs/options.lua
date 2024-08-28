@@ -473,7 +473,7 @@ function CreateDialog(over, exitBehavior)
             ,"<LOC _Cancel>", cancelFunc
             , nil, nil
             , true
-            , {escapeButton = 2, enterButton = 1, worldCover = false}
+            , {escapeButton = 2, enterButton = 1, worldCover = true}
         )
     end
     OptionsLogic.SetSummonRestartDialogCallback(OptionRestartFunc)
