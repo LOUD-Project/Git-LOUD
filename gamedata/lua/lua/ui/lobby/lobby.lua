@@ -4512,11 +4512,12 @@ function ShowMapPositions(mapCtrl, scenario, numPlayers)
 
     local startPos = MapUtil.GetStartPositions(scenario)
 
-    local cHeight = GUI.posGroup:Height()
-    local cWidth = GUI.posGroup:Width()
+    local cHeight = LayoutHelpers.InvScaleNumber(GUI.posGroup:Height())
+    local cWidth = LayoutHelpers.InvScaleNumber(GUI.posGroup:Width())
 
     local mWidth = scenario.size[1]
     local mHeight = scenario.size[2]
+    local xOffset, yOffset, largest = ComputeNonSquareOffset(mWidth, mHeight)
 
     local playerArmyArray = MapUtil.GetArmies(scenario)
 
@@ -4612,15 +4613,11 @@ function ShowMapPositions(mapCtrl, scenario, numPlayers)
             Button.HandleEvent(self, event)
         end
 
-        local width = scenario.size[1]
-        local height = scenario.size[2]
-        local xOffset, yOffset, largest = ComputeNonSquareOffset(width, height)
-
         LayoutHelpers.AtLeftTopIn(
             GUI.markers[slot].marker, 
             GUI.posGroup, 
-            ((xOffset + pos[1] / LayoutHelpers.ScaleNumber(largest)) * cWidth) - (GUI.markers[slot].marker.Width() / 2), 
-            ((yOffset + pos[2] / LayoutHelpers.ScaleNumber(largest)) * cHeight) - (GUI.markers[slot].marker.Height() / 2)
+            ((xOffset + pos[1] / largest) * cWidth) - LayoutHelpers.InvScaleNumber(GUI.markers[slot].marker.Width() / 2), 
+            ((yOffset + pos[2] / largest) * cHeight) - LayoutHelpers.InvScaleNumber(GUI.markers[slot].marker.Height() / 2)
         )
         
         local index = slot
@@ -4628,8 +4625,7 @@ function ShowMapPositions(mapCtrl, scenario, numPlayers)
         GUI.markers[slot].Indicator = Bitmap(GUI.markers[slot].marker, UIUtil.UIFile('/game/beacons/beacon-quantum-gate_btn_up.dds'))
         LayoutHelpers.AtCenterIn(GUI.markers[slot].Indicator, GUI.markers[slot].marker)
         
-        GUI.markers[slot].Indicator.Height:Set(function() return LayoutHelpers.ScaleNumber(GUI.markers[index].Indicator.BitmapHeight() * .3) end)
-        GUI.markers[slot].Indicator.Width:Set(function() return LayoutHelpers.ScaleNumber(GUI.markers[index].Indicator.BitmapWidth() * .3) end)
+        LayoutHelpers.SetDimensions(GUI.markers[slot].Indicator, GUI.markers[index].Indicator.BitmapWidth() * .3, GUI.markers[index].Indicator.BitmapHeight() * .3)
         GUI.markers[slot].Indicator.Depth:Set(function() return GUI.markers[index].marker.Depth() - 1 end)
         GUI.markers[slot].Indicator:Hide()
         GUI.markers[slot].Indicator:DisableHitTest()
@@ -5523,11 +5519,12 @@ function NewShowMapPositions(mapCtrl, scenario, numPlayers)
 
 	local startPos = MapUtil.GetStartPositions(scenario)
 
-	local cHeight = posGroup:Height()
-	local cWidth = posGroup:Width()
+	local cHeight = LayoutHelpers.InvScaleNumber(posGroup:Height())
+	local cWidth = LayoutHelpers.InvScaleNumber(posGroup:Width())
 
 	local mWidth = scenario.size[1]
 	local mHeight = scenario.size[2]
+	local xOffset, yOffset, largest = ComputeNonSquareOffset(mWidth, mHeight)
 
 	local playerArmyArray = MapUtil.GetArmies(scenario)
 
@@ -5641,13 +5638,9 @@ function NewShowMapPositions(mapCtrl, scenario, numPlayers)
 		end
         
 
-        local width = scenarioInfo.size[1]
-        local height = scenarioInfo.size[2]
-        local xOffset, yOffset, largest = ComputeNonSquareOffset(width, height)
-
 		LayoutHelpers.AtLeftTopIn(bMP.markers[slot].marker, posGroup, 
-			((xOffset + pos[1] / LayoutHelpers.ScaleNumber(largest)) * cWidth) - (bMP.markers[slot].marker.Width() / 2), 
-			((yOffset + pos[2] / LayoutHelpers.ScaleNumber(largest)) * cHeight) - (bMP.markers[slot].marker.Height() / 2))
+			((xOffset + pos[1] / largest) * cWidth) - LayoutHelpers.InvScaleNumber(bMP.markers[slot].marker.Width() / 2), 
+			((yOffset + pos[2] / largest) * cHeight) - LayoutHelpers.InvScaleNumber(bMP.markers[slot].marker.Height() / 2))
         
 		local index = slot
 		
@@ -5655,8 +5648,7 @@ function NewShowMapPositions(mapCtrl, scenario, numPlayers)
 		
 		LayoutHelpers.AtCenterIn(bMP.markers[slot].Indicator, bMP.markers[slot].marker)
 		
-		bMP.markers[slot].Indicator.Height:Set(function() return bMP.markers[index].Indicator.BitmapHeight() * .3 end)
-		bMP.markers[slot].Indicator.Width:Set(function() return bMP.markers[index].Indicator.BitmapWidth() * .3 end)
+		LayoutHelpers.SetDimensions(bMP.markers[slot].Indicator, bMP.markers[index].Indicator.BitmapWidth() * .3, bMP.markers[index].Indicator.BitmapHeight() * .3)
 		bMP.markers[slot].Indicator.Depth:Set(function() return bMP.markers[index].marker.Depth() - 1 end)
 		bMP.markers[slot].Indicator:Hide()
 		bMP.markers[slot].Indicator:DisableHitTest()
