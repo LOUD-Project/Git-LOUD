@@ -210,8 +210,8 @@ local function ShowMapPositions(mapCtrl, scenario)
 
     local startPos = MapUtil.GetStartPositions(scenario)
 
-    local cHeight = posGroup:Height()
-    local cWidth = posGroup:Width()
+    local cHeight = LayoutHelpers.InvScaleNumber(posGroup:Height())
+    local cWidth = LayoutHelpers.InvScaleNumber(posGroup:Width())
 
     local mWidth = scenario.size[1]
     local mHeight = scenario.size[2]
@@ -224,8 +224,8 @@ local function ShowMapPositions(mapCtrl, scenario)
         LayoutHelpers.AtLeftTopIn(
             marker, 
             posGroup, 
-            ((xOffset + pos[1] / LayoutHelpers.ScaleNumber(largest)) * cWidth) - (marker.Width() / 2), 
-            ((yOffset + pos[2] / LayoutHelpers.ScaleNumber(largest)) * cHeight) - (marker.Height() / 2)
+            ((xOffset + pos[1] / largest) * cWidth) - LayoutHelpers.InvScaleNumber(marker.Width() / 2), 
+            ((yOffset + pos[2] / largest) * cHeight) - LayoutHelpers.InvScaleNumber(marker.Height() / 2)
         )
     end
 end
