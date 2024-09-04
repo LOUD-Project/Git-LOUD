@@ -939,11 +939,11 @@ BuffBlueprint { Name = 'CheatENG',
 		},
         AccelMult = {
             Add = 0,
-            Mult = 1.1,
+            Mult = 1.08,
         },
         TurnMult = {
             Add = 0,
-            Mult = 1.1,
+            Mult = 1.08,
         },
         VisionRadius = {
             Add = 12,
@@ -968,15 +968,15 @@ BuffBlueprint { Name = 'CheatMOBILE',
     Affects = {
 		SpeedMult = {
 			Add = 0,
-			Mult = 1.15,
+			Mult = 1.06,
 		},
         AccelMult = {
             Add = 0,
-            Mult = 1.15,
+            Mult = 1.06,
         },
         TurnMult = {
             Add = 0,
-            Mult = 1.15,
+            Mult = 1.08,
         }
 	},
 }
@@ -1005,6 +1005,27 @@ BuffBlueprint { Name = 'CheatALL',
 			Mult = 1,
 		}
     },
+}
+
+BuffBlueprint { Name = 'OutOfFuel',
+    BuffType = 'MOVEMENTCHEAT',
+	ParsedEntityCategory = categories.MOBILE * categories.AIR,
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    Affects = {
+		SpeedMult = {
+			Add = 0,
+			Mult = 0.4,
+		},
+        AccelMult = {
+            Add = 0,
+            Mult = 0.4,
+        },
+        TurnMult = {
+            Add = 0,
+            Mult = 0.25,
+        }
+	},
 }
 
 
