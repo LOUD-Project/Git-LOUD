@@ -37,6 +37,7 @@ UnitBlueprint {
         'TECH3',
 		'DEFENSE',
 		'STRUCTURE',
+        'HOVER',
         'ANTINAVY',
         'DRAGBUILD',
         'NEEDMOBILEBUILD',
