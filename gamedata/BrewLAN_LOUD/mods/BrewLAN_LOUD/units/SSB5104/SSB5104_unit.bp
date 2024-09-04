@@ -2,10 +2,10 @@ UnitBlueprint {
 
     AI = {
         GuardScanRadius = 200,
-        RefuelingMultiplier = 33,
-        RefuelingRepairAmount = 333,
-        RepairConsumeEnergy = 5,
-        RepairConsumeMass = 0.5,
+        RefuelingMultiplier = 10,
+        RefuelingRepairAmount = 50,
+        RepairConsumeEnergy = 25,
+        RepairConsumeMass = 2.5,
         ShowAssistRangeOnSelect = true,
         StagingPlatformScanRadius = 200,
     },
