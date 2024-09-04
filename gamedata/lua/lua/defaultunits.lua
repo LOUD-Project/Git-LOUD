@@ -2808,7 +2808,7 @@ AirStagingPlatformUnit = Class(StructureUnit) {
         end
 
         -- force an unload 20 seconds after an attach
-        self.ForcedUnload = self:ForkThread( function(self) WaitTicks(200) IssueTransportUnload( {self},self:GetPosition() )  end )
+        --self.ForcedUnload = self:ForkThread( function(self) WaitTicks(200) IssueTransportUnload( {self},self:GetPosition() )  end )
         
 		self.UnitStored[unit.EntityID] = true
 

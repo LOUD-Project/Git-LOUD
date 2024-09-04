@@ -1891,8 +1891,18 @@ function ProcessAirUnits( unit, aiBrain )
 
             if not unit.InRefit then
             
+                if unit.RefitThread then
+                
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." Unit "..unit.Sync.id.." killing existing refit thread")
+                    
+                    KillThread(unit.RefitThread)
+                    
+                    unit.RefitThread = nil
+
+                end
+            
                 -- and send it off to the refit thread --
-                unit:ForkThread( AirUnitRefitThread, aiBrain )
+                unit.RefitThread = unit:ForkThread( AirUnitRefitThread, aiBrain )
                 
                 return true
             end
@@ -1906,20 +1916,23 @@ end
 -- and will wait until the unit is fueled and repaired
 function AirUnitRefitThread( unit, aiBrain )
     
-    if unit.Dead or unit.InRefit then
+    if unit.Dead then
         return
     end
 
     local PlatoonDialog = ScenarioInfo.PlatoonDialog
-
-    local RefitDialog = false
+    local RefitDialog   = false
+    
+    unit.InRefit = true    
+    
+    while (not unit.Dead) and unit.IgnoreRefit do
+        WaitTicks(9)
+    end
 
 	-- if not dead 
 	if (not unit.Dead) then
-    
-        unit.InRefit = true
 
-        local ident = Random(100000,999999)
+        local ident = unit.Sync.id  --Random(100000,999999)
 
         if PlatoonDialog or RefitDialog then
             LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon Creates AirRefit"..tostring(ident) )
@@ -1966,7 +1979,7 @@ function AirUnitRefitThread( unit, aiBrain )
 			fuel    = GetFuelRatio(unit)
 			health  = GetHealthPercent(unit)
 			
-			if ( fuel > -1 and fuel < fuellimit ) or health < healthlimit then
+			if ( fuel > -1 and fuel <= fuellimit ) or health <= healthlimit then
   
                 if RefitDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." still needs refit " )
@@ -1974,9 +1987,10 @@ function AirUnitRefitThread( unit, aiBrain )
   				
                 unitPos = LOUDCOPY(GetPosition(unit))
 				
-				-- now limit to airpads within 30k
-				plats = GetUnitsAroundPoint( aiBrain, AIRPADS, unitPos, 1536, 'Ally' )
+				--- now limit to airpads within 30k
+				plats = GetOwnUnitsAroundPoint( aiBrain, AIRPADS, unitPos, 1536 )
 
+                --- if a transport - filter out the T1 airpads
                 if LOUDENTITY( categories.TRANSPORTFOCUS, unit) then
                     plats = EntityCategoryFilterDown(AIRPADS - categories.TECH1, plats )
                 end
@@ -1995,8 +2009,24 @@ function AirUnitRefitThread( unit, aiBrain )
                             LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." finds airpad" )
                         end
 
-                        AirStagingThread( unit, closestairpad, aiBrain )
+                        unit.AirStaging = unit:ForkThread( AirStagingThread, closestairpad, aiBrain )
+                        
+                        while unit.AirStaging do
+
+                            WaitTicks(11)
+
+                            if RefitDialog then
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." in AirStaging" )
+                            end
+                            
+                        end
+
+                        if RefitDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." returns from Air Staging - rtbissued is "..repr(rtbissued) )
+                        end
+
                     end
+
                 end
 
 				-- no airpad - just send them home --
@@ -2062,7 +2092,7 @@ function AirUnitRefitThread( unit, aiBrain )
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." processing wait in refit at tick "..GetGameTick() )
                 end
 
-                WaitTicks(26)
+                WaitTicks(21)
                 
                 if not plats[1] then
                 
@@ -2085,11 +2115,11 @@ function AirUnitRefitThread( unit, aiBrain )
         if RefitDialog then
             LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." exits Refit at tick "..GetGameTick() )
         end
-
+        
+        unit.InRefit = nil
+        
         -- weapons turned back on (just in case)
         unit:MarkWeaponsOnTransport(unit, false)
-
-        unit.InRefit = nil        
 
 		-- all units except TRUE transports are returned to ArmyPool --
 		if not LOUDENTITY( categories.TRANSPORTFOCUS, unit) or LOUDENTITY( categories.uea0203, unit ) then
@@ -2113,7 +2143,12 @@ function AirUnitRefitThread( unit, aiBrain )
 			ForkThread( ReturnTransportsToPool, aiBrain, {unit}, true )
             
 		end
+
 	end
+    
+    unit.InRefit = nil
+    unit.RefitThread = nil
+
 end
 
 -- this function will be called if an airunit finds an airstage to go to
@@ -2125,30 +2160,32 @@ function AirStagingThread( unit, airstage, aiBrain )
         LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." begins AirStagingThread at "..GetGameTick() )
     end
 
-	local loadstatus = 0
-
     local EntityCategoryContains    = EntityCategoryContains
     local GetFuelRatio              = GetFuelRatio
     local GetHealthPercent          = unit.GetHealthPercent
     local IsUnitState               = IsUnitState
     local WaitTicks                 = WaitTicks
-	
-	if not airstage.Dead and aiBrain.PathRequests then
+
+    local stage = GetPosition(airstage)
+
+	if (not airstage.Dead) and aiBrain.PathRequests then
 		
 		if not unit.Dead then
-
-			IssueStop( {unit} )
-			IssueClearCommands( {unit} )
             
+            local unitpos = GetPosition(unit)
+
             local safePath, reason
             
             if aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD then
 
-                safePath, reason = aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD(aiBrain, unit.PlatoonHandle, 'Air', GetPosition(unit), GetPosition(airstage), 20, 256)
+                safePath, reason = aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD(aiBrain, unit.PlatoonHandle, 'Air', unitpos, stage, 20, 256)
             
             end
             
             if not unit.Dead then
+
+                IssueStop( {unit} )
+                IssueClearCommands( {unit} )
 			
                 if safePath then
 
@@ -2169,63 +2206,127 @@ function AirStagingThread( unit, airstage, aiBrain )
                     end
 
                     -- go direct -- possibly bad
-                    IssueMove( {unit}, GetPosition(airstage))
+                    IssueMove( {unit}, stage )
                 
                 end
             
+            end
+           
+            while (not unit.Dead) and VDist2(unitpos[1],unitpos[3], stage[1],stage[3]) > 24 do
+                WaitTicks(3)
+            end
+
+            local navigator = unit:GetNavigator()
+
+            IssueStop( {unit} )
+			IssueClearCommands( {unit} )
+            
+            if navigator and stage then
+                navigator:SetGoal( stage )
             end
 
 			if not (unit.Dead or airstage.Dead) and (not unit:IsUnitState('Attached')) then
 
                 safecall("Unable to IssueTransportLoad units are "..repr(unit), IssueTransportLoad, {unit}, airstage )
 
-				unit:MarkWeaponsOnTransport(unit, true)		-- disable weapons so they wont seek targets -- I hope
-			end
+                unit:MarkWeaponsOnTransport(unit, true)		-- disable weapons so they wont seek targets -- I hope
+
+            end
+
 		end
+
 	end
 
 	local waitcount = 0
 	
-	-- loop until unit attached, idle, dead or it's fixed itself
+	--- loop until unit attached, idle, dead or it's fixed itself
 	while (not unit.Dead) and (not airstage.Dead) do
-
-        if RefitDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." refit path cycles at "..GetGameTick() )
-        end
-        
+     
         if IsUnitState( unit, 'Attached' ) then
             break
         end
 		
-		if (( GetFuelRatio(unit) < .80 and GetFuelRatio(unit) != -1) or GetHealthPercent(unit) < .80) and (not airstage.Dead) then
+		if (( GetFuelRatio(unit) < .85 and GetFuelRatio(unit) != -1) or GetHealthPercent(unit) < .85) and (not airstage.Dead) then
 
-			WaitTicks( 11 + LOUDFLOOR(VDist3( unit:GetPosition(),airstage:GetPosition() ) / 20 ) )
-
+			WaitTicks( 16 )
             waitcount = waitcount + 1
         else
 			break
 		end
-        
-        if (not EntityCategoryContains( categories.CANNOTUSEAIRSTAGING, unit)) and waitcount > 90 then
 
-            return AirStagingThread( unit, airstage, aiBrain )
+        if RefitDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." refit loading cycle "..waitcount.." at tick "..GetGameTick() )
+        end
+
+        -- cant attach ? just land nearby
+        if (not EntityCategoryContains( categories.CANNOTUSEAIRSTAGING, unit)) and waitcount > 20 then
+        
+            IssueStop( {unit} )
+            IssueClearCommands( {unit} )
+            
+            WaitTicks(41)
+            
+            if (not airstage:BeenDestroyed()) then
+
+                if airstage:TransportHasSpaceFor( unit ) then
+
+                    waitcount = 5
+                
+                    --- try again ---
+                    safecall("Unable to IssueTransportLoad units are "..repr(unit), IssueTransportLoad, {unit}, airstage )
+                
+                else
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." airstage has NO space for "..unit.Sync.id.." airstage is "..repr(airstage) )
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." airstage has "..LOUDGETN( airstage:GetCargo() ).." units apparently")
+
+                    if LOUDGETN( airstage:GetCargo() ) < 1 then
+                        IssueTransportUnload( {airstage}, stage )
+                    end
+
+                end
+
+            else
+                waitcount = 41
+            end
+            
+            if waitcount > 40 then  --- just land
+        
+                IssueStop( {unit} )
+                IssueClearCommands( {unit} )
+
+                break
+            end
+
         end
         
 	end
 
-	-- get it off the airpad
-	if (not airstage.Dead) and (not unit.Dead) and IsUnitState( unit,'Attached') then
-		
+	--- get it off the airpad
+	if (not airstage.Dead) and (not unit.Dead) then
+
+        local attached = false
+
 		-- we should be loaded onto airpad at this point
 		-- some interesting behaviour here - usually when a unit is ready 
 		-- it will lift off and exit by itself BUT
 		-- sometimes we have to force it off -- when we do so we have
 		-- to manually restore it's normal conditions (ie. - can take damage)
-		if (not unit.Dead) and (not airstage.Dead) and IsUnitState( unit,'Attached') then
-		
+		if IsUnitState( unit,'Attached') then
+            
+            attached = true
+            
+            waitcount = 1
+
+            if RefitDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." now attached to airpad at tick "..GetGameTick() )
+            end
+		end
+        
+        if (not unit.Dead) then
+
 			local ready = false
 			
-			while (not ready) and (not airstage.Dead) do
+			while (not ready) and (not unit.Dead) do
             
                 if RefitDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." waiting to finish refuel at tick "..GetGameTick() )
@@ -2233,22 +2334,18 @@ function AirStagingThread( unit, airstage, aiBrain )
 
                 local fuel = GetFuelRatio(unit)
 			
-				if (not unit.Dead) and ( fuel > -1 and fuel > .85 and GetHealthPercent(unit) > .85)  then
+				if (not unit.Dead) and ( fuel > -1 and fuel >= .85 and GetHealthPercent(unit) >= .85)  then
 					ready = true
 					break
 				end
 				
 				WaitTicks(16)
-			end
-			
-			if ready and IsUnitState(unit,'Attached') and (not unit.Dead) and (not airstage.Dead) then
-			
-				if airstage.UnitStored[unit.EntityID] then
-					airstage.UnitStored[unit.EntityID] = nil
-				end
 
-				unit:OnRemoveFromStorage(airstage)
 			end
+            
+            if RefitDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." finished refuel at tick "..GetGameTick() )
+            end
 
 			unit:SetCanTakeDamage(true)
 			unit:SetDoNotTarget(false)
@@ -2257,16 +2354,43 @@ function AirStagingThread( unit, airstage, aiBrain )
 			unit:ShowBone(0, true)            
 
 		end
+
 	end
 	
 	if not unit.Dead then
+      
+        while IsUnitState(unit,'Attached') do
+
+            WaitTicks(2)
+            
+            if RefitDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." waiting to detach at tick "..GetGameTick() )
+            end
+            
+            waitcount = waitcount + 1
+            
+            if waitcount > 12 then
+                IssueTransportUnload( {airstage}, stage )
+            end
+
+        end
+
+        if airstage.UnitStored[unit.EntityID] then
+			airstage.UnitStored[unit.EntityID] = nil
+		end
+
+		unit:OnRemoveFromStorage(airstage)
+
+		unit:MarkWeaponsOnTransport(unit, false)
 
         if RefitDialog then
             LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." leaves AirStagingThread at tick "..GetGameTick() )
         end
 
-		unit:MarkWeaponsOnTransport(unit, false)
+        unit.AirStaging = nil
+  
 	end	
+
 end
 
 -- this will return true or false depending upon if an enemy ANTITELEPORT
@@ -6841,6 +6965,76 @@ function DrawIntel( aiBrain, parseinterval)
 		WaitTicks(parseinterval)
 	end
 	
+end
+
+function TrackProj(projectitem, unit)
+
+    WaitTicks(2)
+
+    if unit:BeenDestroyed() or projectitem:BeenDestroyed() then
+        return
+    end
+ 
+    if not LOUDENTITY(categories.MOBILE,unit) then
+        return
+    end
+
+    local brain = GetAIBrain(unit)
+
+    if brain.BrainType == "AI" and string.sub( brain.Personality, 1, 1) == 'm' then
+
+        local bp = projectitem:GetBlueprint().Physics
+
+        if (bp.DetonateAboveHeight and bp.DetonateAboveHeight > 0) then
+            return
+        end
+        
+        if (bp.DetonateBelowHeight and bp.DetonateBelowHeight > 0) then
+
+            local tpos = projectitem:GetCurrentTargetPosition()
+            local mpos = projectitem:GetPosition()
+            local dist = VDist2( mpos[1],mpos[3], tpos[1],tpos[3] )
+            
+            local prevdist = dist
+            
+            while not projectitem:BeenDestroyed() do
+        
+                tpos = projectitem:GetCurrentTargetPosition()
+                mpos = projectitem:GetPosition()
+                dist = VDist2( mpos[1],mpos[3], tpos[1],tpos[3] )
+            
+                if dist <= 9 or prevdist < dist then
+                    break
+                else
+                    WaitTicks(2)
+                end
+            end
+        
+        elseif projectitem.Distance then
+
+            while (not projectitem:BeenDestroyed()) and projectitem.Distance > 10 do
+                WaitTicks(2)
+            end
+        end
+
+        if (not projectitem:BeenDestroyed()) and (not unit:BeenDestroyed()) then
+            
+            if (not bp.TrackTarget) and (not bp.TrackTargetGround) then
+                projectitem:TrackTarget(true)
+            end
+
+            if bp.TrackTargetGround then
+                projectitem:SetNewTargetGround(projectitem:GetCurrentTargetPosition())
+            end
+ 
+            if bp.Acceleration and bp.Acceleration > 0 and bp.Acceleration < 2 then
+                projectitem:SetAcceleration(2)
+            end
+
+        end
+
+    end
+
 end
 
 function LogGamePerformanceData()
