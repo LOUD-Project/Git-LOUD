@@ -8,6 +8,9 @@ local AIGetMarkersAroundLocation    = import('ai/aiutilities.lua').AIGetMarkersA
 local GetOwnUnitsAroundPoint        = import('ai/aiutilities.lua').GetOwnUnitsAroundPoint
 local RandomLocation                = import('ai/aiutilities.lua').RandomLocation
 local SetArmyPoolBuff               = import('ai/aiutilities.lua').SetArmyPoolBuff
+local ApplyBuff                     = import('/lua/sim/buff.lua').ApplyBuff
+local HasBuff                       = import('/lua/sim/buff.lua').HasBuff
+local RemoveBuff                    = import('/lua/sim/buff.lua').RemoveBuff
 local AISendChat                    = import('/lua/ai/sorianutilities.lua').AISendChat
 local AssignTransportToPool         = import('/lua/ai/transportutilities.lua').AssignTransportToPool
 local ReturnTransportsToPool        = import('/lua/ai/transportutilities.lua').ReturnTransportsToPool
@@ -688,8 +691,9 @@ function SpawnWaveThread( aiBrain )
 			continue
 		end    
 		
-		-- increase the size of the wave each time and vary it with the build cheat level
-		local units = LOUDFLOOR((wave * 1.5) * aiBrain:TotalCheat() )
+		-- increase the size of the wave each time and vary it with the MajorCheatModifier (about 66% of the nominal cheat)
+		local units = LOUDFLOOR((wave * 1.2) * aiBrain.MajorCheatModifier )
+
         -- insure that there is always at least 1 unit (in case of negative multipliers)
         local units = LOUDMAX( units, 1 )
 		
@@ -760,7 +764,7 @@ function SpawnWaveThread( aiBrain )
         -- each reduction will be smaller than the last until wave 10 when it becomes the same
         -- initial reduction is 30 seconds + cheat
         -- final   reduction is 12 seconds + cheat
-		spawndelay = spawndelay - ( (30 - ((wave-1)*2) ) * aiBrain:TotalCheat() )
+		spawndelay = spawndelay - ( (30 - ((wave-1)*2) ) * aiBrain.MajorCheatModifier )
         
 		--LOG("*AI DEBUG "..aiBrain.Nickname.." gets spawnwave of "..units.." at "..GetGameTimeSeconds().." seconds")
         --LOG("*AI DEBUG "..aiBrain.Nickname.." next spawnwave in "..spawndelay.." seconds")
