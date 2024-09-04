@@ -108,8 +108,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 420000,
-        BuildCostMass = 26000,
+        BuildCostEnergy = 428000,
+        BuildCostMass = 26500,
         BuildTime = 21000,
     },
 	
@@ -160,8 +160,8 @@ UnitBlueprint {
 
         LayerChangeOffsetHeight = -4,
         
-        MaxAcceleration = 1.4,
-        MaxBrake = 2.5,
+        MaxAcceleration = 0.85,
+        MaxBrake = 1.25,
         MaxSpeed = 2.5,
         MaxSpeedReverse = 2.5,
         
@@ -220,15 +220,18 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
-            BeamLifetime = 1,	-- do dmg 10x per on fire = 10000dmg
+            BeamLifetime = 1,	-- do dmg 10x per on fire = 9000dmg
 			
             CollideFriendly = false,
             ContinuousBeam = false,
 			
-            Damage = 1000,
+            Damage = 900,
             DamageFriendly = true,
             DamageType = 'ShieldMult0.8',
-            DamageRadius = 1.5,
+            DamageRadius = 1.2,
+
+            EnergyDrainPerSecond = 650,
+            EnergyRequired = 3250,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -254,11 +257,12 @@ UnitBlueprint {
 
             RackSlavedToTurret = true,
 
-            RateOfFire = 0.2,	-- fire every 5 seconds = 2000dps
+            RateOfFire = 1,	-- fire every 5 seconds - controlled by charge = 1800dps
 			
             ReTargetOnMiss = true,
 			
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1,
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
