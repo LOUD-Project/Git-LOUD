@@ -25,6 +25,7 @@ local LOUDEQUAL             = table.equal
 local LOUDFLOOR             = math.floor
 local LOUDGETN              = table.getn
 local LOUDINSERT            = table.insert
+local LOUDLERP              = MATH_Lerp
 local LOUDLOG               = math.log10
 local LOUDMAX               = math.max
 local LOUDMIN               = math.min
@@ -181,17 +182,17 @@ function LifeThread( aiBrain, cdr )
     local mincome, mrequested, mneeded
     local eincome, erequested, eneeded
     
-    local GetEconomyIncome = AIBrainMethods.GetEconomyIncome
-    local GetEconomyRequested = AIBrainMethods.GetEconomyRequested
+    local GetEconomyIncome      = AIBrainMethods.GetEconomyIncome
+    local GetEconomyRequested   = AIBrainMethods.GetEconomyRequested
     local GetEconomyStoredRatio = GetEconomyStoredRatio
-    local GiveResource = AIBrainMethods.GiveResource
-    local WaitTicks = WaitTicks
+    local GiveResource          = AIBrainMethods.GiveResource
+    local WaitTicks             = WaitTicks
     
     local MATHMIN = LOUDMIN
 
     while true do
     
-        WaitTicks(2)
+        WaitTicks(11)
         
         if GetEconomyStoredRatio( aiBrain, 'MASS') < .01 then
         
@@ -2483,7 +2484,7 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
     local LOUDMAX   = LOUDMAX
     local LOUDMIN   = LOUDMIN
     local LOUDSORT  = LOUDSORT
-    local LOUDLERP  = MATH_Lerp
+    local LOUDLERP  = LOUDLERP
     local VDist3    = VDist3
     
     local VectorCached = { 0, 0, 0 }
@@ -2594,7 +2595,6 @@ end
 
 
 -- Basic Air attack logic
--- Now includes code for escorting fighters --
 function AirForceAILOUD( self, aiBrain )
 
     local AirForceDialog = ScenarioInfo.AirForceDialog or false
@@ -2725,7 +2725,7 @@ function AirForceAILOUD( self, aiBrain )
     local minrange, mythreat, platPos, Rangemult, searchrange, usethreat, Threatmult
     local AACount, SecondaryAATargets, SecondaryShieldTargets, ShieldCount, TertiaryCount, TertiaryTargets
 	local newpath, path, pathsize, prevposition, destiny
-    local attackcount, attackercount, attackers, targethealth
+    local attackcount, attackercount, attackers, retreat, targethealth
 	
 	local AIGetThreatLevelsAroundPoint = function(unitposition,threattype)
         
@@ -2838,6 +2838,8 @@ function AirForceAILOUD( self, aiBrain )
 
     local ProsecuteTarget = function( unit, mytarget )
     
+        unit.IgnoreRefit = true
+        
         local u = {unit}
 
         --- move unit to Attack Squad ---
@@ -2847,9 +2849,6 @@ function AirForceAILOUD( self, aiBrain )
         local navigator = unit:GetNavigator()
        
         IssueClearCommands( u )
-        
-        navigator:AbortMove()
-        navigator:SetGoal(target:GetPosition())
 
         if AirForceDialog then
             LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." unit "..unit.Sync.id.. " assigned to target "..repr(target.Sync.id).." on tick "..GetGameTick() )
@@ -2893,18 +2892,30 @@ function AirForceAILOUD( self, aiBrain )
 
                     IssueAttack( u, target )
 
-                    if navigator and targetdistance < 14 then
-                        navigator:SetGoal(navigator:GetCurrentTargetPos())
-                    end
-
                     WaitTicks(3)
                 end
 
             else
-                break
+
+                local weapon = unit:GetWeapon(1)
+                
+                if weapon:WeaponHastarget() and (not weapon:GetCurrentTarget().Dead) then
+                
+                    target = weapon:GetCurrentTarget()
+                
+                    if AirForceDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." unit "..unit.Sync.id.. " assigned NEW target "..repr(target.Sync.id).." on tick "..GetGameTick() )
+                    end
+                
+                else
+                    target = false
+                    break
+                end
             end
 
         end
+        
+        unit.IgnoreRefit = nil
       
         if (not unit:BeenDestroyed()) and PlatoonExists(aiBrain,self) then
 
@@ -2918,7 +2929,7 @@ function AirForceAILOUD( self, aiBrain )
         
                 IssueClearCommands( u )
                 
-                navigator:SetGoal(loiterposition)
+                IssueMove( u, loiterposition )
 
             end
             
@@ -2933,7 +2944,7 @@ function AirForceAILOUD( self, aiBrain )
         --- merge with other AirForceAILOUD groups with same plan
         if mergelimit and oldNumberOfUnitsInPlatoon < mergelimit then
 
-			if MergeWithNearbyPlatoons( self, aiBrain, 'AirForceAILOUD', 96, false, mergelimit) then
+			if MergeWithNearbyPlatoons( self, aiBrain, 'AirForceAILOUD', 96, true, mergelimit) then
 
                 if PlatoonFormation != 'None' then
                     self:SetPlatoonFormationOverride(PlatoonFormation)
@@ -2960,8 +2971,8 @@ function AirForceAILOUD( self, aiBrain )
             mythreat = LOUDMAX( 5, CalculatePlatoonThreat( self, 'Air', UNITCHECK))
 
             --- the searchrange adapts to the current air ratio, the platoon size, and the mergelimit - and is based on the SearchRadius value
-            --- this will limit the searchradius to about 2.66x the base value at max, 85% at minimum
-            searchrange = (Searchradius *  LOUDMAX( 0.85, LOUDMIN( 2,(aiBrain.AirRatio/1.15)) * LOUDMIN(1, LOUDMIN( 1.33, LOUDGETN(platoonUnits)/(mergelimit/3))) ) )
+            --- this will limit the searchradius to about 1.69x the base value at max, 85% at minimum
+            searchrange = (Searchradius *  LOUDMAX( 0.85, LOUDMIN( 1.3,(aiBrain.AirRatio/1.15)) * LOUDMIN(1, LOUDMIN( 1.3, LOUDGETN(platoonUnits)/(mergelimit/3))) ) )
 
             usethreat = 0
             minrange = 0
@@ -3024,9 +3035,9 @@ function AirForceAILOUD( self, aiBrain )
 				return
             end
 
-            if AirForceDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." seek target for "..attackercount.." - searchrange "..string.format("%.1f",searchrange).." AirRatio "..string.format("%.2f",aiBrain.AirRatio).." on tick "..GetGameTick() )
-            end
+            --if AirForceDialog then
+              --  LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." seek target for "..attackercount.." - searchrange "..string.format("%.1f",searchrange).." AirRatio "..string.format("%.2f",aiBrain.AirRatio).." on tick "..GetGameTick() )
+            --end
             
 			--- locate a target from the loiterposition -- starting with the closest -- least dangerous ones 
             for _,rangemult in mult do
@@ -3035,7 +3046,7 @@ function AirForceAILOUD( self, aiBrain )
                 
                     usethreat = ( mythreat/threatmult ) / rangemult
 
-					target, targetposition, targetdistance = AIFindTargetInRangeInCategoryWithThreatFromPosition(aiBrain, loiterposition, self, 'Unassigned', minrange, searchrange * rangemult, categoryList, usethreat, threatcompare, threatcheckradius, threatavoid )
+					target, targetposition, targetdistance = AIFindTargetInRangeInCategoryWithThreatFromPosition(aiBrain, loiterposition, self, 'Unassigned', minrange, searchrange * rangemult, categoryList, false, threatcompare, threatcheckradius, threatavoid )
 
 					if not PlatoonExists(aiBrain, self) then
 						return
@@ -3060,16 +3071,16 @@ function AirForceAILOUD( self, aiBrain )
 
             end
 
-            --- if we have a target - find secondary targets near it
-            --- issue the attack orders 
-            --- disable merge and distress response
+            --- if we have a target - find secondary targets
+            --- issue the attack orders --- disable merge and distress response
 			if (target and not target.Dead) and PlatoonExists(aiBrain, self) then
    
                 usethreat = AIGetThreatLevelsAroundPoint( platPos, threatavoid )
                 
                 --- when threat is greater than mine
                 if usethreat > mythreat * 0.85 then
-                
+
+                    --- issue a distress call ---
                     if not self.UnderAttack then
                         self:ForkThread( self.PlatoonUnderAttack, aiBrain)
                     end
@@ -3268,35 +3279,52 @@ function AirForceAILOUD( self, aiBrain )
 		--- Cycle over the loiterposition or retreat
 		if PlatoonExists(aiBrain, self) then
          
-            mythreat = CalculatePlatoonThreat( self, 'Air', UNITCHECK)
-
-            platPos = GetPlatoonPosition(self) or false
+            mythreat    = CalculatePlatoonThreat( self, 'Air', UNITCHECK)
+            platPos     = GetPlatoonPosition(self) or false
 
             if platPos then
-   
-                usethreat = AIGetThreatLevelsAroundPoint( platPos, threatavoid )
+
+                attackers       = GetSquadUnits( self,'Unassigned' )
+                attackercount   = LOUDGETN(attackers)
+
+                usethreat       = AIGetThreatLevelsAroundPoint( loiterposition, threatavoid )
                 
                 --- when threat is greater than mine
-                if usethreat > mythreat * 1.25 then
-                
-                    if not self.UnderAttack then
-                        self:ForkThread( self.PlatoonUnderAttack, aiBrain)
-                    end
-                
+                if usethreat > mythreat * 1.2 and not retreat then
+              
                     if AirForceDialog then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." ABORT - threat "..usethreat.." - mine is "..mythreat.." at "..repr(platPos).." on tick "..GetGameTick() )
                     end
 
-                    loiter = false  --- we want to run for the existing loiter for a bit before generating a new one
-                    break
+                    --- find a new loiter between anchor and where we are now
+                    local lerpresult = LOUDMIN( 1, LOUDMIN( 1, LOUDMAX( 1, (Searchradius*3)/VDist3(anchorposition, platPos) )))
+
+                    lerpresult = lerpresult * LOUDMIN( 0.6, LOUDMIN( mythreat, mythreat * LOUDMAX(0.28, aiBrain.AirRatio) ) / LOUDMAX(1, usethreat/mythreat) )
+
+                    -- build the loiterposition using the platoon position and LERP it against the anchor
+                    loiterposition[1] = LOUDFLOOR( LOUDLERP( lerpresult, anchorposition[1], platPos[1] ))
+                    loiterposition[2] = anchorposition[2]
+                    loiterposition[3] = LOUDFLOOR( LOUDLERP( lerpresult, anchorposition[3], platPos[3] )) 
+                
+                    if AirForceDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." used "..lerpresult.." for new loiter at "..repr(loiterposition).." on tick "..GetGameTick() )
+                    end
+                    
+                    if attackercount > 0 then
+                        IssueGuard( attackers, loiterposition)
+                    end
+
+                    attackcount = 4
+                    retreat = true
+
+                else
+                    retreat = false
                 end
 
                 --- rebuild the loiterposition every 11th iteration
                 if LOUDMOD( attackcount, 11 ) == 0 then
 
-                    --- it's simply to keep this current attack active - if the loiterposition is drifting towards it
                     loiterposition = SetLoiterPosition( self, aiBrain, anchorposition, searchrange, 1, mythreat, 'AIR', 'ANTIAIR', loiterposition )
-
                     
                     if AirForceDialog then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." rebuilding loiterposition on tick "..GetGameTick() )
@@ -3310,12 +3338,17 @@ function AirForceAILOUD( self, aiBrain )
             else
                 return  --- platoon dead
             end
-            
+           
             --- while loitering space out the target check
-            --- based on number of loitering units
-            if loiter then
+            --- based on number of loitering units otherwise if threat
+            --- lets find those targets quickly --
+            if loiter and not retreat then
 
                 WaitTicks( 5 + LOUDFLOOR(attackercount/2) )
+                
+            elseif loiter then
+            
+                WaitTicks( 2 )
                 
             end
 
@@ -5462,8 +5495,8 @@ function NavalForceAILOUD( self, aiBrain )
 
                                 local moveposition = { 0, 0, 0 }
 
-                                moveposition[1] = LOUDFLOOR( MATH_Lerp( 1, ArtyPosition[1], AttackPosition[1] ))
-                                moveposition[3] = LOUDFLOOR( MATH_Lerp( 1, ArtyPosition[3], AttackPosition[3] ))
+                                moveposition[1] = LOUDFLOOR( LOUDLERP( 1, ArtyPosition[1], AttackPosition[1] ))
+                                moveposition[3] = LOUDFLOOR( LOUDLERP( 1, ArtyPosition[3], AttackPosition[3] ))
 
                                 IssueFormMove( ArtyUnits, moveposition, 'AttackFormation', GetDirectionInDegrees( ArtyPosition, moveposition) )
 
