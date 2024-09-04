@@ -11,7 +11,9 @@ UnitBlueprint {
         BreakOffDistance = 5,
         BreakOffTrigger = 15,
         CanFly = true,
+
         CombatTurnSpeed = 1.5,
+
         EngageDistance = 50,
 		
         KLift = 3,

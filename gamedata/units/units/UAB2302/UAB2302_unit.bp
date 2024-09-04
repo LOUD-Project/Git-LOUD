@@ -197,7 +197,7 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0.125,
+            FiringRandomness = 0.165,
             FiringTolerance = 1.5,
 			
             Label = 'MainGun',
@@ -242,11 +242,11 @@ UnitBlueprint {
 			
             TurretPitch = 30,
             TurretPitchRange = 45,
-            TurretPitchSpeed = 7,
+            TurretPitchSpeed = 5,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 6,
+            TurretYawSpeed = 5,
 			
             Turreted = true,
         },
