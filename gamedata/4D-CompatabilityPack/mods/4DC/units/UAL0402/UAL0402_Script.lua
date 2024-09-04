@@ -36,16 +36,13 @@ UAL0402 = Class(AWalkingLandUnit) {
         
         ChronoDampener = Class(ADFChronoDampener) {},        
     },
-
+--[[
     OnCreate = function(self,builder,layer)
     
         AWalkingLandUnit.OnCreate(self)
-        
-        self:SetWeaponEnabledByLabel('ChronoDampener', false)
-        
-        Army = self.Army
+
     end,
-    
+--]]    
     CreateEnhancement = function(self, enh)
     
         AWalkingLandUnit.CreateEnhancement(self, enh)

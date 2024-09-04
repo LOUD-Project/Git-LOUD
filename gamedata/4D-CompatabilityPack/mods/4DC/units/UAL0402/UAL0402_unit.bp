@@ -127,9 +127,9 @@ UnitBlueprint{
 
     Enhancements = {
         ChronoDampener = {
-            BuildCostEnergy = 76833,
-            BuildCostMass = 7866,
-            BuildTime = 3000,
+            BuildCostEnergy = 125000,
+            BuildCostMass = 2500,
+            BuildTime = 1250,
             Icon = "cd",
             Name = "Chrono Dampener",
             ShowBones = { "Back_Upgrade" },
@@ -527,13 +527,14 @@ UnitBlueprint{
                 {
                     Add = { OnFire = true },
                     BuffType = "STUN",
-                    Duration = 2,
-                    Radius = 30,
-                    TargetAllow = "LAND,NAVAL",
-                    TargetDisallow = "COMMAND,WALL",
+                    Duration = 3.5,
+                    Radius = 22,
+                    TargetAllow = "MOBILE",
+                    TargetDisallow = "AIR,COMMAND,EXPERIMENTAL",
                 },
             },
             CollideFriendly = false,
+            
             Damage = 1,
             DamageRadius = 0,
             DamageType = "Normal",
@@ -543,8 +544,8 @@ UnitBlueprint{
             EnabledByEnhancement = "ChronoDampener",
 
             EnergyChargeForFirstShot = false,
-            EnergyDrainPerSecond = 250,
-            EnergyRequired = 1250,
+            EnergyDrainPerSecond = 200,
+            EnergyRequired = 1000,
 
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
@@ -553,7 +554,7 @@ UnitBlueprint{
             FiringTolerance = 360,
             Label = "ChronoDampener",
 
-            MaxRadius = 30,
+            MaxRadius = 22,
 
             MuzzleVelocity = 30,
 
@@ -564,8 +565,8 @@ UnitBlueprint{
                 },
             },
 
-            RateOfFire = 10,
-            TargetCheckInterval = 1,
+            RateOfFire = 0.2,
+            TargetCheckInterval = 5,
             TargetPriorities = { "ALLUNITS" },
             TargetRestrictDisallow = "UNTARGETABLE,WALLS,AIR",
 
