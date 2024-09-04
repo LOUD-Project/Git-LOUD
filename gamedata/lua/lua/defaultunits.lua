@@ -3953,10 +3953,10 @@ AirUnit = Class(MobileUnit) {
 
         self:DoUnitCallbacks('OnRunOutOfFuel')
 
-        self:SetSpeedMult(0.4)
-        self:SetAccMult(0.45)
-        self:SetTurnMult(0.2)
-
+        if not HasBuff( self, 'OutOfFuel' ) then
+            ApplyBuff(self,'OutOfFuel')
+        end
+        
 		if self.TopSpeedEffectsBag then
 			self:DestroyTopSpeedEffects()
 		end
@@ -3967,14 +3967,10 @@ AirUnit = Class(MobileUnit) {
 	-- this fires when the unit fuel is above the trigger threshold
     OnGotFuel = function(self)
 
-		if not self.HasFuel then
+		if HasBuff( self,'OutOfFuel' ) then
+            RemoveBuff(self,'OutOfFuel')
+        end
 
-			self:SetSpeedMult(1)
-			self:SetAccMult(1)
-			self:SetTurnMult(1)
-			
-		end
-		
 		self.HasFuel = true
     end,
 
