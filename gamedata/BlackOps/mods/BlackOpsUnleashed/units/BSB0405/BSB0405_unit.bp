@@ -177,7 +177,15 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_structure4_directfire',
     StrategicIconSortPriority = 240,
-	
+    
+    Veteran = {
+        Level1 = 48,
+        Level2 = 96,
+        Level3 = 144,
+        Level4 = 192,
+        Level5 = 240,
+    },
+    	
     Weapon = {
         {   
             AboveWaterTargetsOnly = true,
