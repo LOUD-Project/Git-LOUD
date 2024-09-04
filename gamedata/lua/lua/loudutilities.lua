@@ -2088,7 +2088,7 @@ function AirUnitRefitThread( unit, aiBrain )
             
 				break
                 
-			end
+  			end
             
             if rtbissued then
             
@@ -3171,7 +3171,7 @@ function DeadBaseMonitor( aiBrain )
 	local GetUnitsAroundPoint = GetUnitsAroundPoint
     local RebuildTable = aiBrain.RebuildTable
     
-  	local GetOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
+  	local GetOwnUnitsAroundPoint = GetOwnUnitsAroundPoint
 	
 	local changed, structurecount, platland, platair, platsea
 	
@@ -5449,6 +5449,11 @@ function ParseIntelThread( aiBrain )
                 end
 
             end
+
+            -- my air production value divided by (enemy air production value/Number of Opponents)
+            if grandairtot > 0 then
+                aiBrain.AirProdRatio = myairtot/(grandairtot/aiBrain.NumOpponents)
+            end
             
             mylandcount = 0
             mylandidle = 0
@@ -5474,7 +5479,11 @@ function ParseIntelThread( aiBrain )
                     end
                 end
             end
-            
+
+            if grandlandtot > 0 then
+                aiBrain.LandProdRatio = mylandtot/(grandlandtot/aiBrain.NumOpponents)
+            end
+
             mynavalcount = 0
             mynavalidle = 0
             mynavaltot = 0
@@ -5500,6 +5509,10 @@ function ParseIntelThread( aiBrain )
                 end
             end
 
+            if grandnavaltot > 0 then
+                aiBrain.NavalProdRatio = mynavaltot/(grandnavaltot/aiBrain.NumOpponents)
+            end
+
             -- the enemy is in the water and building
             if grandnavaltot > 0 and aiBrain.NavalRatio < 0.02 then
                 aiBrain.NavalRatio = 0.2
@@ -5513,10 +5526,11 @@ function ParseIntelThread( aiBrain )
             if ReportRatios then
                 LOG("*AI DEBUG ===============================")
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." I have "..aiBrain.NumOpponents.." Opponents")
-                LOG("*AI DEBUG "..aiBrain.Nickname.." My factories Totals -- AIR "..string.format("%.2f", myairtot).." -- LAND "..string.format("%.2f",mylandtot).." -- NAVAL "..string.format("%.2f",mynavaltot) )
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy factory Avg -- AIR "..string.format("%.2f", grandairtot/aiBrain.NumOpponents).." -- LAND "..string.format("%.2f", grandlandtot/aiBrain.NumOpponents).." -- NAVAL "..string.format("%.2f",grandnavaltot/aiBrain.NumOpponents) )
-                LOG("*AI DEBUG "..aiBrain.Nickname.." My Strength Ratios -- AIR "..string.format("%.2f", aiBrain.AirRatio).." -- LAND "..string.format("%.2f", aiBrain.LandRatio).." -- NAVAL "..string.format("%.2f", aiBrain.NavalRatio).."  at tick "..GetGameTick() )
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy Air2Ground bias is "..aiBrain.AirBias  )
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." My factories Totals -- AIR "..string.format("%.2f", myairtot).." -- LAND "..string.format("%.2f",mylandtot).." -- NAVAL "..string.format("%.2f",mynavaltot) )
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy factory Avg -- AIR "..string.format("%.2f", grandairtot/aiBrain.NumOpponents ).." -- LAND "..string.format("%.2f", grandlandtot/aiBrain.NumOpponents).." -- NAVAL "..string.format("%.2f",grandnavaltot/aiBrain.NumOpponents) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.."   Production Ratios -- AIR "..string.format("%.2f", aiBrain.AirProdRatio).." - LAND "..string.format("%.2f", aiBrain.LandProdRatio).." -- NAVAL "..string.format("%.2f", aiBrain.NavalProdRatio) ) 
+                LOG("*AI DEBUG "..aiBrain.Nickname.."      Strength Ratios -- AIR "..string.format("%.2f", aiBrain.AirRatio).." -- LAND "..string.format("%.2f", aiBrain.LandRatio).." -- NAVAL "..string.format("%.2f", aiBrain.NavalRatio).."  at tick "..GetGameTick() )
+                LOG("*AI DEBUG "..aiBrain.Nickname.."      A2G bias is "..aiBrain.AirBias  )
                 LOG("*AI DEBUG ===============================")
             end
 
