@@ -107,17 +107,7 @@ Projectile = Class( ProjectileMethods ) {
 		
         SetMaxHealth( self, bp.Defense.MaxHealth or 1)
         SetHealth( self, self, GetMaxHealth(self))
-	
-		if ScenarioInfo.ProjectileDialog then
 
-            if self.BlueprintID then
-                LOG("*AI DEBUG Projectile OnCreate BlueprintID is "..repr(self.BlueprintID) )
-            else
-                LOG("*AI DEBUG Projectile OnCreate BlueprintID is FALSE "..repr(bp) )
-            end
-
-		end
-	
         if AudioExist then
             self:SetAmbientSound( AudioExist, nil)
         end
@@ -129,7 +119,17 @@ Projectile = Class( ProjectileMethods ) {
             pos[2] = GetSurfaceHeight( pos[1], pos[3] )
             self:SetNewTargetGround(pos)
         end
-        
+
+		if ScenarioInfo.ProjectileDialog then
+
+            if self.BlueprintID then
+                LOG("*AI DEBUG Projectile OnCreate BlueprintID is "..repr(self.BlueprintID) )
+            else
+                LOG("*AI DEBUG Projectile OnCreate BlueprintID is FALSE "..repr(bp) )
+            end
+
+		end
+
     end,
 
 	-- adv missile track and retarget
@@ -717,7 +717,7 @@ Projectile = Class( ProjectileMethods ) {
                 LOG("*AI DEBUG Projectile OnImpact targetType is "..repr(targetType).." damage data is "..repr(DD.DamageAmount).." at "..GetGameTick() )
 			
                 if targetEntity then
-                    LOG("*AI DEBUG Projectile OnImpact Target entity is "..repr(targetEntity.BlueprintID))
+                    LOG("*AI DEBUG Projectile OnImpact Target entity is "..repr(targetEntity.BlueprintID)..repr(targetEntity))
                 end
             end
 
