@@ -675,52 +675,59 @@ StructureUnit = Class(Unit) {
 	-- syntax reference :  unit, faction, brain, masslowtrigger, energylowtrigger, masshightrigger, energyhightrigger, checkrate(seconds), initialdelay(seconds), bypassecon check
 
 	-- the triggers control the parameters between which the self upgrade can take place
-	-- note also how we move structures out of the army pool and into the structure pool
-	-- this aids in keeping the army pool smaller and slightly quicker to query
 	LaunchUpgradeThread = function( finishedUnit, aiBrain )
 
-        local FactionIndex = aiBrain.FactionIndex
-		local SelfUpgradeThread = import('/lua/ai/aibehaviors.lua').SelfUpgradeThread
-        local PlatoonCallForHelpAI = import('/lua/platoon.lua').Platoon.PlatoonCallForHelpAI
-
-		-- factories --
-		if EntityCategoryContains( FACTORIES, finishedUnit ) then
+        local FactionIndex          = aiBrain.FactionIndex
+		local SelfUpgradeThread     = import('/lua/ai/aibehaviors.lua').SelfUpgradeThread
+        local PlatoonCallForHelpAI  = import('/lua/platoon.lua').Platoon.PlatoonCallForHelpAI
         
-            local initialdelay = 150
-            local checkrate = 18
-            
+        local checkrate, initialdelay
+
+		--- factories --
+		if EntityCategoryContains( FACTORIES, finishedUnit ) then
+
+            checkrate = 16.5        
+            initialdelay = 132
+
             -- after 30 minutes factories have NO upgrade delay period
-            -- allowing them to go right into upgrade if conditions permit
             -- and will check for being able to upgrade at a faster rate
             if aiBrain.CycleTime > 1800 then
+
+                checkrate = 13.5
                 initialdelay = 0
-                checkrate = 14
+
             end
 
 			if not finishedUnit.UpgradeThread then
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.005, 1.008, 9999, 9999, checkrate, initialdelay, false )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.004, 1.005, 1.8, 9999, checkrate, initialdelay, true )
 			end
 		end
 
-		-- power generation --
+		--- power generation --
 		if EntityCategoryContains( ENERGYPRODUCTION, finishedUnit ) then
 
 			if not finishedUnit.UpgradeThread then
             
                 if EntityCategoryContains( categories.TECH2, finishedUnit ) then
+                
+                    checkrate = 15
+                    initialdelay = 90
 
-                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.001, 0.80, 9999, 1.6, 16, 120, false )
+                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.0032, 0.74, 9999, 1.8, checkrate, initialdelay, true )
                     
                 else
                 
-                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 0.74, 0.74, 9999, 1.8, 14, 120, true )
+                    checkrate = 14
+                    initialdelay = 100
+                
+                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 0.85, 0.74, 1.8, 1.8, checkrate, initialdelay, true )
                 
                 end
 
 			end
 		end
 
-		-- hydrocarbon --
+		--- hydrocarbon --
 		if EntityCategoryContains( categories.HYDROCARBON, finishedUnit ) then
 
 			-- each hydro gets it's own platoon so we can enable PlatoonDistress calls for them
@@ -736,13 +743,16 @@ StructureUnit = Class(Unit) {
 			Mexplatoon:ForkThread( PlatoonCallForHelpAI, aiBrain, 1.5 )
 
 			if not finishedUnit.UpgradeThread then
-
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.005, 0.80, 9999, 1.6, 18, 90, true )
+                
+                checkrate = 16
+                initialdelay = 110
+  
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.0045, 0.76, 1.8, 1.8, checkrate, initialdelay, true )
 
 			end
 		end
 
-		-- mass extractors --
+		--- mass extractors --
         if EntityCategoryContains( categories.MASSEXTRACTION, finishedUnit ) then
 
 			-- each mex gets it's own platoon so we can enable PlatoonDistress calls for them
@@ -757,13 +767,16 @@ StructureUnit = Class(Unit) {
 			Mexplatoon:ForkThread( PlatoonCallForHelpAI, aiBrain, 1.5 )
 
 			if not finishedUnit.UpgradeThread then
+                
+                checkrate = 13.5
+                initialdelay = 70
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .74, 1.0045, 1.8, 9999, 15, 90, true )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .74, 1.0032, 1.8, 9999, checkrate, initialdelay, true )
 
 			end
         end
 
-		-- mass fabricators --
+		--- mass fabricators --
         if EntityCategoryContains( categories.MASSFABRICATION, finishedUnit ) then
 
 			-- each mex gets it's own platoon so we can enable PlatoonDistress calls for them
@@ -779,27 +792,36 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .74, 1.002, 9999, 9999, 16, 90, true )
+                checkrate = 16
+                initialdelay = 85
+
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .74, 1.002, 9999, 9999, checkrate, initialdelay, true )
 
 			end
         end
 
-		-- shields --
+		--- shields --
         if EntityCategoryContains( categories.SHIELD, finishedUnit ) then
 
 			if not finishedUnit.UpgradeThread then
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.008, 1.0125, 9999, 9999, 24, 180, false )
+                checkrate = 24
+                initialdelay = 150
+
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.008, 1.0115, 9999, 9999, checkrate, initialdelay, false )
 
 			end
         end
 
-		-- radar and sonar --
+		--- radar and sonar --
         if EntityCategoryContains( INTEL, finishedUnit ) then
 
 			if not finishedUnit.UpgradeThread then
 
-			    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.009, 1.02, 9999, 9999, 24, 180, false )
+                checkrate = 24
+                initialdelay = 150
+
+			    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.009, 1.02, 9999, 9999, checkrate, initialdelay, false )
 
 			end
         end
@@ -807,7 +829,10 @@ StructureUnit = Class(Unit) {
 		-- pick up any structure that has an upgrade not covered by above
 		if __blueprints[finishedUnit.BlueprintID].General.UpgradesTo != '' and not finishedUnit.UpgradeThread then
 
-			finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.012, 1.03, 9999, 9999, 36, 360, false )
+            checkrate = 36
+            initialdelay = 300
+
+			finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.012, 1.03, 9999, 9999, checkrate, initialdelay, false )
 		end
 
 		-- add thread to the units trash
@@ -982,10 +1007,15 @@ StructureUnit = Class(Unit) {
 		UnitOnTransportDetach(self, attachBone, unit)
     end,
     
-    OnUpgradeComplete = function( self, unitbeingbuilt )
-        --LOG("*AI DEBUG Upgrade Complete to "..unitbeingbuilt.EntityID.." "..unitbeingbuilt:GetBlueprint().Description.." UPGRADE COMPLETE at game second "..GetGameTimeSeconds() )
-    end,
+    OnUpgradeComplete = function( self )
     
+        --if StructureUpgradeDialog then    
+            LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..completedunit.EntityID.." launching follow on upgrade thread at game tick "..GetGameTick() )
+		--end
+        
+        completedunit:LaunchUpgradeThread( aiBrain )
+    end
+  
 }
 
 local StructureUnitOnCreate             = StructureUnit.OnCreate
