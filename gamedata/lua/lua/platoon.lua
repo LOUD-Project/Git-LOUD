@@ -5925,18 +5925,28 @@ Platoon = Class(PlatoonMethods) {
 									AISendPing( LOUDCOPY(pos), 'alert', aiBrain.ArmyIndex )
 								end
 							end
+
                         else
             
-                            --if DistressResponseDialog then
-                              --  LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." is not threatened threat is "..threat.." mythreat is "..mythreat.." on tick "..GetGameTick() )
-                            --end
+                            if DistressResponseDialog then
+                            
+                                if not self.DistressCall then
+                                    LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." is not threatened threat "..threat.." mythreat "..mythreat.." on tick "..GetGameTick() )
+                                else
+                                    LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." is no longer threatened on tick "..GetGameTick() )
+                                end
+                            end
                             
                             self.DistressCall = nil
+                            
+                            break
 
                         end
                         
-                        WaitTicks(6)
-                        
+                        if self.DistressCall then
+                            WaitTicks(6)
+                        end
+
 					else
 						self.DistressCall = nil
 					end
@@ -5950,7 +5960,19 @@ Platoon = Class(PlatoonMethods) {
                 if self.UnderAttack and DistressResponseDialog then
                     LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." "..repr(self.BuilderInstance).." is still Under Attack (in Distress "..repr(self.DistressCall)..") on tick "..GetGameTick() )
                 end
-            
+                
+                if not self.UnderAttack then
+
+                    if self.DistressCall then
+
+                        if DistressResponseDialog then
+                            LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." is no longer threatened on tick "..GetGameTick() )
+                        end
+
+                        self.DistressCall = nil
+                    end
+                end
+
             end
 
 			WaitTicks(6)
@@ -6019,8 +6041,8 @@ Platoon = Class(PlatoonMethods) {
             LOUDINSERT( categoryList, ALLUNITS )
 		end
 
-		local direction, distance, distressLocation, distressType, distressplatoon, inwater, moveLocation, myThreatatPos, platoonPos, previousdistress, prevpos, startPos
-        local threatatPos, target, targetingrange, units, unit
+		local direction, distance, distressbrain, distressLocation, distressType, distressplatoon, inwater, moveLocation, myThreatatPos, platoonPos, previousdistress, prevpos, startPos
+        local threatatPos, target, targetingrange, targetingsquad, units, unit
         
         local MovementLayer = self.MovementLayer
         local selfindex     = aiBrain.ArmyIndex
@@ -6309,7 +6331,17 @@ Platoon = Class(PlatoonMethods) {
                 distressLocation, distressType, distressplatoon = PlatoonMonitorDistressLocations( self, aiBrain, platoonPos, distressRange, distressTypes, threatThreshold )
 
                 if distressLocation then
-                    
+                
+                    if (distressplatoon != 'Commander') and (distressplatoon != 'BaseAlert') then
+                        distressbrain = GetBrain(distressplatoon)
+                    else
+                        distressbrain = false
+                    end
+			
+                    if DistressResponseDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." responds to "..distressType.." DISTRESS from "..distressplatoon.BuilderName.." at "..repr(distressLocation).." on tick "..GetGameTick() )
+                    end
+ 
                     --- store this distressLocation so that we can ignore it
                     --- if it comes up after we've cleared the area
                     previousdistress = LOUDCOPY(distressLocation)                    
@@ -6325,7 +6357,7 @@ Platoon = Class(PlatoonMethods) {
                             end
                         end
                     end
-					
+
 					if unit and unit:CanPathTo(distressLocation) and (not CheckBlockingTerrain( platoonPos, distressLocation )) then
 
 						if self.AIThread then
@@ -6347,7 +6379,7 @@ Platoon = Class(PlatoonMethods) {
                         local ATTACKS, ARTILLERY, GUARDS, SUPPORTS, SCOUTS
 			
                         if DistressResponseDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." responds to "..distressType.." DISTRESS at "..repr(distressLocation).." distance "..VDist3(platoonPos,distressLocation).." check interval is "..repr(reactionTime * 10) )
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." responds to "..distressType.." DISTRESS from "..distressplatoon.BuilderName.." at "..repr(distressLocation).." distance "..VDist3(platoonPos,distressLocation).." check interval is "..repr(reactionTime * 10) )
                         end
                         
                         IssueClearCommands( GetPlatoonUnits(self) )
@@ -6365,7 +6397,7 @@ Platoon = Class(PlatoonMethods) {
                             end
 
                             if DistressResponseDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." continues response to "..distressType.." DISTRESS at "..repr(distressLocation).." distance "..VDist3(platoonPos,distressLocation).." on tick "..GetGameTick() )
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." starts response to "..distressType.." DISTRESS from "..distressplatoon.BuilderName.." at "..repr(distressLocation).." distance "..VDist3(platoonPos,distressLocation).." on tick "..GetGameTick() )
                             end
 
 							-- move directly to distressLocation
@@ -6474,8 +6506,31 @@ Platoon = Class(PlatoonMethods) {
 							
                                     if platoonPos then
 
+                                        --- see if distress platoon still exists
+                                        if (distressplatoon != 'Commander') and (distressplatoon != 'BaseAlert') then
+
+                                            -- abort distress response if below threshold or distressplatoon dead
+                                            if not PlatoonExists( aiBrain, distressplatoon ) then
+
+                                                if DistressResponseDialog then
+                                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." distress platoon destroyed ")
+                                                end
+
+                                                moveLocation = false
+                                            else
+                                                if (not distressplatoon.DistressCall) and ( not distressplatoon.UnderAttack) then
+
+                                                    if DistressResponseDialog then
+                                                        LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." distress platoon "..distressplatoon.BuilderName.." no longer in distress")
+                                                    end
+
+                                                    moveLocation = false
+                                                end
+                                            end
+                                        end
+
                                         -- if we have a prevpos and we haven't moved much
-                                        if prevpos and VDist2(platoonPos[1],platoonPos[3], prevpos[1],prevpos[3]) < 4 then
+                                        if moveLocation and prevpos and VDist2(platoonPos[1],platoonPos[3], prevpos[1],prevpos[3]) < 4 then
 
                                             if DistressResponseDialog then
                                                 LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." seems to have stopped moving "..math.floor(VDist2(platoonPos[1],platoonPos[3], prevpos[1],prevpos[3])))
@@ -6493,81 +6548,61 @@ Platoon = Class(PlatoonMethods) {
                                             threatatPos = threatThreshold
                                             
                                             if distressType == 'Air' then
-                                                targetingrange = 50
+                                                targetingrange = 50 * LOUDMAX( 1, LOUDMIN( 2, aiBrain.AirRatio ))
+                                                targetingsquad = 'Unassigned'
                                             else
                                                 targetingrange = import('/lua/ai/aiattackutilities.lua').GetNavalPlatoonMaxRange(aiBrain, self)
-                                            end
-                                            
-                                            --- see if distress platoon still exists
-                                            if (distressplatoon != 'Commander') and (distressplatoon != 'BaseAlert') then
-
-                                                -- abort distress response if it's below threshold
-                                                if not PlatoonExists( aiBrain, distressplatoon ) then
-
-                                                    if DistressResponseDialog then
-                                                        LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." distress platoon destroyed ")
-                                                    end
-                                            
-                                                    moveLocation = false
-                                                else
-                                                    if not distressplatoon.DistressCall then
-
-                                                        if DistressResponseDialog then
-                                                            LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." distress platoon no longer in distress")
-                                                        end
-                                                        
-                                                        moveLocation = false
-                                                    end
-                                                end
+                                                targetingsquad = 'Attack'
                                             end
 
                                             --- check for proximity and scan for (and prosecute) targets if so
-                                            if moveLocation then
-                                        
-                                                distance = LOUDFLOOR(VDist3( platoonPos, moveLocation ))
+                                            distance = LOUDFLOOR(VDist3( platoonPos, moveLocation ))
 
-                                                if DistressResponseDialog then
-                                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." now at "..repr(distance).." to "..repr(moveLocation) )
-                                                end
-                                            
-                                                -- if within proximity to the distress -check for target
-                                                if distance <= targetingrange then
-                                                
-                                                    target = true
-                                                    
-                                                    while target do
-                                                    
-                                                        target = false
-                                                    
-                                                        -- find a target within range of the distress and prosecute it
-                                                        target = PlatoonFindTarget( self, aiBrain, 'Attack', moveLocation, targetingrange, categoryList )
-
-                                                        if DistressResponseDialog and target then
-                                                            LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." engaged target within "..targetingrange.." of distress position "..repr(moveLocation).." on tick "..GetGameTick() )
-                                                        end                                                        
-
-                                                    end
-
-                                                    if DistressResponseDialog then
-                                                        LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." no target found within "..targetingrange.." of distress position "..repr(moveLocation).." on tick "..GetGameTick() )
-                                                    end
-                                                    
-                                                    target = false
-                                                    moveLocation = false
-                                                    distressLocation = false
-
-                                                end
+                                            if DistressResponseDialog then
+                                                LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." now at "..repr(distance).." to "..repr(moveLocation) )
                                             end
                                             
+                                            -- if within proximity to the distress -check for target
+                                            if distance <= targetingrange then
+                                                
+                                                target = true
+
+                                                while target and moveLocation do
+                                                    
+                                                    target = false
+
+                                                    --- find a target within range of the distress and prosecute it
+                                                    if distressbrain and (distressplatoon != 'Commander') and (distressplatoon != 'BaseAlert') and PlatoonExists(distressbrain, distressplatoon) then 
+                                                        target = PlatoonFindTarget( self, aiBrain, targetingsquad, GetPlatoonPosition(distressplatoon), targetingrange, categoryList )
+                                                    else
+                                                        target = PlatoonFindTarget( self, aiBrain, targetingsquad, moveLocation, targetingrange, categoryList )
+                                                    end
+
+                                                    if DistressResponseDialog and target then
+                                                        LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." engaged target within "..targetingrange.." of distress position "..repr(moveLocation).." on tick "..GetGameTick() )
+                                                    end                                                        
+
+                                                end
+
+                                                if DistressResponseDialog then
+                                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." no target found within "..targetingrange.." of position "..repr(GetPlatoonPosition(distressplatoon)).." on tick "..GetGameTick() )
+                                                end
+
+                                                target = false
+                                                moveLocation = false
+                                                distressLocation = false
+
+                                            end
+
                                         end
-                                        
+
                                     else
                                         return
                                     end
     
                                     -- delay between threat checks modified by distance
                                     if moveLocation then
-                                        WaitTicks( 1 + (reactionTime * 5) + LOUDFLOOR(distance/25) )
+                                        WaitTicks( 1 + (reactionTime * 5) + LOUDFLOOR(distance/30) )
                                     end
                                     
                                     self.RespondingToDistress = nil	-- allow platoon to issue it's own distress calls after the first pass
@@ -6582,7 +6617,7 @@ Platoon = Class(PlatoonMethods) {
 
 							if PlatoonExists(aiBrain, self) and self.DistressResponseAIRunning then
                             
-                                WaitTicks(6)
+                                WaitTicks(3)
 							
 								platoonPos = GetPlatoonPosition(self) or false
                                 
@@ -6663,10 +6698,6 @@ Platoon = Class(PlatoonMethods) {
                         movelocation = false
                     end
 
-                else
-                    --if DistressResponseDialog then
-                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." sees no distress calls "..GetGameTick() )
-                    --end
                 end
 
             else
