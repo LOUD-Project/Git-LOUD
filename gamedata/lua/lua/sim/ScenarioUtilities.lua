@@ -1014,7 +1014,10 @@ function InitializeArmies()
                     ForkThread( AISendChat, 'enemies', aiBrain.Nickname, "And all you give me is a "..tostring(aiBrain.VeterancyMult).." bonus?")
         
                 end
-			
+
+                -- start the spawn wave thread for cheating AI --
+                aiBrain.WaveThread = ForkThread(import('/lua/loudutilities.lua').SpawnWaveThread, aiBrain)
+
             end
             
             import('/lua/ai/aiutilities.lua').SetupAICheatUnitCap( aiBrain, ScenarioInfo.biggestTeamSize )

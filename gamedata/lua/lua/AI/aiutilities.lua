@@ -735,10 +735,7 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
 	-- record the starting unit cap
 	-- caps of 1000+ trigger some conditions
 	aiBrain.StartingUnitCap = GetArmyUnitCap(aiBrain.ArmyIndex)
-
-	-- start the spawn wave thread for cheating AI --
-    aiBrain.WaveThread = ForkThread(import('/lua/loudutilities.lua').SpawnWaveThread, aiBrain)
-    
+   
 end
 
 -- This function creates the cheats used by the AI

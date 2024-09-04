@@ -314,8 +314,6 @@ Unit = Class(UnitMethods) {
         if self.BuffFields and bp.BuffFields then
             self:InitBuffFields( bp )
         end
-        
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." UNIT "..self.EntityID.." created "..self.BlueprintID.." "..bp.Description )
   
 		self.CacheLayer = GetCurrentLayer(self)
 
