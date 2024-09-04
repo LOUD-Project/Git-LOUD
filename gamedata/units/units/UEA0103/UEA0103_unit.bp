@@ -5,7 +5,7 @@ UnitBlueprint {
     },
 	
     Air = {
-        AutoLandTime = 1.6,
+        AutoLandTime = 1,
         BankFactor = 2,
         BankForward = false,
         BreakOffDistance = 30,
@@ -29,14 +29,14 @@ UnitBlueprint {
         KTurn = 0.75,
         KTurnDamping = 0.85,
 		
-        LiftFactor = 10,
+        LiftFactor = 7.5,
 		
         MaxAirspeed = 11,
         MinAirspeed = 10,
 		
         PredictAheadForBombDrop = 3,        
-		
         StartTurnDistance = 5,
+
         TightTurnMultiplier = 1,
         TurnSpeed = 1.2,
 		
@@ -218,7 +218,7 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 2.1,
+            FiringRandomness = 1.6,
             FiringTolerance = 5,
 			
             Label = 'Bomb',

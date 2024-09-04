@@ -8,36 +8,38 @@ UnitBlueprint {
         AutoLandTime = 1.9,
         BankFactor = 2.2,
         BankForward = false,
-        
         BreakOffDistance = 22,
         BreakOffTrigger = 30,
         
         CanFly = true,
         
-        CombatTurnSpeed = 1.3,
+        CombatTurnSpeed = 1.25,
         
-        EngageDistance = 50,
+        EngageDistance = 55,
         
-        KLift = 4.5,
+        KLift = 4,
         KLiftDamping = 2.5,
         
         KMove = 1.2,
         KMoveDamping = 1,
         
-        KRoll = 1.5,
-        KRollDamping = 1,
+        KRoll = 1.6,
+        KRollDamping = 1.5,
         
-        KTurn = 1.3,
-        KTurnDamping = 1,
+        KTurn = 1.2,
+        KTurnDamping = 1.1,
         
-        LiftFactor = 8.5,
+        LiftFactor = 8,
         
         MaxAirspeed = 28,
         MinAirspeed = 14,
+		
+		RandomMinChangeCombatStateTime = 3,
+		RandomMaxChangeCombatStateTime = 6,
         
-        StartTurnDistance = 15,
+        StartTurnDistance = 12,
         
-        TightTurnMultiplier = 1.025,
+        TightTurnMultiplier = 1.02,
         
         TurnSpeed = 1.25,
         
@@ -275,12 +277,12 @@ UnitBlueprint {
             TurretBoneYaw = 'Muzzle_L',
             
             TurretPitch = 0,
-            TurretPitchRange = 35,
-            TurretPitchSpeed = 80,
+            TurretPitchRange = 40,
+            TurretPitchSpeed = 60,
             
             TurretYaw = 0,
-            TurretYawRange = 44,
-            TurretYawSpeed = 80,
+            TurretYawRange = 40,
+            TurretYawSpeed = 60,
             
             Turreted = true,
         },
@@ -349,19 +351,19 @@ UnitBlueprint {
             TurretDualManipulators = false,
             
             TurretPitch = 0,
-            TurretPitchRange = 35,
-            TurretPitchSpeed = 80,
+            TurretPitchRange = 40,
+            TurretPitchSpeed = 60,
             
             TurretYaw = 0,
-            TurretYawRange = 44,
-            TurretYawSpeed = 80,
+            TurretYawRange = 40,
+            TurretYawSpeed = 60,
             
             Turreted = true,
         },
 
         {
             AboveWaterTargetsOnly = true,
-            Damage = 500,
+            Damage = 460,
             DamageFriendly = true,
             DamageRadius = 2.5,
             DamageType = 'Normal',

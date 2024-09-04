@@ -1,40 +1,42 @@
 UnitBlueprint {
     AI = {
-		GuardRadius = 80,
-        GuardReturnRadius = 120,
-        GuardScanRadius = 80,
+        GuardReturnRadius = 96,
+        GuardScanRadius = 60,
     },
     Air = {
         AutoLandTime = 1,
-        BankFactor = 3,
+        BankFactor = 2,
         BankForward = false,
         BreakOffDistance = 30,
         BreakOffIfNearNewTarget = true,
         BreakOffTrigger = 20,
         CanFly = true,
+
         CombatTurnSpeed = 1.2,
+
         EngageDistance = 50,
 		
         KLift = 3,
         KLiftDamping = 2.5,
 		
         KMove = 0.8,
-        KMoveDamping = 2,
+        KMoveDamping = 0.76,
 		
-        KRoll = 2,
-        KRollDamping = 2,
+        KRoll = 1.4,
+        KRollDamping = 1.4,
 		
         KTurn = 0.7,
-        KTurnDamping = 1,
+        KTurnDamping = 0.85,
 		
-        LiftFactor = 7,
+        LiftFactor = 7.5,
 		
         MaxAirspeed = 11,
         MinAirspeed = 10,
 		
         PredictAheadForBombDrop = 3,
         StartTurnDistance = 5,
-        TightTurnMultiplier = 0,
+        
+        TightTurnMultiplier = 1,
         TurnSpeed = 1.2,
 
 		Winged = true,
@@ -134,8 +136,8 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 52,
-        VisionRadius = 32,
+        RadarRadius = 48,
+        VisionRadius = 36,
     },
 	
     Interface = {
@@ -201,15 +203,16 @@ UnitBlueprint {
 
             BallisticArc = 'RULEUBA_None',
             BombDropThreshold = 3,
+
             CollideFriendly = false,
 			
             Damage = 110,
             DamageFriendly = true,
             DamageRadius = 2,
-			
             DamageType = 'Normal',
 			
             DisplayName = 'Othe Tactical Bomb',
+
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
                 Land = 'Land|Water|Seabed',

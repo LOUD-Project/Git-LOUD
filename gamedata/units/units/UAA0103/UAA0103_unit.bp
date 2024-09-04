@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 120,
-        GuardScanRadius = 80,
+        GuardReturnRadius = 96,
+        GuardScanRadius = 60,
     },
 	
     Air = {
@@ -29,7 +29,7 @@ UnitBlueprint {
         KTurn = 0.75,
         KTurnDamping = 0.85,
 		
-        LiftFactor = 10,
+        LiftFactor = 7.5,
 		
         MaxAirspeed = 11,
         MinAirspeed = 10,
@@ -185,6 +185,8 @@ UnitBlueprint {
 	
     Weapon = {
         {
+            AboveWaterTargetsOnly = true,
+
             Audio = {
                 Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0103_Bomb_Graviton', LodCutoff = 'Weapon_LodCutoff' },
             },

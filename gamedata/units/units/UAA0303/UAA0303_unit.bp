@@ -6,7 +6,7 @@ UnitBlueprint {
 	
     Air = {
         AutoLandTime = 1.6,
-        BankFactor = 2.5,
+        BankFactor = 2.4,
         BankForward = false,
         BreakOffDistance = 15,
         BreakOffTrigger = 20,
@@ -19,14 +19,14 @@ UnitBlueprint {
         KLift = 4.5,
         KLiftDamping = 2.5,
 		
-        KMove = 1.15,
+        KMove = 1.25,
         KMoveDamping = 1,
 		
-        KRoll = 1.7,
-        KRollDamping = 1.6,
+        KRoll = 1.85,
+        KRollDamping = 1.85,
 		
-        KTurn = 1.3,
-        KTurnDamping = 1.1,
+        KTurn = 1.2,
+        KTurnDamping = 1.2,
 		
         LiftFactor = 9,
 		
@@ -258,7 +258,7 @@ UnitBlueprint {
             TurretBoneYaw = 'Muzzle',
 			
             TurretPitch = 0,
-            TurretPitchRange = 80,
+            TurretPitchRange = 60,
             TurretPitchSpeed = 60,
 			
             TurretYaw = 0,

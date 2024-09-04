@@ -9,31 +9,33 @@ UnitBlueprint {
         BankFactor = 2,
         BankForward = false,
         BreakOffDistance = 10,
-        BreakOffTrigger = 15,
+        BreakOffTrigger = 18,
         CanFly = true,
 
         CombatTurnSpeed = 1.4,
 
         EngageDistance = 50,
 
-        KLift = 4.25,
+        KLift = 4,
         KLiftDamping = 2.5,
 
-        KMove = 1.1,
+        KMove = 1.3,
         KMoveDamping = 1,
 
-        KRoll = 1.6,
-        KRollDamping = 1.4,
+        KRoll = 1.7,
+        KRollDamping = 1.7,
 
         KTurn = 1.2,
-        KTurnDamping = 1.5,
+        KTurnDamping = 1.2,
 
-        LiftFactor = 7,
+        LiftFactor = 8,
 
-        MaxAirspeed = 19.5,
-        MinAirspeed = 8,
+        MaxAirspeed = 20,
+        MinAirspeed = 12,
+
         StartTurnDistance = 5,
         TightTurnMultiplier = 1.03,
+
         TurnSpeed = 1.4,
 
         Winged = true,
@@ -247,7 +249,7 @@ UnitBlueprint {
             UseFiringSolutionInsteadOfAimBone = true,
         },
         {
-            Damage = 25,
+            Damage = 150,
             DamageFriendly = true,
             DamageRadius = 1,
             DamageType = 'Normal',
@@ -259,14 +261,4 @@ UnitBlueprint {
         },
     },
 
-    Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.3,
-        HealthMult = 0.9,
-        MassMult = 0.3,
-        ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Land = true,
-        },
-    },
 }
