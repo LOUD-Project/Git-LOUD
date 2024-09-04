@@ -219,7 +219,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 		PriorityFunction = HaveLessThanThreeT2AirFactory,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 1.5 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 2 } },
         },
 		
         BuilderType =  {'AirT1'},

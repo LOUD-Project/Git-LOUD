@@ -273,14 +273,14 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 90 }},
 
-            { EBC, 'LessThanEnergyTrendOverTime', { 20 }},
+            { EBC, 'LessThanEnergyTrendOverTime', { 40 }},
 
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION * TECH3 }},
 
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION * STRUCTURE * TECH3 }},
             
             -- this should pick up only factory ring T1 Pgens - and not those at extractors
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 80, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH1, 0, 33 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 76, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH1, 0, 33 }},
         },
 		
         BuilderType = { 'Commander' },
@@ -587,7 +587,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         }
     },
 
-    -- or assist factory builds for 60 seconds
+    -- or assist factory builds for 48 seconds
     Builder {BuilderName = 'CDR Assist Factory',
 	
         PlatoonTemplate = 'CommanderBuilder',
@@ -622,7 +622,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 				AssisteeType = 'Factory',
 				AssisteeCategory = FACTORY,
 				BeingBuiltCategories = {categories.MOBILE},
-                Time = 60,
+                Time = 48,
             },
         }
     },

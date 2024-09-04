@@ -1230,7 +1230,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, FACTORY}},
         },
@@ -1579,7 +1579,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, FACTORY}},
         },

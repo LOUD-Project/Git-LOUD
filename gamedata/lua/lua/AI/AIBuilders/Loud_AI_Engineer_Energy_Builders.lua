@@ -87,7 +87,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH3 }},
             -- this should pick up only factory ring T1 Pgens - and not those at extractors
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 80, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH1, 0, 33 }},            
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 76, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH1, 0, 33 }},            
         },
 		
         BuilderType = { 'T1' },
