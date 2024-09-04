@@ -222,8 +222,10 @@ DefaultProjectileWeapon = Class(Weapon) {
 			self:CheckCountedMissileLaunch()
 		end
         
-        if GetAIBrain(GetCurrentTarget(self)).Personality == "m28ai" then
-            proj:TrackTarget(true)
+        local subject = GetCurrentTarget(self)
+        
+        if self and subject then
+            proj:ForkThread(Monitor, subject)
         end
 
         return proj

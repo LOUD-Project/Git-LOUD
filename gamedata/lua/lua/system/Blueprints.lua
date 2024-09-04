@@ -853,10 +853,18 @@ function ModBlueprints(all_blueprints)
 							if bp.SizeSphere and bp.Air.MaxAirspeed then
 								bp.SizeSphere = math.max( 0.9, bp.Air.MaxAirspeed * 0.095 )
 							end
+                            
+                            if not bp.Physics.BackUpDistance then
+                                bp.Physics.BackUpDistance = 1.0
+                            end
 
 							if bp.Physics.MaxBrake then
 								bp.Physics.MaxBrake = bp.Physics.MaxBrake + (bp.Physics.MaxBrake * speedScale)
 							end
+                            
+                            if not bp.Physics.TurnRadius then
+                                bp.Physics.TurnRadius = 15
+                            end
 							
 							if bp.Intel.VisionRadius then
 								bp.Intel.VisionRadius = math.floor(bp.Intel.VisionRadius + (bp.Intel.VisionRadius * viewScale))
