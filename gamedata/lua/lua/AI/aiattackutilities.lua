@@ -972,15 +972,14 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
         return false, false
     end
 
-	local CanAttackTarget = CanAttackTarget
-    local EntityCategoryFilterDown = EntityCategoryFilterDown
-    local GetPosition = GetPosition
+	local CanAttackTarget           = CanAttackTarget
+    local EntityCategoryFilterDown  = EntityCategoryFilterDown
+    local GetPosition               = GetPosition
 
-	local LOUDSORT = LOUDSORT
-	local VDist3Sq = VDist3Sq
-	local VDist3 = VDist3
-    
-    local WaitTicks = WaitTicks
+	local LOUDSORT      = LOUDSORT
+	local VDist3Sq      = VDist3Sq
+	local VDist3        = VDist3
+    local WaitTicks     = WaitTicks
 	
     -- get a count of all shields within the list
 	local shieldcount = EntityCategoryCount( SHIELDS, enemyunits )
@@ -988,7 +987,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 	local retDistance, retUnit, bestthreat, targetUnits
 
 	-- loop thru each of our attack categories
-	for _,category in attackcategories do
+	for k,category in attackcategories do
 	
 		retUnit = false
 
@@ -1071,9 +1070,12 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
                         
                         else    -- otherwise select the first target
                         
+                            --LOG("*AI DEBUG "..aiBrain.Nickname.." finds no threat check category "..repr(k).." target within "..maxRange)
+                        
                             return u, unitposition, unitdistance
 
                         end
+                        
 					end
 			
                     -- dont check too many targets per tick
@@ -1093,9 +1095,14 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 
 				return retUnit, retUnit:GetPosition(), retDistance
 			else
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." finds no target unit")
+
 				retUnit = false
 			end
-		end
+		else
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." finds no filtered units to target within "..maxRange )
+        end
+
 	end
 	
 	return false,false,false
