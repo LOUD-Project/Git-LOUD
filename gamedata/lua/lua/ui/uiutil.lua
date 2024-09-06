@@ -19,6 +19,8 @@ local Prefs         = import('/lua/user/prefs.lua')
 local Border        = import('/lua/maui/border.lua').Border
 local ItemList      = import('/lua/maui/itemlist.lua').ItemList
 local Layouts       = import('/lua/skins/layouts.lua')
+local InputDialog   = import("/lua/ui/controls/popups/inputdialog.lua").InputDialog
+local NinePatch     = import("/lua/ui/controls/ninepatch.lua").NinePatch
 
 buttonFont              = LazyVar.Create()      -- default font used for button faces
 factionFont             = LazyVar.Create() 		-- default font used for dialog button faces
@@ -418,13 +420,17 @@ function CreateCursor()
 end
 
 --* return a text object with the appropriate font set
-function CreateText(parent, label, pointSize, font)
+function CreateText(parent, label, pointSize, font, dropshadow)
     label = LOC(label) or LOC("<LOC uiutil_0000>[no text]")
     font = font or buttonFont
     local text = Text(parent, "Text: " .. label)
     text:SetFont(font, pointSize)
     text:SetColor(fontColor)
     text:SetText(label)
+
+    if dropshadow then
+        text:SetDropShadow(true)
+    end
     return text
 end
 
@@ -461,10 +467,7 @@ function SetupEditStd(control, foreColor, backColor, highlightFore, highlightBac
 end
 
 --* return a button set up with a text overlay and a click sound
-function CreateButton(parent, up, down, over, disabled, label, pointSize, textOffsetVert, textOffsetHorz, clickCue, rolloverCue)
-
-    local type = type
-
+function CreateButton(parent, up, down, over, disabled, label, pointSize, textOffsetVert, textOffsetHorz, clickCue, rolloverCue, dropshadow)
     textOffsetVert = textOffsetVert or 0
     textOffsetHorz = textOffsetHorz or 0
 	
@@ -502,7 +505,7 @@ function CreateButton(parent, up, down, over, disabled, label, pointSize, textOf
 
     if label and pointSize then
 	
-        button.label = CreateText(button, label, pointSize)
+        button.label = CreateText(button, label, pointSize, buttonFont, dropshadow)
         LayoutHelpers.AtCenterIn(button.label, button, textOffsetVert, textOffsetHorz)
         button.label:DisableHitTest()
 
@@ -567,6 +570,53 @@ function CreateButtonStd(parent, filename, label, pointSize, textOffsetVert, tex
         , clickCue
         , rolloverCue
         )
+end
+
+--- Creates a button with standardized texture names and a drop shadow with text size 11.
+--- Given a path and button name prefix, generates the four button asset file names:
+---   * *\<filename>* `_btn_up.dds`
+---   * *\<filename>* `_btn_down.dds`
+---   * *\<filename>* `_btn_over.dds`
+---   * *\<filename>* `_btn_dis.dds`
+---@param parent Control
+---@param filename FileName
+---@param label? UnlocalizedString
+---@param textOffsetVert? number
+---@param textOffsetHorz? number
+---@param clickCue? string defaults to `"UI_Menu_MouseDown_Sml"`; use `"NO_SOUND"` to not have one
+---@param rolloverCue? string default to `"UI_Menu_Rollover_Sml"`; use `"NO_SOUND"` to not have one
+function CreateButtonWithDropshadow(parent, filename, label, textOffsetVert, textOffsetHorz, clickCue, rolloverCue)
+    return CreateButton(parent,
+        filename .. "_btn_up.dds",
+        filename .. "_btn_down.dds",
+        filename .. "_btn_over.dds",
+        filename .. "_btn_dis.dds",
+        label, 11,
+        textOffsetVert, textOffsetHorz,
+        clickCue, rolloverCue,
+        true
+    )
+end
+
+--- Create a ninepatch using a texture path and the long-name convention,
+--- instead of explicitly with 9 images. These are:
+--- `center.dds`, `topLeft.dds`, `topRight.dds`, `bottomLeft.dds`, `bottomRight.dds`, `left.dds`,
+--- `right.dds`, `top.dds` and `bottom.dds`
+---@param parent Control
+---@param texturePath FileName
+---@return NinePatch
+function CreateNinePatchStd(parent, texturePath)
+    return NinePatch(parent,
+        SkinnableFile(texturePath .. 'center.dds'),
+        SkinnableFile(texturePath .. 'topLeft.dds'),
+        SkinnableFile(texturePath .. 'topRight.dds'),
+        SkinnableFile(texturePath .. 'bottomLeft.dds'),
+        SkinnableFile(texturePath .. 'bottomRight.dds'),
+        SkinnableFile(texturePath .. 'left.dds'),
+        SkinnableFile(texturePath .. 'right.dds'),
+        SkinnableFile(texturePath .. 'top.dds'),
+        SkinnableFile(texturePath .. 'bottom.dds')
+)
 end
 
 function CreateCheckbox(parent, up, upsel, over, oversel, dis, dissel, clickCue, rollCue)
@@ -1048,6 +1098,20 @@ end
 
 function GetFactionIcon(factionIndex)
     return import('/lua/factions.lua').Factions[factionIndex + 1].Icon
+end
+
+--- Create an input dialog with the given title and listener function
+---@param parent Control
+---@param title UnlocalizedString
+---@param listener fun()
+---@param fallbackBox? Control
+---@param str? string
+---@return InputDialog
+function CreateInputDialog(parent, title, listener, fallbackBox, str)
+    local dialog = InputDialog(parent, title, fallbackBox, str)
+    dialog.OnInput = listener
+
+    return dialog
 end
 
 -- make sure you lay out text box before you attempt to set text
