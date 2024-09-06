@@ -412,6 +412,3 @@ function ConvertCClassToLuaClass(cclass)
     
     return c
 end
-
---A simple attempt to support more FAF mods without having to copy all the classes from FAF
-ClassUI = Class
