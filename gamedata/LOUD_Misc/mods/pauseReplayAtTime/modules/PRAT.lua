@@ -23,10 +23,10 @@ local isReplay = false
 function init()
     isReplay = true
     controls.parent = Bitmap(GetFrame(0))
-    controls.parent.Width:Set(sizes.width)
-    controls.parent.Height:Set(sizes.height)
-    LayoutHelpers.AtLeftTopIn(controls.parent, GetFrame(0), GetFrame(0).Width()/2 + 200, 0)
-    controls.parent:Hide()
+    LayoutHelpers.SetDimensions(controls.parent, sizes.width, sizes.height)
+    LayoutHelpers.AtHorizontalCenterIn(controls.parent, GetFrame(0), 200)
+    controls.parent.Top:Set(GetFrame(0).Top)
+--    controls.parent:Hide()
 
     controls.bgTop = CreateStretchBar(controls.parent, true)
     controls.bgBottom = CreateStretchBar(controls.parent)
@@ -34,8 +34,7 @@ function init()
     
     controls.content = Group(controls.bgTop)
     controls.content:DisableHitTest()
-    controls.content.Width:Set(sizes.width)
-    controls.content.Height:Set(sizes.height)
+    LayoutHelpers.SetDimensions(controls.content, sizes.width, sizes.height)
 
     controls.collapseArrow = Checkbox(GetFrame(0))
     Tooltip.AddCheckboxTooltip(controls.collapseArrow, {
@@ -61,8 +60,7 @@ function init()
         modpath..'textures/transparent.png',
         modpath..'textures/transparent.png',
         modpath..'textures/transparent.png')
-    controls.changeTime.Width:Set(sizes.width)
-    controls.changeTime.Height:Set(sizes.height)
+    LayoutHelpers.SetDimensions(controls.changeTime, sizes.widthsizes.height)
     controls.changeTime.OnClick = function(self)
         ShowTimeDialog()
     end
@@ -124,7 +122,7 @@ function CreateStretchBar(parent, topPiece)
     
     if topPiece then
         group.centerLeft = Bitmap(group)
-        group.centerLeft.Top:Set(function() return group.center.Top() + 8 end)
+        LayoutHelpers.AtTopIn(group.centerLeft, group.center, 8)
         group.centerLeft.Left:Set(group.left.Right)
         group.centerLeft.Right:Set(group.center.Left)
         
