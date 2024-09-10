@@ -196,6 +196,7 @@ function setNewPauseTime(hours, minutes, seconds)
         return
     end
 
+    SessionResume()
     threadRunning = true
     ForkThread(function()
         while true do
@@ -254,6 +255,7 @@ function ShowTimeDialog()
             parseAndSetTime(newtime)
         end
     )
+    dialog.inputBox:SetFont(UIUtil.bodyFont, 14)
     dialog.inputBox:SetText(FormatTime(pauseAtSeconds))
 
     dialog.OnClosed = function()

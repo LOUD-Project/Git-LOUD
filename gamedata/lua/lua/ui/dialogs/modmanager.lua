@@ -235,6 +235,7 @@ local modSchema = {
         '2529ea71-93ef-41a6-b552-LOGS0000000009', -- BrewLAN Debug Tools
         'zcbf6277-24e3-437a-b968-Common-v1',     -- Common Mod Tools
         'eabdfda4-24b5-40dc-8995-LOUD000DEBUG', -- LOUD Debug Tools
+        '20dec73e-d4b2-11e5-ab30-625662870761', -- Pause replays at time
         '7be1d5f4-c544-11ea-87d0-noalerts0001', -- No VO Alerts
         'stonksc5-f109-4145-b83f-a0b589087460', -- Stonks
         '5362BE90-44BE-11DD-A519-83AF56D89593', -- Supreme Commander Music
