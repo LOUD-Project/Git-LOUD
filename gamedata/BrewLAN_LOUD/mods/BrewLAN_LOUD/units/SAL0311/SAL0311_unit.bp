@@ -241,7 +241,7 @@ UnitBlueprint {
 			MuzzleVelocityRandom = 3,
 			
             ProjectileId = '/projectiles/ADFOblivionCannon03/ADFOblivionCannon03_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.1,
+            ProjectileLifetime = 1,
 
             RackBones = {
                 {

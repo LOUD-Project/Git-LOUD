@@ -375,7 +375,7 @@ UnitBlueprint {
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 2,
+            ProjectileLifetime = 1.8,
 
             RackBones = {
                 {MuzzleBones = {'Turret_Muzzle_001'}, RackBone = 'Turret_Barrel_001'},
@@ -434,7 +434,7 @@ UnitBlueprint {
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 2,
+            ProjectileLifetime = 1.8,
 
             RackBones = {
                 {MuzzleBones = {'Turret_Muzzle_002'}, RackBone = 'Turret_Barrel_002'},
@@ -489,7 +489,7 @@ UnitBlueprint {
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 2,
+            ProjectileLifetime = 1.8,
 
             RackBones = {
                 {MuzzleBones = {'Turret_Muzzle_003'}, RackBone = 'Turret_Barrel_003'},
@@ -546,7 +546,7 @@ UnitBlueprint {
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 2,
+            ProjectileLifetime = 1.8,
 
             RackBones = {
                 {MuzzleBones = {'Turret_Muzzle_004'}, RackBone = 'Turret_Barrel_004'},

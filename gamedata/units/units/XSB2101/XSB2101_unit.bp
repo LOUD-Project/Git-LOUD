@@ -163,7 +163,7 @@ UnitBlueprint {
             MuzzleVelocity = 35,
 
             ProjectileId = '/projectiles/SDFOhCannon03/SDFOhCannon03_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.1,
+            ProjectileLifetime = 1,
 
             RackBones = {
                 {

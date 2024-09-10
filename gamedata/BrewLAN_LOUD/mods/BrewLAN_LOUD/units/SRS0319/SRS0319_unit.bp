@@ -220,7 +220,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = '<LOC ss0319_desc>Field Engineering Cruiser',
+        HelpText = '<LOC srs0319_desc>Field Engineering Cruiser',
     },
 	
     LifeBarHeight = 0.075,
@@ -314,7 +314,7 @@ UnitBlueprint {
             MuzzleVelocity = 77,
 			
             ProjectileId = '/projectiles/CAABurstCloud01/CAABurstCloud01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 0.8,
+            ProjectileLifetime = 0.8,
 			
             RackBones = {
                 {

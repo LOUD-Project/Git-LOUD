@@ -453,7 +453,7 @@ UnitBlueprint {
             NotExclusive = true,
             
             ProjectileId = '/projectiles/SDFTauCannon01/SDFTauCannon01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 2,
+            ProjectileLifetime = 1.7,
             
             RackBones = {
                 {
@@ -762,7 +762,9 @@ UnitBlueprint {
             NotExclusive = true,
             
             PrefersPrimaryWeaponTarget = false,
+
             ProjectileId = '/projectiles/SDFTauCannon01/SDFTauCannon01_proj.bp',        --'/projectiles/SDFSinnuntheWeapon01/SDFSinnuntheWeapon01_proj.bp',
+            ProjectileLifetime = 1.5,
             
             RackBones = {
                 {
@@ -856,8 +858,10 @@ UnitBlueprint {
             NotExclusive = true,
             
             PrefersPrimaryWeaponTarget = false,
+
             ProjectileId = '/projectiles/SDFTauCannon01/SDFTauCannon01_proj.bp',    --'/projectiles/SDFSinnuntheWeapon01/SDFSinnuntheWeapon01_proj.bp',
-            
+            ProjectileLifetime = 1.5,            
+
             RackBones = {
                 {
                     MuzzleBones = {'Big_Gun_R_Barrel'},
@@ -1043,7 +1047,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             ProjectileId = '/projectiles/SDFAireauBolter01/SDFAireauBolter01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.2,
+            ProjectileLifetime = 1.2,
 
             RackBones = {
                 {
@@ -1138,7 +1142,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             ProjectileId = '/projectiles/SDFAireauBolter01/SDFAireauBolter01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.2,
+            ProjectileLifetime = 1.2,
 
             RackBones = {
                 {

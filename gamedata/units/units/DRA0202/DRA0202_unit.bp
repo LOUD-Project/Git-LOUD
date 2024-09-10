@@ -212,6 +212,7 @@ UnitBlueprint {
             MuzzleVelocity = 58,
 			
             ProjectileId = '/projectiles/CAANanoDart04/CAANanoDart04_proj.bp',
+            ProjectileLifetime = 0.8,
 
             RackBones = {
                 {
@@ -283,7 +284,7 @@ UnitBlueprint {
             MuzzleVelocity = 40,
 			
             ProjectileId = '/projectiles/CIFCorsairMissile01/CIFCorsairMissile01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1,
+            ProjectileLifetime = 1.1,
 
             RackBones = {
                 {

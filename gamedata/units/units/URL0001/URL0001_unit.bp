@@ -755,7 +755,7 @@ UnitBlueprint {
             MuzzleVelocity = 35,
 
             ProjectileId = '/projectiles/CDFCannonMolecular01/CDFCannonMolecular01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 2,
+            ProjectileLifetime = 1,
 
             RackBones = {
                 {

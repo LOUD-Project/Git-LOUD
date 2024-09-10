@@ -248,7 +248,7 @@ UnitBlueprint {
             MuzzleVelocity = 38,
 			
             ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1,
+            ProjectileLifetime = 0.7,
 
             RackBones = {
                 {

@@ -232,6 +232,7 @@ UnitBlueprint {
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/TDFRiot01/TDFRiot01_proj.bp',
+            ProjectileLifetime = 0.9,
 
             RackBones = {
                 {
@@ -302,7 +303,9 @@ UnitBlueprint {
             MuzzleVelocity = 35,
 			
             PrefersPrimaryWeaponTarget = true,
+
             ProjectileId = '/projectiles/TDFRiot01/TDFRiot01_proj.bp',
+            ProjectileLifetime = 1,
 
             RackBones = {
                 {
@@ -366,7 +369,7 @@ UnitBlueprint {
             MuzzleVelocity = 65,
 			
             ProjectileId = '/projectiles/TAARailgun01/TAARailgun01_proj.bp',
-			ProjectileLifetime = 1,
+			ProjectileLifetime = 0.6,
 
             RackBones = {
                 {
@@ -440,6 +443,7 @@ UnitBlueprint {
             MuzzleVelocity = 65,
 
             ProjectileId = '/projectiles/TAARailgun01/TAARailgun01_proj.bp',
+            ProjectileLifetime = 0.6,
 
             RackBones = {
                 {

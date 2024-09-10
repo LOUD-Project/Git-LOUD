@@ -199,6 +199,7 @@ UnitBlueprint {
 			MuzzleVelocityReduceDistance = 50,
 			
             ProjectileId = '/projectiles/SIFZthuthaamArtilleryShell02/SIFZthuthaamArtilleryShell02_proj.bp',
+            ProjectileLifetime = 4,
 
             RackBones = {
                 {

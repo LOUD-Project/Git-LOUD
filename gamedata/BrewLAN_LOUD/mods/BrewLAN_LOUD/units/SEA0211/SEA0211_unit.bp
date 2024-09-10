@@ -244,14 +244,11 @@ UnitBlueprint {
             MuzzleVelocity = 0,
 			
             NeedToComputeBombDrop = true,
-            ProjectileId = '/projectiles/TIFTacticalBomb01/TIFTacticalBomb01_proj.bp',
 
-            RackBones = {
-                {
-                    MuzzleBones = {'Bomb'},
-                    RackBone = 'Bomb',
-                },
-            },
+            ProjectileId = '/projectiles/TIFTacticalBomb01/TIFTacticalBomb01_proj.bp',
+            ProjectileLifetime = 0.7,
+
+            RackBones = { { MuzzleBones = {'Bomb'}, RackBone = 'Bomb' } },
 
             RateOfFire = 0.2,	-- 160 DPS
 			
@@ -295,14 +292,9 @@ UnitBlueprint {
             MuzzleVelocity = 45,
 			
             ProjectileId = '/projectiles/TAARailgun01/TAARailgun01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.25,
+            ProjectileLifetime = 0.7,
 
-            RackBones = {
-                {
-                    MuzzleBones = {'Tailgun'},
-                    RackBone = 'Tailgun',
-                },
-            },
+            RackBones = { { MuzzleBones = {'Tailgun'}, RackBone = 'Tailgun' } },
 
             RateOfFire = 1.5,
 			

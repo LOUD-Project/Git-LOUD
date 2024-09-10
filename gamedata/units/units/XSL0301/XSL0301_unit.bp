@@ -489,7 +489,7 @@ UnitBlueprint {
             NotExclusive = true,
             
             ProjectileId = '/projectiles/SDFLightChronatronCannon01/SDFLightChronatronCannon01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.25,
+            ProjectileLifetime = 1.1,
 
             RackBones = {
                 { MuzzleBones = {'Right_Arm_Muzzle'}, RackBone = 'Right_Arm' },
@@ -564,7 +564,7 @@ UnitBlueprint {
             OverChargeWeapon = true,
             
             ProjectileId = '/projectiles/SDFLightChronatronCannon02/SDFLightChronatronCannon02_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.25,
+            ProjectileLifetime = 1.2,
             
             RackBones = {
                 { MuzzleBones = { 'Right_Arm_Muzzle' }, RackBone = 'Right_Arm' },

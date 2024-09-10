@@ -254,7 +254,7 @@ UnitBlueprint {
             MuzzleVelocityReduceDistance = 60,
 
             ProjectileId = '/mods/brewlan_loud/projectiles/CIFOthismashEMPMissile01/CIFOthismashEMPMissile01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 4,
+            ProjectileLifetime = 4,
 
             RackBones = {
                 {

@@ -204,7 +204,7 @@ UnitBlueprint {
             MuzzleVelocity = 120,
 
             ProjectileId = '/projectiles/CAAAutocannon02/CAAAutocannon02_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.25,
+            ProjectileLifetime = 0.4,
 
             RackBones = {
                 {

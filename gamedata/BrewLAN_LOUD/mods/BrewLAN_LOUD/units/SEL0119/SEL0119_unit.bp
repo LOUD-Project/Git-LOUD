@@ -317,7 +317,7 @@ UnitBlueprint {
             MuzzleVelocity = 16,
             
             ProjectileId = '/projectiles/TDFRiot03/TDFRiot03_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.15,
+            ProjectileLifetime = 1.1,
             
             RackBones = {
                 {

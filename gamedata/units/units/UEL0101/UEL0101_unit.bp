@@ -184,6 +184,7 @@ UnitBlueprint {
             MuzzleVelocity = 25,
 			
             ProjectileId = '/projectiles/TDFMachineGun01/TDFMachineGun01_proj.bp',
+            ProjectileLifetime = 0.6,
 
             RackBones = {
                 {

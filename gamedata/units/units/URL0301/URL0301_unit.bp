@@ -467,7 +467,7 @@ UnitBlueprint {
             MuzzleVelocity = 28,
             
             ProjectileId = '/projectiles/CDFLaserDisintegrator03/CDFLaserDisintegrator03_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.25,
+            ProjectileLifetime = 1,
 
             RackBones = {
                 { MuzzleBones = {'Laser'}, RackBone = 'Pulse_Laser' },

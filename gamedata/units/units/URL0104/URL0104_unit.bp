@@ -230,6 +230,7 @@ UnitBlueprint {
             MuzzleVelocity = 14,
 			
             ProjectileId = '/projectiles/CAANanoDart05/CAANanoDart05_proj.bp',
+            ProjectileLifetime = 1.7,
 
             RackBones = {
                 {

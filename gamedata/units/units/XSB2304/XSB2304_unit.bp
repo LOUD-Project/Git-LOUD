@@ -197,7 +197,7 @@ UnitBlueprint {
             MuzzleVelocity = 90,
 			
             ProjectileId = '/projectiles/SAALosaareAutoCannon04/SAALosaareAutoCannon04_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 0.7,
+            ProjectileLifetime = 0.7,
 
             RackBones = {
                 {

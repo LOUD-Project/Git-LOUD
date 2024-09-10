@@ -210,7 +210,7 @@ UnitBlueprint {
             MuzzleVelocityReduceDistance = 55,
             
             ProjectileId = '/projectiles/CDFRocketIridium03/CDFRocketIridium03_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 3,
+            ProjectileLifetime = 5,
             
             RackBones = {
                 {

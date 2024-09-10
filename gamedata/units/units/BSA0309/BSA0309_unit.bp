@@ -315,7 +315,7 @@ UnitBlueprint {
             MuzzleVelocity = 80,
 
             ProjectileId = '/projectiles/SAAShleoAAGatlingGun04/SAAShleoAAGatlingGun04_proj.bp',
-			ProjectileLifetimeUsesMultiplier = 0.6,
+			ProjectileLifetime = 0.6,
 
             RackBones = {
                 {
@@ -387,7 +387,7 @@ UnitBlueprint {
             MuzzleVelocity = 80,
 
             ProjectileId = '/projectiles/SAAShleoAAGatlingGun04/SAAShleoAAGatlingGun04_proj.bp',
-			ProjectileLifetimeUsesMultiplier = 0.6,
+			ProjectileLifetime = 0.6,
 
             RackBones = {
                 {
@@ -454,7 +454,7 @@ UnitBlueprint {
             MuzzleVelocity = 80,
 
             ProjectileId = '/projectiles/SAAShleoAAGatlingGun04/SAAShleoAAGatlingGun04_proj.bp',
-			ProjectileLifetimeUsesMultiplier = 0.6,
+			ProjectileLifetime = 0.6,
 
             RackBones = {
                 {
@@ -522,7 +522,7 @@ UnitBlueprint {
             MuzzleVelocity = 80,
 
             ProjectileId = '/projectiles/SAAShleoAAGatlingGun04/SAAShleoAAGatlingGun04_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 0.6,
+            ProjectileLifetime = 0.6,
 
             RackBones = {
                 {

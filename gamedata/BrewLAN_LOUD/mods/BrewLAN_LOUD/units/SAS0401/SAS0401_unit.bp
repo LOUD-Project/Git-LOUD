@@ -268,7 +268,8 @@ UnitBlueprint {
             NotExclusive = true,
             
             ProjectileId = '/projectiles/ADFOblivionCannon02/ADFOblivionCannon02_proj.bp',
-            
+            ProjectileLifetime = 2,            
+
             RackBones = {
                 {MuzzleBones = {'MB3_Barrel_1'}, RackBone = 'MB3_Barrel_1', TelescopeBone = 'MB3_Barrel_1', TelescopeRecoilDistance = -5},
                 {MuzzleBones = {'MB3_Barrel_2'}, RackBone = 'MB3_Barrel_2', TelescopeBone = 'MB3_Barrel_2', TelescopeRecoilDistance = -5},
@@ -341,7 +342,8 @@ UnitBlueprint {
             NotExclusive = true,
             
             ProjectileId = '/projectiles/ADFOblivionCannon02/ADFOblivionCannon02_proj.bp',
-            
+            ProjectileLifetime = 2,
+
             RackBones = {
                 {MuzzleBones = {'MB1_Barrel_1'}, RackBone = 'MB1_Barrel_1', TelescopeBone = 'MB1_Barrel_1', TelescopeRecoilDistance = -5},
                 {MuzzleBones = {'MB1_Barrel_2'}, RackBone = 'MB1_Barrel_2', TelescopeBone = 'MB1_Barrel_2', TelescopeRecoilDistance = -5},
@@ -412,7 +414,8 @@ UnitBlueprint {
             NotExclusive = true,
             
             ProjectileId = '/projectiles/ADFOblivionCannon02/ADFOblivionCannon02_proj.bp',
-            
+            ProjectileLifetime = 1.9,
+
             RackBones = {
                 {MuzzleBones = {'MB2_Barrel_1'}, RackBone = 'MB2_Barrel_1', TelescopeBone = 'MB2_Barrel_1', TelescopeRecoilDistance = -5},
                 {MuzzleBones = {'MB2_Barrel_2'}, RackBone = 'MB2_Barrel_2', TelescopeBone = 'MB2_Barrel_2', TelescopeRecoilDistance = -5},
@@ -818,7 +821,7 @@ UnitBlueprint {
             NotExclusive = true,
             
             ProjectileId = '/projectiles/ADFShieldDisruptor01/ADFShieldDisruptor01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.15,
+            ProjectileLifetime = 3,
             
             RackBones = {
                 {
@@ -888,7 +891,7 @@ UnitBlueprint {
             NotExclusive = true,
             
             ProjectileId = '/projectiles/ADFShieldDisruptor01/ADFShieldDisruptor01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.15,
+            ProjectileLifetime = 3,
             
             RackBones = {
                 {

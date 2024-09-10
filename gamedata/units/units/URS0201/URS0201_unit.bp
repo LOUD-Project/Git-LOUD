@@ -338,7 +338,7 @@ UnitBlueprint {
             MuzzleVelocity = 72,
 			
             ProjectileId = '/projectiles/CAABurstCloud01/CAABurstCloud01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 0.8,
+            ProjectileLifetime = 0.8,
 			
             RackBones = {
                 {

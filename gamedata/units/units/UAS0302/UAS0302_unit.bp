@@ -233,6 +233,7 @@ UnitBlueprint {
             NotExclusive = true,
 
             ProjectileId = '/projectiles/ADFOblivionCannon02/ADFOblivionCannon02_proj.bp',
+            ProjectileLifetime = 3.4,
 
             RackBones = {
                 {
@@ -320,6 +321,7 @@ UnitBlueprint {
             NotExclusive = true,
 
             ProjectileId = '/projectiles/ADFOblivionCannon02/ADFOblivionCannon02_proj.bp',
+            ProjectileLifetime = 3.4,
 			
             RackBones = {
                 {
@@ -406,6 +408,8 @@ UnitBlueprint {
             NotExclusive = true,
 
             ProjectileId = '/projectiles/ADFOblivionCannon02/ADFOblivionCannon02_proj.bp',
+            ProjectileLifetime = 3.6,
+            
             RackBones = {
                 {
                     MuzzleBones = {'Turret_Back_Muzzle'},

@@ -176,6 +176,7 @@ UnitBlueprint {
 			MuzzleVelocityReduceDistance = 50,
 			
             ProjectileId = '/projectiles/CIFMolecularResonanceShell01/CIFMolecularResonanceShell01_proj.bp',
+            ProjectileLifetime = 4,
 
             RackBones = {
                 {

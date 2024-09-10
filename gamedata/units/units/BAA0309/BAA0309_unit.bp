@@ -236,6 +236,7 @@ UnitBlueprint {
             MuzzleVelocity = 40,
 
             ProjectileId = '/projectiles/AAASonicPulse02/AAASonicPulse02_proj.bp',
+            ProjectileLifetime = 1,
 
             RackBones = {
                 {
@@ -303,6 +304,7 @@ UnitBlueprint {
             MuzzleVelocity = 40,
 
             ProjectileId = '/projectiles/AAASonicPulse02/AAASonicPulse02_proj.bp',
+            ProjectileLifetime = 1,
 
             RackBones = {
                 {
@@ -372,6 +374,7 @@ UnitBlueprint {
             MuzzleVelocity = 72,
 
             ProjectileId = '/projectiles/AAASonicPulse02/AAASonicPulse02_proj.bp',
+            ProjectileLifetime = 0.6,
 
             RackBones = {
                 {
@@ -441,6 +444,7 @@ UnitBlueprint {
             MuzzleVelocity = 72,
 
             ProjectileId = '/projectiles/AAASonicPulse02/AAASonicPulse02_proj.bp',
+            ProjectileLifetime = 0.6,
 
             RackBones = {
                 {
@@ -510,6 +514,7 @@ UnitBlueprint {
             MuzzleVelocity = 72,
 
             ProjectileId = '/projectiles/AAASonicPulse02/AAASonicPulse02_proj.bp',
+            ProjectileLifetime = 0.6,
 
             RackBones = {
                 {
@@ -579,6 +584,7 @@ UnitBlueprint {
             MuzzleVelocity = 66,
 
             ProjectileId = '/projectiles/AAASonicPulse02/AAASonicPulse02_proj.bp',
+            ProjectileLifetime = 0.7,
 
             RackBones = {
                 {

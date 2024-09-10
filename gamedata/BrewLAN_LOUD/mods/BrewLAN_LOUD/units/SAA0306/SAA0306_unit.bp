@@ -587,7 +587,8 @@ UnitBlueprint {
             MuzzleVelocity = 55,
 
             ProjectileId = '/projectiles/AAAFizz01/AAAFizz01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1,
+            ProjectileLifetime = 1,
+
             RackBones = {
                 {
                     MuzzleBones = {'Right_Turret02_Muzzle01','Right_Turret02_Muzzle02'},

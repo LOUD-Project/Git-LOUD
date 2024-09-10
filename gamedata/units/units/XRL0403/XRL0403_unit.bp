@@ -305,6 +305,7 @@ UnitBlueprint {
             MuzzleVelocity = 65,
 			
             ProjectileId = '/projectiles/CDFProtonCannon05/CDFProtonCannon05_proj.bp',
+            ProjectileLifetime = 1.2,
 
             RackBones = {
                 {
@@ -380,6 +381,7 @@ UnitBlueprint {
             MuzzleVelocity = 65,
 
             ProjectileId = '/projectiles/CDFProtonCannon05/CDFProtonCannon05_proj.bp',
+            ProjectileLifetime = 1.2,
 
             RackBones = {
                 {
