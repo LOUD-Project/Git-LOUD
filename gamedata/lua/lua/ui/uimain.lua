@@ -117,11 +117,14 @@ end
 
 -- called by the engine when escape is pressed but there's no specific handler for it
 function EscapeHandler()
+
     if not WorldIsLoading() and (import('/lua/ui/game/gamemain.lua').supressExitDialog != true) then
+
         if escapeHandler then
+
             escapeHandler()
         else
-            import('/lua/ui/dialogs/eschandler.lua').HandleEsc()
+            import('/lua/ui/dialogs/eschandler.lua').HandleEsc(true)
         end
     end
 end
