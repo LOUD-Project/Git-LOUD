@@ -625,7 +625,26 @@ options = {
                         {text = "<LOC _On>", key = 1 },
                     },
                 },
-            }
+            },
+            {
+                title = "Main menu animations",
+                key = 'main_menu_animation_duration',
+                type = 'toggle',
+                default = 0,
+                set = function(key, value, startup)
+                    import('/lua/ui/uiutil.lua').SetMainMenuAnimationDurationFactor(value)
+                end,
+                custom = {
+                    states = {
+                        { text = "Off",         key = 0, }, 
+                        { text = "Fast",        key = 0.15, },
+                        { text = "Medium Fast", key = 0.25, },
+                        { text = "Medium",      key = 0.5,  },
+                        { text = "Medium Slow", key = 0.75, },
+                        { text = "Slow",        key = 1,    },
+                    },
+                },
+            },
         },
     },
     video = {
