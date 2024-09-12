@@ -5621,28 +5621,6 @@ Platoon = Class(PlatoonMethods) {
 		
     end,
 	
-	-- This function complements the work of Platoon Call For Help AI
-	-- It manages the UnderAttack flag which is set when any unit is damaged - flag is reset after 7.5 seconds
-	PlatoonUnderAttack = function(self, aiBrain)
-        
-        local platPos = GetPlatoonPosition(self) or false
-
-        if platPos then
-        
-            self.UnderAttack = true
-
-            ForkTo( AIAddMustScoutArea, aiBrain, platPos )
-		
-            WaitTicks(76)
-		
-            if PlatoonExists( aiBrain, self) then
-                self.UnderAttack = nil
-            end
-
-        end
-
-    end,
-	
 	------------- Platoon Call For Help AI --------------------
 	-- This function allows platoons to issue ALERTS
 	-- recording platoon, position, threat response required and a timestamp
@@ -5977,6 +5955,28 @@ Platoon = Class(PlatoonMethods) {
  
         end
     end,
+	
+	--- This function complements the work of Platoon Call For Help AI
+	-- It manages the UnderAttack flag which is set when any unit is damaged - flag is reset after 7.5 seconds
+	PlatoonUnderAttack = function(self, aiBrain)
+        
+        local platPos = GetPlatoonPosition(self) or false
+
+        if platPos and not self.UnderAttack then
+        
+            self.UnderAttack = true
+
+            ForkTo( AIAddMustScoutArea, aiBrain, platPos )
+		
+            WaitTicks(76)
+		
+            if PlatoonExists( aiBrain, self) then
+                self.UnderAttack = nil
+            end
+
+        end
+
+	end,
 
 	------------------  Distress Response AI ------------------
 	-- This thread allows a platoon to react to distress ALERTS
@@ -6337,7 +6337,7 @@ Platoon = Class(PlatoonMethods) {
                     end
 			
                     if DistressResponseDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." responds to "..distressType.." DISTRESS from "..distressplatoon.BuilderName.." at "..repr(distressLocation).." on tick "..GetGameTick() )
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." responds to "..distressType.." DISTRESS from "..repr(distressplatoon.BuilderName).." at "..repr(distressLocation).." on tick "..GetGameTick() )
                     end
  
                     --- store this distressLocation so that we can ignore it
@@ -6377,7 +6377,7 @@ Platoon = Class(PlatoonMethods) {
                         local ATTACKS, ARTILLERY, GUARDS, SUPPORTS, SCOUTS
 			
                         if DistressResponseDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." responds to "..distressType.." DISTRESS from "..distressplatoon.BuilderName.." at "..repr(distressLocation).." distance "..VDist3(platoonPos,distressLocation).." check interval is "..repr(reactionTime * 10) )
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." responds to "..distressType.." DISTRESS from "..repr(distressplatoon.BuilderName).." at "..repr(distressLocation).." distance "..VDist3(platoonPos,distressLocation).." check interval is "..repr(reactionTime * 10) )
                         end
                         
                         IssueClearCommands( GetPlatoonUnits(self) )
@@ -6395,7 +6395,7 @@ Platoon = Class(PlatoonMethods) {
                             end
 
                             if DistressResponseDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." starts response to "..distressType.." DISTRESS from "..distressplatoon.BuilderName.." at "..repr(distressLocation).." distance "..VDist3(platoonPos,distressLocation).." on tick "..GetGameTick() )
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." starts response to "..distressType.." DISTRESS from "..repr(distressplatoon.BuilderName).." at "..repr(distressLocation).." distance "..VDist3(platoonPos,distressLocation).." on tick "..GetGameTick() )
                             end
 
 							-- move directly to distressLocation
@@ -6519,7 +6519,7 @@ Platoon = Class(PlatoonMethods) {
                                                 if (not distressplatoon.DistressCall) and ( not distressplatoon.UnderAttack) then
 
                                                     if DistressResponseDialog then
-                                                        LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." distress platoon "..distressplatoon.BuilderName.." no longer in distress")
+                                                        LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." distress platoon "..repr(distressplatoon.BuilderName).." no longer in distress")
                                                     end
 
                                                     moveLocation = false
@@ -6583,7 +6583,13 @@ Platoon = Class(PlatoonMethods) {
                                                 end
 
                                                 if DistressResponseDialog then
-                                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." no target found within "..targetingrange.." of position "..repr(GetPlatoonPosition(distressplatoon)).." on tick "..GetGameTick() )
+
+                                                    if distressbrain and (distressplatoon != 'Commander') and (distressplatoon != 'BaseAlert') and PlatoonExists(distressbrain, distressplatoon)  then
+                                                        LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." no target found within "..targetingrange.." of position "..repr(GetPlatoonPosition(distressplatoon)).." on tick "..GetGameTick() )
+                                                    else
+                                                        LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." no target found within "..targetingrange.." of position "..repr(moveLocation).." on tick "..GetGameTick() )
+                                                    end
+
                                                 end
 
                                                 target = false

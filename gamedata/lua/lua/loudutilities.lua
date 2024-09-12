@@ -1929,10 +1929,10 @@ function AirUnitRefitThread( unit, aiBrain )
 
     local GetFuelRatio      = GetFuelRatio
     local GetHealthPercent  = unit.GetHealthPercent
-        local GetCurrentUnits   = GetCurrentUnits
-        
-        local LOUDCOPY = LOUDCOPY
-        local LOUDSORT = LOUDSORT
+    local GetCurrentUnits   = GetCurrentUnits
+
+    local LOUDCOPY = LOUDCOPY
+    local LOUDSORT = LOUDSORT
     local VDist3Sq = VDist3Sq
     local WaitTicks = WaitTicks
 
@@ -1957,8 +1957,8 @@ function AirUnitRefitThread( unit, aiBrain )
         --- now limit to airpads within 30k
         plats = GetOwnUnitsAroundPoint( aiBrain, AIRPADS, unitPos, 1536 )
 
-                --- if a transport - filter out the T1 airpads
-                if LOUDENTITY( categories.TRANSPORTFOCUS, unit) then
+        --- if a transport - filter out the T1 airpads
+        if LOUDENTITY( categories.TRANSPORTFOCUS, unit) then
             plats = EntityCategoryFilterDown(AIRPADS - categories.TECH1, plats )
         end
 
@@ -2180,7 +2180,7 @@ function AirStagingThread( unit, airstage, aiBrain, RefitDialog )
 
                 if aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD then
 
-                safePath, reason = aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD(aiBrain, unit.PlatoonHandle, 'Air', unitpos, stage, 20, 256)
+                    safePath, reason = aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD(aiBrain, unit.PlatoonHandle, 'Air', unitpos, stage, 20, 256)
 
                 end
 
@@ -2323,15 +2323,15 @@ function AirStagingThread( unit, airstage, aiBrain, RefitDialog )
 
 		end
      
-            if RefitDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." finished refuel at tick "..GetGameTick() )
-            end
+        if RefitDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." finished refuel at tick "..GetGameTick() )
+        end
 
-			unit:SetCanTakeDamage(true)
-			unit:SetDoNotTarget(false)
-			unit:SetReclaimable(true)
-			unit:SetCapturable(true)
-			unit:ShowBone(0, true)            
+        unit:SetCanTakeDamage(true)
+		unit:SetDoNotTarget(false)
+		unit:SetReclaimable(true)
+		unit:SetCapturable(true)
+		unit:ShowBone(0, true)            
 
 	end
 	
@@ -6940,15 +6940,15 @@ function DrawIntel( aiBrain, parseinterval)
 	
 end
 
-function TrackProj(projectitem, unit)
+function TrackProj(projectitem, self)
 
-    WaitTicks(2)
-
-    if unit:BeenDestroyed() or projectitem:BeenDestroyed() then
-        return
-    end
+    local unit = self:GetCurrentTarget()
  
     if not LOUDENTITY(categories.MOBILE,unit) then
+        return
+    end
+
+    if unit:BeenDestroyed() or projectitem:BeenDestroyed() then
         return
     end
 
@@ -6963,12 +6963,24 @@ function TrackProj(projectitem, unit)
         end
         
         if (bp.DetonateBelowHeight and bp.DetonateBelowHeight > 0) then
-
+    
             local tpos = projectitem:GetCurrentTargetPosition()
             local mpos = projectitem:GetPosition()
             local dist = VDist2( mpos[1],mpos[3], tpos[1],tpos[3] )
             
+            local prevelev = mpos[2]
             local prevdist = dist
+			
+            if tpos then
+                local theight = GetSurfaceHeight(tpos[1],tpos[3])
+                projectitem:ChangeDetonateBelowHeight(bp.DetonateBelowHeight/3)
+            end
+   
+            WaitTicks(2)
+
+            if unit:BeenDestroyed() or projectitem:BeenDestroyed() then
+                return
+            end
             
             while not projectitem:BeenDestroyed() do
         
@@ -6976,10 +6988,16 @@ function TrackProj(projectitem, unit)
                 mpos = projectitem:GetPosition()
                 dist = VDist2( mpos[1],mpos[3], tpos[1],tpos[3] )
             
-                if dist <= 9 or prevdist < dist then
+                if prevdist < dist or mpos[2] < prevelev then
+                
+                    projectitem:TrackTarget(true)
+                    projectitem:SetAcceleration(bp.DetonateBelowHeight)
+                    WaitTicks(3)
                     break
                 else
-                    WaitTicks(2)
+                    WaitTicks(1)
+                    prevdist = dist
+                    prevelev = mpos[2]
                 end
             end
         
@@ -6989,23 +7007,27 @@ function TrackProj(projectitem, unit)
                 WaitTicks(2)
             end
         end
-
+--[[
         if (not projectitem:BeenDestroyed()) and (not unit:BeenDestroyed()) then
-            
+
             if (not bp.TrackTarget) and (not bp.TrackTargetGround) then
-                projectitem:TrackTarget(true)
+
+                --projectitem:TrackTarget(true)
+
             end
 
             if bp.TrackTargetGround then
-                projectitem:SetNewTargetGround(projectitem:GetCurrentTargetPosition())
-            end
+
+                --projectitem:SetNewTargetGround(projectitem:GetCurrentTargetPosition())
  
-            if bp.Acceleration and bp.Acceleration > 0 and bp.Acceleration < 2 then
-                projectitem:SetAcceleration(2)
+                --if bp.Acceleration and bp.Acceleration > 0 and bp.Acceleration < 2 then
+                  --  projectitem:SetAcceleration(1.5)
+                --end
+                
             end
 
         end
-
+--]]
     end
 
 end

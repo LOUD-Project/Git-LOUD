@@ -847,11 +847,15 @@ EngineerManager = Class(BuilderManager) {
 		-- keeping it updated and active, or expiring it when it is no longer valid
 		local function BaseMonitorThreatCheck()
  
-            local GetUnitsAroundPoint = GetUnitsAroundPoint
-            local VDist2Sq = VDist2Sq
+            local GetUnitsAroundPoint   = GetUnitsAroundPoint
+            local VDist2Sq              = VDist2Sq
 
             -- if there is a HiPri Intel List
 			if aiBrain.IL.HiPri[1] then
+                
+                if BaseMonitorDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR threat check building threatTable on tick "..GetGameTick() )
+                end
 	
                 local AlertLevel    = self.BaseMonitor.AlertLevel
 				local AlertRadius   = self.BaseMonitor.AlertRange
@@ -901,13 +905,17 @@ EngineerManager = Class(BuilderManager) {
 					LOUDSORT(threatTable, function (a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], Location[1],Location[3]) < VDist2Sq(b.Position[1],b.Position[3], Location[1],Location[3]) end)
                 
                     if BaseMonitorDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR using threatTable "..repr(threatTable) )
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR threat check using threatTable "..repr(threatTable) )
                     end
 
 					local highThreat, highThreatPos, highThreatType
                     local alertraised, alertrangemod
 		
 					for _,LoopType in ThreatTypesUsed do
+                
+                        if BaseMonitorDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR threat check reviews "..LoopType.." on tick "..GetGameTick() )
+                        end
 					
 						alertraised = false
 						alertrangemod = 0
@@ -951,7 +959,7 @@ EngineerManager = Class(BuilderManager) {
 						if not self.BaseMonitor.AlertsTable[LoopType] then		-- this means we always check experimentals but bypass any already active alert types
 					
                             if BaseMonitorDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR checks "..repr(LoopType).." with alert trigger "..highThreat.." at radius "..AlertRadius + alertrangemod )
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR checks "..repr(LoopType).." with alert trigger "..highThreat.." at radius "..AlertRadius + alertrangemod.." on tick "..GetGameTick() )
                             end
 					
 							-- loop thru the threat list
@@ -1008,7 +1016,7 @@ EngineerManager = Class(BuilderManager) {
 						else
 					
                             if BaseMonitorDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR has "..repr(self.BaseMonitor.AlertsTable[LoopType]).." ALERT underway" )
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR has "..repr(self.BaseMonitor.AlertsTable[LoopType]).." ALERT underway on tick "..GetGameTick() )
                             end
                        
                         end
@@ -1047,11 +1055,11 @@ EngineerManager = Class(BuilderManager) {
 		end
 
 		if BaseMonitorDialog then
-			LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR starts")
+			LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR starts on tick "..GetGameTick() )
 		end
 	
-        local Interval = self.BaseMonitor.BaseMonitorInterval
-		local delay = Interval or 2
+        local Interval  = self.BaseMonitor.BaseMonitorInterval
+		local delay     = Interval or 2
         
         -- using this flag to control appearance of delays so they only appear when they change
         local lastdelay = 0
@@ -1062,7 +1070,7 @@ EngineerManager = Class(BuilderManager) {
         
 			-- at present, this starts at about 6 seconds per cycle since
 			-- we add the normal interval to itself to begin
-            
+--[[            
 			if BaseMonitorDialog then
 
                 if lastdelay != delay then
@@ -1074,10 +1082,14 @@ EngineerManager = Class(BuilderManager) {
                 end
 
 			end
-			
+--]]			
 			WaitTicks(( Interval + delay ) * 10 )        
 		
 			if self.Active then
+
+                if BaseMonitorDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR thread cycles on tick "..GetGameTick() )
+                end
 		
 				if ScenarioInfo.DisplayBaseNames or aiBrain.DisplayBaseNames then
                 
@@ -1229,7 +1241,7 @@ EngineerManager = Class(BuilderManager) {
 			if count > 0 and threat >= threshold then
 
 				if BaseMonitorDialog then
-					LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR ALERT "..threattype.." - "..count.." units found with threat of "..threat.." - ALERT !")
+					LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR ALERT "..threattype.." - "..count.." units found with threat of "..threat.." - ALERT ! on tick "..GetGameTick() )
 				end
 
 				-- do the average position calculation -- 
@@ -1380,25 +1392,25 @@ EngineerManager = Class(BuilderManager) {
 			end		
 		end
         
-        local BaseMonitorDialog = ScenarioInfo.BaseMonitorDialog or false
-        local BaseDistressResponseDialog = ScenarioInfo.BaseDistressResponseDialog or false
+        local BaseMonitorDialog             = ScenarioInfo.BaseMonitorDialog or false
+        local BaseDistressResponseDialog    = ScenarioInfo.BaseDistressResponseDialog or false
 
-        local LocationType = self.LocationType
-		local baseposition = aiBrain.BuilderManagers[LocationType].Position
-		local radius = aiBrain.BuilderManagers[LocationType].Radius
+        local LocationType  = self.LocationType
+		local baseposition  = aiBrain.BuilderManagers[LocationType].Position
+		local radius        = aiBrain.BuilderManagers[LocationType].Radius
     
 		local distressunderway = true
 		local response = false
 	
 		local recovery = false
 	
-		local distress_air = false
-		local distress_ftr = false
-		local distress_land = false
-		local distress_naval = false
+		local distress_air      = false
+		local distress_ftr      = false
+		local distress_land     = false
+		local distress_naval    = false
 
-        local DistressRepeats = 0
-		local DistressTypes = { 'Air', 'Land', 'Naval' }
+        local DistressRepeats   = 0
+		local DistressTypes     = { 'Air', 'Land', 'Naval' }
 		
 		local distressLocation, distressType, threatamount, lastdistressLocation
 	
@@ -1467,7 +1479,11 @@ EngineerManager = Class(BuilderManager) {
 		-- this loop runs as long as there is distress underway and the base exists and has active alerts
 		-- repeating every AlertResponseTime period
 		while distressunderway and self.Active and BaseMonitor.ActiveAlerts > 0 do
-     
+		
+            if BaseMonitorDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR DISTRESS RESPONSE cycles on tick "..GetGameTick() )
+            end 
+      
 			distressunderway = false
 
             -- loop thru each threat type and try to respond
@@ -1748,16 +1764,25 @@ EngineerManager = Class(BuilderManager) {
                                 -- move the units to the 3 rallypoints closest to the distressLocation
                                 DisperseUnitsToRallyPoints( aiBrain, groupftr, baseposition, RallyPoints, distressLocation, 3 )
 							end
+
 						end
+
 					end
                     
-				end
+				else
+				
+					if BaseDistressResponseDialog then
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR DISTRESS RESPONSE Got no distressLocation for "..distresskind.." at baseposition "..repr(baseposition) )
+					end
+                
+                end
+
 			end
 			
 			if not response then
 
 				if BaseDistressResponseDialog or BaseMonitorDialog then
-					LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR DISTRESS RESPONSE - no response to "..repr(distressType).." at "..repr(distressLocation))
+					LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR DISTRESS RESPONSE - no response to "..repr(distressType).." at "..repr(distressLocation).." repeats "..DistressRepeats)
 				end
 
 				-- as a base responds to a continued alert I want to gradually slow the response loop
@@ -1779,7 +1804,7 @@ EngineerManager = Class(BuilderManager) {
             if distressunderway then
             
                 if BaseDistressResponseDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR DISTRESS RESPONSE waiting "..(AlertResponseTime + (DistressRepeats*4)).." seconds until next response cycle")
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR DISTRESS RESPONSE waiting "..(AlertResponseTime + (DistressRepeats*4)).." seconds until next cycle - tick "..GetGameTick() )
                 end
                 
                 -- each DistressRepeat adds 4 seconds to each response period --
