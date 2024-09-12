@@ -7720,12 +7720,11 @@ end
 
 function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtrigger, masshightrigger, energyhightrigger, checkperiod, initialdelay, bypassecon)
 
-    local GetFractionComplete = moho.entity_methods.GetFractionComplete
+    local StructureUpgradeDialog    = ScenarioInfo.StructureUpgradeDialog or false
 
-    local StructureUpgradeDialog = ScenarioInfo.StructureUpgradeDialog    
+    local GetFractionComplete       = moho.entity_methods.GetFractionComplete
 
 	local upgradeID = __blueprints[unit.BlueprintID].General.UpgradesTo or false
-	
 	local upgradebp = false
 
 	if upgradeID then
@@ -7828,6 +7827,10 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 	while ((not unit.Dead) or unit.EntityID) and (not upgradeIssued) do
 	
 		WaitTicks(checkperiod * 10)
+
+        if StructureUpgradeDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." cycles on tick "..GetGameTick() )
+        end
 		
         if aiBrain.UpgradeIssued < aiBrain.UpgradeIssuedLimit and (not unit.BeingReclaimed) then
 
@@ -7836,6 +7839,11 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 
             --- basic resource requirement for ALL things (except bypassecon things)
             if (MassStorage < 200 or EnergyStorage < 2500) and not bypassecon then
+
+                if StructureUpgradeDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." fails base storage M "..MassStorage.."  E "..EnergyStorage )
+                end
+
                 continue
             end
 
@@ -7877,6 +7885,22 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                 
 			else
             
+                if StructureUpgradeDialog then
+                
+                    local body = "*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description
+                
+                    if (econ.MassEfficiency > masshightrigger or econ.EnergyEfficiency > energyhightrigger) then
+                    
+                        if econ.MassEfficiency > masshightrigger then
+                            LOG( body.." fails MAX M of "..masshightrigger.." current "..econ.MassEfficiency.." on tick "..GetGameTick())
+                        else
+                            LOG( body.." fails MAX E of "..energyhightrigger.." current "..econ.EnergyEfficiency.." on tick "..GetGameTick())
+                        end
+
+                    end
+
+                end
+            
 				continue
 			end
 
@@ -7908,7 +7932,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                     if aiBrain.UpgradeIssued < aiBrain.UpgradeIssuedLimit then
 
 						if not unit.Dead then
---[[                        
+                        
                             if StructureUpgradeDialog then
                                 
                                 local body = "*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description
@@ -7925,27 +7949,40 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                                     LOG( body.." UPGRADING on storage E "..EnergyStorage.." needed "..string.format("%2.f",EnergyNeeded))
                                 end
                             end
---]]					
+					
 
 							-- if an upgrade was issued and resources were not completely full then delay is based upon the condition of storage
                             -- moved the premise of the delay period from a fixed amount - to a period based on the buildtime of the upgrade
 
                             -- if either storage is below the mass or energy limit --
 							if GetEconomyStoredRatio(aiBrain, 'MASS') < masslimit or GetEconomyStoredRatio(aiBrain, 'ENERGY') < energylimit then
+
+                                if StructureUpgradeDialog then
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." storage is below limits - buildtime is "..buildtime )
+                                end
                             
                                 -- we'll use the MajorCheatModifier(66% of the full cheat) to reduce the longest delays
-								ForkThread(SelfUpgradeDelay, aiBrain, LOUDMIN(400, buildtime*.40)/aiBrain.MajorCheatModifier )  -- delay the next upgrade by 40% of the upgrade build time
+								ForkThread(SelfUpgradeDelay, aiBrain, unit, LOUDMIN(400, buildtime*.40)/aiBrain.MajorCheatModifier )  -- delay the next upgrade by 40% of the upgrade build time
                                 
 							else
                                 -- if either storage is NOT full -- medium delay - unaffected by cheat
                                 if GetEconomyStoredRatio(aiBrain, 'MASS') < 1 or GetEconomyStoredRatio(aiBrain, 'ENERGY') < 1 then
+
+                                    if StructureUpgradeDialog then
+                                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." storage not full - buildtime is "..buildtime )
+                                    end
                                 
-                                    ForkThread(SelfUpgradeDelay, aiBrain, LOUDMIN(240, buildtime*.2) )   -- otherwise only 20% the delay period   -- aiBrain.UpgradeIssuedPeriod
+                                    ForkThread(SelfUpgradeDelay, aiBrain, unit, LOUDMIN(240, buildtime*.2) )   -- otherwise only 20% the delay period   -- aiBrain.UpgradeIssuedPeriod
                                     
                                 else
+
+                                    if StructureUpgradeDialog then
+                                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." both storage are full")
+                                    end
+                                
                                     -- both storages are full -- tiny 3 second delay - no matter what
                                     -- this allows this new upgrade to affect the eco values before another executes
-                                    ForkThread(SelfUpgradeDelay, aiBrain, 30 )
+                                    ForkThread(SelfUpgradeDelay, aiBrain, unit, 30 )
                                 end
                             end
 
@@ -8008,6 +8045,12 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 
 			end
 
+        else
+
+            if StructureUpgradeDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." counter "..aiBrain.UpgradeIssued.." limit "..aiBrain.UpgradeIssuedLimit )
+            end
+	        
         end
         
     end
@@ -8056,12 +8099,12 @@ end
 -- counter is increased by one -- for a period of time - in operation this prevents
 -- more than a certain number of self-upgrades in a short time period
 -- and the delays are related to the buildtime of the upgrade itself
-function SelfUpgradeDelay( aiBrain, delay )
+function SelfUpgradeDelay( aiBrain, unit, delay )
 
     aiBrain.UpgradeIssued = aiBrain.UpgradeIssued + 1
     
     if ScenarioInfo.StructureUpgradeDialog then
-        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade counter up to "..aiBrain.UpgradeIssued.."/"..aiBrain.UpgradeIssuedLimit.." - delay period is "..(delay/10).." seconds")
+        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." counter up to "..aiBrain.UpgradeIssued.."/"..aiBrain.UpgradeIssuedLimit.." - delay period is "..(delay/10).." seconds")
     end
 
     WaitTicks( delay )
@@ -8069,7 +8112,7 @@ function SelfUpgradeDelay( aiBrain, delay )
     aiBrain.UpgradeIssued = aiBrain.UpgradeIssued - 1
     
     if ScenarioInfo.StructureUpgradeDialog then
-        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade counter down to "..aiBrain.UpgradeIssued.."/"..aiBrain.UpgradeIssuedLimit)
+        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." counter down to "..aiBrain.UpgradeIssued.."/"..aiBrain.UpgradeIssuedLimit)
     end
 end
 

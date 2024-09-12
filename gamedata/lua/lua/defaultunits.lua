@@ -694,12 +694,12 @@ StructureUnit = Class(Unit) {
             if aiBrain.CycleTime > 1800 then
 
                 checkrate = 13.5
-                initialdelay = 0
+                initialdelay = 1
 
             end
 
 			if not finishedUnit.UpgradeThread then
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.004, 1.005, 1.8, 9999, checkrate, initialdelay, true )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.004, 1.005, 9999, 9999, checkrate, initialdelay, true )
 			end
 		end
 
@@ -720,7 +720,7 @@ StructureUnit = Class(Unit) {
                     checkrate = 14
                     initialdelay = 100
                 
-                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 0.85, 0.74, 1.8, 1.8, checkrate, initialdelay, true )
+                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 0.85, 0.74, 9999, 1.8, checkrate, initialdelay, true )
                 
                 end
 
@@ -747,7 +747,7 @@ StructureUnit = Class(Unit) {
                 checkrate = 16
                 initialdelay = 110
   
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.0045, 0.76, 1.8, 1.8, checkrate, initialdelay, true )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.0045, 0.76, 9999, 1.8, checkrate, initialdelay, true )
 
 			end
 		end
