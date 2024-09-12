@@ -24,7 +24,7 @@ function init()
     isReplay = true
     controls.parent = Bitmap(GetFrame(0))
     LayoutHelpers.SetDimensions(controls.parent, sizes.width, sizes.height)
-    LayoutHelpers.AtHorizontalCenterIn(controls.parent, GetFrame(0), 200)
+    LayoutHelpers.AtHorizontalCenterIn(controls.parent, GetFrame(0), -200)
     controls.parent.Top:Set(GetFrame(0).Top)
 --    controls.parent:Hide()
 
@@ -52,7 +52,7 @@ function init()
         end
     end
 
-    controls.time = UIUtil.CreateText(controls.content, getTimerString(), 18, UIUtil.bodyFont)
+    controls.time = UIUtil.CreateText(controls.content, getTimerString(), 16, UIUtil.bodyFont)
     controls.time:DisableHitTest()
 
     controls.changeTime = Button(controls.content,
