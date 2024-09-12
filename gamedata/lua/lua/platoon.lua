@@ -164,7 +164,7 @@ Platoon = Class(PlatoonMethods) {
         
 			local aiBrain = GetBrain(self)
             
-            self:ForkThread( function(self) WaitTicks(1) LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." created") end)
+            self:ForkThread( function(self) WaitTicks(1) LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." created on tick "..GetGameTick()) end)
 		end
         
     end,
@@ -5523,17 +5523,17 @@ Platoon = Class(PlatoonMethods) {
 	-- platoon will patrol in a circle around a point 
     PlatoonPatrolPointAI = function( self, aiBrain )
 
-        local GetPlatoonPosition = GetPlatoonPosition
-        local GetPlatoonUnits = GetPlatoonUnits
-        local PlatoonExists = PlatoonExists
-        local WaitTicks = WaitTicks
+        local GetPlatoonPosition    = GetPlatoonPosition
+        local GetPlatoonUnits       = GetPlatoonUnits
+        local PlatoonExists         = PlatoonExists
+        local WaitTicks             = WaitTicks
 
-        local location = self.BuilderLocation or self.LocationType or GetPlatoonPosition(self)
-		local orientation = self.PlatoonData.BasePerimeterOrientation or 'FRONT'
-		local patroltime = self.PlatoonData.PatrolTime or nil
-		local patroltype = self.PlatoonData.PatrolType or false
-		local PlatoonFormation = self.PlatoonData.UseFormation or 'AttackFormation'
-        local radius = self.PlatoonData.Radius or 90		
+        local location          = self.BuilderLocation or self.LocationType or GetPlatoonPosition(self)
+		local orientation       = self.PlatoonData.BasePerimeterOrientation or 'FRONT'
+		local patroltime        = self.PlatoonData.PatrolTime or nil
+		local patroltype        = self.PlatoonData.PatrolType or false
+		local PlatoonFormation  = self.PlatoonData.UseFormation or 'AttackFormation'
+        local radius            = self.PlatoonData.Radius or 90		
 		
         self:SetPlatoonFormationOverride(PlatoonFormation)
 
@@ -5573,8 +5573,6 @@ Platoon = Class(PlatoonMethods) {
         local platPos = GetPlatoonPosition(self)
 
 		local loclist = GetBasePerimeterPoints(aiBrain, location, radius, orientation, false, layer, patroltype)
-        
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." PatrolPointAI "..self.BuilderName.." "..self.BuilderInstance.." gets "..layer.." perimeter points - radius "..radius.." - "..repr(loclist) )
 
         -- set up the patrol
 		for k,v in loclist do
@@ -5643,7 +5641,7 @@ Platoon = Class(PlatoonMethods) {
 
         end
 
-	end,
+    end,
 	
 	------------- Platoon Call For Help AI --------------------
 	-- This function allows platoons to issue ALERTS

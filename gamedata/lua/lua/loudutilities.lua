@@ -2677,13 +2677,13 @@ end
 	--  one is useful for patrol paths, the other for building positions at a base
 function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positionselection, layer, patroltype )
 
-	local LOUDCEIL = math.ceil
 	local GetDirectionInDegrees = import('/lua/utilities.lua').GetDirectionInDegrees
-    local VDist2Sq = VDist2Sq
+	local LOUDCEIL              = math.ceil
+    local VDist2Sq              = VDist2Sq
     
-	local newloc = false
-	local Orient = false
-	local Basename = false
+	local newloc    = false
+	local Orient    = false
+	local Basename  = false
 	
 	-- we've been fed a base name rather than 3D co-ordinates
 	-- store the Basename and convert location into a 3D position
@@ -2743,7 +2743,14 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
 				
 			end
             
-			Direction = GetDirectionInDegrees( {avgposition[1]/counter,location[2],avgposition[3]/counter}, location )
+            --- if there are no threats on the map - then orient towards middle of the map
+            if counter == 0 then
+                avgposition[1] = Mx/2
+                avgposition[3] = Mz/2
+                counter = 1
+            end
+            
+			Direction = GetDirectionInDegrees( {avgposition[1]/counter, location[2], avgposition[3]/counter}, location )
 
 			if Direction then
 			
@@ -2782,7 +2789,6 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
 				end
 
 				-- Second step is to determine if we are N or S - or - E or W
-				
 				if Orient == 'NS' then 
 					-- if N/S and in the lower half of map
 					if (Sz > (Mz* 0.5)) then
@@ -2800,6 +2806,7 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
 						Orient = 'E'
 					end
 				end
+
 			end
 
 			-- store the Orientation for any given base
