@@ -182,6 +182,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
  
 			-- only on 5k-20k maps
 			{ MIBC, 'MapLessThan', { 1028 } },
+ 
+            { UCBC, 'PoolLess', { 8, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
 
             -- must have some Directfire in the Pool at this location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},

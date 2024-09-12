@@ -246,10 +246,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
         }
     },
    
-	-- Note how Air Factories have higher priority but are limited by the Ratio Check
-	-- this insures that when eco conditions are met - this will get built ahead of land factories
+	--- Note how Air Factories have higher priority but are limited by the Ratio Check
     -- this builder only comes into play if production of land factories is halted by ratio
-    -- allowing us to build more air factories even so
+    -- and our air ratio isn't high enough to make bombers/gunships
+    -- and the resources necessary to build a land factory are available
     Builder {BuilderName = 'Air Factory Balance - Land Ratio High',
 	
         PlatoonTemplate = 'EngineerBuilder',
@@ -261,18 +261,20 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
         PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.5 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 2 } },
+            
+            { LUTL, 'AirStrengthRatioLessThan', { 3 }},
             
 			{ UCBC, 'FactoryCapCheck', { 'LocationType', 'AIR' }},
             
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.AIR * categories.TECH1 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 12, 1.01, 1.015 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 15, 1.012, 1.02 }},
         },
 		
-        BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
+        BuilderType = { 'Commander','T2','T3','SubCommander' },
 
         BuilderData = {
 		
