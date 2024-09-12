@@ -222,9 +222,9 @@ PlatoonFormManager = Class(BuilderManager) {
 				
 					for _, papv in PlatoonAddPlans do
 
-						if PlatoonDialog then
-							LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..BuilderName.." "..repr(hndl.BuilderInstance).." adds plan "..repr(papv))
-						end
+						--if PlatoonDialog then
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..BuilderName.." "..repr(hndl.BuilderInstance).." adds plan "..repr(papv))
+						--end
 
 						hndl:ForkThread( hndl[papv], aiBrain )
 					end
@@ -242,9 +242,9 @@ PlatoonFormManager = Class(BuilderManager) {
                         -- another is turned on  (Note to self - something you've thought about doing with something like Czar Attack)
                         -- so Czar Attack could turn OFF Czar Attack and turn ON Czar Attack 2 - which could, in turn, reverse that
                         
-						if PlatoonDialog then
-							LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..BuilderName.." "..repr(hndl.BuilderInstance).." adds function "..repr(papv[2]))
-						end
+						--if PlatoonDialog then
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..BuilderName.." "..repr(hndl.BuilderInstance).." adds function "..repr(papv[2]))
+						--end
 						
 						ForkThread( import(papv[1])[papv[2]], hndl, aiBrain )
 					end
@@ -254,9 +254,9 @@ PlatoonFormManager = Class(BuilderManager) {
 				
 					for _, papv in PlatoonAddBehaviors do
 
-						if PlatoonDialog then
-							LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..BuilderName.." "..repr(hndl.BuilderInstance).." adds behavior "..repr(papv))
-						end
+						--if PlatoonDialog then
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..BuilderName.." "..repr(hndl.BuilderInstance).." adds behavior "..repr(papv))
+						--end
 					
 						hndl:ForkThread( Behaviors[papv], aiBrain )
 					end

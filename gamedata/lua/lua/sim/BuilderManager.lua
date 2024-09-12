@@ -512,14 +512,14 @@ BuilderManager = Class {
                 -- but for now - we'll settle for land production if any kind of land connection exists --
                 if path and not BuilderManager.LandMode then
                     
-                    LOG("*AI DEBUG "..brain.Nickname.." "..repr(LocationType).." finds Land path to Attack Plan Goal "..repr(AttackPlan.Goal).." - Land mode set to true")
+                    --LOG("*AI DEBUG "..brain.Nickname.." "..repr(LocationType).." finds Land path to Attack Plan Goal "..repr(AttackPlan.Goal).." - Land mode set to true")
                 
                     brain.BuilderManagers[LocationType].LandMode = true
 
                 else
                     if not path and BuilderManager.LandMode then
                     
-                        LOG("*AI DEBUG "..brain.Nickname.." "..repr(LocationType).." finds NO LAND PATH to Attack Plan Goal "..repr(AttackPlan.Goal).." - Land mode set to false")
+                        --LOG("*AI DEBUG "..brain.Nickname.." "..repr(LocationType).." finds NO LAND PATH to Attack Plan Goal "..repr(AttackPlan.Goal).." - Land mode set to false")
                     
                         brain.BuilderManagers[LocationType].LandMode = false
 

@@ -328,9 +328,9 @@ EngineerManager = Class(BuilderManager) {
                 
                     ForkThread( import(pafv[1])[pafv[2]], hndl, aiBrain)
 
-					if PlatoonDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..BuilderName.." adds function "..repr(pafv[2]))
-					end
+					--if PlatoonDialog then
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..BuilderName.." adds function "..repr(pafv[2]))
+					--end
                 end
             end
 			
@@ -346,9 +346,9 @@ EngineerManager = Class(BuilderManager) {
 			
                 for papk, papv in PlatoonAddPlans do
 
-					if PlatoonDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..BuilderName.." adds plan "..repr(papv))
-					end
+					--if PlatoonDialog then
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..BuilderName.." adds plan "..repr(papv))
+					--end
 
                     hndl:ForkThread( hndl[papv], aiBrain )
                 end
@@ -359,9 +359,9 @@ EngineerManager = Class(BuilderManager) {
 				-- fork off all the additional behaviors --
                 for pafk, pafv in PlatoonAddBehaviors do
 
-					if PlatoonDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..BuilderName.." adds behavior "..repr(pafv))
-					end
+					--if PlatoonDialog then
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..BuilderName.." adds behavior "..repr(pafv))
+					--end
 
                     hndl:ForkThread( AIBehaviors[pafv], aiBrain )
                 end

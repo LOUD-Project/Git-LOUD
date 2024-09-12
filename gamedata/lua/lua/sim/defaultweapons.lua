@@ -222,12 +222,8 @@ DefaultProjectileWeapon = Class(Weapon) {
 		if bp.CountedProjectile then
 			self:CheckCountedMissileLaunch()
 		end
-        
-        local subject = GetCurrentTarget(self)
-        
-        if self and subject then
-            proj:ForkThread(Monitor, subject)
-        end
+
+        proj:ForkThread( Monitor, self)
 
         return proj
     end,

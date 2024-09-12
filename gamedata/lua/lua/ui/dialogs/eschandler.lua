@@ -8,10 +8,12 @@ local Prefs = import('/lua/user/prefs.lua')
 
 local quickDialog = false
 
--- Terminate the game in a vaguely graceful fashion. This may or may not reduce the amount of times
--- sudden quits lead to players having to wait for a timeout.
+--- Terminate the game in a vaguely graceful fashion.
+--- this appears to be pretty much a FAF-thing
 function SafeQuit()
+
     if SessionIsActive() and not SessionIsReplay() then
+
         ForkThread(function ()
             ConExecute('ren_oblivion true')
             ConExecute('ren_ui false')
@@ -19,9 +21,11 @@ function SafeQuit()
             WaitSeconds(0.1)
             ExitApplication()
         end)
+
     else
         ExitApplication()
     end
+
 end
 
 -- Stack of escape handlers. The topmost one is called when escape is pressed.
@@ -95,7 +99,6 @@ function HandleEsc(quit_game)
         eschandler()
         return
     else
-        LOG("*AI DEBUG THERE IS NO ESCHANDLER quit game is "..repr(quit_game) )
         CreateYesNoDialog()
     end
 
