@@ -215,7 +215,7 @@ UnitBlueprint{
             NotExclusive = true,
 
             ProjectileId = "/projectiles/CDFRocketIridium01/CDFRocketIridium01_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 2.5,
+            ProjectileLifetime = 2.5,
 
             RackBones = { { MuzzleBones = { "LeftMissileTurret_Muzzle001" }, RackBone = "LeftMissileTurret_Barrel001" } },
 
@@ -278,7 +278,7 @@ UnitBlueprint{
             NotExclusive = true,
 
             ProjectileId = "/projectiles/CDFRocketIridium01/CDFRocketIridium01_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 2.5,
+            ProjectileLifetime = 2.5,
 
             RackBones = { { MuzzleBones = { "RightMissileTurret_Muzzle001" }, RackBone = "RightMissileTurret_Barrel001" } },
 
@@ -351,7 +351,7 @@ UnitBlueprint{
             NotExclusive = true,
 
             ProjectileId = "/projectiles/CDFLaserDisintegrator02/CDFLaserDisintegrator02_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 1.15,
+            ProjectileLifetime = 1,
 
             RackBones = {
                 {
@@ -431,7 +431,7 @@ UnitBlueprint{
             NotExclusive = true,
 
             ProjectileId = "/projectiles/CDFLaserDisintegrator02/CDFLaserDisintegrator02_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 1.5,
+            ProjectileLifetime = 1,
 
             RackBones = {
                 {

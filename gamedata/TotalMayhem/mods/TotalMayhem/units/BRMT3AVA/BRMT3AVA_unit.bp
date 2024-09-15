@@ -343,6 +343,7 @@ UnitBlueprint {
             NotExclusive = true,
             
             ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3AVAproj/BRMT3AVAproj_proj.bp',
+            ProjectileLifetime = 1.8,
 
             RackBones = {
                 {
@@ -423,6 +424,7 @@ UnitBlueprint {
             NotExclusive = true,
             
             ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3AVAproj/BRMT3AVAproj_proj.bp',
+            ProjectileLifetime = 1.8,
 
             RackBones = {
                 {

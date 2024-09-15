@@ -226,6 +226,7 @@ UnitBlueprint {
             MuzzleVelocity = 44,
 			
             ProjectileId = '/projectiles/TDFPlasmaHeavy02/TDFPlasmaHeavy02_proj.bp',
+            ProjectileLifetime = 0.8,
 			
             RackBones = {
                 {

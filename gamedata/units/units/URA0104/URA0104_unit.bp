@@ -240,7 +240,8 @@ UnitBlueprint {
             MuzzleVelocity = 32,
 			
             ProjectileId = '/projectiles/CDFLaserDisintegrator01/CDFLaserDisintegrator01_proj.bp',
-			
+            ProjectileLifetime = 0.9,			
+
             RackBones = {
                 {
                     MuzzleBones = {'Front_Down_Turret_Muzzle'},

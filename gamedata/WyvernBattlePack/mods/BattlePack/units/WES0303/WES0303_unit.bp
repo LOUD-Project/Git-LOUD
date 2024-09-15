@@ -228,7 +228,7 @@ UnitBlueprint{
             NotExclusive = true,
 
             ProjectileId = "/projectiles/TDFIonizedPlasmaGatlingCannon01/TDFIonizedPlasmaGatlingCannon01_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 2.4,
+            ProjectileLifetime = 2.4,
 
             RackBones = {
                 {
@@ -306,7 +306,7 @@ UnitBlueprint{
             NotExclusive = true,
 
             ProjectileId = "/projectiles/TDFIonizedPlasmaGatlingCannon01/TDFIonizedPlasmaGatlingCannon01_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 2.4,
+            ProjectileLifetime = 2.4,
 
             RackBones = {
                 {
@@ -355,23 +355,33 @@ UnitBlueprint{
                 BarrelStop  = Sound { Bank = 'UES',         Cue = 'UES0302_Cannon_Stop',   LodCutoff = 'WeaponBig_LodCutoff' },
                 Fire        = Sound { Bank = 'XEL_Weapons', Cue = 'XEL0305_Plasma_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
+
             Damage = 180,
             DamageRadius = 2,
             DamageType = "Normal",
+
             DisplayName = "Gauss Cannon",
+
             FireTargetLayerCapsTable = { Water = "Land|Water|Seabed" },
             FiringRandomness = 0.3,
             FiringTolerance = 2,
+
             Label = "DeckGun",
+
             MaxRadius = 65,
+
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 32,
+
             NotExclusive = true,
+
             ProjectileId = "/projectiles/TDFIonizedPlasmaGatlingCannon01/TDFIonizedPlasmaGatlingCannon01_proj.bp",
             ProjectileLifetimeUsesMultiplier = 2.4,
+
             RackBones = {
                 {
                     MuzzleBones = {
@@ -383,8 +393,10 @@ UnitBlueprint{
             },
 
             RateOfFire = 0.25,
+
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,
+
             TargetCheckInterval = 3,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
@@ -393,13 +405,16 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.15,
+
             TurretBoneMuzzle = "PlasmaTurret_Recoil_BottomRear",
             TurretBonePitch = "PlasmaTurret_Pitch_BottomRear",
             TurretBoneYaw = "PlasmaTurret_Yaw_BottomRear",
             TurretDualManipulators = false,
+
             TurretPitch = 10,
             TurretPitchRange = 20,
             TurretPitchSpeed = 10,
+
             TurretYaw = 0,
             TurretYawRange = 140,
             TurretYawSpeed = 26,

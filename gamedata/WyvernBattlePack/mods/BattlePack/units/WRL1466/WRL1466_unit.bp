@@ -289,7 +289,9 @@ UnitBlueprint{
             MuzzleVelocity = 38,
 
             NotExclusive = true,
+
             ProjectileId = "/mods/BattlePack/projectiles/WBPShadowCannon/WBPShadowCannon_proj.bp",
+            ProjectileLifetime = 2.1,
 
             RackBones = {
                 {
@@ -367,6 +369,7 @@ UnitBlueprint{
             NotExclusive = true,
 
             ProjectileId = "/mods/BattlePack/projectiles/StarAdderMissiles/StarAdderMissiles_proj.bp",
+            ProjectileLifetime = 10,
 
             RackBones = {
                 {
@@ -423,7 +426,7 @@ UnitBlueprint{
             NotExclusive = true,
 
             ProjectileId = "/mods/BattlePack/projectiles/CLaser06/CLaser06_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 1.5,
+            ProjectileLifetime = 1.4,
 
             RackBones = {
                 {
@@ -501,7 +504,7 @@ UnitBlueprint{
             NotExclusive = true,
 
             ProjectileId = "/mods/BattlePack/projectiles/CLaser06/CLaser06_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 1.5,
+            ProjectileLifetime = 1.4,
             
             RackBones = {
                 {

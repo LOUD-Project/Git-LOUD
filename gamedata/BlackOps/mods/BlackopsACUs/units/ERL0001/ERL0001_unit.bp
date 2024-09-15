@@ -2322,6 +2322,7 @@ UnitBlueprint {
             MuzzleVelocity = 100,
 
             ProjectileId = '/mods/BlackopsACUs/projectiles/EXInvisoProectile01/EXInvisoProectile01_proj.bp',
+            ProjectileLifetime = 0.5,
 
             RackBones = {
                 {

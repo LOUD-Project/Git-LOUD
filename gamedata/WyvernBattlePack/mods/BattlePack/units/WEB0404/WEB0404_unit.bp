@@ -378,6 +378,8 @@ UnitBlueprint{
             NotExclusive = true,
 
             ProjectileId = "/projectiles/TDFGauss04/TDFGauss04_proj.bp",
+            ProjectileLifetime = 3.5,
+            
             RackBones = {
                 {
                     MuzzleBones = { "Turret_Left02_Muzzle02" },
@@ -462,6 +464,8 @@ UnitBlueprint{
 
             NotExclusive = true,
             ProjectileId = "/projectiles/TDFGauss04/TDFGauss04_proj.bp",
+            ProjectileLifetime = 3.5,
+
             RackBones = {
                 {
                     MuzzleBones = { "Turret_Left02_Muzzle05" },
@@ -545,7 +549,8 @@ UnitBlueprint{
             NotExclusive = true,
 
             ProjectileId = "/projectiles/TDFGauss04/TDFGauss04_proj.bp",
-
+            ProjectileLifetime = 3.5,
+            
             RackBones = {
                 {
                     MuzzleBones = { "Turret_Left02_Muzzle11" },
@@ -629,6 +634,8 @@ UnitBlueprint{
             NotExclusive = true,
 
             ProjectileId = "/projectiles/TDFGauss04/TDFGauss04_proj.bp",
+            ProjectileLifetime = 3.5,
+
             RackBones = {
                 {
                     MuzzleBones = { "Turret_Left02_Muzzle08" },

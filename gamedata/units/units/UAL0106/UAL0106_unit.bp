@@ -185,6 +185,7 @@ UnitBlueprint {
             MuzzleVelocity = 25,
 			
             ProjectileId = '/projectiles/ADFSonicPulsar01/ADFSonicPulsar01_proj.bp',
+            ProjectileLifetime = 0.8,
 
             RackBones = {
                 {

@@ -1,5 +1,12 @@
 UnitList = {
 
+T1AirStagingPlatform = {
+    UEF = {'seb5104', 100},
+    Aeon = {'sab5104', 100},
+    Cybran = {'srb5104', 100},
+    Seraphim = {'ssb5104', 100},
+},
+
 T1Artillery = {
 	UEF = {'seb2103', 100},
 	Aeon = {'sab2103', 100},
@@ -32,6 +39,8 @@ T4GroundDefense = {
 T4AADefense = {
     UEF = { 'seb2402', 55},
 },
+
+
 
 
 --------------------------------------------------------------------------------

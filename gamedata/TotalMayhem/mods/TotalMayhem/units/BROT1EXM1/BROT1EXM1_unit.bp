@@ -175,6 +175,7 @@ UnitBlueprint {
             MuzzleVelocity = 36,
 			
             ProjectileId = '/projectiles/ADFDisruptor01/ADFDisruptor01_proj.bp',
+            ProjectileLifetime = 0.7,
 
             RackBones = {
                 {
@@ -245,6 +246,7 @@ UnitBlueprint {
 			PrefersPrimaryWeaponTarget = true,
 			
             ProjectileId = '/projectiles/AAASonicPulse01/AAASonicPulse01_proj.bp',  --'/projectiles/TDFRiot02/TDFRiot02_proj.bp',
+            ProjectileLifetime = 0.7,
 
             RackBones = {
                 {

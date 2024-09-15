@@ -26,7 +26,6 @@ UnitBlueprint{
     BuildIconSortPriority = 20,
 
     Categories = {
-        "BOT",
         "BUILTBYTIER3FACTORY",
         "CYBRAN",
         "DIRECTFIRE",
@@ -212,7 +211,7 @@ UnitBlueprint{
             NotExclusive = false,
 
             ProjectileId = "/projectiles/CDFLaserDisintegrator02/CDFLaserDisintegrator02_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 1.4,
+            ProjectileLifetime = 1.5,
 
             RackBones = {
                 {

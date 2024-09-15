@@ -1753,6 +1753,8 @@ UnitBlueprint {
             
             NotExclusive = true,
 
+            ProjectileLifetime = 0.8,
+
             RackBones = {
                 {
                     MuzzleBones = {'Head'},
@@ -1809,6 +1811,8 @@ UnitBlueprint {
             MuzzleVelocity = 30,
             
             NotExclusive = true,
+
+            ProjectileLifetime = 1.1,
 
             RackBones = {
                 {
@@ -2026,7 +2030,8 @@ UnitBlueprint {
             NotExclusive = true,
 			
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
-			
+            ProjectileLifetime = 6,			
+
             RackBones = {
                 {
                     MuzzleBones = {'Artillery_Muzzle_Right'},
@@ -2119,7 +2124,8 @@ UnitBlueprint {
             NotExclusive = true,
 			
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
-			
+            ProjectileLifetime = 6,			
+
             RackBones = {
                 {
                     MuzzleBones = {'Artillery_Muzzle_Right'},
@@ -2211,7 +2217,8 @@ UnitBlueprint {
             NotExclusive = true,
 
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
-			
+            ProjectileLifetime = 6.5,			
+
             RackBones = {
                 {
                     MuzzleBones = {'Artillery_Muzzle_Right'},

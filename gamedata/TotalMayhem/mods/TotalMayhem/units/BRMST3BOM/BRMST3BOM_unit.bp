@@ -217,6 +217,7 @@ UnitBlueprint {
             MuzzleVelocity = 38,
 			
             ProjectileId = '/projectiles/CDFProtonCannon03/CDFProtonCannon03_proj.bp',
+            ProjectileLifetime = 3.2,
 
             RackBones = {
                 {
@@ -299,6 +300,7 @@ UnitBlueprint {
             MuzzleVelocity = 38,
 
             ProjectileId = '/projectiles/CDFProtonCannon03/CDFProtonCannon03_proj.bp',
+            ProjectileLifetime = 3.2,
 
             RackBones = {
                 {
@@ -388,7 +390,7 @@ UnitBlueprint {
             MuzzleVelocity = 30,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRMST3BOMproj/BRMST3BOMproj_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 10,
+            ProjectileLifetime = 10,
 
             RackBones = {
                 {
@@ -470,6 +472,7 @@ UnitBlueprint {
             MuzzleVelocity = 90,
 			
             ProjectileId = '/projectiles/CAAAutocannon01/CAAAutocannon01_proj.bp',
+            ProjectileLifetime = 0.7,
 
             RackBones = {
                 {
@@ -546,6 +549,7 @@ UnitBlueprint {
             MuzzleVelocity = 80,
 
             ProjectileId = '/projectiles/CAAAutocannon01/CAAAutocannon01_proj.bp',
+            ProjectileLifetime = 0.7,
 
             RackBones = {
                 {

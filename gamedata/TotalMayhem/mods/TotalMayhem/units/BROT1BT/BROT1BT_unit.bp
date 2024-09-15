@@ -175,6 +175,7 @@ UnitBlueprint {
             MuzzleVelocity = 35,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BROT1BTproj/BROT1BTproj_proj.bp',
+            ProjectileLifetime = 0.7,
 
             RackBones = {
                 {

@@ -175,6 +175,7 @@ UnitBlueprint {
             MuzzleVelocity = 26.13,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/HellStormArtillery01/HellStormArtillery01_proj.bp',
+            ProjectileLifetime = 3.6,
 
             RackBones = {
                 {

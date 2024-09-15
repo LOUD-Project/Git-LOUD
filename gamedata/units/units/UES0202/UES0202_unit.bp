@@ -298,7 +298,9 @@ UnitBlueprint {
             MaxRadius = 55,
 
             MuzzleVelocity = 45,
+
             ProjectileId = '/projectiles/TDFGauss01/TDFGauss01_proj.bp',
+            ProjectileLifetime = 1.4,
 
             RackBones = {
                 {
@@ -336,7 +338,7 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 120,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 60,
             
             Turreted = true,
         },

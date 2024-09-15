@@ -184,7 +184,9 @@ UnitBlueprint {
             MaxRadius = 100,
 
             MuzzleVelocity = 90,
+
             ProjectileId = '/projectiles/SIFHuAntiNuke01/SIFHuAntiNuke01_proj.bp',
+            ProjectileLifetime = 1.2,
 
             RackBones = {
                 {
@@ -244,6 +246,7 @@ UnitBlueprint {
 			NotExclusive = true,
 
             ProjectileId = '/projectiles/SIFHuAntiNuke02/SIFHuAntiNuke02_proj.bp',
+            ProjectileLifetime = 1.6,
 
             RackBones = {
                 {
@@ -257,9 +260,7 @@ UnitBlueprint {
             RateOfFire = 0.2,
 
             TargetCheckInterval = 3,
-            TargetPriorities = {
-                'SATELLITE',
-            },
+            TargetPriorities = {'SATELLITE'},
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'SATELLITE',
             TrackingRadius = 1,

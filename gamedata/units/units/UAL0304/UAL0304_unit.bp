@@ -192,6 +192,8 @@ UnitBlueprint {
             MuzzleVelocityReduceDistance = 95,
 			
             ProjectileId = '/projectiles/AIFSonanceShell01/AIFSonanceShell01_proj.bp',
+            ProjectileLifetime = 6,
+            
             RackBones = {
                 {
                     MuzzleBones = {'Turret_Muzzle'},

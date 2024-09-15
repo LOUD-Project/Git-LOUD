@@ -189,6 +189,7 @@ UnitBlueprint {
 			MuzzleVelocityReduceDistance = 100,
 			
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
+            ProjectileLifetime = 7,
 
             RackBones = {
                 {

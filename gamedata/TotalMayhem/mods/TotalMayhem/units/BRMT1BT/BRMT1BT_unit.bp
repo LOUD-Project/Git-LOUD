@@ -168,7 +168,8 @@ UnitBlueprint {
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/CDFLaserHeavy01/CDFLaserHeavy01_proj.bp',			
-			
+            ProjectileLifetime = 0.8,			
+
             RackBones = {
                 {
                     MuzzleBones = {'Turret_Muzzle'},

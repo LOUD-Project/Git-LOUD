@@ -311,10 +311,13 @@ UnitBlueprint{
         {
             AboveWaterFireOnly = true,
             AlwaysRecheckTarget = true,
+
             Audio = {
                 Fire = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2104_Shleo_AA_Autogun', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_None",
+
             CannotAttackGround = true,
             CollideFriendly = false,
 
@@ -339,8 +342,8 @@ UnitBlueprint{
             MuzzleVelocity = 48,
 
             ProjectileId = "/projectiles/SAAShleoAAGatlingGun02/SAAShleoAAGatlingGun02_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 1.25,
-            ProjectilesPerOnFire = 2,
+            ProjectileLifetime = 1,
+
             RackBones = {
                 {
                     MuzzleBones = {"AATurret_Muzzle01","AATurret_Muzzle02"},

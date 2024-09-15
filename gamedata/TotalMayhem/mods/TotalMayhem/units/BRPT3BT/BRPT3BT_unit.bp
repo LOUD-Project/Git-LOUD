@@ -207,6 +207,7 @@ UnitBlueprint {
             MuzzleVelocity = 34,
 			
             ProjectileId = '/projectiles/SDFHeavyQuarnonCannon01/SDFHeavyQuarnonCannon01_proj.bp',
+            ProjectileLifetime = 1.1,
 
             RackBones = {
                 {

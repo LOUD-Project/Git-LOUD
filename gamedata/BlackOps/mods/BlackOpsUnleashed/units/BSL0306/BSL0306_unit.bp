@@ -209,6 +209,7 @@ UnitBlueprint {
             MuzzleVelocity = 36,
 			
             ProjectileId = '/projectiles/SDFPhasicAutogun01/SDFPhasicAutogun01_proj.bp',
+            ProjectileLifetime = 1,
 
             RackBones = {
                 {

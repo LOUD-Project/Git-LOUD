@@ -217,7 +217,7 @@ UnitBlueprint {
 			NotExclusive = true,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/cybranheavyrocketproj/cybranheavyrocket_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 4,
+            ProjectileLifetime = 4.5,
 			
             RackBones = {
                 {
@@ -304,6 +304,7 @@ UnitBlueprint {
 			PrefersPrimaryWeaponTarget = true,
 			
             ProjectileId = '/projectiles/NullShell/NullShell_proj.bp',
+            ProjectileLifetime = 0.7,
 
             RackBones = {
                 {
@@ -358,8 +359,9 @@ UnitBlueprint {
             NotExclusive = true,
 			
             PrefersPrimaryWeaponTarget = true,
-            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3BTproj/BRMT3BTproj_proj.bp',
 
+            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3BTproj/BRMT3BTproj_proj.bp',
+            ProjectileLifetime = 1.1,
 
             RackBones = {
                 {

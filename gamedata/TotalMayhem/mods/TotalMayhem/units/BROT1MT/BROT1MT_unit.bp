@@ -155,6 +155,7 @@ UnitBlueprint {
             MuzzleVelocity = 28,
 			
             ProjectileId = '/projectiles/AAASonicPulse02/AAASonicPulse02_proj.bp',
+            ProjectileLifetime = 0.8,
 
             RackBones = {
                 {

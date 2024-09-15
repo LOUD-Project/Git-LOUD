@@ -727,7 +727,7 @@ UnitBlueprint {
             FireOnDeath = false,
             FiringTolerance = 2,
 			
-            Label = 'GoliathDeathNuck',
+            Label = 'DeathWeapon',
 			
             MaxRadius = 1,
             MuzzleSalvoDelay = 0,

@@ -246,7 +246,8 @@ UnitBlueprint {
             MuzzleVelocity = 44,
 			
             ProjectileId = '/projectiles/CDFProtonCannon02/CDFProtonCannon02_proj.bp',
-			
+            ProjectileLifetime = 2.2,			
+
             RackBones = {
                 {
                     MuzzleBones = {'Front_Right_Muzzle','Front_Left_Muzzle'},
@@ -324,6 +325,8 @@ UnitBlueprint {
             MuzzleVelocity = 50,
 			
             ProjectileId = '/projectiles/CDFProtonCannon02/CDFProtonCannon02_proj.bp',
+            ProjectileLifetime = 1.9,
+
             RackBones = {
                 {
                     MuzzleBones = {'Front_Right_Muzzle01','Front_Left_Muzzle01'},

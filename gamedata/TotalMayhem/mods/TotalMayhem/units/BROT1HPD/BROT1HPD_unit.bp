@@ -162,6 +162,7 @@ UnitBlueprint {
             MuzzleVelocity = 36,
 			
             ProjectileId = '/projectiles/ADFDisruptor01/ADFDisruptor01_proj.bp',
+            ProjectileLifetime = 1.1,
 
             RackBones = {
                 {

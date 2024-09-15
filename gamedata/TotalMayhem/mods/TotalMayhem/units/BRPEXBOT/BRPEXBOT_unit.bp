@@ -306,6 +306,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             ProjectileId = '/projectiles/SIFSuthanusArtilleryShell01/SIFSuthanusArtilleryShell01_proj.bp',
+            ProjectileLifetime = 1.6,
 
             RackBones = {
                 {
@@ -391,7 +392,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             ProjectileId = '/projectiles/SDFOhCannon03/SDFOhCannon03_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.5,
+            ProjectileLifetime = 1.2,
 
             RackBones = {
                 {

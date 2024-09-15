@@ -34,6 +34,7 @@ UnitBlueprint {
         'LAND',
 		'AMPHIBIOUS',
         'INDIRECTFIRE',
+        'SNIPER',
         'EXPERIMENTAL',
         'NEEDMOBILEBUILD',
         'VISIBLETORECON',
@@ -371,7 +372,9 @@ UnitBlueprint {
             NotExclusive = true,
 			
             PrefersPrimaryWeaponTarget = true,
+            
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/GLaserShot01/GLaserShot01_proj.bp',
+            ProjectileLifetime = 0.8,
 
             RackBones = {
                 {

@@ -226,6 +226,7 @@ UnitBlueprint {
             MuzzleVelocity = 45,
 
             ProjectileId = '/projectiles/ADFLaserLight01/ADFLaserLight01_proj.bp',
+            ProjectileLifetime = 0.7,
 
             RackBones = {
                 {
@@ -290,7 +291,8 @@ UnitBlueprint {
             MuzzleVelocity = 45,
 
             ProjectileId = '/projectiles/ADFLaserLight01/ADFLaserLight01_proj.bp',
-
+            ProjectileLifetime = 0.7,
+            
             RackBones = {
                 {
                     MuzzleBones = {'Muzzle_L'},
@@ -357,7 +359,7 @@ UnitBlueprint {
             MuzzleVelocity = 60,
 			
             ProjectileId = '/projectiles/AAASonicPulse02/AAASonicPulse02_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 0.6,
+            ProjectileLifetime = 0.6,
 			
             RackBones = {
                 {
@@ -427,7 +429,7 @@ UnitBlueprint {
             MuzzleVelocity = 60,
 			
             ProjectileId = '/projectiles/AAASonicPulse02/AAASonicPulse02_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 0.6,
+            ProjectileLifetime = 0.6,
 			
             RackBones = {
                 {

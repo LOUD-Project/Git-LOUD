@@ -206,7 +206,8 @@ UnitBlueprint {
             NotExclusive = true,
 			
             ProjectileId = '/projectiles/CDFRocketIridium02/CDFRocketIridium02_proj.bp',
-			
+            ProjectileLifetime = 3.5,			
+
             RackBones = {
                 {
                     MuzzleBones = {

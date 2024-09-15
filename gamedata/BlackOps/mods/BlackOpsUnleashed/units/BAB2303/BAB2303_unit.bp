@@ -186,8 +186,8 @@ UnitBlueprint {
             MuzzleSalvoSize = 6,	---- fires 6 rounds over 2.4 seconds
             MuzzleVelocity = 18.5,
 			
-			-- could use same projectile as UAL0304 --
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/ArchAngelMissile01/ArchAngelMissile01_proj.bp',
+            ProjectileLifetime = 4.8,
 
             RackBones = {
                 {

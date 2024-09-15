@@ -221,6 +221,7 @@ UnitBlueprint {
             MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/CDFLaserHeavy01/CDFLaserHeavy01_proj.bp',
+            ProjectileLifetime = 1,
 
             RackBones = {
                 {
@@ -306,7 +307,9 @@ UnitBlueprint {
             MuzzleVelocity = 36,
 			
             PrefersPrimaryWeaponTarget = true,
+
             ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
+            ProjectileLifetime = 0.9,
 
             RackBones = {
                 {

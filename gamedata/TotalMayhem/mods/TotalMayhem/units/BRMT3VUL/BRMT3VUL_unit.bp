@@ -265,7 +265,7 @@ UnitBlueprint {
 			NotExclusive = true,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/cybranrocketproj/cybranrocket_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 4,
+            ProjectileLifetime = 4.6,
 
             RackBones = {
                 {
@@ -337,6 +337,7 @@ UnitBlueprint {
             MuzzleVelocity = 45,
 			
             ProjectileId = '/projectiles/CDFLaserHeavy01/CDFLaserHeavy01_proj.bp',
+            ProjectileLifetime = 1,
 
             RackBones = {
                 {
@@ -420,6 +421,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             ProjectileId = '/projectiles/CDFLaserHeavy01/CDFLaserHeavy01_proj.bp',
+            ProjectileLifetime = 1,
 
             RackBones = {
                 {
@@ -502,6 +504,7 @@ UnitBlueprint {
             MuzzleVelocity = 45,
 
             ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
+            ProjectileLifetime = 0.9,
 
             RackBones = {
                 {
@@ -587,6 +590,7 @@ UnitBlueprint {
 			PrefersPrimaryWeaponTarget = true,
 			
             ProjectileId = '/projectiles/NullShell/NullShell_proj.bp',
+            ProjectileLifetime = 0.7,
 
             RackBones = {
                 {

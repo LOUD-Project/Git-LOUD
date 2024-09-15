@@ -252,6 +252,7 @@ UnitBlueprint{
             NotExclusive = true,
 
             ProjectileId = "/projectiles/TIFArtillery01/TIFArtillery01_proj.bp",
+            ProjectileLifetime = 12,
 
             RackBones = {
                 {
@@ -413,7 +414,7 @@ UnitBlueprint{
             NotExclusive = true,
 
             ProjectileId = "/projectiles/TDFGauss04/TDFGauss04_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 4.5,
+            ProjectileLifetime = 4,
 
             RackBones = {
                 {
@@ -497,7 +498,7 @@ UnitBlueprint{
             NotExclusive = true,
 
             ProjectileId = "/projectiles/TDFGauss04/TDFGauss04_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 4.5,
+            ProjectileLifetime = 4,
 
             RackBones = {
                 {
@@ -575,7 +576,7 @@ UnitBlueprint{
             NotExclusive = true,
 
             ProjectileId = "/projectiles/TDFGauss04/TDFGauss04_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 4.5,
+            ProjectileLifetime = 4,
 
             RackBones = {
                 {
@@ -784,7 +785,7 @@ UnitBlueprint{
             NotExclusive = true,
 
             ProjectileId = "/projectiles/TAALightFragmentationShell01/TAALightFragmentationShell01_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 1,
+            ProjectileLifetime = 0.9,
 
             RackBones = {
                 {
@@ -862,7 +863,7 @@ UnitBlueprint{
             NotExclusive = true,
 
             ProjectileId = "/projectiles/TAALightFragmentationShell01/TAALightFragmentationShell01_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 1,
+            ProjectileLifetimeUsesMultiplier = 0.9,
 
             RackBones = {
                 {
@@ -905,28 +906,39 @@ UnitBlueprint{
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0203_Riot_Gun', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
+
             Damage = 50,
             DamageType = "Normal",
+
             DisplayName = "Hells Fury Riot Gun",
+
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
             },
             FiringTolerance = 2,
+
             HeadingArcCenter = 90,
             HeadingArcRange = 90,
+
             Label = "Riotgun",
+
             MaxRadius = 35,
 
             MuzzleVelocity = 45,
+
             NotExclusive = true,
+
             ProjectileId = "/projectiles/TDFRiot02/TDFRiot02_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 1.2,
+            ProjectileLifetime = 1,
+
             RackBones = {
                 {
                     MuzzleBones = { "Riot_Gun_Right_Barrel_Muzzle" },
@@ -943,13 +955,16 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.15,
+
             TurretBoneMuzzle = "Riot_Gun_Right_Barrel_Muzzle",
             TurretBonePitch = "Riot_Gun_Right_Barrel",
             TurretBoneYaw = "Riot_Gun_Right",
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 25,
             TurretPitchSpeed = 30,
+
             TurretYaw = 0,
             TurretYawRange = 90,
             TurretYawSpeed = 60,
@@ -958,28 +973,39 @@ UnitBlueprint{
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0203_Riot_Gun', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
+
             Damage = 50,
             DamageType = "Normal",
+
             DisplayName = "Hells Fury Riot Gun",
+
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
             },
             FiringTolerance = 2,
+
             HeadingArcCenter = -90,
             HeadingArcRange = 90,
+
             Label = "Riotgun",
+
             MaxRadius = 32,
 
             MuzzleVelocity = 45,
+
             NotExclusive = true,
+
             ProjectileId = "/projectiles/TDFRiot02/TDFRiot02_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 1.2,
+            ProjectileLifetime = 1,
+
             RackBones = {
                 {
                     MuzzleBones = { "Riot_Gun_Left_Barrel_Muzzle" },
@@ -996,13 +1022,16 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.15,
+
             TurretBoneMuzzle = "Riot_Gun_Left_Barrel_Muzzle",
             TurretBonePitch = "Riot_Gun_Left_Barrel",
             TurretBoneYaw = "Riot_Gun_Left",
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 25,
             TurretPitchSpeed = 30,
+
             TurretYaw = 0,
             TurretYawRange = 90,
             TurretYawSpeed = 60,

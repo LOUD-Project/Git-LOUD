@@ -2028,6 +2028,7 @@ UnitBlueprint {
 			PrefersPrimaryWeaponTarget = true,
 
             ProjectileId = '/mods/BlackopsACUs/projectiles/SeraRapidCannon01/SeraRapidCannon01_proj.bp',
+            ProjectileLifetime = 1.1,
 
             RackBones = {
                 {

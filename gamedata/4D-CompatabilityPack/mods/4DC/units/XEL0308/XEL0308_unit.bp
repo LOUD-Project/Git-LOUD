@@ -280,6 +280,7 @@ UnitBlueprint{
             MuzzleVelocity = 46,
 
             ProjectileId = "/projectiles/TDFGauss01/TDFGauss01_proj.bp",
+            ProjectileLifetime = 0.7,
 
             RackBones = {
                 {

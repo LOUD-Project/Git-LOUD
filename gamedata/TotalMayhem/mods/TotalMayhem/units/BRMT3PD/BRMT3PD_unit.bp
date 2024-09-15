@@ -176,7 +176,8 @@ UnitBlueprint {
             MuzzleVelocity = 33,
 
             ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
-			
+            ProjectileLifetime = 2.2,			
+
             RackBones = {
                 {
                     MuzzleBones = { 'Turret_Muzzle' },

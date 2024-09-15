@@ -168,6 +168,7 @@ UnitBlueprint {
             MuzzleVelocity = 35,
 
             ProjectileId = '/projectiles/ADFGraviton01/ADFGraviton01_proj.bp',
+            ProjectileLifetime = 0.8,
 
             RackBones = {
                 {

@@ -190,6 +190,7 @@ UnitBlueprint {
             MuzzleVelocity = 44,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRMT2HVY2proj/BRMT2HVY2proj_proj.bp',
+            ProjectileLifetime = 1.2,
 
             RackBones = {
                 {

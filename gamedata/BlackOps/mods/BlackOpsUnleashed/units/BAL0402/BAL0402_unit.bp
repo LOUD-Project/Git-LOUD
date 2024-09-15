@@ -311,6 +311,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/WraithShell01/WraithShell01_proj.bp',
+            ProjectileLifetime = 1.8,
 
             RackBones = {
                 {
@@ -393,7 +394,9 @@ UnitBlueprint {
             MuzzleVelocity = 38,
 			
 			NotExclusive = true,
+
             ProjectileId = '/projectiles/ADFOblivionCannon01/ADFOblivionCannon01_proj.bp',
+            ProjectileLifetime = 1.8,
 
             RackBones = {
                 {
@@ -467,7 +470,8 @@ UnitBlueprint {
 			NotExclusive = true,
 			
             ProjectileId = '/projectiles/ADFOblivionCannon01/ADFOblivionCannon01_proj.bp',
-			
+            ProjectileLifetime = 1.5,			
+
             RackBones = {
                 {
                     MuzzleBones = {'Right_Turret_Muzzle'},

@@ -161,6 +161,7 @@ UnitBlueprint {
             MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/CDFLaserLight01/CDFLaserLight01_proj.bp',
+            ProjectileLifetime = 0.7,
 
             RackBones = {
                 {

@@ -388,6 +388,7 @@ UnitBlueprint {
             NukeWeapon = true,
 			
             ProjectileId = '/projectiles/CIFEMPFluxWarhead01/CIFEMPFluxWarhead01_proj.bp',
+            ProjectileLifetime = 50,
 
             RackBones = {
                 {

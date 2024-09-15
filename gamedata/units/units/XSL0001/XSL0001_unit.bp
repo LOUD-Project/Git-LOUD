@@ -887,8 +887,9 @@ UnitBlueprint {
             MuzzleChargeDelay = 0.4,
 
             MuzzleVelocity = 35,
+
             ProjectileId = '/projectiles/SDFChronatronCannon01/SDFChronatronCannon01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 2,
+            ProjectileLifetime = 1,
 
             RackBones = {
                 {
@@ -965,6 +966,7 @@ UnitBlueprint {
             OverChargeWeapon = true,
 
             ProjectileId = '/projectiles/SDFChronatronCannon02/SDFChronatronCannon02_proj.bp',
+            ProjectileLifetime = 1,
 
             RackBones = {
                 {

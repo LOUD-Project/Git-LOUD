@@ -205,6 +205,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/WraithShell01/WraithShell01_proj.bp',
+            ProjectileLifetime = 2.5,
 
             RackBones = {
                 {
@@ -283,6 +284,7 @@ UnitBlueprint {
             NotExclusive = true,
 
             ProjectileId = '/projectiles/ADFQuantumCannon02/ADFQuantumCannon02_proj.bp',
+            ProjectileLifetime = 0.9,
 
             RackBones = {
                 {
@@ -333,7 +335,7 @@ UnitBlueprint {
 
             WeaponRepackTimeout = 1.5,
             WeaponUnpackAnimation = '/mods/BlackOpsUnleashed/units/BAL0310/BAL0310_Aopen.sca',
-            WeaponUnpackAnimationRate = 1,
+            WeaponUnpackAnimationRate = 2,
             WeaponUnpacks = true,
         },
     },

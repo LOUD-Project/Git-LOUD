@@ -215,6 +215,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
 			ProjectileId = '/mods/TotalMayhem/projectiles/BRNT1MTproj/BRNT1MTproj_proj.bp',
+            ProjectileLifetime = 1,
 
             RackBones = {
                 {
@@ -326,6 +327,7 @@ UnitBlueprint {
             MuzzleVelocity = 40,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRNT3ABBproj/BRNT3ABBproj_proj.bp',
+            ProjectileLifetime = 1,
 
             RackBones = {
                 {

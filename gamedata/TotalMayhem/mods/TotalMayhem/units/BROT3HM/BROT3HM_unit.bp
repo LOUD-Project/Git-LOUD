@@ -223,6 +223,7 @@ UnitBlueprint {
             MuzzleVelocity = 45,
 
             ProjectileId = '/projectiles/ADFDisruptor01/ADFDisruptor01_proj.bp',
+            ProjectileLifetime = 1,
 
             RackBones = {
                 {
@@ -348,6 +349,7 @@ UnitBlueprint {
             MuzzleVelocity = 60,
 
             ProjectileId = '/mods/TotalMayhem/projectiles/BROT3HTproj/BROT3HTproj_proj.bp',
+            ProjectileLifetime = 0.8,
 
             RackBones = {
                 {

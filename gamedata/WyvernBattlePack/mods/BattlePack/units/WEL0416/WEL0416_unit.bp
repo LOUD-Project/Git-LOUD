@@ -397,7 +397,7 @@ UnitBlueprint{
             PrefersPrimaryWeaponTarget = true,
 
             ProjectileId = "/mods/BattlePack/projectiles/UHandCannon01/UHandCannon01_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 1.15,
+            ProjectileLifetime = 2,
 
             RackBones = {
                 {
@@ -471,7 +471,7 @@ UnitBlueprint{
             PrefersPrimaryWeaponTarget = true,
 
             ProjectileId = "/mods/BattlePack/projectiles/UHandCannon01/UHandCannon01_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 1.15,
+            ProjectileLifetime = 2,
 
             RackBones = {
                 {
@@ -686,7 +686,7 @@ UnitBlueprint{
             NotExclusive = true,
 
             ProjectileId = "/mods/BattlePack/projectiles/DragoniteMissiles/DragoniteMissiles_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 14.85,
+            ProjectileLifetime = 9.5,
 
             RackBones = {
                 {
@@ -764,7 +764,7 @@ UnitBlueprint{
             MuzzleVelocityReduceDistance = 90,
 
             ProjectileId = "/mods/BattlePack/projectiles/UCannonShell02/UCannonShell02_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 1.15,
+            ProjectileLifetime = 2.8,
 
             RackBones = {
                 {
@@ -832,7 +832,7 @@ UnitBlueprint{
             MuzzleVelocityReduceDistance = 90,
 
             ProjectileId = "/mods/BattlePack/projectiles/UCannonShell02/UCannonShell02_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 1.15,
+            ProjectileLifetime = 2.8,
 
             RackBones = {
                 {

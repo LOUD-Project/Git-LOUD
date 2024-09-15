@@ -62,7 +62,7 @@ UEL0401 = Class(TMobileFactoryUnit) {
 
     IdleState = State {
         OnStartBuild = function(self, unitBuilding, order)
-            self:SetBusy(true)
+            --self:SetBusy(true)
             TMobileFactoryUnit.OnStartBuild(self, unitBuilding, order)
             self.UnitBeingBuilt = unitBuilding
             self.PrepareToBuildManipulator:SetRate(self.PrepareToBuildAnimRate)
@@ -72,7 +72,7 @@ UEL0401 = Class(TMobileFactoryUnit) {
         Main = function(self)
             self.PrepareToBuildManipulator:SetRate(-self.PrepareToBuildAnimRate)
             self:DetachAll(self.BuildAttachBone)
-            self:SetBusy(false)
+            --self:SetBusy(false)
         end,
 
     },

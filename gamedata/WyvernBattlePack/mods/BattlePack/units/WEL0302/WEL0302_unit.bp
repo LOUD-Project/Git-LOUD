@@ -222,7 +222,7 @@ UnitBlueprint{
             NoPause = true,
 
             ProjectileId = "/projectiles/TDPhalanx01/TDPhalanx01_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 1,
+            ProjectileLifetime = 0.8,
 
             RackBones = {
                 {

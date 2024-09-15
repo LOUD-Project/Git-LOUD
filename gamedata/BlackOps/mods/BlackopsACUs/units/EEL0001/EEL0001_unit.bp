@@ -1661,7 +1661,7 @@ UnitBlueprint {
 			NotExclusive = true,
 			
             ProjectileId = '/projectiles/LaserBotTerran01/LaserBotTerran01_proj.bp',
-            ProjectileLifetime = 2,
+            ProjectileLifetime = 1,
 			
             RackBones = {
                 {
@@ -1865,7 +1865,7 @@ UnitBlueprint {
             NoPause = true,
 			
             ProjectileId = '/mods/BlackOpsACUs/projectiles/NapalmProjectile01/Napalm01_proj.bp',
-            ProjectileLifetime = 4,
+            ProjectileLifetime = 2.4,
 
             RackBones = {
                 {
@@ -1943,7 +1943,7 @@ UnitBlueprint {
 			NotExclusive = true,
 
             ProjectileId = '/mods/BlackOpsACUs/projectiles/NapalmProjectile01/Napalm01_proj.bp',
-            ProjectileLifetime = 4,
+            ProjectileLifetime = 2.4,
 
             RackBones = {
                 {
@@ -2168,7 +2168,8 @@ UnitBlueprint {
             PrefersPrimaryWeaponTarget = true,
 
             ProjectileId = '/mods/BlackopsACUs/projectiles/UEFACUAntiMatter01/UEFACUAntiMatter01_proj.bp',
-            
+            ProjectileLifetime = 1.1,            
+
             RackBones = {
                 {
                     MuzzleBones = { 'HAC_Muzzle' },
@@ -2242,7 +2243,9 @@ UnitBlueprint {
             MuzzleVelocity = 34,
             
             PrefersPrimaryWeaponTarget = true,
+
             ProjectileId = '/mods/BlackopsACUs/projectiles/UEFACUAntiMatter02/UEFACUAntiMatter02_proj.bp',
+            ProjectileLifetime = 1.2,
 
             RackBones = {
                 {
@@ -2330,7 +2333,9 @@ UnitBlueprint {
             MuzzleVelocity = 38,
 
             PrefersPrimaryWeaponTarget = true,
+
             ProjectileId = '/mods/BlackopsACUs/projectiles/UEFACUAntiMatter03/UEFACUAntiMatter03_proj.bp',
+            ProjectileLifetime = 1.3,
 
             RackBones = {
                 {
@@ -2415,6 +2420,7 @@ UnitBlueprint {
             PrefersPrimaryWeaponTarget = true,
 
             ProjectileId = '/projectiles/TDFHeavyPlasmaGatlingCannon01/TDFHeavyPlasmaGatlingCannon01_proj.bp',
+            ProjectileLifetime = 0.9,
 
             RackBones = {
                 {
@@ -2500,7 +2506,7 @@ UnitBlueprint {
             PrefersPrimaryWeaponTarget = true,
 			
             ProjectileId = '/projectiles/TDFHeavyPlasmaGatlingCannon01/TDFHeavyPlasmaGatlingCannon01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.5,
+            ProjectileLifetime = 1.5,
 
             RackBones = {
                 {
@@ -2584,7 +2590,7 @@ UnitBlueprint {
             PrefersPrimaryWeaponTarget = true,
 
             ProjectileId = '/mods/BlackOpsACUs/projectiles/UEFHeavyPlasmaGatlingCannon02/UEFHeavyPlasmaGatlingCannon02_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.5,
+            ProjectileLifetime = 1.6,
 
             RackBones = {
                 {

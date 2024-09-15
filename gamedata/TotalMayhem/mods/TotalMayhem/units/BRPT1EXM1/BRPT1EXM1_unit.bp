@@ -201,6 +201,7 @@ UnitBlueprint {
             MuzzleVelocity = 38,
 			
             ProjectileId = '/projectiles/SAAShleoAAGatlingGun05/SAAShleoAAGatlingGun05_proj.bp',
+            ProjectileLifetime = 0.8,
 
             RackBones = {
                 {

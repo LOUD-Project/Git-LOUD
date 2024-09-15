@@ -192,7 +192,7 @@ UnitBlueprint{
             NoPause = true,
 
             ProjectileId = "/projectiles/CDFProtonCannon05/CDFProtonCannon05_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 1.2,
+            ProjectileLifetime = 1.2,
 
             RackBones = {
                 {

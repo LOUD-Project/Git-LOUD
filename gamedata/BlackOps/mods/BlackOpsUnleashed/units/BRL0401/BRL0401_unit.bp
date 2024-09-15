@@ -1072,7 +1072,8 @@ UnitBlueprint {
             NotExclusive = true,
 			
 			ProjectileId = '/mods/BlackOpsUnleashed/projectiles/BasAAMissile01/BasAAMissile01_proj.bp',
-			
+            ProjectileLifetime = 8,
+            
             RackBones = {
                 {
                     MuzzleBones = {
@@ -1107,14 +1108,18 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             CollideFriendly = false,
+
             Damage = 15000,
             DamageFriendly = true,
             DamageRadius = 19,
             DamageType = 'Normal',
+
             DisplayName = 'Death Nuke',
+
             FireOnDeath = false,
             FiringTolerance = 2,
-            Label = 'BasiliskDeathNuck',
+
+            Label = 'DeathWeapon',
 
             MaxRadius = 1,
 

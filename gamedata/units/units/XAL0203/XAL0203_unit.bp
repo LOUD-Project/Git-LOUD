@@ -192,6 +192,7 @@ UnitBlueprint {
             MuzzleVelocity = 36,
 			
             ProjectileId = '/projectiles/ADFQuatumAutoGun01/ADFQuatumAutoGun01_proj.bp',
+            ProjectileLifetime = 0.8,
 
             RackBones = {
                 {

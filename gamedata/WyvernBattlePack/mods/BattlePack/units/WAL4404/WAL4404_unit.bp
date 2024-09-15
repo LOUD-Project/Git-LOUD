@@ -205,7 +205,7 @@ UnitBlueprint{
             NotExclusive = true,
 
             ProjectileId = "/mods/BattlePack/projectiles/IChronCannon02/IChronCannon02_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 1.5,
+            ProjectileLifetime = 1.6,
 
             RackBones = {
                 {
@@ -280,7 +280,7 @@ UnitBlueprint{
             NotExclusive = true,
 
             ProjectileId = "/projectiles/ADFOblivionCannon03/ADFOblivionCannon03_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 1.5,
+            ProjectileLifetime = 1.4,
 
             RackBones = {
                 {
@@ -365,7 +365,7 @@ UnitBlueprint{
 
             NotExclusive = true,
             ProjectileId = "/projectiles/ADFOblivionCannon03/ADFOblivionCannon03_proj.bp",
-            ProjectileLifetimeUsesMultiplier = 1.5,
+            ProjectileLifetimeUsesMultiplier = 1.4,
 
             RackBones = {
                 {

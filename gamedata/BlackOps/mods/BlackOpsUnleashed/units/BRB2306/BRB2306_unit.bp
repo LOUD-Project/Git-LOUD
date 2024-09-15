@@ -276,6 +276,7 @@ UnitBlueprint {
             PrefersPrimaryWeaponTarget = true,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/NovaStunner01/NovaStunner01_proj.bp',
+            ProjectileLifetime = 0.8,
 
             RackBones = {
                 {

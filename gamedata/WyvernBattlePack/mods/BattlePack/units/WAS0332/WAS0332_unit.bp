@@ -223,6 +223,7 @@ UnitBlueprint{
             MuzzleVelocity = 36,
 
             ProjectileId = "/projectiles/ADFQuantumCannon01/ADFQuantumCannon01_proj.bp",
+            ProjectileLifetime = 2.2,
 
             RackBones = {
                 {
@@ -301,6 +302,7 @@ UnitBlueprint{
             MuzzleVelocity = 36,
 
             ProjectileId = "/projectiles/ADFQuantumCannon01/ADFQuantumCannon01_proj.bp",
+            ProjectileLifetime = 2,
 
             RackBones = {
                 {
@@ -376,6 +378,8 @@ UnitBlueprint{
             MuzzleVelocity = 40,
 
             ProjectileId = "/projectiles/ADFQuantumCannon01/ADFQuantumCannon01_proj.bp",
+            ProjectileLifetime = 1.9,
+
             RackBones = {
                 {
                     MuzzleBones = { "Muzzle_Back01" },

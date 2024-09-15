@@ -552,11 +552,14 @@ UnitBlueprint{
                 Seabed = "Land|Water|Seabed",
             },
             FiringTolerance = 360,
+
             Label = "ChronoDampener",
 
             MaxRadius = 22,
 
             MuzzleVelocity = 30,
+
+            ProjectileLifetime = 0.8,
 
             RackBones = {
                 {
