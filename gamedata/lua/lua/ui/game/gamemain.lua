@@ -108,6 +108,8 @@ function OnFirstUpdate()
 
     LOG("*AI DEBUG OnFirstUpdate")
 
+    import("/lua/ui/override/SessionIsMultiplayer.lua")
+
     EnableWorldSounds()
 	
     local avatars = GetArmyAvatars()
@@ -1158,12 +1160,7 @@ defaultZoom = 1.4
 
 function SimChangeCameraZoom(newMult)
 
-    if SessionIsActive() and 
-        WorldIsPlaying() and 
-        not SessionIsGameOver() and 
-        not SessionIsMultiplayer() and 
-        not SessionIsReplay() and
-        not IsNISMode() then
+    if IsQuickSaveAvailable then
        
         defaultZoom = newMult
         local views = import('/lua/ui/game/worldview.lua').GetWorldViews()

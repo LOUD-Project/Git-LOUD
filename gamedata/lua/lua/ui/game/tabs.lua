@@ -138,17 +138,18 @@ local menus = {
                 label = '<LOC _Options>',
                 tooltip = 'esc_options',
             },
-            {
-                action = 'Load_LAN',
-                label = '<LOC _Load_Game>Load MP Game',
-                tooltip = 'esc_load',
-            },
-            {
-                action = 'Save_LAN',
-                disableOnGameOver = true,
-                label = '<LOC _Save_Game>Save MP Game',
-                tooltip = 'esc_save',
-            },
+-- Not yet implemented
+--            {
+--                action = 'Load_LAN',
+--                label = '<LOC _Load_Game>Load MP Game',
+--                tooltip = 'esc_load',
+--            },
+--            {
+--                action = 'Save_LAN',
+--                disableOnGameOver = true,
+--                label = '<LOC _Save_Game>Save MP Game',
+--                tooltip = 'esc_save',
+--            },
             {
                 action = 'EndMPGame',
                 label = '<LOC _End_Game>',
