@@ -1009,9 +1009,9 @@ StructureUnit = Class(Unit) {
     
     OnUpgradeComplete = function( self )
     
-        --if StructureUpgradeDialog then    
+        if StructureUpgradeDialog then    
             LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..completedunit.EntityID.." launching follow on upgrade thread at game tick "..GetGameTick() )
-		--end
+		end
         
         completedunit:LaunchUpgradeThread( aiBrain )
     end

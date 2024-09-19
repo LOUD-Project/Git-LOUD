@@ -120,7 +120,7 @@
 	LOG("*AI DEBUG      Display Platoon Plans is "..repr(ScenarioInfo.DisplayPlatoonPlans))
 
     -- AI bases and platoons that respond to distress will dialog their data and decisions to the LOG
-	ScenarioInfo.DistressResponseDialog = true
+	ScenarioInfo.DistressResponseDialog = false
 	LOG("*AI DEBUG      Report Distress Response Dialogs to Log is "..repr(ScenarioInfo.DistressResponseDialog))
 
     -- AI platoons that MERGE_INTO or MERGE_WITH will dialog their data and decisions to the LOG
@@ -142,7 +142,7 @@
     -- BEHAVIOR DIALOGS --
 
     -- follows the decision process of the AIRFORCEAILOUD behavior
-    ScenarioInfo.AirForceDialog = true
+    ScenarioInfo.AirForceDialog = false
     LOG("*AI DEBUG      AmphibForce Behavior Dialog is "..repr(ScenarioInfo.AmphibForceDialog))
 
     -- follows the decision process of the AMPHIBFORCEAILOUD behavior (for LAND & AMPHIB only at this time)
@@ -360,6 +360,7 @@ function SetAIDebug(data)
             'TransportDialog',
             'PathFindingDialog',
 
+            'AirForceDialog',
             'AmphibForceDialog',
             'GuardPointDialog',
             'LandForceDialog',
