@@ -3183,6 +3183,8 @@ Unit = Class(UnitMethods) {
     end,
 
     OnStartBuild = function(self, unitBeingBuilt, order)
+    
+        --LOG("*AI DEBUG UNIT OnStartBuild for "..repr(order).." Unit "..self.EntityID.." building "..repr(unitBeingBuilt) )
 
         self:UpdateConsumptionValues()
 
@@ -5013,8 +5015,8 @@ Unit = Class(UnitMethods) {
         if not LOUDENTITY(categories.PODSTAGINGPLATFORM, self) then
             self:RequestRefreshUI()
         end
-		
-        unit:OnAttachedToTransport(self)
+
+        unit:DoUnitCallbacks( 'OnAttachedToTransport', self )
 		
         self:DoUnitCallbacks('OnTransportAttach', unit )
 		
@@ -5040,8 +5042,8 @@ Unit = Class(UnitMethods) {
         end
 		
         unit:TransportAnimation(-1)
-		
-        unit:OnDetachedToTransport(self)
+
+        unit:DoUnitCallbacks( 'OnDetachedToTransport', self)
 		
         self:DoUnitCallbacks('OnTransportDetach', unit )
 		

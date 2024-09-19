@@ -1023,6 +1023,8 @@ local StructureUnitOnKilled             = StructureUnit.OnKilled
 local StructureUnitOnStopBeingBuilt     = StructureUnit.OnStopBeingBuilt
 local StructureUnitOnStartBuild         = StructureUnit.OnStartBuild
 local StructureUnitOnStopBuild          = StructureUnit.OnStopBuild
+local StructureUnitOnTransportAttach    = StructureUnit.OnTransportAttach
+local StructureUnitOnTransportDetach    = StructureUnit.OnTransportDetach
 
 MobileUnit = Class(Unit) {
 
@@ -2764,42 +2766,38 @@ AirStagingPlatformUnit = Class(StructureUnit) {
 
 		StructureUnitOnCreate(self)
 
-		--self.EventCallbacks.OnTransportDetach = {}
-		--self.EventCallbacks.OnTransportAttach = {}
-		--self.EventCallbacks.OnDetachedToTransport = {}
-		--self.EventCallbacks.OnAttachedToTransport = {}
+		self.EventCallbacks.OnTransportDetach = {}
+		self.EventCallbacks.OnTransportAttach = {}
 
 	end,
 
-	-- issued by the platform as a unit loads on
+	--- issued by the platform as units attach
     OnTransportAttach = function(self, attachBone, unit)
+    
+        --LOG("*AI DEBUG Airpad "..self.Sync.id.." attaching to unit "..unit.Sync.id)
 
 		if not self.UnitStored then
-		
 			self.UnitStored = {}
-			
 		end
         
-        -- cancel any pending forced unload process
-        if self.ForcedUnload then
-            KillThread(self.ForcedUnload)
-        end
-
-        -- force an unload 20 seconds after an attach
-        --self.ForcedUnload = self:ForkThread( function(self) WaitTicks(200) IssueTransportUnload( {self},self:GetPosition() )  end )
-        
 		self.UnitStored[unit.EntityID] = true
+        
+        unit.Attached = true
 
-		StructureUnit.OnTransportAttach(self, attachBone, unit)	
+		StructureUnitOnTransportAttach(self, attachBone, unit)	
 		
     end,
 
-	-- issued by the platform as units detach
+	--- issued by the platform as units detach
     OnTransportDetach = function(self, attachBone, unit)
 
+        --LOG("*AI DEBUG Airpad "..self.Sync.id.." detaching unit "..unit.Sync.id)
+
 		self.UnitStored[unit.EntityID] = nil
+        
+        unit.Attached = nil
 	
-		StructureUnit.OnTransportDetach(self, attachBone, unit)
+		StructureUnitOnTransportDetach(self, attachBone, unit)
 		
     end,
 
@@ -3724,7 +3722,9 @@ AirUnit = Class(MobileUnit) {
 		self.EventCallbacks.OnStartRefueling = {}
 		self.EventCallbacks.OnRunOutOfFuel = {}
 		self.EventCallbacks.OnGotFuel = {}
+
 		self.HasFuel = true
+        self.RefitThread = nil
 
         local aiBrain = GetAIBrain(self)
 
