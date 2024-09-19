@@ -1009,11 +1009,13 @@ StructureUnit = Class(Unit) {
     
     OnUpgradeComplete = function( self )
     
-        if StructureUpgradeDialog then    
-            LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..completedunit.EntityID.." launching follow on upgrade thread at game tick "..GetGameTick() )
+        local aiBrain = GetAIBrain(self)
+    
+        if ScenarioInfo.StructureUpgradeDialog then    
+            LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..self.EntityID.." launching follow on upgrade thread at game tick "..GetGameTick() )
 		end
         
-        completedunit:LaunchUpgradeThread( aiBrain )
+        self:LaunchUpgradeThread( aiBrain )
     end
   
 }
@@ -3919,6 +3921,8 @@ AirUnit = Class(MobileUnit) {
 
 	-- this fires when the unit fuel falls below the trigger threshold
     OnRunOutOfFuel = function(self)
+    
+        --LOG("*AI DEBUG Unit "..self.Sync.id.." runs out of fuel")
 
         self:DoUnitCallbacks('OnRunOutOfFuel')
 

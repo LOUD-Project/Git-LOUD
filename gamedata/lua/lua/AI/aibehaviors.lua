@@ -8095,20 +8095,6 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
         
     end
 
-    --- this will get added as a callback to any upgrade that has a follow on upgrade
-    --- and it will launch the upgrade thread for that unit when the build is completed
-    local function OnUpgradeComplete( completedunit )
-    
-        if completedunit and not completedunit.Dead then
-    
-            if StructureUpgradeDialog then    
-                LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..completedunit.EntityID.." launching follow on upgrade thread at game tick "..GetGameTick() )
-            end
-        
-            completedunit:LaunchUpgradeThread( aiBrain )
-        end
-    end
-    
 	if upgradeIssued then
         
 		unit.Upgrading = true
@@ -8124,10 +8110,15 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
   
 		local unitbeingbuilt = GetEntityById(unit.UnitBeingBuilt.EntityID)
 
-        upgradeID = __blueprints[unitbeingbuilt.BlueprintID].General.UpgradesTo or false
+        upgradeID = __blueprints[unitbeingbuilt.BlueprintID].General.UpgradesTo
 
-        if upgradeID then
-            unitbeingbuilt:AddUnitCallback( OnUpgradeComplete, 'OnStopBeingBuilt' )
+        if upgradeID != nil then
+    
+            if StructureUpgradeDialog then    
+                LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." has follow on upgrade to "..repr(upgradeID) )
+            end
+          
+            unitbeingbuilt:AddUnitCallback( unit.OnUpgradeComplete, 'OnStopBeingBuilt' )
         end
 
         unit.UpgradeThread = nil
