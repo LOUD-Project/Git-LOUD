@@ -2590,8 +2590,136 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
         LOG("*AI DEBUG "..aiBrain.Nickname.." LOIT "..self.BuilderName.." "..self.BuilderInstance.." Sets Loiter position to "..repr(loiterposition).." using lerpresult "..repr(lerpresult).." current loiter was "..repr(currentloiter) )
     end
 
+    --- store the position on the platoon
+    self.loiterposition = LOUDCOPY(loiterposition)
+
     return loiterposition
 end
+
+
+function ProsecuteTarget( unit, aiBrain, target, searchrange, AirForceDialog )
+    
+        unit.IgnoreRefit = true
+        
+        local GetPosition   = GetPosition
+        local VDist3        = VDist3
+        
+        local u = {unit}
+
+        --- move unit to Attack Squad ---
+        AssignUnitsToPlatoon( aiBrain, unit.PlatoonHandle, u, 'Attack','None' )
+       
+        IssueClearCommands( u )
+
+        if AirForceDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..unit.PlatoonHandle.BuilderName.." "..unit.PlatoonHandle.BuilderInstance.." unit "..unit.Sync.id.. " assigned to target "..repr(target.Sync.id).." on tick "..GetGameTick() )
+        end
+        
+        local attackissued, loiterposition, selfpos, targethealth, targetposition, searchdistance
+
+        while target and (not target.Dead ) and (not unit.Dead) do
+
+            selfpos         = GetPosition(unit)
+            loiterposition  = unit.PlatoonHandle.loiterposition      
+            targetposition  = GetPosition(target)
+
+            --- if we run out of fuel then break off
+            if not unit.HasFuel then
+
+                unit.IgnoreRefit = false
+                
+                target = false
+                
+                break
+                
+            end
+
+            if loiterposition and type(targetposition) == 'table' then
+                
+                searchdistance    = VDist3( loiterposition, targetposition)
+                targethealth      = target:GetHealthPercent()
+
+                --- break off if 10% beyond searchrange and still mostly healthy
+                if target and searchdistance > (searchrange*1.1) and targethealth > 0.3 then
+
+                    if AirForceDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..unit.PlatoonHandle.BuilderName.." "..unit.PlatoonHandle.BuilderInstance.." unit "..unit.Sync.id.. " breaks off target at "..VDist3( targetposition, loiterposition ).." on tick "..GetGameTick() )
+                    end
+
+                    target = false
+                    
+                    break
+
+                end
+
+                --- pursue badly damaged units further
+                if target and searchdistance > (searchrange*1.3) then
+
+                    if AirForceDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..unit.PlatoonHandle.BuilderName.." "..unit.PlatoonHandle.BuilderInstance.." unit "..unit.Sync.id.. " breaks off damaged target at "..VDist3( targetposition, loiterposition ).." on tick "..GetGameTick() )
+                    end
+
+                    target = false
+                    
+                    break
+
+                end
+
+                if target and (not attackissued) then
+
+                    if not unit.Dead then
+
+                        IssueAttack( {unit}, target )
+                    
+                        attackissued = true
+                        
+                    end
+
+                end
+
+            else
+
+                target = false
+                
+                break
+
+            end
+            
+            if target and not target.Dead then
+            
+                WaitTicks(3)
+            
+            end
+
+        end
+    
+        if (not unit.Dead) and PlatoonExists( aiBrain, unit.PlatoonHandle) then
+
+            if AirForceDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..unit.PlatoonHandle.BuilderName.." "..repr(unit.PlatoonHandle.BuilderInstance).." unit "..unit.Sync.id.." attack complete on tick "..GetGameTick() )
+            end
+ 
+            if not unit.Dead then
+
+                --- we do this as a unit may be in refit at this point - and wont have a loiterposition
+                --- this allows this behavior to exit gracefully without any intervention 
+                if loiterposition then
+                
+                    IssueClearCommands( u )
+
+                    IssueMove( u, unit.PlatoonHandle.loiterposition )
+
+                    AssignUnitsToPlatoon( aiBrain, unit.PlatoonHandle, {unit}, 'Unassigned','None' )
+                    
+                end
+
+            end
+            
+        end
+        
+        unit.IgnoreRefit = nil
+  
+    end
 
 
 -- Basic Air attack logic
@@ -2837,116 +2965,6 @@ function AirForceAILOUD( self, aiBrain )
 		return false
 	end
 
-    local ProsecuteTarget = function( unit, mytarget )
-    
-        unit.IgnoreRefit = true
-        
-        local GetPosition   = GetPosition
-        local VDist3        = VDist3
-        
-        local u = {unit}
-
-        --- move unit to Attack Squad ---
-        AssignUnitsToPlatoon( aiBrain, self, u, 'Attack','None' )
-
-        local target = mytarget
-       
-        IssueClearCommands( u )
-
-        if AirForceDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." unit "..unit.Sync.id.. " assigned to target "..repr(target.Sync.id).." on tick "..GetGameTick() )
-        end
-        
-        local attackissued, selfpos, targethealth, targetposition, searchdistance
-
-        while target and (not target.Dead ) and (not unit.Dead) do
-
-            selfpos           = GetPosition(unit)
-            targetposition    = GetPosition(target)
-            
-            --LOG("*AI DEBUG Targetposition is "..repr(targetposition))
-
-            if loiterposition and type(targetposition) == 'table' then
-                
-                searchdistance    = VDist3( loiterposition, targetposition)
-                targethealth      = target:GetHealthPercent()
-                
-                WaitTicks(Random(1,4))  --- random delay to break up the syncing of multiple attackers
-
-                -- break off if 10% beyond searchrange and still mostly healthy
-                if target and searchdistance > (searchrange*1.1) and targethealth > 0.3 then
-
-                    if AirForceDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." unit "..unit.Sync.id.. " breaks off target at "..VDist3( targetposition, loiterposition ).." on tick "..GetGameTick() )
-                    end
-
-                    target = false
-                    
-                    break
-
-                end
-
-                -- pursue badly damaged units further but this is a hard break off
-                if target and searchdistance > (searchrange*1.3) then
-
-                    if AirForceDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." unit "..unit.Sync.id.. " breaks off damaged target at "..VDist3( targetposition, loiterposition ).." on tick "..GetGameTick() )
-                    end
-
-                    target = false
-                    
-                    break
-
-                end
-
-                if target and (not unit.Dead) then
-
-                    IssueAttack( u, target )
-                    
-                    attackissued = true
-
-                end
-
-            else
-
-                target = false
-                
-                break
-
-            end
-            
-            if target and not target.Dead then
-            
-                WaitTicks(4)
-            
-            end
-
-        end
-        
-        WaitTicks(Random(1,4))
-    
-        if (not unit.Dead) and PlatoonExists(aiBrain,self) then
-
-            if AirForceDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..repr(self.BuilderInstance).." unit "..unit.Sync.id.." attack complete on tick "..GetGameTick() )
-            end
- 
-            if not unit.Dead then
-       
-                IssueClearCommands( u )
-                
-                IssueMove( u, loiterposition )
-
-                AssignUnitsToPlatoon( aiBrain, self, {unit}, 'Unassigned','None' )
-
-            end
-            
-        end
-        
-        unit.IgnoreRefit = nil
-  
-    end
-
     attackcount = 1
     
     while PlatoonExists(aiBrain, self) and (LOUDFLOOR(LOUDTIME()) - MissionStartTime) <= missiontime do
@@ -3111,6 +3129,9 @@ function AirForceAILOUD( self, aiBrain )
                 TertiaryCount   = 0
                 TertiaryTargets         = false
 
+                attackers     = GetSquadUnits( self,'Unassigned' )
+                attackercount = LOUDGETN(attackers)
+
                 if attackercount > 2 then
 
                     --- enemy fighters, gunships & bombers 
@@ -3205,7 +3226,7 @@ function AirForceAILOUD( self, aiBrain )
                         
                                     if (not SecondaryShieldTargets[shield].Dead) and SecondaryShieldTargets[shield] != target then
                                     
-                                        u:ForkThread( ProsecuteTarget, SecondaryShieldTargets[shield] )
+                                        u:ForkThread( ProsecuteTarget, aiBrain, SecondaryShieldTargets[shield], searchrange, AirForceDialog )
 
                                         attackissued = true
                                         attackissuedcount = attackissuedcount + 1
@@ -3223,7 +3244,7 @@ function AirForceAILOUD( self, aiBrain )
 
                                     if (not SecondaryAATargets[aa].Dead) and SecondaryAATargets[aa] != target then
                                     
-                                        u:ForkThread( ProsecuteTarget, SecondaryAATargets[aa] )
+                                        u:ForkThread( ProsecuteTarget, aiBrain, SecondaryAATargets[aa], searchrange, AirForceDialog )
 
                                         attackissued = true
                                         attackissuedcount = attackissuedcount + 1
@@ -3241,7 +3262,7 @@ function AirForceAILOUD( self, aiBrain )
                             
                                     if (not TertiaryTargets[tertiary].Dead) and TertiaryTargets[tertiary] != target then
                                 
-                                        u:ForkThread( ProsecuteTarget, TertiaryTargets[tertiary] )
+                                        u:ForkThread( ProsecuteTarget, aiBrain, TertiaryTargets[tertiary], searchrange, AirForceDialog )
 
                                         attackissued = true
                                         attackissuedcount = attackissuedcount + 1
@@ -3257,24 +3278,26 @@ function AirForceAILOUD( self, aiBrain )
                                 -- all others go for primary
                                 if (not target.Dead) and (not attackissued) then
 
-                                    u:ForkThread( ProsecuteTarget, target )
+                                    u:ForkThread( ProsecuteTarget, aiBrain, target, searchrange, AirForceDialog )
 
                                     attackissued = true
                                     attackissuedcount = attackissuedcount + 1
                                 end
                     
-                                if attackissuedcount > 2 then
-                                    WaitTicks(1)
-                                    attackissuedcount = 0
-                                end
+                                WaitTicks(1)
 
                             end
+
+                            if attackissuedcount > 6 then
+                                break
+                            end
+
                         end
                         
                         attackercount = attackercount - attackissuedcount
                         
                         --- 1 tick for each secondary --
-                        WaitTicks( 1 + shield + aa + tertiary )
+                        WaitTicks( attackissuedcount + 1 )
                     end
                     
                 end
@@ -3311,7 +3334,9 @@ function AirForceAILOUD( self, aiBrain )
                     -- build the loiterposition using the platoon position and LERP it against the anchor
                     loiterposition[1] = LOUDFLOOR( LOUDLERP( lerpresult, anchorposition[1], platPos[1] ))
                     loiterposition[2] = anchorposition[2]
-                    loiterposition[3] = LOUDFLOOR( LOUDLERP( lerpresult, anchorposition[3], platPos[3] )) 
+                    loiterposition[3] = LOUDFLOOR( LOUDLERP( lerpresult, anchorposition[3], platPos[3] ))
+                    
+                    self.loiterposition = LOUDCOPY(loiterposition)
                 
                     if AirForceDialog then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." used "..lerpresult.." for new loiter at "..repr(loiterposition).." on tick "..GetGameTick() )
@@ -7167,6 +7192,8 @@ function TMLThread( unit, aiBrain )
 
 	local atkPri = { 'SHIELD','ANTIMISSILE -SILO','EXPERIMENTAL','ARTILLERY','ECONOMIC','ENGINEER TECH3','MOBILE TECH3', }
 	local targetUnits, target, targPos
+    
+    local u = {unit}
 	
     while not unit.Dead do
 
