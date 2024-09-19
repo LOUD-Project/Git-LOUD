@@ -39,22 +39,21 @@ local TemplatesFactory = import('/lua/gaz_ui/modules/templates_factory.lua')
 local allFactories = false
 
 --draggable build queue
-local dragging = false
-local index = nil			--index of the item in the queue currently being dragged
-local originalIndex = false	--original index of selected item (so that UpdateBuildQueue knows where to modify it from)
-local oldQueue = {}
-local modifiedQueue = {}
-local updateQueue = true	--if false then queue won't update in the ui
-local modified = false		--if false then buttonrelease will increase buildcount in queue
-local dragLock = false		--to disable quick successive drags, which doubles the units in the queue
+local dragging              = false
+local dragLock              = false		--to disable quick successive drags, which doubles the units in the queue
+local index                 = nil			--index of the item in the queue currently being dragged
+local modified              = false		--if false then buttonrelease will increase buildcount in queue
+local modifiedQueue         = {}
+local originalIndex         = false	--original index of selected item (so that UpdateBuildQueue knows where to modify it from)
+local oldQueue              = {}
+local prevBuildables        = false
+local prevSelection         = false
+local prevBuildCategories   = false
+local updateQueue           = true	--if false then queue won't update in the ui
 
 --add gameparent handleevent for if the drag ends outside the queue window
 local gameParent = import('gamemain.lua').GetGameParent()
 local oldGameParentHandleEvent = gameParent.HandleEvent
-
-local prevBuildables = false
-local prevSelection = false
-local prevBuildCategories = false
 
 gameParent.HandleEvent = function(self, event)
    
@@ -66,11 +65,11 @@ gameParent.HandleEvent = function(self, event)
 end 
 
 local unitGridPages = {
-    RULEUTL_Basic = {Order = 0, Label = "<LOC CONSTRUCT_0000>T1"},
-    RULEUTL_Advanced = {Order = 1, Label = "<LOC CONSTRUCT_0001>T2"},
-    RULEUTL_Secret = {Order = 2, Label = "<LOC CONSTRUCT_0002>T3"},
-    RULEUTL_Experimental = {Order = 3, Label = "<LOC CONSTRUCT_0003>Exp"},
-    RULEUTL_Munition = {Order = 4, Label = "<LOC CONSTRUCT_0004>Munition"}, -- note that this doesn't exist yet
+    RULEUTL_Basic           = {Order = 0, Label = "<LOC CONSTRUCT_0000>T1"},
+    RULEUTL_Advanced        = {Order = 1, Label = "<LOC CONSTRUCT_0001>T2"},
+    RULEUTL_Secret          = {Order = 2, Label = "<LOC CONSTRUCT_0002>T3"},
+    RULEUTL_Experimental    = {Order = 3, Label = "<LOC CONSTRUCT_0003>Exp"},
+    RULEUTL_Munition        = {Order = 4, Label = "<LOC CONSTRUCT_0004>Munition"}, -- note that this doesn't exist yet
 }
 
 -- these are external controls used for positioning, so don't add them to our local control table
@@ -78,15 +77,15 @@ controlClusterGroup = false
 mfdControl = false
 ordersControl = false
 
-local capturingKeys = false
-local layoutVar = false
-local DisplayData = {}
-local sortedOptions = {}
-local newTechUnits = {}
-local currentCommandQueue = false
-local previousTabSet = nil
-local previousTabSize = nil
-local activeTab = nil
+local capturingKeys         = false
+local layoutVar             = false
+local DisplayData           = {}
+local sortedOptions         = {}
+local newTechUnits          = {}
+local currentCommandQueue   = false
+local previousTabSet        = nil
+local previousTabSize       = nil
+local activeTab             = nil
 
 local showBuildIcons = false
 
