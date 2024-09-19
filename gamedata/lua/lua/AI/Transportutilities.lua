@@ -641,12 +641,12 @@ function GetTransports( platoon, aiBrain)
     -- if we cannot fulfill a request for transports then the brain is marked as needing to build transport
 	CanUseTransports = false
 
-	local Collected = { Large = 0, Medium = 0, Small = 0 }
-    local counter = 0
-    local transports = {}			-- this will hold the data for all of the eligible transports    
-	local out_of_range = false
-    local FuelRequired = .5
-    local HealthRequired = .7
+	local Collected         = { Large = 0, Medium = 0, Small = 0 }
+    local counter           = 0
+    local FuelRequired      = .5
+    local HealthRequired    = .7
+	local out_of_range      = false
+    local transports        = {}			-- this will hold the data for all of the eligible transports    
 
     local id, range, unitPos
 
@@ -732,6 +732,7 @@ function GetTransports( platoon, aiBrain)
                 AvailableTransports[k] = nil
             end
 		end
+        
 	end
 
 	if not CanUseTransports then
@@ -928,9 +929,9 @@ function GetTransports( platoon, aiBrain)
         
         if aiBrain.ArmyPool:PlatoonCategoryCount( categories.AIR * categories.SCOUT ) > 0 then
         
-            for k,v in EntityCategoryFilterDown( categories.AIR * categories.SCOUT, aiBrain.ArmyPool:GetPlatoonUnits() ) do
+            for k,v in EntityCategoryFilterDown( categories.SCOUT, aiBrain.ArmyPool:GetPlatoonUnits() ) do
             
-                if v:GetFractionComplete() == 1 then
+                if v:GetFractionComplete() == 1 and v.PlatoonHandle == aiBrain.ArmyPool and VDist3( GetPosition(v), location ) < 100 then
             
                     IssueGuard( {v}, location )
 
@@ -947,35 +948,7 @@ function GetTransports( platoon, aiBrain)
             end
 
         end
---[[        
-        if aiBrain.ArmyPool:PlatoonCategoryCount( categories.HIGHALTAIR * categories.ANTIAIR ) > 0 then
-        
-            local count = 0
-        
-            for k,v in EntityCategoryFilterDown( categories.HIGHALTAIR * categories.ANTIAIR, aiBrain.ArmyPool:GetPlatoonUnits() ) do
-            
-                if v:GetFractionComplete() == 1 then
 
-                    IssueGuard( {v}, location )            
-
-                    aiBrain:AssignUnitsToPlatoon( transportplatoon, {v}, 'Guard', 'none' )
-
-                    count = count + 1
-            
-                    if count > (counter * 3) then
-                        break
-                    end
-                    
-                end
-
-            end
-		
-            if count > 0 and TransportDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." "..transportplatoon.BuilderName.." assigned "..repr(count).." fighters from pool")
-            end
-
-        end
---]]
         return counter, transportplatoon, transportplatoonairthreat
     end
 	
@@ -1309,47 +1282,48 @@ function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bS
 			return false
 		end
 			
-			-- a local function to get the real surface and air threat at a position based on known units rather than using the threat map
-			-- we also pull the value from the threat map so we can get an idea of how often it's a better value
-			-- I'm thinking of mixing the two values so that it will error on the side of caution
-			local GetRealThreatAtPosition = function( position, range )
+		-- a local function to get the real surface and air threat at a position based on known units rather than using the threat map
+		-- we also pull the value from the threat map so we can get an idea of how often it's a better value
+		-- I'm thinking of mixing the two values so that it will error on the side of caution
+		local GetRealThreatAtPosition = function( position, range )
             
-                local IMAPblocks = ScenarioInfo.IMAPBlocks or 1
+            local IMAPblocks = ScenarioInfo.IMAPBlocks or 1
 
-				local sfake = GetThreatAtPosition( aiBrain, position, IMAPblocks, true, 'AntiSurface' )
-				local afake = GetThreatAtPosition( aiBrain, position, IMAPblocks, true, 'AntiAir' )
-                
-                airthreat = 0
-                surthreat = 0
-			
-				local eunits = GetUnitsAroundPoint( aiBrain, TESTUNITS, position, range,  'Enemy')
-			
-				if eunits then
-			
-					for _,u in eunits do
-				
-						if not u.Dead then
-                        
-                            Defense = __blueprints[u.BlueprintID].Defense
+            local sfake = GetThreatAtPosition( aiBrain, position, IMAPblocks, true, 'AntiSurface' )
+			local afake = GetThreatAtPosition( aiBrain, position, IMAPblocks, true, 'AntiAir' )
 
-							airthreat = airthreat + Defense.AirThreatLevel
-							surthreat = surthreat + Defense.SurfaceThreatLevel
-						end
+            airthreat = 0
+            surthreat = 0
+			
+			local eunits = GetUnitsAroundPoint( aiBrain, TESTUNITS, position, range,  'Enemy')
+			
+			if eunits then
+
+				for _,u in eunits do
+
+					if not u.Dead then
+
+                        Defense = __blueprints[u.BlueprintID].Defense
+
+                        airthreat = airthreat + Defense.AirThreatLevel
+						surthreat = surthreat + Defense.SurfaceThreatLevel
 					end
-                end
-				
-                -- if there is IMAP threat and it's greater than what we actually see
-                -- use the sum of both * .5
-				if sfake > 0 and sfake > surthreat then
-					surthreat = (surthreat + sfake) * .5
 				end
-				
-				if afake > 0 and afake > airthreat then
-					airthreat = (airthreat + afake) * .5
-				end
-                
-                return surthreat, airthreat
+            end
+
+            -- if there is IMAP threat and it's greater than what we actually see
+            -- use the sum of both * .5
+			if sfake > 0 and sfake > surthreat then
+				surthreat = (surthreat + sfake) * .5
 			end
+
+			if afake > 0 and afake > airthreat then
+				airthreat = (airthreat + afake) * .5
+			end
+
+            return surthreat, airthreat
+
+		end
 
 			-- a local function to find an alternate Drop point which satisfies both transports and self for threat and a path to the goal
 			local FindSafeDropZoneWithPath = function( self, transportplatoon, markerTypes, markerrange, destination, threatMax, airthreatMax, threatType, layer)
@@ -1628,22 +1602,24 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 
     local TransportDialog = ScenarioInfo.TransportDialog or false
 
-	local LOUDCOPY = LOUDCOPY
-	local LOUDENTITY = LOUDENTITY
-	local LOUDGETN = LOUDGETN
-	local LOUDINSERT = LOUDINSERT
+    if TransportDialog then
+        LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transports.BuilderName.." begins UseTransports on tick "..GetGameTick() )
+    end    
 
-	local WaitTicks = WaitTicks
+	local LOUDCOPY      = LOUDCOPY
+	local LOUDENTITY    = LOUDENTITY
+	local LOUDGETN      = LOUDGETN
+	local LOUDINSERT    = LOUDINSERT
+	local WaitTicks     = WaitTicks
 	
-	local PlatoonExists = PlatoonExists
-	local GetBlueprint = moho.entity_methods.GetBlueprint
-    local GetPlatoonPosition = GetPlatoonPosition
-    local GetPlatoonUnits = GetPlatoonUnits
+	local PlatoonExists         = PlatoonExists
+	local GetBlueprint          = moho.entity_methods.GetBlueprint
+    local GetPlatoonPosition    = GetPlatoonPosition
+    local GetPlatoonUnits       = GetPlatoonUnits
+    local GetSquadUnits         = moho.platoon_methods.GetSquadUnits
 
-    local GetSquadUnits = moho.platoon_methods.GetSquadUnits
-
-    local transportTable = {}	
-	local counter = 0
+    local transportTable    = {}	
+	local counter           = 0
 	
 	-- check the transport platoon and count - load the transport table
 	-- process any toggles (stealth, etc.) the transport may have
@@ -1866,7 +1842,6 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 			transportTable, currLeftovers = SortUnitsOnTransports( transportTable, leftoverUnits )
 		end
 	
-	
 		-- send any leftovers to RTB --
 		if currLeftovers[1] then
 		
@@ -1884,6 +1859,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 			
 			returnpool:SetAIPlan('ReturnToBaseAI',aiBrain)
 		end
+
 	end
 
 	remainingSize3 = nil
@@ -1968,12 +1944,16 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 			loading = true
 		end
     end
+
+    SCOUTS      = GetSquadUnits( transports,'Scout') or false
+    FIGHTERS    = GetSquadUnits( transports,'Guard') or false
+    TRANSPORTS  = GetSquadUnits( transports,'Support') or false
 	
 	-- if loading has been issued watch it here
 	if loading then
 
         if TransportDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transports.BuilderName.." loadwatch begins" )
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transports.BuilderName.." loadwatch begins on tick "..GetGameTick() )
         end    
 
 		if UnitPlatoon.WaypointCallback then
@@ -1990,22 +1970,14 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 		end
 	
 		local loadwatch = true	
-
-        SCOUTS = GetSquadUnits( transports,'Scout') or false
-        FIGHTERS = GetSquadUnits( transports,'Guard') or false
-        TRANSPORTS = GetSquadUnits( transports,'Support') or false
-
-        if FIGHTERS[1] then
-            IssueGuard( FIGHTERS, location )
-        end
-
-        if SCOUTS[1] then
-            IssueGuard( SCOUTS, location )
-        end
- 		
+	
 		while loadwatch do
 
             WaitTicks(8)
+
+            if TransportDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transports.BuilderName.." loadwatch cycles on tick "..GetGameTick() )
+            end    
 			
 			loadwatch = false
 			
@@ -2035,7 +2007,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 	end
 
     if TransportDialog then
-        LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transports.BuilderName.." loadwatch complete")
+        LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transports.BuilderName.." loadwatch complete on tick "..GetGameTick() )
 	end
     
 	if not PlatoonExists(aiBrain, transports) then
@@ -2105,6 +2077,10 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 
     airthreatMax = airthreatMax + ( airthreatMax * math.log10(counter))
 
+    SCOUTS      = GetSquadUnits( transports,'Scout') or false
+    FIGHTERS    = GetSquadUnits( transports,'Guard') or false
+    TRANSPORTS  = GetSquadUnits( transports,'Support') or false
+
 	-- plan the move and send them on their way
 	if counter > 0 then
 
@@ -2131,9 +2107,30 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 		
 			if PlatoonExists( aiBrain, transports) then
 		
+                --- clear everyone
 				IssueClearCommands( GetPlatoonUnits(transports) )
-				
-				IssueMove( GetPlatoonUnits(transports), platpos )
+				--- order transports to platpos
+				IssueMove( TRANSPORTS, platpos )
+
+                if FIGHTERS[1] then
+
+                    local fcount = 1
+                    local count = 1
+
+                    for k,v in FIGHTERS do
+                        
+                        if not TRANSPORTS[count] then 
+                            count = 1
+                        end
+
+                        IssueGuard( {FIGHTERS[fcount]}, TRANSPORTS[count] )
+
+                        fcount = fcount + 1
+                        count = count + 1
+
+                    end
+
+                end
 
 				if safePath then
 
@@ -2142,29 +2139,6 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 
 					local prevposition = GetPlatoonPosition(transports) or false
                     local Direction
-                    
-                    SCOUTS = GetSquadUnits( transports,'Scout') or false
-                    FIGHTERS = GetSquadUnits( transports,'Guard') or false
-                    TRANSPORTS = GetSquadUnits( transports,'Support') or false
-                    
-                    if FIGHTERS[1] then
-
-                        local fcount = 1
-                        local count = 1
-                        
-                        for k,v in FIGHTERS do
-                        
-                            if not TRANSPORTS[count] then 
-                                count = 1
-                            end
-                           
-                            IssueGuard( {FIGHTERS[fcount]}, TRANSPORTS[count] )
-                            
-                            fcount = fcount + 1
-                            count = count + 1
-
-                        end
-                    end
 
 					for _,p in safePath do
 				
@@ -2186,14 +2160,21 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
                     
 				else
                 
-					if TransportDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transports.BuilderName.." goes direct to "..repr(location))
+					--if TransportDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transports.BuilderName.." failed path - direct to "..repr(location).." on tick "..GetGameTick() )
+                    --end
+                    
+                    if SCOUTS[1] then
+                        IssueFormMove( SCOUTS, location, 'BlockFormation', import('/lua/utilities.lua').GetDirectionInDegrees( GetPlatoonPosition(transports), location ))
                     end
-			
-					-- go direct ?? -- what ?
-					IssueFormMove( GetPlatoonUnits(transports), location, 'AttackFormation', import('/lua/utilities.lua').GetDirectionInDegrees( GetPlatoonPosition(transports), location )) 
+
+					IssueFormMove( TRANSPORTS, location, 'AttackFormation', import('/lua/utilities.lua').GetDirectionInDegrees( GetPlatoonPosition(transports), location )) 
 
 				end
+                
+                if SCOUTS[1] then
+                    IssueGuard ( SCOUTS, location )
+                end
 
 				if TransportDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transports.BuilderName.." starts travelwatch to "..repr(location))
@@ -2208,6 +2189,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 			end
             
 		end
+        
 	else
     
         --LOG("*AI DEBUG NO TRANSPORTS TO MONITOR")
@@ -2253,6 +2235,10 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
     end
 
 	transporters = EntityCategoryFilterDown( AIRTRANSPORTS, GetPlatoonUnits(transports)) or false
+
+    SCOUTS      = GetSquadUnits( transports,'Scout') or false
+    FIGHTERS    = GetSquadUnits( transports,'Guard') or false
+    TRANSPORTS  = GetSquadUnits( transports,'Support') or false
 	
 	-- watch the transports until they signal unloaded or dead
 	if PlatoonExists(aiBrain, transports) then
@@ -2263,7 +2249,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 		
 		local unloadwatch = true
         local unloadcount = 0 
-		
+	
 		while unloadwatch and EntityCategoryCount(AIRTRANSPORTS, EntityCategoryFilterDown( AIRTRANSPORTS, GetPlatoonUnits(transports))) > 0  do
 		
 			WaitTicks(5)
@@ -2291,11 +2277,9 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
         
         -- process ALL the units in the platoon (even fighters and scouts)
         for _,t in GetPlatoonUnits(transports) do
-        
-            --if not t.EventCallbacks['OnTransportDetach'] then
 
-                ForkTo( ReturnTransportsToPool, aiBrain, {t}, true )
-            --end
+            ForkTo( ReturnTransportsToPool, aiBrain, {t}, true )
+
         end
     end
 	
@@ -2370,7 +2354,7 @@ function WatchUnitLoading( transport, units, aiBrain, UnitPlatoon)
 	local counter = 0
 	
     if TransportDialog then
-        LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport "..transport.EntityID.." begins loading")
+        LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport "..transport.EntityID.." begins loading on tick "..GetGameTick() )
     end
     
 	-- loop here while the transport is alive and loading is underway
@@ -2382,7 +2366,7 @@ function WatchUnitLoading( transport, units, aiBrain, UnitPlatoon)
 
 		if watchcount > 210 then
         
-            WARN("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport "..transport.EntityID.." ABORTING LOAD - watchcount "..watchcount)
+            WARN("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport "..transport.EntityID.." ABORTING LOAD - watchcount "..watchcount.." on tick "..GetGameTick() )
             
 			loading = false
 
@@ -2393,7 +2377,11 @@ function WatchUnitLoading( transport, units, aiBrain, UnitPlatoon)
 		end
 		
 		WaitTicks(14)
-		
+	
+        if TransportDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport "..transport.EntityID.." cycles loading on tick "..GetGameTick() )
+        end
+ 		
 		tempunits = {}
 		counter = 0
 
@@ -2434,6 +2422,7 @@ function WatchUnitLoading( transport, units, aiBrain, UnitPlatoon)
 				
 				loading = false
 			end
+            
 		end
 
 		-- issue reloads to unloaded units if transport is not moving and not loading units
