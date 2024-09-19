@@ -57,13 +57,9 @@ UES0401 = Class(TSubUnit) {
         for k, v in self.OpenAnimManips do
 		
             if open then
-			
                 v:SetRate(1)
-				
             else
-			
                 v:SetRate(-1)
-				
             end
 			
         end
@@ -147,8 +143,6 @@ UES0401 = Class(TSubUnit) {
 		
             local unitBuilding = self.UnitBeingBuilt
 			
-            self:SetBusy(true)
-			
             local bone = self.BuildAttachBone
 			
             self:DetachAll(bone)
@@ -172,8 +166,6 @@ UES0401 = Class(TSubUnit) {
     FinishedBuildingState = State {
 	
         Main = function(self)
-		
-            self:SetBusy(true)
 			
             local unitBuilding = self.UnitBeingBuilt
 			

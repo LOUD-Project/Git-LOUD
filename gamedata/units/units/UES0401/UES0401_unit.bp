@@ -213,7 +213,7 @@ UnitBlueprint {
         SkirtSizeX = 5,
         SkirtSizeZ = 10.5,
         TurnRadius = 18,
-        TurnRate = 28,
+        TurnRate = 20,
     },
 	
     SelectionSizeX = 1.5,
@@ -324,7 +324,6 @@ UnitBlueprint {
         {
             advancedTracking = true,
 
-            AboveWaterFireOnly = true,
             AlwaysRecheckTarget = true,
 
             Audio = {
@@ -357,7 +356,7 @@ UnitBlueprint {
             MuzzleVelocity = 35,
 			
             ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
-            ProjectileLifetime = 4.5,
+            ProjectileLifetime = 4.8,
 
             RackBones = {
                 {
@@ -377,7 +376,7 @@ UnitBlueprint {
 			
             RateOfFire = 1,		-- 1760/2 =  880 DPS Air
 			
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'HIGHPRIAIR',
