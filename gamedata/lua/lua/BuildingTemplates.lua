@@ -91,9 +91,8 @@ BuildingTemplates = {
         { 'T4StrategicMissile', 'ueb2305' },		
         { 'T3StrategicMissileDefense', 'ueb4302' },
 	-- Air Staging
-        { 'T1AirStagingPlatform', 'seb5104' },
+        { 'T1AirStagingPlatform', },
         { 'T2AirStagingPlatform', 'ueb5202' },
-		{ 'T3AirStagingPlatform',           },
     -- Experimentals
 	-- Land
 		{ 'T4LandExperimental1', 'uel0401'	},
@@ -198,9 +197,8 @@ BuildingTemplates = {
         { 'T3StrategicMissile', 'uab2305'   		},
         { 'T3StrategicMissileDefense', 'uab4302'	},
 	-- Air Staging
-        { 'T1AirStagingPlatform', 'sab5104' },
+        { 'T1AirStagingPlatform',},
         { 'T2AirStagingPlatform', 'uab5202' },
-		{ 'T3AirStagingPlatform',},
 	-- Experimentals
 	-- Land
 		{'T4LandExperimental1', 'ual0401'	},
@@ -302,9 +300,8 @@ BuildingTemplates = {
         { 'T3StrategicMissile', 'urb2305'			},
         { 'T3StrategicMissileDefense', 'urb4302'	},
 	-- Air Staging
-	    { 'T1AirStagingPlatform', 'srb5104' },
+	    { 'T1AirStagingPlatform', },
         { 'T2AirStagingPlatform', 'urb5202'	},
-		{ 'T3AirStagingPlatform', },
 	-- Experimentals
 	-- Land
 		{ 'T4LandExperimental1', 'url0402'	},
@@ -404,10 +401,8 @@ BuildingTemplates = {
         { 'T3StrategicMissileDefense','xsb4302'	},
 		{ 'T4StrategicMissile', 'xsb2401'		},
 	-- Air Staging
-        { 'T1AirStagingPlatform', 'ssb5104' },
+        { 'T1AirStagingPlatform', },
         { 'T2AirStagingPlatform', 'xsb5202' },
-		{ 'T3AirStagingPlatform', },
-
 	-- Experimentals
 	-- Land
         {'T4LandExperimental1', 'xsl0401'	},	-- Ythotha
