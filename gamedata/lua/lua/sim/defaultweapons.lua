@@ -969,7 +969,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 	
     WeaponUnpackingState = State {
 
-        WeaponWantEnabled = true,
+        WeaponWantEnabled = false,
         WeaponAimWantEnabled = false,
 
         Main = function(self)
@@ -1647,15 +1647,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             end
 			
         end,
---[[
-        OnGotTarget = function(self)
 
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon WeaponPacking State "..repr(self.bp.Label).." OnGotTarget" )		
-            end
-			
-        end,
---]]
     },
 
     DeadState = State {
