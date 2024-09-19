@@ -2414,7 +2414,9 @@ function NukeAI( self, aiBrain )
                             if ScenarioInfo.NukeDialog then
                                 LOG("*AI DEBUG "..aiBrain.Nickname.." Firing Nuke "..(firednukes + 1).." after "..(lastflighttime - u.flighttime).." seconds - target is "..repr(nukePos).." status "..repr(u.HasTMLTarget) )
 							end
-                            
+ 
+                            IssueClearCommands( {u.unit} )
+
 							IssueNuke( {u.unit}, nukePos )
 						
 							lastflighttime = u.flighttime
@@ -2783,7 +2785,7 @@ function AirForceAILOUD( self, aiBrain )
 
     if guardunits[1] then
 
-        local ident = Random(1,999999)
+        local ident = Random(4000001,9999999)
 
         guardplatoon = aiBrain:MakePlatoon('GuardPlatoon'..tostring(ident),'none')
         AssignUnitsToPlatoon( aiBrain, guardplatoon, guardunits, 'Attack', 'none')
@@ -3357,7 +3359,7 @@ function AirForceAILOUD( self, aiBrain )
                 if LOUDMOD( attackcount, 11 ) == 0 then
 
                     loiterposition = SetLoiterPosition( self, aiBrain, anchorposition, searchrange, 1, mythreat, 'AIR', 'ANTIAIR', loiterposition )
-                    
+
                     --if AirForceDialog then
                       --  LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." rebuilding loiterposition on tick "..GetGameTick() )
                     --end
@@ -7230,9 +7232,11 @@ function TMLThread( unit, aiBrain )
 			
                             if LOUDENTITY(categories.STRUCTURE, target) then
                             
-                                --LOG("*AI DEBUG "..aiBrain.Nickname.." TML firing at structure")
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." TML firing at structure")
                             
-                                IssueTactical({unit}, target)
+                                IssueClearCommands( u )
+
+                                IssueTactical( u, target)
                                 
                                 break
                                 
@@ -7242,10 +7246,12 @@ function TMLThread( unit, aiBrain )
                                 targPos = UnitLeadTarget(position, target) 
 					
                                 if targPos then
+                            
+                                    IssueClearCommands( u )
                                 
-                                    IssueTactical({unit}, targPos)
+                                    IssueTactical( u, targPos)
                                     
-                                    --LOG("*AI DEBUG "..aiBrain.Nickname.." TML firing at position")
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." TML firing at position")
 
                                     target = false
                                     targPos = false 	-- clear targeting data 
@@ -8093,11 +8099,14 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
     --- and it will launch the upgrade thread for that unit when the build is completed
     local function OnUpgradeComplete( completedunit )
     
-        if StructureUpgradeDialog then    
-            LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..completedunit.EntityID.." launching follow on upgrade thread at game tick "..GetGameTick() )
-		end
+        if completedunit and not completedunit.Dead then
+    
+            if StructureUpgradeDialog then    
+                LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..completedunit.EntityID.." launching follow on upgrade thread at game tick "..GetGameTick() )
+            end
         
-        completedunit:LaunchUpgradeThread( aiBrain )
+            completedunit:LaunchUpgradeThread( aiBrain )
+        end
     end
     
 	if upgradeIssued then
