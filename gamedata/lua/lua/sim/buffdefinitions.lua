@@ -1023,7 +1023,49 @@ BuffBlueprint { Name = 'OutOfFuel',
         },
         TurnMult = {
             Add = 0,
-            Mult = 0.25,
+            Mult = 0.3,
+        }
+	},
+}
+
+BuffBlueprint { Name = 'HeavyDamageAir',
+    BuffType = 'MOVEMENTCHEAT',
+	ParsedEntityCategory = categories.MOBILE * categories.AIR,
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    Affects = {
+		SpeedMult = {
+			Add = 0,
+			Mult = 0.75,
+		},
+        AccelMult = {
+            Add = 0,
+            Mult = 0.75,
+        },
+        TurnMult = {
+            Add = 0,
+            Mult = 0.75,
+        }
+	},
+}
+
+BuffBlueprint { Name = 'SevereDamageAir',
+    BuffType = 'MOVEMENTCHEAT',
+	ParsedEntityCategory = categories.MOBILE * categories.AIR,
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    Affects = {
+		SpeedMult = {
+			Add = 0,
+			Mult = 0.75,
+		},
+        AccelMult = {
+            Add = 0,
+            Mult = 0.75,
+        },
+        TurnMult = {
+            Add = 0,
+            Mult = 0.75,
         }
 	},
 }

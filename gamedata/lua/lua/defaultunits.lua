@@ -1139,7 +1139,6 @@ MobileUnit = Class(Unit) {
 
         return time, energy, 0
     end,
-
 	
 	-- when you start reclaiming
     OnStartReclaim = function(self, target)
@@ -1224,7 +1223,6 @@ MobileUnit = Class(Unit) {
         self:Destroy()
     end,
 
-	
     UpdateMovementEffectsOnMotionEventChange = function( self, new, old )
 	
 		if ( old == 'Stopped' or old == 'Stopping' or (old == 'TopSpeed' and self.TopSpeedEffectsBag) ) or ( (new == 'TopSpeed' and self.HasFuel)  or  new == 'Stopped' ) then
@@ -1286,7 +1284,6 @@ MobileUnit = Class(Unit) {
 		
     end,
 
-	
     GetTTTreadType = function( self, pos )
         local TerrainType = GetTerrainType( pos.x,pos.z )
         return TerrainType.Treads or 'None'
@@ -1344,7 +1341,6 @@ MobileUnit = Class(Unit) {
         end
     end,
 
-	
     CreateFootFallManipulators = function( self, footfall )
 
         self.Detector = CreateCollisionDetector(self)
@@ -1583,22 +1579,6 @@ MobileUnit = Class(Unit) {
 		CleanupEffectBag(self,'TopSpeedEffectsBag')
     end,
 
-	-- issued by a unit when it attaches to transport
-    OnAttachedToTransport = function(self, transport)
-	
-		self:SetDoNotTarget(true)
-        self:DoUnitCallbacks( 'OnAttachedToTransport', transport )
-		
-    end,
-
-	-- issued by a unit when it detaches from a transport
-    OnDetachedToTransport = function(self, transport)
-	
-		self:SetDoNotTarget(false)
-        self:DoUnitCallbacks( 'OnDetachedToTransport', transport )
-		
-    end,
-
 	-- issued by a unit as it gets attached to a transport
     OnStartTransportBeamUp = function(self, transport, bone)
 
@@ -1699,8 +1679,6 @@ MobileUnit = Class(Unit) {
 
     OnLayerChange = function(self, new, old)
 
-        --LOG("*AI DEBUG Layer change from "..repr(old).." to "..repr(new) )
-        
 		UnitOnLayerChange( self, new, old) 
 
         for i = 1, GetWeaponCount(self) do
@@ -2877,15 +2855,6 @@ WallStructureUnit = Class(StructureUnit) {
 	-- and a bunch of other not-needed work
     OnKilled = function(self, instigator, type, overkillRatio)
 
---[[		
-		-- remove the kill before the instigator has a chance to test veterancy
-		if instigator and IsUnit(instigator) then
-			
-			local kills = instigator:GetStat('KILLS', 0).Value
-
-			instigator:SetStat('KILLS', kills - 1)
-		end    
---]]
 		self:DestroyAllDamageEffects()
 
         CreateScalableUnitExplosion( self, overkillRatio )
@@ -3953,7 +3922,7 @@ AirUnit = Class(MobileUnit) {
 
         self:DoUnitCallbacks('OnRunOutOfFuel')
 
-        if not HasBuff( self, 'OutOfFuel' ) then
+        if not HasBuff( self,'OutOfFuel') then
             ApplyBuff(self,'OutOfFuel')
         end
         
@@ -3967,15 +3936,17 @@ AirUnit = Class(MobileUnit) {
 	-- this fires when the unit fuel is above the trigger threshold
     OnGotFuel = function(self)
 
-		if HasBuff( self,'OutOfFuel' ) then
+		if HasBuff( self,'OutOfFuel') then
             RemoveBuff(self,'OutOfFuel')
         end
 
 		self.HasFuel = true
     end,
 
-	-- this fires only when the unit attaches to an airpad
+	--- this fires when the unit attaches to an airpad
     OnStartRefueling = function(self)
+    
+        --LOG("*AI DEBUG Unit "..self.Sync.id.." starts airpad refueling")
 
         PlayUnitSound(self,'Refueling')
 		
@@ -3993,23 +3964,17 @@ AirUnit = Class(MobileUnit) {
 
 				-- so at 50% damage air performance drops
 				if old == 0.75 then
-				
-					if Fuel then
-				
-						self:SetSpeedMult(0.72)
-						self:SetAccMult(0.72)
-						self:SetTurnMult(0.5)
-					end
+                
+                    if not HasBuff( self, 'HeavyDamageAir' ) then 
+                        ApplyBuff( self, 'HeavyDamageAir' )
+                    end
 
 				-- and below 25% it drops even more
 				elseif old <= 0.5 then
-				
-					if Fuel then
-					
-						self:SetSpeedMult(0.55)
-						self:SetAccMult(0.55)
-						self:SetTurnMult(0.3)
-					end
+                
+                    if not HasBuff( self, 'SevereDamageAir' ) then 
+                        ApplyBuff( self, 'SevereDamageAir' )
+                    end
 					
 				end
 				
@@ -4017,23 +3982,18 @@ AirUnit = Class(MobileUnit) {
 
 				-- at 25% move performance back up 
 				if new == 0.25 then
-				
-					if Fuel then
-				
-						self:SetSpeedMult(0.72)
-						self:SetAccMult(0.72)
-						self:SetTurnMult(0.5)
-					end
+                
+                    if HasBuff( self, 'SevereDamageAir' ) then 
+                        RemoveBuff( self, 'SevereDamageAir' )
+                    end
 					
 				-- at 50% restore full performance
 				elseif new >= 0.5 then
-				
-					if Fuel then
-					
-						self:SetSpeedMult(1)
-						self:SetAccMult(1)
-						self:SetTurnMult(1)					
-					end
+                
+                    if HasBuff( self, 'HeavyDamageAir' ) then 
+                        RemoveBuff( self, 'HeavyDamageAir' )
+                    end
+
 				end
 			end
 		end
