@@ -828,7 +828,6 @@ PlatoonTemplate { Name = 'T3AmphibiousArtillery',       -- here to provide compa
         UEF = {},
         Aeon = {},
         Cybran = {},
-        Seraphim = {},
     }
 }
 

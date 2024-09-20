@@ -10546,7 +10546,7 @@ Platoon = Class(PlatoonMethods) {
 			end
 			
 		else
-            LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AMPHIB from "..self.RTBLocation.." "..repr(self.BuilderName).." gets no reinforce goal - Primary Land "..repr(AttackBase1).." - Naval "..repr(AttackBase2).." - Goal "..repr(aiBrain.AttackPlanGoal) )
+            LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AMPHIB from "..repr(self.RTBLocation).." "..repr(self.BuilderName).." gets no reinforce goal - Primary Land "..repr(AttackBase1).." - Naval "..repr(AttackBase2).." - Goal "..repr(aiBrain.AttackPlanGoal) )
         end
 
 		return self:PlatoonDisband( aiBrain )

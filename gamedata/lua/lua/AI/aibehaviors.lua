@@ -2695,7 +2695,7 @@ function ProsecuteTarget( unit, aiBrain, target, searchrange, AirForceDialog )
 
         end
     
-        if (not unit.Dead) and PlatoonExists( aiBrain, unit.PlatoonHandle) then
+        if (not unit.Dead) and aiBrain:PlatoonExists( unit.PlatoonHandle ) then
 
             if AirForceDialog then
                 LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..unit.PlatoonHandle.BuilderName.." "..repr(unit.PlatoonHandle.BuilderInstance).." unit "..unit.Sync.id.." attack complete on tick "..GetGameTick() )
@@ -2716,7 +2716,7 @@ function ProsecuteTarget( unit, aiBrain, target, searchrange, AirForceDialog )
                 end
 
             end
-            
+
         end
         
         unit.IgnoreRefit = nil
@@ -7232,7 +7232,7 @@ function TMLThread( unit, aiBrain )
 			
                             if LOUDENTITY(categories.STRUCTURE, target) then
                             
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." TML firing at structure")
+                                --LOG("*AI DEBUG "..aiBrain.Nickname.." TML firing at structure")
                             
                                 IssueClearCommands( u )
 
@@ -7251,7 +7251,7 @@ function TMLThread( unit, aiBrain )
                                 
                                     IssueTactical( u, targPos)
                                     
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." TML firing at position")
+                                    --LOG("*AI DEBUG "..aiBrain.Nickname.." TML firing at position")
 
                                     target = false
                                     targPos = false 	-- clear targeting data 
@@ -8112,7 +8112,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 
         upgradeID = __blueprints[unitbeingbuilt.BlueprintID].General.UpgradesTo
 
-        if upgradeID != nil then
+        if __blueprints[upgradeID] then
     
             if StructureUpgradeDialog then    
                 LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." has follow on upgrade to "..repr(upgradeID) )

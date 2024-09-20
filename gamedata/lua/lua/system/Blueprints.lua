@@ -545,8 +545,6 @@ function ModBlueprints(all_blueprints)
 		end
 	end
 
-	--LOG("*AI DEBUG ScenarioInfo data is "..repr( _G ) )
-
 	local ROFadjust = 0.9
     
     local units_threatchange = 0
@@ -611,13 +609,33 @@ function ModBlueprints(all_blueprints)
 				if not (wep.BeamLifetime or wep.Label == 'DeathWeapon' or wep.Label == 'DeathImpact' or wep.WeaponCategory == 'Air Crash') and not wep.ProjectileLifetime and not wep.ProjectileLifetimeUsesMultiplier then
 					--LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." has no projectile lifetime for "..repr(wep.DisplayName).." Label "..repr(wep.Label))
 				end
+
+				if (not wep.ProjectileLifetime and (not wep.ProjectileLifetimeUsesMultiplier)) or wep.ProjectileLifetime == 0 then
 				
-				if not wep.ProjectileLifetime or wep.ProjectileLifetime == 0 then
-				
-					if wep.MuzzleVelocity and wep.MuzzleVelocity > 0 then
-					
-						wep.ProjectileLifetime = (wep.MaxRadius / wep.MuzzleVelocity) * 1.15
-					end
+                    if (not wep.BeamLifetime) then
+
+                        if wep.MuzzleVelocity and wep.MuzzleVelocity > 0 then
+                        
+                            LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." lifetime set to "..string.format("%.3f",(wep.MaxRadius / wep.MuzzleVelocity) * 1.15).." from nil" )
+
+                            wep.ProjectileLifetime = (wep.MaxRadius / wep.MuzzleVelocity) * 1.4
+                            
+                            if wep.BallisticArc == 'RULEBA_HighArc' then
+                            
+                                wep.ProjectileLifetime = (wep.MaxRadius / wepMuzzleVelocity) * 2.6
+                                
+                            end
+
+                        else
+
+                            if not (wep.Label == 'InainoMissiles' or wep.Label == 'Suicide' or wep.Label == 'NukeMissiles' or wep.Label == 'CollossusDeath' or wep.Label == 'MegalithDeath' or wep.Label == 'DeathWeapon' or wep.Label == 'DeathImpact' or wep.Label == 'Bomb' or wep.Label == 'DummyWeapon' or wep.Label == 'ClawMelee') then
+                                LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." has no projectile lifetime or muzzle velocity" )
+                        
+                                wep.ProjectileLifetime = 8
+                            end
+                        end
+                    end
+                    
 				end
 
 				if wep.TargetCheckInterval then
@@ -797,27 +815,9 @@ function ModBlueprints(all_blueprints)
 				
 						if catj == 'MOBILE' then
                    
-                            if not bp.AI then
-
-                                --LOG("*AI DEBUG No AI section for "..repr(bp.Description) )
-
-                            else
-
-                                if bp.Weapon[1] and not bp.AI.GuardScanRadius then
-
-                                    --LOG("*AI DEBUG No AI GuardScanRadius for "..repr(bp.Description).." weapon 1 has maxRadius of "..repr(bp.Weapon[1].MaxRadius) )
-
-                                elseif bp.Weapon[1] and bp.AI.GuardScanRadius < bp.Weapon[1].MaxRadius then
-
-                                  --  LOG("*AI DEBUG GuardScanRadius for "..repr(bp.Description).." is "..bp.AI.GuardScanRadius.." less than weapon 1 "..repr(bp.Weapon[1].MaxRadius))
-
-                                end
-
-                            end
-                            
                             if bp.Air.KMove and bp.Air.KMoveDamping > 1 then
                                 --LOG("AI DEBUG KMoveDamping for "..repr(bp.Description).." reduced from "..bp.Air.KMoveDamping.." to 1 - KMove is "..bp.Air.KMove)
-                                bp.Air.KMoveDamping = 1.0
+                                bp.Air.KMoveDamping = math.max( 1, bp.Air.KMove )
                             end
                             
                             if bp.Air.KTurn then
@@ -902,25 +902,7 @@ function ModBlueprints(all_blueprints)
 					for j, catj in bp.Categories do
 				
 						if catj == 'MOBILE' then
-                   
-                            if not bp.AI then
 
-                                --LOG("*AI DEBUG No AI section for "..repr(bp.Description) )
-
-                            else
-
-                                if bp.Weapon[1] and not bp.AI.GuardScanRadius then
-
-                                    --LOG("*AI DEBUG No AI GuardScanRadius for "..repr(bp.Description).." weapon 1 has maxRadius of "..repr(bp.Weapon[1].MaxRadius) )
-
-                                elseif bp.Weapon[1] and bp.AI.GuardScanRadius < bp.Weapon[1].MaxRadius then
-
-                                  --  LOG("*AI DEBUG GuardScanRadius for "..repr(bp.Description).." is "..bp.AI.GuardScanRadius.." less than weapon 1 "..repr(bp.Weapon[1].MaxRadius))
-
-                                end
-
-                            end
-						
 							if bp.Economy.BuildTime and econScale != 0 then
 								bp.Economy.BuildTime = bp.Economy.BuildTime + (bp.Economy.BuildTime * econScale)
 								bp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy + (bp.Economy.BuildCostEnergy * econScale)

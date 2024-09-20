@@ -928,7 +928,7 @@ function InitializeArmies()
         if not armyIsCiv then
 
             -- assign 5000 ecothreat for 10 minutes
-            ForkThread( function() WaitTicks(101) aiBrain:AssignThreatAtPosition( place, 5000, 0.002, 'Economy' ) end )        
+            ForkThread( function() WaitTicks(81) aiBrain:AssignThreatAtPosition( place, 5000, 0.002, 'Economy' ) end )        
 
             LOG("     "..aiBrain.Nickname.." Team "..aiBrain.Team.." Teamsize is "..aiBrain.TeamSize )
         end

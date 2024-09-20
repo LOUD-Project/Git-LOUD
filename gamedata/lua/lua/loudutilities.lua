@@ -1903,8 +1903,10 @@ function ProcessAirUnits( unit, aiBrain )
 
                 end
                 
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Unit "..unit.Sync.id.." assigned to refit thread from "..repr(unit.PlatoonHandle.BuilderName).." "..repr(unit.PlatoonHandle.BuilderInstance) )
-            
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." Unit "..unit.Sync.id.." assigned to refit thread from "..repr(unit.PlatoonHandle.BuilderName).." "..repr(unit.PlatoonHandle.BuilderInstance) )
+
+                unit.InRefit = true
+                
                 -- and send it off to the refit thread --
                 unit.RefitThread = unit:ForkThread( AirUnitRefitThread, aiBrain )
                 
@@ -1921,7 +1923,7 @@ end
 function AirUnitRefitThread( unit, aiBrain )
 
     local PlatoonDialog = ScenarioInfo.PlatoonDialog
-    local RefitDialog   = true
+    local RefitDialog   = false
 
     if unit.Dead then
         return
@@ -1943,8 +1945,6 @@ function AirUnitRefitThread( unit, aiBrain )
 
 	local fuel, health, platpos, plats, unitPos
 	local airpad, closestairpad, reason, safepath
-    
-    unit.InRefit = true    
     
     while (not unit.Dead) and unit.IgnoreRefit do
         WaitTicks(9)
