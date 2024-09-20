@@ -197,7 +197,7 @@ UnitBlueprint {
             MuzzleVelocityReduceDistance = 92,
 			
             ProjectileId = '/projectiles/CIFArtilleryProton01/CIFArtilleryProton01_proj.bp',
-			ProjectileLifetime = 20,
+			ProjectileLifetime = 15,
 
             RackBones = {
                 {

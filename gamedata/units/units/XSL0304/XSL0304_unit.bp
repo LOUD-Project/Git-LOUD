@@ -225,7 +225,7 @@ UnitBlueprint {
             MuzzleVelocityReduceDistance = 92,
 			
             ProjectileId = '/projectiles/SIFSuthanusArtilleryShell01/SIFSuthanusArtilleryShell01_proj.bp',
-			ProjectileLifetime = 20,
+			ProjectileLifetime = 15,
 
             RackBones = {
                 {

@@ -201,7 +201,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             ProjectileId = '/projectiles/TIFAntiMatterShells02/TIFAntiMatterShells02_proj.bp',
-            ProjectileLifetime = 20,
+            ProjectileLifetime = 15,
 
             RackBones = {
                 {
