@@ -1,3 +1,65 @@
+### Release 09-20-2024
+
+LUA 7.10
+4DC for LOUD 7.02
+Black Ops for LOUD 7.04
+BrewLAN for LOUD 0.8.8.9.107
+LOUD_MISC 7.05
+LOUD_UNITS 7.04
+UNITS 7.06
+Textures 7.02
+Total Mayhem for LOUD 7.02
+Wyvern for LOUD 7.03
+
+
+- UI Scaling - automation to warn user that scaling exceeeds screen size (Niriak)
+- UI fixes for both left and right side layouts, minimap scaling (Niriak)
+- UI fix to economy totals for reclaiming, reclaim delta values now reset properly (Niriak)
+- UI minor scaling fixes (Niriak)
+- re-introduced the Main Menu button animations, with speed control found in Options panel (Niriak)
+- added mod to permit auto-pause timer in replays (Niriak)
+- fix to two unused functions that would produce wrong results (Balthazar)
+- AI Debug tools adds option to dialog AirForceAI, reorganized the layout
+- AI Nuke logic to fix not storing previous targets correctly
+- guard logic to prevent air units without fuel from being affected by FUELRATIO buff (ie. CZAR showing fuel bar)
+- AI vital fix to critical function GetUnitsInRect, it was not responding when there was only 1 subject
+- AI vital fix to SelfUpgrade thread dropping units, preventing full upgrade
+- AI Engineer mobility buffs reduced from 1.15 to 1.1/1.08
+- AI Spawn wave now uses the MajorCheatModifier, down from the full cheat modifier, for wave size and delay 
+- AI AirForceAI LOUD now makes use of the 'Unassigned' squad to manage loiter and attack behaviors
+    -- massive revision to fighter logic - much more responsive
+    -- improved 'Loiterposition' process obtains more informed loiter positions
+    -- mission times for fighter platoons will increase when merging
+    -- searchradius now adapts dynamically with the air ratio and the platoon size
+    -- fixed crash issue in platoon merges
+    -- air formations have revised distress ranges, missiontimes and threat triggers
+- T2 Sniper bot balance pass, fixing narrow collision box, Accel 2.0 >> 0.75, enhancement costs
+- Black Ops Interrogator - investigated a firing bug - but note that water is the only issue I can detect
+- Wyvern Soul Ripper II - revamped, with E consumption for beams
+    -- added stealth E consumption (20) with toggle, backup distance 
+- Review of air unit flight values with regards to acceleration/deceleration, turn, roll, and lift
+    -- there was a wide gamut of values in play, many excessive in places, and others simply missing
+    -- aimed at getting a baseline performance curve in place and minimizing certain UI exploits
+    -- scaled the performance intervals between tiers ( speed/accel/decel/turn and roll values) and class (ftr/bomber/gunship)
+- AI RTB processing can now move directly to goal instead of pathing
+- AI LifeThread increased cycle time from 2 ticks to 11
+- AI Air refit process can now move directly to goal instead of pathing, increased reliablity
+- AI Air refit should now properly prevent re-insertion into combat formations
+- AI will now use T1 airpads but transports will ignore them and simply return to the closest base entity
+- AI Guardpoint behavior (land) now properly recognizes threat around it's position responding/retreating accordingly
+- AI Production triggers for mobile AA, Gunships and torpedo bombers
+- all T1/T2 airpads refuel/repair rates aligned for 20:1 repair rate
+- T3 Strategic Artillery turret traversal rates trimmed approx. 20%
+- Aeon Eliash - heavy beam arm now has E cost to fire, acceleration 1.4 >> 0.85
+- UEF Atlantis - AA weapons were not firing when above water - apparently, this blueprint weapon value needs clarification
+- Sera Lambda tower was missing vet table
+- Aeon Overlord was misfiring the Chrono Dampener enhancement - and stunning T4 - set to be identical to BO ACU now
+- numerous unit updates for projectilelifetimes either missing, or poorly set (All unit mods)
+- updated textures for various menu items and dropdown lists
+
+
+
+
 ### Release 08-08-2024
 
 LUA 7.09
