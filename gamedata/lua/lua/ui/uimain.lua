@@ -124,7 +124,7 @@ function EscapeHandler()
 
             escapeHandler()
         else
-            import('/lua/ui/dialogs/eschandler.lua').HandleEsc(true)
+            import('/lua/ui/dialogs/eschandler.lua').HandleEsc()
         end
     end
 end
