@@ -1,3 +1,16 @@
+### Release 09-22-2024
+
+LUA 7.11
+UNITS 7.07
+
+- hotfix for the ESC key generating an 'exit game' event
+- hotfix for correcting ProjectileLifetimes for 0 muzzle velocity weapon projectiles (mostly bombers)
+- removed threat insertion based on starting location, AI will orient initial base towards map centre
+- later bases will orient towards nearest 'overall' threat 
+- fixed projectile lifetimes for anti-sat weapons, and some weapon labels
+
+
+
 ### Release 09-20-2024
 
 LUA 7.10
