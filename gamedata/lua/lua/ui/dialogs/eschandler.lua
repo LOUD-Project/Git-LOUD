@@ -59,48 +59,37 @@ end
 --
 -- @param quit_game
 function HandleEsc(quit_game)
-
-    local function CreateYesNoDialog()
-
-        if quickDialog then
-            return
-        end
-
-        GetCursor():Show()
-
-        quickDialog = UIUtil.QuickDialog(GetFrame(0), "<LOC EXITDLG_0000>Are you sure you'd like to quit?", "<LOC _Yes>", function() SafeQuit() end, "<LOC _No>", function() quickDialog:Destroy() quickDialog = false end, nil, nil, true, {escapeButton = 2, enterButton = 1, worldCover = true})
-
-        if quit_game then
-
-            if Prefs.GetOption('quick_exit') == 'true' then
-                SafeQuit()
-            else
-                CreateYesNoDialog()
-            end
-
-        elseif import('/lua/ui/game/commandmode.lua').GetCommandMode()[1] != false then
-
-            import('/lua/ui/game/commandmode.lua').EndCommandMode(true)
-
-        elseif GetSelectedUnits() then
-        
-            SelectUnits(nil)
-
-        end
-
-    end
-    
     -- If we've registered a custom escape handler, call it.
     local eschandler = escapeHandlers[table.getn(escapeHandlers)]
-
     -- If quit_game is true, allow users to exit regardless
     -- of any escape handlers
     if eschandler and not quit_game then
         eschandler()
         return
-    else
-        CreateYesNoDialog()
     end
 
-end
+    local function CreateYesNoDialog()
+        if quickDialog then
+            return
+        end
+        GetCursor():Show()
+        quickDialog = UIUtil.QuickDialog(GetFrame(0), "<LOC EXITDLG_0000>Are you sure you'd like to quit?",
+            "<LOC _Yes>", function() SafeQuit() end,
+            "<LOC _No>", function() quickDialog:Destroy() quickDialog = false end,
+            nil, nil,
+            true,
+            {escapeButton = 2, enterButton = 1, worldCover = true})
+    end
 
+    if quit_game then
+        if Prefs.GetOption('quick_exit') == 'true' then
+            SafeQuit()
+        else
+            CreateYesNoDialog()
+        end
+    elseif import('/lua/ui/game/commandmode.lua').GetCommandMode()[1] != false then
+        import('/lua/ui/game/commandmode.lua').EndCommandMode(true)
+    elseif GetSelectedUnits() then
+        SelectUnits(nil)
+    end
+end
