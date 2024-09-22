@@ -610,7 +610,7 @@ function ModBlueprints(all_blueprints)
 					--LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." has no projectile lifetime for "..repr(wep.DisplayName).." Label "..repr(wep.Label))
 				end
 
-				if (not wep.ProjectileLifetime and (not wep.ProjectileLifetimeUsesMultiplier)) or wep.ProjectileLifetime == 0 then
+				if ((not wep.ProjectileLifetime) and (not wep.ProjectileLifetimeUsesMultiplier)) or (wep.ProjectileLifetime == 0) or wep.MuzzleVelocity == 0 then
 				
                     if (not wep.BeamLifetime) then
 
@@ -637,6 +637,11 @@ function ModBlueprints(all_blueprints)
                     end
                     
 				end
+                
+                if wep.MuzzleVelocity == 0 and not (wep.Label == 'InainoMissiles' or wep.Label == 'Suicide' or wep.Label == 'NukeMissiles' or wep.Label == 'CollossusDeath' or wep.Label == 'MegalithDeath' or wep.Label == 'DeathWeapon' or wep.Label == 'DeathImpact' or wep.Label == 'DummyWeapon' or wep.Label == 'ClawMelee') then
+                    LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." has no muzzle velocity" )
+                    wep.ProjectileLifetime = 8
+                end
 
 				if wep.TargetCheckInterval then
 				
