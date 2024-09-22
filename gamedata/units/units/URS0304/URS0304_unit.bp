@@ -365,7 +365,7 @@ UnitBlueprint {
 			
             InitialProjectileStorage = 0,
 			
-            Label = 'NukeMissile',
+            Label = 'NukeMissiles',
 			
             ManualFire = 1,
 			

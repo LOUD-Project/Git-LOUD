@@ -228,7 +228,7 @@ UnitBlueprint {
 			
             DisplayName = 'Anti Sat',
 			
-            EffectiveRadius = 80,
+            EffectiveRadius = 75,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Air',
@@ -247,7 +247,7 @@ UnitBlueprint {
 			NotExclusive = true,
 			
             ProjectileId = '/projectiles/TIMMissileIntercerptor02/TIMMissileIntercerptor02_proj.bp',
-			ProjectileLifetime = 3,
+			ProjectileLifetime = 2,
 
             RackBones = {
                 {

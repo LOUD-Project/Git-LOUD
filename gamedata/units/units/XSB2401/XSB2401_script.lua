@@ -7,7 +7,7 @@ local EffectTemplate = import('/lua/EffectTemplates.lua')
 XSB2401 = Class(SStructureUnit) {
 
     Weapons = {
-        ExperimentalNuke = Class(SIFExperimentalStrategicMissile){
+        NukeMissiles = Class(SIFExperimentalStrategicMissile){
 
             OnWeaponFired = function(self)
                 self.unit:ForkThread(self.unit.HideMissile)   

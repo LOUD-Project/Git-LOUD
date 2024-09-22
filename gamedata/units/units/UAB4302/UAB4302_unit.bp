@@ -250,7 +250,7 @@ UnitBlueprint {
 			NotExclusive = true,
 
             ProjectileId = '/projectiles/AIMSaintAntiNuke02/AIMSaintAntiNuke02_proj.bp',
-            ProjectileLifetime = 1.6,
+            ProjectileLifetime = 2,
 
             RackBones = {
                 {

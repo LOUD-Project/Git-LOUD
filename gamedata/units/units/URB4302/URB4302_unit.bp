@@ -212,6 +212,7 @@ UnitBlueprint {
 			DamageRadius = 0,
             DamageType = 'Normal',
             DisplayName = 'EMP Anti Sat',
+
             EffectiveRadius = 75,
 
             FireTargetLayerCapsTable = {
@@ -229,7 +230,7 @@ UnitBlueprint {
 			NotExclusive = true,
             
             ProjectileId = '/projectiles/CAADissidentAntiNuke02/CAADissidentAntiNuke02_proj.bp',
-            ProjectileLifetime = 1.6,
+            ProjectileLifetime = 2,
 
             RackBones = {
                 {
