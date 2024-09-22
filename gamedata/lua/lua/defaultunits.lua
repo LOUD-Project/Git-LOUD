@@ -3240,12 +3240,8 @@ WalkingLandUnit = Class(MobileUnit) {
     IdleAnim = false,
     DeathAnim = false,
 
-	--OnPreCreate = function(self)
-		--MobileUnitOnPreCreate(self)
-	--end,
-
     PlayCommanderWarpInEffect = function(self)
-    
+
         self:HideBone(0, true)
         self:SetUnSelectable(true)
         self:SetBusy(true)

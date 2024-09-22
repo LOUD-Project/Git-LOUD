@@ -33,12 +33,15 @@ function InRect( vectorPos, rect )
 end
 
 function FindUnitGroup(strGroup,tblNode)
+
     if nil == tblNode then
         return nil
     end
 
     local tblResult = nil
+
     for strName, tblData in pairs(tblNode.Units) do
+
         if 'GROUP' == tblData.type then
             if strName == strGroup then
                 tblResult = tblData
@@ -61,10 +64,14 @@ function CreateInitialArmyGroup(strArmy, createCommander)
     local cdrUnit = false
 
     if createCommander and ( tblGroup == nil or 0 == table.getn(tblGroup) ) then
+
         local factionIndex = GetArmyBrain(strArmy):GetFactionIndex()
         local initialUnitName = import('/lua/factions.lua').Factions[factionIndex].InitialUnit
+
         cdrUnit = CreateInitialArmyUnit(strArmy, initialUnitName)
+
         if EntityCategoryContains(categories.COMMAND, cdrUnit) then
+
             if ScenarioInfo.Options['PrebuiltUnits'] == 'Off' then
                 cdrUnit:HideBone(0, true)
                 ForkThread(CommanderWarpDelay, cdrUnit, 3)
@@ -791,9 +798,14 @@ function InitializeArmies()
         ScenarioInfo.ArmySetup[army].MapVersion = nil
         ScenarioInfo.ArmySetup[army].Ready = nil
         ScenarioInfo.ArmySetup[army].StartSpot = nil
-    
-        if GetArmyBrain(army).BrainType == 'AI' and not ScenarioInfo.ArmySetup[army].Civilian then
-            loudUtils.AddCustomUnitSupport( GetArmyBrain(army) )
+       
+        if not ScenarioInfo.ArmySetup[army].Civilian then
+
+            local brain = GetArmyBrain(army)
+
+            if brain.BrainType == 'AI' then
+                loudUtils.AddCustomUnitSupport( brain )
+            end
         end
     
     end
@@ -845,9 +857,11 @@ function InitializeArmies()
 
             if not armyIsCiv then
 
-                InitializeTeams( GetArmyBrain(strArmy) )
+                local brain = GetArmyBrain(strArmy)
+
+                InitializeTeams( brain )
                 
-                InitializeSkirmishSystems( GetArmyBrain(strArmy) )
+                InitializeSkirmishSystems( brain )
 
             end
    
@@ -861,7 +875,7 @@ function InitializeArmies()
     
         local armyIsCiv = ScenarioInfo.ArmySetup[army].Civilian  
         local tblData = ScenarioInfo.Env.Scenario.Armies[army]
-        
+      
         if tblData then
 
             if (not armyIsCiv and bCreateInitial) or (armyIsCiv and civOpt != 'removed') then
@@ -893,7 +907,7 @@ function InitializeArmies()
             end
         
         end
-    
+   
     end
    
     if ScenarioInfo.Env.Scenario.Areas.AREA_1 then
@@ -924,15 +938,6 @@ function InitializeArmies()
         local place = aiBrain:GetStartVector3f()
 
         ForkThread( function() WaitTicks(70) FlushIntelInRect(place[1]-200,place[3]-200,place[1]+200,place[3]+200) end )
-        
-        if not armyIsCiv then
-
-            -- assign 5000 ecothreat for 10 minutes
-            ForkThread( function() WaitTicks(81) aiBrain:AssignThreatAtPosition( place, 5000, 0.002, 'Economy' ) end )        
-
-            LOG("     "..aiBrain.Nickname.." Team "..aiBrain.Team.." Teamsize is "..aiBrain.TeamSize )
-        end
-
 
         if aiBrain.BrainType == 'AI' and not armyIsCiv then
 
@@ -1062,11 +1067,7 @@ function InitializeArmies()
                         apply = true    
 
                     end
-                
-                else
-                    --if brain.BrainType == 'AI' and brain.Team == k and count == brain.MassPointShare + 1 then
-                      --  LOG("*AI DEBUG "..brain.Nickname.." Starting Mass Point list is "..repr(brain.StartingMassPointList))
-                    --end
+
                 end
             
             end
@@ -1212,13 +1213,6 @@ function InitializeSkirmishSystems(self)
 	-- we use this to keep the AI from doing more than one expansion at a time
 	self.BaseExpansionUnderway = false
 
-    -- Create the Builder Managers for the MAIN base
-    self:AddBuilderManagers(self:GetStartVector3f(), BuilderRadius, 'MAIN', false, RallyPointRadius, true, 'FRONT')
-
-    -- turn on the PrimaryLandAttackBase flag for MAIN
-	self.BuilderManagers.MAIN.PrimaryLandAttackBase = true
-	self.PrimaryLandAttackBase = 'MAIN'
-
     --- create Persistent Pool platoons
 
     -- for isolating structures (used by LOUD AI)
@@ -1265,6 +1259,12 @@ function InitializeSkirmishSystems(self)
 	-- record the starting unit cap	
 	-- caps of 1000+ trigger some conditions
 	self.StartingUnitCap = GetArmyUnitCap(self.ArmyIndex)
+
+    self:ForkThread( self.AddBuilderManagers, self:GetStartVector3f(), BuilderRadius, 'MAIN', false, RallyPointRadius, true, 'FRONT')
+
+    -- Create the Builder Managers for the MAIN base
+    --self:AddBuilderManagers(self:GetStartVector3f(), BuilderRadius, 'MAIN', false, RallyPointRadius, true, 'FRONT')
+
 
 end
 

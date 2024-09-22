@@ -2708,11 +2708,13 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
 
 			-- tracks if we used threat to determine Orientation
 			local Direction = false
+            
+            LOG("*AI DEBUG Getting Orientation for location "..repr(location).." on tick "..GetGameTick() )
 			
-			local threats = aiBrain:GetThreatsAroundPosition( location, 16, true, 'Economy' )
-			
+			local threats = aiBrain:GetThreatsAroundPosition( location, 16, true, 'Overall' )
+
 			LOUDSORT( threats, function(a,b) local VDist2Sq = VDist2Sq return VDist2(a[1],a[2],location[1],location[3]) + a[3] < VDist2(b[1],b[2],location[1],location[3]) + b[3] end )
-			
+		
             local counter = 0
             local avgposition = { 0,0,0 }
             
@@ -2727,6 +2729,9 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
             
             --- if there are no threats on the map - then orient towards middle of the map
             if counter == 0 then
+            
+                LOG("*AI DEBUG No threats were found for location "..repr(location) )
+
                 avgposition[1] = Mx/2
                 avgposition[3] = Mz/2
                 counter = 1
@@ -4518,9 +4523,6 @@ function ParseIntelThread( aiBrain )
 
 	local checkspertick = 1		-- number of threat entries to be processed per tick - this really affects game performance if moved up
 
-	-- the location of the MAIN base for this AI
-	local HomePosition = aiBrain.BuilderManagers.MAIN.Position
-
     -- the current iteration value
     local iterationcount = LOUDFLOOR( Random() * 14) -- each AI can start on a different iteration - to prevent concentrated load 
     local iterationmax = 15         -- the number of iterations we'll make in a complete cycle
@@ -4553,6 +4555,9 @@ function ParseIntelThread( aiBrain )
     local NAVALUNITS = (categories.NAVAL * categories.MOBILE) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE)
 
 	WaitTicks( LOUDFLOOR(Random() * 25 + 1))	-- to avoid all the AI running at exactly the same tick
+
+	-- the location of the MAIN base for this AI
+	local HomePosition = aiBrain.BuilderManagers.MAIN.Position
   
 	-- in a perfect world we would check all 8 threat types every parseinterval 
 	-- however, only AIR will be checked every cycle -- the others will be checked every other cycle or on the 3rd or 4th
