@@ -226,6 +226,9 @@ local statFuncs = {
 
 	--- buildrate
 	function(info, bp)
+        if options.gui_detailed_unitview == 0 then
+            return false
+        end
 	    if info.userUnit ~= nil and info.userUnit:GetBuildRate() > 1 then
 	        return LOUDFORMAT("%.6g", info.userUnit:GetBuildRate())
 	    end
@@ -570,39 +573,28 @@ function UpdateWindow(info)
         -- such as Regen Rate due to enhancements or veterancy buffs
         -- shield max health and regen rate due to enhancements or other buffs
 
-        controls.shieldText:Hide()
+        if options.gui_detailed_unitview ~= 0 then
+            controls.shieldText:Hide()
 
-		-- works properly but i've yet to find a good spot to put that data in
---[[
-        if info.userUnit != nil and info.userUnit:GetBlueprint().Economy.StorageMass > 0 and info.userUnit:GetBlueprint().Economy.StorageEnergy > 0 then
-           controls.StorageMass:SetText(LOUDFORMAT("%d",LOUDFLOOR(info.userUnit:GetBlueprint().Economy.StorageMass)))
-           controls.StorageEnergy:SetText(LOUDFORMAT("%d",LOUDFLOOR(info.userUnit:GetBlueprint().Economy.StorageEnergy)))
-           controls.StorageMass:Show()
-           controls.StorageEnergy:Show()
-        else
-           controls.StorageMass:Hide()
-           controls.StorageEnergy:Hide()
-        end
---]]
-
-        --- unit health and regen
-        if info.userUnit != nil then
-            info.regenrate = info.userUnit:GetStat( 'REGEN' ).Value
-            info.shieldHP = info.userUnit:GetStat('SHIELDHP').Value
-            info.shieldRegen = info.userUnit:GetStat('SHIELDREGEN').Value
-            if info.health and info.regenrate > 0 then
-                controls.health:SetText(LOUDFORMAT("%d / %d +%d/s", info.health, info.maxHealth, LOUDFLOOR(info.regenrate) ))
+            --- unit health and regen
+            if info.userUnit != nil then
+                info.regenrate = info.userUnit:GetStat( 'REGEN' ).Value
+                info.shieldHP = info.userUnit:GetStat('SHIELDHP').Value
+                info.shieldRegen = info.userUnit:GetStat('SHIELDREGEN').Value
+                if info.health and info.regenrate > 0 then
+                    controls.health:SetText(LOUDFORMAT("%d / %d +%d/s", info.health, info.maxHealth, LOUDFLOOR(info.regenrate) ))
+                end
             end
-        end
 
-        --- now do the Shield - showing health, max health and shield regen rate
-        --- and display it all on the SHIELD bar
-        if info.shieldRatio > 0 and info.shieldHP > 0 then
-            controls.shieldText:Show()
-            if info.shieldRegen then
-                controls.shieldText:SetText(LOUDFORMAT("%d / %d +%d/s", LOUDFLOOR( info.shieldHP * info.shieldRatio), info.shieldHP , info.shieldRegen ))
-            else
-                controls.shieldText:SetText(LOUDFORMAT("%d / %d", LOUDFLOOR( info.shieldHP * info.shieldRatio), info.shieldHP))
+            --- now do the Shield - showing health, max health and shield regen rate
+            --- and display it all on the SHIELD bar
+            if info.shieldRatio > 0 and info.shieldHP > 0 then
+                controls.shieldText:Show()
+                if info.shieldRegen then
+                    controls.shieldText:SetText(LOUDFORMAT("%d / %d +%d/s", LOUDFLOOR( info.shieldHP * info.shieldRatio), info.shieldHP , info.shieldRegen ))
+                else
+                    controls.shieldText:SetText(LOUDFORMAT("%d / %d", LOUDFLOOR( info.shieldHP * info.shieldRatio), info.shieldHP))
+                end
             end
         end
 
@@ -719,6 +711,10 @@ function CreateUI()
     
     controls.bg:SetNeedsFrameUpdate(true)
 
+    if options.gui_detailed_unitview ~= 0 then
+        controls.shieldText = UIUtil.CreateText(controls.bg, '', 13, UIUtil.bodyFont)
+    end
+
     controls.bg.OnFrame = function(self, delta)
 
         local info = GetRolloverInfo()
@@ -748,23 +744,22 @@ function CreateUI()
         end
     end
 
-	-- This section is for the small icons showing what active enhancements an ACU has
-	controls.enhancements = {}
-	controls.enhancements['RCH'] = Bitmap(controls.bg)
-	controls.enhancements['Back'] = Bitmap(controls.bg)
-	controls.enhancements['LCH'] = Bitmap(controls.bg)
+    -- This section is for the small icons showing what active enhancements an ACU has
+    controls.enhancements = {}
+    controls.enhancements['LCH'] = Bitmap(controls.bg)
+    controls.enhancements['Command'] = Bitmap(controls.bg)
+    controls.enhancements['RCH'] = Bitmap(controls.bg)
+    controls.enhancements['Back'] = Bitmap(controls.bg)
 
-	LayoutHelpers.AtLeftTopIn(controls.enhancements['RCH'], controls.bg, 10, -30)
-	LayoutHelpers.AtLeftTopIn(controls.enhancements['Back'], controls.bg, 42, -30)
-	LayoutHelpers.AtLeftTopIn(controls.enhancements['LCH'], controls.bg, 74, -30)
+    LayoutHelpers.AtLeftTopIn(controls.enhancements['LCH'], controls.bg, 10, -30)
+    LayoutHelpers.AtLeftTopIn(controls.enhancements['Command'], controls.bg, 42, -30)
+    LayoutHelpers.AtLeftTopIn(controls.enhancements['RCH'], controls.bg, 74, -30)
+    LayoutHelpers.AtLeftTopIn(controls.enhancements['Back'], controls.bg, 106, -30)
 
     -- from GAZ UI - SCU Manager
     controls.SCUType = Bitmap(controls.bg)
     LayoutHelpers.AtRightIn(controls.SCUType, controls.icon)
     LayoutHelpers.AtBottomIn(controls.SCUType, controls.icon)
-
-    -- expanded unit stats also from GAZ
-    controls.shieldText = UIUtil.CreateText(controls.bg, '', 13, UIUtil.bodyFont)
 
     -- these are available but not implemented - showing storage values --
 	--controls.StorageMass = UIUtil.CreateText(controls.bg, '', 12, UIUtil.bodyFont)
