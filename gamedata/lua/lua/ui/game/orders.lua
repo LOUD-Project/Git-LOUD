@@ -858,7 +858,9 @@ function EnterOverchargeMode()
 end
 
 local function OverChargeFrame(self, deltaTime)
+
     if deltaTime and currentSelection[1] then
+
         if currentSelection[1]:IsDead() then return end
 
         local bp = currentSelection[1]:GetBlueprint()
@@ -874,28 +876,35 @@ local function OverChargeFrame(self, deltaTime)
 
         -- now see if there's enough power to use the weapon --
         if overchargeLevel then
-            --LOG("*AI DEBUG OverchargeFrame")
+
             if not currentSelection[1]:IsOverchargePaused() then
+
                 local econData = GetEconomyTotals()
 
                 -- if we have the charge - enable the weapon & play the sound
                 if econData["stored"]["ENERGY"] > overchargeLevel then
+
                     if self:IsDisabled() then
+
                         self:Enable()
 
                         local armyTable = GetArmiesTable()
                         local facStr = import('/lua/factions.lua').Factions[armyTable.armiesTable[armyTable.focusArmy].faction + 1].SoundPrefix
                         local sound = Sound({Bank = 'XGG', Cue = 'Computer_Computer_Basic_Orders_01173'})
+
                         PlayVoice(sound)
                     end
+
                 else
                     self:Disable()
                 end
+
             else
                 if not self:IsDisabled() then
                     self:Disable()
                 end
             end
+
         else
             self:SetNeedsFrameUpdate(false)
         end

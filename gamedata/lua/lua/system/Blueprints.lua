@@ -544,9 +544,7 @@ function ModBlueprints(all_blueprints)
 			end
 		end
 	end
-
-	local ROFadjust = 0.9
-    
+   
     local units_threatchange = 0
 
     for id, bp in all_blueprints.Unit do
@@ -594,13 +592,7 @@ function ModBlueprints(all_blueprints)
             for ik, wep in bp.Weapon do
 				
 				if wep.RateOfFire then
-                
-                    if wep.RateOfFire < 5 then
-                        wep.RateOfFire = wep.RateOfFire * ROFadjust
-                    else
-                        --LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." has an RoF of "..wep.RateOfFire)
-                    end
-					
+			
 					if wep.MuzzleSalvoDelay == nil then
 						wep.MuzzleSalvoDelay = 0
 					end

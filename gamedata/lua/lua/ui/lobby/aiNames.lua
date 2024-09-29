@@ -34,7 +34,6 @@ ainames = {
         "Jesus Chrysler",
         "Maxon",
         "RD",
-        "Stealth Panda",
         "Snek Returns",
     },
     aeon = {
@@ -57,7 +56,6 @@ ainames = {
         "Yare",
         "Zoe",
 
-        "Azraelian",
         "Goober",
         "Ironhand",
         "PhoenixMT",

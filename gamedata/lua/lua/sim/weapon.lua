@@ -366,7 +366,7 @@ Weapon = Class(moho.weapon_methods) {
     OnFire = function(self)
 	
 		if ScenarioInfo.WeaponDialog then
-			LOG("*AI DEBUG Weapon OnFire for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
+			LOG("*AI DEBUG Weapon OnFire for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label).." on tick "..GetGameTick() )
 		end
 
 		if self.Buffs then
@@ -377,7 +377,7 @@ Weapon = Class(moho.weapon_methods) {
 	OnWeaponFired = function(self, target)
 	
 		if ScenarioInfo.WeaponDialog then
-			LOG("*AI DEBUG Weapon OnWeaponFired for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
+			LOG("*AI DEBUG Weapon OnWeaponFired for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label).." on tick "..GetGameTick() )
 		end
 
 	end,
@@ -385,16 +385,15 @@ Weapon = Class(moho.weapon_methods) {
     OnDisableWeapon = function(self)
 	
         if ScenarioInfo.WeaponDialog then
-            LOG("*AI DEBUG Weapon OnDisableWeapon for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
+            LOG("*AI DEBUG Weapon OnDisableWeapon for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label).." on tick "..GetGameTick() )
         end
-   
-        --ChangeState( self, self.DeadState )
+
     end,
     
     OnEnableWeapon = function(self)
 	
         if ScenarioInfo.WeaponDialog then
-            LOG("*AI DEBUG Weapon OnEnableWeapon for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
+            LOG("*AI DEBUG Weapon OnEnableWeapon for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label).." on tick "..GetGameTick() )
         end
 
         self:SetValidTargetsForCurrentLayer(self.unit.CacheLayer, self.bp)
@@ -405,7 +404,7 @@ Weapon = Class(moho.weapon_methods) {
         if self.WeaponIsEnabled then
 	
             if ScenarioInfo.WeaponDialog then
-                LOG("*AI DEBUG Weapon OnGotTarget for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
+                LOG("*AI DEBUG Weapon OnGotTarget for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label).." on tick "..GetGameTick() )
             end
     
             if self.DisabledFiringBones and self.unit.Animator then
@@ -426,7 +425,7 @@ Weapon = Class(moho.weapon_methods) {
         if self.HadTarget then
 	
             if ScenarioInfo.WeaponDialog then
-                LOG("*AI DEBUG Weapon OnLostTarget for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
+                LOG("*AI DEBUG Weapon OnLostTarget for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label).." on tick "..GetGameTick() )
             end
  
             if self.DisabledFiringBones and self.unit.Animator then
@@ -445,10 +444,6 @@ Weapon = Class(moho.weapon_methods) {
     OnStartTracking = function(self, label)
     
         if self.WeaponIsEnabled then
-	
-            --if ScenarioInfo.WeaponDialog then
-              --  LOG("*AI DEBUG Weapon OnStartTracking for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
-            --end
 
             self:PlayWeaponSound('BarrelStart')
         end
@@ -457,10 +452,6 @@ Weapon = Class(moho.weapon_methods) {
     OnStopTracking = function(self, label)
 	
         if self.WeaponIsEnabled then
-        
-            --if ScenarioInfo.WeaponDialog then
-              --  LOG("*AI DEBUG Weapon OnStopTracking for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
-            --end
 
             self:PlayWeaponSound('BarrelStop')
 		
@@ -622,7 +613,7 @@ Weapon = Class(moho.weapon_methods) {
         if proj and not BeenDestroyed(proj) then
 
             if ScenarioInfo.ProjectileDialog then
-                LOG("*AI DEBUG Weapon CreateProjectileForWeapon "..repr(self.bp.Label).." at bone "..repr(bone).." at "..GetGameTick() )
+                LOG("*AI DEBUG Weapon CreateProjectileForWeapon "..repr(self.bp.Label).." at bone "..repr(bone).." on tick "..GetGameTick() )
             end
             
             PassDamageData( proj, self.damageTable )

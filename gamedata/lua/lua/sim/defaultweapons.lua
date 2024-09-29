@@ -1466,7 +1466,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             self:PlayFxRackSalvoReloadSequence(bp)
             
             if self.ElapsedRackReloadTicks > 0 and ( not bp.RackSalvoReloadTime or ((bp.RackSalvoReloadTime*10) < self.ElapsedRackReloadTicks )) then
-                LOG("*AI DEBUG DefaultWeapon RackReloadTime - is either not existant or less than the RackSalvoReloadSequnce - "..self.ElapsedRackReloadTicks.." ticks. "..repr(self.unit.BlueprintID))
+                LOG("*AI DEBUG DefaultWeapon RackSalvoReloadTime - is either not existant or less than the RackSalvoReloadSequence - "..self.ElapsedRackReloadTicks.." ticks. "..repr(self.unit.BlueprintID))
             end
             
             if bp.RackSalvoReloadTime and (math.ceil(bp.RackSalvoReloadTime * 10) - self.ElapsedRackReloadTicks) > 0 then

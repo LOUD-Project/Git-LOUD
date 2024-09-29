@@ -2709,7 +2709,7 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
 			-- tracks if we used threat to determine Orientation
 			local Direction = false
             
-            LOG("*AI DEBUG Getting Orientation for location "..repr(location).." on tick "..GetGameTick() )
+            --LOG("*AI DEBUG Getting Orientation for location "..repr(location).." on tick "..GetGameTick() )
 			
 			local threats = aiBrain:GetThreatsAroundPosition( location, 16, true, 'Overall' )
 
@@ -2730,7 +2730,7 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
             --- if there are no threats on the map - then orient towards middle of the map
             if counter == 0 then
             
-                LOG("*AI DEBUG No threats were found for location "..repr(location) )
+                --LOG("*AI DEBUG No threats were found for location "..repr(location) )
 
                 avgposition[1] = Mx/2
                 avgposition[3] = Mz/2
