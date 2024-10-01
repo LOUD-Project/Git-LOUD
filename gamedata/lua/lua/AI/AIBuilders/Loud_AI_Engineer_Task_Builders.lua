@@ -163,7 +163,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
             
-            { LUTL, 'AirStrengthRatioLessThan', { 3 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 2 } },
             
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.AIR * categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER, 125 }},
         },

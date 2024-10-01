@@ -6993,28 +6993,9 @@ function TrackProj(projectitem, self)
             while (not projectitem:BeenDestroyed()) and projectitem.Distance > 10 do
                 WaitTicks(2)
             end
-        end
---[[
-        if (not projectitem:BeenDestroyed()) and (not unit:BeenDestroyed()) then
-
-            if (not bp.TrackTarget) and (not bp.TrackTargetGround) then
-
-                --projectitem:TrackTarget(true)
-
-            end
-
-            if bp.TrackTargetGround then
-
-                --projectitem:SetNewTargetGround(projectitem:GetCurrentTargetPosition())
- 
-                --if bp.Acceleration and bp.Acceleration > 0 and bp.Acceleration < 2 then
-                  --  projectitem:SetAcceleration(1.5)
-                --end
-                
-            end
 
         end
---]]
+
     end
 
 end

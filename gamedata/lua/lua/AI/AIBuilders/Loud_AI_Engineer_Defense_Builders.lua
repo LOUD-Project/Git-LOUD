@@ -5402,7 +5402,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-            { LUTL, 'AirStrengthRatioLessThan', { 3 }},
+            { LUTL, 'AirStrengthRatioLessThan', { 2 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
 
@@ -5490,7 +5490,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 		
         Priority = 751,
         
-        PriorityFunction = AboveUnitCap75,
+        PriorityFunction = AboveUnitCap85,
 
         BuilderConditions = {
             { LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 0, AA }},
@@ -5610,7 +5610,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-            { LUTL, 'AirStrengthRatioLessThan', { 3 }},
+            { LUTL, 'AirStrengthRatioLessThan', { 2 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
@@ -5949,7 +5949,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-            { LUTL, 'AirStrengthRatioLessThan', { 3 }},
+            { LUTL, 'AirStrengthRatioLessThan', { 2 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
@@ -6267,7 +6267,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
         PriorityFunction = AboveUnitCap75,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 3 }},
+            { LUTL, 'AirStrengthRatioLessThan', { 2 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
@@ -6381,7 +6381,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-            { LUTL, 'AirStrengthRatioLessThan', { 3 }},
+            { LUTL, 'AirStrengthRatioLessThan', { 2 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 

@@ -2504,10 +2504,6 @@ Platoon = Class(PlatoonMethods) {
 			elseif ID == 'xrl0403' then
 				newplatoon:ForkAIThread( Behaviors.MegalithBehavior )
 
-			-- elseif ID == 'url0401' then
-				-- newplatoon:ForkAIThread(Behaviors.ScathisBehavior )
-				-- #return Behaviors.ScathisBehavior(self)
-
 			elseif ID == 'ura0401' then
 				newplatoon:ForkAIThread( Behaviors.TickBehavior )
 			
@@ -3169,6 +3165,10 @@ Platoon = Class(PlatoonMethods) {
             local ATTACKS, ARTILLERY, GUARDS, SUPPORTS, SCOUTS, scoutradius
 
 			while marker and guardtime < guardTimer and PlatoonExists(aiBrain, self) do
+
+                if GuardpointDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." cycles on station - guardtime "..guardtime.." - timer is "..guardTimer.." on tick "..GetGameTick() )
+                end
                 
                 -- this will prevent things like DistressResponse from running
                 self.UsingTransport = true 
@@ -3214,7 +3214,7 @@ Platoon = Class(PlatoonMethods) {
 				if (not guarding) and PlatoonExists(aiBrain, self) then
         
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." setting up guard at "..repr(PCat).." marker "..repr(marker))
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." setting up guard at "..repr(PCat).." marker "..repr(marker).." on tick "..GetGameTick() )
                     end
 
 					if NumberOfUnitsInPlatoon > 0 then
@@ -3327,6 +3327,10 @@ Platoon = Class(PlatoonMethods) {
 
 				-- check exit parameters --
 				if StrCat and StrTrigger then
+        
+                    if GuardpointDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." checks Structure Triggers on tick "..GetGameTick() )
+                    end
                 
 					if GuardPointStructureCheck( self, aiBrain, marker, StrCat, StrRadius, PFaction, StrMin, StrMax) then
         
@@ -3340,6 +3344,10 @@ Platoon = Class(PlatoonMethods) {
 				end
 				
 				if UntCat and UntTrigger then
+        
+                    if GuardpointDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." checks Unit Triggers on tick "..GetGameTick() )
+                    end
                 
 					if GuardPointUnitCheck( self, aiBrain, marker, UntCat, UntRadius, PFaction, UntMin, UntMax) then
         
@@ -3359,6 +3367,7 @@ Platoon = Class(PlatoonMethods) {
                 choice, distance = FindClosestBaseName( aiBrain, marker, false )
                 
                 if choice and distance < PMin then
+
                     if GuardpointDialog then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." finds base "..repr(choice).." at "..distance)
                     end
@@ -3376,9 +3385,9 @@ Platoon = Class(PlatoonMethods) {
                     -- MERGE with other GuardPoint Platoons	-- during regular guardtime	-- check randomly about 33%
                     if Random(1,3) == 1 and MergeLimit and (guardtime <= guardTimer) and PlatoonExists(aiBrain, self) then
 
-                        --if GuardpointDialog then
-                          --  LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." checking to merge "..NumberOfUnitsInPlatoon )
-                        --end
+                        if GuardpointDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." checking to merge "..NumberOfUnitsInPlatoon.." on tick "..GetGameTick() )
+                        end
                        
 						if MergeWithNearbyPlatoons( self, aiBrain, 'GuardPoint', 90, MergePlanMatch or false, MergeLimit) then
 
@@ -3402,12 +3411,15 @@ Platoon = Class(PlatoonMethods) {
 							target = false
 							guarding = false
                             
-                            -- reset guardtime
-                            guardtime = 0
+                            -- extend the guardtime by reducing the current guardtime by half
+                            if guardtime > 0 then 
+                                guardtime = LOUDFLOOR(guardtime * .5)
+                            end   
                             
                             -- expand the guardRadius by 15%
                             guardRadius = guardRadius * 1.15
                         end
+
                     end
 				end
 
@@ -3429,10 +3441,6 @@ Platoon = Class(PlatoonMethods) {
 
                     WaitTicks(31)
                     guardtime = guardtime + 3
-                    
-                    --if GuardpointDialog then
-                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." cycles - guardtime is "..guardtime )
-                    --end
                     
                 end
 

@@ -718,7 +718,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 		end,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 3 }},
+            { LUTL, 'AirStrengthRatioLessThan', { 2 }},
 
             { TBC, 'ThreatCloserThan', { 'LocationType', 400, 50, 'AntiSurface' }},
             

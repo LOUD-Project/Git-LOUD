@@ -381,36 +381,6 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
         BuilderType = {'LandT3'},
     },
 
-	-- T3 Sniper Bot
---[[	
-    Builder {BuilderName = 'T3 Sniper Bot',
-        PlatoonTemplate = 'T3SniperBots',
-        Priority = 0,	#--- turned this off for now - AI doesn't make good use of them - and they are wasted as part of regular assault teams
-        BuilderConditions = {
- 			{ MIBC, 'FactionIndex', { 2, 4 } },
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.TECH3 }},
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.DIRECTFIRE * categories.LAND * categories.MOBILE * categories.TECH3 * categories.BOT }},
-        },
-        BuilderType = {'Land'},
-    },
---]]	
-	-- T3 Shield Disruptor - AEON only
---[[	
-    Builder {BuilderName = 'T3 Shield Disruptors',
-        PlatoonTemplate = 'T3ShieldDisruptor',
-        Priority = 0,
-        BuilderConditions = {
- 			{ MIBC, 'FactionIndex', { 2 } },
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.ANTISHIELD * categories.LAND * categories.MOBILE * categories.TECH3 }},
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 4, categories.ANTISHIELD * categories.LAND * categories.MOBILE * categories.TECH3 }},
-        },
-        BuilderType = {'Land'},
-    },
---]]
-
 }
 
 
@@ -430,8 +400,6 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
- 
-            { LUTL, 'AirStrengthRatioLessThan', { 3 } }, 
 
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
 
@@ -578,8 +546,6 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
- 
-			{ LUTL, 'AirStrengthRatioLessThan', { 3 } }, 
 
 			{ LUTL, 'PoolLess', { 32, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
 
