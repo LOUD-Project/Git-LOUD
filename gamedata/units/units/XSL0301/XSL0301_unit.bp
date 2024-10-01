@@ -451,6 +451,7 @@ UnitBlueprint {
     },
 	
     Weapon = {
+
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
@@ -474,7 +475,7 @@ UnitBlueprint {
             },
             FiringTolerance = 2,
             
-            Label = 'LightChronatronCannon',
+            Label = 'ChronotronCannon',
             
             MaxRadius = 33,
             MinRadius = 1,
@@ -514,15 +515,16 @@ UnitBlueprint {
             
             TurretPitch = 0,
             TurretPitchRange = 160,
-            TurretPitchSpeed = 90,
+            TurretPitchSpeed = 30,
             
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 50,
             
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
         },
+
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
@@ -542,8 +544,8 @@ UnitBlueprint {
             DisplayName = 'Light Overcharge Cannon',
             
             EnergyChargeForFirstShot = false,
-            EnergyDrainPerSecond = 5000,
-            EnergyRequired = 15000,
+            EnergyDrainPerSecond = 500,
+            EnergyRequired = 1500,
             
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -571,12 +573,14 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.5,
+            RackSalvoReloadTime = 2.8,  -- 2.8 second delay after firing
             
             RangeCategory = 'UWRC_DirectFire',
             
-            RateOfFire = 0.3,
-            
+            RateOfFire = 1,    --- controlled entirely by charge
+
             TargetCheckInterval = 1,
+
             TargetRestrictDisallow = 'UNTARGETABLE',
             
             TurretBoneMuzzle = 'Right_Arm_Muzzle',
@@ -589,9 +593,10 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 50,
             
             Turreted = true,
+
             UseFiringSolutionInsteadOfAimBone = true,
         },
         {

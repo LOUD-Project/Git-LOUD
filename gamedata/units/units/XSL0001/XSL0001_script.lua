@@ -6,7 +6,7 @@ local BuffField = import('/lua/sim/BuffField.lua').BuffField
 local SWeapons = import('/lua/seraphimweapons.lua')
 
 local SDFChronotronCannonWeapon             = SWeapons.SDFChronotronCannonWeapon
-local SDFChronotronOverChargeCannonWeapon   = SWeapons.SDFChronotronCannonOverChargeWeapon
+local SDFOverChargeWeapon                   = SWeapons.SDFChronotronCannonOverChargeWeapon
 local SIFCommanderDeathWeapon               = SWeapons.SIFCommanderDeathWeapon
 local SIFLaanseTacticalMissileLauncher      = SWeapons.SIFLaanseTacticalMissileLauncher
 
@@ -70,11 +70,11 @@ XSL0001 = Class( SWalkingLandUnit ) {
             end,
         },
 		
-        OverCharge = Class(SDFChronotronOverChargeCannonWeapon) {
+        OverCharge = Class(SDFOverChargeWeapon) {
 
             OnCreate = function(self)
 
-                SDFChronotronOverChargeCannonWeapon.OnCreate(self)
+                SDFOverChargeWeapon.OnCreate(self)
 
                 self:SetWeaponEnabled(false)
 
@@ -88,11 +88,9 @@ XSL0001 = Class( SWalkingLandUnit ) {
 
                 if self:BeenDestroyed() then return end
 
-                SDFChronotronOverChargeCannonWeapon.OnEnableWeapon(self)
+                SDFOverChargeWeapon.OnEnableWeapon(self)
 
                 self:SetWeaponEnabled(true)
-
-                --self.unit:SetWeaponEnabledByLabel('ChronotronCannon', false)
 
                 self.unit:BuildManipulatorSetEnabled(false)
 
@@ -108,7 +106,7 @@ XSL0001 = Class( SWalkingLandUnit ) {
             
             OnWeaponFired = function(self)
 
-                SDFChronotronOverChargeCannonWeapon.OnWeaponFired(self)
+                SDFOverChargeWeapon.OnWeaponFired(self)
 
                 self:OnDisableWeapon()
                 self:ForkThread(self.PauseOvercharge)
@@ -119,8 +117,6 @@ XSL0001 = Class( SWalkingLandUnit ) {
                 if self.unit:BeenDestroyed() then return end
 
                 self:SetWeaponEnabled(false)
-
-                --self.unit:SetWeaponEnabledByLabel('ChronotronCannon', true)
 
                 self.unit:BuildManipulatorSetEnabled(false)
 
@@ -149,16 +145,16 @@ XSL0001 = Class( SWalkingLandUnit ) {
             OnFire = function(self)
 
                 if not self.unit:IsOverchargePaused() then
-                    SDFChronotronOverChargeCannonWeapon.OnFire(self)
+                    SDFOverChargeWeapon.OnFire(self)
                 end
             end,
 
-            IdleState = State(SDFChronotronOverChargeCannonWeapon.IdleState) {
+            IdleState = State(SDFOverChargeWeapon.IdleState) {
 
                 OnGotTarget = function(self)
 
                     if not self.unit:IsOverchargePaused() then
-                        SDFChronotronOverChargeCannonWeapon.IdleState.OnGotTarget(self)
+                        SDFOverChargeWeapon.IdleState.OnGotTarget(self)
                     end
                 end,            
 
@@ -170,12 +166,12 @@ XSL0001 = Class( SWalkingLandUnit ) {
                 end,
             },
 
-            RackSalvoFireReadyState = State(SDFChronotronOverChargeCannonWeapon.RackSalvoFireReadyState) {
+            RackSalvoFireReadyState = State(SDFOverChargeWeapon.RackSalvoFireReadyState) {
 
                 OnFire = function(self)
 
                     if not self.unit:IsOverchargePaused() then
-                        SDFChronotronOverChargeCannonWeapon.RackSalvoFireReadyState.OnFire(self)
+                        SDFOverChargeWeapon.RackSalvoFireReadyState.OnFire(self)
                     end
                 end,
             },  

@@ -981,7 +981,7 @@ UnitBlueprint {
 
             RateOfFire = 0.3,
 
-            TargetCheckInterval = 0.16,
+            TargetCheckInterval = 0.3,
             TargetRestrictDisallow = 'UNTARGETABLE',
 
             TurretBoneMuzzle = 'Right_Turret_Muzzle',

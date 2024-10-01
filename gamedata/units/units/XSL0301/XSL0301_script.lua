@@ -1,14 +1,12 @@
 local SWalkingLandUnit = import('/lua/seraphimunits.lua').SWalkingLandUnit
 
-local AWeapons = import('/lua/aeonweapons.lua')
 local SWeapons = import('/lua/seraphimweapons.lua')
 
 local SDFLightChronotronCannonWeapon    = SWeapons.SDFLightChronotronCannonWeapon
-local SDFOverChargeWeapon               = SWeapons.SDFLightChronotronCannonWeapon
+local SDFOverChargeWeapon               = SWeapons.SDFChronotronCannonOverChargeWeapon
 local SIFLaanseTacticalMissileLauncher  = SWeapons.SIFLaanseTacticalMissileLauncher
-local AIFCommanderDeathWeapon           = AWeapons.AIFCommanderDeathWeapon
+local AIFCommanderDeathWeapon           = SWeapons.SIFCommanderDeathWeapon
 
-AWeapons = nil
 SWeapons = nil
 
 local Buff = import('/lua/sim/Buff.lua')
@@ -18,7 +16,7 @@ XSL0301 = Class(SWalkingLandUnit) {
     
     Weapons = {
 
-        LightChronatronCannon = Class(SDFLightChronotronCannonWeapon) {},
+        ChronotronCannon = Class(SDFLightChronotronCannonWeapon) {},
 
         DeathWeapon = Class(AIFCommanderDeathWeapon) {},
 
@@ -38,13 +36,13 @@ XSL0301 = Class(SWalkingLandUnit) {
 
             OnEnableWeapon = function(self)
 
+                if self:BeenDestroyed() then return end
+
                 SDFOverChargeWeapon.OnEnableWeapon(self)
 
                 self:SetWeaponEnabled(true)
 
-                self:ForkThread(self.PauseOvercharge)
-
-                --self.unit:SetWeaponEnabledByLabel('LightChronatronCannon', false)
+                self.unit:AddCommandCap('RULEUCC_Overcharge')
 
                 self.unit:BuildManipulatorSetEnabled(false)
 
@@ -55,23 +53,23 @@ XSL0301 = Class(SWalkingLandUnit) {
                     self.unit.BuildArmManipulator:SetPrecedence(0)
                 end
 
-                self.AimControl:SetHeadingPitch( self.unit:GetWeaponManipulatorByLabel('LightChronatronCannon'):GetHeadingPitch() )
+                self.AimControl:SetHeadingPitch( self.unit:GetWeaponManipulatorByLabel('ChronotronCannon'):GetHeadingPitch() )
             end,
 
             OnWeaponFired = function(self)
 
                 SDFOverChargeWeapon.OnWeaponFired(self)
 
-                self:OnDisableWeapon()
                 self:ForkThread(self.PauseOvercharge)
             end,
             
             OnDisableWeapon = function(self)    
 
+                if self:BeenDestroyed() then return end
+
                 self:SetWeaponEnabled(false)
 
-                --self.unit:SetWeaponEnabledByLabel('LightChronatronCannon', true)
-
+                self.unit:RemoveCommandCap('RULEUCC_Overcharge')
                 self.unit:BuildManipulatorSetEnabled(false)
 
                 self.AimControl:SetEnabled(false)
@@ -80,8 +78,8 @@ XSL0301 = Class(SWalkingLandUnit) {
                 if self.unit.BuildArmManipulator then
                     self.unit.BuildArmManipulator:SetPrecedence(0)
                 end
-                
-                self.unit:GetWeaponManipulatorByLabel('LightChronatronCannon'):SetHeadingPitch( self.AimControl:GetHeadingPitch() )
+
+                self.unit:GetWeaponManipulatorByLabel('ChronotronCannon'):SetHeadingPitch( self.AimControl:GetHeadingPitch() )                
             end,
 
             PauseOvercharge = function(self)
@@ -90,45 +88,20 @@ XSL0301 = Class(SWalkingLandUnit) {
 
                     self.unit:SetOverchargePaused(true)
 
-                    WaitSeconds(1/self:GetBlueprint().RateOfFire)
+                    self.unit:RemoveCommandCap('RULEUCC_Overcharge')                    
+
+                    if self.EconDrain then
+                    
+                        WaitFor(self.EconDrain)
+
+                    end
 
                     self.unit:SetOverchargePaused(false)
+
+                    self.unit:AddCommandCap('RULEUCC_Overcharge')
+
                 end
             end,
-            
-            OnFire = function(self)
-
-                if not self.unit:IsOverchargePaused() then
-                    SDFOverChargeWeapon.OnFire(self)
-                end
-            end,
- 
-            IdleState = State(SDFOverChargeWeapon.IdleState) {
-
-                OnGotTarget = function(self)
-
-                    if not self.unit:IsOverchargePaused() then
-                        SDFOverChargeWeapon.IdleState.OnGotTarget(self)
-                    end
-                end,            
-
-                OnFire = function(self)
-
-                    if not self.unit:IsOverchargePaused() then
-                        ChangeState(self, self.RackSalvoFiringState)
-                    end
-                end,
-            },
-
-            RackSalvoFireReadyState = State(SDFOverChargeWeapon.RackSalvoFireReadyState) {
-
-                OnFire = function(self)
-
-                    if not self.unit:IsOverchargePaused() then
-                        SDFOverChargeWeapon.RackSalvoFireReadyState.OnFire(self)
-                    end
-                end,
-            },  
 
         },
 
@@ -144,23 +117,21 @@ XSL0301 = Class(SWalkingLandUnit) {
     
     OnPrepareArmToBuild = function(self)
 
-        --SWalkingLandUnit.OnPrepareArmToBuild(self)
-
         self:BuildManipulatorSetEnabled(true)
         self.BuildArmManipulator:SetPrecedence(20)
-        self:SetWeaponEnabledByLabel('LightChronatronCannon', false)
+        self:SetWeaponEnabledByLabel('ChronotronCannon', false)
 
-        self.BuildArmManipulator:SetHeadingPitch( self:GetWeaponManipulatorByLabel('LightChronatronCannon'):GetHeadingPitch() )
+        self.BuildArmManipulator:SetHeadingPitch( self:GetWeaponManipulatorByLabel('ChronotronCannon'):GetHeadingPitch() )
     end,
-        
+
     OnStopCapture = function(self, target)
 
         SWalkingLandUnit.OnStopCapture(self, target)
 
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
-        self:SetWeaponEnabledByLabel('LightChronatronCannon', true)
-        self:GetWeaponManipulatorByLabel('LightChronatronCannon'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+        self:SetWeaponEnabledByLabel('ChronotronCannon', true)
+        self:GetWeaponManipulatorByLabel('ChronotronCannon'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
     end,
     
     OnFailedCapture = function(self, target)
@@ -169,8 +140,8 @@ XSL0301 = Class(SWalkingLandUnit) {
 
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
-        self:SetWeaponEnabledByLabel('LightChronatronCannon', true)
-        self:GetWeaponManipulatorByLabel('LightChronatronCannon'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+        self:SetWeaponEnabledByLabel('ChronotronCannon', true)
+        self:GetWeaponManipulatorByLabel('ChronotronCannon'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
     end,
     
     OnStopReclaim = function(self, target)
@@ -181,8 +152,8 @@ XSL0301 = Class(SWalkingLandUnit) {
 
         self.BuildArmManipulator:SetPrecedence(0)
 
-        self:SetWeaponEnabledByLabel('LightChronatronCannon', true)
-        self:GetWeaponManipulatorByLabel('LightChronatronCannon'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+        self:SetWeaponEnabledByLabel('ChronotronCannon', true)
+        self:GetWeaponManipulatorByLabel('ChronotronCannon'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
     end,
 
     OnFailedToBuild = function(self)
@@ -193,8 +164,8 @@ XSL0301 = Class(SWalkingLandUnit) {
 
         self.BuildArmManipulator:SetPrecedence(0)
 
-        self:SetWeaponEnabledByLabel('LightChronatronCannon', true)
-        self:GetWeaponManipulatorByLabel('LightChronatronCannon'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+        self:SetWeaponEnabledByLabel('ChronotronCannon', true)
+        self:GetWeaponManipulatorByLabel('ChronotronCannon'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
     end,
     
     OnStartBuild = function(self, unitBeingBuilt, order)
@@ -227,8 +198,8 @@ XSL0301 = Class(SWalkingLandUnit) {
 
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
-        self:SetWeaponEnabledByLabel('LightChronatronCannon', true)
-        self:GetWeaponManipulatorByLabel('LightChronatronCannon'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+        self:SetWeaponEnabledByLabel('ChronotronCannon', true)
+        self:GetWeaponManipulatorByLabel('ChronotronCannon'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
 
         self.UnitBeingBuilt = nil
         self.UnitBuildOrder = nil
@@ -243,8 +214,8 @@ XSL0301 = Class(SWalkingLandUnit) {
         
         if not self.Dead then
             self.BuildArmManipulator:SetPrecedence(0)
-            self:SetWeaponEnabledByLabel('LightChronatronCannon', true)
-            self:GetWeaponManipulatorByLabel('LightChronatronCannon'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+            self:SetWeaponEnabledByLabel('ChronotronCannon', true)
+            self:GetWeaponManipulatorByLabel('ChronotronCannon'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
         end
     end,
     
@@ -307,7 +278,6 @@ XSL0301 = Class(SWalkingLandUnit) {
         -- Overcharge
         elseif enh == 'Overcharge' then
 
-      	    self:AddCommandCap('RULEUCC_Overcharge')
       	    self:SetWeaponEnabledByLabel('OverCharge', true)
 
         elseif enh == 'OverchargeRemove' then
