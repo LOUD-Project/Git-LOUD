@@ -50,7 +50,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 125.4,
     },
 	
-    Description = '<LOC sbui2311_desc>Oblivion Field Artillery',
+    Description = '<LOC sab2311_desc>Oblivion Field Artillery',
 	
     Display = {
 	
@@ -181,8 +181,8 @@ UnitBlueprint {
 			
             DisplayName = 'Oblivion Cannon',
 			
-            EnergyDrainPerSecond = 1200,
-            EnergyRequired = 4800,      -- 4 second charge cycle
+            EnergyDrainPerSecond = 960,
+            EnergyRequired = 4800,      -- 5 second charge cycle
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -197,7 +197,7 @@ UnitBlueprint {
             MaxRadius = 110,
 			MinRadius = 14,
 			
-            MuzzleChargeDelay = 1,      -- 1 second delay --
+            MuzzleChargeDelay = 1,
 
             MuzzleVelocity = 28,
 			MuzzleVelocityRandom = 1.5,
@@ -206,7 +206,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             ProjectileId = '/projectiles/ADFOblivionCannon03/ADFOblivionCannon03_proj.bp',
-            ProjectileLifetime = 6.5,
+            ProjectileLifetime = 6.8,
 			
             RackBones = {
                 {
@@ -216,10 +216,12 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -3,
+
+            RackSalvoFiresAfterCharge = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	-- 5 second cycle = 360 DPS
+            RateOfFire = 0.2,	-- 5 seconds by charge = 360 DPS
 			
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -238,11 +240,11 @@ UnitBlueprint {
 			
             TurretPitch = 15,
             TurretPitchRange = 65,
-            TurretPitchSpeed = 30,
+            TurretPitchSpeed = 24,
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 20,
+            TurretYawSpeed = 22,
 			
             Turreted = true,
         },

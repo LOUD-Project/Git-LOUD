@@ -177,8 +177,8 @@ UnitBlueprint {
 			
             DisplayName = 'Sinn Unthe Cannon',
 			
-            EnergyDrainPerSecond = 687.5,         -- 2 second charge --
-            EnergyRequired = 1375,
+            EnergyDrainPerSecond = 460,         -- 3 second charge --
+            EnergyRequired = 1380,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -192,12 +192,12 @@ UnitBlueprint {
             MaxRadius = 100,
             MinRadius = 6,
 			
-            MuzzleChargeDelay = 1.0,        -- 1 second delay --
+            MuzzleChargeDelay = 1.0,
 
             MuzzleVelocity = 23,
 			
             ProjectileId = '/projectiles/SDFSinnuntheWeapon01/SDFSinnuntheWeapon01_proj.bp',
-			ProjectileLifetime = 5,
+			ProjectileLifetime = 4.6,
 			
             RackBones = {
                 {
@@ -205,10 +205,12 @@ UnitBlueprint {
                     RackBone = 'RightHand_Muzzle',
                 },
             },
+
+            RackSalvoFiresAfterCharge = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- fires every 3 seconds = 400 DPS
+            RateOfFire = 1,		-- every 3 seconds by charge = 400 DPS
 			
             TargetCheckInterval = 0.5,
 			

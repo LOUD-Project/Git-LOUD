@@ -1510,9 +1510,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.5,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_Countermeasure',
 
-            RateOfFire = 1,     -- relies upon charge cycle -- 
+            RateOfFire = 0.1,     -- relies upon charge cycle -- 
 
             TargetCheckInterval = 0.5,
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -1764,7 +1766,7 @@ UnitBlueprint {
 
             EnergyChargeForFirstShot = false,
 
-            EnergyDrainPerSecond = 400,	-- 1.5 second charge --
+            EnergyDrainPerSecond = 150,	-- 4 second charge --
             EnergyRequired = 600,
 
             FireTargetLayerCapsTable = {
@@ -1788,7 +1790,7 @@ UnitBlueprint {
 			PrefersPrimaryWeaponTarget = true,
 
             ProjectileId = '/mods/BlackopsACUs/projectiles/SeraACUBigBall01/SeraACUBigBall01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 2.2,
+            ProjectileLifetimeUsesMultiplier = 2.4,
 
             RackBones = {
                 {
@@ -1797,9 +1799,11 @@ UnitBlueprint {
                 },
             },
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_DirectFire',
 
-            RateOfFire = 1,     -- controlled by charge and muzzlechargedelay = 4 seconds
+            RateOfFire = 0.25,     -- controlled by charge = 4 seconds
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -1848,8 +1852,8 @@ UnitBlueprint {
 
             EnergyChargeForFirstShot = false,
 
-            EnergyDrainPerSecond = 650,	-- 1.5 second charge --
-            EnergyRequired = 975,
+            EnergyDrainPerSecond = 250,	-- 4 second charge --
+            EnergyRequired = 1000,
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -1863,7 +1867,7 @@ UnitBlueprint {
             MaxRadius = 37,
             MinRadius = 2,
 
-            MuzzleChargeDelay = 2.5,    -- 2.5 second muzzle charge delay
+            MuzzleChargeDelay = 2.5,
 
             MuzzleVelocity = 18,
 
@@ -1872,7 +1876,7 @@ UnitBlueprint {
 			PrefersPrimaryWeaponTarget = true,
 
             ProjectileId = '/mods/BlackopsACUs/projectiles/SeraACUBigBall02/SeraACUBigBall02_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 2.5,
+            ProjectileLifetimeUsesMultiplier = 2.6,
 
             RackBones = {
                 {
@@ -1881,9 +1885,11 @@ UnitBlueprint {
                 },
             },
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_DirectFire',
 
-            RateOfFire = 1,     -- controlled by charges - 4 seconds
+            RateOfFire = 0.25,     -- controlled by charge - 4 seconds
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -1932,7 +1938,7 @@ UnitBlueprint {
 
             EnergyChargeForFirstShot = false,
 
-            EnergyDrainPerSecond = 700,	-- 2 second charge --
+            EnergyDrainPerSecond = 350,	-- 4 second charge --
             EnergyRequired = 1400,
 
             FireTargetLayerCapsTable = {
@@ -1956,7 +1962,7 @@ UnitBlueprint {
 			PrefersPrimaryWeaponTarget = true,
 
             ProjectileId = '/mods/BlackopsACUs/projectiles/SeraACUBigBall03/SeraACUBigBall03_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 2.5,
+            ProjectileLifetimeUsesMultiplier = 3,
 
             RackBones = {
                 {
@@ -1967,7 +1973,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 
-            RateOfFire = 1,     -- controlled by charges -- 4 seconds
+            RateOfFire = 0.25,     -- controlled by charge -- 4 seconds
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {

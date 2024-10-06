@@ -150,7 +150,7 @@ UnitBlueprint {
         MeshExtentsZ = 4.1,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
-        TurnRadius = 20,
+        TurnRadius = 12,
         TurnRate = 45,
     },
 
@@ -252,11 +252,13 @@ UnitBlueprint {
                 },
             },
 
+            RackSalvoFiresAfterCharge = true,
+
             RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,		---- 4 missiles every 10 seconds = 100 DPS - controlled by charge
+            RateOfFire = 0.1,		---- 4 missiles every 10 seconds = 100 DPS - controlled by charge
 			
             TargetCheckInterval = 5,
             TargetPriorities = {

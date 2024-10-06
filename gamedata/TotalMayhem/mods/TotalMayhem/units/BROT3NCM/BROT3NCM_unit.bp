@@ -177,7 +177,7 @@ UnitBlueprint {
         SkirtSizeX = 5,
         SkirtSizeZ = 5,
         
-        TurnRadius = 5,
+        TurnRadius = 4,
         TurnRate = 29,
     },
 	
@@ -255,9 +255,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -1,
 
+            RackSalvoFiresAfterCharge = true,
+
             RackSlavedToTurret = true,
 
-            RateOfFire = 1,	-- fire every 5 seconds - controlled by charge = 1800dps
+            RateOfFire = 0.2,	-- fire every 5 seconds - controlled by charge = 1800dps
 			
             ReTargetOnMiss = true,
 			

@@ -185,7 +185,7 @@ UnitBlueprint {
             DisplayName = 'Zthuthaam Cannon',
 			
             EnergyDrainPerSecond = 278,     -- 9 second charge
-            EnergyRequired = 2500,
+            EnergyRequired = 2502,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -219,9 +219,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -8,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,
+            RateOfFire = 0.11,
 			
             TargetCheckInterval = 3,
 			
@@ -272,7 +274,7 @@ UnitBlueprint {
             DisplayName = 'Zthuthaam Artillery Cannon',
 			
             EnergyDrainPerSecond = 278,
-            EnergyRequired = 2500,
+            EnergyRequired = 2502,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -282,7 +284,7 @@ UnitBlueprint {
             FiringRandomness = 1.25,
             FiringTolerance = 1,
 			
-            Label = 'MainGun',
+            Label = 'MainGun1',
 			
 			LeadTarget = true,
 			
@@ -306,7 +308,9 @@ UnitBlueprint {
 
             RackRecoilDistance = -8,
 
-            RateOfFire = 1,
+            RackSalvoFiresAfterCharge = true,
+
+            RateOfFire = 0.11,
 			
             TargetCheckInterval = 3,
 			
@@ -322,7 +326,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle01',
             TurretBonePitch = 'Turret_Recoil01',
             TurretBoneYaw = 'Turret01',
-            TurretDualManipulators = false,
+
 			
             TurretPitch = 0,
             TurretPitchRange = 80,
@@ -357,7 +361,7 @@ UnitBlueprint {
             DisplayName = 'Zthuthaam Artillery Cannon',
 			
             EnergyDrainPerSecond = 278,
-            EnergyRequired = 2500,
+            EnergyRequired = 2502,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -367,7 +371,7 @@ UnitBlueprint {
             FiringRandomness = 1.25,
             FiringTolerance = 1,
 			
-            Label = 'MainGun',
+            Label = 'MainGun2',
 			
 			LeadTarget = true,
 			
@@ -391,7 +395,9 @@ UnitBlueprint {
 
             RackRecoilDistance = -8,
 
-            RateOfFire = 1,
+            RackSalvoFiresAfterCharge = true,
+
+            RateOfFire = 0.11,      -- every 9 seconds by charge
 			
             TargetCheckInterval = 3,
 			

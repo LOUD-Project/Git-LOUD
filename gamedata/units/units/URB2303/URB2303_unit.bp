@@ -168,7 +168,7 @@ UnitBlueprint {
 			
             DisplayName = 'Resonance Artillery',
 			
-            EnergyDrainPerSecond = 325,	-- fires every 9 seconds --
+            EnergyDrainPerSecond = 325,	-- 9 second charge
             EnergyRequired = 2925,
 			
             FireTargetLayerCapsTable = {
@@ -199,9 +199,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -1,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,     -- fire controlled by charge
+            RateOfFire = 0.11,     -- 9 seconds controlled by charge
 			
             TargetCheckInterval = 3,
 			

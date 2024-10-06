@@ -238,13 +238,16 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -6,
                 },
             },
+
             RackRecoilDistance = -0.25,
+
+            RackSalvoFiresAfterCharge = true,
 
             RackSlavedToTurret = true,
 
             RangeCategory = 'UWRC_IndirectFire',
 
-            RateOfFire = 1,     -- 2.5 seconds to charge = 360 DPS
+            RateOfFire = 0.4,     -- 2.5 seconds to charge = 360 DPS
 
             TargetCheckInterval = 3,
 

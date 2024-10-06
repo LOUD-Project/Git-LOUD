@@ -354,11 +354,13 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.5,
 
+            RackSalvoFiresAfterCharge = true,
+
             RackSalvoReloadTime = 1.8,
 
             RangeCategory = 'UWRC_DirectFire',
 
-            RateOfFire = 1,	    -- rate controlled by charge - 2.5 seconds = 3 x 2000 = 6000/2.5 = 2400dps
+            RateOfFire = 0.4,	    -- controlled by charge - 2.5 seconds = 3 x 2000 = 6000/2.5 = 2400dps
             
             TargetCheckInterval = 2,
 
@@ -435,7 +437,9 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.5,
 
-            RateOfFire = 1,         -- another 2400 DPS
+            RackSalvoFiresAfterCharge = true,
+
+            RateOfFire = 0.4,         -- another 2400 DPS
             TargetCheckInterval = 2,
 
             TargetPriorities = {
@@ -970,7 +974,7 @@ UnitBlueprint {
             CountedProjectile = false,
             
             EnergyDrainPerSecond = 550,
-            EnergyRequired = 5500,          -- 10 second energy drain
+            EnergyRequired = 6600,          -- 12 second energy drain
   			
             Damage = 600,
             DamageRadius = 2.5,
@@ -990,7 +994,7 @@ UnitBlueprint {
             MaxRadius = 100,
             MinRadius = 20,
 			
-            MuzzleSalvoDelay = 0.2,     -- 2 seconds to fire salvo
+            MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 6,
 
             MuzzleVelocity = 8,
@@ -1000,7 +1004,7 @@ UnitBlueprint {
             -- this is a splitting projectile - becomes 3 reduced damage missiles just after launch
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/MGQAIRocket01/MGQAIRocket01_proj.bp',
 
-            ProjectileLifetime = 10,
+            ProjectileLifetime = 15,
 			
             RackBones = {
                 {
@@ -1009,12 +1013,14 @@ UnitBlueprint {
                     RackBone = 'rl10',
                 },
             },
+
+            RackSalvoFiresAfterCharge = true,
             
             RackSalvoReloadTime = 8,  -- this keeps us in reload state, charge controls the cycle
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,     -- rate controlled by charge and salvo - 6 * 600 = 3600/12 seconds = 300 DPS
+            RateOfFire = 0.1,     -- controlled by charge - 6 * 600 = 3600/12 seconds = 300 DPS
             TargetCheckInterval = 5.0,
             
             TargetPriorities = {

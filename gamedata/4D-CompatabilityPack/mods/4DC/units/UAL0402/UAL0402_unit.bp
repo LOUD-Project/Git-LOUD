@@ -525,14 +525,36 @@ UnitBlueprint{
 
             Buffs = {
                 {
-                    Add = { OnFire = true },
-                    BuffType = "STUN",
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
                     Duration = 3.5,
                     Radius = 22,
-                    TargetAllow = "MOBILE",
-                    TargetDisallow = "AIR,COMMAND,EXPERIMENTAL",
+                    TargetAllow = 'LAND',
+                    TargetDisallow = 'TECH3,STRUCTURE,COMMAND,EXPERIMENTAL',
                 },
+
+                {
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 3.5,
+                    Radius = 10,
+                    TargetAllow = 'LAND,NAVAL',
+                    TargetDisallow = 'AIR,COMMAND,EXPERIMENTAL',
+                },
+
+                {
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 1.1,
+                    Radius = 2,
+                    TargetAllow = 'LAND,NAVAL',
+                    TargetDisallow = 'COMMAND,WALL',
+                },			
             },
+
             CollideFriendly = false,
             
             Damage = 1,
@@ -544,6 +566,7 @@ UnitBlueprint{
             EnabledByEnhancement = "ChronoDampener",
 
             EnergyChargeForFirstShot = false,
+
             EnergyDrainPerSecond = 200,
             EnergyRequired = 1000,
 
@@ -567,12 +590,16 @@ UnitBlueprint{
                     RackBone = "UAL0402",
                 },
             },
+            
+            -- this allows the charge to override the RateOfFire
+            -- and fire as soon as the charge is complete
+            RackSalvoFiresAfterCharge = true,
 
             RateOfFire = 0.2,
+
             TargetCheckInterval = 5,
             TargetPriorities = { "ALLUNITS" },
             TargetRestrictDisallow = "UNTARGETABLE,WALLS,AIR",
-
         },
         {
             Damage = 4000,

@@ -239,7 +239,7 @@ UnitBlueprint {
             DisplayName = 'Heavy Quarnon Cannon',
 
             EnergyRequired = 3000,
-            EnergyDrainPerSecond = 1200,    -- 2.5 second charge
+            EnergyDrainPerSecond = 667,    -- 4.5 second charge
             
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -278,11 +278,13 @@ UnitBlueprint {
 
             RackSalvoChargeTime = 1,
 
+            RackSalvoFiresAfterCharge = true,
+
             RackSalvoReloadTime = 1,        -- 1 second delay
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	-- 333 DPS -- every 4.5 seconds controlled by charge and delay
+            RateOfFire = 0.23,	-- 333 DPS -- every 4.5 seconds controlled by charge and delay
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 155,
@@ -330,7 +332,7 @@ UnitBlueprint {
             DisplayName = 'Heavy Quarnon Cannon',
 
             EnergyRequired = 3000,
-            EnergyDrainPerSecond = 1200,
+            EnergyDrainPerSecond = 667,
   			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -369,9 +371,11 @@ UnitBlueprint {
 
             RackSalvoChargeTime = 1,
 
+            RackSalvoFiresAfterCharge = true,
+
             RackSalvoReloadTime = 1,
 
-            RateOfFire = 1,	-- 333 DPS
+            RateOfFire = 0.23,	-- 333 DPS
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 155,

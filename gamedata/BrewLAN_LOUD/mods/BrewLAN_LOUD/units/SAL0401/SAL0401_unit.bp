@@ -326,7 +326,7 @@ UnitBlueprint {
             DisplayName = 'Oblivion Cannon',
             
             EnergyRequired = 18000,
-            EnergyDrainPerSecond = 4000,     -- 4.5 seconds to charge
+            EnergyDrainPerSecond = 3600,     -- 5 second charge
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -353,7 +353,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             ProjectileId = '/projectiles/ADFOblivionCannon04/ADFOblivionCannon04_proj.bp',
-            ProjectileLifetime = 6,
+            ProjectileLifetime = 8,
 			
             RackBones = {
                 {
@@ -364,9 +364,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -3,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	-- 5 seconds to fire -- rate controlled by charge -- 1200 DPS
+            RateOfFire = 0.2,	-- 5 seconds by charge -- 1200 DPS
 
             TargetCheckInterval = 5,
             TargetPriorities = {
@@ -386,11 +388,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 40,
-            TurretPitchSpeed = 40,
+            TurretPitchSpeed = 22,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 28,
+            TurretYawSpeed = 22,
 			
             Turreted = true,
         },

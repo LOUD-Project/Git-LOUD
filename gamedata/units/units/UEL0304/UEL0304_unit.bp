@@ -103,12 +103,13 @@ UnitBlueprint {
     LifeBarSize = 1.25,
     
     Physics = {
+        BackUpDistance = 5,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 2.8,
+        MaxAcceleration = 1.4,
         MaxBrake = 2.8,
         MaxSpeed = 2.8,
         MaxSpeedReverse = 2.5,
@@ -119,8 +120,8 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
 
-        TurnRadius = 0,
-        TurnRate = 75,
+        TurnRadius = 3,
+        TurnRate = 30,
     },
     
     SelectionCenterOffsetX = 0,
@@ -212,9 +213,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.6,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,     -- every 7 seconds - controlled by charge = 100 DPS
+            RateOfFire = 0.15,     -- every 7 seconds - controlled by charge = 100 DPS
 			
             TargetCheckInterval = 1,
 			
@@ -236,7 +239,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 32,
+            TurretYawSpeed = 26,
 			
             Turreted = true,
 

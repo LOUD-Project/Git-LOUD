@@ -226,8 +226,8 @@ UnitBlueprint {
 			
             DisplayName = 'Blue Laser',
 			
-            EnergyDrainPerSecond = 121,
-            EnergyRequired = 60,
+            EnergyDrainPerSecond = 122,
+            EnergyRequired = 61,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -246,9 +246,11 @@ UnitBlueprint {
                 },
             },
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 10,			-- 138 dps RoF controlled by energy
+            RateOfFire = 2,			-- 138 dps RoF controlled by energy
 
             ReTargetOnMiss = true,
 			

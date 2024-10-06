@@ -171,11 +171,7 @@ UnitBlueprint {
         RadarStealth = true,
         VisionRadius = 40,
     },
-    
-    Interface = {
-        HelpText = '<LOC sa0313_desc>Penetration Fighter',
-    },
-    
+   
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.95,
     LifeBarSize = 1.25,
@@ -252,8 +248,10 @@ UnitBlueprint {
                     RackBone = 'Big_Ring',
                 },
             },
+
+            RackSalvoFiresAfterCharge = true,
             
-            RateOfFire = 3,
+            RateOfFire = 0.33,     -- controlled by charge
 
             TargetCheckInterval = 0.6,
 

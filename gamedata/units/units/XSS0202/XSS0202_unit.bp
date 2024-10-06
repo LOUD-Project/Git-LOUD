@@ -156,8 +156,8 @@ UnitBlueprint {
         MeshExtentsZ = 4.8,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
-        TurnRadius = 20,
-        TurnRate = 40,
+        TurnRadius = 12,
+        TurnRate = 32,
     },
 
     SelectionSizeX = 1,
@@ -197,7 +197,7 @@ UnitBlueprint {
             DisplayName = 'Laanse Tactical Missile Launcher',
             
             EnergyRequired = 500,
-            EnergyDrainPerSecond = 65,
+            EnergyDrainPerSecond = 65,  -- 7.7 second charge
 			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -224,11 +224,13 @@ UnitBlueprint {
                 },
             },
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,		-- 4 missiles every 7.7 seconds = 130 DPS
+            RateOfFire = 0.13,		-- 4 missiles every 7.7 seconds = 130 DPS
 			
-            TargetCheckInterval = 2,
+            TargetCheckInterval = 3,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',

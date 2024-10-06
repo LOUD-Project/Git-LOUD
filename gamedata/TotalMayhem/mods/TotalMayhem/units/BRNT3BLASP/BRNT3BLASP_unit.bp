@@ -165,8 +165,10 @@ UnitBlueprint {
         SkirtSizeX = 4,
         SkirtSizeZ = 4,
 		StandUpright = true,
-        TurnRadius = 5,
-        TurnRate = 40,
+
+        TurnRadius = 4,
+        TurnRate = 30,
+
 		WaterSpeedMultiplier = 1.2,
     },
 
@@ -447,8 +449,8 @@ UnitBlueprint {
 			
             DisplayName = 'Laser',
 			
-            EnergyDrainPerSecond = 125,	-- 4 second for energy drain
-            EnergyRequired = 500,
+            EnergyDrainPerSecond = 85,	-- 6 second for energy drain
+            EnergyRequired = 510,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -465,7 +467,7 @@ UnitBlueprint {
             MaxRadius = 50,
 			MinRadius = 10,
 			
-			MuzzleSalvoChargeDelay = 0.5,	-- .5 second muzzle charge
+			MuzzleSalvoChargeDelay = 0.5,
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,
 
@@ -477,11 +479,14 @@ UnitBlueprint {
                     RackBone = 'gun01',
                 },
             },
+
+            RackSalvoFiresAfterCharge = true,
+            
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- 500dps	-- approx 6 seconds per fire
+            RateOfFire = 0.17,		-- 500dps	-- 6 seconds per fire by charge
 			
             ReTargetOnMiss = true,
 			
@@ -541,8 +546,8 @@ UnitBlueprint {
 			
             DisplayName = 'Laser',
 			
-            EnergyDrainPerSecond = 125,	-- 4 second for energy
-            EnergyRequired = 500,
+            EnergyDrainPerSecond = 85,	-- 6 second for energy
+            EnergyRequired = 510,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -572,7 +577,9 @@ UnitBlueprint {
                 },
             },
 
-            RateOfFire = 1,		-- 500dps	-- approx 6 seconds per fire
+            RackSalvoFiresAfterCharge = true,
+ 
+            RateOfFire = 0.17,		-- 500dps - by charge -- 6 seconds
 			
             ReTargetOnMiss = true,
 			

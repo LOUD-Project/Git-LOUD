@@ -210,9 +210,11 @@ UnitBlueprint{
             
             RackSalvoChargeTime = 1.2,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = "UWRC_DirectFire",
 
-            RateOfFire = 2,     -- 1400 damage every 4 seconds controlled by charge
+            RateOfFire = 0.25,     -- 1400 damage every 4 seconds controlled by charge
 
             TargetCheckInterval = 2,
 
@@ -231,7 +233,7 @@ UnitBlueprint{
 
             TurretPitch = -20,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 30,
+            TurretPitchSpeed = 24,
 
             TurretYaw = 0,
             TurretYawRange = 360,

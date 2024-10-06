@@ -166,8 +166,8 @@ UnitBlueprint {
 			
             DisplayName = 'Miasma Mortar',
 			
-			EnergyDrainPerSecond = 362,
-			EnergyRequired = 580,			---- 1.6 second draw energy
+			EnergyDrainPerSecond = 150,
+			EnergyRequired = 600,			---- 4 second charge
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -187,7 +187,7 @@ UnitBlueprint {
             MuzzleVelocity = 18.5,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/ArchAngelMissile01/ArchAngelMissile01_proj.bp',
-            ProjectileLifetime = 4.8,
+            ProjectileLifetime = 12,
 
             RackBones = {
                 {
@@ -200,7 +200,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	---- fires every 4 by energy = 600/4 = 150DPS
+            RateOfFire = 0.25,	---- fires every 4 = 150 DPS
 			
             TargetCheckInterval = 2,
 			
@@ -218,11 +218,11 @@ UnitBlueprint {
 			
             TurretPitch = 45,
             TurretPitchRange = 65,
-            TurretPitchSpeed = 30,
+            TurretPitchSpeed = 24,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 26,
+            TurretYawSpeed = 24,
 			
             Turreted = true,
 

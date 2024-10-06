@@ -5855,12 +5855,6 @@ Unit = Class(UnitMethods) {
             self:ForkThread( TestAgain, index, blip )        
         end
 
-
-        
-        
-
-		
---[[
         if self.DetectedByHooks then
             for k,v in self.DetectedByHooks do
                 v(self,index)
@@ -5896,7 +5890,7 @@ Unit = Class(UnitMethods) {
                 end
             end
         end
---]]
+
     end,
 --]]
     -- this allows you to execute a function when the unit (self) has been detected 

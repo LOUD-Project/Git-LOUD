@@ -137,13 +137,13 @@ UnitBlueprint {
     LifeBarSize = 1.3,
 	
     Physics = {
-		BackUpDistance = 4,
+		BackUpDistance = 6,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 2.8,
+        MaxAcceleration = 0.95,
         MaxBrake = 2.8,
         MaxSpeed = 2.8,
         MaxSpeedReverse = 2.5,
@@ -154,8 +154,8 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
         StandUpright = true,
-        TurnRadius = 0.5,
-        TurnRate = 75,
+        TurnRadius = 3.5,
+        TurnRate = 36,
     },
 	
     SelectionSizeX = 0.85,
@@ -204,13 +204,13 @@ UnitBlueprint {
             EnergyChargeForFirstShot = false,
            
             EnergyRequired = 2400,
-            EnergyDrainPerSecond = 500,     -- 4.8 seconds to charge
+            EnergyDrainPerSecond = 480,     -- 5 seconds to charge
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 1.35,
+            FiringRandomness = 1.25,
             FiringTolerance = 2,
 			
             Label = 'MainGun',
@@ -233,13 +233,13 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
+            RackSalvoFiresAfterCharge = true,
 
-            RackRecoilDistance = -0.3,
+            RackRecoilDistance = -0.6,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,     -- every 5 seconds by charge = 96 Dps
-            RenderFireClock = true,
+            RateOfFire = 0.2,     -- every 5 seconds by charge = 96 Dps
 			
             TargetCheckInterval = 3,
             TargetPriorities = {
@@ -258,11 +258,11 @@ UnitBlueprint {
 			
             TurretPitch = 30,
             TurretPitchRange = 40,
-            TurretPitchSpeed = 20,
+            TurretPitchSpeed = 24,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 30,
+            TurretYawSpeed = 24,
 			
             Turreted = true,
 			

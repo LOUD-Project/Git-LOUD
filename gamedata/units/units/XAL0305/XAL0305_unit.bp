@@ -143,7 +143,7 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         
-        MaxAcceleration = 1.8,
+        MaxAcceleration = 0.8,
         MaxBrake = 3.5,
         MaxSpeed = 3.5,
         MaxSpeedReverse = 3,
@@ -155,8 +155,8 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
         StandUpright = true,
-        TurnRadius = 5,
-        TurnRate = 90,
+        TurnRadius = 4,
+        TurnRate = 30,
     },
     
     SelectionCenterOffsetZ = -0.1,
@@ -199,7 +199,7 @@ UnitBlueprint {
             DisplayName = 'Heavy Disruptor Cannon',
             
             EnergyRequired = 360,
-            EnergyDrainPerSecond = 40,     -- 9 seconds to charge
+            EnergyDrainPerSecond = 36,     -- 10 seconds to charge
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -227,10 +227,12 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.1,
+
+            RackSalvoFiresAfterCharge = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,     -- rate of fire controlled by charge - 10 seconds
+            RateOfFire = 0.1,     -- rate of fire controlled by charge - 10 seconds
 			
             TargetCheckInterval = 3,
 			
@@ -249,11 +251,11 @@ UnitBlueprint {
 			
             TurretPitch = 10,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 30,
+            TurretPitchSpeed = 28,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 28,
 			
             Turreted = true,
 

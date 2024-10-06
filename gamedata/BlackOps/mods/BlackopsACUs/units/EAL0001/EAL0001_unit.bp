@@ -1635,9 +1635,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.5,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 1,         -- relies upon the charge cycle
+            RateOfFire = 0.1,         -- relies upon the charge cycle
 			
             TargetCheckInterval = 0.5,
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -1762,7 +1764,10 @@ UnitBlueprint {
                 },
             },
 
-            RateOfFire = 1,     -- controlled by charge cycle
+            RackSalvoFiresAfterCharge = true,
+
+            RateOfFire = 0.2,     -- controlled by charge cycle
+
             TargetCheckInterval = 5,
 			
             TargetPriorities = { 'MOBILE -AIR' },
@@ -1820,8 +1825,10 @@ UnitBlueprint {
                     RackBone = 'Head',
                 },
             },
+
+            RackSalvoFiresAfterCharge = true,
 			
-            RateOfFire = 1,     -- controlled by charge cycle
+            RateOfFire = 0.25,     -- controlled by charge cycle
             TargetCheckInterval = 5,
 
             TargetPriorities = { 'MOBILE -AIR' },
@@ -2030,7 +2037,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
-            ProjectileLifetime = 6,			
+            ProjectileLifetime = 12,			
 
             RackBones = {
                 {
@@ -2045,6 +2052,8 @@ UnitBlueprint {
             RackFireTogether = true,
 			
             RackRecoilDistance = -2,
+
+            RackSalvoFiresAfterCharge = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -2097,7 +2106,7 @@ UnitBlueprint {
 			
             DisplayName = 'Miasma Artillery',
 			
-            DoTPulses = 5,          -- 1950 damage every 9 seconds = 250 DPS
+            DoTPulses = 5,          -- 1950 damage every 8 seconds = 243 DPS
             DoTTime = 3,
 			
             EnergyChargeForFirstShot = false,
@@ -2124,7 +2133,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
-            ProjectileLifetime = 6,			
+            ProjectileLifetime = 12,			
 
             RackBones = {
                 {
@@ -2139,10 +2148,12 @@ UnitBlueprint {
             RackFireTogether = true,
 
             RackRecoilDistance = -2,
+
+            RackSalvoFiresAfterCharge = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,         -- controlled by charge -- 
+            RateOfFire = 0.125,         -- controlled by charge -- 
             TargetCheckInterval = 1,
 			
             TargetPriorities = {
@@ -2190,7 +2201,7 @@ UnitBlueprint {
 			
             DisplayName = 'Miasma Artillery',
 			
-            DoTPulses = 5,      --- 2600 damage every 7 seconds = 428 DPS
+            DoTPulses = 5,      --- 2600 damage every 7 seconds = 371 DPS
             DoTTime = 3,
 
             EnergyChargeForFirstShot = false,
@@ -2232,10 +2243,12 @@ UnitBlueprint {
             RackFireTogether = true,
 
             RackRecoilDistance = -3,
+
+            RackSalvoFiresAfterCharge = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	-- controlled by energy - every 7 seconds
+            RateOfFire = 0.15,	-- controlled by energy - every 7 seconds
             TargetCheckInterval = 2,
 			
             TargetPriorities = {

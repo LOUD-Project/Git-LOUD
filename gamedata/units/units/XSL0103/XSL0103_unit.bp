@@ -131,9 +131,9 @@ UnitBlueprint {
         
         RotateOnSpot = false,
         
-        TurnFacingRate = 60,
+        TurnFacingRate = 40,
         TurnRadius = 2,
-        TurnRate = 45,
+        TurnRate = 32,
     },
 	
     SelectionSizeX = 0.35,
@@ -176,8 +176,8 @@ UnitBlueprint {
 			
             DisplayName = 'Cannon',
             
-            EnergyRequired = 45,
-            EnergyDrainPerSecond = 9,
+            EnergyRequired = 50,
+            EnergyDrainPerSecond = 10,  -- 5 second charge
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -197,6 +197,7 @@ UnitBlueprint {
 			
 			-- this is a splitting projectile that will create 5 sub-munitions - so damage is divided by the number of projectiles
             ProjectileId = '/projectiles/SIFThunthoArtilleryShell01/SIFThunthoArtilleryShell01_proj.bp',
+
 			ProjectileLifetime = 10,
 
             RackBones = {
@@ -208,9 +209,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -1,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,   -- every 5 seconds controlled by charge
+            RateOfFire = 0.2,   -- every 5 seconds by charge
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 40,
@@ -231,11 +234,11 @@ UnitBlueprint {
 
             TurretPitch = 45,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 55,
+            TurretPitchSpeed = 24,
 			
             TurretYaw = 0,
             TurretYawRange = 90,
-            TurretYawSpeed = 28,
+            TurretYawSpeed = 24,
 			
             Turreted = true,
         },

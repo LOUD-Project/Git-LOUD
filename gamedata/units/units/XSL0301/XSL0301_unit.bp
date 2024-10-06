@@ -543,9 +543,8 @@ UnitBlueprint {
             
             DisplayName = 'Light Overcharge Cannon',
             
-            EnergyChargeForFirstShot = false,
-            EnergyDrainPerSecond = 500,
-            EnergyRequired = 1500,
+            EnergyDrainPerSecond = 500,     --- 3.3 second charge
+            EnergyRequired = 1650,
             
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -573,11 +572,14 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.5,
+
+            RackSalvoFiresAfterCharge = true,
+
             RackSalvoReloadTime = 2.8,  -- 2.8 second delay after firing
             
             RangeCategory = 'UWRC_DirectFire',
             
-            RateOfFire = 1,    --- controlled entirely by charge
+            RateOfFire = 0.3,   --- every 3.3 seconds
 
             TargetCheckInterval = 1,
 

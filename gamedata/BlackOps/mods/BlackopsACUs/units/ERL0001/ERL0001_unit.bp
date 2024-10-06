@@ -1586,9 +1586,11 @@ UnitBlueprint {
                 },
             },
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_Countermeasure',
 
-            RateOfFire = 1,     -- relies upon charge cycle now
+            RateOfFire = 0.1,     -- relies upon charge cycle now
 
             TargetCheckInterval = 0.5,
 

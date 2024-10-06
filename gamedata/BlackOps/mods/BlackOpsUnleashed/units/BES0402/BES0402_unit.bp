@@ -211,8 +211,8 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
             
-            EnergyRequired = 6100,
-            EnergyDrainPerSecond = 1220,
+            EnergyRequired = 6120,
+            EnergyDrainPerSecond = 680,
 			
             FiringRandomness = 1,
             FiringTolerance = 0.2,
@@ -243,11 +243,14 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.1,
             RackRecoilReturnSpeed = 0.4,
+            
+            RackSalvoFiresAfterCharge = true,
+            
             RackSalvoReloadTime = 2.5,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.5,		---- 333 DPS - controlled by charge and delay
+            RateOfFire = 0.11,		--- 333 DPS - 9 second firing cycle controlled by charge
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,
@@ -277,7 +280,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 140,
-            TurretYawSpeed = 22,
+            TurretYawSpeed = 20,
 			
             Turreted = true,
         },
@@ -305,8 +308,8 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
             
-            EnergyRequired = 6100,
-            EnergyDrainPerSecond = 1220,
+            EnergyRequired = 6120,
+            EnergyDrainPerSecond = 680,
 
             FiringRandomness = 1,
             FiringTolerance = 0.2,
@@ -340,9 +343,11 @@ UnitBlueprint {
             RackRecoilDistance = -0.1,
             RackRecoilReturnSpeed = 0.4,
 
+            RackSalvoFiresAfterCharge = true,
+
             RackSalvoReloadTime = 2.5,    -- 2.5 second reload delay after charge
 
-            RateOfFire = 0.5,		---- 333 dps - controlled by charge and delay
+            RateOfFire = 0.11,		---- 333 dps - 9 second firing cycle controlled by charge
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 180,
@@ -372,7 +377,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 140,
-            TurretYawSpeed = 22,
+            TurretYawSpeed = 20,
 			
             Turreted = true,
         },
@@ -396,8 +401,8 @@ UnitBlueprint {
 			
             DisplayName = 'ZCannon',
             
-            EnergyRequired = 6100,
-            EnergyDrainPerSecond = 1220,
+            EnergyRequired = 6120,
+            EnergyDrainPerSecond = 680, -- 9 second charge
 
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -435,9 +440,11 @@ UnitBlueprint {
             RackRecoilDistance = -0.2,
             RackRecoilReturnSpeed = 0.4,
 
+            RackSalvoFiresAfterCharge = true,
+
             RackSalvoReloadTime = 2.5,
 
-            RateOfFire = 0.5,		---- another 333 DPS - controlled by charge and delay
+            RateOfFire = 0.11,		---- another 333 DPS - 9 second cycle controlled by charge
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 180,

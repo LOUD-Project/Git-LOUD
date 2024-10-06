@@ -364,11 +364,9 @@ UnitBlueprint {
             DamageType = 'ShieldMult1.2',
 			
             DisplayName = 'Wave Cannon',
-
-            EnergyChargeForFirstShot = false,            
 			
-            EnergyDrainPerSecond = 2800,
-            EnergyRequired = 9800,      -- 3.5 second charge 
+            EnergyDrainPerSecond = 2726,
+            EnergyRequired = 9810,      -- 3.6 second charge 
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -405,7 +403,9 @@ UnitBlueprint {
 			
             RackRecoilDistance = -3,
 
-            RackSalvoReloadTime = 1.9,  -- cycle is 3.6 = 5900/3.6 = 1638 DPS
+            RackSalvoFiresAfterCharge = true,
+
+            RackSalvoReloadTime = 1.9,
             
             RackSlavedToTurret = true,
 			

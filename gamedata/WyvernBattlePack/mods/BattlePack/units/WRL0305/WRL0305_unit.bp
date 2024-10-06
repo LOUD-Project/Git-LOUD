@@ -136,12 +136,13 @@ UnitBlueprint{
     LifeBarSize = 1,
 
     Physics = {
+        BackUpDistance = 6,
         BankingSlope = 0,
         DragCoefficient = 0.2,
-        MaxAcceleration = 0.9,
-        MaxBrake = 1.3,
+        MaxAcceleration = 0.8,
+        MaxBrake = 1.6,
         MaxSpeed = 3.9,
-        MaxSpeedReverse = 0,
+        MaxSpeedReverse = 3.9,
         MaxSteerForce = 10,
         MeshExtentsX = 1.1,
         MeshExtentsY = 1.3,
@@ -149,12 +150,10 @@ UnitBlueprint{
         MinSpeedPercent = 0,
         MotionType = "RULEUMT_Land",
         StandUpright = true,
-        TurnRadius = 5,
-        TurnRate = 120,
+        TurnRadius = 8,
+        TurnRate = 28,
     },
 
-    SelectionCenterOffsetX = 0,
-    SelectionCenterOffsetZ = 0,
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.4,
@@ -192,14 +191,16 @@ UnitBlueprint{
 
             DisplayName = "Disintegrator Pulse Laser",
 
-            EnergyDrainPerSecond = 52,
-            EnergyRequired = 465,
+            EnergyDrainPerSecond = 55,  -- 9 second charge
+            EnergyRequired = 495,
 
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
             },
+
             FiringRandomnessWhileMoving = 1.5,
             FiringTolerance = 1,
+
             Label = "MainGun",
 
             MaxRadius = 75,
@@ -221,9 +222,11 @@ UnitBlueprint{
             },
             RackRecoilDistance = -2,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = "UWRC_DirectFire",
 
-            RateOfFire = 1,
+            RateOfFire = 0.11,
 
             TargetCheckInterval = 4,
             TargetPriorities = {
@@ -244,11 +247,11 @@ UnitBlueprint{
 
             TurretPitch = 10,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 30,
+            TurretPitchSpeed = 22,
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 26,
 
             Turreted = true,
         },

@@ -194,11 +194,13 @@ UnitBlueprint {
                 },
             },
 
+            RackSalvoFiresAfterCharge = true,
+
             RackSalvoReloadTime = 5,
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		---- Weapon Fires every 6 seconds causing 1650 damage (75 * 22) + 2 from stun weapon = 275 dps + stun effects
+            RateOfFire = 0.16,		---- Weapon Fires every 6 seconds causing 1650 damage (75 * 22) + 2 from stun weapon = 275 dps + stun effects
 			
             TargetCheckInterval = 2,
 
@@ -219,11 +221,11 @@ UnitBlueprint {
             
             TurretPitch = 0,
             TurretPitchRange = 75,
-            TurretPitchSpeed = 45,
+            TurretPitchSpeed = 36,
             
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 36,
             
             Turreted = true,
         },
@@ -296,7 +298,6 @@ UnitBlueprint {
                 'MOBILE',
                 'ALLUNITS',
             },
-            TrackingRadius = 1.0,
 
             TurretBoneMuzzle = 'Muzzle02',
             TurretBonePitch = 'Muzzle02',
@@ -304,11 +305,11 @@ UnitBlueprint {
             
             TurretPitch = 0,
             TurretPitchRange = 75,
-            TurretPitchSpeed = 45,
+            TurretPitchSpeed = 36,
             
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 36,
             
             Turreted = true,
         },

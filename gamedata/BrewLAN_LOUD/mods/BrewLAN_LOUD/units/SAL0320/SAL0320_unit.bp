@@ -142,9 +142,9 @@ UnitBlueprint {
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.5,
         
-        TurnFacingRate = 60,
-        TurnRadius = 0,
-        TurnRate = 60,
+        TurnFacingRate = 36,
+        TurnRadius = 2,
+        TurnRate = 40,
 		
         WobbleFactor = 0,
         WobbleSpeed = 0,
@@ -207,7 +207,7 @@ UnitBlueprint {
             DoNotCollideList = {'MISSILE'},
 			
             EnergyDrainPerSecond = 400,
-            EnergyRequired = 240,
+            EnergyRequired = 400,       -- 1 second charge
 			
             FireTargetLayerCapsTable = {
                 Land = 'Air',
@@ -227,9 +227,11 @@ UnitBlueprint {
                 },
             },
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 3,     -- RoF determined by charge - 1 second
+            RateOfFire = 1,     -- controlled by charge
 			
 			ReTargetOnMiss = true,
 			
@@ -249,11 +251,11 @@ UnitBlueprint {
 			
             TurretPitch = 10,
             TurretPitchRange = 80,
-            TurretPitchSpeed = 250,
+            TurretPitchSpeed = 46,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 65,
+            TurretYawSpeed = 46,
 			
             Turreted = true,
 

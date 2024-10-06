@@ -188,8 +188,8 @@ UnitBlueprint {
 			
             DisplayName = 'Anti Matter Artillery',
             
-            EnergyDrainPerSecond = 21514,
-            EnergyRequired = 150600,		-- fires after a 7 second charge
+            EnergyDrainPerSecond = 22475,
+            EnergyRequired = 150582,		-- 6.7 second charge
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -209,7 +209,7 @@ UnitBlueprint {
             MuzzleVelocityReduceDistance = 4000,
 			
             ProjectileId = '/projectiles/TIFHETacticalNuclearShell01/TIFHETacticalNuclearShell01_proj.bp',
-            ProjectileLifetime = 250,
+            ProjectileLifetime = 160,
 
             RackBones = {
                 {
@@ -221,10 +221,13 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -30,
+            RackRecoilReturnSpeed = 6,
+
+            RackSalvoFiresAfterCharge = true,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,		-- controlled by charge - 7 seconds = 2000
+            RateOfFire = 0.15,		-- controlled by charge - 6.7 seconds = 2000
 			
             TargetCheckInterval = 4,
 			

@@ -130,6 +130,7 @@ UnitBlueprint {
     LifeBarSize = 3.25,
 	
     Physics = {
+        BackUpDistance = 5,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
@@ -151,8 +152,10 @@ UnitBlueprint {
         MinSpeedPercent = 0,
 
         MotionType = 'RULEUMT_Amphibious',
-        TurnRadius = 5,
-        TurnRate = 35,
+
+        TurnRadius = 4.5,
+        TurnRate = 32,
+
 		WaterSpeedMultiplier = 1.15,
     },
 	
@@ -230,7 +233,7 @@ UnitBlueprint {
 
             EnergyChargeForFirstShot = false,            
             
-            EnergyDrainPerSecond = 560,
+            EnergyDrainPerSecond = 560,     -- 2.5 second charge
             EnergyRequired = 1400,
 			
             FireTargetLayerCapsTable = {
@@ -265,9 +268,11 @@ UnitBlueprint {
                 },
             },
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	-- 880 damage every 2.5 seconds = 352 DPS
+            RateOfFire = 0.4,	-- 880 damage every 2.5 seconds by charge = 352 DPS
 			
             TargetCheckInterval = 0.6,
             TargetPriorities = {
@@ -291,11 +296,11 @@ UnitBlueprint {
 			
             TurretPitch = 10,
             TurretPitchRange = 80,
-            TurretPitchSpeed = 35,
+            TurretPitchSpeed = 30,
 			
             TurretYaw = -45,
             TurretYawRange = 141,
-            TurretYawSpeed = 32,
+            TurretYawSpeed = 30,
 			
             Turreted = true,
         },

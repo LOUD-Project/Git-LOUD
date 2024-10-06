@@ -278,15 +278,15 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 6000,
+            Damage = 5940,
             DamageFriendly = true,
             DamageRadius = 3.2,
             DamageType = 'Normal',
 			
             DisplayName = 'Oblivion Cannon',
 
-            EnergyRequired = 6200,
-            EnergyDrainPerSecond = 1860,
+            EnergyRequired = 6204,
+            EnergyDrainPerSecond = 1880,        -- 3.3 second charge
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -322,9 +322,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -3,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- 1800 DPS controlled by charge
+            RateOfFire = 0.33,		-- 1800 DPS -- every 3.3 seconds
 
             TargetCheckInterval = 5,
             TargetPriorities = {

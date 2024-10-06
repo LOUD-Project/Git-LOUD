@@ -198,8 +198,8 @@ UnitBlueprint {
         SkirtSizeX = 6,
         SkirtSizeZ = 6,
 		
-        TurnRadius = 5,
-        TurnRate = 16,
+        TurnRadius = 2.5,
+        TurnRate = 20,
 		
 		WaterSpeedMultiplier = 1.25,
     },
@@ -256,8 +256,8 @@ UnitBlueprint {
 			
 			DoNotCollideList = {'MISSILE'},
             
-            EnergyRequired = 22000,
-            EnergyDrainPerSecond = 2000,    -- recharge weapon in 11 seconds - controls RateOfFire
+            EnergyRequired = 22050,
+            EnergyDrainPerSecond = 1470,    -- recharge weapon in 15 seconds - controls RateOfFire
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -295,6 +295,8 @@ UnitBlueprint {
 
             RackSalvoChargeTime = 4,	-- so sequence is deploy, racksalvocharge (4 seconds), fire (3 seconds), reload (8 seconds) 
 
+            RackSalvoFiresAfterCharge = true,
+
             RackSalvoReloadTime = 8,
 			
             SlavedToBody = true,
@@ -302,7 +304,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.5,		-- - 10 muzzles * 1050 = 10500 damage + the Boom Weapon = 13500 Damage every 15 seconds = 900 DPS
+            RateOfFire = 0.09,		-- - 10 muzzles * 1050 = 10500 damage + the Boom Weapon = 13500 Damage every 15 seconds = 900 DPS
 
             TargetCheckInterval = 2.5,
             TargetPriorities = {
@@ -319,7 +321,7 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 30,
+            TurretPitchSpeed = 12,
 			
             TurretYaw = 0,
             TurretYawRange = 40,

@@ -882,30 +882,3 @@ Weapon = Class(moho.weapon_methods) {
     end,    
 
 }
-
---[[
-
-    OnVeteranLevel = function(self, old, new)
-	
-        local bp = GetBlueprint(self)
-		
-        if not bp.Buffs then return end
-
-        local lvlkey = 'VeteranLevel' .. new
-		
-        for k, v in bp.Buffs do
-		
-            if v.Add[lvlkey] == true then
-			
-                self:AddBuff(v)
-				
-            end
-			
-        end
-		
-    end,
-
-    AddBuff = function(self, buffTbl)
-        self.unit:AddWeaponBuff(buffTbl, self)
-    end,
---]]

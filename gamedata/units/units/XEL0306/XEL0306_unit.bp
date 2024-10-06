@@ -165,7 +165,7 @@ UnitBlueprint {
             DisplayName = 'Cruise Missile',
             
             EnergyRequired = 1950,
-            EnergyDrainPerSecond = 325,     -- 6 seconds to charge (occurs while firing/reloading)
+            EnergyDrainPerSecond = 325,     -- 6 seconds charge
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -178,7 +178,7 @@ UnitBlueprint {
             MaxRadius = 88,
             MinRadius = 15,
 			
-            MuzzleChargeDelay = 1.3,            -- the weapon fires all 3 muzzles = 3.9
+            MuzzleChargeDelay = 1.3,
 
             MuzzleVelocity = 4.5,
 			
@@ -193,14 +193,15 @@ UnitBlueprint {
                 },
             },
 
-            RackSalvoChargeTime = 0.5,            -- the weapon unpacks plus 0.5 seconds = 2
-                                                  -- firing will take (3 x 1.3) = 3.9
-                                                  -- then it will repack and wait for the E charge = 2.1
-            RackSalvoReloadTime = 3.6,            -- then reload = 3.6 for the reload animations
+            RackSalvoChargeTime = 0.5,
+
+            RackSalvoFiresAfterCharge = true,
+
+            RackSalvoReloadTime = 3.6,
 
             RangeCategory = 'UWRC_IndirectFire',
 
-            RateOfFire = 0.5,                    -- charge, muzzle and reload delays handle all of it
+            RateOfFire = 0.167,                    -- charge, muzzle and reload delays handle all of it
 
             SlavedToBody = true,
 			

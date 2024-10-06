@@ -131,8 +131,8 @@ UnitBlueprint{
         SkirtOffsetZ = -0.5,
         SkirtSizeX = 4,
         SkirtSizeZ = 4,
-        TurnRadius = 15,
-        TurnRate = 45,
+        TurnRadius = 6,
+        TurnRate = 40,
     },
 
     SelectionSizeX = 2.4,
@@ -184,8 +184,8 @@ UnitBlueprint{
 
             DisplayName = "Suthanus Field Mortar",
 
-            EnergyDrainPerSecond = 2143,
-            EnergyRequired = 7500,
+            EnergyDrainPerSecond = 2140,        -- 3.5 second charge
+            EnergyRequired = 7490,
 
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
@@ -216,9 +216,11 @@ UnitBlueprint{
             },
             RackRecoilDistance = -1,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = "UWRC_IndirectFire",
 
-            RateOfFire = 1,     -- controlled by charge
+            RateOfFire = 0.3,     -- controlled by charge
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -264,6 +266,7 @@ UnitBlueprint{
             DamageType = "Normal",
 
             DisplayName = "Ultrachromatic Beam Generator",
+
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",

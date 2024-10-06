@@ -220,7 +220,7 @@ UnitBlueprint {
             DamageRadius = 4.2,
             DamageType = 'Normal',
 			
-            EnergyDrainPerSecond = 8375,
+            EnergyDrainPerSecond = 8375,    -- 4 second charge
             EnergyRequired = 33500,
 			
             DisplayName = 'Phason Ball',
@@ -252,9 +252,11 @@ UnitBlueprint {
                 },
             },
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,	-- RoF by energy required -- 6750K every 5 seconds = 1350 DPS
+            RateOfFire = 0.2,	-- by energy -- 6750K every 5 seconds = 1350 DPS
 			
             TargetCheckInterval = 2,
 
@@ -273,7 +275,7 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 50,
-            TurretPitchSpeed = 50,
+            TurretPitchSpeed = 24,
 			
             TurretYaw = 0,
             TurretYawRange = 180,

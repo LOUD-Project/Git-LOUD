@@ -203,8 +203,12 @@ UnitBlueprint{
             },
             RackRecoilDistance = -4,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = "UWRC_IndirectFire",
-            RateOfFire = 1,
+
+            RateOfFire = 0.15,
+
             TargetCheckInterval = 1,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
@@ -226,7 +230,7 @@ UnitBlueprint{
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 30,
+            TurretYawSpeed = 26,
 
             Turreted = true,
 

@@ -158,7 +158,7 @@ UnitBlueprint {
 			
             DisplayName = 'Gauss Cannon',
             
-            EnergyDrainPerSecond = 400,
+            EnergyDrainPerSecond = 404, -- 1.3 second charge
             EnergyRequired = 525,
 			
             FireTargetLayerCapsTable = {
@@ -195,11 +195,13 @@ UnitBlueprint {
             
             RackRecoilDistance = -1,
 
+            RackSalvoFiresAfterCharge = true,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,	-- controlled by charge equals 1.31 seconds = 412 DPS
+            RateOfFire = 1,	-- controlled by charge = 412 DPS
 			
             TargetCheckInterval = 1.0,
             TargetPriorities = {
@@ -218,11 +220,11 @@ UnitBlueprint {
             
             TurretPitch = 0,
             TurretPitchRange = 45,
-            TurretPitchSpeed = 10,
+            TurretPitchSpeed = 15,
             
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 22,
+            TurretYawSpeed = 21,
             
             Turreted = true,
         },

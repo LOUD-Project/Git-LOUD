@@ -90,7 +90,7 @@ UnitBlueprint {
         RegenRate = 16,
     },
 	
-    Description = '<LOC sa0313_desc>Penetration Fighter',
+    Description = '<LOC sra0313_desc>Penetration Fighter',
 	
     Display = {
         Abilities = {
@@ -185,10 +185,6 @@ UnitBlueprint {
 		Cloak = true,
     },
 	
-    Interface = {
-        HelpText = '<LOC sa0313_desc>Penetration Fighter',
-    },
-	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.85,
     LifeBarSize = 1.5,
@@ -274,9 +270,11 @@ UnitBlueprint {
                 },
             },
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 4,		-- 2 x 120 = 240 dps by charge
+            RateOfFire = 2,		-- 2 x 120 = 240 dps by charge
 			
             ReTargetOnMiss = true,
 
@@ -347,7 +345,9 @@ UnitBlueprint {
                 },
             },
 
-            RateOfFire = 4,
+            RackSalvoFiresAfterCharge = true,
+
+            RateOfFire = 2,
 			
             ReTargetOnMiss = true,
 
@@ -415,7 +415,9 @@ UnitBlueprint {
                 },
             },
 
-            RateOfFire = 4,
+            RackSalvoFiresAfterCharge = true,
+
+            RateOfFire = 2,
 			
             ReTargetOnMiss = true,
 
@@ -461,7 +463,7 @@ UnitBlueprint {
             DisplayName = 'Particle Cannon',
             
             EnergyDrainPerSecond = 100,
-            EnergyRequired = 100,
+            EnergyRequired = 50,
 			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land|water',
@@ -482,7 +484,9 @@ UnitBlueprint {
                 },
             },
 
-            RateOfFire = 4,
+            RackSalvoFiresAfterCharge = true,
+
+            RateOfFire = 2,
             
             ReTargetOnMiss = true,
 

@@ -174,17 +174,18 @@ UnitBlueprint {
     LifeBarSize = 4,
 	
     Physics = {
+        BackUpDistance = 9,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
             LAYER_Seabed = true,
         },
         DragCoefficient = 0.2,
-        LayerChangeOffsetHeight = -5.5,        
-        MaxAcceleration = 2.4,
+        LayerChangeOffsetHeight = -5.5,
+        MaxAcceleration = 1.2,
         MaxBrake = 2.4,
         MaxSpeed = 2.4,
-        MaxSpeedReverse = 0,
+        MaxSpeedReverse = 1.8,
         MaxSteerForce = 10,
         MeshExtentsX = 1.1,
         MeshExtentsY = 1.5,
@@ -201,13 +202,13 @@ UnitBlueprint {
 		
         StandUpright = true,
 		
-        TurnRadius = 15,
-        TurnRate = 25,
+        TurnRadius = 12,
+        TurnRate = 22,
     },
 	
     SelectionCenterOffsetZ = -0.15,
-    SelectionSizeX = 2.5,
-    SelectionSizeZ = 2.5,
+    SelectionSizeX = 2.65,
+    SelectionSizeZ = 2.65,
     SelectionThickness = 0.7,
 	
     SizeX = 3.2,
@@ -223,11 +224,11 @@ UnitBlueprint {
     },
 	
     Veteran = {
-        Level1 = 60,
-        Level2 = 120,
-        Level3 = 180,
-        Level4 = 240,
-        Level5 = 300,
+        Level1 = 65,
+        Level2 = 130,
+        Level3 = 195,
+        Level4 = 260,
+        Level5 = 325,
     },
 	
     Weapon = {
@@ -604,8 +605,8 @@ UnitBlueprint {
 			
             DisplayName = 'Super Arty Plasma Cannon',
             
-            EnergyDrainPerSecond = 1091,    -- part of the E needed for this is produced by the unit
-            EnergyRequired = 1200,          -- 1.1 second energy drain
+            EnergyDrainPerSecond = 600,     -- part of the E, truly needed for this is produced by the unit
+            EnergyRequired = 1200,          -- 1.9 second charge
   			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -620,7 +621,7 @@ UnitBlueprint {
             MaxRadius = 172,
             MinRadius = 20,
 			
-            MuzzleChargeDelay = 0.9,        -- .9 second delay
+            MuzzleChargeDelay = 0.9,
 
             MuzzleVelocity = 30,
 			
@@ -640,9 +641,11 @@ UnitBlueprint {
                 },
             },
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	    -- rate controlled by charge - every 2 seconds = 300dps
+            RateOfFire = 0.5,   -- every 2 seconds by charge = 300dps
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -867,7 +870,7 @@ UnitBlueprint {
             CountedProjectile = false,
             
             EnergyDrainPerSecond = 800,
-            EnergyRequired = 8000,          -- 10 second energy drain
+            EnergyRequired = 9600,          -- 12 second energy drain
   			
             Damage = 600,
             DamageRadius = 2.5,
@@ -887,7 +890,7 @@ UnitBlueprint {
             MaxRadius = 92,
             MinRadius = 20,
 			
-            MuzzleSalvoDelay = 0.2,     -- 2 seconds to fire salvo
+            MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 10,
 
             MuzzleVelocity = 15,
@@ -915,13 +918,15 @@ UnitBlueprint {
                     RackBone = 'Missile_10',
                 },
             },
+
+            RackSalvoFiresAfterCharge = true,
             
-            RackSalvoReloadTime = 8,  -- this keeps us in reload state, charge controls the cycle
+            RackSalvoReloadTime = 9.9,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,     -- rate controlled by charge and salvo - 10 * 600 = 6000/12 seconds = 500 dps
-            TargetCheckInterval = 5.0,
+            RateOfFire = 0.09,     -- controlled by charge every 12th second = 10*600 = 6000/12 = 500 dps
+            TargetCheckInterval = 6.0,
             
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -956,8 +961,8 @@ UnitBlueprint {
 			
             DisplayName = 'Loa Tactical Missile',
             
-            EnergyDrainPerSecond = 1143,
-            EnergyRequired = 8000,          -- 7 second energy drain
+            EnergyDrainPerSecond = 800,
+            EnergyRequired = 8000,          -- 10 second energy drain
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -971,7 +976,7 @@ UnitBlueprint {
             MaxRadius = 172,
             MinRadius = 20,
 			
-            MuzzleSalvoDelay = 0.3,     -- 6 seconds for salvo
+            MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 20,
 
             MuzzleVelocity = 6,
@@ -1012,14 +1017,16 @@ UnitBlueprint {
                     RackBone = 'Missile_10',
                 },
             },
+
+            RackSalvoFiresAfterCharge = true,
             
-            RackSalvoReloadTime = 4,  -- cycle is 10 seconds
+            RackSalvoReloadTime = 3.9,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	-- rate controlled by charge and salvo - 10 seconds 800dps
+            RateOfFire = 0.1,	-- rate controlled by charge - 10 seconds 800dps
 			
-            TargetCheckInterval = 2.5,
+            TargetCheckInterval = 5,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',

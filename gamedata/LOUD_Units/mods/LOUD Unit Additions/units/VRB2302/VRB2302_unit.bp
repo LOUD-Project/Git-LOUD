@@ -40,7 +40,7 @@ UnitBlueprint {
     CollisionOffsetY = -0.25,
 	
     Defense = {
-        AirThreatLevel = 400,
+        AirThreatLevel = 320,
         ArmorType = 'Structure',
         Health = 6500,
         MaxHealth = 6500,
@@ -176,7 +176,7 @@ UnitBlueprint {
 			
             DisplayName = 'Nanite Missile',
 			
-            EnergyDrainPerSecond = 1000,
+            EnergyDrainPerSecond = 800,    --- 2.5 second charge
             EnergyRequired = 2000,
 			
             FireTargetLayerCapsTable = {
@@ -192,7 +192,7 @@ UnitBlueprint {
             MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/CAAMissileNanite02/CAAMissileNanite02_proj.bp',
-            ProjectileLifetime = 3.6,
+            ProjectileLifetime = 4.2,
 
             RackBones = {
                 {
@@ -200,19 +200,22 @@ UnitBlueprint {
                     RackBone = 'Barrel_B01',
                 },
             },
+
             RackRecoilDistance = -7,
+
+            RackSalvoFiresAfterCharge = true,
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 0.6,       -- 4000 DPS rate controlled by charge
+            RateOfFire = 0.4,       -- every 2.5 seconds by charge = 3200 DPS
 			
             TargetCheckInterval = 1,
 			
             TargetPriorities = {
-				'AIR MOBILE EXPERIMENTAL',
+				'AIR EXPERIMENTAL',
                 'SPECIALHIGHPRI',
-                'GUNSHIP',
-                'BOMBER',
+                'GUNSHIP TECH3',
+                'BOMBER TECH3',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, TECH1, SATELLITE',
@@ -225,11 +228,11 @@ UnitBlueprint {
 			
             TurretPitch = 45,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 60,
+            TurretPitchSpeed = 40,
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 64,
+            TurretYawSpeed = 40,
 			
             Turreted = true,
         },

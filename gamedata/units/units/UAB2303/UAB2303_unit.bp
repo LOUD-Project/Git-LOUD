@@ -169,8 +169,8 @@ UnitBlueprint {
             DoTPulses = 5,	-- 5 x 265 damage
             DoTTime = 3,	-- applied over 3 seconds
 			
-            EnergyDrainPerSecond = 183,	-- 9 second charge --
-            EnergyRequired = 1645,
+            EnergyDrainPerSecond = 185,	-- 9 second charge --
+            EnergyRequired = 1665,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -200,9 +200,11 @@ UnitBlueprint {
             
             RackRecoilDistance = -2,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,             -- controlled by charge --
+            RateOfFire = 0.11,      -- controlled by charge --
 			
             TargetCheckInterval = 3,
             TargetPriorities = {

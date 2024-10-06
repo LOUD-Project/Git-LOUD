@@ -206,8 +206,8 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
             
-            EnergyRequired = 175,
-            EnergyDrainPerSecond = 135,
+            EnergyRequired = 189,
+            EnergyDrainPerSecond = 135,     -- 1.4 second charge
 			
             FiringRandomness = 0.35,
             FiringTolerance = 0.6,
@@ -241,11 +241,13 @@ UnitBlueprint {
 
             RackRecoilDistance = -2,
 
+            RackSalvoFiresAfterCharge = true,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- 1050 dmg every 4 seconds = 262 DPS Surface - controlled by charge
+            RateOfFire = .7,	-- 350 dmg every 1.4 seconds = 250 DPS Surface
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 140,
@@ -269,7 +271,7 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 145,
-            TurretYawSpeed = 40,
+            TurretYawSpeed = 35,
             
             Turreted = true,
         },
@@ -290,8 +292,8 @@ UnitBlueprint {
 			
             DisplayName = 'Proton Cannon',
             
-            EnergyRequired = 175,
-            EnergyDrainPerSecond = 135,
+            EnergyRequired = 189,
+            EnergyDrainPerSecond = 135, -- 1.4 second charge
 			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -329,9 +331,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -2,
 
+            RackSalvoFiresAfterCharge = true,
+
             RackSlavedToTurret = true,
 			
-            RateOfFire = 1,		-- 262 DPS Surface - controlled by charge
+            RateOfFire = .7,		-- 250 DPS Surface by charge
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 130,
@@ -355,7 +359,7 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 135,
-            TurretYawSpeed = 40,
+            TurretYawSpeed = 35,
             
             Turreted = true,
         },

@@ -1048,15 +1048,13 @@ UnitBlueprint {
             DisplayName = 'Head weapon',
 
 			EnergyRequired = 4500,
-			EnergyDrainPerSecond = 150,
+			EnergyDrainPerSecond = 150,     -- 30 second charge
 
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
             },
 			
             Label = 'MainGun',
-
-			--ManualFire = 1,	-- while this weapon will autofire you can give specific target
 
             LeadTarget = false,
 			
@@ -1078,7 +1076,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/GargEMPWarhead01/GargEMPWarhead01_proj.bp',
-			ProjectileLifetime = 15,
+			ProjectileLifetime = 25,
 
             RackBones = {
                 {
@@ -1086,11 +1084,14 @@ UnitBlueprint {
                     RackBone = 'Main_Gun_Barrel',
                 },
             },
+
+            RackSalvoFiresAfterCharge = true,
 			
             RangeCategory = 'UWRC_InDirectFire',
 			
-            RateOfFire = 1,	-- controlled by energy - basically every 30 seconds
-            TargetCheckInterval = 5,
+            RateOfFire = 0.04,	-- controlled by energy - basically every 30 seconds
+
+            TargetCheckInterval = 10,
 
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
 
@@ -1109,11 +1110,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 100,
-            TurretPitchSpeed = 60,
+            TurretPitchSpeed = 40,
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 40,
 			
             Turreted = true,
         },

@@ -58,7 +58,7 @@ UnitBlueprint {
         SurfaceThreatLevel  = 68,
     },
 	
-    Description = '<LOC xeb2306_desc>Heavy Point Defence',
+    Description = '<LOC sab2306_desc>Heavy Point Defence',
 	
     Display = {
 	
@@ -134,7 +134,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = '<LOC xeb2306_help>Heavy Point Defence',
+        HelpText = '<LOC sab2306_help>Heavy Point Defence',
     },
 	
     LifeBarHeight = 0.075,
@@ -229,10 +229,12 @@ UnitBlueprint {
                     RackBone = 'Head',
                 },
             },
+
+            RackSalvoFiresAfterCharge = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		--  once every 5 seconds = 360 DPS
+            RateOfFire = 0.2,	-- every 5 seconds by charge = 360 DPS
 			
             TargetCheckInterval = 1,
 			
@@ -251,11 +253,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 180,
-            TurretPitchSpeed = 75,
+            TurretPitchSpeed = 68,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 75,
+            TurretYawSpeed = 68,
 			
             Turreted = true,
         },

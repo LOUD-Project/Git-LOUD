@@ -149,10 +149,10 @@ UnitBlueprint{
     LifeBarSize = 1,
 
     Physics = {
-        BackUpDistance = 3,
+        BackUpDistance = 3.5,
         BankingSlope = 0,
         DragCoefficient = 0.2,
-        MaxAcceleration = 3.8,
+        MaxAcceleration = 1.4,
         MaxBrake = 3.8,
         MaxSpeed = 3.8,
         MaxSpeedReverse = 3,
@@ -160,8 +160,8 @@ UnitBlueprint{
         MinSpeedPercent = 0,
         MotionType = "RULEUMT_Land",
         StandUpright = true,
-        TurnRadius = 5,
-        TurnRate = 120,
+        TurnRadius = 4,
+        TurnRate = 36,
     },
 
     SelectionCenterOffsetX = 0,
@@ -207,8 +207,10 @@ UnitBlueprint{
             DisplayName = "Gatling Cannon",
 
             FireTargetLayerCapsTable = { Land = "Air|Land|Water|Seabed" },
+
             FiringRandomness = 0.4,
             FiringRandomnessWhileMoving = 0.9,
+
             FiringTolerance = 0.1,
 
             Label = "GatlingCannon",

@@ -192,10 +192,12 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
+
+            RackSalvoFiresAfterCharge = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 2.5,		-- 74 per on fire - 148 dps - controlled by charge
+            RateOfFire = 2,		-- 148 dps - controlled by charge
 			
             ReTargetOnMiss = true,
             TargetCheckInterval = 0.5,

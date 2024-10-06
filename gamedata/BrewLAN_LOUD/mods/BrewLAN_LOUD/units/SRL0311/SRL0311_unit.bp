@@ -140,7 +140,7 @@ UnitBlueprint {
         MotionType = 'RULEUMT_Land',
         RotateOnSpot = false,
         RotateOnSpotThreshold = 0.1,
-        TurnRate = 60,
+        TurnRate = 32,
     },
     
     SelectionCenterOffsetZ = 0.15,
@@ -210,7 +210,7 @@ UnitBlueprint {
             MuzzleVelocityReduceDistance = 55,
             
             ProjectileId = '/projectiles/CDFRocketIridium03/CDFRocketIridium03_proj.bp',
-            ProjectileLifetime = 5,
+            ProjectileLifetime = 9,
             
             RackBones = {
                 {
@@ -240,12 +240,14 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
+
+            RackSalvoFiresAfterCharge = true,
             
             RackSalvoReloadTime = 9,    -- cycle is 10.5 + 9 = 19.5
 
             RangeCategory = 'UWRC_IndirectFire',
             
-            RateOfFire = 1,     -- RoF controlled by charge cycle - 20 seconds
+            RateOfFire = 0.05,     -- RoF controlled by charge cycle - 20 seconds
 
             SlavedToBody = true,
             SlavedToBodyArcRange = 15,

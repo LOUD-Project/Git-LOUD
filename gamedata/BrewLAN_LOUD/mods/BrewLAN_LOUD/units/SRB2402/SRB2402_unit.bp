@@ -194,7 +194,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = '<LOC seb2401_desc>Experimental Point Defense',
+        HelpText = '<LOC srb2402_desc>Experimental Point Defense',
     },
 	
     LifeBarHeight = 0.075,
@@ -274,8 +274,8 @@ UnitBlueprint {
 			
             DisplayName = 'Proton Cannon',
 
-            EnergyDrainPerSecond = 1650,
-            EnergyRequired = 1650,
+            EnergyDrainPerSecond = 1800,
+            EnergyRequired = 1620,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -303,12 +303,13 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -2,
+            RackRecoilReturnSpeed = 3,
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,     -- 1650 DPS - controlled by energy -- 2 x 750 every second 
-
+            RateOfFire = 1,     -- 1650 DPS 
             TargetCheckInterval = 0.5,
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'SHIELD',

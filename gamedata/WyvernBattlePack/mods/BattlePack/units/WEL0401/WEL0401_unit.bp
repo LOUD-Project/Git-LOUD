@@ -265,8 +265,10 @@ UnitBlueprint{
                 },
             },
             RackFireTogether = true,
+
             RackRecoilDistance = -2,
-            RackReloadTimeout = 10,
+
+            RackSalvoFiresAfterCharge = true,
 
             RangeCategory = "UWRC_IndirectFire",
 

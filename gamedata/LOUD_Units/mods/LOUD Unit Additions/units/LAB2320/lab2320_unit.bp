@@ -165,18 +165,18 @@ UnitBlueprint {
             DoTPulses = 5,	-- 5 x 265 damage
             DoTTime = 3,	-- applied over 3 seconds
 
-            EnergyDrainPerSecond = 195,     -- 9 second charge cycle
-            EnergyRequired = 1750,
+            EnergyDrainPerSecond = 200,     -- 9 second charge cycle
+            EnergyRequired = 1800,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.35,
+            FiringRandomness = 1.2,
             FiringTolerance = 0.1,
 			
-            Label = 'MainGun',
+            Label = 'MainGun1',
             LeadTarget = true,
 			
             MaxRadius = 155,
@@ -198,9 +198,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -30,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,
+            RateOfFire = 0.11,  -- every 9 seconds
 			
             TargetCheckInterval = 3,
 			
@@ -216,7 +218,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 80,
@@ -247,18 +248,18 @@ UnitBlueprint {
             DoTPulses = 5,	-- 5 x 265 damage
             DoTTime = 3,	-- applied over 3 seconds
 
-            EnergyDrainPerSecond = 195,     -- 9 second charge
-            EnergyRequired = 1750,
+            EnergyDrainPerSecond = 200,
+            EnergyRequired = 1800,
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.35,
-            FiringTolerance = 0.1,
+            FiringRandomness = 1.2,
+            FiringTolerance = 1,
 			
-            Label = 'MainGun',
+            Label = 'MainGun1',
 			
             LeadTarget = true,
 			
@@ -281,7 +282,9 @@ UnitBlueprint {
 
             RackRecoilDistance = -30,
 
-            RateOfFire = 1,
+            RackSalvoFiresAfterCharge = true,
+
+            RateOfFire = 0.11,
 			
             TargetCheckInterval = 3,
 			
@@ -297,15 +300,14 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle01',
             TurretBonePitch = 'Turret_Barrel01',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 5,
             TurretPitchSpeed = 2,
 			
             TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 6,
+            TurretYawRange = 5,
+            TurretYawSpeed = 4,
 			
             Turreted = true,
         },
@@ -328,18 +330,18 @@ UnitBlueprint {
             DoTPulses = 5,	-- 5 x 265 damage
             DoTTime = 3,	-- applied over 3 seconds
 
-            EnergyDrainPerSecond = 195,     -- 9 second charge
-            EnergyRequired = 1750,
+            EnergyDrainPerSecond = 200,
+            EnergyRequired = 1800,
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.35,
-            FiringTolerance = 0.1,
+            FiringRandomness = 1.2,
+            FiringTolerance = 1,
 			
-            Label = 'MainGun',
+            Label = 'MainGun2',
 			
             LeadTarget = true,
 			
@@ -361,8 +363,10 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -30,
+            
+            RackSalvoFiresAfterCharge = true,
 
-            RateOfFire = 1,
+            RateOfFire = 0.11,
 			
             TargetCheckInterval = 3,
 			
@@ -378,15 +382,14 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Turret_Muzzle02',
             TurretBonePitch = 'Turret_Barrel02',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 5,
             TurretPitchSpeed = 2,
 			
             TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 6,
+            TurretYawRange = 5,
+            TurretYawSpeed = 4,
 			
             Turreted = true,
         },

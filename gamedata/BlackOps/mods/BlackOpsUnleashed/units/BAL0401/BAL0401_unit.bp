@@ -206,7 +206,7 @@ UnitBlueprint {
         SkirtSizeZ = 4,
 		
         TurnRadius = 5,
-        TurnRate = 40,
+        TurnRate = 36,
     },
 	
     SelectionSizeX = 2.4,
@@ -285,10 +285,12 @@ UnitBlueprint {
                     RackBone = 'Bombard',
                 },
             },
+
+            RackSalvoFiresAfterCharge = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,		----  18000 Damage every 16 = 1125 DPS - controlled by energy drain
+            RateOfFire = 0.0625,		----  18000 Damage every 16 = 1125 DPS - controlled by energy drain
 			
             TargetCheckInterval = 5,
 			

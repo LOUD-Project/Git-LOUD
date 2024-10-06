@@ -14,8 +14,9 @@ CybranWeaponsFile = nil
 XRS0402= Class(CSeaUnit) {
 
     Weapons = {
-        MainCannon      = Class(XCannonWeapon01) {},
-        BackCannon      = Class(CDFProtonCannonWeapon) {},
+        MainCannonFront = Class(XCannonWeapon01) {},
+        MainCannonBack  = Class(XCannonWeapon01) {},
+        BombardmentGun  = Class(CDFProtonCannonWeapon) {},
         SecondaryCannon = Class(CDFProtonCannonWeapon) {},
         AAGun           = Class(CAAAutocannon) {},
         Zapper          = Class(CAMZapperWeapon02) {},

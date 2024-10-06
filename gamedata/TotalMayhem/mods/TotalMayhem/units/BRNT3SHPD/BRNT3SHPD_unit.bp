@@ -370,7 +370,7 @@ UnitBlueprint {
 			
             DisplayName = 'Ionized Plasma Cannon',
 
-            EnergyDrainPerSecond = 2640,
+            EnergyDrainPerSecond = 2640,        -- 2.5 second charge
             EnergyRequired = 6600,
 			
             FireTargetLayerCapsTable = {
@@ -417,6 +417,8 @@ UnitBlueprint {
             RackFireTogether = true,
 			
             RackRecoilDistance = -17,
+
+            RackSalvoFiresAfterCharge = true,
 
             RackSlavedToTurret = true,
 			

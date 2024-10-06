@@ -596,6 +596,20 @@ function ModBlueprints(all_blueprints)
 					if wep.MuzzleSalvoDelay == nil then
 						wep.MuzzleSalvoDelay = 0
 					end
+                    
+                    if wep.EnergyRequired != nil then
+                    
+                        local chargetime = wep.EnergyRequired / wep.EnergyDrainPerSecond
+                        
+                        local chargerate = 1 / chargetime
+                        
+                        if chargerate < wep.RateOfFire and (not wep.RackSalvoFiresAfterCharge) then
+
+                            LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." chargerate "..chargerate.." ROF "..wep.RateOfFire )
+
+                        end
+                        
+                    end
                 end
 
 				if not (wep.BeamLifetime or wep.Label == 'DeathWeapon' or wep.Label == 'DeathImpact' or wep.WeaponCategory == 'Air Crash') and not wep.ProjectileLifetime and not wep.ProjectileLifetimeUsesMultiplier then
@@ -608,7 +622,7 @@ function ModBlueprints(all_blueprints)
 
                         if wep.MuzzleVelocity and wep.MuzzleVelocity > 0 then
                         
-                            LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." lifetime set to "..string.format("%.3f",(wep.MaxRadius / wep.MuzzleVelocity) * 1.15).." from nil" )
+                            --LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." lifetime set to "..string.format("%.3f",(wep.MaxRadius / wep.MuzzleVelocity) * 1.15).." from nil" )
 
                             wep.ProjectileLifetime = (wep.MaxRadius / wep.MuzzleVelocity) * 1.4
                             
@@ -621,7 +635,7 @@ function ModBlueprints(all_blueprints)
                         else
 
                             if not (wep.Label == 'InainoMissiles' or wep.Label == 'Suicide' or wep.Label == 'NukeMissiles' or wep.Label == 'CollossusDeath' or wep.Label == 'MegalithDeath' or wep.Label == 'DeathWeapon' or wep.Label == 'DeathImpact' or wep.Label == 'Bomb' or wep.Label == 'DummyWeapon' or wep.Label == 'ClawMelee') then
-                                LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." has no projectile lifetime or muzzle velocity" )
+                                --LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." has no projectile lifetime or muzzle velocity" )
                         
                                 wep.ProjectileLifetime = 8
                             end
@@ -631,7 +645,7 @@ function ModBlueprints(all_blueprints)
 				end
                 
                 if wep.MuzzleVelocity == 0 and not (wep.Label == 'InainoMissiles' or wep.Label == 'Suicide' or wep.Label == 'NukeMissiles' or wep.Label == 'CollossusDeath' or wep.Label == 'MegalithDeath' or wep.Label == 'DeathWeapon' or wep.Label == 'DeathImpact' or wep.Label == 'DummyWeapon' or wep.Label == 'ClawMelee') then
-                    LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." has no muzzle velocity" )
+                    --LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." has no muzzle velocity" )
                     wep.ProjectileLifetime = 8
                 end
 
@@ -656,7 +670,9 @@ function ModBlueprints(all_blueprints)
 						wep.TargetRestrictDisallow = wep.TargetRestrictDisallow .. ', SATELLITE'
 					end
 				end
+                
             end
+            
         end
     end 
     

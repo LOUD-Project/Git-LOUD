@@ -153,7 +153,7 @@ UnitBlueprint {
             DisplayName = 'APDS Artillery',
 			
             EnergyDrainPerSecond = 207,	-- every 9 seconds --
-            EnergyRequired = 1860,
+            EnergyRequired = 1862,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -184,9 +184,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -2.5,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,		-- controlled by energy drain
+            RateOfFire = 0.11,		-- controlled by energy
 			
             TargetCheckInterval = 3,
 			

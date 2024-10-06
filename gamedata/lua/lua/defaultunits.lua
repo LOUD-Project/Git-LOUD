@@ -1769,7 +1769,7 @@ MobileUnit = Class(Unit) {
 
             PlayUnitSound( self,'StartMove')
 
-            --self:PlayUnitAmbientSound('AmbientMove')
+            self:PlayUnitAmbientSound('AmbientMove')
 
             self:StopRocking()
 
@@ -1789,10 +1789,10 @@ MobileUnit = Class(Unit) {
 				end
 			end
 
-            --self:StopUnitAmbientSound( 'AmbientMove' )
-            --self:StopUnitAmbientSound( 'AmbientMoveWater' )
-            --self:StopUnitAmbientSound( 'AmbientMoveSub' )
-            --self:StopUnitAmbientSound( 'AmbientMoveLand' )
+            self:StopUnitAmbientSound( 'AmbientMove' )
+            self:StopUnitAmbientSound( 'AmbientMoveWater' )
+            self:StopUnitAmbientSound( 'AmbientMoveSub' )
+            self:StopUnitAmbientSound( 'AmbientMoveLand' )
         end
 
         if self.MovementEffectsExist then
@@ -3882,6 +3882,12 @@ AirUnit = Class(MobileUnit) {
 		
 	end,
 
+    OnMotionHorzEventChange = function( self, new, old )
+    
+        MobileUnitOnMotionHorzEventChange( self, new, old)
+        
+    end,
+
     OnMotionVertEventChange = function( self, new, old )
 
 		if not self.Dead then
@@ -3915,10 +3921,8 @@ AirUnit = Class(MobileUnit) {
 
     end,
 
-	-- this fires when the unit fuel falls below the trigger threshold
+	--- fires when the unit fuel falls below the trigger threshold
     OnRunOutOfFuel = function(self)
-    
-        --LOG("*AI DEBUG Unit "..self.Sync.id.." runs out of fuel")
 
         self:DoUnitCallbacks('OnRunOutOfFuel')
 
@@ -3933,7 +3937,7 @@ AirUnit = Class(MobileUnit) {
         self.HasFuel = false
     end,
 
-	-- this fires when the unit fuel is above the trigger threshold
+	--- fires when the unit fuel is above the trigger threshold
     OnGotFuel = function(self)
 
 		if HasBuff( self,'OutOfFuel') then
@@ -3945,8 +3949,6 @@ AirUnit = Class(MobileUnit) {
 
 	--- this fires when the unit attaches to an airpad
     OnStartRefueling = function(self)
-    
-        --LOG("*AI DEBUG Unit "..self.Sync.id.." starts airpad refueling")
 
         PlayUnitSound(self,'Refueling')
 		
@@ -4427,9 +4429,9 @@ ConstructionUnit = Class(MobileUnit) {
     end,
 }
 
---------------------------------------------------------------------------------
+---------------------------------
 local MissileDetectorRadius = {}
---------------------------------------------------------------------------------
+---------------------------------
 BaseDirectionalAntiMissileFlare = Class() {
 
     CreateMissileDetector = function(self)
@@ -4644,9 +4646,9 @@ MineStructureUnit = Class(StructureUnit) {
     end,
 }
 
---------------------------------------------------------------------------------
+---------------------
 -- Nuke Mine script
---------------------------------------------------------------------------------
+---------------------
 NukeMineStructureUnit = Class(MineStructureUnit) {
 
     Weapons = {

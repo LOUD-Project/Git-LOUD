@@ -6,6 +6,8 @@ LAB2320 = Class(AStructureUnit) {
 
     Weapons = {
         MainGun = Class(AIFArtilleryMiasmaShellWeapon) {},
+        MainGun1 = Class(AIFArtilleryMiasmaShellWeapon) {},
+        MainGun2 = Class(AIFArtilleryMiasmaShellWeapon) {},
     },
 }
 

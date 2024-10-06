@@ -173,11 +173,7 @@ UnitBlueprint {
         VisionRadius = 40,
         WaterVisionRadius = 24,
     },
-    
-    Interface = {
-        HelpText = '<LOC sas0401_help>Experimental Battlecruiser',
-    },
-    
+  
     LifeBarHeight = 0.075,
     LifeBarOffset = 3.4,
     LifeBarSize = 3,
@@ -209,8 +205,8 @@ UnitBlueprint {
         SkirtSizeX = 5,
         SkirtSizeZ = 13,
         
-        TurnRadius = 42,
-        TurnRate = 15,
+        TurnRadius = 12,
+        TurnRate = 19,
     },
     
     SelectionSizeX = 1.2,
@@ -581,8 +577,8 @@ UnitBlueprint {
             
             DisplayName = 'Rapid-Fire Artillery Cannon',
             
-            EnergyDrainPerSecond = 815,
-            EnergyRequired = 4500,     -- 5.5 second charge cycle
+            EnergyDrainPerSecond = 750,
+            EnergyRequired = 4500,     -- 6 second charge cycle
             
             EnergyChargeForFirstShot = false,
             
@@ -597,7 +593,7 @@ UnitBlueprint {
             MaxRadius = 320,
             MinRadius = 80,
             
-            MuzzleChargeDelay = 0.5,    -- .5 second muzzle delay
+            MuzzleChargeDelay = 0.5,
 
             MuzzleVelocity = 72,
             MuzzleVelocityReduceDistance = 300,
@@ -619,9 +615,11 @@ UnitBlueprint {
             },
             RackRecoilDistance = -3,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
             
-            RateOfFire = 5,     -- determined by charge and delays
+            RateOfFire = 0.17,     -- determined by charge
             
             TargetCheckInterval = 2,
             

@@ -215,8 +215,8 @@ UnitBlueprint{
         SkirtOffsetZ = -1.5,
         SkirtSizeX = 6,
         SkirtSizeZ = 6,
-        TurnRadius = 0,
-        TurnRate = 30,
+        TurnRadius = 3,
+        TurnRate = 36,
     },
 
     SelectionCenterOffsetX = 0,
@@ -663,8 +663,8 @@ UnitBlueprint{
 
             DisplayName = "Wyvern Missiles",
 
-            EnergyDrainPerSecond = 309,
-            EnergyRequired = 2100,
+            EnergyDrainPerSecond = 300, -- 11 second charge
+            EnergyRequired = 3300,
 
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
@@ -718,9 +718,11 @@ UnitBlueprint{
             },
             RackFireTogether = true,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = "UWRC_IndirectFire",
 
-            RateOfFire = 1,
+            RateOfFire = 0.09,  -- controlled by charge
 
             TargetCheckInterval = 2,
             TargetPriorities = {

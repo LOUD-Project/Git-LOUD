@@ -4,7 +4,9 @@ local SIFZthuthaamArtilleryCannon = import('/lua/seraphimweapons.lua').SIFZthuth
 LSB2320 = Class(SStructureUnit) {
 
     Weapons = {
-        MainGun = Class(SIFZthuthaamArtilleryCannon) {},
+        MainGun     = Class(SIFZthuthaamArtilleryCannon) {},
+        MainGun1    = Class(SIFZthuthaamArtilleryCannon) {},
+        MainGun2    = Class(SIFZthuthaamArtilleryCannon) {},
     },
 }
 

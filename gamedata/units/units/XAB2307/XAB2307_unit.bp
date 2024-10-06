@@ -199,8 +199,8 @@ UnitBlueprint {
 
             EnergyChargeForFirstShot = false,
 			
-            EnergyDrainPerSecond = 1955,
-            EnergyRequired = 8800,		---- a 4.5 second charge cycle
+            EnergyDrainPerSecond = 1760,
+            EnergyRequired = 8800,		---- 5 second charge
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -232,10 +232,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -1,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,		-- every 5 seconds = 1152 DPS -- rate of fire controlled by charge
-            RenderFireClock = true,
+            RateOfFire = 0.2,		-- controlled by charge - every 5 seconds = 1152 DPS
 			
             TargetCheckInterval = 2,
 			
@@ -270,9 +271,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.1,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

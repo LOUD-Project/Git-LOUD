@@ -201,11 +201,11 @@ UnitBlueprint {
             DamageFriendly = true,
             DamageRadius = 5.2,
             
-            DamageType = 'ShieldMult1.3',
+            DamageType = 'ShieldMult1.1',
 
             DisplayName = 'Suthanus Heavy Artillery Cannon',
 
-            EnergyDrainPerSecond = 3284,        -- 9.5 second charge --
+            EnergyDrainPerSecond = 3120,        -- 10 second charge --
             EnergyRequired = 31200,
 
             FireTargetLayerCapsTable = {
@@ -238,11 +238,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -6,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 
-            RateOfFire = 1,	---- 4250 damage every 10 seconds -- controlled by energy
-
-            ShieldDamage = 6000,    -- this doesn't really do anything --
+            RateOfFire = 0.1,	---- 4250 damage every 10 seconds
 
             TargetCheckInterval = 3,
             TargetPriorities = {

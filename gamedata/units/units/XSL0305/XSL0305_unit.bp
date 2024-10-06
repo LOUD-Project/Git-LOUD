@@ -146,7 +146,7 @@ UnitBlueprint {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 3.5,
+        MaxAcceleration = 1,
         MaxBrake = 3.5,
         MaxSpeed = 3.5,
         MaxSpeedReverse = 3.5,
@@ -157,8 +157,8 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
         StandUpright = true,
-        TurnRadius = 0.5,
-        TurnRate = 90,
+        TurnRadius = 2,
+        TurnRate = 36,
     },
 	
     SelectionSizeX = 0.45,
@@ -249,11 +249,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 50,
-            TurretPitchSpeed = 30,
+            TurretPitchSpeed = 24,
 			
             TurretYaw = 0,
             TurretYawRange = 40,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 24,
             Turreted = true,
         },
 		
@@ -270,7 +270,7 @@ UnitBlueprint {
             DisplayName = 'Sih Energy Rifle',
             
             EnergyRequired = 720,
-            EnergyDrainPerSecond = 38,     -- 19 seconds to charge
+            EnergyDrainPerSecond = 36,     -- 20 second charge
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -300,9 +300,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.1,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,		---- 140 Dps - 20 seconds - controlled by charge 
+            RateOfFire = 0.05,		---- 140 Dps - 20 seconds - controlled by charge 
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 10,
@@ -323,11 +325,11 @@ UnitBlueprint {
 
             TurretPitch = 0,
             TurretPitchRange = 50,
-            TurretPitchSpeed = 30,
+            TurretPitchSpeed = 24,
 			
             TurretYaw = 0,
             TurretYawRange = 10,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 24,
 
             Turreted = true,
         },

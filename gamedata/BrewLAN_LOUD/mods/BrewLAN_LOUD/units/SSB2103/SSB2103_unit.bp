@@ -43,7 +43,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 12.8,
     },
 	
-    Description = '<LOC sbui2103>Light Field Artillery Installation',
+    Description = '<LOC ssb2103>Light Field Artillery Installation',
 	
     Display = {
         AnimationDeath = {
@@ -108,7 +108,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = '<LOC sbui2103>Light Artillery Installation',
+        HelpText = '<LOC ssb2103>Light Artillery Installation',
     },
 	
     LifeBarHeight = 0.075,
@@ -177,8 +177,8 @@ UnitBlueprint {
 			
             DisplayName = 'Thaam-atha Artillery Cannon',
 			
-            EnergyDrainPerSecond = 30,      -- 3.5 second charge
-            EnergyRequired = 105,
+            EnergyDrainPerSecond = 30,      -- 4 second charge
+            EnergyRequired = 120,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -193,13 +193,13 @@ UnitBlueprint {
             MaxRadius = 55,
             MinRadius = 5,
 			
-            MuzzleChargeDelay = 0.5,        -- 0.5 second muzzle charge
+            MuzzleChargeDelay = 0.5,
 
             MuzzleVelocity = 18,
 			MuzzleVelocityReduceDistance = 50,
 			
             ProjectileId = '/projectiles/SIFZthuthaamArtilleryShell02/SIFZthuthaamArtilleryShell02_proj.bp',
-            ProjectileLifetime = 4,
+            ProjectileLifetime = 12,
 
             RackBones = {
                 {
@@ -209,6 +209,8 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -2,
+
+            RackSalvoFiresAfterCharge = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -231,11 +233,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 80,
-            TurretPitchSpeed = 15,
+            TurretPitchSpeed = 18,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 20,
+            TurretYawSpeed = 18,
 			
             Turreted = true,
         },

@@ -191,8 +191,8 @@ UnitBlueprint {
         SkirtSizeZ = 11,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
-        TurnRadius = 30,
-        TurnRate = 40,
+        TurnRadius = 24,
+        TurnRate = 30,
     },
 	
     SelectionSizeX = 3,
@@ -253,7 +253,7 @@ UnitBlueprint {
             DisplayName = 'Loa Tactical Missile',
 
             EnergyRequired = 3600,
-            EnergyDrainPerSecond = 360,
+            EnergyDrainPerSecond = 360, -- 10 second charge
             
             FireTargetLayerCapsTable = {
                 Sub = 'Land|Water|Seabed',
@@ -294,9 +294,11 @@ UnitBlueprint {
                 },
             },
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,		-- 9 missiles * 500 = 4500 dmg / 10 = 450 DPS Surface - controlled by charge
+            RateOfFire = 0.1,		-- 9 missiles * 500 = 4500 dmg / 10 = 450 DPS Surface - controlled by charge
 
             TargetCheckInterval = 2,
 			
@@ -383,8 +385,8 @@ UnitBlueprint {
 			
             DisplayName = 'Y Cannon',
 
-            EnergyRequired = 2850,
-            EnergyDrainPerSecond = 1425,
+            EnergyRequired = 2856,
+            EnergyDrainPerSecond = 816, -- 3.5 second charge
   			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -409,7 +411,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/XCannon01/XCannon01_proj.bp',
-			ProjectileLifetime = 4.5,
+			ProjectileLifetime = 5,
 
             RackBones = {
                 {
@@ -421,10 +423,12 @@ UnitBlueprint {
             RackRecoilDistance = -2,
 
             RackRecoilReturnSpeed = 1,
+
+            RackSalvoFiresAfterCharge = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- 400 DPS Surface - controlled by charge and delay
+            RateOfFire = 0.3,		-- 400 DPS Surface - controlled by charge and delay
 			
             TargetCheckInterval = 1.5,
             TargetPriorities = {
@@ -448,11 +452,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 45,
-            TurretPitchSpeed = 12,
+            TurretPitchSpeed = 18,
 			
             TurretYaw = 0,
             TurretYawRange = 190,
-            TurretYawSpeed = 28,
+            TurretYawSpeed = 22,
 			
             Turreted = true,
         },
@@ -519,8 +523,8 @@ UnitBlueprint {
 			
             DisplayName = 'Y Cannon',
 
-            EnergyRequired = 2850,
-            EnergyDrainPerSecond = 1425,
+            EnergyRequired = 2856,
+            EnergyDrainPerSecond = 816,
   			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -556,7 +560,9 @@ UnitBlueprint {
 
             RackRecoilDistance = -2,
 
-            RackRecoilReturnSpeed = 1,
+            RackRecoilReturnSpeed = 1.5,
+
+            RackSalvoFiresAfterCharge = true,
 
             RateOfFire = 1,		-- 400 DPS Surface controlled by charge and delay
 			
@@ -583,11 +589,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 45,
-            TurretPitchSpeed = 12,
+            TurretPitchSpeed = 18,
 			
             TurretYaw = 0,
             TurretYawRange = 190,
-            TurretYawSpeed = 28,
+            TurretYawSpeed = 22,
 			
             Turreted = true,
         },

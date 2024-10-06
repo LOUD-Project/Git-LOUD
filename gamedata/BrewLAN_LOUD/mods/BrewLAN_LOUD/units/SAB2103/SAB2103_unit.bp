@@ -174,8 +174,8 @@ UnitBlueprint {
 			DoTPulses = 5,	-- 5 x 60 damage
 			DoTTime = 3,	-- applied over 3 seconds
 			
-            EnergyDrainPerSecond = 38,	-- 4 second charge
-            EnergyRequired = 150,
+            EnergyDrainPerSecond = 40,	-- 4 second charge
+            EnergyRequired = 160,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -194,7 +194,7 @@ UnitBlueprint {
 			MuzzleVelocityReduceDistance = 50,
 			
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
-            ProjectileLifetime = 3.6,
+            ProjectileLifetime = 12,
 
             RackBones = {
                 {
@@ -205,10 +205,12 @@ UnitBlueprint {
 
             RackRecoilDistance = -1,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 2,     -- once every 4 seconds - controlled by charge
-            TargetCheckInterval = 3,
+            RateOfFire = 0.25,     -- once every 4 seconds - controlled by charge
+            TargetCheckInterval = 2,
             
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -225,11 +227,11 @@ UnitBlueprint {
 			
             TurretPitch = 30,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 15,
+            TurretPitchSpeed = 16,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 20,
+            TurretYawSpeed = 16,
 			
             Turreted = true,
         },

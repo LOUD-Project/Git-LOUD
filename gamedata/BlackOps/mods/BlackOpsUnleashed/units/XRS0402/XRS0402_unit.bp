@@ -18,8 +18,8 @@ UnitBlueprint {
             Level1 = 15,
             Level2 = 30,
             Level3 = 45,
-            Level4 = 60,
-            Level5 = 75,
+            Level4 = 55,
+            Level5 = 65,
         },
     },
 	
@@ -187,7 +187,7 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
         TurnRadius = 28,
-        TurnRate = 35,
+        TurnRate = 22,
     },
 	
     SelectionSizeX = 3,
@@ -202,11 +202,11 @@ UnitBlueprint {
     StrategicIconSortPriority = 145,
 	
     Veteran = {
-        Level1 = 32,
-        Level2 = 64,
-        Level3 = 96,
-        Level4 = 128,
-        Level5 = 160,
+        Level1 = 36,
+        Level2 = 72,
+        Level3 = 108,
+        Level4 = 144,
+        Level5 = 180,
     },
 	
     Weapon = {
@@ -267,7 +267,7 @@ UnitBlueprint {
             DisplayName = 'Proton Cannon',
             
             EnergyRequired = 7200,
-            EnergyDrainPerSecond = 3600,
+            EnergyDrainPerSecond = 2485,        -- 2.9 second charge
 			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -278,7 +278,7 @@ UnitBlueprint {
             
             FiringTolerance = 1,
 			
-            Label = 'MainCannon',
+            Label = 'MainCannonFront',
 			
             LeadTarget = true,
 			
@@ -301,11 +301,11 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -2,
-            RackRecoilReturnSpeed = 1,
+            RackRecoilReturnSpeed = 2,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- 466 DPS - controlled by charge/delay every 3 seconds
+            RateOfFire = 0.33,		-- 466 DPS - controlled by charge/delay every 3 seconds
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 140,
@@ -336,7 +336,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 145,
-            TurretYawSpeed = 28,
+            TurretYawSpeed = 22,
 			
             Turreted = true,
         },
@@ -395,7 +395,7 @@ UnitBlueprint {
             DisplayName = 'Proton Cannon',
             
             EnergyRequired = 7200,
-            EnergyDrainPerSecond = 3600,
+            EnergyDrainPerSecond = 2485,    -- 2.9 second charge
 
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -405,7 +405,7 @@ UnitBlueprint {
             FiringRandomnessWhileMoving = 0.8,
             FiringTolerance = 2,
 			
-            Label = 'MainCannon',
+            Label = 'MainCannonBack',
 			
             LeadTarget = true,
 			
@@ -430,9 +430,9 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -2,
-            RackRecoilReturnSpeed = 1,
+            RackRecoilReturnSpeed = 2,
 
-            RateOfFire = 1,		-- another 466 DPS - every 3 seconds controlled by charge
+            RateOfFire = 0.33,		-- another 466 DPS - every 3 seconds controlled by charge
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 130,
@@ -463,7 +463,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 135,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 22,
 			
             Turreted = true,
         },
@@ -490,7 +490,7 @@ UnitBlueprint {
             DisplayName = 'SeaDragon Bombardment Cannon',
             
             EnergyRequired = 4150,
-            EnergyDrainPerSecond = 4150,
+            EnergyDrainPerSecond = 4615,    -- .9 second charge
 
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -501,7 +501,7 @@ UnitBlueprint {
             
             FiringTolerance = 2,
 			
-            Label = 'BackCannon',
+            Label = 'BombardmentGun',
 			
             MaxRadius = 160,
 
@@ -528,6 +528,7 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = true,
+
             RackRecoilDistance = -1,
 
             RackSlavedToTurret = true,

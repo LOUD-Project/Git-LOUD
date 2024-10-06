@@ -257,7 +257,7 @@ UnitBlueprint {
         SkirtSizeX = 6,
         SkirtSizeZ = 6,
         StandUpright = false,
-        TurnRadius = 5,
+        TurnRadius = 4,
         TurnRate = 17,
     },
     
@@ -315,8 +315,8 @@ UnitBlueprint {
             
             DoNotCollideList = { 'MISSILE' },
             
-            EnergyRequired = 24150,         -- a 10.5 second charge cycle before muzzle charge can begin
-            EnergyDrainPerSecond = 2300,
+            EnergyRequired = 23270,         -- 13 second charge cycle
+            EnergyDrainPerSecond = 1790,
             
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -330,7 +330,7 @@ UnitBlueprint {
             MaxRadius = 120,
             MinRadius = 30,
             
-            MuzzleChargeDelay = 2.5,        -- 2.5 second charge time before discharge
+            MuzzleChargeDelay = 2.5,
             
             NotExclusive = true,
             
@@ -343,9 +343,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -5,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_DirectFire',
             
-            RateOfFire = 1,          -- RoF controlled by charge (23.4k dmg every 13 seconds = 1800 DPS)
+            RateOfFire = 0.08,          -- controlled by charge (23.4k dmg every 13 seconds = 1800 DPS)
             
             SlavedToBody = true,
             SlavedToBodyArcRange = 30,
@@ -367,7 +369,7 @@ UnitBlueprint {
             
             TurretPitch = 15,
             TurretPitchRange = 35,
-            TurretPitchSpeed = 28,
+            TurretPitchSpeed = 22,
             
             TurretYaw = 0,
             TurretYawRange = 35,
@@ -427,8 +429,10 @@ UnitBlueprint {
                     RackBone = 'Barrel',
                 },
             },
+
+            RackSalvoFiresAfterCharge = true,
             
-            RateOfFire = 1,
+            RateOfFire = 0.185,
             
             SlavedToBody = true,
             SlavedToBodyArcRange = 30,

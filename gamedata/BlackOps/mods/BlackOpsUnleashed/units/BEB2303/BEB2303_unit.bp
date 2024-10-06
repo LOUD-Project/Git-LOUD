@@ -175,7 +175,7 @@ UnitBlueprint {
             MuzzleVelocity = 26.13,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/HellStormArtillery01/HellStormArtillery01_proj.bp',
-            ProjectileLifetime = 3.6,
+            ProjectileLifetime = 6.2,
 
             RackBones = {
                 {
@@ -186,9 +186,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -3.5,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,       -- 125 DPS -- controlled by charge
+            RateOfFire = 0.5,       -- 125 DPS -- controlled by charge
 			
             TargetCheckInterval = .5,
             TargetPriorities = {
@@ -205,7 +207,7 @@ UnitBlueprint {
 			
             TurretPitch = 30,
             TurretPitchRange = 70,
-            TurretPitchSpeed = 30,
+            TurretPitchSpeed = 26,
 
             TurretYaw = 0,
             TurretYawRange = 180,

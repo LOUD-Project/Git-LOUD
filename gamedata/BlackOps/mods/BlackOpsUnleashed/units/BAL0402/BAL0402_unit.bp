@@ -139,6 +139,7 @@ UnitBlueprint {
     LifeBarSize = 4,
 	
     Physics = {
+        BackUpDistance = 5,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
@@ -171,8 +172,8 @@ UnitBlueprint {
         RotateBodyWhileMoving = true,
         RotateOnSpot = false,
 		
-        TurnFacingRate = 40,
-        TurnRadius = 0,
+        TurnFacingRate = 32,
+        TurnRadius = 1.5,
         TurnRate = 30,
     },
 	
@@ -254,9 +255,11 @@ UnitBlueprint {
                 },
             },
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	-- 900 dps - controlled by charge
+            RateOfFire = 0.1,	-- 900 dps - controlled by charge
 			
             TargetCheckInterval = 5.0,
 			
@@ -289,7 +292,7 @@ UnitBlueprint {
             DisplayName = 'Sonance Artillery',
 
             EnergyRequired = 720,
-            EnergyDrainPerSecond = 216,
+            EnergyDrainPerSecond = 218,
             
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -327,12 +330,14 @@ UnitBlueprint {
 			
             RackRecoilDistance = -1.5,
 
+            RackSalvoFiresAfterCharge = true,
+
             SlavedToBody = true,
             SlavedToBodyArcRange = 90,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,	-- 480 dps - controlled by charge
+            RateOfFire = 0.3,	-- 480 dps - controlled by charge
 			
             TargetCheckInterval = 1,
 			

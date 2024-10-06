@@ -202,7 +202,7 @@ UnitBlueprint {
 			
             DisplayName = 'Ultrachromatic Beam Generator',
 
-            EnergyDrainPerSecond = 525,
+            EnergyDrainPerSecond = 525,     -- 4 second charge
             EnergyRequired = 2100,
 			
             FireTargetLayerCapsTable = {
@@ -223,9 +223,11 @@ UnitBlueprint {
             },
             RackRecoilDistance = -2,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- controlled by charge and beam lifetime - 3400 damage every 4 seconds -- 850 DPS
+            RateOfFire = 1,		-- controlled by charge - 3400 damage every 4 seconds -- 850 DPS
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -244,11 +246,11 @@ UnitBlueprint {
 			
             TurretPitch = 10,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 60,
+            TurretPitchSpeed = 34,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 39,
+            TurretYawSpeed = 34,
 			
             Turreted = true,
         },

@@ -165,7 +165,7 @@ UnitBlueprint {
 			
             DisplayName = 'Phason Beam',
 			
-			EnergyDrainPerSecond = 400,
+			EnergyDrainPerSecond = 400,     -- 1 second charge
 			EnergyRequired = 400,
 			
             FireTargetLayerCapsTable = {
@@ -188,9 +188,11 @@ UnitBlueprint {
                 },
             },
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,
+            RateOfFire = 1, -- controlled by charge
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -208,11 +210,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 80,
-            TurretPitchSpeed = 35,
+            TurretPitchSpeed = 32,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 35,
+            TurretYawSpeed = 32,
 			
             Turreted = true,
             WeaponUnpacks = true,

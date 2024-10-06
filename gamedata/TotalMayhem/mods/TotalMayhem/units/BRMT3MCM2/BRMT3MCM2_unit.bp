@@ -152,6 +152,7 @@ UnitBlueprint {
     LifeBarSize = 3,
 
     Physics = {
+        BackUpDistance = 5,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
@@ -172,7 +173,7 @@ UnitBlueprint {
         SkirtOffsetZ = -0.5,
         SkirtSizeX = 4,
         SkirtSizeZ = 4,
-        TurnRadius = 5,
+        TurnRadius = 4,
         TurnRate = 29,
     },
 
@@ -589,7 +590,7 @@ UnitBlueprint {
 			
             DisplayName = 'Microwave Laser',
 			
-			EnergyDrainPerSecond = 200,
+			EnergyDrainPerSecond = 300,
 			EnergyRequired = 100,
 			
             FireTargetLayerCapsTable = {
@@ -614,6 +615,8 @@ UnitBlueprint {
                     RackBone = 'machinegun02',
                 },
             },
+
+            RackSalvoFiresAfterCharge = true,
 
             RackSlavedToTurret = true,
 

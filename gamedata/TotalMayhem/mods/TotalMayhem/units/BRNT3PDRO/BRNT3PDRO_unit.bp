@@ -160,8 +160,8 @@ UnitBlueprint {
             
             EnergyChargeForFirstShot = false,
             
-            EnergyRequired = 15600,
-            EnergyDrainPerSecond = 2052,            -- 7.6 seconds E event
+            EnergyRequired = 15606,
+            EnergyDrainPerSecond = 1406,            -- 11.1 seconds E event
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -169,7 +169,7 @@ UnitBlueprint {
             },
 			
             FiringTolerance = 0.5,
-            FiringRandomness = 0.5,
+            FiringRandomness = 0.6,
 			
             Label = 'RocketPod',
 			
@@ -183,7 +183,7 @@ UnitBlueprint {
 			MuzzleVelocityReduceDistance = 100,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRNT3PDROproj/BRNT3PDROproj_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 7,
+            ProjectileLifetime = 6.5,
 			
             RackBones = {
                 {
@@ -192,13 +192,15 @@ UnitBlueprint {
                 },
             },
 
-            RackSalvoReloadTime = 1.2,      -- (E event 1.1)        -- 0.1
+            RackSalvoReloadTime = 1.2,
 
-            RackSalvoChargeTime = 0.1,      -- (unpack 3.3 first)   -- 3.4 total 
+            RackSalvoChargeTime = 0.1,
+
+            RackSalvoFiresAfterCharge = true,
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,	-- 4200 Dmg every 11.1 = 378 DPS  -- controlled by charge/delay --
+            RateOfFire = 1,	-- 4200 Dmg every 11.1 = 378 DPS  -- controlled by charge
 			
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -221,7 +223,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 26,
+            TurretYawSpeed = 22,
 
             Turreted = true,
 

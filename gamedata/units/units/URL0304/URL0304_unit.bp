@@ -208,9 +208,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.2,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	        -- every 5 seconds by charge = 96 DPS
+            RateOfFire = 0.2,	        -- every 5 seconds = 96 DPS
 
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -232,7 +234,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 32,
+            TurretYawSpeed = 28,
 			
             Turreted = true,
 

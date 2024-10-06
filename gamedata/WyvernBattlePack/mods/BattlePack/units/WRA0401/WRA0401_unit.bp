@@ -490,8 +490,8 @@ UnitBlueprint{
 
             DisplayName = "Microwave Laser",
 			
-            EnergyDrainPerSecond = 650,
-            EnergyRequired = 1625,
+            EnergyDrainPerSecond = 640, -- 2.5 second charge
+            EnergyRequired = 1600,
 	
             FireTargetLayerCapsTable = { Air = "Air|Land|Water|Seabed", Land = "Land|Water|Seabed" },
 
@@ -505,9 +505,9 @@ UnitBlueprint{
 
             RackBones = { { MuzzleBones = { "LeftMissileTurret_Muzzle" }, RackBone = "LeftMissileTurret_Barrel" } },
 
-            RackSalvoSize = 1,
+            RackSalvoFiresAfterCharge = true,
 
-            RateOfFire = 1,     -- 750 Damage every 2.5 seconds - controlled by charge = 300
+            RateOfFire = 0.4,     -- 750 Damage every 2.5 seconds - controlled by charge
 
             TargetCheckInterval = 1,
 
@@ -554,8 +554,8 @@ UnitBlueprint{
 
             DisplayName = "Microwave Laser",
 			
-            EnergyDrainPerSecond = 650,
-            EnergyRequired = 1625,
+            EnergyDrainPerSecond = 640,
+            EnergyRequired = 1600,
 
             FireTargetLayerCapsTable = { Air = "Air|Land|Water|Seabed", Land = "Land|Water|Seabed" },
 
@@ -569,9 +569,9 @@ UnitBlueprint{
 
             RackBones = { { MuzzleBones = { "RightMissileTurret_Muzzle" }, RackBone = "RightMissileTurret_Barrel" } },
 
-            RackSalvoSize = 1,
+            RackSalvoFiresAfterCharge = true,
 
-            RateOfFire = 1,     -- another 750 damage every 2.5 seconds = 300
+            RateOfFire = 0.4,     -- another 750 damage every 2.5 seconds = 300
 
             TargetCheckInterval = 1,
             TargetPriorities = {"SPECIALHIGHPRI","MOBILE","DEFENSE","ALLUNITS -WALL"},

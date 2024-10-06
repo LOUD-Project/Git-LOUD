@@ -157,9 +157,7 @@ UnitBlueprint {
 			
             DisplayName = 'Rockets',
             
-            EnergyChargeForFirstShot = false,
-            
-            EnergyRequired = 7850,
+            EnergyRequired = 7849,
             EnergyDrainPerSecond = 785,     -- 10 seconds to charge
 
             FireTargetLayerCapsTable = {
@@ -183,7 +181,7 @@ UnitBlueprint {
             MuzzleVelocityReduceDistance = 100,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BROT3PDROproj/BROT3PDROproj_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 8,
+            ProjectileLifetime = 15,
 			
             RackBones = {
                 {
@@ -197,11 +195,13 @@ UnitBlueprint {
             },
             RackFireTogether = true,
 
+            RackSalvoFiresAfterCharge = true,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,     -- 2 racks x 3 x 670 dmg every 10 seconds controlled by charge --
+            RateOfFire = 0.1,     -- 2 racks x 3 x 670 dmg every 10 seconds controlled by charge --
 			
             TargetCheckInterval = 1,
 			
@@ -227,7 +227,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 18,
+            TurretYawSpeed = 15,
             Turreted = true,
 		},
     },

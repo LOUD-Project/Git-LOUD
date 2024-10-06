@@ -203,9 +203,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.3,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,         -- every 10 seconds by charge = 100 DPS
+            RateOfFire = 0.1,         -- every 10 seconds by charge = 100 DPS
 		
             TargetCheckInterval = 1,
             TargetPriorities = {

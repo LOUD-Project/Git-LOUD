@@ -185,10 +185,8 @@ UnitBlueprint {
             DamageRadius = 3,
             DamageType = 'Normal',
 
-            EnergyChargeForFirstShot = false,            
-
             EnergyRequired = 14000,
-            EnergyDrainPerSecond = 1474,     -- 9.5 seconds to charge
+            EnergyDrainPerSecond = 1094,     -- 12.8 seconds to charge
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -212,7 +210,7 @@ UnitBlueprint {
             MuzzleVelocityReduceDistance = 40,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/cybranheavyrocketproj/cybranheavyrocket_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 5,
+            ProjectileLifetime = 12,
 			
             RackBones = {
                 {
@@ -227,8 +225,10 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
+
+            RackSalvoFiresAfterCharge = true,
  
-            RackSalvoReloadTime = 9.2,  -- E drain consumes 5.9 seconds -- 3.3 actual delay
+            RackSalvoReloadTime = 9.2,
 			
             RangeCategory = 'UWRC_DirectFire',
 			

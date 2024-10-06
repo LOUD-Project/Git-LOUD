@@ -297,9 +297,11 @@ UnitBlueprint {
                 },
             },
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_AntiAir',
             
-            RateOfFire = 2,     -- 3000 per Onfire controlled by charge cycle = 1500 DPS Air
+            RateOfFire = 0.5,     -- 3000 per Onfire controlled by charge cycle = 1500 DPS Air
             TargetCheckInterval = 1,
             
             TargetPriorities = {
@@ -320,11 +322,11 @@ UnitBlueprint {
             
             TurretPitch = 30,
             TurretPitchRange = 45,  --45 Is the graphical limit before clipping occurs
-            TurretPitchSpeed = 120,
+            TurretPitchSpeed = 60,
             
             TurretYaw = 0,
             TurretYawRange = 45,    --45 Is the graphical limit before clipping occurs
-            TurretYawSpeed = 120,
+            TurretYawSpeed = 60,
             
             Turreted = true,
         },
@@ -358,9 +360,9 @@ UnitBlueprint {
             Label = 'MainGun',
             LeadTarget = true,
             
-            EffectiveRadius = 43.3013, --Assuming a evelation of 25, max effective radius is 43.
+            EffectiveRadius = 43.3013, --Assuming a elevation of 25, max effective radius is 43.
             
-            MaxRadius = 52, --Can shoot at things with evelation of 30 at from 52 away.
+            MaxRadius = 52,
             MinRadius = 0,
             
             NeedPrep = false,
@@ -372,7 +374,9 @@ UnitBlueprint {
                 },
             },
 
-            RateOfFire = 2,
+            RackSalvoFiresAfterCharge = true,
+
+            RateOfFire = 0.5,
             TargetCheckInterval = 1,
 
             TargetPriorities = {
@@ -392,11 +396,11 @@ UnitBlueprint {
             
             TurretPitch = 30,
             TurretPitchRange = 45,
-            TurretPitchSpeed = 120,
+            TurretPitchSpeed = 60,
             
             TurretYaw = 0,
             TurretYawRange = 45,
-            TurretYawSpeed = 120,
+            TurretYawSpeed = 60,
             
             Turreted = true,
         },
@@ -433,9 +437,9 @@ UnitBlueprint {
             
             LeadTarget = true,
             
-            EffectiveRadius = 43.3013, --Assuming a evelation of 25, max effective radius is 43.
+            EffectiveRadius = 43.3013, --Assuming a elevation of 25, max effective radius is 43.
             
-            MaxRadius = 52, --Can shoot at things with evelation of 30 at from 52 away.
+            MaxRadius = 52, --Can shoot at things with elevation of 30 at from 52 away.
             MinRadius = 0,
             
             NeedPrep = false,
@@ -447,7 +451,9 @@ UnitBlueprint {
                 },
             },
 
-            RateOfFire = 2,
+            RackSalvoFiresAfterCharge = true,
+
+            RateOfFire = 0.5,
             TargetCheckInterval = 1,
 
             TargetPriorities = {
@@ -466,11 +472,11 @@ UnitBlueprint {
             
             TurretPitch = 30,
             TurretPitchRange = 45,
-            TurretPitchSpeed = 120,
+            TurretPitchSpeed = 60,
             
             TurretYaw = 0,
             TurretYawRange = 45,
-            TurretYawSpeed = 120,
+            TurretYawSpeed = 60,
             
             Turreted = true,
         },
@@ -508,7 +514,7 @@ UnitBlueprint {
             
             EffectiveRadius = 43.3013,
             
-            MaxRadius = 52, --Can shoot at things with evelation of 30 at from 52 away.
+            MaxRadius = 52, --Can shoot at things with elevation of 30 at from 52 away.
             MinRadius = 0,
             
             NeedPrep = false,
@@ -520,7 +526,9 @@ UnitBlueprint {
                 },
             },
 
-            RateOfFire = 2,
+            RackSalvoFiresAfterCharge = true,
+
+            RateOfFire = 0.5,
             TargetCheckInterval = 1,
             
             TargetPriorities = {
@@ -540,11 +548,11 @@ UnitBlueprint {
             
             TurretPitch = 30,
             TurretPitchRange = 45,
-            TurretPitchSpeed = 120,
+            TurretPitchSpeed = 60,
             
             TurretYaw = 0,
             TurretYawRange = 45,
-            TurretYawSpeed = 120,
+            TurretYawSpeed = 60,
             
             Turreted = true,
         },

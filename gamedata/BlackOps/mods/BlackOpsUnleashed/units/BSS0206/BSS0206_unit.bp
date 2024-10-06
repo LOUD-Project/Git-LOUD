@@ -199,7 +199,7 @@ UnitBlueprint {
             DisplayName = 'Suthanus Artillery',
             
             EnergyRequired = 375,
-            EnergyDrainPerSecond = 150,
+            EnergyDrainPerSecond = 150,     -- 2.5 second charge
 			
             FireTargetLayerCapsTable = {
                 Water= 'Land|Water|Seabed',
@@ -215,7 +215,7 @@ UnitBlueprint {
             MaxRadius = 116,
             MinRadius = 30,
 			
-            MuzzleChargeDelay = 0.25,
+            MuzzleChargeDelay = 0.2,
 
             MuzzleVelocity = 25,
             MuzzleVelocityReduceDistance = 85,
@@ -232,9 +232,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -1,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,		-- 1 Shot every 2.5 seconds = 196 DPS - controlled by charge
+            RateOfFire = 0.4,		-- 1 Shot every 2.5 seconds = 196 DPS
 			
             TargetCheckInterval = 4.0,
             TargetPriorities = {
@@ -309,6 +311,8 @@ UnitBlueprint {
                 },
             },
             RackRecoilDistance = -1,
+
+            RackSalvoFiresAfterCharge = true,
 
             RateOfFire = 0.4,		-- fires every 2.5 seconds by charge -- 196 DPS
 			

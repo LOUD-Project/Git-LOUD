@@ -231,14 +231,14 @@ UnitBlueprint {
             
             CollideFriendly = false,
             
-            Damage = 60,        -- 240 Damage
+            Damage = 64,
             DamageFriendly = false,
             DamageType = 'Normal',
             
             DisplayName = 'Burst Helical Railgun',
             
-            EnergyDrainPerSecond = 150,
-            EnergyRequired = 100,       -- every 2/3 second = 360 DPS
+            EnergyDrainPerSecond = 166,
+            EnergyRequired = 100,       -- 6 tick charge
 
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land|water',
@@ -261,7 +261,7 @@ UnitBlueprint {
             
             RangeCategory = 'UWRC_AntiAir',
             
-            RateOfFire = 2,   -- 360 DPS by charge
+            RateOfFire = 1.4,   -- every 7 ticks = 365 DPS
             
             ReTargetOnMiss = true,
             
@@ -302,13 +302,13 @@ UnitBlueprint {
             
             CollideFriendly = false,
             
-            Damage = 60,
+            Damage = 64,
             DamageFriendly = false,
             DamageType = 'Normal',
             
             DisplayName = 'Burst Helical Railgun',
             
-            EnergyDrainPerSecond = 150,
+            EnergyDrainPerSecond = 166,
             EnergyRequired = 100,
             
             FireTargetLayerCapsTable = {
@@ -334,7 +334,7 @@ UnitBlueprint {
                 },
             },
             
-            RateOfFire = 2,   -- another 360 by charge
+            RateOfFire = 1.4,   -- another 365 by charge
             
             ReTargetOnMiss = true,
 

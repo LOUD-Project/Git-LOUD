@@ -163,7 +163,7 @@ UnitBlueprint {
         MeshExtentsZ = 7.4,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
-        TurnRadius = 20,
+        TurnRadius = 12,
         TurnRate = 25,
     },
     SelectionSizeX = 1.5,
@@ -253,11 +253,13 @@ UnitBlueprint {
             
             RackRecoilDistance = -0.25,
 
+            RackSalvoFiresAfterCharge = true,
+
             RackSlavedToTurret = true,
             
             RangeCategory = 'UWRC_DirectFire',
             
-            RateOfFire = 1,		-- 144 DPS - controlled by charge
+            RateOfFire = 0.1,		-- 144 DPS - controlled by charge
             
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,
@@ -351,9 +353,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.25,
 
+            RackSalvoFiresAfterCharge = true,
+
             RackSlavedToTurret = true,
 
-            RateOfFire = 1,		---- another 144 DPS - controlled by charge
+            RateOfFire = 0.1,		---- another 144 DPS - controlled by charge
             
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,
@@ -407,8 +411,8 @@ UnitBlueprint {
             FiringRandomness = 0.2,
             FiringTolerance = 2,
             
-            EnergyRequired = 1330,
-            EnergyDrainPerSecond = 398,
+            EnergyRequired = 1360,
+            EnergyDrainPerSecond = 400,
             
             Label = 'Turret',
             
@@ -447,9 +451,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.25,
 
+            RackSalvoFiresAfterCharge = true,
+
             RackSlavedToTurret = true,
 
-            RateOfFire = 1,		-- 288 DPS - rate controlled by charge
+            RateOfFire = 0.3,		-- 288 DPS - rate controlled by charge
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,

@@ -1753,9 +1753,11 @@ UnitBlueprint {
                 },
             },
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 1,     -- relies upon the charge cycle
+            RateOfFire = 0.1,     -- relies upon the charge cycle
 
             TargetCheckInterval = 0.5,
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -2245,7 +2247,7 @@ UnitBlueprint {
             PrefersPrimaryWeaponTarget = true,
 
             ProjectileId = '/mods/BlackopsACUs/projectiles/UEFACUAntiMatter02/UEFACUAntiMatter02_proj.bp',
-            ProjectileLifetime = 1.2,
+            ProjectileLifetime = 1.3,
 
             RackBones = {
                 {
@@ -2335,7 +2337,7 @@ UnitBlueprint {
             PrefersPrimaryWeaponTarget = true,
 
             ProjectileId = '/mods/BlackopsACUs/projectiles/UEFACUAntiMatter03/UEFACUAntiMatter03_proj.bp',
-            ProjectileLifetime = 1.3,
+            ProjectileLifetime = 1.4,
 
             RackBones = {
                 {
@@ -2680,8 +2682,8 @@ UnitBlueprint {
             NotExclusive = true,
 
             ProjectileId = '/projectiles/TIFMissileCruiseCDR/TIFMissileCruiseCDR_proj.bp',
-
             ProjectileLifetime = 80,
+
             RackBones = {
                 {
                     MuzzleBones = { 'Back_MissilePack_Muzzle' },

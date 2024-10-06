@@ -166,7 +166,7 @@ UnitBlueprint{
             DamageRadius = 2.0,
             DamageType = "Normal",
 
-            EnergyDrainPerSecond = 400,
+            EnergyDrainPerSecond = 400,     -- 5.5 second charge
             EnergyRequired = 2200,
 
             FireTargetLayerCapsTable = {
@@ -196,9 +196,11 @@ UnitBlueprint{
                 },
             },
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = "UWRC_DirectFire",
 
-            RateOfFire = 10,
+            RateOfFire = .2,    -- controlled by charge
 
             TargetCheckInterval = 3,
 
@@ -220,11 +222,11 @@ UnitBlueprint{
 
             TurretPitch = 10,
             TurretPitchRange = 45,
-            TurretPitchSpeed = 20,
+            TurretPitchSpeed = 21,
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 25,
+            TurretYawSpeed = 24,
 
             Turreted = true,
         },
@@ -237,6 +239,7 @@ UnitBlueprint{
             Label = "DeathWeapon",
         },
     },
+
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.3,

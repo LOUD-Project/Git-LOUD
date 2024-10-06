@@ -189,7 +189,7 @@ UnitBlueprint {
             DoTPulses = 2,
             DoTTime = 2,
 			
-            EnergyDrainPerSecond = 3400,    -- 9.5 second charge
+            EnergyDrainPerSecond = 3230,    -- 10 second charge
             EnergyRequired = 32300,
 			
             FireTargetLayerCapsTable = {
@@ -222,9 +222,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -6,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	---- 2400 times 2 pulses - damage every 10 seconds = 480 DPS - controlled by energy drain
+            RateOfFire = 0.1,	---- 2400 times 2 pulses - damage every 10 seconds = 480 DPS - controlled by energy drain
 			
             TargetCheckInterval = 5,
 

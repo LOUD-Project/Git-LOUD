@@ -239,7 +239,7 @@ UnitBlueprint {
 
         StandUpright = true,
         
-        TurnRate = 40,
+        TurnRate = 32,
 		WaterSpeedMultiplier = 1.1,
     },
 	
@@ -288,8 +288,8 @@ UnitBlueprint {
 
             EnergyChargeForFirstShot = false,
             
-            EnergyDrainPerSecond = 2286,    
-            EnergyRequired = 3200,          -- 1.4 second energy drain
+            EnergyDrainPerSecond = 940,    
+            EnergyRequired = 3196,          -- 3.4 second energy drain
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -302,7 +302,7 @@ UnitBlueprint {
 			
             MaxRadius = 72,
 			
-            MuzzleChargeDelay = 2,          -- 2 second delay
+            MuzzleChargeDelay = 2,
 
             MuzzleVelocity = 24,
 			
@@ -319,6 +319,8 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -7,
                 },
             },
+
+            RackSalvoFiresAfterCharge = true,
 
             RackSlavedToTurret = true,
 			
@@ -372,8 +374,8 @@ UnitBlueprint {
 
             EnergyChargeForFirstShot = false,
             
-            EnergyDrainPerSecond = 2286,    
-            EnergyRequired = 3200,          -- 1.4 second energy drain
+            EnergyDrainPerSecond = 940,    
+            EnergyRequired = 3196,          -- 3.4 second energy drain
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -403,6 +405,8 @@ UnitBlueprint {
                     TelescopeRecoilDistance = -7,
                 },
             },
+
+            RackSalvoFiresAfterCharge = true,
 
             RackSlavedToTurret = true,
 

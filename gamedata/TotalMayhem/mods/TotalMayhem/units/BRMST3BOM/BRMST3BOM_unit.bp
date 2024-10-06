@@ -406,7 +406,7 @@ UnitBlueprint {
 
             RackRecoilDistance = -2,
 
-            RackReloadTimeout = 10,
+            RackSalvoFiresAfterCharge = true,
 
             RackSlavedToTurret = true,
 			
@@ -428,11 +428,11 @@ UnitBlueprint {
 			
             TurretPitch = 20,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 10,
+            TurretPitchSpeed = 19,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 32,
+            TurretYawSpeed = 28,
 			
             Turreted = true,
         },

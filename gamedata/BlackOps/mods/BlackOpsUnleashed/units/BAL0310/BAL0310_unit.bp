@@ -105,6 +105,7 @@ UnitBlueprint {
     LifeBarSize = 1,
     
     Physics = {
+        BackUpDistance = 6,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
@@ -112,7 +113,7 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         Elevation = 0.3,
         
-        MaxAcceleration = 1.5,
+        MaxAcceleration = 1,
         MaxBrake = 1.5,
         MaxSpeed = 3,
         MaxSpeedReverse = 3,
@@ -128,9 +129,9 @@ UnitBlueprint {
         RotateBodyWhileMoving = true,
         RotateOnSpot = false,
         
-        TurnFacingRate = 28,
-        TurnRadius = 0,
-        TurnRate = 22,
+        TurnFacingRate = 25,
+        TurnRadius = 1.5,
+        TurnRate = 23,
     },
 	
     SelectionSizeX = 1.0,
@@ -178,8 +179,8 @@ UnitBlueprint {
 
             EnergyChargeForFirstShot = false,
 
-            EnergyRequired = 440,
-            EnergyDrainPerSecond = 132,
+            EnergyRequired = 438,
+            EnergyDrainPerSecond = 146,     -- 3 second charge
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -216,9 +217,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -1,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	-- 240dps   -- controlled by charge
+            RateOfFire = 0.3,	-- 240dps   -- controlled by 3 second charge
 
             SlavedToBody = true,
             SlavedToBodyArcRange = 30,
@@ -238,7 +241,7 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 45,
-            TurretPitchSpeed = 30,
+            TurretPitchSpeed = 26,
 			
             TurretYaw = 0,
             TurretYawRange = 30,

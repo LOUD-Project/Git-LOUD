@@ -251,7 +251,7 @@ UnitBlueprint {
 
             DisplayName = 'Particle Cannon',
 			
-            EnergyDrainPerSecond = 275,
+            EnergyDrainPerSecond = 306,
             EnergyRequired = 275,
 			
             FiringRandomness = 0,

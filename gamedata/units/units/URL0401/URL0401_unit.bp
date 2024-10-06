@@ -220,9 +220,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -20,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,		-- controlled by charge -- 1000 DPS
+            RateOfFire = 0.5,		-- controlled by charge -- 1000 DPS
 			
 			RenderFireClock = true,
 			

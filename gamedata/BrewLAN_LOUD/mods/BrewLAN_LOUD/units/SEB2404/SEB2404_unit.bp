@@ -240,7 +240,7 @@ UnitBlueprint {
 			
             DisplayName = 'Drop-Pod Artillery',
 			
-            EnergyDrainPerSecond = 20000,
+            EnergyDrainPerSecond = 5000,
             EnergyRequired = 10000,
 			
             FireTargetLayerCapsTable = {
@@ -260,7 +260,7 @@ UnitBlueprint {
             MuzzleVelocityReduceDistance = 2000,
 			
             ProjectileId = '/mods/BrewLAN_LOUD/projectiles/TIFDropPodArtillery/TIFDropPodArtillery_proj.bp',
-            ProjectileLifetime = 1000,
+            ProjectileLifetime = 50,
 
             RackBones = {
                 {
@@ -271,7 +271,9 @@ UnitBlueprint {
                 },
             },
 
-            RackRecoilDistance = -40,
+            RackRecoilDistance = -36,
+
+            RackSalvoFiresAfterCharge = true,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -288,11 +290,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 3,
+            TurretPitchSpeed = 4,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 3,
+            TurretYawSpeed = 4,
 			
             Turreted = true,
         },

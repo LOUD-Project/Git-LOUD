@@ -52,7 +52,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 100,
     },
 
-    Description = 'Experimental Rapid-Fire Artillery',
+    Description = '<LOC ssb2404_desc> Experimental Rapid-Fire Artillery',
 
     Display = {
 
@@ -126,7 +126,7 @@ UnitBlueprint {
     },
 
     Interface = {
-        HelpText = '<LOC srb2401_desc>Experimental Artillery Installation',
+        HelpText = '<LOC ssb2404_desc>Experimental Artillery Installation',
     },
 
     LifeBarHeight = 0.075,
@@ -196,7 +196,7 @@ UnitBlueprint {
 
             DisplayName = 'Suthanus Heavy Artillery Cannon',
 
-            EnergyDrainPerSecond = 8009,       -- 4.5 second charge --
+            EnergyDrainPerSecond = 7280,       -- 5 second charge --
             EnergyRequired = 36400,
 
             FireTargetLayerCapsTable = {
@@ -227,9 +227,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -12,
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 
-            RateOfFire = 1,	-- 5 seconds -- controlled by energy cycle
+            RateOfFire = 0.2,	-- 5 seconds -- controlled by energy cycle
 
             TargetCheckInterval = 2,
             
@@ -247,7 +249,7 @@ UnitBlueprint {
 
             TurretPitch = 30,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 5.5,
+            TurretPitchSpeed = 6,
 
             TurretYaw = 0,
             TurretYawRange = 180,

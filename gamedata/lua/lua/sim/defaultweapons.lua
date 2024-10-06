@@ -43,6 +43,9 @@ local SetPrecedence             = moho.manipulator_methods.SetPrecedence
 
 local ChangeDetonateAboveHeight = moho.projectile_methods.ChangeDetonateAboveHeight
 
+local SetGoal                   = moho.SlideManipulator.SetGoal
+local SetSpeed                  = moho.SlideManipulator.SetSpeed
+
 local HideBone                  = moho.unit_methods.HideBone
 local SetBusy                   = moho.unit_methods.SetBusy
 local SetWorkProgress           = moho.unit_methods.SetWorkProgress
@@ -133,8 +136,6 @@ DefaultProjectileWeapon = Class(Weapon) {
             ChangeState( self, self.IdleState)
             
         end
-        
-
 
 	end,
 	
@@ -258,7 +259,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             
                 if nrgReq > 0 and nrgDrain > 0 then
 
-                    local chargetime = LOUDFLOOR(nrgReq / nrgDrain)
+                    local chargetime = nrgReq / nrgDrain
                 
                     if chargetime < 0.2 then
                         chargetime = 0.2
@@ -441,6 +442,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 
         local CameraShakeRadius     = bp.CameraShakeRadius or false
         local RackRecoilDistance    = bp.RackRecoilDistance or false
+        local ShipRock              = bp.ShipRock or false
 
         if CameraShakeRadius then
 
@@ -456,16 +458,17 @@ DefaultProjectileWeapon = Class(Weapon) {
             
         end
 		
-        if bp.ShipRock == true then
+        if RackRecoilDistance and RackRecoilDistance != 0 then
+            self:PlayRackRecoil({bp.RackBones[self.CurrentRackNumber]}, bp)
+        end
+		
+        if ShipRock == true then
 		
             local ix,iy,iz = unit:GetBoneDirection(bp.RackBones[self.CurrentRackNumber].RackBone)
 			
             unit:RecoilImpulse(-ix,-iy,-iz)
         end
-		
-        if RackRecoilDistance and RackRecoilDistance != 0 then
-            self:PlayRackRecoil({bp.RackBones[self.CurrentRackNumber]}, bp)
-        end
+
     end,
 
     -- Played when a weapon unpacks. If there is an animation, it will play it, and record the time taken
@@ -584,9 +587,6 @@ DefaultProjectileWeapon = Class(Weapon) {
         local SetPrecedence = SetPrecedence
         local TrashAdd = TrashAdd
         
-        local SetGoal = moho.SlideManipulator.SetGoal
-        local SetSpeed = moho.SlideManipulator.SetSpeed
-        
         local unit = self.unit
         local RackRecoilDistance = self.bp.RackRecoilDistance
         
@@ -600,7 +600,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 			
             SetPrecedence( tmpSldr, 11 )
             SetGoal( tmpSldr, 0, 0, RackRecoilDistance )
-            SetSpeed( tmpSldr, -1 )
+            SetSpeed( tmpSldr, -self.RackRecoilReturnSpeed )
 			
             TrashAdd( unit.Trash, tmpSldr )
 			
@@ -616,6 +616,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                 
                 TrashAdd( unit.Trash, tmpSldr )
             end
+
         end
         
         self:ForkThread( self.PlayRackRecoilReturn, rackList)
@@ -624,9 +625,6 @@ DefaultProjectileWeapon = Class(Weapon) {
     PlayRackRecoilReturn = function(self, rackList)
 	
         WaitTicks(1)
-        
-        local SetGoal = moho.SlideManipulator.SetGoal
-        local SetSpeed = moho.SlideManipulator.SetSpeed
 		
         for _, v in rackList do
         
@@ -811,8 +809,6 @@ DefaultProjectileWeapon = Class(Weapon) {
             if self.EconDrain then
 
                 WaitFor(self.EconDrain)
-                
-                self.WeaponCharged = true
 
                 RemoveEconomyEvent( unit, self.EconDrain )
 				
@@ -856,6 +852,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                     LOUDSTATE(self, self.WeaponEmptyState)
                 end
             end
+
         end,
 
         OnGotTarget = function(self)
@@ -864,7 +861,8 @@ DefaultProjectileWeapon = Class(Weapon) {
             local unit = self.unit
 
             if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon Idle State OnGotTarget "..repr(bp.Label).." Target is "..repr(self:GetCurrentTargetPos()).." at "..GetGameTick() )
+                LOG("*AI DEBUG DefaultWeapon Idle State OnGotTarget "..repr(bp.Label).." at "..GetGameTick() )
+                LOG("*AI DEBUG DefaultWeapon Distance to target is "..VDist3( unit:GetPosition(), self:GetCurrentTargetPos() ) )
             end
 	
             if (bp.WeaponUnpackLocksMotion != true or (bp.WeaponUnpackLocksMotion == true and not unit:IsUnitState('Moving'))) then
@@ -886,8 +884,13 @@ DefaultProjectileWeapon = Class(Weapon) {
                     LOUDSTATE(self, self.WeaponUnpackingState)
 					
                 else
+                
+                    --- precharged weapons will wait for an OnFire event
+                    if not self.WeaponCharged then
 
-                    LOUDSTATE(self, self.RackSalvoChargeState)
+                        LOUDSTATE(self, self.RackSalvoChargeState)
+                    
+                    end
 					
                 end
 				
@@ -898,9 +901,11 @@ DefaultProjectileWeapon = Class(Weapon) {
         OnFire = function(self)
             
             local bp = self.bp
+            local unit = self.unit
 
             if ScenarioInfo.WeaponStateDialog then
                 LOG("*AI DEBUG DefaultWeapon Idle State OnFire "..repr(bp.Label).." at "..GetGameTick() )
+                LOG("*AI DEBUG DefaultWeapon Distance to target is "..VDist3( unit:GetPosition(), self:GetCurrentTargetPos() ) )
             end
 			
             if bp.WeaponUnpacks == true then
@@ -970,7 +975,7 @@ DefaultProjectileWeapon = Class(Weapon) {
     WeaponUnpackingState = State {
 
         WeaponWantEnabled = false,
-        WeaponAimWantEnabled = false,
+        WeaponAimWantEnabled = true,
 
         Main = function(self)
             
@@ -985,27 +990,22 @@ DefaultProjectileWeapon = Class(Weapon) {
                 unit:SetImmobile(true)
             end
 
-            -- this will play any animation and note the time it takes
+            --- this will play any animation and note the time it takes
             self:PlayFxWeaponUnpackSequence(bp)
 
-            -- any weapon with a charge time or an energy requirement
+            --- weapons with a charge time or an energy requirement
             -- will now goto the Charge State
             if bp.RackSalvoChargeTime or bp.EnergyRequired then
-			
+            
+                self.WeaponCharged = false
+                
                 LOUDSTATE(self, self.RackSalvoChargeState)
             else
-			
                 LOUDSTATE(self, self.RackSalvoFireReadyState)
             end
-        end,
---[[
-        OnFire = function(self)
             
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon Unpacking State OnFire "..repr(self.bp.Label) )
-            end
         end,
---]]        
+
     },
 	
     RackSalvoChargeState = State {
@@ -1059,16 +1059,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             LOUDSTATE(self, self.RackSalvoFireReadyState)
 
         end,
---[[
-        OnFire = function(self)
-
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon RackSalvo Charge State "..repr(self.bp.Label).." OnFire at "..GetGameTick() )
-            end
-            
-            LOUDSTATE(self, self.RackSalvoFireReadyState)
-        end,
---]]        
+   
         OnGotTarget = function(self)
 
             if ScenarioInfo.WeaponStateDialog then
@@ -1122,6 +1113,15 @@ DefaultProjectileWeapon = Class(Weapon) {
                 end
                 
                 LOUDSTATE(self, self.RackSalvoFiringState)
+            end
+            
+            if self.WeaponCharged and bp.RackSalvoFiresAfterCharge then
+
+                if ScenarioInfo.WeaponStateDialog then
+                    LOG("*AI DEBUG DefaultWeapon RackSalvo Fire Ready State "..repr(self.bp.Label).." WeaponCharged fires "..GetGameTick() )
+                end
+
+                LOUDSTATE( self, self.RackSalvoFiringState)
             end
 
         end,

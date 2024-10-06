@@ -1,3 +1,22 @@
+### Release 10-05-2024
+
+LUA 7.13
+4DC for LOUD 7.03
+Black Ops for LOUD 7.05
+BrewLAN for LOUD 0.8.8.9.108
+LOUD_MISC 7.06
+LOUD_UNITS 7.05
+UNITS 7.09
+Total Mayhem for LOUD 7.03
+Wyvern for LOUD 7.04
+
+- further work on weapon state logging and charge based weapon timing
+- completed implementation of proper energy weapon based timing overrides - RoF versus charge timing
+    -- accounting for charged weapons, pack/unpack, pre-charged weapons
+- examination of many air-unit based weapon values previously undocumented
+
+
+
 ### Release 09-30-2024
 
 LUA 7.12

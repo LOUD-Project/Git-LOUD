@@ -57,7 +57,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 126.9,
     },
 	
-    Description = '<LOC sbui2311_desc>Anti-Armor Point Defence',
+    Description = '<LOC srb2311_desc>Anti-Armor Point Defence',
 	
     Display = {
         Mesh = {
@@ -111,10 +111,6 @@ UnitBlueprint {
 	
     Intel = {
         VisionRadius = 32,
-    },
-	
-    Interface = {
-        HelpText = '<LOC sbui2311_desc>Anti-Armor Point Defence',
     },
 	
     LifeBarHeight = 0.075,
@@ -188,8 +184,8 @@ UnitBlueprint {
 			
             DisplayName = 'Proton Cannon',
 			
-            EnergyDrainPerSecond = 233.5,     -- 3 second charge --
-            EnergyRequired = 700,
+            EnergyDrainPerSecond = 234,     -- 3 second charge --
+            EnergyRequired = 702,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -227,13 +223,13 @@ UnitBlueprint {
             
             RackFireTogether = true,
 
-            RackSalvoSize = 1,
+            RackSalvoFiresAfterCharge = true,
             
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	-- 3 shells of 350 = 1050 dmg every 3 seconds = 350 DPS
+            RateOfFire = 0.34,	-- by charge - 3 shells of 350 = 1050 dmg every 3 seconds = 350 DPS
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -253,11 +249,11 @@ UnitBlueprint {
 			
             TurretPitch = 30,
             TurretPitchRange = 40,
-            TurretPitchSpeed = 10,
+            TurretPitchSpeed = 15,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 22,
+            TurretYawSpeed = 20,
             Turreted = true,
         },
     },

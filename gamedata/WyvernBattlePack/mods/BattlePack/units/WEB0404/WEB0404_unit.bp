@@ -264,11 +264,11 @@ UnitBlueprint{
             DisplayName = "Ionized Gauss Cannon",
             
             EnergyRequired = 2500,      -- the E requirement is 50% discounted from the formula requirement for this weapon
-            EnergyDrainPerSecond = 930,
+            EnergyDrainPerSecond = 926, -- 2.7 second charge
 
             FireTargetLayerCapsTable = { Water = "Land|Water|Seabed" },
 
-            FiringRandomness = 0.35,
+            FiringRandomness = 0.38,
             FiringTolerance = 2,
 
             Label = "TurretLarge",
@@ -284,7 +284,7 @@ UnitBlueprint{
             NotExclusive = true,
 
             ProjectileId = "/projectiles/TDFGauss03/TDFGauss03_proj.bp",
-            ProjectileLifetime = 4,
+            ProjectileLifetime = 4.5,
 
             RackBones = {
                 {
@@ -300,15 +300,18 @@ UnitBlueprint{
                     RackBone = "Turret_Left02_Barrel15",
                 },
             },
+
             RackFireTogether = true,
+
             RackRecoilDistance = -1.5,
 
-            RackSalvoSize = 1,
+            RackSalvoFiresAfterCharge = true,
+
             RackSlavedToTurret = true,
 
             RangeCategory = "UWRC_IndirectFire",
 
-            RateOfFire = 1,     -- ROF controlled by charge = 2.7 seconds = 1000 DPS
+            RateOfFire = 0.38,     -- ROF controlled by charge = 2.7 seconds = 1000 DPS
 
             TargetCheckInterval = 1,
 
@@ -328,11 +331,11 @@ UnitBlueprint{
 
             TurretPitch = 10,
             TurretPitchRange = 24,
-            TurretPitchSpeed = 13,
+            TurretPitchSpeed = 22,
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 24,
+            TurretYawSpeed = 22,
 
             Turreted = true,
         },
@@ -395,13 +398,16 @@ UnitBlueprint{
                 },
             },
             RackFireTogether = true,
+
             RackRecoilDistance = -1,
+
+            RackSalvoFiresAfterCharge = true,
 
             RackSlavedToTurret = true,
 
             RangeCategory = "UWRC_DirectFire",
 
-            RateOfFire = 1,     -- rate of fire controlled by charge = 375 DPS
+            RateOfFire = 0.5,     -- rate of fire controlled by charge = 375 DPS
             
             TargetCheckInterval = 1,
 
@@ -419,11 +425,11 @@ UnitBlueprint{
 
             TurretPitch = 0,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 50,
+            TurretPitchSpeed = 30,
 
             TurretYaw = -20,
             TurretYawRange = 120,
-            TurretYawSpeed = 36,
+            TurretYawSpeed = 30,
 
             Turreted = true,
         },
@@ -481,11 +487,15 @@ UnitBlueprint{
                 },
             },
             RackFireTogether = true,
+
             RackRecoilDistance = -1,
+
+            RackSalvoFiresAfterCharge = true,
 
             RackSlavedToTurret = true,
 
-            RateOfFire = 1,     -- controlled by charge = 375 DPS
+            RateOfFire = 0.5,     -- controlled by charge = 375 DPS
+
             TargetCheckInterval = 1,
 
             TargetPriorities = {
@@ -503,11 +513,11 @@ UnitBlueprint{
 
             TurretPitch = 0,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 50,
+            TurretPitchSpeed = 30,
 
             TurretYaw = 30,
             TurretYawRange = 120,
-            TurretYawSpeed = 36,
+            TurretYawSpeed = 30,
 
             Turreted = true,
         },
@@ -566,11 +576,14 @@ UnitBlueprint{
                 },
             },
             RackFireTogether = true,
+
             RackRecoilDistance = -1,
+
+            RackSalvoFiresAfterCharge = true,
 
             RackSlavedToTurret = true,
 
-            RateOfFire = 1,     -- controlled by charge - 2 seconds = 375 DPS
+            RateOfFire = 0.5,     -- controlled by charge - 2 seconds = 375 DPS
 
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -588,11 +601,11 @@ UnitBlueprint{
 
             TurretPitch = 0,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 50,
+            TurretPitchSpeed = 30,
 
             TurretYaw = 20,
             TurretYawRange = 120,
-            TurretYawSpeed = 36,
+            TurretYawSpeed = 30,
 
             Turreted = true,
         },
@@ -651,11 +664,14 @@ UnitBlueprint{
                 },
             },
             RackFireTogether = true,
+
             RackRecoilDistance = -1,
+
+            RackSalvoFiresAfterCharge = true,
 
             RackSlavedToTurret = true,
 
-            RateOfFire = 1,     -- ROF controlled by charge = 2 seconds = 375 DPS
+            RateOfFire = 0.5,     -- ROF controlled by charge = 2 seconds = 375 DPS
             TargetCheckInterval = 1,
 
             TargetPriorities = {
@@ -672,11 +688,11 @@ UnitBlueprint{
 
             TurretPitch = 0,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 50,
+            TurretPitchSpeed = 30,
 
             TurretYaw = -30,
             TurretYawRange = 120,
-            TurretYawSpeed = 36,
+            TurretYawSpeed = 30,
 
             Turreted = true,
         },

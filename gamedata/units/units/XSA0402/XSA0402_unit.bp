@@ -17,14 +17,14 @@ UnitBlueprint {
     Air = {
 	
         AutoLandTime = 3.9,
-        BankFactor = 2.5,
+        BankFactor = 1.9,
         
         BankForward = false,
         
-        BreakOffDistance = 60,
+        BreakOffDistance = 68,
         BreakOffIfNearNewTarget = true,
         
-        BreakOffTrigger = 30,
+        BreakOffTrigger = 35,
         
         CanFly = true,
         
@@ -36,26 +36,28 @@ UnitBlueprint {
         KLiftDamping = 2.8,
 		
         KMove = 1,
-        KMoveDamping = 2,
+        KMoveDamping = 0.9,
 		
-        KRoll = 2,
+        KRoll = 1.9,
         KRollDamping = 2.5,
 		
-        KTurn = 0.8,
+        KTurn = 0.81,
         KTurnDamping = 1.6,
 		
-        LiftFactor = 10.5,
+        LiftFactor = 11,
 		
         MaxAirspeed = 20,
         MinAirspeed = 18,
 		
-        PredictAheadForBombDrop = 2.5,
+        --PredictAheadForBombDrop = 6,
 		
-        StartTurnDistance = 17,
+        StartTurnDistance = 20,
+        
+        SustainedTurnThreshold = 16,
 		
         TightTurnMultiplier = 0,
 		
-        TurnSpeed = 0.65,
+        TurnSpeed = 0.69,
 		
         Winged = true,
     },
@@ -199,12 +201,12 @@ UnitBlueprint {
     LifeBarSize = 10,
 	
     Physics = {
-        AttackElevation = 22,
-        BackUpDistance = 10,
+        AttackElevation = 21,
+        BackUpDistance = 5,
         BuildOnLayerCaps = {
             LAYER_Air = true,
         },
-        Elevation = 26.5,
+        Elevation = 27.5,
         MaxSpeed = 0.5,
         MeshExtentsX = 4,
         MeshExtentsY = 2,
@@ -253,43 +255,40 @@ UnitBlueprint {
 			
             BallisticArc = 'RULEUBA_None',
 			
-            BombDropThreshold = 4.6,
-			
+            --BombDropThreshold = 11,
+            
             CollideFriendly = false,
 			
-            Damage = 12000,
+            Damage = 10590,
             DamageFriendly = true,
             DamageRadius = 14,
             DamageType = 'Normal',
 			
             DisplayName = 'Ohwalli Strategic Bomb',
+
+            EnergyChargeForFirstShot = false,   -- weapon is charged on creation
             
-            EffectiveRadius = 38,
-            
-            EnergyDrainPerSecond = 1950,    -- this would be in addition to the 1000 it already drains - u might think this is excessive - but not even close.
+            EnergyDrainPerSecond = 2380,    -- in addition to the 1000 it already drains - u might think this is excessive - but not even close.
                                             -- According to formula, this weapon should require close to 30k drain to recharge in 10 seconds
-            EnergyRequired = 29250,         -- 15 seconds to charge - 
+            EnergyRequired = 35700,         -- we'll charge it in 15 seconds as a mild compensation but reduce the damage
 			
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
                 Land = 'Land|Water|Seabed',
             },
-			
-            FiringRandomness = 3,
-            FiringTolerance = 0.36,
-			
+
+            FiringTolerance = 0.85,
+
+            FixBombTrajectory = true,
+            
 			HeadingArcCenter = 0,
 			HeadingArcRange = 14,
 			
-            Label = 'Bomb',
-			
-            MaxRadius = 60,
+            Label = 'Bomb', 
             
-            EffectiveRadius = 45,
+            MaxRadius = 40,
 
             MuzzleVelocity = 0,
-            
-            NeedToComputeBombDrop = true,			
             
             NotExclusive = true,
             
@@ -297,16 +296,21 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {'Center_Muzzle'},
-                    RackBone = 'Center_Muzzle',
+                    MuzzleBones = {'XSA0402'},
+                    RackBone = 'XSA0402',
                 },
             },
 
-            RateOfFire = 1,         -- controlled entirely by charge cycle --
-            
+            RackSalvoFiresAfterCharge = true,
+			
+            RangeCategory = 'UWRC_DirectFire',
+
+            RateOfFire = 2,         -- LIMITED by charge 15 seconds -- but fires 'on the half second'
+
+            SlavedToBody = true,
             SlavedToBodyArcRange = 14,
 			
-            TargetCheckInterval = 2,
+            TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI -AIR',

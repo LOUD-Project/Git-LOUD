@@ -89,7 +89,7 @@ UnitBlueprint {
         RegenRate = 10,
     },
     
-    Description = '<LOC ssa0313_desc>Penetration Fighter',
+    Description = '<LOC saa0313_desc>Penetration Fighter',
     
     Display = {
         Abilities = {
@@ -252,10 +252,12 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = 1,
+
+            RackSalvoFiresAfterCharge = true,
             
             RangeCategory = 'UWRC_AntiAir',
             
-            RateOfFire = 2,       -- 495 DPS based on charge
+            RateOfFire = 1,       -- 495 DPS based on charge
             
             TargetCheckInterval = 1.5,
 
@@ -329,8 +331,10 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = 1,
+
+            RackSalvoFiresAfterCharge = true,
             
-            RateOfFire = 2,       -- another 495 - based on charge
+            RateOfFire = 1,       -- another 495 - based on charge
             
             TargetCheckInterval = 1.5,
             TargetPriorities = {

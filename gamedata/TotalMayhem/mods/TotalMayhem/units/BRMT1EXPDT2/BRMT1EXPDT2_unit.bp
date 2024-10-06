@@ -193,9 +193,11 @@ UnitBlueprint {
                 },
             },
 
+            RackSalvoFiresAfterCharge = true,
+
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,	-- 200 DPS - once every 2 seconds controlled by charge
+            RateOfFire = 0.5,	-- 200 DPS - once every 2 seconds controlled by charge
 			
             ReTargetOnMiss = true,
 
@@ -214,7 +216,7 @@ UnitBlueprint {
 
             TurretPitch = 0,
             TurretPitchRange = 40,
-            TurretPitchSpeed = 40,
+            TurretPitchSpeed = 30,
 
             TurretYaw = 0,
             TurretYawRange = 180,

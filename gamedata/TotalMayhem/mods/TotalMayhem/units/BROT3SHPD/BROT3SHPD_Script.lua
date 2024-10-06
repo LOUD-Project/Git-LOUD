@@ -19,7 +19,7 @@ BROT3SHPD = Class(TStructureUnit) {
 
         MainGun = Class(DefaultProjectileWeapon) {
 
-            FxMuzzleFlashScale = 0.6,
+            FxMuzzleFlashScale = 0.5,
 
 			FxGroundEffect  = EffectTemplate.ConcussionRingLrg01,
 	        FxMuzzleEffect  = EffectTemplate.TIonizedPlasmaGatlingCannonHit01,
