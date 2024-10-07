@@ -174,19 +174,20 @@ UnitBlueprint{
             TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
             TargetRestrictOnlyAllow = "TACTICAL MISSILE",
             TargetType = "RULEWTT_Projectile",
+
             TrackingRadius = 1.1,
 
             TurretBoneMuzzle = "TMDOrb",
             TurretBonePitch = "TMDOrb",
             TurretBoneYaw = "MainTurret",
-            TurretDualManipulators = false,
 
             TurretPitch = 45,
             TurretPitchRange = 90,
             TurretPitchSpeed = 80,
+
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 80,
+            TurretYawSpeed = 120,
 
             Turreted = true,
 

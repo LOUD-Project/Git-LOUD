@@ -1,3 +1,26 @@
+### Release 10-07-2024
+
+LUA 7.14
+Black Ops for LOUD 7.06
+LOUD_UNITS 7.06
+Wyvern for LOUD 7.05
+
+- another update for projectilelifetime issues (certain nukes, tac missiles) that had 0 muzzle velocities
+- additional semaphores in weapon states to denote OnFire(), OnGotTarget() and Pack/Unpack() events
+    -- these events were missing from several weapon states so if E charge and RoF weren't synced - you'd see firing delays
+    -- adding these events allows us to catch them and note that they happened
+- completed implementation of RackSalvoFiresAfterCharge, allowing tick accurate control of E based weapons 
+    -- this allows all E based weapons, which may have overlapped an OnFire() event, to fire, when the charge completes
+    -- allows use of E adjacency on E weapons in combination with E charge cycle to reduce the firing cycle
+    -- this doesn't mean that charge overrides the original RoF, but it insures you never miss one that has happened
+    -- E consumption is now spread out over the entire length of the firing cycle eliminating 'consumption clumping'
+    -- combined with event semaphores, we can reliably fire, or be aware of, newly acquired targets throughout
+    -- addresses pack/unpack/loss of target issues
+- AEON T3 Purifier Tactical Missile launcher, and projectile, reworked to mitigate some mechanical issues
+- UEF T2 Mobile TMD turret traverse (80 > 120)
+- ALL T3 Barrage artillery had their traverse gimbals reworked to mitigate certain aiming issues
+
+
 ### Release 10-05-2024
 
 LUA 7.13
@@ -11,9 +34,10 @@ Total Mayhem for LOUD 7.03
 Wyvern for LOUD 7.04
 
 - further work on weapon state logging and charge based weapon timing
-- completed implementation of proper energy weapon based timing overrides - RoF versus charge timing
+- first implementation of proper energy weapon based timing overrides - RoF versus charge timing
     -- accounting for charged weapons, pack/unpack, pre-charged weapons
 - examination of many air-unit based weapon values previously undocumented
+- removed Ahwassa hook in LOUD_MISC, changes echoed to unit blueprint
 
 
 

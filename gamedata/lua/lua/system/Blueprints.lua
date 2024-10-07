@@ -612,10 +612,6 @@ function ModBlueprints(all_blueprints)
                     end
                 end
 
-				if not (wep.BeamLifetime or wep.Label == 'DeathWeapon' or wep.Label == 'DeathImpact' or wep.WeaponCategory == 'Air Crash') and not wep.ProjectileLifetime and not wep.ProjectileLifetimeUsesMultiplier then
-					--LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." has no projectile lifetime for "..repr(wep.DisplayName).." Label "..repr(wep.Label))
-				end
-
 				if ((not wep.ProjectileLifetime) and (not wep.ProjectileLifetimeUsesMultiplier)) or (wep.ProjectileLifetime == 0) or wep.MuzzleVelocity == 0 then
 				
                     if (not wep.BeamLifetime) then
@@ -634,19 +630,23 @@ function ModBlueprints(all_blueprints)
 
                         else
 
-                            if not (wep.Label == 'InainoMissiles' or wep.Label == 'Suicide' or wep.Label == 'NukeMissiles' or wep.Label == 'CollossusDeath' or wep.Label == 'MegalithDeath' or wep.Label == 'DeathWeapon' or wep.Label == 'DeathImpact' or wep.Label == 'Bomb' or wep.Label == 'DummyWeapon' or wep.Label == 'ClawMelee') then
+                            --if not (wep.Label == 'InainoMissiles' or wep.Label == 'Suicide' or wep.Label == 'NukeMissiles' or wep.Label == 'CollossusDeath' or wep.Label == 'MegalithDeath' or wep.Label == 'DeathWeapon' or wep.Label == 'DeathImpact' or wep.Label == 'Bomb' or wep.Label == 'DummyWeapon' or wep.Label == 'ClawMelee') then
                                 --LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." has no projectile lifetime or muzzle velocity" )
                         
-                                wep.ProjectileLifetime = 8
-                            end
+                              --  wep.ProjectileLifetime = 8
+                            --end
                         end
                     end
                     
 				end
                 
-                if wep.MuzzleVelocity == 0 and not (wep.Label == 'InainoMissiles' or wep.Label == 'Suicide' or wep.Label == 'NukeMissiles' or wep.Label == 'CollossusDeath' or wep.Label == 'MegalithDeath' or wep.Label == 'DeathWeapon' or wep.Label == 'DeathImpact' or wep.Label == 'DummyWeapon' or wep.Label == 'ClawMelee') then
+                if wep.MuzzleVelocity == 0 and not (wep.Label == 'InainoMissiles' or wep.Label == 'Suicide' or wep.Label == 'NukeMissiles' or wep.Label == 'QuantumMissiles' or wep.Label == 'CollossusDeath' or wep.Label == 'MegalithDeath' or wep.Label == 'DeathWeapon' or wep.Label == 'DeathImpact' or wep.Label == 'DummyWeapon' or wep.Label == 'ClawMelee') then
+
                     --LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." has no muzzle velocity" )
-                    wep.ProjectileLifetime = 8
+
+                    if wep.ProjectileLifetime and wep.ProjectileLifetime < 20 then
+                        wep.ProjectileLifetime = 20
+                    end
                 end
 
 				if wep.TargetCheckInterval then

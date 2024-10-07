@@ -2043,8 +2043,13 @@ function NavalScoutingAI( self, aiBrain )
         if PlatoonExists(aiBrain,self) then
 
             if not reconcomplete then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." NavalScoutingAI finds no recon mission")
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." NavalScoutingAI finds no recon mission")
+
                 WaitTicks(31)
+                
+                --- shorten the mission timer by 5 seconds 
+                CreationTime = CreationTime - 50
+
             else
                 self:Stop()
             end

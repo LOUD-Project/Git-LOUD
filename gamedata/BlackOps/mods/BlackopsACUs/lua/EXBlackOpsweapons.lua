@@ -4,8 +4,6 @@
 --**  Copyright � 2005 Gas Powered Games, Inc.  All rights reserved.
 
 local WeaponFile            = import('/lua/sim/defaultweapons.lua')
---local CollisionBeams        = import('/lua/defaultcollisionbeams.lua')
---local CollisionBeamFile     = import('/lua/defaultcollisionbeams.lua')
 
 local DefaultProjectileWeapon   = WeaponFile.DefaultProjectileWeapon
 local DefaultBeamWeapon         = WeaponFile.DefaultBeamWeapon
