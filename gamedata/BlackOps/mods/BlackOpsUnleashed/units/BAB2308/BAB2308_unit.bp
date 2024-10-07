@@ -167,9 +167,9 @@ UnitBlueprint {
             CollideFriendly = false,
             CountedProjectile = true,
 			
-            Damage = 2000,            -- but there will be 6 of these
+            Damage = 2000,          -- but this will split into 6 of 2000 = 12000 damage
             DamageFriendly = true,
-            DamageRadius = 4,
+            DamageRadius = 4,       -- with a radius of 2.4
             DamageType = 'Normal',
 			
             DisplayName = 'Serpentine Missile',
@@ -177,8 +177,6 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
-                Sub = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
             },
 			
             FiringTolerance = 5,
@@ -198,7 +196,7 @@ UnitBlueprint {
             MuzzleVelocity = 0,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/MirvSerpentine01/MirvSerpentine01_proj.bp',
-            ProjectileLifetime = 999,
+            ProjectileLifetime = 600,
 			
             RackBones = {
                 {
@@ -219,11 +217,11 @@ UnitBlueprint {
                 },
             },
 
-            RackSalvoReloadTime = 20,
+            RackSalvoReloadTime = 4,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.667,
+            RateOfFire = 0.25,
 			
             TargetCheckInterval = 1.0,
             TargetPriorities = {

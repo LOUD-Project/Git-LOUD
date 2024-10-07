@@ -20,8 +20,7 @@ AIFMissileSerpentine01 = Class(AMissileSerpentineProjectile) {
         self.ChildDamageData = table.copy(damageData)
         self.ChildDamageData.DamageAmount = launcherbp.SplitDamage.DamageAmount or 2000
         self.ChildDamageData.DamageRadius = launcherbp.SplitDamage.DamageRadius or 2.4
-        
-        LOG("*AI DEBUG ChildDamageData is "..repr(self.ChildDamageData))
+
     end,    
     
     OnImpact = function(self, TargetType, TargetEntity) 
@@ -75,6 +74,7 @@ AIFMissileSerpentine01 = Class(AMissileSerpentineProjectile) {
     end,
 
     MovementThread = function(self)
+
         local army = self:GetArmy()
         local launcher = self:GetLauncher()
 		
@@ -87,6 +87,7 @@ AIFMissileSerpentine01 = Class(AMissileSerpentineProjectile) {
         WaitSeconds(2)
 		
         self:TrackTarget(true)      -- Turn towards target
+
         self:SetDestroyOnWater(true)        
 
         self:SetTurnRate(47.36)
@@ -107,20 +108,11 @@ AIFMissileSerpentine01 = Class(AMissileSerpentineProjectile) {
     
         local dist = self:GetDistanceToTarget()
         
-        --Get the nuke as close to 90 deg as possible
-        if dist > 150 then        
-            -- Freeze the turn rate as to prevent steep angles at long distance targets
-            self:SetTurnRate(0)
-			
-        elseif dist > 75 and dist <= 150 then
-			-- Increase check intervals
-            self.WaitTime = 0.3
-			
-        elseif dist > 32 and dist <= 75 then
-			-- Further increase check intervals
+        if dist < 36 then
             self.WaitTime = 0.1
-			
-        elseif dist < 15 then
+        end    
+
+        if dist < 18 then
 			-- Turn the missile down
             self:SetTurnRate(95)
         end

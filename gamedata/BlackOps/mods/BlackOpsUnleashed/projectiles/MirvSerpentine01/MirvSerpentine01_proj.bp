@@ -41,9 +41,9 @@ ProjectileBlueprint {
     },
     
     Economy = {
-        BuildCostEnergy = 12000,
-        BuildCostMass = 720,
-        BuildTime = 7800,
+        BuildCostEnergy = 15000,
+        BuildCostMass = 400,
+        BuildTime = 5000,
     },
 
     Interface = {
@@ -51,16 +51,22 @@ ProjectileBlueprint {
     },
 
     Physics = {
-    	DetonateBelowHeight = 15,
+        CollideSurface = false,
+    	DetonateBelowHeight = 10,
+
     	Acceleration = 4,
         InitialSpeed = 0,
         Lifetime = 600,
         MaxSpeed = 36,
+
         RotationalVelocity = 100,
         RotationalVelocityRange = 0,
+
         TrackTarget = true,
         TrackTargetGround = true,
+
         TurnRate = 0,
+
         UseGravity = false,
         VelocityAlign = true,
     },
