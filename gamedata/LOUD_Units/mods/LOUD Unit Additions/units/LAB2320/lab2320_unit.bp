@@ -302,8 +302,8 @@ UnitBlueprint {
             TurretBoneYaw = 'Turret',
 			
             TurretPitch = 0,
-            TurretPitchRange = 5,
-            TurretPitchSpeed = 2,
+            TurretPitchRange = 15,
+            TurretPitchSpeed = 6,
 			
             TurretYaw = 0,
             TurretYawRange = 5,
@@ -384,8 +384,8 @@ UnitBlueprint {
             TurretBoneYaw = 'Turret',
 			
             TurretPitch = 0,
-            TurretPitchRange = 5,
-            TurretPitchSpeed = 2,
+            TurretPitchRange = 15,
+            TurretPitchSpeed = 6,
 			
             TurretYaw = 0,
             TurretYawRange = 5,

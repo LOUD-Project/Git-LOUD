@@ -321,10 +321,10 @@ UnitBlueprint {
 			
             TurretBoneMuzzle = 'gun_muzzle01',
             TurretBonePitch = 'gun01',
-            TurretBoneYaw = 'gun01',
+            TurretBoneYaw = 'gun_base03',
 			
             TurretPitch = 0,
-            TurretPitchRange = 5,
+            TurretPitchRange = 80,
             TurretPitchSpeed = 6,
 			
             TurretYaw = 0,
@@ -413,10 +413,10 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             TurretBoneMuzzle = 'gun_muzzle02',
             TurretBonePitch = 'gun02',
-            TurretBoneYaw = 'gun02',
+            TurretBoneYaw = 'gun_base03',
 			
             TurretPitch = 0,
-            TurretPitchRange = 5,
+            TurretPitchRange = 80,
             TurretPitchSpeed = 6,
 			
             TurretYaw = 0,
