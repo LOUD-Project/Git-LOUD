@@ -8,7 +8,7 @@ local WeaponOnDestroy   = Weapon.OnDestroy
 
 local CollisionBeam                     = import('/lua/sim/CollisionBeam.lua').CollisionBeam
 local CalculateBallisticAcceleration    = import('/lua/sim/CalcBallisticAcceleration.lua').CalculateBallisticAcceleration 
-local Monitor                           = import('/lua/loudutilities.lua').TrackProj
+local MicroMonitor                      = import('/lua/loudutilities.lua').TrackSpoon
 
 local LOUDABS       = math.abs
 local LOUDFLOOR     = math.floor
@@ -224,7 +224,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 			self:CheckCountedMissileLaunch()
 		end
 
-        proj:ForkThread( Monitor, self)
+        proj:ForkThread( MicroMonitor, self)
 
         return proj
     end,

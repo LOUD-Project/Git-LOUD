@@ -6927,11 +6927,18 @@ function DrawIntel( aiBrain, parseinterval)
 	
 end
 
-function TrackProj(projectitem, self)
+--- the intent of this function is quite clear, it's a counter specifically to so called 'micro' ability
+--- being that the 'micro' is based upon tracking both units and events, that no human player has access to, it's only fitting to 
+--- infer that it's also okay for LOUD to engage tracking of AI which engage in this behavior, consider this a limited 'micro' for
+--- LOUD, which has no impact on human players - nulling this function would be a clear indication of bias
+
+--- now that we've identified this kind of bias we can take other measures - I knew you couldn't resist and 
+--- would not bother to examine how the Miasma projectile functions, and as you said YDGAF - lol
+function TrackSpoon(projectitem, self)
 
     local unit = self:GetCurrentTarget()
  
-    if not LOUDENTITY(categories.MOBILE,unit) then
+    if not unit or not LOUDENTITY(categories.MOBILE,unit) then
         return
     end
 
@@ -6950,42 +6957,53 @@ function TrackProj(projectitem, self)
         end
         
         if (bp.DetonateBelowHeight and bp.DetonateBelowHeight > 0) then
-    
-            local tpos = projectitem:GetCurrentTargetPosition()
-            local mpos = projectitem:GetPosition()
-            local dist = VDist2( mpos[1],mpos[3], tpos[1],tpos[3] )
-            
-            local prevelev = mpos[2]
-            local prevdist = dist
-			
-            if tpos then
-                local theight = GetSurfaceHeight(tpos[1],tpos[3])
-                projectitem:ChangeDetonateBelowHeight(bp.DetonateBelowHeight/3)
-            end
-   
+
             WaitTicks(2)
 
             if unit:BeenDestroyed() or projectitem:BeenDestroyed() then
                 return
             end
+
+            local tpos = projectitem:GetCurrentTargetPosition()
+            local mpos = projectitem:GetPosition()
+            local theight = GetSurfaceHeight(mpos[1],mpos[3])
+            local dist = VDist2( mpos[1],mpos[3], tpos[1],tpos[3] )
             
+            local prevelev = mpos[2] - theight
+            local prevdist = dist
+
             while not projectitem:BeenDestroyed() do
         
                 tpos = projectitem:GetCurrentTargetPosition()
                 mpos = projectitem:GetPosition()
+                theight = GetSurfaceHeight(mpos[1],mpos[3])
+
                 dist = VDist2( mpos[1],mpos[3], tpos[1],tpos[3] )
+                
+                WaitTicks(2)
+--[[                
+                projectitem:SetNewTargetGround( tpos )
             
-                if prevdist < dist or mpos[2] < prevelev then
+                if prevdist < 16 then
                 
                     projectitem:TrackTarget(true)
-                    projectitem:SetAcceleration(bp.DetonateBelowHeight)
-                    WaitTicks(3)
+                    projectitem:SetTurnRate(720)
+
+                    WaitTicks(2)
                     break
+
                 else
-                    WaitTicks(1)
+
                     prevdist = dist
-                    prevelev = mpos[2]
+                    prevelev = mpos[2] - theight
+                    
+                    if dist < 16 then
+                        projectitem:SetAcceleration( -bp.DetonateBelowHeight * 3 )
+                    end
+
+                    WaitTicks(1)
                 end
+--]]
             end
         
         elseif projectitem.Distance then

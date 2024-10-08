@@ -1,0 +1,16 @@
+ProjectileBlueprint {
+    Categories = {
+        'PROJECTILE',
+    },
+
+    Display = {
+        StrategicIconSize = 2,
+    },
+
+    Physics = {
+        DestroyOnWater = true,
+        StayUpright = false,
+        TurnSpeed = 720,
+        VelocityAlign = false,
+    },
+}
