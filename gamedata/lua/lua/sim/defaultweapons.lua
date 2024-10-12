@@ -529,16 +529,16 @@ DefaultProjectileWeapon = Class(Weapon) {
             end
             
             if self.ElapsedRepackTime > 0 and ( not bp.WeaponRepackTimeout or (LOUDFLOOR(bp.WeaponRepackTimeout*10) - self.ElapsedRepackTime < 0 )) then
-                LOG("*AI DEBUG DefaultWeapon WeaponRepackTimeout -(".. (bp.WeaponRepackTimeout or 0) ..") during unpack - is either not existant or less than the WeaponUnpackAnimation - "..self.ElapsedRepackTime.." ticks. "..repr(self.unit.BlueprintID) )
+                LOG("*AI DEBUG DefaultWeapon Unpack Sequence Timeout -(".. (bp.WeaponRepackTimeout or 0) ..") during unpack - is either not existant or less than the WeaponUnpackAnimation - "..self.ElapsedRepackTime.." ticks. "..repr(self.unit.BlueprintID) )
             end
             
 			if bp.WeaponRepackTimeout and ( LOUDFLOOR(bp.WeaponRepackTimeout*10) - self.ElapsedRepackTime) >= 1 then
             
                 if ScenarioInfo.WeaponStateDialog then
                     if self.EconDrain then
-                        LOG("*AI DEBUG DefaultWeapon WeaponRepackTimeout "..repr(bp.Label) )
+                        LOG("*AI DEBUG DefaultWeapon Unpack Sequence Timeout "..repr(bp.Label) )
                     else
-                        LOG("*AI DEBUG DefaultWeapon WeaponRepackTimeout"..repr(bp.Label).." waits "..LOUDFLOOR(bp.WeaponRepackTimeout*10) - self.ElapsedRepackTime.." ticks" )
+                        LOG("*AI DEBUG DefaultWeapon Unpack Sequence Timeout"..repr(bp.Label).." waits "..LOUDFLOOR(bp.WeaponRepackTimeout*10) - self.ElapsedRepackTime.." ticks" )
                     end
                 end
 
@@ -1021,14 +1021,17 @@ DefaultProjectileWeapon = Class(Weapon) {
                 self:PlayFxWeaponUnpackSequence(bp)
             end
 
-            --- weapons with a charge time or an energy requirement now goto the Charge State
+            --- weapons with a charge time or an energy requirement may now goto the Charge State
             --- and will wait for the next OnFire event -- otherwise the weapon is ready to fire
-            if bp.RackSalvoChargeTime or bp.EnergyRequired then
+            --if bp.RackSalvoChargeTime or bp.EnergyRequired then
 
                 LOUDSTATE(self, self.RackSalvoChargeState)
-            else
-                LOUDSTATE(self, self.RackSalvoFireReadyState)
-            end
+
+            --else
+
+              --  LOUDSTATE(self, self.RackSalvoFireReadyState)
+
+            --end
             
         end,
 
@@ -1098,14 +1101,6 @@ DefaultProjectileWeapon = Class(Weapon) {
             LOUDSTATE(self, self.RackSalvoFireReadyState)
 
         end,
-   
-        OnGotTarget = function(self)
-
-            if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon RackSalvo Charge State "..repr(self.bp.Label).." OnGotTarget at "..GetGameTick() )		
-            end
-          
-        end,
 
         OnFire = function(self)
             
@@ -1169,7 +1164,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             end
 
          
-            if self.WeaponCharged and self.OnFireEvent and bp.RackSalvoFiresAfterCharge then
+            if self.WeaponCharged and self.OnFireEvent then
 
                 if ScenarioInfo.WeaponStateDialog then
                     LOG("*AI DEBUG DefaultWeapon RackSalvo Fire Ready State "..repr(self.bp.Label).." WeaponCharged fires "..GetGameTick() )
@@ -1262,6 +1257,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 
             self:OnWeaponFired(bp)
             
+            --- actually firing will clear the semaphores
             self.OnFireEvent = false
             self.OnGotTargetEvent = false
             
@@ -1617,8 +1613,8 @@ DefaultProjectileWeapon = Class(Weapon) {
 
     WeaponPackingState = State {
 	
-        WeaponWantEnabled = true,
-        WeaponAimWantEnabled = false,
+        WeaponWantEnabled = false,
+        WeaponAimWantEnabled = true,
 
         Main = function(self)
           
@@ -1717,8 +1713,6 @@ DefaultProjectileWeapon = Class(Weapon) {
 			
                 LOUDSTATE(self, self.WeaponUnpackingState)
 
-            else
-                LOUDSTATE(self, self.RackSalvoChargeState)
             end
 			
         end,
@@ -1977,9 +1971,12 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
     RackSalvoFireReadyState = State (DefaultProjectileWeapon.RackSalvoFireReadyState) {
 
         Main = function(self)
-
+            
+            local bp = self.bp
+            local unit = self.unit
+  
             if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon BEAM Fire Ready State "..repr(self.bp.Label).." at "..GetGameTick() )
+                LOG("*AI DEBUG DefaultWeapon BEAM Fire Ready State "..repr(bp.Label).." at "..GetGameTick() )
 			end
 
             -- this had to have FirstShot included for backwards compatability
@@ -1990,6 +1987,15 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
                 LOUDSTATE(self, self.IdleState)
 
                 return
+            end
+         
+            if self.WeaponCharged and self.OnFireEvent then
+
+                if ScenarioInfo.WeaponStateDialog then
+                    LOG("*AI DEBUG DefaultWeapon BEAM RackSalvo Fire Ready State "..repr(bp.Label).." WeaponCharged fires "..GetGameTick() )
+                end
+
+                LOUDSTATE( self, self.RackSalvoFiringState)
             end
 
             DefaultProjectileWeapon.RackSalvoFireReadyState.Main(self)

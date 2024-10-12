@@ -688,7 +688,7 @@ AQuarkBombHit01 = {
     '/effects/emitters/quark_bomb_explosion_03_emit.bp',
     '/effects/emitters/quark_bomb_explosion_04_emit.bp',
     '/effects/emitters/quark_bomb_explosion_05_emit.bp',
---    '/effects/emitters/quark_bomb_explosion_07_emit.bp',
+    '/effects/emitters/quark_bomb_explosion_07_emit.bp',
 --    '/effects/emitters/quark_bomb_explosion_08_emit.bp',
 }
 AQuarkBombHit02 = {

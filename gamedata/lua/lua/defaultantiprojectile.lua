@@ -51,7 +51,7 @@ Flare = Class(Entity) {
 
                 SetDrawScale( self, value )
 
-                WaitTicks(1)
+                WaitTicks( math.max( 1, spec.RadiusGrowthTicks) )
 
             end
         
