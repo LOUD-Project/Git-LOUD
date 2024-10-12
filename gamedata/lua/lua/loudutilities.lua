@@ -6948,7 +6948,7 @@ function TrackSpoon(projectitem, self)
 
     local brain = GetAIBrain(unit)
 
-    if brain.BrainType == "AI" and string.sub( brain.Personality, 1, 1) == 'm' then
+    --if brain.BrainType == "AI" and string.sub( brain.Personality, 1, 1) == 'm' then
 
         local bp = projectitem:GetBlueprint().Physics
 
@@ -6984,7 +6984,11 @@ function TrackSpoon(projectitem, self)
 
                 if prevdist < 20 then
                 
+<<<<<<< HEAD
                     --self:CheckBallisticAcceleration( projectitem )
+=======
+                    self:CheckBallisticAcceleration( projectitem )
+>>>>>>> origin/master
 
                     break
 
@@ -7006,7 +7010,7 @@ function TrackSpoon(projectitem, self)
 
         end
 
-    end
+    --end
 
 end
 
