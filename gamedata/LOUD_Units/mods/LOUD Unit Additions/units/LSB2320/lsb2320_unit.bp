@@ -324,7 +324,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             TurretBoneMuzzle = 'Turret_Muzzle01',
             TurretBonePitch = 'Turret_Recoil01',
-            TurretBoneYaw = 'Turret',
+            TurretBoneYaw = 'Turret01',
 
 			
             TurretPitch = 0,
@@ -411,7 +411,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             TurretBoneMuzzle = 'Turret_Muzzle02',
             TurretBonePitch = 'Turret_Recoil02',
-            TurretBoneYaw = 'Turret',
+            TurretBoneYaw = 'Turret02',
 			
             TurretPitch = 0,
             TurretPitchRange = 80,
