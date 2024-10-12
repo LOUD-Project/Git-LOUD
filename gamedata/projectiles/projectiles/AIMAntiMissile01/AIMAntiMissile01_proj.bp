@@ -28,6 +28,7 @@ ProjectileBlueprint {
         UseGravity = false,
         VelocityAlign = true,
     },
+
     SizeX = 0.5,
     SizeY = 0.5,
     SizeZ = 0.5,
