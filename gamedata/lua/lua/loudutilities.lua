@@ -6983,12 +6983,8 @@ function TrackSpoon(projectitem, self)
                 WaitTicks(1)
 
                 if prevdist < 20 then
-                
-<<<<<<< HEAD
+
                     --self:CheckBallisticAcceleration( projectitem )
-=======
-                    self:CheckBallisticAcceleration( projectitem )
->>>>>>> origin/master
 
                     break
 
