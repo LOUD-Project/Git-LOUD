@@ -12,6 +12,10 @@ UnitList = {
     T2AttackTank = {
         Seraphim = {'wsl0202', 60}  -- Onyzum
     },
+    
+    T2LandMobileTMD = {
+        UEF     = {'wel0207'},
+    },
 
 	T3LandAA = {
       UEF = {'wel0309', 70},

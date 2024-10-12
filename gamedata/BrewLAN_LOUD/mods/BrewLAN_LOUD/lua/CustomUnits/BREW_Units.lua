@@ -18,6 +18,10 @@ T2Fighter = {
     Cybran = {'sra0212', 100},
 },
 
+T2LandMobileTMD = {
+    Aeon = {'sal0323', 100},
+},
+
 T2SeaSub = {
     UEF = {'ses0204', 100},
 },

@@ -30,10 +30,10 @@ UnitBlueprint{
     },
 
     Defense = {
-        ArmorType = "Normal",
-        Health = 900,
-        MaxHealth = 900,
-        RegenRate = 0.5,
+        ArmorType = "Light",
+        Health = 700,
+        MaxHealth = 700,
+        EconomyThreatLevel = 2,
         SurfaceThreatLevel = 0.1,
     },
 
@@ -65,9 +65,9 @@ UnitBlueprint{
     },
 
     Economy = {
-        BuildCostEnergy = 3600,
-        BuildCostMass = 280,
-        BuildTime = 400,
+        BuildCostEnergy = 4200,
+        BuildCostMass = 320,
+        BuildTime = 660,
     },
 
     General = {
@@ -92,9 +92,10 @@ UnitBlueprint{
     LifeBarSize = 1,
 
     Physics = {
+        BackUpDistance = 3,
         BankingSlope = 0,
         DragCoefficient = 0.2,
-        MaxAcceleration = 3,
+        MaxAcceleration = 1.1,
         MaxBrake = 3,
         MaxSpeed = 3,
         MaxSpeedReverse = 2,
@@ -104,8 +105,8 @@ UnitBlueprint{
         MeshExtentsZ = 0.75,
         MinSpeedPercent = 0,
         MotionType = "RULEUMT_Land",
-        TurnRadius = 0,
-        TurnRate = 90,
+        TurnRadius = 2,
+        TurnRate = 40,
     },
 
     SelectionCenterOffsetX = 0,
@@ -133,10 +134,10 @@ UnitBlueprint{
 
     Weapon = {
         {
-            AboveWaterTargetsOnly = true,
             Audio = {
                 Fire = Sound { Bank = 'BattlePackSB', Cue = 'UEFRevampTank_AntiMissile_Fire', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_None",
 
             BeamCollisionDelay = 0.1,
@@ -147,16 +148,14 @@ UnitBlueprint{
             Damage = 2,
             DamageType = "Normal",
 
-            DisplayName = "Zapper Anti Missile",
-
             FireTargetLayerCapsTable = { Land = "Air" },
 
             FiringTolerance = 0.2,
 
             Label = "TMD",
 
-            MaxRadius = 28,
-            MaximumBeamLength = 28,
+            MaxRadius = 24,
+            MaximumBeamLength = 24,
 
             NeedPrep = false,
             RackBones = {
@@ -166,16 +165,16 @@ UnitBlueprint{
                 },
             },
 
+            RackSalvoReloadTime = 0.7,
+
             RangeCategory = "UWRC_Countermeasure",
 
-            RateOfFire = 0.6,
+            RateOfFire = 0.7,   -- every 14 ticks
 
-            TargetCheckInterval = 0.2,
-            TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
+            TargetCheckInterval = 0.1,
+
             TargetRestrictOnlyAllow = "TACTICAL MISSILE",
             TargetType = "RULEWTT_Projectile",
-
-            TrackingRadius = 1.1,
 
             TurretBoneMuzzle = "TMDOrb",
             TurretBonePitch = "TMDOrb",
@@ -187,7 +186,7 @@ UnitBlueprint{
 
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 120,
+            TurretYawSpeed = 105,
 
             Turreted = true,
 

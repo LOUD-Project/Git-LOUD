@@ -33,8 +33,9 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Light',
         EconomyThreatLevel = 2,
-        Health = 550,
-        MaxHealth = 550,
+        SurfaceThreatLevel = 0.1,        
+        Health = 650,
+        MaxHealth = 650,
     },
 	
     Description = '<LOC sal0323_desc>Mobile Tactical Missile Defense',
@@ -81,7 +82,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 4200,
+        BuildCostEnergy = 4600,
         BuildCostMass = 320,
         BuildTime = 660,
     },
@@ -133,12 +134,12 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
         
-        TurnFacingRate = 90,
-        TurnRadius = 0,
-        TurnRate = 60,
+        TurnFacingRate = 45,
+        TurnRadius = 2,
+        TurnRate = 40,
         
         WobbleFactor = 0.02,
-        WobbleSpeed = 0.02,
+        WobbleSpeed = 0.01,
     },
 	
     SelectionSizeX = 0.6,
@@ -166,7 +167,7 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 10,
+            Damage = 2,
             DamageType = 'Normal',
 
             EffectiveRadius = 24,
@@ -176,10 +177,10 @@ UnitBlueprint {
                 Water = 'Air',
             },
 			
-			FiringRandomness = 16,
+			FiringRandomness = 6,
             FiringTolerance = 360,
 			
-            Flare = { Category = 'MISSILE', Radius = 18 },
+            Flare = { Category = 'MISSILE', RadiusStart = 1.5, RadiusGrowth = 0.3, RadiusGrowthTicks = 2, Radius = 6 },
 			
             Label = 'AntiMissile',
 			
@@ -187,8 +188,8 @@ UnitBlueprint {
 
             MuzzleVelocity = 5,
 			
-            ProjectileId = '/projectiles/AIMAntiMissile01/AIMAntiMissile01_proj.bp',
-            ProjectileLifetime = 4,
+            ProjectileId = '/projectiles/AIMAntiMissile02/AIMAntiMissile02_proj.bp',
+            ProjectileLifetime = 3.6,
 
             RackBones = {
                 {
@@ -197,22 +198,27 @@ UnitBlueprint {
                 },
             },
             
-            RackRecoilDistance = -1,
+            RackRecoilDistance = -1.5,
+            
+            RackSalvoReloadTime = 0.6,
 			
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 0.9,
+            RateOfFire = 0.9,   -- every 1.1 seconds
 			
             TargetCheckInterval = 0.5,
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+
             TargetRestrictOnlyAllow = 'TACTICAL MISSILE',
+
             TargetType = 'RULEWTT_Projectile',
 
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
+       
+            UseFiringSolutionInsteadOfAimBone = true,
 
-            WeaponRepackTimeout = 0.8,
+            WeaponRepackTimeout = 0.6,
             WeaponUnpackAnimation = '/mods/BrewLAN_LOUD/units/sal0323/sal0323_aopen.sca',
-            WeaponUnpackAnimationRate = 5,
+            WeaponUnpackAnimationRate = 8,
             WeaponUnpacks = true,
         },
     },

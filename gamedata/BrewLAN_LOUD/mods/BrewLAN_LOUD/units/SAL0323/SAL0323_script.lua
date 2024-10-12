@@ -22,6 +22,7 @@ SAL0323 = Class(AStructureUnit) {
                     end
                     
                     self.unit.Trash:Add(self.RotatorManipulator)
+
                 end,
                 
                 PlayRackRecoilReturn = function(self, rackList)
