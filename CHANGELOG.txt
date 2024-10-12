@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 ### Release 10-11-2024
-=======
-### Release 10-10-2024
->>>>>>> origin/master
 
 LUA 7.15
 BrewLAN for LOUD 0.8.8.9.109
@@ -19,6 +15,7 @@ Wyvern for LOUD 7.06
 - reviewed both mobile TMD systems (SAL0323, WEL0207) - Aeon Mobile TMD now uses new AIMAntiMissile02 projectile
 - Seraphim T3 Barrage - turret bones were renamed to fix alignment issue
 - added production class T2MobileTMD to both BrewLAN and Wyvern to support building mobile TMD for Aeon, UEF
+
 
 
 ### Release 10-07-2024
@@ -42,6 +39,7 @@ Wyvern for LOUD 7.05
 - AEON T3 Purifier Tactical Missile launcher, and projectile, reworked to mitigate some mechanical issues
 - UEF T2 Mobile TMD turret traverse (80 > 120)
 - ALL T3 Barrage artillery had their traverse gimbals reworked to mitigate certain aiming issues
+
 
 
 ### Release 10-05-2024
