@@ -6948,7 +6948,7 @@ function TrackSpoon(projectitem, self)
 
     local brain = GetAIBrain(unit)
 
-    if brain.BrainType == "AI" and string.sub( brain.Personality, 1, 1) == 'm' then
+    --if brain.BrainType == "AI" and string.sub( brain.Personality, 1, 1) == 'm' then
 
         local bp = projectitem:GetBlueprint().Physics
 
@@ -6980,30 +6980,22 @@ function TrackSpoon(projectitem, self)
 
                 dist = VDist2( mpos[1],mpos[3], tpos[1],tpos[3] )
                 
-                WaitTicks(2)
---[[                
-                projectitem:SetNewTargetGround( tpos )
-            
-                if prevdist < 16 then
-                
-                    projectitem:TrackTarget(true)
-                    projectitem:SetTurnRate(720)
+                WaitTicks(1)
 
-                    WaitTicks(2)
+                if prevdist < 20 then
+                
+                    self:CheckBallisticAcceleration( projectitem )
+
                     break
 
                 else
 
                     prevdist = dist
                     prevelev = mpos[2] - theight
-                    
-                    if dist < 16 then
-                        projectitem:SetAcceleration( -bp.DetonateBelowHeight * 3 )
-                    end
 
                     WaitTicks(1)
                 end
---]]
+
             end
         
         elseif projectitem.Distance then
@@ -7014,7 +7006,7 @@ function TrackSpoon(projectitem, self)
 
         end
 
-    end
+    --end
 
 end
 

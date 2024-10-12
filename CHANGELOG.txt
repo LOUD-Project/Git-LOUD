@@ -1,3 +1,21 @@
+### Release 10-10-2024
+
+LUA 7.15
+BrewLAN for LOUD 0.8.8.9.109
+LOUD_UNITS 7.07
+Projectiles 7.04
+Wyvern for LOUD 7.06
+
+- updated beam weapon processes with the weapon semaphores
+- antinukes are no longer restricted with the NUKE restriction, this permits anti-sat capability
+- added additional control values to 'flare' anti-weapons to control growth rate
+- added projectile AIMAntiMissile02 - a tracking anti-missile flare with a smaller size & growth rate of std AIM flare
+- rescaled the Aeon Quark bomb impact & scorch decal to scale with the actual AOE radius of the weapon
+- reviewed both mobile TMD systems (SAL0323, WEL0207) - Aeon Mobile TMD now uses new AIMAntiMissile02 projectile
+- Seraphim T3 Barrage - turret bones were renamed to fix alignment issue
+- added production class T2MobileTMD to both BrewLAN and Wyvern to support building mobile TMD for Aeon, UEF
+
+
 ### Release 10-07-2024
 
 LUA 7.14

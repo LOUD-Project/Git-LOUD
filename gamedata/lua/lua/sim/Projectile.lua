@@ -1006,7 +1006,7 @@ Projectile = Class( ProjectileMethods ) {
         if not tbl then return end
         if not tbl.Radius then return end
 		
-        self.MyFlare = Flare {  Category = tbl.Category or '', Owner = self, Radius = tbl.Radius,  RadiusGrowth = tbl.RadiusGrowth or .4,  RadiusStart = tbl.RadiusStart or 3 }
+        self.MyFlare = Flare {  Category = tbl.Category or '', Owner = self, Radius = tbl.Radius,  RadiusGrowth = tbl.RadiusGrowth or .4, RadiusGrowthTicks = tbl.RadiusGrowthTicks or 1,  RadiusStart = tbl.RadiusStart or 3 }
 		
 		if not self.Trash then
 			self.Trash = TrashBag()

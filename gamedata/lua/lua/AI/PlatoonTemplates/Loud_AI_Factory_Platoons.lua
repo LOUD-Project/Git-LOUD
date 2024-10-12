@@ -826,7 +826,6 @@ PlatoonTemplate { Name = 'T3AmphibiousAA',      -- here for compatability
 PlatoonTemplate { Name = 'T3AmphibiousArtillery',       -- here to provide compatability
     FactionSquads = {
         UEF = {},
-        Aeon = {},
         Cybran = {},
     }
 }

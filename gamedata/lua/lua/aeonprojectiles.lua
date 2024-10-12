@@ -203,12 +203,14 @@ AHighIntensityLaserProjectile = Class(SinglePolyTrailProjectile) {
 }
 
 AIMFlareProjectile = Class(EmitterProjectile) {
+
     FxTrails = EffectTemplate.AAntiMissileFlare,
-    FxTrailScale = 1.0,
+    FxTrailScale = 0.6,
 
     FxImpactNone = EffectTemplate.AAntiMissileFlareHit,
     FxImpactProjectile = EffectTemplate.AAntiMissileFlareHit,
     FxOnKilled = EffectTemplate.AAntiMissileFlareHit,
+
     FxUnitHitScale = 0.4,
     FxLandHitScale = 0.4,
     FxWaterHitScale = 0.4,
@@ -512,7 +514,7 @@ AAAQuantumDisplacementCannonProjectile = Class(NullShell) {
 
 AQuantumWarheadProjectile = Class(MultiCompositeEmitterProjectile) {
 
-    Beams = {'/effects/emitters/aeon_nuke_exhaust_beam_01_emit.bp',},
+    Beams = {'/effects/emitters/aeon_nuke_exhaust_beam_01_emit.bp'},
     PolyTrails = {'/effects/emitters/aeon_nuke_trail_emit.bp',},
 
 }
@@ -520,7 +522,7 @@ AQuantumWarheadProjectile = Class(MultiCompositeEmitterProjectile) {
 AQuarkBombProjectile = Class(EmitterProjectile) {
 
     FxTrails = EffectTemplate.AQuarkBomb01,
-    FxTrailScale = 1,
+    FxTrailScale = 0.2,
 
     FxImpactUnit = EffectTemplate.AQuarkBombHitUnit01,
     FxImpactProp = EffectTemplate.AQuarkBombHitUnit01,
@@ -529,13 +531,13 @@ AQuarkBombProjectile = Class(EmitterProjectile) {
 
     OnImpact = function(self, targetType, targetEntity)
     
-        CreateLightParticle( self, -1, self.Army, 26, 6, 'sparkle_white_add_08', 'ramp_white_02' )
+        CreateLightParticle( self, -1, self.Army, self.DamageData.DamageRadius, 1.2, 'sparkle_white_add_08', 'ramp_white_02' )
 
         if targetType == 'Terrain' or targetType == 'Prop' then
         
             local pos = self:GetPosition()
             
-            CreateScorchMarkSplat( self, 3 )
+            CreateScorchMarkSplat( self, self.DamageData.DamageRadius * 0.5 )
             
             self.DamageData.DamageAmount = self.DamageData.DamageAmount - 10
             
@@ -550,8 +552,7 @@ AQuarkBombProjectile = Class(EmitterProjectile) {
 
 ARailGunProjectile = Class(EmitterProjectile) {
 
-    FxTrails = {'/effects/emitters/railgun_munition_trail_02_emit.bp',
-        '/effects/emitters/railgun_munition_trail_01_emit.bp'},
+    FxTrails = {'/effects/emitters/railgun_munition_trail_02_emit.bp','/effects/emitters/railgun_munition_trail_01_emit.bp'},
     FxTrailScale = 0,
 
 }

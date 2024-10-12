@@ -25,7 +25,6 @@ ainames = {
         "Vasudevan",
         "Vidhee",
         "Xavier",
-        "Kami-Sutra",
         "Budac",
 
         "Handsome Dewey",
@@ -42,7 +41,6 @@ ainames = {
         "Daroza",
         "Ivan",
         "Janus",
-        "Jessica",
         "Kayleen",
         "Lanette",
         "Lish",
@@ -100,10 +98,8 @@ ainames = {
     seraphim = { 
         "Ahn-Aishayeth",
         "Ahn-Iashen",
-        "Al-Ghoussein",
         "Oum-Ashavoh",
         "Oum-Ullehesh",
-        "Paj-Tshiab",
         "Seth-Eovash",
         "Seth-Ushavoh",
         "Seth-Uthivow",

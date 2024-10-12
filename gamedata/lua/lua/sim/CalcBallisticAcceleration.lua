@@ -29,10 +29,12 @@ local bomber_table = {}
 local default_value = 4.9
 
 
-
+--- this module is designed to calculate a more precise vertical velocity to insure
+--- an accurate hit - originally implemented for bombs, it can apply to any projectile
+--- that requires a downward velocity adjustment over basic gravity (which is the default_value)
 CalculateBallisticAcceleration = function (weapon, proj)
 
-    local Projectiles = weapon.CBFP_CalcBallAcc.ProjectilesPerOnFire
+    local Projectiles = weapon.CBFP_CalcBallAcc.ProjectilesPerOnFire or 1
     
 	local launcher = proj:GetLauncher()
    
@@ -44,7 +46,7 @@ CalculateBallisticAcceleration = function (weapon, proj)
 	local acc = default_value
    
 	local entityId = launcher:GetEntityId()
-   
+ 
 	if bomber_table[entityId] then
 	
 		-- acceleration yet calculated
@@ -79,8 +81,12 @@ CalculateBallisticAcceleration = function (weapon, proj)
 			wz = wz * 10
 
 		else
+        
+            if not weapon:BeenDestroyed() then
 
-			pos_target = weapon:GetCurrentTargetPos()
+                pos_target = weapon:GetCurrentTargetPos()
+                
+            end
 
 			--- Set alpha to 0 so we don't overshoot because of this variable
 			alpha = 0
@@ -101,6 +107,13 @@ CalculateBallisticAcceleration = function (weapon, proj)
 		--- Get launcher speed; As the projectile is just dropped, this also gives the projectile speed
 		local ux, uy, uz = launcher:GetVelocity()
 
+        --- if the launcher is not moving use the projectile 
+        --- of course, this may not work out as the projectile velocity may alter over the flight line
+        --- however, it works well when this is calculated at some proximity to the target point
+        if ux == 0 and uy == 0 and uz == 0 then
+            ux, uy, uz = proj:GetVelocity()
+        end
+
 		ux = ux * 10
 		uy = uy * 10
 		uz = uz * 10
@@ -118,10 +131,9 @@ CalculateBallisticAcceleration = function (weapon, proj)
 		local dist = LOUDSQRT( LOUDPOW(pos_target[1] -  pos_proj[1], 2) +  LOUDPOW(pos_target[3] -  pos_proj[3], 2) )
       
 		--- calculate the offset : this is for planes carrying several bombs. We are calculating
-		--- the trajectory of first bomb, but as the result will be a carpet bomb, we try to have
+		--- the trajectory of first bomb, but as the result may be a carpet bomb, we try to have
 		--- the target in the center of the flames, so the first bomb must fall before the target
-		--- (0.1 is the delay between 2 drops)
-		
+		--- (0.1 is the delay between 2 drops) and subsequent bombs will impact just afterwards
 		local offset = (Projectiles - 1) * 0.1 * (vhorz_launcher * 0.5)
       
 		dist = dist - offset  --- this is not exact in some cases, but that should be good enough

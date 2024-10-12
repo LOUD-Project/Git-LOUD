@@ -1003,7 +1003,6 @@ function ModBlueprints(all_blueprints)
 					end
 				end
 				
-				-- all structures
 				if cat == 'STRUCTURE' then
 			
 					viewScale = 0.15    -- see further				
@@ -1061,12 +1060,12 @@ function ModBlueprints(all_blueprints)
 						end
 					end					
 				end
+                
 			end
 		end
     end
 
     --LOG("*AI DEBUG Adding NAVAL Wreckage information and setting wreckage lifetime")
-	
     for id, bp in pairs(all_blueprints.Unit) do				
 	
         local cats = {}
@@ -1128,7 +1127,6 @@ function ModBlueprints(all_blueprints)
     end
 
 	--LOG("*AI DEBUG Adding Audio Cues for COMMANDERS - NUKES - FERRY ROUTES - EXTRACTORS")
-
 	local factions = {'UEF', 'Aeon', 'Cybran', 'Aeon'}
 
 	for i, bp in pairs(all_blueprints.Unit) do
