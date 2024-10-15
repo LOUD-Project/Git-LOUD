@@ -201,7 +201,7 @@ UnitBlueprint {
 			CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 15,
+            Damage = 45,
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -218,8 +218,7 @@ UnitBlueprint {
 			
             MaxRadius = 35,
 
-            MuzzleSalvoDelay = 0.05,
-            MuzzleSalvoSize = 2,
+            MuzzleSalvoSize = 1,
 
             MuzzleVelocity = 95,
 			
@@ -241,7 +240,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 3,	-- 180 DPS
+            RateOfFire = 2,	-- 180 DPS
 			
             TargetCheckInterval = 0.1,
             TargetPriorities = {
