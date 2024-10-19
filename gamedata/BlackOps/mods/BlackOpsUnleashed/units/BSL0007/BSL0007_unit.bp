@@ -197,10 +197,13 @@ UnitBlueprint {
 			
             Damage = 400,
             DamageFriendly = true,
-            DamageRadius = 5,
+            DamageRadius = 4.2,
             DamageType = 'Normal',
 			
             DisplayName = 'Suthanus Artillery',
+           
+            EnergyRequired = 2400,
+            EnergyDrainPerSecond = 480,     -- 5 seconds to charge
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -214,13 +217,13 @@ UnitBlueprint {
             MaxRadius = 92,
             MinRadius = 8,
 			
-            MuzzleChargeDelay = 0.25,
+            MuzzleChargeDelay = 0.2,
 
-            MuzzleVelocity = 22,
-            MuzzleVelocityReduceDistance = 85,
-			
+            MuzzleVelocity = 22.5,
+            MuzzleVelocityReduceDistance = 92,
+            
             ProjectileId = '/projectiles/SIFSuthanusArtilleryShell01/SIFSuthanusArtilleryShell01_proj.bp',
-			ProjectileLifetime = 20,
+			ProjectileLifetime = 15,
 
             RackBones = {
                 {
@@ -229,12 +232,13 @@ UnitBlueprint {
                 },
             },
 
-            RackRecoilDistance = -1,
+            RackRecoilDistance = -0.6,
 
+            RackSalvoFiresAfterCharge = true,
+            
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.2,
-            RenderFireClock = true,
 			
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -251,15 +255,15 @@ UnitBlueprint {
 			
             TurretPitch = 30,
             TurretPitchRange = 40,
-            TurretPitchSpeed = 20,
+            TurretPitchSpeed = 24,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 30,
+            TurretYawSpeed = 24,
 			
             Turreted = true,
 
-            WeaponRepackTimeout = 0.3,
+            WeaponRepackTimeout = 1.5,
             WeaponUnpackAnimation = '/units/XSL0304/XSL0304_attack01.sca',
             WeaponUnpackAnimationRate = 1,
             WeaponUnpackLocksMotion = true,
