@@ -2344,7 +2344,7 @@ function WatchUnitLoading( transport, units, aiBrain, UnitPlatoon)
 			loading = true
 		
 			-- here is where we issue the Load command to the transport --
-			safecall("Unable to IssueTransportLoad units are "..repr(units), IssueTransportLoad, newunits, transport )
+			safecall(aiBrain.Nickname.." Unable to IssueTransportLoad units to "..table.getn(units).." units at "..repr(units[1]:GetPosition()), IssueTransportLoad, newunits, transport )
 			
 			break
 		end
