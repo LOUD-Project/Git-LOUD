@@ -331,6 +331,11 @@ ERL0001 = Class(CWalkingLandUnit) {
 
         self:AddBuildRestriction( categories.CYBRAN * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
         self:AddBuildRestriction( categories.CYBRAN * (categories.BUILTBYTIER4COMMANDER) )
+
+		wpTarget = self:GetWeaponByLabel('TargetPainter')
+
+		wpTarget:ChangeMaxRadius(100)
+
     end,
   
     CreateBuildEffects = function( self, unitBeingBuilt, order )
@@ -520,10 +525,6 @@ ERL0001 = Class(CWalkingLandUnit) {
         self.CloakPackage = false
         self.CloakOn = false
         self.Deviator = false
-
-		wpTarget = self:GetWeaponByLabel('TargetPainter')
-
-		wpTarget:ChangeMaxRadius(100)
 
 		self:ForkThread(self.WeaponConfigCheck)
 		self:ForkThread(self.WeaponRangeReset)
