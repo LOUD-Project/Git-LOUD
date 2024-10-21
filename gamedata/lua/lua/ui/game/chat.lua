@@ -151,7 +151,7 @@ function CreateChatBackground()
     
     Tooltip.AddButtonTooltip(bg.ResetPositionBtn, 'chat_reset')    
     
-    bg:SetMinimumResize(LayoutHelpers.ScaleNumber(400), LayoutHelpers.ScaleNumber(160))
+    bg:SetMinimumResize(400, 160)
     return bg
 end
 
@@ -396,7 +396,8 @@ function SetupChatScroll()
     
     -- determines what controls should be visible or not
     GUI.chatContainer.CalcVisible = function(self)
-	
+        GUI.chatContainer.scroll:SetAlpha(ChatOptions.win_alpha, true)
+
         GUI.bg.curTime = 0
 		
         local index = 1

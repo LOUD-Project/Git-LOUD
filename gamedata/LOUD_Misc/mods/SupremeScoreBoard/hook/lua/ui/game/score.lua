@@ -600,7 +600,7 @@ local function SendResource(armyTarget, mass, energy)
     end
     if sentAmount > 1 then
         local armyName = Stats.armies[armyTarget].nickname 
-        SendMessage('sent ' .. sentResource .. ' to \n ' .. armyName .. '') 
+        SendMessage('sent ' .. sentResource .. ' to ' .. armyName .. '')
 
         SimCallback( { Func = "GiveResourcesToPlayer",
                    Args = { From = armySender, To = armyTarget, 
@@ -633,7 +633,7 @@ local function SendUnits(armyTarget, allUnits)
 
     if units > 0 then 
         local armyName = Stats.armies[armyTarget].nickname  
-        SendMessage('sent '..units..' units to \n ' .. armyName .. '' ) 
+        SendMessage('sent '..units..' units to ' .. armyName .. '' )
     end 
 end
 
