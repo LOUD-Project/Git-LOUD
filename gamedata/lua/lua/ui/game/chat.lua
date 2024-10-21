@@ -151,7 +151,7 @@ function CreateChatBackground()
     
     Tooltip.AddButtonTooltip(bg.ResetPositionBtn, 'chat_reset')    
     
-    bg:SetMinimumResize(LayoutHelpers.ScaleNumber(400), LayoutHelpers.ScaleNumber(160))
+    bg:SetMinimumResize(400, 160)
     return bg
 end
 
