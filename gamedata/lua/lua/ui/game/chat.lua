@@ -396,7 +396,8 @@ function SetupChatScroll()
     
     -- determines what controls should be visible or not
     GUI.chatContainer.CalcVisible = function(self)
-	
+        GUI.chatContainer.scroll:SetAlpha(ChatOptions.win_alpha, true)
+
         GUI.bg.curTime = 0
 		
         local index = 1
