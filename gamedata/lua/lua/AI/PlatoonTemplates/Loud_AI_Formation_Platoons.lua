@@ -732,44 +732,49 @@ PlatoonTemplate { Name = 'SeaAttack Large',
 	
 }
 
-PlatoonTemplate { Name = 'SeaAttack Bombardment',
+PlatoonTemplate { Name = 'SeaAttack Local',
 
     FactionSquads = {
 	
 		UEF = {
 	
-			{ categories.BOMBARDMENT, 4, 8, 'Artillery', 'none' },												--Bombardment capable ships
-			{ categories.CRUISER, 4, 8, 'Support', 'none' },													--Cruisers
-			{ categories.DEFENSIVEBOAT, 2, 4, 'Guard', 'none' },												--Shield
+			{ categories.FRIGATE, 4, 6, 'Artillery', 'none' },
+            { categories.DESTROYER, 0, 2, 'Support', 'none' },
+            { categories.CRUISER, 0, 2, 'Guard', 'none' },
+            { categories.DEFENSIVEBOAT, 0, 1, 'Guard', 'none' }
 			
 		},
 		
 		Aeon = {
 	
-			{ categories.BOMBARDMENT, 4, 8, 'Artillery', 'none' },												--Bombardment capable ships
-			{ categories.CRUISER, 4, 8, 'Support', 'none' },													--Cruisers
-			{ categories.DEFENSIVEBOAT, 0, 4, 'Guard', 'none' },												--AA
+			{ categories.FRIGATE, 4, 6, 'Artillery', 'none' },												--Bombardment capable ships
+            { categories.DESTROYER, 0, 2, 'Support', 'none' },
+            { categories.CRUISER, 0, 2, 'Guard', 'none' },
+            { categories.DEFENSIVEBOAT, 0, 1, 'Guard', 'none' }
 		
 		},
 		
 		Cybran = {
 	
-			{ categories.BOMBARDMENT, 4, 8, 'Artillery', 'none' },												--Bombardment capable ships
-			{ categories.CRUISER, 4, 8, 'Support', 'none' },													--Cruisers
-			{ categories.DEFENSIVEBOAT, 1, 3, 'Guard', 'none' },												--CounterIntel
+			{ categories.FRIGATE, 4, 6, 'Artillery', 'none' },												--Bombardment capable ships
+            { categories.DESTROYER, 0, 2, 'Support', 'none' },
+            { categories.CRUISER, 0, 2, 'Guard', 'none' },
+            { categories.DEFENSIVEBOAT, 0, 1, 'Guard', 'none' }
 		
 		},
 		
 		Seraphim = {
 	
-			{ categories.BOMBARDMENT, 4, 8, 'Artillery', 'none' },												--Bombardment capable ships
-			{ categories.CRUISER, 4, 8, 'Support', 'none' },													--Cruisers
+			{ categories.FRIGATE, 4, 6, 'Artillery', 'none' },												--Bombardment capable ships
+            { categories.DESTROYER, 0, 2, 'Support', 'none' },
+            { categories.CRUISER, 0, 2, 'Guard', 'none' },
 		
 		},
 		
     },
 	
 }
+
 
 PlatoonTemplate { Name = 'SeaAttack Raiding',
 
@@ -807,6 +812,46 @@ PlatoonTemplate { Name = 'SeaAttack Raiding',
 			{ categories.FRIGATE, 4, 10, 'Artillery', 'none' },												--Bombardment capable ships
             { categories.DESTROYER, 0, 2, 'Support', 'none' },
             { categories.CRUISER, 0, 2, 'Guard', 'none' },
+		
+		},
+		
+    },
+	
+}
+
+
+PlatoonTemplate { Name = 'SeaAttack Bombardment',
+
+    FactionSquads = {
+	
+		UEF = {
+	
+			{ categories.BOMBARDMENT, 4, 8, 'Artillery', 'none' },												--Bombardment capable ships
+			{ categories.CRUISER, 4, 8, 'Support', 'none' },													--Cruisers
+			{ categories.DEFENSIVEBOAT, 2, 4, 'Guard', 'none' },												--Shield
+			
+		},
+		
+		Aeon = {
+	
+			{ categories.BOMBARDMENT, 4, 8, 'Artillery', 'none' },												--Bombardment capable ships
+			{ categories.CRUISER, 4, 8, 'Support', 'none' },													--Cruisers
+			{ categories.DEFENSIVEBOAT, 0, 4, 'Guard', 'none' },												--AA
+		
+		},
+		
+		Cybran = {
+	
+			{ categories.BOMBARDMENT, 4, 8, 'Artillery', 'none' },												--Bombardment capable ships
+			{ categories.CRUISER, 4, 8, 'Support', 'none' },													--Cruisers
+			{ categories.DEFENSIVEBOAT, 1, 3, 'Guard', 'none' },												--CounterIntel
+		
+		},
+		
+		Seraphim = {
+	
+			{ categories.BOMBARDMENT, 4, 8, 'Artillery', 'none' },												--Bombardment capable ships
+			{ categories.CRUISER, 4, 8, 'Support', 'none' },													--Cruisers
 		
 		},
 		

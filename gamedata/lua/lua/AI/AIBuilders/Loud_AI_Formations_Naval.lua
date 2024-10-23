@@ -789,9 +789,51 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         },
     },
 
-    -- NAVAL BOMBARDMENT only appears once significant control over
-    -- the water has been achieved (Naval Ratio > 1.5) and continues
-    -- regardless of if the enemy is active in the water or not
+    -- NAVAL BOMBARDMENT
+    Builder {BuilderName = 'Sea Attack - Local Raiding',
+	
+        PlatoonTemplate = 'SeaAttack Local',
+        
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'} },
+		
+		PlatoonAIPlan = 'BombardForceAI',		
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+		
+        Priority = 752,
+
+		PriorityFunction = IsPrimaryBase,
+
+        InstanceCount = 1,
+		
+		RTBLocation = 'Any',
+		
+        BuilderType = 'Any',
+		
+        BuilderConditions = {
+			{ LUTL, 'NavalStrengthRatioGreaterThan', { 0.5 } },
+            
+            { LUTL, 'NavalStrengthRatioLessThan', { 1.5 } },
+		
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE}},
+        },
+		
+        BuilderData = {
+        
+            BombardRange = 30,
+            
+            MergeLimit = 12,
+            
+            MissionRadius = 750,    -- radius for target position acquisition
+			
+			MissionTime = 720,		-- 12 minute mission
+			
+			UseFormation = 'AttackFormation',
+			
+			PrioritizedCategories = { 'ECONOMIC','ENGINEER','NAVAL','LAND' },
+        },
+    },
+
     Builder {BuilderName = 'Sea Attack - Coastal Raiding',
 	
         PlatoonTemplate = 'SeaAttack Raiding',
@@ -823,6 +865,8 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
             BombardRange = 32,
             
             MergeLimit = 12,
+            
+            MissionRadius = 1200,
 			
 			MissionTime = 1500,		-- 25 minute mission
 			
@@ -862,6 +906,8 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         BuilderData = {
         
             BombardRange = 100,
+            
+            MissionRadius = 1800,
 			
 			MissionTime = 2700,		-- 45 minute mission
 			
