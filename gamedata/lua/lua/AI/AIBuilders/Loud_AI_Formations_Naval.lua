@@ -210,6 +210,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
+			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.CRUISER }},
@@ -256,7 +257,8 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-            
+			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },            
+
             { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.DESTROYER }},
@@ -304,8 +306,10 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-            
+			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },            
+
             { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
+
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},
@@ -351,7 +355,8 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
-            
+			{ LUTL, 'NavalStrengthRatioLessThan', { 5 } },            
+
             { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
 			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
@@ -819,11 +824,11 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
             
             MergeLimit = 12,
 			
-			MissionTime = 1320,		-- 22 minute mission
+			MissionTime = 1500,		-- 25 minute mission
 			
 			UseFormation = 'AttackFormation',
 			
-			PrioritizedCategories = { 'ECONOMIC','FACTORY','ENGINEER','DEFENSE' },
+			PrioritizedCategories = { 'ECONOMIC','FACTORY','ENGINEER','DEFENSE','NAVAL','LAND' },
         },
     },
     
@@ -837,7 +842,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 		
-        Priority = 753,
+        Priority = 754,
 
 		PriorityFunction = IsPrimaryBase,
 
@@ -858,11 +863,11 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         
             BombardRange = 100,
 			
-			MissionTime = 1800,		-- 30 minute mission
+			MissionTime = 2700,		-- 45 minute mission
 			
 			UseFormation = 'LOUDClusterFormation',
 			
-			PrioritizedCategories = { 'ECONOMIC', 'FACTORY','EXPERIMENTAL NAVAL','EXPERIMENTAL STRUCTURE','EXPERIMENTAL LAND', },
+			PrioritizedCategories = { 'ECONOMIC', 'FACTORY','EXPERIMENTAL NAVAL','EXPERIMENTAL STRUCTURE','EXPERIMENTAL LAND','NAVAL','LAND' },
         },
     },
 --]]
@@ -1007,7 +1012,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.FRIGATE }},
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.FRIGATE }},
         },
 		
         BuilderData = {
