@@ -5668,6 +5668,7 @@ function NavalBombardAILOUD( self, aiBrain )
 	local bAggroMove        = true
     local BombardRange      = data.BombardRange or 100      -- sets range required to perform this mission
 	local MergeLimit        = data.MergeLimit or 60
+    local MissionRadius     = self.MissionRadius or 1500
     local MissionStartTime  = self.CreationTime	    		-- when the mission began (creation of the platoon)
 	local MissionTime       = data.MissionTime or 1200		-- how long platoon will operate before RTB
     local SearchRadius      = data.SearchRadius or 150
@@ -5742,9 +5743,10 @@ function NavalBombardAILOUD( self, aiBrain )
 
     local targettypes = {}
 
-    targettypes["Economy"] = true
-    targettypes["Commander"] = true
-    targettypes["Naval"] = true
+    targettypes["Economy"]          = true
+    targettypes["Commander"]        = true
+    targettypes["Land"]             = true
+    targettypes["Naval"]            = true
     targettypes["StructuresNotMex"] = true
     
     while PlatoonExists(aiBrain, self) do
@@ -5771,7 +5773,7 @@ function NavalBombardAILOUD( self, aiBrain )
 		if not self.MoveThread then
         
             if ScenarioInfo.NavalBombardDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." NBFAI "..self.BuilderName.." "..self.BuilderInstance.." seeking target at "..maxRange )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." NavalBombardAI "..self.BuilderName.." "..self.BuilderInstance.." seeking local target at "..maxRange )
             end
             
 			target, targetposition = FindTargetInRange( self, aiBrain, 'Artillery', maxRange, categoryList, true )
@@ -5789,8 +5791,6 @@ function NavalBombardAILOUD( self, aiBrain )
             
             local ARTILLERY = GetSquadUnits( self,'Artillery' )
             local GUARDS = GetSquadUnits( self, 'Guard' )
-			
-            --direction = GetDirection( self:GetSquadPosition( 'Artillery' ), targetposition )
             
 			-- order the artillery to attack the target
             for k, unit in ARTILLERY do 
@@ -5874,11 +5874,11 @@ function NavalBombardAILOUD( self, aiBrain )
         if not target and not self.MoveThread then
         
             if NavalBombardAIDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." NavalBombardAI "..self.BuilderName.." "..self.BuilderInstance.." seeks HiPri Target location")
+                LOG("*AI DEBUG "..aiBrain.Nickname.." NavalBombardAI "..self.BuilderName.." "..self.BuilderInstance.." seeks HiPri Target location from "..repr(GetPlatoonPosition(self)) )
             end
             
 			-- get HiPri list
-			targetlist = GetHiPriTargetList( aiBrain, GetPlatoonPosition(self), targettypes, 1500, true )
+			targetlist = GetHiPriTargetList( aiBrain, GetPlatoonPosition(self), targettypes, MissionRadius, true )
 
 			targetvalue = 0
 
@@ -5916,7 +5916,7 @@ function NavalBombardAILOUD( self, aiBrain )
 						ethreat = 1
 					end
 
-					ecovalue = LOUDMAX(.5, ethreat/mythreat)
+					ecovalue = LOUDMAX(1, ethreat/mythreat)
 
 					if ecovalue > 1.5 then
 						ecovalue = LOUDMIN( 3, LOUDSQUARE(ecovalue))
@@ -5927,15 +5927,15 @@ function NavalBombardAILOUD( self, aiBrain )
 					-- anything stronger than us gets valued even lower to avoid going after targets too strong
 					milvalue =  (mythreat/sthreat) 
 
-					if milvalue > 0.5 then 
+					if milvalue > 2 then 
 					
-						milvalue = 1.0
+						milvalue = 2.0
 
 					-- for BOMBARDMENT we're not much concerned with enemy surface value
 					-- so we'll accept relatively low values as nominal
 					elseif milvalue < 0.5 then
 					
-						milvalue = .35
+						milvalue = .5
 						
 					end
 
