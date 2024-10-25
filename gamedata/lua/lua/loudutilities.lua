@@ -3558,7 +3558,7 @@ function PathGeneratorAir( aiBrain )
             if (not PathReplies[platoon]) and (type(platoon) == 'string' or PlatoonExists(aiBrain, platoon)) then
             
                 if PathFindingDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." no safe AIR path found to "..repr(destination))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." no safe AIR path found to "..repr(destination))
                 end
                 
                 aiBrain.PathRequests['Replies'][platoon] = { length = 0, path = 'NoPath', cost = 0 }
@@ -3622,7 +3622,7 @@ function PathGeneratorAmphibious(aiBrain)
             if VDist2( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3]) <= (stepsize*.6) then
             
                 if ScenarioInfo.PathFindingDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." found destination "..repr(destination).." on step "..i.." within stepsize "..(stepsize*.6).." range of "..repr({position[1] - (xstep * i), position[3] - (ystep * i)}).." while examining "..repr(testposition) )
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." found destination "..repr(destination).." on step "..i.." within stepsize "..(stepsize*.6).." range of "..repr({position[1] - (xstep * i), position[3] - (ystep * i)}).." while examining "..repr(testposition) )
                 end
      
                 return true
@@ -3783,7 +3783,7 @@ function PathGeneratorAmphibious(aiBrain)
             ThreatWeight    = data.ThreatWeight
             
             if PathFindingDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." starts AMPHIB pathfind from "..repr(StartPosition).." to "..repr(EndPosition).." maxthreat is "..repr(ThreatWeight) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." starts AMPHIB pathfind from "..repr(StartPosition).." to "..repr(EndPosition).." maxthreat is "..repr(ThreatWeight) )
             end
 
 			closed = {}
@@ -3817,7 +3817,7 @@ function PathGeneratorAmphibious(aiBrain)
 			if (not PathReplies[platoon]) and (type(platoon) == 'string' or PlatoonExists(aiBrain, platoon)) then
             
                 if PathFindingDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." no safe AMPHIB path found to "..repr(data.Dest))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." no safe AMPHIB path found to "..repr(data.Dest))
                 end
                 
 				aiBrain.PathRequests['Replies'][platoon] = { length = 0, path = 'NoPath', cost = 0 }
@@ -4020,7 +4020,7 @@ function PathGeneratorLand(aiBrain)
             ThreatWeight    = data.ThreatWeight
             
             if PathFindingDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." starts LAND pathfind from "..repr(StartPosition).." to "..repr(EndPosition) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." starts LAND pathfind from "..repr(StartPosition).." to "..repr(EndPosition) )
             end
             
             -- we must take into account the threat between the EndNode and the destination - they are rarely the same point
@@ -4055,7 +4055,7 @@ function PathGeneratorLand(aiBrain)
 			if (not PathReplies[platoon]) and (type(platoon) == 'string' or PlatoonExists(aiBrain, platoon)) then
             
                 if PathFindingDialog then            
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." no safe LAND path found to "..repr(destination))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." no safe LAND path found to "..repr(destination))
                 end
                 
 				aiBrain.PathRequests['Replies'][platoon] = { length = 0, path = 'NoPath', cost = 0 }
@@ -4257,7 +4257,7 @@ function PathGeneratorWater(aiBrain)
 			if (not PathReplies[platoon]) and platoon then
             
                 if PathFindingDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." no safe WATER path found to "..repr(destination))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." no safe WATER path found to "..repr(destination))
                 end
                 
 				aiBrain.PathRequests['Replies'][platoon] = { length = 0, path = 'NoPath', cost = 0 }
@@ -6040,6 +6040,10 @@ function CreateAttackPlan( self, enemyPosition )
     local counter = 0
     local throttle = 0
 
+    if not StartPosition then
+        return
+    end
+    
     -- distance from start to goal
     CDistance = VDist2Sq(StartPosition[1],StartPosition[3], Goal[1],Goal[3])
   

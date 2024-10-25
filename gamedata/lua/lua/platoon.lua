@@ -1528,7 +1528,7 @@ Platoon = Class(PlatoonMethods) {
 		end
 		
 		if RTBDialog then
-			LOG("*AI DEBUG "..aiBrain.Nickname.." RTBAI "..self.BuilderName.." "..repr(self.BuilderInstance).." RTB to "..repr(RTBLocation).." at tick "..GetGameTick() )
+			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." RTBAI to "..repr(RTBLocation).." at tick "..GetGameTick() )
 		end
 
 		local lastpos = { 0, 0, 0 }
@@ -1639,7 +1639,7 @@ Platoon = Class(PlatoonMethods) {
 		distance = VDist3( platPos, RTBLocation )
 		
 		if RTBDialog then
-			LOG("*AI DEBUG "..aiBrain.Nickname.." RTBAI "..self.BuilderName.." "..repr(self.BuilderInstance).." RTB distance is "..string.format("%.1f",distance) )
+			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." RTB distance is "..string.format("%.1f",distance) )
 		end
 
         UseFormation = 'GrowthFormation'
@@ -1682,7 +1682,7 @@ Platoon = Class(PlatoonMethods) {
                 reason = 'Direct'
 
                 if RTBDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." RTBAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." gets direct path "..repr(path) )
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." RTBAI gets direct path "..repr(path) )
                 end
 
             else 
@@ -1725,7 +1725,7 @@ Platoon = Class(PlatoonMethods) {
 			if path then
 
                 if RTBDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." RTBAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." executes path movement "..repr(path) )
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." RTBAI executes path movement "..repr(path) )
                 end
 
 				if PlatoonExists(aiBrain, self) then
@@ -1741,7 +1741,7 @@ Platoon = Class(PlatoonMethods) {
 				usedTransports = false
 
                 if RTBDialog then				
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." RTBAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." gets NO path "..repr(path))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." RTBAI gets NO path "..repr(path))
                 end
 
 				-- try to use transports --
@@ -1791,7 +1791,7 @@ Platoon = Class(PlatoonMethods) {
         while (not count) and PlatoonExists(aiBrain, self) and distance > rtbdistance do
 
             if RTBDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." RTBAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).."  cycle "..cyclecount.."  distance "..string.format("%.1f",distance).."  RTBLocation is "..repr(RTBLocation ) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." RTBAI cycle "..cyclecount.."  distance "..string.format("%.1f",distance).."  RTBLocation is "..repr(RTBLocation ) )
             end
 
             merged = false
@@ -1913,7 +1913,7 @@ Platoon = Class(PlatoonMethods) {
 					StuckCount = StuckCount + 1
 
                     if RTBDialog then                    
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." RTB AI "..self.BuilderName.." "..repr(self.BuilderInstance).." appears to be stuck - count is "..StuckCount.." moved "..VDist3Sq( lastpos, platPos) )
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." RTBAI appears to be stuck - count is "..StuckCount.." moved "..VDist3Sq( lastpos, platPos) )
                     end
 				else
 					lastpos[1] = platPos[1]
@@ -1921,7 +1921,7 @@ Platoon = Class(PlatoonMethods) {
                     lastpos[3] = platPos[3]
                     
                     if StuckCount > 0 and RTBDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." RTB AI "..self.BuilderName.." "..repr(self.BuilderInstance).." appears to have moved "..VDist3Sq( lastpos, platPos) )
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." RTBAI appears to have moved "..VDist3Sq( lastpos, platPos) )
                     end
 
 					StuckCount = 0
@@ -2047,7 +2047,7 @@ Platoon = Class(PlatoonMethods) {
 		if PlatoonExists(aiBrain, self) then
 
             if RTBDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." RTBAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).."  cycle "..cyclecount.."  appears to have arrived" )		
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." RTBAI cycle "..cyclecount.."  appears to have arrived" )		
             end
 
 			if self.MoveThread then
