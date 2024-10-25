@@ -961,15 +961,15 @@ Platoon = Class(PlatoonMethods) {
   
             -- alter the function according to layer
             local terrainfunction = GetTerrainHeight
-            local deviation = 2.5
+            local deviation = 3.6
             
             if platoonLayer == 'Water' then
                 terrainfunction = GetSurfaceHeight
                 deviation = 0.5
             end
             
-			-- This gives us the number of approx. 6 ogrid steps in the distance
-			steps = LOUDFLOOR( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 ) + 1
+			-- This gives us the number of approx. 8 ogrid steps in the distance
+			steps = LOUDFLOOR( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 8 ) + 1
 	
 			xstep = (pos[1] - targetPos[1]) / steps -- how much the X value will change from step to step
 			ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
@@ -978,8 +978,9 @@ Platoon = Class(PlatoonMethods) {
             local lastposHeight = terrainfunction( lastpos[1], lastpos[3] )
             
             local nextpos = { 0, 0, 0 }
-            
             local nextposHeight
+            
+            local badstepcount = 0
 
 			-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
 			for i = 1, steps do
@@ -990,14 +991,19 @@ Platoon = Class(PlatoonMethods) {
                 nextpos[3] = pos[3] - (ystep * i)
                 nextposHeight = terrainfunction( nextpos[1], nextpos[3] )
 
-                -- if more than deviation ogrids change in height over 6 ogrids distance
+                -- if more than deviation ogrids change in height over 8 ogrids distance
 				if LOUDABS(lastposHeight - nextposHeight) > deviation or (InWater and platoonLayer != 'Amphibious') then
+                    
+                    badstepcount = badstepcount + 1
+                    
+                    if badstepcount > 1 then
 
-                    if PathFindingDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." "..platoonLayer.." obstructed between "..repr(pos).." and "..repr(targetPos) )
-                    end                
+                        if PathFindingDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." "..platoonLayer.." obstructed "..LOUDABS(lastposHeight - nextposHeight).." between "..repr(pos).." and "..repr(targetPos) )
+                        end
 
-					return true
+                        return true
+                    end
 				end
 
 				lastpos[1] = nextpos[1]
@@ -6070,7 +6076,7 @@ Platoon = Class(PlatoonMethods) {
 
             -- alter the function according to layer
             local terrainfunction = GetTerrainHeight
-            local deviation = 2.5
+            local deviation = 3.6
             
             if MovementLayer == 'Water' then
                 terrainfunction = GetSurfaceHeight
