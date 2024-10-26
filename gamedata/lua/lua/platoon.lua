@@ -502,9 +502,38 @@ Platoon = Class(PlatoonMethods) {
 						IssueFormMove( GetPlatoonUnits(self), waypointPath, 'BlockFormation', Direction)
                         
 					end
+                    
+                    local loopcount = 0
 
 					while self.MovingToWaypoint do
+
                         WaitTicks(2)
+--[[                        
+                        loopcount = loopcount + 1
+                    
+                        if table.getn( GetPlatoonUnits(self) ) > 1 and loopcount > 14 then
+
+                            LOG("*AI DEBUG Platoon is "..repr(self))
+                            
+                            for _,u in GetPlatoonUnits(self) do
+                    
+                                if not u:BeenDestroyed() then
+                    
+                                    local navigator = u:GetNavigator()
+                    
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." Navigator is "..repr(navigator) )
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." Current Goal is "..repr(navigator:GetGoalPos()) )
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." Target Pos is "..repr(navigator:GetCurrentTargetPos()) )
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." Status is "..repr(navigator:GetStatus()) )
+                            
+                                end
+ 
+                            end
+                            
+                            loopcount = 0
+
+                        end
+--]]
                     end
                     
 				end

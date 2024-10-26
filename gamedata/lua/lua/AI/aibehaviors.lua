@@ -442,7 +442,7 @@ function CDROverCharge( aiBrain, cdr )
 					
 						if enemyThreat > (friendlyThreat * 1.25) + cdrThreat then
 						
-							LOG("*AI DEBUG "..aiBrain.Nickname.." Commander target threat too high")
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." Commander target threat too high")
 							
 							FloatingEntityText(id,'Yikes! Much too hot for me..')
 							

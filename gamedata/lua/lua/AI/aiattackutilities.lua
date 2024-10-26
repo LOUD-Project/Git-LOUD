@@ -745,7 +745,7 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
   
             -- alter the function according to layer
             terrainfunction = GetTerrainHeight
-            deviation = 2.2
+            deviation = 3.6
             
             if MovementLayer == 'Water' then
                 terrainfunction = GetSurfaceHeight

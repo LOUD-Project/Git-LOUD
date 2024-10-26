@@ -868,6 +868,8 @@ function AttackFormation( formationUnits )
 		end
 	end	
 
+    --LOG("*AI DEBUG ATTACK FORMATION is "..repr(FormationPos))
+    
     return FormationPos
 end
 
@@ -1263,6 +1265,8 @@ function LOUDClusterFormation( formationUnits )
         end
     end
 
+    --LOG("*AI DEBUG LOUD CLUSTER is "..repr(FormationPos))
+    
     return FormationPos
 end
 

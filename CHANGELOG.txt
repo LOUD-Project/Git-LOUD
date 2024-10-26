@@ -1,3 +1,26 @@
+### Release
+
+LUA 7.16
+Black Ops for LOUD 7.07
+Total Mayhem for LOUD 7.04
+
+- some additional UI cleanup (Niriak)
+- adjusted blocking terrain deviation in a number of places to standardize some pathing operations
+    -- blocking check stardardized over an 8 ogrid measure - and 2 repetitive bad steps are required versus just one
+    -- dramatically improves pathfinding 'stall' conditions caused by maps with short, but large (not extreme) elevation changes
+- added armor definition for Light weapons versus Structure armor 0.25
+    -- to deal with air units hitting structure (fighters attacking fighters on factories)
+    -- not yet implemented on the fighters themselves, which will require making fighter weapons do 'Light' damage
+    -- and all AIR units should be set to have 'Light' Armor
+    -- Ideally, all 'pure' A2A weapons should also be set to do 'Light' damage, to minimize potential interactions
+- TM BRPAT2FIGBO rerigged to address RoF issue
+- fixed a script issue throwing errors for the targeting weapon changing on Cybran BO ACU
+- fixed missing energy requirement for SERA Elite T3 Mobile Artillery (Rift Unit)
+- removed verbose unit logging in a safecall in transport utilities (could cause log flood crashes)
+- new Naval Bombardment behavior features and formations, to control target selection, mission range
+
+
+
 ### Release 10-11-2024
 
 LUA 7.15
