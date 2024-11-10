@@ -934,6 +934,11 @@ function InitializeArmies()
         local armyIsCiv = ScenarioInfo.ArmySetup[strArmy].Civilian
         
         local aiBrain = GetArmyBrain(strArmy)
+		
+		local StartPosX, StartPosZ = aiBrain:GetArmyStartPos()
+		
+		aiBrain.StartPosX = StartPosX
+		aiBrain.StartPosZ = StartPosZ
 
         local place = aiBrain:GetStartVector3f()
 
@@ -1050,10 +1055,10 @@ function InitializeArmies()
             
                 if ScenarioInfo.TeamMassPointList[brain.Team] and count < brain.MassPointShare then
 
-                    if brain.BrainType == 'AI' and brain.Team == k then
+                    if brain.BrainType == 'AI' and brain.Team == k and brain.StartingMassPointList then
             
                         if count == 0 then
-                            LOG("        "..brain.Nickname.." storing "..brain.MassPointShare.." Mass Points")
+                            LOG("        "..brain.Nickname.." storing "..brain.MassPointShare.." Mass Points" )
                         end
                 
                         local Position = { brain.StartPosX, 0, brain.StartPosZ }

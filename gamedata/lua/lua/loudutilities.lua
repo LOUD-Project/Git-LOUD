@@ -5623,11 +5623,6 @@ function BuildScoutLocations( self )
         
         self.NumOpponents = numOpponents
 
-		
-		local StartPosX, StartPosZ = self:GetArmyStartPos()
-		
-		self.StartPosX = StartPosX
-		self.StartPosZ = StartPosZ
 
 		-- Having handled Starting Locations lets add others to the permanent list
         -- for HiPri
