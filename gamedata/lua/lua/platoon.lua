@@ -508,6 +508,7 @@ Platoon = Class(PlatoonMethods) {
 					while self.MovingToWaypoint do
 
                         WaitTicks(2)
+
 --[[                        
                         loopcount = loopcount + 1
                     
