@@ -2201,6 +2201,14 @@ function NukeAI( self, aiBrain )
 	local AvailableLaunches = {}
 	local nukesavailable = 0
     local count = 0
+    
+    local targettypes = {}
+
+    --targettypes["AntiAir"] = true
+    targettypes["Economy"] = true
+    targettypes["Commander"] = true
+    targettypes["Land"] = true
+    targettypes["StructuresNotMex"] = true
 
 	while PlatoonExists( aiBrain, self ) do
 	
@@ -2252,7 +2260,7 @@ function NukeAI( self, aiBrain )
 			local targetvalue = minimumvalue
 			local targetantis = 0
 			
-			local targetlist = GetHiPriTargetList(aiBrain, GetPlatoonPosition(self) )
+			local targetlist = GetHiPriTargetList(aiBrain, GetPlatoonPosition(self),targettypes, 5000, true )
 			
 			local allthreat, antinukes, value
 			
@@ -2268,51 +2276,51 @@ function NukeAI( self, aiBrain )
 				-- check threat levels (used to calculate value of target) - land/naval units worth 35% more - air worth only 50%
 				allthreat = target.Threats.Eco + ((target.Threats.Sub + target.Threats.Sur) * 1.35) + (target.Threats.Air * 0.5)
 				
-                if ScenarioInfo.NukeDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI target at distance "..repr(target.Distance).." is "..repr(allthreat).."  Needed value is "..repr(minimumvalue))
-				end
+                --if ScenarioInfo.NukeDialog then
+                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI "..target.Type.." target at distance "..repr(target.Distance).." is "..repr(allthreat).."  Needed value is "..repr(minimumvalue))
+				--end
                 
 				-- factor in distance to make near targets worth more
 				-- LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI map size / distance calc is "..repr(aiBrain.dist_comp).." / "..repr(target.Distance))
 				
 				allthreat = allthreat * LOUDSQUARE(aiBrain.dist_comp/target.Distance)
-                
-                if ScenarioInfo.NukeDialog then				
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI says target value after distance adjust is "..repr(allthreat))
-                end
 				
 				-- ignore it if less than minimumvalue
 				if allthreat < minimumvalue then
 					continue
 				end
-				
+                
+                --if ScenarioInfo.NukeDialog then				
+                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI "..target.Type.." value after distance adjust is "..repr(allthreat))
+                --end
+			
 				-- get any anti-nuke systems in flightpath (-- one weakness here -- because launchers could be anywhere - we use platoon position which could be well off)
 				antinukes = AIFindNumberOfUnitsBetweenPoints( aiBrain, GetPlatoonPosition(self), target.Position, categories.ANTIMISSILE * categories.SILO, 96, 'Enemy' )
-				
-                if ScenarioInfo.NukeDialog and antinukes > 0 then
-					LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI says there are "..antinukes.." antinukes along path to this target")
-				end
 
 				-- if too many antinukes versus launchers
 				if antinukes >= nukesavailable then
 					continue
 				end
-
+				
+                --if ScenarioInfo.NukeDialog and antinukes > 0 then
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI "..target.Type.." finds "..antinukes.." antinukes along path to this target")
+				--end
+	
 				-- value of target is divided by number of anti-nukes in area
 				value = ( allthreat/ LOUDMAX(antinukes,1) )
 
-                if ScenarioInfo.NukeDialog then
-                    LOG("*AI DEBUG NukeAI says there are "..repr(antinukes).." AntiNukes within range of target - value is now "..repr(value) )
-                end
-
 				-- if this is a better target then store it
 				if value > targetvalue then
+
+                    if ScenarioInfo.NukeDialog then
+                        LOG("*AI DEBUG NukeAI says there are "..repr(antinukes).." AntiNukes within range of target - value is now "..repr(value) )
+                    end
 					
 					-- if its not the same as our last shot
 					if not LOUDEQUAL(target.Position,lasttarget) then
 					
                         if ScenarioInfo.NukeDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI sees this as a viable target -- "..repr(target.Position).." Antis is "..(antinukes).." Last Scouted "..repr(target.LastScouted))
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI "..target.Type.." sees this as a viable target -- "..repr(target.Position).." Antis is "..(antinukes).." Last Scouted "..repr(target.LastScouted))
                         end
 
 						targetvalue = value
@@ -2324,7 +2332,7 @@ function NukeAI( self, aiBrain )
 					elseif LOUDEQUAL(target.Position,lasttarget) and target.LastScouted > lasttargettime then
                     
                         if ScenarioInfo.NukeDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI sees this as SAME target -- Old "..repr(lasttarget).."  New "..repr(target.Position).." Last Scouted "..repr(target.LastScouted))
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI "..target.Type.." sees this as SAME target -- Old "..repr(lasttarget).."  New "..repr(target.Position).." Last Scouted "..repr(target.LastScouted))
                         end
 
 						targetvalue = value
@@ -2408,7 +2416,7 @@ function NukeAI( self, aiBrain )
 					-- fire them with appropriate delays and only as many as needed
 					for _,u in launchers do
 					
-						if firednukes < targetantis then
+						if firednukes <= targetantis then
 
 							if ( lastflighttime - u.flighttime ) > 0 then
 							
@@ -2417,7 +2425,7 @@ function NukeAI( self, aiBrain )
 							end
 
                             if ScenarioInfo.NukeDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." Firing Nuke "..(firednukes + 1).." after "..(lastflighttime - u.flighttime).." seconds - target is "..repr(nukePos).." status "..repr(u.HasTMLTarget) )
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." launcher "..u.unit.EntityID.." Firing Nuke "..(firednukes + 1).." after "..(lastflighttime - u.flighttime).." seconds - target is "..repr(nukePos).." status "..repr(u.HasTMLTarget) )
 							end
  
                             IssueClearCommands( {u.unit} )
@@ -2834,6 +2842,10 @@ function AirForceAILOUD( self, aiBrain )
     local GROUNDATTACK  = categories.GROUNDATTACK
     local HIGHALTAIR    = categories.HIGHALTAIR
     local UNITCHECK     = categories.ALLUNITS - categories.WALL
+    
+    if not GetPlatoonPosition(self) then
+        return
+    end
 
 	local anchorposition    = LOUDCOPY( GetPlatoonPosition(self) )
     local IMAPblocks        = LOUDFLOOR( 128/ScenarioInfo.IMAPSize)
