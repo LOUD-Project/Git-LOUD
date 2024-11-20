@@ -165,7 +165,7 @@ UnitBlueprint {
 
             DisplayName = 'Hu Strategic Missile Defense',
 
-            EffectiveRadius = 90,
+            EffectiveRadius = 100,
 
             FireTargetLayerCapsTable = {
                 Land = 'Air',
@@ -186,7 +186,7 @@ UnitBlueprint {
             MuzzleVelocity = 90,
 
             ProjectileId = '/projectiles/SIFHuAntiNuke01/SIFHuAntiNuke01_proj.bp',
-            ProjectileLifetime = 1.2,
+            ProjectileLifetime = 3,
 
             RackBones = {
                 {
@@ -205,7 +205,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'STRATEGIC MISSILE',
             TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 2,
+            TrackingRadius = 1.2,
 			
             Turreted = false,
         },
@@ -246,7 +246,7 @@ UnitBlueprint {
 			NotExclusive = true,
 
             ProjectileId = '/projectiles/SIFHuAntiNuke02/SIFHuAntiNuke02_proj.bp',
-            ProjectileLifetime = 2,
+            ProjectileLifetime = 2.5,
 
             RackBones = {
                 {

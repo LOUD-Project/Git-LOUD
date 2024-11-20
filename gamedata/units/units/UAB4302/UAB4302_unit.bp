@@ -193,7 +193,7 @@ UnitBlueprint {
             MuzzleVelocity = 90,
 
             ProjectileId = '/projectiles/AIMSaintAntiNuke01/AIMSaintAntiNuke01_proj.bp',
-            ProjectileLifetime = 1.3,
+            ProjectileLifetime = 3,
 
             RackBones = {
                 {

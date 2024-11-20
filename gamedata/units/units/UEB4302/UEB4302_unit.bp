@@ -185,7 +185,7 @@ UnitBlueprint {
             MuzzleVelocity = 90,
 			
             ProjectileId = '/projectiles/TIMMissileIntercerptor01/TIMMissileIntercerptor01_proj.bp',
-			ProjectileLifetime = 10,
+			ProjectileLifetime = 3,
 			
             RackBones = {
                 {
