@@ -42,8 +42,8 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 320,
         ArmorType = 'Structure',
-        Health = 6500,
-        MaxHealth = 6500,
+        Health = 6175,
+        MaxHealth = 6175,
         RegenRate = 3,
     },
 	
@@ -89,8 +89,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 147250,
-        BuildCostMass = 8930,
+        BuildCostEnergy = 161975,
+        BuildCostMass = 9340,
         BuildTime = 13000,
         
         RebuildBonusIds = {'vab2302'},
@@ -245,11 +245,11 @@ UnitBlueprint {
 			
             TurretPitch = 45,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 40,
+            TurretPitchSpeed = 32,
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 40,
+            TurretYawSpeed = 32,
 			
             Turreted = true,
         },
