@@ -20,6 +20,7 @@ local menuFontColorAlt = 'feff77'
 
 local initial = true
 local initialResetUIScalingDialog = true
+local initialFAFProfileDialog = true
 local animation_active = false
 
 function CreateUI()
@@ -731,13 +732,34 @@ function CreateUI()
                     ExitApplication()
                 end,
                 "No", function()
-                    exitDlg = nil
                 end,
                 nil, nil, true, {worldCover = true, enterButton = 1, escapeButton = 2})
             initialResetUIScalingDialog = false
         end
+
+        -- Show advice for FAF profiles
+        if initialFAFProfileDialog and IsFAFProfile() then
+            UIUtil.QuickDialog(GetFrame(0),
+                "It looks as if you are using a Forged Alliance Forever (FAF) profile. "..
+                "This is known to cause problems and even crashes. "..
+                "It is highly recommended to create a new profile that is only used for LOUD.",
+
+                "Go to profiles", function()
+                    profileDlg = import('/lua/ui/dialogs/profile.lua').CreateDialog(function()
+                        CreateUI()
+                    end)
+                end,
+
+                "Leave it as it is", function()
+                    initialFAFProfileDialog = false
+                end,
+                nil, nil, true, { worldCover = true, enterButton = 1, escapeButton = 2})
+        end
     end
 
+    function IsFAFProfile()
+        return Prefs.GetCurrentProfile().LobbyChangelog != nil
+    end
 
     -- Animate the menu
 
