@@ -304,7 +304,11 @@ Unit = Class(UnitMethods) {
         EntityOnCreate(self)
         
         local aiBrain = GetAIBrain(self)
-        
+
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG UNIT "..aiBrain.Nickname.." "..self.EntityID.." OnCreate for "..ALLBPS[self.BlueprintID].Description.." on tick "..GetGameTick() )
+        end
+
         self.ArmyIndex = aiBrain.ArmyIndex
 
 		local bp = ALLBPS[self.BlueprintID]
@@ -602,7 +606,9 @@ Unit = Class(UnitMethods) {
 
     SetDead = function(self)
     
-        --LOG("*AI DEBUG UNIT "..self.EntityID.." SET DEAD for "..self.BlueprintID)
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." SET DEAD for "..self.BlueprintID)
+        end
 
 		self.Dead = true
 
@@ -1691,7 +1697,9 @@ Unit = Class(UnitMethods) {
     -- On killed: this function plays when the unit takes a mortal hit.  It plays all the default death effect
     OnKilled = function(self, instigator, deathtype, overkillRatio)
 
-        --LOG("*AI DEBUG UNIT "..self.EntityID.." OnKilled "..self.BlueprintID.." on tick "..GetGameTick())
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." OnKilled "..self.BlueprintID.." on tick "..GetGameTick())
+        end
 
         if self.UnitBeingBuilt and LOUDENTITY(FACTORY, self) then
 		
@@ -1849,7 +1857,11 @@ Unit = Class(UnitMethods) {
     end,
 
     DeathThread = function( self, overkillRatio, instigator)
-
+    
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." DeathThread for "..ALLBPS[self.BlueprintID].Description.." on tick "..GetGameTick() )
+        end
+        
         if self.DeathAnimManip then
 			WaitFor(self.DeathAnimManip)
 		end
@@ -2093,8 +2105,10 @@ Unit = Class(UnitMethods) {
 		local bp        = ALLBPS[self.BlueprintID]
         local Wreckage  = bp.Wreckage
 		local wreck     = Wreckage.Blueprint
-        
-        --LOG("*AI DEBUG UNIT "..self.EntityID.." CreateWreckageProp for "..self.BlueprintID)
+
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." CreateWreckageProp for "..self.BlueprintID)
+        end
 
 		if wreck then
 		
@@ -2477,7 +2491,9 @@ Unit = Class(UnitMethods) {
 	
 		self.PlatoonHandle = nil
 
-		--LOG("*AI DEBUG UNIT "..self.EntityID.." OnDestroy for "..repr(ALLBPS[self.BlueprintID].Description).." on tick "..GetGameTick() )
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." OnDestroy for "..repr(ALLBPS[self.BlueprintID].Description).." on tick "..GetGameTick() )
+        end
 
 		Sync.ReleaseIds[self.EntityID] = true
 
@@ -2763,7 +2779,11 @@ Unit = Class(UnitMethods) {
     OnStartBeingBuilt = function(self, builder, layer)
 		
         local aiBrain = GetAIBrain(self)
-		
+        
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG UNIT "..aiBrain.Nickname.." "..self.EntityID.." OnStartBeingBuilt for "..ALLBPS[self.BlueprintID].Description.." on tick "..GetGameTick() )
+        end
+
 		self:CheckUnitRestrictions()
 	
         self:StartBeingBuiltEffects(builder, layer)
@@ -2929,12 +2949,12 @@ Unit = Class(UnitMethods) {
 	-- of the unit - even if that unit is not involved at the completion of the build
 	-- if the original builder is dead - then no builder is reported
     OnStopBeingBuilt = function(self, builder, layer)
-
-		local aiBrain = GetAIBrain(self)
+        
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." OnStopBeingBuilt for "..ALLBPS[self.BlueprintID].Description.." on tick "..GetGameTick() )
+        end
 		
 		local bp = ALLBPS[self.BlueprintID]
-        
-        local GetHealthPercent = builder.GetHealthPercent
 
 		self:SetupIntel(bp)
 	
@@ -3184,7 +3204,9 @@ Unit = Class(UnitMethods) {
 
     OnStartBuild = function(self, unitBeingBuilt, order)
     
-        --LOG("*AI DEBUG UNIT OnStartBuild for "..repr(order).." Unit "..self.EntityID.." building "..repr(unitBeingBuilt) )
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." OnStartBuild for "..repr(order).." building "..repr(unitBeingBuilt.BlueprintID).." on tick "..GetGameTick() )
+        end
 
         self:UpdateConsumptionValues()
 

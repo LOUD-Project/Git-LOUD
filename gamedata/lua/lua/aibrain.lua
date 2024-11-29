@@ -196,7 +196,10 @@
 
 	ScenarioInfo.ShieldDialog = false
 	LOG("*AI DEBUG      Report  Shield Dialog to Log is "..repr(ScenarioInfo.ShieldDialog))
-	
+    
+    ScenarioInfo.UnitDialog = true
+	LOG("*AI DEBUG      Report  Unit Event Dialog to Log is "..repr(ScenarioInfo.UnitDialog))	
+
 	ScenarioInfo.WeaponDialog = false
 	LOG("*AI DEBUG      Report  Weapon Dialog to Log is "..repr(ScenarioInfo.WeaponDialog))
     

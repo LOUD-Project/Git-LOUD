@@ -2776,8 +2776,10 @@ AirStagingPlatformUnit = Class(StructureUnit) {
 	--- issued by the platform as units attach
     OnTransportAttach = function(self, attachBone, unit)
     
-        --LOG("*AI DEBUG Airpad "..self.Sync.id.." attaching to unit "..unit.Sync.id)
-
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG UNIT "..self.Sync.id.." Airpad attaching to unit "..unit.Sync.id)
+        end
+        
 		if not self.UnitStored then
 			self.UnitStored = {}
 		end
@@ -2793,7 +2795,9 @@ AirStagingPlatformUnit = Class(StructureUnit) {
 	--- issued by the platform as units detach
     OnTransportDetach = function(self, attachBone, unit)
 
-        --LOG("*AI DEBUG Airpad "..self.Sync.id.." detaching unit "..unit.Sync.id)
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG UNIT "..self.Sync.id.." Airpad detaching unit "..unit.Sync.id)
+        end
 
 		self.UnitStored[unit.EntityID] = nil
         
@@ -4007,8 +4011,10 @@ AirUnit = Class(MobileUnit) {
 
         local army = self.Army
         local bp = __blueprints[self.BlueprintID]
-        
-        --LOG("*AI DEBUG AIR UNIT "..self.EntityID.." OnImpact with "..repr(with))
+
+        if ScenarioInfo.UnitDialog then        
+            LOG("*AI DEBUG UNIT "..self.EntityID.." AIR OnImpact with "..repr(with))
+        end
 
         local i = 1
 
@@ -4110,9 +4116,11 @@ AirUnit = Class(MobileUnit) {
 	end,
 
     CreateUnitAirDestructionEffects = function( self, scale )
-    
-        --LOG("*AI DEBUG AIR UNIT Create DestructionEffects for "..self.BlueprintID)
-        
+
+        if ScenarioInfo.UnitDialog then    
+            LOG("*AI DEBUG UNIT "..self.EntityID.." AIR Create DestructionEffects for "..self.BlueprintID)
+        end
+
         CreateDefaultHitExplosion( self, GetAverageBoundingXZRadius(self))
         CreateDebrisProjectiles(self, GetAverageBoundingXYZRadius(self), {self:GetUnitSizes()})
     end,
@@ -4121,9 +4129,11 @@ AirUnit = Class(MobileUnit) {
     -- IT ALSO SPAWNS THE WRECKAGE BASED UPON HOW MUCH IT WAS OVERKILLED. UNIT WILL SPIN OUT OF CONTROL TOWARDS GROUND
 	-- The OnImpact event will handle the final destruction
     OnKilled = function(self, instigator, deathtype, overkillRatio)
-    
-        --LOG("*AI DEBUG AIR UNIT "..self.EntityID.." OnKilled for "..self.BlueprintID)
 
+        if ScenarioInfo.UnitDialog then    
+            LOG("*AI DEBUG UNIT "..self.EntityID.." AIR OnKilled for "..self.BlueprintID)
+        end
+        
 		-- 65% of the time aircraft will just disintegrate, experimentals ALWAYS crash to ground
 		-- this is the normal (air crash to ground) path
 		

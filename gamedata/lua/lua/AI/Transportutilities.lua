@@ -1784,7 +1784,10 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 			
 				if IsUnitState( v, 'Attached') then
 				
-					LOG("*AI DEBUG unit "..v:GetBlueprint().Description.." is attached at "..repr(v:GetPosition()))
+                    if ScenarioInfo.UnitDialog then
+                        LOG("*AI DEBUG UNIT "..aiBrain.Nickname.." "..v.EntityID.." "..v:GetBlueprint().Description.." is attached at "..repr(v:GetPosition()))
+                    end
+                    
 					v:DetachFrom()
 					v:SetCanTakeDamage(true)
 					v:SetDoNotTarget(false)
