@@ -6,37 +6,35 @@ UnitBlueprint {
 
     Air = {
         AutoLandTime = 1.6,
-        BankFactor = 2,
+        BankFactor = 2.4,
         BankForward = false,
         BreakOffDistance = 5,
         BreakOffTrigger = 15,
         CanFly = true,
 
-        CombatTurnSpeed = 1.5,
+        CombatTurnSpeed = 1.2,
 
-        EngageDistance = 50,
+        EngageDistance = 45,
 		
         KLift = 3,
         KLiftDamping = 2.5,
 		
-        KMove = 1.5,
-        KMoveDamping = 1,
+        KMove = 1.2,
+        KMoveDamping = 0.96,
 		
-        KRoll = 1.6,
+        KRoll = 1.8,
         KRollDamping = 1.6,
 		
-        KTurn = 1,
-        KTurnDamping = 1,
+        KTurn = 1.8,
+        KTurnDamping = 1.6,
 		
         LiftFactor = 7,
 		
         MaxAirspeed = 19,
         MinAirspeed = 10,
 		
-        StartTurnDistance = 5,
-        TightTurnMultiplier = 1.03,
-        TurnSpeed = 1.5,
-		
+        StartTurnDistance = 1.5,
+	
         Winged = true,
     },
 	
@@ -190,7 +188,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 14,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
             DisplayName = 'Sonic Pulse Battery',
 			
@@ -224,30 +222,29 @@ UnitBlueprint {
             RateOfFire = 2,		-- 28 DPS Air
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 40,
+            SlavedToBodyArcRange = 36,
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'AIR MOBILE',
                 'AIR MOBILE -INTELLIGENCE',
-                'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Turret_Muzzle_Right',
             TurretBonePitch = 'Turret_Muzzle_Right',
             TurretBoneYaw = 'Turret_Muzzle_Right',
 			
             TurretPitch = 0,
-            TurretPitchRange = 55,
-            TurretPitchSpeed = 180,
+            TurretPitchRange = 36,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
-            TurretYawRange = 45,
-            TurretYawSpeed = 180,
+            TurretYawRange = 36,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -296,7 +293,7 @@ UnitBlueprint {
             RateOfFire = 2,		-- another 28 DPS Air
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 50,
+            SlavedToBodyArcRange = 36,
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -306,19 +303,18 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Turret_Muzzle_Left',
             TurretBonePitch = 'Turret_Muzzle_Left',
             TurretBoneYaw = 'Turret_Muzzle_Left',
 			
             TurretPitch = 0,
-            TurretPitchRange = 55,
-            TurretPitchSpeed = 180,
+            TurretPitchRange = 36,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
-            TurretYawRange = 55,
-            TurretYawSpeed = 180,
+            TurretYawRange = 36,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,

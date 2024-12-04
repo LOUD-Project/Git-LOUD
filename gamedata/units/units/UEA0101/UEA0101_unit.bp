@@ -1,33 +1,32 @@
 UnitBlueprint {
 
     Air = {
-        AutoLandTime = 1,
-        BankFactor = 2,
+        AutoLandTime = 1.6,
+        BankFactor = 2.5,
         BankForward = false,
         CanFly = true,
-        CombatTurnSpeed = 1,
-        EngageDistance = 50,
+        CombatTurnSpeed = 1.3,
 		
         KLift = 3,
         KLiftDamping = 2.5,
 		
         KMove = 1.5,
-        KMoveDamping = 1.5,
+        KMoveDamping = 1,
 		
         KRoll = 2,
-        KRollDamping = 1,
+        KRollDamping = 1.8,
 		
-        KTurn = 1,
-        KTurnDamping = 1.5,
+        KTurn = 1.8,
+        KTurnDamping = 1.6,
 		
         LiftFactor = 10,
 		
         MaxAirspeed = 20,
-        MinAirspeed = 17,
+        MinAirspeed = 12,
 		
-        StartTurnDistance = 5,
+        StartTurnDistance = 2,
+
         TightTurnMultiplier = 1.1,
-        TurnSpeed = 1,
 		
         Winged = true,
     },
@@ -105,6 +104,7 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
+
 		RadarRadius = 48,
         VisionRadius = 40,
     },
@@ -118,31 +118,32 @@ UnitBlueprint {
     LifeBarSize = 0.5,
 	
     Physics = {
-        BankingSlope = 0.5,
+
         BuildOnLayerCaps = {
             LAYER_Air = true,
         },
-        Elevation = 18,
+
+        Elevation = 20,
+
         FuelRechargeRate = 12,
         FuelUseTime = 750,
-        GroundCollisionOffset = 1.6,
-        MaxAcceleration = 10,
-        MaxSpeed = 10,
-        MaxSteerForce = 100,
+
+        GroundCollisionOffset = 1,
+
+        MaxSpeed = 20,
+
         MeshExtentsX = 0.65,
         MeshExtentsY = 0.35,
         MeshExtentsZ = 1,
-        MinSpeedPercent = 0.85,
+
         MotionType = 'RULEUMT_Air',
-        TurnRadius = 100,
-        TurnRate = 100,
     },
 	
-    SelectionSizeX = 0.36,
+    SelectionSizeX = 0.4,
     SelectionSizeZ = 0.5,
-    SelectionThickness = 0.8,
+    SelectionThickness = 0.5,
 	
-    SizeSphere = 1.8,
+    SizeSphere = 1.7,
 	
     SizeX = 0.4,
     SizeY = 0.15,

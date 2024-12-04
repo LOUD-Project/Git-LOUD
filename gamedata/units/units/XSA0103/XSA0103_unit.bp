@@ -1,18 +1,18 @@
 UnitBlueprint {
     AI = {
         GuardReturnRadius = 96,
-        GuardScanRadius = 60,
+        GuardScanRadius = 55,
     },
     Air = {
-        AutoLandTime = 1,
-        BankFactor = 2,
+        AutoLandTime = 1.6,
+        BankFactor = 1.8,
         BankForward = false,
         BreakOffDistance = 30,
         BreakOffIfNearNewTarget = true,
         BreakOffTrigger = 20,
         CanFly = true,
 
-        CombatTurnSpeed = 1.2,
+        CombatTurnSpeed = 1.1,
 
         EngageDistance = 50,
 		
@@ -20,24 +20,21 @@ UnitBlueprint {
         KLiftDamping = 2.5,
 		
         KMove = 0.8,
-        KMoveDamping = 0.76,
+        KMoveDamping = 0.8,
 		
         KRoll = 1.4,
         KRollDamping = 1.4,
 		
-        KTurn = 0.7,
-        KTurnDamping = 0.85,
+        KTurn = 0.8,
+        KTurnDamping = 0.8,
 		
-        LiftFactor = 7.5,
+        LiftFactor = 7,
 		
         MaxAirspeed = 11,
-        MinAirspeed = 10,
+        MinAirspeed = 9,
 		
         PredictAheadForBombDrop = 3,
-        StartTurnDistance = 5,
-        
-        TightTurnMultiplier = 1,
-        TurnSpeed = 1.2,
+        StartTurnDistance = 2,
 
 		Winged = true,
     },
@@ -152,16 +149,18 @@ UnitBlueprint {
         BuildOnLayerCaps = {
             LAYER_Air = true,
         },
+
         Elevation = 18,
 		
         FuelRechargeRate = 10,
         FuelUseTime = 240,
 		
         GroundCollisionOffset = 1.6,
-        MaxSpeed = 0.5,
+
         MeshExtentsX = 1.7,
         MeshExtentsY = 0.25,
         MeshExtentsZ = 0.7,
+
         MotionType = 'RULEUMT_Air',
     },
 	
@@ -252,7 +251,7 @@ UnitBlueprint {
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
         },
     },
 }

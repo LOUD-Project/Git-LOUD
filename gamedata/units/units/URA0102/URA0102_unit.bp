@@ -6,34 +6,34 @@ UnitBlueprint {
 
     Air = {
         AutoLandTime = 1.6,
-        BankFactor = 2,
+        BankFactor = 2.4,
         BankForward = false,
         BreakOffDistance = 5,
         BreakOffTrigger = 15,
         CanFly = true,
-        CombatTurnSpeed = 1.5,
-        EngageDistance = 50,
+
+        CombatTurnSpeed = 1.2,
+
+        EngageDistance = 45,
 		
         KLift = 3,
         KLiftDamping = 2.5,
 		
-        KMove = 1.5,
-        KMoveDamping = 1,
+        KMove = 1.2,
+        KMoveDamping = 0.96,
 		
-        KRoll = 1.6,
+        KRoll = 1.8,
         KRollDamping = 1.6,
 		
-        KTurn = 1,
-        KTurnDamping = 1,
+        KTurn = 1.8,
+        KTurnDamping = 1.6,
 		
         LiftFactor = 7,
 		
         MaxAirspeed = 18.5,
         MinAirspeed = 10,
 		
-        StartTurnDistance = 5,
-        TightTurnMultiplier = 1.03,
-        TurnSpeed = 1.5,
+        StartTurnDistance = 1.5,
 		
         Winged = true,
     },
@@ -213,7 +213,7 @@ UnitBlueprint {
             RateOfFire = 2,
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 50,
+            SlavedToBodyArcRange = 36,
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -224,19 +224,19 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,STRUCTURE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Left_Muzzle01',
             TurretBonePitch = 'Left_Muzzle01',
             TurretBoneYaw = 'Left_Muzzle01',
 
             TurretPitch = 0,
-            TurretPitchRange = 55,
-            TurretPitchSpeed = 360,
+            TurretPitchRange = 36,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
-            TurretYawRange = 55,
-            TurretYawSpeed = 360,
+            TurretYawRange = 36,
+            TurretYawSpeed = 60,
 
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -288,9 +288,9 @@ UnitBlueprint {
             RateOfFire = 2,
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 50,
+            SlavedToBodyArcRange = 36,
 			
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 0.3,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -299,19 +299,18 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,STRUCTURE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Right_Muzzle01',
             TurretBonePitch = 'Right_Muzzle01',
             TurretBoneYaw = 'Right_Muzzle01',
 
             TurretPitch = 0,
-            TurretPitchRange = 55,
-            TurretPitchSpeed = 360,
+            TurretPitchRange = 36,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
-            TurretYawRange = 55,
-            TurretYawSpeed = 360,
+            TurretYawRange = 36,
+            TurretYawSpeed = 60,
 
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
