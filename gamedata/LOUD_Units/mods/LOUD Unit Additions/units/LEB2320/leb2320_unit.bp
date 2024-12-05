@@ -76,7 +76,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 5,
+		CapCost = 8,
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -154,15 +154,15 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-			Damage = 1500,
+			Damage = 1400,
             DamageRadius = 2,
             DamageFriendly = true,
             DamageType = 'Normal',
 			
             DisplayName = 'APDS Artillery',
 			
-            EnergyDrainPerSecond = 223,     -- 9 second charge
-            EnergyRequired = 2007,
+            EnergyDrainPerSecond = 215,     -- 9 second charge
+            EnergyRequired = 1900,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -176,11 +176,11 @@ UnitBlueprint {
 			
 			LeadTarget = true,			
 			
-            MaxRadius = 155,
+            MaxRadius = 145,
             MinRadius = 25,
 
             MuzzleVelocity = 33,
-			MuzzleVelocityReduceDistance = 175,
+			MuzzleVelocityReduceDistance = 125,
 			
             ProjectileId = '/projectiles/TIFArtillery01/TIFArtillery01_proj.bp',
 			ProjectileLifetime = 12,
@@ -237,15 +237,15 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 1500,
+            Damage = 1400,
             DamageRadius = 2,
             DamageFriendly = true,
             DamageType = 'Normal',
 			
             DisplayName = 'APDS Artillery',
 
-            EnergyDrainPerSecond = 223,
-            EnergyRequired = 2007,
+            EnergyDrainPerSecond = 215,
+            EnergyRequired = 1900,
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -317,15 +317,15 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 1500,
+            Damage = 1400,
             DamageRadius = 2,
             DamageFriendly = true,
             DamageType = 'Normal',
 			
             DisplayName = 'APDS Artillery',
 
-            EnergyDrainPerSecond = 223,
-            EnergyRequired = 2007,
+            EnergyDrainPerSecond = 215,
+            EnergyRequired = 1900,
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',

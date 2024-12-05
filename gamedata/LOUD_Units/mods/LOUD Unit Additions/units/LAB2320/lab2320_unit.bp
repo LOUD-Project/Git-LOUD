@@ -78,7 +78,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 5,
+		CapCost = 8,
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -165,7 +165,7 @@ UnitBlueprint {
             DoTPulses = 5,	-- 5 x 265 damage
             DoTTime = 3,	-- applied over 3 seconds
 
-            EnergyDrainPerSecond = 200,     -- 9 second charge cycle
+            EnergyDrainPerSecond = 205,     -- 9 second charge cycle
             EnergyRequired = 1800,
 			
             FireTargetLayerCapsTable = {
@@ -179,12 +179,12 @@ UnitBlueprint {
             Label = 'MainGun1',
             LeadTarget = true,
 			
-            MaxRadius = 155,
+            MaxRadius = 145,
             MinRadius = 25,
 
             MuzzleVelocity = 33,
 			
-            MuzzleVelocityReduceDistance = 175,
+            MuzzleVelocityReduceDistance = 125,
 			
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
 			ProjectileLifetime = 12,
@@ -248,7 +248,7 @@ UnitBlueprint {
             DoTPulses = 5,	-- 5 x 265 damage
             DoTTime = 3,	-- applied over 3 seconds
 
-            EnergyDrainPerSecond = 200,
+            EnergyDrainPerSecond = 205,
             EnergyRequired = 1800,
 
             FireTargetLayerCapsTable = {
@@ -263,12 +263,12 @@ UnitBlueprint {
 			
             LeadTarget = true,
 			
-            MaxRadius = 155,
+            MaxRadius = 145,
             MinRadius = 25,
 
             MuzzleVelocity = 33,
 			
-            MuzzleVelocityReduceDistance = 175,
+            MuzzleVelocityReduceDistance = 125,
 			
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
 			ProjectileLifetime = 12,
@@ -330,7 +330,7 @@ UnitBlueprint {
             DoTPulses = 5,	-- 5 x 265 damage
             DoTTime = 3,	-- applied over 3 seconds
 
-            EnergyDrainPerSecond = 200,
+            EnergyDrainPerSecond = 205,
             EnergyRequired = 1800,
 
             FireTargetLayerCapsTable = {
@@ -345,12 +345,12 @@ UnitBlueprint {
 			
             LeadTarget = true,
 			
-            MaxRadius = 155,
+            MaxRadius = 145,
             MinRadius = 25,
 
             MuzzleVelocity = 33,
 			
-            MuzzleVelocityReduceDistance = 175,
+            MuzzleVelocityReduceDistance = 125,
 			
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
 			ProjectileLifetime = 12,

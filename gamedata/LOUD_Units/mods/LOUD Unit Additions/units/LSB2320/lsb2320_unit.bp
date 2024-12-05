@@ -96,7 +96,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 5,
+		CapCost = 8,
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
@@ -184,28 +184,28 @@ UnitBlueprint {
 			
             DisplayName = 'Zthuthaam Cannon',
 			
-            EnergyDrainPerSecond = 278,     -- 9 second charge
-            EnergyRequired = 2502,
+            EnergyDrainPerSecond = 288,     -- 9 second charge
+            EnergyRequired = 2500,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.25,
+            FiringRandomness = 1.3,
             FiringTolerance = 1,
 			
             Label = 'MainGun',
 			
 			LeadTarget = true,			
 			
-            MaxRadius = 160,
+            MaxRadius = 150,
             MinRadius = 25,
 			
             MuzzleChargeDelay = 1,
 
             MuzzleVelocity = 33,
-			MuzzleVelocityReduceDistance = 175,
+			MuzzleVelocityReduceDistance = 125,
 			
             ProjectileId =	'/projectiles/SIFZthuthaamArtilleryShell02/SIFZthuthaamArtilleryShell02_proj.bp',
 			ProjectileLifetime = 12,
@@ -225,7 +225,7 @@ UnitBlueprint {
 			
             RateOfFire = 0.11,
 			
-            TargetCheckInterval = 3,
+            TargetCheckInterval = 4,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -272,28 +272,28 @@ UnitBlueprint {
 			
             DisplayName = 'Zthuthaam Artillery Cannon',
 			
-            EnergyDrainPerSecond = 278,
-            EnergyRequired = 2502,
+            EnergyDrainPerSecond = 288,
+            EnergyRequired = 2500,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.25,
+            FiringRandomness = 1.3,
             FiringTolerance = 1,
 			
             Label = 'MainGun1',
 			
 			LeadTarget = true,
 			
-            MaxRadius = 160,
+            MaxRadius = 150,
             MinRadius = 25,
 			
             MuzzleChargeDelay = 1,
 
             MuzzleVelocity = 33,
-			MuzzleVelocityReduceDistance = 175,
+			MuzzleVelocityReduceDistance = 125,
 			
             ProjectileId =	'/projectiles/SIFZthuthaamArtilleryShell02/SIFZthuthaamArtilleryShell02_proj.bp',
 			ProjectileLifetime = 12,
@@ -311,7 +311,7 @@ UnitBlueprint {
 
             RateOfFire = 0.11,
 			
-            TargetCheckInterval = 3,
+            TargetCheckInterval = 4,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -359,28 +359,28 @@ UnitBlueprint {
 			
             DisplayName = 'Zthuthaam Artillery Cannon',
 			
-            EnergyDrainPerSecond = 278,
-            EnergyRequired = 2502,
+            EnergyDrainPerSecond = 288,
+            EnergyRequired = 2500,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.25,
+            FiringRandomness = 1.3,
             FiringTolerance = 1,
 			
             Label = 'MainGun2',
 			
 			LeadTarget = true,
 			
-            MaxRadius = 160,
+            MaxRadius = 150,
             MinRadius = 25,
 			
             MuzzleChargeDelay = 1,
 
             MuzzleVelocity = 33,
-			MuzzleVelocityReduceDistance = 175,
+			MuzzleVelocityReduceDistance = 125,
 			
             ProjectileId =	'/projectiles/SIFZthuthaamArtilleryShell02/SIFZthuthaamArtilleryShell02_proj.bp',
 			ProjectileLifetime = 12,
@@ -398,7 +398,7 @@ UnitBlueprint {
 
             RateOfFire = 0.11,      -- every 9 seconds by charge
 			
-            TargetCheckInterval = 3,
+            TargetCheckInterval = 4,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
