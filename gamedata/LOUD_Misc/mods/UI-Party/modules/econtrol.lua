@@ -373,9 +373,9 @@ function UpdateResourcesUi()
 					relayoutRequired = true
 				end
 
-				unitTypeUsage.bar.Width:Set(bv)
-				unitTypeUsage.maintBar.Width:Set(bmv)
-				local r = unitTypeUsage.bar.Right() + 1
+				LayoutHelpers.SetWidth(unitTypeUsage.bar, bv)
+				LayoutHelpers.SetWidth(unitTypeUsage.maintBar, bmv)
+				local r = unitTypeUsage.bar.Right() + LayoutHelpers.ScaleNumber(1)
 				if bv == 0 then r = unitTypeUsage.bar.Left() end
 				unitTypeUsage.maintBar.Left:Set(r)
 
@@ -412,26 +412,22 @@ end
 function UnitBox(typeUi, unitType, spendType, workerType)
 
 	local group = Group(typeUi.uiRoot);
-	group.Width:Set(20)
-	group.Height:Set(22)
+	LayoutHelpers.SetDimensions(group, 20, 22)
 
 	local buttonBackgroundName = UIUtil.SkinnableFile('/game/avatar-factory-panel/avatar-s-e-f_bmp.dds')
 	local button = Bitmap(group, buttonBackgroundName)
-	button.Width:Set(20)
-	button.Height:Set(22)
+	LayoutHelpers.SetDimensions(button, 20, 22)
 	LayoutHelpers.AtLeftIn(button, group, 0)
 	LayoutHelpers.AtVerticalCenterIn(button, group, 0)
 
 	local check2 = Bitmap(group	)
-	check2.Width:Set(12)
-	check2.Height:Set(12)
+	LayoutHelpers.SetDimensions(check2, 12, 12)
 	check2:InternalSetSolidColor('55ff0000')
 	LayoutHelpers.AtLeftIn(check2, group, 4)
 	LayoutHelpers.AtVerticalCenterIn(check2, group, 0)
 
 	local check = Bitmap(group, '/textures/ui/uef/game/temp_textures/checkmark.dds')
-	check.Width:Set(8)
-	check.Height:Set(8)
+	LayoutHelpers.SetDimensions(check, 8, 8)
 	LayoutHelpers.AtLeftIn(check, group, 6)
 	LayoutHelpers.AtVerticalCenterIn(check, group, 0)
 
@@ -531,7 +527,7 @@ function SetMexCategoryProgress(category, index, unit)
 	else
 		category.ui.bar1s[index]:Show()
 		category.ui.bar2s[index]:Show()
-		category.ui.bar2s[index].Width:Set(22*unit:GetWorkProgress())
+		LayoutHelpers.SetWidth(category.ui.bar2s[index], 22*unit:GetWorkProgress())
 	end
 end
 
@@ -635,8 +631,7 @@ function CreateMexesUi(uiRoot)
 	}
 
 	local mexRoot = Bitmap(uiRoot)
-	mexRoot.Width:Set(table.getn(categories)*24-2)
-	mexRoot.Height:Set(22)
+	LayoutHelpers.SetDimensions(mexRoot, table.getn(categories)*24-2, 22)
 	--mexRoot:InternalSetSolidColor('aa00ff00')
 	LayoutHelpers.AtLeftIn(mexRoot, uiRoot, 0)
 	LayoutHelpers.AtTopIn(mexRoot, uiRoot, -72)
@@ -647,8 +642,7 @@ function CreateMexesUi(uiRoot)
 		categoryUi.HandleEvent = function(self, event)
 			return OnMexCategoryUiClick(self, event, category)
 		end
-		categoryUi.Width:Set(22)
-		categoryUi.Height:Set(50)
+		LayoutHelpers.SetDimensions(categoryUi, 22, 50)
 		categoryUi:InternalSetSolidColor('aa000000')
 		--categoryUi:InternalSetSolidColor('aa00ffff')
 		LayoutHelpers.AtLeftIn(categoryUi, mexRoot, (k-1) * 24)
@@ -667,8 +661,7 @@ function CreateMexesUi(uiRoot)
 			categoryUi.pauseIcon = Bitmap(categoryUi)
 			iconName = '/textures/ui/common/game/strategicicons/pause_rest.dds'
 			categoryUi.pauseIcon:SetTexture(iconName)
-			categoryUi.pauseIcon.Height:Set(24)
-			categoryUi.pauseIcon.Width:Set(24)
+			LayoutHelpers.SetDimensions(categoryUi.pauseIcon, 24, 24)
 			categoryUi.pauseIcon:SetAlpha(0.3)
 			LayoutHelpers.AtLeftIn(categoryUi.pauseIcon, categoryUi, (22-categoryUi.pauseIcon.Width())/2)
 			LayoutHelpers.AtTopIn(categoryUi.pauseIcon, categoryUi, 8 + 0)
@@ -678,16 +671,14 @@ function CreateMexesUi(uiRoot)
 			categoryUi.upgrIcon = Bitmap(categoryUi)
 			iconName = '/mods/ui-party/textures/upgrade.dds'
 			categoryUi.upgrIcon:SetTexture(iconName)
-			categoryUi.upgrIcon.Height:Set(8)
-			categoryUi.upgrIcon.Width:Set(8)
+			LayoutHelpers.SetDimensions(categoryUi.upgrIcon, 8, 8)
 			categoryUi.upgrIcon:SetAlpha(0.3)
 			LayoutHelpers.AtLeftIn(categoryUi.upgrIcon, categoryUi, (22-categoryUi.upgrIcon.Width())/2+6)
 			LayoutHelpers.AtTopIn(categoryUi.upgrIcon, categoryUi, 12 + 8)
 		end
 
 		categoryUi.countLabel = UIUtil.CreateText(categoryUi, "0", 9, UIUtil.bodyFont)
-		categoryUi.countLabel.Width:Set(5)
-		categoryUi.countLabel.Height:Set(5)
+		LayoutHelpers.SetDimensions(categoryUi.countLabel, 5, 5)
 		categoryUi.countLabel:SetNewColor('ffaaaaaa')
 		categoryUi.countLabel:DisableHitTest()
 		LayoutHelpers.AtLeftIn(categoryUi.countLabel, categoryUi, 9)
@@ -697,15 +688,13 @@ function CreateMexesUi(uiRoot)
 		categoryUi.bar2s = {}
 		for i = 1, 10 do
 			local bar1 = Bitmap(categoryUi)
-			bar1.Width:Set(22)
-			bar1.Height:Set(2)
+			LayoutHelpers.SetDimensions(bar1, 22, 2)
 			bar1:InternalSetSolidColor('1100ff00')
 			LayoutHelpers.AtLeftIn(bar1, categoryUi, 0)
 			LayoutHelpers.AtTopIn(bar1, categoryUi, 50 - i * 2)
 
 			local bar2 = Bitmap(categoryUi)
-			bar2.Width:Set(2)
-			bar2.Height:Set(2)
+			LayoutHelpers.SetDimensions(bar2, 2, 2)
 			bar2:InternalSetSolidColor('3300ff00')
 			LayoutHelpers.AtLeftIn(bar2, categoryUi, 0)
 			LayoutHelpers.AtTopIn(bar2, categoryUi, 50 - i * 2)
@@ -774,17 +763,14 @@ function buildUi()
 		local dragger = import('/mods/UI-Party/modules/ui.lua').buttons.dragButton
 		local uiRoot = Bitmap(dragger)
 		UIP.econtrol.ui = uiRoot
-		uiRoot.Width:Set(42)
-		uiRoot.Width:Set(0)
-		uiRoot.Height:Set(100)
+		LayoutHelpers.SetDimensions(uiRoot, 0, 100)
 		uiRoot.Depth:Set(99)
 		uiRoot:DisableHitTest()
 		LayoutHelpers.AtLeftIn(uiRoot, dragger, 0)
 		LayoutHelpers.AtTopIn(uiRoot, dragger,120)
 
 		uiRoot.textLabel = UIUtil.CreateText(uiRoot, 'ECOntrol', 15, UIUtil.bodyFont)
-		uiRoot.textLabel.Width:Set(10)
-		uiRoot.textLabel.Height:Set(9)
+		LayoutHelpers.SetDimensions(uiRoot.textLabel, 10, 9)
 		uiRoot.textLabel:SetNewColor('white')
 		uiRoot.textLabel:DisableHitTest()
 		LayoutHelpers.AtLeftIn(uiRoot.textLabel, uiRoot, 0)
@@ -793,8 +779,7 @@ function buildUi()
 		function CreateText(text, x)
 
 			local t = UIUtil.CreateText(uiRoot, text, 9, UIUtil.bodyFont)
-			t.Width:Set(5)
-			t.Height:Set(5)
+			LayoutHelpers.SetDimensions(t, 5, 5)
 			t:SetNewColor('ffaaaaaa')
 			t:DisableHitTest()
 			LayoutHelpers.AtLeftIn(t, uiRoot, x)
@@ -815,8 +800,7 @@ function buildUi()
 				typeUi.uiRoot = Bitmap(uiRoot)
 				typeUi.uiRoot.unitType = unitType
 				typeUi.uiRoot.HandleEvent = function(self, event) return OnClick(self, event) end
-				typeUi.uiRoot.Width:Set(col4)
-				typeUi.uiRoot.Height:Set(22)
+				LayoutHelpers.SetDimensions(typeUi.uiRoot, col4, 22)
 				typeUi.uiRoot:InternalSetSolidColor('aa000000')
 				typeUi.uiRoot:Hide()
 				LayoutHelpers.AtLeftIn(typeUi.uiRoot, uiRoot, 0)
@@ -825,8 +809,8 @@ function buildUi()
 				typeUi.stratIcon = Bitmap(typeUi.uiRoot)
 				local iconName = '/textures/ui/common/game/strategicicons/' .. unitType.icon .. '_rest.dds'
 				typeUi.stratIcon:SetTexture(iconName)
-				typeUi.stratIcon.Height:Set(typeUi.stratIcon.BitmapHeight)
-				typeUi.stratIcon.Width:Set(typeUi.stratIcon.BitmapWidth)
+--				typeUi.stratIcon.Height:Set(typeUi.stratIcon.BitmapHeight)
+--				typeUi.stratIcon.Width:Set(typeUi.stratIcon.BitmapWidth)
 				LayoutHelpers.AtLeftIn(typeUi.stratIcon, typeUi.uiRoot, col2 + (20-typeUi.stratIcon.Width())/2)
 				LayoutHelpers.AtVerticalCenterIn(typeUi.stratIcon, typeUi.uiRoot, 0)
 
@@ -844,16 +828,14 @@ function buildUi()
 				end
 
 				typeUi.massBar = Bitmap(typeUi.uiRoot)
-				typeUi.massBar.Width:Set(10)
-				typeUi.massBar.Height:Set(1)
+				LayoutHelpers.SetDimensions(typeUi.massBar, 10, 1)
 				typeUi.massBar:InternalSetSolidColor('lime')
 				typeUi.massBar:DisableHitTest()
 				LayoutHelpers.AtLeftIn(typeUi.massBar, typeUi.uiRoot, col3)
 				LayoutHelpers.AtTopIn(typeUi.massBar, typeUi.uiRoot, 8)
 
 				typeUi.massMaintBar = Bitmap(typeUi.uiRoot)
-				typeUi.massMaintBar.Width:Set(10)
-				typeUi.massMaintBar.Height:Set(1)
+				LayoutHelpers.SetDimensions(typeUi.massMaintBar, 10, 1)
 				typeUi.massMaintBar:InternalSetSolidColor('cyan')
 				typeUi.massMaintBar:DisableHitTest()
 				LayoutHelpers.AtLeftIn(typeUi.massMaintBar, typeUi.uiRoot, col3)
@@ -880,16 +862,14 @@ function buildUi()
 --]]
 
 				typeUi.energyBar = Bitmap(typeUi.uiRoot)
-				typeUi.energyBar.Width:Set(10)
-				typeUi.energyBar.Height:Set(1)
+				LayoutHelpers.SetDimensions(typeUi.energyBar, 10, 1)
 				typeUi.energyBar:InternalSetSolidColor('yellow')
 				typeUi.energyBar:DisableHitTest()
 				LayoutHelpers.AtLeftIn(typeUi.energyBar, typeUi.uiRoot, col3)
 				LayoutHelpers.AtTopIn(typeUi.energyBar, typeUi.uiRoot, 11)
 
 				typeUi.energyMaintBar = Bitmap(typeUi.uiRoot)
-				typeUi.energyMaintBar.Width:Set(10)
-				typeUi.energyMaintBar.Height:Set(1)
+				LayoutHelpers.SetDimensions(typeUi.energyMaintBar, 10, 1)
 				typeUi.energyMaintBar:InternalSetSolidColor('orange')
 				typeUi.energyMaintBar:DisableHitTest()
 				LayoutHelpers.AtLeftIn(typeUi.energyMaintBar, typeUi.uiRoot, col3)

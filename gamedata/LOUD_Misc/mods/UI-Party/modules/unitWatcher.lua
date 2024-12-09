@@ -374,10 +374,9 @@ function UnitFound(u)
 
 		u.StateTracker = st
 		st.group = Group(GetFrame(0))
-		st.group.Width:Set(10)
-		st.group.Height:Set(10)
-		st.group.Top:Set(15)
-		st.group.Left:Set(15)
+		LayoutHelpers.SetDimensions(st.group, 10, 10)
+		st.group.Top:Set(LayoutHelpers.ScaleNumber(15))
+		st.group.Left:Set(LayoutHelpers.ScaleNumber(15))
 		st.group:SetNeedsFrameUpdate(true)
 		st.group.OnFrame = function(self, delta)
 			UpdateUnitPos(u)

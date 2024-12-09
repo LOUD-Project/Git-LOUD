@@ -14,7 +14,7 @@ function SplitMapGroup(splitState, forceSplit)
 		local avatars = import('/lua/ui/game/avatars.lua')
 		if splitState then
 			LayoutHelpers.AtRightTopIn(avatars.controls.avatarGroup, avatars.controls.parent, controls.mapGroupLeft.Width() + 30, 0)
-			LayoutHelpers.AtRightTopIn(avatars.controls.collapseArrow, avatars.controls.parent, controls.mapGroupLeft.Width() +30, 22)
+			LayoutHelpers.AtRightTopIn(avatars.controls.collapseArrow, avatars.controls.parent, controls.mapGroupLeft.Width() + 30, 22)
 		else
 			LayoutHelpers.AtRightTopIn(avatars.controls.avatarGroup, avatars.controls.parent, 0, 200)
 			LayoutHelpers.AtRightTopIn(avatars.controls.collapseArrow, avatars.controls.parent, 0, 222)
@@ -40,7 +40,7 @@ function MoveBuilders(halfMode)
 		if halfMode then 
 			w = w / 2
 		end 
-		return w - 20
+		return w - LayoutHelpers.ScaleNumber(20)
 	end)
 
 end

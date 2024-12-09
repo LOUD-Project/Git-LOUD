@@ -9,8 +9,7 @@ function CreateIdleTab(unitData, id, expandFunc)
 			bg.overlay = Bitmap(bg)
 			LayoutHelpers.AtLeftTopIn(bg.overlay, bg, 7, 8)
 			bg.overlay:SetSolidColor('66FF1111')
-			bg.overlay.Width:Set(34)
-			bg.overlay.Height:Set(34)
+			LayoutHelpers.SetDimensions(bg.overlay, 34, 34)
 			bg.overlay:DisableHitTest()
 			bg.overlay.dir = -1
 			bg.overlay.cycles = 0

@@ -60,7 +60,7 @@ function AddMainPanelButtons()
 				GetCursor():SetTexture(UIUtil.GetCursor('MOVE_WINDOW'))
 			end
 			drag.OnRelease = function(dragself)
-				settings.setXYvalues(self.Left(), self.Top())
+				settings.setXYvalues(LayoutHelpers.InvScaleNumber(self.Left()), LayoutHelpers.InvScaleNumber(self.Top()))
 				GetCursor():Reset()
 				drag:Destroy()
 			end

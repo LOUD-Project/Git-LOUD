@@ -9,10 +9,8 @@ function PositionWindow()
 	if UIP.Enabled() and UIP.GetSetting("rearrangeBottomPanes") then 
 
 		local controls = import('/lua/ui/game/unitview.lua').controls
-		LayoutHelpers.AtBottomIn(controls.bg, controls.parent)
-		controls.abilities.Left:Set(function() return LayoutHelpers.ScaleNumber(30) end)
-		LayoutHelpers.AnchorToBottom(controls.abilities, controls.bg, 134)
-		LayoutHelpers.AtLeftIn(controls.bg, controls.parent, 17)
+		LayoutHelpers.AtLeftBottomIn(controls.bg, controls.parent, 17)
+		LayoutHelpers.AtLeftBottomIn(controls.abilities, controls.bg, 30, 134)
 
 	end
 end
