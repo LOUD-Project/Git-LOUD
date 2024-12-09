@@ -96,7 +96,7 @@ function CreatePrefsUI()
 	curY = curY + 10
 
 	CreateOkCancelButtons()
-	uiPanel.main.Height:Set(curY + 30)
+	LayoutHelpers.SetHeight(uiPanel.main, curY + 30)
 end
 
 ---------------------------------------------------------------------
@@ -109,7 +109,7 @@ function CreateMainPanel()
 	uiPanel.main.Depth:Set(1199)
 	LayoutHelpers.AtLeftTopIn(uiPanel.main, GetFrame(0), posX, posY)
 	uiPanel.main:InternalSetSolidColor('dd000000')
-	uiPanel.main.Width:Set(uiPanelSettings.width)
+	LayoutHelpers.SetWidth(uiPanel.main, uiPanelSettings.width)
 	uiPanel.main:Show()
 end
 
@@ -180,8 +180,7 @@ function CreateSettingCheckbox(posX, posY, size, args, text, key)
 
 	local box = UIUtil.CreateCheckboxStd(uiPanel.main, '/dialogs/check-box_btn/radio')
     Tooltip.AddCheckboxTooltip(box, 'UIP_' .. key)
-	box.Height:Set(size)
-	box.Width:Set(size)
+	LayoutHelpers.SetDimensions(box, size, size)
 	box:SetCheck(value, true)
 
 	box.OnClick = function(self)

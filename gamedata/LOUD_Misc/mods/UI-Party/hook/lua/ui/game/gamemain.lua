@@ -32,7 +32,7 @@ function CreateUI(isReplay)
 			local mf = import('/lua/ui/game/multifunction.lua')
 
 			if UIP.GetSetting("moveMainMenuToRight") then
-				tabs.controls.parent.Left:Set(function() return GetFrame(0).Width()-600 end)
+				tabs.controls.parent.Left:Set(function() return GetFrame(0).Width() - LayoutHelpers.ScaleNumber(600) end)
 			end
 
 			WaitSeconds(4)

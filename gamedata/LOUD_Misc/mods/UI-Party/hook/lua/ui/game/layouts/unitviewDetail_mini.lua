@@ -12,8 +12,8 @@ function SetLayout()
 		LayoutHelpers.AtLeftIn(control, control:GetParent(), 0)
 		if (control.Description ~= nil) then
 			control.Description.Left:Set(function() return 0 end)
-			control.Description.Bottom:Set(function() return control.BG.Bottom() - 110 end)
-			control.Description.Width:Set(329)
+			LayoutHelpers.AtBottomIn(control.Description, control.BG, 110)
+			LayoutHelpers.SetWidth(control.Description, 329)
 		else
 			-- User opts may have this disabled, causing null ref ex
 		end
