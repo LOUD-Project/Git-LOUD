@@ -375,8 +375,8 @@ function UnitFound(u)
 		u.StateTracker = st
 		st.group = Group(GetFrame(0))
 		LayoutHelpers.SetDimensions(st.group, 10, 10)
-		st.group.Top:Set(LayoutHelpers.ScaleNumber(15))
-		st.group.Left:Set(LayoutHelpers.ScaleNumber(15))
+		st.group.Top:Set(15)
+		st.group.Left:Set(15)
 		st.group:SetNeedsFrameUpdate(true)
 		st.group.OnFrame = function(self, delta)
 			UpdateUnitPos(u)
@@ -411,8 +411,6 @@ function UpdateUnit(u)
 				entry.overlay = Bitmap(st.group)
 				--entry.overlay:SetAlpha(0.5, true)
 				entry.overlay:SetTexture(result.img, 0)
-				entry.overlay.Width:Set(result.width)
-				entry.overlay.Height:Set(result.height)
 			end
 		end
 	end
@@ -422,7 +420,9 @@ function UpdateUnit(u)
 		for _, v in trackers do
 			local entry = st[v.name]
 			if entry.value ~= false then
-				LayoutHelpers.AtLeftTopIn(entry.overlay, st.group, offset, 0)
+				local stoffset = offset
+				entry.overlay.Left:Set(function() return st.group.Left() + stoffset end)
+				entry.overlay.Top:Set(st.group.Top)
 				offset = offset + entry.overlay.Width()
 			end
 		end
@@ -436,7 +436,8 @@ function UpdateUnitPos(u)
 		local worldView = import('/lua/ui/game/worldview.lua').viewLeft
 		local pos1 = u:GetPosition()
 		local posA = worldView:Project(pos1)
-		LayoutHelpers.AtLeftTopIn(st.group, worldView, posA.x + 3, posA.y)
+		st.group.Left:Set(function() return worldView.Left() + posA.x end)
+		st.group.Top:Set(function() return worldView.Top() + posA.y end)
 	else
 		DestroyTracker(u, st)
 	end
