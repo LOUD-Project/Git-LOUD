@@ -128,7 +128,7 @@ function SpawnPing(data)
 			return AvailableMarker
 		end
 	else
-        LOG("*AI DEBUG Ping Markers was locked")
+        LOG("*AI DEBUG Ping Markers was locked for Owner "..repr(data.Owner) )
     end
 end
 

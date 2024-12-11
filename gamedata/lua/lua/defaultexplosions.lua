@@ -6,6 +6,10 @@ local Entity = import('/lua/sim/Entity.lua').Entity
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local EffectUtilities = import('EffectUtilities.lua')
 
+local Debris                = '/effects/entities/DebrisMisc04/DebrisMisc04_proj.bp'
+local DefaultHitExplosion   = EffectTemplate.DefaultHitExplosion01
+local FireCloud             = EffectTemplate.FireCloudMed01
+
 local TableCat = import('utilities.lua').TableCat
 
 local Random = Random
@@ -147,7 +151,7 @@ function CreateDefaultHitExplosion( obj, scale )
 	
 		LOUDPARTICLE( obj, -1, army, 3 + (Random() * (2) ), 8.5 + (Random() * (4) ), 'glow_03', 'ramp_flare_02' )
 		
-        CreateEffects( obj, army, EffectTemplate.FireCloudMed01 )
+        CreateEffects( obj, army, FireCloud )
 		
     end
 end
@@ -155,7 +159,7 @@ end
 function CreateDefaultHitExplosionOffset( obj, scale, xOffset, yOffset, zOffset )
 
     if not BeenDestroyed(obj) then 
-		CreateBoneEffectsOffset( obj, -1, obj.Army, EffectTemplate.DefaultHitExplosion01, xOffset, yOffset, zOffset )
+		CreateBoneEffectsOffset( obj, -1, obj.Army, DefaultHitExplosion, xOffset, yOffset, zOffset )
 	end
 end
 
@@ -167,7 +171,7 @@ function CreateDefaultHitExplosionAtBone( obj, boneName, scale )
 		
 		LOUDPARTICLE( obj, boneName, army, 3 + (Random() * (2) ) * scale, 8.5 + (Random() * (4) ), 'glow_03', 'ramp_flare_02' )
 
-		CreateBoneEffects( obj, boneName, army, EffectTemplate.FireCloudMed01 )
+		CreateBoneEffects( obj, boneName, army, FireCloud )
 	end
 end
 
@@ -351,7 +355,7 @@ function CreateDebrisProjectiles( obj, volume, dimensions )
         local xpos, xpos, zpos = GetRandomOffset( sx, sy, sz, 1 )
         local xdir,ydir,zdir = GetRandomOffset( sx, sy, sz, 10 )
 
-        CreateProjectile( obj, '/effects/entities/DebrisMisc04/DebrisMisc04_proj.bp',xpos,xpos,zpos,xdir,ydir + 2,zdir)
+        CreateProjectile( obj, Debris, xpos, xpos, zpos, xdir, ydir + 2, zdir)
     end
 	
 end
