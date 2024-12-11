@@ -1,6 +1,6 @@
 -- This file stores the co-ordinates for the placement of structures
 -- with the MAIN base layout -- there are several sections and each
--- has is a complete table for each faction
+-- has a complete table for each faction
 
 -- Just a note about rotations - The co-ordinates in this file are assuming
 -- a standard SOUTHERN orientation.   The code will rotate these as needed
@@ -13,20 +13,23 @@ FactoryLayout = {
 			{  0, 18 }, 	-- inner ring -- 3 in front
 			{-10, 18 },
 			{ 10, 18 },
+
 			{-18, 10 },		-- left side front
 			{ 18, 10 },		-- right side front
 			{-18,  0 },		-- left side centre
 			{ 18,  0 },		-- right side centre
 			{-18,-10 },		-- left side rear
 			{ 18,-10 },		-- right side rear
+
 			{-10,-18 },		-- 2 in rear flanks
 			{ 10,-18 },
-            
+			{  0,-18 },            
+
 			{-10, 26 },     -- outer ring 4
 			{ 10, 26 },
 			{-10,-26 },
-			{  0,-18 },
-			{ 10,-26 },     -- back middle
+			{ 10,-26 },
+
 			{ 26, 10 },     -- another outer ring 4
 			{ 26,-10 },
 			{-26, 10 },
@@ -36,8 +39,9 @@ FactoryLayout = {
 			{ 32,-24 },
 			{-32,-24 },
         },
+
         {{'T1AirFactory'},
-			{  0, 18 }, 	--# inner ring 12 -- 1 in front ctr
+			{  0, 18 }, 	-- inner ring 12 -- 1 in front ctr
 
 			{-18,  0 },		-- alternating left and right -- ctr, rear then front
 			{ 18,  0 },
@@ -48,7 +52,8 @@ FactoryLayout = {
 			
 			{-10,-18 },		-- 2 in rear flanks
 			{ 10,-18 },
-			
+			{  0,-18 },     -- back middle            			
+
 			{-10, 18 },		-- final 2 in front
 			{ 10, 18 },
 
@@ -56,7 +61,7 @@ FactoryLayout = {
 			{ 10, 26 },
 			{-10,-26 },
 			{ 10,-26 },
-			{  0,-18 },     -- back middle            
+
 			{ 26, 10 },     -- another outer ring 4
 			{ 26,-10 },
 			{-26, 10 },
@@ -76,20 +81,23 @@ FactoryLayout = {
 			{  0, 18 }, 	-- inner ring -- 3 in front
 			{-10, 18 },
 			{ 10, 18 },
+
 			{-18, 10 },		-- left side front
 			{ 18, 10 },		-- right side front
 			{-18,  0 },		-- left side centre
 			{ 18,  0 },		-- right side centre
 			{-18,-10 },		-- left side rear
 			{ 18,-10 },		-- right side rear
+
 			{-10,-18 },		-- 2 in rear flanks
 			{ 10,-18 },
-            
+			{  0,-18 },            
+
 			{-10, 26 },     -- outer ring 4
 			{ 10, 26 },
 			{-10,-26 },
-			{  0,-18 },
-			{ 10,-26 },     -- back middle
+			{ 10,-26 },
+
 			{ 26, 10 },     -- another outer ring 4
 			{ 26,-10 },
 			{-26, 10 },
@@ -99,8 +107,9 @@ FactoryLayout = {
 			{ 32,-24 },
 			{-32,-24 },
         },
+
         {{'T1AirFactory'},
-			{  0, 18 }, 	--# inner ring 12 -- 1 in front ctr
+			{  0, 18 }, 	-- inner ring 12 -- 1 in front ctr
 
 			{-18,  0 },		-- alternating left and right -- ctr, rear then front
 			{ 18,  0 },
@@ -111,7 +120,8 @@ FactoryLayout = {
 			
 			{-10,-18 },		-- 2 in rear flanks
 			{ 10,-18 },
-			
+			{  0,-18 },     -- back middle            			
+
 			{-10, 18 },		-- final 2 in front
 			{ 10, 18 },
 
@@ -119,7 +129,7 @@ FactoryLayout = {
 			{ 10, 26 },
 			{-10,-26 },
 			{ 10,-26 },
-			{  0,-18 },     -- back middle            
+
 			{ 26, 10 },     -- another outer ring 4
 			{ 26,-10 },
 			{-26, 10 },
@@ -140,20 +150,23 @@ FactoryLayout = {
 			{  0, 18 }, 	-- inner ring -- 3 in front
 			{-10, 18 },
 			{ 10, 18 },
+
 			{-18, 10 },		-- left side front
 			{ 18, 10 },		-- right side front
 			{-18,  0 },		-- left side centre
 			{ 18,  0 },		-- right side centre
 			{-18,-10 },		-- left side rear
 			{ 18,-10 },		-- right side rear
+
 			{-10,-18 },		-- 2 in rear flanks
 			{ 10,-18 },
-            
+			{  0,-18 },            
+
 			{-10, 26 },     -- outer ring 4
 			{ 10, 26 },
 			{-10,-26 },
-			{  0,-18 },
-			{ 10,-26 },     -- back middle
+			{ 10,-26 },
+
 			{ 26, 10 },     -- another outer ring 4
 			{ 26,-10 },
 			{-26, 10 },
@@ -163,8 +176,9 @@ FactoryLayout = {
 			{ 32,-24 },
 			{-32,-24 },
         },
+
         {{'T1AirFactory'},
-			{  0, 18 }, 	--# inner ring 12 -- 1 in front ctr
+			{  0, 18 }, 	-- inner ring 12 -- 1 in front ctr
 
 			{-18,  0 },		-- alternating left and right -- ctr, rear then front
 			{ 18,  0 },
@@ -175,7 +189,8 @@ FactoryLayout = {
 			
 			{-10,-18 },		-- 2 in rear flanks
 			{ 10,-18 },
-			
+			{  0,-18 },     -- back middle            			
+
 			{-10, 18 },		-- final 2 in front
 			{ 10, 18 },
 
@@ -183,7 +198,7 @@ FactoryLayout = {
 			{ 10, 26 },
 			{-10,-26 },
 			{ 10,-26 },
-			{  0,-18 },     -- back middle            
+
 			{ 26, 10 },     -- another outer ring 4
 			{ 26,-10 },
 			{-26, 10 },
@@ -204,20 +219,23 @@ FactoryLayout = {
 			{  0, 18 }, 	-- inner ring -- 3 in front
 			{-10, 18 },
 			{ 10, 18 },
+
 			{-18, 10 },		-- left side front
 			{ 18, 10 },		-- right side front
 			{-18,  0 },		-- left side centre
 			{ 18,  0 },		-- right side centre
 			{-18,-10 },		-- left side rear
 			{ 18,-10 },		-- right side rear
+
 			{-10,-18 },		-- 2 in rear flanks
 			{ 10,-18 },
-            
+			{  0,-18 },            
+
 			{-10, 26 },     -- outer ring 4
 			{ 10, 26 },
 			{-10,-26 },
-			{  0,-18 },
-			{ 10,-26 },     -- back middle
+			{ 10,-26 },
+
 			{ 26, 10 },     -- another outer ring 4
 			{ 26,-10 },
 			{-26, 10 },
@@ -227,8 +245,9 @@ FactoryLayout = {
 			{ 32,-24 },
 			{-32,-24 },
         },
+
         {{'T1AirFactory'},
-			{  0, 18 }, 	--# inner ring 12 -- 1 in front ctr
+			{  0, 18 }, 	-- inner ring 12 -- 1 in front ctr
 
 			{-18,  0 },		-- alternating left and right -- ctr, rear then front
 			{ 18,  0 },
@@ -239,7 +258,8 @@ FactoryLayout = {
 			
 			{-10,-18 },		-- 2 in rear flanks
 			{ 10,-18 },
-			
+			{  0,-18 },     -- back middle            			
+
 			{-10, 18 },		-- final 2 in front
 			{ 10, 18 },
 
@@ -247,7 +267,7 @@ FactoryLayout = {
 			{ 10, 26 },
 			{-10,-26 },
 			{ 10,-26 },
-			{  0,-18 },     -- back middle            
+
 			{ 26, 10 },     -- another outer ring 4
 			{ 26,-10 },
 			{-26, 10 },
@@ -826,10 +846,16 @@ MassFabLayout = {
 			{ 11, 33 },
 		},
 		{{'T1MassCreation'},
-			{  7,-23 },
+			{  7,-23 }, -- rear line
 			{ -7,-23 },
 			{  9,-23 },
 			{ -9,-23 },
+            {  5, 15 }, -- front
+            { -5, 15 },
+            {-15, 5  }, -- left
+            {-15,-5  },
+            { 15, 5  }, -- right
+            { 15,-5  },
 		},        
 	},
 -- Aeon
@@ -851,6 +877,12 @@ MassFabLayout = {
 			{ -7,-23 },
 			{  9,-23 },
 			{ -9,-23 },
+            {  5, 15 }, -- front
+            { -5, 15 },
+            {-15, 5  }, -- left
+            {-15,-5  },
+            { 15, 5  }, -- right
+            { 15,-5  },
         },
 	},
 -- Cybran
@@ -872,6 +904,12 @@ MassFabLayout = {
 			{ -7,-23 },
 			{  9,-23 },
 			{ -9,-23 },
+            {  5, 15 }, -- front
+            { -5, 15 },
+            {-15, 5  }, -- left
+            {-15,-5  },
+            { 15, 5  }, -- right
+            { 15,-5  },
 		},
 	},
 -- Sera
@@ -893,6 +931,12 @@ MassFabLayout = {
 			{ -7,-23 },
 			{  9,-23 },
 			{ -9,-23 },
+            {  5, 15 }, -- front
+            { -5, 15 },
+            {-15, 5  }, -- left
+            {-15,-5  },
+            { 15, 5  }, -- right
+            { 15,-5  },
 		},
 	},
 }
