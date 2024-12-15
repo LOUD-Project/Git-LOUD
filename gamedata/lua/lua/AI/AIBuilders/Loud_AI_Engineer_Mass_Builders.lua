@@ -343,17 +343,19 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
         
         PriorityFunction = AboveUnitCap85,
 
-		BuilderType = { 'T2','T3' },
+		BuilderType = { 'T2','T3','SubCommander' },
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			-- check base massfabs 
-			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.MASSFABRICATION, 10, 42 }},
-            
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 3000 }},
-            
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 24 }},
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
+
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 0.3, 1.025 }},
+
+			-- check base massfabs -- this should pick up only those in the base core - not the T3's on the outer layers
+			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.MASSFABRICATION - categories.TECH3, 10, 25 }},
+
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 54, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH1, 0, 28 }},
         },
 
         BuilderData = {
@@ -394,10 +396,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 0.3, 1.025 }},
 
 			-- check base massfabs 
-			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.MASSFABRICATION * categories.TECH3, 10, 42 }},
+			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.MASSFABRICATION * categories.TECH3, 23, 38 }},
 
 			-- there has to be advanced power at this location
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, categories.ENERGYPRODUCTION - categories.TECH1 }},
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
         },
 
         BuilderData = {
@@ -631,7 +633,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Naval',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
 			{ EBC, 'LessThanEconMassStorageRatio', { 60 }},
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 3000 }},
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.MASSFABRICATION * categories.TECH3, 10, 40 }},
 

@@ -84,10 +84,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},            
             { EBC, 'LessThanEnergyTrendOverTime', { 30 }},
             
-			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH3 }},
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},
+			--{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH3 }},
             -- this should pick up only factory ring T1 Pgens - and not those at extractors
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 76, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH1, 0, 33 }},            
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 76, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH1, 0, 33 }},
         },
 		
         BuilderType = { 'T1' },
@@ -121,7 +121,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
                 return 0, false
             end
             
-            if import(UCBC).HaveGreaterThanUnitsWithCategory( aiBrain, 1, categories.ENERGYPRODUCTION * categories.TECH3 - categories.HYDROCARBON ) then
+            if import(UCBC).HaveGreaterThanUnitsWithCategory( aiBrain, 0, categories.ENERGYPRODUCTION * categories.TECH3 - categories.HYDROCARBON ) then
                 return 10, true
             end
 	
@@ -134,7 +134,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 			{ EBC, 'LessThanEnergyTrendOverTime', { 40 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
             
-			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},            
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.TECH3 }},            
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 9, categories.ENERGYPRODUCTION - categories.TECH1 }},
         },
 		

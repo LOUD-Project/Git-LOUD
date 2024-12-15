@@ -113,7 +113,7 @@ local IsEnemyCrushingLand = function( builder, aiBrain, unit )
     
     local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
 
-    if threat > 50 then
+    if threat > 150 then
 
         return (builder.OldPriority or builder.Priority) + 100, true
         
@@ -333,7 +333,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
     
             local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
 
-            if threat > 50 then
+            if threat > 100 then
 
                 return (builder.OldPriority or builder.Priority) + 100, true
         
@@ -504,7 +504,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
     
             local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
 
-            if threat > 125 then
+            if threat > 175 then
 
                 return (builder.OldPriority or builder.Priority) + 100, true
         
@@ -627,7 +627,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
     
             local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
 
-            if threat > 125 then
+            if threat > 175 then
 
                 return (builder.OldPriority or builder.Priority) + 100, true
         
@@ -693,7 +693,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
     
             local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
 
-            if threat > 125 then
+            if threat > 175 then
 
                 return (builder.OldPriority or builder.Priority) + 100, true
         
@@ -757,7 +757,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
     
             local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
 
-            if threat > 125 then
+            if threat > 175 then
 
                 return (builder.OldPriority or builder.Priority) + 100, true
         
@@ -819,7 +819,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
     
             local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
 
-            if threat > 125 then
+            if threat > 175 then
 
                 return (builder.OldPriority or builder.Priority) + 100, true
         
@@ -923,7 +923,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
             local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
 
-            if threat > 125 then
+            if threat > 175 then
 
                 return (builder.OldPriority or builder.Priority) + 100, true
         
@@ -1080,7 +1080,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
     
             local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
 
-            if threat > 125 then
+            if threat > 175 then
 
                 return (builder.OldPriority or builder.Priority) + 100, true
         
@@ -1136,15 +1136,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
                 
             end
 
-            if aiBrain.AirRatio <= 1.2  then
+            if aiBrain.AirRatio <= 1.1 or import(UCBC).HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, categories.AIR * categories.EXPERIMENTAL,'Enemy')  then
 	
                 return (builder.OldPriority or builder.Priority) + 100, true	
 
             end
     
-            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
+            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'Air' )
 
-            if threat > 125 then
+            if threat > 200 then
 
                 return (builder.OldPriority or builder.Priority) + 100, true
         
@@ -2407,7 +2407,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
             local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
 
-            if threat > 125 then
+            if threat > 150 then
 
                 return (builder.OldPriority or builder.Priority) + 100, true
         
@@ -2475,7 +2475,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
             local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
 
-            if threat > 125 then
+            if threat > 150 then
 
                 return (builder.OldPriority or builder.Priority) + 100, true
         
@@ -2804,7 +2804,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
     
             local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
 
-            if threat > 125 then
+            if threat > 175 then
 
                 return (builder.OldPriority or builder.Priority) + 100, true
         
@@ -3367,7 +3367,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }}, 
         },
 		
-        BuilderType = {'T2'},
+        BuilderType = {'T2','T3','SubCommander'},
 		
         BuilderData = {
             Construction = {
@@ -3934,15 +3934,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
                 
             end
 
-            if aiBrain.AirRatio <= 1.2  then
+            if aiBrain.AirRatio <= 1.1 or import(UCBC).HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, categories.AIR * categories.EXPERIMENTAL,'Enemy')  then
 	
                 return (builder.OldPriority or builder.Priority) + 100, true	
 
             end
     
-            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
+            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'Air' )
 
-            if threat > 125 then
+            if threat > 150 then
 
                 return (builder.OldPriority or builder.Priority) + 100, true
         
@@ -4818,7 +4818,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Expansions',
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
         },
 		
-        BuilderType = {'T2','T3'},
+        BuilderType = {'T2','T3','SubCommander'},
 		
         BuilderData = {
 			DesiresAssist = true,
@@ -4993,7 +4993,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
             
-            { LUTL, 'AirStrengthRatioLessThan', { 2 }},
+            { LUTL, 'AirStrengthRatioLessThan', { 1.5 }},
             
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, FACTORY }},
             
@@ -5087,7 +5087,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-            { LUTL, 'AirStrengthRatioLessThan', { 2 }},
+            { LUTL, 'AirStrengthRatioLessThan', { 1.5 }},
             
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, FACTORY - categories.TECH1 }},
 
@@ -5402,7 +5402,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-            { LUTL, 'AirStrengthRatioLessThan', { 2 }},
+            { LUTL, 'AirStrengthRatioLessThan', { 1.5 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
 
@@ -5610,7 +5610,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-            { LUTL, 'AirStrengthRatioLessThan', { 2 }},
+            { LUTL, 'AirStrengthRatioLessThan', { 1.5 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
