@@ -129,7 +129,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
             { LUTL, 'AirStrengthRatioGreaterThan', { 0.8 } },
 
             -- don't build T1 air scouts if we can build better ones
-            { UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.AIR - categories.TECH1 }},
+            { UCBC, 'FactoriesLessThan', { 1, categories.AIR - categories.TECH1 }},
 
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 8, [512] = 10, [1024] = 14, [2048] = 20, [4096] = 20}, categories.AIR * categories.SCOUT}},
 
@@ -154,6 +154,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
             
             { LUTL, 'AirStrengthRatioGreaterThan', { 0.8 } },
 
+            -- don't build T2 air scouts if we can build better ones
+            { UCBC, 'FactoriesLessThan', { 1, categories.AIR + categories.TECH3 }},
+
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 60, [2048] = 78, [4096] = 78}, categories.AIR * categories.SCOUT}},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 12, categories.AIR * categories.SCOUT } },			
@@ -175,7 +178,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-            { LUTL, 'AirStrengthRatioGreaterThan', { 0.7 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.8 } },
 
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 60, [2048] = 78, [4096] = 78}, categories.AIR * categories.SCOUT}},
 
@@ -496,7 +499,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
             { UCBC, 'ArmyNeedsTransports', { true } },
 			
 			-- stop making them if we have more than 1 T2/T3 air plants - anywhere
-            { UCBC, 'HaveLessThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR - categories.TECH1 }},
+            { UCBC, 'FactoriesLessThan', { 1, categories.FACTORY * categories.AIR - categories.TECH1 }},
 
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 2, [1024] = 3, [2048] = 5, [4096] = 5}, categories.TRANSPORTFOCUS * categories.TECH1}},
         },
@@ -518,6 +521,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             
             { LUTL, 'AirStrengthRatioGreaterThan', { 0.8 } },
+
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
 			
             { UCBC, 'ArmyNeedsTransports', { true } },
 
@@ -545,6 +550,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 
             { LUTL, 'AirStrengthRatioGreaterThan', { 0.8 } },
 
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
+
             { UCBC, 'ArmyNeedsTransports', { true } },
 
 			{ UCBC, 'HaveLessThanUnitsWithCategory', { 20, categories.uea0203 }},
@@ -569,6 +576,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 
             { LUTL, 'AirStrengthRatioGreaterThan', { 0.8 } },
+
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
 
             { UCBC, 'ArmyNeedsTransports', { true } },
 
