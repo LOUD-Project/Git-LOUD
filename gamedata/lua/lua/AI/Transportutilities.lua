@@ -817,7 +817,7 @@ function GetTransports( platoon, aiBrain)
                 
 				AssignUnitsToPlatoon( aiBrain, transportplatoon, {transport}, 'Support', 'BlockFormation')
                 
-                transportplatoonairthreat = transportplatoonairthreat + math.max( 5, __blueprints[transport.BlueprintID].Defense.AirThreatLevel or 1)
+                transportplatoonairthreat = transportplatoonairthreat + math.max( 4.2, __blueprints[transport.BlueprintID].Defense.AirThreatLevel or 1)
 
 				IssueClearCommands({transport})
 				
@@ -1189,7 +1189,7 @@ end
     -- attempts - how many tries will be made to get transport
     -- bSkipLastMove - make drop at closest safe marker rather than at destination
     -- platoonpath - source platoon can optionally feed it's current travel path in order to provide additional alternate drop points if the destination is not good
-function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bSkipLastMove, platoonpath )
+function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bSkipLastMove, platoonpath, AtGoalDistance )
 
     -- destination must be in playable areas --
     if not import('/lua/loudutilities.lua').BaseInPlayableArea(aiBrain, destination) or aiBrain:GetNoRushTicks() > 100 then
@@ -1325,110 +1325,111 @@ function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bS
 
 		end
 
-			-- a local function to find an alternate Drop point which satisfies both transports and self for threat and a path to the goal
-			local FindSafeDropZoneWithPath = function( self, transportplatoon, markerTypes, markerrange, destination, threatMax, airthreatMax, threatType, layer)
+		-- a local function to find an alternate Drop point which satisfies both transports and self for threat and a path to the goal
+		local FindSafeDropZoneWithPath = function( self, transportplatoon, markerTypes, markerrange, destination, threatMax, airthreatMax, threatType, layer)
 
-				local markerlist = {}
-                local atest, stest
-                local landpath,  landpathlength, landreason, lastlocationtested, path, pathlength, reason
+			local markerlist = {}
+            local atest, stest
+            local landpath,  landpathlength, landreason, lastlocationtested, path, pathlength, reason
 	
-				-- locate the requested markers within markerrange of the supplied location	that the platoon can safely land at
-				for _,v in markerTypes do
-					markerlist = LOUDCAT( markerlist, AIGetMarkersAroundLocation(aiBrain, v, destination, markerrange, 0, threatMax, 0, 'AntiSurface') )
-				end
-				
-				-- sort the markers by closest distance to final destination
-				LOUDSORT( markerlist, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq( a.Position[1],a.Position[3], destination[1],destination[3] ) < VDist2Sq( b.Position[1],b.Position[3], destination[1],destination[3] )  end )
+			-- locate the requested markers within markerrange of the supplied location	that the platoon can safely land at
+			for _,v in markerTypes do
+				markerlist = LOUDCAT( markerlist, AIGetMarkersAroundLocation(aiBrain, v, destination, markerrange, 0, threatMax, 0, 'AntiSurface') )
+			end
 
-				-- loop thru each marker -- see if you can form a safe path on the surface 
-				-- and a safe path for the transports -- use the first one that satisfies both
-				for _, v in markerlist do
+			-- sort the markers by closest distance to final destination
+			LOUDSORT( markerlist, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq( a.Position[1],a.Position[3], destination[1],destination[3] ) < VDist2Sq( b.Position[1],b.Position[3], destination[1],destination[3] )  end )
 
-                    if lastlocationtested and LOUDEQUAL(lastlocationtested, v.Position) then
-                        continue
-                    end
-                    
-                    lastlocationtested = LOUDCOPY( v.Position )
-                    
-					-- test the real values for that position
-					stest, atest = GetRealThreatAtPosition( lastlocationtested, 80 )
+			-- loop thru each marker -- see if you can form a safe path on the surface 
+			-- and a safe path for the transports to get there -- use the first one that satisfies both
+			for _, v in markerlist do
+
+                if lastlocationtested and LOUDEQUAL(lastlocationtested, v.Position) then
+                    continue
+                end
+
+                lastlocationtested = LOUDCOPY( v.Position )
+
+				-- test the real values for that position
+				stest, atest = GetRealThreatAtPosition( lastlocationtested, 80 )
 			
-                    if TransportDialog then                    
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." examines position "..repr(v.Name).." "..repr(lastlocationtested).."  Surface threat "..stest.." -- Air threat "..atest)
-                    end
+                if TransportDialog then                    
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." examines position "..repr(v.Name).." "..repr(lastlocationtested).."  Surface threat "..stest.." -- Air threat "..atest)
+                end
 		
-					if stest <= threatMax and atest <= airthreatMax then
+                if stest <= threatMax and atest <= airthreatMax then
 
-                        landpath = false
-                        landpathlength = 0
-                        
-						-- can the platoon path safely from this marker to the final destination 
-						landpath, landreason, landpathlength = PlatoonGenerateSafePathToLOUD(aiBrain, self, layer, destination, lastlocationtested, threatMax, 160 )
+                    landpath = false
+                    landpathlength = 0
+
+                    -- can the platoon path safely from this marker to the final destination 
+					landpath, landreason, landpathlength = PlatoonGenerateSafePathToLOUD(aiBrain, self, layer, destination, lastlocationtested, threatMax, 160 )
 	
-						-- can the transports reach that marker ?
-						if landpath then
+					-- can the transports get to that point from where the platoon is now ?
+					if landpath then
                         
-                            path = false
-                            pathlength = 0
+                        path = false
+                        pathlength = 0
 
-							path, reason, pathlength = PlatoonGenerateSafePathToLOUD( aiBrain, transportplatoon, 'Air', lastlocationtested, GetPlatoonPosition(self), airthreatMax, 256 )
+                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( aiBrain, transportplatoon, 'Air', lastlocationtested, GetPlatoonPosition(self), airthreatMax, 256 )
 						
-							if path then
+						if path then
 
-                                if TransportDialog then
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." gets path to "..repr(destination).." from landing at "..repr(lastlocationtested).." path length is "..pathlength.." using threatmax of "..threatMax)
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." path reason "..landreason.." route is "..repr(landpath))
-                                end
-                                
-								return lastlocationtested, v.Name
-							else
+                            if TransportDialog then
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." gets path to "..repr(destination).." from landing at "..repr(lastlocationtested).." path length is "..pathlength.." using threatmax of "..threatMax)
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." path reason "..landreason.." route is "..repr(landpath))
+                            end
 
-                                if TransportDialog then
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." got transports but they cannot find a safe drop point - reason "..repr(reason) )
-                                end
-                                
-                                if platoonpath and TransportDialog then
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." has a path of it's own ")
-                                end
-                            end
-						end
-                        
-                        if platoonpath then
-                        
-                            lastlocationtested = false
-                        
-                            for k,v in platoonpath do
-                            
-                                stest, atest = GetRealThreatAtPosition( v, 80 )
-                                
-                                if TransportDialog then
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." tests "..repr(v).." Surface "..stest.." - Max "..threatMax.."  Air "..atest.." - Max "..airthreatMax)
-                                end
-                                
-                                if stest <= threatMax and atest <= airthreatMax then
-                                
-                                    lastlocationtested = LOUDCOPY(v)
-                                
-                                end
+                            return lastlocationtested, v.Name
 
+						else
+
+                            if TransportDialog then
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." got transports but they cannot find a safe drop point - reason "..repr(reason) )
                             end
-                            
-                            if lastlocationtested then
-                            
-                                if TransportDialog then
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." using platoon path position "..repr(v) )
-                                end
-                            
-                                return lastlocationtested, 'booga'
-                                
+
+                            if platoonpath and TransportDialog then
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." has a path of it's own ")
                             end
-                            
+
                         end
 					end
-				end
 
-				return false, nil
+                    if platoonpath then
+                        
+                        lastlocationtested = false
+                        
+                        for k,v in platoonpath do
+                            
+                            stest, atest = GetRealThreatAtPosition( v, 80 )
+
+                            if TransportDialog then
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." tests "..repr(v).." Surface "..stest.." - Max "..threatMax.."  Air "..atest.." - Max "..airthreatMax)
+                            end
+
+                            if stest <= threatMax and atest <= airthreatMax then
+                                
+                                lastlocationtested = LOUDCOPY(v)
+                                
+                            end
+
+                        end
+
+                        if lastlocationtested then
+                            
+                            if TransportDialog then
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." using platoon path position "..repr(v) )
+                            end
+                            
+                            return lastlocationtested, 'booga'
+
+                        end
+                    end
+                end
 			end
+
+			return false, nil
+        end
 	
 
 		-- FIND A DROP ZONE FOR THE TRANSPORTS
@@ -1436,13 +1437,13 @@ function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bS
 
 		-- a threat value for the transports based upon the number of transports (but not the tier...hmmm).
 		transportcount = LOUDGETN( GetSquadUnits( transportplatoon, 'Support'))
-		airthreatMax = transportcount * 5
+		airthreatMax = transportcount * 4.2
 		airthreatMax = airthreatMax + ( airthreatMax * LOUDLOG10(transportcount))
         
-        airthreatMax = transportplatoonairthreat
+        --airthreatMax = transportplatoonairthreat
 
         if TransportDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..transportplatoon.BuilderName.." with "..transportcount.." transports. AirthreatMax = "..repr(airthreatMax).." extra calc was "..math.log10(transportcount).." seeking dropzone" )
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..transportplatoon.BuilderName.." with "..transportcount.." transports. AirthreatMax = "..string.format("%.2f",transportcount * 4.2).." extra calc was "..string.format("%.2f",LOUDLOG10(transportcount)).." suggested "..string.format("%.2f",transportplatoonairthreat) )
         end
 
 		-- this is the desired drop location
@@ -1462,13 +1463,13 @@ function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bS
 		if surthreat > mythreat or airthreat > airthreatMax then
 
             -- if mythreat is sort of competitive with whats at the target
-            if (mythreat * 1.3) > surthreat then
+            if (mythreat * 1.25) > surthreat then
 
                 -- look for a safe drop at least 50% closer to the destination than we currently are
                 markerrange = VDist3( GetPlatoonPosition(self), destination ) * .5
 
                 if TransportDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." carried by "..transportplatoon.BuilderName.." seeking alternate landing zone within "..markerrange.." of destination "..repr(destination))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." carried by "..transportplatoon.BuilderName.." seeking alternate landing zone within "..string.format("%d",markerrange).." of destination "..repr(destination))
                 end
 
                 transportLocation = false
@@ -1484,25 +1485,40 @@ function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bS
 
                     if TransportDialog then
 
-                        if (mythreat * 1.3) > surthreat then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." finds alternate landing position at "..repr(transportLocation).." surthreat is "..surthreat.." vs. mine "..mythreat)
+                        if (mythreat * 1.25) > surthreat then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." finds alternate landing position at "..repr(transportLocation).." surthreat is "..string.format("%.2f",surthreat).." vs. mine "..string.format("%.2f",mythreat) )
                         else
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." finds alternate landing position at "..repr(transportLocation).." AIRthreat is "..airthreat.." vs. my max of "..airthreatMax)
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." finds alternate landing position at "..repr(transportLocation).." AIRthreat is "..string.format("%.2f",airthreat).." vs. my max of "..string.format("%.2f",airthreatMax) )
                         end
 
                         import('/lua/ai/altaiutilities.lua').AISendPing( transportLocation, 'warning', aiBrain.ArmyIndex )
                     end
                 end
+
             else
+
                 transportLocation = false
 
                 if TransportDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." says simply too much threat for me - "..surthreat.." vs "..mythreat.." - aborting transport call")
                 end
+
             end
         end
+--[[        
+        if transportLocation and PlatoonExists(aiBrain,self) and PlatoonExists(aiBrain,transportplatoon) then
 
-		-- if no alternate, or either self has died, return the transports and abort transport
+            local safePath = PlatoonGenerateSafePathToLOUD(aiBrain, transportplatoon, 'Air', GetPlatoonPosition(self), transportLocation, airthreatMax, 256)
+
+            if not safePath then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..transportplatoon.BuilderName.." failed PRELIM path to "..repr(transportLocation).." on tick "..GetGameTick() )
+                
+                transportLocation = false
+            end
+        
+        end
+--]]
+		-- if no alternate, or either self, or transports, have died, then abort transport operation
 		if not transportLocation or (not PlatoonExists(aiBrain, self)) or (not PlatoonExists(aiBrain,transportplatoon)) then
 
 			if PlatoonExists(aiBrain,transportplatoon) then
@@ -1532,7 +1548,7 @@ function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bS
 		-- we stay in this function until we load, move and arrive or die
 		-- we'll get a false return if then entire unit platoon cannot be transported
 		-- note how we pass the IsEngineer flag -- alters the behaviour of the transport
-		bUsedTransports = UseTransports( aiBrain, transportplatoon, transportLocation, self, IsEngineer )
+		bUsedTransports = UseTransports( aiBrain, transportplatoon, transportLocation, self, IsEngineer, AtGoalDistance )
 
 		-- if self died or we couldn't use transports -- exit
 		if (not self) or (not PlatoonExists(aiBrain, self)) or (not bUsedTransports) then
@@ -1548,7 +1564,7 @@ function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bS
 
 		-- PROCESS THE PLATOON AFTER LANDING --
 		-- if we used transports then process any unlanded units
-		-- seriously though - UseTransports should have dealt with that
+		-- seriously though - this should have been dealt with
 		-- anyhow - forcibly detach the unit and re-enable standard conditions
 		units = GetPlatoonUnits(self)
 
@@ -1598,7 +1614,7 @@ end
 -- This function actually loads and moves units on transports using a safe path to the location desired
 -- Just a personal note - this whole transport thing is a BITCH
 -- This was one of the first tasks I tackled and years later I still find myself coming back to it again and again - argh
-function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
+function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer, AtGoalDistance )
 
     local TransportDialog = ScenarioInfo.TransportDialog or false
 
@@ -2186,7 +2202,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 				for _,v in EntityCategoryFilterDown( AIRTRANSPORTS, GetPlatoonUnits(transports)) do
 		
 					if not v.Dead then
-						v.WatchTravelThread = v:ForkThread(WatchTransportTravel, location, aiBrain, UnitPlatoon)		
+						v.WatchTravelThread = v:ForkThread(WatchTransportTravel, location, aiBrain, UnitPlatoon, AtGoalDistance )		
 					end
                 end
 			end
@@ -2238,6 +2254,10 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
     end
 
 	transporters = EntityCategoryFilterDown( AIRTRANSPORTS, GetPlatoonUnits(transports)) or false
+	
+	if not PlatoonExists(aiBrain, transports) then
+        return false
+    end
 
     SCOUTS      = GetSquadUnits( transports,'Scout') or false
     FIGHTERS    = GetSquadUnits( transports,'Guard') or false
@@ -2548,14 +2568,17 @@ function WatchUnitLoading( transport, units, aiBrain, UnitPlatoon)
 	transport.Loading = nil
 end
 
-function WatchTransportTravel( transport, destination, aiBrain, UnitPlatoon )
+function WatchTransportTravel( transport, destination, aiBrain, UnitPlatoon, AtGoalDistance )
 
     local TransportDialog = ScenarioInfo.TransportDialog or false	
 
+    local GoalDistance = AtGoalDistance or 10000
     local currentposition = false
     local transportgunship = categories.uea0203
 	local unitsdead = false
 	local watchcount = 0
+    
+    
 	
 	local GetPosition = GetPosition
     

@@ -1899,7 +1899,7 @@ Platoon = Class(PlatoonMethods) {
 				
 					if ( distance >  (300 * LOUDMAX( 1, (1/aiBrain.AirRatio) )) or StuckCount > 5 ) and PlatoonExists(aiBrain, self) then
 
-						usedTransports = SendPlatoonWithTransportsLOUD( self, aiBrain, transportLocation, 1, false, path )
+						usedTransports = SendPlatoonWithTransportsLOUD( self, aiBrain, transportLocation, 1, false, path, 10000 )
 
 						-- if we used tranports we need to update position and distance
 						if usedTransports then
@@ -8435,7 +8435,8 @@ Platoon = Class(PlatoonMethods) {
 
 					else
                     
-                        if SendPlatoonWithTransportsLOUD( self, aiBrain, RandomLocation( buildPosition[1],buildPosition[3], 8 ), 2, false ) then
+                        -- this call uses the AtGoalDistance option for transport travel with a value of 900
+                        if SendPlatoonWithTransportsLOUD( self, aiBrain, RandomLocation( buildPosition[1],buildPosition[3], 8 ), 2, false, path, 900 ) then
                             
                             if EngineerDialog then
                                 LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.EntityID.." "..repr(self.BuilderName).." says reason is "..repr(reason).." distance is "..repr(distance).." but found transport ")
@@ -8566,7 +8567,7 @@ Platoon = Class(PlatoonMethods) {
 									-- we use a random location within 8 so that we dont drop right on the target but near it 
 									-- had to do this becuase engies would land on MEX points (causing CanBuildAtLocation to fail)
 									-- a successful transport will clear the waypoint callback and end the loop --
-									if SendPlatoonWithTransportsLOUD( self, aiBrain, RandomLocation( buildPosition[1],buildPosition[3], 8 ), 1, false ) then
+									if SendPlatoonWithTransportsLOUD( self, aiBrain, RandomLocation( buildPosition[1],buildPosition[3], 8 ), 1, false, path, 900 ) then
                                     
                                         -- clear failedmoves on transport call
                                         if eng.failedmoves > 2 then
