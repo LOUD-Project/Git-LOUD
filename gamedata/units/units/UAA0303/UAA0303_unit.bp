@@ -6,41 +6,37 @@ UnitBlueprint {
 	
     Air = {
         AutoLandTime = 1.6,
-        BankFactor = 2.4,
+        BankFactor = 2,
         BankForward = false,
-        BreakOffDistance = 15,
-        BreakOffTrigger = 20,
+        BreakOffDistance = 12,
+        BreakOffTrigger = 22,
         CanFly = true,
 
-        CombatTurnSpeed = 1.3,
+        CombatTurnSpeed = 1.2,
 
-        EngageDistance = 50,
+        EngageDistance = 55,
 		
-        KLift = 4.5,
-        KLiftDamping = 2.5,
+        KLift = 3.5,
+        KLiftDamping = 3,
 		
-        KMove = 1.25,
-        KMoveDamping = 1,
+        KMove = 1.8,
+        KMoveDamping = 0.94,
 		
-        KRoll = 1.85,
-        KRollDamping = 1.85,
+        KRoll = 1.5,
+        KRollDamping = 1.4,
 		
-        KTurn = 1.2,
-        KTurnDamping = 1.2,
+        KTurn = 1.4,
+        KTurnDamping = 1.35,
 		
-        LiftFactor = 9,
+        LiftFactor = 8,
 		
         MaxAirspeed = 24,
-        MinAirspeed = 13,
+        MinAirspeed = 12,
 		
 		RandomMinChangeCombatStateTime = 3,
-		RandomMaxChangeCombatStateTime = 6,
+		RandomMaxChangeCombatStateTime = 7,
 		
-        StartTurnDistance = 5,
-
-        TightTurnMultiplier = 1.025,
-
-        TurnSpeed = 1.3,
+        StartTurnDistance = 4,
 
         Winged = true,
     },
@@ -204,7 +200,8 @@ UnitBlueprint {
             Damage = 205,
 			DamageRadius = 0,
             DamageFriendly = false,
-            DamageType = 'Normal',
+
+            DamageType = 'Light',
 			
             DisplayName = 'Cannon',
 			
@@ -225,7 +222,7 @@ UnitBlueprint {
             MuzzleVelocity = 90,
 			
             ProjectileId = '/projectiles/AAAAutocannonQuantum01/AAAAutocannonQuantum01_proj.bp',
-			ProjectileLifetime = 1,
+			ProjectileLifetime = 0.7,
 
             RackBones = {
                 {
@@ -239,13 +236,15 @@ UnitBlueprint {
             RateOfFire = 1,		-- 2 shells of 205 every second = 410 DPS
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 50,
+            SlavedToBodyArcRange = 52,
 			
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
 				'EXPERIMENTAL',
+                'BOMBER',
+                'GROUNDATTACK',
                 'MOBILE',
             },
 			
@@ -258,11 +257,11 @@ UnitBlueprint {
             TurretBoneYaw = 'Muzzle',
 			
             TurretPitch = 0,
-            TurretPitchRange = 60,
+            TurretPitchRange = 52,
             TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
-            TurretYawRange = 60,
+            TurretYawRange = 52,
             TurretYawSpeed = 60,
 			
             Turreted = true,

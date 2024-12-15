@@ -197,7 +197,7 @@ UnitBlueprint {
     },
 	
     Weapon = {
-		-- two forward firing ground support light lasers
+		-- two forward firing ground attack lasers
         {
             Audio = {
                 Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0203_Laser_Lgt', LodCutoff = 'Weapon_LodCutoff' },
@@ -212,7 +212,7 @@ UnitBlueprint {
             DisplayName = 'Light Laser',
 			
             FireTargetLayerCapsTable = {
-                Air = 'Air|Land|Water',
+                Air = 'Land|Water',
             },
 			
             FiringTolerance = 0.5,
@@ -255,7 +255,7 @@ UnitBlueprint {
 			
             TurretPitch = -10,
             TurretPitchRange = 80,
-            TurretPitchSpeed = 75,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 40,
@@ -277,7 +277,7 @@ UnitBlueprint {
             DisplayName = 'Light Laser',
 			
             FireTargetLayerCapsTable = {
-                Air = 'Air|Land|Water',
+                Air = 'Land|Water',
             },
 			
             FiringTolerance = 0.5,
@@ -316,7 +316,7 @@ UnitBlueprint {
 			
             TurretPitch = -10,
             TurretPitchRange = 80,
-            TurretPitchSpeed = 75,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 40,
@@ -331,19 +331,22 @@ UnitBlueprint {
             Audio = {
                 Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0102_Pulse_Battery_01', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             AutoInitiateAttackCommand = false,
 			
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
 			
             CollideFriendly = false,
 			
             Damage = 9,
-            DamageType = 'Normal',
+            DamageType = 'Light',
+
             DisplayName = 'Sonic Pulse Battery',
 			
             FireTargetLayerCapsTable = {
-                Air = 'Air',
+                Air = 'Air|Land',
             },
 			
             FiringRandomness = 0.1,
@@ -390,11 +393,11 @@ UnitBlueprint {
 			
             TurretPitch = 45,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 180,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },
@@ -402,18 +405,22 @@ UnitBlueprint {
             Audio = {
                 Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0102_Pulse_Battery_01', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             AutoInitiateAttackCommand = false,
+
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
+
             CollideFriendly = false,
 			
             Damage = 9,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
             DisplayName = 'Sonic Pulse Battery',
 			
             FireTargetLayerCapsTable = {
-                Air = 'Air',
+                Air = 'Air|Land',
             },
 			
             FiringRandomness = 0.1,
@@ -442,11 +449,10 @@ UnitBlueprint {
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
                 'AIR MOBILE ANTIAIR',
                 'AIR MOBILE -INTELLIGENCE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
             TrackingRadius = 1.2,
@@ -457,11 +463,11 @@ UnitBlueprint {
 			
             TurretPitch = 45,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 180,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },

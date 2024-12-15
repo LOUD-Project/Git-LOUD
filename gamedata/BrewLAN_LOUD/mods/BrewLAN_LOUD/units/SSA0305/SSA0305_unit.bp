@@ -7,8 +7,8 @@ UnitBlueprint {
     },
 	
     Air = {
-        AutoLandTime = 1.9,
-        BankFactor = 0.3,
+        AutoLandTime = 1.6,
+        BankFactor = 0.2,
         BankForward = false,
 		
         CanFly = true,
@@ -20,21 +20,23 @@ UnitBlueprint {
         CirclingRadiusVsAirMult = 0.66,
         CirclingTurnMult = 3,
 		
-        KLift = 0.5,
-        KLiftDamping = 0.65,
+        KLift = 2,
+        KLiftDamping = 2,
 		
-        KMove = 0.72,
-        KMoveDamping = 0.69,
+        KMove = 0.65,
+        KMoveDamping = 0.75,
 		
-        KTurn = 0.7,
-        KTurnDamping = 0.68,
+        KTurn = 0.6,
+        KTurnDamping = 1,
 		
-        LiftFactor = 5,
+        LiftFactor = 2,
 		
         MaxAirspeed = 10,
         MinAirspeed = 3,
 		
-        StartTurnDistance = 5,
+        StartTurnDistance = 1,
+
+        Winged = false,
     },
 	
     Audio = {
@@ -366,7 +368,7 @@ UnitBlueprint {
 			
             Damage = 35,
             DamageFriendly = false,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
             DisplayName = 'Losaare AA Autocannon',
 			
@@ -408,22 +410,21 @@ UnitBlueprint {
                 'AIR',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Turret_Muzzle_AA',
             TurretBonePitch = 'Turret_Muzzle_AA',
             TurretBoneYaw = 'Turret_Muzzle_AA',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 55,
-            TurretPitchSpeed = 360,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
-            TurretYawRange = 55,
-            TurretYawSpeed = 360,
+            TurretYawRange = 45,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,

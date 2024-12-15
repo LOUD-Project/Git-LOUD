@@ -22,17 +22,17 @@ UnitBlueprint {
         KLiftDamping = 2.5,
 		
         KMove = 0.65,
-        KMoveDamping = 0.99,
+        KMoveDamping = 0.75,
 		
         KTurn = 0.8,
         KTurnDamping = 1.0,
 		
-        LiftFactor = 5,
+        LiftFactor = 4.5,
 		
         MaxAirspeed = 10.5,
         MinAirspeed = 3,
 		
-        StartTurnDistance = 5,
+        StartTurnDistance = 2.5,
 		
         Winged = false,
     },
@@ -235,11 +235,11 @@ UnitBlueprint {
 			
             TurretPitch = -20,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 100,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 85,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },

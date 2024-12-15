@@ -22,7 +22,7 @@ UnitBlueprint {
         KLiftDamping = 6.5,
 
         KMove = 1.0,
-        KMoveDamping = 1.4,
+        KMoveDamping = 1.1,
 
         KRoll = 0.6,
         KRollDamping = 2.0,
@@ -231,7 +231,7 @@ UnitBlueprint {
             CollideFriendly = false,
 
             Damage = 30,
-			DamageRadius = 1.5,
+
             DamageType = 'Normal',
 
             DisplayName = 'EMP Pulse Laser',
@@ -285,11 +285,11 @@ UnitBlueprint {
 
             TurretPitch = -30,
             TurretPitchRange = 65,
-            TurretPitchSpeed = 100,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 80,
+            TurretYawSpeed = 60,
             Turreted = true,
         },
 		-- 2 x AA Cannons
@@ -303,7 +303,7 @@ UnitBlueprint {
             CollideFriendly = false,
 
             Damage = 60,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 
             DisplayName = 'Electron AA Autocannon',
 
@@ -353,11 +353,11 @@ UnitBlueprint {
 
             TurretPitch = 0,
             TurretPitchRange = 180,
-            TurretPitchSpeed = 90,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 120,
+            TurretYawSpeed = 60,
 
             Turreted = true,
         },
@@ -370,7 +370,7 @@ UnitBlueprint {
             CollideFriendly = false,
 
             Damage = 60,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 
             DisplayName = 'Electron AA Autocannon',
 
@@ -418,11 +418,11 @@ UnitBlueprint {
 
             TurretPitch = 0,
             TurretPitchRange = 180,
-            TurretPitchSpeed = 90,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 60,
 
             Turreted = true,
         },

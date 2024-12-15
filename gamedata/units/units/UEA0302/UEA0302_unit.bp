@@ -1,32 +1,32 @@
 UnitBlueprint {
     Air = {
-        AutoLandTime = 1.5,
-        BankFactor = 2,
+        AutoLandTime = 1.6,
+        BankFactor = 2.8,
         BankForward = false,
+
         CanFly = true,
-        CombatTurnSpeed = 1,
-        EngageDistance = 50,
+        CombatTurnSpeed = 1.1,
 		
         KLift = 3,
         KLiftDamping = 2.5,
 		
-        KMove = 1.5,
-        KMoveDamping = 1.5,
+        KMove = 1.75,
+        KMoveDamping = 1,
 		
-        KRoll = 2,
-        KRollDamping = 1,
+        KRoll = 1.75,
+        KRollDamping = 1.6,
 		
-        KTurn = 1,
-        KTurnDamping = 1.5,
+        KTurn = 1.6,
+        KTurnDamping = 1.4,
 		
-        LiftFactor = 10,
+        LiftFactor = 11,
 		
         MaxAirspeed = 30,
-        MinAirspeed = 25,
+        MinAirspeed = 15,
 		
         StartTurnDistance = 5,
+
         TightTurnMultiplier = 1.1,
-        TurnSpeed = 1,
 		
         Winged = true,
     },
@@ -127,15 +127,19 @@ UnitBlueprint {
         BuildOnLayerCaps = {
             LAYER_Air = true,
         },
-        Elevation = 32,
+        Elevation = 30,
+
         FuelRechargeRate = 25,
-        FuelUseTime = 2500,
+        FuelUseTime = 1500,
+
         GroundCollisionOffset = 1.6,
-        MaxSpeed = 10,
+
+        MaxSpeed = 30,
+
         MeshExtentsX = 1.5,
         MeshExtentsY = 0.5,
         MeshExtentsZ = 2.25,
-        MinSpeedPercent = 0.85,
+
         MotionType = 'RULEUMT_Air',
     },
 	

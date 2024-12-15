@@ -1,12 +1,13 @@
 UnitBlueprint {
     AI = {
         GuardReturnRadius = 64,
-        GuardScanRadius = 40,
+        GuardScanRadius = 44,
+
         BeaconName = 'UEB5102',
     },
 	
     Air = {
-        AutoLandTime = 1.35,
+        AutoLandTime = 1.6,
         BankFactor = 0.1,
         BankForward = false,
         CanFly = true,
@@ -19,24 +20,22 @@ UnitBlueprint {
         CirclingTurnMult = 3,
 		
         KLift = 3,
-        KLiftDamping = 3.5,
+        KLiftDamping = 2.5,
 		
-        KMove = 0.9,
-        KMoveDamping = 0.9,
+        KMove = 0.65,
+        KMoveDamping = 0.75,
 		
         KTurn = 0.8,
-        KTurnDamping = 0.85,
+        KTurnDamping = 1,
 		
-        LiftFactor = 6,
+        LiftFactor = 5,
 		
-        MaxAirspeed = 12,
+        MaxAirspeed = 11.5,
         MinAirspeed = 3,
 		
-        StartTurnDistance = 5,
+        StartTurnDistance = 2.5,
 		
         TransportHoverHeight = 3,
-
-		TurnSpeed = 1.3,		
     },
 	
     Audio = {
@@ -130,7 +129,7 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 17500,
-        BuildCostMass = 355,
+        BuildCostMass = 360,
         BuildTime = 600,
     },
 	

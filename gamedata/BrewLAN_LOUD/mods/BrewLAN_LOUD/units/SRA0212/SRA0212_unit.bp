@@ -6,37 +6,34 @@ UnitBlueprint {
 
     Air = {
         AutoLandTime = 1.6,
-        BankFactor = 2,
+        BankFactor = 2.2,
         BankForward = false,
-        BreakOffDistance = 10,
+        BreakOffDistance = 8,
         BreakOffTrigger = 18,
         CanFly = true,
 
-        CombatTurnSpeed = 1.4,
+        CombatTurnSpeed = 1.2,
 
         EngageDistance = 50,
 
         KLift = 4,
         KLiftDamping = 2.5,
 
-        KMove = 1.3,
-        KMoveDamping = 1,
+        KMove = 1.45,
+        KMoveDamping = 0.95,
 
-        KRoll = 1.7,
-        KRollDamping = 1.7,
+        KRoll = 1.5,
+        KRollDamping = 1.4,
 
-        KTurn = 1.2,
-        KTurnDamping = 1.2,
+        KTurn = 1.5,
+        KTurnDamping = 1.4,
 
         LiftFactor = 8,
 
-        MaxAirspeed = 20,
+        MaxAirspeed = 20.5,
         MinAirspeed = 12,
 
-        StartTurnDistance = 5,
-        TightTurnMultiplier = 1.03,
-
-        TurnSpeed = 1.4,
+        StartTurnDistance = 2,
 
         Winged = true,
     },
@@ -74,9 +71,9 @@ UnitBlueprint {
 
         ArmorType = 'Light',
 
-        Health = 750,
-        MaxHealth = 750,
-        RegenRate = 6,
+        Health = 1300,
+        MaxHealth = 1300,
+        RegenRate = 4,
     },
 
     Description = '<LOC sra0212_desc>Combat Fighter',
@@ -101,9 +98,9 @@ UnitBlueprint {
     },
 
     Economy = {
-        BuildCostEnergy = 12500,
-        BuildCostMass = 210,
-        BuildTime = 1600,
+        BuildCostEnergy = 14500,
+        BuildCostMass = 250,
+        BuildTime = 350,
     },
 
     Footprint = {
@@ -185,7 +182,7 @@ UnitBlueprint {
             CollideFriendly = false,
 
             Damage = 25,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 
             DisplayName = 'Electron Autocannon',
 
@@ -218,15 +215,14 @@ UnitBlueprint {
             RateOfFire = 1,
 
             SlavedToBody = true,
-            SlavedToBodyArcRange = 50,
+            SlavedToBodyArcRange = 44,
 
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'AIR MOBILE',
                 'AIR MOBILE -INTELLIGENCE',
-                'SPECIALLOWPRI',
-                'ALLUNITS',
+                'MOBILE',
             },
             TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
@@ -237,12 +233,12 @@ UnitBlueprint {
             TurretBoneYaw = 'Gap',
 
             TurretPitch = 0,
-            TurretPitchRange = 55,
-            TurretPitchSpeed = 360,
+            TurretPitchRange = 44,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
-            TurretYawRange = 55,
-            TurretYawSpeed = 360,
+            TurretYawRange = 44,
+            TurretYawSpeed = 60,
 
             Turreted = true,
 

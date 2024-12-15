@@ -295,7 +295,7 @@ UnitBlueprint {
             CollideFriendly = false,
 
             Damage = 25,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 
             DisplayName = 'Shleo AA AutoGun',
 
@@ -348,11 +348,11 @@ UnitBlueprint {
 
             TurretPitch = 0,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 90,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 120,
+            TurretYawSpeed = 60,
 
             Turreted = true,
         },
@@ -367,7 +367,7 @@ UnitBlueprint {
 
             Damage = 25,
 			DamageRadius = 0,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 
             DisplayName = 'Shleo AA AutoGun',
             
@@ -417,11 +417,11 @@ UnitBlueprint {
 
             TurretPitch = 0,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 90,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 120,
+            TurretYawSpeed = 60,
 
             Turreted = true,
         },
@@ -434,7 +434,7 @@ UnitBlueprint {
             CollideFriendly = false,
 
             Damage = 25,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 
             DisplayName = 'Shleo AA AutoGun',
 
@@ -485,11 +485,11 @@ UnitBlueprint {
 
             TurretPitch = 0,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 90,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 120,
+            TurretYawSpeed = 60,
 
             Turreted = true,
         },
@@ -502,7 +502,7 @@ UnitBlueprint {
             CollideFriendly = false,
 
             Damage = 25,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 
             DisplayName = 'Shleo AA AutoGun',
 
@@ -553,11 +553,11 @@ UnitBlueprint {
 
             TurretPitch = 0,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 90,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 120,
+            TurretYawSpeed = 60,
 
             Turreted = true,
         },

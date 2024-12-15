@@ -23,18 +23,18 @@ UnitBlueprint {
         KLift = 3,
         KLiftDamping = 2.5,
 		
-        KMove = 0.6,
-        KMoveDamping = 2,
+        KMove = 0.65,
+        KMoveDamping = 0.75,
 		
         KTurn = 0.8,
-        KTurnDamping = 1.2,
+        KTurnDamping = 1,
 		
-        LiftFactor = 5,
+        LiftFactor = 4.5,
 		
         MaxAirspeed = 10.5,
         MinAirspeed = 3,
 		
-        StartTurnDistance = 5,
+        StartTurnDistance = 2.5,
 		
         Winged = false,
 		

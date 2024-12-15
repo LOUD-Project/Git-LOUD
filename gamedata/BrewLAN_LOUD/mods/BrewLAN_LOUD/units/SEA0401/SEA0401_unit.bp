@@ -256,7 +256,8 @@ UnitBlueprint {
             Damage = 150,
             DamageFriendly = false,
             DamageRadius = 2.5,
-            DamageType = 'Normal',
+
+            DamageType = 'Light',
 
             DetonatesAtTargetHeight = true,
 
@@ -326,7 +327,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
 			TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.2,
 
@@ -341,7 +342,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 45,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 72,
 
             Turreted = true,
         },
@@ -360,7 +361,7 @@ UnitBlueprint {
             Damage = 225,
             DamageFriendly = false,
             DamageRadius = 2.5,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 
             DetonatesAtTargetHeight = true,
 
@@ -429,12 +430,12 @@ UnitBlueprint {
             TurretDualManipulators = false,
 
             TurretPitch = 0,
-            TurretPitchRange = 90,
-            TurretPitchSpeed = 360,
+            TurretPitchRange = 65,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
             TurretYawRange = 60,
-            TurretYawSpeed = 360,
+            TurretYawSpeed = 60,
 
             Turreted = true,
         },
@@ -452,7 +453,7 @@ UnitBlueprint {
 
             Damage = 145,
 			DamageRadius = 0,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 
             DisplayName = 'Flayer',
 
@@ -502,15 +503,14 @@ UnitBlueprint {
             TurretBoneMuzzle = 'SAM_Barrel',
             TurretBonePitch = 'SAM_Barrel',
             TurretBoneYaw = 'SAM_Turret',
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
-            TurretPitchRange = 80,
-            TurretPitchSpeed = 120,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 60,
 
             Turreted = true,
         },
@@ -526,7 +526,7 @@ UnitBlueprint {
 
             Damage = 145,
 			DamageRadius = 0,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 
             DisplayName = 'Flayer',
 
@@ -574,15 +574,14 @@ UnitBlueprint {
             TurretBoneMuzzle = 'SAM_Barrel001',
             TurretBonePitch = 'SAM_Barrel001',
             TurretBoneYaw = 'SAM_Turret001',
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
-            TurretPitchRange = 80,
-            TurretPitchSpeed = 120,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 60,
 
             Turreted = true,
         },
@@ -607,7 +606,7 @@ UnitBlueprint {
             Damage = 200,
             DamageFriendly = false,
             DamageRadius = 0,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 
             DisplayName = 'AA Laser',
 
@@ -640,22 +639,22 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
 			TargetRestrictOnlyAllow = 'AIR',
+
             TrackingRadius = 1.2,
 
             TurretBoneMuzzle = 'Rack_Gun_Muzzle01',
             TurretBonePitch = 'Rack_Gun_Pitch01',
             TurretBoneYaw = 'Rack_Gun_Turret01',
-            TurretDualManipulators = false,
 
             TurretPitch = -20,
-            TurretPitchRange = 90,
-            TurretPitchSpeed = 180,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 90,
 
             TurretYaw = 0,
             TurretYawRange = 90,
-            TurretYawSpeed = 180,
+            TurretYawSpeed = 90,
 
             Turreted = true,
         },
@@ -727,7 +726,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'GGun_Barrel_Muzzle',
             TurretBonePitch = 'GGun_Pitch001',
             TurretBoneYaw = 'GGun_Yaw001',
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 60,
@@ -735,7 +733,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 50,
+            TurretYawSpeed = 48,
 
             Turreted = true,
 

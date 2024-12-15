@@ -353,7 +353,7 @@ UnitBlueprint {
             CollideFriendly = false,
 
             Damage = 15,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 
             DisplayName = 'Sonic Pulse Battery',
 
@@ -403,11 +403,11 @@ UnitBlueprint {
 
             TurretPitch = 25,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 150,
+            TurretYawSpeed = 60,
 
             Turreted = true,
         },
@@ -423,7 +423,7 @@ UnitBlueprint {
             CollideFriendly = false,
 
             Damage = 15,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 
             DisplayName = 'Heavy Sonic Pulse Battery',
 
@@ -473,11 +473,11 @@ UnitBlueprint {
 
             TurretPitch = 25,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 150,
+            TurretYawSpeed = 60,
 
             Turreted = true,
         },
@@ -493,7 +493,7 @@ UnitBlueprint {
 
             Damage = 15,
 			DamageRadius = 0,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 
             DisplayName = 'Heavy Sonic Pulse Battery',
 
@@ -543,11 +543,11 @@ UnitBlueprint {
 
             TurretPitch = 25,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 150,
+            TurretYawSpeed = 60,
 
             Turreted = true,
         },
@@ -563,7 +563,7 @@ UnitBlueprint {
 
             Damage = 15,
 			DamageRadius = 0,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 
             DisplayName = 'Heavy Sonic Pulse Battery',
 
@@ -612,11 +612,11 @@ UnitBlueprint {
 
             TurretPitch = 25,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 150,
+            TurretYawSpeed = 60,
 
             Turreted = true,
         },

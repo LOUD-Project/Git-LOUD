@@ -24,10 +24,10 @@ UnitBlueprint {
         KLiftDamping = 0.8,
 		
         KMove = 0.7,
-        KMoveDamping = 2,
+        KMoveDamping = 0.7,
 		
         KTurn = 0.7,
-        KTurnDamping = 1.5,
+        KTurnDamping = 1,
 		
         LiftFactor = 7,
 		
@@ -363,7 +363,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 200,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
             DisplayName = 'Nanite Missile System',
 
@@ -408,7 +408,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'LeftBack_Nanite_Turret_Muzzle',
             TurretBonePitch = 'LeftBack_Nanite_Turret_Barrel01',
@@ -416,11 +416,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 70,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 120,
-            TurretYawSpeed = 180,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },
@@ -434,7 +434,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 200,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
             DisplayName = 'Nanite Missile System',
 
@@ -484,11 +484,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 70,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 120,
-            TurretYawSpeed = 180,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },
@@ -572,7 +572,7 @@ UnitBlueprint {
                 'STRUCTURE -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,HIGHALTAIR,SATELLITE,WALL',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Front_Turret_Muzzle01',
             TurretBonePitch = 'Front_Turret_Barrel',
@@ -580,11 +580,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 180,
-            TurretPitchSpeed = 100,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 80,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },
@@ -670,11 +670,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 180,
-            TurretPitchSpeed = 100,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 80,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },

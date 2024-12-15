@@ -22,7 +22,7 @@ UnitBlueprint {
         KLiftDamping = 2.5,
 		
         KMove = 1.0,
-        KMoveDamping = 2.5,
+        KMoveDamping = 1.5,
 		
         KRoll = 0.5,
         KRollDamping = 0.93,
@@ -337,9 +337,9 @@ UnitBlueprint {
 			
             Damage = 60,
 			DamageRadius = 0,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
-            DisplayName = 'Electron Autocannon',
+            DisplayName = 'AA Autocannon',
 			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land|Water',
@@ -375,7 +375,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
             TrackingRadius = 1.2,
@@ -383,15 +383,14 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Up_Turret_Muzzle',
             TurretBonePitch = 'Back_Up_Turret',
             TurretBoneYaw = 'Back_Up_Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 180,
-            TurretPitchSpeed = 90,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },
@@ -405,10 +404,9 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 60,
-			DamageRadius = 0,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
-            DisplayName = 'Electron Autocannon',
+            DisplayName = 'AA Autocannon',
 			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land|Water',
@@ -450,15 +448,14 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Back_Up_Turret_Muzzle01',
             TurretBonePitch = 'Back_Up_Turret01',
             TurretBoneYaw = 'Back_Up_Turret01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 180,
-            TurretPitchSpeed = 90,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },

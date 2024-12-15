@@ -23,7 +23,7 @@ UnitBlueprint {
         KLiftDamping = 2,
 		
         KMove = 0.95,
-        KMoveDamping = 2,
+        KMoveDamping = 1.5,
 		
         KRoll = 0.6,
         KRollDamping = 0.95,
@@ -325,9 +325,9 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 25,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
-            DisplayName = 'Losaare AA AutoGun',
+            DisplayName = 'AA AutoGun',
 			
             FireTargetLayerCapsTable = {
                 Air = 'Air',
@@ -366,7 +366,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Left_Turret_Barrel_Muzzle01',
             TurretBonePitch = 'Left_Turret_Barrel',
@@ -374,12 +374,12 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 90,
-            TurretPitchSpeed = 90,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 120,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },
@@ -393,7 +393,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 25,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
             DisplayName = 'Losaare AA AutoGun',
 			
@@ -438,12 +438,12 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 90,
-            TurretPitchSpeed = 90,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 120,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },

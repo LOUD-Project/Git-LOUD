@@ -29,7 +29,7 @@ UnitBlueprint {
     CollisionOffsetY = -0.65,
 	
     Defense = {
-        ArmorType = 'Normal',
+        ArmorType = 'Light',
         Health = 1000,
         MaxHealth = 1000,
     },

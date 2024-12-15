@@ -6,37 +6,34 @@ UnitBlueprint {
 	
     Air = {
         AutoLandTime = 1.6,
-        BankFactor = 2,
+        BankFactor = 2.2,
         BankForward = false,
-        BreakOffDistance = 10,
+        BreakOffDistance = 8,
         BreakOffTrigger = 18,
         CanFly = true,
 		
-        CombatTurnSpeed = 1.4,
+        CombatTurnSpeed = 1.2,
 		
         EngageDistance = 50,
 		
         KLift = 4,
         KLiftDamping = 2.5,
 		
-        KMove = 1.3,
-        KMoveDamping = 1,
+        KMove = 1.5,
+        KMoveDamping = 0.95,
 		
-        KRoll = 1.7,
-        KRollDamping = 1.7,
+        KRoll = 1.5,
+        KRollDamping = 1.4,
 		
-        KTurn = 1.2,
-        KTurnDamping = 1.2,
+        KTurn = 1.5,
+        KTurnDamping = 1.4,
 		
         LiftFactor = 8,
 		
         MaxAirspeed = 21,
         MinAirspeed = 12,
 		
-        StartTurnDistance = 5,
-        TightTurnMultiplier = 1.03,
-
-        TurnSpeed = 1.4,
+        StartTurnDistance = 1.5,
 
         Winged = true,
     },
@@ -107,9 +104,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 14000,
+        BuildCostEnergy = 14500,
         BuildCostMass = 250,
-        BuildTime = 3000,
+        BuildTime = 350,
     },
 	
     Footprint = {
@@ -206,7 +203,7 @@ UnitBlueprint {
 			
             Damage = 90,
             DamageFriendly = false,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
             DisplayName = 'AutoCannon',
 			
@@ -224,7 +221,7 @@ UnitBlueprint {
             MuzzleVelocity = 60,
 			
             ProjectileId = '/projectiles/AAALightDisplacementAutoCannonMissile01/AAALightDisplacementAutoCannonMissile01_proj.bp',
-            ProjectileLifetime = 0.6,
+            ProjectileLifetime = 0.7,
 
             RackBones = {
                 {
@@ -238,7 +235,7 @@ UnitBlueprint {
             RateOfFire = 2,		---- 180 DPS Air
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 40,
+            SlavedToBodyArcRange = 44,
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -247,7 +244,7 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,STRUCTURE,SATELLITE',
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.1,
 			
@@ -256,12 +253,12 @@ UnitBlueprint {
             TurretBoneYaw = 'Muzzle',
 			
             TurretPitch = 0,
-            TurretPitchRange = 60,
+            TurretPitchRange = 44,
             TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
-            TurretYawRange = 45,
-            TurretYawSpeed = 70,
+            TurretYawRange = 44,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },

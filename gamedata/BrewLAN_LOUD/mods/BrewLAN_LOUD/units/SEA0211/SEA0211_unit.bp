@@ -1,45 +1,44 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 110,
-        GuardScanRadius = 75,
+        GuardReturnRadius = 96,
+        GuardScanRadius = 55,
+
         TargetBones = {'Bomber'},
     },
 	
     Air = {
         AutoLandTime = 1.6,
-        BankFactor = 2.5,
+        BankFactor = 1.5,
         BankForward = false,
         BreakOffDistance = 38,
         BreakOffIfNearNewTarget = true,
-        BreakOffTrigger = 21,
+        BreakOffTrigger = 20,
         CanFly = true,
+
         CombatTurnSpeed = 0.9,
-        EngageDistance = 40,
+
+        EngageDistance = 50,
 		
-        KLift = 3.5,
+        KLift = 3,
         KLiftDamping = 2.5,
 		
-        KMove = 1,
-        KMoveDamping = 2,
+        KMove = 0.85,
+        KMoveDamping = 0.8,
 		
-        KRoll = 2,
-        KRollDamping = 2.5,
+        KRoll = 1.5,
+        KRollDamping = 1.5,
 		
-        KTurn = 1.35,
-        KTurnDamping = 1.75,
+        KTurn = 0.85,
+        KTurnDamping = 0.95,
 		
-        LiftFactor = 9,
+        LiftFactor = 7.5,
 		
         MaxAirspeed = 16,
         MinAirspeed = 10,
 		
-        PredictAheadForBombDrop = 2,
-		
-        StartTurnDistance = 5,
-		
-        TightTurnMultiplier = 0,
-		
-        TurnSpeed = 1.2,
+        PredictAheadForBombDrop = 3,
+        
+        StartTurnDistance = 2.5,
 		
         Winged = true,
     },
@@ -274,7 +273,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 8,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
             DisplayName = 'Linked Railgun',
 			
@@ -305,7 +304,7 @@ UnitBlueprint {
                 'MOBILE -INTELLIGENCE',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,SATELLITE,NAVAL',
+            TargetRestrictDisallow = 'UNTARGETABLE,STRUCTURE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.2,
             
@@ -316,11 +315,11 @@ UnitBlueprint {
             
             TurretPitch = 0,
             TurretPitchRange = 40,
-            TurretPitchSpeed = 360,
+            TurretPitchSpeed = 60,
             
             TurretYaw = 0,
-            TurretYawRange = 55,
-            TurretYawSpeed = 360,
+            TurretYawRange = 45,
+            TurretYawSpeed = 60,
             
             Turreted = true,
         },

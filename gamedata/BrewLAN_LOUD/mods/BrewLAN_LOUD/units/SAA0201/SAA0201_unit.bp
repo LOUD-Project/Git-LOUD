@@ -3,38 +3,38 @@ UnitBlueprint {
 	AI = {
         GuardReturnRadius = 75,
         GuardScanRadius = 50,
+
         TargetBones = { 'XAA0305' },
     },
     
 	Air = {
         AutoLandTime = 1.6,
-        BankFactor = 5,
+        BankFactor = 3.5,
         BankForward = false,
         CanFly = true,
-        CombatTurnSpeed = 1.9,
-        EngageDistance = 50,
+        CombatTurnSpeed = 1.4,
 		
         KLift = 3,
         KLiftDamping = 2.5,
 		
-        KMove = 1.5,
+        KMove = 1.65,
         KMoveDamping = 1,
 		
-        KRoll = 1.5,
-        KRollDamping = 1,
+        KRoll = 1.75,
+        KRollDamping = 1.75,
 		
-        KTurn = 1.5,
-        KTurnDamping = 2.3,
+        KTurn = 1.8,
+        KTurnDamping = 1.6,
 		
-        LiftFactor = 9,
+        LiftFactor = 10,
 		
-        MaxAirspeed = 21,
+        MaxAirspeed = 23,
         MinAirspeed = 8,
 		
-        StartTurnDistance = 5,
-        TightTurnMultiplier = 1.02,
-        TurnSpeed = 1.6,
-		
+        StartTurnDistance = 3,
+
+        TightTurnMultiplier = 1.1,
+
         Winged = true,
     },
 	
@@ -70,7 +70,7 @@ UnitBlueprint {
 		Regen = 1,
 
 		AirThreatLevel = 1,
-		EconomyThreatLevel = 100,
+		EconomyThreatLevel = 20,
     },
 	
     Description = '<LOC saa0201>Decoy Plane',
@@ -118,7 +118,7 @@ UnitBlueprint {
         BuildCostMass = 180,
         BuildTime = 220,
 		
-        MaintenanceConsumptionPerSecondEnergy = 25,
+        MaintenanceConsumptionPerSecondEnergy = 20,
     },
 	
     Footprint = {
@@ -150,7 +150,8 @@ UnitBlueprint {
 	
     Intel = {
         JamRadius = { Max = 50, Min = 8 },
-        JammerBlips = 10,
+        JammerBlips = 8,
+
         VisionRadius = 44,
     },
 	
@@ -166,15 +167,18 @@ UnitBlueprint {
         BuildOnLayerCaps = {
             LAYER_Air = true,
         },
-        Elevation = 28,
+        Elevation = 24,
+
         FuelRechargeRate = 15,
-        FuelUseTime = 350,
+        FuelUseTime = 750,
+
         GroundCollisionOffset = 2.2,
-        MaxSpeed = 10,
+
+        MaxSpeed = 23,
         MeshExtentsX = 1.5 * 0.5,
         MeshExtentsY = 0.25 * 0.8,
         MeshExtentsZ = 1 ,
-        MinSpeedPercent = 0.85,
+
         MotionType = 'RULEUMT_Air',
     },
 	
@@ -182,7 +186,7 @@ UnitBlueprint {
     SelectionSizeZ = 0.55,
     SelectionThickness = 0.42,
 	
-    SizeSphere = 2.2,
+    SizeSphere = 2.1,
 	
     SizeX = 0.8,
     SizeY = 0.25,
@@ -195,20 +199,4 @@ UnitBlueprint {
         AirClass = true,
         TransportClass = 2,
     },
-	
-    Weapon = {
-        {
-            AboveWaterTargetsOnly = true,
-            Damage =  50,
-            DamageFriendly = true,
-            DamageRadius = 1,
-            DamageType = 'Normal',
-            DisplayName = 'Air Crash',
-            DummyWeapon = true,
-            FiringTolerance = 2,
-            Label = 'DeathImpact',
-            WeaponCategory = 'Death',
-        },
-    },
-	
 }

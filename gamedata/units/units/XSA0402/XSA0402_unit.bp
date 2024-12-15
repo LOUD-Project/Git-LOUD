@@ -42,7 +42,7 @@ UnitBlueprint {
         KRollDamping = 2.5,
 		
         KTurn = 0.81,
-        KTurnDamping = 1.6,
+        KTurnDamping = 1.45,
 		
         LiftFactor = 11,
 		
@@ -336,7 +336,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 100,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
             DisplayName = 'Losaare AA Autocannon',
 			
@@ -348,7 +348,7 @@ UnitBlueprint {
             FiringTolerance = 0.1,
 			
             HeadingArcCenter = 310,
-            HeadingArcRange = 80,
+            HeadingArcRange = 60,
 			
             Label = 'Autocannon',
 			LeadTarget = true,
@@ -387,18 +387,18 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Right_Front_Autocannon_Muzzle',
             TurretBonePitch = 'Right_Front_Autocannon_Muzzle',
             TurretBoneYaw = 'Right_Front_Autocannon_Muzzle',
 			
             TurretPitch = 0,
-            TurretPitchRange = 80,
-            TurretPitchSpeed = 360,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
-            TurretYawRange = 100,
+            TurretYawRange = 60,
             TurretYawSpeed = 60,
 
             Turreted = true,
@@ -416,7 +416,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 100,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
             DisplayName = 'Losaare AA Autocannon',
 			
@@ -428,7 +428,7 @@ UnitBlueprint {
             FiringTolerance = 0.1,
 			
             HeadingArcCenter = 60,
-            HeadingArcRange = 80,
+            HeadingArcRange = 60,
 			
             Label = 'Autocannon',
 			LeadTarget = true,
@@ -469,11 +469,11 @@ UnitBlueprint {
             TurretBoneYaw = 'Left_Front_Autocannon_Muzzle',
 			
             TurretPitch = 0,
-            TurretPitchRange = 80,
-            TurretPitchSpeed = 360,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
-            TurretYawRange = 100,
+            TurretYawRange = 60,
             TurretYawSpeed = 60,
 
             Turreted = true,
@@ -491,7 +491,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 100,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
             DisplayName = 'Losaare AA Autocannon',
 			
@@ -503,7 +503,7 @@ UnitBlueprint {
             FiringTolerance = 0.1,
 			
             HeadingArcCenter = 180,
-            HeadingArcRange = 80,
+            HeadingArcRange = 60,
 			
             Label = 'Autocannon',
 			LeadTarget = true,
@@ -546,12 +546,12 @@ UnitBlueprint {
             TurretBoneYaw = 'Right_Rear_Autocannon_Muzzle',
 			
             TurretPitch = 0,
-            TurretPitchRange = 80,
-            TurretPitchSpeed = 360,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
-            TurretYawRange = 100,
-            TurretYawSpeed = 90,
+            TurretYawRange = 60,
+            TurretYawSpeed = 60,
 
             Turreted = true,
         },
@@ -568,7 +568,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 100,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
             DisplayName = 'Losaare AA Autocannon',
 			
@@ -580,7 +580,7 @@ UnitBlueprint {
             FiringTolerance = 0.1,
 			
             HeadingArcCenter = 180,
-            HeadingArcRange = 80,
+            HeadingArcRange = 60,
 			
             Label = 'Autocannon',
 			LeadTarget = true,
@@ -621,12 +621,12 @@ UnitBlueprint {
             TurretBoneYaw = 'Left_Rear_Autocannon_Muzzle',
 			
             TurretPitch = 0,
-            TurretPitchRange = 80,
-            TurretPitchSpeed = 360,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
-            TurretYawRange = 100,
-            TurretYawSpeed = 90,
+            TurretYawRange = 60,
+            TurretYawSpeed = 60,
 
             Turreted = true,
         },

@@ -222,7 +222,7 @@ UnitBlueprint {
             CollisionOffsetY = .2,
 			
             Damage = 30,
-			DamageRadius = 1.5,
+			DamageRadius = 1,
             DamageType = 'Normal',
 			
             DisplayName = 'EMP Pulse Laser',
@@ -322,11 +322,11 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'AIR MOBILE ANTIAIR',
-                'AIR MOBILE',
+                'ANTIAIR',
+                'AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Back_Up_Turret_Muzzle',
             TurretBonePitch = 'Back_Up_Turret',
@@ -334,11 +334,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 120,
-            TurretPitchSpeed = 80,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 80,
+            TurretYawSpeed = 60,
             Turreted = true,
         },
     },

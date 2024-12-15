@@ -36,7 +36,7 @@ UnitBlueprint {
     },
     
     Defense = {
-        ArmorType = 'Normal',
+        ArmorType = 'Light',
         Health = 30,
         MaxHealth = 30,
         RegenRate = 0,

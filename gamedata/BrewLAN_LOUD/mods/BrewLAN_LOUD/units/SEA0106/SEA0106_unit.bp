@@ -6,41 +6,35 @@ UnitBlueprint {
     },
 	
     Air = {
-        AutoLandTime = 1,
-		
+        AutoLandTime = 1.6,
         BankFactor = 3,
         BankForward = false,
-		
-        BreakOffDistance = 18,
+        BreakOffDistance = 30,
         BreakOffIfNearNewTarget = true,
-        BreakOffTrigger = 10,
-		
+        BreakOffTrigger = 20,
         CanFly = true,
 		
-        CombatTurnSpeed = 0.5,
+        CombatTurnSpeed = 1.1,
+        EngageDistance = 50,
 		
-        EngageDistance = 45,
+        KLift = 3,
+        KLiftDamping = 2.5,
 		
-        KLift = 6,
-        KLiftDamping = 5.5,
+        KMove = 0.8,
+        KMoveDamping = 0.8,
 		
-        KMove = 1,
-        KMoveDamping = 1,
+        KRoll = 1.4,
+        KRollDamping = 1.4,
 		
-        KRoll = 2,
-        KRollDamping = 4,
+        KTurn = 0.8,
+        KTurnDamping = 0.8,
 		
-        KTurn = 1,
-        KTurnDamping = 1,
-		
-        LiftFactor = 10,
+        LiftFactor = 6,
 		
         MaxAirspeed = 12,
-        MinAirspeed = 10,
+        MinAirspeed = 9,
 		
-        StartTurnDistance = 5,
-		
-        TurnSpeed = 0.48,
+        StartTurnDistance = 2,
 		
         Winged = true,
     },

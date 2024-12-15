@@ -5,8 +5,8 @@ UnitBlueprint {
     },
     
     Air = {
-        AutoLandTime = 1.9,
-        BankFactor = 2.2,
+        AutoLandTime = 1.6,
+        BankFactor = 1.8,
         BankForward = false,
         BreakOffDistance = 22,
         BreakOffTrigger = 30,
@@ -18,16 +18,16 @@ UnitBlueprint {
         EngageDistance = 55,
         
         KLift = 4,
-        KLiftDamping = 2.5,
+        KLiftDamping = 3,
         
-        KMove = 1.2,
-        KMoveDamping = 1,
+        KMove = 1.7,
+        KMoveDamping = 0.92,
         
-        KRoll = 1.6,
-        KRollDamping = 1.5,
+        KRoll = 1.45,
+        KRollDamping = 1.45,
         
-        KTurn = 1.2,
-        KTurnDamping = 1.1,
+        KTurn = 1.3,
+        KTurnDamping = 1.3,
         
         LiftFactor = 8,
         
@@ -35,13 +35,11 @@ UnitBlueprint {
         MinAirspeed = 14,
 		
 		RandomMinChangeCombatStateTime = 3,
-		RandomMaxChangeCombatStateTime = 6,
+		RandomMaxChangeCombatStateTime = 8,
         
-        StartTurnDistance = 12,
+        StartTurnDistance = 4,
         
         TightTurnMultiplier = 1.02,
-        
-        TurnSpeed = 1.25,
         
         Winged = true,
     },
@@ -210,6 +208,7 @@ UnitBlueprint {
     Weapon = {
         {
             AlwaysRecheckTarget = true,
+
             Audio = {
                 BeamLoop = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Loop', LodCutoff = 'Weapon_LodCutoff' },
                BeamStart = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Fire', LodCutoff = 'Weapon_LodCutoff' },
@@ -234,7 +233,7 @@ UnitBlueprint {
             
             DoNotCollideList = {'MISSILE'},
             
-            EnergyDrainPerSecond = 100,
+            EnergyDrainPerSecond = 110,
             EnergyRequired = 100,
             
             FireTargetLayerCapsTable = {
@@ -258,33 +257,35 @@ UnitBlueprint {
             RangeCategory = 'UWRC_AntiAir',
             
             RateOfFire = 1,       -- 495 DPS based on charge
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 55,
             
-            TargetCheckInterval = 1.5,
+            TargetCheckInterval = 0.5,
 
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'HIGHPRIAIR',
                 'EXPERIMENTAL',
                 'BOMBER',
                 'GROUNDATTACK',
-                'TRANSPORTATION',
-                'SPECIALLOWPRI',
-                'ALLUNITS',
+                'MOBILE',
             },
+
             TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
+            TrackingRadius = 1.1,
             
             TurretBoneMuzzle = 'Muzzle_L',
             TurretBonePitch = 'Muzzle_L',
             TurretBoneYaw = 'Muzzle_L',
             
             TurretPitch = 0,
-            TurretPitchRange = 40,
-            TurretPitchSpeed = 60,
+            TurretPitchRange = 55,
+            TurretPitchSpeed = 75,
             
             TurretYaw = 0,
-            TurretYawRange = 40,
-            TurretYawSpeed = 60,
+            TurretYawRange = 55,
+            TurretYawSpeed = 75,
             
             Turreted = true,
         },
@@ -312,7 +313,7 @@ UnitBlueprint {
             
             DoNotCollideList = {'MISSILE'},
             
-            EnergyDrainPerSecond = 100,
+            EnergyDrainPerSecond = 110,
             EnergyRequired = 100,
             
             FireTargetLayerCapsTable = {
@@ -335,32 +336,33 @@ UnitBlueprint {
             RackSalvoFiresAfterCharge = true,
             
             RateOfFire = 1,       -- another 495 - based on charge
-            
-            TargetCheckInterval = 1.5,
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 55,
+
+            TargetCheckInterval = 0.5,
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'HIGHPRIAIR',
                 'EXPERIMENTAL',
                 'BOMBER',
                 'GROUNDATTACK',
-                'TRANSPORTATION',
-                'SPECIALLOWPRI',
-                'ALLUNITS',
+                'MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            
+            TargetRestrictOnlyAllow = 'AIR',            
+
             TurretBoneMuzzle = 'Muzzle_R',
             TurretBonePitch = 'Muzzle_R',
             TurretBoneYaw = 'Muzzle_R',
-            TurretDualManipulators = false,
             
             TurretPitch = 0,
-            TurretPitchRange = 40,
-            TurretPitchSpeed = 60,
+            TurretPitchRange = 55,
+            TurretPitchSpeed = 75,
             
             TurretYaw = 0,
-            TurretYawRange = 40,
-            TurretYawSpeed = 60,
+            TurretYawRange = 55,
+            TurretYawSpeed = 75,
             
             Turreted = true,
         },

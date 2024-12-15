@@ -3,8 +3,8 @@ UnitBlueprint{
     Description = "<LOC uaa0206_desc>Beam Gunship",
 
     AI = {
-        GuardReturnRadius = 80,
-        GuardScanRadius = 56,
+        GuardReturnRadius = 66,
+        GuardScanRadius = 44,
     },
 
     Air = {
@@ -22,17 +22,19 @@ UnitBlueprint{
         KLift = 3,
         KLiftDamping = 2.5,
 
-        KMove = 0.6,
-        KMoveDamping = 0.6,
+        KMove = 0.65,
+        KMoveDamping = 0.7,
 
         KTurn = 0.8,
-        KTurnDamping = 0.9,
+        KTurnDamping = 1,
 
-        LiftFactor = 5,
+        LiftFactor = 4.5,
 
-        MaxAirspeed = 10.5,
+        MaxAirspeed = 10,
         MinAirspeed = 3,
-        StartTurnDistance = 6,
+
+        StartTurnDistance = 4.5,
+
         Winged = false,
     },
 

@@ -5,31 +5,32 @@ UnitBlueprint {
     },
     
     Air = {
-        AutoLandTime = 1.9,
+        AutoLandTime = 1.6,
         BankFactor = 0.15,
         BankForward = false,
         CanFly = true,
+
         CirclingDirChangeFrequencySec = 0.7,
         CirclingElevationChangeRatio = 0.2,
         CirclingRadiusChangeMaxRatio = 0.7,
         CirclingRadiusChangeMinRatio = 0.5,
         CirclingTurnMult = 3,
         
-        KLift = 3.5,
-        KLiftDamping = 2.5,
+        KLift = 2,
+        KLiftDamping = 2,
         
-        KMove = 0.6,
-        KMoveDamping = 0.55,
+        KMove = 0.5,
+        KMoveDamping = 0.75,
         
-        KTurn = 0.85,
-        KTurnDamping = 0.8,
+        KTurn = 0.6,
+        KTurnDamping = 1,
         
-        LiftFactor = 3,
+        LiftFactor = 2,
         
-        MaxAirspeed = 9.5,
-        MinAirspeed = 6.5,
+        MaxAirspeed = 9,
+        MinAirspeed = 5,
         
-        StartTurnDistance = 5,
+        StartTurnDistance = 1,
     },
     
     Audio = {

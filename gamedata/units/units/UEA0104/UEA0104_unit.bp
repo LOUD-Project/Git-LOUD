@@ -261,11 +261,11 @@ UnitBlueprint {
 			
             TurretPitch = -45,
             TurretPitchRange = 45,
-            TurretPitchSpeed = 90,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 80,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },
@@ -331,11 +331,11 @@ UnitBlueprint {
 			
             TurretPitch = -45,
             TurretPitchRange = 45,
-            TurretPitchSpeed = 90,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 80,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },
@@ -350,12 +350,12 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 10,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
             DisplayName = 'Linked Railgun',
 			
             FireTargetLayerCapsTable = {
-                Air = 'Air',
+                Air = 'Air|Land',
             },
 			
             FiringTolerance = 0.1,
@@ -395,9 +395,10 @@ UnitBlueprint {
 				'AIR MOBILE ANTIAIR',
 				'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-			
-            TrackingRadius = 1.4,
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
+            TargetRestrictOnlyAllow = 'AIR',			
+
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Front_Up_Muzzle01',
             TurretBonePitch = 'Front_Up_Turret_Barrel01',
@@ -405,11 +406,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 100,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 100,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },
@@ -424,12 +425,12 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 10,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
             DisplayName = 'Linked Railgun',
 			
             FireTargetLayerCapsTable = {
-                Air = 'Air',
+                Air = 'Air|Land',
             },
 			
             FiringTolerance = 0.1,
@@ -466,8 +467,10 @@ UnitBlueprint {
 				'AIR MOBILE ANTIAIR',
 				'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.4,
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
+            TargetRestrictOnlyAllow = 'AIR',
+
+            TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Back_Up_Muzzle01',
             TurretBonePitch = 'Back_Up_Turret_Barrel01',
@@ -475,11 +478,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 100,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 100,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },

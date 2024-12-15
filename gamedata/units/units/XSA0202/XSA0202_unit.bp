@@ -6,39 +6,36 @@ UnitBlueprint {
 	
     Air = {
         AutoLandTime = 1.6,
-        BankFactor = 1.6,
+        BankFactor = 2,
         BankForward = false,
         BreakOffDistance = 10,
         BreakOffTrigger = 18,
         CanFly = true,
 
-        CombatTurnSpeed = 1.3,
+        CombatTurnSpeed = 1.2,
 
         EngageDistance = 50,
 		
         KLift = 4,
         KLiftDamping = 2.5,
 		
-        KMove = 1.2,
-        KMoveDamping = 1,
+        KMove = 1.3,
+        KMoveDamping = 0.94,
 		
-        KRoll = 1.6,
-        KRollDamping = 1.6,
+        KRoll = 1.4,
+        KRollDamping = 1.4,
 		
-        KTurn = 1.15,
-        KTurnDamping = 1.25,
+        KTurn = 1.35,
+        KTurnDamping = 1.35,
 		
         LiftFactor = 7,
 		
-        MaxAirspeed = 19,
+        MaxAirspeed = 18,
         MinAirspeed = 10,
 		
         PredictAheadForBombDrop = 3,  
 		
-        StartTurnDistance = 6,
-        TightTurnMultiplier = 1.03,
-
-        TurnSpeed = 1.3,
+        StartTurnDistance = 2.5,
 
         Winged = true,
     },
@@ -221,7 +218,7 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
 
-            MuzzleVelocity = 72,
+            MuzzleVelocity = 70,
 			
             ProjectileId = '/projectiles/SAAShleoAAGatlingGun02/SAAShleoAAGatlingGun02_proj.bp',
             ProjectileLifetime = 0.6,
@@ -238,9 +235,9 @@ UnitBlueprint {
             RateOfFire = 2,		-- 72 DPS Air
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 50,
+            SlavedToBodyArcRange = 44,
 			
-            TargetCheckInterval = 0.6,
+            TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'AIR MOBILE',
@@ -253,11 +250,11 @@ UnitBlueprint {
             TurretBoneYaw = 'Turret_Muzzle_Left',
 			
             TurretPitch = 0,
-            TurretPitchRange = 80,
+            TurretPitchRange = 44,
             TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
-            TurretYawRange = 50,
+            TurretYawRange = 44,
             TurretYawSpeed = 60,
 
             Turreted = true,
@@ -293,7 +290,7 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
 
-            MuzzleVelocity = 72,
+            MuzzleVelocity = 70,
 
             ProjectileId = '/projectiles/SAAShleoAAGatlingGun02/SAAShleoAAGatlingGun02_proj.bp',
             ProjectileLifetime = 0.6,
@@ -310,7 +307,7 @@ UnitBlueprint {
             RateOfFire = 2,		-- 72 DPS Air
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 50,
+            SlavedToBodyArcRange = 44,
 			
             TargetCheckInterval = 0.6,
             TargetPriorities = {
@@ -325,11 +322,11 @@ UnitBlueprint {
             TurretBoneYaw = 'Turret_Muzzle_Right',
 			
             TurretPitch = 0,
-            TurretPitchRange = 80,
+            TurretPitchRange = 44,
             TurretPitchSpeed = 60,
 
             TurretYaw = 0,
-            TurretYawRange = 50,
+            TurretYawRange = 44,
             TurretYawSpeed = 60,
 
             Turreted = true,

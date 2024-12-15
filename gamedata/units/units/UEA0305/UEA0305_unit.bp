@@ -5,7 +5,7 @@ UnitBlueprint {
     },
 	
     Air = {
-        AutoLandTime = 1.9,
+        AutoLandTime = 1.6,
         BankFactor = 0.2,
         BankForward = false,
 		
@@ -20,23 +20,23 @@ UnitBlueprint {
 		
         CirclingTurnMult = 3,
 		
-        KLift = 0.35,
-        KLiftDamping = 0.45,
+        KLift = 2,
+        KLiftDamping = 2,
 		
         KMove = 0.6,
-        KMoveDamping = 0.54,
+        KMoveDamping = 0.75,
 		
-		KRoll = 1.5,
-		KRollDamping = 1.2,
-		
-        KTurn = 0.4,
-        KTurnDamping = 0.36,
+        KTurn = 0.6,
+        KTurnDamping = 1,
 		
         LiftFactor = 2,
 		
-        MaxAirspeed = 9.5,
+        MaxAirspeed = 10,
         MinAirspeed = 3,
-        StartTurnDistance = 5,
+
+        StartTurnDistance = 1,
+        
+        Winged = false,        
     },
 	
     Audio = {
@@ -284,7 +284,7 @@ UnitBlueprint {
 			
             Damage = 24,
 			DamageRadius = 1,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
             DisplayName = 'Linked Railgun',
 			
@@ -318,7 +318,7 @@ UnitBlueprint {
 			
             TargetCheckInterval = 1,
             TargetPriorities = {'MOBILE'},
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.2,
 			
@@ -328,11 +328,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 70,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 70,
+            TurretYawSpeed = 60,
 
             Turreted = true,
         },

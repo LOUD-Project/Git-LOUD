@@ -332,7 +332,8 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageType = 'Normal',
+
+            DamageType = 'Light',
 			
             DisplayName = 'Zealot AA Missile',
 			
@@ -373,7 +374,8 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,STRUCTURE,SATELLITE',
+
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.2,
         },
@@ -388,7 +390,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
             DisplayName = 'Zealot AA Missile',
 			
@@ -429,7 +431,8 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,STRUCTURE,SATELLITE',
+
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.2,
         },
@@ -443,7 +446,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
             DisplayName = 'Zealot AA Missile',
 			
@@ -484,7 +487,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,STRUCTURE,SATELLITE',
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.2,
         },
@@ -498,7 +501,8 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageType = 'Normal',
+
+            DamageType = 'Light',
 			
             DisplayName = 'Zealot AA Missile',
 			
@@ -539,7 +543,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,STRUCTURE,SATELLITE',
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.2,
         },
@@ -557,7 +561,8 @@ UnitBlueprint {
             Damage = 75,
             DamageFriendly = false,
             DamageRadius = 2,
-            DamageType = 'Normal',
+
+            DamageType = 'Light',
 			
             DetonatesAtTargetHeight = true,
 			
@@ -607,7 +612,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE,STRUCTURE',
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
             TrackingRadius = 1.2,
@@ -618,7 +623,7 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 110,
-            TurretPitchSpeed = 90,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 110,
@@ -637,7 +642,8 @@ UnitBlueprint {
             Damage = 75,
             DamageFriendly = false,
             DamageRadius = 2,
-            DamageType = 'Normal',
+
+            DamageType = 'Light',
 			
             DetonatesAtTargetHeight = true,
 			
@@ -685,7 +691,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE,STRUCTURE',
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
             TrackingRadius = 1.2,
@@ -696,7 +702,7 @@ UnitBlueprint {
 
             TurretPitch = 0,
             TurretPitchRange = 110,
-            TurretPitchSpeed = 90,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
             TurretYawRange = 110,

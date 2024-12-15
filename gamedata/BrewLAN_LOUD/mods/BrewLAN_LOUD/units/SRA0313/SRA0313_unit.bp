@@ -6,8 +6,8 @@ UnitBlueprint {
     },
 	
     Air = {
-        AutoLandTime = 1.9,
-        BankFactor = 2.2,
+        AutoLandTime = 1.6,
+        BankFactor = 1.8,
         BankForward = false,
         BreakOffDistance = 22,
         BreakOffTrigger = 30,
@@ -19,16 +19,16 @@ UnitBlueprint {
         EngageDistance = 55,
 		
         KLift = 4,
-        KLiftDamping = 2.5,
+        KLiftDamping = 3,
 		
-        KMove = 1.2,
-        KMoveDamping = 1,
+        KMove = 1.7,
+        KMoveDamping = 0.92,
 		
-        KRoll = 1.6,
-        KRollDamping = 1.5,
+        KRoll = 1.45,
+        KRollDamping = 1.45,
 		
-        KTurn = 1.2,
-        KTurnDamping = 1.1,
+        KTurn = 1.3,
+        KTurnDamping = 1.3,
 		
         LiftFactor = 8,
 		
@@ -36,13 +36,11 @@ UnitBlueprint {
         MinAirspeed = 14,
 		
 		RandomMinChangeCombatStateTime = 3,
-		RandomMaxChangeCombatStateTime = 6,
+		RandomMaxChangeCombatStateTime = 8,
 		
-        StartTurnDistance = 12,
+        StartTurnDistance = 4,
 		
         TightTurnMultiplier = 1.02,
-		
-        TurnSpeed = 1.25,
 		
         Winged = true,
     },
@@ -244,18 +242,18 @@ UnitBlueprint {
 			
             Damage = 60,				-- 120 dmg per shot
             DamageFriendly = false,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
             DisplayName = 'Particle Cannon',
             
-            EnergyDrainPerSecond = 100,
+            EnergyDrainPerSecond = 110,
             EnergyRequired = 50,        -- every half second
 			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land|water',
             },
 
-            FiringTolerance = 2,
+            FiringTolerance = 0,
 			
             Label = 'Laser',
 			
@@ -287,19 +285,19 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.1,
 
             TurretBoneMuzzle = 'Tip_002',
             TurretBonePitch = 'Tip_002',
             TurretBoneYaw = 'Tip_002',
 			
             TurretPitch = 0,
-            TurretPitchRange = 40,
-            TurretPitchSpeed = 60,
+            TurretPitchRange = 55,
+            TurretPitchSpeed = 75,
 			
             TurretYaw = 0,
-            TurretYawRange = 40,
-            TurretYawSpeed = 60,
+            TurretYawRange = 55,
+            TurretYawSpeed = 75,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -317,11 +315,11 @@ UnitBlueprint {
 			
             Damage = 40,
             DamageFriendly = false,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
             DisplayName = 'Particle Cannon',
             
-            EnergyDrainPerSecond = 100,
+            EnergyDrainPerSecond = 110,
             EnergyRequired = 50,
 			
             FireTargetLayerCapsTable = {
@@ -330,7 +328,7 @@ UnitBlueprint {
                 Water = 'Air',
             },
 
-            FiringTolerance = 2,
+            FiringTolerance = 0,
 			
             Label = 'Laser',
 			
@@ -366,12 +364,12 @@ UnitBlueprint {
             TurretBoneYaw = 'Tip_003',
 			
             TurretPitch = 0,
-            TurretPitchRange = 40,
-            TurretPitchSpeed = 60,
+            TurretPitchRange = 55,
+            TurretPitchSpeed = 75,
 			
             TurretYaw = 0,
-            TurretYawRange = 40,
-            TurretYawSpeed = 60,
+            TurretYawRange = 55,
+            TurretYawSpeed = 75,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -389,11 +387,11 @@ UnitBlueprint {
 			
             Damage = 30,
             DamageFriendly = false,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
             DisplayName = 'Particle Cannon',
             
-            EnergyDrainPerSecond = 100,
+            EnergyDrainPerSecond = 110,
             EnergyRequired = 50,
 			
             FireTargetLayerCapsTable = {
@@ -435,12 +433,12 @@ UnitBlueprint {
             TurretBoneYaw = 'Tip_007',
 			
             TurretPitch = 0,
-            TurretPitchRange = 40,
-            TurretPitchSpeed = 60,
+            TurretPitchRange = 55,
+            TurretPitchSpeed = 75,
 			
             TurretYaw = 0,
-            TurretYawRange = 40,
-            TurretYawSpeed = 60,
+            TurretYawRange = 55,
+            TurretYawSpeed = 75,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -458,18 +456,18 @@ UnitBlueprint {
 			
             Damage = 120,
             DamageFriendly = false,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
             DisplayName = 'Particle Cannon',
             
-            EnergyDrainPerSecond = 100,
+            EnergyDrainPerSecond = 110,
             EnergyRequired = 50,
 			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land|water',
             },
 
-            FiringTolerance = 2,
+            FiringTolerance = 0,
 			
             Label = 'Laser',
 			
@@ -504,12 +502,12 @@ UnitBlueprint {
             TurretBoneYaw = 'Tip_008',
 			
             TurretPitch = 0,
-            TurretPitchRange = 40,
-            TurretPitchSpeed = 60,
+            TurretPitchRange = 55,
+            TurretPitchSpeed = 75,
 			
             TurretYaw = 0,
-            TurretYawRange = 40,
-            TurretYawSpeed = 60,
+            TurretYawRange = 55,
+            TurretYawSpeed = 75,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,

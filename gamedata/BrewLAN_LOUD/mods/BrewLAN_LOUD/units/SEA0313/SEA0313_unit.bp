@@ -7,8 +7,8 @@ UnitBlueprint {
     },
 	
     Air = {
-        AutoLandTime = 1.9,
-        BankFactor = 2.2,
+        AutoLandTime = 1.6,
+        BankFactor = 1.8,
         BankForward = false,
         
         BreakOffDistance = 22,
@@ -21,28 +21,29 @@ UnitBlueprint {
         EngageDistance = 55,
         
         KLift = 4,
-        KLiftDamping = 2.5,
+        KLiftDamping = 3,
         
-        KMove = 1.2,
-        KMoveDamping = 1,
+        KMove = 1.7,
+        KMoveDamping = 0.92,
         
-        KRoll = 1.6,
-        KRollDamping = 1.5,
+        KRoll = 1.45,
+        KRollDamping = 1.45,
         
-        KTurn = 1.2,
-        KTurnDamping = 1.1,
+        KTurn = 1.3,
+        KTurnDamping = 1.3,
         
         LiftFactor = 8,
         
         MaxAirspeed = 28,
         MinAirspeed = 14,
-        
-        StartTurnDistance = 12,
+		
+		RandomMinChangeCombatStateTime = 3,
+		RandomMaxChangeCombatStateTime = 8,
+
+        StartTurnDistance = 4,
         
         TightTurnMultiplier = 1.02,
-        
-        TurnSpeed = 1.25,
-        
+
         Winged = true,
     },
     
@@ -233,7 +234,8 @@ UnitBlueprint {
             
             Damage = 64,
             DamageFriendly = false,
-            DamageType = 'Normal',
+
+            DamageType = 'Light',
             
             DisplayName = 'Burst Helical Railgun',
             
@@ -264,7 +266,10 @@ UnitBlueprint {
             RateOfFire = 1.4,   -- every 7 ticks = 365 DPS
             
             ReTargetOnMiss = true,
-            
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 55,
+
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -274,19 +279,19 @@ UnitBlueprint {
             TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             
-            TrackingRadius = 1.25,
+            TrackingRadius = 1.1,
             
             TurretBoneMuzzle = 'Gun_001',
             TurretBonePitch = 'Gun_001',
             TurretBoneYaw = 'Gun_001',
             
             TurretPitch = 0,
-            TurretPitchRange = 40,
-            TurretPitchSpeed = 60,
+            TurretPitchRange = 55,
+            TurretPitchSpeed = 75,
             
             TurretYaw = 0,
-            TurretYawRange = 40,
-            TurretYawSpeed = 60,
+            TurretYawRange = 55,
+            TurretYawSpeed = 75,
             
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -304,7 +309,8 @@ UnitBlueprint {
             
             Damage = 64,
             DamageFriendly = false,
-            DamageType = 'Normal',
+
+            DamageType = 'Light',
             
             DisplayName = 'Burst Helical Railgun',
             
@@ -337,7 +343,10 @@ UnitBlueprint {
             RateOfFire = 1.4,   -- another 365 by charge
             
             ReTargetOnMiss = true,
-
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 55,
+    
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -352,12 +361,12 @@ UnitBlueprint {
             TurretBoneYaw = 'Gun_002',
             
             TurretPitch = 0,
-            TurretPitchRange = 40,
-            TurretPitchSpeed = 60,
+            TurretPitchRange = 55,
+            TurretPitchSpeed = 75,
             
             TurretYaw = 0,
-            TurretYawRange = 40,
-            TurretYawSpeed = 60,
+            TurretYawRange = 55,
+            TurretYawSpeed = 75,
             
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -375,7 +384,8 @@ UnitBlueprint {
             
             Damage = 200,
             DamageRadius = 0,
-            DamageType = 'Normal',
+
+            DamageType = 'Light',
             
             DisplayName = 'Flayer AAM Launcher',
             
@@ -385,7 +395,7 @@ UnitBlueprint {
                 Water = 'Air',
             },
             
-            FiringTolerance = 30,
+            FiringTolerance = 10,
             
             Label = 'Missile',
             
@@ -396,7 +406,7 @@ UnitBlueprint {
             MuzzleVelocity = 30,
             
             ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
-            ProjectileLifetime = 7,
+            ProjectileLifetime = 5,
             
             RackBones = {
                 {
@@ -407,26 +417,26 @@ UnitBlueprint {
 
             RateOfFire = 0.5,   -- another 200 DPS
             
-            TargetCheckInterval = 0.3,
+            TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
             
             TurretBoneMuzzle = 'Gun_003',
             TurretBonePitch = 'Gun_003',
             TurretBoneYaw = 'Gun_003',
             
             TurretPitch = 25,
-            TurretPitchRange = 40,
-            TurretPitchSpeed = 60,
+            TurretPitchRange = 55,
+            TurretPitchSpeed = 75,
             
             TurretYaw = 0,
-            TurretYawRange = 32,
-            TurretYawSpeed = 60,
+            TurretYawRange = 55,
+            TurretYawSpeed = 75,
             
             Turreted = true,
         },

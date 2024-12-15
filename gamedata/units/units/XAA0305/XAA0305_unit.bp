@@ -8,8 +8,8 @@ UnitBlueprint {
 	-- slow in almost every way --
 	
     Air = {
-        AutoLandTime = 1.9,
-        BankFactor = 0.25,
+        AutoLandTime = 1.6,
+        BankFactor = 0.2,
         BankForward = false,
 		
         CanFly = true,
@@ -25,21 +25,22 @@ UnitBlueprint {
 		
         CirclingTurnMult = 3,
 		
-        KLift = 0.5,
-        KLiftDamping = 0.4,
+        KLift = 2,
+        KLiftDamping = 2,
 		
-        KMove = 0.4,
-        KMoveDamping = 0.36,
+        KMove = 0.55,
+        KMoveDamping = 0.75,
 		
-        KTurn = 0.3,
-        KTurnDamping = 0.28,
+        KTurn = 0.6,
+        KTurnDamping = 1,
 		
         LiftFactor = 1.5,
 		
         MaxAirspeed = 9,
         MinAirspeed = 3,
 		
-        StartTurnDistance = 5,
+        StartTurnDistance = 1,
+
         Winged = false,
     },
 	
@@ -264,10 +265,11 @@ UnitBlueprint {
 			
             TurretPitch = -20,
             TurretPitchRange = 70,
-            TurretPitchSpeed = 50,
+            TurretPitchSpeed = 60,
+
             TurretYaw = 0,
             TurretYawRange = 90,
-            TurretYawSpeed = 40,
+            TurretYawSpeed = 60,
             Turreted = true,
         },
 		
@@ -281,11 +283,13 @@ UnitBlueprint {
             AutoInitiateAttackCommand = false,
 
             BallisticArc = 'RULEUBA_None',
+
             CannotAttackGround = true,
+
             CollideFriendly = false,
 			
             Damage = 120,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
             DisplayName = 'Zealot AA Missile',
 			
@@ -293,7 +297,7 @@ UnitBlueprint {
                 Air = 'Air',
             },
 			
-            FiringTolerance = 90,
+            FiringTolerance = 10,
 			
             Label = 'AAGun',
 			
@@ -305,10 +309,7 @@ UnitBlueprint {
             ProjectileLifetime = 2,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Turret_Muzzle01'},
-                    RackBone = 'R_Barrel',
-                },
+                { MuzzleBones = {'Turret_Muzzle01'}, RackBone = 'R_Barrel' },
             },
 
             RangeCategory = 'UWRC_AntiAir',
@@ -320,7 +321,7 @@ UnitBlueprint {
                 'HIGHPRIAIR',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.1,
 			
@@ -334,7 +335,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 40,
+            TurretYawSpeed = 60,
 
             Turreted = true,
         },
@@ -350,7 +351,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 120,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 			
             DisplayName = 'Zealot AA Missile',
 			
@@ -358,7 +359,7 @@ UnitBlueprint {
                 Air = 'Air',
             },
 			
-            FiringTolerance = 90,
+            FiringTolerance = 10,
 			
             Label = 'AAGun',
 			
@@ -382,10 +383,10 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 			
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 
             TurretBoneMuzzle = 'Turret_Muzzle02',
             TurretBonePitch = 'L_Barrel',
@@ -397,7 +398,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 40,
+            TurretYawSpeed = 60,
 
             Turreted = true,
         },

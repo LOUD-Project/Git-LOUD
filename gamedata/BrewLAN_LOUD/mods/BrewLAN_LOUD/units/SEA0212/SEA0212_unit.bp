@@ -6,37 +6,34 @@ UnitBlueprint {
 
     Air = {
         AutoLandTime = 1.6,
-        BankFactor = 2,
+        BankFactor = 2.2,
         BankForward = false,
-        BreakOffDistance = 10,
+        BreakOffDistance = 8,
         BreakOffTrigger = 18,
         CanFly = true,
 
-        CombatTurnSpeed = 1.4,
+        CombatTurnSpeed = 1.2,
 
         EngageDistance = 50,
 
         KLift = 4,
         KLiftDamping = 2.5,
 
-        KMove = 1.3,
-        KMoveDamping = 1,
+        KMove = 1.45,
+        KMoveDamping = 0.95,
 
-        KRoll = 1.7,
-        KRollDamping = 1.7,
+        KRoll = 1.5,
+        KRollDamping = 1.4,
 
-        KTurn = 1.2,
-        KTurnDamping = 1.2,
+        KTurn = 1.5,
+        KTurnDamping = 1.4,
 
         LiftFactor = 8,
 
-        MaxAirspeed = 20,
+        MaxAirspeed = 20.5,
         MinAirspeed = 12,
 
-        StartTurnDistance = 5,
-        TightTurnMultiplier = 1.025,
-
-        TurnSpeed = 1.4,
+        StartTurnDistance = 2,
 
         Winged = true,
     },
@@ -72,8 +69,9 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 4,
         ArmorType = 'Light',
-        Health = 800,
-        MaxHealth = 800,
+        Health = 1300,
+        MaxHealth = 1300,
+        RegenRate = 3,
     },
 
     Description = '<LOC sea0212_desc>Combat Fighter',
@@ -106,9 +104,9 @@ UnitBlueprint {
     },
 
     Economy = {
-        BuildCostEnergy = 12500,
-        BuildCostMass = 210,
-        BuildTime = 1600,
+        BuildCostEnergy = 14500,
+        BuildCostMass = 250,
+        BuildTime = 350,
     },
 
     Footprint = {
@@ -146,7 +144,7 @@ UnitBlueprint {
         Elevation = 20,
 
         FuelRechargeRate = 12,
-        FuelUseTime = 250,
+        FuelUseTime = 245,
 
         GroundCollisionOffset = 1.6,
         MaxSpeed = 0.5,
@@ -197,17 +195,17 @@ UnitBlueprint {
 
             Damage = 100,
             DamageFriendly = false,
-            DamageRadius = 0,
-            DamageType = 'Normal',
 
-            DisplayName = 'Ginsu Pulse Beam',
+            DamageType = 'Light',
+
+            DisplayName = 'Ginsu Pulse',
 
             FireTargetLayerCapsTable = {
                 Air = 'Air',
                 Land = 'Air',
             },
 
-            FiringTolerance = 2,
+            FiringTolerance = 0.5,
 
             Label = 'AutoCannon',
 
@@ -215,7 +213,7 @@ UnitBlueprint {
 
             MuzzleSalvoDelay = 0.2,
 
-            MuzzleVelocity = 120,
+            MuzzleVelocity = 80,
 
             ProjectileId = '/projectiles/TDFGinsu01/TDFGinsu01_proj.bp',
             ProjectileLifetime = 0.6,
@@ -232,31 +230,30 @@ UnitBlueprint {
             RateOfFire = 1,             -- 100 DPS Air
 
             SlavedToBody = true,
-            SlavedToBodyArcRange = 50,
+            SlavedToBodyArcRange = 44,
 
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'HIGHPRIAIR',
                 'BOMBER',
                 'GROUNDATTACK',
-                'TRANSPORTATION',
-                'ALLUNITS',
+                'MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 
             TurretBoneMuzzle = 'Weapon_Front',
             TurretBonePitch = 'Weapon_Front',
             TurretBoneYaw = 'Weapon_Front',
 
             TurretPitch = 0,
-            TurretPitchRange = 55,
-            TurretPitchSpeed = 360,
+            TurretPitchRange = 44,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
-            TurretYawRange = 55,
-            TurretYawSpeed = 360,
+            TurretYawRange = 44,
+            TurretYawSpeed = 60,
 
             Turreted = true,
 
@@ -273,7 +270,7 @@ UnitBlueprint {
 
             Damage = 50,
             DamageRadius = 0,
-            DamageType = 'Normal',
+            DamageType = 'Light',
 
             DisplayName = 'Flayer AAM Launcher',
 
@@ -310,24 +307,22 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'HIGHPRIAIR',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 
             TurretBoneMuzzle = 'Right_Missile',
             TurretBonePitch = 'Right_Missile',
             TurretBoneYaw = 'Right_Missile',
-            TurretDualManipulators = false,
 
-            TurretPitch = 25,
-            TurretPitchRange = 80,
-            TurretPitchSpeed = 180,
+            TurretPitch = 0,
+            TurretPitchRange = 44,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
-            TurretYawRange = 40,
-            TurretYawSpeed = 180,
+            TurretYawRange = 44,
+            TurretYawSpeed = 60,
 
             Turreted = true,
         },
@@ -380,20 +375,19 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 
             TurretBoneMuzzle = 'Left_Missile',
             TurretBonePitch = 'Left_Missile',
             TurretBoneYaw = 'Left_Missile',
-            TurretDualManipulators = false,
 
-            TurretPitch = 25,
-            TurretPitchRange = 80,
-            TurretPitchSpeed = 180,
+            TurretPitch = 0,
+            TurretPitchRange = 44,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
-            TurretYawRange = 40,
-            TurretYawSpeed = 180,
+            TurretYawRange = 44,
+            TurretYawSpeed = 60,
 
             Turreted = true,
         },

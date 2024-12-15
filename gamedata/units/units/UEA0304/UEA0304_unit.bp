@@ -5,36 +5,39 @@ UnitBlueprint {
     },
     Air = {
         AutoLandTime = 1.6,
-        BankFactor = 2.5,
+        BankFactor = 1.5,
         BankForward = false,
         BreakOffDistance = 60,
         BreakOffIfNearNewTarget = true,
         BreakOffTrigger = 30,
         CanFly = true,
-        CombatTurnSpeed = 0.85,
+
+        CombatTurnSpeed = 0.95,
         EngageDistance = 50,
 		
-        KLift = 3.5,
+        KLift = 3,
         KLiftDamping = 2.5,
 		
-        KMove = 1.1,
-        KMoveDamping = 4,
+        KMove = 0.9,
+        KMoveDamping = 0.8,
 		
-        KRoll = 2,
-        KRollDamping = 2,
+        KRoll = 1.35,
+        KRollDamping = 1.35,
 		
-        KTurn = 1.6,
-        KTurnDamping = 2,
+        KTurn = 0.9,
+        KTurnDamping = 1,
 		
-        LiftFactor = 8,
+        LiftFactor = 7,
 		
         MaxAirspeed = 18,
-        MinAirspeed = 12,
+        MinAirspeed = 10,
 		
         PredictAheadForBombDrop = 3,        
-        StartTurnDistance = 5,
+
+        StartTurnDistance = 4,
+
         TightTurnMultiplier = 1.05,
-        TurnSpeed = 0.85,
+
         Winged = true,
     },
 	
@@ -276,7 +279,7 @@ UnitBlueprint {
 			
             Damage = 24,
 			DamageRadius = 0,
-            DamageType = 'Normal',
+            DamageType = 'Light',
             DisplayName = 'Linked Railgun',
 			
             FireTargetLayerCapsTable = {
@@ -316,7 +319,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = 'STRUCTURE,UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.2,
 			
