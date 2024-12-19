@@ -6279,6 +6279,12 @@ function EngineerTransferAI( self, aiBrain )
 				capCheck = capCheck + 1
 				
 			end
+            
+            if v.PrimaryLandBase or v.PrimarySeaAttackBase then
+            
+                capCheck = capCheck + 1
+                
+			end
 			
 			-- if base has less than maximum allowed engineers and there are structures at that position
 			-- base must have no ability to make the engineers itself (no factory)
@@ -6332,7 +6338,9 @@ function EngineerTransferAI( self, aiBrain )
 		
 		local newbase = possibles[ Random(1,counter) ]
         
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." ENG_TRANSFER "..Eng_Type.." Transfers From "..repr(eng.LocationType).." To "..repr(newbase) )        
+        if EngineerTransferDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." ENG_TRANSFER "..Eng_Type.." Transfers From "..repr(eng.LocationType).." To "..repr(newbase) )
+        end
 		
 		-- add him to the selected base - but dont send him to assign task -- setup new engy callbacks
 		aiBrain.BuilderManagers[newbase].EngineerManager:AddEngineerUnit( eng, false )
@@ -6343,7 +6351,10 @@ function EngineerTransferAI( self, aiBrain )
 		
 	else
 	
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." ENG_TRANSFER "..Eng_Type.." Transfer FROM "..repr(eng.LocationType).." FAILS")
+        if EngineerTransferDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." ENG_TRANSFER "..Eng_Type.." Transfer FROM "..repr(eng.LocationType).." FAILS")
+        end
+        
 	end
 	
 	self:SetAIPlan('ReturnToBaseAI',aiBrain)

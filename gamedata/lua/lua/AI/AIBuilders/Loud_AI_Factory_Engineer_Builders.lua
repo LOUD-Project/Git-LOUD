@@ -159,7 +159,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},        
             { LUTL, 'UnitCapCheckLess', { .6 } },
 
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER - categories.TECH1 }},
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER * categories.TECH2 }},
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.6, 6, 1, 1 }},
             
@@ -168,7 +168,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
         },
         
-        BuilderType = {'AirT2','LandT2','SeaT2','AirT3','LandT3','SeaT3'},
+        BuilderType = {'AirT2','LandT2','SeaT2','AirT3','LandT3','SeaT3','Gate'},
     },
 
     Builder {BuilderName = 'Engineer T3 - Standard',
@@ -182,7 +182,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},        
             
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER * categories.TECH3 }},
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER * categories.TECH3 - categories.SUBCOMMANDER }},
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.6, 6, 1, 1 }},
             
@@ -191,7 +191,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER * categories.TECH3 }},
         },
         
-        BuilderType = {'AirT3','LandT3','SeaT3'},
+        BuilderType = {'AirT3','LandT3','SeaT3','Gate'},
     },
 
 	
@@ -216,7 +216,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
         },
         
-        BuilderType = {'AirT3','LandT3','SeaT3'},
+        BuilderType = {'AirT3','LandT3','SeaT3','Gate'},
     },
 
 	
