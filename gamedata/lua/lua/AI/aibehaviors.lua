@@ -2691,7 +2691,7 @@ function ProsecuteTarget( unit, aiBrain, target, searchrange, AirForceDialog )
         IssueClearCommands( u )
 
         if AirForceDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..unit.PlatoonHandle.BuilderName.." "..unit.PlatoonHandle.BuilderInstance.." unit "..unit.Sync.id.. " assigned to target "..repr(target.Sync.id).." on tick "..GetGameTick() )
+            LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..unit.PlatoonHandle.BuilderName.." "..repr(unit.PlatoonHandle.BuilderInstance).." unit "..unit.Sync.id.. " assigned to target "..repr(target.Sync.id).." on tick "..GetGameTick() )
         end
         
         local attackissued, loiterposition, selfpos, targethealth, targetposition, searchdistance
@@ -2772,7 +2772,7 @@ function ProsecuteTarget( unit, aiBrain, target, searchrange, AirForceDialog )
 
         end
     
-        if (not unit.Dead) and aiBrain:PlatoonExists( unit.PlatoonHandle ) then
+        if (not unit.Dead) and unit.PlatoonHandle and aiBrain:PlatoonExists( unit.PlatoonHandle ) then
 
             if AirForceDialog then
                 LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..unit.PlatoonHandle.BuilderName.." "..repr(unit.PlatoonHandle.BuilderInstance).." unit "..unit.Sync.id.." attack complete on tick "..GetGameTick() )
@@ -2782,7 +2782,7 @@ function ProsecuteTarget( unit, aiBrain, target, searchrange, AirForceDialog )
 
                 --- we do this as a unit may be in refit at this point - and wont have a loiterposition
                 --- this allows this behavior to exit gracefully without any intervention 
-                if loiterposition then
+                if unit.PlatoonHandle.loiterposition then
                 
                     IssueClearCommands( u )
 
@@ -2940,6 +2940,11 @@ function AirForceAILOUD( self, aiBrain )
     local attackcount, attackercount, attackers, retreat, targethealth
 	
 	local AIGetThreatLevelsAroundPoint = function(unitposition,threattype)
+    
+        if not unitposition then
+            LOG("*AI DEBUG AIGetThreatLevelsAroundPoint reports NO UNITPOSITION")
+            return 0
+        end
         
         local adjust = threatrangeadjust + ( threatringrange * threatrangeadjust ) 
 
