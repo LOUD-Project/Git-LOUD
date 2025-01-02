@@ -54,7 +54,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 
             { EBC, 'GreaterThanEconStorageCurrent', { 120, 500 }},
 
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 250, -9999, 50, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 250, -9999, 20, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -72,7 +72,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
                 
                 MaxRange = 250,
 
-				ThreatMax = 10,
+				ThreatMax = 20,
 				ThreatRings = 0,
                 
 				ThreatType = 'AntiSurface',
@@ -106,7 +106,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 
             { EBC, 'GreaterThanEconStorageCurrent', { 100, 2500 }},
             
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 200, 750, -9999, 30, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 200, 750, -9999, 10, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -154,7 +154,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 
             { EBC, 'GreaterThanEconStorageCurrent', { 100, 2500 }},
             
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 200, 750, -9999, 30, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 200, 750, -9999, 10, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -204,7 +204,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 14 }},
             
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 300, 1500, -9999, 20, 1, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 300, 1500, -9999, 10, 1, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -259,7 +259,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
             
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 300, 1500, -9999, 15, 1, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 300, 1500, -9999, 10, 1, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -308,7 +308,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
             
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 200, 750, -9999, 40, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 200, 750, -9999, 15, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -453,7 +453,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Defensive Point',
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 14 }},
 
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 200, -9999, 35, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 200, -9999, 15, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -501,7 +501,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Expansions',
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 5 }},
 
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 150, -9999, 60, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 150, -9999, 35, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -512,7 +512,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Expansions',
                 
                 MaxRange = 150,
 
-				ThreatMax = 60,
+				ThreatMax = 35,
 				ThreatRings = 0,
 				ThreatType = 'AntiSurface',
                 
@@ -544,7 +544,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Expansions',
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
 
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 150, 750, -9999, 30, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 150, 750, -9999, 15, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -596,7 +596,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Naval',
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 5 }},
 
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 750, -9999, 30, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 750, -9999, 15, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {

@@ -508,6 +508,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction',
             
             { EBC, 'LessThanEnergyTrendOverTime', { 30 }},
             
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},            
+
 			{ UCBC, 'MassExtractorInRangeHasLessThanEnergy', {'LocationType', 20, 180, 4 }},
         },
 		
