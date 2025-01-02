@@ -78,63 +78,63 @@ FactoryLayout = {
 -- Aeon Factory Layout
     {
         {{'T1LandFactory'},
-			{  0, 18 }, 	-- inner ring -- 3 in front
+			{  0, 18 },
 			{-10, 18 },
 			{ 10, 18 },
 
-			{-18, 10 },		-- left side front
-			{ 18, 10 },		-- right side front
-			{-18,  0 },		-- left side centre
-			{ 18,  0 },		-- right side centre
-			{-18,-10 },		-- left side rear
-			{ 18,-10 },		-- right side rear
+			{-18, 10 },
+			{ 18, 10 },
+			{-18,  0 },
+			{ 18,  0 },
+			{-18,-10 },
+			{ 18,-10 },
 
-			{-10,-18 },		-- 2 in rear flanks
+			{-10,-18 },
 			{ 10,-18 },
 			{  0,-18 },            
 
-			{-10, 26 },     -- outer ring 4
+			{-10, 26 },
 			{ 10, 26 },
 			{-10,-26 },
 			{ 10,-26 },
 
-			{ 26, 10 },     -- another outer ring 4
+			{ 26, 10 },
 			{ 26,-10 },
 			{-26, 10 },
 			{-26,-10 },
-			{-32, 24 },     -- additional corner 4
+			{-32, 24 },
 			{ 32, 24 },
 			{ 32,-24 },
 			{-32,-24 },
         },
 
         {{'T1AirFactory'},
-			{  0, 18 }, 	-- inner ring 12 -- 1 in front ctr
+			{  0, 18 },
 
-			{-18,  0 },		-- alternating left and right -- ctr, rear then front
+			{-18,  0 },
 			{ 18,  0 },
 			{-18,-10 },
 			{ 18,-10 },			
 			{-18, 10 },
 			{ 18, 10 },
 			
-			{-10,-18 },		-- 2 in rear flanks
+			{-10,-18 },
 			{ 10,-18 },
-			{  0,-18 },     -- back middle            			
+			{  0,-18 },
 
-			{-10, 18 },		-- final 2 in front
+			{-10, 18 },
 			{ 10, 18 },
 
-			{-10, 26 },     -- outer ring 4
+			{-10, 26 },
 			{ 10, 26 },
 			{-10,-26 },
 			{ 10,-26 },
 
-			{ 26, 10 },     -- another outer ring 4
+			{ 26, 10 },
 			{ 26,-10 },
 			{-26, 10 },
 			{-26,-10 },
-			{-32, 24 },     -- additional corner 4
+			{-32, 24 },
 			{ 32, 24 },
 			{ 32,-24 },
 			{-32,-24 },
@@ -147,63 +147,63 @@ FactoryLayout = {
 -- Cybran Factory Layout
     {
         {{'T1LandFactory'},
-			{  0, 18 }, 	-- inner ring -- 3 in front
+			{  0, 18 },
 			{-10, 18 },
 			{ 10, 18 },
 
-			{-18, 10 },		-- left side front
-			{ 18, 10 },		-- right side front
-			{-18,  0 },		-- left side centre
-			{ 18,  0 },		-- right side centre
-			{-18,-10 },		-- left side rear
-			{ 18,-10 },		-- right side rear
+			{-18, 10 },
+			{ 18, 10 },
+			{-18,  0 },
+			{ 18,  0 },
+			{-18,-10 },
+			{ 18,-10 },
 
-			{-10,-18 },		-- 2 in rear flanks
+			{-10,-18 },
 			{ 10,-18 },
 			{  0,-18 },            
 
-			{-10, 26 },     -- outer ring 4
+			{-10, 26 },
 			{ 10, 26 },
 			{-10,-26 },
 			{ 10,-26 },
 
-			{ 26, 10 },     -- another outer ring 4
+			{ 26, 10 },
 			{ 26,-10 },
 			{-26, 10 },
 			{-26,-10 },
-			{-32, 24 },     -- additional corner 4
+			{-32, 24 },
 			{ 32, 24 },
 			{ 32,-24 },
 			{-32,-24 },
         },
 
         {{'T1AirFactory'},
-			{  0, 18 }, 	-- inner ring 12 -- 1 in front ctr
+			{  0, 18 },
 
-			{-18,  0 },		-- alternating left and right -- ctr, rear then front
+			{-18,  0 },
 			{ 18,  0 },
 			{-18,-10 },
 			{ 18,-10 },			
 			{-18, 10 },
 			{ 18, 10 },
 			
-			{-10,-18 },		-- 2 in rear flanks
+			{-10,-18 },
 			{ 10,-18 },
-			{  0,-18 },     -- back middle            			
+			{  0,-18 },
 
-			{-10, 18 },		-- final 2 in front
+			{-10, 18 },
 			{ 10, 18 },
 
-			{-10, 26 },     -- outer ring 4
+			{-10, 26 },
 			{ 10, 26 },
 			{-10,-26 },
 			{ 10,-26 },
 
-			{ 26, 10 },     -- another outer ring 4
+			{ 26, 10 },
 			{ 26,-10 },
 			{-26, 10 },
 			{-26,-10 },
-			{-32, 24 },     -- additional corner 4
+			{-32, 24 },
 			{ 32, 24 },
 			{ 32,-24 },
 			{-32,-24 },
@@ -216,63 +216,63 @@ FactoryLayout = {
 -- Seraphim Factory Layout
     {
         {{'T1LandFactory'},
-			{  0, 18 }, 	-- inner ring -- 3 in front
+			{  0, 18 },
 			{-10, 18 },
 			{ 10, 18 },
 
-			{-18, 10 },		-- left side front
-			{ 18, 10 },		-- right side front
-			{-18,  0 },		-- left side centre
-			{ 18,  0 },		-- right side centre
-			{-18,-10 },		-- left side rear
-			{ 18,-10 },		-- right side rear
+			{-18, 10 },
+			{ 18, 10 },
+			{-18,  0 },
+			{ 18,  0 },
+			{-18,-10 },
+			{ 18,-10 },
 
-			{-10,-18 },		-- 2 in rear flanks
+			{-10,-18 },
 			{ 10,-18 },
 			{  0,-18 },            
 
-			{-10, 26 },     -- outer ring 4
+			{-10, 26 },
 			{ 10, 26 },
 			{-10,-26 },
 			{ 10,-26 },
 
-			{ 26, 10 },     -- another outer ring 4
+			{ 26, 10 },
 			{ 26,-10 },
 			{-26, 10 },
 			{-26,-10 },
-			{-32, 24 },     -- additional corner 4
+			{-32, 24 },
 			{ 32, 24 },
 			{ 32,-24 },
 			{-32,-24 },
         },
 
         {{'T1AirFactory'},
-			{  0, 18 }, 	-- inner ring 12 -- 1 in front ctr
+			{  0, 18 },
 
-			{-18,  0 },		-- alternating left and right -- ctr, rear then front
+			{-18,  0 },
 			{ 18,  0 },
 			{-18,-10 },
 			{ 18,-10 },			
 			{-18, 10 },
 			{ 18, 10 },
 			
-			{-10,-18 },		-- 2 in rear flanks
+			{-10,-18 },
 			{ 10,-18 },
-			{  0,-18 },     -- back middle            			
+			{  0,-18 },
 
-			{-10, 18 },		-- final 2 in front
+			{-10, 18 },
 			{ 10, 18 },
 
-			{-10, 26 },     -- outer ring 4
+			{-10, 26 },
 			{ 10, 26 },
 			{-10,-26 },
 			{ 10,-26 },
 
-			{ 26, 10 },     -- another outer ring 4
+			{ 26, 10 },
 			{ 26,-10 },
 			{-26, 10 },
 			{-26,-10 },
-			{-32, 24 },     -- additional corner 4
+			{-32, 24 },
 			{ 32, 24 },
 			{ 32,-24 },
 			{-32,-24 },
@@ -423,27 +423,27 @@ PowerLayout = {
 -- Aeon Power Layout
     {
 		{{'T3EnergyProduction'},
-			{-10, 10 }, -- inner 4
+			{-10, 10 },
 			{ 10, 10 },
 			{-10,-10 },
 			{ 10,-10 },
-			{-18,-18 },	-- factory ring corners - 2 rear
+			{-18,-18 },
 			{ 18,-18 },
-			{ 26,-10 },	-- outer ring -- side rear 2
+			{ 26,-10 },
 			{-26,-10 },
-			{ 26, 10 },	-- side front 2
+			{ 26, 10 },
 			{-26, 10 },
-			{-10, 26 },	-- front 2
+			{-10, 26 },
 			{ 10, 26 },
-			{-10,-26 }, -- rear 2 
+			{-10,-26 },
 			{ 10,-26 },
-			{-26,  0 },	-- outer ring - 4 cardinal points - 2 side
+			{-26,  0 },
 			{ 26,  0 },
-			{  0,-26 },	-- 1 rear
-			{  0, 26 },	-- 1 front
-			{-10,-40 },	-- 2 more - extra ring - rear
+			{  0,-26 },
+			{  0, 26 },
+			{-10,-40 },
 			{ 10,-40 },
-			{-40,-10 }, -- extra ring 9 beyond Mass Fabs frontal
+			{-40,-10 },
 			{-40, 10 },
 			{-40, 0  },
 			{ 40,-10 },
@@ -454,18 +454,18 @@ PowerLayout = {
 			{  0, 40 },
 		},
 		{{'T2EnergyProduction'},
-			{ -17, 17 },	-- outside front 2 corners
+			{ -17, 17 },
 			{  17, 17 },
-			{ -11, 11 },	-- inside front 2 corners
+			{ -11, 11 },
 			{  11, 11 },
-			{ -17,-17 },    -- outside back 2 corners
+			{ -17,-17 },
 			{  17,-17 },
-			{ -11,-11 },    -- inside back 2 corners
+			{ -11,-11 },
 			{  11,-11 },
-            {   0,  0 },    -- one extra right in the middle
+            {   0,  0 },
 		},
 		{{'T1EnergyProduction'},
-			{ -5, 15 },     -- front centre
+			{ -5, 15 },
 			{ -5, 17 },
 			{ -5, 19 },
 			{ -5, 21 },
@@ -483,7 +483,7 @@ PowerLayout = {
             {  1, 13 },
             {  3, 13 },
             
-			{-21,  5 },     -- left centre
+			{-21,  5 },
 			{-19,  5 },
 			{-17,  5 },
 			{-15,  5 },
@@ -501,25 +501,25 @@ PowerLayout = {
             {-13, -1 },
             {-13, -3 },
             
-			{-13, 23 },     -- front left
+			{-13, 23 },
 			{ -7, 23 },
             { -7, 13 },
             {-15, 21 },
             
-			{  7, 23 },     -- front right
+			{  7, 23 },
 			{ 13, 23 },
             {  7, 13 },
             { 15, 21 },
 
-			{-23, 13 },     -- left front     
+			{-23, 13 },
 			{-23,  7 },
             {-21, 15 },
             
-			{-23, -7 },     -- left rear
+			{-23, -7 },
 			{-23,-13 },
             {-21,-15 },
 
-			{ 15,  5 },     -- right
+			{ 15,  5 },
 			{ 17,  5 },
 			{ 19,  5 },
 			{ 21,  5 },
@@ -537,15 +537,15 @@ PowerLayout = {
             { 13, -1 },
             { 13, -3 },
             
-			{ 23,  7 },     -- right front
+			{ 23,  7 },
 			{ 23, 13 },
             { 21, 15 },
             
-			{ 23, -7 },     -- right rear
+			{ 23, -7 },
 			{ 23,-13 },
             { 21,-15 },
             
-			{-13,-23 },     -- rear
+			{-13,-23 },
 			{-11,-23 },
 			{ -9,-23 },
 			{ -7,-23 },
@@ -559,27 +559,27 @@ PowerLayout = {
 -- Cybran Power Layout
     {
 		{{'T3EnergyProduction'},
-			{-10, 10 }, -- inner 4
+			{-10, 10 },
 			{ 10, 10 },
 			{-10,-10 },
 			{ 10,-10 },
-			{-18,-18 },	-- factory ring corners - 2 rear
+			{-18,-18 },
 			{ 18,-18 },
-			{ 26,-10 },	-- outer ring -- side rear 2
+			{ 26,-10 },
 			{-26,-10 },
-			{ 26, 10 },	-- side front 2
+			{ 26, 10 },
 			{-26, 10 },
-			{-10, 26 },	-- front 2
+			{-10, 26 },
 			{ 10, 26 },
-			{-10,-26 }, -- rear 2 
+			{-10,-26 },
 			{ 10,-26 },
-			{-26,  0 },	-- outer ring - 4 cardinal points - 2 side
+			{-26,  0 },
 			{ 26,  0 },
-			{  0,-26 },	-- 1 rear
-			{  0, 26 },	-- 1 front
-			{-10,-40 },	-- 2 more - extra ring - rear
+			{  0,-26 },
+			{  0, 26 },
+			{-10,-40 },
 			{ 10,-40 },
-			{-40,-10 }, -- extra ring 9 beyond Mass Fabs frontal
+			{-40,-10 },
 			{-40, 10 },
 			{-40, 0  },
 			{ 40,-10 },
@@ -590,18 +590,18 @@ PowerLayout = {
 			{  0, 40 },
 		},
 		{{'T2EnergyProduction'},
-			{ -17, 17 },	-- outside front 2 corners
+			{ -17, 17 },
 			{  17, 17 },
-			{ -11, 11 },	-- inside front 2 corners
+			{ -11, 11 },
 			{  11, 11 },
-			{ -17,-17 },    -- outside back 2 corners
+			{ -17,-17 },
 			{  17,-17 },
-			{ -11,-11 },    -- inside back 2 corners
+			{ -11,-11 },
 			{  11,-11 },
-            {   0,  0 },    -- one extra right in the middle
+            {   0,  0 },
 		},
 		{{'T1EnergyProduction'},
-			{ -5, 15 },     -- front centre
+			{ -5, 15 },
 			{ -5, 17 },
 			{ -5, 19 },
 			{ -5, 21 },
@@ -619,7 +619,7 @@ PowerLayout = {
             {  1, 13 },
             {  3, 13 },
             
-			{-21,  5 },     -- left centre
+			{-21,  5 },
 			{-19,  5 },
 			{-17,  5 },
 			{-15,  5 },
@@ -637,25 +637,25 @@ PowerLayout = {
             {-13, -1 },
             {-13, -3 },
             
-			{-13, 23 },     -- front left
+			{-13, 23 },
 			{ -7, 23 },
             { -7, 13 },
             {-15, 21 },
             
-			{  7, 23 },     -- front right
+			{  7, 23 },
 			{ 13, 23 },
             {  7, 13 },
             { 15, 21 },
 
-			{-23, 13 },     -- left front     
+			{-23, 13 },
 			{-23,  7 },
             {-21, 15 },
             
-			{-23, -7 },     -- left rear
+			{-23, -7 },
 			{-23,-13 },
             {-21,-15 },
 
-			{ 15,  5 },     -- right
+			{ 15,  5 },
 			{ 17,  5 },
 			{ 19,  5 },
 			{ 21,  5 },
@@ -673,15 +673,15 @@ PowerLayout = {
             { 13, -1 },
             { 13, -3 },
             
-			{ 23,  7 },     -- right front
+			{ 23,  7 },
 			{ 23, 13 },
             { 21, 15 },
             
-			{ 23, -7 },     -- right rear
+			{ 23, -7 },
 			{ 23,-13 },
             { 21,-15 },
             
-			{-13,-23 },     -- rear
+			{-13,-23 },
 			{-11,-23 },
 			{ -9,-23 },
 			{ -7,-23 },
@@ -695,27 +695,27 @@ PowerLayout = {
 -- Seraphim Power Layout
     {
 		{{'T3EnergyProduction'},
-			{-10, 10 }, -- inner 4
+			{-10, 10 },
 			{ 10, 10 },
 			{-10,-10 },
 			{ 10,-10 },
-			{-18,-18 },	-- factory ring corners - 2 rear
+			{-18,-18 },
 			{ 18,-18 },
-			{ 26,-10 },	-- outer ring -- side rear 2
+			{ 26,-10 },
 			{-26,-10 },
-			{ 26, 10 },	-- side front 2
+			{ 26, 10 },
 			{-26, 10 },
-			{-10, 26 },	-- front 2
+			{-10, 26 },
 			{ 10, 26 },
-			{-10,-26 }, -- rear 2 
+			{-10,-26 },
 			{ 10,-26 },
-			{-26,  0 },	-- outer ring - 4 cardinal points - 2 side
+			{-26,  0 },
 			{ 26,  0 },
-			{  0,-26 },	-- 1 rear
-			{  0, 26 },	-- 1 front
-			{-10,-40 },	-- 2 more - extra ring - rear
+			{  0,-26 },
+			{  0, 26 },
+			{-10,-40 },
 			{ 10,-40 },
-			{-40,-10 }, -- extra ring 9 beyond Mass Fabs frontal
+			{-40,-10 },
 			{-40, 10 },
 			{-40, 0  },
 			{ 40,-10 },
@@ -726,18 +726,18 @@ PowerLayout = {
 			{  0, 40 },
 		},
 		{{'T2EnergyProduction'},
-			{ -17, 17 },	-- outside front 2 corners
+			{ -17, 17 },
 			{  17, 17 },
-			{ -11, 11 },	-- inside front 2 corners
+			{ -11, 11 },
 			{  11, 11 },
-			{ -17,-17 },    -- outside back 2 corners
+			{ -17,-17 },
 			{  17,-17 },
-			{ -11,-11 },    -- inside back 2 corners
+			{ -11,-11 },
 			{  11,-11 },
-            {   0,  0 },    -- one extra right in the middle
+            {   0,  0 },
 		},
 		{{'T1EnergyProduction'},
-			{ -5, 15 },     -- front centre
+			{ -5, 15 },
 			{ -5, 17 },
 			{ -5, 19 },
 			{ -5, 21 },
@@ -755,7 +755,7 @@ PowerLayout = {
             {  1, 13 },
             {  3, 13 },
             
-			{-21,  5 },     -- left centre
+			{-21,  5 },
 			{-19,  5 },
 			{-17,  5 },
 			{-15,  5 },
@@ -773,25 +773,25 @@ PowerLayout = {
             {-13, -1 },
             {-13, -3 },
             
-			{-13, 23 },     -- front left
+			{-13, 23 },
 			{ -7, 23 },
             { -7, 13 },
             {-15, 21 },
             
-			{  7, 23 },     -- front right
+			{  7, 23 },
 			{ 13, 23 },
             {  7, 13 },
             { 15, 21 },
 
-			{-23, 13 },     -- left front     
+			{-23, 13 },
 			{-23,  7 },
             {-21, 15 },
             
-			{-23, -7 },     -- left rear
+			{-23, -7 },
 			{-23,-13 },
             {-21,-15 },
 
-			{ 15,  5 },     -- right
+			{ 15,  5 },
 			{ 17,  5 },
 			{ 19,  5 },
 			{ 21,  5 },
@@ -809,15 +809,15 @@ PowerLayout = {
             { 13, -1 },
             { 13, -3 },
             
-			{ 23,  7 },     -- right front
+			{ 23,  7 },
 			{ 23, 13 },
             { 21, 15 },
             
-			{ 23, -7 },     -- right rear
+			{ 23, -7 },
 			{ 23,-13 },
             { 21,-15 },
             
-			{-13,-23 },     -- rear
+			{-13,-23 },
 			{-11,-23 },
 			{ -9,-23 },
 			{ -7,-23 },
@@ -834,16 +834,16 @@ MassFabLayout = {
 -- UEF
     {
 		{{'T3MassCreation'},
-			{-17, 17 },	-- front 2 corners
-			{ 17, 17 },
-			{-33,-11 }, -- left 2
-			{ 33,-11 },
-			{-33, 11 },	-- right 2
-			{ 33, 11 },
-			{-11,-33 },	-- rear 2
-			{ 11,-33 },
-			{-11, 33 },	-- front 2
-			{ 11, 33 },
+			{-17, 17 },	-- left front corner
+			{ 17, 17 }, -- right front corner
+			{-33,-11 }, -- left back
+			{ 33,-11 }, -- right back
+			{-11,-33 },	-- rear left
+			{ 11,-33 }, -- rear right
+			{-33, 11 },	-- left front
+			{ 33, 11 }, -- right front
+			{-11, 33 },	-- left front
+			{ 11, 33 }, -- right front
 		},
 		{{'T1MassCreation'},
             {  5, 15 }, -- front
@@ -861,23 +861,23 @@ MassFabLayout = {
 -- Aeon
     {
 		{{'T3MassCreation'},
-			{-17, 17 },	-- front 2 corners
+			{-17, 17 },
 			{ 17, 17 },
-			{-33, 11 }, -- outer ring 8 - left 2
 			{-33,-11 },
-			{-11,-33 },	-- rear 2
-			{ 11,-33 },
-			{ 33, 11 },	-- right 2
 			{ 33,-11 },
-			{-11, 33 },	-- front 2
+			{-11,-33 },
+			{ 11,-33 },
+			{-33, 11 },
+			{ 33, 11 },
+			{-11, 33 },
 			{ 11, 33 },
 		},
 		{{'T1MassCreation'},
-            {  5, 15 }, -- front
+            {  5, 15 },
             { -5, 15 },
-            {-15, 5  }, -- left
+            {-15, 5  },
             {-15,-5  },
-            { 15, 5  }, -- right
+            { 15, 5  },
             { 15,-5  },
 			{  7,-23 },
 			{ -7,-23 },
@@ -888,23 +888,23 @@ MassFabLayout = {
 -- Cybran
     {
 		{{'T3MassCreation'},
-			{-17, 17 },	-- front 2 corners
+			{-17, 17 },
 			{ 17, 17 },
-			{-33, 11 }, -- outer ring 8 - left 2
 			{-33,-11 },
-			{-11,-33 },	-- rear 2
-			{ 11,-33 },
-			{ 33, 11 },	-- right 2
 			{ 33,-11 },
-			{-11, 33 },	-- front 2
+			{-11,-33 },
+			{ 11,-33 },
+			{-33, 11 },
+			{ 33, 11 },
+			{-11, 33 },
 			{ 11, 33 },
 		},
 		{{'T1MassCreation'},
-            {  5, 15 }, -- front
+            {  5, 15 },
             { -5, 15 },
-            {-15, 5  }, -- left
+            {-15, 5  },
             {-15,-5  },
-            { 15, 5  }, -- right
+            { 15, 5  },
             { 15,-5  },
 			{  7,-23 },
 			{ -7,-23 },
@@ -915,23 +915,23 @@ MassFabLayout = {
 -- Sera
     {
 		{{'T3MassCreation'},
-			{-17, 17 },	-- front 2 corners
+			{-17, 17 },
 			{ 17, 17 },
-			{-33, 11 }, -- outer ring 8 - left 2
 			{-33,-11 },
-			{-11,-33 },	-- rear 2
-			{ 11,-33 },
-			{ 33, 11 },	-- right 2
 			{ 33,-11 },
-			{-11, 33 },	-- front 2
+			{-11,-33 },
+			{ 11,-33 },
+			{-33, 11 },
+			{ 33, 11 },
+			{-11, 33 },
 			{ 11, 33 },
 		},
 		{{'T1MassCreation'},
-            {  5, 15 }, -- front
+            {  5, 15 },
             { -5, 15 },
-            {-15, 5  }, -- left
+            {-15, 5  },
             {-15,-5  },
-            { 15, 5  }, -- right
+            { 15, 5  },
             { 15,-5  },
 			{  7,-23 },
 			{ -7,-23 },
@@ -1186,13 +1186,13 @@ ShieldLayoutInner = {
 -- Aeon Inner Shield Layout
     {
 		{{'T2ShieldDefense','T3ShieldDefense'},
-			{ 0, 9 }, -- inner 4
+			{ 0, 9 },
 			{ 0,-9 },
 			{-9, 0 },
 			{ 9, 0 },
 		},
 		{{'EnergyStorage','T3Storage'},
-			{  0,  5 },	-- inner 4 shields with 3 each
+			{  0,  5 },
 			{ -2,  5 },
 			{  2,  5 },
 			{  0, -5 },
@@ -1212,13 +1212,13 @@ ShieldLayoutInner = {
 -- Cybran Inner Shield Layout
     {
 		{{'T2ShieldDefense','T3ShieldDefense'},
-			{ 0, 9 }, --inner 4
+			{ 0, 9 },
 			{ 0,-9 },
 			{-9, 0 },
 			{ 9, 0 },
 		},
 		{{'EnergyStorage','T3Storage'},
-			{  0,  5 },	-- inner 4 shields with 3 each
+			{  0,  5 },
 			{ -2,  5 },
 			{  2,  5 },
 			{  0, -5 },
@@ -1238,13 +1238,13 @@ ShieldLayoutInner = {
 -- Seraphim Inner Shield Layout
     {
 		{{'T2ShieldDefense','T3ShieldDefense'},
-			{ 0, 9 }, -- inner 4
+			{ 0, 9 },
 			{ 0,-9 },
 			{-9, 0 },
 			{ 9, 0 },
 		},
 		{{'EnergyStorage','T3Storage'},
-			{  0,  5 },	-- inner 4 shields with 3 each
+			{  0,  5 },
 			{ -2,  5 },
 			{  2,  5 },
 			{  0, -5 },
@@ -1313,11 +1313,11 @@ ShieldLayout = {
 -- Aeon Shield Layout
     {
 		{{'T2ShieldDefense','T3ShieldDefense'},
-			{-33,  0 }, -- outer 4 cardinal points
+			{-33,  0 },
 			{ 33,  0 },
 			{  0,-33 },
 			{  0, 33 },
-			{-26, 33 }, -- additional corners 4
+			{-26, 33 },
 			{ 26, 33 },
 			{-26,-33 },		
 			{ 26,-33 },
@@ -1328,7 +1328,7 @@ ShieldLayout = {
             {  0, 48 },
         },        
 		{{'EnergyStorage','T3Storage'},
-			{ 24, 37 },	-- outer 4 corners w 6 each
+			{ 24, 37 },
 			{ 26, 37 },
 			{ 28, 37 },
 			{ 30, 35 },
@@ -1357,11 +1357,11 @@ ShieldLayout = {
 -- Cybran Shield Layout
     {
 		{{'T2ShieldDefense','T3ShieldDefense'},
-			{-33,  0 }, -- outer 4 cardinal points
+			{-33,  0 },
 			{ 33,  0 },
 			{  0,-33 },
 			{  0, 33 },
-			{-26, 33 }, -- additional corners 4
+			{-26, 33 },
 			{ 26, 33 },
 			{-26,-33 },		
 			{ 26,-33 },
@@ -1372,7 +1372,7 @@ ShieldLayout = {
             {  0, 48 },
         },        
 		{{'EnergyStorage','T3Storage'},
-			{ 24, 37 },	-- outer 4 corners w 6 each
+			{ 24, 37 },
 			{ 26, 37 },
 			{ 28, 37 },
 			{ 30, 35 },
@@ -1401,11 +1401,11 @@ ShieldLayout = {
 -- Seraphim Shield Layout
     {
 		{{'T2ShieldDefense','T3ShieldDefense'},
-			{-33,  0 }, -- outer 4 cardinal points
+			{-33,  0 },
 			{ 33,  0 },
 			{  0,-33 },
 			{  0, 33 },
-			{-26, 33 }, -- additional corners 4
+			{-26, 33 },
 			{ 26, 33 },
 			{-26,-33 },		
 			{ 26,-33 },
@@ -1416,7 +1416,7 @@ ShieldLayout = {
             {  0, 48 },
         },        
 		{{'EnergyStorage','T3Storage'},
-			{ 24, 37 },	-- outer 4 corners w 6 each
+			{ 24, 37 },
 			{ 26, 37 },
 			{ 28, 37 },
 			{ 30, 35 },
@@ -1910,14 +1910,14 @@ BaseDefenseLayout = {
 -- AEON Base Defense Layout
 	{
 		{{'T2GroundDefense','T2AADefense','T2MissileDefense','T3MissileDefense'},
-			{-31, 15 },     -- Left - Forward
-			{-15, 32 },     -- Forward - Left
-			{ 15, 32 },     -- Forward - Right
-			{ 31, 15 },     -- Right - Forward
-			{ 31,-15 },     -- Right - Back
-			{ 15,-32 },     -- Back - Right
-            {-15,-32 },     -- Back - Left
-			{-31,-15 },     -- Left - Back
+			{-31, 15 },
+			{-15, 32 },
+			{ 15, 32 },
+			{ 31, 15 },
+			{ 31,-15 },
+			{ 15,-32 },
+            {-15,-32 },
+			{-31,-15 },
 			
 			{-34, 15 },
 			{-18, 32 },
@@ -1971,7 +1971,7 @@ BaseDefenseLayout = {
         },
 
 		{{'T3GroundDefense'},
-			{ -5, 37 },     -- the central 8
+			{ -5, 37 },
 			{  5, 37 },
 			{ 37,  5 },
 			{ 37, -5 },
@@ -1980,7 +1980,7 @@ BaseDefenseLayout = {
 			{  5,-35 },
 			{ -5,-35 },
 			
-			{-34, 18 },     -- 10 in defense boxes
+			{-34, 18 },
 			{-21, 35 },
 			{ 21, 35 },
 			{ 34, 18 },
@@ -1991,14 +1991,14 @@ BaseDefenseLayout = {
             {-18, 35 },
             { 18, 35 },            
 
-			{-31, 15 },     -- Left - Forward
-			{-15, 32 },     -- Front - Left
-			{ 15, 32 },     -- Front - Right
-			{ 31, 15 },     -- Right - Forward
-			{ 31,-15 },     -- Right - Back
-			{ 15,-32 },     -- Rear - Right
-            {-15,-32 },     -- Rear - Left
-			{-31,-15 },     -- Left - Back
+			{-31, 15 },
+			{-15, 32 },
+			{ 15, 32 },
+			{ 31, 15 },
+			{ 31,-15 },
+			{ 15,-32 },
+            {-15,-32 },
+			{-31,-15 },
 			
 			{-34, 15 },
 			{-18, 32 },
@@ -2020,7 +2020,7 @@ BaseDefenseLayout = {
 		},
 		
 		{{'T3AADefense'},
-			{ -5, 29 },     -- the central 8
+			{ -5, 29 },
 			{  5, 29 },
 			{ 29,  5 },
 			{ 29, -5 },
@@ -2029,24 +2029,24 @@ BaseDefenseLayout = {
 			{  5,-29 },
 			{ -5,-29 },
 			
-			{-31, 18 },     -- 4 in defense boxes
+			{-31, 18 },
 			{ 31, 18 },
 			{ 31,-18 },
 			{-31,-18 },
 		},
 
 		{{'T3TeleportJammer'},
-            {-28, 20 },     -- Left - Front
-			{ 28, 20 },     -- Right - Front
-			{-28,-21 },     -- Left - Rear
-			{ 28,-21 },     -- Right - Rear
+            {-28, 20 },
+			{ 28, 20 },
+			{-28,-21 },
+			{ 28,-21 },
 		},
         
 		{{'T3StrategicMissile'},
-			{-17,-25 },     -- Rear - Left
-			{ 17,-25 },     -- Rear - Right        
-			{-17, 25 },     -- Front - Left		
-			{ 17, 25 },     -- Front - Right
+			{-17,-25 },
+			{ 17,-25 },
+			{-17, 25 },
+			{ 17, 25 },
 		},
         
 		{{ 'T3StrategicMissileDefense' },
@@ -2064,7 +2064,7 @@ BaseDefenseLayout = {
 		},
         
 		{{'T4GroundDefense'},
-			{-38, 23 },     -- side defense boxes
+			{-38, 23 },
 			{ 38, 23 },
 			{-38,-23 },
 			{ 38,-23 },
@@ -2073,14 +2073,14 @@ BaseDefenseLayout = {
 -- CYBRAN Base Defense Layout
 	{
 		{{'T2GroundDefense','T2AADefense','T2MissileDefense','T3MissileDefense'},
-			{-31, 15 },     -- Left - Forward
-			{-15, 32 },     -- Forward - Left
-			{ 15, 32 },     -- Forward - Right
-			{ 31, 15 },     -- Right - Forward
-			{ 31,-15 },     -- Right - Back
-			{ 15,-32 },     -- Back - Right
-            {-15,-32 },     -- Back - Left
-			{-31,-15 },     -- Left - Back
+			{-31, 15 },
+			{-15, 32 },
+			{ 15, 32 },
+			{ 31, 15 },
+			{ 31,-15 },
+			{ 15,-32 },
+            {-15,-32 },
+			{-31,-15 },
 			
 			{-34, 15 },
 			{-18, 32 },
@@ -2134,7 +2134,7 @@ BaseDefenseLayout = {
         },
 
 		{{'T3GroundDefense'},
-			{ -5, 37 },     -- the central 8
+			{ -5, 37 },
 			{  5, 37 },
 			{ 37,  5 },
 			{ 37, -5 },
@@ -2143,7 +2143,7 @@ BaseDefenseLayout = {
 			{  5,-35 },
 			{ -5,-35 },
 			
-			{-34, 18 },     -- 10 in defense boxes
+			{-34, 18 },
 			{-21, 35 },
 			{ 21, 35 },
 			{ 34, 18 },
@@ -2154,14 +2154,14 @@ BaseDefenseLayout = {
             {-18, 35 },
             { 18, 35 },            
 
-			{-31, 15 },     -- Left - Forward
-			{-15, 32 },     -- Front - Left
-			{ 15, 32 },     -- Front - Right
-			{ 31, 15 },     -- Right - Forward
-			{ 31,-15 },     -- Right - Back
-			{ 15,-32 },     -- Rear - Right
-            {-15,-32 },     -- Rear - Left
-			{-31,-15 },     -- Left - Back
+			{-31, 15 },
+			{-15, 32 },
+			{ 15, 32 },
+			{ 31, 15 },
+			{ 31,-15 },
+			{ 15,-32 },
+            {-15,-32 },
+			{-31,-15 },
 			
 			{-34, 15 },
 			{-18, 32 },
@@ -2183,7 +2183,7 @@ BaseDefenseLayout = {
 		},
 		
 		{{'T3AADefense'},
-			{ -5, 29 },     -- the central 8
+			{ -5, 29 },
 			{  5, 29 },
 			{ 29,  5 },
 			{ 29, -5 },
@@ -2192,24 +2192,24 @@ BaseDefenseLayout = {
 			{  5,-29 },
 			{ -5,-29 },
 			
-			{-31, 18 },     -- 4 in defense boxes
+			{-31, 18 },
 			{ 31, 18 },
 			{ 31,-18 },
 			{-31,-18 },
 		},
 
 		{{'T3TeleportJammer'},
-            {-28, 20 },     -- Left - Front
-			{ 28, 20 },     -- Right - Front
-			{-28,-21 },     -- Left - Rear
-			{ 28,-21 },     -- Right - Rear
+            {-28, 20 },
+			{ 28, 20 },
+			{-28,-21 },
+			{ 28,-21 },
 		},
         
 		{{'T3StrategicMissile'},
-			{-17,-25 },     -- Rear - Left
-			{ 17,-25 },     -- Rear - Right        
-			{-17, 25 },     -- Front - Left		
-			{ 17, 25 },     -- Front - Right
+			{-17,-25 },
+			{ 17,-25 },
+			{-17, 25 },
+			{ 17, 25 },
 		},
         
 		{{ 'T3StrategicMissileDefense' },
@@ -2227,7 +2227,7 @@ BaseDefenseLayout = {
 		},
         
 		{{'T4GroundDefense'},
-			{-38, 23 },     -- side defense boxes
+			{-38, 23 },
 			{ 38, 23 },
 			{-38,-23 },
 			{ 38,-23 },
@@ -2236,14 +2236,14 @@ BaseDefenseLayout = {
 -- SERA Base Defense Layout
 	{
 		{{'T2GroundDefense','T2AADefense','T2MissileDefense','T3MissileDefense'},
-			{-31, 15 },     -- Left - Forward
-			{-15, 32 },     -- Forward - Left
-			{ 15, 32 },     -- Forward - Right
-			{ 31, 15 },     -- Right - Forward
-			{ 31,-15 },     -- Right - Back
-			{ 15,-32 },     -- Back - Right
-            {-15,-32 },     -- Back - Left
-			{-31,-15 },     -- Left - Back
+			{-31, 15 },
+			{-15, 32 },
+			{ 15, 32 },
+			{ 31, 15 },
+			{ 31,-15 },
+			{ 15,-32 },
+            {-15,-32 },
+			{-31,-15 },
 			
 			{-34, 15 },
 			{-18, 32 },
@@ -2297,7 +2297,7 @@ BaseDefenseLayout = {
         },
         
 		{{'T3GroundDefense'},
-			{ -5, 37 },     -- the central 8
+			{ -5, 37 },
 			{  5, 37 },
 			{ 37,  5 },
 			{ 37, -5 },
@@ -2306,7 +2306,7 @@ BaseDefenseLayout = {
 			{  5,-35 },
 			{ -5,-35 },
 			
-			{-34, 18 },     -- 10 in defense boxes
+			{-34, 18 },
 			{-21, 35 },
 			{ 21, 35 },
 			{ 34, 18 },
@@ -2317,14 +2317,14 @@ BaseDefenseLayout = {
             {-18, 35 },
             { 18, 35 },            
 
-			{-31, 15 },     -- Left - Forward
-			{-15, 32 },     -- Front - Left
-			{ 15, 32 },     -- Front - Right
-			{ 31, 15 },     -- Right - Forward
-			{ 31,-15 },     -- Right - Back
-			{ 15,-32 },     -- Rear - Right
-            {-15,-32 },     -- Rear - Left
-			{-31,-15 },     -- Left - Back
+			{-31, 15 },
+			{-15, 32 },
+			{ 15, 32 },
+			{ 31, 15 },
+			{ 31,-15 },
+			{ 15,-32 },
+            {-15,-32 },
+			{-31,-15 },
 			
 			{-34, 15 },
 			{-18, 32 },
@@ -2346,7 +2346,7 @@ BaseDefenseLayout = {
 		},
 		
 		{{'T3AADefense'},
-			{ -5, 29 },     -- the central 8
+			{ -5, 29 },
 			{  5, 29 },
 			{ 29,  5 },
 			{ 29, -5 },
@@ -2355,24 +2355,24 @@ BaseDefenseLayout = {
 			{  5,-29 },
 			{ -5,-29 },
 			
-			{-31, 18 },     -- 4 in defense boxes
+			{-31, 18 },
 			{ 31, 18 },
 			{ 31,-18 },
 			{-31,-18 },
 		},
 
 		{{'T3TeleportJammer'},
-            {-28, 20 },     -- Left - Front
-			{ 28, 20 },     -- Right - Front
-			{-28,-21 },     -- Left - Rear
-			{ 28,-21 },     -- Right - Rear
+            {-28, 20 },
+			{ 28, 20 },
+			{-28,-21 },
+			{ 28,-21 },
 		},
         
 		{{'T3StrategicMissile'},
-			{-17,-25 },     -- Rear - Left
-			{ 17,-25 },     -- Rear - Right        
-			{-17, 25 },     -- Front - Left		
-			{ 17, 25 },     -- Front - Right
+			{-17,-25 },
+			{ 17,-25 },
+			{-17, 25 },
+			{ 17, 25 },
 		},
         
 		{{ 'T3StrategicMissileDefense' },
@@ -2390,52 +2390,13 @@ BaseDefenseLayout = {
 		},
         
 		{{'T4GroundDefense'},
-			{-38, 23 },     -- side defense boxes
+			{-38, 23 },
 			{ 38, 23 },
 			{-38,-23 },
 			{ 38,-23 },
 		},		
 	},
 }	
-
-T3AirStagingComplex = {
--- UEF T3 Air Staging Facility
-    {
-        {{'T1AirStagingPlatform'},
-            { 0, -6 },
-        },    
-        {{'T2AirStagingPlatform'},
-            { 0, 0 },
-        },
-    },
--- Aeon T3 Air Staging Facility
-    {
-        {{'T1AirStagingPlatform'},
-            { 0, -6 },
-        },        
-        {{'T2AirStagingPlatform'},
-            { 0, 0 },
-        },
-    },
--- Cybran T3 Air Staging Facility
-    {
-        {{'T1AirStagingPlatform'},
-            { 0, -6 },
-        },    
-        {{'T2AirStagingPlatform'},
-            { 0, 0 },
-        },
-    },
--- Seraphim T3 Air Staging Facility
-    {
-        {{'T1AirStagingPlatform'},
-            { 0, -6 },
-        },    
-        {{'T2AirStagingPlatform'},
-            { 0, 0 },
-        },
-    },
-}
 
 ResourceFacility = {
 -- UEF Resource Facility
@@ -2517,61 +2478,38 @@ ResourceFacility = {
     
 -- Aeon Resource Facility
     {
-        {
-            {
-			'T3ShieldDefense',
-			'T2ShieldDefense',
-            },
-			{ 0, -10 }, # T3 Shields 2
+        {{'T3ShieldDefense','T2ShieldDefense'},
+			{ 0, -10 },
 			{ 0, 10 },
 			{ 10, 0 },
 			{ -10, 0 },
         },
-        {
-            {
-			'T4AADefense',
-            'T3AADefense', 
-            'T2GroundDefense', 
-			'T3GroundDefense',
-			'T2MissileDefense','T3MissileDefense',
-            },
-			{ -8, -8 }, # AA 4
+        {{'T4AADefense','T3AADefense','T2GroundDefense','T3GroundDefense','T2MissileDefense','T3MissileDefense'},
+			{ -8, -8 },
 			{ 8, 8 },
 			{ 8, -8 },
 			{ -8, 8 },
-			{ -10, -10}, # T2 TMD 2
+			{ -10, -10},
 			{ 10, 10 },
-			{ 10, -10 }, # T2 PD 2
+			{ 10, -10 },
 			{ -10, 10 },
         },
-		{
-			{
-			'T3TeleportJammer',
-			'T2RadarJammer',
-			},
+		{{'T3TeleportJammer','T2RadarJammer'},
 			{ -9, -9 },
 			{ 9, 9 },
 			{ 9, -9 },
 			{ -9, 9 },
 		},
-        {
-            {
-			'T4EconExperimental',
-            },
-			{ 0, 0 },  # Resource Gen
+        {{'T4EconExperimental'},
+			{ 0, 0 },
         },
-		{
-			{'T4GroundDefense'},
+		{{'T4GroundDefense'},
 			{ -11, -11 },
 			{  11,  11 },
 			{ -11,  11 },
 			{  11, -11 },
 		},		
-		{
-			{
-			'EnergyStorage',
-			'T3Storage',
-			},
+		{{'EnergyStorage','T3Storage'},
 			{ 6, 0 },
 			{ 6, 2 },
 			{ 6, -2 },
@@ -2584,7 +2522,7 @@ ResourceFacility = {
 			{ 0, -6 },
 			{ -2, -6 },
 			{ 2, -6 },
-			{ 0, -14 },	-- shield augmentation
+			{ 0, -14 },
 			{ -2, -14 },
 			{ 2, -14 },
 			{ 0, 14 },
@@ -2597,10 +2535,7 @@ ResourceFacility = {
 			{ -14, -2 },
 			{ -14, 2 },
 		},
-		{
-			{
-			'MassStorage',
-			},
+		{{'MassStorage'},
 			{ 6, -4 },
 			{ 6, 4 },
 			{ -6, -4 },
@@ -2613,61 +2548,38 @@ ResourceFacility = {
     },
 -- Cybran Resource Facility
     {
-        {
-            {
-			'T3ShieldDefense',
-			'T2ShieldDefense',
-            },
-			{ 0, -10 }, # T3 Shields 2
+        {{'T3ShieldDefense','T2ShieldDefense'},
+			{ 0, -10 },
 			{ 0, 10 },
 			{ 10, 0 },
 			{ -10, 0 },
         },
-        {
-            {
-			'T4AADefense',
-            'T3AADefense', 
-            'T2GroundDefense', 
-			'T3GroundDefense',
-			'T2MissileDefense','T3MissileDefense',
-            },
-			{ -8, -8 }, # T3 AA 4
+        {{'T4AADefense','T3AADefense','T2GroundDefense','T3GroundDefense','T2MissileDefense','T3MissileDefense'},
+			{ -8, -8 },
 			{ 8, 8 },
 			{ 8, -8 },
 			{ -8, 8 },
-			{ -10, -10}, # T2 TMD 2
+			{ -10, -10},
 			{ 10, 10 },
-			{ 10, -10 }, # T2 PD 2
+			{ 10, -10 },
 			{ -10, 10 },
         },
-		{
-			{
-			'T3TeleportJammer',
-			'T2RadarJammer',
-			},
+		{{'T3TeleportJammer','T2RadarJammer'},
 			{ -9, -9 },
 			{ 9, 9 },
 			{ 9, -9 },
 			{ -9, 9 },
 		},
-        {
-            {
-			'T4EconExperimental',
-            },
-			{ 0, 0 },  # Resource Gen
+        {{'T4EconExperimental'},
+			{ 0, 0 },
         },
-		{
-			{'T4GroundDefense'},
+		{{'T4GroundDefense'},
 			{ -11, -11 },
 			{  11,  11 },
 			{ -11,  11 },
 			{  11, -11 },
 		},
-		{
-			{
-			'EnergyStorage',
-			'T3Storage',
-			},
+		{{'EnergyStorage','T3Storage'},
 			{ 6, 0 },
 			{ 6, 2 },
 			{ 6, -2 },
@@ -2680,7 +2592,7 @@ ResourceFacility = {
 			{ 0, -6 },
 			{ -2, -6 },
 			{ 2, -6 },
-			{ 0, -14 },	-- shield augmentation
+			{ 0, -14 },
 			{ -2, -14 },
 			{ 2, -14 },
 			{ 0, 14 },
@@ -2693,10 +2605,7 @@ ResourceFacility = {
 			{ -14, -2 },
 			{ -14, 2 },
 		},
-		{
-			{
-			'MassStorage',
-			},
+		{{'MassStorage'},
 			{ 6, -4 },
 			{ 6, 4 },
 			{ -6, -4 },
@@ -2709,61 +2618,38 @@ ResourceFacility = {
     },
 -- Seraphim Resource Facility
     {
-        {
-            {
-			'T3ShieldDefense',
-			'T2ShieldDefense',
-            },
-			{ 0, -10 }, # T3 Shields 2
+        {{'T3ShieldDefense','T2ShieldDefense'},
+			{ 0, -10 },
 			{ 0, 10 },
 			{ 10, 0 },
 			{ -10, 0 },
         },
-        {
-            {
-			'T4AADefense',
-            'T3AADefense', 
-            'T2GroundDefense', 
-			'T3GroundDefense',
-			'T2MissileDefense','T3MissileDefense',
-            },
-			{ -8, -8 }, # T3 AA 4
+        {{'T4AADefense','T3AADefense','T2GroundDefense','T3GroundDefense','T2MissileDefense','T3MissileDefense'},
+			{ -8, -8 },
 			{ 8, 8 },
 			{ 8, -8 },
 			{ -8, 8 },
-			{ -10, -10}, # T2 TMD 2
+			{ -10, -10},
 			{ 10, 10 },
-			{ 10, -10 }, # T2 PD 2
+			{ 10, -10 },
 			{ -10, 10 },
         },
-		{
-			{
-			'T3TeleportJammer',
-			'T2RadarJammer',
-			},
+		{{'T3TeleportJammer','T2RadarJammer'},
 			{ -9, -9 },
 			{ 9, 9 },
 			{ 9, -9 },
 			{ -9, 9 },
 		},
-        {
-            {
-			'T4EconExperimental',
-            },
-			{ 0, 0 },  # Rift Gate
+        {{'T4EconExperimental'},
+			{ 0, 0 },
         },
-		{
-			{'T4GroundDefense'},
+		{{'T4GroundDefense'},
 			{ -12, -12 },
 			{  12,  12 },
 			{ -12,  12 },
 			{  12, -12 },
 		},		
-		{
-			{
-			'EnergyStorage',
-			'T3Storage',
-			},
+		{{'EnergyStorage','T3Storage'},
 			{ 6, 0 },
 			{ 6, 2 },
 			{ 6, -2 },
@@ -2776,7 +2662,7 @@ ResourceFacility = {
 			{ 0, -6 },
 			{ -2, -6 },
 			{ 2, -6 },
-			{ 0, -14 },	-- shield augmentation
+			{ 0, -14 },
 			{ -2, -14 },
 			{ 2, -14 },
 			{ 0, 14 },
@@ -2789,10 +2675,7 @@ ResourceFacility = {
 			{ -14, -2 },
 			{ -14, 2 },
 		},
-		{
-			{
-			'MassStorage',
-			},
+		{{'MassStorage'},
 			{ 6, -4 },
 			{ 6, 4 },
 			{ -6, -4 },
@@ -3192,7 +3075,48 @@ MassAdjacencyDefense = {
 
 }
 
+
+T3AirStagingComplex = {
+-- UEF T3 Air Staging Facility
+    {
+        {{'T1AirStagingPlatform'},
+            { 0, -6 },
+        },    
+        {{'T2AirStagingPlatform'},
+            { 0, 0 },
+        },
+    },
+-- Aeon T3 Air Staging Facility
+    {
+        {{'T1AirStagingPlatform'},
+            { 0, -6 },
+        },        
+        {{'T2AirStagingPlatform'},
+            { 0, 0 },
+        },
+    },
+-- Cybran T3 Air Staging Facility
+    {
+        {{'T1AirStagingPlatform'},
+            { 0, -6 },
+        },    
+        {{'T2AirStagingPlatform'},
+            { 0, 0 },
+        },
+    },
+-- Seraphim T3 Air Staging Facility
+    {
+        {{'T1AirStagingPlatform'},
+            { 0, -6 },
+        },    
+        {{'T2AirStagingPlatform'},
+            { 0, 0 },
+        },
+    },
+}
+
 --[[
+
 T3PowerFacility = {
 -- UEF T3 Power Facility
     {
