@@ -6304,7 +6304,10 @@ end
 
 -- This function will transfer engineers to a base which does not have one of that specific type
 -- and has no means of making one -- weights towards counted and primary bases first
+-- primary bases are allowed to exceed the engineer cap by 1
 function EngineerTransferAI( self, aiBrain )
+
+    local EngineerTransferDialog = false
 
 	local eng = GetPlatoonUnits(self)[1]
 	
@@ -6403,7 +6406,7 @@ function EngineerTransferAI( self, aiBrain )
 		local newbase = possibles[ Random(1,counter) ]
         
         if EngineerTransferDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." ENG_TRANSFER "..Eng_Type.." Transfers From "..repr(eng.LocationType).." To "..repr(newbase) )
+            LOG("*AI DEBUG "..aiBrain.Nickname.." ENG_TRANSFER "..Eng_Type.." Transfers From "..repr(eng.LocationType).." To "..repr(newbase).." on tick "..GetGameTick() )
         end
 		
 		-- add him to the selected base - but dont send him to assign task -- setup new engy callbacks
@@ -7442,7 +7445,7 @@ function PlatoonWatchPrimarySeaAttackBase ( platoon, aiBrain )
         
         if Primary != Base then
         
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..platoon.BuilderName.." Detected that Primary Sea Base has changed to "..repr(Primary))
+            LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..platoon.BuilderName.." "..repr(platoon.BuilderInstance).." Detects that Primary Sea Base has changed to "..repr(Primary))
             
             platoon.RTBLocation = Primary
             
