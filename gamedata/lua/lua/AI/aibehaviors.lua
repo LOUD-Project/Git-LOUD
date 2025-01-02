@@ -7731,17 +7731,17 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 						end
 				
 						IssueScript( {unit}, {TaskName = "EnhanceTask", Enhancement = CurrentEnhancement} )
-						
-						if DisplayFactoryBuilds then
-							unit:SetCustomName(repr(CurrentEnhancement))
-						end						
 
 						repeat
 							WaitTicks(11)
 						until unit.Dead or IsUnitState(unit,'Enhancing')
-						
+					
 						if IsUnitState(unit,'Enhancing') and not unit.Dead then
-
+						
+                            if DisplayFactoryBuilds then
+                                unit:SetCustomName(repr(CurrentEnhancement))
+                            end						
+	
 							SetBlockCommandQueue( unit, true)
 							
 							if FactoryEnhanceDialog then
@@ -7853,10 +7853,11 @@ end
 -- thus providing a dynamic process that adapts nicely to feast and famine
 -- and to the needs of the upgrade in question
 
-function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtrigger, masshightrigger, energyhightrigger, checkperiod, initialdelay, bypassecon)
+-- note the addition of the 'notify' parameter, this will pop text over the affected unit, whenever the test process runs, set in AIDebug tools
+
+function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtrigger, masshightrigger, energyhightrigger, checkperiod, initialdelay, bypassecon, notify)
 
     local StructureUpgradeDialog    = ScenarioInfo.StructureUpgradeDialog or false
-
     local GetFractionComplete       = moho.entity_methods.GetFractionComplete
 
 	local upgradeID = __blueprints[unit.BlueprintID].General.UpgradesTo or false
@@ -7947,10 +7948,6 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
             end
 
         end
-        
-        --if StructureUpgradeDialog then
-          --  LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." advance init_delay to "..init_delay.." on tick "..GetGameTick() )
-        --end
 		
 		WaitTicks(101)
 	end
@@ -7960,7 +7957,11 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 	local EnergyStorage, MassStorage
 	
 	while ((not unit.Dead) or unit.EntityID) and (not upgradeIssued) do
-	
+        
+        if notify then
+            ForkThread( FloatingEntityText, unit.EntityID, "Nxt Upg Chk "..string.format( "%d", math.floor(checkperiod)).."s" )
+        end
+ 	
 		WaitTicks(checkperiod * 10)
 
         if StructureUpgradeDialog then
@@ -8043,8 +8044,10 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
             checkperiod = LOUDMAX(checkperiod - .05, 10)
 
             -- all values are marginally reduced --
-            MassNeeded          = MassNeeded * .995
-            EnergyNeeded        = EnergyNeeded * .995
+            -- resources required are impacted by ajacency bonuses which takes into account the cheat bonus
+            -- the trend requirements are NOT impacted in this way
+            MassNeeded          = MassNeeded * math.min(1, unit.MassBuildAdjMod or 1)
+            EnergyNeeded        = EnergyNeeded * math.min(1, unit.EnergyBuildAdjMod or 1)
             MassTrendNeeded     = MassTrendNeeded * .995
             EnergyTrendNeeded   = EnergyTrendNeeded * .995
             
@@ -8122,6 +8125,10 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                             end
 
 							upgradeIssued = true
+        
+                            if notify then
+                                ForkThread( FloatingEntityText, unit.EntityID, "Upgrade to "..repr(upgradeID) )
+                            end
 
 							IssueUpgrade({unit}, upgradeID)
 
@@ -8198,12 +8205,18 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
         repeat 
             WaitTicks(2)
         until unit.UnitBeingBuilt.BlueprintID == upgradeID
+        
+        if EntityCategoryContains( categories.FACTORY, unit) and ScenarioInfo.DisplayFactoryBuilds then
+            unit:SetCustomName("Upgrade to "..unit.UnitBeingBuilt.BlueprintID)
+        end
     
         if StructureUpgradeDialog then    
             LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." confirms upgrade to "..repr(unit.UnitBeingBuilt.EntityID).." "..unit.UnitBeingBuilt.BlueprintID.." at game tick "..GetGameTick() )
 		end
   
 		local unitbeingbuilt = GetEntityById(unit.UnitBeingBuilt.EntityID)
+
+        unitbeingbuilt:AddUnitCallback( unit.OnUpgradeComplete, 'OnStopBeingBuilt' )
 
         upgradeID = __blueprints[unitbeingbuilt.BlueprintID].General.UpgradesTo
 
@@ -8213,7 +8226,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                 LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." has follow on upgrade to "..repr(upgradeID) )
             end
           
-            unitbeingbuilt:AddUnitCallback( unit.OnUpgradeComplete, 'OnStopBeingBuilt' )
+            
         end
 
         unit.UpgradeThread = nil
