@@ -1323,6 +1323,8 @@ end
 
 function LandScoutingAI( self, aiBrain )
 
+    local ScoutDialog = false
+
 	local GetNumUnitsAroundPoint    = GetNumUnitsAroundPoint
     local GetPlatoonPosition        = GetPlatoonPosition
     local GetPlatoonUnits           = GetPlatoonUnits
@@ -1408,7 +1410,9 @@ function LandScoutingAI( self, aiBrain )
 		
 			datalist = IL.HiPri
             
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." LandScoutAI "..self.BuilderName.." "..self.BuilderInstance.." seeks Hi Pri position")
+            if ScoutDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." LandScoutAI "..self.BuilderName.." "..self.BuilderInstance.." seeks Hi Pri position")
+            end
 
 			for k,v in datalist do
             
@@ -1436,6 +1440,11 @@ function LandScoutingAI( self, aiBrain )
 
                     scoutpriority = 'Hi'
                     targetArea = LOUDCOPY( Position )
+            
+                    if ScoutDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." LandScoutAI "..self.BuilderName.." "..self.BuilderInstance.." gets HIGH Pri position "..repr(targetArea).." on tick "..GetGameTick() )
+                    end
+                    
                     break
 
                 end
@@ -1456,7 +1465,9 @@ function LandScoutingAI( self, aiBrain )
 			
 			datalist = IL.LowPri
             
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." LandScoutAI "..self.BuilderName.." "..self.BuilderInstance.." seeks Low Pri position")
+            if ScoutDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." LandScoutAI "..self.BuilderName.." "..self.BuilderInstance.." seeks Low Pri position")
+            end
 
 			for k,v in datalist do
             
@@ -1481,6 +1492,11 @@ function LandScoutingAI( self, aiBrain )
 
                     scoutpriority = 'Low'
                     targetArea = LOUDCOPY( Position )
+
+                    if ScoutDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." LandScoutAI "..self.BuilderName.." "..self.BuilderInstance.." gets LOW Pri position "..repr(targetArea).." on tick "..GetGameTick() )
+                    end
+   
                     break
 
 				end
@@ -1521,7 +1537,11 @@ function LandScoutingAI( self, aiBrain )
 			end
 			
 			if path then
-
+            
+                if ScoutDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." LandScoutAI "..self.BuilderName.." "..self.BuilderInstance.." pathing distance is "..distance.." on tick "..GetGameTick() )
+                end
+   
 				-- if the distance is great try to get transports
                 -- notice how low air ratio makes this value
 				if distance > 1024 * math.min(1, (1/aiBrain.AirRatio)) then
@@ -1563,7 +1583,13 @@ function LandScoutingAI( self, aiBrain )
                     distance = VDist3( curPos, targetArea )                
 
 					if distance < 25 then
+
 						reconcomplete = true
+            
+                        if ScoutDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." LandScoutAI "..self.BuilderName.." "..self.BuilderInstance.." reaches "..scoutpriority.." priority position at "..repr(targetArea).." on tick "..GetGameTick() )
+                        end
+
                         break
 					end
                     
@@ -1627,6 +1653,10 @@ function LandScoutingAI( self, aiBrain )
 				if not targetArea then
 					targetArea = GetPlatoonPosition(self) or false
 				end
+            
+                if ScoutDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." LandScoutAI "..self.BuilderName.." "..self.BuilderInstance.." setting patrol at position "..repr(targetArea).." on tick "..GetGameTick() )
+                end
 
 				if PlatoonPatrols and targetArea then
                 
@@ -1678,28 +1708,34 @@ function LandScoutingAI( self, aiBrain )
                                     lastpos = LOUDCOPY(v)					
 
                                     if firstmove then
+
                                         IssueMove( {scout}, v )
+
                                         firstmove = false
+                                        
+                                        WaitTicks(6)
+
                                     else
+
                                         IssuePatrol( {scout}, v )
+
                                     end
 
                                 end
 
-                                WaitTicks(1)
+                                WaitTicks(2)
                             end
 				
-                            -- if this is a high or low priority, abandon 1 or 2 scouts here and move the rest on
-                            -- Low priority scouts will leave only 1 scout whereas Hi will leave 2
+                            -- if this is a high priority, abandon 1 or 2 scouts here and move the rest on
                             if scoutpriority and not scout.Dead then
+                            
+                                if scoutpriority == 'Hi' then
 
-                                AssignUnitsToPlatoon( aiBrain, aiBrain.StructurePool, {scout}, 'Guard', 'none' )
-
-                                if scoutpriority == 'Low' then
-                                    break
-                                else
-                                    baseradius = baseradius + 12
+                                    AssignUnitsToPlatoon( aiBrain, aiBrain.StructurePool, {scout}, 'Guard', 'none' )
+                                    
                                 end
+
+                                baseradius = baseradius + 12
 
                             end
                             
@@ -1707,13 +1743,18 @@ function LandScoutingAI( self, aiBrain )
 
                     end
                     
-                    if not scoutpriority then
+                    if scoutpriority != 'Hi' then
 
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." LandScoutAI "..self.BuilderName.." has no targetArea - will patrol in place for 15 seconds ")
-                        
-                        WaitTicks(151)
-                        
-                   		self:SetAIPlan('ReturnToBaseAI',aiBrain)
+                        if ScoutDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." LandScoutAI "..self.BuilderName.." "..self.BuilderInstance.." will patrol for 30 seconds ")
+                        end
+
+                        WaitTicks(301)
+
+                        if not scoutpriority then
+                            self:SetAIPlan('ReturnToBaseAI',aiBrain)
+                        end
+
                     end
 
 				end
