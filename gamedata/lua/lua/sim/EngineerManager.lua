@@ -600,7 +600,7 @@ EngineerManager = Class(BuilderManager) {
 			-- since the engineer is added to the new base (which changes his LocationType but not the platoons)
 			-- it was necessary to change this call to use the units LocationType and NOT the platoons
             -- altered this so that we pass the locationtype to the factory when the build is started 
-            ForkThread( aiBrain.BuilderManagers[finishedUnit.LocationType].FactoryManager.AddFactory, aiBrain.BuilderManagers[finishedUnit.LocationType].FactoryManager, finishedUnit )
+            ForkThread( aiBrain.BuilderManagers[finishedUnit.LocationType].FactoryManager.AddFactory, aiBrain.BuilderManagers[finishedUnit.LocationType].FactoryManager, finishedUnit, aiBrain )
 		end
 
 		-- if STRUCTURE see if Upgrade Thread should start - excluding NUKES & Strat Artillery (they get formed into their own platoons)

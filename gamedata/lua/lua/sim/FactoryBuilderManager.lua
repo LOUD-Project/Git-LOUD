@@ -30,9 +30,11 @@ local IsUnitState       = moho.unit_methods.IsUnitState
 local EntityCategoryCount       = EntityCategoryCount
 local EntityCategoryFilterDown  = EntityCategoryFilterDown
 local LOUDENTITY                = EntityCategoryContains
+local LOUDFLOOR                 = math.floor
 local LOUDGETN                  = table.getn
 local LOUDINSERT                = table.insert
 local LOUDMAX                   = math.max
+local LOUDMIN                   = math.min
 local LOUDREMOVE                = table.remove
 local WaitTicks                 = coroutine.yield
 
@@ -120,15 +122,14 @@ FactoryBuilderManager = Class(BuilderManager) {
 		
 	end,
 
-	AddFactory = function( self, factory )
+	AddFactory = function( self, factory, aiBrain )
 
         while (not factory.Dead) and GetFractionComplete(factory) < 1 do
         
-            LOG("*AI DEBUG Adding Factory 2 "..factory.EntityID.." at "..GetFractionComplete(factory).." Dead is "..repr(factory.Dead).." to "..self.ManagerType.." "..self.LocationType)
+            LOG("*AI DEBUG "..aiBrain.Nickname.." Adding Factory 2 "..factory.EntityID.." at "..GetFractionComplete(factory).." Dead is "..repr(factory.Dead).." to "..self.ManagerType.." "..self.LocationType)
             
             WaitTicks(100)
         end
-
 
 		local LOUDENTITY = LOUDENTITY
 
@@ -187,7 +188,10 @@ FactoryBuilderManager = Class(BuilderManager) {
 				factory.BuilderType = 'Gate'
 				factory.BuildLevel = 3
 			end
-			
+
+            if ScenarioInfo.DisplayFactoryBuilds then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..factory.BuilderType.." Factory "..factory.EntityID.." added.  Level "..factory.BuildLevel )
+            end
             
 			-- fired off when the factory completes an item (single or multiple units)
 			local factoryWorkFinish = function( factory, finishedUnit, aiBrain )
@@ -267,9 +271,9 @@ FactoryBuilderManager = Class(BuilderManager) {
                 local PlatoonAddBehaviors       = BuildersData.PlatoonAddBehaviors
                 local PlatoonAddFunctions       = BuildersData.PlatoonAddFunctions
             
-                --if DisplayFactoryBuilds then
-                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..factory.EntityID.." building "..repr(builder.BuilderName))
-                --end
+                if DisplayFactoryBuilds then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..factory.EntityID.." building "..repr(builder.BuilderName).." on tick "..GetGameTick() )
+                end
 			
 				local buildplatoon = self:GetFactoryTemplate( BuildersData.PlatoonTemplate, factory, aiBrain.FactionName )
 			
@@ -342,7 +346,7 @@ FactoryBuilderManager = Class(BuilderManager) {
                     end
 			
                     if DisplayFactoryBuilds then
-                        ForkThread(FloatingEntityText, factory.EntityID, "Failed Job for "..factory.BuilderType )
+                        factory:SetCustomName("Fail Job "..repr(BuilderName) )
                     end
 
 					self.BuilderData[factory.BuilderType].NeedSort = true
@@ -351,13 +355,12 @@ FactoryBuilderManager = Class(BuilderManager) {
 				end
 				
 			else
-			
-				if DisplayFactoryBuilds then
-					ForkThread(FloatingEntityText, factory.EntityID, "No Job for "..factory.BuilderType )
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..repr(factory.EntityID).." finds no job ")
-				end
 				
 				factory.failedbuilds = factory.failedbuilds + 1
+			
+				if DisplayFactoryBuilds then
+					factory:SetCustomName("No Job "..factory.failedbuilds.." for "..factory.BuilderType)
+				end
 
                 ForkThread( self.DelayBuildOrder, self, factory )
 			end
@@ -386,45 +389,68 @@ FactoryBuilderManager = Class(BuilderManager) {
 
         -- this is the dynamic delay controlled - minimum delay is ALWAYS 2 --
         -- basically higher tier factories have less delay periods
+        -- those with adjacency bonuses may have even less delay
+        -- this initial delay is NOT impacted by adjacency bonuses - only the BuildLevel of the factory
 		WaitTicks( (8 - (BuildLevel * 2)) + (factory.failedbuilds * 10) )
 
 		if factory.EnhanceThread or Upgrading then
         
             if DisplayFactoryBuilds then
-                ForkThread(FloatingEntityText, factory.EntityID, "Enhance/Upgrade Thread ")
+                ForkThread(FloatingEntityText, factory.EntityID, "Enhance Thread")
             end
 		
 			WaitTicks(10)
 		end
         
-        -- the cheatvalue directly impacts the resource triggers --
+        -- the cheatvalues directly impact the resource triggers --
         -- cheats above 1 lower the threshold making building more aggressive
-        -- and less advanced factories require lower amounts
-        local masstrig = LOUDMAX(100, (225 * (1/ LOUDMAX(1, aiBrain.CheatValue))) - ((3 - BuildLevel) * 25))
-        local enertrig = LOUDMAX(1000,(2500 *(1/ LOUDMAX(1, aiBrain.CheatValue))) - ((3 - BuildLevel) *250))
+        -- more advanced factories require higher trigger amounts
+        local adjacencyreductionE = 1
+        local adjacencyreductionM = 1
+        local adjacencyaverage = 1
+
+        adjacencyreductionE = LOUDMIN(1, factory.EnergyBuildAdjMod or 1)
+        adjacencyreductionM = LOUDMIN(1, factory.MassBuildAdjMod or 1)
+        
+        local masstrig = LOUDMAX(100, 225 - ((3 - BuildLevel) * 25 )) * adjacencyreductionM
+        local enertrig = LOUDMAX(1000, 2500 - ((3 - BuildLevel) * 250)) * adjacencyreductionE
         
         local trig = false
-
+        
         --- while the factory is not dead or upgrading/enhancing --- loop here until the eco allows building again ---
 		while (not factory.Dead and not Upgrading) and ( GetEconomyStored( aiBrain, 'MASS') < masstrig or GetEconomyStored( aiBrain, 'ENERGY') < enertrig ) and not (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')) do
-        
+
+            -- adjacency reduction is the average of the two reductions
+            adjacencyaverage = ((adjacencyreductionE + adjacencyreductionM) / 2)          
+
+            -- the delay period is reduced by the tier of the factory and the adjacency average
+            local delay = LOUDFLOOR((28 - (BuildLevel * 3)) * adjacencyaverage)
+
             if DisplayFactoryBuilds then
+
+                local message = "Resource Delay "..string.format("%d", delay)            
+
                 trig = not trig
 
                 if trig then
-                    ForkThread(FloatingEntityText, factory.EntityID, "Insufficient Resource")
+                    factory:SetCustomName( message )
                 end
+
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Factory "..factory.EntityID.." "..message.." Masstrig "..string.format("%.1f",masstrig).." Enertrig "..string.format("%.1f",enertrig ) )
             end
-	
-            -- higher tier factories have a lower delay and check more frequently
-			WaitTicks(28 - (BuildLevel * 3))
+            
+			WaitTicks( delay )
+
+            adjacencyreductionE = LOUDMIN(1, factory.EnergyBuildAdjMod or 1)
+            adjacencyreductionM = LOUDMIN(1, factory.MassBuildAdjMod or 1)
+        
+            -- the actual M & E triggers are impacted by new adjacencies each cycle
+            masstrig = LOUDMAX(100, 225 - ((3 - BuildLevel) * 25 )) * adjacencyreductionM
+            enertrig = LOUDMAX(1000, 2500 - ((3 - BuildLevel) * 250)) * adjacencyreductionE
+
 		end
 		
 		if (not factory.Dead) and not (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')) then
-
-            if ScenarioInfo.DisplayFactoryBuilds then
-                factory:SetCustomName("")
-            end
 		
 			while (not factory.Dead) and (not IsIdleState(factory)) do
 			
@@ -435,6 +461,10 @@ FactoryBuilderManager = Class(BuilderManager) {
 					break
 				end
 			end
+
+            if DisplayFactoryBuilds then
+                factory:SetCustomName("")
+            end
 		
 			if not factory.Dead and (not IsUnitState(factory,'Upgrading')) and (not Upgrading) then
 
@@ -570,7 +600,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 
 			if GetFractionComplete(finishedUnit) == 1 then
 
-				ForkThread( self.AddFactory, self, finishedUnit )
+				ForkThread( self.AddFactory, self, finishedUnit, aiBrain )
                 
                 finishedUnit:LaunchUpgradeThread( aiBrain )
 

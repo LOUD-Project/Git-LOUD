@@ -18,7 +18,7 @@ function ExecutePlan(aiBrain)
 
         elseif EntityCategoryContains( categories.FACTORY * categories.STRUCTURE, v ) then
 			
-            mainManagers.FactoryManager:AddFactory( v )
+            mainManagers.FactoryManager:AddFactory( v, aiBrain )
 
         end
 

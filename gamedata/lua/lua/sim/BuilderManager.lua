@@ -322,7 +322,7 @@ BuilderManager = Class {
 				if newPri and newPri != Priority and (task.InstanceAvailable > 0 or ManagerType == 'FBM') then
 				
 					if PriorityDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." "..self.LocationType.." PriorityFunction change for "..Priority.." "..TaskName.." to "..newPri )
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." "..self.LocationType.." PriorityFunction change for "..Priority.." "..TaskName.." to "..newPri.." on tick "..GetGameTick() )
 					end
 
 					self.BuilderData[BuilderType].Builders[k]:SetPriority( newPri, temporary )
@@ -560,7 +560,7 @@ BuilderManager = Class {
             conditioncounttotal = 0
     
             if PriorityDialog then
-                LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." with "..self.NumBuilders.." tasks. Begins cycle at "..GetGameTimeSeconds().." seconds. Cycle will be "..(duration/10).." - BCM cycle is "..(brain.ConditionsMonitor.ThreadWaitDuration/10) )
+                LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." with "..self.NumBuilders.." tasks. Begins cycle at tick "..GetGameTick().." Cycle will be "..string.format("%d",duration).." - BCM cycle is "..string.format("%d",brain.ConditionsMonitor.ThreadWaitDuration) )
             end
 			
             -- there must be units in the Pool or there will be nothing to form
@@ -592,7 +592,7 @@ BuilderManager = Class {
 						if bData.Priority >= 100 and bData.InstanceAvailable > 0 then
                     
                             if PriorityDialog then
-                                LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." examines "..repr(key).." "..repr(bData.Priority).." "..repr(bData.BuilderName) )
+                                LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." examines "..repr(key).." "..repr(bData.Priority).." "..repr(bData.BuilderName).." on tick "..GetGameTick() )
                             end
 
 							numTested = numTested + 1
@@ -627,7 +627,7 @@ BuilderManager = Class {
 			if numTicks < duration then
 
                 if PriorityDialog then
-                    LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." - delaying "..repr(((duration) - numTicks)/10).." seconds" ) 
+                    LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." - delaying "..string.format("%d", duration - numTicks).." ticks" ) 
                 end
             
 				WaitTicks( duration - numTicks )
