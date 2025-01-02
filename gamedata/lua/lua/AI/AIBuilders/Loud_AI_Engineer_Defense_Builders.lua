@@ -255,7 +255,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
                     return 10, true
                 end
 
-                if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 8, AA, 30, 50 ) then
+                if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 8, AA, 30, 42 ) then
                     return 10, true
                 end
  
@@ -333,7 +333,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
     
             local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
 
-            if threat > 100 then
+            if threat > 175 then
 
                 return (builder.OldPriority or builder.Priority) + 100, true
         
@@ -426,7 +426,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
+        Priority = 740,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
@@ -442,12 +442,20 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
                 
             end
 
-            if aiBrain.LandRatio <= 1.1 and aiBrain.CycleTime > 480 then
+            if aiBrain.LandRatio <= 1 and aiBrain.CycleTime > 480 then
 	
                 return (builder.OldPriority or builder.Priority) + 100, true	
 
             end
     
+            local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
+
+            if threat > 175 then
+
+                return (builder.OldPriority or builder.Priority) + 100, true
+        
+            end
+        
             return (builder.OldPriority or builder.Priority), true
         end,
 
@@ -455,8 +463,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
-
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
 		
         BuilderType = {'T2'},
@@ -669,7 +675,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 745,
+        Priority = 740,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
@@ -733,7 +739,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 745,
+        Priority = 740,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
         
@@ -771,7 +777,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
         },
 		
         BuilderType = {'T2','T3'},
@@ -795,7 +801,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 745,
+        Priority = 740,
 
         PriorityFunction = function( builder, aiBrain, unit, manager )
          
@@ -833,7 +839,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 1.012, 1.02 }}, 
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.02 }}, 
         },
 		
         BuilderType = {'T2','T3','SubCommander' },
@@ -2338,7 +2344,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 15, TMD, 45, 85 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 9, TMD, 56, 80 ) then
             
                 return 10, true
                 
@@ -2346,7 +2352,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
             local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
 
-            if threat > 125 then
+            if threat > 175 then
 
                 return (builder.OldPriority or builder.Priority) + 100, true
         
@@ -2399,7 +2405,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 26, categories.STRUCTURE * categories.ARTILLERY * categories.TECH2, 45, 85 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 26, categories.STRUCTURE * categories.ARTILLERY * categories.TECH2, 55, 83 ) then
             
                 return 10, true
                 
@@ -2407,7 +2413,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
             local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
 
-            if threat > 150 then
+            if threat > 175 then
 
                 return (builder.OldPriority or builder.Priority) + 100, true
         
@@ -2467,7 +2473,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 44, PD * categories.TECH3, 55, 95 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 17, PD * categories.TECH3, 56, 80 ) then
             
                 return 10, true
                 
@@ -2475,7 +2481,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
             local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
 
-            if threat > 150 then
+            if threat > 175 then
 
                 return (builder.OldPriority or builder.Priority) + 100, true
         
@@ -2533,7 +2539,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 35, AA * categories.TECH3, 55, 88 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 35, AA * categories.TECH3, 56, 80 ) then
             
                 return 10, true
                 
@@ -2588,7 +2594,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 17, TMD, 45, 85 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 15, TMD, 56, 80 ) then
             
                 return 10, true
                 
@@ -2596,7 +2602,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
             local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
 
-            if threat > 125 then
+            if threat > 175 then
 
                 return (builder.OldPriority or builder.Priority) + 100, true
         
@@ -3628,7 +3634,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
                
             end
             
-            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 3, TMD, 15, 48 ) then
+            if UnitsGreaterAtLocationInRange( aiBrain, manager.LocationType, 6, TMD, 15, 48 ) then
             
                 return 10, true
                 
