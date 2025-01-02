@@ -1840,6 +1840,8 @@ function NavalScoutingAI( self, aiBrain )
         
             targetArea = false
 
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." NavalScoutingAI seeking hipri mission")
+
 			for k,v in IL.HiPri do
             
                 local position = v.Position
@@ -1881,7 +1883,9 @@ function NavalScoutingAI( self, aiBrain )
 				aiBrain.IL.LastScoutHi = false
 				aiBrain.IL.LastScoutHiCount = 0
 			end
-			
+
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." NavalScoutingAI seeking Lowpri mission")			
+
 			for k,v in IL.LowPri do
             
                 local position = v.Position
@@ -1913,7 +1917,9 @@ function NavalScoutingAI( self, aiBrain )
 
 		-- execute the scouting mission
         if targetArea then
-        
+
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." executing scout to "..repr(targetArea) )        
+
             curPos = GetPlatoonPosition(self) or false
             
             if not curPos then
@@ -1924,7 +1930,9 @@ function NavalScoutingAI( self, aiBrain )
 			distance = VDist3( curPos, targetArea)
 
 			-- like Land Scouting we use an artificially higher threat of 100 to insure path finding
-			path, reason = PlatoonGenerateSafePathToLOUD(aiBrain, self, MovementLayer, curPos, targetArea, 100, 250 )
+			path, reason = PlatoonGenerateSafePathToLOUD(aiBrain, self, MovementLayer, curPos, targetArea, 150, 250 )
+
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." pathfind is "..repr(path) )
 
             -- move the platoon to the targetArea or abort this targetArea
 			if PlatoonExists( aiBrain, self ) then
@@ -2056,14 +2064,23 @@ function NavalScoutingAI( self, aiBrain )
             -- get the perimeter points around this position
             datalist = GetBasePerimeterPoints( aiBrain, targetArea, 42, false, false, MovementLayer )
 
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." begins patrol at "..repr(targetArea))
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." begins patrol at "..repr(targetArea).." for "..patroltimer.." on tick "..GetGameTick() )
+
+            local firstmove = true
+            local lastpos = targetArea
             
 			-- set up a patrol around the position
 			for k,v in datalist do
+            
+                if CheckBlockingTerrain( lastpos, v )then
+                    continue
+                end
 
-				if k == 1 then
+                if firstmove then
 					MoveToLocation( self, v, false)
+                    firstmove = false
 				else
+
 					units = GetPlatoonUnits(self)
 
 					if units[1] and v then
@@ -2071,6 +2088,8 @@ function NavalScoutingAI( self, aiBrain )
 					end
 
 				end
+                
+                WaitTicks(1)
 
 			end
 
@@ -2083,7 +2102,8 @@ function NavalScoutingAI( self, aiBrain )
         -- otherwise go right back and find another mission
         if PlatoonExists(aiBrain,self) then
 
-            if not reconcomplete then
+            if not targetArea and not reconcomplete then
+
                 LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." NavalScoutingAI finds no recon mission")
 
                 WaitTicks(31)
@@ -2092,6 +2112,9 @@ function NavalScoutingAI( self, aiBrain )
                 CreationTime = CreationTime - 50
 
             else
+
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." completes recon mission "..repr(reconcomplete).." on tick "..GetGameTick() )            
+
                 self:Stop()
             end
 
