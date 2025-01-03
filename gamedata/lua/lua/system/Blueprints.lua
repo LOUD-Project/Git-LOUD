@@ -827,11 +827,12 @@ function ModBlueprints(all_blueprints)
 					for j, catj in bp.Categories do
 				
 						if catj == 'MOBILE' then
-                   
-                            if bp.Air.KMove and bp.Air.KMoveDamping > 1 then
-                                --LOG("AI DEBUG KMoveDamping for "..repr(bp.Description).." reduced from "..bp.Air.KMoveDamping.." to 1 - KMove is "..bp.Air.KMove)
-                                bp.Air.KMoveDamping = math.max( 1, bp.Air.KMove )
-                            end
+					
+							if bp.Economy.BuildTime then
+								bp.Economy.BuildTime = bp.Economy.BuildTime + (bp.Economy.BuildTime * econScale)
+								bp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy + (bp.Economy.BuildCostEnergy * econScale)
+								bp.Economy.BuildCostMass = bp.Economy.BuildCostMass + (bp.Economy.BuildCostMass * econScale)
+							end
                             
                             if bp.Air.KTurn then
                                 if bp.Air.KTurnDamping and bp.Air.KTurnDamping > (bp.Air.KTurn * 1.25) then
@@ -840,43 +841,39 @@ function ModBlueprints(all_blueprints)
                                 end
                             end
 							
-                            -- this is the one that controls air unit speed
-                            -- enforce a minimum airspeed
+                            -- this is the one that controls air unit speed -- enforce a minimum airspeed
 							if bp.Air.MaxAirspeed then
 								bp.Air.MaxAirspeed = bp.Air.MaxAirspeed + (bp.Air.MaxAirspeed * speedScale)
-                                bp.Air.MinAirspeed = bp.Air.MaxAirspeed * 0.5
-							end
-					
-							if bp.Economy.BuildTime then
-								bp.Economy.BuildTime = bp.Economy.BuildTime + (bp.Economy.BuildTime * econScale)
-								bp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy + (bp.Economy.BuildCostEnergy * econScale)
-								bp.Economy.BuildCostMass = bp.Economy.BuildCostMass + (bp.Economy.BuildCostMass * econScale)
+                                bp.Air.MinAirspeed = bp.Air.MaxAirspeed * 0.3
 							end
 
-							-- air units speed is not controlled by this
+							-- unit speed is not controlled by this BUT it seems to be required for GetFuelRatio to work 
 							if bp.Physics.Maxspeed then
 								bp.Physics.MaxSpeed = bp.Physics.MaxSpeed + (bp.Physics.MaxSpeed * speedScale)
                                 bp.Physics.MinSpeed = bp.Physics.MaxSpeed * 0.5
-							end
+							else
+                                bp.Physics.MaxSpeed = bp.Air.MaxAirspeed
+                            end
 						
 							-- if the unit uses a SizeSphere for collisions, make sure it's big enough as related to it's max speed
 							-- if the value is set too low, the unit becomes nearly unhittable except by tracking SAMs
 							-- this steep dropoff starts to occur around .9 but is tolerable at that setting with a decent amount of
 							-- hits but a few misses at the top end (of particular note are the AA lasers)
-							if bp.SizeSphere and bp.Air.MaxAirspeed then
-								bp.SizeSphere = math.max( 0.9, bp.Air.MaxAirspeed * 0.095 )
-							end
+							--if bp.SizeSphere and bp.Air.MaxAirspeed then
+								--bp.SizeSphere = math.max( 0.9, bp.Air.MaxAirspeed * 0.095 )
+							--end
                             
                             if not bp.Physics.BackUpDistance then
-                                bp.Physics.BackUpDistance = 1.0
+                                bp.Physics.BackUpDistance = 0.3
                             end
 
+                            -- air unit braking speed is controlled by KMoveDamping
 							if bp.Physics.MaxBrake then
 								bp.Physics.MaxBrake = bp.Physics.MaxBrake + (bp.Physics.MaxBrake * speedScale)
 							end
                             
                             if not bp.Physics.TurnRadius then
-                                bp.Physics.TurnRadius = 15
+                                bp.Physics.TurnRadius = 12
                             end
 							
 							if bp.Intel.VisionRadius then
@@ -890,18 +887,18 @@ function ModBlueprints(all_blueprints)
 									bp.Intel.WaterVisionRadius = 0
 								end
 							end
-                            
+--[[                            
                             if bp.Weapon then
                             
                                 for w, weap in bp.Weapon do
                             
-                                    --if weap.AutoInitiateAttackCommand and weap.RangeCategory == 'UWRC_AntiAir'then
-                                        --LOG("*AI DEBUG Air Unit "..id.." "..bp.Description.." Weapon "..w.." - AA weapon has AutoInitiateAttack ")
-                                        --bp.Weapon[w].AutoInitiateAttackCommand = false
-                                    --end
+                                    if weap.AutoInitiateAttackCommand and weap.RangeCategory == 'UWRC_AntiAir'then
+                                        LOG("*AI DEBUG Air Unit "..id.." "..bp.Description.." Weapon "..w.." - AA weapon has AutoInitiateAttack ")
+                                        bp.Weapon[w].AutoInitiateAttackCommand = false
+                                    end
                                 end
                             end
-
+--]]
 						end
 					end
 				end
