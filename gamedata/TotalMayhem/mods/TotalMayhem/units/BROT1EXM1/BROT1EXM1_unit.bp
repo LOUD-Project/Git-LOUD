@@ -44,8 +44,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 485,
-        MaxHealth = 485,
+        Health = 455,
+        MaxHealth = 455,
         RegenRate = 1,
         SurfaceThreatLevel = 6,
     },
@@ -63,9 +63,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 1300,
-        BuildCostMass = 170,
-        BuildTime = 850,
+        BuildCostEnergy = 1400,
+        BuildCostMass = 175,
+        BuildTime = 220,
     },
 	
     General = {
@@ -101,10 +101,10 @@ UnitBlueprint {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 1.55,
-        MaxBrake = 3.1,
+        MaxAcceleration = 1.05,
+        MaxBrake = 1.5,
         MaxSpeed = 3.1,
-        MaxSpeedReverse = 2.5,
+        MaxSpeedReverse = 2.2,
         MaxSteerForce = 10,
         MeshExtentsX = 1,
         MeshExtentsY = 1.2,
@@ -112,8 +112,8 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
         StandUpright = true,
-        TurnRadius = 3,
-        TurnRate = 45,
+        TurnRadius = 6,
+        TurnRate = 36,
     },
 	
     SelectionCenterOffsetX = 0,
@@ -315,7 +315,7 @@ UnitBlueprint {
             },
 			
             FiringTolerance = 1,
-            FiringRandomness = 0.8,
+            FiringRandomness = 1,
 			
             Label = 'rocket',
 			
