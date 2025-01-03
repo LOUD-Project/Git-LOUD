@@ -36,13 +36,7 @@ UAL0402 = Class(AWalkingLandUnit) {
         
         ChronoDampener = Class(ADFChronoDampener) {},        
     },
---[[
-    OnCreate = function(self,builder,layer)
-    
-        AWalkingLandUnit.OnCreate(self)
-
-    end,
---]]    
+ 
     CreateEnhancement = function(self, enh)
     
         AWalkingLandUnit.CreateEnhancement(self, enh)
@@ -105,7 +99,7 @@ UAL0402 = Class(AWalkingLandUnit) {
         end
     end,
 
-	InitialRandomExplosionsAeons = function(self)
+	InitialRandomExplosionsAeons = function(self,Army)
     
         local position = self:GetPosition()
         local numExplosions =  math.floor( table.getn( self.DestructionEffectBones ) * 0.9 )
@@ -130,9 +124,11 @@ UAL0402 = Class(AWalkingLandUnit) {
     end,
 
     DeathThread = function( self, overkillRatio , instigator)
+    
+        local Army = self:GetArmy()
 
         self:PlayUnitSound('Destroyed')
-        self:InitialRandomExplosionsAeons()   
+        self:InitialRandomExplosionsAeons( Army )   
      	
         if self.DeathAnimManip then
             WaitFor(self.DeathAnimManip)
