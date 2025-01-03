@@ -174,7 +174,7 @@ StructureUnit = Class(Unit) {
 
                 local unitBuilding = self.UnitBeingBuilt
                 
-                local fractionOfComplete = GetFractionComplete(unitBuilding)
+                local FractionComplete = GetFractionComplete( unitBuilding )
 
                 self.AnimatorUpgradeManip = CreateAnimator(self)
 
@@ -184,13 +184,25 @@ StructureUnit = Class(Unit) {
 
                 PlayAnim( self.AnimatorUpgradeManip, bp.AnimationUpgrade, false):SetRate(0)
 
-                while fractionOfComplete < 1 and not self.Dead do
-
-                    fractionOfComplete = GetFractionComplete(unitBuilding)
-
-                    self.AnimatorUpgradeManip:SetAnimationFraction(fractionOfComplete)
+                while FractionComplete < 1 and not self.Dead do
 
                     WaitTicks(4)
+                    
+                    if not unitBuilding.Dead then
+
+                        FractionComplete = GetFractionComplete( unitBuilding )
+
+                    else
+                    
+                        FractionComplete = 1
+
+                    end
+                    
+                    if not self.Dead then
+
+                        self.AnimatorUpgradeManip:SetAnimationFraction( FractionComplete )
+                    
+                    end
 
                 end
 
@@ -215,7 +227,9 @@ StructureUnit = Class(Unit) {
                 self:StopUpgradeEffects(unitBuilding)
 
                 PlayUnitSound(self,'UpgradeEnd')
+
 				self:DoDestroyCallbacks()
+
                 self:Destroy()
 
             end
@@ -703,7 +717,8 @@ StructureUnit = Class(Unit) {
             end
 
 			if not finishedUnit.UpgradeThread then
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.004, 1.005, 9999, 9999, checkrate, initialdelay, true )
+                -- notice the additional parameter at the end, tells the threat to post a note, over the unit, each time the thread runs
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.004, 1.005, 9999, 9999, checkrate, initialdelay, true, ScenarioInfo.DisplayFactoryBuilds )
 			end
 		end
 
@@ -717,14 +732,14 @@ StructureUnit = Class(Unit) {
                     checkrate = 15
                     initialdelay = 90
 
-                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.0032, 0.74, 9999, 1.8, checkrate, initialdelay, true )
+                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.0032, 0.74, 9999, 1.8, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
                     
                 else
                 
                     checkrate = 14
                     initialdelay = 100
                 
-                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 0.85, 0.74, 9999, 1.8, checkrate, initialdelay, true )
+                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 0.85, 0.74, 9999, 1.8, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
                 
                 end
 
@@ -751,7 +766,7 @@ StructureUnit = Class(Unit) {
                 checkrate = 16
                 initialdelay = 110
   
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.0045, 0.76, 9999, 1.8, checkrate, initialdelay, true )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.0045, 0.76, 9999, 1.8, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
 
 			end
 		end
@@ -775,7 +790,7 @@ StructureUnit = Class(Unit) {
                 checkrate = 13.5
                 initialdelay = 70
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .74, 1.0032, 1.8, 9999, checkrate, initialdelay, true )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .74, 1.0032, 1.8, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
 
 			end
         end
@@ -799,7 +814,7 @@ StructureUnit = Class(Unit) {
                 checkrate = 16
                 initialdelay = 85
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .74, 1.002, 9999, 9999, checkrate, initialdelay, true )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .74, 1.002, 9999, 9999, checkrate, initialdelay, true, ScenarioInfo.StructureUpgradeDialog )
 
 			end
         end
@@ -812,7 +827,7 @@ StructureUnit = Class(Unit) {
                 checkrate = 24
                 initialdelay = 150
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.008, 1.0115, 9999, 9999, checkrate, initialdelay, false )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.008, 1.0115, 9999, 9999, checkrate, initialdelay, false, ScenarioInfo.StructureUpgradeDialog )
 
 			end
         end
@@ -825,7 +840,7 @@ StructureUnit = Class(Unit) {
                 checkrate = 24
                 initialdelay = 150
 
-			    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.009, 1.02, 9999, 9999, checkrate, initialdelay, false )
+			    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.009, 1.02, 9999, 9999, checkrate, initialdelay, false, ScenarioInfo.StructureUpgradeDialog )
 
 			end
         end
@@ -836,7 +851,7 @@ StructureUnit = Class(Unit) {
             checkrate = 36
             initialdelay = 300
 
-			finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.012, 1.03, 9999, 9999, checkrate, initialdelay, false )
+			finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.012, 1.03, 9999, 9999, checkrate, initialdelay, false, ScenarioInfo.StructureUpgradeDialog )
 		end
 
 		-- add thread to the units trash
@@ -861,6 +876,7 @@ StructureUnit = Class(Unit) {
 		if bp.FactionName == 'UEF' then
 
 			HideBone( self, 0, true)
+
 			self.BeingBuiltShowBoneTriggered = false
 
 			if bp.UpgradesFrom != builder.BlueprintID then
@@ -891,7 +907,10 @@ StructureUnit = Class(Unit) {
         elseif FactionName == 'UEF' and not self.BeingBuiltShowBoneTriggered then
             self:ShowBone(0, true)
             self:HideLandBones()
+
         end
+
+        self.BeingBuiltShowBoneTriggered = nil        
 
 		UnitStopBeingBuiltEffects(self, builder, layer)
     end,
@@ -991,14 +1010,24 @@ StructureUnit = Class(Unit) {
 
 			for k, v in self.AdjacencyBeamsBag do
 
-				local unit = GetEntityById(v.Unit)
+				local unit = adjacentUnit
+                
+                if not unit then
+                    unit = GetEntityById(v.Unit)
+                end    
 
 				-- adjacency beams persist until either unit has been destroyed
 				-- even if one of them is a production unit that might be turned off
-				if BeenDestroyed(unit) or unit.Dead or BeenDestroyed(self) or self.Dead then
+				if unit and ( (BeenDestroyed(unit) or unit.Dead) or (self:BeenDestroyed() or self.Dead) ) then
+
+                    --LOG("*AI DEBUG Destroy AdjacentEffects from "..repr(self.BlueprintID).." to unit "..repr(unit) )
+
 					v.Trash:Destroy()
-					self.AdjacencyBeamsBag[k] = nil
-				end
+
+                    self.AdjacencyBeamsBag[k] = nil
+                    
+                end
+
 			end
 		end
     end,

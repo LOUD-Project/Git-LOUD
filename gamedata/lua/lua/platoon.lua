@@ -6393,7 +6393,7 @@ Platoon = Class(PlatoonMethods) {
                         -- find a unit in the platoon --
                         for _,u in GetPlatoonUnits(self) do
 					
-                            if not u.Dead then
+                            if (not u.Dead) and not u:BeenDestroyed() then
                                 unit = u
                                 break
                             end
@@ -6451,7 +6451,9 @@ Platoon = Class(PlatoonMethods) {
                                     LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." moving to "..repr(distressLocation).." distance "..VDist3(platoonPos,distressLocation).." on tick "..GetGameTick() )
                                 end
                                 
-                                ATTACKS = table.merged(GetSquadUnits(self,'Attack') or {}, GetSquadUnits(self,'Unassigned') or {})
+                                ATTACKS = GetSquadUnits(self,'Attack') or {}
+                                
+                                ATTACKS = table.merged( ATTACKS, GetSquadUnits(self,'Unassigned') or {})
                             
                                 if ATTACKS[1] then
                             

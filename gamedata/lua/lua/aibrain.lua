@@ -197,7 +197,7 @@
 	ScenarioInfo.ShieldDialog = false
 	LOG("*AI DEBUG      Report  Shield Dialog to Log is "..repr(ScenarioInfo.ShieldDialog))
     
-    ScenarioInfo.UnitDialog = true
+    ScenarioInfo.UnitDialog = false
 	LOG("*AI DEBUG      Report  Unit Event Dialog to Log is "..repr(ScenarioInfo.UnitDialog))	
 
 	ScenarioInfo.WeaponDialog = false
@@ -345,6 +345,7 @@ function SetAIDebug(data)
             'ProjectileDialog',
             'ProjectileTrackingDialog',
             'ShieldDialog',
+            'UnitDialog',
             'WeaponDialog',
             'WeaponStateDialog',
         }

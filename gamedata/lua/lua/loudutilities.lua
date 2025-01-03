@@ -281,6 +281,7 @@ function GetBaseWithGreatestThreatAtDistance( aiBrain, threattype, threatcutoff,
     local bestname = false
     local threatamount = 0
     local bestthreat = threatcutoff or 10
+    local bestposition = false
     
     local ringcheck = LOUDFLOOR(distance/ScenarioInfo.IMAPSize)
     
@@ -308,11 +309,12 @@ function GetBaseWithGreatestThreatAtDistance( aiBrain, threattype, threatcutoff,
             
                 bestname = base.BaseName
                 bestthreat = threatamount
+                bestposition = base.Position
             end
         end
     end
     
-    return bestname, bestthreat
+    return bestname, bestposition, bestthreat
 end
 
 -- Sorts the list of scouting areas by time since scouted, and then distance from main base.
@@ -565,7 +567,7 @@ function GetFreeUnitsAroundPoint( aiBrain, category, location, radius, useRefuel
 			if not v.Dead and not IsBeingBuilt(v) and v.ArmyIndex == ArmyIndex then
 			
 				-- select only units in the Army pool or not attached
-				if not v.PlatoonHandle or (v.PlatoonHandle == ArmyPool) or (useRefuelPool and v.PlatoonHandle == RefuelPool) then
+				if (not v.Attached) and (not v.PlatoonHandle or (v.PlatoonHandle == ArmyPool)) or (useRefuelPool and v.PlatoonHandle == RefuelPool) then
 
 					retUnits[counter] = v
 					counter = counter + 1
@@ -1888,6 +1890,8 @@ end
 function ProcessAirUnits( unit, aiBrain )
 
 	if (not unit.Dead) and (not IsBeingBuilt(unit)) then
+    
+        --LOG("*AI DEBUG Unit is "..repr(unit.BlueprintID).." GetFuel is "..GetFuelRatio(unit) )
 
 		if ( GetFuelRatio(unit) > -1 and GetFuelRatio(unit) < .75 ) or unit:GetHealthPercent() < .80 then
 
@@ -2353,10 +2357,16 @@ function TeleportLocationBlocked( self, location )
 			
 				local noTeleDistance = __blueprints[unit.BlueprintID].Defense.NoTeleDistance
 				local atposition = GetPosition(unit)
-				local targetdestdistance = VDist2(location[1], location[3], atposition[1], atposition[3])
+                local targetdestdistance = false
+                
+                if location and atposition then
 				
+                    targetdestdistance = VDist2(location[1], location[3], atposition[1], atposition[3])
+                    
+                end
+
 				-- if the antiteleport range covers the targetlocation
-				if noTeleDistance and noTeleDistance > targetdestdistance then
+				if targetdestdistance and noTeleDistance and noTeleDistance > targetdestdistance then
 				
 					--FloatingEntityText(self.EntityID,'Teleportation Malfunction')
 					
@@ -4239,7 +4249,7 @@ function PathGeneratorWater(aiBrain)
 		LOUDSORT(queue, function(a,b) return (a.cost + a.goaldist) < (b.cost + b.goaldist) end)
 
 		return false, 0, false, 0
-	end
+	end		
 
     local PathRequests = aiBrain.PathRequests.Water
 	local PathReplies = aiBrain.PathRequests['Replies']

@@ -3400,7 +3400,7 @@ function AirForceAILOUD( self, aiBrain )
             mythreat    = CalculatePlatoonThreat( self, 'Air', UNITCHECK)
             platPos     = GetPlatoonPosition(self) or false
 
-            if platPos then
+            if platPos and searchrange then
 
                 attackers       = GetSquadUnits( self,'Unassigned' )
                 attackercount   = LOUDGETN(attackers)
@@ -6356,7 +6356,7 @@ function EngineerTransferAI( self, aiBrain )
             
                 capCheck = capCheck + 1
                 
-			end
+            end
 			
 			-- if base has less than maximum allowed engineers and there are structures at that position
 			-- base must have no ability to make the engineers itself (no factory)
@@ -8159,7 +8159,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                 end
                 
             else
-            
+           
                 if StructureUpgradeDialog then
                 
                     local body = "*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description
