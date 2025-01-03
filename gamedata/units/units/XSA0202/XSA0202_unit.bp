@@ -192,7 +192,7 @@ UnitBlueprint {
     Weapon = {
         {
             Audio = {
-                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0102_Shleo_AA_Autocannon', LodCutoff = 'Weapon_LodCutoff' },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0102_Shleo_AA_Autogun', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             AutoInitiateAttackCommand = true,
@@ -263,7 +263,7 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0102_Shleo_AA_Autocannon', LodCutoff = 'Weapon_LodCutoff' },
+                Fire = Sound { Bank = 'XSA_Weapon', Cue = 'XSA0102_Shleo_AA_Autogun', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_None',
