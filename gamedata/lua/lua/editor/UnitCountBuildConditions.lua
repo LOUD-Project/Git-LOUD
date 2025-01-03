@@ -473,6 +473,10 @@ function FactoriesGreaterThan( aiBrain, unitCount, testCat )
 	
 	for k,v in aiBrain.BuilderManagers do
 		result = result + EntityCategoryCount( testCat, v.FactoryManager.FactoryList )
+        
+        if result > unitCount then
+            return true
+        end
 	end
     
 	return result > unitCount
@@ -485,6 +489,11 @@ function FactoriesLessThan( aiBrain, unitCount, testCat )
 	
 	for k,v in aiBrain.BuilderManagers do
 		result = result + EntityCategoryCount( testCat, v.FactoryManager.FactoryList )
+        
+        if result >= unitCount then
+            return false
+        end
+            
 	end
     
 	return result < unitCount
@@ -652,7 +661,7 @@ end
 
 local T1 = categories.TECH1
 local T2 = categories.TECH2
-local T3 = categories.TECH3
+local T3 = categories.TECH3 - categories.SUBCOMMANDER
 
 function BelowEngineerCapCheck(aiBrain, locationType, techLevel)
 

@@ -604,52 +604,9 @@ Unit = Class(UnitMethods) {
 		end
     end,
 
-    SetDead = function(self)
-    
-        if ScenarioInfo.UnitDialog then
-            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." SET DEAD for "..self.BlueprintID)
-        end
-
-		self.Dead = true
-
-		self.Weapons = nil
-
-		self.FxScale = nil
-		self.FxDamageScale = nil
-		self.FxDamage1 = nil
-		self.FxDamage2 = nil
-		self.FxDamage3 = nil
-		
-		self.DisallowCollisions = nil
-
-		self.EconomyProductionInitiallyActive = nil
-
-		self.FxDamage1Amount = nil
-		self.FxDamage2Amount = nil
-		self.FxDamage3Amount = nil
-
-		self.HasFuel = nil
-		self.Buffs = nil
-        
-		self.MaintenanceConsumption = nil
-		self.ActiveConsumption = nil
-		self.ProductionEnabled = nil
-		self.EnergyModifier = nil
-		self.MassModifier = nil
-		
-		self.VeteranLevel = nil
-		
-    end,
-
     IsDead = function(self)
         return self.Dead
     end,
-	
-	CreateUnitDestructionDebris = function( self, high, low, chassis )
-
-		self:ForkThread( CreateUnitDestructionDebris, self, high, low, chassis )
-		
-	end,
 
     GetCachePosition = function(self)
         return self:GetPosition()
@@ -1266,7 +1223,10 @@ Unit = Class(UnitMethods) {
 				end
 				
 				RequestRefreshUI( self )
-				RequestRefreshUI( unit )
+                
+                if unit and not unit:BeenDestroyed() then
+                    RequestRefreshUI( unit )
+                end
 			end
 		end		
 		
@@ -1521,10 +1481,20 @@ Unit = Class(UnitMethods) {
 		local GetHealth = GetHealth
 	
         local preAdjHealth = GetHealth(self)
-		
-        AdjustHealth( self, instigator, -amount)
+
+        if preAdjHealth > 0 then
+
+            if ScenarioInfo.UnitDialog then
+                LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." "..self.BlueprintID.." with "..preAdjHealth.." takes "..amount.." damage on tick "..GetGameTick())
+            end
+
+            AdjustHealth( self, instigator, -amount)
+        
+        end
 		
         if GetHealth(self) < 1 then
+        
+            self.CanTakeDamage = false
 		
             if damageType == 'Reclaimed' then
 			
@@ -1702,6 +1672,54 @@ Unit = Class(UnitMethods) {
         self.CanBeKilled = val
     end,
 
+    SetDead = function(self)
+    
+        if not self.Killed then
+    
+            --if not self:BeenDestroyed() and ScenarioInfo.UnitDialog then
+              --  LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." tried to SET DEAD for "..self.BlueprintID.." which was NOT killed on tick "..GetGameTick() )
+            --end
+        
+            return
+        end
+    
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." SET DEAD for "..self.BlueprintID.." on tick "..GetGameTick() )
+        end
+
+		self.Dead = true
+        
+        self.Killed = true
+        
+		--self.Weapons = nil
+
+		self.FxScale = nil
+		self.FxDamageScale = nil
+		self.FxDamage1 = nil
+		self.FxDamage2 = nil
+		self.FxDamage3 = nil
+		
+		self.DisallowCollisions = nil
+
+		self.EconomyProductionInitiallyActive = nil
+
+		self.FxDamage1Amount = nil
+		self.FxDamage2Amount = nil
+		self.FxDamage3Amount = nil
+
+		self.HasFuel = nil
+		self.Buffs = nil
+        
+		self.MaintenanceConsumption = nil
+		self.ActiveConsumption = nil
+		self.ProductionEnabled = nil
+		self.EnergyModifier = nil
+		self.MassModifier = nil
+		
+		self.VeteranLevel = nil
+		
+    end,
+
     -- On killed: this function plays when the unit takes a mortal hit.  It plays all the default death effect
     OnKilled = function(self, instigator, deathtype, overkillRatio)
 
@@ -1778,6 +1796,14 @@ Unit = Class(UnitMethods) {
         if not self.Impact then
             self:ForkThread(self.DeathThread, overkillRatio, instigator)
         end
+
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." OnKilled "..self.BlueprintID.." completed on tick "..GetGameTick())
+        end
+        
+        self.Killed = true
+        
+        self:SetDead()
 
     end,
 
@@ -1916,6 +1942,13 @@ Unit = Class(UnitMethods) {
         self:Destroy()
 
     end,
+	
+	CreateUnitDestructionDebris = function( self, high, low, chassis )
+
+		self:ForkThread( CreateUnitDestructionDebris, self, high, low, chassis )
+		
+	end,
+    
 
 	-- this call can be made in two ways - one with a PosEntity value and one without
 	-- and self can either be a target unit or the origin unit of the buff
@@ -2583,6 +2616,8 @@ Unit = Class(UnitMethods) {
         
 		TrashDestroy(self.Trash)
         
+        self.Killed = true
+        
         if not self.Dead then
             self:SetDead()
         end
@@ -2984,6 +3019,8 @@ Unit = Class(UnitMethods) {
 		if bp.Enhancements then
 			
 			if bp.Enhancements.Sequence then
+
+                local aiBrain = GetAIBrain(self)
 			
 				if aiBrain.BrainType != 'Human' and not ( EntityCategoryContains( FACTORY, self ) or EntityCategoryContains( SUBCOMMANDER, self )) then
 					
@@ -3014,6 +3051,8 @@ Unit = Class(UnitMethods) {
 			-- this doesn't apply to mobile builders or factories since they are constructing new units
 			-- upgrades are NOT new units
 			if self.DisallowCollisions then
+        
+                local GetHealthPercent = builder.GetHealthPercent
 			
 				SetHealth( self, self, (GetHealthPercent(builder) or 1) * bp.Defense.MaxHealth )
                 
@@ -5996,32 +6035,6 @@ Unit = Class(UnitMethods) {
 
     end,
 --]]
-    -- this allows you to execute a function when the unit (self) has been detected 
-    AddDetectedByHook = function(self,hook)
-	
-        if not self.DetectedByHooks then
-            self.DetectedByHooks = {}
-        end
-		
-		LOG("*AI DEBUG "..GetAIBrain(self).Nickname.." Adding DetectedByHook for "..repr(ALLBPS[self.BlueprintID].Description).." on "..repr(hook))
-		
-        LOUDINSERT(self.DetectedByHooks,hook)
-    end,
-
-    RemoveDetectedByHook = function(self,hook)
-	
-        if self.DetectedByHooks then
-		
-            for k,v in self.DetectedByHooks do
-                if v == hook then
-                    table.remove(self.DetectedByHooks,k)
-                    return
-                end
-            end
-        end
-    end,
-
-}
 
 --[[	
 
@@ -6053,28 +6066,6 @@ Unit = Class(UnitMethods) {
     GetTransportClass = function(self)
         local bp = GetBlueprint(self).Transport
         return bp.TransportClass
-    end,
-
-    DestroyedOnTransport = function(self)
-    end,
-
-	-- triggered when the transport (not the unit) cancel the transport
-    OnTransportAborted = function(self)
-    end,
-
-	-- not quite sure how this one works - it seems to come after the OnStartTransportLoading
-    OnTransportOrdered = function(self)
-		LOG("*AI DEBUG OnTransportOrdered "..ALLBPS[self.BlueprintID].Description)
-    end,
-
-	-- triggered when the transport is given a load order
-    OnStartTransportLoading = function(self)
-		LOG("*AI DEBUG OnStartTransportLoading "..ALLBPS[self.BlueprintID].Description)
-    end,
-
-	-- triggered  when the transport is no longer loading (success or cancelled)
-    OnStopTransportLoading = function(self)
-		LOG("*AI DEBUG OnStopTransportLoading "..ALLBPS[self.BlueprintID].Description)
     end,
 
     OnMotionTurnEventChange = function(self, newEvent, oldEvent)
