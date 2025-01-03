@@ -289,9 +289,9 @@ Weapon = Class(moho.weapon_methods) {
     OnDestroy = function(self)
 		-- this only triggers when the unit itself is destroyed
 		-- but I don't see it all the time
-		if ScenarioInfo.WeaponDialog then
-			LOG("*AI DEBUG Weapon OnDestroy ")
-		end
+		--if ScenarioInfo.WeaponDialog then
+			--LOG("*AI DEBUG Weapon OnDestroy ")
+		--end
 
         TrashDestroy(self.Trash)
     end,

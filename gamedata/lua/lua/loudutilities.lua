@@ -2230,13 +2230,18 @@ function AirStagingThread( unit, airstage, aiBrain, RefitDialog )
 	while (not unit.Dead) and (not airstage.Dead) do
      
         if unit.Attached then
+
+            if RefitDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." refit reports ATTACHED at tick "..GetGameTick() )
+            end
+        
             break
         end
 		
 		if (( GetFuelRatio(unit) < .85 and GetFuelRatio(unit) != -1) or GetHealthPercent(unit) < .85) then
 
 			WaitTicks( 16 )
-            waitcount = waitcount + 1
+            waitcount = waitcount + 1.5
 
             if RefitDialog then
                 LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." refit loading cycle "..waitcount.." at tick "..GetGameTick() )
@@ -2252,6 +2257,10 @@ function AirStagingThread( unit, airstage, aiBrain, RefitDialog )
             if waitcount == 41 then  --- just land
         
                 IssueClearCommands( {unit} )
+
+                if RefitDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." refit loading TIMEOUT "..waitcount.." - issuing clear command at tick "..GetGameTick() )
+                end
 
             end
 
@@ -2306,10 +2315,8 @@ function AirStagingThread( unit, airstage, aiBrain, RefitDialog )
                 LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." attached to airpad "..waitcount.." at tick "..GetGameTick() )
             end
 		end
- 
-        if RefitDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." finished refuel at tick "..GetGameTick() )
-        end
+        
+        airstage:OnTransportDetach( nil, unit)
 
 		unit:SetReclaimable(true)
 		unit:SetCapturable(true)
@@ -2320,7 +2327,7 @@ function AirStagingThread( unit, airstage, aiBrain, RefitDialog )
 	if not unit.Dead then
 
         if RefitDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." leaves AirStagingThread at tick "..GetGameTick() )
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..unit.Sync.id.." leaves AirStagingThread - Attached is "..repr(unit.Attached).." at tick "..GetGameTick() )
         end
   
 	end	

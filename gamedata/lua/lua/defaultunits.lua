@@ -630,6 +630,10 @@ StructureUnit = Class(Unit) {
 
     CreateDestructionEffects = function( self, overKillRatio )
 
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." "..self.BlueprintID.." CreateDestructionEffects on overkill "..overKillRatio.." on tick "..GetGameTick())
+        end
+
         if ( GetAverageBoundingXZRadius( self ) < 1.0 ) then
             CreateScalableUnitExplosion( self, overKillRatio )
         else
@@ -1012,7 +1016,7 @@ StructureUnit = Class(Unit) {
         local aiBrain = GetAIBrain(self)
     
         if ScenarioInfo.StructureUpgradeDialog then    
-            LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..self.EntityID.." launching follow on upgrade thread at game tick "..GetGameTick() )
+            LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..self.EntityID.." UpgradeComplete on game tick "..GetGameTick() )
 		end
         
         self:LaunchUpgradeThread( aiBrain )
@@ -3357,7 +3361,11 @@ SubUnit = Class(MobileUnit) {
     end,
 
     DeathThread = function(self, overkillRatio, instigator)
-
+    
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." SubUnit DeathThread for "..__blueprints[self.BlueprintID].Description.." on tick "..GetGameTick() )
+        end
+  
         if self.DeathAnimManip then
 			WaitFor(self.DeathAnimManip)
 		end
@@ -3547,7 +3555,11 @@ SeaUnit = Class(MobileUnit) {
     end,
 
     DeathThread = function(self, overkillRatio, instigator)
-
+    
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." SeaUnit DeathThread for "..__blueprints[self.BlueprintID].Description.." on tick "..GetGameTick() )
+        end
+  
         if self.DeathAnimManip then
 			WaitFor(self.DeathAnimManip)
 		end
@@ -4120,7 +4132,7 @@ AirUnit = Class(MobileUnit) {
     CreateUnitAirDestructionEffects = function( self, scale )
 
         if ScenarioInfo.UnitDialog then    
-            LOG("*AI DEBUG UNIT "..self.EntityID.." AIR Create DestructionEffects for "..self.BlueprintID)
+            LOG("*AI DEBUG UNIT "..self.EntityID.."AIR Create DestructionEffects for "..self.BlueprintID)
         end
 
         CreateDefaultHitExplosion( self, GetAverageBoundingXZRadius(self))

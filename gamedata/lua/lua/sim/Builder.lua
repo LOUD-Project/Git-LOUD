@@ -94,7 +94,7 @@ Builder = Class {
     SetPriority = function( builder, val, temporary)
     
         if ScenarioInfo.PriorityDialog then
-            LOG("*AI DEBUG "..builder.BuilderName.." Set to "..val.." from "..builder.Priority.." temporary is "..repr(temporary))
+            LOG("*AI DEBUG "..builder.BuilderName.." Set to "..val.." from "..builder.Priority.." temporary is "..repr(temporary).." on tick "..GetGameTick() )
         end
 	
         -- Priority changes are either temporary or permanent --
@@ -130,7 +130,7 @@ Builder = Class {
 		if self.OldPriority then
 		
 			if ScenarioInfo.PriorityDialog then
-				LOG("*AI DEBUG "..manager.ManagerType.." "..manager.LocationType.." "..self.BuilderName.." Reset to "..self.OldPriority)
+				LOG("*AI DEBUG "..manager.ManagerType.." "..manager.LocationType.." "..self.BuilderName.." Reset to "..self.OldPriority.." on tick "..GetGameTick() )
 			end
 
 			manager:SetBuilderPriority( self.BuilderName, self.OldPriority, false)

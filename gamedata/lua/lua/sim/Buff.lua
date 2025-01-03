@@ -289,7 +289,7 @@ function ApplyBuff(unit, buffName, instigator)
 	end
 
 	if BuffDialog then
-		LOG("*AI DEBUG BUFF Unit "..unit:GetBlueprint().Description.." after applying buffs is "..repr(unit.Buffs))
+		LOG("*AI DEBUG BUFF Unit "..unit:GetBlueprint().Description.." after applying buffs is "..repr(unit))
 	end
 
 end
@@ -360,7 +360,9 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             local healthadj = val - health
 
             if healthadj < 0 then
-                unit:DoTakeDamage( instigator, -1 * healthadj, false, 'Normal')
+                if unit.CanTakeDamage then
+                    unit:DoTakeDamage( instigator, -1 * healthadj, false, 'Normal')
+                end
             else
                 AdjustHealth( unit, instigator, healthadj )
             end

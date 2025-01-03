@@ -1502,7 +1502,15 @@ Unit = Class(UnitMethods) {
 			if EntityCategoryContains(categories.BOMBER, self) and self:GetCurrentLayer() == 'Air' and damageType == 'NormalBomb' then
 				amount = amount * 0.05
 			end
-			
+--[[
+            if ScenarioInfo.UnitDialog then
+                if instigator.BlueprintID then
+                    LOG("*AI DEBUG UNIT Instigator "..repr(instigator.BlueprintID).." OnDamage to "..self.EntityID.." "..self.BlueprintID.." for "..amount.." on tick "..GetGameTick())
+                else
+                    LOG("*AI DEBUG UNIT Instigator "..repr(instigator).." OnDamage to "..self.BlueprintID.." for "..amount.." on tick "..GetGameTick())                
+                end
+            end
+--]]			
             self:DoTakeDamage(instigator, amount, vector, damageType)
 			
         end
@@ -1781,6 +1789,10 @@ Unit = Class(UnitMethods) {
 		
             if (v.Label == 'DeathWeapon') then
 
+                if ScenarioInfo.UnitDialog then
+                    LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." "..self.BlueprintID.." DoDeathWeapon on tick "..GetGameTick())
+                end
+  
                 if v.FireOnDeath == true then
 				
                     local wep = self:GetWeaponByLabel('DeathWeapon')
@@ -1815,7 +1827,11 @@ Unit = Class(UnitMethods) {
     DeathWeaponDamageThread = function( self , damageRadius, damage, damageType, damageFriendly)
 	
         WaitTicks(1)
-		
+
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." "..self.BlueprintID.." DeathWeaponDamage of "..damage.." in radius "..damageRadius.." on tick "..GetGameTick())
+        end
+ 		
         DamageArea(self, self:GetPosition(), damageRadius or 1, damage, damageType or 'Normal', damageFriendly or false)
     end,
 	
@@ -2471,6 +2487,11 @@ Unit = Class(UnitMethods) {
     end,
 
     CreateDestructionEffects = function( self, overKillRatio )
+
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." "..self.BlueprintID.." CreateDestructionEffects on overkill "..repr(overKillRatio).." on tick "..GetGameTick())
+        end
+   
         CreateScalableUnitExplosion( self, overKillRatio )
     end,
 
@@ -3246,6 +3267,10 @@ Unit = Class(UnitMethods) {
     end,
 
     OnStopBuild = function(self, unitBeingBuilt)
+    
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." OnStopBuild for "..repr(unitBeingBuilt.BlueprintID).." on tick "..GetGameTick() )
+        end
 
         self:DoOnUnitBuiltCallbacks(unitBeingBuilt)
     
@@ -3269,7 +3294,11 @@ Unit = Class(UnitMethods) {
     end,
 
     OnFailedToBuild = function(self)
-
+    
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." OnFailedToBuild on tick "..GetGameTick() )
+        end
+ 
         self:DoOnFailedToBuildCallbacks()
         self:SetActiveConsumptionInactive()
  		
@@ -5849,7 +5878,59 @@ Unit = Class(UnitMethods) {
 		
 	end,
 
+    -- this allows you to execute a function when the unit (self) has been detected 
+    AddDetectedByHook = function(self,hook)
+	
+        if not self.DetectedByHooks then
+            self.DetectedByHooks = {}
+        end
+		
+		LOG("*AI DEBUG "..GetAIBrain(self).Nickname.." Adding DetectedByHook for "..repr(ALLBPS[self.BlueprintID].Description).." on "..repr(hook))
+		
+        LOUDINSERT(self.DetectedByHooks,hook)
+    end,
+
+    RemoveDetectedByHook = function(self,hook)
+	
+        if self.DetectedByHooks then
+		
+            for k,v in self.DetectedByHooks do
+                if v == hook then
+                    table.remove(self.DetectedByHooks,k)
+                    return
+                end
+            end
+        end
+    end,
+
+}
+
 --[[
+
+	-- triggered when the transport is given a load order
+    OnStartTransportLoading = function(self, fluff)
+		LOG("*AI DEBUG OnStartTransportLoading "..ALLBPS[self.BlueprintID].Description.." "..repr(fluff) )
+    end,
+
+	-- triggered  when the transport is no longer loading (success or cancelled)
+    OnStopTransportLoading = function(self, fluff)
+		LOG("*AI DEBUG OnStopTransportLoading "..ALLBPS[self.BlueprintID].Description.." "..repr(fluff) )
+    end,
+
+	-- not quite sure how this one works - it seems to come after the OnStartTransportLoading
+    OnTransportOrdered = function(self, fluff)
+		LOG("*AI DEBUG OnTransportOrdered "..ALLBPS[self.BlueprintID].Description.." "..repr(fluff) )
+    end,
+
+	-- triggered when the transport (not the unit) cancels a transport order
+    OnTransportAborted = function(self)
+        LOG("*AI DEBUG OnTransportAborted "..ALBPS[self.BlueprintID].Description)
+    end,
+
+    DestroyedOnTransport = function(self)
+        LOG("*AI DEBUG DestroyedOnTransport "..ALBPS[self.BlueprintID].Description)
+    end,
+
     OnDetectedBy = function(self, index)
 
         local GetBlip = UnitMethods.GetBlip
