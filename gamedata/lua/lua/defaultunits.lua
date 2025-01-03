@@ -2777,7 +2777,7 @@ AirStagingPlatformUnit = Class(StructureUnit) {
     OnTransportAttach = function(self, attachBone, unit)
     
         if ScenarioInfo.UnitDialog then
-            LOG("*AI DEBUG UNIT "..self.Sync.id.." Airpad attaching to unit "..unit.Sync.id)
+            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.Sync.id.." Airpad OnTransportAttach to unit "..unit.Sync.id.." on tick "..GetGameTick() )
         end
         
 		if not self.UnitStored then
@@ -2796,13 +2796,15 @@ AirStagingPlatformUnit = Class(StructureUnit) {
     OnTransportDetach = function(self, attachBone, unit)
 
         if ScenarioInfo.UnitDialog then
-            LOG("*AI DEBUG UNIT "..self.Sync.id.." Airpad detaching unit "..unit.Sync.id)
+            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.Sync.id.." Airpad OnTransportDetach unit "..unit.Sync.id.." on tick "..GetGameTick() )
         end
-
-		self.UnitStored[unit.EntityID] = nil
-        
+  
         unit.Attached = nil
-	
+
+        if self.UnitStored[unit.EntityID] then
+            self.UnitStored[unit.EntityID] = nil
+        end
+      	
 		StructureUnitOnTransportDetach(self, attachBone, unit)
 		
     end,
