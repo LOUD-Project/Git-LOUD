@@ -71,6 +71,7 @@ do
 		'ProjectileDialog',
         'ProjectileTrackingDialog',
 		'ShieldDialog',
+        'UnitDialog',
 		'WeaponDialog',
         'WeaponStateDialog',
 	}
