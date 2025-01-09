@@ -1,4 +1,40 @@
-### Release
+### Release 01-09-2025
+
+LUA 7.17
+4DC for LOUD 7.04
+Black Ops for LOUD 7.08
+BrewLAN for LOUD 0.8.8.9.110
+LOUD_MISC 7.07
+LOUD_UNITS 7.08
+Total Mayhem for LOUD 7.05
+UNITS 7.10
+
+- UI work (Niriak) to deal with some positional, and scaling issues, with UI-Party mod
+- UI detection of FAF profiles being used in LOUD, with warning message (Niriak)
+- AI Debug options now include UNIT event dialogs, enhanced other dialogs to include tick stamp
+- AI Debug options for Factory Builds now also indicate when tests for Upgrade or Enhance take place, applys to all structures
+- UNITS anti-nuke structures standardized weapon search radius (1.2x) and projectile lifetime (3) - solves an issue with early detonation (Niriak)
+- UNITS All T4AA structures see minor balance shift - -5% HP, +5% Mass, +10% Energy, traverse 40 >> 32
+- UNITS aligned ALL air unit performance values - baseline air performance values are listed for T1 thru T3 on the unit spreadsheet
+- UNITS range reduction to T3 Barrage Artillery 155 >> 145, realigned E costs, reduction to AOE and STUN on Cybran, cap cost 5 >> 8
+- AI All factories and self-upgrading structures now recognize adjacency bonuses, thus reducing eco requirements and shortening period delays
+- AI Air Reinforcement will only occur to positions with an airpad in place
+- AI reviewed the air refit process to better recognize those edge conditions in which units get stuck on an airpad
+    -- this had many follow-on issues as a result, affecting air missions and transport tasks
+- AI additional positions for T2 Mass Fabs, between Front and Flank factories, in MAIN base
+- AI revised sequence of builds to improve adjacency potential
+- AI minor adjustments to defensive building, mostly better trigger points, and threat gates
+- AI Factory Build delay periods, and resource trigger points, are now impacted by adjacency bonuses
+- AI resolved a long standing issue with Naval Scouting, the 'scout' pathing now checks for obstructed moves
+- AI Land Scouting AI will now only create permanent scouts at HIGH priority locations, LOW priority will now scout for 30 seconds and then move on
+- AI revised Water Pathfinding to match the same process used in Land pathfinding, yielding better results
+- AI revised control values for engineer transfers, maximum task delay for 'No Job' is now 10 seconds
+- AI fixed minor issue with inaccurate counting of T3 engineers and production of T2 engineers
+
+
+
+
+### Release 10-25-2024
 
 LUA 7.16
 Black Ops for LOUD 7.07
