@@ -5094,7 +5094,8 @@ Unit = Class(UnitMethods) {
 
         self:MarkWeaponsOnTransport(unit, true)
 		
-        if unit:ShieldIsOn() then
+        if unit.MyShield and unit.MyShield:IsOn() then
+
             unit:DisableShield()
             unit:DisableDefaultToggleCaps()
         end
@@ -5116,22 +5117,26 @@ Unit = Class(UnitMethods) {
     OnTransportDetach = function(self, attachBone, unit)
 
         --LOG("*AI DEBUG Transport "..self.Sync.id.." detaches unit "..unit.Sync.id.." on tick "..GetGameTick() )
-
-        self:MarkWeaponsOnTransport(unit, false)
 		
-		if not unit:ShieldIsOn() then
-			unit:EnableShield()
-			unit:EnableDefaultToggleCaps()
-		end
+        unit:TransportAnimation(-1)
 		
 		unit:SetDoNotTarget(false)
         unit:SetCanTakeDamage(true)
+		
+		if (not unit.Dead) and unit.MyShield and not unit.MyShield:IsOn() then
+        
+            --LOG("*AI DEBUG Unit "..unit.EntityID.." "..unit.BlueprintID.." says shield is "..repr( unit.MyShield:IsOn() ) )
+
+            unit:EnableShield()
+            unit:EnableDefaultToggleCaps()
+
+		end
 
         if not LOUDENTITY(categories.PODSTAGINGPLATFORM, self) then
             self:RequestRefreshUI()
         end
-		
-        unit:TransportAnimation(-1)
+
+        self:MarkWeaponsOnTransport(unit, false)
 
         unit:DoUnitCallbacks( 'OnDetachedToTransport', self)
 		
