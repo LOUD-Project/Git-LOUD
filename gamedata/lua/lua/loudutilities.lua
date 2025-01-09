@@ -6886,7 +6886,7 @@ end
 
 function DrawPath ( origin, path, destination )
  
-    for i = 0, 250 do
+    for i = 0, 300 do
     
         local lastpoint = LOUDCOPY(origin)
         

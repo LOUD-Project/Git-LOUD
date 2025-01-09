@@ -1616,6 +1616,7 @@ function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bS
 				end
 			end
 		end
+
 	end
     
 	return PlatoonExists( aiBrain, self )
@@ -2121,6 +2122,12 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer, 
 		if platpos then
 
             local safePath, reason, pathlength, pathcost = transports.PlatoonGenerateSafePathToLOUD(aiBrain, transports, 'Air', platpos, location, airthreatMax, 256)
+            
+            if not safePath then
+
+                TransportDialog = true
+
+            end
 
             if TransportDialog then
             
@@ -2192,9 +2199,9 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer, 
                     
 				else
                 
-					--if TransportDialog then
+					if TransportDialog then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transports.BuilderName.." failed path - direct to "..repr(location).." on tick "..GetGameTick() )
-                    --end
+                    end
                     
                     if SCOUTS[1] then
                         IssueFormMove( SCOUTS, location, 'BlockFormation', import('/lua/utilities.lua').GetDirectionInDegrees( GetPlatoonPosition(transports), location ))
@@ -2537,7 +2544,7 @@ function WatchUnitLoading( transport, units, aiBrain, UnitPlatoon, IsEngineer)
                         
                             local weapon = unit:GetWeapon(count)
                             
-                            LOG("*AI DEBUG weapon is "..repr(weapon) )
+                            --LOG("*AI DEBUG weapon is "..repr(weapon) )
                             
                             weapon:OnLostTarget()
                             

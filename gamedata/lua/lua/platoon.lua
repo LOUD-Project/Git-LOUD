@@ -375,8 +375,6 @@ Platoon = Class(PlatoonMethods) {
             -- to their next waypoint too early - also - speed of the platoon is important 
             -- faster platoons need a little more warning 
 
-            -- TODO: Make pathslack an optional variable that can be passed in
-            -- or calculate one based on the step distance and/or platoon size
 			local pathslack = waypointslackdistance or 21
             
             local Direction, SCOUTS, ATTACKS, ARTILLERY, GUARDS, SUPPORTS
@@ -509,32 +507,6 @@ Platoon = Class(PlatoonMethods) {
 
                         WaitTicks(2)
 
---[[                        
-                        loopcount = loopcount + 1
-                    
-                        if table.getn( GetPlatoonUnits(self) ) > 1 and loopcount > 14 then
-
-                            LOG("*AI DEBUG Platoon is "..repr(self))
-                            
-                            for _,u in GetPlatoonUnits(self) do
-                    
-                                if not u:BeenDestroyed() then
-                    
-                                    local navigator = u:GetNavigator()
-                    
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." Navigator is "..repr(navigator) )
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." Current Goal is "..repr(navigator:GetGoalPos()) )
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." Target Pos is "..repr(navigator:GetCurrentTargetPos()) )
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." Status is "..repr(navigator:GetStatus()) )
-                            
-                                end
- 
-                            end
-                            
-                            loopcount = 0
-
-                        end
---]]
                     end
                     
 				end
@@ -554,8 +526,13 @@ Platoon = Class(PlatoonMethods) {
                 prevpoint[2] = waypointPath[2]
                 prevpoint[3] = waypointPath[3]
 			end
+
 		else
-			WARN("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." has no path ! Position is "..repr(prevpoint))
+
+            if prevpoint then
+                WARN("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(self.BuilderInstance).." has no path ! Position is "..repr(prevpoint))
+            end
+
 		end
         
         self:KillMoveThread()        
