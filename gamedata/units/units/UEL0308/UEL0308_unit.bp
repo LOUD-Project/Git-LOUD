@@ -1,21 +1,9 @@
 UnitBlueprint {
-
+	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0307_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff'},
+        StartMove   = Sound { Bank = 'UEL', Cue = 'UEL0307_Move_Start', LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff'},
     },
 
     BuildIconSortPriority = 110,
@@ -123,7 +111,7 @@ UnitBlueprint {
 
     Intel = {
         VisionRadius = 21,
-        WaterVisionRadius = 15,
+        WaterVisionRadius = 16,
     },
 
     Interface = {
@@ -144,7 +132,7 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         MaxAcceleration = 1,
         MaxBrake = 1,
-        MaxSpeed = 3.1,
+        MaxSpeed = 3,
         MaxSpeedReverse = 2,
         MaxSteerForce = 10,
         MeshExtentsX = 0.75,
@@ -155,7 +143,7 @@ UnitBlueprint {
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.1,
         TurnRadius = 0,
-        TurnRate = 36,
+        TurnRate = 32,
     },
 	
     SelectionCenterOffsetX = 0,

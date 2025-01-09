@@ -21,6 +21,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYDEFENSE',
     },
+
 	
     CollisionOffsetZ = 0.05,
 	
@@ -137,7 +138,7 @@ UnitBlueprint {
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.1,
         TurnRadius = 0,
-        TurnRate = 36,
+        TurnRate = 32,
     },
 	
     SelectionCenterOffsetX = 0,
