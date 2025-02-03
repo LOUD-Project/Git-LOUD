@@ -444,7 +444,11 @@ Weapon = Class(moho.weapon_methods) {
     OnStartTracking = function(self, label)
     
         if self.WeaponIsEnabled then
-
+	
+            if ScenarioInfo.WeaponDialog then
+                LOG("*AI DEBUG Weapon OnStartTracking for "..repr(self.bp.Label).." on tick "..GetGameTick() )
+            end
+ 
             self:PlayWeaponSound('BarrelStart')
         end
     end,
@@ -452,6 +456,10 @@ Weapon = Class(moho.weapon_methods) {
     OnStopTracking = function(self, label)
 	
         if self.WeaponIsEnabled then
+	
+            if ScenarioInfo.WeaponDialog then
+                LOG("*AI DEBUG Weapon OnStopTracking for "..repr(self.bp.Label).." on tick "..GetGameTick() )
+            end
 
             self:PlayWeaponSound('BarrelStop')
 		

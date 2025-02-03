@@ -681,7 +681,7 @@ DefaultProjectileWeapon = Class(Weapon) {
         if self.WeaponIsEnabled then
 
             if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon OnLostTarget for "..repr(self.bp.Label).." on tick "..GetGameTick() )		
+                LOG("*AI DEBUG DefaultWeapon OnLostTarget for "..repr(self.bp.Label).." has target "..repr(WeaponHasTarget(self)).." on tick "..GetGameTick() )		
             end
 
             local target = WeaponHasTarget(self)
@@ -890,8 +890,8 @@ DefaultProjectileWeapon = Class(Weapon) {
             local unit = self.unit
 
             if ScenarioInfo.WeaponStateDialog then
-                LOG("*AI DEBUG DefaultWeapon Idle State OnGotTarget "..repr(bp.Label).." at "..GetGameTick() )
-                --LOG("*AI DEBUG DefaultWeapon Distance to target is "..VDist3( unit:GetPosition(), self:GetCurrentTargetPos() ) )
+                LOG("*AI DEBUG DefaultWeapon Idle State OnGotTarget "..repr(bp.Label).." charged is "..repr(self.WeaponCharged).." at "..GetGameTick() )
+                LOG("*AI DEBUG DefaultWeapon Distance to target is "..VDist3( unit:GetPosition(), self:GetCurrentTargetPos() ) )
             end
 
             if (bp.WeaponUnpackLocksMotion != true or (bp.WeaponUnpackLocksMotion == true and not unit:IsUnitState('Moving'))) then

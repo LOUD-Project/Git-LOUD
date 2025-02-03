@@ -1510,6 +1510,8 @@ function OnClickHandler(button, modifiers)
                 IssueBlueprintCommand("UNITCOMMAND_Upgrade", item.id, 1, false)
 
             else
+            
+                --LOG("*AI DEBUG Building "..repr(item.id).." "..repr(count).." "..repr(blueprint.Physics.MotionType) )
 
                 if blueprint.Physics.MotionType == 'RULEUMT_None' or EntityCategoryContains(categories.NEEDMOBILEBUILD, item.id) then
 
@@ -1519,7 +1521,7 @@ function OnClickHandler(button, modifiers)
                 else
 
                     -- if the item to build can move, it must be built by a factory
-                    IssueBlueprintCommand("UNITCOMMAND_BuildFactory", item.id, count)
+                    IssueBlueprintCommand("UNITCOMMAND_BuildFactory", item.id, count or 1)
 
                 end
 

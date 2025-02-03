@@ -2779,6 +2779,10 @@ Unit = Class(UnitMethods) {
         local wep = self:GetWeaponByLabel(label)
 		
         if not wep then return nil end
+
+        if ScenarioInfo.WeaponStateDialog then
+            LOG("*AI DEBUG Unit SetWeaponEnabledByLabel for "..repr(label).." enable is "..repr(enable).." on tick "..GetGameTick() )		
+        end
 		
         if not enable then
             wep:OnLostTarget()
