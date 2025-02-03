@@ -354,6 +354,7 @@ UnitBlueprint {
         -- Bombardment Cannon
         {
             AboveWaterTargetsOnly = true,
+            ArtilleryShieldBlocks = true,
 
             Audio = {
                 BarrelLoop  = Sound { Bank = 'URS',       Cue = 'URS_Turret_Lrg_Loop',   LodCutoff = 'WeaponBig_LodCutoff' },
@@ -366,31 +367,31 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 450,
-            DamageRadius = 7,
+            DamageRadius = 5,
             DamageType = 'Normal',
 			
             DisplayName = 'Proton Cannon',
             
             EnergyRequired = 15000,
-            EnergyDrainPerSecond = 7500,
+            EnergyDrainPerSecond = 6525,    -- 2.3 second charge
 			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 1.2,
-            FiringTolerance = 2,
+            FiringRandomness = 1.1,
+            FiringTolerance = 1.5,
 			
             Label = 'Cannon',
 			
-            MaxRadius = 160,
+            MaxRadius = 145,
 			
             MuzzleSalvoSize = 2,
 
             MuzzleVelocity = 30,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRMST3BOMproj/BRMST3BOMproj_proj.bp',
-            ProjectileLifetime = 10,
+            ProjectileLifetime = 15,
 
             RackBones = {
                 {
@@ -412,7 +413,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.5,	-- 450 DPS
+            RateOfFire = 0.4,	-- 360 DPS
 
             TargetCheckInterval = 2,
             TargetPriorities = {

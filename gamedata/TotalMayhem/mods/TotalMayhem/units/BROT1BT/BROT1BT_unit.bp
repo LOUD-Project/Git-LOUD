@@ -111,9 +111,9 @@ UnitBlueprint {
         RotateBodyWhileMoving = true,
         RotateOnSpot = false,
         
-        TurnFacingRate = 50,
-        TurnRadius = 0,
-        TurnRate = 45,
+        TurnFacingRate = 36,
+        TurnRadius = 3.5,
+        TurnRate = 40,
         
         WobbleFactor = 0.01,
         WobbleSpeed = 0.01,
