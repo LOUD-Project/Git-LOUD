@@ -131,7 +131,7 @@ UnitBlueprint{
             ShieldMaxHealth = 5000,
             ShieldRechargeTime = 20,
             ShieldRegenRate = 65,
-            ShieldRegenStartTime = 1,
+            ShieldRegenStartTime = 2,
             ShieldSize = 16,
             ShieldVerticalOffset = -3,
             Slot = "Back",
@@ -418,11 +418,12 @@ UnitBlueprint{
 
             DisplayName = "Phalanx Cannon",
 
-            EffectiveRadius = 25,
+            EffectiveRadius = 28,
 
             FireTargetLayerCapsTable = { Land = "Air" },
+
             FiringRandomness = 0.1,
-            FiringRandomnessWhileMoving = 0.6,
+            FiringRandomnessWhileMoving = 0.4,
             FiringTolerance = 0,
 
             Label = "LaserPhalanx",
@@ -433,7 +434,7 @@ UnitBlueprint{
 
             MuzzleVelocity = 75,
 
-            ProjectileId = "/mods/4DC/projectiles/LaserPhalanx/LaserPhalanx_proj.bp",
+            ProjectileId = '/projectiles/SIMAntiMissile01/SIMAntiMissile01_proj.bp',
             ProjectileLifetime = 1,
 
             RackBones = {
@@ -445,33 +446,35 @@ UnitBlueprint{
 
             RangeCategory = "UWRC_Countermeasure",
 
-            RateOfFire = 2.0,
+            RateOfFire = 1,
 
-            TargetCheckInterval = 0.4,
+            TargetCheckInterval = 0.5,
+
             TargetRestrictDisallow = "UNTARGETABLE",
             TargetRestrictOnlyAllow = "TACTICAL MISSILE",
+
             TargetType = "RULEWTT_Projectile",
 
-            TrackingRadius = 1.1,
+            TrackingRadius = 1,
 
             TurretBoneMuzzle = "topCannonMuzzle",
             TurretBonePitch = "topCannonPitch",
             TurretBoneYaw = "topCannonYaw",
             TurretDualManipulators = false,
 
-            TurretPitch = 0,
+            TurretPitch = 25,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 80,
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 90,
 
             Turreted = true,
 
-            WeaponRepackTimeout = 2,
+            WeaponRepackTimeout = 0.6,
             WeaponUnpackAnimation = "/mods/4DC/units/ual0310/ual0310_topGunOpen.sca",
-            WeaponUnpackAnimationRate = 2,
+            WeaponUnpackAnimationRate = 3,
             WeaponUnpackAnimatorPrecedence = 0,
             WeaponUnpackLocksMotion = false,
             WeaponUnpackTimeout = 0.1,
