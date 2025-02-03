@@ -49,7 +49,7 @@ AIFMissileSerpentine01 = Class(AMissileSerpentineProjectile) {
             self:SetTurnRate(50)
 
 		elseif dist > 0 and dist <= 10 then         
-            self:SetTurnRate(100)   
+            self:SetTurnRate(75)   
             KillThread(self.MoveThread)         
         end
     end,        
