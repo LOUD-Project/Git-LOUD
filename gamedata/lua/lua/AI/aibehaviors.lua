@@ -1770,6 +1770,8 @@ end
 
 function NavalScoutingAI( self, aiBrain )
 
+    local NavalScoutDialog = false
+
 	local GetNumUnitsAroundPoint    = GetNumUnitsAroundPoint
     local GetPlatoonPosition        = GetPlatoonPosition
     local GetPlatoonUnits           = GetPlatoonUnits
@@ -1839,8 +1841,10 @@ function NavalScoutingAI( self, aiBrain )
         if not IL.LastScoutHi then
         
             targetArea = false
-
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." NavalScoutingAI seeking hipri mission")
+            
+            if NavalScoutDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." NavalScoutingAI seeking hipri mission")
+            end
 
 			for k,v in IL.HiPri do
             
@@ -1884,8 +1888,10 @@ function NavalScoutingAI( self, aiBrain )
 				aiBrain.IL.LastScoutHiCount = 0
 			end
 
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." NavalScoutingAI seeking Lowpri mission")			
-
+            if NavalScoutDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." NavalScoutingAI seeking Lowpri mission")			
+            end
+            
 			for k,v in IL.LowPri do
             
                 local position = v.Position
@@ -1918,8 +1924,10 @@ function NavalScoutingAI( self, aiBrain )
 		-- execute the scouting mission
         if targetArea then
 
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." executing scout to "..repr(targetArea) )        
-
+            if NavalScoutDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." executing scout to "..repr(targetArea) )        
+            end
+            
             curPos = GetPlatoonPosition(self) or false
             
             if not curPos then
@@ -1932,16 +1940,20 @@ function NavalScoutingAI( self, aiBrain )
 			-- like Land Scouting we use an artificially higher threat of 100 to insure path finding
 			path, reason = PlatoonGenerateSafePathToLOUD(aiBrain, self, MovementLayer, curPos, targetArea, 150, 250 )
 
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." pathfind is "..repr(path) )
-
+            if NavalScoutDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." pathfind is "..repr(path) )
+            end
+            
             -- move the platoon to the targetArea or abort this targetArea
 			if PlatoonExists( aiBrain, self ) then
 
 				if (not path) and not scout.Dead then
 				
 					if distance <= 120 and scout:CanPathTo(targetArea) then
-                    
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." Naval Scout AI has no path - distance "..repr(distance).." - moving direct to "..repr(targetArea))
+                        
+                        if NavalScoutDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." Naval Scout AI has no path - distance "..repr(distance).." - moving direct to "..repr(targetArea))
+                        end
                         
                         path = { targetArea }
 
@@ -2064,8 +2076,10 @@ function NavalScoutingAI( self, aiBrain )
             -- get the perimeter points around this position
             datalist = GetBasePerimeterPoints( aiBrain, targetArea, 42, false, false, MovementLayer )
 
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." begins patrol at "..repr(targetArea).." for "..patroltimer.." on tick "..GetGameTick() )
-
+            if NavalScoutDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." begins patrol at "..repr(targetArea).." for "..patroltimer.." on tick "..GetGameTick() )
+            end
+            
             local firstmove = true
             local lastpos = targetArea
             
@@ -2104,17 +2118,21 @@ function NavalScoutingAI( self, aiBrain )
 
             if not targetArea and not reconcomplete then
 
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." NavalScoutingAI finds no recon mission")
-
+                if NavalScoutDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." NavalScoutingAI finds no recon mission")
+                end
+                
                 WaitTicks(31)
                 
                 --- shorten the mission timer by 5 seconds 
                 CreationTime = CreationTime - 50
 
             else
-
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." completes recon mission "..repr(reconcomplete).." on tick "..GetGameTick() )            
-
+                
+                if NavalScoutDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." completes recon mission "..repr(reconcomplete).." on tick "..GetGameTick() )            
+                end
+                
                 self:Stop()
             end
 
