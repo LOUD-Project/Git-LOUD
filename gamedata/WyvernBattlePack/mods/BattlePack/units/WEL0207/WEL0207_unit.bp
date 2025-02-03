@@ -140,24 +140,25 @@ UnitBlueprint{
 
             BallisticArc = "RULEUBA_None",
 
-            BeamCollisionDelay = 0.1,
-            BeamLifetime = 0.1,
+            BeamCollisionDelay = 0,
+            BeamLifetime = 0.2,
 
             CollideFriendly = false,
 
-            Damage = 2,
+            Damage = 1,
             DamageType = "Normal",
 
             FireTargetLayerCapsTable = { Land = "Air" },
 
-            FiringTolerance = 0.2,
+            FiringTolerance = 1,
 
             Label = "TMD",
 
-            MaxRadius = 24,
-            MaximumBeamLength = 24,
+            MaxRadius = 26,
+            MaximumBeamLength = 26,
 
             NeedPrep = false,
+
             RackBones = {
                 {
                     MuzzleBones = { "TMDOrb" },
@@ -165,13 +166,13 @@ UnitBlueprint{
                 },
             },
 
-            RackSalvoReloadTime = 0.7,
+            RackSalvoReloadTime = 0.5,
 
             RangeCategory = "UWRC_Countermeasure",
 
             RateOfFire = 0.7,   -- every 14 ticks
 
-            TargetCheckInterval = 0.1,
+            TargetCheckInterval = 0.7,
 
             TargetRestrictOnlyAllow = "TACTICAL MISSILE",
             TargetType = "RULEWTT_Projectile",
@@ -182,11 +183,11 @@ UnitBlueprint{
 
             TurretPitch = 45,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 80,
+            TurretPitchSpeed = 75,
 
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 105,
+            TurretYawSpeed = 90,
 
             Turreted = true,
 

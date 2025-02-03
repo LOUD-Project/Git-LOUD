@@ -9,7 +9,7 @@ UEB4201 = Class(TStructureUnit) {
         
                 OnCreate = function(self)
 
-                    self.SpinManip = CreateRotator(self.unit, 'Turret_Barrel_B01', 'z', nil, 0, 270, 0)
+                    self.SpinManip = CreateRotator(self.unit, 'Turret_Barrel_B01', 'z', nil, 0, 360, 0)
                     self.unit.Trash:Add(self.SpinManip)                
 
                     TAMPhalanxWeapon.OnCreate(self)
@@ -17,7 +17,7 @@ UEB4201 = Class(TStructureUnit) {
 
                 PlayFxWeaponUnpackSequence = function(self)
 
-                    self.SpinManip:SetTargetSpeed(270)
+                    self.SpinManip:SetTargetSpeed(180)
 
                     TAMPhalanxWeapon.PlayFxWeaponUnpackSequence(self)
                 end,
