@@ -146,8 +146,8 @@ UnitBlueprint {
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.1,
         
-        TurnFacingRate = 36,
-        TurnRadius = 0,
+        TurnFacingRate = 32,
+        TurnRadius = 3.5,
         TurnRate = 36,
         
         WobbleFactor = 0.02,

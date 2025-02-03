@@ -134,9 +134,9 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
         
-        TurnFacingRate = 45,
-        TurnRadius = 2,
-        TurnRate = 40,
+        TurnFacingRate = 32,
+        TurnRadius = 3.5,
+        TurnRate = 36,
         
         WobbleFactor = 0.02,
         WobbleSpeed = 0.01,
@@ -206,7 +206,7 @@ UnitBlueprint {
 			
             RateOfFire = 0.9,   -- every 1.1 seconds
 			
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1.1,
 
             TargetRestrictOnlyAllow = 'TACTICAL MISSILE',
 
