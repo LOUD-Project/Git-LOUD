@@ -11,9 +11,9 @@ CybranWeapons = nil
 URS0304 = Class(CSubUnit) {
 
     Weapons = {
-        NukeMissiles = Class(CIFMissileStrategicWeapon){},
-        CruiseMissile = Class(CIFMissileLoaWeapon){},
-        Torpedo = Class(CANTorpedoLauncherWeapon){},
+        CruiseMissile       = Class(CIFMissileLoaWeapon){},
+        Torpedo             = Class(CANTorpedoLauncherWeapon){},
+        SubNukeMissiles     = Class(CIFMissileStrategicWeapon){},
     },
 
 }

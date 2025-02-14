@@ -341,8 +341,8 @@ UnitBlueprint {
                     Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 5,
-                    Radius = 40,
+                    Duration = 8,
+                    Radius = 24,
                     TargetAllow = 'MOBILE',
                     TargetDisallow = 'EXPERIMENTAL,COMMAND,AIR',
                 },
@@ -363,9 +363,11 @@ UnitBlueprint {
 			
             FiringTolerance = 2,
 			
+            ForceSingleFire = true,
+            
             InitialProjectileStorage = 0,
 			
-            Label = 'NukeMissiles',
+            Label = 'SubNukeMissiles',
 			
             ManualFire = 1,
 			
@@ -377,18 +379,18 @@ UnitBlueprint {
             MuzzleVelocity = 0,
 			
             NukeInnerRingDamage = 60000,
-            NukeInnerRingRadius = 30,
+            NukeInnerRingRadius = 18,
             NukeInnerRingTicks = 24,
             NukeInnerRingTotalTime = 0,
             NukeOuterRingDamage = 500,
-            NukeOuterRingRadius = 40,
+            NukeOuterRingRadius = 32,
             NukeOuterRingTicks = 20,
             NukeOuterRingTotalTime = 0,
 			
             NukeWeapon = true,
 			
             ProjectileId = '/projectiles/CIFEMPFluxWarhead01/CIFEMPFluxWarhead01_proj.bp',
-            ProjectileLifetime = 50,
+            ProjectileLifetime = 55,
 
             RackBones = {
                 {
@@ -396,8 +398,6 @@ UnitBlueprint {
                     RackBone = 'Projectile_Center',
                 },
             },
-            RackSalvoChargeTime = 1.5,
-            RackSalvoReloadTime = 2,
 
             RangeCategory = 'UWRC_IndirectFire',
 
@@ -406,6 +406,9 @@ UnitBlueprint {
             TargetCheckInterval = 0.5,
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
+            
+            WeaponRepackTimeout = 10,
+            WeaponUnpacks = true,
         },
 		
     },

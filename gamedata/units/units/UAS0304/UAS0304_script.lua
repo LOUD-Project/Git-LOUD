@@ -17,7 +17,7 @@ UAS0304 = Class(ASubUnit) {
     Weapons = {
 	
         CruiseMissiles = Class(AIFMissileTacticalSerpentineWeapon) {},
-        NukeMissiles = Class(AIFQuantumWarhead) {},
+        SubNukeMissiles = Class(AIFQuantumWarhead) {},
 		
     },
 	

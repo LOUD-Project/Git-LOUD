@@ -62,7 +62,7 @@ UES0304 = Class(TSubUnit) {
             end,
         },
 		
-        NukeMissiles = Class(TIFStrategicMissileWeapon) {
+        SubNukeMissiles = Class(TIFStrategicMissileWeapon) {
 		
             CurrentRack = 1,
            

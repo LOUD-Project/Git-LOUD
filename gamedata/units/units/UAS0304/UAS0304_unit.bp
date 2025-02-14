@@ -311,7 +311,7 @@ UnitBlueprint {
 			
             InitialProjectileStorage = 0,
 			
-            Label = 'NukeMissiles',
+            Label = 'SubNukeMissiles',
 			
             ManualFire = 1,
 			
@@ -323,11 +323,11 @@ UnitBlueprint {
             MuzzleVelocity = 0,
 			
             NukeInnerRingDamage = 60000,
-            NukeInnerRingRadius = 30,
+            NukeInnerRingRadius = 18,
             NukeInnerRingTicks = 24,
             NukeInnerRingTotalTime = 0,
             NukeOuterRingDamage = 500,
-            NukeOuterRingRadius = 40,
+            NukeOuterRingRadius = 32,
             NukeOuterRingTicks = 20,
             NukeOuterRingTotalTime = 0,
 			
@@ -341,16 +341,17 @@ UnitBlueprint {
                     RackBone = 'Muzzle_05',
                 },
             },
-            RackSalvoChargeTime = 1.5,
-            RackSalvoReloadTime = 2,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 1,
 			
-            TargetCheckInterval = 1,
+            TargetCheckInterval = 0.5,
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
+            
+            WeaponRepackTimeout = 10,
+            WeaponUnpacks = true,
         },
 
     },
