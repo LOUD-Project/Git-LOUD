@@ -1734,6 +1734,11 @@ Unit = Class(UnitMethods) {
             end
         end
 
+        -- satellites
+        if EntityCategoryContains(categories.SATELLITEUPLINK + categories.SATELLITEWITHNOPARENTALSUPERVISION, self) then
+            self:OnSatelliteCapacityChange(true)
+        end
+
         if not self:IsBeingBuilt() then
 
             if self.DeathWeaponEnabled != false then
@@ -2462,6 +2467,83 @@ Unit = Class(UnitMethods) {
         self:DoUnitCallbacks('OnSMLaunched')
     end,
 
+    -- Checks for satellite allowances
+    OnSatelliteCapacityChange = function(self, deathcheck)
+        -- Gather data
+        local AIBrain = self:GetAIBrain()  -- (entityCategory, needToBeIdle, requireBuilt)
+        local uplinks = AIBrain:GetListOfUnits(categories.SATELLITEUPLINK, false, true)
+        local satellites = AIBrain:GetListOfUnits(categories.SATELLITEWITHNOPARENTALSUPERVISION, false, false) --requireBuilt true here makes it easy to exceed the cap
+
+        -- Remove self from list if death check
+        if deathcheck then
+			
+            if EntityCategoryContains(categories.SATELLITEUPLINK, self) then
+                table.removeByValue(uplinks, self)
+            end
+
+            if EntityCategoryContains(categories.SATELLITEWITHNOPARENTALSUPERVISION, self) then
+                table.removeByValue(satellites, self)
+            end
+
+        end
+
+        -- If this is being called by something dying, check we are allowed satellites
+        if deathcheck and table.getn(uplinks) == 0 and table.getn(satellites) > 0 then
+
+            for i, v in satellites do
+
+                LOG(v.StartUnguidedOrbitalDecay)
+
+                if v.StartUnguidedOrbitalDecay then
+                    v:StartUnguidedOrbitalDecay(v)
+                else
+                    v:Kill()
+                end
+
+            end
+
+        else
+            -- calculate if we should allow more construction
+
+            local usedcap, maxcap = 0, 0
+
+            -- Calculate max capacity
+            for i, v in uplinks do
+                maxcap = maxcap + (v:GetBlueprint().General.SatelliteCapacity or 1)
+            end
+
+            -- calculate used capacity
+            for i, v in satellites do
+                usedcap = usedcap + 1   --(v:GetBlueprint().General.CapCost or 1)
+                -- Prevent preventable satellite explosions
+                if v.UnguidedOrbitalDecay then
+                    v:StopUnguidedOrbitalDecay(v)
+                end
+            end
+
+            -- All satellites count as 1 even if CapCost is greater than 1
+            if (maxcap - usedcap) < 1 then
+
+                --This is done per-unit to prevent any conflicts with R&D unlock satellites, and potential game restrictions.
+                --Is it more costly to check it can actually build, and or build satellites first, or do it and not care?
+                for i, v in uplinks do
+
+                    v:AddBuildRestriction(categories.SATELLITEWITHNOPARENTALSUPERVISION)
+                end
+
+            else
+
+                for i, v in uplinks do
+                    v:RemoveBuildRestriction(categories.SATELLITEWITHNOPARENTALSUPERVISION)
+                end
+
+            end
+				
+            self:RequestRefreshUI() -- worth checking if it actually needs a refresh?
+        end
+
+    end,
+
     CheckCountedMissileAmmo = function(self)
 	
         -- polls the ammo count every 6 secs 
@@ -2542,7 +2624,12 @@ Unit = Class(UnitMethods) {
     end,
 
     OnDestroy = function(self)
-	
+
+        -- satellites --
+        if EntityCategoryContains(categories.SATELLITEUPLINK + categories.SATELLITEWITHNOPARENTALSUPERVISION, self) then
+            self:OnSatelliteCapacityChange(true)
+        end
+
 		self.PlatoonHandle = nil
 
         if ScenarioInfo.UnitDialog then
@@ -3077,6 +3164,11 @@ Unit = Class(UnitMethods) {
             PlaySound( self, bp.Audio.DoneBeingBuilt )
         end
 
+        -- Checks for satellite allowances
+        if EntityCategoryContains(categories.SATELLITEUPLINK + categories.SATELLITEWITHNOPARENTALSUPERVISION, self) then
+            self:ForkThread( function() WaitTicks(1) self:OnSatelliteCapacityChange() end )
+        end
+	
 		--self:PlayUnitAmbientSound( 'ActiveLoop' )
 
 		self:HideLandBones()
