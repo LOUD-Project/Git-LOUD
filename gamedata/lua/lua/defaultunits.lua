@@ -942,6 +942,10 @@ StructureUnit = Class(Unit) {
     -- When we're adjacent, try all the possible bonuses.
     OnAdjacentTo = function(self, adjacentUnit, triggerUnit)
 
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." "..self.BlueprintID.." OnAdjacentTo "..repr(adjacentUnit.BlueprintID).." on tick "..GetGameTick())
+        end
+
         if IsBeingBuilt(self) or IsBeingBuilt(adjacentUnit) then
 			return
 		end
@@ -966,6 +970,10 @@ StructureUnit = Class(Unit) {
 
         if adjBuffs and import('/lua/sim/adjacencybuffs.lua')[adjBuffs] then
 
+            if ScenarioInfo.UnitDialog then
+                LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." "..self.BlueprintID.." OnNotAdjacentTo "..repr(adjacentUnit.BlueprintID).." on tick "..GetGameTick())
+            end
+
             for k,v in import('/lua/sim/adjacencybuffs.lua')[adjBuffs] do
 			
                 if HasBuff(adjacentUnit, v) then
@@ -974,7 +982,7 @@ StructureUnit = Class(Unit) {
 				
             end
 
-			self:DestroyAdjacentEffects()
+			self:DestroyAdjacentEffects(adjacentUnit)
 
 			self:RequestRefreshUI()
 			adjacentUnit:RequestRefreshUI()
@@ -1005,27 +1013,41 @@ StructureUnit = Class(Unit) {
     end,
 
     DestroyAdjacentEffects = function(self, adjacentUnit)
+    
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." "..self.BlueprintID.." DestroyAdjacentEffects to "..repr(adjacentUnit.EntityID).." bag is "..repr(self.AdjacencyBeamsBag).." on tick "..GetGameTick())
+        end
 
         if self.AdjacencyBeamsBag then
 
 			for k, v in self.AdjacencyBeamsBag do
 
-				local unit = adjacentUnit
+				local unit
+
+                unit = adjacentUnit
                 
-                if not unit then
-                    unit = GetEntityById(v.Unit)
+                if not adjacentUnit then
+                    unit = v.Unit
                 end    
 
 				-- adjacency beams persist until either unit has been destroyed
 				-- even if one of them is a production unit that might be turned off
-				if unit and ( (BeenDestroyed(unit) or unit.Dead) or (self:BeenDestroyed() or self.Dead) ) then
+				if unit then    --and not ((BeenDestroyed(unit) or unit.Dead) or (self:BeenDestroyed() or self.Dead)) then
 
-                    --LOG("*AI DEBUG Destroy AdjacentEffects from "..repr(self.BlueprintID).." to unit "..repr(unit) )
+                    if ScenarioInfo.UnitDialog then
+                        LOG("*AI DEBUG Destroy AdjacentEffects from "..self.EntityID.." to unit "..unit.EntityID )
+                    end
 
 					v.Trash:Destroy()
 
                     self.AdjacencyBeamsBag[k] = nil
                     
+                else
+
+                    if ScenarioInfo.UnitDialog then
+                        LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." "..self.BlueprintID.." DestroyAdjacentEffects FAILS "..repr(unit).." bag is "..repr(self.AdjacencyBeamsBag).." on tick "..GetGameTick())
+                    end
+                
                 end
 
 			end

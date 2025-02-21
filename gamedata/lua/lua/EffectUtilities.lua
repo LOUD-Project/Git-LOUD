@@ -39,8 +39,9 @@ local GetFractionComplete       = EntityMethods.GetFractionComplete
 local GetPosition               = EntityMethods.GetPosition
 local SetMesh                   = EntityMethods.SetMesh
 
-local HideBone = moho.unit_methods.HideBone
-local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
+local GetAIBrain    = moho.unit_methods.GetAIBrain
+local HideBone      = moho.unit_methods.HideBone
+local IsBeingBuilt  = moho.unit_methods.IsBeingBuilt
 
 local ScaleEmitter = moho.IEffect.ScaleEmitter
 
@@ -1577,6 +1578,10 @@ function CreateAdjacencyBeams( unit, adjacentUnit )
     end    
 
     if beamEffect then
+
+        if ScenarioInfo.UnitDialog then
+            LOG("*AI DEBUG UNIT "..GetAIBrain(unit).Nickname.." "..unit.EntityID.." "..unit.BlueprintID.." CreateAdjacencyBeam to "..adjacentUnit.EntityID.." "..adjacentUnit.BlueprintID.." on tick "..GetGameTick())
+        end
     
         local beam = LOUDATTACHBEAMENTITY( unit, -1, adjacentUnit, -1, army, beamEffect )
         
