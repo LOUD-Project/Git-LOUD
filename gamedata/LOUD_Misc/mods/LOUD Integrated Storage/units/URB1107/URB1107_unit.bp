@@ -72,13 +72,16 @@ UnitBlueprint {
         BuildCostEnergy = 5400,
         BuildCostMass = 720,
         BuildTime = 900,
+
         MaintenanceConsumptionPerSecondEnergy = 400,
         ProductionPerSecondMass = 2,
+
+		StorageEnergy = 300,
         StorageMass = 1000,
     },
 
     General = {
-        CapCost = 1,
+        CapCost = 2,
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
@@ -127,9 +130,9 @@ UnitBlueprint {
 
     Weapon = {
         {
-            Damage = 370,
+            Damage = 480,
             DamageFriendly = true,
-            DamageRadius = 5,
+            DamageRadius = 6,
             DamageType = 'Normal',
             DisplayName = 'Death Weapon',
             DummyWeapon = true,

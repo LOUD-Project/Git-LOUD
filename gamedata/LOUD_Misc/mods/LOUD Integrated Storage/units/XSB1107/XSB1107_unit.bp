@@ -84,11 +84,12 @@ UnitBlueprint {
 
         ProductionPerSecondMass = 2,
 
+        StorageEnergy = 400,
         StorageMass = 1000,
     },
 
     General = {
-        CapCost = 1,
+        CapCost = 2,
         FactionName = 'Seraphim',
         Icon = 'amph',
         SelectionPriority = 5,
@@ -140,9 +141,9 @@ UnitBlueprint {
 
     Weapon = {
         {
-            Damage = 370,
+            Damage = 480,
             DamageFriendly = true,
-            DamageRadius = 5,
+            DamageRadius = 6,
             DamageType = 'Normal',
             DisplayName = 'Death Weapon',
             DummyWeapon = true,
