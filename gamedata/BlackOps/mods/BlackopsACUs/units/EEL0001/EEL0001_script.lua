@@ -630,7 +630,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 	
 			local location = self:GetPosition('Back_IntelPack')
 			
-			self.Satellite = CreateUnitHPR('EEA0002', self:GetArmy(), location[1], location[2], location[3], 0,0,0 )
+			self.Satellite = CreateUnitHPR('XEA0002', self:GetArmy(), location[1], location[2], location[3], 0,0,0 )
 
 			self.Satellite:AttachTo(self, 'Back_IntelPack')
 			

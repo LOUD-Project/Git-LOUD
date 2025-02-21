@@ -1,14 +1,21 @@
 UnitBlueprint {
     Air = {
+
         BankForward = false,
         CanFly = true,
-        KLiftDamping = 2,
-		KTurn = 0,
-        LiftFactor = 10,
 		
-        MaxAirspeed = 4,
-        MinAirspeed = 0,
-
+        KLiftDamping = 4,
+        
+        KMove = 0.6,
+        KMoveDamping = 0.9,
+		
+        KTurn = 0,
+		
+        LiftFactor = 4.5,
+		
+        MaxAirspeed = 3.5,
+		
+        StartTurnDistance = 50,
     },
 	
     Audio = {
@@ -16,46 +23,60 @@ UnitBlueprint {
         UISelection = Sound { Bank = 'Interface', Cue = 'UEF_Select_Air', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
+    BuildIconSortPriority = 10,
+	
     Categories = {
         'SELECTABLE',
         'UEF',
         'MOBILE',
+        'AIR',
         'TECH3',
         'SATELLITE',
+        'SATELLITEWITHNOPARENTALSUPERVISION',        
         'VISIBLETORECON',
-		'INSIGNIFICANTUNIT',
     },
 	
     CollisionOffsetY = -0.65,
 	
     Defense = {
         ArmorType = 'Light',
-        Health = 1000,
-        MaxHealth = 1000,
+        Health = 100,
+        MaxHealth = 100,
     },
 	
-    Description = '<LOC xea0002_desc>Intelligence Satellite',
-    
+    Description = '<LOC xea0002_desc>Recon Satellite',
+	
     Display = {
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                { LODCutoff = 500, ShaderName = 'AeonCZAR' },
+                { LODCutoff = 1500, ShaderName = 'Aeon' },
+            },
+        },
 
-        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 700, ShaderName = 'Unit' } } },
-
-        UniformScale = 0.05,
+        UniformScale = 0.0125,
     },
 	
     Economy = {
-        MaintenanceConsumptionPerSecondEnergy = 1000,
+        BuildCostEnergy = 8000,
+        BuildCostMass = 800,
+        BuildTime = 400,
+    },
+	
+    Footprint = {
+        MaxSlope = 0.25,
+        SizeX = 1,
+        SizeZ = 1,
     },
 	
     General = {
-        CapCost = 0,
+		CapCost = 2,
 
         CommandCaps = {
-            RULEUCC_Attack = true,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
             RULEUCC_Patrol = true,
-            RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
         FactionName = 'UEF',
@@ -63,36 +84,34 @@ UnitBlueprint {
     },
 	
     Intel = {
-        VisionRadius = 44,
+        VisionRadius = 40,
     },
 	
-    Interface = {
-        HelpText = '<LOC xea0002_help>Intelligence Satellite',
-    },
-	
-    LifeBarHeight = 0.075,
-    LifeBarOffset = 1.2,
-    LifeBarSize = 2,
+    LifeBarHeight = 0.025,
+    LifeBarOffset = 0.25,
+    LifeBarSize = 1,
 	
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Air = true,
-        },
-        Elevation = 70,
+        BuildOnLayerCaps = { LAYER_Air = true },
+        Elevation = 42,
+
+        FuelRechargeRate = 0.01,
+        FuelUseTime = 250,      -- max speed duration, seconds
+
         MaxAcceleration = 0.25,
-        MaxSpeed = 2,
+        MaxSpeed = 3.5,
         MotionType = 'RULEUMT_Air',
     },
 	
-    SelectionSizeX = 2,
-    SelectionSizeZ = 1,
+    SelectionSizeX = 0.5,
+    SelectionSizeZ = 0.2,
     SelectionThickness = 0.36,
 	
     SizeX = 2,
-    SizeY = 1,
-    SizeZ = 1,
+    SizeY = 2,
+    SizeZ = 2,
 	
-    StrategicIconName = 'icon_satellite3_intel',
+    StrategicIconName = 'icon_satellite_intel',
     StrategicIconSortPriority = 55,
 }

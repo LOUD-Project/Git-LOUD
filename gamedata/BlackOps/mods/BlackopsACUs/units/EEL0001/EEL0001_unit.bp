@@ -63,6 +63,7 @@ UnitBlueprint {
         'OVERLAYRADAR',
         'OVERLAYSONAR',
         'ANTITELEPORT',
+        'SATELLITEUPLINK',
         'OVERLAYMISC',
     },
 	
@@ -995,7 +996,7 @@ UnitBlueprint {
 
             Name = 'Remove Spysat System',
 
-            Prerequisite = 'EXElectronicCountermeasures',
+            Prerequisite = 'EXSatelliteSystem',
 
             RemoveEnhancements = {'EXSatelliteSystem','EXSatelliteSystemRemove','EXIntelEnhancementT3','EXIntelEnhancementT2'},
 
@@ -1488,6 +1489,9 @@ UnitBlueprint {
         },
 
         QuickSelectPriority = 1,
+
+        SatelliteCapacity = 2,
+
         SelectionPriority = 3,
     },
 	

@@ -1377,7 +1377,7 @@ UnitBlueprint {
 			NotExclusive = true,
 			
             ProjectileId = '/projectiles/SIFHuAntiNuke01/SIFHuAntiNuke01_proj.bp',
-            ProjectileLifetime = 1.1,            
+            ProjectileLifetime = 2.5,            
 			
             RackBones = {
                 {
