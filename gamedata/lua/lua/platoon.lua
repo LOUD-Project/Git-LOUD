@@ -6430,7 +6430,11 @@ Platoon = Class(PlatoonMethods) {
                                 
                                 ATTACKS = GetSquadUnits(self,'Attack') or {}
                                 
-                                ATTACKS = table.merged( ATTACKS, GetSquadUnits(self,'Unassigned') or {})
+                                if GetSquadUnits(self,'Unassigned')[1] then
+                                
+                                    ATTACKS = table.merged( ATTACKS, GetSquadUnits(self,'Unassigned') )
+                                
+                                end
                             
                                 if ATTACKS[1] then
                             

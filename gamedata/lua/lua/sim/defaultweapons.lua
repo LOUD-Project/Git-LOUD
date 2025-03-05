@@ -698,9 +698,9 @@ DefaultProjectileWeapon = Class(Weapon) {
 
             LOUDSTATE(self, self.WeaponPackingState)
 
-        else
+        --else
 
-            LOUDSTATE(self, self.IdleState)
+          --  LOUDSTATE(self, self.IdleState)
 
         end
 
@@ -915,10 +915,15 @@ DefaultProjectileWeapon = Class(Weapon) {
                 else
                 
                     --- precharged weapons will wait for an OnFire event
+                    --- while others will be ready to fire immediately
                     if not self.WeaponCharged then
 
                         LOUDSTATE(self, self.RackSalvoChargeState)
+                        
+                    else
                     
+                        LOUDSTATE(self, self.RackSalvoFireReadyState)
+                        
                     end
 					
                 end
@@ -1550,7 +1555,11 @@ DefaultProjectileWeapon = Class(Weapon) {
             if self.RecoilManipulators then
                 self:WaitForAndDestroyManips()
             end
-
+            
+            if WeaponStateDialog then
+                LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State "..repr(bp.Label).." has target "..repr(WeaponHasTarget(self)).." on tick "..GetGameTick() )
+            end
+  
             -- if the weapon has a target and is not a counted projectile
             if WeaponHasTarget( self ) and not bp.CountedProjectile then 
 

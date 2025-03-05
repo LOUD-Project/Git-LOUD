@@ -3097,7 +3097,7 @@ function AirForceAILOUD( self, aiBrain )
 
         platoonUnits = LOUDCOPY(GetPlatoonUnits(self))
 
-        attackers     = GetSquadUnits( self,'Unassigned' )
+        attackers     = GetSquadUnits( self,'Unassigned' ) or {}
         attackercount = LOUDGETN(attackers)
 
         --- this block will look for targets if there are any available 'Unassigned' units in the platoon

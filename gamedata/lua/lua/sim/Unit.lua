@@ -3748,9 +3748,6 @@ Unit = Class(UnitMethods) {
     InheritWork = function(self, target)
 	
         self.WorkItem = target.WorkItem
-        self.WorkItemBuildCostEnergy = target.WorkItemBuildCostEnergy
-        self.WorkItemBuildCostMass = target.WorkItemBuildCostMass
-        self.WorkItemBuildTime = target.WorkItemBuildTime
 		
     end,
 
@@ -4584,9 +4581,7 @@ Unit = Class(UnitMethods) {
             self:CreateEnhancement(work)
             
             self.WorkItem = nil
-            self.WorkItemBuildCostEnergy = nil
-            self.WorkItemBuildCostMass = nil
-            self.WorkItemBuildTime = nil
+            self.WorkProgress = nil
             
             self:PlayUnitSound('EnhanceEnd')
 
