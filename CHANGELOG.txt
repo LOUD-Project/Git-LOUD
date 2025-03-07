@@ -1,3 +1,35 @@
+LUA 7.18
+4DC for LOUD 7.05
+Black Ops for LOUD 7.09
+BrewLAN for LOUD 0.8.8.9.111
+LOUD_MISC 7.08
+LOUD_UNITS 7.09
+Projectiles LOUD 7.05
+Total Mayhem for LOUD 7.06
+Wyvern for LOUD 7.07
+UNITS 7.11
+
+- added stubs for Scout and NavalScout AI Debug dialogs, these are internal only right now
+- 4DC UAL0310 (Vindicator) was having trouble tracking TAC missiles, reduced repack timeout (2s > 0.6s)
+- 4DC UAL0310 (Vindicator) shield regen begins after 2 seconds (mobile shield balancing)
+- BOU BSS0401 (T4 Battleship) anti-nuke projectile lifetime 1s > 2.4s due to projectile timeout
+- TM Magna Bombard ship reduced AOE 7 >> 5, range 160 >> 145, RoF .5 >> .4, increased accuracy, reduced charge, increased projectile lifetime
+- TM Magna Bombard weapon now blocked by artillery shields
+- TM BROT1BT (AEON T1 Hervour) turn rate reduced 45 > 40, facing rate 45 > 36, turn radius 3.5, 
+- many hover units have had their turn damping and turn radius adjusted for more natural movement, ongoing project
+- PROJECTILES adjusted turn and zig-zag rates on AEON T2 static tactical missile
+- a review of most static and land based tactical missile defense response parameters
+- standardized the 'recon' satellite object to UNITS, removed custom assets from BO & BrewLAN
+- all the Satellite uplink features now included in the core code, moved out of BrewLAN
+- fixed the issues with Novax satellite building, downsized from SIZE12 to SIZE8 (same as other adv. intel structures)
+- data reduction for the LOC_US translation file
+- two maps have been remarked - Battle Isles 40k & Setons Clutch 40k - this should improve their overall AI performance
+- T2 Mass Fabs with Storage - now has 400 E Storage, 2 unit cap, Volatility 360 >> 480 damage, AOE 5 >> 6
+- data guards, additional weapon state dialogs, two minor weapon state options
+
+
+
+
 ### Release 01-09-2025
 
 LUA 7.17
