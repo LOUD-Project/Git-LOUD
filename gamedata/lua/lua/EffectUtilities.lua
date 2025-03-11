@@ -942,19 +942,22 @@ function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
         
         local pos = LOUDCOPY(GetPosition(unitBeingBuilt))
         
-        LOUDWARP( projectile, pos)
+        if pos[1] then
+
+            LOUDWARP( projectile, pos)
   
-        while not builder.Dead and not unitBeingBuilt.Dead and IsBeingBuilt(unitBeingBuilt) do
+            while not builder.Dead and not unitBeingBuilt.Dead and IsBeingBuilt(unitBeingBuilt) do
 
-            x, y, z = RandomOffset( unitBeingBuilt, 1 )
+                x, y, z = RandomOffset( unitBeingBuilt, 1 )
         
-            vec[1] = pos[1]+x
-            vec[2] = pos[2]+y
-            vec[3] = pos[3]+z
+                vec[1] = pos[1]+x
+                vec[2] = pos[2]+y
+                vec[3] = pos[3]+z
 
-            LOUDWARP( projectile, vec )
+                LOUDWARP( projectile, vec )
 
-            WaitTicks( Random(5,11) )
+                WaitTicks( Random(5,11) )
+            end
         end
     end
 
