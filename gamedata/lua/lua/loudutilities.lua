@@ -6687,7 +6687,7 @@ function AttackPlanMonitor(self)
 			SetPrimarySeaAttackBase(self)
             
             -- and wait for next cycle (GoCheckInterval)            
-            WaitTicks(self.AttackPlan.GoCheckInterval * 10)
+            WaitTicks( (self.AttackPlan.GoCheckInterval or 60) * 10)
 		else
             if AttackPlanDialog then
                 LOG("*AI DEBUG "..self.Nickname.." AttackPlan pending")
