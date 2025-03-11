@@ -611,8 +611,12 @@ EngineerManager = Class(BuilderManager) {
 			finishedUnit.DesiresAssist = true
 
 			AssignUnitsToPlatoon( aiBrain, StructurePool, {finishedUnit}, 'Support', 'none' )
-
-            finishedUnit:LaunchUpgradeThread( aiBrain )
+            
+            if finishedUnit.LaunchUpgradeThread then
+                finishedUnit:LaunchUpgradeThread( aiBrain )
+            else
+                LOG("*AI DEBUG finishedUnit "..repr(finishedUnit.BlueprintID).." has no LaunchUpgradeThread")
+            end
 
 			-- TMLs --
 			if LOUDENTITY( categories.TACTICALMISSILEPLATFORM, finishedUnit ) then
