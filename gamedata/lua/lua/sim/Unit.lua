@@ -2626,8 +2626,12 @@ Unit = Class(UnitMethods) {
     OnDestroy = function(self)
 
         -- satellites --
-        if EntityCategoryContains(categories.SATELLITEUPLINK + categories.SATELLITEWITHNOPARENTALSUPERVISION, self) then
-            self:OnSatelliteCapacityChange(true)
+        if categories.SATELLITEUPLINK then
+
+            if EntityCategoryContains(categories.SATELLITEUPLINK + categories.SATELLITEWITHNOPARENTALSUPERVISION, self) then
+                self:OnSatelliteCapacityChange(true)
+            end
+
         end
 
 		self.PlatoonHandle = nil
@@ -3165,8 +3169,12 @@ Unit = Class(UnitMethods) {
         end
 
         -- Checks for satellite allowances
-        if EntityCategoryContains(categories.SATELLITEUPLINK + categories.SATELLITEWITHNOPARENTALSUPERVISION, self) then
-            self:ForkThread( function() WaitTicks(1) self:OnSatelliteCapacityChange() end )
+        if categories.SATELLITEUPLINK then
+
+            if EntityCategoryContains(categories.SATELLITEUPLINK + categories.SATELLITEWITHNOPARENTALSUPERVISION, self) then
+                self:ForkThread( function() WaitTicks(1) self:OnSatelliteCapacityChange() end )
+            end
+
         end
 	
 		--self:PlayUnitAmbientSound( 'ActiveLoop' )
