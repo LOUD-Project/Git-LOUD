@@ -15,11 +15,11 @@ UnitBlueprint {
 	
     Buffs = {
         Regen = {
-            Level1 = 100,
-            Level2 = 200,
-            Level3 = 300,
-            Level4 = 400,
-            Level5 = 500,
+            Level1 = 20,
+            Level2 = 40,
+            Level3 = 55,
+            Level4 = 70,
+            Level5 = 80,
         },
     },
 	
@@ -46,9 +46,9 @@ UnitBlueprint {
 
         Health = 75000,
         MaxHealth = 75000,
-        RegenRate = 125,
+        RegenRate = 100,
 
-        AirThreatLevel = 180,
+        AirThreatLevel = 150,
         SurfaceThreatLevel = 960,
     },
 	
@@ -987,7 +987,7 @@ UnitBlueprint {
 			
             ProjectileId = '/projectiles/CIFMissileTactical01/CIFMissileTactical01_proj.bp',
 			
-            ProjectileLifetime = 25,
+            ProjectileLifetime = 22,
 
             RackBones = {
                 {
@@ -1079,7 +1079,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
 			ProjectileId = '/mods/BlackOpsUnleashed/projectiles/BasAAMissile01/BasAAMissile01_proj.bp',
-            ProjectileLifetime = 8,
+            ProjectileLifetime = 6.5,
             
             RackBones = {
                 {
@@ -1094,10 +1094,12 @@ UnitBlueprint {
                     RackBone = 'AA_Missile_1',
                 },
             },
+            
+            RackSalvoReloadTime = 1.9,
 
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 0.6,
+            RateOfFire = 0.5,
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
