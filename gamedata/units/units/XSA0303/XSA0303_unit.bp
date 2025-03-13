@@ -12,6 +12,9 @@ UnitBlueprint {
         BreakOffTrigger = 22,
         CanFly = true,
 
+        CirclingElevationChangeRatio = 3,
+        CirclingTurnMult = 3,
+
         CombatTurnSpeed = 1.2,
 
         EngageDistance = 55,
@@ -25,7 +28,7 @@ UnitBlueprint {
         KRoll = 1.5,
         KRollDamping = 1.4,
 		
-        KTurn = 1.4,
+        KTurn = 1.55,
         KTurnDamping = 1.35,
 		
         LiftFactor = 8,

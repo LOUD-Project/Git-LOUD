@@ -25,7 +25,7 @@ UnitBlueprint {
         KRoll = 1.5,
         KRollDamping = 1.4,
 		
-        KTurn = 1.4,
+        KTurn = 1.42,
         KTurnDamping = 1.35,
 		
         LiftFactor = 8,
