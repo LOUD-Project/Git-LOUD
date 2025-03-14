@@ -1024,7 +1024,7 @@ StructureUnit = Class(Unit) {
 
 				local unit
 
-                unit = adjacentUnit
+                unit = adjacentUnit.EntityID
                 
                 if not adjacentUnit then
                     unit = v.Unit
@@ -1032,21 +1032,15 @@ StructureUnit = Class(Unit) {
 
 				-- adjacency beams persist until either unit has been destroyed
 				-- even if one of them is a production unit that might be turned off
-				if unit then    --and not ((BeenDestroyed(unit) or unit.Dead) or (self:BeenDestroyed() or self.Dead)) then
+				if unit == v.Unit then    --and not ((BeenDestroyed(unit) or unit.Dead) or (self:BeenDestroyed() or self.Dead)) then
 
                     if ScenarioInfo.UnitDialog then
-                        LOG("*AI DEBUG Destroy AdjacentEffects from "..self.EntityID.." to unit "..unit.EntityID )
+                        LOG("*AI DEBUG Destroy AdjacentEffects from "..self.EntityID.." to unit "..v.Unit )
                     end
 
 					v.Trash:Destroy()
 
                     self.AdjacencyBeamsBag[k] = nil
-                    
-                else
-
-                    if ScenarioInfo.UnitDialog then
-                        LOG("*AI DEBUG UNIT "..GetAIBrain(self).Nickname.." "..self.EntityID.." "..self.BlueprintID.." DestroyAdjacentEffects FAILS "..repr(unit).." bag is "..repr(self.AdjacencyBeamsBag).." on tick "..GetGameTick())
-                    end
                 
                 end
 

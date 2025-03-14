@@ -9,7 +9,7 @@ Black Ops for LOUD 7.10
 - proper detection of units NOT having an upgrade path
 - the ATTACKPLANNER thread was collapsing if the 'GoInterval' was not properly set
 - trapping for dead projectiles during the creation of projectile effects
-
+- fix for adjacency beams disappearing from upgraded units
 
 
 ### Release 03-09-2025
