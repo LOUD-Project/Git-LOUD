@@ -834,6 +834,7 @@ function ModBlueprints(all_blueprints)
 								bp.Economy.BuildCostMass = bp.Economy.BuildCostMass + (bp.Economy.BuildCostMass * econScale)
 							end
                             
+                            -- KTurnDamping is capped to KTurn * 1.25
                             if bp.Air.KTurn then
                                 if bp.Air.KTurnDamping and bp.Air.KTurnDamping > (bp.Air.KTurn * 1.25) then
                                     --LOG("AI DEBUG KTurnDamping for "..repr(bp.Description).." reduced from "..repr(bp.Air.KTurnDamping).." to "..bp.Air.KTurn * 1.25)

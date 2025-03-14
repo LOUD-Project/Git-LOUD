@@ -1,3 +1,19 @@
+### Release
+
+LUA 7.19
+Black Ops for LOUD 7.10
+
+- changes to BRL0401 (Basilisk) regen rate 125 >> 100, bonus regen from vet levels tapered to the 'standard' regen rate (see Git for more detail)
+- minute adjustments to KTurn rates for UEF,Cybran and Sera T3 ASF's to alleviate landing differences
+- fix for SATELLITEUPLINK categories not being detected when neither BO ACU, or BrewLAN are enabled
+- proper detection of units NOT having an upgrade path
+- the ATTACKPLANNER thread was collapsing if the 'GoInterval' was not properly set
+- trapping for dead projectiles during the creation of projectile effects
+
+
+
+### Release 03-09-2025
+
 LUA 7.18
 4DC for LOUD 7.05
 Black Ops for LOUD 7.09
