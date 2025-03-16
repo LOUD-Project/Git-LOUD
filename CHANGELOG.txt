@@ -1,4 +1,11 @@
-### Release
+### Release 03-16-2025
+
+LUA 7.20
+
+- hotfix for overlooked reference to SATELLITEUPLINK
+
+
+### Release 03-14-2025
 
 LUA 7.19
 Black Ops for LOUD 7.10

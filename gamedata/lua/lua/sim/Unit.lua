@@ -1735,8 +1735,12 @@ Unit = Class(UnitMethods) {
         end
 
         -- satellites
-        if EntityCategoryContains(categories.SATELLITEUPLINK + categories.SATELLITEWITHNOPARENTALSUPERVISION, self) then
-            self:OnSatelliteCapacityChange(true)
+        if categories.SATELLITEUPLINK then
+        
+            if EntityCategoryContains(categories.SATELLITEUPLINK + categories.SATELLITEWITHNOPARENTALSUPERVISION, self) then
+                self:OnSatelliteCapacityChange(true)
+            end
+            
         end
 
         if not self:IsBeingBuilt() then
