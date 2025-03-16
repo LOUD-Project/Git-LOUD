@@ -1878,6 +1878,18 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
 
     end,
 
+    OnLostTarget = function(self)
+    
+        if self.BeamStarted then
+        
+            self.PlayFxBeamEnd(self)
+            
+        end
+        
+        DefaultProjectileWeapon.OnLostTarget(self)
+    
+    end,
+    
     CreateProjectileAtMuzzle = function(self, muzzle)
 		
         local enabled = false

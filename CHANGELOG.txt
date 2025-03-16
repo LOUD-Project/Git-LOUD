@@ -1,8 +1,9 @@
 ### Release 03-16-2025
 
-LUA 7.20
+LUA 7.21
 
 - hotfix for overlooked reference to SATELLITEUPLINK
+- captured OnLostTarget events for beam weapons to process StopBeamFx()
 
 
 ### Release 03-14-2025
