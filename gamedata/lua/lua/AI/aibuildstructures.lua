@@ -228,7 +228,7 @@ function AIBuildBaseTemplate( aiBrain, builder, buildingType , closeToBuilder, r
 		
     else
 	
-		LOG("*AI DEBUG "..aiBrain.Nickname.." failed DecideWhatToBuild - "..repr(buildingType).."  template "..repr(buildingTemplate).."  platoon ".. repr(builder.BuilderName) .." - ".. builder.EntityID)
+		LOG("*AI DEBUG "..aiBrain.Nickname.." failed DecideWhatToBuild - "..repr(buildingType).." platoon ".. repr(builder.BuilderName) .." - ".. builder.EntityID)  --- "  template "..repr(buildingTemplate)..
 	end
 	
     return false
@@ -306,7 +306,7 @@ function AIBuildBaseTemplateOrdered( aiBrain, eng, buildingType, closeToBuilder,
 		
     else
 	
-		WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.EntityID.." failed DecideWhatToBuild - "..repr(buildingType).."  platoon ".. repr(eng.BuilderName)	.." template is "..repr(buildingTemplate))
+		WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.EntityID.." failed DecideWhatToBuild - "..repr(buildingType).."  platoon ".. repr(eng.BuilderName) ) ---	.." template is "..repr(buildingTemplate))
 	end
 
     return false

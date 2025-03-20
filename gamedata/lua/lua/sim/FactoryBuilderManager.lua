@@ -632,7 +632,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 			
 				if not factory.UpgradesComplete then
 				
-					if not factory.UpgradeThread then
+					if not factory.UpgradeThread and factory.LaunchUpgradeThread then
 					
                         factory:LaunchUpgradeThread( aiBrain )
 					end

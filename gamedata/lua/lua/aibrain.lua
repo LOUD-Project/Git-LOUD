@@ -1079,8 +1079,12 @@ AIBrain = Class(moho.aibrain_methods) {
 				
 				-- AI may have upgrade threads to run - delay them so they dont all happen on same tick
 				if self.BrainType != 'Human' then
+                
+                    if unit.LaunchUpgradeThread then
 				
-					unit:ForkThread( function(unit) mult = mult + 1 WaitTicks( 1 + (mult*75)) unit:LaunchUpgradeThread(self) end )
+                        unit:ForkThread( function(unit) mult = mult + 1 WaitTicks( 1 + (mult*75)) unit:LaunchUpgradeThread(self) end )
+                    
+                    end
 
 				end
 				

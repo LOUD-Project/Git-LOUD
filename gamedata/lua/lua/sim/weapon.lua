@@ -268,8 +268,6 @@ Weapon = Class(moho.weapon_methods) {
             local function AmmoThread(amount)
 	
                 if not BeenDestroyed(self.unit) then
-			
-                    WaitTicks(2)
 		
                     if nuke then
                         self.unit:GiveNukeSiloAmmo(amount)
@@ -277,6 +275,9 @@ Weapon = Class(moho.weapon_methods) {
                         self.unit:GiveTacticalSiloAmmo(amount)
                     end
                 end
+
+                WaitTicks(2)
+
             end
 			
             ForkThread( AmmoThread, LOUDFLOOR(initStore))

@@ -1064,7 +1064,9 @@ StructureUnit = Class(Unit) {
             LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..self.EntityID.." UpgradeComplete on game tick "..GetGameTick() )
 		end
         
-        self:LaunchUpgradeThread( aiBrain )
+        if self.LaunchUpgradeThread then
+            self:LaunchUpgradeThread( aiBrain )
+        end
     end
   
 }

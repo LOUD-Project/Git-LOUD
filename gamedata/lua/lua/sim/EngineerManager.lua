@@ -614,8 +614,8 @@ EngineerManager = Class(BuilderManager) {
             
             if finishedUnit.LaunchUpgradeThread then
                 finishedUnit:LaunchUpgradeThread( aiBrain )
-            else
-                LOG("*AI DEBUG finishedUnit "..repr(finishedUnit.BlueprintID).." has no LaunchUpgradeThread")
+            --else
+                --LOG("*AI DEBUG finishedUnit "..repr(finishedUnit.BlueprintID).." has no LaunchUpgradeThread")
             end
 
 			-- TMLs --
