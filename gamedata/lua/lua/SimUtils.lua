@@ -82,7 +82,7 @@ function TransferUnitsOwnership(units, ToArmyIndex)
 
         if unit.MyShield then
 		
-			shieldIsOn = unit:ShieldIsOn()
+			shieldIsOn = unit.MyShield:IsOn()
             ShieldHealth = unit.MyShield:GetHealth()
 			
 			unit:DisableShield()
