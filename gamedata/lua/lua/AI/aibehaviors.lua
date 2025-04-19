@@ -7883,12 +7883,23 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
     local StructureUpgradeDialog    = ScenarioInfo.StructureUpgradeDialog or false
     local GetFractionComplete       = moho.entity_methods.GetFractionComplete
 
+    local Game = import('/lua/game.lua')
+
 	local upgradeID = __blueprints[unit.BlueprintID].General.UpgradesTo or false
 	local upgradebp = false
 
 	if upgradeID then
 		upgradebp = __blueprints[upgradeID] or false	-- this accounts for upgradeIDs that point to non-existent units (like mod not loaded)
 	end
+    
+    if upgradebp and Game.UnitRestricted( false, upgradeID ) then
+    
+        LOG("*AI DEBUG Upgrade retricted "..repr(upgradeID) )
+    
+        unit.UpgradeThread = nil
+        unit.UpgradeComplete = true
+        return
+    end
 	
 	-- if not upgradeID and blueprint available then kill the thread and exit
 	if not (upgradeID and upgradebp) or (not aiBrain.MinorCheatModifier) then
