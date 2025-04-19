@@ -1176,6 +1176,8 @@ function DisperseUnitsToRallyPoints( aiBrain, units, position, rallypointtable, 
 		local rallycount = LOUDGETN(rallypointtable)
         
         local rp
+        
+        local unitcount = 0
 
         -- if provided use only that number of points
         -- since the table should be sorted, we end up moving only to those
@@ -1187,11 +1189,34 @@ function DisperseUnitsToRallyPoints( aiBrain, units, position, rallypointtable, 
         end
 		
 		for _,u in units do
+        
+            if not u.Dead then
+        
+                -- healthy units will be sent to closest threat rally points
+                -- damaged units will be sent to the rally point furthest 
+                -- from the checkposition (usually safest)
+                if u:GetHealthPercent() > .5 then
 		
-			rp = rallypointtable[ Random( 1, rallycount) ]
+                    rp = rallypointtable[ Random( 1, rallycount) ]
+                
+                else
             
-            IssueStop( {u} )
-			IssueMove( {u}, RandomLocation( rp[1], rp[3], 9 ) )
+                    rp = rallypointtable[ Random( rallycount, checkcount) ]
+                
+                end
+            
+                IssueStop( {u} )
+                IssueMove( {u}, RandomLocation( rp[1], rp[3], 9 ) )
+            
+                unitcount = unitcount + 1
+
+                -- throttling of commands
+                if unitcount > 15 then
+                    unitcount = 0
+                    
+                    WaitTicks(2)
+                end
+            end
 		end
         
 	else
