@@ -9,6 +9,8 @@ local WaitTicks = coroutine.yield
 -- TODO: make sure each new instance is using a previous metatable
 function RemoteViewing(SuperClass)
 
+    local RemoteViewingDebug = true
+
     return Class(SuperClass) {
 	
         OnCreate = function(self)
@@ -81,7 +83,9 @@ function RemoteViewing(SuperClass)
 
         TargetLocationThread = function(self)
         
-            --LOG("*AI DEBUG Target Location Thread")
+            if RemoteViewingDebug then
+                LOG("*AI DEBUG Target Location Thread")
+            end
 
             self:RequestRefreshUI()
 
@@ -95,9 +99,11 @@ function RemoteViewing(SuperClass)
         CreateVisibleEntity = function(self)
 		
 			local VisibilityEntityWillBeCreated = (self.RemoteViewingData.VisibleLocation and self.RemoteViewingData.DisableCounter == 0)
-        
-            --LOG("*AI DEBUG CreateVisibleEntity "..repr(VisibilityEntityWillBeCreated) )
-			
+
+            if RemoteViewingDebug then        
+                LOG("*AI DEBUG CreateVisibleEntity "..repr(VisibilityEntityWillBeCreated) )
+			end
+            
             -- Only give a visible area if we have a location and intel button enabled
             if not self.RemoteViewingData.VisibleLocation then
                 return
@@ -225,8 +231,10 @@ function RemoteViewing(SuperClass)
         end,
 
         DisableVisibleEntity = function(self)
-        
-            --LOG("*AI DEBUG DisableVisibleEntity")
+
+            if RemoteViewingDebug then        
+                LOG("*AI DEBUG DisableVisibleEntity")
+            end
             
             -- if visible entity already off
             if self.RemoteViewingData.DisableCounter > 1 then
@@ -249,10 +257,12 @@ function RemoteViewing(SuperClass)
                 KillThread(self.ViewingRadiusThread)
             end
         end,
-
+--[[
         OnIntelEnabled = function(self,intel)
-            
-            --LOG("*AI DEBUG OnIntelEnabled")
+
+            if RemoteViewingDebug then            
+                LOG("*AI DEBUG OnIntelEnabled")
+            end
 
             -- Make sure the button is only calculated once rather than once per possible intel type
             self.RemoteViewingData.DisableCounter = self.RemoteViewingData.DisableCounter - 1
@@ -263,8 +273,10 @@ function RemoteViewing(SuperClass)
         end,
 
         OnIntelDisabled = function(self,intel)
-        
-            --LOG("*AI DEBUG OnIntelDisabled")
+
+            if RemoteViewingDebug then        
+                LOG("*AI DEBUG OnIntelDisabled")
+            end
 
             -- make sure button is only calculated once rather than once per possible intel type
             self.RemoteViewingData.DisableCounter = self.RemoteViewingData.DisableCounter + 1
@@ -291,7 +303,7 @@ function RemoteViewing(SuperClass)
 
             end
         end,
-
+--]]
         -- this function recharges the emitter responsible for creating the viewing entity
         -- the first thing it does is remove the targeting button
         -- by turning this into an EconomyEvent, we no longer need to monitor resources
@@ -309,7 +321,9 @@ function RemoteViewing(SuperClass)
 
             local Cost = CreateEconomyEvent(self, chargeEcost, 0, chargetime, self.SetWorkProgress)
 
-            --LOG("*AI DEBUG RechargeEmitter for " .. chargetime * 10 )
+            if RemoteViewingDebug then
+                LOG("*AI DEBUG RechargeEmitter for " .. chargetime * 10 )
+            end
             
             WaitFor(Cost)
 
@@ -326,8 +340,9 @@ function RemoteViewing(SuperClass)
 
             self.RemoteViewingData.DisableCounter = 0
 
-            --LOG("*AI DEBUG RechargeEmitter complete "..repr(self.Sync.Abilities) )
-
+            if RemoteViewingDebug then
+                LOG("*AI DEBUG RechargeEmitter complete "..repr(self.Sync.Abilities) )
+            end
         end,
 
         -- an auto disable feature. removes the view after a set period
