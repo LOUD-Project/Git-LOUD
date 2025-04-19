@@ -165,9 +165,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 		
         Priority = 750,
 		
-		PriorityFunction = function(self, aiBrain, unit, manager)
+		PriorityFunction = function(builder, aiBrain, unit, manager)
 		
-			if self.Priority != 0 then
+			if builder.Priority != 0 then
 
 				-- remove after 25 minutes
 				if aiBrain.CycleTime > 1500 then
@@ -187,12 +187,23 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
                 end
  
                 if aiBrain.LandRatio < 1 and aiBrain.CycleTime > 360 then
-                    return (self.OldPriority or self.Priority) + 50, true
+                    return (builder.OldPriority or builder.Priority) + 50, true
                 end
-				
+    
+                local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
+
+                if threat > 125 then
+
+                    return (builder.OldPriority or builder.Priority) + 100, true
+        
+                elseif threat < 25 then
+            
+                    return (builder.OldPriority or builder.Priority) - 50, true
+                
+                end				
 			end
 			
-			return (self.OldPriority or self.Priority)
+			return (builder.OldPriority or builder.Priority)
 			
 		end,
 		
@@ -337,6 +348,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
                 return (builder.OldPriority or builder.Priority) + 100, true
         
+            elseif threat < 25 then
+            
+                return (builder.OldPriority or builder.Priority) - 50, true
+                
             end
     
             return (builder.OldPriority or builder.Priority), true
@@ -454,6 +469,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
                 return (builder.OldPriority or builder.Priority) + 100, true
         
+            elseif threat < 25 then
+            
+                return (builder.OldPriority or builder.Priority) - 50, true
+                
             end
         
             return (builder.OldPriority or builder.Priority), true
@@ -703,6 +722,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
                 return (builder.OldPriority or builder.Priority) + 100, true
         
+            elseif threat < 30 then
+            
+                return (builder.OldPriority or builder.Priority) - 50, true
+                
             end
     
             return (builder.OldPriority or builder.Priority), true
@@ -840,6 +863,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.02 }}, 
+
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
         },
 		
         BuilderType = {'T2','T3','SubCommander' },
@@ -1101,6 +1126,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 100, 1.012, 1.02 }},
+
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 75, 'AntiSurface' }},
+
         },
 		
         BuilderType = {'SubCommander'},
