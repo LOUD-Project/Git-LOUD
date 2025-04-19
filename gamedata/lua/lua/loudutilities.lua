@@ -4607,6 +4607,10 @@ function ParseIntelThread( aiBrain )
 	
     -- this rate is important since it must be able to keep up with the shift in fast moving air units -- this is the primary performance value -
 	local parseinterval = 58    -- the rate of a single iteration in ticks - every 5.7 seconds (relative to the IMAP update cycle which is 3 seconds)
+    
+    if ScenarioInfo.Options.FogOfWar == 'none' then
+        parseinterval = parseinterval + 30      -- when FOW is turned off, we'll add 50% to the amount of time a cycle will take (8.7 seconds)
+    end
 
 	-- this moves all the local creation up front so NO locals need to be declared in the primary loop
 	local bp, counter, dupe, gametime, newthreat, newtime, oldthreat, threatamounttrigger, threatcategories, threatreport, threats, totalThreat, totalThreatAir, totalThreatSurface
