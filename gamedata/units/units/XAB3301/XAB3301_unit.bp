@@ -79,8 +79,6 @@ UnitBlueprint {
         BuildCostEnergy = 51000,
         BuildCostMass = 3000,
         BuildTime = 3900,
-        
-
 
         RebuildBonusIds = {'xab3301'},
     },
@@ -105,15 +103,15 @@ UnitBlueprint {
     },
     
     Intel = {
-		--Cooldown = 1,					---- time before scry button reappears once scrying begins (in this case they come back on just before the scrying is finished)
-		Viewtime = 28,					---- time that scrying area remains visible	(the scrying buttons disappear once the viewtime begins)
-        ReactivateTime = 10,			---- time between the end of a scry and the start of a new one (a chance to pick a new target before the old one restarts)
 
-        RemoteViewingEnergyDrain = 10000,
-        RemoteViewingRadius = 28,		---- this would normally be the start size of the remote viewing radius
-		RemoteViewingRadiusFinal = 60,	---- and the final radius of the scry (controls the grow/shrink rate) 
+		Viewtime                = 28,   -- time that scrying area remains visible	(the scry button disappears once the viewtime begins)
+        ReactivateTime          = 10,   -- the length of the recharge period (and how long before the scry button reappears)
 
-        VisionRadius = 12,				---- this is just the vision range of the tower itself, not much
+        RemoteViewingEnergyDrain    = 10000,    -- the per-use cost of this feature (rate is this divided by the Reactivate time)
+        RemoteViewingRadius         = 12,		-- the start size of the remote viewing radius
+		RemoteViewingRadiusFinal    = 44,	    -- the final radius of the scry (controls the grow/shrink rate) 
+
+        VisionRadius = 12,  -- this is just the vision range of the tower itself, not much
     },
     
     LifeBarHeight = 0.075,
