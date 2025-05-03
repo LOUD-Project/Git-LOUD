@@ -1,7 +1,7 @@
 UnitBlueprint {
 
     Abilities = {
-        TargetLocation = { bitmapId = 'skry-target', helpText = 'scry_spy_target', preferredSlot = 11 },
+        TargetLocation = { bitmapId = 'skry-target', helpText = 'scry_spy_target', preferredSlot = 12 },
     },
 	
     Audio = {
@@ -93,10 +93,6 @@ UnitBlueprint {
         BuildCostMass = 3000,
         BuildTime = 3900,
 		
-        InitialRemoteViewingEnergyDrain = 5000,
-		
-        MaintenanceConsumptionPerSecondEnergy = 3600,
-		
         RebuildBonusIds = {'ssb3301'},
     },
 	
@@ -111,24 +107,18 @@ UnitBlueprint {
 
         Icon = 'land',
 
-        OrderOverrides = {
-            RULEUTC_IntelToggle = { bitmapId = 'skry-toggle', helpText = 'toggle_scrying', preferredSlot = 9 },
-        },
-
         SelectionPriority = 5,
-
-        ToggleCaps = { RULEUTC_IntelToggle = true },
 
         UnitName = '<LOC ssb3301_name>Aezselen',
     },
 	
     Intel = {
 
-        Cooldown = 24,
-        ReactivateTime = 24,
+        Viewtime = 60,
+        ReactivateTime = 18,
 
-        RemoteViewingRadius = 28,
-        RemoteViewingLifetime = 80,
+        RemoteViewingEnergyDrain = 36000,   -- cost of firing the ability
+        RemoteViewingRadius = 20,
 
         VisionRadius = 12,
     },
