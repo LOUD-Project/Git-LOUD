@@ -58,8 +58,7 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            '<LOC ability_amphibious>Amphibious',
-            "<LOC ability_tacticalmissledeflect>Tactical Missile Deflection",
+             "<LOC ability_tacticalmissledeflect>Tactical Missile Deflection",
         },
 
         AnimationDeath = {
