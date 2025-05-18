@@ -1044,7 +1044,7 @@ Tooltips = {
 
     Lobby_Prebuilt_Units = {
         title = "Prebuilt Units",
-        description = "Each army will start with a basic prebuilt units",
+        description = "Each army will start with prebuilt units",
         image = ""
     },
     lob_PrebuiltUnits_Off = {
@@ -1052,10 +1052,15 @@ Tooltips = {
         description = "No prebuilt units",
     },
     lob_PrebuiltUnits_On = {
-        title = "On",
-        description = "Prebuilt units are on",
+        title = "Normal",
+        description = "Prebuilt Structures (Mass & Energy)",
     },
-
+--[[    
+    lob_PrebuiltUnits_Advanced = {
+        title = "Advanced",
+        description = "Prebuilt Structures & engineers",
+    },
+--]]
     -- **********************
     -- *** Lobby Options: Spawn
     -- **********************

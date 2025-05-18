@@ -129,10 +129,17 @@ globalOpts = {
                 key = 'Off',
             },
             {
-                text = "<LOC lobui_0314>On",
-                help = "<LOC lobui_0315>Prebuilt units set",
+                text = "<LOC lobui_0314>Normal",
+                help = "<LOC lobui_0315>Prebuilt structures (Mass and Energy)",
                 key = 'On',
             },
+--[[
+            {
+                text = "Advanced",
+                help = "<LOC lobui_0305>Prebuilt structures & extra engineers",
+                key = 'Advanced',
+            }
+--]]
         },
     },
 

@@ -2114,14 +2114,20 @@ lobui_0296="Civilians are neutral to players"
 lobui_0297="None"
 lobui_0298="No Civilians on the battlefield"
 lobui_0299="%s doesn't have an established connection to %s"
+
+
+
 lobui_0308="Launch sequence has been aborted by %s."
 lobui_0309="Host has cancelled the launch sequence."
+
 lobui_0310="Prebuilt Units"
 lobui_0311="Set whether the game starts with prebuilt units or not"
 lobui_0312="Off"
 lobui_0313="No prebuilt units"
-lobui_0314="On"
-lobui_0315="Prebuilt units set"
+lobui_0314="Prebuilt Structures only"
+lobui_0315="Prebuilt Structures (Mass & Energy)"
+lobui_0305="Prebuilt Structures & extra engineers."
+
 lobui_0316="No Rush Option"
 lobui_0317="Enforce No Rush rules for a certain period of time"
 lobui_0318="Off"
