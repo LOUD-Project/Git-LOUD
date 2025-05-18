@@ -95,25 +95,8 @@ function RemoteViewing(SuperClass)
             self:CreateVisibleEntity()
 
         end,
-
-        CreateVisibleEntity = function(self)
-		
-			local VisibilityEntityWillBeCreated = (self.RemoteViewingData.VisibleLocation and self.RemoteViewingData.DisableCounter == 0)
-
-            if RemoteViewingDebug then        
-                LOG("*AI DEBUG CreateVisibleEntity "..repr(VisibilityEntityWillBeCreated) )
-			end
-            
-            -- Only give a visible area if we have a location and intel button enabled
-            if not self.RemoteViewingData.VisibleLocation then
-                return
-            end
-			
-			-- here is where we would drop in a function to defeat remote viewing (ie - antiteleport)
-			-- essentially costing the user the energy but remote entity fails to materialize
-			-- this code taken from Black Ops
-			
-			--LOG("*AI DEBUG Checking for AntiRemoteViewing")
+        
+        AntiTeleportBlock = function( self, aiBrain, location )
 
 			for num, brain in ArmyBrains do
 		
@@ -121,6 +104,7 @@ function RemoteViewing(SuperClass)
 				local location = self.RemoteViewingData.VisibleLocation
 			
 				for i, unit in unitList do
+
 					--	if it's an ally, then we skip.
 					if not IsEnemy(self.Army, unit.Army) then 
 						continue
@@ -139,8 +123,6 @@ function RemoteViewing(SuperClass)
                         self.RemoteViewingData.PendingVisibleLocation = false
 						self.RemoteViewingData.VisibleLocation = false
 
-                        VisibilityEntityWillBeCreated = false
-						
 						-- play audio warning
 						if GetFocusArmy() == self.Army then
 
@@ -150,15 +132,42 @@ function RemoteViewing(SuperClass)
 							ForkThread(Brain.PlayVOSound, Brain, Voice, 'RemoteViewingFailed')
 						end						
 						
-						return
+						return true
 					end
 				end
 
-			end			
+			end	
+
+            return false
+            
+        end,
+        
+
+        CreateVisibleEntity = function(self)
+		
+			local VisibilityEntityWillBeCreated = (self.RemoteViewingData.VisibleLocation and self.RemoteViewingData.DisableCounter == 0)
+
+            if RemoteViewingDebug then        
+                LOG("*AI DEBUG CreateVisibleEntity "..repr(VisibilityEntityWillBeCreated) )
+			end
+            
+            -- Only give a visible area if we have a location and intel button enabled
+            if not self.RemoteViewingData.VisibleLocation then
+                return
+            end
+			
+			-- here is where we would drop in a function to defeat remote viewing (ie - antiteleport)
+			-- essentially costing the user the energy but remote entity fails to materialize
+			-- this code taken from Black Ops
+            if RemoteViewingDebug then
+                LOG("*AI DEBUG Checking for AntiRemoteViewing")
+            end
+            
+            VisibleEntityWillBeCreated = self:AntiTeleportBlock( self:GetAIBrain(), self.RemoteViewingData.VisibleLocation )
             
             if VisibilityEntityWillBeCreated then
 
-                -- Create new visible area
+                -- Create new visible entity
                 if not self.RemoteViewingData.Satellite then
 
                     local spec = {
@@ -174,9 +183,13 @@ function RemoteViewing(SuperClass)
                         Army = self:GetAIBrain():GetArmyIndex(),
                     }
                     
-                    --LOG("*AI DEBUG Creating RemoteViewing Entity")
-                    
                     self.RemoteViewingData.Satellite = VizMarker(spec)
+                    
+                    -- this functionality is for remoteviewing that attaches to a specific unit
+                    -- rather than just at a specific place
+                    if self.RemoteViewingData.TargetUnit then
+                        self.RemoteViewingData.Satellite:AttachTo(self.RemoteViewingData.TargetUnit, -1)
+                    end
 
                     self.Trash:Add(self.RemoteViewingData.Satellite)
 
@@ -185,9 +198,16 @@ function RemoteViewing(SuperClass)
                     -- Move and reactivate old visible area
                     if not self.RemoteViewingData.Satellite:BeenDestroyed() then
                     
-                        --LOG("*AI DEBUG Moving Existing RemoteViewing Entity and Enabling Vision")
-
+                        if RemoteViewingDebug then
+                            LOG("*AI DEBUG Moving Existing RemoteViewing Entity and Enabling Vision")
+                        end
+                        
                         Warp( self.RemoteViewingData.Satellite, self.RemoteViewingData.VisibleLocation )
+
+                        if self.RemoteViewingData.TargetUnit then
+                            self.RemoteViewingData.Satellite:DetachFrom()
+                            self.RemoteViewingData.Satellite:AttachTo(self.RemoteViewingData.TargetUnit, -1)
+                        end
 
                         self.RemoteViewingData.Satellite:EnableIntel('Vision')
                     end
@@ -202,19 +222,46 @@ function RemoteViewing(SuperClass)
 				
                 -- start the cooldown period before allowing target to be moved again
 				if bp.Cooldown and bp.Cooldown > 0 then
-                    self.CooldownThread = self:ForkThread(self.Cooldown, bp.Cooldown)  -- cooldown
+   
+                    if RemoteViewingDebug then
+                        LOG("*AI DEBUG Cooldown Thread "..repr(self.CooldownThread) )
+                    end
+                   
+                    if self.CooldownThread then
+                        KillThread(self.CooldownThread)
+                    end
+                    
+                    self.CooldownThread = self:ForkThread(self.Cooldown, bp.Cooldown)
                     self.Trash:Add(self.CooldownThread)
                 end
 				
-				-- start the timer that will auto-shut off the eye
+				-- start the timer that will auto-shut off the viewing entity
                 if bp.Viewtime and bp.Viewtime > 0 then
+   
+                    if RemoteViewingDebug then
+                        LOG("*AI DEBUG Viewtime Thread "..repr(self.ViewtimeThread) )
+                    end
+
+                    -- kill any existing thread
+                    if self.ViewtimeThread then
+                        KillThread(self.ViewtimeThread)
+                    end
+
                     self.ViewtimeThread = self:ForkThread(self.Viewtime, bp.Viewtime)  -- auto-remove view
                     self.Trash:Add(self.ViewtimeThread)
                 end
 				
 				-- grow the viewing radius in steps
                 if bp.RemoteViewingRadiusFinal and bp.RemoteViewingRadiusFinal > 0 and bp.RemoteViewingRadiusFinal != bp.RemoteViewingRadius then
+   
+                    if RemoteViewingDebug then
+                        LOG("*AI DEBUG ViewingRadius Thread "..repr(self.ViewingRadiusThread) )
+                    end
 				
+                    if self.ViewingRadiusThread then
+                        KillThread(self.ViewingRadiusThread)
+                    end
+                    
                     -- for a growing viewing radius
                     local initRadius = bp.RemoteViewingRadius
                     local finalRadius = bp.RemoteViewingRadiusFinal
