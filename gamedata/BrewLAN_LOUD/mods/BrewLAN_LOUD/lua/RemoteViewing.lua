@@ -99,30 +99,6 @@ function RemoteViewing(SuperClass)
             end
         end,
 
-        AntiTeleportCheck = function( self, aiBrain, location)
-
-            -- do a very primitive check for antiteleport
-            local antiteleport = aiBrain:GetUnitsAroundPoint(categories.ANTITELEPORT, location, 35, 'Enemy')
-
-            if table.getn(antiteleport) > 0 then
-
-                FloatingEntityText(self.Sync.id,'Remote Viewing Destination Scrambled')
-
-				-- play audio warning
-                if GetFocusArmy() == self.Sync.army then
-					local Voice = Sound {Bank = 'XGG', Cue = 'XGG_Computer_CV01_04765',}
-					local Brain = self:GetAIBrain()
-
-					ForkThread(Brain.PlayVOSound, Brain, Voice, 'RemoteViewingFailed')
-				end						
-                
-                return true
-            end
-        
-            return false
-        
-        end,
-        
         CreateVisibleEntity = function(self)
 
             local bp = self:GetBlueprint()
