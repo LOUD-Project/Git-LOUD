@@ -9,7 +9,7 @@ local WaitTicks = coroutine.yield
 -- TODO: make sure each new instance is using a previous metatable
 function RemoteViewing(SuperClass)
 
-    local RemoteViewingDebug = true
+    local RemoteViewingDebug = false
 
     return Class(SuperClass) {
 	

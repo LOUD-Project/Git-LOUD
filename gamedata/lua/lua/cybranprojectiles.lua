@@ -792,7 +792,7 @@ CDepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
             CreateEmitterAtEntity( self, self.Army, v )
         end
         
-        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 0.8)
         
         TrackTarget(self,false)
         StayUnderwater(self,true)

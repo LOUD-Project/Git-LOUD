@@ -178,10 +178,6 @@ DefaultProjectileWeapon = Class(Weapon) {
         local Audio         = bp.Audio
         local CacheLayer    = unit.CacheLayer
 	
-		if ScenarioInfo.ProjectileDialog then
-			LOG("*AI DEBUG Projectile CreateProjectileAtMuzzle "..repr(bp.Label).." Muzzle "..repr(muzzle).." Projectile "..repr(proj.BlueprintID) )
-		end
-		
         if not proj or BeenDestroyed(proj) then
             return false
         end
@@ -225,7 +221,11 @@ DefaultProjectileWeapon = Class(Weapon) {
 		end
 
         proj:ForkThread( MicroMonitor, self)
-
+	
+		if ScenarioInfo.ProjectileDialog then
+			LOG("*AI DEBUG Projectile CreateProjectileAtMuzzle "..repr(bp.Label).." Muzzle "..repr(muzzle).." Projectile "..repr(proj) )
+		end
+	
         return proj
     end,
 	

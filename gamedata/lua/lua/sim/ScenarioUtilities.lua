@@ -1267,10 +1267,6 @@ function InitializeSkirmishSystems(self)
 
     self:ForkThread( self.AddBuilderManagers, self:GetStartVector3f(), BuilderRadius, 'MAIN', false, RallyPointRadius, true, 'FRONT')
 
-    -- Create the Builder Managers for the MAIN base
-    --self:AddBuilderManagers(self:GetStartVector3f(), BuilderRadius, 'MAIN', false, RallyPointRadius, true, 'FRONT')
-
-
 end
 
 function CreatePlatoons( strArmy, tblNode, tblResult, platoonList, currPlatoon, treeResult, balance )

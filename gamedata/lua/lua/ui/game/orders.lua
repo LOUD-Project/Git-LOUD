@@ -1150,6 +1150,7 @@ end
 
 -- creates the buttons for the alt orders, placing them as possible
 local function CreateAltOrders(availableOrders, availableToggles, units)
+
     --LOG("*AI DEBUG Creating ALT Orders")
 
     --TODO? it would indeed be easier if the alt orders slot was in the blueprint, but for now try
@@ -1158,12 +1159,21 @@ local function CreateAltOrders(availableOrders, availableToggles, units)
     --Look for units in the selection that have special ability buttons
     --If any are found, add the ability information to the standard order table
     if units and categories.ABILITYBUTTON and EntityCategoryFilterDown(categories.ABILITYBUTTON, units) then
+
         for index, unit in units do
+
             local tempBP = UnitData[unit:GetEntityId()]
+
             if tempBP.Abilities then
+
+                --LOG("*AI DEBUG Available Orders are "..repr(availableOrders) )
+                
                 for abilityIndex, ability in tempBP.Abilities do
+
                     if ability.Active != false then
+
                         --LOG("*AI DEBUG Adding Ability order "..repr(ability).." for index "..repr(abilityIndex) )
+
                         table.insert(availableOrders, abilityIndex)
 
                         -- if the preferred slot and the script were defined in the ability (from the bp)
@@ -1175,7 +1185,9 @@ local function CreateAltOrders(availableOrders, availableToggles, units)
                         end
 
                         --LOG("*AI DEBUG Added Ability order data is "..repr(standardOrdersTable[abilityIndex]))
+
                         standardOrdersTable[abilityIndex].behavior = AbilityButtonBehavior
+                        
                     end
                 end
             end
@@ -1217,6 +1229,7 @@ local function CreateAltOrders(availableOrders, availableToggles, units)
     -- we first want a table of slots we want to fill, and what orders want to fill them
     local desiredSlot = {}
     local usedSpecials = {}
+
     if availableOrders[1] then
         --LOG("*AI DEBUG Examining Available Orders "..repr(availableOrders))
         for index, availOrder in availableOrders do

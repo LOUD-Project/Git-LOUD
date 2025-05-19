@@ -534,18 +534,20 @@ Projectile = Class( ProjectileMethods ) {
             local radius = damageData.DamageRadius or false
 			
             if radius then
-		
+
+                local pos = table.copy(GetPosition(self))		
+
                 if ScenarioInfo.ProjectileDialog then
-                    ForkThread( function() LOG("*AI DEBUG Projectile OnDamage Area at "..repr(GetPosition(self)).." for "..damage.." - damageData is "..repr(damageData) ) end )
+                    ForkThread( function() LOG("*AI DEBUG Projectile OnDamage Area at "..repr(pos).." for "..damage.." - damageData is "..repr(damageData) ) end )
                 end
 
                 if not damageData.DoTTime then
 
-                    DamageArea( instigator, GetPosition(self), radius, damage, damageData.DamageType, damageData.DamageFriendly or false, damageData.DamageSelf or false)
+                    DamageArea( instigator, pos, radius, damage, damageData.DamageType, damageData.DamageFriendly or false, damageData.DamageSelf or false)
 					
                 else
 					
-                    ForkTo( AreaDoTThread, instigator, GetPosition(self), damageData.DoTPulses or 1, (damageData.DoTTime / (damageData.DoTPulses or 1)), radius, damage, damageData.DamageType, damageData.DamageFriendly or false)
+                    ForkTo( AreaDoTThread, instigator, pos, damageData.DoTPulses or 1, (damageData.DoTTime / (damageData.DoTPulses or 1)), radius, damage, damageData.DamageType, damageData.DamageFriendly or false)
 					
                 end
 				
@@ -800,6 +802,10 @@ Projectile = Class( ProjectileMethods ) {
 			
 			end
 
+            if ProjectileDialog then
+                LOG("*AI DEBUG Projectile OnImpact ImpactEffects "..repr(ImpactEffects).." from self "..repr(self) )
+            end
+
 			if ImpactEffects then
             
                 if targetType != 'Shield' then
@@ -810,6 +816,10 @@ Projectile = Class( ProjectileMethods ) {
             
             local ImpactEffectsType = bp.Display.ImpactEffects.Type
 
+            if ProjectileDialog then
+                LOG("*AI DEBUG Projectile OnImpact ImpactEffectsType "..repr(ImpactEffectsType) )
+            end
+	
 			if ImpactEffectsType then
 
 				local TerrainType = DefaultTerrainType
@@ -819,6 +829,10 @@ Projectile = Class( ProjectileMethods ) {
 				end
 			
 				local TerrainEffect = TerrainType.FXImpact[targetType][ImpactEffectsType] or false
+                
+                if ProjectileDialog then
+                    LOG("*AI DEBUG Projectile OnImpact ImpactEffects Terrain "..repr(TerrainType).." Effect "..repr(TerrainEffect) )
+                end
 			
 				if TerrainEffect[1] then
 
