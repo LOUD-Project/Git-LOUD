@@ -886,6 +886,8 @@ Weapon = Class(moho.weapon_methods) {
             self.WeaponIsEnabled = true
             
             self:OnEnableWeapon()
+            
+            ChangeState(self, self.IdleState)
 
         end
     end,    

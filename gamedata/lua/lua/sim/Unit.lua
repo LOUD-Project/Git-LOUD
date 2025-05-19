@@ -5156,18 +5156,30 @@ Unit = Class(UnitMethods) {
 	end,
 
     OnShieldIsUp = function(self)
-	
+
+        if ScenarioInfo.ShieldDialog then
+            LOG("*AI DEBUG OnShieldIsUp")
+        end
+
         self:DoUnitCallbacks('OnShieldIsUp')
 		
     end,
 
 	OnShieldIsDown = function(self)
+
+        if ScenarioInfo.ShieldDialog then
+            LOG("*AI DEBUG OnShieldIsDown")
+        end
 	
         self:DoUnitCallbacks('OnShieldIsDown')
 		
 	end,
 
     OnShieldIsCharging = function(self)
+
+        if ScenarioInfo.ShieldDialog then
+            LOG("*AI DEBUG OnShieldIsCharging")
+        end
 	
         self:DoUnitCallbacks('OnShieldIsCharging')
 		
