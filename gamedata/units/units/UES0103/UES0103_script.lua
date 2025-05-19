@@ -13,7 +13,9 @@ UES0103 = Class(TSeaUnit) {
         DepthCharge = Class(TDepthCharge) {
         
             OnLostTarget = function(self)
-            
+                
+                self.unit:SetAccMult(1)
+                
                 self:ChangeMaxRadius(12)
                 
                 TDepthCharge.OnLostTarget(self)
@@ -24,9 +26,7 @@ UES0103 = Class(TSeaUnit) {
             
                 Main = function(self)
                 
-                    self.unit:SetAccMult(0.6)
-                
-                    self:ChangeMaxRadius(4)
+                    self:ChangeMaxRadius(6)
                 
                     TDepthCharge.RackSalvoFireReadyState.Main(self)
                     
@@ -37,9 +37,9 @@ UES0103 = Class(TSeaUnit) {
             
                 Main = function(self)
                 
-                    self.unit:SetAccMult(1.0)
+                    self.unit:SetAccMult(1.3)
                 
-                    ForkThread( function() self:ChangeMaxRadius(15) self:ChangeMinRadius(15) WaitTicks(39) self:ChangeMinRadius(0) self:ChangeMaxRadius(12) end)
+                    self:ForkThread( function() self:ChangeMaxRadius(15) self:ChangeMinRadius(15) WaitTicks(44) self:ChangeMinRadius(0) self:ChangeMaxRadius(12) end)
                     
                     TDepthCharge.RackSalvoReloadState.Main(self)
 

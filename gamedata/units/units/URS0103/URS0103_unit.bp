@@ -170,15 +170,17 @@ UnitBlueprint {
         },
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
+
         MaxAcceleration = 2.3,
-        MaxBrake = 2.3,
+        MaxBrake = 2,
         MaxSpeed = 4.2,
-        MaxSpeedReverse = 4,
+        MaxSpeedReverse = 4.2,
+
         MaxSteerForce = 5,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
         TurnRadius = 12,
-        TurnRate = 60,
+        TurnRate = 66,
     },
 	
     SelectionSizeX = 0.5,
@@ -375,12 +377,12 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.3, 
             MuzzleSalvoSize = 2, 
  
-            MuzzleVelocity = 6,
+            MuzzleVelocity = 5,
 
             NotExclusive = true, 
 
             ProjectileId = '/projectiles/AANDepthCharge01/AANDepthCharge01_proj.bp', 
-			ProjectileLifetime = 6, 
+			ProjectileLifetime = 5.5, 
 
             RackBones = { 
                 { 
@@ -403,7 +405,7 @@ UnitBlueprint {
             }, 
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
 			
-            TrackingRadius = 1.5,
+            TrackingRadius = 2,
         },                
     },
 }

@@ -98,7 +98,7 @@ UnitBlueprint {
             Water = { Effects = { { Bones = {'XSS0103'}, Scale = 0.6, Type = 'BackWake' } } },
         },
 
-        UniformScale = 0.035,
+        UniformScale = 0.032,
     },
 	
     Economy = {
@@ -147,27 +147,32 @@ UnitBlueprint {
         },
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
+
         MaxAcceleration = 2.2,
         MaxBrake = 2,
         MaxSpeed = 4,
         MaxSpeedReverse = 4,
+
         MaxSteerForce = 5,
+
         MeshExtentsX = 0.5,
         MeshExtentsY = 0.6,
         MeshExtentsZ = 3,
+
         MinSpeedPercent = 0,
+
         MotionType = 'RULEUMT_Water',
-        TurnRadius = 15,
-        TurnRate = 50,
+        TurnRadius = 12,
+        TurnRate = 66,
     },
 	
     SelectionSizeX = 0.5,
     SelectionSizeZ = 2.15,
     SelectionThickness = 0.24,
 	
-    SizeX = 0.42,
-    SizeY = 0.81,
-    SizeZ = 2.8,
+    SizeX = 0.4,
+    SizeY = 0.78,
+    SizeZ = 2.7,
 	
     StrategicIconName = 'icon_ship1_intel',
     StrategicIconSortPriority = 165,
@@ -362,12 +367,12 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.3, 
             MuzzleSalvoSize = 2, 
  
-            MuzzleVelocity = 6,
+            MuzzleVelocity = 5,
 
             NotExclusive = true, 
 
             ProjectileId = '/projectiles/AANDepthCharge01/AANDepthCharge01_proj.bp', 
-			ProjectileLifetime = 6, 
+			ProjectileLifetime = 5.5, 
 
             RackBones = { 
                 { 
@@ -390,7 +395,7 @@ UnitBlueprint {
             }, 
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
 			
-            TrackingRadius = 1.5,
+            TrackingRadius = 2,
         },           
     },
 }

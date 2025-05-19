@@ -18,7 +18,9 @@ URS0103 = Class(CSeaUnit) {
         DepthCharge     = Class(CDepthCharge) {
         
             OnLostTarget = function(self)
-            
+                
+                self.unit:SetAccMult(1)
+                
                 self:ChangeMaxRadius(12)
                 
                 CDepthCharge.OnLostTarget(self)
@@ -29,9 +31,7 @@ URS0103 = Class(CSeaUnit) {
             
                 Main = function(self)
                 
-                    self.unit:SetAccMult(0.6)
-                
-                    self:ChangeMaxRadius(8)
+                    self:ChangeMaxRadius(6)
                 
                     CDepthCharge.RackSalvoFireReadyState.Main(self)
                     
@@ -42,9 +42,9 @@ URS0103 = Class(CSeaUnit) {
             
                 Main = function(self)
                 
-                    self.unit:SetAccMult(1.0)
+                    self.unit:SetAccMult(1.3)
                 
-                    ForkThread( function() self:ChangeMaxRadius(18) self:ChangeMinRadius(18) WaitTicks(41) self:ChangeMinRadius(0) self:ChangeMaxRadius(12) end)
+                    self:ForkThread( function() self:ChangeMaxRadius(15) self:ChangeMinRadius(15) WaitTicks(44) self:ChangeMinRadius(0) self:ChangeMaxRadius(12) end)
                     
                     CDepthCharge.RackSalvoReloadState.Main(self)
 

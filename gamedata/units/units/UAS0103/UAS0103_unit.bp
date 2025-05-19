@@ -155,18 +155,23 @@ UnitBlueprint {
         },
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
-        MaxAcceleration = 2.2,
+
+        MaxAcceleration = 2.4,
         MaxBrake = 2,
         MaxSpeed = 4,
         MaxSpeedReverse = 4,
+
         MaxSteerForce = 5,
+
         MeshExtentsX = 0.6,
         MeshExtentsY = 0.8,
         MeshExtentsZ = 2.7,
+
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
-        TurnRadius = 15,
-        TurnRate = 50,
+
+        TurnRadius = 12,
+        TurnRate = 66,
     },
 	
     SelectionSizeX = 0.5,
@@ -370,7 +375,7 @@ UnitBlueprint {
             MinRadius = 6,
 
             MuzzleSalvoDelay = 0.6,
-            MuzzleVelocity = 7.2,
+            MuzzleVelocity = 6.5,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
             ProjectileLifetime = 3,
@@ -417,14 +422,14 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringRandomness = 18,
-            FiringTolerance = 5,
+            FiringRandomness = 7,
+            FiringTolerance = 18,
 			
             Label = 'DepthCharge',
 			
             MaxRadius = 12,
 
-            MuzzleSalvoDelay = 0.8,
+            MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 2,
 
             MuzzleVelocity = 5,
@@ -441,7 +446,7 @@ UnitBlueprint {
                 },
             },
 
-            RackSalvoReloadTime = 4.2,
+            RackSalvoReloadTime = 4.8,
 
             RangeCategory = 'UWRC_AntiNavy',
 
@@ -455,7 +460,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
 			
-            TrackingRadius = 1.5,
+            TrackingRadius = 2,
 
         },        
     },

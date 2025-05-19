@@ -144,18 +144,23 @@ UnitBlueprint {
         },
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
+
         MaxAcceleration = 2.2,
         MaxBrake = 2,
         MaxSpeed = 4,
         MaxSpeedReverse = 4,
+
         MaxSteerForce = 5,
+
         MeshExtentsX = 0.45,
         MeshExtentsY = 0.78,
         MeshExtentsZ = 2.7,
+
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
-        TurnRadius = 15,
-        TurnRate = 50,
+
+        TurnRadius = 12,
+        TurnRate = 66,
     },
 	
     SelectionSizeX = 0.5,
@@ -399,7 +404,7 @@ UnitBlueprint {
             }, 
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
 			
-            TrackingRadius = 1.5,
+            TrackingRadius = 2,
 
         },        
     },
