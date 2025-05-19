@@ -1880,6 +1880,8 @@ UnitBlueprint {
                 },
             },
 
+            RangeCategory = 'UWRC_IndirectFire',
+
             RateOfFire = 3,	    -- 120 DPS -- 3 * 10 pulses of 4 dmg
 
             TargetCheckInterval = 0.5,
@@ -1957,6 +1959,8 @@ UnitBlueprint {
                     RackBone = 'Left_Arm_Barrel',
                 },
             },
+
+            RangeCategory = 'UWRC_IndirectFire',
 
             RateOfFire = 3,		-- 180 DPS
 			
