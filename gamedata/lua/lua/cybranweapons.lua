@@ -350,7 +350,7 @@ CAMZapperWeapon                     = Class(DefaultBeamWeapon) { BeamType = Coll
         
         Sphere:AttachBoneTo( -1, unit, Muzzle )
         Sphere:SetMesh( self.SphereEffectIdleMesh )
-        Sphere:SetDrawScale( 0.6 )
+        Sphere:SetDrawScale( 0.55 )
         
         Sphere:SetVizToAllies('Intel')
         Sphere:SetVizToNeutrals('Intel')
