@@ -40,7 +40,9 @@ UnitBlueprint {
         MaxHealth = 1900,
         RegenRate = 3,
 
+        SubThreatLevel = 3,
         SurfaceThreatLevel = 9,
+        
     },
 	
     Description = '<LOC xss0103_desc>Frigate',
@@ -50,6 +52,7 @@ UnitBlueprint {
             '<LOC ability_aa>Anti-Air',
             '<LOC ability_sonar>Sonar',
             '<LOC ability_radar>Radar',
+            "<LOC ability_depthcharge>Depth Charge",
         },
 		
         AnimationDeath = {
@@ -142,10 +145,10 @@ UnitBlueprint {
         BuildOnLayerCaps = {
             LAYER_Water = true,
         },
-        CatchUpAcc = 8,
+        CatchUpAcc = 10,
         DragCoefficient = 0.2,
-        MaxAcceleration = 2,
-        MaxBrake = 4,
+        MaxAcceleration = 2.2,
+        MaxBrake = 2,
         MaxSpeed = 4,
         MaxSpeedReverse = 4,
         MaxSteerForce = 5,
@@ -189,6 +192,8 @@ UnitBlueprint {
             },
 			
             BallisticArc = 'RULEUBA_LowArc',
+
+            CannotAttackGround = true,
             CollideFriendly = false,
 			
             Damage = 30,
@@ -325,5 +330,67 @@ UnitBlueprint {
 			
             Turreted = true,
         },
+ 
+        { 
+            AutoInitiateAttackCommand = true, 
+
+            Audio = { 
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0204_Depth_Charge', LodCutoff = 'Weapon_LodCutoff' }, 
+            }, 
+ 
+            BelowWaterTargetsOnly = true, 
+
+            CollideFriendly = false, 
+
+            Damage = 75, 
+            DamageRadius = 2.5, 
+            DamageType = 'Normal', 
+
+            DisplayName = 'Harmonic Depth Charge', 
+
+            FireTargetLayerCapsTable = { 
+                Water = 'Seabed|Sub|Water', 
+            }, 
+
+            FiringRandomness = 7, 
+            FiringTolerance = 18, 
+
+            Label = 'DepthCharge', 
+
+            MaxRadius = 12, 
+ 
+            MuzzleSalvoDelay = 0.3, 
+            MuzzleSalvoSize = 2, 
+ 
+            MuzzleVelocity = 6,
+
+            NotExclusive = true, 
+
+            ProjectileId = '/projectiles/AANDepthCharge01/AANDepthCharge01_proj.bp', 
+			ProjectileLifetime = 6, 
+
+            RackBones = { 
+                { 
+                    MuzzleBones = {'XSS0103'}, 
+                    RackBone = 'XSS0103', 
+                }, 
+            }, 
+ 
+            RackSalvoReloadTime = 5.2, 
+ 
+            RangeCategory = 'UWRC_AntiNavy', 
+ 
+            RateOfFire = 0.5,       -- about 26dps SUB, controlled by Rack Salvo reload and muzzle salvo delay 
+ 
+            TargetCheckInterval = 2, 
+             
+            TargetPriorities = { 
+                'SUBMARINE', 
+                'SUBMERSIBLE', 
+            }, 
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+			
+            TrackingRadius = 1.5,
+        },           
     },
 }
