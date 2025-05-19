@@ -61,7 +61,7 @@ UnitBlueprint {
         AnimationOpen = '/mods/BlackOpsUnleashed/units/BAL0310/BAL0310_Aopen.sca',
 		
         Mesh = {
-            IconFadeInZoom = 140,
+            IconFadeInZoom = 130,
             LODs = {
                 { LODCutoff = 215, Scrolling = true, ShaderName = 'Aeon' },
             },
