@@ -68,7 +68,7 @@ UnitBlueprint {
         AnimationWalk = '/mods/TotalMayhem/units/BROT2ASB/BROT2ASB_Walk.sca',
         AnimationWalkRate = 4,
         
-        Mesh = { IconFadeInZoom = 170, LODs = { {LODCutoff = 400,ShaderName = 'Aeon'} } },
+        Mesh = { IconFadeInZoom = 130, LODs = { {LODCutoff = 400,ShaderName = 'Aeon'} } },
         
         MovementEffects = {
             Land = {

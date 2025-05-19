@@ -53,7 +53,7 @@ UnitBlueprint {
 	
     Display = {
         Mesh = {
-            IconFadeInZoom = 160,
+            IconFadeInZoom = 130,
             LODs = {
                 {LODCutoff = 250,Scrolling = true,ShaderName = 'Insect'},
             },

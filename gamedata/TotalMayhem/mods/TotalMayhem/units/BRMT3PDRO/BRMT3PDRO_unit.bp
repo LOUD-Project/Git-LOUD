@@ -51,10 +51,8 @@ UnitBlueprint {
 			'Stuns Units briefly',
         },
         Mesh = {
-            IconFadeInZoom = 160,
-            LODs = {
-                {LODCutoff = 220,ShaderName = 'Unit'},
-            },
+            IconFadeInZoom = 130,
+            LODs = {{LODCutoff = 220,ShaderName = 'Unit'}},
         },
 
         UniformScale = 0.4,

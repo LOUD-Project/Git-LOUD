@@ -47,7 +47,7 @@ UnitBlueprint {
 			'Rocket Barrage',
         },
         
-        Mesh = { IconFadeInZoom = 150, LODs = { {LODCutoff = 200,Scrolling = true,ShaderName = 'Unit'} } },
+        Mesh = { IconFadeInZoom = 130, LODs = { {LODCutoff = 200,Scrolling = true,ShaderName = 'Unit'} } },
 
         UniformScale = 0.053,
     },

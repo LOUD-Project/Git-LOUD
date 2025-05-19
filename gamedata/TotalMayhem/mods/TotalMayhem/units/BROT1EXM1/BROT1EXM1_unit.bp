@@ -57,7 +57,7 @@ UnitBlueprint {
         AnimationWalk = '/mods/TotalMayhem/units/BROT1EXM1/BROT1EXM1_Walk.sca',
         AnimationWalkRate = 6,
 
-        Mesh = { IconFadeInZoom = 170, LODs = { {LODCutoff = 210,ShaderName = 'Aeon'} } },
+        Mesh = { IconFadeInZoom = 130, LODs = { {LODCutoff = 210,ShaderName = 'Aeon'} } },
 
         UniformScale = 0.24,
     },

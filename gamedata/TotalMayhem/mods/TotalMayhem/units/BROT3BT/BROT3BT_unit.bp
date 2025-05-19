@@ -71,7 +71,7 @@ UnitBlueprint {
             'Personal Shield',
         },
 
-        Mesh = { IconFadeInZoom = 170, LODs = { {LODCutoff = 250,Scrolling = true,ShaderName = 'Aeon' } } },
+        Mesh = { IconFadeInZoom = 130, LODs = { {LODCutoff = 250,Scrolling = true,ShaderName = 'Aeon' } } },
 
         UniformScale = 0.105,
     },

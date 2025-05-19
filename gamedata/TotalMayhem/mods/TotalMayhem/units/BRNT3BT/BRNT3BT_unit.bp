@@ -54,7 +54,7 @@ UnitBlueprint {
 			'Rocket Pods with Stun',
 		},
         
-        Mesh = { IconFadeInZoom = 160, LODs = { {LODCutoff = 250,Scrolling = true,ShaderName = 'Unit'} } },
+        Mesh = { IconFadeInZoom = 130, LODs = { {LODCutoff = 250,Scrolling = true,ShaderName = 'Unit'} } },
 
         UniformScale = 0.05,
     },

@@ -60,7 +60,7 @@ UnitBlueprint {
         AnimationWalkRate = 8,
 		
         Mesh = {
-            IconFadeInZoom = 170,
+            IconFadeInZoom = 130,
             LODs = {
                 {LODCutoff = 400,ShaderName = 'Insect'},
             },

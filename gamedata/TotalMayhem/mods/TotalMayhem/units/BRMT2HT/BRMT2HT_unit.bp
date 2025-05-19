@@ -50,7 +50,7 @@ UnitBlueprint {
 	
     Display = {
 
-        Mesh = { IconFadeInZoom = 140, LODs = { {LODCutoff = 180,Scrolling = true,ShaderName = 'Insect'} } },
+        Mesh = { IconFadeInZoom = 130, LODs = { {LODCutoff = 180,Scrolling = true,ShaderName = 'Insect'} } },
 
         UniformScale = 0.11,
     },

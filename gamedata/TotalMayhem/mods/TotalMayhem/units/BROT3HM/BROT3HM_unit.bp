@@ -65,7 +65,7 @@ UnitBlueprint {
         AnimationWalk = '/mods/TotalMayhem/units/BROT3HM/BROT3HM_Walk.sca',
         AnimationWalkRate = 4,
 
-        Mesh = { IconFadeInZoom = 160, LODs = { {LODCutoff = 250,ShaderName = 'Aeon'} } },
+        Mesh = { IconFadeInZoom = 130, LODs = { {LODCutoff = 250,ShaderName = 'Aeon'} } },
 --[[        
         MovementEffects = {
             Land = {

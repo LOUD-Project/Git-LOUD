@@ -60,7 +60,7 @@ UnitBlueprint {
             '<LOC ability_personalstealth>Personal Stealth',
         },
         
-        Mesh = { IconFadeInZoom = 160, LODs = { {LODCutoff = 250,Scrolling = true,ShaderName = 'Insect'} } },
+        Mesh = { IconFadeInZoom = 130, LODs = { {LODCutoff = 250,Scrolling = true,ShaderName = 'Insect'} } },
 
         UniformScale = 0.04,
     },

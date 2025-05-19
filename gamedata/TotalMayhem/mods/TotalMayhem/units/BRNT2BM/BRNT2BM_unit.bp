@@ -69,7 +69,7 @@ UnitBlueprint {
         AnimationWalk = '/mods/TotalMayhem/units/BRNT2BM/BRNT2BM_Walk.sca',
         AnimationWalkRate = 3.2,
         
-        Mesh = { IconFadeInZoom = 170, LODs = { {LODCutoff = 400,ShaderName = 'Unit'} } },
+        Mesh = { IconFadeInZoom = 130, LODs = { {LODCutoff = 400,ShaderName = 'Unit'} } },
 
         UniformScale = 0.03,
     },
