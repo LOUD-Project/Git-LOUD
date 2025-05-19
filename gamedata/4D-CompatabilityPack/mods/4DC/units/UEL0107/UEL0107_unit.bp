@@ -49,7 +49,7 @@ UnitBlueprint{
             '<LOC ability_depthcharge>Depth Charge',
         },
 
-        Mesh = { IconFadeInZoom = 180, LODs = { { LODCutoff = 180, ShaderName = "Unit" } } },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 130, ShaderName = "Unit" } } },
 
         MovementEffects = {
             Water = {
