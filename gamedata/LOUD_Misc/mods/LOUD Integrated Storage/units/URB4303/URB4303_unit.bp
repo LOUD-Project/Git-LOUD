@@ -123,18 +123,19 @@ UnitBlueprint {
         CommandCaps = {
             RULEUCC_Pause = true,
         },
+
         FactionName = 'Cybran',
         Icon = 'land',
+
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'toggle_shield_dome',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-dome', helpText = 'toggle_shield_dome' },
         },
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
-        UnitName = '<LOC urb4303_name>ED5',
+
+        SelectionPriority = 5,
+
+        ToggleCaps = { RULEUTC_ShieldToggle = true },
+
+        UnitName = '<LOC urb4303_name>ED5+',
 
         UpgradesFrom = 'urb4207',
         UpgradesFromBase = 'urb4202',
@@ -166,6 +167,7 @@ UnitBlueprint {
     },
 	
 	SelectionCenterOffsetZ = -0.5,
+
     SelectionSizeX = 2.2,
     SelectionSizeZ = 2.2,
     SelectionThickness = 0.32,
@@ -179,9 +181,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,
