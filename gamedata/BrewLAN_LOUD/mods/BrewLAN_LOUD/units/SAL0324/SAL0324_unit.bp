@@ -41,36 +41,24 @@ UnitBlueprint {
         Health = 250,
         MaxHealth = 250,
 
-        EconomyThreatLevel = 26,
+        EconomyThreatLevel = 65,
     },
     
     Description = '<LOC sal0324_desc>Mobile Sensor Array',
     
     Display = {
-    
-        AnimationActive = '/mods/BrewLAN/units/SAL0324/SAL0324_aactive.sca',
-        
+       
         Abilities = {
             '<LOC ability_hover>Hover',
             '<LOC ability_radar>Radar',
             '<LOC ability_omni>Omni Sensor',
 
         },
-        
-        BlinkingLights = {
-            {BLBone = 'Antenna', BLScale = 1},
-        },
-        
-        BlinkingLightsFx = {
-            Green   = '/effects/emitters/light_green_03_emit.bp',
-            Red     = '/effects/emitters/light_red_blinking_02_emit.bp',
-        },
-        
+    
         IdleEffects = {
             Land = {
                 Effects = {
                     { Bones = {0}, Offset = {0, -0.15, 0}, Scale = 1.15, Type = 'AeonGroundFX01' },
-                    { Bones = {'Antenna'}, Type = 'Radar01' },
                 },
             },
         },
@@ -110,7 +98,7 @@ UnitBlueprint {
         BuildCostMass = 1750,
         BuildTime = 2250,
         
-        MaintenanceConsumptionPerSecondEnergy = 850,
+        MaintenanceConsumptionPerSecondEnergy = 400,
     },
     
     General = {
@@ -137,8 +125,8 @@ UnitBlueprint {
     Intel = {
         ShowIntelOnSelect = true,
 
-        OmniRadius = 56,
-        RadarRadius = 248,
+        OmniRadius = 52,
+        RadarRadius = 196,
         
         VisionRadius = 40,
         WaterVisionRadius = 24,
@@ -153,27 +141,35 @@ UnitBlueprint {
     LifeBarSize = 1.75,
     
     Physics = {
+        BackUpDistance = 10,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
         Elevation = 0.25,
-        MaxAcceleration = 1.1,
-        MaxBrake = 3.3,
-        MaxSpeed = 3.3,
-        MaxSpeedReverse = 0,
+
+        MaxAcceleration = 1.2,
+        MaxBrake = 1.6,
+        MaxSpeed = 3.4,
+
+        MaxSpeedReverse = 3,
         MaxSteerForce = 100,
         MinSpeedPercent = 0,
+
         MotionType = 'RULEUMT_Hover',
+
         RotateBodyWhileMoving = true,
+
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.1,
-        TurnFacingRate = 120,
+
+        TurnFacingRate = 60,
         TurnRadius = 0,
-        TurnRate = 120,
-        WobbleFactor = 0.001,
-        WobbleSpeed = 0.001,
+        TurnRate = 60,
+
+        WobbleFactor = 0.015,
+        WobbleSpeed = 0.01,
     },
 
     SelectionSizeX = 0.75,

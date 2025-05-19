@@ -1,44 +1,55 @@
-local SRadarUnit = import('/lua/seraphimunits.lua').SRadarUnit
+local SRadarUnit = import('/lua/defaultunits.lua').StructureUnit
 
 local SHoverLandUnit = import('/lua/defaultunits.lua').MobileUnit
+
+local RadarRestricted = type(ScenarioInfo.Options.RestrictedCategories) == 'table' and table.find(ScenarioInfo.Options.RestrictedCategories, 'INTEL')
 
 SSL0324 = Class(SHoverLandUnit) {
 
     OnCreate = function(self)
-        self.FxBlinkingLightsBag = {}
+
+        self.Rotator = CreateRotator(self, 'Array', 'y')
+        self.Trash:Add(self.Rotator)
+
         SHoverLandUnit.OnCreate(self)
     end,
 
-    OnIntelEnabled = function(self)
+    OnStopBeingBuilt = function(self,builder,layer)
 
-        SRadarUnit.OnIntelEnabled(self)
+        SHoverLandUnit.OnStopBeingBuilt(self,builder,layer)
 
-        if not self.Rotator then
-            self.Rotator = CreateRotator(self, 'Array', 'y')
-            self.Trash:Add(self.Rotator1)
+        self:SetMaintenanceConsumptionInactive()
+
+        self:SetScriptBit('RULEUTC_IntelToggle', true)
+
+        if RadarRestricted then
+            self:RemoveToggleCap('RULEUTC_IntelToggle')
+        else
+            self:SetScriptBit('RULEUTC_IntelToggle', false)
         end
 
-        self.Rotator:SetTargetSpeed(30)
-        self.Rotator:SetAccel(20)
+        self:RequestRefreshUI()
+        
     end,
 
-    PlayActiveAnimation = function(self)
-        if SRadarUnit.PlayActiveAnimation then
-            SRadarUnit.PlayActiveAnimation(self)
-        end
+    OnIntelDisabled = function(self,intel)
+    
+        SRadarUnit.OnIntelDisabled(self,intel)
+
+        self.Rotator:SetTargetSpeed(0)
+        self.Rotator:SetAccel(30)
+    
     end,
 
-    CreateBlinkingLights = function(self, color)
-        if SRadarUnit.CreateBlinkingLights then
-            SRadarUnit.CreateBlinkingLights(self, color)
-        end
+    OnIntelEnabled = function(self,intel)
+
+        SRadarUnit.OnIntelEnabled(self,intel)
+
+        self.Rotator:SetTargetSpeed(60)
+        self.Rotator:SetAccel(30)
+
     end,
 
-    DestroyBlinkingLights = function(self)
-        if SRadarUnit.DestroyBlinkingLights then
-            SRadarUnit.DestroyBlinkingLights(self)
-        end
-    end,
 }
 
 TypeClass = SSL0324

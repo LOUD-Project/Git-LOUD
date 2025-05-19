@@ -56,15 +56,32 @@ UnitBlueprint {
 
         AnimationOpen = '/mods/BrewLAN_LOUD/units/SRL0324/SRL0324_AOpen.sca',
 
-        IdleEffects = {
-            Land = { Effects = { { Bones = {'AttachPoint'}, Type = 'Radar01' } } },
-        },
-
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 { LODCutoff = 200, Scrolling = true, ShaderName = 'Insect' },
                 { LODCutoff = 400, Scrolling = true, ShaderName = 'Insect', AlbedoName = '/units/urb3104/urb3104_lod1_albedo.dds', NormalsName = '/units/urb3104/urb3104_lod1_normalsts.dds', SpecularName = '/units/urb3104/urb3104_lod1_specteam.dds' },
+            },
+        },
+        
+        MovementEffects = {
+            Effects = {
+                { Bones = {'DustPickup001','DustPickup002'}, Type = 'GroundKickup03' },
+            },
+            Land = {
+                Treads = {
+                    ScrollTreads = true,
+                    TreadMarks = {
+                        {
+                            BoneName = 0,
+                            TreadMarks = 'tank_treads_albedo',
+                            TreadMarksInterval = 0.6,
+                            TreadMarksSizeX = 1.25,
+                            TreadMarksSizeZ = 1,
+                            TreadOffset = {0,0,0},
+                        },
+                    },
+                },
             },
         },
 
@@ -76,7 +93,7 @@ UnitBlueprint {
         BuildCostMass = 1750,
         BuildTime = 2500,
 
-        MaintenanceConsumptionPerSecondEnergy = 850,
+        MaintenanceConsumptionPerSecondEnergy = 475,
     },
 
     General = {
@@ -90,12 +107,13 @@ UnitBlueprint {
 
         OrderOverrides = {
             RULEUTC_IntelToggle = { bitmapId = 'omni', helpText = 'toggle_omni' },
+            RULEUTC_CloakToggle = { bitmapId = 'intel-counter', helpText = 'toggle_cloak' },
         },
 
         FactionName = 'Cybran',
         Icon = 'land',
 
-        ToggleCaps = { RULEUTC_IntelToggle = true },
+        ToggleCaps = { RULEUTC_IntelToggle = true, RULEUTC_CloakToggle = true },
         
         UnitName = '<LOC srl0324_name>Adramelech',
     },
@@ -103,12 +121,13 @@ UnitBlueprint {
     Intel = {
         ShowIntelOnSelect = true,
 
-        OmniRadius = 56,
-        RadarRadius = 248,
-        VisionRadius = 40,
+        OmniRadius = 52,
+        RadarRadius = 196,
+        VisionRadius = 36,
 
         RadarStealth = true,
-		StealthWaitTime = 2,
+
+		CloakWaitTime = 1,
         Cloak = true,
     },
 
@@ -121,15 +140,16 @@ UnitBlueprint {
     LifeBarSize = 1.75,
 
     Physics = {
+        BackUpDistance = 10,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
         
-        MaxAcceleration = 1,
-        MaxBrake = 1.5,
-        MaxSpeed = 3,
+        MaxAcceleration = 1.5,
+        MaxBrake = 1.7,
+        MaxSpeed = 3.5,
         MaxSpeedReverse = 0,
         
         MaxSteerForce = 10,

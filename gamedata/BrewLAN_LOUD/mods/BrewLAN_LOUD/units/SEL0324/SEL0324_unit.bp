@@ -48,7 +48,7 @@ UnitBlueprint {
         RegenRate = 2,
 
         AirThreatLevel = 36,
-        EconomyThreatLevel = 150,
+        EconomyThreatLevel = 65,
     },
 	
     Description = '<LOC sal0320_desc>Mobile Anti-Air Defense',
@@ -58,17 +58,6 @@ UnitBlueprint {
             '<LOC ability_aa>Anti-Air',
             '<LOC ability_omni>Omni Sensor',
             '<LOC ability_radar>Radar',
-        },
-		
-        IdleEffects = {
-            Land = {
-                Effects = {
-                    {
-                        Bones = {'Dish'},
-                        Type = 'Radar01',
-                    },
-                },
-            },
         },
         
         Mesh = {
@@ -82,10 +71,7 @@ UnitBlueprint {
         
         MovementEffects = {
             Effects = {
-                {
-                    Bones = {'Ground_001','Ground_002'},
-                    Type = 'GroundKickup03',
-                },
+                { Bones = {'Ground_001','Ground_002'}, Type = 'GroundKickup03' },
             },
             Land = {
                 Treads = {
@@ -112,7 +98,7 @@ UnitBlueprint {
         BuildCostMass = 2200,
         BuildTime = 1100,
 		
-        MaintenanceConsumptionPerSecondEnergy = 850,
+        MaintenanceConsumptionPerSecondEnergy = 400,
     },
 	
     General = {
@@ -138,8 +124,8 @@ UnitBlueprint {
     },
 	
     Intel = {
-        OmniRadius = 56,
-        RadarRadius = 248,
+        OmniRadius = 52,
+        RadarRadius = 196,
         VisionRadius = 40,
         WaterVisionRadius = 12,
 
@@ -155,15 +141,15 @@ UnitBlueprint {
     LifeBarSize = 1.2,
 	
     Physics = {
-        BackUpDistance = 8,
+        BackUpDistance = 10,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 1,
-        MaxBrake = 1,
-        MaxSpeed = 3,
+        MaxAcceleration = 1.3,
+        MaxBrake = 1.6,
+        MaxSpeed = 3.3,
         MaxSpeedReverse = 3,
         MaxSteerForce = 5*.5,
         MeshExtentsX = 1,

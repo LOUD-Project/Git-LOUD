@@ -1,8 +1,11 @@
-local TLandUnit = import('/lua/defaultunits.lua').MobileUnit
+local TLandUnit     = import('/lua/defaultunits.lua').MobileUnit
 
-local TSAMLauncher = import('/lua/terranweapons.lua').TSAMLauncher
+local TSAMLauncher  = import('/lua/terranweapons.lua').TSAMLauncher
+
+local RadarRestricted = type(ScenarioInfo.Options.RestrictedCategories) == 'table' and table.find(ScenarioInfo.Options.RestrictedCategories, 'INTEL')
 
 SEL0324 = Class(TLandUnit) {
+
     Weapons = {
         MissileRack01 = Class(TSAMLauncher) {},
     },
@@ -12,50 +15,116 @@ SEL0324 = Class(TLandUnit) {
     end,
 
     OnStopBeingBuilt = function(self, builder, layer)
+
         TLandUnit.OnStopBeingBuilt(self, builder, layer)
-        self:ForkThread(self.RadarAnimation)
+
         self:SetMaintenanceConsumptionInactive()
+
         self:SetScriptBit('RULEUTC_IntelToggle', true)
+
+        if RadarRestricted then
+            self:RemoveToggleCap('RULEUTC_IntelToggle')
+        else
+
+            self:SetScriptBit('RULEUTC_IntelToggle', false)
+
+            self:ForkThread(self.RadarThread)
+        end
+
+        self.RadarRadius = self:GetIntelRadius('Radar')
+        self.OmniRadius = self:GetIntelRadius('Omni')
+
         self:RequestRefreshUI()
-        self.RadarEnabled = false
+
+    end,
+
+    RadarThread = function(self)
+
+        self.mount      = CreateRotator(self, 'Satellite', 'x', 0, 15, 0)
+        self.dish       = CreateRotator(self, 'Dish', 'z', 0, 30, 0)
+        self.dish2      = CreateRotator(self, 'Dish', 'y', nil, 0, 15, 90)
+
+        local rotate = 30
+
+        while not self.Dead do
+
+            if not self.Loaded then
+
+                if self.Intel then
+
+                    rotate = rotate * -1
+
+                    self.mount:SetGoal(rotate - 20)
+                    self.dish:SetGoal(rotate)
+                    self.dish2:SetSpinDown(false)
+
+                else
+
+                    self.mount:SetGoal(-20)
+                    self.dish:SetGoal(0)
+                    self.dish2:SetSpinDown(true)
+
+                end
+
+                WaitFor(self.mount)
+
+            end
+
+            coroutine.yield(Random(3,16))
+        end
+
     end,
 
     OnIntelEnabled = function(self,intel)
 
         TLandUnit.OnIntelEnabled(self,intel)
 
-        self.RadarEnabled = true
-        self:CreateIdleEffects()
+        self.Intel = true
+
     end,
 
     OnIntelDisabled = function(self,intel)
 
         TLandUnit.OnIntelDisabled(self,intel)
 
-        self.RadarEnabled = false
-        self:DestroyIdleEffects()
+        self.Intel = false
+
     end,
 
-    RadarAnimation = function(self)
+    TransportAnimation = function(self, rate)
 
-        local manipulator = CreateRotator(self, 'Satellite', 'x')
+        TLandUnit.TransportAnimation(self, rate)
 
-        manipulator:SetSpeed(10)
-        manipulator:SetGoal(30)
-
-        while IsUnit(self) do
-            if self.RadarEnabled then
-                WaitFor(manipulator)
-                manipulator:SetGoal(-45)
-                WaitFor(manipulator)
-                manipulator:SetGoal(30)
-                WaitFor(manipulator)
-            else
-                WaitTicks(10)
-                self:DestroyIdleEffects()
+        -- loading
+        if not self.Loaded then
+        
+            -- and intel is On
+            if self.Intel then
+            
+                self.mount:SetGoal(-20)
+                self.dish:SetGoal(0)
+                self.dish2:SetSpinDown(true)
+            
+                self:SetIntelRadius('Radar', 0)
+                self:SetIntelRadius('Omni', 0)
+            
             end
+            
+            self.Loaded = true
+            
+        else
+        
+            -- unloading
+
+            self:SetIntelRadius('Radar', self.RadarRadius)
+            self:SetIntelRadius('Omni', self.OmniRadius)
+            
+            self.Loaded = nil
+        
         end
+
     end,
+
 }
 
 TypeClass = SEL0324

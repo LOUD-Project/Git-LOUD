@@ -1,4 +1,5 @@
-UnitBlueprint {
+
+ UnitBlueprint {
     AI = {
         TargetBones = {'Base','Orb'},
     },
@@ -66,15 +67,12 @@ UnitBlueprint {
         IdleEffects = {
             Land = {
                 Effects = {
-                    { Bones = {'Orb'}, Scale = 0.75,         Type = 'Radar01' },
-                    { Bones = {0}, Offset = {0, -0.25, 0},   Type = 'SeraphimGroundFX01' },
+                    { Bones = {0}, Scale = 0.5, Offset = {0, -0.25, 0}, Type = 'SeraphimGroundFX01' },
                 },
             },
             Water = {
                 Effects = {
-                    { Bones = {'Orb'}, Scale = 0.75,                    Type = 'Radar01' },
-                    { Bones = {0}, Offset = {0, -0.25, 0},              Type = 'SeraphimGroundFX01' },
-                    { Bones = {0}, Offset = {0, -0.25, 0}, Scale = 1.2, Type = 'SeaIdle02' },
+                    { Bones = {0}, Scale = 0.5, Offset = {0, -0.25, 0}, Type = 'SeraphimGroundFX01' },
                 },
             },
         },
@@ -83,7 +81,7 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    LODCutoff = 100,
+                    LODCutoff = 130,
                     LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
                     ShaderName = 'Seraphim',
                 },
@@ -94,25 +92,23 @@ UnitBlueprint {
                 },
             },
         },
-		
+
         MovementEffects = {
             Land = {
                 Effects = {
-                    { Bones = {'Orb'}, Scale = 0.75,         Type = 'Radar01' },
-                    { Bones = {0}, Scale = 0.5,              Type = 'GroundKickup01' },
-                    { Bones = {0}, Offset = {0, -0.25, 0},   Type = 'SeraphimGroundFX01' },
+                    { Bones = {0}, Scale = 1.2,                         Type = 'GroundKickup01' },
+                    { Bones = {0}, Scale = 0.5, Offset = {0, -0.25, 0}, Type = 'SeraphimGroundFX01' },
                 },
             },
             Water = {
                 Effects = {
-                    { Bones = {'Orb'}, Scale = 0.75,         Type = 'Radar01' },
-                    { Bones = {0}, Offset = {0, -0.25, 0},   Type = 'SeraphimGroundFX01' },
-                    { Bones = {0}, Scale = 0.5,              Type = 'BackWake' },
+                    { Bones = {0}, Scale = 0.6, Offset = {0, -0.25, 0}, Type = 'SeraphimGroundFX01' },
+                    { Bones = {0}, Scale = 0.5,                         Type = 'BackWake' },
                 },
             },
         },
         
-        UniformScale = 0.045,
+        UniformScale = 0.051,
     },
 	
     Economy = {
@@ -120,7 +116,7 @@ UnitBlueprint {
         BuildCostMass = 1650,
         BuildTime = 2500,
 		
-        MaintenanceConsumptionPerSecondEnergy = 765,
+        MaintenanceConsumptionPerSecondEnergy = 400,
     },
 	
     General = {
@@ -148,8 +144,8 @@ UnitBlueprint {
         ReactivateTime = 5,
         ShowIntelOnSelect = true,
         
-        OmniRadius = 56,
-        RadarRadius = 248,
+        OmniRadius = 52,
+        RadarRadius = 196,
         VisionRadius = 40,
 		WaterVisionRadius = 24,
     },
@@ -163,27 +159,37 @@ UnitBlueprint {
     LifeBarSize = 1.25,
 	
     Physics = {
+        BackUpDistance = 10,
+
         BankingSlope = 0.5,
+
         BuildOnLayerCaps = {
             LAYER_Land = true,
         },
+
         DragCoefficient = 0.2,
+
         Elevation = 0.25,
-        MaxAcceleration = 1.5,
-        MaxBrake = 3,
-        MaxSpeed = 3,
-        MaxSpeedReverse = 3,
+
+        MaxAcceleration = 1.3,
+        MaxBrake = 1.5,
+        MaxSpeed = 3.3,
+        MaxSpeedReverse = 3.3,
+
         MaxSteerForce = 1000,
         MinSpeedPercent = 0,
+
         MotionType = 'RULEUMT_Hover',
+
         RotateBodyWhileMoving = true,
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.5,
-        TurnFacingRate = 120,
+
+        TurnFacingRate = 60,
         TurnRadius = 0,
-        TurnRate = 120,
+        TurnRate = 60,
         WobbleFactor = 0.015,
-        WobbleSpeed = 0.001,
+        WobbleSpeed = 0.01,
     },
 	
     SelectionSizeX = 0.5,
