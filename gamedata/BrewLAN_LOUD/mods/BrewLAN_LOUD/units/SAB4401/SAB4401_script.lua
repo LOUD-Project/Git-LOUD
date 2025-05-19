@@ -34,9 +34,7 @@ SAB4401 = Class(AShieldStructureUnit) {
         self.ShieldEffectsBag = {}
     end,
 
-    OnShieldEnabled = function(self)
-	
-        AShieldStructureUnit.OnShieldEnabled(self)
+    OnShieldIsUp = function(self)
 		
         self.ShieldProjectionEnabled = true
 		
@@ -55,15 +53,19 @@ SAB4401 = Class(AShieldStructureUnit) {
         for k, v in self.ShieldEffects do
             table.insert( self.ShieldEffectsBag, CreateAttachedEmitter( self, 0, self:GetArmy(), v ):ScaleEmitter(1.17) )
         end
+	
+        AShieldStructureUnit.OnShieldIsUp(self)
+
     end,
 
-    OnShieldDisabled = function(self)
-	
-        AShieldStructureUnit.OnShieldDisabled(self)
+    OnShieldIsDown = function(self)
 		
         self:ClearShieldProjections()
 		
         self.ShieldProjectionEnabled = false
+	
+        AShieldStructureUnit.OnShieldIsDown(self)
+
     end,
 
     ShieldProjectionThread = function(self)

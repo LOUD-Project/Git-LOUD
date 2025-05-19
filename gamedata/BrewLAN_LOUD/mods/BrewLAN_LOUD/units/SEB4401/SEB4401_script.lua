@@ -43,9 +43,7 @@ SEB4401 = Class(TShieldStructureUnit) {
         }
     end,
 
-    OnShieldEnabled = function(self)
-	
-        TShieldStructureUnit.OnShieldEnabled(self)
+    OnShieldIsUp = function(self)
 		
         if not self.Manipulators[1][4] then
             for i, v in self.Manipulators do
@@ -56,20 +54,22 @@ SEB4401 = Class(TShieldStructureUnit) {
 		
         for i, v in self.Manipulators do
             v[4]:SetTargetSpeed(v[3])
+            v[4]:SetSpinDown(false)
         end
 		
         for k, v in self.ShieldEffects do
-            table.insert( self.ShieldEffectsBag, CreateAttachedEmitter( self, 0, self:GetArmy(), v ):ScaleEmitter(1.3):OffsetEmitter(0,3.3,-4.2) )
+            self.ShieldEffectsBag[k] = CreateAttachedEmitter( self, 0, self:GetArmy(), v ):ScaleEmitter(1.3):OffsetEmitter(0,3.3,-4.2) 
         end
+	
+        TShieldStructureUnit.OnShieldIsUp(self)
+
     end,
 
-    OnShieldDisabled = function(self)
-	
-        TShieldStructureUnit.OnShieldDisabled(self)
+    OnShieldIsDown = function(self)
 		
         for i, v in self.Manipulators do
-            --v[4]:SetSpinDown(true)
             v[4]:SetTargetSpeed(0)
+            v[4]:SetSpinDown(true)
         end
 		
         if self.ShieldEffectsBag then
@@ -79,7 +79,11 @@ SEB4401 = Class(TShieldStructureUnit) {
             end
 			
             self.ShieldEffectsBag = {}
-        end
+
+        end        
+	
+        TShieldStructureUnit.OnShieldIsDown(self)
+    
     end,
 
     CreateFirePlumes = function( self, army, bones, yBoneOffset )
@@ -187,7 +191,9 @@ SEB4401 = Class(TShieldStructureUnit) {
 		
         --Explode panels randomly in the air
         for i = 1, 6 do
-            WaitSeconds(Random(1,2))
+
+            WaitTicks(Random(6,13))
+
             for i, panel in self.panels do
                 if panel and Random(1,4) == 4 then
                     WaitTicks(Random(1,3))
