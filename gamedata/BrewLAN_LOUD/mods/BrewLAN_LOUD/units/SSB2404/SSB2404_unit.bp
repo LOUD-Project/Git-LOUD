@@ -249,11 +249,11 @@ UnitBlueprint {
 
             TurretPitch = 30,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 6,
+            TurretPitchSpeed = 4,
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 6.5,
+            TurretYawSpeed = 3,
 
             Turreted = true,
 			UseFiringSolutionInsteadOfAimBone = true,
