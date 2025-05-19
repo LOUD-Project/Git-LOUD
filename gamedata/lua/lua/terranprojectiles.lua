@@ -15,7 +15,6 @@ local OnWaterEntryEmitterProjectileOnEnterWater = OnWaterEntryEmitterProjectile.
 local SingleBeamProjectileOnImpact              = SingleBeamProjectile.OnImpact
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
-local DepthCharge = import('/lua/defaultantiprojectile.lua').DepthCharge
 
 local Random = Random
 

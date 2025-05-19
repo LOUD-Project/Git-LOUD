@@ -5885,7 +5885,7 @@ Unit = Class(UnitMethods) {
 	-- It ensures that the cloak effect and cloak field are always in the correct state for units that are in the field
 	-- This task hogs a buttload of CPU - original wait period was 2 ticks - now 80 
 	CloakEffectControlThread = function(self,blueprint)
-	
+    
 		local bp = blueprint or ALLBPS[self.BlueprintID]
 		local brain = GetAIBrain(self)
 		

@@ -136,9 +136,11 @@ ACannonTankProjectile = Class(SingleBeamProjectile) {
 
 ADepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
 	
-    FxEnterWater= { '/effects/emitters/water_splash_plume_01_emit.bp','/effects/emitters/water_splash_ripples_ring_01_emit.bp' },
+    FxEnterWater    = { '/effects/emitters/water_splash_plume_01_emit.bp' },
+    FxSplashScale = 0.65,
 
-    FxImpactUnit = EffectTemplate.ADepthChargeHitUnit01,
+    FxImpactUnit        = EffectTemplate.ADepthChargeHitUnderWaterUnit01,
+    FxImpactUnderWater  = EffectTemplate.ADepthCharge01,
 
     OnCreate = function(self, inWater)
     
