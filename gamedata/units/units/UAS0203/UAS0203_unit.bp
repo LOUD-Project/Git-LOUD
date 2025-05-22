@@ -155,7 +155,7 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_SurfacingSub',
         TurnRadius = 10,
-        TurnRate = 50,
+        TurnRate = 32,
     },
 	
     SelectionSizeX = 0.35,
@@ -196,7 +196,7 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 15,
+            FiringTolerance = 12,
 			
             Label = 'Torpedo',
 			
@@ -223,7 +223,7 @@ UnitBlueprint {
             RateOfFire = 1,     -- 2 x 300 = 600 every 5 seconds = 120 DPS Sub/Surface
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 15,
+            SlavedToBodyArcRange = 12,
 
             TargetCheckInterval = 2,
 			

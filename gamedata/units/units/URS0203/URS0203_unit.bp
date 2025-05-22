@@ -141,8 +141,8 @@ UnitBlueprint {
         MaxSteerForce = 5,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_SurfacingSub',
-        TurnRadius = 8,
-        TurnRate = 50,
+        TurnRadius = 10,
+        TurnRate = 32,
     },
 	
     SelectionSizeX = 0.36,
@@ -183,7 +183,7 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 20,
+            FiringTolerance = 12,
 			
             Label = 'Torpedo',
 			
@@ -210,7 +210,7 @@ UnitBlueprint {
             RateOfFire = 1,		-- 2 torps of 200 dmg every 4.3 secs = 93 DPS Sub
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 20,
+            SlavedToBodyArcRange = 12,
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
