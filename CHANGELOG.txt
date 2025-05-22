@@ -1,3 +1,46 @@
+### Release
+
+LUA 7.22
+4DC for LOUD 7.06
+Black Ops for LOUD 7.11
+BrewLAN for LOUD 0.8.8.9.112
+LOUD_MISC 7.09
+Projectiles LOUD 7.06
+Textures 7.04
+Total Mayhem for LOUD 7.07
+UNITS 7.13
+Wyvern for LOUD 7.08
+
+- various logging revisions (AI DEBUG), additional shield and projectile dialogs
+- detection of Restricted units in self-upgrade process allows correct behavior of Tier restrictions
+- additional trapping for units trying to launch upgrade threads when none exist
+- initial allocation of assets for BrewLAN CORVETTE units (SAS3324, SES3324, SRS3324, SSS3324)
+- BrewLAN Seraphim Suthanus (SSB2404) turret traverse rate aligned with other static artillery (decreased)
+- BrewLAN UEF Nullifier T4 Shield (SEB4401) corrected effects being left on, and stacking, during power shortages
+- BrewLAN Aeon Shield Projector (SAB4401) corrected effects being left on, and stacking, during power shortages
+- BrewLAN Mobile Sensor Arrays now aligned with radar energy calculations (radar range 248 >> 196) E consumption (750+ >> 400)
+- BrewLAN Mobile Sensors and Corvettes all recognize 'RADAR' unit restrictions
+- BrewLAN Effectutilities now merged into core
+- WYVERN UEF Pegasus (WEL0305) AA weapon can no longer target satellites, (Frust)
+- TM Cybran Avalanche (BRMT3AVA) gets proper Strat Icon (Frust)
+- Mavor now gets a declining FiringRandomness the longer it stays on target, +10% shield damage (as per artillery class weapons)
+- BO UEF ACU - flamer weapon now enabled properly
+- gifting shielded units should now work correctly (ie. UEF T3 Transport)
+- Remote Viewing energy costs are now amortized over the ReactivateTime period (or 15 seconds) and appear as a 'charge' process
+- Remote Viewing is now detached from the Intel Toggle - so turning off radar/sonar doesn't turn off Scry
+- Remote Viewing no longer 'auto repeats' but is manually fired and then recharges - no longer has a maintenance cost
+- Eye of Rhianne new animations and visual effects when charged (ambient glow and spins)
+- AI Rally point dispersal now sends damaged units to safer rally points
+- AI ParseIntel thread gets relaxed (slower processing) when Fog of War is turned off
+- AI decreased sensitivity to threat proximity - this relaxes the building of fixed defenses in low threat conditions
+- T1 Frigates get basic depth charge for anti-sub work (approx 26DPS sub), with new 'darting' behavior while using them
+- T1/T2 Submarines get turn radius standardized(10), turn rate reduced 50 >> 32 
+- reduction in size of the basic depth charge, corrected and updated effects
+- fixed selection priority of Cybran ED5+ (T3 Shield with storage), was being group selected with mobile units 
+- numerous non-standard Icon Fade in zoom values, set to 130 (Lonesheep)
+
+
+
 ### Release 03-16-2025
 
 LUA 7.21
@@ -10,6 +53,7 @@ LUA 7.21
 
 LUA 7.19
 Black Ops for LOUD 7.10
+UNITS 7.12
 
 - changes to BRL0401 (Basilisk) regen rate 125 >> 100, bonus regen from vet levels tapered to the 'standard' regen rate (see Git for more detail)
 - minute adjustments to KTurn rates for UEF,Cybran and Sera T3 ASF's to alleviate landing differences
