@@ -41,11 +41,7 @@ UnitBlueprint {
             Cue = 'Expl_Water_Lrg_01',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        AmbientMove = Sound {
-            Bank = 'UEA',
-            Cue = 'UEA0101_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+
         Destroyed = Sound {
             Bank = 'UEADestroy',
             Cue = 'UEA_Destroy_Med',
@@ -109,11 +105,14 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_radar>Radar',
             '<LOC ability_sonar>Sonar',
+            '<LOC ability_personalstealth',
         },
+
         LayerChangeEffects = {
             AirLand = { Effects = { { Bones = {0}, Type = 'Landing01' } } },
             LandAir = { Effects = { { Bones = {0}, Type = 'TakeOff01' } } },
         },
+
         Mesh = {
             IconFadeInZoom = 175,
             LODs = {
@@ -127,13 +126,13 @@ UnitBlueprint {
                 },
             },
         },
+
         MovementEffects = {
             Air = {
-                Contrails = {
-                    Bones = {'Exhaust'},
-                },
+                Contrails = { Bones = {'Exhaust'}},
             },
         },
+
         UniformScale = 0.088,
     },
 
@@ -164,6 +163,8 @@ UnitBlueprint {
         VisionRadius = 44,
         SonarRadius = 32,
         RadarRadius = 48,
+        
+        RadarStealth = true,
     },
 
     LifeBarHeight = 0.075,
@@ -174,7 +175,7 @@ UnitBlueprint {
         BankingSlope = 0.5,
         Elevation = 18,
         FuelRechargeRate = 12,
-        FuelUseTime = 72,
+        FuelUseTime = 77,
 
         GroundCollisionOffset = 1.6,
 

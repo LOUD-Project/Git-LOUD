@@ -3,6 +3,7 @@ UnitBlueprint {
         GuardScanRadius = 60,
         InitialAutoMode = true,
     },
+
     Air = {
         AutoLandTime = 1,
         BankFactor = 2,
@@ -26,15 +27,11 @@ UnitBlueprint {
         TurnSpeed = 0.8,
         Winged = true,
     },
+
     Audio = {
         AirUnitWaterImpact = Sound {
             Bank = 'Explosions',
             Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        AmbientMove = Sound {
-            Bank = 'URA',
-            Cue = 'URA0101_Move_Loop',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         Destroyed = Sound {
@@ -78,6 +75,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Categories = {
         'SELECTABLE',
         'CYBRAN',
@@ -90,22 +88,28 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+
     Defense = {
         ArmorType = 'Light',
         AirThreatLevel = 0.1,
         Health = 350,
         MaxHealth = 350,
     },
+
     Description = '<LOC ura0101_desc>Air Scout',
+
     Display = {
         Abilities = {
             '<LOC ability_radar>Radar',
             '<LOC ability_sonar>Sonar',
+            '<LOC ability_personalstealth',
         },
+
         LayerChangeEffects = {
             AirLand = { Effects = { { Bones = {0}, Type = 'Landing01' } } },
             LandAir = { Effects = { { Bones = {0}, Type = 'TakeOff01' } } },
         },
+
         Mesh = {
             IconFadeInZoom = 175,
             LODs = {
@@ -119,23 +123,22 @@ UnitBlueprint {
                 },
             },
         },
+
         MovementEffects = {
             Air = {
-                Contrails = {
-                    Bones = {
-                        'Left_Contrail',
-                        'Right_Contrail',
-                    },
-                },
+                Contrails = { Bones = {'Left_Contrail','Right_Contrail'} },
             },
         },
+
         UniformScale = 0.07,
     },
+
     Economy = {
         BuildCostEnergy = 1600,
         BuildCostMass = 40,
         BuildTime = 400,
     },
+
     General = {
         CapCost = 0,
         CommandCaps = {
@@ -149,54 +152,52 @@ UnitBlueprint {
         UnitName = '<LOC sra3101_name>Steven',
         SelectionPriority = 6,
     },
+
     Intel = {
         WaterVisionRadius = 32,
         VisionRadius = 44,
         SonarRadius = 32,
         RadarRadius = 64,
+        
+        RadarStealth = true,
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.25,
     LifeBarSize = 0.5,
+
     Physics = {
         BankingSlope = 0.5,
         Elevation = 18,
+
         FuelRechargeRate = 5,
-        FuelUseTime = 60,
+        FuelUseTime = 77,
+
         GroundCollisionOffset = 1.6,
         MaxAcceleration = 10,
         MaxSpeed = 10,
         MaxSteerForce = 100,
         MinSpeedPercent = 0.85,
         MotionType = 'RULEUMT_Air',
-        TurnRadius = 100,
+        TurnRadius = 80,
         TurnRate = 100,
     },
+
     SelectionSizeX = 0.36,
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.8,
+
     SizeSphere = 1.6,
     SizeX = 0.4,
     SizeY = 0.15,
     SizeZ = 0.6,
+
     StrategicIconName = 'icon_fighter_intel',
     StrategicIconSortPriority = 75,
+
     Transport = {
         AirClass = true,
         TransportClass = 5,
     },
-    Weapon = {
-        {
-            AboveWaterTargetsOnly = true,
-            Damage = 10,
-            DamageFriendly = true,
-            DamageRadius = 1,
-            DamageType = 'Normal',
-            DisplayName = 'Air Crash',
-            DummyWeapon = true,
-            FiringTolerance = 2,
-            Label = 'DeathImpact',
-            WeaponCategory = 'Death',
-        },
-    },
+
 }
