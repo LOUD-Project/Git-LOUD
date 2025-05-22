@@ -1,6 +1,8 @@
 local TSeaUnit      = import('/lua/defaultunits.lua').SeaUnit
 local WeaponFile    = import('/lua/terranweapons.lua')
 
+local TDepthCharge  = import('/lua/aeonweapons.lua').AANDepthChargeBombWeapon
+
 local RadarRestricted = type(ScenarioInfo.Options.RestrictedCategories) == 'table' and table.find(ScenarioInfo.Options.RestrictedCategories, 'INTEL')
 
 SES3324 = Class(TSeaUnit) {
@@ -9,9 +11,8 @@ SES3324 = Class(TSeaUnit) {
 
     Weapons = {
 
-        SAM = Class(WeaponFile.TSAMLauncher) { FxMuzzleFlash = import('/lua/EffectTemplates.lua').TAAMissileLaunchNoBackSmoke },
-
-        Phalanx = Class(WeaponFile.TAMPhalanxWeapon) {
+        SAM         = Class(WeaponFile.TSAMLauncher) { FxMuzzleFlash = import('/lua/EffectTemplates.lua').TAAMissileLaunchNoBackSmoke },
+        Phalanx     = Class(WeaponFile.TAMPhalanxWeapon) {
 
             OnCreate = function(self)
                 self.SpinManip = CreateRotator(self.unit, 'Phalanx_Muzzle', 'z', nil, nil, 180)
@@ -29,10 +30,46 @@ SES3324 = Class(TSeaUnit) {
                 self.SpinManip:SetTargetSpeed(0)
                 WeaponFile.TAMPhalanxWeapon.PlayFxWeaponPackSequence(self)
             end,
-        },
 
-        Torpedo = Class(WeaponFile.TANTorpedoAngler) {},
+        },
+        Torpedo     = Class(WeaponFile.TANTorpedoAngler) {},
         AntiTorpedo = Class(WeaponFile.TIFSmartCharge) {},
+        DepthCharge = Class(TDepthCharge) {
+        
+            OnLostTarget = function(self)
+                
+                self.unit:SetAccMult(1)
+                
+                self:ChangeMaxRadius(12)
+                
+                TDepthCharge.OnLostTarget(self)
+            
+            end,
+        
+            RackSalvoFireReadyState = State( TDepthCharge.RackSalvoFireReadyState) {
+            
+                Main = function(self)
+                
+                    self:ChangeMaxRadius(6)
+                
+                    TDepthCharge.RackSalvoFireReadyState.Main(self)
+                    
+                end,
+            },
+        
+            RackSalvoReloadState = State( TDepthCharge.RackSalvoReloadState) {
+            
+                Main = function(self)
+                
+                    self.unit:SetAccMult(1.3)
+                
+                    self:ForkThread( function() self:ChangeMaxRadius(15) self:ChangeMinRadius(15) WaitTicks(44) self:ChangeMinRadius(0) self:ChangeMaxRadius(12) end)
+                    
+                    TDepthCharge.RackSalvoReloadState.Main(self)
+
+                end,
+            },        
+        },
     },
 
     RadarThread = function(self)

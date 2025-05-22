@@ -18,11 +18,11 @@ UnitBlueprint {
 
     Buffs = {
         Regen = {
-            Level1 = 2,
-            Level2 = 3,
-            Level3 = 4,
-            Level4 = 5,
-            Level5 = 6,
+            Level1 = 3,
+            Level2 = 4,
+            Level3 = 5,
+            Level4 = 6,
+            Level5 = 7,
         },
     },
 
@@ -55,10 +55,10 @@ UnitBlueprint {
 
         Health = 3250,
         MaxHealth = 3250,
-        RegenRate = 2,
+        RegenRate = 3,
 
         AirThreatLevel = 34,
-        SubThreatLevel = 12,
+        SubThreatLevel = 15,
     },
 
     Description = '<LOC sas3324_desc>Corvette',
@@ -73,12 +73,13 @@ UnitBlueprint {
             '<LOC ability_tacmissiledef>Tactical Missile Defense',
             '<LOC ability_torpedo>Torpedoes',
             '<LOC ability_torpedodef>Torpedo Defense',
+            '<LOC ability_depthcharge>Depth Charge',
         },
 
         AnimationDeath = {
-            { Animation = '/mods/BrewLAN/units/ses3324/ses3324_ADeath_01.sca', Weight = 100 },
-            { Animation = '/mods/BrewLAN/units/ses3324/ses3324_ADeath_02.sca', Weight = 100 },
-            { Animation = '/mods/BrewLAN/units/ses3324/ses3324_ADeath_03.sca', Weight = 100 },
+            { Animation = '/mods/BrewLAN_LOUD/units/ses3324/ses3324_ADeath_01.sca', Weight = 100 },
+            { Animation = '/mods/BrewLAN_LOUD/units/ses3324/ses3324_ADeath_02.sca', Weight = 100 },
+            { Animation = '/mods/BrewLAN_LOUD/units/ses3324/ses3324_ADeath_03.sca', Weight = 100 },
         },
 
         IdleEffects = {
@@ -169,18 +170,23 @@ UnitBlueprint {
         BankingSlope = 0,
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
-        MaxAcceleration = 1.5,
-        MaxBrake = 1.5,
+
+        MaxAcceleration = 2.1,
+        MaxBrake = 1.65,
         MaxSpeed = 4,
-        MaxSpeedReverse = 3.5,
+        MaxSpeedReverse = 3.6,
+
         MaxSteerForce = 5,
+
         MeshExtentsX = 2,
         MeshExtentsY = 2,
         MeshExtentsZ = 6.25,
+
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
-        TurnRadius = 20,
-        TurnRate = 40,
+
+        TurnRadius = 16,
+        TurnRate = 48,
     },
 
     SelectionSizeX = 1,
@@ -239,12 +245,7 @@ UnitBlueprint {
 
             NeedPrep = true,
 
-            RackBones = {
-                {
-                    MuzzleBones = {'Muzzle'},
-                    RackBone = 'Ring',
-                },
-            },
+            RackBones = {{ MuzzleBones = {'Muzzle'}, RackBone = 'Ring' }},
 
             RangeCategory = 'UWRC_AntiAir',
 
@@ -312,12 +313,7 @@ UnitBlueprint {
             ProjectileId = '/projectiles/AIMAntiMissile01/AIMAntiMissile01_proj.bp',
             ProjectileLifetime = 4,
 
-            RackBones = {
-                {
-                    MuzzleBones = {'TMD'},
-                    RackBone = 'TMD',
-                },
-            },
+            RackBones = {{ MuzzleBones = {'TMD'}, RackBone = 'TMD' }},
 
             RackReloadTimeout = 10,
             RackSalvoSize = 1,
@@ -337,75 +333,12 @@ UnitBlueprint {
         },
 
         {
-            
             Audio = {
-                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0204_Depth_Charge', LodCutoff = 'Weapon_LodCutoff' },
+                Fire = Sound {Bank = 'UASWeapon',Cue = 'UAS0203_Torpedo',LodCutoff = 'Weapon_LodCutoff'},
             },
 
             BallisticArc = 'RULEUBA_None',
-            BelowWaterTargetsOnly = true,
-            
-            CollideFriendly = false,
-			
-            Damage = 300,
-            DamageRadius = 2.5,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Harmonic Depth Charge',
-			
-            FireTargetLayerCapsTable = {
-                Water = 'Seabed|Sub|Water',
-            },
-			
-            FiringRandomness = 18,
-            FiringTolerance = 5,
-			
-            Label = 'DepthCharge',
-			
-            MaxRadius = 12,
-
-            MuzzleSalvoDelay = 0.8,
-            MuzzleSalvoSize = 2,
-
-            MuzzleVelocity = 5,
-            
-            NotExclusive = true,
-			
-            ProjectileId = '/projectiles/AANDepthCharge01/AANDepthCharge01_proj.bp',
-			ProjectileLifetime = 7,
-
-            RackBones = {
-                {
-                    MuzzleBones = {
-                        'Dummy_003',
-                        'Dummy_008',
-                    },
-                    RackBone = 'Body',
-                },
-            },
-
-            RackSalvoReloadTime = 4.2,
-
-            RangeCategory = 'UWRC_AntiNavy',
-
-            RateOfFire = 0.5,
-
-            TargetCheckInterval = 2,
-            
-            TargetPriorities = {
-                'SUBMARINE',
-                'SUBMERSIBLE',
-                'MOBILE',
-            },
-            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-        },
-
-        {
-            Audio = {
-                Fire            = Sound {Bank = 'UASWeapon',Cue = 'UAS0203_Torpedo',LodCutoff = 'Weapon_LodCutoff'},
-            },
-
-            BallisticArc = 'RULEUBA_None',
+			CannotAttackGround = true,
             CollideFriendly = false,
 			
             Damage = 300,
@@ -431,15 +364,7 @@ UnitBlueprint {
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
             ProjectileLifetime = 6,
 			
-            RackBones = {
-                {
-                    MuzzleBones = {
-                        'Dummy_005',
-                        'Dummy_010',
-                    },
-                    RackBone = 'Dummy_004',
-                },
-            },
+            RackBones = {{ MuzzleBones = {'Dummy_005','Dummy_010'}, RackBone = 'Dummy_004' }},
             
             RackSalvoReloadTime = 3.4,    -- 3.4 second reload
 
@@ -493,7 +418,7 @@ UnitBlueprint {
             MinRadius = 6,
 
             MuzzleSalvoDelay = 0.6,
-            MuzzleVelocity = 7.5,
+            MuzzleVelocity = 6.8,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
             ProjectileLifetime = 3,
@@ -515,7 +440,66 @@ UnitBlueprint {
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
             
-            WeaponRepackTimeout = 0.9,
+            WeaponRepackTimeout = 1.0,
         },
+
+        {
+            AutoInitiateAttackCommand = true,
+            
+            Audio = {
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0204_Depth_Charge', LodCutoff = 'Weapon_LodCutoff' },
+            },
+
+            BallisticArc = 'RULEUBA_None',
+            BelowWaterTargetsOnly = true,
+            
+            CollideFriendly = false,
+			
+            Damage = 75,
+            DamageRadius = 2.5,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Harmonic Depth Charge',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Seabed|Sub|Water',
+            },
+			
+            FiringRandomness = 7,
+            FiringTolerance = 18,
+			
+            Label = 'DepthCharge',
+			
+            MaxRadius = 12,
+
+            MuzzleSalvoDelay = 0.5,
+            MuzzleSalvoSize = 2,
+
+            MuzzleVelocity = 5,
+            
+            NotExclusive = true,
+			
+            ProjectileId = '/projectiles/AANDepthCharge01/AANDepthCharge01_proj.bp',
+			ProjectileLifetime = 5.5,
+
+            RackBones = {{ MuzzleBones = {'Dummy_003','Dummy_008'}, RackBone = 'Body' }},
+
+            RackSalvoReloadTime = 4.8,
+
+            RangeCategory = 'UWRC_IndirectFire',
+
+            RateOfFire = 0.5,
+
+            TargetCheckInterval = 2,
+            
+            TargetPriorities = {
+                'SUBMARINE',
+                'SUBMERSIBLE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+
+            TrackingRadius = 1.8,            
+        },
+        
     },
 }

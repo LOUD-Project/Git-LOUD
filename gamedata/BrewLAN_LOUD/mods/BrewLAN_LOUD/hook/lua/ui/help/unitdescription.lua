@@ -144,6 +144,11 @@ Description['ses0319'] = "<LOC Unit_Description_BrewLAN_T3S002>Tech 3 naval cons
 Description['srs0319'] = "<LOC Unit_Description_BrewLAN_T3S003>Tech 3 naval construction, repair, capture, reclaimation, and mine layer unit."
 Description['sss0306'] = "<LOC Unit_Description_BrewLAN_T3S004>Static Hover torpedo system. Capable of destroying the largest of enemy vessels. Can be built on land.  Personal Anti-Torpedo and Tactical Missile Defense."
 
+Description['ses3324'] = "<LOC Unit_Description_BrewLAN_T3S005>High end anti-air and reconnaissance naval craft. Has a platform for a scout drone."
+Description['sas3324'] = "<LOC Unit_Description_BrewLAN_T3S006>High end anti-air and reconnaissance naval craft. Can offer line-of-sight to a fixed location on the battlefield."
+Description['srs3324'] = "<LOC Unit_Description_BrewLAN_T3S007>High end anti-air and reconnaissance naval craft. Has a platform for a scout drone."
+Description['sss3324'] = "<LOC Unit_Description_BrewLAN_T3S008>High end anti-air and reconnaissance naval craft. Can offer line-of-sight of an enemy unit."
+
 --Experimentals
 Description['sab4401'] = "<LOC Unit_Description__BubbleTea_A4_01>Experimental shield projection facility. Generates protective bubbles around each individual structure within its opperational radius."
 Description['seb4401'] = "<LOC Unit_Description__BubbleTea_A4_02>Generates a heavy shield around units and structures within its opperational radius."

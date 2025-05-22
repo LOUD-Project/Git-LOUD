@@ -59,6 +59,7 @@
     Description = '<LOC ses3324_desc>Corvette',
 
     Display = {
+
         Abilities = {
             '<LOC ability_aa>Anti-Air',
             '<LOC ability_omni>Omni Sensor',
@@ -67,11 +68,13 @@
             '<LOC ability_tacmissiledef>Tactical Missile Defense',
             '<LOC ability_torpedo>Torpedoes',
             '<LOC ability_torpedodef>Torpedo Defense',
+            "<LOC ability_depthcharge>Depth Charge",
         },
+
         AnimationDeath = {
-            { Animation = '/mods/BrewLAN/units/ses3324/ses3324_ADeath_01.sca', Weight = 100 },
-            { Animation = '/mods/BrewLAN/units/ses3324/ses3324_ADeath_02.sca', Weight = 100 },
-            { Animation = '/mods/BrewLAN/units/ses3324/ses3324_ADeath_03.sca', Weight = 100 },
+            { Animation = '/mods/BrewLAN_LOUD/units/ses3324/ses3324_ADeath_01.sca', Weight = 100 },
+            { Animation = '/mods/BrewLAN_LOUD/units/ses3324/ses3324_ADeath_02.sca', Weight = 100 },
+            { Animation = '/mods/BrewLAN_LOUD/units/ses3324/ses3324_ADeath_03.sca', Weight = 100 },
         },
 
         IdleEffects = {
@@ -165,18 +168,22 @@
         BankingSlope = 0,
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
-        MaxAcceleration = 1.5,
-        MaxBrake = 1.5,
+
+        MaxAcceleration = 2.1,
+        MaxBrake = 1.8,
         MaxSpeed = 4,
-        MaxSpeedReverse = 3.5,
+        MaxSpeedReverse = 3.8,
+
         MaxSteerForce = 5,
         MeshExtentsX = 1.2,
         MeshExtentsY = 3,
         MeshExtentsZ = 9,
+
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
-        TurnRadius = 20,
-        TurnRate = 40,
+
+        TurnRadius = 16,
+        TurnRate = 48,
     },
 
     SelectionSizeX = 0.8,
@@ -209,53 +216,51 @@
             },
 
             BallisticArc = 'RULEUBA_None',
-
+			
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    BuffType = 'FUELRATIO',
+                    BuffValue = 2.5,
+                    TargetAllow = 'AIR MOBILE',
+                },
+            },
+	
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 100,
-			DamageFriendly = false,
-			DamageRadius = 0,
+            Damage = 200,
             DamageType = 'Normal',
 			
-            DisplayName = 'Flayer SAM Launcher',
+            DisplayName = 'SAM Launcher',
 			
             FireTargetLayerCapsTable = {
                 Water = 'Air',
             },
-            FiringTolerance = 10,
+            FiringTolerance = 12,
 
             Label = 'SAM',
 
-            MaxRadius = 55,
+            MaxRadius = 52,
             MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 8,
+            MuzzleSalvoSize = 4,
+            MuzzleVelocity = 35,
 
-            MuzzleVelocity = 32,
-            ProjectileId = '/projectiles/TAAMissileFlayer02/TAAMissileFlayer02_proj.bp',
+            ProjectileId = '/projectiles/TAAMissileFlayer02/TAAMissileFlayer01_proj.bp',
             ProjectileLifetime = 5,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Flayer_Muzzle_01',
-                        'Flayer_Muzzle_02',
-                        'Flayer_Muzzle_03',
-                        'Flayer_Muzzle_04',
-                        'Flayer_Muzzle_05',
-                        'Flayer_Muzzle_06',
-                        'Flayer_Muzzle_07',
-                        'Flayer_Muzzle_08',
-                    },
+                    MuzzleBones = {'Flayer_Muzzle_01','Flayer_Muzzle_03','Flayer_Muzzle_05','Flayer_Muzzle_07'},
                     RackBone = 'Flayer_Pitch',
                 },
             },
 
             RangeCategory = 'UWRC_AntiAir',
 
-            RateOfFire = 0.4,
+            RateOfFire = 0.4,       -- 320 DPS Air
 
-            TargetCheckInterval = 1,
+            TargetCheckInterval = 0.3,
 
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -263,8 +268,7 @@
                 'TORPEDOBOMBER',
                 'BOMBER',
                 'GROUNDATTACK',
-                'SPECIALLOWPRI',
-                'ALLUNITS',
+                'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.4,
@@ -349,6 +353,8 @@
                 FireUnderWater  = Sound { Bank = 'UESWeapon', Cue = 'UES0203_Torpedo', LodCutoff = 'Weapon_LodCutoff' },                
             },
             BallisticArc = 'RULEUBA_None',
+            
+            CannotAttackGround = true,
             CollideFriendly = false,
 			
             Damage = 100,
@@ -499,6 +505,66 @@
             
             WeaponRepackTimeout = 1,
         },
+ 
+        { 
+            AutoInitiateAttackCommand = true, 
 
+            Audio = { 
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0204_Depth_Charge', LodCutoff = 'Weapon_LodCutoff' }, 
+            }, 
+ 
+            BallisticArc = 'RULEUBA_HighArc', 
+            BelowWaterTargetsOnly = true, 
+
+            CollideFriendly = false, 
+
+            Damage = 75, 
+            DamageRadius = 2.5, 
+            DamageType = 'Normal', 
+
+            DisplayName = 'Harmonic Depth Charge', 
+
+            FireTargetLayerCapsTable = { 
+                Water = 'Seabed|Sub|Water', 
+            }, 
+
+            FiringRandomness = 1, 
+            FiringTolerance = 35, 
+
+            Label = 'DepthCharge', 
+
+            MaxRadius = 12, 
+ 
+            MuzzleSalvoDelay = 0.5, 
+            MuzzleSalvoSize = 2, 
+ 
+            MuzzleVelocity = 5,
+
+            NotExclusive = true, 
+
+            ProjectileId = '/projectiles/AANDepthCharge01/AANDepthCharge01_proj.bp', 
+			ProjectileLifetime = 6.5, 
+			
+            RackBones = {
+                { MuzzleBones = {'Under_R_003','Under_L_003'}, RackBone = 'Under_R_003' },
+            },
+ 
+            RackSalvoReloadTime = 4.8, 
+ 
+            RangeCategory = 'UWRC_IndirectFire', 
+ 
+            RateOfFire = 0.5,       -- about 26dps SUB, controlled by Rack Salvo reload and muzzle salvo delay 
+ 
+            TargetCheckInterval = 2, 
+             
+            TargetPriorities = { 
+                'SUBMARINE', 
+                'SUBMERSIBLE', 
+            }, 
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+			
+            TrackingRadius = 2,
+
+        },    
     },
 }

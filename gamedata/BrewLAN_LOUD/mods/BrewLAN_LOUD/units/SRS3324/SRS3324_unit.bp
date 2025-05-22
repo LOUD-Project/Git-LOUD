@@ -93,9 +93,9 @@ UnitBlueprint {
         },
 
         AnimationDeath = {
-            { Animation = '/mods/BrewLAN/units/ses3324/ses3324_ADeath_01.sca', Weight = 100 },
-            { Animation = '/mods/BrewLAN/units/ses3324/ses3324_ADeath_02.sca', Weight = 100 },
-            { Animation = '/mods/BrewLAN/units/ses3324/ses3324_ADeath_03.sca', Weight = 100 },
+            { Animation = '/mods/BrewLAN_LOUD/units/ses3324/ses3324_ADeath_01.sca', Weight = 100 },
+            { Animation = '/mods/BrewLAN_LOUD/units/ses3324/ses3324_ADeath_02.sca', Weight = 100 },
+            { Animation = '/mods/BrewLAN_LOUD/units/ses3324/ses3324_ADeath_03.sca', Weight = 100 },
         },
 
         IdleEffects = {
@@ -190,18 +190,21 @@ UnitBlueprint {
         BankingSlope = 0,
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
-        MaxAcceleration = 1.7,
+
+        MaxAcceleration = 2.2,
         MaxBrake = 1.9,
         MaxSpeed = 4.3,
         MaxSpeedReverse = 4.3,
+
         MaxSteerForce = 5,
         MeshExtentsX = 1.2,
         MeshExtentsY = 3,
         MeshExtentsZ = 9,
+
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
-        TurnRadius = 20,
-        TurnRate = 40,
+        TurnRadius = 18,
+        TurnRate = 48,
     },
 
     SelectionSizeX = 0.8,
@@ -238,7 +241,7 @@ UnitBlueprint {
                 {
                     Add = { OnImpact = true },
                     BuffType = 'FUELRATIO',
-                    BuffValue = 3.5,
+                    BuffValue = 3,
                     TargetAllow = 'AIR MOBILE',
                 },
             },
@@ -246,7 +249,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 
-            Damage = 220,
+            Damage = 200,
             DamageType = 'Normal',
 
             DisplayName = 'Nanite Missile System',
@@ -281,7 +284,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiAir',
 
-            RateOfFire = 0.5,       -- 440 DPS Air
+            RateOfFire = 0.5,       -- 400 DPS Air
             TargetCheckInterval = 0.5,
 
             TargetPriorities = {
@@ -467,20 +470,12 @@ UnitBlueprint {
 
             MuzzleSalvoDelay = 0.6,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 7.5,
+            MuzzleVelocity = 6.8,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
             ProjectileLifetime = 3,
 
-            RackBones = {
-                {
-                    MuzzleBones = {
-                        'RR001',
-                        'LL001',
-                    },
-                    RackBone = 'LL001',
-                },
-            },
+            RackBones = {{ MuzzleBones = {'RR001','LL001'}, RackBone = 'LL001' }},
 
             RangeCategory = 'UWRC_Countermeasure',
 
@@ -491,14 +486,6 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
-
-            TurretPitch = 0,
-            TurretPitchRange = 0,
-            TurretPitchSpeed = 0,
-            TurretYaw = 0,
-            TurretYawRange = 0,
-            TurretYawSpeed = 0,
-            Turreted = false,
             
             WeaponRepackTimeout = 0.9,            
         },
