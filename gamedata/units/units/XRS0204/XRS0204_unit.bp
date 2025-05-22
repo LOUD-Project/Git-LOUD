@@ -161,15 +161,15 @@ UnitBlueprint {
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
         Elevation = -2.8,
-        MaxAcceleration = 1.5,
+        MaxAcceleration = 1.4,
         MaxBrake = 2,
         MaxSpeed = 3.8,
         MaxSpeedReverse = 3.8,
         MaxSteerForce = 5,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_SurfacingSub',
-        TurnRadius = 8,
-        TurnRate = 50,
+        TurnRadius = 10,
+        TurnRate = 32,
     },
 	
     SelectionSizeX = 0.6,
@@ -226,13 +226,13 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 15,
+            FiringTolerance = 12,
 			
             Label = 'Torpedo',
 			
             MaxRadius = 48,
 			
-            MuzzleSalvoDelay = 0.6,
+            MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 3,
 
             MuzzleVelocity = 4.5,
@@ -247,14 +247,14 @@ UnitBlueprint {
                 },
             },
             
-            RackSalvoReloadTime = 0.7,
+            RackSalvoReloadTime = 1.0,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 1,		-- 3 torps * 230  = 690 every 2.5 seconds = 270 DPS
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 20,
+            SlavedToBodyArcRange = 15,
 			
             TargetCheckInterval = 0.5,
 			

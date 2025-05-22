@@ -172,8 +172,8 @@ UnitBlueprint {
         MeshExtentsZ = 3.6,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_SurfacingSub',
-        TurnRadius = 15,
-        TurnRate = 50,
+        TurnRadius = 12,
+        TurnRate = 32,
     },
 	
     SelectionSizeX = 0.8,
@@ -374,7 +374,7 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 15,
+            FiringTolerance = 12,
 			
             Label = 'Torpedo',
 			
@@ -387,7 +387,6 @@ UnitBlueprint {
 
             NotExclusive = true,
 
-            -- this is a somewhat slower torpedo --
             ProjectileId = '/projectiles/SANAnaitTorpedo01/SANAnaitTorpedo01_proj.bp',
             ProjectileLifetime = 7,
 			
