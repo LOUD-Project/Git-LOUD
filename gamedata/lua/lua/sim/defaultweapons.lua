@@ -698,10 +698,6 @@ DefaultProjectileWeapon = Class(Weapon) {
 
             LOUDSTATE(self, self.WeaponPackingState)
 
-        --else
-
-          --  LOUDSTATE(self, self.IdleState)
-
         end
 
     end,
@@ -1011,7 +1007,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 	
     WeaponUnpackingState = State {
 
-        WeaponWantEnabled = false,
+        WeaponWantEnabled = true,
         WeaponAimWantEnabled = true,
 
         Main = function(self)
@@ -1192,7 +1188,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             end
 			
         end,
-        
+     
         OnGotTarget = function(self)
 
             if ScenarioInfo.WeaponStateDialog then
