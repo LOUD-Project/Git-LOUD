@@ -1,4 +1,15 @@
-### Release
+### Release 05-20-2025
+
+LUA 7.23
+BrewLAN for LOUD 0.8.8.9.113
+
+- fix for some firing issues related to unpacking weapons
+- names for new BrewLAN corvettes
+- fix for 'personal stealth' description in Corvette drones
+
+
+
+### Release 05-19-2025
 
 LUA 7.22
 4DC for LOUD 7.06
