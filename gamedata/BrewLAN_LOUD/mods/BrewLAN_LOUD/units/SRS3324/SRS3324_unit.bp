@@ -170,7 +170,8 @@ UnitBlueprint {
         FactionName = 'Cybran',
 
         Icon = 'sea',
-        -- UnitName = '<LOC srs3324_name>',
+
+        UnitName = '<LOC srs3324_name>Eyedon',
     },
 
     Intel = {

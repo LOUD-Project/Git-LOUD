@@ -196,8 +196,8 @@ UnitBlueprint {
 
         FactionName = 'Seraphim',
         Icon = 'sea',
-        --UnitName = '<LOC xss0103_name>Hau-esel',
-        UnitWeight = 1,
+
+        UnitName = '<LOC xss0103_name>Lhuumer',
     },
 
     Intel = {
