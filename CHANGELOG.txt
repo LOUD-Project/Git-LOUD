@@ -1,3 +1,12 @@
+### Release 05-24-2025
+
+BrewLAN for LOUD 0.8.8.9.114
+
+- hotfix for a projectile error on UEF Corvette
+- rescinded naming until further notice
+
+
+
 ### Release 05-20-2025
 
 LUA 7.23

@@ -144,7 +144,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'sea',
 
-        UnitName = '<LOC ses3324_name>Heldar Class',
+        --UnitName = '<LOC ses3324_name>Heldar Class',
     },
 
     Intel = {

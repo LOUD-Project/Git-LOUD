@@ -246,7 +246,7 @@
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 35,
 
-            ProjectileId = '/projectiles/TAAMissileFlayer02/TAAMissileFlayer01_proj.bp',
+            ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
             ProjectileLifetime = 5,
 
             RackBones = {

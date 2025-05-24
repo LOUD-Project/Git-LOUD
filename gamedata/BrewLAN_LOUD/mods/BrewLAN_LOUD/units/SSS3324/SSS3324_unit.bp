@@ -197,7 +197,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'sea',
 
-        UnitName = '<LOC xss0103_name>Lhuumer',
+        --UnitName = '<LOC xss0103_name>Lhuumer',
     },
 
     Intel = {
