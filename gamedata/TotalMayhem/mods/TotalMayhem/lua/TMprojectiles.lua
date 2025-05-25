@@ -206,17 +206,17 @@ CybranHeavyRocketproj   = Class(MultiPolyTrailProjectile) {
     PolyTrails = TMEffectTemplate.CybranHeavyRocketTrail,
 		PolyTrailOffset = TMEffectTemplate.CybranRocketHeavyTrailOffset,  
 		FxTrails = TMEffectTemplate.CybranHeavyRocketFXTrail,
-		FxTrailScale = 0.7,
+		FxTrailScale = 0.55,
     
     FxImpactUnit = TMEffectTemplate.CybranHeavyRocketHit,
-    FxUnitHitScale = 0.7,
+    FxUnitHitScale = 0.55,
     FxImpactProp = TMEffectTemplate.CybranHeavyRocketHit,
-    FxPropHitScale = 0.7,
+    FxPropHitScale = 0.5,
     FxImpactLand = TMEffectTemplate.CybranHeavyRocketHit,
-    FxLandHitScale = 0.7,
+    FxLandHitScale = 0.5,
     FxImpactUnderWater = TMEffectTemplate.CybranHeavyRocketHit,
     FxImpactWater = TMEffectTemplate.CybranHeavyRocketHit,
-    FxWaterHitScale = 0.7,
+    FxWaterHitScale = 0.4,
 }
 
 CybranRocketproj        = Class(MultiPolyTrailProjectile) {
