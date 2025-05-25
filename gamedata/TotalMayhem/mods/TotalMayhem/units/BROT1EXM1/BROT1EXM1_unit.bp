@@ -54,6 +54,7 @@ UnitBlueprint {
 	
     Display = {
         AnimationDeath = { {Animation = '/mods/TotalMayhem/units/BROT1EXM1/BROT1EXM1_Death.sca',Weight = 100} },
+
         AnimationWalk = '/mods/TotalMayhem/units/BROT1EXM1/BROT1EXM1_Walk.sca',
         AnimationWalkRate = 6,
 
@@ -96,15 +97,16 @@ UnitBlueprint {
     LifeBarSize = 1,
 	
     Physics = {
+        BackUpDistance = 8,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
         MaxAcceleration = 1.05,
-        MaxBrake = 1.5,
+        MaxBrake = 1.6,
         MaxSpeed = 3.1,
-        MaxSpeedReverse = 2.2,
+        MaxSpeedReverse = 3,
         MaxSteerForce = 10,
         MeshExtentsX = 1,
         MeshExtentsY = 1.2,
@@ -130,11 +132,11 @@ UnitBlueprint {
     StrategicIconSortPriority = 115,
 	
     Veteran = {
-        Level1 = 3,
-        Level2 = 6,
-        Level3 = 9,
-        Level4 = 12,
-        Level5 = 15,
+        Level1 = 4,
+        Level2 = 8,
+        Level3 = 12,
+        Level4 = 16,
+        Level5 = 20,
 	},
 	
     Transport = {
@@ -178,10 +180,7 @@ UnitBlueprint {
             ProjectileLifetime = 0.7,
 
             RackBones = {
-                {
-                    MuzzleBones = {'mainmuzzle01','mainmuzzle02'},
-                    RackBone = 'Turret_Recoil01',
-                },
+                { MuzzleBones = {'mainmuzzle01','mainmuzzle02'}, RackBone = 'Turret_Recoil01' },
             },
 
             RangeCategory = 'UWRC_DirectFire',
@@ -209,7 +208,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 40,
+            TurretYawSpeed = 38,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -219,7 +218,6 @@ UnitBlueprint {
             
             Audio = {
                 Fire = Sound { Bank = 'UALWeapon', Cue = 'UAL0104_Pulse_Battery', LodCutoff = 'Weapon_LodCutoff'},
-                --Fire = Sound { Bank = 'TM_AEONWEAPONS', Cue = 'AEONGUNAUTOPULSEFX', LodCutoff = 'Weapon_LodCutoff' },
             },
             
             BallisticArc = 'RULEUBA_LowArc',
@@ -249,14 +247,8 @@ UnitBlueprint {
             ProjectileLifetime = 0.7,
 
             RackBones = {
-                {
-                    MuzzleBones = {'minigunmuzzle01'},
-                    RackBone = 'minigun_Barrel',
-                },
-                {
-                    MuzzleBones = {'minigunmuzzle02'},
-                    RackBone = 'minigun_Barrel01',
-                },
+                { MuzzleBones = {'minigunmuzzle01'}, RackBone = 'minigun_Barrel' },
+                { MuzzleBones = {'minigunmuzzle02'}, RackBone = 'minigun_Barrel01' },
             },
             RackFireTogether = true,
 
@@ -377,8 +369,8 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.6,
-        HealthMult = 0.9,
+        EnergyMult = 0.3,
+        HealthMult = 0.6,
         MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {

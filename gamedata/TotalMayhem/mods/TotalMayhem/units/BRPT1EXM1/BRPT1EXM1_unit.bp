@@ -121,14 +121,15 @@ UnitBlueprint {
     LifeBarSize = 0.75,
 	
     Physics = {
+        BackUpDistance = 8,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
 		
-        MaxAcceleration = 1.6,
-        MaxBrake = 3.2,
+        MaxAcceleration = 1.1,
+        MaxBrake = 1.6,
         MaxSpeed = 3.2,
         MaxSpeedReverse = 3,
 		
@@ -144,8 +145,8 @@ UnitBlueprint {
         RotateOnSpot = false,
         RotateOnSpotThreshold = 0,
 		
-        TurnRadius = 8,
-        TurnRate = 55,
+        TurnRadius = 10,
+        TurnRate = 44,
     },
 	
     SelectionSizeX = 0.4,
@@ -204,14 +205,8 @@ UnitBlueprint {
             ProjectileLifetime = 0.8,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Turret_Muzzle01a'},
-                    RackBone = 'Turret_Barreld',
-                },
-                {
-                    MuzzleBones = {'Turret_Muzzle02a'},
-                    RackBone = 'Turret_Barrel01',
-                },
+                { MuzzleBones = {'Turret_Muzzle01a'}, RackBone = 'Turret_Barreld' },
+                { MuzzleBones = {'Turret_Muzzle02a'}, RackBone = 'Turret_Barrel01' },
             },
 
             RackRecoilDistance = 0.35,
@@ -250,7 +245,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 55,
+            TurretYawSpeed = 42,
 			
             Turreted = true,
         },
@@ -259,7 +254,7 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
-        HealthMult = 0.9,
+        HealthMult = 0.6,
         MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {

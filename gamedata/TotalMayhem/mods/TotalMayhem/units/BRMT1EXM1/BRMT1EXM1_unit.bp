@@ -42,40 +42,33 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 515,
-        MaxHealth = 515,
+        Health = 505,
+        MaxHealth = 505,
         RegenRate = 2,
-        SurfaceThreatLevel = 5.7,
+        SurfaceThreatLevel = 5.1,
     },
 	
     Description = '<LOC brmt1exm1_desc>Medium Assault Bot',
 	
     Display = {
         AnimationDeath = { { Animation = '/mods/TotalMayhem/units/BRMT1EXM1/BRMT1EXM1_Death.sca', Weight = 100 } },
+
         AnimationWalk = '/mods/TotalMayhem/units/BRMT1EXM1/BRMT1EXM1_Walk.sca',
         AnimationWalkRate = 10,
 		
-        Mesh = {
-            IconFadeInZoom = 120,
-            LODs = {
-                {LODCutoff = 180,ShaderName = 'Insect'},
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = {{LODCutoff = 180,ShaderName = 'Insect'}}},
+
         MovementEffects = {
-            Land = {
-                Effects = {
-                    { Bones = {'Exhaust_Left','Exhaust_Right'}, Type = 'GroundKickup01' },
-                },
-            },
+            Land = { Effects = {{ Bones = {'Exhaust_Left','Exhaust_Right'}, Type = 'GroundKickup01' }}},
         },
 
         UniformScale = 0.0325,
     },
 	
     Economy = {
-        BuildCostEnergy = 1050,
-        BuildCostMass = 190,
-        BuildTime = 235,
+        BuildCostEnergy = 1275,
+        BuildCostMass = 195,
+        BuildTime = 245,
     },
 	
     General = {
@@ -106,14 +99,15 @@ UnitBlueprint {
     LifeBarSize = 0.75,
 	
     Physics = {
+        BackUpDistance = 8,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
 		
-        MaxAcceleration = 1.1,
-        MaxBrake = 3.2,
+        MaxAcceleration = 1,
+        MaxBrake = 1.6,
         MaxSpeed = 3.2,
         MaxSpeedReverse = 3,
 		
@@ -121,8 +115,8 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
         StandUpright = true,
-        TurnRadius = 20,
-        TurnRate = 62,
+        TurnRadius = 18,
+        TurnRate = 40,
     },
 	
     SelectionSizeX = 0.38,
@@ -160,7 +154,6 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 8.5,
-			DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -169,7 +162,7 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
             },
 			
-            FiringRandomnessWhileMoving = 0.3,
+            FiringRandomnessWhileMoving = 0.4,
             FiringTolerance = 2,
 			
             Label = 'HeavyBolter',
@@ -184,14 +177,8 @@ UnitBlueprint {
             ProjectileLifetime = 0.7,
 
             RackBones = {
-                {
-                    MuzzleBones = { 'lefthand_muzzle1' },
-                    RackBone = 'gun01',
-                },
-                {
-                    MuzzleBones = { 'righthand_muzzle1' },
-                    RackBone = 'gun02',
-                },
+                { MuzzleBones = { 'lefthand_muzzle1' },     RackBone = 'gun01' },
+                { MuzzleBones = { 'righthand_muzzle1' },    RackBone = 'gun02' },
             },
 
             RackReloadTimeout = 10,
@@ -228,7 +215,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 48,
+            TurretYawSpeed = 38,
 
             Turreted = true,
 		},
