@@ -6,8 +6,9 @@ local MIBC  = '/lua/editor/MiscBuildConditions.lua'
 local EBC   = '/lua/editor/EconomyBuildConditions.lua'
 local LUTL  = '/lua/loudutilities.lua'
 
-local GetArmyUnitCap        = GetArmyUnitCap
-local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
+local GetArmyUnitCap                = GetArmyUnitCap
+local GetArmyUnitCostTotal          = GetArmyUnitCostTotal
+local GreaterThanEnergyIncome       = import(LUTL).GreaterThanEnergyIncome
 
 local AboveUnitCap70 = function( self,aiBrain )
 	
@@ -381,6 +382,41 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
         BuilderType = {'LandT3'},
     },
 
+    -- T3 Mobile Anti-Nuke 
+    Builder {BuilderName = 'Mobile AntiNuke T3',
+	
+        PlatoonTemplate = 'T3MobileAntiNuke',
+
+        Priority = 610,
+
+        PriorityFunction = function( self, aiBrain, unit, manager)
+        
+            if GreaterThanEnergyIncome( aiBrain, 5000) then
+            
+                if import(UCBC).HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, categories.NUKE * categories.SILO * categories.STRUCTURE,'Enemy') then
+                    return (self.OldPriority or self.Priority), true
+                end
+            else
+                return 10, true
+            end
+        
+        end,
+		
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .95 } },
+
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
+
+			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
+            
+ 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ANTIMISSILE * categories.SILO * categories.TECH3, categories.LAND * categories.TECH3 }},
+
+            { UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.LAND * categories.INDIRECTFIRE * categories.MOBILE * categories.TECH3 }},
+        },
+		
+        BuilderType = {'LandT3'},
+    },
+    
 }
 
 
