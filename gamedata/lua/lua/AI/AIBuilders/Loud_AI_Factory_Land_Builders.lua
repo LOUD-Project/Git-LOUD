@@ -277,6 +277,25 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
         BuilderType = {'LandT2'},
     },
 
+    -- T2 Mobile TMD 
+    Builder {BuilderName = 'T2 Mobile TMD',
+	
+        PlatoonTemplate = 'T2LandMobileTMD',
+
+        Priority = 550,
+
+        BuilderConditions = {
+			{ LUTL, 'PoolLess', { 3, categories.LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2 }},
+
+            -- must have some Directfire in the Pool at this location
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
+
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2 }},
+        },
+		
+        BuilderType = {'LandT2'},
+    },
+    
 	
 	-- T3 Mobile Shield - T2 for UEF,AEON,SERA
 	-- only made when there are NO T2 factory at this location
@@ -382,16 +401,35 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
         BuilderType = {'LandT3'},
     },
 
+    -- T3 Mobile TMD - but T2 unit
+    Builder {BuilderName = 'T3 Mobile TMD',
+	
+        PlatoonTemplate = 'T2LandMobileTMD',
+
+        Priority = 600,
+
+        BuilderConditions = {
+			{ LUTL, 'PoolLess', { 3, categories.LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2 }},
+
+            -- must have some Directfire in the Pool at this location
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
+
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2 }},
+        },
+		
+        BuilderType = {'LandT3'},
+    },
+    
     -- T3 Mobile Anti-Nuke 
-    Builder {BuilderName = 'Mobile AntiNuke T3',
+    Builder {BuilderName = 'T3 Mobile AntiNuke',
 	
         PlatoonTemplate = 'T3MobileAntiNuke',
 
-        Priority = 610,
+        Priority = 600,
 
         PriorityFunction = function( self, aiBrain, unit, manager)
         
-            if GreaterThanEnergyIncome( aiBrain, 5000) then
+            if GreaterThanEnergyIncome( aiBrain, 12600) then
             
                 if import(UCBC).HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, categories.NUKE * categories.SILO * categories.STRUCTURE,'Enemy') then
                     return (self.OldPriority or self.Priority), true
@@ -403,15 +441,15 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
         end,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .95 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
 
-			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
             
  			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ANTIMISSILE * categories.SILO * categories.TECH3, categories.LAND * categories.TECH3 }},
 
-            { UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.LAND * categories.INDIRECTFIRE * categories.MOBILE * categories.TECH3 }},
+            { UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ANTIMISSILE * categories.SILO * categories.TECH3 }},
         },
 		
         BuilderType = {'LandT3'},

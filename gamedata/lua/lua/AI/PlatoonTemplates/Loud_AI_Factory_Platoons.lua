@@ -674,6 +674,15 @@ PlatoonTemplate { Name = 'T2MobileShields',
 }
 
 
+PlatoonTemplate { Name = 'T2LandMobileTMD',
+    FactionSquads = {
+        UEF = {},
+        Aeon = {},
+        Cybran = {},
+        Seraphim = {},
+    }
+}
+
 PlatoonTemplate { Name = 'T2LandAmphibAA',
     FactionSquads = {
         UEF = {
