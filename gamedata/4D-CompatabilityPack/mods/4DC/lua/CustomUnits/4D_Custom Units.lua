@@ -25,7 +25,11 @@ UnitList = {
 	},
 
     T3LandAA = {
-        Aeon = {'UAL0310', 10},     -- Vindicator, T3 heavy defence unit
+        Aeon = {'UAL0310', 20},     -- Vindicator, T3 heavy defence unit
+    },
+
+    T3LandMobileTMD = {
+        Aeon = {'UAL0310', 100},
     },
 	
 	T3AmphibiousAA = {

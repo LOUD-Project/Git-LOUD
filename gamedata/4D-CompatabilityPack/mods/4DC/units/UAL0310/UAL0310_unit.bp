@@ -27,6 +27,7 @@ UnitBlueprint{
         "AEON",
         "AMPHIBIOUS",
         "ANTIAIR",
+        "ANTIMISSILE",
         "BUILTBYTIER3FACTORY",
         "LAND",
         "MOBILE",
@@ -115,17 +116,25 @@ UnitBlueprint{
     },
 
     Enhancements = {
+	
+		Sequence = {'ShieldDomeAdd'},
+	
         ShieldDomeAdd = {
             BuildCostEnergy = 2160,
             BuildCostMass = 288,
             BuildTime = 1200,
+
             Icon = "ptsg",
             ImpactEffects = "AeonShieldHit01",
             ImpactMesh = "/effects/entities/ShieldSection01/ShieldSection01_mesh",
+
             MaintenanceConsumptionPerSecondEnergy = 125,
+
             Mesh = "/effects/entities/AeonShield01/AeonShield01_mesh",
             MeshZ = "/effects/entities/Shield01/Shield01z_mesh",
+
             Name = "Shield Dome",
+
             RegenAssistMult = 60,
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 5000,
@@ -138,6 +147,7 @@ UnitBlueprint{
             UpgradeEffectBones = { "TarantulaBody" },
             UpgradeUnitAmbientBones = { "TarantulaBody" },
         },
+
         ShieldDomeRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -148,6 +158,7 @@ UnitBlueprint{
             RemoveEnhancements = {"ShieldDome","ShieldDomeRemove"},
             Slot = "Back",
         },
+
         Slots = {
             Back = { name = "<LOC _Back>", x = -2, y = -5 },
             Command = {},
