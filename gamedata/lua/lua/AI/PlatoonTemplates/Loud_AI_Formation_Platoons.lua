@@ -192,6 +192,8 @@ local LANDCOUNTERINTEL = LAND * categories.COUNTERINTELLIGENCE
 local LANDDIRECTFIRE = LAND * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER
 local LANDSCOUT = categories.LAND * categories.SCOUT
 local LANDSHIELD = LAND * categories.SHIELD
+local LANDTMD = LAND * categories.ANTIMISSILE - categories.SILO
+local LANDSMD = LAND * categories.ANTIMISSILE * categories.SILO
 
 -- not that it's used much - but you can have factional differences -- have a look at the T1 Scouting Platoon where all factions have
 -- 2 scouts except the Cybrans which only use 1 scout
@@ -203,6 +205,8 @@ PlatoonTemplate { Name = 'ReinforceLandPlatoonDirect',
         { LANDANTIAIR, 0, 12, 'Guard', 'none'},
 		{ LANDSHIELD, 0, 3, 'Support', 'none' },
 		{ LANDCOUNTERINTEL, 0, 2, 'Guard', 'none' },
+        { LANDTMD, 0, 2, 'Guard', 'none' },
+        { LANDSMD, 0, 1, 'Support', 'none' },
         { LANDSCOUT, 0, 2, 'Scout', 'none' },
 	},
 }
@@ -214,6 +218,8 @@ PlatoonTemplate { Name = 'ReinforceLandPlatoonIndirect',
         { LANDANTIAIR, 0, 12, 'Guard', 'none'},
 		{ LANDSHIELD, 0, 3, 'Support', 'none' },
 		{ LANDCOUNTERINTEL, 0, 2, 'Support', 'none' },
+        { LANDTMD, 0, 2, 'Guard', 'none' },
+        { LANDSMD, 0, 1, 'Support', 'none' },
         { LANDSCOUT, 0, 2, 'Scout', 'none' },
 	},
 }
@@ -225,6 +231,8 @@ PlatoonTemplate { Name = 'ReinforceLandPlatoonSupport',
         { LANDANTIAIR, 0, 12, 'Guard', 'none'},
 		{ LANDSHIELD, 0, 3, 'Support', 'none' },
 		{ LANDCOUNTERINTEL, 0, 2, 'Support', 'none' },
+        { LANDTMD, 0, 2, 'Guard', 'none' },
+        { LANDSMD, 0, 1, 'Support', 'none' },
         { LANDSCOUT, 0, 2, 'Scout', 'none' },
 	},
 }
@@ -236,6 +244,7 @@ PlatoonTemplate { Name = 'T1ArtilleryAttack',
         { LANDANTIAIR, 0, 12, 'Guard', 'none' },
 		{ LANDSHIELD, 0, 1, 'Support', 'none'},
 		{ LANDCOUNTERINTEL, 0, 1, 'Support', 'none'},
+        { LANDTMD, 0, 1, 'Guard', 'none' },
     },
 }
 
@@ -247,6 +256,7 @@ PlatoonTemplate { Name = 'T1MassAttack',
         { LANDANTIAIR, 0, 12, 'Guard', 'none' },
 		{ LANDSHIELD, 0, 2, 'Support', 'none' },
 		{ LANDCOUNTERINTEL, 0, 1, 'Guard', 'none' },
+        { LANDTMD, 0, 1, 'Guard', 'none' },
     },
 }
 
@@ -258,6 +268,7 @@ PlatoonTemplate { Name = 'T2MassAttack',
         { LANDANTIAIR, 0, 12, 'Guard', 'none' },
 		{ LANDSHIELD, 0, 4, 'Support', 'none' },
 		{ LANDCOUNTERINTEL, 0, 3, 'Guard', 'none' },
+        { LANDTMD, 0, 2, 'Guard', 'none' },
     },
 }
 
@@ -269,6 +280,7 @@ PlatoonTemplate { Name = 'T3MassAttack',
         { LANDANTIAIR, 0, 20, 'Guard', 'none' },
 		{ LANDSHIELD, 0, 10, 'Support', 'none'},
 		{ LANDCOUNTERINTEL, 0, 5, 'Guard', 'none'},
+        { LANDTMD, 0, 3, 'Guard', 'none' },        
         { LANDSCOUT, 0, 2, 'Scout', 'none' },
     },
 }
@@ -280,6 +292,7 @@ PlatoonTemplate { Name = 'T1LandAttack',
         { LANDANTIAIR, 0, 12, 'Guard', 'none' },
 		{ LANDSHIELD, 0, 2, 'Guard', 'none' },
 		{ LANDCOUNTERINTEL, 0, 1, 'Guard', 'none' },
+        { LANDTMD, 0, 1, 'Guard', 'none' },
     },
 }
 
@@ -290,6 +303,7 @@ PlatoonTemplate { Name = 'T2LandAttack',
         { LANDANTIAIR, 0, 12, 'Guard', 'none' },
 		{ LANDSHIELD, 0, 4, 'Support', 'none' },
 		{ LANDCOUNTERINTEL, 0, 2, 'Guard', 'none' },
+        { LANDTMD, 0, 2, 'Guard', 'none' },        
     },
 }
 
@@ -301,6 +315,8 @@ PlatoonTemplate { Name = 'T3LandAttack',
         { LANDANTIAIR, 0, 20, 'Guard', 'none' },
 		{ LANDSHIELD, 0, 10, 'Support', 'none'},
 		{ LANDCOUNTERINTEL, 0, 4, 'Guard', 'none'},
+        { LANDTMD, 0, 3, 'Guard', 'none' },        
+        { LANDSMD, 0, 1, 'Support', 'none' },
         { LANDSCOUT, 0, 2, 'Scout', 'none' },
     },
 }
@@ -313,6 +329,8 @@ PlatoonTemplate { Name = 'T3LandAttackNW',
         { LANDANTIAIR, 0, 20, 'Guard', 'none' },
 		{ LANDSHIELD, 0, 10, 'Support', 'none'},
 		{ LANDCOUNTERINTEL, 0, 5, 'Guard', 'none'},
+        { LANDTMD, 0, 4, 'Guard', 'none' },        
+        { LANDSMD, 0, 1, 'Support', 'none' },
         { LANDSCOUT, 0, 2, 'Scout', 'none' },
     },
 }
@@ -325,6 +343,8 @@ PlatoonTemplate { Name = 'LandAttackHugeNW',
         { LANDANTIAIR, 0, 20, 'Guard', 'none' },
 		{ LANDSHIELD, 0, 10, 'Support', 'none'},
 		{ LANDCOUNTERINTEL, 0, 5, 'Guard', 'none'},
+        { LANDTMD, 0, 5, 'Guard', 'none' },        
+        { LANDSMD, 0, 1, 'Support', 'none' },
         { LANDSCOUT, 0, 2, 'Scout', 'none' },
     },
 }
@@ -335,6 +355,7 @@ PlatoonTemplate { Name = 'ReinforceAmphibiousPlatoon',
 		{ LANDAMPHIB * categories.ANTIAIR, 0, 8, 'Guard', 'none' },
 		{ LANDAMPHIB * categories.SHIELD, 0, 5, 'Support', 'none' },
         { LANDAMPHIB * categories.COUNTERINTELLIGENCE, 0, 3, 'Support', 'none'},
+        { LANDAMPHIB * LANDTMD, 0, 2, 'Guard', 'none' },        
 		{ LANDAMPHIB * categories.SCOUT, 0,  1, 'Scout', 'none' },
 	},
 }
@@ -347,6 +368,7 @@ PlatoonTemplate { Name = 'T1AmphibAttack',
 		{ LANDAMPHIB * categories.ANTIAIR, 0, 8, 'Support', 'none' },
 		{ LANDAMPHIB * categories.SHIELD, 0, 5, 'Guard', 'none' },
         { LANDAMPHIB * categories.COUNTERINTELLIGENCE, 0, 1, 'Guard', 'none'},        
+        { LANDAMPHIB * LANDTMD, 0, 1, 'Guard', 'none' },
 		{ LANDAMPHIB * categories.SCOUT, 0,  1, 'Scout', 'none' },
 	},
 }
@@ -359,6 +381,7 @@ PlatoonTemplate { Name = 'T2AmphibAttack',
 		{ LANDAMPHIB * categories.ANTIAIR, 0, 8, 'Support', 'none' },
 		{ LANDAMPHIB * categories.SHIELD, 0, 5, 'Guard', 'none' },
         { LANDAMPHIB * categories.COUNTERINTELLIGENCE, 0, 2, 'Guard', 'none'},        
+        { LANDAMPHIB * LANDTMD, 0, 2, 'Guard', 'none' },
 		{ LANDAMPHIB * categories.SCOUT, 0,  1, 'Scout', 'none' },
 	},
 }
@@ -371,6 +394,7 @@ PlatoonTemplate { Name = 'T3AmphibAttack',
 		{ LANDAMPHIB * categories.ANTIAIR, 0, 18, 'Support', 'none' },
 		{ LANDAMPHIB * categories.SHIELD, 0, 10, 'Guard', 'none' },
         { LANDAMPHIB * categories.COUNTERINTELLIGENCE, 0, 2, 'Guard', 'none'},        
+        { LANDAMPHIB * LANDTMD, 0, 3, 'Guard', 'none' },
 		{ LANDAMPHIB * categories.SCOUT, 0,  1, 'Scout', 'none' },
     },
 }
@@ -383,6 +407,7 @@ PlatoonTemplate { Name = 'AmphibAttackHuge',
 		{ LANDAMPHIB * categories.ANTIAIR, 0, 18, 'Support', 'none' },
 		{ LANDAMPHIB * categories.SHIELD, 0, 10, 'Guard', 'none' },
         { LANDAMPHIB * categories.COUNTERINTELLIGENCE, 0, 3, 'Guard', 'none'},        
+        { LANDAMPHIB * LANDTMD, 0, 6, 'Guard', 'none' },
 		{ LANDAMPHIB * categories.SCOUT, 0,  1, 'Scout', 'none' },
     },
 }
@@ -394,6 +419,8 @@ PlatoonTemplate { Name = 'BaseGuardMedium',
         { LANDDIRECTFIRE - categories.EXPERIMENTAL,  5, 18, 'Attack', 'AttackFormation' },
    		{ LANDARTILLERY - categories.EXPERIMENTAL, 0, 6, 'Artillery', 'none'},
 		{ LANDSHIELD, 0, 4, 'Guard', 'none' },
+        { LANDSMD, 0, 1, 'Support', 'none' },        
+        { LANDTMD, 0, 2, 'Guard', 'none' },
 		{ LANDCOUNTERINTEL, 0, 1, 'Guard', 'none' },
     },
 }
@@ -435,6 +462,7 @@ PlatoonTemplate { Name = 'T1MassGuard',
 		{ LANDANTIAIR, 0, 2, 'Support', 'AttackFormation' },		
 		{ LANDSHIELD, 0, 1, 'Support', 'none' },
 		{ LANDCOUNTERINTEL, 0, 1, 'Guard', 'none' },
+        { LANDTMD, 0, 1, 'Guard', 'none' },        
         { LANDSCOUT, 0, 1, 'Scout', 'none' },        
     },
 }
@@ -442,9 +470,10 @@ PlatoonTemplate { Name = 'T1MassGuard',
 PlatoonTemplate { Name = 'T1AmphibMassGuard',
 
     GlobalSquads = {
-        { LANDAMPHIB - categories.SCOUT - categories.EXPERIMENTAL, 3, 6, 'Attack', 'AttackFormation' },
+        { LANDAMPHIB * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT - categories.EXPERIMENTAL, 3, 6, 'Attack', 'AttackFormation' },
 		{ LANDAMPHIB * categories.ANTIAIR, 0, 1, 'Support', 'AttackFormation' },		
 		{ LANDAMPHIB * categories.COUNTERINTELLIGENCE, 0, 1, 'Guard', 'none' },
+        { LANDAMPHIB * LANDTMD, 0, 1, 'Guard', 'none' },
         { LANDAMPHIB * categories.SCOUT, 0, 1, 'Scout', 'none' },        
     },
 }
@@ -457,6 +486,7 @@ PlatoonTemplate { Name = 'T1PointGuardArtillery',
 		{ LANDANTIAIR, 0, 5, 'Guard', 'none' },
 		{ LANDSHIELD, 0, 1, 'Support', 'none' },
 		{ LANDCOUNTERINTEL, 0, 1, 'Guard', 'none' },
+        { LANDAMPHIB * LANDTMD, 0, 1, 'Guard', 'none' },
         { LANDSCOUT, 0, 1, 'Scout', 'none' },        
     },
 }
@@ -477,6 +507,7 @@ PlatoonTemplate { Name = 'T4ExperimentalGroupAmphibious',
         { LANDAMPHIB * categories.COUNTERINTELLIGENCE, 0, 1, 'Guard', 'none' },
         { LANDAMPHIB * categories.COUNTERINTELLIGENCE, 0, 3, 'Support', 'none' },
         
+        { LANDAMPHIB * LANDTMD, 0, 4, 'Guard', 'none' },        
 		{ LANDAMPHIB * categories.SCOUT, 0,  1, 'Scout', 'none' },
     },
 }
@@ -498,7 +529,9 @@ PlatoonTemplate { Name = 'T4ExperimentalGroup',
         
         { LANDCOUNTERINTEL, 0, 3, 'Guard', 'none' },
         { LANDCOUNTERINTEL, 0, 5, 'Support', 'none' },
-        
+
+        { LANDTMD, 0, 5, 'Guard', 'none' },        
+        { LANDSMD, 0, 1, 'Support', 'none' },
         { LANDSCOUT, 0, 1, 'Scout', 'none' },
 
     },

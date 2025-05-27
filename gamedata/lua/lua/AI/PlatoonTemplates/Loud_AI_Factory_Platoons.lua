@@ -890,6 +890,15 @@ PlatoonTemplate { Name = 'T3ShieldDisruptor',
 	}
 }
 
+PlatoonTemplate { Name = 'T3LandMobileTMD',
+    FactionSquads = {
+        UEF = {},
+        Aeon = {},
+        Cybran = {},
+        Seraphim = {},
+    }
+}
+
 PlatoonTemplate { Name = 'T3MobileAntiNuke',
 	FactionSquads = {
         UEF = {},

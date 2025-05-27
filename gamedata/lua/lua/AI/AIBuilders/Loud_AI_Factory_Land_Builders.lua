@@ -8,7 +8,7 @@ local LUTL  = '/lua/loudutilities.lua'
 
 local GetArmyUnitCap                = GetArmyUnitCap
 local GetArmyUnitCostTotal          = GetArmyUnitCostTotal
-local GreaterThanEnergyIncome       = import(LUTL).GreaterThanEnergyIncome
+
 
 local AboveUnitCap70 = function( self,aiBrain )
 	
@@ -285,7 +285,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
         Priority = 550,
 
         BuilderConditions = {
-			{ LUTL, 'PoolLess', { 3, categories.LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2 }},
+			{ LUTL, 'PoolLess', { 6, categories.LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2 }},
 
             -- must have some Directfire in the Pool at this location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
@@ -404,12 +404,12 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
     -- T3 Mobile TMD - but T2 unit
     Builder {BuilderName = 'T3 Mobile TMD',
 	
-        PlatoonTemplate = 'T2LandMobileTMD',
+        PlatoonTemplate = 'T3LandMobileTMD',
 
         Priority = 600,
 
         BuilderConditions = {
-			{ LUTL, 'PoolLess', { 3, categories.LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2 }},
+			{ LUTL, 'PoolLess', { 6, categories.LAND * categories.MOBILE * categories.ANTIMISSILE * categories.TECH2 }},
 
             -- must have some Directfire in the Pool at this location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
@@ -428,21 +428,16 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
         Priority = 600,
 
         PriorityFunction = function( self, aiBrain, unit, manager)
-        
-            if GreaterThanEnergyIncome( aiBrain, 12600) then
             
-                if import(UCBC).HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, categories.NUKE * categories.SILO * categories.STRUCTURE,'Enemy') then
-                    return (self.OldPriority or self.Priority), true
-                end
-            else
-                return 10, true
+            if import(UCBC).HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, categories.NUKE * categories.SILO * categories.STRUCTURE,'Enemy') then
+                return (self.OldPriority or self.Priority), true
             end
-        
+
+            return 10, true
+
         end,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
