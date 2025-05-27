@@ -1069,7 +1069,7 @@ PlatoonTemplate { Name = 'T3SeaCarrier',
     }
 }
 
-PlatoonTemplate { Name = 'T3Battlecruiser',
+PlatoonTemplate { Name = 'T3SeaCruiser',
     FactionSquads = {
         UEF = {
             { 'xes0307', 1, 1, 'Attack', 'none' },

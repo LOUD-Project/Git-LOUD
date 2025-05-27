@@ -361,7 +361,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
     -- T3 Battlecruiser class --
     Builder {BuilderName = 'Battlecruiser - UEF',
 	
-        PlatoonTemplate = 'T3Battlecruiser',
+        PlatoonTemplate = 'T3SeaCruiser',
 		
 		FactionIndex = 1,
 		
@@ -388,7 +388,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 	
     Builder {BuilderName = 'Missile Cruiser - Aeon',
 	
-        PlatoonTemplate = 'T3Battlecruiser',
+        PlatoonTemplate = 'T3SeaCruiser',
 		
 		FactionIndex = 2,
 		
@@ -411,7 +411,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 	
     Builder {BuilderName = 'Escort Cruiser - Cybran',
 	
-        PlatoonTemplate = 'T3Battlecruiser',
+        PlatoonTemplate = 'T3SeaCruiser',
 		
 		FactionIndex = 3,
 		
@@ -434,7 +434,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 	
     Builder {BuilderName = 'Heavy Cruiser - Sera',
 	
-        PlatoonTemplate = 'T3Battlecruiser',
+        PlatoonTemplate = 'T3SeaCruiser',
 		
 		FactionIndex = 4,
 		
@@ -955,7 +955,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval - Small',
 
     Builder {BuilderName = 'Battlecruiser - UEF - Small',
 	
-        PlatoonTemplate = 'T3Battlecruiser',
+        PlatoonTemplate = 'T3SeaCruiser',
 		
 		FactionIndex = 1,
 		
@@ -982,7 +982,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval - Small',
 	
     Builder {BuilderName = 'Missile Cruiser - Aeon - Small',
 	
-        PlatoonTemplate = 'T3Battlecruiser',
+        PlatoonTemplate = 'T3SeaCruiser',
 		
 		FactionIndex = 2,
 		
@@ -1005,7 +1005,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval - Small',
 	
     Builder {BuilderName = 'Escort Cruiser - Cybran - Small',
 	
-        PlatoonTemplate = 'T3Battlecruiser',
+        PlatoonTemplate = 'T3SeaCruiser',
 		
 		FactionIndex = 3,
 		
@@ -1028,7 +1028,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval - Small',
 	
     Builder {BuilderName = 'Heavy Cruiser - Sera - Small',
 	
-        PlatoonTemplate = 'T3Battlecruiser',
+        PlatoonTemplate = 'T3SeaCruiser',
 		
 		FactionIndex = 4,
 		
