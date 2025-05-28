@@ -31,15 +31,15 @@ ComboFormations = {
 
 
 
-local LOUDCEIL = math.ceil
-local LOUDCOS = math.cos
-local LOUDENTITY = EntityCategoryContains
-local LOUDFLOOR = math.floor
-local LOUDGETN = table.getn
-local LOUDINSERT = table.insert
-local LOUDMAX = math.max
-local LOUDMOD = math.mod
-local LOUDSIN = math.sin
+local LOUDCEIL      = math.ceil
+local LOUDCOS       = math.cos
+local LOUDENTITY    = EntityCategoryContains
+local LOUDFLOOR     = math.floor
+local LOUDGETN      = table.getn
+local LOUDINSERT    = table.insert
+local LOUDMAX       = math.max
+local LOUDMOD       = math.mod
+local LOUDSIN       = math.sin
 
 local RemainingCategory = { 'RemainingCategory', }
 

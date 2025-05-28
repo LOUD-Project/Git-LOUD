@@ -2,13 +2,14 @@
 
 local import = import
 
-local BaseTemplates = import('/lua/basetemplates.lua').BaseTemplates
+local BaseTemplates     = import('/lua/basetemplates.lua').BaseTemplates
 local BuildingTemplates = import('/lua/buildingtemplates.lua').BuildingTemplates
 
-local AISendPing = import('/lua/ai/altaiutilities.lua').AISendPing
+local AISendPing        = import('/lua/ai/altaiutilities.lua').AISendPing
+
 local AISortMarkersFromLastPosWithThreatCheck = import('/lua/ai/aiutilities.lua').AISortMarkersFromLastPosWithThreatCheck
 
-local AIBrainMethods = moho.aibrain_methods
+local AIBrainMethods        = moho.aibrain_methods
 
 local CanBuildStructureAt       = AIBrainMethods.CanBuildStructureAt
 local DecideWhatToBuild         = AIBrainMethods.DecideWhatToBuild
@@ -17,20 +18,20 @@ local GetUnitsAroundPoint       = AIBrainMethods.GetUnitsAroundPoint
 
 AIBrainMethods = nil
 
-local GetFractionComplete = moho.entity_methods.GetFractionComplete
-local GetPosition = moho.entity_methods.GetPosition
+local GetFractionComplete   = moho.entity_methods.GetFractionComplete
+local GetPosition           = moho.entity_methods.GetPosition
 
-local LOUDCOPY = table.copy
-local LOUDFLOOR = math.floor
-local LOUDGETN = table.getn
-local LOUDINSERT = table.insert
-local LOUDMAX = math.max
-local LOUDMIN = math.min
-local LOUDPARSE = ParseEntityCategory
-local LOUDREMOVE = table.remove
-local LOUDUPPER = string.upper
-local LOUDSORT = table.sort
-local VDist3 = VDist3
+local LOUDCOPY      = table.copy
+local LOUDFLOOR     = math.floor
+local LOUDGETN      = table.getn
+local LOUDINSERT    = table.insert
+local LOUDMAX       = math.max
+local LOUDMIN       = math.min
+local LOUDPARSE     = ParseEntityCategory
+local LOUDREMOVE    = table.remove
+local LOUDUPPER     = string.upper
+local LOUDSORT      = table.sort
+local VDist3        = VDist3
 
 function IsResource(buildingType)
     return buildingType == 'Resource' or buildingType == 'T1HydroCarbon' or buildingType == 'T1Resource' or buildingType == 'T2Resource' or buildingType == 'T3Resource'
@@ -114,14 +115,14 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
             local mlist = {}
             local counter = 0
         
-            local mindistance = constructionData.MinRange or 0
-            local maxdistance = constructionData.MaxRange or 500
-            local tMin = constructionData.ThreatMin or 0
-            local tMax = constructionData.ThreatMax or 20
-            local tRings = constructionData.ThreatRings or 0
-            local tType = constructionData.ThreatType or 'AntiSurface'
-            local maxlist = constructionData.MaxChoices or 1
-            
+            local mindistance   = constructionData.MinRange or 0
+            local maxdistance   = constructionData.MaxRange or 500
+            local tMin          = constructionData.ThreatMin or 0
+            local tMax          = constructionData.ThreatMax or 20
+            local tRings        = constructionData.ThreatRings or 0
+            local tType         = constructionData.ThreatType or 'AntiSurface'
+            local maxlist       = constructionData.MaxChoices or 1
+           
             local VDist3 = VDist3
             local position
         
@@ -146,6 +147,11 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
 		
             if counter > 0 then
             
+                -- SUBCOMMANDERS have a higher threat tolerance --
+                if engineer and EntityCategoryContains(categories.SUBCOMMANDER, engineer) then
+                    tMax = tMax + 30
+                end
+             
                 local markerTable = AISortMarkersFromLastPosWithThreatCheck(aiBrain, mlist, maxlist, tMin, tMax, tRings, tType, SourcePosition)
 
                 if markerTable then

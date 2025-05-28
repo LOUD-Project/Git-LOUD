@@ -8,11 +8,12 @@ local EBC   = '/lua/editor/EconomyBuildConditions.lua'
 local TBC   = '/lua/editor/ThreatBuildConditions.lua'
 local LUTL  = '/lua/loudutilities.lua'
 
-local GreaterThanEnergyIncome       = import(LUTL).GreaterThanEnergyIncome
-local UnitsGreaterAtLocation        = import(UCBC).UnitsGreaterAtLocation
-local UnitsGreaterAtLocationInRange = import(UCBC).UnitsGreaterAtLocationInRange
-local UnitsLessAtLocation           = import(UCBC).UnitsLessAtLocation
-local UnitsLessAtLocationInRange    = import(UCBC).UnitsLessAtLocationInRange
+local GreaterThanEnergyIncome                       = import(LUTL).GreaterThanEnergyIncome
+local HaveGreaterThanUnitsWithCategoryAndAlliance   = import(UCBC).HaveGreaterThanUnitsWithCategoryAndAlliance
+local UnitsGreaterAtLocation                        = import(UCBC).UnitsGreaterAtLocation
+local UnitsGreaterAtLocationInRange                 = import(UCBC).UnitsGreaterAtLocationInRange
+local UnitsLessAtLocation                           = import(UCBC).UnitsLessAtLocation
+local UnitsLessAtLocationInRange                    = import(UCBC).UnitsLessAtLocationInRange
 
 local AA        = categories.STRUCTURE * categories.ANTIAIR
 local PD        = categories.STRUCTURE * categories.DIRECTFIRE
