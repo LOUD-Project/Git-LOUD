@@ -7426,7 +7426,7 @@ function BroadcastPlatoonPlan ( platoon, aiBrain )
 			
 				if not v.Dead then
 
-					ForkThread( FloatingEntityText, v.EntityID, v.PlatoonHandle.BuilderName.." "..repr(v.PlatoonHandle.BuilderInstance))
+					ForkThread( FloatingEntityText, v.EntityID, repr(v.PlatoonHandle.BuilderName).." "..repr(v.PlatoonHandle.BuilderInstance))
 				
 					if not originalplan then
 					

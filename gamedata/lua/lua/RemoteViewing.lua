@@ -196,7 +196,7 @@ function RemoteViewing(SuperClass)
                 else
 
                     -- Move and reactivate old visible area
-                    if not self.RemoteViewingData.Satellite:BeenDestroyed() then
+                    if not self.RemoteViewingData.Satellite:BeenDestroyed() and self.RemoteViewingData.VisibleLocation then
                     
                         if RemoteViewingDebug then
                             LOG("*AI DEBUG Moving Existing RemoteViewing Entity and Enabling Vision")

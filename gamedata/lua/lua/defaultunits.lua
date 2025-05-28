@@ -2771,7 +2771,7 @@ QuantumGateUnit = Class(FactoryUnit) {
 		self.TeleportInProgress = false
 		destinationGate.TeleportInProgress = false
 
-		LOG("~Transport sequence complete!")
+		--LOG("~Transport sequence complete!")
 	end,
 
 

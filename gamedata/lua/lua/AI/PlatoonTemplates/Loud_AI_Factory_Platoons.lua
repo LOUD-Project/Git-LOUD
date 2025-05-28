@@ -1037,6 +1037,14 @@ PlatoonTemplate { Name = 'T2CounterIntelBoat',
     },
 }
 
+PlatoonTemplate { Name = 'T3SeaCorvette',
+	FactionSquads = {
+        UEF = {},
+        Aeon = {},
+        Cybran = {},
+        Seraphim = {},
+	}
+}
 
 PlatoonTemplate { Name = 'T3SeaBattleship',
     FactionSquads = {
