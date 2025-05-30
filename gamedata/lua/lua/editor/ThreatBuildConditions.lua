@@ -11,19 +11,23 @@ local GetThreatsAroundPosition = moho.aibrain_methods.GetThreatsAroundPosition
 
 function ThreatCloserThan( aiBrain, locationType, distance, threatcutoff, threattype)
 	
-	if aiBrain.BuilderManagers[locationType].Position then
-	
-		local position = aiBrain.BuilderManagers[locationType].Position
-        
+    local position = aiBrain.BuilderManagers[locationType].Position
+
+	if position[1] then
+  
 		local threatTable = GetThreatsAroundPosition( aiBrain, position, 12, true, threattype)
+        
+        local adjustment = 0
         
         if threatTable[1] then
         
-            if threattype == 'Land' or threattype == 'AntiSurface' and aiBrain.LandRatio > 1 then
+            if (threattype == 'Land' or threattype == 'AntiSurface') and aiBrain.LandRatio > 1 then
 
-                distance = distance * ( 1 / (1 + LOUDLOG10( aiBrain.VeterancyMult )))           -- cheat level makes us look farther
+                adjustment = LOUDLOG10( aiBrain.VeterancyMult ) + LOUDLOG10( aiBrain.LandRatio )
 
-                threatcutoff = threatcutoff * ( 1 / (1 + LOUDLOG10( aiBrain.VeterancyMult )))   -- and tolerate more threat
+                distance = distance * ( 1 / (1 + adjustment))    -- don't look as far
+
+                threatcutoff = threatcutoff * (1 + adjustment)   -- and require greater threat to trigger
             end
 
             for _,v in threatTable do
@@ -37,7 +41,11 @@ function ThreatCloserThan( aiBrain, locationType, distance, threatcutoff, threat
                     
                 end
             end
+        
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." at "..repr(locationType).." fails ThreatCloserThan (TBC) "..distance.." for greater than "..threatcutoff.." "..threattype.." threat" )
+
         end
+
 	end
 	
     return false
@@ -45,12 +53,14 @@ function ThreatCloserThan( aiBrain, locationType, distance, threatcutoff, threat
 end
 
 function ThreatFurtherThan( aiBrain, locationType, distance, threattype, threatcutoff)
-	
-	if aiBrain.BuilderManagers[locationType].Position then
-	
-		local position = aiBrain.BuilderManagers[locationType].Position
-        
+
+	local position = aiBrain.BuilderManagers[locationType].Position	
+
+	if position[1] then
+
 		local threatTable = GetThreatsAroundPosition( aiBrain, position, 12, true, threattype)
+        
+        local adjustment = 0
         
         if threatTable[1] then
 
@@ -59,20 +69,21 @@ function ThreatFurtherThan( aiBrain, locationType, distance, threattype, threatc
     
             -- this code makes this function dynamic via LandRatio and AIMult --
             if threattype == 'Land' and aiBrain.LandRatio > 1 then
-            
-                distance = distance * ( 1 / (1 + LOUDLOG10( aiBrain.VeterancyMult )))           -- cheat level makes us look farther out
 
-                threatcutoff = threatcutoff * ( 1 / (1 + LOUDLOG10( aiBrain.VeterancyMult )))   -- and tolerate more threat
+                adjustment = LOUDLOG10( aiBrain.VeterancyMult ) + LOUDLOG10( aiBrain.LandRatio )
+
+                distance = distance * (1 + adjustment)           -- look farther out
+
+                threatcutoff = threatcutoff * (1 + adjustment)   -- and require more threat to fail
             
             end
 
             for _,v in threatTable do
 
+
                 if VDist2( v[1],v[2], position[1],position[3] ) < distance then
 			
                     if v[3] > threatcutoff then
-
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." at "..repr(locationType).." has "..threattype.." threat closer than "..math.floor(distance).." is at ("..math.floor(VDist2(v[1],v[2], position[1],position[3]))..")	threat trigger is "..math.floor(threatcutoff).." ("..math.floor(v[3])..") coming from "..repr(v[1]).." "..repr(v[2]) )
 
                         return false
                     end
@@ -82,7 +93,11 @@ function ThreatFurtherThan( aiBrain, locationType, distance, threattype, threatc
                 end
                 
             end
+
+            LOG("*AI DEBUG "..aiBrain.Nickname.." at "..repr(locationType).." sees less than "..threatcutoff.." "..threattype.." threat further than "..math.floor(distance).." Ratio "..aiBrain.LandRatio.." Adjust "..adjustment  )
+
         end
+        
 	end
 
     return true

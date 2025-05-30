@@ -15,6 +15,8 @@ local GetEconomyIncome      = BrainMethods.GetEconomyIncome
 local GetEconomyRequested   = BrainMethods.GetEconomyRequested
 local GetEconomyStored      = BrainMethods.GetEconomyStored
 
+local GetThreatsAroundPosition = BrainMethods.GetThreatsAroundPosition
+
 BrainMethods = nil
 
 local VDist3 = VDist3
@@ -25,8 +27,9 @@ local EntityCategoryFilterDown  = EntityCategoryFilterDown
 
 local IsUnitState = moho.unit_methods.IsUnitState
 
-local LOUDMAX = math.max
-local LOUDSORT = table.sort
+local LOUDLOG10 = math.log10
+local LOUDMAX   = math.max
+local LOUDSORT  = table.sort
 
 local T1FACTORIES = categories.STRUCTURE * categories.TECH1 * categories.FACTORY
 local T2FACTORIES = categories.STRUCTURE * categories.TECH2 * categories.FACTORY
@@ -105,6 +108,50 @@ local function GetManagerUnitsBeingBuilt( aiBrain, category )
 		unitcount = unitcount + GetNumCategoryBeingBuiltByFactories( v.FactoryManager, category, categories.FACTORY )
 	end	
 	return unitcount
+end
+
+--- this is here to provide an instant build condition version (used by the ACU builders)
+function ThreatCloserThan( aiBrain, locationType, distance, threatcutoff, threattype)
+
+    local position = aiBrain.BuilderManagers[locationType].Position
+	
+	if position[1] then
+
+        local threatTable = GetThreatsAroundPosition( aiBrain, position, 12, true, threattype)
+
+        local adjustment = 0
+
+        if threatTable[1] then
+
+            if threattype == 'Land' or threattype == 'AntiSurface' and aiBrain.LandRatio > 1 then
+
+                adjustment = LOUDLOG10( aiBrain.VeterancyMult ) + LOUDLOG10( aiBrain.LandRatio )
+
+                distance = distance * ( 1 / (1 + adjustment))    -- don't look as far
+
+                threatcutoff = threatcutoff * (1 + adjustment)   -- and require greater threat to trigger        
+
+            end
+
+            for _,v in threatTable do
+
+                if v[3] > threatcutoff then
+
+                    if VDist2( v[1], v[2], position[1], position[3] ) <= distance then
+
+                        return true
+                    end
+                    
+                end
+            end
+        end
+        
+        LOG("*AI DEBUG "..aiBrain.Nickname.." at "..repr(locationType).." fails ThreatCloserThan (EBC) "..distance.." for greater than "..threatcutoff.." "..threattype.." threat  Adjustment "..adjustment )        
+
+	end
+	
+    return false
+
 end
 	
 function ReclaimablesInAreaMass(aiBrain, locType, range)
