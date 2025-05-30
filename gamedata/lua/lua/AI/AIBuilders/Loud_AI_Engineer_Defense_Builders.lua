@@ -1047,9 +1047,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         
         PriorityFunction = function( self, aiBrain, unit, manager)
         
-            if GreaterThanEnergyIncome( aiBrain, 12600) and UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, SMD) then
+            if GreaterThanEnergyIncome( aiBrain, 16800) and UnitsGreaterAtLocation( aiBrain, manager.LocationType, 0, SMD) then
             
-                if import(UCBC).HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 1, categories.NUKE * categories.SILO * categories.STRUCTURE,'Enemy') then
+                if HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 1, categories.NUKE * categories.SILO,'Enemy') then
                     return (self.OldPriority or self.Priority), true
                 end
             else
@@ -1171,7 +1171,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
                 
             end
 
-            if aiBrain.AirRatio <= 1.1 or import(UCBC).HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, categories.AIR * categories.EXPERIMENTAL,'Enemy')  then
+            if aiBrain.AirRatio <= 1.1 or HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, categories.AIR * categories.EXPERIMENTAL,'Enemy')  then
 	
                 return (builder.OldPriority or builder.Priority) + 100, true	
 
@@ -2895,7 +2895,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         
             if GreaterThanEnergyIncome( aiBrain, 21000) and UnitsGreaterAtLocation( aiBrain, manager.LocationType, 4, SMD) then
             
-                if import(UCBC).HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 3, categories.NUKE * categories.SILO * categories.STRUCTURE,'Enemy') then
+                if HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 3, categories.NUKE * categories.SILO,'Enemy') then
                     return (self.OldPriority or self.Priority), true
                 end
             else
@@ -3847,19 +3847,22 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         Priority = 900,
         
         PriorityFunction = function( self, aiBrain, unit, manager)
-
-            if GreaterThanEnergyIncome( aiBrain, 21000) and UnitsLessAtLocation( aiBrain, manager.LocationType, 1, SMD) then
+            
+            if GreaterThanEnergyIncome( aiBrain, 18900) and UnitsLessAtLocation( aiBrain, manager.LocationType, 1, SMD) and HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, categories.NUKE * categories.SILO,'Enemy') then
+ 
                 return (self.OldPriority or self.Priority), true
             else
+               
                 return 10, true
             end
         
         end,
 		
         BuilderConditions = {
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, FACTORY - categories.TECH1 }},
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, FACTORY - categories.TECH1 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			{ EBC, 'GreaterThanEnergyTrendOverTime', { 260 }},
+
         },
 		
         BuilderType = {'SubCommander'},
@@ -3969,7 +3972,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
                 
             end
 
-            if aiBrain.AirRatio <= 1.1 or import(UCBC).HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, categories.AIR * categories.EXPERIMENTAL,'Enemy')  then
+            if aiBrain.AirRatio <= 1.1 or HaveGreaterThanUnitsWithCategoryAndAlliance( aiBrain, 0, categories.AIR * categories.EXPERIMENTAL,'Enemy')  then
 	
                 return (builder.OldPriority or builder.Priority) + 100, true	
 
@@ -5507,7 +5510,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-                ThreatMax = 60,
+                ThreatMax = 75,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
@@ -5543,7 +5546,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-                ThreatMax = 60,
+                ThreatMax = 90,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
@@ -5767,7 +5770,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             { LUTL, 'UnitsLessAtLocation', { 'LocationType', 4, TMD }},
         },
 		
-		BuilderType = { 'T2' },
+		BuilderType = { 'T2', 'SubCommander' },
 
         BuilderData = {
 			
@@ -6085,7 +6088,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, SHIELD - categories.ANTIARTILLERY }},
 
             -- enemy must have a visible nuke            
-			{ UCBC, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.NUKE * categories.SILO + categories.STRUCTURE, 'Enemy' }},
+			{ UCBC, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.NUKE * categories.SILO, 'Enemy' }},
         },
 		
 		BuilderType = { 'SubCommander' },
