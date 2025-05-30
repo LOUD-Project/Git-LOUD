@@ -1,33 +1,33 @@
 --- File     :  /lua/ai/Loud_AI_ACU_Builders.lua
 --- tasks for ACU (Bob) including initial starting build and adding additional factories
 
-local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
-local MIBC = '/lua/editor/MiscBuildConditions.lua'
+local UCBC  = '/lua/editor/UnitCountBuildConditions.lua'
+local MIBC  = '/lua/editor/MiscBuildConditions.lua'
 
-local EBC = '/lua/editor/EconomyBuildConditions.lua'
-local TBC = '/lua/editor/ThreatBuildConditions.lua'
-local BHVR = '/lua/ai/aibehaviors.lua'
-local LUTL = '/lua/loudutilities.lua'
+local EBC   = '/lua/editor/EconomyBuildConditions.lua'
+local TBC   = '/lua/editor/ThreatBuildConditions.lua'
+local BHVR  = '/lua/ai/aibehaviors.lua'
+local LUTL  = '/lua/loudutilities.lua'
 
-local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
-local GetPosition = moho.entity_methods.GetPosition
+local GetThreatAtPosition   = moho.aibrain_methods.GetThreatAtPosition
+local GetPosition           = moho.entity_methods.GetPosition
 
 
 -- this is here as a test to see if it has any impact I can detect
 -- I don't think it does being that all of this is really just data
 -- that is loaded
-local ENERGYPRODUCTION = categories.ENERGYPRODUCTION
-local HYDROCARBON = categories.HYDROCARBON
-local MASSFABRICATION = categories.MASSFABRICATION
-local MASSPRODUCTION = categories.MASSPRODUCTION
-local ENGINEER = categories.ENGINEER
-local EXPERIMENTAL = categories.EXPERIMENTAL
-local FACTORY = categories.FACTORY
-local STRUCTURE = categories.STRUCTURE
-local ANTIAIR = categories.ANTIAIR
-local TECH1 = categories.TECH1
-local TECH2 = categories.TECH2
-local TECH3 = categories.TECH3
+local ENERGYPRODUCTION  = categories.ENERGYPRODUCTION
+local HYDROCARBON       = categories.HYDROCARBON
+local MASSFABRICATION   = categories.MASSFABRICATION
+local MASSPRODUCTION    = categories.MASSPRODUCTION
+local ENGINEER          = categories.ENGINEER
+local EXPERIMENTAL      = categories.EXPERIMENTAL
+local FACTORY           = categories.FACTORY
+local STRUCTURE         = categories.STRUCTURE
+local ANTIAIR           = categories.ANTIAIR
+local TECH1             = categories.TECH1
+local TECH2             = categories.TECH2
+local TECH3             = categories.TECH3
 
 
 -- imbedded into the Builder
@@ -163,8 +163,8 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks - Start Game',
 		end,
 		
         BuilderConditions = {
-			-- Greater than 50 economy threat closer than 18km
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 900, 50, 'Economy' }},
+			-- Greater than 50 economy threat closer than 18km - instant build version
+			{ EBC, 'ThreatCloserThan', { 'LocationType', 900, 50, 'Economy' }},
         },
 		
         BuilderType = { 'Commander' },
@@ -720,7 +720,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioLessThan', { 2 }},
 
-            { TBC, 'ThreatCloserThan', { 'LocationType', 400, 50, 'AntiSurface' }},
+            { EBC, 'ThreatCloserThan', { 'LocationType', 400, 50, 'AntiSurface' }},
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 			
@@ -781,7 +781,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             
             { LUTL, 'LandStrengthRatioLessThan', { 4 }},
 
-            { TBC, 'ThreatCloserThan', { 'LocationType', 400, 50, 'AntiSurface' }},
+            { EBC, 'ThreatCloserThan', { 'LocationType', 400, 50, 'AntiSurface' }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
