@@ -49,15 +49,16 @@ local RemainingCategory = { 'RemainingCategory', }
 
 
 --=== LAND CATEGORIES ===#
-local AntiAir = ( categories.ANTIAIR - ( categories.EXPERIMENTAL + categories.DIRECTFIRE ) ) * categories.LAND
-local Artillery = ( categories.ARTILLERY + categories.INDIRECTFIRE - categories.ANTIAIR ) * categories.LAND
-local Construction = ( categories.COMMAND + categories.CONSTRUCTION + categories.ENGINEER ) * categories.LAND - categories.EXPERIMENTAL
-local DirectFire = (( categories.DIRECTFIRE - categories.CONSTRUCTION ) ) * categories.LAND
-local ShieldCat = categories.SHIELD + (categories.ANTIMISSILE * categories.TECH2)
-local SMDCat = categories.ANTIMISSILE * categories.TECH3
-local UtilityCat = (( ( categories.RADAR + categories.COUNTERINTELLIGENCE ) - categories.DIRECTFIRE ) + categories.SCOUT) * categories.LAND
+local AntiAir       = ( categories.ANTIAIR - ( categories.EXPERIMENTAL + categories.DIRECTFIRE ) ) * categories.LAND
+local Artillery     = ( categories.ARTILLERY + categories.INDIRECTFIRE - categories.ANTIAIR ) * categories.LAND
+local Construction  = ( categories.COMMAND + categories.CONSTRUCTION + categories.ENGINEER ) * categories.LAND - categories.EXPERIMENTAL
+local DirectFire    = (( categories.DIRECTFIRE - categories.CONSTRUCTION ) ) * categories.LAND
+local ShieldCat     = categories.SHIELD 
+local TMDCat        = categories.ANTIMISSILE * categories.TECH2
+local SMDCat        = categories.ANTIMISSILE * categories.TECH3
+local UtilityCat    = (( ( categories.RADAR + categories.COUNTERINTELLIGENCE ) - categories.DIRECTFIRE ) + categories.SCOUT) * categories.LAND
 
-local DFExp = DirectFire * categories.EXPERIMENTAL
+local DFExp         = DirectFire * categories.EXPERIMENTAL
 
 
 --=== TECH LEVEL LAND CATEGORIES ===#
@@ -83,6 +84,8 @@ local LandCategories = {
     Shields = ShieldCat,
 
     SMDS = SMDCat,
+    
+    TMDS = TMDCat,
 
     Experimentals = DFExp,
 
@@ -90,23 +93,23 @@ local LandCategories = {
 }
 
 --=== SUB GROUP ORDERING ===#
-local Bots = { 'Bot3', 'Bot2', 'Bot1' }
-local Tanks = { 'Tank3', 'Tank2', 'Tank1' }
-local DF = { 'Tank3', 'Bot3', 'Tank2', 'Bot2', 'Tank1', 'Bot1' }
-local Art = { 'Art1', 'Art2', 'Art3' }
-local AA = { 'AA' }
-local Util = { 'Util' }
-local Com = { 'Com' }
-local Shield = { 'Shields','SMDS' }
-local Experimental = { 'Experimentals' }
+local Bots          = { 'Bot3', 'Bot2', 'Bot1' }
+local Tanks         = { 'Tank3', 'Tank2', 'Tank1' }
+local DF            = { 'Tank3', 'Bot3', 'Tank2', 'Bot2', 'Tank1', 'Bot1' }
+local Art           = { 'Art1', 'Art2', 'Art3' }
+local AA            = { 'AA' }
+local Util          = { 'Util','TMDS','SMDS' }
+local Com           = { 'Com' }
+local Shield        = { 'Shields','TMDS' }
+local Experimental  = { 'Experimentals' }
 	
 --=== LAND BLOCK TYPES =#
-local DFFirst = { Experimental, DF, Art, AA, Shield, Com, Util, RemainingCategory }
-local TankFirst = { Experimental, Tanks, Bots, Art, AA, Shield, Com, Util, RemainingCategory }
-local ShieldFirst = { Shield, AA, Art, DF, Com, Util, RemainingCategory }
-local AAFirst = { AA, DF, Art, Shield, Com, Util, RemainingCategory }
-local ArtFirst = { Art, AA, DF, Shield, Com, Util, RemainingCategory }
-local UtilFirst = { Util, AA, DF, Art, Shield, Com, Util, RemainingCategory }
+local DFFirst       = { Experimental, DF, Art, AA, Shield, Com, Util, RemainingCategory }
+local TankFirst     = { Experimental, Tanks, Bots, Art, AA, Shield, Com, Util, RemainingCategory }
+local ShieldFirst   = { Shield, AA, Art, DF, Util, Com, RemainingCategory }
+local AAFirst       = { AA, DF, Art, Shield, Util, Com, RemainingCategory }
+local ArtFirst      = { Art, AA, DF, Shield, Util, Com, RemainingCategory }
+local UtilFirst     = { Util, AA, DF, Art, Shield, Com, RemainingCategory }
 
 
 --=== LAND BLOCKS ===#
@@ -229,7 +232,7 @@ local TravelFormationBlock = {
     { TravelSlot, TravelSlot, },
 }
 
---=== 2 Row Attack Block - 8 units wide
+--=== 8 wide - 16 units
 local TwoRowAttackFormationBlock = {
     -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -237,16 +240,16 @@ local TwoRowAttackFormationBlock = {
     { UtilFirst, AAFirst, ShieldFirst, ArtFirst, ArtFirst, ShieldFirst, AAFirst, UtilFirst },
 }
 
---=== 2 Row Staggered Attack Block - 9 units wide
+--=== 9 wide - 27 units
 local ThreeRowStaggeredAttackFormationBlock = {
     -- first row
     { ArtFirst, DFFirst, ArtFirst, DFFirst, ArtFirst, DFFirst, ArtFirst, DFFirst, ArtFirst },
     -- second row
-    { UtilFirst, AAFirst, ShieldFirst, ArtFirst, ArtFirst, ShieldFirst, AAFirst, UtilFirst, AAFirst },
+    { AAFirst, ShieldFirst, DFFirst, ArtFirst, UtilFirst, ArtFirst, DFFirst, ShieldFirst, AAFirst },
 }
     -- first row
 
---=== 3 Row Attack Block - 10 units wide
+--=== 10 wide - 40 units
 local ThreeRowAttackFormationBlock = {
     -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -254,9 +257,11 @@ local ThreeRowAttackFormationBlock = {
     { DFFirst, ShieldFirst, UtilFirst, DFFirst, ShieldFirst, AAFirst, DFFirst, UtilFirst, ShieldFirst, DFFirst },
     -- third row
     { DFFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, ArtFirst, AAFirst, DFFirst },  
+    -- fourth row
+    { DFFirst, ShieldFirst, UtilFirst, DFFirst, ShieldFirst, AAFirst, DFFirst, UtilFirst, ShieldFirst, DFFirst },
 }
 
---=== 4 Row Attack Block - 12 units wide
+--=== 12 wide - 48 units
 local FourRowAttackFormationBlock = {
     -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -268,7 +273,7 @@ local FourRowAttackFormationBlock = {
     { AAFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, ArtFirst, UtilFirst, ShieldFirst, ArtFirst, AAFirst, ShieldFirst, AAFirst },   
 }
 
---=== 5 Row Attack Block - 14 units wide
+--=== 14 wide - 70 units
 local FiveRowAttackFormationBlock = {
     -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -282,7 +287,7 @@ local FiveRowAttackFormationBlock = {
     { ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst },  
 }
 
---=== 6 Row Attack Block - 16 units wide
+--=== 16 wide - 96 units
 local SixRowAttackFormationBlock = {
     -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -298,7 +303,7 @@ local SixRowAttackFormationBlock = {
     { AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst },  
 }
 
---=== 7 Row Attack Block - 18 units wide
+--=== 18 wide - 126 units
 local SevenRowAttackFormationBlock = {
     -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -316,7 +321,7 @@ local SevenRowAttackFormationBlock = {
     { ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst },  
 }
 
---=== 8 Row Attack Block - 18 units wide
+--=== 18 wide - 144 units
 local EightRowAttackFormationBlock = {
     -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -336,7 +341,7 @@ local EightRowAttackFormationBlock = {
     { AAFirst, ShieldFirst, ArtFirst, AAFirst, ShieldFirst, ArtFirst, AAFirst, ShieldFirst, ArtFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst },  
 }
 
---=== 9 Row Attack Block - 18+ units wide
+--=== 20 wide - 180 units
 local NineRowAttackFormationBlock = {
     -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -360,8 +365,8 @@ local NineRowAttackFormationBlock = {
 
 --=== AIR CATEGORIES ===#
 
-local StdAirUnits = categories.AIR - categories.EXPERIMENTAL - categories.TRANSPORTFOCUS + categories.uea0203
-local T4AirUnits = categories.AIR * categories.EXPERIMENTAL - categories.TRANSPORTFOCUS
+local StdAirUnits       = categories.AIR - categories.EXPERIMENTAL - categories.TRANSPORTFOCUS + categories.uea0203
+local T4AirUnits        = categories.AIR * categories.EXPERIMENTAL - categories.TRANSPORTFOCUS
 local TransportationAir = categories.AIR * categories.TRANSPORTFOCUS
 
 
@@ -391,8 +396,8 @@ local AirTransportCategories = {
 
 
 --=== SUB GROUP ORDERING ===#
-local AirUnits = { 'StdAirUnits', 'T4AirUnits' }
-local Transports = { 'Trans1', 'Trans2', 'Trans3', 'Trans4', }
+local AirUnits      = { 'StdAirUnits', 'T4AirUnits' }
+local Transports    = { 'Trans1', 'Trans2', 'Trans3', 'Trans4', }
 
 --local GroundAttack = {'Ground' }
 --local Bombers = { 'Bomb' }
@@ -460,17 +465,17 @@ local FiveWideTransportGrowthFormation = {
 
 --=== BASIC GROUPS ===#
 
-local LightAttackNaval = categories.LIGHTBOAT
-local FrigateNaval = categories.FRIGATE
-local SubNaval = categories.SUBMARINE
-local DestroyerNaval = categories.DESTROYER
-local CruiserNaval = categories.CRUISER
-local BattleshipNaval = categories.BATTLESHIP
-local CarrierNaval = categories.CARRIER
+local LightAttackNaval  = categories.LIGHTBOAT
+local FrigateNaval      = categories.FRIGATE
+local SubNaval          = categories.SUBMARINE
+local DestroyerNaval    = categories.DESTROYER
+local CruiserNaval      = categories.CRUISER
+local BattleshipNaval   = categories.BATTLESHIP
+local CarrierNaval      = categories.CARRIER
 --local NukeSubNaval = categories.NUKE
-local MobileSonar = categories.MOBILESONAR
-local DefensiveBoat = categories.DEFENSIVEBOAT
-local RemainingNaval = categories.NAVAL - ( LightAttackNaval + FrigateNaval + SubNaval + DestroyerNaval + CruiserNaval + BattleshipNaval + CarrierNaval + DefensiveBoat + MobileSonar)
+local MobileSonar       = categories.MOBILESONAR
+local DefensiveBoat     = categories.DEFENSIVEBOAT
+local RemainingNaval    = categories.NAVAL - ( LightAttackNaval + FrigateNaval + SubNaval + DestroyerNaval + CruiserNaval + BattleshipNaval + CarrierNaval + DefensiveBoat + MobileSonar)
 
 -- Naval formation blocks #####
 
@@ -491,16 +496,16 @@ local StandardNavalBlock = {
 -- surface ships --
 local NavalCategories = {
 
-    LightCount = LightAttackNaval,
-    FrigateCount = FrigateNaval,
-    CruiserCount = CruiserNaval,
-    DestroyerCount = DestroyerNaval,
-    BattleshipCount = BattleshipNaval,
-    CarrierCount = CarrierNaval,
+    LightCount          = LightAttackNaval,
+    FrigateCount        = FrigateNaval,
+    CruiserCount        = CruiserNaval,
+    DestroyerCount      = DestroyerNaval,
+    BattleshipCount     = BattleshipNaval,
+    CarrierCount        = CarrierNaval,
     --NukeSubCount = NukeSubNaval,
-    MobileSonarCount = MobileSonar + DefensiveBoat,		
+    MobileSonarCount    = MobileSonar + DefensiveBoat,		
 
-    RemainingCategory = RemainingNaval,
+    RemainingCategory   = RemainingNaval,
 }
 
 -- all submarines --
@@ -511,30 +516,30 @@ local SubmarineCategories = {
 
 --=== SUB GROUPS ===#
 
-local Frigates = { 'FrigateCount', 'LightCount', }
-local Destroyers = { 'DestroyerCount', }
-local Cruisers = { 'CruiserCount', }
-local Battleships = { 'BattleshipCount', }
-local Subs = { 'SubCount', }
-local Space = { }
+local Frigates      = { 'FrigateCount', 'LightCount', }
+local Destroyers    = { 'DestroyerCount', }
+local Cruisers      = { 'CruiserCount', }
+local Battleships   = { 'BattleshipCount', }
+local Subs          = { 'SubCount', }
+local Space         = { }
 --local NukeSubs = { 'NukeSubCount', }
-local Carriers = { 'CarrierCount', }
-local Sonar = {'MobileSonarCount', }
+local Carriers      = { 'CarrierCount', }
+local Sonar         = {'MobileSonarCount', }
 
 
 --=== UNIT ORDERING ===#
 
-local FrigatesOnly = { Frigates }
-local FrigatesFirst = { Frigates, Destroyers, RemainingCategory }
-local DestroyersFirst = { Destroyers, Cruisers, RemainingCategory }
-local CruisersFirst = { Cruisers, Destroyers, Battleships, Sonar, RemainingCategory }
-local BattleshipsFirst = { Battleships, Cruisers, Destroyers, Carriers, Sonar, Frigates, RemainingCategory }
-local CarriersFirst = { Carriers, Battleships, Cruisers, Destroyers, Sonar, RemainingCategory }
+local FrigatesOnly      = { Frigates }
+local FrigatesFirst     = { Frigates, Destroyers, RemainingCategory }
+local DestroyersFirst   = { Destroyers, Cruisers, RemainingCategory }
+local CruisersFirst     = { Cruisers, Destroyers, Battleships, Sonar, RemainingCategory }
+local BattleshipsFirst  = { Battleships, Cruisers, Destroyers, Carriers, Sonar, Frigates, RemainingCategory }
+local CarriersFirst     = { Carriers, Battleships, Cruisers, Destroyers, Sonar, RemainingCategory }
 
 local Subs = { Subs, RemainingCategory }
 
-local SonarOnly = { Sonar, RemainingCategory }
-local SonarFirst = { Sonar, Frigates, Destroyers, Cruisers, Battleships, Carriers, RemainingCategory }
+local SonarOnly         = { Sonar, RemainingCategory }
+local SonarFirst        = { Sonar, Frigates, Destroyers, Cruisers, Battleships, Carriers, RemainingCategory }
 
 
 --========================================#
@@ -743,7 +748,7 @@ function AttackFormation( formationUnits )
 		if UnitTotal <= 16 then       -- 8 wide
 			landBlock = TwoRowAttackFormationBlock
 
-		elseif UnitTotal <= 27 then   -- 10 wide
+		elseif UnitTotal <= 27 then   -- 9 wide
 			landBlock = ThreeRowStaggeredAttackFormationBlock
             defaultspacing = 1.2            
             
