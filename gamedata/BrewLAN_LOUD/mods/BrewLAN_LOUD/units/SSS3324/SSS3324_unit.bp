@@ -211,7 +211,7 @@ UnitBlueprint {
         ReactivateTime      = 12,
 
         RemoteViewingRadius = 8,
-        RemoteViewingRadiusFinal = 32,
+        RemoteViewingRadiusFinal = 24,
         RemoteViewingEnergyDrain = 8000,
     },
 

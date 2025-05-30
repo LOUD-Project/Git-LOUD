@@ -41,10 +41,10 @@ SSB3301 = Class( SStructureUnit ) {
         end
 
         if targetunit and IsUnit(targetunit) then
-                
+
             self.RemoteViewingData.VisibleLocation = location
             self.RemoteViewingData.TargetUnit = targetunit
-                
+
             self:CreateVisibleEntity()
         else
             

@@ -19,10 +19,11 @@ function ThreatCloserThan( aiBrain, locationType, distance, threatcutoff, threat
         
         if threatTable[1] then
         
-            if threattype == 'Land' or threattype == 'AntiSurface' and aiBrain.LandRatio > 1.2 then
+            if threattype == 'Land' or threattype == 'AntiSurface' and aiBrain.LandRatio > 1 then
 
-                distance = distance * ( 1 / (1 + LOUDLOG10( aiBrain.VeterancyMult )))          -- cheat level makes us look farther
+                distance = distance * ( 1 / (1 + LOUDLOG10( aiBrain.VeterancyMult )))           -- cheat level makes us look farther
 
+                threatcutoff = threatcutoff * ( 1 / (1 + LOUDLOG10( aiBrain.VeterancyMult )))   -- and tolerate more threat
             end
 
             for _,v in threatTable do
@@ -57,15 +58,11 @@ function ThreatFurtherThan( aiBrain, locationType, distance, threattype, threatc
             LOUDSORT(threatTable, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a[1],a[2], position[1],position[3]) < VDist2Sq(b[1],b[2], position[1],position[3]) end)
     
             -- this code makes this function dynamic via LandRatio and AIMult --
-            if threattype == 'Land' and aiBrain.LandRatio > 1.2 then
-        
-                -- affect the distance with ratio AND AIMult --
-                --distance = distance * ( 1 / aiBrain.LandRatio )                             -- if we have a high ratio threat needs to be closer to impact us
+            if threattype == 'Land' and aiBrain.LandRatio > 1 then
             
-                distance = distance * ( 1 / (1 + LOUDLOG10( aiBrain.VeterancyMult )))      -- cheat level makes us look farther
-            
-                -- but the threat is only affected by actual ratio
-                -- threatcutoff = threatcutoff * aiBrain.LandRatio                             -- and the amount of threat needs to be higher as well
+                distance = distance * ( 1 / (1 + LOUDLOG10( aiBrain.VeterancyMult )))           -- cheat level makes us look farther out
+
+                threatcutoff = threatcutoff * ( 1 / (1 + LOUDLOG10( aiBrain.VeterancyMult )))   -- and tolerate more threat
             
             end
 
@@ -74,7 +71,9 @@ function ThreatFurtherThan( aiBrain, locationType, distance, threattype, threatc
                 if VDist2( v[1],v[2], position[1],position[3] ) < distance then
 			
                     if v[3] > threatcutoff then
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." at "..repr(locationType).." has "..threattype.." threat closer than "..math.floor(distance).." is at ("..math.floor(VDist2(v[1],v[2], position[1],position[3]))..")	threat is "..math.floor(v[3]).." trigger ("..math.floor(threatcutoff)..") comes from "..repr(v) )
+
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." at "..repr(locationType).." has "..threattype.." threat closer than "..math.floor(distance).." is at ("..math.floor(VDist2(v[1],v[2], position[1],position[3]))..")	threat trigger is "..math.floor(threatcutoff).." ("..math.floor(v[3])..") coming from "..repr(v[1]).." "..repr(v[2]) )
+
                         return false
                     end
                 
