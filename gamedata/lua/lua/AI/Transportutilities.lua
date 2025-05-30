@@ -2123,11 +2123,11 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer, 
 
             local safePath, reason, pathlength, pathcost = transports.PlatoonGenerateSafePathToLOUD(aiBrain, transports, 'Air', platpos, location, airthreatMax, 256)
             
-            if not safePath then
+            --if not safePath then
 
-                TransportDialog = true
+              --  TransportDialog = true
 
-            end
+            --end
 
             if TransportDialog then
             
