@@ -7,6 +7,14 @@ local RemoteViewing = import('/lua/RemoteViewing.lua').RemoteViewing
 SStructureUnit = RemoteViewing( SStructureUnit )
 
 SSB3301 = Class( SStructureUnit ) {
+
+    OnStopBeingBuilt = function(self, builder, layer)
+    
+        self.EmitterEffects = {}
+        
+        SStructureUnit.OnStopBeingBuilt(self,builder,layer)
+        
+    end,
  
     OnTargetLocation = function(self, location) 
 
@@ -15,8 +23,6 @@ SSB3301 = Class( SStructureUnit ) {
         if self:AntiTeleportBlock( aiBrain, location) then
             return
         end
-
-        --LOG("*AI DEBUG BEFORE creation data is "..repr(self.RemoteViewingData))
 
         -- find a target unit 
         local targettable = aiBrain:GetUnitsAroundPoint(categories.SELECTABLE, location, 10)
@@ -54,6 +60,19 @@ SSB3301 = Class( SStructureUnit ) {
 
     end,
 
+    RechargeEmitter = function(self)
+    
+        for _,key in self.EmitterEffects do
+            key:Destroy()
+        end
+    
+        SStructureUnit.RechargeEmitter(self)
+        
+        for k,v in FxAmbient do
+            table.insert( self.EmitterEffects, CreateAttachedEmitter( self, 'B01', self:GetArmy(), v ):ScaleEmitter(.25) )
+        end
+    
+    end,
 }
 
 TypeClass = SSB3301

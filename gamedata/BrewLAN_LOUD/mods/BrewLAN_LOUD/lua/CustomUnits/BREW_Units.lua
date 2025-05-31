@@ -87,11 +87,23 @@ T3MobileShields = {
 	Cybran = {'srl0316', 40},	-- Amphib CounterIntel
 },
 
+T3LandMobileTMD = {
+    Aeon = {'sal0323', 60},    -- T2 unit
+},
+
 T3MobileAntiNuke = {
-	Aeon = {'sal0321', 100},
-	UEF = {'sel0321', 100},
-	Cybran = {'srl0321', 100},
-	Seraphim = {'ssl0321', 100},
+	Aeon        = {'sal0321', 100},
+	UEF         = {'sel0321', 100},
+	Cybran      = {'srl0321', 100},
+	Seraphim    = {'ssl0321', 100},
+},
+
+
+T3SeaCorvette = {
+	Aeon        = {'sas3324', 100},
+	UEF         = {'ses3324', 100},
+	Cybran      = {'srs3324', 100},
+	Seraphim    = {'sss3324', 100},
 },
 
 T4Artillery = {

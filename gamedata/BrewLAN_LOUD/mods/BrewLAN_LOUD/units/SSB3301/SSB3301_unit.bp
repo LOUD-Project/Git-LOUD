@@ -115,8 +115,8 @@ UnitBlueprint {
     Intel = {
         VisionRadius = 12,
 
-        Viewtime = 44,              -- length of view
-        ReactivateTime = 18,        -- time before another activation
+        Viewtime = 38,              -- length of view
+        ReactivateTime = 15,        -- time before another activation
 
         RemoteViewingRadius = 12,           -- starting size
         RemoteViewingRadiusFinal = 28,      -- full size
