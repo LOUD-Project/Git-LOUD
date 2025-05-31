@@ -18,9 +18,9 @@ local EffectUtil = import('/lua/EffectUtilities.lua')
 local AIUtils = import('/lua/ai/aiutilities.lua')
 
 -- Setup as RemoteViewing child unit rather than SWalkingLandUnit
-local RemoteViewing = import('/lua/RemoteViewing.lua').RemoteViewing
+--local RemoteViewing = import('/lua/RemoteViewing.lua').RemoteViewing
 
-SWalkingLandUnit = RemoteViewing( SWalkingLandUnit ) 
+--SWalkingLandUnit = RemoteViewing( SWalkingLandUnit ) 
 
 XSL0001 = Class( SWalkingLandUnit ) {
     DeathThreadDestructionWaitTime = 2,
@@ -232,7 +232,7 @@ XSL0001 = Class( SWalkingLandUnit ) {
 
     OnStopBeingBuilt = function(self,builder,layer)
         SWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
-        self:DisableRemoteViewingButtons()
+        ---self:DisableRemoteViewingButtons()
         self:SetWeaponEnabledByLabel('ChronotronCannon', true)
         self:ForkThread(self.GiveInitialResources)
         self.ShieldEffectsBag = {}
