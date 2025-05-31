@@ -183,17 +183,17 @@ PlatoonTemplate { Name = 'ReinforceAirExperimental',
 ----- LAND FORMATIONS ----
 --------------------------
 
-local LAND = categories.LAND * categories.MOBILE
+local LAND          = categories.LAND * categories.MOBILE
 
-local LANDAMPHIB = LAND * categories.AMPHIBIOUS
-local LANDANTIAIR = LAND * categories.ANTIAIR
-local LANDARTILLERY = LAND * categories.INDIRECTFIRE
-local LANDCOUNTERINTEL = LAND * categories.COUNTERINTELLIGENCE
-local LANDDIRECTFIRE = LAND * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER
-local LANDSCOUT = categories.LAND * categories.SCOUT
-local LANDSHIELD = LAND * categories.SHIELD
-local LANDTMD = LAND * categories.ANTIMISSILE - categories.SILO
-local LANDSMD = LAND * categories.ANTIMISSILE * categories.SILO
+local LANDAMPHIB        = LAND * categories.AMPHIBIOUS
+local LANDANTIAIR       = LAND * categories.ANTIAIR
+local LANDARTILLERY     = LAND * categories.INDIRECTFIRE
+local LANDCOUNTERINTEL  = LAND * categories.COUNTERINTELLIGENCE
+local LANDDIRECTFIRE    = LAND * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER
+local LANDSCOUT         = LAND * categories.SCOUT
+local LANDSHIELD        = LAND * categories.SHIELD
+local LANDTMD           = LAND * categories.ANTIMISSILE - categories.SILO
+local LANDSMD           = LAND * categories.ANTIMISSILE * categories.SILO
 
 -- not that it's used much - but you can have factional differences -- have a look at the T1 Scouting Platoon where all factions have
 -- 2 scouts except the Cybrans which only use 1 scout
@@ -230,10 +230,10 @@ PlatoonTemplate { Name = 'ReinforceLandPlatoonSupport',
         { LANDARTILLERY - categories.EXPERIMENTAL, 0, 4, 'Artillery', 'none' },
         { LANDANTIAIR, 0, 12, 'Guard', 'none'},
 		{ LANDSHIELD, 0, 3, 'Support', 'none' },
-		{ LANDCOUNTERINTEL, 0, 2, 'Support', 'none' },
-        { LANDTMD, 0, 2, 'Guard', 'none' },
+		{ LANDCOUNTERINTEL, 0, 3, 'Support', 'none' },
+        { LANDTMD, 0, 3, 'Guard', 'none' },
         { LANDSMD, 0, 1, 'Support', 'none' },
-        { LANDSCOUT, 0, 2, 'Scout', 'none' },
+        { LANDSCOUT, 0, 3, 'Scout', 'none' },
 	},
 }
 
@@ -275,7 +275,7 @@ PlatoonTemplate { Name = 'T2MassAttack',
 PlatoonTemplate { Name = 'T3MassAttack',
     Plan = 'GuardPoint',
     GlobalSquads = {
-        { LANDDIRECTFIRE - categories.EXPERIMENTAL, 45, 80, 'Attack', 'none' },
+        { LANDDIRECTFIRE - categories.EXPERIMENTAL, 45, 60, 'Attack', 'none' },
 		{ LANDARTILLERY, 15, 24, 'Artillery', 'none' },
         { LANDANTIAIR, 0, 20, 'Guard', 'none' },
 		{ LANDSHIELD, 0, 10, 'Support', 'none'},
@@ -310,7 +310,7 @@ PlatoonTemplate { Name = 'T2LandAttack',
 PlatoonTemplate { Name = 'T3LandAttack',
     Plan = 'LandForceAILOUD',
     GlobalSquads = {
-        { LANDDIRECTFIRE - categories.AMPHIBIOUS, 40, 72, 'Attack', 'none' },
+        { LANDDIRECTFIRE - categories.AMPHIBIOUS, 40, 60, 'Attack', 'none' },
 		{ LANDARTILLERY, 15, 24, 'Artillery', 'none' },
         { LANDANTIAIR, 0, 20, 'Guard', 'none' },
 		{ LANDSHIELD, 0, 10, 'Support', 'none'},
@@ -324,7 +324,7 @@ PlatoonTemplate { Name = 'T3LandAttack',
 PlatoonTemplate { Name = 'T3LandAttackNW',
     Plan = 'LandForceAILOUD',
     GlobalSquads = {
-        { LANDDIRECTFIRE, 40, 72, 'Attack', 'none' },
+        { LANDDIRECTFIRE, 40, 60, 'Attack', 'none' },
 		{ LANDARTILLERY, 12, 24, 'Artillery', 'none' },
         { LANDANTIAIR, 0, 20, 'Guard', 'none' },
 		{ LANDSHIELD, 0, 10, 'Support', 'none'},
@@ -338,7 +338,7 @@ PlatoonTemplate { Name = 'T3LandAttackNW',
 PlatoonTemplate { Name = 'LandAttackHugeNW',
     Plan = 'LandForceAILOUD',
     GlobalSquads = {
-        { LANDDIRECTFIRE, 60, 72, 'Attack', 'none' },
+        { LANDDIRECTFIRE, 55, 66, 'Attack', 'none' },
 		{ LANDARTILLERY, 12, 24, 'Artillery', 'none' },
         { LANDANTIAIR, 0, 20, 'Guard', 'none' },
 		{ LANDSHIELD, 0, 10, 'Support', 'none'},
@@ -402,7 +402,7 @@ PlatoonTemplate { Name = 'T3AmphibAttack',
 PlatoonTemplate { Name = 'AmphibAttackHuge',
     Plan = 'AmphibForceAILOUD',
     GlobalSquads = {
-        { LANDAMPHIB * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT, 48, 70, 'Attack', 'none' },
+        { LANDAMPHIB * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT, 48, 60, 'Attack', 'none' },
         { LANDAMPHIB * categories.ARTILLERY, 0, 18, 'Artillery', 'none' },
 		{ LANDAMPHIB * categories.ANTIAIR, 0, 18, 'Support', 'none' },
 		{ LANDAMPHIB * categories.SHIELD, 0, 10, 'Guard', 'none' },
