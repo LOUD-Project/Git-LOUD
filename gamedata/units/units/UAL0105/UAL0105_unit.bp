@@ -1,6 +1,5 @@
 UnitBlueprint {
     AI = {
-        StagingPlatformScanRadius = 2.9,
         TargetBones = { 'Panel_01', 'Panel_02', 'Panel_03', 'Panel_04' },
     },
 	
