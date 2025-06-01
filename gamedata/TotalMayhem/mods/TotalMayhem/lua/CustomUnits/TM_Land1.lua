@@ -22,7 +22,7 @@ UnitList = {
         UEF = {'BRNT3ABB', 50},		    -- Ironfist
         Aeon = {'BROT3BT', 100},	    -- Transoma	
         Cybran = {'BRMT3BM2', 30},	    -- Dervish
-		Seraphim = {'BRPT3BOT', 30},    -- Thaam-Thuum
+		Seraphim = {'BRPT3BOT', 35},    -- Thaam-Thuum
 	},
 
 	T3AmphibiousAA = {
@@ -51,14 +51,14 @@ UnitList = {
         Aeon = {'BROT2ASB', 25},	    -- Amphorak
 		Cybran = {'BRMT2MEDM', 20},	    -- Immortal
         UEF = {'BRNT2BM', 20},		    -- Banshee
-        Seraphim = {'BRPT2BTBOT', 20},	-- Iltha
+        Seraphim = {'BRPT2BTBOT', 40},	-- Iltha
     },
 
     T2LandAmphibBot = {
         Aeon = {'BROT2ASB', 40},	    -- Amphorak
 		Cybran = {'BRMT2MEDM', 40},	    -- Immortal
         UEF = {'BRNT2BM', 40},		    -- Banshee
-        Seraphim = {'BRPT2BTBOT', 40},	-- Iltha
+        Seraphim = {'BRPT2BTBOT', 50},	-- Iltha
     },
 
 
