@@ -14,7 +14,7 @@ UnitList = {
     },
     
     T2LandMobileTMD = {
-        UEF     = {'wel0207'},
+        UEF     = {'wel0207', 100},
     },
 
 	T3LandAA = {
@@ -36,6 +36,10 @@ UnitList = {
     T3SniperBots = {
         Cybran = {'wrl0305', 100},
     },
+    
+    T3LandMobileTMD = {
+        UEF     = {'wel0207', 100}, -- T2 unit
+    },
 
     -- Amphibious Units --
     T3Amphibious = {
@@ -48,7 +52,7 @@ UnitList = {
     },
 
     -- Naval Units --
-	T3Battlecruiser = {
+	T3SeaCruiser = {
         Aeon = {'was0332', 50},     -- Shadow of Intent
 		UEF = {'wes0303', 40},      -- Poseidon
 	},

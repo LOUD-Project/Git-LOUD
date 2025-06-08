@@ -1,7 +1,5 @@
 UnitBlueprint{
 
-    Description = "Mobile Tac-Missile Defense",
-
     AI = {
         TargetBones = { "MainTurret" },
     },
@@ -17,16 +15,17 @@ UnitBlueprint{
     BuildIconSortPriority = 20,
 
     Categories = {
-        "ANTIMISSILE",
         "BUILTBYTIER2FACTORY",
         "BUILTBYTIER3FACTORY",
+        "UEF",
+        "TECH2",
         "LAND",
         "MOBILE",
         "RECLAIMABLE",
         "SELECTABLE",
-        "TECH2",
-        "UEF",
         "VISIBLETORECON",
+        'OVERLAYDEFENSE',
+        'ANTIMISSILE',        
     },
 
     Defense = {
@@ -37,21 +36,16 @@ UnitBlueprint{
         SurfaceThreatLevel = 0.1,
     },
 
+    Description = "Mobile Tac-Missile Defense",
+
     Display = {
         Abilities = { "<LOC ability_tacmissiledef>Tactical Missile Defense" },
 
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 120,
-                    Scrolling = true,
-                    ShaderName = "Unit",
-                },
-                {
-                    LODCutoff = 215,
-                    ShaderName = "Unit",
-                    AlbedoName = "wel0207_lod1_albedo.dds",
+                { LODCutoff = 120, Scrolling = true, ShaderName = "Unit" },
+                { LODCutoff = 215, ShaderName = "Unit", AlbedoName = "wel0207_lod1_albedo.dds",
                     SpecularName = "wel0207_lod1_specteam.dds",
                 },
             },
@@ -92,21 +86,23 @@ UnitBlueprint{
     LifeBarSize = 1,
 
     Physics = {
-        BackUpDistance = 3,
+        BackUpDistance = 6,
         BankingSlope = 0,
         DragCoefficient = 0.2,
-        MaxAcceleration = 1.1,
+
+        MaxAcceleration = 1.5,
         MaxBrake = 3,
         MaxSpeed = 3,
-        MaxSpeedReverse = 2,
+        MaxSpeedReverse = 3,
+
         MaxSteerForce = 15,
         MeshExtentsX = 0.75,
         MeshExtentsY = 1.2,
         MeshExtentsZ = 0.75,
         MinSpeedPercent = 0,
         MotionType = "RULEUMT_Land",
-        TurnRadius = 2,
-        TurnRate = 40,
+        TurnRadius = 6,
+        TurnRate = 38,
     },
 
     SelectionCenterOffsetX = 0,
@@ -160,10 +156,7 @@ UnitBlueprint{
             NeedPrep = false,
 
             RackBones = {
-                {
-                    MuzzleBones = { "TMDOrb" },
-                    RackBone = "TMDOrb",
-                },
+                { MuzzleBones = { "TMDOrb" }, RackBone = "TMDOrb" },
             },
 
             RackSalvoReloadTime = 0.5,
@@ -187,7 +180,7 @@ UnitBlueprint{
 
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 72,
 
             Turreted = true,
 
@@ -198,7 +191,7 @@ UnitBlueprint{
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.3,
-        HealthMult = 0.9,
+        HealthMult = 0.6,
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = { Land = true },

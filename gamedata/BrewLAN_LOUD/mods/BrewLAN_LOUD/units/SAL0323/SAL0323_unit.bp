@@ -126,17 +126,19 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.25,
-        MaxAcceleration = 1.2,
+
+        MaxAcceleration = 1.3,
         MaxBrake = 1.2,
         MaxSpeed = 3.4,
         MaxSpeedReverse = 0,
+
         MaxSteerForce = 1000,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
         
-        TurnFacingRate = 32,
-        TurnRadius = 3.5,
-        TurnRate = 36,
+        TurnFacingRate = 40,
+        TurnRadius = 5,
+        TurnRate = 38,
         
         WobbleFactor = 0.02,
         WobbleSpeed = 0.01,
@@ -152,8 +154,9 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_surface2_antimissile',
     StrategicIconSortPriority = 200,
-	
+
     Transport = {
+        CanFireFromTransport = false,
         TransportClass = 2,
     },
 	
@@ -225,9 +228,9 @@ UnitBlueprint {
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.35,
-        HealthMult = 0.9,
-        MassMult = 0.35,
+        EnergyMult = 0.3,
+        HealthMult = 0.6,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

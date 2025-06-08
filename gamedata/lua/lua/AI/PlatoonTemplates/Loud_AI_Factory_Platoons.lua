@@ -674,6 +674,15 @@ PlatoonTemplate { Name = 'T2MobileShields',
 }
 
 
+PlatoonTemplate { Name = 'T2LandMobileTMD',
+    FactionSquads = {
+        UEF = {},
+        Aeon = {},
+        Cybran = {},
+        Seraphim = {},
+    }
+}
+
 PlatoonTemplate { Name = 'T2LandAmphibAA',
     FactionSquads = {
         UEF = {
@@ -881,8 +890,21 @@ PlatoonTemplate { Name = 'T3ShieldDisruptor',
 	}
 }
 
+PlatoonTemplate { Name = 'T3LandMobileTMD',
+    FactionSquads = {
+        UEF = {},
+        Aeon = {},
+        Cybran = {},
+        Seraphim = {},
+    }
+}
+
 PlatoonTemplate { Name = 'T3MobileAntiNuke',
 	FactionSquads = {
+        UEF = {},
+        Aeon = {},
+        Cybran = {},
+        Seraphim = {},
 	}
 }
 
@@ -1015,6 +1037,14 @@ PlatoonTemplate { Name = 'T2CounterIntelBoat',
     },
 }
 
+PlatoonTemplate { Name = 'T3SeaCorvette',
+	FactionSquads = {
+        UEF = {},
+        Aeon = {},
+        Cybran = {},
+        Seraphim = {},
+	}
+}
 
 PlatoonTemplate { Name = 'T3SeaBattleship',
     FactionSquads = {
@@ -1047,7 +1077,7 @@ PlatoonTemplate { Name = 'T3SeaCarrier',
     }
 }
 
-PlatoonTemplate { Name = 'T3Battlecruiser',
+PlatoonTemplate { Name = 'T3SeaCruiser',
     FactionSquads = {
         UEF = {
             { 'xes0307', 1, 1, 'Attack', 'none' },

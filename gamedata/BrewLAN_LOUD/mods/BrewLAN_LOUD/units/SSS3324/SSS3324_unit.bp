@@ -197,7 +197,7 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'sea',
 
-        UnitName = '<LOC xss0103_name>Lhuumer',
+        --UnitName = '<LOC xss0103_name>Lhuumer',
     },
 
     Intel = {
@@ -211,7 +211,7 @@ UnitBlueprint {
         ReactivateTime      = 12,
 
         RemoteViewingRadius = 8,
-        RemoteViewingRadiusFinal = 32,
+        RemoteViewingRadiusFinal = 24,
         RemoteViewingEnergyDrain = 8000,
     },
 

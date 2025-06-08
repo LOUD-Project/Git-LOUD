@@ -444,15 +444,17 @@ function CreateIdleTab(unitData, id, expandFunc)
 end
 
 function GetCheck(id)
+
     if id == 'engineer' and controls.idleEngineers then
         return controls.idleEngineers.expandCheck
     elseif id == 'factory' and controls.idleFactories then
         return controls.idleFactories.expandCheck
     end
+
 end
 
 function ClickFunc(self, event)
-
+  
     if event.Type == 'MouseEnter' then
 	
         if self.tooltipKey and not self.tooltip then

@@ -105,11 +105,11 @@ UnitBlueprint {
     Intel = {
 
 		Viewtime                = 28,   -- time that scrying area remains visible	(the scry button disappears once the viewtime begins)
-        ReactivateTime          = 10,   -- the length of the recharge period (and how long before the scry button reappears)
+        ReactivateTime          = 12,   -- the length of the recharge period (and how long before the scry button reappears)
 
         RemoteViewingEnergyDrain    = 10000,    -- the per-use cost of this feature (rate is this divided by the Reactivate time)
         RemoteViewingRadius         = 12,		-- the start size of the remote viewing radius
-		RemoteViewingRadiusFinal    = 44,	    -- the final radius of the scry (controls the grow/shrink rate) 
+		RemoteViewingRadiusFinal    = 40,	    -- the final radius of the scry (controls the grow/shrink rate) 
 
         VisionRadius = 12,  -- this is just the vision range of the tower itself, not much
     },

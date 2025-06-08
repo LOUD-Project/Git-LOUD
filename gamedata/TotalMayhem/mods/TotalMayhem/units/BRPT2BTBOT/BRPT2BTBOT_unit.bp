@@ -139,9 +139,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 3200,
-        BuildCostMass = 750,
-        BuildTime = 3750,
+        BuildCostEnergy = 3300,
+        BuildCostMass = 760,
+        BuildTime = 525,
     },
 	
     General = {
@@ -198,7 +198,7 @@ UnitBlueprint {
         MotionType = 'RULEUMT_Amphibious',
 
         TurnRadius = 3,
-        TurnRate = 40,
+        TurnRate = 36,
     },
 	
     SelectionSizeX = 0.55,
@@ -235,7 +235,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 30,
+            Damage = 32,
             DamageType = 'Normal',
 			
             DisplayName = 'Aire-au Bolter',
@@ -245,8 +245,8 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-			FiringRandomnessWhileMoving = 0.6,
-            FiringTolerance = 0.5,
+			FiringRandomnessWhileMoving = 0.5,
+            FiringTolerance = 0.4,
 			
             Label = 'MainGun',
 			
@@ -261,21 +261,15 @@ UnitBlueprint {
 			ProjectileLifetime = 1.2,			
 
             RackBones = {
-                {
-                    MuzzleBones = {'Right_Muzzle','Right_Muzzle01'},
-                    RackBone = 'Right_Arm',
-                },
-                {
-                    MuzzleBones = {'Left_Muzzle','Left_Muzzle01'},
-                    RackBone = 'Left_Arm',
-                },
+                { MuzzleBones = {'Right_Muzzle','Right_Muzzle01'}, RackBone = 'Right_Arm' },
+                { MuzzleBones = {'Left_Muzzle','Left_Muzzle01'}, RackBone = 'Left_Arm' },
 
             },
             RackFireTogether = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- 120 DPS
+            RateOfFire = 1,		-- 128 DPS
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -305,7 +299,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 36,
+            TurretYawSpeed = 34,
 			
             Turreted = true,
         },

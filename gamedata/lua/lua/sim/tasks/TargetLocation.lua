@@ -5,7 +5,9 @@ local AIRESULT = import('/lua/sim/ScriptTask.lua').AIRESULT
 TargetLocation = Class(ScriptTask) {
     
     OnCreate = function(self,commandData)
+
         ScriptTask.OnCreate(self,commandData)
+
         local unit = self:GetUnit():OnTargetLocation(commandData.Location)
     end,
     

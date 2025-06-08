@@ -113,14 +113,14 @@ UnitBlueprint {
     },
 	
     Intel = {
-
-        Viewtime = 60,
-        ReactivateTime = 18,
-
-        RemoteViewingEnergyDrain = 36000,   -- cost of firing the ability
-        RemoteViewingRadius = 20,
-
         VisionRadius = 12,
+
+        Viewtime = 38,              -- length of view
+        ReactivateTime = 15,        -- time before another activation
+
+        RemoteViewingRadius = 12,           -- starting size
+        RemoteViewingRadiusFinal = 28,      -- full size
+        RemoteViewingEnergyDrain = 21000,   -- firing cost
     },
 	
     LifeBarHeight = 0.075,

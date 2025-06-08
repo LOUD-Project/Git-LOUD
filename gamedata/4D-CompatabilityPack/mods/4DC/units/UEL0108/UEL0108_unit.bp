@@ -33,8 +33,8 @@ UnitBlueprint{
 
     Defense = {
         ArmorType = "Normal",
-        Health = 465,
-        MaxHealth = 465,
+        Health = 475,
+        MaxHealth = 475,
         RegenRate = 1,
         SurfaceThreatLevel = 3.9,
     },
@@ -43,15 +43,8 @@ UnitBlueprint{
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 130,
-                    Scrolling = true,
-                    ShaderName = "Unit",
-                },
-                {
-                    LODCutoff = 130,
-                    ShaderName = "Unit",
-                    AlbedoName = "uel0108_albedo.dds",
+                { LODCutoff = 130, Scrolling = true, ShaderName = "Unit" },
+                { LODCutoff = 130, ShaderName = "Unit", AlbedoName = "uel0108_albedo.dds",
                     SpecularName = "uel0108_specteam.dds",
                 },
             },
@@ -83,9 +76,9 @@ UnitBlueprint{
     },
 
     Economy = {
-        BuildCostEnergy = 600,
-        BuildCostMass = 130,
-        BuildTime = 94,
+        BuildCostEnergy = 700,
+        BuildCostMass = 135,
+        BuildTime = 170,
     },
 
     General = {
@@ -110,22 +103,27 @@ UnitBlueprint{
     LifeBarSize = 0.65,
 
     Physics = {
+        BackUpDistance = 8,    
         BankingSlope = 0,
         DragCoefficient = 0.2,
-        MaxAcceleration = 2.0,
+
+        MaxAcceleration = 1.2,
         MaxBrake = 2.0,
         MaxSpeed = 3.0,
         MaxSpeedReverse = 3.0,
+
         MaxSteerForce = 10,
         MeshExtentsX = 0.5,
         MeshExtentsY = 0.25,
         MeshExtentsZ = 0.7,
         MinSpeedPercent = 0,
         MotionType = "RULEUMT_Land",
+
         RotateOnSpot = false,
         RotateOnSpotThreshold = 0.1,
+
         TurnRadius = 0,
-        TurnRate = 40,
+        TurnRate = 38,
     },
 
     SelectionCenterOffsetZ = -0.0,
@@ -146,11 +144,11 @@ UnitBlueprint{
     },
 
     Veteran = {
-        Level1 = 3,
-        Level2 = 6,
-        Level3 = 9,
-        Level4 = 12,
-        Level5 = 15,
+        Level1 = 4,
+        Level2 = 8,
+        Level3 = 12,
+        Level4 = 16,
+        Level5 = 20,
     },
 
     Weapon = {
@@ -170,8 +168,9 @@ UnitBlueprint{
             DisplayName = "Gauss Cannon",
 
             FireTargetLayerCapsTable = { Land = "Land|Water" },
+
             FiringRandomness = 0.1,
-            FiringRandomnessWhileMoving = 0.6,
+            FiringRandomnessWhileMoving = 0.4,
             FiringTolerance = 2,
 
             Label = "MainGun",
@@ -184,11 +183,9 @@ UnitBlueprint{
             ProjectileLifetime = 1,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Muzzle" },
-                    RackBone = "Barrel",
-                },
+                { MuzzleBones = { "Muzzle" }, RackBone = "Barrel" },
             },
+
             RackRecoilDistance = -8,
 
             RangeCategory = "UWRC_DirectFire",

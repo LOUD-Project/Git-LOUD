@@ -348,7 +348,7 @@ function GetTransports( platoon, aiBrain)
                 neededTable.Total = neededTable.Total + 1
 
 			else
-				LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." during GetTransports - "..v:GetBlueprint().Description.." has no transportClass value")
+				LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." during GetTransports - "..v:GetBlueprint().Description.." has no TransportClass value")
 			end
 		end	
 	end
@@ -1805,7 +1805,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer, 
 					
 				else
 				
-					WARN("*AI DEBUG "..aiBrain.Nickname.." Cannot transport "..GetBlueprint(v).Description)
+					WARN("*AI DEBUG "..aiBrain.Nickname.." Cannot transport "..GetBlueprint(v).Description )
 					counter = counter - 1  -- take it back
 					
 				end
@@ -2123,11 +2123,11 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer, 
 
             local safePath, reason, pathlength, pathcost = transports.PlatoonGenerateSafePathToLOUD(aiBrain, transports, 'Air', platpos, location, airthreatMax, 256)
             
-            if not safePath then
+            --if not safePath then
 
-                TransportDialog = true
+              --  TransportDialog = true
 
-            end
+            --end
 
             if TransportDialog then
             

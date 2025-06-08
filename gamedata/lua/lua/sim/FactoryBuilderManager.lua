@@ -767,7 +767,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 
 			local replacement = GetCustomReplacement( FactionSquads[1] )
 			
-			if replacement then
+			if replacement[1] then
 			
 				LOUDINSERT( template, replacement )
 			end

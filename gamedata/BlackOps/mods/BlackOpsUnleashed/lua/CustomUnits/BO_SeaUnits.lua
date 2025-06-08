@@ -1,6 +1,6 @@
 UnitList = {
 
-	T3Battlecruiser = {
+	T3SeaCruiser = {
 		Cybran = {'brs0304', 100}, -- Escort Cruiser
 		Seraphim = {'bss0306', 100}, -- Heavy Cruiser
 	},
