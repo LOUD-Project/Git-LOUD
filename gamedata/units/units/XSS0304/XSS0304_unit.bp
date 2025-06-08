@@ -65,7 +65,7 @@ UnitBlueprint {
             '<LOC ability_personalstealth>Personal Stealth',
             '<LOC ability_sonar>Sonar',
             '<LOC ability_torpedo>Torpedoes',
-            '<LOC ability_torpedodef>Torpedo Defense,
+            '<LOC ability_torpedodef>Torpedo Defense',
         },
         
         CannonOpenAnimation = '/units/xss0304/xss0304_aopen.sca',
