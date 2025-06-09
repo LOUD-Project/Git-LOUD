@@ -130,6 +130,8 @@ UnitBlueprint{
 
     Weapon = {
         {
+            AboveWaterTargetsOnly = true,
+
             Audio = {
                 Fire = Sound { Bank = 'BattlePackSB', Cue = 'UEFRevampTank_AntiMissile_Fire', LodCutoff = 'Weapon_LodCutoff' },
             },
