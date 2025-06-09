@@ -1,3 +1,31 @@
+### Release 06-09-2025
+
+LUA 7.24
+4DC for LOUD 7.07
+Black Ops for LOUD 7.12
+BrewLAN for LOUD 0.8.8.9.115
+Total Mayhem for LOUD 7.08
+UNITS 7.14
+Wyvern for LOUD 7.09
+
+- T1+ Land units get backup distance, reduced turn and turret traverse rates 
+- a minor data guard to catch 'empty' AI factory platoon templates
+- AI will now construct mobile anti-nukes via T3MobileAntiNuke template
+- T3Battlecruiser factory template renamed to T3SeaCruiser, to be consistent with other naval templates
+- Added T3Corvette factory template to support new BrewLAN corvettes
+- AI (Aeon, UEF) will now build mobile TMD units via T2LandMobileTMD and T3LandMobileTMD templates
+- 4DC AEON Mobile AA (UAL0310) Vindicator now marked as 'ANTIMISSILE', built via T3LandMobileTMD template
+- BrewLAN AEON Mobile TMD (SAL0323) correctly classed as MobileUnit rather than StructureUnit
+- AI can now construct T3 Corvettes via T3SeaCorvette factory template, still require a build task though
+- TM Sera T2+ bot BRPT2BTBOT (Iltha) minor changes, increased DPS 120 >> 128, increased appearance rate in build choices
+- AEON Eye of Rhianne (XAB3301) minor reduction to final viewing radius, increased reactivation time 10s >> 12s
+- SERA T3 Submarine fixed ability descriptions (MostLostNoob)
+- fixed some flaws with RemoteViewing
+- addressed a situation where 'ability' buttons are NOT restored during a load of a saved game
+
+
+
+
 ### Release 05-24-2025
 
 BrewLAN for LOUD 0.8.8.9.114
