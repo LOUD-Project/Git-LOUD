@@ -427,6 +427,8 @@ UnitBlueprint {
             Turreted = true,
         },
         {
+            AboveWaterTargetsOnly = true,
+
             Audio = {
                 Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0202_Phalanx', LodCutoff = 'Weapon_LodCutoff' },
             },

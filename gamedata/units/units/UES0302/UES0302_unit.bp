@@ -389,6 +389,7 @@ UnitBlueprint {
 -- This turret is a bit different as it will fire a single heavier round at a higher RoF
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 BarrelLoop = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Loop', LodCutoff = 'WeaponBig_LodCutoff' },
                 BarrelStart = Sound { Bank = 'UES', Cue = 'UES0302_Cannon_Start', LodCutoff = 'WeaponBig_LodCutoff'},
@@ -489,13 +490,11 @@ UnitBlueprint {
         
         {
             AlwaysRecheckTarget = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UESWeapon',
-                    Cue = 'UES0302_Railgun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0302_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -573,13 +572,11 @@ UnitBlueprint {
         },
         {
             AlwaysRecheckTarget = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2104_Railgun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2104_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -656,13 +653,11 @@ UnitBlueprint {
         },
         {
             AlwaysRecheckTarget = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2104_Railgun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2104_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -740,13 +735,11 @@ UnitBlueprint {
         },
         {
             AlwaysRecheckTarget = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2104_Railgun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2104_Railgun', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -825,6 +818,7 @@ UnitBlueprint {
         
         {
             AboveWaterTargetsOnly = true,
+            AboveWaterFireOnly = true,
             
             Audio = {
                 Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0302_Phalanx', LodCutoff = 'Weapon_LodCutoff' },
@@ -889,6 +883,7 @@ UnitBlueprint {
             Turreted = true,
         },
         {
+            AboveWaterTargetsOnly = true,
             AboveWaterFireOnly = true,
             
             Audio = {
