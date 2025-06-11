@@ -31,9 +31,12 @@ local LOUDLOG10 = math.log10
 local LOUDMAX   = math.max
 local LOUDSORT  = table.sort
 
-local T1FACTORIES = categories.STRUCTURE * categories.TECH1 * categories.FACTORY
-local T2FACTORIES = categories.STRUCTURE * categories.TECH2 * categories.FACTORY
-local T3FACTORIES = categories.STRUCTURE * categories.TECH3 * categories.FACTORY + categories.GATE
+local ENGINEER      = categories.ENGINEER
+local FACTORY       = categories.FACTORY
+
+local T1FACTORIES   = categories.STRUCTURE * categories.TECH1 * FACTORY
+local T2FACTORIES   = categories.STRUCTURE * categories.TECH2 * FACTORY
+local T3FACTORIES   = categories.STRUCTURE * categories.TECH3 * FACTORY + categories.GATE
     
 local function GetNumCategoryBeingBuiltByEngineers( EM, category, engCategory )
 
@@ -104,8 +107,8 @@ local function GetManagerUnitsBeingBuilt( aiBrain, category )
 	local unitcount = 0
 		
     for k,v in aiBrain.BuilderManagers do
-		unitcount = unitcount + GetNumCategoryBeingBuiltByEngineers( v.EngineerManager, category, categories.ENGINEER )
-		unitcount = unitcount + GetNumCategoryBeingBuiltByFactories( v.FactoryManager, category, categories.FACTORY )
+		unitcount = unitcount + GetNumCategoryBeingBuiltByEngineers( v.EngineerManager, category, ENGINEER )
+		unitcount = unitcount + GetNumCategoryBeingBuiltByFactories( v.FactoryManager, category, FACTORY )
 	end	
 	return unitcount
 end
@@ -146,7 +149,7 @@ function ThreatCloserThan( aiBrain, locationType, distance, threatcutoff, threat
             end
         end
         
-        LOG("*AI DEBUG "..aiBrain.Nickname.." at "..repr(locationType).." fails ThreatCloserThan (EBC) "..distance.." for greater than "..threatcutoff.." "..threattype.." threat  Adjustment "..adjustment )        
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." at "..repr(locationType).." fails ThreatCloserThan (EBC) "..distance.." for greater than "..threatcutoff.." "..threattype.." threat  Adjustment "..adjustment )        
 
 	end
 	

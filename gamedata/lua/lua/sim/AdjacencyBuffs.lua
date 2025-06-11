@@ -34,7 +34,6 @@ BuffBlueprint { Name = 'WeaponBoosterAccuracyBonus',
     },
 }
 
-
 BuffBlueprint { Name = 'WeaponBoosterRateOfFireTradeOff',
     DisplayName = 'WeaponBoosterRateOfFireTradeOff',
     BuffType = 'RATEOFFIREADJACENCY',
@@ -55,7 +54,6 @@ BuffBlueprint { Name = 'WeaponBoosterRateOfFireTradeOff',
         },
     },
 }
-
 
 BuffBlueprint { Name = 'WeaponBoosterDamageBonus',
     DisplayName = 'WeaponBoosterDamageBonus',

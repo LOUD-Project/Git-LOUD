@@ -106,19 +106,24 @@ end
 SimUnitEnhancements = {}
 
 function AddUnitEnhancement(unit, enhancement, slot)
+
     if not slot then return end
+
     local id = unit:GetEntityId()
     local unitEnh = SimUnitEnhancements[id]
+
     if unitEnh then
         SimUnitEnhancements[id][slot] = enhancement
     else
         SimUnitEnhancements[id] = {}
         SimUnitEnhancements[id][slot] = enhancement
     end
+
     SyncUnitEnhancements()
 end
 
 function RemoveUnitEnhancement(unit, enhancement)
+
     if not unit or unit.Dead then
 		return
 	end

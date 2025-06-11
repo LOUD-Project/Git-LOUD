@@ -50,7 +50,7 @@ EnhanceTask = Class(ScriptTask) {
                 return TASKSTATUS.Wait
             end
             
-            local current = unit.WorkProgress
+            local current = unit.WorkProgress or 0
             
             local obtained = unit:GetResourceConsumed()
 			

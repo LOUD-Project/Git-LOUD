@@ -55,9 +55,13 @@ local MATHMAX                   = math.max
 
 local VectorCached = { 0, 0, 0 }
 
+local COMMAND           = categories.COMMAND
 local DEFENSESTRUCTURES = categories.STRUCTURE * categories.DEFENSE
+local ENGINEER          = categories.ENGINEER
 local EXTRACTORS        = categories.MASSEXTRACTION - categories.TECH1
+local MASSSTORAGE       = categories.MASSSTORAGE
 local SHIELDSTRUCTURES  = categories.STRUCTURE * categories.SHIELD - categories.TECH2
+local SUBCOMMANDER      = categories.SUBCOMMANDER
 
 local factory           = categories.FACTORY * categories.STRUCTURE
 local landfactory       = categories.LAND * factory
@@ -423,7 +427,7 @@ function PoolLessAtLocation( aiBrain, locationType, unitCount, testCat)
     -- we must remove those from the unit count
 	if numUnits > 0 then
 	
-		numUnits = numUnits - GetNumCategoryBeingBuiltByEngineers( BM.EngineerManager, testCat, categories.ENGINEER)
+		numUnits = numUnits - GetNumCategoryBeingBuiltByEngineers( BM.EngineerManager, testCat, ENGINEER)
 		numUnits = numUnits - GetNumCategoryBeingBuiltByFactories( BM.FactoryManager, testCat, factory)
 
 		return numUnits < unitCount
@@ -440,7 +444,7 @@ function PoolGreaterAtLocation( aiBrain, locationType, unitCount, testCat)
 
 		local numUnits = PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, testCat, BM.Position, BM.Radius)
 	
-		numUnits = numUnits - GetNumCategoryBeingBuiltByEngineers( BM.EngineerManager, testCat, categories.ENGINEER)
+		numUnits = numUnits - GetNumCategoryBeingBuiltByEngineers( BM.EngineerManager, testCat, ENGINEER)
 		numUnits = numUnits - GetNumCategoryBeingBuiltByFactories( BM.FactoryManager, testCat, factory)
 
 		return numUnits > unitCount
@@ -661,7 +665,7 @@ end
 
 local T1 = categories.TECH1
 local T2 = categories.TECH2
-local T3 = categories.TECH3 - categories.SUBCOMMANDER
+local T3 = categories.TECH3 - SUBCOMMANDER
 
 function BelowEngineerCapCheck(aiBrain, locationType, techLevel)
 
@@ -687,7 +691,7 @@ function BelowEngineerCapCheck(aiBrain, locationType, techLevel)
 		
     elseif techLevel == 'SCU' then
 	
-        catCheck = categories.SUBCOMMANDER
+        catCheck = SUBCOMMANDER
         capmult = 200
         caplimit = 10
 		
@@ -733,7 +737,7 @@ function AboveEngineerCapCheck(aiBrain, locationType, techLevel)
 		
     elseif techLevel == 'SCU' then
 	
-        catCheck = categories.SUBCOMMANDER
+        catCheck = SUBCOMMANDER
         capmult = 200
 		
     else
@@ -932,7 +936,7 @@ end
 
 function ACUNeedsUpgrade(aiBrain, upgrade)
 	
-    for k,v in GetListOfUnits(aiBrain, categories.COMMAND, false ) do
+    for k,v in GetListOfUnits(aiBrain, COMMAND, false ) do
 
         if not v:HasEnhancement( upgrade ) then
             return true
@@ -944,7 +948,7 @@ end
 
 function ACUHasUpgrade(aiBrain, upgrade)
 
-    for k,v in GetListOfUnits(aiBrain, categories.COMMAND, false ) do
+    for k,v in GetListOfUnits(aiBrain, COMMAND, false ) do
 	
         if v:HasEnhancement( upgrade ) then
             return true
@@ -996,7 +1000,7 @@ end
 
 function GetGuards(aiBrain, Unit)
 
-	local engs = GetUnitsAroundPoint(aiBrain, categories.ENGINEER, GetPosition(Unit), 15, 'Ally' )
+	local engs = GetUnitsAroundPoint(aiBrain, ENGINEER, GetPosition(Unit), 15, 'Ally' )
 	local count = 0
     
 	local UpgradesFrom = __blueprints[Unit.BlueprintID].General.UpgradesFrom
@@ -1024,6 +1028,11 @@ function MassExtractorHasStorageAndLessDefense(aiBrain, locationType, mindistanc
 
     local position = aiBrain.BuilderManagers[locationType].Position
     local VDist2Sq = VDist2Sq
+
+    -- Integrated Storage Installed - always yes --
+    if ScenarioInfo.LOUD_IS_Installed then
+        minstorageunits = 0
+    end
     
     local mexposition, distance
 	
@@ -1034,13 +1043,8 @@ function MassExtractorHasStorageAndLessDefense(aiBrain, locationType, mindistanc
 		distance = VDist2Sq( position[1],position[3], mexposition[1],mexposition[3])
 		
 		if distance >= (mindistance*mindistance) then
-        
-            -- Integrated Storage Installed - always yes --
-            if ScenarioInfo.LOUD_IS_Installed then
-                minstorageunits = 0
-            end
 			
-			if GetNumberOfOwnUnitsAroundPoint(aiBrain, categories.MASSSTORAGE, mexposition, 5) >= minstorageunits then
+			if GetNumberOfOwnUnitsAroundPoint(aiBrain, MASSSTORAGE, mexposition, 5) >= minstorageunits then
 
 				return GetNumUnitsAroundPoint(aiBrain, defensecategory, mexposition, 20, 'Ally') < maxdefenses
 			end
@@ -1054,6 +1058,11 @@ function MassExtractorInRangeHasLessThanStorage(aiBrain, locationType, mindistan
 
     local pos = aiBrain.BuilderManagers[ locationType ].Position
     local VDist2Sq = VDist2Sq
+
+    -- Integrated Storage Installed - we always have enough storage
+    if ScenarioInfo.LOUD_IS_Installed then
+        storageunits = 0
+    end
     
     local mexposition, distance, STORS
 	
@@ -1069,12 +1078,7 @@ function MassExtractorInRangeHasLessThanStorage(aiBrain, locationType, mindistan
 		if distance >= (mindistance*mindistance) and distance <= (maxdistance*maxdistance) then
         
 			-- get the storage units around that point
-			STORS = GetOwnUnitsAroundPoint(aiBrain, categories.MASSSTORAGE, mexposition, 5)
-            
-            -- Integrated Storage Installed - we always have enough storage
-            if ScenarioInfo.LOUD_IS_Installed then
-                storageunits = 0
-            end
+			STORS = GetOwnUnitsAroundPoint(aiBrain, MASSSTORAGE, mexposition, 5)
 			
 			if LOUDGETN(STORS) < storageunits then
 				return true

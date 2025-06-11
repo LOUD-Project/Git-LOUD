@@ -38,6 +38,10 @@ function RemoteViewing(SuperClass)
 
         OnStopBeingBuilt = function(self,builder,layer)
 
+            if RemoteViewingDebug then
+                LOG("*AI DEBUG OnStopBeingBuilt for "..repr(self.BlueprintID) )
+            end
+  
             self.Sync.Abilities = self.RemoteViewingData.Abilities            
             self.Sync.Abilities.TargetLocation.Active = true
 
