@@ -63,6 +63,7 @@ UnitBlueprint {
         'OVERLAYRADAR',
         'OVERLAYSONAR',
         'OVERLAYOMNI',
+        'ABILITYBUTTON',
     },
 
     CollisionOffsetY = -0.375,

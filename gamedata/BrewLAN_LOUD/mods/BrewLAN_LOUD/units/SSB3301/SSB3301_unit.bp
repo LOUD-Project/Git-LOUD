@@ -1,7 +1,7 @@
 UnitBlueprint {
 
     Abilities = {
-        TargetLocation = { bitmapId = 'skry-target', helpText = 'scry_spy_target', preferredSlot = 12 },
+        TargetLocation = { bitmapId = 'skry-target', helpText = 'scry_spy_target', preferredSlot = 12, script = 'TargetLocation' },
     },
 	
     Audio = {

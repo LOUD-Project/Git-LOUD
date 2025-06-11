@@ -1,5 +1,9 @@
 local AWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
+local RemoteViewing = import('/lua/RemoteViewing.lua').RemoteViewing
+
+AWalkingLandUnit = RemoteViewing( AWalkingLandUnit )
+
 local AeonBuffField = import('/lua/aeonweapons.lua').AeonBuffField
 local Buff = import('/lua/sim/Buff.lua')
 
@@ -27,7 +31,7 @@ local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
 local TrashDestroy = TrashBag.Destroy
 
-local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
+--local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
 
 local Weapon = import('/lua/sim/Weapon.lua').Weapon
 
@@ -396,6 +400,14 @@ EAL0001 = Class(AWalkingLandUnit) {
 		self.RBApoEngineering = false
 		
         self.EnergyConsumption = { Total = 0, Back = 0, Command = 0, LCH = 0, RCH = 0 }
+
+        -- turn off the Rhianne functions
+        if self.RechargeThread then
+            KillThread (self.RechargeThread)
+        end
+        
+        self.Sync.Abilities = self.RemoteViewingData.Abilities            
+        self.Sync.Abilities.TargetLocation.Active = false
         
         self:RemoveToggleCap('RULEUTC_IntelToggle')
         self:RemoveToggleCap('RULEUTC_ShieldToggle')
@@ -407,222 +419,6 @@ EAL0001 = Class(AWalkingLandUnit) {
 
         TrashAdd( self.Trash, antiMissile)
         
-    end,
-
-    OnTargetLocation = function(self, location)
-
-        if self.RemoteViewingData.IntelButton then
-			
-            -- Initial energy drain here - we drain resources instantly when an eye is ordered
-            -- or we fail entirely --
-            local aiBrain = self:GetAIBrain()
-            local bp = self:GetBlueprint()
-
-            local drain = bp.Economy.InitialRemoteViewingEnergyDrain
-
-			if not ( aiBrain:GetEconomyStored('ENERGY') > drain ) then
-				FloatingEntityText( self.EntityID, "Insufficient Energy Storage")
-				return
-			end
-
-            -- distance check - limited by blueprint
-            if VDist3(location, self:GetPosition() ) > (bp.Defense.MaxTeleRange or 350) then
-                FloatingEntityText( self.EntityID, "Beyond Rhianne range")
-                return
-            end
-            
-			-- Drain economy here
-			aiBrain:TakeResource( 'ENERGY', drain )
-
-            -- store the target location here
-			self.RemoteViewingData.VisibleLocation = location
-
-			self:CreateVisibleEntity()
-		end
-    end,
-
-    CreateVisibleEntity = function(self)
-		
-		local VisibilityEntityWillBeCreated = (self.RemoteViewingData.VisibleLocation and self.RemoteViewingData.IntelButton)
-
-        -- Only give a visible area if we have a location and intel button enabled
-        if not VisibilityEntityWillBeCreated then
-            return
-        end
-
-		for num, brain in ArmyBrains do
-		
-			local unitList = brain:GetListOfUnits(categories.ANTITELEPORT, false)
-			local location = self.RemoteViewingData.VisibleLocation
-			
-			for i, unit in unitList do
-
-				--	if it's an ally, then we skip.
-				if not IsEnemy(self.Army, unit.Army) then 
-					continue
-				end
-				
-				local noTeleDistance = unit:GetBlueprint().Defense.NoTeleDistance
-				local atposition = unit:GetPosition()
-
-				local targetdestdistance = VDist2(location[1], location[3], atposition[1], atposition[3])
-
-				-- if the antiteleport range covers the targetlocation
-				if noTeleDistance and noTeleDistance > targetdestdistance then
-
-					FloatingEntityText(self.EntityID,'Remote Viewing Destination Scrambled')
-
-					self.RemoteViewingData.VisibleLocation = false
-
-					-- play audio warning
-					if GetFocusArmy() == self.Army then
-						local Voice = Sound {Bank = 'XGG', Cue = 'XGG_Computer_CV01_04765',}
-						local Brain = self:GetAIBrain()
-
-						ForkThread(Brain.PlayVOSound, Brain, Voice, 'RemoteViewingFailed')
-					end						
-
-					return
-				end
-			end
-		end			
-
-        local bp = self:GetBlueprint().Intel
-
-        -- Create the vision entity
-        if not self.RemoteViewingData.Satellite then
-
-            local spec = {
-                X = self.RemoteViewingData.VisibleLocation[1],
-                Z = self.RemoteViewingData.VisibleLocation[3],
-                Radius = bp.RemoteViewingRadius,
-                LifeTime = -1,
-                Omni = false,
-                Radar = false,
-                Vision = true,
-                Army = self:GetAIBrain():GetArmyIndex(),
-            }
-
-            -- store the entity for reference --
-            self.RemoteViewingData.Satellite = VizMarker(spec)
-
-            self.Trash:Add(self.RemoteViewingData.Satellite)
-
-        else
-            -- Move and reactivate old visible area
-            if not self.RemoteViewingData.Satellite:BeenDestroyed() then
-
-                Warp( self.RemoteViewingData.Satellite, self.RemoteViewingData.VisibleLocation )
-
-                self.RemoteViewingData.Satellite:EnableIntel('Vision')
-            end
-
-        end
-
-        -- start the cooldown period before allowing retargeting
-        if bp.Cooldown and bp.Cooldown > 0 then
-
-            self.CooldownThread = self:ForkThread(self.Cooldown, bp.Cooldown)
-            self.Trash:Add(self.CooldownThread)
-        end
-
-        -- start the timer that will auto-shut off the eye
-        if bp.Viewtime and bp.Viewtime > 0 then
-            self.ViewtimeThread = self:ForkThread(self.Viewtime, bp.Viewtime)
-            self.Trash:Add(self.ViewtimeThread)
-        end
-
-        -- grow the viewing radius in steps
-        if bp.RemoteViewingRadiusFinal and bp.RemoteViewingRadiusFinal > 0 and bp.RemoteViewingRadiusFinal != bp.RemoteViewingRadius then
-            self.ViewingRadiusThread = self:ForkThread(self.ViewingRadius, bp.RemoteViewingRadius, bp.RemoteViewingRadiusFinal, 0.2)
-            self.Trash:Add(self.ViewingRadiusThread)
-        end
-
-    end,
-
-	-- a cooldown period. prevents using the ability by removing the button from the orders panel
-    -- and then re-adding it
-    Cooldown = function(self, time)
-
-        if time > 0 then
-        
-            self.RemoteViewingData.IntelButton = false
-
-            self.Sync.Abilities = self:GetBlueprint().Abilities
-            self.Sync.Abilities.TargetLocation.Active = false
-
-            self:RequestRefreshUI()
-            
-            WaitTicks(time * 10)
-
-            self.Sync.Abilities = self:GetBlueprint().Abilities
-            self.Sync.Abilities.TargetLocation.Active = true
-
-            self.RemoteViewingData.IntelButton = true            
-
-            self:RequestRefreshUI()
-        end
-
-    end,
-
-    -- an auto disable feature. removes the view after a set period
-    Viewtime = function(self, viewtime)
-
-        if viewtime > 0 then
-
-            WaitTicks(viewtime * 10)
-
-            self:DisableVisibleEntity()
-        end
-    end,
-
-    -- turn off the vision of the entity but essentially leave it where it is for later use
-    DisableVisibleEntity = function(self)
-    
-        if self.RemoteViewingData.Satellite then
-            self.RemoteViewingData.Satellite:DisableIntel('Vision')
-        end
-
-        -- kill any thread that isn't used anymore
-        if self.ViewtimeThread then
-            KillThread(self.ViewtimeThread)
-        end
-
-        if self.ViewingRadiusThread then
-            KillThread(self.ViewingRadiusThread)
-        end
-
-    end,
-
-    -- changes the size of the camera each tick. Should be able to handle growing and shrinking
-    ViewingRadius = function(self, initialRadius, endingRadius, step)
-		
-        local LOUDCEIL = math.ceil
-		local LOUDMIN = math.min
-
-        local sat = self.RemoteViewingData.Satellite
-        local nTicks = LOUDCEIL( (endingRadius - initialRadius) / step )
-
-        if initialRadius > endingRadius then
-            step = LOUDMIN( step, -step)  -- make sure we get a negative stepsize
-            nTicks = -nTicks
-        end
-
-        sat:SetIntelRadius('vision', initialRadius)
-
-        local curRadius = initialRadius
-
-        for i=1, nTicks do
-
-            WaitTicks(1)
-
-            if not sat or sat:BeenDestroyed() then return end
-    
-            curRadius = curRadius + step
-            sat:SetIntelRadius('vision', curRadius)
-        end
-
-        sat:SetIntelRadius('vision', endingRadius)
     end,
 
     WarpInEffectThread = function(self)
@@ -1012,7 +808,7 @@ EAL0001 = Class(AWalkingLandUnit) {
 
             self.ShieldOn = false
 
-        elseif bit == 3 and self.IntelPackage and not self.IntelPackageOn then    -- Radar & Rhianne Intel
+        elseif bit == 3 and self.IntelPackage and not self.IntelPackageOn then
 
             -- add command slot consumption when radar turned on
             self.EnergyConsumption['Total'] = self.EnergyConsumption['Total'] + self.EnergyConsumption['Command']
@@ -1020,13 +816,7 @@ EAL0001 = Class(AWalkingLandUnit) {
             self:EnableUnitIntel('Radar')
             self:EnableUnitIntel('Sonar')
             self:EnableUnitIntel('Omni')
-            
-            if self.RemoteViewingData then
-                self.Sync.Abilities = self:GetBlueprint().Abilities
-                self.Sync.Abilities.TargetLocation.Active = true
-                self.RemoteViewingData.IntelButton = true                
-            end
-            
+         
             self.IntelPackageOn = true
             
         elseif bit == 7 then    -- Maelstrom Field
@@ -1078,13 +868,7 @@ EAL0001 = Class(AWalkingLandUnit) {
             self:DisableUnitIntel('Radar')
             self:DisableUnitIntel('Sonar')
             self:DisableUnitIntel('Omni')
-            
-            if self.RemoteViewingData then
-                self.Sync.Abilities = self:GetBlueprint().Abilities
-                self.Sync.Abilities.TargetLocation.Active = false
-                self.RemoteViewingData.IntelButton = false
-            end
-            
+          
             self.IntelPackageOn = false
 
         elseif bit == 7 then
@@ -1567,52 +1351,42 @@ EAL0001 = Class(AWalkingLandUnit) {
 
         elseif enh == 'EXIntelRhianneDevice' then
 
-            if self.IntelPackageOn then
-                self:SetScriptBit('RULEUTC_IntelToggle', true )   -- turn off existing intel
-            end
-
-            if not self.RemoteViewingData then
-            
-                self.RemoteViewingData = {}
-                self.RemoteViewingData.RemoteViewingFunctions = {}
-                self.RemoteViewingData.DisableCounter = 0
-                self.RemoteViewingData.IntelButton = true
-            end
-            
-            self:SetScriptBit('RULEUTC_IntelToggle', false )   -- turn intel back on
-
-            self.Sync.Abilities = self:GetBlueprint().Abilities
-
+            self.Sync.Abilities = self.RemoteViewingData.Abilities
             self.Sync.Abilities.TargetLocation.Active = true
 
+            self.RechargeThread = self:ForkThread( self.RechargeEmitter )
+
         elseif enh == 'EXIntelRhianneDeviceRemove' then
-        
+
+            self.Sync.Abilities = self.RemoteViewingData.Abilities
+            self.Sync.Abilities.TargetLocation.Active = false
+           
             if self.RemoteViewingData then
             
                 if self.RemoteViewingData.Satellite then
                     self.RemoteViewingData.Satellite:Destroy()
                 end
    
-   if self.CooldownThread then
+                if self.CooldownThread then
                     KillThread(self.CooldownThread)
                     self.CooldownThread = nil
                 end
    
-   if self.ViewtimeThread then
+                if self.ViewtimeThread then
                     KillThread(self.ViewtimeThread)
                     self.ViewtimeThread = nil
                 end
    
-   if self.ViewingRadiusThread then
+                if self.ViewingRadiusThread then
                     KillThread(self.ViewingRadiusThread)
                     self.ViewRadiusThread = nil
                 end
-   
-   self.RemoteViewingData = nil
-            end
 
-            self.Sync.Abilities = self:GetBlueprint().Abilities
-            self.Sync.Abilities.TargetLocation.Active = false
+            end
+     
+            if self.RechargeThread then
+                KillThread(self.RechargeThread)
+            end
 
         elseif enh == 'EXPersonalTeleporter' then
 

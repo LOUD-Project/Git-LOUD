@@ -1,7 +1,7 @@
 UnitBlueprint {
 
     Abilities = {
-        TargetLocation = {bitmapId = 'skry-target', helpText = 'Scry_target', preferredSlot = 11, script = 'TargetLocation'},
+        TargetLocation = {bitmapId = 'skry-target', helpText = 'Scry_target', preferredSlot = 12, script = 'TargetLocation'},
     },
 	
     AI = {
@@ -70,6 +70,7 @@ UnitBlueprint {
         'OVERLAYSONAR',
         'OVERLAYMISC',
         'ANTITELEPORT',
+        'ABILITYBUTTON',
     },
 	
     Defense = {
@@ -239,9 +240,6 @@ UnitBlueprint {
 
         -- for teleporter 'precharge' equals storage of the unit
 		TeleportBurstEnergyCost = 5000,
-
-        -- for Eye of Rhianne enhancement also tied to storage
-        InitialRemoteViewingEnergyDrain = 5000,
     },
 	
     Enhancements = {
@@ -1004,7 +1002,7 @@ UnitBlueprint {
 
             Prerequisite = 'EXIntelRhianneDevice',
 
-            RemoveEnhancements = {'EXIntelRhianneDevice','EXIntelRhianneDeviceRemove','EXIntelEnhancementT3','EXIntelEnhancementT2'},
+            RemoveEnhancements = {'EXIntelRhianneDevice','EXIntelRhianneDeviceRemove','EXIntelEnhancementT3','EXIntelEnhancementT3Remove'},
 
             Slot = 'Command',
         },
@@ -1321,6 +1319,7 @@ UnitBlueprint {
     },
 	
     General = {
+
         BuildBones = {
             AimBone = 'Left_Turret_Muzzle',
             BuildEffectBones = { 'Left_Turret_Muzzle' },
@@ -1380,12 +1379,12 @@ UnitBlueprint {
         VisionRadius = 28,
         WaterVisionRadius = 20,
 
-        -- these are here for the Rhianne Optics enhancement
-		Cooldown = 19,					---- time before scry button reappears once scrying begins (in this case they come back on just before the scrying is finished)
-		Viewtime = 20,					---- time that scrying area remains visible	(the scrying buttons disappear once the viewtime begins)
-        ReactivateTime = 15,			---- time between the end of a scry and the start of a new one (a chance to pick a new target before the old one restarts)
-        RemoteViewingRadius = 48,		---- this would normally be the start size of the remote viewing radius
-		RemoteViewingRadiusFinal = 48,	---- and the final radius of the scry (controls the grow/shrink rate)         
+		Viewtime                    = 24,   -- time that scrying area remains visible (the scry button disappears once the viewtime begins)
+        ReactivateTime              = 12,   -- length of the recharge period (before the scry button reappears)
+
+        RemoteViewingEnergyDrain    = 8750, -- per-use cost of the scry device (rate is determined by reactivate time)
+        RemoteViewingRadius         = 18,   -- the start size of the remote viewing radius
+		RemoteViewingRadiusFinal    = 36,   -- the final radius of the scry (controls the grow/shrink rate)         
     },
 	
     LifeBarHeight = 0.15,
