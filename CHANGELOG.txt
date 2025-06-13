@@ -1,3 +1,14 @@
+### Release 06-13-2025
+
+LUA 7.25
+Black Ops for LOUD 7.13
+BrewLAN for LOUD 0.8.8.9.116
+
+- updated Eye of Rhianne/Sera units with ABILITYBUTTON category
+- some performance refactoring in various builder conditions
+
+
+
 ### Release 06-09-2025
 
 LUA 7.24

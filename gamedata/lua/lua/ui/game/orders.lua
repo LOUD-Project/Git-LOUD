@@ -1181,15 +1181,18 @@ local function CreateAltOrders(availableOrders, availableToggles, units)
                 
                 UnitData[unitID].Abilities = {}
                 
-                local bpabilities = unit:GetBlueprint().Abilities
-                
-                for k,v in bpabilities do
+                local bpabilities = unit:GetBlueprint().Abilities or false
 
-                    UnitData[unitID].Abilities[k] = v
+                if bpabilities then
+
+                    for k,v in bpabilities do
+                        UnitData[unitID].Abilities[k] = v
+                    end
                     
                 end
                 
                 tempBP = UnitData[unit:GetEntityId()]
+
             end
             
             --LOG("*AI DEBUG Unit tempBP is "..repr(tempBP))
