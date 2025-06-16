@@ -3788,7 +3788,7 @@ Unit = Class(UnitMethods) {
 			
         elseif unitEnhancements[tempEnhanceBp.Slot] then
 		
-			LOG("*AI DEBUG "..GetAIBrain(self).Nickname.." "..ALLBPS[self.BlueprintID].Description.." Slot required is " .. tempEnhanceBp.Slot )
+			LOG("*AI DEBUG "..GetAIBrain(self).Nickname.." "..ALLBPS[self.BlueprintID].Description.." "..repr(work).." Slot required is " .. tempEnhanceBp.Slot )
 			
             --error('*ERROR: "..self.Brain.Nickname.." enhancement '..repr(work)..' does not have the proper slot available!', 2)
             return false	-- as above, to OnWorkFail ?

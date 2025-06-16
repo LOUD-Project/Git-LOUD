@@ -35,7 +35,7 @@ TASKSTATUS = {
     # on the next tick.
     Wait = 1,
     
-    # Returning a number greater than TASKSTATUS_Wait incdicates an additional
+    # Returning a number greater than TASKSTATUS_Wait indicates an additional
     # number of ticks to wait. For example:
     #    return TASKSTATUS_Wait + 3
     # This indicates a wait of 4 ticks.
