@@ -1283,9 +1283,9 @@ UnitBlueprint {
 
         MaxAcceleration = 0.55,
 
-        MaxBrake = 1.45,
-        MaxSpeed = 1.45,
-        MaxSpeedReverse = 1.45,
+        MaxBrake = 1.4,
+        MaxSpeed = 1.4,
+        MaxSpeedReverse = 1.4,
 
         MaxSteerForce = 12,
         MinSpeedPercent = 0,
@@ -1294,7 +1294,7 @@ UnitBlueprint {
 
         StandUpright = true,
         TurnRadius = 10,
-        TurnRate = 65,
+        TurnRate = 48,
     },
     
     SelectionCenterOffsetX = 0.15,
@@ -1381,7 +1381,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 85,
+            TurretYawSpeed = 45,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -1452,7 +1452,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 30,
-            TurretYawSpeed = 85,
+            TurretYawSpeed = 45,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -1529,7 +1529,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 85,
+            TurretYawSpeed = 45,
 
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -1824,7 +1824,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 30,
-            TurretYawSpeed = 85,
+            TurretYawSpeed = 45,
 
             Turreted = true,
         },
@@ -1910,7 +1910,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 30,
-            TurretYawSpeed = 85,
+            TurretYawSpeed = 45,
 
             Turreted = true,
         },
@@ -1994,7 +1994,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 30,
-            TurretYawSpeed = 85,
+            TurretYawSpeed = 45,
 
             Turreted = true,
         },
@@ -2066,7 +2066,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 4,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 45,
 
             Turreted = true,
         },
@@ -2137,7 +2137,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 4,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 45,
 
             Turreted = true,
         },
@@ -2209,7 +2209,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 4,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 45,
 
             Turreted = true,
         },
@@ -2292,7 +2292,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 90,
-            TurretYawSpeed = 180,
+            TurretYawSpeed = 120,
 
             Turreted = true,
         },
@@ -2380,7 +2380,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 90,
-            TurretYawSpeed = 180,
+            TurretYawSpeed = 120,
 
             Turreted = true,
         },

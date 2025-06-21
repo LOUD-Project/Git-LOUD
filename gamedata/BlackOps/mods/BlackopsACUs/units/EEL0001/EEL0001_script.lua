@@ -731,6 +731,8 @@ EEL0001 = Class(TWalkingLandUnit) {
     end,
 
     WeaponConfigCheck = function(self)
+    
+        if self.Dead then return end
 
 		if self.wcBuildMode then
 

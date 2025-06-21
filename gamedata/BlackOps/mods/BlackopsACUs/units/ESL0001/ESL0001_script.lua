@@ -592,6 +592,8 @@ ESL0001 = Class( SWalkingLandUnit ) {
     end,
 	
     WeaponConfigCheck = function(self)
+    
+        if self.Dead then return end
 
 		if self.wcBuildMode then
 

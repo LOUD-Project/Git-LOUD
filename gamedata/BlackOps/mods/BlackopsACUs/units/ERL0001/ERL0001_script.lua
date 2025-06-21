@@ -697,6 +697,8 @@ ERL0001 = Class(CWalkingLandUnit) {
     end,
 
     WeaponConfigCheck = function(self)
+    
+        if self.Dead then return end
 
 		if self.wcBuildMode then
 		

@@ -1367,7 +1367,7 @@ UnitBlueprint {
 
         StandUpright = true,
         TurnRadius = 10,
-        TurnRate = 60,
+        TurnRate = 48,
     },
     
     SelectionCenterOffsetX = 0,
@@ -1454,7 +1454,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 85,
+            TurretYawSpeed = 45,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -1524,7 +1524,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 10,
-            TurretYawSpeed = 85,
+            TurretYawSpeed = 45,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -1606,7 +1606,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 85,
+            TurretYawSpeed = 45,
 
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -1742,7 +1742,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 85,
+            TurretYawSpeed = 45,
 
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -1832,7 +1832,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 85,
+            TurretYawSpeed = 45,
 
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -2127,7 +2127,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 360,
+            TurretYawSpeed = 60,
 
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -2200,7 +2200,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 360,
+            TurretYawSpeed = 60,
 
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -2274,7 +2274,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 360,
+            TurretYawSpeed = 60,
 
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -2835,7 +2835,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 60,
 
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = false,
@@ -2907,7 +2907,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 60,
 
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = false,
@@ -2978,7 +2978,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 60,
 
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = false,
@@ -3049,7 +3049,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 60,
 
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = false,
