@@ -69,14 +69,14 @@ BRL0401 = Class(CWalkingLandUnit) {
 	
         CWalkingLandUnit.OnCreate(self,builder,layer)
 		
-		-- set radius of siege weapons to 0 to start --
+		-- set radius of siege weapons to 1 to start --
 		self:SetWeaponEnabledByLabel('ShoulderGuns', false)
 		local shoulderwep = self:GetWeaponByLabel('ShoulderGuns')
-		shoulderwep:ChangeMaxRadius(0)
+		shoulderwep:ChangeMaxRadius(1)
 		
 		self:SetWeaponEnabledByLabel('MissileRack2', false)
 		local missilewep = self:GetWeaponByLabel('MissileRack2')
-		missilewep:ChangeMaxRadius(0)
+		missilewep:ChangeMaxRadius(1)
 	end,
 	
    	OnStartBeingBuilt = function(self, builder, layer)
@@ -138,15 +138,15 @@ BRL0401 = Class(CWalkingLandUnit) {
 		
 				self:SetWeaponEnabledByLabel('TopGun', false)
 				local MainWep = self:GetWeaponByLabel('TopGun')
-				MainWep:ChangeMaxRadius(0)
+				MainWep:ChangeMaxRadius(1)
 
 				self:SetWeaponEnabledByLabel('SideCannons', false)
 				local sidewep = self:GetWeaponByLabel('SideCannons')
-				sidewep:ChangeMaxRadius(0)
+				sidewep:ChangeMaxRadius(1)
 	
 				self:SetWeaponEnabledByLabel('MissileRack', false)
 				local shortMissWep = self:GetWeaponByLabel('MissileRack')
-				shortMissWep:ChangeMaxRadius(0)
+				shortMissWep:ChangeMaxRadius(1)
 				
 				--LOG('Side and Main gun disabled')
 				
@@ -198,11 +198,11 @@ BRL0401 = Class(CWalkingLandUnit) {
 				
 				self:SetWeaponEnabledByLabel('ShoulderGuns', false)
 				local shoulderwep = self:GetWeaponByLabel('ShoulderGuns')
-				shoulderwep:ChangeMaxRadius(0)
+				shoulderwep:ChangeMaxRadius(1)
 				
 				self:SetWeaponEnabledByLabel('MissileRack2', false)
 				local missilewep = self:GetWeaponByLabel('MissileRack2')
-				missilewep:ChangeMaxRadius(0)
+				missilewep:ChangeMaxRadius(1)
 				
 				--LOG('Arty gun disabled')
 
