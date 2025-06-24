@@ -98,7 +98,7 @@ UnitBlueprint {
             ShieldMaxHealth = 300,
             ShieldRechargeTime = 15,
             ShieldRegenRate = 20,
-            ShieldRegenStartTime = 1,
+            ShieldRegenStartTime = 2,
             ShieldSize = 1.1,
             ShieldVerticalOffset = -.1,
         },
@@ -183,7 +183,7 @@ UnitBlueprint {
             'BUILTBYTIER2FIELD AEON',
         },
 		
-        MaintenanceConsumptionPerSecondEnergy = 10,
+        MaintenanceConsumptionPerSecondEnergy = 20,
 		
 		MaxBuildDistance = 4.5,
 		
@@ -233,7 +233,7 @@ UnitBlueprint {
     LifeBarSize = 0.9,
 	
     Physics = {
-        BackUpDistance = 0,
+        BackUpDistance = 4,
         BankingSlope = 0.5,
         BuildOnLayerCaps = {
             LAYER_Land = true,
@@ -245,7 +245,7 @@ UnitBlueprint {
         MaxBrake = 1.1,
         
         MaxSpeed = 2.1,
-        MaxSpeedReverse = 0,
+        MaxSpeedReverse = 2,
         MaxSteerForce = 1000,
 
         MeshExtentsX = 1.25,

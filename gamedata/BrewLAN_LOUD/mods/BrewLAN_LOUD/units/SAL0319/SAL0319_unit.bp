@@ -52,7 +52,7 @@ UnitBlueprint {
             ShieldMaxHealth = 600,
             ShieldRechargeTime = 15,
             ShieldRegenRate = 40,
-            ShieldRegenStartTime = 1,
+            ShieldRegenStartTime = 2,
             ShieldSize = 1.2,
             ShieldVerticalOffset = -.1,
         },
@@ -126,7 +126,7 @@ UnitBlueprint {
         SacrificeEnergyMult = 0.9,
         SacrificeMassMult = 0.9,
 		
-        MaintenanceConsumptionPerSecondEnergy = 24,
+        MaintenanceConsumptionPerSecondEnergy = 35,
 		MaxBuildDistance = 5.5,
 		
         StorageEnergy = 300,
@@ -186,7 +186,7 @@ UnitBlueprint {
         MaxAcceleration = 2,
         MaxBrake = 2.6,
         MaxSpeed = 2.6,
-        MaxSpeedReverse = 0,
+        MaxSpeedReverse = 2,
         MaxSteerForce = 1000,
 
         MeshExtentsX = 1.1,
