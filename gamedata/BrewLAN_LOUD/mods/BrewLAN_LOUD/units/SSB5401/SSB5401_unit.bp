@@ -58,15 +58,7 @@ UnitBlueprint {
         },
     },
 
-    Buffs = {
-        Regen = {
-            Level1 = 15,
-            Level2 = 30,
-            Level3 = 45,
-            Level4 = 60,
-            Level5 = 75,
-        },
-    },
+    Buffs = {},
 
     BuildIconSortPriority = 220,
 
@@ -84,17 +76,24 @@ UnitBlueprint {
         'SORTSTRATEGIC',
         'STARGATE',
         'RESEARCHLOCKED',
+        'ABILITYBUTTON',
     },
 
     Defense = {
+
         AirThreatLevel = 0,
+
         ArmorType = 'Structure',
+
         EconomyThreatLevel = 2005,
+
         Health = 100000,
         MaxHealth = 100000,
         RegenRate = 0,
+
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
+
         Shield = {
             ImpactEffects = 'SeraphimShieldHit01',
             Mesh = '/mods/BrewLAN_LOUD/units/SSB5401/SSB5401_PersonalShield_mesh',
@@ -116,26 +115,10 @@ UnitBlueprint {
 
     Display = {
         BlinkingLights = {
-            {
-                BLBone = 'Light04',
-                BLOffsetZ = 0.05,
-                BLScale = 1,
-            },
-            {
-                BLBone = 'Light05',
-                BLOffsetZ = 0.05,
-                BLScale = 1,
-            },
-            {
-                BLBone = 'Light06',
-                BLOffsetZ = 0.05,
-                BLScale = 1,
-            },
-            {
-                BLBone = 'Light07',
-                BLOffsetZ = 0.05,
-                BLScale = 1,
-            },
+            { BLBone = 'Light04', BLOffsetZ = 0.05, BLScale = 1 },
+            { BLBone = 'Light05', BLOffsetZ = 0.05, BLScale = 1 },
+            { BLBone = 'Light06', BLOffsetZ = 0.05, BLScale = 1 },
+            { BLBone = 'Light07', BLOffsetZ = 0.05, BLScale = 1 },
         },
 
         BlinkingLightsFx = {
@@ -147,42 +130,12 @@ UnitBlueprint {
         BuildAttachBone = 'Attachpoint',
 
         DamageEffects = {
-            {
-                Bone = 0,
-                OffsetX = 0.75,
-                OffsetY = 0,
-                OffsetZ = 2.75,
-            },
-            {
-                Bone = 0,
-                OffsetX = 0.75,
-                OffsetY = 0,
-                OffsetZ = -2.75,
-            },
-            {
-                Bone = 0,
-                OffsetX = -0.75,
-                OffsetY = 0,
-                OffsetZ = 2.75,
-            },
-            {
-                Bone = 0,
-                OffsetX = -0.75,
-                OffsetY = 0,
-                OffsetZ = -2.75,
-            },
-            {
-                Bone = 0,
-                OffsetX = 1.5,
-                OffsetY = 2,
-                OffsetZ = 0,
-            },
-            {
-                Bone = 0,
-                OffsetX = -1.5,
-                OffsetY = 2,
-                OffsetZ = 0,
-            },
+            { Bone = 0, OffsetX = 0.75, OffsetY = 0, OffsetZ = 2.75 },
+            { Bone = 0, OffsetX = 0.75, OffsetY = 0, OffsetZ = -2.75 },
+            { Bone = 0, OffsetX = -0.75, OffsetY = 0, OffsetZ = 2.75 },
+            { Bone = 0, OffsetX = -0.75, OffsetY = 0, OffsetZ = -2.75 },
+            { Bone = 0, OffsetX = 1.5, OffsetY = 2, OffsetZ = 0 },
+            { Bone = 0, OffsetX = -1.5, OffsetY = 2, OffsetZ = 0 },
         },
 
         Mesh = {
@@ -192,10 +145,6 @@ UnitBlueprint {
                     LODCutoff = 250,
                     LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
                     ShaderName = 'Seraphim',
-                    --MeshName = 'SSB5401_lod0.scm',
-                    --AlbedoName = '/units/xsb0304/xsb0304_albedo.dds',
-                    --NormalsName = '/units/xsb0304/xsb0304_normalsTS.dds',
-                    --SpecularName = '/units/xsb0304/xsb0304_specteam.dds',
                 },
                 {
                     LODCutoff = 500,
@@ -226,9 +175,11 @@ UnitBlueprint {
 
     Economy = {
         DialingCostBase = 10000,
+
         BuildCostEnergy = 30000*5,
         BuildCostMass = 3000*5,
         BuildTime = 3000*5,
+
         MaintenanceConsumptionPerSecondEnergy = 500,
         StorageEnergy = 5000,
 
@@ -275,13 +226,19 @@ UnitBlueprint {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
+
         FlattenSkirt = true,
+
         MaxSteerForce = 0,
+
         MeshExtentsX = 7.5,
         MeshExtentsY = 2.5,
         MeshExtentsZ = 7.5,
+
         MinSpeedPercent = 0,
+
         MotionType = 'RULEUMT_None',
+
         OccupyRects = {
 
             -- offsetX offsetZ  sizeX sizeZ, offset from center of unit
@@ -294,6 +251,7 @@ UnitBlueprint {
             2,
             1.5,
         },
+
         RaisedPlatforms = {
 
             -- The main ramp
@@ -377,6 +335,7 @@ UnitBlueprint {
             -- z
             0*3,
         },
+
         RollOffPoints = {
             {
                 UnitSpin = 0,
@@ -385,10 +344,12 @@ UnitBlueprint {
                 Z = 3,
             },
         },
+
         SkirtOffsetX = -3.5,
         SkirtOffsetZ = -0.5,
         SkirtSizeX = 16,
         SkirtSizeZ = 10,
+
         TurnRate = 0,
     },
 
@@ -409,13 +370,7 @@ UnitBlueprint {
         ClassGenericUpTo = 3,
     },
 
-    Veteran = {
-        Level1 = 5,
-        Level2 = 10,
-        Level3 = 15,
-        Level4 = 20,
-        Level5 = 25,
-    },
+    Veteran = {},
 
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
