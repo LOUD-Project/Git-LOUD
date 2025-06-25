@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
         GuardReturnRadius = 50,
-        GuardScanRadius = 36,
+        GuardScanRadius = 34,
     },
 	
     Audio = {
@@ -40,7 +40,7 @@ UnitBlueprint {
 
         Health = 540,
         MaxHealth = 540,
-        RegenRate = 2,
+        RegenRate = 1,
         
         SubThreatLevel = 10,
     },
@@ -71,24 +71,13 @@ UnitBlueprint {
         MovementEffects = {
             Sub = {
                 Effects = {
-                    {
-                        Bones = {'Exhaust_01','Exhaust_02'},
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'Exhaust_01','Exhaust_02'}, Type = 'BackWake' },
                 },
             },
             Water = {
                 Effects = {
-                    {
-                        Bones = {'muzzle_01'},
-                        Scale = 0.4,
-                        Type = 'LeftFrontWake',
-                    },
-                    {
-                        Bones = {'Muzzle_02'},
-                        Scale = 0.4,
-                        Type = 'RightFrontWake',
-                    },
+                    { Bones = {'muzzle_01'}, Scale = 0.4, Type = 'LeftFrontWake' },
+                    { Bones = {'Muzzle_02'}, Scale = 0.4, Type = 'RightFrontWake' },
                 },
             },
         },
@@ -97,8 +86,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 4600,
-        BuildCostMass = 360,
+        BuildCostEnergy = 4800,
+        BuildCostMass = 365,
         BuildTime = 1800,
     },
 
@@ -144,18 +133,22 @@ UnitBlueprint {
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
         Elevation = -2.8,
-        MaxAcceleration = 1,
-        MaxBrake = 2,
-        MaxSpeed = 3.8,
-        MaxSpeedReverse = 3,
+
+        MaxAcceleration = 0.85,
+        MaxBrake = 1.65,
+        MaxSpeed = 3.4,
+        MaxSpeedReverse = 3.3,
+
         MaxSteerForce = 5,
         MeshExtentsX = 0.6,
         MeshExtentsY = 0.65,
         MeshExtentsZ = 2,
+
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_SurfacingSub',
+
         TurnRadius = 10,
-        TurnRate = 32,
+        TurnRate = 30,
     },
 	
     SelectionSizeX = 0.35,
@@ -196,18 +189,19 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 12,
+            FiringTolerance = 5,
 			
             Label = 'Torpedo',
 			
-            MaxRadius = 36,
+            MaxRadius = 34,
+            MinRadius = 8,
             
-            MuzzleSalvoDelay = 0.8,     -- 1.6 second firing cycle
+            MuzzleSalvoDelay = 1,     -- 2 second firing cycle
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 5,
+            MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
-            ProjectileLifetime = 6,
+            ProjectileLifetime = 4.3,
 			
             RackBones = {
                 {
@@ -216,14 +210,14 @@ UnitBlueprint {
                 },
             },
             
-            RackSalvoReloadTime = 3.4,    -- 3.4 second reload
+            RackSalvoReloadTime = 4,    -- 4 second reload
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 1,     -- 2 x 300 = 600 every 5 seconds = 120 DPS Sub/Surface
+            RateOfFire = 1,     -- 2 x 300 = 600 every 6 seconds = 100 DPS Sub/Surface
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 12,
+            SlavedToBodyArcRange = 10,
 
             TargetCheckInterval = 2,
 			

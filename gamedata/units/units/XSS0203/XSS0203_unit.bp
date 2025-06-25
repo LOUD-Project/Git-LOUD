@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
         GuardReturnRadius = 50,
-        GuardScanRadius = 36,
+        GuardScanRadius = 34,
         
         TargetBones = {'AntiTorpedo'},
     },
@@ -42,9 +42,10 @@ UnitBlueprint {
 
         Health = 540,
         MaxHealth = 540,
-        RegenRate = 3,
+        RegenRate = 2,
 
-        SubThreatLevel = 9.3,
+		SurfaceThreatLevel = 1.5,
+        SubThreatLevel = 8.8,
     },
 	
     Description = '<LOC xss0203_desc>Attack Submarine',
@@ -91,7 +92,7 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 5000,
-        BuildCostMass = 390,
+        BuildCostMass = 395,
         BuildTime = 2000,
     },
 
@@ -138,18 +139,20 @@ UnitBlueprint {
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
         Elevation = -2.8,
-        MaxAcceleration = 1,
-        MaxBrake = 2,
-        MaxSpeed = 3.8,
+        MaxAcceleration = 0.9,
+        MaxBrake = 1.8,
+        MaxSpeed = 3.5,
         MaxSpeedReverse = 3,
+
         MaxSteerForce = 5,
         MeshExtentsX = 0.6,
         MeshExtentsY = 0.65,
         MeshExtentsZ = 2.5,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_SurfacingSub',
+
         TurnRadius = 10,
-        TurnRate = 32,
+        TurnRate = 30,
     },
 	
     SelectionSizeX = 0.36,
@@ -181,7 +184,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 200,
+            Damage = 220,
             DamageType = 'Normal',
 			
             DisplayName = 'Anait Torpedo',
@@ -191,34 +194,36 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 12,
+            FiringTolerance = 5,
 
             Label = 'Torpedo',
 			
-            MaxRadius = 36,
+            MaxRadius = 34,
+            MinRadius = 8,
+			
+            MuzzleSalvoDelay = 0.8,
+            MuzzleSalvoSize = 2,
 
-            MuzzleVelocity = 3,
+            MuzzleVelocity = 3.2,
 
             ProjectileId = '/projectiles/SANAnaitTorpedo01/SANAnaitTorpedo01_proj.bp',
-            ProjectileLifetime = 7,
+            ProjectileLifetime = 5,
 	
             RackBones = {
-                {
-                    MuzzleBones = { 'Projectile01' },
-                    RackBone = 'Projectile01',
-                },
+                { MuzzleBones = { 'Projectile01' }, RackBone = 'Projectile01' },
             },
 
-            RackSalvoReloadTime = 2.2,    -- 2.2 second reload
+            RackSalvoReloadTime = 3.4,    -- 3.4 second reload
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 1,		-- 90 DPS Sub/Surface
+            RateOfFire = 1,		-- 220 x 2 = 440 every 5 =  88 DPS Sub/Surface
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 12,
+            SlavedToBodyArcRange = 10,
 			
-            TargetCheckInterval = 1.5,
+            TargetCheckInterval = 2,
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'SUBMARINE',
@@ -228,6 +233,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+            TrackingRadius = 1.1,
         },
         {
             BallisticArc = 'RULEUBA_None',
@@ -258,10 +264,10 @@ UnitBlueprint {
             MinRadius = 6,
 
             MuzzleSalvoDelay = 0.5,
-            MuzzleVelocity = 7,
+            MuzzleVelocity = 6,
 			
             ProjectileId = '/projectiles/SANAjelluAntiTorpedo01/SANAjelluAntiTorpedo01_proj.bp',
-            ProjectileLifetime = 3,
+            ProjectileLifetime = 3.5,
 			
             RackBones = {
                 {
@@ -293,7 +299,7 @@ UnitBlueprint {
 			
             Turreted = true,
             
-            WeaponRepackTimeout = 1,
+            WeaponRepackTimeout = 1.4,
         },
         {
             AboveWaterFireOnly = true,        
@@ -317,7 +323,7 @@ UnitBlueprint {
 			
             FiringTolerance = 2,
 			
-            Label = 'Cannon',
+            Label = 'DeckGun',
 			
             MaxRadius = 28,
 

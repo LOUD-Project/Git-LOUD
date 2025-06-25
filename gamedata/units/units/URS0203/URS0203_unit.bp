@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
         GuardReturnRadius = 50,
-        GuardScanRadius = 36,
+        GuardScanRadius = 34,
     },
 
     Audio = {
@@ -38,9 +38,9 @@ UnitBlueprint {
 
         Health = 540,
         MaxHealth = 540,
-        RegenRate = 4,
-        SubThreatLevel = 9.5,
+        RegenRate = 2,
 
+        SubThreatLevel = 8.8,
 		SurfaceThreatLevel = 2,
     },
 	
@@ -134,15 +134,15 @@ UnitBlueprint {
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
         Elevation = -2.8,
-        MaxAcceleration = 1,
-        MaxBrake = 2,
-        MaxSpeed = 3.8,
+        MaxAcceleration = 0.9,
+        MaxBrake = 1.8,
+        MaxSpeed = 3.4,
         MaxSpeedReverse = 3,
         MaxSteerForce = 5,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_SurfacingSub',
         TurnRadius = 10,
-        TurnRate = 32,
+        TurnRate = 30,
     },
 	
     SelectionSizeX = 0.36,
@@ -173,7 +173,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 200,
+            Damage = 220,
             DamageType = 'Normal',
 			
             DisplayName = 'Nanite Torpedo',
@@ -183,36 +183,35 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 12,
+            FiringTolerance = 5,
 			
             Label = 'Torpedo',
 			
-            MaxRadius = 36,
+            MaxRadius = 34,
+            MinRadius = 8,
 			
-            MuzzleSalvoDelay = 0.9,
+            MuzzleSalvoDelay = 1,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 5,
+            MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/CANTorpedoNanite02/CANTorpedoNanite02_proj.bp',
-            ProjectileLifetime = 6,
+            ProjectileLifetime = 4.3,
 
             RackBones = {
-                {
-                    MuzzleBones = { 'Left_Projectile', 'Right_Projectile' },
-                    RackBone = 'Left_Projectile',
-                },
+                { MuzzleBones = { 'Left_Projectile', 'Right_Projectile' }, RackBone = 'Left_Projectile' },
             },
             
-            RackSalvoReloadTime = 2.5,    -- 2.5 second reload
+            RackSalvoReloadTime = 3,    -- 3 second reload
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 1,		-- 2 torps of 200 dmg every 4.3 secs = 93 DPS Sub
+            RateOfFire = 1,		-- 2 torps of 220 dmg every 5 secs = 88 DPS Sub
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 12,
+            SlavedToBodyArcRange = 10,
 			
-            TargetCheckInterval = 1,
+            TargetCheckInterval = 2,
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'SUBMARINE',
@@ -242,7 +241,7 @@ UnitBlueprint {
 			
             FiringTolerance = 2,
 			
-            Label = 'MainGun',
+            Label = 'DeckGun',
 			
             MaxRadius = 30,
 			
@@ -282,7 +281,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 32,
 			
             Turreted = true,
         },

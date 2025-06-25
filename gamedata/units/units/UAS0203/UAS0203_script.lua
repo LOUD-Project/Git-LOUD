@@ -1,11 +1,23 @@
 local ASubUnit =  import('/lua/defaultunits.lua').SubUnit
 
-local AANChronoTorpedoWeapon = import('/lua/aeonweapons.lua').AANChronoTorpedoWeapon
+local Torpedo = import('/lua/aeonweapons.lua').AANChronoTorpedoWeapon
 
 UAS0203 = Class(ASubUnit) {
 
     Weapons = {
-        Torpedo = Class(AANChronoTorpedoWeapon) {},
+        Torpedo = Class(Torpedo) {
+        
+            RackSalvoReloadState = State( Torpedo.RackSalvoReloadState) {
+            
+                Main = function(self)
+
+                    self:ForkThread( function() self:ChangeMaxRadius(36) self:ChangeMinRadius(36) WaitTicks(38) self:ChangeMinRadius(8) self:ChangeMaxRadius(34) end)
+                    
+                    Torpedo.RackSalvoReloadState.Main(self)
+
+                end,
+            },
+        },
     },
 	
 }

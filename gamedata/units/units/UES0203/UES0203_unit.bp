@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
         GuardReturnRadius = 60,
-        GuardScanRadius = 36,
+        GuardScanRadius = 34,
     },
 
     Audio = {
@@ -38,9 +38,9 @@ UnitBlueprint {
 
         Health = 590,
         MaxHealth = 590,
-        RegenRate = 2,
+        RegenRate = 1,
 
-        SubThreatLevel = 9.3,
+        SubThreatLevel = 8.8,
 		SurfaceThreatLevel = 2,
     },
 	
@@ -132,18 +132,20 @@ UnitBlueprint {
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
         Elevation = -2.8,
-        MaxAcceleration = 1,
-        MaxBrake = 2,
-        MaxSpeed = 3.8,
+        MaxAcceleration = 0.9,
+        MaxBrake = 1.8,
+        MaxSpeed = 3.4,
         MaxSpeedReverse = 3,
+
         MaxSteerForce = 5,
         MeshExtentsX = 1,
         MeshExtentsY = 0.65,
         MeshExtentsZ = 2.15,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_SurfacingSub',
+
         TurnRadius = 10,
-        TurnRate = 32,
+        TurnRate = 30,
     },
 	
     SelectionSizeX = 0.36,
@@ -174,7 +176,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 200,
+            Damage = 220,
             DamageType = 'Normal',
 			
             DisplayName = 'Angler Torpedo',
@@ -184,39 +186,32 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 12,
+            FiringTolerance = 5,
 			
             Label = 'Torpedo',
 			
-            MaxRadius = 36,
+            MaxRadius = 34,
 			
-            MuzzleSalvoDelay = 0.9,
-            MuzzleSalvoSize = 1,
+            MuzzleSalvoDelay = 1,
+            MuzzleSalvoSize = 2,
 
-            MuzzleVelocity = 4.6,
+            MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_proj.bp',
-            ProjectileLifetime = 6,
+            ProjectileLifetime = 4.3,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Projectile01'},
-                    RackBone = 'Projectile01',
-                },
-                {
-                    MuzzleBones = {'Projectile02'},
-                    RackBone = 'Projectile02',
-                },
+                { MuzzleBones = {'Projectile01'}, RackBone = 'Projectile01' },
             },
             
-            RackSalvoReloadTime = 2.5,    -- 2.5 second reload
+            RackSalvoReloadTime = 3,    -- 3 second reload
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 1,		-- 2 torps of 200 = 400 damage every 4.3 = 93 DPS
+            RateOfFire = 1,		-- 2 torps of 220 = 440 damage every 5 = 93 DPS
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 12,
+            SlavedToBodyArcRange = 10,
 			
             TargetCheckInterval = 2,
 			
@@ -229,7 +224,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.3,
+            TrackingRadius = 1.1,
         },
         {
             AboveWaterTargetsOnly = true,
@@ -250,10 +245,11 @@ UnitBlueprint {
 			
             FiringTolerance = 2,
 			
-            Label = 'PlasmaGun',
+            Label = 'DeckGun',
 			
             MaxRadius = 30,
-
+            MinRadius = 8,
+            
             MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/TDFPlasma01/TDFPlasma01_proj.bp',
