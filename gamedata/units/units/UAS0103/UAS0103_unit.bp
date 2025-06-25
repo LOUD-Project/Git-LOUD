@@ -381,10 +381,7 @@ UnitBlueprint {
             ProjectileLifetime = 3,
 			
             RackBones = {
-                {
-                    MuzzleBones = { 'Projectile01' },
-                    RackBone = 'Projectile01',
-                },
+                { MuzzleBones = { 'Projectile01' }, RackBone = 'Projectile01'},
             },
 
             RangeCategory = 'UWRC_Countermeasure',
@@ -397,7 +394,7 @@ UnitBlueprint {
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
             
-            WeaponRepackTimeout = 1.0,
+            WeaponRepackTimeout = 1.2,
         },
 
         {

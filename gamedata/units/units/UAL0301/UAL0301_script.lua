@@ -29,7 +29,7 @@ UAL0301 = Class(AWalkingLandUnit) {
         self:SetWeaponEnabledByLabel('RightReactonCannon', false)
         self.BuildArmManipulator:SetHeadingPitch( self:GetWeaponManipulatorByLabel('RightReactonCannon'):GetHeadingPitch() )
     end,
-        
+
     OnStopCapture = function(self, target)
     
         AWalkingLandUnit.OnStopCapture(self, target)
@@ -73,9 +73,12 @@ UAL0301 = Class(AWalkingLandUnit) {
     end,    
 
     OnStopBuild = function(self, unitBeingBuilt)
+
+        if self.BuildEmitters then
         
-        for _, emit in self.BuildEmitters do
-            emit:ScaleEmitter( 0.01 )
+            for _, emit in self.BuildEmitters do
+                emit:ScaleEmitter( 0.01 )
+            end
         end
     
         if self.BuildProjectile then
