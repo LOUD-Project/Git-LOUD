@@ -1,20 +1,14 @@
 local CAirUnit = import('/lua/defaultunits.lua').AirUnit
 
-local CDFRocketIridiumWeapon = import('/lua/cybranweapons.lua').CDFRocketIridiumWeapon
+local Rocket = import('/lua/cybranweapons.lua').CDFRocketIridiumWeapon
 
 URA0203 = Class(CAirUnit) {
 
     Weapons = {
-        Missile01 = Class(CDFRocketIridiumWeapon) {},
+        Missile01 = Class(Rocket) {},
     },
 
     DestructionPartsChassisToss = {'URA0203',},
-
-    OnStopBeingBuilt = function(self,builder,layer)
-	
-        CAirUnit.OnStopBeingBuilt(self,builder,layer)
-		
-    end,
 
     OnMotionVertEventChange = function(self, new, old)
 	

@@ -18,8 +18,8 @@ UnitBlueprint {
         CirclingRadiusVsAirMult = 0.66,
         CirclingTurnMult = 3,
 		
-        KLift = 3,
-        KLiftDamping = 2.5,
+        KLift = 2,
+        KLiftDamping = 1.5,
 		
         KMove = 0.65,
         KMoveDamping = 0.75,
@@ -27,7 +27,7 @@ UnitBlueprint {
         KTurn = 0.8,
         KTurnDamping = 1.0,
 		
-        LiftFactor = 4.5,
+        LiftFactor = 3.5,
 		
         MaxAirspeed = 10.5,
         MinAirspeed = 3,
@@ -131,7 +131,7 @@ UnitBlueprint {
 		
         Elevation = 11,
 		
-        FuelRechargeRate = 6,
+        FuelRechargeRate = 4,
         FuelUseTime = 200,
 		
         GroundCollisionOffset = 1.6,
@@ -186,7 +186,7 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 20,
+            Damage = 40,
             DamageType = 'Normal',
 			
             DisplayName = 'Light Laser',
@@ -196,14 +196,14 @@ UnitBlueprint {
                 Land = 'Air|Land|Water|Seabed',
             },
 			
-			FiringRandomness = 0.15,
+			FiringRandomness = 0.2,
             FiringTolerance = 0.5,
 			
             Label = 'Turret',
 			
             MaxRadius = 24,
 			
-            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 4,
 
             MuzzleVelocity = 44,
@@ -212,21 +212,22 @@ UnitBlueprint {
             ProjectileLifetime = 0.6,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Turret_Muzzle01','Turret_Muzzle02','Turret_Muzzle03','Turret_Muzzle04'},
-                    RackBone = 'Turret_Barrel',
-                },
+                { MuzzleBones = {'Turret_Muzzle01'}, RackBone = 'Turret_Barrel' },
             },
+            
+            RackSalvoReloadTime = 0.8,
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- 80 DPS Surface
+            RateOfFire = 0.5,		-- 80 DPS Surface
 			
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1,
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'ALLUNITS -WALL',
             },
+
             TargetRestrictDisallow = 'HIGHALTAIR, UNTARGETABLE',
 			
             TurretBoneMuzzle = 'Turret_Muzzle01',
@@ -235,11 +236,11 @@ UnitBlueprint {
 			
             TurretPitch = -20,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 60,
+            TurretPitchSpeed = 40,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 40,
 			
             Turreted = true,
         },

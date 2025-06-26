@@ -20,8 +20,8 @@ UnitBlueprint {
         CirclingRadiusVsAirMult = 0.66,
         CirclingTurnMult = 3,
 		
-        KLift = 3,
-        KLiftDamping = 2.5,
+        KLift = 2,
+        KLiftDamping = 1.5,
 		
         KMove = 0.65,
         KMoveDamping = 0.75,
@@ -29,7 +29,7 @@ UnitBlueprint {
         KTurn = 0.8,
         KTurnDamping = 1,
 		
-        LiftFactor = 4.5,
+        LiftFactor = 3.5,
 		
         MaxAirspeed = 10.5,
         MinAirspeed = 3,
@@ -143,7 +143,7 @@ UnitBlueprint {
 		
         Elevation = 11,
 		
-        FuelRechargeRate = 6,
+        FuelRechargeRate = 4,
         FuelUseTime = 200,
 		
         GroundCollisionOffset = 1.6,
@@ -198,10 +198,10 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 20,
+            Damage = 40,
             DamageType = 'Normal',
 			
-            DisplayName = 'Phasic Autogun',
+            DisplayName = 'Autogun',
 			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land|Water|Seabed',
@@ -211,28 +211,27 @@ UnitBlueprint {
 			FiringRandomness = 0.2,
             FiringTolerance = 0.5,
 			
-            Label = 'Turret',
+            Label = 'TurretL',
 			
             MaxRadius = 24,
 			
-            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 2,
 
-            MuzzleVelocity = 36,
+            MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/SDFHeavyPhasicAutogun02/SDFHeavyPhasicAutogun02_proj.bp',
-			ProjectileLifetime = 1,
+			ProjectileLifetime = 0.9,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Left_Muzzle01','Left_Muzzle02'},
-                    RackBone = 'Left_Turret_Barrel',
-                },
+                { MuzzleBones = {'Left_Muzzle01','Left_Muzzle02'}, RackBone = 'Left_Turret_Barrel'},
             },
+            
+            RackSalvoReloadTime = 1.2,
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		---- 2 projectiles of 20 = 40 DPS
+            RateOfFire = 0.5,		---- 2 projectiles of 40 every 2 seconds = 40 DPS
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -247,11 +246,11 @@ UnitBlueprint {
 			
             TurretPitch = -20,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 60,
+            TurretPitchSpeed = 40,
 			
             TurretYaw = 0,
             TurretYawRange = 90,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 40,
 			
             Turreted = true,
         },
@@ -265,39 +264,38 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 20,
+            Damage = 40,
             DamageType = 'Normal',
 			
-            DisplayName = 'Phasic Autogun',
+            DisplayName = 'Autogun',
 			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land|Water',
                 Land = 'Air|Land|Water',
             },
 
-			FiringRandomness = 0.15,
+			FiringRandomness = 0.2,
             FiringTolerance = 0.5,
 			
-            Label = 'Turret',
+            Label = 'TurretR',
 			
             MaxRadius = 24,
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 2,
 
-            MuzzleVelocity = 36,
+            MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/SDFHeavyPhasicAutogun02/SDFHeavyPhasicAutogun02_proj.bp',
-			ProjectileLifetime = 1,
+			ProjectileLifetime = 0.9,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Right_Muzzle01','Right_Muzzle02'},
-                    RackBone = 'Right_Turret_Barrel',
-                },
+                { MuzzleBones = {'Right_Muzzle01','Right_Muzzle02'}, RackBone = 'Right_Turret_Barrel' },
             },
+
+            RackSalvoReloadTime = 1.4,
 			
-            RateOfFire = 1,		---- another 40 DPS
+            RateOfFire = 0.5,		---- another 40 DPS
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -312,11 +310,11 @@ UnitBlueprint {
 			
             TurretPitch = -20,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 60,
+            TurretPitchSpeed = 40,
 			
             TurretYaw = 0,
             TurretYawRange = 90,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 40,
 			
             Turreted = true,
         },

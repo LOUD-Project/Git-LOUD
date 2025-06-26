@@ -19,8 +19,8 @@ UnitBlueprint {
         CirclingRadiusVsAirMult = 0.66,
         CirclingTurnMult = 3,
 		
-        KLift = 3,
-        KLiftDamping = 2.5,
+        KLift = 2,
+        KLiftDamping = 1.5,
 		
         KMove = 0.65,
         KMoveDamping = 0.75,
@@ -28,7 +28,7 @@ UnitBlueprint {
         KTurn = 0.8,
         KTurnDamping = 1,
 		
-        LiftFactor = 5,
+        LiftFactor = 3.5,
 		
         MaxAirspeed = 11.5,
         MinAirspeed = 3,
@@ -175,7 +175,7 @@ UnitBlueprint {
         },
         Elevation = 8.5,
 		
-        FuelRechargeRate = 6,
+        FuelRechargeRate = 4,
         FuelUseTime = 230,	-- 15% more than standard 
 		
         GroundCollisionOffset = 1.6,
@@ -228,7 +228,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 13,
+            Damage = 78,
             DamageType = 'Normal',
 			
             DisplayName = 'Riot Gun',
@@ -238,33 +238,32 @@ UnitBlueprint {
                 Land = 'Air|Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0.15,
-            FiringTolerance = 0.35,
+            FiringRandomness = 0.2,
+            FiringTolerance = 0.4,
 			
             Label = 'Turret01',
 			
             MaxRadius = 24,
 			
-            MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 3,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
 
             MuzzleVelocity = 40,
 			
             ProjectileId = '/projectiles/TDFRiot01/TDFRiot01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.1,
+            ProjectileLifetimeUsesMultiplier = 1,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Muzzle'},
-                    RackBone = 'Muzzle',
-                },
+                { MuzzleBones = {'Muzzle'}, RackBone = 'Muzzle' },
             },
+            
+            RackSalvoReloadTime = 0.8,
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 2,		-- 13 * 3 * 2 = 78 DPS
+            RateOfFire = 1,		-- 78 DPS
 			
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'ALLUNITS -WALL',

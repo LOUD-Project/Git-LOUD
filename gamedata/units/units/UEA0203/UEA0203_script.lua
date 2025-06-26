@@ -1,6 +1,6 @@
 local TAirUnit = import('/lua/defaultunits.lua').AirUnit
 
-local TDFRiotWeapon = import('/lua/terranweapons.lua').TDFRiotWeapon
+local TDFRiotWeapon = import('/lua/terranweapons.lua').TDFPlasmaCannonWeapon
 
 local LOUDINSERT = table.insert
 
@@ -9,7 +9,7 @@ UEA0203 = Class(TAirUnit) {
     EngineRotateBones = {'Jet_Front', 'Jet_Back',},
 
     Weapons = {
-        Turret01 = Class(TDFRiotWeapon) {},
+        Turret01 = Class(TDFRiotWeapon) { FxMuzzleFlashScale = 0.2 },
     },
 
     OnStopBeingBuilt = function(self,builder,layer)
@@ -40,8 +40,6 @@ UEA0203 = Class(TAirUnit) {
     end,
     
     OnTransportAttach = function(self, attachBone, unit)
-	
-		--LOG("*AI DEBUG Gunship Transport Attach")
 		
         TAirUnit.OnTransportAttach(self, attachBone, unit)
 		
@@ -55,8 +53,6 @@ UEA0203 = Class(TAirUnit) {
     end,
     
     OnTransportDetach = function(self, attachBone, unit)
-	
-		--LOG("*AI DEBUG Gunship Transport Detach")
 		
         TAirUnit.OnTransportDetach( self, attachBone, unit )
 		
@@ -79,8 +75,6 @@ UEA0203 = Class(TAirUnit) {
     end,
     
     DestroyedOnTransport = function(self)
-	
-		--LOG("*AI DEBUG Gunship Transported Unit Destroyed")
 		
         if self.AttachedUnits then
 		

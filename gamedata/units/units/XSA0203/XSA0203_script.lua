@@ -1,11 +1,12 @@
 local SAirUnit = import('/lua/defaultunits.lua').AirUnit
 
-local SDFPhasicAutoGunWeapon = import('/lua/seraphimweapons.lua').SDFPhasicAutoGunWeapon
+local AutoGun = import('/lua/seraphimweapons.lua').SDFPhasicAutoGunWeapon
 
 XSA0203 = Class(SAirUnit) {
 
     Weapons = {
-        Turret = Class(SDFPhasicAutoGunWeapon) {},
+        TurretL = Class(AutoGun) {},
+        TurretR = Class(AutoGun) {},
     },
 	
 }
