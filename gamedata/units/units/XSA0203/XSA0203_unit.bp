@@ -69,7 +69,7 @@ UnitBlueprint {
         ArmorType = 'Light',
         Health = 1450,
         MaxHealth = 1450,
-        RegenRate = 5,
+        RegenRate = 4,
         SurfaceThreatLevel = 7,
     },
 	

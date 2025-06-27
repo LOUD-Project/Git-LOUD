@@ -19,8 +19,8 @@ UnitBlueprint{
         CirclingRadiusVsAirMult = 0.66,
         CirclingTurnMult = 3,
 
-        KLift = 3,
-        KLiftDamping = 2.5,
+        KLift = 2,
+        KLiftDamping = 1.5,
 
         KMove = 0.65,
         KMoveDamping = 0.7,
@@ -28,7 +28,7 @@ UnitBlueprint{
         KTurn = 0.8,
         KTurnDamping = 1,
 
-        LiftFactor = 4.5,
+        LiftFactor = 3,
 
         MaxAirspeed = 10,
         MinAirspeed = 3,
@@ -67,7 +67,7 @@ UnitBlueprint{
         ArmorType = "Light",
         Health = 1250,
         MaxHealth = 1250,
-        RegenRate = 4,
+        RegenRate = 3,
         SurfaceThreatLevel = 7.5,
     },
 
@@ -134,7 +134,7 @@ UnitBlueprint{
     Physics = {
         Elevation = 10,
 
-        FuelRechargeRate = 6,
+        FuelRechargeRate = 4,
         FuelUseTime = 200,
 
         GroundCollisionOffset = 1.6,
@@ -145,8 +145,8 @@ UnitBlueprint{
         MotionType = "RULEUMT_Air",
         RotateBodyWhileMoving = true,
         TurnFacingRate = 180,
-        TurnRadius = 5,
-        TurnRate = 60,
+        TurnRadius = 8,
+        TurnRate = 48,
     },
 
     SelectionSizeX = 0.7,
@@ -178,7 +178,6 @@ UnitBlueprint{
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
-
             AimsStraightOnDisable = true,
 
             Audio = {
@@ -198,8 +197,7 @@ UnitBlueprint{
 
             ContinuousBeam = false,
 
-            Damage = 15,
-            DamageRadius = 0,
+            Damage = 30,
             DamageType = "Normal",
 
             DisplayName = "Ion Beam",
@@ -226,12 +224,13 @@ UnitBlueprint{
 
             RangeCategory = "UWRC_DirectFire",
 
-            RateOfFire = 1,
+            RateOfFire = 0.5,
 
             SlavedToBody = true,
-            SlavedToBodyArcRange = 25,
+            SlavedToBodyArcRange = 20,
 
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1,
+
             TargetPriorities = {
                 "EXPERIMENTAL",
                 "ANTIAIR",
@@ -242,20 +241,19 @@ UnitBlueprint{
 
             TargetRestrictDisallow = "UNTARGETABLE,HIGHALTAIR,SATELLITE",
 
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 
             TurretBoneMuzzle = "muzzle_beam",
             TurretBonePitch = "uaa0306",
             TurretBoneYaw = "muzzle_beam",
-            TurretDualManipulators = false,
 
             TurretPitch = -5,
             TurretPitchRange = 80,
-            TurretPitchSpeed = 45,
+            TurretPitchSpeed = 40,
 
             TurretYaw = 0,
             TurretYawRange = 25,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 40,
 
             Turreted = true,
         },
