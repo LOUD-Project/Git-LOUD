@@ -5548,14 +5548,14 @@ function ParseIntelThread( aiBrain )
                 aiBrain.NavalProdRatio = mynavaltot/(grandnavaltot/aiBrain.NumOpponents)
             end
 
-            -- the enemy is in the water and building
+            -- I have navy production but the enemy is undetected
             if grandnavaltot > 0 and aiBrain.NavalRatio < 0.02 then
                 aiBrain.NavalRatio = 0.2
             end
             
-            -- the enemy is in the air and building
+            -- I have air production but the enemy is undetected
             if grandairtot > 0 and aiBrain.AirRatio < 0.02 then
-                aiBrain.AirRatio = 0.2
+                aiBrain.AirRatio = (0.25 * aiBrain.AirProdRatio)
             end
 
             if ReportRatios then
