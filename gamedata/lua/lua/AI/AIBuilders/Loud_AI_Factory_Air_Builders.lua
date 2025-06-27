@@ -6,11 +6,18 @@ local LUTL  = '/lua/loudutilities.lua'
 local TBC   = '/lua/editor/ThreatBuildConditions.lua'
 local TUTL  = '/lua/ai/transportutilities.lua'
 
-local LOUDGETN = table.getn
-local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
-
 local GetArmyUnitCap        = GetArmyUnitCap
 local GetArmyUnitCostTotal  = GetArmyUnitCostTotal
+local GetListOfUnits        = moho.aibrain_methods.GetListOfUnits
+local LOUDGETN              = table.getn
+
+local AIR               = categories.AIR
+local AIRSCOUT          = AIR * categories.SCOUT
+local AIRT2UP           = AIR - categories.TECH1
+local AIRT3             = AIR * categories.TECH3
+local AIRTORP           = AIR * categories.ANTINAVY
+local HIGHALTAIRAA      = categories.HIGHALTAIR * categories.ANTIAIR
+
 
 local AboveUnitCap75 = function( self,aiBrain )
 	
@@ -76,7 +83,7 @@ local HaveLessThanThreeT2AirFactory = function( self, aiBrain )
 		
 	end
 	
-	if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * categories.AIR - categories.TECH1, false, true )) < 3 then
+	if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * AIRT2UP, false, true )) < 3 then
 	
 		return self.OldPriority or self.Priority, true
 		
@@ -89,7 +96,7 @@ end
 
 local HaveLessThanThreeT3AirFactory = function( self, aiBrain )
 
-	if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * categories.AIR * categories.TECH3, false, true )) < 3 then
+	if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * AIRT3, false, true )) < 3 then
 	
 		return self.OldPriority or self.Priority, true
 		
@@ -129,13 +136,13 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
             { LUTL, 'AirStrengthRatioGreaterThan', { 0.8 } },
 
             -- don't build T1 air scouts if we can build better ones
-            { UCBC, 'FactoriesLessThan', { 1, categories.AIR - categories.TECH1 }},
+            { UCBC, 'FactoriesLessThan', { 1, AIRT2UP }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 8, [512] = 10, [1024] = 14, [2048] = 20, [4096] = 20}, categories.AIR * categories.SCOUT}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 8, [512] = 10, [1024] = 14, [2048] = 20, [4096] = 20}, AIRSCOUT }},
 
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 2, categories.AIR * categories.SCOUT } },
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 2, AIRSCOUT } },
 
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.AIR * categories.SCOUT, categories.AIR }},
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, AIRSCOUT, AIR }},
         },
 
         BuilderType =  {'AirT1'},
@@ -155,13 +162,13 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
             { LUTL, 'AirStrengthRatioGreaterThan', { 0.8 } },
 
             -- don't build T2 air scouts if we can build better ones
-            { UCBC, 'FactoriesLessThan', { 1, categories.AIR + categories.TECH3 }},
+            { UCBC, 'FactoriesLessThan', { 1, AIRT3 }},
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 60, [2048] = 78, [4096] = 78}, categories.AIR * categories.SCOUT}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 60, [2048] = 78, [4096] = 78}, AIRSCOUT }},
 
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 12, categories.AIR * categories.SCOUT } },			
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 12, AIRSCOUT } },			
 
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.AIR * categories.SCOUT, categories.AIR }},
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, AIRSCOUT, AIRT2UP }},
         },
 
         BuilderType =  {'AirT2'},
@@ -180,11 +187,11 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
             
             { LUTL, 'AirStrengthRatioGreaterThan', { 0.8 } },
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 60, [2048] = 78, [4096] = 78}, categories.AIR * categories.SCOUT}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 24, [512] = 36, [1024] = 60, [2048] = 78, [4096] = 78}, AIRSCOUT }},
 
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 12, categories.AIR * categories.SCOUT } },			
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 12, AIRSCOUT } },			
 
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.AIR * categories.SCOUT, categories.AIR * categories.TECH3 }},
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, AIRSCOUT, AIRT3 }},
         },
 
         BuilderType =  {'AirT3'},
@@ -257,9 +264,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioLessThan', { 2 } },
 
-            { UCBC, 'FactoryLessAtLocation', { 'LocationType', 3, categories.AIR - categories.TECH1 }},
+            { UCBC, 'FactoryLessAtLocation', { 'LocationType', 3, AIRT2UP }},
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.HIGHALTAIR * categories.ANTIAIR, categories.AIR * categories.TECH3 }},			
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, HIGHALTAIRAA, AIRT3 }},			
         },
 		
         BuilderType =  {'AirT2','AirT3'},
@@ -278,7 +285,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY * categories.AIR - categories.TECH1 }},
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, categories.HIGHALTAIR * categories.ANTIAIR, categories.AIR * categories.TECH3 }},			
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, HIGHALTAIRAA, AIRT3 }},			
         },
 		
         BuilderType =  {'AirT2','AirT3'},
@@ -327,9 +334,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         BuilderConditions = {
             { LUTL, 'HaveLessThanUnitsWithCategory', { 120, categories.HIGHALTAIR * categories.ANTIAIR }},
 
-			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 1, categories.FACTORY * categories.AIR * categories.TECH3 }},
+			{ LUTL, 'HaveGreaterThanT3AirFactories', { 1 }},
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, categories.HIGHALTAIR * categories.ANTIAIR, categories.AIR * categories.TECH3 }},			
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, HIGHALTAIRAA, AIRT3 }},			
         },
 
         BuilderType =  {'AirT3'},
@@ -344,7 +351,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 1.8 } },
 
-			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 3, categories.FACTORY * categories.AIR * categories.TECH3 }},
+			{ LUTL, 'HaveGreaterThanT3AirFactories', { 3 }},
         },
 
         BuilderType =  {'AirT3'},
@@ -359,7 +366,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
 
-			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 3, categories.FACTORY * categories.AIR * categories.TECH3 }},
+			{ LUTL, 'HaveGreaterThanT3AirFactories', { 3 }},
         },
 		
         BuilderType =  {'AirT3'},
@@ -393,7 +400,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY * categories.AIR - categories.TECH1 }},
 
             -- one of the few places where I use a % ratio to control the number of units
-			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 4.5, categories.ANTINAVY * categories.AIR }},
+			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 4.5, AIRTORP }},
         },
 
         BuilderType =  {'AirT2','SeaT2'},
@@ -413,9 +420,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
             { LUTL, 'AirStrengthRatioGreaterThan', { 1.5 } },
 
 			-- dont produce unless you have 3+ T3 Air factories overall
-			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
+			{ LUTL, 'HaveGreaterThanT3AirFactories', { 2 }},
 
-			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 4.5, categories.ANTINAVY * categories.AIR }},
+			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 4.5, AIRTORP }},
         },
 
         BuilderType =  {'AirT3','SeaT3'},
@@ -441,7 +448,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
 
             -- one of the few places where I use a % ratio to control the number of units
-			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 4.5, categories.ANTINAVY * categories.AIR }},            
+			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 4.5, AIRTORP }},            
         },
 
         BuilderType =  {'AirT2','SeaT2'},
@@ -463,10 +470,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
 
 			-- dont produce unless you have 3+ T3 Air factories overall
-			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
+			{ LUTL, 'HaveGreaterThanT3AirFactories', { 2 }},
 
             -- one of the few places where I use a % ratio to control the number of units
-			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 4.5, categories.ANTINAVY * categories.AIR }},            
+			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 4.5, AIRTORP }},            
         },
 		
         BuilderType =  {'AirT3','SeaT3'},
@@ -492,14 +499,16 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-            { LUTL, 'UnitCapCheckLess', { .75 } },
-            
-            { LUTL, 'AirStrengthRatioGreaterThan', { 0.8 } },
+            { LUTL, 'UnitCapCheckLess', { .6 } },
+
+            -- this slightly lower need is in response to the early game where the ratio might be low
+            -- due to the enemy being undetected but we have superior production ability
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.6 } },
 
             { UCBC, 'ArmyNeedsTransports', { true } },
 			
 			-- stop making them if we have more than 1 T2/T3 air plants - anywhere
-            { UCBC, 'FactoriesLessThan', { 1, categories.FACTORY * categories.AIR - categories.TECH1 }},
+            { UCBC, 'FactoriesLessThan', { 1, AIRT2UP }},
 
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 2, [1024] = 3, [2048] = 5, [4096] = 5}, categories.TRANSPORTFOCUS * categories.TECH1}},
         },
@@ -520,13 +529,13 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-            { LUTL, 'AirStrengthRatioGreaterThan', { 0.8 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.7 } },
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
 			
             { UCBC, 'ArmyNeedsTransports', { true } },
 
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, categories.AIR - categories.TECH1 }},
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, AIRT2UP }},
 
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 6, [512] = 8, [1024] = 12, [2048] = 18, [4096] = 21}, categories.TRANSPORTFOCUS * categories.TECH2}},
         },
@@ -556,7 +565,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 
 			{ UCBC, 'HaveLessThanUnitsWithCategory', { 20, categories.uea0203 }},
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.uea0203, categories.AIR - categories.TECH1 }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.uea0203, AIRT2UP }},
         },
 		
         BuilderType =  {'AirT2'},
@@ -581,7 +590,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 
             { UCBC, 'ArmyNeedsTransports', { true } },
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, categories.AIR * categories.TECH3 }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, AIRT3 }},
         },
 
         BuilderType =  {'AirT3'},
