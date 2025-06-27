@@ -3756,8 +3756,13 @@ Platoon = Class(PlatoonMethods) {
 			StuckCount = 0
 
             platLoc = GetPlatoonPosition(self) or false
-            distance = VDist3( platLoc, marker )
-            oldplatpos = LOUDCOPY(platLoc)
+            
+            if platLoc then
+                distance = VDist3( platLoc, marker )
+                oldplatpos = LOUDCOPY(platLoc)
+            else
+                marker = false
+            end
 
 			-- TRAVEL TO THE MARKER POINT -- Check exit parameters along the way
 			while PlatoonExists(aiBrain,self) and marker and distance > UntRadius and guardtime < guardTimer do
@@ -4167,18 +4172,18 @@ Platoon = Class(PlatoonMethods) {
 			UntCat = LOUDPARSE(UntCat)
 		end
 
-        local bAggroMove = PlatoonData.AggressiveMove or false
-		local allowinwater = PlatoonData.AllowInWater or 'true'		-- platoon will consider points on/under water
-		local AssistRange = PlatoonData.AssistRange or 0			-- range at which the platoon will set an assist marker
-		local AvoidBases = PlatoonData.AvoidBases or 'false'			-- Platoon will avoid points within PMin of allied base positions
-		local guardRadius = PlatoonData.GuardRadius or 75			-- range at which platoon will engage enemy targets around point
-        local guardTimer = PlatoonData.GuardTimer or 600	 		-- how long platoon will remain at point before moving on        
-		local MergeLimit = PlatoonData.MergeLimit or false			-- unit count at which to prevent merging
-        local MergePlanMatch = PlatoonData.MergePlanMatch or false -- if merging, the behavior AND the plan name must match.
-		local MissionTimer = PlatoonData.MissionTime or 1200		-- how long platoon will operate before RTB        
-		local PatrolRadius = PlatoonData.PatrolRadius or 60
-        local PlatoonFormation = PlatoonData.UseFormation or 'None'
-		local SetPatrol = PlatoonData.SetPatrol or false
+        local bAggroMove        = PlatoonData.AggressiveMove or false
+		local allowinwater      = PlatoonData.AllowInWater or 'true'	-- platoon will consider points on/under water
+		local AssistRange       = PlatoonData.AssistRange or 0			-- range at which the platoon will set an assist marker
+		local AvoidBases        = PlatoonData.AvoidBases or 'false'		-- Platoon will avoid points within PMin of allied base positions
+		local guardRadius       = PlatoonData.GuardRadius or 75			-- range at which platoon will engage enemy targets around point
+        local guardTimer        = PlatoonData.GuardTimer or 600	 		-- how long platoon will remain at point before moving on        
+		local MergeLimit        = PlatoonData.MergeLimit or false		-- unit count at which to prevent merging
+        local MergePlanMatch    = PlatoonData.MergePlanMatch or false   -- if merging, the behavior AND the plan name must match.
+		local MissionTimer      = PlatoonData.MissionTime or 1200		-- how long platoon will operate before RTB        
+		local PatrolRadius      = PlatoonData.PatrolRadius or 60
+        local PlatoonFormation  = PlatoonData.UseFormation or 'None'
+		local SetPatrol         = PlatoonData.SetPatrol or false
 
 		
         local CategoryList = {}

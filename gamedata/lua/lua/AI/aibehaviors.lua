@@ -4041,17 +4041,21 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
     local VDist2Sq  = VDist2Sq
     local VDist3    = VDist3
     local WaitTicks = WaitTicks
+  
+    if not GetPlatoonPosition(self) then
+        return
+    end
+
+	local anchorposition    = LOUDCOPY( GetPlatoonPosition(self) )
+    local platoonUnits      = LOUDCOPY( GetPlatoonUnits(self) )
     
     local SetLoiterPosition = import('/lua/ai/aibehaviors.lua').SetLoiterPosition
     
-    local Searchradius = self.PlatoonData.SearchRadius or 200
-    
-    local missiontime = self.PlatoonData.MissionTime or 600
-    local mergelimit = self.PlatoonData.MergeLimit or false
-    local PlatoonFormation = self.PlatoonData.UseFormation or 'None'
-
-    local platoonUnits = LOUDCOPY(GetPlatoonUnits(self))
-
+    local Searchradius      = self.PlatoonData.SearchRadius or 200
+    local missiontime       = self.PlatoonData.MissionTime or 600
+    local mergelimit        = self.PlatoonData.MergeLimit or false
+    local PlatoonFormation  = self.PlatoonData.UseFormation or 'None'
+  
     local categoryList = {}
     local count = 0
     
@@ -4122,8 +4126,6 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 	-- occurs to me we could pass the multipliers and difficulties from the platoondata if we wished
 	-- force the plan name onto the platoon
 	self.PlanName = 'AirForceAI_Gunship_LOUD'
-
-	local anchorposition = LOUDCOPY( GetPlatoonPosition(self) )
 
     local MissionStartTime = LOUDFLOOR(LOUDTIME())
     local threatcheckradius = 96

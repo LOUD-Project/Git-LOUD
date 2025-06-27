@@ -629,14 +629,18 @@ DefaultProjectileWeapon = Class(Weapon) {
     PlayRackRecoilReturn = function(self, rackList)
 	
         WaitTicks(1)
+    
+        if not self.unit.Dead then
 		
-        for _, v in rackList do
+            for _, v in rackList do
         
-            for _, mv in self.RecoilManipulators do
-                SetGoal( mv, 0, 0, 0)
-                SetSpeed( mv, self.RackRecoilReturnSpeed)
+                for _, mv in self.RecoilManipulators do
+                    SetGoal( mv, 0, 0, 0)
+                    SetSpeed( mv, self.RackRecoilReturnSpeed)
+                end
             end
         end
+        
     end,
 
     WaitForAndDestroyManips = function(self)
@@ -1370,7 +1374,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                     ------------------					
             
                     if WeaponStateDialog then
-                        LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State "..repr(bp.Label).." - FIRES rack "..self.CurrentRackNumber.." muzzle "..i.." at "..GetGameTick() )
+                        LOG("*AI DEBUG DefaultWeapon RackSalvo Firing State "..repr(bp.Label).." - FIRES rack "..self.CurrentRackNumber.." muzzle "..i.." "..repr(muzzle).." at "..GetGameTick() )
                     end
 
                     self:PlayFxMuzzleSequence(muzzle)                    

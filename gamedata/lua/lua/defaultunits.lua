@@ -1376,12 +1376,12 @@ MobileUnit = Class(Unit) {
         local sizeX = treads.TreadMarksSizeX
         local sizeZ = treads.TreadMarksSizeZ
 		
-        local interval = treads.TreadMarksInterval * 10 + 1
+        local interval      = treads.TreadMarksInterval * 10 + 1
 		
-        local treadOffset = treads.TreadOffset
-        local treadBone = treads.BoneName or 0
-        local treadTexture = treads.TreadMarks
-        local duration = treads.TreadLifeTime or 10
+        local treadOffset   = treads.TreadOffset
+        local treadBone     = treads.BoneName or 0
+        local treadTexture  = treads.TreadMarks
+        local duration      = treads.TreadLifeTime or 10
 		
         local army = self.Army
 
@@ -4753,9 +4753,11 @@ NukeMineStructureUnit = Class(MineStructureUnit) {
             Fire = function(self)
 
                 if self.unit.DeathWeaponEnabled ~= false then
+
                     local myBlueprint = self:GetBlueprint()
                     local myProjectile = self.unit:CreateProjectile(myBlueprint.ProjectileId, 0, 0, 0, nil, nil, nil):SetCollision(false)
-                    myProjectile:PassDamageData(self:GetDamageTable())
+
+                    myProjectile:PassDamageData(self.damageTable)    --GetDamageTable())
                 end
             end,
         },

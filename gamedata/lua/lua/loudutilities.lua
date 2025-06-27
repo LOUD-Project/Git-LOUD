@@ -184,8 +184,11 @@ function UnitCapCheckGreater(aiBrain, percent)
 	if aiBrain.IgnoreArmyCaps then
 		return false
 	end
-	
-    return ( GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) ) > percent 
+    
+    local ArmyIndex = aiBrain.ArmyIndex
+    local result    = GetArmyUnitCostTotal(ArmyIndex) / GetArmyUnitCap(ArmyIndex)
+ 	
+    return result > percent 
 end
 
 function UnitCapCheckLess(aiBrain, percent)
@@ -221,7 +224,7 @@ function BaseInPlayableArea( aiBrain, managerposition )
     return true
 end
 
--- This routine returns the location of the closest base that has engineers or factories
+-- This routine returns the location of the closest base that has engineers or NON-NAVAL factories
 function AIFindClosestBuilderManagerPosition( aiBrain, position)
 
     local distance = 9999999

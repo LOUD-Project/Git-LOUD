@@ -48,9 +48,11 @@ AConstructionUnit = Class(ConstructionUnit) {
 
     -- handle the permanent projectile & emitters
     OnStopBuild = function(self, unitBeingBuilt)
-        
-        for _, emit in self.BuildEmitters do
-            emit:ScaleEmitter( 0.01 )
+
+        if self.BuildEmitters then
+            for _, emit in self.BuildEmitters do
+                emit:ScaleEmitter( 0.01 )
+            end
         end
     
         if self.BuildProjectile then
