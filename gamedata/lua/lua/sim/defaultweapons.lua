@@ -1422,9 +1422,9 @@ DefaultProjectileWeapon = Class(Weapon) {
                             end
                         end
 						
-                        WaitSeconds( MuzzleSalvoDelay )
+                        WaitTicks( LOUDFLOOR(MuzzleSalvoDelay * 10 ) + 1)
                     end
-                    
+
                 end
                 
                 if bp.CameraShakeRadius or bp.ShipRock or bp.RackRecoilDistance != 0 then
@@ -1541,7 +1541,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                     LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State "..repr(bp.Label).." RackSalvoReloadTime waits "..math.ceil(bp.RackSalvoReloadTime * 10) - self.ElapsedRackReloadTicks.." ticks" )
                 end
             
-                WaitTicks( (math.ceil(bp.RackSalvoReloadTime * 10) - self.ElapsedRackReloadTicks) )
+                WaitTicks( (math.ceil(bp.RackSalvoReloadTime * 10) - self.ElapsedRackReloadTicks) + 1 )
             end
             
             if self.BeamLifetimeWatch then
