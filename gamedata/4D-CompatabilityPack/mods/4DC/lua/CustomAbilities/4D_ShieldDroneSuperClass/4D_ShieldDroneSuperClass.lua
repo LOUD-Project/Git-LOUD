@@ -223,7 +223,9 @@ function AutoSelectShieldDrone(SuperClass)
             
                 local beamEffect = AttachBeamEntityToEntity(self, kBone, self.GUnit, -1, army, v )
                 
-                self.BuildEffectsBag:Add(beamEffect)
+                if self.BuildEffectsBag then
+                    self.BuildEffectsBag:Add(beamEffect)
+                end
             end
             
 	    end 
