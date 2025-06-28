@@ -8,14 +8,14 @@ ProjectileBlueprint {
 	
     Categories = {
         'PROJECTILE',
-		'TORPEDO',
+		'DEPTHCHARGE',
     },
 	
     Defense = {
         Health = 1,
     },
 	
-    DesiredShooterCap = 1,	
+    DesiredShooterCap = 2,	
 
     Display = {
         Mesh = { LODs = {{ LODCutoff = 150, ShaderName = 'TMeshAlpha' }}},
@@ -28,12 +28,12 @@ ProjectileBlueprint {
     Physics = {
         Acceleration = 0.7,
         DestroyOnWater = false,
-        Lifetime = 8,
+        Lifetime = 7.5,
         MaxSpeed = 2,
         StayUnderwater = true,
         StayUpright = true,
         TrackTarget = true,
-        TurnRate = 50,
+        TurnRate = 45,
         VelocityAlign = true,
     },
 }

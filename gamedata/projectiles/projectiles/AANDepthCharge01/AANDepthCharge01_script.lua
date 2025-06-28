@@ -1,5 +1,5 @@
-local ADepthChargeProjectile = import('/lua/aeonprojectiles.lua').ADepthChargeProjectile
+local DepthCharge = import('/lua/aeonprojectiles.lua').ADepthChargeProjectile
 
-AANDepthCharge01 = Class(ADepthChargeProjectile) {}
+AANDepthCharge01 = Class(DepthCharge) {}
 
 TypeClass = AANDepthCharge01
