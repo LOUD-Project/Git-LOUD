@@ -649,7 +649,7 @@ MissileTorpDestroy = Class(Entity) {
             
             self.EnemyProj = false
 
-            WaitTicks( self.RedirectRateOfFire - 1 )
+            WaitTicks( self.RedirectRateOfFire )
 
             LOUDSTATE(self, self.WaitingState)				
         end,
@@ -828,7 +828,7 @@ SeraLambdaFieldRedirector = Class(Entity) {
                 v:Destroy()
             end
 
-            WaitTicks( self.RedirectRateOfFire - 1 )
+            WaitTicks( self.RedirectRateOfFire )
 
             if not BeenDestroyed( EnemyProj ) then
 
@@ -981,7 +981,7 @@ SeraLambdaFieldDestroyer = Class(Entity) {
                 v:Destroy()
             end
 
-            WaitTicks( self.RedirectRateOfFire - 1 )
+            WaitTicks( self.RedirectRateOfFire )
 
             LOUDSTATE(self, self.WaitingState)
         end,
