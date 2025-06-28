@@ -170,6 +170,9 @@ UnitBlueprint {
                 Fire            = Sound { Bank = 'URSWeapon', Cue = 'URS0203_Torpedo_Nanite', LodCutoff = 'Weapon_LodCutoff' },
                 FireUnderWater  = Sound { Bank = 'URSWeapon', Cue = 'URS0203_Torpedo_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
+
+            AutoInitiateAttackCommand = true, 
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -284,6 +287,18 @@ UnitBlueprint {
             TurretYawSpeed = 32,
 			
             Turreted = true,
+        },
+		
+        {
+            BelowWaterTargetsOnly = true,
+            Damage = 160,
+            DamageFriendly = true,
+            DamageRadius = 1,
+            DamageType = 'Normal',
+
+            DummyWeapon = true,
+            FiringTolerance = 2,
+            Label = 'DeathWeapon',
         },
     },
 }

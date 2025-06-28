@@ -1,12 +1,12 @@
 local CSubUnit =  import('/lua/defaultunits.lua').SubUnit
 
-local Torpedo = import('/lua/cybranweapons.lua').CANNaniteTorpedoWeapon
-local CDFLaserHeavyWeapon = import('/lua/cybranweapons.lua').CDFLaserHeavyWeapon
+local Torpedo   = import('/lua/cybranweapons.lua').CANNaniteTorpedoWeapon
+local Laser     = import('/lua/cybranweapons.lua').CDFLaserHeavyWeapon
 
 URS0203 = Class(CSubUnit) {
 
     Weapons = {
-        DeckGun = Class(CDFLaserHeavyWeapon) {},
+        DeckGun = Class(Laser) {},
 
         Torpedo = Class(Torpedo) {
         
@@ -23,6 +23,13 @@ URS0203 = Class(CSubUnit) {
         },
     },
 
+    OnStopBeingBuilt = function(self,builder,layer)
+	
+        CSubUnit.OnStopBeingBuilt(self,builder,layer)
+
+        self.DeathWeaponEnabled = true
+
+    end,
 }
 
 TypeClass = URS0203

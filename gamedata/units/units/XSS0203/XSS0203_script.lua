@@ -40,6 +40,8 @@ XSS0203 = Class(SSubUnit) {
 		
         self.CannonAnim:PlayAnim(bp.Display.CannonOpenAnimation)
         self.CannonAnim:SetRate(bp.Display.CannonOpenRate or 1)
+        
+        self.DeathWeaponEnabled = true
 
     end,
 	

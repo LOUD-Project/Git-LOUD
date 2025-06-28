@@ -1,7 +1,7 @@
 local TSubUnit =  import('/lua/defaultunits.lua').SubUnit
 
 local Torpedo    = import('/lua/terranweapons.lua').TANTorpedoAngler
-local TDFLightPlasmaCannonWeapon = import('/lua/terranweapons.lua').TDFLightPlasmaCannonWeapon
+local PlasmaGun  = import('/lua/terranweapons.lua').TDFLightPlasmaCannonWeapon
 
 UES0203 = Class(TSubUnit) {
 
@@ -20,9 +20,17 @@ UES0203 = Class(TSubUnit) {
             },
         },
 
-        DeckGun = Class(TDFLightPlasmaCannonWeapon) {}
+        DeckGun = Class(PlasmaGun) {}
     },
+
+    OnStopBeingBuilt = function(self,builder,layer)
 	
+        TSubUnit.OnStopBeingBuilt(self,builder,layer)
+
+        self.DeathWeaponEnabled = true
+
+    end,
+
 }
 
 

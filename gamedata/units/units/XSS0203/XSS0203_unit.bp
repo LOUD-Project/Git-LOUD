@@ -181,6 +181,8 @@ UnitBlueprint {
                 FireUnderwater  = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_AnaIt_Torpedo', LodCutoff = 'Weapon_LodCutoff' },                
             },
 
+            AutoInitiateAttackCommand = true, 
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -204,7 +206,7 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.8,
             MuzzleSalvoSize = 2,
 
-            MuzzleVelocity = 3.2,
+            MuzzleVelocity = 3,
 
             ProjectileId = '/projectiles/SANAnaitTorpedo01/SANAnaitTorpedo01_proj.bp',
             ProjectileLifetime = 5,
@@ -264,7 +266,7 @@ UnitBlueprint {
             MinRadius = 6,
 
             MuzzleSalvoDelay = 0.5,
-            MuzzleVelocity = 6,
+            MuzzleVelocity = 5,
 			
             ProjectileId = '/projectiles/SANAjelluAntiTorpedo01/SANAjelluAntiTorpedo01_proj.bp',
             ProjectileLifetime = 3.5,
@@ -280,7 +282,7 @@ UnitBlueprint {
 			
             RateOfFire = 1,     -- controlled by muzzlesalvodelay and weaponrepacktimeout
 			
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1,
 			
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
@@ -299,7 +301,7 @@ UnitBlueprint {
 			
             Turreted = true,
             
-            WeaponRepackTimeout = 1.4,
+            WeaponRepackTimeout = 1.6,
         },
         {
             AboveWaterFireOnly = true,        
@@ -370,5 +372,17 @@ UnitBlueprint {
 			
             Turreted = true,
         },
+		
+        {
+            BelowWaterTargetsOnly = true,
+            Damage = 175,
+            DamageFriendly = true,
+            DamageRadius = 1,
+            DamageType = 'Normal',
+
+            DummyWeapon = true,
+            FiringTolerance = 2,
+            Label = 'DeathWeapon',
+        },        
     },
 }

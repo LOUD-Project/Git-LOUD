@@ -19,7 +19,15 @@ UAS0203 = Class(ASubUnit) {
             },
         },
     },
+
+    OnStopBeingBuilt = function(self,builder,layer)
 	
+        ASubUnit.OnStopBeingBuilt(self,builder,layer)
+        
+        self.DeathWeaponEnabled = true
+
+    end,
+
 }
 
 TypeClass = UAS0203

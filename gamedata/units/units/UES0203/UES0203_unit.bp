@@ -173,6 +173,9 @@ UnitBlueprint {
                 Fire            = Sound { Bank = 'UESWeapon', Cue = 'UES0203_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
                 FireUnderWater  = Sound { Bank = 'UESWeapon', Cue = 'UES0203_Torpedo', LodCutoff = 'Weapon_LodCutoff' },                
             },
+
+            AutoInitiateAttackCommand = true, 
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -290,5 +293,17 @@ UnitBlueprint {
 			
             Turreted = true,
         },
+		
+        {
+            BelowWaterTargetsOnly = true,
+            Damage = 160,
+            DamageFriendly = true,
+            DamageRadius = 1,
+            DamageType = 'Normal',
+
+            DummyWeapon = true,
+            FiringTolerance = 2,
+            Label = 'DeathWeapon',
+        },         
     },
 }

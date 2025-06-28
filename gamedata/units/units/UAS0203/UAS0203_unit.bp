@@ -176,6 +176,8 @@ UnitBlueprint {
                 Fire            = Sound {Bank = 'UASWeapon',Cue = 'UAS0203_Torpedo',LodCutoff = 'Weapon_LodCutoff'},
             },
 
+            AutoInitiateAttackCommand = true, 
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -233,5 +235,17 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
             TrackingRadius = 1.1,
         },
+		
+        {
+            BelowWaterTargetsOnly = true,
+            Damage = 160,
+            DamageFriendly = true,
+            DamageRadius = 1,
+            DamageType = 'Normal',
+
+            DummyWeapon = true,
+            FiringTolerance = 2,
+            Label = 'DeathWeapon',
+        },        
     },
 }
