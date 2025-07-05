@@ -2,10 +2,10 @@ local TSeaUnit = import('/lua/defaultunits.lua').SeaUnit
 
 local TerranWeaponFile = import('/lua/terranweapons.lua')
 
-local TDFIonizedPlasmaCannon    = TerranWeaponFile.TDFIonizedPlasmaCannon
-local TAMPhalanxWeapon          = TerranWeaponFile.TAMPhalanxWeapon
-local TSAMLauncher              = TerranWeaponFile.TSAMLauncher
-local TANTorpedoAngler          = TerranWeaponFile.TANTorpedoAngler
+local Plasma        = TerranWeaponFile.TDFIonizedPlasmaCannon
+local Phalanx       = TerranWeaponFile.TAMPhalanxWeapon
+local SAMLauncher   = TerranWeaponFile.TSAMLauncher
+local Torpedo       = TerranWeaponFile.TANTorpedoAngler
 
 TerranWeaponFile = nil
 
@@ -13,13 +13,13 @@ WES0303 = Class(TSeaUnit) {
 
 Weapons = {
         
-        DeckGun = Class(TDFIonizedPlasmaCannon) {},
-        
-		AA      = Class(TSAMLauncher) {},
-        
-		Torpedo = Class(TANTorpedoAngler) {},
-        
-        TMD     = Class(TAMPhalanxWeapon) {
+        DeckGunF    = Class(Plasma) {},
+        DeckGunFT   = Class(Plasma) {},
+        DeckGunB    = Class(Plasma) {},        
+		AAF         = Class(SAMLauncher) {},
+		AAR         = Class(SAMLauncher) {},
+		Torpedo     = Class(Torpedo) { FxMuzzleFlash = false },
+        TMD         = Class(Phalanx) {
         
             PlayFxWeaponUnpackSequence = function(self)
             
