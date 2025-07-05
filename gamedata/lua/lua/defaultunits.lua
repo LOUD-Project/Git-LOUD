@@ -1465,6 +1465,8 @@ MobileUnit = Class(Unit) {
 			if not bpTable.Effects[1] then
 				return false
 			end
+            
+            --LOG("*AI DEBUG Create Movement Effect for "..repr(CacheLayer))
 
 			self:CreateTerrainTypeEffects( bpTable.Effects, 'FXMovement', CacheLayer, TypeSuffix, EffectsBag, TerrainType )
 
@@ -1792,7 +1794,8 @@ MobileUnit = Class(Unit) {
 
         if self.MovementEffectsExist then
             self:DestroyMovementEffects()
-            self:CreateMovementEffects( self.MovementEffectsBag, nil )
+
+            self:UpdateMovementEffectsOnMotionEventChange( new, old )
         end
 
 		if bp.LayerChangeEffects then
