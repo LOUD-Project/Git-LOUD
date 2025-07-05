@@ -162,25 +162,37 @@ function TransferUnitsOwnership(units, ToArmyIndex)
 end
 
 function GiveUnitsToPlayer( data, units )
-    if units[1]:GetArmy() then
-        if OkayToMessWithArmy(units[1]:GetArmy()) then
-            TransferUnitsOwnership( units, data.To )
+
+    if units[1] then
+    
+        if units[1]:GetArmy() then
+            
+            if OkayToMessWithArmy(units[1]:GetArmy()) then
+                TransferUnitsOwnership( units, data.To )
+            end
         end
     end
+
 end
 
 function GiveResourcesToPlayer( data )
+
     if not OkayToMessWithArmy(data.From) then return end
+
     local fromBrain = GetArmyBrain(data.From)
     local toBrain = GetArmyBrain(data.To)
+
     if fromBrain:IsDefeated() or toBrain:IsDefeated() then return end
+
     local massTaken = fromBrain:TakeResource('Mass',data.Mass * fromBrain:GetEconomyStored('Mass'))
     local energyTaken = fromBrain:TakeResource('Energy',data.Energy * fromBrain:GetEconomyStored('Energy'))
+
     toBrain:GiveResource('Mass',massTaken)
     toBrain:GiveResource('Energy',energyTaken)
 end
 
 function SetResourceSharing( data )
+
     if not OkayToMessWithArmy(data.Army) then return end
     local brain = GetArmyBrain(data.Army)
     brain:SetResourceSharing(data.Value)

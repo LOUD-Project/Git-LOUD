@@ -1144,6 +1144,18 @@ BuffBlueprint { Name = 'ACU_T4_Engineering',
 
 --- Black Ops ACU Buffs --
 
+BuffBlueprint { Name = 'ACU_Sat_Fuel',
+    BuffType = 'ACUSATFUEL',
+    Stacks = 'REPLACE',
+    Duration = -1,
+	Affects = {
+		FuelTime = {
+			Add = 0,
+			Mult = 4,
+		}
+	},
+}
+
 BuffBlueprint { Name = 'ACU_T2_Imp_Eng',
     BuffType = 'ACUBUILDRATE',
 	ParsedEntityCategory = categories.COMMAND,
@@ -1400,18 +1412,6 @@ BuffBlueprint { Name = 'ACU_T3_Intel_Package',
             Mult = 1.75,
         },
     },
-}
-
-BuffBlueprint { Name = 'SATFUEL',
-    BuffType = 'MAXFUEL',
-    Stacks = 'REPLACE',
-    Duration = -1,
-	Affects = {
-		FuelTime = {
-			Add = 0,
-			Mult = -4.0,
-		}
-	},
 }
 
 -- Just a note here - the relationship between RADAR range and power consumption is calculated as follows

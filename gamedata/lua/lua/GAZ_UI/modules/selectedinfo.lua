@@ -41,9 +41,11 @@ function GetUnitRolloverInfo(unit)
 
 	info.entityId = unit:GetEntityId()
 
-	info.maxHealth = unit:GetMaxHealth()
-	info.health = unit:GetHealth()
-	info.fuelRatio = unit:GetFuelRatio()
+	info.maxHealth  = unit:GetMaxHealth()
+	info.health     = unit:GetHealth()
+
+	info.fuelRatio  = unit:GetFuelRatio()
+    info.fuelTime = unit:GetStat('FUELTIME').Value
 
 	info.shieldRatio = unit:GetShieldRatio()
    
@@ -57,13 +59,13 @@ function GetUnitRolloverInfo(unit)
 
 	local missileInfo = unit:GetMissileInfo()
 
-	info.nukeSiloBuildCount = missileInfo.nukeSiloBuildCount 
-	info.nukeSiloMaxStorageCount = missileInfo.nukeSiloMaxStorageCount
-	info.nukeSiloStorageCount = missileInfo.nukeSiloStorageCount
+	info.nukeSiloBuildCount         = missileInfo.nukeSiloBuildCount 
+	info.nukeSiloMaxStorageCount    = missileInfo.nukeSiloMaxStorageCount
+	info.nukeSiloStorageCount       = missileInfo.nukeSiloStorageCount
 
-	info.tacticalSiloBuildCount = missileInfo.tacticalSiloBuildCount
+	info.tacticalSiloBuildCount     = missileInfo.tacticalSiloBuildCount
 	info.tacticalSiloMaxStorageCount = missileInfo.tacticalSiloMaxStorageCount
-	info.tacticalSiloStorageCount = missileInfo.tacticalSiloStorageCount
+	info.tacticalSiloStorageCount   = missileInfo.tacticalSiloStorageCount
 
 	info.customName = unit:GetCustomName(unit)
 	info.userUnit = unit

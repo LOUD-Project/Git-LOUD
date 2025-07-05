@@ -334,7 +334,10 @@ Unit = Class(UnitMethods) {
         SetStat( self, 'VISION', bp.Intel.VisionRadius or 4 )
         
         GetStat( self, 'WATERVISION', bp.Intel.WaterVisionRadius or 4)
-        SetStat( self, 'WATERVISION', bp.Intel.WaterVisionRadius or 4 )		
+        SetStat( self, 'WATERVISION', bp.Intel.WaterVisionRadius or 4 )
+
+        GetStat( self, 'FUELTIME', bp.Physics.FuelUseTime or -1 )
+        SetStat( self, 'FUELTIME', bp.Physics.FuelUseTime or -1 )
 
         -- would be nice to review the need for this as well
         self.DamageEffectsBag = { {}, {}, {}, }

@@ -69,18 +69,6 @@ WeatherTwister = {
     '/effects/emitters/weather_twister_04_emit.bp',
 }
 
--- Operation Effects
---[[
-op_cratersmoke_01 = { '/effects/emitters/op_cratersmoke_01_emit.bp',}
-op_waterbubbles_01 = { '/effects/emitters/quarry_water_bubbles_emit.bp',}
-op_fire_01 = {
-    '/effects/emitters/op_ambient_fire_01_emit.bp',
-    '/effects/emitters/op_ambient_fire_02_emit.bp',
-    '/effects/emitters/op_ambient_fire_03_emit.bp',
-    '/effects/emitters/op_ambient_fire_04_emit.bp',
-}
---]]
-
 -- Default Projectile Impact Effects
 DefaultMissileHit01 = TableCat( FireCloudSml01, FlashSml01, FlareSml01 )
 

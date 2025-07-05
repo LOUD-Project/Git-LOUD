@@ -390,10 +390,12 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             
             if unitfuel > -1 then
 
-                -- and we use the lowest value so never more than 1.0 (full)
-                local val = math.min((unitfuel + (buffAffects.FuelTime.Add or 0)) * (buffAffects.FuelTime.Mult or 1), 1)
+                -- any result less than 0 will provide unlimited fuel
+                local val = (unitfuel + (buffAffects.FuelTime.Add or 0)) * (buffAffects.FuelTime.Mult or 1)
 
                 SetFuelUseTime( unit, val )
+
+                SetStat( unit, 'FUELTIME', val )
 
                 RequestRefreshUI(unit)
                 

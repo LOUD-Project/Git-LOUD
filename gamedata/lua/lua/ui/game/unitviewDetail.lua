@@ -1,23 +1,23 @@
-local UIUtil = import('/lua/ui/uiutil.lua')
-local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
-local Group = import('/lua/maui/group.lua').Group
-local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
-local GameCommon = import('/lua/ui/game/gamecommon.lua')
-local ItemList = import('/lua/maui/itemlist.lua').ItemList
-local Prefs = import('/lua/user/prefs.lua')
-local UnitDescriptions = import('/lua/ui/help/unitdescription.lua').Description
-local TitleCase = import('/lua/utilities.lua').LOUD_TitleCase
+local UIUtil            = import('/lua/ui/uiutil.lua')
+local LayoutHelpers     = import('/lua/maui/layouthelpers.lua')
+local Group             = import('/lua/maui/group.lua').Group
+local Bitmap            = import('/lua/maui/bitmap.lua').Bitmap
+local GameCommon        = import('/lua/ui/game/gamecommon.lua')
+local ItemList          = import('/lua/maui/itemlist.lua').ItemList
+local Prefs             = import('/lua/user/prefs.lua')
+local UnitDescriptions  = import('/lua/ui/help/unitdescription.lua').Description
+local TitleCase         = import('/lua/utilities.lua').LOUD_TitleCase
 
 local __DMSI = false    --import('/mods/Domino_Mod_Support/lua/initialize.lua') or false
 
 local enhancementSlotNames = {}
 
-local LOUDFIND = string.find
-local LOUDFORMAT = string.format
-local LOUDFLOOR = math.floor
-local LOUDUPPER = string.upper
-local LOUDLOWER = string.lower
-local LOUDSUB = string.sub
+local LOUDFIND      = string.find
+local LOUDFORMAT    = string.format
+local LOUDFLOOR     = math.floor
+local LOUDUPPER     = string.upper
+local LOUDLOWER     = string.lower
+local LOUDSUB       = string.sub
 
 -- This function checks and converts Meters to Kilometers if the measurement (in meters) is >= 1000.
 function LOUD_KiloCheck(aMeasurement)

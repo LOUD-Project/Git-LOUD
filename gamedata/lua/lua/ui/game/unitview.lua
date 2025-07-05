@@ -217,8 +217,10 @@ local statFuncs = {
 
 	--- fuel remaining time
 	function(info, bp)
+        
 	    if info.fuelRatio > -1 then
-	        return FormatTime(bp.Physics.FuelUseTime * info.fuelRatio)
+       
+	        return FormatTime( info.userUnit:GetStat('FUELTIME', 0).Value * info.fuelRatio )
 	    else
 	        return false
 	    end
@@ -746,10 +748,10 @@ function CreateUI()
 
     -- This section is for the small icons showing what active enhancements an ACU has
     controls.enhancements = {}
-    controls.enhancements['LCH'] = Bitmap(controls.bg)
-    controls.enhancements['Command'] = Bitmap(controls.bg)
-    controls.enhancements['RCH'] = Bitmap(controls.bg)
-    controls.enhancements['Back'] = Bitmap(controls.bg)
+    controls.enhancements['LCH']        = Bitmap(controls.bg)
+    controls.enhancements['Command']    = Bitmap(controls.bg)
+    controls.enhancements['RCH']        = Bitmap(controls.bg)
+    controls.enhancements['Back']       = Bitmap(controls.bg)
 
     LayoutHelpers.AtLeftTopIn(controls.enhancements['LCH'], controls.bg, 10, -30)
     LayoutHelpers.AtLeftTopIn(controls.enhancements['Command'], controls.bg, 42, -30)
