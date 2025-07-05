@@ -122,7 +122,7 @@ UnitBlueprint {
         BuildTime = 24000,
 
         BuildableCategory = { 'UEF SATELLITE TECH3' },
-		
+
         RebuildBonusIds = {'seb3303'},
         
         StorageEnergy = 2400,

@@ -1,9 +1,19 @@
 local TStructureUnit = import('/lua/defaultunits.lua').FactoryUnit
 
+local ApplyBuff      = import('/lua/sim/buff.lua').ApplyBuff
+
 
 SEB3303 = Class(TStructureUnit) {
 
     DeathThreadDestructionWaitTime = 0,
+    
+    OnStartBuild = function( self, unitBeingBuilt, order )
+
+        unitBeingBuilt:SetParent(self,'Satellite')
+
+        TStructureUnit.OnStartBuild( self, unitBeingBuilt, order )
+
+    end,
 
     OnStopBeingBuilt = function(self, ...)
         TStructureUnit.OnStopBeingBuilt(self, unpack(arg) )
@@ -53,7 +63,9 @@ SEB3303 = Class(TStructureUnit) {
             self.Trash:Add(CreateAttachedEmitter(self,'XEB2402',army, '/effects/emitters/uef_orbital_death_laser_launch_02_emit.bp'):OffsetEmitter(0.00, 2.00, 1.00))
 
             unitBeingBuilt:DetachFrom()
-            
+
+            ApplyBuff( unitBeingBuilt, 'ACU_Sat_Fuel' )
+
             unitBeingBuilt:Open()
 
         end
