@@ -891,7 +891,10 @@ DefaultProjectileWeapon = Class(Weapon) {
 
             if ScenarioInfo.WeaponStateDialog then
                 LOG("*AI DEBUG DefaultWeapon Idle State OnGotTarget "..repr(bp.Label).." charged is "..repr(self.WeaponCharged).." at "..GetGameTick() )
-                LOG("*AI DEBUG DefaultWeapon Distance to target is "..VDist3( unit:GetPosition(), self:GetCurrentTargetPos() ) )
+                
+                if self:GetCurrentTargetPos() then
+                    LOG("*AI DEBUG DefaultWeapon Idle State OnGotTarget Distance to target is "..VDist3( unit:GetPosition(), self:GetCurrentTargetPos() ) )
+                end
             end
 
             if (bp.WeaponUnpackLocksMotion != true or (bp.WeaponUnpackLocksMotion == true and not unit:IsUnitState('Moving'))) then
@@ -941,7 +944,9 @@ DefaultProjectileWeapon = Class(Weapon) {
 
             if ScenarioInfo.WeaponStateDialog then
                 LOG("*AI DEBUG DefaultWeapon Idle State OnFire "..repr(bp.Label).." at "..GetGameTick() )
-                --LOG("*AI DEBUG DefaultWeapon Distance to target is "..VDist3( unit:GetPosition(), self:GetCurrentTargetPos() ) )
+                if self:GetCurrentTargetPos() then
+                    LOG("*AI DEBUG DefaultWeapon Idle State OnFire Distance to target is "..VDist3( unit:GetPosition(), self:GetCurrentTargetPos() ) )
+                end
             end
 			
             if bp.WeaponUnpacks == true then

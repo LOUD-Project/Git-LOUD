@@ -8,7 +8,7 @@ local EffectTemplate = import('/lua/EffectTemplates.lua')
 SCCollisionBeam = Class(CollisionBeam) {
 
     FxImpactUnit        = EffectTemplate.DefaultProjectileLandUnitImpact,
-    FxImpactWater       = EffectTemplate.DefaultProjectileWaterImpact,
+    FxImpactWater       = EffectTemplate.WaterSplash01,
     FxImpactUnderWater  = EffectTemplate.DefaultProjectileUnderWaterImpact,
     FxImpactAirUnit     = EffectTemplate.DefaultProjectileAirUnitImpact,
 }
@@ -191,7 +191,11 @@ UltraChromaticBeamGeneratorCollisionBeam = Class(SCCollisionBeam) {
 
 --- This is for a ship and a point defense. (adjustment for ship muzzleflash)
 UltraChromaticBeamGeneratorCollisionBeam02 = Class(UltraChromaticBeamGeneratorCollisionBeam) {
+
 	FxBeamStartPoint = EffectTemplate.SUltraChromaticBeamGeneratorMuzzle02,
+
+    FxImpactWater = EffectTemplate.WaterSplash01,
+    FxWaterHitScale = 0.3,
 }
 
 TractorClawCollisionBeam = Class(CollisionBeam) {

@@ -4078,6 +4078,8 @@ Unit = Class(UnitMethods) {
 		if bpTable then
 
 			if bpTable[self.CacheLayer].Effects then
+    
+                --LOG("*AI DEBUG Create Idle Effect for "..repr(self.CacheLayer) )
 			
 				if not self.IdleEffectsBag then
 					self.IdleEffectsBag = {}
@@ -6040,31 +6042,6 @@ Unit = Class(UnitMethods) {
 		
 	end,
 
-    -- this allows you to execute a function when the unit (self) has been detected 
-    AddDetectedByHook = function(self,hook)
-	
-        if not self.DetectedByHooks then
-            self.DetectedByHooks = {}
-        end
-		
-		LOG("*AI DEBUG "..GetAIBrain(self).Nickname.." Adding DetectedByHook for "..repr(ALLBPS[self.BlueprintID].Description).." on "..repr(hook))
-		
-        LOUDINSERT(self.DetectedByHooks,hook)
-    end,
-
-    RemoveDetectedByHook = function(self,hook)
-	
-        if self.DetectedByHooks then
-		
-            for k,v in self.DetectedByHooks do
-                if v == hook then
-                    table.remove(self.DetectedByHooks,k)
-                    return
-                end
-            end
-        end
-    end,
-
 }
 
 --[[
@@ -6092,22 +6069,31 @@ Unit = Class(UnitMethods) {
     DestroyedOnTransport = function(self)
         LOG("*AI DEBUG DestroyedOnTransport "..ALBPS[self.BlueprintID].Description)
     end,
+--]]
+
+--[[	
 
     OnDetectedBy = function(self, index)
+    
+        LOG("*AI DEBUG OnDetectedBy "..ArmyBrains[self.ArmyIndex].Nickname.." "..repr(self.BlueprintID).." detected by Index "..ArmyBrains[index].Nickname.." "..repr(index) )
 
         local GetBlip = UnitMethods.GetBlip
         local IsSeenNow = moho.blip_methods.IsSeenNow
 
         local blip = GetBlip(self,index)    
 
+        LOG("*AI DEBUG blip "..repr(blip).." Seen Ever is "..repr(moho.blip_methods.IsSeenEver(blip, index)) )
+        
         local function TestAgain(self, index, blip)
+
             WaitTicks(31)
+
             if IsSeenNow( blip, index ) then
                 LOG("*AI DEBUG "..ArmyBrains[index].Nickname.." After 3 seconds detected "..GetAIBrain(self).Nickname.." "..repr(ALLBPS[self.BlueprintID].Description).." is Seen Now" )
             end
         end
         
-        if GetGameTick() > 31.5*600 and (not IsAlly( index, GetAIBrain(self).ArmyIndex)) and ArmyBrains[index].BrainType != 'AI' and not moho.blip_methods.IsSeenEver( blip, index) then
+        if GetGameTick() > 1 and (not IsAlly( index, self.ArmyIndex)) and not moho.blip_methods.IsSeenEver( blip, index) then
         
             local badbrain = GetAIBrain(self)
         
@@ -6157,9 +6143,31 @@ Unit = Class(UnitMethods) {
         end
 
     end,
---]]
 
---[[	
+    -- this allows you to execute a function when the unit (self) has been detected 
+    AddDetectedByHook = function(self,hook)
+	
+        if not self.DetectedByHooks then
+            self.DetectedByHooks = {}
+        end
+		
+		LOG("*AI DEBUG "..GetAIBrain(self).Nickname.." Adding DetectedByHook for "..repr(ALLBPS[self.BlueprintID].Description).." on "..repr(hook))
+		
+        LOUDINSERT(self.DetectedByHooks,hook)
+    end,
+
+    RemoveDetectedByHook = function(self,hook)
+	
+        if self.DetectedByHooks then
+		
+            for k,v in self.DetectedByHooks do
+                if v == hook then
+                    table.remove(self.DetectedByHooks,k)
+                    return
+                end
+            end
+        end
+    end,
 
 	-- this function tests to see if the intel features of the unit need power to operate
 	-- will return false if no energy required
