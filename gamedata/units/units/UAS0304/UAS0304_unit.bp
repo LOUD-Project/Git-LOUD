@@ -51,7 +51,7 @@ UnitBlueprint {
 
         Health = 3750,
         MaxHealth = 3750,
-        RegenRate = 10,
+        RegenRate = 4,
 
         SurfaceThreatLevel = 30,
     },
@@ -66,25 +66,7 @@ UnitBlueprint {
             "<LOC ability_torpedodef>Torpedo Defense",
         },
 		
-        IdleEffects = {
-            Sub = {
-                Effects = {
-                    {
-                        Bones = {'UAS0304'},
-                        Type = 'UnderWater01',
-                    },
-                },
-            },
-            Water = {
-                Effects = {
-                    {
-                        Bones = {'UAS0304'},
-                        Scale = 0.25,
-                        Type = 'SeaIdle01',
-                    },
-                },
-            },
-        },
+        IdleEffects = { Water = { Effects = { { Bones = {0}, Scale = 0.6, Type = 'SeaIdle01' } } } },
 
         Mesh = {
             IconFadeInZoom = 130,
@@ -97,24 +79,12 @@ UnitBlueprint {
         MovementEffects = {
             Sub = {
                 Effects = {
-                    {
-                        Bones = {'Exhaust_01','Exhaust_02'},
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'Exhaust_01','Exhaust_02'}, Scale = 2.5, Type = 'BackWake' },
                 },
             },
             Water = {
                 Effects = {
-                    {
-                        Bones = {'Exhaust_01'},
-                        Scale = 0.25,
-                        Type = 'LeftFrontWake',
-                    },
-                    {
-                        Bones = {'Exhaust_02'},
-                        Scale = 0.25,
-                        Type = 'RightFrontWake',
-                    },
+                    { Bones = {'Exhaust_01','Exhaust_02'}, Scale = 0.65, Type = 'BackWake' },
                 },
             },
         },
@@ -123,7 +93,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 400000,
+        BuildCostEnergy = 380000,
         BuildCostMass = 10000,
         BuildRate = 600,	-- was 1000
         BuildTime = 52632,
@@ -168,26 +138,29 @@ UnitBlueprint {
     LifeBarSize = 1.5,
 	
     Physics = {
-        BackUpDistance = 8,
+        BackUpDistance = 10,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Sub = true,
         },
         CatchUpAcc = 10,
-        DragCoefficient = 0.2,
+        DragCoefficient = 0.1,
         Elevation = -2.5,
-        MaxAcceleration = 2,
-        MaxBrake = 2,
-        MaxSpeed = 4,
-        MaxSpeedReverse = 4,
+
+        MaxAcceleration = 1.4,
+        MaxBrake = 1.1,
+        MaxSpeed = 3.8,
+        MaxSpeedReverse = 3.8,
+
         MaxSteerForce = 5,
         MeshExtentsX = 1,
         MeshExtentsY = 1,
         MeshExtentsZ = 3.75,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_SurfacingSub',
-        TurnRadius = 15,
-        TurnRate = 50,
+
+        TurnRadius = 12,
+        TurnRate = 36,
     },
 	
     SelectionSizeX = 0.6,
@@ -211,6 +184,78 @@ UnitBlueprint {
 	
     Weapon = {
         {
+            Audio = {
+                Fire = Sound { Bank = 'UASWeapon', Cue = 'UAS0201_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
+            },
+
+            AutoInitiateAttackCommand = true,
+ 
+            BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.3,
+                    Radius = 2,
+                    TargetAllow = 'LAND TECH1,NAVAL TECH1,SUBMARINE TECH2',
+                    TargetDisallow = 'WALL,COMMAND,EXPERIMENTAL',
+                },
+            },
+
+            CollideFriendly = false,
+			
+            Damage = 200,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Chrono Torpedo',
+			
+            FireTargetLayerCapsTable = {
+                Sub = 'Seabed|Sub|Water',
+                Water = 'Seabed|Sub|Water',
+            },
+			
+            FiringTolerance = 60,
+			
+            Label = 'Torpedo',
+			
+            MaxRadius = 48,
+            MinRadius = 8,
+			
+            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoSize = 4,
+
+            MuzzleVelocity = 2,
+			
+            ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
+            ProjectileLifetime = 6.7,
+			
+            RackBones = {
+                { MuzzleBones = {'Exhaust_01','Exhaust_02'}, RackBone = 'Exhaust_01' },
+            },
+            
+            RackSalvoReloadTime = 7.2,
+
+            RangeCategory = 'UWRC_AntiNavy',
+			
+            RateOfFire = 0.5,		-- 4 torps of 200 = 800 damage every 8 seconds = 100 DPS Sub
+			
+            TargetCheckInterval = 4,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'SUBMARINE',
+				'NAVAL',
+				'MOBILE',
+                'DEFENSE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+			TrackingRadius = 1.1,
+        },
+
+        {
             AboveWaterTargetsOnly = true,
 
             Audio = {
@@ -223,7 +268,7 @@ UnitBlueprint {
             
             CountedProjectile = false,
 			
-            Damage = 600,
+            Damage = 625,
             DamageFriendly = true,
             DamageRadius = 2.5,
             DamageType = 'Normal',
@@ -237,13 +282,13 @@ UnitBlueprint {
 			
             FiringTolerance = 2,
 			
-            Label = 'CruiseMissiles',
+            Label = 'Missiles',
 			
             MaxRadius = 200,
-            MinRadius = 25,
+            MinRadius = 20,
 			
-            MuzzleSalvoDelay = 0.8,
-            MuzzleSalvoSize = 4,
+            MuzzleSalvoDelay = 0.7,
+            MuzzleSalvoSize = 6,
             MuzzleVelocity = 5,
 			
 			NotExclusive = true,
@@ -252,24 +297,16 @@ UnitBlueprint {
 			ProjectileLifetime = 50,
 
             RackBones = {
-                {
-                    MuzzleBones = {
-                        'Muzzle_01',
-						'Muzzle_02',
-						'Muzzle_03',
-						'Muzzle_04',
-                    },
-                    RackBone = 'Muzzle_01',
-                },
+                { MuzzleBones = { 'Muzzle_01', 'Muzzle_02', 'Muzzle_03', 'Muzzle_04' }, RackBone = 'Muzzle_01' },
             },
             
-            RackSalvoReloadTime = 6.8,
+            RackSalvoReloadTime = 7.8,
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- 2400 dmg every 10 seconds = 240 DPS Surface
+            RateOfFire = 0.5,		-- 3750 dmg every 12 seconds = 312 DPS Surface
 			
-            TargetCheckInterval = 3,
+            TargetCheckInterval = 4,
             
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -336,23 +373,30 @@ UnitBlueprint {
             ProjectileId = '/projectiles/AIFQuantumWarhead01/AIFQuantumWarhead01_proj.bp',
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Muzzle_05'},
-                    RackBone = 'Muzzle_05',
-                },
+                { MuzzleBones = {'Muzzle_05'}, RackBone = 'Muzzle_05' },
             },
 
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 1,
 			
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 2,
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
             
             WeaponRepackTimeout = 10,
             WeaponUnpacks = true,
         },
+        {
+            BelowWaterTargetsOnly = true,
+            Damage = 500,
+            DamageFriendly = true,
+            DamageRadius = 1,
+            DamageType = 'Normal',
 
+            DummyWeapon = true,
+            FiringTolerance = 2,
+            Label = 'DeathWeapon',
+        },
     },
 }

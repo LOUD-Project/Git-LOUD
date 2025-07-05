@@ -1,6 +1,6 @@
 local CSubUnit =  import('/lua/defaultunits.lua').SubUnit
 
-local CANNaniteTorpedoWeapon = import('/lua/cybranweapons.lua').CANNaniteTorpedoWeapon
+local Torpedo = import('/lua/cybranweapons.lua').CANNaniteTorpedoWeapon
 
 local MissileRedirect = import('/lua/defaultantiprojectile.lua').MissileTorpDestroy
 
@@ -10,7 +10,19 @@ local TrashAdd = TrashBag.Add
 XRS0204 = Class(CSubUnit) {
 
     Weapons = {
-        Torpedo = Class(CANNaniteTorpedoWeapon) {},
+        Torpedo = Class(Torpedo) {
+
+            RackSalvoReloadState = State( Torpedo.RackSalvoReloadState) {
+            
+                Main = function(self)
+
+                    self:ForkThread( function() self:ChangeMaxRadius(50) self:ChangeMinRadius(50) WaitTicks(32) self:ChangeMinRadius(8) self:ChangeMaxRadius(48) end)
+                    
+                    Torpedo.RackSalvoReloadState.Main(self)
+
+                end,
+            },
+        },
     },
 	
     OnCreate = function(self)
@@ -29,6 +41,8 @@ XRS0204 = Class(CSubUnit) {
             TrashAdd( self.Trash, antiMissile1)
             
         end
+        
+        self.DeathWeaponEnabled = true
 		
     end,
 }

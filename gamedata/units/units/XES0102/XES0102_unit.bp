@@ -1,6 +1,7 @@
 UnitBlueprint {
 
     AI = {
+        AttackAngle = 45,
         GuardScanRadius = 40,
     },
 
@@ -47,37 +48,21 @@ UnitBlueprint {
             '<LOC ability_personalstealth>Personal Stealth',
             '<LOC ability_sonar>Sonar',
             '<LOC ability_torpedo>Torpedoes',
+            '<LOC ability_depthcharge>Depth Charge',
             '<LOC ability_torpedodef>Torpedo Decoy Defense',
         },
 
         AnimationDeath = {
-            {
-                Animation = '/units/xes0102/xes0102_adeath01.sca',
-                Weight = 100,
-            },
-            {
-                Animation = '/units/xes0102/xes0102_adeath02.sca',
-                Weight = 100,
-            },
-            {
-                Animation = '/units/xes0102/xes0102_adeath03.sca',
-                Weight = 100,
-            },
+            { Animation = '/units/xes0102/xes0102_adeath01.sca', Weight = 100 },
+            { Animation = '/units/xes0102/xes0102_adeath02.sca', Weight = 100 },
+            { Animation = '/units/xes0102/xes0102_adeath03.sca', Weight = 100 },
         },
 
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    ShaderName = 'Aeon',
-                },
-                {
-                    AlbedoName = 'XES0102_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Aeon',
-                    SpecularName = 'XES0102_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, ShaderName = 'Unit' },
+                { LODCutoff = 215, ShaderName = 'Unit', AlbedoName = 'XES0102_lod1_albedo.dds', SpecularName = 'XES0102_lod1_specteam.dds' },
             },
         },
 
@@ -116,7 +101,7 @@ UnitBlueprint {
         SonarRadius = 44,
 
         VisionRadius = 32,
-        WaterVisionRadius = 24,
+        WaterVisionRadius = 28,
     },
 	
     Interface = {
@@ -128,25 +113,28 @@ UnitBlueprint {
     LifeBarSize = 0.85,
 	
     Physics = {
-        BackUpDistance = 5,
+        BackUpDistance = 0,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Water = true,
         },
         CatchUpAcc = 10,
-        DragCoefficient = 0.2,
-        MaxAcceleration = 2,
-        MaxBrake = 2.5,
+        DragCoefficient = 0.1,
+
+        MaxAcceleration = 2.5,
+        MaxBrake = 1.1,
         MaxSpeed = 4.5,
-        MaxSpeedReverse = 4,
+        MaxSpeedReverse = 0,
+
         MaxSteerForce = 5,
         MeshExtentsX = 0.32,
         MeshExtentsY = 0.45,
         MeshExtentsZ = 0.72,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
+
         TurnRadius = 5,
-        TurnRate = 100,
+        TurnRate = 60,
     },
 	
     SelectionSizeX = 0.3,
@@ -174,14 +162,16 @@ UnitBlueprint {
                 Fire = Sound { Bank = 'XES_Weapons', Cue = 'XES0102_Angler_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
             },
 
+            AutoInitiateAttackCommand = true, 
+
             BallisticArc = 'RULEUBA_None',
 
             CollideFriendly = false,
 			
-            Damage = 200,
+            Damage = 270,
             DamageType = 'Normal',
 			
-            DisplayName = 'Angler Torpedo',
+            DisplayName = 'Torpedo',
 			
             FireTargetLayerCapsTable = {
                 Water = 'Seabed|Sub|Water',
@@ -192,38 +182,94 @@ UnitBlueprint {
             Label = 'Torpedo',
 			
             MaxRadius = 44,
+            MinRadius = 6,
 			
-            MuzzleSalvoDelay = 0.8,
-
-            MuzzleSalvoSize = 2,
+            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoSize = 3,
             MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_proj.bp',
-            ProjectileLifetime = 7,
+            ProjectileLifetime = 6.8,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Projectile01'},
-                    RackBone = 'Projectile01',
-                },
+                { MuzzleBones = {'Projectile01'}, RackBone = 'Projectile01' },
             },
+            
+            RackSalvoReloadTime = 7.1,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.3,		-- 2 torps * 200 = 400 dmg * .3 = 120 DPS Sub
+            RateOfFire = 0.5,		-- 3 torps * 270 = 810 every 8 = 101 DPS Sub
 			
             TargetCheckInterval = 1,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SUBMARINE',
+                'SUBMERSIBLE',
                 'MOBILE -AIR',
                 'DEFENSE',
                 'ALLUNITS -AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.2,
         },
-		
+        { 
+            AutoInitiateAttackCommand = true, 
+
+            Audio = { 
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0204_Depth_Charge', LodCutoff = 'Weapon_LodCutoff' }, 
+            }, 
+ 
+            BelowWaterTargetsOnly = true, 
+
+            CollideFriendly = false, 
+
+            Damage = 75, 
+            DamageRadius = 2.5, 
+            DamageType = 'Normal', 
+
+            DisplayName = 'Depth Charge', 
+
+            FireTargetLayerCapsTable = { 
+                Water = 'Seabed|Sub|Water', 
+            }, 
+
+            FiringRandomness = 7, 
+            FiringTolerance = 18, 
+
+            Label = 'DepthCharge',
+
+            MaxRadius = 12, 
+ 
+            MuzzleSalvoDelay = 0.3, 
+            MuzzleSalvoSize = 2, 
+ 
+            MuzzleVelocity = 3.5,
+
+            NotExclusive = true, 
+
+            ProjectileId = '/projectiles/AANDepthCharge01/AANDepthCharge01_proj.bp', 
+			ProjectileLifetime = 5.5, 
+
+            RackBones = { 
+                { MuzzleBones = {'XES0102'}, RackBone = 'XES0102' },
+            }, 
+ 
+            RackSalvoReloadTime = 5.4, 
+ 
+            RateOfFire = 0.5,       -- about 26dps SUB, controlled by Rack Salvo reload and muzzle salvo delay 
+ 
+            TargetCheckInterval = 2, 
+             
+            TargetPriorities = { 
+                'SUBMARINE', 
+                'SUBMERSIBLE', 
+            }, 
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+			
+            TrackingRadius = 2,
+        },		
         {
             BallisticArc = 'RULEUBA_None',
 			
@@ -242,24 +288,20 @@ UnitBlueprint {
             },
             
             HeadingArcCenter = 270,
-            HeadingArcRange = 75,
+            HeadingArcRange = 105,
 			
-            Label = 'AntiTorpedoRight',
+            Label = 'AntiTorpR',
 			
             MaxRadius = 18,
             MinRadius = 6,
 
-            MuzzleVelocity = 3,
+            MuzzleVelocity = 2.5,
 			
             ProjectileId = '/projectiles/TTorpedoDecoy/TTorpedoDecoy_proj.bp',
             ProjectileLifetime = 1.8,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Anti_Torpedo_Right'},
-                    RackBone = 'Anti_Torpedo_Right',
-                },
-
+                { MuzzleBones = {'Anti_Torpedo_Right'}, RackBone = 'Anti_Torpedo_Right' },
             },
 
             RangeCategory = 'UWRC_Countermeasure',
@@ -290,14 +332,14 @@ UnitBlueprint {
             },
             
             HeadingArcCenter = 90,
-            HeadingArcRange = 75,
+            HeadingArcRange = 105,
 			
-            Label = 'AntiTorpedoLeft',
+            Label = 'AntiTorpL',
 			
             MaxRadius = 18,
             MinRadius = 6,
 
-            MuzzleVelocity = 3,
+            MuzzleVelocity = 2.5,
 			
             ProjectileId = '/projectiles/TTorpedoDecoy/TTorpedoDecoy_proj.bp',
             ProjectileLifetime = 1.8,
@@ -319,5 +361,6 @@ UnitBlueprint {
             TargetType = 'RULEWTT_Projectile',
             TrackingRadius = 1.1,
         },        
+
     },
 }

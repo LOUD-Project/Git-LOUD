@@ -1,13 +1,13 @@
 local TSeaUnit =  import('/lua/defaultunits.lua').SeaUnit
 
 local AeonWeapons = import('/lua/aeonweapons.lua')
-local AIFQuasarAntiTorpedoWeapon = AeonWeapons.AIFQuasarAntiTorpedoWeapon
+local AntiTorpedo = AeonWeapons.AIFQuasarAntiTorpedoWeapon
 
 local WeaponsFile = import('/lua/terranweapons.lua')
 
-local TAMPhalanxWeapon      = WeaponsFile.TAMPhalanxWeapon
-local TDFHiroPlasmaCannon   = WeaponsFile.TDFHiroPlasmaCannon
-local TANTorpedoAngler      = WeaponsFile.TANTorpedoAngler
+local Phalanx   = WeaponsFile.TAMPhalanxWeapon
+local Plasma    = WeaponsFile.TDFHiroPlasmaCannon
+local Torpedo   = WeaponsFile.TANTorpedoAngler
 
 AeonWeapons = nil
 WeaponsFile = nil
@@ -16,10 +16,11 @@ UES0302 = Class(TSeaUnit) {
 
     Weapons = {
 	
-        HiroCannon = Class(TDFHiroPlasmaCannon) {},
-        Torpedo = Class(TANTorpedoAngler) {},
-        PhalanxGun = Class(TAMPhalanxWeapon) {},
-        AntiTorpedo = Class(AIFQuasarAntiTorpedoWeapon) {},
+        HiroCannonF  = Class(Plasma) {},
+        HiroCannonB  = Class(Plasma) {},
+        Torpedo      = Class(Torpedo) { FxMuzzleFlash = false },
+        PhalanxGun   = Class(Phalanx) {},
+        AntiTorpedo  = Class(AntiTorpedo) { FxMuzzleFlash = false },
     },
 	
 }

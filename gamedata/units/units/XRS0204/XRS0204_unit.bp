@@ -161,15 +161,17 @@ UnitBlueprint {
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
         Elevation = -2.8,
-        MaxAcceleration = 1.4,
-        MaxBrake = 2,
-        MaxSpeed = 3.8,
-        MaxSpeedReverse = 3.8,
+
+        MaxAcceleration = 1.1,
+        MaxBrake = 1.5,
+        MaxSpeed = 3.6,
+        MaxSpeedReverse = 3.3,
+
         MaxSteerForce = 5,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_SurfacingSub',
         TurnRadius = 10,
-        TurnRate = 32,
+        TurnRate = 30,
     },
 	
     SelectionSizeX = 0.6,
@@ -200,6 +202,8 @@ UnitBlueprint {
                 FireUnderWater  = Sound { Bank = 'URSWeapon', Cue = 'URS0203_Torpedo_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
 
+            AutoInitiateAttackCommand = true, 
+
             BallisticArc = 'RULEUBA_None',
 			
             Buffs = {
@@ -216,7 +220,7 @@ UnitBlueprint {
 
             CollideFriendly = false,
 			
-            Damage = 230,
+            Damage = 220,
             DamageType = 'Normal',
 			
             DisplayName = 'Nanite Torpedo',
@@ -226,16 +230,17 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 12,
+            FiringTolerance = 5,
 			
             Label = 'Torpedo',
 			
             MaxRadius = 48,
+            MinRadius = 8,
 			
-            MuzzleSalvoDelay = 0.5,
-            MuzzleSalvoSize = 3,
+            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoSize = 5,
 
-            MuzzleVelocity = 4.5,
+            MuzzleVelocity = 4,
 			
             ProjectileId = '/projectiles/CANTorpedoNanite02/CANTorpedoNanite02_proj.bp',
             ProjectileLifetime = 7,
@@ -247,14 +252,14 @@ UnitBlueprint {
                 },
             },
             
-            RackSalvoReloadTime = 1.0,
+            RackSalvoReloadTime = 3.5,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 1,		-- 3 torps * 230  = 690 every 2.5 seconds = 270 DPS
+            RateOfFire = 1,		-- 5 torps * 220  = 1200 every 5 seconds = 240 DPS
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 15,
+            SlavedToBodyArcRange = 10,
 			
             TargetCheckInterval = 0.5,
 			
@@ -267,8 +272,19 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
         },
+		
+        {
+            BelowWaterTargetsOnly = true,
+            Damage = 200,
+            DamageFriendly = true,
+            DamageRadius = 1,
+            DamageType = 'Normal',
 
+            DummyWeapon = true,
+            FiringTolerance = 2,
+            Label = 'DeathWeapon',
+        },   
     },
 }

@@ -1,14 +1,13 @@
 local TSeaUnit =  import('/lua/defaultunits.lua').SeaUnit
 
 local AeonWeapons = import('/lua/aeonweapons.lua')
-local AIFQuasarAntiTorpedoWeapon = AeonWeapons.AIFQuasarAntiTorpedoWeapon
+local AntiTorpedo = AeonWeapons.AIFQuasarAntiTorpedoWeapon
 
 local WeaponFile = import('/lua/terranweapons.lua')
 
-local TAALinkedRailgun      = WeaponFile.TAALinkedRailgun
-local TDFGaussCannonWeapon  = WeaponFile.TDFGaussCannonWeapon
-local TANTorpedoAngler      = WeaponFile.TANTorpedoAngler
-local TIFSmartCharge        = WeaponFile.TIFSmartCharge
+local Railgun = WeaponFile.TAALinkedRailgun
+local Cannon  = WeaponFile.TDFGaussCannonWeapon
+local Torpedo = WeaponFile.TANTorpedoAngler
 
 AeonWeapons = nil
 WeaponFile = nil
@@ -21,11 +20,11 @@ UES0201 = Class(TSeaUnit) {
 
     Weapons = {
 	
-        Turret = Class(TDFGaussCannonWeapon) {},
-        AATurret = Class(TAALinkedRailgun) {},
-        Torpedo = Class(TANTorpedoAngler) {},
-        AntiTorpedo = Class(AIFQuasarAntiTorpedoWeapon) {},
-		
+        TurretF     = Class(Cannon) {},
+        TurretB     = Class(Cannon) {},
+        AATurret    = Class(Railgun) {},
+        Torpedo     = Class(Torpedo) { FxMuzzleFlash = false },
+        AntiTorpedo = Class(AntiTorpedo) {},
     },
 
     RadarThread = function(self)

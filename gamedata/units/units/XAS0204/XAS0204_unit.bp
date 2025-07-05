@@ -45,7 +45,7 @@ UnitBlueprint {
 	
     Defense = {
 
-        MissileTorpDestroy = { AttachBone = {'XAS0204'}, Radius = 3.2, RedirectRateOfFire = 9, ProjectileCategories = {'TORPEDO'} },
+        MissileTorpDestroy = { AttachBone = {'XAS0204'}, Radius = 3.2, RedirectRateOfFire = 8, ProjectileCategories = {'TORPEDO'} },
 
         ArmorType = 'Normal',
         Health = 1650,
@@ -126,6 +126,7 @@ UnitBlueprint {
         SonarRadius = 48,
 
 		RadarStealth = true,
+        SonarStealth = true,    -- when stationary
 
         VisionRadius = 28,
         WaterVisionRadius = 40,     -- better underwater vision for it's role as subhunter
@@ -148,10 +149,12 @@ UnitBlueprint {
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
         Elevation = -3,
-        MaxAcceleration = 1.3,
-        MaxBrake = 2,
-        MaxSpeed = 3.8,
-        MaxSpeedReverse = 3.8,
+
+        MaxAcceleration = 1,
+        MaxBrake = 1.5,
+        MaxSpeed = 3.5,
+        MaxSpeedReverse = 3,
+
         MaxSteerForce = 5,
         MeshExtentsX = 0.6,
         MeshExtentsY = 0.65,
@@ -159,7 +162,7 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_SurfacingSub',
         TurnRadius = 10,
-        TurnRate = 32,
+        TurnRate = 30,
     },
 	
     SelectionSizeX = 0.6,
@@ -190,7 +193,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 215,
+            Damage = 300,
             DamageType = 'Normal',
 			
             DisplayName = 'Chrono Torpedo',
@@ -200,18 +203,19 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 15,
+            FiringTolerance = 5,
 			
             Label = 'Torpedo',
 			
             MaxRadius = 48,
+            MinRadius = 8,
 			
-            MuzzleSalvoDelay = 0.5,
+            MuzzleSalvoDelay = 0.7,
             MuzzleSalvoSize = 4,
-            MuzzleVelocity = 5,
+            MuzzleVelocity = 4,
 			
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
-            ProjectileLifetime = 7,
+            ProjectileLifetime = 6.5,
 			
             RackBones = {
                 {
@@ -225,14 +229,14 @@ UnitBlueprint {
                 },
             },
             
-            RackSalvoReloadTime = 1.2,
+            RackSalvoReloadTime = 2.2,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 1,	    -- 4 torps * 215 = 860 dmg every 3.2 = 268 DPS
+            RateOfFire = 0.5,	    -- 4 torps * 300 = 1200 dmg every 5 = 240 DPS
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 15,
+            SlavedToBodyArcRange = 10,
 			
             TargetCheckInterval = 2,
 			
@@ -246,6 +250,17 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
             TrackingRadius = 1.1,
         },
+		
+        {
+            BelowWaterTargetsOnly = true,
+            Damage = 200,
+            DamageFriendly = true,
+            DamageRadius = 1,
+            DamageType = 'Normal',
 
+            DummyWeapon = true,
+            FiringTolerance = 2,
+            Label = 'DeathWeapon',
+        },   
     },
 }

@@ -2,22 +2,22 @@ local CSeaUnit =  import('/lua/defaultunits.lua').SeaUnit
 
 local CybranWeaponsFile = import('/lua/cybranweapons.lua')
 
-local CDFProtonCannonWeapon     = CybranWeaponsFile.CDFProtonCannonWeapon
-local CAAAutocannon             = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
-local CANNaniteTorpedoWeapon    = CybranWeaponsFile.CANNaniteTorpedoWeapon
-local CAMZapperWeapon           = CybranWeaponsFile.CAMZapperWeapon
+local Cannon    = CybranWeaponsFile.CDFProtonCannonWeapon
+local AA        = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
+local Torpedo   = CybranWeaponsFile.CANNaniteTorpedoWeapon
+local Zapper    = CybranWeaponsFile.CAMZapperWeapon
 
 CybranWeaponsFile = nil
 
 URS0302 = Class(CSeaUnit) {
 
     Weapons = {
-	
-        Cannon  = Class(CDFProtonCannonWeapon) {},
-        AAGun   = Class(CAAAutocannon) {},
-        Torpedo = Class(CANNaniteTorpedoWeapon) {},
-        Zapper  = Class(CAMZapperWeapon) {},
-
+        CannonF = Class(Cannon) {},
+        CannonB = Class(Cannon) {},
+        AAF     = Class(AA) {},
+        AAB     = Class(AA) {},
+        Torpedo = Class(Torpedo) { FxMuzzleFlash = false },
+        Zapper  = Class(Zapper) {},
     },
 }
 TypeClass = URS0302

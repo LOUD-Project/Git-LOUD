@@ -2,9 +2,9 @@ local ASubUnit =  import('/lua/defaultunits.lua').SubUnit
 
 local WeaponsFile = import('/lua/aeonweapons.lua')
 
-local ADFCannonOblivionWeapon       = WeaponsFile.ADFCannonOblivionWeapon02
-local AANChronoTorpedoWeapon        = WeaponsFile.AANChronoTorpedoWeapon
-local AIFQuasarAntiTorpedoWeapon    = WeaponsFile.AIFQuasarAntiTorpedoWeapon
+local Cannon         = WeaponsFile.ADFCannonOblivionWeapon02
+local Torpedo        = WeaponsFile.AANChronoTorpedoWeapon
+local AntiTorpedo    = WeaponsFile.AIFQuasarAntiTorpedoWeapon
 
 WeaponsFile = nil
 
@@ -16,9 +16,9 @@ local TrashAdd = TrashBag.Add
 UAS0401 = Class(ASubUnit) {
 
     Weapons = {
-        MainGun     = Class(ADFCannonOblivionWeapon) {},
-        Torpedo     = Class(AANChronoTorpedoWeapon) {},
-        AntiTorpedo = Class(AIFQuasarAntiTorpedoWeapon) {},
+        MainGun     = Class(Cannon) {},
+        Torpedo     = Class(Torpedo) {},
+        AntiTorpedo = Class(AntiTorpedo) {},
     },
 
     BuildAttachBone = 'Attachpoint01',
@@ -65,6 +65,8 @@ UAS0401 = Class(ASubUnit) {
             TrashAdd( self.Trash, antiMissile1)
             
         end
+        
+        self.DeathWeaponEnabled = true
 
     end,
 

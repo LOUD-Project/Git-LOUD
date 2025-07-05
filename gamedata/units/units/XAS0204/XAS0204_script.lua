@@ -1,6 +1,6 @@
 local ASubUnit =  import('/lua/defaultunits.lua').SubUnit
 
-local AANChronoTorpedoWeapon = import('/lua/aeonweapons.lua').AANChronoTorpedoWeapon
+local Torpedo = import('/lua/aeonweapons.lua').AANChronoTorpedoWeapon
 
 local MissileRedirect = import('/lua/defaultantiprojectile.lua').MissileTorpDestroy
 
@@ -11,7 +11,7 @@ XAS0204 = Class(ASubUnit) {
 
     Weapons = {
 	
-        Torpedo = Class(AANChronoTorpedoWeapon) {},
+        Torpedo = Class(Torpedo) {},
 
     },
 	
@@ -29,6 +29,20 @@ XAS0204 = Class(ASubUnit) {
             TrashAdd( self.Trash, antiMissile1)
             
         end
+        
+        self.DeathWeaponEnabled = true
+
+        -- setup callbacks to engage sonar stealth when not moving
+        local StartMoving = function(unit)
+            unit:DisableIntel('SonarStealth')
+        end
+        
+        local StopMoving = function(unit)
+            unit:EnableIntel('SonarStealth')
+        end
+        
+        self:AddOnHorizontalStartMoveCallback( StartMoving )
+        self:AddOnHorizontalStopMoveCallback( StopMoving )
 
 	end,	
     

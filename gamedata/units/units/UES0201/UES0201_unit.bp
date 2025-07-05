@@ -72,16 +72,8 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 140,
-                    ShaderName = 'Unit',
-                },
-                {
-                    AlbedoName = 'ues0201_lod1_albedo.dds',
-                    LODCutoff = 300,
-                    ShaderName = 'Unit',
-                    SpecularName = 'ues0201_lod1_specteam.dds',
-                },
+                { LODCutoff = 140, ShaderName = 'Unit' },
+                { LODCutoff = 300, ShaderName = 'Unit', AlbedoName = 'ues0201_lod1_albedo.dds', SpecularName = 'ues0201_lod1_specteam.dds' },
             },
         },
         
@@ -142,10 +134,12 @@ UnitBlueprint {
         },
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
+
         MaxAcceleration = 1.5,
         MaxBrake = 2,
         MaxSpeed = 4,
         MaxSpeedReverse = 3,
+
         MaxSteerForce = 5,
         MeshExtentsX = 0.9,
         MeshExtentsY = 1.1,
@@ -153,7 +147,7 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
         TurnRadius = 15,
-        TurnRate = 50,
+        TurnRate = 32,
     },
 	
     SelectionSizeX = 0.8,
@@ -199,24 +193,18 @@ UnitBlueprint {
             FiringRandomness = 0.2,
             FiringTolerance = 1,
 			
-            Label = 'Turret',
+            Label = 'TurretF',
 			
             MaxRadius = 55,
 
-            MuzzleVelocity = 45,
+            MuzzleVelocity = 48,
 			
             ProjectileId = '/projectiles/TDFGauss01/TDFGauss01_proj.bp',
 			ProjectileLifetime = 1.2,			
 
             RackBones = {
-                {
-                    MuzzleBones = {'Front_Turret01_Muzzle01'},
-                    RackBone = 'Front_Turret01_Barrel01',
-                },
-                {
-                    MuzzleBones = {'Front_Turret01_Muzzle02'},
-                    RackBone = 'Front_Turret01_Barrel02',
-                },
+                { MuzzleBones = {'Front_Turret01_Muzzle01'}, RackBone = 'Front_Turret01_Barrel01' },
+                { MuzzleBones = {'Front_Turret01_Muzzle02'}, RackBone = 'Front_Turret01_Barrel02' },
             },
 
             RackFireTogether = true,
@@ -253,7 +241,7 @@ UnitBlueprint {
 
             TurretYaw = 0,
             TurretYawRange = 140,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 40,
 
             Turreted = true,
         },
@@ -281,7 +269,7 @@ UnitBlueprint {
             FiringRandomness = 0.2,
             FiringTolerance = 1,
 			
-            Label = 'Turret',
+            Label = 'TurretB',
 			
             MaxRadius = 60,
 
@@ -291,14 +279,8 @@ UnitBlueprint {
 			ProjectileLifetime = 1.5,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Back_Turret01_Muzzle01'},
-                    RackBone = 'Back_Turret01_Barrel01',
-                },
-                {
-                    MuzzleBones = {'Back_Turret01_Muzzle02'},
-                    RackBone = 'Back_Turret01_Barrel02',
-                },
+                { MuzzleBones = {'Back_Turret01_Muzzle01'}, RackBone = 'Back_Turret01_Barrel01' },
+                { MuzzleBones = {'Back_Turret01_Muzzle02'}, RackBone = 'Back_Turret01_Barrel02' },
             },
 
             RackFireTogether = true,
@@ -333,7 +315,7 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 140,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 40,
             
             Turreted = true,
         },
@@ -379,14 +361,8 @@ UnitBlueprint {
             ProjectileLifetime = 0.7,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Front_Turret02_Muzzle01'},
-                    RackBone = 'Front_Turret02_Barrel01',
-                },
-                {
-                    MuzzleBones = {'Front_Turret02_Muzzle02'},
-                    RackBone = 'Front_Turret02_Barrel02',
-                },
+                { MuzzleBones = {'Front_Turret02_Muzzle01'}, RackBone = 'Front_Turret02_Barrel01' },
+                { MuzzleBones = {'Front_Turret02_Muzzle02'}, RackBone = 'Front_Turret02_Barrel02' },
             },
 
             RackFireTogether = true,
@@ -419,7 +395,7 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 70,
+            TurretYawSpeed = 60,
             
             Turreted = true,
 			UseFiringSolutionInsteadOfAimBone = true,
@@ -434,7 +410,7 @@ UnitBlueprint {
             BelowWaterTargetsOnly = true,
             CollideFriendly = false,
 			
-            Damage = 200,
+            Damage = 250,
             DamageType = 'Normal',
 			
             DisplayName = 'Angler Torpedo',
@@ -448,26 +424,24 @@ UnitBlueprint {
             Label = 'Torpedo',
 			
             MaxRadius = 44,
-			
-            MuzzleSalvoDelay = 0.6,
-            MuzzleSalvoSize = 2,
+			MinRadius = 8,
+
+            MuzzleSalvoDelay = 0.9,
+            MuzzleSalvoSize = 4,
             MuzzleVelocity = 3,
 			
             ProjectileId = '/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_proj.bp',
             ProjectileLifetime = 7,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Left_Projectile01','Right_Projectile01'},
-                    RackBone = 'Left_Projectile01',
-                },
+                { MuzzleBones = {'Left_Projectile01','Right_Projectile01'}, RackBone = 'Left_Projectile01' },
             },
             
-            RackSalvoReloadTime = 1.9,
+            RackSalvoReloadTime = 4.4,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 1,		-- 2 torps of 200 = 400 every 3.2 seconds = 125 DPS
+            RateOfFire = 0.5,		-- 4 torps of 250 = 1000 every 8 seconds = 125 DPS
 			
             TargetCheckInterval = 1,
 			
@@ -503,36 +477,32 @@ UnitBlueprint {
             FiringTolerance = 90,
 			
             HeadingArcCenter = -90,
-            HeadingArcRange = 90,
+            HeadingArcRange = 105,
 			
             Label = 'AntiTorpedo',
 			
             MaxRadius = 24,
 
-            MuzzleSalvoDelay = 0.5,
-            MuzzleVelocity = 7,
+            MuzzleVelocity = 6.5,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
             ProjectileLifetime = 3,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Left_Projectile03'},
-                    RackBone = 'Left_Projectile03',
-                },
+                { MuzzleBones = {'Left_Projectile03'}, RackBone = 'Left_Projectile03' },
             },
 
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 1,     -- controlled by MuzzleSalvoDelay and WeaponRepackTimeout - 1 every 1.5 seconds
+            RateOfFire = 2,     -- controlled by MuzzleSalvoDelay and WeaponRepackTimeout - 1 every 1.5 seconds
 			
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1,
 
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
             
-            WeaponRepackTimeout = 1,
+            WeaponRepackTimeout = 1.4,
         },
 		
         {
@@ -557,34 +527,30 @@ UnitBlueprint {
             FiringTolerance = 90,
 			
             HeadingArcCenter = 90,
-            HeadingArcRange = 90,
+            HeadingArcRange = 105,
 			
             Label = 'AntiTorpedo',
 			
             MaxRadius = 24,
 
-            MuzzleSalvoDelay = 0.5,
-            MuzzleVelocity = 7,
+            MuzzleVelocity = 6.5,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
             ProjectileLifetime = 3,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Right_Projectile03'},
-                    RackBone = 'Right_Projectile03',
-                },				
+                { MuzzleBones = {'Right_Projectile03'}, RackBone = 'Right_Projectile03' },				
             },
 
-            RateOfFire = 1,     -- controlled by MuzzleSalvoDelay and WeaponRepackTimeout - 1 every 1.5 seconds
+            RateOfFire = 2,     -- controlled by RepackTimeout - 1 every 1.5 seconds
 			
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1,
 
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
             
-            WeaponRepackTimeout = 1,
+            WeaponRepackTimeout = 1.4,
         },        
     },
 }

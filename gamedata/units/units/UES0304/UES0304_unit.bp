@@ -45,10 +45,13 @@ UnitBlueprint {
     CollisionOffsetY = -0.375,
 	
     Defense = {
+
+        MissileTorpDestroy = { AttachBone = {'UES0304'}, Radius = 3.2, RedirectRateOfFire = 9, ProjectileCategories = {'TORPEDO'} },
+
         ArmorType = 'Normal',
         Health = 4000,
         MaxHealth = 4000,
-        RegenRate = 10,
+        RegenRate = 4,
         SurfaceThreatLevel = 38,
     },
 	
@@ -57,37 +60,30 @@ UnitBlueprint {
     Display = {
         Abilities = {
             'Manual Launch',
-            '<LOC ability_personalstealth>Personal Sonar Stealth',
+            '<LOC ability_personalstealth>Personal Stealth',
             '<LOC ability_sonar>Sonar',
+            '<LOC ability_torpedodef>Torpedo Defense',
         },
+		
+        IdleEffects = { Water = { Effects = { { Bones = {0}, Scale = 0.6, Type = 'SeaIdle01' } } } },
 
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    ShaderName = 'Unit',
-                },
-                {
-                    AlbedoName = 'ues0304_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Unit',
-                    SpecularName = 'ues0304_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, ShaderName = 'Unit' },
+                { LODCutoff = 215, ShaderName = 'Unit', AlbedoName = 'ues0304_lod1_albedo.dds', SpecularName = 'ues0304_lod1_specteam.dds' },
             },
         },
 
         MovementEffects = {
             Sub = {
-                Effects = { { Bones = {'Back_Left_Exhaust','Back_Right_Exhaust'}, Type = 'BackWake' } },
+                Effects = { { Bones = {'Back_Left_Exhaust','Back_Right_Exhaust'}, Scale = 2.5, Type = 'BackWake' } },
             },
+
             Water = {
-                Effects = {
-                    { Bones = {'UES0304'}, Scale = 0.5, Type = 'LeftFrontWake' },
-                    { Bones = {'UES0304'}, Scale = 0.5, Type = 'RightFrontWake'},
-                    { Bones = {'UES0304'}, Scale = 0.4, Type = 'BackWake' },
-                },
+                Effects = { { Bones = {'Back_Left_Exhaust','Back_Right_Exhaust'}, Scale = 0.65, Type = 'BackWake' } },
             },
+
         },
 
         UniformScale = 0.045,
@@ -137,34 +133,37 @@ UnitBlueprint {
     LifeBarSize = 1.5,
 	
     Physics = {
-        BackUpDistance = 5,
+        BackUpDistance = 10,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Sub = true,
         },
         CatchUpAcc = 10,
-        DragCoefficient = 0.2,
+        DragCoefficient = 0.1,
         Elevation = -2.6,
-        MaxAcceleration = 2,
-        MaxBrake = 2,
-        MaxSpeed = 4,
-        MaxSpeedReverse = 4,
+
+        MaxAcceleration = 1.4,
+        MaxBrake = 1.1,
+        MaxSpeed = 3.8,
+        MaxSpeedReverse = 3.8,
+
         MaxSteerForce = 5,
         MeshExtentsX = 1,
         MeshExtentsY = 0.8,
         MeshExtentsZ = 3.4,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_SurfacingSub',
-        TurnRadius = 15,
-        TurnRate = 50,
+
+        TurnRadius = 12,
+        TurnRate = 36,
     },
 	
     SelectionSizeX = 0.6,
     SelectionSizeZ = 2.2,
     SelectionThickness = 0.32,
 	
-    SizeX = 0.65,
-    SizeY = 0.65,
+    SizeX = 0.75,
+    SizeY = 0.75,
     SizeZ = 3.2,
 	
     StrategicIconName = 'icon_sub3_nuke',
@@ -180,11 +179,86 @@ UnitBlueprint {
 	
     Weapon = {
         {
+            Audio = {
+                Fire            = Sound { Bank = 'UESWeapon', Cue = 'UES0203_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
+                FireUnderWater  = Sound { Bank = 'UESWeapon', Cue = 'UES0203_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
+            },
+
+            AutoInitiateAttackCommand = true,
+ 
+            BallisticArc = 'RULEUBA_None',
+			
+            Buffs = {
+            	{
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.3,
+                    Radius = 2,
+                    TargetAllow = 'LAND TECH1,NAVAL TECH1,SUBMARINE TECH2',
+                    TargetDisallow = 'WALL,COMMAND,EXPERIMENTAL',
+                },
+            },
+
+            CollideFriendly = false,
+            
+            Damage = 350,           -- most potent T2 torpedo
+            DamageType = 'Normal',
+            
+            DisplayName = 'Angler Torpedo',
+            
+            FireTargetLayerCapsTable = {
+                Sub = 'Seabed|Sub|Water',
+                Water = 'Seabed|Sub|Water',
+            },
+            
+            FiringTolerance = 60,
+            
+            Label = 'Torpedo',
+            
+            MaxRadius = 48,
+            MinRadius = 8,
+            
+            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoSize = 4,
+            
+            MuzzleVelocity = 3,
+            
+            ProjectileId = '/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_proj.bp',
+            ProjectileLifetime = 6.5,
+            
+            RackBones = {
+                { MuzzleBones = { 'UES0304' }, RackBone = 'UES0304' },
+            },
+            
+            RackSalvoReloadTime = 7.2,
+            
+            RangeCategory = 'UWRC_AntiNavy',
+            
+            RateOfFire = 1,      -- 4 torps of 350 = 1400 every 8 seconds = 175 DPS
+            
+            TargetCheckInterval = 0.5,
+            
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'STRUCTURE DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+            TrackingRadius = 1.1,
+        },
+        
+        {
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0304_Missile_Tactical', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
+
             CollideFriendly = false,
 			
             CountedProjectile = false,
@@ -207,47 +281,30 @@ UnitBlueprint {
 			
             MaxRadius = 200,
             MinRadius = 15,
-			
-            MuzzleSalvoDelay = 1,
-            MuzzleSalvoSize = 6,
-
+            
             MuzzleVelocity = 5,
+
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/TIFMissileCruise02/TIFMissileCruise02_proj.bp',
             ProjectileLifetime = 35,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Right_Projectile01'},
-                    RackBone = 'Right_Hatch01',
-                },
-                {
-                    MuzzleBones = {'Right_Projectile02'},
-                    RackBone = 'Right_Hatch02',
-                },
-                {
-                    MuzzleBones = {'Right_Projectile03'},
-                    RackBone = 'Right_Hatch03',
-                },
-                {
-                    MuzzleBones = {'Left_Projectile01'},
-                    RackBone = 'Left_Hatch01',
-                },
-                {
-                    MuzzleBones = {'Left_Projectile02'},
-                    RackBone = 'Left_Hatch02',
-                },
-                {
-                    MuzzleBones = {'Left_Projectile03'},
-                    RackBone = 'Left_Hatch03',
-                },
+                { MuzzleBones = {'Right_Projectile01'}, RackBone = 'Right_Hatch01' },
+                { MuzzleBones = {'Right_Projectile02'}, RackBone = 'Right_Hatch02' },
+                { MuzzleBones = {'Right_Projectile03'}, RackBone = 'Right_Hatch03' },
+                { MuzzleBones = {'Left_Projectile01'}, RackBone = 'Left_Hatch01' },
+                { MuzzleBones = {'Left_Projectile02'}, RackBone = 'Left_Hatch02' },
+                { MuzzleBones = {'Left_Projectile03'}, RackBone = 'Left_Hatch03' },
             },
+
+            RackSalvoReloadTime = 6,
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.1, 	---- 6 missiles = 3600 dmg every 10 seconds = 360 DPS
+            RateOfFire = 1, 	---- 6 missiles = 3600 dmg every 12 seconds = 300 DPS
 			
-            TargetCheckInterval = 2.5,
+            TargetCheckInterval = 5,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -257,17 +314,14 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
             TrackingRadius = 1.15,
         },
+
         {
             AboveWaterTargetsOnly = true,
 
             AttackGroundTries = 1,
 
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2305_Missile_Cruise',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URB2305_Missile_Cruise', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_None',
@@ -297,9 +351,11 @@ UnitBlueprint {
             MaxProjectileStorage = 3,
 
             MaxRadius = 1024,
-            MinRadius = 128,
+            MinRadius = 35,
 
             MuzzleVelocity = 0,
+
+            NotExclusive = true,
 
             NukeInnerRingDamage = 60000,
             NukeInnerRingRadius = 18,
@@ -313,15 +369,10 @@ UnitBlueprint {
             NukeWeapon = true,
 
             ProjectileId = '/projectiles/TIFMissileNuke01/TIFMissileNuke01_proj.bp',
+
             RackBones = {
-                {
-                    MuzzleBones = {'Center_Projectile01'},
-                    RackBone = 'Center_Hatch01',
-                },
-                {
-                    MuzzleBones = {'Center_Projectile02'},
-                    RackBone = 'Center_Hatch02',
-                },
+                { MuzzleBones = {'Center_Projectile01'}, RackBone = 'Center_Hatch01' },
+                { MuzzleBones = {'Center_Projectile02'}, RackBone = 'Center_Hatch02' },
             },
 
             RangeCategory = 'UWRC_IndirectFire',
@@ -333,6 +384,17 @@ UnitBlueprint {
 
             WeaponRepackTimeout = 10,
             WeaponUnpacks = true,
+        },
+        {
+            BelowWaterTargetsOnly = true,
+            Damage = 500,
+            DamageFriendly = true,
+            DamageRadius = 1,
+            DamageType = 'Normal',
+
+            DummyWeapon = true,
+            FiringTolerance = 2,
+            Label = 'DeathWeapon',
         },
     },
 }

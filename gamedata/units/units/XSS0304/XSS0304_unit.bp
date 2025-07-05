@@ -47,7 +47,7 @@ UnitBlueprint {
 	
     Defense = {
 
-        MissileTorpDestroy = { AttachBone = {'Projectile01','Exhaust01'}, Radius = 3.3, RedirectRateOfFire = 10, ProjectileCategories = {'TORPEDO'} },
+        MissileTorpDestroy = { AttachBone = {'Projectile01','Exhaust01'}, Radius = 3.3, RedirectRateOfFire = 9, ProjectileCategories = {'TORPEDO'} },
     
         ArmorType = 'Normal',
         Health = 4000,
@@ -153,18 +153,20 @@ UnitBlueprint {
 		DiveSurfaceSpeed = 3,
         DragCoefficient = 0.2,
         Elevation = -3,
-        MaxAcceleration = 2,
+
+        MaxAcceleration = 1.3,
         MaxBrake = 2,
-        MaxSpeed = 4,
-        MaxSpeedReverse = 4,
+        MaxSpeed = 3.8,
+        MaxSpeedReverse = 3.8,
+
         MaxSteerForce = 5,
         MeshExtentsX = 0.6,
         MeshExtentsY = 0.65,
         MeshExtentsZ = 2.5,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_SurfacingSub',
-        TurnRadius = 8,
-        TurnRate = 65,
+        TurnRadius = 12,
+        TurnRate = 30,
     },
 	
     SelectionSizeX = 0.6,
@@ -198,7 +200,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 275,
+            Damage = 450,
             DamageType = 'Normal',
 
             DisplayName = 'Uall Cavitation Torpedo',
@@ -214,30 +216,28 @@ UnitBlueprint {
             Label = 'Torpedo',
 			
             MaxRadius = 64,
+            MinRadius = 8,
 			
-            MuzzleSalvoDelay = 0.4,
-            MuzzleSalvoSize = 9,
+            MuzzleSalvoDelay = 0.5,
+            MuzzleSalvoSize = 7,
 
-            MuzzleVelocity = 6,
+            MuzzleVelocity = 5.5,
 			MuzzleVelocityRandom = 0.8,
             
             NotExclusive = true,
 			
             ProjectileId = '/projectiles/SANUallCavitationTorpedo03/SANUallCavitationTorpedo03_proj.bp',
-            ProjectileLifetime = 8,
+            ProjectileLifetime = 7.2,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Projectile01','Projectile02','Projectile03'},
-                    RackBone = 'Projectile02',
-                },
+                { MuzzleBones = {'Projectile01','Projectile02','Projectile03'}, RackBone = 'Projectile02' },
             },
             
-            RackSalvoReloadTime = 1.4,
+            RackSalvoReloadTime = 2.5,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 1,		-- 9 torps of 275 every 5 seconds = 495 DPS -- controlled by muzzle and reload delays
+            RateOfFire = 0.5,		-- 7 torps of 450 every 6 seconds = 525 DPS -- controlled by muzzle and reload delays
 			
             TargetCheckInterval = 2,
 			
@@ -279,7 +279,7 @@ UnitBlueprint {
             FiringRandomness = 0,
             FiringTolerance = 0.2,
 			
-            Label = 'AAAutoCannon',
+            Label = 'AA',
 			
 			LeadTarget = true,
 			
@@ -296,10 +296,7 @@ UnitBlueprint {
 			ProjectileLifetime = 0.8,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Front_Turret_Muzzle01','Front_Turret_Muzzle02'},
-                    RackBone = 'Front_Turret_Barrel01',
-                },
+                { MuzzleBones = {'Front_Turret_Muzzle01','Front_Turret_Muzzle02'}, RackBone = 'Front_Turret_Barrel01' },
             },
 
             RangeCategory = 'UWRC_AntiAir',
@@ -331,9 +328,20 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 80,
+            TurretYawSpeed = 72,
 			
             Turreted = true,
+        },
+        {
+            BelowWaterTargetsOnly = true,
+            Damage = 500,
+            DamageFriendly = true,
+            DamageRadius = 1,
+            DamageType = 'Normal',
+
+            DummyWeapon = true,
+            FiringTolerance = 2,
+            Label = 'DeathWeapon',
         },
     },
 }

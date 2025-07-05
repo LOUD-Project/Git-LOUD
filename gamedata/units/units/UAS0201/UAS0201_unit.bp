@@ -59,44 +59,27 @@ UnitBlueprint {
             '<LOC ability_radar>Radar',
             "<LOC ability_torpedodef>Torpedo Defense",            
             "<LOC ability_torpedo>Torpedoes",
+            "<LOC ability_depthcharge>Depth Charge",
         },
+
         AnimationDeath = {
-            {
-                Animation = '/units/uas0201/uas0201_adeath01.sca',
-                Weight = 100,
-            },
-            {
-                Animation = '/units/uas0201/uas0201_adeath02.sca',
-                Weight = 100,
-            },
-            {
-                Animation = '/units/uas0201/uas0201_adeath03.sca',
-                Weight = 100,
-            },
+            { Animation = '/units/uas0201/uas0201_adeath01.sca', Weight = 100 },
+            { Animation = '/units/uas0201/uas0201_adeath02.sca', Weight = 100 },
+            { Animation = '/units/uas0201/uas0201_adeath03.sca', Weight = 100 },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 140,
-                    ShaderName = 'Aeon',
-                },
-                {
-                    AlbedoName = 'uas0201_lod1_albedo.dds',
-                    LODCutoff = 300,
-                    ShaderName = 'Aeon',
-                    SpecularName = 'uas0201_lod1_specteam.dds',
-                },
+                { LODCutoff = 140, ShaderName = 'Aeon' },
+                { LODCutoff = 300, ShaderName = 'Aeon', AlbedoName = 'uas0201_lod1_albedo.dds', SpecularName = 'uas0201_lod1_specteam.dds' },
             },
         },
+
         MovementEffects = {
             Water = {
                 Effects = {
-                    {
-                        Bones = {'UAS0201'},
-                        Scale = 0.7,
-                        Type = 'BackWake',
-                    },
+                    { Bones = {'UAS0201'}, Scale = 0.7, Type = 'BackWake' },
                 },
             },
         },
@@ -148,10 +131,12 @@ UnitBlueprint {
         },
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
+
         MaxAcceleration = 1.25,
         MaxBrake = 2,
         MaxSpeed = 4,
         MaxSpeedReverse = 3,
+
         MaxSteerForce = 5,
         MeshExtentsX = 1.1,
         MeshExtentsY = 1.2,
@@ -159,7 +144,7 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
         TurnRadius = 15,
-        TurnRate = 50,
+        TurnRate = 32,
     },
 	
     SelectionSizeX = 0.8,
@@ -186,13 +171,16 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 
             Audio = {
-                BarrelLoop = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Sml_Loop', LodCutoff = 'Weapon_LodCutoff' },
-                BarrelStart = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Sml_Start', LodCutoff = 'Weapon_LodCutoff' },
-                Fire = Sound { Bank = 'UASWeapon', Cue = 'UAS0201_Cannon_Oblivion', LodCutoff = 'Weapon_LodCutoff' },
-                MuzzleChargeStart = Sound { Bank = 'UASWeapon', Cue = 'UAS0201_Cannon_Oblv_Charge', LodCutoff = 'Weapon_LodCutoff' },
+                BarrelLoop          = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Sml_Loop', LodCutoff = 'Weapon_LodCutoff' },
+                BarrelStart         = Sound { Bank = 'UAS', Cue = 'UAS_Turret_Sml_Start', LodCutoff = 'Weapon_LodCutoff' },
+                Fire                = Sound { Bank = 'UASWeapon', Cue = 'UAS0201_Cannon_Oblivion', LodCutoff = 'Weapon_LodCutoff' },
+                MuzzleChargeStart   = Sound { Bank = 'UASWeapon', Cue = 'UAS0201_Cannon_Oblv_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = 'RULEUBA_LowArc',
+
+            CannotAttackGround = true,
+
             CollideFriendly = false,
 			
             Damage = 875,
@@ -222,10 +210,7 @@ UnitBlueprint {
 			ProjectileLifetime = 2,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Turret_Front_Muzzle'},
-                    RackBone = 'Turret_Front_Barrel02',
-                },
+                { MuzzleBones = {'Turret_Front_Muzzle'}, RackBone = 'Turret_Front_Barrel02' },
             },
 
             RackRecoilDistance = -1,
@@ -261,7 +246,62 @@ UnitBlueprint {
 			
             Turreted = true,
         },
+        { 
+            AutoInitiateAttackCommand = true, 
 
+            Audio = { 
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0204_Depth_Charge', LodCutoff = 'Weapon_LodCutoff' }, 
+            }, 
+ 
+            BelowWaterTargetsOnly = true, 
+
+            CollideFriendly = false, 
+
+            Damage = 75, 
+            DamageRadius = 2.5, 
+            DamageType = 'Normal', 
+
+            DisplayName = 'Harmonic Depth Charge', 
+
+            FireTargetLayerCapsTable = { 
+                Water = 'Seabed|Sub|Water', 
+            }, 
+
+            FiringRandomness = 7, 
+            FiringTolerance = 18, 
+
+            Label = 'DepthCharge',
+
+            MaxRadius = 12, 
+ 
+            MuzzleSalvoDelay = 0.3, 
+            MuzzleSalvoSize = 2, 
+ 
+            MuzzleVelocity = 3.5,
+
+            NotExclusive = true, 
+
+            ProjectileId = '/projectiles/AANDepthCharge01/AANDepthCharge01_proj.bp', 
+			ProjectileLifetime = 5.5, 
+
+            RackBones = { 
+                { MuzzleBones = {'Projectile02','Projectile04'}, RackBone = 'Projectile02' },
+            }, 
+ 
+            RackSalvoReloadTime = 5.2, 
+ 
+            RateOfFire = 0.5,       -- about 26dps SUB, controlled by Rack Salvo reload and muzzle salvo delay 
+ 
+            TargetCheckInterval = 2, 
+             
+            TargetPriorities = { 
+                'SUBMARINE', 
+                'SUBMERSIBLE', 
+            }, 
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+			
+            TrackingRadius = 2,
+        },
         {
             Audio = {
                 Fire = Sound { Bank = 'UASWeapon', Cue = 'UAS0201_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
@@ -284,27 +324,25 @@ UnitBlueprint {
             Label = 'Torpedo',
 			
             MaxRadius = 40,
+            MinRadius = 8,
 			
-            MuzzleSalvoDelay = 0.8,
+            MuzzleSalvoDelay = 0.9,
             MuzzleSalvoSize = 4,
 
-            MuzzleVelocity = 5,
+            MuzzleVelocity = 4,
 			
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
-            ProjectileLifetime = 5,
+            ProjectileLifetime = 6,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Projectile01','Projectile03','Projectile02','Projectile04'},
-                    RackBone = 'Projectile01',
-                },
+                { MuzzleBones = {'Projectile01','Projectile03'}, RackBone = 'Projectile01' },
             },
             
-            RackSalvoReloadTime = 2.5,
+            RackSalvoReloadTime = 3.4,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 1,		-- 4 torps of 200 = 800 damage every 5.7 seconds = 140 DPS Sub
+            RateOfFire = 1,		-- 4 torps of 200 = 800 damage every 7 seconds = 115 DPS Sub
 			
             TargetCheckInterval = 2,
 			
@@ -345,36 +383,33 @@ UnitBlueprint {
             FiringTolerance = 90,
 			
             HeadingArcCenter = -85,
-            HeadingArcRange = 90,
+            HeadingArcRange = 95,
 			
             Label = 'AntiTorpedo1',
 			
             MaxRadius = 28,
+            MinRadius = 6,
 			
-            MuzzleSalvoDelay = 0.5,
-            MuzzleVelocity = 7.5,
+            MuzzleVelocity = 6,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
-            ProjectileLifetime = 3,
+            ProjectileLifetime = 3.5,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Projectile06'},
-                    RackBone = 'Projectile06',
-                },
+                { MuzzleBones = {'Projectile06'}, RackBone = 'Projectile06' },
             },
 
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 1,     -- controlled by salvodelay and WeaponRepackTimeout - 1 every 1.5 seconds
+            RateOfFire = 0.5,     -- controlled by WeaponRepackTimeout - 1 every 2 seconds
 			
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1,
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
             
-            WeaponRepackTimeout = 1,
+            WeaponRepackTimeout = 1.5,
         },
 		
         -- FLANK MOUNTED ANTITORP -- Left
@@ -402,34 +437,31 @@ UnitBlueprint {
             FiringTolerance = 90,
 			
             HeadingArcCenter = 85,
-            HeadingArcRange = 90,
+            HeadingArcRange = 95,
 			
             Label = 'AntiTorpedo2',
 			
             MaxRadius = 28,
+            MinRadius = 6,
 
-            MuzzleSalvoDelay = 0.5,			
-            MuzzleVelocity = 7.5,
+            MuzzleVelocity = 6,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
-            ProjectileLifetime = 3,
+            ProjectileLifetime = 3.5,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Projectile08'},
-                    RackBone = 'Projectile08',
-                },
+                { MuzzleBones = {'Projectile08'}, RackBone = 'Projectile08' },
             },
 
-            RateOfFire = 1,
+            RateOfFire = 0.5,
 			
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1,
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
 
-            WeaponRepackTimeout = 1,            
+            WeaponRepackTimeout = 1.5,            
         },
 
         -- REAR MOUNTED ANTITORP
@@ -462,29 +494,27 @@ UnitBlueprint {
             Label = 'AntiTorpedo3',
 			
             MaxRadius = 28,
+            MinRadius = 6,
 
-            MuzzleSalvoDelay = 0.5,
-            MuzzleVelocity = 7.5,
+            MuzzleVelocity = 7,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
-            ProjectileLifetime = 3,
+            ProjectileLifetime = 3.3,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Projectile05'},
-                    RackBone = 'Projectile05',
-                },				
+                { MuzzleBones = {'Projectile05'}, RackBone = 'Projectile05' },				
             },
 
-            RateOfFire = 1,
+            RateOfFire = 2,         -- every 1.5 seconds due to repack timeout
 			
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1,
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
 
-            WeaponRepackTimeout = 1,
+            WeaponRepackTimeout = 1.4,
         },		
+
     },
 }

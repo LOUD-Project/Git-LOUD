@@ -1,7 +1,7 @@
 local SSubUnit =  import('/lua/defaultunits.lua').SubUnit
 
-local SANUallCavitationTorpedo = import('/lua/seraphimweapons.lua').SANUallCavitationTorpedo
-local SAALosaareAutoCannonWeapon = import('/lua/seraphimweapons.lua').SAALosaareAutoCannonWeaponSeaUnit
+local Torpedo   = import('/lua/seraphimweapons.lua').SANUallCavitationTorpedo
+local Cannon    = import('/lua/seraphimweapons.lua').SAALosaareAutoCannonWeaponSeaUnit
 
 local MissileRedirect = import('/lua/defaultantiprojectile.lua').MissileTorpDestroy
 
@@ -12,9 +12,8 @@ XSS0304 = Class(SSubUnit) {
 
     Weapons = {
 	
-        Torpedo = Class(SANUallCavitationTorpedo) {},
-
-        AAAutoCannon = Class(SAALosaareAutoCannonWeapon) {},
+        Torpedo = Class(Torpedo) {},
+        AA      = Class(Cannon) {},
     },
     
     OnStopBeingBuilt = function(self,builder,layer)
@@ -38,7 +37,8 @@ XSS0304 = Class(SSubUnit) {
         else
             ChangeState( self, self.ClosedState )
         end
-		
+        
+        self.DeathWeaponEnabled = true
     end,
 
     OnLayerChange = function( self, new, old )
@@ -46,15 +46,10 @@ XSS0304 = Class(SSubUnit) {
         SSubUnit.OnLayerChange(self, new, old)
 		
         if new == 'Water' then
-		
             ChangeState( self, self.OpenState )
-			
         elseif new == 'Sub' then
-		
             ChangeState( self, self.ClosedState )
-			
         end
-		
     end,
     
     OpenState = State() {
@@ -72,7 +67,6 @@ XSS0304 = Class(SSubUnit) {
             self.CannonAnim:SetRate(bp.Display.CannonOpenRate or 1)
 			
             WaitFor(self.CannonAnim)
-			
         end,
     },
     
@@ -87,11 +81,8 @@ XSS0304 = Class(SSubUnit) {
                 self.CannonAnim:SetRate( -1 * ( bp.Display.CannonOpenRate or 1 ) )
 				
                 WaitFor(self.CannonAnim)
-				
             end
-			
         end,
-		
     },
 	
 }

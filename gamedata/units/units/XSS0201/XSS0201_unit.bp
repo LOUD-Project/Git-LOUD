@@ -49,7 +49,7 @@ UnitBlueprint {
         MaxHealth = 7000,
         RegenRate = 6,
 
-        SubThreatLevel = 30,
+        SubThreatLevel = 23,
         SurfaceThreatLevel = 27,
     },
 	
@@ -61,6 +61,7 @@ UnitBlueprint {
             '<LOC ability_radar>Radar',
             '<LOC ability_sonar>Sonar',
             "<LOC ability_torpedo>Torpedoes",
+            "<LOC ability_depthcharge>Depth Charge",            
             '<LOC ability_torpedodef>Torpedo Defense',
             '<LOC ability_submersible>Submersible',
         },
@@ -136,8 +137,9 @@ UnitBlueprint {
 
         RadarRadius = 60,
         SonarRadius = 44,
-        
-        SonarStealth = true,
+
+        RadarStealth = true,    -- when submerged
+        SonarStealth = true,    -- when stationary
         
         VisionRadius = 32,
         WaterVisionRadius = 32,
@@ -160,12 +162,15 @@ UnitBlueprint {
         },
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
+
 		DiveSurfaceSpeed = 3.0,
         Elevation = -2.5,
-        MaxAcceleration = 2,
-        MaxBrake = 2.5,
-        MaxSpeed = 4,
-        MaxSpeedReverse = 4,
+
+        MaxAcceleration = 1.6,
+        MaxBrake = 2.4,
+        MaxSpeed = 4,           -- 3.4 when submerged via script (85%)
+        MaxSpeedReverse = 3,
+
         MaxSteerForce = 5,
         MeshExtentsX = 1.1,
         MeshExtentsY = 1.1,
@@ -210,14 +215,15 @@ UnitBlueprint {
 			
             BeamCollisionDelay = 0,
             BeamLifetime = 1,
-            
+
             CannotAttackGround = true,
+            
             CollideFriendly = false,
 			
             Damage = 54,		-- 540 damage on fire
             DamageType = 'Normal',
 			
-            DisplayName = 'Ultrachromatic Beam Generator',
+            DisplayName = 'Beam',
 			
             DoNotCollideList = {'TORPEDO','MISSILE'},
 			
@@ -227,7 +233,7 @@ UnitBlueprint {
 			
             FiringTolerance = 0,
 			
-            Label = 'Turret',
+            Label = 'TurretF',
 			
             MaxRadius = 56,
 			
@@ -236,17 +242,15 @@ UnitBlueprint {
             NotExclusive = true,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Front_Turret_Muzzle'},
-                    RackBone = 'Front_Turret_Barrel',
-                },
+                { MuzzleBones = {'Front_Turret_Muzzle'}, RackBone = 'Front_Turret_Barrel' },
             },
             
             RackSalvoReloadTime = 3.0,
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- 540 damage every 4 seconds = 135 DPS
+            RateOfFire = 0.5,		-- 540 damage every 4 seconds = 135 DPS
+
 			ReTargetOnMiss = true,
 			
             SlavedToBody = true,
@@ -290,14 +294,15 @@ UnitBlueprint {
 			
             BeamCollisionDelay = 0,
             BeamLifetime = 1,
-            
+
             CannotAttackGround = true,
+            
             CollideFriendly = false,
 			
             Damage = 54,		-- 540 damage on fire
             DamageType = 'Normal',
 			
-            DisplayName = 'Ultrachromatic Beam Generator',
+            DisplayName = 'Beam',
 			
             DoNotCollideList = {'TORPEDO','MISSILE'},
 			
@@ -305,7 +310,7 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-            Label = 'Turret',
+            Label = 'TurretB',
 			
             MaxRadius = 56,
 			
@@ -324,7 +329,8 @@ UnitBlueprint {
             
             RackSalvoReloadTime = 3.0,
 			
-            RateOfFire = 1,		-- 540 damage every 4 seconds = 135 DPS
+            RateOfFire = 0.5,		-- 540 damage every 4 seconds = 135 DPS
+
 			ReTargetOnMiss = true,
 			
             SlavedToBody = true,
@@ -338,7 +344,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Back_Turret_Muzzle',
             TurretBonePitch = 'Back_Turret_Barrel',
@@ -354,7 +360,63 @@ UnitBlueprint {
 			
             Turreted = true,
         },
-		
+ 
+        { 
+            AutoInitiateAttackCommand = true, 
+
+            Audio = { 
+                Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0204_Depth_Charge', LodCutoff = 'Weapon_LodCutoff' }, 
+            }, 
+ 
+            BelowWaterTargetsOnly = true, 
+
+            CollideFriendly = false, 
+
+            Damage = 75, 
+            DamageRadius = 2.5, 
+            DamageType = 'Normal', 
+
+            DisplayName = 'Harmonic Depth Charge', 
+
+            FireTargetLayerCapsTable = { 
+                Water = 'Seabed|Sub|Water', 
+            }, 
+
+            FiringRandomness = 7, 
+            FiringTolerance = 18, 
+
+            Label = 'DepthCharge',      -- only active when on the surface 
+
+            MaxRadius = 12, 
+ 
+            MuzzleSalvoDelay = 0.3, 
+            MuzzleSalvoSize = 2, 
+ 
+            MuzzleVelocity = 4,
+
+            NotExclusive = true, 
+
+            ProjectileId = '/projectiles/AANDepthCharge01/AANDepthCharge01_proj.bp', 
+			ProjectileLifetime = 5.5, 
+
+            RackBones = { 
+                { MuzzleBones = {'XSS0201'}, RackBone = 'XSS0201' }, 
+            }, 
+ 
+            RackSalvoReloadTime = 5.2, 
+ 
+            RateOfFire = 0.5,       -- about 26dps SUB, controlled by Rack Salvo reload and muzzle salvo delay 
+ 
+            TargetCheckInterval = 2, 
+             
+            TargetPriorities = { 
+                'SUBMARINE', 
+                'SUBMERSIBLE', 
+            }, 
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+			
+            TrackingRadius = 2,
+        }, 		
         {
             Audio = {
                 Fire            = Sound { Bank = 'XSS_Weapon', Cue = 'XSS0201_AnaIt_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
@@ -364,7 +426,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 300,
+            Damage = 250,
             DamageType = 'Normal',
 			
             DisplayName = 'Ana-it Torpedo Launcher',
@@ -374,34 +436,32 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 12,
+            FiringTolerance = 10,
 			
             Label = 'Torpedo',
 			
             MaxRadius = 44,
+            MinRadius = 8,
 			
             MuzzleSalvoDelay = 0.6,
-            MuzzleSalvoSize = 2,
+            MuzzleSalvoSize = 4,
 
-            MuzzleVelocity = 3,
+            MuzzleVelocity = 3.4,
 
             NotExclusive = true,
 
             ProjectileId = '/projectiles/SANAnaitTorpedo01/SANAnaitTorpedo01_proj.bp',
-            ProjectileLifetime = 7,
+            ProjectileLifetime = 7.5,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Projectile01','Projectile02'},
-                    RackBone = 'Projectile01',
-                },
+                { MuzzleBones = {'Projectile01'}, RackBone = 'Projectile01' },
             },
             
-            RackSalvoReloadTime = 1.2,
+            RackSalvoReloadTime = 2.6,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 1,		-- 2 torps of 300 = 600 every 2.4 = 250 DPS
+            RateOfFire = 0.2,		-- 4 torps of 250 = 1000 every 5 = 200 DPS
 			
             TargetCheckInterval = 1,
 			
@@ -414,6 +474,21 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+			
+            TurretBoneMuzzle = 'Projectile01',
+            TurretBonePitch = 'Projectile01',
+            TurretBoneYaw = 'Projectile01',
+			
+            TurretPitch = 0,
+            TurretPitchRange = 30,
+            TurretPitchSpeed = 60,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 48,
+			
+            Turreted = true,
+            
         },
 		
         {
@@ -436,38 +511,34 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 40,
+            FiringTolerance = 35,
 			
             Label = 'AntiTorpedo',
 
             MaxRadius = 24,
             MinRadius = 6,
 
-            MuzzleSalvoDelay = 0.6,
-            MuzzleVelocity = 8,
+            MuzzleVelocity = 6.5,
 			
             ProjectileId = '/projectiles/SANAjelluAntiTorpedo01/SANAjelluAntiTorpedo01_proj.bp',
             ProjectileLifetime = 3,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Projectile02'},
-                    RackBone = 'Projectile02',
-                },
+                { MuzzleBones = {'Projectile02'}, RackBone = 'Projectile02' },
             },
 
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 1,     -- controlled by MuzzleSalvoDelay and WeaponRepackTimeout
+            RateOfFire = 2,     -- controlled by RepackTimeout
 			
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1,
 			
             TargetRestrictOnlyAllow = 'TORPEDO',
             TargetType = 'RULEWTT_Projectile',
 			
-            TurretBoneMuzzle = 'Exhaust01',
-            TurretBonePitch = 'Exhaust01',
-            TurretBoneYaw = 'Exhaust01',
+            TurretBoneMuzzle = 'Projectile02',
+            TurretBonePitch = 'Projectile02',
+            TurretBoneYaw = 'Projectile02',
 			
             TurretPitch = 0,
             TurretPitchRange = 30,
@@ -475,11 +546,23 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 65,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
             
-            WeaponRepackTimeout = 0.9,
+            WeaponRepackTimeout = 1.4,
         },
+          		
+        {
+            BelowWaterTargetsOnly = true,
+            Damage = 200,
+            DamageFriendly = true,
+            DamageRadius = 1,
+            DamageType = 'Normal',
+
+            DummyWeapon = true,
+            FiringTolerance = 2,
+            Label = 'DeathWeapon',
+        },   
     },
 }
