@@ -1757,10 +1757,10 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
     end
 
     if tonumber(gameInfo.GameOptions['UnitCap']) < 400 then
-        AddChatText("Unit Cap is too low. Please set it between 400 and 5000.")
+        AddChatText("Unit Cap is too low. Please set it between 400 and 6500.")
         return
         
-    elseif tonumber(gameInfo.GameOptions['UnitCap']) > 5000 and not skipUnitCapCheck then
+    elseif tonumber(gameInfo.GameOptions['UnitCap']) > 6500 and not skipUnitCapCheck then
     	
 		UIUtil.QuickDialog(GUI, "Your unit cap is Excessively high. Do you still wish to launch?",
 						   "<LOC _Yes>", function() TryLaunch(false, false, false, true) end,
