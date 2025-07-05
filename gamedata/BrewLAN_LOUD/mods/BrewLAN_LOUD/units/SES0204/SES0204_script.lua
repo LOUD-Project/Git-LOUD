@@ -2,8 +2,8 @@ local TSubUnit =  import('/lua/defaultunits.lua').SubUnit
 
 local WeaponFile = import('/lua/terranweapons.lua')
 
-local TANTorpedoAngler          = WeaponFile.TANTorpedoAngler
-local TAAFlakArtilleryCannon    = WeaponFile.TAAFlakArtilleryCannon
+local Torpedo       = WeaponFile.TANTorpedoAngler
+local FlakCannon    = WeaponFile.TAAFlakArtilleryCannon
 
 WeaponFile = nil
 
@@ -17,10 +17,8 @@ WeaponFile = nil
 SES0204 = Class(TSubUnit) {
 
     Weapons = {
-
-        Torpedo = Class(TANTorpedoAngler) {},
-        AAGun = Class(TAAFlakArtilleryCannon) {},
-
+        Torpedo = Class(Torpedo) {},
+        AAGun = Class(FlakCannon) {},
     },
     
 	
@@ -38,9 +36,23 @@ SES0204 = Class(TSubUnit) {
             TrashAdd( self.Trash, antiMissile1)
             
         end
+        
+        self.DeathWeaponEnabled = true
+
+        -- setup callbacks to engage sonar stealth when not moving
+        local StartMoving = function(unit)
+            unit:DisableIntel('SonarStealth')
+        end
+        
+        local StopMoving = function(unit)
+            unit:EnableIntel('SonarStealth')
+        end
+        
+        self:AddOnHorizontalStartMoveCallback( StartMoving )
+        self:AddOnHorizontalStopMoveCallback( StopMoving )
 
 	end,	
-        
+
 }
 
 TypeClass = SES0204

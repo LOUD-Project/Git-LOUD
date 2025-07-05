@@ -131,6 +131,7 @@ UnitBlueprint {
         FreeIntel = true,
 
         RadarStealth = true,
+        SonarStealth = true,    -- when stationary
         
         SonarRadius = 52,
         VisionRadius = 28,
@@ -145,10 +146,12 @@ UnitBlueprint {
         BackUpDistance = 8,
         CatchUpAcc = 10,
         Elevation = -2.8,
-        MaxAcceleration = 1.4,
-        MaxBrake = 2,
-        MaxSpeed = 3.8,
-        MaxSpeedReverse = 3.8,
+
+        MaxAcceleration = 1.1,
+        MaxBrake = 1.5,
+        MaxSpeed = 3.5,
+        MaxSpeedReverse = 3,
+
         MaxSteerForce = 5,
         MeshExtentsX = 0.6,
         MeshExtentsY = 0.75,
@@ -156,7 +159,7 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_SurfacingSub',
         TurnRadius = 10,
-        TurnRate = 32,
+        TurnRate = 30,
     },
     
     SelectionSizeX = 0.36,
@@ -187,7 +190,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
             
-            Damage = 260,           -- most potent T2 torpedo
+            Damage = 345,           -- most potent T2 torpedo
             DamageType = 'Normal',
             
             DisplayName = 'Angler Torpedo',
@@ -197,29 +200,30 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
             
-            FiringTolerance = 12,
+            FiringTolerance = 5,
             
             Label = 'Torpedo',
             
             MaxRadius = 48,
+            MinRadius = 8,
             
-            MuzzleSalvoDelay = 0.5,
-            MuzzleSalvoSize = 2,
+            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoSize = 4,
             
             MuzzleVelocity = 3,
             
             ProjectileId = '/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_proj.bp',
-            ProjectileLifetime = 7,
+            ProjectileLifetime = 6.5,
             
             RackBones = {
                 { MuzzleBones = { 'Niode_L', 'Niode_R' }, RackBone = 'Niode_M' },
             },
             
-            RackSalvoReloadTime = 0.8,
+            RackSalvoReloadTime = 3.4,
             
             RangeCategory = 'UWRC_AntiNavy',
             
-            RateOfFire = 1,      -- 2 torps of 260 = 520 every 1.8 seconds = 277 DPS
+            RateOfFire = 1,      -- 4 torps of 345 = 1380 every 5 seconds = 275 DPS
             
             TargetCheckInterval = 0.5,
             
@@ -309,6 +313,17 @@ UnitBlueprint {
             
             Turreted = true,
         },
+		
+        {
+            BelowWaterTargetsOnly = true,
+            Damage = 200,
+            DamageFriendly = true,
+            DamageRadius = 1,
+            DamageType = 'Normal',
 
+            DummyWeapon = true,
+            FiringTolerance = 2,
+            Label = 'DeathWeapon',
+        },   
     },
 }
