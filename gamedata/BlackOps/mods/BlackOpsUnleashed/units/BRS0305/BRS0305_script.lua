@@ -2,9 +2,9 @@ local CSubUnit = import('/lua/defaultunits.lua').SubUnit
 
 local WeaponsFile = import('/lua/cybranweapons.lua')
 
-local CANNaniteTorpedoWeapon        = WeaponsFile.CANNaniteTorpedoWeapon
-local CDFElectronBolterWeapon       = WeaponsFile.CDFElectronBolterWeapon
-local CKrilTorpedoLauncherWeapon    = WeaponsFile.CKrilTorpedoLauncherWeapon
+local Torpedo   = WeaponsFile.CANNaniteTorpedoWeapon
+local Bolter    = WeaponsFile.CDFElectronBolterWeapon
+local Krill     = WeaponsFile.CKrilTorpedoLauncherWeapon
 
 WeaponsFile = nil
 
@@ -13,9 +13,9 @@ local TorpRedirectField = import('/mods/BlackOpsUnleashed/lua/BlackOpsdefaultant
 BRS0305 = Class(CSubUnit) {
     
     Weapons = {
-        DeckGun = Class(CDFElectronBolterWeapon) {},
-        Torpedo01 = Class(CANNaniteTorpedoWeapon) {},
-        Torpedo02 = Class(CKrilTorpedoLauncherWeapon) {},
+        DeckGun     = Class(Bolter) {},
+        Torpedo     = Class(Torpedo) { FxMuzzleFlash = false },
+        KrilTorp    = Class(Krill) {},
     },
 	
     OnStopBeingBuilt = function(self, builder, layer)
@@ -23,13 +23,9 @@ BRS0305 = Class(CSubUnit) {
         CSubUnit.OnStopBeingBuilt(self,builder,layer)
 		
         if layer == 'Water' then
-		
             ChangeState( self, self.OpenState )
-			
         else
-		
             ChangeState( self, self.ClosedState )
-			
         end
 
         local bp = self:GetBlueprint().Defense.TorpRedirectField01
@@ -37,7 +33,8 @@ BRS0305 = Class(CSubUnit) {
         local TorpRedirectField01 = TorpRedirectField { Owner = self, Radius = bp.Radius, AttachBone = bp.AttachBone, RedirectRateOfFire = bp.RedirectRateOfFire }
 		
         self.Trash:Add(TorpRedirectField01)
-
+        
+        self.DeathWeaponEnabled = true
     end,
     
 	OnLayerChange = function( self, new, old )
@@ -45,15 +42,10 @@ BRS0305 = Class(CSubUnit) {
         CSubUnit.OnLayerChange(self, new, old)
 		
         if new == 'Water' then
-		
             ChangeState( self, self.OpenState )
-			
         elseif new == 'Sub' then
-		
             ChangeState( self, self.ClosedState )
-			
         end
-		
     end,
 	
 	OpenState = State() {
@@ -71,9 +63,7 @@ BRS0305 = Class(CSubUnit) {
             self.CannonAnim:SetRate(bp2.Display.CannonOpenRate or 1)
 			
             WaitFor(self.CannonAnim)
-			
         end,
-		
     },
     
     ClosedState = State() {
@@ -87,11 +77,8 @@ BRS0305 = Class(CSubUnit) {
                 self.CannonAnim:SetRate( -1 * ( bp2.Display.CannonOpenRate or 1 ) )
 				
                 WaitFor(self.CannonAnim)
-				
             end
-			
         end,
-		
     },
 	
 }

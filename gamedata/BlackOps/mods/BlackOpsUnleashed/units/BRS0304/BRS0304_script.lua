@@ -2,14 +2,13 @@ local CSeaUnit = import('/lua/defaultunits.lua').SeaUnit
 
 local CybranWeaponsFile = import('/lua/cybranweapons.lua')
 
-local CDFProtonCannonWeapon     = CybranWeaponsFile.CDFProtonCannonWeapon
-local CAANanoDartWeapon         = CybranWeaponsFile.CAANanoDartWeapon
-local CAMZapperWeapon           = CybranWeaponsFile.CAMZapperWeapon
-local CANNaniteTorpedoWeapon    = CybranWeaponsFile.CANNaniteTorpedoWeapon
+local Cannon    = CybranWeaponsFile.CDFProtonCannonWeapon
+local AA        = CybranWeaponsFile.CAANanoDartWeapon
+local Zapper    = CybranWeaponsFile.CAMZapperWeapon
+local Torpedo   = CybranWeaponsFile.CANNaniteTorpedoWeapon
 
-local AIFQuasarAntiTorpedoWeapon = import('/lua/aeonweapons.lua').AIFQuasarAntiTorpedoWeapon
-
-local MicrowaveLaser             = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').MartyrHeavyMicrowaveLaserGenerator
+local AntiTorpedo = import('/lua/aeonweapons.lua').AIFQuasarAntiTorpedoWeapon
+local Laser       = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').MartyrHeavyMicrowaveLaserGenerator
 
 CybranWeaponsFile = nil
 
@@ -18,17 +17,17 @@ BRS0304 = Class(CSeaUnit) {
 
     Weapons = {
 	
-        ParticleGun     = Class(CDFProtonCannonWeapon) {},
+        ParticleGun     = Class(Cannon) {},
 
-        RightGun        = Class(MicrowaveLaser) {},
-        LeftGun         = Class(MicrowaveLaser) {},
+        RightGun        = Class(Laser) {},
+        LeftGun         = Class(Laser) {},
 		
-        AAGun           = Class(CAANanoDartWeapon) {},
-        GroundGun       = Class(CAANanoDartWeapon) {},
+        AAGun           = Class(AA) {},
+        GroundGun       = Class(AA) {},
 		
-        Zapper          = Class(CAMZapperWeapon) {},
-        Torpedo         = Class(CANNaniteTorpedoWeapon) {},
-        AntiTorpedo     = Class(AIFQuasarAntiTorpedoWeapon) {},
+        Zapper          = Class(Zapper) {},
+        Torpedo         = Class(Torpedo) { FxMuzzleFlash = false },
+        AntiTorpedo     = Class(AntiTorpedo) {},
 		
     },
     

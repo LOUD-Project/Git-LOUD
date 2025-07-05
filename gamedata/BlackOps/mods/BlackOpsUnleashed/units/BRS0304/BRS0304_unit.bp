@@ -78,24 +78,9 @@ UnitBlueprint {
         },
         
         AnimationDeath = {
-            {
-                Animation = '/mods/BlackOpsUnleashed/units/BRS0304/BRS0304_asink.sca',
-                AnimationRateMax = 1.2,
-                AnimationRateMin = 0.8,
-                Weight = 100,
-            },
-            {
-                Animation = '/mods/BlackOpsUnleashed/units/BRS0304/BRS0304_asink02.sca',
-                AnimationRateMax = 1.2,
-                AnimationRateMin = 0.8,
-                Weight = 100,
-            },
-            {
-                Animation = '/mods/BlackOpsUnleashed/units/BRS0304/BRS0304_asink03.sca',
-                AnimationRateMax = 1.2,
-                AnimationRateMin = 0.8,
-                Weight = 100,
-            },
+            { Animation = '/mods/BlackOpsUnleashed/units/BRS0304/BRS0304_asink.sca', AnimationRateMax = 1.2, AnimationRateMin = 0.8, Weight = 100 },
+            { Animation = '/mods/BlackOpsUnleashed/units/BRS0304/BRS0304_asink02.sca', AnimationRateMax = 1.2, AnimationRateMin = 0.8, Weight = 100 },
+            { Animation = '/mods/BlackOpsUnleashed/units/BRS0304/BRS0304_asink03.sca', AnimationRateMax = 1.2, AnimationRateMin = 0.8, Weight = 100 },
         },
         
         IdleEffects = {
@@ -176,13 +161,16 @@ UnitBlueprint {
         },
         CatchUpAcc = 8,
         DragCoefficient = 0.2,
+
         MaxAcceleration = 1.4,
         MaxBrake = 3.0,
         MaxSpeed = 4.2,
         MaxSpeedReverse = 4,
+
         MaxSteerForce = 7,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
+
         TurnRadius = 24,
         TurnRate = 40,
     },
@@ -249,10 +237,7 @@ UnitBlueprint {
             ProjectileLifetime = 2.2,			
 
             RackBones = {
-                {
-                    MuzzleBones = {'Front_Right_Muzzle','Front_Left_Muzzle'},
-                    RackBone = 'front_middle_barrel01',
-                },
+                { MuzzleBones = {'Front_Right_Muzzle','Front_Left_Muzzle'}, RackBone = 'front_middle_barrel01' },
             },
 
             RackRecoilDistance = -1.5,
@@ -328,10 +313,7 @@ UnitBlueprint {
             ProjectileLifetime = 1.9,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Front_Right_Muzzle01','Front_Left_Muzzle01'},
-                    RackBone = 'front_barrel',
-                },
+                { MuzzleBones = {'Front_Right_Muzzle01','Front_Left_Muzzle01'}, RackBone = 'front_barrel' },
             },
 
             RackRecoilDistance = -1,
@@ -381,7 +363,7 @@ UnitBlueprint {
             },
 
             BallisticArc = 'RULEUBA_None',
-            CannotAttackGround = true,
+
             CollideFriendly = false,
 			
             BeamCollisionDelay = 0,
@@ -413,10 +395,7 @@ UnitBlueprint {
             DoNotCollideList = {'MISSILE','TORPEDO'},
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Right_Right_Muzzle','Right_Left_Muzzle'},
-                    RackBone = 'right_barrel',
-                },
+                { MuzzleBones = {'Right_Right_Muzzle','Right_Left_Muzzle'}, RackBone = 'right_barrel' },
             },
 			
             RateOfFire = 0.5,	-- 200 DPS Surface
@@ -469,8 +448,6 @@ UnitBlueprint {
             BeamCollisionDelay = 0,
             BeamLifetime = 1.0,
 
-            CannotAttackGround = true,			
-
             Damage = 20,	-- 200dmg * 2 muzzles = 400dmg
             DamageType = 'Normal',
 			
@@ -497,10 +474,7 @@ UnitBlueprint {
 			DoNotCollideList = {'MISSILE','TORPEDO'},
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Left_Right_Muzzle','Left_Left_Muzzle'},
-                    RackBone = 'left_barrel',
-                },
+                { MuzzleBones = {'Left_Right_Muzzle','Left_Left_Muzzle'}, RackBone = 'left_barrel' },
             },
 			
             RateOfFire = 0.5,		-- 200 DPS Surface
@@ -724,31 +698,29 @@ UnitBlueprint {
             Label = 'Torpedo',
 			
             MaxRadius = 40,
+            MinRadius = 8,
 			
-            MuzzleSalvoDelay = 0.7,
+            MuzzleSalvoDelay = 0.6,
             MuzzleSalvoSize = 4,
-            MuzzleVelocity = 5,
+            MuzzleVelocity = 3.5,
 			
             ProjectileId = '/projectiles/CANTorpedoNanite02/CANTorpedoNanite02_proj.bp',
-            ProjectileLifetime = 8,
+            ProjectileLifetime = 6.8,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Torp01','Torp03','Torp02','Torp04'},
-                    RackBone = 'Torp01',
-                },
+                { MuzzleBones = {'Torp01','Torp03','Torp02','Torp04'}, RackBone = 'Torp01' },
             },
 
-            RackSalvoReloadTime = 2.1,  -- firing cycle is 4.9 seconds
+            RackSalvoReloadTime = 2.8,  -- firing cycle is 5 seconds
             
             RangeCategory = 'UWRC_AntiNavy',
 			
-			RateOfFire = 1,	-- 195 DPS Sub/Surface
+			RateOfFire = 1,	-- 192 DPS Sub/Surface
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 30,
 			
-            TargetCheckInterval = 1,
+            TargetCheckInterval = 2,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -788,25 +760,22 @@ UnitBlueprint {
 			
             MaxRadius = 28,
 
-            MuzzleSalvoDelay = 0.5,
+            MuzzleSalvoDelay = 0.7,
             MuzzleSalvoSize = 4,
-            MuzzleVelocity = 8,
+            MuzzleVelocity = 6,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
             ProjectileLifetime = 3.2,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Decoy02','Decoy04','Decoy01','Decoy03'},
-                    RackBone = 'Decoy01',
-                },
+                { MuzzleBones = {'Decoy02','Decoy04','Decoy01','Decoy03'}, RackBone = 'Decoy01' },
             },
 
             RangeCategory = 'UWRC_Countermeasure',
 			
-            RateOfFire = 1,     -- rate of fire controlled by SalvoDelay and WeaponRepackTimeout - 4 every 4.9 seconds
+            RateOfFire = 1,     -- rate of fire controlled by SalvoDelay and WeaponRepackTimeout - 4 every 5 seconds
 			
-            TargetCheckInterval = 1,
+            TargetCheckInterval = 2,
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TORPEDO',
@@ -814,7 +783,7 @@ UnitBlueprint {
 			
             Turreted = false,
 
-            WeaponRepackTimeout = 2.9,
+            WeaponRepackTimeout = 2.2,
         },
 
         -- TMD -- 
@@ -851,10 +820,7 @@ UnitBlueprint {
             NeedPrep = true,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Zapper_Muzzle'},
-                    RackBone = 'zapper',
-                },
+                { MuzzleBones = {'Zapper_Muzzle'}, RackBone = 'zapper' },
             },
 			
             RateOfFire = 0.9,

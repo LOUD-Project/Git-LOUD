@@ -4,12 +4,12 @@ local CybranWeaponsFile = import('/lua/cybranweapons.lua')
 local CybranWeaponsFile2 = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua')
 
 local XCannonWeapon01 = CybranWeaponsFile2.XCannonWeapon01
-local MGAALaserWeapon = CybranWeaponsFile2.MGAALaserWeapon
+local AALaser    = CybranWeaponsFile2.MGAALaserWeapon
 
-local CDFProtonCannonWeapon     = CybranWeaponsFile.CDFProtonCannonWeapon
-local CANNaniteTorpedoWeapon    = CybranWeaponsFile.CANNaniteTorpedoWeapon
-local CAMZapperWeapon           = CybranWeaponsFile.CAMZapperWeapon
-local CIFMissileLoaWeapon       = CybranWeaponsFile.CIFMissileLoaWeapon
+local Cannon     = CybranWeaponsFile.CDFProtonCannonWeapon
+local Torpedo    = CybranWeaponsFile.CANNaniteTorpedoWeapon
+local Zapper     = CybranWeaponsFile.CAMZapperWeapon
+local Missile    = CybranWeaponsFile.CIFMissileLoaWeapon
 
 CybranWeaponsFile = nil
 CybranWeaponsFile2 = nil
@@ -32,7 +32,7 @@ BRS0402= Class(CSeaUnit) {
 	
     Weapons = {
 	
-        MainCannon01 = Class(XCannonWeapon01) {
+        MainCannon01    = Class(XCannonWeapon01) {
 		
         	OnWeaponFired = function(self)
 			
@@ -137,7 +137,7 @@ BRS0402= Class(CSeaUnit) {
 			
         },
 		
-        MainCannon02 = Class(XCannonWeapon01) {
+        MainCannon02    = Class(XCannonWeapon01) {
 		
         	OnWeaponFired = function(self)
 			
@@ -248,16 +248,11 @@ BRS0402= Class(CSeaUnit) {
 			
         },
 		
-        SecondaryCannon = Class(CDFProtonCannonWeapon) {},
-		
-        AntiMissile = Class(CAMZapperWeapon) {},
-		
-        Torpedo = Class(CANNaniteTorpedoWeapon) {},
-		
-        AALaser = Class(MGAALaserWeapon) {},
-		
-        CruiseMissile = Class(CIFMissileLoaWeapon){},		
-		
+        SecondaryCannon = Class(Cannon) {},
+        AntiMissile     = Class(Zapper) {},
+        Torpedo         = Class(Torpedo) { FxMuzzleFlash = false },
+        AALaser         = Class(AALaser) {},
+        CruiseMissile   = Class(Missile){},		
     },
 	
     OnStopBeingBuilt = function(self,builder,layer)

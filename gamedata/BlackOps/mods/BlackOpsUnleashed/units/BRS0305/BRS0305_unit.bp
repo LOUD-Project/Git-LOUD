@@ -177,15 +177,17 @@ UnitBlueprint {
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
         Elevation = -2.8,
-        MaxAcceleration = 2.1,
-        MaxBrake = 2.1,
-        MaxSpeed = 4.2,
-        MaxSpeedReverse = 4,
+
+        MaxAcceleration = 1.3,
+        MaxBrake = 1.9,
+        MaxSpeed = 3.8,
+        MaxSpeedReverse = 3.8,
+
         MaxSteerForce = 5,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_SurfacingSub',
         TurnRadius = 12,
-        TurnRate = 36,
+        TurnRate = 30,
     },
 	
     SelectionSizeX = 0.6,
@@ -236,7 +238,7 @@ UnitBlueprint {
 	
             CollideFriendly = false,
 			
-            Damage = 250,
+            Damage = 300,
             DamageType = 'Normal',
 			
             DisplayName = 'Nanite Torpedo',
@@ -246,37 +248,35 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-            FiringTolerance = 2,
+            FiringTolerance = 5,
 			
-            Label = 'Torpedo01',
+            Label = 'Torpedo',
 			
             MaxRadius = 56,
+            MinRadius = 8,
 			
             MuzzleSalvoDelay = 0.6,
-            MuzzleSalvoSize = 2,
+            MuzzleSalvoSize = 4,
 
             MuzzleVelocity = 5,
 			
 			NotExclusive = true,
 			
             ProjectileId = '/projectiles/CANTorpedoNanite02/CANTorpedoNanite02_proj.bp',
-            ProjectileLifetime = 8.5,
+            ProjectileLifetime = 6.8,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Left_Projectile','Right_Projectile'},
-                    RackBone = 'Right_Projectile',
-                },
+                { MuzzleBones = {'Left_Projectile','Right_Projectile'}, RackBone = 'Right_Projectile' },
             },
             
-            RackSalvoReloadTime = 1.3,  -- firing cycle 2.5 seconds = 200 DPS
+            RackSalvoReloadTime = 3.6,  -- firing cycle 6 seconds = 200 DPS
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 1,		-- 120 DPS Sub
+            RateOfFire = 1,		-- 200 DPS Sub
 			
             SlavedToBody = true,
-            SlavedToBodyArcRange = 30,
+            SlavedToBodyArcRange = 10,
 			
             TargetCheckInterval = 1,
 			
@@ -301,6 +301,7 @@ UnitBlueprint {
             },
             
             BallisticArc = 'RULEUBA_None',
+
             CollideFriendly = false,
 			
             Damage = 150,
@@ -317,12 +318,13 @@ UnitBlueprint {
                 Water = 'Seabed|Sub|Water',
             },
 			
-			FiringRandomness = 36,
+			FiringRandomness = 30,
             FiringTolerance = 15,
 			
-            Label = 'Torpedo02',
+            Label = 'KrilTorp',
 			
-            MaxRadius = 68,
+            MaxRadius = 64,
+            MinRadius = 8,
 			
             MuzzleSalvoDelay = 0.8,
             MuzzleSalvoSize = 6,
@@ -333,25 +335,20 @@ UnitBlueprint {
 			NotExclusive = true,
 			
             ProjectileId = '/projectiles/CANKrilTorpedo01/CANKrilTorpedo01_proj.bp',
-            ProjectileLifetime = 10,
+            ProjectileLifetime = 7.8,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Torpedo01','Torpedo02','Torpedo03','Torpedo04','Torpedo05','Torpedo06'},
-                    RackBone = 'Torpedo01',
-                },
+                { MuzzleBones = {'Torpedo01','Torpedo02','Torpedo03','Torpedo04','Torpedo05','Torpedo06'}, RackBone = 'Torpedo01' },
             },
             
             RackSalvoReloadTime = 5.2,  -- firing cycle is 10 seconds
-
-            RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 1,		-- 6 torps * 750 = 4500 every 10 seconds = 450 DPS SUB - controlled by salvo times
+            RateOfFire = 0.2,		-- 6 torps * 750 = 4500 every 10 seconds = 450 DPS SUB - controlled by salvo times
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 10,
 			
-            TargetCheckInterval = 2,
+            TargetCheckInterval = 3,
 			
             TargetPriorities = {
                 'SUBMARINE',
@@ -375,6 +372,8 @@ UnitBlueprint {
             },
             
             BallisticArc = 'RULEUBA_LowArc',
+
+			CannotAttackGround = true,
 			
             CollideFriendly = false,
 			
@@ -441,14 +440,14 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = false,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0303_Bolter',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0303_Bolter', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
+
+			CannotAttackGround = true,
 			
             CollideFriendly = false,
 			
@@ -508,6 +507,16 @@ UnitBlueprint {
 			
             Turreted = true,
         },
-		
+        {
+            BelowWaterTargetsOnly = true,
+            Damage = 500,
+            DamageFriendly = true,
+            DamageRadius = 1,
+            DamageType = 'Normal',
+
+            DummyWeapon = true,
+            FiringTolerance = 2,
+            Label = 'DeathWeapon',
+        },   		
     },
 }

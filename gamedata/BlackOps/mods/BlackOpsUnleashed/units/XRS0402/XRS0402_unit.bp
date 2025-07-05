@@ -72,24 +72,9 @@ UnitBlueprint {
         },
 		
         AnimationDeath = {
-            {
-                Animation = '/mods/BlackOpsUnleashed/units/XRS0402/XRS0402_Asink01.sca',
-                AnimationRateMax = 1.5,
-                AnimationRateMin = 0.9,
-                Weight = 100,
-            },
-            {
-                Animation = '/mods/BlackOpsUnleashed/units/XRS0402/XRS0402_Asink02.sca',
-                AnimationRateMax = 1.5,
-                AnimationRateMin = 0.9,
-                Weight = 100,
-            },
-            {
-                Animation = '/mods/BlackOpsUnleashed/units/XRS0402/XRS0402_Asink03.sca',
-                AnimationRateMax = 1.5,
-                AnimationRateMin = 0.9,
-                Weight = 100,
-            },
+            { Animation = '/mods/BlackOpsUnleashed/units/XRS0402/XRS0402_Asink01.sca', AnimationRateMax = 1.5, AnimationRateMin = 0.9, Weight = 100 },
+            { Animation = '/mods/BlackOpsUnleashed/units/XRS0402/XRS0402_Asink02.sca', AnimationRateMax = 1.5, AnimationRateMin = 0.9, Weight = 100 },
+            { Animation = '/mods/BlackOpsUnleashed/units/XRS0402/XRS0402_Asink03.sca', AnimationRateMax = 1.5, AnimationRateMin = 0.9, Weight = 100 },
         },
         
         IdleEffects = {
@@ -104,7 +89,7 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 { LODCutoff = 200, ShaderName = 'Insect' },
-                { AlbedoName = 'XRS0402_lod1_albedo.dds', LODCutoff = 600, ShaderName = 'Insect', SpecularName = 'XRS0402_lod1_specteam.dds' },
+                { LODCutoff = 600, ShaderName = 'Insect', AlbedoName = 'XRS0402_lod1_albedo.dds', SpecularName = 'XRS0402_lod1_specteam.dds' },
             },
         },
         
@@ -175,10 +160,12 @@ UnitBlueprint {
         BuildOnLayerCaps = { LAYER_Water = true },
         CatchUpAcc = 8,
         DragCoefficient = 0.2,
+
         MaxAcceleration = 0.7,
         MaxBrake = 1.4,
         MaxSpeed = 3.3,
         MaxSpeedReverse = 3,
+
         MaxSteerForce = 5,
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -3.5,
@@ -186,6 +173,7 @@ UnitBlueprint {
         SkirtSizeZ = 11,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
+
         TurnRadius = 28,
         TurnRate = 22,
     },
@@ -294,10 +282,7 @@ UnitBlueprint {
 			ProjectileLifetime = 4,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Front_Main_Turret_Muzzle'},
-                    RackBone = 'Front_Main_Turret_Barrel',
-                },
+                { MuzzleBones = {'Front_Main_Turret_Muzzle'}, RackBone = 'Front_Main_Turret_Barrel' },
             },
 
             RackRecoilDistance = -2,
@@ -423,10 +408,7 @@ UnitBlueprint {
 			ProjectileLifetime = 4,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Back_Main_Turret_Muzzle'},
-                    RackBone = 'Back_Main_Turret_Barrel',
-                },
+                { MuzzleBones = {'Back_Main_Turret_Muzzle'}, RackBone = 'Back_Main_Turret_Barrel' },
             },
 
             RackRecoilDistance = -2,
@@ -514,18 +496,9 @@ UnitBlueprint {
 			ProjectileLifetime = 24,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Back_Muzzle01'},
-                    RackBone = 'Back_Turret_Barrel01',
-                },
-                {
-                    MuzzleBones = {'Back_Muzzle02'},
-                    RackBone = 'Back_Turret_Barrel02',
-                },
-                {
-                    MuzzleBones = {'Back_Muzzle03'},
-                    RackBone = 'Back_Turret_Barrel03',
-                },
+                { MuzzleBones = {'Back_Muzzle01'}, RackBone = 'Back_Turret_Barrel01' },
+                { MuzzleBones = {'Back_Muzzle02'}, RackBone = 'Back_Turret_Barrel02' },
+                { MuzzleBones = {'Back_Muzzle03'}, RackBone = 'Back_Turret_Barrel03' },
             },
             RackFireTogether = true,
 
@@ -610,14 +583,8 @@ UnitBlueprint {
 			ProjectileLifetime = 4,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'R_Turret01_Muzzle01'},
-                    RackBone = 'R_Turret01_Barrel01',
-                },
-                {
-                    MuzzleBones = {'R_Turret01_Muzzle02'},
-                    RackBone = 'R_Turret01_Barrel02',
-                },
+                { MuzzleBones = {'R_Turret01_Muzzle01'}, RackBone = 'R_Turret01_Barrel01' },
+                { MuzzleBones = {'R_Turret01_Muzzle02'}, RackBone = 'R_Turret01_Barrel02' },
             },
 
             RackRecoilDistance = -0.5,
@@ -694,14 +661,8 @@ UnitBlueprint {
 			ProjectileLifetime = 5,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'R_Turret02_Muzzle01'},
-                    RackBone = 'R_Barrel01',
-                },
-                {
-                    MuzzleBones = {'R_Turret02_Muzzle02'},
-                    RackBone = 'R_Turret02_Barrel02',
-                },
+                { MuzzleBones = {'R_Turret02_Muzzle01'}, RackBone = 'R_Barrel01' },
+                { MuzzleBones = {'R_Turret02_Muzzle02'}, RackBone = 'R_Turret02_Barrel02' },
             },
 
             RackRecoilDistance = -0.5,
@@ -777,14 +738,8 @@ UnitBlueprint {
 			ProjectileLifetime = 5,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'L_Turret01_Muzzle01'},
-                    RackBone = 'L_Turret01_Barrel01',
-                },
-                {
-                    MuzzleBones = {'L_Turret01_Muzzle02'},
-                    RackBone = 'L_Turret01_Barrel02',
-                },
+                { MuzzleBones = {'L_Turret01_Muzzle01'}, RackBone = 'L_Turret01_Barrel01' },
+                { MuzzleBones = {'L_Turret01_Muzzle02'}, RackBone = 'L_Turret01_Barrel02' },
             },
 
             RackRecoilDistance = -0.5,
@@ -859,14 +814,8 @@ UnitBlueprint {
 			ProjectileLifetime = 5,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'L_Turret02_Muzzle01'},
-                    RackBone = 'L_Turret02_Barrel01',
-                },
-                {
-                    MuzzleBones = {'L_Turret02_Muzzle02'},
-                    RackBone = 'L_Turret02_Barrel02',
-                },
+                { MuzzleBones = {'L_Turret02_Muzzle01'}, RackBone = 'L_Turret02_Barrel01' },
+                { MuzzleBones = {'L_Turret02_Muzzle02'}, RackBone = 'L_Turret02_Barrel02' },
             },
 
             RackRecoilDistance = -0.5,
@@ -949,15 +898,7 @@ UnitBlueprint {
             ProjectileLifetime = 0.7,
 
             RackBones = {
-                {
-                    MuzzleBones = {
-                        'Front_AA_Muzzle01',
-                        'Front_AA_Muzzle02',
-                        'Front_AA_Muzzle03',
-                        'Front_AA_Muzzle04',
-                    },
-                    RackBone = 'Front_Barrel_AA',
-                },
+                { MuzzleBones = {'Front_AA_Muzzle01','Front_AA_Muzzle02'}, RackBone = 'Front_Barrel_AA' },
             },
 
             RackRecoilDistance = -0.3,
@@ -1031,15 +972,7 @@ UnitBlueprint {
             ProjectileLifetime = 0.7,
 
             RackBones = {
-                {
-                    MuzzleBones = {
-                        'Back_AA_Muzzle01',
-                        'Back_AA_Muzzle02',
-                        'Back_AA_Muzzle03',
-                        'Back_AA_Muzzle04',
-                    },
-                    RackBone = 'Back_Barrel_AA',
-                },
+                { MuzzleBones = {'Back_AA_Muzzle01','Back_AA_Muzzle02'}, RackBone = 'Back_Barrel_AA' },
             },
 
             RackRecoilDistance = -0.3,
@@ -1095,18 +1028,19 @@ UnitBlueprint {
 			
             Label = 'Torpedo',
 			
-            MaxRadius = 52,
+            MaxRadius = 44,
+            MinRadius = 8,
 			
-            MuzzleSalvoDelay = 0.6,
+            MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 12,
 
             MuzzleVelocity = 3,
-			MuzzleVelocityRandom = 1,
+			MuzzleVelocityRandom = 0.5,
 			
 			NotExclusive = true,
 			
             ProjectileId = '/projectiles/CANTorpedoNanite02/CANTorpedoNanite02_proj.bp',
-            ProjectileLifetime = 8,
+            ProjectileLifetime = 6.8,
 			
             RackBones = {
                 {
@@ -1128,12 +1062,12 @@ UnitBlueprint {
                 },
             },
             
-            RackSalvoReloadTime = 7.8,  -- firing cycle is 15 seconds 
+            RackSalvoReloadTime = 10.2,  -- firing cycle is 15 seconds 
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 1,		-- 240 DPS Sub
-            TargetCheckInterval = 3,
+            RateOfFire = 1,		-- 160 DPS Sub
+            TargetCheckInterval = 5,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -1144,8 +1078,8 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
             TrackingRadius = 1.1,
-			Turreted = false,
         },
+
 -- TMD --
         {
             Audio = {
@@ -1180,10 +1114,7 @@ UnitBlueprint {
             NeedPrep = true,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Left_Zapper_Muzzle01'},
-                    RackBone = 'Left_Zapper_Barrel01',
-                },
+                { MuzzleBones = {'Left_Zapper_Muzzle01'}, RackBone = 'Left_Zapper_Barrel01' },
             },
 
             RangeCategory = 'UWRC_Countermeasure',
@@ -1243,10 +1174,7 @@ UnitBlueprint {
             NeedPrep = true,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Right_Zapper_Muzzle01'},
-                    RackBone = 'Right_Zapper_Barrel01',
-                },
+                { MuzzleBones = {'Right_Zapper_Muzzle01'}, RackBone = 'Right_Zapper_Barrel01' },
             },
 
             RateOfFire = 0.6,

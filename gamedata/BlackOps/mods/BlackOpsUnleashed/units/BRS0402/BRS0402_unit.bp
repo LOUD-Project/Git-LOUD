@@ -180,10 +180,12 @@ UnitBlueprint {
         },
         CatchUpAcc = 7,
         DragCoefficient = 0.2,
+
         MaxAcceleration = 0.6,
         MaxBrake = 1.8,
         MaxSpeed = 3.6,
         MaxSpeedReverse = 3.7,
+
         MaxSteerForce = 5,
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -2.5,
@@ -191,8 +193,9 @@ UnitBlueprint {
         SkirtSizeZ = 11,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
+
         TurnRadius = 24,
-        TurnRate = 30,
+        TurnRate = 22,
     },
 	
     SelectionSizeX = 3,
@@ -414,10 +417,7 @@ UnitBlueprint {
 			ProjectileLifetime = 5,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Left_Railgun_Muzzle'},
-                    RackBone = 'Left_Railgun',
-                },
+                { MuzzleBones = {'Left_Railgun_Muzzle'}, RackBone = 'Left_Railgun' },
             },
 
             RackRecoilDistance = -2,
@@ -552,10 +552,7 @@ UnitBlueprint {
 			ProjectileLifetime = 4.5,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Right_Railgun_Muzzle'},
-                    RackBone = 'Right_Railgun',
-                },
+                { MuzzleBones = {'Right_Railgun_Muzzle'}, RackBone = 'Right_Railgun' },
             },
 
             RackRecoilDistance = -2,
@@ -637,10 +634,7 @@ UnitBlueprint {
 			ProjectileLifetime = 2,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Front_Right_Muzzle01','Front_Right_Muzzle02'},
-                    RackBone = 'Front_Right_Barrel',
-                },
+                { MuzzleBones = {'Front_Right_Muzzle01','Front_Right_Muzzle02'}, RackBone = 'Front_Right_Barrel' },
             },
 
             RackRecoilDistance = -0.5,
@@ -715,10 +709,7 @@ UnitBlueprint {
 			ProjectileLifetime = 2,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Front_Left_Muzzle01','Front_Left_Muzzle02'},
-                    RackBone = 'Front_Left_Barrel',
-                },
+                { MuzzleBones = {'Front_Left_Muzzle01','Front_Left_Muzzle02'}, RackBone = 'Front_Left_Barrel' },
             },
 
             RackRecoilDistance = -0.5,
@@ -793,10 +784,7 @@ UnitBlueprint {
 			ProjectileLifetime = 2,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Middle_Left_Muzzle01','Middle_Left_Muzzle02'},
-                    RackBone = 'Middle_Left_Barrel',
-                },
+                { MuzzleBones = {'Middle_Left_Muzzle01','Middle_Left_Muzzle02'}, RackBone = 'Middle_Left_Barrel' },
             },
 
             RackRecoilDistance = -0.5,
@@ -873,10 +861,7 @@ UnitBlueprint {
 			ProjectileLifetime = 2,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Middle_Right_Muzzle01','Middle_Right_Muzzle02'},
-                    RackBone = 'Middle_Right_Barrel',
-                },
+                { MuzzleBones = {'Middle_Right_Muzzle01','Middle_Right_Muzzle02'}, RackBone = 'Middle_Right_Barrel' },
             },
 
             RackRecoilDistance = -0.5,
@@ -951,10 +936,7 @@ UnitBlueprint {
 			ProjectileLifetime = 2,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Back_Left_Muzzle01','Back_Left_Muzzle02'},
-                    RackBone = 'Back_Left_Barrel',
-                },
+                { MuzzleBones = {'Back_Left_Muzzle01','Back_Left_Muzzle02'}, RackBone = 'Back_Left_Barrel' },
             },
 
             RackRecoilDistance = -0.5,
@@ -1028,10 +1010,7 @@ UnitBlueprint {
 			ProjectileLifetime = 2,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Back_Right_Muzzle01','Back_Right_Muzzle02'},
-                    RackBone = 'Back_Right_Barrel',
-                },
+                { MuzzleBones = {'Back_Right_Muzzle01','Back_Right_Muzzle02'}, RackBone = 'Back_Right_Barrel' },
             },
 
             RackRecoilDistance = -0.5,
@@ -1091,8 +1070,9 @@ UnitBlueprint {
             Label = 'Torpedo',
 			
             MaxRadius = 44,
+            MinRadius = 8,
 			
-            MuzzleSalvoDelay = 0.6,
+            MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 12,
 
             MuzzleVelocity = 3,
@@ -1122,7 +1102,7 @@ UnitBlueprint {
                 },
             },
             
-            RackSalvoReloadTime = 7.8,  -- cycle 15 seconds = 12 * 200 = 2400/15 = 160 DPS
+            RackSalvoReloadTime = 10.2,  -- cycle 15 seconds = 12 * 200 = 2400/15 = 160 DPS
 
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -1139,7 +1119,7 @@ UnitBlueprint {
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 
             Turreted = false,
         },
@@ -1176,10 +1156,7 @@ UnitBlueprint {
             NeedPrep = true,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Zapper_Muzzle'},
-                    RackBone = 'Zapper_Muzzle',
-                },
+                { MuzzleBones = {'Zapper_Muzzle'}, RackBone = 'Zapper_Muzzle' },
             },
 
             RangeCategory = 'UWRC_Countermeasure',
@@ -1246,10 +1223,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Front_AALaser'},
-                    RackBone = 'Front_AALaser',
-                },
+                { MuzzleBones = {'Front_AALaser'}, RackBone = 'Front_AALaser' },
             },
 
             RangeCategory = 'UWRC_AntiAir',
@@ -1323,10 +1297,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Back_Center_AALaser'},
-                    RackBone = 'Back_Center_AALaser',
-                },
+                { MuzzleBones = {'Back_Center_AALaser'}, RackBone = 'Back_Center_AALaser' },
             },
 
             RateOfFire = 1,		-- 140 DPS Air
@@ -1397,10 +1368,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Back_Left_AALaser'},
-                    RackBone = 'Back_Left_AALaser',
-                },
+                { MuzzleBones = {'Back_Left_AALaser'}, RackBone = 'Back_Left_AALaser' },
             },
 
             RateOfFire = 1,     -- 140 DPS Air
@@ -1470,10 +1438,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Back_Right_AALaser'},
-                    RackBone = 'Back_Right_AALaser',
-                },
+                { MuzzleBones = {'Back_Right_AALaser'}, RackBone = 'Back_Right_AALaser' },
             },
 
 			RateOfFire = 1,		-- 140 DPS Air
@@ -1546,10 +1511,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Middle_Right_AALaser'},
-                    RackBone = 'Middle_Right_AALaser',
-                },
+                { MuzzleBones = {'Middle_Right_AALaser'}, RackBone = 'Middle_Right_AALaser' },
             },
 
             RateOfFire = 1,		-- 140 DPS Air
@@ -1621,10 +1583,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Middle_Left_AALaser'},
-                    RackBone = 'Middle_Left_AALaser',
-                },
+                { MuzzleBones = {'Middle_Left_AALaser'}, RackBone = 'Middle_Left_AALaser' },
             },
 
             RateOfFire = 1,		-- 140 DPS Air
