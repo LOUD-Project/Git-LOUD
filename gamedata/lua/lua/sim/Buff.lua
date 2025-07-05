@@ -27,6 +27,7 @@ local GetHealth             = UnitMethods.GetHealth
 local SetAccMult            = UnitMethods.SetAccMult
 local SetBuildRate          = UnitMethods.SetBuildRate
 local SetFuelRatio          = UnitMethods.SetFuelRatio
+local SetFuelUseTime        = UnitMethods.SetFuelUseTime
 local SetRegenRate          = UnitMethods.SetRegenRate
 local SetShieldRatio        = UnitMethods.SetShieldRatio
 local SetSpeedMult          = UnitMethods.SetSpeedMult
@@ -383,6 +384,22 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
                 
             end
 
+        elseif atype == 'FuelTime' then
+        
+            local unitfuel = unit:GetFuelUseTime()
+            
+            if unitfuel > -1 then
+
+                -- and we use the lowest value so never more than 1.0 (full)
+                local val = math.min((unitfuel + (buffAffects.FuelTime.Add or 0)) * (buffAffects.FuelTime.Mult or 1), 1)
+
+                SetFuelUseTime( unit, val )
+
+                RequestRefreshUI(unit)
+                
+            end
+            
+            
         elseif atype == 'MaxHealth' then
 
             local unitbphealth = __blueprints[unit.BlueprintID].Defense.MaxHealth or 1

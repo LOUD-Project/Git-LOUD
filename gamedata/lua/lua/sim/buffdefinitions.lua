@@ -1402,6 +1402,18 @@ BuffBlueprint { Name = 'ACU_T3_Intel_Package',
     },
 }
 
+BuffBlueprint { Name = 'SATFUEL',
+    BuffType = 'MAXFUEL',
+    Stacks = 'REPLACE',
+    Duration = -1,
+	Affects = {
+		FuelTime = {
+			Add = 0,
+			Mult = -4.0,
+		}
+	},
+}
+
 -- Just a note here - the relationship between RADAR range and power consumption is calculated as follows
 -- using Pasternaks Radar range calcuator (this calculation is for the Panopticon - we use 12db gain for other radars and sonars)
 
