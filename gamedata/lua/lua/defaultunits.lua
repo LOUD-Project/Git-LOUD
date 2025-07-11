@@ -4678,9 +4678,9 @@ MineStructureUnit = Class(StructureUnit) {
         StructureUnit.OnCreate(self)
 
         --enable cloaking and stealth
-        self:EnableIntel'Cloak'
-        self:EnableIntel'RadarStealth'
-        self:EnableIntel'SonarStealth'
+        self:EnableIntel('Cloak')
+        self:EnableIntel('RadarStealth')
+        self:EnableIntel('SonarStealth')
 
         if not self.CachePosition then
             self.CachePosition = {moho.entity_methods.GetPositionXYZ(self)}
