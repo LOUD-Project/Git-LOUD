@@ -156,9 +156,9 @@ UnitBlueprint {
         },
 
         OrderOverrides = {
-            RULEUTC_IntelToggle = { bitmapId = 'omni', helpText = 'toggle_omni' },
-            RULEUTC_GenericToggle = { bitmapId = 'airpatrol', helpText = 'drone_auto_patrol' },
-            RULEUTC_ProductionToggle = { helpText = 'drone_auto_rebuild' },
+            RULEUTC_IntelToggle = { bitmapId = 'omni', helpText = 'toggle omni' },
+            RULEUTC_GenericToggle = { bitmapId = 'airpatrol', helpText = 'drone auto patrol' },
+            RULEUTC_ProductionToggle = { helpText = 'drone auto rebuild' },
         },
 
         ToggleCaps = {
@@ -273,14 +273,8 @@ UnitBlueprint {
             ProjectileLifetime = 5,
 
             RackBones = {
-                {
-                    MuzzleBones = {'AA_Muzz_001','AA_Muzz_006','AA_Muzz_003','AA_Muzz_008'},
-                    RackBone = 'Turret_Left_Muzzle01',
-                },
-                {
-                    MuzzleBones = {'AA_Muzz_005','AA_Muzz_002','AA_Muzz_007','AA_Muzz_004'},
-                    RackBone = 'Turret_Right_Muzzle01',
-                },
+                { MuzzleBones = {'AA_Muzz_001','AA_Muzz_006','AA_Muzz_003','AA_Muzz_008'}, RackBone = 'Turret_Left_Muzzle01' },
+                { MuzzleBones = {'AA_Muzz_005','AA_Muzz_002','AA_Muzz_007','AA_Muzz_004'}, RackBone = 'Turret_Right_Muzzle01' },
             },
 
             RangeCategory = 'UWRC_AntiAir',
@@ -296,7 +290,7 @@ UnitBlueprint {
             },
 
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TrackingRadius = 1.25,
+            TrackingRadius = 1.2,
 
             TurretBoneMuzzle = 'AA_Box',
             TurretBonePitch = 'AA_Box',
@@ -315,12 +309,9 @@ UnitBlueprint {
 
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0202_Anti_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0202_Anti_Missile', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0.1,
@@ -348,10 +339,7 @@ UnitBlueprint {
             NeedPrep = true,
 			
             RackBones = {
-                {
-                    MuzzleBones = { 'Dummy001' },
-                    RackBone = 'Dummy001',
-                },
+                { MuzzleBones = { 'Dummy001' }, RackBone = 'Dummy001' },
             },
 
             RangeCategory = 'UWRC_Countermeasure',
@@ -411,10 +399,7 @@ UnitBlueprint {
             ProjectileLifetime = 8,
 
             RackBones = {
-                {
-                    MuzzleBones = {'RR','LL'},
-                    RackBone = 'RR',
-                },
+                { MuzzleBones = {'RR','LL'}, RackBone = 'RR' },
             },
 
             RackSalvoReloadTime = 3,

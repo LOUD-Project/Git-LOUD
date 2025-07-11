@@ -77,13 +77,7 @@ UnitBlueprint {
             { Animation = '/mods/BlackOpsUnleashed/units/XRS0402/XRS0402_Asink03.sca', AnimationRateMax = 1.5, AnimationRateMin = 0.9, Weight = 100 },
         },
         
-        IdleEffects = {
-            Water = {
-                Effects = {
-                    { Bones = {'XRS0402'},Scale = 2.5,Type = 'SeaIdle01'},
-                },
-            },
-        },
+        IdleEffects = { Water = { Effects = { { Bones = {'XRS0402'},Scale = 2.5,Type = 'SeaIdle01'} } } },
         
         Mesh = {
             IconFadeInZoom = 130,

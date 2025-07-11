@@ -69,12 +69,7 @@ UnitBlueprint {
             '<LOC ability_torpedo>Torpedoes',
             '<LOC ability_torpedodef>Torpedo Defense',
         },
-        
-        IdleEffects = {
-            Sub     = { Effects = { { Bones = { 'Tip_L', 'Tip_R' }, Type = 'UnderWater01' } } },
-            Water   = { Effects = { { Bones = {0}, Scale = 0.5, Type = 'SeaIdle01' } } },
-        },
-        
+      
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -187,6 +182,9 @@ UnitBlueprint {
                 Fire            = Sound { Bank = 'UESWeapon', Cue = 'UES0203_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
                 FireUnderWater  = Sound { Bank = 'UESWeapon', Cue = 'UES0203_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
             },
+
+            AutoInitiateAttackCommand = true,
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
             
@@ -223,9 +221,9 @@ UnitBlueprint {
             
             RangeCategory = 'UWRC_AntiNavy',
             
-            RateOfFire = 1,      -- 4 torps of 345 = 1380 every 5 seconds = 275 DPS
+            RateOfFire = 0.2,      -- 4 torps of 345 = 1380 every 5 seconds = 275 DPS
             
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 2.5,
             
             TargetPriorities = {
                 'SPECIALHIGHPRI',

@@ -66,11 +66,11 @@ UnitBlueprint {
             MeshZ = '/mods/brewlan_LOUD/units/sas0401/sas0401_personalshieldz_mesh',
             ImpactMesh = '/mods/brewlan_LOUD/units/sas0401/sas0401_psimpact_',
             RegenAssistMult = 60,
-            ShieldEnergyDrainRechargeTime = 7,
+            ShieldEnergyDrainRechargeTime = 12,
             ShieldMaxHealth = 27000,
-            ShieldRechargeTime = 36,
+            ShieldRechargeTime = 24,
             ShieldRegenRate = 280,
-            ShieldRegenStartTime = 1,
+            ShieldRegenStartTime = 2,
             ShieldVerticalOffset = -1.4,
             StartOn = true,
             ShieldSize = 0.075,  --Needs to match uniform scale
@@ -136,7 +136,7 @@ UnitBlueprint {
     },
     
     Footprint = {
-        MinWaterDepth = 2,
+        MinWaterDepth = 2.5,
         SizeX = 1,
         SizeZ = 9,
     },
@@ -186,9 +186,9 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         
         MaxAcceleration = 0.75,
-        MaxBrake = 1.2,
+        MaxBrake = 1.5,
         MaxSpeed = 3.7,
-        MaxSpeedReverse = 3,
+        MaxSpeedReverse = 3.7,
         
         MaxSteerForce = 5,
         
@@ -474,16 +474,13 @@ UnitBlueprint {
 
             MuzzleSalvoDelay = 0.7,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 7.5,
+            MuzzleVelocity = 6,
 
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
             ProjectileLifetime = 3,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Node_Port'},
-                    RackBone = 'Node_Port',
-                },
+                { MuzzleBones = {'Node_Port'}, RackBone = 'Node_Port' },
             },
 
             RangeCategory = 'UWRC_Countermeasure',
@@ -528,16 +525,13 @@ UnitBlueprint {
             
             MuzzleSalvoDelay = 0.7,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 7.5,
+            MuzzleVelocity = 6,
 
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
             ProjectileLifetime = 3,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Node_Starboard'},
-                    RackBone = 'Node_Starboard',
-                },
+                { MuzzleBones = {'Node_Starboard'}, RackBone = 'Node_Starboard' },
             },
 
             RangeCategory = 'UWRC_Countermeasure',
@@ -650,8 +644,11 @@ UnitBlueprint {
         --Anti Air
         
         { --Forward
+
+            advancedTracking = true,
         
             AlwaysRecheckTarget = true,
+
             Audio = {
                 Fire = Sound {Bank = 'UASWeapon', Cue = 'UAS0202_SAM', LodCutoff = 'Weapon_LodCutoff'},
             },
@@ -659,21 +656,19 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
             
-            Damage = 300,
+            Damage = 440,
             DamageType = 'Normal',
             
             DisplayName = 'Zealot AA Missile',
             
-            FireTargetLayerCapsTable = {
-                Water = 'Air',
-            },
-            FiringTolerance = 360,
+            FireTargetLayerCapsTable = { Water = 'Air' },
+            FiringTolerance = 20,
             
             Label = 'Zealot',
             
-            MaxRadius = 60,
+            MaxRadius = 55,
 
-            MuzzleVelocity = 40,
+            MuzzleVelocity = 33,
             
             NotExclusive = true,
             
@@ -681,15 +676,12 @@ UnitBlueprint {
             ProjectileLifetime = 6,
             
             RackBones = {
-                {
-                    MuzzleBones = {'AA1_Muzzle'},
-                    RackBone = 'AA1_Muzzle',
-                },
+                { MuzzleBones = {'AA1_Muzzle'}, RackBone = 'AA1_Muzzle' },
             },
             
             RangeCategory = 'UWRC_AntiAir',
             
-            RateOfFire = 1,
+            RateOfFire = 0.5,
             
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -701,26 +693,29 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
             
             TurretBoneMuzzle = 'AA1_Muzzle',
             TurretBonePitch = 'AA1_Turret',
             TurretBoneYaw = 'AA1_Turret',
-            TurretDualManipulators = false,
             
             TurretPitch = 10,
-            TurretPitchRange = 40,
-            TurretPitchSpeed = 30,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 60,
             
             TurretYaw = 10,
-            TurretYawRange = 20,
-            TurretYawSpeed = 30,
+            TurretYawRange = 100,
+            TurretYawSpeed = 60,
             
             Turreted = true,
         },
         
         { --Slightly less forward
+
+            advancedTracking = true,
+        
             AlwaysRecheckTarget = true,
+
             Audio = {
                 Fire = Sound {Bank = 'UASWeapon', Cue = 'UAS0202_SAM', LodCutoff = 'Weapon_LodCutoff'},
             },
@@ -728,33 +723,27 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
             
-            Damage = 300,
+            Damage = 440,
             DamageType = 'Normal',
             
             DisplayName = 'Zealot AA Missile',
             
-            FireTargetLayerCapsTable = {
-                Water = 'Air',
-            },
-            FiringTolerance = 360,
+            FireTargetLayerCapsTable = { Water = 'Air' },
+            FiringTolerance = 20,
             
             Label = 'Zealot',
             
-            MaxRadius = 60,
+            MaxRadius = 55,
 
-            MuzzleVelocity = 40,
+            MuzzleVelocity = 33,
             
             NotExclusive = true,
             
             ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
             ProjectileLifetime = 6,
-            ProjectilesPerOnFire = 1,
             
             RackBones = {
-                {
-                    MuzzleBones = {'AA2_Muzzle'},
-                    RackBone = 'AA2_Muzzle',
-                },
+                { MuzzleBones = {'AA2_Muzzle'}, RackBone = 'AA2_Muzzle' },
             },
             
             RateOfFire = 1,
@@ -777,12 +766,12 @@ UnitBlueprint {
             TurretDualManipulators = false,
             
             TurretPitch = 10,
-            TurretPitchRange = 40,
-            TurretPitchSpeed = 30,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 60,
             
-            TurretYaw = 10,
-            TurretYawRange = 20,
-            TurretYawSpeed = 30,
+            TurretYaw = -10,
+            TurretYawRange = 100,
+            TurretYawSpeed = 60,
 
             Turreted = true,
         },
@@ -854,7 +843,7 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 155,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 60,
             
             Turreted = true,
         },
@@ -892,10 +881,7 @@ UnitBlueprint {
             ProjectileLifetime = 3,
             
             RackBones = {
-                {
-                    MuzzleBones = {'AS2_Muzzle'},
-                    RackBone = 'AS2_Turret',
-                },
+                { MuzzleBones = {'AS2_Muzzle'}, RackBone = 'AS2_Turret' },
             },
 
             RackSlavedToTurret = true,
@@ -916,7 +902,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'AS2_Muzzle',
             TurretBonePitch = 'AS2_Turret',
             TurretBoneYaw = 'AS2_Turret',
-            TurretDualManipulators = false,
             
             TurretPitch = 0,
             TurretPitchRange = 20,
@@ -924,7 +909,7 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 80,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 60,
             
             Turreted = true,
         },

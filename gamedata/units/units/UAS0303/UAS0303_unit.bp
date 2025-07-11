@@ -81,13 +81,7 @@ UnitBlueprint {
             { Animation = '/units/uas0303/uas0303_adeath03.sca', Weight = 100 },
         },
 		
-        IdleEffects = {
-            Water = {
-                Effects = {
-                    { Bones = {'UAS0303'}, Scale = 0.75, Type = 'SeaIdle01' },
-                },
-            },
-        },
+        IdleEffects = { Water = { Effects = { { Bones = {'UAS0303'}, Scale = 0.75, Type = 'SeaIdle01' } } } },
 		
         Mesh = {
             IconFadeInZoom = 130,

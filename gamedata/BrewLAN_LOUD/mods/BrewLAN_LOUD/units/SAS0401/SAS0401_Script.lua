@@ -2,11 +2,11 @@ local ASeaUnit = import('/lua/defaultunits.lua').SeaUnit
 
 local WeaponsFile = import('/lua/aeonweapons.lua')
 
-local ADFCannonOblivionWeapon       = WeaponsFile.ADFCannonOblivionWeapon
-local AIFQuanticArtillery           = WeaponsFile.AIFQuanticArtillery
-local AAAZealotMissileWeapon        = WeaponsFile.AAAZealotMissileWeapon
-local ADFDisruptorCannonWeapon      = WeaponsFile.ADFDisruptorWeapon
-local AIFQuasarAntiTorpedoWeapon    = WeaponsFile.AIFQuasarAntiTorpedoWeapon
+local Cannon    = WeaponsFile.ADFCannonOblivionWeapon
+local Artillery = WeaponsFile.AIFQuanticArtillery
+local AA        = WeaponsFile.AAAZealotMissileWeapon
+local Disruptor = WeaponsFile.ADFDisruptorWeapon
+local AntiTorp  = WeaponsFile.AIFQuasarAntiTorpedoWeapon
 
 WeaponsFile = nil
 
@@ -20,15 +20,12 @@ SAS0401 = Class(ASeaUnit) {
     DestructionTicks = 400,
 
     Weapons = {
-        Oblivion        = Class(ADFCannonOblivionWeapon) {
-            FxChargeMuzzleFlash = {
-                '/effects/emitters/oblivion_cannon_flash_01_emit.bp',
-                '/effects/emitters/oblivion_cannon_flash_02_emit.bp',
-            },
-        },
-        Salvation       = Class(AIFQuanticArtillery) {},
-        Zealot          = Class(AAAZealotMissileWeapon) {},
-        Disruptor       = Class(ADFDisruptorCannonWeapon) {
+        Oblivion        = Class(Cannon) { FxChargeMuzzleFlash = {'/effects/emitters/oblivion_cannon_flash_01_emit.bp','/effects/emitters/oblivion_cannon_flash_02_emit.bp'} },
+        Salvation       = Class(Artillery) {},
+        Zealot          = Class(AA) {},
+        AntiTorpedo     = Class(AntiTorp) {},
+        Disruptor       = Class(Disruptor) {
+
             CreateProjectileAtMuzzle = function(self, muzzle)
 
                 local proj = ADFDisruptorCannonWeapon.CreateProjectileAtMuzzle(self, muzzle)
@@ -40,7 +37,8 @@ SAS0401 = Class(ASeaUnit) {
                 end
             end,
         },
-        AntiTorpedo     = Class(AIFQuasarAntiTorpedoWeapon) {},
+
+
     },
 
     HidePanels = function(self)

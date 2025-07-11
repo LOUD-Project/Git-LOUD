@@ -14,7 +14,44 @@ BRS0305 = Class(CSubUnit) {
     
     Weapons = {
         DeckGun     = Class(Bolter) {},
-        Torpedo     = Class(Torpedo) { FxMuzzleFlash = false },
+        Torpedo     = Class(Torpedo) {
+  
+            FxMuzzleFlash = false,
+        
+            OnLostTarget = function(self)
+                
+                self.unit:SetAccMult(1)
+                
+                self:ChangeMaxRadius(56)
+                
+                Torpedo.OnLostTarget(self)
+            
+            end,
+        
+            RackSalvoFireReadyState = State( Torpedo.RackSalvoFireReadyState) {
+            
+                Main = function(self)
+                
+                    self:ChangeMaxRadius(48)
+                
+                    Torpedo.RackSalvoFireReadyState.Main(self)
+                    
+                end,
+            },
+        
+            RackSalvoReloadState = State( Torpedo.RackSalvoReloadState) {
+            
+                Main = function(self)
+                
+                    self.unit:SetAccMult(1.3)
+                
+                    self:ForkThread( function() self:ChangeMaxRadius(48) self:ChangeMinRadius(40) WaitTicks(44) self:ChangeMaxRadius(56) self:ChangeMinRadius(8) end)
+                    
+                    Torpedo.RackSalvoReloadState.Main(self)
+
+                end,
+            },  
+        },
         KrilTorp    = Class(Krill) {},
     },
 	
@@ -33,8 +70,21 @@ BRS0305 = Class(CSubUnit) {
         local TorpRedirectField01 = TorpRedirectField { Owner = self, Radius = bp.Radius, AttachBone = bp.AttachBone, RedirectRateOfFire = bp.RedirectRateOfFire }
 		
         self.Trash:Add(TorpRedirectField01)
-        
+
         self.DeathWeaponEnabled = true
+
+        -- setup callbacks to engage sonar stealth when not moving
+        local StartMoving = function(unit)
+            unit:DisableIntel('SonarStealth')
+        end
+        
+        local StopMoving = function(unit)
+            unit:EnableIntel('SonarStealth')
+        end
+        
+        self:AddOnHorizontalStartMoveCallback( StartMoving )
+        self:AddOnHorizontalStopMoveCallback( StopMoving )
+
     end,
     
 	OnLayerChange = function( self, new, old )

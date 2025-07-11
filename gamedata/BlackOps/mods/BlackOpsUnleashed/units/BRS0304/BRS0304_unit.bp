@@ -83,13 +83,7 @@ UnitBlueprint {
             { Animation = '/mods/BlackOpsUnleashed/units/BRS0304/BRS0304_asink03.sca', AnimationRateMax = 1.2, AnimationRateMin = 0.8, Weight = 100 },
         },
         
-        IdleEffects = {
-            Water = {
-                Effects = {
-                    { Bones = {'URS0202'}, Scale = 1.1, Type = 'SeaIdle01' },
-                },
-            },
-        },
+        IdleEffects = { Water = { Effects = { { Bones = {'URS0202'}, Scale = 1.1, Type = 'SeaIdle01' } } } },
         
         Mesh = { IconFadeInZoom = 100, LODs = { {LODCutoff = 300,ShaderName = 'Insect'} } },
         

@@ -17,7 +17,44 @@ WeaponFile = nil
 SES0204 = Class(TSubUnit) {
 
     Weapons = {
-        Torpedo = Class(Torpedo) {},
+        Torpedo = Class(Torpedo) {
+  
+            FxMuzzleFlash = false,
+        
+            OnLostTarget = function(self)
+                
+                self.unit:SetAccMult(1)
+                
+                self:ChangeMaxRadius(48)
+                
+                Torpedo.OnLostTarget(self)
+            
+            end,
+        
+            RackSalvoFireReadyState = State( Torpedo.RackSalvoFireReadyState) {
+            
+                Main = function(self)
+                
+                    self:ChangeMaxRadius(44)
+                
+                    Torpedo.RackSalvoFireReadyState.Main(self)
+                    
+                end,
+            },
+        
+            RackSalvoReloadState = State( Torpedo.RackSalvoReloadState) {
+            
+                Main = function(self)
+                
+                    self.unit:SetAccMult(1.3)
+                
+                    self:ForkThread( function() self:ChangeMaxRadius(56) self:ChangeMinRadius(48) WaitTicks(32) self:ChangeMaxRadius(44) self:ChangeMinRadius(8) end)
+                    
+                    Torpedo.RackSalvoReloadState.Main(self)
+
+                end,
+            },   
+        },
         AAGun = Class(FlakCannon) {},
     },
     

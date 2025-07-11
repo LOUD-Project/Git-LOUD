@@ -68,20 +68,9 @@ UnitBlueprint{
             { Animation = "/mods/BattlePack/units/WES0303/WES0303_ADeath02.sca", Weight = 100 },
         },
 
-        IdleEffects = {
-            Water = {
-                Effects = {
-                    { Bones = { "UES0202" }, Scale = 1.5, Type = "SeaIdle01" },
-                },
-            },
-        },
+        IdleEffects = { Water = { Effects = { { Bones = { "UES0202" }, Scale = 1.5, Type = "SeaIdle01" } } } },
 
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 600, ShaderName = "Unit" },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 600, ShaderName = "Unit" } } },
 
         MovementEffects = {
             Water = {

@@ -1,9 +1,9 @@
 local CSeaUnit = import('/lua/defaultunits.lua').SeaUnit
 
-local CAAMissileNaniteWeapon    = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
-local CAMZapperWeapon           = import('/lua/cybranweapons.lua').CAMZapperWeapon
-local CANNaniteTorpedoWeapon    = import('/lua/cybranweapons.lua').CANNaniteTorpedoWeapon
-local CIFSmartCharge            = import('/lua/cybranweapons.lua').CIFSmartCharge
+local AA                = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
+local Zapper            = import('/lua/cybranweapons.lua').CAMZapperWeapon
+local Torpedo           = import('/lua/cybranweapons.lua').CANNaniteTorpedoWeapon
+local CIFSmartCharge    = import('/lua/cybranweapons.lua').CIFSmartCharge
 
 local RadarRestricted = type(ScenarioInfo.Options.RestrictedCategories) == 'table' and table.find(ScenarioInfo.Options.RestrictedCategories, 'INTEL')
 
@@ -13,9 +13,9 @@ SRS3324 = Class(CSeaUnit) {
 
     Weapons = {
 
-        SAM         = Class(CAAMissileNaniteWeapon) {},
-        Zapper      = Class(CAMZapperWeapon) {},
-        Torpedo     = Class(CANNaniteTorpedoWeapon) {},
+        SAM         = Class(AA) {},
+        Zapper      = Class(Zapper) {},
+        Torpedo     = Class(Torpedo) { FxMuzzleFlash = false },
         AntiTorpedo = Class(CIFSmartCharge) {},
     },
 

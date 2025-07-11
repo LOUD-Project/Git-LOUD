@@ -136,8 +136,8 @@
         },
 
         OrderOverrides = {
-            RULEUTC_IntelToggle     = { bitmapId = 'omni', helpText = 'toggle_omni' },
-            RULEUTC_GenericToggle   = { bitmapId = 'airpatrol', helpText = 'toggle_willem_drone_auto_patrol' },
+            RULEUTC_IntelToggle     = { bitmapId = 'omni', helpText = 'toggle omni' },
+            RULEUTC_GenericToggle   = { bitmapId = 'airpatrol', helpText = 'drone auto patrol' },
         },
 
         ToggleCaps = {

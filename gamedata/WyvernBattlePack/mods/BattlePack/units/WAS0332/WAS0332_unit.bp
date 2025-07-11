@@ -81,9 +81,7 @@ UnitBlueprint{
             { Animation = "/mods/BattlePack/units/was0332/was0332_adeath03.sca", Weight = 100 },
         },
 
-        IdleEffects = {
-            Water = { Effects = { { Bones = {0}, Offset = { 0, 0, -0.25 }, Scale = 1.25, Type = "SeaIdle01" } } },
-        },
+        IdleEffects = { Water = { Effects = { { Bones = {0}, Offset = { 0, 0, -0.25 }, Scale = 1.25, Type = "SeaIdle01" } } } },
 
         Mesh = {
             IconFadeInZoom = 130,

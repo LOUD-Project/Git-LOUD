@@ -94,21 +94,9 @@ UnitBlueprint {
             },
         },
 
-        IdleEffects = {
-            Water = {
-                Effects = {
-                    { Bones = {'BRS0401'},                 Scale = 2, Type = 'SeaIdle01' },
-                    { Bones = {'Sea_Idle_L','Sea_Idle_R'}, Scale = 3, Type = 'SeaIdle01' },
-                },
-            },
-        },
+        IdleEffects = { Water = { Effects = { { Bones = {'BRS0401'},                 Scale = 2, Type = 'SeaIdle01' } } } },
         
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 600, ShaderName = 'Insect' },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 600, ShaderName = 'Insect' } } },
         
         MovementEffects = {
             Water = {
@@ -238,6 +226,8 @@ UnitBlueprint {
 		-- from the Cybran T3 Nuke Sub 
 		
         {
+            AboveWaterTargetsOnly = true,
+
             Audio = {
                 Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0304_Missile_Cruise', LodCutoff = 'Weapon_LodCutoff' },
             },

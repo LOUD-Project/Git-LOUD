@@ -12,7 +12,44 @@ XSS0304 = Class(SSubUnit) {
 
     Weapons = {
 	
-        Torpedo = Class(Torpedo) {},
+        Torpedo = Class(Torpedo) {
+  
+            FxMuzzleFlash = false,
+        
+            OnLostTarget = function(self)
+                
+                self.unit:SetAccMult(1)
+                
+                self:ChangeMaxRadius(64)
+                
+                Torpedo.OnLostTarget(self)
+            
+            end,
+        
+            RackSalvoFireReadyState = State( Torpedo.RackSalvoFireReadyState) {
+            
+                Main = function(self)
+                
+                    self:ChangeMaxRadius(52)
+                
+                    Torpedo.RackSalvoFireReadyState.Main(self)
+                    
+                end,
+            },
+        
+            RackSalvoReloadState = State( Torpedo.RackSalvoReloadState) {
+            
+                Main = function(self)
+                
+                    self.unit:SetAccMult(1.3)
+                
+                    self:ForkThread( function() self:ChangeMaxRadius(64) self:ChangeMinRadius(60) WaitTicks(37) self:ChangeMaxRadius(64) self:ChangeMinRadius(8) end)
+                    
+                    Torpedo.RackSalvoReloadState.Main(self)
+
+                end,
+            },  
+        },
         AA      = Class(Cannon) {},
     },
     
@@ -39,6 +76,19 @@ XSS0304 = Class(SSubUnit) {
         end
         
         self.DeathWeaponEnabled = true
+
+        -- setup callbacks to engage sonar stealth when not moving
+        local StartMoving = function(unit)
+            unit:DisableIntel('SonarStealth')
+        end
+        
+        local StopMoving = function(unit)
+            unit:EnableIntel('SonarStealth')
+        end
+        
+        self:AddOnHorizontalStartMoveCallback( StartMoving )
+        self:AddOnHorizontalStopMoveCallback( StopMoving )
+
     end,
 
     OnLayerChange = function( self, new, old )

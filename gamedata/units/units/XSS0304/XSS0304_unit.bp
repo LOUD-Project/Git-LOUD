@@ -69,12 +69,7 @@ UnitBlueprint {
         },
         
         CannonOpenAnimation = '/units/xss0304/xss0304_aopen.sca',
-        
-        IdleEffects = {
-            Sub     = { Effects = { { Bones = {'XSS0304'}, Type = 'UnderWater01' } } },
-            Water   = { Effects = { { Bones = {'XSS0304'}, Scale = 0.5, Type = 'SeaIdle01' } } },
-        },
-        
+       
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -218,7 +213,7 @@ UnitBlueprint {
             MaxRadius = 64,
             MinRadius = 8,
 			
-            MuzzleSalvoDelay = 0.5,
+            MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 7,
 
             MuzzleVelocity = 5.5,
@@ -233,13 +228,13 @@ UnitBlueprint {
                 { MuzzleBones = {'Projectile01','Projectile02','Projectile03'}, RackBone = 'Projectile02' },
             },
             
-            RackSalvoReloadTime = 2.5,
+            RackSalvoReloadTime = 3.9,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.5,		-- 7 torps of 450 every 6 seconds = 525 DPS -- controlled by muzzle and reload delays
+            RateOfFire = 0.167,		-- 7 torps of 450 every 6 seconds = 525 DPS -- controlled by muzzle and reload delays
 			
-            TargetCheckInterval = 2,
+            TargetCheckInterval = 3,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',

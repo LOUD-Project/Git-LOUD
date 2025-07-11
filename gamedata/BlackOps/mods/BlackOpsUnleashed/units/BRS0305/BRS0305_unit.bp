@@ -57,7 +57,7 @@ UnitBlueprint {
         SubThreatLevel = 42,
         SurfaceThreatLevel = 7,
 		
-        TorpRedirectField01 = { AttachBone = 'XRS0305', Radius = 5.6, RedirectRateOfFire = 8 },
+        TorpRedirectField01 = { AttachBone = 'XRS0305', Radius = 5, RedirectRateOfFire = 8 },
     },
 	
     Description = '<LOC brs0305_desc>Assault Submarine',
@@ -82,25 +82,7 @@ UnitBlueprint {
             },
         },
 		
-        IdleEffects = {
-            Sub = {
-                Effects = {
-                    { Bones = { 'Right_Projectile','Turret01','XRS0305' }, Type = 'UnderWater01' },
-                },
-            },
-            Water = {
-                Effects = {
-                    { Bones = {'XRS0305'}, Scale = 0.7, Type = 'SeaIdle01' },
-                },
-            },
-        },
-		
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 215, ShaderName = 'Insect' },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, ShaderName = 'Insect' } } },
 		
         MovementEffects = {
             Sub = {
@@ -221,6 +203,8 @@ UnitBlueprint {
             Audio = {
                 Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0203_Torpedo_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
+
+            AutoInitiateAttackCommand = true,
 			
             BallisticArc = 'RULEUBA_None',
 			
@@ -255,7 +239,7 @@ UnitBlueprint {
             MaxRadius = 56,
             MinRadius = 8,
 			
-            MuzzleSalvoDelay = 0.6,
+            MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 4,
 
             MuzzleVelocity = 5,
@@ -269,16 +253,16 @@ UnitBlueprint {
                 { MuzzleBones = {'Left_Projectile','Right_Projectile'}, RackBone = 'Right_Projectile' },
             },
             
-            RackSalvoReloadTime = 3.6,  -- firing cycle 6 seconds = 200 DPS
+            RackSalvoReloadTime = 4.8,  -- firing cycle 6 seconds = 200 DPS
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 1,		-- 200 DPS Sub
+            RateOfFire = 0.166,		-- 200 DPS Sub
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 10,
 			
-            TargetCheckInterval = 1,
+            TargetCheckInterval = 3,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',

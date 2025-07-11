@@ -139,7 +139,7 @@ UnitBlueprint {
         SonarRadius = 44,
 
         RadarStealth = true,    -- when submerged
-        SonarStealth = true,    -- when stationary
+        SonarStealth = true,    -- when submerged
         
         VisionRadius = 32,
         WaterVisionRadius = 32,
