@@ -79,7 +79,7 @@ UnitBlueprint {
         MovementEffects = {
             Water = {
                 Effects = {
-                    { Bones = {'UAS0201'}, Scale = 0.7, Type = 'BackWake' },
+                    { Bones = {'Exhaust01','Exhaust02'}, Scale = 0.7, Type = 'BackWake' },
                 },
             },
         },

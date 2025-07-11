@@ -213,7 +213,7 @@ UnitBlueprint {
                 'HIGHPRIAIR',
                 'BOMBER',
                 'GROUNDATTACK',
-                'AIR MOBILE',
+                'MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',

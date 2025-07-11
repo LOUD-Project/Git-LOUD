@@ -1,20 +1,16 @@
 local ASeaUnit =  import('/lua/defaultunits.lua').SeaUnit
 
-local AAAZealotMissileWeapon = import('/lua/aeonweapons.lua').AAAZealotMissileWeapon
+local Zealot = import('/lua/aeonweapons.lua').AAAZealotMissileWeapon
 
 local MissileRedirect = import('/lua/defaultantiprojectile.lua').MissileTorpDestroy
 
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
 
-WeaponsFile = nil
-
 UAS0303 = Class(ASeaUnit) {
 
     Weapons = {
-	
-        AAMissiles = Class(AAAZealotMissileWeapon) {},
-		
+        AAMissiles = Class(Zealot) {},
     },
 
     BuildAttachBone = 'UAS0303',

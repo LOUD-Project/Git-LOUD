@@ -324,7 +324,7 @@ UAS0401 = Class(ASubUnit) {
 	--Initial drone setup - loads globals, DroneData table, and creates drones
 	DroneSetup = function(self)
     
-        LOG("*AI DEBUG Tempest Drone Setup")
+        --LOG("*AI DEBUG Tempest Drone Setup")
 	
 		--Drone handle table, used to issue orders to all drones at once
 		self.DroneTable = {}

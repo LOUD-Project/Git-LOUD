@@ -265,10 +265,7 @@ UnitBlueprint {
             MinRadius = 2,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Head'},
-                    RackBone = 'Head',
-                },
+                { MuzzleBones = {'Head'}, RackBone = 'Head' },
             },
 
             RangeCategory = 'UWRC_DirectFire',
@@ -339,10 +336,7 @@ UnitBlueprint {
             MuzzleSpecial = 'Right_Arm_Muzzle02',
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Right_Arm_Muzzle01'},
-                    RackBone = 'Right_Arm_B02',
-                },
+                { MuzzleBones = {'Right_Arm_Muzzle01'}, RackBone = 'Right_Arm_B02' },
             },
 
             RateOfFire = 1,
@@ -405,10 +399,7 @@ UnitBlueprint {
             MuzzleSpecial = 'Left_Arm_Muzzle02',
             
             RackBones = {
-                {
-                    MuzzleBones = {'Left_Arm_Muzzle01'},
-                    RackBone = 'Left_Arm_B02',
-                },
+                { MuzzleBones = {'Left_Arm_Muzzle01'}, RackBone = 'Left_Arm_B02' },
             },
 
             RateOfFire = 1,
