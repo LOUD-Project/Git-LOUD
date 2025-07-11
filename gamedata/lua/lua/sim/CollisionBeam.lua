@@ -143,6 +143,10 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
         if self.FxBeamStartPoint then
 
             for k, y in self.FxBeamStartPoint do
+
+                if ScenarioInfo.ProjectileDialog then
+                    LOG("*AI DEBUG CollisionBeam Creating Beam StartPoint Effect "..repr(y).." for "..repr(self.Label).." on Muzzle "..repr(self.Muzzle).." Scale is "..repr(self.FxBeamStartPointScale) )
+                end
         
                 fx = LOUDATTACHEMITTER(self, 0, army, y ):ScaleEmitter(self.FxBeamStartPointScale)
             
@@ -156,6 +160,10 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
         if self.FxBeamEndPoint then
         
             for k, y in self.FxBeamEndPoint do
+
+                if ScenarioInfo.ProjectileDialog then
+                    LOG("*AI DEBUG CollisionBeam Creating Beam EndPoint Effect "..repr(y).." for "..repr(self.Label).." on Muzzle "..repr(self.Muzzle).." Scale is "..repr(self.FxBeamEndPointScale) )
+                end
         
                 fx = LOUDATTACHEMITTER(self, 1, army, y ):ScaleEmitter(self.FxBeamEndPointScale)
             

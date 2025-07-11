@@ -388,28 +388,12 @@ CAMZapperWeapon02                   = Class(DefaultBeamWeapon) { BeamType = Coll
     FxMuzzleFlash = {'/effects/emitters/cannon_muzzle_flash_01_emit.bp',},
 }
 
-CDFHeavyMicrowaveLaserGeneratorCom  = Class(DefaultBeamWeapon) { BeamType = CollisionBeamFile.MicrowaveLaserCollisionBeam02,
+CDFAAMicrowaveLaser                 = Class(DefaultBeamWeapon) { BeamType = CollisionBeamFile.MicrowaveLaserCollisionBeam03,
 
-    FxUpackingChargeEffects = EffectTemplate.CMicrowaveLaserCharge01,
-    FxUpackingChargeEffectScale = 1,
-
-    PlayFxWeaponUnpackSequence = function( self )
-        
-        local army = self.unit.Army
-        local bp = self.bp
-        
-		local CreateAttachedEmitter = CreateAttachedEmitter
-		
-        for k, v in self.FxUpackingChargeEffects do
-        
-            for ek, ev in bp.RackBones[self.CurrentRackNumber].MuzzleBones do 
-                CreateAttachedEmitter(self.unit, ev, army, v):ScaleEmitter(self.FxUpackingChargeEffectScale)  
-            end
-        end
-        
-        DefaultBeamWeapon.PlayFxWeaponUnpackSequence(self)
-    end,
-}
+    TerrainImpactScale = 0.2,
+    FxBeamStartPointScale = 0.2,
+    FxMuzzleFlashScale = 0.2,
+ }
 
 CDFHeavyMicrowaveLaserGenerator     = Class(DefaultBeamWeapon) { BeamType = CollisionBeamFile.MicrowaveLaserCollisionBeam01,
 
@@ -468,6 +452,29 @@ CDFHeavyMicrowaveLaserGenerator     = Class(DefaultBeamWeapon) { BeamType = Coll
             
             DefaultBeamWeapon.PlayFxWeaponUnpackSequence(self)
         end
+    end,
+}
+
+CDFHeavyMicrowaveLaserGeneratorCom  = Class(DefaultBeamWeapon) { BeamType = CollisionBeamFile.MicrowaveLaserCollisionBeam02,
+
+    FxUpackingChargeEffects = EffectTemplate.CMicrowaveLaserCharge01,
+    FxUpackingChargeEffectScale = 1,
+
+    PlayFxWeaponUnpackSequence = function( self )
+        
+        local army = self.unit.Army
+        local bp = self.bp
+        
+		local CreateAttachedEmitter = CreateAttachedEmitter
+		
+        for k, v in self.FxUpackingChargeEffects do
+        
+            for ek, ev in bp.RackBones[self.CurrentRackNumber].MuzzleBones do 
+                CreateAttachedEmitter(self.unit, ev, army, v):ScaleEmitter(self.FxUpackingChargeEffectScale)  
+            end
+        end
+        
+        DefaultBeamWeapon.PlayFxWeaponUnpackSequence(self)
     end,
 }
 

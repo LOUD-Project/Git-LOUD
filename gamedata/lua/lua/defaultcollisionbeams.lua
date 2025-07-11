@@ -36,7 +36,6 @@ ZapperCollisionBeam = Class(CollisionBeam) {
     FxBeam = {'/effects/emitters/zapper_beam_01_emit.bp'},
     FxBeamEndPoint = {'/effects/emitters/cannon_muzzle_flash_01_emit.bp','/effects/emitters/sparks_07_emit.bp'},
 
-
     OnCollisionCheck = function( self, other )
     
         if LOUDENTITY( categories.TACTICAL, other ) and not (self.Army == other.Army) then
@@ -51,11 +50,9 @@ ZapperCollisionBeam = Class(CollisionBeam) {
         else
             return false
         end
-
     end,   
 }
 
---   QUANTUM BEAM GENERATOR COLLISION BEAM
 QuantumBeamGeneratorCollisionBeam = Class(SCCollisionBeam) {
 
     TerrainImpactType = 'LargeBeam02',
@@ -76,7 +73,6 @@ QuantumBeamGeneratorCollisionBeam = Class(SCCollisionBeam) {
     
     SplatTexture = 'czar_mark01_albedo',
     ScorchSize = 2.5,
-
 }
 
 DisruptorBeamCollisionBeam = Class(SCCollisionBeam) {
@@ -104,7 +100,6 @@ MicrowaveLaserCollisionBeam01 = Class(SCCollisionBeam) {
 
     SplatTexture = 'czar_mark01_albedo',
     ScorchSize = 1.1,
-
 }
 
 MicrowaveLaserCollisionBeam02 = Class(MicrowaveLaserCollisionBeam01) {
@@ -112,6 +107,13 @@ MicrowaveLaserCollisionBeam02 = Class(MicrowaveLaserCollisionBeam01) {
     FxBeamStartPoint = EffectTemplate.CMicrowaveLaserMuzzle01,
     FxBeam = {'/effects/emitters/microwave_laser_beam_02_emit.bp'},
     FxBeamEndPoint = EffectTemplate.CMicrowaveLaserEndPoint01,
+}
+
+MicrowaveLaserCollisionBeam03 = Class(CollisionBeam) {
+
+    FxBeamStartPoint = {},
+    FxBeam = {'/effects/emitters/microwave_laser_beam_04_emit.bp'},
+    FxBeamEndPoint = {},
 }
 
 PhasonLaserCollisionBeam = Class(SCCollisionBeam) {
@@ -126,10 +128,8 @@ PhasonLaserCollisionBeam = Class(SCCollisionBeam) {
 
     SplatTexture = 'czar_mark01_albedo',
     ScorchSize = 1.1,
-
 }
 
---   QUANTUM BEAM GENERATOR COLLISION BEAM
 ExperimentalPhasonLaserCollisionBeam = Class(SCCollisionBeam) {
 
     TerrainImpactType = 'LargeBeam01',
@@ -156,7 +156,6 @@ ExperimentalPhasonLaserCollisionBeam = Class(SCCollisionBeam) {
             self.BeamEffectsBagCounter = self.BeamEffectsBagCounter + 1
 
         end
-
     end, 
 }
 
@@ -171,7 +170,6 @@ UnstablePhasonLaserCollisionBeam = Class(SCCollisionBeam) {
 
     SplatTexture = 'czar_mark01_albedo',
     ScorchSize = 1.1,
-
 }
 
 --- This is for a ship and a point defense.
@@ -186,7 +184,6 @@ UltraChromaticBeamGeneratorCollisionBeam = Class(SCCollisionBeam) {
 
     SplatTexture = 'czar_mark01_albedo',
     ScorchSize = 0.75,
-
 }
 
 --- This is for a ship and a point defense. (adjustment for ship muzzleflash)
@@ -206,7 +203,6 @@ TractorClawCollisionBeam = Class(CollisionBeam) {
     FxBeamStartPoint = { EffectTemplate.ACollossusTractorBeamGlow01 },
 }
 
----  HIRO LASER COLLISION BEAM
 TDFHiroCollisionBeam = Class(CollisionBeam) {
 
     TerrainImpactType = 'LargeBeam01',
@@ -217,10 +213,8 @@ TDFHiroCollisionBeam = Class(CollisionBeam) {
 
     SplatTexture = 'czar_mark01_albedo',
     ScorchSize = 0.75,
-
 }
 
----   ORBITAL DEATH LASER COLLISION BEAM
 OrbitalDeathLaserCollisionBeam = Class(SCCollisionBeam) {
 
     TerrainImpactType = 'LargeBeam02',
@@ -249,5 +243,4 @@ OrbitalDeathLaserCollisionBeam = Class(SCCollisionBeam) {
     SplatTexture = 'czar_mark01_albedo',
     ScorchSize = 2.5,
     ScorchTime = 18
- 
 }
