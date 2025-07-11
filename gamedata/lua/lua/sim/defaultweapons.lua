@@ -1560,7 +1560,20 @@ DefaultProjectileWeapon = Class(Weapon) {
             if self.RecoilManipulators then
                 self:WaitForAndDestroyManips()
             end
-            
+
+            if bp.RackBones then
+			
+                for _, v in bp.RackBones do
+			
+                    if v.HideMuzzle == true then
+				
+                        for _, mv in v.MuzzleBones do
+                            unit:ShowBone( mv, true )
+                        end
+                    end
+                end
+            end
+               
             if WeaponStateDialog then
                 LOG("*AI DEBUG DefaultWeapon RackSalvo Reload State "..repr(bp.Label).." has target "..repr(WeaponHasTarget(self)).." on tick "..GetGameTick() )
             end
