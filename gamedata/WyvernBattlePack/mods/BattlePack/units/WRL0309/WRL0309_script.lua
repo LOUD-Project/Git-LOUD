@@ -1,11 +1,10 @@
 local CLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
-local CybranWeaponsFile = import('/lua/cybranweapons.lua')
-local CAANanoDartWeapon = CybranWeaponsFile.CAANanoDartWeapon
+local AA = import('/lua/cybranweapons.lua').CAANanoDartWeapon
 
 WRL0309 = Class(CLandUnit) {
     Weapons = {
-        MainGun = Class(CAANanoDartWeapon) {},
+        AAMissiles = Class(AA) {},
     },
 }
 

@@ -12,9 +12,7 @@ UnitBlueprint{
         DeathExplosion        = Sound { Bank = 'Explosions',   Cue = 'UEF_Nuke_Impact',           LodCutoff = 'UnitMove_LodCutoff' },
         Destroyed             = Sound { Bank = 'Explosions',   Cue = 'UEF_Nuke_Impact',           LodCutoff = 'UnitMove_LodCutoff' },
         FootFallGeneric       = Sound { Bank = 'BattlePackSB', Cue = 'Revamp_StarAdder_Footstep', LodCutoff = 'UnitMove_LodCutoff' },
-        FootFallGenericSeabed = Sound { Bank = 'BattlePackSB', Cue = 'Revamp_StarAdder_Footstep', LodCutoff = 'UnitMove_LodCutoff' },
         Killed                = Sound { Bank = 'URLDestroy',   Cue = 'URL0402_Destroy',           LodCutoff = 'UnitMove_LodCutoff' },
-        Nuke                  = Sound { Bank = 'Explosions',   Cue = 'UEF_Nuke_Impact',           LodCutoff = 'UnitMove_LodCutoff' },
         StartMove             = Sound { Bank = 'URL',          Cue = 'URL0303_Move_Start',        LodCutoff = 'UnitMove_LodCutoff' },
         StopMove              = Sound { Bank = 'URL',          Cue = 'URL0303_Move_Stop',         LodCutoff = 'UnitMove_LodCutoff' },
         UISelection           = Sound { Bank = 'Interface',    Cue = 'Cybran_Select_Bot',         LodCutoff = 'UnitMove_LodCutoff' },
@@ -49,38 +47,132 @@ UnitBlueprint{
     },
 
     Defense = {
+
+        MissileTorpDestroy = { AttachBone = {'Turret'}, Radius = 3.5, RedirectRateOfFire = 9, ProjectileCategories = {'TORPEDO'} },
+  
         ArmorType = "Experimental",
         Health = 55000,
         MaxHealth = 55000,
         RegenRate = 12,
+        
+        SubThreatLevel = 20,
         SurfaceThreatLevel = 587,
     },
 
     Display = {
         Abilities = {
             "<LOC ability_amphibious>Amphibious",
-            "<LOC ability_personalstealth>Personal Stealth",
+            "<LOC ability_personalstealth>Personal Radar/Sonar Stealth",
             "<LOC ability_radar>Radar",
+            '<LOC ability_torpedo>Torpedoes',
+            '<LOC ability_torpedodef>Torpedo Defense',            
         },
 
-        AnimationDeath = {
-            {
-                Animation = "/Mods/BattlePack/units/WEL4404/WEL4404_Death.sca",
-                Weight = 100,
-            },
-        },
-        AnimationWalk = "/Mods/BattlePack/units/WEL4404/WEL4404_Walk2.sca",
-        AnimationWalkRate = 1.4,
+        AnimationDeath  = {{ Animation = "/Mods/BattlePack/units/WEL4404/WEL4404_Death.sca", Weight = 100 }},
+
+        AnimationWalk   = "/Mods/BattlePack/units/WEL4404/WEL4404_Walk2.sca",
+        AnimationWalkRate = 2.4,
 
         Mesh = { IconFadeInZoom = 200, LODs = { { LODCutoff = 550, ShaderName = "Unit" } } },
+
+        MovementEffects = {
+            Land = {
+                Footfall = {
+                    Bones = {
+                        {
+                            FootBone = "footfall01",
+                            MaxFootFall = -0.25,
+                            Offset = { z = 0 },
+                            StraightLegs = false,
+                            Tread = {
+                                TreadLifeTime = 8,
+                                TreadMarks = 'CommanderPrint_albedo',
+                                TreadMarksSizeX = 1.2,
+                                TreadMarksSizeZ = 1.2,
+                                TreadOffset = {1,0,1.2},
+                            },
+                            Type = "FootFall01",
+                            Scale = 1.5,
+                        },
+                        {
+                            FootBone = "footfall02",
+                            MaxFootFall = -0.25,
+                            Offset = { z = 0 },
+                            StraightLegs = false,
+                            Tread = {
+                                TreadLifeTime = 8,
+                                TreadMarks = 'CommanderPrint_albedo',
+                                TreadMarksSizeX = 1.2,
+                                TreadMarksSizeZ = 1.2,
+                                TreadOffset = {-1,0,1.2},
+                            },
+                            Type = "FootFall01",
+                            Scale = 1.5,
+                        },
+                    },
+
+                    Damage = {
+                        Amount = 2000,
+                        DamageFriendly = false,
+                        Radius = 1.5,
+                        Type = "ExperimentalFootfall",
+                    },
+                },
+            },
+
+            Seabed = {
+                Footfall = {
+                    Bones = {
+                        {
+                            FootBone = "footfall01",
+                            MaxFootFall = -0.25,
+                            Offset = { z = 0 },
+                            StraightLegs = false,
+                            Tread = {
+                                TreadLifeTime = 8,
+                                TreadMarks = 'CommanderPrint_albedo',
+                                TreadMarksSizeX = 1.2,
+                                TreadMarksSizeZ = 1.2,
+                                TreadOffset = {-1,0,1.2},
+                            },
+                            Type = "FootFall01",
+                            Scale = 1.5,
+                        },
+                        {
+                            FootBone = "footfall02",
+                            MaxFootFall = -0.25,
+                            Offset = { z = 0 },
+                            StraightLegs = false,
+                            Tread = {
+                                TreadLifeTime = 8,
+                                TreadMarks = 'CommanderPrint_albedo',
+                                TreadMarksSizeX = 1.2,
+                                TreadMarksSizeZ = 1.2,
+                                TreadOffset = {1,0,1.2},
+                            },
+                            Type = "FootFall01",
+                            Scale = 1.5,
+                        },
+                    },
+
+                    Damage = {
+                        Amount = 2000,
+                        DamageFriendly = false,
+                        Radius = 1.5,
+                        Type = "ExperimentalFootfall",
+                    },
+                },
+            },
+        },
 
         UniformScale = 0.0425,
     },
 
     Economy = {
-        BuildCostEnergy = 411000,
+        BuildCostEnergy = 455000,
         BuildCostMass = 23500,
-        BuildTime = 6850,
+        BuildTime = 7050,
+
         MaintenanceConsumptionPerSecondEnergy = 80,
     },
 
@@ -110,18 +202,17 @@ UnitBlueprint{
     Intel = {
         RadarRadius = 64,
         RadarStealth = true,
+        SonarStealth = true,    -- when stationary
         VisionRadius = 36,
-        WaterVisionRadius = 20,
+        WaterVisionRadius = 28,
     },
 
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.5,
     LifeBarSize = 3,
 
-    ModIconName = "wbp",
-
     Physics = {
-        BackupDistance = 5,
+        BackupDistance = 8,
         BankingSlope = 0,
         DragCoefficient = 0.2,
 
@@ -130,7 +221,7 @@ UnitBlueprint{
         MaxAcceleration = 1.2,
         MaxBrake = 3.4,
         MaxSpeed = 3.4,
-        MaxSpeedReverse = 3,
+        MaxSpeedReverse = 3.4,
         MaxSteerForce = 0,
         MinSpeedPercent = 0,
         MotionType = "RULEUMT_Amphibious",
@@ -138,8 +229,8 @@ UnitBlueprint{
         SkirtOffsetZ = -0.5,
         SkirtSizeX = 4,
         SkirtSizeZ = 4,
-        TurnRadius = 5,
-        TurnRate = 45,
+        TurnRadius = 8,
+        TurnRate = 36,
     },
 
     SelectionCenterOffsetX = 0,
@@ -169,16 +260,21 @@ UnitBlueprint{
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 BarrelLoop        = Sound { Bank = 'UAS',          Cue = 'UAS_Turret_Lrg_Loop',       LodCutoff = 'WeaponBig_LodCutoff' },
                 BarrelStart       = Sound { Bank = 'UAS',          Cue = 'UAS_Turret_Lrg_Start',      LodCutoff = 'WeaponBig_LodCutoff' },
                 Fire              = Sound { Bank = 'BattlePackSB', Cue = 'StarAdderPPC',              LodCutoff = 'WeaponBig_LodCutoff' },
                 MuzzleChargeStart = Sound { Bank = 'XSL_Weapon',   Cue = 'XSL0401_Exp_Phason_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_LowArc",
+
+            --CannotAttackGround = true,
+
             CollideFriendly = false,
 
-            Damage = 1000,
+            Damage = 1500,
             DamageRadius = 3,
             DamageType = "Normal",
 
@@ -195,8 +291,9 @@ UnitBlueprint{
             Label = "PlasmaPPC",
 
             MaxRadius = 65,
+            MinRadius = 8,
 
-            MuzzleChargeDelay = 1.5,
+            MuzzleChargeDelay = 0.5,
 
             MuzzleVelocity = 35,
 
@@ -206,23 +303,21 @@ UnitBlueprint{
             ProjectileLifetime = 2,
 
             RackBones = {
-                {
-                    MuzzleBones = { "muzzle08" },
-                    RackBone = "topgun02",
-                },
-                {
-                    MuzzleBones = { "muzzle05" },
-                    RackBone = "topgun01",
-                },
+                { MuzzleBones = { "muzzle08" }, RackBone = "topgun02" },
+                { MuzzleBones = { "muzzle05" }, RackBone = "topgun01" },
             },
-            RackRecoilDistance = -1,
+            RackRecoilDistance = -2,
+            
+            RackSalvoReloadTime = 1.5,
 
             RackSlavedToTurret = true,
 
             RangeCategory = "UWRC_IndirectFire",
 
-            RateOfFire = 0.3,
-            TargetCheckInterval = 0.5,
+            RateOfFire = 0.5,      -- 1200 every 2 seconds = 750 DPS
+
+            TargetCheckInterval = 2,
+
             TargetPriorities = {
                 "SPECIALHIGHPRI",
                 "MOBILE",
@@ -251,15 +346,21 @@ UnitBlueprint{
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 Fire = Sound { Bank = 'BattlePackSB', Cue = 'StarAdderLaser', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_None",
+
             BeamCollisionDelay = 0.1,
             BeamLifetime = 0.5,
+
+            --CannotAttackGround = true,
+
             CollideFriendly = false,
 
-            Damage = 350,
+            Damage = 300,
             DamageType = "Normal",
 
             DisplayName = "Beam Cannons",
@@ -269,37 +370,24 @@ UnitBlueprint{
                 Seabed = "Land|Water|Seabed",
             },
 
-            FiringRandomnessWhileMoving = 0.3,
+            FiringRandomnessWhileMoving = 0.35,
             FiringTolerance = 0.2,
 
             Label = "BeamCannon",
 
             MaxRadius = 48,
 
-            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoDelay = 0.5,     -- between each muzzle firing
 
             NotExclusive = true,
 
             PrefersPrimaryWeaponTarget = true,
-            ProjectileLifetimeUsesMultiplier = 5,
 
             RackBones = {
-                {
-                    MuzzleBones = { "muzzle01" },
-                    RackBone = "gun02",
-                },
-                {
-                    MuzzleBones = { "muzzle03" },
-                    RackBone = "gun01",
-                },
-                {
-                    MuzzleBones = { "muzzle02" },
-                    RackBone = "gun02",
-                },
-                {
-                    MuzzleBones = { "muzzle04" },
-                    RackBone = "gun01",
-                },
+                { MuzzleBones = { "muzzle01" }, RackBone = "gun02" },
+                { MuzzleBones = { "muzzle03" }, RackBone = "gun01" },
+                { MuzzleBones = { "muzzle02" }, RackBone = "gun02" },
+                { MuzzleBones = { "muzzle04" }, RackBone = "gun01" },
             },
             RackFireTogether = true,
             RackReloadTimeout = 10,
@@ -308,9 +396,10 @@ UnitBlueprint{
 
             RangeCategory = "UWRC_DirectFire",
 
-            RateOfFire = 0.25,
+            RateOfFire = 0.2,      -- each muzzle 300 x 5 = 1500 x 4 muzzles = 6000 every 5 seconds = 1200 DPS
 
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 2.5,
+
             TargetPriorities = {
                 "SPECIALHIGHPRI",
                 "MOBILE",
@@ -318,7 +407,7 @@ UnitBlueprint{
                 "ALLUNITS -WALL",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 
             TurretBoneDualMuzzle = "muzzle01",
             TurretBoneDualPitch = "gun02",
@@ -339,61 +428,146 @@ UnitBlueprint{
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 Fire = Sound { Bank = 'UESWeapon', Cue = 'UES0201_Cannon_Dbl', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_None",
+
+            --CannotAttackGround = true,
+
             CollideFriendly = false,
+
             Damage = 100,
             DamageFriendly = true,
             DamageRadius = 3,
             DamageType = "Normal",
+
             DisplayName = "Flamethrower",
+
             DoTPulses = 10,
             DoTTime = 2.5,
+
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
             },
-            FiringRandomness = 0.6,
-            FiringTolerance = 2,
+
+            FiringRandomness = 1.5,
+            FiringTolerance = 10,
+
             Label = "FlameThrower",
+
             MaxRadius = 26,
             MinRadius = 10,
 
             MuzzleVelocity = 20,
+
             NotExclusive = true,
+
             ProjectileId = "/Mods/BattlePack/projectiles/NFlamerProjectile/NFlamerProjectile_proj.bp",
             ProjectileLifetime = 3,
+
             RackBones = {
-                {
-                    MuzzleBones = { "FlameMuzzle" },
-                    RackBone = "FlameMuzzle",
-                },
+                { MuzzleBones = { "FlameMuzzle" }, RackBone = "FlameMuzzle" },
             },
             RackReloadTimeout = 10,
 
-            RateOfFire = 0.4,
+            RangeCategory = "UWRC_AntiNavy",
+
+            RateOfFire = 0.4,           -- potentially 1000 damage every 2.5 seconds = 400 DPS
+
             TargetCheckInterval = 0.625,
+
             TargetPriorities = {
                 "SPECIALHIGHPRI",
                 "MOBILE",
                 "ALLUNITS -WALL",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
-            TrackingRadius = 1.1,
 
             TurretBoneMuzzle = "FlameMuzzle",
             TurretBonePitch = "FlameMuzzle",
             TurretBoneYaw = "Turret",
-            TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 45,
             TurretPitchSpeed = 45,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 0.3,
+
             Turreted = true,
+        },
+        {
+            Audio = {
+                Fire            = Sound { Bank = 'UESWeapon', Cue = 'UES0203_Torpedo', LodCutoff = 'Weapon_LodCutoff' },
+            },
+            
+            BallisticArc = 'RULEUBA_None',
+            
+            BelowWaterFireOnly = true,
+            
+            CollideFriendly = false,
+            
+            Damage = 300,
+            DamageType = 'Normal',
+            
+            DisplayName = 'Angler Torpedo',
+            
+            FireTargetLayerCapsTable = {
+                Seabed = 'Seabed|Sub|Water',
+            },
+            
+            FiringTolerance = 30,
+            
+            Label = 'Torpedo',
+            
+            MaxRadius = 44,
+            MinRadius = 8,
+            
+            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoSize = 4,
+            
+            MuzzleVelocity = 3,
+            
+            ProjectileId = '/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_proj.bp',
+            ProjectileLifetime = 6,
+            
+            RackBones = {
+                { MuzzleBones = { 'muzzle09', 'muzzle10' }, RackBone = 'head' },
+            },
+            
+            RackSalvoReloadTime = 3.4,
+            
+            RangeCategory = 'UWRC_AntiNavy',
+            
+            RateOfFire = 0.2,      -- 4 torps of 250 = 1000 every 5 seconds = 200 DPS
+            
+            TargetCheckInterval = 2.5,
+            
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'STRUCTURE DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
+            TrackingRadius = 1.1,
+        },
+        
+        {
+            Damage = 6500,
+            DamageFriendly = true,
+            DamageRadius = 9,
+            DamageType = "Normal",
+            DisplayName = "Death Weapon",
+            DummyWeapon = true,
+            Label = "DeathWeapon",
+            WeaponCategory = "Death",
         },
     },
 

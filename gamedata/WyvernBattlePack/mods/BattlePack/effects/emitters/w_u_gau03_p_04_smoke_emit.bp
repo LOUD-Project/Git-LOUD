@@ -8,7 +8,7 @@ EmitterBlueprint {
 	TextureStripcount = 4.00,
 	SortOrder = -1.00,
 	LowFidelity = false,
-	Texture = [[/mods/BattlePack/textures/particles/cloud_smoke_alpha_04.dds]],
+	Texture = [[/textures/particles/cloud_smoke_alpha_04.dds]],
 	RampTexture = [[/mods/BattlePack/textures/particles/ra_0135_grey.dds]],
 	DistortionMapTexture = [[/mods/BattlePack/textures/particles/di_0005_55.dds]],
 	EmitRateCurve = {

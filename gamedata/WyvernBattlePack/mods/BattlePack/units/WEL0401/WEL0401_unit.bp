@@ -255,14 +255,8 @@ UnitBlueprint{
             ProjectileLifetime = 12,
 
             RackBones = {
-                {
-                    MuzzleBones = {"MainCannon_MuzzleRight01","MainCannon_MuzzleRight02"},
-                    RackBone = "Main_Cannon_RightRecoil",
-                },
-                {
-                    MuzzleBones = {"MainCannon_MuzzleLeft01","MainCannon_MuzzleLeft02"},
-                    RackBone = "Main_Cannon_LeftRecoil",
-                },
+                { MuzzleBones = {"MainCannon_MuzzleRight01","MainCannon_MuzzleRight02"}, RackBone = "Main_Cannon_RightRecoil" },
+                { MuzzleBones = {"MainCannon_MuzzleLeft01","MainCannon_MuzzleLeft02"}, RackBone = "Main_Cannon_LeftRecoil" },
             },
             RackFireTogether = true,
 
@@ -288,11 +282,11 @@ UnitBlueprint{
 
             TurretPitch = 0,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 90,
+            TurretPitchSpeed = 50,
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 50,
 
             Turreted = true,
         },
@@ -335,7 +329,7 @@ UnitBlueprint{
 
             NotExclusive = true,
 
-            ProjectileId = "/mods/BattlePack/projectiles/BPNapalmMissile/BPNapalmMissile_proj.bp",
+            ProjectileId = "/mods/BattlePack/projectiles/NapalmMissile/NapalmMissile_proj.bp",
             ProjectileLifetime = 9,
 
             RackBones = {
@@ -419,20 +413,12 @@ UnitBlueprint{
             ProjectileLifetime = 4,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Right_Turret_Recoil001" },
-                    RackBone = "Right_Turret_Recoil001",
-                },
-                {
-                    MuzzleBones = { "Right_Turret_Recoil002" },
-                    RackBone = "Right_Turret_Recoil002",
-                },
-                {
-                    MuzzleBones = { "Right_Turret_Recoil003" },
-                    RackBone = "Right_Turret_Recoil003",
-                },
+                { MuzzleBones = { "Right_Turret_Recoil001" }, RackBone = "Right_Turret_Recoil001" },
+                { MuzzleBones = { "Right_Turret_Recoil002" }, RackBone = "Right_Turret_Recoil002" },
+                { MuzzleBones = { "Right_Turret_Recoil003" }, RackBone = "Right_Turret_Recoil003" },
             },
             RackFireTogether = true,
+
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
 
@@ -503,18 +489,9 @@ UnitBlueprint{
             ProjectileLifetime = 4,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Left_Turret_Recoil001" },
-                    RackBone = "Left_Turret_Recoil001",
-                },
-                {
-                    MuzzleBones = { "Left_Turret_Recoil002" },
-                    RackBone = "Left_Turret_Recoil002",
-                },
-                {
-                    MuzzleBones = { "Left_Turret_Recoil003" },
-                    RackBone = "Left_Turret_Recoil003",
-                },
+                { MuzzleBones = { "Left_Turret_Recoil001" }, RackBone = "Left_Turret_Recoil001" },
+                { MuzzleBones = { "Left_Turret_Recoil002" }, RackBone = "Left_Turret_Recoil002" },
+                { MuzzleBones = { "Left_Turret_Recoil003" }, RackBone = "Left_Turret_Recoil003" },
             },
             RackFireTogether = true,
             RackRecoilDistance = -1,
@@ -581,18 +558,9 @@ UnitBlueprint{
             ProjectileLifetime = 4,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Center_Turret_Recoil001" },
-                    RackBone = "Center_Turret_Recoil001",
-                },
-                {
-                    MuzzleBones = { "Center_Turret_Recoil002" },
-                    RackBone = "Center_Turret_Recoil002",
-                },
-                {
-                    MuzzleBones = { "Center_Turret_Recoil003" },
-                    RackBone = "Center_Turret_Recoil003",
-                },
+                { MuzzleBones = { "Center_Turret_Recoil001" }, RackBone = "Center_Turret_Recoil001" },
+                { MuzzleBones = { "Center_Turret_Recoil002" }, RackBone = "Center_Turret_Recoil002" },
+                { MuzzleBones = { "Center_Turret_Recoil003" }, RackBone = "Center_Turret_Recoil003" },
             },
             RackFireTogether = true,
             RackRecoilDistance = -1,
@@ -615,11 +583,11 @@ UnitBlueprint{
 
             TurretPitch = 0,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 50,
+            TurretPitchSpeed = 44,
 
             TurretYaw = 20,
             TurretYawRange = 100,
-            TurretYawSpeed = 50,
+            TurretYawSpeed = 44,
 
             Turreted = true,
         },
@@ -655,10 +623,7 @@ UnitBlueprint{
             NeedPrep = true,
             NotExclusive = true,
             RackBones = {
-                {
-                    MuzzleBones = { "TMD_Muzzle001" },
-                    RackBone = "TMD_Muzzle001",
-                },
+                { MuzzleBones = { "TMD_Muzzle001" }, RackBone = "TMD_Muzzle001" },
             },
 
             RangeCategory = "UWRC_Countermeasure",
@@ -718,10 +683,7 @@ UnitBlueprint{
             NeedPrep = true,
             NotExclusive = true,
             RackBones = {
-                {
-                    MuzzleBones = { "TMD_Muzzle002" },
-                    RackBone = "TMD_Muzzle002",
-                },
+                { MuzzleBones = { "TMD_Muzzle002" }, RackBone = "TMD_Muzzle002" },
             },
 
             RateOfFire = 0.5,
@@ -790,14 +752,8 @@ UnitBlueprint{
             ProjectileLifetime = 0.9,
 
             RackBones = {
-                {
-                    MuzzleBones = { "LeftFlak_Muzzle_Right" },
-                    RackBone = "LeftFlak_Recoil_Right",
-                },
-                {
-                    MuzzleBones = { "LeftFlak_Muzzle_Left" },
-                    RackBone = "LeftFlak_Recoil_Left",
-                },
+                { MuzzleBones = { "LeftFlak_Muzzle_Right" }, RackBone = "LeftFlak_Recoil_Right" },
+                { MuzzleBones = { "LeftFlak_Muzzle_Left" }, RackBone = "LeftFlak_Recoil_Left" },
             },
             RackFireTogether = true,
             RackRecoilDistance = -0.7,
@@ -868,14 +824,8 @@ UnitBlueprint{
             ProjectileLifetimeUsesMultiplier = 0.9,
 
             RackBones = {
-                {
-                    MuzzleBones = { "RightFlak_Muzzle_Right" },
-                    RackBone = "RightFlak_Recoil_Right",
-                },
-                {
-                    MuzzleBones = { "RightFlak_Muzzle_Left" },
-                    RackBone = "RightFlak_Recoil_Left",
-                },
+                { MuzzleBones = { "RightFlak_Muzzle_Right" }, RackBone = "RightFlak_Recoil_Right" },
+                { MuzzleBones = { "RightFlak_Muzzle_Left" }, RackBone = "RightFlak_Recoil_Left" },
             },
             RackFireTogether = true,
             RackRecoilDistance = -0.7,
@@ -942,10 +892,7 @@ UnitBlueprint{
             ProjectileLifetime = 1,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Riot_Gun_Right_Barrel_Muzzle" },
-                    RackBone = "Riot_Gun_Right_Barrel",
-                },
+                { MuzzleBones = { "Riot_Gun_Right_Barrel_Muzzle" }, RackBone = "Riot_Gun_Right_Barrel" },
             },
 
             RateOfFire = 3,
@@ -961,7 +908,6 @@ UnitBlueprint{
             TurretBoneMuzzle = "Riot_Gun_Right_Barrel_Muzzle",
             TurretBonePitch = "Riot_Gun_Right_Barrel",
             TurretBoneYaw = "Riot_Gun_Right",
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 25,
@@ -1009,10 +955,7 @@ UnitBlueprint{
             ProjectileLifetime = 1,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Riot_Gun_Left_Barrel_Muzzle" },
-                    RackBone = "Riot_Gun_Left_Barrel",
-                },
+                { MuzzleBones = { "Riot_Gun_Left_Barrel_Muzzle" }, RackBone = "Riot_Gun_Left_Barrel" },
             },
 
             RateOfFire = 3,
@@ -1028,7 +971,6 @@ UnitBlueprint{
             TurretBoneMuzzle = "Riot_Gun_Left_Barrel_Muzzle",
             TurretBonePitch = "Riot_Gun_Left_Barrel",
             TurretBoneYaw = "Riot_Gun_Left",
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 25,
@@ -1050,6 +992,7 @@ UnitBlueprint{
             WeaponCategory = "Death",
         },
     },
+
     Wreckage = {
         Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.5,

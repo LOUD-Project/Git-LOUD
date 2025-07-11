@@ -6,7 +6,7 @@ EmitterBlueprint {
 	LocalVelocity = true,
 	LODCutoff = 340.00,
 	EmitIfVisible = false,
-	Texture = [[/mods/BattlePack/textures/particles/glow_02.dds]],
+	Texture = [[/textures/particles/glow_02.dds]],
 	RampTexture = [[/mods/BattlePack/textures/particles/ra_0122_red_flicker.dds]],
 	EmitRateCurve = {
 		XRange = 1.0000,

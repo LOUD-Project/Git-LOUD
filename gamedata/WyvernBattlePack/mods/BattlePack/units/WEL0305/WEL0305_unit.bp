@@ -243,7 +243,6 @@ UnitBlueprint{
             TurretBoneMuzzle = "TurretMuzzle",
             TurretBonePitch = "TurretRack",
             TurretBoneYaw = "Turret",
-            TurretDualManipulators = false,
 
             TurretPitch = 10,
             TurretPitchRange = 90,
@@ -316,13 +315,15 @@ UnitBlueprint{
             TurretBoneMuzzle = "GatGunMuzzle01",
             TurretBonePitch = "Gatgun2",
             TurretBoneYaw = "Gatgun2",
-            TurretDualManipulators = false,
+
             TurretPitch = 20,
             TurretPitchRange = 360,
             TurretPitchSpeed = 40,
+
             TurretYaw = 20,
             TurretYawRange = 40,
             TurretYawSpeed = 30,
+
             Turreted = true,
         },
         {
@@ -392,7 +393,6 @@ UnitBlueprint{
             TurretBoneMuzzle = "AATurret_Barrel",
             TurretBonePitch = "AATurret",
             TurretBoneYaw = "AATurret",
-            TurretDualManipulators = false,
 
             TurretPitch = 35,
             TurretPitchRange = 80,
@@ -464,7 +464,6 @@ UnitBlueprint{
             TurretBoneMuzzle = "TMLMuzzle",
             TurretBonePitch = "TMLMuzzle",
             TurretBoneYaw = "TMLMuzzle",
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 180,

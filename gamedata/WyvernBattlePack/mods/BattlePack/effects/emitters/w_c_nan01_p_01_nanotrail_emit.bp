@@ -8,7 +8,7 @@ EmitterBlueprint {
 	EmitIfVisible = false,
 	SortOrder = -1.00,
 	Texture = [[/mods/BattlePack/textures/particles/aeon_plasma03.dds]],
-	RampTexture = [[/mods/BattlePack/textures/particles/ramp_red_14.dds]],
+	RampTexture = [[/textures/particles/ramp_red_14.dds]],
 	DistortionMapTexture = [[/mods/BattlePack/textures/particles/di_0004_44.dds]],
 	EmitRateCurve = {
 		XRange = 11.0000,

@@ -106,20 +106,22 @@ UnitBlueprint{
     Physics = {
         BankingSlope = 0,
         DragCoefficient = 0.2,
-        MaxAcceleration = 3,
-        MaxBrake = 3,
+        MaxAcceleration = 1,
+        MaxBrake = 1.5,
         MaxSpeed = 3,
         MaxSpeedReverse = 0,
+
         MaxSteerForce = 3,
         MeshExtentsX = 0.75,
         MeshExtentsY = 0.45,
         MeshExtentsZ = 1.25,
         MinSpeedPercent = 0,
         MotionType = "RULEUMT_Land",
+
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.1,
-        TurnRadius = 0,
-        TurnRate = 90,
+        TurnRadius = 3,
+        TurnRate = 40,
     },
 
     SelectionSizeX = 0.6,
@@ -145,74 +147,70 @@ UnitBlueprint{
 
     Weapon = {
         {
+            advancedTracking = true,
+
             AlwaysRecheckTarget = true,
+
             Audio = {
                 Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2304_Missile_Flayer', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_None",
-            CannotAttackGround = true,
-            CollideFriendly = false,
-
-            Damage = 200,
-            DamageFriendly = false,
-            DamageRadius = 2.5,
-            DamageType = "Normal",
-
-            DetonatesAtTargetHeight = true,
-
-            DisplayName = "Short Range SAM",
-
-            FireTargetLayerCapsTable = { Land = "Air" },
-            FiringRandomness = 2,
-            FiringTolerance = 2,
-
-            Label = "AA",
-
-            MaxRadius = 40,
-
-            MuzzleVelocity = 28,
-
-            ProjectileId = "/mods/BattlePack/projectiles/WBPSmallAAMissile/WBPSmallAAMissile_proj.bp",
-            ProjectileLifetime = 3,
-
-            RackBones = {
+			
+            Buffs = {
                 {
-                    HideMuzzle = true,
-                    MuzzleBones = { "Left_Missile_001" },
-                    RackBone = "Turret_Yaw",
-                },
-                {
-                    HideMuzzle = true,
-                    MuzzleBones = { "Left_Missile_002" },
-                    RackBone = "Turret_Yaw",
-                },
-                {
-                    HideMuzzle = true,
-                    MuzzleBones = { "Right_Missile_001" },
-                    RackBone = "Turret_Yaw",
-                },
-                {
-                    HideMuzzle = true,
-                    MuzzleBones = { "Right_Missile_002" },
-                    RackBone = "Turret_Yaw",
+                    Add = { OnImpact = true },
+                    BuffType = 'FUELRATIO',
+                    BuffValue = 2.8,
+                    TargetAllow = 'AIR MOBILE',
                 },
             },
 
-            RackReloadTimeout = 10,
+            CannotAttackGround = true,
+            CollideFriendly = false,
+
+            Damage = 120,
+            DamageType = "Normal",
+
+            DisplayName = "SAM",
+
+            FireTargetLayerCapsTable = { Land = "Air" },
+
+            FiringRandomness = 2,
+            FiringTolerance = 15,
+
+            Label = "AA",
+
+            MaxRadius = 44,
+
+            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoSize = 4,
+            MuzzleVelocity = 28,
+
+            ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
+            ProjectileLifetime = 3,
+
+            RackBones = {
+                { HideMuzzle = true, MuzzleBones = { "Left_Missile_001","Left_Missile_002","Right_Missile_001","Right_Missile_002" }, RackBone = "Turret_Yaw" },
+            },
+            
+            RackSalvoReloadTime = 0.4,      -- cycle time is 1.2 seconds
 
             RangeCategory = "UWRC_AntiAir",
 
-            RateOfFire = 2.5,
-            TargetCheckInterval = 0.3,
+            RateOfFire = 5,                 -- controlled by salvo times = 480 / 1.2 = 400 DPS Air
+            TargetCheckInterval = 1,
+
             TargetPriorities = {
                 "SPECIALHIGHPRI",
                 "HIGHPRIAIR",
                 "GROUNDATTACK",
                 "BOMBER",
-                "AIR MOBILE",
+                "MOBILE",
             },
             TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
-            TrackingRadius = 1.4,
+            TargetRestrictOnlyAllow = "AIR",
+            TrackingRadius = 1.2,
 
             TurretBoneDualMuzzle = "Turret_Left",
             TurretBoneDualPitch = "Turret_Left",
@@ -223,11 +221,11 @@ UnitBlueprint{
 
             TurretPitch = 45,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 80,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 70,
+            TurretYawSpeed = 66,
 
             Turreted = true,
         },

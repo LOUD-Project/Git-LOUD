@@ -8,8 +8,8 @@ EmitterBlueprint {
 	InterpolateEmission = false,
 	SortOrder = 3.00,
 	LowFidelity = false,
-	Texture = [[/mods/BattlePack/textures/particles/miasma_mod_02.dds]],
-	RampTexture = [[/mods/BattlePack/textures/particles/ramp_orang_blue_02.dds]],
+	Texture = [[/textures/particles/miasma_mod_02.dds]],
+	RampTexture = [[/textures/particles/ramp_orang_blue_02.dds]],
 	DistortionMapTexture = [[/mods/BattlePack/textures/particles/di_0005_55.dds]],
 	EmitRateCurve = {
 		XRange = 1.0000,

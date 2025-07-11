@@ -47,6 +47,10 @@ UnitBlueprint{
     },
 
     Display = {
+        Abilities = {
+            "<LOC ability_personalstealth>Personal Stealth",
+        },
+
         AnimationDeath = {
             {
                 Animation = "/Mods/BattlePack/units/WRL0305/WRL0305_Adeath01.sca",
@@ -68,16 +72,8 @@ UnitBlueprint{
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    ShaderName = "Insect",
-                },
-                {
-                    LODCutoff = 215,
-                    ShaderName = "Insect",
-                    AlbedoName = "wrl0305_lod1_albedo.dds",
-                    SpecularName = "wrl0305_lod1_specteam.dds",
-                },
+                { LODCutoff = 100, ShaderName = "Insect" },
+                { LODCutoff = 215, ShaderName = "Insect", AlbedoName = "wrl0305_lod1_albedo.dds", SpecularName = "wrl0305_lod1_specteam.dds" },
             },
         },
 
@@ -215,10 +211,7 @@ UnitBlueprint{
             ProjectileLifetime = 1.5,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Main_Muzzle" },
-                    RackBone = "Sniper_Recoil",
-                },
+                { MuzzleBones = { "Main_Muzzle" }, RackBone = "Sniper_Recoil" },
             },
             RackRecoilDistance = -2,
 

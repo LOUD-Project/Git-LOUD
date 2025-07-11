@@ -46,6 +46,11 @@ UnitBlueprint{
     },
 
     Defense = {
+
+        -- 4x Personal Anti-Torp/TMD emitters --
+        
+        MissileTorpDestroy = { AttachBone = { 'KneeGuard_Left','KneeGuard_Right','Right_MissileRack','Left_MissileRack'}, Radius = 4.4, RedirectRateOfFire = 9, ProjectileCategories = {'TORPEDO','TACTICAL MISSILE'} },
+ 
         AirThreatLevel = 56,
         ArmorType = "Experimental",
         Health = 70000,
@@ -61,7 +66,7 @@ UnitBlueprint{
             ShieldMaxHealth = 14000,
             ShieldRechargeTime = 24,
             ShieldRegenRate = 145,
-            ShieldRegenStartTime = 0.9,
+            ShieldRegenStartTime = 2,
             ShieldSize = 3,
             ShieldVerticalOffset = 0,
         },
@@ -74,6 +79,8 @@ UnitBlueprint{
             "<LOC ability_aa>Anti-Air",
             "<LOC ability_amphibious>Amphibious",
             "<LOC ability_personalshield>Personal Shield",
+            "<LOC ability_tacmissiledef>Tactical Missile Defense",
+            "<LOC ability_torpedodef>Torpedo Defense",
         },
 
         AnimationDeath = {
@@ -276,15 +283,12 @@ UnitBlueprint{
             MaxRadius = 60,
 
             RackBones = {
-                {
-                    MuzzleBones = { "NewTorso" },
-                    RackBone = "NewTorso",
-                },
+                { MuzzleBones = { "NewTorso" }, RackBone = "NewTorso" },
             },
 
             RateOfFire = 2,
 
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
                 "MOBILE",
@@ -303,7 +307,7 @@ UnitBlueprint{
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 50,
+            TurretYawSpeed = 46,
 
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -345,10 +349,7 @@ UnitBlueprint{
             NoPause = true,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Head" },
-                    RackBone = "Head",
-                },
+                { MuzzleBones = { "Head" }, RackBone = "Head" },
             },
 
             RateOfFire = 0.1,
@@ -365,15 +366,17 @@ UnitBlueprint{
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound { Bank = 'BattlePackSB', Cue = 'Kriptor_BigGun_fire', LodCutoff = 'Weapon_LodCutoff' },
+                Fire              = Sound { Bank = 'BattlePackSB', Cue = 'StarAdderPPC',              LodCutoff = 'WeaponBig_LodCutoff' },
+                MuzzleChargeStart = Sound { Bank = 'XSL_Weapon',   Cue = 'XSL0401_Exp_Phason_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = "RULEUBA_LowArc",
 
             CollideFriendly = false,
 
-            Damage = 1500,
+            Damage = 3000,
             DamageRadius = 2.5,
             DamageType = "Normal",
 
@@ -382,38 +385,40 @@ UnitBlueprint{
                 Seabed = "Land|Water|Seabed",
             },
 
-            FiringRandomness = 0.2,
+            FiringRandomness = 0.25,
             FiringTolerance = 2,
 
-            Label = "ArmLaser",
+            Label = "Arm",
 
             MaxRadius = 60,
             MinRadius = 5,
 
+            MuzzleChargeDelay = 0.5,
             MuzzleVelocity = 35,
 
             NotExclusive = true,
 
             PrefersPrimaryWeaponTarget = true,
 
-            ProjectileId = "/mods/BattlePack/projectiles/UHandCannon01/UHandCannon01_proj.bp",
+            ProjectileId = "/Mods/BattlePack/projectiles/PlasmaPPC/PlasmaPPC_proj.bp",
             ProjectileLifetime = 2,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Left_Cannon_Recoil" },
-                    RackBone = "Left_Cannon_Recoil",
-                },
+                { MuzzleBones = { "Left_Cannon_Recoil" }, RackBone = "Left_Cannon_Recoil" },
             },
-            RackRecoilDistance = -0.4,
+
+            RackRecoilDistance = -2.5,
+
+            RackSalvoReloadTime = 3.5,  -- firing cycle every 4 seconds = 750 DPS
 
             RangeCategory = "UWRC_DirectFire",
 
-            RateOfFire = 0.5,
+            RateOfFire = 0.25,   -- every 4 seconds - cycle is 4 due to racksalvoreload
 
             ReTargetOnMiss = true,
 
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 2,
+
             TargetPriorities = {
                 "SPECIALHIGHPRI",
                 "EXPERIMENTAL",
@@ -422,7 +427,7 @@ UnitBlueprint{
                 "ALLUNITS -WALL",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
-            TrackingRadius = 1.1,
+            TrackingRadius = 1.05,
 
             TurretBoneMuzzle = "Left_Cannon_Recoil",
             TurretBonePitch = "Left_Cannon",
@@ -434,7 +439,7 @@ UnitBlueprint{
 
             TurretYaw = 0,
             TurretYawRange = 40,
-            TurretYawSpeed = 35,
+            TurretYawSpeed = 20,
 
             Turreted = true,
         },
@@ -442,13 +447,14 @@ UnitBlueprint{
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound { Bank = 'BattlePackSB', Cue = 'Kriptor_BigGun_fire', LodCutoff = 'Weapon_LodCutoff' },
+                Fire              = Sound { Bank = 'BattlePackSB', Cue = 'StarAdderPPC',              LodCutoff = 'WeaponBig_LodCutoff' },
+                MuzzleChargeStart = Sound { Bank = 'XSL_Weapon',   Cue = 'XSL0401_Exp_Phason_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
 
             BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
 
-            Damage = 1500,
+            Damage = 3000,
             DamageRadius = 2.5,
             DamageType = "Normal",
 
@@ -456,35 +462,36 @@ UnitBlueprint{
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
             },
-            FiringRandomness = 0.2,
+            FiringRandomness = 0.25,
             FiringTolerance = 2,
 
-            Label = "ArmLaser",
+            Label = "Arm",
 
             MaxRadius = 60,
             MinRadius = 5,
 
+            MuzzleChargeDelay = 0.5,
             MuzzleVelocity = 35,
 
             NotExclusive = true,
 
             PrefersPrimaryWeaponTarget = true,
 
-            ProjectileId = "/mods/BattlePack/projectiles/UHandCannon01/UHandCannon01_proj.bp",
+            ProjectileId = "/Mods/BattlePack/projectiles/PlasmaPPC/PlasmaPPC_proj.bp",
             ProjectileLifetime = 2,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Right_Cannont_Recoil" },
-                    RackBone = "Right_Cannont_Recoil",
-                },
+                { MuzzleBones = { "Right_Cannont_Recoil" }, RackBone = "Right_Cannont_Recoil" },
             },
-            RackRecoilDistance = -0.4,
 
-            RateOfFire = 0.5,
+            RackRecoilDistance = -2.5,
+
+            RackSalvoReloadTime = 3.5,
+
+            RateOfFire = 0.25,
             ReTargetOnMiss = true,
 
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 2,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
                 "EXPERIMENTAL",
@@ -505,7 +512,7 @@ UnitBlueprint{
 
             TurretYaw = 0,
             TurretYawRange = 40,
-            TurretYawSpeed = 35,
+            TurretYawSpeed = 20,
 
             Turreted = true,
         },
@@ -548,10 +555,7 @@ UnitBlueprint{
             PrefersPrimaryWeaponTarget = true,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Left_PlasmaMuzzle" },
-                    RackBone = "Left_PlasmaBarrel",
-                },
+                { MuzzleBones = { "Left_PlasmaMuzzle" }, RackBone = "Left_PlasmaBarrel" },
             },
 
             RateOfFire = 0.3,
@@ -615,10 +619,7 @@ UnitBlueprint{
             NotExclusive = true,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Right_PlasmaMuzzle" },
-                    RackBone = "Right_PlasmaBarrel",
-                },
+                { MuzzleBones = { "Right_PlasmaMuzzle" }, RackBone = "Right_PlasmaBarrel" },
             },
 
             RateOfFire = 0.3,
@@ -650,21 +651,36 @@ UnitBlueprint{
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 Fire = Sound { Bank = 'URLWeapon', Cue = 'URB4302_Anti_Missile_EMP', LodCutoff = 'Weapon_LodCutoff' },
             },
-            BallisticArc = "RULEUBA_None",
+
+            BallisticArc = "RULEUBA_LowArc",
+			
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.9,
+                    Radius = 1.5,
+                    TargetAllow = 'LAND,NAVAL',
+                    TargetDisallow = 'TECH3,EXPERIMENTAL,COMMAND,STRUCTURE,SUBCOMMANDER,AIR',
+                },
+            },
+
             CollideFriendly = false,
 
-            Damage = 115,
-            DamageFriendly = false,
+            Damage = 230,
+            DamageFriendly = true,
             DamageRadius = 2,
             DamageType = "Normal",
 
             DisplayName = "Wyvern Missiles",
 
-            EnergyDrainPerSecond = 300, -- 11 second charge
-            EnergyRequired = 3300,
+            EnergyDrainPerSecond = 300, -- 12 second charge
+            EnergyRequired = 3600,
 
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
@@ -673,19 +689,20 @@ UnitBlueprint{
             FiringRandomness = 2,
             FiringTolerance = 60,
 
-            Label = "TacticalMissiles",
+            Label = "Missiles",
 
             MaxRadius = 95,
-            MinRadius = 10,
+            MinRadius = 12,
 
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 8,
-            MuzzleVelocity = 12,
+            MuzzleVelocity = 4,
             MuzzleVelocityRandom = 1,
+            MuzzleVelocityReduceDistance = 60,
 
             NotExclusive = true,
 
-            ProjectileId = "/mods/BattlePack/projectiles/DragoniteMissiles/DragoniteMissiles_proj.bp",
+            ProjectileId = "/mods/BattlePack/projectiles/StarAdderMissiles/StarAdderMissiles_proj.bp",
             ProjectileLifetime = 9.5,
 
             RackBones = {
@@ -716,7 +733,6 @@ UnitBlueprint{
                     RackBone = "Right_MissileRack",
                 },
             },
-            RackFireTogether = true,
 
             RackSalvoFiresAfterCharge = true,
 
@@ -724,7 +740,8 @@ UnitBlueprint{
 
             RateOfFire = 0.09,  -- controlled by charge
 
-            TargetCheckInterval = 2,
+            TargetCheckInterval = 3,
+
             TargetPriorities = {
                 "SPECIALHIGHPRI",
                 "MOBILE",
@@ -732,7 +749,26 @@ UnitBlueprint{
                 "ALLUNITS -WALL",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
+
+            TurretBoneDualMuzzle = "Right_MissileRack",
+            TurretBoneDualPitch = "Right_MissileRack",
+            TurretBoneMuzzle = "Left_MissileRack",
+            TurretBonePitch = "Left_MissileRack",
+
+            TurretBoneYaw = "NewTorso",
+
+            TurretDualManipulators = true,
+
+            TurretPitch = 30,
+            TurretPitchRange = 10,
+            TurretPitchSpeed = 20,
+
+            TurretYaw = 0,
+            TurretYawRange = 15,
+            TurretYawSpeed = 10,
+
+            Turreted = true,        
         },
         {
             AboveWaterFireOnly = true,
@@ -744,7 +780,7 @@ UnitBlueprint{
 
             CollideFriendly = false,
 
-            Damage = 300,
+            Damage = 600,
             DamageRadius = 0,
             DamageType = "Normal",
 
@@ -760,27 +796,25 @@ UnitBlueprint{
             Label = "ShoulderTurret",
 
             MaxRadius = 60,
-            MinRadius = 5,
+            MinRadius = 8,
 
             MuzzleVelocity = 25,
+            MuzzleVelocityRandom = 1,
             MuzzleVelocityReduceDistance = 90,
 
-            ProjectileId = "/mods/BattlePack/projectiles/UCannonShell02/UCannonShell02_proj.bp",
+            ProjectileId = '/projectiles/TDFGauss04/TDFGauss04_proj.bp',
             ProjectileLifetime = 2.8,
 
             RackBones = {
-                {
-                    MuzzleBones = {"Right_Gauss_Turret_Muzzle001","Right_Gauss_Turret_Muzzle002","Right_Gauss_Turret_Muzzle003"},
-                    RackBone = "Right_Gauss_TurretPitch",
-                },
+                { MuzzleBones = {"Right_Gauss_Turret_Muzzle001","Right_Gauss_Turret_Muzzle002","Right_Gauss_Turret_Muzzle003"}, RackBone = "Right_Gauss_TurretPitch" },
             },
             RackRecoilDistance = -0.5,
 
             RackSlavedToTurret = true,
 
-            RateOfFire = 1,
+            RateOfFire = 0.5,
 
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 2,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
                 "MOBILE",
@@ -788,7 +822,7 @@ UnitBlueprint{
                 "ALLUNITS",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 
             TurretBoneMuzzle = "Right_Gauss_Turret_Muzzle002",
             TurretBonePitch = "Right_Gauss_TurretPitch",
@@ -813,7 +847,7 @@ UnitBlueprint{
             BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
 
-            Damage = 300,
+            Damage = 600,
             DamageType = "Normal",
 
             DisplayName = "Gauss Cannon",
@@ -828,27 +862,25 @@ UnitBlueprint{
             Label = "ShoulderTurret",
 
             MaxRadius = 60,
-            MinRadius = 5,
+            MinRadius = 8,
 
             MuzzleVelocity = 25,
+            MuzzleVelocityRandom = 1,
             MuzzleVelocityReduceDistance = 90,
 
-            ProjectileId = "/mods/BattlePack/projectiles/UCannonShell02/UCannonShell02_proj.bp",
+            ProjectileId = '/projectiles/TDFGauss04/TDFGauss04_proj.bp',
             ProjectileLifetime = 2.8,
 
             RackBones = {
-                {
-                    MuzzleBones = {"Left_Gauss_Turret_Muzzle001","Left_Gauss_Turret_Muzzle002","Left_Gauss_Turret_Muzzle003"},
-                    RackBone = "Left_Gauss_TurretPitch",
-                },
+                { MuzzleBones = {"Left_Gauss_Turret_Muzzle001","Left_Gauss_Turret_Muzzle002","Left_Gauss_Turret_Muzzle003"}, RackBone = "Left_Gauss_TurretPitch" },
             },
             RackRecoilDistance = -0.5,
 
             RackSlavedToTurret = true,
 
-            RateOfFire = 1,
+            RateOfFire = 0.5,
 
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 2,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
                 "MOBILE",
@@ -856,7 +888,7 @@ UnitBlueprint{
                 "ALLUNITS",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 
             TurretBoneMuzzle = "Left_Gauss_Turret_Muzzle002",
             TurretBonePitch = "Left_Gauss_TurretPitch",
@@ -873,154 +905,11 @@ UnitBlueprint{
             Turreted = true,
         },
         {
-            AlwaysRecheckTarget = true,
-            Audio = {
-                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2304_Missile_Flayer', LodCutoff = 'Weapon_LodCutoff' },
-            },
-            BallisticArc = "RULEUBA_None",
-
-            CannotAttackGround = true,
-
-            CollideFriendly = false,
-
-            Damage = 100,
-            DamageType = "Normal",
-
-            DisplayName = "Flayer SAM Launcher",
-
-            FireTargetLayerCapsTable = {
-                Air = "Air",
-                Land = "Air",
-            },
-            FiringTolerance = 10,
-
-            Label = "AA",
-
-            MaxRadius = 48,
-
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 6,
-            MuzzleVelocity = 33,
-
-            ProjectileId = "/mods/BattlePack/projectiles/UAntiAirMissile01/UAntiAirMissile01_proj.bp",
-            ProjectileLifetime = 5,
-
-            RackBones = {
-                {
-                    MuzzleBones = {
-                        "Left_AATurret_Muzzle001",
-                        "Left_AATurret_Muzzle002",
-                        "Left_AATurret_Muzzle003",
-                        "Left_AATurret_Muzzle004",
-                        "Left_AATurret_Muzzle005",
-                        "Left_AATurret_Muzzle006",
-                    },
-                    RackBone = "Left_AATurret_Rack",
-                },
-            },
-
-            RangeCategory = "UWRC_AntiAir",
-
-            RateOfFire = 0.28,
-            TargetCheckInterval = 0.3,
-            TargetPriorities = {
-                "SPECIALHIGHPRI",
-                "BOMBER",
-                "GROUNDATTACK",
-                "AIR MOBILE",
-            },
-            TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
-            TrackingRadius = 1.2,
-
-            TurretBoneMuzzle = "Left_AATurret_Muzzle001",
-            TurretBonePitch = "Left_AATurret_Rack",
-            TurretBoneYaw = "Left_AAYaw",
-
-            TurretPitch = 25,
-            TurretPitchRange = 80,
-            TurretPitchSpeed = 60,
-
-            TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 60,
-
-            Turreted = true,
-        },
-        {
-            AlwaysRecheckTarget = true,
-            Audio = {
-                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2304_Missile_Flayer', LodCutoff = 'Weapon_LodCutoff' },
-            },
-            BallisticArc = "RULEUBA_None",
-            CannotAttackGround = true,
-            CollideFriendly = false,
-
-            Damage = 100,
-            DamageType = "Normal",
-
-            DisplayName = "Flayer SAM Launcher",
-
-            FireTargetLayerCapsTable = {
-                Air = "Air",
-                Land = "Air",
-            },
-            FiringTolerance = 10,
-
-            Label = "AA",
-
-            MaxRadius = 80,
-
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 6,
-            MuzzleVelocity = 30,
-
-            ProjectileId = "/mods/BattlePack/projectiles/UAntiAirMissile01/UAntiAirMissile01_proj.bp",
-            ProjectileLifetime = 6,
-
-            RackBones = {
-                {
-                    MuzzleBones = {
-                        "Right_AATurret_Muzzle001",
-                        "Right_AATurret_Muzzle002",
-                        "Right_AATurret_Muzzle003",
-                        "Right_AATurret_Muzzle004",
-                        "Right_AATurret_Muzzle005",
-                        "Right_AATurret_Muzzle006",
-                    },
-                    RackBone = "Right_AATurret_Rack",
-                },
-            },
-
-            RateOfFire = 0.28,
-
-            TargetCheckInterval = 0.3,
-            TargetPriorities = {
-                "SPECIALHIGHPRI",
-                "BOMBER",
-                "GROUNDATTACK",
-                "AIR MOBILE",
-            },
-            TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
-            TrackingRadius = 1.1,
-
-            TurretBoneMuzzle = "Right_AATurret_Muzzle001",
-            TurretBonePitch = "Right_AATurret_Rack",
-            TurretBoneYaw = "Right_AAYaw",
-
-            TurretPitch = 25,
-            TurretPitchRange = 80,
-            TurretPitchSpeed = 60,
-
-            TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 60,
-
-            Turreted = true,
-        },
-        {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             AimsStraightOnDisable = true,
+
             Audio = {
                 Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0203_Riot_Gun', LodCutoff = 'Weapon_LodCutoff' },
             },
@@ -1028,16 +917,17 @@ UnitBlueprint{
             BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
 
-            Damage = 100,
+            Damage = 200,
             DamageFriendly = false,
             DamageType = "Normal",
 
-            DisplayName = "Double Plasma Cannon",
+            DisplayName = "Riot Gun",
 
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Seabed = "Land|Water|Seabed",
             },
+
             FiringRandomness = 1,
             FiringRandomnessWhileMoving = 2.0,
             FiringTolerance = 2,
@@ -1048,7 +938,7 @@ UnitBlueprint{
             MaxRadius = 60,
             MinRadius = 4,
 
-            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 35,
 
@@ -1058,20 +948,15 @@ UnitBlueprint{
             ProjectileLifetime = 4,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Right_ChinGun_Muzzle" },
-                    RackBone = "Right_ChinGun",
-                },
-                {
-                    MuzzleBones = { "Left_ChinGun_Muzzle" },
-                    RackBone = "Left_ChinGun",
-                },
+                { MuzzleBones = { "Right_ChinGun_Muzzle" }, RackBone = "Right_ChinGun" },
+                { MuzzleBones = { "Left_ChinGun_Muzzle" }, RackBone = "Left_ChinGun" },
             },
             RackFireTogether = true,
 
-            RateOfFire = 1,
+            RateOfFire = 0.5,
 
-            TargetCheckInterval = 0.125,
+            TargetCheckInterval = 1,
+
             TargetPriorities = {
                 "EXPERIMENTAL",
                 "MOBILE",
@@ -1079,6 +964,7 @@ UnitBlueprint{
                 "ALLUNITS",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
+
             TurretBoneDualMuzzle = "Right_ChinGun_Muzzle",
             TurretBoneDualPitch = "Right_ChinGun",
             TurretBoneMuzzle = "Left_ChinGun_Muzzle",
@@ -1096,6 +982,197 @@ UnitBlueprint{
 
             Turreted = true,
         },
+        {
+            advancedTracking = true,
+            
+            AboveWaterFireOnly = true,
+            AlwaysRecheckTarget = true,
+
+            Audio = {
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2304_Missile_Flayer', LodCutoff = 'Weapon_LodCutoff' },
+            },
+
+            BallisticArc = "RULEUBA_None",
+			
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    BuffType = 'FUELRATIO',
+                    BuffValue = 2.2,
+                    TargetAllow = 'AIR MOBILE',
+                },
+            },
+
+            CannotAttackGround = true,
+
+            CollideFriendly = false,
+
+            Damage = 150,
+            DamageType = "Normal",
+
+            DisplayName = "Flayer SAM Launcher",
+
+            FireTargetLayerCapsTable = {
+                Land = "Air",
+                Seabed = "Air"
+            },
+
+            FiringTolerance = 12,
+
+            Label = "AA",
+
+            MaxRadius = 44,
+
+            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoSize = 6,
+            MuzzleVelocity = 30,
+
+            ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
+            ProjectileLifetime = 3.6,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        "Left_AATurret_Muzzle001",
+                        "Left_AATurret_Muzzle002",
+                        "Left_AATurret_Muzzle003",
+                        "Left_AATurret_Muzzle004",
+                        "Left_AATurret_Muzzle005",
+                        "Left_AATurret_Muzzle006",
+                    },
+                    RackBone = "Left_AATurret_Rack",
+                },
+            },
+
+            RackSalvoReloadTime = 1.8,      -- firing cycle is 3 seconds
+
+            RangeCategory = "UWRC_AntiAir",
+
+            RateOfFire = 1,         -- controlled by salvo = 900/3 = 300 DPS Air
+
+            TargetCheckInterval = 1,
+
+            TargetPriorities = {
+                "SPECIALHIGHPRI",
+                "BOMBER",
+                "GROUNDATTACK",
+                "MOBILE",
+            },
+            TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
+            TargetRestrictOnlyAllow = "AIR",
+
+            TrackingRadius = 1.2,
+
+            TurretBoneMuzzle = "Left_AATurret_Muzzle001",
+            TurretBonePitch = "Left_AATurret_Rack",
+            TurretBoneYaw = "Left_AAYaw",
+
+            TurretPitch = 60,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 60,
+
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 60,
+
+            Turreted = true,
+        },
+        {
+            advancedTracking = true,
+            
+            AboveWaterFireOnly = true,
+
+            AlwaysRecheckTarget = true,
+
+            Audio = {
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2304_Missile_Flayer', LodCutoff = 'Weapon_LodCutoff' },
+            },
+
+            BallisticArc = "RULEUBA_None",
+            CannotAttackGround = true,
+            CollideFriendly = false,
+
+            Damage = 150,
+            DamageRadius = 1.5,
+            DamageType = "Normal",
+
+            DisplayName = "Flayer SAM Launcher",
+
+            FireTargetLayerCapsTable = {
+                Seabed = "Air",
+                Land = "Air",
+            },
+            FiringTolerance = 12,
+
+            Label = "AA",
+
+            MaxRadius = 44,
+
+            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoSize = 6,
+            MuzzleVelocity = 30,
+            MuzzleVelocityRandom = 2,
+
+            ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
+            ProjectileLifetime = 4.2,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        "Right_AATurret_Muzzle001",
+                        "Right_AATurret_Muzzle002",
+                        "Right_AATurret_Muzzle003",
+                        "Right_AATurret_Muzzle004",
+                        "Right_AATurret_Muzzle005",
+                        "Right_AATurret_Muzzle006",
+                    },
+                    RackBone = "Right_AATurret_Rack",
+                },
+            },
+
+            RackSalvoReloadTime = 1.8,      -- firing cycle is 3 seconds
+
+            RangeCategory = "UWRC_AntiAir",
+
+            RateOfFire = 1,         -- controlled by salvo = 900/3 = 300 DPS Air
+
+            TargetCheckInterval = 1,
+
+            TargetPriorities = {
+                "SPECIALHIGHPRI",
+                "BOMBER",
+                "GROUNDATTACK",
+                "MOBILE",
+            },
+            TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
+            TargetRestrictOnlyAllow = "AIR",
+            TrackingRadius = 1.1,
+
+            TurretBoneMuzzle = "Right_AATurret_Muzzle001",
+            TurretBonePitch = "Right_AAYaw",
+            TurretBoneYaw = "Right_AAYaw",
+
+            TurretPitch = 60,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 60,
+
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 60,
+
+            Turreted = true,
+        },
+
+        {
+            Damage = 4000,
+            DamageFriendly = true,
+            DamageRadius = 9,
+            DamageType = "Normal",
+            DisplayName = "Death Weapon",
+            DummyWeapon = true,
+            Label = "DeathWeapon",
+            WeaponCategory = "Death",
+        }        
     },
 
     Wreckage = {

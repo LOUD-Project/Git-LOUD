@@ -148,52 +148,59 @@ UnitBlueprint{
 
     Weapon = {
         {
+            advancedTracking = true,
+            
             AlwaysRecheckTarget = true,
+
             Audio = {
                 Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0202_Nano_Dart', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_None",
+			
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    BuffType = 'FUELRATIO',
+                    BuffValue = 2.2,
+                    TargetAllow = 'AIR MOBILE',
+                },
+            },
+
             CannotAttackGround = true,
             CollideFriendly = false,
 
-            Damage = 120,
+            Damage = 180,
             DamageType = "Normal",
 
             DisplayName = "Nanite Missile System",
 
             FireTargetLayerCapsTable = { Land = "Air" },
-            FiringTolerance = 10,
+            FiringTolerance = 15,
 
-            Label = "MainGun",
+            Label = "AAMissiles",
 
             MaxRadius = 48,
 
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 6,
-            MuzzleVelocity = 22,
+            MuzzleVelocity = 26,
 
             ProjectileId = "/projectiles/CAAMissileNanite02/CAAMissileNanite02_proj.bp",
-            ProjectileLifetime = 4,
+            ProjectileLifetime = 3.8,
 
             RackBones = {
-                {
-                    MuzzleBones = {
-                        "Left_Muzzle001",
-                        "Left_Muzzle002",
-                        "Left_Muzzle003",
-                        "Right_Muzzle001",
-                        "Right_Muzzle002",
-                        "Right_Muzzle003",
-                    },
-                    RackBone = "Turret_Rack",
-                },
+                { MuzzleBones = {"Left_Muzzle001","Left_Muzzle002","Left_Muzzle003","Right_Muzzle001","Right_Muzzle002","Right_Muzzle003"}, RackBone = "Turret_Rack" },
             },
+            
+            RackSalvoReloadTime = 1.8,
 
             RangeCategory = "UWRC_AntiAir",
 
-            RateOfFire = 0.5,
+            RateOfFire = 1,     -- 6 x 180 = 1080 every 3 seconds = 360 DPS - controlled by salvo
 
-            TargetCheckInterval = 0.3,
+            TargetCheckInterval = 1.5,
+
             TargetPriorities = {
                 "SPECIALHIGHPRI",
                 "AIR",
@@ -212,7 +219,7 @@ UnitBlueprint{
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 66,
 
             Turreted = true,
         },

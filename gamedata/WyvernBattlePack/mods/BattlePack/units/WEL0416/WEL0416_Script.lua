@@ -1,36 +1,43 @@
 local TWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local TerranWeaponFile = import('/lua/terranweapons.lua')
+local BattlePackWeaponFile      = import('/mods/BattlePack/lua/BattlePackweapons.lua')
 
-local BattlePackWeaponFile = import('/mods/BattlePack/lua/BattlePackweapons.lua')
-local BattlePackEffectTemplates = import('/mods/BattlePack/lua/BattlePackEffectTemplates.lua')
+local EffectUtil    = import('/lua/EffectUtilities.lua')
 
-local EffectUtil = import('/lua/EffectUtilities.lua')
-local Effects = import('/lua/effecttemplates.lua')
-local Entity = import('/lua/sim/Entity.lua').Entity
-local utilities = import('/lua/Utilities.lua')
-local RandomFloat = utilities.GetRandomFloat
+local utilities     = import('/lua/Utilities.lua')
+local RandomFloat   = utilities.GetRandomFloat
+
 local EffectTemplate = import('/lua/EffectTemplates.lua')
-local explosion = import('/lua/defaultexplosions.lua')
+local explosion     = import('/lua/defaultexplosions.lua')
 
 local CreateBuildCubeThread = EffectUtil.CreateBuildCubeThread
 local CreateDeathExplosion = explosion.CreateDefaultHitExplosionAtBone
 
-local TDFRiotWeapon = TerranWeaponFile.TDFRiotWeapon
-local EXCEMPArrayBeam01 = BattlePackWeaponFile.EXCEMPArrayBeam01 
-local TDFHiroPlasmaCannon = TerranWeaponFile.TDFHiroPlasmaCannon
-local TSAMLauncher = TerranWeaponFile.TSAMLauncher
-local TDFGaussCannonWeapon = TerranWeaponFile.TDFLandGaussCannonWeapon
-local EXCEMPArrayBeam01 = BattlePackWeaponFile.EXCEMPArrayBeam01 
-local ExWifeMaincannonWeapon01 = BattlePackWeaponFile.ExWifeMaincannonWeapon01 
+local Riot  = TerranWeaponFile.TDFRiotWeapon
+local Beam  = import('/lua/sim/defaultweapons.lua').DefaultBeamWeapon
+local Hiro  = TerranWeaponFile.TDFHiroPlasmaCannon
+local SAM   = TerranWeaponFile.TSAMLauncher
+local Gauss = TerranWeaponFile.TDFLandGaussCannonWeapon
+local PPC   = BattlePackWeaponFile.PlasmaPPC
+
+explosion = nil
+TerranWeaponFile = nil
+BattlePackWeaponFile = nil 
+
+local MissileRedirect = import('/lua/defaultantiprojectile.lua').MissileTorpDestroy
+
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
 
 WEL0416 = Class(TWalkingLandUnit) {
 
     Weapons = {
     
-		EXTargetPainter = Class(EXCEMPArrayBeam01) {},
+		EXTargetPainter = Class(Beam) {},
         
-		HeadWeapon = Class(EXCEMPArrayBeam01) {
+		HeadWeapon      = Class(Beam) {
         
             OnWeaponFired = function(self, muzzle)
             
@@ -42,7 +49,7 @@ WEL0416 = Class(TWalkingLandUnit) {
                 
                 self.JawBottomRotator:SetGoal(30):SetSpeed(100)
                 
-                EXCEMPArrayBeam01.OnWeaponFired(self, muzzle)
+                Beam.OnWeaponFired(self, muzzle)
                 
                 self:ForkThread(function()
                     WaitSeconds(1.5)
@@ -52,24 +59,23 @@ WEL0416 = Class(TWalkingLandUnit) {
             end,
         },
         
-		ArmLaser = Class(ExWifeMaincannonWeapon01) {},  
+		Arm             = Class(PPC) { FxMuzzleFlashScale = 0.5 },  
 
-		ChinGun = Class(TDFRiotWeapon) {},
+		ChinGun         = Class(Riot) { FxMuzzleFlashScale = 0.5, PlayOnlyOneSoundCue = true },
         
-		CheekGun = Class(TDFHiroPlasmaCannon) {},
+		CheekGun        = Class(Hiro) { FxMuzzleFlashScale = 0.8, PlayOnlyOneSoundCue = true },
         
-		TacticalMissiles = Class(TSAMLauncher) {}, 
+		Missiles        = Class(SAM) {}, 
         
-		ShoulderTurret = Class(TDFGaussCannonWeapon) {FxMuzzleFlashScale = 0.25},
+		ShoulderTurret  = Class(Gauss) { FxMuzzleFlashScale = 0.25 },
         
-		AA = Class(TSAMLauncher) {},
+		AA              = Class(SAM) {},
     },
 	
 	OnCreate = function(self,builder,layer)
     
         TWalkingLandUnit.OnCreate(self)
-        
-		Army = self.Army
+
     end,
 	
 	StartBeingBuiltEffects = function(self, builder, layer)
@@ -82,7 +88,18 @@ WEL0416 = Class(TWalkingLandUnit) {
 	OnStopBeingBuilt = function(self,builder,layer)
     
 		TWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
+
+        -- create Anti-Torp/TMD emitters
+        local bp = __blueprints[self.BlueprintID].Defense.MissileTorpDestroy
         
+        for _,v in bp.AttachBone do
+
+            local antiMissile1 = MissileRedirect { Owner = self, Radius = bp.Radius, AttachBone = v, RedirectRateOfFire = bp.RedirectRateOfFire }
+
+            TrashAdd( self.Trash, antiMissile1)
+            
+        end        
+
         self.Rotator1 = CreateRotator(self, 'Jaw_Bone', 'x')
         self.Rotator2 = CreateRotator(self, 'Head', 'x')
         self.Rotator3 = CreateRotator(self, 'Head', 'y')
@@ -91,6 +108,7 @@ WEL0416 = Class(TWalkingLandUnit) {
         self.Rotator6 = CreateRotator(self, 'Left_Cannon', 'x')
 		self.Rotator7 = CreateRotator(self, 'Right_Cannon', 'y')
         self.Rotator8 = CreateRotator(self, 'Left_Cannon', 'y')
+
         self.Trash:Add(self.Rotator1)
 		self.Trash:Add(self.Rotator2)
 		self.Trash:Add(self.Rotator3)
@@ -103,8 +121,8 @@ WEL0416 = Class(TWalkingLandUnit) {
         end
         
         self:ForkThread(function()
+
         	WaitSeconds(1)
-                    
         	self.Rotator4:SetGoal(0):SetSpeed(25)
         end)
         
@@ -142,8 +160,8 @@ WEL0416 = Class(TWalkingLandUnit) {
         end
         
         self:ForkThread(function()
+
         	WaitSeconds(1)
-                    
         	self.Rotator1:SetGoal(0):SetSpeed(50)
         end)
         
@@ -152,8 +170,8 @@ WEL0416 = Class(TWalkingLandUnit) {
         end
         
         self:ForkThread(function()
+
         	WaitSeconds(1)
-                    
         	self.Rotator2:SetGoal(0):SetSpeed(50)
         end)
         
@@ -162,8 +180,8 @@ WEL0416 = Class(TWalkingLandUnit) {
         end
         
         self:ForkThread(function()
+
         	WaitSeconds(1)
-                    
         	self.Rotator3:SetGoal(20):SetSpeed(100)
         	WaitSeconds(1)
         	self.Rotator3:SetGoal(0):SetSpeed(100)
@@ -185,25 +203,10 @@ WEL0416 = Class(TWalkingLandUnit) {
     },
 
     MechDestructionEffectBones = {
-        'Left_MissileMuzzle001','Left_MissileMuzzle002','Left_MissileMuzzle003','Left_MissileMuzzle004',
-        'Left_MissileMuzzle005','Left_MissileMuzzle006','Left_MissileMuzzle007','Left_MissileMuzzle008',		
-		'Right_MissileMuzzle001','Right_MissileMuzzle002','Right_MissileMuzzle003','Right_MissileMuzzle004',
-        'Right_MissileMuzzle005','Right_MissileMuzzle006','Right_MissileMuzzle007','Right_MissileMuzzle008',
-		'Right_PlasmaMuzzle','Left_PlasmaMuzzle','Left_AATurret_Muzzle001','Left_AATurret_Muzzle002',
-		'Left_AATurret_Muzzle003','Left_AATurret_Muzzle004','Left_AATurret_Muzzle005','Left_AATurret_Muzzle006',
-		'Right_AATurret_Muzzle001','Right_AATurret_Muzzle002','Right_AATurret_Muzzle003','Right_AATurret_Muzzle004',
-		'Right_AATurret_Muzzle005','Right_AATurret_Muzzle006','Left_ChinGun_Muzzle','Right_ChinGun_Muzzle',
-		'Left_AAYaw','Right_AAYaw','Left_Cannon','Right_Cannon','Right_Cannont_Recoil','Left_Cannon_Recoil',
-		'ChinGun_Pitch','Left_ChinGun','Right_ChinGun','KneeGuard_Right','KneeGuard_Left','Leg_Addon001_Left',
-		'Leg_Addon002_Right','Head','Left_MissileRack','Right_MissileRack','Left_Gauss_TurretYaw','Right_Gauss_TurretYaw',
-		'Right_Gauss_TurretPitch','Left_Gauss_TurretPitch','Right_PlasmaGun','Left_PlasmaGun',
-		'Left_AAYaw','Right_AAYaw','Left_Cannon','Right_Cannon','Right_Cannont_Recoil','Left_Cannon_Recoil',
-		'ChinGun_Pitch','Left_ChinGun','Right_ChinGun','KneeGuard_Right','KneeGuard_Left','Leg_Addon001_Left',
-		'Leg_Addon002_Right','Head','Left_MissileRack','Right_MissileRack','Left_Gauss_TurretYaw','Right_Gauss_TurretYaw',
-		'Right_Gauss_TurretPitch','Left_Gauss_TurretPitch','Right_PlasmaGun','Left_PlasmaGun',
-		'Left_AAYaw','Right_AAYaw','Left_Cannon','Right_Cannon','Right_Cannont_Recoil','Left_Cannon_Recoil',
-		'ChinGun_Pitch','Left_ChinGun','Right_ChinGun','KneeGuard_Right','KneeGuard_Left','Leg_Addon001_Left',
-		'Leg_Addon002_Right','Head','Left_MissileRack','Right_MissileRack','Left_Gauss_TurretYaw','Right_Gauss_TurretYaw',
+        'Left_MissileMuzzle001','Left_MissileMuzzle007','Right_MissileMuzzle004','Right_MissileMuzzle006',
+		'Left_AATurret_Muzzle001','Right_AATurret_Muzzle001','Left_AAYaw','Right_AAYaw',
+        'Left_Cannon','Right_Cannon','Left_MissileRack','Right_MissileRack',
+		'Left_ChinGun','Right_ChinGun','ChinGun_Pitch','Leg_Addon002_Right','Head',
 		'Right_Gauss_TurretPitch','Left_Gauss_TurretPitch','Right_PlasmaGun','Left_PlasmaGun',
     },
 
@@ -269,7 +272,7 @@ WEL0416 = Class(TWalkingLandUnit) {
             local duration = utilities.GetRandomFloat( 0.2, 0.5 )
             
             self:PlayUnitSound('Destroyed')
-            explosion.CreateDefaultHitExplosionAtBone( self, self.MechDestructionEffectBones[ ranBone ], Random(0.125,0.5) )
+            CreateDeathExplosion( self, self.MechDestructionEffectBones[ ranBone ], Random(0.125,0.5) )
             self:CreateFirePlumes( Army, {ranBone}, Random(0,2) )
             self:CreateDamageEffects( ranBone, Army )
             self:CreateExplosionDebris( Army )

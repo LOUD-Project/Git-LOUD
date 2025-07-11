@@ -6,7 +6,7 @@ EmitterBlueprint {
 	LODCutoff = 340.00,
 	InterpolateEmission = false,
 	SortOrder = 3.00,
-	Texture = [[/mods/BattlePack/textures/particles/ser_plasma08.dds]],
+	Texture = [[/textures/particles/ser_plasma08.dds]],
 	RampTexture = [[/mods/BattlePack/textures/particles/ra_0075_whitefast.dds]],
 	EmitRateCurve = {
 		XRange = 1.0000,

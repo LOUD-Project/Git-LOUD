@@ -8,7 +8,7 @@ EmitterBlueprint {
 	LODCutoff = 340.00,
 	ParticleResistance = true,
 	InterpolateEmission = false,
-	Texture = [[/mods/BattlePack/textures/particles/cloud_smoke_alpha_14.dds]],
+	Texture = [[/textures/particles/cloud_smoke_alpha_14.dds]],
 	RampTexture = [[/mods/BattlePack/textures/particles/ra_0075_whitefast.dds]],
 	DistortionMapTexture = [[/mods/BattlePack/textures/particles/di_0009_55.dds]],
 	EmitRateCurve = {

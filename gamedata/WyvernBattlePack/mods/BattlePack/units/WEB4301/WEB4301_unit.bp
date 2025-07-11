@@ -126,28 +126,32 @@ UnitBlueprint{
 
             DamageType = "Normal",
 
+            EnergyRequired = 96,
+            EnergyDrainPerSecond = 120,        -- .8 second charge
+	
             FireTargetLayerCapsTable = {
                 Land = "Air",
                 Water = "Air",
             },
             FiringTolerance = 0,
 
-            Label = "AntiMissile",
+            Label = "TMDBeam",
 
             MaxRadius = 36,
             MaximumBeamLength = 36,
 
             NeedPrep = true,
+
             RackBones = {
-                {
-                    MuzzleBones = { "Turret_Muzzle" },
-                    RackBone = "Turret_Barrel",
-                },
+                { MuzzleBones = { "Turret_Muzzle" }, RackBone = "Turret_Barrel" },
             },
+
+            RackSalvoFiresAfterCharge = true,
+            RackSalvoReloadTime = 0.9, 
 
             RangeCategory = "UWRC_Countermeasure",
 
-            RateOfFire = 1.1,
+            RateOfFire = 1.1,     -- firing cycle should be 9 ticks
 
             TargetCheckInterval = 1,
 
@@ -160,19 +164,16 @@ UnitBlueprint{
             TurretBoneMuzzle = "Turret_Muzzle",
             TurretBonePitch = "Turret_Barrel",
             TurretBoneYaw = "Turret",
-            TurretDualManipulators = false,
 
             TurretPitch = 45,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 56,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 56,
+            TurretYawSpeed = 70,
 
             Turreted = true,
-
-            UseFiringSolutionInsteadOfAimBone = true,
         },
     },
     

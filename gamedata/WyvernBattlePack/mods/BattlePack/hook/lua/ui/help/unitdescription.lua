@@ -17,7 +17,7 @@ Description['wel0309'] = "Mobile SAM. Fires short range AA missiles. Very effect
 Description['wel03041'] = "The need for artillery in amphibious operations finds its answer in the Walrus."
 Description['wel0401'] = "The Littleman is a combat refit of the original Fatboy; swapping the factory for an artillery. Designed to provide ranged support for battlegroups."
 Description['wel0416'] = "Taking a cue from the Cybran Basilisk, Dragonite attempts to bring the same features to the table; lots of weapons, and regenerative."
-Description['wel4404'] = "The Star Adder is a Medium Mech blessed with very good speed, solid firepower, radar, and personal stealth.\nIntended to replace the less successful Rampage"
+Description['wel4404'] = "The Star Adder is a Medium Mech blessed with good speed, solid firepower, radar, torpedo defense, radar/sonar stealth (when stationary).\nIntended to replace the less successful Rampage"
 Description['wes0303'] = "Heavily armoured Escort ship. Can attack all types of targets, including submarines and aircraft."
 
 -- CYBRAN

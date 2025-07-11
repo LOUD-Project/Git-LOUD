@@ -1,12 +1,11 @@
 local TStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
-local WeaponsFile = import('/lua/terranweapons.lua')
-
-local TDFHiroPlasmaCannon = WeaponsFile.TDFHiroPlasmaCannon
+local Beam = import('/lua/terranweapons.lua').TDFHiroPlasmaCannon
 
 WEB4301 = Class(TStructureUnit) {
+
     Weapons = {
-        AntiMissile = Class(TDFHiroPlasmaCannon) {},
+        TMDBeam = Class(Beam) {},
     },
 }
 

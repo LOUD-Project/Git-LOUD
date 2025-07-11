@@ -7,7 +7,7 @@ EmitterBlueprint {
 	InterpolateEmission = false,
 	SortOrder = 1.00,
 	LowFidelity = false,
-	Texture = [[/mods/BattlePack/textures/particles/quantum_plasma_ring01.dds]],
+	Texture = [[/textures/particles/quantum_plasma_ring01.dds]],
 	RampTexture = [[/mods/BattlePack/textures/particles/ra_0095_red.dds]],
 	DistortionMapTexture = [[/mods/BattlePack/textures/particles/di_0009_55.dds]],
 	EmitRateCurve = {

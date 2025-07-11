@@ -70,17 +70,8 @@ UnitBlueprint{
         Mesh = {
             IconFadeInZoom = 150,
             LODs = {
-                {
-                    LODCutoff = 300,
-                    ShaderName = "Unit",
-                },
-                {
-                    LODCutoff = 215,
-                    ShaderName = "Unit",
-                    AlbedoName = "/mods/BattlePack/units/WEB0404/WEB0404_Albedo.dds",
-                    NormalsName = "/mods/BattlePack/units/WEB0404/WEB0404_normalsTS.DDS",
-                    SpecularName = "/mods/BattlePack/units/WEB0404/WEB0404_SpecTeam.dds",
-                },
+                { LODCutoff = 300, ShaderName = "Unit" },
+                { LODCutoff = 215, ShaderName = "Unit", AlbedoName = "/mods/BattlePack/units/WEB0404/WEB0404_Albedo.dds", NormalsName = "/mods/BattlePack/units/WEB0404/WEB0404_normalsTS.DDS", SpecularName = "/mods/BattlePack/units/WEB0404/WEB0404_SpecTeam.dds" },
             },
         },
 
@@ -252,7 +243,7 @@ UnitBlueprint{
 
             BallisticArc = "RULEUBA_LowArc",
             
-            CannotAttackGround = true,
+            --CannotAttackGround = true,
 
             CollideFriendly = false,
 
@@ -287,18 +278,9 @@ UnitBlueprint{
             ProjectileLifetime = 4.5,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Turret_Left02_Muzzle14" },
-                    RackBone = "Turret_Left02_Barrel14",
-                },
-                {
-                    MuzzleBones = { "Turret_Left02_Muzzle13" },
-                    RackBone = "Turret_Left02_Barrel13",
-                },
-                {
-                    MuzzleBones = { "Turret_Left02_Muzzle15" },
-                    RackBone = "Turret_Left02_Barrel15",
-                },
+                { MuzzleBones = { "Turret_Left02_Muzzle14" }, RackBone = "Turret_Left02_Barrel14" },
+                { MuzzleBones = { "Turret_Left02_Muzzle13" }, RackBone = "Turret_Left02_Barrel13" },
+                { MuzzleBones = { "Turret_Left02_Muzzle15" }, RackBone = "Turret_Left02_Barrel15" },
             },
 
             RackFireTogether = true,
@@ -327,7 +309,6 @@ UnitBlueprint{
             TurretBoneMuzzle = "Turret_Left02_Muzzle13",
             TurretBonePitch = "Turret_Left02_Barrel13",
             TurretBoneYaw = "Turret_Center",
-            TurretDualManipulators = false,
 
             TurretPitch = 10,
             TurretPitchRange = 24,
@@ -351,7 +332,7 @@ UnitBlueprint{
 
             BallisticArc = "RULEUBA_LowArc",
             
-            CannotAttackGround = true,
+            --CannotAttackGround = true,
             CollideFriendly = false,
 
             Damage = 250,
@@ -359,7 +340,7 @@ UnitBlueprint{
             DamageRadius = 1,
             DamageType = "Normal",
 
-            DisplayName = "Gauss Cannon",
+            DisplayName = "Cannon",
             
             EnergyRequired = 200,
             EnergyDrainPerSecond = 100,
@@ -384,18 +365,9 @@ UnitBlueprint{
             ProjectileLifetime = 3.5,
             
             RackBones = {
-                {
-                    MuzzleBones = { "Turret_Left02_Muzzle02" },
-                    RackBone = "Turret_Left02_Barrel02",
-                },
-                {
-                    MuzzleBones = { "Turret_Left02_Muzzle01" },
-                    RackBone = "Turret_Left02_Barrel01",
-                },
-                {
-                    MuzzleBones = { "Turret_Left02_Muzzle03" },
-                    RackBone = "Turret_Left02_Barrel03",
-                },
+                { MuzzleBones = { "Turret_Left02_Muzzle02" }, RackBone = "Turret_Left02_Barrel02" },
+                { MuzzleBones = { "Turret_Left02_Muzzle01" }, RackBone = "Turret_Left02_Barrel01" },
+                { MuzzleBones = { "Turret_Left02_Muzzle03" }, RackBone = "Turret_Left02_Barrel03" },
             },
             RackFireTogether = true,
 
@@ -441,7 +413,7 @@ UnitBlueprint{
             },
             BallisticArc = "RULEUBA_LowArc",
             
-            CannotAttackGround = true,
+            --CannotAttackGround = true,
             CollideFriendly = false,
 
             Damage = 250,
@@ -449,7 +421,7 @@ UnitBlueprint{
             DamageRadius = 1,
             DamageType = "Normal",
 
-            DisplayName = "Gauss Cannon",
+            DisplayName = "Cannon",
             
             EnergyRequired = 200,
             EnergyDrainPerSecond = 100,
@@ -473,18 +445,9 @@ UnitBlueprint{
             ProjectileLifetime = 3.5,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Turret_Left02_Muzzle05" },
-                    RackBone = "Turret_Left02_Barrel05",
-                },
-                {
-                    MuzzleBones = { "Turret_Left02_Muzzle04" },
-                    RackBone = "Turret_Left02_Barrel04",
-                },
-                {
-                    MuzzleBones = { "Turret_Left02_Muzzle06" },
-                    RackBone = "Turret_Left02_Barrel06",
-                },
+                { MuzzleBones = { "Turret_Left02_Muzzle05" }, RackBone = "Turret_Left02_Barrel05" },
+                { MuzzleBones = { "Turret_Left02_Muzzle04" }, RackBone = "Turret_Left02_Barrel04" },
+                { MuzzleBones = { "Turret_Left02_Muzzle06" }, RackBone = "Turret_Left02_Barrel06" },
             },
             RackFireTogether = true,
 
@@ -509,7 +472,6 @@ UnitBlueprint{
             TurretBoneMuzzle = "Turret_Left02_Muzzle04",
             TurretBonePitch = "Turret_Left02_Barrel04",
             TurretBoneYaw = "Turret_Right02",
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 60,
@@ -529,7 +491,7 @@ UnitBlueprint{
             },
             BallisticArc = "RULEUBA_LowArc",
             
-            CannotAttackGround = true,
+            --CannotAttackGround = true,
             CollideFriendly = false,
 
             Damage = 250,
@@ -537,7 +499,7 @@ UnitBlueprint{
             DamageRadius = 1,
             DamageType = "Normal",
 
-            DisplayName = "Gauss Cannon",
+            DisplayName = "Cannon",
             
             EnergyRequired = 200,
             EnergyDrainPerSecond = 100,
@@ -562,18 +524,9 @@ UnitBlueprint{
             ProjectileLifetime = 3.5,
             
             RackBones = {
-                {
-                    MuzzleBones = { "Turret_Left02_Muzzle11" },
-                    RackBone = "Turret_Left02_Barrel11",
-                },
-                {
-                    MuzzleBones = { "Turret_Left02_Muzzle10" },
-                    RackBone = "Turret_Left02_Barrel10",
-                },
-                {
-                    MuzzleBones = { "Turret_Left02_Muzzle12" },
-                    RackBone = "Turret_Left02_Barrel12",
-                },
+                { MuzzleBones = { "Turret_Left02_Muzzle11" }, RackBone = "Turret_Left02_Barrel11" },
+                { MuzzleBones = { "Turret_Left02_Muzzle10" }, RackBone = "Turret_Left02_Barrel10" },
+                { MuzzleBones = { "Turret_Left02_Muzzle12" }, RackBone = "Turret_Left02_Barrel12" },
             },
             RackFireTogether = true,
 
@@ -617,7 +570,7 @@ UnitBlueprint{
             },
             BallisticArc = "RULEUBA_LowArc",
             
-            CannotAttackGround = true,
+            --CannotAttackGround = true,
             CollideFriendly = false,
 
             Damage = 250,
@@ -625,7 +578,7 @@ UnitBlueprint{
             DamageRadius = 1,
             DamageType = "Normal",
 
-            DisplayName = "Gauss Cannon",
+            DisplayName = "Cannon",
             
             EnergyRequired = 200,
             EnergyDrainPerSecond = 100,
@@ -650,18 +603,9 @@ UnitBlueprint{
             ProjectileLifetime = 3.5,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Turret_Left02_Muzzle08" },
-                    RackBone = "Turret_Left02_Barrel08",
-                },
-                {
-                    MuzzleBones = { "Turret_Left02_Muzzle07" },
-                    RackBone = "Turret_Left02_Barrel07",
-                },
-                {
-                    MuzzleBones = { "Turret_Left02_Muzzle09" },
-                    RackBone = "Turret_Left02_Barrel09",
-                },
+                { MuzzleBones = { "Turret_Left02_Muzzle08" }, RackBone = "Turret_Left02_Barrel08" },
+                { MuzzleBones = { "Turret_Left02_Muzzle07" }, RackBone = "Turret_Left02_Barrel07" },
+                { MuzzleBones = { "Turret_Left02_Muzzle09" }, RackBone = "Turret_Left02_Barrel09" },
             },
             RackFireTogether = true,
 
@@ -708,7 +652,7 @@ UnitBlueprint{
 
             CollideFriendly = false,
 
-            Damage = 400,
+            Damage = 550,
             DamageRadius = 2,
             DamageType = "Normal",
 
@@ -722,35 +666,27 @@ UnitBlueprint{
 
             MaxRadius = 60,
 
-            MuzzleSalvoDelay = 0.6,
-            MuzzleSalvoSize = 4,
+            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoSize = 8,
             
             MuzzleVelocity = 3,
 
             NotExclusive = true,
 			
             ProjectileId = '/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_proj.bp',
-            ProjectileLifetime = 7.5,
+            ProjectileLifetime = 7,
 
             RackBones = {
-                {
-                    MuzzleBones = {
-                        "Riot_Gun_Right01",
-                        "Riot_Gun_Left01",
-                        "Riot_Gun_Right",
-                        "Riot_Gun_Left",
-                    },
-                    RackBone = "WEL0404",
-                },
+                { MuzzleBones = {"Riot_Gun_Right01","Riot_Gun_Left01","Riot_Gun_Right","Riot_Gun_Left" }, RackBone = "WEL0404" },
             },
             
-            RackSalvoReloadTime = 1.6,
+            RackSalvoReloadTime = 7.6,
 
             RangeCategory = "UWRC_AntiNavy",
 
-            RateOfFire = 1,     -- controlled by salvo delay and reload = 4 seconds = 400 DPS
+            RateOfFire = 0.5,     -- controlled by salvo delay and reload = 10 seconds = 440 DPS
 
-            TargetCheckInterval = 1,
+            TargetCheckInterval = 2,
 
             TargetPriorities = {
                 "SUBMARINE",

@@ -55,11 +55,11 @@ UnitBlueprint{
             Mesh = "/effects/entities/AeonShield01/AeonShield01_mesh",
             MeshZ = "/effects/entities/Shield01/Shield01z_mesh",
             RegenAssistMult = 60,
-            ShieldEnergyDrainRechargeTime = 5,
+            ShieldEnergyDrainRechargeTime = 8,
             ShieldMaxHealth = 7250,
             ShieldRechargeTime = 24,
             ShieldRegenRate = 76,
-            ShieldRegenStartTime = 1,
+            ShieldRegenStartTime = 2,
             ShieldSize = 19,
             ShieldVerticalOffset = -3,
         },
@@ -76,22 +76,13 @@ UnitBlueprint{
         },
 
         AnimationDeath = {
-            {
-                Animation = "/mods/BattlePack/units/was0332/was0332_adeath01.sca",
-                Weight = 100,
-            },
-            {
-                Animation = "/mods/BattlePack/units/was0332/was0332_adeath02.sca",
-                Weight = 100,
-            },
-            {
-                Animation = "/mods/BattlePack/units/was0332/was0332_adeath03.sca",
-                Weight = 100,
-            },
+            { Animation = "/mods/BattlePack/units/was0332/was0332_adeath01.sca", Weight = 100 },
+            { Animation = "/mods/BattlePack/units/was0332/was0332_adeath02.sca", Weight = 100 },
+            { Animation = "/mods/BattlePack/units/was0332/was0332_adeath03.sca", Weight = 100 },
         },
 
         IdleEffects = {
-            Water = { Effects = { { Bones = { "UAS0202" }, Offset = { 0, 0, -0.25 }, Scale = 1.35, Type = "SeaIdle01" } } },
+            Water = { Effects = { { Bones = {0}, Offset = { 0, 0, -0.25 }, Scale = 1.25, Type = "SeaIdle01" } } },
         },
 
         Mesh = {
@@ -102,6 +93,14 @@ UnitBlueprint{
             },
         },
 
+        MovementEffects = {
+            Water = {
+                Effects = {
+                    { Bones = {'Exhaust01','Exhaust02'}, Scale = 0.7, Type = 'BackWake' },
+                },
+            },
+        },
+        
         UniformScale = 0.055,
     },
 
@@ -208,7 +207,7 @@ UnitBlueprint{
             DamageRadius = 2,
             DamageType = "Normal",
 
-            DisplayName = "Quantum Cannon",
+            DisplayName = "Cannon",
 
             FireTargetLayerCapsTable = { Water = "Land|Water|Seabed" },
             FiringRandomness = 0.5,
@@ -226,14 +225,8 @@ UnitBlueprint{
             ProjectileLifetime = 2.2,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Muzzle_Front01" },
-                    RackBone = "Turret_Front_Barrel",
-                },
-                {
-                    MuzzleBones = { "Muzzle_Front02" },
-                    RackBone = "Turret_Front_Barrel",
-                },
+                { MuzzleBones = { "Muzzle_Front01" }, RackBone = "Turret_Front_Barrel" },
+                { MuzzleBones = { "Muzzle_Front02" }, RackBone = "Turret_Front_Barrel" },
             },
             RackFireTogether = true,
 
@@ -260,7 +253,6 @@ UnitBlueprint{
             TurretBoneMuzzle = "Turret_Front_Barrel",
             TurretBonePitch = "Turret_Front_Barrel",
             TurretBoneYaw = "Turret_Front",
-            TurretDualManipulators = false,
 
             TurretPitch = 10,
             TurretPitchRange = 20,
@@ -287,7 +279,7 @@ UnitBlueprint{
             DamageRadius = 2,
             DamageType = "Normal",
 
-            DisplayName = "Quantum Cannon",
+            DisplayName = "Cannon",
 
             FireTargetLayerCapsTable = { Water = "Land|Water|Seabed" },
             FiringRandomness = 0.5,
@@ -305,14 +297,8 @@ UnitBlueprint{
             ProjectileLifetime = 2,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Muzzle_Front03" },
-                    RackBone = "Turret_Front_Barrel01",
-                },
-                {
-                    MuzzleBones = { "Muzzle_Front04" },
-                    RackBone = "Turret_Front_Barrel01",
-                },
+                { MuzzleBones = { "Muzzle_Front03" }, RackBone = "Turret_Front_Barrel01" },
+                { MuzzleBones = { "Muzzle_Front04" }, RackBone = "Turret_Front_Barrel01" },
             },
             RackFireTogether = true,
             RackRecoilDistance = -0.5,
@@ -336,7 +322,6 @@ UnitBlueprint{
             TurretBoneMuzzle = "Turret_Front_Barrel01",
             TurretBonePitch = "Turret_Front_Barrel01",
             TurretBoneYaw = "Turret_Front01",
-            TurretDualManipulators = false,
 
             TurretPitch = 10,
             TurretPitchRange = 20,
@@ -381,14 +366,8 @@ UnitBlueprint{
             ProjectileLifetime = 1.9,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Muzzle_Back01" },
-                    RackBone = "Turret_Back_Barrel",
-                },
-                {
-                    MuzzleBones = { "Muzzle_Back02" },
-                    RackBone = "Turret_Back_Barrel",
-                },
+                { MuzzleBones = { "Muzzle_Back01" }, RackBone = "Turret_Back_Barrel" },
+                { MuzzleBones = { "Muzzle_Back02" }, RackBone = "Turret_Back_Barrel" },
             },
             RackFireTogether = true,
             RackRecoilDistance = -0.5,
@@ -414,7 +393,6 @@ UnitBlueprint{
             TurretBoneMuzzle = "Turret_Back_Barrel",
             TurretBonePitch = "Turret_Back_Barrel",
             TurretBoneYaw = "Turret_Back",
-            TurretDualManipulators = false,
 
             TurretPitch = 10,
             TurretPitchRange = 20,
@@ -436,7 +414,7 @@ UnitBlueprint{
             CannotAttackGround = true,
             CollideFriendly = false,
 
-            Damage = 220,
+            Damage = 440,
             DamageType = "Normal",
 
             DisplayName = "Zealot AA Missile",
@@ -452,19 +430,20 @@ UnitBlueprint{
             MaxRadius = 55,
 
             MuzzleVelocity = 33,
+            
+            NotExclusive = true,
+   
             ProjectileId = "/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp",
             ProjectileLifetime = 5,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Muzzle_Right" },
-                    RackBone = "Turret_Right_Barrel",
-                },
+                { MuzzleBones = { "Muzzle_Right" }, RackBone = "Turret_Right_Barrel" },
             },
+
             RackReloadTimeout = 10,
 
             RangeCategory = "UWRC_AntiAir",
-            RateOfFire = 1,
+            RateOfFire = 0.5,
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -479,15 +458,14 @@ UnitBlueprint{
             TurretBoneMuzzle = "Muzzle_Right",
             TurretBonePitch = "Turret_Right_Barrel",
             TurretBoneYaw = "Turret_Right",
-            TurretDualManipulators = false,
 
             TurretPitch = 25,
             TurretPitchRange = 80,
-            TurretPitchSpeed = 120,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
             TurretYawRange = 100,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 60,
 
             Turreted = true,
         },
@@ -502,7 +480,7 @@ UnitBlueprint{
 
             CollideFriendly = false,
 
-            Damage = 220,
+            Damage = 440,
             DamageType = "Normal",
 
             DisplayName = "Zealot AA Missile",
@@ -518,17 +496,17 @@ UnitBlueprint{
             MaxRadius = 55,
 
             MuzzleVelocity = 33,
-
+            
+            NotExclusive = true,
+   
             ProjectileId = "/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp",
             ProjectileLifetime = 5,
+
             RackBones = {
-                {
-                    MuzzleBones = { "Muzzle_Right01" },
-                    RackBone = "Turret_Right_Barrel01",
-                },
+                { MuzzleBones = { "Muzzle_Right01" }, RackBone = "Turret_Right_Barrel01" },
             },
 
-            RateOfFire = 1,
+            RateOfFire = 0.5,
 
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -543,15 +521,14 @@ UnitBlueprint{
             TurretBoneMuzzle = "Muzzle_Right01",
             TurretBonePitch = "Turret_Right_Barrel01",
             TurretBoneYaw = "Turret_Right01",
-            TurretDualManipulators = false,
 
             TurretPitch = 25,
             TurretPitchRange = 80,
-            TurretPitchSpeed = 120,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
             TurretYawRange = 100,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 60,
             Turreted = true,
         },
         {
@@ -563,7 +540,7 @@ UnitBlueprint{
             CannotAttackGround = true,
             CollideFriendly = false,
 
-            Damage = 220,
+            Damage = 440,
             DamageType = "Normal",
 
             DisplayName = "Zealot AA Missile",
@@ -579,18 +556,17 @@ UnitBlueprint{
             MaxRadius = 55,
 
             MuzzleVelocity = 33,
-
+            
+            NotExclusive = true,
+   
             ProjectileId = "/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp",
-            ProjectileLifetime = 5,
+            ProjectileLifetime = 5.5,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Muzzle_Left" },
-                    RackBone = "Turret_Left_Barrel",
-                },
+                { MuzzleBones = { "Muzzle_Left" }, RackBone = "Turret_Left_Barrel" },
             },
 
-            RateOfFire = 1,
+            RateOfFire = 0.5,
 
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -605,15 +581,14 @@ UnitBlueprint{
             TurretBoneMuzzle = "Muzzle_Left",
             TurretBonePitch = "Turret_Left_Barrel",
             TurretBoneYaw = "Turret_Left",
-            TurretDualManipulators = false,
 
             TurretPitch = 25,
             TurretPitchRange = 80,
-            TurretPitchSpeed = 120,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
             TurretYawRange = 100,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 60,
 
             Turreted = true,
         },
@@ -626,7 +601,7 @@ UnitBlueprint{
             CannotAttackGround = true,
             CollideFriendly = false,
 
-            Damage = 220,
+            Damage = 440,
             DamageType = "Normal",
 
             DisplayName = "Zealot AA Missile",
@@ -642,18 +617,17 @@ UnitBlueprint{
             MaxRadius = 55,
 
             MuzzleVelocity = 33,
-
+            
+            NotExclusive = true,
+   
             ProjectileId = "/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp",
-            ProjectileLifetime = 5,
+            ProjectileLifetime = 5.5,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Muzzle_Left01" },
-                    RackBone = "Turret_Left_Barrel01",
-                },
+                { MuzzleBones = { "Muzzle_Left01" }, RackBone = "Turret_Left_Barrel01" },
             },
 
-            RateOfFire = 1,
+            RateOfFire = 0.5,
 
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -668,15 +642,14 @@ UnitBlueprint{
             TurretBoneMuzzle = "Muzzle_Left01",
             TurretBonePitch = "Turret_Left_Barrel01",
             TurretBoneYaw = "Turret_Left01",
-            TurretDualManipulators = false,
 
             TurretPitch = 25,
             TurretPitchRange = 80,
-            TurretPitchSpeed = 120,
+            TurretPitchSpeed = 60,
 
             TurretYaw = 0,
             TurretYawRange = 100,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 60,
 
             Turreted = true,
         },

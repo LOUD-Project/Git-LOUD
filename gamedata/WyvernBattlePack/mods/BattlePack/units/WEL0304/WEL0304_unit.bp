@@ -290,7 +290,6 @@ UnitBlueprint{
             TurretBoneMuzzle = "Machine_Gun_Muzzle01",
             TurretBonePitch = "minigun",
             TurretBoneYaw = "minigun",
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 45,

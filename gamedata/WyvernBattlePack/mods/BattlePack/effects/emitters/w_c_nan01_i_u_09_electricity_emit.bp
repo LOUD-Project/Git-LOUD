@@ -8,7 +8,7 @@ EmitterBlueprint {
 	InterpolateEmission = false,
 	SortOrder = 2.00,
 	LowFidelity = false,
-	Texture = [[/mods/BattlePack/textures/particles/molecular_01.dds]],
+	Texture = [[/textures/particles/molecular_01.dds]],
 	RampTexture = [[/mods/BattlePack/textures/particles/ra_0079_white_mod.dds]],
 	DistortionMapTexture = [[/mods/BattlePack/textures/particles/di_0005_55.dds]],
 	EmitRateCurve = {

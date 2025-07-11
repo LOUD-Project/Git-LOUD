@@ -234,7 +234,6 @@ UnitBlueprint{
             TurretBoneMuzzle = "MainTurret_Pitch_Muzzle",
             TurretBonePitch = "MainTurret_Pitch",
             TurretBoneYaw = "MainTurret_Yaw",
-            TurretDualManipulators = false,
 
             TurretPitch = 35,
             TurretPitchRange = 50,
@@ -302,10 +301,11 @@ UnitBlueprint{
             TurretBoneMuzzle = "TMD_LaserMuzzle",
             TurretBonePitch = "TMD_LaserRack",
             TurretBoneYaw = "TMD_LaserYaw",
-            TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 50,
             TurretPitchSpeed = 50,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 36,
@@ -370,7 +370,6 @@ UnitBlueprint{
             TurretBoneMuzzle = "AATurret_Aiming_Bone",
             TurretBonePitch = "AATurret_Barrel",
             TurretBoneYaw = "AATurret",
-            TurretDualManipulators = false,
 
             TurretPitch = 45,
             TurretPitchRange = 45,

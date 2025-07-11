@@ -38,7 +38,7 @@ UnitBlueprint{
         "MOBILE",
         "NEEDMOBILEBUILD",
         "OVERLAYRADAR",
-        "RECLAIMABLE",
+        "RECLAIMABLE", 
         "SELECTABLE",
         "VISIBLETORECON",
     },
@@ -53,7 +53,7 @@ UnitBlueprint{
         RegenRate = 33,
 
         AirThreatLevel = 48,
-        SurfaceThreatLevel = 290,
+        SurfaceThreatLevel = 263,
     },
 
     Description = "<LOC wrl1466_desc>Experimental Heavy Assault Roachbot (Raider)",
@@ -199,10 +199,12 @@ UnitBlueprint{
         BankingSlope = 0,
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -3,
+
         MaxAcceleration = 0.7,
         MaxBrake = 2.8,
         MaxSpeed = 2.8,
         MaxSpeedReverse = 2.8,
+
         MaxSteerForce = 0,
         MinSpeedPercent = 0,
         MotionType = "RULEUMT_Amphibious",
@@ -211,8 +213,9 @@ UnitBlueprint{
         SkirtOffsetZ = -1.5,
         SkirtSizeX = 6,
         SkirtSizeZ = 6,
+
         TurnRadius = 5,
-        TurnRate = 15,
+        TurnRate = 16,
     },
 
     SelectionCenterOffsetZ = -0.5,
@@ -258,14 +261,17 @@ UnitBlueprint{
                     AppliedToTarget = true,
                     BuffType = "STUN",
                     Duration = 2.5,
-                    Radius = 3,
+                    Radius = 2.8,
                     TargetAllow = "ALLUNITS",
                     TargetDisallow = "COMMAND,EXPERIMENTAL",
                 },
             },
+
+            --CannotAttackGround = true,
+
             CollideFriendly = false,
 
-            Damage = 3000,
+            Damage = 4500,
             DamageFriendly = true,
             DamageRadius = 2.8,
             DamageType = "Normal",
@@ -277,13 +283,13 @@ UnitBlueprint{
                 Seabed = "Land|Water|Seabed",
             },
 
-            FiringRandomness = 0.3,
+            FiringRandomness = 0.2,
             FiringRandomnessWhileMoving = 0.6,
             FiringTolerance = 0.6,
 
             Label = "KillerCannon",
 
-            MaxRadius = 72,
+            MaxRadius = 70,
             MinRadius = 5,
 
             MuzzleVelocity = 38,
@@ -294,20 +300,17 @@ UnitBlueprint{
             ProjectileLifetime = 2.1,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Killa_CannonMuzzle" },
-                    RackBone = "Killa_CannonBarrel",
-                },
+                { MuzzleBones = { "Killa_CannonMuzzle" }, RackBone = "Killa_CannonBarrel" },
             },
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
             
-            RackSalvoReloadTime = 1.7,  -- cycle is 1.7 = 3000/1.7 = 1764 DPS
+            RackSalvoReloadTime = 3,  -- cycle is 3 = 4500/3 = 1500 DPS
 
             RangeCategory = "UWRC_DirectFire",
 
             RateOfFire = 1,
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1.5,
 
             TargetPriorities = {
                 "SPECIALHIGHPRI",
@@ -341,14 +344,29 @@ UnitBlueprint{
             },
             
             BallisticArc = "RULEUBA_None",
+			
+            Buffs = {
+                {
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.9,
+                    Radius = 1.5,
+                    TargetAllow = 'LAND,NAVAL',
+                    TargetDisallow = 'EXPERIMENTAL,COMMAND,STRUCTURE,SUBCOMMANDER,AIR',
+                },
+            },
+
+            --CannotAttackGround = true,
+
             CollideFriendly = false,
 
             Damage = 400,
-            DamageFriendly = false,
+            DamageFriendly = true,
             DamageRadius = 2.2,
             DamageType = "Normal",
 
-            DisplayName = "Wyvern Missiles",
+            DisplayName = "Missiles",
 
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
@@ -357,14 +375,15 @@ UnitBlueprint{
             
             FiringTolerance = 360,
 
-            Label = "Rockets",
+            Label = "Missiles",
 
             MaxRadius = 80,
             MinRadius = 12,
 
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 8,
-            MuzzleVelocity = 10,
+            MuzzleVelocity = 8,
+            MuzzleVelocityReduceDistance = 60,
 
             NotExclusive = true,
 
@@ -372,10 +391,7 @@ UnitBlueprint{
             ProjectileLifetime = 10,
 
             RackBones = {
-                {
-                    MuzzleBones = {"Missile_Muzzle001","Missile_Muzzle002","Missile_Muzzle003","Missile_Muzzle004"},
-                    RackBone = "RocketPods",
-                },
+                { MuzzleBones = {"Missile_Muzzle001","Missile_Muzzle002","Missile_Muzzle003","Missile_Muzzle004"}, RackBone = "RocketPods" },
             },
             
             RackSalvoReloadTime = 7.1,    -- firing cycle 9.5 = 3200/9.5 = 336 DPS
@@ -409,7 +425,7 @@ UnitBlueprint{
             Damage = 120,
             DamageType = "Normal",
 
-            DisplayName = "Gauss Cannon",
+            DisplayName = "Bolter",
 
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
@@ -429,23 +445,17 @@ UnitBlueprint{
             ProjectileLifetime = 1.4,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Left_Turret_Muzzle01" },
-                    RackBone = "Left_Turret_Recoil01",
-                },
-                {
-                    MuzzleBones = { "Left_Turret_Muzzle02" },
-                    RackBone = "Left_Turret_Recoil02",
-                },
+                { MuzzleBones = { "Left_Turret_Muzzle01" }, RackBone = "Left_Turret_Recoil01" },
+                { MuzzleBones = { "Left_Turret_Muzzle02" }, RackBone = "Left_Turret_Recoil02" },
             },
 
             RackRecoilDistance = -1,
             
-            RackSalvoReloadTime = 0.2,  -- firing cycle is .6 = 120 x 2 = 240/.6 = 400 DPS
+            RackSalvoReloadTime = 0.4,  -- firing cycle is .6 = 120 x 2 = 240/.6 = 400 DPS
 
             RackSlavedToTurret = true,
 
-            RateOfFire = 5,
+            RateOfFire = 5,     -- weapon will try to fire every 2 ticks, limited by salvo reload
 
             ReTargetOnMiss = true,
 
@@ -482,12 +492,15 @@ UnitBlueprint{
                 Fire = Sound { Bank = 'BattlePackSB', Cue = 'CybranRevampBot_MainCannon_Fire', LodCutoff = 'Weapon_LodCutoff' },
             },
             BallisticArc = "RULEUBA_LowArc",
+
+            --CannotAttackGround = true,
+
             CollideFriendly = false,
 
             Damage = 120,
             DamageType = "Normal",
 
-            DisplayName = "Gauss Cannon",
+            DisplayName = "Bolter",
 
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
@@ -507,23 +520,17 @@ UnitBlueprint{
             ProjectileLifetime = 1.4,
             
             RackBones = {
-                {
-                    MuzzleBones = { "Right_Turret_Muzzle01" },
-                    RackBone = "Right_Turret_Recoil01",
-                },
-                {
-                    MuzzleBones = { "Right_Turret_Muzzle02" },
-                    RackBone = "Right_Turret_Recoil02",
-                },
+                { MuzzleBones = { "Right_Turret_Muzzle01" }, RackBone = "Right_Turret_Recoil01" },
+                { MuzzleBones = { "Right_Turret_Muzzle02" }, RackBone = "Right_Turret_Recoil02" },
             },
             
             RackRecoilDistance = -1,
             
-            RackSalvoReloadTime = 0.2,  -- after both racks fire = 6 ticks = 240/.6 = 400 DPS
+            RackSalvoReloadTime = 0.4,  -- after both muzzles fire = 6 ticks = 240/.6 = 400 DPS
 
             RackSlavedToTurret = true,
 
-            RateOfFire = 5,     -- rack will fire every 2 ticks
+            RateOfFire = 5,     -- rack will fire both muzzles every 6 ticks
             ReTargetOnMiss = true,
 
             TargetCheckInterval = 0.5,
@@ -567,11 +574,11 @@ UnitBlueprint{
             BallisticArc = "RULEUBA_None",
             
             BeamCollisionDelay = 0,
-            BeamLifetime = 0.5,
+            BeamLifetime = 0.4,
 
             CollideFriendly = false,
 
-            Damage = 48,
+            Damage = 120,
             DamageType = "Normal",
 
             DisplayName = "AA Micro Laser",
@@ -586,22 +593,19 @@ UnitBlueprint{
 
             Label = "AALaser",
 
-            MaxRadius = 48,
+            MaxRadius = 44,
 
             NotExclusive = true,
             RackBones = {
-                {
-                    MuzzleBones = { "FrontMini_TurretMuzzle001" },
-                    RackBone = "FrontMini_TurretBarrel001",
-                },
+                { MuzzleBones = { "FrontMini_TurretMuzzle001" }, RackBone = "FrontMini_TurretBarrel001" },
             },
             RackReloadTimeout = 1,
 
             RangeCategory = "UWRC_AntiAir",
             
-            RateOfFire = 1,     --  48 x 5 = 240 DPS AIR
+            RateOfFire = 0.5,     --  96 x 5 = 480 every 2 seconds 240 DPS AIR
 
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
                 "HIGHPRIAIR",
@@ -623,7 +627,7 @@ UnitBlueprint{
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 80,
+            TurretYawSpeed = 72,
 
             Turreted = true,
         },
@@ -641,14 +645,14 @@ UnitBlueprint{
             BallisticArc = "RULEUBA_None",
             
             BeamCollisionDelay = 0,
-            BeamLifetime = 0.5,
+            BeamLifetime = 0.4,
             
             CollideFriendly = false,
             
-            Damage = 48,
+            Damage = 120,
             DamageType = "Normal",
             
-            DisplayName = "AA Micro Laser",
+            DisplayName = "AA Laser",
             
             DoNotCollideList = {"MISSILE"},
             
@@ -660,20 +664,17 @@ UnitBlueprint{
             
             Label = "AALaser",
 
-            MaxRadius = 48,
+            MaxRadius = 44,
 
             NotExclusive = true,
             RackBones = {
-                {
-                    MuzzleBones = { "FrontMini_TurretMuzzle002" },
-                    RackBone = "FrontMini_TurretBarrel002",
-                },
+                { MuzzleBones = { "FrontMini_TurretMuzzle002" }, RackBone = "FrontMini_TurretBarrel002" },
             },
             RackReloadTimeout = 1,
 
-            RateOfFire = 1,
+            RateOfFire = 0.5,       -- another 240 DPS Air
 
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
                 "HIGHPRIAIR",
@@ -694,7 +695,7 @@ UnitBlueprint{
 
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 80,
+            TurretYawSpeed = 72,
 
             Turreted = true,
         },

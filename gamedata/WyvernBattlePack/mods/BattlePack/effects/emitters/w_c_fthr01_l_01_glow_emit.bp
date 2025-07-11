@@ -6,7 +6,7 @@ EmitterBlueprint {
 	LocalVelocity = true,
 	LODCutoff = 400.00,
 	SortOrder = 1.00,
-	Texture = [[/mods/BattlePack/textures/particles/glow_02.dds]],
+	Texture = [[/textures/particles/glow_02.dds]],
 	RampTexture = [[/mods/BattlePack/textures/particles/ra_0039_blue.dds]],
 	EmitRateCurve = {
 		XRange = 3.0000,

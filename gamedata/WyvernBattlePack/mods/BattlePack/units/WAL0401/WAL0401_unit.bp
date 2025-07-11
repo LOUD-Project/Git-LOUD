@@ -246,10 +246,7 @@ UnitBlueprint{
             MinRadius = 2,
 
             RackBones = {
-                {
-                    MuzzleBones = { "PhasonMuzzle01" },
-                    RackBone = "NewHead",
-                },
+                { MuzzleBones = { "PhasonMuzzle01" }, RackBone = "NewHead" },
             },
 
             RangeCategory = "UWRC_DirectFire",
@@ -272,7 +269,6 @@ UnitBlueprint{
             TurretBoneMuzzle = "PhasonMuzzle01",
             TurretBonePitch = "NewHead",
             TurretBoneYaw = "NewHead",
-            TurretDualManipulators = false,
 
             TurretPitch = -20,
             TurretPitchRange = 70,
@@ -318,10 +314,7 @@ UnitBlueprint{
             MuzzleSpecial = "Right_Arm_Muzzle02",
 
             RackBones = {
-                {
-                    MuzzleBones = { "Right_Arm_Muzzle01" },
-                    RackBone = "Right_Arm_B02",
-                },
+                { MuzzleBones = { "Right_Arm_Muzzle01" }, RackBone = "Right_Arm_B02" },
             },
 
             RateOfFire = 1,
@@ -337,7 +330,6 @@ UnitBlueprint{
             TurretBoneMuzzle = "Right_Arm_Muzzle01",
             TurretBonePitch = "Right_Arm_B02",
             TurretBoneYaw = "Right_Arm_B01",
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 70,
@@ -384,10 +376,7 @@ UnitBlueprint{
             MuzzleSpecial = "Left_Arm_Muzzle02",
 
             RackBones = {
-                {
-                    MuzzleBones = { "Left_Arm_Muzzle01" },
-                    RackBone = "Left_Arm_B02",
-                },
+                { MuzzleBones = { "Left_Arm_Muzzle01" }, RackBone = "Left_Arm_B02" },
             },
 
             RateOfFire = 1,
@@ -403,7 +392,6 @@ UnitBlueprint{
             TurretBoneMuzzle = "Left_Arm_Muzzle01",
             TurretBonePitch = "Left_Arm_B02",
             TurretBoneYaw = "Left_Arm_B01",
-            TurretDualManipulators = false,
 
             TurretPitch = 0,
             TurretPitchRange = 70,

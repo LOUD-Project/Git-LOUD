@@ -1,6 +1,6 @@
-local CElectronBolterProjectile = import('/lua/cybranprojectiles.lua').CElectronBolterProjectile
+local Bolter = import('/lua/cybranprojectiles.lua').CElectronBolterProjectile
 
-WBPShadowCannon = Class(CElectronBolterProjectile) {
+WBPShadowCannon = Class(Bolter) {
 
 	FxTrails = {
 		'/effects/emitters/electron_bolter_munition_01_emit.bp',

@@ -2,8 +2,8 @@ local TStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
 local WeaponsFile = import('/lua/terranweapons.lua')
 
-local TDFGaussCannonWeapon = WeaponsFile.TDFLandGaussCannonWeapon
-local TANTorpedoAngler = WeaponsFile.TANTorpedoAngler
+local Cannon    = WeaponsFile.TDFLandGaussCannonWeapon
+local Torpedo   = WeaponsFile.TANTorpedoAngler
 
 WeaponsFile = nil
 
@@ -17,11 +17,11 @@ WEB0404 = Class(TStructureUnit) {
 
     Weapons = {
     
-        TurretLarge = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0.6 },
+        TurretLarge = Class(Cannon) { FxMuzzleFlashScale = 0.6 },
         
-        Turret = Class(TDFGaussCannonWeapon) { FxMuzzleFlash = false },
+        Turret      = Class(Cannon) { FxMuzzleFlash = false },
 
-        Torpedo = Class(TANTorpedoAngler) { FxMuzzleFlash = false },
+        Torpedo     = Class(Torpedo) { FxMuzzleFlash = false },
     },
 	
 	OnStopBeingBuilt = function(self,builder,layer)

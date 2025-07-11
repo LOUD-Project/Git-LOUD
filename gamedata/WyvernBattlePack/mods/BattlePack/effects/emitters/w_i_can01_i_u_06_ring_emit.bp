@@ -6,7 +6,7 @@ EmitterBlueprint {
 	Flat = true,
 	InterpolateEmission = false,
 	SortOrder = -2.00,
-	Texture = [[/mods/BattlePack/textures/particles/ring_11.dds]],
+	Texture = [[/textures/particles/ring_11.dds]],
 	RampTexture = [[/mods/BattlePack/textures/particles/ra_0058_lightblue.dds]],
 	EmitRateCurve = {
 		XRange = 2.0000,

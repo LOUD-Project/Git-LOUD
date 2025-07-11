@@ -208,10 +208,7 @@ UnitBlueprint{
             ProjectileLifetime = 1.6,
 
             RackBones = {
-                {
-                    MuzzleBones = { "ChinGun_Muzzle" },
-                    RackBone = "ChinGun",
-                },
+                { MuzzleBones = { "ChinGun_Muzzle" }, RackBone = "ChinGun" },
             },
 
             RateOfFire = 2,
@@ -283,14 +280,8 @@ UnitBlueprint{
             ProjectileLifetime = 1.4,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Top_Right_CannonMuzzle" },
-                    RackBone = "Right_Gun",
-                },
-                {
-                    MuzzleBones = { "Bottom_Right_CannonMuzzle" },
-                    RackBone = "Right_Gun",
-                },
+                { MuzzleBones = { "Top_Right_CannonMuzzle" }, RackBone = "Right_Gun" },
+                { MuzzleBones = { "Bottom_Right_CannonMuzzle" }, RackBone = "Right_Gun" },
             },
             RackRecoilDistance = -0.9,
 
@@ -368,14 +359,8 @@ UnitBlueprint{
             ProjectileLifetimeUsesMultiplier = 1.4,
 
             RackBones = {
-                {
-                    MuzzleBones = { "Top_Left_CannonMuzzle" },
-                    RackBone = "Left_Gun",
-                },
-                {
-                    MuzzleBones = { "Bottom_Left_CannonMuzzle" },
-                    RackBone = "Left_Gun",
-                },
+                { MuzzleBones = { "Top_Left_CannonMuzzle" }, RackBone = "Left_Gun" },
+                { MuzzleBones = { "Bottom_Left_CannonMuzzle" }, RackBone = "Left_Gun" },
             },
             RackRecoilDistance = -0.9,
 
@@ -445,14 +430,8 @@ UnitBlueprint{
             ProjectileLifetime = 1,
 
             RackBones = {
-                {
-                    MuzzleBones = { "TopGun_BottomMuzzle001" },
-                    RackBone = "TopGun",
-                },
-                {
-                    MuzzleBones = { "TopGun_BottomMuzzle002" },
-                    RackBone = "TopGun",
-                },
+                { MuzzleBones = { "TopGun_BottomMuzzle001" }, RackBone = "TopGun" },
+                { MuzzleBones = { "TopGun_BottomMuzzle002" }, RackBone = "TopGun" },
             },
 
             RateOfFire = 4,
@@ -511,10 +490,7 @@ UnitBlueprint{
             ProjectileLifetime = 4,
 
             RackBones = {
-                {
-                    MuzzleBones = {"AA_Muzzle001","AA_Muzzle002"},
-                    RackBone = "AA_Rack",
-                },
+                { MuzzleBones = {"AA_Muzzle001","AA_Muzzle002"}, RackBone = "AA_Rack" },
             },
 
             RangeCategory = "UWRC_AntiAir",

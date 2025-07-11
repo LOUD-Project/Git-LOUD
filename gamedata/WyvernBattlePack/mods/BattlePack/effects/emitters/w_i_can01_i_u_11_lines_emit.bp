@@ -9,7 +9,7 @@ EmitterBlueprint {
 	SortOrder = 10.00,
 	LowFidelity = false,
 	MedFidelity = false,
-	Texture = [[/mods/BattlePack/textures/particles/muzzle_flash_add_09.dds]],
+	Texture = [[/textures/particles/muzzle_flash_add_09.dds]],
 	RampTexture = [[/mods/BattlePack/textures/particles/ra_0039_blue.dds]],
 	DistortionMapTexture = [[/mods/BattlePack/textures/particles/di_0005_55.dds]],
 	EmitRateCurve = {

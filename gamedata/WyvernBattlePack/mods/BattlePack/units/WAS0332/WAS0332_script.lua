@@ -2,17 +2,17 @@ local AeonWeapons = import('/lua/aeonweapons.lua')
 
 local ASeaUnit = import('/lua/defaultunits.lua').SeaUnit
 
-local AAAZealotMissileWeapon = AeonWeapons.AAAZealotMissileWeapon
-local ADFCannonQuantumWeapon = AeonWeapons.ADFCannonQuantumWeapon
+local AA = AeonWeapons.AAAZealotMissileWeapon
+local Cannon = AeonWeapons.ADFCannonQuantumWeapon
+
+AeonWeapons = nil
 
 WAS0332 = Class(ASeaUnit) {
     Weapons = {
-        MainGun = Class(ADFCannonQuantumWeapon) {},
-
-        AntiAirMissiles = Class(AAAZealotMissileWeapon) {},
+        MainGun         = Class(Cannon) {},
+        AntiAirMissiles = Class(AA) {},
     },
 
-    BackWakeEffect = {},
 }
 
 TypeClass = WAS0332

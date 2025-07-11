@@ -23,7 +23,7 @@ ProjectileBlueprint {
     },
 
     Display = {
-        ImpactEffects = {Type = 'Medium03'},
+        ImpactEffects = {Type = 'Medium02'},
         StrategicIconSize = 2,
     },
 

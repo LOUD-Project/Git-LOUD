@@ -2,10 +2,10 @@ local AWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local AWeapons = import('/lua/aeonweapons.lua')
 
-local ADFLaserHighIntensityWeapon   = AWeapons.ADFLaserHighIntensityWeapon
-local ADFCannonOblivionWeapon       = AWeapons.ADFCannonOblivionWeapon
-local ADFQuantumAutogunWeapon       = AWeapons.ADFQuantumAutogunWeapon
-local AAAZealotMissileWeapon        = AWeapons.AAAZealotMissileWeapon
+local Laser     = AWeapons.ADFLaserHighIntensityWeapon
+local Cannon    = AWeapons.ADFCannonOblivionWeapon
+local Autogun   = AWeapons.ADFQuantumAutogunWeapon
+local AA        = AWeapons.AAAZealotMissileWeapon
 
 AWeapons = nil
 
@@ -13,13 +13,13 @@ WAL4404 = Class(AWalkingLandUnit) {
 
     Weapons = {
     
-        ChinGun     = Class(ADFLaserHighIntensityWeapon) {},
+        ChinGun     = Class(Laser) {},
         
-		Arm         = Class(ADFCannonOblivionWeapon) {},  
+		Arm         = Class(Cannon) {},  
 
-		TopCannon   = Class(ADFQuantumAutogunWeapon) {},
+		TopCannon   = Class(Autogun) {},
         
-		AAMissile   = Class(AAAZealotMissileWeapon) {},
+		AAMissile   = Class(AA) {},
     }, 
 }
 

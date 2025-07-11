@@ -1,5 +1,5 @@
 TrailEmitterBlueprint {
-	BlueprintId = 'w_u_gau01_p_01_polytrails',
+	BlueprintId = 'w_u_gau03_p_01_polytrails',
 	Lifetime = -1.00,
     TrailLength = 1.5,
     Size = 0.5,
@@ -8,6 +8,6 @@ TrailEmitterBlueprint {
     TextureRepeatRate = 1,
     LODCutoff = 300,
 	RepeatTexture = [[/mods/BattlePack/textures/particles/beam_exhaust_01.dds]],
-	RampTexture = [[/mods/BattlePack/textures/particles/ramp_fire_12.dds]],
+	RampTexture = [[/textures/particles/ramp_fire_12.dds]],
 }
 

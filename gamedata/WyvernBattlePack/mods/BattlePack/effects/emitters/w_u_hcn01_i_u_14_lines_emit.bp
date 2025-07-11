@@ -10,7 +10,7 @@ EmitterBlueprint {
 	InterpolateEmission = false,
 	SortOrder = 1.00,
 	LowFidelity = false,
-	Texture = [[/mods/BattlePack/textures/particles/sparkle_yellow_add_02.dds]],
+	Texture = [[/textures/particles/sparkle_yellow_add_02.dds]],
 	RampTexture = [[/mods/BattlePack/textures/particles/ra_0065_whitefast_mod.dds]],
 	EmitRateCurve = {
 		XRange = 1.0000,

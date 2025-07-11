@@ -8,7 +8,7 @@ EmitterBlueprint {
 	InterpolateEmission = false,
 	SortOrder = 3.00,
 	LowFidelity = false,
-	Texture = [[/mods/BattlePack/textures/particles/glow_02.dds]],
+	Texture = [[/textures/particles/glow_02.dds]],
 	RampTexture = [[/mods/BattlePack/textures/particles/ra_0134_flickerblue.dds]],
 	EmitRateCurve = {
 		XRange = 1.0000,

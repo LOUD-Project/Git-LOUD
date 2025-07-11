@@ -7,7 +7,7 @@ EmitterBlueprint {
 	LODCutoff = 340.00,
 	EmitIfVisible = false,
 	SortOrder = -1.00,
-	Texture = [[/mods/BattlePack/textures/particles/glow_02.dds]],
+	Texture = [[/textures/particles/glow_02.dds]],
 	RampTexture = [[/mods/BattlePack/textures/particles/ra_0133_lightpurple.dds]],
 	EmitRateCurve = {
 		XRange = 11.0000,

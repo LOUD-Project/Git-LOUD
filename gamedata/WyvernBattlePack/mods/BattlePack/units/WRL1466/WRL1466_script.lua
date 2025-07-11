@@ -1,18 +1,18 @@
 local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local WeaponsFile3   = import('/mods/BattlePack/lua/BattlePackweapons.lua')
+local WeaponFile = import('/lua/cybranweapons.lua')
 
-local CDFHvyProtonCannonWeapon   = import('/lua/cybranweapons.lua').CDFHvyProtonCannonWeapon
-local CDFElectronBolterWeapon    = import('/lua/cybranweapons.lua').CDFElectronBolterWeapon
-local TDFGaussCannonWeapon       = import('/lua/terranweapons.lua').TDFLandGaussCannonWeapon
-local AAMicrowaveLaserGenerator  = WeaponsFile3.AAMicrowaveLaserGenerator 
+local Cannon   = WeaponFile.CDFHvyProtonCannonWeapon
+local Bolter   = WeaponFile.CDFElectronBolterWeapon
+local Gauss    = import('/lua/terranweapons.lua').TDFLandGaussCannonWeapon
+local AALaser  = WeaponFile.CDFAAMicrowaveLaser
 
-WeaponsFile3 = nil
+WeaponFile = nil
 
 local explosion = import('/lua/defaultexplosions.lua')
 
-local CreateDeathExplosion = explosion.CreateDefaultHitExplosionAtBone
-local CreateFlash = explosion.CreateFlash
+local CreateDeathExplosion  = explosion.CreateDefaultHitExplosionAtBone
+local CreateFlash           = explosion.CreateFlash
 
 explosion = nil
 
@@ -25,14 +25,11 @@ WRL1466 = Class(CWalkingLandUnit) {
 
     Weapons = {
 
-		KillerCannon = Class(CDFHvyProtonCannonWeapon) {},
-        
-		BolterLeft   = Class(CDFElectronBolterWeapon) {},
-		BolterRight  = Class(CDFElectronBolterWeapon) {},
-        
-		AALaser      = Class(AAMicrowaveLaserGenerator) {},
-
-		Rockets      = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0.5 },	
+		KillerCannon = Class(Cannon) { FxMuzzleFlashScale = 0.7 },
+		BolterLeft   = Class(Bolter) {},
+		BolterRight  = Class(Bolter) {},
+		AALaser      = Class(AALaser) { FxMuzzleFlash = false },
+		Missiles     = Class(Gauss) { FxMuzzleFlashScale = 0.4 },	
     },
 	
 	OnStartBeingBuilt = function(self, builder, layer)

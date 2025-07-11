@@ -2,8 +2,6 @@ local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 WRL0207 = Class(CWalkingLandUnit) {
 
-	ShieldEffects = {'/mods/BattlePack/effects/emitters/ex_cybran_shieldgen_01_emit.bp'},
-
 	OnStopBeingBuilt = function(self,builder,layer)
     
         CWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
@@ -27,10 +25,7 @@ WRL0207 = Class(CWalkingLandUnit) {
             end
 		    self.ShieldEffectsBag = {}
 		end
-        
-        for k, v in self.ShieldEffects do
-            table.insert( self.ShieldEffectsBag, CreateAttachedEmitter( self, 'ShieldEffect', self.Army, v ) )
-        end
+
     end,
 
     OnShieldDisabled = function(self)

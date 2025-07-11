@@ -2,8 +2,8 @@ local AWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local WeaponsFile = import ('/lua/aeonweapons.lua')
 
-local ADFPhasonLaser = WeaponsFile.ADFPhasonLaser
-local ADFTractorClaw = WeaponsFile.ADFTractorClaw
+local Laser = WeaponsFile.ADFPhasonLaser
+local Claw = WeaponsFile.ADFTractorClaw
 
 WeaponsFile = nil
 
@@ -12,9 +12,9 @@ local explosion = import('/lua/defaultexplosions.lua')
 WAL0401 = Class(AWalkingLandUnit) {
 
     Weapons = {
-        EyeWeapon = Class(ADFPhasonLaser) {},
-        RightArmTractor = Class(ADFTractorClaw) {},
-        LeftArmTractor = Class(ADFTractorClaw) {},
+        EyeWeapon       = Class(Laser) {},
+        RightArmTractor = Class(Claw) {},
+        LeftArmTractor  = Class(Claw) {},
     },
 
     OnKilled = function(self, instigator, type, overkillRatio)
