@@ -192,10 +192,7 @@ UnitBlueprint {
             MaxRadius = 28,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Beam_Muzzle01'},
-                    RackBone = 'Beam_Muzzle01',
-                },
+                { MuzzleBones = {'Beam_Muzzle01'}, RackBone = 'Beam_Muzzle01' },
             },
 
             RangeCategory = 'UWRC_AntiAir',

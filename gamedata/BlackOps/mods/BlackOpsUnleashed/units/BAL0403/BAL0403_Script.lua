@@ -1,7 +1,7 @@
 local AWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local GoldenLaserGenerator = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').GoldenLaserGenerator
-local CDFLaserHeavyWeapon = import('/lua/cybranweapons.lua').CDFLaserHeavyWeapon
+local GoldenLaser   = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').GoldenLaserGenerator
+local Laser         = import('/lua/cybranweapons.lua').CDFLaserHeavyWeapon
 
 local explosion = import('/lua/defaultexplosions.lua')
 
@@ -19,13 +19,13 @@ BAL0403 = Class(AWalkingLandUnit) {
 	
     Weapons = {
 	
-        MainGun = Class(GoldenLaserGenerator) {
+        MainGun = Class(GoldenLaser) {
 		
             OnWeaponFired = function(self)
 			
 				self:ForkThread(self.ArrayEffectsCleanup)
 			
-            	GoldenLaserGenerator.OnWeaponFired(self)
+            	GoldenLaser.OnWeaponFired(self)
 				
             	local wep = self.unit:GetWeaponByLabel('BoomWeapon')
 				
@@ -41,7 +41,7 @@ BAL0403 = Class(AWalkingLandUnit) {
         
 			PlayFxRackSalvoChargeSequence = function(self, muzzle)
 		
-				GoldenLaserGenerator.PlayFxRackSalvoChargeSequence(self, muzzle) 
+				GoldenLaser.PlayFxRackSalvoChargeSequence(self, muzzle) 
 				
             	local wep = self.unit:GetWeaponByLabel('MainGun')
         		local bp = wep:GetBlueprint()
@@ -144,10 +144,10 @@ BAL0403 = Class(AWalkingLandUnit) {
 			end,
         },
 		
-        BoomWeapon = Class(CDFLaserHeavyWeapon){
+        BoomWeapon = Class(Laser){
 		
         	OnWeaponFired = function(self)
-               	CDFLaserHeavyWeapon.OnWeaponFired(self)
+               	Laser.OnWeaponFired(self)
 				self:SetWeaponEnabled(false)
             end,
         },
@@ -233,8 +233,7 @@ BAL0403 = Class(AWalkingLandUnit) {
         explosion.CreateDefaultHitExplosionAtBone( self, 'B_L_Leg_B01', 1.0 )
         explosion.CreateDefaultHitExplosionAtBone( self, 'B_R_Leg_B02', 1.0 )
 
-        WaitSeconds(1.3
-		)
+        WaitSeconds(1.3)
         explosion.CreateDefaultHitExplosionAtBone( self, 'Turret01', 5.0 )        
 
         if self.DeathAnimManip then

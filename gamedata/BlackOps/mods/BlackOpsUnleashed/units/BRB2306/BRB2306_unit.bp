@@ -62,12 +62,8 @@ UnitBlueprint {
             'Stuns enemy units',
 			'Requires Energy',
         },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 215, ShaderName = 'Insect' },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, ShaderName = 'Insect' } } },
 
         UniformScale = 0.15,
     },
@@ -188,10 +184,7 @@ UnitBlueprint {
             NotExclusive = true,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Muzzle01'},
-                    RackBone = 'Muzzle01',
-                },
+                { MuzzleBones = {'Muzzle01'}, RackBone = 'Muzzle01' },
             },
 
             RackSalvoFiresAfterCharge = true,
@@ -281,10 +274,7 @@ UnitBlueprint {
             ProjectileLifetime = 0.8,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Muzzle02'},
-                    RackBone = 'Muzzle02',
-                },
+                { MuzzleBones = {'Muzzle02'}, RackBone = 'Muzzle02' },
             },
 
             RateOfFire = 0.1,		---- This weapon is controlled by the script and is only turned on when the main weapon fires - then turned off again after it fires once

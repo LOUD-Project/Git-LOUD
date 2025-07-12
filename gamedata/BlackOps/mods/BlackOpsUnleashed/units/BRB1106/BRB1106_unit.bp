@@ -39,12 +39,7 @@ UnitBlueprint {
     Description = '<LOC brb1106_desc>Mass & Energy Storage',
 	
     Display = {
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 215, Scrolling = true, ShaderName = 'Insect' },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, Scrolling = true, ShaderName = 'Insect' } } },
 
         UniformScale = 0.5,
     },

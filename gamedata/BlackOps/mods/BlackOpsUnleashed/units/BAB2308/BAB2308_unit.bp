@@ -58,12 +58,7 @@ UnitBlueprint {
 			'Fires a missile that splits into 6 missiles',
         },
 		
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 215, Scrolling = true, ShaderName = 'Aeon' },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, Scrolling = true, ShaderName = 'Aeon' } } },
 
         UniformScale = 0.1,
     },
@@ -199,22 +194,10 @@ UnitBlueprint {
             ProjectileLifetime = 600,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Attachpoint01'},
-                    RackBone = 'Turret01',
-                },
-                {
-                    MuzzleBones = {'Attachpoint02'},
-                    RackBone = 'Turret02',
-                },
-                {
-                    MuzzleBones = {'Attachpoint03'},
-                    RackBone = 'Turret03',
-                },
-                {
-                    MuzzleBones = {'Attachpoint04'},
-                    RackBone = 'Turret04',
-                },
+                { MuzzleBones = {'Attachpoint01'}, RackBone = 'Turret01' },
+                { MuzzleBones = {'Attachpoint02'}, RackBone = 'Turret02' },
+                { MuzzleBones = {'Attachpoint03'}, RackBone = 'Turret03' },
+                { MuzzleBones = {'Attachpoint04'}, RackBone = 'Turret04' },
             },
 
             RackSalvoReloadTime = 4,

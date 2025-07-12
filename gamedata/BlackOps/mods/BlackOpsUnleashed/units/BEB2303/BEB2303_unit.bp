@@ -49,12 +49,8 @@ UnitBlueprint {
             'High Energy Consumption',
 			'<LOC ability_aquatic>Aquatic: Can be built on water',
         },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 215, ShaderName = 'Unit' },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, ShaderName = 'Unit' } } },
 
         UniformScale = 0.11,
     },
@@ -178,10 +174,7 @@ UnitBlueprint {
             ProjectileLifetime = 6.2,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Fake_Muzzle'},
-                    RackBone = 'Fake_Muzzle',
-                },
+                { MuzzleBones = {'Fake_Muzzle'}, RackBone = 'Fake_Muzzle' },
             },
 
             RackRecoilDistance = -3.5,

@@ -1,6 +1,6 @@
 local AStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
-local AIFArtilleryMiasmaShellWeapon = import('/lua/aeonweapons.lua').AIFArtilleryMiasmaShellWeapon
+local Artillery = import('/lua/aeonweapons.lua').AIFArtilleryMiasmaShellWeapon
 
 local TrashAdd = TrashBag.Add
 
@@ -8,7 +8,7 @@ BAB2303 = Class(AStructureUnit) {
 
     Weapons = {
 	
-        MainGun = Class(AIFArtilleryMiasmaShellWeapon) {
+        MainGun = Class(Artillery) {
 		
 			PlayFxWeaponPackSequence = function(self)
             
@@ -20,7 +20,7 @@ BAB2303 = Class(AStructureUnit) {
                     self.SpinManip2:SetTargetSpeed(0)
                 end
    
-                AIFArtilleryMiasmaShellWeapon.PlayFxWeaponPackSequence(self)
+                Artillery.PlayFxWeaponPackSequence(self)
             end,
         
             PlayFxWeaponUnpackSequence = function(self)
@@ -41,7 +41,7 @@ BAB2303 = Class(AStructureUnit) {
 
                 self.SpinManip2:SetTargetSpeed(-320)
    
-                AIFArtilleryMiasmaShellWeapon.PlayFxWeaponUnpackSequence(self)
+                Artillery.PlayFxWeaponUnpackSequence(self)
             end,       
 		
 		},

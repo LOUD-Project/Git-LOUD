@@ -54,23 +54,13 @@ UnitBlueprint {
         },
 		
         AnimationDeath = {
-            {
-                Animation = '/mods/BlackOpsUnleashed/units/BAL0110/BAL0110_Adeath01.sca',
-                AnimationRateMax = 1.25,
-                AnimationRateMin = 0.75,
-                Weight = 10,
-            },
+            { Animation = '/mods/BlackOpsUnleashed/units/BAL0110/BAL0110_Adeath01.sca', AnimationRateMax = 1.25, AnimationRateMin = 0.75, Weight = 10 },
         },
 		
         AnimationWalk = '/mods/BlackOpsUnleashed/units/BAL0110/BAL0110_Awalk01.sca',
         AnimationWalkRate = 4,
 		
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 215, Scrolling = true, ShaderName = 'Aeon' },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, Scrolling = true, ShaderName = 'Aeon' } } },
 
         UniformScale = 0.08,
     },
@@ -193,10 +183,7 @@ UnitBlueprint {
 			ProjectileLifetime = 0.9,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Muzzle'},
-                    RackBone = 'Barrel',
-                },
+                { MuzzleBones = {'Muzzle'}, RackBone = 'Barrel' },
             },
 
             RackRecoilDistance = -1,

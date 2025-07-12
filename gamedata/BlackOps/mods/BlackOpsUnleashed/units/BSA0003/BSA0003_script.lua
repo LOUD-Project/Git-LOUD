@@ -1,13 +1,13 @@
 local SAirUnit = import('/lua/defaultunits.lua').AirUnit
 
-local SDFPhasicAutoGunWeapon = import('/lua/seraphimweapons.lua').SDFPhasicAutoGunWeapon
+local AutoGun = import('/lua/seraphimweapons.lua').SDFPhasicAutoGunWeapon
 
 local ForkThread = ForkThread
 local WaitTicks = coroutine.yield
 
 BSA0003 = Class(SAirUnit) {
     Weapons = {
-        Turret = Class(SDFPhasicAutoGunWeapon) {},
+        Turret = Class(AutoGun) {},
     },
 
     OnStopBeingBuilt = function(self, builder, layer)

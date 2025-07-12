@@ -56,20 +56,11 @@ UnitBlueprint {
 		
         AttackReticuleSize = 2.5,
 		
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 215, ShaderName = 'Insect' },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, ShaderName = 'Insect' } } },
 		
-        TransportAnimation = {
-            { Animation = '/mods/BlackOpsUnleashed/units/BEL0308/BEL0308_Afold.sca', Weight = 100 },
-        },
+        TransportAnimation = { { Animation = '/mods/BlackOpsUnleashed/units/BEL0308/BEL0308_Afold.sca', Weight = 100 } },
         
-		TransportDropAnimation = {
-            { Animation = '/mods/BlackOpsUnleashed/units/BEL0308/BEL0308_AUnfold.sca', Weight = 100 },
-        },
+		TransportDropAnimation = { { Animation = '/mods/BlackOpsUnleashed/units/BEL0308/BEL0308_AUnfold.sca', Weight = 100 } },
         
         UniformScale = 0.085,
     },
@@ -199,14 +190,8 @@ UnitBlueprint {
 			ProjectileLifetime = 6,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Cannon_Left_Muzzle'},
-                    RackBone = 'Cannon_Left_Recoil',
-                },
-                {
-                    MuzzleBones = {'Cannon_Right_Muzzle'},
-                    RackBone = 'Cannon_Right_Recoil',
-                },
+                { MuzzleBones = {'Cannon_Left_Muzzle'}, RackBone = 'Cannon_Left_Recoil' },
+                { MuzzleBones = {'Cannon_Right_Muzzle'}, RackBone = 'Cannon_Right_Recoil' },
             },
 
             RackRecoilDistance = -2,
@@ -276,14 +261,8 @@ UnitBlueprint {
 			ProjectileLifetime = 1,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Guns_Left_Recoil'},
-                    RackBone = 'Guns_Left_Recoil',
-                },
-                {
-                    MuzzleBones = {'Guns_Right_Recoil'},
-                    RackBone = 'Guns_Right_Recoil',
-                },
+                { MuzzleBones = {'Guns_Left_Recoil'}, RackBone = 'Guns_Left_Recoil' },
+                { MuzzleBones = {'Guns_Right_Recoil'}, RackBone = 'Guns_Right_Recoil' },
             },
 			
             RackRecoilDistance = -0.2,

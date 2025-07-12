@@ -188,7 +188,7 @@ BSB0405 = Class(SShieldStructureUnit) {
                     v:Destroy()
                 end
    
-   count = 0
+                count = 0
 
                 self:RemoveToggleCap('RULEUTC_SpecialToggle')
 

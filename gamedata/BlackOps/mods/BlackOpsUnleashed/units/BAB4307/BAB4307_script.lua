@@ -1,6 +1,6 @@
 local AStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
-local AAATemporalFizzWeapon = import('/lua/aeonweapons.lua').AAATemporalFizzWeapon
+local AA = import('/lua/aeonweapons.lua').AAATemporalFizzWeapon
 
 local MissileRedirect = import('/lua/defaultantiprojectile.lua').MissileTorpDestroy
 
@@ -9,7 +9,7 @@ local TrashAdd = TrashBag.Add
 BAB2304 = Class(AStructureUnit) {
 
     Weapons = {
-        AntiMissile = Class(AAATemporalFizzWeapon) {},
+        AntiMissile = Class(AA) {},
     },
 	
 	OnStopBeingBuilt = function(self,builder,layer)

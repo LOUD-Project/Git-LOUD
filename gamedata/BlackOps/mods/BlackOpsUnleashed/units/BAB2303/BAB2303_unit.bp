@@ -58,12 +58,7 @@ UnitBlueprint {
 			'<LOC ability_aquatic>Aquatic: Can be built on water',
 		},
 
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 215, Scrolling = true, ShaderName = 'Aeon' },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, Scrolling = true, ShaderName = 'Aeon' } } },
 
         UniformScale = 0.08,
     },
@@ -190,10 +185,7 @@ UnitBlueprint {
             ProjectileLifetime = 12,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Muzzle'},
-                    RackBone = 'Muzzle',
-                },
+                { MuzzleBones = {'Muzzle'}, RackBone = 'Muzzle' },
             },
 
             RackSalvoFiresAfterCharge = true,
@@ -214,7 +206,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Muzzle',
             TurretBonePitch = 'Pitch',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 45,
             TurretPitchRange = 65,

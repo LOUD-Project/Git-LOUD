@@ -43,12 +43,8 @@ UnitBlueprint {
 			'Short Range',
             '<LOC ability_deathaoe>Volatile',
         },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 215, Scrolling = true, ShaderName = 'Unit' },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, Scrolling = true, ShaderName = 'Unit' } } },
         
         MovementEffects = {
             Land = {
@@ -188,10 +184,7 @@ UnitBlueprint {
             ProjectileLifetime = 2.0,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Right_Turret_Muzzle'},
-                    RackBone = 'Right_Turret_Muzzle',
-                },
+                { MuzzleBones = {'Right_Turret_Muzzle'}, RackBone = 'Right_Turret_Muzzle' },
             },
 
             RangeCategory = 'UWRC_DirectFire',
@@ -267,10 +260,7 @@ UnitBlueprint {
             ProjectileLifetime = 2.0,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Left_Turret_Muzzle'},
-                    RackBone = 'Left_Turret_Muzzle',
-                },
+                { MuzzleBones = {'Left_Turret_Muzzle'}, RackBone = 'Left_Turret_Muzzle' },
             },
 
             RateOfFire = 3,		-- 54 dps

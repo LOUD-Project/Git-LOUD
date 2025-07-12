@@ -382,10 +382,7 @@ UnitBlueprint {
             ProjectileLifetime = 1.2,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Turret01_Muzzle01','Turret01_Muzzle02'},
-                    RackBone = 'Turret01_Barrel01',
-                },
+                { MuzzleBones = {'Turret01_Muzzle01','Turret01_Muzzle02'}, RackBone = 'Turret01_Barrel01' },
             },
 
             RangeCategory = 'UWRC_DirectFire',
@@ -456,10 +453,7 @@ UnitBlueprint {
             ProjectileLifetime = 1.6,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Turret02_Muzzle01','Turret02_Muzzle02'},
-                    RackBone = 'Turret02_Barrel01',
-                },
+                { MuzzleBones = {'Turret02_Muzzle01','Turret02_Muzzle02'}, RackBone = 'Turret02_Barrel01' },
             },
 
             RateOfFire = 1,	---- 35 DPS 

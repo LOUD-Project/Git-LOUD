@@ -1,7 +1,7 @@
 local AWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local GoldenLaserGenerator = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').GoldenLaserGenerator
-local CDFLaserHeavyWeapon = import('/lua/cybranweapons.lua').CDFLaserHeavyWeapon
+local GoldenLaser   = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').GoldenLaserGenerator
+local Laser         = import('/lua/cybranweapons.lua').CDFLaserHeavyWeapon
 
 local utilities = import('/lua/utilities.lua')
 local LoudUtils = import('/lua/loudutilities.lua')
@@ -29,7 +29,7 @@ BAL0401 = Class(AWalkingLandUnit) {
 	
     Weapons = {
 	
-        BoomWeapon = Class(CDFLaserHeavyWeapon){
+        BoomWeapon = Class(Laser){
 		
         	PlayFxWeaponPackSequence = function(self)
 			
@@ -47,7 +47,7 @@ BAL0401 = Class(AWalkingLandUnit) {
                     self.SpinManip3:SetTargetSpeed(0)
                 end
 				
-                CDFLaserHeavyWeapon.PlayFxWeaponPackSequence(self)
+                Laser.PlayFxWeaponPackSequence(self)
             end,
 
 			PlayFxWeaponUnpackSequence = function(self)
@@ -75,7 +75,7 @@ BAL0401 = Class(AWalkingLandUnit) {
 
                 self.SpinManip3:SetTargetSpeed(300)
 				
-                CDFLaserHeavyWeapon.PlayFxWeaponUnpackSequence(self)
+                Laser.PlayFxWeaponUnpackSequence(self)
             end,
 			
 			CreateProjectileForWeapon = function(self, bone)
@@ -101,7 +101,7 @@ BAL0401 = Class(AWalkingLandUnit) {
 
 						WaitTicks( 6 )
 						
-						local proj = CDFLaserHeavyWeapon.CreateProjectileForWeapon(self, bone)
+						local proj = Laser.CreateProjectileForWeapon(self, bone)
     
                         shellpos = VectorCached
 						
@@ -120,7 +120,7 @@ BAL0401 = Class(AWalkingLandUnit) {
 			end,
         },
 		
-		DefenseGun01 = Class(GoldenLaserGenerator) {},
+		DefenseGun01 = Class(GoldenLaser) {},
     },
 	
     OnStopBeingBuilt = function(self,builder,layer)

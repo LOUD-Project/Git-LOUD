@@ -56,12 +56,8 @@ UnitBlueprint {
 			'2 x Riot Lasers',
 			'Rocket Barrage',
         },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 215, Scrolling = true, ShaderName = 'Unit' },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, Scrolling = true, ShaderName = 'Unit' } } },
 
         UniformScale = 0.045,
     },
@@ -198,11 +194,7 @@ UnitBlueprint {
 			ProjectileLifetime = 0.9,
 			
             RackBones = {
-                {
-                	HideMuzzle = true,
-                    MuzzleBones = {'Railgun_Muzzle'},
-                    RackBone = 'Railgun_Barrel',
-                },
+                { HideMuzzle = true, MuzzleBones = {'Railgun_Muzzle'}, RackBone = 'Railgun_Barrel' },
             },
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -280,10 +272,7 @@ UnitBlueprint {
 			ProjectileLifetime = 1,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Gat_Muzzle_01','Gat_Muzzle_02'},
-                    RackBone = 'Gat_Barrel',
-                },
+                { MuzzleBones = {'Gat_Muzzle_01','Gat_Muzzle_02'}, RackBone = 'Gat_Barrel' },
             },
 
             RackSalvoChargeTime = 1,	---- 1 second to charge
@@ -369,10 +358,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Left_Beam_Muzzle'},
-                    RackBone = 'Left_Beam_Barrel',
-                },
+                { MuzzleBones = {'Left_Beam_Muzzle'}, RackBone = 'Left_Beam_Barrel' },
             },
 
             RateOfFire = 1,		---- 60 DPS
@@ -445,10 +431,7 @@ UnitBlueprint {
             NotExclusive = true,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Right_Beam_Muzzle'},
-                    RackBone = 'Right_Beam_Barrel',
-                },
+                { MuzzleBones = {'Right_Beam_Muzzle'}, RackBone = 'Right_Beam_Barrel' },
             },
 
             RateOfFire = 1,			---- 60dps

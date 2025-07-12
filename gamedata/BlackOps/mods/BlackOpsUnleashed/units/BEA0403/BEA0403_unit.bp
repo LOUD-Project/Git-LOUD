@@ -234,14 +234,8 @@ UnitBlueprint {
 			ProjectileLifetime = 3,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Right_SG_Muzzle01'},
-                    RackBone = 'Right_SG_Barrel01',
-                },
-                {
-                    MuzzleBones = {'Right_SG_Muzzle02'},
-                    RackBone = 'Right_SG_Barrel02',
-                },
+                { MuzzleBones = {'Right_SG_Muzzle01'}, RackBone = 'Right_SG_Barrel01' },
+                { MuzzleBones = {'Right_SG_Muzzle02'}, RackBone = 'Right_SG_Barrel02' },
             },
             RackFireTogether = true,
 
@@ -315,14 +309,8 @@ UnitBlueprint {
 			ProjectileLifetime = 3,			
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Right_Back_SG_Muzzle01'},
-                    RackBone = 'Right_Back_SG_Barrel01',
-                },
-                {
-                    MuzzleBones = {'Right_Back_SG_Muzzle02'},
-                    RackBone = 'Right_Back_SG_Barrel02',
-                },
+                { MuzzleBones = {'Right_Back_SG_Muzzle01'}, RackBone = 'Right_Back_SG_Barrel01' },
+                { MuzzleBones = {'Right_Back_SG_Muzzle02'}, RackBone = 'Right_Back_SG_Barrel02' },
             },
             RackFireTogether = true,
 
@@ -394,14 +382,8 @@ UnitBlueprint {
 			ProjectileLifetime = 3,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Left_SG_Muzzle01'},
-                    RackBone = 'Left_SG_Barrel01',
-                },
-                {
-                    MuzzleBones = {'Left_SG_Muzzle02'},
-                    RackBone = 'Left_SG_Barrel02',
-                },
+                { MuzzleBones = {'Left_SG_Muzzle01'}, RackBone = 'Left_SG_Barrel01' },
+                { MuzzleBones = {'Left_SG_Muzzle02'}, RackBone = 'Left_SG_Barrel02' },
             },
             RackFireTogether = true,
 
@@ -474,14 +456,8 @@ UnitBlueprint {
 			ProjectileLifetime = 3,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Left_Back_SG_Muzzle01'},
-                    RackBone = 'Left_Back_SG_Barrel01',
-                },
-                {
-                    MuzzleBones = {'Left_Back_SG_Muzzle02'},
-                    RackBone = 'Left_Back_SG_Barrel02',
-                },
+                { MuzzleBones = {'Left_Back_SG_Muzzle01'}, RackBone = 'Left_Back_SG_Barrel01' },
+                { MuzzleBones = {'Left_Back_SG_Muzzle02'}, RackBone = 'Left_Back_SG_Barrel02' },
             },
             RackFireTogether = true,
 
@@ -557,10 +533,7 @@ UnitBlueprint {
 			ProjectileLifetime = 1,			
 
             RackBones = {
-                {
-                    MuzzleBones = {'Front_Left_Flak_Muzzle'},
-                    RackBone = 'Front_Left_Flak_Recoil',
-                },
+                { MuzzleBones = {'Front_Left_Flak_Muzzle'}, RackBone = 'Front_Left_Flak_Recoil' },
             },
 
             RackRecoilDistance = -0.5,
@@ -633,10 +606,7 @@ UnitBlueprint {
 			ProjectileLifetime = 1,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Front_Right_Flak_Muzzle'},
-                    RackBone = 'Front_Right_Flak_Recoil',
-                },
+                { MuzzleBones = {'Front_Right_Flak_Muzzle'}, RackBone = 'Front_Right_Flak_Recoil' },
             },
             
             RackRecoilDistance = -0.5,
@@ -707,10 +677,7 @@ UnitBlueprint {
 			ProjectileLifetime = 1,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Back_Left_Flak_Muzzle'},
-                    RackBone = 'Back_Left_Flak_Recoil',
-                },
+                { MuzzleBones = {'Back_Left_Flak_Muzzle'}, RackBone = 'Back_Left_Flak_Recoil' },
             },
 
             RackRecoilDistance = -0.5,
@@ -780,10 +747,7 @@ UnitBlueprint {
 			ProjectileLifetime = 1,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Back_Right_Flak_Muzzle'},
-                    RackBone = 'Back_Right_Flak_Recoil',
-                },
+                { MuzzleBones = {'Back_Right_Flak_Muzzle'}, RackBone = 'Back_Right_Flak_Recoil' },
             },
 
             RackRecoilDistance = -0.5,
@@ -852,10 +816,7 @@ UnitBlueprint {
             ProjectileLifetimeUsesMultiplier = 0.75,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Front_Left_AAC_Muzzle'},
-                    RackBone = 'Front_Left_AAC_Rotator',
-                },
+                { MuzzleBones = {'Front_Left_AAC_Muzzle'}, RackBone = 'Front_Left_AAC_Rotator' },
             },
 
             RateOfFire = 1,		-- 162 DPS Air
@@ -923,10 +884,7 @@ UnitBlueprint {
             ProjectileLifetimeUsesMultiplier = 0.75,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Front_Right_AAC_Muzzle'},
-                    RackBone = 'Front_Right_AAC_Rotator',
-                },
+                { MuzzleBones = {'Front_Right_AAC_Muzzle'}, RackBone = 'Front_Right_AAC_Rotator' },
             },
 
             RateOfFire = 1,
@@ -991,10 +949,7 @@ UnitBlueprint {
             ProjectileLifetimeUsesMultiplier = 0.75,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Back_Left_AAC_Muzzle'},
-                    RackBone = 'Back_Left_AAC_Rotator',
-                },
+                { MuzzleBones = {'Back_Left_AAC_Muzzle'}, RackBone = 'Back_Left_AAC_Rotator' },
             },
 
             RateOfFire = 1,
@@ -1062,10 +1017,7 @@ UnitBlueprint {
             ProjectileLifetimeUsesMultiplier = 0.75,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Back_Right_AAC_Muzzle'},
-                    RackBone = 'Back_Right_AAC_Rotator',
-                },
+                { MuzzleBones = {'Back_Right_AAC_Muzzle'}, RackBone = 'Back_Right_AAC_Rotator' },
             },
 
             RateOfFire = 1,

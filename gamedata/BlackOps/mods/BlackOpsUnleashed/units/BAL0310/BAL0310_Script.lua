@@ -1,12 +1,12 @@
 local AHoverLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
-local ADFDisruptorWeapon = import('/lua/aeonweapons.lua').ADFDisruptorWeapon
-local ADFCannonQuantumWeapon = import('/lua/aeonweapons.lua').ADFCannonQuantumWeapon
+local Disruptor = import('/lua/aeonweapons.lua').ADFDisruptorWeapon
+local Cannon = import('/lua/aeonweapons.lua').ADFCannonQuantumWeapon
 
 BAL0310 = Class(AHoverLandUnit) {
     Weapons = {
-        MainGun = Class(ADFDisruptorWeapon) {},
-        SideGuns = Class(ADFCannonQuantumWeapon) {},
+        MainGun = Class(Disruptor) {},
+        SideGuns = Class(Cannon) {},
     },
 }
 

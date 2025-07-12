@@ -1254,13 +1254,7 @@ UnitBlueprint {
 			ProjectileLifetime = 0.8,			
 
             RackBones = {
-                {
-                    MuzzleBones = {
-                        'Left_AA_Muzzle01',
-                        'Left_AA_Muzzle02',
-                    },
-                    RackBone = 'Left_AA_Barrel01',
-                },
+                { MuzzleBones = { 'Left_AA_Muzzle01', 'Left_AA_Muzzle02' }, RackBone = 'Left_AA_Barrel01' },
             },
 
             RackRecoilDistance = -0.25,
@@ -1338,13 +1332,7 @@ UnitBlueprint {
 			ProjectileLifetime = 0.8,
 			
             RackBones = {
-                {
-                    MuzzleBones = {
-                        'Left_AA_Muzzle03',
-                        'Left_AA_Muzzle04',
-                    },
-                    RackBone = 'Left_AA_Barrel02',
-                },
+                { MuzzleBones = { 'Left_AA_Muzzle03', 'Left_AA_Muzzle04' }, RackBone = 'Left_AA_Barrel02' },
             },
 
             RackRecoilDistance = -0.25,
@@ -1420,13 +1408,7 @@ UnitBlueprint {
 			ProjectileLifetime = 0.8,			
 
             RackBones = {
-                {
-                    MuzzleBones = {
-                        'Left_AA_Muzzle05',
-                        'Left_AA_Muzzle06',
-                    },
-                    RackBone = 'Left_AA_Barrel03',
-                },
+                { MuzzleBones = { 'Left_AA_Muzzle05', 'Left_AA_Muzzle06' }, RackBone = 'Left_AA_Barrel03' },
             },
 
             RackRecoilDistance = -0.25,
@@ -1502,13 +1484,7 @@ UnitBlueprint {
 			ProjectileLifetime = 0.8,
 			
             RackBones = {
-                {
-                    MuzzleBones = {
-                        'Left_AA_Muzzle07',
-                        'Left_AA_Muzzle08',
-                    },
-                    RackBone = 'Left_AA_Barrel04',
-                },
+                { MuzzleBones = { 'Left_AA_Muzzle07', 'Left_AA_Muzzle08' }, RackBone = 'Left_AA_Barrel04' },
             },
 
             RackRecoilDistance = -0.25,
@@ -1583,13 +1559,7 @@ UnitBlueprint {
 			ProjectileLifetime = 0.8,
 			
             RackBones = {
-                {
-                    MuzzleBones = {
-                        'Right_AA_Muzzle01',
-                        'Right_AA_Muzzle02',
-                    },
-                    RackBone = 'Right_AA_Barrel01',
-                },
+                { MuzzleBones = { 'Right_AA_Muzzle01', 'Right_AA_Muzzle02' }, RackBone = 'Right_AA_Barrel01' },
             },
 
             RackRecoilDistance = -0.25,
@@ -1664,13 +1634,7 @@ UnitBlueprint {
 			ProjectileLifetime = 0.8,
 			
             RackBones = {
-                {
-                    MuzzleBones = {
-                        'Right_AA_Muzzle03',
-                        'Right_AA_Muzzle04',
-                    },
-                    RackBone = 'Right_AA_Barrel02',
-                },
+                { MuzzleBones = { 'Right_AA_Muzzle03', 'Right_AA_Muzzle04' }, RackBone = 'Right_AA_Barrel02' },
             },
 
             RackRecoilDistance = -0.25,
@@ -1745,13 +1709,7 @@ UnitBlueprint {
 			ProjectileLifetime = 0.8,
 			
             RackBones = {
-                {
-                    MuzzleBones = {
-                        'Right_AA_Muzzle05',
-                        'Right_AA_Muzzle06',
-                    },
-                    RackBone = 'Right_AA_Barrel03',
-                },
+                { MuzzleBones = { 'Right_AA_Muzzle05', 'Right_AA_Muzzle06' }, RackBone = 'Right_AA_Barrel03' }
             },
             RackRecoilDistance = -0.25,
 			
@@ -1824,13 +1782,7 @@ UnitBlueprint {
 			ProjectileLifetime = 0.8,
 			
             RackBones = {
-                {
-                    MuzzleBones = {
-                        'Right_AA_Muzzle07',
-                        'Right_AA_Muzzle08',
-                    },
-                    RackBone = 'Right_AA_Barrel04',
-                },
+                { MuzzleBones = {'Right_AA_Muzzle07','Right_AA_Muzzle08'}, RackBone = 'Right_AA_Barrel04' }
             },
 
             RackRecoilDistance = -0.25,

@@ -1,10 +1,10 @@
 local TLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
-local TIFCruiseMissileUnpackingLauncher = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
+local Missile = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
 
-local JuggLaserweapon               = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').JuggLaserweapon
+local Laser               = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').JuggLaserweapon
 local JuggPlasmaGatlingCannonWeapon = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').JuggPlasmaGatlingCannonWeapon
-local RailGunWeapon                 = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').RailGunWeapon01
+local RailGun             = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').RailGunWeapon01
 
 local GetRandomFloat = import('/lua/Utilities.lua').GetRandomFloat
 
@@ -23,7 +23,7 @@ BEL0307 = Class(TLandUnit) {
 	
     Weapons = {
 	
-        MainTurret = Class(RailGunWeapon) {},
+        MainTurret = Class(RailGun) {},
 
         GattlerTurret = Class(JuggPlasmaGatlingCannonWeapon) {
 		
@@ -88,9 +88,9 @@ BEL0307 = Class(TLandUnit) {
             end,    
         },
 		
-        Laser = Class(JuggLaserweapon) {},
+        Laser = Class(Laser) {},
 		
-        RocketRack = Class(TIFCruiseMissileUnpackingLauncher) {},		
+        RocketRack = Class(Missile) {},		
     },
  
     

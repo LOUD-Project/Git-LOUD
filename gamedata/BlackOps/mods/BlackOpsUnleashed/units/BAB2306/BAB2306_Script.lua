@@ -1,6 +1,6 @@
 local AStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
-local MiniPhasonLaser = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').MiniPhasonLaser
+local Laser = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').MiniPhasonLaser
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
@@ -10,7 +10,7 @@ BAB2306 = Class(AStructureUnit) {
 
     Weapons = {
 
-		MainGun = Class(MiniPhasonLaser){
+		MainGun = Class(Laser){
 
 	        FxVentEffect2 = EffectTemplate.WeaponSteam01,
     
@@ -20,7 +20,7 @@ BAB2306 = Class(AStructureUnit) {
 
                 self.unit.SpinManip:SetTargetSpeed(720)
         
-                MiniPhasonLaser.PlayFxWeaponUnpackSequence(self)
+                Laser.PlayFxWeaponUnpackSequence(self)
     
             end, 
     
@@ -37,7 +37,7 @@ BAB2306 = Class(AStructureUnit) {
 
                 self.unit.SpinManip:SetTargetSpeed(0)
         
-                MiniPhasonLaser.PlayFxWeaponPackSequence(self)
+                Laser.PlayFxWeaponPackSequence(self)
     
             end,         
         },

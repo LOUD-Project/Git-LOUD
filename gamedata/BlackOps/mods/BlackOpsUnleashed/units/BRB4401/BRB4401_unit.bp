@@ -45,12 +45,7 @@ UnitBlueprint {
         
         AnimationPermOpen = '/mods/BlackOpsUnleashed/units/BRB4401/BRB4401_Aopen.sca',
         
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 200, ShaderName = 'Insect', },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 200, ShaderName = 'Insect' } } },
 
         UniformScale = 0.3,
     },

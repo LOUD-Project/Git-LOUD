@@ -317,10 +317,7 @@ UnitBlueprint {
 			ProjectileLifetime = 1,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Left_Muzzle01'},
-                    RackBone = 'Left_Turret',
-                },
+                { MuzzleBones = {'Left_Muzzle01'}, RackBone = 'Left_Turret' },
             },
 
             RangeCategory = 'UWRC_DirectFire',
@@ -389,10 +386,7 @@ UnitBlueprint {
 			ProjectileLifetime = 1,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Right_Muzzle01'},
-                    RackBone = 'Right_Turret',
-                },
+                { MuzzleBones = {'Right_Muzzle01'}, RackBone = 'Right_Turret' },
             },
 
             RateOfFire = 0.5,	-- 32 DPS Ground but 45 damage to shields

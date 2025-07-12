@@ -42,12 +42,7 @@ UnitBlueprint {
             '<LOC ability_deathaoe>Volatile',
         },
         
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 300, ShaderName = 'Insect' },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 300, ShaderName = 'Insect' } } },
 
         UniformScale = 0.45,
     },

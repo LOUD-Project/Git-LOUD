@@ -2,10 +2,9 @@ local TAirUnit = import('/lua/defaultunits.lua').AirUnit
 
 local WeaponsFile = import('/lua/terranweapons.lua')
 
-local TDFGaussCannonWeapon      = WeaponsFile.TDFLandGaussCannonWeapon
-local TDFRiotWeapon             = WeaponsFile.TDFRiotWeapon
-local TAAFlakArtilleryCannon    = WeaponsFile.TAAFlakArtilleryCannon
-local TDFPlasmaCannonWeapon     = WeaponsFile.TDFPlasmaCannonWeapon
+local Cannon = WeaponsFile.TDFLandGaussCannonWeapon
+local Flak   = WeaponsFile.TAAFlakArtilleryCannon
+local Plasma = WeaponsFile.TDFPlasmaCannonWeapon
 
 WeaponsFile = nil
 
@@ -16,18 +15,18 @@ BEA0403 = Class(TAirUnit) {
 
     Weapons = {
 
-        Turret  = Class(TDFGaussCannonWeapon) {},
+        Turret  = Class(Cannon) {},
 
-        AAAFlak = Class(TAAFlakArtilleryCannon) {},
+        AAAFlak = Class(Flak) {},
 
-        GatlingAACannon01 = Class(TDFPlasmaCannonWeapon){
+        GatlingAACannon01 = Class(Plasma){
 		
             PlayFxWeaponPackSequence = function(self)
                 if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(0)
                 end
                 self.ExhaustEffects = CreateBoneEffects( self.unit, 'Front_Left_AAC_Muzzle', self.unit:GetArmy(), WeaponSteam )
-                TDFPlasmaCannonWeapon.PlayFxWeaponPackSequence(self)
+                Plasma.PlayFxWeaponPackSequence(self)
             end,
 
             PlayFxWeaponUnpackSequence = function(self)
@@ -39,18 +38,18 @@ BEA0403 = Class(TAirUnit) {
                 if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(500)
                 end
-                TDFPlasmaCannonWeapon.PlayFxWeaponUnpackSequence(self)
+                Plasma.PlayFxWeaponUnpackSequence(self)
             end,
         },
 
-        GatlingAACannon02 = Class(TDFPlasmaCannonWeapon){
+        GatlingAACannon02 = Class(Plasma){
 		
             PlayFxWeaponPackSequence = function(self)
                 if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(0)
                 end
                 self.ExhaustEffects = CreateBoneEffects( self.unit, 'Front_Right_AAC_Muzzle', self.unit:GetArmy(), WeaponSteam )
-                TDFPlasmaCannonWeapon.PlayFxWeaponPackSequence(self)
+                Plasma.PlayFxWeaponPackSequence(self)
             end,
 
             PlayFxWeaponUnpackSequence = function(self)
@@ -62,18 +61,18 @@ BEA0403 = Class(TAirUnit) {
                 if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(500)
                 end
-                TDFPlasmaCannonWeapon.PlayFxWeaponUnpackSequence(self)
+                Plasma.PlayFxWeaponUnpackSequence(self)
             end,
         },
 
-        GatlingAACannon03 = Class(TDFPlasmaCannonWeapon){
+        GatlingAACannon03 = Class(Plasma){
 		
             PlayFxWeaponPackSequence = function(self)
                 if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(0)
                 end
                 self.ExhaustEffects = CreateBoneEffects( self.unit, 'Back_Left_AAC_Muzzle', self.unit:GetArmy(), WeaponSteam )
-                TDFPlasmaCannonWeapon.PlayFxWeaponPackSequence(self)
+                Plasma.PlayFxWeaponPackSequence(self)
             end,
 
             PlayFxWeaponUnpackSequence = function(self)
@@ -85,18 +84,18 @@ BEA0403 = Class(TAirUnit) {
                 if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(500)
                 end
-                TDFPlasmaCannonWeapon.PlayFxWeaponUnpackSequence(self)
+                Plasma.PlayFxWeaponUnpackSequence(self)
             end,
         },
 
-        GatlingAACannon04 = Class(TDFPlasmaCannonWeapon){
+        GatlingAACannon04 = Class(Plasma){
 		
             PlayFxWeaponPackSequence = function(self)
                 if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(0)
                 end
                 self.ExhaustEffects = CreateBoneEffects( self.unit, 'Back_Right_AAC_Muzzle', self.unit:GetArmy(), WeaponSteam )
-                TDFPlasmaCannonWeapon.PlayFxWeaponPackSequence(self)
+                Plasma.PlayFxWeaponPackSequence(self)
             end,
 
             PlayFxWeaponUnpackSequence = function(self)
@@ -107,7 +106,7 @@ BEA0403 = Class(TAirUnit) {
                 if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(500)
                 end
-                TDFPlasmaCannonWeapon.PlayFxWeaponUnpackSequence(self)
+                Plasma.PlayFxWeaponUnpackSequence(self)
             end,
         },
     },

@@ -7,12 +7,7 @@ BRB1106 = Class(CMassStorageUnit) {
         CMassStorageUnit.OnStopBeingBuilt(self,builder,layer)
         
         self:ForkThread(self.AnimThread)
-        
-        local myBlueprint = __blueprints[self.BlueprintID]
-        
-        if myBlueprint.Audio.Activate then
-            self:PlaySound(myBlueprint.Audio.Activate)
-        end
+
     end,
 
     AnimThread = function(self)

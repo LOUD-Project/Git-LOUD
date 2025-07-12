@@ -41,18 +41,8 @@ UnitBlueprint {
 	
     Display = {
         LoopingAnimation = '/units/XSB1102/XSB1102_aloop.sca',
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 300,
-                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
-                    Scrolling = true,
-                    ShaderName = 'Seraphim',
-                },
-            },
-        },
 
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 300, LookupName = '/textures/environment/Falloff_seraphim_lookup.dds', Scrolling = true, ShaderName = 'Seraphim' } } },
         UniformScale = 0.05,
     },
 	

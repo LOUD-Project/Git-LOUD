@@ -268,10 +268,7 @@ UnitBlueprint {
             ProjectileLifetime = 1,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Torso'},
-                    RackBone = 'Torso',
-                },
+                { MuzzleBones = {'Torso'}, RackBone = 'Torso' },
             },
 
             RateOfFire = 0.065,
@@ -342,10 +339,7 @@ UnitBlueprint {
             ProjectileLifetime = 1,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Jaw_Muzzle'},
-                    RackBone = 'Head',
-                },
+                { MuzzleBones = {'Jaw_Muzzle'}, RackBone = 'Head' },
             },
 
             RateOfFire = 0.05,
@@ -429,22 +423,10 @@ UnitBlueprint {
             ProjectileLifetime = 1.3,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Right_Cannon_Muzzle_1'},
-                    RackBone = 'Right_Cannon_Recoil_1',
-                },
-				{
-                    MuzzleBones = {'Left_Cannon_Muzzle_1'},
-                    RackBone = 'Left_Cannon_Recoil_1',
-                },
-				{
-                    MuzzleBones = {'Right_Cannon_Muzzle_2'},
-                    RackBone = 'Right_Cannon_Recoil_2',
-                },
-				{
-                    MuzzleBones = {'Left_Cannon_Muzzle_2'},
-                    RackBone = 'Left_Cannon_Recoil_2',
-                },
+                { MuzzleBones = {'Right_Cannon_Muzzle_1'}, RackBone = 'Right_Cannon_Recoil_1' },
+				{ MuzzleBones = {'Left_Cannon_Muzzle_1'}, RackBone = 'Left_Cannon_Recoil_1' },
+				{ MuzzleBones = {'Right_Cannon_Muzzle_2'}, RackBone = 'Right_Cannon_Recoil_2' },
+				{ MuzzleBones = {'Left_Cannon_Muzzle_2'}, RackBone = 'Left_Cannon_Recoil_2' },
             },
 
             RackFireTogether = true,
@@ -529,14 +511,8 @@ UnitBlueprint {
 			ProjectileLifetime = 2.2,
 
             RackBones = {
-                {
-                    MuzzleBones = {'MainGun_Muzzle_Right'},
-                    RackBone = 'MainGun_Right_Pitch',
-                },
-				{
-                    MuzzleBones = {'MainGun_Muzzle_Left'},
-                    RackBone = 'MainGun_Left_Pitch',
-                },
+                { MuzzleBones = {'MainGun_Muzzle_Right'}, RackBone = 'MainGun_Right_Pitch' },
+				{ MuzzleBones = {'MainGun_Muzzle_Left'}, RackBone = 'MainGun_Left_Pitch' },
             },
 
             RackFireTogether = true,
@@ -631,14 +607,8 @@ UnitBlueprint {
 			ProjectileLifetime = 7,
 
             RackBones = {
-                {
-                    MuzzleBones = {'MainGun_Muzzle_Right'},
-                    RackBone = 'MainGun_Right_Pitch',
-                },
-				{
-                    MuzzleBones = {'MainGun_Muzzle_Left'},
-                    RackBone = 'MainGun_Left_Pitch',
-                },
+                { MuzzleBones = {'MainGun_Muzzle_Right'}, RackBone = 'MainGun_Right_Pitch' },
+				{ MuzzleBones = {'MainGun_Muzzle_Left'}, RackBone = 'MainGun_Left_Pitch' },
             },
 
             RackSalvoFiresAfterCharge = true,
@@ -723,18 +693,9 @@ UnitBlueprint {
             ProjectileLifetimeUsesMultiplier = 1.5,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Left_Bolter_Muzzle_2'},
-                    RackBone = 'Left_Bolter',
-                },
-				{
-                    MuzzleBones = {'Left_Bolter_Muzzle_1'},
-                    RackBone = 'Left_Bolter',
-                },
-				{
-                    MuzzleBones = {'Left_Bolter_Muzzle_3'},
-                    RackBone = 'Left_Bolter',
-                },
+                { MuzzleBones = {'Left_Bolter_Muzzle_2'}, RackBone = 'Left_Bolter' },
+				{ MuzzleBones = {'Left_Bolter_Muzzle_1'}, RackBone = 'Left_Bolter' },
+				{ MuzzleBones = {'Left_Bolter_Muzzle_3'}, RackBone = 'Left_Bolter' },
             },
 
             RangeCategory = 'UWRC_DirectFire',
@@ -809,18 +770,9 @@ UnitBlueprint {
             ProjectileLifetimeUsesMultiplier = 1.5,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Right_Bolter_Muzzle_2'},
-                    RackBone = 'Right_Bolter',
-                },
-				{
-                    MuzzleBones = {'Right_Bolter_Muzzle_1'},
-                    RackBone = 'Right_Bolter',
-                },
-				{
-                    MuzzleBones = {'Right_Bolter_Muzzle_3'},
-                    RackBone = 'Right_Bolter',
-                },
+                { MuzzleBones = {'Right_Bolter_Muzzle_2'}, RackBone = 'Right_Bolter' },
+				{ MuzzleBones = {'Right_Bolter_Muzzle_1'}, RackBone = 'Right_Bolter' },
+				{ MuzzleBones = {'Right_Bolter_Muzzle_3'}, RackBone = 'Right_Bolter' },
             },
 
             RateOfFire = 2.5,	--	187.5dps
@@ -1082,17 +1034,7 @@ UnitBlueprint {
             ProjectileLifetime = 6.5,
             
             RackBones = {
-                {
-                    MuzzleBones = {
-                        'AA_Missile_1',
-						'AA_Missile_2',
-						'AA_Missile_3',
-						'AA_Missile_4',
-						'AA_Missile_5',
-						'AA_Missile_6',
-                    },
-                    RackBone = 'AA_Missile_1',
-                },
+                { MuzzleBones = {'AA_Missile_1','AA_Missile_2','AA_Missile_3','AA_Missile_4','AA_Missile_5','AA_Missile_6' }, RackBone = 'AA_Missile_1' },
             },
             
             RackSalvoReloadTime = 1.9,
@@ -1146,10 +1088,7 @@ UnitBlueprint {
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/BasiliskNuke01/BasiliskNuke01_proj.bp',
 
             RackBones = {
-                {
-                    MuzzleBones = {0},
-                    RackBone = 0,
-                },
+                { MuzzleBones = {0}, RackBone = 0 },
             },
             
             RateOfFire = 1,

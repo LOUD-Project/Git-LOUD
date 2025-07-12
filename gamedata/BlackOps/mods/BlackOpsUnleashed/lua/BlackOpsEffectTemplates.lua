@@ -4,7 +4,6 @@ local EmtBpPath = '/effects/emitters/'
 local EmtBpPathAlt = '/mods/BlackOpsUnleashed/effects/emitters/'
 local EmitterTempEmtBpPath = '/effects/emitters/temp/'
 
-
 WeaponSteam02 = { EmtBpPathAlt .. 'weapon_mist_02_emit.bp' }
 UnitHitShrapnel01 = { EmtBpPath .. 'destruction_unit_hit_shrapnel_01_emit.bp',}
 
@@ -21,7 +20,9 @@ Aeon_MirvHit = {
 }
 
 XCannonPolyTrail =  EmtBpPathAlt .. 'xcannon_polytrail_01_emit.bp'
+
 XCannonFXTrail01 =  { EmtBpPathAlt .. 'xcannon_fxtrail_01_emit.bp' }
+
 XCannonHitUnit = {
 	EmtBpPathAlt .. 'xcannon_hitunit_01_emit.bp',
 	EmtBpPathAlt .. 'xcannon_hit_02_emit.bp', 
@@ -81,13 +82,9 @@ ZCannonHit03 = {
     EmtBpPathAlt .. 'ZCannon_hit_01_emit.bp',	##	glow	
     EmtBpPathAlt .. 'ZCannon_hit_02_emit.bp',	##	flash	     
     EmtBpPathAlt .. 'ZCannon_hit_03_emit.bp', 	##	sparks
-    --EmtBpPathAlt .. 'ZCannon_hit_04_emit.bp',	##	plume fire
-    --EmtBpPathAlt .. 'ZCannon_hit_05_emit.bp',	##	plume dark 
     EmtBpPathAlt .. 'ZCannon_hit_06_emit.bp',	##	base fire
     EmtBpPathAlt .. 'ZCannon_hit_07_emit.bp',	##	base dark 
-    --EmtBpPathAlt .. 'ZCannon_hit_08_emit.bp',	##	plume smoke
     EmtBpPathAlt .. 'ZCannon_hit_09_emit.bp',	##	base smoke
-    --EmtBpPathAlt .. 'ZCannon_hit_10_emit.bp',	##	plume highlights
     EmtBpPathAlt .. 'ZCannon_hit_11_emit.bp',	##	base highlights
     EmtBpPathAlt .. 'ZCannon_ring_01_emit.bp',	##	ring14
     EmtBpPathAlt .. 'ZCannon_ring_02_emit.bp',	##	ring11	     
@@ -132,29 +129,25 @@ SDFExperimentalPhasonProjHitUnit = TableCat( SDFExperimentalPhasonProjHit01, SDF
 ShadowCannonPolyTrail = { 
     EmtBpPath .. 'electron_bolter_trail_01_emit.bp',
     EmtBpPathAlt .. 'shadowcannon_polytrail_01_emit.bp'
-
 }
+
 ShadowCannonFXTrail01 = {
-	 --EmtBpPathAlt .. 'shadow_bolter_munition_02_emit.bp',
-	 EmtBpPathAlt .. 'shadowcannon_fxtrail_01_emit.bp',
-     EmtBpPathAlt .. 'shadow_bolter_munition_01_emit.bp',
-	 
+    EmtBpPathAlt .. 'shadowcannon_fxtrail_01_emit.bp',
+    EmtBpPathAlt .. 'shadow_bolter_munition_01_emit.bp',
 	EmtBpPathAlt .. 'mgqai_cannon_fxtrails_01_emit.bp',
     EmtBpPathAlt .. 'mgqai_cannon_fxtrails_02_emit.bp',
     EmtBpPathAlt .. 'mgqai_cannon_fxtrail_03_emit.bp',	##after cloud
-	}
+}
+
 ShadowCannonFXTrail02 = {
-	 #EmtBpPathAlt .. 'shadow_bolter_munition_02_emit.bp',
-	 #EmtBpPathAlt .. 'shadowcannon_fxtrail_01_emit.bp',
-     EmtBpPathAlt .. 'shadow_bolter_munition_01_emit.bp',
+    EmtBpPathAlt .. 'shadow_bolter_munition_01_emit.bp',
 }
 BassieCannonPolyTrail =  EmtBpPathAlt .. 'bassie_cannon_polytrail_01_emit.bp'
 
 BassieCannonFxTrail = {
-	 #EmtBpPathAlt .. 'shadow_bolter_munition_02_emit.bp',
-	 #EmtBpPathAlt .. 'shadowcannon_fxtrail_01_emit.bp',
-     EmtBpPathAlt .. 'bassie_cannon_munition_01_emit.bp',
+    EmtBpPathAlt .. 'bassie_cannon_munition_01_emit.bp',
 }
+
 BassieCannonHit01 = {
 	EmtBpPath .. 'hvyproton_cannon_hit_01_emit.bp', --flash
 	EmtBpPathAlt .. 'bassie_cannon_hit_02_emit.bp', --embers
@@ -166,11 +159,13 @@ BassieCannonHit01 = {
     EmtBpPath .. 'hvyproton_cannon_hit_10_emit.bp', --flash
     EmtBpPath .. 'hvyproton_cannon_hit_distort_emit.bp',--distort
 }
+
 BassieCannonHit02 = {
     EmtBpPath .. 'hvyproton_cannon_hit_06_emit.bp',--black skrinking glow
     EmtBpPath .. 'hvyproton_cannon_hit_08_emit.bp',--black sparkle
 }
 BassieCannonHitLand = TableCat( BassieCannonHit01, BassieCannonHit02 )
+
 BassieCannonHitUnit01 = {
 	EmtBpPath .. 'hvyproton_cannon_hitunit_01_emit.bp',
 	EmtBpPathAlt .. 'bassie_cannon_hit_02_emit.bp', --embers
@@ -200,6 +195,7 @@ WraithMunition01 = {
     EmtBpPath .. 'disruptor_cannon_munition_03_emit.bp',
     EmtBpPath .. 'disruptor_cannon_munition_04_emit.bp',
 }
+
 WraithCannonHit01 = {
     EmtBpPath .. 'quantum_hit_flash_04_emit.bp',#small flash
     EmtBpPath .. 'quantum_hit_flash_05_emit.bp',#smal Flash
@@ -207,11 +203,10 @@ WraithCannonHit01 = {
     EmtBpPath .. 'quantum_hit_flash_07_emit.bp',#sparks
     EmtBpPathAlt .. 'quantum_hit_flash_08_emit.bp',#white lightning
     EmtBpPath .. 'quantum_hit_flash_09_emit.bp',#flash spikes
---    EmtBpPath .. 'aeon_sonance_hit_01_emit.bp',#black SPikes
     EmtBpPath .. 'aeon_sonance_hit_02_emit.bp',#shock wave
---    EmtBpPath .. 'aeon_sonance_hit_03_emit.bp',#white spikes
     EmtBpPath .. 'aeon_sonance_hit_04_emit.bp',#flash
 }
+
 HGaussCannonPolyTrail =  {
     EmtBpPath .. 'gauss_cannon_polytrail_01_emit.bp',
     EmtBpPath .. 'gauss_cannon_polytrail_02_emit.bp',    
@@ -221,6 +216,7 @@ ArtemisMuzzleFlash = {
 	EmtBpPathAlt .. 'artemis_muzzle_flash_02_emit.bp',	## Yellow pulse
 	EmtBpPathAlt .. 'artemis_muzzle_flash_04_emit.bp',	## Inward dark lines
 }
+
 ArtemisMuzzleChargeFlash =  {
     EmtBpPathAlt .. 'artemis_charge_02_emit.bp',	## plasma down
     EmtBpPathAlt .. 'artemis_charge_03_emit.bp',	## flash
@@ -297,11 +293,7 @@ OmegaOverChargeUnitHit = {
 MGHeadshotFxtrail01 = {
      #EmtBpPath .. 'seraphim_chronotron_cannon_projectile_fxtrail_03_emit.bp',
 }
-MGHeadshotPolytrail01 = { 
---	EmtBpPathAlt .. 'ZCannon_projectile_emit.bp',#spinny trails
---	EmtBpPathAlt .. 'ZCannon_projectile_01_emit.bp',#spinny trails
---	EmtBpPathAlt .. 'ZCannon_projectile_02_emit.bp',#spinny Trails
-}
+MGHeadshotPolytrail01 = {}
 
 MGHeadshotHit01 = {
     #EmtBpPath .. 'quantum_hit_flash_04_emit.bp',
@@ -321,11 +313,7 @@ MissileLandHit01 = {
 	EmtBpPath .. 'cybran_kamibomb_hit_05_emit.bp', --black fire
 	EmtBpPath .. 'cybran_kamibomb_hit_06_emit.bp', --orange to red glow
 	EmtBpPath .. 'cybran_kamibomb_hit_07_emit.bp', --white shockwave
-	--EmtBpPath .. 'cybran_kamibomb_hit_08_emit.bp', --delayed orange plasma
 	EmtBpPath .. 'cybran_kamibomb_hit_09_emit.bp', -- large orange "lightning"
-	--EmtBpPath .. 'cybran_kamibomb_hit_10_emit.bp', -- slow shockwave
-	--EmtBpPath .. 'cybran_kamibomb_hit_11_emit.bp', --smoke
-    
 }
 MissileUnitHit01 = {
    EmtBpPathAlt .. 'quark_bomb_explosion_07_emit.bp',
@@ -338,10 +326,7 @@ MissileUnitHit01 = {
 	EmtBpPath .. 'cybran_kamibomb_hit_05_emit.bp', --black fire
 	EmtBpPath .. 'cybran_kamibomb_hit_06_emit.bp', --orange to red glow
 	EmtBpPath .. 'cybran_kamibomb_hit_07_emit.bp', --white shockwave
-	--EmtBpPath .. 'cybran_kamibomb_hit_08_emit.bp', --delayed orange plasma
 	EmtBpPath .. 'cybran_kamibomb_hit_09_emit.bp', -- large orange "lightning"
-	--EmtBpPath .. 'cybran_kamibomb_hit_10_emit.bp', -- slow shockwave
-	--EmtBpPath .. 'cybran_kamibomb_hit_11_emit.bp', --smoke
 }
 
 MGQAIPlasmaArtyPolytrail01 = EmtBpPath .. 'aeon_quantic_cluster_polytrail_01_emit.bp'
@@ -366,14 +351,7 @@ MGQAIPlasmaArtyHitLand01 = {
     EmtBpPathAlt .. 'blue_napalm_hvy_03_emit.bp',
 }
 MGQAICannonHitUnit = {
-	--EmtBpPath .. 'cybran_kamibomb_hit_01_emit.bp',  --flash
-	--EmtBpPath .. 'cybran_kamibomb_hit_02_emit.bp', --sparks
 	EmtBpPath .. 'cybran_kamibomb_hit_07_emit.bp', --white shockwave
-	--EmtBpPath .. 'cybran_kamibomb_hit_10_emit.bp', -- slow shockwave
-	--EmtBpPathAlt .. 'xcannon_hit_distort_emit.bp',
-	--EmtBpPath .. 'proton_bomb_hit_02_emit.bp',#sparks
-	--EmtBpPathAlt .. 'xcannon_hit_distort_emit.bp',
-	--EmtBpPathAlt .. 'mgqai_cannon_cloud_01_emit.bp',
     EmtBpPath .. 'cybran_light_artillery_hit_02_emit.bp',#t2 arty sparks
 	EmtBpPath .. 'cybran_kamibomb_hit_01_emit.bp',
 	EmtBpPath .. 'cybran_kamibomb_hit_02_emit.bp',
@@ -384,8 +362,6 @@ MGQAICannonHitUnit = {
 	EmtBpPath .. 'cybran_kamibomb_hit_07_emit.bp',
 	EmtBpPath .. 'cybran_kamibomb_hit_08_emit.bp',
 	EmtBpPath .. 'cybran_kamibomb_hit_09_emit.bp',
-	--EmtBpPath .. 'cybran_kamibomb_hit_10_emit.bp',
-
 }
 
 THeavyFragmentationShell01 = {
@@ -494,10 +470,6 @@ GLaserMuzzle01 = {
     EmtBpPathAlt .. 'g_laser_muzzle_01_emit.bp',
 }
 
---CMicrowaveLaserCharge01 = { 
---    EmtBpPath .. 'microwave_laser_charge_01_emit.bp',
---    EmtBpPath .. 'microwave_laser_charge_02_emit.bp',
---}
 GLaserEndPoint01 = {
     EmtBpPathAlt .. 'g_laser_end_01_emit.bp',
     EmtBpPathAlt .. 'g_laser_end_02_emit.bp',
@@ -590,7 +562,6 @@ EXLambdaDestoyer = {
     EmtBpPathAlt .. 'lambda_distortion_01.bp',
     EmtBpPathAlt .. 'lambda_destroy_dark_01.bp',
     EmtBpPathAlt .. 'lambda_destroy_dark_02.bp',
-    --EmtBpPathAlt .. 'lambda_destroy_dark_03a.bp',
     EmtBpPathAlt .. 'lambda_destroy_dark_03b.bp',
     EmtBpPathAlt .. 'lambda_destroy_dark_04.bp',
     EmtBpPathAlt .. 'lambda_destroy_bright_01.bp',
@@ -614,22 +585,17 @@ RedLaserMuzzleFlash01 = {
 }
 
 GargWarheadHitUnit = {
-
 	EmtBpPathAlt .. 'garg_warhead_hit_01_emit.bp',#sparks
     EmtBpPathAlt .. 'garg_warhead_hit_02_emit.bp',#t2 arty sparks
-
 }
 
 --------------------------------------------------------------------
 --    EMP effects
 ----------------------------------------------------------------------
-
 EMPEffect = {
     EmtBpPathAlt .. 'emp_effect_01_emit.bp',
     EmtBpPathAlt .. 'emp_effect_02_emit.bp',    
 }
-
-
 
 -------------------------------
 --   Cybran Hailfire Projectiles
@@ -641,45 +607,25 @@ CybranHailfire01Hit01 = {
     EmtBpPath .. 'cybran_empgrenade_hit_02_emit.bp',
     EmtBpPath .. 'cybran_empgrenade_hit_03_emit.bp',    
 }
-CybranHailfire01FXTrails = {
-    #EmtBpPath .. 'missile_sam_munition_trail_01_emit.bp',
-    #EmtBpPath .. 'missile_sam_munition_trail_01_emit.bp',
-    #EmtBpPath .. 'nuke_munition_launch_trail_04_emit.bp',
-    #EmtBpPath .. 'nuke_munition_launch_trail_06_emit.bp',
-    #EmtBpPath .. 'missile_munition_trail_01_emit.bp',
-    #EmtBpPath .. 'missile_munition_trail_02_emit.bp',
-    #EmtBpPath .. 'missile_smoke_exhaust_02_emit.bp',
-    #EmtBpPathAlt .. 'exhailfire_exhaust_01_emit.bp',
-    --EmtBpPathAlt .. 'exhailfire_exhaust_02_emit.bp',
-}
+
+CybranHailfire01FXTrails = {}
+
 CybranHailfire02FXTrails = {
     EmtBpPath .. 'missile_sam_munition_trail_01_emit.bp',
-    #EmtBpPath .. 'missile_sam_munition_trail_01_emit.bp',
-    #EmtBpPath .. 'nuke_munition_launch_trail_04_emit.bp',
-    #EmtBpPath .. 'nuke_munition_launch_trail_06_emit.bp',
-    #EmtBpPath .. 'missile_munition_trail_01_emit.bp',
-    #EmtBpPath .. 'missile_munition_trail_02_emit.bp',
-    #EmtBpPath .. 'missile_smoke_exhaust_02_emit.bp',
 }
 CybranHailfire03FXTrails = {
-    #EmtBpPath .. 'missile_sam_munition_trail_01_emit.bp',
-    #EmtBpPath .. 'missile_sam_munition_trail_01_emit.bp',
-    #EmtBpPath .. 'nuke_munition_launch_trail_04_emit.bp',
-    #EmtBpPath .. 'nuke_munition_launch_trail_06_emit.bp',
-    #EmtBpPath .. 'missile_munition_trail_01_emit.bp',
-    #EmtBpPath .. 'missile_munition_trail_02_emit.bp',
-    #EmtBpPath .. 'missile_smoke_exhaust_02_emit.bp',
     EmtBpPathAlt .. 'exhailfire_exhaust_01_emit.bp',
 }
+
 CybranHailfire01HitUnit01 = CybranHailfire01Hit01
+
 CybranHailfire01HitLand01 = CybranHailfire01Hit01
+
 CybranHailfire01HitWater01 = CybranHailfire01Hit01
+
 HailfireLauncherExhaust = {
-    #EmtBpPath .. 'terran_cruise_missile_launch_01_emit.bp',
-    #EmtBpPathAlt .. 'terran_cruise_missile_launch_02_emit.bp',
     EmtBpPath .. 'cannon_muzzle_flash_04_emit.bp',
     EmtBpPath .. 'cannon_muzzle_smoke_11_emit.bp',
-    #EmtBpPath .. 'terran_sam_launch_smoke_emit.bp',
     EmtBpPathAlt .. 'terran_sam_launch_smoke2_emit.bp',
 }
 
@@ -695,13 +641,7 @@ MineExplosion01 = {
     EmtBpPath .. 'seraphim_tau_cannon_projectile_hit_04_emit.bp',
     EmtBpPath .. 'seraphim_tau_cannon_projectile_hit_05_emit.bp',
     EmtBpPath .. 'seraphim_tau_cannon_projectile_hit_06_emit.bp',    
-	--EmtBpPath .. 'seraphim_rifter_mobileartillery_hit_01_emit.bp',
-    --EmtBpPath .. 'seraphim_rifter_mobileartillery_hit_02_emit.bp',
-    --EmtBpPath .. 'seraphim_rifter_mobileartillery_hit_03_emit.bp',
-    --EmtBpPath .. 'seraphim_rifter_mobileartillery_hit_04_emit.bp',
     EmtBpPath .. 'seraphim_rifter_mobileartillery_hit_05_emit.bp',--shockwave
-    --EmtBpPath .. 'seraphim_rifter_mobileartillery_hit_06_emit.bp',--cloud
-    --EmtBpPath .. 'seraphim_rifter_mobileartillery_hit_07_emit.bp',
 }
 ArchAngelMissileHit = {
     EmtBpPath ..'aeon_mercy_missile_hit_01_emit.bp',
@@ -784,7 +724,6 @@ RailGunFxTrails = {
    EmtBpPath .. 'ionized_plasma_gatling_cannon_laser_fxtrail_01_emit.bp',
     EmtBpPath .. 'ionized_plasma_gatling_cannon_laser_fxtrail_02_emit.bp',
     EmtBpPath .. 'ionized_plasma_gatling_cannon_laser_fxtrail_03_emit.bp',-- need to increase
-	#EmtBpPath .. 'plasma_cannon_trail_02_emit.bp',
 	EmtBpPath .. 'terran_commander_overcharge_trail_01_emit.bp',
     EmtBpPath .. 'terran_commander_overcharge_trail_02_emit.bp',
 	EmtBpPath .. 'terran_commander_cannon_fxtrail_01_emit.bp',
@@ -798,10 +737,7 @@ RailGunPolyTrails = {
 -------------------------------
 CitadelHVM01Trails = {
     EmtBpPath .. 'missile_sam_munition_trail_01_emit.bp',
-    #EmtBpPath .. 'missile_sam_munition_trail_01_emit.bp',
     EmtBpPath .. 'nuke_munition_launch_trail_04_emit.bp',
-    #EmtBpPath .. 'nuke_munition_launch_trail_06_emit.bp',
     EmtBpPath .. 'missile_munition_trail_01_emit.bp',
     EmtBpPath .. 'missile_munition_trail_02_emit.bp',
-    #EmtBpPath .. 'missile_smoke_exhaust_02_emit.bp',
 }

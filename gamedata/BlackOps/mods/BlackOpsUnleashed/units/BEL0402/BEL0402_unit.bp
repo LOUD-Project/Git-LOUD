@@ -368,10 +368,7 @@ UnitBlueprint {
 			NotExclusive = true,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Beam_Muzzle' },
-                    RackBone = 'Beam_Pitch',
-                },
+                { MuzzleBones = {'Beam_Muzzle' }, RackBone = 'Beam_Pitch' },
             },
 
             RangeCategory = 'UWRC_DirectFire',
@@ -457,10 +454,7 @@ UnitBlueprint {
             ProjectileLifetime = 2,
 
             RackBones = {
-                {
-                    MuzzleBones = { 'Right_Arm_Muzzle' },
-                    RackBone = 'Right_Arm_Pitch',
-                },
+                { MuzzleBones = { 'Right_Arm_Muzzle' }, RackBone = 'Right_Arm_Pitch' },
             },
 
             RateOfFire = 3,		---- 900 DPS
@@ -532,10 +526,7 @@ UnitBlueprint {
             ProjectileLifetime = 2,
 
             RackBones = {
-                {
-                    MuzzleBones = { 'Left_Arm_Muzzle' },
-                    RackBone = 'Left_Arm_Pitch',
-                },
+                { MuzzleBones = { 'Left_Arm_Muzzle' }, RackBone = 'Left_Arm_Pitch' },
             },
 
             RateOfFire = 3,		---- 900 DPS
@@ -602,10 +593,7 @@ UnitBlueprint {
             ProjectileLifetimeUsesMultiplier = 0.6,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'TMD_Muzzle_Recoil'},
-                    RackBone = 'TMD_Barrel',
-                },
+                { MuzzleBones = {'TMD_Muzzle_Recoil'}, RackBone = 'TMD_Barrel' },
             },
 
             RangeCategory = 'UWRC_Countermeasure',
@@ -673,10 +661,7 @@ UnitBlueprint {
             ProjectileLifetime = 2.8,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Head'},
-                    RackBone = 'Head',
-                },
+                { MuzzleBones = {'Head'}, RackBone = 'Head' },
             },
 
             RangeCategory = 'UWRC_AntiAir',
@@ -747,10 +732,7 @@ UnitBlueprint {
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/BasiliskNuke01/BasiliskNuke01_proj.bp',
 			
             RackBones = {
-                {
-                    MuzzleBones = { 0 },
-                    RackBone = 0,
-                },
+                { MuzzleBones = { 0 }, RackBone = 0 },
             },
 		
             RateOfFire = 1,

@@ -37,11 +37,7 @@ UnitBlueprint {
     Description = '<LOC bsb1106_desc>Mass & Energy Storage',
 	
     Display = {
-
-        Mesh = {
-            IconFadeInZoom = 130, LODs = { {LODCutoff = 215,LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',ShaderName = 'Seraphim'} },
-        },
-
+        Mesh = { IconFadeInZoom = 130, LODs = { {LODCutoff = 215,LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',ShaderName = 'Seraphim'} } },
         UniformScale = 0.041,
     },
 	

@@ -37,12 +37,7 @@ UnitBlueprint {
     Description = '<LOC beb1106_desc>Mass & Energy Storage',
 	
     Display = {
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 215, ShaderName = 'Unit' },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, ShaderName = 'Unit' } } },
 
         UniformScale = 0.1,
     },

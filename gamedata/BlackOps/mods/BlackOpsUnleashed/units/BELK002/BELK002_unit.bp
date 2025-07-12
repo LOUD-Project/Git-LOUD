@@ -48,25 +48,12 @@ UnitBlueprint {
         Abilities = {
             "<LOC ability_aa>Anti-Air",
         },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 500, Scrolling = true, ShaderName = 'Unit' },
-            },
-        },
 
-		TransportAnimation = {
-            {
-                Animation = '/mods/BlackOpsUnleashed/units/BELK002/BELK002_fold.sca',
-                Weight = 100,
-            },
-        },
-		TransportDropAnimation = {
-            {
-                Animation = '/mods/BlackOpsUnleashed/units/BELK002/BELK002_unfold.sca',
-                Weight = 100,
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 500, Scrolling = true, ShaderName = 'Unit' } } },
+
+		TransportAnimation = { { Animation = '/mods/BlackOpsUnleashed/units/BELK002/BELK002_fold.sca', Weight = 100 } },
+
+		TransportDropAnimation = { { Animation = '/mods/BlackOpsUnleashed/units/BELK002/BELK002_unfold.sca', Weight = 100 } },
         
         UniformScale = 0.11,
     },
@@ -198,10 +185,7 @@ UnitBlueprint {
             ProjectileLifetime = 0.7,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Left_Muzzle','Right_Muzzle'},
-                    RackBone = 'Turret',
-                },
+                { MuzzleBones = {'Left_Muzzle','Right_Muzzle'}, RackBone = 'Turret' },
 			},
 
             RackSalvoReloadTime = 0.2,

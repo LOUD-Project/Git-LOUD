@@ -51,12 +51,7 @@ UnitBlueprint {
         
         AnimationUpgrade = '/mods/BlackOpsUnleashed/units/bab4209/bab4209_aupgrade.sca',
         
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 300, ShaderName = 'Aeon' },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 300, ShaderName = 'Aeon' } } },
 
         UniformScale = 0.02,
     },

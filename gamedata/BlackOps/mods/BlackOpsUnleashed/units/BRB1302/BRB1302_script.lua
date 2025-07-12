@@ -22,12 +22,6 @@ URB1102 = Class(CEnergyCreationUnit) {
             local bones = {}
             local scale = .5
 
-            local myBlueprint = __blueprints[self.BlueprintID]
-            
-            if myBlueprint.Audio.Activate then
-                self:PlaySound(myBlueprint.Audio.Activate)
-            end
-
             if self.CacheLayer == 'Land' then
                 effects = self.AirEffects
                 bones = self.AirEffectsBones

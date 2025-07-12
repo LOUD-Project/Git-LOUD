@@ -317,14 +317,8 @@ UnitBlueprint {
             ProjectileLifetime = 1.8,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Wraith_Muzzle01'},
-                    RackBone = 'Wraith_Right_Recoil_01',
-                },
-				{
-                    MuzzleBones = {'Wraith_Muzzle02'},
-                    RackBone = 'Wraith_Left_Recoil_01',
-                },
+                { MuzzleBones = {'Wraith_Muzzle01'}, RackBone = 'Wraith_Right_Recoil_01' },
+				{ MuzzleBones = {'Wraith_Muzzle02'}, RackBone = 'Wraith_Left_Recoil_01' },
             },
             RackFireTogether = true,
 			
@@ -404,10 +398,7 @@ UnitBlueprint {
             ProjectileLifetime = 1.8,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Left_Turret_Muzzle'},
-                    RackBone = 'Left_Muzzle_Recoil',
-                },
+                { MuzzleBones = {'Left_Turret_Muzzle'}, RackBone = 'Left_Muzzle_Recoil' },
             },
 
             RackRecoilDistance = -1,
@@ -478,10 +469,7 @@ UnitBlueprint {
             ProjectileLifetime = 1.5,			
 
             RackBones = {
-                {
-                    MuzzleBones = {'Right_Turret_Muzzle'},
-                    RackBone = 'Right_Recoil_Muzzle',
-                },
+                { MuzzleBones = {'Right_Turret_Muzzle'}, RackBone = 'Right_Recoil_Muzzle' },
             },
 
             RackRecoilDistance = -1,
@@ -555,10 +543,7 @@ UnitBlueprint {
             ProjectileLifetime = 4,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'TMD_Muzzle'},
-                    RackBone = 'TMD_Muzzle',
-                },
+                { MuzzleBones = {'TMD_Muzzle'}, RackBone = 'TMD_Muzzle' },
             },
 
             RangeCategory = 'UWRC_Countermeasure',

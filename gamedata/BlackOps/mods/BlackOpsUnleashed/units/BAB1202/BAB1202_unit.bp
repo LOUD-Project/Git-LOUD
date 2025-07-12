@@ -48,12 +48,8 @@ UnitBlueprint {
             '<LOC ability_upgradable>Upgradeable',
 			'<LOC ability_deathaoe>Volatile',
         },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 300, Scrolling = true, ShaderName = 'Aeon' },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 300, Scrolling = true, ShaderName = 'Aeon' } } },
 
         UniformScale = 0.0045,
     },

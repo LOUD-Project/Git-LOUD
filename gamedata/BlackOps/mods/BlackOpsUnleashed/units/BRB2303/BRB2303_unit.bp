@@ -61,12 +61,8 @@ UnitBlueprint {
             'High Energy Consumption',
 			'<LOC ability_aquatic>Aquatic',
         },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 215, ShaderName = 'Insect' },
-            },
-        },
+
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, ShaderName = 'Insect' } } },
 
         UniformScale = 0.048,
     },
@@ -199,10 +195,7 @@ UnitBlueprint {
 			ProjectileLifetimeUsesMultiplier = 4.5,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Fake_Muzzle'},
-                    RackBone = 'Fake_Muzzle',
-                },
+                { MuzzleBones = {'Fake_Muzzle'}, RackBone = 'Fake_Muzzle' },
             },
 
             RackRecoilDistance = -1.5,
@@ -223,7 +216,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Fake_Muzzle',
             TurretBonePitch = 'Pitch',
             TurretBoneYaw = 'Turret',
-            TurretDualManipulators = false,
 			
             TurretPitch = 30,
             TurretPitchRange = 60,

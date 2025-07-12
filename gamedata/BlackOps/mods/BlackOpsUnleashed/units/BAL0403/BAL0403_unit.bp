@@ -379,10 +379,7 @@ UnitBlueprint {
             ProjectileLifetime = 0.8,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Muzzle01'},
-                    RackBone = 'Muzzle01',
-                },
+                { MuzzleBones = {'Muzzle01'}, RackBone = 'Muzzle01' },
             },
 			
             RangeCategory = 'UWRC_DirectFire',

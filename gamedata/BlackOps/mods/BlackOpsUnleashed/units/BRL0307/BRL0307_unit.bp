@@ -76,62 +76,7 @@ UnitBlueprint {
             },
         },
 
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {LODCutoff = 215,Scrolling = true,ShaderName = 'Insect'},
-            },
-        },
---[[
-        MovementEffects = {
-            Land = {
-                Footfall = {
-                    Bones = {
-                        {
-                            FootBone = 'Left_Footfall_01',
-                            HipBone = 'L_Front_Leg_B01',
-                            KneeBone = 'L_Front_Leg_B02',
-                            MaxFootFall = -0.25,
-                            Offset = {z = -1},
-                            Scale = 0.5,
-                            StraightLegs = false,
-                            Type = 'FootFall01',
-                        },
-                        {
-                            FootBone = 'Left_Footfall_02',
-                            HipBone = 'L_Back_Leg_B01',
-                            KneeBone = 'L_Back_Leg_B02',
-                            MaxFootFall = -0.25,
-                            Offset = {z = -1},
-                            Scale = 0.5,
-                            StraightLegs = false,
-                            Type = 'FootFall01',
-                        },
-                        {
-                            FootBone = 'Right_Footfall_01',
-                            HipBone = 'R_Front_Leg_B01',
-                            KneeBone = 'R_Front_Leg_B02',
-                            MaxFootFall = -0.25,
-                            Offset = {z = -1},
-                            Scale = 0.5,
-                            StraightLegs = false,
-                            Type = 'FootFall01',
-                        },
-                        {
-                            FootBone = 'Right_Footfall_02',
-                            HipBone = 'R_Back_Leg_B01',
-                            KneeBone = 'R_Back_Leg_B02',
-                            MaxFootFall = -0.25,
-                            Offset = {z = -1},
-                            Scale = 0.5,
-                            StraightLegs = false,
-                            Type = 'FootFall01',
-                        },
-                    },
-                },
-            },
-        },
---]]
+        Mesh = { IconFadeInZoom = 130, LODs = { {LODCutoff = 215,Scrolling = true,ShaderName = 'Insect'} } },
         UniformScale = 0.05,
     },
 	

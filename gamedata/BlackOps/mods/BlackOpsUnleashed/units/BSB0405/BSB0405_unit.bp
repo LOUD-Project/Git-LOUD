@@ -86,17 +86,7 @@ UnitBlueprint {
             },
         },
 
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 700,
-                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
-                    ShaderName = 'Seraphim',
-                },
-            },
-        },
-
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 700, LookupName = '/textures/environment/Falloff_seraphim_lookup.dds', ShaderName = 'Seraphim' } } },
         UniformScale = 0.05,
     },
 	
@@ -246,10 +236,7 @@ UnitBlueprint {
 			ProjectileLifetime = 6,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Eye01'},
-                    RackBone = 'Eye01',
-                },
+                { MuzzleBones = {'Eye01'}, RackBone = 'Eye01' },
             },
 
             RackSalvoFiresAfterCharge = true,

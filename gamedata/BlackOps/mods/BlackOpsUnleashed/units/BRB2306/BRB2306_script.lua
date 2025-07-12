@@ -1,7 +1,7 @@
 local CRadarUnit = import('/lua/defaultunits.lua').RadarUnit
 
-local CDFLaserHeavyWeapon   = import('/lua/cybranweapons.lua').CDFLaserHeavyWeapon
-local StunZapperWeapon      = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').StunZapperWeapon
+local Laser   = import('/lua/cybranweapons.lua').CDFLaserHeavyWeapon
+local Zapper  = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').StunZapperWeapon
 
 local CreateAttachedEmitter     = CreateAttachedEmitter
 local AttachBeamEntityToEntity  = AttachBeamEntityToEntity
@@ -17,13 +17,13 @@ BRB2306 = Class(CRadarUnit) {
 
     Weapons = {
 
-        LaserTurret = Class(StunZapperWeapon) { 
+        LaserTurret = Class(Zapper) { 
 			
 			-- there is some interesting things going on here
             -- for example - the Stun Weapon is only fired when the main weapon fires
             OnWeaponFired = function(self)
 			
-            	StunZapperWeapon.OnWeaponFired(self)
+            	Zapper.OnWeaponFired(self)
 				
             	local wep = self.unit:GetWeaponByLabel('StunWeapon')
 				
@@ -40,7 +40,7 @@ BRB2306 = Class(CRadarUnit) {
 
 			PlayFxRackSalvoChargeSequence = function(self, muzzle)
 			
-				StunZapperWeapon.PlayFxRackSalvoChargeSequence(self, muzzle) 
+				Zapper.PlayFxRackSalvoChargeSequence(self, muzzle) 
 				
             	local wep = self.unit:GetWeaponByLabel('LaserTurret')
         		local bp = wep:GetBlueprint()
@@ -89,11 +89,11 @@ BRB2306 = Class(CRadarUnit) {
 			end,
         },
 		
-        StunWeapon = Class(CDFLaserHeavyWeapon){
+        StunWeapon = Class(Laser){
 		
 			-- after firing the stun weapon turns itself off
         	OnWeaponFired = function(self)
-                CDFLaserHeavyWeapon.OnWeaponFired(self)
+                Laser.OnWeaponFired(self)
 				self:SetWeaponEnabled(false)
             end,
         },

@@ -263,10 +263,7 @@ UnitBlueprint {
 			ProjectileLifetime = 1.5,
 
             RackBones = {
-                {
-                    MuzzleBones = {'R_Muzzle_01','R_Muzzle_02','R_Muzzle_03','R_Muzzle_04'},
-                    RackBone = 'R_Barrel_01',
-                },
+                { MuzzleBones = {'R_Muzzle_01','R_Muzzle_02','R_Muzzle_03','R_Muzzle_04'}, RackBone = 'R_Barrel_01' },
             },
             
             RackSalvoReloadTime = 1.2,  -- cycle time is 2.4 = 600/2.4 = 250 DPS
@@ -353,10 +350,7 @@ UnitBlueprint {
 			ProjectileLifetime = 2,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'L_Muzzle_01','L_Muzzle_02','L_Muzzle_03','L_Muzzle_04'},
-                    RackBone = 'L_Barrel_01',
-                },
+                { MuzzleBones = {'L_Muzzle_01','L_Muzzle_02','L_Muzzle_03','L_Muzzle_04'}, RackBone = 'L_Barrel_01' },
             },
             
             RackSalvoReloadTime = 1.2,  -- cycle is 2.4 = 600/2.4 = 250 DPS
@@ -438,10 +432,7 @@ UnitBlueprint {
 			ProjectileLifetime = 2,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'R_Back_Muzzle_01','R_Back_Muzzle_02','R_Back_Muzzle_03','R_Back_Muzzle_04'},
-                    RackBone = 'R_Back_Barrel_01',
-                },
+                { MuzzleBones = {'R_Back_Muzzle_01','R_Back_Muzzle_02','R_Back_Muzzle_03','R_Back_Muzzle_04'}, RackBone = 'R_Back_Barrel_01' },
             },
             
             RackSalvoReloadTime = 1.2,  -- cycle is 2.4 = 600/2.4 = 250 DPS
@@ -524,10 +515,7 @@ UnitBlueprint {
 			ProjectileLifetime = 2,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'L_Back_Muzzle_01','L_Back_Muzzle_02','L_Back_Muzzle_03','L_Back_Muzzle_04'},
-                    RackBone = 'L_Back_Barrel_01',
-                },
+                { MuzzleBones = {'L_Back_Muzzle_01','L_Back_Muzzle_02','L_Back_Muzzle_03','L_Back_Muzzle_04'}, RackBone = 'L_Back_Barrel_01' },
             },
             
             RackSalvoReloadTime = 1.2,  -- cycle is 2.4 = 600/2.4 = 250 DPS
@@ -597,10 +585,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'R_F_AA_Muzzle_01'},
-                    RackBone = 'R_F_AA_Muzzle_01',
-                },
+                { MuzzleBones = {'R_F_AA_Muzzle_01'}, RackBone = 'R_F_AA_Muzzle_01' },
             },
 
             RangeCategory = 'UWRC_AntiAir',
@@ -671,10 +656,7 @@ UnitBlueprint {
             NotExclusive = true,
 
             RackBones = {
-                {
-                    MuzzleBones = {'L_F_AA_Muzzle_01'},
-                    RackBone = 'L_F_AA_Muzzle_01',
-                },
+                { MuzzleBones = {'L_F_AA_Muzzle_01'}, RackBone = 'L_F_AA_Muzzle_01' },
             },
 
             RateOfFire = 1,		-- 200 DPS Air
@@ -743,10 +725,7 @@ UnitBlueprint {
             NotExclusive = true,
 
             RackBones = {
-                {
-                    MuzzleBones = {'R_U_Muzzle_01'},
-                    RackBone = 'R_U_Muzzle_01',
-                },
+                { MuzzleBones = {'R_U_Muzzle_01'}, RackBone = 'R_U_Muzzle_01' },
             },
 
             RateOfFire = 1,		-- 200 DPS Air
@@ -815,10 +794,7 @@ UnitBlueprint {
             NotExclusive = true,
 
             RackBones = {
-                {
-                    MuzzleBones = {'L_U_AA_Muzzle01'},
-                    RackBone = 'L_U_AA_Muzzle01',
-                },
+                { MuzzleBones = {'L_U_AA_Muzzle01'}, RackBone = 'L_U_AA_Muzzle01' },
             },
 
             RateOfFire = 1,		-- 200 DPS Air
@@ -886,10 +862,7 @@ UnitBlueprint {
             NotExclusive = true,
 
             RackBones = {
-                {
-                    MuzzleBones = {'L_B_AA_Muzzle_01'},
-                    RackBone = 'L_B_AA_Muzzle_01',
-                },
+                { MuzzleBones = {'L_B_AA_Muzzle_01'}, RackBone = 'L_B_AA_Muzzle_01' },
             },
 
 			RateOfFire = 1,		-- 200 DPS Air
@@ -955,10 +928,7 @@ UnitBlueprint {
             NotExclusive = true,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'R_B_AA_Muzzle_01'},
-                    RackBone = 'R_B_AA_Muzzle_01',
-                },
+                { MuzzleBones = {'R_B_AA_Muzzle_01'}, RackBone = 'R_B_AA_Muzzle_01' },
             },
 
             RateOfFire = 1,		-- 200 DPS Air
@@ -1079,10 +1049,7 @@ UnitBlueprint {
 			ProjectileLifetime = 25,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Main_Gun_Muzzle'},
-                    RackBone = 'Main_Gun_Barrel',
-                },
+                { MuzzleBones = {'Main_Gun_Muzzle'}, RackBone = 'Main_Gun_Barrel' },
             },
 
             RackSalvoFiresAfterCharge = true,

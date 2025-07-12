@@ -65,20 +65,12 @@ UnitBlueprint {
         },		
         AnimationWalk = '/mods/BlackOpsUnleashed/units/BALK003/BALK003_walk.sca',
         AnimationWalkRate = 6,
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 500, Scrolling = true, ShaderName = 'Aeon' },
-            },
-        },
 
-        TransportAnimation = {
-            { Animation = '/mods/BlackOpsUnleashed/units/BALK003/BALK003_fold.sca', Weight = 100 },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 500, Scrolling = true, ShaderName = 'Aeon' } } },
+
+        TransportAnimation = { { Animation = '/mods/BlackOpsUnleashed/units/BALK003/BALK003_fold.sca', Weight = 100 } },
         
-		TransportDropAnimation = {
-            { Animation = '/mods/BlackOpsUnleashed/units/BALK003/BALK003_unfold.sca', Weight = 100 },
-        },
+		TransportDropAnimation = { { Animation = '/mods/BlackOpsUnleashed/units/BALK003/BALK003_unfold.sca', Weight = 100 } },
         
         UniformScale = 0.048,
     },
@@ -189,7 +181,7 @@ UnitBlueprint {
 			
             MaxRadius = 44,
 
-			MuzzleSalvoDelay = 0.3,
+			MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 3,
 
             MuzzleVelocity = 30,
@@ -198,14 +190,10 @@ UnitBlueprint {
             ProjectileLifetime = 3,
 
             RackBones = {
-                {
-                    HideMuzzle = true,
-                    MuzzleBones = { 'Missile' },
-                    RackBone = 'Missile',
-                },
+                { HideMuzzle = true, MuzzleBones = { 'Missile' }, RackBone = 'Missile' },
             },
             
-            RackSalvoReloadTime = 1.1,
+            RackSalvoReloadTime = 1.4,
 
             RangeCategory = 'UWRC_AntiAir',
 			

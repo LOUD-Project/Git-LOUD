@@ -280,10 +280,7 @@ UnitBlueprint {
 			ProjectileLifetime = 15,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Bombard'},
-                    RackBone = 'Bombard',
-                },
+                { MuzzleBones = {'Bombard'}, RackBone = 'Bombard' },
             },
 
             RackSalvoFiresAfterCharge = true,
@@ -356,11 +353,9 @@ UnitBlueprint {
             NotExclusive = true,
 			
             RackBones = {
-                {
-                    MuzzleBones = {'Muzzle01'},
-                    RackBone = 'Muzzle01',
-                },
+                { MuzzleBones = {'Muzzle01'}, RackBone = 'Muzzle01' },
             },
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.25,		-- 750 DPS

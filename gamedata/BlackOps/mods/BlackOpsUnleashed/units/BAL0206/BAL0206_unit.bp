@@ -161,14 +161,8 @@ UnitBlueprint {
 			ProjectileLifetime = 0.9,
 
             RackBones = {
-                {
-                    MuzzleBones = {'L_Muzzle'},
-                    RackBone = 'L_Turret',
-                },
-                {
-                    MuzzleBones = {'R_Muzzle'},
-                    RackBone = 'R_Turret',
-                },
+                { MuzzleBones = {'L_Muzzle'}, RackBone = 'L_Turret' },
+                { MuzzleBones = {'R_Muzzle'}, RackBone = 'R_Turret' },
             },
             RackFireTogether = true,
 			

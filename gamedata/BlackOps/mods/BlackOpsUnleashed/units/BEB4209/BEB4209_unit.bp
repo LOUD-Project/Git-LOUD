@@ -46,12 +46,7 @@ UnitBlueprint {
 			'<LOC ability_upgradable>Upgradeable',
         },
 
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 300, ShaderName = 'Unit' },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 300, ShaderName = 'Unit' } } },
 
         UniformScale = 0.225,
     },

@@ -1,7 +1,7 @@
 local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local CDFLaserHeavyWeapon       = import('/lua/cybranweapons.lua').CDFLaserHeavyWeapon
-local ScorpDisintegratorWeapon  = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').ScorpDisintegratorWeapon
+local Laser       = import('/lua/cybranweapons.lua').CDFLaserHeavyWeapon
+local Disintegrator  = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').ScorpDisintegratorWeapon
 
 local CreateCybranBuildBeams = import('/lua/EffectUtilities.lua').CreateCybranBuildBeams
 
@@ -12,18 +12,18 @@ BRL0205 = Class(CWalkingLandUnit) {
 
     Weapons = {
     
-        LaserArms = Class(CDFLaserHeavyWeapon) {
+        LaserArms = Class(Laser) {
         
 			OnWeaponFired = function(self, target)
             
-				CDFLaserHeavyWeapon.OnWeaponFired(self, target)
+				Laser.OnWeaponFired(self, target)
                 
 				ChangeState( self.unit, self.unit.VisibleState )
 			end,
 			
 			OnLostTarget = function(self)
             
-				CDFLaserHeavyWeapon.OnLostTarget(self)
+				Laser.OnLostTarget(self)
                 
 				if self.unit:IsIdleState() then
 				    ChangeState( self.unit, self.unit.InvisState )
@@ -31,7 +31,7 @@ BRL0205 = Class(CWalkingLandUnit) {
 			end,
         },
 		
-        Disintigrator01 = Class(ScorpDisintegratorWeapon) {},
+        Disintigrator01 = Class(Disintegrator) {},
     },
     
     OnCreate = function(self)

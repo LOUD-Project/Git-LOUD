@@ -72,12 +72,7 @@ UnitBlueprint {
         AnimationWalk = '/mods/BlackOpsUnleashed/units/BRL0205/BRL0205_AWalk01.sca',
         AnimationWalkRate = 4,
         
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {LODCutoff = 215,Scrolling = true,ShaderName = 'Insect'},
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { {LODCutoff = 215,Scrolling = true,ShaderName = 'Insect'} } },
 
         TransportAnimation = {
             {Animation = '/units/XRL0205/BRL0205_Afold01.sca',Weight = 100},
@@ -224,14 +219,8 @@ UnitBlueprint {
             ProjectileLifetime = 1,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Turret01_Muzzle01'},
-                    RackBone = 'Turret01',
-                },
-                {
-                    MuzzleBones = {'Turret01_Muzzle02'},
-                    RackBone = 'Turret01',
-                },
+                { MuzzleBones = {'Turret01_Muzzle01'}, RackBone = 'Turret01' },
+                { MuzzleBones = {'Turret01_Muzzle02'}, RackBone = 'Turret01' },
             },
 
             SlavedToBody = true,
@@ -312,10 +301,7 @@ UnitBlueprint {
             ProjectileLifetime = 0.9,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Tail_Muzzle01'},
-                    RackBone = 'Tail_Muzzle01',
-                },
+                { MuzzleBones = {'Tail_Muzzle01'}, RackBone = 'Tail_Muzzle01' },
             },
 
             RangeCategory = 'UWRC_IndirectFire',

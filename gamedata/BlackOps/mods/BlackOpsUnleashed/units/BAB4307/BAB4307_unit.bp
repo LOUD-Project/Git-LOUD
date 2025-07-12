@@ -178,10 +178,7 @@ UnitBlueprint {
             ProjectileLifetime = 1,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Muzzle01'},
-                    RackBone = 'Turret_Barrel',
-                },
+                { MuzzleBones = {'Muzzle01'}, RackBone = 'Turret_Barrel' },
             },
             
             RackSalvoReloadTime = .3,

@@ -33,13 +33,7 @@ UnitBlueprint {
     Display = {
         AnimationOpen = '/mods/BlackOpsUnleashed/units/BRLK005/BRLK005_aopen.sca',
         BuildAttachBone = 'AttachPoint',
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {LODCutoff = 500,ShaderName = 'Insect'},
-            },
-        },
-
+        Mesh = { IconFadeInZoom = 130, LODs = { {LODCutoff = 500,ShaderName = 'Insect'} } },
         UniformScale = 0.05,
     },
 	

@@ -2,12 +2,9 @@ local CAirUnit = import('/lua/defaultunits.lua').AirUnit
 
 local explosion = import('/lua/defaultexplosions.lua')
 
-local MartyrHeavyMicrowaveLaserGenerator = import('/lua/cybranweapons.lua').CDFParticleCannonWeapon
-
-local CIFMissileStrategicWeapon = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
-local CDFLaserHeavyWeapon = import('/lua/cybranweapons.lua').CDFLaserHeavyWeapon
-
-local RedHeavyTurboLaserWeapon = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').RedHeavyTurboLaserWeapon
+local Laser = import('/lua/cybranweapons.lua').CDFParticleCannonWeapon
+local Missile = import('/lua/sim/DefaultWeapons.lua').DefaultProjectileWeapon
+local TurboLaser = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').RedHeavyTurboLaserWeapon
 
 local util = import('/lua/utilities.lua')
 local fxutil = import('/lua/effectutilities.lua')
@@ -21,11 +18,11 @@ BRA0409 = Class(CAirUnit) {
 	
     Weapons = {
         
-        AA = Class(MartyrHeavyMicrowaveLaserGenerator) {},
+        AA = Class(Laser) {},
 		
-        RocketPod = Class(RedHeavyTurboLaserWeapon) {},
+        RocketPod = Class(TurboLaser) {},
 		
-        MainGun = Class(CIFMissileStrategicWeapon) {},
+        MainGun = Class(Missile) {},
     },
 
     AirDestructionEffectBones = { 'Engine_01', 'Engine_02', 'Engine_03', 'Engine_04', 'Engine_05', 'Main_Gun_Turret', 'L_Barrel_01', 'R_Barrel_01','L_Back_Barrel_01', 'R_Back_Turret_01', 'Main_Gun_Muzzle','R_Turret_01', 'R_U_Muzzle_01',     'R_Pivot01', 'L_pivot_01', 'L_Back_Turret_01','R_B_AA_Muzzle_01','R_Back_Barrel_01'},

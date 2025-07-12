@@ -1,8 +1,8 @@
 local AHoverLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
-local ADFDisruptorWeapon                    = import('/lua/aeonweapons.lua').ADFDisruptorWeapon
-local AIFMissileTacticalSerpentineWeapon    = import('/lua/aeonweapons.lua').AIFMissileTacticalSerpentineWeapon
-local AAMWillOWisp                          = import('/lua/aeonweapons.lua').AAMWillOWisp
+local Disruptor     = import('/lua/aeonweapons.lua').ADFDisruptorWeapon
+local Missile       = import('/lua/aeonweapons.lua').AIFMissileTacticalSerpentineWeapon
+local AAMWillOWisp  = import('/lua/aeonweapons.lua').AAMWillOWisp
 
 local explosion     = import('/lua/defaultexplosions.lua')
 local Weapon        = import('/lua/sim/Weapon.lua').Weapon
@@ -29,9 +29,9 @@ BAL0402 = Class(AHoverLandUnit) {
 
     Weapons = {
 	
-		MissileRack = Class(AIFMissileTacticalSerpentineWeapon) {},
+		MissileRack = Class(Missile) {},
 		
-        MainGun     = Class(ADFDisruptorWeapon) {},
+        MainGun     = Class(Disruptor) {},
 		
 		Turret  = Class(import('/lua/aeonweapons.lua').ADFCannonOblivionWeapon) {
         

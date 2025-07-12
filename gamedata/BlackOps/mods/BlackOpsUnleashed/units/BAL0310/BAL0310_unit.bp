@@ -60,12 +60,7 @@ UnitBlueprint {
 		
         AnimationOpen = '/mods/BlackOpsUnleashed/units/BAL0310/BAL0310_Aopen.sca',
 		
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                { LODCutoff = 215, Scrolling = true, ShaderName = 'Aeon' },
-            },
-        },
+        Mesh = { IconFadeInZoom = 130, LODs = { { LODCutoff = 215, Scrolling = true, ShaderName = 'Aeon' } } },
 
         UniformScale = 0.10,
     },
@@ -209,10 +204,7 @@ UnitBlueprint {
             ProjectileLifetime = 2.5,
 
             RackBones = {
-                {
-                    MuzzleBones = {'Main_Turret_Muzzle'},
-                    RackBone = 'Main_Turret_Barrel',
-                },
+                { MuzzleBones = {'Main_Turret_Muzzle'}, RackBone = 'Main_Turret_Barrel' },
             },
 
             RackRecoilDistance = -1,
@@ -290,14 +282,8 @@ UnitBlueprint {
             ProjectileLifetime = 0.9,
 
             RackBones = {
-                {
-                    MuzzleBones = {'L_Turret_Muzzle'},
-                    RackBone = 'Left_Gun_Barrel',
-                },
-                {
-                    MuzzleBones = {'R_Turret_Muzzle'},
-                    RackBone = 'Right_Gun_Barrel',
-                },
+                { MuzzleBones = {'L_Turret_Muzzle'}, RackBone = 'Left_Gun_Barrel' },
+                { MuzzleBones = {'R_Turret_Muzzle'}, RackBone = 'Right_Gun_Barrel' },
             },
 
             RackRecoilDistance = -0.5,
