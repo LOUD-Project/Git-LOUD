@@ -1,3 +1,71 @@
+### Release 07-12-2025
+
+LUA 7.26
+4DC for LOUD 7.08
+Black Ops for LOUD 7.14
+BrewLAN for LOUD 0.8.8.9.117
+PROJECTILES 7.06
+UNITS 7.15
+
+- Black Ops ACU - torso turn speed standardized at 40 for all torso yaw weapons
+- T2 Gunships flight parameters tightened to more closely align with T3, lift parameters, fuel recharge, turret yaw rates
+- BrewLAN T4 Teleporter (SSB5401) - added ABILITYBUTTON category to restore functionality
+- UEF Torpedo normalized turn rate 210 >> 90, same as other factional torpedoes
+- Depth Charges no longer targeted by anti-torpedo systems
+
+- T1 Subs
+    -- max range 36 >> 34, min range 0 >> 8, tolerance 12 >> 5, body arc range 12 >> 10
+    -- lifetimes shortened to closely co-incide with max range
+    -- sub turn rate 32 >> 30, sub Accel 1.0 >> 0.9
+    -- added 'darting' behavior, similar to Frigates, subs attempt to remain at maximum range
+    -- added a death event causing 160+ AOE damage to other very nearby subs (clumping)
+
+- T2 Subs
+    -- min range 0 >> 8, tolerance 5, body arc range 10
+    -- firing cycles have longer reloads now, and DPS is about 10% less (approx 240-270) overall
+    -- lifetimes shortened to more closely co-incide with max range
+    -- sub turn rate 32 >> 30, sub Accel >> 1.1
+    -- added a death event causing 200 AOE damage to other very nearby subs (clumping)
+    -- Aeon, UEF T2 subs gain sonar stealth when stationary
+    -- Cybran & UEF T2 sub gain 'darting' behavior, as above
+    -- Sera T2 submersible Destroyer
+        -- torp damage slightly reduced, gains depth charges with darting behavior
+        -- when submerged top speed 4 >> 3.4, accel 1.6 >> 1.2, gains radar & sonar stealth
+        -- when submerged vision 32 >> 28, watervision 28 >> 40, depth charge disabled
+        -- when surfaced vision 28 >> 32, watervision 40 >> 28, loses radar & sonar stealth
+        -- when surfaced top speed and acceleration return to normal, depth charge enabled
+
+- T2 Destroyers
+    -- Aeon, Cybran, Sera gain depth charges, minor torpedo DPS reduction from longer firing cycle
+    -- Aeon, Cybran, Sera gain 'darting' behavior for depth charges
+    -- UEF Cooper gains 'darting' behavior for it's torpedo, gains depth charges
+
+- T3 Subs
+    -- min range 0 >> 8, tolerance 5, body arc range 10
+    -- max speed 4.2 >> 3.8, accel 2.1 >> 1.3, turn rate 36 >> 30
+    -- added a death event causing 500 AOE damage to other very nearby subs (clumping)
+    -- nuke subs gain torpedo defense, torps (approx 175 DPS), and darting for torp usage
+    -- Cybran & Sera sub hunters gain darting, sonar stealth is disengaged while moving
+    
+- Other Naval changes are almost entirely centred around torpedo and torpedo defense bringing all into the same relationship
+    -- while keeping overall DPS roughly the same, the firing cycles are often longer, reduced torpedo lifetimes
+    -- torpdeo defense is mostly unchanged except for some slightly shorter ranges
+    -- eliminated a number of particle effects to alleviate some particle cap issues
+
+
+- AI now better detects early air balance, permitting earlier deployment of transports and ground attack assets
+- delays for RackSalvoReloadTime and MuzzleSalvoDelay, are now tick accurate, essentially +1 tick 
+- anti-torp systems were getting a 1 tick bonus on re-arming
+- added a new callback to trap units which have Stopped moving, will use in higher tier submarines to trigger sonar stealth
+- added a new unit buff that can alter an air units fuel time, UI now correctly reports fuel time
+- UEF T3 beam-based TMD now has a minor energy charge
+- UEF T3 Mobile SAM (Banisher) Max Radius 40 > 44, gains fuel reduction buff, DPS 400, fix reload animation
+- Satellites built by the UEF Satellite building now have 4x the fuel range (16+ mins) via new buff mechanic
+- WYVERN for LOUD - major asset revision, reducing mod size and eliminating duplicated and unused assets (see GIT for details)
+
+
+
+
 ### Release 06-13-2025
 
 LUA 7.25
